@@ -1,0 +1,180 @@
+//
+//  BaiShaETProjOrderDetailsCVCell.m
+//  BaiShaEntertainmentProj
+//
+//  Created by Jobs on 2022/6/26.
+//
+
+#import "BaiShaETProjOrderDetailsCVCell.h"
+
+@interface BaiShaETProjOrderDetailsCVCell ()
+/// UI
+Prop_strong()UIButton *jobsCopyBtn;
+
+@end
+
+@implementation BaiShaETProjOrderDetailsCVCell
+/// AppToolsProtocol
+@synthesize viewModel = _viewModel;
+- (instancetype)initWithFrame:(CGRect)frame{
+    if (self = [super initWithFrame:frame]) {
+        
+    }return self;
+}
+#pragma mark —— BaseViewProtocol
+-(UIViewModel *_Nullable)getViewModel{
+    return self.viewModel;
+}
+#pragma mark —— BaseCellProtocol
++(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
+                         forIndexPath:(nonnull NSIndexPath *)indexPath{
+    BaiShaETProjOrderDetailsCVCell *cell = JobsRegisterDequeueCollectionViewCell(BaiShaETProjOrderDetailsCVCell);
+    cell.indexPath = indexPath;
+    cell.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
+        model.jobsWidth = .5f;
+        model.layerCor = HEXCOLOR(0xEEE2C8);
+        model.cornerRadiusValue = JobsWidth(8);
+    }));
+    JobsCellCor(JobsWhiteColor);
+    return cell;
+}
+/// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
+-(JobsRetCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nullable model) {
+        @jobs_strongify(self)
+        self.viewModel = model ? : UIViewModel.new;
+        self.tableView.byShow(self);
+        return self;
+    };
+}
+/// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
++(JobsRetCGSizeByIDBlock _Nonnull)cellSizeByModel{
+    return ^CGSize(UIViewModel *_Nullable data){
+        return CGSizeMake(JobsWidth(343), 子TableViewCell的高度 * data.jobsDataMutArr.count + JobsWidth(40));
+    };
+}
+#pragma mark —— UITableViewDelegate,UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 子TableViewCell的高度;
+}
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
+    return self.viewModel.jobsDataMutArr.count;
+}
+
+- (__kindof UITableViewCell *)tableView:(UITableView *)tableView
+                  cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    JobsBaseTableViewCell *cell = JobsBaseTableViewCell.cellStyleValue1WithTableView(tableView)
+        .byTextLabelTextCor(HEXCOLOR(0x757575))
+        .byTextLabelFont(UIFontWeightRegularSize(12))
+        .byDetailTextLabelCor(HEXCOLOR(0x757575))
+        .byDetailTextLabellFont(UIFontWeightBoldSize(14))
+        .byTextLabelFrameOffsetY(JobsWidth(-2))/// 这里需要设置一个偏移量去抵消有一个莫名出现的偏移量
+        .byDetailTextLabelOffsetY(JobsWidth(-2))/// 这里需要设置一个偏移量去抵消有一个莫名出现的偏移量
+        .byTextLabelFrameOffsetX(JobsWidth(-13))/// 这里需要设置一个偏移量去抵消有一个莫名出现的偏移量
+        .byDetailTextLabelOffsetX(JobsWidth(-65))/// 这里需要设置一个偏移量去抵消有一个莫名出现的偏移量
+        .jobsRichElementsTableViewCellBy(self.viewModel.jobsDataMutArr[indexPath.row]);
+    
+    _jobsCopyBtn = nil;/// ❤️ 关键。[self layoutIfNeeded];会出现异常
+    [cell.contentView.addSubview(self.jobsCopyBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(cell.contentView);
+        make.right.equalTo(cell.contentView).offset(JobsWidth(-12));
+        make.height.mas_equalTo(JobsWidth(18));
+    }];
+    @jobs_weakify(self)
+    self.jobsCopyBtn
+        .onClickBy(^(UIButton *x){
+            @jobs_strongify(self)
+            UIViewModel *viewModel = (UIViewModel *)self.viewModel.jobsDataMutArr[indexPath.row];
+            viewModel.subTextModel.text.pasteboard();
+        }).onLongPressGestureBy(^(id data){
+            JobsLog(@"");
+        });
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForFooterInSectionByModel:(NSInteger)section{
+    return BaseTableViewHeaderFooterView.heightForFooterInSectionByModel(nil);
+}
+/// 这里涉及到复用机制，return出去的是UITableViewHeaderFooterView的派生类
+/// tableView.registerHeaderFooterViewClass(BaseTableViewHeaderFooterView.class,@"");
+- (nullable __kindof UIView *)tableView:(UITableView *)tableView
+                 viewForFooterInSection:(NSInteger)section{
+    if(self.viewModel.usesTableViewFooterView){
+//        @jobs_weakify(self)
+        /// 什么不配置就是悬浮
+        /// JobsHeaderFooterViewStyleNone 还是悬浮
+        /// JobsHeaderViewStyle 不是悬浮
+        BaseTableViewHeaderFooterView *tbvFooterView = BaseTableViewHeaderFooterView.initByReuseIdentifier(tableView,@"")
+            .byStyle(JobsHeaderViewStyle)/// 悬浮开关
+            .bySection(section)/// 悬浮配置
+            .JobsRichViewByModel2(nil)
+            .JobsBlock1(^(id _Nullable data) {
+                
+            });
+        tbvFooterView.byBgColor(HEXCOLOR(0xEAEBED));
+        tbvFooterView.backgroundView.byBgColor(HEXCOLOR(0xEAEBED));
+        /// tbvFooterView.backgroundColor 和  tbvFooterView.contentView.backgroundColor 均是无效操作❌
+        /// 只有 tbvFooterView.backgroundView.backgroundColor 是有效操作✅
+        tbvFooterView.contentView.byBgColor(HEXCOLOR(0xEAEBED));
+        return tbvFooterView;
+    }return nil;
+}
+#pragma mark —— lazyLoad
+-(UIButton *)jobsCopyBtn{
+    if (!_jobsCopyBtn) {
+        _jobsCopyBtn = UIButton.jobsInit()
+            .jobsResetBtnTitle(JobsSpace.add(@"複製".tr).add(JobsSpace))
+            .jobsResetBtnTitleFont(UIFontWeightBoldSize(12))
+            .jobsResetBtnTitleCor(HEXCOLOR(0x757575))
+            .bgColorBy(HEXCOLOR(0xEAEBED));
+        _jobsCopyBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
+        _jobsCopyBtn.cornerCutToCircleWithCornerRadius(JobsWidth(18 / 2));
+    }return _jobsCopyBtn;
+}
+/// BaseViewProtocol
+@synthesize tableView = _tableView;
+-(UITableView *)tableView{
+    if (!_tableView) {
+        @jobs_weakify(self)
+        _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
+            @jobs_strongify(self)
+            tableView
+                .byTableHeaderView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+                    /// TODO
+                })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
+                .byTableFooterView(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
+                    label.byText(@"- 没有更多的内容了 -".tr)
+                        .byFont(UIFontWeightRegularSize(12))
+                        .byTextAlignment(NSTextAlignmentCenter)
+                        .byTextCor(HEXCOLOR(0xB0B0B0))
+                        .makeLabelByShowingType(UILabelShowingType_03);
+                })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
+                .bySeparatorColor(HEXCOLOR(0xEEEEEE))
+                .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .byScrollEnabled(NO)
+                .byShowsVerticalScrollIndicator(NO)
+                .byBgColor(JobsWhiteColor)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    @jobs_strongify(self)
+                    make.edges.mas_equalTo(self.contentView).insets(UIEdgeInsetsMake(JobsWidth(20), 0, JobsWidth(20), 0));
+                });
+        });
+    }return _tableView;
+}
+
+@end

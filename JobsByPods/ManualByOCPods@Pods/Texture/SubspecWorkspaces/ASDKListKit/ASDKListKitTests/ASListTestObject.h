@@ -1,0 +1,21 @@
+//
+//  ASListTestObject.h
+//  Texture
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import <IGListKit/IGListKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface ASListTestObject : NSObject <IGListDiffable, NSCopying>
+
+- (instancetype)initWithKey:(id <NSCopying>)key value:(id)value;
+
+@property (nonatomic, strong, readonly) id key;
+@property (nonatomic, strong) id value;
+
+@end
+
+NS_ASSUME_NONNULL_END

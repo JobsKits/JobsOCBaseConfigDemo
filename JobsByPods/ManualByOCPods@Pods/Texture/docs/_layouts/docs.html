@@ -1,0 +1,62 @@
+---
+sectionid: docs
+---
+
+{% include header.html %}
+
+<div class="container container-margin">
+	
+	<div class="sidebar">
+		{% include nav_docs.html %}
+		{% include nav_development.html %}
+	</div>
+	
+	<div class="content">
+		<h1>
+	        {{ page.title }}
+	    </h1>
+	    <p>{{ page.description }}</p>
+	
+	    {{ content }}
+	    
+	    <p><a class="edit-page-link btn" href="https://github.com/texturegroup/texture/tree/master/docs/{{ page.relative_path }}" target="_blank">Edit on GitHub</a></p>
+
+	
+	    <div class="docs-prevnext">
+            {% if page.prevPage %}
+                {% comment %}
+                    If prevPage already contains the dir, either /docs/ or /development/, don't append to it.
+                    Otherwise, it's a relative path so append the dir according to the page's permalink.
+                {% endcomment %}
+
+                {% if page.prevPage contains '/docs/' or page.prevPage contains '/development/' %}
+                    <a href="{{ page.prevPage }}">&larr; Prev</a>
+                {% elsif page.permalink contains '/docs/' %}
+                    <a href="/docs/{{ page.prevPage }}">&larr; Prev</a>
+                {% else %}
+                    <a href="/development/{{ page.prevPage }}">&larr; Prev</a>
+                {% endif %}
+            {% endif %}
+
+            {% if page.nextPage %}
+                {% comment %}
+                    Same deal for nextPage.
+                {% endcomment %}
+
+                {% if page.nextPage contains '/docs/' or page.nextPage contains '/development/' %}
+                    <a class="right" href="{{ page.nextPage }}">Next &rarr;</a>
+                {% elsif page.permalink contains '/docs/' %}
+                    <a class="right" href="/docs/{{ page.nextPage }}">Next &rarr;</a>
+                {% else %}
+                    <a class="right" href="/development/{{ page.nextPage }}">Next &rarr;</a>
+                {% endif %}
+            {% endif %}
+	    </div>
+	
+	    <a id="_"></a>
+	</div>
+	
+	<div style="clear:both;"></div>
+</div>
+
+{% include footer.html %}

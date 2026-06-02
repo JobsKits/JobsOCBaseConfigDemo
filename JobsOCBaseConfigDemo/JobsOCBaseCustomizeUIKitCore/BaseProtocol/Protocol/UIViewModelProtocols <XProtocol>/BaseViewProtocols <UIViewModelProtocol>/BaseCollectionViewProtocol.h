@@ -1,0 +1,67 @@
+//
+//  BaseCollectionViewProtocol.h
+//  FMNormal
+//
+//  Created by Jobs on 2025/5/19.
+//
+
+#import <Foundation/Foundation.h>
+#import "JobsBlock.h"
+#import "UIScrollViewProtocol.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@protocol BaseCollectionViewProtocol <UIScrollViewProtocol>
+@optional
+#pragma mark —— RegistrationTracking
+Prop_strong()__kindof NSMutableSet <__kindof NSString *>*registeredIdentifiers;/// 自定义标志位
+// 检查某个 reuseIdentifier 是否已注册
+-(JobsRetBOOLByStrBlock _Nonnull)isRegisteredForReuseIdentifier;
+#pragma mark —— Func
++(JobsRetCollectionViewByLayoutBlock _Nonnull)initByLayout;
+/// 对系统方法 cellForItemAtIndexPath 的二次封装
+-(JobsRetCollectionViewCellByIndexPathBlock _Nonnull)cellBy;
+-(JobsReturnCollectionViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader;
+-(JobsReturnCollectionViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter;
+-(JobsRetScrollViewByIDBlock _Nonnull)dataLink; // 用于显示 UICollectionView
+-(JobsRetScrollViewByIDBlock _Nonnull)byShow;
+-(JobsRetCollectionViewByDelegateBlock _Nonnull)byDelegate;
+-(JobsRetCollectionViewByDataSourceBlock _Nonnull)byDataSource;
+-(JobsRetCollectionViewByDragDelegateBlock _Nonnull)byDragDelegate;
+-(JobsRetCollectionViewByDropDelegateBlock _Nonnull)byDropDelegate;
+-(JobsRetCollectionViewByDataSourcePrefetchingBlock _Nonnull)byPrefetchDataSource;
+-(__kindof UICollectionViewCell *)didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+                                   collectionViewCellClass:(Class _Nullable)collectionViewCellClass;
+-(__kindof UICollectionViewCell *)didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+                                     collectionViewCellClass:(Class _Nullable)collectionViewCellClass;
+#pragma mark —— JobsRegisterClass
+/// 注册的时候不开辟内存，只有当用字符串进行取值的时候才开辟内存
+/// UICollectionView 本身并没有直接提供公开的 API 来检查某个 reuseIdentifier 是否已经注册
+/// 可以用方法交换去插入一个自定义标志位（NSMutableSet）
+-(JobsRetCollectionViewByVoidBlock _Nonnull)registerCollectionViewClass;
+/// 注册 UICollectionViewCell 及其子类
+-(JobsRetCollectionViewByClassAndSaltStrBlock _Nonnull)registerCollectionViewCellClass;
+-(JobsRetCollectionViewByClassAndSaltStrBlock _Nonnull)registerCollectionViewCellClass_;
+/// 注册 UICollectionElementKindSectionHeader 及其子类
+-(JobsRetCollectionViewByClassAndSaltStrBlock _Nonnull)registerCollectionElementKindSectionHeaderClass;
+-(JobsRetCollectionViewByClassAndSaltStrBlock _Nonnull)registerCollectionElementKindSectionHeaderClass_;
+/// 注册 UICollectionElementKindSectionFooter 及其子类
+-(JobsRetCollectionViewByClassAndSaltStrBlock _Nonnull)registerCollectionElementKindSectionFooterClass;
+-(JobsRetCollectionViewByClassAndSaltStrBlock _Nonnull)registerCollectionElementKindSectionFooterClass_;
+/// 依据字符串取值
+/// 依据字符串取UICollectionElementKindSectionHeader
+-(__kindof UICollectionReusableView *)UICollectionElementKindSectionHeaderClass:(Class)cls
+                                                                   forIndexPath:(NSIndexPath *)indexPath;
+/// 依据字符串取UICollectionElementKindSectionFooter
+-(__kindof UICollectionReusableView *)UICollectionElementKindSectionFooterClass:(Class)cls
+                                                                   forIndexPath:(NSIndexPath *)indexPath;
+/// 一种用字符串取UICollectionViewCell及其子类的方法❤️复用字符串是目标类的类名❤️
+-(__kindof UICollectionViewCell *)collectionViewCellClass:(Class)cls
+                                             forIndexPath:(NSIndexPath *)indexPath;
+/// 其他
+/// 先用UICollectionViewLayout生成CollectionView。frame后面设置
++(instancetype)initWithCollectionViewLayout:(__kindof UICollectionViewLayout *)layout;
+
+@end
+
+NS_ASSUME_NONNULL_END

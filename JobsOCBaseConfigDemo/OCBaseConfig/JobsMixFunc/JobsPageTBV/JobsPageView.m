@@ -1,0 +1,98 @@
+//
+//  JobsPageView.m
+//  Casino
+//
+//  Created by Jobs on 2021/11/24.
+//
+
+#import "JobsPageView.h"
+
+@interface JobsPageView ()
+/// Data
+Prop_strong()NSArray <UIViewModel *>*dataArr;
+
+@end
+
+@implementation JobsPageView
+/// UILocationProtocol
+@synthesize cellHeight = _cellHeight;
+-(instancetype)initWithFrame:(CGRect)frame{
+    if (self = [super initWithFrame:frame]) {
+        
+    }return self;
+}
+
+-(void)drawRect:(CGRect)rect{
+    [super drawRect:rect];
+    self.cellHeight = self.height;//16
+    [self.tableView reloadData];
+}
+#pragma mark —— BaseViewProtocol
+//具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
+-(jobsByIDBlock _Nonnull)jobsRichViewByModel{
+    @jobs_weakify(self)
+    return ^(NSArray <UIViewModel *>*_Nullable model) {
+        @jobs_strongify(self)
+        self.dataArr = model;
+        self.tableView.byShow(self);
+    //    self.backgroundImageView.image = @"抖动钱包抖币用途".img;
+    //    self.imageView_1.alpha = 1;
+    //    self.imageView_2.alpha = 1;
+    //    self.valueLab.text = model.goldNumber;
+    //    self.btn.alpha = 1;
+    };
+}
+#pragma mark —— UITableViewDelegate,UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return JobsPageTBVCell.cellHeightByModel(nil) ? : self.cellHeight;
+}
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
+    return self.dataArr.count;
+}
+
+- (__kindof UITableViewCell *)tableView:(UITableView *)tableView
+                  cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    JobsPageTBVCell *cell = JobsPageTBVCell.cellStyleSubtitleWithTableView(tableView)
+        .byIndexPath(indexPath)
+        .jobsRichElementsTableViewCellBy(self.dataArr[indexPath.row])
+            .JobsBlock1(^(id _Nullable data) {
+             
+            });
+#warning 这里需要被修改
+//    UIViewModel *viewModel = self.dataArr[indexPath.row];
+//    viewModel.jobsWidth = JobsPageTBVCell.cellHeightByModel(nil) ? : self.cellHeight;
+//    UIView.widthByData(viewModel);
+    return cell;
+}
+#pragma mark —— lazyLoad
+/// BaseViewProtocol
+@synthesize tableView = _tableView;
+-(UITableView *)tableView{
+    if (!_tableView) {
+        @jobs_weakify(self)
+        _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
+            @jobs_strongify(self)
+            tableView.bySeparatorColor(HEXCOLOR(0xEEEEEE))
+            .byPagingEnabled(YES)
+            .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    @jobs_strongify(self)
+                    make.edges.equalTo(self);
+                });
+        });
+    }return _tableView;
+}
+
+@end

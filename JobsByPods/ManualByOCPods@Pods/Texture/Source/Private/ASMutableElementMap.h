@@ -1,0 +1,60 @@
+//
+//  ASMutableElementMap.h
+//  Texture
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import <Foundation/Foundation.h>
+#import <AsyncDisplayKit/ASBaseDefines.h>
+#import <AsyncDisplayKit/ASElementMap.h>
+#import <AsyncDisplayKit/ASIntegerMap.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@class ASSection, ASCollectionElement, _ASHierarchyChangeSet;
+
+/**
+ * This mutable version will be removed in the future. It's only here now to keep the diff small
+ * as we port data controller to use ASElementMap.
+ */
+AS_SUBCLASSING_RESTRICTED
+@interface ASMutableElementMap : NSObject <NSCopying>
+
+- (instancetype)init __unavailable;
+
+- (instancetype)initWithSections:(NSArray<ASSection *> *)sections items:(ASCollectionElementTwoDimensionalArray *)items supplementaryElements:(ASSupplementaryElementDictionary *)supplementaryElements;
+
+- (void)insertSection:(ASSection *)section atIndex:(NSInteger)index;
+
+- (void)removeAllSections;
+
+/// Only modifies the array of ASSection * objects
+- (void)removeSectionsAtIndexes:(NSIndexSet *)indexes;
+
+- (void)removeAllElements;
+
+- (void)removeItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths;
+
+- (void)removeSectionsOfItems:(NSIndexSet *)itemSections;
+
+- (void)removeSupplementaryElementsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths kind:(NSString *)kind;
+
+- (void)insertEmptySectionsOfItemsAtIndexes:(NSIndexSet *)sections;
+
+- (void)insertElement:(ASCollectionElement *)element atIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ * Update the index paths for all supplementary elements to account for section-level
+ * deletes, moves, inserts. This must be called before adding new supplementary elements.
+ *
+ * This also deletes any supplementary elements in deleted sections.
+ */
+- (void)migrateSupplementaryElementsWithSectionMapping:(ASIntegerMap *)mapping;
+
+@end
+
+@interface ASElementMap (MutableCopying) <NSMutableCopying>
+@end
+
+NS_ASSUME_NONNULL_END

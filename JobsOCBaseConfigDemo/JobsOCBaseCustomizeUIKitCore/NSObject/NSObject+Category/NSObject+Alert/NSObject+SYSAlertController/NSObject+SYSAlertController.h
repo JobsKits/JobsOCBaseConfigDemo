@@ -1,0 +1,120 @@
+//
+//  NSObject+SYSAlertController.h
+//  MonkeyKingVideo
+//
+//  Created by Jobs on 2020/9/12.
+//  Copyright © 2020 Jobs. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "JobsBlock.h"
+#import "JobsString.h"
+#import "NSObject+Extras.h"
+#import "NSObject+WHToast.h"/// 提示
+#import "SYSAlertControllerConfig.h"
+
+#if __has_include(<ReactiveObjC/RACmetamacros.h>)
+#import <ReactiveObjC/RACmetamacros.h>
+#else
+#import "RACmetamacros.h"
+#endif
+
+#if __has_include(<ReactiveObjC/RACEXTScope.h>)
+#import <ReactiveObjC/RACEXTScope.h>
+#else
+#import "RACEXTScope.h"
+#endif
+
+#if __has_include(<ReactiveObjC/RACEXTKeyPathCoding.h>)
+#import <ReactiveObjC/RACEXTKeyPathCoding.h>
+#else
+#import "RACEXTKeyPathCoding.h"
+#endif
+
+//#if __has_include(<ReactiveObjC/RACEXTRuntimeExtensions.h>)
+//#import <ReactiveObjC/RACEXTRuntimeExtensions.h>
+//#else
+//#import "RACEXTRuntimeExtensions.h"
+//#endif
+
+#if __has_include(<WHToast/WHToast.h>)
+#import <WHToast/WHToast.h>
+#else
+#import "WHToast.h"
+#endif
+
+/*
+* 使用说明
+*  btnTitleArr（按钮标题） 和 alertBtnAction（按钮触发的方法），原则上一一对应，可以接受null，如果没有实质性的触发（仅仅希望点击以后使弹框消失，可以传空 @[@""]，从而调用defaultFunc进行占位，否则引发野指针错误）
+
+ isSeparateStyle 的含义
+ 在一般的模式（呈现在屏幕正中央） ：如果为YES 那么有实质性进展的键位在右侧，否则在左侧
+ 在sheet模式：是否分组显示（标题 + 副标题）（取消）
+ 
+*  targetVC，你不能要求每一个触发的点都是VC，也可以是View，所以将上个版本的集成在VC里面的弹框摘出来，但是推弹框出现需要调用系统方法presentViewController，所以这里必须手动传一个标的VC
+*  message、title 你不想要就传nil，传@"".tr 系统会为你留位置,从而造成界面问题（空一坨出来）
+
+*  showLoginAlertViewWithTargetVC 是一种登录样式
+*/
+
+NS_ASSUME_NONNULL_BEGIN
+@interface NSObject (SYSAlertController)
+/// 屏幕正中央的Alert
+/// @param config 配置文件
+/// @param alertVCBlock 返回这个UIAlertController *
+/// @param completionBlock 结束完成以后的block
++(void)showSYSAlertViewConfig:(nonnull SYSAlertControllerConfig *)config
+                 alertVCBlock:(nullable jobsByIDBlock)alertVCBlock
+              completionBlock:(nullable jobsByVoidBlock)completionBlock;
+/// 屏幕下部出现的Alert
+/// @param config 配置文件
+/// @param alertVCBlock 返回这个UIAlertController *
+/// @param completionBlock 结束完成以后的block
++(void)showSYSActionSheetConfig:(nonnull SYSAlertControllerConfig *)config
+                   alertVCBlock:(nullable jobsByIDBlock)alertVCBlock
+                completionBlock:(nullable jobsByVoidBlock)completionBlock;
+
++(void)showLoginAlertViewWithTargetVC:(UIViewController *)targetVC;
+
+@end
+
+NS_ASSUME_NONNULL_END
+
+/** 使用示例
+ 
+{
+ 
+ SYSAlertControllerConfig *config = SYSAlertControllerConfig.new;
+ config.title = @"是否取消对其关注？";
+ config.isSeparateStyle = NO;
+ config.btnTitleArr = @[@"确定",@"取消"];
+ config.alertBtnActionArr = @[@"unfollow:",@"".tr];
+ config.parametersArr = @[@{@"btn":btn,
+                            @"plazaCommunityListModel":plazaCommunityListModel},@"".tr];
+ config.targetVC = NSObject.getCurrentViewController;
+ config.funcInWhere = self;
+ config.animated = YES;
+ 
+ [NSObject showSYSAlertViewConfig:config
+                     alertVCBlock:nil
+                  completionBlock:nil];
+ }
+ 
+ {
+ 
+ SYSAlertControllerConfig *config = SYSAlertControllerConfig.new;
+ config.isSeparateStyle = YES;
+ config.btnTitleArr = @[@"保存图片",@"取消"];
+ config.alertBtnActionArr = @[@"savePic",@"".tr];
+ config.targetVC = self.saveImageModel.photoBrowser;
+ config.funcInWhere = self;
+ config.animated = YES;
+ 
+ [NSObject showSYSActionSheetConfig:config
+                       alertVCBlock:nil
+                    completionBlock:nil];
+ }
+ 
+ 
+ 
+ **/

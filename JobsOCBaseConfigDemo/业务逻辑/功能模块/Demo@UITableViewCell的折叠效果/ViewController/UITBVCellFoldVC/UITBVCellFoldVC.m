@@ -1,0 +1,110 @@
+//
+//  UITBVCellFoldVC.m
+//  JobsOCBaseConfig
+//
+//  Created by Jobs Hi on 10/2/23.
+//
+
+#import "UITBVCellFoldVC.h"
+
+@interface UITBVCellFoldVC ()
+/// UI
+Prop_strong()UILabel *titleLab;
+Prop_strong()MSCommentView *commentView;
+
+@end
+
+@implementation UITBVCellFoldVC
+
+-(void)dealloc{
+    JobsRemoveNotification(self);
+    JobsLog(@"%@",JobsLocalFunc);
+}
+
+-(void)loadView{
+    [super loadView];
+    
+    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+        self.viewModel = (UIViewModel *)self.requestParams;
+        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+            self.pushOrPresent = self.viewModel.pushOrPresent;
+        }
+    }
+    self.viewModel.backBtnTitleModel.text = @"返回".tr;
+    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
+//    self.viewModel.textModel.text = @"消息详情页".tr;
+    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
+    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
+    
+    // 使用原则：底图有 + 底色有 = 优先使用底图数据
+    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
+//    self.viewModel.bgImage = @"启动页SLOGAN".img;
+    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
+    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.backgroundColor = JobsWhiteColor;
+    self.makeNavByAlpha(1);
+    self.titleLab.alpha = 1;
+    self.commentView.alpha = 1;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
+
+-(void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+}
+
+-(void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+}
+#pragma mark —— lazyLoad
+-(UILabel *)titleLab{
+    if(!_titleLab){
+        @jobs_weakify(self)
+        _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            @jobs_strongify(self)
+            label.text = @"评论".tr;
+            label.textColor = @"#333333".cor;
+            label.font = UIFontWeightBoldSize(18);
+            [self.view addSubview:label];
+            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.view).offset(JobsWidth(15));
+                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(25));
+                make.height.mas_equalTo(JobsWidth(20));
+            }];label.makeLabelByShowingType(UILabelShowingType_03);
+        });
+    }return _titleLab;
+}
+
+-(MSCommentView *)commentView{
+    if(!_commentView){
+        _commentView = MSCommentView.new;
+        _commentView.jobsRichViewByModel(nil);
+        [self.view addSubview:_commentView];
+        [_commentView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.titleLab.mas_bottom);
+            make.left.right.bottom.equalTo(self.view);
+        }];
+    }return _commentView;
+}
+
+@end

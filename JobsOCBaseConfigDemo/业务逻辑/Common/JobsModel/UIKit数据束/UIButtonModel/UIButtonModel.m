@@ -1,0 +1,111 @@
+//
+//  UIButtonModel.m
+//  JobsModel
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import "UIButtonModel.h"
+#import "NSString+Others.h"
+
+@implementation UIButtonModel
+/// UIViewModelProtocol
+UIViewModelProtocol_synthesize_part1
+UIViewModelProtocol_synthesize_part2
+/// BaseLayerProtocol
+BaseLayerProtocol_synthesize_part3
+/// BaseButtonProtocol
+BaseButtonProtocol_synthesize_part2
+/// AppToolsProtocol
+AppToolsProtocol_synthesize
+/// BaseProtocol
+BaseProtocol_synthesize
+/// RACProtocol
+RACProtocol_synthesize
+/// UITextModelProtocol
+UITextModelProtocol_synthesize_part2
+
+-(NSTextAlignment)textAlignment{
+    if (!_textAlignment) {
+        _textAlignment = NSTextAlignmentCenter;
+    }return _textAlignment;
+}
+
+-(NSTextAlignment)subTextAlignment{
+    if(!_subTextAlignment){
+        _subTextAlignment = NSTextAlignmentCenter;
+    }return _subTextAlignment;
+}
+
+-(UIImage *)highlightImage{
+    if(!_highlightImage){
+        _highlightImage = self.normalImage;
+    }return _highlightImage;
+}
+/// 主标题的显示方式
+-(UILabelShowingType)titleShowingType{
+    if(!_titleShowingType){
+        _titleShowingType = UILabelShowingType_03;
+    }return _titleShowingType;
+}
+/// 副标题的显示方式
+-(UILabelShowingType)subTitleShowingType{
+    if(!_subTitleShowingType){
+        _subTitleShowingType = UILabelShowingType_03;
+    }return _subTitleShowingType;
+}
+
+-(UIRectCorner)roundingCorners{
+    if(!_roundingCorners){
+        _roundingCorners = UIRectCornerAllCorners;
+    }return _roundingCorners;
+}
+
+-(JobsReturnRACDisposableByReturnIDByIDBlocks _Nullable)jobsReturnedTestBlock{
+    if(!_jobsReturnedTestBlock){
+        _jobsReturnedTestBlock = ^RACDisposable *_Nonnull(JobsRetIDByIDBlock _Nullable data) {
+            JobsLog(@"JobsTestBlock");
+            return nil;
+        };
+    }return _jobsReturnedTestBlock;
+}
+
+-(CGFloat)titleWidth{
+    if(!_titleWidth){
+        if(isValue(self.title)) _titleWidth = self.title.widthBy(self.titleFont);
+    }return _titleWidth;
+}
+
+-(CGFloat)subTitleWidth API_AVAILABLE(ios(16.0)){
+    if(!_subTitleWidth){
+        if(isValue(self.subTitle)) _subTitleWidth = self.subTitle.widthBy(self.subTitleFont);
+    }return _subTitleWidth;
+}
+
+-(jobsByVoidBlock _Nullable)jobsTestBlock{
+    if (!_jobsTestBlock) {
+        _jobsTestBlock = ^{
+            JobsLog(@"jobsTestBlock");
+        };
+    }return _jobsTestBlock;
+}
+
+-(NSString *)title{
+    if (!_title) {
+#ifdef DEBUG
+//        _title = TextModelDataString.tr;
+        _title = @"";
+#endif
+    }return _title;
+}
+
+-(NSString *)subTitle{
+    if(!_subTitle){
+#ifdef DEBUG
+//        _subTitle = TextModelDataString2.tr;
+        _subTitle = @"";
+#endif
+    }return _subTitle;
+}
+
+@end

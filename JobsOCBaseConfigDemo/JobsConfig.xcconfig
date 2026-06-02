@@ -1,0 +1,21 @@
+//
+//  JobsConfig.xcconfig
+//  JobsSwiftBaseConfigDemo
+//
+//  Created by Mac on 11/1/25.
+//
+//  Configuration settings file format documentation can be found at:
+//  https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
+//
+//  此文件仅仅针对单一语言环境下的一些配置。
+//  在多语言环境下，此文件的某些配置项，将会用各语言的 InfoPlist.strings 进行覆盖
+
+// MARK: 生成 `*.xcconfig` 方式
+// 正常的生成方式：右键菜单 ➤ New File from Template ➤ iOS选项卡 ➤ 输入 config
+// 通用的生成方式：New Empty File ➤ 改名为`*.xcconfig` ⚠️ Xcode可能不会识别（影响范围：挂载此配置文件到Xcode工程项目的时候，无法被选中）
+// 🔨 解决方案 ➤ 拖到别处、删除Xcode对于此`*.xcconfig`的引用、再拖回来
+
+PRODUCT_NAME = SwiftDemo
+APP_DISPLAY_NAME = SwiftDemo
+INFOPLIST_KEY_CFBundleDisplayName = $(APP_DISPLAY_NAME)
+INFOPLIST_KEY_CFBundleName = $(PRODUCT_NAME)

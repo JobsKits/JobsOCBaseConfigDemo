@@ -1,0 +1,84 @@
+//
+//  NSArray+Extension.m
+//  Clipyeu ++
+//
+//  Created by Josee on 22/03/2019.
+//  Copyright © 2019 Josee. All rights reserved.
+//
+
+#import "NSArray+Safety.h"
+
+@implementation NSArray (Safety)
+/// "__NSArrayI" 表示不可变数组类型
+/// "__NSArrayM" 表示可变数组类型
++(void)initialize{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+#pragma mark —— 替换不可变数组中的方法 objectAtIndex
+        [self exchangeMethodForClass:@"__NSArrayI"
+                         originalSel:@selector(objectAtIndex:)
+                         swizzledSel:@selector(safe_objectAtIndex:)];
+#pragma mark —— 替换不可变数组中的方法 []调用的方法
+        [self exchangeMethodForClass:@"__NSArrayI"
+                         originalSel:@selector(objectAtIndexedSubscript:)
+                         swizzledSel:@selector(safe_objectAtIndexedSubscript:)];
+#pragma mark —— 替换可变数组中的方法 objectAtIndex
+        [self exchangeMethodForClass:@"__NSArrayI"
+                         originalSel:@selector(objectAtIndex:)
+                         swizzledSel:@selector(safe_mutableObjectAtIndex:)];
+#pragma mark —— 替换可变数组中的方法 []调用的方法
+        [self exchangeMethodForClass:@"__NSArrayI"
+                         originalSel:@selector(objectAtIndexedSubscript:)
+                         swizzledSel:@selector(safe_mutableObjectAtIndexedSubscript:)];
+    });
+}
+
+-(id)safe_objectAtIndex:(NSUInteger)index{
+    if (index < self.count && self.count > 0) {
+        @try {
+            return [self safe_objectAtIndex:index];
+        } @catch (NSException *exception) {
+            JobsLog(@"不可变数组越界访问");
+            return nil;
+        }
+    }JobsLog(@"不可变数组为空或越界访问");
+    return nil;
+}
+
+-(id)safe_objectAtIndexedSubscript:(NSUInteger)index {
+    if (index < self.count && self.count > 0) {
+        @try {
+            return [self safe_objectAtIndexedSubscript:index];
+        } @catch (NSException *exception) {
+            JobsLog(@"不可变数组越界访问");
+            return nil;
+        }
+    }JobsLog(@"不可变数组为空或越界访问");
+    return nil;
+}
+
+- (id)safe_mutableObjectAtIndex:(NSUInteger)index {
+    if (index < self.count && self.count > 0) {
+        @try {
+            return [self safe_mutableObjectAtIndex:index];
+        } @catch (NSException *exception) {
+            JobsLog(@"可变数组越界访问");
+            return nil;
+        }
+    }JobsLog(@"可变数组为空或越界访问");
+    return nil;
+}
+
+-(id)safe_mutableObjectAtIndexedSubscript:(NSUInteger)index{
+    if (index < self.count && self.count > 0) {
+        @try {
+            return [self safe_mutableObjectAtIndexedSubscript:index];
+        } @catch (NSException *exception) {
+            JobsLog(@"可变数组越界访问");
+            return nil;
+        }
+    }JobsLog(@"可变数组为空或越界访问");
+    return nil;
+}
+
+@end

@@ -1,0 +1,5 @@
+source 'https://cdn.cocoapods.org/'
+platform :ios, '14.0'
+target 'Sample' do
+	pod 'Texture', :path => '../..'
+end

@@ -1,0 +1,338 @@
+//
+//  UITableViewCellEditorVC.m
+//  JobsOCBaseConfig
+//
+//  Created by Jobs on 2022/6/6.
+//
+
+#import "UITableViewCellEditorVC.h"
+
+@interface UITableViewCellEditorVC ()
+/// UI
+Prop_strong()BaseButton *editBtn;
+Prop_strong()MsgEditBoardView *msgEditBoardView;
+/// Data
+Prop_strong()NSMutableArray <JobsMsgDataModel *>*dataMutArr;
+Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
+
+@end
+
+@implementation UITableViewCellEditorVC
+
+- (void)dealloc{
+    JobsLog(@"%@",JobsLocalFunc);
+//    JobsRemoveNotification(self);
+}
+
+-(void)loadView{
+    [super loadView];
+    
+    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+        self.viewModel = (UIViewModel *)self.requestParams;
+        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+            self.pushOrPresent = self.viewModel.pushOrPresent;
+        }
+    }
+    self.viewModel.backBtnTitleModel.text = @"返回".tr;
+    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
+    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
+    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
+    
+    // 使用原则：底图有 + 底色有 = 优先使用底图数据
+    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
+//    self.viewModel.bgImage = @"启动页SLOGAN".img;
+    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
+    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    @jobs_weakify(self)
+    self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+//        @jobs_strongify(self)
+//        data.add(UIBarButtonItem.initBy(self.aboutBtn));
+    });
+    self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+        @jobs_strongify(self)
+        data.add(UIBarButtonItem.initBy(self.editBtn));
+    });
+    self.makeNavByAlpha(1);
+    self.tableView.byShow(self);
+    self.msgEditBoardView.jobsVisible = YES;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
+
+-(void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    JobsLog(@"");
+}
+
+-(void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    JobsLog(@"");
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+}
+#pragma mark —— 一些私有方法
+-(void)dataForUI{
+    [self.tableView reloadData];
+    [self.tableView setEditing:NO animated:YES];
+    [self.selectedDataMutArr removeAllObjects];
+    self.msgEditBoardView.getDeleteBtn.enabledBlock(self.selectedDataMutArr.count);
+    self.msgEditBoardView.getMarkToReadBtn.enabledBlock(self.selectedDataMutArr.count);
+    self.editBtn.selected = NO;
+    self.editBtn.jobsResetBtnTitle(@"編輯".tr);
+    [self.msgEditBoardView disappearByView:self.view];
+}
+/// 全选的实现
+-(void)allChoose{
+    /// UI层
+    for (int i = 0; i< self.dataMutArr.count; i++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        cell.selected = YES;
+        if ([self.tableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+            [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+        }
+    }
+    /// Data层
+    [self.selectedDataMutArr removeAllObjects];
+    [self.selectedDataMutArr addObjectsFromArray:self.dataMutArr];
+}
+/// 取消全选的实现
+-(void)allCancelChoose{
+    /// UI层
+    for (int i = 0; i< self.dataMutArr.count; i++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        cell.selected = NO;
+    }
+    /// Data层
+    [self.selectedDataMutArr removeAllObjects];
+}
+/// 单行点击改变数据层
+-(NSMutableArray<JobsMsgDataModel *> *)manuallyDataAtIndexPath:(NSIndexPath *)indexPath{
+    [self.selectedDataMutArr containsObject:self.dataMutArr[indexPath.row]] ? [self.selectedDataMutArr removeObject:self.dataMutArr[indexPath.row]] : [self.selectedDataMutArr addObject:self.dataMutArr[indexPath.row]];
+    return self.selectedDataMutArr;
+}
+
+-(MsgEditBoardView *)getMsgEditBoardView{
+    return self.msgEditBoardView;
+}
+
+-(UITableView *)getTableView{
+    return self.tableView;
+}
+#pragma mark —— UITableViewDelegate,UITableViewDataSource
+- (void)tableView:(UITableView*)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath*)indexPath{
+    
+}
+/// 开始进入编辑模式
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView
+          editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
+}
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    @jobs_weakify(self)
+    if (self.tableView.editing) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        cell.selected = YES;
+        NSMutableArray<JobsMsgDataModel *> *dataMutArr = [self manuallyDataAtIndexPath:indexPath];
+        self.msgEditBoardView.getDeleteBtn.enabledBlock(dataMutArr.count);
+        self.msgEditBoardView.getMarkToReadBtn.enabledBlock(dataMutArr.count);
+    }else{
+        JobsMsgDetailVC *msgDetailVC = JobsMsgDetailVC.new;
+        [msgDetailVC actionObjBlock:^(JobsMsgDataModel *data) {
+            @jobs_strongify(self)
+            [self.dataMutArr removeObject:data];
+            [self.tableView reloadData];
+        }];
+        self.comingToPushVCByRequestParams(msgDetailVC,jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
+            @jobs_strongify(self)
+            viewModel.data = self.dataMutArr[indexPath.row];
+        }));
+    }
+}
+/// 编辑模式下，点击取消左边已选中的cell的按钮
+- (void)tableView:(UITableView *)tableView
+didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.tableView.editing) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        cell.selected = NO;
+        NSMutableArray<JobsMsgDataModel *> *dataMutArr = [self manuallyDataAtIndexPath:indexPath];
+        self.msgEditBoardView.getDeleteBtn.enabledBlock(dataMutArr.count);
+        self.msgEditBoardView.getMarkToReadBtn.enabledBlock(dataMutArr.count);
+    }
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return JobsWidth(60);
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
+    return self.dataMutArr.count;
+}
+
+- (__kindof UITableViewCell *)tableView:(UITableView *)tableView
+                  cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCell.cellStyleValue1WithTableView(tableView)
+        .byAccessoryType(UITableViewCellAccessoryNone)
+        .byIndexPath(indexPath)
+        .jobsRichElementsTableViewCellBy(nil)
+        .JobsBlock1(^(id _Nullable data) {
+         
+        });
+}
+#pragma mark —— lazyLoad
+-(BaseButton *)editBtn{
+    if (!_editBtn) {
+        @jobs_weakify(self)
+        _editBtn = BaseButton.jobsInit()
+            .bgColorBy(JobsWhiteColor)
+            .jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58))
+            .jobsResetBtnTitleFont(UIFontWeightBoldSize(12))
+            .jobsResetBtnTitle(@"編輯".tr)
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                if (self.objBlock) self.objBlock(x);
+    //            toastBy(x.titleForNormalState);
+                x.selected = !x.selected;
+                x.jobsResetBtnTitle(x.selected ? @"完成".tr : @"編輯".tr);
+                [self.tableView setEditing:x.selected animated:YES];
+                x.selected ? [self.getMsgEditBoardView appearByView:self.view] : [self.getMsgEditBoardView disappearByView:self.view];
+            }).onLongPressGestureBy(^(id data){
+                JobsLog(@"");
+            });
+    }return _editBtn;
+}
+/// BaseViewProtocol
+@synthesize tableView = _tableView;
+-(UITableView *)tableView{
+    if (!_tableView) {
+        @jobs_weakify(self)
+        _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
+            @jobs_strongify(self)
+            tableView
+                .byMJRefreshHeader([MJRefreshNormalHeader headerWithRefreshingBlock:^{
+                    @jobs_strongify(self)
+                    NSObject.feedbackGenerator(nil);/// 震动反馈
+                    self->_tableView.endRefreshing(YES);
+                }].byMJRefreshHeaderConfigModel(self.mjHeaderDefaultConfig))
+                .byMJRefreshFooter([MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+                    @jobs_strongify(self)
+                    NSObject.feedbackGenerator(nil);/// 震动反馈
+                    self->_tableView.endRefreshing(YES);
+                }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
+                .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
+                .byShowsVerticalScrollIndicator(NO)
+                .byBgColor(JobsWhiteColor)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    @jobs_strongify(self)
+                    make.edges.equalTo(self.view);
+                });
+        });
+    }return _tableView;
+}
+
+-(MsgEditBoardView *)msgEditBoardView{
+    if (!_msgEditBoardView) {
+        _msgEditBoardView = MsgEditBoardView.new;
+        _msgEditBoardView.frame = MsgEditBoardView.viewFrameByModel(nil);
+        _msgEditBoardView.jobsRichViewByModel(nil);
+        _msgEditBoardView.getDeleteBtn.enabledBlock(self.selectedDataMutArr.count);
+        @jobs_weakify(self)
+        [_msgEditBoardView actionObjBlock:^(id data) {
+            @jobs_strongify(self)
+            if ([data isKindOfClass:UIButton.class]) {
+                UIButton *btn = (UIButton *)data;
+                if ([btn.jobsResetBtnTitle isEqualToString:@"全選".tr]) {
+                    btn.selected ? [self allChoose] : [self allCancelChoose];
+                }else if ([btn.jobsResetBtnTitle isEqualToString:@"標記為已讀".tr]){
+                    for (JobsMsgDataModel *model in self.selectedDataMutArr) {//dataMutArr
+                        model.isRead = YES;
+                        NSUInteger index = [self.dataMutArr indexOfObject:model];
+                        [self.dataMutArr replaceObjectAtIndex:index withObject:model];
+                    }
+                    [self dataForUI];
+                }else if ([btn.jobsResetBtnTitle isEqualToString:@"删除".tr]){
+                    JobsLog(@"%@",self.selectedDataMutArr);
+                    [self.dataMutArr removeObjectsInArray:self.selectedDataMutArr];
+                    [self dataForUI];
+                }else{}
+            }
+        }];
+    }return _msgEditBoardView;
+}
+
+-(NSMutableArray<JobsMsgDataModel *> *)dataMutArr{
+    if (!_dataMutArr) {
+        _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
+            data.add(jobsMakeMsgDataModel(^(__kindof JobsMsgDataModel * _Nullable viewModel) {
+                viewModel.msgStyle = JobsMsgType_Notify;/// 通知
+                viewModel.textModel.text = @"6月1日13:00點整，英超焦點賽月1日13:00點整，英超焦點賽".tr;
+                viewModel.subTextModel.text = @"夏季聯賽火熱來襲，全體會員虛擬幣存...夏季聯賽火熱來襲，全體會員虛擬幣存".tr;
+                viewModel.time = @"05-13 18:20".tr;
+                viewModel.isDraw = NO;
+                viewModel.isRead = NO;
+            }))
+            .add(jobsMakeMsgDataModel(^(__kindof JobsMsgDataModel * _Nullable viewModel) {
+                viewModel.msgStyle = JobsMsgType_Activity;/// 活动
+                viewModel.textModel.text = @"6月1日13:00點".tr;
+                viewModel.subTextModel.text = @"夏季聯賽火熱來襲，全體會員虛擬幣存...".tr;
+                viewModel.time = @"05-13 18:20".tr;
+                viewModel.isDraw = YES;
+                viewModel.isRead = YES;
+            }))
+            .add(jobsMakeMsgDataModel(^(__kindof JobsMsgDataModel * _Nullable viewModel) {
+                viewModel.msgStyle = JobsMsgType_Notice;/// 公告
+                viewModel.textModel.text = @"6月1日".tr;
+                viewModel.subTextModel.text = @"夏季聯賽火熱來襲，全體會員虛擬幣存...".tr;
+                viewModel.time = @"05-13 18:20".tr;
+                viewModel.isDraw = NO;
+                viewModel.isRead = NO;
+            }))
+            .add(jobsMakeMsgDataModel(^(__kindof JobsMsgDataModel * _Nullable viewModel) {
+                viewModel.msgStyle = JobsMsgType_Bonus;/// 红利
+                viewModel.textModel.text = @"wowowowowo".tr;
+                viewModel.subTextModel.text = @"夏季聯賽火熱來襲，全體會員虛擬幣存...".tr;
+                viewModel.time = @"05-13 18:20".tr;
+                viewModel.isDraw = YES;
+                viewModel.isRead = YES;
+            }));
+        });
+    }return _dataMutArr;
+}
+
+-(NSMutableArray<JobsMsgDataModel *> *)selectedDataMutArr{
+    if (!_selectedDataMutArr) {
+        _selectedDataMutArr = NSMutableArray.array;
+    }return _selectedDataMutArr;
+}
+
+@end

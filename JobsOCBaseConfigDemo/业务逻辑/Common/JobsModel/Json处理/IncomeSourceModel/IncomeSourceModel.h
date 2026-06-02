@@ -1,0 +1,27 @@
+//
+//  IncomeSourceModel.h
+//  JobsModel
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import <Foundation/Foundation.h>
+#import "BaseModel.h"
+#import "DefineProperty.h"
+
+#if __has_include(<MJExtension/MJExtension.h>)
+#import <MJExtension/MJExtension.h>
+#else
+#import "MJExtension.h"
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface IncomeSourceModel : BaseModel
+
+Prop_copy()NSString *ID;
+Prop_copy()NSString *name;
+
+@end
+
+NS_ASSUME_NONNULL_END
