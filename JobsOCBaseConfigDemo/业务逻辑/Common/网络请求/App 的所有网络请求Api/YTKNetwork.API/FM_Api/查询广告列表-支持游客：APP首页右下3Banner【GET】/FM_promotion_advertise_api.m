@@ -1,8 +1,8 @@
 //
 //  FM_promotion_advertise_api.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
-//  Created by User on 9/17/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "FM_promotion_advertise_api.h"

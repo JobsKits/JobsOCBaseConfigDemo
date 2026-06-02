@@ -1,13 +1,14 @@
 //
 //  GoodsClassModel.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "GoodsClassModel.h"
 
 @implementation GoodsClassModel
+TimerProtocol_synthesize_lock
 AppToolsProtocol_synthesize
 UIPictureAndBackGroundCorProtocol_synthesize
 BaseButtonProtocol_synthesize

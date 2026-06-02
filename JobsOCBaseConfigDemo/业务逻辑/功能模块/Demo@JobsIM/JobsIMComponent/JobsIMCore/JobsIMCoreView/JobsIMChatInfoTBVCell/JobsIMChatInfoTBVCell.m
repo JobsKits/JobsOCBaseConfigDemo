@@ -1,8 +1,8 @@
 //
 //  JobsIMChatInfoTBVCell.m
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/11/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsIMChatInfoTBVCell.h"

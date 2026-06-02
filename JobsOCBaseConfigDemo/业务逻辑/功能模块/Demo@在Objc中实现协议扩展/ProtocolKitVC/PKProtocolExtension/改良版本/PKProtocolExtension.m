@@ -1,24 +1,9 @@
-// The MIT License (MIT)
 //
-// Copyright (c) 2015-2016 forkingdog ( https://github.com/forkingdog )
+//  PKProtocolExtension.m
+//  JobsOCBaseConfigDemo
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Created by Jobs on 2026年5月13日，星期三.
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
 
 #import <Foundation/Foundation.h>
 #import <pthread.h>
@@ -36,7 +21,7 @@ static PKExtendedProtocol *allExtendedProtocols = NULL;
 static pthread_mutex_t protocolsLoadingLock = PTHREAD_MUTEX_INITIALIZER;
 static size_t extendedProtcolCount = 0, extendedProtcolCapacity = 0;
 
-Method *_pk_extension_create_merged(Method *existMethods, unsigned existMethodCount, Method *appendingMethods, unsigned appendingMethodCount) {
+Method *_jobs_pk_extension_create_merged(Method *existMethods, unsigned existMethodCount, Method *appendingMethods, unsigned appendingMethodCount) {
     
     if (existMethodCount == 0) {
         return appendingMethods;
@@ -48,12 +33,12 @@ Method *_pk_extension_create_merged(Method *existMethods, unsigned existMethodCo
     return mergedMethods;
 }
 
-void _pk_extension_merge(PKExtendedProtocol *extendedProtocol, Class containerClass) {
+void _jobs_pk_extension_merge(PKExtendedProtocol *extendedProtocol, Class containerClass) {
     
     // Instance methods
     unsigned appendingInstanceMethodCount = 0;
     Method *appendingInstanceMethods = class_copyMethodList(containerClass, &appendingInstanceMethodCount);
-    Method *mergedInstanceMethods = _pk_extension_create_merged(extendedProtocol->instanceMethods,
+    Method *mergedInstanceMethods = _jobs_pk_extension_create_merged(extendedProtocol->instanceMethods,
                                                                 extendedProtocol->instanceMethodCount,
                                                                 appendingInstanceMethods,
                                                                 appendingInstanceMethodCount);
@@ -64,7 +49,7 @@ void _pk_extension_merge(PKExtendedProtocol *extendedProtocol, Class containerCl
     // Class methods
     unsigned appendingClassMethodCount = 0;
     Method *appendingClassMethods = class_copyMethodList(object_getClass(containerClass), &appendingClassMethodCount);
-    Method *mergedClassMethods = _pk_extension_create_merged(extendedProtocol->classMethods,
+    Method *mergedClassMethods = _jobs_pk_extension_create_merged(extendedProtocol->classMethods,
                                                              extendedProtocol->classMethodCount,
                                                              appendingClassMethods,
                                                              appendingClassMethodCount);
@@ -73,7 +58,7 @@ void _pk_extension_merge(PKExtendedProtocol *extendedProtocol, Class containerCl
     extendedProtocol->classMethodCount += appendingClassMethodCount;
 }
 
-void _pk_extension_load(Protocol *protocol, Class containerClass) {
+void _jobs_pk_extension_load(Protocol *protocol, Class containerClass) {
     
     pthread_mutex_lock(&protocolsLoadingLock);
     
@@ -108,12 +93,12 @@ void _pk_extension_load(Protocol *protocol, Class containerClass) {
         extendedProtcolCount++;
     }
     
-    _pk_extension_merge(&(allExtendedProtocols[resultIndex]), containerClass);
+    _jobs_pk_extension_merge(&(allExtendedProtocols[resultIndex]), containerClass);
 
     pthread_mutex_unlock(&protocolsLoadingLock);
 }
 
-static void _pk_extension_inject_class(Class targetClass, PKExtendedProtocol extendedProtocol) {
+static void _jobs_pk_extension_inject_class(Class targetClass, PKExtendedProtocol extendedProtocol) {
     
     for (unsigned methodIndex = 0; methodIndex < extendedProtocol.instanceMethodCount; ++methodIndex) {
         Method method = extendedProtocol.instanceMethods[methodIndex];
@@ -146,7 +131,7 @@ static void _pk_extension_inject_class(Class targetClass, PKExtendedProtocol ext
     }
 }
 
-static void _pk_extension_inject_entry_class(Class class) {
+static void _jobs_pk_extension_inject_entry_class(Class class) {
     static NSMutableDictionary *injectedClassMap;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -163,11 +148,11 @@ static void _pk_extension_inject_entry_class(Class class) {
         if (![class conformsToProtocol:extendedProtcol.protocol]) {
             continue;
         }
-        _pk_extension_inject_class(class, extendedProtcol);
+        _jobs_pk_extension_inject_class(class, extendedProtcol);
     }
 }
 
-static void _pk_extension_try_inject_entry_class(Class class) {
+static void _jobs_pk_extension_try_inject_entry_class(Class class) {
     // 防止递归死锁，因为 class_getInstanceMethod(), 会触发 resolveInstanceMethod: 等方法的调用，就会导致递归调用，引起死锁
     // 这边没必要用 递归锁，内部 for 循环，才引起的递归。 代码不用重复执行
     NSMutableDictionary *threadDictionary = [NSThread currentThread].threadDictionary;
@@ -176,7 +161,7 @@ static void _pk_extension_try_inject_entry_class(Class class) {
     }
     pthread_mutex_lock(&protocolsLoadingLock);
     [threadDictionary setObject:@1 forKey:@"_pk_injecting"];
-    _pk_extension_inject_entry_class(class);
+    _jobs_pk_extension_inject_entry_class(class);
     [threadDictionary removeObjectForKey:@"_pk_injecting"];
     pthread_mutex_unlock(&protocolsLoadingLock);
 }
@@ -208,18 +193,18 @@ static BOOL _pk_swizzleMethod(Class class, SEL origSel_, SEL altSel_) {
 @implementation NSObject (PKExtendedProtocol)
 
 + (BOOL)_pk_resolveInstanceMethod:(SEL)sel {
-    _pk_extension_try_inject_entry_class(self);
+    _jobs_pk_extension_try_inject_entry_class(self);
     return [self _pk_resolveInstanceMethod:sel];
 }
 
 + (BOOL)_pk_resolveClassMethod:(SEL)sel {
-    _pk_extension_try_inject_entry_class(self);
+    _jobs_pk_extension_try_inject_entry_class(self);
     return [self _pk_resolveClassMethod:sel];
 }
 
 @end
 
-__attribute__((constructor)) static void _pk_extension_inject_entry(void) {
+__attribute__((constructor)) static void _jobs_pk_extension_inject_entry(void) {
     _pk_swizzleMethod(object_getClass([NSObject class]), @selector(resolveInstanceMethod:), @selector(_pk_resolveInstanceMethod:));
     _pk_swizzleMethod(object_getClass([NSObject class]), @selector(resolveClassMethod:), @selector(_pk_resolveClassMethod:));
 }

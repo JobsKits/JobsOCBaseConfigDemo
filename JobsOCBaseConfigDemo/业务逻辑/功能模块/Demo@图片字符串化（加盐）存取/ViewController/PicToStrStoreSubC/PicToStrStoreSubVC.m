@@ -1,8 +1,8 @@
 //
 //  PicToStrStoreSubVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2024/4/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "PicToStrStoreSubVC.h"
@@ -10,8 +10,8 @@
 @interface PicToStrStoreSubVC (){
     UIImage *_picBefore;
     UIImage *_picAfter;
-    NSString *_resultStr;/// 最原始的图片编码字符串
-    NSString *_showStr;/// 对外显示的字符串
+    NSString *_resultStr;// 最原始的图片编码字符串
+    NSString *_showStr;  // 对外显示的字符串
 }
 /// UI
 Prop_strong()BaseButton *btn_1;
@@ -229,7 +229,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             .jobsResetImagePlacement(NSDirectionalRectEdgeNone)
             .jobsResetImagePadding(JobsWidth(10))
             .jobsResetTitlePadding(JobsWidth(10))
-            .jobsResetBtnImage(_picBefore ? : JobsBuddleIMG(@"bundle",@"Others",nil,@"绿色加号"))
+            .jobsResetBtnImage(_picBefore ? : JobsLoadBundleImage(@"bundle",@"Others",nil,@"绿色加号"))
             .jobsResetBtnBgImage(@"APPLY NOW".img)
             .jobsResetBtnTitleCor(@"#333333".cor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(25))
@@ -278,7 +278,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             .jobsResetImagePlacement(NSDirectionalRectEdgeNone)
             .jobsResetImagePadding(JobsWidth(10))
             .jobsResetTitlePadding(JobsWidth(10))
-            .jobsResetBtnImage(_picBefore ? : JobsBuddleIMG(@"bundle",@"Others",nil,@"绿色加号"))
+            .jobsResetBtnImage(_picBefore ? : JobsLoadBundleImage(@"bundle",@"Others",nil,@"绿色加号"))
             .jobsResetBtnBgImage(@"APPLY NOW".img)
             .jobsResetBtnTitleCor(@"#333333".cor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(25))

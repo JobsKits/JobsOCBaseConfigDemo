@@ -1,0 +1,23 @@
+//
+//  TABAnimatedDemo.pch
+//  TABAnimatedDemo
+//
+//  Created by tigerAndBull on 2019/5/1.
+//  Copyright © 2019 tigerAndBull. All rights reserved.
+//
+
+#ifndef TABAnimatedDemo_pch
+#define TABAnimatedDemo_pch
+
+#import <TABAnimated/TABAnimated.h>
+#import <TABAnimated/BaseDemoViewController.h>
+#import <TABAnimated/UIColor+TABCategory.h>
+#import <TABAnimated/TABDefine.h>
+#import <TABAnimated/Masonry.h>
+#import <TABAnimated/UIImage+TABAnimatedDemo.h>
+
+#define kText(x) (NSLocalizedString(x, nil))
+static const NSTimeInterval TABAnimatedDemoDelayTime = 3.;
+static const NSTimeInterval TABAnimatedDemoDelayLongTime = 5.;
+
+#endif /* TABAnimatedDemo_pch */

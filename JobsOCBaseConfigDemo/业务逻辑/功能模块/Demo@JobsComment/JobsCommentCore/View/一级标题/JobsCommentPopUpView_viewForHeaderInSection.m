@@ -1,9 +1,8 @@
 //
-//  CommentPopUpNonHoveringHeaderView.m
-//  My_BaseProj
+//  JobsCommentPopUpView_viewForHeaderInSection.m
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/10/2.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsCommentPopUpView_viewForHeaderInSection.h"
@@ -101,11 +100,11 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
         self->_userInfoBtn.jobsResetBtnImage(@"动态头像 尺寸126".gif_img ? : @"头像01".img);
     }
     
-    _userInfoBtn.jobsResetAttributedTitle([AttributedString initWithString:self.firstCommentModel.nickname
-                                                                attributes:@{NSFontAttributeName: JobsCommentConfig.sharedManager.titleFont,
+    _userInfoBtn.jobsResetAttributedTitle([NSMutableAttributedString.alloc initWithString:self.firstCommentModel.nickname
+                                                                               attributes:@{NSFontAttributeName: JobsCommentConfig.sharedManager.titleFont,
                                                                              NSForegroundColorAttributeName: JobsCommentConfig.sharedManager.titleCor}]);
-    _userInfoBtn.jobsResetAttributedSubtitle([AttributedString initWithString:self.firstCommentModel.content
-                                                                   attributes:@{NSFontAttributeName: JobsCommentConfig.sharedManager.subTitleFont,
+    _userInfoBtn.jobsResetAttributedSubtitle([NSMutableAttributedString.alloc initWithString:self.firstCommentModel.content
+                                                                                  attributes:@{NSFontAttributeName: JobsCommentConfig.sharedManager.subTitleFont,
                                                                                 NSForegroundColorAttributeName: JobsCommentConfig.sharedManager.subTitleCor}]);
     _userInfoBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
     return _userInfoBtn;
@@ -116,14 +115,14 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
         @jobs_weakify(self)
         _likeBtn = RBCLikeButton.jobsInit()
             .bgColorBy(JobsWhiteColor)
-            .jobsResetBtnImage(_likeBtn.selected ? JobsBuddleIMG(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsBuddleIMG(nil, @"RBCLikeButton", nil, @"day_like"))
+            .jobsResetBtnImage(_likeBtn.selected ? JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like"))
             .jobsResetBtnTitleCor(_likeBtn.selected ? JobsRedColor : JobsGrayColor)
             .jobsResetBtnTitleFont(UIFontWeightRegularSize(4))
             .jobsResetBtnTitle((toStringByNSInteger(_likeBtn.thumpNum)))
             .onClickBy(^(RBCLikeButton *x){
                 @jobs_strongify(self)
                 x.selected = !x.selected;
-                x.jobsResetBtnImage(x.selected ? JobsBuddleIMG(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsBuddleIMG(nil, @"RBCLikeButton", nil, @"day_like"));
+                x.jobsResetBtnImage(x.selected ? JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like"));
     //            [x setThumbWithSelected:x.selected
     //                           thumbNum:x.selected ? x.thumpNum + 1 : x.thumpNum - 1
     //                          animation:YES];

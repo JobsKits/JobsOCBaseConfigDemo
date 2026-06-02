@@ -1,0 +1,173 @@
+//
+//  JobsNavSettingVC.m
+//  JobsBaseUI
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import "JobsNavSettingVC.h"
+#import <JobsBaseUI/UIViewController+BaseNavigationBar.h>
+#import <JobsBaseUI/UIView+Extra.h>
+#import <JobsNavBar/JobsNavBarConfig.h>
+
+@interface JobsNavSettingVC ()
+
+@end
+
+@implementation JobsNavSettingVC
+
+-(void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+- (void)dealloc{
+    JobsRemoveNotification(self);
+    [self.view endEditing:YES];
+}
+
+-(void)loadView{
+    [super loadView];
+    self.setupNavigationBarHidden = YES;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    /**
+     当设置为 YES 时，视图控制器的布局将考虑导航栏、工具栏或标签栏的不透明性，即这些栏的背后内容会从顶部或底部开始布局。
+     这样可以确保不透明的栏不会覆盖内容。
+     
+     当设置为 NO 时，视图控制器的布局会忽略不透明栏的影响，内容会延伸到整个视图控制器的边界，包括被不透明栏遮挡的部分。
+     */
+    self.extendedLayoutIncludesOpaqueBars = YES;
+/// 因为GKNavigationBar对横屏不兼容，所以这里采用GKNavigationBar（竖屏）+JobsNavBar（横屏）的方案
+#pragma mark —— 在最终的子类这么写（演示Demo）
+//    /// 配置右侧按钮群
+//    self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+//        @jobs_strongify(self)
+//        data.add(UIBarButtonItem.initBy(BaseButton.jobsInit()
+//                                        .jobsResetBtnBgImage("首页右侧悬浮菜单人工客服（已点击）".img)
+//                                        .onClickBy(^(UIButton *x){
+//                                            @jobs_strongify(self)
+//                                            if (self.objBlock) self.objBlock(x);
+//                                        }).onLongPressGestureBy(^(id data){
+//                                            JobsLog(@"");
+//                                        })
+//                                        .bySize(CGSizeMake(JobsWidth(24), JobsWidth(24)))));
+//    });
+//    self.makeNavByConfig(jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable config) {
+//        config.alpha = 1;
+//        config.titleImage = @"BLuckyRedLogo".img; /// 配置中间的标题为图片
+//        /// 配置返回键
+//        config.backBtn = BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
+////            @jobs_strongify(self)
+//            buttonModel.normalImage = @"全局返回箭头".img;
+//            buttonModel.highlightImage = @"全局返回箭头".img
+//            buttonModel.title = @"".tr;
+//            buttonModel.titleFont = bayonRegular(14);
+//            buttonModel.titleCor = @"#8A93A1".cor;
+//            buttonModel.imagePlacement = NSDirectionalRectEdgeLeading;
+//            buttonModel.textAlignment = NSTextAlignmentCenter;
+//            buttonModel.subTextAlignment = NSTextAlignmentCenter;
+//            buttonModel.baseBackgroundColor = JobsClearColor;
+//            buttonModel.imagePadding = JobsWidth(5);
+//            buttonModel.clickEventBlock = ^id(__kindof UIButton *_Nullable x){
+//                @jobs_strongify(self)
+//                x.selected = !x.selected;
+//                JobsAppTool.loginWork = FMLoginWork_MyFav;
+//    //            self.backTo(0);
+//                self.backViewControllerCore(self);
+//                return nil;
+//            };
+//            buttonModel.longPressGestureEventBlock = ^id(__kindof UIButton *_Nullable btn){
+//                // @jobs_strongify(self)
+//                return nil;
+//            };
+//        }));
+//    }));
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:self.setupNavigationBarHidden animated:animated];
+}
+
+-(void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+}
+
+-(void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    JobsLog(@"%d",self.setupNavigationBarHidden);
+    self.isHiddenNavigationBar = self.setupNavigationBarHidden;
+    [self.navigationController setNavigationBarHidden:self.setupNavigationBarHidden animated:animated];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+}
+#pragma mark —— 一些公有方法
+-(jobsByCGFloatBlock _Nonnull)makeNavByAlpha{
+    @jobs_weakify(self)
+    return ^(CGFloat data){
+        @jobs_strongify(self)
+        /// JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape
+        id<AppToolsProtocol> appToolsSelf = (id<AppToolsProtocol>)self;
+        appToolsSelf.setGKNav(nil);
+        appToolsSelf.setGKNavBackBtn(nil);
+        if(self.leftBarButtonItems.count) self.gk_navLeftBarButtonItems = self.leftBarButtonItems;
+        if(self.rightBarButtonItems.count) self.gk_navRightBarButtonItems = self.rightBarButtonItems;
+        self.gk_navigationBar.hidden = !data;
+        self.gk_navigationBar.alpha = data;
+    };
+}
+
+-(jobsByCGFloatBlock _Nonnull)makeJobsNavByAlpha{
+    @jobs_weakify(self)
+    return ^(CGFloat data){
+        @jobs_strongify(self)
+        ((id<AppToolsProtocol>)self).makeNavBarConfig(nil,nil);
+        ((UIView *)self.navBar).hidden = !data;
+        ((UIView *)self.navBar).alpha = data;
+    };
+}
+
+-(jobsByNavBarConfigBlock _Nonnull)makeNavByConfig{
+    @jobs_weakify(self)
+    return ^(__kindof JobsNavBarConfig *_Nullable config){
+        @jobs_strongify(self)
+        /// GKNavigationBar 对横屏可能不兼容
+        if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
+            self.makeJobsNavByAlpha(config.viewModel.Alpha);
+        }else{
+            self.makeGKNavByConfig(config);
+        }
+    };
+}
+
+-(jobsByNavBarConfigBlock _Nonnull)makeGKNavByConfig{
+    @jobs_weakify(self)
+    return ^(__kindof JobsNavBarConfig *_Nullable config){
+        @jobs_strongify(self)
+        id<AppToolsProtocol> appToolsSelf = (id<AppToolsProtocol>)self;
+        appToolsSelf.setGKNav(config.viewModel);/// 配置GKNavigationBar（不包括返回键的设定）
+        appToolsSelf.setGKNavBackBtnBy(config.backBtn);/// 配置GKNavigationBar的返回按钮
+        appToolsSelf.setGKNavTitleBtnBy(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
+            model.backgroundImage = config.viewModel.titleImage;
+            model.jobsSize = CGSizeMake(JobsWidth(150), JobsWidth(30));
+            model.baseBackgroundColor = JobsClearColor;
+        }));
+        if(self.leftBarButtonItems.count) self.gk_navLeftBarButtonItems = self.leftBarButtonItems;
+        if(self.rightBarButtonItems.count) self.gk_navRightBarButtonItems = self.rightBarButtonItems;
+        self.gk_navigationBar.byVisible(config.viewModel.Alpha);
+    };
+}
+
+@end

@@ -1,8 +1,8 @@
 //
 //  Douyin_ZFPlayerVC@2.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/1/8.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "Douyin_ZFPlayerVC@2.h"
@@ -479,9 +479,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 -(ZFCustomControlView *)fullControlView{
     if (!_fullControlView) {
-        _fullControlView = jobsMakeZFCustomControlView(^(__kindof ZFCustomControlView * _Nullable label) {
-            
-        });
+        _fullControlView = ZFCustomControlView.new;
     }return _fullControlView;
 }
 #pragma mark —— 暂时用不到的

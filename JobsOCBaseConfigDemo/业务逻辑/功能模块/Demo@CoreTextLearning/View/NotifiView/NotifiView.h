@@ -1,11 +1,24 @@
 //
 //  NotifiView.h
-//  CoreTextLearning
+//  JobsOCBaseConfigDemo
 //
-//  Created by alan comb on 2021/4/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 typedef void(^FinishBlock)(NSString* _Nullable key);
 #ifndef NOTIFI_VIEW_STATE_ENUM_DEFINED
 #define NOTIFI_VIEW_STATE_ENUM_DEFINED
@@ -38,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_assign()NotifiViewState state;
 Prop_assign()BOOL canAddtionTime;
 Prop_assign()NSTimeInterval duration;
-@property(nonatomic,readonly,strong) NSDictionary* data;  // @{@"key":@"xxx", @"data" : {NSDictionary class]}
+Prop_strong(readonly)NSDictionary* data;  // @{@"key":@"xxx", @"data" : {NSDictionary class]}
 Prop_copy()NSString* key;    ///当前可用的key值，  不能重复
 
 - (void)updateWithData:(NSDictionary*)data

@@ -1,9 +1,8 @@
 //
 //  FindCodeFlowChartView.m
-//  Shooting
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/9/3.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "FindCodeFlowChartView.h"
@@ -153,6 +152,5 @@ static dispatch_once_t dispatchOnce;
         _singleElementMutArr = NSMutableArray.array;
     }return _singleElementMutArr;
 }
-
 
 @end

@@ -1,21 +1,37 @@
 //
 //  JobsConfig.xcconfig
-//  JobsSwiftBaseConfigDemo
+//  Demo App
 //
 //  Created by Mac on 11/1/25.
 //
 //  Configuration settings file format documentation can be found at:
 //  https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
 //
-//  此文件仅仅针对单一语言环境下的一些配置。
-//  在多语言环境下，此文件的某些配置项，将会用各语言的 InfoPlist.strings 进行覆盖
+//  此文件仅针对 Demo App 层的通用配置。
+//  CocoaPods 生成配置仍由 Podfile 维护，Podfile 会把本文件 include 到 Pods-<Target>.*.xcconfig。
 
 // MARK: 生成 `*.xcconfig` 方式
 // 正常的生成方式：右键菜单 ➤ New File from Template ➤ iOS选项卡 ➤ 输入 config
 // 通用的生成方式：New Empty File ➤ 改名为`*.xcconfig` ⚠️ Xcode可能不会识别（影响范围：挂载此配置文件到Xcode工程项目的时候，无法被选中）
 // 🔨 解决方案 ➤ 拖到别处、删除Xcode对于此`*.xcconfig`的引用、再拖回来
 
-PRODUCT_NAME = SwiftDemo
-APP_DISPLAY_NAME = SwiftDemo
+PRODUCT_NAME = $(TARGET_NAME)
+APP_DISPLAY_NAME = $(PRODUCT_NAME)
 INFOPLIST_KEY_CFBundleDisplayName = $(APP_DISPLAY_NAME)
 INFOPLIST_KEY_CFBundleName = $(PRODUCT_NAME)
+
+// MARK: iOS 模拟器配置
+// M 系列芯片需要保留 arm64 模拟器能力，否则 Xcode 可能找不到可运行的 iOS Simulator。
+// IJKMediaFramework 的兼容问题由 Podfile 在模拟器链接阶段剥离 IJK，并给 ZFPlayer/ijkplayer 加条件编译保护。
+JOBS_IOS_SIMULATOR_EXCLUDED_ARCHS =
+EXCLUDED_ARCHS[sdk=iphonesimulator*] = $(JOBS_IOS_SIMULATOR_EXCLUDED_ARCHS)
+CODE_SIGNING_ALLOWED[sdk=iphonesimulator*] = YES
+
+// MARK: 本地三方二进制策略说明
+// 旧版 IJKMediaFramework 仅保留真机能力；模拟器构建使用 ZFPlayer/AVPlayer 路线。
+JOBS_IJKMEDIAFRAMEWORK_DEVICE_ONLY = YES
+
+// MARK: PCH 本地 Pods 兜底
+// PCH 编译发生得很早，部分 Development Pod 的 public header 产物可能尚未生成。
+// 这里只兜底根入口头和 Core 公开头，避免 Support 内部同名头被 App 层误命中。
+HEADER_SEARCH_PATHS = $(inherited) "$(SRCROOT)/JobsByPods/*@Pods" "$(SRCROOT)/JobsByPods/*@Pods/Core" "$(SRCROOT)/JobsByPods/*@Pods/Core/**" "$(SRCROOT)/JobsByPods/ManualByOCPods@Pods/*" "$(SRCROOT)/JobsByPods/ManualByOCPods@Pods/*/Core" "$(SRCROOT)/JobsByPods/ManualByOCPods@Pods/*/Core/**"

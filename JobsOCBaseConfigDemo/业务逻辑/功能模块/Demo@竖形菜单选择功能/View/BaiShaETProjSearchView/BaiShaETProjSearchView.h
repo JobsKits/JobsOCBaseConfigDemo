@@ -1,11 +1,23 @@
 //
 //  BaiShaETProjSearchView.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseView.h"
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

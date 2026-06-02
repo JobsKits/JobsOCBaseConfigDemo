@@ -1,20 +1,49 @@
 //
 //  FMHomeWebVC.h
-//  FMOnlyH5
+//  JobsOCBaseConfigDemo
 //
-//  Created by Admin on 7/3/2025.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseViewController.h"
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
+#else
+#import "JobsBaseUI.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 /**
- 
- 产品：https://www.bsports.ph/
- UAT：https://bsports.net.ph
- 测试：https://www.sports3333.com
- 开发：https://www.sports5555.com
- 
+
+     产品：https://www.bsports.ph/
+     UAT：https://bsports.net.ph
+     测试：https://www.sports3333.com
+     开发：https://www.sports5555.com
  */
 @interface FMHomeWebVC : BaseViewController
 <

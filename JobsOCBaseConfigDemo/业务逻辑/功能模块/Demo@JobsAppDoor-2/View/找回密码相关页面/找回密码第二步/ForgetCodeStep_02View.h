@@ -1,15 +1,19 @@
 //
-//  ForgetCodeStep_02.h
-//  Shooting
+//  ForgetCodeStep_02View.h
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/9/6.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseView.h"
 #import "JobsAppDoorInputViewHeader.h"
 #import "JobsAppDoorInputViewBaseStyle.h"
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

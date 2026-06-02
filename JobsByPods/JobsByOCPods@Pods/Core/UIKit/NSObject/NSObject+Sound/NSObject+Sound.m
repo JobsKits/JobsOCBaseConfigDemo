@@ -1,0 +1,47 @@
+//
+//  NSObject+Sound.m
+//  JobsByOCPods
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import "NSObject+Sound.h"
+
+@implementation NSObject (Sound)
+/// 播放自定义本地声音
+/// fileName 文件名 包含后缀
+-(jobsByStrBlock)playSoundWithFileName{
+    return ^(NSString *_Nullable fileName){
+        SystemSoundID soundID;
+        /// 得到音效文件的地址
+        NSURL *url = fileName.pathForResourceWithName.jobsFileUrl;
+        /// 生成系统音效id
+        OSStatus errorCode = AudioServicesCreateSystemSoundID((__bridge CFURLRef)(url) , &soundID);
+        if (errorCode) {
+            JobsLog(@"create sound failed");
+            return;
+        }
+        /// 播放系统音效
+        AudioServicesPlaySystemSound(soundID);
+    };
+}
+/// 播放自定义本地声音
+/// fileName 全文件名 包含后缀
+-(jobsByStrBlock)playSoundEffect{
+    return ^(NSString *_Nullable fileFullName){
+        FileNameModel *fileNameModel = fileFullName.byFileFullName(fileFullName);
+        SystemSoundID soundID;
+        /// 得到音效文件的地址
+        NSString *soundFilePath = fileNameModel.name.add(fileNameModel.type).pathForResourceWithFullName;
+        /// 生成系统音效id
+        OSStatus errorCode = AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundFilePath.jobsUrl, &soundID);
+        if (errorCode) {
+            JobsLog(@"create sound failed");
+            return;
+        }
+        /// 播放系统音效
+        AudioServicesPlaySystemSound(soundID);
+    };
+}
+
+@end

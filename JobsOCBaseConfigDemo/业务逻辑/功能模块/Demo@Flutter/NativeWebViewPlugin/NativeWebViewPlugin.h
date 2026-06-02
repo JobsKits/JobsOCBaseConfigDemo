@@ -2,10 +2,9 @@
 //  NativeWebViewPlugin.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 15/7/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
 #if __has_include(<Flutter/Flutter.h>)

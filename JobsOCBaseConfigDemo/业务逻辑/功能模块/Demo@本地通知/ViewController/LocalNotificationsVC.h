@@ -1,13 +1,43 @@
 //
 //  LocalNotificationsVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
-//  Created by admin on 5/26/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseViewController.h"
-#import "JobsMakeLocalNotification.h"
+#import <UIKit/UIKit.h>
 #import "AppDelegate.h"
+#import "JobsMakeLocalNotification.h"
+
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
+#else
+#import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
+#else
+#import "JobsBaseUI.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +49,6 @@ NS_ASSUME_NONNULL_END
 /**
  额外的，还需要配置 AppDelegate
  
- #import "AppDelegate.h"
  @import UserNotifications;
 
  @interface AppDelegate () <UNUserNotificationCenterDelegate>

@@ -1,0 +1,38 @@
+//
+//  JXCategoryListContainerView+Extra.h
+//  JobsBy3rdExtras
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_JXCATEGORYLISTCONTAINERVIEW_EXTRA_D270227160
+#define JOBS_HEADER_GUARD_JXCATEGORYLISTCONTAINERVIEW_EXTRA_D270227160
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JXCategoryView/JXCategoryView.h>)
+#import <JXCategoryView/JXCategoryView.h>
+#else
+#import "JXCategoryView.h"
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface JXCategoryListContainerView (Extra)
+
+-(JobsReturnCategoryListContainerViewByNSIntegerBlock _Nonnull)byDefaultSelectedIndex;
+
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JXCATEGORYLISTCONTAINERVIEW_EXTRA_D270227160 */

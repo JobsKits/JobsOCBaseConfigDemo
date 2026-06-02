@@ -1,8 +1,8 @@
 //
 //  ZBRequestManagerApi.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
-//  Created by User on 9/21/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef ZBRequestManagerApi_h

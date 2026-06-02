@@ -1,8 +1,8 @@
 //
 //  CtrlClipboardCueVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2024/4/26.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "CtrlClipboardCueVC.h"
@@ -11,8 +11,8 @@
 /// UI
 Prop_strong()BaseLabel *label;
 /// Data
-Prop_copy()NSString *textData1;/// 页面上显示的数据
-Prop_copy()NSString *textData2;/// 来自于剪切板存储的数据
+Prop_copy()NSString *textData1;// 页面上显示的数据
+Prop_copy()NSString *textData2;// 来自于剪切板存储的数据
 
 @end
 

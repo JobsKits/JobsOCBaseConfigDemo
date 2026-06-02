@@ -1,12 +1,27 @@
 //
-//  MKCommentModel.h
-//  MonkeyKingVideo
+//  JobsCommentModel.h
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/7/23.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseModel.h"
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 /// 对应字段 child
@@ -65,7 +80,6 @@ Prop_assign()NSInteger firstShowNum;//在满足限制条件的情况下，第一
 Prop_assign()NSInteger loadMoreDataNum;//加载更多数据,一次加载的个数，为0全加载
 
 @end
-
 
 NS_ASSUME_NONNULL_END
 

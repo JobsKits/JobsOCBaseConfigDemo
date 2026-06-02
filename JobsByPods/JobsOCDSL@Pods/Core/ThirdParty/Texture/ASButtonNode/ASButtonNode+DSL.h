@@ -1,0 +1,51 @@
+//
+//  ASButtonNode+DSL.h
+//  JobsBy3rdExtras
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_ASBUTTONNODE_DSL_B84AAEA0DD
+#define JOBS_HEADER_GUARD_ASBUTTONNODE_DSL_B84AAEA0DD
+
+#import <Foundation/Foundation.h>
+#import <AsyncDisplayKit/AsyncDisplayKit.h>
+#if __has_include(<AsyncDisplayKit/ASButtonNode.h>)
+#import <AsyncDisplayKit/ASButtonNode.h>
+#else
+#import "ASButtonNode.h"
+#endif
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#import <objc/runtime.h>
+
+NS_ASSUME_NONNULL_BEGIN
+/// ASButtonNode 链式 DSL（节选：标题/图片/边距/圆角/事件）
+@interface ASButtonNode (DSL)
+
+-(JobsRetButtonNodeByTitleConfigBlock _Nonnull)byTitle;
+-(JobsRetButtonNodeImageByConfigBlock _Nonnull)byImage;
+-(JobsRetButtonNodeByHitTestSlopBlock _Nonnull)byContentEdgeInsets;
+-(JobsRetButtonNodeByBackgroundColorsBlock _Nonnull)byBackgroundColor;
+-(JobsRetButtonNodeByCornerRadiusBlock _Nonnull)byCornerRadius;
+-(JobsRetButtonNodeByHitTestSlopBlock _Nonnull)byHitTestSlop;
+/// 短按（点击）封装
+-(JobsRetButtonNodeByOnClickBlock _Nonnull)onClickBy;
+/// 长按封装（默认 & 自定义）
+-(JobsRetButtonNodeByOnLongPressBlock _Nonnull)onLongPressGestureBy;
+-(JobsRetButtonNodeByOnLongPressWithTimeBlock _Nonnull)onLongPressGestureWith;
+
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_ASBUTTONNODE_DSL_B84AAEA0DD */

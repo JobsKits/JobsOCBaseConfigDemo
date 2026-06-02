@@ -1,37 +1,36 @@
 //
 //  JobsAppDoorVC_Style2.h
-//  JobsAppDoor
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/12/7.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseViewController.h"
 #import "JobsAppDoorConfig.h"
 #import "JobsAppDoorLogoContentView.h"
-#import "JobsAppDoorLoginContentView.h"/// 登录
-#import "JobsAppDoorRegisterContentView.h"/// 注册
-#import "JobsAppDoorForgotCodeContentView.h"/// 忘记密码
-
+#import "JobsAppDoorLoginContentView.h"      // 登录
+#import "JobsAppDoorRegisterContentView.h"   // 注册
+#import "JobsAppDoorForgotCodeContentView.h" // 忘记密码
+#import "CustomZFPlayerControlView.h"        // 播放器的控制层
 #pragma mark —— ZFPlayer 播放器相关
-//Core
+/// ZFPlayer@Core
 #if __has_include(<ZFPlayer/ZFPlayer.h>)
 #import <ZFPlayer/ZFPlayer.h>
 #else
 #import "ZFPlayer.h"
 #endif
-//AVPlayer
+/// ZFPlayer@AVPlayer
 #if __has_include(<ZFPlayer/ZFAVPlayerManager.h>)
 #import <ZFPlayer/ZFAVPlayerManager.h>
 #else
 #import "ZFAVPlayerManager.h"
 #endif
-//ijkplayer
+/// ZFPlayer@ijkplayer
 #if __has_include(<ZFPlayer/ZFIJKPlayerManager.h>)
 #import <ZFPlayer/ZFIJKPlayerManager.h>
 #else
 #import "ZFIJKPlayerManager.h"
 #endif
-//ControlView
+/// ZFPlayer@ControlView
 #if __has_include(<ZFPlayer/UIImageView+ZFCache.h>)
 #import <ZFPlayer/UIImageView+ZFCache.h>
 #else
@@ -104,11 +103,39 @@
 #import "ZFVolumeBrightnessView.h"
 #endif
 
-#import "CustomZFPlayerControlView.h"//播放器的控制层
+#pragma mark —— By Jobs
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
+#else
+#import "JobsBaseUI.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
-
-//注册和登录共用一个控制器DoorVC；忘记密码单独一个控制器
+/// 注册和登录共用一个控制器DoorVC；忘记密码单独一个控制器
 @interface JobsAppDoorVC_Style2 : BaseViewController
 
 @end

@@ -1,0 +1,57 @@
+//
+//  NSString+HexadecimalData.h
+//  JobsCryptography
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_NSSTRING_HEXADECIMALDATA_C03688162B
+#define JOBS_HEADER_GUARD_NSSTRING_HEXADECIMALDATA_C03688162B
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface NSString (HexadecimalData)
+#pragma mark —— HexadecimalData <==> NSString
+///【类方法】16进制字符串 转换成 普通的NSString对象
++(JobsRetStrByStrBlock _Nonnull)stringByHexString;
+///【实例方法】16进制字符串 转换成 普通的NSString对象
+-(NSString *_Nullable)stringByHexString;
+///【类方法】普通的NSString对象 转换成 16进制字符串
++(JobsRetStrByStrBlock _Nonnull)hexStringByString;
+///【实例方法】普通的NSString对象 转换成 16进制字符串
+-(NSString *_Nullable)hexStringByString;
+#pragma mark —— HexadecimalData ==> UIImage
+///【类方法】16进制字符串 转换为 UIImage对象
++(JobsRetImageByStrBlock _Nonnull)imageByHexString;
+///【实例方法】16进制字符串 转换为 UIImage对象
+-(UIImage *_Nullable)imageByHexString;
+#pragma mark —— HexadecimalData ==> NSData
+///【类方法】16进制字符串 转换为 NSData对象
++(JobsRetDataByStrBlock _Nonnull)dataByHexString;
+///【实例方法】16进制字符串 转换为 NSData对象
+-(NSData *_Nullable)dataByHexString;
+
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSSTRING_HEXADECIMALDATA_C03688162B */

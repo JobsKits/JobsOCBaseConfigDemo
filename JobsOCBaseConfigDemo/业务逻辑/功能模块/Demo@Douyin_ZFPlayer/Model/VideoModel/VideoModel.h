@@ -1,11 +1,27 @@
 //
 //  VideoModel.h
-//  DouYin
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/9/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseModel.h"
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

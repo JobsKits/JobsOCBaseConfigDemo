@@ -1,0 +1,131 @@
+//
+//  JobsTabBarVC.h
+//  JobsOCTools
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_JOBSTABBARVC_5B51D625DE
+#define JOBS_HEADER_GUARD_JOBSTABBARVC_5B51D625DE
+
+#import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h> // 提供 Core Animation 和 CALayer 能力，用于动画、图层和视觉渲染。
+#import <JobsOCTools/UITabBar+Ex.h>
+#import <JobsOCTools/TLTabBarAnimation.h>
+#import <JobsOCTools/UITabBar+TLAnimation.h>
+#import <JobsOCTools/UITabBarItem+TLAnimation.h>
+#import <JobsOCTools/TransitionController.h>
+#import <JobsOCTools/TransitionAnimation.h>
+#import <JobsOCTools/JobsPullListAutoSizeView.h>
+#import <JobsOCTools/JobsTabBarItemConfig.h>
+#import <JobsOCTools/JobsTabBarItem.h>
+#import <JobsOCTools/JobsTabBar.h>
+
+#if __has_include(<lottie-ios/Lottie.h>)
+#import <lottie-ios/Lottie.h>
+#else
+#import "Lottie.h"
+#endif
+
+#if __has_include(<PPBadgeView/PPBadgeView.h>)
+#import <PPBadgeView/PPBadgeView.h>
+#else
+#import "PPBadgeView.h"
+#endif
+
+#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
+#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
+#else
+#import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
+#else
+#import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
+#else
+#import "JobsBaseUI.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsSuspend/JobsSuspend.h>)
+#import <JobsSuspend/JobsSuspend.h>
+#else
+#import "JobsSuspend.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+/*
+ * 1、如果用系统的 UITabBarController —— UITabBar 当关联VC ＞ 6 个的时候，最后一个会变成more按钮，其余的VC会在more按钮里面形成一个TableView来进行展现
+ * 2、如果希望下方是可以滑动的效果，只能用UIView系列来实现，这里推崇第三方工具库 pod 'JXCategoryView'  # https://github.com/pujiaxin33/JXCategoryView A powerful and easy to use category view (segmentedcontrol, segmentview, pagingview, pagerview, pagecontrol) (腾讯新闻、今日头条、QQ音乐、网易云音乐、京东、爱奇艺、腾讯视频、淘宝、天猫、简书、微博等所有主流App分类切换滚动视图)
+ */
+/// 此类仅仅对系统给出的 UITabBarController —— UITabBar做最大程度上的增加功能，并且解耦
+@interface JobsTabBarVC : UITabBarController
+<
+UITabBarControllerDelegate,
+UIGestureRecognizerDelegate,
+BaseProtocol
+>
+/// UI
+Prop_strong(readonly)JobsTabBar * _Nonnull myTabBar; // myTabBar.humpOffsetY 凸起的高度自定义，默认值30  offsetHeight
+/// Data
+Prop_assign()BOOL isOpenScrollTabbar; // 是否开启手势横向滚动子VC联动Tabbar切换，默认开启
+Prop_assign()BOOL isAnimationAlert; // 图片从小放大
+Prop_assign()BOOL isShakerAnimation; // 重力弹跳动画效果
+Prop_assign()BOOL isPlaySound; // 点击声
+Prop_assign()BOOL isFeedbackGenerator; // 振动反馈
+Prop_assign()BOOL isJumpToNextVC; // 当需要跳开的item,是否是需要直接跳到下一个VC？默认NO
+#pragma mark —— 初始化方法
+///【单例模式】使用外界自定义的JobsTabBar
++(instancetype _Nonnull)sharedInstanceWithJobsTabBar:(JobsTabBar *_Nullable)tabBar;
+/// 一般的初始化模式
+-(instancetype _Nonnull)initWithJobsTabBar:(JobsTabBar *_Nonnull)tabBar;
+#pragma mark —— 一些公有方法
+/// 需要强制跳转登录的index。点击和手势滑动都需要共同调用
+-(JobsRetBOOLByNSUIntegerBlock _Nullable)forcedLoginIndex;
+/// 关闭手势
+-(jobsByVoidBlock _Nullable)closePan;
+/// 打开手势
+-(jobsByVoidBlock _Nullable)openPan;
+/// 开启/关闭 PPBadgeView的效果,至少在viewDidLayoutSubviews后有效
+-(jobsByBOOLBlock _Nonnull)ppBadge;
+
+@end
+
+NS_INLINE __kindof JobsTabBarVC *_Nonnull jobsMakeSharedManagerTabBarVC(jobsByTabBarVCBlock _Nonnull block){
+    JobsTabBarVC *data = JobsTabBarVC.sharedManager;
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof JobsTabBarVC *_Nonnull jobsMakeNormalTabBarVC(jobsByTabBarVCBlock _Nonnull block){
+    JobsTabBarVC *data = JobsTabBarVC.alloc.init;
+    if (block) block(data);
+    return data;
+}
+#endif /* JOBS_HEADER_GUARD_JOBSTABBARVC_5B51D625DE */

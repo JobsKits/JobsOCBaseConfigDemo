@@ -1,0 +1,71 @@
+//
+//  UITabBar+Ex.m
+//  JobsOCTools
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import "UITabBar+Ex.h"
+
+#if __has_include(<JobsStringUtils/JobsStringUtils.h>)
+#import <JobsStringUtils/JobsStringUtils.h>
+#else
+#import "JobsStringUtils.h"
+#endif
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
+@implementation UITabBar (Ex)
+/// 移除系统的 UITabBarButton
+-(void)deleteUITabBarButton{
+    for (UIView *childView in self.subviews) {
+        if ([childView isKindOfClass:UIControl.class]) {//UITabBarButton
+            [childView removeFromSuperview];
+        }
+    }
+}
+
+-(LOTAnimationView *_Nullable)addLottieImage:(NSUInteger)index lottieName:(NSString *_Nullable)lottieName{
+    // lottieName 存在才对LOTAnimationView及其相关控件进行创建
+    LOTAnimationView *lottieView = nil;
+    if (isValue(lottieName) && lottieName) {
+        lottieView = [LOTAnimationView animationNamed:lottieName];
+        [self addSubview:lottieView];
+        lottieView.userInteractionEnabled = NO;
+        lottieView.contentMode = UIViewContentModeScaleAspectFit;
+        lottieView.tag = 888 + index;
+        lottieView.backgroundColor = JobsYellowColor;
+    }return lottieView;
+}
+
+-(jobsByNSIntegerBlock _Nonnull)animationLottieImageBy{
+    @jobs_weakify(self)
+    return ^(NSInteger index){
+        @jobs_strongify(self)
+        self.stopAnimationAllLottieView();
+        LOTAnimationView *lottieView = [self viewWithTag:888 + index];
+        if (lottieView && [lottieView isKindOfClass:LOTAnimationView.class]) {
+            lottieView.animationProgress = 0;
+            [lottieView play];
+        }
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)stopAnimationAllLottieView{
+    @jobs_weakify(self)
+    return ^(){
+        @jobs_strongify(self)
+        for (int i = 0; i < self.items.count; i++) {
+            LOTAnimationView *lottieView = [self viewWithTag:888 + i];
+            if (lottieView && [lottieView isKindOfClass:LOTAnimationView.class]) {
+                [lottieView stop];
+            }
+        }
+    };
+}
+
+@end

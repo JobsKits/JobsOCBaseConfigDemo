@@ -1,17 +1,47 @@
 //
-//  LoginContentView.h
-//  Shooting
+//  JobsAppDoorLoginContentView.h
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/9/3.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <UIKit/UIKit.h>
-#import "JobsDoorInputViewProtocol.h"
-#import "BaseViewProtocol.h"
-#import "JobsAppDoorInputViewHeader.h"
-#import "JobsAppDoorConfig.h"
-#import "BaseContentView.h"
+
+#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
+#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
+#else
+#import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsOCTools/JobsOCTools.h>)
+#import <JobsOCTools/JobsOCTools.h>
+#else
+#import "JobsOCTools.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 /// 登录页

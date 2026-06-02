@@ -1,0 +1,53 @@
+//
+//  NSString+Extra.h
+//  JobsAppTools
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_NSSTRING_EXTRA_DBFACB2B9C
+#define JOBS_HEADER_GUARD_NSSTRING_EXTRA_DBFACB2B9C
+
+#pragma once
+
+#import <Foundation/Foundation.h>
+
+#if __has_include(<JobsStringUtils/JobsStringUtils.h>)
+#import <JobsStringUtils/JobsStringUtils.h>
+#else
+#import "JobsStringUtils.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface NSString (Extra)
+/// 获取一行字符串的高度
+/// 这个方法仅计算文本本身的高度，不包括行间距等因素
+-(JobsRetCGFloatByFontBlock _Nonnull)widthBy;
+/// OC字符串拼接
+-(JobsRetStrByStrBlock _Nonnull)add;
+/// 字符串是否包含URL【返回YES包含】
+-(BOOL)isContainsUrl;
+
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSSTRING_EXTRA_DBFACB2B9C */

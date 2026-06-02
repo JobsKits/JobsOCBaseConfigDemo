@@ -1,0 +1,67 @@
+# 默认全部忽略
+*
+
+# 保留 CocoaPods 依赖元数据
+!Podfile
+!Podfile.lock
+!Podfile.deps
+!Pods/
+!Pods/Manifest.lock
+!Pods/Local Podspecs/
+!Pods/Local Podspecs/**
+!Pods/Target Support Files/
+!Pods/Target Support Files/**
+
+# 保留 Pods 目录结构
+!Pods/**/
+
+# 保留源码
+!Pods/**/*.h
+!Pods/**/*.m
+!Pods/**/*.mm
+!Pods/**/*.swift
+!Pods/**/*.c
+!Pods/**/*.cc
+!Pods/**/*.cpp
+!Pods/**/*.hpp
+
+# 保留模块 / 配置 / podspec
+!Pods/**/*.podspec
+!Pods/**/*.podspec.json
+!Pods/**/*.modulemap
+!Pods/**/*.xcconfig
+!Pods/**/*.pbxproj
+
+# 排除 Graphify 输出
+graphify-out/
+
+# 排除版本控制和构建产物
+.git/
+DerivedData/
+build/
+Build/
+
+# 排除资源和文档，避免超阈值
+Pods/**/*.png
+Pods/**/*.jpg
+Pods/**/*.jpeg
+Pods/**/*.gif
+Pods/**/*.webp
+Pods/**/*.svg
+Pods/**/*.pdf
+Pods/**/*.doc
+Pods/**/*.docx
+Pods/**/*.xls
+Pods/**/*.xlsx
+Pods/**/*.ppt
+Pods/**/*.pptx
+Pods/**/*.mp4
+Pods/**/*.mov
+Pods/**/*.json
+Pods/**/*.plist
+Pods/**/*.storyboard
+Pods/**/*.xib
+Pods/**/*.xcassets/**
+Pods/**/Assets/**
+Pods/**/Resources/**
+Pods/**/*.bundle/**

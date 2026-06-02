@@ -1,9 +1,8 @@
 //
 //  RequestTool.m
-//  ZBNetworkingDemo
+//  JobsOCBaseConfigDemo
 //
-//  Created by Suzhibin on 2020/6/2.
-//  Copyright © 2020 Suzhibin. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "RequestTool.h"
@@ -165,4 +164,3 @@
 }
 
 @end
-

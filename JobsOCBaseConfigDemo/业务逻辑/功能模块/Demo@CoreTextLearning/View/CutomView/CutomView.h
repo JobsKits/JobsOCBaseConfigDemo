@@ -1,8 +1,8 @@
 //
 //  CutomView.h
-//  CoreTextLearning
+//  JobsOCBaseConfigDemo
 //
-//  Created by alan comb on 2021/4/2.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <UIKit/UIKit.h>

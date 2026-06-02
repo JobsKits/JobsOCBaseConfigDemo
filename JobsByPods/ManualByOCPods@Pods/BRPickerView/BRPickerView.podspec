@@ -26,14 +26,10 @@ Pod::Spec.new do |s|
   s.source_files        = 'BRPickerView.h'
   s.public_header_files = 'BRPickerView.h'
 
-  # 只拷贝真实资源产物，避免把 Resources 目录本身复制到 App 根目录后被安装器误判为 bundle。
+  # iOS App 根目录不能复制名为 Resources 的文件夹，否则 CodeSign 会误判 bundle 结构。
   s.resources = [
     'Resources/BRPickerView.bundle',
     'Resources/PrivacyInfo.xcprivacy'
-  ]
-
-  s.preserve_paths = [
-    'Resources'
   ]
 
   support_context = JobsPodspecKitForBRPickerView.build_support_context(
@@ -45,6 +41,8 @@ Pod::Spec.new do |s|
   s.subspec 'Core' do |ss|
     ss.source_files        = 'Core/**/*.{h,m}'
     ss.public_header_files = 'Core/**/*.h'
+
+    ss.dependency 'JobsModel'
   end
 
   # 动态把 Support 目录按真实目录结构生成为 subspec：

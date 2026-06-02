@@ -1,0 +1,412 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7A1C892F26D5E438005EA95F /* DefaultDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1C892E26D5E438005EA95F /* DefaultDemoViewController.swift */; };
+		7A833A1526944A5A008E26AC /* GTCaptcha4.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7A833A1426944A5A008E26AC /* GTCaptcha4.bundle */; };
+		7A8A115E2514A51900E65785 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A8A115D2514A51900E65785 /* AppDelegate.m */; };
+		7A8A11642514A51900E65785 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A8A11632514A51900E65785 /* ViewController.m */; };
+		7A8A116C2514A52000E65785 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A8A116A2514A52000E65785 /* LaunchScreen.storyboard */; };
+		7A8A116F2514A52000E65785 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A8A116E2514A52000E65785 /* main.m */; };
+		7A97792C2521C14900C90403 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A8A11682514A52000E65785 /* Assets.xcassets */; };
+		7A97792E2521C14D00C90403 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A8A11652514A51900E65785 /* Main.storyboard */; };
+		E97F95A92C8EA23E00372335 /* GTCaptcha4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E97F95A82C8EA23E00372335 /* GTCaptcha4.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7A1C892E26D5E438005EA95F /* DefaultDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultDemoViewController.swift; sourceTree = "<group>"; };
+		7A4966F425411C7C00622E52 /* HelloGTCaptcha4-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HelloGTCaptcha4-Bridging-Header.h"; sourceTree = "<group>"; };
+		7A833A1226944A26008E26AC /* GTCaptcha4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GTCaptcha4.framework; path = ../SDK/GTCaptcha4.framework; sourceTree = "<group>"; };
+		7A833A1426944A5A008E26AC /* GTCaptcha4.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GTCaptcha4.bundle; path = ../SDK/GTCaptcha4.bundle; sourceTree = "<group>"; };
+		7A8A11592514A51900E65785 /* HelloGTCaptcha4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloGTCaptcha4.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A8A115C2514A51900E65785 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		7A8A115D2514A51900E65785 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7A8A11622514A51900E65785 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		7A8A11632514A51900E65785 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		7A8A11662514A51900E65785 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7A8A11682514A52000E65785 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7A8A116B2514A52000E65785 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7A8A116D2514A52000E65785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A8A116E2514A52000E65785 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E97F95A82C8EA23E00372335 /* GTCaptcha4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GTCaptcha4.framework; path = ../SDK/GTCaptcha4.framework; sourceTree = "<group>"; };
+		E99469BC2B43F03D005D3D47 /* GTCaptcha4.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GTCaptcha4.xcframework; path = ../SDK/XCFramework/GTCaptcha4.xcframework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7A8A11562514A51900E65785 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E97F95A92C8EA23E00372335 /* GTCaptcha4.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7A1A44F2252431BE00569836 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E99469BC2B43F03D005D3D47 /* GTCaptcha4.xcframework */,
+				7A833A1226944A26008E26AC /* GTCaptcha4.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7A4966F325411C4100622E52 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				7A4966F425411C7C00622E52 /* HelloGTCaptcha4-Bridging-Header.h */,
+				7A1C892E26D5E438005EA95F /* DefaultDemoViewController.swift */,
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
+		7A8A11502514A51900E65785 = {
+			isa = PBXGroup;
+			children = (
+				E97F95A82C8EA23E00372335 /* GTCaptcha4.framework */,
+				7A833A1426944A5A008E26AC /* GTCaptcha4.bundle */,
+				7A8A115B2514A51900E65785 /* HelloGTCaptcha4 */,
+				7A8A115A2514A51900E65785 /* Products */,
+				7A1A44F2252431BE00569836 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		7A8A115A2514A51900E65785 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7A8A11592514A51900E65785 /* HelloGTCaptcha4.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7A8A115B2514A51900E65785 /* HelloGTCaptcha4 */ = {
+			isa = PBXGroup;
+			children = (
+				7A4966F325411C4100622E52 /* Swift */,
+				7A8A115C2514A51900E65785 /* AppDelegate.h */,
+				7A8A115D2514A51900E65785 /* AppDelegate.m */,
+				7A8A11622514A51900E65785 /* ViewController.h */,
+				7A8A11632514A51900E65785 /* ViewController.m */,
+				7A8A11652514A51900E65785 /* Main.storyboard */,
+				7A8A11682514A52000E65785 /* Assets.xcassets */,
+				7A8A116A2514A52000E65785 /* LaunchScreen.storyboard */,
+				7A8A116D2514A52000E65785 /* Info.plist */,
+				7A8A116E2514A52000E65785 /* main.m */,
+			);
+			path = HelloGTCaptcha4;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7A8A11582514A51900E65785 /* HelloGTCaptcha4 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A8A11722514A52000E65785 /* Build configuration list for PBXNativeTarget "HelloGTCaptcha4" */;
+			buildPhases = (
+				7A8A11552514A51900E65785 /* Sources */,
+				7A8A11562514A51900E65785 /* Frameworks */,
+				7A8A11572514A51900E65785 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HelloGTCaptcha4;
+			productName = HelloSenseBot4;
+			productReference = 7A8A11592514A51900E65785 /* HelloGTCaptcha4.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7A8A11512514A51900E65785 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1110;
+				ORGANIZATIONNAME = geetest;
+				TargetAttributes = {
+					7A8A11582514A51900E65785 = {
+						CreatedOnToolsVersion = 11.1;
+						LastSwiftMigration = 1120;
+					};
+				};
+			};
+			buildConfigurationList = 7A8A11542514A51900E65785 /* Build configuration list for PBXProject "HelloGTCaptcha4" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7A8A11502514A51900E65785;
+			productRefGroup = 7A8A115A2514A51900E65785 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7A8A11582514A51900E65785 /* HelloGTCaptcha4 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7A8A11572514A51900E65785 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A833A1526944A5A008E26AC /* GTCaptcha4.bundle in Resources */,
+				7A8A116C2514A52000E65785 /* LaunchScreen.storyboard in Resources */,
+				7A97792E2521C14D00C90403 /* Main.storyboard in Resources */,
+				7A97792C2521C14900C90403 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7A8A11552514A51900E65785 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A8A11642514A51900E65785 /* ViewController.m in Sources */,
+				7A8A115E2514A51900E65785 /* AppDelegate.m in Sources */,
+				7A8A116F2514A52000E65785 /* main.m in Sources */,
+				7A1C892F26D5E438005EA95F /* DefaultDemoViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7A8A11652514A51900E65785 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7A8A11662514A51900E65785 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7A8A116A2514A52000E65785 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7A8A116B2514A52000E65785 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7A8A11702514A52000E65785 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		7A8A11712514A52000E65785 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7A8A11732514A52000E65785 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 84Y6P7GMN8;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HelloGTCaptcha4",
+					"$(PROJECT_DIR)/../SDK",
+					"$(PROJECT_DIR)",
+				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../SDK";
+				INFOPLIST_FILE = HelloGTCaptcha4/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../SDK";
+				MARKETING_VERSION = 1.4.3;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.geetest.HelloGTCapcha4.tiger;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HelloGTCaptcha4/Swift/HelloGTCaptcha4-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7A8A11742514A52000E65785 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2448B7W898;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HelloGTCaptcha4",
+					"$(PROJECT_DIR)/../SDK",
+					"$(PROJECT_DIR)",
+				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../SDK";
+				INFOPLIST_FILE = HelloGTCaptcha4/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../SDK";
+				MARKETING_VERSION = 1.4.3;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.geetest.HelloGTCapcha4;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HelloGTCaptcha4/Swift/HelloGTCaptcha4-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7A8A11542514A51900E65785 /* Build configuration list for PBXProject "HelloGTCaptcha4" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A8A11702514A52000E65785 /* Debug */,
+				7A8A11712514A52000E65785 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A8A11722514A52000E65785 /* Build configuration list for PBXNativeTarget "HelloGTCaptcha4" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A8A11732514A52000E65785 /* Debug */,
+				7A8A11742514A52000E65785 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7A8A11512514A51900E65785 /* Project object */;
+}

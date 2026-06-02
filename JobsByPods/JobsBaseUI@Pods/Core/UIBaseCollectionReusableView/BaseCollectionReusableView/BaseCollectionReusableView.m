@@ -1,0 +1,63 @@
+//
+//  BaseCollectionReusableView.m
+//  JobsBaseUI
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import "BaseCollectionReusableView.h"
+#import <JobsBaseUI/UIView+Extra.h>
+
+@interface BaseCollectionReusableView ()
+
+@end
+
+@implementation BaseCollectionReusableView
+/// UITextFieldProtocol
+UITextFieldProtocol_synthesize_part2
+/// UIPictureAndBackGroundCorProtocol
+UIPictureAndBackGroundCorProtocol_synthesize
+/// AppToolsProtocol
+@synthesize viewModel = _viewModel;
+-(instancetype)initWithFrame:(CGRect)frame{
+    if (self = [super initWithFrame:frame]) {
+        self.jobsRichViewByModel(nil);
+    }return self;
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches
+          withEvent:(UIEvent *)event{
+    @jobs_weakify(self)
+    if (self.objBlock) self.objBlock(weak_self);
+}
+/// 由具体的子类进行覆写
+-(jobsByIDBlock _Nonnull)jobsRichViewByModel{
+    @jobs_weakify(self)
+    return ^(UIViewModel *_Nullable model) {
+        @jobs_strongify(self)
+        self.viewModel = model;
+        self.bgImageView.byVisible(model.bgImage ? YES : NO);
+    };
+}
+/// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
+/// UICollectionViewDelegateFlowLayout
++(JobsRetCGSizeByIDBlock _Nonnull)collectionReusableViewSizeByModel{
+    return ^(id _Nullable data){
+        return CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(50));
+    };
+}
+#pragma mark —— lazyLoad
+-(UIImageView *)bgImageView{
+    if (!_bgImageView) {
+        @jobs_weakify(self)
+        _bgImageView = self.addSubview(jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            @jobs_strongify(self)
+            imageView.image = self.viewModel.bgImage;
+        })).setMasonryBy(^(MASConstraintMaker *_Nonnull make){
+            @jobs_strongify(self)
+            make.edges.equalTo(self);
+        }).on();
+    }return _bgImageView;
+}
+
+@end

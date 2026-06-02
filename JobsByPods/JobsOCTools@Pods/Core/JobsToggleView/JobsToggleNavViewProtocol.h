@@ -1,0 +1,62 @@
+//
+//  JobsToggleNavViewProtocol.h
+//  JobsOCTools
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_JOBSTOGGLENAVVIEWPROTOCOL_0B262DEEB1
+#define JOBS_HEADER_GUARD_JOBSTOGGLENAVVIEWPROTOCOL_0B262DEEB1
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+
+@protocol JobsToggleNavViewProtocol <NSObject>
+@optional
+/// 滑块之间的距离
+Prop_assign()CGFloat btn_each_offset;
+/// 滑块颜色
+Prop_strong()UIColor *sliderColor;
+/// 滑块宽度
+Prop_assign()CGFloat sliderW;
+/// 滑块高度
+Prop_assign()CGFloat sliderH;
+/// 当前选择的标签按钮 index
+Prop_assign(readonly)NSUInteger current_index;
+
+@end
+
+NS_ASSUME_NONNULL_END
+
+#pragma mark —— @synthesize UITextModelProtocol
+/// 和 UIViewModel 重复定义的部分
+#ifndef JobsToggleNavViewProtocolSynthesize
+#define JobsToggleNavViewProtocolSynthesize \
+@synthesize btn_each_offset = _btn_each_offset;\
+@synthesize sliderColor = _sliderColor;\
+@synthesize sliderW = _sliderW;\
+@synthesize sliderH = _sliderH;\
+@synthesize current_index = _current_index;\
+@synthesize buttonModel = _buttonModel;\
+
+#endif
+
+#pragma mark —— @dynamic UITextModelProtocol
+#ifndef JobsToggleNavViewProtocol_dynamic
+#define JobsToggleNavViewProtocol_dynamic \
+@dynamic btn_each_offset;\
+@dynamic sliderColor;\
+@dynamic sliderW;\
+@dynamic sliderH;\
+@dynamic current_index;\
+@dynamic buttonModel;\
+
+#endif
+#endif /* JOBS_HEADER_GUARD_JOBSTOGGLENAVVIEWPROTOCOL_0B262DEEB1 */

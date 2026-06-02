@@ -1,12 +1,23 @@
 //
 //  JobsGetiOSNewestVersionModel.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/5/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <Foundation/Foundation.h>
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

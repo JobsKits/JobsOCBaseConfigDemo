@@ -1,0 +1,77 @@
+//
+//  JobsWebViewController.m
+//  JobsBaseUI
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import "JobsWebViewController.h"
+#import <JobsBaseUI/NSNotificationCenter+JobsBlock.h>
+#import <JobsBaseUI/UIView+Extra.h>
+
+@interface JobsWebViewController ()
+
+@end
+
+@implementation JobsWebViewController
+
++(JobsRetVCByWebViewBlock _Nonnull)initByWebView{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController <BaseViewControllerProtocol>*_Nullable(__kindof WKWebView *_Nonnull webView){
+        @jobs_strongify(self)
+        UIViewController <BaseViewControllerProtocol>*vc = (UIViewController *)self.class.new;
+        vc.webView = webView;
+        vc.view.addSubview(webView);
+        webView.frame = vc.view.bounds;
+        return vc;
+    };
+}
+
+-(void)dealloc{
+    JobsNotificationCenter.remove(self);
+    JobsLog(@"%@",JobsLocalFunc);
+}
+
+-(void)loadView{
+    [super loadView];
+    id<BaseProtocol> baseProtocolSelf = (id<BaseProtocol>)self;
+    if ([baseProtocolSelf.requestParams isKindOfClass:UIViewModel.class]) {
+        self.viewModel = (UIViewModel *)baseProtocolSelf.requestParams;
+        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+            self.pushOrPresent = self.viewModel.pushOrPresent;
+        }
+    }
+}
+
+-(void)viewDidLoad {
+    [super viewDidLoad];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
+
+-(void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    JobsLog(@"");
+}
+
+-(void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    JobsLog(@"");
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+//    self.restoreStatusBarCor(nil);
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+}
+
+@end

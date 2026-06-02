@@ -1,8 +1,8 @@
 //
 //  FM_GetKYCInfo_api.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
-//  Created by User on 10/10/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "FM_GetKYCInfo_api.h"

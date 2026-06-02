@@ -1,0 +1,124 @@
+//
+//  UIView+ZFPlayer.m
+//  JobsByOCPods
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import "UIView+ZFPlayer.h"
+
+@implementation UIView (ZFPlayer)
+#pragma mark —— 一些公有方法
+-(void)enterBackgroundStopPlayer{
+    @jobs_weakify(self)
+    [JobsNotificationCenter addObserverForName:退到后台停止播放ZFPlayer
+                                        object:nil
+                                         queue:nil
+                                    usingBlock:^(NSNotification * _Nonnull notification) {
+        @jobs_strongify(self)
+//        NSString *notificationName = notification.name;
+        if (objc_getAssociatedObject(self, _avPlayerManager)) {
+            [self.avPlayerManager stop];
+        }
+#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>)
+        if (objc_getAssociatedObject(self, _ijkPlayerManager)) {
+            [self.ijkPlayerManager stop];
+        }
+#endif
+    }];
+}
+#pragma mark —— @property(nonatomic,strong,nullable)ZFPlayerController *playerCtr;
+JobsKey(_playerCtr)
+@dynamic playerCtr;
+-(ZFPlayerController *)playerCtr{
+    ZFPlayerController *PlayerCtr = Jobs_getAssociatedObject(_playerCtr);
+    if (!PlayerCtr) {
+        if (objc_getAssociatedObject(self, _avPlayerManager)) {
+            @jobs_weakify(self)
+            PlayerCtr = [ZFPlayerController.alloc initWithPlayerManager:self.avPlayerManager
+                                                          containerView:self];
+            PlayerCtr.controlView = self.customPlayerControlView;
+            JobsLog(@"%@",PlayerCtr.controlView);
+            PlayerCtr.muted = YES;//静音播放
+            [PlayerCtr setPlayerDidToEnd:^(id<ZFPlayerMediaPlayback>  _Nonnull asset) {
+                @jobs_strongify(self)
+                [self.avPlayerManager replay];//设置循环播放
+            }];
+        }
+        
+#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>)
+        if (objc_getAssociatedObject(self, _ijkPlayerManager)) {
+            @jobs_weakify(self)
+            PlayerCtr = [ZFPlayerController.alloc initWithPlayerManager:self.ijkPlayerManager
+                                                          containerView:self];
+            PlayerCtr.controlView = self.customPlayerControlView;
+            JobsLog(@"%@",PlayerCtr.controlView);
+            PlayerCtr.muted = YES;//静音播放
+            [PlayerCtr setPlayerDidToEnd:^(id<ZFPlayerMediaPlayback>  _Nonnull asset) {
+                @jobs_strongify(self)
+                [self.ijkPlayerManager replay];//设置循环播放
+            }];
+        }
+#endif
+        Jobs_setAssociatedRETAIN_NONATOMIC(_playerCtr, PlayerCtr)
+    }return PlayerCtr;
+}
+
+-(void)setPlayerCtr:(ZFPlayerController *)playerCtr{
+    Jobs_setAssociatedRETAIN_NONATOMIC(_playerCtr, playerCtr)
+}
+#pragma mark —— @property(nonatomic,strong,nullable)ZFAVPlayerManager *avPlayerManager;//默认不支持FLV流视频格式的
+JobsKey(_avPlayerManager)
+@dynamic avPlayerManager;
+-(ZFAVPlayerManager *)avPlayerManager{
+    ZFAVPlayerManager *AVPlayerManager = Jobs_getAssociatedObject(_avPlayerManager);
+    if (!AVPlayerManager) {
+        AVPlayerManager = jobsMakeZFAVPlayerManager(^(__kindof ZFAVPlayerManager * _Nullable data) {
+            data.shouldAutoPlay = YES;
+    //        {
+    //            NSString *str = @"https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/feature/iphone-x-feature-tpl-cc-us-20170912_1280x720h.mp4";//苹果官方给出的测试地址
+    //            data.assetURL = str.jobsUrl;
+    //            data.assetURL = @"iph_X.mp4".pathForResourceWithFullName.jobsUrl;
+    //        }
+        });Jobs_setAssociatedRETAIN_NONATOMIC(_avPlayerManager, AVPlayerManager)
+    }return AVPlayerManager;
+}
+
+-(void)setAvPlayerManager:(ZFAVPlayerManager *)avPlayerManager{
+    Jobs_setAssociatedRETAIN_NONATOMIC(_avPlayerManager, avPlayerManager)
+}
+#pragma mark —— @property(nonatomic,strong,nullable)ZFIJKPlayerManager *ijkPlayerManager;//ZFPlayer的作者告诉我：如果要兼容FLV流视频格式请用这个
+#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>)
+JobsKey(_ijkPlayerManager)
+@dynamic ijkPlayerManager;
+-(ZFIJKPlayerManager *)ijkPlayerManager{
+    ZFIJKPlayerManager *IJKPlayerManager = Jobs_getAssociatedObject(_ijkPlayerManager);
+    if (!IJKPlayerManager) {
+        IJKPlayerManager = jobsMakeZFIJKPlayerManager(^(__kindof ZFIJKPlayerManager * _Nullable data) {
+            
+        });
+        Jobs_setAssociatedRETAIN_NONATOMIC(_ijkPlayerManager, IJKPlayerManager)
+    }return IJKPlayerManager;
+}
+
+-(void)setIjkPlayerManager:(ZFIJKPlayerManager *)ijkPlayerManager{
+    Jobs_setAssociatedRETAIN_NONATOMIC(_ijkPlayerManager, ijkPlayerManager)
+}
+#endif
+#pragma mark —— @property(nonatomic,strong,nullable)CustomZFPlayerControlView *customPlayerControlView;
+JobsKey(_customPlayerControlView)
+@dynamic customPlayerControlView;
+-(CustomZFPlayerControlView *)customPlayerControlView{
+    CustomZFPlayerControlView *playerControlView = Jobs_getAssociatedObject(_customPlayerControlView);
+    if (!playerControlView) {
+        playerControlView = CustomZFPlayerControlView.new;
+//        playerControlView.frame = self.bounds;
+        Jobs_setAssociatedRETAIN_NONATOMIC(_customPlayerControlView, playerControlView)
+    }return playerControlView;
+}
+
+-(void)setCustomPlayerControlView:(CustomZFPlayerControlView *)customPlayerControlView{
+    Jobs_setAssociatedRETAIN_NONATOMIC(_customPlayerControlView, customPlayerControlView)
+}
+
+@end

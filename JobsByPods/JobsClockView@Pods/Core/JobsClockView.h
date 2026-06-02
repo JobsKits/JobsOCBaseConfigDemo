@@ -1,0 +1,50 @@
+//
+//  JobsClockView.h
+//  JobsClockView
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_JOBSCLOCKVIEW_7C266B2841
+#define JOBS_HEADER_GUARD_JOBSCLOCKVIEW_7C266B2841
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
+#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
+#else
+#import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsOCTimer/JobsTimer.h>)
+#import <JobsOCTimer/JobsTimer.h>
+#else
+#import "JobsTimer.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+/// 模拟时钟：表盘 + 1～12 数字 + 时针 / 分针 / 秒针
+@interface JobsClockView : UIView
+/// 开始走表（默认 GCD 内核，1s 一跳）
+-(void)start;
+/// 指定底层计时器内核（NSTimer / GCD / CADisplayLink）
+-(jobsByNSUIntegerBlock _Nonnull)startByTimerType;
+/// 停止走表
+-(void)stop;
+
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSCLOCKVIEW_7C266B2841 */

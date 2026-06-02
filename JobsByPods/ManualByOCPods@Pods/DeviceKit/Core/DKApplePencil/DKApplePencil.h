@@ -1,0 +1,17 @@
+//
+//  DKApplePencil.h
+//  DeviceKit
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import <Foundation/Foundation.h>
+#import <DeviceKit/DKDevice.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface DKApplePencil : NSObject
++ (DKApplePencilSupport)applePencilSupportForDevice:(DKDevice *)device;
+@end
+
+NS_ASSUME_NONNULL_END

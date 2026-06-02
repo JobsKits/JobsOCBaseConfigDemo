@@ -1,8 +1,8 @@
 //
 //  JobsIMShowVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/1/13.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsIMShowVC.h"
@@ -119,7 +119,7 @@ Prop_strong()JobsIMListView *listView;
         _shareBtn = BaseButton.jobsInit()
             .bgColorBy(JobsWhiteColor)
             .jobsResetBtnCornerRadiusValue(JobsWidth(23 / 2))
-            .jobsResetBtnImage(JobsBuddleIMG(@"⚽️PicResource", @"Others", nil, @"分享"))
+            .jobsResetBtnImage(JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"分享"))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);

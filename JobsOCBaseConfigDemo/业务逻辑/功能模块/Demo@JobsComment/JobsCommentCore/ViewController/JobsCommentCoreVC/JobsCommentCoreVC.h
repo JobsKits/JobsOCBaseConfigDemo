@@ -1,31 +1,38 @@
 //
 //  JobsCommentCoreVC.h
-//  JobsComment
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/11/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <UIKit/UIKit.h>
-
 #pragma mark —— View
 #import "JobsCommentPopUpView_viewForHeaderInSection.h"
 #import "JobsCommentTitleHeaderView.h"
-#import "JobsInfoTBVCell.h"//显示具体的有用讯息
-#import "JobsLoadMoreTBVCell.h"//加载更多
-#import "LOTAnimationMJRefreshHeader.h"
+#import "JobsInfoTBVCell.h"// 显示具体的有用讯息
+#import "JobsLoadMoreTBVCell.h"// 加载更多
 #pragma mark —— ViewController
 #import "JobsPopUpVC.h"
 #pragma mark —— Model
-#import "BaseModel.h"
 #import "JobsCommentModel.h"
 #import "JobsCommentConfig.h"
-#pragma mark —— 3rd
-#import "NSString+Conversion.h"
-#import "NSObject+Queue.h"
+
+//#if __has_include(<YYModel/YYModel.h>)
+//#import <YYModel/YYModel.h>
+//#else
+//#import "YYModel.h"
+//#endif
+
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>
 #else
 #import "MJExtension.h"
+#endif
+
+#if __has_include(<MJRefreshExtra/MJRefreshExtra.h>)
+#import <MJRefreshExtra/MJRefreshExtra.h>
+#else
+#import "MJRefreshExtra.h"
 #endif
 
 #if __has_include(<MJRefresh/MJRefresh.h>)
@@ -34,11 +41,35 @@
 #import "MJRefresh.h"
 #endif
 
-//#if __has_include(<YYModel/YYModel.h>)
-//#import <YYModel/YYModel.h>
-//#else
-//#import "YYModel.h"
-//#endif
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
+#else
+#import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,9 +1,8 @@
 //
-//  MKCommentModel.m
-//  MonkeyKingVideo
+//  JobsCommentModel.m
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/7/23.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsCommentModel.h"

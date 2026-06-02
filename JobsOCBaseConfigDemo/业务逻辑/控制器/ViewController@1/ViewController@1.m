@@ -1,8 +1,8 @@
 //
 //  ViewController@1.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/1/8.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "ViewController@1.h"
@@ -426,11 +426,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 model.subTitle = @"全局设定".tr;
                 model.cls = LandscapeSwitchVC.class;
             })))
-            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"Texture".tr;
-                model.subTitle = @"byFaceBook".tr;
-                model.cls = TextureDemoVC.class;
-            })))
+//            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+//                model.title = @"Texture".tr;
+//                model.subTitle = @"byFaceBook".tr;
+//                model.cls = TextureDemoVC.class;
+//            })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.title = @"本地推送通知".tr;
                 model.subTitle = @"本地推送通知".tr;

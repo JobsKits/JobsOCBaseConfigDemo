@@ -2,6 +2,8 @@
 //  LuckyWheelView.m
 //  JobsOCBaseConfigDemo
 //
+//  Created by Jobs on 2026年5月13日，星期三.
+//
 
 #import "LuckyWheelView.h"
 
@@ -378,7 +380,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 
 -(JobsRetByNSIntegerBlock _Nonnull)currentSegmentIndexForDirection{
     @jobs_weakify(self)
-    return ^NSInteger(JobsDirection direction){
+    return ^NSInteger(JobsDirectionType direction){
         @jobs_strongify(self)
         if (self.segments.count == 0 ||
             self.bounds.size.width <= 0 ||
@@ -412,7 +414,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 /// DSL@设置指针方向
 -(JobsRetLuckyWheelViewByPointerDirectionBlock _Nonnull)byPointerDirection{
     @jobs_weakify(self)
-    return ^__kindof LuckyWheelView *_Nullable(JobsDirection direction){
+    return ^__kindof LuckyWheelView *_Nullable(JobsDirectionType direction){
         @jobs_strongify(self)
         self.pointerDirection = direction;
         return self;

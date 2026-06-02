@@ -1,9 +1,8 @@
 //
 //  DataManager.m
-//  ZBNetworkingDemo
+//  JobsOCBaseConfigDemo
 //
-//  Created by Suzhibin on 2020/1/19.
-//  Copyright © 2020 Suzhibin. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "DataManager.h"

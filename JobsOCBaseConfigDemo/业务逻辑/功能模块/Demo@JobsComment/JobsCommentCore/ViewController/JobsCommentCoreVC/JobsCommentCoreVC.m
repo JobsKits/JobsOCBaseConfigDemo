@@ -1,8 +1,8 @@
 //
 //  JobsCommentCoreVC.m
-//  JobsComment
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/11/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsCommentCoreVC.h"
@@ -31,7 +31,7 @@ Prop_strong()JobsCommentModel *yyModel;
 -(void)loadView{
     [super loadView];
     @jobs_weakify(self)
-    [MainWindow actionObjBlock:^(id data) {
+    [jobsGetMainWindow() actionObjBlock:^(id data) {
         @jobs_strongify(self)
         [self dismissViewControllerAnimated:YES completion:Nil];
     }];

@@ -1,8 +1,8 @@
 //
 //  UITableViewCellEditorVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/6.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UITableViewCellEditorVC.h"

@@ -1,9 +1,8 @@
 //
 //  ZMJTask.h
-//  ZMJGanttList
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jason on 2018/2/27.
-//  Copyright © 2018年 keshiim. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <Foundation/Foundation.h>

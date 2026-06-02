@@ -6,7 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BRPickerView/BRTextModel.h>
+
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
+#else
+#import "JobsModel.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

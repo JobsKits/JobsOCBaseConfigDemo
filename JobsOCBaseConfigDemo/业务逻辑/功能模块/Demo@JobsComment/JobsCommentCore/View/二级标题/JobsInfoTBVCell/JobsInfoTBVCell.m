@@ -1,9 +1,8 @@
 //
-//  InfoTBVCell.m
-//  commentList
+//  JobsInfoTBVCell.m
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/7/14.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsInfoTBVCell.h"
@@ -85,14 +84,14 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
         @jobs_weakify(self)
         _likeBtn = RBCLikeButton.jobsInit()
             .bgColorBy(JobsWhiteColor)
-            .jobsResetBtnImage(_likeBtn.selected ? JobsBuddleIMG(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsBuddleIMG(nil, @"RBCLikeButton", nil, @"day_like"))
+            .jobsResetBtnImage(_likeBtn.selected ? JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like"))
             .jobsResetBtnTitleCor(_likeBtn.selected ? JobsRedColor : JobsGrayColor)
             .jobsResetBtnTitleFont(UIFontWeightRegularSize(4))
             .jobsResetBtnTitle((toStringByNSInteger(_likeBtn.thumpNum)))
             .onClickBy(^(RBCLikeButton *x){
                 @jobs_strongify(self)
                 x.selected = !x.selected;
-                x.jobsResetBtnImage(x.selected ? JobsBuddleIMG(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsBuddleIMG(nil, @"RBCLikeButton", nil, @"day_like"));
+                x.jobsResetBtnImage(x.selected ? JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like"));
     //            [x setThumbWithSelected:x.selected
     //                           thumbNum:x.selected ? x.thumpNum + 1 : x.thumpNum - 1
     //                          animation:YES];
@@ -119,7 +118,7 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
     
     _likeBtn.jobsResetTitle(toStringByNSInteger(_likeBtn.thumpNum));
     _likeBtn.jobsResetBtnTitleCor(_likeBtn.selected ? JobsRedColor : JobsGrayColor);
-    _likeBtn.jobsResetBtnImage(_likeBtn.selected ? JobsBuddleIMG(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsBuddleIMG(nil, @"RBCLikeButton", nil, @"day_like"));
+    _likeBtn.jobsResetBtnImage(_likeBtn.selected ? JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like"));
     _likeBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
     return _likeBtn;
 }

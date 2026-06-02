@@ -1,0 +1,59 @@
+//
+//  UIImage+Base85.h
+//  JobsCryptography
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_UIIMAGE_BASE85_B66D1A4A9A
+#define JOBS_HEADER_GUARD_UIIMAGE_BASE85_B66D1A4A9A
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+/**
+
+    UIImagePNGRepresentation：
+    这个方法将UIImage对象转换为PNG格式的NSData对象。
+    PNG格式是一种无损压缩格式，因此生成的图像数据保留了原始图像的质量，但文件大小可能会比JPEG格式大。
+    PNG格式通常用于需要保留图像透明度、精确颜色和细节的情况，如图标、线条图和图形设计等。
+
+    UIImageJPEGRepresentation：
+    这个方法将UIImage对象转换为JPEG格式的NSData对象。
+    JPEG格式是一种有损压缩格式，通过牺牲一些图像细节来实现更小的文件大小。
+    JPEG格式通常用于照片和图像，因为它可以提供较小的文件大小，而且人眼对于JPEG压缩引起的细节损失不太敏感。
+ */
+@interface UIImage (Base85)
+#pragma mark —— UIImage ==> Base85
+///【类方法】将给定的UIImage对象 转换为 以Base85编码的字符串
++(JobsRetStrByImageBlock _Nonnull)base85StringByImage;
+///【实例方法】将给定的UIImage对象 转换为 以Base85编码的字符串
+-(NSString *_Nullable)base85Str;
+#pragma mark —— Base85 ==> UIImage
+///【类方法】从给定的以Base85编码的字符串中解码并转换为UIImage对象
++(JobsRetImageByStrBlock _Nonnull)imageByBase85String;
+///【实例方法】从给定的以Base85编码的字符串中解码并转换为UIImage对象
+-(JobsRetImageByStrBlock _Nonnull)imageByBase85String;
+
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIIMAGE_BASE85_B66D1A4A9A */

@@ -1,0 +1,59 @@
+//
+//  NSMutableParagraphStyle+DSL.h
+//  JobsByOCPods
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_NSMUTABLEPARAGRAPHSTYLE_DSL_E50E3A16C0
+#define JOBS_HEADER_GUARD_NSMUTABLEPARAGRAPHSTYLE_DSL_E50E3A16C0
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface NSMutableParagraphStyle (DSL)
+#pragma mark —— CGFloat
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byLineSpacing;
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byParagraphSpacing;
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byFirstLineHeadIndent;
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byHeadIndent;
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byTailIndent;
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byMinimumLineHeight;
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byMaximumLineHeight;
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byLineHeightMultiple;
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byParagraphSpacingBefore;
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byDefaultTabInterval;
+#pragma mark —— float
+-(JobsRetMutableParagraphStyleByFloatBlock _Nonnull)byHyphenationFactor;
+#pragma mark —— BOOL
+-(JobsRetMutableParagraphStyleByBOOLBlock _Nonnull)byAllowsDefaultTighteningForTruncation;
+-(JobsRetMutableParagraphStyleByBOOLBlock _Nonnull)byUsesDefaultHyphenation;
+#pragma mark —— Enums
+-(JobsRetMutableParagraphStyleByNSIntegerBlock _Nonnull)byLineBreakMode;
+-(JobsRetMutableParagraphStyleByNSIntegerBlock _Nonnull)byBaseWritingDirection;
+-(JobsRetMutableParagraphStyleByNSUIntegerBlock _Nonnull)byLineBreakStrategy;
+#pragma mark —— Arrays
+-(JobsRetMutableParagraphStyleByArrBlock _Nonnull)byTabStops;
+-(JobsRetMutableParagraphStyleByArrBlock _Nonnull)byTextLists;
+#pragma mark —— Single object operations
+-(JobsRetMutableParagraphStyleByNSTextTabBlock _Nonnull)byAddTabStop;
+-(JobsRetMutableParagraphStyleByNSTextTabBlock _Nonnull)byRemoveTabStop;
+-(JobsRetMutableParagraphStyleByNSParagraphStyleBlock _Nonnull)bySetParagraphStyle;
+
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSMUTABLEPARAGRAPHSTYLE_DSL_E50E3A16C0 */

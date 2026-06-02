@@ -1,8 +1,8 @@
 //
-//  SomeViewController.m
+//  JobsViewNavigatorTestVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by User on 8/3/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsViewNavigatorTestVC.h"
@@ -91,7 +91,6 @@ Prop_strong()BaseButton *btn;
 //- (void)popCurrentView {
 //    [self.navigator popViewAnimated:YES];
 //}
-
 
 #pragma mark —— lazyLoad
 -(BaseButton *)btn{

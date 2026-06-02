@@ -1,8 +1,8 @@
 //
 //  NotifiOperation.m
-//  CoreTextLearning
+//  JobsOCBaseConfigDemo
 //
-//  Created by alan comb on 2021/4/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NotifiOperation.h"
@@ -38,15 +38,15 @@
     }
     _executing = YES;
     [[NotifiViewFactory shared] fetchAvailableView:^(NotifiView * _Nullable view) {
-        @weakify(self)
+        @jobs_weakify(self)
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            @strongify(self)
+            @jobs_strongify(self)
             [self.fatherView addSubview:view];
             [view layoutIfNeeded];
-            @weakify(self)
+            @jobs_weakify(self)
             [view showWithData:self.data
                         finish:^(NSString *key) {
-                @strongify(self)
+                @jobs_strongify(self)
                 self.finished = YES;
                 if (self.finishBlock) {
                     self.finishBlock(key);

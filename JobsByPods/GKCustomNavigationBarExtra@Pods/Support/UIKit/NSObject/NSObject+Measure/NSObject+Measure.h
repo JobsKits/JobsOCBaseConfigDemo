@@ -1,0 +1,84 @@
+//
+//  NSObject+Measure.h
+//  JobsBaseUI
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_MEASURE_91611C713D
+#define JOBS_HEADER_GUARD_NSOBJECT_MEASURE_91611C713D
+
+#pragma once
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
+#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
+#else
+#import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface NSObject (Measure)
+<
+UIViewModelOthersProtocol           // UIViewModelOthersProtocol_synthesize、UIViewModelOthersProtocol_dynamic
+,UIPictureAndBackGroundCorProtocol  // UIPictureAndBackGroundCorProtocol_synthesize、UIPictureAndBackGroundCorProtocol_dynamic
+,UILocationProtocol                 // UILocationProtocol_synthesize、UILocationProtocol_dynamic
+,UIMarkProtocol                     // UIMarkProtocol_synthesize、UIMarkProtocol_dynamic
+,UITextModelProtocol                // UITextModelProtocol_synthesize、UITextModelProtocol_dynamic
+,BaseLayerProtocol                  // BaseLayerProtocol_synthesize、BaseLayerProtocol_dynamic
+>
+/// 已知父控件和子控件的宽度或者高度，当父控件为X轴或者Y轴中心的时候，子控件的X 和 Y 是多少？
+/// @param subview 子控件的宽 或者 高
+/// @param superview 父控件的宽 或者 高
++(CGFloat)measureSubview:(CGFloat)subview
+               superview:(CGFloat)superview;
+#pragma mark —— 控件居中的时候，相对于全屏的X和Y值
+/// 当控件相对于整个设备屏幕居中的时候，控件的X值
++(JobsRetCGFloatByCGFloatBlock _Nonnull)xWhenViewInScreenCenter;
+/// 当控件相对于整个设备屏幕居中的时候，控件的Y值
++(JobsRetCGFloatByCGFloatBlock _Nonnull)yWhenViewInScreenCenter;
+#pragma mark —— 几何数据类型的比较
+/// 比较 size ？= CGSizeZero
+-(JobsRetBOOLBySizeBlock _Nonnull)isSizeZero;
+/// 比较 point ？= CGPointZero
+-(JobsRetBOOLByPointBlock _Nonnull)isPointZero;
+/// 比较 rect ？= CGRectZero
+-(JobsRetBOOLByFrameBlock _Nonnull)isRectZero;
+/// 比较 rect1 ？= rect2
+-(BOOL)rect1:(CGRect)rect1
+isEqualToRect2:(CGRect)rect2;
+/// 比较 point1 ？= point2
+-(BOOL)point1:(CGPoint)point1
+isEqualToPoint2:(CGPoint)point2;
+/// 比较 size1 ？= size2
+-(BOOL)size1:(CGSize)size1
+isEqualToSize2:(CGSize)size2;
+/// UILabel多行文本的高度（定宽）：根据文本+字体+控件宽度+提行模式，计算高度
+-(CGFloat)jobsGetLabelHeightByWidth:(CGFloat)width
+                              title:(NSString *)title
+                               font:(UIFont *)font;
+/// UILabe单行文本的宽度：根据字体计算单行文本的宽度
+-(CGSize)jobsGetLabelWidthWithTitle:(NSString *)title font:(UIFont *)font;
+/// UILabel多行文本的行数（定宽）：根据文本+字体+控件宽度+提行模式，计算行数
+-(NSInteger)jobsGetLineNumsByWidth:(CGFloat)width
+                             title:(NSString *)title
+                              font:(UIFont *)font;
+
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_MEASURE_91611C713D */

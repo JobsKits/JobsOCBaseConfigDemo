@@ -1,9 +1,8 @@
 //
 //  GetUserInfoApi.m
-//  YTKNetworkDemo
+//  JobsOCBaseConfigDemo
 //
-//  Created by TangQiao on 11/8/14.
-//  Copyright (c) 2014 yuantiku.com. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "GetUserInfoApi.h"

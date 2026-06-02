@@ -1,8 +1,8 @@
 //
-//  AppInternationalizationVC.m
-//  Casino
+//  AppLanguageVC.m
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2021/11/19.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "AppLanguageVC.h"
@@ -145,7 +145,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     return UITableViewCell.cellStyleValue1WithTableView(tableView)
-        .byAccessoryType(self.dataMutArr[indexPath.row].appLanguage == JobsLanguageManager.language ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone)
+        .byAccessoryType(self.dataMutArr[indexPath.row].appLanguage == LanMgr.language ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone)
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
             .JobsBlock1(^(id _Nullable data) {

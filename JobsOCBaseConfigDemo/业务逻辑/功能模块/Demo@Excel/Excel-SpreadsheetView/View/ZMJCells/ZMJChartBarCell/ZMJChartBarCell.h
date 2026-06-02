@@ -1,17 +1,28 @@
 //
 //  ZMJChartBarCell.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
-//  Created by User on 7/27/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#import "ZMJCell+CustomView.h"
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 
 #if __has_include(<ZMJGanttChart/ZMJGanttChart.h>)
 #import <ZMJGanttChart/ZMJGanttChart.h>
 #else
 #import "ZMJGanttChart.h"
 #endif
-
-#import "ZMJCell+CustomView.h"
 
 typedef NS_ENUM(NSInteger, ZMJDashlineDirection) {
     ZMJDashlineDirectionNone = 0,

@@ -1,8 +1,8 @@
 //
-//  FirstView.m
+//  JobsPushView.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by User on 8/3/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsPushView.h"
@@ -11,7 +11,6 @@
 
 Prop_strong()BaseButton *push_btn;
 Prop_strong()BaseButton *pop_btn;
-
 Prop_strong()JobsPushView *pushView;
 
 @end

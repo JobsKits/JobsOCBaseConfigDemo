@@ -1,14 +1,29 @@
 //
 //  JobsSearchShowHistoryDataTBVCell.h
-//  JobsSearch
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/10/2.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseCellProtocol.h"
-#import "UIViewModelProtocol.h"
-#import "UITableViewCell+Margin.h"
-#import "UITableViewCell+WhiteArrows.h"
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
+#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
+#else
+#import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

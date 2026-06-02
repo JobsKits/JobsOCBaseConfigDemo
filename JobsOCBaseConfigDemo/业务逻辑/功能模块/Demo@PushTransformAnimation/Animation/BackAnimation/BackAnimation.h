@@ -1,17 +1,26 @@
 //
 //  BackAnimation.h
-//  PushTransFormDemo
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jane on 16/8/24.
-//  Copyright © 2016年 Jane. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
+#import "MyFansTBVCell.h"
 #import "A_VC.h"
 #import "B_VC.h"
-#import "MyFansTBVCell.h"
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 @interface BackAnimation : NSObject<UIViewControllerAnimatedTransitioning>
 

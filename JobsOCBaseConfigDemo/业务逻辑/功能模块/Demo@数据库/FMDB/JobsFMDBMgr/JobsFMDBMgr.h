@@ -2,7 +2,7 @@
 //  JobsFMDBMgr.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs Hi on 2024/7/6.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <Foundation/Foundation.h>
@@ -13,11 +13,23 @@
 #import "FMDB.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /**
  
- FMDB 是一个封装了 SQLite 的 Objective-C 库，提供了方便的接口进行数据库操作，确实简化了直接编写 SQL 语句的过程，但实际上还是需要编写 SQL 语句来进行数据库操作。
- FMDB 主要提供了一些简洁的方法来执行 SQL 语句和处理结果集。
+     FMDB 是一个封装了 SQLite 的 Objective-C 库，提供了方便的接口进行数据库操作，确实简化了直接编写 SQL 语句的过程，但实际上还是需要编写 SQL 语句来进行数据库操作。
+     FMDB 主要提供了一些简洁的方法来执行 SQL 语句和处理结果集。
  */
 @interface JobsFMDBMgr : NSObject
 

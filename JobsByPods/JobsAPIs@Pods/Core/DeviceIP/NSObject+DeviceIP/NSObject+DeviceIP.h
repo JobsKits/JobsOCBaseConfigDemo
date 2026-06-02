@@ -1,0 +1,98 @@
+//
+//  NSObject+DeviceIP.h
+//  JobsDeviceInfo
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_DEVICEIP_2BD0B78AE1
+#define JOBS_HEADER_GUARD_NSOBJECT_DEVICEIP_2BD0B78AE1
+
+#import <Foundation/Foundation.h>
+#import <ifaddrs.h>                    // 提供网络接口的相关信息
+#import <arpa/inet.h>                  // 提供 IP 地址和网络字节序相关的工具函数
+#import <net/if.h>                     // 定义网络接口的标志和常量
+#import <JobsAPIs/Ipify_api.h>   // 简单可靠，只返回设备的公网 IP 地址【GET】
+#import <JobsAPIs/IP_api.h>      // 提供丰富的地理位置信息【GET】
+#import <JobsAPIs/Ipinfo_api.h>  // 提供详细的 IP 信息【GET】
+#import <JobsAPIs/Ipdata_api.h>  // 提供免费和付费选项的地理位置和 IP 查询服务【GET】
+
+#if __has_include(<YTKNetwork/YTKNetwork.h>)
+#import <YTKNetwork/YTKNetwork.h>
+#else
+#import "YTKNetwork.h"
+#endif
+
+#if __has_include(<AFNetworking/AFURLRequestSerialization.h>)
+#import <AFNetworking/AFURLRequestSerialization.h>
+#else
+#import "AFURLRequestSerialization.h"
+#endif
+
+#if __has_include(<MJExtension/MJExtension.h>)
+#import <MJExtension/MJExtension.h>
+#else
+#import "MJExtension.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#ifndef IOS_CELLULAR
+#define IOS_CELLULAR    @"pdp_ip0"
+#endif
+
+#ifndef IOS_WIFI
+#define IOS_WIFI        @"en0"
+#endif
+
+#ifndef IOS_VPN
+#define IOS_VPN         @"utun0"
+#endif
+
+#ifndef IP_ADDR_IPv4
+#define IP_ADDR_IPv4    @"ipv4"
+#endif
+
+#ifndef IP_ADDR_IPv6
+#define IP_ADDR_IPv6    @"ipv6"
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface NSObject (DeviceIP)
+/// 获取ip地址
+-(NSString *)getIPaddress;
+/// 获取设备当前本地IP地址
+-(JobsRetStrByBOOLBlock _Nonnull)getLocalIPAddressBy;
+/// 是否是有效的IP
+-(JobsRetBOOLByStrBlock _Nonnull)isValidatIP;
+/// 用于获取设备的所有 IP 地址（包括 IPv4 和 IPv6 地址），并以字典形式返回。通过查询网络接口获取这些信息。
+-(NSDictionary *)getIPAddresses;
+/// 简单可靠，只返回设备的公网 IP 地址【GET】
+/// https://api.ipify.org?format=json
+-(void)getIpify:(jobsByIpifyModelBlock _Nullable)successBlock;
+/// 提供丰富的地理位置信息【GET】
+/// http://ip-api.com/json/
+-(void)getIP:(jobsByIPApiModelBlock _Nullable)successBlock;
+/// 提供详细的 IP 信息【GET】
+/// https://ipinfo.io/json
+-(void)getIPInfo:(jobsByIpinfoModelBlock _Nullable)successBlock;
+/// 提供免费和付费选项的地理位置和 IP 查询服务【GET】
+/// https://api.ipdata.co/?api-key=YOUR_API_KEY
+-(void)getIPDataByKey:(NSString *)key
+         successBlock:(jobsByIDBlock _Nullable)successBlock;
+
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_DEVICEIP_2BD0B78AE1 */

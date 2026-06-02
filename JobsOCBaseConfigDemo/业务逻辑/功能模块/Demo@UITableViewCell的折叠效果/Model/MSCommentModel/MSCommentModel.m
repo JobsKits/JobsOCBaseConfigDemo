@@ -1,8 +1,8 @@
 //
 //  MSCommentModel.m
-//  MataShop
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs Hi on 10/2/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "MSCommentModel.h"

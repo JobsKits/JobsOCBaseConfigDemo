@@ -1,0 +1,153 @@
+//
+//  SencondaryOptionViewController.m
+//  TABAnimated
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import "SencondaryOptionViewController.h"
+#import <TABAnimated/TABDefine.h>
+#import <TABAnimated/AppDelegate.h>
+#import <TABAnimated/TABAnimatedControllerUIImpl.h>
+
+@interface SencondaryOptionViewController()
+
+@property (nonatomic, strong) id <TABAnimatedControllerUIInterface> rightButtonInterface;
+
+@end
+
+@implementation SencondaryOptionViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    _rightButtonInterface = TABAnimatedControllerUIImpl.new;
+    [_rightButtonInterface addRightButtonWithText:@"" controller:self clickButtonBlock:^(UIButton *btn) {
+        
+    }];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *className = self.controllerClassArray[indexPath.row];
+    Class class = NSClassFromString(className);
+    if (class) {
+        UIViewController *vc = class.new;
+        vc.title = self.titleArray[indexPath.row];
+        [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+    }
+}
+
+- (NSArray *)titleArray {
+    
+    switch (self.index) {
+        case 0:
+            return @[
+                kText(@"单section单cell 不带tableHeaderView"),
+                kText(@"单section单cell 带tableHeaderView"),
+                kText(@"单section单cell 带headerForSection"),
+                
+                kText(@"多section多cell 不带headerForSection"),
+                kText(@"多section多cell 带headerForSection"),
+                
+                kText(@"指定section配置动画 不带headerForSection"),
+                kText(@"指定section配置动画 带headerForSection"),
+                
+                kText(@"动态section配置 不带headerForSection"),
+                kText(@"动态section配置 带headerForSection"),
+                
+                kText(@"单section多cell 指定row配置动画"),
+                
+                kText(@"Xib"),
+                kText(@"嵌套视图"),
+                kText(@"卡片视图"),
+                kText(@"自适应高度 属性"),
+                kText(@"自适应高度 代理"),
+                
+                kText(@"上拉加载更多"),
+            ];
+            break;
+        
+        case 1:
+            return @[
+                kText(@"单section单cell"),
+                kText(@"卡片视图"),
+                kText(@"分段视图"),
+                kText(@"嵌套视图"),
+                kText(@"Sections"),
+                kText(@"Xib"),
+                kText(@"豆瓣动画"),
+                kText(@"豆瓣动画 卡片式"),
+                kText(@"瀑布流"),
+            ];
+            break;
+        
+        case 2:
+            return @[
+                kText(@"普通view"),
+                kText(@"豆瓣动画"),
+                kText(@"渐变色（框架不支持创建，支持映射）"),
+                kText(@"穿透组件"),
+            ];
+            break;
+    }
+    
+    return @[].copy;
+}
+
+- (NSArray *)controllerClassArray {
+    
+    switch (self.index) {
+        case 0:
+            return @[
+                @"OneSectionViewController",
+                @"OneSectionWithTableHeaderViewController",
+                @"OneSectionWithHeaderSectionViewController",
+                
+                @"MutiSectionMutiCellTableViewController",
+                @"MutiSectionsMutiCellWithHeaderViewController",
+                
+                @"PartialSectionViewController",
+                @"PartialSectionWithHeaderViewController",
+                
+                @"TableDynamicSectionViewController",
+                @"TableDynamicWithHeaderViewController",
+                
+                @"TableRowModeViewController",
+                
+                @"XibTestViewController",
+                @"NestTableViewController",
+                @"TableCardViewController",
+                @"TestLayoutTableViewController",
+                @"TestLayoutDelegateTableViewController",
+                
+                @"PullLoadingTableViewController"
+            ];
+            break;
+        
+        case 1:
+            return @[
+                @"TestCollectionViewController",
+                @"CardViewController",
+                @"SegmentCollectionViewController",
+                @"NestCollectionViewController",
+                @"SectionsCollectionViewController",
+                @"XibCollectionViewController",
+                @"DoubanCollectionViewController",
+                @"DoubanCardViewController",
+                @"WaterFlowLayoutViewController",
+            ];
+            break;
+        
+        case 2:
+            return @[
+                @"ViewExampleViewController",
+                @"DoubanNormalViewController",
+                @"GradientButtonViewController",
+                @"PenerateViewExampleController",
+            ];
+            break;
+    }
+    
+    return @[].copy;
+}
+
+@end

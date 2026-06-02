@@ -1,0 +1,45 @@
+//
+//  RSAUtil.h
+//  JobsCryptography
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_RSAUTIL_E9655262D3
+#define JOBS_HEADER_GUARD_RSAUTIL_E9655262D3
+
+#import <UIKit/UIKit.h>
+#import <Security/Security.h> // 该框架提供了与应用程序的安全性相关的功能（加密、密钥管理、证书和身份验证）
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+@interface RSAUtil : NSObject
+
+// return base64 encoded string
++ (NSString *)encryptString:(NSString *)str publicKey:(NSString *)pubKey;
+// return raw datax
++ (NSData *)encryptData:(NSData *)data publicKey:(NSString *)pubKey;
+// return base64 encoded string
+// enc with private key NOT working YET!
+//+ (NSString *)encryptString:(NSString *)str privateKey:(NSString *)privKey;
+// return raw data
+//+ (NSData *)encryptData:(NSData *)data privateKey:(NSString *)privKey;
+
+// decrypt base64 encoded string, convert result to string(not base64 encoded)
++ (NSString *)decryptString:(NSString *)str publicKey:(NSString *)pubKey;
++ (NSData *)decryptData:(NSData *)data publicKey:(NSString *)pubKey;
++ (NSString *)decryptString:(NSString *)str privateKey:(NSString *)privKey;
++ (NSData *)decryptData:(NSData *)data privateKey:(NSString *)privKey;
+
+@end
+#endif /* JOBS_HEADER_GUARD_RSAUTIL_E9655262D3 */

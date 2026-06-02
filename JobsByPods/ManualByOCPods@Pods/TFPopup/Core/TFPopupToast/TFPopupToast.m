@@ -1,0 +1,142 @@
+//
+//  TFPopupToast.m
+//  TFPopup
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import "TFPopupToast.h"
+
+@interface TFPopupToast ()<TFPopupDelegate>
+
+Prop_assign()CGRect inViewFrame;
+Prop_copy()NSString *msg;
+Prop_copy()TFPopupToastBlock cusBlock;
+
+@end
+
+@implementation TFPopupToast
+
+-(void)dealloc{
+#if DEBUG
+    JobsLog(@"****** TFPopupToast(已释放) msg:%@ ******",self.msg);
+#endif
+}
+
++(void)tf_show:(UIView *)inView msg:(NSString *)msg animationType:(TFAnimationType)animationType{
+    [TFPopupToast tf_show:inView
+                      msg:msg
+                   offset:CGPointZero
+         dissmissDuration:0
+            animationType:animationType
+              customBlock:nil];
+}
+
++(void)tf_show:(UIView *)inView
+           msg:(NSString *)msg
+        offset:(CGPoint)offset
+dissmissDuration:(NSTimeInterval)duration
+ animationType:(TFAnimationType)animationType
+   customBlock:(TFPopupToastBlock)customBlock{
+    if (inView == nil) {JobsLog(@"****** %@ %@ ******",[self class],@"inView 不能为空！");return;}
+    if (msg == nil) {JobsLog(@"****** %@ %@ ******",[self class],@"msg 不能为空！");return;}
+    
+    TFPopupParam *param = [TFPopupParam new];
+    param.disuseBackground = YES;
+    param.offset = offset;
+    if (duration == 0) {
+        param.autoDissmissDuration = [TFPopupToast toastDuration:msg];
+    }else{
+        param.autoDissmissDuration = duration;
+    }
+    
+    TFPopupToast *toast = [[TFPopupToast alloc]initWithFrame:CGRectZero];
+    toast.inViewFrame = inView.bounds;
+    toast.msg = msg;
+    toast.cusBlock = customBlock;
+    
+    switch (animationType) {
+        case TFAnimationTypeFade:
+            [toast tf_showNormal:inView popupParam:param];
+            break;
+        case TFAnimationTypeScale:
+            [toast tf_showScale:inView offset:CGPointZero popupParam:param];
+            break;
+        default:
+            break;
+    }
+    
+}
+
+-(instancetype)initWithFrame:(CGRect)frame{
+    if (self = [super initWithFrame:frame]) {
+        
+        self.layer.cornerRadius = 6;
+        self.layer.masksToBounds = YES;
+        self.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:.7f];
+        self.userInteractionEnabled = NO;
+        [self addSubview:self.msgLabel];
+        
+    }
+    return self;
+}
+
+-(void)setMsg:(NSString *)msg{
+    _msg = [msg copy];
+    
+    self.frame = [self toastFrame];
+    self.msgLabel.frame = [self toastLabelFrame];
+    self.msgLabel.text = msg;
+}
+
++(NSTimeInterval)toastDuration:(NSString *)msg{
+    NSTimeInterval dur = 0;
+    if ([msg isKindOfClass:[NSString class]] && msg.length > 10) {
+        dur = (msg.length - 10) / 10 + 1.5;
+        if (dur > 5) {
+            dur = 5;
+        }
+    }else{
+        dur = 1.5;
+    }
+    return dur;
+}
+
+-(CGRect)toastFrame{
+    
+    CGRect frame = self.inViewFrame;
+    CGSize constrantSize = CGSizeMake(frame.size.width - 60, frame.size.height - 60);
+    NSDictionary *attr = @{NSFontAttributeName:self.msgLabel.font};
+    NSString *msg = [NSString stringWithFormat:@"  %@  ",self.msg];
+    CGSize size = [msg boundingRectWithSize:constrantSize
+                                    options:NSStringDrawingUsesLineFragmentOrigin
+                                 attributes:attr
+                                    context:nil].size;
+    size = CGSizeMake(size.width + 30, size.height + 30);
+    size = CGSizeMake(size.width < 60.0?60.0:size.width, size.height < 40.0?40.0:size.height);
+    CGFloat x = 15 + (frame.size.width - 30 - size.width) * 0.5;
+    CGFloat y = 15 + (frame.size.height - 30 - size.height) * 0.5;
+    CGRect fr = CGRectMake(x ,y ,size.width ,size.height);
+    return fr;
+}
+
+-(CGRect)toastLabelFrame{
+    CGRect fr = CGRectMake(15, 15,self.frame.size.width - 15 * 2,self.frame.size.height - 15 * 2);
+    return fr;
+}
+
+-(UILabel *)msgLabel{
+    if (_msgLabel == nil) {
+        _msgLabel = [[UILabel alloc]initWithFrame:CGRectZero];
+        _msgLabel.textColor = [UIColor whiteColor];
+        _msgLabel.font = [UIFont systemFontOfSize:13];
+        _msgLabel.textAlignment = NSTextAlignmentCenter;
+        _msgLabel.backgroundColor = [UIColor clearColor];
+        _msgLabel.numberOfLines = 0;
+        _msgLabel.lineBreakMode = NSLineBreakByClipping;
+        _msgLabel.clipsToBounds = NO;
+    }
+    return _msgLabel;
+}
+
+@end

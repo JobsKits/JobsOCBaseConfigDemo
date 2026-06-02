@@ -1,0 +1,50 @@
+//
+//  UITextField+Placeholder.h
+//  JobsBaseUI
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_UITEXTFIELD_PLACEHOLDER_CD649EDBE5
+#define JOBS_HEADER_GUARD_UITEXTFIELD_PLACEHOLDER_CD649EDBE5
+
+#pragma once
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+#import <JobsBaseUI/NSMutableArray+Extra.h>
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
+#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
+#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
+#else
+#import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsRichTextUtils/JobsRichTextUtils.h>)
+#import <JobsRichTextUtils/JobsRichTextUtils.h>
+#else
+#import "JobsRichTextUtils.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+/// 修改UITextField.Placeholder
+@interface UITextField (Placeholder)<UITextModelProtocol,AppToolsProtocol>
+
+-(UILabel *)placeholderLabel;
+
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UITEXTFIELD_PLACEHOLDER_CD649EDBE5 */

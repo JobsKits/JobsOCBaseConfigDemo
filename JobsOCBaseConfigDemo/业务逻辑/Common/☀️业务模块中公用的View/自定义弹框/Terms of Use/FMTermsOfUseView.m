@@ -1,8 +1,8 @@
 //
 //  FMTermsOfUseView.m
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2025/5/2.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "FMTermsOfUseView.h"
@@ -141,7 +141,5 @@ static dispatch_once_t static_termsOfUseViewOnceToken;
         }];
     }return _button;
 }
-
-
 
 @end

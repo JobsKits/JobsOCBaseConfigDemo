@@ -1,8 +1,8 @@
 //
 //  JobsIMListView.m
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/11/17.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsIMListView.h"
@@ -168,7 +168,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
 
 -(UIColor *)bgColour{
     if (!_bgColour) {
-        _bgColour = self.byPatternImage(JobsBuddleIMG(@"⚽️PicResource", @"Telegram",nil, @"1"));
+        _bgColour = self.byPatternImage(JobsLoadBundleImage(@"⚽️PicResource", @"Telegram",nil, @"1"));
     }return _bgColour;
 }
 

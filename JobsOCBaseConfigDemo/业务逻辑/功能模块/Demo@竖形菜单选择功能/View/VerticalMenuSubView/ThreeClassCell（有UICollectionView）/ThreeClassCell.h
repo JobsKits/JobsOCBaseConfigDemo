@@ -1,19 +1,34 @@
 //
 //  ThreeClassCell.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
-#import "UICollectionViewCellProtocol.h"
 #import "JobsVerticalMenuDefineHeader.h"
 #import "TreeClassItemCell.h"
 #import "JobsBaseCollectionViewCell.h"
 #import "FMMaintenanceView.h"
-
 #import "GoodsClassModel.h"
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsOCProtocols/UICollectionViewCellProtocol.h>)
+#import <JobsOCProtocols/UICollectionViewCellProtocol.h>
+#else
+#import "UICollectionViewCellProtocol.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 /// 这个类用于计算，不用于显示

@@ -2,7 +2,7 @@
 //  JobsVerticalMenuVC@2.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by User on 8/31/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsVerticalMenuVC@2.h"
@@ -504,7 +504,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
     //            toastBy(@"编辑".tr);
                 self.popupParameter.dragEnable = YES;
                 self.popupParameter.disuseBackgroundTouchHide = NO;
-                [self.popupView tf_showSlide:MainWindow
+                [self.popupView tf_showSlide:jobsGetMainWindow()
                                    direction:PopupDirectionBottom
                                   popupParam:self.popupParameter];
             })
@@ -538,10 +538,10 @@ referenceSizeForFooterInSection:(NSInteger)section{
         _popupView = BaiShaETProjPopupView10.BySize(BaiShaETProjPopupView10.viewSizeByModel(nil))
             .JobsRichViewByModel2(nil)
             .JobsBlock1(^(id _Nullable data) {
-                @strongify(self)
+                @jobs_strongify(self)
                 if ([data isKindOfClass:NSMutableArray.class]) {
                     NSMutableArray <UIViewModel *>*dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
-                        @strongify(self)
+                        @jobs_strongify(self)
                         arr.add(self.titleMutArr[0]);
                         arr.addBy(data);
                     });
@@ -563,7 +563,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 self.collectionView.reloadDatas();
             });
         [_popupView tf_observerDelegateProcess:^(UIView *pop, DelegateProcess pro) {
-            @strongify(self)
+            @jobs_strongify(self)
             if (pro == DelegateProcessWillHide) self.popupView.shakeCell(NO);
         }];
     }

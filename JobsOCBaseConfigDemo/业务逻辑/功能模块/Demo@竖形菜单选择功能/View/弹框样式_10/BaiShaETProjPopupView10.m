@@ -1,8 +1,8 @@
 //
 //  BaiShaETProjPopupView10.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/16.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "BaiShaETProjPopupView10.h"
@@ -267,7 +267,6 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
             _collectionView.numberOfTouchesRequired = 1;
             _collectionView.numberOfTapsRequired = 1;/// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
             _collectionView.minimumPressDuration = 0.1;
-            _collectionView.numberOfTouchesRequired = 1;
             _collectionView.allowableMovement = 1;
             _collectionView.userInteractionEnabled = YES;
             _collectionView.weak_target = self;

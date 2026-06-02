@@ -1,12 +1,12 @@
 //
 //  CutomView.m
-//  CoreTextLearning
+//  JobsOCBaseConfigDemo
 //
-//  Created by alan comb on 2021/4/2.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "CutomView.h"
-#import <CoreText/CoreText.h>
+#import <CoreText/CoreText.h> // 提供底层文本排版与渲染能力，适合富文本、复杂排版和精细文本控制场景。
 
 static CGFloat ascentCallback(void* ref){
     return [(NSNumber*)[(__bridge NSDictionary*)ref valueForKey:@"height"] floatValue];

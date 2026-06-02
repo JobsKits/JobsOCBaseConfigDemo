@@ -1,8 +1,8 @@
 //
 //  CompressStrVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
-//  Created by admin on 6/5/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "CompressStrVC.h"

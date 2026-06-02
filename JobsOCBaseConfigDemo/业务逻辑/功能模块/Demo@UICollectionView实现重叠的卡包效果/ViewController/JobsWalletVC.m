@@ -1,8 +1,8 @@
 //
 //  JobsWalletVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/7/6.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsWalletVC.h"
@@ -181,11 +181,10 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
         _collectionView.backgroundColor = JobsClearColor;
         
         {
-            _collectionView.registerCollectionViewClass();
-
             _collectionView.registerCollectionElementKindSectionHeaderClass_(TMSWalletCollectionReusableView.class,TMSCollectionViewSectionHeader);
             _collectionView.registerCollectionElementKindSectionHeaderClass_(TMSWalletCollectionReusableView.class,TMSCollectionViewSectionFooter);
-            
+
+            _collectionView.registerCollectionViewCellClass(JobsBtnStyleCVCell.class,@"");
             _collectionView.registerCollectionViewCellClass(TMSWalletCollectionViewCell.class,@"");
             _collectionView.registerCollectionViewCellClass(BaiShaETProjBankAccMgmtCVCell.class,@"");
         }

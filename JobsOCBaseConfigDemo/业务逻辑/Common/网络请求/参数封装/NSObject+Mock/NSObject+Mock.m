@@ -1,8 +1,8 @@
 //
 //  NSObject+Mock.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
-//  Created by Admin on 18/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+Mock.h"

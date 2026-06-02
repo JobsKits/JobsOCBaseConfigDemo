@@ -1,8 +1,8 @@
 //
-//  ZFDouYinCell.m
-//  DouYin
+//  JobsVideoTBVCell.m
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/9/28.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsVideoTBVCell.h"

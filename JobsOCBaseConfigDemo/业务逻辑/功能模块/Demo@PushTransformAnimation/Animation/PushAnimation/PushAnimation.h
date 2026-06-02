@@ -1,17 +1,20 @@
 //
 //  PushAnimation.h
-//  PushTransFormDemo
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jane on 16/8/23.
-//  Copyright © 2016年 Jane. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
-//  实现协议的两个方法，并在其中编写 Push 的动画。   转场动画
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "A_VC.h"
 #import "B_VC.h"
 #import "MyFansTBVCell.h"
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
 
 @interface PushAnimation : NSObject<UIViewControllerAnimatedTransitioning>
 

@@ -2,15 +2,12 @@
 //  LuckyWheelView.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 12/5/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <UIKit/UIKit.h>
 #import "LuckyWheelSegment.h"
 #import "ScrollDecelerator.h"
-#import "DefineProperty.h"
-#import "JobsBlock.h"
-#import "JobsDefineAllEnumHeader.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -18,11 +15,35 @@
 #import "Masonry.h"
 #endif
 
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
+#else
+#import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LuckyWheelView : UIView
 /// “指针”方向（默认正上方）
-Prop_assign()JobsDirection pointerDirection;
+Prop_assign()JobsDirectionType pointerDirection;
 /// 完整 Segment 模型（推荐使用）
 Prop_strong()NSArray<LuckyWheelSegment *> *segments;
 /// 仅背景色（向下兼容）：设置 colors 会自动生成 segments
@@ -70,6 +91,7 @@ Prop_copy(nullable)jobsByLuckyWheelSegmentAndLPGesturerBlock segmentLongPressHan
 @end
 
 NS_ASSUME_NONNULL_END
+
 NS_INLINE __kindof LuckyWheelView *_Nonnull
 jobsMakeLuckyWheelView(jobsByLuckyWheelViewBlock _Nonnull block){
     LuckyWheelView *data = LuckyWheelView.alloc.init;

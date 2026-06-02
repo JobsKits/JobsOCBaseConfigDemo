@@ -1,9 +1,8 @@
 //
-//  RegisterContentView.m
-//  Shooting
+//  JobsAppDoorRegisterContentView.m
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/9/3.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsAppDoorRegisterContentView.h"

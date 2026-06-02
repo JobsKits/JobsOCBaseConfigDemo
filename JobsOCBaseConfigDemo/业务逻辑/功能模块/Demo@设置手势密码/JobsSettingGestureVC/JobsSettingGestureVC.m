@@ -1,8 +1,8 @@
 //
 //  JobsSettingGestureVC.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/5/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsSettingGestureVC.h"
@@ -65,13 +65,28 @@ Prop_strong()UILabel *topLineLab;
     return CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(2));
 }
 #pragma mark —— 私有方法
+-(jobsByCGFloatBlock _Nonnull)makeNavByAlpha{
+    @jobs_weakify(self)
+    return ^(CGFloat data){
+        @jobs_strongify(self)
+        /// JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape
+        id<AppToolsProtocol> appToolsSelf = (id<AppToolsProtocol>)self;
+        appToolsSelf.setGKNav(nil);
+        appToolsSelf.setGKNavBackBtn(nil);
+        if(self.leftBarButtonItems.count) self.gk_navLeftBarButtonItems = self.leftBarButtonItems;
+        if(self.rightBarButtonItems.count) self.gk_navRightBarButtonItems = self.rightBarButtonItems;
+        self.gk_navigationBar.hidden = !data;
+        self.gk_navigationBar.alpha = data;
+    };
+}
+
 -(void)重定义父类控件的距离{
-    UIImageView *headIcon = self.valueForKey(@"headIcon");/// 账户头像
-    ZLGestureLockIndicator *gestureLockIndicator = self.valueForKey(@"gestureLockIndicator");
+    UIImageView *headIcon = self.valueForKey(@"headIcon");// 账户头像
+    JobsGestureLockIndicator *gestureLockIndicator = self.valueForKey(@"gestureLockIndicator");
     UILabel *statusLabel = self.valueForKey(@"statusLabel");
-    UILabel *nameLabel = self.valueForKey(@"nameLabel");/// 账户名
-    UIButton *otherAcountBtn = self.valueForKey(@"otherAcountBtn");/// 其他账户登录按钮
-    UIButton *forgetPswBtn = self.valueForKey(@"forgetPswBtn");/// 忘记手势密码按钮
+    UILabel *nameLabel = self.valueForKey(@"nameLabel");// 账户名
+    UIButton *otherAcountBtn = self.valueForKey(@"otherAcountBtn");// 其他账户登录按钮
+    UIButton *forgetPswBtn = self.valueForKey(@"forgetPswBtn");// 忘记手势密码按钮
     
     nameLabel.jobsVisible = NO;
     headIcon.jobsVisible = NO;

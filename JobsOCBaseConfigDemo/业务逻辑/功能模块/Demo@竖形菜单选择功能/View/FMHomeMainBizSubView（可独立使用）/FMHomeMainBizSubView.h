@@ -1,15 +1,45 @@
 //
 //  FMHomeMainBizSubView.h
-//  FM_Normal
+//  JobsOCBaseConfigDemo
 //
-//  Created by Admin on 11/4/2025.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "JobsBlock.h"
-#import "BaseView.h"
-#import "JobsBtnStyleTBVCell.h"
+#import <UIKit/UIKit.h>
 #import "ThreeClassCell.h"
 #import "FMGameCVCell.h"
+#import "JobsBtnStyleTBVCell.h"
+#import "LeftCell.h"
+
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
+#else
+#import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

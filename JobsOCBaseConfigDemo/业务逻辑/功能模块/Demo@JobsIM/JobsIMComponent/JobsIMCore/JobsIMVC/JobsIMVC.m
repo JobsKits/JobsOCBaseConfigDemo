@@ -1,8 +1,8 @@
 //
 //  JobsIMVC.m
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/11/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsIMVC.h"
@@ -167,7 +167,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             }];
         }];
         //设置图片，但是设置不了原图，都是被默认为白色了，字体也是
-        UIImage *image = [JobsBuddleIMG(@"⚽️PicResource", @"Others", nil, @"分享") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        UIImage *image = [JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"分享") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         [deleteRowAction setImage:image];
         deleteRowAction.backgroundColor = [UIColor redColor];
 
@@ -182,7 +182,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
               
             }];
         }];
-        editRowAction.image = JobsBuddleIMG(@"⚽️PicResource", @"Others", nil, @"删除");
+        editRowAction.image = JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"删除");
         editRowAction.backgroundColor = [UIColor blueColor];
         UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteRowAction,editRowAction]];
         //设置全屏滑动时不自定响应事件
@@ -202,7 +202,7 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
                                                                                               __kindof UIView * _Nonnull sourceView,
                                                                                               void (^ _Nonnull completionHandler)(BOOL)) {
         }];
-        UIImage *image = [JobsBuddleIMG(@"⚽️PicResource", @"Others", nil, @"分享")  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        UIImage *image = [JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"分享")  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         [deleteRowAction setImage:image];
         deleteRowAction.backgroundColor = [UIColor redColor];
         UIContextualAction *editRowAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
@@ -211,7 +211,7 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
                                                                                             __kindof UIView * _Nonnull sourceView,
                                                                                             void (^ _Nonnull completionHandler)(BOOL)) {
         }];
-        editRowAction.image = JobsBuddleIMG(@"⚽️PicResource", @"Others", nil, @"删除");
+        editRowAction.image = JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"删除");
         editRowAction.backgroundColor = [UIColor blueColor];
 
         UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteRowAction,editRowAction]];
@@ -304,7 +304,7 @@ willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     UIButton *button = rowActionView.subviews.firstObject;
     button.backgroundColor = JobsRedColor;
     [button jobsResetBtnTitle:@"删除"];
-    [button jobsResetBtnImage:JobsBuddleIMG(@"⚽️PicResource", @"Others", nil, @"删除")];
+    [button jobsResetBtnImage:JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"删除")];
 }
 #endif
 
@@ -354,7 +354,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                             .add(toStringByNSInteger(timeModel.currentMin))
                             .add(@":")
                             .add(toStringByNSInteger(timeModel.currentSec));
-                        data.userIconIMG = JobsBuddleIMG(@"bundle", @"头像", nil, @"头像_1"); // 我自己的头像
+                        data.userIconIMG = JobsLoadBundleImage(@"bundle", @"头像", nil, @"头像_1"); // 我自己的头像
                         data.identification = @"我是我自己";
                         data.userNameStr = @"Jobs";
                     }));self.tableView.reloadDatas();
@@ -447,7 +447,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
         _shareBtn = BaseButton.jobsInit()
             .bgColorBy(JobsWhiteColor)
             .jobsResetBtnCornerRadiusValue(JobsWidth(23 / 2))
-            .jobsResetBtnImage(JobsBuddleIMG(@"⚽️PicResource", @"Others", nil, @"分享"))
+            .jobsResetBtnImage(JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"分享"))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
@@ -462,7 +462,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
 
 -(UIColor *)bgColour{
     if (!_bgColour) {
-        _bgColour = self.byPatternImage(JobsBuddleIMG(@"⚽️PicResource", @"Telegram",nil, @"1"));
+        _bgColour = self.byPatternImage(JobsLoadBundleImage(@"⚽️PicResource", @"Telegram",nil, @"1"));
     }return _bgColour;
 }
 

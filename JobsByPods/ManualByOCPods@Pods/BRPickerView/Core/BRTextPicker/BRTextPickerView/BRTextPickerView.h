@@ -11,19 +11,17 @@
 #import <BRPickerView/BRPickerViewMacro.h>
 #import <BRPickerView/BRPickerAlertView.h>
 #import <BRPickerView/BRPickerStyle.h>
-#import <BRPickerView/BRTextModel.h>
-/// https://github.com/91renb/BRPickerView
-#ifndef BR_TEXT_PICKER_MODE_DEFINED
-#define BR_TEXT_PICKER_MODE_DEFINED
-/// 文本选择器类型
-typedef NS_ENUM(NSInteger, BRTextPickerMode) {
-    /// 单列选择器
-    BRTextPickerComponentSingle,
-    /// 多列选择器
-    BRTextPickerComponentMulti,
-    /// 多列联动选择器
-    BRTextPickerComponentCascade
-};
+
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
+#else
+#import "JobsModel.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

@@ -1,8 +1,8 @@
 //
-//  JobsShootingVC.m
-//  JobsOCBaseConfig
+//  JobsPostVC.m
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs Hi on 9/26/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsPostVC.h"
@@ -270,11 +270,11 @@ Prop_strong()UITextModel *postTextModel;
          original:(BOOL)isOriginal{
     self.photosDataArr = photos;
     self.videosDataArr = videos;
-    @weakify(self)
+    @jobs_weakify(self)
     if (self.videosDataArr.count) {
         [FileFolderHandleTool getVideoFromPHAsset:self.videosDataArr.lastObject.asset
                                          complete:^(FileFolderHandleModel *data) {
-            @strongify(self)
+            @jobs_strongify(self)
             self.videosData = data.data;
         }];
     }else if(self.photosDataArr.count){
@@ -282,7 +282,7 @@ Prop_strong()UITextModel *postTextModel;
         [self.photosDataArr hx_requestImageWithOriginal:NO
                                              completion:^(NSArray<UIImage *> * _Nullable imageArray,
                                                           NSArray<HXPhotoModel *> * _Nullable errorArray) {
-            @strongify(self)
+            @jobs_strongify(self)
             self.photosImageMutArr = NSMutableArray.initBy(imageArray);
         }];
     }else{}
@@ -315,10 +315,10 @@ currentDeleteModel:(HXPhotoModel *)model
 - (void)photoView:(HXPhotoView *)photoView
 gestureRecognizerBegan:(UILongPressGestureRecognizer *)longPgr
         indexPath:(NSIndexPath *)indexPath{
-    @weakify(self)
+    @jobs_weakify(self)
     [UIView animateWithDuration:0.25f
                      animations:^{
-        @strongify(self)
+        @jobs_strongify(self)
         self.postDelView.y = JobsMainScreen_HEIGHT() - self->JobsPostDelViewHeight;
     }];
 }

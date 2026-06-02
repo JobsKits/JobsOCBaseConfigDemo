@@ -1,9 +1,8 @@
 //
 //  PHCycleView.m
-//  mtc_kwm
+//  JobsOCBaseConfigDemo
 //
-//  Created by 1 on 2020/11/13.
-//  Copyright © 2020 yzl. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "PHCycleView.h"

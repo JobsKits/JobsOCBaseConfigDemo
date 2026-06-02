@@ -1,0 +1,38 @@
+//
+//  NSTimeZone+Extra.m
+//  JobsTimeUtils
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import "NSTimeZone+Extra.h"
+
+@implementation NSTimeZone (Extra)
+/// 对系统方法 timeZoneWithName 的二次封装
++(JobsRetTimeZoneByStrBlock _Nonnull)initByName{
+    return ^NSTimeZone *_Nullable(__kindof NSString *_Nullable data){
+        return [NSTimeZone timeZoneWithName:data];
+    };
+}
+/// 对系统方法 timeZoneWithAbbreviation 的二次封装
++(JobsRetTimeZoneByStrBlock _Nonnull)initByAbbreviation{
+    return ^NSTimeZone *_Nullable(__kindof NSString *_Nullable data){
+        return [NSTimeZone timeZoneWithAbbreviation:data];
+    };
+}
+/// 对系统方法 timeZoneForSecondsFromGMT 的二次封装
++(JobsRetTimeZoneByIntegerBlock _Nonnull)initByGMTSecs{
+    return ^NSTimeZone *_Nullable(NSInteger data){
+        return [NSTimeZone timeZoneForSecondsFromGMT:data];
+    };
+}
+/// 对系统方法 secondsFromGMTForDate 的二次封装
+-(JobsRetIntegerByDateBlock _Nonnull)GMTDateSecs{
+    @jobs_weakify(self)
+    return ^NSInteger (NSDate *_Nullable data){
+        @jobs_strongify(self)
+        return [self secondsFromGMTForDate:data];
+    };
+}
+
+@end

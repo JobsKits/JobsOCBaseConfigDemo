@@ -1,8 +1,8 @@
 //
 //  MSCommentView.m
-//  MataShop
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs Hi on 10/1/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "MSCommentView.h"
@@ -155,7 +155,6 @@ viewForHeaderInSection:(NSInteger)section{
         headerView.numberOfTouchesRequired = 1;
         headerView.numberOfTapsRequired = 1;/// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
         headerView.minimumPressDuration = 0.1;
-        headerView.numberOfTouchesRequired = 1;
         headerView.allowableMovement = 1;
         headerView.userInteractionEnabled = YES;
         headerView.weak_target = self;

@@ -1,0 +1,92 @@
+# `calls 符号关系 - 087`
+
+![Jobs倾情奉献](https://picsum.photos/1500/400 "Jobs出品，必属精品")
+
+[toc]
+
+---
+
+## 🔥 <font id=前言>前言</font>
+
+这张图只展示一个分片，避免所有关系塞进一张图导致看不清。
+
+```mermaid
+flowchart LR
+  S1["method:UIView::refresh<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:28"]
+  T1["method:BaseView::layoutIfNeeded<br/>JobsByPods/JobsBasePopupView@Pods/Support/BaseUI/BaseView/BaseView.m:63"]
+  S1 -->|calls| T1
+  S2["method:UIView::LOTAnimationMJRefreshHeaderBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:38"]
+  T2["method:MJRefreshGifHeader::refreshStateIdleByImages<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshGifHeader/MJRefreshGifHeader+Extra.m:12"]
+  S2 -->|calls| T2
+  S3["method:UIView::LOTAnimationMJRefreshHeaderBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:38"]
+  T3["method:MJRefreshGifHeader::refreshStateIdleByString<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshGifHeader/MJRefreshGifHeader+Extra.m:57"]
+  S3 -->|calls| T3
+  S4["method:UIView::LOTAnimationMJRefreshHeaderBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:38"]
+  T4["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S4 -->|calls| T4
+  S5["method:UIView::MJRefreshNormalHeaderBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:74"]
+  T5["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S5 -->|calls| T5
+  S6["method:UIView::MJRefreshStateHeaderBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:94"]
+  T6["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S6 -->|calls| T6
+  S7["method:UIView::MJRefreshHeaderBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:114"]
+  T7["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S7 -->|calls| T7
+  S8["method:UIView::MJRefreshGifHeaderBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:128"]
+  T8["method:MJRefreshGifHeader::refreshStateIdleByImages<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshGifHeader/MJRefreshGifHeader+Extra.m:12"]
+  S8 -->|calls| T8
+  S9["method:UIView::MJRefreshGifHeaderBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:128"]
+  T9["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S9 -->|calls| T9
+  S10["method:UIView::MJRefreshAutoGifFooterBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:159"]
+  T10["method:MJRefreshAutoGifFooter::refreshStateIdleByImages<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshAutoGifFooter/MJRefreshAutoGifFooter+Extra.m:12"]
+  S10 -->|calls| T10
+  S11["method:UIView::MJRefreshAutoGifFooterBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:159"]
+  T11["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S11 -->|calls| T11
+  S12["method:UIView::MJRefreshBackNormalFooterBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:189"]
+  T12["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S12 -->|calls| T12
+  S13["method:UIView::MJRefreshAutoNormalFooterBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:208"]
+  T13["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S13 -->|calls| T13
+  S14["method:UIView::MJRefreshAutoStateFooterBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:227"]
+  T14["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S14 -->|calls| T14
+  S15["method:UIView::MJRefreshBackGifFooterBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:253"]
+  T15["method:MJRefreshAutoGifFooter::refreshStateIdleByImages<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshAutoGifFooter/MJRefreshAutoGifFooter+Extra.m:12"]
+  S15 -->|calls| T15
+  S16["method:UIView::MJRefreshBackGifFooterBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:253"]
+  T16["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S16 -->|calls| T16
+  S17["method:UIView::MJRefreshBackStateFooterBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:282"]
+  T17["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S17 -->|calls| T17
+  S18["method:UIView::MJRefreshBackFooterBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:301"]
+  T18["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S18 -->|calls| T18
+  S19["method:UIView::MJRefreshFooterBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:314"]
+  T19["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S19 -->|calls| T19
+  S20["method:UIView::XZM_beginRefreshingNormalHeader<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:327"]
+  T20["function:KindOfScrollViewCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:91"]
+  S20 -->|calls| T20
+  S21["method:UIView::XZM_endRefreshingNormalHeader<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:338"]
+  T21["function:KindOfScrollViewCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:91"]
+  S21 -->|calls| T21
+  S22["method:UIView::XZM_beginRefreshingGifHeader<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:349"]
+  T22["function:KindOfScrollViewCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:91"]
+  S22 -->|calls| T22
+  S23["method:UIView::XZM_endRefreshingGifHeader<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:360"]
+  T23["function:KindOfScrollViewCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:91"]
+  S23 -->|calls| T23
+  S24["method:UIView::XZM_beginRefreshingNormalFooter<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:371"]
+  T24["function:KindOfScrollViewCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:91"]
+  S24 -->|calls| T24
+  S25["method:UIView::XZM_endRefreshingNormalFooter<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:382"]
+  T25["function:KindOfScrollViewCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:91"]
+  S25 -->|calls| T25
+```
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

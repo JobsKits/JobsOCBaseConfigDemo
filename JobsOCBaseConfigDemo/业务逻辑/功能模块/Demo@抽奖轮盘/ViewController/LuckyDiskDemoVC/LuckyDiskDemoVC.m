@@ -1,9 +1,8 @@
 //
 //  LuckyDiskDemoVC.m
-//  XLLuckyDrawDemo
+//  JobsOCBaseConfigDemo
 //
-//  Created by Mac-Qke on 2019/2/11.
-//  Copyright © 2019 Mac-Qke. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "LuckyDiskDemoVC.h"
@@ -38,7 +37,6 @@ Prop_strong() UILabel *resultLabel;         ///< 弹窗中奖结果文案（懒�
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
 
     // 容器 ScrollView
     UIScrollView *scrollView =
@@ -312,7 +310,6 @@ Prop_strong() UILabel *resultLabel;         ///< 弹窗中奖结果文案（懒�
         self.itemBorderView.frame = CGRectMake(ScaleW(-1), ScaleW(84) - ScaleW(1), ScaleW(80), ScaleW(82));
     }
 
-
     if (self.slowIndex >= self.selectedIndex) {
         [self.slowTimer invalidate];
         self.slowTimer = nil;
@@ -478,6 +475,5 @@ Prop_strong() UILabel *resultLabel;         ///< 弹窗中奖结果文案（懒�
     }
     return _lotteryResultView;
 }
-
 
 @end

@@ -15,7 +15,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C55C795C2E16748E00B56985"
+               BlueprintIdentifier = "C50913B22F85D89000F261DA"
                BuildableName = "JobsOCBaseConfigDemo.app"
                BlueprintName = "JobsOCBaseConfigDemo"
                ReferencedContainer = "container:JobsOCBaseConfigDemo.xcodeproj">
@@ -27,9 +27,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-      </Testables>
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -45,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C55C795C2E16748E00B56985"
+            BlueprintIdentifier = "C50913B22F85D89000F261DA"
             BuildableName = "JobsOCBaseConfigDemo.app"
             BlueprintName = "JobsOCBaseConfigDemo"
             ReferencedContainer = "container:JobsOCBaseConfigDemo.xcodeproj">
@@ -62,7 +61,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C55C795C2E16748E00B56985"
+            BlueprintIdentifier = "C50913B22F85D89000F261DA"
             BuildableName = "JobsOCBaseConfigDemo.app"
             BlueprintName = "JobsOCBaseConfigDemo"
             ReferencedContainer = "container:JobsOCBaseConfigDemo.xcodeproj">

@@ -1,25 +1,52 @@
 //
-//  AppInternationalizationVC.h
-//  Casino
+//  AppLanguageVC.h
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2021/11/19.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "AppDelegate.h"
-#import "JobsLanguageManager.h"
-#import "BaseViewController.h"
-#import "MacroDef_Func.h"
-#import "MacroDef_Notification.h"
-#import "DefineConstString.h" /// 常量字符串的定义
-#import "NSObject+AppTools.h"
-#import "UIViewController+BackBtn.h"
-#import "UITableViewCell+UITableViewCellProtocol.h"
-#import "UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
 #import "XYColorOC.h"
+#endif
+
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
+#else
+#import "JobsBaseUI.h"
+#endif
+
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
+#else
+#import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

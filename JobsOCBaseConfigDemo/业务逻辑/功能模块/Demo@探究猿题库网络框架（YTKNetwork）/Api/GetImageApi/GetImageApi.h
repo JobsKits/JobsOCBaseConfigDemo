@@ -1,11 +1,15 @@
 //
 //  GetImageApi.h
-//  YTKNetworkDemo
+//  JobsOCBaseConfigDemo
 //
-//  Created by TangQiao on 11/8/14.
-//  Copyright (c) 2014 yuantiku.com. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#if __has_include(<JobsAPIs/JobsBaseApi.h>)
+#import <JobsAPIs/JobsBaseApi.h>
+#else
 #import "JobsBaseApi.h"
+#endif
 
 @interface GetImageApi : JobsBaseApi
 

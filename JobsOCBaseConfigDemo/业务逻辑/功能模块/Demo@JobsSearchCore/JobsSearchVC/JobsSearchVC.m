@@ -1,8 +1,8 @@
 //
 //  JobsSearchVC.m
-//  JobsSearch
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/10/2.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsSearchVC.h"
@@ -482,7 +482,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 -(UIColor *)bgColour{
     if (!_bgColour) {
-        _bgColour = self.byPatternImage(JobsBuddleIMG(nil, @"Telegram",nil, @"1"));
+        _bgColour = self.byPatternImage(JobsLoadBundleImage(nil, @"Telegram",nil, @"1"));
     }return _bgColour;
 }
 

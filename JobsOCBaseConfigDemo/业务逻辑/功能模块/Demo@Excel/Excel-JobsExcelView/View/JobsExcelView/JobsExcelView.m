@@ -1,10 +1,9 @@
 //
 //  JobsExcelView.m
-//  JobsExcelView
+//  JobsOCBaseConfigDemo
 //
-//  Created by mac on 17/6/16.
-//  Copyright © 2017年 Mephsito. All rights reserved.
-//  特别鸣谢 https://github.com/Mephsito23/iOS-Excel-
+//  Created by Jobs on 2026年5月13日，星期三.
+//
 
 #import "JobsExcelView.h"
 
@@ -186,5 +185,4 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
 }
 
 @end
-
 

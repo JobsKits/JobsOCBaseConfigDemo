@@ -1,11 +1,14 @@
 //
 //  A_VC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/1/8.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "A_VC.h"
+#import "B_VC.h"
+#import "PushAnimation.h"
+#import "MyFansTBVCell.h"
 
 @interface A_VC ()
 

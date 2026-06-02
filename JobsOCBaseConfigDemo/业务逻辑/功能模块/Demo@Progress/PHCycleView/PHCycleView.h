@@ -1,12 +1,35 @@
 //
 //  PHCycleView.h
-//  mtc_kwm
+//  JobsOCBaseConfigDemo
 //
-//  Created by 1 on 2020/11/13.
-//  Copyright © 2020 yzl. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 
 #define kBorderWith 10
 #define KCenter CGPointMake(self.bounds.size.width / 2.0, self.bounds.size.height / 2.0)
@@ -15,19 +38,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PHCycleView : UIView
 /**进度条颜色*/
-@property(strong,nonatomic)UIColor *progressColor;
+Prop_strong()UIColor *progressColor;
 /**进度Label字体*/
-@property(strong,nonatomic)UIFont *progressFont;
+Prop_strong()UIFont *progressFont;
 /**描述Label字体*/
-@property(strong,nonatomic)UIFont *describeFont;
+Prop_strong()UIFont *describeFont;
 /**描述Label文字*/
-@property(copy,nonatomic)NSString *describeStr;
+Prop_copy()NSString *describeStr;
 /**进度Label字体颜色*/
-@property(strong,nonatomic)UIColor *progressTextColor;
+Prop_strong()UIColor *progressTextColor;
 /**描述Label字体颜色*/
-@property(strong,nonatomic)UIColor *describeTextColor;
+Prop_strong()UIColor *describeTextColor;
 /**进度条无进度颜色*/
-@property(strong,nonatomic)UIColor *outLayerColor;
+Prop_strong()UIColor *outLayerColor;
 /*
  preAngle 横线间隔的度数
  size 线条的宽度 和长度

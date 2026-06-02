@@ -1,0 +1,66 @@
+require_relative 'JobsPodspecKit'
+
+Pod::Spec.new do |spec|
+
+  support_context = JobsPodspecKitForSYSAlertControllerExtra.build_support_context(
+    podspec_dir: File.expand_path(File.dirname(__FILE__)),
+    support_dir: 'Support',
+    support_dependencies: []
+  )
+
+  spec.name             = 'SYSAlertControllerExtra'
+  spec.version          = '1.0.0'
+  spec.summary          = 'UIAlertController category extensions for Jobs projects.'
+  spec.description      = <<-DESC
+SYSAlertControllerExtra is a local Objective-C category library providing
+UIAlertController helper APIs, alert configuration models, and action sheet
+presentation helpers for Jobs projects.
+  DESC
+
+  spec.homepage         = 'https://example.local/SYSAlertControllerExtra'
+  spec.license          = { :type => 'MIT', :file => 'LICENSE' }
+  spec.author           = { 'Jobs' => 'lg295060456@gmail.com' }
+
+  spec.platform         = :ios, '12.0'
+  spec.requires_arc     = true
+  spec.source           = { :path => '.' }
+  spec.default_subspecs = 'Core'
+
+  spec.source_files = [
+    'SYSAlertControllerExtra.h'
+  ]
+
+  spec.public_header_files = [
+    'SYSAlertControllerExtra.h'
+  ]
+
+  spec.frameworks = [
+    'Foundation',
+    'UIKit'
+  ]
+
+  JobsPodspecKitForSYSAlertControllerExtra.apply_standard_exclude_files(spec)
+  JobsPodspecKitForSYSAlertControllerExtra.add_support_subspec(spec, support_context)
+
+  spec.subspec 'Core' do |ss|
+    # Dynamic Support dependencies
+    JobsPodspecKitForSYSAlertControllerExtra.add_dynamic_support_dependencies(ss, spec, support_context)
+
+    ss.source_files        = 'Core/**/*.{h,m,mm}'
+    ss.public_header_files = 'Core/**/*.h'
+    ss.resources           = 'Core/**/*.{png,jpg,jpeg,gif,xib,nib,storyboard,xcassets}'
+
+    ss.dependency 'WHToast'
+    ss.dependency 'WHToastExtra'
+    ss.dependency 'ReactiveObjC'
+    ss.dependency 'JobsModel'
+    ss.dependency 'JobsBlock'
+    ss.dependency 'JobsOCDefs'
+    ss.dependency 'JobsOCRuntimeKits'
+    ss.dependency 'JobsLanMgr'
+
+  end
+
+  JobsPodspecKitForSYSAlertControllerExtra.apply_standard_xcconfig(spec)
+
+end

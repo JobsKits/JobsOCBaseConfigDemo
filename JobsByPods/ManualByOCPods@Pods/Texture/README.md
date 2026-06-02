@@ -1,51 +1,151 @@
-## Coming from AsyncDisplayKit? Learn more [here](https://medium.com/@Pinterest_Engineering/introducing-texture-a-new-home-for-asyncdisplaykit-e7c003308f50)
+# `Texture`
 
-![Texture](https://github.com/texturegroup/texture/raw/master/docs/static/images/logo.png)
+<iframe
+  src="https://dragonir.github.io/3d/#/earth"
+  title="Jobs出品，必属精品"
+  width="100%"
+  height="400"
+  style="border:0; display:block;"
+  allowfullscreen>
+</iframe>
 
-[![Apps Using](https://img.shields.io/cocoapods/at/Texture.svg?label=Apps%20Using%20Texture&colorB=28B9FE)](http://cocoapods.org/pods/Texture)
-[![Downloads](https://img.shields.io/cocoapods/dt/Texture.svg?label=Total%20Downloads&colorB=28B9FE)](http://cocoapods.org/pods/Texture)
+[toc]
 
-[![Platform](https://img.shields.io/badge/platforms-iOS%20%7C%20tvOS-orange.svg)](http://texturegroup.org)
-[![Languages](https://img.shields.io/badge/languages-ObjC%20%7C%20Swift-orange.svg)](http://texturegroup.org)
+---
 
-[![Version](https://img.shields.io/cocoapods/v/Texture.svg)](http://cocoapods.org/pods/Texture)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-59C939.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![License](https://img.shields.io/cocoapods/l/Texture.svg)](https://github.com/texturegroup/texture/blob/master/LICENSE)
+## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-## Installation
+> 这份自述用于记录 `Texture` 在 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的职责边界、目录结构、依赖关系和验证方式。
 
-Texture is available via CocoaPods or Carthage. See our [Installation](http://texturegroup.org/docs/installation.html) guide for instructions.
+## 一、Pod 定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-## Performance Gains
+| 项目 | 内容 |
+| ---- | ---- |
+| Pod 名称 | `Texture` |
+| Pod 类型 | 手动托管第三方 Pod |
+| 版本 | `3.2.0` |
+| 平台 | `未在 podspec 中声明` |
+| 摘要 | Smooth asynchronous user interfaces for iOS apps. |
+| 首页 | [http://texturegroup.org](http://texturegroup.org) |
+| 许可证 | `Apache 2` |
+| 作者 | `Huy Nguyen / hi@huynguyen.dev；Garrett Moon / garrett@excitedpixel.com；Scott Goodson / scottgoodson@gmail.com；Michael Schneider / mischneider1@gmail.com；Adlai Holler / adlai@icloud.com` |
+| podspec | `JobsByPods/ManualByOCPods@Pods/Texture/Texture.podspec` |
+| source | `{ :path => '.' }` |
 
-Texture's basic unit is the `node`. An ASDisplayNode is an abstraction over `UIView`, which in turn is an abstraction over `CALayer`. Unlike views, which can only be used on the main thread, nodes are thread-safe: you can instantiate and configure entire hierarchies of them in parallel on background threads.
+## 二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-To keep its user interface smooth and responsive, your app should render at 60 frames per second — the gold standard on iOS. This means the main thread has one-sixtieth of a second to push each frame. That's 16 milliseconds to execute all layout and drawing code! And because of system overhead, your code usually has less than ten milliseconds to run before it causes a frame drop.
+- 作为外源代码的本地化托管版本，供 `JobsByPods` 内其它 Pod 或 App 通过 [**CocoaPods**](https://cocoapods.org/) 稳定依赖。
+- 当 `Texture` 的 `Core`、`Support`、资源、依赖或公开头文件发生变化时，同步更新本 README，避免后续排查只看源码不看边界。
+- 参与本地 Pods 拆分时，先确认能力归属，再决定放入当前 Pod、迁移到 `Support`，还是下沉为更基础的公共 Pod。
 
-Texture lets you move image decoding, text sizing and rendering, layout, and other expensive UI operations off the main thread, to keep the main thread available to respond to user interaction.
+## 三、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-## Advanced Developer Features
+```text
+Texture/
+├── Texture.podspec  # Pod 描述文件
+├── README.md  # 当前自述
+└── LICENSE  # 许可证文件
+```
 
-As the framework has grown, many features have been added that can save developers tons of time by eliminating common boilerplate style structures common in modern iOS apps. If you've ever dealt with cell reuse bugs, tried to performantly preload data for a page or scroll style interface or even just tried to keep your app from dropping too many frames you can benefit from integrating Texture.
+- `Texture.podspec` 是当前 Pod 的 [**CocoaPods**](https://cocoapods.org/) 描述入口。
+- `README.md` 是当前文件，负责说明用途、边界、依赖、资源和风险。
+- 若目录中存在 `JobsPodspecKit.rb`，说明该 Pod 使用 Jobs 本地 podspec 基座动态映射 `Support`。
 
-## Learn More
+## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-* Read the our [Getting Started](http://texturegroup.org/docs/getting-started.html) guide
-* Get the [sample projects](https://github.com/texturegroup/texture/tree/master/examples)
-* Browse the [API reference](http://texturegroup.org/appledocs.html)
+- 当前目录没有 `Core` 文件夹；公开文件以 podspec 的 `source_files` / `public_header_files` 声明为准。
+- 当前目录没有 `Support` 文件夹；如后续补内部兼容代码，优先放入 `Support` 并让 podspec 动态映射。
+- `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
+- 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
 
-## Getting Help
+## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-We use Slack for real-time debugging, community updates, and general talk about Texture. [Signup](https://asdk-slack-auto-invite.herokuapp.com) yourself or email textureframework@gmail.com to get an invite.
+### 5.1、公开头文件
 
-## Release process
+- `Source/*.h`
+- `Source/Details/**/*.h`
+- `Source/Layout/**/*.h`
+- `Source/Base/*.h`
+- `Source/Debug/**/*.h`
+- `Source/Private/ASCollectionView+Undeprecated.h`
+- `Source/TextKit/ASTextNodeTypes.h`
+- `Source/TextKit/ASTextKitComponents.h`
+- `Source/TextExperiment/Component/*.h`
+- `Source/TextExperiment/String/ASTextAttribute.h`
 
-For the release process see the [RELEASE](https://github.com/texturegroup/texture/blob/master/RELEASE.md) file.
+### 5.2、源码入口
 
-## Contributing
+- `Source/**/*.{h,mm}`
+- `Source/TextKit/*.h`
 
-We welcome any contributions. See the [CONTRIBUTING](https://github.com/texturegroup/texture/blob/master/CONTRIBUTING.md) file for how to get involved.
+### 5.3、默认 subspec
 
-## License
+- `Core`
+- `PINRemoteImage`
+- `Video`
+- `MapKit`
+- `AssetsLibrary`
+- `Photos`
 
-The Texture project is available for free use, as described by the [LICENSE](https://github.com/texturegroup/texture/blob/master/LICENSE) (Apache 2.0).
+### 5.4、系统框架
+
+- `AVFoundation`
+- `CoreMedia`
+- `CoreLocation`
+- `MapKit`
+- `Photos`
+- `AssetsLibrary`
+
+### 5.5、Pod 依赖
+
+- podspec 未显式声明其它 Pod 依赖。
+
+## 六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+推荐在 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 代码里使用保护性引用，优先走 [**CocoaPods**](https://cocoapods.org/) 生成的公共头映射：
+
+```objc
+#if __has_include(<Texture/ASCollectionView+Undeprecated.h>)
+#import <Texture/ASCollectionView+Undeprecated.h>
+#else
+#import "ASCollectionView+Undeprecated.h"
+#endif
+```
+
+- 自建 Pod 对外优先引用公共入口头，不要绕开聚合头直接引用 `Support` 内部子头。
+- 如果 `ASCollectionView+Undeprecated.h` 不是最终公开入口，请先修正 `Texture.podspec` 的 `public_header_files` 和入口头设计，再修改调用方。
+
+## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+- 当前目录扫描到资源类文件 834 个，`Resources` 目录文件 0 个。
+- podspec 资源声明如下：
+
+- podspec 未显式声明 `resources`，如新增图片、xib、bundle、json、plist 等资源，需要同步补齐。
+
+## 八、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+修改 `Texture` 后，优先按风险从低到高验证：
+
+```shell
+ruby -c Texture.podspec
+```
+
+```shell
+pod lib lint Texture.podspec --allow-warnings --verbose
+```
+
+```shell
+pod install --no-repo-update
+```
+
+- 如果本机 [**Ruby**](https://www.ruby-lang.org) / [**CocoaPods**](https://cocoapods.org/) 环境不适合实际执行，至少保留未执行声明，并检查 `PodspecDependencyReport` 里的依赖链路。
+- 增删依赖后重点排查循环引用、公开头暴露和 `Support` 泄漏。
+
+## 九、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+- `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
+- `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
+- 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
+- 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

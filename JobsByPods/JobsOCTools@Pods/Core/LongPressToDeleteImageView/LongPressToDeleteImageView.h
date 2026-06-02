@@ -1,0 +1,20 @@
+//
+//  LongPressToDeleteImageView.h
+//  JobsOCTools
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_LONGPRESSTODELETEIMAGEVIEW_E988CE1143
+#define JOBS_HEADER_GUARD_LONGPRESSTODELETEIMAGEVIEW_E988CE1143
+
+#import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface LongPressToDeleteImageView : UIImageView
+
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_LONGPRESSTODELETEIMAGEVIEW_E988CE1143 */

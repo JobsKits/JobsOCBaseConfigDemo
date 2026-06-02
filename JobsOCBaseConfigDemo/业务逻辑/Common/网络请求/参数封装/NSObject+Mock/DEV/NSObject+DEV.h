@@ -1,13 +1,17 @@
 //
 //  NSObject+DEV.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
-//  Created by Admin on 18/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <Foundation/Foundation.h>
-#import "FMDoorModel.h"
-#import "GTCaptcha4Model.h"
+
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
+#else
+#import "JobsModel.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 /// 开发环境

@@ -1,0 +1,235 @@
+//
+//  UITableView+Extra.h
+//  JobsBaseUI
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_UITABLEVIEW_EXTRA_FDBD0F2973
+#define JOBS_HEADER_GUARD_UITABLEVIEW_EXTRA_FDBD0F2973
+
+#pragma once
+
+#import <UIKit/UIKit.h>
+#if __has_include(<JobsOCDSL/UITableView+DSL.h>)
+#import <JobsOCDSL/UITableView+DSL.h>
+#else
+#import "UITableView+DSL.h"
+#endif
+#import <JobsBaseUI/UIView+Refresh.h>
+
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
+#else
+#import "JobsModel.h"
+#endif
+
+#if __has_include(<MJRefresh/MJRefresh.h>)
+#import <MJRefresh/MJRefresh.h>
+#else
+#import "MJRefresh.h"
+#endif
+
+#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
+#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
+#else
+#import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+/**
+ 
+     ❤️UITableViewStylePlain ❤️
+     不实现footer、header设置方法，默认无header、footer；
+                                            iOS 11                                                                         |                      < iOS 11
+     ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        viewForHeaderInSection           |      只实现此方法header高度为系统默认                                                |   只实现此方法header设置无效
+     ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        heightForHeaderInSection        |       只实现此方法header设置无效                                                          |  只实现此方法header高度设置有效
+     ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                同时实现 viewForHeaderInSection 和 heightForHeaderInSection        |
+                                        header高度设置有效                                                            |
+     ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     【 footer设置同header设置】
+
+
+     ❤️UITableViewStyleGrouped ❤️
+     不实现footer、header设置方法，默认无header、footer；
+                                            iOS 11                                                                         |                      < iOS 11
+     ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        viewForHeaderInSection           |      只实现此方法header高度为系统默认                                                |   只实现此方法header高度为系统默认
+     ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        heightForHeaderInSection        |       只实现此方法header高度为系统默认                                                |  实现此方法header高度设置有效，不可为0
+     ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                同时实现 viewForHeaderInSection 和 heightForHeaderInSection        |
+                                        header高度设置有效                                                            |
+     ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     【 footer设置同header设置】
+
+     综上所诉:
+     1、iOS 11 设置 header 高度必须同时实现 viewForHeaderInSection 和 heightForHeaderInSection ；
+     2、iOS 11 之前版本只设置 heightForHeaderInSection 即可设置 header 高度，只是在 UITableViewStyleGrouped 时无法设置 header 高度为0，设置0时高度为系统默认高度；
+
+     作者：JimmyL
+     链接：https://www.jianshu.com/p/65425a9d98e3
+     来源：简书
+     著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+ */
+NS_ASSUME_NONNULL_BEGIN
+
+@interface UITableView (Extra)<BaseTableViewProtocol>
+
+@end
+
+NS_ASSUME_NONNULL_END
+
+#ifndef JOBS_MAKE_TABLE_VIEW_BY_PLAIN
+#define JOBS_MAKE_TABLE_VIEW_BY_PLAIN
+NS_INLINE __kindof UITableView *_Nonnull jobsMakeTableViewByPlain(jobsByTableViewBlock _Nonnull block){
+    UITableView *data = UITableView.initWithStylePlain;
+    if (block) block(data);
+    return data;
+}
+#endif /* JOBS_MAKE_TABLE_VIEW_BY_PLAIN */
+
+#ifndef JOBS_MAKE_TABLE_VIEW_BY_GROUPED
+#define JOBS_MAKE_TABLE_VIEW_BY_GROUPED
+NS_INLINE __kindof UITableView *_Nonnull jobsMakeTableViewByGrouped(jobsByTableViewBlock _Nonnull block){
+    UITableView *data = UITableView.initWithStyleGrouped;
+    if (block) block(data);
+    return data;
+}
+#endif /* JOBS_MAKE_TABLE_VIEW_BY_GROUPED */
+
+#ifndef JOBS_MAKE_TABLE_VIEW_BY_INSET_GROUPED
+#define JOBS_MAKE_TABLE_VIEW_BY_INSET_GROUPED
+NS_INLINE __kindof UITableView *_Nonnull jobsMakeTableViewByInsetGrouped(jobsByTableViewBlock _Nonnull block){
+    UITableView *data = UITableView.initWithStyleInsetGrouped;
+    if (block) block(data);
+    return data;
+}
+#endif /* JOBS_MAKE_TABLE_VIEW_BY_INSET_GROUPED */
+/**
+ 
+     /// self.tableView.dataLink(self);不要写在Block里面，会引起循环调用。用它进行唤起
+     /// BaseViewProtocol
+     @synthesize tableView = _tableView;
+     -(UITableView *)tableView{
+         if (!_tableView) {
+             /// 一般用 initWithStylePlain。initWithStyleGrouped会自己预留一块空间
+             @jobs_weakify(self)
+             _tableView = jobsMakeTableViewByInsetGrouped(^(__kindof UITableView * _Nullable tableView) {
+                 @jobs_strongify(self)
+                 tableView.bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
+                     .bySeparatorColor(HEXCOLOR(0xEEE2C8))
+                     .registerHeaderFooterViewClass(MSCommentTableHeaderFooterView.class,nil)
+                     .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
+                     .byTableHeaderView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+                         /// TODO
+                     })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
+                     .byTableFooterView(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
+                         label.byText(@"- 没有更多的内容了 -".tr)
+                             .byFont(UIFontWeightRegularSize(12))
+                             .byTextAlignment(NSTextAlignmentCenter)
+                             .byTextCor(HEXCOLOR(0xB0B0B0))
+                             .makeLabelByShowingType(UILabelShowingType_03);
+                     }))/// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
+                     .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
+                         data.title = @"NO MESSAGES FOUND".tr;
+                         data.titleCor = JobsWhiteColor;
+                         data.titleFont = bayonRegular(JobsWidth(30));
+                         data.normalImage = @"小狮子".img;
+                     }))
+                     /// 普通的MJRefreshHeader（触发事件）@二选一
+                     .byMJRefreshHeader([MJRefreshNormalHeader headerWithRefreshingBlock:^{
+                         @jobs_strongify(self)
+                         NSObject.feedbackGenerator(nil);/// 震动反馈
+                         self->_tableView.endRefreshing(YES);
+                     }].byMJRefreshHeaderConfigModel(self.mjHeaderDefaultConfig))
+                     /// MJRefreshHeader的拓展：下拉刷新Lottie动画@二选一
+                     //.byMJRefreshHeader(self.lotAnimMJRefreshHeader.byRefreshConfigModel(jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable model) {})))
+                     /// 普通的MJRefreshFooter（触发事件）
+                     .byMJRefreshFooter([MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+                         @jobs_strongify(self)
+                         NSObject.feedbackGenerator(nil);/// 震动反馈
+                         self->_tableView.endRefreshing(YES);
+                     }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
+
+                     .byShowsVerticalScrollIndicator(NO)
+                     .byShowsHorizontalScrollIndicator(NO)
+                     .byScrollEnabled(YES)
+                     .byBgColor(JobsClearColor);
+
+                 if(@available(iOS 11.0, *)) {
+                     tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+                 }else{
+                     SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
+                 }
+
+     //            {
+     //                tableView.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
+     //                    @jobs_strongify(self)
+     //                    self.feedbackGenerator(nil);//震动反馈
+     //                    self->_tableView.endRefreshing(YES);
+     //                    return nil;
+     //                }]);
+     //                tableView.mj_header.automaticallyChangeAlpha = YES;//根据拖拽比例自动切换透明度
+     //            }
+
+     //            {/// 设置tabAnimated相关属性
+     //                // 可以不进行手动初始化，将使用默认属性
+     //                tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:JobsBaseTableViewCell.class
+     //                                                                      cellHeight:[JobsBaseTableViewCell cellHeightWithModel:nil]];
+     //                tableView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeShimmer;
+     //                [tableView tab_startAnimation];   // 开启动画
+     //            }
+
+     //            {
+     //              [tableView xzm_addNormalHeaderWithTarget:self
+     //                                                 action:selectorBlocks(^id _Nullable(id _Nullable weakSelf,
+     //                                                                                     id _Nullable arg) {
+     //                  NSLog(@"SSSS加载新的数据，参数: %@", arg);
+     //                  @jobs_strongify(self)
+     //                  /// 在需要结束刷新的时候调用（只能调用一次）
+     //                  /// _tableView.endRefreshing();
+     //                  return nil;
+     //              }, MethodName(self), self)];
+     //
+     //              [tableView xzm_addNormalFooterWithTarget:self
+     //                                                 action:selectorBlocks(^id _Nullable(id _Nullable weakSelf,
+     //                                                                                     id _Nullable arg) {
+     //                  NSLog(@"SSSS加载新的数据，参数: %@", arg);
+     //                  @jobs_strongify(self)
+     //                  /// 在需要结束刷新的时候调用（只能调用一次）
+     //                  /// _tableView.endRefreshing();
+     //                  return nil;
+     //              }, MethodName(self), self)];
+     //              [tableView.xzm_header beginRefreshing];
+     //          }
+             })
+             .addOn(self.view)
+             .byAdd(^(MASConstraintMaker *make) {
+                 @jobs_strongify(self)
+                 make.left.right.bottom.equalTo(self.view);
+                 [self make:make topOffset:10];
+             });
+         }return _tableView;
+     }
+ */
+#endif /* JOBS_HEADER_GUARD_UITABLEVIEW_EXTRA_FDBD0F2973 */

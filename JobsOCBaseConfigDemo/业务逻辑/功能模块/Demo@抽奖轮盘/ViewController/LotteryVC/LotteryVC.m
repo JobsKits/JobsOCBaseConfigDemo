@@ -2,7 +2,7 @@
 //  LotteryVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by User on 8/13/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "LotteryVC.h"
@@ -241,7 +241,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         });
     }return _tableView;
 }
-
 
 -(NSMutableArray<__kindof UITableViewCell *> *)tbvSectionRowCellMutArr{
     if(!_tbvSectionRowCellMutArr){

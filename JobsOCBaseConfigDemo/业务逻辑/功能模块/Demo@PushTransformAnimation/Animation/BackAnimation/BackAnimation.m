@@ -1,9 +1,8 @@
 //
 //  BackAnimation.m
-//  PushTransFormDemo
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jane on 16/8/24.
-//  Copyright © 2016年 Jane. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "BackAnimation.h"

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="c8v-IH-sgR"/>
+                        <viewControllerLayoutGuide type="bottom" id="GWQ-Q0-CIG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBY-Tw-DU0">
+                                <rect key="frame" x="166" y="557" width="43" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="43" id="SAu-fV-XXE"/>
+                                    <constraint firstAttribute="height" constant="38" id="ctW-bH-Mpx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="开始"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G6v-xA-hQL">
+                                <rect key="frame" x="60" y="557" width="43" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="38" id="4EN-Zg-53k"/>
+                                    <constraint firstAttribute="width" constant="43" id="nPc-c8-0ND"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="43" id="r9C-qf-7iu"/>
+                                    <constraint firstAttribute="height" constant="38" id="soo-2p-sTo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="背景"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="G6v-xA-hQL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="44" id="Bzh-bP-GTe"/>
+                            <constraint firstItem="jBY-Tw-DU0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QEC-F7-23V"/>
+                            <constraint firstAttribute="bottom" secondItem="jBY-Tw-DU0" secondAttribute="bottom" constant="72" id="gSy-Li-19X"/>
+                            <constraint firstItem="GWQ-Q0-CIG" firstAttribute="top" secondItem="G6v-xA-hQL" secondAttribute="bottom" constant="72" id="oDa-wF-U8s"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="changeBgColor" destination="G6v-xA-hQL" id="1FX-6a-8Dx"/>
+                        <outlet property="startBtn" destination="jBY-Tw-DU0" id="5Zf-fj-yQR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="138.40000000000001" y="137.18140929535232"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

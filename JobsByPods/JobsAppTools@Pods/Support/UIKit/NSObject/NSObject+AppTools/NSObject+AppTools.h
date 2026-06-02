@@ -1,0 +1,50 @@
+//
+//  NSObject+AppTools.h
+//  JobsAppTools
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_APPTOOLS_D21EC877E4
+#define JOBS_HEADER_GUARD_NSOBJECT_APPTOOLS_D21EC877E4
+
+#pragma once
+
+#import <Foundation/Foundation.h>
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
+#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
+#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
+#else
+#import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsStringUtils/JobsStringUtils.h>)
+#import <JobsStringUtils/JobsStringUtils.h>
+#else
+#import "JobsStringUtils.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+
+@class UIButtonModel;
+
+@interface NSObject (AppTools)<AppToolsProtocol>
+
+-(UIButtonModel *)makeBackBtnModel;
+
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_APPTOOLS_D21EC877E4 */

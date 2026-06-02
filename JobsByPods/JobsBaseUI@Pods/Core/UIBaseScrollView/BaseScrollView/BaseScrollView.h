@@ -1,0 +1,20 @@
+//
+//  BaseScrollView.h
+//  JobsBaseUI
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_BASESCROLLVIEW_2DDEFB8C5C
+#define JOBS_HEADER_GUARD_BASESCROLLVIEW_2DDEFB8C5C
+
+#import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface BaseScrollView : UIScrollView
+
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_BASESCROLLVIEW_2DDEFB8C5C */

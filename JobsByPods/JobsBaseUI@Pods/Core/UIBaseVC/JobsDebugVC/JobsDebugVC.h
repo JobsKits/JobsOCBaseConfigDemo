@@ -1,0 +1,54 @@
+//
+//  JobsDebugVC.h
+//  JobsBaseUI
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
+#else
+#import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
+#else
+#import "JobsModel.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#ifndef VC_LIFE_CYCLE_ENUM_DEFINED
+#define VC_LIFE_CYCLE_ENUM_DEFINED
+typedef NS_ENUM(NSUInteger, UIViewControllerLifeCycle) {
+    VCLifeCycle_loadView = 0,
+    VCLifeCycle_viewDidLoad,
+    VCLifeCycle_viewWillAppear,
+    VCLifeCycle_viewDidAppear,
+    VCLifeCycle_viewWillDisappear,
+    VCLifeCycle_viewDidDisappear,
+    VCLifeCycle_viewWillLayoutSubviews,
+    VCLifeCycle_viewDidLayoutSubviews
+};
+#endif /* VC_LIFE_CYCLE_ENUM_DEFINED */
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface JobsDebugVC : UIViewController
+
+@end
+
+NS_ASSUME_NONNULL_END

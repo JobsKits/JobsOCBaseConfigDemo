@@ -1,17 +1,16 @@
 //
 //  JobsExcelConfigureViewModel.m
-//  JobsExcelView
+//  JobsOCBaseConfigDemo
 //
-//  Created by mac on 17/6/16.
-//  Copyright © 2017年 Mephsito. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsExcelConfigureViewModel.h"
 
 @interface JobsExcelConfigureViewModel()
 
-Prop_assign()NSInteger rowNumber;/// 行数
-Prop_assign()NSInteger colNumber;/// 列数
+Prop_assign()NSInteger rowNumber;// 行数
+Prop_assign()NSInteger colNumber;// 列数
 
 @end
 

@@ -1,8 +1,8 @@
 //
 //  JobsEmptyDataView.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
-//  Created by Admin on 14/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef JobsEmptyDataView_h
@@ -10,14 +10,23 @@
 
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
-#import "JobsBlock.h"
-#import "MacroDef_String.h"
-#import "UILabel+Extra.h"
-#import "UIView+Extras.h"
-#import "UIScrollView+EmptyData.h"
-#import "BaseView.h"
 
-#import "UITableView+EmptyData.h"
-#import "UICollectionView+EmptyData.h"
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 #endif /* JobsEmptyDataView_h */

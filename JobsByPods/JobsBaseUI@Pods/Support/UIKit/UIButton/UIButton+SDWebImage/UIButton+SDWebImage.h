@@ -1,0 +1,125 @@
+//
+//  UIButton+SDWebImage.h
+//  JobsBaseUI
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#pragma once
+
+#import <UIKit/UIKit.h>
+#import <objc/runtime.h>
+
+#if __has_include(<JobsBaseUI/SDWebImageModel.h>)
+#import <JobsBaseUI/SDWebImageModel.h>
+#elif __has_include(<JobsModel/SDWebImageModel.h>)
+#import <JobsModel/SDWebImageModel.h>
+#else
+#import <JobsBaseUI/SDWebImageModel.h>
+#endif
+
+#import <JobsBaseUI/UIButton+UI.h>
+#import <JobsBaseUI/NSString+Extra.h>
+
+#if __has_include(<SDWebImage/SDWebImage.h>)
+#import <SDWebImage/SDWebImage.h>
+#else
+#import "SDWebImage.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+/// SDWebImage+UIButton
+#ifndef SDWebImageButtonBlock
+#define SDWebImageButtonBlock
+typedef __kindof UIButton *_Nullable(^JobsRetBtnBySDExternalCompletionBlocks)(SDExternalCompletionBlock _Nullable data);
+typedef __kindof UIButton *_Nullable(^JobsRetButBySDWebImageOptionsBlocks)(SDWebImageOptions data);
+typedef __kindof UIButton *_Nullable(^JobsRetButBySDImageLoaderProgressBlocks)(SDImageLoaderProgressBlock _Nullable data);
+#endif /* SDWebImageButtonBlock */
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface UIButton (SDWebImage)
+
+Prop_copy(readonly,nonnull)JobsRetBtnByURLBlock imageURL;
+Prop_copy(readonly,nonnull)JobsRetBtnByImageBlock placeholderImage;
+Prop_copy(readonly,nonnull)JobsRetButBySDWebImageOptionsBlocks options;
+Prop_copy(readonly,nonnull)JobsRetBtnBySDExternalCompletionBlocks completed;
+Prop_copy(readonly,nonnull)JobsRetButBySDImageLoaderProgressBlocks progress;
+#pragma mark —— 设置普通图片的方法
+/// 如果用此方法进行图片赋值，则：jobsResetBtnImage失灵。必须还是用此方法，方可进行图片修改
+Prop_copy(readonly,nonnull)JobsRetBtnByVoidBlock normalLoad;
+Prop_copy(readonly,nonnull)JobsRetBtnByVoidBlock highlightedlLoad;
+Prop_copy(readonly,nonnull)JobsRetBtnByVoidBlock disabledLoad;
+Prop_copy(readonly,nonnull)JobsRetBtnByVoidBlock selectedLoad;
+Prop_copy(readonly,nonnull)JobsRetBtnByVoidBlock focusedLoad API_AVAILABLE(ios(9.0));
+Prop_copy(readonly,nonnull)JobsRetBtnByVoidBlock applicationLoad;
+Prop_copy(readonly,nonnull)JobsRetBtnByVoidBlock reservedLoad;
+#pragma mark —— 设置背景图片的方法
+/// 如果用此方法进行图片赋值，则：jobsResetBtnBgImage失灵。必须还是用此方法，方可进行图片修改
+Prop_copy(readonly,nonnull)JobsRetBtnByVoidBlock bgNormalLoad;
+Prop_copy(readonly,nonnull)JobsRetBtnByVoidBlock bgHighlightedlLoad;
+Prop_copy(readonly,nonnull)JobsRetBtnByVoidBlock bgDisabledLoad;
+Prop_copy(readonly,nonnull)JobsRetBtnByVoidBlock bgSelectedLoad;
+Prop_copy(readonly,nonnull)JobsRetBtnByVoidBlock bgFocusedLoad API_AVAILABLE(ios(9.0));
+Prop_copy(readonly,nonnull)JobsRetBtnByVoidBlock bgApplicationLoad;
+Prop_copy(readonly,nonnull)JobsRetBtnByVoidBlock bgReservedLoad;
+
+@end
+
+NS_ASSUME_NONNULL_END
+/**
+ 
+     self->_btn
+         .imageURL(self.viewModel.normalImageURLString.imageURLPlus.jobsUrl)
+         .placeholderImage(self.viewModel.normalImage)
+         .options(self.makeSDWebImageOptions)
+         .completed(^(UIImage * _Nullable image,
+                      NSError * _Nullable error,
+                      SDImageCacheType cacheType,
+                      NSURL * _Nullable imageURL) {
+             if (error) {
+                 JobsLog(@"aa图片加载失败: %@-%@", error,imageURL);
+             } else {
+                 JobsLog(@"图片加载成功");
+             }
+         }).normalLoad();
+*/
+/*
+
+ ❤️SDWebImageRetryFailed：如果 URL 下载失败，默认情况下该 URL 会被列入黑名单，库不会再次尝试下载。此选项禁用黑名单机制，让库继续尝试下载。
+ ❤️SDWebImageLowPriority：默认情况下，图像下载在 UI 交互期间开始。此选项禁用该功能，导致在 UIScrollView 减速时才开始下载。
+ ❤️SDWebImageProgressiveLoad：启用渐进式下载，图像在下载过程中逐步显示，类似于浏览器的行为。默认情况下，图像在完全下载后才显示。
+ ❤️SDWebImageRefreshCached：即使图像已被缓存，仍遵守 HTTP 响应的缓存控制规则，如果需要则从远程重新加载图像。适用于 URL 不变而图像更新的场景。
+ ❤️SDWebImageContinueInBackground：在 iOS 4+ 中，如果应用进入后台，继续下载图像。这通过请求系统的额外后台时间来完成下载。
+ ❤️SDWebImageHandleCookies：处理存储在 NSHTTPCookieStore 中的 cookies，设置 NSMutableURLRequest.HTTPShouldHandleCookies = YES。
+ ❤️SDWebImageAllowInvalidSSLCertificates：允许不受信任的 SSL 证书，通常用于测试目的，生产环境应谨慎使用。
+ ❤️SDWebImageHighPriority：默认情况下，图像按排队顺序加载。此选项将图像优先级提高，使其优先下载。
+ ❤️SDWebImageDelayPlaceholder：延迟占位符图像的加载，直到图像加载完成为止。适用于作为错误占位符而不是加载占位符的场景。
+ ❤️SDWebImageTransformAnimatedImage：默认情况下，不会对动画图像进行变换。此选项强制对动画图像进行变换。
+ ❤️SDWebImageAvoidAutoSetImage：默认情况下，图像在下载后会自动添加到 imageView 中。此选项允许你在完成回调中手动设置图像。
+ ❤️SDWebImageScaleDownLargeImages：将大图像缩小到与设备内存约束兼容的大小，防止内存过度消耗。
+ ❤️SDWebImageQueryMemoryData：强制在内存中查询图像数据，即使图像已经缓存了。
+ ❤️SDWebImageQueryMemoryDataSync：同步查询内存图像数据，而不是默认的异步查询。
+ ❤️SDWebImageQueryDiskDataSync：同步查询磁盘缓存中的图像数据。
+ ❤️SDWebImageFromCacheOnly：仅从缓存中加载图像，不从远程加载。
+ ❤️SDWebImageFromLoaderOnly：仅从远程加载图像，不从缓存中加载。
+ ❤️SDWebImageForceTransition：强制对所有图像加载场景（包括内存或磁盘缓存）应用视图过渡动画。
+ ❤️SDWebImageAvoidDecodeImage（已弃用）：防止解码图像以减少内存消耗。
+ ❤️SDWebImageDecodeFirstFrameOnly：仅解码动画图像的第一帧，并生成静态图像。
+ ❤️SDWebImagePreloadAllFrames：预加载所有动画图像帧，以减少 CPU 使用率。
+ ❤️SDWebImageMatchAnimatedImageClass：确保返回的图像类与 SDWebImageContextAnimatedImageClass 一致，如果无法匹配，返回错误。
+ ❤️SDWebImageWaitStoreCache：确保在完成回调时，磁盘缓存已写入完成。
+ ❤️SDWebImageTransformVectorImage：允许对矢量图像进行变换，尽管这可能会丢失细节。
+ ❤️SDWebImageAvoidAutoCancelImage：禁用自动取消图像加载请求，允许每次加载都开始新的下载管道。
+ ❤️SDWebImageRetryFailedSDWebImageWaitTransition：在图像视图过渡完成之前，延迟调用完成回调，以避免界面状态混乱。
+*/

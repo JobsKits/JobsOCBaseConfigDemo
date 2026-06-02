@@ -1,11 +1,17 @@
 //
 //  BaiShaETProjVIPSubCVCell_02.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsBaseCollectionViewCell.h"
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

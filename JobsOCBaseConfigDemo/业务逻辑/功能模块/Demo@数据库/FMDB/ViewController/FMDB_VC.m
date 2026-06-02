@@ -2,7 +2,7 @@
 //  FMDB_VC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs Hi on 2024/7/6.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "FMDB_VC.h"
@@ -96,7 +96,5 @@
     [super viewDidDisappear:animated];
 }
 #pragma mark —— lazyLoad
-
-
 
 @end
