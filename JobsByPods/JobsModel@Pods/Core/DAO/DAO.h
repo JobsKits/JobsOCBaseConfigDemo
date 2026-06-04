@@ -10,13 +10,10 @@
 /// 业务类
 #import <JobsModel/CasinoCustomerContactModel.h>
 #import <JobsModel/CasinoGetiOSNewestVersionModel.h>
-
 #import <JobsModel/FMBannerAdsModel.h>
 #import <JobsModel/FMNameModel.h>
 #import <JobsModel/FMDoorModel.h>
-
 #import <JobsModel/FileNameModel.h>
-
 #import <JobsModel/JobsFileModel.h>
 #import <JobsModel/JobsAppDoorModel.h>
 #import <JobsModel/JobsDecorationModel.h>

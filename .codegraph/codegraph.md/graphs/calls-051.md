@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:NSString::isPrint<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:140"]
-  T1["method:NSString::characterAtIndex<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
+  S1["method:UIView::observeValueForKeyPath:ofObject:change:context:<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:602"]
+  T1["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S1 -->|calls| T1
-  S2["method:NSString::isLower<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:148"]
-  T2["method:NSString::characterAtIndex<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
+  S2["method:UIViewController::observeValueForKeyPath:ofObject:change:context:<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIViewController/UIViewController+MJRefresh/UIViewController+MJRefresh.m:31"]
+  T2["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S2 -->|calls| T2
-  S3["method:NSString::isUpper<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:156"]
-  T3["method:NSString::characterAtIndex<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
+  S3["method:UIViewController::observeValueForKeyPath:ofObject:change:context:<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIViewController/UIViewController+MJRefresh/UIViewController+MJRefresh.m:31"]
+  T3["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S3 -->|calls| T3
-  S4["method:NSString::isXdigit<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:164"]
-  T4["method:NSString::characterAtIndex<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
+  S4["method:JobsBioKit::biometryName<br/>JobsByPods/JobsBioKit@Pods/JobsBioKit/Core/JobsBioKit.m:46"]
+  T4["method:JobsBioKit::biometryType<br/>JobsByPods/JobsBioKit@Pods/JobsBioKit/Core/JobsBioKit.m:21"]
   S4 -->|calls| T4
-  S5["method:NSString::isPunct<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:172"]
-  T5["method:NSString::characterAtIndex<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
+  S5["method:JobsBioKit::authenticateWithReason:allowPasscodeFallback:reply:<br/>JobsByPods/JobsBioKit@Pods/JobsBioKit/Core/JobsBioKit.m:73"]
+  T5["method:JobsBioKit::authenticateWithReason:localizedFallbackTitle:allowPasscodeFallback:reply:<br/>JobsByPods/JobsBioKit@Pods/JobsBioKit/Core/JobsBioKit.m:82"]
   S5 -->|calls| T5
-  S6["method:NSString::isContainsUrl<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:186"]
-  T6["method:NSString::rangeOfString<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
+  S6["method:JobsBioKit::authenticateWithReason:localizedFallbackTitle:allowPasscodeFallback:reply:<br/>JobsByPods/JobsBioKit@Pods/JobsBioKit/Core/JobsBioKit.m:82"]
+  T6["method:JobsBioKit::dispatchReply:result:success:error:<br/>JobsByPods/JobsBioKit@Pods/JobsBioKit/Core/JobsBioKit.m:179"]
   S6 -->|calls| T6
-  S7["method:NSString::readLocalFileWithName<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Conversion/NSString+Conversion.m:43"]
-  T7["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
+  S7["method:JobsBioKit::authenticateWithReason:localizedFallbackTitle:allowPasscodeFallback:reply:<br/>JobsByPods/JobsBioKit@Pods/JobsBioKit/Core/JobsBioKit.m:82"]
+  T7["method:JobsBioKit::dispatchReply:result:success:error:<br/>JobsByPods/JobsBioKit@Pods/JobsBioKit/Core/JobsBioKit.m:179"]
   S7 -->|calls| T7
-  S8["method:NSString::dictionaryWithJsonString<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Conversion/NSString+Conversion.m:57"]
-  T8["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
+  S8["method:JobsPodspecKitForJobsBioKit::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsBioKit@Pods/JobsPodspecKit.rb:277"]
+  T8["method:JobsPodspecKitForJobsBioKit::standard_user_target_xcconfig<br/>JobsByPods/JobsBioKit@Pods/JobsPodspecKit.rb:266"]
   S8 -->|calls| T8
-  S9["method:NSString::compress<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Conversion/NSString+Conversion.m:93"]
-  T9["method:NSKeyedArchiver::archivedDataByRootObject_NO<br/>JobsByPods/JobsAPIs@Pods/Support/UIKit/NSKeyedArchiver/NSKeyedArchiver+Extra/NSKeyedArchiver+Extra.m:18"]
+  S9["method:JobsPodspecKitForJobsBioKit::apply_standard_xcconfig<br/>JobsByPods/JobsBioKit@Pods/JobsPodspecKit.rb:281"]
+  T9["method:JobsPodspecKitForJobsBioKit::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsBioKit@Pods/JobsPodspecKit.rb:273"]
   S9 -->|calls| T9
-  S10["method:NSString::compressString<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Conversion/NSString+Conversion.m:97"]
-  T10["method:NSKeyedArchiver::archivedDataByRootObject_NO<br/>JobsByPods/JobsAPIs@Pods/Support/UIKit/NSKeyedArchiver/NSKeyedArchiver+Extra/NSKeyedArchiver+Extra.m:18"]
+  S10["method:JobsPodspecKitForJobsBioKit::apply_standard_xcconfig<br/>JobsByPods/JobsBioKit@Pods/JobsPodspecKit.rb:281"]
+  T10["method:JobsPodspecKitForJobsBioKit::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsBioKit@Pods/JobsPodspecKit.rb:277"]
   S10 -->|calls| T10
-  S11["method:NSString::toString<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Conversion/NSString+Conversion.m:109"]
-  T11["function:toStringByID<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:71"]
+  S11["method:JobsBitsMonitorSuspendLab::initBy:<br/>JobsByPods/JobsBitsMonitor@Pods/Core/JobsBitsMonitorSuspendLab.m:22"]
+  T11["function:JobsBitsMonitorSuspendLab::JobsFormatSpeed<br/>JobsByPods/JobsBitsMonitor@Pods/Core/JobsBitsMonitorSuspendLab.m:170"]
   S11 -->|calls| T11
-  S12["method:NSString::GETRequestURLParaBy<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Conversion/NSString+Conversion.m:152"]
-  T12["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S12["method:JobsBitsMonitorSuspendLab::initBy:<br/>JobsByPods/JobsBitsMonitor@Pods/Core/JobsBitsMonitorSuspendLab.m:22"]
+  T12["function:JobsBitsMonitorSuspendLab::JobsFormatSpeed<br/>JobsByPods/JobsBitsMonitor@Pods/Core/JobsBitsMonitorSuspendLab.m:170"]
   S12 -->|calls| T12
-  S13["method:NSString::isEqualToString<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:26"]
-  T13["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S13["method:JobsBitsMonitorSuspendLab::initBy:<br/>JobsByPods/JobsBitsMonitor@Pods/Core/JobsBitsMonitorSuspendLab.m:22"]
+  T13["function:JobsBitsMonitorSuspendLab::JobsFormatSpeed<br/>JobsByPods/JobsBitsMonitor@Pods/Core/JobsBitsMonitorSuspendLab.m:170"]
   S13 -->|calls| T13
-  S14["method:NSString::isEqualToString<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:26"]
-  T14["method:NSString::isEqualToString<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:26"]
+  S14["method:JobsBitsMonitorSuspendLab::initBy:<br/>JobsByPods/JobsBitsMonitor@Pods/Core/JobsBitsMonitorSuspendLab.m:22"]
+  T14["function:JobsBitsMonitorSuspendLab::JobsFormatSpeed<br/>JobsByPods/JobsBitsMonitor@Pods/Core/JobsBitsMonitorSuspendLab.m:170"]
   S14 -->|calls| T14
-  S15["method:NSString::isContainsUrl<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:36"]
-  T15["method:NSString::rangeOfString<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
+  S15["method:JobsBitsMonitorSuspendLab::initBy:<br/>JobsByPods/JobsBitsMonitor@Pods/Core/JobsBitsMonitorSuspendLab.m:22"]
+  T15["function:networkingEnvir<br/>JobsByPods/JobsOCDefs@Pods/Core/JobsDefines/JobsDefineURLs.h:42"]
   S15 -->|calls| T15
-  S16["method:NSString::jobsUrl<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:64"]
-  T16["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
+  S16["method:JobsBitsMonitorSuspendLab::initBy:<br/>JobsByPods/JobsBitsMonitor@Pods/Core/JobsBitsMonitorSuspendLab.m:22"]
+  T16["method:JobsBitsMonitorSuspendLab::commonInit_JobsBitsMonitorSuspendLab<br/>JobsByPods/JobsBitsMonitor@Pods/Core/JobsBitsMonitorSuspendLab.m:133"]
   S16 -->|calls| T16
-  S17["method:NSString::add<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:81"]
-  T17["function:JobsMutableString<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:10"]
+  S17["method:JobsPodspecKitForJobsBitsMonitor::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsBitsMonitor@Pods/JobsPodspecKit.rb:277"]
+  T17["method:JobsPodspecKitForJobsBitsMonitor::standard_user_target_xcconfig<br/>JobsByPods/JobsBitsMonitor@Pods/JobsPodspecKit.rb:266"]
   S17 -->|calls| T17
-  S18["method:NSString::nullableString:replaceString:<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:119"]
-  T18["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
+  S18["method:JobsPodspecKitForJobsBitsMonitor::apply_standard_xcconfig<br/>JobsByPods/JobsBitsMonitor@Pods/JobsPodspecKit.rb:281"]
+  T18["method:JobsPodspecKitForJobsBitsMonitor::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsBitsMonitor@Pods/JobsPodspecKit.rb:273"]
   S18 -->|calls| T18
-  S19["method:NSString::nullableString:replaceString:<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:119"]
-  T19["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
+  S19["method:JobsPodspecKitForJobsBitsMonitor::apply_standard_xcconfig<br/>JobsByPods/JobsBitsMonitor@Pods/JobsPodspecKit.rb:281"]
+  T19["method:JobsPodspecKitForJobsBitsMonitor::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsBitsMonitor@Pods/JobsPodspecKit.rb:277"]
   S19 -->|calls| T19
-  S20["method:NSString::nullableString:replaceString:<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:119"]
-  T20["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S20["method:JobsPodspecKitForJobsBlock::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsBlock@Pods/JobsPodspecKit.rb:277"]
+  T20["method:JobsPodspecKitForJobsBlock::standard_user_target_xcconfig<br/>JobsByPods/JobsBlock@Pods/JobsPodspecKit.rb:266"]
   S20 -->|calls| T20
-  S21["method:NSString::nullableString:replaceString:<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:119"]
-  T21["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S21["method:JobsPodspecKitForJobsBlock::apply_standard_xcconfig<br/>JobsByPods/JobsBlock@Pods/JobsPodspecKit.rb:281"]
+  T21["method:JobsPodspecKitForJobsBlock::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsBlock@Pods/JobsPodspecKit.rb:273"]
   S21 -->|calls| T21
-  S22["method:NSString::nullableString:replaceString:<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:119"]
-  T22["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
+  S22["method:JobsPodspecKitForJobsBlock::apply_standard_xcconfig<br/>JobsByPods/JobsBlock@Pods/JobsPodspecKit.rb:281"]
+  T22["method:JobsPodspecKitForJobsBlock::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsBlock@Pods/JobsPodspecKit.rb:277"]
   S22 -->|calls| T22
-  S23["method:NSString::nullableString:replaceString:<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:119"]
-  T23["function:toStringByID<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:71"]
+  S23["method:AVURLAsset::videoPreViewImage<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/AVURLAsset/AVURLAsset+Extra/AVURLAsset+Extra.m:12"]
+  T23["method:AVAssetImageGenerator::initBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/AVAssetImageGenerator/AVAssetImageGenerator+Extra/AVAssetImageGenerator+Extra.m:12"]
   S23 -->|calls| T23
-  S24["method:NSString::nullableString:replaceString:<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:119"]
-  T24["function:toStringByID<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:71"]
+  S24["method:AVURLAsset::videoPreViewImage<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/AVURLAsset/AVURLAsset+Extra/AVURLAsset+Extra.m:12"]
+  T24["method:UIImage::imageWithCGImage<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIImage/UIImage+Extra/UIImage+Extra.m:244"]
   S24 -->|calls| T24
-  S25["method:NSString::addPathComponent<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Path/NSString+Path.m:43"]
-  T25["function:JobsMutableString<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:10"]
+  S25["method:CALayer::curve<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/CALayer/CALayer+Extra/CALayer+Extra.m:107"]
+  T25["method:CALayer::objFromArray:index:isRamdom:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/CALayer/CALayer+Extra/CALayer+Extra.m:170"]
   S25 -->|calls| T25
 ```
 

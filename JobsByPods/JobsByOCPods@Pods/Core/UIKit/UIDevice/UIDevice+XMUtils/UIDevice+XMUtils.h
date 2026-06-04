@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UIDEVICE_XMUTILS_C212E57F04
 #define JOBS_HEADER_GUARD_UIDEVICE_XMUTILS_C212E57F04
 
-#import <UIKit/UIKit.h>
 #import <sys/sysctl.h>
+#import <UIKit/UIKit.h>
 #import <JobsByOCPods/NSString+Check.h>
 #import <JobsByOCPods/NSObject+Extra.h>
 

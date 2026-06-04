@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BASEVC_03DF8B67C3
 #define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BASEVC_03DF8B67C3
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsByOCPods/NSObject+Extra.h>
 #import <JobsByOCPods/NSObject+image.h>
 #import <JobsByOCPods/NSObject+UsrInfo.h>
@@ -23,6 +23,12 @@
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
 #import "ReactiveObjC.h"
+#endif
+
+#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
+#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
+#else
+#import "JobsBaseProtocolHeader.h"
 #endif
 
 #if __has_include(<GKCustomNavigationBarExtra/GKCustomNavigationBarExtra.h>)
@@ -41,12 +47,6 @@
 #import <JobsNavBar/JobsNavBar.h>
 #else
 #import "JobsNavBar.h"
-#endif
-
-#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
-#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
-#else
-#import "JobsBaseProtocolHeader.h"
 #endif
 
 #if __has_include(<JobsDebug/JobsDebug.h>)
@@ -90,6 +90,7 @@
 #else
 #import "JobsDefines.h"
 #endif
+
 /// 用导航控制器进行包装
 NS_INLINE __kindof UINavigationController * _Nullable JobsByOCPodsNavCtrl(UIViewController __kindof * _Nonnull viewController){
     return viewController.navigationController ? viewController : [UINavigationController.alloc initWithRootViewController:viewController];

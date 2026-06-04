@@ -50,8 +50,7 @@
                 _semaphore = dispatch_semaphore_create(1);
             } break;
         }
-    }
-    return self;
+    }return self;
 }
 
 - (void)dealloc {

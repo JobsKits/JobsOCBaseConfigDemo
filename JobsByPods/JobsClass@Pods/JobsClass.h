@@ -15,4 +15,5 @@
 #else
 #import "NSObject+Class.h"
 #endif
+
 #endif /* JOBS_HEADER_GUARD_JOBSCLASS_55BD1913F1 */

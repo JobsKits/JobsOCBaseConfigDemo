@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_GIFIMAGEVIEW_9842C8EE9C
 #define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_GIFIMAGEVIEW_9842C8EE9C
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsByOCPods/NSString+Path.h>
 #import <JobsByOCPods/JobsString.h>
 
@@ -31,16 +31,16 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

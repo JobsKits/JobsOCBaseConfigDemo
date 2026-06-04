@@ -8,26 +8,14 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_MJREFRESH_368B0C562A
 #define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_MJREFRESH_368B0C562A
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsByOCPods/NSObject+Extra.h>
-
-#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
-#import <JobsBaseUI/JobsBaseUI.h>
-#else
-#import "JobsBaseUI.h"
-#endif
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
 #import "ReactiveObjC.h"
-#endif
-
-#if __has_include(<JobsModel/JobsModel.h>)
-#import <JobsModel/JobsModel.h>
-#else
-#import "JobsModel.h"
 #endif
 
 #if __has_include(<MJRefresh/MJRefresh.h>)
@@ -36,22 +24,34 @@
 #import "MJRefresh.h"
 #endif
 
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
+#else
+#import "JobsBaseUI.h"
+#endif
+
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
+#else
+#import "JobsModel.h"
+#endif
+
 #if __has_include(<MJRefreshExtra/MJRefreshExtra.h>)
 #import <MJRefreshExtra/MJRefreshExtra.h>
 #else
 #import "MJRefreshExtra.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

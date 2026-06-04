@@ -12,6 +12,12 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsStringUtils/JobsStringUtils.h>)
+#import <JobsStringUtils/JobsStringUtils.h>
+#else
+#import "JobsStringUtils.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -22,12 +28,6 @@
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
-#endif
-
-#if __has_include(<JobsStringUtils/JobsStringUtils.h>)
-#import <JobsStringUtils/JobsStringUtils.h>
-#else
-#import "JobsStringUtils.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

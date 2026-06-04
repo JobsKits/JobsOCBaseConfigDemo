@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEW_GESTURE_6FFE37062A
 #define JOBS_HEADER_GUARD_UIVIEW_GESTURE_6FFE37062A
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsBaseUI/NSObject+Extra.h>
 #import <JobsBaseUI/UIGestureRecognizer+Extra.h>
 #import <JobsBaseUI/UIView+Extra.h>

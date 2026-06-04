@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_BASECELLPROTOCOL_A6BBD2BF0F
 
 #import <Foundation/Foundation.h>
+
 #if __has_include(<JobsOCProtocols/BaseViewProtocol.h>)
 #import <JobsOCProtocols/BaseViewProtocol.h>
 #elif __has_include("../BaseViewProtocol.h")

@@ -28,17 +28,18 @@
 #import "JobsLoadingImage.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
-#import "JobsBlock.h"
-#endif
 /// hidden 的 权限优先级 > alpha
 NS_ASSUME_NONNULL_BEGIN
 /// 高仿iOS长按删除+抖动

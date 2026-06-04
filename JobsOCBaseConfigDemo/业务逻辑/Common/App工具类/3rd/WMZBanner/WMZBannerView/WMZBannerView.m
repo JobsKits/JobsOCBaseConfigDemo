@@ -38,8 +38,7 @@
         [self setFrame:self.param.wFrame];
         self.data = [NSArray arrayWithArray:self.param.wData];
         [self setUp];
-    }
-    return self;
+    }return self;
 }
 /**
  *  调用方法
@@ -54,8 +53,7 @@
         [self setFrame:self.param.wFrame];
         self.data = [NSArray arrayWithArray:self.param.wData];
         [self setUp];
-    }
-    return self;
+    }return self;
 }
 
 +(JobsReturnWMZBannerViewByBannerParamBlock _Nonnull)initBy{

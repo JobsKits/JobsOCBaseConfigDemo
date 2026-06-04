@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSAPPDOORCONTENTVIEW_5F125A14FE
 
 #import <UIKit/UIKit.h>
+#import <JobsOCTools/JobsOCTools.h>
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
@@ -27,8 +28,6 @@
 #else
 #import "JobsByOCPods.h"
 #endif
-
-#import <JobsOCTools/JobsOCTools.h>
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>

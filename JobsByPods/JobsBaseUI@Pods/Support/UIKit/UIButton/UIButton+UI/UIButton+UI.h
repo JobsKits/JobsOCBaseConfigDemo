@@ -10,8 +10,8 @@
 
 #pragma once
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsBaseUI/NSString+Sys.h>
 #import <JobsBaseUI/UIButton+TextView.h>
 #import <JobsBaseUI/UIButton+UIControlState.h>
@@ -19,12 +19,11 @@
 #import <JobsBaseUI/UIButton+UIButtonConfiguration.h>
 #import <JobsBaseUI/UITextView+Extra.h>
 #import <JobsBaseUI/UIView+Extra.h>
-#if __has_include(<JobsOCDSL/UIView+DSL.h>)
-#import <JobsOCDSL/UIView+DSL.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "UIView+DSL.h"
+#import "JobsOCDSL.h"
 #endif
-#import <JobsBaseUI/UILabel+DSL.h>
 #import <JobsBaseUI/UIBackgroundConfiguration+Extra.h>
 #import <JobsBaseUI/UIButtonConfiguration+Extra.h>
 #import <JobsBaseUI/UIGestureRecognizer+Extra.h>
@@ -43,6 +42,18 @@
 #import "XYColorOC.h"
 #endif
 
+#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
+#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
+#else
+#import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsModel/JobsModel.h>)
 #import <JobsModel/JobsModel.h>
 #else
@@ -53,12 +64,6 @@
 #import <JobsDeviceInfo/JobsDeviceInfo.h>
 #else
 #import "JobsDeviceInfo.h"
-#endif
-
-#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
-#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
-#else
-#import "JobsBaseProtocolHeader.h"
 #endif
 
 #if __has_include(<JobsRichTextUtils/JobsRichTextUtils.h>)

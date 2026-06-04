@@ -36,6 +36,12 @@
 #import "JobsLanMgr.h"
 #endif
 
+#if __has_include(<TFPopupExtra/TFPopupExtra.h>)
+#import <TFPopupExtra/TFPopupExtra.h>
+#else
+#import "TFPopupExtra.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -46,12 +52,6 @@
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
-#endif
-
-#if __has_include(<TFPopupExtra/TFPopupExtra.h>)
-#import <TFPopupExtra/TFPopupExtra.h>
-#else
-#import "TFPopupExtra.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

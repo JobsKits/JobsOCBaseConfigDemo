@@ -19,10 +19,10 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
+#if __has_include(<JobsOCTools/JobsOCTools.h>)
+#import <JobsOCTools/JobsOCTools.h>
 #else
-#import "JobsDefines.h"
+#import "JobsOCTools.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -31,10 +31,10 @@
 #import "JobsBlock.h"
 #endif
 
-#if __has_include(<JobsOCTools/JobsOCTools.h>)
-#import <JobsOCTools/JobsOCTools.h>
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
 #else
-#import "JobsOCTools.h"
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

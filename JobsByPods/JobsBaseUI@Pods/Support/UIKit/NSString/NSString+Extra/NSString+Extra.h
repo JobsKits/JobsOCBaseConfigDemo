@@ -13,16 +13,16 @@
 #import <Foundation/Foundation.h>
 #import <JobsBaseUI/NSString+Sys.h>
 
-#if __has_include(<JobsModel/JobsModel.h>)
-#import <JobsModel/JobsModel.h>
-#else
-#import "JobsModel.h"
-#endif
-
 #if __has_include(<SDWebImage/SDWebImage.h>)
 #import <SDWebImage/SDWebImage.h>
 #else
 #import "SDWebImage.h"
+#endif
+
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
+#else
+#import "JobsModel.h"
 #endif
 
 #if __has_include(<WHToastExtra/WHToastExtra.h>)

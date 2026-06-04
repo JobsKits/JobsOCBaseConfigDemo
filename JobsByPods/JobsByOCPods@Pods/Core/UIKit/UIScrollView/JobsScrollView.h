@@ -12,10 +12,10 @@
 
 #import <JobsByOCPods/UIScrollView+UIScrollViewProtocol.h>
 #import <JobsByOCPods/UIScrollView+AnimationKit.h>
-#if __has_include(<JobsOCDSL/UIScrollView+DSL.h>)
-#import <JobsOCDSL/UIScrollView+DSL.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "UIScrollView+DSL.h"
+#import "JobsOCDSL.h"
 #endif
 
 #endif /* JobsScrollView_h */

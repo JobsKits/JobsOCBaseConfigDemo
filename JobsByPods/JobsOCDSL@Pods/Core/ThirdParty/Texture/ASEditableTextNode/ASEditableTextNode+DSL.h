@@ -8,8 +8,9 @@
 #ifndef JOBS_HEADER_GUARD_ASEDITABLETEXTNODE_DSL_60D8D10297
 #define JOBS_HEADER_GUARD_ASEDITABLETEXTNODE_DSL_60D8D10297
 
-#import <AsyncDisplayKit/AsyncDisplayKit.h>
 #import <objc/runtime.h>
+#import <AsyncDisplayKit/AsyncDisplayKit.h>
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else

@@ -10,8 +10,8 @@
 
 #pragma once
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <MJRefreshExtra/UIView+Extra.h>
 #import <MJRefreshExtra/UITextItem+Extra.h>
 #import <MJRefreshExtra/BaseTextView.h>

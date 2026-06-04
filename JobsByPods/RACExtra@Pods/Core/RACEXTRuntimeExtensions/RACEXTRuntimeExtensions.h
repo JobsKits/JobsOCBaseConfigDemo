@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_RACEXTRUNTIMEEXTENSIONS_5FD8408C39
 
 #import <objc/runtime.h>
+
 /**
  * Describes the memory management policy of a property.
  */

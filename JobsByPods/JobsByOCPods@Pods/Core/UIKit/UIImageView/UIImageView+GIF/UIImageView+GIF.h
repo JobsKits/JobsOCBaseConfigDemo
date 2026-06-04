@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UIIMAGEVIEW_GIF_E7B5D56465
 #define JOBS_HEADER_GUARD_UIIMAGEVIEW_GIF_E7B5D56465
 
-#import <UIKit/UIKit.h>
 #import <ImageIO/ImageIO.h> // 提供图像编解码能力，支持多种图片格式的读取、写入和元数据处理。
+#import <UIKit/UIKit.h>
 
 @interface UIImageView (GIF)
 /**

@@ -136,8 +136,7 @@
         @jobs_strongify(self)
         if (@available(iOS 18.0, *)) {
             self.shadowProperties.opacity = opacity;
-        }
-        return self;
+        }return self;
     };
 }
 #endif

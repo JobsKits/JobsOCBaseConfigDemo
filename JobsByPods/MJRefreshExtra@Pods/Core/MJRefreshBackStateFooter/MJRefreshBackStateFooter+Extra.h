@@ -16,16 +16,16 @@
 #import "MJRefresh.h"
 #endif
 
-#if __has_include(<JobsModel/JobsModel.h>)
-#import <JobsModel/JobsModel.h>
-#else
-#import "JobsModel.h"
-#endif
-
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
 #import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
+#else
+#import "JobsModel.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

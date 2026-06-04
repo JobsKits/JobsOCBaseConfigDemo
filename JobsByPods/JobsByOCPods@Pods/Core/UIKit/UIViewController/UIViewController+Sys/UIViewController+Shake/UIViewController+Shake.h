@@ -8,9 +8,9 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_SHAKE_11CF9EFA5A
 #define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_SHAKE_11CF9EFA5A
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>     // 提供 Core Animation 和 CALayer 能力，用于动画、图层和视觉渲染。
+#import <UIKit/UIKit.h>
 #import <AudioToolbox/AudioToolbox.h> // 用于调用系统级音频能力。
 #import <CoreMotion/CoreMotion.h>     // 用于访问设备运动传感器数据：加速度计、陀螺仪、磁力计、设备姿态、计步器等。
 #import <JobsByOCPods/NSObject+Shake.h>

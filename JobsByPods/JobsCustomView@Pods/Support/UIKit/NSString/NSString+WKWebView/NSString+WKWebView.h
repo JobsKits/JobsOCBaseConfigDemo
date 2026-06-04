@@ -9,8 +9,8 @@
 #define JOBS_HEADER_GUARD_NSSTRING_WKWEBVIEW_6CF2DAF24B
 
 #import <Foundation/Foundation.h>
-#import <JavaScriptCore/JavaScriptCore.h> // 提供 Objective-C / Swift 与 JavaScript 交互能力，可执行脚本并进行对象桥接。
 #import <WebKit/WebKit.h>
+#import <JavaScriptCore/JavaScriptCore.h> // 提供 Objective-C / Swift 与 JavaScript 交互能力，可执行脚本并进行对象桥接。
 #import <JobsCustomView/NSObject+HTML.h>
 #import <JobsCustomView/NSString+Check.h>
 #import <JobsCustomView/NSString+URL.h>

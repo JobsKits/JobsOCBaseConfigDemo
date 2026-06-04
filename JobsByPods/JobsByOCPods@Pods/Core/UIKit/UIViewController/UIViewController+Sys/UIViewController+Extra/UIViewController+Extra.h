@@ -22,16 +22,16 @@
 #import "GKNavigationBar.h"
 #endif
 
-#if __has_include(<FDFullscreenPopGesture/FDFullscreenPopGesture.h>)
-#import <FDFullscreenPopGesture/FDFullscreenPopGesture.h>
-#else
-#import "FDFullscreenPopGesture.h"
-#endif
-
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
 #import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<FDFullscreenPopGesture/FDFullscreenPopGesture.h>)
+#import <FDFullscreenPopGesture/FDFullscreenPopGesture.h>
+#else
+#import "FDFullscreenPopGesture.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

@@ -38,6 +38,12 @@
 #import "JobsMakes.h"
 #endif
 
+#if __has_include(<This/This.h>)
+#import <This/This.h>
+#else
+#import "This.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -48,12 +54,6 @@
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
-#endif
-
-#if __has_include(<This/This.h>)
-#import <This/This.h>
-#else
-#import "This.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

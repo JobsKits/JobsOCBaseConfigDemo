@@ -10,8 +10,8 @@
 
 #pragma once
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsNavigationTransitionMgr/NSObject+Extra.h>
 #import <JobsNavigationTransitionMgr/NSObject+image.h>
 #import <JobsNavigationTransitionMgr/UIBarButtonItem+Extra.h>
@@ -92,6 +92,7 @@
 #else
 #import "JobsDefines.h"
 #endif
+
 /// 用导航控制器进行包装
 NS_INLINE __kindof UINavigationController * _Nullable JobsNavCtrl(UIViewController __kindof * _Nonnull viewController){
     return viewController.navigationController ? viewController : [UINavigationController.alloc initWithRootViewController:viewController];

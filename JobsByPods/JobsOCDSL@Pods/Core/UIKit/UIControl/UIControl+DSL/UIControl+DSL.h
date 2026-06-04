@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UICONTROL_DSL_B59D10B82A
 #define JOBS_HEADER_GUARD_UICONTROL_DSL_B59D10B82A
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>

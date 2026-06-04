@@ -9,14 +9,13 @@
 #define JOBS_HEADER_GUARD_JOBSTABBARITEM_507E339139
 
 #import <UIKit/UIKit.h>
+#import <JobsOCTools/JobsTabBarItemConfig.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
 #endif
-
-#import <JobsOCTools/JobsTabBarItemConfig.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,3 +1,4 @@
+#import <JobsBaseUI/UIView+Extra.h>
 //
 //  JobsBtnTextViewStyleCVCell.h
 //  JobsBaseUI

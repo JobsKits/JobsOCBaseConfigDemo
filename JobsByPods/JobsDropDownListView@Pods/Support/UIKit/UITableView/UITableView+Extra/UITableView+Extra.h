@@ -9,11 +9,6 @@
 #define JOBS_HEADER_GUARD_UITABLEVIEW_EXTRA_E1D46DA88E
 
 #import <UIKit/UIKit.h>
-#if __has_include(<JobsOCDSL/UITableView+DSL.h>)
-#import <JobsOCDSL/UITableView+DSL.h>
-#else
-#import "UITableView+DSL.h"
-#endif
 #import <JobsBaseUI/UIView+Refresh.h>
 
 #if __has_include(<MJRefresh/MJRefresh.h>)
@@ -26,6 +21,12 @@
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
 #import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
@@ -45,6 +46,7 @@
 #else
 #import "JobsDefines.h"
 #endif
+
 /**
  
      ❤️UITableViewStylePlain ❤️

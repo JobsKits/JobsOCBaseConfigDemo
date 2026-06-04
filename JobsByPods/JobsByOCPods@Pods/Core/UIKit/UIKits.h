@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #ifndef JobsBaseCustomizeUIKitCoreHeader_h
 #define JobsBaseCustomizeUIKitCoreHeader_h
 #pragma mark —— BaseProtocol
@@ -48,10 +49,10 @@
 #pragma mark —— NSNotificationCenter
 #import <JobsByOCPods/NSNotificationCenter.h>
 #pragma mark —— NSMutableParagraphStyle
-#if __has_include(<JobsOCDSL/NSMutableParagraphStyle+DSL.h>)
-#import <JobsOCDSL/NSMutableParagraphStyle+DSL.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "NSMutableParagraphStyle+DSL.h"
+#import "JobsOCDSL.h"
 #endif
 #pragma mark —— NSValue
 #import <JobsByOCPods/JobsValue.h>

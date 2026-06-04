@@ -10,14 +10,15 @@
 
 #pragma once
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsNavigationTransitionMgr/NSObject+Measure.h>
 #import <JobsNavigationTransitionMgr/NSValue+Extra.h>
-#if __has_include(<JobsOCDSL/UIView+DSL.h>)
-#import <JobsOCDSL/UIView+DSL.h>
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "UIView+DSL.h"
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsAppTools/JobsAppTools.h>)
@@ -32,16 +33,16 @@
 #import "JobsModel.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 @class UIViewModel;

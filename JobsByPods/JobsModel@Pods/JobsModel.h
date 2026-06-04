@@ -10,6 +10,7 @@
 
 #pragma mark —— 万物Model
 #import <JobsModel/JobsBaseModel.h>
+
 #pragma mark —— 富文本处理
 #import <JobsModel/RichText.h>
 #pragma mark —— UIKit数据束

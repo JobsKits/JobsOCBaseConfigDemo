@@ -6,13 +6,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JobsSearchConfig.h"
+#import "JobsSearchDataCVCell.h"
+
 #if __has_include(<JobsOCProtocols/BaseCellProtocol.h>)
 #import <JobsOCProtocols/BaseCellProtocol.h>
 #else
 #import "BaseCellProtocol.h"
 #endif
-#import "JobsSearchConfig.h"
-#import "JobsSearchDataCVCell.h"
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>

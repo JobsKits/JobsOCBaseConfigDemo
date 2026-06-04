@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:NSNumber::toString<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSNumber/NSNumber+Extra/NSNumber+Extra.m:122"]
-  T1["function:toStringByDouble<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:83"]
+  S1["method:TLFrameAnimation::playSelectAnimationWhitTabBarButton:buttonImageView:buttonTextLabel:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：Tabbaritem的点击动效/TLTabBarAnimation/TLTabBarAnimation.m:237"]
+  T1["function:playFireworksAnimation<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：Tabbaritem的点击动效/TLTabBarAnimation/TLTabBarAnimation.m:42"]
   S1 -->|calls| T1
-  S2["method:NSNumber::toString<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSNumber/NSNumber+Extra/NSNumber+Extra.m:122"]
-  T2["function:toStringByChar<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:111"]
+  S2["method:TLFrameAnimation::playDeselectAnimationWhitTabBarButton:buttonImageView:buttonTextLabel:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：Tabbaritem的点击动效/TLTabBarAnimation/TLTabBarAnimation.m:252"]
+  T2["function:playFrameAnimation<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：Tabbaritem的点击动效/TLTabBarAnimation/TLTabBarAnimation.m:30"]
   S2 -->|calls| T2
-  S3["method:NSNumber::toString<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSNumber/NSNumber+Extra/NSNumber+Extra.m:122"]
-  T3["function:toStringByUnsignedChar<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:115"]
+  S3["method:TLFrameAnimation::playDeselectAnimationWhitTabBarButton:buttonImageView:buttonTextLabel:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：Tabbaritem的点击动效/TLTabBarAnimation/TLTabBarAnimation.m:252"]
+  T3["function:reversedArray<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：Tabbaritem的点击动效/TLTabBarAnimation/TLTabBarAnimation.m:12"]
   S3 -->|calls| T3
-  S4["method:NSNumber::toString<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSNumber/NSNumber+Extra/NSNumber+Extra.m:122"]
-  T4["function:toStringByShort<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:87"]
+  S4["method:TransitionAnimation::initWithTargetEdge:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：手势横向滚动子VC联动Tabbar切换/TransitionAnimation/TransitionAnimation.m:12"]
+  T4["method:TransitionController::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：手势横向滚动子VC联动Tabbar切换/TransitionController/TransitionController.m:33"]
   S4 -->|calls| T4
-  S5["method:NSNumber::toString<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSNumber/NSNumber+Extra/NSNumber+Extra.m:122"]
-  T5["function:toStringByUnsignedShort<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:91"]
+  S5["method:TransitionController::initWithGestureRecognizer:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：手势横向滚动子VC联动Tabbar切换/TransitionController/TransitionController.m:25"]
+  T5["method:TransitionController::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：手势横向滚动子VC联动Tabbar切换/TransitionController/TransitionController.m:33"]
   S5 -->|calls| T5
-  S6["method:NSNumber::toString<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSNumber/NSNumber+Extra/NSNumber+Extra.m:122"]
-  T6["function:toStringByLong<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:103"]
+  S6["method:JobsPullListAutoSizeView::initWithTargetView:dataMutArr:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：高仿 Telegram，在指定位置出现菜单列表/JobsPullListAutoSizeView/JobsPullListAutoSizeView.m:25"]
+  T6["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S6 -->|calls| T6
-  S7["method:NSNumber::toString<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSNumber/NSNumber+Extra/NSNumber+Extra.m:122"]
-  T7["function:toStringByNSUInteger<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:99"]
+  S7["method:JobsPullListAutoSizeView::initWithTargetView:dataMutArr:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：高仿 Telegram，在指定位置出现菜单列表/JobsPullListAutoSizeView/JobsPullListAutoSizeView.m:46"]
+  T7["method:TransitionController::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：手势横向滚动子VC联动Tabbar切换/TransitionController/TransitionController.m:33"]
   S7 -->|calls| T7
-  S8["method:NSNumber::toString<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSNumber/NSNumber+Extra/NSNumber+Extra.m:122"]
-  T8["function:toStringByLongLong<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:107"]
+  S8["method:JobsPullListAutoSizeView::initWithTargetView:dataMutArr:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：高仿 Telegram，在指定位置出现菜单列表/JobsPullListAutoSizeView/JobsPullListAutoSizeView.m:46"]
+  T8["method:JobsPullListAutoSizeView::makeUI<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：高仿 Telegram，在指定位置出现菜单列表/JobsPullListAutoSizeView/JobsPullListAutoSizeView.m:55"]
   S8 -->|calls| T8
-  S9["method:NSObject::tapImageWithIndexPath:imageDataMutArr:<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+GKPhotoBrowser/NSObject+GKPhotoBrowser.m:46"]
-  T9["function:NSObject::jobsMakeGKPhotoBrowserByPhotosArray<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+GKPhotoBrowser/NSObject+GKPhotoBrowser.m:18"]
+  S9["method:JobsPullListAutoSizeView::touchesBegan:withEvent:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：高仿 Telegram，在指定位置出现菜单列表/JobsPullListAutoSizeView/JobsPullListAutoSizeView.m:64"]
+  T9["function:removeFromSuperview<br/>JobsOCBaseConfigDemo/业务逻辑/Common/App工具类/3rd/JhtBanner（卡片式滑动效果）/JhtBannerScrollView/JhtBannerScrollView.m:48"]
   S9 -->|calls| T9
-  S10["method:NSObject::tapImageWithIndexPath:imageDataMutArr:<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+GKPhotoBrowser/NSObject+GKPhotoBrowser.m:46"]
-  T10["function:NSObject::jobsMakeGKPhoto<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+GKPhotoBrowser/NSObject+GKPhotoBrowser.m:12"]
+  S10["method:JobsVPN::configureVPN<br/>JobsByPods/JobsOCTools@Pods/Core/VPN/JobsVPN.m:20"]
+  T10["method:JobsVPN::getKeychainPassword<br/>JobsByPods/JobsOCTools@Pods/Core/VPN/JobsVPN.m:12"]
   S10 -->|calls| T10
-  S11["method:NSObject::tapImageWithIndexPath:imageUrlMutArr:<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+GKPhotoBrowser/NSObject+GKPhotoBrowser.m:64"]
-  T11["function:NSObject::jobsMakeGKPhotoBrowserByPhotosArray<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+GKPhotoBrowser/NSObject+GKPhotoBrowser.m:18"]
+  S11["method:SocketRocketUtility::SRWebSocketOpenWithURLString<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:35"]
+  T11["method:SRWebSocket::initByURLRequest<br/>JobsByPods/SRWebSocketExtra@Pods/Core/SRWebSocket+Extra.m:12"]
   S11 -->|calls| T11
-  S12["method:NSObject::tapImageWithIndexPath:imageUrlMutArr:<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+GKPhotoBrowser/NSObject+GKPhotoBrowser.m:64"]
-  T12["function:NSObject::jobsMakeGKPhoto<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+GKPhotoBrowser/NSObject+GKPhotoBrowser.m:12"]
+  S12["method:SocketRocketUtility::SRWebSocketOpenWithURLString<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:35"]
+  T12["method:NSURLRequest::initBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSURLRequest/NSURLRequest+Extra/NSURLRequest+Extra.m:12"]
   S12 -->|calls| T12
-  S13["method:NSObject::tapImageWithIndexPath:imageUrlStrMutArr:<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+GKPhotoBrowser/NSObject+GKPhotoBrowser.m:82"]
-  T13["function:NSObject::jobsMakeGKPhotoBrowserByPhotosArray<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+GKPhotoBrowser/NSObject+GKPhotoBrowser.m:18"]
+  S13["method:SocketRocketUtility::SRWebSocketClose<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:49"]
+  T13["method:SocketRocketUtility::destoryHeartBeat<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:108"]
   S13 -->|calls| T13
-  S14["method:NSObject::tapImageWithIndexPath:imageUrlStrMutArr:<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+GKPhotoBrowser/NSObject+GKPhotoBrowser.m:82"]
-  T14["function:NSObject::jobsMakeGKPhoto<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+GKPhotoBrowser/NSObject+GKPhotoBrowser.m:12"]
+  S14["method:SocketRocketUtility::sendData<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:57"]
+  T14["method:SocketRocketUtility::reConnect<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:91"]
   S14 -->|calls| T14
-  S15["method:NSObject::isSizeZero<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+Measure/NSObject+Measure.m:36"]
-  T15["function:JobsSafeWidth::jobsZeroSizeValue<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:553"]
+  S15["method:SocketRocketUtility::sendData<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:57"]
+  T15["method:SocketRocketUtility::reConnect<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:91"]
   S15 -->|calls| T15
-  S16["method:NSObject::isPointZero<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+Measure/NSObject+Measure.m:42"]
-  T16["function:JobsSafeWidth::jobsZeroPointValue<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:561"]
+  S16["method:SocketRocketUtility::reConnect<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:91"]
+  T16["method:SocketRocketUtility::SRWebSocketClose<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:49"]
   S16 -->|calls| T16
-  S17["method:NSObject::isRectZero<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+Measure/NSObject+Measure.m:48"]
-  T17["function:JobsSafeWidth::jobsEqualToZeroRect<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:573"]
+  S17["method:SocketRocketUtility::reConnect<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:91"]
+  T17["method:SocketRocketUtility::SRWebSocketOpenWithURLString<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:35"]
   S17 -->|calls| T17
-  S18["method:NSObject::gif_img<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+image/NSObject+image.m:12"]
-  T18["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S18["method:SocketRocketUtility::webSocketDidOpen:<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:131"]
+  T18["method:SocketRocketUtility::initHeartBeat<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:116"]
   S18 -->|calls| T18
-  S19["method:NSObject::gif_img<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+image/NSObject+image.m:12"]
-  T19["method:UIImage::animatedGIFByName<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIImage/UIImage+YBGIF/UIImage+YBGIF.m:74"]
+  S19["method:SocketRocketUtility::webSocket:didFailWithError:<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:140"]
+  T19["method:SocketRocketUtility::reConnect<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:91"]
   S19 -->|calls| T19
-  S20["method:NSObject::gif_img<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+image/NSObject+image.m:12"]
-  T20["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
+  S20["method:SocketRocketUtility::webSocket:didCloseWithCode:reason:wasClean:<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:148"]
+  T20["method:SocketRocketUtility::SRWebSocketClose<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:49"]
   S20 -->|calls| T20
-  S21["method:NSObject::sys_img<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+image/NSObject+image.m:22"]
-  T21["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S21["method:SocketRocketUtility::timer<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:183"]
+  T21["method:UIButton::byTimerType<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+Timer/UIButton+Timer.m:298"]
   S21 -->|calls| T21
-  S22["method:NSObject::sys_img<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+image/NSObject+image.m:22"]
-  T22["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
+  S22["method:XLChannelItem::initWithFrame:<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:19"]
+  T22["method:XLChannelItem::initUI<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:25"]
   S22 -->|calls| T22
-  S23["method:NSObject::sys_img<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+image/NSObject+image.m:22"]
-  T23["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
+  S23["method:XLChannelItem::initUI<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:25"]
+  T23["method:XLChannelItem::backgroundColor<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:62"]
   S23 -->|calls| T23
-  S24["method:NSObject::img<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+image/NSObject+image.m:37"]
-  T24["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S24["method:XLChannelItem::initUI<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:25"]
+  T24["method:JobsTuple::new<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseObject/JobsTuple/JobsTuple.m:27"]
   S24 -->|calls| T24
-  S25["method:NSObject::img<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/NSObject/NSObject+image/NSObject+image.m:37"]
-  T25["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
+  S25["method:XLChannelItem::initUI<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:25"]
+  T25["method:XLChannelItem::textColor<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:66"]
   S25 -->|calls| T25
 ```
 

@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:UICollectionView::swizzled_registerClass:forCellWithReuseIdentifier:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionView/UICollectionView+RegistrationTracking/UICollectionView+RegistrationTracking.m:36"]
-  T1["method:UICollectionView::swizzled_registerClass:forCellWithReuseIdentifier:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionView/UICollectionView+RegistrationTracking/UICollectionView+RegistrationTracking.m:36"]
+  S1["method:JobsClockView::setupNumberLabels<br/>JobsByPods/JobsClockView@Pods/Core/JobsClockView.m:76"]
+  T1["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
   S1 -->|calls| T1
-  S2["method:UICollectionView::swizzled_registerClass:forSupplementaryViewOfKind:withReuseIdentifier:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionView/UICollectionView+RegistrationTracking/UICollectionView+RegistrationTracking.m:43"]
-  T2["method:UICollectionView::swizzled_registerClass:forSupplementaryViewOfKind:withReuseIdentifier:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionView/UICollectionView+RegistrationTracking/UICollectionView+RegistrationTracking.m:43"]
+  S2["method:JobsClockView::layoutSubviews<br/>JobsByPods/JobsClockView@Pods/Core/JobsClockView.m:115"]
+  T2["method:JobsClockView::layoutSubviews<br/>JobsByPods/JobsClockView@Pods/Core/JobsClockView.m:115"]
   S2 -->|calls| T2
-  S3["method:UICollectionView::swizzled_dequeueReusableCellWithReuseIdentifier:forIndexPath:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionView/UICollectionView+RegistrationTracking/UICollectionView+RegistrationTracking.m:52"]
-  T3["method:UICollectionView::swizzled_dequeueReusableCellWithReuseIdentifier:forIndexPath:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionView/UICollectionView+RegistrationTracking/UICollectionView+RegistrationTracking.m:52"]
+  S3["method:JobsClockView::layoutSubviews<br/>JobsByPods/JobsClockView@Pods/Core/JobsClockView.m:115"]
+  T3["method:JobsClockView::layoutDialAndNumbers<br/>JobsByPods/JobsClockView@Pods/Core/JobsClockView.m:123"]
   S3 -->|calls| T3
-  S4["method:UICollectionView::swizzled_dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionView/UICollectionView+RegistrationTracking/UICollectionView+RegistrationTracking.m:61"]
-  T4["method:UICollectionView::swizzled_dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionView/UICollectionView+RegistrationTracking/UICollectionView+RegistrationTracking.m:61"]
+  S4["method:JobsClockView::layoutSubviews<br/>JobsByPods/JobsClockView@Pods/Core/JobsClockView.m:115"]
+  T4["method:JobsClockView::layoutHandLayers<br/>JobsByPods/JobsClockView@Pods/Core/JobsClockView.m:194"]
   S4 -->|calls| T4
-  S5["method:UICollectionView::swizzled_dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionView/UICollectionView+RegistrationTracking/UICollectionView+RegistrationTracking.m:61"]
-  T5["method:UICollectionView::swizzled_dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionView/UICollectionView+RegistrationTracking/UICollectionView+RegistrationTracking.m:61"]
+  S5["method:JobsClockView::start<br/>JobsByPods/JobsClockView@Pods/Core/JobsClockView.m:218"]
+  T5["method:JobsClockView::startByTimerType<br/>JobsByPods/JobsClockView@Pods/Core/JobsClockView.m:222"]
   S5 -->|calls| T5
-  S6["method:UICollectionViewCell::cutFirstAndLastCollectionViewCellWithBackgroundCor:cellOutLineCor:bottomLineCor:borderWidth:cornerRadiusSize:dx:dy:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionViewCell/UICollectionViewCell+UICollectionViewCellProtocol/UICollectionViewCell+UICollectionViewCellProtocol.m:68"]
-  T6["method:UICollectionViewCell::dx:dy:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionViewCell/UICollectionViewCell+UICollectionViewCellProtocol/UICollectionViewCell+UICollectionViewCellProtocol.m:291"]
+  S6["method:JobsClockView::startByTimerType<br/>JobsByPods/JobsClockView@Pods/Core/JobsClockView.m:222"]
+  T6["method:UIButton::byTimerType<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+Timer/UIButton+Timer.m:298"]
   S6 -->|calls| T6
-  S7["method:UICollectionViewCell::cutFirstAndLastCollectionViewCellWithBackgroundCor:cellOutLineCor:bottomLineCor:borderWidth:cornerRadiusSize:dx:dy:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionViewCell/UICollectionViewCell+UICollectionViewCellProtocol/UICollectionViewCell+UICollectionViewCellProtocol.m:68"]
-  T7["method:UIBezierPath::initByRect<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIBezierPath/UIBezierPath+Extra/UIBezierPath+Extra.m:75"]
+  S7["method:JobsClockView::updateHandsAnimated:<br/>JobsByPods/JobsClockView@Pods/Core/JobsClockView.m:263"]
+  T7["method:_ASAsyncTransactionGroup::commit<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/Transactions/_ASAsyncTransactionGroup.mm:69"]
   S7 -->|calls| T7
-  S8["method:UICollectionViewCell::cutFirstAndLastCollectionViewCellWithBackgroundCor:cellOutLineCor:bottomLineCor:borderWidth:cornerRadiusSize:dx:dy:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionViewCell/UICollectionViewCell+UICollectionViewCellProtocol/UICollectionViewCell+UICollectionViewCellProtocol.m:68"]
-  T8["method:UICollectionViewCell::makeBottomLineWithIndexPath:bounds:numberOfItemsInSection:borderWidth:bottomLineCor:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionViewCell/UICollectionViewCell+UICollectionViewCellProtocol/UICollectionViewCell+UICollectionViewCellProtocol.m:136"]
+  S8["method:JobsPodspecKitForJobsClockView::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsClockView@Pods/JobsPodspecKit.rb:277"]
+  T8["method:JobsPodspecKitForJobsClockView::standard_user_target_xcconfig<br/>JobsByPods/JobsClockView@Pods/JobsPodspecKit.rb:266"]
   S8 -->|calls| T8
-  S9["method:UICollectionViewCell::cutFirstAndLastCollectionViewCellWithBackgroundCor:cellOutLineCor:bottomLineCor:borderWidth:cornerRadiusSize:dx:dy:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionViewCell/UICollectionViewCell+UICollectionViewCellProtocol/UICollectionViewCell+UICollectionViewCellProtocol.m:68"]
-  T9["method:UICollectionViewCell::makeTopLineWithIndexPath:bounds:numberOfItemsInSection:borderWidth:bottomLineCor:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionViewCell/UICollectionViewCell+UICollectionViewCellProtocol/UICollectionViewCell+UICollectionViewCellProtocol.m:166"]
+  S9["method:JobsPodspecKitForJobsClockView::apply_standard_xcconfig<br/>JobsByPods/JobsClockView@Pods/JobsPodspecKit.rb:281"]
+  T9["method:JobsPodspecKitForJobsClockView::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsClockView@Pods/JobsPodspecKit.rb:273"]
   S9 -->|calls| T9
-  S10["method:UICollectionViewCell::makeBottomLineWithIndexPath:bounds:numberOfItemsInSection:borderWidth:bottomLineCor:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionViewCell/UICollectionViewCell+UICollectionViewCellProtocol/UICollectionViewCell+UICollectionViewCellProtocol.m:136"]
-  T10["method:UIBezierPath::moveTo<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIBezierPath/UIBezierPath+Extra/UIBezierPath+Extra.m:67"]
+  S10["method:JobsPodspecKitForJobsClockView::apply_standard_xcconfig<br/>JobsByPods/JobsClockView@Pods/JobsPodspecKit.rb:281"]
+  T10["method:JobsPodspecKitForJobsClockView::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsClockView@Pods/JobsPodspecKit.rb:277"]
   S10 -->|calls| T10
-  S11["method:UICollectionViewCell::makeBottomLineWithIndexPath:bounds:numberOfItemsInSection:borderWidth:bottomLineCor:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionViewCell/UICollectionViewCell+UICollectionViewCellProtocol/UICollectionViewCell+UICollectionViewCellProtocol.m:136"]
-  T11["method:UIBezierPath::add<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIBezierPath/UIBezierPath+Extra/UIBezierPath+Extra.m:59"]
+  S11["method:NSData::MD2Sum<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:109"]
+  T11["method:ASMutableAttributedStringBuilder::length<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:223"]
   S11 -->|calls| T11
-  S12["method:UICollectionViewCell::makeTopLineWithIndexPath:bounds:numberOfItemsInSection:borderWidth:bottomLineCor:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionViewCell/UICollectionViewCell+UICollectionViewCellProtocol/UICollectionViewCell+UICollectionViewCellProtocol.m:166"]
-  T12["method:UIBezierPath::moveTo<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIBezierPath/UIBezierPath+Extra/UIBezierPath+Extra.m:67"]
+  S12["method:NSData::MD4Sum<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:118"]
+  T12["method:ASMutableAttributedStringBuilder::length<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:223"]
   S12 -->|calls| T12
-  S13["method:UICollectionViewCell::makeTopLineWithIndexPath:bounds:numberOfItemsInSection:borderWidth:bottomLineCor:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionViewCell/UICollectionViewCell+UICollectionViewCellProtocol/UICollectionViewCell+UICollectionViewCellProtocol.m:166"]
-  T13["method:UIBezierPath::add<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIBezierPath/UIBezierPath+Extra/UIBezierPath+Extra.m:59"]
+  S13["method:NSData::MD5Sum<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:127"]
+  T13["method:ASMutableAttributedStringBuilder::length<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:223"]
   S13 -->|calls| T13
-  S14["function:_jobs_bind<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:32"]
-  T14["function:jobs_targetsMap<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:12"]
+  S14["method:NSData::SHA1Hash<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:136"]
+  T14["method:ASMutableAttributedStringBuilder::length<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:223"]
   S14 -->|calls| T14
-  S15["method:UIControl::jobs_on:block:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:59"]
-  T15["function:jobs_splitEvents<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:20"]
+  S15["method:NSData::SHA224Hash<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:145"]
+  T15["method:ASMutableAttributedStringBuilder::length<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:223"]
   S15 -->|calls| T15
-  S16["method:UIControl::jobs_on:block:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:59"]
-  T16["function:_jobs_bind<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:32"]
+  S16["method:NSData::SHA256Hash<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:154"]
+  T16["method:ASMutableAttributedStringBuilder::length<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:223"]
   S16 -->|calls| T16
-  S17["method:UIControl::jobs_on:throttle:block:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:66"]
-  T17["function:jobs_splitEvents<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:20"]
+  S17["method:NSData::SHA384Hash<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:163"]
+  T17["method:ASMutableAttributedStringBuilder::length<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:223"]
   S17 -->|calls| T17
-  S18["method:UIControl::jobs_on:throttle:block:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:66"]
-  T18["function:_jobs_bind<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:32"]
+  S18["method:NSData::SHA512Hash<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:170"]
+  T18["method:ASMutableAttributedStringBuilder::length<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:223"]
   S18 -->|calls| T18
-  S19["method:UIControl::jobs_on:debounce:block:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:74"]
-  T19["function:jobs_splitEvents<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:20"]
+  S19["method:NSData::AES256EncryptedDataUsingKey:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:182"]
+  T19["method:NSData::dataEncryptedUsingAlgorithm:key:options:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:349"]
   S19 -->|calls| T19
-  S20["method:UIControl::jobs_on:debounce:block:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:74"]
-  T20["function:_jobs_bind<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:32"]
+  S20["method:NSData::decryptedAES256DataUsingKey:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:196"]
+  T20["method:NSData::decryptedDataUsingAlgorithm:key:options:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:422"]
   S20 -->|calls| T20
-  S21["method:UIControl::jobs_once:block:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:82"]
-  T21["function:jobs_splitEvents<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:20"]
+  S21["method:NSData::DESEncryptedDataUsingKey:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:210"]
+  T21["method:NSData::dataEncryptedUsingAlgorithm:key:options:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:349"]
   S21 -->|calls| T21
-  S22["method:UIControl::jobs_once:block:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:82"]
-  T22["function:_jobs_bind<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:32"]
+  S22["method:NSData::decryptedDESDataUsingKey:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:224"]
+  T22["method:NSData::decryptedDataUsingAlgorithm:key:options:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:422"]
   S22 -->|calls| T22
-  S23["method:UIControl::jobs_onTap:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:89"]
-  T23["method:UIControl::jobs_on:block:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:59"]
+  S23["method:NSData::CASTEncryptedDataUsingKey:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:238"]
+  T23["method:NSData::dataEncryptedUsingAlgorithm:key:options:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:349"]
   S23 -->|calls| T23
-  S24["method:UIControl::jobs_onChange:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:93"]
-  T24["method:UIControl::jobs_on:block:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:59"]
+  S24["method:NSData::decryptedCASTDataUsingKey:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:252"]
+  T24["method:NSData::decryptedDataUsingAlgorithm:key:options:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:422"]
   S24 -->|calls| T24
-  S25["method:UIControl::jobs_removeHandlersFor:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:101"]
-  T25["function:jobs_targetsMap<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIControl/UIControl+Extra/UIControl+Extra.m:12"]
+  S25["function:FixKeyLengths<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:268"]
+  T25["method:ASMutableAttributedStringBuilder::length<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:223"]
   S25 -->|calls| T25
 ```
 

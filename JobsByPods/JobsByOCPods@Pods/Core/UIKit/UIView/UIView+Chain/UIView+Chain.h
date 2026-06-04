@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEW_CHAIN_8F207088CF
 #define JOBS_HEADER_GUARD_UIVIEW_CHAIN_8F207088CF
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 
 #if __has_include(<JobsOCRuntimeKits/JobsOCRuntimeKits.h>)
 #import <JobsOCRuntimeKits/JobsOCRuntimeKits.h>
@@ -17,16 +17,16 @@
 #import "JobsOCRuntimeKits.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:UIView::longPressGR<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:67"]
-  T1["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S1["method:NSObject::HHMMSS<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:355"]
+  T1["function:toStringByFloatDecimalPlaces<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:55"]
   S1 -->|calls| T1
-  S2["method:UIView::tapGR<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:93"]
-  T2["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S2["method:NSObject::HHMMSS<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:355"]
+  T2["function:toStringByFloatDecimalPlaces<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:55"]
   S2 -->|calls| T2
-  S3["method:UIView::doubleTapGR<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:117"]
-  T3["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S3["method:NSObject::getToday<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:365"]
+  T3["method:NSObject::dateFormatterBy<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:135"]
   S3 -->|calls| T3
-  S4["method:UIView::swipeGR<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:141"]
-  T4["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S4["method:NSObject::getToday<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:365"]
+  T4["method:NSFormatter::date<br/>JobsByPods/JobsBasePopupView@Pods/Support/UIKit/NSFormatter/NSFormatter+Extra/NSFormatter+Extra.m:12"]
   S4 -->|calls| T4
-  S5["method:UIView::panGR<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:165"]
-  T5["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S5["method:NSObject::currentTime<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:439"]
+  T5["method:NSTimeZone::GMTDateSecs<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSTimeZone/NSTimeZone+Extra/NSTimeZone+Extra.m:30"]
   S5 -->|calls| T5
-  S6["method:UIView::pinchGR<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:189"]
-  T6["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S6["method:NSObject::currentTime<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:439"]
+  T6["method:NSDate::byAddingTimeInterval<br/>JobsByPods/JobsBasePopupView@Pods/Support/UIKit/NSDate/NSDate+Extra/NSDate+Extra.m:30"]
   S6 -->|calls| T6
-  S7["method:UIView::rotationGR<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:212"]
-  T7["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S7["method:NSObject::timeFormatterWithDate:timeFormatStr:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:452"]
+  T7["method:NSObject::dateFormatterBy<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:135"]
   S7 -->|calls| T7
-  S8["method:UIView::screenEdgePanGR<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:235"]
-  T8["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S8["method:NSObject::getHHMMSSFromStr:formatTime:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:464"]
+  T8["function:toStringByFloatDecimalPlaces<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:55"]
   S8 -->|calls| T8
-  S9["method:UIView::uninstall<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Masonry/UIView+Masonry.m:143"]
-  T9["method:MASCompositeConstraint::uninstall<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:176"]
+  S9["method:NSObject::getHHMMSSFromStr:formatTime:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:464"]
+  T9["function:toStringByFloatDecimalPlaces<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:55"]
   S9 -->|calls| T9
-  S10["method:UIView::uninstallAllLayoutAttribute<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Masonry/UIView+Masonry.m:155"]
-  T10["method:MASCompositeConstraint::uninstall<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:176"]
+  S10["method:NSObject::getHHMMSSFromStr:formatTime:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:464"]
+  T10["function:toStringByFloatDecimalPlaces<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:55"]
   S10 -->|calls| T10
-  S11["method:UIView::jobsMasonryBeforeBlock:masonryAfterBlock:<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Masonry/UIView+Masonry.m:169"]
-  T11["method:UIView::uninstallAllLayoutAttribute<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Masonry/UIView+Masonry.m:155"]
+  S11["method:NSObject::getMMSSFromStr:formatTime:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:484"]
+  T11["function:toStringByFloatDecimalPlaces<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:55"]
   S11 -->|calls| T11
-  S12["method:UIView::refresh<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Masonry/UIView+Masonry.m:197"]
-  T12["method:BaseView::layoutIfNeeded<br/>JobsByPods/JobsBasePopupView@Pods/Support/BaseUI/BaseView/BaseView.m:63"]
+  S12["method:NSObject::getMMSSFromStr:formatTime:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:484"]
+  T12["function:toStringByFloatDecimalPlaces<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:55"]
   S12 -->|calls| T12
-  S13["method:UIView::jobsRefreshUI<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:68"]
-  T13["method:BaseView::layoutIfNeeded<br/>JobsByPods/JobsBasePopupView@Pods/Support/BaseUI/BaseView/BaseView.m:63"]
+  S13["method:NSObject::_zeroTime<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:503"]
+  T13["method:NSCalendar::dateByComponents<br/>JobsByPods/JobsBasePopupView@Pods/Support/UIKit/NSCalendar/NSCalendar+Extra/NSCalendar+Extra.m:18"]
   S13 -->|calls| T13
-  S14["method:UIView::BySize<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:122"]
-  T14["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
+  S14["method:NSString::chinaTime<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSString+Time/NSString+Time.m:15"]
+  T14["method:NSString::timeStampByTimeFormatter:timeZoneType:intervalStyle:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSString+Time/NSString+Time.m:49"]
   S14 -->|calls| T14
-  S15["method:UIView::ByFrame<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:133"]
-  T15["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
+  S15["method:NSString::readableTimeByFormatter<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSString+Time/NSString+Time.m:25"]
+  T15["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
   S15 -->|calls| T15
-  S16["method:UIView::ByOrigin<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:144"]
-  T16["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
+  S16["method:NSString::readableTimeByFormatter<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSString+Time/NSString+Time.m:25"]
+  T16["method:NSDate::initDateBy<br/>JobsByPods/JobsBasePopupView@Pods/Support/UIKit/NSDate/NSDate+Extra/NSDate+Extra.m:15"]
   S16 -->|calls| T16
-  S17["method:UIView::ByWidth<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:155"]
-  T17["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
+  S17["method:NSString::timeStampByTimeFormatter:timeZoneType:intervalStyle:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSString+Time/NSString+Time.m:49"]
+  T17["method:NSDate::initDateBy<br/>JobsByPods/JobsBasePopupView@Pods/Support/UIKit/NSDate/NSDate+Extra/NSDate+Extra.m:15"]
   S17 -->|calls| T17
-  S18["method:UIView::ByHeight<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:166"]
-  T18["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
+  S18["method:NSString::timeStampByTimeFormatter:timeZoneType:intervalStyle:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSString+Time/NSString+Time.m:49"]
+  T18["method:NSDate::initDateBy<br/>JobsByPods/JobsBasePopupView@Pods/Support/UIKit/NSDate/NSDate+Extra/NSDate+Extra.m:15"]
   S18 -->|calls| T18
-  S19["method:UIView::ByCenter<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:177"]
-  T19["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
+  S19["method:NSString::timeStampByTimeFormatter:timeZoneType:intervalStyle:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSString+Time/NSString+Time.m:49"]
+  T19["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
   S19 -->|calls| T19
-  S20["method:UIView::resetContentSize<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:520"]
-  T20["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S20["method:NSString::timeStampByTimeFormatter:timeZoneType:intervalStyle:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSString+Time/NSString+Time.m:49"]
+  T20["method:JobsTimeModel::timeZone<br/>JobsByPods/JobsModel@Pods/Core/UIKit数据束/JobsTimeModel/JobsTimeModel.m:204"]
   S20 -->|calls| T20
-  S21["method:UIView::resetContentSizeWidth<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:531"]
-  T21["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S21["method:NSString::isExpired<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSString+Time/NSString+Time.m:65"]
+  T21["function:JobsFormattedString<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:63"]
   S21 -->|calls| T21
-  S22["method:UIView::resetContentSizeHeight<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:542"]
-  T22["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S22["method:NSString::isExpired<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSString+Time/NSString+Time.m:65"]
+  T22["method:NSDate::initDateBy<br/>JobsByPods/JobsBasePopupView@Pods/Support/UIKit/NSDate/NSDate+Extra/NSDate+Extra.m:15"]
   S22 -->|calls| T22
-  S23["method:UIView::resetContentSizeOffsetWidth<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:553"]
-  T23["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S23["method:JobsPodspecKitForJobsTimeUtils::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsTimeUtils@Pods/JobsPodspecKit.rb:277"]
+  T23["method:JobsPodspecKitForJobsTimeUtils::standard_user_target_xcconfig<br/>JobsByPods/JobsTimeUtils@Pods/JobsPodspecKit.rb:266"]
   S23 -->|calls| T23
-  S24["method:UIView::resetContentSizeOffsetHeight<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:565"]
-  T24["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S24["method:JobsPodspecKitForJobsTimeUtils::apply_standard_xcconfig<br/>JobsByPods/JobsTimeUtils@Pods/JobsPodspecKit.rb:281"]
+  T24["method:JobsPodspecKitForJobsTimeUtils::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsTimeUtils@Pods/JobsPodspecKit.rb:273"]
   S24 -->|calls| T24
-  S25["method:UIView::resetContentOffset<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:577"]
-  T25["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S25["method:JobsPodspecKitForJobsTimeUtils::apply_standard_xcconfig<br/>JobsByPods/JobsTimeUtils@Pods/JobsPodspecKit.rb:281"]
+  T25["method:JobsPodspecKitForJobsTimeUtils::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsTimeUtils@Pods/JobsPodspecKit.rb:277"]
   S25 -->|calls| T25
 ```
 

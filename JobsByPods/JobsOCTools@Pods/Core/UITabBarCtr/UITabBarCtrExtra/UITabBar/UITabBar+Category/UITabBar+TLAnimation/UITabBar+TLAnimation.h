@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UITABBAR_TLANIMATION_BAF6F98016
 #define JOBS_HEADER_GUARD_UITABBAR_TLANIMATION_BAF6F98016
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsOCTools/TLAnimationProtocol.h>
 #import <JobsOCTools/UITabBarItem+TLAnimation.h>
 

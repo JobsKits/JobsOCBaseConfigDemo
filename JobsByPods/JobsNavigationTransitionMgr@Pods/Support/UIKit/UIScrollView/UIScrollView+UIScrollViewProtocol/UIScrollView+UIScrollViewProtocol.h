@@ -10,9 +10,10 @@
 
 #pragma once
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsNavigationTransitionMgr/NSObject+Extra.h>
+
 //#import <JobsNavigationTransitionMgr/<#name#>.h>
 
 #if __has_include(<MJRefresh/MJRefresh.h>)

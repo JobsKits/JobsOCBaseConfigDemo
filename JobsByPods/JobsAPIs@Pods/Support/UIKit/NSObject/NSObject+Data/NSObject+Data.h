@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_NSOBJECT_DATA_3CA5DD5F2C
 #define JOBS_HEADER_GUARD_NSOBJECT_DATA_3CA5DD5F2C
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 
 #if __has_include(<TXFileOperation/TXFileOperation.h>)
 #import <TXFileOperation/TXFileOperation.h>

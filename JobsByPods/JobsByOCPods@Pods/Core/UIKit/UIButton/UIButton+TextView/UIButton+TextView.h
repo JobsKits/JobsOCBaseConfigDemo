@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UIBUTTON_TEXTVIEW_A697F8A75F
 #define JOBS_HEADER_GUARD_UIBUTTON_TEXTVIEW_A697F8A75F
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsByOCPods/NSObject+Extra.h>
 
 #if __has_include(<MJExtension/MJExtension.h>)

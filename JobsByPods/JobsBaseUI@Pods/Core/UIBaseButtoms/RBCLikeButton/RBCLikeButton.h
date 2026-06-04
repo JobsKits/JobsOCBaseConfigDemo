@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_RBCLIKEBUTTON_2909D184F3
 
 #import <UIKit/UIKit.h>
+#import <JobsBaseUI/UIView+Extra.h>
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
@@ -40,17 +41,18 @@
 #import "JobsStringUtils.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
-#import "JobsBlock.h"
-#endif
 /// 高仿抖音点赞动画
 @interface RBCLikeButton : UIButton
 <

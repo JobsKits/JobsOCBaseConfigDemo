@@ -61,7 +61,7 @@ Prop_assign()CGSize size;
             [self.linePath stroke];
             UIGraphicsEndImageContext();
             self.lineLayer.hidden = NO;
-        } return self;
+        }return self;
     };
 }
 #pragma mark —— lazyLoad

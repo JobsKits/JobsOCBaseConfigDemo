@@ -23,8 +23,7 @@
     self = [self initWithConfiguration:nil];
     if (self) {
         self.frame = frame;
-    }
-    return self;
+    }return self;
 }
 
 - (instancetype)initWithConfiguration:(JobsGestureLockConfiguration *)configuration {
@@ -35,8 +34,7 @@
         _errorButtons = [NSMutableArray array];
         self.backgroundColor = UIColor.clearColor;
         [self buildSubviews];
-    }
-    return self;
+    }return self;
 }
 
 - (void)buildSubviews {

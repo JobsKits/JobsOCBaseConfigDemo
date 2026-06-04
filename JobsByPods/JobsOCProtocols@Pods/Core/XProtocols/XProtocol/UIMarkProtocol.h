@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_UIMARKPROTOCOL_F841A11BC6
 
 #import <UIKit/UIKit.h>
+
 #if __has_include(<JobsOCProtocols/BaseLayerProtocol.h>)
 #import <JobsOCProtocols/BaseLayerProtocol.h>
 #elif __has_include("BaseLayerProtocol.h")

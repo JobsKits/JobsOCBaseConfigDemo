@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UINAVIGATIONCONTROLLER_FDFULLSCREENPOPGESTURE_0E81449114
 #define JOBS_HEADER_GUARD_UINAVIGATIONCONTROLLER_FDFULLSCREENPOPGESTURE_0E81449114
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <FDFullscreenPopGesture/UIScrollView+FDFullscreenPopGesture.h>
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
@@ -17,6 +17,7 @@
 #else
 #import "JobsDefines.h"
 #endif
+
 /// https://github.com/forkingdog/FDFullscreenPopGesture/issues/177
 /// "UINavigation+FDFullscreenPopGesture" extends UINavigationController's swipe-
 /// to-pop behavior in iOS 7+ by supporting fullscreen pan gesture. Instead of

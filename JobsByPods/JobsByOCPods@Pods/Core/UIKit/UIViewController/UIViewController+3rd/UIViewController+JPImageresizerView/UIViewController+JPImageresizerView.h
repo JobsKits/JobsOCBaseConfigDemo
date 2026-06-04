@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_JPIMAGERESIZERVIEW_8984F53BA6
 #define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_JPIMAGERESIZERVIEW_8984F53BA6
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 
 #if __has_include(<JPImageresizerView/JPImageresizerView.h>)
 #import <JPImageresizerView/JPImageresizerView.h>

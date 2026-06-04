@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSRANDOMUTILS_EA8423DA7C
 
 #import <UIKit/UIKit.h>
+
 /**
 
      在C中提供了rand()、srand()、random()、arc4random()几个函数

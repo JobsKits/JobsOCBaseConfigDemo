@@ -14,12 +14,6 @@
 #import <UIKit/UIKit.h>
 #import <JobsNavigationTransitionMgr/UIView+Extra.h>
 
-#if __has_include(<JobsModel/JobsModel.h>)
-#import <JobsModel/JobsModel.h>
-#else
-#import "JobsModel.h"
-#endif
-
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
@@ -30,6 +24,12 @@
 #import <GKNavigationBar/GKNavigationBar.h>
 #else
 #import "GKNavigationBar.h"
+#endif
+
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
+#else
+#import "JobsModel.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

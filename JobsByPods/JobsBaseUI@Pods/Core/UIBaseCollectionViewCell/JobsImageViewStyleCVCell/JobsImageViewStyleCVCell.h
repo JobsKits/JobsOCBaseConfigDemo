@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSIMAGEVIEWSTYLECVCELL_189161F4C0
 
 #import <UIKit/UIKit.h>
+#import <JobsBaseUI/UIView+Extra.h>
 #import <JobsBaseUI/JobsBaseCollectionViewCell.h>
 
 #if __has_include(<JobsMakes/JobsMakes.h>)

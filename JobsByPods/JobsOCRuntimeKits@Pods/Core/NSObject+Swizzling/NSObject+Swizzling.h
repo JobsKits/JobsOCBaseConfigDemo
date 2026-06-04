@@ -8,8 +8,9 @@
 #ifndef JOBS_HEADER_GUARD_NSOBJECT_SWIZZLING_9AFB64F218
 #define JOBS_HEADER_GUARD_NSOBJECT_SWIZZLING_9AFB64F218
 
-#import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+#import <Foundation/Foundation.h>
+
 /// 参考资料：https://juejin.cn/post/6869670856705081358
 @interface NSObject (Swizzling)
 /**

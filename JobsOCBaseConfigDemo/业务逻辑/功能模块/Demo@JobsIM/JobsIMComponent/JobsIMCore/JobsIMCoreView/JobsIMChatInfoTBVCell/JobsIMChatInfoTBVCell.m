@@ -132,7 +132,7 @@ UITextFieldProtocol_synthesize_part2
             self.chatBubbleIMGV.alpha = 1;
             self.chatContentLab.alpha = 1;
             self.timeLab.alpha= 1;
-        } return self;
+        }return self;
     };
 }
 #pragma mark —— UITableViewCellProtocol

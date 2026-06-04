@@ -24,12 +24,13 @@
 #import <JobsByOCPods/UIView+UIBackgroundConfig.h>
 #import <JobsByOCPods/UIView+Masonry.h>
 #import <JobsByOCPods/UIView+Navigator.h>
-#if __has_include(<JobsOCDSL/UIView+DSL.h>)
-#import <JobsOCDSL/UIView+DSL.h>
-#else
-#import "UIView+DSL.h"
-#endif
 #import <JobsByOCPods/UIView+Gesture.h>
 #import <JobsByOCPods/UIView+JHGestureBlock.h>
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 
 #endif /* JobsView_h */

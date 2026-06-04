@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UITEXTVIEW_EXTRA_FFBBABE250
 #define JOBS_HEADER_GUARD_UITEXTVIEW_EXTRA_FFBBABE250
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsByOCPods/JobsString.h>
 #import <JobsByOCPods/UITextView+IndicateWordLimit.h>
 #import <JobsByOCPods/NSString+Check.h>

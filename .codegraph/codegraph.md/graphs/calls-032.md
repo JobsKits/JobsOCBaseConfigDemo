@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:BaseButton::layoutSubviews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:54"]
-  T1["method:BaseButton::layoutSubviews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:54"]
+  S1["method:JobsBtnsStyleTBVCell::rightBtn<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTableViewCell/JobsBtnsStyleTBVCell/JobsBtnsStyleTBVCell.m:125"]
+  T1["method:UIButton::makeBtnTitleByShowingType<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIButton/UIButton+Extra/UIButton+Extra.m:12"]
   S1 -->|calls| T1
-  S2["method:BaseButton::layoutSubviews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:54"]
-  T2["method:BaseButton::resetSubViews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:95"]
+  S2["method:JobsBtnsStyleTBVCell::rightBtn<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTableViewCell/JobsBtnsStyleTBVCell/JobsBtnsStyleTBVCell.m:125"]
+  T2["method:UIButton::jobsResetBtnBgCor<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+UI/UIButton+UI.m:428"]
   S2 -->|calls| T2
-  S3["method:BaseButton::layoutSubviews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:54"]
-  T3["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S3["method:JobsImageStyleTBVCell::layoutSubviews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTableViewCell/JobsImageStyleTBVCell/JobsImageStyleTBVCell.m:27"]
+  T3["method:JobsImageStyleTBVCell::layoutSubviews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTableViewCell/JobsImageStyleTBVCell/JobsImageStyleTBVCell.m:27"]
   S3 -->|calls| T3
-  S4["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:77"]
-  T4["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:77"]
+  S4["method:JobsTextLabStyleTBVCell::layoutSubviews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTableViewCell/JobsTextLabStyleTBVCell/JobsTextLabStyleTBVCell.m:24"]
+  T4["method:JobsTextLabStyleTBVCell::layoutSubviews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTableViewCell/JobsTextLabStyleTBVCell/JobsTextLabStyleTBVCell.m:24"]
   S4 -->|calls| T4
-  S5["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:77"]
-  T5["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S5["method:JobsTextViewStyleTBVCell::layoutSubviews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTableViewCell/JobsTextViewStyleTBVCell/JobsTextViewStyleTBVCell.m:29"]
+  T5["method:JobsTextViewStyleTBVCell::layoutSubviews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTableViewCell/JobsTextViewStyleTBVCell/JobsTextViewStyleTBVCell.m:29"]
   S5 -->|calls| T5
-  S6["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:77"]
-  T6["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S6["method:JobsTextViewStyleTBVCell::szTextView<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTableViewCell/JobsTextViewStyleTBVCell/JobsTextViewStyleTBVCell.m:118"]
+  T6["function:UIFontWeightMediumSize<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Font.h:34"]
   S6 -->|calls| T6
-  S7["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:77"]
-  T7["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S7["method:JobsTextViewStyleTBVCell::jobsTextView<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTableViewCell/JobsTextViewStyleTBVCell/JobsTextViewStyleTBVCell.m:143"]
+  T7["function:UIFontWeightMediumSize<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Font.h:34"]
   S7 -->|calls| T7
-  S8["method:BaseButton::resetSubViews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:95"]
-  T8["function:JobsSafeWidth::jobsZeroRectValue<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:557"]
+  S8["method:CJTextField::deleteBackward<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/CJTextField（iOS监听键盘删除事件）/CJTextField.m:13"]
+  T8["method:CJTextField::deleteBackward<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/CJTextField（iOS监听键盘删除事件）/CJTextField.m:13"]
   S8 -->|calls| T8
-  S9["method:BaseButton::resetSubViews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:95"]
-  T9["function:JobsSafeWidth::jobsZeroRectValue<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:557"]
+  S9["method:CJTextField::keyboardInputShouldDelete:<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/CJTextField（iOS监听键盘删除事件）/CJTextField.m:21"]
+  T9["method:CJTextField::deleteBackward<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/CJTextField（iOS监听键盘删除事件）/CJTextField.m:13"]
   S9 -->|calls| T9
-  S10["method:BaseButton::resetSubViews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:95"]
-  T10["function:JobsSafeWidth::jobsZeroRectValue<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:557"]
+  S10["method:JobsMagicTextField::init<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsMagicTextField/JobsMagicTextField.m:25"]
+  T10["method:JobsMagicTextField::init<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsMagicTextField/JobsMagicTextField.m:25"]
   S10 -->|calls| T10
-  S11["method:BaseButton::resetSubViews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:95"]
-  T11["function:JobsSafeWidth::jobsZeroSizeValue<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:553"]
+  S11["method:JobsMagicTextField::init<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsMagicTextField/JobsMagicTextField.m:25"]
+  T11["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S11 -->|calls| T11
-  S12["method:BaseButton::resetSubViews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:95"]
-  T12["function:JobsSafeWidth::jobsZeroSizeValue<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:553"]
+  S12["method:JobsMagicTextField::becomeFirstResponder<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsMagicTextField/JobsMagicTextField.m:41"]
+  T12["method:JobsMagicTextField::upAnimation<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsMagicTextField/JobsMagicTextField.m:51"]
   S12 -->|calls| T12
-  S13["method:BaseButton::resetSubViews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:95"]
-  T13["function:JobsSafeWidth::jobsZeroSizeValue<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:553"]
+  S13["method:JobsMagicTextField::becomeFirstResponder<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsMagicTextField/JobsMagicTextField.m:41"]
+  T13["method:JobsMagicTextField::becomeFirstResponder<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsMagicTextField/JobsMagicTextField.m:41"]
   S13 -->|calls| T13
-  S14["method:BaseButton::resetSubViews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:95"]
-  T14["function:JobsSafeWidth::jobsZeroSizeValue<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:553"]
+  S14["method:JobsMagicTextField::resignFirstResponder<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsMagicTextField/JobsMagicTextField.m:46"]
+  T14["method:JobsMagicTextField::restoreAnimation<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsMagicTextField/JobsMagicTextField.m:77"]
   S14 -->|calls| T14
-  S15["method:BaseButton::resetSubViews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:95"]
-  T15["function:JobsSafeWidth::jobsZeroSizeValue<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:553"]
+  S15["method:JobsMagicTextField::resignFirstResponder<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsMagicTextField/JobsMagicTextField.m:46"]
+  T15["method:JobsMagicTextField::resignFirstResponder<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsMagicTextField/JobsMagicTextField.m:46"]
   S15 -->|calls| T15
-  S16["method:BaseButton::resetSubViews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseButton/BaseButton/BaseButton.m:95"]
-  T16["function:JobsSafeWidth::jobsZeroSizeValue<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:553"]
+  S16["method:JobsMagicTextField::upAnimation<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsMagicTextField/JobsMagicTextField.m:51"]
+  T16["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S16 -->|calls| T16
-  S17["method:BaseCollectionReusableView::collectionReusableViewSizeByModel<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionReusableView/BaseCollectionReusableView/BaseCollectionReusableView.m:44"]
-  T17["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S17["method:JobsMagicTextField::setText:<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsMagicTextField/JobsMagicTextField.m:103"]
+  T17["method:JobsMagicTextField::upAnimation<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsMagicTextField/JobsMagicTextField.m:51"]
   S17 -->|calls| T17
-  S18["method:JobsHeaderFooterView::titleBtn<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionReusableView/JobsHeaderFooterView/JobsHeaderFooterView.m:62"]
-  T18["method:UIButton::jobsInit<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:307"]
+  S18["method:JobsMagicTextField::setText:<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsMagicTextField/JobsMagicTextField.m:103"]
+  T18["method:JobsMagicTextField::restoreAnimation<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsMagicTextField/JobsMagicTextField.m:77"]
   S18 -->|calls| T18
-  S19["method:JobsHeaderFooterView::titleBtn<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionReusableView/JobsHeaderFooterView/JobsHeaderFooterView.m:62"]
-  T19["method:UIView::addSubview<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S19["method:JobsTextField::init<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsTextField/JobsTextField.m:36"]
+  T19["method:JobsTextField::init<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsTextField/JobsTextField.m:36"]
   S19 -->|calls| T19
-  S20["method:JobsHeaderFooterView::titleBtn<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionReusableView/JobsHeaderFooterView/JobsHeaderFooterView.m:62"]
-  T20["method:UIButton::jobsResetBtnTitle<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+UI/UIButton+UI.m:316"]
+  S20["method:JobsTextField::layoutSubviews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsTextField/JobsTextField.m:52"]
+  T20["method:JobsTextField::layoutSubviews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsTextField/JobsTextField.m:52"]
   S20 -->|calls| T20
-  S21["method:JobsHeaderFooterView::titleBtn<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionReusableView/JobsHeaderFooterView/JobsHeaderFooterView.m:62"]
-  T21["method:UIButton::jobsResetTitlePadding<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+UIButtonConfiguration/UIButton+UIButtonConfiguration.m:112"]
+  S21["method:JobsTextField::layoutSubviews<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsTextField/JobsTextField.m:52"]
+  T21["method:UIView::appointCornerCutToCircleByRoundingCorners:cornerRadii:<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:120"]
   S21 -->|calls| T21
-  S22["method:JobsHeaderFooterView::titleBtn<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionReusableView/JobsHeaderFooterView/JobsHeaderFooterView.m:62"]
-  T22["method:UIButton::jobsResetBtnImage<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+UI/UIButton+UI.m:402"]
+  S22["method:JobsTextField::initWithSize:<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsTextField/JobsTextField.m:135"]
+  T22["method:JobsTextField::init<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsTextField/JobsTextField.m:36"]
   S22 -->|calls| T22
-  S23["method:JobsHeaderFooterView::titleBtn<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionReusableView/JobsHeaderFooterView/JobsHeaderFooterView.m:62"]
-  T23["method:UIButton::jobsResetTitleLineBreakMode<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+UIButtonConfiguration/UIButton+UIButtonConfiguration.m:300"]
+  S23["method:JobsTextField::realTextField<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsTextField/JobsTextField.m:255"]
+  T23["method:UITextField::byDelegate<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITextField/UITextField+Extra/UITextField+Extra.m:22"]
   S23 -->|calls| T23
-  S24["method:JobsHeaderFooterView::titleBtn<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionReusableView/JobsHeaderFooterView/JobsHeaderFooterView.m:62"]
-  T24["method:UIButton::jobsResetSubTitleLineBreakMode<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+UIButtonConfiguration/UIButton+UIButtonConfiguration.m:310"]
+  S24["method:BaseTextView::init<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextView/BaseTextView/BaseTextView.m:26"]
+  T24["method:BaseTextView::init<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextView/BaseTextView/BaseTextView.m:26"]
   S24 -->|calls| T24
-  S25["method:JobsHeaderFooterView::titleBtn<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionReusableView/JobsHeaderFooterView/JobsHeaderFooterView.m:62"]
-  T25["method:UIButton::jobsResetTitleBaseForegroundColor<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+UIButtonConfiguration/UIButton+UIButtonConfiguration.m:390"]
+  S25["method:BaseTextView::init<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextView/BaseTextView/BaseTextView.m:26"]
+  T25["method:BaseTextView::setupDefaults<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextView/BaseTextView/BaseTextView.m:122"]
   S25 -->|calls| T25
 ```
 

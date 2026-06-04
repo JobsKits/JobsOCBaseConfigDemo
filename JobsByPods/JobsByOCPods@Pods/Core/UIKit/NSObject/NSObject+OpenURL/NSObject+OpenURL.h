@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_NSOBJECT_OPENURL_6C82E8331F
 #define JOBS_HEADER_GUARD_NSOBJECT_OPENURL_6C82E8331F
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h> // 发短信、发邮件
 #import <JobsByOCPods/NSObject+Extra.h>
 #import <JobsByOCPods/NSString+Check.h>

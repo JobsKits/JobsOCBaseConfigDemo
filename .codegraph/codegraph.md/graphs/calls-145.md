@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:JobsNavBar::initWithSize:<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBar/JobsNavBar.m:71"]
-  T1["method:JobsNavBar::init<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBar/JobsNavBar.m:42"]
+  S1["method:JobsTimer::pause<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:418"]
+  T1["function:JobsTimer::jobs_requireMainThread<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:59"]
   S1 -->|calls| T1
-  S2["method:JobsNavBar::viewSizeByModel<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBar/JobsNavBar.m:92"]
-  T2["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S2["method:JobsTimer::resume<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:450"]
+  T2["function:JobsTimer::jobs_requireMainThread<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:59"]
   S2 -->|calls| T2
-  S3["method:JobsNavBar::viewSizeByModel<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBar/JobsNavBar.m:92"]
-  T3["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S3["method:JobsTimer::fireOnce<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:479"]
+  T3["method:JobsTimer::fireOnce<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:479"]
   S3 -->|calls| T3
-  S4["method:JobsNavBar::navBarConfig<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBar/JobsNavBar.m:117"]
-  T4["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S4["method:JobsTimer::fireOnce<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:479"]
+  T4["method:JobsTimer::invalidateInternal<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:530"]
   S4 -->|calls| T4
-  S5["method:JobsNavBar::titleLab<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBar/JobsNavBar.m:136"]
-  T5["method:UILabel::byAttributedString<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UILabel/UILabel+DSL/UILabel+DSL.m:48"]
+  S5["method:JobsTimer::stop<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:512"]
+  T5["function:JobsTimer::jobs_requireMainThread<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:59"]
   S5 -->|calls| T5
-  S6["method:JobsNavBar::titleLab<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBar/JobsNavBar.m:136"]
-  T6["method:UILabel::byText<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UILabel/UILabel+DSL/UILabel+DSL.m:39"]
+  S6["method:JobsTimer::stop<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:512"]
+  T6["method:JobsTimer::invalidateInternal<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:530"]
   S6 -->|calls| T6
-  S7["method:JobsNavBar::titleLab<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBar/JobsNavBar.m:136"]
-  T7["method:UILabel::makeLabelByShowingType<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UILabel/UILabel+DSL/UILabel+DSL.m:58"]
+  S7["method:JobsTimer::startNSTimerWithToken:<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:590"]
+  T7["function:JobsTimer::jobs_requireMainThread<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:59"]
   S7 -->|calls| T7
-  S8["method:JobsNavBar::backBtn<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBar/JobsNavBar.m:157"]
-  T8["method:UIButton::initByButtonModel<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:360"]
+  S8["method:JobsTimer::startGCDTimerWithToken:<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:605"]
+  T8["method:JobsTimer::invalidateInternal<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:530"]
   S8 -->|calls| T8
-  S9["method:JobsNavBar::backBtn<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBar/JobsNavBar.m:157"]
-  T9["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S9["method:JobsTimer::startDisplayLinkWithToken:<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:635"]
+  T9["function:JobsTimer::jobs_requireMainThread<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:59"]
   S9 -->|calls| T9
-  S10["method:JobsNavBar::backBtn<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBar/JobsNavBar.m:157"]
-  T10["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S10["method:JobsTimer::startRunLoopTimerWithToken:<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:646"]
+  T10["function:JobsTimer::jobs_requireMainThread<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:59"]
   S10 -->|calls| T10
-  S11["method:JobsNavBar::backBtn<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBar/JobsNavBar.m:157"]
-  T11["method:UIButton::makeBtnTitleByShowingType<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIButton/UIButton+Extra/UIButton+Extra.m:12"]
+  S11["method:JobsTimer::setupAppStateMonitorIfNeeded<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:696"]
+  T11["method:JobsTimer::teardownAppStateMonitor<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:724"]
   S11 -->|calls| T11
-  S12["method:JobsNavBar::closeBtn<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBar/JobsNavBar.m:171"]
-  T12["method:UIButton::initByButtonModel<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:360"]
+  S12["method:JobsTimer::setupAppStateMonitorIfNeeded<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:696"]
+  T12["method:JobsTimer::jobs_onDidEnterBackground<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:755"]
   S12 -->|calls| T12
-  S13["method:JobsNavBar::closeBtn<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBar/JobsNavBar.m:171"]
-  T13["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S13["method:JobsTimer::setupAppStateMonitorIfNeeded<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:696"]
+  T13["method:JobsTimer::jobs_onWillEnterForeground<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:762"]
   S13 -->|calls| T13
-  S14["method:JobsNavBar::closeBtn<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBar/JobsNavBar.m:171"]
-  T14["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S14["method:JobsTimer::syncWithCurrentAppStateIfNeeded<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:736"]
+  T14["method:JobsTimer::syncWithCurrentAppStateIfNeeded<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:736"]
   S14 -->|calls| T14
-  S15["method:JobsNavBar::closeBtn<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBar/JobsNavBar.m:171"]
-  T15["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S15["method:JobsTimer::syncWithCurrentAppStateIfNeeded<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:736"]
+  T15["method:JobsTimer::pause<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:418"]
   S15 -->|calls| T15
-  S16["method:JobsNavBarConfig::closeBtnModel<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBarConfig/JobsNavBarConfig.m:55"]
-  T16["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
+  S16["method:JobsTimer::jobs_onDidEnterBackground<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:755"]
+  T16["method:JobsTimer::pause<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:418"]
   S16 -->|calls| T16
-  S17["method:JobsNavBarConfig::font<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBarConfig/JobsNavBarConfig.m:84"]
-  T17["function:bayonRegular<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Font.h:141"]
+  S17["method:JobsTimer::jobs_onWillEnterForeground<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:762"]
+  T17["method:JobsTimer::resume<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:450"]
   S17 -->|calls| T17
-  S18["method:JobsNavBarConfig::font<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBarConfig/JobsNavBarConfig.m:84"]
-  T18["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S18["method:JobsTimer::byPauseInBackground<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:917"]
+  T18["method:JobsTimer::setupAppStateMonitorIfNeeded<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:696"]
   S18 -->|calls| T18
-  S19["method:BaseButton::init<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:33"]
-  T19["method:BaseButton::init<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:33"]
+  S19["method:JobsTimer::byAutoManageAppState<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:928"]
+  T19["method:JobsTimer::setupAppStateMonitorIfNeeded<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:696"]
   S19 -->|calls| T19
-  S20["method:BaseButton::buttonWithConfiguration:primaryAction:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:45"]
-  T20["method:BaseButton::buttonWithConfiguration:primaryAction:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:45"]
+  S20["method:JobsPodspecKitForJobsOCTimer::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsOCTimer@Pods/JobsPodspecKit.rb:277"]
+  T20["method:JobsPodspecKitForJobsOCTimer::standard_user_target_xcconfig<br/>JobsByPods/JobsOCTimer@Pods/JobsPodspecKit.rb:266"]
   S20 -->|calls| T20
-  S21["method:BaseButton::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:55"]
-  T21["method:BaseButton::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:55"]
+  S21["method:JobsPodspecKitForJobsOCTimer::apply_standard_xcconfig<br/>JobsByPods/JobsOCTimer@Pods/JobsPodspecKit.rb:281"]
+  T21["method:JobsPodspecKitForJobsOCTimer::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsOCTimer@Pods/JobsPodspecKit.rb:273"]
   S21 -->|calls| T21
-  S22["method:BaseButton::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:55"]
-  T22["method:BaseButton::resetSubViews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:96"]
+  S22["method:JobsPodspecKitForJobsOCTimer::apply_standard_xcconfig<br/>JobsByPods/JobsOCTimer@Pods/JobsPodspecKit.rb:281"]
+  T22["method:JobsPodspecKitForJobsOCTimer::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsOCTimer@Pods/JobsPodspecKit.rb:277"]
   S22 -->|calls| T22
-  S23["method:BaseButton::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:55"]
-  T23["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S23["method:NSString::add<br/>JobsByPods/JobsOCTimer@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:12"]
+  T23["function:JobsMutableString<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:10"]
   S23 -->|calls| T23
-  S24["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:78"]
-  T24["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:78"]
+  S24["method:NSString::toast<br/>JobsByPods/JobsOCTimer@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:22"]
+  T24["method:NSObject::jobsToastMsg<br/>JobsByPods/WHToastExtra@Pods/Core/NSObject+WHToast.m:14"]
   S24 -->|calls| T24
-  S25["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:78"]
-  T25["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S25["method:NSString::toast<br/>JobsByPods/JobsOCTimer@Pods/Support/UIKit/NSString/NSString+Toast/NSString+Toast.m:12"]
+  T25["method:NSObject::jobsToastMsg<br/>JobsByPods/WHToastExtra@Pods/Core/NSObject+WHToast.m:14"]
   S25 -->|calls| T25
 ```
 

@@ -8,7 +8,6 @@
 #ifndef JobsOCDSL_h
 #define JobsOCDSL_h
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
 #if __has_include(<JobsOCDSL/NSMutableParagraphStyle+DSL.h>)
@@ -35,6 +34,12 @@
 #import "UIProgressView+DSL.h"
 #endif
 
+#if __has_include(<JobsOCDSL/UILabel+DSL.h>)
+#import <JobsOCDSL/UILabel+DSL.h>
+#else
+#import "UILabel+DSL.h"
+#endif
+
 #if __has_include(<JobsOCDSL/UITableView+DSL.h>)
 #import <JobsOCDSL/UITableView+DSL.h>
 #else
@@ -51,6 +56,12 @@
 #import <JobsOCDSL/UIView+DSL.h>
 #else
 #import "UIView+DSL.h"
+#endif
+
+#if __has_include(<JobsOCDSL/UITextField+DSL.h>)
+#import <JobsOCDSL/UITextField+DSL.h>
+#else
+#import "UITextField+DSL.h"
 #endif
 
 #if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)

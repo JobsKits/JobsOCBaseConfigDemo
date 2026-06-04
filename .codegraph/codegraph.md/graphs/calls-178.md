@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["function:JobsSafeWidth::jobsSamePoint<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:569"]
-  T1["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S1["method:NSString::isPunct<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:172"]
+  T1["method:NSString::characterAtIndex<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S1 -->|calls| T1
-  S2["function:KindOfBtnCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:31"]
-  T2["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S2["method:NSString::isContainsUrl<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:186"]
+  T2["method:NSString::rangeOfString<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
   S2 -->|calls| T2
-  S3["function:KindOfBaseButtonCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:35"]
-  T3["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S3["method:NSString::isContainsUrl<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:27"]
+  T3["method:NSString::rangeOfString<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
   S3 -->|calls| T3
-  S4["function:KindOfViewCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:39"]
-  T4["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S4["method:NSString::add<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:32"]
+  T4["function:JobsMutableString<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:10"]
   S4 -->|calls| T4
-  S5["function:KindOfStrCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:43"]
-  T5["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S5["method:NSString::isEqualToString<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:42"]
+  T5["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S5 -->|calls| T5
-  S6["function:KindOfVCCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:47"]
-  T6["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S6["method:NSString::isEqualToString<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:42"]
+  T6["method:NSString::isEqualToString<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:42"]
   S6 -->|calls| T6
-  S7["function:KindOfDataCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:51"]
-  T7["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S7["method:NSString::addPathComponent<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Path/NSString+Path.m:43"]
+  T7["function:JobsMutableString<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:10"]
   S7 -->|calls| T7
-  S8["function:KindOfMutArrCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:55"]
-  T8["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S8["method:NSString::add<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:27"]
+  T8["function:JobsMutableString<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:10"]
   S8 -->|calls| T8
-  S9["function:KindOfArrCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:59"]
-  T9["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S9["method:NSString::addByAttributedString<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:37"]
+  T9["method:NSMutableAttributedString::initByString<br/>JobsByPods/JobsRichTextUtils@Pods/Core/UIKit/NSMutableAttributedString/NSMutableAttributedString+Extra/NSMutableAttributedString+Extra.m:18"]
   S9 -->|calls| T9
-  S10["function:KindOfMutDicCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:63"]
-  T10["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S10["method:NSString::subStringTo<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:61"]
+  T10["method:NSString::substringWithRange<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:301"]
   S10 -->|calls| T10
-  S11["function:KindOfDicCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:67"]
-  T11["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S11["method:NSString::replace<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:87"]
+  T11["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S11 -->|calls| T11
-  S12["function:KindOfJSONerializationCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:71"]
-  T12["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S12["method:NSString::replaceMiddleCharactersWithReplacement:count:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:107"]
+  T12["method:NSString::substringToIndex<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:36"]
   S12 -->|calls| T12
-  S13["function:KindOfMutStrCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:75"]
-  T13["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S13["method:NSString::replaceMiddleCharactersWithReplacement:count:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:107"]
+  T13["method:NSString::substringFromIndex<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:28"]
   S13 -->|calls| T13
-  S14["function:KindOfImageCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:79"]
-  T14["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S14["method:NSString::replaceMiddleCharactersWithReplacement:count:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:107"]
+  T14["function:JobsMutableString<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:10"]
   S14 -->|calls| T14
-  S15["function:KindOfTabBarCtrlCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:83"]
-  T15["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S15["method:NSString::dealWithString:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:124"]
+  T15["method:NSString::substringWithRange<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:301"]
   S15 -->|calls| T15
-  S16["function:KindOfNavCtrlCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:87"]
-  T16["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S16["method:NSString::resetStringByFontAndTailStrings<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:139"]
+  T16["method:NSString::add<br/>JobsByPods/JobsAPIs@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:18"]
   S16 -->|calls| T16
-  S17["function:KindOfScrollViewCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:91"]
-  T17["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S17["method:NSString::jobsCapitalCaseString<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:171"]
+  T17["method:NSString::substringToIndex<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:36"]
   S17 -->|calls| T17
-  S18["function:KindOfNumberCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:95"]
-  T18["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S18["method:NSString::nullableString:replaceString:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:179"]
+  T18["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
   S18 -->|calls| T18
-  S19["function:KindOfSetCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:99"]
-  T19["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S19["method:NSString::nullableString:replaceString:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:179"]
+  T19["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
   S19 -->|calls| T19
-  S20["function:KindOfMutSetCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:103"]
-  T20["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S20["method:NSString::nullableString:replaceString:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:179"]
+  T20["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S20 -->|calls| T20
-  S21["function:KindOfViewModelCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:107"]
-  T21["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S21["method:NSString::nullableString:replaceString:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:179"]
+  T21["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S21 -->|calls| T21
-  S22["function:KindOfButtonModelCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:111"]
-  T22["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S22["method:NSString::nullableString:replaceString:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:179"]
+  T22["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
   S22 -->|calls| T22
-  S23["function:KindOfLabCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:115"]
-  T23["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S23["method:NSString::nullableString:replaceString:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:179"]
+  T23["function:toStringByID<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:71"]
   S23 -->|calls| T23
-  S24["function:KindOfCollectionViewCellCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:119"]
-  T24["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S24["method:NSString::nullableString:replaceString:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:179"]
+  T24["function:toStringByID<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:71"]
   S24 -->|calls| T24
-  S25["function:KindOfTableViewCellCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:123"]
-  T25["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S25["method:NSString::omitByReplaceStr:replaceStrLenth:lineBreakMode:limit:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:202"]
+  T25["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
   S25 -->|calls| T25
 ```
 

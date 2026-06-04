@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_UITABLEVIEWCELLPROTOCOL_D527D165A4
 
 #import <UIKit/UIKit.h>
+
 #if __has_include(<JobsOCProtocols/BaseCellProtocol.h>)
 #import <JobsOCProtocols/BaseCellProtocol.h>
 #elif __has_include("BaseCellProtocol.h")

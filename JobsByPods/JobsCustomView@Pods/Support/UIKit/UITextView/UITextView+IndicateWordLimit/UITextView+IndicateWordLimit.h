@@ -8,9 +8,13 @@
 #ifndef JOBS_HEADER_GUARD_UITEXTVIEW_INDICATEWORDLIMIT_22DE56C870
 #define JOBS_HEADER_GUARD_UITEXTVIEW_INDICATEWORDLIMIT_22DE56C870
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
-#import <JobsCustomView/UILabel+DSL.h>
+#import <UIKit/UIKit.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 #import <JobsCustomView/UIView+Extra.h>
 #import <JobsCustomView/UIView+Measure.h>
 
@@ -26,16 +30,16 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

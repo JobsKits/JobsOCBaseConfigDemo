@@ -65,7 +65,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
             self.viewModel = model;
             self.label.text = [NSString stringWithFormat:@"%ld",(long)self.viewModel.row];
             self.videoModel_Core = (VideoModel_Core *)self.viewModel.data;
-        } return self;
+        }return self;
     };
 }
 #pragma mark —— Get方法

@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:UIView::resetContentSizeWidth<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:509"]
+  S1["method:UIView::getFrameWithFreeHight:maxWidth:<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+AutoSelfAdaptionSize/UIView+AutoSelfAdaptionSize.m:89"]
   T1["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S1 -->|calls| T1
-  S2["method:UIView::resetContentSizeHeight<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:520"]
+  S2["method:UIView::getFrameWithFreeHight:maxWidth:<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+AutoSelfAdaptionSize/UIView+AutoSelfAdaptionSize.m:89"]
   T2["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S2 -->|calls| T2
-  S3["method:UIView::resetContentSizeOffsetWidth<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:531"]
+  S3["method:UIView::getFrameWithFreeWidth:maxHight:textSpace:<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+AutoSelfAdaptionSize/UIView+AutoSelfAdaptionSize.m:122"]
   T3["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S3 -->|calls| T3
-  S4["method:UIView::resetContentSizeOffsetHeight<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:543"]
-  T4["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S4["method:UIView::getFrameWithFreeWidth:maxHight:textSpace:<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+AutoSelfAdaptionSize/UIView+AutoSelfAdaptionSize.m:122"]
+  T4["method:NSMutableAttributedString::addkCTKernAttributeNameByParagraphStyleModel<br/>JobsByPods/JobsRichTextUtils@Pods/Core/UIKit/NSMutableAttributedString/NSMutableAttributedString+Extra/NSMutableAttributedString+Extra.m:134"]
   S4 -->|calls| T4
-  S5["method:UIView::resetContentOffset<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:555"]
+  S5["method:UIView::getFrameWithFreeHight:maxWidth:textSpace:lineSpace:<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+AutoSelfAdaptionSize/UIView+AutoSelfAdaptionSize.m:150"]
   T5["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S5 -->|calls| T5
-  S6["method:UIView::resetContentOffsetX<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:566"]
+  S6["method:UIView::JobsRichViewByModel2<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:34"]
   T6["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S6 -->|calls| T6
-  S7["method:UIView::resetContentOffsetY<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:577"]
+  S7["method:UIView::JobsRichViewByModel2<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:34"]
   T7["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S7 -->|calls| T7
-  S8["method:UIView::resetContentOffsetX_offset<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:588"]
+  S8["method:UIView::dataLink<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:48"]
   T8["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S8 -->|calls| T8
-  S9["method:UIView::resetContentOffsetY_offset<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:600"]
-  T9["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S9["method:UIView::dataLink<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:48"]
+  T9["method:JXCategoryBaseView::byDelegate<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryBaseView/JXCategoryBaseView+Extra.m:12"]
   S9 -->|calls| T9
-  S10["method:UIView::resetContentInset<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:612"]
+  S10["method:UIView::dataLink<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:48"]
   T10["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S10 -->|calls| T10
-  S11["method:UIView::resetContentInsetTop<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:623"]
-  T11["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S11["method:UIView::dataLink<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:48"]
+  T11["method:JXCategoryBaseView::byDelegate<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryBaseView/JXCategoryBaseView+Extra.m:12"]
   S11 -->|calls| T11
-  S12["method:UIView::resetContentInsetLeft<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:637"]
+  S12["method:UIView::byShow<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:65"]
   T12["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S12 -->|calls| T12
-  S13["method:UIView::resetContentInsetBottom<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:651"]
-  T13["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S13["method:UIView::byShow<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:65"]
+  T13["method:JXCategoryBaseView::byDelegate<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryBaseView/JXCategoryBaseView+Extra.m:12"]
   S13 -->|calls| T13
-  S14["method:UIView::resetContentInsetRight<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:665"]
-  T14["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S14["method:UIView::byShow<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:65"]
+  T14["method:UIScrollView::reloadDatas<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIScrollView/UIScrollView+UIScrollViewProtocol/UIScrollView+UIScrollViewProtocol.m:24"]
   S14 -->|calls| T14
-  S15["method:UIView::resetContentInsetOffsetTop<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:679"]
+  S15["method:UIView::byShow<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:65"]
   T15["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S15 -->|calls| T15
-  S16["method:UIView::resetContentInsetOffsetLeft<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:693"]
-  T16["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S16["method:UIView::byShow<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:65"]
+  T16["method:JXCategoryBaseView::byDelegate<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryBaseView/JXCategoryBaseView+Extra.m:12"]
   S16 -->|calls| T16
-  S17["method:UIView::resetContentInsetOffsetBottom<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:707"]
-  T17["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S17["method:UIView::byShow<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:65"]
+  T17["method:UIScrollView::reloadDatas<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIScrollView/UIScrollView+UIScrollViewProtocol/UIScrollView+UIScrollViewProtocol.m:24"]
   S17 -->|calls| T17
-  S18["method:UIView::resetContentInsetOffsetRight<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:721"]
+  S18["method:UIView::scrollViewShot<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:385"]
   T18["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S18 -->|calls| T18
-  S19["method:UIView::setSizer:<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:904"]
-  T19["method:NSValue::bySize<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSValue/NSValue+Extra/NSValue+Extra.m:12"]
+  S19["method:UIView::makeLabelByShowingType<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:694"]
+  T19["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S19 -->|calls| T19
-  S20["method:UIView::setOrigin:<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:918"]
-  T20["method:NSValue::byPoint<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSValue/NSValue+Extra/NSValue+Extra.m:24"]
+  S20["method:UIView::viewByID<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:705"]
+  T20["method:UIView::viewWithTag<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:731"]
   S20 -->|calls| T20
-  S21["method:UIView::refresh<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:28"]
-  T21["method:BaseView::layoutIfNeeded<br/>JobsByPods/JobsBasePopupView@Pods/Support/BaseUI/BaseView/BaseView.m:63"]
+  S21["method:UIView::addGestureRecognizer<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:722"]
+  T21["method:UIView::addGestureRecognizer<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:722"]
   S21 -->|calls| T21
-  S22["method:UIView::LOTAnimationMJRefreshHeaderBy<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:38"]
-  T22["method:MJRefreshGifHeader::refreshStateIdleByImages<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshGifHeader/MJRefreshGifHeader+Extra.m:12"]
+  S22["method:UIView::viewWithTag<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:731"]
+  T22["method:UIView::viewWithTag<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:731"]
   S22 -->|calls| T22
-  S23["method:UIView::LOTAnimationMJRefreshHeaderBy<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:38"]
-  T23["method:MJRefreshGifHeader::refreshStateIdleByString<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshGifHeader/MJRefreshGifHeader+Extra.m:57"]
+  S23["method:UIView::addSubview<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:766"]
+  T23["method:UIView::addSubview<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:766"]
   S23 -->|calls| T23
-  S24["method:UIView::LOTAnimationMJRefreshHeaderBy<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:38"]
-  T24["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S24["method:UIView::makeTargetShadowview:superView:shadowDirection:shadowWithOffsetX:offsetY:cornerRadius:shadowOffset:shadowOpacity:layerShadowColor:layerShadowRadius:<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:917"]
+  T24["method:UIBezierPath::moveTo<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIBezierPath/UIBezierPath+Extra/UIBezierPath+Extra.m:67"]
   S24 -->|calls| T24
-  S25["method:UIView::MJRefreshNormalHeaderBy<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:74"]
-  T25["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S25["method:UIView::makeTargetShadowview:superView:shadowDirection:shadowWithOffsetX:offsetY:cornerRadius:shadowOffset:shadowOpacity:layerShadowColor:layerShadowRadius:<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:917"]
+  T25["method:UIBezierPath::add<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIBezierPath/UIBezierPath+Extra/UIBezierPath+Extra.m:59"]
   S25 -->|calls| T25
 ```
 

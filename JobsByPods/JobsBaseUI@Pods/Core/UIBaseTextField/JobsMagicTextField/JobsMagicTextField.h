@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSMAGICTEXTFIELD_FA6DC87216
 
 #import <UIKit/UIKit.h>
+#import <JobsBaseUI/UIView+Extra.h>
 #import <JobsBaseUI/ZYTextField.h>
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)

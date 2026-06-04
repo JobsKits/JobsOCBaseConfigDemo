@@ -20,16 +20,16 @@
 #import "ReactiveObjC.h"
 #endif
 
-#if __has_include(<JobsOCRuntimeKits/JobsOCRuntimeKits.h>)
-#import <JobsOCRuntimeKits/JobsOCRuntimeKits.h>
-#else
-#import "JobsOCRuntimeKits.h"
-#endif
-
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
 #import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsOCRuntimeKits/JobsOCRuntimeKits.h>)
+#import <JobsOCRuntimeKits/JobsOCRuntimeKits.h>
+#else
+#import "JobsOCRuntimeKits.h"
 #endif
 
 #if __has_include(<JobsModel/JobsModel.h>)

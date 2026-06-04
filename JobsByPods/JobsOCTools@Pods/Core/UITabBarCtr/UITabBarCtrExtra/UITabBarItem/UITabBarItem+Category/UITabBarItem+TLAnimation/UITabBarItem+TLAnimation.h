@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UITABBARITEM_TLANIMATION_3C61B8C262
 #define JOBS_HEADER_GUARD_UITABBARITEM_TLANIMATION_3C61B8C262
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsOCTools/TLAnimationProtocol.h>
 
 #if __has_include(<JobsOCDefs/JobsDefineProperty.h>)

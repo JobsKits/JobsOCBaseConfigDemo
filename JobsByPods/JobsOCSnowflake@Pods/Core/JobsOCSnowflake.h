@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSOCSNOWFLAKE_41ABEDCD2D
 
 #import <Foundation/Foundation.h>
+
 #include <unistd.h>
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)

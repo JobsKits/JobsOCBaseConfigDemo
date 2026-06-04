@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:GXCardViewCell::initWithReuseIdentifier:<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:42"]
-  T1["method:GXCardViewCell::setupView<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:51"]
+  S1["method:UIView::resetContentInsetOffsetRight<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:721"]
+  T1["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S1 -->|calls| T1
-  S2["method:GXCardViewCell::setupView<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:51"]
-  T2["method:UIView::addGestureRecognizer<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:149"]
+  S2["method:UIView::setSizer:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:904"]
+  T2["method:NSValue::bySize<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSValue/NSValue+Extra/NSValue+Extra.m:12"]
   S2 -->|calls| T2
-  S3["method:GXCardViewCell::panGestureRecognizer:<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:56"]
-  T3["method:GXCardViewCell::didPanStateEnded<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:92"]
+  S3["method:UIView::setOrigin:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:918"]
+  T3["method:NSValue::byPoint<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSValue/NSValue+Extra/NSValue+Extra.m:24"]
   S3 -->|calls| T3
-  S4["method:GXCardViewCell::panGestureRecognizer:<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:56"]
-  T4["method:GXCardViewCell::restoreCellLocation<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:132"]
+  S4["method:UIView::refresh<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:28"]
+  T4["method:BaseView::layoutIfNeeded<br/>JobsByPods/JobsBasePopupView@Pods/Support/BaseUI/BaseView/BaseView.m:63"]
   S4 -->|calls| T4
-  S5["method:GXCardViewCell::didPanStateEnded<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:92"]
-  T5["method:GXCardViewCell::restoreCellLocation<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:132"]
+  S5["method:UIView::LOTAnimationMJRefreshHeaderBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:38"]
+  T5["method:MJRefreshGifHeader::refreshStateIdleByImages<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshGifHeader/MJRefreshGifHeader+Extra.m:12"]
   S5 -->|calls| T5
-  S6["method:GXCardViewCell::didCellRemoveFromSuperviewWithDirection:<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:143"]
-  T6["function:removeFromSuperview<br/>JobsOCBaseConfigDemo/业务逻辑/Common/App工具类/3rd/JhtBanner（卡片式滑动效果）/JhtBannerScrollView/JhtBannerScrollView.m:48"]
+  S6["method:UIView::LOTAnimationMJRefreshHeaderBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:38"]
+  T6["method:MJRefreshGifHeader::refreshStateIdleByString<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshGifHeader/MJRefreshGifHeader+Extra.m:57"]
   S6 -->|calls| T6
-  S7["method:GXCardViewCell::removeFromSuperviewSwipe:<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:151"]
-  T7["method:GXCardViewCell::removeFromSuperviewLeft<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:167"]
+  S7["method:UIView::LOTAnimationMJRefreshHeaderBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:38"]
+  T7["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S7 -->|calls| T7
-  S8["method:GXCardViewCell::removeFromSuperviewSwipe:<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:151"]
-  T8["method:GXCardViewCell::removeFromSuperviewRight<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:186"]
+  S8["method:UIView::MJRefreshNormalHeaderBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:74"]
+  T8["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S8 -->|calls| T8
-  S9["method:GXCardView::awakeFromNib<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:227"]
-  T9["method:GXCardView::awakeFromNib<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:227"]
+  S9["method:UIView::MJRefreshStateHeaderBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:94"]
+  T9["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S9 -->|calls| T9
-  S10["method:GXCardView::awakeFromNib<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:227"]
-  T10["method:GXCardView::configCardView<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:240"]
+  S10["method:UIView::MJRefreshHeaderBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:114"]
+  T10["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S10 -->|calls| T10
-  S11["method:GXCardView::initWithFrame:<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:232"]
-  T11["method:GXCardView::configCardView<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:240"]
+  S11["method:UIView::MJRefreshGifHeaderBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:128"]
+  T11["method:MJRefreshGifHeader::refreshStateIdleByImages<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshGifHeader/MJRefreshGifHeader+Extra.m:12"]
   S11 -->|calls| T11
-  S12["method:GXCardView::containerView<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:250"]
-  T12["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S12["method:UIView::MJRefreshGifHeaderBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:128"]
+  T12["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S12 -->|calls| T12
-  S13["method:GXCardView::reloadDataFormIndex:<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:306"]
-  T13["method:GXCardView::reloadDataFormIndex:animated:<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:310"]
+  S13["method:UIView::MJRefreshAutoGifFooterBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:159"]
+  T13["method:MJRefreshAutoGifFooter::refreshStateIdleByImages<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshAutoGifFooter/MJRefreshAutoGifFooter+Extra.m:12"]
   S13 -->|calls| T13
-  S14["method:GXCardView::updateLayoutVisibleCellsWithAnimated:<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:379"]
-  T14["method:GXCardView::updateConstraintsCell:transform:<br/>JobsByPods/JobsOCTools@Pods/Core/GXCardView/GXCardView.m:414"]
+  S14["method:UIView::MJRefreshAutoGifFooterBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:159"]
+  T14["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S14 -->|calls| T14
-  S15["method:HAHandleDemoView::initWithFrame:<br/>JobsByPods/JobsOCTools@Pods/Core/HAHandleDemoView/HAHandleDemoView.m:28"]
-  T15["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S15["method:UIView::MJRefreshBackNormalFooterBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:189"]
+  T15["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S15 -->|calls| T15
-  S16["method:HAHandleDemoView::handleBtnTouchDownAction<br/>JobsByPods/JobsOCTools@Pods/Core/HAHandleDemoView/HAHandleDemoView.m:44"]
-  T16["method:HAHandleDemoView::calculateMaxSide<br/>JobsByPods/JobsOCTools@Pods/Core/HAHandleDemoView/HAHandleDemoView.m:85"]
+  S16["method:UIView::MJRefreshAutoNormalFooterBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:208"]
+  T16["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S16 -->|calls| T16
-  S17["method:HAHandleDemoView::calculateMaxSide<br/>JobsByPods/JobsOCTools@Pods/Core/HAHandleDemoView/HAHandleDemoView.m:85"]
-  T17["method:ASDisplayNode::bounds<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASDisplayNode+UIViewBridge.mm:299"]
+  S17["method:UIView::MJRefreshAutoStateFooterBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:227"]
+  T17["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S17 -->|calls| T17
-  S18["method:HAHandleDemoView::calculateMaxSide<br/>JobsByPods/JobsOCTools@Pods/Core/HAHandleDemoView/HAHandleDemoView.m:85"]
-  T18["method:ASDisplayNode::bounds<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASDisplayNode+UIViewBridge.mm:299"]
+  S18["method:UIView::MJRefreshBackGifFooterBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:253"]
+  T18["method:MJRefreshAutoGifFooter::refreshStateIdleByImages<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshAutoGifFooter/MJRefreshAutoGifFooter+Extra.m:12"]
   S18 -->|calls| T18
-  S19["method:TBCityIconFont::fontWithSize:<br/>JobsByPods/JobsOCTools@Pods/Core/IconFont/TBCityIconFont/TBCityIconFont.m:23"]
-  T19["method:TBCityIconFont::fontName<br/>JobsByPods/JobsOCTools@Pods/Core/IconFont/TBCityIconFont/TBCityIconFont.m:39"]
+  S19["method:UIView::MJRefreshBackGifFooterBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:253"]
+  T19["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S19 -->|calls| T19
-  S20["method:TBCityIconFont::fontWithSize:<br/>JobsByPods/JobsOCTools@Pods/Core/IconFont/TBCityIconFont/TBCityIconFont.m:23"]
-  T20["method:NSObject::mainBundle<br/>JobsByPods/JobsBasePopupView@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:13"]
+  S20["method:UIView::MJRefreshBackStateFooterBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:282"]
+  T20["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S20 -->|calls| T20
-  S21["method:TBCityIconFont::fontWithSize:<br/>JobsByPods/JobsOCTools@Pods/Core/IconFont/TBCityIconFont/TBCityIconFont.m:23"]
-  T21["method:TBCityIconFont::fontName<br/>JobsByPods/JobsOCTools@Pods/Core/IconFont/TBCityIconFont/TBCityIconFont.m:39"]
+  S21["method:UIView::MJRefreshBackFooterBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:301"]
+  T21["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S21 -->|calls| T21
-  S22["method:TBCityIconFont::fontWithSize:<br/>JobsByPods/JobsOCTools@Pods/Core/IconFont/TBCityIconFont/TBCityIconFont.m:23"]
-  T22["method:TBCityIconFont::fontName<br/>JobsByPods/JobsOCTools@Pods/Core/IconFont/TBCityIconFont/TBCityIconFont.m:39"]
+  S22["method:UIView::MJRefreshFooterBy<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:314"]
+  T22["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S22 -->|calls| T22
-  S23["method:TBCityIconInfo::initWithText:size:color:<br/>JobsByPods/JobsOCTools@Pods/Core/IconFont/TBCityIconInfo/TBCityIconInfo.m:12"]
-  T23["method:CasinoCustomerServiceView::init<br/>JobsByPods/JobsOCTools@Pods/Core/CustomerContactStyle/CasinoCustomerServiceView.m:36"]
+  S23["method:UIView::endRefreshing<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:481"]
+  T23["method:ASTableView::reloadData<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASTableView.mm:552"]
   S23 -->|calls| T23
-  S24["method:TBCityIconInfo::iconInfoWithText:size:color:<br/>JobsByPods/JobsOCTools@Pods/Core/IconFont/TBCityIconInfo/TBCityIconInfo.m:21"]
-  T24["method:TBCityIconInfo::initWithText:size:color:<br/>JobsByPods/JobsOCTools@Pods/Core/IconFont/TBCityIconInfo/TBCityIconInfo.m:12"]
+  S24["method:UIView::endRefreshing<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:481"]
+  T24["method:JXCategoryListCollectionContainerView::reloadData<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Common/JXCategoryListCollectionContainerView.m:92"]
   S24 -->|calls| T24
-  S25["method:JobsAdNoticeView::init<br/>JobsByPods/JobsOCTools@Pods/Core/JobsAdNoticeView/JobsAdNoticeView.m:18"]
-  T25["method:JobsAdNoticeView::init<br/>JobsByPods/JobsOCTools@Pods/Core/JobsAdNoticeView/JobsAdNoticeView.m:18"]
+  S25["method:UIView::endRefreshing<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:481"]
+  T25["method:UIView::tab_endAnimation<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Control/UIView+TABControlAnimation.m:152"]
   S25 -->|calls| T25
 ```
 

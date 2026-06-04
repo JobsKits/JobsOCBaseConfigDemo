@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UICOLLECTIONVIEW_REGISTRATIONTRACKING_ACF15BE277
 #define JOBS_HEADER_GUARD_UICOLLECTIONVIEW_REGISTRATIONTRACKING_ACF15BE277
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsByOCPods/NSMutableSet+Extra.h>
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)

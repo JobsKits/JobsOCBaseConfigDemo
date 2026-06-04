@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UIBUTTON_UI_290F313F77
 #define JOBS_HEADER_GUARD_UIBUTTON_UI_290F313F77
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsCustomView/NSString+Sys.h>
 #import <JobsCustomView/UIView+Extra.h>
 #import <JobsCustomView/NSObject+NSMutableParagraphStyle.h>
@@ -21,7 +21,11 @@
 #import <JobsCustomView/UIButton+UIButtonConfiguration.h>
 #import <JobsCustomView/UIButton+UIControlState.h>
 #import <JobsCustomView/UIGestureRecognizer+Extra.h>
-#import <JobsCustomView/UILabel+DSL.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 #import <JobsCustomView/UITextView+Extra.h>
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)

@@ -13,11 +13,6 @@
 #import <JobsBaseUI/UIButton+SimplyMake.h>
 #import <JobsBaseUI/UIButton+UI.h>
 #import <JobsBaseUI/UITableView+RegisterClass.h>
-#if __has_include(<JobsOCDSL/UIView+DSL.h>)
-#import <JobsOCDSL/UIView+DSL.h>
-#else
-#import "UIView+DSL.h"
-#endif
 #import <JobsBaseUI/UIView+Extra.h>
 #import <JobsModel/UIViewModel.h>
 #import <Masonry/Masonry.h>
@@ -95,7 +90,7 @@ AppToolsProtocol_synthesize
                 self.textView.textColor = self.buttonModel.titleCor;
                 self.textView.font = self.buttonModel.titleFont;
             }if(!self.buttonModel.highlightImage) self.buttonModel.highlightImage = self.buttonModel.normalImage;
-        } return self;
+        }return self;
     };
 }
 /// 具体由子类进行复写【数据定高】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】

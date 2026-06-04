@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_ZYTEXTFIELD_0700953F27
 #define JOBS_HEADER_GUARD_ZYTEXTFIELD_0700953F27
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>

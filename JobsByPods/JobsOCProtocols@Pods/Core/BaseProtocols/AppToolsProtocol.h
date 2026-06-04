@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_APPTOOLSPROTOCOL_F310A6C4D9
 
 #import <UIKit/UIKit.h>
+
 #if __has_include(<JobsOCProtocols/BaseProtocol.h>)
 #import <JobsOCProtocols/BaseProtocol.h>
 #elif __has_include("BaseProtocol.h")

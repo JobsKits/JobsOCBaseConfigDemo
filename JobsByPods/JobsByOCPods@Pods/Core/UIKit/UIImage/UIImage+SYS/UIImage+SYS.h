@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UIIMAGE_SYS_C230671663
 #define JOBS_HEADER_GUARD_UIIMAGE_SYS_C230671663
 
-#import <UIKit/UIKit.h>
 #import <objc/message.h>
+#import <UIKit/UIKit.h>
 #import <JobsByOCPods/JobsString.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UIBUTTON_TEXTVIEW_49C4C87B14
 #define JOBS_HEADER_GUARD_UIBUTTON_TEXTVIEW_49C4C87B14
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsCustomView/NSObject+Extra.h>
 #import <JobsCustomView/UITextItem+Extra.h>
 

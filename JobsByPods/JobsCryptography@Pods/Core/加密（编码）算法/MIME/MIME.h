@@ -9,7 +9,6 @@
 #define MIME_h
 
 #import <UIKit/UIKit.h>
-
 #import <JobsCryptography/NSData+MIME.h>
 #import <JobsCryptography/UIImage+MIME.h>
 #import <JobsCryptography/NSString+MIME.h>

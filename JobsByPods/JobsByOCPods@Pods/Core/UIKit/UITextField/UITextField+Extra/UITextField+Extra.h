@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UITEXTFIELD_EXTRA_C6F6D7346F
 #define JOBS_HEADER_GUARD_UITEXTFIELD_EXTRA_C6F6D7346F
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsByOCPods/UIButton+SimplyMake.h>
 #import <JobsByOCPods/UITextField+Placeholder.h>
 #import <JobsByOCPods/JobsString.h>

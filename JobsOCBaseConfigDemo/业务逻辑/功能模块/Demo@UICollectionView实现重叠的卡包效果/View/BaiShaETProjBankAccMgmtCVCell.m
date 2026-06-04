@@ -72,7 +72,7 @@ Prop_strong()UILabel *detailLab;
             default:
                 JobsCellSelfCor(JobsWhiteColor);
                 break;
-        } return self;
+        }return self;
     };
 }
 #pragma mark —— lazyLoad

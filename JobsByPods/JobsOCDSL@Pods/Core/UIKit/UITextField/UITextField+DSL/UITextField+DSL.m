@@ -1,6 +1,6 @@
 //
 //  UITextField+DSL.m
-//  JobsByOCPods
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -87,7 +87,13 @@
     @jobs_weakify(self)
     return ^__kindof UITextField *_Nullable(__kindof UIColor *_Nullable cor){
         @jobs_strongify(self)
-        self.placeholderColor = cor;
+        NSString *placeholder = self.placeholder ?: self.attributedPlaceholder.string ?: @"";
+        NSMutableDictionary<NSAttributedStringKey, id> *attributes = NSMutableDictionary.dictionary;
+        if (self.attributedPlaceholder.length) {
+            [attributes addEntriesFromDictionary:[self.attributedPlaceholder attributesAtIndex:0 effectiveRange:nil]];
+        }
+        if (cor) attributes[NSForegroundColorAttributeName] = cor;
+        self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:attributes];
         return self;
     };
 }
@@ -96,7 +102,13 @@
     @jobs_weakify(self)
     return ^__kindof UITextField *_Nullable(__kindof UIFont *_Nullable font){
         @jobs_strongify(self)
-        self.placeholderFont = font;
+        NSString *placeholder = self.placeholder ?: self.attributedPlaceholder.string ?: @"";
+        NSMutableDictionary<NSAttributedStringKey, id> *attributes = NSMutableDictionary.dictionary;
+        if (self.attributedPlaceholder.length) {
+            [attributes addEntriesFromDictionary:[self.attributedPlaceholder attributesAtIndex:0 effectiveRange:nil]];
+        }
+        if (font) attributes[NSFontAttributeName] = font;
+        self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:attributes];
         return self;
     };
 }
@@ -320,6 +332,39 @@
         self.rightViewOffsetX = offsetX;
         return self;
     };
+}
+
+#pragma mark - placeHolderAlignment
+JobsKey(_placeHolderAlignment)
+@dynamic placeHolderAlignment;
+-(NSTextAlignment)placeHolderAlignment{
+    return [Jobs_getAssociatedObject(_placeHolderAlignment) integerValue];
+}
+
+-(void)setPlaceHolderAlignment:(NSTextAlignment)placeHolderAlignment{
+    Jobs_setAssociatedRETAIN_NONATOMIC(_placeHolderAlignment, @(placeHolderAlignment))
+}
+
+#pragma mark - leftViewOffsetX
+JobsKey(_leftViewOffsetX)
+@dynamic leftViewOffsetX;
+-(CGFloat)leftViewOffsetX{
+    return [Jobs_getAssociatedObject(_leftViewOffsetX) doubleValue];
+}
+
+-(void)setLeftViewOffsetX:(CGFloat)leftViewOffsetX{
+    Jobs_setAssociatedRETAIN_NONATOMIC(_leftViewOffsetX, @(leftViewOffsetX))
+}
+
+#pragma mark - rightViewOffsetX
+JobsKey(_rightViewOffsetX)
+@dynamic rightViewOffsetX;
+-(CGFloat)rightViewOffsetX{
+    return [Jobs_getAssociatedObject(_rightViewOffsetX) doubleValue];
+}
+
+-(void)setRightViewOffsetX:(CGFloat)rightViewOffsetX{
+    Jobs_setAssociatedRETAIN_NONATOMIC(_rightViewOffsetX, @(rightViewOffsetX))
 }
 
 @end

@@ -6,7 +6,6 @@
 //
 
 #import "JobsBaseTableViewCell.h"
-#import <JobsBaseUI/UILabel+DSL.h>
 #import <JobsBaseUI/UIView+Measure.h>
 #import <JobsBaseUI/NSString+Statistics.h>
 #import <JobsBaseUI/UITableViewCell+Margin.h>

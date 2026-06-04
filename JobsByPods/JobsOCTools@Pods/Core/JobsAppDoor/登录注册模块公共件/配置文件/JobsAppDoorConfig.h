@@ -27,6 +27,7 @@
 #else
 #import "JobsDefines.h"
 #endif
+
 /// 页面1：登录
 #define JobsAppDoorContentViewLoginX JobsWidth(20)
 #define JobsAppDoorContentViewLoginY JobsMainScreen_HEIGHT() / (isiPhoneX_series() ? 4 : 5)

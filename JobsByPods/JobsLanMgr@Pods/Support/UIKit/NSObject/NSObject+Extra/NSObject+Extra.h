@@ -17,6 +17,7 @@
 #else
 #import "JobsStringUtils.h"
 #endif
+
 /// 设置 UserDefault 整数值（Integer）
 #ifndef JobsSetUserDefaultKeyWithInteger
 #define JobsSetUserDefaultKeyWithInteger(key,value) [NSUserDefaults.standardUserDefaults setInteger:value forKey:key]

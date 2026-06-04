@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEW_EXTRA_C5021B868B
 #define JOBS_HEADER_GUARD_UIVIEW_EXTRA_C5021B868B
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsByOCPods/NSObject+Extra.h>
 #import <JobsByOCPods/NSObject+GKPhotoBrowser.h>
 #import <JobsByOCPods/NSString+Sys.h>
@@ -17,7 +17,11 @@
 #import <JobsByOCPods/UIButton+UI.h>
 #import <JobsByOCPods/UIBarButtonItem+Extra.h>
 #import <JobsByOCPods/UIBezierPath+Extra.h>
-#import <JobsByOCPods/UILabel+DSL.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 #import <JobsByOCPods/UIView+Refresh.h>
 #import <JobsByOCPods/UIView+ViewController.h>
 #import <JobsByOCPods/UIView+Gesture.h>
@@ -55,17 +59,18 @@
 #import "JobsMakes.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
-#import "JobsBlock.h"
-#endif
 /// 在 Objective-C 中，无法直接通过函数参数隐式传递对象的地址。
 /// 如果希望在函数调用时自动传递对象的地址，只能通过宏来实现。
 #ifndef DestroyView

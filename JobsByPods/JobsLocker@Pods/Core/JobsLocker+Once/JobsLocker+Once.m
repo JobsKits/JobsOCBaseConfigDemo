@@ -27,8 +27,7 @@ typedef NS_ENUM(NSUInteger, _JobsOnceStatus) {
     if (self) {
         _condition = [[NSCondition alloc] init];
         _status = _JobsOnceStatusIdle;
-    }
-    return self;
+    }return self;
 }
 
 @end

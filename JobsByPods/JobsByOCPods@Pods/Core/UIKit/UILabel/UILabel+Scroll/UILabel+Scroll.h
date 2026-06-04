@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UILABEL_SCROLL_FBDFEBFDA3
 #define JOBS_HEADER_GUARD_UILABEL_SCROLL_FBDFEBFDA3
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsByOCPods/NSMutableDictionary+Extra.h>
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)

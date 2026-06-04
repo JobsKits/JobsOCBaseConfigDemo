@@ -11,10 +11,10 @@
 #define JobsProgressView_h
 
 #import <JobsByOCPods/UIProgressView+Extra.h>
-#if __has_include(<JobsOCDSL/UIProgressView+DSL.h>)
-#import <JobsOCDSL/UIProgressView+DSL.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "UIProgressView+DSL.h"
+#import "JobsOCDSL.h"
 #endif
 
 #endif /* JobsProgressView_h */

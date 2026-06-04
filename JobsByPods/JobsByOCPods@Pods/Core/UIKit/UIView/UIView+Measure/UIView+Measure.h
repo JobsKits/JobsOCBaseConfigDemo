@@ -8,14 +8,15 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEW_MEASURE_BD40B2299C
 #define JOBS_HEADER_GUARD_UIVIEW_MEASURE_BD40B2299C
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsByOCPods/NSObject+Measure.h>
 #import <JobsByOCPods/NSValue+Extra.h>
-#if __has_include(<JobsOCDSL/UIView+DSL.h>)
-#import <JobsOCDSL/UIView+DSL.h>
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "UIView+DSL.h"
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsDeviceInfo/JobsDeviceInfo.h>)
@@ -30,10 +31,10 @@
 #import "JobsAppTools.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
 #else
-#import "JobsDefines.h"
+#import "JobsModel.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -42,10 +43,10 @@
 #import "JobsBlock.h"
 #endif
 
-#if __has_include(<JobsModel/JobsModel.h>)
-#import <JobsModel/JobsModel.h>
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
 #else
-#import "JobsModel.h"
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

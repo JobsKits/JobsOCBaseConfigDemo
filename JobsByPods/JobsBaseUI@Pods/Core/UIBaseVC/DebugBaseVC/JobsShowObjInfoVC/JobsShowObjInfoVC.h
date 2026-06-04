@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSSHOWOBJINFOVC_71C8E323DA
 
 #import <UIKit/UIKit.h>
+#import <JobsBaseUI/UIView+Extra.h>
 #import <JobsBaseUI/BaseViewController.h>
 #import <JobsBaseUI/JobsBaseTableViewCell.h>
 #import <JobsBaseUI/BaseTableView.h>

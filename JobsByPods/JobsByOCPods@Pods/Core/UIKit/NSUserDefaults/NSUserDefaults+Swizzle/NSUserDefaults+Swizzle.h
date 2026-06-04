@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_NSUSERDEFAULTS_SWIZZLE_57231F843A
 #define JOBS_HEADER_GUARD_NSUSERDEFAULTS_SWIZZLE_57231F843A
 
-#import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+#import <Foundation/Foundation.h>
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>

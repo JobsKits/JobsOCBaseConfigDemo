@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_BASECOLLECTIONREUSABLEVIEW_F067AB0C92
 
 #import <UIKit/UIKit.h>
+#import <JobsBaseUI/UIView+Extra.h>
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>

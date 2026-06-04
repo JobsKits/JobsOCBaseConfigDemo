@@ -12,7 +12,11 @@
 #pragma mark —— Category
 #import <JobsByOCPods/UILabel+Gesture.h>
 #import <JobsByOCPods/UILabel+Measure.h>
-#import <JobsByOCPods/UILabel+DSL.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 #import <JobsByOCPods/UILabel+Scroll.h>
 
 #endif /* JobsLabel_h */

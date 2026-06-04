@@ -8,7 +8,6 @@
 #import "LOTAnimationMJRefreshHeader.h"
 #import <MJRefreshExtra/UIView+Extra.h>
 #import <MJRefreshExtra/UIView+Measure.h>
-#import <MJRefreshExtra/UILabel+DSL.h>
 
 static const CGFloat OffsetBetweenStateLabelAndAnimationView = 5;/// StateLabel 和 AnimationView 之间的间距
 

@@ -9,7 +9,6 @@
 #define Base16_h
 
 #import <UIKit/UIKit.h>
-
 #import <JobsCryptography/NSString+Base16.h>
 #import <JobsCryptography/NSData+Base16.h>
 #import <JobsCryptography/UIImage+Base16.h>

@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_JOBSTABBARVC_5B51D625DE
 #define JOBS_HEADER_GUARD_JOBSTABBARVC_5B51D625DE
 
-#import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h> // 提供 Core Animation 和 CALayer 能力，用于动画、图层和视觉渲染。
+#import <UIKit/UIKit.h>
 #import <JobsOCTools/UITabBar+Ex.h>
 #import <JobsOCTools/TLTabBarAnimation.h>
 #import <JobsOCTools/UITabBar+TLAnimation.h>
@@ -69,17 +69,18 @@
 #import "JobsSuspend.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
-#import "JobsBlock.h"
-#endif
 /*
  * 1、如果用系统的 UITabBarController —— UITabBar 当关联VC ＞ 6 个的时候，最后一个会变成more按钮，其余的VC会在more按钮里面形成一个TableView来进行展现
  * 2、如果希望下方是可以滑动的效果，只能用UIView系列来实现，这里推崇第三方工具库 pod 'JXCategoryView'  # https://github.com/pujiaxin33/JXCategoryView A powerful and easy to use category view (segmentedcontrol, segmentview, pagingview, pagerview, pagecontrol) (腾讯新闻、今日头条、QQ音乐、网易云音乐、京东、爱奇艺、腾讯视频、淘宝、天猫、简书、微博等所有主流App分类切换滚动视图)

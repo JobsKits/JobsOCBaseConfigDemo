@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:UIView::buttonAutoWidthByFont<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+AutoSelfAdaptionSize/UIView+AutoSelfAdaptionSize.m:33"]
-  T1["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S1["method:NSString::imageByHexString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/HexadecimalData/NSString+HexadecimalData/NSString+HexadecimalData.m:62"]
+  T1["method:NSString::imageByHexString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/HexadecimalData/NSString+HexadecimalData/NSString+HexadecimalData.m:47"]
   S1 -->|calls| T1
-  S2["method:UIView::buttonAutoFontByWidth<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+AutoSelfAdaptionSize/UIView+AutoSelfAdaptionSize.m:46"]
-  T2["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S2["method:NSString::dataByHexString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/HexadecimalData/NSString+HexadecimalData/NSString+HexadecimalData.m:67"]
+  T2["method:NSString::substringWithRange<br/>JobsByPods/JobsAPIs@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:301"]
   S2 -->|calls| T2
-  S3["method:UIView::getFrameWithFreeWidth:maxHight:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+AutoSelfAdaptionSize/UIView+AutoSelfAdaptionSize.m:58"]
-  T3["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S3["method:NSString::dataByHexString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/HexadecimalData/NSString+HexadecimalData/NSString+HexadecimalData.m:82"]
+  T3["method:NSString::dataByHexString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/HexadecimalData/NSString+HexadecimalData/NSString+HexadecimalData.m:67"]
   S3 -->|calls| T3
-  S4["method:UIView::getFrameWithFreeWidth:maxHight:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+AutoSelfAdaptionSize/UIView+AutoSelfAdaptionSize.m:58"]
-  T4["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S4["method:UIImage::hexStringByImage<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/HexadecimalData/UIImage+HexadecimalData/UIImage+HexadecimalData.m:13"]
+  T4["method:NSString::initByCapacity<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:80"]
   S4 -->|calls| T4
-  S5["method:UIView::getFrameWithFreeHight:maxWidth:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+AutoSelfAdaptionSize/UIView+AutoSelfAdaptionSize.m:89"]
-  T5["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S5["method:UIImage::hexStr<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/HexadecimalData/UIImage+HexadecimalData/UIImage+HexadecimalData.m:24"]
+  T5["method:UIImage::hexStringByImage<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/HexadecimalData/UIImage+HexadecimalData/UIImage+HexadecimalData.m:13"]
   S5 -->|calls| T5
-  S6["method:UIView::getFrameWithFreeHight:maxWidth:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+AutoSelfAdaptionSize/UIView+AutoSelfAdaptionSize.m:89"]
-  T6["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S6["method:UIImage::imageByHexString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/HexadecimalData/UIImage+HexadecimalData/UIImage+HexadecimalData.m:29"]
+  T6["method:UIImage::initByData<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIImage/UIImage+Extra/UIImage+Extra.m:232"]
   S6 -->|calls| T6
-  S7["method:UIView::getFrameWithFreeWidth:maxHight:textSpace:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+AutoSelfAdaptionSize/UIView+AutoSelfAdaptionSize.m:122"]
-  T7["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S7["method:UIImage::imageByHexString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/HexadecimalData/UIImage+HexadecimalData/UIImage+HexadecimalData.m:29"]
+  T7["method:NSString::substringWithRange<br/>JobsByPods/JobsAPIs@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:301"]
   S7 -->|calls| T7
-  S8["method:UIView::getFrameWithFreeWidth:maxHight:textSpace:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+AutoSelfAdaptionSize/UIView+AutoSelfAdaptionSize.m:122"]
-  T8["method:NSMutableAttributedString::addkCTKernAttributeNameByParagraphStyleModel<br/>JobsByPods/JobsRichTextUtils@Pods/Core/UIKit/NSMutableAttributedString/NSMutableAttributedString+Extra/NSMutableAttributedString+Extra.m:134"]
+  S8["method:UIImage::imageByHexString:<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/HexadecimalData/UIImage+HexadecimalData/UIImage+HexadecimalData.m:44"]
+  T8["method:UIImage::imageByHexString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/HexadecimalData/UIImage+HexadecimalData/UIImage+HexadecimalData.m:29"]
   S8 -->|calls| T8
-  S9["method:UIView::getFrameWithFreeHight:maxWidth:textSpace:lineSpace:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+AutoSelfAdaptionSize/UIView+AutoSelfAdaptionSize.m:150"]
-  T9["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S9["method:NSData::dataByMIMEString:<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/NSData+MIME/NSData+MIME.m:20"]
+  T9["method:NSData::dataByMIMEString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/NSData+MIME/NSData+MIME.m:13"]
   S9 -->|calls| T9
-  S10["method:UIView::backgroundImageView<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+BackgroundImage/UIView+BackgroundImage.m:21"]
-  T10["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S10["method:NSData::MIMEStringByImage<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/NSData+MIME/NSData+MIME.m:30"]
+  T10["method:NSData::MIMEStringByImage<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/NSData+MIME/NSData+MIME.m:24"]
   S10 -->|calls| T10
-  S11["method:UIView::backgroundImageView<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+BackgroundImage/UIView+BackgroundImage.m:21"]
-  T11["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S11["method:NSString::mimeData<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/NSString+MIME/NSString+MIME.m:19"]
+  T11["method:NSString::stringByMIMEData<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/NSString+MIME/NSString+MIME.m:13"]
   S11 -->|calls| T11
-  S12["method:UIView::backgroundImageView<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+BackgroundImage/UIView+BackgroundImage.m:21"]
-  T12["method:UIView::addSubview<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:766"]
+  S12["method:NSString::dataByMIMEString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/NSString+MIME/NSString+MIME.m:31"]
+  T12["method:NSString::dataByMIMEString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/NSString+MIME/NSString+MIME.m:24"]
   S12 -->|calls| T12
-  S13["method:UIView::exchange_hitTest:withEvent:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Chain/UIView+Chain.m:21"]
-  T13["method:UIView::exchange_hitTest:withEvent:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Chain/UIView+Chain.m:21"]
+  S13["method:NSString::imageByMIMEString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/NSString+MIME/NSString+MIME.m:36"]
+  T13["method:UIImage::imageByData<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIImage/UIImage+SYS/UIImage+SYS.m:44"]
   S13 -->|calls| T13
-  S14["method:UIView::cleanSubviewBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+EmptyData/UIView+EmptyData.m:22"]
-  T14["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S14["method:NSString::imageByMIMEString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/NSString+MIME/NSString+MIME.m:36"]
+  T14["method:NSData::dataByMIMEString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/NSData+MIME/NSData+MIME.m:13"]
   S14 -->|calls| T14
-  S15["method:UIView::tipsLab<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+EmptyData/UIView+EmptyData.m:51"]
-  T15["function:UIFontWeightBoldSize<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Font.h:42"]
+  S15["method:NSString::imageByMIMEString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/NSString+MIME/NSString+MIME.m:42"]
+  T15["method:NSString::imageByMIMEString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/NSString+MIME/NSString+MIME.m:36"]
   S15 -->|calls| T15
-  S16["method:UIView::tipsLab<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+EmptyData/UIView+EmptyData.m:51"]
-  T16["method:UILabel::makeLabelByShowingType<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UILabel/UILabel+DSL/UILabel+DSL.m:58"]
+  S16["method:UIImage::imageByMIMEString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/UIImage+MIME/UIImage+MIME.m:13"]
+  T16["method:UIImage::imageWithData<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIImage/UIImage+Extra/UIImage+Extra.m:238"]
   S16 -->|calls| T16
-  S17["method:UIView::tipsLab<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+EmptyData/UIView+EmptyData.m:51"]
-  T17["method:UIView::addSubview<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:766"]
+  S17["method:UIImage::imageByMIMEString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/UIImage+MIME/UIImage+MIME.m:13"]
+  T17["method:NSData::dataByMIMEString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/NSData+MIME/NSData+MIME.m:13"]
   S17 -->|calls| T17
-  S18["method:UIView::tipsTitle<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+EmptyData/UIView+EmptyData.m:77"]
-  T18["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
+  S18["method:UIImage::imageByMIMEString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/UIImage+MIME/UIImage+MIME.m:19"]
+  T18["method:UIImage::imageByMIMEString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/UIImage+MIME/UIImage+MIME.m:13"]
   S18 -->|calls| T18
-  S19["method:UIView::JobsRichViewByModel2<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:34"]
-  T19["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S19["method:UIImage::MIMEStr<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/UIImage+MIME/UIImage+MIME.m:32"]
+  T19["method:UIImage::MIMEStringByImage<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/MIME/UIImage+MIME/UIImage+MIME.m:25"]
   S19 -->|calls| T19
-  S20["method:UIView::JobsRichViewByModel2<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:34"]
-  T20["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S20["method:RSAUtil::stripPublicKeyHeader:<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/非对称加密RSA/RSAUtil.m:37"]
+  T20["method:ASMutableAttributedStringBuilder::length<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:223"]
   S20 -->|calls| T20
-  S21["method:UIView::dataLink<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:48"]
-  T21["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S21["method:RSAUtil::stripPrivateKeyHeader:<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/非对称加密RSA/RSAUtil.m:69"]
+  T21["method:ASMutableAttributedStringBuilder::length<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:223"]
   S21 -->|calls| T21
-  S22["method:UIView::dataLink<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:48"]
-  T22["method:JXCategoryBaseView::byDelegate<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryBaseView/JXCategoryBaseView+Extra.m:12"]
+  S22["method:RSAUtil::addPublicKey:<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/非对称加密RSA/RSAUtil.m:107"]
+  T22["function:RSAUtil::base64_decode<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/非对称加密RSA/RSAUtil.m:32"]
   S22 -->|calls| T22
-  S23["method:UIView::dataLink<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:48"]
-  T23["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S23["method:RSAUtil::addPublicKey:<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/非对称加密RSA/RSAUtil.m:107"]
+  T23["method:ASMutableAttributedStringBuilder::length<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:223"]
   S23 -->|calls| T23
-  S24["method:UIView::dataLink<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:48"]
-  T24["method:JXCategoryBaseView::byDelegate<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryBaseView/JXCategoryBaseView+Extra.m:12"]
+  S24["method:RSAUtil::addPrivateKey:<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/非对称加密RSA/RSAUtil.m:174"]
+  T24["function:RSAUtil::base64_decode<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/非对称加密RSA/RSAUtil.m:32"]
   S24 -->|calls| T24
-  S25["method:UIView::byShow<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:65"]
-  T25["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S25["method:RSAUtil::addPrivateKey:<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/非对称加密RSA/RSAUtil.m:174"]
+  T25["method:ASMutableAttributedStringBuilder::length<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:223"]
   S25 -->|calls| T25
 ```
 

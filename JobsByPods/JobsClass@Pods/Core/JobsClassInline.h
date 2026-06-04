@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_JOBSCLASSINLINE_F0BE9DD3E1
 #define JOBS_HEADER_GUARD_JOBSCLASSINLINE_F0BE9DD3E1
 
-#import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+#import <Foundation/Foundation.h>
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>

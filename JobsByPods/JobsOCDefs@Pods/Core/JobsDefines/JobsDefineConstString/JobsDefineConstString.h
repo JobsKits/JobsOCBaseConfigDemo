@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSDEFINECONSTSTRING_058A6CB1AE
 
 #import <Foundation/Foundation.h>
+
 ///
 FOUNDATION_EXTERN const NSRange NSRangeZero;
 /// SDK内部类

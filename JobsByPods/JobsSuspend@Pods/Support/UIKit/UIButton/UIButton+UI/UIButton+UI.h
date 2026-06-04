@@ -10,8 +10,8 @@
 
 #pragma once
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsSuspend/NSString+Sys.h>
 #import <JobsSuspend/NSObject+NSMutableParagraphStyle.h>
 #import <JobsSuspend/UIBackgroundConfiguration+Extra.h>
@@ -21,7 +21,11 @@
 #import <JobsSuspend/UIButton+TextView.h>
 #import <JobsSuspend/UIButton+UIControlState.h>
 #import <JobsSuspend/UIGestureRecognizer+Extra.h>
-#import <JobsSuspend/UILabel+DSL.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 #import <JobsSuspend/UIView+Extra.h>
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)

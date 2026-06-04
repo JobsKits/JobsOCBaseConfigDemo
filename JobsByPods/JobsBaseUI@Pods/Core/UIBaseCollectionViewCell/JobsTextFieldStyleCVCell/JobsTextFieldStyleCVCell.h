@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSTEXTFIELDSTYLECVCELL_ADE3665A5E
 
 #import <UIKit/UIKit.h>
+#import <JobsBaseUI/UIView+Extra.h>
 #import <JobsBaseUI/ZYTextField.h>
 #import <JobsBaseUI/JobsBaseCollectionViewCell.h>
 

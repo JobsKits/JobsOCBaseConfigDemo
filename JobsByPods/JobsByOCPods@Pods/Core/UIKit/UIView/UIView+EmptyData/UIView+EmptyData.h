@@ -8,11 +8,14 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEW_EMPTYDATA_3DC85032A5
 #define JOBS_HEADER_GUARD_UIVIEW_EMPTYDATA_3DC85032A5
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
-#import <JobsByOCPods/UILabel+DSL.h>
+#import <UIKit/UIKit.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 #import <JobsByOCPods/UIView+Extra.h>
-
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -32,16 +35,16 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

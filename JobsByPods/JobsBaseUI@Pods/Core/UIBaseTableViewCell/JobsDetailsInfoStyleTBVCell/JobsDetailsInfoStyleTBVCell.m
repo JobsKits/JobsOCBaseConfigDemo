@@ -7,11 +7,6 @@
 
 #import "JobsDetailsInfoStyleTBVCell.h"
 #import <JobsBaseUI/UITableView+RegisterClass.h>
-#if __has_include(<JobsOCDSL/UIView+DSL.h>)
-#import <JobsOCDSL/UIView+DSL.h>
-#else
-#import "UIView+DSL.h"
-#endif
 #import <JobsBaseUI/UIView+Extra.h>
 #import <JobsModel/UIViewModel.h>
 #import <Masonry/Masonry.h>

@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:UIView::endMJFooterRefreshingWithNoMoreData<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:533"]
-  T1["function:KindOfScrollViewCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:91"]
+  S1["method:JobsNavBarConfig::font<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBarConfig/JobsNavBarConfig.m:84"]
+  T1["function:bayonRegular<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Font.h:141"]
   S1 -->|calls| T1
-  S2["method:UIView::endMJFooterRefreshingWithMoreData<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:544"]
-  T2["function:KindOfScrollViewCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:91"]
+  S2["method:BaseButton::init<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:33"]
+  T2["method:BaseButton::init<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:33"]
   S2 -->|calls| T2
-  S3["method:UIView::endXZMHeaderRefreshing<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:560"]
-  T3["function:KindOfScrollViewCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:91"]
+  S3["method:BaseButton::buttonWithConfiguration:primaryAction:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:45"]
+  T3["method:BaseButton::buttonWithConfiguration:primaryAction:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:45"]
   S3 -->|calls| T3
-  S4["method:UIView::endXZMFooterRefreshing<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:571"]
-  T4["function:KindOfScrollViewCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:91"]
+  S4["method:BaseButton::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:55"]
+  T4["method:BaseButton::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:55"]
   S4 -->|calls| T4
-  S5["method:UIView::observeValueForKeyPath:ofObject:change:context:<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:602"]
-  T5["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S5["method:BaseButton::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:55"]
+  T5["method:BaseButton::resetSubViews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:96"]
   S5 -->|calls| T5
-  S6["method:UIView::observeValueForKeyPath:ofObject:change:context:<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:602"]
-  T6["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S6["method:BaseButton::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:55"]
+  T6["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S6 -->|calls| T6
-  S7["function:jobsMakeWKWebViewByConfig<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/WKWebView/WKWebView+Extra/WKWebView+Extra.h:47"]
-  T7["method:WKWebView::initBy<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/WKWebView/WKWebView+Extra/WKWebView+Extra.m:12"]
+  S7["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:78"]
+  T7["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:78"]
   S7 -->|calls| T7
-  S8["method:JobsPodspecKitForJobsDebug::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsDebug@Pods/JobsPodspecKit.rb:277"]
-  T8["method:JobsPodspecKitForJobsDebug::standard_user_target_xcconfig<br/>JobsByPods/JobsDebug@Pods/JobsPodspecKit.rb:266"]
+  S8["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:78"]
+  T8["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S8 -->|calls| T8
-  S9["method:JobsPodspecKitForJobsDebug::apply_standard_xcconfig<br/>JobsByPods/JobsDebug@Pods/JobsPodspecKit.rb:281"]
-  T9["method:JobsPodspecKitForJobsDebug::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsDebug@Pods/JobsPodspecKit.rb:273"]
+  S9["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:78"]
+  T9["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S9 -->|calls| T9
-  S10["method:JobsPodspecKitForJobsDebug::apply_standard_xcconfig<br/>JobsByPods/JobsDebug@Pods/JobsPodspecKit.rb:281"]
-  T10["method:JobsPodspecKitForJobsDebug::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsDebug@Pods/JobsPodspecKit.rb:277"]
+  S10["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:78"]
+  T10["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S10 -->|calls| T10
-  S11["method:NSData::stringByUTF8Encoding<br/>JobsByPods/JobsDebug@Pods/Support/UIKit/NSData/NSData+Extra.m:12"]
-  T11["method:NSString::initByUTF8Data<br/>JobsByPods/JobsAPIs@Pods/Support/UIKit/NSString/NSString+Conversion/NSString+Conversion.m:13"]
+  S11["method:BaseImageView::init<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseImageView/BaseImageView.m:22"]
+  T11["method:BaseImageView::init<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseImageView/BaseImageView.m:22"]
   S11 -->|calls| T11
-  S12["function:JobsDeviceIDKeychainLoad<br/>JobsByPods/JobsDeviceInfo@Pods/Core/NSObject+ID/NSObject+DeviceID/NSObject+DeviceID.m:21"]
-  T12["function:JobsDeviceIDKeychainQuery<br/>JobsByPods/JobsDeviceInfo@Pods/Core/NSObject+ID/NSObject+DeviceID/NSObject+DeviceID.m:12"]
+  S12["method:BaseImageView::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseImageView/BaseImageView.m:45"]
+  T12["method:BaseImageView::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseImageView/BaseImageView.m:45"]
   S12 -->|calls| T12
-  S13["function:JobsDeviceIDKeychainLoad<br/>JobsByPods/JobsDeviceInfo@Pods/Core/NSObject+ID/NSObject+DeviceID/NSObject+DeviceID.m:21"]
-  T13["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S13["method:BaseImageView::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseImageView/BaseImageView.m:45"]
+  T13["method:UIView::appointCornerCutToCircleByRoundingCorners:cornerRadii:<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:120"]
   S13 -->|calls| T13
-  S14["function:JobsDeviceIDKeychainSave<br/>JobsByPods/JobsDeviceInfo@Pods/Core/NSObject+ID/NSObject+DeviceID/NSObject+DeviceID.m:41"]
-  T14["function:JobsDeviceIDKeychainQuery<br/>JobsByPods/JobsDeviceInfo@Pods/Core/NSObject+ID/NSObject+DeviceID/NSObject+DeviceID.m:12"]
+  S14["method:BaseImageView::layoutIfNeeded<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseImageView/BaseImageView.m:55"]
+  T14["method:BaseImageView::layoutIfNeeded<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseImageView/BaseImageView.m:55"]
   S14 -->|calls| T14
-  S15["function:JobsDeviceIDKeychainRemove<br/>JobsByPods/JobsDeviceInfo@Pods/Core/NSObject+ID/NSObject+DeviceID/NSObject+DeviceID.m:49"]
-  T15["function:JobsDeviceIDKeychainQuery<br/>JobsByPods/JobsDeviceInfo@Pods/Core/NSObject+ID/NSObject+DeviceID/NSObject+DeviceID.m:12"]
+  S15["method:BaseTextView::init<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:21"]
+  T15["method:BaseTextView::init<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:21"]
   S15 -->|calls| T15
-  S16["method:NSObject::deleteDeviceID<br/>JobsByPods/JobsDeviceInfo@Pods/Core/NSObject+ID/NSObject+DeviceID/NSObject+DeviceID.m:59"]
-  T16["function:JobsDeviceIDKeychainRemove<br/>JobsByPods/JobsDeviceInfo@Pods/Core/NSObject+ID/NSObject+DeviceID/NSObject+DeviceID.m:49"]
+  S16["method:BaseTextView::init<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:21"]
+  T16["method:BaseTextView::setupDefaults<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:117"]
   S16 -->|calls| T16
-  S17["method:NSObject::deviceID<br/>JobsByPods/JobsDeviceInfo@Pods/Core/NSObject+ID/NSObject+DeviceID/NSObject+DeviceID.m:63"]
-  T17["function:JobsDeviceIDKeychainLoad<br/>JobsByPods/JobsDeviceInfo@Pods/Core/NSObject+ID/NSObject+DeviceID/NSObject+DeviceID.m:21"]
+  S17["method:BaseTextView::initWithFrame:textContainer:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:53"]
+  T17["method:BaseTextView::initWithFrame:textContainer:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:53"]
   S17 -->|calls| T17
-  S18["method:NSObject::deviceID<br/>JobsByPods/JobsDeviceInfo@Pods/Core/NSObject+ID/NSObject+DeviceID/NSObject+DeviceID.m:63"]
-  T18["function:JobsDeviceIDKeychainSave<br/>JobsByPods/JobsDeviceInfo@Pods/Core/NSObject+ID/NSObject+DeviceID/NSObject+DeviceID.m:41"]
+  S18["method:BaseTextView::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:66"]
+  T18["method:BaseTextView::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:66"]
   S18 -->|calls| T18
-  S19["method:JobsPodspecKitForJobsDeviceInfo::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsDeviceInfo@Pods/JobsPodspecKit.rb:277"]
-  T19["method:JobsPodspecKitForJobsDeviceInfo::standard_user_target_xcconfig<br/>JobsByPods/JobsDeviceInfo@Pods/JobsPodspecKit.rb:266"]
+  S19["method:BaseTextView::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:66"]
+  T19["method:BaseTextView::adjustContentOffset<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:113"]
   S19 -->|calls| T19
-  S20["method:JobsPodspecKitForJobsDeviceInfo::apply_standard_xcconfig<br/>JobsByPods/JobsDeviceInfo@Pods/JobsPodspecKit.rb:281"]
-  T20["method:JobsPodspecKitForJobsDeviceInfo::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsDeviceInfo@Pods/JobsPodspecKit.rb:273"]
+  S20["method:BaseTextView::canPerformAction:withSender:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:76"]
+  T20["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S20 -->|calls| T20
-  S21["method:JobsPodspecKitForJobsDeviceInfo::apply_standard_xcconfig<br/>JobsByPods/JobsDeviceInfo@Pods/JobsPodspecKit.rb:281"]
-  T21["method:JobsPodspecKitForJobsDeviceInfo::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsDeviceInfo@Pods/JobsPodspecKit.rb:277"]
+  S21["method:BaseTextView::canPerformAction:withSender:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:76"]
+  T21["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S21 -->|calls| T21
-  S22["method:NSArray::containsObject<br/>JobsByPods/JobsDeviceInfo@Pods/Support/UIKit/NSArray/NSArray+Extra/NSArray+Extra.m:28"]
-  T22["method:NSArray::containsObject<br/>JobsByPods/JobsDeviceInfo@Pods/Support/UIKit/NSArray/NSArray+Extra/NSArray+Extra.m:28"]
+  S22["method:BaseTextView::setupDefaults<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:117"]
+  T22["method:UITextView::switchs<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UITextView/UITextView+Extra/UITextView+Extra.m:15"]
   S22 -->|calls| T22
-  S23["method:NSArray::compareEqualArrElement<br/>JobsByPods/JobsDeviceInfo@Pods/Support/UIKit/NSArray/NSArray+Extra/NSArray+Extra.m:49"]
-  T23["method:NSSet::initByArr<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSSet/NSSet+Extra/NSSet+Extra.m:12"]
+  S23["method:NSData::initWithData<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSData/NSData+Extra/NSData+Extra.m:12"]
+  T23["method:NSData::initWithData<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSData/NSData+Extra/NSData+Extra.m:12"]
   S23 -->|calls| T23
-  S24["method:NSArray::compareEqualArrElement<br/>JobsByPods/JobsDeviceInfo@Pods/Support/UIKit/NSArray/NSArray+Extra/NSArray+Extra.m:49"]
-  T24["method:NSSet::initByArr<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSSet/NSSet+Extra/NSSet+Extra.m:12"]
+  S24["method:NSMutableDictionary::add<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSMutableDictionary/NSMutableDictionary+Extra/NSMutableDictionary+Extra.m:12"]
+  T24["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S24 -->|calls| T24
-  S25["method:NSArray::arrayForIntersectionWithOtherArray<br/>JobsByPods/JobsDeviceInfo@Pods/Support/UIKit/NSArray/NSArray+Extra/NSArray+Extra.m:57"]
-  T25["method:NSArray::containsObject<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSArray/NSArray+Extra/NSArray+Extra.m:28"]
+  S25["method:NSMutableDictionary::add<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSMutableDictionary/NSMutableDictionary+Extra/NSMutableDictionary+Extra.m:12"]
+  T25["method:ASWeakMap::setObject:forKey:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASWeakMap.mm:65"]
   S25 -->|calls| T25
 ```
 

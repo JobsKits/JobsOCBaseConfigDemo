@@ -112,7 +112,7 @@ UITableViewCellProtocol_dynamic
             self.textLabel.font = model.textModel.font;
             self.textLabel.text = model.textModel.text;
             self.imageView.image = model.image;
-        } return self;
+        }return self;
     };
 }
 

@@ -6,20 +6,9 @@
 //
 
 #import "JobsDropDownListView.h"
-#if __has_include(<JobsOCDSL/UIScrollView+DSL.h>)
-#import <JobsOCDSL/UIScrollView+DSL.h>
-#else
-#import "UIScrollView+DSL.h"
-#endif
 #import <JobsDropDownListView/UIScrollView+AnimationKit.h>
 #import <JobsDropDownListView/UIScrollView+UIScrollViewProtocol.h>
-#if __has_include(<JobsOCDSL/UITableView+DSL.h>)
-#import <JobsOCDSL/UITableView+DSL.h>
-#else
-#import "UITableView+DSL.h"
-#endif
 #import <JobsDropDownListView/UITableView+Extra.h>
-#import <JobsDropDownListView/UILabel+DSL.h>
 
 @interface JobsDropDownListView (){
     CGFloat CellHeight;

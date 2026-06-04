@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_GESTUREPROTOCOL_B034A75D30
 
 #import <Foundation/Foundation.h>
+
 #if __has_include(<JobsOCProtocols/BaseProtocol.h>)
 #import <JobsOCProtocols/BaseProtocol.h>
 #elif __has_include("BaseProtocol.h")

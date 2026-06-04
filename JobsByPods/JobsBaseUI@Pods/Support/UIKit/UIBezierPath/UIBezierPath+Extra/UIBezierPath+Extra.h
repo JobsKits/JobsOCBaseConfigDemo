@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UIBEZIERPATH_EXTRA_4D18B1013B
 #define JOBS_HEADER_GUARD_UIBEZIERPATH_EXTRA_4D18B1013B
 
-#import <UIKit/UIKit.h>
 #import <CoreText/CoreText.h> // 提供底层文本排版与渲染能力，适合富文本、复杂排版和精细文本控制场景。
+#import <UIKit/UIKit.h>
 
 #if __has_include(<JobsRichTextUtils/JobsRichTextUtils.h>)
 #import <JobsRichTextUtils/JobsRichTextUtils.h>

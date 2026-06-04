@@ -19,6 +19,7 @@
 #import <JobsNavBar/NSKeyedArchiver+Extra.h>
 #import <JobsNavBar/NSMutableArray+Extra.h>
 #import <JobsNavBar/NSObject+Extra.h>
+
 //#import <JobsNavBar/<#name#>.h>
 
 #if __has_include(<WHToastExtra/WHToastExtra.h>)

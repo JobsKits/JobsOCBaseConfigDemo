@@ -76,7 +76,7 @@ Prop_strong()VideoModel_Core *core_data;
             self.textLabel.text = self.core_data.videoTitle;
             self.textLabel.textColor = JobsRedColor;
 //            self.rotation.hidden;// 宽大于高 = 横屏视频，才支持旋转
-        } return self;
+        }return self;
     };
 }
 #pragma mark —— lazyLoad

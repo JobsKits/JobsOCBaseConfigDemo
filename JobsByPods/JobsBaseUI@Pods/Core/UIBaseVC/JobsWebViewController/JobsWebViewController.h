@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSWEBVIEWCONTROLLER_E5C8C2988F
 
 #import <UIKit/UIKit.h>
+#import <JobsBaseUI/UIView+Extra.h>
 #import <WebKit/WebKit.h>
 #import <JobsBaseUI/BaseViewController.h>
 
@@ -18,16 +19,16 @@
 #import "JobsBaseProtocolHeader.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)

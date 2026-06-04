@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_JXCATEGORYTITLEBACKGROUNDCELLMODEL_6A7712F42B
 
 #import <UIKit/UIKit.h>
+
 #if __has_include(<JXCategoryView/JXCategoryTitleCellModel.h>)
 #import <JXCategoryView/JXCategoryTitleCellModel.h>
 #else

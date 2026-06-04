@@ -10,9 +10,13 @@
 
 #pragma once
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
-#import <JobsCustomView/UILabel+DSL.h>
+#import <UIKit/UIKit.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 #import <JobsCustomView/NSObject+Extra.h>
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)

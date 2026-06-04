@@ -8,15 +8,13 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEW_REFRESH_DC7EA47DF3
 #define JOBS_HEADER_GUARD_UIVIEW_REFRESH_DC7EA47DF3
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsByOCPods/NSObject+Extra.h>
-#import <JobsByOCPods/UILabel+DSL.h>
-
-#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
-#import <JobsBaseUI/JobsBaseUI.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "JobsBaseUI.h"
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
@@ -41,6 +39,12 @@
 #import <XZMRefresh/XZMRefresh.h>
 #else
 #import "XZMRefresh.h"
+#endif
+
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
+#else
+#import "JobsBaseUI.h"
 #endif
 
 #if __has_include(<MJRefreshExtra/MJRefreshExtra.h>)

@@ -13,10 +13,10 @@
 #import <JobsByOCPods/UICollectionView+JobsRegisterClass.h>
 #import <JobsByOCPods/UICollectionView+RegistrationTracking.h>
 #import <JobsByOCPods/UICollectionView+Func.h>
-#if __has_include(<JobsOCDSL/UICollectionView+DSL.h>)
-#import <JobsOCDSL/UICollectionView+DSL.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "UICollectionView+DSL.h"
+#import "JobsOCDSL.h"
 #endif
 
 #endif /* JobsCollectionView_h */

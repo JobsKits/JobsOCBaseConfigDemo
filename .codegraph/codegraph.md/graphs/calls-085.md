@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:UIView::makeTargetShadowview:superView:shadowDirection:shadowWithOffsetX:offsetY:cornerRadius:shadowOffset:shadowOpacity:layerShadowColor:layerShadowRadius:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:917"]
-  T1["method:UIBezierPath::add<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIBezierPath/UIBezierPath+Extra/UIBezierPath+Extra.m:59"]
+  S1["method:NSString::hasSuffix<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:49"]
+  T1["method:NSString::hasSuffix<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:49"]
   S1 -->|calls| T1
-  S2["method:UIView::gesture:action:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:13"]
-  T2["method:UIGestureRecognizer::removeAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:24"]
+  S2["method:NSString::isNotBlank<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:59"]
+  T2["method:NSString::characterAtIndex<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S2 -->|calls| T2
-  S3["method:UIView::Dealloc<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:34"]
-  T3["method:UIView::gesture:action:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:13"]
+  S3["method:NSString::isSpace<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:66"]
+  T3["method:NSString::characterAtIndex<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S3 -->|calls| T3
-  S4["method:UIView::Dealloc<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:34"]
-  T4["method:UIView::gesture:action:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:13"]
+  S4["method:NSString::isContainBlank<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:75"]
+  T4["method:NSString::rangeOfString<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
   S4 -->|calls| T4
-  S5["method:UIView::Dealloc<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:34"]
-  T5["method:UIView::gesture:action:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:13"]
+  S5["method:NSString::isAllSameCharWithStandardChar:<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:80"]
+  T5["method:NSString::characterAtIndex<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S5 -->|calls| T5
-  S6["method:UIView::Dealloc<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:34"]
-  T6["method:UIView::gesture:action:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:13"]
+  S6["method:NSString::isAllSameCharWithStandardChar:<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:80"]
+  T6["function:StringWithUTF8String<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:59"]
   S6 -->|calls| T6
-  S7["method:UIView::Dealloc<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:34"]
-  T7["method:UIView::gesture:action:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:13"]
+  S7["method:NSString::isAlnum<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:116"]
+  T7["method:NSString::characterAtIndex<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S7 -->|calls| T7
-  S8["method:UIView::Dealloc<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:34"]
-  T8["method:UIView::gesture:action:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:13"]
+  S8["method:NSString::isCntrl<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:124"]
+  T8["method:NSString::characterAtIndex<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S8 -->|calls| T8
-  S9["method:UIView::Dealloc<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:34"]
-  T9["method:UIView::gesture:action:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:13"]
+  S9["method:NSString::isGraph<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:132"]
+  T9["method:NSString::characterAtIndex<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S9 -->|calls| T9
-  S10["method:UIView::Dealloc<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:34"]
-  T10["method:UIView::gesture:action:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:13"]
+  S10["method:NSString::isPrint<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:140"]
+  T10["method:NSString::characterAtIndex<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S10 -->|calls| T10
-  S11["method:UIView::longPressGR<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:67"]
-  T11["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S11["method:NSString::isLower<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:148"]
+  T11["method:NSString::characterAtIndex<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S11 -->|calls| T11
-  S12["method:UIView::tapGR<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:93"]
-  T12["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S12["method:NSString::isUpper<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:156"]
+  T12["method:NSString::characterAtIndex<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S12 -->|calls| T12
-  S13["method:UIView::doubleTapGR<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:117"]
-  T13["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S13["method:NSString::isXdigit<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:164"]
+  T13["method:NSString::characterAtIndex<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S13 -->|calls| T13
-  S14["method:UIView::swipeGR<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:141"]
-  T14["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S14["method:NSString::isPunct<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:172"]
+  T14["method:NSString::characterAtIndex<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S14 -->|calls| T14
-  S15["method:UIView::panGR<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:165"]
-  T15["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S15["method:NSString::isContainsUrl<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:186"]
+  T15["method:NSString::rangeOfString<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
   S15 -->|calls| T15
-  S16["method:UIView::pinchGR<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:189"]
-  T16["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S16["method:NSString::emojiEncode<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Eomji/NSString+Eomji.m:13"]
+  T16["function:StringWithUTF8String<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:59"]
   S16 -->|calls| T16
-  S17["method:UIView::rotationGR<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:212"]
-  T17["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S17["method:NSString::add<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:12"]
+  T17["function:JobsMutableString<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:10"]
   S17 -->|calls| T17
-  S18["method:UIView::screenEdgePanGR<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:235"]
-  T18["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S18["method:NSString::isContainsUrl<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:22"]
+  T18["method:NSString::rangeOfString<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
   S18 -->|calls| T18
-  S19["method:UIView::addGestureRecognizer:block:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+JHGestureBlock/UIView+JHGestureBlock.m:13"]
-  T19["method:UIView::addGestureRecognizer<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:722"]
+  S19["method:NSString::isContainsSpecialSymbolsString<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+FilteringSpecialCharacters/NSString+FilteringSpecialCharacters.m:38"]
+  T19["method:NSString::containsString<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:29"]
   S19 -->|calls| T19
-  S20["method:UIView::uninstall<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Masonry/UIView+Masonry.m:143"]
-  T20["method:MASCompositeConstraint::uninstall<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:176"]
+  S20["method:NSString::addPathComponent<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Path/NSString+Path.m:43"]
+  T20["function:JobsMutableString<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:10"]
   S20 -->|calls| T20
-  S21["method:UIView::uninstallAllLayoutAttribute<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Masonry/UIView+Masonry.m:155"]
-  T21["method:MASCompositeConstraint::uninstall<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:176"]
+  S21["method:NSString::add<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:27"]
+  T21["function:JobsMutableString<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:10"]
   S21 -->|calls| T21
-  S22["method:UIView::jobsMasonryBeforeBlock:masonryAfterBlock:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Masonry/UIView+Masonry.m:169"]
-  T22["method:UIView::uninstallAllLayoutAttribute<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Masonry/UIView+Masonry.m:155"]
+  S22["method:NSString::addByAttributedString<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:37"]
+  T22["method:NSMutableAttributedString::initByString<br/>JobsByPods/JobsRichTextUtils@Pods/Core/UIKit/NSMutableAttributedString/NSMutableAttributedString+Extra/NSMutableAttributedString+Extra.m:18"]
   S22 -->|calls| T22
-  S23["method:UIView::jobsRefreshUI<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Measure/UIView+Measure.m:68"]
-  T23["method:BaseView::layoutIfNeeded<br/>JobsByPods/JobsBasePopupView@Pods/Support/BaseUI/BaseView/BaseView.m:63"]
+  S23["method:NSString::subStringTo<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:61"]
+  T23["method:NSString::substringWithRange<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:308"]
   S23 -->|calls| T23
-  S24["method:UIView::BySize<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Measure/UIView+Measure.m:122"]
-  T24["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
+  S24["method:NSString::replace<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:87"]
+  T24["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S24 -->|calls| T24
-  S25["method:UIView::ByFrame<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Measure/UIView+Measure.m:133"]
-  T25["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
+  S25["method:NSString::replaceMiddleCharactersWithReplacement:count:<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:107"]
+  T25["method:NSString::substringToIndex<br/>JobsByPods/JobsCustomView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:36"]
   S25 -->|calls| T25
 ```
 

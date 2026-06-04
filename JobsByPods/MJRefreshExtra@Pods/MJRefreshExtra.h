@@ -8,6 +8,15 @@
 #ifndef MJRefreshExtra_h
 #define MJRefreshExtra_h
 
+#import "MJRefreshGifHeader+Extra.h"
+#import "MJRefreshStateHeader+Extra.h"
+#import "MJRefreshAutoStateFooter+Extra.h"
+#import "MJRefreshBackStateFooter+Extra.h"
+#import "MJRefreshAutoGifFooter+Extra.h"
+#import "MJRefreshBackGifFooter+Extra.h"
+#import "LOTAnimationMJRefreshHeader.h"
+#import "LOTAnimationMJRefreshFooter.h"
+
 #if __has_include(<MJRefresh/MJRefresh.h>)
 #import <MJRefresh/MJRefresh.h>
 #else
@@ -19,14 +28,5 @@
 #else
 #import "JobsBaseProtocolHeader.h"
 #endif
-
-#import "MJRefreshGifHeader+Extra.h"
-#import "MJRefreshStateHeader+Extra.h"
-#import "MJRefreshAutoStateFooter+Extra.h"
-#import "MJRefreshBackStateFooter+Extra.h"
-#import "MJRefreshAutoGifFooter+Extra.h"
-#import "MJRefreshBackGifFooter+Extra.h"
-#import "LOTAnimationMJRefreshHeader.h"
-#import "LOTAnimationMJRefreshFooter.h"
 
 #endif /* MJRefreshExtra_h */

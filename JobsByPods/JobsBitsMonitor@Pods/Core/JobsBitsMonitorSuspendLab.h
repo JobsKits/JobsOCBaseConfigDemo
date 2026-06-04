@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<ZWPullMenuView/ZWPullMenuView.h>)
+#import <ZWPullMenuView/ZWPullMenuView.h>
+#else
+#import "ZWPullMenuView.h"
+#endif
+
 #if __has_include(<JobsNetWorkTools/JobsNetWorkTools.h>)
 #import <JobsNetWorkTools/JobsNetWorkTools.h>
 #else
@@ -40,22 +46,16 @@
 #import "JobsLanMgr.h"
 #endif
 
-#if __has_include(<ZWPullMenuView/ZWPullMenuView.h>)
-#import <ZWPullMenuView/ZWPullMenuView.h>
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
 #else
-#import "ZWPullMenuView.h"
+#import "JobsBlock.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
-#endif
-
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
-#import "JobsBlock.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

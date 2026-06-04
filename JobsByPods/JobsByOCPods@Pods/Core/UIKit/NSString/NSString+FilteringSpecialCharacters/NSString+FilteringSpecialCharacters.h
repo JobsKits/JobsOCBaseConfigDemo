@@ -12,7 +12,6 @@
 #import <JobsByOCPods/NSMutableArray+Extra.h>
 #import <JobsByOCPods/NSString+Replace.h>
 
-
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -24,6 +23,7 @@
 #else
 #import "JobsDefines.h"
 #endif
+
 /// 参考文献：https://www.jianshu.com/p/de17fd495935
 NS_ASSUME_NONNULL_BEGIN
 /// 过滤特殊字符

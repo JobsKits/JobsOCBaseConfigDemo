@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UINAVIGATIONCONTROLLER_SAFETRANSITION_8072586AFE
 #define JOBS_HEADER_GUARD_UINAVIGATIONCONTROLLER_SAFETRANSITION_8072586AFE
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsByOCPods/NSArray+Extra.h>
 
 #if __has_include(<JobsOCRuntimeKits/JobsOCRuntimeKits.h>)

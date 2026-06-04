@@ -8,12 +8,11 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEW_ANIMATION_86173D3DD8
 #define JOBS_HEADER_GUARD_UIVIEW_ANIMATION_86173D3DD8
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h> // 提供 Core Animation 和 CALayer 能力，用于动画、图层和视觉渲染。
+#import <UIKit/UIKit.h>
 #import <JobsByOCPods/NSMutableArray+Extra.h>
 #import <JobsByOCPods/NSString+CAAnimation.h>
-
 
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>

@@ -10,8 +10,8 @@
 
 #pragma once
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsBaseUI/UIButton+SimplyMake.h>
 #import <JobsBaseUI/UITextField+Placeholder.h>
 #import <JobsBaseUI/NSString+Extra.h>
@@ -19,16 +19,16 @@
 #import <JobsBaseUI/BaseButton.h>
 #import <JobsBaseUI/NSString+Check.h>
 
-#if __has_include(<JobsModel/JobsModel.h>)
-#import <JobsModel/JobsModel.h>
-#else
-#import "JobsModel.h"
-#endif
-
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
 #import "ReactiveObjC.h"
+#endif
+
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
+#else
+#import "JobsModel.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)

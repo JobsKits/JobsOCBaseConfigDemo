@@ -10,6 +10,13 @@
 
 #import <UIKit/UIKit.h>
 #import <JobsBaseUI/BaseView.h>
+#import <JobsBaseUI/UIView+Extra.h>
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>

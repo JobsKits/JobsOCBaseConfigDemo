@@ -9,7 +9,13 @@
 #define JOBS_HEADER_GUARD_JOBSDETAILSINFOSTYLETBVCELL_2D2D1101D3
 
 #import <UIKit/UIKit.h>
+#import <JobsBaseUI/UIView+Extra.h>
 #import <JobsBaseUI/JobsBaseTableViewCell.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -29,10 +35,10 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
 #else
-#import "JobsDefines.h"
+#import "JobsModel.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -41,10 +47,10 @@
 #import "JobsBlock.h"
 #endif
 
-#if __has_include(<JobsModel/JobsModel.h>)
-#import <JobsModel/JobsModel.h>
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
 #else
-#import "JobsModel.h"
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

@@ -10,18 +10,6 @@
 #import "JobsVideoTBVCell.h"
 #import "VideoModel.h"
 
-#if __has_include(<ZFPlayerExtra/ZFPlayerExtra.h>)
-#import <ZFPlayerExtra/ZFPlayerExtra.h>
-#else
-#import "ZFPlayerExtra.h"
-#endif
-
-#if __has_include(<JobsByOCPods/ZFCustomControlView.h>)
-#import <JobsByOCPods/ZFCustomControlView.h>
-#else
-#import "ZFCustomControlView.h"
-#endif
-
 #if __has_include(<ZFPlayer/ZFPlayer.h>)
 #import <ZFPlayer/ZFPlayer.h>
 #else
@@ -32,6 +20,18 @@
 #import <KTVHTTPCache/KTVHTTPCache.h>
 #else
 #import "KTVHTTPCache.h"
+#endif
+
+#if __has_include(<ZFPlayerExtra/ZFPlayerExtra.h>)
+#import <ZFPlayerExtra/ZFPlayerExtra.h>
+#else
+#import "ZFPlayerExtra.h"
+#endif
+
+#if __has_include(<JobsByOCPods/ZFCustomControlView.h>)
+#import <JobsByOCPods/ZFCustomControlView.h>
+#else
+#import "ZFCustomControlView.h"
 #endif
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
@@ -70,16 +70,16 @@
 #import "JobsBitsMonitor.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

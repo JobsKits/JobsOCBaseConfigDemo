@@ -8,19 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_JXPAGERVIEWLISTVIEWDELEGATE_75CB49663B
 #define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_JXPAGERVIEWLISTVIEWDELEGATE_75CB49663B
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
-#import "JobsBlock.h"
-#endif
+#import <UIKit/UIKit.h>
 
 #if __has_include(<JXPagingView/JXPagerView.h>)
 #import <JXPagingView/JXPagerView.h>
@@ -32,6 +21,18 @@
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

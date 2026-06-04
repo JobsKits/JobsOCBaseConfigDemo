@@ -16,6 +16,12 @@
 #import "TimerProtocol.h"
 #endif
 
+#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
+#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
+#else
+#import "JobsBaseProtocolHeader.h"
+#endif
+
 #if __has_include(<JobsOCTimer/JobsTimer.h>)
 #import <JobsOCTimer/JobsTimer.h>
 #else
@@ -28,22 +34,16 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
-#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
 #else
-#import "JobsBaseProtocolHeader.h"
+#import "JobsBlock.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
-#endif
-
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
-#import "JobsBlock.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

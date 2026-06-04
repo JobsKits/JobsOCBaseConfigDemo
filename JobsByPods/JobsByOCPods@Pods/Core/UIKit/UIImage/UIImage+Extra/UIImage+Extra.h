@@ -9,10 +9,10 @@
 #define JOBS_HEADER_GUARD_UIIMAGE_EXTRA_699525A7E8
 
 #import <UIKit/UIKit.h>
-#import <CoreImage/CoreImage.h>                // 提供图像处理功能，包括滤镜和特效。
 #import <AVFoundation/AVAsset.h>               // 用于处理音视频数据，支持加载和操作媒体资源。
 #import <AVFoundation/AVAssetImageGenerator.h> // 用于从视频生成缩略图。
 #import <AVFoundation/AVTime.h>                // 提供时间相关的功能，用于音视频处理。
+#import <CoreImage/CoreImage.h>                // 提供图像处理功能，包括滤镜和特效。
 #import <JobsByOCPods/NSObject+Extra.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

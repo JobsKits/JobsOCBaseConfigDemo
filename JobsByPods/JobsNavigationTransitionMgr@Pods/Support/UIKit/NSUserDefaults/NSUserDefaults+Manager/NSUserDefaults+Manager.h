@@ -11,14 +11,13 @@
 #import <Foundation/Foundation.h>
 #import <JobsModel/NSObject+Path.h>
 #import <JobsModel/NSString+Path.h>
+#import <JobsModel/JobsModel.h>
 
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>
 #else
 #import "MJExtension.h"
 #endif
-
-#import <JobsModel/JobsModel.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>

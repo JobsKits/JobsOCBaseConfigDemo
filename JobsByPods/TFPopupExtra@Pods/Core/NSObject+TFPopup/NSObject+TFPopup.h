@@ -11,16 +11,16 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 
-#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import <JobsByOCPods/JobsByOCPods.h>
-#else
-#import "JobsByOCPods.h"
-#endif
-
 #if __has_include(<TFPopup/TFPopup.h>)
 #import <TFPopup/TFPopup.h>
 #else
 #import "TFPopup.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

@@ -10,9 +10,8 @@
 
 #pragma once
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
-
+#import <UIKit/UIKit.h>
 #import <JobsBlock/JobsBlock.h>
 #import <JobsBlock/JobsBlockDef.h>
 #import <JobsBlock/JobsBizBlock.h> // 关于业务（不与JobsOCBaseConfigDemo同步）
@@ -26,6 +25,7 @@
 #else
 #import "JobsDefines.h"
 #endif
+
 /**
  
     【命名规则】：

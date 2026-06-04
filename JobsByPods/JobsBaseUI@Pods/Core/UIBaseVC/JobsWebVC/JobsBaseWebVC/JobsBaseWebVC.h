@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSBASEWEBVC_F8FA30C485
 
 #import <UIKit/UIKit.h>
+#import <JobsBaseUI/UIView+Extra.h>
 #import <WebKit/WebKit.h>
 #import <JobsBaseUI/BaseViewController.h>
 

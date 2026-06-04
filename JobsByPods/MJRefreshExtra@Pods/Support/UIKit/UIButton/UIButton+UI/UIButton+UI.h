@@ -10,8 +10,8 @@
 
 #pragma once
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <MJRefreshExtra/NSString+Sys.h>
 #import <MJRefreshExtra/UIButton+TextView.h>
 #import <MJRefreshExtra/UIButton+UIControlState.h>
@@ -19,12 +19,11 @@
 #import <MJRefreshExtra/UIButton+UIButtonConfiguration.h>
 #import <MJRefreshExtra/UITextView+Extra.h>
 #import <MJRefreshExtra/UIView+Extra.h>
-#if __has_include(<JobsOCDSL/UIView+DSL.h>)
-#import <JobsOCDSL/UIView+DSL.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "UIView+DSL.h"
+#import "JobsOCDSL.h"
 #endif
-#import <MJRefreshExtra/UILabel+DSL.h>
 #import <MJRefreshExtra/UIBackgroundConfiguration+Extra.h>
 #import <MJRefreshExtra/UIButtonConfiguration+Extra.h>
 #import <MJRefreshExtra/UIGestureRecognizer+Extra.h>
@@ -47,6 +46,12 @@
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
 #import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsDeviceInfo/JobsDeviceInfo.h>)

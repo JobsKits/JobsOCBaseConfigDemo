@@ -6,7 +6,6 @@
 //
 
 #import "JobsTextView.h"
-#import <JobsBaseUI/UILabel+DSL.h>
 #import <JobsBaseUI/NSObject+Notification.h>
 #import <JobsBaseUI/NSString+Sys.h>
 #import <JobsBaseUI/NSString+Toast.h>

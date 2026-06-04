@@ -12,16 +12,16 @@
 #import "JobsIMChatInfoModel.h"
 #import "JobsTimeModel.h"
 
-#if __has_include(<JobsLoadingImage/JobsLoadingImage.h>)
-#import <JobsLoadingImage/JobsLoadingImage.h>
-#else
-#import "JobsLoadingImage.h"
-#endif
-
 #if __has_include(<MGSwipeTableCell/MGSwipeTableCell.h>)
 #import <MGSwipeTableCell/MGSwipeTableCell.h>
 #else
 #import "MGSwipeTableCell.h"
+#endif
+
+#if __has_include(<JobsLoadingImage/JobsLoadingImage.h>)
+#import <JobsLoadingImage/JobsLoadingImage.h>
+#else
+#import "JobsLoadingImage.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
@@ -48,16 +48,16 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

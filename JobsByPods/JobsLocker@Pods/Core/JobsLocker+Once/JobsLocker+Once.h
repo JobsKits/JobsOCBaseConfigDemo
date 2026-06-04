@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_JOBSLOCKER_ONCE_43E0C8243B
 #define JOBS_HEADER_GUARD_JOBSLOCKER_ONCE_43E0C8243B
 
-#import <JobsLocker/JobsLocker.h>
 #import <objc/runtime.h>
+#import <JobsLocker/JobsLocker.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

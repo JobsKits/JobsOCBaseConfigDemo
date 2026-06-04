@@ -45,7 +45,7 @@
         if (configurationBlock) configurationBlock(config);
         self.configuration = config;
         self.updateConfigBy();
-    } return self;
+    }return self;
 }
 
 -(UIButtonConfiguration *)JobsUpdateButtonConfiguration:(jobsByBtnConfigBlock _Nullable)configurationBlock{

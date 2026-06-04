@@ -17,6 +17,7 @@
 #else
 #import "JobsByOCPods.h"
 #endif
+
 /// SHA1 加密
 /// @param string 被加密的字符串
 /// @param isLowercase 是否大小写

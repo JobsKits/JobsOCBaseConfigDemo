@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:UITableViewCell::modifySysChildViewFrame1<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewCell/UITableViewCell+Margin/UITableViewCell+Margin.m:59"]
-  T1["function:JobsSafeWidth::jobsZeroSizeValue<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:553"]
+  S1["method:NSURL::fileURLWithPath<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSURL/NSURL+Extra/NSURL+Extra.m:12"]
+  T1["method:NSURL::fileURLWithPath<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSURL/NSURL+Extra/NSURL+Extra.m:12"]
   S1 -->|calls| T1
-  S2["method:UITableViewCell::modifySysChildViewFrame1<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewCell/UITableViewCell+Margin/UITableViewCell+Margin.m:59"]
-  T2["function:JobsSafeWidth::jobsZeroSizeValue<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:553"]
+  S2["method:NSURL::normalURLPlus<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSURL/NSURL+Extra/NSURL+Extra.m:22"]
+  T2["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S2 -->|calls| T2
-  S3["method:UITableViewCell::modifySysChildViewFrame1<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewCell/UITableViewCell+Margin/UITableViewCell+Margin.m:59"]
-  T3["function:JobsSafeWidth::jobsZeroSizeValue<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:553"]
+  S3["method:NSURL::URLRequest<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSURL/NSURL+Extra/NSURL+Extra.m:48"]
+  T3["method:NSURLRequest::initBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSURLRequest/NSURLRequest+Extra/NSURLRequest+Extra.m:12"]
   S3 -->|calls| T3
-  S4["method:UITableViewCell::modifySysChildViewFrame2<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewCell/UITableViewCell+Margin/UITableViewCell+Margin.m:169"]
-  T4["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S4["method:NSUserDefaults::updateWithModel<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSUserDefaults/NSUserDefaults+Manager/NSUserDefaults+Manager.m:13"]
+  T4["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S4 -->|calls| T4
-  S5["method:UITableViewCell::modifySysChildViewFrame2<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewCell/UITableViewCell+Margin/UITableViewCell+Margin.m:169"]
-  T5["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S5["method:NSUserDefaults::readWithKey<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSUserDefaults/NSUserDefaults+Manager/NSUserDefaults+Manager.m:43"]
+  T5["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S5 -->|calls| T5
-  S6["method:UITableViewCell::modifySysChildViewFrame2<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewCell/UITableViewCell+Margin/UITableViewCell+Margin.m:169"]
-  T6["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S6["method:NSUserDefaults::deleteWithKey<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSUserDefaults/NSUserDefaults+Manager/NSUserDefaults+Manager.m:52"]
+  T6["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S6 -->|calls| T6
-  S7["method:UITableViewCell::modifySysChildViewFrame2<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewCell/UITableViewCell+Margin/UITableViewCell+Margin.m:169"]
-  T7["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S7["method:NSUserDefaults::swizzleSetObject:forKey:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSUserDefaults/NSUserDefaults+Swizzle/NSUserDefaults+Swizzle.m:59"]
+  T7["method:NSUserDefaults::swizzleSetObject:forKey:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSUserDefaults/NSUserDefaults+Swizzle/NSUserDefaults+Swizzle.m:59"]
   S7 -->|calls| T7
-  S8["method:UITableViewCell::modifySysChildViewFrame2<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewCell/UITableViewCell+Margin/UITableViewCell+Margin.m:169"]
-  T8["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S8["method:NSUserDefaults::swizzleSetValue:forKey:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSUserDefaults/NSUserDefaults+Swizzle/NSUserDefaults+Swizzle.m:72"]
+  T8["method:NSUserDefaults::swizzleSetValue:forKey:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSUserDefaults/NSUserDefaults+Swizzle/NSUserDefaults+Swizzle.m:72"]
   S8 -->|calls| T8
-  S9["method:UITableViewCell::modifySysChildViewFrame2<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewCell/UITableViewCell+Margin/UITableViewCell+Margin.m:169"]
-  T9["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S9["method:NSUserDefaults::swizzleSetBool:forKey:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSUserDefaults/NSUserDefaults+Swizzle/NSUserDefaults+Swizzle.m:85"]
+  T9["method:NSUserDefaults::swizzleSetBool:forKey:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSUserDefaults/NSUserDefaults+Swizzle/NSUserDefaults+Swizzle.m:85"]
   S9 -->|calls| T9
-  S10["method:UITableViewCell::modifySysChildViewFrame2<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewCell/UITableViewCell+Margin/UITableViewCell+Margin.m:169"]
-  T10["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S10["method:UIButton::revolution<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+Animation/UIButton+Animation.m:12"]
+  T10["method:CABasicAnimation::animationByKeyPath<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/CABasicAnimation/CABasicAnimation+Extra/CABasicAnimation+Extra.m:12"]
   S10 -->|calls| T10
-  S11["method:UITableViewCell::modifySysChildViewFrame2<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewCell/UITableViewCell+Margin/UITableViewCell+Margin.m:169"]
-  T11["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S11["method:UIButton::startRevolutionBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+Animation/UIButton+Animation.m:29"]
+  T11["method:UIButton::stopRevolutionBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+Animation/UIButton+Animation.m:21"]
   S11 -->|calls| T11
-  S12["method:UITableViewCell::modifySysChildViewFrame2<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewCell/UITableViewCell+Margin/UITableViewCell+Margin.m:169"]
-  T12["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S12["method:UIButton::makeBtnTitleByShowingType<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+Extra/UIButton+Extra.m:12"]
+  T12["method:UIView::buttonAutoWidthByFont<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+AutoSelfAdaptionSize/UIView+AutoSelfAdaptionSize.m:33"]
   S12 -->|calls| T12
-  S13["method:UITableViewCell::modifySysChildViewFrame2<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewCell/UITableViewCell+Margin/UITableViewCell+Margin.m:169"]
-  T13["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S13["method:UIButton::by_setBackgroundColor:forState:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+FillColor/UIButton+FillColor.m:25"]
+  T13["method:ASButtonNode::setBackgroundImage:forState:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASButtonNode.mm:471"]
   S13 -->|calls| T13
-  S14["method:UITableViewCell::modifySysChildViewFrame2<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewCell/UITableViewCell+Margin/UITableViewCell+Margin.m:169"]
-  T14["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S14["method:UIButton::imageURL<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+SDWebImage/UIButton+SDWebImage.m:203"]
+  T14["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S14 -->|calls| T14
-  S15["method:UITableViewCell::modifySysChildViewFrame2<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewCell/UITableViewCell+Margin/UITableViewCell+Margin.m:169"]
-  T15["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S15["method:UIButton::imageURL<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+SDWebImage/UIButton+SDWebImage.m:203"]
+  T15["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S15 -->|calls| T15
-  S16["method:UITableViewCell::customCellEditStateImage<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewCell/UITableViewCell+Margin/UITableViewCell+Margin.m:191"]
-  T16["method:NSObject::isMemberOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:85"]
+  S16["method:UIButton::initByTitle<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:91"]
+  T16["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S16 -->|calls| T16
-  S17["method:UITableViewCell::customCellEditStateImage<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewCell/UITableViewCell+Margin/UITableViewCell+Margin.m:191"]
-  T17["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S17["method:UIButton::initByAttributedString<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:101"]
+  T17["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S17 -->|calls| T17
-  S18["method:UITableViewHeaderFooterView::initByReuseIdentifier<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewHeaderFooterView/UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol/UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol.m:12"]
-  T18["method:UITableView::tableViewHeaderFooterView<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableView/UITableView+RegisterClass/UITableView+RegisterClass.m:86"]
+  S18["method:UIButton::initByNormalImage<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:111"]
+  T18["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S18 -->|calls| T18
-  S19["method:UITableViewHeaderFooterView::jobsRichViewByModel<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewHeaderFooterView/UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol/UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol.m:48"]
-  T19["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S19["method:UIButton::initByBackgroundImage<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:121"]
+  T19["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S19 -->|calls| T19
-  S20["method:UITableViewHeaderFooterView::viewHeightByModel<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewHeaderFooterView/UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol/UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol.m:59"]
-  T20["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S20["method:UIButton::initByTitles<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:132"]
+  T20["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S20 -->|calls| T20
-  S21["method:UITableViewHeaderFooterView::viewFrameByModel<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableViewHeaderFooterView/UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol/UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol.m:65"]
-  T21["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S21["method:UIButton::initByAttributedStrings<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:144"]
+  T21["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S21 -->|calls| T21
-  S22["method:UITextField::getCurrentTextFieldValueByReplacementString<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITextField/UITextField+Extra/UITextField+Extra.m:31"]
-  T22["method:NSString::isEqualToString<br/>JobsByPods/JobsAPIs@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:19"]
+  S22["method:UIButton::initByTitle_font<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:157"]
+  T22["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S22 -->|calls| T22
-  S23["method:UITextField::customSysClearBtn<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITextField/UITextField+Extra/UITextField+Extra.m:53"]
-  T23["method:UIButton::jobsInit<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:307"]
+  S23["method:UIButton::initByStyle1<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:169"]
+  T23["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S23 -->|calls| T23
-  S24["method:UITextField::placeholderLabel<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITextField/UITextField+Placeholder/UITextField+Placeholder.m:18"]
-  T24["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
+  S24["method:UIButton::initByStyle2<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:183"]
+  T24["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S24 -->|calls| T24
-  S25["method:UITextField::titleAttributedDataMutArr<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITextField/UITextField+Placeholder/UITextField+Placeholder.m:57"]
-  T25["function:UIFontWeightRegularSize<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Font.h:30"]
+  S25["method:UIButton::initByStyle3<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:203"]
+  T25["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S25 -->|calls| T25
 ```
 

@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEW_AUTOSELFADAPTIONSIZE_BE4C00D2A7
 #define JOBS_HEADER_GUARD_UIVIEW_AUTOSELFADAPTIONSIZE_BE4C00D2A7
 
-#import <UIKit/UIKit.h>
 #import <CoreText/CoreText.h> // 提供底层文本排版与渲染能力，适合富文本、复杂排版和精细文本控制场景。
+#import <UIKit/UIKit.h>
 
 #if __has_include(<JobsRichTextUtils/JobsRichTextUtils.h>)
 #import <JobsRichTextUtils/JobsRichTextUtils.h>
@@ -40,6 +40,7 @@
 #else
 #import "JobsDefines.h"
 #endif
+
 /// 资料来源：
 /// https://github.com/zhuchenglong/LabelDemo
 /// https://www.jianshu.com/p/37b3e382dcab

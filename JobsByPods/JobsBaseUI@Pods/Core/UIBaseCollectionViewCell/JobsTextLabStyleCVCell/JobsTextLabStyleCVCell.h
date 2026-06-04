@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSTEXTLABSTYLECVCELL_AF5480A90B
 
 #import <UIKit/UIKit.h>
+#import <JobsBaseUI/UIView+Extra.h>
 #import <JobsBaseUI/JobsBaseCollectionViewCell.h>
 
 #if __has_include(<Masonry/Masonry.h>)

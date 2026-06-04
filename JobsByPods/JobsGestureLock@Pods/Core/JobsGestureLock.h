@@ -9,10 +9,10 @@
 #define JOBS_HEADER_GUARD_JOBSGESTURELOCK_3C5CA59D90
 
 #import <Foundation/Foundation.h>
-
 #import <JobsGestureLock/JobsGestureLockConfiguration.h>
 #import <JobsGestureLock/JobsGestureLockIndicator.h>
 #import <JobsGestureLock/JobsGestureLockStorage.h>
 #import <JobsGestureLock/JobsGestureLockView.h>
 #import <JobsGestureLock/JobsGestureLockVC.h>
+
 #endif /* JOBS_HEADER_GUARD_JOBSGESTURELOCK_3C5CA59D90 */

@@ -9,7 +9,9 @@ Pod::Spec.new do |spec|
   support_context = JobsPodspecKitForJobsSuspend.build_support_context(
     podspec_dir: File.expand_path(File.dirname(__FILE__)),
     support_dir: 'Support',
-    support_dependencies: [],
+    support_dependencies: [
+      'JobsOCDSL'
+    ],
     support_exclude_files: support_exclude_files
   )
 
@@ -49,6 +51,7 @@ JobsSuspend provides suspend button, label and view components.
     ss.dependency 'XYColorOC'
     ss.dependency 'JobsModel'
     ss.dependency 'JobsBlock'
+    ss.dependency 'JobsOCDSL'
     ss.dependency 'JobsOCDefs'
     ss.dependency 'JobsDeviceInfo'
     ss.dependency 'JobsLoadingImage'

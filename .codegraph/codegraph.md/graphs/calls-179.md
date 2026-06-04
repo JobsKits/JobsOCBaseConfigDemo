@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["function:KindOfTableViewCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:127"]
-  T1["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S1["method:NSString::omitByReplaceStr:replaceStrLenth:lineBreakMode:limit:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:202"]
+  T1["method:NSString::substringWithRange<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:301"]
   S1 -->|calls| T1
-  S2["function:KindOfCollectionViewCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:131"]
-  T2["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S2["method:NSString::omitByReplaceStr:replaceStrLenth:lineBreakMode:limit:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:202"]
+  T2["method:NSString::substringWithRange<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:301"]
   S2 -->|calls| T2
-  S3["function:KindOfErrorCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:135"]
-  T3["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S3["method:NSString::omitByReplaceStr:replaceStrLenth:lineBreakMode:limit:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:202"]
+  T3["method:NSString::substringWithRange<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:301"]
   S3 -->|calls| T3
-  S4["function:KindOfPHAssetCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:139"]
-  T4["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S4["method:NSString::omitByReplaceStr:replaceStrLenth:lineBreakMode:limit:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:202"]
+  T4["method:NSString::substringWithRange<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:301"]
   S4 -->|calls| T4
-  S5["function:KindOfTextFieldCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:143"]
-  T5["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S5["method:NSString::getAnonymousString<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:237"]
+  T5["method:NSString::characterAtIndex<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S5 -->|calls| T5
-  S6["function:KindOfLZTabBarItemCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:147"]
-  T6["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S6["method:NSString::getAnonymousString<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:237"]
+  T6["function:StringWithUTF8String<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:59"]
   S6 -->|calls| T6
-  S7["function:KindOfCtrlCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:151"]
-  T7["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S7["method:NSString::encryptedChineseTele<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:252"]
+  T7["method:NSString::omitByReplaceStr:replaceStrLenth:lineBreakMode:limit:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:202"]
   S7 -->|calls| T7
-  S8["function:KindOfTextItemCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:155"]
-  T8["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S8["method:NSString::removeLastChars<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:259"]
+  T8["method:NSString::substringToIndex<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:36"]
   S8 -->|calls| T8
-  S9["function:KindOfYTKAnimatingRequestAccessoryCls<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:159"]
-  T9["function:KindOfClsFromStr<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:27"]
+  S9["method:NSString::substringWithRange<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:301"]
+  T9["method:NSString::substringWithRange<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:301"]
   S9 -->|calls| T9
-  S10["method:JobsPodspecKitForJobsOCDefs::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsOCDefs@Pods/JobsPodspecKit.rb:277"]
-  T10["method:JobsPodspecKitForJobsOCDefs::standard_user_target_xcconfig<br/>JobsByPods/JobsOCDefs@Pods/JobsPodspecKit.rb:266"]
+  S10["method:NSString::addNewlines<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:309"]
+  T10["method:NSString::characterAtIndex<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S10 -->|calls| T10
-  S11["method:JobsPodspecKitForJobsOCDefs::apply_standard_xcconfig<br/>JobsByPods/JobsOCDefs@Pods/JobsPodspecKit.rb:281"]
-  T11["method:JobsPodspecKitForJobsOCDefs::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsOCDefs@Pods/JobsPodspecKit.rb:273"]
+  S11["method:NSString::cor<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:12"]
+  T11["method:UIColor::jobsCor<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:13"]
   S11 -->|calls| T11
-  S12["method:JobsPodspecKitForJobsOCDefs::apply_standard_xcconfig<br/>JobsByPods/JobsOCDefs@Pods/JobsPodspecKit.rb:281"]
-  T12["method:JobsPodspecKitForJobsOCDefs::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsOCDefs@Pods/JobsPodspecKit.rb:277"]
+  S12["method:NSString::substringFromIndex<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:28"]
+  T12["method:NSString::substringFromIndex<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:28"]
   S12 -->|calls| T12
-  S13["method:NSString::isEqualToString<br/>JobsByPods/JobsOCDefs@Pods/Support/UIKit/NSString/NSString+Extra.m:12"]
-  T13["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S13["method:NSString::substringToIndex<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:36"]
+  T13["method:NSString::substringToIndex<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:36"]
   S13 -->|calls| T13
-  S14["method:NSString::isEqualToString<br/>JobsByPods/JobsOCDefs@Pods/Support/UIKit/NSString/NSString+Extra.m:12"]
-  T14["method:NSString::isEqualToString<br/>JobsByPods/JobsOCDefs@Pods/Support/UIKit/NSString/NSString+Extra.m:12"]
+  S14["method:NSString::substringByRange<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:44"]
+  T14["method:NSString::substringWithRange<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:301"]
   S14 -->|calls| T14
-  S15["method:NSString::add<br/>JobsByPods/JobsOCDefs@Pods/Support/UIKit/NSString/NSString+Extra.m:22"]
-  T15["function:JobsMutableString<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:10"]
+  S15["method:NSString::rangeOfString<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
+  T15["method:NSString::rangeOfString<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
   S15 -->|calls| T15
-  S16["method:JobsPodspecKitForJobsOCProtocols::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsOCProtocols@Pods/JobsPodspecKit.rb:277"]
-  T16["method:JobsPodspecKitForJobsOCProtocols::standard_user_target_xcconfig<br/>JobsByPods/JobsOCProtocols@Pods/JobsPodspecKit.rb:266"]
+  S16["method:NSString::range<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:60"]
+  T16["method:NSString::rangeOfString<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
   S16 -->|calls| T16
-  S17["method:JobsPodspecKitForJobsOCProtocols::apply_standard_xcconfig<br/>JobsByPods/JobsOCProtocols@Pods/JobsPodspecKit.rb:281"]
-  T17["method:JobsPodspecKitForJobsOCProtocols::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsOCProtocols@Pods/JobsPodspecKit.rb:273"]
+  S17["method:NSString::characterAtIndex<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
+  T17["method:NSString::characterAtIndex<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S17 -->|calls| T17
-  S18["method:JobsPodspecKitForJobsOCProtocols::apply_standard_xcconfig<br/>JobsByPods/JobsOCProtocols@Pods/JobsPodspecKit.rb:281"]
-  T18["method:JobsPodspecKitForJobsOCProtocols::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsOCProtocols@Pods/JobsPodspecKit.rb:277"]
+  S18["method:NSString::jobsUrl<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+URL/NSString+URL.m:12"]
+  T18["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S18 -->|calls| T18
-  S19["function:objc_setAssociatedObject_weak<br/>JobsByPods/JobsOCRuntimeKits@Pods/Core/NSObject+Swizzling/NSObject+Swizzling.m:103"]
-  T19["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S19["method:NSString::URLRequest<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+URL/NSString+URL.m:21"]
+  T19["method:NSURLRequest::initBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSURLRequest/NSURLRequest+Extra/NSURLRequest+Extra.m:12"]
   S19 -->|calls| T19
-  S20["function:objc_setAssociatedObject_weak<br/>JobsByPods/JobsOCRuntimeKits@Pods/Core/NSObject+Swizzling/NSObject+Swizzling.m:103"]
-  T20["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S20["method:NSString::jobsFileUrl<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+URL/NSString+URL.m:26"]
+  T20["method:NSURL::fileURLWithPath<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSURL/NSURL+Extra/NSURL+Extra.m:12"]
   S20 -->|calls| T20
-  S21["function:objc_setAssociatedObject_weak<br/>JobsByPods/JobsOCRuntimeKits@Pods/Core/NSObject+Swizzling/NSObject+Swizzling.m:103"]
-  T21["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S21["method:NSString::urlProtect<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+URL/NSString+URL.m:38"]
+  T21["method:NSString::containsString<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:29"]
   S21 -->|calls| T21
-  S22["method:JobsPodspecKitForJobsOCRuntimeKits::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsOCRuntimeKits@Pods/JobsPodspecKit.rb:277"]
-  T22["method:JobsPodspecKitForJobsOCRuntimeKits::standard_user_target_xcconfig<br/>JobsByPods/JobsOCRuntimeKits@Pods/JobsPodspecKit.rb:266"]
+  S22["method:UIButton::initByTitle<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:91"]
+  T22["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S22 -->|calls| T22
-  S23["method:JobsPodspecKitForJobsOCRuntimeKits::apply_standard_xcconfig<br/>JobsByPods/JobsOCRuntimeKits@Pods/JobsPodspecKit.rb:281"]
-  T23["method:JobsPodspecKitForJobsOCRuntimeKits::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsOCRuntimeKits@Pods/JobsPodspecKit.rb:273"]
+  S23["method:UIButton::initByAttributedString<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:101"]
+  T23["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S23 -->|calls| T23
-  S24["method:JobsPodspecKitForJobsOCRuntimeKits::apply_standard_xcconfig<br/>JobsByPods/JobsOCRuntimeKits@Pods/JobsPodspecKit.rb:281"]
-  T24["method:JobsPodspecKitForJobsOCRuntimeKits::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsOCRuntimeKits@Pods/JobsPodspecKit.rb:277"]
+  S24["method:UIButton::initByNormalImage<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:111"]
+  T24["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S24 -->|calls| T24
-  S25["method:NSDate::timeIntervalSinceDate<br/>JobsByPods/JobsOCRuntimeKits@Pods/Support/UIKit/NSDate/NSDate+Extra/NSDate+Extra.m:38"]
-  T25["method:NSDate::timeIntervalSinceDate<br/>JobsByPods/JobsOCRuntimeKits@Pods/Support/UIKit/NSDate/NSDate+Extra/NSDate+Extra.m:38"]
+  S25["method:UIButton::initByBackgroundImage<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:121"]
+  T25["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S25 -->|calls| T25
 ```
 

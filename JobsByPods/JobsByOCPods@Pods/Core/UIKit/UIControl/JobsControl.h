@@ -12,10 +12,10 @@
 #pragma mark —— Category
 #import <JobsByOCPods/UIControl+XY.h>
 #import <JobsByOCPods/UIControl+Extra.h>
-#if __has_include(<JobsOCDSL/UIControl+DSL.h>)
-#import <JobsOCDSL/UIControl+DSL.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "UIControl+DSL.h"
+#import "JobsOCDSL.h"
 #endif
 
 #endif /* JobsControl_h */

@@ -9,7 +9,6 @@
 #define HexadecimalData_h
 
 #import <UIKit/UIKit.h>
-
 #import <JobsCryptography/NSString+HexadecimalData.h>
 #import <JobsCryptography/NSData+HexadecimalData.h>
 #import <JobsCryptography/UIImage+HexadecimalData.h>

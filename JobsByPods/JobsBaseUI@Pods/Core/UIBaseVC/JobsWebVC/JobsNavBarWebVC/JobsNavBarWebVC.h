@@ -9,6 +9,8 @@
 #define JOBS_HEADER_GUARD_JOBSNAVBARWEBVC_7B476F197D
 
 #import <UIKit/UIKit.h>
+#import <JobsBaseUI/UIView+Extra.h>
+#import <JobsBaseUI/UIView+Masonry.h>
 #import <JobsBaseUI/JobsBaseWebVC.h>
 
 #if __has_include(<JobsAppTools/NSObject+AppTools.h>)
@@ -23,16 +25,16 @@
 #import "JobsLanMgr.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

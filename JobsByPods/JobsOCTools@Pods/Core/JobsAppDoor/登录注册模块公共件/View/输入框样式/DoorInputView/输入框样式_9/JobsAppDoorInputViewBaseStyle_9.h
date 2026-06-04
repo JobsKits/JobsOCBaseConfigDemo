@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_9_39DC96EEC4
 
 #import <UIKit/UIKit.h>
+#import <JobsOCTools/JobsOCTools.h>
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
@@ -33,8 +34,6 @@
 #else
 #import "JobsDefines.h"
 #endif
-
-#import <JobsOCTools/JobsOCTools.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

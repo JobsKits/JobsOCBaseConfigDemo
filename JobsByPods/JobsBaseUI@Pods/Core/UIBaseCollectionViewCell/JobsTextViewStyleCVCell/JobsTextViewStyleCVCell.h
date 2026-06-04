@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSTEXTVIEWSTYLECVCELL_112AF3D58E
 
 #import <UIKit/UIKit.h>
+#import <JobsBaseUI/UIView+Extra.h>
 #import <JobsBaseUI/JobsBaseCollectionViewCell.h>
 #import <JobsBaseUI/JobsTextView.h>
 

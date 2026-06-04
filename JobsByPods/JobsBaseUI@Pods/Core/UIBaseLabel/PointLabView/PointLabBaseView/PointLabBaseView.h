@@ -10,6 +10,7 @@
 
 #import <UIKit/UIKit.h>
 #import <JobsBaseUI/BaseView.h>
+#import <JobsBaseUI/UIView+Extra.h>
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>

@@ -491,6 +491,7 @@ digraph PodspecDependencies {
   "JobsSuspend" -> "JobsLanMgr";
   "JobsSuspend" -> "JobsLoadingImage";
   "JobsSuspend" -> "JobsModel";
+  "JobsSuspend" -> "JobsOCDSL";
   "JobsSuspend" -> "JobsOCDefs";
   "JobsSuspend" -> "JobsOCRuntimeKits";
   "JobsSuspend" -> "JobsRichTextUtils";

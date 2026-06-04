@@ -14,6 +14,12 @@
 #import <JobsByOCPods/CAPropertyAnimation+Extra.h>
 #import <JobsByOCPods/CAAnimation+Extra.h>
 
+#if __has_include(<JobsDeviceInfo/JobsDeviceInfo.h>)
+#import <JobsDeviceInfo/JobsDeviceInfo.h>
+#else
+#import "JobsDeviceInfo.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -24,12 +30,6 @@
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
-#endif
-
-#if __has_include(<JobsDeviceInfo/JobsDeviceInfo.h>)
-#import <JobsDeviceInfo/JobsDeviceInfo.h>
-#else
-#import "JobsDeviceInfo.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

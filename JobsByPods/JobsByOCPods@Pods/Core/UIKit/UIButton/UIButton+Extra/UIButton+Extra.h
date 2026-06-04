@@ -15,7 +15,6 @@
 #import <JobsByOCPods/UIView+AutoSelfAdaptionSize.h>
 #import <JobsByOCPods/UIView+Masonry.h>
 
-
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else

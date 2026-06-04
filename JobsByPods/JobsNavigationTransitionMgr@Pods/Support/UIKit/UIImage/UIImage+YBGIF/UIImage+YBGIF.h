@@ -10,8 +10,8 @@
 
 #pragma once
 
-#import <UIKit/UIKit.h>
 #import <ImageIO/ImageIO.h> // 提供图像编解码能力，支持多种图片格式的读取、写入和元数据处理。
+#import <UIKit/UIKit.h>
 #import <JobsNavigationTransitionMgr/NSMutableArray+Extra.h>
 #import <JobsNavigationTransitionMgr/NSString+Path.h>
 #import <JobsNavigationTransitionMgr/NSObject+image.h>

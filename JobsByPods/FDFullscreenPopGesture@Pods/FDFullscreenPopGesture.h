@@ -9,7 +9,6 @@
 #define FDFullscreenPopGesture_h
 
 #import <FDFullscreenPopGesture/UIScrollView+FDFullscreenPopGesture.h>
-
 #import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
 
 #endif /* FDFullscreenPopGesture_h */

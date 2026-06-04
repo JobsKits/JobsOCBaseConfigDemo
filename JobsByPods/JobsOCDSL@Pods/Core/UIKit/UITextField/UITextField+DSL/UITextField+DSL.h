@@ -1,6 +1,6 @@
 //
 //  UITextField+DSL.h
-//  JobsByOCPods
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_UITEXTFIELD_DSL_7C1D8B29C3
 
 #import <UIKit/UIKit.h>
-#import <JobsByOCPods/UITextField+Placeholder.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
@@ -70,6 +69,10 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetTextFieldByNSIntegerBlock _Nonnull)byPlaceHolderAlignment;
 -(JobsRetTextFieldByCGFloatrBlock _Nonnull)byLeftViewOffsetX;
 -(JobsRetTextFieldByCGFloatrBlock _Nonnull)byRightViewOffsetX;
+
+Prop_assign()NSTextAlignment placeHolderAlignment;
+Prop_assign()CGFloat leftViewOffsetX;
+Prop_assign()CGFloat rightViewOffsetX;
 
 @end
 

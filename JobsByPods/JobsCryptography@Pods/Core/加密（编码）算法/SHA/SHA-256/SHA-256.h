@@ -10,6 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CommonCrypto/CommonDigest.h>  // 提供常见摘要算法接口，如 MD5、SHA1、SHA256 等。
+
 /// 亲测，可以适配iOS13并且兼容之前系统
 NS_INLINE NSString *SHA_256(NSString *string){
     const char *s = [string cStringUsingEncoding:NSUTF8StringEncoding];

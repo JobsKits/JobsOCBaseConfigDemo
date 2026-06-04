@@ -31,10 +31,10 @@
 #import "JobsByOCPods.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
+#if __has_include(<JobsClockView/JobsClockView.h>)
+#import <JobsClockView/JobsClockView.h>
 #else
-#import "JobsDefines.h"
+#import "JobsClockView.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -43,10 +43,10 @@
 #import "JobsBlock.h"
 #endif
 
-#if __has_include(<JobsClockView/JobsClockView.h>)
-#import <JobsClockView/JobsClockView.h>
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
 #else
-#import "JobsClockView.h"
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

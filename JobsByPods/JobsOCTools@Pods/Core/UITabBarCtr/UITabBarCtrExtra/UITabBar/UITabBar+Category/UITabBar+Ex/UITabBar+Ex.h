@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UITABBAR_EX_E2F70A4057
 #define JOBS_HEADER_GUARD_UITABBAR_EX_E2F70A4057
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 
 #if __has_include(<lottie-ios/Lottie.h>)
 #import <lottie-ios/Lottie.h>

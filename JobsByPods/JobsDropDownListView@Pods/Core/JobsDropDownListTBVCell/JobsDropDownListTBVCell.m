@@ -46,7 +46,7 @@ UITableViewCellProtocol_Synthesize
             self.viewModel = model;
             self.textLabel.text = [NSString stringWithFormat:@"%@",model.textModel.text];
             self.detailTextLabel.text = [NSString stringWithFormat:@"%@",model.subTextModel.text];
-        } return self;
+        }return self;
     };
 }
 

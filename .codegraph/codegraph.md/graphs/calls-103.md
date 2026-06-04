@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:RSAUtil::addPrivateKey:<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/非对称加密RSA/RSAUtil.m:174"]
-  T1["method:ASMutableAttributedStringBuilder::length<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:223"]
+  S1["method:NSObject::img<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  T1["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S1 -->|calls| T1
-  S2["method:RSAUtil::encryptData:withKeyRef:<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/非对称加密RSA/RSAUtil.m:239"]
-  T2["method:JobsBasePopupView::init<br/>JobsByPods/JobsBasePopupView@Pods/Core/JobsBasePopupView.m:26"]
+  S2["method:NSObject::img<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  T2["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S2 -->|calls| T2
-  S3["method:RSAUtil::encryptString:privateKey:<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/非对称加密RSA/RSAUtil.m:280"]
-  T3["function:RSAUtil::base64_encode_data<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/非对称加密RSA/RSAUtil.m:26"]
+  S3["method:NSObject::img<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  T3["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S3 -->|calls| T3
-  S4["method:RSAUtil::decryptData:withKeyRef:<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/非对称加密RSA/RSAUtil.m:296"]
-  T4["method:JobsBasePopupView::init<br/>JobsByPods/JobsBasePopupView@Pods/Core/JobsBasePopupView.m:26"]
+  S4["method:NSObject::img<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  T4["method:UIImage::imageWithContentsOfFile<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIImage/UIImage+Extra/UIImage+Extra.m:250"]
   S4 -->|calls| T4
-  S5["method:RSAUtil::encryptString:publicKey:<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/非对称加密RSA/RSAUtil.m:374"]
-  T5["function:RSAUtil::base64_encode_data<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/非对称加密RSA/RSAUtil.m:26"]
+  S5["method:NSObject::img<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  T5["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S5 -->|calls| T5
-  S6["method:RSAUtil::decryptString:publicKey:<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/非对称加密RSA/RSAUtil.m:390"]
-  T6["method:NSString::initByUTF8Data<br/>JobsByPods/JobsAPIs@Pods/Support/UIKit/NSString/NSString+Conversion/NSString+Conversion.m:13"]
+  S6["method:NSObject::imageByDataURL<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:46"]
+  T6["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S6 -->|calls| T6
-  S7["method:JobsPodspecKitForJobsCryptography::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsCryptography@Pods/JobsPodspecKit.rb:277"]
-  T7["method:JobsPodspecKitForJobsCryptography::standard_user_target_xcconfig<br/>JobsByPods/JobsCryptography@Pods/JobsPodspecKit.rb:266"]
+  S7["method:NSObject::feedbackGenerator<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:62"]
+  T7["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S7 -->|calls| T7
-  S8["method:JobsPodspecKitForJobsCryptography::apply_standard_xcconfig<br/>JobsByPods/JobsCryptography@Pods/JobsPodspecKit.rb:281"]
-  T8["method:JobsPodspecKitForJobsCryptography::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsCryptography@Pods/JobsPodspecKit.rb:273"]
+  S8["method:NSObject::feedbackGenerator<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:62"]
+  T8["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S8 -->|calls| T8
-  S9["method:JobsPodspecKitForJobsCryptography::apply_standard_xcconfig<br/>JobsByPods/JobsCryptography@Pods/JobsPodspecKit.rb:281"]
-  T9["method:JobsPodspecKitForJobsCryptography::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsCryptography@Pods/JobsPodspecKit.rb:277"]
+  S9["method:NSObject::feedbackGenerator<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:62"]
+  T9["method:UIImpactFeedbackGenerator::initMediumStyleBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIImpactFeedbackGenerator/UIImpactFeedbackGenerator+Extra/UIImpactFeedbackGenerator+Extra.m:37"]
   S9 -->|calls| T9
-  S10["method:JobsCustomView::init<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:51"]
-  T10["method:JobsCustomView::init<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:51"]
+  S10["method:NSString::isEqualStrA:strB:<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:13"]
+  T10["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
   S10 -->|calls| T10
-  S11["method:JobsCustomView::initWithSize:<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:63"]
-  T11["method:JobsCustomView::init<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:51"]
+  S11["method:NSString::isEqualStrA:strB:<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:13"]
+  T11["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
   S11 -->|calls| T11
-  S12["method:JobsCustomView::layoutSubviews<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:73"]
-  T12["method:JobsCustomView::layoutSubviews<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:73"]
+  S12["method:NSString::isEqualStrA:strB:<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:13"]
+  T12["method:NSString::isEqualToString<br/>JobsByPods/JobsAPIs@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:19"]
   S12 -->|calls| T12
-  S13["method:JobsCustomView::jobsRichViewByModel<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:78"]
-  T13["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S13["method:NSString::isEqualToString<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:19"]
+  T13["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S13 -->|calls| T13
-  S14["method:JobsCustomView::jobsRichViewByModel<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:78"]
-  T14["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S14["method:NSString::isEqualToString<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:19"]
+  T14["method:NSString::isEqualToString<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:19"]
   S14 -->|calls| T14
-  S15["method:JobsCustomView::viewSizeByModel<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:96"]
-  T15["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S15["method:NSString::containsString<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:29"]
+  T15["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S15 -->|calls| T15
-  S16["method:JobsCustomView::indicatorIMGV<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:102"]
-  T16["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S16["method:NSString::containsString<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:29"]
+  T16["method:NSString::containsString<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:29"]
   S16 -->|calls| T16
-  S17["method:JobsCustomView::indicatorIMGV<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:102"]
-  T17["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S17["method:NSString::hasPrefix<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:39"]
+  T17["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S17 -->|calls| T17
-  S18["method:JobsCustomView::indicatorIMGV<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:102"]
-  T18["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S18["method:NSString::hasPrefix<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:39"]
+  T18["method:NSString::hasPrefix<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:39"]
   S18 -->|calls| T18
-  S19["method:JobsCustomView::indicatorIMGV<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:102"]
-  T19["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S19["method:NSString::hasSuffix<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:49"]
+  T19["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S19 -->|calls| T19
-  S20["method:JobsCustomView::segmentationLine<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:117"]
-  T20["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S20["method:NSString::hasSuffix<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:49"]
+  T20["method:NSString::hasSuffix<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:49"]
   S20 -->|calls| T20
-  S21["method:JobsCustomView::segmentationLine<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:117"]
-  T21["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S21["method:NSString::isNotBlank<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:59"]
+  T21["method:NSString::characterAtIndex<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S21 -->|calls| T21
-  S22["method:JobsCustomView::segmentationLine<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:117"]
-  T22["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S22["method:NSString::isSpace<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:66"]
+  T22["method:NSString::characterAtIndex<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S22 -->|calls| T22
-  S23["method:JobsCustomView::containFromView<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:132"]
-  T23["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S23["method:NSString::isContainBlank<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:75"]
+  T23["method:NSString::rangeOfString<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
   S23 -->|calls| T23
-  S24["method:JobsCustomView::containFromView<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:132"]
-  T24["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S24["method:NSString::isAllSameCharWithStandardChar:<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:80"]
+  T24["method:NSString::characterAtIndex<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S24 -->|calls| T24
-  S25["method:JobsCustomView::containFromView<br/>JobsByPods/JobsCustomView@Pods/Core/JobsCustomView.m:132"]
-  T25["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S25["method:NSString::isAllSameCharWithStandardChar:<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:80"]
+  T25["function:StringWithUTF8String<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:59"]
   S25 -->|calls| T25
 ```
 

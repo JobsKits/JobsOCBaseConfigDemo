@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEW_JHGESTUREBLOCK_82856ACF4F
 #define JOBS_HEADER_GUARD_UIVIEW_JHGESTUREBLOCK_82856ACF4F
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSUInteger, JHGestureType) {
     JHGestureType_Tap,      // 点击

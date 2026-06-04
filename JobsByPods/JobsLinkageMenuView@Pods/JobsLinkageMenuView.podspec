@@ -54,7 +54,11 @@ and linked content switching support.
 #import <JobsLinkageMenuView/UIView+Extra.h>
 #import <JobsLinkageMenuView/UIBackgroundConfiguration+Extra.h>
 #import <JobsLinkageMenuView/UIGestureRecognizer+Extra.h>
-#import <JobsLinkageMenuView/UILabel+DSL.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 #import <JobsLinkageMenuView/UIButton+TextView.h>
 #import <JobsLinkageMenuView/UIView+Measure.h>
 #import <JobsLinkageMenuView/UITextItem+Extra.h>

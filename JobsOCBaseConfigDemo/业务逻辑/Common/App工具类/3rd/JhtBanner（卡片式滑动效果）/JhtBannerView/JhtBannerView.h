@@ -32,6 +32,7 @@
 #else
 #import "JobsDefines.h"
 #endif
+
 /// banner ScrollView
 @interface JhtBannerView : UIView
 <

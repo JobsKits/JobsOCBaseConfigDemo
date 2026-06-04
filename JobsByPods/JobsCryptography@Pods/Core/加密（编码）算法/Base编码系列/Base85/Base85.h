@@ -9,7 +9,6 @@
 #define Base85_h
 
 #import <UIKit/UIKit.h>
-
 #import <JobsCryptography/UIImage+Base85.h>
 #import <JobsCryptography/NSData+Base85.h>
 #import <JobsCryptography/NSString+Base85.h>

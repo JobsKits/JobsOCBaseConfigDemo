@@ -21,6 +21,7 @@
 #else
 #import "JobsDefines.h"
 #endif
+
 /// 获取系统的首选语言代码
 NS_INLINE NSString *_Nullable currentLanguage(void){
     NSString *languageCode = NSLocale.preferredLanguages.firstObject;

@@ -8,6 +8,7 @@
 #ifndef layout_h
 #define layout_h
 #import <UIKit/UIKit.h>
+
 //375*667，iphone6位基准。
 NS_INLINE BOOL isX(void) {
     static BOOL v = NO;

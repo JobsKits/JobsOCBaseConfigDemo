@@ -10,8 +10,8 @@
 
 #pragma once
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <GKCustomNavigationBarExtra/NSString+Sys.h>
 #import <GKCustomNavigationBarExtra/UIButton+TextView.h>
 #import <GKCustomNavigationBarExtra/UIButton+UIControlState.h>
@@ -19,12 +19,11 @@
 #import <GKCustomNavigationBarExtra/UIButton+UIButtonConfiguration.h>
 #import <GKCustomNavigationBarExtra/UITextView+Extra.h>
 #import <GKCustomNavigationBarExtra/UIView+Extra.h>
-#if __has_include(<JobsOCDSL/UIView+DSL.h>)
-#import <JobsOCDSL/UIView+DSL.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "UIView+DSL.h"
+#import "JobsOCDSL.h"
 #endif
-#import <GKCustomNavigationBarExtra/UILabel+DSL.h>
 #import <GKCustomNavigationBarExtra/UIBackgroundConfiguration+Extra.h>
 #import <GKCustomNavigationBarExtra/UIButtonConfiguration+Extra.h>
 #import <GKCustomNavigationBarExtra/UIGestureRecognizer+Extra.h>
@@ -47,6 +46,12 @@
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
 #import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsDeviceInfo/JobsDeviceInfo.h>)

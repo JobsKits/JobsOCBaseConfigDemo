@@ -9,6 +9,7 @@
 #define JobsString_h
 #import <UIKit/UIKit.h>
 #import <CommonCrypto/CommonDigest.h> // 提供加密和哈希功能，例如MD5和SHA加密。
+
 #pragma mark —— Category
 #import <JobsByOCPods/NSString+WKWebView.h>
 #import <JobsByOCPods/NSString+Time.h>

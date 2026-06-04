@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_BASEBUTTON_AD43C01B05
 #define JOBS_HEADER_GUARD_BASEBUTTON_AD43C01B05
 
-#import <UIKit/UIKit.h>
 #import <objc/message.h>
+#import <UIKit/UIKit.h>
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>

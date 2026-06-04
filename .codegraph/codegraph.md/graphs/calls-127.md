@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:JobsLinkageMenuView::choseMenu:<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:91"]
-  T1["method:UIButton::jobsResetBtnTitleCor<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+UI/UIButton+UI.m:327"]
+  S1["method:UIView::resetContentInsetLeft<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:637"]
+  T1["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S1 -->|calls| T1
-  S2["method:JobsLinkageMenuView::choseMenu:<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:91"]
-  T2["method:UIButton::jobsResetBtnImage<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+UI/UIButton+UI.m:402"]
+  S2["method:UIView::resetContentInsetBottom<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:651"]
+  T2["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S2 -->|calls| T2
-  S3["method:JobsLinkageMenuView::choseMenu:<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:91"]
-  T3["method:UIButton::jobsResetBtnBgImage<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+UI/UIButton+UI.m:414"]
+  S3["method:UIView::resetContentInsetRight<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:665"]
+  T3["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S3 -->|calls| T3
-  S4["method:JobsLinkageMenuView::choseMenu:<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:91"]
-  T4["method:UIButton::jobsResetBtnTitleCor<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+UI/UIButton+UI.m:327"]
+  S4["method:UIView::resetContentInsetOffsetTop<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:679"]
+  T4["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S4 -->|calls| T4
-  S5["method:JobsLinkageMenuView::choseMenu:<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:91"]
-  T5["method:UIButton::jobsResetBtnImage<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+UI/UIButton+UI.m:402"]
+  S5["method:UIView::resetContentInsetOffsetLeft<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:693"]
+  T5["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S5 -->|calls| T5
-  S6["method:JobsLinkageMenuView::choseMenu:<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:91"]
-  T6["method:UIButton::jobsResetBtnBgImage<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+UI/UIButton+UI.m:414"]
+  S6["method:UIView::resetContentInsetOffsetBottom<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:707"]
+  T6["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S6 -->|calls| T6
-  S7["method:JobsLinkageMenuView::choseMenu:<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:91"]
-  T7["method:UIView::viewWithTag<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:731"]
+  S7["method:UIView::resetContentInsetOffsetRight<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:721"]
+  T7["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S7 -->|calls| T7
-  S8["method:JobsLinkageMenuView::choseMenu:<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:91"]
-  T8["method:UIButton::jobsResetBtnTitleCor<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+UI/UIButton+UI.m:327"]
+  S8["method:UIView::setSizer:<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:904"]
+  T8["method:NSValue::bySize<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSValue/NSValue+Extra/NSValue+Extra.m:12"]
   S8 -->|calls| T8
-  S9["method:JobsLinkageMenuView::setTextColor:<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:149"]
-  T9["method:UIView::viewWithTag<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:731"]
+  S9["method:UIView::setOrigin:<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:918"]
+  T9["method:NSValue::byPoint<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSValue/NSValue+Extra/NSValue+Extra.m:24"]
   S9 -->|calls| T9
-  S10["method:JobsLinkageMenuView::setTextColor:<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:149"]
-  T10["method:UIButton::jobsResetBtnTitleCor<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+UI/UIButton+UI.m:327"]
+  S10["method:UIView::refresh<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:28"]
+  T10["method:BaseImageView::layoutIfNeeded<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseImageView/BaseImageView.m:55"]
   S10 -->|calls| T10
-  S11["method:JobsLinkageMenuView::setTextSize:<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:157"]
-  T11["method:UIView::viewWithTag<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:731"]
+  S11["method:UIView::LOTAnimationMJRefreshHeaderBy<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:38"]
+  T11["method:MJRefreshGifHeader::refreshStateIdleByImages<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshGifHeader/MJRefreshGifHeader+Extra.m:12"]
   S11 -->|calls| T11
-  S12["method:JobsLinkageMenuView::lineView<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:165"]
-  T12["method:UIView::addSubview<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S12["method:UIView::LOTAnimationMJRefreshHeaderBy<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:38"]
+  T12["method:MJRefreshGifHeader::refreshStateIdleByString<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshGifHeader/MJRefreshGifHeader+Extra.m:57"]
   S12 -->|calls| T12
-  S13["method:JobsLinkageMenuView::rightview<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:177"]
-  T13["method:UIView::addSubview<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S13["method:UIView::LOTAnimationMJRefreshHeaderBy<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:38"]
+  T13["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S13 -->|calls| T13
-  S14["method:JobsLinkageMenuView::menuView<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:218"]
-  T14["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S14["method:UIView::MJRefreshNormalHeaderBy<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:74"]
+  T14["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S14 -->|calls| T14
-  S15["method:JobsLinkageMenuView::menuView<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:218"]
-  T15["method:UIButton::initByButtonModel<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:360"]
+  S15["method:UIView::MJRefreshStateHeaderBy<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:94"]
+  T15["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S15 -->|calls| T15
-  S16["method:JobsLinkageMenuView::menuView<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:218"]
-  T16["function:jobs3TO<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Sys/MacroDef_SDK.h:17"]
+  S16["method:UIView::MJRefreshHeaderBy<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:114"]
+  T16["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S16 -->|calls| T16
-  S17["method:JobsLinkageMenuView::menuView<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:218"]
-  T17["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S17["method:UIView::MJRefreshGifHeaderBy<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:128"]
+  T17["method:MJRefreshGifHeader::refreshStateIdleByImages<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshGifHeader/MJRefreshGifHeader+Extra.m:12"]
   S17 -->|calls| T17
-  S18["method:JobsLinkageMenuView::menuView<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:218"]
-  T18["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S18["method:UIView::MJRefreshGifHeaderBy<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:128"]
+  T18["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S18 -->|calls| T18
-  S19["method:JobsLinkageMenuView::menuView<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:218"]
-  T19["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S19["method:UIView::MJRefreshAutoGifFooterBy<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:159"]
+  T19["method:MJRefreshAutoGifFooter::refreshStateIdleByImages<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshAutoGifFooter/MJRefreshAutoGifFooter+Extra.m:12"]
   S19 -->|calls| T19
-  S20["method:JobsLinkageMenuView::menuView<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:218"]
-  T20["method:UIView::addSubview<br/>JobsByPods/JobsLinkageMenuView@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S20["method:UIView::MJRefreshAutoGifFooterBy<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:159"]
+  T20["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S20 -->|calls| T20
-  S21["method:JobsLinkageMenuView::MENU_WIDTH<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:267"]
-  T21["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S21["method:UIView::MJRefreshBackNormalFooterBy<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:189"]
+  T21["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S21 -->|calls| T21
-  S22["method:JobsLinkageMenuView::BOTTOMVIEW_HEIGHT<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:273"]
-  T22["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S22["method:UIView::MJRefreshAutoNormalFooterBy<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:208"]
+  T22["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S22 -->|calls| T22
-  S23["method:JobsLinkageMenuView::BOTTOMVIEW_WIDTH<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:279"]
-  T23["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S23["method:UIView::MJRefreshAutoStateFooterBy<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:227"]
+  T23["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S23 -->|calls| T23
-  S24["method:JobsLinkageMenuView::LINEVIEW_WIDTH<br/>JobsByPods/JobsLinkageMenuView@Pods/Core/JobsLinkageMenuView/JobsLinkageMenuView.m:285"]
-  T24["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size.h:377"]
+  S24["method:UIView::MJRefreshBackGifFooterBy<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:253"]
+  T24["method:MJRefreshAutoGifFooter::refreshStateIdleByImages<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshAutoGifFooter/MJRefreshAutoGifFooter+Extra.m:12"]
   S24 -->|calls| T24
-  S25["method:JobsPodspecKitForJobsLinkageMenuView::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsLinkageMenuView@Pods/JobsPodspecKit.rb:277"]
-  T25["method:JobsPodspecKitForJobsLinkageMenuView::standard_user_target_xcconfig<br/>JobsByPods/JobsLinkageMenuView@Pods/JobsPodspecKit.rb:266"]
+  S25["method:UIView::MJRefreshBackGifFooterBy<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Refresh/UIView+Refresh.m:253"]
+  T25["method:NSObject::feedbackGenerator<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
   S25 -->|calls| T25
 ```
 

@@ -10,16 +10,16 @@
 #import "JobsIMDefine.h"
 #import "JobsIMChatInfoModel.h"
 
-#if __has_include(<MGSwipeTableCellExtra/MGSwipeTableCellProtocol.h>)
-#import <MGSwipeTableCellExtra/MGSwipeTableCellProtocol.h>
-#else
-#import "MGSwipeTableCellProtocol.h"
-#endif
-
 #if __has_include(<MGSwipeTableCell/MGSwipeTableCell.h>)
 #import <MGSwipeTableCell/MGSwipeTableCell.h>
 #else
 #import "MGSwipeTableCell.h"
+#endif
+
+#if __has_include(<MGSwipeTableCellExtra/MGSwipeTableCellProtocol.h>)
+#import <MGSwipeTableCellExtra/MGSwipeTableCellProtocol.h>
+#else
+#import "MGSwipeTableCellProtocol.h"
 #endif
 
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)

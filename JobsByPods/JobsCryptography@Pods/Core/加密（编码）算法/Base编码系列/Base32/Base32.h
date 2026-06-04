@@ -9,6 +9,7 @@
 #define Base32_h
 
 #import <UIKit/UIKit.h>
+
 //! Project version number for Base32.
 FOUNDATION_EXPORT double Base32VersionNumber;
 //! Project version string for Base32.

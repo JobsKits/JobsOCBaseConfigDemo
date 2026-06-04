@@ -8,19 +8,19 @@
 #ifndef JOBS_HEADER_GUARD_UICONTROL_XY_6A30585738
 #define JOBS_HEADER_GUARD_UICONTROL_XY_6A30585738
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
-
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
+#import <UIKit/UIKit.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

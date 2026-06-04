@@ -5,9 +5,9 @@
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#import <pthread.h> // 提供 POSIX 线程接口，用于底层多线程控制、线程同步和并发处理。
 #import <Foundation/Foundation.h>
 #import <os/lock.h> // 提供系统级高性能锁，如 os_unfair_lock，适合轻量级同步场景。
-#import <pthread.h> // 提供 POSIX 线程接口，用于底层多线程控制、线程同步和并发处理。
 
 NS_ASSUME_NONNULL_BEGIN
 

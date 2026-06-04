@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 #import <JobsOCTools/JobsAppDoorConfig.h>
 #import <JobsOCTools/JobsAppDoorInputViewBaseStyle.h>
+#import <JobsOCTools/JobsOCTools.h>
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
@@ -29,8 +30,6 @@
 #else
 #import "JobsDefines.h"
 #endif
-
-#import <JobsOCTools/JobsOCTools.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

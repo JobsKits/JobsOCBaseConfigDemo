@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_YTKNETWORKPROTOCOLS_30DEE14285
 
 #import <Foundation/Foundation.h>
+
 #if __has_include(<JobsOCProtocols/YTKCustomBaseRequestProtocol.h>)
 #import <JobsOCProtocols/YTKCustomBaseRequestProtocol.h>
 #elif __has_include("YTKCustomBaseRequestProtocol.h")

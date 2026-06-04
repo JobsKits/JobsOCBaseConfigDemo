@@ -14,6 +14,12 @@
 #import <JobsNavigationTransitionMgr/NSMutableArray+Extra.h>
 #import <JobsNavigationTransitionMgr/NSString+Extra.h>
 
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
@@ -24,12 +30,6 @@
 #import <JobsModel/JobsModel.h>
 #else
 #import "JobsModel.h"
-#endif
-
-#if __has_include(<XYColorOC/XYColorOC.h>)
-#import <XYColorOC/XYColorOC.h>
-#else
-#import "XYColorOC.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

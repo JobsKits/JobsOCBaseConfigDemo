@@ -14,10 +14,10 @@
 #import <JobsByOCPods/UITableView+WWFoldableTableView.h>
 #import <JobsByOCPods/UITableView+RegisterClass.h>
 #import <JobsByOCPods/UITableView+Extra.h>
-#if __has_include(<JobsOCDSL/UITableView+DSL.h>)
-#import <JobsOCDSL/UITableView+DSL.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "UITableView+DSL.h"
+#import "JobsOCDSL.h"
 #endif
 
 #endif /* JobsTableView_h */

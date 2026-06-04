@@ -8,10 +8,10 @@
 #ifndef JOBS_HEADER_GUARD_JOBSNETWORKTOOLS_A5554FC4D0
 #define JOBS_HEADER_GUARD_JOBSNETWORKTOOLS_A5554FC4D0
 
+#import <Foundation/Foundation.h>
 #import <ifaddrs.h>               // 提供网络接口地址遍历能力，可获取设备各网络接口的 IP 地址等信息。
 #import <net/if.h>                // 定义网络接口相关常量、结构体和操作接口。
 #import <net/if_var.h>            // 引入网络接口内部状态、统计信息及相关内核结构定义
-#import <Foundation/Foundation.h>
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>

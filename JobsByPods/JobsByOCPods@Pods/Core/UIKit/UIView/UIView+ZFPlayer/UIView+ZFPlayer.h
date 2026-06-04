@@ -8,9 +8,9 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEW_ZFPLAYER_FF3C3818B8
 #define JOBS_HEADER_GUARD_UIVIEW_ZFPLAYER_FF3C3818B8
 
+#import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import <TargetConditionals.h>
-#import <objc/runtime.h>
 #import <JobsByOCPods/CustomZFPlayerControlView.h>// 播放器控制层
 #import <JobsByOCPods/NSString+Path.h>
 

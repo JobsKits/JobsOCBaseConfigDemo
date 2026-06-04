@@ -9,11 +9,6 @@
 #define JOBS_HEADER_GUARD_ZFDOUYINCONTROLVIEW_CA2F565BE2
 
 #import <UIKit/UIKit.h>
-#if __has_include(<ZFPlayer/ZFLoadingView.h>)
-#import <ZFPlayer/ZFLoadingView.h>
-#else
-#import "ZFLoadingView.h"
-#endif
 #import <ZFPlayer/ZFPlayerMediaControl.h>
 #import <ZFPlayer/UIView+ZFFrame.h>
 #import <ZFPlayer/UIImageView+ZFCache.h>
@@ -21,16 +16,22 @@
 #import <ZFPlayer/ZFSliderView.h>
 #import <ZFPlayer/ZFPlayerController.h>
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
+#if __has_include(<ZFPlayer/ZFLoadingView.h>)
+#import <ZFPlayer/ZFLoadingView.h>
 #else
-#import "JobsDefines.h"
+#import "ZFLoadingView.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 @interface ZFDouYinControlView : UIView <ZFPlayerMediaControl>

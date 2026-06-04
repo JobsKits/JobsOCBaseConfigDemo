@@ -16,6 +16,7 @@
 #else
 #import "JobsByOCPods.h"
 #endif
+
 /// MD5  信息摘要
 /// @param salt  MD5 加盐
 /// @param string 被摘要的字符串

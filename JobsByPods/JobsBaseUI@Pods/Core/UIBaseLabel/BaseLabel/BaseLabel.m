@@ -7,7 +7,6 @@
 
 #import "BaseLabel.h"
 #import <JobsBaseUI/UIView+Extra.h>
-#import <JobsBaseUI/UILabel+DSL.h>
 #import <JobsBaseUI/NSString+Check.h>
 #import <JobsBaseUI/NSString+Menu.h>
 #import <JobsBaseUI/NSString+Extra.h>

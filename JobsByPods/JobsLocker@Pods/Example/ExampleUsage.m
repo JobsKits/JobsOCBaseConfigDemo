@@ -23,8 +23,7 @@
     if (self) {
         _locker = [JobsLocker unfairLock];
         _dataSource = [NSMutableArray array];
-    }
-    return self;
+    }return self;
 }
 
 - (void)bootstrap {

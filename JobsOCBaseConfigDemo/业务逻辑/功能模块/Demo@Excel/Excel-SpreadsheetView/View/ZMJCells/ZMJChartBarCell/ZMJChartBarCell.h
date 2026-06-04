@@ -6,10 +6,11 @@
 //
 
 #import "ZMJCell+CustomView.h"
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
+
+#if __has_include(<ZMJGanttChart/ZMJGanttChart.h>)
+#import <ZMJGanttChart/ZMJGanttChart.h>
 #else
-#import "JobsDefines.h"
+#import "ZMJGanttChart.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -18,10 +19,10 @@
 #import "JobsBlock.h"
 #endif
 
-#if __has_include(<ZMJGanttChart/ZMJGanttChart.h>)
-#import <ZMJGanttChart/ZMJGanttChart.h>
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
 #else
-#import "ZMJGanttChart.h"
+#import "JobsDefines.h"
 #endif
 
 typedef NS_ENUM(NSInteger, ZMJDashlineDirection) {

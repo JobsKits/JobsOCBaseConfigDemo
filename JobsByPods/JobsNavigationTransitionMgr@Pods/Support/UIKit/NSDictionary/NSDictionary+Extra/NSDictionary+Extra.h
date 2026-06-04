@@ -11,6 +11,7 @@
 #pragma once
 
 #import <Foundation/Foundation.h>
+#import <JobsNavigationTransitionMgr/NSString+Check.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
@@ -23,8 +24,6 @@
 #else
 #import "JobsDefines.h"
 #endif
-
-#import <JobsNavigationTransitionMgr/NSString+Check.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_LOTTIE_46CF01BF33
 
 #import <UIKit/UIKit.h>
-
 #import <JobsByOCPods/JobsString.h>
 
 #if __has_include(<lottie-ios/Lottie.h>)

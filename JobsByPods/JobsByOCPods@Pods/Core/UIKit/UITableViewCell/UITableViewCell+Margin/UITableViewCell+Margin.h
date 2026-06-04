@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UITABLEVIEWCELL_MARGIN_72DB84A1BE
 #define JOBS_HEADER_GUARD_UITABLEVIEWCELL_MARGIN_72DB84A1BE
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import <JobsByOCPods/NSObject+image.h>
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)

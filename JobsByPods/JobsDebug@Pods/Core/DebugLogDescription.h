@@ -8,8 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_DEBUGLOGDESCRIPTION_4812D86079
 #define JOBS_HEADER_GUARD_DEBUGLOGDESCRIPTION_4812D86079
 
-#import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+#import <Foundation/Foundation.h>
 
 #if __has_include(<JobsStringUtils/JobsStringUtils.h>)
 #import <JobsStringUtils/JobsStringUtils.h>

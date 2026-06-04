@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_SOUNDBTN_85E94812AA
 
 #import <UIKit/UIKit.h>
+
 /// 自定义 buttom 按下有按键音
 /// 资料来源：http://www.aigei.com/sound/class/click_on_the_mouse_switch_button/
 @interface SoundBtn : UIButton

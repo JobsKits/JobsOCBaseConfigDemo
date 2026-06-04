@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_UITABLEVIEW_REGISTERCLASS_01EBCC4705
 
 #import <UIKit/UIKit.h>
-
 #import <JobsByOCPods/NSString+Replace.h>
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)

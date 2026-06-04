@@ -9,24 +9,25 @@
 #define JOBS_HEADER_GUARD_JXCATEGORYTIMELINEVIEW_8D3E67F2C5
 
 #import <UIKit/UIKit.h>
+#import <JXCategoryViewExtra/JXCategoryTimelineCell.h>
+#import <JXCategoryViewExtra/JXCategoryTimelineCellModel.h>
+
 #if __has_include(<JXCategoryView/JXCategoryTitleView.h>)
 #import <JXCategoryView/JXCategoryTitleView.h>
 #else
 #import "JXCategoryTitleView.h"
 #endif
 
-#import <JXCategoryViewExtra/JXCategoryTimelineCell.h>
-#import <JXCategoryViewExtra/JXCategoryTimelineCellModel.h>
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

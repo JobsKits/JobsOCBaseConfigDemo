@@ -9,6 +9,11 @@
 #define JOBS_HEADER_GUARD_JOBSCUSTOMVIEW_91D25AC310
 
 #import <UIKit/UIKit.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -22,6 +27,12 @@
 #import "XYColorOC.h"
 #endif
 
+#if __has_include(<BRPickerView/BRPickerView.h>)
+#import <BRPickerView/BRPickerView.h>
+#else
+#import "BRPickerView.h"
+#endif
+
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else
@@ -32,12 +43,6 @@
 #import <JobsModel/JobsModel.h>
 #else
 #import "JobsModel.h"
-#endif
-
-#if __has_include(<BRPickerView/BRPickerView.h>)
-#import <BRPickerView/BRPickerView.h>
-#else
-#import "BRPickerView.h"
 #endif
 
 #if __has_include(<BRPickerViewExtra/BRPickerViewExtra.h>)

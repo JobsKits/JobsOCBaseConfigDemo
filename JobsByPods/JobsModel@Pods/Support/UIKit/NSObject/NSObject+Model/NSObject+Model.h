@@ -8,8 +8,8 @@
 #ifndef NSObject_Model_h
 #define NSObject_Model_h
 
-#import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+#import <Foundation/Foundation.h>
 #import <JobsModel/JobsUserModel.h>
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)

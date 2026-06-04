@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_UIVIEWMODELPROTOCOL_74EE2B3175
 
 #import <UIKit/UIKit.h>
+
 #if __has_include(<JobsOCProtocols/XProtocol.h>)
 #import <JobsOCProtocols/XProtocol.h>
 #elif __has_include("../../XProtocols/XProtocol.h")
