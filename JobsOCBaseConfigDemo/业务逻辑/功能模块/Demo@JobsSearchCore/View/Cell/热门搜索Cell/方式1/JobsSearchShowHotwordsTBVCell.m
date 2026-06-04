@@ -7,6 +7,8 @@
 
 #import "JobsSearchShowHotwordsTBVCell.h"
 
+#import "DefineProperty.h"
+
 @interface JobsSearchShowHotwordsTBVCell ()
 
 Prop_strong()JobsHotLabelByMultiLine *jobsHotLabel;

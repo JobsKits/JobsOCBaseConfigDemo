@@ -7,6 +7,8 @@
 
 #import "NSObject+PopViewToLogOut.h"
 
+#import "DefineProperty.h"
+
 @implementation NSObject (PopViewToLogOut)
 #pragma mark —— Prop_strong()UIViewModel *logOutPopupVM;
 JobsKey(_logOutPopupVM)

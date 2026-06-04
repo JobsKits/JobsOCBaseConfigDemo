@@ -7,11 +7,12 @@
 
 #import "JobsPushView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsPushView ()
 
 Prop_strong()BaseButton *push_btn;
 Prop_strong()BaseButton *pop_btn;
-
 Prop_strong()JobsPushView *pushView;
 
 @end

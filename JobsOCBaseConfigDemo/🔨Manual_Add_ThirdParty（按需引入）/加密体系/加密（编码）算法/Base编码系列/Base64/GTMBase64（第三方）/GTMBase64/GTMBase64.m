@@ -228,6 +228,7 @@ GTM_INLINE NSUInteger GuessDecodedLength(NSUInteger srcLen) {
                 destLen:(NSUInteger)destLen
                 charset:(const char *)charset
          requirePadding:(BOOL)requirePadding;
+
 @end
 
 @implementation GTMBase64

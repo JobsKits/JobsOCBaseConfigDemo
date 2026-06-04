@@ -7,6 +7,8 @@
 
 #import "JobsIMListView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsIMListView ()
 /// UI
 Prop_strong()UIColor *bgColour;

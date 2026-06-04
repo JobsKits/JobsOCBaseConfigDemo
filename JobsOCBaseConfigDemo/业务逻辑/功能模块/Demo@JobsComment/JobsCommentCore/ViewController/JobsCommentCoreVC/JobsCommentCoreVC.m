@@ -7,6 +7,8 @@
 
 #import "JobsCommentCoreVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsCommentCoreVC ()
 /// UI
 Prop_strong()JobsCommentTitleHeaderView *titleHeaderView;

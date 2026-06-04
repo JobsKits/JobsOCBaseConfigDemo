@@ -7,6 +7,8 @@
 
 #import "MSCommentView.h"
 
+#import "DefineProperty.h"
+
 @interface MSCommentView ()
 /// Data
 Prop_strong()NSMutableArray <MSCommentModel *>*dataMutArr;

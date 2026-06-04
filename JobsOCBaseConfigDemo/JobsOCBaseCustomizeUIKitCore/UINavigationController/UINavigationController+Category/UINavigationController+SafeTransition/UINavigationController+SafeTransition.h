@@ -12,11 +12,13 @@
 #import <UIKit/UIKit.h>
 #import "NSObject+Swizzling.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UINavigationController (SafeTransition)<UINavigationControllerDelegate>
 
-@property (nonatomic, assign) BOOL viewTransitionInProgress;
+Prop_assign()BOOL viewTransitionInProgress;
 
 - (void)ty_popToRootViewControllerBySetControllersAnimated:(BOOL)animated;
 

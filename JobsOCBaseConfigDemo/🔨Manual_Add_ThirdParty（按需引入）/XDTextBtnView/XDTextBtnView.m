@@ -8,15 +8,14 @@
 
 #import "XDTextBtnView.h"
 
+#import "DefineProperty.h"
+
 @interface XDTextBtnView ()
 
-@property (nonatomic, assign) CGFloat maxX;
-
-@property (nonatomic, readwrite, assign) CGFloat maxY;
-
-@property (nonatomic, assign) NSInteger lastIndex;
-
-@property (nonatomic, strong) NSMutableArray <NSString *> *selectArr;
+Prop_assign()CGFloat maxX;
+Prop_assign(readwrite)CGFloat maxY;
+Prop_assign()NSInteger lastIndex;
+Prop_strong()NSMutableArray <NSString *> *selectArr;
 
 @end
 

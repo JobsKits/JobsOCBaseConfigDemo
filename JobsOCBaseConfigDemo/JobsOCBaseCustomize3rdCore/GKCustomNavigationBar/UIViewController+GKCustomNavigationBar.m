@@ -7,6 +7,8 @@
 
 #import "UIViewController+GKCustomNavigationBar.h"
 
+#import "DefineProperty.h"
+
 @implementation UIViewController (GKCustomNavigationBar)
 #pragma mark —— 一些公有方法
 -(JobsReturnGKNavBarByButtonModelBlock _Nonnull)gk_navTitleBtnBy{
@@ -54,4 +56,5 @@ JobsKey(_gk_navTitleBtn)
 -(void)setGk_navTitleBtn:(__kindof UIButton *)gk_navTitleBtn{
     Jobs_setAssociatedRETAIN_NONATOMIC(_gk_navTitleBtn, gk_navTitleBtn)
 }
+
 @end

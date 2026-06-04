@@ -8,6 +8,8 @@
 #import <UIKit/UIKit.h>
 #import "UIView+Extras.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /// 给UICollectionView的每个section加背景
 @interface KFZShopCatoryFlowLayput : UICollectionViewFlowLayout

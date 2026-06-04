@@ -7,6 +7,8 @@
 
 #import "JobsCalenderView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsCalenderView ()
 /// UI
 Prop_strong()FSCalendar *calendar;

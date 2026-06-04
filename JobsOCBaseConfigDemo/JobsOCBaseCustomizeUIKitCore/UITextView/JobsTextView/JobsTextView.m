@@ -7,6 +7,8 @@
 
 #import "JobsTextView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsTextView()
 /// UI
 Prop_strong()UILabel *countLabel;

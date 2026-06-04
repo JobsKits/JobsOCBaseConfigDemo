@@ -7,6 +7,8 @@
 
 #import "JobsCommentVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsCommentVC ()
 
 Prop_strong()UIButton *contactCustomerServiceBtn;// 联系客服按钮

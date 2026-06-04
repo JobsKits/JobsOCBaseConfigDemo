@@ -7,6 +7,8 @@
 
 #import "JobsTabBarItem.h"
 
+#import "DefineProperty.h"
+
 @interface JobsTabBarItem ()
 
 Prop_strong()JobsTabBarItemConfig *tabBarControllerConfig;

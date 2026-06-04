@@ -8,6 +8,8 @@
 
 #import "JobsAppDoorInputViewBaseStyle_4.h"
 
+#import "DefineProperty.h"
+
 @interface JobsAppDoorInputViewBaseStyle_4 ()
 /// UI
 Prop_strong()ImageCodeView *imageCodeView;

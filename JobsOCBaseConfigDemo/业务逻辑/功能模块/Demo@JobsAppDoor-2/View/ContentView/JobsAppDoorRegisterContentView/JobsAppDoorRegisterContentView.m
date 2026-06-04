@@ -10,6 +10,8 @@
 
 @class JobsAppDoorDoorInputViewBaseStyle;
 
+#import "DefineProperty.h"
+
 @interface JobsAppDoorRegisterContentView ()
 /// UI
 Prop_strong()BaseButton *backToLoginBtn;/// 返回登录

@@ -7,6 +7,8 @@
 
 #import "BaiShaETProjCollectionHeaderView.h"
 
+#import "DefineProperty.h"
+
 @interface BaiShaETProjCollectionHeaderView ()
 /// UI
 Prop_strong()UIButton *userHeaderBtn;
@@ -17,7 +19,6 @@ Prop_strong()JobsAnimationLabel *animationLab;
 /// Data
 Prop_strong()NSMutableArray <NSString *>*richTextMutArr;
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
-
 Prop_strong()NSMutableArray <NSMutableArray <NSString *>*>*richTextMutArr2;
 Prop_strong()NSMutableArray <NSMutableArray <JobsRichTextConfig *>*>*richTextConfigMutArr2;
 

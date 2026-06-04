@@ -7,6 +7,8 @@
 
 #import "BaiShaETProjPopupView10.h"
 
+#import "DefineProperty.h"
+
 @interface BaiShaETProjPopupView10 ()
 /// UI
 Prop_strong()UILabel *titleLab;

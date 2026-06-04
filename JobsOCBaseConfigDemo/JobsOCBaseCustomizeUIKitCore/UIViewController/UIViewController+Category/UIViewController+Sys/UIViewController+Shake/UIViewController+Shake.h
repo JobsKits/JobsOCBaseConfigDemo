@@ -14,6 +14,7 @@
 #import "JobsBlock.h"
 #import "NSObject+Shake.h"
 
+#import "DefineProperty.h"
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>
 #else

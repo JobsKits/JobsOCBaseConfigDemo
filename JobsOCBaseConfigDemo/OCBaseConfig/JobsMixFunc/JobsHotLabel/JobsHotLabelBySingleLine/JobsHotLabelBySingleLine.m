@@ -7,6 +7,8 @@
 
 #import "JobsHotLabelBySingleLine.h"
 
+#import "DefineProperty.h"
+
 @interface JobsHotLabelBySingleLine (){
     CGSize btnSize;
     CGFloat width;

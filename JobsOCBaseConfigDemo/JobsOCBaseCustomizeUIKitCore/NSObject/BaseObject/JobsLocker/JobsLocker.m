@@ -7,6 +7,8 @@
 
 #import "JobsLocker.h"
 
+#import "DefineProperty.h"
+
 @interface JobsLocker (){
     pthread_mutex_t _mutex;/// 高性能。更适合需要精细控制的场景。
 }

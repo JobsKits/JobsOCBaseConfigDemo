@@ -7,6 +7,8 @@
 
 #import "JobsShareView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsShareView ()
 /// UI
 Prop_strong()BaseButton *cancelBtn;

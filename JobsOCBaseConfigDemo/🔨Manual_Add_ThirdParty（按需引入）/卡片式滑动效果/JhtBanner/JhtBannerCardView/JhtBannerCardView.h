@@ -12,12 +12,15 @@
 #import <UIKit/UIKit.h>
 
 /// banner cardView（单张卡片）
+
+#import "DefineProperty.h"
+
 @interface JhtBannerCardView : UIView
 /// 图片
-@property(nonatomic,strong,nullable)UIImageView *cardImageView;
-@property(nonatomic,strong,nullable)UILabel *cardLab;
+Prop_strong(nullable)UIImageView *cardImageView;
+Prop_strong(nullable)UILabel *cardLab;
 /// 蒙板 View（覆盖在cardImageView上）
-@property(nonatomic,strong,nullable)UIView *coverView;
+Prop_strong(nullable)UIView *coverView;
 
 +(JobsReturnJhtBannerCardViewByFrame _Nonnull)initByFrame;
 

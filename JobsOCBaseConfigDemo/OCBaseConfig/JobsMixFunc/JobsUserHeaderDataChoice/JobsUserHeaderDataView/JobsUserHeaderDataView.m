@@ -7,6 +7,8 @@
 
 #import "JobsUserHeaderDataView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsUserHeaderDataView ()
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;

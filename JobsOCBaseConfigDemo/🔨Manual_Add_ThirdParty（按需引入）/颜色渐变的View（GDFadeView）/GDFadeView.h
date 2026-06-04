@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 
+#import "DefineProperty.h"
+
 @interface GDFadeView : UIView
 
-@property(nonatomic,copy,nullable)NSString *text;
+Prop_copy(nullable)NSString *text;
 Prop_assign()NSTextAlignment alignment;
-@property(nonatomic,strong,nullable)UIColor *backColor;
-@property(nonatomic,strong,nullable)UIColor *foreColor;
-@property(nonatomic,strong,nullable)UIFont *font;
+Prop_strong(nullable)UIColor *backColor;
+Prop_strong(nullable)UIColor *foreColor;
+Prop_strong(nullable)UIFont *font;
 
 -(JobsRetViewByTimeIntervalBlock _Nonnull)iPhoneFadeWithDuration;
 

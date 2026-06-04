@@ -7,6 +7,8 @@
 
 #import "JobsImageNumberView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsImageNumberView ()
 /// Data
 Prop_strong()NSArray <UIImage *>*dataMutArr;

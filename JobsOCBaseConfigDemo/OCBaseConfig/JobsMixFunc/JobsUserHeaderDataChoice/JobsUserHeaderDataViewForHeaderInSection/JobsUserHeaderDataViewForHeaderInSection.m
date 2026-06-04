@@ -7,6 +7,8 @@
 
 #import "JobsUserHeaderDataViewForHeaderInSection.h"
 
+#import "DefineProperty.h"
+
 @interface JobsUserHeaderDataViewForHeaderInSection ()
 
 Prop_strong()UILabel *titleLab;

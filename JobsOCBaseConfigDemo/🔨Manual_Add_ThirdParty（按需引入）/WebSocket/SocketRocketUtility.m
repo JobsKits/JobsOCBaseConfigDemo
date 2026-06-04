@@ -8,6 +8,8 @@
 
 #import "SocketRocketUtility.h"
 
+#import "DefineProperty.h"
+
 @interface SocketRocketUtility(){
     NSTimeInterval reConnectTime;
 }

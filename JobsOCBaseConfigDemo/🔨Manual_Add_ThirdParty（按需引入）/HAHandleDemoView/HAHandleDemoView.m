@@ -12,6 +12,8 @@ static const NSTimeInterval duration = 1.f;
 static const NSTimeInterval enlangerDuration = 0.05f;
 static const NSTimeInterval shrinkDuration = 0.1f;
 
+#import "DefineProperty.h"
+
 @interface HAHandleDemoView ()
 
 Prop_strong()UIButton *handleDemoBtn;

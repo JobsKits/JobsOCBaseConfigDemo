@@ -32,6 +32,8 @@ typedef NS_ENUM(NSInteger, NotifiViewState) {
 #define kNotifiViewKey @"key"
 #define kNotifiViewContent @"content"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NotifiView : UIView
@@ -39,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_assign()NotifiViewState state;
 Prop_assign()BOOL canAddtionTime;
 Prop_assign()NSTimeInterval duration;
-@property(nonatomic,readonly,strong) NSDictionary* data;  // @{@"key":@"xxx", @"data" : {NSDictionary class]}
+Prop_strong(readonly)NSDictionary* data;  // @{@"key":@"xxx", @"data" : {NSDictionary class]}
 Prop_copy()NSString* key;    ///当前可用的key值，  不能重复
 
 - (void)updateWithData:(NSDictionary*)data

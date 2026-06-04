@@ -7,6 +7,8 @@
 
 #import "JobsIMShowVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsIMShowVC ()
 
 Prop_strong()BaseButton *shareBtn;

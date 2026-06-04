@@ -7,6 +7,8 @@
 
 #import "JobsScrollYView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsScrollYView ()
 
 Prop_assign()CGPoint initialTouchPoint;

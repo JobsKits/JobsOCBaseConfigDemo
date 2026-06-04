@@ -7,6 +7,8 @@
 
 #import "JobsViewNavigator.h"
 
+#import "DefineProperty.h"
+
 @interface JobsViewNavigator ()
 
 Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;

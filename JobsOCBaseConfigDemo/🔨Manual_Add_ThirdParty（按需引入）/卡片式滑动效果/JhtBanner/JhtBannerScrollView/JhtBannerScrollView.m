@@ -11,6 +11,8 @@
 
 #import "JhtBannerScrollView.h"
 
+#import "DefineProperty.h"
+
 @interface JhtBannerScrollView () {
     NSTimer *_bannerTimer;
     NSInteger _timerPageIndex;

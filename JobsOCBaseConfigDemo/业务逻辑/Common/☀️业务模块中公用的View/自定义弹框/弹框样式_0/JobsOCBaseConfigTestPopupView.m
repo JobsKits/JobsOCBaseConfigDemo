@@ -7,6 +7,8 @@
 
 #import "JobsOCBaseConfigTestPopupView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsOCBaseConfigTestPopupView ()
 /// UI
 Prop_strong()BaseButton *containerView;

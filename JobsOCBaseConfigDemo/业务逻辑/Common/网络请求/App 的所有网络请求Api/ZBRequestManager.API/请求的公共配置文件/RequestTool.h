@@ -16,6 +16,7 @@
 #import "NSMutableArray+Extra.h"
 #import "NSMutableDictionary+Extra.h"
 
+#import "DefineProperty.h"
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFNetworking.h>
 #elif __has_include("AFNetworking.h")

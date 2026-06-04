@@ -7,6 +7,8 @@
 
 #import "JobsWelcomeVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsWelcomeVC ()
 // UI
 Prop_strong()UIPageControl *pageControl;

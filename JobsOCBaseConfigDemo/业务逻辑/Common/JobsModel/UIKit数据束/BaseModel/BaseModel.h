@@ -9,6 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import "DefineProperty.h"
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>
 #else

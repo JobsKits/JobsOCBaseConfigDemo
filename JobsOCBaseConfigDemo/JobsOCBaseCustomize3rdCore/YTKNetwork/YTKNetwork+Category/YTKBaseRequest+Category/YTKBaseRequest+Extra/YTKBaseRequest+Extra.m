@@ -7,6 +7,8 @@
 
 #import "YTKBaseRequest+Extra.h"
 
+#import "DefineProperty.h"
+
 @implementation YTKBaseRequest (Extra)
 YTKCustomBaseRequestProtocol_dynamic
 -(NSMutableURLRequest *)jobsMakeRequestByBlock:(jobsByMutableURLRequestBlock _Nullable)block{

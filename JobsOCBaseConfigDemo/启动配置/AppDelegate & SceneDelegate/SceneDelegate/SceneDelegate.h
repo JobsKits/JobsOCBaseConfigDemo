@@ -15,6 +15,8 @@ API_AVAILABLE(ios(13.0))
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability-new"
 
+#import "DefineProperty.h"
+
 @interface SceneDelegate : UIResponder <UIWindowSceneDelegate>
 
 Prop_strong()UIWindow *window;

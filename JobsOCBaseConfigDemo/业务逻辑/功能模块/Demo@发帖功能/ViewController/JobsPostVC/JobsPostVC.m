@@ -7,6 +7,8 @@
 
 #import "JobsPostVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsPostVC (){
     CGFloat JobsPostDelViewHeight;
 }

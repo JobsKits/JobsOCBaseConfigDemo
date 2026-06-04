@@ -54,10 +54,12 @@
 		04D49C192EBC5CD500BCD6F1 /* ASEditableTextNode+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D49C182EBC5CD500BCD6F1 /* ASEditableTextNode+DSL.m */; };
 		04D49C1D2EBC619B00BCD6F1 /* ASCollectionNode+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D49C1C2EBC619B00BCD6F1 /* ASCollectionNode+DSL.m */; };
 		04D49C212EBC7E6800BCD6F1 /* ASNetworkImageNode+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D49C202EBC7E6800BCD6F1 /* ASNetworkImageNode+DSL.m */; };
+		04D49C222EBC7E6800BCD6F1 /* BRStringPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D49C242EBC7E6800BCD6F1 /* BRStringPickerView.m */; };
+		04D49C252EBC8B2A00BCD6F1 /* JobsRecordPresentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D49C272EBC8B2A00BCD6F1 /* JobsRecordPresentedViewController.m */; };
 		04E822542EE1237F00570A4C /* JobsTabBarCtrlDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E822532EE1237F00570A4C /* JobsTabBarCtrlDemoVC.m */; };
 		04E8225D2EE13A4C00570A4C /* YTKRequest+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E8225C2EE13A4C00570A4C /* YTKRequest+Extra.m */; };
-		5A5A25AAF79665ED9CC62AB8 /* JobsLocalNotificationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A6D9B8BA97442D7B30919318 /* JobsLocalNotificationModel.m */; };
-		5B5B5722EB764350547343D6 /* GTCaptcha4ResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7FE7B9A30D085BB67A6CD4 /* GTCaptcha4ResultModel.m */; };
+		5A5A25AAF79665ED9CC62AB8 /* JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/Json处理/JobsLocalNotificationModel/JobsLocalNotificationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A6D9B8BA97442D7B30919318 /* JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/Json处理/JobsLocalNotificationModel/JobsLocalNotificationModel.m */; };
+		5B5B5722EB764350547343D6 /* JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/3rd/GTCaptcha4ResultModel/GTCaptcha4ResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7FE7B9A30D085BB67A6CD4 /* JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/3rd/GTCaptcha4ResultModel/GTCaptcha4ResultModel.m */; };
 		8A41B52D164FA190EEBBD662 /* Pods_JobsOCBaseConfigDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC55DE57AB3F4D7765115D7 /* Pods_JobsOCBaseConfigDemo.framework */; };
 		C52A92D02F34AFD5009D1766 /* UIButton+FillColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C52A92CF2F34AFD5009D1766 /* UIButton+FillColor.m */; };
 		C53BE3BD2E265E54004A72BE /* NativeWebViewPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = C53BE3BC2E265E54004A72BE /* NativeWebViewPlugin.m */; };
@@ -1162,7 +1164,6 @@
 		C55C8EC82E167B6F00B56985 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C55C88E72E167B6800B56985 /* libstdc++.dylib */; };
 		C55C8EC92E167B6F00B56985 /* image-20240430112026271.png in Resources */ = {isa = PBXBuildFile; fileRef = C55C88E92E167B6800B56985 /* image-20240430112026271.png */; };
 		C55C8ECE2E167B6F00B56985 /* libarclite_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C55C88EF2E167B6800B56985 /* libarclite_iphonesimulator.a */; };
-		C55C8ED22E167B6F00B56985 /* BRStringPickerView+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C88F62E167B6800B56985 /* BRStringPickerView+Extra.m */; };
 		C55C8ED32E167B6F00B56985 /* MGSwipeTableCell+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C88FB2E167B6800B56985 /* MGSwipeTableCell+Extra.m */; };
 		C55C8ED42E167B6F00B56985 /* MJRefreshStateHeader+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C88FE2E167B6800B56985 /* MJRefreshStateHeader+Extra.m */; };
 		C55C8ED52E167B6F00B56985 /* MJRefreshBackStateFooter+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C89022E167B6800B56985 /* MJRefreshBackStateFooter+Extra.m */; };
@@ -1185,8 +1186,9 @@
 		C55C8EE62E167B6F00B56985 /* FSCalendar+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C89372E167B6800B56985 /* FSCalendar+Extra.m */; };
 		C55C8EE72E167B6F00B56985 /* HXPhotoManager+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C893B2E167B6800B56985 /* HXPhotoManager+Extra.m */; };
 		C55C8EE82E167B6F00B56985 /* HXPhotoView+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C893D2E167B6800B56985 /* HXPhotoView+Extra.m */; };
+		C5D8AAFD2FD1859D00F6BFCA /* BRStringPickerView+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D8AAFB2FD1859D00F6BFCA /* BRStringPickerView+Extra.m */; };
 		C5DBF4F62E16C05B00032B4B /* ZFIJKPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DBF4F52E16C05A00032B4B /* ZFIJKPlayerManager.m */; };
-		E2DB687B074955BE861DEB9D /* JobsNetworkSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B554155B3E0C817389916667 /* JobsNetworkSource.m */; };
+		E2DB687B074955BE861DEB9D /* JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/UIKit数据束/JobsNetworkSource/JobsNetworkSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B554155B3E0C817389916667 /* JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/UIKit数据束/JobsNetworkSource/JobsNetworkSource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1300,6 +1302,10 @@
 		04D49C1C2EBC619B00BCD6F1 /* ASCollectionNode+DSL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ASCollectionNode+DSL.m"; sourceTree = "<group>"; };
 		04D49C1F2EBC7E6800BCD6F1 /* ASNetworkImageNode+DSL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ASNetworkImageNode+DSL.h"; sourceTree = "<group>"; };
 		04D49C202EBC7E6800BCD6F1 /* ASNetworkImageNode+DSL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ASNetworkImageNode+DSL.m"; sourceTree = "<group>"; };
+		04D49C232EBC7E6800BCD6F1 /* BRStringPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRStringPickerView.h; sourceTree = "<group>"; };
+		04D49C242EBC7E6800BCD6F1 /* BRStringPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRStringPickerView.m; sourceTree = "<group>"; };
+		04D49C262EBC8B2A00BCD6F1 /* JobsRecordPresentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsRecordPresentedViewController.h; sourceTree = "<group>"; };
+		04D49C272EBC8B2A00BCD6F1 /* JobsRecordPresentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsRecordPresentedViewController.m; sourceTree = "<group>"; };
 		04D731DB2ECEC1DE00AB4153 /* TimerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimerProtocol.h; sourceTree = "<group>"; };
 		04E822522EE1237F00570A4C /* JobsTabBarCtrlDemoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsTabBarCtrlDemoVC.h; sourceTree = "<group>"; };
 		04E822532EE1237F00570A4C /* JobsTabBarCtrlDemoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsTabBarCtrlDemoVC.m; sourceTree = "<group>"; };
@@ -1309,8 +1315,8 @@
 		4E92973EEDD4C9DE1186165F /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.debug.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		9BC55DE57AB3F4D7765115D7 /* Pods_JobsOCBaseConfigDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JobsOCBaseConfigDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4E1E2BC3C4765C092CA5301 /* Pods-JobsOCBaseConfigDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.release.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.release.xcconfig"; sourceTree = "<group>"; };
-		A6D9B8BA97442D7B30919318 /* JobsLocalNotificationModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/Json处理/JobsLocalNotificationModel/JobsLocalNotificationModel.m"; sourceTree = SOURCE_ROOT; };
-		B554155B3E0C817389916667 /* JobsNetworkSource.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/UIKit数据束/JobsNetworkSource/JobsNetworkSource.m"; sourceTree = SOURCE_ROOT; };
+		A6D9B8BA97442D7B30919318 /* JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/Json处理/JobsLocalNotificationModel/JobsLocalNotificationModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/Json处理/JobsLocalNotificationModel/JobsLocalNotificationModel.m"; sourceTree = SOURCE_ROOT; };
+		B554155B3E0C817389916667 /* JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/UIKit数据束/JobsNetworkSource/JobsNetworkSource.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/UIKit数据束/JobsNetworkSource/JobsNetworkSource.m"; sourceTree = SOURCE_ROOT; };
 		C52A92CE2F34AFD5009D1766 /* UIButton+FillColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+FillColor.h"; sourceTree = "<group>"; };
 		C52A92CF2F34AFD5009D1766 /* UIButton+FillColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+FillColor.m"; sourceTree = "<group>"; };
 		C53BE3BA2E265E39004A72BE /* JobsOCBaseConfigDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JobsOCBaseConfigDemo-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1454,10 +1460,10 @@
 		C55C7AEE2E167B5D00B56985 /* JobsSearchTBVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsSearchTBVCell.h; sourceTree = "<group>"; };
 		C55C7AEF2E167B5D00B56985 /* JobsSearchTBVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsSearchTBVCell.m; sourceTree = "<group>"; };
 		C55C7AF12E167B5D00B56985 /* JobsSearchShowHistoryDataTBVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsSearchShowHistoryDataTBVCell.h; sourceTree = "<group>"; };
-		C55C7AF22E167B5D00B56985 /* JobsSearchShowHistoryDataTBVCell.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsSearchShowHistoryDataTBVCell.md; sourceTree = "<group>"; };
+		C55C7AF22E167B5D00B56985 /* JobsSearchShowHistoryDataTBVCell.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsSearchShowHistoryDataTBVCell.md/README.md; sourceTree = "<group>"; };
 		C55C7AF32E167B5D00B56985 /* JobsSearchShowHistoryDataTBVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsSearchShowHistoryDataTBVCell.m; sourceTree = "<group>"; };
 		C55C7AF52E167B5D00B56985 /* JobsSearchResultDataListTBVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsSearchResultDataListTBVCell.m; sourceTree = "<group>"; };
-		C55C7AF62E167B5D00B56985 /* JobsSearchResultDataListTBVCell.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsSearchResultDataListTBVCell.md; sourceTree = "<group>"; };
+		C55C7AF62E167B5D00B56985 /* JobsSearchResultDataListTBVCell.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsSearchResultDataListTBVCell.md/README.md; sourceTree = "<group>"; };
 		C55C7AF72E167B5D00B56985 /* JobsSearchResultDataListTBVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsSearchResultDataListTBVCell.h; sourceTree = "<group>"; };
 		C55C7AF92E167B5D00B56985 /* JobsSearchTableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsSearchTableViewHeaderView.m; sourceTree = "<group>"; };
 		C55C7AFA2E167B5D00B56985 /* JobsSearchTableViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsSearchTableViewHeaderView.h; sourceTree = "<group>"; };
@@ -1469,7 +1475,7 @@
 		C55C7B092E167B5D00B56985 /* ProtocolKitVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProtocolKitVC.m; sourceTree = "<group>"; };
 		C55C7B0C2E167B5D00B56985 /* PKProtocolExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKProtocolExtension.m; sourceTree = "<group>"; };
 		C55C7B0D2E167B5D00B56985 /* PKProtocolExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKProtocolExtension.h; sourceTree = "<group>"; };
-		C55C7B0E2E167B5D00B56985 /* ProtocolKit.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ProtocolKit.md; sourceTree = "<group>"; };
+		C55C7B0E2E167B5D00B56985 /* ProtocolKit.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ProtocolKit.md/README.md; sourceTree = "<group>"; };
 		C55C7B0F2E167B5D00B56985 /* ProtocolKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolKit.h; sourceTree = "<group>"; };
 		C55C7B112E167B5D00B56985 /* PKProtocolExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKProtocolExtension.m; sourceTree = "<group>"; };
 		C55C7B122E167B5D00B56985 /* PKProtocolExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKProtocolExtension.h; sourceTree = "<group>"; };
@@ -1495,7 +1501,7 @@
 		C55C7B322E167B5D00B56985 /* 2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpeg; sourceTree = "<group>"; };
 		C55C7B332E167B5D00B56985 /* 3.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpeg; sourceTree = "<group>"; };
 		C55C7B352E167B5D00B56985 /* GXCardViewDemoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXCardViewDemoVC.m; sourceTree = "<group>"; };
-		C55C7B362E167B5D00B56985 /* 有问题.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "有问题.md"; sourceTree = "<group>"; };
+		C55C7B362E167B5D00B56985 /* 有问题.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "有问题.md/README.md"; sourceTree = "<group>"; };
 		C55C7B372E167B5D00B56985 /* GXCardViewDemoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCardViewDemoVC.h; sourceTree = "<group>"; };
 		C55C7B3E2E167B5D00B56985 /* CalendarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarVC.h; sourceTree = "<group>"; };
 		C55C7B402E167B5D00B56985 /* CalendarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarVC.m; sourceTree = "<group>"; };
@@ -1589,7 +1595,7 @@
 		C55C7C0A2E167B5E00B56985 /* JobsExcelConfigureViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsExcelConfigureViewModel.h; sourceTree = "<group>"; };
 		C55C7C0E2E167B5E00B56985 /* JobsExcelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsExcelView.m; sourceTree = "<group>"; };
 		C55C7C0F2E167B5E00B56985 /* JobsExcelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsExcelView.h; sourceTree = "<group>"; };
-		C55C7C102E167B5E00B56985 /* JobsExcelView的使用.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "JobsExcelView的使用.md"; sourceTree = "<group>"; };
+		C55C7C102E167B5E00B56985 /* JobsExcelView的使用.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "JobsExcelView的使用.md/README.md"; sourceTree = "<group>"; };
 		C55C7C122E167B5E00B56985 /* JobsExcelTopHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsExcelTopHeadView.m; sourceTree = "<group>"; };
 		C55C7C132E167B5E00B56985 /* JobsExcelTopHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsExcelTopHeadView.h; sourceTree = "<group>"; };
 		C55C7C172E167B5E00B56985 /* TableViewOneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewOneCell.m; sourceTree = "<group>"; };
@@ -1691,24 +1697,24 @@
 		C55C7CC42E167B5E00B56985 /* TestIrregularViewTestVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestIrregularViewTestVC.m; sourceTree = "<group>"; };
 		C55C7CC82E167B5E00B56985 /* VideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoModel.m; sourceTree = "<group>"; };
 		C55C7CC92E167B5E00B56985 /* VideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoModel.h; sourceTree = "<group>"; };
-		C55C7CCC2E167B5E00B56985 /* 原作者的.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "原作者的.md"; sourceTree = "<group>"; };
+		C55C7CCC2E167B5E00B56985 /* 原作者的.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "原作者的.md/README.md"; sourceTree = "<group>"; };
 		C55C7CCD2E167B5E00B56985 /* ZFDouYinControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFDouYinControlView.h; sourceTree = "<group>"; };
 		C55C7CCE2E167B5E00B56985 /* ZFDouYinControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFDouYinControlView.m; sourceTree = "<group>"; };
 		C55C7CD02E167B5E00B56985 /* JobsRightBtnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsRightBtnsView.m; sourceTree = "<group>"; };
-		C55C7CD12E167B5E00B56985 /* For_Douyin_ZFPlayerVC_2.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = For_Douyin_ZFPlayerVC_2.md; sourceTree = "<group>"; };
+		C55C7CD12E167B5E00B56985 /* For_Douyin_ZFPlayerVC_2.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = For_Douyin_ZFPlayerVC_2.md/README.md; sourceTree = "<group>"; };
 		C55C7CD22E167B5E00B56985 /* JobsRightBtnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsRightBtnsView.h; sourceTree = "<group>"; };
 		C55C7CD42E167B5E00B56985 /* JobsPlayerTBVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsPlayerTBVCell.m; sourceTree = "<group>"; };
-		C55C7CD52E167B5E00B56985 /* For_Douyin_ZFPlayerVC_1.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = For_Douyin_ZFPlayerVC_1.md; sourceTree = "<group>"; };
+		C55C7CD52E167B5E00B56985 /* For_Douyin_ZFPlayerVC_1.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = For_Douyin_ZFPlayerVC_1.md/README.md; sourceTree = "<group>"; };
 		C55C7CD62E167B5E00B56985 /* JobsPlayerTBVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsPlayerTBVCell.h; sourceTree = "<group>"; };
 		C55C7CD82E167B5E00B56985 /* JobsVideoTBVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsVideoTBVCell.m; sourceTree = "<group>"; };
-		C55C7CD92E167B5E00B56985 /* For_Douyin_ZFPlayerVC_2.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = For_Douyin_ZFPlayerVC_2.md; sourceTree = "<group>"; };
+		C55C7CD92E167B5E00B56985 /* For_Douyin_ZFPlayerVC_2.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = For_Douyin_ZFPlayerVC_2.md/README.md; sourceTree = "<group>"; };
 		C55C7CDA2E167B5F00B56985 /* JobsVideoTBVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsVideoTBVCell.h; sourceTree = "<group>"; };
 		C55C7CDD2E167B5F00B56985 /* Douyin_ZFPlayerVC@2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Douyin_ZFPlayerVC@2.h"; sourceTree = "<group>"; };
 		C55C7CDE2E167B5F00B56985 /* Douyin_ZFPlayerVC@2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Douyin_ZFPlayerVC@2.m"; sourceTree = "<group>"; };
 		C55C7CE02E167B5F00B56985 /* Douyin_ZFPlayerVC@1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Douyin_ZFPlayerVC@1.h"; sourceTree = "<group>"; };
 		C55C7CE12E167B5F00B56985 /* Douyin_ZFPlayerVC@1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Douyin_ZFPlayerVC@1.m"; sourceTree = "<group>"; };
 		C55C7CE32E167B5F00B56985 /* JobsEmptyDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsEmptyDataView.h; sourceTree = "<group>"; };
-		C55C7CE42E167B5F00B56985 /* JobsEmptyDataView.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsEmptyDataView.md; sourceTree = "<group>"; };
+		C55C7CE42E167B5F00B56985 /* JobsEmptyDataView.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsEmptyDataView.md/README.md; sourceTree = "<group>"; };
 		C55C7CE62E167B5F00B56985 /* UICollectionView+EmptyData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+EmptyData.m"; sourceTree = "<group>"; };
 		C55C7CE72E167B5F00B56985 /* UICollectionView+EmptyData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+EmptyData.h"; sourceTree = "<group>"; };
 		C55C7CE92E167B5F00B56985 /* UITableView+EmptyData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+EmptyData.h"; sourceTree = "<group>"; };
@@ -1816,10 +1822,10 @@
 		C55C7DB02E167B5F00B56985 /* JobsCommentTitleHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsCommentTitleHeaderView.h; sourceTree = "<group>"; };
 		C55C7DB32E167B5F00B56985 /* JobsPopUpVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsPopUpVC.m; sourceTree = "<group>"; };
 		C55C7DB42E167B5F00B56985 /* JobsPopUpVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsPopUpVC.h; sourceTree = "<group>"; };
-		C55C7DB52E167B5F00B56985 /* PopUpVC.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PopUpVC.md; sourceTree = "<group>"; };
+		C55C7DB52E167B5F00B56985 /* PopUpVC.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PopUpVC.md/README.md; sourceTree = "<group>"; };
 		C55C7DB72E167B5F00B56985 /* JobsCommentCoreVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsCommentCoreVC.h; sourceTree = "<group>"; };
 		C55C7DB82E167B5F00B56985 /* JobsCommentCoreVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsCommentCoreVC.m; sourceTree = "<group>"; };
-		C55C7DB92E167B5F00B56985 /* JobsComment.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsComment.md; sourceTree = "<group>"; };
+		C55C7DB92E167B5F00B56985 /* JobsComment.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsComment.md/README.md; sourceTree = "<group>"; };
 		C55C7DBA2E167B5F00B56985 /* JobsCommentCoreHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsCommentCoreHeader.h; sourceTree = "<group>"; };
 		C55C7DC22E167B5F00B56985 /* JobsVerticalMenuDefineHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsVerticalMenuDefineHeader.h; sourceTree = "<group>"; };
 		C55C7DC52E167B5F00B56985 /* GoodsClassModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsClassModel.m; sourceTree = "<group>"; };
@@ -1878,7 +1884,7 @@
 		C55C7E1E2E167B5F00B56985 /* JobsIMInputview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsIMInputview.h; sourceTree = "<group>"; };
 		C55C7E202E167B5F00B56985 /* JobsIMChatInfoTBVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsIMChatInfoTBVCell.h; sourceTree = "<group>"; };
 		C55C7E212E167B5F00B56985 /* JobsIMChatInfoTBVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsIMChatInfoTBVCell.m; sourceTree = "<group>"; };
-		C55C7E222E167B5F00B56985 /* JobsIMCore.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsIMCore.md; sourceTree = "<group>"; };
+		C55C7E222E167B5F00B56985 /* JobsIMCore.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsIMCore.md/README.md; sourceTree = "<group>"; };
 		C55C7E242E167B5F00B56985 /* JobsIMVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsIMVC.h; sourceTree = "<group>"; };
 		C55C7E252E167B5F00B56985 /* JobsIMVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsIMVC.m; sourceTree = "<group>"; };
 		C55C7E292E167B5F00B56985 /* Drop@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Drop@3x.png"; sourceTree = "<group>"; };
@@ -1905,7 +1911,7 @@
 		C55C7E4F2E167B6000B56985 /* JobsIMListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsIMListView.h; sourceTree = "<group>"; };
 		C55C7E512E167B6000B56985 /* JobsIMListTBVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsIMListTBVCell.m; sourceTree = "<group>"; };
 		C55C7E522E167B6000B56985 /* JobsIMListTBVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsIMListTBVCell.h; sourceTree = "<group>"; };
-		C55C7E532E167B6000B56985 /* JobsIMListView.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsIMListView.md; sourceTree = "<group>"; };
+		C55C7E532E167B6000B56985 /* JobsIMListView.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsIMListView.md/README.md; sourceTree = "<group>"; };
 		C55C7E542E167B6000B56985 /* JobsIMComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsIMComponent.h; sourceTree = "<group>"; };
 		C55C7E552E167B6000B56985 /* JobsIMShowVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsIMShowVC.h; sourceTree = "<group>"; };
 		C55C7E592E167B6000B56985 /* NotifiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotifiManager.h; sourceTree = "<group>"; };
@@ -1936,7 +1942,7 @@
 		C55C7E842E167B6000B56985 /* AppDelegate+Func.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Func.h"; sourceTree = "<group>"; };
 		C55C7E852E167B6000B56985 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C55C7E872E167B6000B56985 /* Info.plist.bak */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Info.plist.bak; sourceTree = "<group>"; };
-		C55C7E882E167B6000B56985 /* 配置info.plist.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "配置info.plist.md"; sourceTree = "<group>"; };
+		C55C7E882E167B6000B56985 /* 配置info.plist.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "配置info.plist.md/README.md"; sourceTree = "<group>"; };
 		C55C7E892E167B6000B56985 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C55C7E8C2E167B6200B56985 /* NSTextCheckingResult+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextCheckingResult+Extra.m"; sourceTree = "<group>"; };
 		C55C7E8D2E167B6200B56985 /* NSTextCheckingResult+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTextCheckingResult+Extra.h"; sourceTree = "<group>"; };
@@ -2047,7 +2053,7 @@
 		C55C7F332E167B6200B56985 /* UIButton+UIButtonConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+UIButtonConfiguration.h"; sourceTree = "<group>"; };
 		C55C7F352E167B6200B56985 /* UIButton+TextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+TextView.m"; sourceTree = "<group>"; };
 		C55C7F362E167B6200B56985 /* UIButton+TextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+TextView.h"; sourceTree = "<group>"; };
-		C55C7F382E167B6200B56985 /* UIButton+UI.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "UIButton+UI.md"; sourceTree = "<group>"; };
+		C55C7F382E167B6200B56985 /* UIButton+UI.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "UIButton+UI.md/README.md"; sourceTree = "<group>"; };
 		C55C7F392E167B6200B56985 /* UIButton+UI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+UI.m"; sourceTree = "<group>"; };
 		C55C7F3A2E167B6200B56985 /* UIButton+UI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+UI.h"; sourceTree = "<group>"; };
 		C55C7F3C2E167B6200B56985 /* UIButton+SimplyMake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+SimplyMake.h"; sourceTree = "<group>"; };
@@ -2064,7 +2070,7 @@
 		C55C7F4C2E167B6200B56985 /* UIButton+SDWebImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+SDWebImage.h"; sourceTree = "<group>"; };
 		C55C7F4E2E167B6200B56985 /* UIButton+ImageTitleSpacing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ImageTitleSpacing.h"; sourceTree = "<group>"; };
 		C55C7F4F2E167B6200B56985 /* UIButton+ImageTitleSpacing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ImageTitleSpacing.m"; sourceTree = "<group>"; };
-		C55C7F502E167B6200B56985 /* UIButton+ImageTitleSpacing.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "UIButton+ImageTitleSpacing.md"; sourceTree = "<group>"; };
+		C55C7F502E167B6200B56985 /* UIButton+ImageTitleSpacing.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "UIButton+ImageTitleSpacing.md/README.md"; sourceTree = "<group>"; };
 		C55C7F532E167B6200B56985 /* UIButton+Timer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Timer.m"; sourceTree = "<group>"; };
 		C55C7F542E167B6200B56985 /* UIButton+Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Timer.h"; sourceTree = "<group>"; };
 		C55C7F572E167B6200B56985 /* RBCLikeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBCLikeButton.h; sourceTree = "<group>"; };
@@ -2171,7 +2177,7 @@
 		C55C7FF42E167B6200B56985 /* NSMutableDictionary+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+Extra.m"; sourceTree = "<group>"; };
 		C55C7FF52E167B6200B56985 /* NSMutableDictionary+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+Extra.h"; sourceTree = "<group>"; };
 		C55C7FF72E167B6200B56985 /* NSMutableDictionary+Ordered.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+Ordered.m"; sourceTree = "<group>"; };
-		C55C7FF82E167B6200B56985 /* 字典有序化.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "字典有序化.md"; sourceTree = "<group>"; };
+		C55C7FF82E167B6200B56985 /* 字典有序化.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "字典有序化.md/README.md"; sourceTree = "<group>"; };
 		C55C7FF92E167B6200B56985 /* NSMutableDictionary+Ordered.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+Ordered.h"; sourceTree = "<group>"; };
 		C55C7FFA2E167B6200B56985 /* JobsMutableDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsMutableDictionary.h; sourceTree = "<group>"; };
 		C55C7FFD2E167B6200B56985 /* WKWebView+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+Extra.m"; sourceTree = "<group>"; };
@@ -2202,7 +2208,7 @@
 		C55C80272E167B6200B56985 /* UICollectionView+Func.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+Func.h"; sourceTree = "<group>"; };
 		C55C80282E167B6200B56985 /* UICollectionView+Func.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Func.m"; sourceTree = "<group>"; };
 		C55C802A2E167B6200B56985 /* UICollectionView+JobsRegisterClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+JobsRegisterClass.m"; sourceTree = "<group>"; };
-		C55C802B2E167B6200B56985 /* UICollectionView+JobsRegisterClass.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "UICollectionView+JobsRegisterClass.md"; sourceTree = "<group>"; };
+		C55C802B2E167B6200B56985 /* UICollectionView+JobsRegisterClass.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "UICollectionView+JobsRegisterClass.md/README.md"; sourceTree = "<group>"; };
 		C55C802C2E167B6200B56985 /* UICollectionView+JobsRegisterClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+JobsRegisterClass.h"; sourceTree = "<group>"; };
 		C55C802E2E167B6200B56985 /* UICollectionView+RegistrationTracking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+RegistrationTracking.m"; sourceTree = "<group>"; };
 		C55C802F2E167B6200B56985 /* UICollectionView+RegistrationTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+RegistrationTracking.h"; sourceTree = "<group>"; };
@@ -2314,7 +2320,7 @@
 		C55C80D92E167B6200B56985 /* UIViewController+Masonry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Masonry.h"; sourceTree = "<group>"; };
 		C55C80DA2E167B6200B56985 /* UIViewController+Masonry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Masonry.m"; sourceTree = "<group>"; };
 		C55C80DC2E167B6200B56985 /* XLBubbleTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLBubbleTransition.h; sourceTree = "<group>"; };
-		C55C80DE2E167B6200B56985 /* UIViewController+XLBubbleTransition.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "UIViewController+XLBubbleTransition.md"; sourceTree = "<group>"; };
+		C55C80DE2E167B6200B56985 /* UIViewController+XLBubbleTransition.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "UIViewController+XLBubbleTransition.md/README.md"; sourceTree = "<group>"; };
 		C55C80DF2E167B6200B56985 /* UIViewController+XLBubbleTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+XLBubbleTransition.h"; sourceTree = "<group>"; };
 		C55C80E02E167B6200B56985 /* XLBubbleTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLBubbleTransition.m; sourceTree = "<group>"; };
 		C55C80E12E167B6200B56985 /* UIViewController+XLBubbleTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+XLBubbleTransition.m"; sourceTree = "<group>"; };
@@ -2380,17 +2386,17 @@
 		C55C81402E167B6300B56985 /* UITableView+RegisterClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+RegisterClass.h"; sourceTree = "<group>"; };
 		C55C81412E167B6300B56985 /* UITableView+RegisterClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+RegisterClass.m"; sourceTree = "<group>"; };
 		C55C81432E167B6300B56985 /* UITableView+WWFoldableTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+WWFoldableTableView.m"; sourceTree = "<group>"; };
-		C55C81442E167B6300B56985 /* UITableView+WWFoldableTableView.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "UITableView+WWFoldableTableView.md"; sourceTree = "<group>"; };
+		C55C81442E167B6300B56985 /* UITableView+WWFoldableTableView.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "UITableView+WWFoldableTableView.md/README.md"; sourceTree = "<group>"; };
 		C55C81452E167B6300B56985 /* UITableView+WWFoldableTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+WWFoldableTableView.h"; sourceTree = "<group>"; };
 		C55C81472E167B6300B56985 /* BaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableView.m; sourceTree = "<group>"; };
-		C55C81482E167B6300B56985 /* BaseTableView.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = BaseTableView.md; sourceTree = "<group>"; };
+		C55C81482E167B6300B56985 /* BaseTableView.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = BaseTableView.md/README.md; sourceTree = "<group>"; };
 		C55C81492E167B6300B56985 /* BaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableView.h; sourceTree = "<group>"; };
 		C55C814B2E167B6300B56985 /* NSPointerArray+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPointerArray+Extra.m"; sourceTree = "<group>"; };
 		C55C814C2E167B6300B56985 /* NSPointerArray+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPointerArray+Extra.h"; sourceTree = "<group>"; };
 		C55C814E2E167B6300B56985 /* PHFetchResult+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHFetchResult+Extra.h"; sourceTree = "<group>"; };
 		C55C814F2E167B6300B56985 /* PHFetchResult+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHFetchResult+Extra.m"; sourceTree = "<group>"; };
 		C55C81532E167B6300B56985 /* UIControl+XY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+XY.h"; sourceTree = "<group>"; };
-		C55C81542E167B6300B56985 /* UIControl+XY.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "UIControl+XY.md"; sourceTree = "<group>"; };
+		C55C81542E167B6300B56985 /* UIControl+XY.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "UIControl+XY.md/README.md"; sourceTree = "<group>"; };
 		C55C81552E167B6300B56985 /* UIControl+XY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+XY.m"; sourceTree = "<group>"; };
 		C55C81572E167B6300B56985 /* UIControl+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+Extra.m"; sourceTree = "<group>"; };
 		C55C81582E167B6300B56985 /* UIControl+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+Extra.h"; sourceTree = "<group>"; };
@@ -2436,12 +2442,12 @@
 		C55C819C2E167B6300B56985 /* NSMutableArray+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Extra.m"; sourceTree = "<group>"; };
 		C55C819D2E167B6300B56985 /* NSMutableArray+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Extra.h"; sourceTree = "<group>"; };
 		C55C81A12E167B6300B56985 /* HQCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HQCollectionViewFlowLayout.m; sourceTree = "<group>"; };
-		C55C81A22E167B6300B56985 /* HQCollectionViewFlowLayout.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = HQCollectionViewFlowLayout.md; sourceTree = "<group>"; };
+		C55C81A22E167B6300B56985 /* HQCollectionViewFlowLayout.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = HQCollectionViewFlowLayout.md/README.md; sourceTree = "<group>"; };
 		C55C81A32E167B6300B56985 /* HQCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HQCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		C55C81A52E167B6300B56985 /* LMHWaterFallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMHWaterFallLayout.h; sourceTree = "<group>"; };
-		C55C81A62E167B6300B56985 /* LMHWaterFallLayout.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LMHWaterFallLayout.md; sourceTree = "<group>"; };
+		C55C81A62E167B6300B56985 /* LMHWaterFallLayout.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LMHWaterFallLayout.md/README.md; sourceTree = "<group>"; };
 		C55C81A72E167B6300B56985 /* LMHWaterFallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMHWaterFallLayout.m; sourceTree = "<group>"; };
-		C55C81A92E167B6300B56985 /* KFZShopCatoryFlowLayput.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = KFZShopCatoryFlowLayput.md; sourceTree = "<group>"; };
+		C55C81A92E167B6300B56985 /* KFZShopCatoryFlowLayput.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = KFZShopCatoryFlowLayput.md/README.md; sourceTree = "<group>"; };
 		C55C81AA2E167B6300B56985 /* KFZShopCatoryFlowLayput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KFZShopCatoryFlowLayput.h; sourceTree = "<group>"; };
 		C55C81AB2E167B6300B56985 /* KFZShopCatoryFlowLayput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KFZShopCatoryFlowLayput.m; sourceTree = "<group>"; };
 		C55C81AD2E167B6300B56985 /* XZMLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XZMLayout.h; sourceTree = "<group>"; };
@@ -2449,7 +2455,7 @@
 		C55C81AF2E167B6300B56985 /* JobsCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		C55C81B12E167B6300B56985 /* UICollectionViewFlowLayout+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewFlowLayout+Extra.h"; sourceTree = "<group>"; };
 		C55C81B22E167B6300B56985 /* UICollectionViewFlowLayout+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewFlowLayout+Extra.m"; sourceTree = "<group>"; };
-		C55C81B32E167B6300B56985 /* UICollectionViewFlowLayout.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = UICollectionViewFlowLayout.md; sourceTree = "<group>"; };
+		C55C81B32E167B6300B56985 /* UICollectionViewFlowLayout.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = UICollectionViewFlowLayout.md/README.md; sourceTree = "<group>"; };
 		C55C81B52E167B6300B56985 /* JobsUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsUserDefaults.h; sourceTree = "<group>"; };
 		C55C81B62E167B6300B56985 /* JobsUserDefaultDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsUserDefaultDefine.h; sourceTree = "<group>"; };
 		C55C81B92E167B6300B56985 /* NSUserDefaults+Swizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Swizzle.h"; sourceTree = "<group>"; };
@@ -2485,11 +2491,11 @@
 		C55C81EA2E167B6300B56985 /* NSMutableAttributedString+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+Extra.m"; sourceTree = "<group>"; };
 		C55C81EC2E167B6300B56985 /* NSAttributedString+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Extra.m"; sourceTree = "<group>"; };
 		C55C81ED2E167B6300B56985 /* NSAttributedString+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Extra.h"; sourceTree = "<group>"; };
-		C55C81F02E167B6300B56985 /* BaseObject.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = BaseObject.md; sourceTree = "<group>"; };
+		C55C81F02E167B6300B56985 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C55C81F22E167B6300B56985 /* JobsLocker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsLocker.h; sourceTree = "<group>"; };
 		C55C81F32E167B6300B56985 /* JobsLocker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsLocker.m; sourceTree = "<group>"; };
 		C55C81F52E167B6300B56985 /* FileFolderHandleTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileFolderHandleTool.h; sourceTree = "<group>"; };
-		C55C81F62E167B6300B56985 /* FileFolderHandleTool.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = FileFolderHandleTool.md; sourceTree = "<group>"; };
+		C55C81F62E167B6300B56985 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C55C81F72E167B6300B56985 /* FileFolderHandleTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileFolderHandleTool.m; sourceTree = "<group>"; };
 		C55C81F92E167B6300B56985 /* JobsAppTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsAppTools.h; sourceTree = "<group>"; };
 		C55C81FA2E167B6300B56985 /* JobsAppTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsAppTools.m; sourceTree = "<group>"; };
@@ -2503,7 +2509,7 @@
 		C55C82182E167B6300B56985 /* JobsLanguageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsLanguageManager.m; sourceTree = "<group>"; };
 		C55C82192E167B6300B56985 /* JobsLanguageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsLanguageManager.h; sourceTree = "<group>"; };
 		C55C821B2E167B6300B56985 /* TouchID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchID.h; sourceTree = "<group>"; };
-		C55C821C2E167B6300B56985 /* TouchID.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = TouchID.md; sourceTree = "<group>"; };
+		C55C821C2E167B6300B56985 /* TouchID.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = TouchID.md/README.md; sourceTree = "<group>"; };
 		C55C821D2E167B6300B56985 /* TouchID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchID.m; sourceTree = "<group>"; };
 		C55C821F2E167B6300B56985 /* JobsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsModel.h; sourceTree = "<group>"; };
 		C55C82222E167B6300B56985 /* JobsParagraphStyleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsParagraphStyleModel.h; sourceTree = "<group>"; };
@@ -2590,7 +2596,7 @@
 		C55C82A32E167B6300B56985 /* This.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = This.m; sourceTree = "<group>"; };
 		C55C82A52E167B6300B56985 /* JobsMonitorNetwoking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsMonitorNetwoking.h; sourceTree = "<group>"; };
 		C55C82A62E167B6300B56985 /* JobsMonitorNetwoking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsMonitorNetwoking.m; sourceTree = "<group>"; };
-		C55C82A72E167B6300B56985 /* JobsMonitorNetwoking.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsMonitorNetwoking.md; sourceTree = "<group>"; };
+		C55C82A72E167B6300B56985 /* JobsMonitorNetwoking.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsMonitorNetwoking.md/README.md; sourceTree = "<group>"; };
 		C55C82A92E167B6300B56985 /* JobsSnowflake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsSnowflake.m; sourceTree = "<group>"; };
 		C55C82AA2E167B6300B56985 /* JobsSnowflake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsSnowflake.h; sourceTree = "<group>"; };
 		C55C82AC2E167B6300B56985 /* JobsOnceExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsOnceExecutor.h; sourceTree = "<group>"; };
@@ -2642,7 +2648,7 @@
 		C55C82F22E167B6300B56985 /* NSObject+Shake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Shake.m"; sourceTree = "<group>"; };
 		C55C82F42E167B6300B56985 /* NSObject+RegularExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+RegularExpression.h"; sourceTree = "<group>"; };
 		C55C82F52E167B6300B56985 /* NSObject+RegularExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+RegularExpression.m"; sourceTree = "<group>"; };
-		C55C82F72E167B6300B56985 /* 时间格式化.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "时间格式化.md"; sourceTree = "<group>"; };
+		C55C82F72E167B6300B56985 /* 时间格式化.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "时间格式化.md/README.md"; sourceTree = "<group>"; };
 		C55C82F82E167B6300B56985 /* NSObject+Time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Time.h"; sourceTree = "<group>"; };
 		C55C82F92E167B6300B56985 /* NSObject+Time.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Time.m"; sourceTree = "<group>"; };
 		C55C82FB2E167B6300B56985 /* NSObject+CurrentDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+CurrentDevice.h"; sourceTree = "<group>"; };
@@ -2673,7 +2679,7 @@
 		C55C83202E167B6300B56985 /* NSObject+ID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ID.h"; sourceTree = "<group>"; };
 		C55C83222E167B6300B56985 /* NSObject+DeviceID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DeviceID.h"; sourceTree = "<group>"; };
 		C55C83232E167B6300B56985 /* NSObject+DeviceID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DeviceID.m"; sourceTree = "<group>"; };
-		C55C83242E167B6300B56985 /* 获取iOS设备唯一标示.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "获取iOS设备唯一标示.md"; sourceTree = "<group>"; };
+		C55C83242E167B6300B56985 /* 获取iOS设备唯一标示.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "获取iOS设备唯一标示.md/README.md"; sourceTree = "<group>"; };
 		C55C83262E167B6300B56985 /* NSObject+IDFV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+IDFV.m"; sourceTree = "<group>"; };
 		C55C83272E167B6300B56985 /* NSObject+IDFV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+IDFV.h"; sourceTree = "<group>"; };
 		C55C83292E167B6300B56985 /* NSObject+RichText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+RichText.h"; sourceTree = "<group>"; };
@@ -2699,7 +2705,7 @@
 		C55C83462E167B6300B56985 /* NSObject+Path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Path.m"; sourceTree = "<group>"; };
 		C55C83482E167B6300B56985 /* NSObject+AppTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AppTools.m"; sourceTree = "<group>"; };
 		C55C83492E167B6300B56985 /* NSObject+AppTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AppTools.h"; sourceTree = "<group>"; };
-		C55C834A2E167B6300B56985 /* NSObject+AppTools.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "NSObject+AppTools.md"; sourceTree = "<group>"; };
+		C55C834A2E167B6300B56985 /* NSObject+AppTools.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "NSObject+AppTools.md/README.md"; sourceTree = "<group>"; };
 		C55C834C2E167B6300B56985 /* NSObject+BRPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BRPickerView.m"; sourceTree = "<group>"; };
 		C55C834D2E167B6300B56985 /* NSObject+BRPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+BRPickerView.h"; sourceTree = "<group>"; };
 		C55C834F2E167B6300B56985 /* NSObject+Algorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Algorithm.m"; sourceTree = "<group>"; };
@@ -2746,10 +2752,10 @@
 		C55C838D2E167B6300B56985 /* BaseViewControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewControllerProtocol.h; sourceTree = "<group>"; };
 		C55C838E2E167B6300B56985 /* BaseButtonProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseButtonProtocol.h; sourceTree = "<group>"; };
 		C55C838F2E167B6300B56985 /* BaseViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewProtocol.h; sourceTree = "<group>"; };
-		C55C83902E167B6300B56985 /* BaseProtocol.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = BaseProtocol.md; sourceTree = "<group>"; };
+		C55C83902E167B6300B56985 /* BaseProtocol.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = BaseProtocol.md/README.md; sourceTree = "<group>"; };
 		C55C83912E167B6300B56985 /* JobsBaseProtocolHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsBaseProtocolHeader.h; sourceTree = "<group>"; };
 		C55C83932E167B6300B56985 /* UNUserNotificationCenter+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UNUserNotificationCenter+Extra.h"; sourceTree = "<group>"; };
-		C55C83942E167B6300B56985 /* UNUserNotificationCenter.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = UNUserNotificationCenter.md; sourceTree = "<group>"; };
+		C55C83942E167B6300B56985 /* UNUserNotificationCenter.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = UNUserNotificationCenter.md/README.md; sourceTree = "<group>"; };
 		C55C83952E167B6300B56985 /* UNUserNotificationCenter+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UNUserNotificationCenter+Extra.m"; sourceTree = "<group>"; };
 		C55C83972E167B6300B56985 /* UIContextMenuInteraction+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIContextMenuInteraction+Extra.h"; sourceTree = "<group>"; };
 		C55C83982E167B6300B56985 /* UIContextMenuInteraction+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIContextMenuInteraction+Extra.m"; sourceTree = "<group>"; };
@@ -2785,56 +2791,56 @@
 		C55C83C82E167B6400B56985 /* NSMutableSet+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableSet+Extra.m"; sourceTree = "<group>"; };
 		C55C83CB2E167B6400B56985 /* XLSphereView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLSphereView.h; sourceTree = "<group>"; };
 		C55C83CC2E167B6400B56985 /* XLMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLMatrix.h; sourceTree = "<group>"; };
-		C55C83CD2E167B6400B56985 /* 牛逼标签效果 - SphereView👍.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "牛逼标签效果 - SphereView👍.md"; sourceTree = "<group>"; };
+		C55C83CD2E167B6400B56985 /* 牛逼标签效果 - SphereView👍.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "牛逼标签效果 - SphereView👍.md/README.md"; sourceTree = "<group>"; };
 		C55C83CE2E167B6400B56985 /* XLSphereView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLSphereView.m; sourceTree = "<group>"; };
 		C55C83D12E167B6400B56985 /* GXCardItemDemoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCardItemDemoCell.h; sourceTree = "<group>"; };
 		C55C83D22E167B6400B56985 /* GXCardItemDemoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GXCardItemDemoCell.xib; sourceTree = "<group>"; };
 		C55C83D32E167B6400B56985 /* GXCardItemDemoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXCardItemDemoCell.m; sourceTree = "<group>"; };
 		C55C83D42E167B6400B56985 /* GXCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCardView.h; sourceTree = "<group>"; };
-		C55C83D52E167B6400B56985 /* GXCardView.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = GXCardView.md; sourceTree = "<group>"; };
+		C55C83D52E167B6400B56985 /* GXCardView.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = GXCardView.md/README.md; sourceTree = "<group>"; };
 		C55C83D62E167B6400B56985 /* GXCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXCardView.m; sourceTree = "<group>"; };
-		C55C83DA2E167B6400B56985 /* File.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = File.md; sourceTree = "<group>"; };
+		C55C83DA2E167B6400B56985 /* File.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = File.md/README.md; sourceTree = "<group>"; };
 		C55C83DC2E167B6400B56985 /* SocketRocketUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketRocketUtility.m; sourceTree = "<group>"; };
 		C55C83DD2E167B6400B56985 /* SocketRocketUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketRocketUtility.h; sourceTree = "<group>"; };
 		C55C83DF2E167B6400B56985 /* JobsCalenderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsCalenderView.h; sourceTree = "<group>"; };
 		C55C83E02E167B6400B56985 /* JobsCalenderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsCalenderView.m; sourceTree = "<group>"; };
 		C55C83E42E167B6400B56985 /* HexadecimalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexadecimalData.h; sourceTree = "<group>"; };
-		C55C83E52E167B6400B56985 /* HexadecimalData.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = HexadecimalData.md; sourceTree = "<group>"; };
+		C55C83E52E167B6400B56985 /* HexadecimalData.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = HexadecimalData.md/README.md; sourceTree = "<group>"; };
 		C55C83E72E167B6400B56985 /* NSString+HexadecimalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HexadecimalData.m"; sourceTree = "<group>"; };
 		C55C83E82E167B6400B56985 /* NSString+HexadecimalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HexadecimalData.h"; sourceTree = "<group>"; };
 		C55C83EA2E167B6400B56985 /* UIImage+HexadecimalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+HexadecimalData.h"; sourceTree = "<group>"; };
 		C55C83EB2E167B6400B56985 /* UIImage+HexadecimalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+HexadecimalData.m"; sourceTree = "<group>"; };
 		C55C83ED2E167B6400B56985 /* NSData+HexadecimalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+HexadecimalData.h"; sourceTree = "<group>"; };
 		C55C83EE2E167B6400B56985 /* NSData+HexadecimalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+HexadecimalData.m"; sourceTree = "<group>"; };
-		C55C83F02E167B6400B56985 /* 凯撒加密解密.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "凯撒加密解密.md"; sourceTree = "<group>"; };
+		C55C83F02E167B6400B56985 /* 凯撒加密解密.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "凯撒加密解密.md/README.md"; sourceTree = "<group>"; };
 		C55C83F12E167B6400B56985 /* CaesarCipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaesarCipher.h; sourceTree = "<group>"; };
-		C55C83F32E167B6400B56985 /* DES.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = DES.md; sourceTree = "<group>"; };
+		C55C83F32E167B6400B56985 /* DES.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = DES.md/README.md; sourceTree = "<group>"; };
 		C55C83F42E167B6400B56985 /* DES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DES.h; sourceTree = "<group>"; };
-		C55C83F62E167B6400B56985 /* Unicode.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Unicode.md; sourceTree = "<group>"; };
+		C55C83F62E167B6400B56985 /* Unicode.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Unicode.md/README.md; sourceTree = "<group>"; };
 		C55C83F72E167B6400B56985 /* Cryptography.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cryptography.h; sourceTree = "<group>"; };
 		C55C83F92E167B6400B56985 /* RSAUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAUtil.m; sourceTree = "<group>"; };
 		C55C83FA2E167B6400B56985 /* RSAUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSAUtil.h; sourceTree = "<group>"; };
-		C55C83FB2E167B6400B56985 /* RSA.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = RSA.md; sourceTree = "<group>"; };
+		C55C83FB2E167B6400B56985 /* RSA.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = RSA.md/README.md; sourceTree = "<group>"; };
 		C55C83FE2E167B6400B56985 /* SHA-1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SHA-1.h"; sourceTree = "<group>"; };
-		C55C83FF2E167B6400B56985 /* SHA-1.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "SHA-1.md"; sourceTree = "<group>"; };
-		C55C84002E167B6400B56985 /* SHA.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = SHA.md; sourceTree = "<group>"; };
-		C55C84022E167B6400B56985 /* SHA-384.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "SHA-384.md"; sourceTree = "<group>"; };
+		C55C83FF2E167B6400B56985 /* SHA-1.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "SHA-1.md/README.md"; sourceTree = "<group>"; };
+		C55C84002E167B6400B56985 /* SHA.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = SHA.md/README.md; sourceTree = "<group>"; };
+		C55C84022E167B6400B56985 /* SHA-384.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "SHA-384.md/README.md"; sourceTree = "<group>"; };
 		C55C84032E167B6400B56985 /* SHA-384.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SHA-384.h"; sourceTree = "<group>"; };
-		C55C84052E167B6400B56985 /* SHA-256.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "SHA-256.md"; sourceTree = "<group>"; };
+		C55C84052E167B6400B56985 /* SHA-256.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "SHA-256.md/README.md"; sourceTree = "<group>"; };
 		C55C84062E167B6400B56985 /* SHA-256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SHA-256.h"; sourceTree = "<group>"; };
-		C55C84082E167B6400B56985 /* SHA-224.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "SHA-224.md"; sourceTree = "<group>"; };
+		C55C84082E167B6400B56985 /* SHA-224.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "SHA-224.md/README.md"; sourceTree = "<group>"; };
 		C55C84092E167B6400B56985 /* SHA-224.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SHA-224.h"; sourceTree = "<group>"; };
-		C55C840B2E167B6400B56985 /* SHA-512.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "SHA-512.md"; sourceTree = "<group>"; };
+		C55C840B2E167B6400B56985 /* SHA-512.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "SHA-512.md/README.md"; sourceTree = "<group>"; };
 		C55C840C2E167B6400B56985 /* SHA-512.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SHA-512.h"; sourceTree = "<group>"; };
 		C55C840E2E167B6400B56985 /* MIME.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIME.h; sourceTree = "<group>"; };
 		C55C84102E167B6400B56985 /* NSData+MIME.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+MIME.h"; sourceTree = "<group>"; };
 		C55C84112E167B6400B56985 /* NSData+MIME.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MIME.m"; sourceTree = "<group>"; };
 		C55C84132E167B6400B56985 /* NSString+MIME.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MIME.h"; sourceTree = "<group>"; };
 		C55C84142E167B6400B56985 /* NSString+MIME.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MIME.m"; sourceTree = "<group>"; };
-		C55C84152E167B6400B56985 /* MIME.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = MIME.md; sourceTree = "<group>"; };
+		C55C84152E167B6400B56985 /* MIME.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = MIME.md/README.md; sourceTree = "<group>"; };
 		C55C84172E167B6400B56985 /* UIImage+MIME.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MIME.m"; sourceTree = "<group>"; };
 		C55C84182E167B6400B56985 /* UIImage+MIME.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+MIME.h"; sourceTree = "<group>"; };
-		C55C841B2E167B6400B56985 /* Base85.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Base85.md; sourceTree = "<group>"; };
+		C55C841B2E167B6400B56985 /* Base85.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Base85.md/README.md; sourceTree = "<group>"; };
 		C55C841E2E167B6400B56985 /* NSData+Base85.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base85.m"; sourceTree = "<group>"; };
 		C55C841F2E167B6400B56985 /* NSData+Base85.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base85.h"; sourceTree = "<group>"; };
 		C55C84212E167B6400B56985 /* NSString+Base85.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base85.h"; sourceTree = "<group>"; };
@@ -2849,13 +2855,13 @@
 		C55C84312E167B6400B56985 /* UIImage+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Base64.m"; sourceTree = "<group>"; };
 		C55C84322E167B6400B56985 /* UIImage+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Base64.h"; sourceTree = "<group>"; };
 		C55C84332E167B6400B56985 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
-		C55C84342E167B6400B56985 /* Base64.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Base64.md; sourceTree = "<group>"; };
+		C55C84342E167B6400B56985 /* Base64.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Base64.md/README.md; sourceTree = "<group>"; };
 		C55C84372E167B6400B56985 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
 		C55C84382E167B6400B56985 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
-		C55C84392E167B6400B56985 /* GTMBase64.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = GTMBase64.md; sourceTree = "<group>"; };
+		C55C84392E167B6400B56985 /* GTMBase64.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = GTMBase64.md/README.md; sourceTree = "<group>"; };
 		C55C843A2E167B6400B56985 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		C55C843C2E167B6400B56985 /* Base16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base16.h; sourceTree = "<group>"; };
-		C55C843D2E167B6400B56985 /* Base16.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Base16.md; sourceTree = "<group>"; };
+		C55C843D2E167B6400B56985 /* Base16.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Base16.md/README.md; sourceTree = "<group>"; };
 		C55C84402E167B6400B56985 /* UIImage+Base16.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Base16.m"; sourceTree = "<group>"; };
 		C55C84412E167B6400B56985 /* UIImage+Base16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Base16.h"; sourceTree = "<group>"; };
 		C55C84432E167B6400B56985 /* NSData+Base16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base16.h"; sourceTree = "<group>"; };
@@ -2864,7 +2870,7 @@
 		C55C84472E167B6400B56985 /* NSString+Base16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base16.h"; sourceTree = "<group>"; };
 		C55C844A2E167B6400B56985 /* MF_Base32Codec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Base32Codec.m; sourceTree = "<group>"; };
 		C55C844B2E167B6400B56985 /* MF_Base32Codec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base32Codec.h; sourceTree = "<group>"; };
-		C55C844C2E167B6400B56985 /* Base32.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Base32.md; sourceTree = "<group>"; };
+		C55C844C2E167B6400B56985 /* Base32.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Base32.md/README.md; sourceTree = "<group>"; };
 		C55C844D2E167B6400B56985 /* Base32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base32.h; sourceTree = "<group>"; };
 		C55C84502E167B6400B56985 /* UIImage+Base32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Base32.h"; sourceTree = "<group>"; };
 		C55C84512E167B6400B56985 /* UIImage+Base32.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Base32.m"; sourceTree = "<group>"; };
@@ -2878,15 +2884,15 @@
 		C55C845D2E167B6400B56985 /* AESCipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCipher.h; sourceTree = "<group>"; };
 		C55C845E2E167B6400B56985 /* AES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AES.h; sourceTree = "<group>"; };
 		C55C84612E167B6400B56985 /* MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5.h; sourceTree = "<group>"; };
-		C55C84622E167B6400B56985 /* MD5.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = MD5.md; sourceTree = "<group>"; };
-		C55C84632E167B6400B56985 /* HASH.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = HASH.md; sourceTree = "<group>"; };
+		C55C84622E167B6400B56985 /* MD5.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = MD5.md/README.md; sourceTree = "<group>"; };
+		C55C84632E167B6400B56985 /* HASH.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = HASH.md/README.md; sourceTree = "<group>"; };
 		C55C84652E167B6400B56985 /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
 		C55C84662E167B6400B56985 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
 		C55C84682E167B6400B56985 /* MovieCountDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieCountDown.h; sourceTree = "<group>"; };
 		C55C84692E167B6400B56985 /* MovieCountDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieCountDown.m; sourceTree = "<group>"; };
 		C55C846B2E167B6400B56985 /* HAHandleDemoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HAHandleDemoView.m; sourceTree = "<group>"; };
 		C55C846C2E167B6400B56985 /* HAHandleDemoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HAHandleDemoView.h; sourceTree = "<group>"; };
-		C55C846D2E167B6400B56985 /* HAHandleDemoView.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = HAHandleDemoView.md; sourceTree = "<group>"; };
+		C55C846D2E167B6400B56985 /* HAHandleDemoView.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = HAHandleDemoView.md/README.md; sourceTree = "<group>"; };
 		C55C846F2E167B6400B56985 /* GifLoopPlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GifLoopPlayView.m; sourceTree = "<group>"; };
 		C55C84702E167B6400B56985 /* GifLoopPlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GifLoopPlayView.h; sourceTree = "<group>"; };
 		C55C84712E167B6400B56985 /* 音律跳动.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "音律跳动.bundle"; sourceTree = "<group>"; };
@@ -2900,11 +2906,11 @@
 		C55C847D2E167B6400B56985 /* XXTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXTools.h; sourceTree = "<group>"; };
 		C55C847F2E167B6400B56985 /* JobsUploadingProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsUploadingProgressView.m; sourceTree = "<group>"; };
 		C55C84802E167B6400B56985 /* JobsUploadingProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsUploadingProgressView.h; sourceTree = "<group>"; };
-		C55C84812E167B6400B56985 /* JobsUploadingProgressView.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsUploadingProgressView.md; sourceTree = "<group>"; };
+		C55C84812E167B6400B56985 /* JobsUploadingProgressView.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsUploadingProgressView.md/README.md; sourceTree = "<group>"; };
 		C55C84832E167B6400B56985 /* LongPressToDeleteImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LongPressToDeleteImageView.h; sourceTree = "<group>"; };
 		C55C84842E167B6400B56985 /* LongPressToDeleteImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LongPressToDeleteImageView.m; sourceTree = "<group>"; };
-		C55C84852E167B6400B56985 /* LongPressToDeleteImageView.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LongPressToDeleteImageView.md; sourceTree = "<group>"; };
-		C55C84882E167B6400B56985 /* JhtBanner.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JhtBanner.md; sourceTree = "<group>"; };
+		C55C84852E167B6400B56985 /* LongPressToDeleteImageView.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LongPressToDeleteImageView.md/README.md; sourceTree = "<group>"; };
+		C55C84882E167B6400B56985 /* JhtBanner.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JhtBanner.md/README.md; sourceTree = "<group>"; };
 		C55C848A2E167B6400B56985 /* JhtBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JhtBannerView.h; sourceTree = "<group>"; };
 		C55C848B2E167B6400B56985 /* JhtBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JhtBannerView.m; sourceTree = "<group>"; };
 		C55C848D2E167B6400B56985 /* JhtBannerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JhtBannerScrollView.m; sourceTree = "<group>"; };
@@ -2924,14 +2930,14 @@
 		C55C84A22E167B6400B56985 /* TBCityIconInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCityIconInfo.h; sourceTree = "<group>"; };
 		C55C84A52E167B6400B56985 /* JobsLaunchAdMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsLaunchAdMgr.h; sourceTree = "<group>"; };
 		C55C84A62E167B6400B56985 /* JobsLaunchAdMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsLaunchAdMgr.m; sourceTree = "<group>"; };
-		C55C84AD2E167B6400B56985 /* XWCountryCodeController.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = XWCountryCodeController.md; sourceTree = "<group>"; };
+		C55C84AD2E167B6400B56985 /* XWCountryCodeController.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = XWCountryCodeController.md/README.md; sourceTree = "<group>"; };
 		C55C84AE2E167B6400B56985 /* XWCountryCodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWCountryCodeController.h; sourceTree = "<group>"; };
 		C55C84AF2E167B6400B56985 /* XWCountryCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWCountryCodeController.m; sourceTree = "<group>"; };
 		C55C84B12E167B6400B56985 /* sortedNameEN.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = sortedNameEN.plist; sourceTree = "<group>"; };
 		C55C84B22E167B6400B56985 /* sortedNameCH.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = sortedNameCH.plist; sourceTree = "<group>"; };
 		C55C84B42E167B6400B56985 /* AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCrypt.m; sourceTree = "<group>"; };
 		C55C84B52E167B6400B56985 /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
-		C55C84B62E167B6400B56985 /* AESCrypt-ObjC.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "AESCrypt-ObjC.md"; sourceTree = "<group>"; };
+		C55C84B62E167B6400B56985 /* AESCrypt-ObjC.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "AESCrypt-ObjC.md/README.md"; sourceTree = "<group>"; };
 		C55C84B82E167B6400B56985 /* JobsLaunchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsLaunchVC.h; sourceTree = "<group>"; };
 		C55C84B92E167B6400B56985 /* JobsLaunchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsLaunchVC.m; sourceTree = "<group>"; };
 		C55C84BA2E167B6400B56985 /* ASport.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ASport.png; sourceTree = "<group>"; };
@@ -2945,7 +2951,7 @@
 		C55C84C72E167B6400B56985 /* XLChannelControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLChannelControl.h; sourceTree = "<group>"; };
 		C55C84C92E167B6400B56985 /* XLChannelHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLChannelHeader.h; sourceTree = "<group>"; };
 		C55C84CA2E167B6400B56985 /* XLChannelHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLChannelHeader.m; sourceTree = "<group>"; };
-		C55C84CB2E167B6400B56985 /* XLChannelControl.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = XLChannelControl.md; sourceTree = "<group>"; };
+		C55C84CB2E167B6400B56985 /* XLChannelControl.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = XLChannelControl.md/README.md; sourceTree = "<group>"; };
 		C55C84CE2E167B6400B56985 /* JobsNavigationTransitionMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsNavigationTransitionMgr.h; sourceTree = "<group>"; };
 		C55C84CF2E167B6400B56985 /* JobsNavigationTransitionMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsNavigationTransitionMgr.m; sourceTree = "<group>"; };
 		C55C84D22E167B6400B56985 /* WGradientProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGradientProgressView.h; sourceTree = "<group>"; };
@@ -2954,7 +2960,7 @@
 		C55C84D62E167B6400B56985 /* WGradientProgressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGradientProgressModel.h; sourceTree = "<group>"; };
 		C55C84D82E167B6400B56985 /* WGradientProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGradientProgress.m; sourceTree = "<group>"; };
 		C55C84D92E167B6400B56985 /* WGradientProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGradientProgress.h; sourceTree = "<group>"; };
-		C55C84DB2E167B6400B56985 /* WalletLayout.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = WalletLayout.md; sourceTree = "<group>"; };
+		C55C84DB2E167B6400B56985 /* WalletLayout.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = WalletLayout.md/README.md; sourceTree = "<group>"; };
 		C55C84DD2E167B6400B56985 /* TMSWalletCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSWalletCollectionViewCell.h; sourceTree = "<group>"; };
 		C55C84DE2E167B6400B56985 /* TMSWalletCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSWalletCollectionViewCell.m; sourceTree = "<group>"; };
 		C55C84E02E167B6400B56985 /* TMSWalletCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSWalletCollectionReusableView.m; sourceTree = "<group>"; };
@@ -2964,15 +2970,15 @@
 		C55C84E52E167B6400B56985 /* WalletLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletLayout.h; sourceTree = "<group>"; };
 		C55C84E62E167B6400B56985 /* TMSCollectionViewLayoutDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSCollectionViewLayoutDelegate.h; sourceTree = "<group>"; };
 		C55C84E82E167B6400B56985 /* GDFadeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDFadeView.h; sourceTree = "<group>"; };
-		C55C84E92E167B6400B56985 /* GDFadeView.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = GDFadeView.md; sourceTree = "<group>"; };
+		C55C84E92E167B6400B56985 /* GDFadeView.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = GDFadeView.md/README.md; sourceTree = "<group>"; };
 		C55C84EA2E167B6400B56985 /* GDFadeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDFadeView.m; sourceTree = "<group>"; };
 		C55C84EC2E167B6400B56985 /* CountdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountdownView.h; sourceTree = "<group>"; };
 		C55C84ED2E167B6400B56985 /* CountdownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountdownView.m; sourceTree = "<group>"; };
 		C55C84EF2E167B6400B56985 /* FSAppIconManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSAppIconManager.m; sourceTree = "<group>"; };
-		C55C84F02E167B6400B56985 /* FSAppIconManager.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = FSAppIconManager.md; sourceTree = "<group>"; };
+		C55C84F02E167B6400B56985 /* FSAppIconManager.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = FSAppIconManager.md/README.md; sourceTree = "<group>"; };
 		C55C84F12E167B6400B56985 /* FSAppIconManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSAppIconManager.h; sourceTree = "<group>"; };
 		C55C84F32E167B6400B56985 /* RYCuteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RYCuteView.m; sourceTree = "<group>"; };
-		C55C84F42E167B6400B56985 /* RYCuteView.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = RYCuteView.md; sourceTree = "<group>"; };
+		C55C84F42E167B6400B56985 /* RYCuteView.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = RYCuteView.md/README.md; sourceTree = "<group>"; };
 		C55C84F52E167B6400B56985 /* RYCuteView.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = RYCuteView.webp; sourceTree = "<group>"; };
 		C55C84F62E167B6400B56985 /* RYCuteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RYCuteView.h; sourceTree = "<group>"; };
 		C55C84FB2E167B6500B56985 /* JobsToggleBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsToggleBaseView.m; sourceTree = "<group>"; };
@@ -2985,7 +2991,7 @@
 		C55C85062E167B6500B56985 /* JobsBitsMonitorSuspendLab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsBitsMonitorSuspendLab.h; sourceTree = "<group>"; };
 		C55C85072E167B6500B56985 /* JobsBitsMonitorSuspendLab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsBitsMonitorSuspendLab.m; sourceTree = "<group>"; };
 		C55C850B2E167B6500B56985 /* JobsBitsMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsBitsMonitor.h; sourceTree = "<group>"; };
-		C55C850D2E167B6500B56985 /* 尝试高仿蜜柚.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "尝试高仿蜜柚.md"; sourceTree = "<group>"; };
+		C55C850D2E167B6500B56985 /* 尝试高仿蜜柚.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "尝试高仿蜜柚.md/README.md"; sourceTree = "<group>"; };
 		C55C85102E167B6500B56985 /* BaseContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseContentView.h; sourceTree = "<group>"; };
 		C55C85112E167B6500B56985 /* BaseContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseContentView.m; sourceTree = "<group>"; };
 		C55C85132E167B6500B56985 /* JobsAppDoorForgotCodeContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsAppDoorForgotCodeContentView.m; sourceTree = "<group>"; };
@@ -2997,48 +3003,48 @@
 		C55C851D2E167B6500B56985 /* JobsAppDoorConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsAppDoorConfig.h; sourceTree = "<group>"; };
 		C55C85202E167B6500B56985 /* JobsAppDoorLogoContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsAppDoorLogoContentView.h; sourceTree = "<group>"; };
 		C55C85212E167B6500B56985 /* JobsAppDoorLogoContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsAppDoorLogoContentView.m; sourceTree = "<group>"; };
-		C55C85252E167B6500B56985 /* 输入框样式_8（👨🏻用户名,下提示）.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_8（👨🏻用户名,下提示）.md"; sourceTree = "<group>"; };
+		C55C85252E167B6500B56985 /* 输入框样式_8（👨🏻用户名,下提示）.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_8（👨🏻用户名,下提示）.md/README.md"; sourceTree = "<group>"; };
 		C55C85262E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsAppDoorInputViewBaseStyle_8.h; sourceTree = "<group>"; };
 		C55C85272E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_8.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsAppDoorInputViewBaseStyle_8.m; sourceTree = "<group>"; };
 		C55C85282E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = JobsAppDoorInputViewBaseStyle_8.png; sourceTree = "<group>"; };
 		C55C85292E167B6500B56985 /* JobsDoorInputViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsDoorInputViewProtocol.h; sourceTree = "<group>"; };
-		C55C852B2E167B6500B56985 /* 输入框样式_6（✉️获取并输入图形验证码）.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_6（✉️获取并输入图形验证码）.md"; sourceTree = "<group>"; };
+		C55C852B2E167B6500B56985 /* 输入框样式_6（✉️获取并输入图形验证码）.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_6（✉️获取并输入图形验证码）.md/README.md"; sourceTree = "<group>"; };
 		C55C852C2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsAppDoorInputViewBaseStyle_6.h; sourceTree = "<group>"; };
 		C55C852D2E167B6500B56985 /* 输入框样式_6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "输入框样式_6.png"; sourceTree = "<group>"; };
 		C55C852E2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsAppDoorInputViewBaseStyle_6.m; sourceTree = "<group>"; };
 		C55C85302E167B6500B56985 /* AuthCodeLab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthCodeLab.h; sourceTree = "<group>"; };
 		C55C85312E167B6500B56985 /* AuthCodeLab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthCodeLab.m; sourceTree = "<group>"; };
 		C55C85332E167B6500B56985 /* 输入框样式_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "输入框样式_1.png"; sourceTree = "<group>"; };
-		C55C85342E167B6500B56985 /* 输入框样式_1(✉️获取并输入手机短信验证码).md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_1(✉️获取并输入手机短信验证码).md"; sourceTree = "<group>"; };
+		C55C85342E167B6500B56985 /* 输入框样式_1(✉️获取并输入手机短信验证码).md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_1(✉️获取并输入手机短信验证码).md/README.md"; sourceTree = "<group>"; };
 		C55C85352E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsAppDoorInputViewBaseStyle_1.h; sourceTree = "<group>"; };
 		C55C85362E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsAppDoorInputViewBaseStyle_1.m; sourceTree = "<group>"; };
 		C55C85372E167B6500B56985 /* JobsAppDoorInputViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsAppDoorInputViewHeader.h; sourceTree = "<group>"; };
-		C55C85392E167B6500B56985 /* 输入框样式_7（电话号码选择国家号）.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_7（电话号码选择国家号）.md"; sourceTree = "<group>"; };
+		C55C85392E167B6500B56985 /* 输入框样式_7（电话号码选择国家号）.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_7（电话号码选择国家号）.md/README.md"; sourceTree = "<group>"; };
 		C55C853A2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsAppDoorInputViewBaseStyle_7.m; sourceTree = "<group>"; };
 		C55C853B2E167B6500B56985 /* 输入框样式_7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "输入框样式_7.png"; sourceTree = "<group>"; };
 		C55C853C2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsAppDoorInputViewBaseStyle_7.h; sourceTree = "<group>"; };
 		C55C853E2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_9.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsAppDoorInputViewBaseStyle_9.m; sourceTree = "<group>"; };
 		C55C853F2E167B6500B56985 /* 输入框样式_9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "输入框样式_9.png"; sourceTree = "<group>"; };
-		C55C85402E167B6500B56985 /* 输入框样式_9（✉️获取验证码）.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_9（✉️获取验证码）.md"; sourceTree = "<group>"; };
+		C55C85402E167B6500B56985 /* 输入框样式_9（✉️获取验证码）.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_9（✉️获取验证码）.md/README.md"; sourceTree = "<group>"; };
 		C55C85412E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_9.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsAppDoorInputViewBaseStyle_9.h; sourceTree = "<group>"; };
 		C55C85432E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsAppDoorInputViewBaseStyle_2.h; sourceTree = "<group>"; };
-		C55C85442E167B6500B56985 /* 输入框样式_2（✉️获取并输入图形验证码）.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_2（✉️获取并输入图形验证码）.md"; sourceTree = "<group>"; };
+		C55C85442E167B6500B56985 /* 输入框样式_2（✉️获取并输入图形验证码）.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_2（✉️获取并输入图形验证码）.md/README.md"; sourceTree = "<group>"; };
 		C55C85452E167B6500B56985 /* 输入框样式_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "输入框样式_2.png"; sourceTree = "<group>"; };
 		C55C85462E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsAppDoorInputViewBaseStyle_2.m; sourceTree = "<group>"; };
 		C55C85482E167B6500B56985 /* 输入框样式_10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "输入框样式_10.png"; sourceTree = "<group>"; };
-		C55C85492E167B6500B56985 /* 输入框样式_10.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_10.md"; sourceTree = "<group>"; };
+		C55C85492E167B6500B56985 /* 输入框样式_10.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_10.md/README.md"; sourceTree = "<group>"; };
 		C55C854A2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsAppDoorInputViewBaseStyle_10.h; sourceTree = "<group>"; };
 		C55C854B2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_10.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsAppDoorInputViewBaseStyle_10.m; sourceTree = "<group>"; };
 		C55C854D2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsAppDoorInputViewBaseStyle_5.h; sourceTree = "<group>"; };
 		C55C854E2E167B6500B56985 /* 输入框样式_5.2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "输入框样式_5.2.png"; sourceTree = "<group>"; };
 		C55C854F2E167B6500B56985 /* 输入框样式_5.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "输入框样式_5.1.png"; sourceTree = "<group>"; };
-		C55C85502E167B6500B56985 /* 输入框样式_5（上下结构）.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_5（上下结构）.md"; sourceTree = "<group>"; };
+		C55C85502E167B6500B56985 /* 输入框样式_5（上下结构）.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_5（上下结构）.md/README.md"; sourceTree = "<group>"; };
 		C55C85512E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsAppDoorInputViewBaseStyle_5.m; sourceTree = "<group>"; };
 		C55C85532E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsAppDoorInputViewBaseStyle_4.m; sourceTree = "<group>"; };
 		C55C85542E167B6500B56985 /* 输入框样式_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "输入框样式_4.png"; sourceTree = "<group>"; };
 		C55C85552E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsAppDoorInputViewBaseStyle_4.h; sourceTree = "<group>"; };
-		C55C85562E167B6500B56985 /* 输入框样式_4（✉️获取并输入图形验证码）.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_4（✉️获取并输入图形验证码）.md"; sourceTree = "<group>"; };
-		C55C85582E167B6500B56985 /* 输入框样式_3（输入👨🏻用户名）.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_3（输入👨🏻用户名）.md"; sourceTree = "<group>"; };
+		C55C85562E167B6500B56985 /* 输入框样式_4（✉️获取并输入图形验证码）.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_4（✉️获取并输入图形验证码）.md/README.md"; sourceTree = "<group>"; };
+		C55C85582E167B6500B56985 /* 输入框样式_3（输入👨🏻用户名）.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "输入框样式_3（输入👨🏻用户名）.md/README.md"; sourceTree = "<group>"; };
 		C55C85592E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsAppDoorInputViewBaseStyle_3.m; sourceTree = "<group>"; };
 		C55C855A2E167B6500B56985 /* 输入框样式_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "输入框样式_3.png"; sourceTree = "<group>"; };
 		C55C855B2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsAppDoorInputViewBaseStyle_3.h; sourceTree = "<group>"; };
@@ -3093,7 +3099,7 @@
 		C55C85A42E167B6500B56985 /* JobsStepView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsStepView.h; sourceTree = "<group>"; };
 		C55C85A62E167B6500B56985 /* JobsImageNumberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsImageNumberView.h; sourceTree = "<group>"; };
 		C55C85A72E167B6500B56985 /* JobsImageNumberViewCVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsImageNumberViewCVCell.m; sourceTree = "<group>"; };
-		C55C85A92E167B6500B56985 /* JobsImageNumberView.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsImageNumberView.md; sourceTree = "<group>"; };
+		C55C85A92E167B6500B56985 /* JobsImageNumberView.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsImageNumberView.md/README.md; sourceTree = "<group>"; };
 		C55C85AA2E167B6500B56985 /* JobsImageNumberView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = JobsImageNumberView.png; sourceTree = "<group>"; };
 		C55C85AD2E167B6500B56985 /* 7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "7@2x.png"; sourceTree = "<group>"; };
 		C55C85AE2E167B6500B56985 /* 小数点@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "小数点@2x.png"; sourceTree = "<group>"; };
@@ -3192,16 +3198,16 @@
 		C55C862C2E167B6500B56985 /* JobsTabBarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsTabBarVC.m; sourceTree = "<group>"; };
 		C55C86302E167B6500B56985 /* TransitionAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionAnimation.m; sourceTree = "<group>"; };
 		C55C86312E167B6500B56985 /* TransitionAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionAnimation.h; sourceTree = "<group>"; };
-		C55C86322E167B6500B56985 /* 功能性动效：手势横向滚动子VC联动Tabbar切换.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "功能性动效：手势横向滚动子VC联动Tabbar切换.md"; sourceTree = "<group>"; };
+		C55C86322E167B6500B56985 /* 功能性动效：手势横向滚动子VC联动Tabbar切换.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "功能性动效：手势横向滚动子VC联动Tabbar切换.md/README.md"; sourceTree = "<group>"; };
 		C55C86342E167B6500B56985 /* TransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionController.h; sourceTree = "<group>"; };
 		C55C86352E167B6500B56985 /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
 		C55C86382E167B6500B56985 /* JobsPullListAutoSizeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsPullListAutoSizeView.h; sourceTree = "<group>"; };
 		C55C86392E167B6500B56985 /* JobsPullListAutoSizeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsPullListAutoSizeView.m; sourceTree = "<group>"; };
-		C55C863A2E167B6500B56985 /* 功能性动效：高仿 Telegram，在指定位置出现菜单列表.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "功能性动效：高仿 Telegram，在指定位置出现菜单列表.md"; sourceTree = "<group>"; };
+		C55C863A2E167B6500B56985 /* 功能性动效：高仿 Telegram，在指定位置出现菜单列表.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "功能性动效：高仿 Telegram，在指定位置出现菜单列表.md/README.md"; sourceTree = "<group>"; };
 		C55C863C2E167B6500B56985 /* JobsPullListTBVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsPullListTBVCell.m; sourceTree = "<group>"; };
 		C55C863D2E167B6500B56985 /* JobsPullListTBVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsPullListTBVCell.h; sourceTree = "<group>"; };
 		C55C863F2E167B6500B56985 /* TLAnimationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLAnimationProtocol.h; sourceTree = "<group>"; };
-		C55C86402E167B6500B56985 /* 功能性动效：Tabbaritem的点击动效.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "功能性动效：Tabbaritem的点击动效.md"; sourceTree = "<group>"; };
+		C55C86402E167B6500B56985 /* 功能性动效：Tabbaritem的点击动效.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "功能性动效：Tabbaritem的点击动效.md/README.md"; sourceTree = "<group>"; };
 		C55C86422E167B6500B56985 /* TLTabBarAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLTabBarAnimation.h; sourceTree = "<group>"; };
 		C55C86432E167B6500B56985 /* TLTabBarAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLTabBarAnimation.m; sourceTree = "<group>"; };
 		C55C86472E167B6500B56985 /* UITabBar+TLAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+TLAnimation.m"; sourceTree = "<group>"; };
@@ -3218,7 +3224,7 @@
 		C55C86582E167B6500B56985 /* LZTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZTabBar.m; sourceTree = "<group>"; };
 		C55C865A2E167B6500B56985 /* LZTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZTabBarController.h; sourceTree = "<group>"; };
 		C55C865B2E167B6500B56985 /* LZTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZTabBarController.m; sourceTree = "<group>"; };
-		C55C865D2E167B6500B56985 /* 自定义 UITabBarController.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "自定义 UITabBarController.md"; sourceTree = "<group>"; };
+		C55C865D2E167B6500B56985 /* 自定义 UITabBarController.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "自定义 UITabBarController.md/README.md"; sourceTree = "<group>"; };
 		C55C865F2E167B6500B56985 /* ZLGestureLockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLGestureLockView.m; sourceTree = "<group>"; };
 		C55C86612E167B6500B56985 /* gesture_headIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gesture_headIcon@2x.png"; sourceTree = "<group>"; };
 		C55C86622E167B6500B56985 /* gesture_indicator_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gesture_indicator_normal@2x.png"; sourceTree = "<group>"; };
@@ -3234,7 +3240,7 @@
 		C55C866C2E167B6500B56985 /* ZLGestureLockIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLGestureLockIndicator.h; sourceTree = "<group>"; };
 		C55C866D2E167B6500B56985 /* ZLGestureLockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLGestureLockViewController.h; sourceTree = "<group>"; };
 		C55C866F2E167B6500B56985 /* JobsPageTBVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsPageTBVCell.m; sourceTree = "<group>"; };
-		C55C86702E167B6500B56985 /* JobsPageTBV.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsPageTBV.md; sourceTree = "<group>"; };
+		C55C86702E167B6500B56985 /* JobsPageTBV.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = JobsPageTBV.md/README.md; sourceTree = "<group>"; };
 		C55C86712E167B6500B56985 /* JobsPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsPageView.m; sourceTree = "<group>"; };
 		C55C86722E167B6500B56985 /* JobsPageTBVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsPageTBVCell.h; sourceTree = "<group>"; };
 		C55C86732E167B6500B56985 /* JobsPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsPageView.h; sourceTree = "<group>"; };
@@ -3290,13 +3296,13 @@
 		C55C86C62E167B6500B56985 /* JobsPodsManual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsPodsManual.h; sourceTree = "<group>"; };
 		C55C86C72E167B6500B56985 /* JobsPods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsPods.h; sourceTree = "<group>"; };
 		C55C86C82E167B6500B56985 /* DefineProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefineProperty.h; sourceTree = "<group>"; };
-		C55C86CB2E167B6600B56985 /* RAC_Define.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = RAC_Define.md; sourceTree = "<group>"; };
+		C55C86CB2E167B6600B56985 /* RAC_Define.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = RAC_Define.md/README.md; sourceTree = "<group>"; };
 		C55C86CC2E167B6600B56985 /* RACEXTRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RACEXTRuntimeExtensions.m; sourceTree = "<group>"; };
 		C55C86CD2E167B6600B56985 /* RACEXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RACEXTScope.h; sourceTree = "<group>"; };
 		C55C86CE2E167B6600B56985 /* RACmetamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RACmetamacros.h; sourceTree = "<group>"; };
 		C55C86CF2E167B6600B56985 /* RACEXTRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RACEXTRuntimeExtensions.h; sourceTree = "<group>"; };
 		C55C86D02E167B6600B56985 /* RACEXTKeyPathCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RACEXTKeyPathCoding.h; sourceTree = "<group>"; };
-		C55C86D22E167B6600B56985 /* 极验验证码.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "极验验证码.md"; sourceTree = "<group>"; };
+		C55C86D22E167B6600B56985 /* 极验验证码.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "极验验证码.md/README.md"; sourceTree = "<group>"; };
 		C55C86D32E167B6600B56985 /* GTCaptcha4.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GTCaptcha4.bundle; sourceTree = "<group>"; };
 		C55C86D42E167B6600B56985 /* GTCaptcha4.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = GTCaptcha4.xcframework; sourceTree = "<group>"; };
 		C55C86D62E167B6600B56985 /* ZBRequestConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBRequestConst.h; sourceTree = "<group>"; };
@@ -3440,7 +3446,7 @@
 		C55C877B2E167B6600B56985 /* KTVCocoaHTTPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTVCocoaHTTPServer.h; sourceTree = "<group>"; };
 		C55C877D2E167B6600B56985 /* WMZCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMZCodeView.h; sourceTree = "<group>"; };
 		C55C877E2E167B6600B56985 /* WMZCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMZCodeView.m; sourceTree = "<group>"; };
-		C55C877F2E167B6600B56985 /* WMZCodeView.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = WMZCodeView.md; sourceTree = "<group>"; };
+		C55C877F2E167B6600B56985 /* WMZCodeView.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = WMZCodeView.md/README.md; sourceTree = "<group>"; };
 		C55C87812E167B6600B56985 /* A60FD1B7CBF08631A978DC3E57B4F221.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = A60FD1B7CBF08631A978DC3E57B4F221.png; sourceTree = "<group>"; };
 		C55C87822E167B6600B56985 /* B.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = B.png; sourceTree = "<group>"; };
 		C55C87832E167B6600B56985 /* A.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = A.png; sourceTree = "<group>"; };
@@ -3557,7 +3563,7 @@
 		C55C88162E167B6700B56985 /* TFPopupToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFPopupToast.m; sourceTree = "<group>"; };
 		C55C88172E167B6700B56985 /* UIView+TFPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TFPopup.m"; sourceTree = "<group>"; };
 		C55C88182E167B6700B56985 /* TFPopupExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFPopupExtension.m; sourceTree = "<group>"; };
-		C55C881C2E167B6700B56985 /* TSV文件介绍.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "TSV文件介绍.md"; sourceTree = "<group>"; };
+		C55C881C2E167B6700B56985 /* TSV文件介绍.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "TSV文件介绍.md/README.md"; sourceTree = "<group>"; };
 		C55C881D2E167B6700B56985 /* data.tsv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.tsv; sourceTree = "<group>"; };
 		C55C88212E167B6700B56985 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C55C88222E167B6700B56985 /* 临时的占位图.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "临时的占位图.xcassets"; sourceTree = "<group>"; };
@@ -3721,7 +3727,7 @@
 		C55C88D62E167B6800B56985 /* 假数据.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "假数据.json"; sourceTree = "<group>"; };
 		C55C88D72E167B6800B56985 /* IdTypeList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = IdTypeList.json; sourceTree = "<group>"; };
 		C55C88DB2E167B6800B56985 /* JobsBaseConfig.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JobsBaseConfig.xcdatamodel; sourceTree = "<group>"; };
-		C55C88DE2E167B6800B56985 /* libstdc++.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "libstdc++.md"; sourceTree = "<group>"; };
+		C55C88DE2E167B6800B56985 /* libstdc++.md/README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "libstdc++.md/README.md"; sourceTree = "<group>"; };
 		C55C88E02E167B6800B56985 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = "libstdc++.6.0.9.tbd"; sourceTree = "<group>"; };
 		C55C88E12E167B6800B56985 /* libstdc++.6.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = "libstdc++.6.tbd"; sourceTree = "<group>"; };
 		C55C88E32E167B6800B56985 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = "libstdc++.6.0.9.tbd"; sourceTree = "<group>"; };
@@ -3739,8 +3745,6 @@
 		C55C88F12E167B6800B56985 /* libarclite_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libarclite_iphoneos.a; sourceTree = "<group>"; };
 		C55C88F22E167B6800B56985 /* libarclite_appletvos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libarclite_appletvos.a; sourceTree = "<group>"; };
 		C55C88F32E167B6800B56985 /* JobsOCBaseConfigDemoPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsOCBaseConfigDemoPrefixHeader.pch; sourceTree = "<group>"; };
-		C55C88F62E167B6800B56985 /* BRStringPickerView+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRStringPickerView+Extra.m"; sourceTree = "<group>"; };
-		C55C88F72E167B6800B56985 /* BRStringPickerView+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRStringPickerView+Extra.h"; sourceTree = "<group>"; };
 		C55C88F92E167B6800B56985 /* MGSwipeTableCell+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MGSwipeTableCell+Extra.h"; sourceTree = "<group>"; };
 		C55C88FA2E167B6800B56985 /* MGSwipeTableCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeTableCellProtocol.h; sourceTree = "<group>"; };
 		C55C88FB2E167B6800B56985 /* MGSwipeTableCell+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MGSwipeTableCell+Extra.m"; sourceTree = "<group>"; };
@@ -3788,13 +3792,15 @@
 		C55C893B2E167B6800B56985 /* HXPhotoManager+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HXPhotoManager+Extra.m"; sourceTree = "<group>"; };
 		C55C893D2E167B6800B56985 /* HXPhotoView+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HXPhotoView+Extra.m"; sourceTree = "<group>"; };
 		C55C893E2E167B6800B56985 /* HXPhotoView+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HXPhotoView+Extra.h"; sourceTree = "<group>"; };
+		C5D8AAFA2FD1859D00F6BFCA /* BRStringPickerView+Extra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BRStringPickerView+Extra.h"; sourceTree = "<group>"; };
+		C5D8AAFB2FD1859D00F6BFCA /* BRStringPickerView+Extra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BRStringPickerView+Extra.m"; sourceTree = "<group>"; };
 		C5DBF4F42E16C05A00032B4B /* ZFIJKPlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFIJKPlayerManager.h; sourceTree = "<group>"; };
 		C5DBF4F52E16C05A00032B4B /* ZFIJKPlayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFIJKPlayerManager.m; sourceTree = "<group>"; };
 		C5DBF5F62E16CAE000032B4B /* JobsLaunchAdMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsLaunchAdMgr.h; sourceTree = "<group>"; };
 		C5DBF5F72E16CAE000032B4B /* JobsLaunchAdMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsLaunchAdMgr.m; sourceTree = "<group>"; };
 		C5DBF5F92E16CAE100032B4B /* JobsLaunchAdMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobsLaunchAdMgr.h; sourceTree = "<group>"; };
 		C5DBF5FA2E16CAE100032B4B /* JobsLaunchAdMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobsLaunchAdMgr.m; sourceTree = "<group>"; };
-		FB7FE7B9A30D085BB67A6CD4 /* GTCaptcha4ResultModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/3rd/GTCaptcha4ResultModel/GTCaptcha4ResultModel.m"; sourceTree = SOURCE_ROOT; };
+		FB7FE7B9A30D085BB67A6CD4 /* JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/3rd/GTCaptcha4ResultModel/GTCaptcha4ResultModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/3rd/GTCaptcha4ResultModel/GTCaptcha4ResultModel.m"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4403,7 +4409,7 @@
 		27B47FE5CB95BD4673D68DEE /* GTCaptcha4ResultModel */ = {
 			isa = PBXGroup;
 			children = (
-				FB7FE7B9A30D085BB67A6CD4 /* GTCaptcha4ResultModel.m */,
+				FB7FE7B9A30D085BB67A6CD4 /* JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/3rd/GTCaptcha4ResultModel/GTCaptcha4ResultModel.m */,
 			);
 			name = GTCaptcha4ResultModel;
 			sourceTree = "<group>";
@@ -4444,7 +4450,7 @@
 		C345A0DC14161314D0D2D5C7 /* JobsLocalNotificationModel */ = {
 			isa = PBXGroup;
 			children = (
-				A6D9B8BA97442D7B30919318 /* JobsLocalNotificationModel.m */,
+				A6D9B8BA97442D7B30919318 /* JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/Json处理/JobsLocalNotificationModel/JobsLocalNotificationModel.m */,
 			);
 			name = JobsLocalNotificationModel;
 			sourceTree = "<group>";
@@ -5436,7 +5442,7 @@
 			children = (
 				C55C7AF12E167B5D00B56985 /* JobsSearchShowHistoryDataTBVCell.h */,
 				C55C7AF32E167B5D00B56985 /* JobsSearchShowHistoryDataTBVCell.m */,
-				C55C7AF22E167B5D00B56985 /* JobsSearchShowHistoryDataTBVCell.md */,
+				C55C7AF22E167B5D00B56985 /* JobsSearchShowHistoryDataTBVCell.md/README.md */,
 			);
 			path = JobsSearchShowHistoryDataTBVCell;
 			sourceTree = "<group>";
@@ -5446,7 +5452,7 @@
 			children = (
 				C55C7AF72E167B5D00B56985 /* JobsSearchResultDataListTBVCell.h */,
 				C55C7AF52E167B5D00B56985 /* JobsSearchResultDataListTBVCell.m */,
-				C55C7AF62E167B5D00B56985 /* JobsSearchResultDataListTBVCell.md */,
+				C55C7AF62E167B5D00B56985 /* JobsSearchResultDataListTBVCell.md/README.md */,
 			);
 			path = JobsSearchResultDataListTBVCell;
 			sourceTree = "<group>";
@@ -5512,7 +5518,7 @@
 			children = (
 				C55C7B0D2E167B5D00B56985 /* PKProtocolExtension.h */,
 				C55C7B0C2E167B5D00B56985 /* PKProtocolExtension.m */,
-				C55C7B0E2E167B5D00B56985 /* ProtocolKit.md */,
+				C55C7B0E2E167B5D00B56985 /* ProtocolKit.md/README.md */,
 			);
 			path = "改良版本";
 			sourceTree = "<group>";
@@ -5643,7 +5649,7 @@
 		C55C7B342E167B5D00B56985 /* Demo@GXCardViewDemo */ = {
 			isa = PBXGroup;
 			children = (
-				C55C7B362E167B5D00B56985 /* 有问题.md */,
+				C55C7B362E167B5D00B56985 /* 有问题.md/README.md */,
 				C55C7B372E167B5D00B56985 /* GXCardViewDemoVC.h */,
 				C55C7B352E167B5D00B56985 /* GXCardViewDemoVC.m */,
 			);
@@ -6477,7 +6483,7 @@
 			children = (
 				C55C7C0F2E167B5E00B56985 /* JobsExcelView.h */,
 				C55C7C0E2E167B5E00B56985 /* JobsExcelView.m */,
-				C55C7C102E167B5E00B56985 /* JobsExcelView的使用.md */,
+				C55C7C102E167B5E00B56985 /* JobsExcelView的使用.md/README.md */,
 			);
 			path = JobsExcelView;
 			sourceTree = "<group>";
@@ -7191,7 +7197,7 @@
 		C55C7CCB2E167B5E00B56985 /* ZFDouYinControlView */ = {
 			isa = PBXGroup;
 			children = (
-				C55C7CCC2E167B5E00B56985 /* 原作者的.md */,
+				C55C7CCC2E167B5E00B56985 /* 原作者的.md/README.md */,
 				C55C7CCD2E167B5E00B56985 /* ZFDouYinControlView.h */,
 				C55C7CCE2E167B5E00B56985 /* ZFDouYinControlView.m */,
 			);
@@ -7201,7 +7207,7 @@
 		C55C7CCF2E167B5E00B56985 /* JobsRightBtnsView */ = {
 			isa = PBXGroup;
 			children = (
-				C55C7CD12E167B5E00B56985 /* For_Douyin_ZFPlayerVC_2.md */,
+				C55C7CD12E167B5E00B56985 /* For_Douyin_ZFPlayerVC_2.md/README.md */,
 				C55C7CD22E167B5E00B56985 /* JobsRightBtnsView.h */,
 				C55C7CD02E167B5E00B56985 /* JobsRightBtnsView.m */,
 			);
@@ -7211,7 +7217,7 @@
 		C55C7CD32E167B5E00B56985 /* JobsPlayerTBVCell */ = {
 			isa = PBXGroup;
 			children = (
-				C55C7CD52E167B5E00B56985 /* For_Douyin_ZFPlayerVC_1.md */,
+				C55C7CD52E167B5E00B56985 /* For_Douyin_ZFPlayerVC_1.md/README.md */,
 				C55C7CD62E167B5E00B56985 /* JobsPlayerTBVCell.h */,
 				C55C7CD42E167B5E00B56985 /* JobsPlayerTBVCell.m */,
 			);
@@ -7221,7 +7227,7 @@
 		C55C7CD72E167B5E00B56985 /* JobsVideoTBVCell */ = {
 			isa = PBXGroup;
 			children = (
-				C55C7CD92E167B5E00B56985 /* For_Douyin_ZFPlayerVC_2.md */,
+				C55C7CD92E167B5E00B56985 /* For_Douyin_ZFPlayerVC_2.md/README.md */,
 				C55C7CDA2E167B5F00B56985 /* JobsVideoTBVCell.h */,
 				C55C7CD82E167B5E00B56985 /* JobsVideoTBVCell.m */,
 			);
@@ -7259,7 +7265,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C7CE32E167B5F00B56985 /* JobsEmptyDataView.h */,
-				C55C7CE42E167B5F00B56985 /* JobsEmptyDataView.md */,
+				C55C7CE42E167B5F00B56985 /* JobsEmptyDataView.md/README.md */,
 				C55C7CE52E167B5F00B56985 /* UICollectionView+EmptyData */,
 				C55C7CE82E167B5F00B56985 /* UITableView+EmptyData */,
 			);
@@ -7921,7 +7927,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C7DBA2E167B5F00B56985 /* JobsCommentCoreHeader.h */,
-				C55C7DB92E167B5F00B56985 /* JobsComment.md */,
+				C55C7DB92E167B5F00B56985 /* JobsComment.md/README.md */,
 				C55C7D9B2E167B5F00B56985 /* JobsCommentCore */,
 				C55C7D982E167B5F00B56985 /* JobsCommentVC */,
 			);
@@ -8043,7 +8049,7 @@
 			children = (
 				C55C7DB42E167B5F00B56985 /* JobsPopUpVC.h */,
 				C55C7DB32E167B5F00B56985 /* JobsPopUpVC.m */,
-				C55C7DB52E167B5F00B56985 /* PopUpVC.md */,
+				C55C7DB52E167B5F00B56985 /* PopUpVC.md/README.md */,
 			);
 			path = JobsPopUpVC;
 			sourceTree = "<group>";
@@ -8400,7 +8406,7 @@
 		C55C7E1A2E167B5F00B56985 /* JobsIMCore */ = {
 			isa = PBXGroup;
 			children = (
-				C55C7E222E167B5F00B56985 /* JobsIMCore.md */,
+				C55C7E222E167B5F00B56985 /* JobsIMCore.md/README.md */,
 				C55C7E262E167B5F00B56985 /* 相关资源文件 */,
 				C55C7E1B2E167B5F00B56985 /* JobsIMCoreView */,
 				C55C7E232E167B5F00B56985 /* JobsIMVC */,
@@ -8516,7 +8522,7 @@
 			children = (
 				C55C7E4F2E167B6000B56985 /* JobsIMListView.h */,
 				C55C7E4E2E167B6000B56985 /* JobsIMListView.m */,
-				C55C7E532E167B6000B56985 /* JobsIMListView.md */,
+				C55C7E532E167B6000B56985 /* JobsIMListView.md/README.md */,
 				C55C7E502E167B6000B56985 /* TableViewCell */,
 			);
 			path = JobsIMListView;
@@ -8704,7 +8710,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C7E872E167B6000B56985 /* Info.plist.bak */,
-				C55C7E882E167B6000B56985 /* 配置info.plist.md */,
+				C55C7E882E167B6000B56985 /* 配置info.plist.md/README.md */,
 			);
 			path = "配置info.plist";
 			sourceTree = "<group>";
@@ -9429,7 +9435,7 @@
 		C55C7F372E167B6200B56985 /* UIButton+UI */ = {
 			isa = PBXGroup;
 			children = (
-				C55C7F382E167B6200B56985 /* UIButton+UI.md */,
+				C55C7F382E167B6200B56985 /* UIButton+UI.md/README.md */,
 				C55C7F3A2E167B6200B56985 /* UIButton+UI.h */,
 				C55C7F392E167B6200B56985 /* UIButton+UI.m */,
 			);
@@ -9495,7 +9501,7 @@
 			children = (
 				C55C7F4E2E167B6200B56985 /* UIButton+ImageTitleSpacing.h */,
 				C55C7F4F2E167B6200B56985 /* UIButton+ImageTitleSpacing.m */,
-				C55C7F502E167B6200B56985 /* UIButton+ImageTitleSpacing.md */,
+				C55C7F502E167B6200B56985 /* UIButton+ImageTitleSpacing.md/README.md */,
 			);
 			path = "UIButton+ImageTitleSpacing";
 			sourceTree = "<group>";
@@ -10060,7 +10066,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C7FF72E167B6200B56985 /* NSMutableDictionary+Ordered.m */,
-				C55C7FF82E167B6200B56985 /* 字典有序化.md */,
+				C55C7FF82E167B6200B56985 /* 字典有序化.md/README.md */,
 				C55C7FF92E167B6200B56985 /* NSMutableDictionary+Ordered.h */,
 			);
 			path = "NSMutableDictionary+Ordered";
@@ -10248,7 +10254,7 @@
 			children = (
 				C55C802C2E167B6200B56985 /* UICollectionView+JobsRegisterClass.h */,
 				C55C802A2E167B6200B56985 /* UICollectionView+JobsRegisterClass.m */,
-				C55C802B2E167B6200B56985 /* UICollectionView+JobsRegisterClass.md */,
+				C55C802B2E167B6200B56985 /* UICollectionView+JobsRegisterClass.md/README.md */,
 			);
 			path = "UICollectionView+JobsRegisterClass";
 			sourceTree = "<group>";
@@ -10816,6 +10822,8 @@
 		C55C80C82E167B6200B56985 /* UIViewController+SafeTransition */ = {
 			isa = PBXGroup;
 			children = (
+				04D49C262EBC8B2A00BCD6F1 /* JobsRecordPresentedViewController.h */,
+				04D49C272EBC8B2A00BCD6F1 /* JobsRecordPresentedViewController.m */,
 				C55C80C92E167B6200B56985 /* UIViewController+SafeTransition.m */,
 				C55C80CA2E167B6200B56985 /* UIViewController+SafeTransition.h */,
 			);
@@ -10891,7 +10899,7 @@
 		C55C80DD2E167B6200B56985 /* UIViewController+XLBubbleTransition.md */ = {
 			isa = PBXGroup;
 			children = (
-				C55C80DE2E167B6200B56985 /* UIViewController+XLBubbleTransition.md */,
+				C55C80DE2E167B6200B56985 /* UIViewController+XLBubbleTransition.md/README.md */,
 			);
 			path = "UIViewController+XLBubbleTransition.md";
 			sourceTree = "<group>";
@@ -11234,7 +11242,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C81432E167B6300B56985 /* UITableView+WWFoldableTableView.m */,
-				C55C81442E167B6300B56985 /* UITableView+WWFoldableTableView.md */,
+				C55C81442E167B6300B56985 /* UITableView+WWFoldableTableView.md/README.md */,
 				C55C81452E167B6300B56985 /* UITableView+WWFoldableTableView.h */,
 			);
 			path = "UITableView+WWFoldableTableView";
@@ -11245,7 +11253,7 @@
 			children = (
 				C55C81492E167B6300B56985 /* BaseTableView.h */,
 				C55C81472E167B6300B56985 /* BaseTableView.m */,
-				C55C81482E167B6300B56985 /* BaseTableView.md */,
+				C55C81482E167B6300B56985 /* BaseTableView.md/README.md */,
 			);
 			path = BaseTableView;
 			sourceTree = "<group>";
@@ -11291,7 +11299,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C81532E167B6300B56985 /* UIControl+XY.h */,
-				C55C81542E167B6300B56985 /* UIControl+XY.md */,
+				C55C81542E167B6300B56985 /* UIControl+XY.md/README.md */,
 				C55C81552E167B6300B56985 /* UIControl+XY.m */,
 			);
 			path = "UIControl+XY";
@@ -11566,7 +11574,7 @@
 				C55C819F2E167B6300B56985 /* BaseCollectionViewFlowLayout */,
 				C55C81AF2E167B6300B56985 /* JobsCollectionViewFlowLayout.h */,
 				C55C81B02E167B6300B56985 /* UICollectionViewFlowLayout+Category */,
-				C55C81B32E167B6300B56985 /* UICollectionViewFlowLayout.md */,
+				C55C81B32E167B6300B56985 /* UICollectionViewFlowLayout.md/README.md */,
 			);
 			path = UICollectionViewFlowLayout;
 			sourceTree = "<group>";
@@ -11586,7 +11594,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C81A12E167B6300B56985 /* HQCollectionViewFlowLayout.m */,
-				C55C81A22E167B6300B56985 /* HQCollectionViewFlowLayout.md */,
+				C55C81A22E167B6300B56985 /* HQCollectionViewFlowLayout.md/README.md */,
 				C55C81A32E167B6300B56985 /* HQCollectionViewFlowLayout.h */,
 			);
 			path = HQCollectionViewFlowLayout;
@@ -11596,7 +11604,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C81A52E167B6300B56985 /* LMHWaterFallLayout.h */,
-				C55C81A62E167B6300B56985 /* LMHWaterFallLayout.md */,
+				C55C81A62E167B6300B56985 /* LMHWaterFallLayout.md/README.md */,
 				C55C81A72E167B6300B56985 /* LMHWaterFallLayout.m */,
 			);
 			path = LMHWaterFallLayout;
@@ -11605,7 +11613,7 @@
 		C55C81A82E167B6300B56985 /* KFZShopCatoryFlowLayput */ = {
 			isa = PBXGroup;
 			children = (
-				C55C81A92E167B6300B56985 /* KFZShopCatoryFlowLayput.md */,
+				C55C81A92E167B6300B56985 /* KFZShopCatoryFlowLayput.md/README.md */,
 				C55C81AA2E167B6300B56985 /* KFZShopCatoryFlowLayput.h */,
 				C55C81AB2E167B6300B56985 /* KFZShopCatoryFlowLayput.m */,
 			);
@@ -11854,7 +11862,7 @@
 		C55C81EF2E167B6300B56985 /* BaseObject */ = {
 			isa = PBXGroup;
 			children = (
-				C55C81F02E167B6300B56985 /* BaseObject.md */,
+				C55C81F02E167B6300B56985 /* README.md */,
 				0488587E2EED728C00854965 /* JobsTimerManager */,
 				045FED782ECDCF3700444E01 /* JobsNetWorkTools */,
 				045FED722ECDCB1500444E01 /* JobsTImer */,
@@ -11890,7 +11898,7 @@
 			children = (
 				C55C81F52E167B6300B56985 /* FileFolderHandleTool.h */,
 				C55C81F72E167B6300B56985 /* FileFolderHandleTool.m */,
-				C55C81F62E167B6300B56985 /* FileFolderHandleTool.md */,
+				C55C81F62E167B6300B56985 /* README.md */,
 			);
 			path = FileFolderHandleTool;
 			sourceTree = "<group>";
@@ -11946,7 +11954,7 @@
 			children = (
 				C55C821B2E167B6300B56985 /* TouchID.h */,
 				C55C821D2E167B6300B56985 /* TouchID.m */,
-				C55C821C2E167B6300B56985 /* TouchID.md */,
+				C55C821C2E167B6300B56985 /* TouchID.md/README.md */,
 			);
 			path = TouchID;
 			sourceTree = "<group>";
@@ -12421,7 +12429,7 @@
 			children = (
 				C55C82A52E167B6300B56985 /* JobsMonitorNetwoking.h */,
 				C55C82A62E167B6300B56985 /* JobsMonitorNetwoking.m */,
-				C55C82A72E167B6300B56985 /* JobsMonitorNetwoking.md */,
+				C55C82A72E167B6300B56985 /* JobsMonitorNetwoking.md/README.md */,
 			);
 			path = JobsMonitorNetwoking;
 			sourceTree = "<group>";
@@ -12719,7 +12727,7 @@
 		C55C82F62E167B6300B56985 /* NSObject+Time */ = {
 			isa = PBXGroup;
 			children = (
-				C55C82F72E167B6300B56985 /* 时间格式化.md */,
+				C55C82F72E167B6300B56985 /* 时间格式化.md/README.md */,
 				C55C82F82E167B6300B56985 /* NSObject+Time.h */,
 				C55C82F92E167B6300B56985 /* NSObject+Time.m */,
 			);
@@ -12816,7 +12824,7 @@
 				C55C831D2E167B6300B56985 /* NSObject+IDFA */,
 				C55C83202E167B6300B56985 /* NSObject+ID.h */,
 				C55C83212E167B6300B56985 /* NSObject+DeviceID */,
-				C55C83242E167B6300B56985 /* 获取iOS设备唯一标示.md */,
+				C55C83242E167B6300B56985 /* 获取iOS设备唯一标示.md/README.md */,
 				C55C83252E167B6300B56985 /* NSObject+IDFV */,
 			);
 			path = "NSObject+ID";
@@ -12967,7 +12975,7 @@
 			children = (
 				C55C83492E167B6300B56985 /* NSObject+AppTools.h */,
 				C55C83482E167B6300B56985 /* NSObject+AppTools.m */,
-				C55C834A2E167B6300B56985 /* NSObject+AppTools.md */,
+				C55C834A2E167B6300B56985 /* NSObject+AppTools.md/README.md */,
 			);
 			path = "NSObject+AppTools";
 			sourceTree = "<group>";
@@ -13091,7 +13099,7 @@
 		C55C83702E167B6300B56985 /* BaseProtocol */ = {
 			isa = PBXGroup;
 			children = (
-				C55C83902E167B6300B56985 /* BaseProtocol.md */,
+				C55C83902E167B6300B56985 /* BaseProtocol.md/README.md */,
 				C55C83912E167B6300B56985 /* JobsBaseProtocolHeader.h */,
 				C55C83712E167B6300B56985 /* Protocol */,
 			);
@@ -13185,7 +13193,7 @@
 		C55C83922E167B6300B56985 /* UNUserNotificationCenter */ = {
 			isa = PBXGroup;
 			children = (
-				C55C83942E167B6300B56985 /* UNUserNotificationCenter.md */,
+				C55C83942E167B6300B56985 /* UNUserNotificationCenter.md/README.md */,
 				C55C83932E167B6300B56985 /* UNUserNotificationCenter+Extra.h */,
 				C55C83952E167B6300B56985 /* UNUserNotificationCenter+Extra.m */,
 			);
@@ -13416,7 +13424,7 @@
 			children = (
 				C55C83CB2E167B6400B56985 /* XLSphereView.h */,
 				C55C83CC2E167B6400B56985 /* XLMatrix.h */,
-				C55C83CD2E167B6400B56985 /* 牛逼标签效果 - SphereView👍.md */,
+				C55C83CD2E167B6400B56985 /* 牛逼标签效果 - SphereView👍.md/README.md */,
 				C55C83CE2E167B6400B56985 /* XLSphereView.m */,
 			);
 			path = XLSphereView;
@@ -13427,7 +13435,7 @@
 			children = (
 				C55C83D02E167B6400B56985 /* GXCardItemDemoCell */,
 				C55C83D42E167B6400B56985 /* GXCardView.h */,
-				C55C83D52E167B6400B56985 /* GXCardView.md */,
+				C55C83D52E167B6400B56985 /* GXCardView.md/README.md */,
 				C55C83D62E167B6400B56985 /* GXCardView.m */,
 			);
 			path = GXCardView;
@@ -13453,7 +13461,7 @@
 		C55C83D92E167B6400B56985 /* FFmpeg */ = {
 			isa = PBXGroup;
 			children = (
-				C55C83DA2E167B6400B56985 /* File.md */,
+				C55C83DA2E167B6400B56985 /* File.md/README.md */,
 			);
 			path = FFmpeg;
 			sourceTree = "<group>";
@@ -13506,7 +13514,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C83E42E167B6400B56985 /* HexadecimalData.h */,
-				C55C83E52E167B6400B56985 /* HexadecimalData.md */,
+				C55C83E52E167B6400B56985 /* HexadecimalData.md/README.md */,
 				C55C83EC2E167B6400B56985 /* NSData+HexadecimalData */,
 				C55C83E62E167B6400B56985 /* NSString+HexadecimalData */,
 				C55C83E92E167B6400B56985 /* UIImage+HexadecimalData */,
@@ -13544,7 +13552,7 @@
 		C55C83EF2E167B6400B56985 /* 凯撒加密解密 */ = {
 			isa = PBXGroup;
 			children = (
-				C55C83F02E167B6400B56985 /* 凯撒加密解密.md */,
+				C55C83F02E167B6400B56985 /* 凯撒加密解密.md/README.md */,
 				C55C83F12E167B6400B56985 /* CaesarCipher.h */,
 			);
 			path = "凯撒加密解密";
@@ -13554,7 +13562,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C83F42E167B6400B56985 /* DES.h */,
-				C55C83F32E167B6400B56985 /* DES.md */,
+				C55C83F32E167B6400B56985 /* DES.md/README.md */,
 			);
 			path = DES;
 			sourceTree = "<group>";
@@ -13562,7 +13570,7 @@
 		C55C83F52E167B6400B56985 /* Unicode */ = {
 			isa = PBXGroup;
 			children = (
-				C55C83F62E167B6400B56985 /* Unicode.md */,
+				C55C83F62E167B6400B56985 /* Unicode.md/README.md */,
 			);
 			path = Unicode;
 			sourceTree = "<group>";
@@ -13570,7 +13578,7 @@
 		C55C83F82E167B6400B56985 /* 非对称加密RSA */ = {
 			isa = PBXGroup;
 			children = (
-				C55C83FB2E167B6400B56985 /* RSA.md */,
+				C55C83FB2E167B6400B56985 /* RSA.md/README.md */,
 				C55C83FA2E167B6400B56985 /* RSAUtil.h */,
 				C55C83F92E167B6400B56985 /* RSAUtil.m */,
 			);
@@ -13585,7 +13593,7 @@
 				C55C84042E167B6400B56985 /* SHA-256 */,
 				C55C84012E167B6400B56985 /* SHA-384 */,
 				C55C840A2E167B6400B56985 /* SHA-512 */,
-				C55C84002E167B6400B56985 /* SHA.md */,
+				C55C84002E167B6400B56985 /* SHA.md/README.md */,
 			);
 			path = SHA;
 			sourceTree = "<group>";
@@ -13594,7 +13602,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C83FE2E167B6400B56985 /* SHA-1.h */,
-				C55C83FF2E167B6400B56985 /* SHA-1.md */,
+				C55C83FF2E167B6400B56985 /* SHA-1.md/README.md */,
 			);
 			path = "SHA-1";
 			sourceTree = "<group>";
@@ -13603,7 +13611,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C84032E167B6400B56985 /* SHA-384.h */,
-				C55C84022E167B6400B56985 /* SHA-384.md */,
+				C55C84022E167B6400B56985 /* SHA-384.md/README.md */,
 			);
 			path = "SHA-384";
 			sourceTree = "<group>";
@@ -13612,7 +13620,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C84062E167B6400B56985 /* SHA-256.h */,
-				C55C84052E167B6400B56985 /* SHA-256.md */,
+				C55C84052E167B6400B56985 /* SHA-256.md/README.md */,
 			);
 			path = "SHA-256";
 			sourceTree = "<group>";
@@ -13621,7 +13629,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C84092E167B6400B56985 /* SHA-224.h */,
-				C55C84082E167B6400B56985 /* SHA-224.md */,
+				C55C84082E167B6400B56985 /* SHA-224.md/README.md */,
 			);
 			path = "SHA-224";
 			sourceTree = "<group>";
@@ -13630,7 +13638,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C840C2E167B6400B56985 /* SHA-512.h */,
-				C55C840B2E167B6400B56985 /* SHA-512.md */,
+				C55C840B2E167B6400B56985 /* SHA-512.md/README.md */,
 			);
 			path = "SHA-512";
 			sourceTree = "<group>";
@@ -13639,7 +13647,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C840E2E167B6400B56985 /* MIME.h */,
-				C55C84152E167B6400B56985 /* MIME.md */,
+				C55C84152E167B6400B56985 /* MIME.md/README.md */,
 				C55C840F2E167B6400B56985 /* NSData+MIME */,
 				C55C84122E167B6400B56985 /* NSString+MIME */,
 				C55C84162E167B6400B56985 /* UIImage+MIME */,
@@ -13688,7 +13696,7 @@
 		C55C841A2E167B6400B56985 /* Base85 */ = {
 			isa = PBXGroup;
 			children = (
-				C55C841B2E167B6400B56985 /* Base85.md */,
+				C55C841B2E167B6400B56985 /* Base85.md/README.md */,
 				C55C841C2E167B6400B56985 /* Base85（系统拓展） */,
 				C55C84272E167B6400B56985 /* Base85.h */,
 			);
@@ -13736,7 +13744,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C84332E167B6400B56985 /* Base64.h */,
-				C55C84342E167B6400B56985 /* Base64.md */,
+				C55C84342E167B6400B56985 /* Base64.md/README.md */,
 				C55C84292E167B6400B56985 /* Base64（系统拓展） */,
 				C55C84352E167B6400B56985 /* GTMBase64（第三方） */,
 			);
@@ -13784,7 +13792,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C84362E167B6400B56985 /* GTMBase64 */,
-				C55C84392E167B6400B56985 /* GTMBase64.md */,
+				C55C84392E167B6400B56985 /* GTMBase64.md/README.md */,
 				C55C843A2E167B6400B56985 /* GTMDefines.h */,
 			);
 			path = "GTMBase64（第三方）";
@@ -13803,7 +13811,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C843C2E167B6400B56985 /* Base16.h */,
-				C55C843D2E167B6400B56985 /* Base16.md */,
+				C55C843D2E167B6400B56985 /* Base16.md/README.md */,
 				C55C843E2E167B6400B56985 /* Base16（系统拓展） */,
 			);
 			path = Base16;
@@ -13850,7 +13858,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C844D2E167B6400B56985 /* Base32.h */,
-				C55C844C2E167B6400B56985 /* Base32.md */,
+				C55C844C2E167B6400B56985 /* Base32.md/README.md */,
 				C55C844E2E167B6400B56985 /* Base32（系统拓展） */,
 				C55C84492E167B6400B56985 /* MF_Base32Codec（第三方） */,
 			);
@@ -13926,7 +13934,7 @@
 		C55C845F2E167B6400B56985 /* HASH 信息摘要 */ = {
 			isa = PBXGroup;
 			children = (
-				C55C84632E167B6400B56985 /* HASH.md */,
+				C55C84632E167B6400B56985 /* HASH.md/README.md */,
 				C55C84642E167B6400B56985 /* 系统拓展 */,
 				C55C84602E167B6400B56985 /* MD5 */,
 			);
@@ -13937,7 +13945,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C84612E167B6400B56985 /* MD5.h */,
-				C55C84622E167B6400B56985 /* MD5.md */,
+				C55C84622E167B6400B56985 /* MD5.md/README.md */,
 			);
 			path = MD5;
 			sourceTree = "<group>";
@@ -13965,7 +13973,7 @@
 			children = (
 				C55C846C2E167B6400B56985 /* HAHandleDemoView.h */,
 				C55C846B2E167B6400B56985 /* HAHandleDemoView.m */,
-				C55C846D2E167B6400B56985 /* HAHandleDemoView.md */,
+				C55C846D2E167B6400B56985 /* HAHandleDemoView.md/README.md */,
 			);
 			path = HAHandleDemoView;
 			sourceTree = "<group>";
@@ -14021,7 +14029,7 @@
 			children = (
 				C55C84802E167B6400B56985 /* JobsUploadingProgressView.h */,
 				C55C847F2E167B6400B56985 /* JobsUploadingProgressView.m */,
-				C55C84812E167B6400B56985 /* JobsUploadingProgressView.md */,
+				C55C84812E167B6400B56985 /* JobsUploadingProgressView.md/README.md */,
 			);
 			path = JobsUploadingProgressView;
 			sourceTree = "<group>";
@@ -14031,7 +14039,7 @@
 			children = (
 				C55C84832E167B6400B56985 /* LongPressToDeleteImageView.h */,
 				C55C84842E167B6400B56985 /* LongPressToDeleteImageView.m */,
-				C55C84852E167B6400B56985 /* LongPressToDeleteImageView.md */,
+				C55C84852E167B6400B56985 /* LongPressToDeleteImageView.md/README.md */,
 			);
 			path = LongPressToDeleteImageView;
 			sourceTree = "<group>";
@@ -14047,7 +14055,7 @@
 		C55C84872E167B6400B56985 /* JhtBanner */ = {
 			isa = PBXGroup;
 			children = (
-				C55C84882E167B6400B56985 /* JhtBanner.md */,
+				C55C84882E167B6400B56985 /* JhtBanner.md/README.md */,
 				C55C84902E167B6400B56985 /* JhtBannerCardView */,
 				C55C848C2E167B6400B56985 /* JhtBannerScrollView */,
 				C55C84892E167B6400B56985 /* JhtBannerView */,
@@ -14160,7 +14168,7 @@
 		C55C84AC2E167B6400B56985 /* XWCountryCodeController */ = {
 			isa = PBXGroup;
 			children = (
-				C55C84AD2E167B6400B56985 /* XWCountryCodeController.md */,
+				C55C84AD2E167B6400B56985 /* XWCountryCodeController.md/README.md */,
 				C55C84AE2E167B6400B56985 /* XWCountryCodeController.h */,
 				C55C84AF2E167B6400B56985 /* XWCountryCodeController.m */,
 				C55C84B02E167B6400B56985 /* XWCountryCodeController.plist */,
@@ -14180,7 +14188,7 @@
 		C55C84B32E167B6400B56985 /* AESCrypt-ObjC */ = {
 			isa = PBXGroup;
 			children = (
-				C55C84B62E167B6400B56985 /* AESCrypt-ObjC.md */,
+				C55C84B62E167B6400B56985 /* AESCrypt-ObjC.md/README.md */,
 				C55C84B52E167B6400B56985 /* AESCrypt.h */,
 				C55C84B42E167B6400B56985 /* AESCrypt.m */,
 			);
@@ -14209,7 +14217,7 @@
 		C55C84BE2E167B6400B56985 /* XLChannelControls */ = {
 			isa = PBXGroup;
 			children = (
-				C55C84CB2E167B6400B56985 /* XLChannelControl.md */,
+				C55C84CB2E167B6400B56985 /* XLChannelControl.md/README.md */,
 				C55C84C52E167B6400B56985 /* XLChannelControl */,
 				C55C84C82E167B6400B56985 /* XLChannelHeader */,
 				C55C84C22E167B6400B56985 /* XLChannelItem */,
@@ -14311,7 +14319,7 @@
 		C55C84DA2E167B6400B56985 /* WalletLayout */ = {
 			isa = PBXGroup;
 			children = (
-				C55C84DB2E167B6400B56985 /* WalletLayout.md */,
+				C55C84DB2E167B6400B56985 /* WalletLayout.md/README.md */,
 				C55C84E52E167B6400B56985 /* WalletLayout.h */,
 				C55C84E62E167B6400B56985 /* TMSCollectionViewLayoutDelegate.h */,
 				C55C84E22E167B6400B56985 /* TMSCollectionViewLayout */,
@@ -14353,7 +14361,7 @@
 			children = (
 				C55C84E82E167B6400B56985 /* GDFadeView.h */,
 				C55C84EA2E167B6400B56985 /* GDFadeView.m */,
-				C55C84E92E167B6400B56985 /* GDFadeView.md */,
+				C55C84E92E167B6400B56985 /* GDFadeView.md/README.md */,
 			);
 			path = "颜色渐变的View（GDFadeView）";
 			sourceTree = "<group>";
@@ -14372,7 +14380,7 @@
 			children = (
 				C55C84F12E167B6400B56985 /* FSAppIconManager.h */,
 				C55C84EF2E167B6400B56985 /* FSAppIconManager.m */,
-				C55C84F02E167B6400B56985 /* FSAppIconManager.md */,
+				C55C84F02E167B6400B56985 /* FSAppIconManager.md/README.md */,
 			);
 			path = FSAppIconManager;
 			sourceTree = "<group>";
@@ -14382,7 +14390,7 @@
 			children = (
 				C55C84F62E167B6400B56985 /* RYCuteView.h */,
 				C55C84F32E167B6400B56985 /* RYCuteView.m */,
-				C55C84F42E167B6400B56985 /* RYCuteView.md */,
+				C55C84F42E167B6400B56985 /* RYCuteView.md/README.md */,
 				C55C84F52E167B6400B56985 /* RYCuteView.webp */,
 			);
 			path = RYCuteView;
@@ -14497,7 +14505,7 @@
 		C55C850C2E167B6500B56985 /* JobsAppDoor */ = {
 			isa = PBXGroup;
 			children = (
-				C55C850D2E167B6500B56985 /* 尝试高仿蜜柚.md */,
+				C55C850D2E167B6500B56985 /* 尝试高仿蜜柚.md/README.md */,
 				C55C850E2E167B6500B56985 /* View */,
 				C55C85182E167B6500B56985 /* ViewController */,
 				C55C851B2E167B6500B56985 /* 登录注册模块公共件 */,
@@ -14616,7 +14624,7 @@
 		C55C85242E167B6500B56985 /* 输入框样式_8 */ = {
 			isa = PBXGroup;
 			children = (
-				C55C85252E167B6500B56985 /* 输入框样式_8（👨🏻用户名,下提示）.md */,
+				C55C85252E167B6500B56985 /* 输入框样式_8（👨🏻用户名,下提示）.md/README.md */,
 				C55C85262E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_8.h */,
 				C55C85272E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_8.m */,
 				C55C85282E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_8.png */,
@@ -14627,7 +14635,7 @@
 		C55C852A2E167B6500B56985 /* 输入框样式_6 */ = {
 			isa = PBXGroup;
 			children = (
-				C55C852B2E167B6500B56985 /* 输入框样式_6（✉️获取并输入图形验证码）.md */,
+				C55C852B2E167B6500B56985 /* 输入框样式_6（✉️获取并输入图形验证码）.md/README.md */,
 				C55C852C2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_6.h */,
 				C55C852D2E167B6500B56985 /* 输入框样式_6.png */,
 				C55C852E2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_6.m */,
@@ -14649,7 +14657,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C85332E167B6500B56985 /* 输入框样式_1.png */,
-				C55C85342E167B6500B56985 /* 输入框样式_1(✉️获取并输入手机短信验证码).md */,
+				C55C85342E167B6500B56985 /* 输入框样式_1(✉️获取并输入手机短信验证码).md/README.md */,
 				C55C85352E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_1.h */,
 				C55C85362E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_1.m */,
 			);
@@ -14659,7 +14667,7 @@
 		C55C85382E167B6500B56985 /* 输入框样式_7 */ = {
 			isa = PBXGroup;
 			children = (
-				C55C85392E167B6500B56985 /* 输入框样式_7（电话号码选择国家号）.md */,
+				C55C85392E167B6500B56985 /* 输入框样式_7（电话号码选择国家号）.md/README.md */,
 				C55C853A2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_7.m */,
 				C55C853B2E167B6500B56985 /* 输入框样式_7.png */,
 				C55C853C2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_7.h */,
@@ -14672,7 +14680,7 @@
 			children = (
 				C55C853E2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_9.m */,
 				C55C853F2E167B6500B56985 /* 输入框样式_9.png */,
-				C55C85402E167B6500B56985 /* 输入框样式_9（✉️获取验证码）.md */,
+				C55C85402E167B6500B56985 /* 输入框样式_9（✉️获取验证码）.md/README.md */,
 				C55C85412E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_9.h */,
 			);
 			path = "输入框样式_9";
@@ -14682,7 +14690,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C85432E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_2.h */,
-				C55C85442E167B6500B56985 /* 输入框样式_2（✉️获取并输入图形验证码）.md */,
+				C55C85442E167B6500B56985 /* 输入框样式_2（✉️获取并输入图形验证码）.md/README.md */,
 				C55C85452E167B6500B56985 /* 输入框样式_2.png */,
 				C55C85462E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_2.m */,
 			);
@@ -14693,7 +14701,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C85482E167B6500B56985 /* 输入框样式_10.png */,
-				C55C85492E167B6500B56985 /* 输入框样式_10.md */,
+				C55C85492E167B6500B56985 /* 输入框样式_10.md/README.md */,
 				C55C854A2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_10.h */,
 				C55C854B2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_10.m */,
 			);
@@ -14706,7 +14714,7 @@
 				C55C854D2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_5.h */,
 				C55C854E2E167B6500B56985 /* 输入框样式_5.2.png */,
 				C55C854F2E167B6500B56985 /* 输入框样式_5.1.png */,
-				C55C85502E167B6500B56985 /* 输入框样式_5（上下结构）.md */,
+				C55C85502E167B6500B56985 /* 输入框样式_5（上下结构）.md/README.md */,
 				C55C85512E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_5.m */,
 			);
 			path = "输入框样式_5";
@@ -14718,7 +14726,7 @@
 				C55C85532E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_4.m */,
 				C55C85542E167B6500B56985 /* 输入框样式_4.png */,
 				C55C85552E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_4.h */,
-				C55C85562E167B6500B56985 /* 输入框样式_4（✉️获取并输入图形验证码）.md */,
+				C55C85562E167B6500B56985 /* 输入框样式_4（✉️获取并输入图形验证码）.md/README.md */,
 			);
 			path = "输入框样式_4";
 			sourceTree = "<group>";
@@ -14726,7 +14734,7 @@
 		C55C85572E167B6500B56985 /* 输入框样式_3 */ = {
 			isa = PBXGroup;
 			children = (
-				C55C85582E167B6500B56985 /* 输入框样式_3（输入👨🏻用户名）.md */,
+				C55C85582E167B6500B56985 /* 输入框样式_3（输入👨🏻用户名）.md/README.md */,
 				C55C85592E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_3.m */,
 				C55C855A2E167B6500B56985 /* 输入框样式_3.png */,
 				C55C855B2E167B6500B56985 /* JobsAppDoorInputViewBaseStyle_3.h */,
@@ -14979,7 +14987,7 @@
 		C55C85A82E167B6500B56985 /* Uses */ = {
 			isa = PBXGroup;
 			children = (
-				C55C85A92E167B6500B56985 /* JobsImageNumberView.md */,
+				C55C85A92E167B6500B56985 /* JobsImageNumberView.md/README.md */,
 				C55C85AA2E167B6500B56985 /* JobsImageNumberView.png */,
 			);
 			path = Uses;
@@ -15367,7 +15375,7 @@
 		C55C862E2E167B6500B56985 /* 功能性动效：手势横向滚动子VC联动Tabbar切换 */ = {
 			isa = PBXGroup;
 			children = (
-				C55C86322E167B6500B56985 /* 功能性动效：手势横向滚动子VC联动Tabbar切换.md */,
+				C55C86322E167B6500B56985 /* 功能性动效：手势横向滚动子VC联动Tabbar切换.md/README.md */,
 				C55C862F2E167B6500B56985 /* TransitionAnimation */,
 				C55C86332E167B6500B56985 /* TransitionController */,
 			);
@@ -15395,7 +15403,7 @@
 		C55C86362E167B6500B56985 /* 功能性动效：高仿 Telegram，在指定位置出现菜单列表 */ = {
 			isa = PBXGroup;
 			children = (
-				C55C863A2E167B6500B56985 /* 功能性动效：高仿 Telegram，在指定位置出现菜单列表.md */,
+				C55C863A2E167B6500B56985 /* 功能性动效：高仿 Telegram，在指定位置出现菜单列表.md/README.md */,
 				C55C86372E167B6500B56985 /* JobsPullListAutoSizeView */,
 				C55C863B2E167B6500B56985 /* JobsPullListTBVCell */,
 			);
@@ -15423,7 +15431,7 @@
 		C55C863E2E167B6500B56985 /* 功能性动效：Tabbaritem的点击动效 */ = {
 			isa = PBXGroup;
 			children = (
-				C55C86402E167B6500B56985 /* 功能性动效：Tabbaritem的点击动效.md */,
+				C55C86402E167B6500B56985 /* 功能性动效：Tabbaritem的点击动效.md/README.md */,
 				C55C863F2E167B6500B56985 /* TLAnimationProtocol.h */,
 				C55C86412E167B6500B56985 /* TLTabBarAnimation */,
 			);
@@ -15534,7 +15542,7 @@
 		C55C865C2E167B6500B56985 /* 自定义 UITabBarController.md */ = {
 			isa = PBXGroup;
 			children = (
-				C55C865D2E167B6500B56985 /* 自定义 UITabBarController.md */,
+				C55C865D2E167B6500B56985 /* 自定义 UITabBarController.md/README.md */,
 			);
 			path = "自定义 UITabBarController.md";
 			sourceTree = "<group>";
@@ -15572,7 +15580,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C866F2E167B6500B56985 /* JobsPageTBVCell.m */,
-				C55C86702E167B6500B56985 /* JobsPageTBV.md */,
+				C55C86702E167B6500B56985 /* JobsPageTBV.md/README.md */,
 				C55C86712E167B6500B56985 /* JobsPageView.m */,
 				C55C86722E167B6500B56985 /* JobsPageTBVCell.h */,
 				C55C86732E167B6500B56985 /* JobsPageView.h */,
@@ -15826,7 +15834,7 @@
 		C55C86CA2E167B6600B56985 /* RAC_Define */ = {
 			isa = PBXGroup;
 			children = (
-				C55C86CB2E167B6600B56985 /* RAC_Define.md */,
+				C55C86CB2E167B6600B56985 /* RAC_Define.md/README.md */,
 				C55C86D02E167B6600B56985 /* RACEXTKeyPathCoding.h */,
 				C55C86CD2E167B6600B56985 /* RACEXTScope.h */,
 				C55C86CE2E167B6600B56985 /* RACmetamacros.h */,
@@ -15838,7 +15846,7 @@
 		C55C86D12E167B6600B56985 /* 极验验证码 */ = {
 			isa = PBXGroup;
 			children = (
-				C55C86D22E167B6600B56985 /* 极验验证码.md */,
+				C55C86D22E167B6600B56985 /* 极验验证码.md/README.md */,
 				C55C86D32E167B6600B56985 /* GTCaptcha4.bundle */,
 				C55C86D42E167B6600B56985 /* GTCaptcha4.xcframework */,
 			);
@@ -16174,7 +16182,7 @@
 			children = (
 				C55C8EFE2E168FA300B56985 /* WMZBannerView */,
 				C55C87852E167B6600B56985 /* WMZCodeViewDefine.h */,
-				C55C877F2E167B6600B56985 /* WMZCodeView.md */,
+				C55C877F2E167B6600B56985 /* WMZCodeView.md/README.md */,
 				C55C87802E167B6600B56985 /* resource */,
 			);
 			path = WMZCodeViews;
@@ -16606,7 +16614,7 @@
 		C55C881B2E167B6700B56985 /* TSV文件 */ = {
 			isa = PBXGroup;
 			children = (
-				C55C881C2E167B6700B56985 /* TSV文件介绍.md */,
+				C55C881C2E167B6700B56985 /* TSV文件介绍.md/README.md */,
 				C55C881D2E167B6700B56985 /* data.tsv */,
 			);
 			path = "TSV文件";
@@ -16937,7 +16945,7 @@
 		C55C88DD2E167B6800B56985 /* libstdc++ */ = {
 			isa = PBXGroup;
 			children = (
-				C55C88DE2E167B6800B56985 /* libstdc++.md */,
+				C55C88DE2E167B6800B56985 /* libstdc++.md/README.md */,
 				C55C88DF2E167B6800B56985 /* iPhone-Device */,
 				C55C88E22E167B6800B56985 /* iPhone-Simulator */,
 				C55C88E82E167B6800B56985 /* assets */,
@@ -17017,8 +17025,9 @@
 		C55C88F52E167B6800B56985 /* BRStringPickerView */ = {
 			isa = PBXGroup;
 			children = (
-				C55C88F72E167B6800B56985 /* BRStringPickerView+Extra.h */,
-				C55C88F62E167B6800B56985 /* BRStringPickerView+Extra.m */,
+				C5D8AAFC2FD1859D00F6BFCA /* BRStringPickerView+Extra */,
+				04D49C232EBC7E6800BCD6F1 /* BRStringPickerView.h */,
+				04D49C242EBC7E6800BCD6F1 /* BRStringPickerView.m */,
 			);
 			path = BRStringPickerView;
 			sourceTree = "<group>";
@@ -17482,6 +17491,15 @@
 			path = ZWPullMenuView;
 			sourceTree = "<group>";
 		};
+		C5D8AAFC2FD1859D00F6BFCA /* BRStringPickerView+Extra */ = {
+			isa = PBXGroup;
+			children = (
+				C5D8AAFA2FD1859D00F6BFCA /* BRStringPickerView+Extra.h */,
+				C5D8AAFB2FD1859D00F6BFCA /* BRStringPickerView+Extra.m */,
+			);
+			path = "BRStringPickerView+Extra";
+			sourceTree = "<group>";
+		};
 		C5DBF4F22E16C04700032B4B /* ZFPlayerExtras */ = {
 			isa = PBXGroup;
 			children = (
@@ -17521,7 +17539,7 @@
 		D29846BDEB8D0B376E135B66 /* JobsNetworkSource */ = {
 			isa = PBXGroup;
 			children = (
-				B554155B3E0C817389916667 /* JobsNetworkSource.m */,
+				B554155B3E0C817389916667 /* JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/UIKit数据束/JobsNetworkSource/JobsNetworkSource.m */,
 			);
 			name = JobsNetworkSource;
 			sourceTree = "<group>";
@@ -17869,8 +17887,12 @@
 			);
 			inputFileListPaths = (
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -17906,8 +17928,12 @@
 			);
 			inputFileListPaths = (
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -18140,7 +18166,7 @@
 				C55C89662E167B6900B56985 /* CasinoGetiOSNewestVersionModel.m in Sources */,
 				04D49C212EBC7E6800BCD6F1 /* ASNetworkImageNode+DSL.m in Sources */,
 				C55C8E0B2E167B6E00B56985 /* TKPermissionCalendar.m in Sources */,
-				C55C8ED22E167B6F00B56985 /* BRStringPickerView+Extra.m in Sources */,
+				04D49C222EBC7E6800BCD6F1 /* BRStringPickerView.m in Sources */,
 				C55C8B822E167B6B00B56985 /* NSString+Notification.m in Sources */,
 				C55C8C952E167B6C00B56985 /* NSData+Base64.m in Sources */,
 				C55C8C7B2E167B6C00B56985 /* JobsCalenderView.m in Sources */,
@@ -18845,6 +18871,7 @@
 				C55C89D82E167B6900B56985 /* BaiShaETProjChoiceStadiumView.m in Sources */,
 				C55C8ADD2E167B6A00B56985 /* UIImage+YBGIF.m in Sources */,
 				C55C8B882E167B6B00B56985 /* UIViewController+SafeTransition.m in Sources */,
+				04D49C252EBC8B2A00BCD6F1 /* JobsRecordPresentedViewController.m in Sources */,
 				C55C8ADB2E167B6A00B56985 /* UIImage+Extras.m in Sources */,
 				C55C8DE32E167B6E00B56985 /* HTTPAuthenticationRequest.m in Sources */,
 				C55C8DE62E167B6E00B56985 /* DDRange.m in Sources */,
@@ -18881,9 +18908,10 @@
 				C55C8DA82E167B6D00B56985 /* ZBRequestEngine.m in Sources */,
 				C55C8DC42E167B6E00B56985 /* KTVHCDataStorage.m in Sources */,
 				C55C8A992E167B6A00B56985 /* TestLabelVC.m in Sources */,
-				5B5B5722EB764350547343D6 /* GTCaptcha4ResultModel.m in Sources */,
-				5A5A25AAF79665ED9CC62AB8 /* JobsLocalNotificationModel.m in Sources */,
-				E2DB687B074955BE861DEB9D /* JobsNetworkSource.m in Sources */,
+				5B5B5722EB764350547343D6 /* JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/3rd/GTCaptcha4ResultModel/GTCaptcha4ResultModel.m in Sources */,
+				5A5A25AAF79665ED9CC62AB8 /* JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/Json处理/JobsLocalNotificationModel/JobsLocalNotificationModel.m in Sources */,
+				E2DB687B074955BE861DEB9D /* JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/UIKit数据束/JobsNetworkSource/JobsNetworkSource.m in Sources */,
+				C5D8AAFD2FD1859D00F6BFCA /* BRStringPickerView+Extra.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

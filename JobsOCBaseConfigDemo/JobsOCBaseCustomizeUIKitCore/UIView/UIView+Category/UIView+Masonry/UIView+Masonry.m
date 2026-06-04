@@ -7,6 +7,8 @@
 
 #import "UIView+Masonry.h"
 
+#import "DefineProperty.h"
+
 @implementation UIView (Masonry)
 #pragma mark —— 一些Masonry算法
 /// 制作一个带有n*m小矩形内容的大矩形（二次封装）

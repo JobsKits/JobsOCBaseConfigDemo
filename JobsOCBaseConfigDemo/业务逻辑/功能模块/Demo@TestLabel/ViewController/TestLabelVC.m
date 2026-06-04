@@ -7,6 +7,8 @@
 
 #import "TestLabelVC.h"
 
+#import "DefineProperty.h"
+
 @interface TestLabelVC ()
 /// UILabel
 Prop_strong()BaseLabel *lab1;///【UILabelShowingType_01】 一行显示。定宽、定字体。多余部分用…表示（省略号的位置由NSLineBreakMode控制）

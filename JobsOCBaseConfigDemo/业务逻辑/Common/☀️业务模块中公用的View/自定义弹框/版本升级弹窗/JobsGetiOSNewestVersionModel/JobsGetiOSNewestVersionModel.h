@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 #import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsGetiOSNewestVersionModel : NSObject

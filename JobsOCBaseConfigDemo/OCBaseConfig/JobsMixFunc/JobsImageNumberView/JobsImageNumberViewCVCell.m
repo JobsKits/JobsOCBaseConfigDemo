@@ -7,6 +7,8 @@
 
 #import "JobsImageNumberViewCVCell.h"
 
+#import "DefineProperty.h"
+
 @interface JobsImageNumberViewCVCell ()
 
 Prop_strong()UIImageView *textIMGV;

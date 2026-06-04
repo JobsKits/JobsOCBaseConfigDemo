@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol TLAnimationProtocol <NSObject>
@@ -37,9 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
                              buttonTextLabel:(UILabel *)textLabel;
 
 /** 选中当前Item时，上一个被选中的item的索引 小于当前选中的 item */
-@property(nonatomic,assign,getter=isFromLeft)BOOL fromLeft;
+Prop_assign(getter=isFromLeft)BOOL fromLeft;
 /** 撤销选中当前Item时，下一个被选中的item的索引 大于当前选中的 item */
-@property(nonatomic,assign,getter=isToRight)BOOL toRight;
+Prop_assign(getter=isToRight)BOOL toRight;
 
 @end
 

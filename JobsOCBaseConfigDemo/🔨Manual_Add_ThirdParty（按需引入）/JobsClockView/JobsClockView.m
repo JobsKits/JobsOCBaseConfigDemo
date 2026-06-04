@@ -7,6 +7,8 @@
 
 #import "JobsClockView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsClockView ()
 /// 外圈表盘
 Prop_strong() CAShapeLayer *dialLayer;

@@ -16,6 +16,8 @@
 #define MethodName(obj) NSStringFromClass([obj class]).add(@"_").add(NSStringFromSelector(_cmd))
 #endif /* MethodName */
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (DynamicInvoke)

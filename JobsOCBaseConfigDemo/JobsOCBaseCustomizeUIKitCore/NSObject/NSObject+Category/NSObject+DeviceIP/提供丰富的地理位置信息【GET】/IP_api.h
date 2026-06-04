@@ -7,6 +7,8 @@
 
 #import "JobsBaseApi.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /// 提供丰富的地理位置信息@GET
 /// http://ip-api.com/json/

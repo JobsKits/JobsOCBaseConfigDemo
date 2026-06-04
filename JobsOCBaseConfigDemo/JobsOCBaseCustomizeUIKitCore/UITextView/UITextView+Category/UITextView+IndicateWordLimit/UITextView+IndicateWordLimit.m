@@ -7,6 +7,8 @@
 
 #import "UITextView+IndicateWordLimit.h"
 
+#import "DefineProperty.h"
+
 @implementation UITextView (IndicateWordLimit)
 #pragma mark —— Prop_strong()UILabel *indicateWordLimitLab;
 JobsKey(_indicateWordLimitLab)

@@ -7,6 +7,8 @@
 
 #import "UIViewController+JXPagerViewListViewDelegate.h"
 
+#import "DefineProperty.h"
+
 @implementation UIViewController (JXPagerViewListViewDelegate)
 #pragma mark —— UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

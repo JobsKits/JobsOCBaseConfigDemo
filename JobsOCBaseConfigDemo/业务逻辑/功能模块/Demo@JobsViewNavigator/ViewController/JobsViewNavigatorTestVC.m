@@ -7,6 +7,8 @@
 
 #import "JobsViewNavigatorTestVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsViewNavigatorTestVC ()
 
 Prop_strong()JobsPushView *pushView;

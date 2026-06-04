@@ -8,6 +8,8 @@
 #import <UIKit/UIKit.h>
 #import "JobsTimer.h" // 依赖 JobsTimer / TimerProtocol / JobsBlock
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, _JobsTimerPauseState) {
@@ -18,7 +20,7 @@ typedef NS_ENUM(NSUInteger, _JobsTimerPauseState) {
 
 /// Swift 侧：JobsTimerIdentifiable.timerIdentifier
 @protocol JobsTimerIdentifiable <NSObject>
-@property(nonatomic, copy, readonly) NSString *timerIdentifier;
+Prop_copy(readonly)NSString *timerIdentifier;
 @end
 
 /// Swift 侧：JobsTimerBackgroundPolicy

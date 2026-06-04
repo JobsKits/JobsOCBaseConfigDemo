@@ -7,6 +7,8 @@
 
 #import "UIViewController+MJRefresh.h"
 
+#import "DefineProperty.h"
+
 @implementation UIViewController (MJRefresh)
 /*
  * 相关继承关系图谱 4个header + 9个Footer ;已经实现的👌

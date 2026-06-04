@@ -8,6 +8,8 @@
 
 #import "UIView+SuspendView.h"
 
+#import "DefineProperty.h"
+
 @implementation UIView (SuspendView)
 #pragma mark —— @property(nonatomic,weak)UIViewController *vc;
 JobsKey(_vc)

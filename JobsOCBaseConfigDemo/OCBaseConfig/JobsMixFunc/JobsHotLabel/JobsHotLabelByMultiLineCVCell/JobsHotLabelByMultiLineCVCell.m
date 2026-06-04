@@ -7,6 +7,8 @@
 
 #import "JobsHotLabelByMultiLineCVCell.h"
 
+#import "DefineProperty.h"
+
 @interface JobsHotLabelByMultiLineCVCell ()
 
 Prop_strong()UILabel *textLab;

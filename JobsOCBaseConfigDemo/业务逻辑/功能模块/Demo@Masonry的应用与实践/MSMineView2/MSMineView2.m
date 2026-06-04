@@ -7,6 +7,8 @@
 
 #import "MSMineView2.h"
 
+#import "DefineProperty.h"
+
 @interface MSMineView2 ()
 /// UI
 Prop_strong()BaseButton *btn1;

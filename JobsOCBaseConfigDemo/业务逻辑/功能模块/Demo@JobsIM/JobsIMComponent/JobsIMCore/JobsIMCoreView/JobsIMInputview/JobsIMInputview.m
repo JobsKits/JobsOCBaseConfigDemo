@@ -7,6 +7,8 @@
 
 #import "JobsIMInputview.h"
 
+#import "DefineProperty.h"
+
 @interface JobsIMInputview ()
 /// UI
 Prop_strong()UIImageView *imgView;

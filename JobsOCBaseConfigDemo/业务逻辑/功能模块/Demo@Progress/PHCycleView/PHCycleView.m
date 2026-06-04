@@ -8,6 +8,8 @@
 
 #import "PHCycleView.h"
 
+#import "DefineProperty.h"
+
 @interface PHCycleView()
 
 Prop_strong()CAShapeLayer *outLayer;

@@ -340,6 +340,7 @@ NS_INLINE CGFloat JobsSafeHeight(CGFloat designHeight) {
     return (safeHeight / baseHeight) * designHeight;
 }
 #import "MacroDef_Func.h"/// 提到最前面，就会因为编译顺序的问题报错
+
 #pragma mark —— 安全区域
 ///【竖屏】顶部的安全距离
 ///【横屏】距离灵动岛左边10，距离灵动岛右边46，灵动岛高度36pt，灵动岛宽度120pt

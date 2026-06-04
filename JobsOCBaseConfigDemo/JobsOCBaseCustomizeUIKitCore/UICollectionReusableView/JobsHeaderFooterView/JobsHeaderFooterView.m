@@ -7,6 +7,8 @@
 
 #import "JobsHeaderFooterView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsHeaderFooterView ()
 /// UI
 Prop_strong()BaseButton *titleBtn;

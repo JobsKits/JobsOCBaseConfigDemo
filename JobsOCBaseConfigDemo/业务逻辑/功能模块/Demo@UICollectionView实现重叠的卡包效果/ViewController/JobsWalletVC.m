@@ -7,6 +7,8 @@
 
 #import "JobsWalletVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsWalletVC ()
 /// Data
 Prop_strong()TMSCollectionViewLayout *tms_layout;

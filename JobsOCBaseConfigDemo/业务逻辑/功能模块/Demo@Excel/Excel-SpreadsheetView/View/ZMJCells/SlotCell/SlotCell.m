@@ -7,6 +7,8 @@
 
 #import "SlotCell.h"
 
+#import "DefineProperty.h"
+
 @interface SlotCell ()
 
 Prop_strong()UILabel *minutesLabel;

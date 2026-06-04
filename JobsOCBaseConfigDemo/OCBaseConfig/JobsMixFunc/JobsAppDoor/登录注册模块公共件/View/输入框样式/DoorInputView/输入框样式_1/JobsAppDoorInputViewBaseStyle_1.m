@@ -8,6 +8,8 @@
 
 #import "JobsAppDoorInputViewBaseStyle_1.h"
 
+#import "DefineProperty.h"
+
 @interface JobsAppDoorInputViewBaseStyle_1 ()
 /// UI
 Prop_strong()UIButton <TimerProtocol>*countDownBtn;

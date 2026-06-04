@@ -7,6 +7,8 @@
 
 #import "JobsPageView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsPageView ()
 /// Data
 Prop_strong()NSArray <UIViewModel *>*dataArr;

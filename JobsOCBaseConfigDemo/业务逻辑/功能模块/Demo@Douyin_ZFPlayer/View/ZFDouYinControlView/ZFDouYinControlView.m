@@ -8,6 +8,8 @@
 
 #import "ZFDouYinControlView.h"
 
+#import "DefineProperty.h"
+
 @interface ZFDouYinControlView ()
 
 Prop_strong()UIButton *playBtn;

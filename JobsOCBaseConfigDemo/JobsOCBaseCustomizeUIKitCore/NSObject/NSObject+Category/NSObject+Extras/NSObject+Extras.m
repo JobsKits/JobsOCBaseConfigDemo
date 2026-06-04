@@ -9,6 +9,8 @@
 #import "NSObject+Extras.h"
 #import "NSNotificationKeyboardModel.h"
 
+#import "DefineProperty.h"
+
 @implementation NSObject (Extras)
 /// UITextFieldProtocol
 UITextFieldProtocol_dynamic

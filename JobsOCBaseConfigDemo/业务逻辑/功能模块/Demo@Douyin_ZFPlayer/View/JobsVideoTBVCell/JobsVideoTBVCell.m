@@ -7,6 +7,8 @@
 
 #import "JobsVideoTBVCell.h"
 
+#import "DefineProperty.h"
+
 @interface JobsVideoTBVCell ()
 /// UI
 Prop_strong()UIImageView *coverImageView;

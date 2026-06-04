@@ -7,6 +7,8 @@
 
 #import "JobsShootingVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsShootingVC ()
 /// UI
 Prop_strong()UIButton *cameraBtn;

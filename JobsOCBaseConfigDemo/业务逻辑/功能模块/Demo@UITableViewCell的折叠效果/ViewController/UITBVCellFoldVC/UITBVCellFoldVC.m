@@ -7,6 +7,8 @@
 
 #import "UITBVCellFoldVC.h"
 
+#import "DefineProperty.h"
+
 @interface UITBVCellFoldVC ()
 /// UI
 Prop_strong()UILabel *titleLab;

@@ -7,6 +7,8 @@
 
 #import "JobsAppTools.h"
 
+#import "DefineProperty.h"
+
 @interface JobsAppTools ()
 
 Prop_strong()UIWindow *appDelegateWindow;

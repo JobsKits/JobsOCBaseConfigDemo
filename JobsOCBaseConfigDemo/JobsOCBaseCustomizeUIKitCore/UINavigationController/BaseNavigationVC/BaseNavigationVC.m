@@ -8,6 +8,8 @@
 
 #import "BaseNavigationVC.h"
 
+#import "DefineProperty.h"
+
 @interface BaseNavigationVC ()
 
 Prop_strong()NSShadow *shadow;

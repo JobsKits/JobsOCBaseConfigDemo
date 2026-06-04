@@ -7,6 +7,8 @@
 
 #import "BaseContentView.h"
 
+#import "DefineProperty.h"
+
 @interface BaseContentView ()
 
 Prop_assign()CGRect initialContentViewRect;// 登录框 初始frame值

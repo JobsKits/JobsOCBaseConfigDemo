@@ -13,6 +13,8 @@ typedef NS_ENUM(NSUInteger, SkipButtonMode) {
     SkipButtonModeCountdown
 };
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^AdInteractionCallback)(void);
@@ -20,16 +22,16 @@ typedef void (^AdCompletionCallback)(void);
 
 @interface JobsLaunchAdMgr : NSObject
 
-@property (nonatomic, copy) NSString *buttonTitle;
-@property (nonatomic, assign) CGRect buttonFrame;
-@property (nonatomic, assign) SkipButtonMode buttonModel;
-@property (nonatomic, assign) NSInteger countdownDuration;
-@property (nonatomic, copy) NSString *redirectURL;
-@property (nonatomic, copy) AdInteractionCallback onDoubleTap;
-@property (nonatomic, copy) AdInteractionCallback onSingleTap;
-@property (nonatomic, copy) AdInteractionCallback onLongPress;
-@property (nonatomic, copy) AdInteractionCallback onShake;
-@property (nonatomic, copy) AdCompletionCallback onAdDidFinish;
+Prop_copy()NSString *buttonTitle;
+Prop_assign()CGRect buttonFrame;
+Prop_assign()SkipButtonMode buttonModel;
+Prop_assign()NSInteger countdownDuration;
+Prop_copy()NSString *redirectURL;
+Prop_copy()AdInteractionCallback onDoubleTap;
+Prop_copy()AdInteractionCallback onSingleTap;
+Prop_copy()AdInteractionCallback onLongPress;
+Prop_copy()AdInteractionCallback onShake;
+Prop_copy()AdCompletionCallback onAdDidFinish;
 
 + (instancetype)sharedManager;
 - (void)showAdWithLocalResource:(NSString *)resourcePath isVideo:(BOOL)isVideo;

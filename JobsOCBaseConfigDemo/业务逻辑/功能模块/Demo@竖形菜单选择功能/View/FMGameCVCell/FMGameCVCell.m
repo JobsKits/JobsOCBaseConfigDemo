@@ -7,6 +7,8 @@
 
 #import "FMGameCVCell.h"
 
+#import "DefineProperty.h"
+
 @interface FMGameCVCell ()
 
 Prop_strong()GoodsClassModel *goodsClsModel;

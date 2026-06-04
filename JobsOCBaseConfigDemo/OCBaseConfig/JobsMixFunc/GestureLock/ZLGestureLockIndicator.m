@@ -8,6 +8,8 @@
 
 #import "ZLGestureLockIndicator.h"
 
+#import "DefineProperty.h"
+
 @interface ZLGestureLockIndicator()
 
 Prop_strong()NSMutableArray *btns;

@@ -8,6 +8,8 @@
 
 #import "GDFadeView.h"
 
+#import "DefineProperty.h"
+
 @interface GDFadeView ()
 
 Prop_strong()UILabel *backLabel;

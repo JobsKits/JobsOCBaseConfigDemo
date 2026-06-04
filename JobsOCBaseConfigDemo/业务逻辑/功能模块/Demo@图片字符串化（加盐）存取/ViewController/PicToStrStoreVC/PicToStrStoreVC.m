@@ -7,6 +7,8 @@
 
 #import "PicToStrStoreVC.h"
 
+#import "DefineProperty.h"
+
 @interface PicToStrStoreVC ()
 /// Data
 Prop_strong()NSMutableArray <__kindof UITableViewCell *>*tbvCellMutArr;

@@ -12,6 +12,8 @@
 #import "CasinoCustomerContactModel.h"
 #import "UILabel+Extra.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /**
     1、单排显示固定样式UI（UIButton 方便图文展示）：

@@ -7,6 +7,8 @@
 
 #import "JobsScrollViewVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsScrollViewVC ()
 
 Prop_strong()UIView *jobsView;

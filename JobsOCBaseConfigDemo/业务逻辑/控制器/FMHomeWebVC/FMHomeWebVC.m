@@ -14,6 +14,8 @@
  开发：https://www.sports5555.com
  
  */
+#import "DefineProperty.h"
+
 @interface FMHomeWebVC ()
 
 Prop_strong()UIImageView *launchImageView; /// 启动画面

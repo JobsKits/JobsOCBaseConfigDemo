@@ -12,11 +12,13 @@
 #import "DefineConstString.h" /// 常量字符串的定义
 #import "NSBundle+Extra.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsLanguageManager : NSObject
 /// 获取和设置当前语言
-@property(class,nonatomic,assign)AppLanguage language;
+Prop_assign(class)AppLanguage language;
 /// 语言包路径
 +(NSBundle *_Nullable)bundle;
 /// 通过key取值对应的语言

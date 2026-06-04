@@ -8,6 +8,8 @@
 
 #import "JobsInfoTBVCell.h"
 
+#import "DefineProperty.h"
+
 @interface JobsInfoTBVCell ()
 /// UI
 Prop_strong()RBCLikeButton *likeBtn;

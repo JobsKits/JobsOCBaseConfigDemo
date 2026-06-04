@@ -7,6 +7,8 @@
 
 #import "UIViewController+Masonry.h"
 
+#import "DefineProperty.h"
+
 @implementation UIViewController (Masonry)
 
 -(JobsRetBOOLByViewBlock _Nonnull)containBy{

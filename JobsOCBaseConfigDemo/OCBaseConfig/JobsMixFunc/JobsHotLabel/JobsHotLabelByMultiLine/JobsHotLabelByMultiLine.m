@@ -7,6 +7,8 @@
 
 #import "JobsHotLabelByMultiLine.h"
 
+#import "DefineProperty.h"
+
 @interface JobsHotLabelByMultiLine ()
 /// Data
 Prop_strong()NSMutableArray <__kindof UICollectionViewCell *>*cvcellMutArr;

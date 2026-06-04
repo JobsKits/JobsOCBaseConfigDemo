@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UIView+Measure.h"
 
+#import "DefineProperty.h"
 #if __has_include(<ZMJTipView/ZMJTipView.h>)
 #import <ZMJTipView/ZMJTipView.h>
 #else

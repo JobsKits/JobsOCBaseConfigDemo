@@ -7,6 +7,8 @@
 
 #import "BaiShaETProjVIPSubCVFooterView.h"
 
+#import "DefineProperty.h"
+
 @interface BaiShaETProjVIPSubCVFooterView ()
 
 Prop_strong()BaseLabel *titleLab;

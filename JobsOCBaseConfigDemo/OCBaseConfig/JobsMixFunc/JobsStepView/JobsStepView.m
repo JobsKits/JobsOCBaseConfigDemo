@@ -7,6 +7,8 @@
 
 #import "JobsStepView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsStepView ()
 
 Prop_assign()VerificationStatus status;

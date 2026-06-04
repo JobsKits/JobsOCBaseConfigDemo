@@ -16,6 +16,8 @@
 #import "ZFUtilities.h"
 #import "ZFSliderView.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZFCustomControlView : UIView <ZFPlayerMediaControl>

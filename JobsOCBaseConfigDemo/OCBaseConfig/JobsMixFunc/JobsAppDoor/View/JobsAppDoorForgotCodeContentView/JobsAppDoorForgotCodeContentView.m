@@ -9,6 +9,8 @@
 
 @class JobsAppDoorDoorInputViewBaseStyle;
 
+#import "DefineProperty.h"
+
 @interface JobsAppDoorForgotCodeContentView ()
 /// UI
 Prop_strong()UILabel *titleLab;// 标题

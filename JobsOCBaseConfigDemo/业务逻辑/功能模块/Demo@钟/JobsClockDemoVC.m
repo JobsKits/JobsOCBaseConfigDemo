@@ -7,6 +7,8 @@
 
 #import "JobsClockDemoVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsClockDemoVC ()
 
 Prop_strong()JobsClockView *clockView;

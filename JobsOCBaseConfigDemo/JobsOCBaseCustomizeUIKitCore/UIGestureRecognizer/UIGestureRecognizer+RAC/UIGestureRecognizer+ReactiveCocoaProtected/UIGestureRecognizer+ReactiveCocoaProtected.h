@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "MacroDef_Sys.h"
 
+#import "DefineProperty.h"
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else

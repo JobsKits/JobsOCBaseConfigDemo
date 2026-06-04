@@ -10,6 +10,7 @@
 #import "JobsBlock.h"
 #import "GTCaptcha4Model.h"
 
+#import "DefineProperty.h"
 #if __has_include(<GTCaptcha4/GTCaptcha4.h>)
 #import <GTCaptcha4/GTCaptcha4.h>
 #else

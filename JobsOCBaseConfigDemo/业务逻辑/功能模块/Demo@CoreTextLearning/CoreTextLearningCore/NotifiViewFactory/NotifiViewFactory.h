@@ -10,11 +10,13 @@
 
 typedef void(^FetchNotifiViewBlock)(NotifiView *_Nullable view);
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NotifiViewFactory : NSObject
 
-@property(nonatomic,readonly,copy)NSArray *notifiViews;
+Prop_copy(readonly)NSArray *notifiViews;
 
 +(instancetype)shared;
 

@@ -10,6 +10,8 @@
 #import "RYCuteView.h"
 /// 默认最小高度
 static const CGFloat kDefaultMinHeight = 64.f;
+#import "DefineProperty.h"
+
 @interface RYCuteView ()
 /// 手势移动时相对高度
 Prop_assign() CGFloat mHeight;

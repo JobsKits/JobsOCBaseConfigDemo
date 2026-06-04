@@ -8,11 +8,13 @@
 #import <Foundation/Foundation.h>
 #import "JobsBlock.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSNumber (Extra)
 
-@property(nonatomic,readonly)NSString *stringValueOrEmpty;
+Prop(readonly)NSString *stringValueOrEmpty;
 
 +(JobsRetNumberByCharBlock _Nonnull)initByChar;
 +(JobsRetNumberByUnsignedCharBlock _Nonnull)initByUnsignedChar;

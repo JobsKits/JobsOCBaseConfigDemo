@@ -8,6 +8,8 @@
 
 #import "WGradientProgress.h"
 
+#import "DefineProperty.h"
+
 @interface WGradientProgress ()
 /// UI
 Prop_strong()CALayer *roadLayer;                 // 跑道 即将运行的轨迹

@@ -8,6 +8,8 @@
 
 #import "UIView+BackgroundImage.h"
 
+#import "DefineProperty.h"
+
 @implementation UIView (BackgroundImage)
 /**
  【特别指出】

@@ -7,6 +7,8 @@
 
 #import "NSObject+NTESVerifyCodeManager.h"
 
+#import "DefineProperty.h"
+
 @implementation NSObject (NTESVerifyCodeManager)
 #pragma mark —— BaseProtocol
 // 显示验证码

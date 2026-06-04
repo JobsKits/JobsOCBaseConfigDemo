@@ -7,6 +7,8 @@
 
 #import "JobsVerticalMenuVC@2.h"
 
+#import "DefineProperty.h"
+
 @interface JobsVerticalMenuVC_2 ()
 /// UI
 Prop_strong()BaseButton *editBtn;

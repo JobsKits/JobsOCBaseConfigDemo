@@ -7,6 +7,8 @@
 
 #import "JobsTimerVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsTimerVC ()
 /// UI
 Prop_strong()NSMutableArray <UIButton *>*btnMutArr;

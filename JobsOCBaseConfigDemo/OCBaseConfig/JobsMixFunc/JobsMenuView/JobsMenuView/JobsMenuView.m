@@ -7,6 +7,8 @@
 
 #import "JobsMenuView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsMenuView ()
 /// UI
 Prop_strong()JobsLinkageMenuView *menuView;

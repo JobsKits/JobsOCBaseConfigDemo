@@ -7,6 +7,8 @@
 //
 #import "JobsMonitorNetwoking.h"
 
+#import "DefineProperty.h"
+
 @interface JobsMonitorNetwoking ()
 
 Prop_assign()long long int lastBytes;

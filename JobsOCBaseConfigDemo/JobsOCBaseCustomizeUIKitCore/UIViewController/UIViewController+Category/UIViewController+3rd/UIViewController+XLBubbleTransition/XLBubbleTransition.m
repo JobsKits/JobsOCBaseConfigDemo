@@ -8,6 +8,8 @@
 
 #import "XLBubbleTransition.h"
 
+#import "DefineProperty.h"
+
 @interface XLBubbleTransition ()
 /// 锚点
 Prop_assign()CGRect anchorRect;

@@ -7,6 +7,8 @@
 
 #import "JobsVerticalMenuMainVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsVerticalMenuMainVC ()
 /// Data
 Prop_strong()NSMutableArray <NSMutableArray <__kindof UITableViewCell *>*>*tbvSectionRowCellMutArr;

@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 #import "NotifiView.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NotifiOperation : NSOperation

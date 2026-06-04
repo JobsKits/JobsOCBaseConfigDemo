@@ -8,6 +8,8 @@
 
 #import "UIView+Chain.h"
 
+#import "DefineProperty.h"
+
 @implementation UIView (Chain)
 
 + (void)load {

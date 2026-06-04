@@ -15,11 +15,13 @@
 #import "NSObject+CallBackInfoByBlock.h"
 
 /// hidden 的 权限优先级 > alpha
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /// 高仿iOS长按删除+抖动
 @interface JobsShakeBtn : UIButton
 
-@property(nonatomic,assign,getter=isShaking)BOOL shaking;// 是否抖动
+Prop_assign(getter=isShaking)BOOL shaking;// 是否抖动
 Prop_strong()UIImageView *iconBtn;// 右上角的按钮
 
 @end

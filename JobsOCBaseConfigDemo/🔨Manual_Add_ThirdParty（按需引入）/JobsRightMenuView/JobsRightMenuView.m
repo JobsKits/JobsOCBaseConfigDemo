@@ -7,6 +7,8 @@
 
 #import "JobsRightMenuView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsRightMenuView ()
 /// UI
 Prop_strong()BaseButton *suspendBtn;

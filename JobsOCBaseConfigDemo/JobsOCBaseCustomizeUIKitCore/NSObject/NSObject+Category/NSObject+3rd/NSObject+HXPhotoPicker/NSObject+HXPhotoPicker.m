@@ -7,6 +7,8 @@
 
 #import "NSObject+HXPhotoPicker.h"
 
+#import "DefineProperty.h"
+
 @implementation NSObject (HXPhotoPicker)
 #pragma mark —— 一些公有方法
 /// HXPhotoPicker 弹出系统相册选择页面

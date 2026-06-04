@@ -19,6 +19,8 @@
 #define CloseBtnModel NavBarConfig.closeBtnModel
 #endif /* CloseBtnModel */
 
+#import "DefineProperty.h"
+
 @interface JobsNavBar ()
 /// UI
 Prop_strong()BaseButton *backBtn;

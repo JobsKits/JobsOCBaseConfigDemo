@@ -7,6 +7,8 @@
 
 #import "CasinoUpgradePopupView.h"
 
+#import "DefineProperty.h"
+
 @interface CasinoUpgradePopupView ()
 /// UI
 Prop_strong()CasinoUpgradeContentView *upgradeContentView;

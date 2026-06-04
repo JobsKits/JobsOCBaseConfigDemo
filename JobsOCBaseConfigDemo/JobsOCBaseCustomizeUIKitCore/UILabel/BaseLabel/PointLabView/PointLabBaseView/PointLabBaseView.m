@@ -7,6 +7,8 @@
 
 #import "PointLabBaseView.h"
 
+#import "DefineProperty.h"
+
 @interface PointLabBaseView ()
 /// UI
 Prop_strong()UIView *pointView;

@@ -7,6 +7,8 @@
 
 #import "UIView+BackgroundLabel.h"
 
+#import "DefineProperty.h"
+
 @implementation UIView (BackgroundLabel)
 #pragma mark —— Prop_strong()UILabel *backgroundLabel;
 JobsKey(_backgroundLabel)

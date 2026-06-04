@@ -7,6 +7,8 @@
 
 #import "JobsBaseApi.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /// 简单可靠，只返回设备的公网IP地址@GET
 /// https://api.ipify.org?format=json

@@ -7,6 +7,8 @@
 
 #import "UIGestureRecognizer+Extra.h"
 
+#import "DefineProperty.h"
+
 @implementation UIGestureRecognizer (Extra)
 
 -(__kindof UIGestureRecognizer *)gestureActionBy:(jobsByVoidBlock _Nonnull)block{

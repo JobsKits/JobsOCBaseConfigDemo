@@ -15,6 +15,7 @@
 #import "LOTAnimationMJRefreshHeader.h"
 #import "MJRefreshConfigModel.h"
 
+#import "DefineProperty.h"
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>
 #else

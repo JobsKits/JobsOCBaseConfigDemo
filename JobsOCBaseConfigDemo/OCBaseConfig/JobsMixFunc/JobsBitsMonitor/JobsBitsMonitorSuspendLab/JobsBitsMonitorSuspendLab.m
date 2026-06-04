@@ -7,6 +7,8 @@
 
 #import "JobsBitsMonitorSuspendLab.h"
 
+#import "DefineProperty.h"
+
 @interface JobsBitsMonitorSuspendLab ()
 /// Data
 Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;

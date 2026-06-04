@@ -16,6 +16,7 @@
 
 //#import "UIViewController+HXExtension.h"
 
+#import "DefineProperty.h"
 #if __has_include(<HXPhotoPicker/HXPhotoPicker.h>)
 #import <HXPhotoPicker/HXPhotoPicker.h>
 #else

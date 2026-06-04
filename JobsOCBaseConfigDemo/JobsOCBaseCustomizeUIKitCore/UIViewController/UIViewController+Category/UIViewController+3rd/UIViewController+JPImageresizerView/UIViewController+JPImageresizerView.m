@@ -17,6 +17,8 @@ static void JobsApplyJPImageresizerBlurAppearance(JPImageresizerConfigure *confi
     });
 }
 
+#import "DefineProperty.h"
+
 @implementation UIViewController (JPImageresizerView)
 #pragma mark —— Prop_strong()JPImageresizerConfigure *configure;
 JobsKey(_configure)

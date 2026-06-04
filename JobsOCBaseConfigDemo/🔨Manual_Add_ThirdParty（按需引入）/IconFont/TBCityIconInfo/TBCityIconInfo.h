@@ -7,11 +7,13 @@
 //
 #import <UIKit/UIKit.h>
 
+#import "DefineProperty.h"
+
 @interface TBCityIconInfo : NSObject
 
-@property (nonatomic, copy) NSString *text;
-@property (nonatomic, assign) NSInteger size;
-@property (nonatomic, strong) UIColor *color;
+Prop_copy()NSString *text;
+Prop_assign()NSInteger size;
+Prop_strong()UIColor *color;
 
 - (instancetype)initWithText:(NSString *)text size:(NSInteger)size color:(UIColor *)color;
 + (instancetype)iconInfoWithText:(NSString *)text size:(NSInteger)size color:(UIColor *)color;

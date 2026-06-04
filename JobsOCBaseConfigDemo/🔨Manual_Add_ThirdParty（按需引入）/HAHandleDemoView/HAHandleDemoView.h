@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "DefineProperty.h"
+
 @protocol HAHandleDemoViewDelegate <NSObject>
 
 @optional
@@ -20,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HAHandleDemoView : UIView
 
-@property (nonatomic, weak) id<HAHandleDemoViewDelegate> delegate;
+Prop_weak()id<HAHandleDemoViewDelegate> delegate;
 
 -(void)handleBtnTouchDownAction;
 -(void)handleBtnTouchUpOutsideAction;

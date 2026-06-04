@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NSObject+Extras.h"
 
+#import "DefineProperty.h"
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>
 #else

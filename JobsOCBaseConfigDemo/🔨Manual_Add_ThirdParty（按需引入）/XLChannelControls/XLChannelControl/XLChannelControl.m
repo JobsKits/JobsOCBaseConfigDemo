@@ -9,13 +9,13 @@
 #import "XLChannelControl.h"
 #import "XLChannelView.h"
 
+#import "DefineProperty.h"
+
 @interface XLChannelControl ()
 
-@property (nonatomic, strong) UINavigationController *nav;
-
-@property (nonatomic, strong) XLChannelView *channelView;
-
-@property (nonatomic, strong) XLChannelBlock block;
+Prop_strong()UINavigationController *nav;
+Prop_strong()XLChannelView *channelView;
+Prop_strong()XLChannelBlock block;
 
 @end
 

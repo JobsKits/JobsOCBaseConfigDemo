@@ -7,6 +7,8 @@
 
 #import "FMMaintenanceView.h"
 
+#import "DefineProperty.h"
+
 @interface FMMaintenanceView ()
 /// UI
 Prop_strong()UILabel *timeLab;

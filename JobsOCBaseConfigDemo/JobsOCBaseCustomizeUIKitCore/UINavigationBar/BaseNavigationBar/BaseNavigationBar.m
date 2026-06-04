@@ -7,6 +7,8 @@
 
 #import "BaseNavigationBar.h"
 
+#import "DefineProperty.h"
+
 @interface BaseNavigationBar ()
 
 Prop_copy()jobsByIDBlock baseNavigationBarBlock;

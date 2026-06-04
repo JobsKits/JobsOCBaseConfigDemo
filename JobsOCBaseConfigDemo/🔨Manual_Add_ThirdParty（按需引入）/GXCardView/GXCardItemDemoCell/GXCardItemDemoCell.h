@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "GXCardView.h"
 
+#import "DefineProperty.h"
+
 @interface GXCardItemDemoCell : GXCardViewCell
 
-@property (nonatomic, weak) IBOutlet UILabel *numberLabel;
-@property (nonatomic, weak) IBOutlet UILabel *leftLabel;
-@property (nonatomic, weak) IBOutlet UILabel *rightLabel;
+Prop_weak()IBOutlet UILabel *numberLabel;
+Prop_weak()IBOutlet UILabel *leftLabel;
+Prop_weak()IBOutlet UILabel *rightLabel;
 
 @end

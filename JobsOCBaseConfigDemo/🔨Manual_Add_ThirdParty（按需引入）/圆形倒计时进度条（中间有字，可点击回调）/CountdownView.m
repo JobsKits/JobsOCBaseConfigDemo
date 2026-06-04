@@ -8,6 +8,8 @@
 
 #import "CountdownView.h"
 
+#import "DefineProperty.h"
+
 @interface CountdownView ()
 
 Prop_strong()CAShapeLayer *shapeLayer;

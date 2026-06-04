@@ -5,6 +5,7 @@
 //  Created by User on 7/30/24.
 //
 
+#import "DefineProperty.h"
 #if __has_include(<ZMJGanttChart/ZMJGanttChart.h>)
 #import <ZMJGanttChart/ZMJGanttChart.h>
 #else

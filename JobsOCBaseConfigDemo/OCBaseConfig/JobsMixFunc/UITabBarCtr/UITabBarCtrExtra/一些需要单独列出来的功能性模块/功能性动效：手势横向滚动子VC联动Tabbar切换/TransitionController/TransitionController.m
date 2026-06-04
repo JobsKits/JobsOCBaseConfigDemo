@@ -8,11 +8,13 @@
 
 #import "TransitionController.h"
 
+#import "DefineProperty.h"
+
 @interface TransitionController()
 
-@property(nonatomic,weak)id<UIViewControllerContextTransitioning> transitionContext;
-@property(nonatomic,strong,readonly)UIPanGestureRecognizer *gestureRecognizer;
-@property(nonatomic,readwrite)CGPoint initialTranslationInContainerView;
+Prop_weak()id<UIViewControllerContextTransitioning> transitionContext;
+Prop_strong(readonly)UIPanGestureRecognizer *gestureRecognizer;
+Prop(readwrite)CGPoint initialTranslationInContainerView;
 
 @end
 

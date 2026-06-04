@@ -7,6 +7,8 @@
 
 #import "JobsNetWorkTools.h"
 
+#import "DefineProperty.h"
+
 @interface JobsNetworkTrafficMonitor ()
 
 Prop_copy()JobsNetworkUpdateBlock onUpdate;

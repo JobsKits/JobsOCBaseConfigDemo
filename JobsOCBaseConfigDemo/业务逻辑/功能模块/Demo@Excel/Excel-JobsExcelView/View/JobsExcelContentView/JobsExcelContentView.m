@@ -8,6 +8,8 @@
 
 #import "JobsExcelContentView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsExcelContentView()
 /// Data
 Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;

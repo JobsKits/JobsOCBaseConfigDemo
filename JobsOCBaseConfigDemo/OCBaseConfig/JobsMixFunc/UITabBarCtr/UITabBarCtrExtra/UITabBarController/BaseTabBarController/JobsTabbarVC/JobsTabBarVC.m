@@ -8,6 +8,8 @@
 
 #import "JobsTabBarVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsTabBarVC (){
     BOOL A;
 }

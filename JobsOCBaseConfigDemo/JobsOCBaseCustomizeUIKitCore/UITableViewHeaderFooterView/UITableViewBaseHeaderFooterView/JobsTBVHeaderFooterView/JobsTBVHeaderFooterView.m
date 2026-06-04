@@ -7,6 +7,8 @@
 
 #import "JobsTBVHeaderFooterView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsTBVHeaderFooterView ()
 /// UI
 Prop_strong()UILabel *titleLab;

@@ -8,6 +8,8 @@
 
 #import "JobsRightBtnsView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsRightBtnsView ()
 /// UI
 Prop_strong()RBCLikeButton *loveBtn;/// 点赞

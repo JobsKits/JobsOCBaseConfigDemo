@@ -8,6 +8,8 @@
 
 #import "JobsExcelTopHeadView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsExcelTopHeadView()
 
 Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;

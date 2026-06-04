@@ -8,6 +8,8 @@
 
 #import "NSObject+BRPickerView.h"
 
+#import "DefineProperty.h"
+
 @implementation NSObject (BRPickerView)
 #pragma mark —— 一些公有方法
 - (BRPickerStyle *)makeCustomStyle {

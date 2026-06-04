@@ -14,6 +14,8 @@
 #import "FMMaintenanceView.h"
 #import "GoodsClassModel.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /// 这个类用于计算，不用于显示
 @interface ThreeClassCell : JobsBaseCollectionViewCell

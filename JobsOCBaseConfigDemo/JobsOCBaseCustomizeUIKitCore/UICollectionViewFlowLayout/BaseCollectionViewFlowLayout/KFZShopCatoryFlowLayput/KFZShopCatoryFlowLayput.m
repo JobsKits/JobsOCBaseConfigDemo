@@ -11,6 +11,8 @@
     自定义section背景view 注意继承于UICollectionReusableView
     有点内部类的味道，你品、你细品
  */
+#import "DefineProperty.h"
+
 @interface KFZShopCatorySectionWhiteBgView : UICollectionReusableView
 
 @end

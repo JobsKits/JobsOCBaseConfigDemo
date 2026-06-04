@@ -22,6 +22,7 @@
 #import "JobsTimer.h"/// 时间管理
 #import "UIButton+UI.h"
 
+#import "DefineProperty.h"
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else

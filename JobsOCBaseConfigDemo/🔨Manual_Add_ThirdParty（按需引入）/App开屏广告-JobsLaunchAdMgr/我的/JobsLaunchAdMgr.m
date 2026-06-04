@@ -7,17 +7,19 @@
 
 #import "JobsLaunchAdMgr.h"
 
+#import "DefineProperty.h"
+
 @interface JobsLaunchAdMgr ()
 /// UI
-@property(nonatomic,strong)UIView *adView;
-@property(nonatomic,strong)UIButton <TimerProtocol>*countDownBtn;
-@property(nonatomic,strong)AVPlayer *videoPlayer;
-@property(nonatomic,strong)AVPlayerLayer *playerLayer;
-@property(nonatomic,strong)UIImageView *imageView;
+Prop_strong()UIView *adView;
+Prop_strong()UIButton <TimerProtocol>*countDownBtn;
+Prop_strong()AVPlayer *videoPlayer;
+Prop_strong()AVPlayerLayer *playerLayer;
+Prop_strong()UIImageView *imageView;
 /// Data
-@property(nonatomic,strong)NSURL *url;
-@property(nonatomic,strong)UIImage *image;
-@property(nonatomic,strong)NSString *path;
+Prop_strong()NSURL *url;
+Prop_strong()UIImage *image;
+Prop_strong()NSString *path;
 
 @end
 

@@ -7,6 +7,8 @@
 
 #import "UIViewController+SuspendBtn.h"
 
+#import "DefineProperty.h"
+
 @implementation UIViewController (SuspendBtn)
 #pragma mark —— Prop_strong()JobsSuspendBtn *suspendBtn;
 JobsKey(_suspendBtn)

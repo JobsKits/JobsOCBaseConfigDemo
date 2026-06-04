@@ -7,6 +7,8 @@
 
 #import "UIButton+SimplyMake.h"
 
+#import "DefineProperty.h"
+
 @implementation UIButton (SimplyMake)
 #pragma mark —— 一些公共方法
 /// 数据挂载

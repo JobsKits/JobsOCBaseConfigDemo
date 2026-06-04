@@ -7,6 +7,8 @@
 
 #import "JobsFMDBMgr.h"
 
+#import "DefineProperty.h"
+
 @interface JobsFMDBMgr ()
 
 Prop_strong()FMDatabaseQueue *databaseQueue;

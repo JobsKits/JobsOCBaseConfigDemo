@@ -10,6 +10,7 @@
 #import "JobsBlock.h"
 #import "MasonryModel.h"
 
+#import "DefineProperty.h"
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else

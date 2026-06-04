@@ -8,6 +8,8 @@
 
 #import "JobsTabBar.h"
 
+#import "DefineProperty.h"
+
 @interface JobsTabBar ()
 
 Prop_strong()NSMutableArray <__kindof UIView *>*tabBarButtons;

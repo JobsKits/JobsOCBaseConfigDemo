@@ -7,6 +7,8 @@
 
 #import "MyTableTableVC.h"
 
+#import "DefineProperty.h"
+
 @interface MyTableTableVC ()
 /// UI
 Prop_strong()BaiShaETProjChoiceStadiumTBVHeaderView *tbvHeaderView;

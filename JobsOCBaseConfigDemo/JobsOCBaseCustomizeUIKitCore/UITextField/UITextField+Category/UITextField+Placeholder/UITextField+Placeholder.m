@@ -7,6 +7,8 @@
 
 #import "UITextField+Placeholder.h"
 
+#import "DefineProperty.h"
+
 @implementation UITextField (Placeholder)
 /// UITextModelProtocol
 UITextModelProtocol_dynamic

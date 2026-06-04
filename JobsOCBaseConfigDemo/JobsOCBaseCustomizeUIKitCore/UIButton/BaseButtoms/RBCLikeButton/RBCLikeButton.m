@@ -9,6 +9,8 @@
 #import "RBCLikeButton.h"
 #define leftTime 0.5
 
+#import "DefineProperty.h"
+
 @interface RBCLikeButton(){
     /// 记录初始"上升数字"label的Y值
     CGFloat _incOrginY;

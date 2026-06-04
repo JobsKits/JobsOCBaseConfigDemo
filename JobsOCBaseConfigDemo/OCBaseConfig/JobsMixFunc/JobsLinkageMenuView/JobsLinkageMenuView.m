@@ -12,6 +12,8 @@
 #define NAVIGATION_HEIGHT 64  //navigationbar高度
 #define TABBAR_HEIGHT 49  //tabbar高度
 
+#import "DefineProperty.h"
+
 @interface JobsLinkageMenuView()
 /// UI
 Prop_strong()UIScrollView *menuView;

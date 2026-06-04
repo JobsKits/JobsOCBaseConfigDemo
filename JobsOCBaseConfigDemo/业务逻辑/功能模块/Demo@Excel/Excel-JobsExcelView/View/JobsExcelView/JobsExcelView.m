@@ -8,6 +8,8 @@
 
 #import "JobsExcelView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsExcelView()
 /// UI
 Prop_strong()BaseButton *titleBtn;

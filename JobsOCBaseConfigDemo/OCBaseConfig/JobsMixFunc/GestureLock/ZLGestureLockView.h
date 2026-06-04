@@ -25,6 +25,8 @@ typedef NS_ENUM(NSUInteger, ResultKindType) {
 #define Screen_Width [UIScreen mainScreen].bounds.size.width
 #define Screen_Height [UIScreen mainScreen].bounds.size.height
 
+#import "DefineProperty.h"
+
 @protocol ZLGestureLockDelegate <NSObject>
 
 -(void)gestureLockView:(ZLGestureLockView *)lockView
@@ -34,7 +36,7 @@ typedef NS_ENUM(NSUInteger, ResultKindType) {
 
 @interface ZLGestureLockView : BaseView
 
-@property(assign,nonatomic)id<ZLGestureLockDelegate> delegate;
+Prop_assign()id<ZLGestureLockDelegate> delegate;
 
 -(void)clearLockView;//清除布局 重新开始
 

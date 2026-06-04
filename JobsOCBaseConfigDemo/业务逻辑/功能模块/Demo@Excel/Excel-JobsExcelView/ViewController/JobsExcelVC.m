@@ -7,6 +7,8 @@
 
 #import "JobsExcelVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsExcelVC ()
 /// UI
 Prop_strong()JobsExcelView *excelView;

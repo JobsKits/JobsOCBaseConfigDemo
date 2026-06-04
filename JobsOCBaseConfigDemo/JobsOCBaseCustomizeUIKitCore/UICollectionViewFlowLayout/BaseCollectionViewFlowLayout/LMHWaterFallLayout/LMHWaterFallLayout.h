@@ -10,6 +10,8 @@
 
 @class LMHWaterFallLayout;
 
+#import "DefineProperty.h"
+
 @protocol  LMHWaterFallLayoutDeleaget<NSObject>
 
 @required
@@ -32,6 +34,6 @@
 
 @interface LMHWaterFallLayout : UICollectionViewLayout
 
-@property(nonatomic,weak)id<LMHWaterFallLayoutDeleaget> delegate;
+Prop_weak()id<LMHWaterFallLayoutDeleaget> delegate;
 
 @end

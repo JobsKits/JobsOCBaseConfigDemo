@@ -6,9 +6,12 @@
 //
 
 #import "UIButton+Timer.h"
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 #pragma clang diagnostic ignored "-Wunguarded-availability"
+#import "DefineProperty.h"
+
 @implementation UIButton (Timer)
 BaseButtonProtocol_dynamic_part2
 TimerProtocol_dynamic

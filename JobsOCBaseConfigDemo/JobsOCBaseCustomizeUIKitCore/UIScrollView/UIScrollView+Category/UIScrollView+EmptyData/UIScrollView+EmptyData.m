@@ -7,6 +7,8 @@
 
 #import "UIScrollView+EmptyData.h"
 
+#import "DefineProperty.h"
+
 @implementation UIScrollView (EmptyData)
 
 -(JobsRetScrollViewByButtonModelBlock _Nonnull)emptyDataByButtonModel{

@@ -8,6 +8,8 @@
 
 #import "JobsExcelLeftListView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsExcelLeftListView()
 /// Data
 Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;

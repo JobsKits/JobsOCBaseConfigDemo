@@ -8,6 +8,8 @@
 
 #import "JobsExcelConfigureViewModel.h"
 
+#import "DefineProperty.h"
+
 @interface JobsExcelConfigureViewModel()
 
 Prop_assign()NSInteger rowNumber;/// 行数

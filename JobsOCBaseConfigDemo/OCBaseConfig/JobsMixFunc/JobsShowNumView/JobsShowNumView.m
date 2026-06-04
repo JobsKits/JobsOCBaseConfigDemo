@@ -7,6 +7,8 @@
 
 #import "JobsShowNumView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsShowNumView ()
 /// UI
 /// Data

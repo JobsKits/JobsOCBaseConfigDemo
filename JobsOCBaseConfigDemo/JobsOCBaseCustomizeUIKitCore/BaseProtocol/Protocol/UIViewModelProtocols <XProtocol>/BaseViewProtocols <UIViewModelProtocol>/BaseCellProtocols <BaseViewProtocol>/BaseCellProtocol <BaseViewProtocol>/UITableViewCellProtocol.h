@@ -35,12 +35,10 @@ Prop_assign()CGFloat textLabelFrameOffsetX;
 Prop_assign()CGFloat textLabelFrameOffsetY;
 Prop_assign()CGFloat textLabelFrameOffsetWidth;
 Prop_assign()CGFloat textLabelFrameOffsetHeight;
-
 Prop_assign()CGFloat detailTextLabelOffsetX;
 Prop_assign()CGFloat detailTextLabelOffsetY;
 Prop_assign()CGFloat detailTextLabelOffsetWidth;
 Prop_assign()CGFloat detailTextLabelOffsetHeight;
-
 Prop_assign()CGFloat imageViewFrameOffsetX;
 Prop_assign()CGFloat imageViewFrameOffsetY;
 Prop_assign()CGFloat imageViewFrameOffsetWidth;/// 负值缩小，正值放大

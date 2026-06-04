@@ -7,6 +7,8 @@
 
 #import "TestBaseLabelVC.h"
 
+#import "DefineProperty.h"
+
 @interface TestBaseLabelVC ()
 /// UI
 Prop_strong()JobsBaseLabel *titleLab;

@@ -7,6 +7,8 @@
 
 #import "CasinoCustomerServiceView.h"
 
+#import "DefineProperty.h"
+
 @interface CasinoCustomerServiceView ()
 /// UI
 Prop_strong()UILabel *titleLab;// 标题

@@ -10,6 +10,8 @@
 
 #import "HQTextField.h"
 
+#import "DefineProperty.h"
+
 @interface HQTextField ()
 
 Prop_strong()CAShapeLayer *warnLayer;

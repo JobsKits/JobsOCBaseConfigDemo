@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import "DefineProperty.h"
+
 @interface XLChannelHeader : UICollectionReusableView
 
-@property (copy,nonatomic) NSString *title;
-
-@property (copy,nonatomic) NSString *subTitle;
+Prop_copy()NSString *title;
+Prop_copy()NSString *subTitle;
 
 @end

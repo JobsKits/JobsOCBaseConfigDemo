@@ -7,6 +7,8 @@
 
 #import "UIView+Refresh.h"
 
+#import "DefineProperty.h"
+
 @implementation UIView (Refresh)
 #pragma mark —— 一些公有方法
 /// 配置刷新文案

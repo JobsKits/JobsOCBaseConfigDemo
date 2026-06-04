@@ -7,6 +7,8 @@
 
 #import "JobsNavBarWebVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsNavBarWebVC ()
 
 Prop_copy()NSString *URL;

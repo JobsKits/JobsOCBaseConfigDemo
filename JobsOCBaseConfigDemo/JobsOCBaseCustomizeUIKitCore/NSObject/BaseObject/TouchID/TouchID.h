@@ -24,6 +24,8 @@ typedef NS_ENUM(NSInteger, TouchID_Success_Or_Error) {
 };
 #endif /* TOUCHID_ENUMS_DEFINED */
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TouchID : NSObject

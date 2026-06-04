@@ -7,11 +7,13 @@
 
 #import "WebViewController.h"
 
+#import "DefineProperty.h"
+
 @interface WebViewController ()
 
-@property(nonatomic,copy)NSString *url;
-@property(nonatomic,copy)NSString *titleStr;
-@property(nonatomic,strong)WKWebView *webView;
+Prop_copy()NSString *url;
+Prop_copy()NSString *titleStr;
+Prop_strong()WKWebView *webView;
 
 @end
 

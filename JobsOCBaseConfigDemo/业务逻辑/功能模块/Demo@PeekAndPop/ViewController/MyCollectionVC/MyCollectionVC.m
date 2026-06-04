@@ -7,6 +7,8 @@
 
 #import "MyCollectionVC.h"
 
+#import "DefineProperty.h"
+
 @interface MyCollectionVC ()
 /// Data
 Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;

@@ -7,6 +7,8 @@
 
 #import "UIView+EmptyData.h"
 
+#import "DefineProperty.h"
+
 @implementation UIView (EmptyData)
 
 -(jobsByVoidBlock _Nonnull)cleanSubview{

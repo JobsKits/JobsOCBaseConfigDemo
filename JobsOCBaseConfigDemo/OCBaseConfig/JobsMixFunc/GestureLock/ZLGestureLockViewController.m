@@ -10,6 +10,8 @@
 
 #define GesturesPassword @"gesturespassword"
 
+#import "DefineProperty.h"
+
 @interface ZLGestureLockViewController (){
     CGFloat maginX;
     CGFloat magin;

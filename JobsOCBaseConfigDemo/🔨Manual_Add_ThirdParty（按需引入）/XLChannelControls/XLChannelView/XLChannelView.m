@@ -17,15 +17,14 @@ static CGFloat CellMarginX = 15.0f;
 static CGFloat CellMarginY = 10.0f;
 
 
+#import "DefineProperty.h"
+
 @interface XLChannelView ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
-@property (nonatomic, strong) UICollectionView *collectionView;
-
-@property (nonatomic, strong) XLChannelItem *dragingItem;
-
-@property (nonatomic, strong) NSIndexPath *dragingIndexPath;
-
-@property (nonatomic, strong) NSIndexPath *targetIndexPath;
+Prop_strong()UICollectionView *collectionView;
+Prop_strong()XLChannelItem *dragingItem;
+Prop_strong()NSIndexPath *dragingIndexPath;
+Prop_strong()NSIndexPath *targetIndexPath;
 
 @end
 

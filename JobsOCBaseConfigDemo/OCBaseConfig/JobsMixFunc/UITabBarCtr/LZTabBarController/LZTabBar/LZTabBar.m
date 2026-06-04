@@ -8,6 +8,8 @@
 
 #import "LZTabBar.h"
 
+#import "DefineProperty.h"
+
 @interface LZTabBar ()
 
 Prop_strong()UIVisualEffectView *effectView;

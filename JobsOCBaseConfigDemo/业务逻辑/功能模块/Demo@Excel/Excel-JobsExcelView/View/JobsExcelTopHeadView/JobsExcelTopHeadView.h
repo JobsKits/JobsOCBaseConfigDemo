@@ -12,6 +12,7 @@
 #import "JobsTopViewItem.h"
 #import "JobsExcelConfigureViewModel.h"
 
+#import "DefineProperty.h"
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
@@ -26,7 +27,7 @@ UICollectionViewDelegateFlowLayout,
 BaseViewProtocol
 >
 
-@property(nonatomic,strong,nonnull,readonly)JobsExcelConfigureViewModel *excelConfigureData;
+Prop_strong(nonnull, readonly)JobsExcelConfigureViewModel *excelConfigureData;
 
 @end
 

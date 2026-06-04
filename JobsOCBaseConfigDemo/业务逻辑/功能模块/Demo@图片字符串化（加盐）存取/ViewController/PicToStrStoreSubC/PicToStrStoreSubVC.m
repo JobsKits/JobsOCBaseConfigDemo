@@ -7,6 +7,8 @@
 
 #import "PicToStrStoreSubVC.h"
 
+#import "DefineProperty.h"
+
 @interface PicToStrStoreSubVC (){
     UIImage *_picBefore;
     UIImage *_picAfter;

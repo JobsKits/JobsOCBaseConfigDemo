@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol JobsToggleNavViewProtocol <NSObject>
@@ -20,7 +22,7 @@ Prop_assign()CGFloat sliderW;
 /// 滑块高度
 Prop_assign()CGFloat sliderH;
 /// 当前选择的标签按钮 index
-@property(nonatomic,assign,readonly)NSUInteger current_index;
+Prop_assign(readonly)NSUInteger current_index;
 
 @end
 

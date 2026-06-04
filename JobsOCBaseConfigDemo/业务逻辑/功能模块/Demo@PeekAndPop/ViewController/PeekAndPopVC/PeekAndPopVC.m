@@ -7,6 +7,8 @@
 
 #import "PeekAndPopVC.h"
 
+#import "DefineProperty.h"
+
 @interface PeekAndPopVC ()
 
 Prop_strong()BaseButton *switchBtn;

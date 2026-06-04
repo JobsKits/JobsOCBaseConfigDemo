@@ -7,6 +7,8 @@
 
 #import "UIButton+SDWebImage.h"
 
+#import "DefineProperty.h"
+
 @implementation UIButton (SDWebImage)
 #pragma mark —— 一些私有方法
 -(SDWebImageModel *)makeSDWebImageModel{

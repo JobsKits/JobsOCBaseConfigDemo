@@ -5,6 +5,8 @@
 
 #import "LuckyWheelView.h"
 
+#import "DefineProperty.h"
+
 @interface LuckyWheelView ()
 
 Prop_strong()UIView *plateView;
@@ -34,6 +36,7 @@ Prop_assign()CGFloat stopThreshold;
 Prop_copy(nullable)void (^segmentTapHandlerInternal)(LuckyWheelSegment *segment);
 Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *segment,
                                                            UILongPressGestureRecognizer *gr);
+
 @end
 
 @implementation LuckyWheelView

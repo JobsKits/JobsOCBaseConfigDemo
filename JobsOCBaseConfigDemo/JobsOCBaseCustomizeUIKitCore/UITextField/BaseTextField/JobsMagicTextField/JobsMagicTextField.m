@@ -8,6 +8,8 @@
 
 #import "JobsMagicTextField.h"
 
+#import "DefineProperty.h"
+
 @interface JobsMagicTextField ()
 
 Prop_strong()UILabel *placeholderAnimationLbl;

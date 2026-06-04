@@ -4,6 +4,8 @@
 //! controller.
 #define CORNER_RADIUS   16.f
 
+#import "DefineProperty.h"
+
 @interface JobsPresentationCtrl ()
 /// UI
 Prop_strong()UIView *dimmingView;

@@ -13,12 +13,15 @@
 #import "JobsInfoTBVCell.h"//显示具体的有用讯息
 #import "JobsLoadMoreTBVCell.h"//加载更多
 #import "LOTAnimationMJRefreshHeader.h"
+
 #pragma mark —— ViewController
 #import "JobsPopUpVC.h"
+
 #pragma mark —— Model
 #import "BaseModel.h"
 #import "JobsCommentModel.h"
 #import "JobsCommentConfig.h"
+
 #pragma mark —— 3rd
 #import "NSString+Conversion.h"
 #import "NSObject+Queue.h"

@@ -7,6 +7,8 @@
 
 #import "SlideToUnlockDemoVC.h"
 
+#import "DefineProperty.h"
+
 @interface SlideToUnlockDemoVC ()
 
 Prop_strong()SlideToUnlockView *slideView;

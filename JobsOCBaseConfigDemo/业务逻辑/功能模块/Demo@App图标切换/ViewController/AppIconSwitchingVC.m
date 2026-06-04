@@ -7,6 +7,8 @@
 
 #import "AppIconSwitchingVC.h"
 
+#import "DefineProperty.h"
+
 @interface AppIconSwitchingVC ()
 
 Prop_strong()BaseButton *switchBtn;

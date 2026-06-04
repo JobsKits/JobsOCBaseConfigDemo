@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "BaseView.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FlowChartSingleElementView : BaseView
@@ -25,7 +27,6 @@ Prop_strong()UILabel *subTitleLab;
 Prop_assign()NSInteger flowNum;
 ///当前流程序号 从0开始
 Prop_assign()NSInteger currentFlowSerialNum;
-
 Prop_strong()NSMutableArray <NSString *>*titleMutArr;
 Prop_strong()NSMutableArray <NSString *>*subTitleMutArr;
 Prop_strong()NSMutableArray <UIImage *>*backImageMutArr;

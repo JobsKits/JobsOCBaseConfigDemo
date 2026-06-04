@@ -13,6 +13,8 @@
 #import "UIButton+Timer.h"
 #import "JobsMagicTextField.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsAppDoorInputViewBaseStyle_9 : JobsAppDoorInputViewBaseStyle

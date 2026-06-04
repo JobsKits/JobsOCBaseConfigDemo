@@ -11,6 +11,8 @@
 #import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
 #import "JobsDropDownListTBVCell.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsDropDownListView : BaseView

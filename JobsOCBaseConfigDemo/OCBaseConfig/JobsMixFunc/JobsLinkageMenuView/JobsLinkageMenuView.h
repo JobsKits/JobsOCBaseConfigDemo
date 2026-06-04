@@ -12,6 +12,8 @@
 
 @class JobsLinkageMenuViewConfig;
 
+#import "DefineProperty.h"
+
 @interface JobsLinkageMenuView : BaseView
 
 Prop_strong()UIColor *selectViewColor;/// 滑块颜色

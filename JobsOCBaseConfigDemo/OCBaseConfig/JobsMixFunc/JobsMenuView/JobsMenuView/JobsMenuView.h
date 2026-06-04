@@ -9,6 +9,8 @@
 #import "BaseView.h"
 #import "JobsLinkageMenuView.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsMenuView : BaseView
@@ -19,7 +21,6 @@ Prop_strong()NSMutableArray <UIImage *>*normal_titleBgImageMutArr;
 Prop_strong()NSMutableArray <UIImage *>*select_titleBgImageMutArr;
 Prop_strong()NSMutableArray <UIImage *>*normal_titleImageMutArr;
 Prop_strong()NSMutableArray <NSNumber *>*imagePaddings;
-
 Prop_strong()JobsLinkageMenuViewConfig *linkageMenuViewConfig;
 
 @end

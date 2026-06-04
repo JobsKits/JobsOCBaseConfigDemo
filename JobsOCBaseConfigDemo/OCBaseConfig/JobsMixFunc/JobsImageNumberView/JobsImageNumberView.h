@@ -8,6 +8,8 @@
 #import "BaseView.h"
 #import "JobsImageNumberViewCVCell.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsImageNumberView : BaseView

@@ -7,6 +7,8 @@
 
 #import "JobsAppDoorInputViewBaseStyle_5.h"
 
+#import "DefineProperty.h"
+
 @interface JobsAppDoorInputViewBaseStyle_5 (){
     JobsDropDownListView *dropDownListView;
 }

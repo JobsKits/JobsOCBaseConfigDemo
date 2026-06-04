@@ -7,6 +7,8 @@
 
 #import "Douyin_ZFPlayerVC@1.h"
 
+#import "DefineProperty.h"
+
 @interface Douyin_ZFPlayerVC_1 ()
 
 Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;

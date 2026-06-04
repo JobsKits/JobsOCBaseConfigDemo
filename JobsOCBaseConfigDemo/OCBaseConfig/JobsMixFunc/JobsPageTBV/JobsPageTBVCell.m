@@ -7,6 +7,8 @@
 
 #import "JobsPageTBVCell.h"
 
+#import "DefineProperty.h"
+
 @interface JobsPageTBVCell ()
 
 Prop_strong()UILabel *textLab;

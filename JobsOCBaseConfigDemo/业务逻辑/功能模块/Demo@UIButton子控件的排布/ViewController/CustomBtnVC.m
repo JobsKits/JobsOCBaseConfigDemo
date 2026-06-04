@@ -7,6 +7,8 @@
 
 #import "CustomBtnVC.h"
 
+#import "DefineProperty.h"
+
 @interface CustomBtnVC ()
 
 Prop_strong()UIButton *btn1;

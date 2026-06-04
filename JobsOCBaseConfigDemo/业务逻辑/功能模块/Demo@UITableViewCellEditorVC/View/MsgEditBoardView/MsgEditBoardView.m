@@ -7,6 +7,8 @@
 
 #import "MsgEditBoardView.h"
 
+#import "DefineProperty.h"
+
 @interface MsgEditBoardView ()
 /// UI
 Prop_strong()UIButton *allChooseBtn;

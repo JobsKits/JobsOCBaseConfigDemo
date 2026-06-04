@@ -7,6 +7,8 @@
 
 #import "NotifiView.h"
 
+#import "DefineProperty.h"
+
 @interface NotifiView()
 
 Prop_strong()UILabel* contentLabel;

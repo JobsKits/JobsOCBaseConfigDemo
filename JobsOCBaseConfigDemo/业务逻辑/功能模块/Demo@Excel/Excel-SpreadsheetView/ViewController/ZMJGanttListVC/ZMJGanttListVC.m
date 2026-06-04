@@ -7,6 +7,8 @@
 
 #import "ZMJGanttListVC.h"
 
+#import "DefineProperty.h"
+
 @interface ZMJGanttListVC ()
 /// UI
 Prop_strong()SpreadsheetView *spreadsheetView;

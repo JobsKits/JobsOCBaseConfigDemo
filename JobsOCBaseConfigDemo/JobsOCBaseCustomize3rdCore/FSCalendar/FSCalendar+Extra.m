@@ -9,9 +9,4 @@
 
 @implementation FSCalendar (Extra)
 
-
-
-
-
-
 @end

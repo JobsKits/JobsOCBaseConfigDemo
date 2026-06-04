@@ -22,6 +22,8 @@
 
 #import "UINavigationController+FDFullscreenPopGesture.h"
 
+#import "DefineProperty.h"
+
 @interface _FDFullscreenPopGestureRecognizerDelegate : NSObject<UIGestureRecognizerDelegate>
 
 Prop_weak()UINavigationController *navigationController;

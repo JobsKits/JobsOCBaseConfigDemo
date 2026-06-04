@@ -7,6 +7,8 @@
 
 #import "GXCardViewDemoVC.h"
 
+#import "DefineProperty.h"
+
 @interface GXCardViewDemoVC ()
 /// UI
 //@property(nonatomic,weak)IBOutlet GXCardView *cardView;

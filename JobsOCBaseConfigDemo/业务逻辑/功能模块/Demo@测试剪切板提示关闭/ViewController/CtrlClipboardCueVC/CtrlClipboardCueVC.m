@@ -7,6 +7,8 @@
 
 #import "CtrlClipboardCueVC.h"
 
+#import "DefineProperty.h"
+
 @interface CtrlClipboardCueVC ()
 /// UI
 Prop_strong()BaseLabel *label;

@@ -8,6 +8,8 @@
 
 #import "JobsShakeBtn.h"
 
+#import "DefineProperty.h"
+
 @interface JobsShakeBtn ()
 /// UI
 Prop_strong()UIView *coverView;/// 遮盖，在抖动时出现

@@ -7,6 +7,8 @@
 
 #import "BaseUploadFileRequest.h"
 
+#import "DefineProperty.h"
+
 @interface BaseUploadFileRequest ()
 
 Prop_strong()JobsFileModel *fileModel;

@@ -58,4 +58,5 @@
     [super viewDidLayoutSubviews];
     JobsLog(@"%@",JobsLocalFunc);
 }
+
 @end

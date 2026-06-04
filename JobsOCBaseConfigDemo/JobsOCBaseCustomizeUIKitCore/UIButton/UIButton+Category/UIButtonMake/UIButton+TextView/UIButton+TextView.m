@@ -7,6 +7,8 @@
 
 #import "UIButton+TextView.h"
 
+#import "DefineProperty.h"
+
 @implementation UIButton (TextView)
 #pragma mark —— 一些私有方法
 -(jobsByTextViewBlock _Nonnull)configTextView{

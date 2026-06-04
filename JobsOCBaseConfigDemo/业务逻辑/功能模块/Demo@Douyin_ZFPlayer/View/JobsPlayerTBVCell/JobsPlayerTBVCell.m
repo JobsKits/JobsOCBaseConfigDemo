@@ -7,6 +7,8 @@
 
 #import "JobsPlayerTBVCell.h"
 
+#import "DefineProperty.h"
+
 @interface JobsPlayerTBVCell ()
 /// UI
 Prop_strong(nullable)ZFPlayerController *player;

@@ -8,6 +8,8 @@
 
 #import "XXTools.h"
 
+#import "DefineProperty.h"
+
 @interface XXTools()
 
 Prop_strong()UIImageView *labView;

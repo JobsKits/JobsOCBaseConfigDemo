@@ -8,6 +8,8 @@
 
 #import "WGradientProgressView.h"
 
+#import "DefineProperty.h"
+
 @interface WGradientProgressView ()
 
 Prop_strong()UILabel *titleLab;

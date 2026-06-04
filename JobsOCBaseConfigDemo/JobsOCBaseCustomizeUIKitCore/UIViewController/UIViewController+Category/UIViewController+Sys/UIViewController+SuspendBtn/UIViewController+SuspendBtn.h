@@ -11,6 +11,8 @@
 #import "JobsLoadingImage.h"
 #import "MacroDef_App.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (SuspendBtn)

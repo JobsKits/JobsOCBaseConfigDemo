@@ -7,6 +7,8 @@
 
 #import "JobsCountdownView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsCountdownView ()
 /// UI
 Prop_strong()UILabel *titleLab;

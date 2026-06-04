@@ -7,6 +7,8 @@
 
 #import "JobsScale.h"
 
+#import "DefineProperty.h"
+
 @interface JobsScale : NSObject
 
 Prop_assign()CGFloat designW;

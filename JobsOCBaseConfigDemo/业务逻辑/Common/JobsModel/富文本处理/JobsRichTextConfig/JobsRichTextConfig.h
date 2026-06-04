@@ -32,6 +32,8 @@ NS_INLINE NSMutableParagraphStyle *_Nonnull jobsMakeParagraphStyle(jobsByMutable
     return data;
 }
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /// 富文本4要素：文字信息、文字颜色、段落、字体
 @interface JobsRichTextConfig : NSObject

@@ -7,6 +7,8 @@
 
 #import "JobsDetailsInfoStyleTBVCell.h"
 
+#import "DefineProperty.h"
+
 @interface JobsDetailsInfoStyleTBVCell ()
 
 Prop_strong()UIImageView *detailsInfoImageView;

@@ -40,6 +40,8 @@ NS_INLINE void destroyView(__strong __kindof UIView *_Nonnull *_Nonnull view) {
 #define DestroyView(view) destroyView(&(view))
 #endif /* DestroyView */
 
+#import "DefineProperty.h"
+
 @interface UIView (Extras) <BaseViewProtocol,BaseCellProtocol>
 #pragma mark —— init
 +(JobsRetViewByFrameBlock _Nonnull)initByFrame;

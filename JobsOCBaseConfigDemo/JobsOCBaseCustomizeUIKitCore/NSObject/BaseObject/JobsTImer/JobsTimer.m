@@ -7,6 +7,8 @@
 
 #import "JobsTimer.h"
 
+#import "DefineProperty.h"
+
 @interface JobsTimer ()
 /// YES  = 已经 suspend 了
 /// NO   = 正在运行 / 已经 resume

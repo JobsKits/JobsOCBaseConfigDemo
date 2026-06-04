@@ -7,6 +7,8 @@
 
 #import "JobsTitleView01.h"
 
+#import "DefineProperty.h"
+
 @interface JobsTitleView01 ()
 /// UI
 Prop_strong()UILabel *leftLab;

@@ -7,6 +7,8 @@
 
 #import "UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol.h"
 
+#import "DefineProperty.h"
+
 @implementation UITableViewHeaderFooterView (BaseTableViewHeaderFooterViewProtocol)
 #pragma mark —— BaseViewProtocol
 +(JobsRetTableViewHeaderFooterViewByTableViewAndSaltBlock _Nonnull)initByReuseIdentifier{
@@ -80,6 +82,5 @@ JobsKey(_headerFooterViewStyle)
 -(void)setHeaderFooterViewStyle:(JobsHeaderFooterViewStyle)headerFooterViewStyle{
     Jobs_setAssociatedRETAIN_NONATOMIC(_headerFooterViewStyle, @(headerFooterViewStyle))
 }
-
 
 @end

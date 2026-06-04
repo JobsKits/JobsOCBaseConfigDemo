@@ -10,6 +10,8 @@
 
 typedef void(^returnCountryCode) (NSString *countryName, NSString *code);
 
+#import "DefineProperty.h"
+
 @protocol XWCountryCodeControllerDelegate <NSObject>
 @optional
 /**
@@ -27,7 +29,7 @@ UITableViewDataSource
 ,UITableViewDelegate
 ,UISearchResultsUpdating
 >
-@property(nonatomic,weak)id<XWCountryCodeControllerDelegate> deleagete;
+Prop_weak()id<XWCountryCodeControllerDelegate> deleagete;
 Prop_copy()returnCountryCode countryCodeBlock;
 
 @end

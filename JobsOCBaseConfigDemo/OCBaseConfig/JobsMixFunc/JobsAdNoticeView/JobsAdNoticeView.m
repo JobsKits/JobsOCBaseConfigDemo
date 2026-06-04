@@ -7,6 +7,8 @@
 
 #import "JobsAdNoticeView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsAdNoticeView ()
 
 Prop_strong()UILabel *adNoticeLab;

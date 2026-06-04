@@ -8,6 +8,8 @@
 #import "ViewController@1.h"
 
 BOOL ISLogin;
+#import "DefineProperty.h"
+
 @interface ViewController_1 ()
 /// UI
 Prop_strong()BaseButton *userHeadBtn;

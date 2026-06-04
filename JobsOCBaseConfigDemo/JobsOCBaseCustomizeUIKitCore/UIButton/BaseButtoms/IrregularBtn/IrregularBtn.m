@@ -8,6 +8,8 @@
 
 #import "IrregularBtn.h"
 
+#import "DefineProperty.h"
+
 @interface IrregularBtn()
 /// UI
 Prop_strong()UIBezierPath *path;

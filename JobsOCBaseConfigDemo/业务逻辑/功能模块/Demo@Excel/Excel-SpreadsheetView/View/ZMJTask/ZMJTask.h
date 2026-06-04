@@ -8,19 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+#import "DefineProperty.h"
+
 @interface ZMJTask : NSObject
 /// lol
-@property(copy,nonatomic)NSString *taskName;
+Prop_copy()NSString *taskName;
 /// 任务描述 - description
-@property(copy,nonatomic)NSString *taskDesc;
+Prop_copy()NSString *taskDesc;
 /// 发起人
-@property(strong,nonatomic)NSString *createdByUser;
+Prop_strong()NSString *createdByUser;
 /// 发起时间
-@property(copy,nonatomic)NSString *createdAt;
+Prop_copy()NSString *createdAt;
 /// start
-@property(copy,nonatomic)NSDate *startDate;
+Prop_copy()NSDate *startDate;
 /// due
-@property(copy,nonatomic)NSDate *dueDate;
+Prop_copy()NSDate *dueDate;
 
 +(instancetype)taskWithName:(NSString *)taskName
                   startDate:(NSDate *)startDate

@@ -13,11 +13,13 @@
 #import "JobsCommentModel.h"
 #import "RBCLikeButton.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsInfoTBVCell : UITableViewCell<BaseCellProtocol>
 
-@property(nonatomic,strong,readonly)RBCLikeButton *likeBtn;
+Prop_strong(readonly)RBCLikeButton *likeBtn;
 
 @end
 

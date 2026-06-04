@@ -11,15 +11,17 @@
 #import "XLBubbleTransition.h"
 
 @class XLBubbleTransition;
+#import "DefineProperty.h"
+
 @interface UIViewController (XLBubbleTransition)
 <
 UINavigationControllerDelegate
 ,UIViewControllerTransitioningDelegate
 >
 
-@property(nonatomic,retain)XLBubbleTransition *xl_pushTranstion;
-@property(nonatomic,retain)XLBubbleTransition *xl_popTranstion;
-@property(nonatomic,retain)XLBubbleTransition *xl_presentTranstion;
-@property(nonatomic,retain)XLBubbleTransition *xl_dismissTranstion;
+Prop_retain()XLBubbleTransition *xl_pushTranstion;
+Prop_retain()XLBubbleTransition *xl_popTranstion;
+Prop_retain()XLBubbleTransition *xl_presentTranstion;
+Prop_retain()XLBubbleTransition *xl_dismissTranstion;
 
 @end

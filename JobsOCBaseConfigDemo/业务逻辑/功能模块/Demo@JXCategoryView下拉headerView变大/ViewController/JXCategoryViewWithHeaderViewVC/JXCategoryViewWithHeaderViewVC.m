@@ -7,6 +7,8 @@
 
 #import "JXCategoryViewWithHeaderViewVC.h"
 
+#import "DefineProperty.h"
+
 @interface JXCategoryViewWithHeaderViewVC ()
 /// UI
 Prop_strong()BaseButton *ruleBtn;

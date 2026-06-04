@@ -7,6 +7,8 @@
 
 #import "PopListBaseView.h"
 
+#import "DefineProperty.h"
+
 @interface PopListBaseView ()
 /// Data
 Prop_strong()NSMutableArray <__kindof UITableViewCell *>*tbvCellMutArr;

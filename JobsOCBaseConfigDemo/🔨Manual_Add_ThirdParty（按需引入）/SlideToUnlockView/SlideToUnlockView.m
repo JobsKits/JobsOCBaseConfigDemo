@@ -7,18 +7,18 @@
 
 #import "SlideToUnlockView.h"
 
+#import "DefineProperty.h"
+
 @interface SlideToUnlockView ()
 
 Prop_assign()CGFloat thumbInset;
 Prop_assign()CGSize  thumbSize;
 Prop_assign()CGFloat panStartProgress;   // < 手势开始时的进度备份
 Prop_assign()CGFloat progress;           // < 0 ~ 1，映射滑块位置
-
 Prop_strong()UIView *trackView;
 Prop_strong()UILabel *titleLabel;
 Prop_strong()UIImageView  *arrow;
 Prop_strong()UIView *thumbView;
-
 Prop_strong()MASConstraint *thumbLeadingConstraint;
 
 @end

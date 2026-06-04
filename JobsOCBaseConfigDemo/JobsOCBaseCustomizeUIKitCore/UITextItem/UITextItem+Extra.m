@@ -7,6 +7,8 @@
 
 #import "UITextItem+Extra.h"
 
+#import "DefineProperty.h"
+
 @implementation UITextItem (Extra)
 
 #pragma mark —— Prop_strong()UITextView *textView;

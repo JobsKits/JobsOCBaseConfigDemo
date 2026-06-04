@@ -7,6 +7,8 @@
 
 #import "FMHomeMainBizSubView.h"
 
+#import "DefineProperty.h"
+
 @interface FMHomeMainBizSubView ()
 /// UI
 Prop_strong()ThreeClassCell *tempCell;

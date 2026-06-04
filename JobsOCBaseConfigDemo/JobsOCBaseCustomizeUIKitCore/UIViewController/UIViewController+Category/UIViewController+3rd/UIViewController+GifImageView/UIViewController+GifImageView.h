@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "JobsString.h"
 
+#import "DefineProperty.h"
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else

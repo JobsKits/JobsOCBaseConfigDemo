@@ -7,6 +7,8 @@
 
 #import "TextCell.h"
 
+#import "DefineProperty.h"
+
 @interface TextCell ()
 
 Prop_strong()UIView *bgView;

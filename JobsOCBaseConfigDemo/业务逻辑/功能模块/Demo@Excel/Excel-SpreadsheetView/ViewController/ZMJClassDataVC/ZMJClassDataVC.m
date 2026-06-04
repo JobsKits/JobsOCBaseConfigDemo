@@ -7,6 +7,8 @@
 
 #import "ZMJClassDataVC.h"
 
+#import "DefineProperty.h"
+
 @interface ZMJClassDataVC ()
 /// UI
 Prop_strong()SpreadsheetView *spreadsheetView;

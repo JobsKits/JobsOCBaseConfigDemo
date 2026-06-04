@@ -15,6 +15,8 @@
  XZMRefreshNormalFooter : XZMRefreshFooter : XZMBaseRefreshView : UIView
  XZMRefreshGifFooter : XZMRefreshNormalFooter : XZMRefreshFooter : XZMBaseRefreshView : UIView
  */
+#import "DefineProperty.h"
+
 @implementation UIScrollView (UIScrollViewProtocol)
 /// 在 UIScrollViewDelegate协议方法 -(void)scrollViewDidScroll:(UIScrollView *)scrollView里进行调用
 -(ScrollDirection)scrolldirectionWhenScrollViewDidScroll{

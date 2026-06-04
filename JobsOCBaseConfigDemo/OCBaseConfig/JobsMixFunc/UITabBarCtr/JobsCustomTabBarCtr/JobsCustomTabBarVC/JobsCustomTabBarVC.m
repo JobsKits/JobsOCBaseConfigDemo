@@ -7,6 +7,8 @@
 
 #import "JobsCustomTabBarVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsCustomTabBarVC ()
 
 Prop_strong()JobsCustomTabBar *customTabBar;

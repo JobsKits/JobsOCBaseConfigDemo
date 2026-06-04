@@ -7,6 +7,8 @@
 
 #import "JobsAppDoorInputViewBaseStyle_10.h"
 
+#import "DefineProperty.h"
+
 @interface JobsAppDoorInputViewBaseStyle_10 ()
 /// UI
 Prop_strong()UILabel *titleLab;

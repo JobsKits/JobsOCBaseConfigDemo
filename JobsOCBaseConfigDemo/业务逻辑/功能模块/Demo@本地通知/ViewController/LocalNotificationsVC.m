@@ -7,6 +7,8 @@
 
 #import "LocalNotificationsVC.h"
 
+#import "DefineProperty.h"
+
 @interface LocalNotificationsVC ()
 /// UI
 Prop_strong()BaseButton *btn;

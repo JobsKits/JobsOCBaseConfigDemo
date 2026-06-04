@@ -7,6 +7,8 @@
 
 #import "MSCommentTBVCell.h"
 
+#import "DefineProperty.h"
+
 @interface MSCommentTBVCell ()
 /// UI
 Prop_strong()UILabel *titleLab;

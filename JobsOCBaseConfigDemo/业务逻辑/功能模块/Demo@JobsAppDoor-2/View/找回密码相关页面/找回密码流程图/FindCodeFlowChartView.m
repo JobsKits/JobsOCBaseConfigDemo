@@ -8,6 +8,8 @@
 
 #import "FindCodeFlowChartView.h"
 
+#import "DefineProperty.h"
+
 @interface FlowChartSingleElementView ()
 
 @end
@@ -153,6 +155,5 @@ static dispatch_once_t dispatchOnce;
         _singleElementMutArr = NSMutableArray.array;
     }return _singleElementMutArr;
 }
-
 
 @end

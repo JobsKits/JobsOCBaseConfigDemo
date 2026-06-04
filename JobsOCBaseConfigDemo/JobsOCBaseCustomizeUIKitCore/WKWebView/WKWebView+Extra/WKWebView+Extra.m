@@ -7,6 +7,8 @@
 
 #import "WKWebView+Extra.h"
 
+#import "DefineProperty.h"
+
 @implementation WKWebView (Extra)
 
 +(JobsRetWKWebViewByConfigurationBlock _Nonnull)initBy{

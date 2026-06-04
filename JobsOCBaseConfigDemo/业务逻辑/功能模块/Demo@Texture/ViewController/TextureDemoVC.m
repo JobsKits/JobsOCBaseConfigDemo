@@ -7,6 +7,8 @@
 
 #import "TextureDemoVC.h"
 
+#import "DefineProperty.h"
+
 @interface TextureDemoVC ()
 
 Prop_strong() ASTableNode *tableNode;

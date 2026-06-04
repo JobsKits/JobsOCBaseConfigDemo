@@ -7,6 +7,8 @@
 
 #import "AppLanguageVC.h"
 
+#import "DefineProperty.h"
+
 @interface AppLanguageVC ()
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;

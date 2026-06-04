@@ -7,6 +7,8 @@
 
 #import "JobsCommentTitleHeaderView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsCommentTitleHeaderView ()
 /// UI
 Prop_strong()UILabel *titleLab;

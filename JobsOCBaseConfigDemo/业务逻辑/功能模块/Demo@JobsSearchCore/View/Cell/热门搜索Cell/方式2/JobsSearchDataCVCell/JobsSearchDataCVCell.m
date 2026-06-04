@@ -7,6 +7,8 @@
 
 #import "JobsSearchDataCVCell.h"
 
+#import "DefineProperty.h"
+
 @interface JobsSearchDataCVCell ()
 
 Prop_strong()UILabel *serialNumLab;

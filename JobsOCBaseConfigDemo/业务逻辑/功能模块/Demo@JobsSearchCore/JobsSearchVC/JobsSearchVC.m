@@ -7,6 +7,8 @@
 
 #import "JobsSearchVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsSearchVC ()
 /// UI
 Prop_strong()BaseButton *scanBtn;

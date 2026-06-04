@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 /// 不规则多边形按钮
+#import "DefineProperty.h"
+
 @interface IrregularBtn : UIButton
 
 Prop_strong()NSMutableArray <NSValue *>*pointMutArr;

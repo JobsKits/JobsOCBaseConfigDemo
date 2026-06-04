@@ -7,6 +7,8 @@
 
 #import "JobsScrollLabelVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsScrollLabelVC ()
 
 Prop_strong()RACDisposable *timerDisposable;

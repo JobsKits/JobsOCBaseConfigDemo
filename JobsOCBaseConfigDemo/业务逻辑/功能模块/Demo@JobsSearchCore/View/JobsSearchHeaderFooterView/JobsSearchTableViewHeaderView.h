@@ -7,11 +7,13 @@
 
 #import "BaseTableViewHeaderFooterView.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsSearchTableViewHeaderView : BaseTableViewHeaderFooterView
 
-@property(nonatomic,strong,readonly)UIButton *delBtn;
+Prop_strong(readonly)UIButton *delBtn;
 
 @end
 

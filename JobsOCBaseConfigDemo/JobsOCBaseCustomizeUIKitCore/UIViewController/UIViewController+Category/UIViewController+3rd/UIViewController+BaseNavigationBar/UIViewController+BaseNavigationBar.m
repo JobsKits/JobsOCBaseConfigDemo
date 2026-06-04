@@ -7,6 +7,8 @@
 
 #import "UIViewController+BaseNavigationBar.h"
 
+#import "DefineProperty.h"
+
 @implementation UIViewController (BaseNavigationBar)
 
 -(JobsRetVCByIDBlock _Nonnull)goBack{

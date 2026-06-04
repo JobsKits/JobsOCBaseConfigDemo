@@ -8,6 +8,8 @@
 
 #import "JobsTopViewItem.h"
 
+#import "DefineProperty.h"
+
 @interface JobsTopViewItem()
 /// UI
 Prop_strong()UIBezierPath *linePath;

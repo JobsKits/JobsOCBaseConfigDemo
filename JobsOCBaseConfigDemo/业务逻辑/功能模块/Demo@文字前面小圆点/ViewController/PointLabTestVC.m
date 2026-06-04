@@ -7,6 +7,8 @@
 
 #import "PointLabTestVC.h"
 
+#import "DefineProperty.h"
+
 @interface PointLabTestVC ()
 /// UI
 Prop_strong()UILabel *label2;

@@ -8,6 +8,8 @@
 
 #import "BaseModel.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /// 对应字段 child
 @interface JobsChildCommentModel : BaseModel

@@ -8,6 +8,8 @@
 
 #import "ZFCustomControlView.h"
 
+#import "DefineProperty.h"
+
 @interface ZFCustomControlView ()<ZFSliderViewDelegate>
 /// 底部工具栏
 Prop_strong()UIView *bottomToolView;
@@ -25,13 +27,9 @@ Prop_strong()ZFSliderView *slider;
 Prop_strong()UILabel *totalTimeLabel;
 /// 全屏按钮
 Prop_strong()UIButton *fullScreenBtn;
-
 Prop_assign()BOOL isShow;
-
 Prop_assign()BOOL controlViewAppeared;
-
 Prop_strong()dispatch_block_t afterBlock;
-
 Prop_assign()NSTimeInterval sumTime;
 /// 底部播放进度
 Prop_strong()ZFSliderView *bottomPgrogress;

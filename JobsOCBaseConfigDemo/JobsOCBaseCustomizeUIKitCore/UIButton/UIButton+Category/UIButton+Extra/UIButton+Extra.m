@@ -7,6 +7,8 @@
 
 #import "UIButton+Extra.h"
 
+#import "DefineProperty.h"
+
 @implementation UIButton (Extra)
 
 -(JobsRetBtnByNSUIntegerBlock _Nonnull)makeBtnTitleByShowingType{

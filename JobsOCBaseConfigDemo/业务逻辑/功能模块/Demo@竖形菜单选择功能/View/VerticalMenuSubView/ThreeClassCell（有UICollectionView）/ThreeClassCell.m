@@ -7,6 +7,8 @@
 
 #import "ThreeClassCell.h"
 
+#import "DefineProperty.h"
+
 @interface ThreeClassCell()
 /// Data
 Prop_assign()CGFloat itemHeight; // 一个cell 的高度

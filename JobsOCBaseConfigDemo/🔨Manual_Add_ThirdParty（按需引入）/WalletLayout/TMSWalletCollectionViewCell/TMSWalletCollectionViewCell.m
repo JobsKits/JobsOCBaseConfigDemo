@@ -8,6 +8,8 @@
 
 #import "TMSWalletCollectionViewCell.h"
 
+#import "DefineProperty.h"
+
 @interface TMSWalletCollectionViewCell ()
 /// UI
 Prop_strong()UILabel *titleLabel;

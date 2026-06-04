@@ -23,22 +23,17 @@
 // THE SOFTWARE.
 
 #import "ZFIJKPlayerManager.h"
-#if __has_include(<ZFPlayer/ZFPlayer.h>)
-#import <ZFPlayer/ZFPlayer.h>
-#import <ZFPlayer/ZFPlayerConst.h>
-#else
-#import "ZFPlayer.h"
-#import "ZFPlayerConst.h"
-#endif
+
+#import "DefineProperty.h"
 #if __has_include(<IJKMediaFramework/IJKMediaFramework.h>)
 
 @interface ZFIJKPlayerManager ()
 
-@property (nonatomic, strong) IJKFFMoviePlayerController *player;
-@property (nonatomic, strong) IJKFFOptions *options;
-@property (nonatomic, assign) CGFloat lastVolume;
-@property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, assign) BOOL isReadyToPlay;
+Prop_strong()IJKFFMoviePlayerController *player;
+Prop_strong()IJKFFOptions *options;
+Prop_assign()CGFloat lastVolume;
+Prop_strong()NSTimer *timer;
+Prop_assign()BOOL isReadyToPlay;
 
 @end
 

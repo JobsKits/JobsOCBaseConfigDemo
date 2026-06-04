@@ -11,6 +11,8 @@
 #import "UIView+Extras.h"
 #import "JobsTimer.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /// 用UIBezierPath实现果冻效果
 @interface RYCuteView : UIView

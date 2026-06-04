@@ -11,11 +11,13 @@
 #import "UIView+Measure.h"
 #import "MacroDef_Size.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (SuspendView)
 
-@property(nonatomic,weak)UIViewController *vc;
+Prop_weak()UIViewController *vc;
 Prop_strong()UIPanGestureRecognizer *panRcognize;
 
 @end

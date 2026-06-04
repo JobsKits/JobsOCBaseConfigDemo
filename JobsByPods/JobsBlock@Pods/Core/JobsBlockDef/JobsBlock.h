@@ -735,6 +735,7 @@ typedef jobsByMASConstraintMakerBlock _Nonnull(^JobsReturnMASConstraintMakerByBO
 typedef void(^jobsByJobsBasePopupTextViewBlock)(__kindof JobsBasePopupTextView *_Nullable textView);
 
 #import <EventKit/EventKit.h>
+
 typedef void(^JobsEKEventStoreRequestAccessCompletionHandler)(BOOL granted,
                                                               EKEventStore *_Nullable eventStore,
                                                               NSError * _Nullable error);

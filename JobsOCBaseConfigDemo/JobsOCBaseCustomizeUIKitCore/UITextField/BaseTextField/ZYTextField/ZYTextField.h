@@ -18,11 +18,13 @@
 #import "UITextField+Extend.h"
 #import "UITextField+Placeholder.h" /// 修改UITextField.Placeholder
 
+#import "DefineProperty.h"
+
 @interface ZYTextField : UITextField <UITextFieldProtocol>
 
 Prop_assign()CGFloat ZYTextFieldCornerRadius;
 Prop_assign()CGFloat ZYTextFieldBorderWidth;
-@property(nonatomic,assign,nullable)UIColor *ZYTextFieldBorderColor;
+Prop_assign(nullable)UIColor *ZYTextFieldBorderColor;
 Prop_assign()BOOL ZYTextFieldMasksToBounds;
 
 @end

@@ -7,6 +7,8 @@
 
 #import "UIViewController+BaseVC.h"
 
+#import "DefineProperty.h"
+
 @implementation UIViewController (BaseVC)
 #pragma mark —— 一些功能性
 -(jobsByView2Block _Nonnull)configViewNavigatorBySuperviewAndView{

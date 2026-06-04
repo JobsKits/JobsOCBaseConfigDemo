@@ -8,6 +8,8 @@
 
 #import "CustomZFPlayerControlView.h"
 
+#import "DefineProperty.h"
+
 @interface CustomZFPlayerControlView ()
 
 Prop_copy()jobsByTwoIDBlock customZFPlayerControlViewBlock;

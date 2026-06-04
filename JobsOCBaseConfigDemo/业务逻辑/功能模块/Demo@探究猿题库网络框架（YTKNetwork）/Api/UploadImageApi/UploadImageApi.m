@@ -8,6 +8,8 @@
 
 #import "UploadImageApi.h"
 
+#import "DefineProperty.h"
+
 @interface UploadImageApi ()
 
 Prop_strong()UIImage *image;

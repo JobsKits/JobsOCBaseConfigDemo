@@ -8,6 +8,8 @@
 #import "UIView+Gesture.h"
 
 #warning —— 本类不实现UIGestureRecognizerDelegate的原因说明:覆盖了 UISCrollView 里面对应的方法
+#import "DefineProperty.h"
+
 @implementation UIView (Gesture)
 #pragma mark —— 一些私有方法
 -(void)gesture:(UIGestureRecognizer *_Nullable)gesture

@@ -7,6 +7,8 @@
 
 #import "UICollectionView+RegistrationTracking.h"
 
+#import "DefineProperty.h"
+
 @implementation UICollectionView (RegistrationTracking)
 
 + (void)load {

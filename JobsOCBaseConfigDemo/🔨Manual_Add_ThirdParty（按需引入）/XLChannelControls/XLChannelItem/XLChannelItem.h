@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "DefineProperty.h"
+
 @interface XLChannelItem : UICollectionViewCell
 /// 标题
 Prop_copy()NSString *title;

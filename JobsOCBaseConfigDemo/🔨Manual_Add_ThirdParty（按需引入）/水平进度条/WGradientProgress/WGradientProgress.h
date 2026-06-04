@@ -11,6 +11,8 @@
 #import "WGradientProgressModel.h"
 #import "JobsTimer.h"
 
+#import "DefineProperty.h"
+
 @interface WGradientProgress : UIView
 
 Prop_assign()CGFloat progress;

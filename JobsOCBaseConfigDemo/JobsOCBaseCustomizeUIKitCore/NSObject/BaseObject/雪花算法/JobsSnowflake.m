@@ -13,6 +13,8 @@ static const uint32_t kIDCBits = 5;
 static const uint32_t kMachineBits = 5;
 static const uint32_t kSequenceBits = 12;
 
+#import "DefineProperty.h"
+
 @interface JobsSnowflake ()
 
 Prop_assign()uint32_t machine;

@@ -8,6 +8,8 @@
 
 #import "UIViewController+Shake.h"
 
+#import "DefineProperty.h"
+
 @implementation UIViewController (Shake)
 #pragma mark —— 系统方法
 -(void)invokeWhenViewDidLoadUsingSysFunc{

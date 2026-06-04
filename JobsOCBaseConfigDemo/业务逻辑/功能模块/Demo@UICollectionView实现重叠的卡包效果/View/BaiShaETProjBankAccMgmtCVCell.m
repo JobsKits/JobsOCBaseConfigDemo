@@ -7,6 +7,8 @@
 
 #import "BaiShaETProjBankAccMgmtCVCell.h"
 
+#import "DefineProperty.h"
+
 @interface BaiShaETProjBankAccMgmtCVCell ()
 /// UI
 Prop_strong()BaseButton *titleBtn;

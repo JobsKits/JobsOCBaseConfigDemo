@@ -19,6 +19,8 @@
 #pragma clang diagnostic ignored "-Wunguarded-availability-new"
 /// 一个iOS应用程序App的生命周期里面，只有一个AppDelegate实例存在
 /// 但是可能有多个SceneDelegate实例存在
+#import "DefineProperty.h"
+
 @interface AppDelegate : UIResponder
 <
 UIApplicationDelegate,

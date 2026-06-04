@@ -25,6 +25,8 @@ NS_INLINE CGRect exchangeXAndY(CGRect frame){
     return CGRectMake(y, x, frame.size.width, frame.size.height);
 }
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (Measure)

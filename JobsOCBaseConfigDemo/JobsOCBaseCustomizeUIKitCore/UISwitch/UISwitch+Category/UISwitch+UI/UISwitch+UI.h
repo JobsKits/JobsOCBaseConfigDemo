@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "MacroDef_Strong@Weak.h"
 
+#import "DefineProperty.h"
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else

@@ -10,6 +10,8 @@
 #import <UIKit/UIKit.h>
 #import "NSObject+Swizzling.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /**
  * iOS 子视图超出父视图不响应解决办法

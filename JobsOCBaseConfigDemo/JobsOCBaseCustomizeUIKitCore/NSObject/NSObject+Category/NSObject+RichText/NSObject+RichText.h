@@ -23,6 +23,8 @@ NS_INLINE NSTextAttachment *_Nonnull jobsMakeTextAttachment(jobsByTextAttachment
     return data;
 }
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (RichText)
@@ -52,7 +54,6 @@ NS_ASSUME_NONNULL_END
  // 关于富文本
  Prop_strong()UILabel *connectionTipsLab;
  Prop_strong()UITextView *connectionTipsTV;
- 
  Prop_strong()NSMutableAttributedString *attributedStringData;
  Prop_strong()NSMutableArray <NSString *>*richTextMutArr;
  Prop_strong()NSMutableArray <JobsRichTextConfig *>*richTextConfigMutArr;

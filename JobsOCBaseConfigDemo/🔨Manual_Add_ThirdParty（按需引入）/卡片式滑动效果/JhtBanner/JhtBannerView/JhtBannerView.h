@@ -15,6 +15,8 @@
 #import "JhtBannerScrollViewProtocol.h"
 
 /// banner ScrollView
+#import "DefineProperty.h"
+
 @interface JhtBannerView : UIView
 <
 JhtBannerScrollViewDelegate
@@ -23,12 +25,12 @@ JhtBannerScrollViewDelegate
 /** 图片数组
  *  tips: [imageStr containsString:@"http"] ? 网络图片 : 本地图片（不会使用placeholderImageName作为占位图）
  */
-@property(nonatomic,copy,nonnull)NSArray *dataArr; /// 可以是UIImage 也可以是NSString
-@property(nonatomic,strong,nonnull)JhtBannerScrollView *bannerView;
+Prop_copy(nonnull)NSArray *dataArr; /// 可以是UIImage 也可以是NSString
+Prop_strong(nonnull)JhtBannerScrollView *bannerView;
 /// 占位图片名（本地）
-@property(nonatomic,copy,nullable)NSString *placeholderImageName;
+Prop_copy(nullable)NSString *placeholderImageName;
 /// 占位名（本地）
-@property(nonatomic,copy,nullable)NSString *placeholderName;
+Prop_copy(nullable)NSString *placeholderName;
 /// 当前显示cardView的Size
 Prop_assign()CGSize JhtBannerCardViewSize;
 /// 点击ScrollView内部卡片

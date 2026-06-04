@@ -8,26 +8,23 @@
 
 #import "LuckyDiskDemoVC.h"
 
+#import "DefineProperty.h"
+
 @interface LuckyDiskDemoVC ()
 
 Prop_strong() NSURL *videoURL;
 Prop_strong() NSString *result;
 Prop_strong() __kindof NSArray *itemTitleArray;      ///< 奖品标题数组（懒加载）
-
 Prop_strong() UIImageView *rotaryTable;     ///< 顶部灯光背景图（懒加载）
 Prop_strong() UIView *itemBorderView;       ///< 高亮边框（懒加载）
-
 Prop_strong() NSTimer *itemBorderTimer;
 Prop_strong() NSTimer *fastTimer;
 Prop_strong() NSTimer *slowTimer;
-
 Prop_assign() NSInteger fastIndex;
 Prop_assign() NSInteger slowIndex;
 Prop_assign() NSInteger selectedIndex;
-
 Prop_strong() UIButton *startButton;        ///< 开始抽奖按钮（懒加载）
 Prop_strong() UILabel *startLabel;          ///< 按钮内部文字（懒加载）
-
 Prop_strong() UIView *lotteryResultView;    ///< 抽奖结果弹窗（懒加载）
 Prop_strong() UIView *lotteryResultBgView;  ///< 弹窗背景遮罩（懒加载）
 Prop_strong() UILabel *resultLabel;         ///< 弹窗中奖结果文案（懒加载）
@@ -478,6 +475,5 @@ Prop_strong() UILabel *resultLabel;         ///< 弹窗中奖结果文案（懒�
     }
     return _lotteryResultView;
 }
-
 
 @end

@@ -7,6 +7,8 @@
 
 #import "JobsBtnsStyleTBVCell.h"
 
+#import "DefineProperty.h"
+
 @interface JobsBtnsStyleTBVCell ()
 /// UI
 Prop_strong()BaseButton *leftBtn;

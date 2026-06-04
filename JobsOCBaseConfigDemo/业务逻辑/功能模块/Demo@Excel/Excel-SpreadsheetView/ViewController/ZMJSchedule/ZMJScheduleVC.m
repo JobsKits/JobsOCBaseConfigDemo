@@ -7,6 +7,8 @@
 
 #import "ZMJScheduleVC.h"
 
+#import "DefineProperty.h"
+
 @interface ZMJScheduleVC ()
 
 Prop_strong()SpreadsheetView *spreadsheetView;

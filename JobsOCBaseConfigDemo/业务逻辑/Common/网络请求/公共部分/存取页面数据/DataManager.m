@@ -8,6 +8,8 @@
 
 #import "DataManager.h"
 
+#import "DefineProperty.h"
+
 @interface DataManager()
 
 Prop_copy()NSMutableDictionary *dataInfo;

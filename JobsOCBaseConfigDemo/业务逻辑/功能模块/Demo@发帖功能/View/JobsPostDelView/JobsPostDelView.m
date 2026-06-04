@@ -7,6 +7,8 @@
 
 #import "JobsPostDelView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsPostDelView ()
 /// UI
 Prop_strong()UILabel *titleLab;

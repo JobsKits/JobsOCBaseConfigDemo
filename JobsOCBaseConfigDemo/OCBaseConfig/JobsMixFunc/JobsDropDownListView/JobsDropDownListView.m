@@ -7,6 +7,8 @@
 
 #import "JobsDropDownListView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsDropDownListView (){
     CGFloat CellHeight;
 }

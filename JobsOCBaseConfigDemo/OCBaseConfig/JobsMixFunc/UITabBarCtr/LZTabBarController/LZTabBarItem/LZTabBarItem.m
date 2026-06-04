@@ -9,6 +9,8 @@
 
 static NSInteger defaultTag = 100000;
 
+#import "DefineProperty.h"
+
 @interface LZTabBarItem ()
 
 Prop_strong()UIImageView *iconImageView;

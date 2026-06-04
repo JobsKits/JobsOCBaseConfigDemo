@@ -7,6 +7,8 @@
 
 #import "JobsBasePopupView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsBasePopupView ()
 /// UI
 Prop_strong()UILabel *titleLab;

@@ -10,6 +10,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /// UICollectionView 实现类似于UITableView的悬停效果
 @interface HQCollectionViewFlowLayout : UICollectionViewFlowLayout

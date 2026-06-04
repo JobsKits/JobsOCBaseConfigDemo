@@ -14,6 +14,8 @@ typedef NS_ENUM(NSInteger,XLBubbleTransitionType) {
     XLBubbleTransitionTypeHide,
 };
 
+#import "DefineProperty.h"
+
 @interface XLBubbleTransition : NSObject
 <
 UIViewControllerAnimatedTransitioning

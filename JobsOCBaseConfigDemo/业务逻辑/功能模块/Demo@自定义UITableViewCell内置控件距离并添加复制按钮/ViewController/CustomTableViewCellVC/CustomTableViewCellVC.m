@@ -7,6 +7,8 @@
 
 #import "CustomTableViewCellVC.h"
 
+#import "DefineProperty.h"
+
 @interface CustomTableViewCellVC ()
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;

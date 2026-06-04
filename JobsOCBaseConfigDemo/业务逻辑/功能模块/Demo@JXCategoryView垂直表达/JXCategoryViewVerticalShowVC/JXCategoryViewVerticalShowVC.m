@@ -7,6 +7,8 @@
 
 #import "JXCategoryViewVerticalShowVC.h"
 
+#import "DefineProperty.h"
+
 @interface JXCategoryViewVerticalShowVC ()
 /// UI
 Prop_strong()JXCategoryTitleView *categoryView;/// 文字

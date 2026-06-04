@@ -8,6 +8,8 @@
 
 #import "JobsAppDoorInputViewBaseStyle_8.h"
 
+#import "DefineProperty.h"
+
 @interface JobsAppDoorInputViewBaseStyle_8 ()
 /// UI
 Prop_strong()BaseButton *securityModelBtn;

@@ -7,6 +7,8 @@
 
 #import "JobsSettingGestureVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsSettingGestureVC ()
 
 Prop_strong()UILabel *topLineLab;

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 
+#import "DefineProperty.h"
 #if __has_include(<JPImageresizerView/JPImageresizerView.h>)
 #import <JPImageresizerView/JPImageresizerView.h>
 #else

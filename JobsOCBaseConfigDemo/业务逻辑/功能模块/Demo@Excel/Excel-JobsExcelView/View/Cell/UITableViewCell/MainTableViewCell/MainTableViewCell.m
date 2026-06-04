@@ -8,6 +8,8 @@
 
 #import "MainTableViewCell.h"
 
+#import "DefineProperty.h"
+
 @interface MainTableViewCell()
 /// Data
 Prop_strong()JobsExcelConfigureViewModel *excelConfigureData;

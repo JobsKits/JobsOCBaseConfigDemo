@@ -7,6 +7,8 @@
 
 #import "LandscapeSwitchVC.h"
 
+#import "DefineProperty.h"
+
 @interface LandscapeSwitchVC ()
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;

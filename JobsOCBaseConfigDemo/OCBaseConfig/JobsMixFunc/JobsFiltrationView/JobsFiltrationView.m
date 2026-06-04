@@ -7,6 +7,8 @@
 
 #import "JobsFiltrationView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsFiltrationView ()
 /// UI
 Prop_strong()JobsHotLabelByMultiLine *hotLabel;

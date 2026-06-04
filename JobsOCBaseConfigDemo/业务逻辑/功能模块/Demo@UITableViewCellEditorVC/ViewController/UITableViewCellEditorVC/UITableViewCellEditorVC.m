@@ -7,6 +7,8 @@
 
 #import "UITableViewCellEditorVC.h"
 
+#import "DefineProperty.h"
+
 @interface UITableViewCellEditorVC ()
 /// UI
 Prop_strong()BaseButton *editBtn;

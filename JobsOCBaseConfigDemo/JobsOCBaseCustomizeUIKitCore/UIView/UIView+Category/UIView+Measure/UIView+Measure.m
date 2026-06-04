@@ -8,6 +8,8 @@
 
 #import "UIView+Measure.h"
 /* ❤️【优先级】 @implementation UIView (Measure) > Masonry,因为Masonry刷新后才有frame ❤️*/
+#import "DefineProperty.h"
+
 @implementation UIView (Measure)
 #pragma mark —— 初始化方法封装
 +(JobsRetViewByClassBlock _Nonnull)build{

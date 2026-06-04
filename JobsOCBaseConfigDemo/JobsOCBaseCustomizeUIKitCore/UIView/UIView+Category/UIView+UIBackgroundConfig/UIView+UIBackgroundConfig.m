@@ -7,6 +7,8 @@
 
 #import "UIView+UIBackgroundConfig.h"
 
+#import "DefineProperty.h"
+
 @implementation UIView (UIBackgroundConfig)
 #pragma mark —— Prop_strong()UIBackgroundConfiguration *backgroundConfig;
 JobsKey(_backgroundConfig)

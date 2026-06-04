@@ -8,6 +8,8 @@
 
 #import "LZTabBarController.h"
 
+#import "DefineProperty.h"
+
 @interface LZTabBarController ()
 
 Prop_strong()LZTabBar *customTabBar;

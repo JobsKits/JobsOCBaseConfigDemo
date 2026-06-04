@@ -7,6 +7,8 @@
 
 #import "JobsCommentConfig.h"
 
+#import "DefineProperty.h"
+
 @interface JobsCommentConfig ()
 
 Prop_assign()CGSize headerImageViewSize;/// 发表此评论的用户的头像大小

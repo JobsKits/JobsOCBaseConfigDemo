@@ -9,6 +9,8 @@
 #import "JobsAppDoorContentView.h"
 // 可以发现：（animateWithDuration + Masonry，动画参数设置无效）
 // 用户名 和 密码 ，登录注册两个界面共用，只不过frame不一样
+#import "DefineProperty.h"
+
 @interface JobsAppDoorContentView (){
     JobsAppDoorInputViewBaseStyle_7 *inputView_7;
 }

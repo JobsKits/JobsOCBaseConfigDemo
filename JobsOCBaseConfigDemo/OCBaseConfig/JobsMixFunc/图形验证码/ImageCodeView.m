@@ -10,6 +10,8 @@
 
 #define CODE_LENGTH 4
 
+#import "DefineProperty.h"
+
 @interface ImageCodeView ()
 
 Prop_copy()jobsByIDBlock imageCodeViewBlock;

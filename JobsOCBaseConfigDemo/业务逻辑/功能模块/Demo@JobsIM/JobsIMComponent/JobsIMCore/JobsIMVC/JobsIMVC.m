@@ -7,6 +7,8 @@
 
 #import "JobsIMVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsIMVC ()
 /// UI
 Prop_strong()JobsIMInputview *inputview;

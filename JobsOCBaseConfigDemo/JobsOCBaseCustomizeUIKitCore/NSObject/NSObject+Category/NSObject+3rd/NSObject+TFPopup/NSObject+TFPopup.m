@@ -7,6 +7,8 @@
 
 #import "NSObject+TFPopup.h"
 
+#import "DefineProperty.h"
+
 @implementation NSObject (TFPopup)
 #pragma mark —— 保证弹窗一定是被初始化
 -(__kindof UIView *)checkByView:(UIView *)view action:(jobsByVoidBlock _Nullable)action {

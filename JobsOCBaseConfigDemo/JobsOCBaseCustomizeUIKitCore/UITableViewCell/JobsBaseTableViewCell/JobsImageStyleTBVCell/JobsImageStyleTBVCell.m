@@ -7,6 +7,8 @@
 
 #import "JobsImageStyleTBVCell.h"
 
+#import "DefineProperty.h"
+
 @interface JobsImageStyleTBVCell ()
 /// UI
 Prop_strong()UIImageView *backgroudImageView;

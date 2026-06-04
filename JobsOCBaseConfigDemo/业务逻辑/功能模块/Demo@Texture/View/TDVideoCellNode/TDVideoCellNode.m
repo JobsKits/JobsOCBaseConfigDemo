@@ -7,6 +7,8 @@
 
 #import "TDVideoCellNode.h"
 
+#import "DefineProperty.h"
+
 @interface TDVideoCellNode ()
 
 Prop_strong() NSURL *pendingURL; // 仅在 didLoad 再喂给 video

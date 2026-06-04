@@ -7,6 +7,8 @@
 
 #import "JobsNavigationTransitionMgr.h"
 
+#import "DefineProperty.h"
+
 @interface JobsNavigationTransitionMgr ()
 
 Prop_weak()UIViewController *viewController;

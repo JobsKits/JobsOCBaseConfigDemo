@@ -7,6 +7,8 @@
 
 #import "JobsBaseApi.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /// 提供详细的IP信息@GET
 /// https://ipinfo.io/json

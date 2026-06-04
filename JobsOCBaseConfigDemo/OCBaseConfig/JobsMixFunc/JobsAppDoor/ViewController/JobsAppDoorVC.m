@@ -8,6 +8,8 @@
 
 #import "JobsAppDoorVC.h"
 //ZFPlayerController *ZFPlayer_DoorVC;
+#import "DefineProperty.h"
+
 @interface JobsAppDoorVC (){
     NSInteger index;// 当前被激活的TextField的序号，从1开始
     UIButton *toRegisterBtn;

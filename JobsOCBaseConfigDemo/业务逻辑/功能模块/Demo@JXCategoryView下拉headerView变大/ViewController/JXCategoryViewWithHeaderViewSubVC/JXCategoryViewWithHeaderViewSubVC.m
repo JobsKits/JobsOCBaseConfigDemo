@@ -7,6 +7,8 @@
 
 #import "JXCategoryViewWithHeaderViewVC.h"
 
+#import "DefineProperty.h"
+
 @interface JXCategoryViewWithHeaderViewSubVC (){
     BaiShaETProjVIPSubCVCell_01 *cell01;
     BaiShaETProjVIPSubCVCell_02 *cell02;

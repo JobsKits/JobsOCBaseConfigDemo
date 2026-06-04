@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+#import "DefineProperty.h"
+
 @interface CountdownView : UIView
 
 Prop_assign()NSInteger time;
 Prop_copy()NSString *str;
 Prop_strong()UIFont *font;
 Prop_strong()UIColor *textColor;
-
 Prop_copy()void (^blockTapAction)(void);
 Prop_copy()void (^blockAnimationFinishedAction)(void);
 

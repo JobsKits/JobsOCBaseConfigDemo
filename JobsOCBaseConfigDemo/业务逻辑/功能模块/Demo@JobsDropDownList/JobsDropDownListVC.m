@@ -7,6 +7,8 @@
 
 #import "JobsDropDownListVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsDropDownListVC ()
 /// UI
 Prop_strong()JobsDropDownListView *dropDownListView;

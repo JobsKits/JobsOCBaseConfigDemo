@@ -7,13 +7,14 @@
 
 #import "JobsTextField.h"
 
+#import "DefineProperty.h"
+
 @interface JobsTextField ()
 /// Data
 Prop_assign()CGFloat leftViewByOutLineOffset; /// 这个值需要在leftView之前设置才有效
 Prop_assign()CGFloat leftViewByTextFieldOffset;
 Prop_assign()CGFloat rightViewByOutLineOffset; /// 这个值需要在rightView之前设置才有效
 Prop_assign()CGFloat rightViewByTextFieldOffset;
-
 Prop_copy(nullable)JobsRetIDByIDBlock otherActionBlock;
 
 @end

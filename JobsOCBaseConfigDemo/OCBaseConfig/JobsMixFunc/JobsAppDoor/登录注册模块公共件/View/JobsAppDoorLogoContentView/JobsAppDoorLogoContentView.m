@@ -8,6 +8,8 @@
 
 #import "JobsAppDoorLogoContentView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsAppDoorLogoContentView ()
 
 Prop_strong()UIImageView *mainImgV;

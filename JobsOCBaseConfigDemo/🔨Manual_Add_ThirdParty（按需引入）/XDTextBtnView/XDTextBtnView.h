@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol XDTextBtnViewDelegate <NSObject>
@@ -27,50 +29,39 @@ NS_ASSUME_NONNULL_BEGIN
  *  如果单选 XDTextBtnViewClickIndex:lastClickIndex:
  *  如果多选 XDTextBtnViewSelectIndexes:
  */
-@property (nonatomic, assign) BOOL isSingle;
-
-@property (nonatomic, assign) CGFloat textFontSize;
-
-@property (nonatomic, strong) UIColor *textColor;
-
-@property (nonatomic, strong) UIColor *selectTextColor;
-
-@property (nonatomic, strong) UIColor *backgroundColor;
-
-@property (nonatomic, strong) UIColor *selectBackgroundColor;
-
-@property (nonatomic, assign) CGFloat cornerRadius;
-
-@property (nonatomic, assign) CGFloat borderWidth;
-
-@property (nonatomic, strong) UIColor *borderColor;
+Prop_assign()BOOL isSingle;
+Prop_assign()CGFloat textFontSize;
+Prop_strong()UIColor *textColor;
+Prop_strong()UIColor *selectTextColor;
+Prop_strong()UIColor *backgroundColor;
+Prop_strong()UIColor *selectBackgroundColor;
+Prop_assign()CGFloat cornerRadius;
+Prop_assign()CGFloat borderWidth;
+Prop_strong()UIColor *borderColor;
 
 //按钮文字到按钮左右边的间距
-@property (nonatomic, assign) CGFloat marginX;
+Prop_assign()CGFloat marginX;
 
 //按钮的间距
-@property (nonatomic, assign) CGFloat btnMarginX;
-
-@property (nonatomic, assign) CGFloat marginY;
-
-@property (nonatomic, assign) CGFloat btnHeight;
+Prop_assign()CGFloat btnMarginX;
+Prop_assign()CGFloat marginY;
+Prop_assign()CGFloat btnHeight;
 
 /**
  *  需要设置完全部样式后设置数据
  */
-@property (nonatomic, strong) NSArray <NSString *> *textArr;
+Prop_strong()NSArray <NSString *> *textArr;
 
 /**
  *  需要设置完数据后设置默认数据
  */
-@property (nonatomic, strong) NSArray <NSString *> *defultIndexArr;
-
-@property (nonatomic, weak) id <XDTextBtnViewDelegate> delegate;
+Prop_strong()NSArray <NSString *> *defultIndexArr;
+Prop_weak()id <XDTextBtnViewDelegate> delegate;
 
 /**
  * 总高度(第一行无上marginY 最后一行无下marginY)
  */
-@property (nonatomic, readonly, assign) CGFloat maxY;
+Prop_assign(readonly)CGFloat maxY;
 
 @end
 

@@ -7,6 +7,8 @@
 
 #import "NSNotificationCenter+JobsBlock.h"
 
+#import "DefineProperty.h"
+
 @implementation NSNotificationCenter (JobsBlock)
 -(jobsByIDBlock _Nonnull)remove{
     return ^(id _Nullable data){

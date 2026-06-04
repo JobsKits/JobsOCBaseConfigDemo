@@ -8,6 +8,7 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 
+#import "DefineProperty.h"
 #if __has_include(<JXPagingView/JXPagerView.h>)
 #import <JXPagingView/JXPagerView.h>
 #else

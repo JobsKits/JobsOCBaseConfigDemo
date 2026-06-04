@@ -7,6 +7,8 @@
 
 #import "JobsTabBarCtrl.h"
 
+#import "DefineProperty.h"
+
 @interface JobsTabBarCtrl ()
 
 Prop_strong(readwrite)UIScrollView *tabBar;

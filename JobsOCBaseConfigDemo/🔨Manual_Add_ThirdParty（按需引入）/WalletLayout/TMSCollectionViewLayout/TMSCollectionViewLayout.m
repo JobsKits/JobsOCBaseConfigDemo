@@ -11,6 +11,8 @@
 static CGFloat const itemH = 76; // cell高度
 static CGFloat const itemInnerInset = 10; // 被遮盖的cell头部留出的距离
 
+#import "DefineProperty.h"
+
 @interface TMSCollectionViewLayout ()
 
 Prop_strong()NSMutableArray <UICollectionViewLayoutAttributes *>* attrubutesArray;

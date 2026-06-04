@@ -7,6 +7,8 @@
 
 #import "JobsProgressVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsProgressVC ()
 
 Prop_strong()PHCycleView *progressView;

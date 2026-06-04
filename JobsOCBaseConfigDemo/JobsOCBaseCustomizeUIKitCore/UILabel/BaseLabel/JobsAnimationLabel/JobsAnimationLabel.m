@@ -7,6 +7,8 @@
 
 #import "JobsAnimationLabel.h"
 
+#import "DefineProperty.h"
+
 @interface JobsAnimationLabel ()
 
 Prop_strong()CADisplayLink *playLink;

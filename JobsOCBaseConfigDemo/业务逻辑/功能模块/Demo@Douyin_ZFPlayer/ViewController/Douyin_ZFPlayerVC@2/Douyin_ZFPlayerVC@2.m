@@ -7,6 +7,8 @@
 
 #import "Douyin_ZFPlayerVC@2.h"
 
+#import "DefineProperty.h"
+
 @interface Douyin_ZFPlayerVC_2 ()
 /// UI
 Prop_strong()ZFPlayerController *player;

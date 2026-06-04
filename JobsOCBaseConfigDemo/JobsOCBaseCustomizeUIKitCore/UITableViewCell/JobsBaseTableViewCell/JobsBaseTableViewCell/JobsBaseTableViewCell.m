@@ -8,6 +8,8 @@
 
 #import "JobsBaseTableViewCell.h"
 
+#import "DefineProperty.h"
+
 @interface JobsBaseTableViewCell ()
 /// Data
 Prop_assign()BOOL isSetTBVCellOffset;

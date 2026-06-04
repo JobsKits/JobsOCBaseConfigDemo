@@ -8,12 +8,14 @@
 #import <Foundation/Foundation.h>
 #import "JobsBlock.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WGradientProgressModel : NSObject
 
 Prop_assign()CGFloat progress;
-@property(nonatomic,strong,nonnull)CAGradientLayer *__block gradLayer;//通过改变layer的宽度来实现进度 运动员
+Prop_strong(nonnull)CAGradientLayer *__block gradLayer;//通过改变layer的宽度来实现进度 运动员
 
 @end
 

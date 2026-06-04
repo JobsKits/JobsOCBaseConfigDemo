@@ -13,6 +13,7 @@
 #import <UIKit/UIKit.h>
 #import "BRTextPickerView+Extra.h"
 
+#import "DefineProperty.h"
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else

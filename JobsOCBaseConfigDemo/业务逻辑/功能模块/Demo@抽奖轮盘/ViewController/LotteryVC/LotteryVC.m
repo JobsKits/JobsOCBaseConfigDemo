@@ -7,6 +7,8 @@
 
 #import "LotteryVC.h"
 
+#import "DefineProperty.h"
+
 @interface LotteryVC ()
 /// Data
 Prop_strong()NSMutableArray <__kindof UITableViewCell *>*tbvSectionRowCellMutArr;

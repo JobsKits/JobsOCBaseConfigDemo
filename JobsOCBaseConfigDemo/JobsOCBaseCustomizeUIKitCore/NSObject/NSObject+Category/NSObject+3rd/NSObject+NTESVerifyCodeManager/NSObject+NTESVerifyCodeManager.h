@@ -10,6 +10,7 @@
 #import "JobsBlock.h"
 #import "APIKey.h"
 
+#import "DefineProperty.h"
 #if __has_include(<VerifyCode/NTESVerifyCodeManager.h>)
 #import <VerifyCode/NTESVerifyCodeManager.h>
 #else

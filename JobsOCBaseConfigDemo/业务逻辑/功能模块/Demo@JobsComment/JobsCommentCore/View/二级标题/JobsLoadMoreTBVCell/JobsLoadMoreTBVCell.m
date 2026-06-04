@@ -8,6 +8,8 @@
 
 #import "JobsLoadMoreTBVCell.h"
 
+#import "DefineProperty.h"
+
 @interface JobsLoadMoreTBVCell ()
 
 Prop_strong()UILabel *titleLab;
@@ -53,4 +55,5 @@ Prop_strong()UILabel *titleLab;
     }return _titleLab;
 }
  
+
 @end

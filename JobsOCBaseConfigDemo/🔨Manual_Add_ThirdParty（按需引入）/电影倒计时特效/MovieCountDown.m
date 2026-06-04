@@ -8,6 +8,8 @@
 
 #import "MovieCountDown.h"
 
+#import "DefineProperty.h"
+
 @interface MovieCountDown ()
 /// UI
 Prop_strong()UILabel *countDown;

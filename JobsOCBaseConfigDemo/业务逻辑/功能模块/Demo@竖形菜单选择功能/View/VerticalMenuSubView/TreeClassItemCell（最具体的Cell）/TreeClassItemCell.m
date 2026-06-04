@@ -7,6 +7,8 @@
 
 #import "TreeClassItemCell.h"
 
+#import "DefineProperty.h"
+
 @interface TreeClassItemCell ()
 /// UI
 Prop_strong()UIImageView *logoImgView;

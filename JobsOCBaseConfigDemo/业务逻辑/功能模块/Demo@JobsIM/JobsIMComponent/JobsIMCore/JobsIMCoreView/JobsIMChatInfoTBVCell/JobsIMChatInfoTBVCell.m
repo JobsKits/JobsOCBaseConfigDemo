@@ -7,6 +7,8 @@
 
 #import "JobsIMChatInfoTBVCell.h"
 
+#import "DefineProperty.h"
+
 @interface JobsIMChatInfoTBVCell ()
 /// UI
 Prop_strong()UIImageView *iconIMGV;/// 用户头像

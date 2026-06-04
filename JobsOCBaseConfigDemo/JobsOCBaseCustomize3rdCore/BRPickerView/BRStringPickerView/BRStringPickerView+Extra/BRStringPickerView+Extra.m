@@ -6,9 +6,6 @@
 //
 
 #import "BRStringPickerView+Extra.h"
-/// Use 'BRTextPickerView' instead. 
-@implementation BRStringPickerView
-@end
 
 @implementation BRStringPickerView (Extra)
 

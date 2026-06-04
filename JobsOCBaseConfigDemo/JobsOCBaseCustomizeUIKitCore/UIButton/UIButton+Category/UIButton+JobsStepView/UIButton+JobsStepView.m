@@ -7,6 +7,8 @@
 
 #import "UIButton+JobsStepView.h"
 
+#import "DefineProperty.h"
+
 @implementation UIButton (JobsStepView)
 
 #pragma mark —— Prop_strong()__kindof UILabel *leftLab;

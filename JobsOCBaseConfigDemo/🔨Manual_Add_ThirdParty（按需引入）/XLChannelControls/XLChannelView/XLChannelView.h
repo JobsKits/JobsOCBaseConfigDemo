@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import "DefineProperty.h"
+
 @interface XLChannelView : UIView
 
-@property (nonatomic, strong) NSMutableArray *enabledTitles;
-
-@property (nonatomic,strong) NSMutableArray *disabledTitles;
+Prop_strong()NSMutableArray *enabledTitles;
+Prop_strong()NSMutableArray *disabledTitles;
 
 -(void)reloadData;
 

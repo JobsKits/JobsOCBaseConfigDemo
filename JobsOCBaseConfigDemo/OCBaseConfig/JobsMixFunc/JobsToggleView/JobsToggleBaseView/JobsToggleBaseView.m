@@ -8,6 +8,8 @@
 
 #import "JobsToggleBaseView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsToggleBaseView ()
 /// UI
 Prop_strong()JobsToggleNavView *taggedNavView;

@@ -7,6 +7,8 @@
 
 #import "UIView+Navigator.h"
 
+#import "DefineProperty.h"
+
 @implementation UIView (Navigator)
 #pragma mark —— 汇总方法
 /// 推页面

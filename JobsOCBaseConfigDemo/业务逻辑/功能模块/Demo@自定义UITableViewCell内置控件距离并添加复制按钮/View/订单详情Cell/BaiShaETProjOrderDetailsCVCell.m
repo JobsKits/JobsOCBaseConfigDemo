@@ -7,6 +7,8 @@
 
 #import "BaiShaETProjOrderDetailsCVCell.h"
 
+#import "DefineProperty.h"
+
 @interface BaiShaETProjOrderDetailsCVCell ()
 /// UI
 Prop_strong()UIButton *jobsCopyBtn;

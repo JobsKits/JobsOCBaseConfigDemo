@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 /// 一个 gif 动画显示组件，允许在指定时间内播放动画序列，无限循环，支持停止、播放

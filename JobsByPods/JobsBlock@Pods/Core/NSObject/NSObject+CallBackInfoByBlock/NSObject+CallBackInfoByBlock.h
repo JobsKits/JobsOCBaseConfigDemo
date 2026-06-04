@@ -20,6 +20,7 @@
 #import <JobsBlock/ReturnByUnCertainParameters.h>
 #import <JobsBlock/VoidByUnCertainParameters.h>
 
+#import "DefineProperty.h"
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else

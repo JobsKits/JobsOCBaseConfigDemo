@@ -7,6 +7,8 @@
 
 #import "JobsCustomView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsCustomView ()
 /// UI
 Prop_strong()UIImageView *indicatorIMGV;

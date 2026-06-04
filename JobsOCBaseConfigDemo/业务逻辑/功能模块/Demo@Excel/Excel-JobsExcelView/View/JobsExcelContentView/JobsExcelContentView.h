@@ -16,6 +16,8 @@
 
 @class UIButtonModel;
 
+#import "DefineProperty.h"
+
 @interface JobsExcelContentView : UIView
 <
 UITableViewDelegate,
@@ -24,7 +26,7 @@ MianTableViewCellDelegate,
 BaseViewProtocol
 >
 
-@property(nonatomic,strong,nonnull,readonly)JobsExcelConfigureViewModel *excelConfigureData;
+Prop_strong(nonnull, readonly)JobsExcelConfigureViewModel *excelConfigureData;
 -(jobsByPointBlock _Nonnull)configureContentOffSet;
 
 @end

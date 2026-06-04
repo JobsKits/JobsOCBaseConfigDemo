@@ -1,13 +1,15 @@
 #import "JobsLaunchAdMgr.h"
 #import <AVKit/AVKit.h>
 
+#import "DefineProperty.h"
+
 @interface JobsLaunchAdMgr ()
 
-@property (nonatomic, strong) UIView *adView;
-@property (nonatomic, strong) UIButton *skipButton;
-@property (nonatomic, strong) AVPlayer *videoPlayer;
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UIWindow *mainWindow;
+Prop_strong()UIView *adView;
+Prop_strong()UIButton *skipButton;
+Prop_strong()AVPlayer *videoPlayer;
+Prop_strong()UIImageView *imageView;
+Prop_strong()UIWindow *mainWindow;
 
 @end
 

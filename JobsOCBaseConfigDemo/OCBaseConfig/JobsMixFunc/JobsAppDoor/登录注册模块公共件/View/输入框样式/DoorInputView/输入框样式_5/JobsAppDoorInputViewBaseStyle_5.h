@@ -10,6 +10,8 @@
 #import "JobsAppDoorInputViewBaseStyle.h"
 #import "ZYTextField.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef enum : NSUInteger {

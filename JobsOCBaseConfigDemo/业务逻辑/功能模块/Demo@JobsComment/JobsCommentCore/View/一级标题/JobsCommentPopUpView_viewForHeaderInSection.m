@@ -8,6 +8,8 @@
 
 #import "JobsCommentPopUpView_viewForHeaderInSection.h"
 
+#import "DefineProperty.h"
+
 @interface JobsCommentPopUpView_viewForHeaderInSection ()
 /// UI
 Prop_strong()BaseButton *userInfoBtn;

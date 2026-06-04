@@ -7,6 +7,8 @@
 
 #import "JobsShowObjInfoVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsShowObjInfoVC ()
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;

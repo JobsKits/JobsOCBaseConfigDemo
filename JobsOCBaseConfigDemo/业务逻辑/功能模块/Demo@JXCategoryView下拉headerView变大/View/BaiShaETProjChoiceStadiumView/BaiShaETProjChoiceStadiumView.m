@@ -7,6 +7,8 @@
 
 #import "BaiShaETProjChoiceStadiumView.h"
 
+#import "DefineProperty.h"
+
 @interface BaiShaETProjChoiceStadiumTBVHeaderView ()
 
 Prop_strong()UIColor *cor;

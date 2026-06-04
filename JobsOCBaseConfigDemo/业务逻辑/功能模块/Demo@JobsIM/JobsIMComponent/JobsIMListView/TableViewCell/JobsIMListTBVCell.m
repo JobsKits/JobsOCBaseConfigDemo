@@ -7,11 +7,12 @@
 
 #import "JobsIMListTBVCell.h"
 
+#import "DefineProperty.h"
+
 @interface JobsIMListTBVCell ()
 
 Prop_strong()UILabel *timeLab;
 Prop_strong()UILongPressGestureRecognizer *longPG;
-
 Prop_strong()NSMutableArray <MGSwipeButtonModel *>*leftBtnMutArr;
 Prop_strong()NSMutableArray <MGSwipeButtonModel *>*rightBtnMutArr;
 Prop_copy()NSString *usernameStr;
@@ -200,4 +201,5 @@ UITextFieldProtocol_synthesize_part2
     }return _rightBtnMutArr;
 }
     
+
 @end

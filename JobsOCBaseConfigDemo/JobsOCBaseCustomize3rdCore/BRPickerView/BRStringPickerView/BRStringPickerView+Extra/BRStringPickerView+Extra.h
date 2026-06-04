@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
+#import "BRStringPickerView.h"
 
 #if __has_include(<BRPickerView/BRPickerView.h>)
 #import <BRPickerView/BRPickerView.h>
@@ -33,9 +34,6 @@ typedef BRTextPickerMode BRStringPickerMode;
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
-/// Use 'BRTextPickerView' instead.
-@interface BRStringPickerView : BRTextPickerView
-@end
 
 @interface BRStringPickerView (Extra)
 

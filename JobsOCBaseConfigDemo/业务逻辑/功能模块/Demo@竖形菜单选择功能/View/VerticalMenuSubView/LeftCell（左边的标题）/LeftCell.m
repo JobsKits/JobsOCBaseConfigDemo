@@ -7,6 +7,8 @@
 
 #import "LeftCell.h"
 
+#import "DefineProperty.h"
+
 @interface LeftCell()
 /// UI
 Prop_strong()UIView *flagView;

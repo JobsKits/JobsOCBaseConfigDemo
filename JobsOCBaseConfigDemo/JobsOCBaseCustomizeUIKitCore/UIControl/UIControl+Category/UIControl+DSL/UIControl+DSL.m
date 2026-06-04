@@ -7,10 +7,13 @@
 
 #import "UIControl+DSL.h"
 /// 内部闭包包装器
+#import "DefineProperty.h"
+
 @interface _JobsClosureWrapper : NSObject
 Prop_copy()JobsControlHandler handler;
 -(instancetype)initWithHandler:(JobsControlHandler)handler;
 -(void)invoke:(UIControl *)sender;
+
 @end
 
 @implementation _JobsClosureWrapper

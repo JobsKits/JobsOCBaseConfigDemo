@@ -404,6 +404,7 @@ typedef __kindof UIScrollView *_Nullable(^JobsRetScrollViewByButtonModelBlock)(_
 typedef __kindof PDFDocument *_Nullable(^JobsRetPDFDocumentByURLBlock)(NSURL *_Nullable pdfURL);
 #pragma mark —— 关于 WKWebView
 #import <WebKit/WebKit.h>
+
 @class UIViewModel;
 typedef __kindof WKWebView *_Nullable(^JobsRetWKWebViewByVoidBlock)(void);
 typedef __kindof WKWebView *_Nullable(^JobsRetCollectionViewByNavDelegateBlock)(id <WKNavigationDelegate>_Nullable delegate);
@@ -552,6 +553,7 @@ typedef __kindof NSParagraphStyle *_Nullable(^JobsRetParagraphStyleByVoidBlock)(
 typedef __kindof NSParagraphStyle *_Nullable(^JobsRetParagraphStyleByTextAlignmentBlock)(NSTextAlignment data);
 #pragma mark —— 关于 动画
 #import <QuartzCore/QuartzCore.h> // 提供 Core Animation 和 CALayer 能力，用于动画、图层和视觉渲染。
+
 typedef CAKeyframeAnimation *_Nullable(^JobsRetCAKeyframeAnimationByStrBlock)(__kindof NSString *_Nullable data);
 typedef __kindof CABasicAnimation *_Nullable(^JobsRetCABasicAnimationByStrBlock)(__kindof NSString *_Nullable data);
 typedef __kindof CABasicAnimation *_Nullable(^JobsRetCABasicAnimationByIDBlock)(id _Nullable data);
@@ -745,6 +747,7 @@ typedef __kindof ASButtonNode *_Nonnull(^JobsRetButtonNodeByTitleConfigBlock)(NS
                                                                               UIColor *_Nullable color,
                                                                               UIControlState state);
 #import <JobsBlock/VoidByCertainParametersBlock.h>
+
 typedef __kindof ASButtonNode *_Nonnull(^JobsRetButtonNodeByOnClickBlock)(jobsByButtonNodeBlock _Nullable handler);
 typedef __kindof ASButtonNode *_Nonnull(^JobsRetButtonNodeByOnLongPressBlock)(jobsByButtonNodeLongPressBlock _Nullable handler);
 typedef __kindof ASButtonNode *_Nonnull(^JobsRetButtonNodeByOnLongPressWithTimeBlock)(NSTimeInterval minDuration,

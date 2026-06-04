@@ -7,6 +7,8 @@
 
 #import "ExcelVC.h"
 
+#import "DefineProperty.h"
+
 @interface ExcelVC ()
 /// Data
 Prop_strong()NSMutableArray <NSMutableArray <__kindof UITableViewCell *>*>*tbvSectionRowCellMutArr;

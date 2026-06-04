@@ -24,6 +24,8 @@ typedef NS_ENUM(NSUInteger, SkipButtonMode) {
     SkipButtonModeCountdown
 };
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /**
     OC 开屏广告的Demo，要求：
@@ -57,16 +59,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface JobsLaunchAdMgr : NSObject
 
-@property(nonatomic,copy)NSString *buttonTitle;
-@property(nonatomic,assign)CGRect buttonFrame;
-@property(nonatomic,assign)SkipButtonMode buttonMode;
-@property(nonatomic,assign)NSInteger countdownDuration;
-@property(nonatomic,copy)NSString *redirectURL;
-
-@property(nonatomic,copy)jobsByVoidBlock onDoubleTap;
-@property(nonatomic,copy)jobsByVoidBlock onSingleTap;
-@property(nonatomic,copy)jobsByVoidBlock onLongPress;
-@property(nonatomic,copy)jobsByVoidBlock onShake;
+Prop_copy()NSString *buttonTitle;
+Prop_assign()CGRect buttonFrame;
+Prop_assign()SkipButtonMode buttonMode;
+Prop_assign()NSInteger countdownDuration;
+Prop_copy()NSString *redirectURL;
+Prop_copy()jobsByVoidBlock onDoubleTap;
+Prop_copy()jobsByVoidBlock onSingleTap;
+Prop_copy()jobsByVoidBlock onLongPress;
+Prop_copy()jobsByVoidBlock onShake;
 
 + (instancetype)sharedManager;
 + (void)destroyInstance;

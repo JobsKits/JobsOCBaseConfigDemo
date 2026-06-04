@@ -8,6 +8,8 @@
 
 #import "UIView+Animation.h"
 
+#import "DefineProperty.h"
+
 @implementation UIView (Animation)
 #pragma mark —— 一些功能方法
 -(JobsRetViewByBOOLBlock _Nonnull)抖动动画{

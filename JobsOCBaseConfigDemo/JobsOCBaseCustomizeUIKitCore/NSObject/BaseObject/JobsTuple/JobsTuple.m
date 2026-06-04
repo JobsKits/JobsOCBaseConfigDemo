@@ -7,6 +7,8 @@
 
 #import "JobsTuple.h"
 
+#import "DefineProperty.h"
+
 @interface JobsTuple ()
 
 Prop_strong()NSMutableArray *valueMutArr;

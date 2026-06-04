@@ -12,6 +12,7 @@
 #import "PwdSettingView.h" /// 密码重置-密码确认
 #import "PwdSettingByCodeView.h" /// 密码重置-手机验证码
 
+#import "DefineProperty.h"
 #if __has_include(<TFPopup/TFPopup.h>)
 #import <TFPopup/TFPopup.h>
 #else
@@ -22,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 弹出一个弹窗
 @interface NSObject (TFPopup)
 /// Data
-@property(nonatomic,strong)TFPopupParam *popupParameter;
+Prop_strong()TFPopupParam *popupParameter;
 #pragma mark —— 创建缩放模式的View
 /// 没有自定义 popupParam（缩放模式）
 -(void)popupShowScaleWithView:(UIView *_Nonnull)view;

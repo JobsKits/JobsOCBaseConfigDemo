@@ -5,6 +5,8 @@
 
 #import "LuckyWheelDemoVC.h"
 
+#import "DefineProperty.h"
+
 @interface LuckyWheelDemoVC ()
 
 Prop_strong()LuckyWheelView *wheelView;

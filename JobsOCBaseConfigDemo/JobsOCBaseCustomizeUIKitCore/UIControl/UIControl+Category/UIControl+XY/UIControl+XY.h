@@ -9,6 +9,8 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /// 资料来源：http://www.jianshu.com/p/a830d0a57378
 @interface UIControl (XY)

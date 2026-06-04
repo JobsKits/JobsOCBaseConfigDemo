@@ -8,6 +8,8 @@
 
 #import "GifLoopPlayView.h"
 
+#import "DefineProperty.h"
+
 @interface GifLoopPlayView ()
 
 Prop_strong()UIImageView *imageView;

@@ -24,22 +24,22 @@
 
 #import <Foundation/Foundation.h>
 
-#if __has_include(<ZFPlayer/ZFPlayerMediaPlayback.h>)
-#import <ZFPlayer/ZFPlayerMediaPlayback.h>
+#if __has_include(<ZFPlayer/ZFPlayer.h>)
+#import <ZFPlayer/ZFPlayer.h>
 #else
-#import "ZFPlayerMediaPlayback.h"
+#import "ZFPlayer.h"
 #endif
 
 #if __has_include(<IJKMediaFramework/IJKMediaFramework.h>)
 #import <IJKMediaFramework/IJKMediaFramework.h>
 
+#import "DefineProperty.h"
+
 @interface ZFIJKPlayerManager : NSObject <ZFPlayerMediaPlayback>
 
-@property (nonatomic, strong, readonly) IJKFFMoviePlayerController *player;
-
-@property (nonatomic, strong, readonly) IJKFFOptions *options;
-
-@property (nonatomic, assign) NSTimeInterval timeRefreshInterval;
+Prop_strong(readonly)IJKFFMoviePlayerController *player;
+Prop_strong(readonly)IJKFFOptions *options;
+Prop_assign()NSTimeInterval timeRefreshInterval;
 
 @end
 

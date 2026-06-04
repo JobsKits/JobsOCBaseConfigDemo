@@ -7,6 +7,8 @@
 
 #import "JobsTimerManager.h"
 
+#import "DefineProperty.h"
+
 @interface _JobsTimerManagerEntry : NSObject
 
 Prop_strong()JobsTimer *timer;

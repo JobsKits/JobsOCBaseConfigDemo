@@ -7,6 +7,8 @@
 
 #import "ZMJTimeableVC.h"
 
+#import "DefineProperty.h"
+
 @interface ZMJTimeableVC ()
 
 Prop_strong()SpreadsheetView *spreadsheetView;

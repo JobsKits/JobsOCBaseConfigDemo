@@ -7,6 +7,8 @@
 
 #import "CasinoUpgradeContentView.h"
 
+#import "DefineProperty.h"
+
 @interface CasinoUpgradeContentView ()
 /// UI
 Prop_strong()UILabel *titleLab;

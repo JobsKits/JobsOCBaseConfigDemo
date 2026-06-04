@@ -7,6 +7,8 @@
 
 #import "JobsPullListAutoSizeView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsPullListAutoSizeView ()
 /// UI
 Prop_strong()UIView *targetView;

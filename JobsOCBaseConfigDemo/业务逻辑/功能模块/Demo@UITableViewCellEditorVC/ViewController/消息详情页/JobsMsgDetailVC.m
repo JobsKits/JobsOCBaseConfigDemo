@@ -7,6 +7,8 @@
 
 #import "JobsMsgDetailVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsMsgDetailVC ()
 /// UI
 Prop_strong()UILabel *titleLab;

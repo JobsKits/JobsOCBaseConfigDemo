@@ -7,25 +7,6 @@
 
 #import "UIViewController+SafeTransition.h"
 
-@implementation JobsRecordPresentedViewController
-
-static JobsRecordPresentedViewController *static_JobsRecordPresentedVC = nil;
-+(instancetype)sharedManager{
-    @synchronized(self){
-        if (!static_JobsRecordPresentedVC) {
-            static_JobsRecordPresentedVC = JobsRecordPresentedViewController.new;
-        }
-    }return static_JobsRecordPresentedVC;
-}
-#pragma mark —— lazyLoad
--(NSMutableArray<__kindof UIViewController *> *)presentedVCMutArr{
-    if (!_presentedVCMutArr) {
-        _presentedVCMutArr = NSMutableArray.array;
-    }return _presentedVCMutArr;
-}
-
-@end
-
 @implementation UIViewController (SafeTransition)
 
 +(void)load{
@@ -89,4 +70,3 @@ static JobsRecordPresentedViewController *static_JobsRecordPresentedVC = nil;
 }
 
 @end
-

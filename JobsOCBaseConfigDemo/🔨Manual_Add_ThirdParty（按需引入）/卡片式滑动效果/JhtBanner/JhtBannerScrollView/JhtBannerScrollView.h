@@ -28,6 +28,8 @@ static const NSString * _Nullable subviewClassName = @"JhtBannerCardView";
 
 @class JhtBannerScrollView;
 /// banner view（整条view）
+#import "DefineProperty.h"
+
 @interface JhtBannerScrollView : UIView <UIScrollViewDelegate>
 /// 滚动方向：default: BV_Orientation_Horizontal
 Prop_assign()JhtBannerViewOrientation orientation;
@@ -44,12 +46,11 @@ Prop_assign()BOOL isCarousel;
 /// 自动切换视图 时间 default: 3.0
 Prop_assign()NSTimeInterval autoTime;
 /// 当前是第几页
-@property(nonatomic,assign,readonly)NSInteger currentIndex;
+Prop_assign(readonly)NSInteger currentIndex;
 /// pageControl（自定义扩展）
-@property(nonatomic,strong,nullable)UIPageControl *pageControl;
-
-@property(nonatomic,assign,nullable)id<JhtBannerScrollViewDataSource> dataSource;
-@property(nonatomic,assign,nullable)id<JhtBannerScrollViewDelegate> delegate;
+Prop_strong(nullable)UIPageControl *pageControl;
+Prop_assign(nullable)id<JhtBannerScrollViewDataSource> dataSource;
+Prop_assign(nullable)id<JhtBannerScrollViewDelegate> delegate;
 
 +(JobsReturnJhtBannerScrollViewByFrame _Nonnull)initByFrame;
 /// 刷新视图

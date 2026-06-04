@@ -7,6 +7,8 @@
 
 #import "JobsBaseLabel.h"
 
+#import "DefineProperty.h"
+
 @interface JobsBaseLabel ()
 /// UI
 Prop_strong()UIImageView *bgImageView;

@@ -7,6 +7,8 @@
 
 #import "DynamicViewTestVC.h"
 
+#import "DefineProperty.h"
+
 @interface DynamicViewTestVC ()
 
 Prop_strong()UIImageView *gifImageView;

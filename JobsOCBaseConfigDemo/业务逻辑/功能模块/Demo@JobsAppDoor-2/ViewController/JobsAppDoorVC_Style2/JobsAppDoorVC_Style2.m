@@ -7,17 +7,19 @@
 
 #import "JobsAppDoorVC_Style2.h"
 
+#import "DefineProperty.h"
+
 @interface JobsAppDoorVC_Style2 ()
 /// UI
 Prop_strong()UIImageView *bgImgV;
 Prop_strong()BaseButton *customerServiceBtn;
 Prop_strong()ZFPlayerController *player;
 Prop_strong()ZFAVPlayerManager *playerManager;
-@property(nonatomic,strong,nullable)CustomZFPlayerControlView *customPlayerControlView;
-@property(nonatomic,strong,nullable)JobsAppDoorLoginContentView *loginContentView;/// 登录页面
-@property(nonatomic,strong,nullable)JobsAppDoorRegisterContentView *registerContentView;/// 注册页面
-@property(nonatomic,strong,nullable)JobsAppDoorForgotCodeContentView *forgotCodeContentView;/// 忘记密码
-@property(nonatomic,strong,nullable)JobsAppDoorLogoContentView *logoContentView;
+Prop_strong(nullable)CustomZFPlayerControlView *customPlayerControlView;
+Prop_strong(nullable)JobsAppDoorLoginContentView *loginContentView;/// 登录页面
+Prop_strong(nullable)JobsAppDoorRegisterContentView *registerContentView;/// 注册页面
+Prop_strong(nullable)JobsAppDoorForgotCodeContentView *forgotCodeContentView;/// 忘记密码
+Prop_strong(nullable)JobsAppDoorLogoContentView *logoContentView;
 /// Data
 Prop_assign()CGFloat logoContentViewY;/// 初始高度
 Prop_assign()CGFloat loginContentViewY;/// 初始高度

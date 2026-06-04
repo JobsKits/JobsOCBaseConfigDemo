@@ -11,6 +11,8 @@
 #import "UITextField+Extend.h"
 #import "NSObject+CurrentDevice.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /// iOS监听键盘删除事件
 /// 资料来源：https://www.jianshu.com/p/b5100f498f12
@@ -22,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CJTextField : UITextField
 
-@property(nonatomic,weak)id <CJTextFieldDeleteDelegate>cj_delegate;
+Prop_weak()id <CJTextFieldDeleteDelegate>cj_delegate;
 
 @end
 

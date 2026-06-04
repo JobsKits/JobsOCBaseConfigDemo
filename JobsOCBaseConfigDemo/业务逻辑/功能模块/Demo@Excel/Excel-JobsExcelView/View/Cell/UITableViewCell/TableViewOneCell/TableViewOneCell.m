@@ -8,6 +8,8 @@
 
 #import "TableViewOneCell.h"
 
+#import "DefineProperty.h"
+
 @interface TableViewOneCell()
 /// UI
 Prop_strong()UIBezierPath *linePath;

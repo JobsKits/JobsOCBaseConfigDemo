@@ -7,6 +7,8 @@
 
 #import "UITableViewCell+Margin.h"
 
+#import "DefineProperty.h"
+
 @implementation UITableViewCell (Margin)
 UILocationProtocol_dynamic
 // 在具体的子类去实现,分类调用异常

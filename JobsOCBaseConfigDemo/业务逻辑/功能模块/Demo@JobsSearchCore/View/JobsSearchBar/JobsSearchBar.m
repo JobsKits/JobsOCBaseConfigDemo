@@ -7,6 +7,8 @@
 
 #import "JobsSearchBar.h"
 
+#import "DefineProperty.h"
+
 @interface JobsSearchBar ()
 /// UI
 Prop_strong()BaseButton *cancelBtn;

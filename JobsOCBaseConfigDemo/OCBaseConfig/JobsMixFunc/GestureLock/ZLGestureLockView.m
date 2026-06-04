@@ -8,6 +8,8 @@
 
 #import "ZLGestureLockView.h"
 
+#import "DefineProperty.h"
+
 @interface ZLGestureLockView ()
 
 Prop_strong()NSMutableArray *selectBtns;

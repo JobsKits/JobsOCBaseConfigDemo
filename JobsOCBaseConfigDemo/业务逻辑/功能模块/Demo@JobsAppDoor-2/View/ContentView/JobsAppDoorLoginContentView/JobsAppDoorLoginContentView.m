@@ -8,6 +8,8 @@
 
 #import "JobsAppDoorLoginContentView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsAppDoorLoginContentView ()
 /// UI
 Prop_strong()BaseButton *toRegisterBtn;/// 去注册

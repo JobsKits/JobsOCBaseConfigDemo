@@ -1,15 +1,17 @@
 #import "JobsLaunchAdMgr.h"
 #import <CoreMotion/CoreMotion.h>
 
+#import "DefineProperty.h"
+
 @interface JobsLaunchAdMgr ()
 
-@property (nonatomic, strong) UIView *adView;
-@property (nonatomic, strong) UIButton *skipButton;
-@property (nonatomic, strong) AVPlayer *videoPlayer;
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) NSTimer *countdownTimer;
-@property (nonatomic, assign) NSInteger currentCountdown;
-@property (nonatomic, strong) CMMotionManager *motionManager;
+Prop_strong()UIView *adView;
+Prop_strong()UIButton *skipButton;
+Prop_strong()AVPlayer *videoPlayer;
+Prop_strong()UIImageView *imageView;
+Prop_strong()NSTimer *countdownTimer;
+Prop_assign()NSInteger currentCountdown;
+Prop_strong()CMMotionManager *motionManager;
 
 @end
 

@@ -9,6 +9,7 @@
 #import "AppDelegate+TabBarCtr.h"
 #import "MacroDef_SDK.h"
 
+#import "DefineProperty.h"
 #if __has_include(<TFPopup/TFPopup.h>)
 #import <TFPopup/TFPopup.h>
 #else

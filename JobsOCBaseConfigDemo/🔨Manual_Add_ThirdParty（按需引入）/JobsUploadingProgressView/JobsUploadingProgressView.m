@@ -7,6 +7,8 @@
 
 #import "JobsUploadingProgressView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsUploadingProgressView()
 /// UI
 Prop_strong()UIBezierPath *bezier;

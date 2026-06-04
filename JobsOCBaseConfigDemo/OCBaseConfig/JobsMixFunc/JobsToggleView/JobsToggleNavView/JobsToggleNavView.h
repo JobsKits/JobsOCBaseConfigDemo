@@ -17,6 +17,8 @@
 #import "UIButtonModel.h"
 #import "JobsToggleNavViewProtocol.h"
 
+#import "DefineProperty.h"
+
 @interface JobsToggleNavView : BaseView<JobsToggleNavViewProtocol>
 /// UI
 Prop_copy(nullable)NSMutableArray <__kindof UIButton *>*buttonsArray;

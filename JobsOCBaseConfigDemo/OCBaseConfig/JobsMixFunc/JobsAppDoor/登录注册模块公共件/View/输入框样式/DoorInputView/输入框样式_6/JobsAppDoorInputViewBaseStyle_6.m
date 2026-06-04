@@ -7,6 +7,8 @@
 
 #import "JobsAppDoorInputViewBaseStyle_6.h"
 
+#import "DefineProperty.h"
+
 @interface JobsAppDoorInputViewBaseStyle_6 ()
 /// UI
 Prop_strong()AuthCodeLab *authCodeLab;

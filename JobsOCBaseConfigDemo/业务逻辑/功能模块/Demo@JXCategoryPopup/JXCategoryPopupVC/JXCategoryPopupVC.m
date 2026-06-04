@@ -7,6 +7,8 @@
 
 #import "JXCategoryPopupVC.h"
 
+#import "DefineProperty.h"
+
 @interface JXCategoryPopupVC ()
 /// UI
 Prop_strong()JXCategoryTitleView *categoryView;
@@ -14,10 +16,10 @@ Prop_strong()JXCategoryIndicatorLineView *lineView;/// 跟随的指示器
 Prop_strong()JXCategoryListContainerView *listContainerView;/// 此属性决定依附于此的viewController
 Prop_strong()BaseButton *filterBtn;
 Prop_strong()BaseButton *customBtn;
-@property(nonatomic,weak)UIView *popUpFiltrationView;
-@property(nonatomic,weak)UIView *popUpCustomView;
-@property(nonatomic,weak)NSNumber *currentIndex;
-@property(nonatomic,weak)JXCategoryPopupSubVC *vc;
+Prop_weak()UIView *popUpFiltrationView;
+Prop_weak()UIView *popUpCustomView;
+Prop_weak()NSNumber *currentIndex;
+Prop_weak()JXCategoryPopupSubVC *vc;
 /// Data
 Prop_strong()NSMutableArray <NSString *>*titleMutArr;
 Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;

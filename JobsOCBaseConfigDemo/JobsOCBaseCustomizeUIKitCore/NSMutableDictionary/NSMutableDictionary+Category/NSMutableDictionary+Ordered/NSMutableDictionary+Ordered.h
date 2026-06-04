@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "NSObject+Swizzling.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /**
     因为是对setObject:forKey:、removeObjectForKey:、removeAllObjects、removeObjectsForKeys:
@@ -17,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface NSMutableDictionary (Ordered)
 
-@property(nonatomic,copy,readonly,nullable)NSMutableArray *keys;
+Prop_copy(readonly, nullable)NSMutableArray *keys;
 //获取给定index的对象
 -(id)objectAtIndex:(NSUInteger)index;
 //插入键值对至给定index

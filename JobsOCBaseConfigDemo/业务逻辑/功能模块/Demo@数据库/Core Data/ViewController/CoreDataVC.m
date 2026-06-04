@@ -7,6 +7,8 @@
 
 #import "CoreDataVC.h"
 
+#import "DefineProperty.h"
+
 @interface CoreDataVC ()
 
 Prop_strong()NSManagedObjectContext *context;

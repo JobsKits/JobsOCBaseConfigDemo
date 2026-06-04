@@ -22,6 +22,8 @@
 
 #define DateTitleWidth 45.f
 
+#import "DefineProperty.h"
+
 @interface ZMJTaskView () 
 
 Prop_strong()UILabel *taskTitleLabel;

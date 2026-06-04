@@ -48,12 +48,10 @@ Prop_assign(readonly)NSInteger colNumber;/// 列数
 Prop_strong(nonnull)RACSubject *verticalScrollSignal;
 Prop_strong(nonnull)RACSubject *horizontalScrollSignal;
 Prop_copy(nonnull)jobsByIDBlock configureDataBy;/// 因为UI架构的原因，数据必须先行后列
-
 Prop_strong(null_resettable)UIButtonModel *data_00;/// 起始格子的数据
 Prop_copy(nonnull)NSMutableArray <NSMutableArray <UIButtonModel *>*>*contentArr;
 Prop_copy(null_resettable)NSMutableArray <UIButtonModel *>*topHeaderDatas;
 Prop_copy(null_resettable)NSMutableArray <UIButtonModel *>*leftListDatas;
-
 Prop_copy(nonnull)NSMutableArray <NSMutableArray <NSString *>*>*contentTitles;
 Prop_strong()NSMutableArray <NSString *>*_Nullable topHeaderTitles;
 Prop_strong()NSMutableArray <NSString *>*_Nullable leftTitles;

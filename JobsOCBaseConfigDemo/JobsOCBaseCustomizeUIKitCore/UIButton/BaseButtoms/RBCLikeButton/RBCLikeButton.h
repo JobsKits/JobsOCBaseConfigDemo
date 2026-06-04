@@ -18,6 +18,8 @@ typedef NS_ENUM(NSInteger, RBCLikeButtonStatus) {
     RBCLikeButtonStatusCancelThumbsing /// 正在取消点赞
 };
 /// 高仿抖音点赞动画
+#import "DefineProperty.h"
+
 @interface RBCLikeButton : UIButton <BaseButtonProtocol>
 
 Prop_assign()NSInteger thumpNum;/// 点赞数

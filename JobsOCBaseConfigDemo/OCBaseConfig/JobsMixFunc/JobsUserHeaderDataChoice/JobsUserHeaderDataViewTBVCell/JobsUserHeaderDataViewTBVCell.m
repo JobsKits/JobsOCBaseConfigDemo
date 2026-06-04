@@ -7,6 +7,8 @@
 
 #import "JobsUserHeaderDataViewTBVCell.h"
 
+#import "DefineProperty.h"
+
 @interface JobsUserHeaderDataViewTBVCell ()
 
 Prop_strong()UILabel *titleLab;

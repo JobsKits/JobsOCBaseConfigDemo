@@ -7,6 +7,8 @@
 
 #import "JobsSearchTableViewHeaderView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsSearchTableViewHeaderView()
 
 Prop_strong()UILabel *titleLab;

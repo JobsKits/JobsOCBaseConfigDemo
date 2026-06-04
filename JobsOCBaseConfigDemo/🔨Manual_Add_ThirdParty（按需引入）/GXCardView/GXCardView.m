@@ -18,18 +18,21 @@ static CGFloat const GX_SpringWithDamping  = 0.5f;
 static CGFloat const GX_SpringVelocity     = 0.8f;
 
 @class GXCardViewCell;
+#import "DefineProperty.h"
+
 @protocol GXCardViewCellDelagate <NSObject>
 @optional
 - (void)cardViewCellDidRemoveFromSuperView:(GXCardViewCell *)cell withDirection:(GXCardCellSwipeDirection)direction;
 - (void)cardViewCellDidMoveFromSuperView:(GXCardViewCell*)cell forMovePoint:(CGPoint)point;
+
 @end
 
 @interface GXCardViewCell()
-@property (nonatomic, assign) CGFloat maxAngle;
-@property (nonatomic, assign) CGFloat maxRemoveDistance;
-@property (nonatomic, assign) CGPoint currentPoint;
-@property (nonatomic, assign) NSInteger index;
-@property (nonatomic,   weak) id<GXCardViewCellDelagate> cell_delegate;
+Prop_assign()CGFloat maxAngle;
+Prop_assign()CGFloat maxRemoveDistance;
+Prop_assign()CGPoint currentPoint;
+Prop_assign()NSInteger index;
+Prop_weak()id<GXCardViewCellDelagate> cell_delegate;
 
 @end
 
@@ -208,17 +211,17 @@ static CGFloat const GX_SpringVelocity     = 0.8f;
 
 @interface GXCardView()<GXCardViewCellDelagate>
 /** cell容器 */
-@property (nonatomic, strong) UIView *containerView;
+Prop_strong()UIView *containerView;
 /** 注册cell相关 */
-@property (nonatomic, strong) UINib *nib;
-@property (nonatomic,   copy) Class cellClass;
-@property (nonatomic,   copy) NSString *identifier;
+Prop_strong()UINib *nib;
+Prop_copy()Class cellClass;
+Prop_copy()NSString *identifier;
 /** 当前索引(已显示的最大索引) */
-@property (nonatomic, assign) NSInteger currentIndex;
+Prop_assign()NSInteger currentIndex;
 /** 当前可视cells */
-@property (nonatomic, strong) NSArray<__kindof GXCardViewCell *> *visibleCells;
+Prop_strong()NSArray<__kindof GXCardViewCell *> *visibleCells;
 /** 重用卡片数组  */
-@property (nonatomic, strong) NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
+Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
 
 @end
 

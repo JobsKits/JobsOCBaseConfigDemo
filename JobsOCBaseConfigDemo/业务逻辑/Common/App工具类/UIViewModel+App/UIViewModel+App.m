@@ -7,6 +7,8 @@
 
 #import "UIViewModel+App.h"
 
+#import "DefineProperty.h"
+
 @implementation UIViewModel (App)
 #pragma mark —— Prop_assign()DataSourceType dataSourceType;
 JobsKey(_dataSourceType)

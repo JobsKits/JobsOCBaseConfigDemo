@@ -11,6 +11,8 @@
 
 #import "JhtBannerView.h"
 
+#import "DefineProperty.h"
+
 @interface JhtBannerView ()
 
 Prop_copy()jobsByIDBlock scrollBlock;

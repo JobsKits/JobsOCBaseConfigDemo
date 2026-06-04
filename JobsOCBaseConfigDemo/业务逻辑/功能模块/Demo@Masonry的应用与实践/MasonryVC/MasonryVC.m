@@ -7,6 +7,8 @@
 
 #import "MasonryVC.h"
 
+#import "DefineProperty.h"
+
 @interface MasonryVC ()
 /// UI
 Prop_strong()MSMineView2 *view2;

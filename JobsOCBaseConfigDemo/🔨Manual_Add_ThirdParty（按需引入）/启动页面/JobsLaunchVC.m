@@ -7,6 +7,8 @@
 
 #import "JobsLaunchVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsLaunchVC ()
 
 Prop_strong()UIImageView *launchImageView;

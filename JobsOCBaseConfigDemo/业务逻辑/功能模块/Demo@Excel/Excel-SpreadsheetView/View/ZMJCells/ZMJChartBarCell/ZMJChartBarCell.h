@@ -7,6 +7,7 @@
 
 #import "ZMJCell+CustomView.h"
 
+#import "DefineProperty.h"
 #if __has_include(<ZMJGanttChart/ZMJGanttChart.h>)
 #import <ZMJGanttChart/ZMJGanttChart.h>
 #else

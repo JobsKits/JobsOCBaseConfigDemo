@@ -12,6 +12,7 @@
 #import "JobsBlock.h"
 #import "NSString+Others.h"
 
+#import "DefineProperty.h"
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>
 #else

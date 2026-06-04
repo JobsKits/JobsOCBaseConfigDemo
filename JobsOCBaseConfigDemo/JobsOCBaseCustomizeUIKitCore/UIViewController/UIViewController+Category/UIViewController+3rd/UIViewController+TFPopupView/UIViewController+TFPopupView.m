@@ -7,6 +7,8 @@
 
 #import "UIViewController+TFPopupView.h"
 
+#import "DefineProperty.h"
+
 @implementation UIViewController (TFPopupView)
 /// 弹出筛选视图
 -(__kindof UIView *)popUpFiltrationView{

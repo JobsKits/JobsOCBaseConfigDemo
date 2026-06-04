@@ -7,6 +7,8 @@
 
 #import "NSObject+AppTools.h"
 
+#import "DefineProperty.h"
+
 @implementation NSObject (AppTools)
 #pragma mark —— 一些私有化方法
 -(NSMutableArray <Class>*_Nullable)makeDataArr{

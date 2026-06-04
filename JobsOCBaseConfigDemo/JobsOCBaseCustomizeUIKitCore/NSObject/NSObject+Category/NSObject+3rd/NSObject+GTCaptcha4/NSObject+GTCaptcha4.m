@@ -7,6 +7,8 @@
 
 #import "NSObject+GTCaptcha4.h"
 
+#import "DefineProperty.h"
+
 @implementation NSObject (GTCaptcha4)
 #pragma mark —— BaseProtocol
 /// 显示验证码

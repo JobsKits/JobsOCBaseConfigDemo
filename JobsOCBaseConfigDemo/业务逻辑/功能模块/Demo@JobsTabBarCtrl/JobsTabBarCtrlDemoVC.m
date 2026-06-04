@@ -7,6 +7,8 @@
 
 #import "JobsTabBarCtrlDemoVC.h"
 
+#import "DefineProperty.h"
+
 @interface JobsTabBarCtrlDemoVC ()
 
 Prop_strong()JobsTabBarCtrl *tabCtrl;

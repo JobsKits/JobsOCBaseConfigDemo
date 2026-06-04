@@ -13,6 +13,8 @@
 #import "NSString+Others.h"
 #import "NSString+Check.h"
 
+#import "DefineProperty.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /**
  1、自定义UILabel 实现显示偏移量和内边距

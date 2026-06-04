@@ -7,6 +7,8 @@
 
 #import "UIImageView+SDWebImage.h"
 
+#import "DefineProperty.h"
+
 @implementation UIImageView (SDWebImage)
 
 -(JobsRetViewByVoidBlock _Nonnull)load {

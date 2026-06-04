@@ -7,18 +7,20 @@ typedef NS_ENUM(NSUInteger, JobsLaunchAdMode) {
     JobsLaunchAdModeCountdown
 };
 
+#import "DefineProperty.h"
+
 @interface JobsLaunchAdMgr : NSObject
 
-@property (nonatomic, strong) NSString *buttonTitle;
-@property (nonatomic, assign) CGRect buttonFrame;
-@property (nonatomic, assign) JobsLaunchAdMode adMode;
-@property (nonatomic, assign) NSTimeInterval imageDisplayDuration;
-@property (nonatomic, strong) NSURL *adURL;
-@property (nonatomic, assign) BOOL preloadResources;
-@property (nonatomic, assign) BOOL shouldPlayVideoSound;
-@property (nonatomic, copy) JobsLaunchAdMgrCallback doubleTapCallback;
-@property (nonatomic, copy) JobsLaunchAdMgrCallback singleTapCallback;
-@property (nonatomic, copy) JobsLaunchAdMgrCallback shakeCallback;
+Prop_strong()NSString *buttonTitle;
+Prop_assign()CGRect buttonFrame;
+Prop_assign()JobsLaunchAdMode adMode;
+Prop_assign()NSTimeInterval imageDisplayDuration;
+Prop_strong()NSURL *adURL;
+Prop_assign()BOOL preloadResources;
+Prop_assign()BOOL shouldPlayVideoSound;
+Prop_copy()JobsLaunchAdMgrCallback doubleTapCallback;
+Prop_copy()JobsLaunchAdMgrCallback singleTapCallback;
+Prop_copy()JobsLaunchAdMgrCallback shakeCallback;
 
 + (instancetype)sharedInstance;
 - (void)configureWithAdMode:(JobsLaunchAdMode)adMode;

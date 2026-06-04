@@ -8,6 +8,8 @@
 //
 #import "JobsToggleNavView.h"
 
+#import "DefineProperty.h"
+
 @interface JobsToggleNavView ()
 /// UI
 Prop_strong()__kindof UIView *sliderView;
@@ -282,4 +284,5 @@ JobsToggleNavViewProtocolSynthesize
 //        _buttonModels = NSMutableArray.array;
 //    }return _buttonModels;
 //}
+
 @end
