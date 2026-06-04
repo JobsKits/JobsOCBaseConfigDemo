@@ -32,8 +32,7 @@
         _countdownDuration = 5;
         _redirectURL = @"https://www.google.com";
         [self setupMotionManager];
-    }
-    return self;
+    }return self;
 }
 
 - (void)setupMotionManager {

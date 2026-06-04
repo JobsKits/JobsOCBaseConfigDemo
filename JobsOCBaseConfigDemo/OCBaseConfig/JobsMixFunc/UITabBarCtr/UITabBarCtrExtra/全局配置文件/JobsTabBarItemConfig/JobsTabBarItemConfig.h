@@ -5,7 +5,6 @@
 //  Created by Jobs on 2020/10/16.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "DefineProperty.h"
 

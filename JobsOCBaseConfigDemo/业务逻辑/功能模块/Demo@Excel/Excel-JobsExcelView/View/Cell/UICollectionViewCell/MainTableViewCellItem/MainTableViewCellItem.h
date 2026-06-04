@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsBtnStyleCVCell.h"
-
 #import "UICollectionViewCellProtocol.h"
 #import "JobsExcelConfigureViewModel.h"
+
 @class UIButtonModel;
 
 @interface MainTableViewCellItem : JobsBtnStyleCVCell

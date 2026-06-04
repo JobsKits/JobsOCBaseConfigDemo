@@ -36,8 +36,7 @@
         self->_range = range;
         self->_readRange = readRange;
         KTVHCLogDataFileSource(@"%p, Create file source\npath : %@\nrange : %@\nreadRange : %@", self, path, KTVHCStringFromRange(range), KTVHCStringFromRange(readRange));
-    }
-    return self;
+    }return self;
 }
 
 - (void)dealloc

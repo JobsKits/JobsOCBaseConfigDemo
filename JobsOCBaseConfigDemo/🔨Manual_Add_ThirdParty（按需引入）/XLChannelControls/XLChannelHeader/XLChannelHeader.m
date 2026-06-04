@@ -22,8 +22,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         [self buildUI];
-    }
-    return self;
+    }return self;
 }
 
 -(void)buildUI

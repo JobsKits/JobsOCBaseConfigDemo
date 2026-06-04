@@ -23,8 +23,7 @@
         self->_totalLength = totalLength;
         self->_cacheLength = cacheLength;
         self->_vaildLength = vaildLength;
-    }
-    return self;
+    }return self;
 }
 
 @end

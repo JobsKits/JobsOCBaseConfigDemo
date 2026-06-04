@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WMZBannerParam.h"
+
 NS_ASSUME_NONNULL_BEGIN
 @interface WMZBannerControl : UIControl
 @property (nonatomic, strong) UIImage *currentImage;

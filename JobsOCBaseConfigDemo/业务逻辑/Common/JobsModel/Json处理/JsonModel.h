@@ -16,5 +16,4 @@
 #import "PhilippinesModel.h"
 #import "PhilippinesIDTypeModel.h"
 
-
 #endif /* JsonModel_h */

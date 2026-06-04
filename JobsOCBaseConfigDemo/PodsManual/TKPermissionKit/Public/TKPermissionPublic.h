@@ -6,9 +6,7 @@
 //  Copyright © 2019 mac. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
 #import "NSString+Others.h"
 #import "NSObject+OpenURL.h"
 #import "NSObject+Extras.h"

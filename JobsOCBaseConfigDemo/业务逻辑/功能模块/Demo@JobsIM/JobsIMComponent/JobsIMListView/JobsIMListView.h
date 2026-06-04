@@ -7,17 +7,16 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseView.h"
+#import "JobsIMListTBVCell.h"
+#import "LOTAnimationMJRefreshHeader.h"
+#import "JobsIMListDataModel.h"
+#import "UIImage+YBGIF.h"
 
 #if __has_include(<MGSwipeTableCell/MGSwipeTableCell.h>)
 #import <MGSwipeTableCell/MGSwipeTableCell.h>
 #else
 #import "MGSwipeTableCell.h"
 #endif
-
-#import "JobsIMListTBVCell.h"
-#import "LOTAnimationMJRefreshHeader.h"
-#import "JobsIMListDataModel.h"
-#import "UIImage+YBGIF.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

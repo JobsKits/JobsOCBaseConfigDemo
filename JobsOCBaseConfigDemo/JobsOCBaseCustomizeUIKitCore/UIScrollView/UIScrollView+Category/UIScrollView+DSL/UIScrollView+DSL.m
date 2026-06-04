@@ -128,8 +128,7 @@
         @jobs_strongify(self)
         if (@available(iOS 17.4, *)) {
             self.contentAlignmentPoint = alignmentPoint;
-        }
-        return self;
+        }return self;
     };
 }
 

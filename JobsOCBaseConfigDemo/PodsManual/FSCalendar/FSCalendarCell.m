@@ -32,8 +32,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self commonInit];
-    }
-    return self;
+    }return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
@@ -41,8 +40,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self commonInit];
-    }
-    return self;
+    }return self;
 }
 
 - (void)commonInit
@@ -394,8 +392,7 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
             [self.eventLayers addPointer:(__bridge void * _Nullable)(layer)];
         }
         
-    }
-    return self;
+    }return self;
 }
 
 - (void)layoutSubviews

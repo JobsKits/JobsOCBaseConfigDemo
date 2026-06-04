@@ -6,8 +6,8 @@
 //  Copyright © 2017年 MengXianLiang. All rights reserved.
 //  GitHub ：https://github.com/mengxianliang/XLBubbleTransition
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import "XLBubbleTransition.h"
 
 @class XLBubbleTransition;

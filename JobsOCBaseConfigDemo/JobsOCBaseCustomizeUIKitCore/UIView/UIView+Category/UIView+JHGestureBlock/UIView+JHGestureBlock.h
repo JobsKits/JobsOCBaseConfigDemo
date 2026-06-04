@@ -27,8 +27,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSUInteger, JHGestureType) {
     JHGestureType_Tap, /// 点击

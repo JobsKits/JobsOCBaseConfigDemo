@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "BaseCellProtocol.h"
 #import "UIImage+YBGIF.h"
-
 #import "JobsCommentConfig.h"
 #import "JobsCommentModel.h"
 #import "RBCLikeButton.h"

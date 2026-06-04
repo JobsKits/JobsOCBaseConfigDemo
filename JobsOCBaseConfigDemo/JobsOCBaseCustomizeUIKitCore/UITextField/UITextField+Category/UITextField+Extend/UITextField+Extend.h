@@ -6,9 +6,8 @@
 //  Copyright © 2020 MonkeyKingVideo. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
-
+#import <UIKit/UIKit.h>
 #import "JobsString.h"
 #import "JobsBlock.h"
 #import "DefineProperty.h"

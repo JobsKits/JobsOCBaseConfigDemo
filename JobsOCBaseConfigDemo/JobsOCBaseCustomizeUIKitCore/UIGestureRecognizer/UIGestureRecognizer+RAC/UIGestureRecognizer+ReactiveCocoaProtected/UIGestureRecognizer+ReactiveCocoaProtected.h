@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 kaiinui. All rights reserved.
 //  特别鸣谢：https://github.com/kaiinui/UIGestureRecognizer-RACExtension
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import "MacroDef_Sys.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)

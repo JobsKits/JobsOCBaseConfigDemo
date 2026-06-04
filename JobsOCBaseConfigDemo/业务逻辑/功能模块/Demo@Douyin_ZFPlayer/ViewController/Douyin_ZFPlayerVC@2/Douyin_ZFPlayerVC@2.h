@@ -8,10 +8,11 @@
 #import "BaseViewController.h"
 #import "MacroDef_Func.h"
 #import "ZFPlayerExtras.h"
-
 #import "ZFCustomControlView.h"
 #import "ZFDouYinControlView.h"
 #import "JobsVideoTBVCell.h"
+#import "VideoModel.h"
+#import "JobsNetWorkTools.h"
 
 #if __has_include(<ZFPlayer/ZFPlayer.h>)
 #import <ZFPlayer/ZFPlayer.h>
@@ -24,9 +25,6 @@
 #else
 #import "KTVHTTPCache.h"
 #endif
-
-#import "VideoModel.h"
-#import "JobsNetWorkTools.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

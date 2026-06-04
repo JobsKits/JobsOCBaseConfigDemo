@@ -45,8 +45,7 @@ static CGFloat const GX_SpringVelocity     = 0.8f;
     if (self) {
         self.reuseIdentifier = reuseIdentifier;
         [self setupView];
-    }
-    return self;
+    }return self;
 }
 
 - (void)setupView {
@@ -234,8 +233,7 @@ static CGFloat const GX_SpringVelocity     = 0.8f;
     self = [super initWithFrame:frame];
     if (self) {
         [self configCardView];
-    }
-    return self;
+    }return self;
 }
 
 - (void)configCardView {

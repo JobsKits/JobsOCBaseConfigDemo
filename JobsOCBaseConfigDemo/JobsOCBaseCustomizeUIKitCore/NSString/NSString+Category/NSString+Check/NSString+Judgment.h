@@ -10,6 +10,7 @@
 #import "NSString+Judgment.h"
 #import <_ctype.h>
 #import "JobsBlock.h"
+
 /// 要判nil和NULL，必须用类方法或者内联函数，在实例方法里面nil和NULL会被包装为空串
 NS_INLINE BOOL isNull(id _Nonnull string){
     if(string == nil) return YES;

@@ -45,7 +45,7 @@ Prop_assign()CGSize size;
         if (!CGSizeEqualToSize(self.size, size)) {
             self.size = size;
             self.drawLineBySize(size);
-        } return self;
+        }return self;
     };
 }
 

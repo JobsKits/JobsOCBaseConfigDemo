@@ -79,8 +79,7 @@ dissmissDuration:(NSTimeInterval)duration
         self.userInteractionEnabled = NO;
         [self addSubview:self.msgLabel];
         
-    }
-    return self;
+    }return self;
 }
 
 -(void)setMsg:(NSString *)msg{

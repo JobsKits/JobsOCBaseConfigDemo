@@ -16,8 +16,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = FSCalendarStandardSeparatorColor;
-    }
-    return self;
+    }return self;
 }
 
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes

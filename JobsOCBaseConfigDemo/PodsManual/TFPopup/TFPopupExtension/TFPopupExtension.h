@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
 #import "TFPopupParam.h"
 
 typedef NS_ENUM(NSInteger,DelegateProcess) {

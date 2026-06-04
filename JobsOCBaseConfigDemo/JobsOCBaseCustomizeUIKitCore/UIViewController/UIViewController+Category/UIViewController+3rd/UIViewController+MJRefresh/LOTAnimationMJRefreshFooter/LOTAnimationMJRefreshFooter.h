@@ -5,7 +5,6 @@
 //  Created by Jobs on 2021/1/8.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "MJRefreshConfigModel.h"

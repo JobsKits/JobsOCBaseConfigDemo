@@ -27,8 +27,7 @@
 {
     if (self = [super init]) {
         self.maxCacheLength = 500 * 1024 * 1024;
-    }
-    return self;
+    }return self;
 }
 
 - (NSURL *)completeFileURLWithURL:(NSURL *)URL

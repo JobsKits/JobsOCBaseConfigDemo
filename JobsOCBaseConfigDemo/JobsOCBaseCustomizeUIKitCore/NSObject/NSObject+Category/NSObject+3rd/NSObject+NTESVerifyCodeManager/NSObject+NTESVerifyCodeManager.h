@@ -6,16 +6,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JobsLanguageManager.h"
+#import "JobsBlock.h"
+#import "APIKey.h"
 
 #if __has_include(<VerifyCode/NTESVerifyCodeManager.h>)
 #import <VerifyCode/NTESVerifyCodeManager.h>
 #else
 #import "NTESVerifyCodeManager.h"
 #endif
-
-#import "JobsLanguageManager.h"
-#import "JobsBlock.h"
-#import "APIKey.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

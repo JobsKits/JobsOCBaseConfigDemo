@@ -29,8 +29,7 @@
         self->_key = [[KTVHCURLTool tool] keyWithURL:self.URL];
         self->_createTimeInterval = [NSDate date].timeIntervalSince1970;
         [self commonInit];
-    }
-    return self;
+    }return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
@@ -51,8 +50,7 @@
         } @catch (NSException *exception) {
             self->_error = [KTVHCError errorForException:exception];
         }
-    }
-    return self;
+    }return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder

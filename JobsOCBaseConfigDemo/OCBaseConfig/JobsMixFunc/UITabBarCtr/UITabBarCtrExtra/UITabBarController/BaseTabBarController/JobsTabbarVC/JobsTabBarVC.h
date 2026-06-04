@@ -6,12 +6,11 @@
 //  Copyright © 2017年 xa. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import <UIKit/UIKit.h>
 #import "BaseProtocol.h"
 #import "JobsBlock.h"
 #import "DefineProperty.h"
-
 #import "MacroDef_Func.h"
 #import "JobsLoadingImage.h"
 #import "NSObject+Sound.h"
@@ -20,9 +19,7 @@
 #import "UIView+Measure.h"
 #import "UIButton+UI.h"
 #import "NSObject+CallBackInfoByBlock.h"
-
 #import "JobsTabBarItem.h"
-
 #import "JobsTabBar.h"
 #import "UITabBar+Ex.h"
 #import "TLTabBarAnimation.h"
@@ -30,7 +27,6 @@
 #import "UITabBarItem+TLAnimation.h"
 #import "UIViewController+Lottie.h"
 #import "BaseNavigationVC.h"
-
 #import "TransitionController.h"
 #import "TransitionAnimation.h"
 #import "JobsPullListAutoSizeView.h"

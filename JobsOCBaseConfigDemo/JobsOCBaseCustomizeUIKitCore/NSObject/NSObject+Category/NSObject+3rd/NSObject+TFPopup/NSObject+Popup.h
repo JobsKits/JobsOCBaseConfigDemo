@@ -7,17 +7,16 @@
 
 #import <Foundation/Foundation.h>
 #import "AppDelegate+TabBarCtr.h"
+#import "LoginView.h" /// 登录
+#import "SignUpView.h" /// 注册
+#import "PwdSettingView.h" /// 密码重置-密码确认
+#import "PwdSettingByCodeView.h" /// 密码重置-手机验证码
 
 #if __has_include(<TFPopup/TFPopup.h>)
 #import <TFPopup/TFPopup.h>
 #else
 #import "TFPopup.h"
 #endif
-
-#import "LoginView.h" /// 登录
-#import "SignUpView.h" /// 注册
-#import "PwdSettingView.h" /// 密码重置-密码确认
-#import "PwdSettingByCodeView.h" /// 密码重置-手机验证码
 
 NS_ASSUME_NONNULL_BEGIN
 /// 弹出一个弹窗

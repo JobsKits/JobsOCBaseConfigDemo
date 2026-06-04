@@ -15,8 +15,7 @@
 - (instancetype)initConfigureWithModel:(WMZBannerParam *)param{
     if (self = [super init]) {
         self.param = param;
-    }
-    return self;
+    }return self;
 }
 
 - (void)prepareLayout

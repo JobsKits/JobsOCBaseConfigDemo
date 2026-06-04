@@ -8,11 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <Photos/Photos.h>
-
 #import "TKPermissionPublic.h"
-
 #import "MacroDef_String.h"
 #import "MacroDef_Strong@Weak.h"
+
 /**
  功能：相册权限获取与请求
  要求：iOS8.0+

@@ -6,8 +6,8 @@
 //  Copyright © 2019 ztf. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import "TFPopupConst.h"
 #import "NSObject+TFPopupMethodExchange.h"
 

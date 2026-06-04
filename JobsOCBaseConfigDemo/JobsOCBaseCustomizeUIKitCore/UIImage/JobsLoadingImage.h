@@ -6,11 +6,11 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "JobsString.h"
 #import "NSString+Others.h"
 #import "UIImage+YBGIF.h"
+
 /// 根据参数输出系统需要的文件路径
 /// @param blueFolderName 如果资源存在于【蓝色文件夹】下则blueFolderName是蓝色文件夹的名字，如果资源位于【黄色文件夹】下则不填（亦可以传@""）
 /// @param pathForResource 自定义 Bundle 的名字（不能带.bundle后缀）

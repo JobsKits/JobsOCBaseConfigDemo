@@ -6,8 +6,8 @@
 //  Copyright © 2017 zwwuchn. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <CoreText/CoreText.h>
+#import <UIKit/UIKit.h>
 #import "JobsAttributedString.h"
 #import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
 #import "JobsBlock.h"

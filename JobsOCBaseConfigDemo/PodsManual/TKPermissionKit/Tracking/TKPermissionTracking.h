@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #import <AdSupport/AdSupport.h>
-
 #import "MacroDef_SysWarning.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -7,16 +7,14 @@
 
 #import "BaiShaETProjMembersSubsBaseVC.h"
 #import "JXCategoryViewWithHeaderViewSubVC.h"
-
 #import "BaiShaETProjCollectionHeaderView.h"
+#import "JXPagerView.h"
 
 #if __has_include(<JXCategoryView/JXCategoryView.h>)
 #import <JXCategoryView/JXCategoryView.h>
 #else
 #import "JXCategoryView.h"
 #endif
-
-#import "JXPagerView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

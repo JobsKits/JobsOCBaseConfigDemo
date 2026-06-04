@@ -6,9 +6,9 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
+#import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "NSString+Others.h"
 

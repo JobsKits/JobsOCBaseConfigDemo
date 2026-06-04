@@ -7,8 +7,8 @@
 //  Copyright © 2017年 Tidus. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import "MacroDef_Sys.h"
 #import "MacroDef_SysWarning.h"
 #import "DefineProperty.h"

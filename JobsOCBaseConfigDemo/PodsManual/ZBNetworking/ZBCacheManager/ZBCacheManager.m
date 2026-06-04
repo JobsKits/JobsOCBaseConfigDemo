@@ -65,8 +65,7 @@ static const CGFloat unit = 1000.0;
 #if  TARGET_OS_OSX
         [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(applicationWillTerminate:) name:NSApplicationWillTerminateNotification object:nil];
 #endif
-    }
-    return self;
+    }return self;
 }
 
 - (void)dealloc{

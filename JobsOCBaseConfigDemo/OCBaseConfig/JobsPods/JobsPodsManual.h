@@ -11,6 +11,7 @@
 #import "ZMJCell+CustomView.h"
 #import "FMDatabase+Manager.h"
 #import "TKPermissionKit.h"
+
 /// JXCategoryView
 #import "JXCategoryTimelineView.h"
 #import "JXCategoryTitleBackgroundView.h"

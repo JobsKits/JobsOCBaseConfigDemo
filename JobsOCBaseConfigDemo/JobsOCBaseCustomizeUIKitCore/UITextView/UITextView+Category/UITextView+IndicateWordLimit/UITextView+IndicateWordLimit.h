@@ -5,19 +5,18 @@
 //  Created by Jobs on 2021/2/25.
 //
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+#import "UIView+Measure.h"
+#import "MacroDef_Cor.h"
+#import "MacroDef_Size.h"
+#import "MacroDef_App.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
-
-#import "UIView+Measure.h"
-#import "MacroDef_Cor.h"
-#import "MacroDef_Size.h"
-#import "MacroDef_App.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 用于实现右下角的字符数量监控

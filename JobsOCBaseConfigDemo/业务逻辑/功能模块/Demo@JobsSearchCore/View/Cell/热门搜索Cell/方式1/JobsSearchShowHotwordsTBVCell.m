@@ -50,7 +50,7 @@ Prop_strong()JobsHotLabelByMultiLine *jobsHotLabel;
         self.viewModels = model;
         if (self.viewModels.count) {
             self.jobsHotLabel.jobsRichViewByModel(self.viewModels);
-        } return self;
+        }return self;
     };
 }
 #pragma mark —— lazyLoad

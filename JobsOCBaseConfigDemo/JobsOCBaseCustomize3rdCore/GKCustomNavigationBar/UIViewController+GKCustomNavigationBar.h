@@ -6,6 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIButtonModel.h"
+#import "UIView+Extras.h"
+#import "JobsBlock.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -18,10 +21,6 @@
 #else
 #import "GKNavigationBar.h"
 #endif
-
-#import "UIButtonModel.h"
-#import "UIView+Extras.h"
-#import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 针对 GKNavigationBar的标题只能是文字的一种拓展性操作，使之兼容图片

@@ -67,8 +67,7 @@ NSString* extractParamValue(const char* bytes, NSUInteger length, NSStringEncodi
 			HTTPLogError(@"MultipartFormDataParser: Bad MIME header value for header name: '%@'",name);
 			// tear down
 			return nil;		
-		}
-		return self;
+		}return self;
 	}
 	
 	value = [[NSString alloc] initWithBytes:bytes length: separatorOffset encoding:encoding];
@@ -84,8 +83,7 @@ NSString* extractParamValue(const char* bytes, NSUInteger length, NSStringEncodi
 		HTTPLogError(@"MultipartFormDataParser: Params str: %@",paramsStr);
 
 		return nil;		
-	}
-	return self;
+	}return self;
 }
 
 -(BOOL) parseHeaderValueBytes:(char*) bytes length:(NSUInteger) length encoding:(NSStringEncoding) encoding {

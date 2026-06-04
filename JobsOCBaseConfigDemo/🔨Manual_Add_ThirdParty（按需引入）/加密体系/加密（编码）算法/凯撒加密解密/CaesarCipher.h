@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
 /// 凯撒加密
 NS_INLINE NSString *caesardDecode(NSString *string){
     NSString *originalStr = string;

@@ -10,13 +10,10 @@
 /// 业务类
 #import "CasinoCustomerContactModel.h"
 #import "CasinoGetiOSNewestVersionModel.h"
-
 #import "FMBannerAdsModel.h"
 #import "FMNameModel.h"
 #import "FMDoorModel.h"
-
 #import "FileNameModel.h"
-
 #import "JobsFileModel.h"
 #import "JobsAppDoorModel.h"
 #import "JobsDecorationModel.h"

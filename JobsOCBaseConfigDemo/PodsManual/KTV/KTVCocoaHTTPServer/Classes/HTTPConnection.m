@@ -209,8 +209,7 @@ static NSMutableArray *recentNonces;
 		numHeaderLines = 0;
 		
 		responseDataSizes = [[NSMutableArray alloc] initWithCapacity:5];
-	}
-	return self;
+	}return self;
 }
 
 /**
@@ -2671,8 +2670,7 @@ static NSMutableArray *recentNonces;
 	{
 		server = aServer;
 		documentRoot = aDocumentRoot;
-	}
-	return self;
+	}return self;
 }
 
 - (id)initWithServer:(HTTPServer *)aServer documentRoot:(NSString *)aDocumentRoot queue:(dispatch_queue_t)q
@@ -2694,8 +2692,7 @@ static NSMutableArray *recentNonces;
 			dispatch_retain(queue);
 			#endif
 		}
-	}
-	return self;
+	}return self;
 }
 
 - (void)dealloc

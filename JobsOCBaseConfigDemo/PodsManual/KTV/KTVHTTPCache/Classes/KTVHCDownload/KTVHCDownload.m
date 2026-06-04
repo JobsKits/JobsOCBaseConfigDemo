@@ -76,8 +76,7 @@ NSString * const KTVHCContentTypeBinaryOctetStream      = @"binary/octet-stream"
                                                  selector:@selector(applicationWillEnterForeground:)
                                                      name:UIApplicationWillEnterForegroundNotification
                                                    object:[UIApplication sharedApplication]];
-    }
-    return self;
+    }return self;
 }
 
 - (void)dealloc

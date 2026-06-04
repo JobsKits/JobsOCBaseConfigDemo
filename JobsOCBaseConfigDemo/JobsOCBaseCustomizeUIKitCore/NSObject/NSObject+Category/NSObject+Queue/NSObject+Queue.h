@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "JobsBlock.h"
 #import "NSString+Others.h"
+
 /// 永远异步丢到主线程（GCD）
 #ifndef JobsMainQueue
 #define JobsMainQueue(block) \

@@ -7,15 +7,14 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
+#import "NSString+Others.h"
+#import "NSObject+Extras.h"
 
 #if __has_include(<GKPhotoBrowser/GKPhotoBrowser.h>)
 #import <GKPhotoBrowser/GKPhotoBrowser.h>
 #else
 #import "GKPhotoBrowser.h"
 #endif
-
-#import "NSString+Others.h"
-#import "NSObject+Extras.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

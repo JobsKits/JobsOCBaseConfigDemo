@@ -25,8 +25,7 @@
         self.reader = [[KTVHCDataReader alloc] initWithRequest:request];
         self.reader.delegate = self;
         KTVHCLogDataLoader(@"%p, Create loader\norignalRequest : %@\nreader : %@", self, request, self.reader);
-    }
-    return self;
+    }return self;
 }
 
 - (void)dealloc

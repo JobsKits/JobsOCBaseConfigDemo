@@ -5,12 +5,12 @@
 //  Created by User on 9/16/24.
 //
 
-#import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+#import <Foundation/Foundation.h>
 #import "UIViewModelOthersProtocol.h"
-
 #import "NSObject+CallBackInfoByBlock.h"
 #import "JobsBlock.h"
+#import "FileFolderHandleTool.h"
 
 #if __has_include(<TXFileOperation/TXFileOperation.h>)
 #import <TXFileOperation/TXFileOperation.h>
@@ -23,8 +23,6 @@
 #else
 #import "MJExtension.h"
 #endif
-
-#import "FileFolderHandleTool.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -7,7 +7,6 @@
 
 #import "BaseViewController.h"
 #import "B_VC.h"
-
 #import "MyFansTBVCell.h"
 #import "PushAnimation.h"
 

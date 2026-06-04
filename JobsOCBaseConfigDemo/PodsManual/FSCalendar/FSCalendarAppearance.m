@@ -78,8 +78,7 @@
         _fakeEventDots = YES;
 #endif
         
-    }
-    return self;
+    }return self;
 }
 
 - (void)setTitleFont:(UIFont *)titleFont

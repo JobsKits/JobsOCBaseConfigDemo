@@ -10,12 +10,10 @@
 #import "DefineConstString.h"                  // 常量字符串的定义
 #import "MacroDef_Func.h"
 #import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
-
 #import "URLManager.h"
 #import "NSObject+Data.h"
 #import "NSObject+Extras.h"
 #import "NSURLRequest+Extra.h"
-
 #import "YTKRequest+Extra.h"
 #import "YTKNetworkToolsHeader.h"              // 猿题库的网络框架工具
 #import "GetImageApi.h"

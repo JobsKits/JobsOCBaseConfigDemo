@@ -21,8 +21,7 @@
         self.selectedBackgroundView = self.selectedBgView;
         [self addSubview:self.menuImageView];
         [self addSubview:self.menuTitleLab];
-    }
-    return self;
+    }return self;
 }
 - (void)layoutSubviews {
     [super layoutSubviews];

@@ -5,10 +5,10 @@
 //  Created by Jobs on 2025/11/19.
 //
 
+#import <Foundation/Foundation.h>
 #import <ifaddrs.h>
 #import <net/if.h>
 #import <net/if_var.h>
-#import <Foundation/Foundation.h>
 #import "JobsBlock.h"
 #import "DefineProperty.h"
 #import "JobsTimer.h"
@@ -16,8 +16,8 @@
 #import "JobsDefineAllEnumHeader.h"     // 此文件用来存储记录全局的一些枚举
 #import "JobsDefineAllStructHeader.h"   // 此文件用来存储记录全局的一些结构体
 #import "JobsNetworkSource.h"
-
 #import "JobsBitsMonitorSuspendLab.h"
+
 /// 网络数据来源
 #ifndef JOBS_NETWORK_SOURCE_TYPE_DEFINED
 #define JOBS_NETWORK_SOURCE_TYPE_DEFINED

@@ -33,8 +33,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         [self buildChannelView];
-    }
-    return self;
+    }return self;
 }
 
 - (void)buildChannelView {

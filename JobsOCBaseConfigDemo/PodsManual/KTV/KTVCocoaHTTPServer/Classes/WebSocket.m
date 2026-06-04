@@ -185,8 +185,7 @@ NS_INLINE NSUInteger WS_PAYLOAD_LENGTH(UInt8 frame)
 		isRFC6455 = [self.class isRFC6455Request:request];
 		
 		term = [[NSData alloc] initWithBytes:"\xFF" length:1];
-	}
-	return self;
+	}return self;
 }
 
 - (void)dealloc

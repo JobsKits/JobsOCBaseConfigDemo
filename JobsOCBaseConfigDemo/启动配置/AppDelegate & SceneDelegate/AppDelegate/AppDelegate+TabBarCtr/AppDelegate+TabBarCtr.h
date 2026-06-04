@@ -8,9 +8,7 @@
 #import "DefineProperty.h"
 #import "AppDelegate.h"
 #import "AppDelegate+Func.h"
-
 #import "NSObject+AppTools.h"
-
 #import "JobsTabBarVC.h"
 #import "JobsCustomTabBarVC.h"
 

@@ -5,9 +5,8 @@
 //  Created by Jobs on 2025/11/19.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "TimerProtocol.h"
 #import "DefineProperty.h"

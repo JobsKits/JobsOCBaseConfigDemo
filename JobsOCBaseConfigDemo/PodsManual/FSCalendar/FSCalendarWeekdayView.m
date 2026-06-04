@@ -28,8 +28,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self commonInit];
-    }
-    return self;
+    }return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder
@@ -37,8 +36,7 @@
     self = [super initWithCoder:coder];
     if (self) {
         [self commonInit];
-    }
-    return self;
+    }return self;
 }
 
 - (void)commonInit

@@ -6,15 +6,14 @@
 //
 
 #import "BaseViewController.h"
+#import "TextCell.h"
+#import "HeaderCell.h"
 
 #if __has_include(<ZMJGanttChart/ZMJGanttChart.h>)
 #import <ZMJGanttChart/ZMJGanttChart.h>
 #else
 #import "ZMJGanttChart.h"
 #endif
-
-#import "TextCell.h"
-#import "HeaderCell.h"
 
 typedef NS_ENUM(NSInteger, ZMJSorting) {
     ZMJAscending = 0,

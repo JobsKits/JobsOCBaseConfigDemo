@@ -20,8 +20,7 @@
         self->_headers = KTVHCRangeFillToRequestHeadersIfNeeded(KTVHCRangeFull(), headers);
         self->_range = KTVHCRangeWithRequestHeaderValue([self.headers objectForKey:@"Range"]);
         KTVHCLogDataRequest(@"%p Create data request\nURL : %@\nHeaders : %@\nRange : %@", self, self.URL, self.headers, KTVHCStringFromRange(self.range));
-    }
-    return self;
+    }return self;
 }
 
 - (void)dealloc

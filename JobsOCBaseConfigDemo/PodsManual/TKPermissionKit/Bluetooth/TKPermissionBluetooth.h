@@ -8,9 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-
 #import "TKPermissionPublic.h"
-
 #import "MacroDef_SysWarning.h"
 #import "MacroDef_Strong@Weak.h"
 

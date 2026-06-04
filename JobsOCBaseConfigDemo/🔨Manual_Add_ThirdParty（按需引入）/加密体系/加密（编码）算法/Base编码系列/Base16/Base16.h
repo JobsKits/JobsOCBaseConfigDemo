@@ -9,7 +9,6 @@
 #define Base16_h
 
 #import <Foundation/Foundation.h>
-
 #import "NSString+Base16.h"
 #import "NSData+Base16.h"
 #import "UIImage+Base16.h"

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UICollectionViewCellProtocol.h"
 #import "JobsExcelConfigureViewModel.h"
+
 @class UIButtonModel;
 
 @interface JobsTopViewItem : JobsBtnStyleCVCell<UICollectionViewCellProtocol>

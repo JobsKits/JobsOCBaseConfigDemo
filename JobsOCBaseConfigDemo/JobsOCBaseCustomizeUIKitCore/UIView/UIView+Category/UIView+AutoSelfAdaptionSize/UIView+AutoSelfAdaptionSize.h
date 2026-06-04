@@ -5,11 +5,11 @@
 //  Created by Jobs on 2021/12/3.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import <CoreText/CoreText.h>
+#import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "NSObject+RichText.h"
+
 /**
  资料来源：
  https://github.com/zhuchenglong/LabelDemo

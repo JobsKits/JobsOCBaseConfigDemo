@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 
-
 @interface NSNumber (DDNumber)
 
 + (BOOL)parseString:(NSString *)str intoSInt64:(SInt64 *)pNum;

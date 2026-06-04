@@ -6,8 +6,8 @@
 //  Copyright © 2019 故乡的云. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import "TLAnimationProtocol.h"
 #import "DefineProperty.h"
 

@@ -8,15 +8,14 @@
 #import <UIKit/UIKit.h>
 #import "JobsBaseCustomizeUIKitCoreHeader.h"
 #import "JobsBlock.h" // 自定义
+#import "JobsCustomView.h" // 自定义
+#import "JobsFiltrationView.h" // 过滤
 
 #if __has_include(<TFPopup/TFPopup.h>)
 #import <TFPopup/TFPopup.h>
 #else
 #import "TFPopup.h"
 #endif
-
-#import "JobsCustomView.h" // 自定义
-#import "JobsFiltrationView.h" // 过滤
 
 NS_ASSUME_NONNULL_BEGIN
 

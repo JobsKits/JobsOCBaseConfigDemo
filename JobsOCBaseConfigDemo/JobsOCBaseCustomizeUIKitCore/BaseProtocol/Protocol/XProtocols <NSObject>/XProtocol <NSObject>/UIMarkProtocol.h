@@ -5,7 +5,6 @@
 // Created by Jobs on 2022/1/20.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "DefineProperty.h"
 #import "BaseLayerProtocol.h"

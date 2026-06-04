@@ -12,7 +12,6 @@
 #import "TreeClassItemCell.h"
 #import "JobsBaseCollectionViewCell.h"
 #import "FMMaintenanceView.h"
-
 #import "GoodsClassModel.h"
 
 NS_ASSUME_NONNULL_BEGIN

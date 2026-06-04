@@ -8,13 +8,11 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 #import "UIViewController+BaseNavigationBar.h"
-
 #import "JobsSearchConfig.h"
 #import "JobsSearchBar.h"
 #import "JobsSearchTableViewHeaderView.h"
 #import "JobsSearchShowHistoryDataTBVCell.h"/// 搜索历史
 #import "JobsSearchShowHotwordsTBVCell.h"/// 热门搜索
-
 #import "UITableView+WWFoldableTableView.h"
 #import "JobsSearchTBVCell.h"
 

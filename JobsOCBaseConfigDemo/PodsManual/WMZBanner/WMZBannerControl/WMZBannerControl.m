@@ -36,8 +36,7 @@ Prop_strong()NSMutableArray *imageArr;
         
         [self resetFrame];
 
-    }
-    return self;
+    }return self;
 }
 
 - (void)setCurrentPage:(NSInteger)currentPage{

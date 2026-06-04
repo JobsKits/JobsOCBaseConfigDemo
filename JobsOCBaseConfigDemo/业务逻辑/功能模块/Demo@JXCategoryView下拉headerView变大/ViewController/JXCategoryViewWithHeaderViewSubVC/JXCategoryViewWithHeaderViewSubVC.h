@@ -10,10 +10,8 @@
 #import "BaiShaETProjVIPSubCVCell_03.h"
 #import "BaiShaETProjVIPSubCVCell_04.h"
 #import "BaiShaETProjVIPSubCVCell_05.h"
-
 #import "BaiShaETProjVIPSubCVFooterView.h"
 #import "BaiShaETProjChoiceStadiumView.h"
-
 #import "BaseViewController.h"
 #import "JobsDefineAllStructHeader.h"          // 此文件用来存储记录全局的一些结构体
 

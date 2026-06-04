@@ -41,8 +41,7 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
         self.isSingle = YES;
         
         self.selectArr = [NSMutableArray array];
-    }
-    return self;
+    }return self;
 }
 
 - (void)setBorderWidth:(CGFloat)borderWidth

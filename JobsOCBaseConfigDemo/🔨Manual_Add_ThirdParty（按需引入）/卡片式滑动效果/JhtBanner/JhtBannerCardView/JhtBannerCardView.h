@@ -10,6 +10,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 /// banner cardView（单张卡片）
 @interface JhtBannerCardView : UIView
 /// 图片

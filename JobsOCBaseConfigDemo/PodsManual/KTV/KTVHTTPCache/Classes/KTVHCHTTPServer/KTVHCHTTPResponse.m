@@ -30,8 +30,7 @@
         self.reader.delegate = self;
         [self.reader prepare];
         KTVHCLogHTTPResponse(@"%p, Create response\nrequest : %@", self, dataRequest);
-    }
-    return self;
+    }return self;
 }
 
 - (void)dealloc

@@ -6,8 +6,8 @@
 //  Copyright © 2019 ztf. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+#import <Foundation/Foundation.h>
 
 @interface NSObject (TFPopupMethodExchange)
 /**

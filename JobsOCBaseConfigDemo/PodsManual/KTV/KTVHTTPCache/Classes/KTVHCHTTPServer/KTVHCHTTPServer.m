@@ -53,8 +53,7 @@
                                                  selector:@selector(HTTPConnectionDidDie)
                                                      name:HTTPConnectionDidDieNotification
                                                    object:nil];
-    }
-    return self;
+    }return self;
 }
 
 - (void)dealloc

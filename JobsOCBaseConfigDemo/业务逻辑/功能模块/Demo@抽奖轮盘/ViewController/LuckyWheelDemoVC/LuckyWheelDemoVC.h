@@ -5,6 +5,10 @@
 //  Created by Jobs on 12/5/25.
 //
 
+#import "NSString+Others.h"
+#import "BaseViewController.h"
+#import "LuckyWheelView.h"
+
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
@@ -16,10 +20,6 @@
 #else
 #import "Masonry.h"
 #endif
-
-#import "NSString+Others.h"
-#import "BaseViewController.h"
-#import "LuckyWheelView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -11,6 +11,7 @@
 #import "JobsBaseTableViewCell.h"
 #import "JobsBtnStyleTBVCell.h"
 #import "JobsExcelConfigureViewModel.h"
+
 @class UIButtonModel;
 
 @interface TableViewOneCell : JobsBtnStyleTBVCell<UICollectionViewCellProtocol>

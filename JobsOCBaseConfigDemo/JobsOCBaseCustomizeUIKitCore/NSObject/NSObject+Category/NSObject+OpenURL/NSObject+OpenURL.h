@@ -5,10 +5,8 @@
 //  Created by Jobs on 2020/10/11.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h> // 发短信、发邮件
-
 #import "MacroDef_String.h"
 #import "JobsBlock.h"
 #import "MacroDef_SysWarning.h"

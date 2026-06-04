@@ -9,6 +9,7 @@
 #define JobsBaseCustomizeUIKitCoreHeader_h
 #pragma mark —— BaseProtocol
 #import "JobsBaseProtocolHeader.h"
+
 #pragma mark —— NSCoder
 #import "NSCoder+Extra.h"
 #pragma mark —— Debug
@@ -93,6 +94,7 @@
 #pragma mark —— UIImageView
 #import "JobsImageView.h"
 #pragma mark —— UILabel
+#import "UILabel+DSL.h"
 #import "JobsLabel.h"
 #pragma mark —— UIButton
 #import "JobsButton.h"

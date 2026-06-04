@@ -42,7 +42,7 @@ BaseLayerProtocol_synthesize_part3
         if (model) {
             self.viewModels = (NSMutableArray *)model;
             self.collectionView.byShow(self);
-        } return self;
+        }return self;
     };
 }
 #pragma mark - UICollectionViewDataSource

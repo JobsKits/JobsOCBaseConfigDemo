@@ -34,7 +34,7 @@
         @jobs_strongify(self)
         if ([model isKindOfClass:UIViewModel.class]) {
             self.textLabel.text = model.textModel.text;
-        } return self;
+        }return self;
     };
 }
 #pragma mark —— UIGestureRecognizerDelegate

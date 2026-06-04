@@ -11,6 +11,7 @@
 #define Base32_h
 
 #import <Foundation/Foundation.h>
+
 //! Project version number for Base32.
 FOUNDATION_EXPORT double Base32VersionNumber;
 //! Project version string for Base32.

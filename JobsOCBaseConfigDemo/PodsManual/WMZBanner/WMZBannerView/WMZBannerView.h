@@ -7,6 +7,7 @@
 //
 #import <UIKit/UIKit.h>
 #import "UIImageView+SDWebImage.h"
+
 //#import "NSString+Others.h"
 #import "JobsBlock.h"
 

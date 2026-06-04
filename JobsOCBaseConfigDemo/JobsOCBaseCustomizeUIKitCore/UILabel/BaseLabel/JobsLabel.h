@@ -13,6 +13,7 @@
 #import "JobsAnimationLabel.h"
 #import "JobsBaseLabel.h"
 #import "PointLabBaseView.h"
+
 #pragma mark —— Category
 #import "UILabel+Gesture.h"
 #import "UILabel+Measure.h"

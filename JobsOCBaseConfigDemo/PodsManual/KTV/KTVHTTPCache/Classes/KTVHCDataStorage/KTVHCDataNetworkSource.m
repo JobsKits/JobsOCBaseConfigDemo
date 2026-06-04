@@ -46,8 +46,7 @@
         self->_request = reqeust;
         self->_range = reqeust.range;
         KTVHCLogDataNetworkSource(@"%p, Create network source\nrequest : %@\nrange : %@", self, self.request, KTVHCStringFromRange(self.range));
-    }
-    return self;
+    }return self;
 }
 
 - (void)dealloc

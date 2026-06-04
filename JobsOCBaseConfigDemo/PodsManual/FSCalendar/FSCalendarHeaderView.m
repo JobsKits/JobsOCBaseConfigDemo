@@ -28,8 +28,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self initialize];
-    }
-    return self;
+    }return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -37,8 +36,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self initialize];
-    }
-    return self;
+    }return self;
 }
 
 - (void)initialize
@@ -221,8 +219,7 @@
         titleLabel.numberOfLines = 0;
         [self.contentView addSubview:titleLabel];
         self.titleLabel = titleLabel;
-    }
-    return self;
+    }return self;
 }
 
 - (void)setBounds:(CGRect)bounds
@@ -270,8 +267,7 @@
         self.sectionInset = UIEdgeInsetsZero;
         self.itemSize = CGSizeMake(1, 1);
         [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didReceiveOrientationChangeNotification:) name:UIDeviceOrientationDidChangeNotification object:nil];
-    }
-    return self;
+    }return self;
 }
 
 - (void)dealloc

@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "UIView+ZFFrame.h"
 #import "UIImageView+ZFCache.h"
-
 #import <ZFPlayer/ZFPlayerMediaControl.h>
 #import <ZFPlayer/ZFPlayerController.h>
 #import <ZFPlayer/ZFPlayerConst.h>

@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 typedef void(^FinishBlock)(NSString* _Nullable key);
 #ifndef NOTIFI_VIEW_STATE_ENUM_DEFINED
 #define NOTIFI_VIEW_STATE_ENUM_DEFINED

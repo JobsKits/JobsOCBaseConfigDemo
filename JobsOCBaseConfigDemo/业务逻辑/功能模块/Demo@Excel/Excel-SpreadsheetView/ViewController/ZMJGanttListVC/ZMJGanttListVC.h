@@ -6,19 +6,17 @@
 //
 
 #import "BaseViewController.h"
+#import "ZMJTask.h"
+#import "ZMJHeaderCell.h"
+#import "ZMJChartBarCell.h"
+#import "ZMJTaskCell.h"
+#import "ZMJTaskView.h"
 
 #if __has_include(<ZMJTipView/ZMJTipView.h>)
 #import <ZMJTipView/ZMJTipView.h>
 #else
 #import "ZMJTipView.h"
 #endif
-
-#import "ZMJTask.h"
-
-#import "ZMJHeaderCell.h"
-#import "ZMJChartBarCell.h"
-#import "ZMJTaskCell.h"
-#import "ZMJTaskView.h"
 
 typedef NS_ENUM(NSInteger, ZMJTimeUnit) {
     ZMJTimeUnit_week,

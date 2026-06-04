@@ -6,9 +6,10 @@
 //  Copyright © 2018 KANGZUBIN. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <sys/sysctl.h>
+#import <UIKit/UIKit.h>
 #import "JobsBlock.h"
+
 //#import "NSString+Others.h"
 //#import "NSString+Check.h"
 /**

@@ -11,15 +11,14 @@
 #import "BaseCellProtocol.h"
 #import "MGSwipeTableCellProtocol.h"
 #import "UITableViewCell+Margin.h"
+#import "MGSwipeButtonModel.h"
+#import "JobsIMChatInfoModel.h"
 
 #if __has_include(<MGSwipeTableCell/MGSwipeTableCell.h>)
 #import <MGSwipeTableCell/MGSwipeTableCell.h>
 #else
 #import "MGSwipeTableCell.h"
 #endif
-
-#import "MGSwipeButtonModel.h"
-#import "JobsIMChatInfoModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

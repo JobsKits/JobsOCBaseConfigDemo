@@ -7,6 +7,7 @@
 
 #import <UserNotifications/UserNotifications.h>
 #import "JobsBlock.h"
+
 @class UNNotificationRequestModel;
 
 NS_ASSUME_NONNULL_BEGIN

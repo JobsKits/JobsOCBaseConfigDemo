@@ -8,12 +8,11 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "BaseProtocol.h"
-
 #import "JobsTabBarVC.h"
 #import "JobsCustomTabBarConfig.h"
 #import "LZTabBarController.h"
-
 #import "Other.h"
+
 @import UserNotifications;/// 配置本地通知
 
 #pragma clang diagnostic push

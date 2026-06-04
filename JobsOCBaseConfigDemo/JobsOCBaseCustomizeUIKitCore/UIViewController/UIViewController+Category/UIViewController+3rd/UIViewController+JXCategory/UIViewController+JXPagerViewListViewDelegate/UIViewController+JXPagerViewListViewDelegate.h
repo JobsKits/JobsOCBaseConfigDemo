@@ -5,8 +5,8 @@
 //  Created by Jobs on 2020/10/26.
 //
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 
 #if __has_include(<JXPagingView/JXPagerView.h>)
 #import <JXPagingView/JXPagerView.h>

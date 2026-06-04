@@ -9,8 +9,8 @@
 #ifndef JOBS_HEADER_GUARD_NSOBJECT_BRPICKERVIEW_99BF2FC412
 #define JOBS_HEADER_GUARD_NSOBJECT_BRPICKERVIEW_99BF2FC412
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import "BRTextPickerView+Extra.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)

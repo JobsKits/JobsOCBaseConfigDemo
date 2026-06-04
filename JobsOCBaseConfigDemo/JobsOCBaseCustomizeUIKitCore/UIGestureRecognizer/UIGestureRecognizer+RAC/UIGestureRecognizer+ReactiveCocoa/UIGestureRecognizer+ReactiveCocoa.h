@@ -6,17 +6,16 @@
 //  Copyright (c) 2014年 kaiinui. All rights reserved.
 //  特别鸣谢：https://github.com/kaiinui/UIGestureRecognizer-RACExtension
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+#import "RACGestureRecognizerActionHandler.h"
+#import "UIGestureRecognizer+ReactiveCocoaProtected.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
 #import "ReactiveObjC.h"
 #endif
-
-#import "RACGestureRecognizerActionHandler.h"
-#import "UIGestureRecognizer+ReactiveCocoaProtected.h"
 
 @class RACSignal;
 // TODO: To make them private, separate them into a category.

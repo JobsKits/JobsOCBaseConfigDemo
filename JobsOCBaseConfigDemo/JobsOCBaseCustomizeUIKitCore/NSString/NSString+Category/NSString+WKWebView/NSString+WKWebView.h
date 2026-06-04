@@ -6,8 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <JavaScriptCore/JavaScriptCore.h>
 #import <WebKit/WebKit.h>
+#import <JavaScriptCore/JavaScriptCore.h>
 #import "JobsBlock.h"
 #import "NSObject+HTML.h"
 

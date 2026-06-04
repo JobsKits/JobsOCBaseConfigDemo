@@ -5,7 +5,6 @@
 //  Created by Jobs on 2021/11/30.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
 @class JobsAppDoorInputViewBaseStyle;

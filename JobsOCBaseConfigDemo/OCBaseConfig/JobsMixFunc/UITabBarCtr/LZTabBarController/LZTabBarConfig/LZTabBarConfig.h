@@ -5,7 +5,6 @@
 //  Created by Jobs Hi on 2024/7/14.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "DefineProperty.h"

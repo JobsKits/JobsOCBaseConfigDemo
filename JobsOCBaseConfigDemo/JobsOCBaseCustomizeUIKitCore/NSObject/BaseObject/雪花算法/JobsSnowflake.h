@@ -6,6 +6,7 @@
 //  通过ChatGPT 翻译自 https://github.com/DamonHu/SnowflakeSwift
 
 #import <Foundation/Foundation.h>
+
 #include <unistd.h>
 
 @interface JobsSnowflake : NSObject

@@ -8,6 +8,7 @@
 #import "BaseViewController.h"
 #import "JobsPostDelView.h"
 #import "JobsTextView.h"
+#import "JobsUserModel.h"
 
 #if __has_include(<SZTextView/SZTextView.h>)
 #import <SZTextView/SZTextView.h>
@@ -20,8 +21,6 @@
 #else
 #import "HXPhotoPicker.h"
 #endif
-
-#import "JobsUserModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

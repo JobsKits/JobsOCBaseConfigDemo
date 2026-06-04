@@ -12,7 +12,6 @@
 #import "CustomZFPlayerControlView.h"
 #import "JobsAppDoorLogoContentView.h"
 #import "JobsAppDoorConfig.h"
-
 #import "JobsAppDoorForgotCodeContentView.h"//忘记密码
 
 #pragma mark —— ZFPlayer 播放器相关

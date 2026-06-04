@@ -5,9 +5,8 @@
 //  Created by Jobs on 2020/11/3.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "DefineConstString.h" /// 常量字符串的定义
 #import "DefineProperty.h"

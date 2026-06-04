@@ -23,8 +23,7 @@
         self->_contentLength = [self headerValueWithKey:@"Content-Length"].longLongValue;
         self->_contentRange = KTVHCRangeWithResponseHeaderValue(self.contentRangeString, &self->_totalLength);
         KTVHCLogDataResponse(@"%p Create data response\nURL : %@\nHeaders : %@\ncontentType : %@\ntotalLength : %lld\ncurrentLength : %lld", self, self.URL, self.headers, self.contentType, self.totalLength, self.contentLength);
-    }
-    return self;
+    }return self;
 }
 
 - (void)dealloc

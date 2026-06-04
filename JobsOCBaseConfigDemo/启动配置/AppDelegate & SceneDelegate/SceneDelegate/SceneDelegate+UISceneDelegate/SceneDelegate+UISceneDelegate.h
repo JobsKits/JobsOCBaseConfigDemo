@@ -6,7 +6,6 @@
 //
 
 #import "SceneDelegate.h"
-
 #import "MacroDef_Func.h"
 #import "AppDelegate.h"
 #import "AppDelegate+Func.h"

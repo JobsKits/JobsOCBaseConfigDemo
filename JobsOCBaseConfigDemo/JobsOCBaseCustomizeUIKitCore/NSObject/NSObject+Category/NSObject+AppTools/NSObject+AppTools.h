@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import "JobsDefineAllEnumHeader.h"
 #import "AppToolsProtocol.h"
 #import "NSObject+UserInfo.h"
@@ -14,14 +13,13 @@
 #import "UIView+Extras.h"
 #import "AppDelegate+TabBarCtr.h"
 #import "DefineConstString.h" /// 常量字符串的定义
-
 #import "AppDelegate.h"
 #import "JobsAppDoorVC.h"
 #import "AppLanguageVC.h"
-
 #import "JobsHotLabelBySingleLine.h"
 #import "JobsCustomTabBar.h"
 #import "FMTermsOfUseView.h"
+
 //#import "CasinoUpgradePopupView.h"
 
 #import "JobsNetworkingHeader.h"

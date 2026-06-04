@@ -3,18 +3,15 @@
 // Copyright (c) 2014 Fenbi. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
 #import "YTKAnimatingRequestAccessory.h"
+#import "DefineProperty.h"
 
 #if __has_include(<YTKNetwork/YTKChainRequest.h>)
 #import <YTKNetwork/YTKBatchRequest.h>
 #else
 #import "YTKBatchRequest.h"
 #endif
-
-#import "DefineProperty.h"
 
 @interface YTKBaseRequest (AnimatingAccessory)
 

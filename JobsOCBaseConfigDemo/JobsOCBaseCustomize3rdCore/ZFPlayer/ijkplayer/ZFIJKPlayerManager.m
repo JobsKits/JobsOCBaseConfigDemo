@@ -78,8 +78,7 @@
     if (self) {
         _scalingMode = ZFPlayerScalingModeAspectFit;
         _shouldAutoPlay = YES;
-    }
-    return self;
+    }return self;
 }
 
 - (void)prepareToPlay {

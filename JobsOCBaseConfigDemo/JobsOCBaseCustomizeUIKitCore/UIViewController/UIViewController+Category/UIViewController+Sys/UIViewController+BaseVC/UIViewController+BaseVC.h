@@ -5,8 +5,8 @@
 //  Created by Jobs on 2020/10/12.
 //
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import "UIViewModelProtocol.h"
 #import "BaseViewControllerProtocol.h"
 #import "JobsBlock.h"
@@ -37,6 +37,7 @@
 #else
 #import "RACEXTKeyPathCoding.h"
 #endif
+
 /// 用导航控制器进行包装
 NS_INLINE __kindof UINavigationController * _Nullable JobsNavCtrl(UIViewController __kindof * _Nonnull viewController){
     return viewController.navigationController ? viewController : [UINavigationController.alloc initWithRootViewController:viewController];

@@ -9,6 +9,7 @@
 #import "JobsBlock.h"
 #import "DefineProperty.h"
 #import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
+
 NS_ASSUME_NONNULL_BEGIN
 /// iOS系统基本的3大定时器类型@其他类型的定时器均由此二次封装而成（NSTimer / GCD / CADisplayLink）
 #ifndef JOBS_TIMER_TYPE_ENUM_DEFINED

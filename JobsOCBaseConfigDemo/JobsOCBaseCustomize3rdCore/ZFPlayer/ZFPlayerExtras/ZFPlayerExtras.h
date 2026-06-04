@@ -7,16 +7,15 @@
 
 #import <Foundation/Foundation.h>
 #import "JobsBlock.h"
+#import "ZFDouYinControlView.h"
+#import "ZFCustomControlView.h"
+#import "ZFIJKPlayerManager.h"
 
 #if __has_include(<ZFPlayer/ZFPlayer.h>)
 #import <ZFPlayer/ZFPlayer.h>
 #else
 #import "ZFPlayer.h"
 #endif
-
-#import "ZFDouYinControlView.h"
-#import "ZFCustomControlView.h"
-#import "ZFIJKPlayerManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -6,15 +6,13 @@
 //  Copyright © 2020 bihongbo. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
-
+#import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "UITextFieldProtocol.h"
 #import "MacroDef_Size.h"
 #import "MacroDef_Cor.h"
 #import "JobsLoadingImage.h"
-
 #import "NSObject+CurrentDevice.h"
 #import "NSObject+RichText.h"
 #import "UITextField+Extend.h"

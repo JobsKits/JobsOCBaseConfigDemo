@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 PUPBOSS. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <ImageIO/ImageIO.h>
+#import <UIKit/UIKit.h>
 
 @interface UIImageView (GIF)
 /**

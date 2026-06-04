@@ -6,7 +6,6 @@
 //
 
 #import "BaseViewController.h"
-
 #import "UIView+Navigator.h"
 #import "JobsViewNavigator.h"
 #import "JobsPushView.h"

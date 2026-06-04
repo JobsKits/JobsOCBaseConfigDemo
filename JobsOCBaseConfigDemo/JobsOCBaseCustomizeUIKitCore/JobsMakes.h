@@ -11,13 +11,13 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 #import <MessageUI/MessageUI.h>
 #import "JobsBlock.h"
 #import "NSObject+AttributedStr.h"
 #import "NSString+Others.h"
+
 #pragma mark —— 关于时间/日历
 NS_INLINE __kindof NSDateComponents *_Nonnull
 jobsMakeDateComponents(jobsByDateComponentsBlock _Nonnull block){

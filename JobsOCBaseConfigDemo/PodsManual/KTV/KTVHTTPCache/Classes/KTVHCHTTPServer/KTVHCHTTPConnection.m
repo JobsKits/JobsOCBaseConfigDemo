@@ -18,8 +18,7 @@
 {
     if (self = [super initWithAsyncSocket:newSocket configuration:aConfig]) {
         KTVHCLogAlloc(self);
-    }
-    return self;
+    }return self;
 }
 
 - (void)dealloc

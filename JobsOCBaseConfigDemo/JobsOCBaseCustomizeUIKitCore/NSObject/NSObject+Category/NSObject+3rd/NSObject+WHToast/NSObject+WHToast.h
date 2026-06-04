@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 #import "JobsBlock.h"
+#import "NSString+Others.h"
+#import "NSObject+Image.h"
 
 #if __has_include(<WHToast/WHToast.h>)
 #import <WHToast/WHToast.h>
@@ -19,9 +21,6 @@
 #else
 #import "SDWebImage.h"
 #endif
-
-#import "NSString+Others.h"
-#import "NSObject+Image.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

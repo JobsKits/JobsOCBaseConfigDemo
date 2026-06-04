@@ -5,7 +5,6 @@
 //  Created by John on 2020/11/14.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "UIView+Measure.h"

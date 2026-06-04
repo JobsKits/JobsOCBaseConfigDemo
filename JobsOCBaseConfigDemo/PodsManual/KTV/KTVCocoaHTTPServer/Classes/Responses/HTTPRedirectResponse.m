@@ -19,8 +19,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_OFF; // | HTTP_LOG_FLAG_TRACE;
 		HTTPLogTrace();
 		
 		redirectPath = [path copy];
-	}
-	return self;
+	}return self;
 }
 
 - (UInt64)contentLength

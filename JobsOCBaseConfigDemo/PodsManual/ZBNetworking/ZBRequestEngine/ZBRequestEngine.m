@@ -67,8 +67,7 @@ NSString *const _delegate =@"_delegate";
         [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 #endif
          _requestDic =[[NSMutableDictionary alloc] init];
-    }
-    return self;
+    }return self;
 }
 
 + (void)load {

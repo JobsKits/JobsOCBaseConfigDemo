@@ -9,7 +9,6 @@
 #import "AppDelegate+TabBarCtr.h"
 #import "LOTAnimationMJRefreshHeader.h"
 #import "JobsPlayerTBVCell.h"
-
 #import "VideoModel.h"
 
 NS_ASSUME_NONNULL_BEGIN

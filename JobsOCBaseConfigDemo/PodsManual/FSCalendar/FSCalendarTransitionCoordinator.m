@@ -42,8 +42,7 @@
         self.calendar = calendar;
         self.collectionView = self.calendar.collectionView;
         self.collectionViewLayout = self.calendar.collectionViewLayout;
-    }
-    return self;
+    }return self;
 }
 
 #pragma mark - Target actions

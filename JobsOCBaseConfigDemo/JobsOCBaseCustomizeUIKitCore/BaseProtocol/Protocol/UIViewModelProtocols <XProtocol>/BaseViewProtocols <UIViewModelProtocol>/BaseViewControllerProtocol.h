@@ -5,7 +5,6 @@
 //  Created by Jobs on 2021/3/22.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 #import "JobsBlock.h"

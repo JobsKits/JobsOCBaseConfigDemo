@@ -37,7 +37,7 @@ Prop_strong()UILabel *textLab;
             self.textLab.font = model.textModel.font;
             self.textLab.backgroundColor = model.bgCor;
         //    self.imageView.image = (UIImage *)model[@"image"];
-        } return self;
+        }return self;
     };
 }
 

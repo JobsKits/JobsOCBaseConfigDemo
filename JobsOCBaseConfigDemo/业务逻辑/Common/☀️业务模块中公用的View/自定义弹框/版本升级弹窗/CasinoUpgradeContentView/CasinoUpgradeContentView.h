@@ -6,7 +6,6 @@
 //
 
 #import "BaseView.h"
-
 #import "JobsGetiOSNewestVersionModel.h"
 
 NS_ASSUME_NONNULL_BEGIN

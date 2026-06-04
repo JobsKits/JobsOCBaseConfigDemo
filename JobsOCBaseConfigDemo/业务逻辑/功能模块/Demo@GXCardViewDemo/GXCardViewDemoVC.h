@@ -6,7 +6,6 @@
 //
 
 #import "BaseViewController.h"
-
 #import "GXCardView.h"
 #import "GXCardItemDemoCell.h"
 

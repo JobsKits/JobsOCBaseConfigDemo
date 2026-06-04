@@ -11,7 +11,6 @@
 #import "JobsBaseTableViewCell.h"
 #import "MainTableViewCellItem.h"
 #import "DefineProperty.h"
-
 #import "BaseCellProtocol.h"
 #import "JobsExcelConfigureViewModel.h"
 

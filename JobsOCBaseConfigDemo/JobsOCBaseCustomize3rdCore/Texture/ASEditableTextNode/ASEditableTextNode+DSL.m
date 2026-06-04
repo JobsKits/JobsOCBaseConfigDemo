@@ -227,8 +227,7 @@ static const void *kJobsETNEndBlockKey       = &kJobsETNEndBlockKey;
                                      kJobsETNChangeTokenKey,
                                      newToken,
                                      OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-        return self;
+        }return self;
     };
 }
 

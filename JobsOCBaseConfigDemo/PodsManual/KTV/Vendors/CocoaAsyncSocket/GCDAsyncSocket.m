@@ -399,8 +399,7 @@ enum GCDAsyncSocketConfig
 		
 		readPointer = preBuffer;
 		writePointer = preBuffer;
-	}
-	return self;
+	}return self;
 }
 
 - (void)dealloc
@@ -570,8 +569,7 @@ enum GCDAsyncSocketConfig
 			bufferOwner = YES;
 			originalBufferLength = 0;
 		}
-	}
-	return self;
+	}return self;
 }
 
 /**
@@ -986,8 +984,7 @@ enum GCDAsyncSocketConfig
 		bytesDone = 0;
 		timeout = t;
 		tag = i;
-	}
-	return self;
+	}return self;
 }
 
 
@@ -1016,8 +1013,7 @@ enum GCDAsyncSocketConfig
 	if((self = [super init]))
 	{
 		tlsSettings = [settings copy];
-	}
-	return self;
+	}return self;
 }
 
 
@@ -1107,8 +1103,7 @@ enum GCDAsyncSocketConfig
 		currentWrite = nil;
 		
 		preBuffer = [[GCDAsyncSocketPreBuffer alloc] initWithCapacity:(1024 * 4)];
-	}
-	return self;
+	}return self;
 }
 
 - (void)dealloc

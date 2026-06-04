@@ -10,6 +10,7 @@
 //
 
 #import "JobsBlock.h"
+
 #ifndef JhtBannerScrollViewProtocol_h
 #define JhtBannerScrollViewProtocol_h
 @class JhtBannerScrollView;

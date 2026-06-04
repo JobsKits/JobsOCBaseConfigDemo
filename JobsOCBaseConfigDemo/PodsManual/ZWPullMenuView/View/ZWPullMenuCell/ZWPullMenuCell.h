@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ZWPullMenuModel.h"
 #import "ZWPullMenuConfig.h"
+
 NS_ASSUME_NONNULL_BEGIN
 @interface ZWPullMenuCell : UITableViewCell
 @property (strong, nonatomic) UIImageView *menuImageView;

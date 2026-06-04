@@ -58,7 +58,7 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
                         JobsLog(@"图片加载成功");
                     }
                 }).load();
-        } return self;
+        }return self;
     };
 }
 #pragma mark —— 复写系统父类方法

@@ -7,7 +7,6 @@
 //
 //  实现协议的两个方法，并在其中编写 Push 的动画。   转场动画
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "A_VC.h"
 #import "B_VC.h"

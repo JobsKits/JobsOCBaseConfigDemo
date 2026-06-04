@@ -12,7 +12,6 @@
 #import "GoodsClassModel.h"
 #import "JobsSearchBar.h"
 #import "BaiShaETProjPopupView10.h"
-
 #import "JobsVerticalMenuSubVC.h"
 
 NS_ASSUME_NONNULL_BEGIN

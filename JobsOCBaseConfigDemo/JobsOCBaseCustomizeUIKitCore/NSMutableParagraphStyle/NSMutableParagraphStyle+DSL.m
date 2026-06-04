@@ -96,8 +96,7 @@
         @jobs_strongify(self) 
         if (@available(iOS 7.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)) {
             self.defaultTabInterval = v;
-        }
-        return self;
+        }return self;
     };
 }
 #pragma mark —— float
@@ -116,8 +115,7 @@
         @jobs_strongify(self) 
         if (@available(iOS 9.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)) {
             self.allowsDefaultTighteningForTruncation = on;
-        }
-        return self;
+        }return self;
     };
 }
 
@@ -127,8 +125,7 @@
         @jobs_strongify(self) 
         if (@available(iOS 15.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)) {
             self.usesDefaultHyphenation = on;
-        }
-        return self;
+        }return self;
     };
 }
 #pragma mark —— Enums
@@ -156,8 +153,7 @@
         @jobs_strongify(self) 
         if (@available(iOS 9.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)) {
             self.lineBreakStrategy = strategy;
-        }
-        return self;
+        }return self;
     };
 }
 #pragma mark —— Arrays

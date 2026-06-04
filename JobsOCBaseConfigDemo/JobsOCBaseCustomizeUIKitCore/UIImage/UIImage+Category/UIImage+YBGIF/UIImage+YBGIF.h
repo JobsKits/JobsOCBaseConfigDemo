@@ -6,8 +6,8 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <ImageIO/ImageIO.h> /// 提供对图像数据的读写支持。
+#import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "NSMutableArray+Extra.h"
 

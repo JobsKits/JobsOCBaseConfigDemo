@@ -27,8 +27,7 @@
     self = [super initWithFrame:frame collectionViewLayout:layout];
     if (self) {
         [self commonInit];
-    }
-    return self;
+    }return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -36,8 +35,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self commonInit];
-    }
-    return self;
+    }return self;
 }
 
 - (void)commonInit

@@ -8,9 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-
 #import "TKPermissionPublic.h"
-
 #import "MacroDef_String.h"
 #import "MacroDef_Strong@Weak.h"
 #import "MacroDef_SysWarning.h"

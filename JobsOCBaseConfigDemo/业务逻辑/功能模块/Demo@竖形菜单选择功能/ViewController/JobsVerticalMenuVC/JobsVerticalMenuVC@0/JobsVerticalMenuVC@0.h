@@ -12,7 +12,6 @@
 #import "GoodsClassModel.h"
 #import "JobsSearchBar.h"
 #import "BaiShaETProjPopupView10.h"
-
 #import "JobsVerticalMenuSubView.h" // 新的自定义UIView类
 
 NS_ASSUME_NONNULL_BEGIN

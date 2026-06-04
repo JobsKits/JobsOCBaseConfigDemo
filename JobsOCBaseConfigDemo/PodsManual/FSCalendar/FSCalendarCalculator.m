@@ -45,8 +45,7 @@
         self.rowCounts = [NSMutableDictionary dictionary];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotifications:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-    }
-    return self;
+    }return self;
 }
 
 - (void)dealloc

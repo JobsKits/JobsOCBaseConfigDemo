@@ -9,7 +9,6 @@
 #define HexadecimalData_h
 
 #import <Foundation/Foundation.h>
-
 #import "NSString+HexadecimalData.h"
 #import "NSData+HexadecimalData.h"
 #import "UIImage+HexadecimalData.h"

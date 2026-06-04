@@ -9,7 +9,6 @@
 #define Base85_h
 
 #import <Foundation/Foundation.h>
-
 #import "UIImage+Base85.h"
 #import "NSData+Base85.h"
 #import "NSString+Base85.h"

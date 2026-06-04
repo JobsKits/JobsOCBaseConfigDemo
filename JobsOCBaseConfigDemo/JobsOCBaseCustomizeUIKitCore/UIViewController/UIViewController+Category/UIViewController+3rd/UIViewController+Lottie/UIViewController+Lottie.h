@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "JobsString.h"
 
 #if __has_include(<lottie-ios/Lottie.h>)

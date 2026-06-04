@@ -88,8 +88,7 @@ Prop_assign()CGRect inViewFrame;
         [self addSubview:self.indicatorView];
         
         [self addSubview:self.msgLabel];
-    }
-    return self;
+    }return self;
 }
 
 -(void)setMsg:(NSString *)msg{

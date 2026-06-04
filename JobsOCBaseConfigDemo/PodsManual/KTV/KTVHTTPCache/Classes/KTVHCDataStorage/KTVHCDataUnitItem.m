@@ -45,8 +45,7 @@
         self->_offset = offset;
         self->_length = [KTVHCPathTool sizeAtPath:self.absolutePath];
         [self commonInit];
-    }
-    return self;
+    }return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
@@ -58,8 +57,7 @@
         self->_offset = [[aDecoder decodeObjectForKey:@"offset"] longLongValue];
         self->_length = [KTVHCPathTool sizeAtPath:self.absolutePath];
         [self commonInit];
-    }
-    return self;
+    }return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder

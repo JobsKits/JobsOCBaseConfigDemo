@@ -9,8 +9,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
-
 #import "FSCalendar.h"
 #import "FSCalendarCell.h"
 #import "FSCalendarHeaderView.h"

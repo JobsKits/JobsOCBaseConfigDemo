@@ -20,6 +20,7 @@ FOUNDATION_EXPORT const unsigned char TKPermissionKitVersionString[];
 
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
+
 #endif
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_10_0
 typedef UNAuthorizationOptions TKPermissionUNAuthorizationOptions;

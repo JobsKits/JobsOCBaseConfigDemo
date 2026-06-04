@@ -6,7 +6,6 @@
 //
 
 #import "JobsHotLabelConfig.h"
-
 #import "BaseView.h"
 #import "JobsHotLabelByMultiLineCVCell.h"
 #import "JobsHeaderFooterView.h"

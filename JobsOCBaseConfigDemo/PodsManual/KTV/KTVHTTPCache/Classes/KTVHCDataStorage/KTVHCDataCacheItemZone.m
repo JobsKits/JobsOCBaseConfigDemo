@@ -16,8 +16,7 @@
     if (self = [super init]) {
         self->_offset = offset;
         self->_length = length;
-    }
-    return self;
+    }return self;
 }
 
 @end

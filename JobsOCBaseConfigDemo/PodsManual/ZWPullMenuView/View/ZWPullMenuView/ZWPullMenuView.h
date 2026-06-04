@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "NSObject+Extras.h"
-
 #import "ZWPullMenuCell.h"
 #import "ZWPullMenuModel.h"
 #import "ZWPullMenuConfig.h"

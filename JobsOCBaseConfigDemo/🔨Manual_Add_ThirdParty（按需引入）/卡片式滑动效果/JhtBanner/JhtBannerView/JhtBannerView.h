@@ -13,6 +13,7 @@
 #import "JhtBannerScrollView.h"
 #import "DefineConstString.h" /// 常量字符串的定义
 #import "JhtBannerScrollViewProtocol.h"
+
 /// banner ScrollView
 @interface JhtBannerView : UIView
 <

@@ -34,8 +34,7 @@ static CGFloat CellMarginY = 10.0f;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self buildUI];
-    }
-    return self;
+    }return self;
 }
 
 -(void)buildUI{

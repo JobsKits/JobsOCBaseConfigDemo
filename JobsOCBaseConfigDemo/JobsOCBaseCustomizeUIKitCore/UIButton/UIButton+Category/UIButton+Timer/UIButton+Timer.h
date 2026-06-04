@@ -13,14 +13,12 @@
 #import "MacroDef_Func.h"
 #import "JobsAttributedString.h"
 #import "JobsDefineAllEnumHeader.h"
-
 #import "NSObject+Time.h"
 #import "NSObject+RichText.h"/// 富文本
 #import "NSObject+NSMutableParagraphStyle.h"
 #import "NSObject+Extras.h"
 #import "NSString+Others.h"
 #import "NSMutableArray+Extra.h"
-
 #import "JobsTimer.h"/// 时间管理
 #import "UIButton+UI.h"
 

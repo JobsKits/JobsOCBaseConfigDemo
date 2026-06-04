@@ -37,8 +37,7 @@
         self->_sources = [sources mutableCopy];
         self->_delegate = delegate;
         self->_delegateQueue = delegateQueue;
-    }
-    return self;
+    }return self;
 }
 
 - (void)dealloc

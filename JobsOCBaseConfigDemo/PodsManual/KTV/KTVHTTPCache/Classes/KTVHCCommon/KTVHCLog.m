@@ -38,8 +38,7 @@
         self.recordLogEnable = NO;
         self.lock = [[NSLock alloc] init];
         self.internalErrors = [NSMutableDictionary dictionary];
-    }
-    return self;
+    }return self;
 }
 
 - (void)addRecordLog:(NSString *)log

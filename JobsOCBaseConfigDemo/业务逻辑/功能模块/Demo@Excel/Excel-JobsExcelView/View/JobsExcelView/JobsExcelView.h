@@ -7,18 +7,16 @@
 //  特别鸣谢 https://github.com/Mephsito23/iOS-Excel-
 
 #import <UIKit/UIKit.h>
-
 #import "JobsExcelLeftListView.h"
 #import "JobsExcelTopHeadView.h"
 #import "JobsExcelContentView.h"
+#import "JobsExcelConfigureViewModel.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
 #import "ReactiveObjC.h"
 #endif
-
-#import "JobsExcelConfigureViewModel.h"
 
 @interface JobsExcelView : UIView
 

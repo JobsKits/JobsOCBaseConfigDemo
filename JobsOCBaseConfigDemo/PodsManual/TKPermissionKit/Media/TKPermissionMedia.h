@@ -8,10 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <MediaPlayer/MediaPlayer.h>
-
 #import "TKPermissionPublic.h"
-
 #import "MacroDef_String.h"
+
 /**
  功能：媒体资料库权限获取与请求
  要求：iOS9.3+     低于该版本时权限状态都返回YES（如果出现问题，请自己修改低版本权限申请方式）

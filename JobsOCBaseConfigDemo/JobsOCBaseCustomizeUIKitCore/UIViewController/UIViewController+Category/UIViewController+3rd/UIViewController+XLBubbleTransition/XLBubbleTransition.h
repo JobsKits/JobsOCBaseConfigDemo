@@ -6,7 +6,6 @@
 //  Copyright © 2017年 MengXianLiang. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "UIViewController+XLBubbleTransition.h"
 

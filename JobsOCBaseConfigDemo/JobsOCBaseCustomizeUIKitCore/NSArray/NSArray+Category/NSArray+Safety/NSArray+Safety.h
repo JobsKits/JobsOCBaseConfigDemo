@@ -6,8 +6,8 @@
 //  Copyright © 2019 Josee. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+#import <Foundation/Foundation.h>
 #import "NSObject+Extras.h"
 
 NS_ASSUME_NONNULL_BEGIN

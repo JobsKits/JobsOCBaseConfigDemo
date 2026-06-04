@@ -9,8 +9,8 @@
 #define JobsImage_h
 
 #import <ImageIO/ImageIO.h>
-
 #import "JobsLoadingImage.h"
+
 #pragma mark —— Base
 // TODO
 #pragma mark —— Category

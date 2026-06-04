@@ -50,8 +50,7 @@
         FSCalendarWeekdayView *weekdayView = [[FSCalendarWeekdayView alloc] init];
         [self.contentView addSubview:weekdayView];
         self.weekdayView = weekdayView;
-    }
-    return self;
+    }return self;
 }
 
 - (void)layoutSubviews

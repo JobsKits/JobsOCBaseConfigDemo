@@ -123,8 +123,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     self = [super initWithFrame:frame];
     if (self) {
         [self initialize];
-    }
-    return self;
+    }return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -132,8 +131,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self initialize];
-    }
-    return self;
+    }return self;
 }
 
 -(FSCalendarAppearance *)appearance{

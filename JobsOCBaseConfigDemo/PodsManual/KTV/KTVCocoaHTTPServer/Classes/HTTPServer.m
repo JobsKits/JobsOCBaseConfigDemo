@@ -94,8 +94,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
 		                                           object:nil];
 		
 		isRunning = NO;
-	}
-	return self;
+	}return self;
 }
 
 /**

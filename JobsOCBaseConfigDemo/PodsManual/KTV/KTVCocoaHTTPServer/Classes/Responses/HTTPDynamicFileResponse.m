@@ -26,8 +26,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 		
 		separator = [separatorStr dataUsingEncoding:NSUTF8StringEncoding];
 		replacementDict = dict;
-	}
-	return self;
+	}return self;
 }
 
 - (BOOL)isChunked

@@ -66,8 +66,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 		
 		// We don't bother opening the file here.
 		// If this is a HEAD request we only need to know the fileLength.
-	}
-	return self;
+	}return self;
 }
 
 - (void)abort

@@ -5,9 +5,8 @@
 //  Created by Mac on 11/5/25.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import "DefineProperty.h"
 #import "JobsBlock.h"
 

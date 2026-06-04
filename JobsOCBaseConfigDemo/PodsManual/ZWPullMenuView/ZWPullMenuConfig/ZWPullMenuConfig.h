@@ -6,8 +6,8 @@
 //  Copyright © 2019 wang_ziwu. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
 NS_ASSUME_NONNULL_BEGIN
 
 #define MenuContentMargin       15          //默认文本图片边距

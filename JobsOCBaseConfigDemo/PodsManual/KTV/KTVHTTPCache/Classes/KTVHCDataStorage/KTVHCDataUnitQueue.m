@@ -36,8 +36,7 @@
                 [self.unitArray addObject:obj];
             }
         }
-    }
-    return self;
+    }return self;
 }
 
 - (NSArray<KTVHCDataUnit *> *)allUnits

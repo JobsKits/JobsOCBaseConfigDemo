@@ -7,9 +7,9 @@
 
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>                       // 提供系统相册访问能力，可读取和管理照片、视频等媒体资源。
+#import <UserNotifications/UserNotifications.h> // 提供本地通知和远程通知处理能力，是现代通知框架的统一入口。
 #import <PDFKit/PDFKit.h>                       // 提供 PDF 文档的读取、渲染、标注和交互能力。
 #import <JavaScriptCore/JavaScriptCore.h>       // 提供 Objective-C / Swift 与 JavaScript 交互能力，可执行脚本并进行对象桥接。
-#import <UserNotifications/UserNotifications.h> // 提供本地通知和远程通知处理能力，是现代通知框架的统一入口。
 #import <JobsBlock/JobsBlockDef.h>
 
 #ifndef ReturnByCertainParameters_h

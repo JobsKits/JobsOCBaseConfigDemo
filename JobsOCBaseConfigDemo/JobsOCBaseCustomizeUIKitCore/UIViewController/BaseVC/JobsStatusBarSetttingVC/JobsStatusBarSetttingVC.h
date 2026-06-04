@@ -7,7 +7,6 @@
 
 #import "JobsMonitorVC.h"
 #import "BaseViewControllerProtocol.h"
-
 #import "NSArray+Tools.h"
 
 NS_ASSUME_NONNULL_BEGIN

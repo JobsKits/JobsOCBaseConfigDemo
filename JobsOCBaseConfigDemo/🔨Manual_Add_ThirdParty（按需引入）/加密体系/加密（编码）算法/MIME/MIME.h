@@ -9,7 +9,6 @@
 #define MIME_h
 
 #import <Foundation/Foundation.h>
-
 #import "NSData+MIME.h"
 #import "UIImage+MIME.h"
 #import "NSString+MIME.h"
