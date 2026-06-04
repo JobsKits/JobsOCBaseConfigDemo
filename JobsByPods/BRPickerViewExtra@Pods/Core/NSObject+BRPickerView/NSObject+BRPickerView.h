@@ -11,6 +11,7 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
+#import <BRPickerViewExtra/BRPickerStyle+DSL.h>
 #import <BRPickerViewExtra/BRTextPickerView+Extra.h>
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
@@ -31,10 +32,10 @@
 #import "JobsLanMgr.h"
 #endif
 
-#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
-#import <JobsModelDSL/JobsModelDSL.h>
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
 #else
-#import "JobsModelDSL.h"
+#import "JobsModel.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
@@ -96,11 +97,6 @@ NS_INLINE __kindof BRDatePickerView *_Nonnull jobsMakeBRDatePickerView(BRPickerV
     return data;
 }
 
-NS_INLINE __kindof BRPickerStyle *_Nonnull jobsMakeBRPickerStyle(BRPickerViewExtraPickerStyleConfigBlock _Nonnull block) {
-    BRPickerStyle *data = BRPickerStyle.alloc.init;
-    if (block) block(data);
-    return data;
-}
 /**
  * 适配备注
  * 1. BRStringPickerView 已移除：请使用 BRTextPickerView。

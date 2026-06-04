@@ -9,10 +9,10 @@
 
 @interface JobsGestureLockView ()
 
-@property (nonatomic, strong) NSMutableArray<UIButton *> *selectedButtons;
-@property (nonatomic, strong) NSMutableArray<UIButton *> *errorButtons;
-@property (nonatomic, assign) CGPoint currentPoint;
-@property (nonatomic, assign) BOOL finished;
+Prop_strong()NSMutableArray<UIButton *> *selectedButtons;
+Prop_strong()NSMutableArray<UIButton *> *errorButtons;
+Prop_assign()CGPoint currentPoint;
+Prop_assign()BOOL finished;
 @property (nonatomic, assign, readwrite) JobsGestureLockValidationResult validationResult;
 
 @end

@@ -10,11 +10,11 @@
 
 @interface XLChannelControl ()
 
-@property (nonatomic, strong) UINavigationController *nav;
+Prop_strong()UINavigationController *nav;
 
-@property (nonatomic, strong) XLChannelView *channelView;
+Prop_strong()XLChannelView *channelView;
 
-@property (nonatomic, strong) XLChannelBlock block;
+Prop_strong()XLChannelBlock block;
 
 @end
 

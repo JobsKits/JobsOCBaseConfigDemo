@@ -9,13 +9,13 @@
 
 @interface XDTextBtnView ()
 
-@property (nonatomic, assign) CGFloat maxX;
+Prop_assign()CGFloat maxX;
 
 @property (nonatomic, readwrite, assign) CGFloat maxY;
 
-@property (nonatomic, assign) NSInteger lastIndex;
+Prop_assign()NSInteger lastIndex;
 
-@property (nonatomic, strong) NSMutableArray <NSString *> *selectArr;
+Prop_strong()NSMutableArray <NSString *> *selectArr;
 
 @end
 

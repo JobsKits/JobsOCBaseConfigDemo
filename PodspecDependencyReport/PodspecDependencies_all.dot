@@ -132,7 +132,7 @@ digraph PodspecDependencies {
   "BRPickerViewExtra" -> "JobsBlock";
   "BRPickerViewExtra" -> "JobsLanMgr";
   "BRPickerViewExtra" -> "JobsMakes";
-  "BRPickerViewExtra" -> "JobsModelDSL";
+  "BRPickerViewExtra" -> "JobsModel";
   "BRPickerViewExtra" -> "JobsOCDefs";
   "BRPickerViewExtra" -> "XYColorOC";
   "FDFullscreenPopGesture" -> "JobsBlock";
@@ -451,6 +451,7 @@ digraph PodspecDependencies {
   "JobsLinkageMenuView" -> "XYColorOC";
   "JobsLinkageMenuView" -> "XZMRefresh";
   "JobsLinkageMenuView" -> "YTKNetworkExtra";
+  "JobsLocker" -> "JobsOCDefs";
   "JobsMakes" -> "JobsBlock";
   "JobsMakes" -> "JobsOCDefs";
   "JobsMakes" -> "JobsStringUtils";

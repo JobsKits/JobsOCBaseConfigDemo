@@ -30,6 +30,7 @@ so the same locker can optionally coordinate one-time execution semantics.
   spec.subspec 'Core' do |ss|
     ss.source_files        = 'Core/**/*.{h,m,mm}'
     ss.public_header_files = 'Core/**/*.h'
+    ss.dependency 'JobsOCDefs'
   end
 
   JobsPodspecKitForJobsLocker.apply_standard_xcconfig(spec)

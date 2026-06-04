@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GXCardViewCell : UIView
 /** 重用标识 */
-@property (nonatomic, copy) NSString *reuseIdentifier;
+Prop_copy()NSString *reuseIdentifier;
 /** 指定初始化方法 */
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier;
 /** 移除cell */
@@ -64,21 +64,21 @@ NS_ASSUME_NONNULL_BEGIN
 /** 当前显示最上层索引 */
 @property (nonatomic, readonly) NSInteger currentFirstIndex;
 /** 数据源 */
-@property (nonatomic,   weak) id<GXCardViewDataSource> dataSource;
+Prop_weak()id<GXCardViewDataSource> dataSource;
 /** 代理 */
-@property (nonatomic,   weak) id<GXCardViewDelegate> delegate;
+Prop_weak()id<GXCardViewDelegate> delegate;
 /** 卡片可见数量(默认3) */
-@property (nonatomic, assign) NSInteger visibleCount;
+Prop_assign()NSInteger visibleCount;
 /** 行间距(默认10.0，可自行计算scale比例来做间距) */
-@property (nonatomic, assign) CGFloat lineSpacing;
+Prop_assign()CGFloat lineSpacing;
 /** 列间距(默认10.0，可自行计算scale比例来做间距) */
-@property (nonatomic, assign) CGFloat interitemSpacing;
+Prop_assign()CGFloat interitemSpacing;
 /** 侧滑最大角度(默认15°) */
-@property (nonatomic, assign) CGFloat maxAngle;
+Prop_assign()CGFloat maxAngle;
 /** 最大移除距离(默认屏幕的1/4) */
-@property (nonatomic, assign) CGFloat maxRemoveDistance;
+Prop_assign()CGFloat maxRemoveDistance;
 /** 是否重复(默认NO) */
-@property (nonatomic, assign) BOOL isRepeat;
+Prop_assign()BOOL isRepeat;
 
 /** 重载数据 */
 - (void)reloadData;

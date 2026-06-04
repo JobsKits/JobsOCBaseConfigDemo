@@ -12,6 +12,12 @@
 #import <UIKit/UIKit.h>
 #import <JobsByOCPods/XLBubbleTransition.h>
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 @class XLBubbleTransition;
 @interface UIViewController (XLBubbleTransition)
 <
@@ -19,10 +25,10 @@ UINavigationControllerDelegate
 ,UIViewControllerTransitioningDelegate
 >
 
-@property(nonatomic,retain)XLBubbleTransition *xl_pushTranstion;
-@property(nonatomic,retain)XLBubbleTransition *xl_popTranstion;
-@property(nonatomic,retain)XLBubbleTransition *xl_presentTranstion;
-@property(nonatomic,retain)XLBubbleTransition *xl_dismissTranstion;
+Prop_retain()XLBubbleTransition *xl_pushTranstion;
+Prop_retain()XLBubbleTransition *xl_popTranstion;
+Prop_retain()XLBubbleTransition *xl_presentTranstion;
+Prop_retain()XLBubbleTransition *xl_dismissTranstion;
 
 @end
 #endif /* JOBS_HEADER_GUARD_UIVIEWCONTROLLER_XLBUBBLETRANSITION_496AF3DA62 */

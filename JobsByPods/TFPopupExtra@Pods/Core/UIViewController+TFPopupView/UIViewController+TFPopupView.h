@@ -71,10 +71,10 @@ NS_ASSUME_NONNULL_END
 
      Prop_strong()UIButton *filterBtn;
      Prop_strong()UIButton *customBtn;
-     @property(nonatomic,weak)UIView *popUpFiltrationView;
-     @property(nonatomic,weak)UIView *popUpCustomView;
-     @property(nonatomic,weak)NSNumber *currentIndex;
-     @property(nonatomic,weak)BaiShaETProjAlreadySettledSubBaseVC *vc;
+     Prop_weak()UIView *popUpFiltrationView;
+     Prop_weak()UIView *popUpCustomView;
+     Prop_weak()NSNumber *currentIndex;
+     Prop_weak()BaiShaETProjAlreadySettledSubBaseVC *vc;
      Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 
      -(NSMutableArray<UIViewController *> *)childVCMutArr{

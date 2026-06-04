@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CJTextField : UITextField
 
-@property(nonatomic,weak)id <CJTextFieldDeleteDelegate>cj_delegate;
+Prop_weak()id <CJTextFieldDeleteDelegate>cj_delegate;
 
 @end
 

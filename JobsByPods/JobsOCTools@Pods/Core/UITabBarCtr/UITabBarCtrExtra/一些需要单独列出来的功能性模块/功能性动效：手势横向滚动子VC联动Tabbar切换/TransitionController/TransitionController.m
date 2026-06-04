@@ -9,7 +9,7 @@
 
 @interface TransitionController()
 
-@property(nonatomic,weak)id<UIViewControllerContextTransitioning> transitionContext;
+Prop_weak()id<UIViewControllerContextTransitioning> transitionContext;
 @property(nonatomic,strong,readonly)UIPanGestureRecognizer *gestureRecognizer;
 @property(nonatomic,readwrite)CGPoint initialTranslationInContainerView;
 

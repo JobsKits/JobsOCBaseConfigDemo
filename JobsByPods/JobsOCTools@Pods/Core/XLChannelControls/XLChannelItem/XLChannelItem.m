@@ -9,8 +9,8 @@
 
 @interface XLChannelItem ()
 
-@property(nonatomic, strong)UILabel *textLabel;
-@property(nonatomic, strong)CAShapeLayer *borderLayer;
+Prop_strong()UILabel *textLabel;
+Prop_strong()CAShapeLayer *borderLayer;
 
 @end
 

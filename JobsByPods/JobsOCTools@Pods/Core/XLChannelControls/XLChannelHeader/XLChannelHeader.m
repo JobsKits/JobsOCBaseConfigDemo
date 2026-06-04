@@ -9,9 +9,9 @@
 
 @interface XLChannelHeader ()
 
-@property (nonatomic, strong) UILabel *titleLabel;
+Prop_strong()UILabel *titleLabel;
 
-@property (nonatomic, strong) UILabel *subtitleLabel;
+Prop_strong()UILabel *subtitleLabel;
 
 @end
 

@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_END
     使用方法：
      在需要作用的UIView的子类
 
-     @property(nonatomic,weak)UIViewController *vcer;//这个属性掌管悬浮效果，具体实现见  @interface UIView (SuspendView)
+     Prop_weak()UIViewController *vcer;//这个属性掌管悬浮效果，具体实现见  @interface UIView (SuspendView)
 
      -(void)drawRect:(CGRect)rect{
          [super drawRect:rect];

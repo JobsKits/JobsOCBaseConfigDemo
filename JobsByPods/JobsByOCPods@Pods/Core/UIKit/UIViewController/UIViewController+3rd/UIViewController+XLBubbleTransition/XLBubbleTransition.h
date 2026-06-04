@@ -11,6 +11,12 @@
 #import <UIKit/UIKit.h>
 #import <JobsByOCPods/UIViewController+XLBubbleTransition.h>
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 typedef NS_ENUM(NSInteger,XLBubbleTransitionType) {
     XLBubbleTransitionTypeShow = 0,
     XLBubbleTransitionTypeHide,
@@ -22,10 +28,10 @@ UIViewControllerAnimatedTransitioning
 ,CAAnimationDelegate
 >
 /// 转场方式：进入/返回
-@property(nonatomic, assign) XLBubbleTransitionType transitionType;
+Prop_assign()XLBubbleTransitionType transitionType;
 
 /// 锚点
-@property(nonatomic, assign) CGRect anchorRect;
+Prop_assign()CGRect anchorRect;
 
 /// 初始化方法
 + (instancetype)transitionWithAnchorRect:(CGRect)anchorRect;

@@ -16,15 +16,21 @@
 #import "JXCategoryTitleCellModel.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 @interface JXCategoryTitleBackgroundCellModel : JXCategoryTitleCellModel
 
-@property (nonatomic, strong) UIColor *normalBackgroundColor;
-@property (nonatomic, strong) UIColor *normalBorderColor;
-@property (nonatomic, strong) UIColor *selectedBackgroundColor;
-@property (nonatomic, strong) UIColor *selectedBorderColor;
-@property (nonatomic, assign) CGFloat borderLineWidth;
-@property (nonatomic, assign) CGFloat backgroundCornerRadius;
-@property (nonatomic, assign) CGFloat backgroundWidth;
-@property (nonatomic, assign) CGFloat backgroundHeight;
+Prop_strong()UIColor *normalBackgroundColor;
+Prop_strong()UIColor *normalBorderColor;
+Prop_strong()UIColor *selectedBackgroundColor;
+Prop_strong()UIColor *selectedBorderColor;
+Prop_assign()CGFloat borderLineWidth;
+Prop_assign()CGFloat backgroundCornerRadius;
+Prop_assign()CGFloat backgroundWidth;
+Prop_assign()CGFloat backgroundHeight;
 @end
 #endif /* JOBS_HEADER_GUARD_JXCATEGORYTITLEBACKGROUNDCELLMODEL_6A7712F42B */

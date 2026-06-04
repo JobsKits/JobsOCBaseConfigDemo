@@ -11,7 +11,7 @@
 
 @interface NotifiManager()
 
-@property(nonatomic, strong) NSOperationQueue* queue;
+Prop_strong()NSOperationQueue* queue;
 
 @end
 

@@ -9,8 +9,8 @@
 
 @interface XLBubbleTransition ()
 
-@property(nonatomic, strong) id<UIViewControllerContextTransitioning> transitionContext;
-@property(nonatomic, strong) CAShapeLayer *maskLayer;
+Prop_strong()id<UIViewControllerContextTransitioning> transitionContext;
+Prop_strong()CAShapeLayer *maskLayer;
 
 @end
 

@@ -9,6 +9,7 @@
 #ifndef BRPickerViewExtra_h
 #define BRPickerViewExtra_h
 
+#import "BRPickerStyle+DSL.h"
 #import "BRTextPickerView+Extra.h"
 #import "NSObject+BRPickerView.h"
 

@@ -10,8 +10,8 @@
 #import "JobsLocker+Once.h"
 
 @interface DemoObject : NSObject
-@property (nonatomic, strong) JobsLocker *locker;
-@property (nonatomic, strong) NSMutableArray<NSString *> *dataSource;
+Prop_strong()JobsLocker *locker;
+Prop_strong()NSMutableArray<NSString *> *dataSource;
 - (void)bootstrap;
 - (void)addObject:(NSString *)obj;
 

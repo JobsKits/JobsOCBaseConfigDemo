@@ -10,7 +10,7 @@
 
 @interface JobsGestureLockIndicator ()
 
-@property (nonatomic, strong) NSMutableArray<UIButton *> *nodeButtons;
+Prop_strong()NSMutableArray<UIButton *> *nodeButtons;
 
 @end
 

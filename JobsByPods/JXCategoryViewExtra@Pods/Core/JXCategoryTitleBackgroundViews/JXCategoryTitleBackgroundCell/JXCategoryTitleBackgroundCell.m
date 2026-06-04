@@ -9,7 +9,7 @@
 #import <JXCategoryViewExtra/JXCategoryTitleBackgroundCellModel.h>
 
 @interface JXCategoryTitleBackgroundCell()
-@property (nonatomic, strong) CALayer *bgLayer;
+Prop_strong()CALayer *bgLayer;
 
 @end
 
