@@ -11,10 +11,10 @@
 #import <CoreText/CoreText.h> // 提供底层文本排版与渲染能力，适合富文本、复杂排版和精细文本控制场景。
 #import <UIKit/UIKit.h>
 
-#if __has_include(<JobsModel/JobsModel.h>)
-#import <JobsModel/JobsModel.h>
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
 #else
-#import "JobsModel.h"
+#import "JobsModelDSL.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)

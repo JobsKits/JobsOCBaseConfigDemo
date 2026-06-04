@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:JobsTimeModel::customTimestampStr<br/>JobsByPods/JobsModel@Pods/Core/UIKit数据束/JobsTimeModel/JobsTimeModel.m:53"]
-  T1["function:toStringByID<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:71"]
+  S1["method:NSString::isNotBlank<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:59"]
+  T1["method:NSString::characterAtIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S1 -->|calls| T1
-  S2["method:JobsTimeModel::customTimeZone<br/>JobsByPods/JobsModel@Pods/Core/UIKit数据束/JobsTimeModel/JobsTimeModel.m:84"]
-  T2["method:NSTimeZone::initByName<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSTimeZone/NSTimeZone+Extra/NSTimeZone+Extra.m:12"]
+  S2["method:NSString::isSpace<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:66"]
+  T2["method:NSString::characterAtIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S2 -->|calls| T2
-  S3["method:JobsTimeModel::dateFormatter<br/>JobsByPods/JobsModel@Pods/Core/UIKit数据束/JobsTimeModel/JobsTimeModel.m:122"]
-  T3["method:NSTimeZone::initByAbbreviation<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSTimeZone/NSTimeZone+Extra/NSTimeZone+Extra.m:18"]
+  S3["method:NSString::isContainBlank<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:75"]
+  T3["method:NSString::rangeOfString<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
   S3 -->|calls| T3
-  S4["method:JobsTimeModel::timeZone<br/>JobsByPods/JobsModel@Pods/Core/UIKit数据束/JobsTimeModel/JobsTimeModel.m:204"]
-  T4["method:NSTimeZone::initByAbbreviation<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSTimeZone/NSTimeZone+Extra/NSTimeZone+Extra.m:18"]
+  S4["method:NSString::isAllSameCharWithStandardChar:<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:80"]
+  T4["method:NSString::characterAtIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S4 -->|calls| T4
-  S5["method:UIButtonModel::titleWidth<br/>JobsByPods/JobsModel@Pods/Core/UIKit数据束/UIButtonModel/UIButtonModel.m:73"]
-  T5["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
+  S5["method:NSString::isAllSameCharWithStandardChar:<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:80"]
+  T5["function:StringWithUTF8String<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:59"]
   S5 -->|calls| T5
-  S6["method:UIButtonModel::subTitleWidth<br/>JobsByPods/JobsModel@Pods/Core/UIKit数据束/UIButtonModel/UIButtonModel.m:79"]
-  T6["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
+  S6["method:NSString::isAlnum<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:116"]
+  T6["method:NSString::characterAtIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S6 -->|calls| T6
-  S7["method:UITextModel::font<br/>JobsByPods/JobsModel@Pods/Core/UIKit数据束/UITextModel/UITextModel.m:20"]
-  T7["function:UIFontWeightRegularSize<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Font.h:30"]
+  S7["method:NSString::isCntrl<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:124"]
+  T7["method:NSString::characterAtIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S7 -->|calls| T7
-  S8["method:UIViewModel::backBtnTitleModel<br/>JobsByPods/JobsModel@Pods/Core/UIKit数据束/UIViewModel/UIViewModel.m:63"]
-  T8["function:jobsMakeTextModel<br/>JobsByPods/JobsModel@Pods/Core/UIKit数据束/UITextModel/UITextModel.h:60"]
+  S8["method:NSString::isGraph<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:132"]
+  T8["method:NSString::characterAtIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S8 -->|calls| T8
-  S9["method:NSArray::containsObject<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSArray/NSArray+Extra/NSArray+Extra.m:75"]
-  T9["method:NSArray::containsObject<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSArray/NSArray+Extra/NSArray+Extra.m:75"]
+  S9["method:NSString::isPrint<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:140"]
+  T9["method:NSString::characterAtIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S9 -->|calls| T9
-  S10["method:NSDateFormatter::dateByString<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSDateFormatter/NSDateFormatter+Extra/NSDateFormatter+Extra.m:20"]
-  T10["function:ZMJGanttListVC::dateFromString<br/>JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@Excel/Excel-SpreadsheetView/ViewController/ZMJGanttListVC/ZMJGanttListVC.m:279"]
+  S10["method:NSString::isLower<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:148"]
+  T10["method:NSString::characterAtIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S10 -->|calls| T10
-  S11["method:NSDictionary::objectForKey<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSDictionary/NSDictionary+Extra/NSDictionary+Extra.m:32"]
-  T11["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
+  S11["method:NSString::isUpper<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:156"]
+  T11["method:NSString::characterAtIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S11 -->|calls| T11
-  S12["method:NSDictionary::objectForKey<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSDictionary/NSDictionary+Extra/NSDictionary+Extra.m:32"]
-  T12["method:NSDictionary::objectForKey<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSDictionary/NSDictionary+Extra/NSDictionary+Extra.m:32"]
+  S12["method:NSString::isXdigit<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:164"]
+  T12["method:NSString::characterAtIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S12 -->|calls| T12
-  S13["method:NSFormatter::date<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSFormatter/NSFormatter+Extra/NSFormatter+Extra.m:12"]
-  T13["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S13["method:NSString::isPunct<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:172"]
+  T13["method:NSString::characterAtIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S13 -->|calls| T13
-  S14["method:NSMutableSet::containsObject<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSMutableSet/NSMutableSet+Extra/NSMutableSet+Extra.m:25"]
-  T14["method:NSMutableSet::containsObject<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSMutableSet/NSMutableSet+Extra/NSMutableSet+Extra.m:25"]
+  S14["method:NSString::isContainsUrl<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:186"]
+  T14["method:NSString::rangeOfString<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
   S14 -->|calls| T14
-  S15["method:NSObject::img<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
+  S15["method:NSString::isEqualToString<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:26"]
   T15["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S15 -->|calls| T15
-  S16["method:NSObject::img<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
-  T16["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
+  S16["method:NSString::isEqualToString<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:26"]
+  T16["method:NSString::isEqualToString<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:26"]
   S16 -->|calls| T16
-  S17["method:NSObject::img<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
-  T17["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
+  S17["method:NSString::isContainsUrl<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:36"]
+  T17["method:NSString::rangeOfString<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
   S17 -->|calls| T17
-  S18["method:NSObject::img<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
-  T18["method:UIImage::imageWithContentsOfFile<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIImage/UIImage+Extra/UIImage+Extra.m:250"]
+  S18["method:NSString::jobsUrl<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:64"]
+  T18["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S18 -->|calls| T18
-  S19["method:NSObject::img<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:12"]
-  T19["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
+  S19["method:NSString::nullableString:replaceString:<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:94"]
+  T19["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
   S19 -->|calls| T19
-  S20["method:NSObject::imageByDataURL<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:46"]
-  T20["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S20["method:NSString::nullableString:replaceString:<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:94"]
+  T20["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
   S20 -->|calls| T20
-  S21["method:NSObject::valueForKey<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:73"]
+  S21["method:NSString::nullableString:replaceString:<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:94"]
   T21["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S21 -->|calls| T21
-  S22["method:NSObject::valueForKey<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:73"]
-  T22["method:NSObject::valueForKey<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:73"]
+  S22["method:NSString::nullableString:replaceString:<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:94"]
+  T22["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S22 -->|calls| T22
-  S23["method:NSString::isContainsUrl<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:27"]
-  T23["method:NSString::rangeOfString<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:124"]
+  S23["method:NSString::nullableString:replaceString:<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:94"]
+  T23["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
   S23 -->|calls| T23
-  S24["method:NSString::add<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:32"]
-  T24["function:JobsMutableString<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:10"]
+  S24["method:NSString::nullableString:replaceString:<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:94"]
+  T24["function:toStringByID<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:71"]
   S24 -->|calls| T24
-  S25["method:NSString::isEqualToString<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:42"]
-  T25["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S25["method:NSString::nullableString:replaceString:<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:94"]
+  T25["function:toStringByID<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:71"]
   S25 -->|calls| T25
 ```
 

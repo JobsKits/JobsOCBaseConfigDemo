@@ -14,6 +14,7 @@
 @interface JXCategoryTitleVerticalZoomView()
 @property (nonatomic, strong) JXCategoryViewAnimator *edgeLeftAnimator;
 @property (nonatomic, assign) BOOL horizontalZoomTransitionAnimating;
+
 @end
 
 @implementation JXCategoryTitleVerticalZoomView

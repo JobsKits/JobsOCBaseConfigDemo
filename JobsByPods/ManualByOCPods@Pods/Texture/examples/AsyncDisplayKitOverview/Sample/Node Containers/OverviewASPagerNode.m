@@ -36,6 +36,7 @@ static UIColor *OverViewASPagerNodeRandomColor() {
 @interface OverviewASPagerNode () <ASPagerDataSource, ASPagerDelegate>
 @property (nonatomic, strong) ASPagerNode *node;
 @property (nonatomic, copy) NSArray *data;
+
 @end
 
 @implementation OverviewASPagerNode
@@ -74,6 +75,5 @@ static UIColor *OverViewASPagerNodeRandomColor() {
         return cellNode;
     };
 }
-
 
 @end

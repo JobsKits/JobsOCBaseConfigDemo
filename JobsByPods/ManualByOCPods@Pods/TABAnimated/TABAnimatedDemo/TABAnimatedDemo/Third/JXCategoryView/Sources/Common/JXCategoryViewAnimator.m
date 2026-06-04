@@ -10,6 +10,7 @@
 @interface JXCategoryViewAnimator ()
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, assign) CFTimeInterval firstTimestamp;
+
 @end
 
 @implementation JXCategoryViewAnimator

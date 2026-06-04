@@ -9,6 +9,7 @@
 
 @interface ASVideoNode ()
 @property (nonatomic) AVPlayer *player;
+
 @end
 
 @implementation ASVideoNode

@@ -47,7 +47,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'JobsDeviceInfo'
   spec.dependency 'JobsLanMgr'
   spec.dependency 'JobsMakes'
-  spec.dependency 'JobsModel'
+  spec.dependency 'JobsModelDSL'
   spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsOCProtocols'
   spec.dependency 'JobsOCRuntimeKits'

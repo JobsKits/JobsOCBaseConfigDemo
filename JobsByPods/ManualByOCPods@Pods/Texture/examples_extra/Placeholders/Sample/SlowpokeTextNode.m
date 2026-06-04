@@ -12,6 +12,7 @@
 @interface ASTextNode (ForwardWorkaround)
 // This is a workaround until subclass overriding of custom drawing class methods is fixed
 - (void)drawRect:(CGRect)bounds withParameters:(id<NSObject>)parameters isCancelled:(asdisplaynode_iscancelled_block_t)isCancelledBlock isRasterizing:(BOOL)isRasterizing;
+
 @end
 
 @implementation SlowpokeTextNode

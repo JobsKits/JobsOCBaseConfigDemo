@@ -31,6 +31,7 @@
         return [urlString stringByAppendingString:[NSString stringWithFormat:@"?%@",parametersString]];
     }
 }
+
 @end
 
 @implementation ZBRequestTool

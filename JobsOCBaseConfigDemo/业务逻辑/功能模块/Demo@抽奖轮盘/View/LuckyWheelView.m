@@ -36,6 +36,7 @@ Prop_assign()CGFloat stopThreshold;
 Prop_copy(nullable)void (^segmentTapHandlerInternal)(LuckyWheelSegment *segment);
 Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *segment,
                                                            UILongPressGestureRecognizer *gr);
+
 @end
 
 @implementation LuckyWheelView

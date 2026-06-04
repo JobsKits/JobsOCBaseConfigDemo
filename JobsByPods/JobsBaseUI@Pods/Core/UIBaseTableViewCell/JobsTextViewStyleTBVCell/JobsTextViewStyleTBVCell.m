@@ -11,7 +11,11 @@
 #import <JobsBaseUI/SZTextView+Extra.h>
 #import <JobsBaseUI/UITableView+RegisterClass.h>
 #import <JobsBaseUI/UIView+Extra.h>
-#import <JobsModel/UIViewModel.h>
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
+#endif
 #import <Masonry/Masonry.h>
 
 @interface JobsTextViewStyleTBVCell ()

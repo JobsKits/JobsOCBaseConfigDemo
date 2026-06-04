@@ -196,7 +196,7 @@ for Jobs projects.
     end
 
     ss.dependency 'WHToastExtra'
-    ss.dependency 'JobsModel'
+    ss.dependency 'JobsModelDSL'
     ss.dependency 'JobsBlock'
     ss.dependency 'JobsClass'
     ss.dependency 'JobsMakes'

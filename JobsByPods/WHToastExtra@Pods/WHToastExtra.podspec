@@ -102,7 +102,7 @@ including toast display helpers and local image path helpers.
   spec.dependency 'Masonry'
   spec.dependency 'WHToast'
   spec.dependency 'XYColorOC'
-  spec.dependency 'JobsModel'
+  spec.dependency 'JobsModelDSL'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsClass'

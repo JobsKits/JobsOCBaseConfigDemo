@@ -15,22 +15,26 @@
 @property (nonatomic, strong) ASTextNode *usernameNode;
 @property (nonatomic, strong) ASTextNode *postLocationNode;
 @property (nonatomic, strong) ASTextNode *postTimeNode;
+
 @end
 
 @interface PhotoWithInsetTextOverlay ()
 @property (nonatomic, strong) ASNetworkImageNode *photoNode;
 @property (nonatomic, strong) ASTextNode *titleNode;
+
 @end
 
 @interface PhotoWithOutsetIconOverlay ()
 @property (nonatomic, strong) ASNetworkImageNode *photoNode;
 @property (nonatomic, strong) ASNetworkImageNode *iconNode;
+
 @end
 
 @interface FlexibleSeparatorSurroundingContent ()
 @property (nonatomic, strong) ASImageNode *topSeparator;
 @property (nonatomic, strong) ASImageNode *bottomSeparator;
 @property (nonatomic, strong) ASTextNode *textNode;
+
 @end
 
 @implementation HeaderWithRightAndLeftItems
@@ -195,8 +199,6 @@
   return absoluteSpec;
 }
 
-
-
 @end
 
 
@@ -262,6 +264,7 @@
 @property (nonatomic, strong) ASTextNode *badgeTextNode;
 @property (nonatomic, strong) ASImageNode *badgeImageNode;
 @property (nonatomic, strong) ASImageNode *photoNode2;
+
 @end
 
 @implementation CornerLayoutExample
@@ -358,6 +361,7 @@ static CGFloat const kSampleBadgeCornerRadius = 12;
 @property (nonatomic, strong) ASTextNode *subtitleNode;
 @property (nonatomic, assign) CGFloat photoSizeValue;
 @property (nonatomic, assign) CGFloat iconSizeValue;
+
 @end
 
 @implementation UserProfileSample

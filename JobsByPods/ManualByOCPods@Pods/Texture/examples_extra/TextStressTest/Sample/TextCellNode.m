@@ -23,6 +23,7 @@
   ASTextNode *_label2;
 #endif
 }
+
 @end
 
 @implementation TextCellNode

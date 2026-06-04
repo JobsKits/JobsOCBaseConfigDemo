@@ -687,4 +687,5 @@
     _param = param;
     self.label.textColor = self.param.wMarqueeTextColor;
 }
+
 @end

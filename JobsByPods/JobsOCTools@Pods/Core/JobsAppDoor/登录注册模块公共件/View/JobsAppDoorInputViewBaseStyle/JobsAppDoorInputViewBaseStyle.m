@@ -24,6 +24,7 @@
 @end
 
 @interface JobsAppDoorInputViewBaseStyle ()
+
 @end
 
 @implementation JobsAppDoorInputViewBaseStyle

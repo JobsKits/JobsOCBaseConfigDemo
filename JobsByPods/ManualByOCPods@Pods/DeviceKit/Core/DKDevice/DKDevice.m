@@ -16,10 +16,12 @@
 + (instancetype)full { DKBatteryState *s = [DKBatteryState new]; s.kind = DKBatteryStateKindFull; s.level = 1; return s; }
 + (instancetype)charging:(float)level { DKBatteryState *s = [DKBatteryState new]; s.kind = DKBatteryStateKindCharging; s.level = level; return s; }
 + (instancetype)unplugged:(float)level { DKBatteryState *s = [DKBatteryState new]; s.kind = DKBatteryStateKindUnplugged; s.level = level; return s; }
+
 @end
 
 @interface DKDevice ()
 @property (nonatomic, copy, readwrite) NSString *identifier;
+
 @end
 
 @implementation DKDevice

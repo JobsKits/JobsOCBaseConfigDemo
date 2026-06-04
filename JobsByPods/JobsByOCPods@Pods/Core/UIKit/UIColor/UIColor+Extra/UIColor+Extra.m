@@ -7,10 +7,10 @@
 
 #import "UIColor+Extra.h"
 
-#if __has_include(<JobsModel/JobsCorModel.h>)
-#import <JobsModel/JobsCorModel.h>
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
 #else
-#import "JobsCorModel.h"
+#import "JobsModelDSL.h"
 #endif
 
 @implementation UIColor (Extra)

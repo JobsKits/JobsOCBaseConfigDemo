@@ -14,6 +14,7 @@
 #import <objc/message.h>
 
 @interface EstimatedTableViewDelegate : NSObject
+
 @end
 @implementation EstimatedTableViewDelegate
 

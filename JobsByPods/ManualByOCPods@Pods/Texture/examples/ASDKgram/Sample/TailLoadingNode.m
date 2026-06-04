@@ -11,6 +11,7 @@
 
 @interface TailLoadingNode ()
 @property (nonatomic, strong) ASDisplayNode *activityIndicatorNode;
+
 @end
 
 @implementation TailLoadingNode

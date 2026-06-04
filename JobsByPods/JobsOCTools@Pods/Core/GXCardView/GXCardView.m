@@ -21,6 +21,7 @@ static CGFloat const GX_SpringVelocity     = 0.8f;
 @optional
 - (void)cardViewCellDidRemoveFromSuperView:(GXCardViewCell *)cell withDirection:(GXCardCellSwipeDirection)direction;
 - (void)cardViewCellDidMoveFromSuperView:(GXCardViewCell*)cell forMovePoint:(CGPoint)point;
+
 @end
 
 @interface GXCardViewCell()

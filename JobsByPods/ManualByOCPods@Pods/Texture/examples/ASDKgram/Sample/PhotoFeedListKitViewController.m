@@ -17,6 +17,7 @@
 @property (nonatomic, strong, readonly) ASCollectionNode *collectionNode;
 @property (nonatomic, strong, readonly) UIActivityIndicatorView *spinner;
 @property (nonatomic, strong, readonly) UIRefreshControl *refreshCtrl;
+
 @end
 
 @implementation PhotoFeedListKitViewController

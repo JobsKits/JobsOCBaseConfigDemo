@@ -11,6 +11,7 @@
 @interface JXCategoryImageCell()
 @property (nonatomic, strong) NSString *currentImageName;
 @property (nonatomic, strong) NSURL *currentImageURL;
+
 @end
 
 @implementation JXCategoryImageCell

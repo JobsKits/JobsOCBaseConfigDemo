@@ -20,5 +20,4 @@
     [self.node.collectionNode.view.collectionViewLayout invalidateLayout];
 }
 
-
 @end

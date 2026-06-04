@@ -11,6 +11,7 @@
 
 @interface OverviewASCollectionNode () <ASCollectionDataSource, ASCollectionDelegate>
 @property (nonatomic, strong) ASCollectionNode *node;
+
 @end
 
 @implementation OverviewASCollectionNode

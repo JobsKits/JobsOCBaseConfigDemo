@@ -12,6 +12,7 @@
 
 @interface ASImageTestNode : ASImageNode
 @property (nonatomic, readonly) NSUInteger setNeedsDisplayCount;
+
 @end
 
 @implementation ASImageTestNode

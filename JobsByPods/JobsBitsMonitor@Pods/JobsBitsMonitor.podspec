@@ -43,6 +43,7 @@ bits monitor related functionality for Jobs projects.
     ss.dependency 'JobsSuspend'
     ss.dependency 'JobsOCDefs'
     ss.dependency 'JobsBlock'
+    ss.dependency 'JobsModelDSL'
   end
 
   spec.subspec 'NetWorkToolsSupport' do |ss|

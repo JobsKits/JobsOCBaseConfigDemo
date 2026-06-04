@@ -11,6 +11,7 @@
 Prop_copy()JobsControlHandler handler;
 -(instancetype)initWithHandler:(JobsControlHandler)handler;
 -(void)invoke:(UIControl *)sender;
+
 @end
 
 @implementation _JobsClosureWrapper

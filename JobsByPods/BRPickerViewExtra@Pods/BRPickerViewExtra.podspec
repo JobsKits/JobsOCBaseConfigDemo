@@ -56,7 +56,7 @@ BRAddressPickerView have been replaced by BRTextPickerView-based APIs.
     ss.dependency 'XYColorOC'
     ss.dependency 'BRPickerView'
     ss.dependency 'JobsBlock'
-    ss.dependency 'JobsModel'
+    ss.dependency 'JobsModelDSL'
     ss.dependency 'JobsMakes'
     ss.dependency 'JobsOCDefs'
     ss.dependency 'JobsLanMgr'

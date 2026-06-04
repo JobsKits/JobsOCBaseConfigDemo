@@ -35,4 +35,5 @@
   statusBarFrame.size.height         = [[UIApplication sharedApplication] statusBarFrame].size.height;
   _statusBarOpaqueUnderlayView.frame = statusBarFrame;
 }
+
 @end

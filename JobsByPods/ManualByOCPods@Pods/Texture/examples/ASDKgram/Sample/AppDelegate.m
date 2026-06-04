@@ -19,6 +19,7 @@
 #endif
 
 @interface AppDelegate () <UITabBarControllerDelegate>
+
 @end
 
 @implementation AppDelegate

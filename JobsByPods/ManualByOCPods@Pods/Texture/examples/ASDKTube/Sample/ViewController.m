@@ -13,6 +13,7 @@
 
 @interface ViewController()<ASVideoPlayerNodeDelegate, ASTableDelegate, ASTableDataSource>
 @property (nonatomic, strong) ASVideoPlayerNode *videoPlayerNode;
+
 @end
 
 @implementation ViewController

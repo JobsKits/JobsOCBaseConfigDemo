@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSMutableArray<NSString *> *dataSource;
 - (void)bootstrap;
 - (void)addObject:(NSString *)obj;
+
 @end
 
 @implementation DemoObject

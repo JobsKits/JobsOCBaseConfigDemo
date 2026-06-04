@@ -10,6 +10,7 @@
 
 @interface JXCategoryIndicatorTriangleView ()
 @property (nonatomic, strong) CAShapeLayer *triangleLayer;
+
 @end
 
 @implementation JXCategoryIndicatorTriangleView

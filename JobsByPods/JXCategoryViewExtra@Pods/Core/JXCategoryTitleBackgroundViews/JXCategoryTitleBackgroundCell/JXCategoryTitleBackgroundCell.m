@@ -10,6 +10,7 @@
 
 @interface JXCategoryTitleBackgroundCell()
 @property (nonatomic, strong) CALayer *bgLayer;
+
 @end
 
 @implementation JXCategoryTitleBackgroundCell

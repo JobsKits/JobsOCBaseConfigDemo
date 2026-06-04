@@ -9,10 +9,30 @@
 #define JOBS_HEADER_GUARD_NSOBJECT_SYSINFO_A7E6BCD425
 
 #import <Foundation/Foundation.h>
-#import <JobsModel/NSArray+Extra.h>
-#import <JobsModel/NSObject+Extra.h>
-#import <JobsModel/NSString+Extra.h>
-#import <JobsModel/NSDictionary+Extra.h>
+
+#if __has_include(<JobsNavigationTransitionMgr/NSArray+Extra.h>)
+#import <JobsNavigationTransitionMgr/NSArray+Extra.h>
+#else
+#import "NSArray+Extra.h"
+#endif
+
+#if __has_include(<JobsNavigationTransitionMgr/NSObject+Extra.h>)
+#import <JobsNavigationTransitionMgr/NSObject+Extra.h>
+#else
+#import "NSObject+Extra.h"
+#endif
+
+#if __has_include(<JobsNavigationTransitionMgr/NSString+Extra.h>)
+#import <JobsNavigationTransitionMgr/NSString+Extra.h>
+#else
+#import "NSString+Extra.h"
+#endif
+
+#if __has_include(<JobsNavigationTransitionMgr/NSDictionary+Extra.h>)
+#import <JobsNavigationTransitionMgr/NSDictionary+Extra.h>
+#else
+#import "NSDictionary+Extra.h"
+#endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>

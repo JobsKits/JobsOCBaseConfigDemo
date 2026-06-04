@@ -88,7 +88,7 @@ Pod::Spec.new do |spec|
 
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsMakes'
-  spec.dependency 'JobsModel'
+  spec.dependency 'JobsModelDSL'
   spec.dependency 'JobsBaseUI'
   spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsCryptography'

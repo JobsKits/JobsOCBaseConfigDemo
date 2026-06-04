@@ -16,6 +16,7 @@
 @property (nonatomic, assign) BOOL willRemoveFromWindow;
 @property (nonatomic, assign) BOOL isFirstMoveToWindow;
 @property (nonatomic, strong) JXCategoryListContainerView *retainedSelf;
+
 @end
 
 @implementation JXCategoryListContainerView

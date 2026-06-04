@@ -8,6 +8,7 @@
 #import "ScreenNode.h"
 
 @interface ScreenNode() <ASMultiplexImageNodeDataSource, ASMultiplexImageNodeDelegate, ASImageDownloaderProtocol>
+
 @end
 
 @implementation ScreenNode

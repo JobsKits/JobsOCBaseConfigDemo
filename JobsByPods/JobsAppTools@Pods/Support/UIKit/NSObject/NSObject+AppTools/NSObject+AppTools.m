@@ -9,10 +9,10 @@
 #import <JobsAppTools/NSObject+Image.h>
 #import <JobsAppTools/UIColor+Extra.h>
 
-#if __has_include(<JobsModel/JobsModel.h>)
-#import <JobsModel/JobsModel.h>
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
 #else
-#import "JobsModel.h"
+#import "JobsModelDSL.h"
 #endif
 
 @implementation NSObject (AppTools)

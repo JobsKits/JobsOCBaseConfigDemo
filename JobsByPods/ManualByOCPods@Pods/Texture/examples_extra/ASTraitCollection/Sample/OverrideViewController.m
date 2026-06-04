@@ -13,6 +13,7 @@ static NSString *kLinkAttributeName = @"PlaceKittenNodeLinkAttributeName";
 @interface OverrideNode()
 @property (nonatomic, strong) ASTextNode *textNode;
 @property (nonatomic, strong) ASButtonNode *buttonNode;
+
 @end
 
 @implementation OverrideNode

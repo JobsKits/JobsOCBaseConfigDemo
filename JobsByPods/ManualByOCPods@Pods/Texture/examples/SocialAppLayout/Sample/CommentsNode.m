@@ -12,6 +12,7 @@
 @property (nonatomic, strong) ASImageNode *iconNode;
 @property (nonatomic, strong) ASTextNode *countNode;
 @property (nonatomic, assign) NSInteger commentsCount;
+
 @end
 
 @implementation CommentsNode

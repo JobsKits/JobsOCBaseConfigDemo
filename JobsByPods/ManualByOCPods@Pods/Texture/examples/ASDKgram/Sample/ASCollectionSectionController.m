@@ -17,6 +17,7 @@
 @property (nonatomic, copy) NSArray *pendingItems;
 
 @property (nonatomic) BOOL initialItemsRead;
+
 @end
 
 @implementation ASCollectionSectionController

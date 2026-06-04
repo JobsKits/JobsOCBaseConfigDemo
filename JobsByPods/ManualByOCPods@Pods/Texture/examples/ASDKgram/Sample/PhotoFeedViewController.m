@@ -15,6 +15,7 @@
 static NSString *TableViewCellIdentifier = @"PhotoCell";
 
 @interface PhotoFeedViewController () <UITableViewDelegate, UITableViewDataSource>
+
 @end
 
 @implementation PhotoFeedViewController {

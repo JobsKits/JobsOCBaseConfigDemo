@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:JobsTabBarCtrl::byDataSourceWithButtons:controllers:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:537"]
-  T1["method:JobsTabBarCtrl::setDataSourceByButtons:controllers:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:249"]
+  S1["method:NSObject::img<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSObject/NSObject+image/NSObject+image.m:12"]
+  T1["method:UIImage::imageWithContentsOfFile<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIImage/UIImage+Extra/UIImage+Extra.m:250"]
   S1 -->|calls| T1
-  S2["method:LZTabBar::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBar/LZTabBar.m:19"]
-  T2["method:LZTabBar::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBar/LZTabBar.m:19"]
+  S2["method:NSString::nullableString:replaceString:<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:12"]
+  T2["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S2 -->|calls| T2
-  S3["method:LZTabBar::layoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBar/LZTabBar.m:25"]
-  T3["method:LZTabBar::layoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBar/LZTabBar.m:25"]
+  S3["method:NSString::nullableString:replaceString:<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:12"]
+  T3["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S3 -->|calls| T3
-  S4["method:LZTabBar::layoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBar/LZTabBar.m:25"]
-  T4["method:LZTabBar::setupItems<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBar/LZTabBar.m:32"]
+  S4["method:NSString::cor<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:12"]
+  T4["method:UIColor::jobsCor<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:13"]
   S4 -->|calls| T4
-  S5["method:LZTabBar::setupItems<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBar/LZTabBar.m:32"]
-  T5["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S5["method:NSString::substringFromIndex<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:28"]
+  T5["method:NSString::substringFromIndex<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:28"]
   S5 -->|calls| T5
-  S6["method:LZTabBar::topLine<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBar/LZTabBar.m:52"]
-  T6["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S6["method:NSString::substringToIndex<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:36"]
+  T6["method:NSString::substringToIndex<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:36"]
   S6 -->|calls| T6
-  S7["method:LZTabBar::effectView<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBar/LZTabBar.m:60"]
-  T7["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S7["method:NSString::substringByRange<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:44"]
+  T7["method:NSString::substringWithRange<br/>JobsByPods/JobsAPIs@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:301"]
   S7 -->|calls| T7
-  S8["method:LZTabBarConfig::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarConfig/LZTabBarConfig.m:12"]
-  T8["method:LZTabBarConfig::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarConfig/LZTabBarConfig.m:12"]
+  S8["method:NSString::rangeOfString<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
+  T8["method:NSString::rangeOfString<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
   S8 -->|calls| T8
-  S9["method:LZTabBarController::initWithBlock:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:31"]
-  T9["method:LZTabBar::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBar/LZTabBar.m:19"]
+  S9["method:NSString::range<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:60"]
+  T9["method:NSString::rangeOfString<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
   S9 -->|calls| T9
-  S10["method:LZTabBarController::initWithBlock:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:31"]
-  T10["method:LZTabBarController::setupViewControllers<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:93"]
+  S10["method:NSString::characterAtIndex<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
+  T10["method:NSString::characterAtIndex<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S10 -->|calls| T10
-  S11["method:LZTabBarController::initWithBlock:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:31"]
-  T11["method:LZTabBarController::setupTabBar<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:106"]
+  S11["method:UIButton::initByTitle<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:91"]
+  T11["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S11 -->|calls| T11
-  S12["method:LZTabBarController::loadView<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:44"]
-  T12["method:LZTabBarController::loadView<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:44"]
+  S12["method:UIButton::initByAttributedString<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:101"]
+  T12["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S12 -->|calls| T12
-  S13["method:LZTabBarController::viewDidLoad<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:48"]
-  T13["method:LZTabBarController::viewDidLoad<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:48"]
+  S13["method:UIButton::initByNormalImage<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:111"]
+  T13["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S13 -->|calls| T13
-  S14["method:LZTabBarController::setupViewControllers<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:93"]
-  T14["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S14["method:UIButton::initByBackgroundImage<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:121"]
+  T14["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S14 -->|calls| T14
-  S15["method:LZTabBarController::setupTabBar<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:106"]
-  T15["function:jobsMakeLZTabBarItem<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarItem/LZTabBarItem.h:57"]
+  S15["method:UIButton::initByTitles<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:132"]
+  T15["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S15 -->|calls| T15
-  S16["method:LZTabBarController::tabBar:didSelectItem:atIndex:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:152"]
-  T16["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S16["method:UIButton::initByAttributedStrings<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:144"]
+  T16["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S16 -->|calls| T16
-  S17["method:LZTabBarController::tabBar:didSelectItem:atIndex:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:152"]
-  T17["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S17["method:UIButton::initByTitle_font<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:157"]
+  T17["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S17 -->|calls| T17
-  S18["method:LZTabBarController::viewWillTransitionToSize:withTransitionCoordinator:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:183"]
-  T18["method:LZTabBarController::viewWillTransitionToSize:withTransitionCoordinator:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:183"]
+  S18["method:UIButton::initByStyle1<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:169"]
+  T18["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S18 -->|calls| T18
-  S19["method:LZTabBarItem::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarItem/LZTabBarItem.m:21"]
-  T19["method:LZTabBarItem::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarItem/LZTabBarItem.m:21"]
+  S19["method:UIButton::initByStyle2<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:183"]
+  T19["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S19 -->|calls| T19
-  S20["method:LZTabBarItem::layoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarItem/LZTabBarItem.m:35"]
-  T20["method:LZTabBarItem::layoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarItem/LZTabBarItem.m:35"]
+  S20["method:UIButton::initByStyle3<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:203"]
+  T20["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S20 -->|calls| T20
-  S21["method:UITabBar::didAddSubview:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:20"]
-  T21["method:NSObject::isMemberOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:85"]
+  S21["method:UIButton::initByStyle4<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:219"]
+  T21["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S21 -->|calls| T21
-  S22["method:UITabBar::didAddSubview:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:20"]
-  T22["method:NSObject::isMemberOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:85"]
+  S22["method:UIButton::initByStyle5<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:239"]
+  T22["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S22 -->|calls| T22
-  S23["method:UITabBar::didAddSubview:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:20"]
-  T23["method:NSObject::isMemberOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:85"]
+  S23["method:UIButton::jobsInit<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:307"]
+  T23["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S23 -->|calls| T23
-  S24["method:UITabBar::tl_setSelectedItem:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:37"]
-  T24["function:UITabBar::imageView<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:82"]
+  S24["method:UIButton::initByViewModel<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:316"]
+  T24["method:UIButton::longPressGestureActionBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:22"]
   S24 -->|calls| T24
-  S25["method:UITabBar::tl_setSelectedItem:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:37"]
-  T25["function:UITabBar::textLabel<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:68"]
+  S25["method:UIButton::initByViewModel<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:316"]
+  T25["method:UIButton::clickActionBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:36"]
   S25 -->|calls| T25
 ```
 

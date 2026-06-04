@@ -14,6 +14,7 @@
 
 @interface PhotoFeedSectionController () <ASSupplementaryNodeSource, IGListSupplementaryViewSource>
 @property (nonatomic, strong) NSString *paginatingSpinner;
+
 @end
 
 @implementation PhotoFeedSectionController

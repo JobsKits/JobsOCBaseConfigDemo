@@ -42,7 +42,7 @@ model-driven view rendering support.
 
   spec.default_subspecs = 'Core'
   
-  spec.dependency 'JobsModel'
+  spec.dependency 'JobsModelDSL'
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsOCDSL'

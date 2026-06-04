@@ -11,6 +11,7 @@
 
 @interface DKDevice ()
 @property (nonatomic, copy, readwrite) NSString *identifier;
+
 @end
 
 static NSDictionary<NSString *, NSNumber *> *DKIdentifierToTypeMap(void) {

@@ -11,6 +11,7 @@
 
 @interface ViewController ()
 @property (nonatomic, strong) ASTextNode *textNode;
+
 @end
 
 @implementation ViewController

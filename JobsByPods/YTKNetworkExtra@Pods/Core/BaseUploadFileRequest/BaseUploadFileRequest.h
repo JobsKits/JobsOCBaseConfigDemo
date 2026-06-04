@@ -29,10 +29,10 @@
 #import "JobsStringUtils.h"
 #endif
 
-#if __has_include(<JobsModel/JobsFileModel.h>)
-#import <JobsModel/JobsFileModel.h>
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
 #else
-#import "JobsFileModel.h"
+#import "JobsModelDSL.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

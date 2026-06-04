@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:JobsNavBarConfig::font<br/>JobsByPods/JobsNavBar@Pods/Core/JobsNavBarConfig/JobsNavBarConfig.m:84"]
-  T1["function:bayonRegular<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Font.h:141"]
+  S1["method:NSString::removeLastChars<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:259"]
+  T1["method:NSString::substringToIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:36"]
   S1 -->|calls| T1
-  S2["method:BaseButton::init<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:33"]
-  T2["method:BaseButton::init<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:33"]
+  S2["method:NSString::substringWithRange<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:301"]
+  T2["method:NSString::substringWithRange<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:301"]
   S2 -->|calls| T2
-  S3["method:BaseButton::buttonWithConfiguration:primaryAction:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:45"]
-  T3["method:BaseButton::buttonWithConfiguration:primaryAction:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:45"]
+  S3["method:NSString::addNewlines<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:309"]
+  T3["method:NSString::characterAtIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S3 -->|calls| T3
-  S4["method:BaseButton::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:55"]
-  T4["method:BaseButton::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:55"]
+  S4["method:NSString::cor<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:12"]
+  T4["method:UIColor::jobsCor<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:13"]
   S4 -->|calls| T4
-  S5["method:BaseButton::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:55"]
-  T5["method:BaseButton::resetSubViews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:96"]
+  S5["method:NSString::substringFromIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:28"]
+  T5["method:NSString::substringFromIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:28"]
   S5 -->|calls| T5
-  S6["method:BaseButton::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:55"]
-  T6["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S6["method:NSString::substringToIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:36"]
+  T6["method:NSString::substringToIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:36"]
   S6 -->|calls| T6
-  S7["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:78"]
-  T7["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:78"]
+  S7["method:NSString::substringByRange<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:44"]
+  T7["method:NSString::substringWithRange<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Replace/NSString+Replace.m:301"]
   S7 -->|calls| T7
-  S8["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:78"]
-  T8["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S8["method:NSString::rangeOfString<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
+  T8["method:NSString::rangeOfString<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
   S8 -->|calls| T8
-  S9["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:78"]
-  T9["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S9["method:NSString::range<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:60"]
+  T9["method:NSString::rangeOfString<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:52"]
   S9 -->|calls| T9
-  S10["method:BaseButton::hitTest:withEvent:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseButton/BaseButton.m:78"]
-  T10["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S10["method:NSString::characterAtIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
+  T10["method:NSString::characterAtIndex<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:72"]
   S10 -->|calls| T10
-  S11["method:BaseImageView::init<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseImageView/BaseImageView.m:22"]
-  T11["method:BaseImageView::init<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseImageView/BaseImageView.m:22"]
+  S11["method:NSString::jobsUrl<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+URL/NSString+URL.m:12"]
+  T11["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S11 -->|calls| T11
-  S12["method:BaseImageView::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseImageView/BaseImageView.m:45"]
-  T12["method:BaseImageView::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseImageView/BaseImageView.m:45"]
+  S12["method:NSString::URLRequest<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+URL/NSString+URL.m:21"]
+  T12["method:NSURLRequest::initBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSURLRequest/NSURLRequest+Extra/NSURLRequest+Extra.m:12"]
   S12 -->|calls| T12
-  S13["method:BaseImageView::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseImageView/BaseImageView.m:45"]
-  T13["method:UIView::appointCornerCutToCircleByRoundingCorners:cornerRadii:<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:120"]
+  S13["method:NSString::jobsFileUrl<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+URL/NSString+URL.m:26"]
+  T13["method:NSURL::fileURLWithPath<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSURL/NSURL+Extra/NSURL+Extra.m:12"]
   S13 -->|calls| T13
-  S14["method:BaseImageView::layoutIfNeeded<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseImageView/BaseImageView.m:55"]
-  T14["method:BaseImageView::layoutIfNeeded<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseImageView/BaseImageView.m:55"]
+  S14["method:NSString::urlProtect<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+URL/NSString+URL.m:38"]
+  T14["method:NSString::containsString<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:29"]
   S14 -->|calls| T14
-  S15["method:BaseTextView::init<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:21"]
-  T15["method:BaseTextView::init<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:21"]
+  S15["method:UIButton::makeBtnTitleByShowingType<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIButton/UIButton+Extra/UIButton+Extra.m:12"]
+  T15["method:UIView::buttonAutoWidthByFont<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIView/UIView+AutoSelfAdaptionSize/UIView+AutoSelfAdaptionSize.m:33"]
   S15 -->|calls| T15
-  S16["method:BaseTextView::init<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:21"]
-  T16["method:BaseTextView::setupDefaults<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:117"]
+  S16["method:UIButton::initByTitle<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:91"]
+  T16["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S16 -->|calls| T16
-  S17["method:BaseTextView::initWithFrame:textContainer:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:53"]
-  T17["method:BaseTextView::initWithFrame:textContainer:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:53"]
+  S17["method:UIButton::initByAttributedString<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:101"]
+  T17["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S17 -->|calls| T17
-  S18["method:BaseTextView::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:66"]
-  T18["method:BaseTextView::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:66"]
+  S18["method:UIButton::initByNormalImage<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:111"]
+  T18["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S18 -->|calls| T18
-  S19["method:BaseTextView::layoutSubviews<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:66"]
-  T19["method:BaseTextView::adjustContentOffset<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:113"]
+  S19["method:UIButton::initByBackgroundImage<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:121"]
+  T19["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S19 -->|calls| T19
-  S20["method:BaseTextView::canPerformAction:withSender:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:76"]
-  T20["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S20["method:UIButton::initByTitles<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:132"]
+  T20["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S20 -->|calls| T20
-  S21["method:BaseTextView::canPerformAction:withSender:<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:76"]
-  T21["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S21["method:UIButton::initByAttributedStrings<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:144"]
+  T21["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S21 -->|calls| T21
-  S22["method:BaseTextView::setupDefaults<br/>JobsByPods/JobsNavBar@Pods/Support/BaseUI/BaseTextView/BaseTextView.m:117"]
-  T22["method:UITextView::switchs<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UITextView/UITextView+Extra/UITextView+Extra.m:15"]
+  S22["method:UIButton::initByTitle_font<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:157"]
+  T22["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S22 -->|calls| T22
-  S23["method:NSData::initWithData<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSData/NSData+Extra/NSData+Extra.m:12"]
-  T23["method:NSData::initWithData<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSData/NSData+Extra/NSData+Extra.m:12"]
+  S23["method:UIButton::initByStyle1<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:169"]
+  T23["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S23 -->|calls| T23
-  S24["method:NSMutableDictionary::add<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSMutableDictionary/NSMutableDictionary+Extra/NSMutableDictionary+Extra.m:12"]
-  T24["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
+  S24["method:UIButton::initByStyle2<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:183"]
+  T24["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S24 -->|calls| T24
-  S25["method:NSMutableDictionary::add<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/NSMutableDictionary/NSMutableDictionary+Extra/NSMutableDictionary+Extra.m:12"]
-  T25["method:ASWeakMap::setObject:forKey:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASWeakMap.mm:65"]
+  S25["method:UIButton::initByStyle3<br/>JobsByPods/JobsNavBar@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:203"]
+  T25["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
   S25 -->|calls| T25
 ```
 

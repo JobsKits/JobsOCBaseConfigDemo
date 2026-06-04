@@ -10,6 +10,7 @@
 
 @interface TableViewController () <ASTableViewDataSource, ASTableViewDelegate>
 @property (nonatomic, strong) ASTableNode *tableNode;
+
 @end
 
 @implementation TableViewController

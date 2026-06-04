@@ -41,4 +41,5 @@
 
     [self.titleLabel sizeToFit];
 }
+
 @end

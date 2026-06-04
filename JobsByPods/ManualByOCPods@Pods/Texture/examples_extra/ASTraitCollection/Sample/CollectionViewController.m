@@ -11,6 +11,7 @@
 
 @interface CollectionViewController () <ASCollectionDelegate, ASCollectionDataSource>
 @property (nonatomic, strong) ASCollectionNode *collectionNode;
+
 @end
 
 @implementation CollectionViewController

@@ -476,4 +476,5 @@ NSString *const zb_downloadPath =@"AppDownload";
         NSLog(@"\n------------ZBNetworking------download info------begin------\n downloadTask对象为nil，无法暂停下载请求\n-URLAddress-:%@\n------------ZBNetworking------download info-------end-------",request.url);
     }
 }
+
 @end

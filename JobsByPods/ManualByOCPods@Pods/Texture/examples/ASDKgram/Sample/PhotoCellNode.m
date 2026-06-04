@@ -28,6 +28,7 @@
 #define InsetForFooter UIEdgeInsetsMake(VERTICAL_BUFFER, HORIZONTAL_BUFFER, VERTICAL_BUFFER, HORIZONTAL_BUFFER)
 
 @interface PhotoCellNode () <ASNetworkImageNodeDelegate>
+
 @end
 
 @implementation PhotoCellNode

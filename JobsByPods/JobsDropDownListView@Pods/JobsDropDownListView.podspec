@@ -25,7 +25,7 @@ Pod::Spec.new do |spec|
     'UIKit'
   ]
 
-  spec.dependency 'JobsModel'
+  spec.dependency 'JobsModelDSL'
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsClass'
   spec.dependency 'JobsBlock'

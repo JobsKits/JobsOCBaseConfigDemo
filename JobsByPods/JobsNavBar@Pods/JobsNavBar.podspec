@@ -51,7 +51,7 @@ navigation bar view support and related configuration models for Jobs projects.
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDSL'
-  spec.dependency 'JobsModel'
+  spec.dependency 'JobsModelDSL'
   spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsAppTools'
   spec.dependency 'JobsDeviceInfo'

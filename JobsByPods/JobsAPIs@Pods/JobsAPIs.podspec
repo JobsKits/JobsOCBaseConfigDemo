@@ -56,7 +56,7 @@ register request, and image upload request, built on top of YTKNetwork.
   ]
 
   spec.dependency 'This'
-  spec.dependency 'JobsModel'
+  spec.dependency 'JobsModelDSL'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsClass'
   spec.dependency 'JobsOCDefs'

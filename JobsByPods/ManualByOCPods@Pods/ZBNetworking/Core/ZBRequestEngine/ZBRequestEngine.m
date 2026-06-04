@@ -35,6 +35,7 @@ NSString *const _delegate =@"_delegate";
 @property (nonatomic, strong) AFHTTPResponseSerializer *httpResponseSerializer;
 @property (nonatomic, strong) AFXMLParserResponseSerializer *xmlResponseSerializer;
 @property (nonatomic, strong) AFPropertyListResponseSerializer *plistResponseSerializer;
+
 @end
 
 @implementation ZBRequestEngine{

@@ -71,7 +71,7 @@ date range picker view with Jobs project styling and helper integrations.
     ss.dependency 'TABAnimated'
     ss.dependency 'XZMRefresh'
     ss.dependency 'BRPickerView'
-    ss.dependency 'JobsModel'
+    ss.dependency 'JobsModelDSL'
     ss.dependency 'BRPickerViewExtra'
     ss.dependency 'This'
   end

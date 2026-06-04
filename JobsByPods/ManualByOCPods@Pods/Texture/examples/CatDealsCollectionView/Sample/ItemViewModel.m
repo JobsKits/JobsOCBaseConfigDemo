@@ -97,5 +97,4 @@ NSArray *badges;
   return start + arc4random_uniform(end - start);
 }
 
-
 @end

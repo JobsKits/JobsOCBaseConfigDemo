@@ -61,7 +61,7 @@ and loading accessories on top of YTKNetwork.
       'UIKit'
     ]
 
-    ss.dependency 'JobsModel'
+    ss.dependency 'JobsModelDSL'
     ss.dependency 'JobsMakes'
     ss.dependency 'JobsBlock'
     ss.dependency 'JobsOCDefs'

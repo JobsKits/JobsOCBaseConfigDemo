@@ -11,9 +11,11 @@ double JobsLoadingImageVersionNumber = 1.0;
 const unsigned char JobsLoadingImageVersionString[] = "1.0.0";
 
 @interface JobsLoadingImageToken : NSObject
+
 @end
 
 @implementation JobsLoadingImageToken
+
 @end
 
 BOOL JobsObjectIsNull(id _Nullable obj) {

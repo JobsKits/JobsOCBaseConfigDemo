@@ -13,6 +13,7 @@
 @property (nonatomic, strong) CALayer *titleMaskLayer;
 @property (nonatomic, strong) CALayer *maskTitleMaskLayer;
 @property (nonatomic, strong) NSLayoutConstraint *titleLabelCenterY;
+
 @end
 
 @implementation JXCategoryTitleCell

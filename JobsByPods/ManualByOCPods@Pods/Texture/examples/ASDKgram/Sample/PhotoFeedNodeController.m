@@ -16,6 +16,7 @@
 
 @interface PhotoFeedNodeController () <ASTableDelegate, ASTableDataSource>
 @property (nonatomic, strong) ASTableNode *tableNode;
+
 @end
 
 @implementation PhotoFeedNodeController

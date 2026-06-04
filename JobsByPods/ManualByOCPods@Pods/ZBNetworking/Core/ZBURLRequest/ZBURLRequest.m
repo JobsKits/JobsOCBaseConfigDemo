@@ -98,6 +98,7 @@
     NSUInteger _batchRequestCount;
     BOOL _failed;
 }
+
 @end
 
 @implementation ZBBatchRequest
@@ -178,6 +179,7 @@
     formData.fileURL = fileURL;
     return formData;
 }
+
 @end
 
 #pragma mark - ZBConfig
@@ -197,4 +199,5 @@
     _defaultMethodType=defaultMethodType;
     _isDefaultMethodType=YES;
 }
+
 @end

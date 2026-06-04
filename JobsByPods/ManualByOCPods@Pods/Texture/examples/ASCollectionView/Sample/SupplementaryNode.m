@@ -15,6 +15,7 @@ static CGFloat kInsets = 15.0;
 
 @interface SupplementaryNode ()
 @property (nonatomic, strong) ASTextNode *textNode;
+
 @end
 
 @implementation SupplementaryNode

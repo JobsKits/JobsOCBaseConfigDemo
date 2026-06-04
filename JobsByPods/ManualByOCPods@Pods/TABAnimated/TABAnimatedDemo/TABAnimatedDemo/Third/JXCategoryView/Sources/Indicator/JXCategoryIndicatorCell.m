@@ -10,6 +10,7 @@
 
 @interface JXCategoryIndicatorCell ()
 @property (nonatomic, strong) UIView *separatorLine;
+
 @end
 
 @implementation JXCategoryIndicatorCell

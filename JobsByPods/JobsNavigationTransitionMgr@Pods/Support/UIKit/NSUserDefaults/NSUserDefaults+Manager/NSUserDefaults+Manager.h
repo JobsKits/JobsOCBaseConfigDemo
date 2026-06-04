@@ -9,9 +9,23 @@
 #define JOBS_HEADER_GUARD_NSUSERDEFAULTS_MANAGER_BD02D64227
 
 #import <Foundation/Foundation.h>
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
+#endif
+
+#if __has_include(<JobsNavigationTransitionMgr/NSString+Path.h>)
+#import <JobsNavigationTransitionMgr/NSString+Path.h>
+#else
+#import "NSString+Path.h"
+#endif
+
+#if __has_include(<JobsModel/NSObject+Path.h>)
 #import <JobsModel/NSObject+Path.h>
-#import <JobsModel/NSString+Path.h>
-#import <JobsModel/JobsModel.h>
+#else
+#import "NSObject+Path.h"
+#endif
 
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>

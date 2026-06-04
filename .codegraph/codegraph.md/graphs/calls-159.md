@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:SlideToUnlockView::thumbView<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:127"]
-  T1["method:SlideToUnlockView::byResetAnimated<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:85"]
+  S1["method:NSString::add<br/>JobsByPods/JobsRichTextUtils@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:16"]
+  T1["function:JobsMutableString<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:10"]
   S1 -->|calls| T1
-  S2["method:SlideToUnlockView::thumbView<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:127"]
-  T2["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S2["method:UIColor::jobsCor<br/>JobsByPods/JobsRichTextUtils@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:12"]
+  T2["method:NSString::hasPrefix<br/>JobsByPods/JobsAPIs@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:39"]
   S2 -->|calls| T2
-  S3["method:JobsCustomTabBarConfig::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsCustomTabBarCtr/JobsCustomTabBarConfig/JobsCustomTabBarConfig.m:46"]
-  T3["method:JobsCustomTabBarConfig::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsCustomTabBarCtr/JobsCustomTabBarConfig/JobsCustomTabBarConfig.m:46"]
+  S3["method:UIColor::jobsCor<br/>JobsByPods/JobsRichTextUtils@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:12"]
+  T3["method:NSString::substringFromIndex<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:28"]
   S3 -->|calls| T3
-  S4["method:JobsTabBarCtrl::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:23"]
-  T4["method:JobsTabBarCtrl::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:23"]
+  S4["function:JobsUrl<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:14"]
+  T4["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S4 -->|calls| T4
-  S5["method:JobsTabBarCtrl::viewDidLoad<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:45"]
-  T5["method:JobsTabBarCtrl::viewDidLoad<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:45"]
+  S5["function:JobsFileUrl<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:19"]
+  T5["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S5 -->|calls| T5
-  S6["method:JobsTabBarCtrl::viewDidLayoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:57"]
-  T6["method:JobsTabBarCtrl::viewDidLayoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:57"]
+  S6["function:JobsFileUrl<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:19"]
+  T6["method:NSURL::fileURLWithPath<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSURL/NSURL+Extra/NSURL+Extra.m:12"]
   S6 -->|calls| T6
-  S7["method:JobsTabBarCtrl::viewDidLayoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:57"]
-  T7["method:JobsTabBarCtrl::layoutButtonsByRule<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:126"]
+  S7["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
+  T7["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S7 -->|calls| T7
-  S8["method:JobsTabBarCtrl::viewDidLayoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:57"]
-  T8["method:JobsTabBarCtrl::onButtonsLayouted<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:522"]
+  S8["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
+  T8["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S8 -->|calls| T8
-  S9["method:JobsTabBarCtrl::viewDidLayoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:57"]
-  T9["method:JobsTabBarCtrl::syncContentOffsetAnimated<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:199"]
+  S9["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
+  T9["method:NSString::isEqualToString<br/>JobsByPods/JobsAPIs@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:19"]
   S9 -->|calls| T9
-  S10["method:JobsTabBarCtrl::applySelectionStateAnimated<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:187"]
-  T10["method:JobsTabBarCtrl::syncContentOffsetAnimated<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:199"]
+  S10["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
+  T10["method:NSString::isEqualToString<br/>JobsByPods/JobsAPIs@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:19"]
   S10 -->|calls| T10
-  S11["method:JobsTabBarCtrl::applySelectionStateAnimated<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:187"]
-  T11["method:JobsTabBarCtrl::scrollTabBarToVisibleIndex:animated:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:209"]
+  S11["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
+  T11["method:NSString::isEqualToString<br/>JobsByPods/JobsAPIs@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:19"]
   S11 -->|calls| T11
-  S12["method:JobsTabBarCtrl::suppressVerticalInView<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:216"]
-  T12["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S12["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
+  T12["method:NSString::isEqualToString<br/>JobsByPods/JobsAPIs@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:19"]
   S12 -->|calls| T12
-  S13["method:JobsTabBarCtrl::suppressVerticalInView<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:216"]
-  T13["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S13["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
+  T13["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
   S13 -->|calls| T13
-  S14["method:JobsTabBarCtrl::suppressVerticalInView<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:216"]
-  T14["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S14["function:JobsCanOpenUrl<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:45"]
+  T14["function:JobsUrl<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:14"]
   S14 -->|calls| T14
-  S15["method:JobsTabBarCtrl::suppressVerticalInView<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:216"]
-  T15["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S15["function:Guard<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:51"]
+  T15["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S15 -->|calls| T15
-  S16["method:JobsTabBarCtrl::suppressVerticalInView<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:216"]
-  T16["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S16["method:JobsPodspecKitForJobsStringUtils::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsStringUtils@Pods/JobsPodspecKit.rb:277"]
+  T16["method:JobsPodspecKitForJobsStringUtils::standard_user_target_xcconfig<br/>JobsByPods/JobsStringUtils@Pods/JobsPodspecKit.rb:266"]
   S16 -->|calls| T16
-  S17["method:JobsTabBarCtrl::suppressVerticalInView<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:216"]
-  T17["method:JobsTabBarCtrl::suppressVerticalInView<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:216"]
+  S17["method:JobsPodspecKitForJobsStringUtils::apply_standard_xcconfig<br/>JobsByPods/JobsStringUtils@Pods/JobsPodspecKit.rb:281"]
+  T17["method:JobsPodspecKitForJobsStringUtils::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsStringUtils@Pods/JobsPodspecKit.rb:273"]
   S17 -->|calls| T17
-  S18["method:JobsTabBarCtrl::setDataSourceByButtons:controllers:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:249"]
-  T18["method:JobsTabBarCtrl::selectIndex:animated:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:307"]
+  S18["method:JobsPodspecKitForJobsStringUtils::apply_standard_xcconfig<br/>JobsByPods/JobsStringUtils@Pods/JobsPodspecKit.rb:281"]
+  T18["method:JobsPodspecKitForJobsStringUtils::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsStringUtils@Pods/JobsPodspecKit.rb:277"]
   S18 -->|calls| T18
-  S19["method:JobsTabBarCtrl::setDataSourceByButtons:controllers:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:249"]
-  T19["method:UIViewController::addChildViewController<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+Extra/UIViewController+Extra.m:23"]
+  S19["method:JobsSuspendBtn::init<br/>JobsByPods/JobsSuspend@Pods/Core/JobsSuspendBtn/JobsSuspendBtn.m:18"]
+  T19["method:JobsSuspendBtn::init<br/>JobsByPods/JobsSuspend@Pods/Core/JobsSuspendBtn/JobsSuspendBtn.m:18"]
   S19 -->|calls| T19
-  S20["method:JobsTabBarCtrl::setDataSourceByButtons:controllers:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:249"]
-  T20["method:JobsTabBarCtrl::suppressVerticalInView<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:216"]
+  S20["method:JobsSuspendLab::init<br/>JobsByPods/JobsSuspend@Pods/Core/JobsSuspendLab/JobsSuspendLab.m:21"]
+  T20["method:JobsSuspendLab::init<br/>JobsByPods/JobsSuspend@Pods/Core/JobsSuspendLab/JobsSuspendLab.m:21"]
   S20 -->|calls| T20
-  S21["method:JobsTabBarCtrl::setDataSourceByButtons:controllers:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:249"]
-  T21["method:JobsTabBarCtrl::applySelectionStateAnimated<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:187"]
+  S21["method:JobsSuspendView::init<br/>JobsByPods/JobsSuspend@Pods/Core/JobsSuspendView/JobsSuspendView.m:19"]
+  T21["method:JobsSuspendView::init<br/>JobsByPods/JobsSuspend@Pods/Core/JobsSuspendView/JobsSuspendView.m:19"]
   S21 -->|calls| T21
-  S22["method:JobsTabBarCtrl::setDataSourceByButtons:controllers:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:249"]
-  T22["method:JobsTabBarCtrl::onButtonsBuilt<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:513"]
+  S22["method:JobsControlTarget::invoke:<br/>JobsByPods/JobsSuspend@Pods/Support/JobsControlTarget/JobsControlTarget.m:20"]
+  T22["function:JobsControlTarget::_jobs_now<br/>JobsByPods/JobsSuspend@Pods/Support/JobsControlTarget/JobsControlTarget.m:16"]
   S22 -->|calls| T22
-  S23["method:JobsTabBarCtrl::selectIndex:animated:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:307"]
-  T23["method:JobsTabBarCtrl::applySelectionStateAnimated<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:187"]
+  S23["method:NSMutableDictionary::add<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSMutableDictionary/NSMutableDictionary+Extra/NSMutableDictionary+Extra.m:12"]
+  T23["method:ASWeakMap::setObject:forKey:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASWeakMap.mm:65"]
   S23 -->|calls| T23
-  S24["method:JobsTabBarCtrl::scrollViewDidEndDecelerating:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:331"]
-  T24["method:JobsTabBarCtrl::applySelectionStateAnimated<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:187"]
+  S24["method:NSMutableDictionary::saveDataBy<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSMutableDictionary/NSMutableDictionary+Extra/NSMutableDictionary+Extra.m:30"]
+  T24["method:ASWeakMap::setObject:forKey:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASWeakMap.mm:65"]
   S24 -->|calls| T24
-  S25["method:JobsTabBarCtrl::scrollViewDidEndScrollingAnimation:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:341"]
-  T25["method:JobsTabBarCtrl::applySelectionStateAnimated<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:187"]
+  S25["method:NSObject::img<br/>JobsByPods/JobsSuspend@Pods/Support/UIKit/NSObject/NSObject+image/NSObject+image.m:12"]
+  T25["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S25 -->|calls| T25
 ```
 

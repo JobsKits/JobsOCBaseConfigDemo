@@ -53,7 +53,7 @@ presentation helpers for Jobs projects.
     ss.dependency 'WHToast'
     ss.dependency 'WHToastExtra'
     ss.dependency 'ReactiveObjC'
-    ss.dependency 'JobsModel'
+    ss.dependency 'JobsModelDSL'
     ss.dependency 'JobsBlock'
     ss.dependency 'JobsOCDefs'
     ss.dependency 'JobsOCRuntimeKits'

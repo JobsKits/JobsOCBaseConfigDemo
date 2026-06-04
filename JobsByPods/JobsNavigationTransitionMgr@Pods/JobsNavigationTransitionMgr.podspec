@@ -70,7 +70,7 @@ pan gesture handling.
   # Jobs pods
   spec.dependency 'WHToastExtra'
   spec.dependency 'JobsNavBar'
-  spec.dependency 'JobsModel'
+  spec.dependency 'JobsModelDSL'
   spec.dependency 'JobsClass'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDSL'

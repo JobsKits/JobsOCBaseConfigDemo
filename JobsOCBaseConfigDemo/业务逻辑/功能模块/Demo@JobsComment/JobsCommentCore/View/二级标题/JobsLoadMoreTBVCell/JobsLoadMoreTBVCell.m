@@ -52,4 +52,5 @@ Prop_strong()UILabel *titleLab;
     }return _titleLab;
 }
  
+
 @end

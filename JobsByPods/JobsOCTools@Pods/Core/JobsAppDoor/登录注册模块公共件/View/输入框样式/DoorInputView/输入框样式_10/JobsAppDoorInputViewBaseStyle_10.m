@@ -7,10 +7,10 @@
 
 #import "JobsAppDoorInputViewBaseStyle_10.h"
 
-#if __has_include(<JobsModel/JobsAppDoorInputViewBaseStyleModel.h>)
-#import <JobsModel/JobsAppDoorInputViewBaseStyleModel.h>
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
 #else
-#import "JobsAppDoorInputViewBaseStyleModel.h"
+#import "JobsModelDSL.h"
 #endif
 
 #if __has_include(<JobsBaseUI/ZYTextField.h>)

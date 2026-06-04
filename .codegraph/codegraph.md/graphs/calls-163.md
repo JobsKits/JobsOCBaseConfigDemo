@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:XLChannelItem::initUI<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:25"]
-  T1["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S1["method:NSObject::timeIntervalstartDate:endDate:timeFormatter:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:204"]
+  T1["method:NSDate::timeIntervalSinceDate<br/>JobsByPods/JobsBasePopupView@Pods/Support/UIKit/NSDate/NSDate+Extra/NSDate+Extra.m:38"]
   S1 -->|calls| T1
-  S2["method:XLChannelItem::initUI<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:25"]
-  T2["method:XLChannelItem::addBorderLayer<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:41"]
+  S2["method:NSObject::intervalDifferenceBetweenStarTime:toEndTime:byDateFormatter:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:241"]
+  T2["method:NSObject::dateFormatterBy<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:135"]
   S2 -->|calls| T2
-  S3["method:XLChannelItem::addBorderLayer<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:41"]
-  T3["method:XLChannelItem::backgroundColor<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:62"]
+  S3["method:NSObject::intervalDifferenceBetweenStarTime:toEndTime:byDateFormatter:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:241"]
+  T3["method:NSDate::timeIntervalSinceDate<br/>JobsByPods/JobsBasePopupView@Pods/Support/UIKit/NSDate/NSDate+Extra/NSDate+Extra.m:38"]
   S3 -->|calls| T3
-  S4["method:XLChannelItem::layoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:57"]
-  T4["method:XLChannelItem::layoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:57"]
+  S4["method:NSObject::dateComponentsDiffBetweenStarTime:toEndTime:byDateFormatter:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:251"]
+  T4["method:NSObject::dateFormatterBy<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:135"]
   S4 -->|calls| T4
-  S5["method:XLChannelItem::setIsMoving:<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:79"]
-  T5["method:XLChannelItem::backgroundColor<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:62"]
+  S5["method:NSObject::dateComponentsDiffBetweenStarTime:toEndTime:byDateFormatter:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:251"]
+  T5["method:NSDateFormatter::dateByString<br/>JobsByPods/JobsBasePopupView@Pods/Support/UIKit/NSDateFormatter/NSDateFormatter+Extra/NSDateFormatter+Extra.m:20"]
   S5 -->|calls| T5
-  S6["method:XLChannelItem::setIsFixed:<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:90"]
-  T6["method:XLChannelItem::lightTextColor<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:70"]
+  S6["method:NSObject::dateComponentsDiffBetweenStarTime:toEndTime:byDateFormatter:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:251"]
+  T6["method:NSDateFormatter::dateByString<br/>JobsByPods/JobsBasePopupView@Pods/Support/UIKit/NSDateFormatter/NSDateFormatter+Extra/NSDateFormatter+Extra.m:20"]
   S6 -->|calls| T6
-  S7["method:XLChannelItem::setIsFixed:<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:90"]
-  T7["method:XLChannelItem::textColor<br/>JobsByPods/JobsOCTools@Pods/Core/XLChannelControls/XLChannelItem/XLChannelItem.m:66"]
+  S7["method:NSObject::dateStringAfterlocalDateForYear:month:day:hour:minute:second:timeFormatter:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:290"]
+  T7["method:NSCalendar::initByCalendarIdentifier<br/>JobsByPods/JobsBasePopupView@Pods/Support/UIKit/NSCalendar/NSCalendar+Extra/NSCalendar+Extra.m:26"]
   S7 -->|calls| T7
-  S8["method:XLSphereView::init<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:24"]
-  T8["method:XLSphereView::init<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:24"]
+  S8["method:NSObject::dateStringAfterlocalDateForYear:month:day:hour:minute:second:timeFormatter:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:290"]
+  T8["function:toStringByLong<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:103"]
   S8 -->|calls| T8
-  S9["method:XLSphereView::init<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:24"]
-  T9["method:UIView::addGestureRecognizer<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:149"]
+  S9["method:NSObject::dateStringAfterlocalDateForYear:month:day:hour:minute:second:timeFormatter:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:290"]
+  T9["function:toStringByLong<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:103"]
   S9 -->|calls| T9
-  S10["method:XLSphereView::setItems:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:34"]
-  T10["method:XLSphereView::setTagOfPoint:andIndex:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:80"]
+  S10["method:NSObject::dateStringAfterlocalDateForYear:month:day:hour:minute:second:timeFormatter:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:290"]
+  T10["function:toStringByLong<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:103"]
   S10 -->|calls| T10
-  S11["method:XLSphereView::setItems:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:34"]
-  T11["method:XLSphereView::timerStart<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:91"]
+  S11["method:NSObject::dateStringAfterlocalDateForYear:month:day:hour:minute:second:timeFormatter:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:290"]
+  T11["function:toStringByLong<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:103"]
   S11 -->|calls| T11
-  S12["method:XLSphereView::updateFrameOfPoint:direction:andAngle:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:68"]
-  T12["method:XLSphereView::setTagOfPoint:andIndex:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:80"]
+  S12["method:NSObject::toReadableTimeBy<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:334"]
+  T12["method:NSDate::initDateBy<br/>JobsByPods/JobsBasePopupView@Pods/Support/UIKit/NSDate/NSDate+Extra/NSDate+Extra.m:15"]
   S12 -->|calls| T12
-  S13["method:XLSphereView::autoTurnRotation<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:101"]
-  T13["method:XLSphereView::updateFrameOfPoint:direction:andAngle:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:68"]
+  S13["method:NSObject::HHMMSS<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:355"]
+  T13["function:toStringByFloatDecimalPlaces<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:55"]
   S13 -->|calls| T13
-  S14["method:XLSphereView::inertiaStart<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:107"]
-  T14["method:XLSphereView::timerStop<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:96"]
+  S14["method:NSObject::HHMMSS<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:355"]
+  T14["function:toStringByFloatDecimalPlaces<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:55"]
   S14 -->|calls| T14
-  S15["method:XLSphereView::inertiaStop<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:113"]
-  T15["method:XLSphereView::timerStart<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:91"]
+  S15["method:NSObject::HHMMSS<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:355"]
+  T15["function:toStringByFloatDecimalPlaces<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:55"]
   S15 -->|calls| T15
-  S16["method:XLSphereView::inertiaStep<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:119"]
-  T16["method:XLSphereView::inertiaStop<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:113"]
+  S16["method:NSObject::getToday<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:365"]
+  T16["method:NSObject::dateFormatterBy<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:135"]
   S16 -->|calls| T16
-  S17["method:XLSphereView::inertiaStep<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:119"]
-  T17["method:XLSphereView::updateFrameOfPoint:direction:andAngle:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:68"]
+  S17["method:NSObject::getToday<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:365"]
+  T17["method:NSFormatter::date<br/>JobsByPods/JobsBasePopupView@Pods/Support/UIKit/NSFormatter/NSFormatter+Extra/NSFormatter+Extra.m:12"]
   S17 -->|calls| T17
-  S18["method:XLSphereView::handlePanGesture:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:131"]
-  T18["method:XLSphereView::timerStop<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:96"]
+  S18["method:NSObject::currentTime<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:439"]
+  T18["method:NSTimeZone::GMTDateSecs<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSTimeZone/NSTimeZone+Extra/NSTimeZone+Extra.m:30"]
   S18 -->|calls| T18
-  S19["method:XLSphereView::handlePanGesture:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:131"]
-  T19["method:XLSphereView::inertiaStop<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:113"]
+  S19["method:NSObject::currentTime<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:439"]
+  T19["method:NSDate::byAddingTimeInterval<br/>JobsByPods/JobsBasePopupView@Pods/Support/UIKit/NSDate/NSDate+Extra/NSDate+Extra.m:30"]
   S19 -->|calls| T19
-  S20["method:XLSphereView::handlePanGesture:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:131"]
-  T20["method:XLSphereView::updateFrameOfPoint:direction:andAngle:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:68"]
+  S20["method:NSObject::timeFormatterWithDate:timeFormatStr:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:452"]
+  T20["method:NSObject::dateFormatterBy<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:135"]
   S20 -->|calls| T20
-  S21["method:XLSphereView::handlePanGesture:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:131"]
-  T21["method:XLSphereView::inertiaStart<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:107"]
+  S21["method:NSObject::getHHMMSSFromStr:formatTime:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:464"]
+  T21["function:toStringByFloatDecimalPlaces<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:55"]
   S21 -->|calls| T21
-  S22["method:XWCountryCodeController::viewDidLoad<br/>JobsByPods/JobsOCTools@Pods/Core/XWCountryCodeController/XWCountryCodeController.m:26"]
-  T22["method:XWCountryCodeController::viewDidLoad<br/>JobsByPods/JobsOCTools@Pods/Core/XWCountryCodeController/XWCountryCodeController.m:26"]
+  S22["method:NSObject::getHHMMSSFromStr:formatTime:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:464"]
+  T22["function:toStringByFloatDecimalPlaces<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:55"]
   S22 -->|calls| T22
-  S23["method:XWCountryCodeController::viewDidLoad<br/>JobsByPods/JobsOCTools@Pods/Core/XWCountryCodeController/XWCountryCodeController.m:26"]
-  T23["method:XWCountryCodeController::creatSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/XWCountryCodeController/XWCountryCodeController.m:34"]
+  S23["method:NSObject::getHHMMSSFromStr:formatTime:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:464"]
+  T23["function:toStringByFloatDecimalPlaces<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:55"]
   S23 -->|calls| T23
-  S24["method:XWCountryCodeController::creatSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/XWCountryCodeController/XWCountryCodeController.m:34"]
-  T24["method:TestTableView::initWithFrame:style:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Base/View/TestTableView.m:21"]
+  S24["method:NSObject::getMMSSFromStr:formatTime:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:484"]
+  T24["function:toStringByFloatDecimalPlaces<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:55"]
   S24 -->|calls| T24
-  S25["method:XWCountryCodeController::selectCodeIndex:<br/>JobsByPods/JobsOCTools@Pods/Core/XWCountryCodeController/XWCountryCodeController.m:82"]
-  T25["method:XWCountryCodeController::showCodeStringIndex:jieQue:<br/>JobsByPods/JobsOCTools@Pods/Core/XWCountryCodeController/XWCountryCodeController.m:59"]
+  S25["method:NSObject::getMMSSFromStr:formatTime:<br/>JobsByPods/JobsTimeUtils@Pods/Core/NSObject+Time/NSObject+Time.m:484"]
+  T25["function:toStringByFloatDecimalPlaces<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:55"]
   S25 -->|calls| T25
 ```
 

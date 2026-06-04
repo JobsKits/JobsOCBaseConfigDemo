@@ -13,6 +13,7 @@
 @property (nonatomic, strong) ASTextNode *countNode;
 @property (nonatomic, assign) NSInteger likesCount;
 @property (nonatomic, assign) BOOL liked;
+
 @end
 
 @implementation LikesNode

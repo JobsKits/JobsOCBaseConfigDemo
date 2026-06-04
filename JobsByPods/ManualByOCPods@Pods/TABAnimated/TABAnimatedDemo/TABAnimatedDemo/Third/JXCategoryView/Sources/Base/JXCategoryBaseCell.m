@@ -11,6 +11,7 @@
 @property (nonatomic, strong) JXCategoryBaseCellModel *cellModel;
 @property (nonatomic, strong) JXCategoryViewAnimator *animator;
 @property (nonatomic, strong) NSMutableArray <JXCategoryCellSelectedAnimationBlock> *animationBlockArray;
+
 @end
 
 @implementation JXCategoryBaseCell

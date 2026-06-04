@@ -17,6 +17,7 @@
 @property (nonatomic) NSUInteger cellNodeVisibilityEventWillBeginDraggingCount;
 @property (nonatomic) NSUInteger cellNodeVisibilityEventDidEndDraggingCount;
 @property (nonatomic) NSUInteger cellNodeVisibilityEventDidStopScrollingCount;
+
 @end
 
 @implementation ASCellVisibilityTestNode
@@ -53,6 +54,7 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView;
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 @interface ASCellVisibilityTableViewTestController: UIViewController<ASTableDataSource>
@@ -98,6 +100,7 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView;
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)rawCell forItemAtIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 @interface ASCellVisibilityCollectionViewTestController: UIViewController<ASCollectionDataSource>
@@ -140,6 +143,7 @@
 
 
 @interface ASCellVisibilityScrollEventTests : XCTestCase
+
 @end
 
 @implementation ASCellVisibilityScrollEventTests
@@ -214,7 +218,6 @@
   [collectionView scrollViewDidEndDragging:collectionView willDecelerate:YES];
   XCTAssertTrue(cell.cellNodeVisibilityEventDidEndDraggingCount == 1);
 }
-
 
 @end
 

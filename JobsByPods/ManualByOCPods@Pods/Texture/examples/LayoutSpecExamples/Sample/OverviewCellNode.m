@@ -12,6 +12,7 @@
 @interface OverviewCellNode ()
 @property (nonatomic, strong) ASTextNode *titleNode;
 @property (nonatomic, strong) ASTextNode *descriptionNode;
+
 @end
 
 @implementation OverviewCellNode

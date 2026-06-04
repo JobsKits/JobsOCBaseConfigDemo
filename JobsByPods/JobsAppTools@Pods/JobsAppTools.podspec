@@ -53,7 +53,7 @@ JobsAppTools is a local Objective-C utility component library for Jobs projects.
     ss.resources           = 'Core/**/*.{png,jpg,jpeg,gif,xib,nib,storyboard,xcassets}'
 
     ss.dependency 'JobsAppTools/Support'
-    ss.dependency 'JobsModel'
+    ss.dependency 'JobsModelDSL'
     ss.dependency 'JobsMakes'
     ss.dependency 'JobsBlock'
     ss.dependency 'JobsOCDefs'

@@ -9,6 +9,7 @@
 
 @interface OverviewASTableNode () <ASTableDataSource, ASTableDelegate>
 @property (nonatomic, strong) ASTableNode *node;
+
 @end
 
 @implementation OverviewASTableNode

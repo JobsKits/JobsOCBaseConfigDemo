@@ -49,7 +49,7 @@ JobsSuspend provides suspend button, label and view components.
 
     ss.dependency 'ReactiveObjC'
     ss.dependency 'XYColorOC'
-    ss.dependency 'JobsModel'
+    ss.dependency 'JobsModelDSL'
     ss.dependency 'JobsBlock'
     ss.dependency 'JobsOCDSL'
     ss.dependency 'JobsOCDefs'

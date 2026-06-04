@@ -70,7 +70,7 @@ UIKit categories, model helpers, and related resource files.
   spec.dependency 'GKNavigationBar'
   spec.dependency 'MJRefreshExtra'
   spec.dependency 'WHToastExtra'
-  spec.dependency 'JobsModel'
+  spec.dependency 'JobsModelDSL'
   spec.dependency 'JobsClass'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDSL'

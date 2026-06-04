@@ -46,7 +46,7 @@ Pod::Spec.new do |spec|
     ss.dependency 'MJRefreshExtra/Support'
     ss.dependency 'TABAnimated'
     ss.dependency 'MJRefresh'
-    ss.dependency 'JobsModel'
+    ss.dependency 'JobsModelDSL'
     ss.dependency 'XYColorOC'
     ss.dependency 'JobsMakes'
     ss.dependency 'JobsBlock'

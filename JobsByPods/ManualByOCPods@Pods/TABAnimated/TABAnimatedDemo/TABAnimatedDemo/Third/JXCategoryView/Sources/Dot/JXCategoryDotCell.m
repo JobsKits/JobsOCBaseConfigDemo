@@ -10,6 +10,7 @@
 
 @interface JXCategoryDotCell ()
 @property (nonatomic, strong) CALayer *dotLayer;
+
 @end
 
 @implementation JXCategoryDotCell

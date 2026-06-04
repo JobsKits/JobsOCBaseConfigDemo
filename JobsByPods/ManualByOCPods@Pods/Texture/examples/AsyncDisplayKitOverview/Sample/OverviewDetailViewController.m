@@ -9,6 +9,7 @@
 
 @interface OverviewDetailViewController ()
 @property (nonatomic, strong) ASDisplayNode *node;
+
 @end
 
 @implementation OverviewDetailViewController

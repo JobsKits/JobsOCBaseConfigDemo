@@ -12,6 +12,7 @@
 @property (nonatomic, strong) UIView *smallBall;
 @property (nonatomic, strong) UIView *bigBall;
 @property (nonatomic, strong) CAShapeLayer *shapeLayer;
+
 @end
 
 @implementation JXCategoryIndicatorBallView

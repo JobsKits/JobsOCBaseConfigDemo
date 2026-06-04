@@ -19,10 +19,10 @@
 #import "SDWebImage.h"
 #endif
 
-#if __has_include(<JobsModel/JobsModel.h>)
-#import <JobsModel/JobsModel.h>
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
 #else
-#import "JobsModel.h"
+#import "JobsModelDSL.h"
 #endif
 
 #if __has_include(<WHToastExtra/WHToastExtra.h>)

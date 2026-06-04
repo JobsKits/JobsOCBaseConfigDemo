@@ -22,8 +22,10 @@
 Prop_assign()BOOL currentIsShowState;
 Prop_assign()NSInteger showAnimationCount;
 Prop_assign()NSInteger hideAnimationCount;
+
 @end
 @implementation TFPopupPrivateExtension
+
 @end
 
 @implementation UIView (TFPopup)

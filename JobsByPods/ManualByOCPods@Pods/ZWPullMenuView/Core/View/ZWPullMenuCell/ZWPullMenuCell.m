@@ -9,6 +9,7 @@
 @interface ZWPullMenuCell ()
 @property (nonatomic, strong) UIView *selectedBgView;
 @property (nonatomic, strong) CAShapeLayer *lineLayer;
+
 @end
 @implementation ZWPullMenuCell
 

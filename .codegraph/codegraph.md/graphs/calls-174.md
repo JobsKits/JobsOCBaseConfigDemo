@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:NSArray::containsObject<br/>JobsByPods/JobsTimeUtils@Pods/Support/UIKit/NSArray/NSArray+Extra.m:12"]
-  T1["method:NSArray::containsObject<br/>JobsByPods/JobsTimeUtils@Pods/Support/UIKit/NSArray/NSArray+Extra.m:12"]
+  S1["method:UIView::uninstall<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Masonry/UIView+Masonry.m:143"]
+  T1["method:MASCompositeConstraint::uninstall<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:176"]
   S1 -->|calls| T1
-  S2["method:NSDate::timeIntervalSinceDate<br/>JobsByPods/JobsTimeUtils@Pods/Support/UIKit/NSDate/NSDate+Extra/NSDate+Extra.m:38"]
-  T2["method:NSDate::timeIntervalSinceDate<br/>JobsByPods/JobsTimeUtils@Pods/Support/UIKit/NSDate/NSDate+Extra/NSDate+Extra.m:38"]
+  S2["method:UIView::uninstallAllLayoutAttribute<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Masonry/UIView+Masonry.m:155"]
+  T2["method:MASCompositeConstraint::uninstall<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:176"]
   S2 -->|calls| T2
-  S3["method:NSDate::toReadableTimeBy<br/>JobsByPods/JobsTimeUtils@Pods/Support/UIKit/NSDate/NSDate+Extra/NSDate+Extra.m:61"]
-  T3["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
+  S3["method:UIView::jobsMasonryBeforeBlock:masonryAfterBlock:<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Masonry/UIView+Masonry.m:169"]
+  T3["method:UIView::uninstallAllLayoutAttribute<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Masonry/UIView+Masonry.m:155"]
   S3 -->|calls| T3
-  S4["method:NSDate::readableDayTime<br/>JobsByPods/JobsTimeUtils@Pods/Support/UIKit/NSDate/NSDate+Extra/NSDate+Extra.m:72"]
-  T4["method:JobsTimeModel::timeZone<br/>JobsByPods/JobsModel@Pods/Core/UIKit数据束/JobsTimeModel/JobsTimeModel.m:204"]
+  S4["method:UIView::jobsRefreshUI<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:68"]
+  T4["method:BaseView::layoutIfNeeded<br/>JobsByPods/JobsBasePopupView@Pods/Support/BaseUI/BaseView/BaseView.m:63"]
   S4 -->|calls| T4
-  S5["method:NSDate::readableTime<br/>JobsByPods/JobsTimeUtils@Pods/Support/UIKit/NSDate/NSDate+Extra/NSDate+Extra.m:79"]
-  T5["method:JobsTimeModel::timeZone<br/>JobsByPods/JobsModel@Pods/Core/UIKit数据束/JobsTimeModel/JobsTimeModel.m:204"]
+  S5["method:UIView::BySize<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:100"]
+  T5["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
   S5 -->|calls| T5
-  S6["method:NSDateFormatter::dateByString<br/>JobsByPods/JobsTimeUtils@Pods/Support/UIKit/NSDateFormatter/NSDateFormatter+Extra/NSDateFormatter+Extra.m:20"]
-  T6["function:ZMJGanttListVC::dateFromString<br/>JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@Excel/Excel-SpreadsheetView/ViewController/ZMJGanttListVC/ZMJGanttListVC.m:279"]
+  S6["method:UIView::ByFrame<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:111"]
+  T6["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
   S6 -->|calls| T6
-  S7["method:NSFormatter::date<br/>JobsByPods/JobsTimeUtils@Pods/Support/UIKit/NSFormatter/NSFormatter+Extra/NSFormatter+Extra.m:12"]
-  T7["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S7["method:UIView::ByOrigin<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:122"]
+  T7["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
   S7 -->|calls| T7
-  S8["method:NSFormatter::time<br/>JobsByPods/JobsTimeUtils@Pods/Support/UIKit/NSFormatter/NSFormatter+Extra/NSFormatter+Extra.m:25"]
-  T8["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S8["method:UIView::ByWidth<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:133"]
+  T8["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
   S8 -->|calls| T8
-  S9["method:NSFormatter::time<br/>JobsByPods/JobsTimeUtils@Pods/Support/UIKit/NSFormatter/NSFormatter+Extra/NSFormatter+Extra.m:25"]
-  T9["method:NSFormatter::date<br/>JobsByPods/JobsBasePopupView@Pods/Support/UIKit/NSFormatter/NSFormatter+Extra/NSFormatter+Extra.m:12"]
+  S9["method:UIView::ByHeight<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:144"]
+  T9["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
   S9 -->|calls| T9
-  S10["method:NSString::add<br/>JobsByPods/JobsTimeUtils@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:12"]
-  T10["function:JobsMutableString<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:10"]
+  S10["method:UIView::ByCenter<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:155"]
+  T10["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
   S10 -->|calls| T10
-  S11["method:JobsUploadingProgressView::initWithFrame:<br/>JobsByPods/JobsUploadingProgressView@Pods/Core/JobsUploadingProgressView.m:36"]
-  T11["method:UIColor::colorWithAlphaComponentBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:265"]
+  S11["method:UIView::resetContentSize<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:498"]
+  T11["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S11 -->|calls| T11
-  S12["method:JobsUploadingProgressView::updateProgressText:<br/>JobsByPods/JobsUploadingProgressView@Pods/Core/JobsUploadingProgressView.m:54"]
-  T12["method:JobsUploadingProgressView::starAnimation<br/>JobsByPods/JobsUploadingProgressView@Pods/Core/JobsUploadingProgressView.m:62"]
+  S12["method:UIView::resetContentSizeWidth<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:509"]
+  T12["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S12 -->|calls| T12
-  S13["method:JobsUploadingProgressView::timer<br/>JobsByPods/JobsUploadingProgressView@Pods/Core/JobsUploadingProgressView.m:77"]
-  T13["method:UIButton::byTimerType<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+Timer/UIButton+Timer.m:298"]
+  S13["method:UIView::resetContentSizeHeight<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:520"]
+  T13["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S13 -->|calls| T13
-  S14["method:JobsUploadingProgressView::subrefreshLabel<br/>JobsByPods/JobsUploadingProgressView@Pods/Core/JobsUploadingProgressView.m:201"]
-  T14["function:UIFontWeightBoldSize<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Font.h:42"]
+  S14["method:UIView::resetContentSizeOffsetWidth<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:531"]
+  T14["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S14 -->|calls| T14
-  S15["method:JobsPodspecKitForJobsUploadingProgressView::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsUploadingProgressView@Pods/JobsPodspecKit.rb:277"]
-  T15["method:JobsPodspecKitForJobsUploadingProgressView::standard_user_target_xcconfig<br/>JobsByPods/JobsUploadingProgressView@Pods/JobsPodspecKit.rb:266"]
+  S15["method:UIView::resetContentSizeOffsetHeight<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:543"]
+  T15["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S15 -->|calls| T15
-  S16["method:JobsPodspecKitForJobsUploadingProgressView::apply_standard_xcconfig<br/>JobsByPods/JobsUploadingProgressView@Pods/JobsPodspecKit.rb:281"]
-  T16["method:JobsPodspecKitForJobsUploadingProgressView::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsUploadingProgressView@Pods/JobsPodspecKit.rb:273"]
+  S16["method:UIView::resetContentOffset<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:555"]
+  T16["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S16 -->|calls| T16
-  S17["method:JobsPodspecKitForJobsUploadingProgressView::apply_standard_xcconfig<br/>JobsByPods/JobsUploadingProgressView@Pods/JobsPodspecKit.rb:281"]
-  T17["method:JobsPodspecKitForJobsUploadingProgressView::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsUploadingProgressView@Pods/JobsPodspecKit.rb:277"]
+  S17["method:UIView::resetContentOffsetX<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:566"]
+  T17["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S17 -->|calls| T17
-  S18["method:JobsViewNavigator::popViewAnimated<br/>JobsByPods/JobsViewNavigator@Pods/Core/JobsViewNavigator.m:56"]
-  T18["function:removeFromSuperview<br/>JobsOCBaseConfigDemo/业务逻辑/Common/App工具类/3rd/JhtBanner（卡片式滑动效果）/JhtBannerScrollView/JhtBannerScrollView.m:48"]
+  S18["method:UIView::resetContentOffsetY<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:577"]
+  T18["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S18 -->|calls| T18
-  S19["method:JobsPodspecKitForJobsViewNavigator::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsViewNavigator@Pods/JobsPodspecKit.rb:277"]
-  T19["method:JobsPodspecKitForJobsViewNavigator::standard_user_target_xcconfig<br/>JobsByPods/JobsViewNavigator@Pods/JobsPodspecKit.rb:266"]
+  S19["method:UIView::resetContentOffsetX_offset<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:588"]
+  T19["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S19 -->|calls| T19
-  S20["method:JobsPodspecKitForJobsViewNavigator::apply_standard_xcconfig<br/>JobsByPods/JobsViewNavigator@Pods/JobsPodspecKit.rb:281"]
-  T20["method:JobsPodspecKitForJobsViewNavigator::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsViewNavigator@Pods/JobsPodspecKit.rb:273"]
+  S20["method:UIView::resetContentOffsetY_offset<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:600"]
+  T20["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S20 -->|calls| T20
-  S21["method:JobsPodspecKitForJobsViewNavigator::apply_standard_xcconfig<br/>JobsByPods/JobsViewNavigator@Pods/JobsPodspecKit.rb:281"]
-  T21["method:JobsPodspecKitForJobsViewNavigator::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsViewNavigator@Pods/JobsPodspecKit.rb:277"]
+  S21["method:UIView::resetContentInset<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:612"]
+  T21["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S21 -->|calls| T21
-  S22["method:UIView::refresh<br/>JobsByPods/JobsViewNavigator@Pods/Support/UIKit/UIView/UIView+Extra.m:12"]
-  T22["method:BaseView::layoutIfNeeded<br/>JobsByPods/JobsBasePopupView@Pods/Support/BaseUI/BaseView/BaseView.m:63"]
+  S22["method:UIView::resetContentInsetTop<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:623"]
+  T22["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S22 -->|calls| T22
-  S23["method:UIView::addSubview<br/>JobsByPods/JobsViewNavigator@Pods/Support/UIKit/UIView/UIView+Extra.m:21"]
-  T23["method:UIView::addSubview<br/>JobsByPods/JobsViewNavigator@Pods/Support/UIKit/UIView/UIView+Extra.m:21"]
+  S23["method:UIView::resetContentInsetLeft<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:637"]
+  T23["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S23 -->|calls| T23
-  S24["method:MJRefreshAutoStateFooter::byMJRefreshFooterConfigModel<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshAutoStateFooter/MJRefreshAutoStateFooter+Extra.m:37"]
-  T24["function:MJRefreshExtraApplyStateTitles<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshAutoStateFooter/MJRefreshAutoStateFooter+Extra.m:10"]
+  S24["method:UIView::resetContentInsetBottom<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:651"]
+  T24["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S24 -->|calls| T24
-  S25["method:MJRefreshAutoStateFooter::byMJRefreshFooterConfigModel<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshAutoStateFooter/MJRefreshAutoStateFooter+Extra.m:37"]
-  T25["function:MJRefreshExtraApplyStateLabelStyle<br/>JobsByPods/MJRefreshExtra@Pods/Core/MJRefreshAutoStateFooter/MJRefreshAutoStateFooter+Extra.m:19"]
+  S25["method:UIView::resetContentInsetRight<br/>JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:665"]
+  T25["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S25 -->|calls| T25
 ```
 

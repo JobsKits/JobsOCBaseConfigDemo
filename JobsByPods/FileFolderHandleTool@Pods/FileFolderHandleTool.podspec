@@ -29,7 +29,7 @@ file and folder related operations in Jobs projects.
 
   JobsPodspecKitForFileFolderHandleTool.apply_standard_exclude_files(spec)
 
-  spec.dependency 'JobsModel'
+  spec.dependency 'JobsModelDSL'
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'

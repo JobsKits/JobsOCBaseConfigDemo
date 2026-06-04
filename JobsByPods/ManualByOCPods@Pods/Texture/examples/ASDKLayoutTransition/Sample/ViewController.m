@@ -18,6 +18,7 @@
 @property (nonatomic, strong) ASButtonNode *buttonNode;
 @property (nonatomic, strong) ASTextNode *textNodeOne;
 @property (nonatomic, strong) ASTextNode *textNodeTwo;
+
 @end
 
 @implementation TransitionNode
@@ -157,6 +158,7 @@
 
 @interface ViewController ()
 @property (nonatomic, strong) TransitionNode *transitionNode;
+
 @end
 
 @implementation ViewController

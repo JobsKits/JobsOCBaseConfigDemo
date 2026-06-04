@@ -36,7 +36,7 @@ JobsTimeUtils contains Objective-C time and date helper categories used across J
     'Foundation'
   ]
 
-  spec.dependency 'JobsModel'
+  spec.dependency 'JobsModelDSL'
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsClass'

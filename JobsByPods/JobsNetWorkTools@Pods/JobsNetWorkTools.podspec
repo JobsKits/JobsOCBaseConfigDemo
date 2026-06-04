@@ -41,7 +41,7 @@ speed updates.
     ]
 
     ss.dependency 'JobsBlock'
-    ss.dependency 'JobsModel'
+    ss.dependency 'JobsModelDSL'
     ss.dependency 'JobsOCDefs'
     ss.dependency 'JobsOCTimer'
     ss.dependency 'JobsOCProtocols'

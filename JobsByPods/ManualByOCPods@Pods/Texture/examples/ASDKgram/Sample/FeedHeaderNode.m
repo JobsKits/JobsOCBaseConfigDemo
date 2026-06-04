@@ -16,6 +16,7 @@ static UIEdgeInsets kFeedHeaderInset = { .top = 20, .bottom = 20, .left = 10, .r
 
 @interface FeedHeaderNode ()
 @property (nonatomic, strong, readonly) ASTextNode *textNode;
+
 @end
 
 @implementation FeedHeaderNode

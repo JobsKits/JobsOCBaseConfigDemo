@@ -22,7 +22,7 @@ Pod::Spec.new do |spec|
       'JobsDeviceInfo',
       'JobsLanMgr',
       'JobsMakes',
-      'JobsModel',
+      'JobsModelDSL',
       'JobsOCDefs',
       'JobsOCProtocols',
       'JobsOCRuntimeKits',
@@ -90,7 +90,7 @@ and linked content switching support.
       'JobsDeviceInfo',
       'JobsLanMgr',
       'JobsMakes',
-      'JobsModel',
+      'JobsModelDSL',
       'JobsOCDefs',
       'JobsOCProtocols',
       'JobsOCRuntimeKits',
@@ -118,7 +118,7 @@ and linked content switching support.
   spec.dependency 'JobsDeviceInfo'
   spec.dependency 'JobsLanMgr'
   spec.dependency 'JobsMakes'
-  spec.dependency 'JobsModel'
+  spec.dependency 'JobsModelDSL'
   spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsOCProtocols'
   spec.dependency 'JobsOCRuntimeKits'

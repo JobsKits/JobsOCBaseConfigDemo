@@ -134,7 +134,7 @@ Pod::Spec.new do |spec|
     'BRPickerView',
 
     'JobsAPIs',
-    'JobsModel',
+    'JobsModelDSL',
     'JobsBlock',
     'JobsOCDSL',
     'JobsMakes',
