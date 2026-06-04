@@ -17,6 +17,7 @@
 #else
 #import "UIScrollViewProtocol.h"
 #endif
+
 #if __has_include(<JobsOCProtocols/UITableViewCellProtocol.h>)
 #import <JobsOCProtocols/UITableViewCellProtocol.h>
 #elif __has_include("BaseCellProtocols/UITableViewCellProtocol.h")
@@ -24,6 +25,7 @@
 #else
 #import "UITableViewCellProtocol.h"
 #endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else

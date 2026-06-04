@@ -57,9 +57,9 @@ static dispatch_once_t AppDelegateOnceToken;
     return ^(){
         @jobs_strongify(self)
         self.saveUserInfo(jobsMakeUserModel(^(__kindof JobsUserModel<NSCoding> * _Nullable userModel) {
-            userModel.userHeaderIMG = @"用户默认头像".img;
-            userModel.userName = @"张三丰";
-            userModel.phone = @"13487878787".encryptedChineseTele;
+            userModel.byUserHeaderIMG(@"用户默认头像".img)
+                     .byUserName(@"张三丰")
+                     .byPhone(@"13487878787".encryptedChineseTele);
         }));
         id f = self.readUserInfo;
         JobsLog(@"");

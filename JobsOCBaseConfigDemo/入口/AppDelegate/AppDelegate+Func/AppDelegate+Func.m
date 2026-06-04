@@ -154,8 +154,8 @@
     return ^(){
         @jobs_strongify(self)
         self.saveUserInfo(jobsMakeUserModel(^(__kindof JobsUserModel<NSCoding> * _Nullable userModel) {
-            userModel.token = @"12345";
-            userModel.uid = @"54321";
+            userModel.byToken(@"12345")
+                     .byUid(@"54321");
         }));
 //        JobsUserModel *f = self.readUserInfo;
 //        JobsLog(@"");

@@ -57,6 +57,7 @@ digraph PodspecDependencies {
   "JobsMakes";
   "JobsMenuView";
   "JobsModel";
+  "JobsModelDSL";
   "JobsMonitorNetwoking";
   "JobsNavBar";
   "JobsNavigationTransitionMgr";
@@ -474,6 +475,10 @@ digraph PodspecDependencies {
   "JobsModel" -> "SDWebImage";
   "JobsModel" -> "SPAlertController";
   "JobsModel" -> "XYColorOC";
+  "JobsModelDSL" -> "JobsBlock";
+  "JobsModelDSL" -> "JobsModel";
+  "JobsModelDSL" -> "JobsOCDefs";
+  "JobsModelDSL" -> "JobsOCProtocols";
   "JobsMonitorNetwoking" -> "JobsBlock";
   "JobsMonitorNetwoking" -> "JobsOCDefs";
   "JobsMonitorNetwoking" -> "JobsSuspend";

@@ -1,0 +1,127 @@
+//
+//  JobsGestureModel+DSL.h
+//  JobsModelDSL
+//
+//  Created by Jobs on 2026年6月4日，星期四.
+//
+
+#ifndef JOBS_HEADER_GUARD_JOBSGESTUREMODEL_DSL_923E5D178857D8A
+#define JOBS_HEADER_GUARD_JOBSGESTUREMODEL_DSL_923E5D178857D8A
+
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
+#else
+#import "JobsModel.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface JobsGestureModel (DSL)
+
+-(JobsRetJobsGestureModelByRACDisposablePointerBlock _Nonnull)byRacDisposable;
+-(JobsRetJobsGestureModelByRACSubjectPointerBlock _Nonnull)byRacSubject;
+-(JobsRetJobsGestureModelByRACSignalPointerBlock _Nonnull)byReqSignal;
+-(JobsRetJobsGestureModelByRACCommandPointerBlock _Nonnull)byActionCommand;
+-(JobsRetJobsGestureModelByRACSequencePointerBlock _Nonnull)byDataSequence;
+-(JobsRetJobsGestureModelByRACMulticastConnectionPointerBlock _Nonnull)byDataConnection;
+-(JobsRetJobsGestureModelByRACSchedulerPointerBlock _Nonnull)byMainScheduler;
+-(JobsRetJobsGestureModelByRACSchedulerPointerBlock _Nonnull)byBackgroundScheduler;
+-(JobsRetJobsGestureModelByRACTuplePointerBlock _Nonnull)byDataTuple;
+-(JobsRetJobsGestureModelByNSMutableDictionaryKindofRACDisposablePointerKindofRACSignalPointerPointerBlock _Nonnull)bySignalDisposableMap;
+-(JobsRetJobsGestureModelByJobsByIDBlockBlock _Nonnull)byDoSthByIDBlock;
+-(JobsRetJobsGestureModelByJobsByVoidBlockBlock _Nonnull)byDoSthBlock;
+-(JobsRetJobsGestureModelByCGFloatBlock _Nonnull)byTime;
+-(JobsRetJobsGestureModelByTimeIntervalBlock _Nonnull)byStartTime;
+-(JobsRetJobsGestureModelByTimeIntervalBlock _Nonnull)byTimeSecIntervalSinceDate;
+-(JobsRetJobsGestureModelByTimeIntervalBlock _Nonnull)byTimeInterval;
+-(JobsRetJobsGestureModelByBOOLBlock _Nonnull)byRepeats;
+-(JobsRetJobsGestureModelByNSInvocationPointerBlock _Nonnull)byInvocation;
+-(JobsRetJobsGestureModelByNSRunLoopModeBlock _Nonnull)byRunLoopMode;
+-(JobsRetJobsGestureModelByIDBlock _Nonnull)byUserInfo;
+-(JobsRetJobsGestureModelByShowTimeTypeBlock _Nonnull)byShowTimeType;
+-(JobsRetJobsGestureModelByJobsTimerStyleBlock _Nonnull)byTimerStyle;
+-(JobsRetJobsGestureModelByJobsTimerTypeBlock _Nonnull)byTimerType;
+-(JobsRetJobsGestureModelByTimeIntervalBlock _Nonnull)byAccumulatedElapsed;
+-(JobsRetJobsGestureModelByDateBlock _Nonnull)byLastStartDate;
+-(JobsRetJobsGestureModelByNSTimerPointerBlock _Nonnull)byNsTimer;
+-(JobsRetJobsGestureModelByDispatch_source_tBlock _Nonnull)byGcdTimer;
+-(JobsRetJobsGestureModelByCADisplayLinkPointerBlock _Nonnull)byDisplayLink;
+-(JobsRetJobsGestureModelByDispatch_queue_tBlock _Nonnull)byQueue;
+-(JobsRetJobsGestureModelByJobsTimerStateBlock _Nonnull)byTimerState;
+-(JobsRetJobsGestureModelByBOOLBlock _Nonnull)byRunning;
+-(JobsRetJobsGestureModelByBOOLBlock _Nonnull)byPaused;
+-(JobsRetJobsGestureModelByBOOLBlock _Nonnull)byStop;
+-(JobsRetJobsGestureModelByJobsByCGFloatBlockBlock _Nonnull)byOnTick;
+-(JobsRetJobsGestureModelByJobsTimerBlockBlock _Nonnull)byOnFinish;
+-(JobsRetJobsGestureModelByJobsTimerPointerBlock _Nonnull)byTimer;
+-(JobsRetJobsGestureModelByNSLockPointerBlock _Nonnull)byLock;
+-(JobsRetJobsGestureModelByNSRecursiveLockPointerBlock _Nonnull)byRecursiveLock;
+-(JobsRetJobsGestureModelByDispatch_semaphore_tBlock _Nonnull)bySemaphore;
+-(JobsRetJobsGestureModelByBOOLBlock _Nonnull)byIsLock;
+-(JobsRetJobsGestureModelByBOOLBlock _Nonnull)byIsRead;
+-(JobsRetJobsGestureModelByBOOLBlock _Nonnull)byBecomeFirstResponder;
+-(JobsRetJobsGestureModelByAppLanguageBlock _Nonnull)byAppLanguage;
+-(JobsRetJobsGestureModelByCGPointBlock _Nonnull)byLastContentOffset;
+-(JobsRetJobsGestureModelByWKUserContentControllerPointerBlock _Nonnull)byUserContentCtrl;
+-(JobsRetJobsGestureModelByWKScriptMessagePointerBlock _Nonnull)byScriptMsg;
+-(JobsRetJobsGestureModelByStrBlock _Nonnull)byHandlerName;
+-(JobsRetJobsGestureModelByStrBlock _Nonnull)byEvaluateJavaScript;
+-(JobsRetJobsGestureModelByStrBlock _Nonnull)byCustomUserAgent;
+-(JobsRetJobsGestureModelByJobsJSCompletionHandlerBlockBlock _Nonnull)byCompletionHandlerBlock;
+-(JobsRetJobsGestureModelByNSMutableArrayNSURLPointerPointerBlock _Nonnull)byUrls;
+-(JobsRetJobsGestureModelByURLBlock _Nonnull)byUrl;
+-(JobsRetJobsGestureModelByURLBlock _Nonnull)byImageUrl;
+-(JobsRetJobsGestureModelByStrBlock _Nonnull)byInternationalizationKEY;
+-(JobsRetJobsGestureModelByMutableSetBlock _Nonnull)byJobsDataMutSet;
+-(JobsRetJobsGestureModelByNSMutableArrayPointerBlock _Nonnull)byJobsDataMutArr;
+-(JobsRetJobsGestureModelByNSMutableDictionaryPointerBlock _Nonnull)byJobsDataMutDic;
+-(JobsRetJobsGestureModelByClsBlock _Nonnull)byCls;
+-(JobsRetJobsGestureModelBySELBlock _Nonnull)bySelector;
+-(JobsRetJobsGestureModelByIMPBlock _Nonnull)byImplementation;
+-(JobsRetJobsGestureModelByIDBlock _Nonnull)byTarget;
+-(JobsRetJobsGestureModelByIDBlock _Nonnull)byWeak_target;
+-(JobsRetJobsGestureModelByIDBlock _Nonnull)byData;
+-(JobsRetJobsGestureModelByIDBlock _Nonnull)byRequestParams;
+-(JobsRetJobsGestureModelByIDBlock _Nonnull)byModelData;
+-(JobsRetJobsGestureModelByCGFloatBlock _Nonnull)byValue_CGFloat;
+-(JobsRetJobsGestureModelByNSIntegerBlock _Nonnull)byValue_NSInteger;
+-(JobsRetJobsGestureModelByNSUIntegerBlock _Nonnull)byValue_NSUInteger;
+-(JobsRetJobsGestureModelByIDBlock _Nonnull)byData_weak;
+-(JobsRetJobsGestureModelByIDBlock _Nonnull)byRequestParams_weak;
+-(JobsRetJobsGestureModelByNSUIntegerBlock _Nonnull)byMinimumNumberOfTouches;
+-(JobsRetJobsGestureModelByNSUIntegerBlock _Nonnull)byMaximumNumberOfTouches;
+-(JobsRetJobsGestureModelByNSUIntegerBlock _Nonnull)byNumberOfTapsRequired;
+-(JobsRetJobsGestureModelByNSUIntegerBlock _Nonnull)byNumberOfTouchesRequired;
+-(JobsRetJobsGestureModelByTimeIntervalBlock _Nonnull)byMinimumPressDuration;
+-(JobsRetJobsGestureModelByCGFloatBlock _Nonnull)byAllowableMovement;
+-(JobsRetJobsGestureModelByUISwipeGestureRecognizerDirectionBlock _Nonnull)bySwipeGRDirection;
+-(JobsRetJobsGestureModelByUIScrollTypeMaskBlock _Nonnull)byAllowedScrollTypesMask;
+-(JobsRetJobsGestureModelByCGFloatBlock _Nonnull)byScale;
+-(JobsRetJobsGestureModelByCGFloatBlock _Nonnull)byRotate;
+-(JobsRetJobsGestureModelByUILongPressGestureRecognizerPointerBlock _Nonnull)byLongPressGR;
+-(JobsRetJobsGestureModelByUITapGestureRecognizerPointerBlock _Nonnull)byTapGR;
+-(JobsRetJobsGestureModelByUITapGestureRecognizerPointerBlock _Nonnull)byDoubleTapGR;
+-(JobsRetJobsGestureModelByUISwipeGestureRecognizerPointerBlock _Nonnull)bySwipeGR;
+-(JobsRetJobsGestureModelByUIPanGestureRecognizerPointerBlock _Nonnull)byPanGR;
+-(JobsRetJobsGestureModelByUIPinchGestureRecognizerPointerBlock _Nonnull)byPinchGR;
+-(JobsRetJobsGestureModelByUIRotationGestureRecognizerPointerBlock _Nonnull)byRotationGR;
+-(JobsRetJobsGestureModelByUIScreenEdgePanGestureRecognizerPointerBlock _Nonnull)byScreenEdgePanGR;
+-(JobsRetJobsGestureModelByJobsSEL_IMPPointerBlock _Nonnull)byLongPressGR_SelImp;
+-(JobsRetJobsGestureModelByJobsSEL_IMPPointerBlock _Nonnull)byTapGR_SelImp;
+-(JobsRetJobsGestureModelByJobsSEL_IMPPointerBlock _Nonnull)byDoubleTapGR_SelImp;
+-(JobsRetJobsGestureModelByJobsSEL_IMPPointerBlock _Nonnull)bySwipeGR_SelImp;
+-(JobsRetJobsGestureModelByJobsSEL_IMPPointerBlock _Nonnull)byPanGR_SelImp;
+-(JobsRetJobsGestureModelByJobsSEL_IMPPointerBlock _Nonnull)byPinchGR_SelImp;
+-(JobsRetJobsGestureModelByJobsSEL_IMPPointerBlock _Nonnull)byRotationGR_SelImp;
+-(JobsRetJobsGestureModelByJobsSEL_IMPPointerBlock _Nonnull)byScreenEdgePanGR_SelImp;
+
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSGESTUREMODEL_DSL_923E5D178857D8A */

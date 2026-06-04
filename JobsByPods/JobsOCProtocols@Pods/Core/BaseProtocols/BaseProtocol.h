@@ -19,6 +19,7 @@
 #else
 #import "RACProtocol.h"
 #endif
+
 #if __has_include(<JobsOCProtocols/TimerProtocol.h>)
 #import <JobsOCProtocols/TimerProtocol.h>
 #elif __has_include("TimerProtocol.h")
@@ -26,6 +27,7 @@
 #else
 #import "TimerProtocol.h"
 #endif
+
 #if __has_include(<JobsOCProtocols/YTKNetworkProtocols.h>)
 #import <JobsOCProtocols/YTKNetworkProtocols.h>
 #elif __has_include("../OtherProtocols/YTKNetworkProtocols.h")
@@ -33,6 +35,7 @@
 #else
 #import "YTKNetworkProtocols.h"
 #endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else

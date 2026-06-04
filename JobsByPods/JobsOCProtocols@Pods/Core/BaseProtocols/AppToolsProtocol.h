@@ -17,6 +17,7 @@
 #else
 #import "BaseProtocol.h"
 #endif
+
 #if __has_include(<JobsOCProtocols/XProtocol.h>)
 #import <JobsOCProtocols/XProtocol.h>
 #elif __has_include("../XProtocols/XProtocol.h")
@@ -24,6 +25,7 @@
 #else
 #import "XProtocol.h"
 #endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else

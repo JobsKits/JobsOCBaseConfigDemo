@@ -17,6 +17,7 @@
 #else
 #import "BaseLayerProtocol.h"
 #endif
+
 #if __has_include(<JobsOCProtocols/RACProtocol.h>)
 #import <JobsOCProtocols/RACProtocol.h>
 #elif __has_include("XProtocol/RACProtocol.h")
@@ -24,6 +25,7 @@
 #else
 #import "RACProtocol.h"
 #endif
+
 #if __has_include(<JobsOCProtocols/UILocationProtocol.h>)
 #import <JobsOCProtocols/UILocationProtocol.h>
 #elif __has_include("XProtocol/UILocationProtocol.h")
@@ -31,6 +33,7 @@
 #else
 #import "UILocationProtocol.h"
 #endif
+
 #if __has_include(<JobsOCProtocols/UIMarkProtocol.h>)
 #import <JobsOCProtocols/UIMarkProtocol.h>
 #elif __has_include("XProtocol/UIMarkProtocol.h")
@@ -38,6 +41,7 @@
 #else
 #import "UIMarkProtocol.h"
 #endif
+
 #if __has_include(<JobsOCProtocols/UIPictureAndBackGroundCorProtocol.h>)
 #import <JobsOCProtocols/UIPictureAndBackGroundCorProtocol.h>
 #elif __has_include("XProtocol/UIPictureAndBackGroundCorProtocol.h")
@@ -45,6 +49,7 @@
 #else
 #import "UIPictureAndBackGroundCorProtocol.h"
 #endif
+
 #if __has_include(<JobsOCProtocols/UITextModelProtocol.h>)
 #import <JobsOCProtocols/UITextModelProtocol.h>
 #elif __has_include("../UIViewModelProtocols/BaseViewModelProtocol/UITextModelProtocol.h")
@@ -52,6 +57,7 @@
 #else
 #import "UITextModelProtocol.h"
 #endif
+
 #if __has_include(<JobsOCProtocols/UIViewModelOthersProtocol.h>)
 #import <JobsOCProtocols/UIViewModelOthersProtocol.h>
 #elif __has_include("../UIViewModelProtocols/BaseViewModelProtocol/UIViewModelOthersProtocol.h")
@@ -59,6 +65,7 @@
 #else
 #import "UIViewModelOthersProtocol.h"
 #endif
+
 #if __has_include(<JobsOCProtocols/BaseButtonProtocol.h>)
 #import <JobsOCProtocols/BaseButtonProtocol.h>
 #elif __has_include("../UIViewModelProtocols/BaseViewProtocols/BaseButtonProtocol.h")
@@ -66,6 +73,7 @@
 #else
 #import "BaseButtonProtocol.h"
 #endif
+
 #if __has_include(<JobsOCProtocols/UITextFieldProtocol.h>)
 #import <JobsOCProtocols/UITextFieldProtocol.h>
 #elif __has_include("../UIViewModelProtocols/BaseViewProtocols/UITextFieldProtocol.h")
@@ -73,6 +81,7 @@
 #else
 #import "UITextFieldProtocol.h"
 #endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else

@@ -1,0 +1,103 @@
+//
+//  JobsNetworkSource+DSL.h
+//  JobsModelDSL
+//
+//  Created by Jobs on 2026年6月4日，星期四.
+//
+
+#ifndef JOBS_HEADER_GUARD_JOBSNETWORKSOURCE_DSL_19B1FFCB010AC97F
+#define JOBS_HEADER_GUARD_JOBSNETWORKSOURCE_DSL_19B1FFCB010AC97F
+
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
+#else
+#import "JobsModel.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface JobsNetworkSource (DSL)
+
+-(JobsRetJobsNetworkSourceByJobsNetworkSourceTypeBlock _Nonnull)byType;
+-(JobsRetJobsNetworkSourceByStrBlock _Nonnull)byDisplayName;
+-(JobsRetJobsNetworkSourceByRACDisposablePointerBlock _Nonnull)byRacDisposable;
+-(JobsRetJobsNetworkSourceByRACSubjectPointerBlock _Nonnull)byRacSubject;
+-(JobsRetJobsNetworkSourceByRACSignalPointerBlock _Nonnull)byReqSignal;
+-(JobsRetJobsNetworkSourceByRACCommandPointerBlock _Nonnull)byActionCommand;
+-(JobsRetJobsNetworkSourceByRACSequencePointerBlock _Nonnull)byDataSequence;
+-(JobsRetJobsNetworkSourceByRACMulticastConnectionPointerBlock _Nonnull)byDataConnection;
+-(JobsRetJobsNetworkSourceByRACSchedulerPointerBlock _Nonnull)byMainScheduler;
+-(JobsRetJobsNetworkSourceByRACSchedulerPointerBlock _Nonnull)byBackgroundScheduler;
+-(JobsRetJobsNetworkSourceByRACTuplePointerBlock _Nonnull)byDataTuple;
+-(JobsRetJobsNetworkSourceByNSMutableDictionaryKindofRACDisposablePointerKindofRACSignalPointerPointerBlock _Nonnull)bySignalDisposableMap;
+-(JobsRetJobsNetworkSourceByJobsByIDBlockBlock _Nonnull)byDoSthByIDBlock;
+-(JobsRetJobsNetworkSourceByJobsByVoidBlockBlock _Nonnull)byDoSthBlock;
+-(JobsRetJobsNetworkSourceByCGFloatBlock _Nonnull)byTime;
+-(JobsRetJobsNetworkSourceByTimeIntervalBlock _Nonnull)byStartTime;
+-(JobsRetJobsNetworkSourceByTimeIntervalBlock _Nonnull)byTimeSecIntervalSinceDate;
+-(JobsRetJobsNetworkSourceByTimeIntervalBlock _Nonnull)byTimeInterval;
+-(JobsRetJobsNetworkSourceByBOOLBlock _Nonnull)byRepeats;
+-(JobsRetJobsNetworkSourceByNSInvocationPointerBlock _Nonnull)byInvocation;
+-(JobsRetJobsNetworkSourceByNSRunLoopModeBlock _Nonnull)byRunLoopMode;
+-(JobsRetJobsNetworkSourceByIDBlock _Nonnull)byUserInfo;
+-(JobsRetJobsNetworkSourceByShowTimeTypeBlock _Nonnull)byShowTimeType;
+-(JobsRetJobsNetworkSourceByJobsTimerStyleBlock _Nonnull)byTimerStyle;
+-(JobsRetJobsNetworkSourceByJobsTimerTypeBlock _Nonnull)byTimerType;
+-(JobsRetJobsNetworkSourceByTimeIntervalBlock _Nonnull)byAccumulatedElapsed;
+-(JobsRetJobsNetworkSourceByDateBlock _Nonnull)byLastStartDate;
+-(JobsRetJobsNetworkSourceByNSTimerPointerBlock _Nonnull)byNsTimer;
+-(JobsRetJobsNetworkSourceByDispatch_source_tBlock _Nonnull)byGcdTimer;
+-(JobsRetJobsNetworkSourceByCADisplayLinkPointerBlock _Nonnull)byDisplayLink;
+-(JobsRetJobsNetworkSourceByDispatch_queue_tBlock _Nonnull)byQueue;
+-(JobsRetJobsNetworkSourceByJobsTimerStateBlock _Nonnull)byTimerState;
+-(JobsRetJobsNetworkSourceByBOOLBlock _Nonnull)byRunning;
+-(JobsRetJobsNetworkSourceByBOOLBlock _Nonnull)byPaused;
+-(JobsRetJobsNetworkSourceByBOOLBlock _Nonnull)byStop;
+-(JobsRetJobsNetworkSourceByJobsByCGFloatBlockBlock _Nonnull)byOnTick;
+-(JobsRetJobsNetworkSourceByJobsTimerBlockBlock _Nonnull)byOnFinish;
+-(JobsRetJobsNetworkSourceByJobsTimerPointerBlock _Nonnull)byTimer;
+-(JobsRetJobsNetworkSourceByNSLockPointerBlock _Nonnull)byLock;
+-(JobsRetJobsNetworkSourceByNSRecursiveLockPointerBlock _Nonnull)byRecursiveLock;
+-(JobsRetJobsNetworkSourceByDispatch_semaphore_tBlock _Nonnull)bySemaphore;
+-(JobsRetJobsNetworkSourceByBOOLBlock _Nonnull)byIsLock;
+-(JobsRetJobsNetworkSourceByBOOLBlock _Nonnull)byIsRead;
+-(JobsRetJobsNetworkSourceByBOOLBlock _Nonnull)byBecomeFirstResponder;
+-(JobsRetJobsNetworkSourceByAppLanguageBlock _Nonnull)byAppLanguage;
+-(JobsRetJobsNetworkSourceByCGPointBlock _Nonnull)byLastContentOffset;
+-(JobsRetJobsNetworkSourceByWKUserContentControllerPointerBlock _Nonnull)byUserContentCtrl;
+-(JobsRetJobsNetworkSourceByWKScriptMessagePointerBlock _Nonnull)byScriptMsg;
+-(JobsRetJobsNetworkSourceByStrBlock _Nonnull)byHandlerName;
+-(JobsRetJobsNetworkSourceByStrBlock _Nonnull)byEvaluateJavaScript;
+-(JobsRetJobsNetworkSourceByStrBlock _Nonnull)byCustomUserAgent;
+-(JobsRetJobsNetworkSourceByJobsJSCompletionHandlerBlockBlock _Nonnull)byCompletionHandlerBlock;
+-(JobsRetJobsNetworkSourceByNSMutableArrayNSURLPointerPointerBlock _Nonnull)byUrls;
+-(JobsRetJobsNetworkSourceByURLBlock _Nonnull)byUrl;
+-(JobsRetJobsNetworkSourceByURLBlock _Nonnull)byImageUrl;
+-(JobsRetJobsNetworkSourceByStrBlock _Nonnull)byInternationalizationKEY;
+-(JobsRetJobsNetworkSourceByMutableSetBlock _Nonnull)byJobsDataMutSet;
+-(JobsRetJobsNetworkSourceByNSMutableArrayPointerBlock _Nonnull)byJobsDataMutArr;
+-(JobsRetJobsNetworkSourceByNSMutableDictionaryPointerBlock _Nonnull)byJobsDataMutDic;
+-(JobsRetJobsNetworkSourceByClsBlock _Nonnull)byCls;
+-(JobsRetJobsNetworkSourceBySELBlock _Nonnull)bySelector;
+-(JobsRetJobsNetworkSourceByIMPBlock _Nonnull)byImplementation;
+-(JobsRetJobsNetworkSourceByIDBlock _Nonnull)byTarget;
+-(JobsRetJobsNetworkSourceByIDBlock _Nonnull)byWeak_target;
+-(JobsRetJobsNetworkSourceByIDBlock _Nonnull)byData;
+-(JobsRetJobsNetworkSourceByIDBlock _Nonnull)byRequestParams;
+-(JobsRetJobsNetworkSourceByIDBlock _Nonnull)byModelData;
+-(JobsRetJobsNetworkSourceByCGFloatBlock _Nonnull)byValue_CGFloat;
+-(JobsRetJobsNetworkSourceByNSIntegerBlock _Nonnull)byValue_NSInteger;
+-(JobsRetJobsNetworkSourceByNSUIntegerBlock _Nonnull)byValue_NSUInteger;
+-(JobsRetJobsNetworkSourceByIDBlock _Nonnull)byData_weak;
+-(JobsRetJobsNetworkSourceByIDBlock _Nonnull)byRequestParams_weak;
+
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSNETWORKSOURCE_DSL_19B1FFCB010AC97F */
