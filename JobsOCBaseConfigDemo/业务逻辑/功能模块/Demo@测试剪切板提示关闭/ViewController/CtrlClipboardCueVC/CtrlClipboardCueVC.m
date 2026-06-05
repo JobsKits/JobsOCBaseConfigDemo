@@ -174,8 +174,8 @@ Prop_copy()NSString *textData2;// 来自于剪切板存储的数据
                 make.bottom.equalTo(self.view).offset(JobsWidth(-20));
             }];
             textView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-                model.layerCor = JobsLightGrayColor;
-                model.jobsWidth = .5f;
+                model.byLayerCor(JobsLightGrayColor)
+                     .byJobsWidth(.5f);
             }));
         });
     }return _textView;

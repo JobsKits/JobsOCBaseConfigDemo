@@ -56,12 +56,12 @@ UIPictureAndBackGroundCorProtocol_synthesize
     if(!_closeBtnModel){
         @jobs_weakify(self)
         _closeBtnModel = jobsMakeButtonModel(^(__kindof UIButtonModel *_Nullable data) {
-            data.backgroundImage = @"关闭".img;
-            data.highlightBackgroundImage = @"关闭".img;
-            data.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-            data.titleCor = JobsClearColor;
-            data.selectedTitleCor = JobsClearColor;
-            data.roundingCorners = UIRectCornerAllCorners;
+            data.byBackgroundImage(@"关闭".img)
+                .byHighlightBackgroundImage(@"关闭".img)
+                .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
+                .byTitleCor(JobsClearColor)
+                .bySelectedTitleCor(JobsClearColor)
+                .byRoundingCorners(UIRectCornerAllCorners);
             data.longPressGestureEventBlock = ^id(__kindof UIButton *x) {
                 JobsLog(@"按钮的长按事件触发");
                 return nil;

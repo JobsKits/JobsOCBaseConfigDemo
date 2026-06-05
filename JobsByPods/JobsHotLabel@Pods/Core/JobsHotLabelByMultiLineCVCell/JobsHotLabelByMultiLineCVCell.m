@@ -70,11 +70,11 @@ Prop_strong()UILabel *textLab;
         @jobs_weakify(self)
         _textLab = self.contentView.addSubview(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = self.viewModel.bgCor;
-            label.textColor = self.viewModel.textModel.textCor;
-            label.textAlignment = NSTextAlignmentCenter;
-            label.text = self.viewModel.textModel.text;
-            label.font = self.viewModel.textModel.font;
+            label.byBgColor(self.viewModel.bgCor);
+            label.byTextCor(self.viewModel.textModel.textCor);
+            label.byTextAlignment(NSTextAlignmentCenter);
+            label.byText(self.viewModel.textModel.text);
+            label.byFont(self.viewModel.textModel.font);
         })).byAdd(^(MASConstraintMaker *make) {
             @jobs_strongify(self)
             make.edges.equalTo(self.contentView);

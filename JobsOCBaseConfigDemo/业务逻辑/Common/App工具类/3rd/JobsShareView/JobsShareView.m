@@ -179,7 +179,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     @jobs_weakify(self)
     return MSMineView6CVCell.cellSizeByModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
         @jobs_strongify(self)
-        data.cls = self.class;
+        data.byCls(self.class);
     }));
 }
 /// 定义的是元素垂直之间的间距
@@ -201,10 +201,10 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
 layout:(UICollectionViewLayout *)collectionViewLayout
 insetForSectionAtIndex:(NSInteger)section {
     return jobsMakeEdgeInsetsByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
-        data.jobsTop = JobsWidth(6);
-        data.jobsLeft = JobsWidth(15);
-        data.jobsBottom = JobsWidth(6);
-        data.jobsRight = JobsWidth(15);
+        data.byJobsTop(JobsWidth(6))
+            .byJobsLeft(JobsWidth(15))
+            .byJobsBottom(JobsWidth(6))
+            .byJobsRight(JobsWidth(15));
     });
 }
 #pragma mark —— lazyLoad
@@ -268,20 +268,20 @@ insetForSectionAtIndex:(NSInteger)section {
     if (!_dataMutArr) {
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"钱包".tr;
-                data1.image = @"钱包".img;
+                data1.textModel.byText(@"钱包".tr);
+                data1.byImage(@"钱包".img);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"我的店铺".tr;
-                data1.image = @"我的店铺".img;
+                data1.textModel.byText(@"我的店铺".tr);
+                data1.byImage(@"我的店铺".img);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"我的团队".tr;
-                data1.image = @"我的团队".img;
+                data1.textModel.byText(@"我的团队".tr);
+                data1.byImage(@"我的团队".img);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"信用分数".tr;
-                data1.image = @"信用分数".img;
+                data1.textModel.byText(@"信用分数".tr);
+                data1.byImage(@"信用分数".img);
             }));
         });
     }return _dataMutArr;

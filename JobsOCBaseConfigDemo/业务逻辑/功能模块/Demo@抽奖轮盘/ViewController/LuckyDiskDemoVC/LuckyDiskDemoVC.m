@@ -394,9 +394,9 @@ Prop_strong() UILabel *resultLabel;         ///< 弹窗中奖结果文案（懒�
     if (!_itemBorderView) {
         _itemBorderView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view.layer.borderColor = RGB_COLOR(247, 227, 2).CGColor;
-            view.layer.cornerRadius = ScaleW(12);
+            view.byCornerRadius(ScaleW(12));
             view.layer.borderWidth = ScaleW(2);
-            view.alpha = 0.0f; // 初始隐藏
+            view.byAlpha(0.0f); // 初始隐藏
         });
     }
     return _itemBorderView;

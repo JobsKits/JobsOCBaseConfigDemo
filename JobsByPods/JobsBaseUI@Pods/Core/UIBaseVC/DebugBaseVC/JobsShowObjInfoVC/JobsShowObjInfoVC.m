@@ -121,15 +121,15 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView = jobsMakeBaseTableViewByPlain(^(__kindof BaseTableView * _Nullable tableView) {
             @jobs_strongify(self)
             tableView.dataLink(self);
-            tableView.backgroundColor = JobsWhiteColor;
-            tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-            tableView.showsVerticalScrollIndicator = NO;
-            tableView.tableFooterView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            tableView.byBgColor(JobsWhiteColor);
+            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine);
+            tableView.byShowsVerticalScrollIndicator(NO);
+            tableView.byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
                 /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
-            });
-            tableView.separatorColor = HEXCOLOR(0xEEEEEE);
+            }));
+            tableView.bySeparatorColor(HEXCOLOR(0xEEEEEE));
             {
-                tableView.mj_header = self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
+                tableView.byMJRefreshHeader(self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
                     @jobs_strongify(self)
                     NSObject.feedbackGenerator(nil);/// 震动反馈
                     if (self.dataMutArr.count) [self.dataMutArr removeAllObjects];
@@ -144,12 +144,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                             if([subtext isKindOfClass:NSString.class] &&
                                [text isKindOfClass:NSString.class]){
                                 self.dataMutArr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                                    viewModel.textModel.text = propertyName;
-                                    viewModel.subTextModel.text = requestParams.valueForKey(propertyName);
-                                    viewModel.textModel.textCor = JobsBlueColor;
-                                    viewModel.textModel.font = UIFontSystemFontOfSize(10);
-                                    viewModel.textModel.subTextCor = JobsRedColor;
-                                    viewModel.textModel.subFont = UIFontSystemFontOfSize(8);
+                                    viewModel.textModel.byText(propertyName);
+                                    viewModel.subTextModel.byText(requestParams.valueForKey(propertyName));
+                                    viewModel.textModel.byTextCor(JobsBlueColor)
+                                                       .byFont(UIFontSystemFontOfSize(10))
+                                                       .bySubTextCor(JobsRedColor)
+                                                       .bySubFont(UIFontSystemFontOfSize(8));
                                 }));
                             }
                         }
@@ -168,7 +168,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                   animationBlock:nil
                                                  completionBlock:nil];
                     });return nil;
-                }]);
+                }]));
                 tableView.mj_footer = self.view.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
                     @jobs_strongify(self)
                     self->_tableView.endRefreshing(self.dataMutArr.count);

@@ -14,8 +14,8 @@
 
 -(URLManagerModel *_Nonnull)url:(NSString *_Nonnull)url funcName:(NSString *_Nonnull)funcName{
     return jobsMakeURLManagerModel(^(__kindof URLManagerModel * _Nullable data) {
-        data.url = url;
-        data.funcName = funcName;
+        data.byUrl(url)
+            .byFuncName(funcName);
     });
 }
 

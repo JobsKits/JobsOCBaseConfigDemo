@@ -392,12 +392,12 @@
     id item = self.selectIndex < self.dataList.count ? self.dataList[self.selectIndex] : nil;
     if ([item isKindOfClass:[BRTextModel class]]) {
         BRTextModel *model = (BRTextModel *)item;
-        model.index = self.selectIndex;
+        model.byIndex(self.selectIndex);
         return model;
     } else {
         BRTextModel *model = [[BRTextModel alloc]init];
-        model.index = self.selectIndex;
-        model.text = item;
+        model.byIndex(self.selectIndex)
+             .byText(item);
         return model;
     }
 }
@@ -412,12 +412,12 @@
         
         if ([item isKindOfClass:[BRTextModel class]]) {
             BRTextModel *model = (BRTextModel *)item;
-            model.index = index;
+            model.byIndex(index);
             [modelArr addObject:model];
         } else {
             BRTextModel *model = [[BRTextModel alloc]init];
-            model.index = index;
-            model.text = item;
+            model.byIndex(index)
+                 .byText(item);
             [modelArr addObject:model];
         }
     }

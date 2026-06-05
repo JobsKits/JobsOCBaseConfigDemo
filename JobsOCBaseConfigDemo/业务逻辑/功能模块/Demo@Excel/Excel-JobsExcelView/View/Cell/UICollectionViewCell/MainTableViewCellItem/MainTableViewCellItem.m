@@ -26,8 +26,8 @@ Prop_assign()CGSize size;
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
     self.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable data) {
-        data.layerCor = JobsLightGrayColor;
-        data.jobsWidth = JobsWidth(.5f);
+        data.byLayerCor(JobsLightGrayColor)
+            .byJobsWidth(JobsWidth(.5f));
     }));
 }
 #pragma mark —— BaseCellProtocol

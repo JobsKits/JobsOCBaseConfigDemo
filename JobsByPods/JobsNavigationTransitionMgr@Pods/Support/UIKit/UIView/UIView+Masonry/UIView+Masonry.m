@@ -19,7 +19,7 @@
                       itemViews:arr.count ? arr : jobsMakeMutArr(^(__kindof NSMutableArray<UIView *> * _Nullable arr) {
             for (int i = 0; i < rows * columns; i++) {
                 arr.add(jobsMakeView(^(__kindof UIView * _Nullable view) {
-                    view.backgroundColor = JobsRandomColor;
+                    view.byBgColor(JobsRandomColor);
                 }));
             }
         })

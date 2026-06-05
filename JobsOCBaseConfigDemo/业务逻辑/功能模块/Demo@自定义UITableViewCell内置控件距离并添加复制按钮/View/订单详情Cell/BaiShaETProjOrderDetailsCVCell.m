@@ -31,9 +31,9 @@ Prop_strong()UIButton *jobsCopyBtn;
     BaiShaETProjOrderDetailsCVCell *cell = JobsRegisterDequeueCollectionViewCell(BaiShaETProjOrderDetailsCVCell);
     cell.indexPath = indexPath;
     cell.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-        model.jobsWidth = .5f;
-        model.layerCor = HEXCOLOR(0xEEE2C8);
-        model.cornerRadiusValue = JobsWidth(8);
+        model.byJobsWidth(.5f)
+             .byLayerCor(HEXCOLOR(0xEEE2C8))
+             .byCornerRadiusValue(JobsWidth(8));
     }));
     JobsCellCor(JobsWhiteColor);
     return cell;

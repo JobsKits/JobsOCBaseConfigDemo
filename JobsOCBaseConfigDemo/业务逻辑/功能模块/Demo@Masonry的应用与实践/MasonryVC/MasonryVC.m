@@ -108,11 +108,11 @@ Prop_strong()MSMineView2 *view2;
         .add(@"标签10".tr);
     })) {
         self.view.addSubview(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.text = tagName;
-            label.backgroundColor = JobsLightGrayColor;
-            label.textAlignment = NSTextAlignmentCenter;
-            label.layer.cornerRadius = 5.0;
-            label.clipsToBounds = YES;
+            label.byText(tagName);
+            label.byBgColor(JobsLightGrayColor);
+            label.byTextAlignment(NSTextAlignmentCenter);
+            label.byCornerRadius(5.0);
+            label.byClipsToBounds(YES);
             // 根据标签文本计算标签宽度
             CGSize tagSize = [label sizeThatFits:CGSizeMake(containerWidth, tagHeight)];
             // 如果当前行放不下该标签，则换行

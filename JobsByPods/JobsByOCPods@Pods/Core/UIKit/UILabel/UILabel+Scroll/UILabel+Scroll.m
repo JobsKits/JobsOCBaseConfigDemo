@@ -66,20 +66,20 @@ JobsKey(_stopScrolling)
         /// 添加子视图容器
         UIScrollView *scrollView = self.addSubview(jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView.frame = self.bounds;
-            scrollView.showsHorizontalScrollIndicator = NO;
-            scrollView.scrollEnabled = NO;
+            scrollView.byFrame(self.bounds);
+            scrollView.byShowsHorizontalScrollIndicator(NO);
+            scrollView.byScrollEnabled(NO);
             /// 创建文字Label
             scrollView.addSubview(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
                 @jobs_strongify(self)
-                label.frame = CGRectMake(0, 0, textWidth, self.bounds.size.height);
-                label.text = self.text;
-                label.font = self.font;
-                label.textColor = self.textColor;
-                label.textAlignment = NSTextAlignmentLeft;
+                label.byFrame(CGRectMake(0, 0, textWidth, self.bounds.size.height));
+                label.byText(self.text);
+                label.byFont(self.font);
+                label.byTextCor(self.textColor);
+                label.byTextAlignment(NSTextAlignmentLeft);
             }));
             /// 设置ScrollView内容大小
-            scrollView.contentSize = CGSizeMake(textWidth, self.bounds.size.height);
+            scrollView.byContentSize(CGSizeMake(textWidth, self.bounds.size.height));
         }));
         /// 定时器实现滚动动画
         RACDisposable *disposable = [[RACSignal interval:data

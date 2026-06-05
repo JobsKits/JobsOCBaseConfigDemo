@@ -217,17 +217,17 @@ GestureProtocol_synthesize
     {/// UIButton 单独自定义设置系统自带控件的偏移量 ❤️与其他组属性不互斥❤️
         self.titleLabel.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
             @jobs_strongify(self)
-            viewModel.offsetXForEach = self.textLabelFrameOffsetX;
-            viewModel.offsetYForEach = self.textLabelFrameOffsetY;
-            viewModel.offsetWidth = self.textLabelFrameOffsetWidth;
-            viewModel.offsetHeight = self.textLabelFrameOffsetHeight;
+            viewModel.byOffsetXForEach(self.textLabelFrameOffsetX)
+                     .byOffsetYForEach(self.textLabelFrameOffsetY)
+                     .byOffsetWidth(self.textLabelFrameOffsetWidth)
+                     .byOffsetHeight(self.textLabelFrameOffsetHeight);
         }));
         self.imageView.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
             @jobs_strongify(self)
-            viewModel.offsetXForEach = self.imageViewFrameOffsetX;
-            viewModel.offsetYForEach = self.imageViewFrameOffsetY;
-            viewModel.offsetWidth = self.imageViewFrameOffsetWidth;
-            viewModel.offsetHeight = self.imageViewFrameOffsetHeight;
+            viewModel.byOffsetXForEach(self.imageViewFrameOffsetX)
+                     .byOffsetYForEach(self.imageViewFrameOffsetY)
+                     .byOffsetWidth(self.imageViewFrameOffsetWidth)
+                     .byOffsetHeight(self.imageViewFrameOffsetHeight);
         }));
     }
 }

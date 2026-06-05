@@ -195,9 +195,9 @@ Prop_strong()UITextModel *postTextModel;
     [NSObject showSPAlertControllerConfig:jobsMakeSPAlertControllerConfig(^(__kindof SPAlertControllerConfig * _Nullable config) {
         @jobs_strongify(self)
         config.SPAlertControllerInitType = NSObject_SPAlertControllerInitType_2;
-        config.title = @"提示".tr;
-        config.message = @"是否将当前内容保存为草稿？".tr;
-        config.preferredStyle = SPAlertControllerStyleAlert;
+        config.byTitle(@"提示".tr)
+              .byMessage(@"是否将当前内容保存为草稿？".tr)
+              .byPreferredStyle(SPAlertControllerStyleAlert);
         config.animationType = SPAlertAnimationTypeDefault;
         config.alertActionTitleArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>* _Nullable data) {
             data.add(@"不保存".tr);
@@ -211,9 +211,9 @@ Prop_strong()UITextModel *postTextModel;
             data.add(@"不保留文字".tr);
             data.add(@"保留文字".tr);
         });
-        config.targetVC = self;
-        config.funcInWhere = self;
-        config.animated = YES;
+        config.byTargetVC(self)
+              .byFuncInWhere(self)
+              .byAnimated(YES);
     })
                            alertVCBlock:^(SPAlertController *data,
                                           NSMutableArray <SPAlertAction *>*data2) {
@@ -469,12 +469,12 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         @jobs_weakify(self)
         _postTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data) {
             @jobs_strongify(self)
-            data.text = self.inputDataHistoryString;
-            data.textCor = JobsBlackColor;
-            data.placeholder = @"撩骚内容，写在这里哦~".tr;
-            data.placeholderColor = RGB_SAMECOLOR(173);
-            data.font = UIFontWeightRegularSize(14);
-            data.maxWordCount = 10;
+            data.byText(self.inputDataHistoryString)
+                .byTextCor(JobsBlackColor)
+                .byPlaceholder(@"撩骚内容，写在这里哦~".tr)
+                .byPlaceholderColor(RGB_SAMECOLOR(173))
+                .byFont(UIFontWeightRegularSize(14))
+                .byMaxWordCount(10);
         });
     }return _postTextModel;
 }

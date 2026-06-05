@@ -172,8 +172,8 @@ Prop_strong() JobsTimer *displayTimer;
         _curveView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
             if (!self) return;
-            view.backgroundColor = JobsRedColor;
-            view.frame = CGRectMake(self.curveX, self.curveY, 3, 3);
+            view.byBgColor(JobsRedColor);
+            view.byFrame(CGRectMake(self.curveX, self.curveY, 3, 3));
             [self addSubview:view];
         });
     }return _curveView;

@@ -50,50 +50,50 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
                 self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray<JobsRichTextConfig *> * _Nullable data) {
                     /// "源: "
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.font          = [UIFont systemFontOfSize:10 weight:UIFontWeightMedium];
-                        cfg.textCor       = UIColor.secondaryLabelColor;
-                        cfg.targetString  = @"源: ";
-                        cfg.paragraphStyle = ps;
+                        cfg.byFont([UIFont systemFontOfSize:10 weight:UIFontWeightMedium])
+                           .byTextCor(UIColor.secondaryLabelColor)
+                           .byTargetString(@"源: ")
+                           .byParagraphStyle(ps);
                     }));
                     /// 源名称
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.font          = [UIFont systemFontOfSize:11 weight:UIFontWeightSemibold];
-                        cfg.textCor       = UIColor.whiteColor;
-                        cfg.targetString  = source.displayName;
-                        cfg.paragraphStyle = ps;
+                        cfg.byFont([UIFont systemFontOfSize:11 weight:UIFontWeightSemibold])
+                           .byTextCor(UIColor.whiteColor)
+                           .byTargetString(source.displayName)
+                           .byParagraphStyle(ps);
                     }));
                     /// 换行
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.targetString  = JobsNewline;
-                        cfg.paragraphStyle = ps;
+                        cfg.byTargetString(JobsNewline)
+                           .byParagraphStyle(ps);
                     }));
                     /// 上行 "⬆︎ "
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.font          = [UIFont systemFontOfSize:11];
-                        cfg.textCor       = UIColor.systemGreenColor;
-                        cfg.targetString  = @"⬆︎ ";
-                        cfg.paragraphStyle = ps;
+                        cfg.byFont([UIFont systemFontOfSize:11])
+                           .byTextCor(UIColor.systemGreenColor)
+                           .byTargetString(@"⬆︎ ")
+                           .byParagraphStyle(ps);
                     }));
                     /// 上行数值（带两个空格）
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.font          = [UIFont monospacedDigitSystemFontOfSize:11 weight:UIFontWeightMedium];
-                        cfg.textCor       = UIColor.whiteColor;
-                        cfg.targetString  = upStr.add(@"  ");
-                        cfg.paragraphStyle = ps;
+                        cfg.byFont([UIFont monospacedDigitSystemFontOfSize:11 weight:UIFontWeightMedium])
+                           .byTextCor(UIColor.whiteColor)
+                           .byTargetString(upStr.add(@"  "))
+                           .byParagraphStyle(ps);
                     }));
                     /// 下行 "⬇︎ "
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.font          = [UIFont systemFontOfSize:11];
-                        cfg.textCor       = UIColor.systemRedColor;
-                        cfg.targetString  = @"⬇︎ ";
-                        cfg.paragraphStyle = ps;
+                        cfg.byFont([UIFont systemFontOfSize:11])
+                           .byTextCor(UIColor.systemRedColor)
+                           .byTargetString(@"⬇︎ ")
+                           .byParagraphStyle(ps);
                     }));
                     /// 下行数值
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.font          = [UIFont monospacedDigitSystemFontOfSize:11 weight:UIFontWeightMedium];
-                        cfg.textCor       = UIColor.whiteColor;
-                        cfg.targetString  = downStr;
-                        cfg.paragraphStyle = ps;
+                        cfg.byFont([UIFont monospacedDigitSystemFontOfSize:11 weight:UIFontWeightMedium])
+                           .byTextCor(UIColor.whiteColor)
+                           .byTargetString(downStr)
+                           .byParagraphStyle(ps);
                     }));
                 }));
                 @jobs_weakify(self)

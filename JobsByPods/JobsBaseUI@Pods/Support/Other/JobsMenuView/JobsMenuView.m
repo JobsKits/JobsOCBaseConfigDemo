@@ -89,15 +89,15 @@ Prop_strong()JobsLinkageMenuView *menuView;
         @jobs_weakify(self)
         _buttonModel = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
             @jobs_strongify(self)
-            data.normal_titles = self.titleMutArr;
-            data.titleCor = JobsWhiteColor;
-            data.selectedTitleCor = JobsClearColor;
-            data.normal_backgroundImages = self.normal_titleBgImageMutArr;
-            data.selected_backgroundImages = self.select_titleBgImageMutArr;// TODO
-            data.normal_images = self.normal_titleImageMutArr;
-            data.data = self.subViewMutArr;
-            data.imagePaddings = self.imagePaddings;
-            data.imagePlacement = NSDirectionalRectEdgeLeading;
+            data.byNormal_titles(self.titleMutArr)
+                .byTitleCor(JobsWhiteColor)
+                .bySelectedTitleCor(JobsClearColor)
+                .byNormal_backgroundImages(self.normal_titleBgImageMutArr)
+                .bySelected_backgroundImages(self.select_titleBgImageMutArr)// TODO
+                .byNormal_images(self.normal_titleImageMutArr)
+                .byData(self.subViewMutArr)
+                .byImagePaddings(self.imagePaddings)
+                .byImagePlacement(NSDirectionalRectEdgeLeading);
         });
     }return _buttonModel;
 }

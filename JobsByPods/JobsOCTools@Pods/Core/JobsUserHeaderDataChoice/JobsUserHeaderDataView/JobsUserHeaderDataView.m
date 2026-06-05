@@ -140,9 +140,9 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
 +(JobsReturnViewModelByStringBlock _Nonnull)makeViewModelBy{
     return ^ __kindof UIViewModel *_Nullable(NSString *_Nullable data){
         return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.text = data;
-            viewModel.textModel.font = UIFontWeightRegularSize(JobsWidth(18));
-            viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
+            viewModel.textModel.byText(data)
+                               .byFont(UIFontWeightRegularSize(JobsWidth(18)))
+                               .byTextCor(HEXCOLOR(0x3D4A58));
         });
     };
 }
@@ -253,10 +253,10 @@ viewForHeaderInSection:(NSInteger)section{
                         .makeLabelByShowingType(UILabelShowingType_03);
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                    data.title = @"NO MESSAGES FOUND".tr;
-                    data.titleCor = JobsWhiteColor;
-                    data.titleFont = bayonRegular(JobsWidth(30));
-                    data.normalImage = @"小狮子".img;
+                    data.byTitle(@"NO MESSAGES FOUND".tr)
+                        .byTitleCor(JobsWhiteColor)
+                        .byTitleFont(bayonRegular(JobsWidth(30)))
+                        .byNormalImage(@"小狮子".img);
                 }))
                 /// 普通的MJRefreshHeader（触发事件）
                 .byMJRefreshHeader([MJRefreshNormalHeader headerWithRefreshingBlock:^{

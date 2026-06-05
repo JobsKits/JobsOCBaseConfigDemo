@@ -47,7 +47,7 @@ Prop_strong()UILabel *titleLabel;
         @jobs_weakify(self)
         _titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.font = UIFontWeightRegularSize(15);
+            label.byFont(UIFontWeightRegularSize(15));
             [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.contentView).offset(10);
                 make.top.equalTo(self.contentView).offset(20);

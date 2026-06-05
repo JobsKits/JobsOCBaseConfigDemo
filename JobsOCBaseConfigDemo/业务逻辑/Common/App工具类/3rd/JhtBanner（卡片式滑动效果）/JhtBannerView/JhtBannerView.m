@@ -105,8 +105,8 @@ didScrollToCardViewWithIndex:(NSInteger)index {
         @jobs_weakify(self)
         cardView = JhtBannerCardView.initByFrame(jobsMakeCGRectByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
             @jobs_strongify(self)
-            model.jobsWidth = self.JhtBannerCardViewSize.width;
-            model.jobsHeight = self.JhtBannerCardViewSize.height;
+            model.byJobsWidth(self.JhtBannerCardViewSize.width)
+                 .byJobsHeight(self.JhtBannerCardViewSize.height);
         }));cardView.tag = index;
     }
     /// data

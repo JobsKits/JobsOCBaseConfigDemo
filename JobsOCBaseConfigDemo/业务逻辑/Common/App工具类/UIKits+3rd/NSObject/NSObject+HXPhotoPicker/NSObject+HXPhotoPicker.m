@@ -36,17 +36,17 @@
                                                                              UIViewController *viewController,
                                                                              HXPhotoManager *manager) {
                     if (successBlock) successBlock(jobsMakeHXPhotoPickerModel(^(__kindof HXPhotoPickerModel * _Nullable model) {
-                        model.allList = allList;
-                        model.photoList = photoList;
-                        model.videoList = videoList;
-                        model.isOriginal = isOriginal;
-                        model.vc = viewController;
-                        model.photoManager = manager;
+                        model.byAllList(allList)
+                             .byPhotoList(photoList)
+                             .byVideoList(videoList)
+                             .byIsOriginal(isOriginal)
+                             .byVc(viewController)
+                             .byPhotoManager(manager);
                     }));
                 } cancel:^(UIViewController *viewController, HXPhotoManager *manager) {
                     if (failBlock) failBlock(jobsMakeHXPhotoPickerModel(^(__kindof HXPhotoPickerModel * _Nullable model) {
-                        model.vc = viewController;
-                        model.photoManager = manager;
+                        model.byVc(viewController)
+                             .byPhotoManager(manager);
                     }));
                 }];
             }
@@ -76,13 +76,13 @@
                                                                                done:^(HXPhotoModel *photoModel,
                                                                                       HXCustomCameraViewController *viewController) {
                         if (successBlock) successBlock(jobsMakeHXPhotoPickerModel(^(__kindof HXPhotoPickerModel * _Nullable model) {
-                            model.customCameraVC = viewController;
-                            model.photoModel = photoModel;
+                            model.byCustomCameraVC(viewController)
+                                 .byPhotoModel(photoModel);
                         }));
                     } cancel:^(HXCustomCameraViewController *viewController) {
                         NSSLog(@"取消了");
                         if (failBlock) failBlock(jobsMakeHXPhotoPickerModel(^(__kindof HXPhotoPickerModel * _Nullable model) {
-                            model.customCameraVC = viewController;
+                            model.byCustomCameraVC(viewController);
                         }));
                     }];
                 }

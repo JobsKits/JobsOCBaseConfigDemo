@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetSPAlertControllerConfigByUIViewPointerBlock _Nonnull)byCustomAlertView;
 -(JobsRetSPAlertControllerConfigByUIViewPointerBlock _Nonnull)byCustomHeaderView;
 -(JobsRetSPAlertControllerConfigByUIViewPointerBlock _Nonnull)byCustomActionSequenceView;
+-(JobsRetSPAlertControllerConfigByNSIntegerBlock _Nonnull)byPreferredStyle;
+-(JobsRetSPAlertControllerConfigByNSIntegerBlock _Nonnull)byAnimationType;
 -(JobsRetSPAlertControllerConfigByUIViewControllerPointerBlock _Nonnull)byTargetVC;
 -(JobsRetSPAlertControllerConfigByIDBlock _Nonnull)byFuncInWhere;
 -(JobsRetSPAlertControllerConfigByBOOLBlock _Nonnull)byAnimated;

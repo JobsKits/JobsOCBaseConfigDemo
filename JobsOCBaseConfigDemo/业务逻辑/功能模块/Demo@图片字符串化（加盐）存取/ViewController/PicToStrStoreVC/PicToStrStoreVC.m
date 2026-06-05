@@ -201,34 +201,34 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             @jobs_strongify(self)
             data.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"利用十六进制字符串进行存取".tr;
-                model.subTitle = @"".tr;
-                model.requestParams = @(PicToStrStyle_Hexadecimal);
+                model.byTitle(@"利用十六进制字符串进行存取".tr)
+                     .bySubTitle(@"".tr)
+                     .byRequestParams(@(PicToStrStyle_Hexadecimal));
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"利用Base16编码进行存取".tr;
-                model.subTitle = @"".tr;
-                model.requestParams = @(PicToStrStyle_Base16);
+                model.byTitle(@"利用Base16编码进行存取".tr)
+                     .bySubTitle(@"".tr)
+                     .byRequestParams(@(PicToStrStyle_Base16));
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"利用Base32编码进行存取".tr;
-                model.subTitle = @"".tr;
-                model.requestParams = @(PicToStrStyle_Base32);
+                model.byTitle(@"利用Base32编码进行存取".tr)
+                     .bySubTitle(@"".tr)
+                     .byRequestParams(@(PicToStrStyle_Base32));
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"利用Base64编码进行存取".tr;
-                model.subTitle = @"".tr;
-                model.requestParams = @(PicToStrStyle_Base64);
+                model.byTitle(@"利用Base64编码进行存取".tr)
+                     .bySubTitle(@"".tr)
+                     .byRequestParams(@(PicToStrStyle_Base64));
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"利用Base85编码进行存取".tr;
-                model.subTitle = @"".tr;
-                model.requestParams = @(PicToStrStyle_Base85);
+                model.byTitle(@"利用Base85编码进行存取".tr)
+                     .bySubTitle(@"".tr)
+                     .byRequestParams(@(PicToStrStyle_Base85));
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"利用MIME编码进行存取".tr;
-                model.subTitle = @"".tr;
-                model.requestParams = @(PicToStrStyle_MIME);
+                model.byTitle(@"利用MIME编码进行存取".tr)
+                     .bySubTitle(@"".tr)
+                     .byRequestParams(@(PicToStrStyle_MIME));
             })));
         });
     }return _dataMutArr;

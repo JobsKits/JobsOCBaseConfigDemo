@@ -61,13 +61,13 @@ JobsKey(_titleAttributedDataMutArr)
         TitleAttributedDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray *_Nullable data) {
             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig *_Nullable config) {
                 @jobs_strongify(self)
-                config.targetString = self.placeholder;
-                config.font = UIFontWeightRegularSize(10);
-                config.textCor = JobsBlueColor;
+                config.byTargetString(self.placeholder)
+                      .byFont(UIFontWeightRegularSize(10))
+                      .byTextCor(JobsBlueColor);
 //                config.underlineStyle;
 //                config.paragraphStyle;
 //                config.urlStr;
-                config.range = NSMakeRange(0, self.placeholder.length);
+                config.byRange(NSMakeRange(0, self.placeholder.length));
             }));
         });Jobs_setAssociatedRETAIN_NONATOMIC(_titleAttributedDataMutArr, TitleAttributedDataMutArr)
     }return TitleAttributedDataMutArr;

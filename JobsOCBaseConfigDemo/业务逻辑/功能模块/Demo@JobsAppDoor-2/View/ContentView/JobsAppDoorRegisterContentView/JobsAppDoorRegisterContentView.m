@@ -146,9 +146,9 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = Title6;
-            label.textColor = JobsWhiteColor;
-            label.font = UIFontWeightRegularSize(20);
+            label.byText(Title6);
+            label.byTextCor(JobsWhiteColor);
+            label.byFont(UIFontWeightRegularSize(20));
             [label sizeToFit];
             self.addSubview(label);
             label.centerX = (self.width + self.backToLoginBtn.width) / 2;

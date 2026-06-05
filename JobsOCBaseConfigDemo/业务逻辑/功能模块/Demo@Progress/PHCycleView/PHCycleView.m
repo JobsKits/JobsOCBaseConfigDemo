@@ -196,9 +196,9 @@ Prop_strong()CAShapeLayer *insideLayer;
         @jobs_weakify(self)
         _progressLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.transform = CGAffineTransformMakeRotation(M_PI / 0.8);
-            label.frame = CGRectMake(10,55,self.frame.size.width - 100 ,40);
-            label.textAlignment = NSTextAlignmentCenter;
+            label.byTransform(CGAffineTransformMakeRotation(M_PI / 0.8));
+            label.byFrame(CGRectMake(10,55,self.frame.size.width - 100 ,40));
+            label.byTextAlignment(NSTextAlignmentCenter);
             self.addSubview(label);
         });
     }return _progressLabel;
@@ -209,9 +209,9 @@ Prop_strong()CAShapeLayer *insideLayer;
         @jobs_weakify(self)
         _describeLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.transform = CGAffineTransformMakeRotation(M_PI / 0.8);
-            label.frame = CGRectMake(30, 40, self.frame.size.width - 100, 30);
-            label.textAlignment = NSTextAlignmentCenter;
+            label.byTransform(CGAffineTransformMakeRotation(M_PI / 0.8));
+            label.byFrame(CGRectMake(30, 40, self.frame.size.width - 100, 30));
+            label.byTextAlignment(NSTextAlignmentCenter);
             self.addSubview(label);
         });
     }return _describeLabel;

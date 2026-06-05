@@ -388,10 +388,10 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             // 圆角依赖最终尺寸：等约束生效后再设
             .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
                 @jobs_strongify(self)
-                data.jobsWidth = 2;
-                data.layerCor = JobsWhiteColor;
+                data.byJobsWidth(2)
+                    .byLayerCor(JobsWhiteColor);
                 // 先给个占位，真正的 cornerRadius 放到布局后再设置
-                data.cornerRadiusValue = 0;
+                data.byCornerRadiusValue(0);
             }))
             .byAdd(^ (MASConstraintMaker *make) {
                 @jobs_strongify(self)

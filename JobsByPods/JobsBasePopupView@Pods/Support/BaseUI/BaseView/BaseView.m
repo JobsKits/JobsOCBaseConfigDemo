@@ -68,13 +68,13 @@ UIViewModelProtocol_synthesize_part1
 -(UIButtonModel *)closeBtnModel{
     if(!_closeBtnModel){
         _closeBtnModel = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-            data.backgroundImage = @"联系我们".img;
+            data.byBackgroundImage(@"联系我们".img);
     //        data.highlightBackgroundImage = @"联系我们".img
     //        data.jobsResetBtnImage = @"联系我们".img
     //        data.highlightImage = @"联系我们".img
     //        data.imagePadding = JobsWidth(5);
-            data.roundingCorners = UIRectCornerAllCorners;
-            data.baseBackgroundColor = JobsClearColor;
+            data.byRoundingCorners(UIRectCornerAllCorners)
+                .byBaseBackgroundColor(JobsClearColor);
         });
     }return _closeBtnModel;
 }

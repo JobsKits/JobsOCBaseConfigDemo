@@ -108,9 +108,9 @@ UITextFieldProtocol_synthesize_part2
         @jobs_weakify(self)
         _titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.textColor = HEXCOLOR(0xB0B0B0);
-            label.font = bayonRegular(JobsWidth(14));
-            label.textAlignment = NSTextAlignmentCenter;
+            label.byTextCor(HEXCOLOR(0xB0B0B0));
+            label.byFont(bayonRegular(JobsWidth(14)));
+            label.byTextAlignment(NSTextAlignmentCenter);
             [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.contentView).offset(JobsWidth(5));
                 make.centerY.equalTo(self.contentView);
@@ -125,11 +125,11 @@ UITextFieldProtocol_synthesize_part2
         @jobs_weakify(self)
         _flagView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            view.frame = CGRectMake(0,
+            view.byFrame(CGRectMake(0,
                                     0,
                                     3,
-                                    LeftCell_Height);
-            view.backgroundColor = HEXCOLOR(0xFCFBFB);
+                                    LeftCell_Height));
+            view.byBgColor(HEXCOLOR(0xFCFBFB));
             self.contentView.addSubview(view);
         });
     }return _flagView;

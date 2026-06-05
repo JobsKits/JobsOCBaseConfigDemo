@@ -74,9 +74,9 @@ Prop_strong()UIButton *btn4;
             make.height.mas_equalTo(JobsWidth(50));
         }];
         _btn1.imageView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-            model.jobsWidth = 1;
-            model.layerCor = HEXCOLOR(0xEEE2C8);
-            model.cornerRadiusValue = 1;
+            model.byJobsWidth(1)
+                 .byLayerCor(HEXCOLOR(0xEEE2C8))
+                 .byCornerRadiusValue(1);
         }));
         /// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
         _btn1.makeBtnTitleByShowingType(UILabelShowingType_03);
@@ -100,9 +100,9 @@ Prop_strong()UIButton *btn4;
             make.height.mas_equalTo(JobsWidth(50));
         }];
         _btn2.imageView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-            model.jobsWidth = 1;
-            model.layerCor = HEXCOLOR(0xEEE2C8);
-            model.cornerRadiusValue = 1;
+            model.byJobsWidth(1)
+                 .byLayerCor(HEXCOLOR(0xEEE2C8))
+                 .byCornerRadiusValue(1);
         }));
         _btn2.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTrailing,JobsWidth(8));
         /// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
@@ -126,9 +126,9 @@ Prop_strong()UIButton *btn4;
             make.height.mas_equalTo(JobsWidth(50));
         }];
         _btn3.imageView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-            model.jobsWidth = 1;
-            model.layerCor = HEXCOLOR(0xEEE2C8);
-            model.cornerRadiusValue = 1;
+            model.byJobsWidth(1)
+                 .byLayerCor(HEXCOLOR(0xEEE2C8))
+                 .byCornerRadiusValue(1);
         }));
         /// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
         _btn3.makeBtnTitleByShowingType(UILabelShowingType_03);
@@ -152,9 +152,9 @@ Prop_strong()UIButton *btn4;
             make.height.mas_equalTo(JobsWidth(50));
         }];
         _btn4.imageView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-            model.jobsWidth = 1;
-            model.layerCor = HEXCOLOR(0xEEE2C8);
-            model.cornerRadiusValue = 1;
+            model.byJobsWidth(1)
+                 .byLayerCor(HEXCOLOR(0xEEE2C8))
+                 .byCornerRadiusValue(1);
         }));
         /// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
         _btn4.makeBtnTitleByShowingType(UILabelShowingType_03);

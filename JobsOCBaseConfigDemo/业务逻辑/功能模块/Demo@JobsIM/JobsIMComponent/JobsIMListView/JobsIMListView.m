@@ -92,11 +92,11 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
             @jobs_strongify(self)
             tableView
                 .byMJRefreshHeader(self.lotAnimMJRefreshHeader.byRefreshConfigModel(jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable model) {
-                    model.stateIdleTitle = @"下拉刷新数据".tr;
-                    model.pullingTitle = @"下拉刷新数据".tr;
-                    model.refreshingTitle = @"正在刷新数据".tr;
-                    model.willRefreshTitle = @"刷新数据中".tr;
-                    model.noMoreDataTitle = @"下拉刷新数据".tr;
+                    model.byStateIdleTitle(@"下拉刷新数据".tr)
+                         .byPullingTitle(@"下拉刷新数据".tr)
+                         .byRefreshingTitle(@"正在刷新数据".tr)
+                         .byWillRefreshTitle(@"刷新数据中".tr)
+                         .byNoMoreDataTitle(@"下拉刷新数据".tr);
                     model.loadBlock = ^id _Nullable(id  _Nullable data) {
                         @jobs_strongify(self)
                         JobsLog(@"下拉刷新");
@@ -105,19 +105,19 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                     };
                 })))
                 .byMJRefreshFooter(self.MJRefreshAutoGifFooterBy(jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
-                    data.stateIdleTitle = @"".tr;
-                    data.pullingTitle = @"".tr;
-                    data.refreshingTitle = @"".tr;
-                    data.willRefreshTitle = @"".tr;
-                    data.noMoreDataTitle = @"".tr;
+                    data.byStateIdleTitle(@"".tr)
+                        .byPullingTitle(@"".tr)
+                        .byRefreshingTitle(@"".tr)
+                        .byWillRefreshTitle(@"".tr)
+                        .byNoMoreDataTitle(@"".tr);
                     data.loadBlock = ^id _Nullable(id  _Nullable data) {
                         @jobs_strongify(self)
                         JobsLog(@"上拉加载更多");
                         // 特别说明：pagingEnabled = YES 在此会影响Cell的偏移量，原作者希望我们在这里临时关闭一下，刷新完成以后再打开
-                        tableView.pagingEnabled = NO;
+                        tableView.byPagingEnabled(NO);
                         tableView.mj_footer.state = MJRefreshStateIdle;
                         tableView.mj_footer.hidden = YES;
-                        tableView.pagingEnabled = YES;
+                        tableView.byPagingEnabled(YES);
                         tableView.endRefreshing(self.jobsIMListMutArr.count);
                         return nil;
                     };

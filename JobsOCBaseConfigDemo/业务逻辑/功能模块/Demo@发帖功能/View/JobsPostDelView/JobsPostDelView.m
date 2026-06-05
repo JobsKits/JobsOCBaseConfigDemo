@@ -116,10 +116,10 @@ static dispatch_once_t static_postDelViewOnceToken;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = JobsRedColor;
-            label.text = @"拖动到此处删除".tr;
-            label.textColor = JobsWhiteColor;
-            label.textAlignment = NSTextAlignmentCenter;
+            label.byBgColor(JobsRedColor);
+            label.byText(@"拖动到此处删除".tr);
+            label.byTextCor(JobsWhiteColor);
+            label.byTextAlignment(NSTextAlignmentCenter);
             [label sizeToFit];
             [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.imageView.mas_bottom).offset(JobsWidth(5));

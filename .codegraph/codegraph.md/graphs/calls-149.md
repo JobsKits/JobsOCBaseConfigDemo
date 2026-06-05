@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:RYCuteView::initWithFrame:<br/>JobsByPods/JobsOCTools@Pods/Core/RYCuteView/RYCuteView.m:44"]
-  T1["method:RYCuteView::commonInit<br/>JobsByPods/JobsOCTools@Pods/Core/RYCuteView/RYCuteView.m:56"]
+  S1["method:JXCategoryIndicatorView::selectCellAtIndex:selectedType:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:151"]
+  T1["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S1 -->|calls| T1
-  S2["method:RYCuteView::initWithCoder:<br/>JobsByPods/JobsOCTools@Pods/Core/RYCuteView/RYCuteView.m:50"]
-  T2["method:RYCuteView::commonInit<br/>JobsByPods/JobsOCTools@Pods/Core/RYCuteView/RYCuteView.m:56"]
+  S2["method:JXCategoryIndicatorView::selectCellAtIndex:selectedType:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:151"]
+  T2["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S2 -->|calls| T2
-  S3["method:RYCuteView::commonInit<br/>JobsByPods/JobsOCTools@Pods/Core/RYCuteView/RYCuteView.m:56"]
-  T3["method:UIBezierPath::moveTo<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIBezierPath/UIBezierPath+Extra/UIBezierPath+Extra.m:67"]
+  S3["method:JXCategoryNumberCell::initializeViews<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Number/JXCategoryNumberCell.m:17"]
+  T3["method:JXCategoryNumberCell::initializeViews<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Number/JXCategoryNumberCell.m:17"]
   S3 -->|calls| T3
-  S4["method:RYCuteView::commonInit<br/>JobsByPods/JobsOCTools@Pods/Core/RYCuteView/RYCuteView.m:56"]
-  T4["method:UIBezierPath::add<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIBezierPath/UIBezierPath+Extra/UIBezierPath+Extra.m:59"]
+  S4["method:JXCategoryNumberCell::layoutSubviews<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Number/JXCategoryNumberCell.m:29"]
+  T4["method:JXCategoryNumberCell::layoutSubviews<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Number/JXCategoryNumberCell.m:29"]
   S4 -->|calls| T4
-  S5["method:RYCuteView::commonInit<br/>JobsByPods/JobsOCTools@Pods/Core/RYCuteView/RYCuteView.m:56"]
-  T5["method:UIBezierPath::add<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIBezierPath/UIBezierPath+Extra/UIBezierPath+Extra.m:59"]
+  S5["method:JXCategoryNumberCell::reloadData:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Number/JXCategoryNumberCell.m:39"]
+  T5["method:JXCategoryBaseView::reloadData<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Base/JXCategoryBaseView.m:117"]
   S5 -->|calls| T5
-  S6["method:RYCuteView::commonInit<br/>JobsByPods/JobsOCTools@Pods/Core/RYCuteView/RYCuteView.m:56"]
-  T6["method:RYCuteView::configAction<br/>JobsByPods/JobsOCTools@Pods/Core/RYCuteView/RYCuteView.m:95"]
+  S6["method:JXCategoryNumberCell::reloadData:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Number/JXCategoryNumberCell.m:39"]
+  T6["method:_ASDisplayLayer::setNeedsLayout<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:91"]
   S6 -->|calls| T6
-  S7["method:RYCuteView::shapeLayer<br/>JobsByPods/JobsOCTools@Pods/Core/RYCuteView/RYCuteView.m:157"]
-  T7["method:UIColor::colorWithHexString<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:111"]
+  S7["method:JXCategoryNumberView::initializeData<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Number/JXCategoryNumberView.m:17"]
+  T7["method:JXCategoryNumberView::initializeData<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Number/JXCategoryNumberView.m:17"]
   S7 -->|calls| T7
-  S8["method:RYCuteView::curveView<br/>JobsByPods/JobsOCTools@Pods/Core/RYCuteView/RYCuteView.m:169"]
-  T8["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S8["method:JXCategoryNumberView::preferredCellClass<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Number/JXCategoryNumberView.m:28"]
+  T8["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S8 -->|calls| T8
-  S9["method:RYCuteView::displayTimer<br/>JobsByPods/JobsOCTools@Pods/Core/RYCuteView/RYCuteView.m:182"]
-  T9["method:UIButton::byTimerType<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIButton/UIButton+Timer/UIButton+Timer.m:298"]
+  S9["method:JXCategoryNumberView::refreshCellModel:index:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Number/JXCategoryNumberView.m:41"]
+  T9["method:JXCategoryNumberView::refreshCellModel:index:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Number/JXCategoryNumberView.m:41"]
   S9 -->|calls| T9
-  S10["method:SlideToUnlockView::init<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:26"]
-  T10["method:SlideToUnlockView::init<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:26"]
+  S10["method:JXCategoryTitleView::initializeData<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Title/JXCategoryTitleView.m:17"]
+  T10["method:JXCategoryTitleView::initializeData<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Title/JXCategoryTitleView.m:17"]
   S10 -->|calls| T10
-  S11["method:SlideToUnlockView::init<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:26"]
-  T11["method:SlideToUnlockView::commonInit<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:32"]
+  S11["method:JXCategoryTitleView::preferredCellClass<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Title/JXCategoryTitleView.m:45"]
+  T11["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S11 -->|calls| T11
-  S12["method:SlideToUnlockView::layoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:44"]
-  T12["method:SlideToUnlockView::layoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:44"]
+  S12["method:JXCategoryTitleView::refreshSelectedCellModel:unselectedCellModel:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Title/JXCategoryTitleView.m:58"]
+  T12["method:JXCategoryTitleView::refreshSelectedCellModel:unselectedCellModel:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Title/JXCategoryTitleView.m:58"]
   S12 -->|calls| T12
-  S13["method:SlideToUnlockView::layoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:44"]
-  T13["method:SlideToUnlockView::byUpdateLayoutForProgress<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:67"]
+  S13["method:JXCategoryTitleView::refreshLeftCellModel:rightCellModel:ratio:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Title/JXCategoryTitleView.m:72"]
+  T13["method:JXCategoryTitleView::refreshLeftCellModel:rightCellModel:ratio:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Title/JXCategoryTitleView.m:72"]
   S13 -->|calls| T13
-  S14["method:SlideToUnlockView::setProgress:<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:50"]
-  T14["method:SlideToUnlockView::byUpdateLayoutForProgress<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:67"]
+  S14["method:JXCategoryTitleView::refreshCellModel:index:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Title/JXCategoryTitleView.m:102"]
+  T14["method:JXCategoryTitleView::refreshCellModel:index:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Title/JXCategoryTitleView.m:102"]
   S14 -->|calls| T14
-  S15["method:SlideToUnlockView::byResetAnimated<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:85"]
-  T15["method:SlideToUnlockView::byUpdateLayoutForProgress<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:67"]
+  S15["method:JXCategoryTitleImageView::initializeData<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/TitleImage/JXCategoryTitleImageView.m:20"]
+  T15["method:JXCategoryTitleImageView::initializeData<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/TitleImage/JXCategoryTitleImageView.m:20"]
   S15 -->|calls| T15
-  S16["method:SlideToUnlockView::trackView<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:94"]
-  T16["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S16["method:JXCategoryTitleImageView::preferredCellClass<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/TitleImage/JXCategoryTitleImageView.m:29"]
+  T16["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S16 -->|calls| T16
-  S17["method:SlideToUnlockView::titleLabel<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:110"]
-  T17["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S17["method:JXCategoryTitleImageView::refreshCellModel:index:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/TitleImage/JXCategoryTitleImageView.m:49"]
+  T17["method:JXCategoryTitleImageView::refreshCellModel:index:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/TitleImage/JXCategoryTitleImageView.m:49"]
   S17 -->|calls| T17
-  S18["method:SlideToUnlockView::thumbView<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:127"]
-  T18["method:UIView::addGesture<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:140"]
+  S18["method:JXCategoryTitleImageView::refreshSelectedCellModel:unselectedCellModel:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/TitleImage/JXCategoryTitleImageView.m:74"]
+  T18["method:JXCategoryTitleImageView::refreshSelectedCellModel:unselectedCellModel:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/TitleImage/JXCategoryTitleImageView.m:74"]
   S18 -->|calls| T18
-  S19["method:SlideToUnlockView::thumbView<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:127"]
-  T19["method:BaseView::layoutIfNeeded<br/>JobsByPods/JobsBasePopupView@Pods/Support/BaseUI/BaseView/BaseView.m:63"]
+  S19["method:JXCategoryTitleImageView::refreshLeftCellModel:rightCellModel:ratio:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/TitleImage/JXCategoryTitleImageView.m:84"]
+  T19["method:JXCategoryTitleImageView::refreshLeftCellModel:rightCellModel:ratio:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/TitleImage/JXCategoryTitleImageView.m:84"]
   S19 -->|calls| T19
-  S20["method:SlideToUnlockView::thumbView<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:127"]
-  T20["method:SlideToUnlockView::byUpdateLayoutForProgress<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:67"]
+  S20["method:MASCompositeConstraint::multipliedBy<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:50"]
+  T20["method:MASCompositeConstraint::multipliedBy<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:50"]
   S20 -->|calls| T20
-  S21["method:SlideToUnlockView::thumbView<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:127"]
-  T21["method:SlideToUnlockView::byResetAnimated<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:85"]
+  S21["method:MASCompositeConstraint::dividedBy<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:59"]
+  T21["method:MASCompositeConstraint::dividedBy<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:59"]
   S21 -->|calls| T21
-  S22["method:SlideToUnlockView::thumbView<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:127"]
-  T22["method:SlideToUnlockView::byResetAnimated<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:85"]
+  S22["method:MASCompositeConstraint::priority<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:70"]
+  T22["method:MASCompositeConstraint::priority<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:70"]
   S22 -->|calls| T22
-  S23["method:SlideToUnlockView::thumbView<br/>JobsByPods/JobsOCTools@Pods/Core/SlideToUnlockView/SlideToUnlockView.m:127"]
-  T23["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S23["method:MASCompositeConstraint::equalToWithRelation<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:81"]
+  T23["method:MASCompositeConstraint::equalToWithRelation<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:81"]
   S23 -->|calls| T23
-  S24["method:JobsCustomTabBarConfig::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsCustomTabBarCtr/JobsCustomTabBarConfig/JobsCustomTabBarConfig.m:46"]
-  T24["method:JobsCustomTabBarConfig::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsCustomTabBarCtr/JobsCustomTabBarConfig/JobsCustomTabBarConfig.m:46"]
+  S24["method:MASCompositeConstraint::addConstraintWithLayoutAttribute:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:92"]
+  T24["method:MASCompositeConstraint::constraint:addConstraintWithLayoutAttribute:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:40"]
   S24 -->|calls| T24
-  S25["method:JobsTabBarCtrl::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:23"]
-  T25["method:JobsTabBarCtrl::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m:23"]
+  S25["method:MASCompositeConstraint::animator<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:101"]
+  T25["method:MASCompositeConstraint::animator<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:101"]
   S25 -->|calls| T25
 ```
 

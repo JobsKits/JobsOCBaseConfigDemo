@@ -50,10 +50,10 @@ Prop_strong()UIButton *delBtn;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.textColor = self.viewModel.textModel.textCor;
-            label.backgroundColor = self.viewModel.bgCor;
-            label.font = self.viewModel.textModel.font;
-            label.textAlignment = NSTextAlignmentLeft;
+            label.byTextCor(self.viewModel.textModel.textCor);
+            label.byBgColor(self.viewModel.bgCor);
+            label.byFont(self.viewModel.textModel.font);
+            label.byTextAlignment(NSTextAlignmentLeft);
             self.contentView.addSubview(label);
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.right.bottom.equalTo(self.contentView);

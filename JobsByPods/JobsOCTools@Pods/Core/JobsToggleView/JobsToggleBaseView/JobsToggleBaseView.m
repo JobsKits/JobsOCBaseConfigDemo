@@ -7,12 +7,6 @@
 
 #import "JobsToggleBaseView.h"
 
-#if __has_include(<JobsByOCPods/NSString+Sys.h>)
-#import <JobsByOCPods/NSString+Sys.h>
-#else
-#import "NSString+Sys.h"
-#endif
-
 @interface JobsToggleBaseView ()
 /// UI
 Prop_strong()JobsToggleNavView *taggedNavView;
@@ -105,9 +99,9 @@ JobsToggleNavViewProtocolSynthesize
         return jobsMakeCGSizeByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
             @jobs_strongify(self)
             if(arr.count){
-                data.jobsWidth = self.taggedNavSingleBtn_size.width * arr.count + self.btn_each_offset * (arr.count - 1);
+                data.byJobsWidth(self.taggedNavSingleBtn_size.width * arr.count + self.btn_each_offset * (arr.count - 1));
             }else data.jobsWidth = self.taggedNavSingleBtn_size.width;
-            data.jobsHeight = self.taggedNavSingleBtn_size.height;
+            data.byJobsHeight(self.taggedNavSingleBtn_size.height);
         });
     };
 }
@@ -171,10 +165,10 @@ JobsToggleNavViewProtocolSynthesize
             taggedNavView.sliderH = JobsWidth(1); /// 滑块高度
             taggedNavView.frame = jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data1) {
                 @jobs_strongify(self)
-                data1.jobsX = 0;
-                data1.jobsY = 0;
-                data1.jobsWidth = MAX(self.makeTaggedNavViewSizeBy(data).width, self.taggedNavView_width);
-                data1.jobsHeight = MAX(self.makeTaggedNavViewSizeBy(data).height, self.taggedNavView_height);
+                data1.byJobsX(0)
+                     .byJobsY(0)
+                     .byJobsWidth(MAX(self.makeTaggedNavViewSizeBy(data).width, self.taggedNavView_width))
+                     .byJobsHeight(MAX(self.makeTaggedNavViewSizeBy(data).height, self.taggedNavView_height));
             });
             self.addSubview(taggedNavView)
                 .JobsRichViewByModel2(self.taggedNavDatas);
@@ -219,18 +213,18 @@ JobsToggleNavViewProtocolSynthesize
         @jobs_weakify(self)
         _bgScroll = self.addSubview(jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView.delegate = self;
-            scrollView.showsHorizontalScrollIndicator = NO;
-            scrollView.showsVerticalScrollIndicator = NO;
-            scrollView.scrollEnabled = YES;
-            scrollView.pagingEnabled = YES;
-            scrollView.frame = jobsMakeCGRectByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
+            scrollView.byDelegate(self);
+            scrollView.byShowsHorizontalScrollIndicator(NO);
+            scrollView.byShowsVerticalScrollIndicator(NO);
+            scrollView.byScrollEnabled(YES);
+            scrollView.byPagingEnabled(YES);
+            scrollView.byFrame(jobsMakeCGRectByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
                 @jobs_strongify(self)
-                data.jobsX = 0;
-                data.jobsY = self.taggedNavView.height + self.taggedNavView_bgScroll_offset;
-                data.jobsWidth = self.viewSizeByModel(nil).width;
-                data.jobsHeight = self.viewSizeByModel(nil).height - (self.taggedNavView_height + self.taggedNavView_bgScroll_offset);
-            });
+                data.byJobsX(0)
+                    .byJobsY(self.taggedNavView.height + self.taggedNavView_bgScroll_offset)
+                    .byJobsWidth(self.viewSizeByModel(nil).width)
+                    .byJobsHeight(self.viewSizeByModel(nil).height - (self.taggedNavView_height + self.taggedNavView_bgScroll_offset));
+            }));
         }));
     }return _bgScroll;
 }
@@ -255,12 +249,12 @@ JobsToggleNavViewProtocolSynthesize
             int t = 0;
             for (NSString *title in self.tempTitles) {
                 data.add(jobsMakeLabel(^(__kindof UILabel<BaseViewProtocol> * _Nullable label) {
-                    label.backgroundColor = JobsRandomColor;
-                    label.textAlignment = NSTextAlignmentCenter;
-                    label.numberOfLines = 0;
-                    label.text = toStringByInt(t)
+                    label.byBgColor(JobsRandomColor);
+                    label.byTextAlignment(NSTextAlignmentCenter);
+                    label.byNumberOfLines(0);
+                    label.byText(toStringByInt(t)
                         .add(JobsNewline)
-                        .add(title);
+                        .add(title));
                 }));t += 1;
             }
         });
@@ -288,38 +282,38 @@ JobsToggleNavViewProtocolSynthesize
         _buttonModel = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
             model.buttonConfiguration = nil;
             model.backgroundConfiguration = nil;
-            model.buttonConfigurationTitleAlignment = UIButtonConfigurationTitleAlignmentAutomatic;
-            model.textAlignment = NSTextAlignmentCenter;
-            model.subTextAlignment = NSTextAlignmentCenter;
-            model.normalImage = nil;
-            model.highlightImage = nil;
-            model.attributedTitle = nil;
-            model.selectedAttributedTitle = nil;
-            model.attributedSubTitle = nil;
-            model.title = nil;
-            model.subTitle = nil;
-            model.titleFont = bayonRegular(JobsWidth(16));
-            model.subTitleFont = nil;
-            model.titleCor = @"#ABABAB".cor;
-            model.subTitleCor = nil;
-            model.titleLineBreakMode = NSLineBreakByWordWrapping;
-            model.subtitleLineBreakMode = NSLineBreakByWordWrapping;
-            model.baseBackgroundColor = JobsWhiteColor;
-            model.backgroundImage = nil;
-            model.imagePadding = JobsWidth(0);
-            model.titlePadding = JobsWidth(0);
-            model.imagePlacement = NSDirectionalRectEdgeNone;
-            model.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-            model.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-            model.contentInsets = jobsSameDirectionalEdgeInsets(0);
-            model.cornerRadiusValue = JobsWidth(0);
-            model.roundingCorners = UIRectCornerAllCorners;
-            model.roundingCornersRadii = CGSizeZero;
-            model.layerBorderCor = nil;
-            model.borderWidth = JobsWidth(0);
-            model.primaryAction = nil;
-            model.longPressGestureEventBlock = nil;
-            model.clickEventBlock = nil;
+            model.byButtonConfigurationTitleAlignment(UIButtonConfigurationTitleAlignmentAutomatic)
+                 .byTextAlignment(NSTextAlignmentCenter)
+                 .bySubTextAlignment(NSTextAlignmentCenter)
+                 .byNormalImage(nil)
+                 .byHighlightImage(nil)
+                 .byAttributedTitle(nil)
+                 .bySelectedAttributedTitle(nil)
+                 .byAttributedSubTitle(nil)
+                 .byTitle(nil)
+                 .bySubTitle(nil)
+                 .byTitleFont(bayonRegular(JobsWidth(16)))
+                 .bySubTitleFont(nil)
+                 .byTitleCor(@"#ABABAB".cor)
+                 .bySubTitleCor(nil)
+                 .byTitleLineBreakMode(NSLineBreakByWordWrapping)
+                 .bySubtitleLineBreakMode(NSLineBreakByWordWrapping)
+                 .byBaseBackgroundColor(JobsWhiteColor)
+                 .byBackgroundImage(nil)
+                 .byImagePadding(JobsWidth(0))
+                 .byTitlePadding(JobsWidth(0))
+                 .byImagePlacement(NSDirectionalRectEdgeNone)
+                 .byContentHorizontalAlignment(UIControlContentHorizontalAlignmentCenter)
+                 .byContentVerticalAlignment(UIControlContentVerticalAlignmentCenter)
+                 .byContentInsets(jobsSameDirectionalEdgeInsets(0))
+                 .byCornerRadiusValue(JobsWidth(0))
+                 .byRoundingCorners(UIRectCornerAllCorners)
+                 .byRoundingCornersRadii(CGSizeZero)
+                 .byLayerBorderCor(nil)
+                 .byBorderWidth(JobsWidth(0))
+                 .byPrimaryAction(nil)
+                 .byLongPressGestureEventBlock(nil)
+                 .byClickEventBlock(nil);
         });
     }return _buttonModel;
 }

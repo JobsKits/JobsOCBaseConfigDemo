@@ -227,6 +227,23 @@ def patch_reactiveobjc_metamacros_header(installer)
   end
 end
 
+def patch_cocoapods_realpath_on_error_scripts
+  target_support_dir = File.join(__dir__, 'Pods', 'Target Support Files')
+  return unless Dir.exist?(target_support_dir)
+
+  Dir.glob(File.join(target_support_dir, '**', '*.sh')).each do |script_path|
+    text = File.read(script_path)
+    new_text = text.gsub(
+      'echo "$(realpath -mq "${0}"):$1: error: Unexpected failure"',
+      'echo "$(realpath -q "${0}"):$1: error: Unexpected failure"'
+    )
+    next if new_text == text
+
+    FileUtils.chmod('u+w', script_path) rescue nil
+    File.write(script_path, new_text)
+  end
+end
+
 def jobs_config_xcconfig_path(installer)
   installer.aggregate_targets.each do |aggregate_target|
     project = aggregate_target.user_project
@@ -325,6 +342,7 @@ post_install do |installer|
   patch_zfplayer_ijkplayer_for_simulator if needs_ijk_simulator_arch_workaround
   patch_zfplayer_netinet6_private_header
   patch_reactiveobjc_metamacros_header(installer)
+  patch_cocoapods_realpath_on_error_scripts
 
   pods_project.save
 

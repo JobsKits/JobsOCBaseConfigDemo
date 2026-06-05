@@ -98,9 +98,9 @@ static dispatch_once_t static_popupView10OnceToken;
         cell.button.jobsResetBtnTitleCor(HEXCOLOR(0x757575));
     }
     cell.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable data) {
-        data.layerCor = @"#6E5600".cor;
-        data.jobsWidth = JobsWidth(1);
-        data.cornerRadiusValue = JobsBtnStyleCVCell.cellSizeByModel(nil).height / 2;
+        data.byLayerCor(@"#6E5600".cor)
+            .byJobsWidth(JobsWidth(1))
+            .byCornerRadiusValue(JobsBtnStyleCVCell.cellSizeByModel(nil).height / 2);
     }));return cell;
 }
 
@@ -116,8 +116,8 @@ numberOfItemsInSection:(NSInteger)section {
         JobsHeaderFooterView *headerView = [collectionView UICollectionElementKindSectionHeaderClass:JobsHeaderFooterView.class
                                                                                         forIndexPath:indexPath];
         headerView.jobsRichViewByModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.text = @"拖動按鈕迸行位置調整".tr;
-            viewModel.subTextModel.text = @"".tr;
+            viewModel.textModel.byText(@"拖動按鈕迸行位置調整".tr);
+            viewModel.subTextModel.byText(@"".tr);
         }));
         headerView.backgroundColor = HEXCOLOR(0xFFFCF7);
         [headerView.getTitleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -317,8 +317,8 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.userInteractionEnabled = YES;
-            label.backgroundColor = self.cor;
+            label.byUserInteractionEnabled(YES);
+            label.byBgColor(self.cor);
             label.byText(@"全部分類".tr)
             .byTextAlignment(NSTextAlignmentCenter)
             .byTextCor(JobsBlueColor);
@@ -409,7 +409,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
         @jobs_weakify(self)
         _bgView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            view.backgroundColor = JobsWhiteColor;
+            view.byBgColor(JobsWhiteColor);
             [self.addSubview(view) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake(BaiShaETProjPopupView10.viewSizeByModel(nil).width, BaiShaETProjPopupView10.viewSizeByModel(nil).height - JobsWidth(44)));
                 make.centerX.equalTo(self);

@@ -63,7 +63,23 @@
     };
 }
 
+-(JobsRetSPAlertControllerConfigByNSIntegerBlock _Nonnull)byPreferredStyle{
+    @jobs_weakify(self)
+    return ^__kindof SPAlertControllerConfig *_Nullable(NSInteger data) {
+        @jobs_strongify(self)
+        self.preferredStyle = (SPAlertControllerStyle)data;
+        return self;
+    };
+}
 
+-(JobsRetSPAlertControllerConfigByNSIntegerBlock _Nonnull)byAnimationType{
+    @jobs_weakify(self)
+    return ^__kindof SPAlertControllerConfig *_Nullable(NSInteger data) {
+        @jobs_strongify(self)
+        self.animationType = (SPAlertAnimationType)data;
+        return self;
+    };
+}
 
 -(JobsRetSPAlertControllerConfigByUIViewControllerPointerBlock _Nonnull)byTargetVC{
     @jobs_weakify(self)

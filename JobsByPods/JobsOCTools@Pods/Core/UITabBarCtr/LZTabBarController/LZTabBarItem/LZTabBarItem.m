@@ -112,10 +112,10 @@ Prop_strong()UILabel *titleLabel;
         @jobs_weakify(self)
         _titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.textAlignment = NSTextAlignmentCenter;
-            label.font = [UIFont systemFontOfSize:10];
-            label.numberOfLines = 0;
-            label.textColor = JobsGrayColor;
+            label.byTextAlignment(NSTextAlignmentCenter);
+            label.byFont([UIFont systemFontOfSize:10]);
+            label.byNumberOfLines(0);
+            label.byTextCor(JobsGrayColor);
             self.addSubview(label);
         });
     }return _titleLabel;

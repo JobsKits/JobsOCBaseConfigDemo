@@ -42,8 +42,8 @@ JobsKey(_colorBarView)
         @jobs_weakify(self)
         ColorBarView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            view.backgroundColor = self.color;
-            view.frame = CGRectInset(self.bounds, 2, 2);
+            view.byBgColor(self.color);
+            view.byFrame(CGRectInset(self.bounds, 2, 2));
             [self.contentView addSubview:view];
         });Jobs_setAssociatedRETAIN_NONATOMIC(_colorBarView, ColorBarView);
     }return ColorBarView;

@@ -83,12 +83,12 @@ NS_INLINE __kindof UILabel *_Nonnull jobsMakeMenuView(jobsByMenuViewBlock _Nonnu
              @jobs_weakify(self)
              _buttonModel = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
                  @jobs_strongify(self)
-                 data.normal_titles = self.titleMutArr;
-                 data.titleCor = JobsClearColor;
-                 data.selectedTitleCor = JobsClearColor;
-                 data.normal_backgroundImages = self.normal_titleBgImageMutArr;
-                 data.selected_backgroundImages = self.select_titleBgImageMutArr;// TODO
-                 data.data = self.subViewMutArr;
+                 data.byNormal_titles(self.titleMutArr)
+                     .byTitleCor(JobsClearColor)
+                     .bySelectedTitleCor(JobsClearColor)
+                     .byNormal_backgroundImages(self.normal_titleBgImageMutArr)
+                     .bySelected_backgroundImages(self.select_titleBgImageMutArr)// TODO
+                     .byData(self.subViewMutArr);
              });
          }return _buttonModel;
      }

@@ -495,10 +495,10 @@ shouldSelectViewController:(UIViewController *)viewController {
 -(UIViewModel *)viewModel{
     if (!_viewModel) {
         _viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.bgCor = JobsWhiteColor;
+            data.byBgCor(JobsWhiteColor);
     //        data.bgImage = isiPhoneX_series() ? @"底部导航栏背景(刘海屏.img") : @"底部导航栏背景(非刘海屏.img");
-            data.isTranslucent = NO;
-            data.offsetHeight = JobsWidth(5);
+            data.byIsTranslucent(NO)
+                .byOffsetHeight(JobsWidth(5));
         });
     }return _viewModel;
 }
@@ -523,16 +523,16 @@ shouldSelectViewController:(UIViewController *)viewController {
     if (!_pullListAutoSizeViewMutArr) {
         _pullListAutoSizeViewMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                viewModel.image = @"".tr.img;
-                viewModel.textModel.text = @"111".tr;
+                viewModel.byImage(@"".tr.img);
+                viewModel.textModel.byText(@"111".tr);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                viewModel.image = @"".tr.img;
-                viewModel.textModel.text = @"222".tr;
+                viewModel.byImage(@"".tr.img);
+                viewModel.textModel.byText(@"222".tr);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                viewModel.image = @"".tr.img;
-                viewModel.textModel.text = @"333".tr;
+                viewModel.byImage(@"".tr.img);
+                viewModel.textModel.byText(@"333".tr);
             }));
         });
     }return _pullListAutoSizeViewMutArr;

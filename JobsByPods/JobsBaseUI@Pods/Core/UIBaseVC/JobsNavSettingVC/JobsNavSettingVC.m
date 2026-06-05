@@ -160,9 +160,9 @@
         appToolsSelf.setGKNav(config.viewModel);/// 配置GKNavigationBar（不包括返回键的设定）
         appToolsSelf.setGKNavBackBtnBy(config.backBtn);/// 配置GKNavigationBar的返回按钮
         appToolsSelf.setGKNavTitleBtnBy(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-            model.backgroundImage = config.viewModel.titleImage;
-            model.jobsSize = CGSizeMake(JobsWidth(150), JobsWidth(30));
-            model.baseBackgroundColor = JobsClearColor;
+            model.byBackgroundImage(config.viewModel.titleImage)
+                 .byJobsSize(CGSizeMake(JobsWidth(150), JobsWidth(30)))
+                 .byBaseBackgroundColor(JobsClearColor);
         }));
         if(self.leftBarButtonItems.count) self.gk_navLeftBarButtonItems = self.leftBarButtonItems;
         if(self.rightBarButtonItems.count) self.gk_navRightBarButtonItems = self.rightBarButtonItems;

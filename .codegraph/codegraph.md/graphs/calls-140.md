@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:NSString::toast<br/>JobsByPods/JobsOCTimer@Pods/Support/UIKit/NSString/NSString+Toast/NSString+Toast.m:12"]
-  T1["method:NSObject::jobsToastMsg<br/>JobsByPods/WHToastExtra@Pods/Core/NSObject+WHToast.m:14"]
+  S1["method:TABAnimatedProductHelper::getBackgroundLayerWithView:controlView:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductHelper.m:221"]
+  T1["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S1 -->|calls| T1
-  S2["method:_JobsTimerManagerEntry::init<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:21"]
-  T2["method:_JobsTimerManagerEntry::init<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:21"]
+  S2["method:TABAnimatedProductHelper::getBackgroundLayerWithView:controlView:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductHelper.m:221"]
+  T2["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S2 -->|calls| T2
-  S3["method:JobsTimerMgr::dealloc<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:67"]
-  T3["method:JobsTimerMgr::teardownAppStateObservers<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:399"]
+  S3["method:TABAnimatedProductHelper::getBackgroundLayerWithView:controlView:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductHelper.m:221"]
+  T3["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S3 -->|calls| T3
-  S4["method:JobsTimerMgr::dealloc<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:67"]
-  T4["method:JobsTimerMgr::stopAndRemoveAll<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:310"]
+  S4["method:TABAnimatedProductHelper::addTagWithComponentLayer:isLines:needFrame:superLayer:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductHelper.m:260"]
+  T4["method:CALayer::addSublayer<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/CALayer/CALayer+Extra/CALayer+Extra.m:48"]
   S4 -->|calls| T4
-  S5["method:JobsTimerMgr::shared<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:72"]
-  T5["method:JobsTimerMgr::init<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:80"]
+  S5["method:TABAnimatedProductHelper::getKeyWithControllerName:targetClass:frame:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductHelper.m:292"]
+  T5["function:TABViewAnimated::tab_NSStringFromClass<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Control/TABViewAnimated.m:18"]
   S5 -->|calls| T5
-  S6["method:JobsTimerMgr::init<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:80"]
-  T6["method:JobsTimerMgr::init<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:80"]
+  S6["method:TABAnimatedProductHelper::penerateIndexArray:production:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductHelper.m:309"]
+  T6["method:TABAnimatedProductHelper::penetrateTargetLayer:path:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductHelper.m:321"]
   S6 -->|calls| T6
-  S7["method:JobsTimerMgr::init<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:80"]
-  T7["method:JobsTimerMgr::setupAppStateObservers<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:378"]
+  S7["method:TABAnimatedProductImpl::init<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:61"]
+  T7["method:TABAnimatedProductImpl::init<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:61"]
   S7 -->|calls| T7
-  S8["method:JobsTimerMgr::upsertTimerWithIdentifiable:timerType:policy:startImmediately:build:handler:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:87"]
-  T8["method:JobsTimerMgr::upsertTimerWithIdentifier:timerType:policy:startImmediately:build:handler:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:101"]
+  S8["method:TABAnimatedProductImpl::init<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:61"]
+  T8["method:TABAnimated::sharedAnimated<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/TABAnimated.m:17"]
   S8 -->|calls| T8
-  S9["method:JobsTimerMgr::upsertTimerWithIdentifier:timerType:policy:startImmediately:build:handler:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:101"]
-  T9["function:jobs_runOnMainSyncIfNeeded<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:45"]
+  S9["method:TABAnimatedProductImpl::productWithControlView:currentClass:indexPath:origin:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:74"]
+  T9["function:TABViewAnimated::tab_NSStringFromClass<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Control/TABViewAnimated.m:18"]
   S9 -->|calls| T9
-  S10["method:JobsTimerMgr::upsertTimerWithIdentifier:timerType:policy:startImmediately:build:handler:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:101"]
-  T10["method:JobsTimer::stop<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:512"]
+  S10["method:TABAnimatedProductImpl::productWithControlView:currentClass:indexPath:origin:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:74"]
+  T10["method:TABAnimatedCacheManager::getProductionWithKey:tabAnimated:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Cache/TABAnimatedCacheManager.m:147"]
   S10 -->|calls| T10
-  S11["method:JobsTimerMgr::upsertTimerWithIdentifier:timerType:policy:startImmediately:build:handler:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:101"]
-  T11["function:jobs_trySetBoolByKVC<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:50"]
+  S11["method:TABAnimatedProductImpl::productWithControlView:currentClass:indexPath:origin:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:74"]
+  T11["method:TABAnimatedCacheManager::shareManager<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Cache/TABAnimatedCacheManager.m:51"]
   S11 -->|calls| T11
-  S12["method:JobsTimerMgr::upsertTimerWithIdentifier:timerType:policy:startImmediately:build:handler:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:101"]
-  T12["function:jobs_trySetBoolByKVC<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:50"]
+  S12["method:TABAnimatedProductImpl::productWithControlView:currentClass:indexPath:origin:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:74"]
+  T12["method:TABAnimatedProductImpl::_reuseWithCurrentClass:indexPath:origin:className:production:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:190"]
   S12 -->|calls| T12
-  S13["method:JobsTimerMgr::upsertTimerWithIdentifier:timerType:policy:startImmediately:build:handler:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:101"]
-  T13["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
+  S13["method:TABAnimatedProductImpl::productWithControlView:currentClass:indexPath:origin:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:74"]
+  T13["method:TABAnimatedProductImpl::_createViewWithOrigin:controlView:indexPath:className:currentClass:isNeedProduct:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:201"]
   S13 -->|calls| T13
-  S14["method:JobsTimerMgr::upsertTimerWithIdentifier:timerType:policy:startImmediately:build:handler:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:101"]
-  T14["method:JobsTimerMgr::init<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:80"]
+  S14["method:TABAnimatedProductImpl::productWithControlView:currentClass:indexPath:origin:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:74"]
+  T14["method:TABAnimatedProductImpl::_prepareProductWithView:currentClass:indexPath:origin:needReset:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:177"]
   S14 -->|calls| T14
-  S15["method:JobsTimerMgr::upsertTimerWithIdentifier:timerType:policy:startImmediately:build:handler:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:101"]
-  T15["function:jobs_runOnMainSyncIfNeeded<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:45"]
+  S15["method:TABAnimatedProductImpl::productWithView:controlView:currentClass:indexPath:origin:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:100"]
+  T15["method:TABAnimatedCacheManager::getProductionWithKey:tabAnimated:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Cache/TABAnimatedCacheManager.m:147"]
   S15 -->|calls| T15
-  S16["method:JobsTimerMgr::upsertTimerWithIdentifier:timerType:policy:startImmediately:build:handler:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:101"]
-  T16["method:JobsTimer::start<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:367"]
+  S16["method:TABAnimatedProductImpl::productWithView:controlView:currentClass:indexPath:origin:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:100"]
+  T16["method:TABAnimatedCacheManager::shareManager<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Cache/TABAnimatedCacheManager.m:51"]
   S16 -->|calls| T16
-  S17["method:JobsTimerMgr::onTickVoid:block:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:173"]
-  T17["method:JobsTimerMgr::onTick:block:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:178"]
+  S17["method:TABAnimatedProductImpl::productWithView:controlView:currentClass:indexPath:origin:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:100"]
+  T17["method:TABAnimatedProductImpl::_bindWithProduction:targetView:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:589"]
   S17 -->|calls| T17
-  S18["method:JobsTimerMgr::onFinishVoid:block:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:191"]
-  T18["method:JobsTimerMgr::onFinish:block:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:196"]
+  S18["method:TABAnimatedProductImpl::productWithView:controlView:currentClass:indexPath:origin:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:100"]
+  T18["method:TABAnimatedProductImpl::_prepareProductWithView:currentClass:indexPath:origin:needReset:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:177"]
   S18 -->|calls| T18
-  S19["method:JobsTimerMgr::start:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:210"]
-  T19["function:jobs_runOnMainSyncIfNeeded<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:45"]
+  S19["method:TABAnimatedProductImpl::pullLoadingProductWithView:controlView:currentClass:indexPath:origin:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:128"]
+  T19["method:TABAnimatedCacheManager::getProductionWithKey:tabAnimated:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Cache/TABAnimatedCacheManager.m:147"]
   S19 -->|calls| T19
-  S20["method:JobsTimerMgr::start:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:210"]
-  T20["method:JobsTimer::start<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:367"]
+  S20["method:TABAnimatedProductImpl::pullLoadingProductWithView:controlView:currentClass:indexPath:origin:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:128"]
+  T20["method:TABAnimatedCacheManager::shareManager<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Cache/TABAnimatedCacheManager.m:51"]
   S20 -->|calls| T20
-  S21["method:JobsTimerMgr::pause:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:229"]
-  T21["function:jobs_runOnMainSyncIfNeeded<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:45"]
+  S21["method:TABAnimatedProductImpl::pullLoadingProductWithView:controlView:currentClass:indexPath:origin:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:128"]
+  T21["method:TABAnimatedProductImpl::_bindWithProduction:targetView:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:589"]
   S21 -->|calls| T21
-  S22["method:JobsTimerMgr::pause:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:229"]
-  T22["method:JobsTimer::pause<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:418"]
+  S22["method:TABAnimatedProductImpl::pullLoadingProductWithView:controlView:currentClass:indexPath:origin:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:128"]
+  T22["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
   S22 -->|calls| T22
-  S23["method:JobsTimerMgr::resume:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:248"]
-  T23["function:jobs_runOnMainSyncIfNeeded<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:45"]
+  S23["method:TABAnimatedProductImpl::pullLoadingProductWithView:controlView:currentClass:indexPath:origin:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:128"]
+  T23["method:TABAnimatedProductImpl::_prepareProductWithView:currentClass:indexPath:origin:needReset:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:177"]
   S23 -->|calls| T23
-  S24["method:JobsTimerMgr::resume:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:248"]
-  T24["method:JobsTimer::resume<br/>JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m:450"]
+  S24["method:TABAnimatedProductImpl::syncProductions<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:151"]
+  T24["method:TABAnimatedProductImpl::_bindWithProduction:targetView:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:589"]
   S24 -->|calls| T24
-  S25["method:JobsTimerMgr::fireOnceAndRemove:<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:267"]
-  T25["function:jobs_runOnMainSyncIfNeeded<br/>JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr.m:45"]
+  S25["method:TABAnimatedProductImpl::syncProductions<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:151"]
+  T25["method:TABAnimatedProductImpl::_recoveryProductStatus<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Product/TABAnimatedProductImpl.m:170"]
   S25 -->|calls| T25
 ```
 

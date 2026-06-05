@@ -355,9 +355,9 @@
 -(JobsReturnTimeModelByIntegerBlock _Nonnull)HHMMSS{
     return ^JobsTimeModel *(NSInteger TimeSec){
         return jobsMakeTimeModel(^(__kindof JobsTimeModel *_Nullable data) {
-            data.customHour = toStringByFloatDecimalPlaces(TimeSec / 3600, 2).integerValue;
-            data.customMin = toStringByFloatDecimalPlaces((TimeSec % 3600) / 60, 2).integerValue;
-            data.customSec = toStringByFloatDecimalPlaces(TimeSec % 60, 2).integerValue;
+            data.byCustomHour(toStringByFloatDecimalPlaces(TimeSec / 3600, 2).integerValue)
+                .byCustomMin(toStringByFloatDecimalPlaces((TimeSec % 3600) / 60, 2).integerValue)
+                .byCustomSec(toStringByFloatDecimalPlaces(TimeSec % 60, 2).integerValue);
         });
     };
 }
@@ -371,10 +371,10 @@
         NSDate *dateTime_Date = dateTime_Str.dataByDateFormatter(formatter);
         NSTimeInterval interval = NSTimeZone.systemTimeZone.GMTDateSecs(self.currentDate);/// 偏移秒数
         return jobsMakeTimeModel(^(__kindof JobsTimeModel * _Nullable data) {
-            data.dateStr = dateTime_Str;
-            data.date = dateTime_Date;
-            data.intervalBySec = interval;
-            data.intervalByMilliSec = data.intervalBySec * 1000;
+            data.byDateStr(dateTime_Str)
+                .byDate(dateTime_Date)
+                .byIntervalBySec(interval)
+                .byIntervalByMilliSec(data.intervalBySec * 1000);
         });
     };
 }
@@ -419,18 +419,18 @@
     }return jobsMakeTimeModel(^(__kindof JobsTimeModel * _Nullable timeModel) {
         NSDateComponents *dateComponent = [calendar components:unitFlags
                                                       fromDate:timeModel.currentDate];
-        timeModel.currentEra = dateComponent.era;
-        timeModel.currentYear = dateComponent.year;
-        timeModel.currentMonth = dateComponent.month;
-        timeModel.currentDay = dateComponent.day;
-        timeModel.currentHour = dateComponent.hour;
-        timeModel.currentMin = dateComponent.minute;
-        timeModel.currentSec = dateComponent.second;
-        timeModel.currentNanoSec = dateComponent.nanosecond;//API_AVAILABLE(macos(10.7), ios(5.0), watchos(2.0), tvos(9.0))
-        timeModel.currentWeekday = dateComponent.weekday;//表示周里面的天 1代表周日 2代表周一 7代表周六
-        timeModel.currentWeekdayOrdinal = dateComponent.weekdayOrdinal;
+        timeModel.byCurrentEra(dateComponent.era)
+                 .byCurrentYear(dateComponent.year)
+                 .byCurrentMonth(dateComponent.month)
+                 .byCurrentDay(dateComponent.day)
+                 .byCurrentHour(dateComponent.hour)
+                 .byCurrentMin(dateComponent.minute)
+                 .byCurrentSec(dateComponent.second)
+                 .byCurrentNanoSec(dateComponent.nanosecond)//API_AVAILABLE(macos(10.7), ios(5.0), watchos(2.0), tvos(9.0))
+                 .byCurrentWeekday(dateComponent.weekday)//表示周里面的天 1代表周日 2代表周一 7代表周六
+                 .byCurrentWeekdayOrdinal(dateComponent.weekdayOrdinal);
         timeModel.currentQuarter = dateComponent.quarter;//API_AVAILABLE(macos(10.6), ios(4.0), watchos(2.0), tvos(9.0));
-        timeModel.currentWeekOfMonth = dateComponent.weekOfMonth;//API_AVAILABLE(macos(10.7), ios(5.0), watchos(2.0), tvos(9.0))
+        timeModel.byCurrentWeekOfMonth(dateComponent.weekOfMonth);//API_AVAILABLE(macos(10.7), ios(5.0), watchos(2.0), tvos(9.0))
         timeModel.currentWeekOfYear = dateComponent.weekOfYear;//API_AVAILABLE(macos(10.7), ios(5.0), watchos(2.0), tvos(9.0));
         timeModel.currentYearForWeekOfYear = dateComponent.yearForWeekOfYear;//API_AVAILABLE(macos(10.7), ios(5.0), watchos(2.0), tvos(9.0));
     });
@@ -440,9 +440,9 @@
     NSDate *date = self.currentDate;
     NSTimeZone *zone = NSTimeZone.systemTimeZone; /// 系统时区
     return jobsMakeTimeModel(^(__kindof JobsTimeModel * _Nullable data) {
-        data.intervalBySec = zone.GMTDateSecs(date);/// 偏移秒数
-        data.date = date.byAddingTimeInterval(data.intervalBySec);
-        data.dateStr = [NSObject dateConversionTimeStamp:data.date intervalStyle:intervalBySec];
+        data.byIntervalBySec(zone.GMTDateSecs(date))/// 偏移秒数
+            .byDate(date.byAddingTimeInterval(data.intervalBySec))
+            .byDateStr([NSObject dateConversionTimeStamp:data.date intervalStyle:intervalBySec]);
 //        data.dateReadableStr = @"yyyy-MM-dd HH:mm:ss".
     });
 }
@@ -453,10 +453,10 @@
                           timeFormatStr:(NSString *_Nullable)timeFormatStr{
     if(!date) date = NSDate.date;
     return jobsMakeTimeModel(^(__kindof JobsTimeModel *_Nullable timeModel) {
-        timeModel.date = date;                                             // 时间字符串NSDate
-        timeModel.dateStr = self.dateFormatterBy(timeFormatStr).date(date);// NSDate转时间字符串
-        timeModel.intervalBySec = date.timeIntervalSince1970;              // (NSDate *)时间转时间戳 单位：秒
-        timeModel.intervalByMilliSec = intervalBySec * 1000;               // (NSDate *)时间转时间戳 单位：毫秒
+        timeModel.byDate(date)                                             // 时间字符串NSDate
+                 .byDateStr(self.dateFormatterBy(timeFormatStr).date(date))// NSDate转时间字符串
+                 .byIntervalBySec(date.timeIntervalSince1970)              // (NSDate *)时间转时间戳 单位：秒
+                 .byIntervalByMilliSec(intervalBySec * 1000);               // (NSDate *)时间转时间戳 单位：毫秒
     });
 }
 /// NSString * ---> NSString *   格式转换为   小时：分钟：秒
@@ -470,7 +470,7 @@
             data.day =
             data.hour =
             data.minute =
-            data.second = @":";
+            data.bySecond(@":");
         });
     }return [formatTime formatTimeWithYear:nil
                                      month:nil
@@ -490,7 +490,7 @@
             data.day =
             data.hour =
             data.minute =
-            data.second = JobsColon;
+            data.bySecond(JobsColon);
         });
     }return [formatTime formatTimeWithYear:nil
                                      month:nil

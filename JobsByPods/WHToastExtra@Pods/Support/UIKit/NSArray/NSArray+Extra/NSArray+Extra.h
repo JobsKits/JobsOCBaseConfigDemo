@@ -110,12 +110,12 @@
                  }
              }).installByMasonryModel1(jobsMakeMasonryModel(^(__kindof MasonryModel * _Nullable data) {
                  data.axisType = MASAxisTypeHorizontal;
-                 data.fixedSpacing = JobsWidth(17);
-                 data.leadSpacing = JobsWidth(22);
-                 data.tailSpacing = JobsWidth(22);
-                 data.bottom = JobsWidth(-10);
-                 data.height = JobsWidth(26);
-                 data.is_mas_makeConstraints = YES;
+                 data.byFixedSpacing(JobsWidth(17))
+                     .byLeadSpacing(JobsWidth(22))
+                     .byTailSpacing(JobsWidth(22))
+                     .byBottom(JobsWidth(-10))
+                     .byHeight(JobsWidth(26))
+                     .byIs_mas_makeConstraints(YES);
              })).installByMasonryBlock(^(MASConstraintMaker *_Nonnull data){
 
              });

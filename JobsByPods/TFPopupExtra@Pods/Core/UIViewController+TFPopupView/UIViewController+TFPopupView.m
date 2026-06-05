@@ -14,8 +14,8 @@
     if ([self isKindOfClass:UIViewController.class]) {
         [self.filtrationView tf_showFold:self.view
                              targetFrame:jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
-            data.jobsWidth = JobsFiltrationView.viewSizeByModel(nil).width;
-            data.jobsHeight = JobsFiltrationView.viewSizeByModel(nil).height;
+            data.byJobsWidth(JobsFiltrationView.viewSizeByModel(nil).width)
+                .byJobsHeight(JobsFiltrationView.viewSizeByModel(nil).height);
         })
                                direction:PopupDirectionTop
                               popupParam:self.popupParameter];
@@ -27,8 +27,8 @@
     if ([self isKindOfClass:UIViewController.class]) {
         [self.customView tf_showFold:self.view
                          targetFrame:jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
-            data.jobsWidth = JobsCustomView.viewSizeByModel(nil).width;
-            data.jobsHeight = JobsCustomView.viewSizeByModel(nil).height;
+            data.byJobsWidth(JobsCustomView.viewSizeByModel(nil).width)
+                .byJobsHeight(JobsCustomView.viewSizeByModel(nil).height);
         })
                            direction:PopupDirectionTop
                           popupParam:self.popupParameter];

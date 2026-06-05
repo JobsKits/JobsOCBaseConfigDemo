@@ -170,7 +170,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.textColor = self.doorInputViewBaseStyleModel.titleStrCor;
+            label.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
             [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self);
                 make.left.equalTo(self);
@@ -210,20 +210,20 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
     if (!_chooseBtn) {
         @jobs_weakify(self)
         _chooseBtn = BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-            data.buttonConfigurationTitleAlignment = UIButtonConfigurationTitleAlignmentAutomatic;
-            data.textAlignment = NSTextAlignmentCenter;
-            data.subTextAlignment = NSTextAlignmentCenter;
-            data.normalImage = self.chooseBtnViewModel.image;
-            data.title = self.chooseBtnViewModel.textModel.text;
-            data.titleFont = self.chooseBtnViewModel.textModel.font;
-            data.titleCor = self.chooseBtnViewModel.textModel.textCor;
-            data.titleLineBreakMode = NSLineBreakByWordWrapping;
-            data.subtitleLineBreakMode = NSLineBreakByWordWrapping;
-            data.imagePadding = JobsWidth(8);
-            data.imagePlacement = NSDirectionalRectEdgeTrailing;
-            data.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-            data.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-            data.roundingCorners = UIRectCornerAllCorners;
+            data.byButtonConfigurationTitleAlignment(UIButtonConfigurationTitleAlignmentAutomatic)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .bySubTextAlignment(NSTextAlignmentCenter)
+                .byNormalImage(self.chooseBtnViewModel.image)
+                .byTitle(self.chooseBtnViewModel.textModel.text)
+                .byTitleFont(self.chooseBtnViewModel.textModel.font)
+                .byTitleCor(self.chooseBtnViewModel.textModel.textCor)
+                .byTitleLineBreakMode(NSLineBreakByWordWrapping)
+                .bySubtitleLineBreakMode(NSLineBreakByWordWrapping)
+                .byImagePadding(JobsWidth(8))
+                .byImagePlacement(NSDirectionalRectEdgeTrailing)
+                .byContentHorizontalAlignment(UIControlContentHorizontalAlignmentCenter)
+                .byContentVerticalAlignment(UIControlContentVerticalAlignmentCenter)
+                .byRoundingCorners(UIRectCornerAllCorners);
         })).onClickBy(^(UIButton *x){
             @jobs_strongify(self)
             x.selected = !x.selected;
@@ -294,14 +294,14 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
         @jobs_weakify(self)
         _chooseBtnViewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
             @jobs_strongify(self)
-            data.textModel.text = @"請選擇區號".tr;
-            data.textModel.textCor = HEXCOLOR(0xC4C4C4);
-            data.textModel.textLineSpacing = 0;
-            data.textModel.font = UIFontWeightRegularSize(14);
-            data.bgCor = JobsClearColor;
-            data.jobsWidth = self.chooseBtnSize.width;
-            data.subTextModel.text = @"".tr;
-            data.image = @"向下的箭头".img;
+            data.textModel.byText(@"請選擇區號".tr)
+                          .byTextCor(HEXCOLOR(0xC4C4C4))
+                          .byTextLineSpacing(0)
+                          .byFont(UIFontWeightRegularSize(14));
+            data.byBgCor(JobsClearColor)
+                .byJobsWidth(self.chooseBtnSize.width);
+            data.subTextModel.byText(@"".tr);
+            data.byImage(@"向下的箭头".img);
         });
     }return _chooseBtnViewModel;
 }
@@ -312,23 +312,23 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
         _jobsPageViewDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
                 @jobs_strongify(self)
-                viewModel.textModel.text = @"+87".tr;
-                viewModel.textModel.textCor = HEXCOLOR(0xC4C4C4);
-                viewModel.textModel.textLineSpacing = 0;
-                viewModel.textModel.font = UIFontWeightRegularSize(14);
-                viewModel.bgCor = JobsClearColor;
-                viewModel.jobsWidth = self.chooseBtnSize.width;
-                viewModel.subTextModel.text = @"".tr;
+                viewModel.textModel.byText(@"+87".tr)
+                                   .byTextCor(HEXCOLOR(0xC4C4C4))
+                                   .byTextLineSpacing(0)
+                                   .byFont(UIFontWeightRegularSize(14));
+                viewModel.byBgCor(JobsClearColor)
+                         .byJobsWidth(self.chooseBtnSize.width);
+                viewModel.subTextModel.byText(@"".tr);
             }));
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
                 @jobs_strongify(self)
-                viewModel.textModel.text = @"+88".tr;
-                viewModel.textModel.textCor = HEXCOLOR(0xC4C4C4);
-                viewModel.textModel.textLineSpacing = 0;
-                viewModel.textModel.font = UIFontWeightRegularSize(14);
-                viewModel.bgCor = JobsClearColor;
-                viewModel.jobsWidth = self.chooseBtnSize.width;
-                viewModel.subTextModel.text = @"".tr;
+                viewModel.textModel.byText(@"+88".tr)
+                                   .byTextCor(HEXCOLOR(0xC4C4C4))
+                                   .byTextLineSpacing(0)
+                                   .byFont(UIFontWeightRegularSize(14));
+                viewModel.byBgCor(JobsClearColor)
+                         .byJobsWidth(self.chooseBtnSize.width);
+                viewModel.subTextModel.byText(@"".tr);
             }));
         });
     }return _jobsPageViewDataMutArr;

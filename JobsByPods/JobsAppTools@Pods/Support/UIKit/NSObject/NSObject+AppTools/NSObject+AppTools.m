@@ -24,17 +24,17 @@
 
         UITextModel *backBtnTitleModel = self.viewModel.backBtnTitleModel;
 
-        data.highlightBackgroundImage = @"返回".img;
-        data.highlightImage = @"返回".img;
-        data.normalImage = @"返回".img;
-        data.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-        data.title = backBtnTitleModel.text;
-        data.font = backBtnTitleModel.font;
-        data.titleCor = JobsBlackColor;
-        data.selectedTitleCor = JobsBlackColor;
-        data.roundingCorners = UIRectCornerAllCorners;
-        data.imagePlacement = NSDirectionalRectEdgeLeading;
-        data.imagePadding = JobsWidth(5);
+        data.byHighlightBackgroundImage(@"返回".img)
+            .byHighlightImage(@"返回".img)
+            .byNormalImage(@"返回".img)
+            .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
+            .byTitle(backBtnTitleModel.text)
+            .byFont(backBtnTitleModel.font)
+            .byTitleCor(JobsBlackColor)
+            .bySelectedTitleCor(JobsBlackColor)
+            .byRoundingCorners(UIRectCornerAllCorners)
+            .byImagePlacement(NSDirectionalRectEdgeLeading)
+            .byImagePadding(JobsWidth(5));
     });
 }
 

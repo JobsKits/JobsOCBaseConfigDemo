@@ -100,7 +100,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
         @jobs_weakify(self)
         _scrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView.contentSize = CGSizeMake(JobsMainScreen_WIDTH(), 2 * JobsMainScreen_HEIGHT());
+            scrollView.byContentSize(CGSizeMake(JobsMainScreen_WIDTH(), 2 * JobsMainScreen_HEIGHT()));
             [self.view.addSubview(scrollView) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.gk_navigationBar.mas_bottom);
                 make.left.right.bottom.equalTo(self.view);
@@ -116,26 +116,26 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
         _attributedTitle = self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray <JobsRichTextConfig *>*_Nullable data) {
             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                 @jobs_strongify(self)
-                data1.font = UIFontWeightRegularSize(JobsWidth(12));
-                data1.textCor = JobsBlueColor;
-                data1.targetString = @"编译器自动管理内存地址".tr.add(JobsNewline);
-                data1.textBgCor = JobsBrownColor;
-                data1.paragraphStyle = self.defaultParagraphStyle;
+                data1.byFont(UIFontWeightRegularSize(JobsWidth(12)))
+                     .byTextCor(JobsBlueColor)
+                     .byTargetString(@"编译器自动管理内存地址".tr.add(JobsNewline))
+                     .byTextBgCor(JobsBrownColor)
+                     .byParagraphStyle(self.defaultParagraphStyle);
             }))
             .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
-                data1.font = UIFontWeightSemiboldSize(JobsWidth(13));
-                data1.textCor = JobsWhiteColor;
-                data1.targetString = @"让程序员更加专注于".tr.add(JobsNewline);
-                data1.textBgCor = JobsBrownColor;
-                data1.paragraphStyle = self.defaultParagraphStyle;
+                data1.byFont(UIFontWeightSemiboldSize(JobsWidth(13)))
+                     .byTextCor(JobsWhiteColor)
+                     .byTargetString(@"让程序员更加专注于".tr.add(JobsNewline))
+                     .byTextBgCor(JobsBrownColor)
+                     .byParagraphStyle(self.defaultParagraphStyle);
             }))
             .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                 @jobs_strongify(self)
-                data1.font = UIFontWeightUltraLightSize(JobsWidth(14));
-                data1.textCor = JobsGreenColor;
-                data1.targetString = @"APP的业务。".tr;
-                data1.textBgCor = JobsBrownColor;
-                data1.paragraphStyle = self.defaultParagraphStyle;
+                data1.byFont(UIFontWeightUltraLightSize(JobsWidth(14)))
+                     .byTextCor(JobsGreenColor)
+                     .byTargetString(@"APP的业务。".tr)
+                     .byTextBgCor(JobsBrownColor)
+                     .byParagraphStyle(self.defaultParagraphStyle);
             }));
         }));
     }return _attributedTitle;

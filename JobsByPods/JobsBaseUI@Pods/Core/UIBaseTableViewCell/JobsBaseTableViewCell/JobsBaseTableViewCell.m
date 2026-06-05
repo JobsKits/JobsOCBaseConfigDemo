@@ -248,26 +248,26 @@ AppToolsProtocol_synthesize
             UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel *_Nullable data) {
                 if(model.textModel.attributedTitle.string.length){
                     title = model.textModel.attributedTitle.string;
-                    data.textModel.font = model.textModel.attributedTitle.attributedStringFont() ? : UIFontWeightRegularSize(14);
-                    data.textModel.textLineSpacing = model.textModel.attributedTitle.attributedStringParagraphStyle().lineSpacing;
+                    data.textModel.byFont(model.textModel.attributedTitle.attributedStringFont() ? : UIFontWeightRegularSize(14))
+                                  .byTextLineSpacing(model.textModel.attributedTitle.attributedStringParagraphStyle().lineSpacing);
                 }else{
                     title = model.textModel.text;
-                    data.textModel.font = model.textModel.font ? : UIFontWeightRegularSize(14);
-                    data.textModel.textLineSpacing = model.textModel.textLineSpacing;
+                    data.textModel.byFont(model.textModel.font ? : UIFontWeightRegularSize(14))
+                                  .byTextLineSpacing(model.textModel.textLineSpacing);
                 }
                 
                 if(model.subTextModel.attributedTitle.string.length){
                     subtitle = model.subTextModel.attributedTitle.string;
-                    data.textModel.font = model.subTextModel.attributedTitle.attributedStringFont() ? : UIFontWeightRegularSize(14);
-                    data.textModel.textLineSpacing = model.subTextModel.attributedTitle.attributedStringParagraphStyle().lineSpacing;
+                    data.textModel.byFont(model.subTextModel.attributedTitle.attributedStringFont() ? : UIFontWeightRegularSize(14))
+                                  .byTextLineSpacing(model.subTextModel.attributedTitle.attributedStringParagraphStyle().lineSpacing);
                 }else{
                     subtitle = model.subTextModel.text;
-                    data.textModel.font = model.subTextModel.font ? : UIFontWeightRegularSize(14);
-                    data.textModel.textLineSpacing = model.subTextModel.textLineSpacing;
+                    data.textModel.byFont(model.subTextModel.font ? : UIFontWeightRegularSize(14))
+                                  .byTextLineSpacing(model.subTextModel.textLineSpacing);
                 }
                 /// 主标题和副标题进行比较，以最长文本为标准执行
-                data.textModel.text = title.length >= subtitle.length ? title : subtitle;
-                data.jobsWidth = UITableViewCellTitleWidth;
+                data.textModel.byText(title.length >= subtitle.length ? title : subtitle);
+                data.byJobsWidth(UITableViewCellTitleWidth);
             });
             return [vm.textModel.text jobsTextHeightWithFont:vm.textModel.font
                                                   lineHeight:vm.textModel.textLineSpacing

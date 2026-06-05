@@ -89,8 +89,8 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
     @jobs_weakify(self)
     cell.jobsRichElementsCollectionViewCellBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable vm) {
         @jobs_strongify(self)
-        vm.data = self.excelConfigureData;
-        vm.buttonModel = self.datas[indexPath.row];
+        vm.byData(self.excelConfigureData)
+          .byButtonModel(self.datas[indexPath.row]);
     }));return cell;
 }
 
@@ -109,8 +109,8 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
                                            collectionViewLayout:jobsMakeHorizontalCollectionViewFlowLayout(^(UICollectionViewFlowLayout * _Nullable data) {
             data.itemSize = jobsMakeCGSizeByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
                 @jobs_strongify(self)
-                data.jobsWidth = self.excelConfigureData.itemW;
-                data.jobsHeight = self.excelConfigureData.itemH;
+                data.byJobsWidth(self.excelConfigureData.itemW)
+                    .byJobsHeight(self.excelConfigureData.itemH);
             });
             data.minimumLineSpacing = 0;
             data.minimumInteritemSpacing = 0;

@@ -1590,6 +1590,7 @@ typedef __kindof SPAlertControllerConfig *_Nullable(^JobsRetSPAlertControllerCon
 typedef __kindof SPAlertControllerConfig *_Nullable(^JobsRetSPAlertControllerConfigByNSArrayNSNumberPointerPointerBlock)(NSArray <NSNumber *> * _Nullable data);
 typedef __kindof SPAlertControllerConfig *_Nullable(^JobsRetSPAlertControllerConfigByNSArrayNSStringPointerPointerBlock)(NSArray <NSString *> * _Nullable data);
 typedef __kindof SPAlertControllerConfig *_Nullable(^JobsRetSPAlertControllerConfigByNSObject_SPAlertControllerInitTypeBlock)(NSObject_SPAlertControllerInitType data);
+typedef __kindof SPAlertControllerConfig *_Nullable(^JobsRetSPAlertControllerConfigByNSIntegerBlock)(NSInteger data);
 typedef __kindof SPAlertControllerConfig *_Nullable(^JobsRetSPAlertControllerConfigByStrBlock)(NSString * _Nullable data);
 typedef __kindof SPAlertControllerConfig *_Nullable(^JobsRetSPAlertControllerConfigByUIViewControllerPointerBlock)(UIViewController * _Nullable data);
 typedef __kindof SPAlertControllerConfig *_Nullable(^JobsRetSPAlertControllerConfigByUIViewPointerBlock)(UIView * _Nullable data);

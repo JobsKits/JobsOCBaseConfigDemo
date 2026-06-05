@@ -375,18 +375,18 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*inputViewMutArr;
         [手机验证码 changeTextFieldAnimationColor:self.toRegisterBtn.selected];
         
         用户名.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.jobsWidth = 1;
-            data.layerCor = Cor3;
+            data.byJobsWidth(1)
+                .byLayerCor(Cor3);
         }));
         
         密码.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.jobsWidth = 1;
-            data.layerCor = Cor3;
+            data.byJobsWidth(1)
+                .byLayerCor(Cor3);
         }));
         
         确认密码.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.jobsWidth = 1;
-            data.layerCor = Cor3;
+            data.byJobsWidth(1)
+                .byLayerCor(Cor3);
         }));
     }
 }

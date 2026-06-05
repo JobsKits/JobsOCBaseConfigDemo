@@ -324,8 +324,8 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
                 make.bottom.equalTo(self.view).offset(JobsWidth(-20));
             }];
             textView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-                model.layerCor = JobsLightGrayColor;
-                model.jobsWidth = .5f;
+                model.byLayerCor(JobsLightGrayColor)
+                     .byJobsWidth(.5f);
             }));
         });
     }return _textView;

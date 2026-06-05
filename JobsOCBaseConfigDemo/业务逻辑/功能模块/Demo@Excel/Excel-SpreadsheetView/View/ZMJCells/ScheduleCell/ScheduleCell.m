@@ -43,10 +43,10 @@
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.frame = self.bounds;
-            label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            label.font = [UIFont boldSystemFontOfSize:12.f];
-            label.textAlignment = NSTextAlignmentLeft;
+            label.byFrame(self.bounds);
+            label.byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+            label.byFont([UIFont boldSystemFontOfSize:12.f]);
+            label.byTextAlignment(NSTextAlignmentLeft);
             self.contentView.addSubview(label);
         });
     }return _label;

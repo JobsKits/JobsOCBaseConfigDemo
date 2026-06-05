@@ -17,7 +17,7 @@ JobsKey(_backgroundLabel)
         @jobs_weakify(self)
         BackgroundLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.userInteractionEnabled = YES;
+            label.byUserInteractionEnabled(YES);
             self.addSubview(label);
             self.sendSubviewToBack(label);
             [label mas_makeConstraints:^(MASConstraintMaker *make) {

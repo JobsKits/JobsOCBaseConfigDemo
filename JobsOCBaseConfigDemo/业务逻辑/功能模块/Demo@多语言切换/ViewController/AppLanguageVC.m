@@ -231,20 +231,20 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_dataMutArr) {
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.appLanguage = AppLanguageBySys;
-                data1.text = @"跟随系统".tr;
+                data1.byAppLanguage(AppLanguageBySys)
+                     .byText(@"跟随系统".tr);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.appLanguage = AppLanguageBySys;
-                data1.text = @"中文".tr;
+                data1.byAppLanguage(AppLanguageBySys)
+                     .byText(@"中文".tr);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.appLanguage = AppLanguageBySys;
-                data1.text = @"英文".tr;
+                data1.byAppLanguage(AppLanguageBySys)
+                     .byText(@"英文".tr);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.appLanguage = AppLanguageBySys;
-                data1.text = @"他加禄语".tr;
+                data1.byAppLanguage(AppLanguageBySys)
+                     .byText(@"他加禄语".tr);
             }));
         });
     }return _dataMutArr;

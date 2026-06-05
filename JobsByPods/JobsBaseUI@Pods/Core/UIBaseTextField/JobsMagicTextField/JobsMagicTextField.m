@@ -115,17 +115,17 @@ Prop_strong()UILabel *placeholderAnimationLbl;
         _placeholderAnimationLbl = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label.jobsVisible = YES;
-            label.frame = CGRectMake(self.placeHolderOffset + self.leftViewOffsetX,
+            label.byFrame(CGRectMake(self.placeHolderOffset + self.leftViewOffsetX,
                                      self.y,
                                      self.width,
-                                     self.height);
-            label.backgroundColor = JobsClearColor;
-            label.textAlignment = self.textAlignment;///❤️
+                                     self.height));
+            label.byBgColor(JobsClearColor);
+            label.byTextAlignment(self.textAlignment);///❤️
             if (self.attributedPlaceholder && !self.placeholder) {
-                label.attributedText = self.attributedPlaceholder;
+                label.byAttributedString(self.attributedPlaceholder);
             }else{
-                label.text = self.placeholder;
-                label.font = self.font;
+                label.byText(self.placeholder);
+                label.byFont(self.font);
             }
             self.addSubview(label);
         });

@@ -101,9 +101,9 @@ Prop_strong()BaseButton *cancelBtn;
                 })
                 .byBgColor(HEXCOLOR(0xFFFFFF))
                 .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-                    model.jobsWidth = .05f;
-                    model.layerCor = JobsBlueColor;
-                    model.cornerRadiusValue = JobsWidth(8);
+                    model.byJobsWidth(.05f)
+                         .byLayerCor(JobsBlueColor)
+                         .byCornerRadiusValue(JobsWidth(8));
             }));
         });
         /// 不能写在 jobsMakeZYTextField 里面，否则会崩溃

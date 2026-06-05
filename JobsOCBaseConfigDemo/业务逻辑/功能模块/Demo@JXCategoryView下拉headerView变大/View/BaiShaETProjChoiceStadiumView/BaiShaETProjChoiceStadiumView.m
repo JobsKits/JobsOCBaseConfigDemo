@@ -132,28 +132,28 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
 +(NSMutableArray<UIViewModel *> *)createDataMutArr{
     NSMutableArray <UIViewModel *>*dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
         data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.text = @"DG體育".tr;
-            viewModel.subTextModel.text = @"".tr;
+            viewModel.textModel.byText(@"DG體育".tr);
+            viewModel.subTextModel.byText(@"".tr);
         }))
         .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.text = @"DG真人".tr;
-            viewModel.subTextModel.text = @"".tr;
+            viewModel.textModel.byText(@"DG真人".tr);
+            viewModel.subTextModel.byText(@"".tr);
         }))
         .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.text = @"DG電子".tr;
-            viewModel.subTextModel.text = @"".tr;
+            viewModel.textModel.byText(@"DG電子".tr);
+            viewModel.subTextModel.byText(@"".tr);
         }))
         .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.text = @"DG彩票".tr;
-            viewModel.subTextModel.text = @"".tr;
+            viewModel.textModel.byText(@"DG彩票".tr);
+            viewModel.subTextModel.byText(@"".tr);
         }))
         .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.text = @"DG棋牌".tr;
-            viewModel.subTextModel.text = @"".tr;
+            viewModel.textModel.byText(@"DG棋牌".tr);
+            viewModel.subTextModel.byText(@"".tr);
         }))
         .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.text = @"DA電子".tr;
-            viewModel.subTextModel.text = @"".tr;
+            viewModel.textModel.byText(@"DA電子".tr);
+            viewModel.subTextModel.byText(@"".tr);
         }));
     });return dataMutArr;
 }

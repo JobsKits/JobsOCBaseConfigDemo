@@ -32,16 +32,16 @@ Prop_assign(class)SourceType sourceType;
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     FMGameCVCell *cell = JobsRegisterDequeueCollectionViewCell(FMGameCVCell);
     cell.contentView.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-        model.masksToBounds = YES;
-        model.layerCor = RGBA_COLOR(255, 225, 144, 1);
-        model.jobsWidth = JobsWidth(1);
-        model.cornerRadiusValue = JobsWidth(8);
+        model.byMasksToBounds(YES)
+             .byLayerCor(RGBA_COLOR(255, 225, 144, 1))
+             .byJobsWidth(JobsWidth(1))
+             .byCornerRadiusValue(JobsWidth(8));
     }));
     cell.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-        model.masksToBounds = YES;
-        model.layerCor = RGBA_COLOR(255, 225, 144, 1);
-        model.jobsWidth = JobsWidth(1);
-        model.cornerRadiusValue = JobsWidth(15);
+        model.byMasksToBounds(YES)
+             .byLayerCor(RGBA_COLOR(255, 225, 144, 1))
+             .byJobsWidth(JobsWidth(1))
+             .byCornerRadiusValue(JobsWidth(15));
     }));
     cell.indexPath = indexPath;
     return cell;

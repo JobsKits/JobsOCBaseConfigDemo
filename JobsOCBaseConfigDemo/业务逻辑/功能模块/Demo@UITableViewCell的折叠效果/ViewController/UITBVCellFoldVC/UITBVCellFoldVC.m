@@ -82,9 +82,9 @@ Prop_strong()MSCommentView *commentView;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = @"评论".tr;
-            label.textColor = @"#333333".cor;
-            label.font = UIFontWeightBoldSize(18);
+            label.byText(@"评论".tr);
+            label.byTextCor(@"#333333".cor);
+            label.byFont(UIFontWeightBoldSize(18));
             [self.view addSubview:label];
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.view).offset(JobsWidth(15));

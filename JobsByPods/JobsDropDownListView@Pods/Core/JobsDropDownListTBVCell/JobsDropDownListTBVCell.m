@@ -53,10 +53,10 @@ UITableViewCellProtocol_Synthesize
 +(JobsRetCGFloatByIDBlock _Nonnull)cellHeightByModel{
     return ^CGFloat(UIViewModel *_Nullable model){
         UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.textModel.font = UIFontWeightRegularSize(14);
-            data.jobsWidth = JobsMainScreen_WIDTH() - JobsWidth(200);
-            data.textModel.text = data.subTextModel.text;
-            data.textModel.textLineSpacing = 0;
+            data.textModel.byFont(UIFontWeightRegularSize(14));
+            data.byJobsWidth(JobsMainScreen_WIDTH() - JobsWidth(200));
+            data.textModel.byText(data.subTextModel.text)
+                          .byTextLineSpacing(0);
         });return UIView.new.heightByData(model ? : vm) + JobsWidth(20);
     };
 }

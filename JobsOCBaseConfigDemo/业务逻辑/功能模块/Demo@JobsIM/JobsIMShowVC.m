@@ -88,7 +88,7 @@ Prop_strong()JobsIMListView *listView;
     chatInfoModel.identification = @"我是服务器";
     
     UIViewModel *viewModel = UIViewModel.new;
-    viewModel.data = chatInfoModel;
+    viewModel.byData(chatInfoModel);
     return viewModel;
 }
 #pragma mark —— lazyLoad

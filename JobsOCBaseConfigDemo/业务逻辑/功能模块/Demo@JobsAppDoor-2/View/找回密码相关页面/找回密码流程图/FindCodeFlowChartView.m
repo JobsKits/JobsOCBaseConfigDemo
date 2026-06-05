@@ -25,7 +25,7 @@
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.font = UIFontWeightHeavySize(JobsWidth(20));
+            label.byFont(UIFontWeightHeavySize(JobsWidth(20)));
             [label sizeToFit];
             self.bacKIMGV.addSubview(label);
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -41,7 +41,7 @@
         @jobs_weakify(self)
         _subTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.font = UIFontWeightRegularSize(JobsWidth(8));
+            label.byFont(UIFontWeightRegularSize(JobsWidth(8)));
             [label sizeToFit];
             self.bacKIMGV.addSubview(label);
             [label mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -58,11 +58,11 @@ Prop_strong()UILabel *titleLab;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = HEXCOLOR(0xFFFFFF);
-            label.text = isNull(self.viewModel.textModel.text) ? @"请设置大标题".tr : self.viewModel.textModel.text;
-            label.textColor = self.viewModel.textModel.textCor;
-            label.font = [UIFont systemFontOfSize:JobsWidth(20) weight:UIFontWeightRegular];
-            label.textAlignment = NSTextAlignmentCenter;
+            label.byBgColor(HEXCOLOR(0xFFFFFF));
+            label.byText(isNull(self.viewModel.textModel.text) ? @"请设置大标题".tr : self.viewModel.textModel.text);
+            label.byTextCor(self.viewModel.textModel.textCor);
+            label.byFont([UIFont systemFontOfSize:JobsWidth(20) weight:UIFontWeightRegular]);
+            label.byTextAlignment(NSTextAlignmentCenter);
             [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);
             }];

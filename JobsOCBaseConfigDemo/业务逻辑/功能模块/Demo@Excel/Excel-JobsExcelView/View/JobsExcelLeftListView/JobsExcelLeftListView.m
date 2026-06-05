@@ -58,8 +58,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable vm) {
             @jobs_strongify(self)
-            vm.data = self.excelConfigureData;
-            vm.buttonModel = (UIButtonModel *)self.excelConfigureData.leftListDatas[indexPath.row];
+            vm.byData(self.excelConfigureData)
+              .byButtonModel((UIButtonModel *)self.excelConfigureData.leftListDatas[indexPath.row]);
         }))
         .JobsBlock1(^(id _Nullable data) {
              
@@ -96,10 +96,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 //                .registerHeaderFooterViewClass(MSCommentTableHeaderFooterView.class,nil)
                 .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
                 .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                    data.title = @"NO MESSAGES FOUND".tr;
-                    data.titleCor = JobsWhiteColor;
-                    data.titleFont = bayonRegular(JobsWidth(30));
-                    data.normalImage = @"小狮子".img;
+                    data.byTitle(@"NO MESSAGES FOUND".tr)
+                        .byTitleCor(JobsWhiteColor)
+                        .byTitleFont(bayonRegular(JobsWidth(30)))
+                        .byNormalImage(@"小狮子".img);
                 }))
                 .byShowsVerticalScrollIndicator(NO)
                 .byShowsHorizontalScrollIndicator(NO)
@@ -107,7 +107,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byBgColor(JobsClearColor);
 
             if(@available(iOS 11.0, *)) {
-                tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+                tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             }
         }))
         .addOn(self)

@@ -186,7 +186,7 @@ Prop_strong()UIViewModel *leftViewCurrentSelectModel;
     return LeftCell.cellStyleDefaultWithTableView(tableView)
         .JobsRichViewByModel2(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
         @jobs_strongify(self)
-        data.textModel.text = self.titleMutArr[indexPath.row].textModel.text;
+        data.textModel.byText(self.titleMutArr[indexPath.row].textModel.text);
     }));
 }
 
@@ -213,10 +213,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 .byBgColor(HEXCOLOR(0xFCFBFB))
                 .byFrame(jobsMakeCGRectByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
                     @jobs_strongify(self)
-                    data.jobsX = 0;
-                    data.jobsY = JobsTopSafeAreaHeight() + JobsStatusBarHeight() + self.gk_navigationBar.mj_h;
-                    data.jobsWidth = TableViewWidth;
-                    data.jobsHeight = JobsMainScreen_HEIGHT() - JobsTopSafeAreaHeight() - JobsStatusBarHeight() - JobsTabBarHeight(AppDelegate.tabBarVC) - EditBtnHeight;
+                    data.byJobsX(0)
+                        .byJobsY(JobsTopSafeAreaHeight() + JobsStatusBarHeight() + self.gk_navigationBar.mj_h)
+                        .byJobsWidth(TableViewWidth)
+                        .byJobsHeight(JobsMainScreen_HEIGHT() - JobsTopSafeAreaHeight() - JobsStatusBarHeight() - JobsTabBarHeight(AppDelegate.tabBarVC) - EditBtnHeight);
                 }));
         }));
     }return _tableView;
@@ -297,22 +297,22 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         /// 最初默认的数据
         _titleMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"收藏".tr;
+                data1.textModel.byText(@"收藏".tr);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"真人".tr;
+                data1.textModel.byText(@"真人".tr);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"体育".tr;
+                data1.textModel.byText(@"体育".tr);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"电子".tr;
+                data1.textModel.byText(@"电子".tr);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"棋牌".tr;
+                data1.textModel.byText(@"棋牌".tr);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"彩票".tr;
+                data1.textModel.byText(@"彩票".tr);
             }));
         });
     }return _titleMutArr;

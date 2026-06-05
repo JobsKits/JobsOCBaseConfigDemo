@@ -27,8 +27,8 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         self.titleStr_1 = @"点击".tr;
         self.titleStr_2 = @"发送验证码".tr;
         self.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.layerCor = JobsWhiteColor;
-            data.cornerRadiusValue = 1;
+            data.byLayerCor(JobsWhiteColor)
+                .byCornerRadiusValue(1);
         }));
     }return self;
 }

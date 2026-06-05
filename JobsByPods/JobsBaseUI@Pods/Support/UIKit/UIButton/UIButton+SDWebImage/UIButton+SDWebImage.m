@@ -11,8 +11,8 @@
 #pragma mark —— 一些私有方法
 -(SDWebImageModel *)makeSDWebImageModel{
     return jobsMakeSDWebImageModel(^(__kindof SDWebImageModel * _Nullable data) {
-        data.url = Jobs_getAssociatedObject(_imageURL);
-        data.placeholder = Jobs_getAssociatedObject(_placeholderImage);
+        data.byUrl(Jobs_getAssociatedObject(_imageURL))
+            .byPlaceholder(Jobs_getAssociatedObject(_placeholderImage));
         data.options = [Jobs_getAssociatedObject(_options) integerValue];
         data.completion = Jobs_getAssociatedObject(_completed);
         data.progress = Jobs_getAssociatedObject(_progress);

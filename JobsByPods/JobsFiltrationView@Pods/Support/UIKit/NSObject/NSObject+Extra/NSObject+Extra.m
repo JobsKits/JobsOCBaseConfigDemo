@@ -14,21 +14,21 @@
     return jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
         @jobs_strongify(self)
         UIImage *backImage = [UIImage imageNamed:@"返回"];
-        data.highlightBackgroundImage = backImage;
-        data.highlightImage = backImage;
-        data.normalImage = backImage;
-        data.baseBackgroundColor = JobsClearColor;
+        data.byHighlightBackgroundImage(backImage)
+            .byHighlightImage(backImage)
+            .byNormalImage(backImage)
+            .byBaseBackgroundColor(JobsClearColor);
         if ([self respondsToSelector:@selector(viewModel)] &&
             [self valueForKey:@"viewModel"]) {
             UIViewModel *viewModel = [self valueForKey:@"viewModel"];
-            data.title = viewModel.backBtnTitleModel.text;
-            data.font = viewModel.backBtnTitleModel.font;
+            data.byTitle(viewModel.backBtnTitleModel.text)
+                .byFont(viewModel.backBtnTitleModel.font);
         }
-        data.titleCor = JobsBlackColor;
-        data.selectedTitleCor = JobsBlackColor;
-        data.roundingCorners = UIRectCornerAllCorners;
-        data.imagePlacement = NSDirectionalRectEdgeLeading;
-        data.imagePadding = JobsWidth(5);
+        data.byTitleCor(JobsBlackColor)
+            .bySelectedTitleCor(JobsBlackColor)
+            .byRoundingCorners(UIRectCornerAllCorners)
+            .byImagePlacement(NSDirectionalRectEdgeLeading)
+            .byImagePadding(JobsWidth(5));
     });
 }
 

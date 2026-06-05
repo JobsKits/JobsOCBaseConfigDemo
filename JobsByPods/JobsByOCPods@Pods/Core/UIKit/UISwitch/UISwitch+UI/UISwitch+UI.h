@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_END
                  }];
                  Switch.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
                      data.layerCor = Switch.selected ? self.cor : HEXCOLOR(0xB0B0B0)
-                     data.jobsWidth = 1;
+                     data.byJobsWidth(1);
                  }));
                  [Switch jobsSwitchClickEventBlock:^(UISwitch *x) {
                      x.selected = !x.selected;
@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_END
                      x.thumbTintColor = x.selected ? self.cor : HEXCOLOR(0xB0B0B0);
                      x.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
                          data.layerCor = Switch.selected ? self.cor : HEXCOLOR(0xB0B0B0)
-                         data.jobsWidth = 1;
+                         data.byJobsWidth(1);
                      }));
                  }];
              })

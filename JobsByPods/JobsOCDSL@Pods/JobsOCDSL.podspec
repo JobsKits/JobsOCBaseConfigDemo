@@ -34,8 +34,12 @@ Pod::Spec.new do |spec|
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsOCProtocols'
+  spec.dependency 'GKNavigationBar'
+  spec.dependency 'Masonry'
   spec.dependency 'MJRefresh'
   spec.dependency 'Texture'
+  spec.dependency 'YTKNetwork'
+  spec.dependency 'ZFPlayer'
 
   JobsPodspecKitForJobsOCDSL.add_support_subspec(spec, support_context)
 

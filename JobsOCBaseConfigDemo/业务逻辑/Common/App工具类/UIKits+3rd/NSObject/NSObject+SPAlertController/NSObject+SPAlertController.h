@@ -87,17 +87,17 @@ NS_ASSUME_NONNULL_END
                  @jobs_strongify(self)
                  SPAlertControllerConfig *config = SPAlertControllerConfig.new;
                  config.SPAlertControllerInitType = NSObject_SPAlertControllerInitType_2;
-                 config.title = @"提示";
-                 config.message = @"审核通过后可查看，是否删除";//@"视频审核未通过，是否删除？"
-                 config.preferredStyle = SPAlertControllerStyleActionSheet;
+                 config.byTitle(@"提示")
+                       .byMessage(@"审核通过后可查看，是否删除")//@"视频审核未通过，是否删除？"
+                       .byPreferredStyle(SPAlertControllerStyleActionSheet);
                  config.animationType = SPAlertAnimationTypeDefault;
-                 config.alertActionTitleArr = self.channelMutArr;
+                 config.byAlertActionTitleArr(self.channelMutArr);
                  //  配置按钮样式
                  NSMutableArray <NSNumber *>*alertActionStyleArr = NSMutableArray.array;
                  for (int i = 0; i < self.channelMutArr.count; i++) {
                      [alertActionStyleArr addObject:@(SPAlertActionStyleDefault)];
                  }
-                 config.alertActionStyleArr = alertActionStyleArr;
+                 config.byAlertActionStyleArr(alertActionStyleArr);
                  //  配置按钮触发方法
                  NSMutableArray <NSString *>*alertBtnActionArr = NSMutableArray.array;
                  for (int i = 0; i < self.channelMutArr.count; i++) {
@@ -105,13 +105,13 @@ NS_ASSUME_NONNULL_END
                      // 或者
                      [alertBtnActionArr addObject:@"makeChannelURL"];
                  }
-                 config.alertBtnActionArr = alertBtnActionArr;
+                 config.byAlertBtnActionArr(alertBtnActionArr);
                  // 配置按钮触发方法的相关形参 【demo见SelectorBlock】
                  config.parametersArr;
 
-                 config.targetVC = self;
-                 config.funcInWhere = self;
-                 config.animated = YES;
+                 config.byTargetVC(self)
+                       .byFuncInWhere(self)
+                       .byAnimated(YES);
 
                  [NSObject showSPAlertControllerConfig:config
                                           alertVCBlock:^(SPAlertController *data,
@@ -230,15 +230,15 @@ NS_ASSUME_NONNULL_END
 
          SPAlertControllerConfig *config = SPAlertControllerConfig.new;
          config.SPAlertControllerInitType = NSObject_SPAlertControllerInitType_2;
-         config.title = @"兑换余额";
-         config.preferredStyle = SPAlertControllerStyleAlert;
+         config.byTitle(@"兑换余额")
+               .byPreferredStyle(SPAlertControllerStyleAlert);
          config.animationType = SPAlertAnimationTypeDefault;
-         config.alertActionTitleArr = @[@"取消",@"确定"];
-         config.alertActionStyleArr = @[@(SPAlertActionStyleDestructive),@(SPAlertActionStyleDefault)];
-         config.alertBtnActionArr = @[@"".tr,@"networking_chargeGoldPOST"];// 金币换余额
-         config.targetVC = [NSObject getCurrentViewController];
-         config.funcInWhere = self;
-         config.animated = YES;
+         config.byAlertActionTitleArr(@[@"取消",@"确定"])
+               .byAlertActionStyleArr(@[@(SPAlertActionStyleDestructive),@(SPAlertActionStyleDefault)])
+               .byAlertBtnActionArr(@[@"".tr,@"networking_chargeGoldPOST"])// 金币换余额
+               .byTargetVC([NSObject getCurrentViewController])
+               .byFuncInWhere(self)
+               .byAnimated(YES);
 
          [NSObject showSPAlertControllerConfig:config
                                   alertVCBlock:^(SPAlertController *data,
@@ -264,12 +264,12 @@ NS_ASSUME_NONNULL_END
 
      SPAlertControllerConfig *config = SPAlertControllerConfig.new;
      config.SPAlertControllerInitType = NSObject_SPAlertControllerInitType_3;
-     config.customAlertView = self.updateView;
-     config.preferredStyle = SPAlertControllerStyleAlert;
+     config.byCustomAlertView(self.updateView)
+           .byPreferredStyle(SPAlertControllerStyleAlert);
      config.animationType = SPAlertAnimationTypeDefault;
-     config.targetVC = self;
-     config.funcInWhere = self;
-     config.animated = YES;
+     config.byTargetVC(self)
+           .byFuncInWhere(self)
+           .byAnimated(YES);
 
      self.alertController = [NSObject showSPAlertControllerConfig:config
                                                      alertVCBlock:^(SPAlertController *data,

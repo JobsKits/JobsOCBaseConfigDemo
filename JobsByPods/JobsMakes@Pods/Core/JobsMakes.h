@@ -27,6 +27,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #pragma mark —— 关于富文本
 /// 创建不可变富文本
 NS_INLINE NSAttributedString *_Nonnull JobsAttributedString(NSString *_Nonnull data) {

@@ -137,8 +137,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 -(UIViewModel *)viewModel{
     if (!_viewModel) {
         _viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.textModel.textCor = HEXCOLOR(0x3D4A58);
-            data.textModel.font = UIFontWeightRegularSize(16);
+            data.textModel.byTextCor(HEXCOLOR(0x3D4A58))
+                          .byFont(UIFontWeightRegularSize(16));
         });
     }return _viewModel;
 }
@@ -149,13 +149,13 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 -(UIButtonModel *)closeBtnModel{
     if(!_closeBtnModel){
         _closeBtnModel = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-            data.backgroundImage = @"联系我们".img;
+            data.byBackgroundImage(@"联系我们".img);
             //            data.highlightBackgroundImage = @"联系我们".img;
             //            data.jobsResetBtnImage = @"联系我们".img;
             //            data.highlightImage = @"联系我们".img;
             //            data.imagePadding = JobsWidth(5);
-            data.roundingCorners = UIRectCornerAllCorners;
-            data.baseBackgroundColor = JobsClearColor;
+            data.byRoundingCorners(UIRectCornerAllCorners)
+                .byBaseBackgroundColor(JobsClearColor);
         });
     }return _closeBtnModel;
 } 

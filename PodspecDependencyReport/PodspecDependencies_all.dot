@@ -127,12 +127,12 @@ digraph PodspecDependencies {
   "AFSecurityPolicyExtra" -> "AFNetworking";
   "AFSecurityPolicyExtra" -> "JobsBlock";
   "AFSecurityPolicyExtra" -> "JobsOCDefs";
-  "BRPickerView" -> "JobsModel";
+  "BRPickerView" -> "JobsModelDSL";
   "BRPickerViewExtra" -> "BRPickerView";
   "BRPickerViewExtra" -> "JobsBlock";
   "BRPickerViewExtra" -> "JobsLanMgr";
   "BRPickerViewExtra" -> "JobsMakes";
-  "BRPickerViewExtra" -> "JobsModel";
+  "BRPickerViewExtra" -> "JobsModelDSL";
   "BRPickerViewExtra" -> "JobsOCDefs";
   "BRPickerViewExtra" -> "XYColorOC";
   "FDFullscreenPopGesture" -> "JobsBlock";
@@ -453,6 +453,7 @@ digraph PodspecDependencies {
   "JobsLinkageMenuView" -> "YTKNetworkExtra";
   "JobsLocker" -> "JobsOCDefs";
   "JobsMakes" -> "JobsBlock";
+  "JobsMakes" -> "JobsOCDSL";
   "JobsMakes" -> "JobsOCDefs";
   "JobsMakes" -> "JobsStringUtils";
   "JobsMakes" -> "MJExtension";
@@ -546,11 +547,15 @@ digraph PodspecDependencies {
   "JobsNetWorkTools" -> "JobsOCDefs";
   "JobsNetWorkTools" -> "JobsOCProtocols";
   "JobsNetWorkTools" -> "JobsOCTimer";
+  "JobsOCDSL" -> "GKNavigationBar";
   "JobsOCDSL" -> "JobsBlock";
   "JobsOCDSL" -> "JobsOCDefs";
   "JobsOCDSL" -> "JobsOCProtocols";
   "JobsOCDSL" -> "MJRefresh";
+  "JobsOCDSL" -> "Masonry";
   "JobsOCDSL" -> "Texture";
+  "JobsOCDSL" -> "YTKNetwork";
+  "JobsOCDSL" -> "ZFPlayer";
   "JobsOCDefs" -> "GKNavigationBar";
   "JobsOCDefs" -> "JobsGetWindow";
   "JobsOCDefs" -> "JobsStringUtils";

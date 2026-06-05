@@ -85,9 +85,9 @@ JobsKey(_timer)
     return ^(UIButtonModel *_Nullable data){
         @jobs_strongify(self)
         self.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable model) {
-            model.layerCor = data.layerBorderCor;
-            model.jobsWidth = data.layerBorderWidth;
-            model.cornerRadiusValue = data.layerCornerRadius;
+            model.byLayerCor(data.layerBorderCor)
+                 .byJobsWidth(data.layerBorderWidth)
+                 .byCornerRadiusValue(data.layerCornerRadius);
         }));
     };
 }

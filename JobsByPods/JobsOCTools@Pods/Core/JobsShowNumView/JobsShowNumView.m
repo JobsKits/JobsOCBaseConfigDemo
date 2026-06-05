@@ -64,9 +64,9 @@ static dispatch_once_t static_showNumViewOnceToken;
         CGSize btnSize = CGSizeMake(JobsWidth(60), JobsWidth(60));
         
         self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.jobsLeft = 0;
-            data.jobsRight = 0;
-            data.offsetXForEach = (self.thisViewSize.width - model.jobsLeft - model.jobsRight - btnSize.width * temp.count) / (temp.count - 1);
+            data.byJobsLeft(0)
+                .byJobsRight(0)
+                .byOffsetXForEach((self.thisViewSize.width - model.jobsLeft - model.jobsRight - btnSize.width * temp.count) / (temp.count - 1));
         });
         MakeDataNull
         

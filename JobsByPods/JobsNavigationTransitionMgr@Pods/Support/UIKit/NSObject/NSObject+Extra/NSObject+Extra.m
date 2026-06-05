@@ -226,12 +226,12 @@ UITextFieldProtocol_dynamic
 /// 刷新控件的头部数据
 -(MJRefreshConfigModel *_Nullable)mjHeaderDefaultConfig{
     return jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
-        data.stateIdleTitle = @"下拉可以刷新".tr;
-        data.pullingTitle = @"下拉可以刷新".tr;
-        data.refreshingTitle = @"松开立即刷新".tr;
-        data.willRefreshTitle = @"刷新数据中".tr;
-        data.noMoreDataTitle = @"下拉可以刷新".tr;
-        data.automaticallyChangeAlpha = YES;/// 根据拖拽比例自动切换透明度
+        data.byStateIdleTitle(@"下拉可以刷新".tr)
+            .byPullingTitle(@"下拉可以刷新".tr)
+            .byRefreshingTitle(@"松开立即刷新".tr)
+            .byWillRefreshTitle(@"刷新数据中".tr)
+            .byNoMoreDataTitle(@"下拉可以刷新".tr)
+            .byAutomaticallyChangeAlpha(YES);/// 根据拖拽比例自动切换透明度
     });
 }
 
@@ -241,12 +241,12 @@ UITextFieldProtocol_dynamic
 /// 刷新控件的尾部数据
 -(MJRefreshConfigModel *_Nullable)mjFooterDefaultConfig{
     return jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
-        data.stateIdleTitle = @"".tr;
-        data.pullingTitle = @"".tr;
-        data.refreshingTitle = @"".tr;
-        data.willRefreshTitle = @"".tr;
-        data.noMoreDataTitle = @"".tr;
-        data.automaticallyChangeAlpha = YES;/// 根据拖拽比例自动切换透明度
+        data.byStateIdleTitle(@"".tr)
+            .byPullingTitle(@"".tr)
+            .byRefreshingTitle(@"".tr)
+            .byWillRefreshTitle(@"".tr)
+            .byNoMoreDataTitle(@"".tr)
+            .byAutomaticallyChangeAlpha(YES);/// 根据拖拽比例自动切换透明度
     });
 }
 
@@ -305,19 +305,19 @@ UITextFieldProtocol_dynamic
 -(JobsReturnAlertControllerByAlertModelBlock _Nonnull)makeAlertControllerByAlertModel{
     return ^__kindof UIAlertController *_Nullable(JobsAlertModel *_Nullable model){
         UIAlertController *alertVC = JobsMakeAlertControllerBy(jobsMakeAlertModel(^(JobsAlertModel * _Nullable data) {
-            data.alertControllerTitle = model.alertControllerTitle;
-            data.message = model.message;
-            data.preferredStyle = model.preferredStyle;
+            data.byAlertControllerTitle(model.alertControllerTitle)
+                .byMessage(model.message)
+                .byPreferredStyle(model.preferredStyle);
         }));
         alertVC.add(JobsMakeAlertActionBy(jobsMakeAlertModel(^(JobsAlertModel *_Nullable data) {
-            data.alertActionTitle = model.alertActionTitle;
-            data.alertActionStyle = model.alertActionStyle;
-            data.alertActionBlock = model.alertActionBlock;
+            data.byAlertActionTitle(model.alertActionTitle)
+                .byAlertActionStyle(model.alertActionStyle)
+                .byAlertActionBlock(model.alertActionBlock);
         })));
         alertVC.add(JobsMakeAlertActionBy(jobsMakeAlertModel(^(JobsAlertModel *_Nullable data) {
-            data.alertActionTitle = model.cancelAlertActionTitle;
-            data.alertActionStyle = model.cancelAlertActionStyle;
-            data.alertActionBlock = model.cancelAlertActionBlock;
+            data.byAlertActionTitle(model.cancelAlertActionTitle)
+                .byAlertActionStyle(model.cancelAlertActionStyle)
+                .byAlertActionBlock(model.cancelAlertActionBlock);
         })));return alertVC;
     };
 }
@@ -408,8 +408,8 @@ UITextFieldProtocol_dynamic
 
 -(URLManagerModel *_Nonnull)url:(NSString *_Nonnull)url funcName:(NSString *_Nonnull)funcName{
     return jobsMakeURLManagerModel(^(__kindof URLManagerModel * _Nullable data) {
-        data.url = url;
-        data.funcName = funcName;
+        data.byUrl(url)
+            .byFuncName(funcName);
     });
 }
 /// 获取m文件的属性
@@ -670,11 +670,11 @@ UITextFieldProtocol_dynamic
         for (size_t i = 0; i < count; i++) {
             data.add(jobsMakeImageModel(^(__kindof JobsImageModel * _Nullable imageModel) {
                 CGImageRef image = CGImageSourceCreateImageAtIndex(source, i, NULL);
-                imageModel.image = UIImage.imageWithCGImage(image);
+                imageModel.byImage(UIImage.imageWithCGImage(image));
                 CGImageRelease(image);
                 //获取图片信息
-                imageModel.info = (__bridge NSDictionary*)CGImageSourceCopyPropertiesAtIndex(source, i, NULL);
-                imageModel.timeDic = [imageModel.info objectForKey:(__bridge NSString *)kCGImagePropertyGIFDictionary];
+                imageModel.byInfo((__bridge NSDictionary*)CGImageSourceCopyPropertiesAtIndex(source, i, NULL))
+                          .byTimeDic([imageModel.info objectForKey:(__bridge NSString *)kCGImagePropertyGIFDictionary]);
             }));
         }
     });
@@ -1438,11 +1438,11 @@ UITextFieldProtocol_dynamic
         NSNotification *notification = (NSNotification *)arg;
         JobsLog(@"通知传递过来的 = %@",notification.object);
         NSNotificationKeyboardModel *model = jobsMakeNotificationKeyboardModel(^(NSNotificationKeyboardModel * _Nullable data) {
-            data.userInfo = notification.userInfo;
-            data.beginFrame = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue];
-            data.endFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-            data.keyboardOffsetY = data.beginFrame.origin.y - data.endFrame.origin.y;// 正则抬起 ，负值下降
-            data.notificationName = UIKeyboardWillChangeFrameNotification;
+            data.byUserInfo(notification.userInfo)
+                .byBeginFrame([notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue])
+                .byEndFrame([notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue])
+                .byKeyboardOffsetY(data.beginFrame.origin.y - data.endFrame.origin.y)// 正则抬起 ，负值下降
+                .byNotificationName(UIKeyboardWillChangeFrameNotification);
         });
         JobsLog(@"KeyboardOffsetY = %f", model.keyboardOffsetY);
         if (model.keyboardOffsetY > 0) {

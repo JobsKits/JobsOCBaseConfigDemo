@@ -690,11 +690,11 @@ didFinishSavingWithError:(NSError *)error
                           NSDictionary * _Nullable info){
             AVURLAsset *urlAsset = (AVURLAsset *)asset;
             if (completeBlock) completeBlock(jobsMakeFileFolderHandleModel(^(__kindof FileFolderHandleModel * _Nullable model) {
-                model.asset = asset;
-                model.audioMix = audioMix;
-                model.info = info;
-                model.data = FileFolderHandleTool.AVAssetToData(asset);
-                model.image = urlAsset.videoPreViewImage;
+                model.byAsset(asset)
+                     .byAudioMix(audioMix)
+                     .byInfo(info)
+                     .byData(FileFolderHandleTool.AVAssetToData(asset))
+                     .byImage(urlAsset.videoPreViewImage);
             }));
         }];
     }

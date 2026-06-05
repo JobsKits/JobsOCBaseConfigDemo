@@ -127,9 +127,9 @@ Prop_strong()BaseButton *sendBtn;
             }];self.refresh();
             textField.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
                 @jobs_strongify(self)
-                model.jobsWidth = .5f;
-                model.layerCor = JobsWhiteColor;
-                model.cornerRadiusValue = self->_inputTextField.mj_h / 2;
+                model.byJobsWidth(.5f)
+                     .byLayerCor(JobsWhiteColor)
+                     .byCornerRadiusValue(self->_inputTextField.mj_h / 2);
             }));
         });
         [[_inputTextField.rac_textSignal filter:^BOOL(NSString * _Nullable value) {

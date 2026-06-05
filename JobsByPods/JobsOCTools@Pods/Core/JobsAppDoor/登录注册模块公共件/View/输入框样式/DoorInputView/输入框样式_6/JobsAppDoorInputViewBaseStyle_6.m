@@ -27,8 +27,8 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     if (self = [super init]) {
         self.backgroundColor = JobsClearColor;
         self.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.jobsWidth = 1;
-            data.layerCor = JobsWhiteColor;
+            data.byJobsWidth(1)
+                .byLayerCor(JobsWhiteColor);
         }));
     }return self;
 }
@@ -37,8 +37,8 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     if (self = [super init]) {
         self.backgroundColor = JobsClearColor;
         self.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.jobsWidth = 1;
-            data.layerCor = JobsWhiteColor;
+            data.byJobsWidth(1)
+                .byLayerCor(JobsWhiteColor);
         }));
     }return self;
 }

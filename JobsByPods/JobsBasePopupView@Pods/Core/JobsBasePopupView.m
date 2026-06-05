@@ -68,9 +68,9 @@ Prop_strong()BaseButton *btn2;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.font = self.viewModel.textModel.font;
-            label.textColor = self.viewModel.textModel.textCor;
-            label.textAlignment = self.viewModel.textModel.textAlignment;
+            label.byFont(self.viewModel.textModel.font);
+            label.byTextCor(self.viewModel.textModel.textCor);
+            label.byTextAlignment(self.viewModel.textModel.textAlignment);
             [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self);
                 make.top.equalTo(self).offset(JobsWidth(50));
@@ -84,9 +84,9 @@ Prop_strong()BaseButton *btn2;
         @jobs_weakify(self)
         _subTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.font = self.viewModel.subTextModel.font;
-            label.textColor = self.viewModel.subTextModel.textCor;
-            label.textAlignment = self.viewModel.subTextModel.textAlignment;
+            label.byFont(self.viewModel.subTextModel.font);
+            label.byTextCor(self.viewModel.subTextModel.textCor);
+            label.byTextAlignment(self.viewModel.subTextModel.textAlignment);
             [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self);
                 make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(5));

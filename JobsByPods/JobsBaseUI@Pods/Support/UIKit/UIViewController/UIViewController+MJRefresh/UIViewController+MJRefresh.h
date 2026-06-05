@@ -85,21 +85,21 @@ NS_ASSUME_NONNULL_END
 
     {
         MJRefreshConfigModel *refreshConfigHeader = MJRefreshConfigModel.new;
-        refreshConfigHeader.stateIdleTitle = @"下拉刷新".tr;
-        refreshConfigHeader.pullingTitle = @"下拉刷新".tr;
-        refreshConfigHeader.refreshingTitle = @"立即释放刷新".tr;
-        refreshConfigHeader.willRefreshTitle = @"刷新数据".tr;
-        refreshConfigHeader.noMoreDataTitle = @"下拉刷新".tr;
+        refreshConfigHeader.byStateIdleTitle(@"下拉刷新".tr)
+                           .byPullingTitle(@"下拉刷新".tr)
+                           .byRefreshingTitle(@"立即释放刷新".tr)
+                           .byWillRefreshTitle(@"刷新数据".tr)
+                           .byNoMoreDataTitle(@"下拉刷新".tr);
         refreshConfigHeader.loadBlock = ^id _Nullable(id  _Nullable data) {
             return nil;
         };
 
         MJRefreshConfigModel *refreshConfigFooter = MJRefreshConfigModel.new;
-        refreshConfigFooter.stateIdleTitle = @"".tr;
-        refreshConfigFooter.pullingTitle = @"".tr;
-        refreshConfigFooter.refreshingTitle = @"".tr;
-        refreshConfigFooter.willRefreshTitle = @"".tr;
-        refreshConfigFooter.noMoreDataTitle = @"".tr;
+        refreshConfigFooter.byStateIdleTitle(@"".tr)
+                           .byPullingTitle(@"".tr)
+                           .byRefreshingTitle(@"".tr)
+                           .byWillRefreshTitle(@"".tr)
+                           .byNoMoreDataTitle(@"".tr);
 
         self.lotAnimMJRefreshHeader.refreshConfigModel = refreshConfigHeader;
         self.refreshConfigFooter = refreshConfigFooter;//数据赋值
@@ -113,11 +113,11 @@ NS_ASSUME_NONNULL_END
 
      {
          MJRefreshConfigModel *refreshConfigHeader = MJRefreshConfigModel.new;
-         refreshConfigHeader.stateIdleTitle = @"下拉刷新".tr;
-         refreshConfigHeader.pullingTitle = @"下拉刷新".tr;
-         refreshConfigHeader.refreshingTitle = @"立即释放刷新".tr;
-         refreshConfigHeader.willRefreshTitle = @"刷新数据".tr;
-         refreshConfigHeader.noMoreDataTitle = @"下拉刷新".tr;
+         refreshConfigHeader.byStateIdleTitle(@"下拉刷新".tr)
+                            .byPullingTitle(@"下拉刷新".tr)
+                            .byRefreshingTitle(@"立即释放刷新".tr)
+                            .byWillRefreshTitle(@"刷新数据".tr)
+                            .byNoMoreDataTitle(@"下拉刷新".tr);
          refreshConfigFooter.loadBlock = ^id _Nullable(id  _Nullable data) {
              return nil;
          };

@@ -42,9 +42,9 @@ Prop_strong()UILabel *titleLab;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = @"点击加载更多".tr.add(@"...");
-            label.textAlignment = NSTextAlignmentCenter;
-            label.backgroundColor = JobsSystemYellowColor;
+            label.byText(@"点击加载更多".tr.add(@"..."));
+            label.byTextAlignment(NSTextAlignmentCenter);
+            label.byBgColor(JobsSystemYellowColor);
             [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);
             }];

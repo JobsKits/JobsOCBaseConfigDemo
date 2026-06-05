@@ -61,9 +61,9 @@ NS_ASSUME_NONNULL_END
          @jobs_strongify(self)
          self.timerDisposable = [jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
              @jobs_strongify(self)
-             label.text = @"-这是测试数据-".tr;
-             label.textColor = JobsRandomCor(1);
-             label.backgroundColor = JobsCyanColor;
+             label.byText(@"-这是测试数据-".tr);
+             label.byTextCor(JobsRandomCor(1));
+             label.byBgColor(JobsCyanColor);
              self.view.addSubview(label);
              [label mas_makeConstraints:^(MASConstraintMaker *make) {
                  make.center.equalTo(self.view);
@@ -84,9 +84,9 @@ NS_ASSUME_NONNULL_END
          @jobs_strongify(self)
          jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
              @jobs_strongify(self)
-             label.text = @"-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据".tr;
-             label.textColor = JobsRandomCor(1);
-             label.backgroundColor = JobsCyanColor;
+             label.byText(@"-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据".tr);
+             label.byTextCor(JobsRandomCor(1));
+             label.byBgColor(JobsCyanColor);
              self.view.addSubview(label);
              [label mas_makeConstraints:^(MASConstraintMaker *make) {
                  make.center.equalTo(self.view);

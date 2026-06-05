@@ -36,13 +36,13 @@
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.frame = self.bounds;
-            label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            label.backgroundColor = JobsDarkGrayColor;
-            label.font = UIFontWeightBoldSize(JobsWidth(15));
-            label.textColor = JobsLightGrayColor.colorWithAlphaComponentBy(.7f);
-            label.textAlignment = NSTextAlignmentCenter;
-            label.numberOfLines = 2;
+            label.byFrame(self.bounds);
+            label.byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+            label.byBgColor(JobsDarkGrayColor);
+            label.byFont(UIFontWeightBoldSize(JobsWidth(15)));
+            label.byTextCor(JobsLightGrayColor.colorWithAlphaComponentBy(.7f));
+            label.byTextAlignment(NSTextAlignmentCenter);
+            label.byNumberOfLines(2);
             self.addSubview(label);
         });
     }return _label;

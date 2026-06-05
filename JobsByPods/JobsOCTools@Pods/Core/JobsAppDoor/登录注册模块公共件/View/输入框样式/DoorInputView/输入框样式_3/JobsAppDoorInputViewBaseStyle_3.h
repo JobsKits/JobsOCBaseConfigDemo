@@ -76,8 +76,8 @@ NS_ASSUME_NONNULL_END
 
              _用户名输入框.layer.cornerRadius = inputSize().height / 2;
              _用户名输入框.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-                 data.jobsWidth = 1;
-                 data.layerCor = HEXCOLOR(0xEEE2C8) ;
+                 data.byJobsWidth(1)
+                     .byLayerCor(HEXCOLOR(0xEEE2C8));
              }));
              _用户名输入框.jobsRichViewByModel(配置用户名输入框);
          }return _用户名输入框;

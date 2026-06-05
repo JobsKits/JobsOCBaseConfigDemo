@@ -300,28 +300,28 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
                 viewModel.jobsDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable mutArr) {
                     mutArr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                        viewModel.textModel.text = @"存款金额".tr;
-                        viewModel.subTextModel.text = @"10,000.00".tr;
+                        viewModel.textModel.byText(@"存款金额".tr);
+                        viewModel.subTextModel.byText(@"10,000.00".tr);
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                        viewModel.textModel.text = @"存款方式".tr;
-                        viewModel.subTextModel.text = @"虛擬幣充值".tr;
+                        viewModel.textModel.byText(@"存款方式".tr);
+                        viewModel.subTextModel.byText(@"虛擬幣充值".tr);
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                        viewModel.textModel.text = @"訂單編號".tr;
-                        viewModel.subTextModel.text = @"YSF2025022302644565964";
+                        viewModel.textModel.byText(@"訂單編號".tr);
+                        viewModel.subTextModel.byText(@"YSF2025022302644565964");
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                        viewModel.textModel.text = @"轉賬姓名".tr;
-                        viewModel.subTextModel.text = @"張三 ".tr;
+                        viewModel.textModel.byText(@"轉賬姓名".tr);
+                        viewModel.subTextModel.byText(@"張三 ".tr);
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                        viewModel.textModel.text = @"銀行賬號".tr;
-                        viewModel.subTextModel.text = @"6230 5822 0031 5762 430".tr;
+                        viewModel.textModel.byText(@"銀行賬號".tr);
+                        viewModel.subTextModel.byText(@"6230 5822 0031 5762 430".tr);
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                        viewModel.textModel.text = @"轉賬地址".tr;
-                        viewModel.subTextModel.text = @"中國平安銀行".tr;
+                        viewModel.textModel.byText(@"轉賬地址".tr);
+                        viewModel.subTextModel.byText(@"中國平安銀行".tr);
                     }));
                 });
             }));

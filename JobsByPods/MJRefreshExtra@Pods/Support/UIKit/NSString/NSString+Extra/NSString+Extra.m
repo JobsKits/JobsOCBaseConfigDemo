@@ -18,8 +18,8 @@
                 JobsLog(@"文件名格式错误: %@", fileFullName);
                 return;
             }
-            model.name = components[0];
-            model.type = components[1];
+            model.byName(components[0])
+                 .byType(components[1]);
         });
     };
 }

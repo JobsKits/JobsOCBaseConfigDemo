@@ -75,11 +75,11 @@
                 self.cleanSubviewBy(UIView.class);
                 self.addSubview(view);
                 view.addSubview(UIButton.initByButtonModel(model ? : jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                    data.title = @"No Datas".tr;
-                    data.titleCor = JobsWhiteColor;
-                    data.titleFont = bayonRegular(JobsWidth(30));
-                    data.normalImage = @"暂无数据".img;
-                    data.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
+                    data.byTitle(@"No Datas".tr)
+                        .byTitleCor(JobsWhiteColor)
+                        .byTitleFont(bayonRegular(JobsWidth(30)))
+                        .byNormalImage(@"暂无数据".img)
+                        .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0));
                 })).setMasonryBy(^(MASConstraintMaker *make){
                     @jobs_strongify(self)
                     make.centerX.equalTo(self).offset(model.jobsOffsetX);
@@ -105,9 +105,9 @@
                 self.cleanSubviewBy(UIView.class);
                 self.addSubview(view);
                 view.addSubview(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
-                    label.textAlignment = model.textAlignment ? : NSTextAlignmentCenter;
-                    label.textColor = model.textCor ? : JobsRedColor;
-                    label.text = isValue(model.text) ? model.text : @"No Datas".tr;
+                    label.byTextAlignment(model.textAlignment ? : NSTextAlignmentCenter);
+                    label.byTextCor(model.textCor ? : JobsRedColor);
+                    label.byText(isValue(model.text) ? model.text : @"No Datas".tr);
                     label.makeLabelByShowingType(UILabelShowingType_05);
                     label.setMasonryBy(^(MASConstraintMaker *make){
                         @jobs_strongify(self)

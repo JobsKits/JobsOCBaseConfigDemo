@@ -69,9 +69,9 @@ static dispatch_once_t static_commentViewOnceToken;
     @jobs_weakify(self)
     headerView.jobsRichViewByModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
         @jobs_strongify(self)
-        viewModel.textModel.text = self.dataMutArr[section].sectionTitle;
-        viewModel.textModel.font = UIFontWeightBoldSize(16);
-        viewModel.textModel.textCor = @"#333333".cor;
+        viewModel.textModel.byText(self.dataMutArr[section].sectionTitle)
+                           .byFont(UIFontWeightBoldSize(16))
+                           .byTextCor(@"#333333".cor);
     }));
 }
 #pragma mark —— BaseViewProtocol
@@ -185,33 +185,33 @@ willDisplayHeaderView:(UIView *)view
         _tableView = jobsMakeBaseTableViewByGrouped(^(__kindof BaseTableView * _Nullable tableView) {
             tableView.ww_foldable = YES;
             tableView.dataLink(self);
-            tableView.backgroundColor = @"#FFFFFF".cor;
-            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-            tableView.separatorColor = HEXCOLOR(0xEEE2C8);
-            tableView.showsVerticalScrollIndicator = NO;
-            tableView.scrollEnabled = YES;
-            tableView.tableHeaderView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            tableView.byBgColor(@"#FFFFFF".cor);
+            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone);
+            tableView.bySeparatorColor(HEXCOLOR(0xEEE2C8));
+            tableView.byShowsVerticalScrollIndicator(NO);
+            tableView.byScrollEnabled(YES);
+            tableView.byTableHeaderView(jobsMakeView(^(__kindof UIView * _Nullable view) {
                 /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
-            });
-            tableView.tableFooterView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            }));
+            tableView.byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
                 /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
-            });
+            }));
             tableView.registerHeaderFooterViewClass(MSCommentTableHeaderFooterView.class,@"");
             if(@available(iOS 11.0, *)) {
-                tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+                tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             }
             
             {
-                tableView.mj_header = self.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
+                tableView.byMJRefreshHeader(self.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
                     @jobs_strongify(self)
                     NSObject.feedbackGenerator(nil);//震动反馈
                     return nil;
-                }]);
-                tableView.mj_footer = self.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
+                }]));
+                tableView.byMJRefreshFooter(self.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
                     @jobs_strongify(self)
                     tableView.endRefreshing(YES);
                     return nil;
-                }]);tableView.mj_footer.hidden = NO;
+                }]));tableView.mj_footer.hidden = NO;
             }
     //        {// 设置tabAnimated相关属性
     //            _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:JobsBaseTableViewCell.class

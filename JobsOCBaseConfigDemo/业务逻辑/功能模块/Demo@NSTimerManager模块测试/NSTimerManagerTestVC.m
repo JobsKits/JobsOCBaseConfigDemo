@@ -162,7 +162,7 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
         @jobs_weakify(self)
         _valueLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = HEXCOLOR(0xAE8330);
+            label.byBgColor(HEXCOLOR(0xAE8330));
             [self.view addSubview:label];
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.height.mas_equalTo(JobsWidth(20));
@@ -185,8 +185,8 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
                 btn.selectedStateBackgroundImageBy(@"弹窗取消按钮背景图".img);
                 btn.cornerCutToCircleWithCornerRadius(JobsWidth(8));
                 btn.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-                    data.layerCor = HEXCOLOR(0xAE8330);
-                    data.jobsWidth = 0.5f;
+                    data.byLayerCor(HEXCOLOR(0xAE8330))
+                        .byJobsWidth(0.5f);
                 }));
                 [self.view addSubview:btn];
                 data.add(btn);

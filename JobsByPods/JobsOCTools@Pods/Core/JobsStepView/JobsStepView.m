@@ -7,12 +7,6 @@
 
 #import "JobsStepView.h"
 
-#if __has_include(<JobsByOCPods/NSString+Sys.h>)
-#import <JobsByOCPods/NSString+Sys.h>
-#else
-#import "NSString+Sys.h"
-#endif
-
 @interface JobsStepView ()
 
 Prop_assign()VerificationStatus status;
@@ -172,16 +166,16 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
                                               UIImage *_Nullable image,
                                               UIImage *_Nullable highlightImage){
         return jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-            model.title = title;
-            model.titleCor = JobsGrayColor;
-            model.selectedTitleCor = @"#111111".cor;
-            model.titleFont = pingFangHKRegular(JobsWidth(14));
-            model.normalImage = image;
-            model.highlightImage = highlightImage;
-            model.imagePlacement = NSDirectionalRectEdgeTop;
-            model.imagePadding = JobsWidth(8);
-            model.roundingCorners = UIRectCornerAllCorners;
-            model.baseBackgroundColor = JobsClearColor;
+            model.byTitle(title)
+                 .byTitleCor(JobsGrayColor)
+                 .bySelectedTitleCor(@"#111111".cor)
+                 .byTitleFont(pingFangHKRegular(JobsWidth(14)))
+                 .byNormalImage(image)
+                 .byHighlightImage(highlightImage)
+                 .byImagePlacement(NSDirectionalRectEdgeTop)
+                 .byImagePadding(JobsWidth(8))
+                 .byRoundingCorners(UIRectCornerAllCorners)
+                 .byBaseBackgroundColor(JobsClearColor);
         });
     };
 }

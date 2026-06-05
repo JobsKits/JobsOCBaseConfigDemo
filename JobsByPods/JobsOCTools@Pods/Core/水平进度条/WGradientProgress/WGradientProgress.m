@@ -196,10 +196,10 @@ Prop_strong()NSMutableArray *colors;
                     data.add((id)self.progressColor.CGColor);
                 }else{
                     data.add((id)jobsMakeCor2(^(JobsCorModel * _Nullable data1) {
-                        data1.hue = 1.0 * deg / 360.0;
-                        data1.saturation = 1.f;
-                        data1.brightness = 1.f;
-                        data1.alpha = 1.f;
+                        data1.byHue(1.0 * deg / 360.0)
+                             .bySaturation(1.f)
+                             .byBrightness(1.f)
+                             .byAlpha(1.f);
                     }).CGColor);
                 }
             }

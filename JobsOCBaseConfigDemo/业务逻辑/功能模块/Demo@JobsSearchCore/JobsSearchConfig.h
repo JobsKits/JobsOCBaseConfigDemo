@@ -43,8 +43,8 @@ NS_INLINE void JobsSearchStorageData(_Nonnull id data){
     NSMutableArray *mutArr = NSMutableArray.initBy(arr);/// 实际存档的是数组
     mutArr.add(data);
     NSUserDefaults.updateWithModel(jobsMakeUserDefaultModel(^(UserDefaultModel * _Nonnull data) {
-        data.obj = mutArr;
-        data.key = StorageID;
+        data.byObj(mutArr)
+            .byKey(StorageID);
     }));
 }
 

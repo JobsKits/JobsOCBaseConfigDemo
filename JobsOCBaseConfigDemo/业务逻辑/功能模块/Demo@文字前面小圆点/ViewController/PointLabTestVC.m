@@ -41,9 +41,9 @@ Prop_copy()NSString *dot;
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = JobsRandomColor;
-            label.attributedText = self.attributedString;
-            label.numberOfLines = 0;
+            label.byBgColor(JobsRandomColor);
+            label.byAttributedString(self.attributedString);
+            label.byNumberOfLines(0);
             [self.view.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.width.mas_equalTo(200);
                 make.center.equalTo(self.view);
@@ -57,9 +57,9 @@ Prop_copy()NSString *dot;
         @jobs_weakify(self)
         _label2 = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = JobsRandomColor;
-            label.attributedText = self.attributedString2;
-            label.numberOfLines = 0;
+            label.byBgColor(JobsRandomColor);
+            label.byAttributedString(self.attributedString2);
+            label.byNumberOfLines(0);
             [self.view.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.width.mas_equalTo(200);
                 make.centerX.equalTo(self.view);
@@ -91,25 +91,25 @@ Prop_copy()NSString *dot;
                     data1.headIndent = 10; // 设置文本的缩进，使其与圆点对齐
                     data1.firstLineHeadIndent = 0; // 第一行不缩进
                 });
-                data.range = NSMakeRange(0, self.attributedString.length);
+                data.byRange(NSMakeRange(0, self.attributedString.length));
             }))
             /// 设置小圆点的颜色
             .addForegroundColorAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
-                data1.value = JobsRedColor;
-                data1.range = NSMakeRange(0, 1);// 第一个圆点
+                data1.byValue(JobsRedColor)
+                     .byRange(NSMakeRange(0, 1));// 第一个圆点
             }))
             .addForegroundColorAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
-                data1.value = JobsYellowColor;
-                data1.range = NSMakeRange(@"我是中国人我是中国人我是中国人我是中国人我是中国人我是中国人".add(JobsNewline).length + 1, 1);// 第二个圆点
+                data1.byValue(JobsYellowColor)
+                     .byRange(NSMakeRange(@"我是中国人我是中国人我是中国人我是中国人我是中国人我是中国人".add(JobsNewline).length + 1, 1));// 第二个圆点
             }))
             /// 设置文本颜色
             .addForegroundColorAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
-                data1.value = @"#D0D0D0".cor;
-                data1.range = NSMakeRange(1, data.length - 1);
+                data1.byValue(@"#D0D0D0".cor)
+                     .byRange(NSMakeRange(1, data.length - 1));
             }))
             .addFontAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
-                data1.value = UIFontWeightRegularSize(JobsWidth(12));
-                data1.range = NSMakeRange(0, data.length);
+                data1.byValue(UIFontWeightRegularSize(JobsWidth(12)))
+                     .byRange(NSMakeRange(0, data.length));
             }));
         });
     }return _attributedString;
@@ -135,12 +135,12 @@ Prop_copy()NSString *dot;
             // 添加对应的文本
             NSMutableAttributedString *text = JobsMutAttributedString(item);
             text.addFontAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-                data.value = UIFontWeightRegularSize(JobsWidth(12));
-                data.range = NSMakeRange(0, text.length);
+                data.byValue(UIFontWeightRegularSize(JobsWidth(12)))
+                    .byRange(NSMakeRange(0, text.length));
             }));
             text.addForegroundColorAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-                data.value = @"#D0D0D0".cor;
-                data.range = NSMakeRange(0, text.length);
+                data.byValue(@"#D0D0D0".cor)
+                    .byRange(NSMakeRange(0, text.length));
             }));
             _attributedString2.add(text);
             // 添加换行符

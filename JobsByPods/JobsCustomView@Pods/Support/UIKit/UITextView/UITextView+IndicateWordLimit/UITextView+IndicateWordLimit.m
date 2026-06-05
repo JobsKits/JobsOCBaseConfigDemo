@@ -17,10 +17,10 @@ JobsKey(_indicateWordLimitLab)
         @jobs_weakify(self)
         IndicateWordLimitLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.textColor = RGB_COLOR(132, 134, 140);
-            label.textAlignment = NSTextAlignmentCenter;
-            label.font = UIFontWeightMediumSize(10);
-            label.text = [NSString stringWithFormat:@"   %ld / %ld   ",self.currentWordNum,self.wordLimitNum];
+            label.byTextCor(RGB_COLOR(132, 134, 140));
+            label.byTextAlignment(NSTextAlignmentCenter);
+            label.byFont(UIFontWeightMediumSize(10));
+            label.byText([NSString stringWithFormat:@"   %ld / %ld   ",self.currentWordNum,self.wordLimitNum]);
             label.makeLabelByShowingType(UILabelShowingType_03);
             self.addSubview(label);
             label.right = self.width - self.offsetX;

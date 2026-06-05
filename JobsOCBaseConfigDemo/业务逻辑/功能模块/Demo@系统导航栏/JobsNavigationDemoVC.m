@@ -116,10 +116,10 @@
             .byBgColor(UIColor.clearColor)
         .byAttributedString(self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray <JobsRichTextConfig *>*_Nullable data) {
             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
-                data1.font = UIFontWeightRegularSize(JobsWidth(12));
-                data1.textCor = JobsBlueColor;
-                data1.targetString = @"合理".tr;
-                data1.textBgCor = JobsBrownColor;
+                data1.byFont(UIFontWeightRegularSize(JobsWidth(12)))
+                     .byTextCor(JobsBlueColor)
+                     .byTargetString(@"合理".tr)
+                     .byTextBgCor(JobsBrownColor);
                 data1.paragraphStyle = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data2) {
                     data2.alignment = NSTextAlignmentJustified;
                     data2.paragraphSpacing = 0;         // 段距，取值 float
@@ -131,19 +131,19 @@
             }));
             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                 @jobs_strongify(self)
-                data1.font = UIFontWeightSemiboldSize(JobsWidth(13));
-                data1.textCor = JobsWhiteColor;
-                data1.targetString = @"的".tr;
-                data1.textBgCor = JobsBrownColor;
-                data1.paragraphStyle = self.defaultParagraphStyle;
+                data1.byFont(UIFontWeightSemiboldSize(JobsWidth(13)))
+                     .byTextCor(JobsWhiteColor)
+                     .byTargetString(@"的".tr)
+                     .byTextBgCor(JobsBrownColor)
+                     .byParagraphStyle(self.defaultParagraphStyle);
             }));
             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                 @jobs_strongify(self)
-                data1.font = UIFontWeightUltraLightSize(JobsWidth(14));
-                data1.textCor = JobsRedColor;
-                data1.targetString = @"语法糖".tr;
-                data1.textBgCor = JobsBrownColor;
-                data1.paragraphStyle = self.defaultParagraphStyle;
+                data1.byFont(UIFontWeightUltraLightSize(JobsWidth(14)))
+                     .byTextCor(JobsRedColor)
+                     .byTargetString(@"语法糖".tr)
+                     .byTextBgCor(JobsBrownColor)
+                     .byParagraphStyle(self.defaultParagraphStyle);
             }));
         }))).labelAutoWidthByFont();
     });

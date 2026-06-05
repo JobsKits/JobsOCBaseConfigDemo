@@ -44,10 +44,10 @@
 +(JobsRetCorByHexAlphaBlock _Nonnull)jobsColorByHexAlpha {
     return ^UIColor * _Nullable(uint32_t hexValue, CGFloat alpha) {
         JobsCorModel *data = JobsCorModel.alloc.init;
-        data.red = ((float)((hexValue & 0xFF0000) >> 16)) / 255.0;
-        data.green = ((float)((hexValue & 0xFF00) >> 8)) / 255.0;
-        data.blue = ((float)(hexValue & 0xFF)) / 255.0;
-        data.alpha = alpha;
+        data.byRed(((float)((hexValue & 0xFF0000) >> 16)) / 255.0)
+            .byGreen(((float)((hexValue & 0xFF00) >> 8)) / 255.0)
+            .byBlue(((float)(hexValue & 0xFF)) / 255.0)
+            .byAlpha(alpha);
         return [UIColor colorWithRed:data.red
                                green:data.green
                                 blue:data.blue
@@ -98,10 +98,10 @@
     [[NSScanner scannerWithString:gString] scanHexInt:&g];
     [[NSScanner scannerWithString:bString] scanHexInt:&b];
     JobsCorModel *data = JobsCorModel.alloc.init;
-    data.red = ((float)r / 255.0f);
-    data.green = ((float)g / 255.0f);
-    data.blue = ((float)b / 255.0f);
-    data.alpha = alpha;
+    data.byRed(((float)r / 255.0f))
+        .byGreen(((float)g / 255.0f))
+        .byBlue(((float)b / 255.0f))
+        .byAlpha(alpha);
     return [UIColor colorWithRed:data.red
                            green:data.green
                             blue:data.blue
@@ -254,10 +254,10 @@
         // 将RGB值转换为十六进制字符串
         return jobsMakeCorModel(^(JobsCorModel * _Nullable data) {
             @jobs_strongify(self)
-            data.red = (redCor * 255);
-            data.green = (greenCor * 255);
-            data.blue = (blueCor * 255);
-            data.alpha = CGColorGetAlpha(self.CGColor);
+            data.byRed((redCor * 255))
+                .byGreen((greenCor * 255))
+                .byBlue((blueCor * 255))
+                .byAlpha(CGColorGetAlpha(self.CGColor));
         });
     };
 }

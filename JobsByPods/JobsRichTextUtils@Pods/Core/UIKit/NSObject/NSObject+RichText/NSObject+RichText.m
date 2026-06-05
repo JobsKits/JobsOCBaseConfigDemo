@@ -15,9 +15,9 @@
 -(NSMutableArray <JobsRichTextConfig *>*)makeRichTextConfigMutArr{
     return jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
         data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
-            data1.font = UIFontWeightRegularSize(10.6);
-            data1.textCor = RGB_SAMECOLOR(115);
-            data1.targetString = @"我是第一段文字".tr;
+            data1.byFont(UIFontWeightRegularSize(10.6))
+                 .byTextCor(RGB_SAMECOLOR(115))
+                 .byTargetString(@"我是第一段文字".tr);
         }));
         data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
             data1.font = UIFontWeightRegularSize(10.6);;
@@ -29,10 +29,10 @@
                                                    endPoint:CGPointZero
                                                      opaque:NO
                                             targetViewRect:jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
-                model.jobsWidth = JobsWidth(400);
-                model.jobsHeight = JobsWidth(1);
+                model.byJobsWidth(JobsWidth(400))
+                     .byJobsHeight(JobsWidth(1));
             })];
-            data1.targetString = @"我是第二段文字".tr;
+            data1.byTargetString(@"我是第二段文字".tr);
         }));
     });;
 }
@@ -50,8 +50,8 @@
     /// 设置段落样式
     NSMutableAttributedString *attributedString = self.richTextWithDataConfigMutArr(richTextDataConfigMutArr);
     attributedString.addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel *_Nullable data) {
-        data.value = paragraphStyle;
-        data.range = NSMakeRange(0, attributedString.string.length);
+        data.byValue(paragraphStyle)
+            .byRange(NSMakeRange(0, attributedString.string.length));
     }));return attributedString;
 }
 /// 利用 NSArray <JobsRichTextConfig *>* 形成富文本
@@ -73,50 +73,50 @@
         ///  因为NSArray <JobsRichTextConfig *>* 是动态。进方法以后为固定，那么以此计算真正的range
         NSUInteger currentFrontLocation = 0;/// 当前位置（前）
         for (JobsRichTextConfig *config in arr) {
-            config.range = NSMakeRange(currentFrontLocation, config.targetString.length);
+            config.byRange(NSMakeRange(currentFrontLocation, config.targetString.length));
             currentFrontLocation += config.targetString.length;
         }
         for (JobsRichTextConfig *config in arr){
             /// 添加字体 & 设置作用域
             if (config.font) {
                 attrString.addFontAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-                    data.value = config.font;
-                    data.range = config.range;
+                    data.byValue(config.font)
+                        .byRange(config.range);
                 }));
             }
             /// 添加文字颜色 & 设置作用域
             if (config.textCor) {
                 attrString.addForegroundColorAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-                    data.value = config.textCor;
-                    data.range = config.range;
+                    data.byValue(config.textCor)
+                        .byRange(config.range);
                 }));
             }
             /// 添加下划线 & 设置作用域
             if (config.underlineStyle) {
                 attrString.addUnderlineStyleAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-                    data.value = @(config.underlineStyle);
-                    data.range = config.range;
+                    data.byValue(@(config.underlineStyle))
+                        .byRange(config.range);
                 }));
             }
             /// 设置下划线的颜色
             if (config.underlineCor) {
                 attrString.addUnderlineColorAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-                    data.value = config.underlineCor;
-                    data.range = config.range;
+                    data.byValue(config.underlineCor)
+                        .byRange(config.range);
                 }));
             }
             /// 添加段落样式 & 设置作用域
             if (config.paragraphStyle) {
                 attrString.addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-                    data.value = config.paragraphStyle;
-                    data.range = config.range;
+                    data.byValue(config.paragraphStyle)
+                        .byRange(config.range);
                 }));
             }
             /// 添加链接 & 设置作用域
             if (config.urlStr) {
                 attrString.addLinkAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-                    data.value = config.urlStr;
-                    data.range = config.range;
+                    data.byValue(config.urlStr)
+                        .byRange(config.range);
                 }));
             }
         }return attrString;

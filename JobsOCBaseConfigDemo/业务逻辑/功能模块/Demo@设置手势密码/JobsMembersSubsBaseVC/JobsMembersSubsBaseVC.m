@@ -66,7 +66,7 @@
         @jobs_weakify(self)
         _topLineLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = HEXCOLOR(0xF8DA87);
+            label.byBgColor(HEXCOLOR(0xF8DA87));
             self.view.addSubview(label);
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(2)));

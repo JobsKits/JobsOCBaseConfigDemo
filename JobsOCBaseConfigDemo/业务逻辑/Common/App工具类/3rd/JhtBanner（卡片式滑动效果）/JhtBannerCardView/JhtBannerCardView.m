@@ -51,8 +51,8 @@
         @jobs_weakify(self)
         _cardLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.textAlignment = NSTextAlignmentCenter;
-            label.userInteractionEnabled = YES;
+            label.byTextAlignment(NSTextAlignmentCenter);
+            label.byUserInteractionEnabled(YES);
             /// 确定 _cardLab 宽度,使字体大小自适应
             label.adjustsFontSizeToFitWidth = YES;
             label.minimumScaleFactor = 0.1;/// 设置允许文本显示的最小字体

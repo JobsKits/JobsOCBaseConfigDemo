@@ -121,11 +121,11 @@ Prop_assign()NSUInteger thisIndex;
         @jobs_strongify(self)
         for (int i = 0; i < self.thisIndex + 1; i++) {
             arr.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-                model.backgroundImage = self.cellTitleMutArr[self.thisIndex].add(已点击).img;
-                model.titleCor = HEXCOLOR(0xC4C4C4);
-                model.titleFont = UIFontWeightRegularSize(12);
-                model.baseBackgroundColor = JobsRedColor;
-                model.imagePadding = JobsWidth(5);
+                model.byBackgroundImage(self.cellTitleMutArr[self.thisIndex].add(已点击).img)
+                     .byTitleCor(HEXCOLOR(0xC4C4C4))
+                     .byTitleFont(UIFontWeightRegularSize(12))
+                     .byBaseBackgroundColor(JobsRedColor)
+                     .byImagePadding(JobsWidth(5));
             }));
         }
     };
@@ -136,10 +136,10 @@ Prop_assign()NSUInteger thisIndex;
     return ^__kindof UIButtonModel *_Nullable(__kindof NSString *_Nullable data){
 //        @jobs_strongify(self)
         return jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-            model.backgroundImage = data.add(未点击).img;
-            model.title = @"";
-            model.subTitle = @"";
-            model.baseBackgroundColor = JobsClearColor;
+            model.byBackgroundImage(data.add(未点击).img)
+                 .byTitle(@"")
+                 .bySubTitle(@"")
+                 .byBaseBackgroundColor(JobsClearColor);
         });
     };
 }
@@ -161,7 +161,7 @@ Prop_assign()NSUInteger thisIndex;
     return jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
         @jobs_strongify(self)
         data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-            data1.textModel.text = @"收藏".tr;
+            data1.textModel.byText(@"收藏".tr);
         }))
         .addBy(self.makePopViewDataMutArr);
     });;
@@ -170,22 +170,22 @@ Prop_assign()NSUInteger thisIndex;
 -(NSMutableArray<UIViewModel *> *)makePopViewDataMutArr{
    return jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data) {
        data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-           data1.textModel.text = @"收藏".tr;
+           data1.textModel.byText(@"收藏".tr);
        }))
        .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-           data1.textModel.text = @"真人".tr;
+           data1.textModel.byText(@"真人".tr);
        }))
        .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-           data1.textModel.text = @"体育".tr;
+           data1.textModel.byText(@"体育".tr);
        }))
        .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-           data1.textModel.text = @"电子".tr;
+           data1.textModel.byText(@"电子".tr);
        }))
        .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-           data1.textModel.text = @"棋牌".tr;
+           data1.textModel.byText(@"棋牌".tr);
        }))
        .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-           data1.textModel.text = @"彩票".tr;
+           data1.textModel.byText(@"彩票".tr);
        }));
    });
 }
@@ -311,7 +311,7 @@ numberOfRowsInSection:(NSInteger)section{
     return LeftCell.cellStyleDefaultWithTableView(tableView)
         .jobsRichElementsTableViewCellBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
             @jobs_strongify(self)
-            viewModel.textModel.text = self.titleMutArr[indexPath.row].textModel.text;
+            viewModel.textModel.byText(self.titleMutArr[indexPath.row].textModel.text);
         }));
 }
 
@@ -368,7 +368,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }
 
         GoodsClassModel *rightModel = self.rightDataArray.objectAt(indexPath.section);
-        label.text = rightModel.name ? : @"".tr;
+        label.byText(rightModel.name ? : @"".tr);
         
         return headerView;
     }else if (kind.isEqualToString(UICollectionElementKindSectionFooter)){
@@ -571,8 +571,8 @@ referenceSizeForFooterInSection:(NSInteger)section{
     @jobs_weakify(self)
     _popupView.jobsRichViewByModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
         @jobs_strongify(self)
-        viewModel.index = self.thisIndex;
-        viewModel.data = self.popupViewDataMutArr;
+        viewModel.byIndex(self.thisIndex)
+                 .byData(self.popupViewDataMutArr);
     }));return _popupView;
 }
 

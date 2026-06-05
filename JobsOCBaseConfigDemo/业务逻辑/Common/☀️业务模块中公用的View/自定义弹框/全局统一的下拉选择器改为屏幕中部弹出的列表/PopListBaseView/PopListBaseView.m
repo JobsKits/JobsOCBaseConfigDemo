@@ -57,8 +57,8 @@ Prop_strong()NSMutableArray <__kindof NSString *>*datas;
     return ^CGSize(NSArray *_Nullable data){
         if(data){
             return jobsMakeCGSizeByLocationModelBlock(^(__kindof JobsLocationModel *_Nullable data1) {
-                data1.jobsWidth = PopListBaseView.CellWidth;
-                data1.jobsHeight = MIN(data.count * PopListBaseView.CellHeight,JobsWidth(259));/// 高度限制在 JobsWidth(259)
+                data1.byJobsWidth(PopListBaseView.CellWidth)
+                     .byJobsHeight(MIN(data.count * PopListBaseView.CellHeight,JobsWidth(259)));/// 高度限制在 JobsWidth(259)
                 JobsLog(@"KKK = %f-%f",data1.jobsWidth,data1.jobsHeight);
             });
         }else return CGSizeMake(JobsWidth(300), JobsWidth(259));
@@ -130,17 +130,17 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 }))
                 .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                    data.title = @"NO MESSAGES FOUND".tr;
-                    data.titleCor = JobsWhiteColor;
-                    data.titleFont = bayonRegular(JobsWidth(30));
-                    data.normalImage = @"小狮子".img;
+                    data.byTitle(@"NO MESSAGES FOUND".tr)
+                        .byTitleCor(JobsWhiteColor)
+                        .byTitleFont(bayonRegular(JobsWidth(30)))
+                        .byNormalImage(@"小狮子".img);
                 }))
                 .byShowsVerticalScrollIndicator(NO)
                 .byShowsHorizontalScrollIndicator(NO)
                 .byScrollEnabled(YES)
                 .byBgColor(JobsClearColor);
             if(@available(iOS 11.0, *)) {
-                tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+                tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             }
         })).setMasonryBy(^(MASConstraintMaker *_Nonnull make){
             @jobs_strongify(self)

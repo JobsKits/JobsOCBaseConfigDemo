@@ -101,9 +101,9 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = self.msgDataModel.textModel.text;
-            label.font = UIFontWeightBoldSize(16);
-            label.textColor = HEXCOLOR(0x3D4A58);
+            label.byText(self.msgDataModel.textModel.text);
+            label.byFont(UIFontWeightBoldSize(16));
+            label.byTextCor(HEXCOLOR(0x3D4A58));
             [self.view.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(28));
                 make.left.equalTo(self.view).offset(JobsWidth(16));
@@ -118,9 +118,9 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
         @jobs_weakify(self)
         _subTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.font = UIFontWeightRegularSize(12);
-            label.text = self.msgDataModel.time;
-            label.textColor = HEXCOLOR(0xB0B0B0);
+            label.byFont(UIFontWeightRegularSize(12));
+            label.byText(self.msgDataModel.time);
+            label.byTextCor(HEXCOLOR(0xB0B0B0));
             [self.view.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(12));
                 make.left.equalTo(self.titleLab);
@@ -150,7 +150,7 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
         @jobs_weakify(self)
         _lineLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = HEXCOLOR(0xEAEBED);
+            label.byBgColor(HEXCOLOR(0xEAEBED));
             [self.view.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(343), JobsWidth(2)));
                 make.centerX.equalTo(self.view);

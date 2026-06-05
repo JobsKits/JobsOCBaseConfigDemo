@@ -218,17 +218,17 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 }))
                 .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                    data.title = @"NO MESSAGES FOUND".tr;
-                    data.titleCor = JobsWhiteColor;
-                    data.titleFont = bayonRegular(JobsWidth(30));
-                    data.normalImage = @"小狮子".img;
+                    data.byTitle(@"NO MESSAGES FOUND".tr)
+                        .byTitleCor(JobsWhiteColor)
+                        .byTitleFont(bayonRegular(JobsWidth(30)))
+                        .byNormalImage(@"小狮子".img);
                 }))
                 .byShowsVerticalScrollIndicator(NO)
                 .byScrollEnabled(YES)
                 .byBgColor(JobsClearColor);
 
             if(@available(iOS 11.0, *)) {
-                tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+                tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             }else{
                 SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
             }
@@ -257,14 +257,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_dataMutArr) {
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"方形转盘抽奖".tr;
-                model.subTitle = @"中间有抽奖按钮".tr;
-                model.cls = LuckyDiskDemoVC.class;
+                model.byTitle(@"方形转盘抽奖".tr)
+                     .bySubTitle(@"中间有抽奖按钮".tr)
+                     .byCls(LuckyDiskDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"圆形抽奖轮盘".tr;
-                model.subTitle = @"中间有抽奖按钮".tr;
-                model.cls = LuckyWheelDemoVC.class;
+                model.byTitle(@"圆形抽奖轮盘".tr)
+                     .bySubTitle(@"中间有抽奖按钮".tr)
+                     .byCls(LuckyWheelDemoVC.class);
             })));
         });
     }return _dataMutArr;

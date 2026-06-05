@@ -262,24 +262,24 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         @jobs_weakify(self)
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
-            tableView.pagingEnabled = YES;
-            tableView.backgroundColor = JobsLightGrayColor;
+            tableView.byPagingEnabled(YES);
+            tableView.byBgColor(JobsLightGrayColor);
             tableView.dataLink(self);
-            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-            tableView.showsVerticalScrollIndicator = NO;
-            tableView.scrollsToTop = NO;
+            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone);
+            tableView.byShowsVerticalScrollIndicator(NO);
+            tableView.byScrollsToTop(NO);
             
             if (@available(iOS 11.0, *)) {
-                tableView.estimatedRowHeight = 0;
-                tableView.estimatedSectionFooterHeight = 0;
-                tableView.estimatedSectionHeaderHeight = 0;
-                tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+                tableView.byEstimatedRowHeight(0);
+                tableView.byEstimatedSectionFooterHeight(0);
+                tableView.byEstimatedSectionHeaderHeight(0);
+                tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             } else {
                 SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
             }
             
             {
-                tableView.mj_header = self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
+                tableView.byMJRefreshHeader(self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
                     @jobs_strongify(self )
                     JobsLog(@"下拉刷新");
                     self.currentPage = @(1);
@@ -287,8 +287,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 //    [self requestData:NO];
                 //    [self playVideo];
                     return nil;
-                }]);
-                tableView.mj_footer = self.view.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
+                }]));
+                tableView.byMJRefreshFooter(self.view.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
                     JobsLog(@"上拉加载更多");
                     self.currentPage = @(self.currentPage.integerValue + 1);
                     [self requestData];
@@ -296,7 +296,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 //    [self requestData:YES];
                 //    [self playVideo];
                     return nil;
-                }]);tableView.mj_footer.hidden = NO;
+                }]));tableView.mj_footer.hidden = NO;
             }
 
     //        {// 设置tabAnimated相关属性

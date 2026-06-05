@@ -40,19 +40,19 @@ Prop_strong()CABasicAnimation *opacityAnimation;
 /// 修改文本展示区域，一般跟editingRectForBounds一起重写
 - (CGRect)textRectForBounds:(CGRect)bounds{
     return jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
-        data.jobsX = bounds.origin.x + JobsWidth(10);
-        data.jobsY = bounds.origin.y;
-        data.jobsWidth = bounds.size.width - JobsWidth(25);
-        data.jobsHeight = bounds.size.height;
+        data.byJobsX(bounds.origin.x + JobsWidth(10))
+            .byJobsY(bounds.origin.y)
+            .byJobsWidth(bounds.size.width - JobsWidth(25))
+            .byJobsHeight(bounds.size.height);
     });
 }
 /// 重写来编辑区域，可以改变光标起始位置，以及光标最右到什么地方，placeHolder的位置也会改变
 - (CGRect)editingRectForBounds:(CGRect)bounds{
     return jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
-        data.jobsX = bounds.origin.x + JobsWidth(10);
-        data.jobsY = bounds.origin.y;
-        data.jobsWidth = bounds.size.width - JobsWidth(25);
-        data.jobsHeight = bounds.size.height;
+        data.byJobsX(bounds.origin.x + JobsWidth(10))
+            .byJobsY(bounds.origin.y)
+            .byJobsWidth(bounds.size.width - JobsWidth(25))
+            .byJobsHeight(bounds.size.height);
     });;
 }
 #pragma mark —— lazyLoad

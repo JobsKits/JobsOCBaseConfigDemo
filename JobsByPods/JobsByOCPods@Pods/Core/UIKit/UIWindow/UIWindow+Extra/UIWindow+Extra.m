@@ -26,10 +26,10 @@
         @jobs_weakify(self)
         return jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
             @jobs_strongify(self)
-            data.jobsX = self.x;
-            data.jobsY = self.y;
-            data.jobsWidth = MAX(self.height,self.width);
-            data.jobsHeight = MIN(self.height,self.width);
+            data.byJobsX(self.x)
+                .byJobsY(self.y)
+                .byJobsWidth(MAX(self.height,self.width))
+                .byJobsHeight(MIN(self.height,self.width));
         });
     };
 }

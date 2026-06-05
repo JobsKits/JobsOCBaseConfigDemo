@@ -47,8 +47,8 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
     cell.backgroundColor = self.excelConfigureData.cor3;
     cell.jobsRichElementsCollectionViewCellBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable vm) {
         @jobs_strongify(self)
-        vm.data = self.excelConfigureData;
-        vm.buttonModel = self.excelConfigureData.topHeaderDatas[indexPath.row];
+        vm.byData(self.excelConfigureData)
+          .byButtonModel(self.excelConfigureData.topHeaderDatas[indexPath.row]);
     }));return cell;
 }
 
@@ -76,8 +76,8 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
                                            collectionViewLayout:jobsMakeHorizontalCollectionViewFlowLayout(^(UICollectionViewFlowLayout * _Nullable data) {
             data.itemSize = jobsMakeCGSizeByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
                 @jobs_strongify(self)
-                data.jobsWidth = self.excelConfigureData.itemW;
-                data.jobsHeight = self.excelConfigureData.itemH;
+                data.byJobsWidth(self.excelConfigureData.itemW)
+                    .byJobsHeight(self.excelConfigureData.itemH);
             });
             data.minimumLineSpacing = 0;
             data.minimumInteritemSpacing = 0;

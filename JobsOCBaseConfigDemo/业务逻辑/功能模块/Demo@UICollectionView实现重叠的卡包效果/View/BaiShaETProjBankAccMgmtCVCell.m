@@ -91,9 +91,9 @@ Prop_strong()UILabel *detailLab;
 
     _titleBtn.imageViewSize = CGSizeMake(JobsWidth(40), JobsWidth(40));
     _titleBtn.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-        model.jobsWidth = 1;
-        model.layerCor = HEXCOLOR(0xEEE2C8);
-        model.cornerRadiusValue = JobsWidth(20);
+        model.byJobsWidth(1)
+             .byLayerCor(HEXCOLOR(0xEEE2C8))
+             .byCornerRadiusValue(JobsWidth(20));
     }));
     
     _titleBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
@@ -110,9 +110,9 @@ Prop_strong()UILabel *detailLab;
         @jobs_weakify(self)
         _detailLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.font = UIFontWeightBoldSize(18);
-            label.textColor = HEXCOLOR(0x3D4A58);
-            label.textAlignment = NSTextAlignmentCenter;
+            label.byFont(UIFontWeightBoldSize(18));
+            label.byTextCor(HEXCOLOR(0x3D4A58));
+            label.byTextAlignment(NSTextAlignmentCenter);
             [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(self.contentView).offset(JobsWidth(-12));
                 make.centerY.equalTo(self.contentView);

@@ -49,7 +49,7 @@
             node.style.preferredSize = CGSizeMake(0, 80);
             node.borderWidth = 1;
             node.borderColor = UIColor.separatorColor.CGColor;
-            node.delegate = self;
+            node.byDelegate(self);
         });
     }return _editable;
 }

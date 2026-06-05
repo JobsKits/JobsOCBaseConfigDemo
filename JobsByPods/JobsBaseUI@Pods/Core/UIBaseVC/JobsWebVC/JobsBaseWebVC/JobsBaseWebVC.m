@@ -104,8 +104,8 @@
 - (void)userContentController:(WKUserContentController *)userContentController
       didReceiveScriptMessage:(WKScriptMessage *)message {
     if(self.objBlock) self.objBlock(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-        data.userContentCtrl = userContentController;
-        data.scriptMsg = message;
+        data.byUserContentCtrl(userContentController)
+            .byScriptMsg(message);
     }));
 }
 #pragma mark —— WKNavigationDelegate

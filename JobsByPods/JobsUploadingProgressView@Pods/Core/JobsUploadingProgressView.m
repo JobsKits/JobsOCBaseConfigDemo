@@ -188,8 +188,8 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
         @jobs_weakify(self)
         _refreshLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.textColor = JobsWhiteColor;
-            label.text = @"正在上传...".tr;
+            label.byTextCor(JobsWhiteColor);
+            label.byText(@"正在上传...".tr);
             [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.shapLayerView.mas_right).offset(JobsWidth(12));
                 make.centerY.equalTo(self);

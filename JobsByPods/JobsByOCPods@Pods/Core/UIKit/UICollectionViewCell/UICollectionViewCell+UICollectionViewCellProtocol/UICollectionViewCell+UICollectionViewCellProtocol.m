@@ -145,12 +145,12 @@
             layer.strokeColor = bottomLineCor.CGColor;
             layer.path = jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable linePath) {
                 linePath.moveTo(jobsMakeCGPointByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
-                    model.jobsX = bounds.origin.x;
-                    model.jobsY = bounds.size.height;
+                    model.byJobsX(bounds.origin.x)
+                         .byJobsY(bounds.size.height);
                 })); /// 起点
                 linePath.add(jobsMakeCGPointByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
-                    model.jobsX = bounds.origin.x + bounds.size.width;
-                    model.jobsY = bounds.size.height;
+                    model.byJobsX(bounds.origin.x + bounds.size.width)
+                         .byJobsY(bounds.size.height);
                 })); /// 其他点
             }).CGPath;
         }) atIndex:1];
@@ -175,10 +175,10 @@
             layer.borderWidth = borderWidth;
             layer.path = jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable linePath) {
                 linePath.moveTo(jobsMakeCGPointByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
-                    model.jobsX = bounds.origin.x;
+                    model.byJobsX(bounds.origin.x);
                 }));/// 起点
                 linePath.add(jobsMakeCGPointByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
-                    model.jobsX = bounds.origin.x + bounds.size.width;
+                    model.byJobsX(bounds.origin.x + bounds.size.width);
                 }));/// 其他点
             }).CGPath;
         }) atIndex:1];

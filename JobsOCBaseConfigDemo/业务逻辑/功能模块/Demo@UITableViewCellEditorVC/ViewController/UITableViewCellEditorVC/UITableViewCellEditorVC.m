@@ -168,7 +168,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }];
         self.comingToPushVCByRequestParams(msgDetailVC,jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
             @jobs_strongify(self)
-            viewModel.data = self.dataMutArr[indexPath.row];
+            viewModel.byData(self.dataMutArr[indexPath.row]);
         }));
     }
 }

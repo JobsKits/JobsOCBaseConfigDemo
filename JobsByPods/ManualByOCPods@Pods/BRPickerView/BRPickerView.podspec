@@ -42,7 +42,7 @@ Pod::Spec.new do |s|
     ss.source_files        = 'Core/**/*.{h,m}'
     ss.public_header_files = 'Core/**/*.h'
 
-    ss.dependency 'JobsModel'
+    ss.dependency 'JobsModelDSL'
   end
 
   # 动态把 Support 目录按真实目录结构生成为 subspec：

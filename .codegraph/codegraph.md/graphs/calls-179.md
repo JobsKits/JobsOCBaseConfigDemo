@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["function:NS_ENUM<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendar/FSCalendar.m:53"]
-  T1["method:FSCalendarCell::configureAppearance<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCell/FSCalendarCell.m:191"]
+  S1["method:TKPermissionPhoto::handler:Alert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Photo/TKPermissionPhoto.m:56"]
+  T1["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
   S1 -->|calls| T1
-  S2["function:NS_ENUM<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendar/FSCalendar.m:53"]
-  T2["method:ASCollectionView::collectionView:shouldSelectItemAtIndexPath:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASCollectionView.mm:1399"]
+  S2["method:TKPermissionPhoto::handler:Alert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Photo/TKPermissionPhoto.m:56"]
+  T2["method:TKPermissionPhoto::jumpSetting<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Photo/TKPermissionPhoto.m:101"]
   S2 -->|calls| T2
-  S3["function:NS_ENUM<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendar/FSCalendar.m:53"]
-  T3["method:JXCategoryBaseView::collectionView:didSelectItemAtIndexPath:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Base/JXCategoryBaseView.m:495"]
+  S3["method:TKPermissionPhoto::handler:Alert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Photo/TKPermissionPhoto.m:56"]
+  T3["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
   S3 -->|calls| T3
-  S4["function:NS_ENUM<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendar/FSCalendar.m:53"]
-  T4["method:ASCollectionView::collectionView:shouldDeselectItemAtIndexPath:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASCollectionView.mm:1432"]
+  S4["method:TKPermissionPhoto::handler:Alert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Photo/TKPermissionPhoto.m:56"]
+  T4["method:TKPermissionPhoto::jumpSetting<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Photo/TKPermissionPhoto.m:101"]
   S4 -->|calls| T4
-  S5["function:NS_ENUM<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendar/FSCalendar.m:53"]
-  T5["method:ASCollectionView::collectionView:didDeselectItemAtIndexPath:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASCollectionView.mm:1449"]
+  S5["method:TKPermissionPhoto::handler:Alert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Photo/TKPermissionPhoto.m:56"]
+  T5["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
   S5 -->|calls| T5
-  S6["function:NS_ENUM<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendar/FSCalendar.m:53"]
-  T6["method:FSCalendarCell::configureAppearance<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCell/FSCalendarCell.m:191"]
+  S6["method:TKPermissionPublic::alertTips:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Public/TKPermissionPublic.m:80"]
+  T6["method:TKPermissionPublic::alertActionTitle:msg:actionTitle:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Public/TKPermissionPublic.m:60"]
   S6 -->|calls| T6
-  S7["function:NS_ENUM<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendar/FSCalendar.m:53"]
-  T7["method:FSCalendarCell::configureAppearance<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCell/FSCalendarCell.m:191"]
+  S7["method:TKPermissionPublic::alertPromptTips:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Public/TKPermissionPublic.m:86"]
+  T7["method:TKPermissionPublic::alertTitle:msg:leftTitle:rightTitle:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Public/TKPermissionPublic.m:24"]
   S7 -->|calls| T7
-  S8["function:NS_ENUM<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendar/FSCalendar.m:53"]
-  T8["method:ASWeakSet::removeAllObjects<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASWeakSet.mm:37"]
+  S8["method:TKPermissionReminder::authWithAlert:requestFullAccessToEventsWithCompletion:requestWriteOnlyAccessToEventsWithCompletion:requestFullAccessToRemindersWithCompletion:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Reminder/TKPermissionReminder.m:17"]
+  T8["variable:requestFullAccessToEventsWithCompletion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Reminder/TKPermissionReminder.h:38"]
   S8 -->|calls| T8
-  S9["function:NS_ENUM<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendar/FSCalendar.m:53"]
-  T9["method:_ASDisplayLayer::setNeedsLayout<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:91"]
+  S9["method:TKPermissionReminder::authWithAlert:requestFullAccessToEventsWithCompletion:requestWriteOnlyAccessToEventsWithCompletion:requestFullAccessToRemindersWithCompletion:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Reminder/TKPermissionReminder.m:17"]
+  T9["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
   S9 -->|calls| T9
-  S10["function:NS_ENUM<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendar/FSCalendar.m:53"]
-  T10["variable:block<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/Transactions/_ASAsyncTransaction.mm:351"]
+  S10["method:TKPermissionReminder::authWithAlert:requestFullAccessToEventsWithCompletion:requestWriteOnlyAccessToEventsWithCompletion:requestFullAccessToRemindersWithCompletion:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Reminder/TKPermissionReminder.m:17"]
+  T10["method:TKPermissionReminder::jumpSetting<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Reminder/TKPermissionReminder.m:65"]
   S10 -->|calls| T10
-  S11["function:NS_ENUM<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendar/FSCalendar.m:53"]
-  T11["method:_ASDisplayLayer::setNeedsLayout<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:91"]
+  S11["method:TKPermissionReminder::authWithAlert:requestFullAccessToEventsWithCompletion:requestWriteOnlyAccessToEventsWithCompletion:requestFullAccessToRemindersWithCompletion:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Reminder/TKPermissionReminder.m:17"]
+  T11["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
   S11 -->|calls| T11
-  S12["method:FSCalendarAppearance::init<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarAppearance/FSCalendarAppearance.m:25"]
-  T12["method:FSCalendarAppearance::init<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarAppearance/FSCalendarAppearance.m:25"]
+  S12["method:TKPermissionSiri::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Siri/TKPermissionSiri.m:16"]
+  T12["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
   S12 -->|calls| T12
-  S13["method:FSCalendarCalculator::initWithCalendar:<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCalculator/FSCalendarCalculator.m:35"]
-  T13["method:FSCalendarAppearance::init<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarAppearance/FSCalendarAppearance.m:25"]
+  S13["method:TKPermissionSiri::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Siri/TKPermissionSiri.m:16"]
+  T13["method:TKPermissionSiri::jumpSetting<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Siri/TKPermissionSiri.m:45"]
   S13 -->|calls| T13
-  S14["method:FSCalendarCalculator::dateForIndexPath:<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCalculator/FSCalendarCalculator.m:96"]
-  T14["method:FSCalendarCalculator::dateForIndexPath:scope:<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCalculator/FSCalendarCalculator.m:76"]
+  S14["method:TKPermissionSiri::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Siri/TKPermissionSiri.m:16"]
+  T14["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
   S14 -->|calls| T14
-  S15["method:FSCalendarCalculator::indexPathForDate:<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCalculator/FSCalendarCalculator.m:102"]
-  T15["method:FSCalendarCalculator::indexPathForDate:atMonthPosition:scope:<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCalculator/FSCalendarCalculator.m:112"]
+  S15["method:TKPermissionSiri::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Siri/TKPermissionSiri.m:16"]
+  T15["method:TKPermissionSiri::alertAction<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Siri/TKPermissionSiri.m:49"]
   S15 -->|calls| T15
-  S16["method:FSCalendarCalculator::indexPathForDate:scope:<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCalculator/FSCalendarCalculator.m:107"]
-  T16["method:FSCalendarCalculator::indexPathForDate:atMonthPosition:scope:<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCalculator/FSCalendarCalculator.m:112"]
+  S16["method:TKPermissionSiri::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Siri/TKPermissionSiri.m:16"]
+  T16["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
   S16 -->|calls| T16
-  S17["method:FSCalendarCalculator::indexPathForDate:atMonthPosition:<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCalculator/FSCalendarCalculator.m:142"]
-  T17["method:FSCalendarCalculator::indexPathForDate:atMonthPosition:scope:<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCalculator/FSCalendarCalculator.m:112"]
+  S17["method:TKPermissionSpeech::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Speech/TKPermissionSpeech.m:17"]
+  T17["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
   S17 -->|calls| T17
-  S18["method:FSCalendarCalculator::reloadSections<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCalculator/FSCalendarCalculator.m:270"]
-  T18["method:FSCalendarCalculator::clearCaches<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCalculator/FSCalendarCalculator.m:277"]
+  S18["method:TKPermissionSpeech::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Speech/TKPermissionSpeech.m:17"]
+  T18["method:TKPermissionSpeech::jumpSetting<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Speech/TKPermissionSpeech.m:52"]
   S18 -->|calls| T18
-  S19["method:FSCalendarCalculator::didReceiveNotifications:<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCalculator/FSCalendarCalculator.m:287"]
-  T19["method:FSCalendarCalculator::clearCaches<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCalculator/FSCalendarCalculator.m:277"]
+  S19["method:TKPermissionSpeech::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Speech/TKPermissionSpeech.m:17"]
+  T19["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
   S19 -->|calls| T19
-  S20["method:FSCalendarCell::initWithFrame:<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCell/FSCalendarCell.m:29"]
-  T20["method:FSCalendarCell::commonInit<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCell/FSCalendarCell.m:47"]
+  S20["method:TKPermissionSpeech::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Speech/TKPermissionSpeech.m:17"]
+  T20["method:TKPermissionSpeech::alertAction<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Speech/TKPermissionSpeech.m:56"]
   S20 -->|calls| T20
-  S21["method:FSCalendarCell::initWithCoder:<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCell/FSCalendarCell.m:38"]
-  T21["method:FSCalendarCell::commonInit<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCell/FSCalendarCell.m:47"]
+  S21["method:TKPermissionSpeech::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Speech/TKPermissionSpeech.m:17"]
+  T21["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
   S21 -->|calls| T21
-  S22["method:FSCalendarCell::layoutSubviews<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCell/FSCalendarCell.m:90"]
-  T22["method:FSCalendarCell::layoutSubviews<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCell/FSCalendarCell.m:90"]
+  S22["method:TKPermissionTracking::authWithCompletion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Tracking/TKPermissionTracking.m:15"]
+  T22["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
   S22 -->|calls| T22
-  S23["method:FSCalendarCell::prepareForReuse<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCell/FSCalendarCell.m:156"]
-  T23["method:FSCalendarCell::prepareForReuse<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCell/FSCalendarCell.m:156"]
+  S23["method:TKPermissionTracking::authWithCompletion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Tracking/TKPermissionTracking.m:15"]
+  T23["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
   S23 -->|calls| T23
-  S24["method:FSCalendarCell::performSelecting<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCell/FSCalendarCell.m:168"]
-  T24["method:UITabBarItem::animation<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBarItem/UITabBarItem+Category/UITabBarItem+TLAnimation/UITabBarItem+TLAnimation.m:20"]
+  S24["method:TKPermissionTracking::authWithCompletion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Tracking/TKPermissionTracking.m:15"]
+  T24["function:PINCachedAnimatedImage::isDataSupported:::if<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASPINRemoteImageDownloader.mm:66"]
   S24 -->|calls| T24
-  S25["method:FSCalendarCell::performSelecting<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCell/FSCalendarCell.m:168"]
-  T25["method:FSCalendarCell::configureAppearance<br/>JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendarCell/FSCalendarCell.m:191"]
+  S25["method:TKPermissionTracking::authWithCompletion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Tracking/TKPermissionTracking.m:15"]
+  T25["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
   S25 -->|calls| T25
 ```
 

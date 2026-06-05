@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:UIView::Dealloc<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:34"]
-  T1["method:UIView::gesture:action:<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:13"]
+  S1["method:UIViewController::checkPresented:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+3rd/UIViewController+SafeTransition/UIViewController+SafeTransition.m:85"]
+  T1["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S1 -->|calls| T1
-  S2["method:UIView::Dealloc<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:34"]
-  T2["method:UIView::gesture:action:<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:13"]
+  S2["method:UIViewController::navCtrl<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+Extra/UIViewController+Extra.m:32"]
+  T2["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S2 -->|calls| T2
-  S3["method:UIView::Dealloc<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:34"]
-  T3["method:UIView::gesture:action:<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:13"]
+  S3["method:UIViewController::load<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+LeakCheck/UIViewController+LeakCheck.m:12"]
+  T3["method:UIViewController::exchangeMethod<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+LeakCheck/UIViewController+LeakCheck.m:34"]
   S3 -->|calls| T3
-  S4["method:UIView::Dealloc<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:34"]
-  T4["method:UIView::gesture:action:<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:13"]
+  S4["method:UIViewController::my_viewDidAppear:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+LeakCheck/UIViewController+LeakCheck.m:45"]
+  T4["method:NSPointerArray::pointerByIndex<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSPointerArray/NSPointerArray+Extra/NSPointerArray+Extra.m:12"]
   S4 -->|calls| T4
-  S5["method:UIView::longPressGR<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:67"]
-  T5["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S5["method:UIViewController::my_viewDidAppear:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+LeakCheck/UIViewController+LeakCheck.m:45"]
+  T5["method:NSMutableSet::containsObject<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSMutableSet/NSMutableSet+Extra/NSMutableSet+Extra.m:25"]
   S5 -->|calls| T5
-  S6["method:UIView::tapGR<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:93"]
-  T6["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S6["method:UIViewController::my_viewDidAppear:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+LeakCheck/UIViewController+LeakCheck.m:45"]
+  T6["method:NSMutableSet::add<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSMutableSet/NSMutableSet+Extra/NSMutableSet+Extra.m:12"]
   S6 -->|calls| T6
-  S7["method:UIView::doubleTapGR<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:117"]
-  T7["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S7["method:UIViewController::my_viewDidAppear:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+LeakCheck/UIViewController+LeakCheck.m:45"]
+  T7["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S7 -->|calls| T7
-  S8["method:UIView::swipeGR<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:141"]
-  T8["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S8["method:UIViewController::my_viewDidAppear:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+LeakCheck/UIViewController+LeakCheck.m:45"]
+  T8["method:NSPointerArray::removePointerBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSPointerArray/NSPointerArray+Extra/NSPointerArray+Extra.m:29"]
   S8 -->|calls| T8
-  S9["method:UIView::panGR<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:165"]
-  T9["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S9["method:UIViewController::my_viewDidDisappear:<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+LeakCheck/UIViewController+LeakCheck.m:74"]
+  T9["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S9 -->|calls| T9
-  S10["method:UIView::pinchGR<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:189"]
-  T10["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S10["method:UIViewController::my_dealloc<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+LeakCheck/UIViewController+LeakCheck.m:87"]
+  T10["method:NSPointerArray::pointerByIndex<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSPointerArray/NSPointerArray+Extra/NSPointerArray+Extra.m:12"]
   S10 -->|calls| T10
-  S11["method:UIView::rotationGR<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:212"]
-  T11["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S11["method:UIViewController::my_dealloc<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+LeakCheck/UIViewController+LeakCheck.m:87"]
+  T11["method:NSPointerArray::removePointerBy<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSPointerArray/NSPointerArray+Extra/NSPointerArray+Extra.m:29"]
   S11 -->|calls| T11
-  S12["method:UIView::screenEdgePanGR<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Gesture/UIView+Gesture.m:235"]
-  T12["method:UIGestureRecognizer::addAction<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:32"]
+  S12["method:UIViewController::my_dealloc<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+LeakCheck/UIViewController+LeakCheck.m:87"]
+  T12["method:UIViewController::my_dealloc<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+LeakCheck/UIViewController+LeakCheck.m:87"]
   S12 -->|calls| T12
-  S13["method:UIView::uninstall<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Masonry/UIView+Masonry.m:143"]
-  T13["method:MASCompositeConstraint::uninstall<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:176"]
+  S13["function:UIViewController::^(NSNotification * _Nonnull notification)<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+Shake/UIViewController+Shake.m:54"]
+  T13["method:UIViewController::startAccelerometer<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+Shake/UIViewController+Shake.m:68"]
   S13 -->|calls| T13
-  S14["method:UIView::uninstallAllLayoutAttribute<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Masonry/UIView+Masonry.m:155"]
-  T14["method:MASCompositeConstraint::uninstall<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASCompositeConstraint.m:176"]
+  S14["method:UIViewController::stopAccelerometerWhenViewDidDisappear<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+Shake/UIViewController+Shake.m:82"]
+  T14["method:NSNotificationCenter::Remove<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSNotificationCenter/NSNotificationCenter+JobsBlock/NSNotificationCenter+JobsBlock.m:18"]
   S14 -->|calls| T14
-  S15["method:UIView::jobsMasonryBeforeBlock:masonryAfterBlock:<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Masonry/UIView+Masonry.m:169"]
-  T15["method:UIView::uninstallAllLayoutAttribute<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Masonry/UIView+Masonry.m:155"]
+  S15["method:UIViewController::stopAccelerometerWhenViewDidDisappear<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+Shake/UIViewController+Shake.m:82"]
+  T15["method:NSNotificationCenter::Remove<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSNotificationCenter/NSNotificationCenter+JobsBlock/NSNotificationCenter+JobsBlock.m:18"]
   S15 -->|calls| T15
-  S16["method:UIView::jobsRefreshUI<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:68"]
-  T16["method:BaseCollectionView::layoutIfNeeded<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionView/BaseCollectionView/BaseCollectionView.m:47"]
+  S16["function:jobsMakeWKWebViewByConfig<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/WKWebView/WKWebView+Extra/WKWebView+Extra.h:47"]
+  T16["method:WKWebView::initBy<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/WKWebView/WKWebView+Extra/WKWebView+Extra.m:12"]
   S16 -->|calls| T16
-  S17["method:UIView::BySize<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:100"]
-  T17["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
+  S17["method:CustomZFPlayerControlView::gestureSingleTapped:<br/>JobsByPods/JobsByOCPods@Pods/Core/播放器控制层/CustomZFPlayerControlView/CustomZFPlayerControlView.m:18"]
+  T17["method:ASMutableAttributedStringBuilder::endEditing<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:249"]
   S17 -->|calls| T17
-  S18["method:UIView::ByFrame<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:111"]
-  T18["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
+  S18["method:CustomZFPlayerControlView::gestureDoubleTapped:<br/>JobsByPods/JobsByOCPods@Pods/Core/播放器控制层/CustomZFPlayerControlView/CustomZFPlayerControlView.m:23"]
+  T18["method:ASMutableAttributedStringBuilder::endEditing<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:249"]
   S18 -->|calls| T18
-  S19["method:UIView::ByOrigin<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:122"]
-  T19["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
+  S19["method:ZFCustomControlView::initWithFrame:<br/>JobsByPods/JobsByOCPods@Pods/Support/播放器控制层/ZFCustomControlView/ZFCustomControlView.m:47"]
+  T19["method:UIView::addSubview<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:766"]
   S19 -->|calls| T19
-  S20["method:UIView::ByWidth<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:133"]
-  T20["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
+  S20["method:ZFCustomControlView::initWithFrame:<br/>JobsByPods/JobsByOCPods@Pods/Support/播放器控制层/ZFCustomControlView/ZFCustomControlView.m:47"]
+  T20["method:UIView::addSubview<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:766"]
   S20 -->|calls| T20
-  S21["method:UIView::ByHeight<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:144"]
-  T21["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
+  S21["method:ZFCustomControlView::initWithFrame:<br/>JobsByPods/JobsByOCPods@Pods/Support/播放器控制层/ZFCustomControlView/ZFCustomControlView.m:47"]
+  T21["method:UIView::addSubview<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:766"]
   S21 -->|calls| T21
-  S22["method:UIView::ByCenter<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:155"]
-  T22["method:UIView::build<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:12"]
+  S22["method:ZFCustomControlView::initWithFrame:<br/>JobsByPods/JobsByOCPods@Pods/Support/播放器控制层/ZFCustomControlView/ZFCustomControlView.m:47"]
+  T22["method:UIView::addSubview<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:766"]
   S22 -->|calls| T22
-  S23["method:UIView::resetContentSize<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:498"]
-  T23["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S23["method:ZFCustomControlView::initWithFrame:<br/>JobsByPods/JobsByOCPods@Pods/Support/播放器控制层/ZFCustomControlView/ZFCustomControlView.m:47"]
+  T23["method:UIView::addSubview<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIView/UIView+Extra/UIView+Extra.m:766"]
   S23 -->|calls| T23
-  S24["method:UIView::resetContentSizeWidth<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:509"]
-  T24["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S24["method:ZFCustomControlView::initWithFrame:<br/>JobsByPods/JobsByOCPods@Pods/Support/播放器控制层/ZFCustomControlView/ZFCustomControlView.m:47"]
+  T24["method:ZFCustomControlView::makeSubViewsAction<br/>JobsByPods/JobsByOCPods@Pods/Support/播放器控制层/ZFCustomControlView/ZFCustomControlView.m:72"]
   S24 -->|calls| T24
-  S25["method:UIView::resetContentSizeHeight<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Measure/UIView+Measure.m:520"]
-  T25["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S25["method:ZFCustomControlView::initWithFrame:<br/>JobsByPods/JobsByOCPods@Pods/Support/播放器控制层/ZFCustomControlView/ZFCustomControlView.m:47"]
+  T25["method:ZFCustomControlView::resetControlView<br/>JobsByPods/JobsByOCPods@Pods/Support/播放器控制层/ZFCustomControlView/ZFCustomControlView.m:234"]
   S25 -->|calls| T25
 ```
 

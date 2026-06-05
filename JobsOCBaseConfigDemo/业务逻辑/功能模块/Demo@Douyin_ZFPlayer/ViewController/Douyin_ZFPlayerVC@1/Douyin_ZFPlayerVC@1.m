@@ -203,8 +203,8 @@ numberOfRowsInSection:(NSInteger)section{
     @jobs_weakify(self)
     cell.jobsRichElementsTableViewCellBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
         @jobs_strongify(self)
-        viewModel.row = indexPath.row;
-        viewModel.data = self.dataMutArr[indexPath.row];
+        viewModel.byRow(indexPath.row)
+                 .byData(self.dataMutArr[indexPath.row]);
     })).JobsBlock1(^(JobsTuple *data) {
         @jobs_strongify(self)
         NSNumber *direction = data.jobsTupleValueArr[0];
@@ -283,12 +283,12 @@ forRowAtIndexPath:(NSIndexPath*)indexPath{
                 .byPagingEnabled(YES)
                 .byShowsVerticalScrollIndicator(NO)
                 .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                    data.title = @"暂无数据".tr;
-                    data.subTitle = @"骚等片刻".tr;
-                    data.titleCor = JobsWhiteColor;
-                    data.titleFont = bayonRegular(JobsWidth(30));
-                    data.normalImage = @"暂无数据".img;
-                    data.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
+                    data.byTitle(@"暂无数据".tr)
+                        .bySubTitle(@"骚等片刻".tr)
+                        .byTitleCor(JobsWhiteColor)
+                        .byTitleFont(bayonRegular(JobsWidth(30)))
+                        .byNormalImage(@"暂无数据".img)
+                        .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0));
                 }))
                 .byBgColor(JobsWhiteColor)
                 .addOn(self.view)

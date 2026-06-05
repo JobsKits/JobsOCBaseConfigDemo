@@ -56,9 +56,9 @@ Prop_strong()UIView *aphView;
         @jobs_weakify(self)
         _countDown = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.textColor = self.countDownTextColor;
-            label.font = [UIFont boldSystemFontOfSize:100];
-            label.textAlignment = 1;
+            label.byTextCor(self.countDownTextColor);
+            label.byFont([UIFont boldSystemFontOfSize:100]);
+            label.byTextAlignment(1);
             label.x = (JobsMainScreen_WIDTH() - 100) / 2;
             label.y = (JobsMainScreen_HEIGHT() - 100) / 2;
             label.width = self->_countDown.height = 100;
@@ -72,15 +72,15 @@ Prop_strong()UIView *aphView;
         @jobs_weakify(self)
         _aphView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            view.backgroundColor = self.aphViewBackgroundColor;
-            view.frame = jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
+            view.byBgColor(self.aphViewBackgroundColor);
+            view.byFrame(jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
                 data.jobsWidth = data.jobsHeight = JobsWidth(100);
-            });
+            }));
             view.centerX = self->_countDown.centerX;
             view.centerY = self->_countDown.centerY;
-            view.alpha = 0;
+            view.byAlpha(0);
             view.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-                data.cornerRadiusValue = 50.f;
+                data.byCornerRadiusValue(50.f);
             }));[self.effectView addSubview:view];
         });
     }return _aphView;

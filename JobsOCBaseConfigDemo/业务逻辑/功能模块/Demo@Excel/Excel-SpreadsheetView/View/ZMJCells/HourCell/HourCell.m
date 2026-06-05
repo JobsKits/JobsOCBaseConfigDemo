@@ -31,13 +31,13 @@
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.frame = self.bounds;
-            label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            label.backgroundColor = [UIColor colorWithRed:0.2 green:0.4 blue:0.8 alpha:1];
-            label.font = [UIFont systemFontOfSize:12];
-            label.textColor = [UIColor whiteColor];
-            label.textAlignment = NSTextAlignmentCenter;
-            label.numberOfLines = 2;
+            label.byFrame(self.bounds);
+            label.byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+            label.byBgColor([UIColor colorWithRed:0.2 green:0.4 blue:0.8 alpha:1]);
+            label.byFont([UIFont systemFontOfSize:12]);
+            label.byTextCor([UIColor whiteColor]);
+            label.byTextAlignment(NSTextAlignmentCenter);
+            label.byNumberOfLines(2);
             self.addSubview(label);
         });
     }return _label;

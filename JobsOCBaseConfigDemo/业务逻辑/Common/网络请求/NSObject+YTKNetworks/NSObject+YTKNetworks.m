@@ -156,7 +156,7 @@
     @jobs_weakify(self)
     [FM_kyc_image_upload_api.new
         .initBy(jobsMakeFileModel(^(__kindof JobsFileModel * _Nullable model) {
-            model.file = image;
+            model.byFile(image);
         })).handleErr() startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
             @jobs_strongify(self)
             JobsResponseModel *responseModel = JobsMapResponseModelBy(request);

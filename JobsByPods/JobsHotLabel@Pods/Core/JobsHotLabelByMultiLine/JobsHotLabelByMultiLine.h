@@ -126,11 +126,11 @@ NS_ASSUME_NONNULL_END
              _dataMutArr = NSMutableArray.array;
              for (NSString *str in self.btnTitleMutArr) {
                  UIViewModel *viewModel = UIViewModel.new;
-                 viewModel.textModel.text = str;
-                 viewModel.textModel.font = UIFontWeightRegularSize(12);
-                 viewModel.textModel.textCor = HEXCOLOR(0x757575);
-                 viewModel.bgCor = HEXCOLOR(0xF3F3F3);
-                 viewModel.jobsSize = CGSizeMake(JobsWidth(80), JobsWidth(30));
+                 viewModel.textModel.byText(str)
+                                    .byFont(UIFontWeightRegularSize(12))
+                                    .byTextCor(HEXCOLOR(0x757575));
+                 viewModel.byBgCor(HEXCOLOR(0xF3F3F3))
+                          .byJobsSize(CGSizeMake(JobsWidth(80), JobsWidth(30)));
                  [_dataMutArr addObject:viewModel];
              }
          }return _dataMutArr;

@@ -34,8 +34,8 @@
     return ^(NSObject <NSCoding> * _Nonnull userModel,
              NSString * _Nullable key) {
         NSUserDefaults.updateWithModel(jobsMakeUserDefaultModel(^(UserDefaultModel * _Nonnull data) {
-            data.obj = userModel;
-            data.key = key;
+            data.byObj(userModel)
+                .byKey(key);
         }));
     };
 }
@@ -52,8 +52,8 @@
 -(jobsByUserModelBlock _Nonnull)userNameToSaveUserInfo{
     return ^(JobsUserModel <NSCoding>*_Nullable userModel){
         NSUserDefaults.updateWithModel(jobsMakeUserDefaultModel(^(UserDefaultModel * _Nonnull data) {
-            data.obj = userModel;
-            data.key = userModel.userName;
+            data.byObj(userModel)
+                .byKey(userModel.userName);
         }));
     };
 }

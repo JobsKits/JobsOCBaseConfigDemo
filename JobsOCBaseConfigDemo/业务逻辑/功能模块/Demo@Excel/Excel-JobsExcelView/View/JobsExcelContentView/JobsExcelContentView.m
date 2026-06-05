@@ -50,8 +50,8 @@ Prop_assign()CGPoint contentOffenset;
         .byDelegate(self)
 //        .byContentViewBgCor(indexPath.row % 2 ? self.excelConfigureData.cor1 : self.excelConfigureData.cor2)
         .jobsRichElementsTableViewCellBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable vm) {
-            vm.data = self.excelConfigureData;
-            vm.buttonModels = self.excelConfigureData.contentArr[indexPath.row];
+            vm.byData(self.excelConfigureData)
+              .byButtonModels(self.excelConfigureData.contentArr[indexPath.row]);
         }))
     
         .byBgColor(indexPath.row % 2 ? self.excelConfigureData.cor1 : self.excelConfigureData.cor2)
@@ -102,17 +102,17 @@ Prop_assign()CGPoint contentOffenset;
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
             tableView.dataLink(self);
-            tableView.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-            tableView.rowHeight = self.excelConfigureData.itemH;
-            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            tableView.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
+            tableView.byRowHeight(self.excelConfigureData.itemH);
+            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone);
             tableView.buttonModelEmptyData = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                data.title = @"No Datas".tr;
-                data.titleCor = JobsWhiteColor;
-                data.titleFont = bayonRegular(JobsWidth(30));
-                data.normalImage = @"暂无数据".img;
-                data.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-                data.jobsOffsetX = JobsWidth(-100);
-                data.jobsOffsetY = 0;
+                data.byTitle(@"No Datas".tr)
+                    .byTitleCor(JobsWhiteColor)
+                    .byTitleFont(bayonRegular(JobsWidth(30)))
+                    .byNormalImage(@"暂无数据".img)
+                    .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
+                    .byJobsOffsetX(JobsWidth(-100))
+                    .byJobsOffsetY(0);
             });
             [self.addSubview(tableView) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0, 0, 0));

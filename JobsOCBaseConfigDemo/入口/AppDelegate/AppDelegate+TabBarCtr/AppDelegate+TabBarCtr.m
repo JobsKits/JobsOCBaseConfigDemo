@@ -247,17 +247,17 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
             @jobs_weakify(self)
             data.add(BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
                 @jobs_strongify(self)
-                buttonModel.normalImage = self.imageUnSelectedMutArr[0];
-                buttonModel.highlightImage = self.imageSelectedMutArr[0];
-                buttonModel.title = AppDelegate.tabBarItemTitleMutArr[0];
-                buttonModel.titleFont = bayonRegular(14);
-                buttonModel.titleCor = @"#FFFFFF".cor;
-                buttonModel.imagePlacement = NSDirectionalRectEdgeTop;
-                buttonModel.textAlignment = NSTextAlignmentCenter;
-                buttonModel.subTextAlignment = NSTextAlignmentCenter;
-                buttonModel.imagePadding = JobsWidth(5);
-                buttonModel.baseBackgroundColor = JobsClearColor;
-                buttonModel.backgroundImage = DefaultIndex == 0 ? @"TabBarItem选中的背景色".img :@"TabBarItem选中的背景色（透明）".img;
+                buttonModel.byNormalImage(self.imageUnSelectedMutArr[0])
+                           .byHighlightImage(self.imageSelectedMutArr[0])
+                           .byTitle(AppDelegate.tabBarItemTitleMutArr[0])
+                           .byTitleFont(bayonRegular(14))
+                           .byTitleCor(@"#FFFFFF".cor)
+                           .byImagePlacement(NSDirectionalRectEdgeTop)
+                           .byTextAlignment(NSTextAlignmentCenter)
+                           .bySubTextAlignment(NSTextAlignmentCenter)
+                           .byImagePadding(JobsWidth(5))
+                           .byBaseBackgroundColor(JobsClearColor)
+                           .byBackgroundImage(DefaultIndex == 0 ? @"TabBarItem选中的背景色".img :@"TabBarItem选中的背景色（透明）".img);
             })).onClickBy(^(__kindof UIButton *x){
                 x.selected = !x.selected;
                 MyAppTools.sharedManager.loginWork = FMLoginWork_MyFav;
@@ -273,17 +273,17 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
             }));
             data.add(BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
                 @jobs_strongify(self)
-                buttonModel.normalImage = self.imageUnSelectedMutArr[1];
-                buttonModel.highlightImage = self.imageSelectedMutArr[1];
-                buttonModel.title = AppDelegate.tabBarItemTitleMutArr[1];
-                buttonModel.titleFont = bayonRegular(14);
-                buttonModel.titleCor = @"#FFFFFF".cor;
-                buttonModel.imagePlacement = NSDirectionalRectEdgeTop;
-                buttonModel.textAlignment = NSTextAlignmentCenter;
-                buttonModel.subTextAlignment = NSTextAlignmentCenter;
-                buttonModel.imagePadding = JobsWidth(5);
-                buttonModel.baseBackgroundColor = JobsClearColor;
-                buttonModel.backgroundImage = DefaultIndex == 1 ? @"TabBarItem选中的背景色".img  :@"TabBarItem选中的背景色（透明）".img;
+                buttonModel.byNormalImage(self.imageUnSelectedMutArr[1])
+                           .byHighlightImage(self.imageSelectedMutArr[1])
+                           .byTitle(AppDelegate.tabBarItemTitleMutArr[1])
+                           .byTitleFont(bayonRegular(14))
+                           .byTitleCor(@"#FFFFFF".cor)
+                           .byImagePlacement(NSDirectionalRectEdgeTop)
+                           .byTextAlignment(NSTextAlignmentCenter)
+                           .bySubTextAlignment(NSTextAlignmentCenter)
+                           .byImagePadding(JobsWidth(5))
+                           .byBaseBackgroundColor(JobsClearColor)
+                           .byBackgroundImage(DefaultIndex == 1 ? @"TabBarItem选中的背景色".img  :@"TabBarItem选中的背景色（透明）".img);
             })).onClickBy(^(__kindof UIButton *x){
                 x.selected = !x.selected;
                 MyAppTools.sharedManager.loginWork = FMLoginWork_MyBank;
@@ -299,17 +299,17 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
             }));
             data.add(BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
                 @jobs_strongify(self)
-                buttonModel.normalImage = self.imageUnSelectedMutArr[2];
-                buttonModel.highlightImage = self.imageSelectedMutArr[2];
-                buttonModel.title = AppDelegate.tabBarItemTitleMutArr[2];
-                buttonModel.titleFont = bayonRegular(14);
-                buttonModel.titleCor = @"#FFFFFF".cor;
-                buttonModel.imagePlacement = NSDirectionalRectEdgeTop;
-                buttonModel.textAlignment = NSTextAlignmentCenter;
-                buttonModel.subTextAlignment = NSTextAlignmentCenter;
-                buttonModel.imagePadding = JobsWidth(5);
-                buttonModel.baseBackgroundColor = JobsClearColor;
-                buttonModel.backgroundImage = @"TabBarItem选中的背景色（透明）".img;
+                buttonModel.byNormalImage(self.imageUnSelectedMutArr[2])
+                           .byHighlightImage(self.imageSelectedMutArr[2])
+                           .byTitle(AppDelegate.tabBarItemTitleMutArr[2])
+                           .byTitleFont(bayonRegular(14))
+                           .byTitleCor(@"#FFFFFF".cor)
+                           .byImagePlacement(NSDirectionalRectEdgeTop)
+                           .byTextAlignment(NSTextAlignmentCenter)
+                           .bySubTextAlignment(NSTextAlignmentCenter)
+                           .byImagePadding(JobsWidth(5))
+                           .byBaseBackgroundColor(JobsClearColor)
+                           .byBackgroundImage(@"TabBarItem选中的背景色（透明）".img);
 //                DefaultIndex == 2 ? @"TabBarItem选中的背景色".img :@"TabBarItem选中的背景色（透明）".img;
             })).onClickBy(^(__kindof UIButton *x){
                 @jobs_strongify(self)
@@ -321,17 +321,17 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
             }));
             data.add(BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
                 @jobs_strongify(self)
-                buttonModel.normalImage = self.imageUnSelectedMutArr[3];
-                buttonModel.highlightImage = self.imageSelectedMutArr[3];
-                buttonModel.title = AppDelegate.tabBarItemTitleMutArr[3];
-                buttonModel.titleFont = bayonRegular(14);
-                buttonModel.titleCor = @"#FFFFFF".cor;
-                buttonModel.imagePlacement = NSDirectionalRectEdgeTop;
-                buttonModel.textAlignment = NSTextAlignmentCenter;
-                buttonModel.subTextAlignment = NSTextAlignmentCenter;
-                buttonModel.imagePadding = JobsWidth(5);
-                buttonModel.baseBackgroundColor = JobsClearColor;
-                buttonModel.backgroundImage = DefaultIndex == 3 ? @"TabBarItem选中的背景色".img :@"TabBarItem选中的背景色（透明）".img;
+                buttonModel.byNormalImage(self.imageUnSelectedMutArr[3])
+                           .byHighlightImage(self.imageSelectedMutArr[3])
+                           .byTitle(AppDelegate.tabBarItemTitleMutArr[3])
+                           .byTitleFont(bayonRegular(14))
+                           .byTitleCor(@"#FFFFFF".cor)
+                           .byImagePlacement(NSDirectionalRectEdgeTop)
+                           .byTextAlignment(NSTextAlignmentCenter)
+                           .bySubTextAlignment(NSTextAlignmentCenter)
+                           .byImagePadding(JobsWidth(5))
+                           .byBaseBackgroundColor(JobsClearColor)
+                           .byBackgroundImage(DefaultIndex == 3 ? @"TabBarItem选中的背景色".img :@"TabBarItem选中的背景色（透明）".img);
             })).onClickBy(^(__kindof UIButton *x){
                 @jobs_strongify(self)
                 MyAppTools.sharedManager.loginWork = FMLoginWork_Default;
@@ -343,17 +343,17 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
             }));
             data.add(BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
                 @jobs_strongify(self)
-                buttonModel.normalImage = self.imageUnSelectedMutArr[4];
-                buttonModel.highlightImage = self.imageSelectedMutArr[4];
-                buttonModel.title = AppDelegate.tabBarItemTitleMutArr[4];
-                buttonModel.titleFont = bayonRegular(14);
-                buttonModel.titleCor = @"#FFFFFF".cor;
-                buttonModel.imagePlacement = NSDirectionalRectEdgeTop;
-                buttonModel.textAlignment = NSTextAlignmentCenter;
-                buttonModel.subTextAlignment = NSTextAlignmentCenter;
-                buttonModel.imagePadding = JobsWidth(5);
-                buttonModel.baseBackgroundColor = JobsClearColor;
-                buttonModel.backgroundImage = DefaultIndex == 4 ? @"TabBarItem选中的背景色".img :@"TabBarItem选中的背景色（透明）".img;
+                buttonModel.byNormalImage(self.imageUnSelectedMutArr[4])
+                           .byHighlightImage(self.imageSelectedMutArr[4])
+                           .byTitle(AppDelegate.tabBarItemTitleMutArr[4])
+                           .byTitleFont(bayonRegular(14))
+                           .byTitleCor(@"#FFFFFF".cor)
+                           .byImagePlacement(NSDirectionalRectEdgeTop)
+                           .byTextAlignment(NSTextAlignmentCenter)
+                           .bySubTextAlignment(NSTextAlignmentCenter)
+                           .byImagePadding(JobsWidth(5))
+                           .byBaseBackgroundColor(JobsClearColor)
+                           .byBackgroundImage(DefaultIndex == 4 ? @"TabBarItem选中的背景色".img :@"TabBarItem选中的背景色（透明）".img);
             })).onClickBy(^(__kindof UIButton *x){
                 @jobs_strongify(self)
                 x.selected = !x.selected;

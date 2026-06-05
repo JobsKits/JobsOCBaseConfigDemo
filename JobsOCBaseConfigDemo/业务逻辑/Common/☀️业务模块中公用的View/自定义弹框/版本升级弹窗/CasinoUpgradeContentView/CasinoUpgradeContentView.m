@@ -62,11 +62,11 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.font = UIFontWeightMediumSize(14);
-            label.textColor = HEXCOLOR(0x524740);
-            label.text = @"The existing new version needs to be updated. Are you sure to download it?".tr;
-            label.numberOfLines = 0;
-            label.textAlignment = NSTextAlignmentCenter;
+            label.byFont(UIFontWeightMediumSize(14));
+            label.byTextCor(HEXCOLOR(0x524740));
+            label.byText(@"The existing new version needs to be updated. Are you sure to download it?".tr);
+            label.byNumberOfLines(0);
+            label.byTextAlignment(NSTextAlignmentCenter);
             label.makeLabelByShowingType(UILabelShowingType_03);
             self.addSubview(label);
             [label mas_makeConstraints:^(MASConstraintMaker *make) {

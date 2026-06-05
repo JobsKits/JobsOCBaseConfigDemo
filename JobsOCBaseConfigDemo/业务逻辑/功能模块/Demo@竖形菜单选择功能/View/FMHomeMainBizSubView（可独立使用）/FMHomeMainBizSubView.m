@@ -83,11 +83,11 @@ Prop_assign()NSUInteger thisIndex;
         @jobs_strongify(self)
         for (int i = 0; i < self.thisIndex + 1; i++) {
             arr.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-                model.backgroundImage = self.cellTitleMutArr[self.thisIndex].add(已点击).img;
-                model.titleCor = HEXCOLOR(0xC4C4C4);
-                model.titleFont = UIFontWeightRegularSize(12);
-                model.baseBackgroundColor = JobsRedColor;
-                model.imagePadding = JobsWidth(5);
+                model.byBackgroundImage(self.cellTitleMutArr[self.thisIndex].add(已点击).img)
+                     .byTitleCor(HEXCOLOR(0xC4C4C4))
+                     .byTitleFont(UIFontWeightRegularSize(12))
+                     .byBaseBackgroundColor(JobsRedColor)
+                     .byImagePadding(JobsWidth(5));
             }));
         }
     };
@@ -98,10 +98,10 @@ Prop_assign()NSUInteger thisIndex;
     return ^__kindof UIButtonModel *_Nullable(__kindof NSString *_Nullable data){
 //        @jobs_strongify(self)
         return jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-            model.backgroundImage = data.add(未点击).img;
-            model.title = @"";
-            model.subTitle = @"";
-            model.baseBackgroundColor = JobsClearColor;
+            model.byBackgroundImage(data.add(未点击).img)
+                 .byTitle(@"")
+                 .bySubTitle(@"")
+                 .byBaseBackgroundColor(JobsClearColor);
         });
     };
 }
@@ -297,18 +297,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         UILabel *label = headerView.viewWithTag(666);
         if (!label){
             label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-                label.frame = CGRectMake(10,
+                label.byFrame(CGRectMake(10,
                                          20,
                                          headerView.width - 20.f,
-                                         17.f);
-                label.font = JobsFontBold(JobsWidth(12));
-                label.textColor = JobsGrayColor;
-                label.tag = 666;
+                                         17.f));
+                label.byFont(JobsFontBold(JobsWidth(12)));
+                label.byTextCor(JobsGrayColor);
+                label.byTag(666);
             });headerView.addSubview(label);
         }
         
         GoodsClassModel *rightModel = self.rightDataArray.objectAt(indexPath.section);
-        label.text = rightModel.name ? : @"".tr;
+        label.byText(rightModel.name ? : @"".tr);
         
         return headerView;
     }else if (kind.isEqualToString(UICollectionElementKindSectionFooter)){

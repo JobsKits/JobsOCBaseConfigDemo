@@ -79,8 +79,8 @@
     return ^(NSString *_Nullable lifeCycle) {
         @jobs_strongify(self)
         UIViewModel *viewModel = UIViewModel.new;
-        viewModel.data = nil;
-        viewModel.requestParams = lifeCycle;
+        viewModel.byData(nil)
+                 .byRequestParams(lifeCycle);
         if(self.objBlock) self.objBlock(viewModel);
     };
 }

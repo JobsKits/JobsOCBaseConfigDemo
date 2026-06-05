@@ -88,9 +88,9 @@ Prop_strong()UIScrollView *insideScrollView;
     @jobs_weakify(self)
     self.addSubview(jobsMakeView(^(__kindof UIView * _Nullable view) {
         @jobs_strongify(self)
-        view.frame = self.bounds;
-        view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight; /// 自动调整view的宽度，保证左边距和右边距不变 || 自动调整view的高度，以保证上边距和下边距不变
-        view.backgroundColor = JobsClearColor;
+        view.byFrame(self.bounds);
+        view.byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight); /// 自动调整view的宽度，保证左边距和右边距不变 || 自动调整view的高度，以保证上边距和下边距不变
+        view.byBgColor(JobsClearColor);
         view.addSubview(self.insideScrollView);
     }));
 }
@@ -709,13 +709,13 @@ Prop_strong()UIScrollView *insideScrollView;
         @jobs_weakify(self)
         _insideScrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView.frame = self.bounds;
-            scrollView.scrollsToTop = NO;
-            scrollView.delegate = self;
-            scrollView.pagingEnabled = YES;
-            scrollView.clipsToBounds = NO;
-            scrollView.showsHorizontalScrollIndicator = NO;
-            scrollView.showsVerticalScrollIndicator = NO;
+            scrollView.byFrame(self.bounds);
+            scrollView.byScrollsToTop(NO);
+            scrollView.byDelegate(self);
+            scrollView.byPagingEnabled(YES);
+            scrollView.byClipsToBounds(NO);
+            scrollView.byShowsHorizontalScrollIndicator(NO);
+            scrollView.byShowsVerticalScrollIndicator(NO);
         });
     }return _insideScrollView;
 }

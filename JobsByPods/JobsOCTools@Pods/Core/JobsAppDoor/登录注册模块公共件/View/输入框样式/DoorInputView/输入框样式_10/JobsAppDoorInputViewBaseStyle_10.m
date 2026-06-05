@@ -143,9 +143,9 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = isNull(self.doorInputViewBaseStyleModel.textModel.text) ? self.titleStr_2 : self.doorInputViewBaseStyleModel.textModel.text;
-            label.textColor = self.viewModel.textModel.textCor ? : HEXCOLOR(0xAE8330);
-            label.font = self.viewModel.textModel.font ? : JobsFontMedium(JobsWidth(12));
+            label.byText(isNull(self.doorInputViewBaseStyleModel.textModel.text) ? self.titleStr_2 : self.doorInputViewBaseStyleModel.textModel.text);
+            label.byTextCor(self.viewModel.textModel.textCor ? : HEXCOLOR(0xAE8330));
+            label.byFont(self.viewModel.textModel.font ? : JobsFontMedium(JobsWidth(12)));
             [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(self);
                 make.centerY.equalTo(self.textField);

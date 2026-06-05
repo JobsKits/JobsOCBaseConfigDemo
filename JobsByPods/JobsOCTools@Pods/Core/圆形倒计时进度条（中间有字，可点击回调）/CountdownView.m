@@ -71,10 +71,10 @@ Prop_strong()CABasicAnimation *animation;
             @jobs_strongify(self)
             data.fillColor = JobsClearColor.CGColor;
             data.strokeColor = jobsMakeCor(^(__kindof JobsCorModel * _Nullable data) {
-                data.red = 0.02f;
-                data.green = 0.69f;
-                data.blue = 1.00f;
-                data.alpha = 1.00f;
+                data.byRed(0.02f)
+                    .byGreen(0.69f)
+                    .byBlue(1.00f)
+                    .byAlpha(1.00f);
             }).CGColor;
             data.lineWidth = 1.0f;
             CGFloat w = CGRectGetWidth(self.frame);
@@ -105,10 +105,10 @@ Prop_strong()CABasicAnimation *animation;
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = self.str;
-            label.font = self.font;
-            label.textAlignment = NSTextAlignmentCenter;
-            label.textColor = self.textColor;
+            label.byText(self.str);
+            label.byFont(self.font);
+            label.byTextAlignment(NSTextAlignmentCenter);
+            label.byTextCor(self.textColor);
             [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
             }];

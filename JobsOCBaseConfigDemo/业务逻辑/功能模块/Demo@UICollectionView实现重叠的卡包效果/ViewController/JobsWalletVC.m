@@ -112,17 +112,17 @@ resuableFooterViewHeightForIndexPath:(NSIndexPath *)indexPath {
         JobsBtnStyleCVCell *cell = [collectionView collectionViewCellClass:JobsBtnStyleCVCell.class forIndexPath:indexPath];
         cell.jobsRichElementsCollectionViewCellBy(self.dataSourceMutArr[indexPath.section][indexPath.item]);
         cell.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable data) {
-            data.layerCor = @"#6E5600".cor;
-            data.jobsWidth = JobsWidth(1);
-            data.cornerRadiusValue = JobsWidth(8);
+            data.byLayerCor(@"#6E5600".cor)
+                .byJobsWidth(JobsWidth(1))
+                .byCornerRadiusValue(JobsWidth(8));
         }));return cell;
     }else{
         BaiShaETProjBankAccMgmtCVCell *cell = [collectionView collectionViewCellClass:BaiShaETProjBankAccMgmtCVCell.class forIndexPath:indexPath];
         cell.jobsRichElementsCollectionViewCellBy(self.dataSourceMutArr[indexPath.section][indexPath.item]);
         cell.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable data) {
-            data.layerCor = @"#6E5600".cor;
-            data.jobsWidth = JobsWidth(1);
-            data.cornerRadiusValue = JobsWidth(8);
+            data.byLayerCor(@"#6E5600".cor)
+                .byJobsWidth(JobsWidth(1))
+                .byCornerRadiusValue(JobsWidth(8));
         }));return cell;
     }
 }
@@ -137,11 +137,11 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
                                                    BOOL * _Nonnull stopItem) {
             // 只要不是当前点击的那个 indexPath，全部置为未选中
             if (section != indexPath.section || item != indexPath.item) {
-                model.jobsSelected = NO;
+                model.byJobsSelected(NO);
                 return;
             }
             // 命中当前点击的 cell（section 和 item 都相等）
-            model.jobsSelected = !model.jobsSelected;
+            model.byJobsSelected(!model.jobsSelected);
 
             BOOL isLastItemInSection = (item == sectionArray.count - 1);
             BOOL shouldExpand = !isLastItemInSection && model.jobsSelected;
@@ -159,7 +159,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (kind == TMSCollectionViewSectionHeader) {
         if(indexPath.section < self.sectionHeaderDataSource.count){
             UIViewModel *viewModel = self.sectionHeaderDataSource[indexPath.section];
-            viewModel.textModel.text = [NSString stringWithFormat:@"Section Header:%zd-%zd", indexPath.section, indexPath.item];
+            viewModel.textModel.byText([NSString stringWithFormat:@"Section Header:%zd-%zd", indexPath.section, indexPath.item]);
             reusableView.jobsRichViewByModel(viewModel);
         }
     }
@@ -167,7 +167,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (kind == TMSCollectionViewSectionFooter) {
         if(indexPath.section < self.sectionFooterDataSource.count){
             UIViewModel *viewModel = self.sectionFooterDataSource[indexPath.section];
-            viewModel.textModel.text = [NSString stringWithFormat:@"Section Header:%zd-%zd", indexPath.section, indexPath.item];
+            viewModel.textModel.byText([NSString stringWithFormat:@"Section Header:%zd-%zd", indexPath.section, indexPath.item]);
             reusableView.jobsRichViewByModel(viewModel);
         }
     }return reusableView;
@@ -214,46 +214,46 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
         _dataSourceMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSMutableArray<UIViewModel *>*>* _Nullable data) {
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>* _Nullable data1) {
                 data1.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data2) {
-                    data2.textModel.text = @"上海银行".tr;
-                    data2.subTextModel.text = @"**** 7895".tr;
-                    data2.image = @"第一银行".img;
+                    data2.textModel.byText(@"上海银行".tr);
+                    data2.subTextModel.byText(@"**** 7895".tr);
+                    data2.byImage(@"第一银行".img);
                 }))
                 .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data2) {
-                    data2.textModel.text = @"国泰世华".tr;
-                    data2.subTextModel.text = @"**** 2345".tr;
-                    data2.image = @"国泰世华".img;
+                    data2.textModel.byText(@"国泰世华".tr);
+                    data2.subTextModel.byText(@"**** 2345".tr);
+                    data2.byImage(@"国泰世华".img);
                 }))
                 .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data2) {
-                    data2.textModel.text = @"台湾银行".tr;
-                    data2.subTextModel.text = @"**** 7654".tr;
-                    data2.image = @"台湾银行".img;
+                    data2.textModel.byText(@"台湾银行".tr);
+                    data2.subTextModel.byText(@"**** 7654".tr);
+                    data2.byImage(@"台湾银行".img);
                 }))
                 .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data2) {
-                    data2.textModel.text = @"嘉华银行".tr;
-                    data2.subTextModel.text = @"**** 2345".tr;
-                    data2.image = @"嘉华银行".img;
+                    data2.textModel.byText(@"嘉华银行".tr);
+                    data2.subTextModel.byText(@"**** 2345".tr);
+                    data2.byImage(@"嘉华银行".img);
                 }))
                 .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data2) {
-                    data2.textModel.text = @"包头银行".tr;
-                    data2.subTextModel.text = @"**** 7654".tr;
-                    data2.image = @"包头银行".img;
+                    data2.textModel.byText(@"包头银行".tr);
+                    data2.subTextModel.byText(@"**** 7654".tr);
+                    data2.byImage(@"包头银行".img);
                 }))
                 .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data2) {
-                    data2.textModel.text = @"成都银行".tr;
-                    data2.subTextModel.text = @"**** 2345".tr;
-                    data2.image = @"成都银行".img;
+                    data2.textModel.byText(@"成都银行".tr);
+                    data2.subTextModel.byText(@"**** 2345".tr);
+                    data2.byImage(@"成都银行".img);
                 }))
                 .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data2) {
-                    data2.textModel.text = @"南充商业银行".tr;
-                    data2.subTextModel.text = @"**** 7654".tr;
-                    data2.image = @"南充商业银行".img;
+                    data2.textModel.byText(@"南充商业银行".tr);
+                    data2.subTextModel.byText(@"**** 7654".tr);
+                    data2.byImage(@"南充商业银行".img);
                 }));
             }));
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>* _Nullable data1) {
                 data1.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data2) {
-                    data2.textModel.text = @"＋添加新的銀行卡".tr;
-                    data2.textModel.font = UIFontWeightRegularSize(16);
-                    data2.textModel.textCor = HEXCOLOR(0x757575);
+                    data2.textModel.byText(@"＋添加新的銀行卡".tr)
+                                   .byFont(UIFontWeightRegularSize(16))
+                                   .byTextCor(HEXCOLOR(0x757575));
                 }));
             }));
         });
@@ -264,7 +264,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (!_sectionHeaderDataSource) {
         _sectionHeaderDataSource = jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>* _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"我是头部".tr;
+                data1.textModel.byText(@"我是头部".tr);
             }));
         });
     }return _sectionHeaderDataSource;
@@ -274,7 +274,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (!_sectionFooterDataSource) {
         _sectionFooterDataSource = jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>* _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"我是尾部".tr;
+                data1.textModel.byText(@"我是尾部".tr);
             }));
         });
     }return _sectionFooterDataSource;

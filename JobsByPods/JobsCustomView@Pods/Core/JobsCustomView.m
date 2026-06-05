@@ -118,7 +118,7 @@ static dispatch_once_t static_customViewOnceToken;
         @jobs_weakify(self)
         _segmentationLine = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = HEXCOLOR(0xEAEBED);
+            label.byBgColor(HEXCOLOR(0xEAEBED));
             [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self.indicatorIMGV);
                 make.right.equalTo(self).offset(-JobsWidth(16));
@@ -177,9 +177,9 @@ static dispatch_once_t static_customViewOnceToken;
         @jobs_weakify(self)
         _tipsLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = @"當前支持查詢最近30天的投注記錄".tr;
-            label.font = UIFontWeightRegularSize(12);
-            label.textColor = HEXCOLOR(0x757575);
+            label.byText(@"當前支持查詢最近30天的投注記錄".tr);
+            label.byFont(UIFontWeightRegularSize(12));
+            label.byTextCor(HEXCOLOR(0x757575));
             [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.indicatorIMGV.mas_bottom).offset(JobsWidth(20));
                 make.left.equalTo(self).offset(JobsWidth(19));

@@ -84,10 +84,10 @@ static dispatch_once_t static_titleView01OnceToken;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = isNull(self.viewModel.textModel.text) ? @"我是标题".tr : self.viewModel.textModel.text;
-            label.font = [UIFont systemFontOfSize:JobsWidth(12) weight:UIFontWeightRegular];
-            label.textColor = HEXCOLOR(0xAE8330);
-            label.textAlignment = NSTextAlignmentCenter;
+            label.byText(isNull(self.viewModel.textModel.text) ? @"我是标题".tr : self.viewModel.textModel.text);
+            label.byFont([UIFont systemFontOfSize:JobsWidth(12) weight:UIFontWeightRegular]);
+            label.byTextCor(HEXCOLOR(0xAE8330));
+            label.byTextAlignment(NSTextAlignmentCenter);
             [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.center.equalTo(self);
             }];label.makeLabelByShowingType(UILabelShowingType_03);
@@ -100,7 +100,7 @@ static dispatch_once_t static_titleView01OnceToken;
         @jobs_weakify(self)
         _leftLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = HEXCOLOR(0xEEE2C8);
+            label.byBgColor(HEXCOLOR(0xEEE2C8));
             [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self);
                 make.height.mas_equalTo(JobsWidth(1.5));
@@ -116,7 +116,7 @@ static dispatch_once_t static_titleView01OnceToken;
         @jobs_weakify(self)
         _rightLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = HEXCOLOR(0xEEE2C8);
+            label.byBgColor(HEXCOLOR(0xEEE2C8));
             [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self);
                 make.height.mas_equalTo(JobsWidth(1.5));

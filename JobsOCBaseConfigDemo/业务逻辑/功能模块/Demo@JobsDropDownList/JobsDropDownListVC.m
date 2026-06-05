@@ -138,11 +138,11 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
             make.left.equalTo(self.view).offset(JobsWidth(16));
         }];
         _switcher.selected ? _switcher.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.layerCor = self.cor;
-            data.jobsWidth = 1;
+            data.byLayerCor(self.cor)
+                .byJobsWidth(1);
         })) : _switcher.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.layerCor = HEXCOLOR(0xB0B0B0);
-            data.jobsWidth = 1;
+            data.byLayerCor(HEXCOLOR(0xB0B0B0))
+                .byJobsWidth(1);
         }));
         @jobs_weakify(self)
         [_switcher jobsSwitchClickEventBlock:^(UISwitch *x) {
@@ -153,11 +153,11 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
             x.thumbTintColor = x.selected ? self.cor : HEXCOLOR(0xB0B0B0);
             x.selected ? x.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
                 @jobs_strongify(self)
-                data.layerCor = self.cor;
-                data.jobsWidth = 1;
+                data.byLayerCor(self.cor)
+                    .byJobsWidth(1);
             })) : x.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-                data.layerCor = HEXCOLOR(0xB0B0B0);
-                data.jobsWidth = 1;
+                data.byLayerCor(HEXCOLOR(0xB0B0B0))
+                    .byJobsWidth(1);
             }));
             toastBy(x.selected ? @"打开解锁".tr:@"关闭解锁".tr);
             self.dropDownListViewDirection = x.selected;
@@ -184,8 +184,8 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
         _listViewData = jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>*_Nullable data) {
             for (int i = 1; i <= 3; i++) {
                 data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                    data1.textModel.text = @"0".add(toStringByInt(i));
-                    data1.subTextModel.text = @"00".add(toStringByInt(i));
+                    data1.textModel.byText(@"0".add(toStringByInt(i)));
+                    data1.subTextModel.byText(@"00".add(toStringByInt(i)));
                 }));
             }
         });

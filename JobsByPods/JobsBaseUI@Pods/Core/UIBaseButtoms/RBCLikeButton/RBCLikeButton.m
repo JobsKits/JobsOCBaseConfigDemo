@@ -297,21 +297,21 @@ BaseButtonProtocol_synthesize
         @jobs_weakify(self)
         _countLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.font = UIFontWeightRegularSize(12);
-            label.textColor = HEXCOLOR(0xCFD2D6);
-            label.text = @"0";
-            label.numberOfLines = 1;
+            label.byFont(UIFontWeightRegularSize(12));
+            label.byTextCor(HEXCOLOR(0xCFD2D6));
+            label.byText(@"0");
+            label.byNumberOfLines(1);
             if(@available(iOS 16.0, *)){
                 if (self.configuration.imagePlacement == NSDirectionalRectEdgeLeading) {
-                    label.textAlignment = NSTextAlignmentLeft;
+                    label.byTextAlignment(NSTextAlignmentLeft);
                 }else{
-                    label.textAlignment = NSTextAlignmentCenter;
+                    label.byTextAlignment(NSTextAlignmentCenter);
                 }
             }else{
                 if(self.buttonEdgeInsetsStyle == NSDirectionalRectEdgeLeading){
-                    label.textAlignment = NSTextAlignmentLeft;
+                    label.byTextAlignment(NSTextAlignmentLeft);
                 }else{
-                    label.textAlignment = NSTextAlignmentCenter;
+                    label.byTextAlignment(NSTextAlignmentCenter);
                 }
             }self.addSubview(label);
         });
@@ -323,12 +323,12 @@ BaseButtonProtocol_synthesize
         @jobs_weakify(self)
         _incLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.font = UIFontWeightRegularSize(13);
-            label.textColor = HEXCOLOR(0xFD5656);
-            label.textAlignment = NSTextAlignmentCenter;
-            label.text = @"+1";
-            label.alpha = 0;
-            label.numberOfLines = 1;
+            label.byFont(UIFontWeightRegularSize(13));
+            label.byTextCor(HEXCOLOR(0xFD5656));
+            label.byTextAlignment(NSTextAlignmentCenter);
+            label.byText(@"+1");
+            label.byAlpha(0);
+            label.byNumberOfLines(1);
             self.addSubview(label);
         });
     }return _incLabel;

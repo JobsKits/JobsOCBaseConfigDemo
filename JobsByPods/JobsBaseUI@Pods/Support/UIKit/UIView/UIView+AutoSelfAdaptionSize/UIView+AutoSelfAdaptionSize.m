@@ -129,8 +129,8 @@
         NSMutableAttributedString *attributedString = toMutAttributedString(label.attributedText);
         //调整间距
         attributedString.addkCTKernAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-            data.value = @(textSpace);
-            data.range = NSMakeRange(0, attributedString.length);
+            data.byValue(@(textSpace))
+                .byRange(NSMakeRange(0, attributedString.length));
         }));
         label.attributedText = attributedString;
         //计算自适应高度

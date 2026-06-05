@@ -24,12 +24,12 @@
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
             @jobs_strongify(self)
-            label.text = @"输入的内容".tr;
-            label.font = UIFontWeightBoldSize(20);
-            label.textColor = JobsBlueColor;
-            label.frame = jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
+            label.byText(@"输入的内容".tr);
+            label.byFont(UIFontWeightBoldSize(20));
+            label.byTextCor(JobsBlueColor);
+            label.byFrame(jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
                 data.jobsX = data.jobsY = data.jobsWidth = data.jobsHeight = JobsWidth(100);
-            });self.view.addSubview(label);
+            }));self.view.addSubview(label);
         });
     }return _label;
 }

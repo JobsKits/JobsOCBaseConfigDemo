@@ -116,10 +116,10 @@ Prop_assign()HotSearchStyle hotSearchStyle;
 -(JobsReturnViewModelByStringBlock _Nonnull)makeViewModelBy{
     return ^__kindof UIViewModel *_Nullable(NSString *_Nullable data){
         return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.text = data;
-            viewModel.textModel.textCor = JobsRandomColor;
-            viewModel.bgCor = JobsRandomColor;
-            viewModel.textModel.font = JobsFontRegular(20);
+            viewModel.textModel.byText(data)
+                               .byTextCor(JobsRandomColor);
+            viewModel.byBgCor(JobsRandomColor);
+            viewModel.textModel.byFont(JobsFontRegular(20));
         });
     };
 }
@@ -378,30 +378,30 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         /// 否则viewForHeaderInSection 和 tableHeaderView 之间会有一段距离
         _tableView = jobsMakeBaseTableViewByGrouped(^(__kindof BaseTableView * _Nullable tableView) {
             @jobs_strongify(self)
-            tableView.backgroundColor = self.bgColour;
-            tableView.delegate = self;
-            tableView.dataSource = self;
-            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-            tableView.showsVerticalScrollIndicator = NO;
-            tableView.tableHeaderView = self.jobsSearchBar;/// 这里接入的就是一个UIView的派生类
-            tableView.tableFooterView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            tableView.byBgColor(self.bgColour);
+            tableView.byDelegate(self);
+            tableView.byDataSource(self);
+            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone);
+            tableView.byShowsVerticalScrollIndicator(NO);
+            tableView.byTableHeaderView(self.jobsSearchBar);/// 这里接入的就是一个UIView的派生类
+            tableView.byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
                 /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
-            });
+            }));
             tableView.ww_foldable = YES;//设置可折叠
             [tableView registerTableViewClass];
             
             {
-                tableView.mj_header = self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
+                tableView.byMJRefreshHeader(self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
                     NSObject.feedbackGenerator(nil);//震动反馈
                     tableView.endRefreshing(YES);
     //                self.endRefreshingWithNoMoreData(self->_tableView);
                     return nil;
-                }]);
-                tableView.mj_footer = self.view.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
+                }]));
+                tableView.byMJRefreshFooter(self.view.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
 //                    @jobs_strongify(self)
                     tableView.endRefreshing(YES);
                     return nil;
-                }]);
+                }]));
             }
             [tableView actionObjBlock:^(id data) {
                 @jobs_strongify(self)
@@ -409,7 +409,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             }];
             
             if(@available(iOS 11.0, *)) {
-                tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+                tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             }else{
                 SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
             }

@@ -100,13 +100,13 @@ NS_INLINE __kindof JobsToggleBaseView *_Nonnull jobsMakeToggleBaseView(jobsByTog
                  toggleBaseView.jobsRichViewByModel(jobsMakeMutArr(^(__kindof NSMutableArray <UIButtonModel *>*_Nullable data) {
                      data.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data1) {
                          @jobs_strongify(self)
-                         data1.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-                         data1.titleFont = bayonRegular(JobsWidth(20));
-                         data1.title = @"PHONE NO.".tr;
-                         data1.jobsWidth = JobsWidth(90);
-                         data1.titleCor = @"#8A93A1".cor;
-                         data1.selectedTitleCor = @"#C90000".cor;
-                         data1.roundingCorners = UIRectCornerAllCorners;
+                         data1.byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
+                              .byTitleFont(bayonRegular(JobsWidth(20)))
+                              .byTitle(@"PHONE NO.".tr)
+                              .byJobsWidth(JobsWidth(90))
+                              .byTitleCor(@"#8A93A1".cor)
+                              .bySelectedTitleCor(@"#C90000".cor)
+                              .byRoundingCorners(UIRectCornerAllCorners);
                          data1.view = FMLoginByPhoneView
                              .BySize(FMLoginByPhoneView.viewSizeByModel(nil))
                              .JobsRichViewByModel2(nil)
@@ -122,13 +122,13 @@ NS_INLINE __kindof JobsToggleBaseView *_Nonnull jobsMakeToggleBaseView(jobsByTog
                      }));
                      data.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data1) {
                          @jobs_strongify(self)
-                         data1.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-                         data1.titleFont = bayonRegular(JobsWidth(20));
-                         data1.title = @"ACCOUNT NAME".tr;
-                         data1.jobsWidth = JobsWidth(130);
-                         data1.titleCor = @"#8A93A1".cor;
-                         data1.selectedTitleCor = @"#C90000".cor;
-                         data1.roundingCorners = UIRectCornerAllCorners;
+                         data1.byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
+                              .byTitleFont(bayonRegular(JobsWidth(20)))
+                              .byTitle(@"ACCOUNT NAME".tr)
+                              .byJobsWidth(JobsWidth(130))
+                              .byTitleCor(@"#8A93A1".cor)
+                              .bySelectedTitleCor(@"#C90000".cor)
+                              .byRoundingCorners(UIRectCornerAllCorners);
                          data1.view = FMLoginByUsrNameView
                              .BySize(FMLoginByUsrNameView.viewSizeByModel(nil))
                              .JobsRichViewByModel2(nil)

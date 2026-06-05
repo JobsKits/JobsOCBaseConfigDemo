@@ -136,30 +136,30 @@ UILocationProtocol_dynamic
             {
                 self.textLabel.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
                     @jobs_strongify(self)
-                    data.offsetXForEach = self.textLabelFrameOffsetX;
-                    data.offsetYForEach = self.textLabelFrameOffsetY;
-                    data.offsetWidth = self.textLabelFrameOffsetWidth;
-                    data.offsetHeight = self.textLabelFrameOffsetHeight;
+                    data.byOffsetXForEach(self.textLabelFrameOffsetX)
+                        .byOffsetYForEach(self.textLabelFrameOffsetY)
+                        .byOffsetWidth(self.textLabelFrameOffsetWidth)
+                        .byOffsetHeight(self.textLabelFrameOffsetHeight);
                 }));
             }
             
             if (self.detailTextLabel) {
                 self.detailTextLabel.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
                     @jobs_strongify(self)
-                    data.offsetXForEach = self.detailTextLabelOffsetX;
-                    data.offsetYForEach = self.detailTextLabelOffsetY;
-                    data.offsetWidth = self.detailTextLabelOffsetWidth;
-                    data.offsetHeight = self.detailTextLabelOffsetHeight;
+                    data.byOffsetXForEach(self.detailTextLabelOffsetX)
+                        .byOffsetYForEach(self.detailTextLabelOffsetY)
+                        .byOffsetWidth(self.detailTextLabelOffsetWidth)
+                        .byOffsetHeight(self.detailTextLabelOffsetHeight);
                 }));
             }
             
             if(self.imageView){
                 self.imageView.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
                     @jobs_strongify(self)
-                    data.offsetXForEach = self.imageViewFrameOffsetX;
-                    data.offsetYForEach = self.imageViewFrameOffsetY;
-                    data.offsetWidth = self.imageViewFrameOffsetWidth;
-                    data.offsetHeight = self.imageViewFrameOffsetHeight;
+                    data.byOffsetXForEach(self.imageViewFrameOffsetX)
+                        .byOffsetYForEach(self.imageViewFrameOffsetY)
+                        .byOffsetWidth(self.imageViewFrameOffsetWidth)
+                        .byOffsetHeight(self.imageViewFrameOffsetHeight);
                 }));
             }
         }

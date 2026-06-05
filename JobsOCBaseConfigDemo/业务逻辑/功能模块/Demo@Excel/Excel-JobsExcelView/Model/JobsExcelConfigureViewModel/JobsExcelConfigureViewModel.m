@@ -42,11 +42,11 @@ Prop_assign()NSInteger colNumber;// 列数
             for (int y = 1; y <= self.leftTitles.count ; y++) {
                 data.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data1) {
                     @jobs_strongify(self)
-                    data1.title = self.leftTitles[y - 1];
-                    data1.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-                    data1.titleCor = JobsWhiteColor;
-                    data1.baseBackgroundColor = y % 2 ? self.cor2 : self.cor1;
-                    data1.backgroundImage = y % 2 ? self.image2 : self.image1;
+                    data1.byTitle(self.leftTitles[y - 1])
+                         .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
+                         .byTitleCor(JobsWhiteColor)
+                         .byBaseBackgroundColor(y % 2 ? self.cor2 : self.cor1)
+                         .byBackgroundImage(y % 2 ? self.image2 : self.image1);
                 }));
             }
         });
@@ -66,10 +66,10 @@ Prop_assign()NSInteger colNumber;// 列数
         /// 第一个元素
         self.data_00 = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
             @jobs_strongify(self)
-            model.title = self.topHeaderTitles[0];
-            model.titleCor = self.cor4;
-            model.baseBackgroundColor = self.cor0;
-            model.backgroundImage = self.image0;
+            model.byTitle(self.topHeaderTitles[0])
+                 .byTitleCor(self.cor4)
+                 .byBaseBackgroundColor(self.cor0)
+                 .byBackgroundImage(self.image0);
         });
         /// 因为第一个元素是00，所以少一个。实际取值从下标1开始
         /// 先行后列
@@ -79,21 +79,21 @@ Prop_assign()NSInteger colNumber;// 列数
                 for (int j = 1; j < self.topHeaderTitles.count ; j++){/// 列
                     colArr.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
                         @jobs_strongify(self)
-                        model.title = self.leftTitles[i].add(@"@").add(self.topHeaderTitles[j]);
+                        model.byTitle(self.leftTitles[i].add(@"@").add(self.topHeaderTitles[j]));
                         if(j == 2){
-                            model.jobsEnabled = YES;
-                            model.imagePlacement = NSDirectionalRectEdgeTrailing;
-                            model.imagePadding = JobsWidth(8);
-                            model.normalImage = @"复制图标".img;
+                            model.byJobsEnabled(YES)
+                                 .byImagePlacement(NSDirectionalRectEdgeTrailing)
+                                 .byImagePadding(JobsWidth(8))
+                                 .byNormalImage(@"复制图标".img);
                             model.clickEventBlock = ^id _Nullable(UIButton *_Nullable data) {
                                 data.titleForNormalState.pasteboard();
                                 return nil;
                             };
                         }
-                        model.baseBackgroundColor = i % 2 ? self.cor2: self.cor1;
-                        model.backgroundImage = i % 2 ? self.image2: self.image1;
-                        model.titleCor = JobsWhiteColor;
-                        model.titleFont = UIFontWeightRegularSize(JobsWidth(10));
+                        model.byBaseBackgroundColor(i % 2 ? self.cor2: self.cor1)
+                             .byBackgroundImage(i % 2 ? self.image2: self.image1)
+                             .byTitleCor(JobsWhiteColor)
+                             .byTitleFont(UIFontWeightRegularSize(JobsWidth(10)));
                         JobsLog(@"");
                         model.jobsTestBlock();
                         model.jobsReturnedTestBlock(^id _Nullable(id  _Nullable data) {
@@ -131,10 +131,10 @@ Prop_assign()NSInteger colNumber;// 列数
         @jobs_weakify(self)
         _data_00 = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
             @jobs_strongify(self)
-            data.title = self.topHeaderTitles.count ? self.topHeaderTitles[0] : @"楼层".tr;
-            data.titleCor = self.cor4;
-            data.baseBackgroundColor = self.cor0;
-            data.backgroundImage = self.image0;
+            data.byTitle(self.topHeaderTitles.count ? self.topHeaderTitles[0] : @"楼层".tr)
+                .byTitleCor(self.cor4)
+                .byBaseBackgroundColor(self.cor0)
+                .byBackgroundImage(self.image0);
         });
     }return _data_00;
 }
@@ -147,11 +147,11 @@ Prop_assign()NSInteger colNumber;// 列数
             for (int y = 1; y <= self.contentArr[0].count ; y++) {
                 data.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data1) {
                     @jobs_strongify(self)
-                    data1.title = self.topHeaderTitles[y] ? : toStringByInt(y).add(@"层".tr);
-                    data1.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-                    data1.titleCor = self.cor4;
-                    data1.baseBackgroundColor = self.cor3;
-                    data1.backgroundImage = self.image3;
+                    data1.byTitle(self.topHeaderTitles[y] ? : toStringByInt(y).add(@"层".tr))
+                         .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
+                         .byTitleCor(self.cor4)
+                         .byBaseBackgroundColor(self.cor3)
+                         .byBackgroundImage(self.image3);
                 }));
             }
         });
@@ -277,11 +277,11 @@ Prop_assign()NSInteger colNumber;// 列数
         for (int y = 1; y < topHeaderTitles.count ; y++) {
             data.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data1) {
                 @jobs_strongify(self)
-                data1.title = topHeaderTitles[y];
-                data1.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-                data1.titleCor = self.cor4;
-                data1.baseBackgroundColor = self.cor3;
-                data1.backgroundImage = self.image3;
+                data1.byTitle(topHeaderTitles[y])
+                     .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
+                     .byTitleCor(self.cor4)
+                     .byBaseBackgroundColor(self.cor3)
+                     .byBackgroundImage(self.image3);
             }));
         }
     });

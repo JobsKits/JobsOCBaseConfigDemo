@@ -33,8 +33,8 @@ Prop_assign()CGSize chooseBtnSize;
     if (self = [super init]) {
 //        self.backgroundColor = JobsRedColor;
         self.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.jobsWidth = 1;
-            data.layerCor = Cor3;
+            data.byJobsWidth(1)
+                .byLayerCor(Cor3);
         }));
     }return self;
 }
@@ -43,8 +43,8 @@ Prop_assign()CGSize chooseBtnSize;
     if (self = [super init]) {
         self.backgroundColor = JobsClearColor;
         self.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.jobsWidth = 1;
-            data.layerCor = Cor3;
+            data.byJobsWidth(1)
+                .byLayerCor(Cor3);
         }));
     }return self;
 }
@@ -140,22 +140,22 @@ Prop_assign()CGSize chooseBtnSize;
     if (!_jobsPageViewDataMutArr) {
         _jobsPageViewDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>* _Nullable arr) {
             arr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-                data.textModel.text = @"請選擇區號".tr;
-                data.textModel.textCor = HEXCOLOR(0xC4C4C4);
-                data.bgCor = JobsClearColor;
-                data.textModel.font = UIFontWeightRegularSize(16);
+                data.textModel.byText(@"請選擇區號".tr)
+                              .byTextCor(HEXCOLOR(0xC4C4C4));
+                data.byBgCor(JobsClearColor);
+                data.textModel.byFont(UIFontWeightRegularSize(16));
             }));
             arr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-                data.textModel.text = @"+87";
-                data.textModel.textCor = HEXCOLOR(0xC4C4C4);
-                data.bgCor = JobsClearColor;
-                data.textModel.font = UIFontWeightRegularSize(16);
+                data.textModel.byText(@"+87")
+                              .byTextCor(HEXCOLOR(0xC4C4C4));
+                data.byBgCor(JobsClearColor);
+                data.textModel.byFont(UIFontWeightRegularSize(16));
             }));
             arr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-                data.textModel.text = @"+88";
-                data.textModel.textCor = HEXCOLOR(0xC4C4C4);
-                data.bgCor = JobsClearColor;
-                data.textModel.font = UIFontWeightRegularSize(16);
+                data.textModel.byText(@"+88")
+                              .byTextCor(HEXCOLOR(0xC4C4C4));
+                data.byBgCor(JobsClearColor);
+                data.textModel.byFont(UIFontWeightRegularSize(16));
             }));
         });
     }return _jobsPageViewDataMutArr;
@@ -205,14 +205,14 @@ Prop_assign()CGSize chooseBtnSize;
         @jobs_weakify(self)
         _chooseBtnViewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
             @jobs_strongify(self)
-            data.textModel.text = @"請選擇區號".tr;
-            data.textModel.textCor = HEXCOLOR(0xC4C4C4);
-            data.textModel.textLineSpacing = 0;
-            data.textModel.font = UIFontWeightRegularSize(14);
-            data.bgCor = JobsClearColor;
-            data.jobsWidth = self.chooseBtnSize.width;
-            data.subTextModel.text = @"".tr;
-            data.image = @"向下的箭头".img;
+            data.textModel.byText(@"請選擇區號".tr)
+                          .byTextCor(HEXCOLOR(0xC4C4C4))
+                          .byTextLineSpacing(0)
+                          .byFont(UIFontWeightRegularSize(14));
+            data.byBgCor(JobsClearColor)
+                .byJobsWidth(self.chooseBtnSize.width);
+            data.subTextModel.byText(@"".tr);
+            data.byImage(@"向下的箭头".img);
         });
     }return _chooseBtnViewModel;
 }

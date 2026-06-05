@@ -85,9 +85,9 @@ NS_ASSUME_NONNULL_END
                      .byPlaceholderColor(JobsGrayColor)
                      .byPlaceholderFont(pingFangHKRegular(JobsWidth(14)));
              })).setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-                 data.layerCor = @"#DEDEDE".cor;
-                 data.jobsWidth = 1;
-                 data.cornerRadiusValue = JobsWidth(32 / 2);
+                 data.byLayerCor(@"#DEDEDE".cor)
+                     .byJobsWidth(1)
+                     .byCornerRadiusValue(JobsWidth(32 / 2));
              })).setMasonryBy(^(MASConstraintMaker *_Nonnull make){
                  @jobs_strongify(self)
                  make.top.equalTo(self.idTypeTitleLab.mas_bottom).offset(JobsWidth(8));

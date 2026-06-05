@@ -190,9 +190,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     [cell roundedCornerLastCellByTableView:tableView
                                  indexPath:indexPath
                                layerConfig:jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-        model.roundingCornersRadii = CGSizeMake(JobsWidth(10.0), JobsWidth(10.0));
-        model.borderWidth = 1;
-        model.layerBorderCor = JobsGrayColor;
+        model.byRoundingCornersRadii(CGSizeMake(JobsWidth(10.0), JobsWidth(10.0)))
+             .byBorderWidth(1)
+             .byLayerBorderCor(JobsGrayColor);
     })];
 }
 #pragma mark —— lazyLoad
@@ -228,7 +228,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                         [self make:make topOffset:10];
                     });
             if(@available(iOS 11.0, *)) {
-                tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+                tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             }else{
                 SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
             }
@@ -263,22 +263,22 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data1) {
                 @jobs_strongify(self)
                 data1.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.title = @"右边的架构是UIViewController".tr;
-                    model.subTitle = @"正常".tr;
-                    model.cls = JobsVerticalMenuVC_1.class;
+                    model.byTitle(@"右边的架构是UIViewController".tr)
+                         .bySubTitle(@"正常".tr)
+                         .byCls(JobsVerticalMenuVC_1.class);
                 })))
                 .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.title = @"右边的架构是UICollectionView".tr;
-                    model.subTitle = @"正常".tr;
-                    model.cls = JobsVerticalMenuVC_2.class;
+                    model.byTitle(@"右边的架构是UICollectionView".tr)
+                         .bySubTitle(@"正常".tr)
+                         .byCls(JobsVerticalMenuVC_2.class);
                 })));
             }));
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data1) {
                 @jobs_strongify(self)
                 data1.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.title = @"右边的架构是JobsVerticalMenuVC_0".tr;
-                    model.subTitle = @"JobsVerticalMenuVC_0".tr;
-                    model.cls = JobsVerticalMenuVC_0.class;
+                    model.byTitle(@"右边的架构是JobsVerticalMenuVC_0".tr)
+                         .bySubTitle(@"JobsVerticalMenuVC_0".tr)
+                         .byCls(JobsVerticalMenuVC_0.class);
                 })));
             }));
         });

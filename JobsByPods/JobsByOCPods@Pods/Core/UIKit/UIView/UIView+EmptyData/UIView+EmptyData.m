@@ -54,11 +54,11 @@ JobsKey(_tipsLab)
         @jobs_weakify(self)
         TipsLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = self.tipsTitle;
-            label.textAlignment = NSTextAlignmentCenter;
-            label.textColor = self.backgroundColor == JobsBlueColor ? JobsRedColor : JobsBlueColor;// 防止某些VC在调试阶段，设置view.backgroundColor为随机色
-            label.font = UIFontWeightBoldSize(20);
-            label.numberOfLines = 0;
+            label.byText(self.tipsTitle);
+            label.byTextAlignment(NSTextAlignmentCenter);
+                label.byTextCor(self.backgroundColor == JobsBlueColor ? JobsRedColor : JobsBlueColor);// 防止某些VC在调试阶段，设置view.backgroundColor为随机色
+            label.byFont(UIFontWeightBoldSize(20));
+            label.byNumberOfLines(0);
             label.makeLabelByShowingType(UILabelShowingType_03);
             [self addSubview:label];
             [label mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -89,8 +89,8 @@
         @jobs_weakify(self)
         _scrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView.backgroundColor = [UIColor redColor];
-            scrollView.contentSize = CGSizeMake(JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT() * 2);
+            scrollView.byBgColor([UIColor redColor]);
+            scrollView.byContentSize(CGSizeMake(JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT() * 2));
             [self.view.addSubview(scrollView) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.left.right.bottom.equalTo(self.view);
             }];
@@ -103,13 +103,13 @@
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = @"iOS-UIView设置阴影效果".tr;
-            label.frame = CGRectMake(100, 400, 200, 200);
-            label.backgroundColor = JobsYellowColor;
+            label.byText(@"iOS-UIView设置阴影效果".tr);
+            label.byFrame(CGRectMake(100, 400, 200, 200));
+            label.byBgColor(JobsYellowColor);
             label.layer.shadowColor = JobsBlueColor.CGColor;/// 阴影颜色
             label.layer.shadowOpacity = 0.8;/// 阴影透明度，默认为0，如果不设置的话看不到阴影，切记，这是个大坑
             label.layer.shadowOffset = CGSizeMake(0, 0);/// 设置偏移量
-            label.layer.cornerRadius = 9.0;
+            label.byCornerRadius(9.0);
             label.layer.shadowRadius = 9.0;
             /// 参数依次为大小，设置四个角圆角状态，圆角曲度
             label.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:label.bounds

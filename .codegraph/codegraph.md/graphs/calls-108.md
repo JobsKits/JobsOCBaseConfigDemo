@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:JobsMenuSubView_4::initWithSize:<br/>JobsByPods/JobsMenuView@Pods/Core/JobsMenuSubViews/JobsMenuSubView@4/JobsMenuSubView@4.m:42"]
-  T1["method:JobsMenuSubView_4::init<br/>JobsByPods/JobsMenuView@Pods/Core/JobsMenuSubViews/JobsMenuSubView@4/JobsMenuSubView@4.m:19"]
+  S1["function:random100__200<br/>JobsByPods/JobsRandomUtils@Pods/Core/JobsRandomUtils.m:114"]
+  T1["function:JobsRandom100__200<br/>JobsByPods/JobsRandomUtils@Pods/Core/JobsRandomUtils.m:74"]
   S1 -->|calls| T1
-  S2["method:JobsMenuView::init<br/>JobsByPods/JobsMenuView@Pods/Core/JobsMenuView/JobsMenuView.m:23"]
-  T2["method:JobsMenuView::init<br/>JobsByPods/JobsMenuView@Pods/Core/JobsMenuView/JobsMenuView.m:23"]
+  S2["method:JobsPodspecKitForJobsRandomUtils::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsRandomUtils@Pods/JobsPodspecKit.rb:277"]
+  T2["method:JobsPodspecKitForJobsRandomUtils::standard_user_target_xcconfig<br/>JobsByPods/JobsRandomUtils@Pods/JobsPodspecKit.rb:266"]
   S2 -->|calls| T2
-  S3["method:JobsMenuView::layoutSubviews<br/>JobsByPods/JobsMenuView@Pods/Core/JobsMenuView/JobsMenuView.m:39"]
-  T3["method:JobsMenuView::layoutSubviews<br/>JobsByPods/JobsMenuView@Pods/Core/JobsMenuView/JobsMenuView.m:39"]
+  S3["method:JobsPodspecKitForJobsRandomUtils::apply_standard_xcconfig<br/>JobsByPods/JobsRandomUtils@Pods/JobsPodspecKit.rb:281"]
+  T3["method:JobsPodspecKitForJobsRandomUtils::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsRandomUtils@Pods/JobsPodspecKit.rb:273"]
   S3 -->|calls| T3
-  S4["method:JobsMenuView::layoutSubviews<br/>JobsByPods/JobsMenuView@Pods/Core/JobsMenuView/JobsMenuView.m:39"]
-  T4["method:UIView::appointCornerCutToCircleByRoundingCorners:cornerRadii:<br/>JobsByPods/JobsMenuView@Pods/Support/UIKit/UIView+Extra/UIView+Extra.m:13"]
+  S4["method:JobsPodspecKitForJobsRandomUtils::apply_standard_xcconfig<br/>JobsByPods/JobsRandomUtils@Pods/JobsPodspecKit.rb:281"]
+  T4["method:JobsPodspecKitForJobsRandomUtils::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsRandomUtils@Pods/JobsPodspecKit.rb:277"]
   S4 -->|calls| T4
-  S5["method:JobsMenuView::initWithSize:<br/>JobsByPods/JobsMenuView@Pods/Core/JobsMenuView/JobsMenuView.m:46"]
-  T5["method:JobsMenuView::init<br/>JobsByPods/JobsMenuView@Pods/Core/JobsMenuView/JobsMenuView.m:23"]
+  S5["method:NSAttributedString::attributedStringParagraphStyle<br/>JobsByPods/JobsRichTextUtils@Pods/Core/UIKit/NSAttributedString/NSAttributedString+Extra/NSAttributedString+Extra.m:34"]
+  T5["method:ASMutableAttributedStringBuilder::attributesAtIndex:effectiveRange:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:229"]
   S5 -->|calls| T5
-  S6["method:JobsMenuView::menuView<br/>JobsByPods/JobsMenuView@Pods/Core/JobsMenuView/JobsMenuView.m:72"]
-  T6["method:JobsLinkageMenuView::jobsRichViewByModel<br/>JobsByPods/JobsBaseUI@Pods/Support/Other/JobsLinkageMenuView/JobsLinkageMenuView.m:62"]
+  S6["method:NSAttributedString::changeTextColorBy<br/>JobsByPods/JobsRichTextUtils@Pods/Core/UIKit/NSAttributedString/NSAttributedString+Extra/NSAttributedString+Extra.m:45"]
+  T6["method:NSMutableAttributedString::initByAttributedString<br/>JobsByPods/JobsRichTextUtils@Pods/Core/UIKit/NSMutableAttributedString/NSMutableAttributedString+Extra/NSMutableAttributedString+Extra.m:12"]
   S6 -->|calls| T6
-  S7["method:JobsPodspecKitForJobsMenuView::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsMenuView@Pods/JobsPodspecKit.rb:277"]
-  T7["method:JobsPodspecKitForJobsMenuView::standard_user_target_xcconfig<br/>JobsByPods/JobsMenuView@Pods/JobsPodspecKit.rb:266"]
+  S7["method:NSAttributedString::removeHyperlinks<br/>JobsByPods/JobsRichTextUtils@Pods/Core/UIKit/NSAttributedString/NSAttributedString+Extra/NSAttributedString+Extra.m:62"]
+  T7["method:NSMutableAttributedString::initByAttributedString<br/>JobsByPods/JobsRichTextUtils@Pods/Core/UIKit/NSMutableAttributedString/NSMutableAttributedString+Extra/NSMutableAttributedString+Extra.m:12"]
   S7 -->|calls| T7
-  S8["method:JobsPodspecKitForJobsMenuView::apply_standard_xcconfig<br/>JobsByPods/JobsMenuView@Pods/JobsPodspecKit.rb:281"]
-  T8["method:JobsPodspecKitForJobsMenuView::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsMenuView@Pods/JobsPodspecKit.rb:273"]
+  S8["method:NSMutableAttributedString::addAttributeNameByParagraphStyleModel<br/>JobsByPods/JobsRichTextUtils@Pods/Core/UIKit/NSMutableAttributedString/NSMutableAttributedString+Extra/NSMutableAttributedString+Extra.m:34"]
+  T8["method:ASMutableAttributedStringBuilder::addAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:129"]
   S8 -->|calls| T8
-  S9["method:JobsPodspecKitForJobsMenuView::apply_standard_xcconfig<br/>JobsByPods/JobsMenuView@Pods/JobsPodspecKit.rb:281"]
-  T9["method:JobsPodspecKitForJobsMenuView::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsMenuView@Pods/JobsPodspecKit.rb:277"]
+  S9["method:NSMutableAttributedString::addForegroundColorAttributeNameByParagraphStyleModel<br/>JobsByPods/JobsRichTextUtils@Pods/Core/UIKit/NSMutableAttributedString/NSMutableAttributedString+Extra/NSMutableAttributedString+Extra.m:52"]
+  T9["method:ASMutableAttributedStringBuilder::addAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:129"]
   S9 -->|calls| T9
-  S10["method:CasinoCustomerContactElementModel::mj_replacedKeyFromPropertyName<br/>JobsByPods/JobsModel@Pods/Core/DAO/CasinoCustomerContactModel/CasinoCustomerContactModel.m:12"]
-  T10["method:CasinoCustomerContactElementModel::mj_replacedKeyFromPropertyName<br/>JobsByPods/JobsModel@Pods/Core/DAO/CasinoCustomerContactModel/CasinoCustomerContactModel.m:12"]
+  S10["method:NSMutableAttributedString::addFontAttributeNameByParagraphStyleModel<br/>JobsByPods/JobsRichTextUtils@Pods/Core/UIKit/NSMutableAttributedString/NSMutableAttributedString+Extra/NSMutableAttributedString+Extra.m:68"]
+  T10["method:ASMutableAttributedStringBuilder::addAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:129"]
   S10 -->|calls| T10
-  S11["method:FMBannerAdsModel::mj_replacedKeyFromPropertyName<br/>JobsByPods/JobsModel@Pods/Core/DAO/FMBannerAdsModel/FMBannerAdsModel.m:16"]
-  T11["method:FMBannerAdsModel::mj_replacedKeyFromPropertyName<br/>JobsByPods/JobsModel@Pods/Core/DAO/FMBannerAdsModel/FMBannerAdsModel.m:16"]
+  S11["method:NSMutableAttributedString::addUnderlineStyleAttributeNameByParagraphStyleModel<br/>JobsByPods/JobsRichTextUtils@Pods/Core/UIKit/NSMutableAttributedString/NSMutableAttributedString+Extra/NSMutableAttributedString+Extra.m:84"]
+  T11["method:ASMutableAttributedStringBuilder::addAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:129"]
   S11 -->|calls| T11
-  S12["method:FMDoorModel::mj_replacedKeyFromPropertyName<br/>JobsByPods/JobsModel@Pods/Core/DAO/FMDoorModel/FMDoorModel.m:183"]
-  T12["method:FMDoorModel::mj_replacedKeyFromPropertyName<br/>JobsByPods/JobsModel@Pods/Core/DAO/FMDoorModel/FMDoorModel.m:183"]
+  S12["method:NSMutableAttributedString::addUnderlineColorAttributeNameByParagraphStyleModel<br/>JobsByPods/JobsRichTextUtils@Pods/Core/UIKit/NSMutableAttributedString/NSMutableAttributedString+Extra/NSMutableAttributedString+Extra.m:101"]
+  T12["method:ASMutableAttributedStringBuilder::addAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:129"]
   S12 -->|calls| T12
-  S13["method:FMDoorModel::setExpireTime:<br/>JobsByPods/JobsModel@Pods/Core/DAO/FMDoorModel/FMDoorModel.m:187"]
-  T13["method:NSString::chinaTime<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSString/NSString+Time/NSString+Time.m:12"]
+  S13["method:NSMutableAttributedString::addLinkAttributeNameByParagraphStyleModel<br/>JobsByPods/JobsRichTextUtils@Pods/Core/UIKit/NSMutableAttributedString/NSMutableAttributedString+Extra/NSMutableAttributedString+Extra.m:118"]
+  T13["method:ASMutableAttributedStringBuilder::addAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:129"]
   S13 -->|calls| T13
-  S14["method:FMDoorModel::updateBy<br/>JobsByPods/JobsModel@Pods/Core/DAO/FMDoorModel/FMDoorModel.m:194"]
-  T14["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
+  S14["method:NSMutableAttributedString::addkCTKernAttributeNameByParagraphStyleModel<br/>JobsByPods/JobsRichTextUtils@Pods/Core/UIKit/NSMutableAttributedString/NSMutableAttributedString+Extra/NSMutableAttributedString+Extra.m:134"]
+  T14["method:ASMutableAttributedStringBuilder::addAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:129"]
   S14 -->|calls| T14
-  S15["method:JobsAppDoorInputViewBaseStyleModel::init<br/>JobsByPods/JobsModel@Pods/Core/DAO/JobsAppDoorInputViewBaseStyleModel/JobsAppDoorInputViewBaseStyleModel.m:16"]
-  T15["method:JobsAppDoorInputViewBaseStyleModel::init<br/>JobsByPods/JobsModel@Pods/Core/DAO/JobsAppDoorInputViewBaseStyleModel/JobsAppDoorInputViewBaseStyleModel.m:16"]
+  S15["method:JobsPodspecKitForJobsRichTextUtils::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsRichTextUtils@Pods/JobsPodspecKit.rb:277"]
+  T15["method:JobsPodspecKitForJobsRichTextUtils::standard_user_target_xcconfig<br/>JobsByPods/JobsRichTextUtils@Pods/JobsPodspecKit.rb:266"]
   S15 -->|calls| T15
-  S16["method:JobsAppDoorInputViewBaseStyleModel::titleStrFont<br/>JobsByPods/JobsModel@Pods/Core/DAO/JobsAppDoorInputViewBaseStyleModel/JobsAppDoorInputViewBaseStyleModel.m:22"]
-  T16["function:UIFontWeightRegularSize<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Font.h:30"]
+  S16["method:JobsPodspecKitForJobsRichTextUtils::apply_standard_xcconfig<br/>JobsByPods/JobsRichTextUtils@Pods/JobsPodspecKit.rb:281"]
+  T16["method:JobsPodspecKitForJobsRichTextUtils::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsRichTextUtils@Pods/JobsPodspecKit.rb:273"]
   S16 -->|calls| T16
-  S17["method:JobsAppDoorInputViewBaseStyleModel::placeholderFont<br/>JobsByPods/JobsModel@Pods/Core/DAO/JobsAppDoorInputViewBaseStyleModel/JobsAppDoorInputViewBaseStyleModel.m:34"]
-  T17["function:UIFontWeightRegularSize<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Font.h:30"]
+  S17["method:JobsPodspecKitForJobsRichTextUtils::apply_standard_xcconfig<br/>JobsByPods/JobsRichTextUtils@Pods/JobsPodspecKit.rb:281"]
+  T17["method:JobsPodspecKitForJobsRichTextUtils::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsRichTextUtils@Pods/JobsPodspecKit.rb:277"]
   S17 -->|calls| T17
-  S18["method:IncomeSourceModel::mj_replacedKeyFromPropertyName<br/>JobsByPods/JobsModel@Pods/Core/Json处理/IncomeSourceModel/IncomeSourceModel.m:12"]
-  T18["method:IncomeSourceModel::mj_replacedKeyFromPropertyName<br/>JobsByPods/JobsModel@Pods/Core/Json处理/IncomeSourceModel/IncomeSourceModel.m:12"]
+  S18["method:NSString::add<br/>JobsByPods/JobsRichTextUtils@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m:16"]
+  T18["function:JobsMutableString<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:10"]
   S18 -->|calls| T18
-  S19["method:JobsUserModel::mj_newValueFromOldValue:property:<br/>JobsByPods/JobsModel@Pods/Core/Json处理/JobsUserModel/JobsUserModel.m:17"]
-  T19["function:toStringByID<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:71"]
+  S19["method:UIColor::jobsCor<br/>JobsByPods/JobsRichTextUtils@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:12"]
+  T19["method:NSString::hasPrefix<br/>JobsByPods/JobsAPIs@Pods/Support/UIKit/NSString/NSString+Check/NSString+Check.m:39"]
   S19 -->|calls| T19
-  S20["method:JobsUserModel::mj_replacedKeyFromPropertyName<br/>JobsByPods/JobsModel@Pods/Core/Json处理/JobsUserModel/JobsUserModel.m:24"]
-  T20["method:JobsUserModel::mj_replacedKeyFromPropertyName<br/>JobsByPods/JobsModel@Pods/Core/Json处理/JobsUserModel/JobsUserModel.m:24"]
+  S20["method:UIColor::jobsCor<br/>JobsByPods/JobsRichTextUtils@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:12"]
+  T20["method:NSString::substringFromIndex<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:28"]
   S20 -->|calls| T20
-  S21["method:JobsUserModel::encodeWithCoder:<br/>JobsByPods/JobsModel@Pods/Core/Json处理/JobsUserModel/JobsUserModel.m:63"]
-  T21["method:NSObject::valueForKey<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:73"]
+  S21["function:JobsUrl<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:14"]
+  T21["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S21 -->|calls| T21
-  S22["method:JobsUserModel::setExpireTime:<br/>JobsByPods/JobsModel@Pods/Core/Json处理/JobsUserModel/JobsUserModel.m:143"]
-  T22["method:NSString::chinaTime<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSString/NSString+Time/NSString+Time.m:12"]
+  S22["function:JobsFileUrl<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:19"]
+  T22["function:isValue<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:41"]
   S22 -->|calls| T22
-  S23["method:PhilippinesIDTypeModel::mj_replacedKeyFromPropertyName<br/>JobsByPods/JobsModel@Pods/Core/Json处理/PhilippinesIDTypeModel/PhilippinesIDTypeModel.m:12"]
-  T23["method:PhilippinesIDTypeModel::mj_replacedKeyFromPropertyName<br/>JobsByPods/JobsModel@Pods/Core/Json处理/PhilippinesIDTypeModel/PhilippinesIDTypeModel.m:12"]
+  S23["function:JobsFileUrl<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:19"]
+  T23["method:NSURL::fileURLWithPath<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/NSURL/NSURL+Extra/NSURL+Extra.m:12"]
   S23 -->|calls| T23
-  S24["method:BaseModel::initWithCoder:<br/>JobsByPods/JobsModel@Pods/Core/UIKit数据束/BaseModel/BaseModel.m:25"]
-  T24["method:JobsAppDoorInputViewBaseStyleModel::init<br/>JobsByPods/JobsModel@Pods/Core/DAO/JobsAppDoorInputViewBaseStyleModel/JobsAppDoorInputViewBaseStyleModel.m:16"]
+  S24["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
+  T24["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S24 -->|calls| T24
-  S25["method:BaseModel::encodeWithCoder:<br/>JobsByPods/JobsModel@Pods/Core/UIKit数据束/BaseModel/BaseModel.m:39"]
-  T25["method:NSObject::valueForKey<br/>JobsByPods/JobsModel@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:73"]
+  S25["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
+  T25["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S25 -->|calls| T25
 ```
 

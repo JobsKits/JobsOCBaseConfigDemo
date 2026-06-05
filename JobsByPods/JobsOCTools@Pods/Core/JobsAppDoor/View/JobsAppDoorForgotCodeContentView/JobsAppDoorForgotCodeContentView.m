@@ -69,9 +69,9 @@ Prop_strong()NSMutableArray <UIViewModel *>*hotLabelDataMutArr;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = Title10.tr;
-            label.textColor = JobsWhiteColor;
-            label.font = UIFontWeightRegularSize(20);
+            label.byText(Title10.tr);
+            label.byTextCor(JobsWhiteColor);
+            label.byFont(UIFontWeightRegularSize(20));
             label.makeLabelByShowingType(UILabelShowingType_03);
             label.centerX = (self.width - self.backToLoginBtn.width) / 2;
             label.top = JobsWidth(20);
@@ -138,11 +138,11 @@ Prop_strong()NSMutableArray <UIViewModel *>*hotLabelDataMutArr;
         @jobs_weakify(self)
         _subTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = Title11.tr;
-            label.textAlignment = NSTextAlignmentCenter;
-            label.numberOfLines = 0;
-            label.textColor = JobsWhiteColor;
-            label.font = UIFontWeightMediumSize(12);
+            label.byText(Title11.tr);
+            label.byTextAlignment(NSTextAlignmentCenter);
+            label.byNumberOfLines(0);
+            label.byTextCor(JobsWhiteColor);
+            label.byFont(UIFontWeightMediumSize(12));
             label.makeLabelByShowingType(UILabelShowingType_03);
             self.addSubview(label);
             [label mas_makeConstraints:^(MASConstraintMaker *make) {

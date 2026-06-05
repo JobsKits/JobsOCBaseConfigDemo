@@ -84,8 +84,8 @@
 #pragma mark —— App接口示例
 +(URLManagerModel *)appInterfaceTesting{
     return jobsMakeURLManagerModel(^(__kindof URLManagerModel * _Nullable data) {
-        data.url = @"http://172.24.135.14:8000/Downloads/CommentData.json"; /// @"http://172.24.135.12/CommentData.json"
-        data.funcName = NSStringFromSelector(_cmd);
+        data.byUrl(@"http://172.24.135.14:8000/Downloads/CommentData.json") /// @"http://172.24.135.12/CommentData.json"
+            .byFuncName(NSStringFromSelector(_cmd));
     });
 }
 

@@ -58,10 +58,10 @@ Prop_strong()UIColor *serialNumLabBGCor;
         @jobs_weakify(self)
         _serialNumLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = self.serialStr;
-            label.textAlignment = NSTextAlignmentCenter;
-            label.textColor = JobsWhiteColor;
-            label.backgroundColor = self.serialNumLabBGCor;
+            label.byText(self.serialStr);
+            label.byTextAlignment(NSTextAlignmentCenter);
+            label.byTextCor(JobsWhiteColor);
+            label.byBgColor(self.serialNumLabBGCor);
             [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake(20, 20));
                 make.left.equalTo(self.contentView).offset(10);
@@ -76,8 +76,8 @@ Prop_strong()UIColor *serialNumLabBGCor;
         @jobs_weakify(self)
         _contentLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = self.viewModel.textModel.text;
-            label.textColor = JobsLightGrayColor;
+            label.byText(self.viewModel.textModel.text);
+            label.byTextCor(JobsLightGrayColor);
             [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self.serialNumLab);
                 make.left.equalTo(self.serialNumLab.mas_right).offset(5);

@@ -96,8 +96,8 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
         @jobs_weakify(self)
         _trackView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            view.backgroundColor = UIColor.systemGray5Color;
-            view.layer.cornerRadius = 28.f;
+            view.byBgColor(UIColor.systemGray5Color);
+            view.byCornerRadius(28.f);
             view.layer.masksToBounds = YES;
             [self addSubview:view];
             [view mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -112,10 +112,10 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
         @jobs_weakify(self)
         _titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = @"滑动以解锁".tr;
-            label.textColor = UIColor.darkGrayColor;
-            label.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
-            label.textAlignment = NSTextAlignmentCenter;
+            label.byText(@"滑动以解锁".tr);
+            label.byTextCor(UIColor.darkGrayColor);
+            label.byFont([UIFont systemFontOfSize:16 weight:UIFontWeightMedium]);
+            label.byTextAlignment(NSTextAlignmentCenter);
             [self addSubview:label];
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 16, 0, 16));
@@ -129,14 +129,14 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
         @jobs_weakify(self)
         _thumbView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            view.backgroundColor = UIColor.whiteColor;
-            view.layer.cornerRadius = self.thumbSize.height / 2.f;
+            view.byBgColor(UIColor.whiteColor);
+            view.byCornerRadius(self.thumbSize.height / 2.f);
             view.layer.masksToBounds = YES; // 和你 Swift 一样
             view.layer.shadowColor = UIColor.blackColor.CGColor;
             view.layer.shadowOpacity = 0.15f;
             view.layer.shadowRadius = 4.f;
             view.layer.shadowOffset = CGSizeMake(0, 2);
-            view.userInteractionEnabled = YES;
+            view.byUserInteractionEnabled(YES);
             view.addGesture([jobsMakePanGesture(^(__kindof UIPanGestureRecognizer * _Nullable gesture) {
                 /// 这里写手势的配置
             }) GestureActionBy:^(__kindof UIGestureRecognizer * _Nullable pan) {

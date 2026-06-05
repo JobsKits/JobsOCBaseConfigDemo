@@ -28,21 +28,21 @@
         BRTextModel *model = [[BRTextModel alloc]init];
 
         NSString *codeMappingKey = mapper[@"code"] ?: @"code";
-        model.code = dic[codeMappingKey] ? [NSString stringWithFormat:@"%@", dic[codeMappingKey]] : nil;
+        model.byCode(dic[codeMappingKey] ? [NSString stringWithFormat:@"%@", dic[codeMappingKey]] : nil);
 
         NSString *textMappingKey = mapper[@"text"] ?: @"text";
-        model.text = dic[textMappingKey];
+        model.byText(dic[textMappingKey]);
 
         NSString *parentCodeMappingKey = mapper[@"parentCode"] ?: @"parentCode";
-        model.parentCode = dic[parentCodeMappingKey] ? [NSString stringWithFormat:@"%@", dic[parentCodeMappingKey]] : nil;
+        model.byParentCode(dic[parentCodeMappingKey] ? [NSString stringWithFormat:@"%@", dic[parentCodeMappingKey]] : nil);
 
         NSString *extrasMappingKey = mapper[@"extras"] ?: @"extras";
-        model.extras = dic[extrasMappingKey];
+        model.byExtras(dic[extrasMappingKey]);
 
         NSString *childrenMappingKey = mapper[@"children"] ?: @"children";
         NSArray *children = dic[childrenMappingKey];
         if (children && children.count > 0) {
-            model.children = [self br_modelArrayWithJson:children mapper:mapper]; // 递归处理子list
+            model.byChildren([self br_modelArrayWithJson:children mapper:mapper]); // 递归处理子list
         }
 
         [tempArr addObject:model];
@@ -98,9 +98,9 @@
         BRTextModel *parentModel = parentCode && parentCode.length > 0 ? allItemDic[parentCode] : nil;
         if (parentModel) {
             if (!parentModel.children) {
-                parentModel.children = [NSArray array];
+                parentModel.byChildren([NSArray array]);
             }
-            parentModel.children = [parentModel.children arrayByAddingObject:model];
+            parentModel.byChildren([parentModel.children arrayByAddingObject:model]);
         } else {
             // 没有找到对应的父级模型，即该模型为根节点
             [treeModels addObject:model];

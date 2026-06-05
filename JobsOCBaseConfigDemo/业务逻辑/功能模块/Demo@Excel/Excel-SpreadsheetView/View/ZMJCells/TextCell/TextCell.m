@@ -37,7 +37,7 @@ Prop_strong()UIView *bgView;
 -(UIView *)bgView{
     if(!_bgView){
         _bgView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.backgroundColor = RGBA_COLOR(0, 0, 1, .2f);
+            view.byBgColor(RGBA_COLOR(0, 0, 1, .2f));
         });
     }return _bgView;
 }
@@ -47,9 +47,9 @@ Prop_strong()UIView *bgView;
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.frame = self.bounds;
-            label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            label.textAlignment = NSTextAlignmentCenter;
+            label.byFrame(self.bounds);
+            label.byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+            label.byTextAlignment(NSTextAlignmentCenter);
             self.contentView.addSubview(label);
         });
     }return _label;

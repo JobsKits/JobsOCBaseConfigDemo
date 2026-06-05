@@ -220,10 +220,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                         .makeLabelByShowingType(UILabelShowingType_03);
                 }))/// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                    data.title = @"NO MESSAGES FOUND".tr;
-                    data.titleCor = JobsWhiteColor;
-                    data.titleFont = bayonRegular(JobsWidth(30));
-                    data.normalImage = @"小狮子".img;
+                    data.byTitle(@"NO MESSAGES FOUND".tr)
+                        .byTitleCor(JobsWhiteColor)
+                        .byTitleFont(bayonRegular(JobsWidth(30)))
+                        .byNormalImage(@"小狮子".img);
                 }))
                 /// 普通的MJRefreshHeader（触发事件）@二选一
                 .byMJRefreshHeader([MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -322,109 +322,109 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _dataMutArr = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
             @jobs_strongify(self)
             data.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"模拟时钟".tr;
-                model.subTitle = @"模拟时钟".tr;
-                model.cls = JobsClockDemoVC.class;
+                model.byTitle(@"模拟时钟".tr)
+                     .bySubTitle(@"模拟时钟".tr)
+                     .byCls(JobsClockDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsTabBarCtr".tr;
-                model.subTitle = @"JobsTabBarCtr".tr;
-                model.cls = JobsTabBarCtrlDemoVC.class;
+                model.byTitle(@"JobsTabBarCtr".tr)
+                     .bySubTitle(@"JobsTabBarCtr".tr)
+                     .byCls(JobsTabBarCtrlDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"苹果滑动开锁".tr;
-                model.subTitle = @"苹果滑动开锁".tr;
-                model.cls = SlideToUnlockDemoVC.class;
+                model.byTitle(@"苹果滑动开锁".tr)
+                     .bySubTitle(@"苹果滑动开锁".tr)
+                     .byCls(SlideToUnlockDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsNavigationDemoVC".tr;
-                model.subTitle = @"系统导航栏".tr;
-                model.cls = JobsNavigationDemoVC.class;
+                model.byTitle(@"JobsNavigationDemoVC".tr)
+                     .bySubTitle(@"系统导航栏".tr)
+                     .byCls(JobsNavigationDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsScrollLabelVC".tr;
-                model.subTitle = @"当文本超出的时候，滚动展现文字的Label".tr;
-                model.cls = JobsScrollLabelVC.class;
+                model.byTitle(@"JobsScrollLabelVC".tr)
+                     .bySubTitle(@"当文本超出的时候，滚动展现文字的Label".tr)
+                     .byCls(JobsScrollLabelVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsTimer".tr;
-                model.subTitle = @"☀️时间模块".tr;
-                model.cls = JobsTimerVC.class;
+                model.byTitle(@"JobsTimer".tr)
+                     .bySubTitle(@"☀️时间模块".tr)
+                     .byCls(JobsTimerVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"CalendarVC".tr;
-                model.subTitle = @"日历功能".tr;
-                model.cls = CalendarVC.class;
+                model.byTitle(@"CalendarVC".tr)
+                     .bySubTitle(@"日历功能".tr)
+                     .byCls(CalendarVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsVerticalMenuMainVC".tr;
-                model.subTitle = @"竖形菜单选择功能".tr;
-                model.cls = JobsVerticalMenuMainVC.class;
+                model.byTitle(@"JobsVerticalMenuMainVC".tr)
+                     .bySubTitle(@"竖形菜单选择功能".tr)
+                     .byCls(JobsVerticalMenuMainVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsViewNavigatorTestVC".tr;
-                model.subTitle = @"让 UIView 像 UINavigationController 一样支持 push 和 pop".tr;
-                model.cls = JobsViewNavigatorTestVC.class;
+                model.byTitle(@"JobsViewNavigatorTestVC".tr)
+                     .bySubTitle(@"让 UIView 像 UINavigationController 一样支持 push 和 pop".tr)
+                     .byCls(JobsViewNavigatorTestVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"Excel".tr;
-                model.subTitle = @"Excel".tr;
-                model.cls = ExcelVC.class;
+                model.byTitle(@"Excel".tr)
+                     .bySubTitle(@"Excel".tr)
+                     .byCls(ExcelVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JXCategoryViewVerticalShowVC".tr;
-                model.subTitle = @"JXCategoryView垂直表达".tr;
-                model.cls = JXCategoryViewVerticalShowVC.class;
+                model.byTitle(@"JXCategoryViewVerticalShowVC".tr)
+                     .bySubTitle(@"JXCategoryView垂直表达".tr)
+                     .byCls(JXCategoryViewVerticalShowVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"发帖（图文）功能".tr;
-                model.subTitle = @"相册获取资源+存/取未完成字符串".tr;
-                model.cls = JobsPostVC.class;
+                model.byTitle(@"发帖（图文）功能".tr)
+                     .bySubTitle(@"相册获取资源+存/取未完成字符串".tr)
+                     .byCls(JobsPostVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"将图片用字符串（加盐）进行存取".tr;
-                model.subTitle = @"一种图片加密的手段，简单而粗暴.".tr;
-                model.cls = PicToStrStoreVC.class;
+                model.byTitle(@"将图片用字符串（加盐）进行存取".tr)
+                     .bySubTitle(@"一种图片加密的手段，简单而粗暴.".tr)
+                     .byCls(PicToStrStoreVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"iOS 热更新".tr;
-                model.subTitle = @"".tr;
-                model.cls = HotRefreshVC.class;
+                model.byTitle(@"iOS 热更新".tr)
+                     .bySubTitle(@"".tr)
+                     .byCls(HotRefreshVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"iOS 多语言切换".tr;
-                model.subTitle = @"".tr;
-                model.cls = AppLanguageVC.class;
+                model.byTitle(@"iOS 多语言切换".tr)
+                     .bySubTitle(@"".tr)
+                     .byCls(AppLanguageVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"FMDB示例".tr;
-                model.subTitle = @"增删查改".tr;
-                model.cls = FMDB_VC.class;
+                model.byTitle(@"FMDB示例".tr)
+                     .bySubTitle(@"增删查改".tr)
+                     .byCls(FMDB_VC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"Realm示例".tr;
-                model.subTitle = @"增删查改".tr;
-                model.cls = Realm_VC.class;
+                model.byTitle(@"Realm示例".tr)
+                     .bySubTitle(@"增删查改".tr)
+                     .byCls(Realm_VC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"幸运轮盘".tr;
-                model.subTitle = @"中间有抽奖按钮".tr;
-                model.cls = LotteryVC.class;
+                model.byTitle(@"幸运轮盘".tr)
+                     .bySubTitle(@"中间有抽奖按钮".tr)
+                     .byCls(LotteryVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"文本前有小圆点".tr;
-                model.subTitle = @"包括对齐".tr;
-                model.cls = PointLabTestVC.class;
+                model.byTitle(@"文本前有小圆点".tr)
+                     .bySubTitle(@"包括对齐".tr)
+                     .byCls(PointLabTestVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"iOS Widget".tr;
-                model.subTitle = @"".tr;
-                model.cls = WidgetVC.class;
+                model.byTitle(@"iOS Widget".tr)
+                     .bySubTitle(@"".tr)
+                     .byCls(WidgetVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"手机横屏".tr;
-                model.subTitle = @"全局设定".tr;
-                model.cls = LandscapeSwitchVC.class;
+                model.byTitle(@"手机横屏".tr)
+                     .bySubTitle(@"全局设定".tr)
+                     .byCls(LandscapeSwitchVC.class);
             })))
 //            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
 //                model.title = @"Texture".tr;
@@ -432,216 +432,216 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 //                model.cls = TextureDemoVC.class;
 //            })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"本地推送通知".tr;
-                model.subTitle = @"本地推送通知".tr;
-                model.cls = LocalNotificationsVC.class;
+                model.byTitle(@"本地推送通知".tr)
+                     .bySubTitle(@"本地推送通知".tr)
+                     .byCls(LocalNotificationsVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"字符串解压缩".tr;
-                model.subTitle = @"字符串解压缩".tr;
-                model.cls = CompressStrVC.class;
+                model.byTitle(@"字符串解压缩".tr)
+                     .bySubTitle(@"字符串解压缩".tr)
+                     .byCls(CompressStrVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"动态切换App图标".tr;
-                model.subTitle = @"只能跑真机，模拟器编译报错，且iOS 10.3 或更高版本".tr;
-                model.cls = AppIconSwitchingVC.class;
+                model.byTitle(@"动态切换App图标".tr)
+                     .bySubTitle(@"只能跑真机，模拟器编译报错，且iOS 10.3 或更高版本".tr)
+                     .byCls(AppIconSwitchingVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"长按Cell出3D-Touch的菜单".tr;
-                model.subTitle = @"PeekAndPop".tr;
-                model.cls = PeekAndPopVC.class;
+                model.byTitle(@"长按Cell出3D-Touch的菜单".tr)
+                     .bySubTitle(@"PeekAndPop".tr)
+                     .byCls(PeekAndPopVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"系统剪切板测试".tr;
-                model.subTitle = @"尝试控制粘贴提示".tr;
-                model.cls = CtrlClipboardCueVC.class;
+                model.byTitle(@"系统剪切板测试".tr)
+                     .bySubTitle(@"尝试控制粘贴提示".tr)
+                     .byCls(CtrlClipboardCueVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsAppDoor-1".tr;
-                model.subTitle = @"登录注册的第一种表现形式".tr;
-                model.cls = JobsAppDoorVC.class;
-                model.requestParams = @(JobsAppDoorBgType_Video);
+                model.byTitle(@"JobsAppDoor-1".tr)
+                     .bySubTitle(@"登录注册的第一种表现形式".tr)
+                     .byCls(JobsAppDoorVC.class)
+                     .byRequestParams(@(JobsAppDoorBgType_Video));
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsAppDoor-2".tr;
-                model.subTitle = @"登录注册的第二种表现形式".tr;
-                model.cls = JobsAppDoorVC_Style2.class;
-                model.requestParams = @(JobsAppDoorBgType_Video);
+                model.byTitle(@"JobsAppDoor-2".tr)
+                     .bySubTitle(@"登录注册的第二种表现形式".tr)
+                     .byCls(JobsAppDoorVC_Style2.class)
+                     .byRequestParams(@(JobsAppDoorBgType_Video));
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"Douyin_ZFPlayer_1".tr;
-                model.subTitle = @"播放效果 1".tr;
-                model.cls = Douyin_ZFPlayerVC_1.class;
+                model.byTitle(@"Douyin_ZFPlayer_1".tr)
+                     .bySubTitle(@"播放效果 1".tr)
+                     .byCls(Douyin_ZFPlayerVC_1.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"Douyin_ZFPlayer_2".tr;
-                model.subTitle = @"播放效果 2".tr;
-                model.cls = Douyin_ZFPlayerVC_2.class;
+                model.byTitle(@"Douyin_ZFPlayer_2".tr)
+                     .bySubTitle(@"播放效果 2".tr)
+                     .byCls(Douyin_ZFPlayerVC_2.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"TransparentRegion".tr;
-                model.subTitle = @"镂空特效".tr;
-                model.cls = TransparentRegionVC.class;
+                model.byTitle(@"TransparentRegion".tr)
+                     .bySubTitle(@"镂空特效".tr)
+                     .byCls(TransparentRegionVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsComment".tr;
-                model.subTitle = @"📃评论功能".tr;
-                model.cls = JobsCommentVC.class;
+                model.byTitle(@"JobsComment".tr)
+                     .bySubTitle(@"📃评论功能".tr)
+                     .byCls(JobsCommentVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsSearch".tr;
-                model.subTitle = @"🔍搜索功能".tr;
-                model.cls = JobsSearchVC.class;
+                model.byTitle(@"JobsSearch".tr)
+                     .bySubTitle(@"🔍搜索功能".tr)
+                     .byCls(JobsSearchVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"ShadowTBVCell".tr;
-                model.subTitle = @"";
+                model.byTitle(@"ShadowTBVCell".tr)
+                     .bySubTitle(@"");
                 // model.cls = nil;
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"相册选取图片和视频".tr;
-                model.subTitle = @"".tr;
-                model.cls = JobsShootingVC.class;
+                model.byTitle(@"相册选取图片和视频".tr)
+                     .bySubTitle(@"".tr)
+                     .byCls(JobsShootingVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"DynamicView".tr;
-                model.subTitle = @"Gif图片读取".tr;
-                model.cls = DynamicViewTestVC.class;
+                model.byTitle(@"DynamicView".tr)
+                     .bySubTitle(@"Gif图片读取".tr)
+                     .byCls(DynamicViewTestVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"Progress".tr;
-                model.subTitle = @"进度条".tr;
-                model.cls = JobsProgressVC.class;
+                model.byTitle(@"Progress".tr)
+                     .bySubTitle(@"进度条".tr)
+                     .byCls(JobsProgressVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"IrregularView".tr;
-                model.subTitle = @"不规则的按钮".tr;
-                model.cls = TestIrregularViewTestVC.class;
+                model.byTitle(@"IrregularView".tr)
+                     .bySubTitle(@"不规则的按钮".tr)
+                     .byCls(TestIrregularViewTestVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsTimerTestVC".tr;
-                model.subTitle = @"🌛JobsTimer模块测试".tr;
-                model.cls = NSTimerManagerTestVC.class;
+                model.byTitle(@"JobsTimerTestVC".tr)
+                     .bySubTitle(@"🌛JobsTimer模块测试".tr)
+                     .byCls(NSTimerManagerTestVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsIMShowVC".tr;
-                model.subTitle = @"IM模块".tr;
-                model.cls = JobsIMShowVC.class;
+                model.byTitle(@"JobsIMShowVC".tr)
+                     .bySubTitle(@"IM模块".tr)
+                     .byCls(JobsIMShowVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"TestLabelVC".tr;
-                model.subTitle = @"Label的科学管理".tr;
-                model.cls = TestLabelVC.class;
+                model.byTitle(@"TestLabelVC".tr)
+                     .bySubTitle(@"Label的科学管理".tr)
+                     .byCls(TestLabelVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsDropDownListVC".tr;
-                model.subTitle = @"👇🏻下拉列表".tr;
-                model.cls = JobsDropDownListVC.class;
+                model.byTitle(@"JobsDropDownListVC".tr)
+                     .bySubTitle(@"👇🏻下拉列表".tr)
+                     .byCls(JobsDropDownListVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"YTKNetworkStudyVC".tr;
-                model.subTitle = @"探究猿题库网络框架（YTKNetwork）".tr;
-                model.cls = YTKNetworkStudyVC.class;
+                model.byTitle(@"YTKNetworkStudyVC".tr)
+                     .bySubTitle(@"探究猿题库网络框架（YTKNetwork）".tr)
+                     .byCls(YTKNetworkStudyVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"CoreTextLearningVC".tr;
-                model.subTitle = @"探究CoreText".tr;
-                model.cls = CoreTextLearningVC.class;
+                model.byTitle(@"CoreTextLearningVC".tr)
+                     .bySubTitle(@"探究CoreText".tr)
+                     .byCls(CoreTextLearningVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JXCategoryPopupVC".tr;
-                model.subTitle = @"JXCategoryView+PopupView".tr;
-                model.cls = JXCategoryPopupVC.class;
+                model.byTitle(@"JXCategoryPopupVC".tr)
+                     .bySubTitle(@"JXCategoryView+PopupView".tr)
+                     .byCls(JXCategoryPopupVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"UITableViewCellEditorVC".tr;
-                model.subTitle = @"替换系统UITableViewCell编辑状态下前面的按钮UI样式，及其一部分逻辑".tr;
-                model.cls = UITableViewCellEditorVC.class;
+                model.byTitle(@"UITableViewCellEditorVC".tr)
+                     .bySubTitle(@"替换系统UITableViewCell编辑状态下前面的按钮UI样式，及其一部分逻辑".tr)
+                     .byCls(UITableViewCellEditorVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsSettingGestureVC".tr;
-                model.subTitle = @"设置手势密码".tr;
-                model.cls = JobsSettingGestureVC.class;
+                model.byTitle(@"JobsSettingGestureVC".tr)
+                     .bySubTitle(@"设置手势密码".tr)
+                     .byCls(JobsSettingGestureVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsTestVC".tr;
-                model.subTitle = @"进行测试的一个控制器".tr;
-                model.cls = JobsTestVC.class;
+                model.byTitle(@"JobsTestVC".tr)
+                     .bySubTitle(@"进行测试的一个控制器".tr)
+                     .byCls(JobsTestVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"CXBVC".tr;
-                model.subTitle = @"CXB自研科技".tr;
-                model.cls = CXBVC.class;
+                model.byTitle(@"CXBVC".tr)
+                     .bySubTitle(@"CXB自研科技".tr)
+                     .byCls(CXBVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"OCDynamicRegisterVC".tr;
-                model.subTitle = @"OC动态添加类、方法列表、属性列表".tr;
-                model.cls = OCDynamicRegisterVC.class;
+                model.byTitle(@"OCDynamicRegisterVC".tr)
+                     .bySubTitle(@"OC动态添加类、方法列表、属性列表".tr)
+                     .byCls(OCDynamicRegisterVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JXCategoryViewWithHeaderViewVC".tr;
-                model.subTitle = @"JXCategoryView下拉放大头部视图".tr;
-                model.cls = JXCategoryViewWithHeaderViewVC.class;
+                model.byTitle(@"JXCategoryViewWithHeaderViewVC".tr)
+                     .bySubTitle(@"JXCategoryView下拉放大头部视图".tr)
+                     .byCls(JXCategoryViewWithHeaderViewVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"UILabelWordRotatingVC".tr;
-                model.subTitle = @"UILabel文字旋转".tr;
-                model.cls = UILabelWordRotatingVC.class;
+                model.byTitle(@"UILabelWordRotatingVC".tr)
+                     .bySubTitle(@"UILabel文字旋转".tr)
+                     .byCls(UILabelWordRotatingVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"TestBaseLabelVC".tr;
-                model.subTitle = @"测试 -BaseLabel-".tr;
-                model.cls = TestBaseLabelVC.class;
+                model.byTitle(@"TestBaseLabelVC".tr)
+                     .bySubTitle(@"测试 -BaseLabel-".tr)
+                     .byCls(TestBaseLabelVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"RandomTestVC".tr;
-                model.subTitle = @"随机数测试模块".tr;
-                model.cls = RandomTestVC.class;
+                model.byTitle(@"RandomTestVC".tr)
+                     .bySubTitle(@"随机数测试模块".tr)
+                     .byCls(RandomTestVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"CustomTableViewCellVC".tr;
-                model.subTitle = @"自定义UITableViewCell内置控件距离并添加复制按钮".tr;
-                model.cls = CustomTableViewCellVC.class;
+                model.byTitle(@"CustomTableViewCellVC".tr)
+                     .bySubTitle(@"自定义UITableViewCell内置控件距离并添加复制按钮".tr)
+                     .byCls(CustomTableViewCellVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"CustomBtnVC".tr;
-                model.subTitle = @"自定义UIButton子控件的排布".tr;
-                model.cls = CustomBtnVC.class;
+                model.byTitle(@"CustomBtnVC".tr)
+                     .bySubTitle(@"自定义UIButton子控件的排布".tr)
+                     .byCls(CustomBtnVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"GXCardViewDemoVC".tr;
-                model.subTitle = @"卡片式布局(探探附近/QQ配对)，可以设置卡片堆叠效果，可以设置循环效果".tr;
-                model.cls = GXCardViewDemoVC.class;
+                model.byTitle(@"GXCardViewDemoVC".tr)
+                     .bySubTitle(@"卡片式布局(探探附近/QQ配对)，可以设置卡片堆叠效果，可以设置循环效果".tr)
+                     .byCls(GXCardViewDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsWalletVC".tr;
-                model.subTitle = @"UICollectionView实现重叠的卡包效果".tr;
-                model.cls = JobsWalletVC.class;
+                model.byTitle(@"JobsWalletVC".tr)
+                     .bySubTitle(@"UICollectionView实现重叠的卡包效果".tr)
+                     .byCls(JobsWalletVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsScrollViewVC".tr;
-                model.subTitle = @"在指定的y区间内滑动视图(带吸边效果)".tr;
-                model.cls = JobsScrollViewVC.class;
+                model.byTitle(@"JobsScrollViewVC".tr)
+                     .bySubTitle(@"在指定的y区间内滑动视图(带吸边效果)".tr)
+                     .byCls(JobsScrollViewVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"转场动画探究".tr;
-                model.subTitle = @"UIPresentationController的使用".tr;
-                model.cls = JobsPresentingVC.class;
+                model.byTitle(@"转场动画探究".tr)
+                     .bySubTitle(@"UIPresentationController的使用".tr)
+                     .byCls(JobsPresentingVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"Masonry的应用与实践".tr;
-                model.subTitle = @"UIPresentationController的使用".tr;
-                model.cls = MasonryVC.class;
+                model.byTitle(@"Masonry的应用与实践".tr)
+                     .bySubTitle(@"UIPresentationController的使用".tr)
+                     .byCls(MasonryVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"UITBVCellFoldVC";
-                model.subTitle = @"UITableViewCell的折叠效果".tr;
-                model.cls = UITBVCellFoldVC.class;
+                model.byTitle(@"UITBVCellFoldVC")
+                     .bySubTitle(@"UITableViewCell的折叠效果".tr)
+                     .byCls(UITBVCellFoldVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"ProtocolKitVC";
-                model.subTitle = @"Objective-C中实现协议扩展".tr;
-                model.cls = ProtocolKitVC.class;
+                model.byTitle(@"ProtocolKitVC")
+                     .bySubTitle(@"Objective-C中实现协议扩展".tr)
+                     .byCls(ProtocolKitVC.class);
             })));
         });
     }return _dataMutArr;

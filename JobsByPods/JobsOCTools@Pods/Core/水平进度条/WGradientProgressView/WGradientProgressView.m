@@ -38,9 +38,9 @@ static dispatch_once_t dispatchOnce;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = self.titleStr;
-            label.textColor = self.titleColor;
-            label.font = self.titleFont;
+            label.byText(self.titleStr);
+            label.byTextCor(self.titleColor);
+            label.byFont(self.titleFont);
             [label sizeToFit];
             if (self.img) {
                 [self.imgV addSubview:label];

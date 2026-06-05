@@ -91,12 +91,12 @@ digraph PodspecDependencies {
   "ZWPullMenuView";
   "AFSecurityPolicyExtra" -> "JobsBlock";
   "AFSecurityPolicyExtra" -> "JobsOCDefs";
-  "BRPickerView" -> "JobsModel";
+  "BRPickerView" -> "JobsModelDSL";
   "BRPickerViewExtra" -> "BRPickerView";
   "BRPickerViewExtra" -> "JobsBlock";
   "BRPickerViewExtra" -> "JobsLanMgr";
   "BRPickerViewExtra" -> "JobsMakes";
-  "BRPickerViewExtra" -> "JobsModel";
+  "BRPickerViewExtra" -> "JobsModelDSL";
   "BRPickerViewExtra" -> "JobsOCDefs";
   "BRPickerViewExtra" -> "XYColorOC";
   "FDFullscreenPopGesture" -> "JobsBlock";
@@ -341,6 +341,7 @@ digraph PodspecDependencies {
   "JobsLinkageMenuView" -> "YTKNetworkExtra";
   "JobsLocker" -> "JobsOCDefs";
   "JobsMakes" -> "JobsBlock";
+  "JobsMakes" -> "JobsOCDSL";
   "JobsMakes" -> "JobsOCDefs";
   "JobsMakes" -> "JobsStringUtils";
   "JobsMenuView" -> "JobsBlock";

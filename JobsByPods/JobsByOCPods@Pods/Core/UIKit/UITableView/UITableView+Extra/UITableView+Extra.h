@@ -146,10 +146,10 @@ NS_INLINE __kindof UITableView *_Nonnull jobsMakeTableViewByInsetGrouped(jobsByT
                              .makeLabelByShowingType(UILabelShowingType_03);
                      }))/// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                      .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                         data.title = @"NO MESSAGES FOUND".tr;
-                         data.titleCor = JobsWhiteColor;
-                         data.titleFont = bayonRegular(JobsWidth(30));
-                         data.normalImage = @"小狮子".img;
+                         data.byTitle(@"NO MESSAGES FOUND".tr)
+                             .byTitleCor(JobsWhiteColor)
+                             .byTitleFont(bayonRegular(JobsWidth(30)))
+                             .byNormalImage(@"小狮子".img);
                      }))
                      /// 普通的MJRefreshHeader（触发事件）@二选一
                      .byMJRefreshHeader([MJRefreshNormalHeader headerWithRefreshingBlock:^{

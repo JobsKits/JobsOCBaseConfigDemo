@@ -64,6 +64,62 @@
 #import "UITextField+DSL.h"
 #endif
 
+#if __has_include(<GKNavigationBar/GKNavigationBar.h>)
+#if __has_include(<JobsOCDSL/GKNavigationBarConfigure+DSL.h>)
+#import <JobsOCDSL/GKNavigationBarConfigure+DSL.h>
+#else
+#import "GKNavigationBarConfigure+DSL.h"
+#endif
+
+#if __has_include(<JobsOCDSL/GKGestureHandleConfigure+DSL.h>)
+#import <JobsOCDSL/GKGestureHandleConfigure+DSL.h>
+#else
+#import "GKGestureHandleConfigure+DSL.h"
+#endif
+#endif
+
+#if __has_include(<Masonry/Masonry.h>)
+#if __has_include(<JobsOCDSL/UIView+MasonryDSL.h>)
+#import <JobsOCDSL/UIView+MasonryDSL.h>
+#else
+#import "UIView+MasonryDSL.h"
+#endif
+#endif
+
+#if __has_include(<YTKNetwork/YTKNetwork.h>)
+#if __has_include(<JobsOCDSL/YTKBaseRequest+DSL.h>)
+#import <JobsOCDSL/YTKBaseRequest+DSL.h>
+#else
+#import "YTKBaseRequest+DSL.h"
+#endif
+
+#if __has_include(<JobsOCDSL/YTKBatchRequest+DSL.h>)
+#import <JobsOCDSL/YTKBatchRequest+DSL.h>
+#else
+#import "YTKBatchRequest+DSL.h"
+#endif
+
+#if __has_include(<JobsOCDSL/YTKChainRequest+DSL.h>)
+#import <JobsOCDSL/YTKChainRequest+DSL.h>
+#else
+#import "YTKChainRequest+DSL.h"
+#endif
+#endif
+
+#if __has_include(<ZFPlayer/ZFPlayer.h>)
+#if __has_include(<JobsOCDSL/ZFPlayerController+DSL.h>)
+#import <JobsOCDSL/ZFPlayerController+DSL.h>
+#else
+#import "ZFPlayerController+DSL.h"
+#endif
+
+#if __has_include(<JobsOCDSL/ZFAVPlayerManager+DSL.h>)
+#import <JobsOCDSL/ZFAVPlayerManager+DSL.h>
+#else
+#import "ZFAVPlayerManager+DSL.h"
+#endif
+#endif
+
 #if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
 #if __has_include(<JobsOCDSL/ASButtonNode+DSL.h>)
 #import <JobsOCDSL/ASButtonNode+DSL.h>

@@ -52,10 +52,10 @@ UITextFieldProtocol_synthesize
             @jobs_weakify(self)
             self.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
                 @jobs_strongify(self)
-                data.cornerRadiusValue = self.ZYTextFieldCornerRadius;
-                data.jobsWidth = self.ZYTextFieldBorderWidth;
-                data.layerCor = self.ZYTextFieldBorderColor;
-                data.masksToBounds = ZYTextFieldMasksToBounds;//必须写在最后，否则绘制无效
+                data.byCornerRadiusValue(self.ZYTextFieldCornerRadius)
+                    .byJobsWidth(self.ZYTextFieldBorderWidth)
+                    .byLayerCor(self.ZYTextFieldBorderColor)
+                    .byMasksToBounds(ZYTextFieldMasksToBounds);//必须写在最后，否则绘制无效
             }));
         }
     }
@@ -101,10 +101,10 @@ UITextFieldProtocol_synthesize
         if(self.placeholderFont) [data setValue:self.placeholderFont forKey:NSFontAttributeName];
     })];
     [self.placeholder drawInRect:jobsEqualToZeroRect(self.drawPlaceholderInRect) ? jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
-        data.jobsX = 0;
-        data.jobsY = (rect.size.height - placeholderSize.height) / 2;
-        data.jobsWidth = rect.size.width;
-        data.jobsHeight = rect.size.height;
+        data.byJobsX(0)
+            .byJobsY((rect.size.height - placeholderSize.height) / 2)
+            .byJobsWidth(rect.size.width)
+            .byJobsHeight(rect.size.height);
     }) : self.drawPlaceholderInRect
                   withAttributes:jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable data) {
         @jobs_strongify(self)
@@ -147,10 +147,10 @@ UITextFieldProtocol_synthesize
     @jobs_weakify(self)
     return jobsEqualToZeroRect(self.textRectForBounds) ? jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
         @jobs_strongify(self)
-        data.jobsX = (bounds.origin.x + self.text_offset) + (self.leftView.Origin.x + self.leftView.sizer.width + self.leftViewOffsetX);
-        data.jobsY = bounds.origin.y;
-        data.jobsWidth = bounds.size.width - (self.text_offset + self.leftViewOffsetX + self.rightViewOffsetX);
-        data.jobsHeight = bounds.size.height;
+        data.byJobsX((bounds.origin.x + self.text_offset) + (self.leftView.Origin.x + self.leftView.sizer.width + self.leftViewOffsetX))
+            .byJobsY(bounds.origin.y)
+            .byJobsWidth(bounds.size.width - (self.text_offset + self.leftViewOffsetX + self.rightViewOffsetX))
+            .byJobsHeight(bounds.size.height);
     }) : self.textRectForBounds;
 }
 /// 重写来重置编辑区域【编辑状态下的起始位置】、UIFieldEditor的位置大小【键盘弹起会调用此方法】
@@ -158,10 +158,10 @@ UITextFieldProtocol_synthesize
     @jobs_weakify(self)
     return jobsEqualToZeroRect(self.editingRectForBounds) ? jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
         @jobs_strongify(self)
-        data.jobsX = (bounds.origin.x + self.text_offset) + (self.leftView.Origin.x + self.leftView.sizer.width + self.leftViewOffsetX);
-        data.jobsY = bounds.origin.y;
-        data.jobsWidth = bounds.size.width - (self.text_offset + self.leftViewOffsetX + self.rightViewOffsetX + self.fieldEditorOffset);
-        data.jobsHeight = bounds.size.height;
+        data.byJobsX((bounds.origin.x + self.text_offset) + (self.leftView.Origin.x + self.leftView.sizer.width + self.leftViewOffsetX))
+            .byJobsY(bounds.origin.y)
+            .byJobsWidth(bounds.size.width - (self.text_offset + self.leftViewOffsetX + self.rightViewOffsetX + self.fieldEditorOffset))
+            .byJobsHeight(bounds.size.height);
     }) : self.editingRectForBounds;
 }
 #pragma mark —— lazyLoad

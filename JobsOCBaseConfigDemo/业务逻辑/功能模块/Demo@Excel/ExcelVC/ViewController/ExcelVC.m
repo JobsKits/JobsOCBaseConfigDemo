@@ -199,9 +199,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     [cell roundedCornerLastCellByTableView:tableView
                                  indexPath:indexPath
                                layerConfig:jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-        model.roundingCornersRadii = CGSizeMake(JobsWidth(10.0), JobsWidth(10.0));
-        model.borderWidth = 1;
-        model.layerBorderCor = JobsGrayColor;
+        model.byRoundingCornersRadii(CGSizeMake(JobsWidth(10.0), JobsWidth(10.0)))
+             .byBorderWidth(1)
+             .byLayerBorderCor(JobsGrayColor);
     })];
 }
 #pragma mark —— lazyLoad
@@ -237,7 +237,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     [self make:make topOffset:10];
                 });
             if(@available(iOS 11.0, *)) {
-                tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+                tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             }else{
                 SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
             }
@@ -272,30 +272,30 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data1) {
                 @jobs_strongify(self)
                 data.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.title = @"ZMJClassData".tr;
-                    model.subTitle = @"正常".tr;
-                    model.cls = ZMJClassDataVC.class;
+                    model.byTitle(@"ZMJClassData".tr)
+                         .bySubTitle(@"正常".tr)
+                         .byCls(ZMJClassDataVC.class);
                 })))
                 .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.title = @"ZMJTimeable".tr;
-                    model.subTitle = @"正常".tr;
-                    model.cls = ZMJTimeableVC.class;
+                    model.byTitle(@"ZMJTimeable".tr)
+                         .bySubTitle(@"正常".tr)
+                         .byCls(ZMJTimeableVC.class);
                 })))
                 .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.title = @"ZMJSchedule".tr;
-                    model.subTitle = @"正常".tr;
-                    model.cls = ZMJScheduleVC.class;
+                    model.byTitle(@"ZMJSchedule".tr)
+                         .bySubTitle(@"正常".tr)
+                         .byCls(ZMJScheduleVC.class);
                 })))
                 .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.title = @"ZMJGanttList".tr;
-                    model.subTitle = @"有崩溃，需要修复".tr;
-                    model.cls = ZMJGanttListVC.class;
+                    model.byTitle(@"ZMJGanttList".tr)
+                         .bySubTitle(@"有崩溃，需要修复".tr)
+                         .byCls(ZMJGanttListVC.class);
                 })));
             }));
             data.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.title = @"JobsExcel".tr;
-                model.subTitle = @"JobsExcel".tr;
-                model.cls = JobsExcelVC.class;
+                model.byTitle(@"JobsExcel".tr)
+                     .bySubTitle(@"JobsExcel".tr)
+                     .byCls(JobsExcelVC.class);
             })));
         });
     }return _dataMutArr;

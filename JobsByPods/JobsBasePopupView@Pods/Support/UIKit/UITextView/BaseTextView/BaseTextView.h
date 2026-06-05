@@ -82,19 +82,19 @@ NS_INLINE __kindof JobsBasePopupTextView *_Nonnull jobsMakeJobsBasePopupTextView
                  .byUserInteractionEnabled(YES)
                  .byAttributedText(self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray <JobsRichTextConfig *>*_Nullable data) {
                      data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable config) {
-                         config.font = UIFontWeightRegularSize(JobsWidth(12));
-                         config.textCor = JobsWhiteColor;
-                         config.targetString = @"Already have account?".tr;
+                         config.byFont(UIFontWeightRegularSize(JobsWidth(12)))
+                               .byTextCor(JobsWhiteColor)
+                               .byTargetString(@"Already have account?".tr);
                  //        config.textBgCor = UIColor.clearColor;
-                         config.paragraphStyle = self.defaultParagraphStyle;
+                         config.byParagraphStyle(self.defaultParagraphStyle);
                      }));
                      data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable config) {
-                         config.font = UIFontWeightRegularSize(JobsWidth(12));
-                         config.textCor = @"#FFC700".cor;
-                         config.targetString = @" ".add(@"Login Here".tr);
+                         config.byFont(UIFontWeightRegularSize(JobsWidth(12)))
+                               .byTextCor(@"#FFC700".cor)
+                               .byTargetString(@" ".add(@"Login Here".tr));
                  //        config.textBgCor = UIColor.clearColor;
-                         config.paragraphStyle = self.defaultParagraphStyle;
-                         config.urlStr = @"www.google.com";
+                         config.byParagraphStyle(self.defaultParagraphStyle)
+                               .byUrlStr(@"www.google.com");
                      }));
                  }))).byBgColor(JobsClearColor);
 

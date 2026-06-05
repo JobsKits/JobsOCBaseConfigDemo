@@ -93,7 +93,7 @@
     return ^__kindof UIButton *_Nullable(NSString *_Nonnull title){
         @jobs_strongify(self)
         return self.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel *_Nullable data) {
-            data.title = title;
+            data.byTitle(title);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -103,7 +103,7 @@
     return ^__kindof UIButton *_Nullable(NSAttributedString *_Nonnull title){
         @jobs_strongify(self)
         return self.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-            data.attributedTitle = title;
+            data.byAttributedTitle(title);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -113,7 +113,7 @@
     return ^__kindof UIButton *_Nullable(UIImage *_Nonnull image){
         @jobs_strongify(self)
         return self.initByViewModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.image = image;
+            data.byImage(image);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -123,7 +123,7 @@
     return ^__kindof UIButton *_Nullable(UIImage *_Nonnull image){
         @jobs_strongify(self)
         return self.initByViewModel(jobsMakeViewModel(^(__kindof UIViewModel *_Nullable data) {
-            data.backgroundImage = image;
+            data.byBackgroundImage(image);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -135,8 +135,8 @@
                                          NSString *_Nonnull subTitle){
         @jobs_strongify(self)
         return self.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel *_Nullable data) {
-            data.title = title;
-            data.subTitle = subTitle;
+            data.byTitle(title)
+                .bySubTitle(subTitle);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -147,8 +147,8 @@
                                          NSAttributedString *_Nonnull subTitle){
         @jobs_strongify(self)
         return self.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-            data.attributedTitle = title;
-            data.attributedSubTitle = subTitle;
+            data.byAttributedTitle(title)
+                .byAttributedSubTitle(subTitle);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -160,8 +160,8 @@
                                          UIFont *_Nullable font){
         @jobs_strongify(self)
         return self.initByViewModel(jobsMakeViewModel(^(__kindof UIViewModel *_Nullable data) {
-            data.title = title;
-            data.titleFont = font;
+            data.byTitle(title)
+                .byTitleFont(font);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -173,9 +173,9 @@
                                          UIColor *_Nullable titleCor){
         @jobs_strongify(self)
         return self.initByViewModel(jobsMakeViewModel(^(__kindof UIViewModel *_Nullable data) {
-            data.title = title;
-            data.titleFont = font;
-            data.titleCor = titleCor;
+            data.byTitle(title)
+                .byTitleFont(font)
+                .byTitleCor(titleCor);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -190,12 +190,12 @@
                                          CGFloat x){
         @jobs_strongify(self)
         return self.initByViewModel(jobsMakeViewModel(^(__kindof UIViewModel *_Nullable data) {
-            data.image = image;
-            data.title = title;
-            data.titleFont = font;
-            data.titleCor = titleCor;
-            data.imagePlacement = imagePlacement;
-            data.imagePadding = x;
+            data.byImage(image)
+                .byTitle(title)
+                .byTitleFont(font)
+                .byTitleCor(titleCor)
+                .byImagePlacement(imagePlacement)
+                .byImagePadding(x);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -208,10 +208,10 @@
                                          UIImage *_Nonnull backgroundImage){
         @jobs_strongify(self)
         return self.initByViewModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.title = title;
-            data.titleFont = font;
-            data.titleCor = titleCor;
-            data.backgroundImage = backgroundImage;
+            data.byTitle(title)
+                .byTitleFont(font)
+                .byTitleCor(titleCor)
+                .byBackgroundImage(backgroundImage);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -226,12 +226,12 @@
                                          NSDirectionalRectEdge imagePlacement){
         @jobs_strongify(self)
         return self.initByViewModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.image = image;
-            data.title = title;
-            data.titleFont = font;
-            data.titleCor = titleCor;
-            data.backgroundImage = backgroundImage;
-            data.imagePlacement = imagePlacement;
+            data.byImage(image)
+                .byTitle(title)
+                .byTitleFont(font)
+                .byTitleCor(titleCor)
+                .byBackgroundImage(backgroundImage)
+                .byImagePlacement(imagePlacement);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -246,12 +246,12 @@
                                          CGFloat x){/// 图文距离
         @jobs_strongify(self)
         return self.initByViewModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.image = image;
-            data.title = title;
-            data.titleFont = font;
-            data.titleCor = titleCor;
-            data.imagePlacement = directionalRectEdge;
-            data.imagePadding = x;
+            data.byImage(image)
+                .byTitle(title)
+                .byTitleFont(font)
+                .byTitleCor(titleCor)
+                .byImagePlacement(directionalRectEdge)
+                .byImagePadding(x);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }

@@ -63,24 +63,24 @@ NS_ASSUME_NONNULL_END
  
      self.makeNavByConfig(jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable config) {
          config.viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-             viewModel.alpha = 1;
-             viewModel.navBgCor = JobsClearColor;
-             viewModel.navBgImage = @"".img;
-             viewModel.titleImage = @"BLuckyRedLogo".img; /// 配置中间的标题为图片
+             viewModel.byAlpha(1)
+                      .byNavBgCor(JobsClearColor)
+                      .byNavBgImage(@"".img)
+                      .byTitleImage(@"BLuckyRedLogo".img); /// 配置中间的标题为图片
          });
          /// 配置返回键
          config.backBtn = BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
     //            @jobs_strongify(self)
-             buttonModel.normalImage = @"全局返回箭头".img;
-             buttonModel.highlightImage = @"全局返回箭头".img;
-             buttonModel.title = @"".tr;
-             buttonModel.titleFont = bayonRegular(18);
-             buttonModel.titleCor = @"#8A93A1".cor;
-             buttonModel.imagePlacement = NSDirectionalRectEdgeLeading;
-             buttonModel.textAlignment = NSTextAlignmentCenter;
-             buttonModel.subTextAlignment = NSTextAlignmentCenter;
-             buttonModel.baseBackgroundColor = JobsClearColor;
-             buttonModel.imagePadding = JobsWidth(5);
+             buttonModel.byNormalImage(@"全局返回箭头".img)
+                        .byHighlightImage(@"全局返回箭头".img)
+                        .byTitle(@"".tr)
+                        .byTitleFont(bayonRegular(18))
+                        .byTitleCor(@"#8A93A1".cor)
+                        .byImagePlacement(NSDirectionalRectEdgeLeading)
+                        .byTextAlignment(NSTextAlignmentCenter)
+                        .bySubTextAlignment(NSTextAlignmentCenter)
+                        .byBaseBackgroundColor(JobsClearColor)
+                        .byImagePadding(JobsWidth(5));
              buttonModel.clickEventBlock = ^id(__kindof UIButton *_Nullable x){
                  @jobs_strongify(self)
                  x.selected = !x.selected;

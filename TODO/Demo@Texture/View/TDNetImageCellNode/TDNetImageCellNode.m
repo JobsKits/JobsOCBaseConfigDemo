@@ -29,8 +29,8 @@
     @jobs_weakify(self)
     return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(8, 16, 8, 16) child:jobsMakeVerticalStackLayoutSpec(^(ASStackLayoutSpec * _Nullable v) {
         @jobs_strongify(self)
-        v.spacing = 8;
-        v.children = @[self.netImage, self.title];
+        v.bySpacing(8);
+        v.byChildren(@[self.netImage, self.title]);
     })];
 }
 #pragma mark —— lazyLoad

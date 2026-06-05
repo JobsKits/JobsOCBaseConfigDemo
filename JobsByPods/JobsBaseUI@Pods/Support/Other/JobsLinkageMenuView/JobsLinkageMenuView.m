@@ -231,14 +231,14 @@ Prop_assign()CGFloat ANIMATION_TIME;// 菜单栏滚动的时间
         for (int i = 1; i <= self.btnConfig.normal_titles.count; i++) {
             @jobs_weakify(self)
             BaseButton *menuButton = BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                data.normalImage = [self.btnConfig.normal_images objectAtIndex:(i - 1)];
-                data.title = [self.btnConfig.normal_titles objectAtIndex:(i - 1)];
-                data.titleFont = [UIFont systemFontOfSize:self.textSize];
-                data.titleCor = self.btnConfig.titleCor;
-                data.imagePadding = jobs3TO(self.btnConfig.imagePadding,[self.btnConfig.imagePaddings objectAtIndex:(i - 1)].floatValue);
-                data.titlePadding = JobsWidth(10);
-                data.imagePlacement = self.btnConfig.imagePlacement;
-                data.cornerRadiusValue = JobsWidth(8);
+                data.byNormalImage([self.btnConfig.normal_images objectAtIndex:(i - 1)])
+                    .byTitle([self.btnConfig.normal_titles objectAtIndex:(i - 1)])
+                    .byTitleFont([UIFont systemFontOfSize:self.textSize])
+                    .byTitleCor(self.btnConfig.titleCor)
+                    .byImagePadding(jobs3TO(self.btnConfig.imagePadding,[self.btnConfig.imagePaddings objectAtIndex:(i - 1)].floatValue))
+                    .byTitlePadding(JobsWidth(10))
+                    .byImagePlacement(self.btnConfig.imagePlacement)
+                    .byCornerRadiusValue(JobsWidth(8));
             })).onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 [self choseMenu:x];

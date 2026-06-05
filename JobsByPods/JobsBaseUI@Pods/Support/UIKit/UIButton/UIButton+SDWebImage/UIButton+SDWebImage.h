@@ -12,7 +12,7 @@
 
 #if __has_include(<JobsBaseUI/SDWebImageModel.h>)
 #import <JobsBaseUI/SDWebImageModel.h>
-#elif __has_include(<JobsModel/SDWebImageModel.h>)
+#elif __has_include(<JobsModelDSL/JobsModelDSL.h>)
 #if __has_include(<JobsModelDSL/JobsModelDSL.h>)
 #import <JobsModelDSL/JobsModelDSL.h>
 #else

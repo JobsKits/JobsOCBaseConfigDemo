@@ -65,8 +65,8 @@
         NSRange startRange = self.range;
         NSRange endRange = self.rangeOfString(endString);
         NSRange range = jobsMakeRangeByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
-            data.location = startRange.location + startRange.length;
-            data.length = endRange.location - startRange.location - startRange.length;
+            data.byLocation(startRange.location + startRange.length)
+                .byLength(endRange.location - startRange.location - startRange.length);
         });return [self substringWithRange:range];
     };
 }

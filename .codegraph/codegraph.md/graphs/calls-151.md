@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:LZTabBar::setupItems<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBar/LZTabBar.m:32"]
-  T1["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S1["method:MASViewConstraint::setSecondViewAttribute:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASViewConstraint.m:120"]
+  T1["method:MASViewAttribute::initWithView:item:layoutAttribute:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASViewAttribute.m:17"]
   S1 -->|calls| T1
-  S2["method:LZTabBar::topLine<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBar/LZTabBar.m:52"]
-  T2["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S2["method:MASViewConstraint::equalToWithRelation<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASViewConstraint.m:173"]
+  T2["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S2 -->|calls| T2
-  S3["method:LZTabBar::effectView<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBar/LZTabBar.m:60"]
-  T3["method:UIView::addSubview<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:18"]
+  S3["method:MASViewConstraint::equalToWithRelation<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASViewConstraint.m:173"]
+  T3["variable:copy<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:29"]
   S3 -->|calls| T3
-  S4["method:LZTabBarConfig::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarConfig/LZTabBarConfig.m:12"]
-  T4["method:LZTabBarConfig::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarConfig/LZTabBarConfig.m:12"]
+  S4["method:MASViewConstraint::equalToWithRelation<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASViewConstraint.m:173"]
+  T4["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S4 -->|calls| T4
-  S5["method:LZTabBarController::initWithBlock:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:31"]
-  T5["method:LZTabBar::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBar/LZTabBar.m:19"]
+  S5["method:MASViewConstraint::activate<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASViewConstraint.m:297"]
+  T5["method:MASViewConstraint::install<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASViewConstraint.m:305"]
   S5 -->|calls| T5
-  S6["method:LZTabBarController::initWithBlock:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:31"]
-  T6["method:LZTabBarController::setupViewControllers<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:93"]
+  S6["method:MASViewConstraint::deactivate<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASViewConstraint.m:301"]
+  T6["method:MASViewConstraint::uninstall<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASViewConstraint.m:388"]
   S6 -->|calls| T6
-  S7["method:LZTabBarController::initWithBlock:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:31"]
-  T7["method:LZTabBarController::setupTabBar<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:106"]
+  S7["method:MASViewConstraint::install<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASViewConstraint.m:305"]
+  T7["method:MASViewConstraint::supportsActiveProperty<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASViewConstraint.m:103"]
   S7 -->|calls| T7
-  S8["method:LZTabBarController::loadView<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:44"]
-  T8["method:LZTabBarController::loadView<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:44"]
+  S8["method:MASViewConstraint::layoutConstraintSimilarTo:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASViewConstraint.m:368"]
+  T8["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S8 -->|calls| T8
-  S9["method:LZTabBarController::viewDidLoad<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:48"]
-  T9["method:LZTabBarController::viewDidLoad<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:48"]
+  S9["method:MASViewConstraint::uninstall<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASViewConstraint.m:388"]
+  T9["method:MASViewConstraint::supportsActiveProperty<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASViewConstraint.m:103"]
   S9 -->|calls| T9
-  S10["method:LZTabBarController::setupViewControllers<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:93"]
+  S10["method:NSArray::mas_makeConstraints:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/NSArray+MASAdditions.m:13"]
   T10["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S10 -->|calls| T10
-  S11["method:LZTabBarController::setupTabBar<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:106"]
-  T11["function:jobsMakeLZTabBarItem<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarItem/LZTabBarItem.h:57"]
+  S11["method:NSArray::mas_makeConstraints:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/NSArray+MASAdditions.m:13"]
+  T11["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S11 -->|calls| T11
-  S12["method:LZTabBarController::tabBar:didSelectItem:atIndex:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:152"]
+  S12["method:NSArray::mas_updateConstraints:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/NSArray+MASAdditions.m:22"]
   T12["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S12 -->|calls| T12
-  S13["method:LZTabBarController::tabBar:didSelectItem:atIndex:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:152"]
-  T13["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S13["method:NSArray::mas_updateConstraints:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/NSArray+MASAdditions.m:22"]
+  T13["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S13 -->|calls| T13
-  S14["method:LZTabBarController::viewWillTransitionToSize:withTransitionCoordinator:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:183"]
-  T14["method:LZTabBarController::viewWillTransitionToSize:withTransitionCoordinator:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m:183"]
+  S14["method:NSArray::mas_remakeConstraints:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/NSArray+MASAdditions.m:31"]
+  T14["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S14 -->|calls| T14
-  S15["method:LZTabBarItem::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarItem/LZTabBarItem.m:21"]
-  T15["method:LZTabBarItem::init<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarItem/LZTabBarItem.m:21"]
+  S15["method:NSArray::mas_remakeConstraints:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/NSArray+MASAdditions.m:31"]
+  T15["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S15 -->|calls| T15
-  S16["method:LZTabBarItem::layoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarItem/LZTabBarItem.m:35"]
-  T16["method:LZTabBarItem::layoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/LZTabBarController/LZTabBarItem/LZTabBarItem.m:35"]
+  S16["method:NSArray::mas_distributeViewsAlongAxis:withFixedSpacing:leadSpacing:tailSpacing:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/NSArray+MASAdditions.m:40"]
+  T16["method:NSArray::mas_commonSuperviewOfViews<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/NSArray+MASAdditions.m:142"]
   S16 -->|calls| T16
-  S17["method:UITabBar::didAddSubview:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:20"]
-  T17["method:NSObject::isMemberOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:85"]
+  S17["method:NSArray::mas_distributeViewsAlongAxis:withFixedItemLength:leadSpacing:tailSpacing:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/NSArray+MASAdditions.m:89"]
+  T17["method:NSArray::mas_commonSuperviewOfViews<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/NSArray+MASAdditions.m:142"]
   S17 -->|calls| T17
-  S18["method:UITabBar::didAddSubview:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:20"]
-  T18["method:NSObject::isMemberOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:85"]
+  S18["method:NSArray::mas_commonSuperviewOfViews<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/NSArray+MASAdditions.m:142"]
+  T18["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S18 -->|calls| T18
-  S19["method:UITabBar::didAddSubview:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:20"]
-  T19["method:NSObject::isMemberOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:85"]
+  S19["method:NSArray::mas_commonSuperviewOfViews<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/NSArray+MASAdditions.m:142"]
+  T19["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S19 -->|calls| T19
-  S20["method:UITabBar::tl_setSelectedItem:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:37"]
-  T20["function:UITabBar::imageView<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:82"]
+  S20["method:NSLayoutConstraint::descriptionForObject:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/NSLayoutConstraint+MASDebugAdditions.m:95"]
+  T20["method:MAS_VIEW::mas_key<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/View+MASAdditions.m:178"]
   S20 -->|calls| T20
-  S21["method:UITabBar::tl_setSelectedItem:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:37"]
-  T21["function:UITabBar::textLabel<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:68"]
+  S21["method:NSLayoutConstraint::descriptionForObject:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/NSLayoutConstraint+MASDebugAdditions.m:95"]
+  T21["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S21 -->|calls| T21
-  S22["method:UITabBar::tl_setSelectedItem:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:37"]
-  T22["function:UITabBar::imageView<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:82"]
+  S22["method:NSLayoutConstraint::descriptionForObject:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/NSLayoutConstraint+MASDebugAdditions.m:95"]
+  T22["method:MAS_VIEW::mas_key<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/View+MASAdditions.m:178"]
   S22 -->|calls| T22
-  S23["method:UITabBar::tl_setSelectedItem:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:37"]
-  T23["function:UITabBar::textLabel<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:68"]
+  S23["method:NSLayoutConstraint::descriptionForObject:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/NSLayoutConstraint+MASDebugAdditions.m:95"]
+  T23["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S23 -->|calls| T23
-  S24["function:UITabBar::textLabel<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:68"]
-  T24["method:NSObject::isMemberOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:85"]
+  S24["method:MAS_VIEW::mas_makeConstraints:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/View+MASAdditions.m:13"]
+  T24["variable:block<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/Transactions/_ASAsyncTransaction.mm:351"]
   S24 -->|calls| T24
-  S25["function:UITabBar::textLabel<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m:68"]
-  T25["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S25["method:MAS_VIEW::mas_makeConstraints:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/View+MASAdditions.m:13"]
+  T25["method:MASConstraintMaker::install<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASConstraintMaker.m:34"]
   S25 -->|calls| T25
 ```
 

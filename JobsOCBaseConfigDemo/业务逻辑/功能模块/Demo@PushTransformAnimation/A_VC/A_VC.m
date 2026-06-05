@@ -82,8 +82,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     B_VC *b = B_VC.new;
     b.indexPath = indexPath;
     self.comingToPushVCByRequestParams(b,jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-        data.image = toStringByNSInteger(indexPath.row).add(@".jpeg").img;
-        data.backBtnTitleModel.text = @"B_VC";
+        data.byImage(toStringByNSInteger(indexPath.row).add(@".jpeg").img);
+        data.backBtnTitleModel.byText(@"B_VC");
     }));
 }
 

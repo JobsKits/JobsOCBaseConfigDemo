@@ -92,7 +92,7 @@ NS_ASSUME_NONNULL_END
          @jobs_weakify(self)
          _connectionTipsLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
              @jobs_strongify(self)
-             label.attributedText = self.attributedStringData;
+             label.byAttributedString(self.attributedStringData);
              self.view.addSubview(label);
              [label mas_makeConstraints:^(MASConstraintMaker *make) {
                  make.centerX.equalTo(self.view);
@@ -142,16 +142,16 @@ NS_ASSUME_NONNULL_END
          _attributedStringData = self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray <JobsRichTextConfig *>*_Nullable data) {
              data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                  @jobs_strongify(self)
-                 data1.font = UIFontWeightRegularSize(14);
-                 data1.textCor = HEXCOLOR(0x757575);
-                 data1.targetString = self.richTextMutArr[0];
+                 data1.byFont(UIFontWeightRegularSize(14))
+                      .byTextCor(HEXCOLOR(0x757575))
+                      .byTargetString(self.richTextMutArr[0]);
              }));
              data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                  @jobs_strongify(self)
-                 data1.font = UIFontWeightRegularSize(14);
-                 data1.textCor = HEXCOLOR(0xAE8330);
-                 data1.targetString = self.richTextMutArr[1];
-                 data1.urlStr = @"click://"; /// 根据这个属性加链接,点击进行跳转
+                 data1.byFont(UIFontWeightRegularSize(14))
+                      .byTextCor(HEXCOLOR(0xAE8330))
+                      .byTargetString(self.richTextMutArr[1])
+                      .byUrlStr(@"click://"); /// 根据这个属性加链接,点击进行跳转
              }));
          }));
      }return _attributedStringData;

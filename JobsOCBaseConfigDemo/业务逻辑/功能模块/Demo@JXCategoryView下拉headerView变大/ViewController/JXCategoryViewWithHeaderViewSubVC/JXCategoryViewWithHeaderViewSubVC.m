@@ -182,7 +182,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UICollectionViewCell *>*>*
         if (indexPath.section == self.cvcellMutArr.count - 1) {
             return [collectionView UICollectionElementKindSectionFooterClass:BaiShaETProjVIPSubCVFooterView.class
                                                                 forIndexPath:indexPath].JobsRichViewByModel2(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                viewModel.textModel.text = @"查看VIP規則".tr;
+                viewModel.textModel.byText(@"查看VIP規則".tr);
             }));
         }else return nil;
     }else{

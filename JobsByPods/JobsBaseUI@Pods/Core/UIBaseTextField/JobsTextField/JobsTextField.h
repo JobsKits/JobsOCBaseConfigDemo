@@ -159,9 +159,9 @@ NS_INLINE __kindof JobsTextField *_Nonnull makeJobsTextField(jobsByJobsTextField
                      .bySecureTextEntry(NO);
              })
              .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-                 data.layerCor = @"#BBBBBB".cor;
-                 data.jobsWidth = 1;
-                 data.cornerRadiusValue = JobsWidth(8);
+                 data.byLayerCor(@"#BBBBBB".cor)
+                     .byJobsWidth(1)
+                     .byCornerRadiusValue(JobsWidth(8));
              }))
              .addOn(self.scrollView)
              .byAdd(^(MASConstraintMaker *make) {

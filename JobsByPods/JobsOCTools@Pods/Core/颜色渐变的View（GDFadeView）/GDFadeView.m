@@ -112,7 +112,7 @@ Prop_strong()CAGradientLayer *cagradientLayer;
         @jobs_weakify(self)
         _backLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.frame = self.bounds;
+            label.byFrame(self.bounds);
             self.addSubview(label);
         });
     }return _backLabel;
@@ -123,7 +123,7 @@ Prop_strong()CAGradientLayer *cagradientLayer;
         @jobs_weakify(self)
         _frontLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.frame = self.bounds;
+            label.byFrame(self.bounds);
             self.addSubview(label);
         });
     }return _frontLabel;

@@ -12,110 +12,112 @@
 
 ```mermaid
 flowchart LR
-  M1["App/JobsOCBaseConfigDemo"]
-  M2["JobsByPods/GKCustomNavigationBarExtra@Pods"]
-  M3["JobsByPods/ManualByOCPods@Pods"]
-  M4["JobsByPods/JobsBaseUI@Pods"]
-  M5["JobsByPods/JobsOCDefs@Pods"]
-  M6["JobsByPods/JobsClass@Pods"]
-  M7["JobsByPods/JobsStringUtils@Pods"]
-  M8["JobsByPods/JobsByOCPods@Pods"]
-  M9["JobsByPods/JobsOCTools@Pods"]
-  M10["JobsByPods/JobsAPIs@Pods"]
-  M11["JobsByPods/JobsNavigationTransitionMgr@Pods"]
-  M12["JobsByPods/JobsLinkageMenuView@Pods"]
-  M13["JobsByPods/JobsNavBar@Pods"]
-  M14["JobsByPods/MJRefreshExtra@Pods"]
-  M15["JobsByPods/JobsOCProtocols@Pods"]
-  M16["JobsByPods/JobsModel@Pods"]
-  M17["JobsByPods/JobsCustomView@Pods"]
-  M18["JobsByPods/JobsBasePopupView@Pods"]
-  M19["JobsByPods/JobsCryptography@Pods"]
-  M20["JobsByPods/JobsSuspend@Pods"]
+  M1["JobsByPods/ManualByOCPods@Pods"]
+  M2["JobsByPods/JobsBaseUI@Pods"]
+  M3["JobsByPods/JobsClass@Pods"]
+  M4["App/JobsOCBaseConfigDemo"]
+  M5["JobsByPods/GKCustomNavigationBarExtra@Pods"]
+  M6["JobsByPods/JobsOCDefs@Pods"]
+  M7["JobsByPods/JobsAPIs@Pods"]
+  M8["JobsByPods/JobsModelDSL@Pods"]
+  M9["JobsByPods/JobsByOCPods@Pods"]
+  M10["JobsByPods/JobsModel@Pods"]
+  M11["JobsByPods/JobsOCProtocols@Pods"]
+  M12["JobsByPods/JobsStringUtils@Pods"]
+  M13["JobsByPods/JobsLinkageMenuView@Pods"]
+  M14["JobsByPods/JobsNavigationTransitionMgr@Pods"]
+  M15["JobsByPods/JobsBasePopupView@Pods"]
+  M16["JobsByPods/JobsNavBar@Pods"]
+  M17["JobsByPods/MJRefreshExtra@Pods"]
+  M18["JobsByPods/JobsCustomView@Pods"]
+  M19["JobsByPods/JobsOCDSL@Pods"]
+  M20["JobsByPods/JobsCryptography@Pods"]
   M21["JobsByPods/JobsDropDownListView@Pods"]
-  M22["JobsByPods/JobsOCRuntimeKits@Pods"]
-  M23["JobsByPods/JobsTimeUtils@Pods"]
-  M24["JobsByPods/JobsBlock@Pods"]
-  M1 -->|calls:361| M2
-  M3 -->|calls:330| M4
-  M1 -->|calls:325| M5
-  M1 -->|calls:212| M4
-  M3 -->|calls:182| M6
-  M4 -->|calls:171| M2
-  M1 -->|calls:134| M7
-  M8 -->|calls:134| M2
-  M9 -->|calls:131| M2
-  M9 -->|calls:130| M5
-  M3 -->|calls:120| M10
-  M11 -->|calls:119| M2
-  M1 -->|calls:116| M3
-  M3 -->|calls:111| M2
-  M8 -->|calls:108| M6
-  M12 -->|calls:103| M2
-  M1 -->|calls:102| M8
-  M13 -->|calls:102| M2
-  M14 -->|calls:98| M2
-  M15 -->|calls:95| M16
-  M11 -->|calls:87| M6
-  M9 -->|calls:87| M3
-  M8 -->|calls:85| M7
-  M4 -->|calls:82| M6
-  M4 -->|calls:73| M7
-  M4 -->|calls:70| M3
-  M11 -->|calls:65| M7
-  M8 -->|calls:62| M16
-  M17 -->|calls:61| M2
-  M4 -->|calls:57| M5
-  M18 -->|calls:56| M7
-  M13 -->|calls:55| M6
-  M3 -->|calls:51| M18
-  M18 -->|calls:50| M2
-  M13 -->|calls:50| M7
-  M2 -->|calls:48| M7
-  M1 -->|calls:45| M6
-  M17 -->|calls:45| M7
-  M14 -->|calls:44| M7
-  M18 -->|calls:42| M6
-  M17 -->|calls:41| M3
-  M10 -->|calls:40| M7
-  M8 -->|calls:40| M3
-  M9 -->|calls:40| M8
-  M12 -->|calls:38| M7
-  M14 -->|calls:38| M6
-  M19 -->|calls:36| M3
-  M2 -->|calls:35| M6
-  M17 -->|calls:34| M6
-  M12 -->|calls:34| M6
-  M11 -->|calls:33| M16
-  M3 -->|calls:33| M8
-  M8 -->|calls:32| M4
-  M17 -->|calls:31| M16
-  M18 -->|calls:30| M3
-  M9 -->|calls:30| M6
-  M20 -->|calls:29| M2
-  M17 -->|calls:28| M5
-  M21 -->|calls:28| M6
-  M14 -->|calls:27| M16
-  M2 -->|calls:26| M16
-  M2 -->|calls:26| M3
-  M12 -->|calls:26| M16
-  M13 -->|calls:26| M16
-  M16 -->|calls:25| M3
-  M11 -->|calls:25| M3
-  M3 -->|calls:23| M22
-  M16 -->|calls:22| M7
-  M8 -->|calls:21| M5
-  M4 -->|calls:20| M8
-  M8 -->|calls:20| M9
-  M13 -->|calls:20| M3
+  M22["JobsByPods/JobsOCTools@Pods"]
+  M23["JobsByPods/JobsOCRuntimeKits@Pods"]
+  M24["JobsByPods/JobsAppTools@Pods"]
+  M25["JobsByPods/JobsBlock@Pods"]
+  M26["JobsByPods/JobsDeviceInfo@Pods"]
+  M1 -->|calls:356| M2
+  M1 -->|calls:179| M3
+  M4 -->|calls:133| M5
+  M2 -->|calls:128| M5
+  M2 -->|calls:127| M6
+  M1 -->|calls:121| M7
+  M2 -->|calls:120| M8
+  M4 -->|calls:114| M6
+  M1 -->|calls:111| M5
+  M9 -->|calls:108| M3
+  M9 -->|calls:103| M8
+  M9 -->|calls:100| M5
+  M9 -->|calls:100| M10
+  M4 -->|calls:96| M1
+  M11 -->|calls:95| M10
+  M2 -->|calls:90| M1
+  M9 -->|calls:85| M12
+  M2 -->|calls:82| M3
+  M13 -->|calls:74| M5
+  M2 -->|calls:73| M12
+  M9 -->|calls:71| M1
+  M2 -->|calls:66| M10
+  M4 -->|calls:65| M2
+  M14 -->|calls:65| M5
+  M9 -->|calls:59| M6
+  M14 -->|calls:57| M3
+  M15 -->|calls:56| M12
+  M16 -->|calls:54| M5
+  M17 -->|calls:54| M5
+  M18 -->|calls:53| M1
+  M2 -->|calls:51| M19
+  M5 -->|calls:48| M12
+  M18 -->|calls:48| M10
+  M5 -->|calls:47| M10
+  M18 -->|calls:45| M12
+  M15 -->|calls:42| M3
+  M13 -->|calls:42| M10
+  M7 -->|calls:40| M12
+  M2 -->|calls:40| M9
+  M14 -->|calls:39| M12
+  M5 -->|calls:38| M8
+  M5 -->|calls:38| M1
+  M13 -->|calls:38| M12
+  M18 -->|calls:37| M6
+  M20 -->|calls:36| M1
+  M5 -->|calls:35| M3
+  M1 -->|calls:35| M9
+  M4 -->|calls:34| M9
+  M15 -->|calls:34| M10
+  M15 -->|calls:34| M8
+  M18 -->|calls:34| M3
+  M13 -->|calls:34| M3
+  M1 -->|calls:34| M15
+  M15 -->|calls:33| M5
+  M15 -->|calls:32| M6
+  M18 -->|calls:32| M5
+  M9 -->|calls:31| M2
+  M15 -->|calls:30| M1
+  M14 -->|calls:30| M10
+  M4 -->|calls:29| M3
+  M16 -->|calls:29| M3
+  M21 -->|calls:28| M3
+  M13 -->|calls:28| M1
+  M9 -->|calls:27| M19
+  M17 -->|calls:27| M3
+  M17 -->|calls:27| M10
+  M16 -->|calls:26| M10
+  M16 -->|calls:26| M12
+  M17 -->|calls:26| M12
+  M10 -->|calls:25| M1
+  M22 -->|calls:25| M3
+  M1 -->|calls:25| M23
+  M4 -->|calls:22| M12
+  M10 -->|calls:22| M12
+  M14 -->|calls:21| M1
   M9 -->|calls:20| M22
-  M23 -->|calls:20| M7
-  M1 -->|calls:19| M16
-  M4 -->|calls:19| M16
-  M9 -->|calls:19| M4
-  M9 -->|calls:19| M24
-  M9 -->|calls:19| M16
-  M14 -->|calls:19| M3
+  M18 -->|calls:19| M8
+  M2 -->|calls:18| M24
+  M2 -->|calls:17| M25
+  M26 -->|calls:17| M12
 ```
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -79,9 +79,9 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.textAlignment = NSTextAlignmentCenter;
-            label.font = UIFontWeightRegularSize(100);
-            label.backgroundColor = self.contentView.backgroundColor;
+            label.byTextAlignment(NSTextAlignmentCenter);
+            label.byFont(UIFontWeightRegularSize(100));
+            label.byBgColor(self.contentView.backgroundColor);
             [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);
             }];

@@ -130,9 +130,9 @@ UITextFieldProtocol_synthesize_part2
         @jobs_weakify(self)
         _timeLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = self.timeStr;
-            label.textColor = JobsLightGrayColor;
-            label.font = UIFontWeightRegularSize(JobsWidth(12));
+            label.byText(self.timeStr);
+            label.byTextCor(JobsLightGrayColor);
+            label.byFont(UIFontWeightRegularSize(JobsWidth(12)));
             [label sizeToFit];
             self.contentView.addSubview(label);
             [label mas_makeConstraints:^(MASConstraintMaker *make) {

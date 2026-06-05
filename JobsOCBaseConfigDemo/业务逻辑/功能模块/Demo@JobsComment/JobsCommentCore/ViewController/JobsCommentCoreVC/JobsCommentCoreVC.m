@@ -215,19 +215,19 @@ heightForHeaderInSection:(NSInteger)section{///  👌
                 .byEstimatedSectionHeaderHeight(0)
                 .byEstimatedSectionFooterHeight(0)
                 .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                    data.title = @"没有评论".tr;
-                    data.subTitle = @"来发布第一条吧".tr;
-                    data.titleCor = JobsWhiteColor;
-                    data.titleFont = bayonRegular(JobsWidth(30));
-                    data.normalImage = @"暂无数据".img;
-                    data.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
+                    data.byTitle(@"没有评论".tr)
+                        .bySubTitle(@"来发布第一条吧".tr)
+                        .byTitleCor(JobsWhiteColor)
+                        .byTitleFont(bayonRegular(JobsWidth(30)))
+                        .byNormalImage(@"暂无数据".img)
+                        .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0));
                 }))
                 .byMJRefreshHeader(self.lotAnimMJRefreshHeader.byRefreshConfigModel(jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable model) {
-                    model.stateIdleTitle = @"下拉刷新数据".tr;
-                    model.pullingTitle = @"下拉刷新数据".tr;
-                    model.refreshingTitle = @"正在刷新数据".tr;
-                    model.willRefreshTitle = @"刷新数据中".tr;
-                    model.noMoreDataTitle = @"下拉刷新数据".tr;
+                    model.byStateIdleTitle(@"下拉刷新数据".tr)
+                         .byPullingTitle(@"下拉刷新数据".tr)
+                         .byRefreshingTitle(@"正在刷新数据".tr)
+                         .byWillRefreshTitle(@"刷新数据中".tr)
+                         .byNoMoreDataTitle(@"下拉刷新数据".tr);
                     model.loadBlock = ^id _Nullable(id _Nullable data) {
                         @jobs_strongify(self)
                         /// 装载本地假数据
@@ -246,11 +246,11 @@ heightForHeaderInSection:(NSInteger)section{///  👌
                     };
                 })))
                 .byMJRefreshFooter(self.view.MJRefreshAutoGifFooterBy(jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
-                    data.stateIdleTitle = @"".tr;
-                    data.pullingTitle = @"".tr;
-                    data.refreshingTitle = @"".tr;
-                    data.willRefreshTitle = @"".tr;
-                    data.noMoreDataTitle = @"".tr;
+                    data.byStateIdleTitle(@"".tr)
+                        .byPullingTitle(@"".tr)
+                        .byRefreshingTitle(@"".tr)
+                        .byWillRefreshTitle(@"".tr)
+                        .byNoMoreDataTitle(@"".tr);
                     data.loadBlock = ^id _Nullable(id _Nullable data) {
                         @jobs_strongify(self)
                         JobsLog(@"上拉加载更多");

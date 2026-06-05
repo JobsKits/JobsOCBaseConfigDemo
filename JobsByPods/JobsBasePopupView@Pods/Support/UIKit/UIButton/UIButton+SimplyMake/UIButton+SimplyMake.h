@@ -215,24 +215,24 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeButton(jobsByBtnBlock _Nonnull blo
              _applyNowBtn = BaseButton.initByAttributedString(self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof JobsRichTextConfig *>* _Nullable data) {
                  data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                      @jobs_strongify(self)
-                     data1.font = UIFontWeightRegularSize(14);
-                     data1.textCor = @"#666666".cor;
-                     data1.targetString = self.richTextMutArr[0];
-                     data1.paragraphStyle = self.jobsParagraphStyleCenter;
+                     data1.byFont(UIFontWeightRegularSize(14))
+                          .byTextCor(@"#666666".cor)
+                          .byTargetString(self.richTextMutArr[0])
+                          .byParagraphStyle(self.jobsParagraphStyleCenter);
                  }))
                  .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                      @jobs_strongify(self)
-                     data1.font = UIFontWeightRegularSize(14);
-                     data1.textCor = @"#BA9B77".cor;
-                     data1.targetString = self.richTextMutArr[1];
-                     data1.paragraphStyle = self.jobsParagraphStyleCenter;
+                     data1.byFont(UIFontWeightRegularSize(14))
+                          .byTextCor(@"#BA9B77".cor)
+                          .byTargetString(self.richTextMutArr[1])
+                          .byParagraphStyle(self.jobsParagraphStyleCenter);
                  }))
                  .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                      @jobs_strongify(self)
-                     data1.font = UIFontWeightRegularSize(14);
-                     data1.textCor = @"#666666".cor;
-                     data1.targetString = self.richTextMutArr[2];
-                     data1.paragraphStyle = self.jobsParagraphStyleCenter;
+                     data1.byFont(UIFontWeightRegularSize(14))
+                          .byTextCor(@"#666666".cor)
+                          .byTargetString(self.richTextMutArr[2])
+                          .byParagraphStyle(self.jobsParagraphStyleCenter);
                  }));
              }))).bgColorBy(JobsWhiteColor)
                  .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
@@ -255,9 +255,9 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeButton(jobsByBtnBlock _Nonnull blo
      -(BaseButton *)registerBtn{
          if(!_registerBtn){
              _registerBtn = BaseButton.initByTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable data) {
-                 data.text = @"REGISTER".tr;
-                 data.textCor = @"#C90000".cor;
-                 data.font = bayonRegular(JobsWidth(15));
+                 data.byText(@"REGISTER".tr)
+                     .byTextCor(@"#C90000".cor)
+                     .byFont(bayonRegular(JobsWidth(15)));
              }))
              .bgColorBy(JobsWhiteColor)
              .onClickBy(^(UIButton *x){
@@ -265,9 +265,9 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeButton(jobsByBtnBlock _Nonnull blo
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
              }).setLayerBy((jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-                 data.layerCor = @"#C90000".cor;
-                 data.jobsWidth = 1;
-                 data.cornerRadiusValue = JobsWidth(8);
+                 data.byLayerCor(@"#C90000".cor)
+                     .byJobsWidth(1)
+                     .byCornerRadiusValue(JobsWidth(8));
              })));
          }return _registerBtn;
      }

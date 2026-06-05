@@ -120,61 +120,61 @@ NS_ASSUME_NONNULL_END
 
              {
                  UIViewModel *vm = UIViewModel.new;
-                 vm.bgImage = @"service_skype".img;
-                 vm.text = @"".tr;
+                 vm.byBgImage(@"service_skype".img)
+                   .byText(@"".tr);
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));
-                 vm.offsetXForEach = JobsWidth(46);
-                 vm.offsetYForEach = JobsWidth(46);
+                 vm.byOffsetXForEach(JobsWidth(46))
+                   .byOffsetYForEach(JobsWidth(46));
                  [_hotLabelDataMutArr addObject:vm];
              }
 
              {
                  UIViewModel *vm = UIViewModel.new;
-                 vm.bgImage = @"service_qq".img;
-                 vm.text = @"".tr;
+                 vm.byBgImage(@"service_qq".img)
+                   .byText(@"".tr);
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));
-                 vm.offsetXForEach = JobsWidth(46);
-                 vm.offsetYForEach = JobsWidth(46);
+                 vm.byOffsetXForEach(JobsWidth(46))
+                   .byOffsetYForEach(JobsWidth(46));
                  [_hotLabelDataMutArr addObject:vm];
              }
 
              {
                  UIViewModel *vm = UIViewModel.new;
-                 vm.bgImage = @"service_telegram".img;
-                 vm.text = @"".tr;
+                 vm.byBgImage(@"service_telegram".img)
+                   .byText(@"".tr);
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));
-                 vm.offsetXForEach = JobsWidth(46);
-                 vm.offsetYForEach = JobsWidth(46);
+                 vm.byOffsetXForEach(JobsWidth(46))
+                   .byOffsetYForEach(JobsWidth(46));
                  [_hotLabelDataMutArr addObject:vm];
              }
 
              {
                  UIViewModel *vm = UIViewModel.new;
-                 vm.bgImage = @"service_wechat".img;
-                 vm.text = @"".tr;
+                 vm.byBgImage(@"service_wechat".img)
+                   .byText(@"".tr);
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));
-                 vm.offsetXForEach = JobsWidth(46);
-                 vm.offsetYForEach = JobsWidth(46);
+                 vm.byOffsetXForEach(JobsWidth(46))
+                   .byOffsetYForEach(JobsWidth(46));
                  [_hotLabelDataMutArr addObject:vm];
              }
 
              {
                  UIViewModel *vm = UIViewModel.new;
-                 vm.bgImage = @"login_skype".img;
-                 vm.text = @"".tr;
+                 vm.byBgImage(@"login_skype".img)
+                   .byText(@"".tr);
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));
-                 vm.offsetXForEach = JobsWidth(46);
-                 vm.offsetYForEach = JobsWidth(46);
+                 vm.byOffsetXForEach(JobsWidth(46))
+                   .byOffsetYForEach(JobsWidth(46));
                  [_hotLabelDataMutArr addObject:vm];
              }
 
              {
                  UIViewModel *vm = UIViewModel.new;
-                 vm.bgImage = @"service_meiqia".img;
-                 vm.text = @"".tr;
+                 vm.byBgImage(@"service_meiqia".img)
+                   .byText(@"".tr);
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));
-                 vm.offsetXForEach = JobsWidth(46);
-                 vm.offsetYForEach = JobsWidth(46);
+                 vm.byOffsetXForEach(JobsWidth(46))
+                   .byOffsetYForEach(JobsWidth(46));
                  [_hotLabelDataMutArr addObject:vm];
              }
 

@@ -327,9 +327,9 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.text = @"检测当前屏幕方向".tr;
-                    data2.textCor = JobsRedColor;
-                    data2.textAlignment = NSTextAlignmentCenter;
+                    data2.byText(@"检测当前屏幕方向".tr)
+                         .byTextCor(JobsRedColor)
+                         .byTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param){
                     @jobs_strongify(self)
@@ -344,9 +344,9 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.text = @"锁定横屏:\n设备可以处于任意横屏（Landscape）模式，包括左横屏和右横屏".tr;
-                    data2.textCor = JobsRedColor;
-                    data2.textAlignment = NSTextAlignmentCenter;
+                    data2.byText(@"锁定横屏:\n设备可以处于任意横屏（Landscape）模式，包括左横屏和右横屏".tr)
+                         .byTextCor(JobsRedColor)
+                         .byTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param){
                     @jobs_strongify(self)
@@ -360,9 +360,9 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
                 data.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.text = @"解除锁定:\n设备可以处于所有方向，包括竖屏、左横屏、右横屏和倒竖屏".tr;
-                    data2.textCor = JobsRedColor;
-                    data2.textAlignment = NSTextAlignmentCenter;
+                    data2.byText(@"解除锁定:\n设备可以处于所有方向，包括竖屏、左横屏、右横屏和倒竖屏".tr)
+                         .byTextCor(JobsRedColor)
+                         .byTextAlignment(NSTextAlignmentCenter);
                 });
                 data.jobsBlock = ^id(id param){
                     @jobs_strongify(self)
@@ -379,9 +379,9 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.text = @"设备左横屏".tr;
-                    data2.textCor = JobsRedColor;
-                    data2.textAlignment = NSTextAlignmentCenter;
+                    data2.byText(@"设备左横屏".tr)
+                         .byTextCor(JobsRedColor)
+                         .byTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param){
                     @jobs_strongify(self)
@@ -395,9 +395,9 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.text = @"设备右横屏".tr;
-                    data2.textCor = JobsRedColor;
-                    data2.textAlignment = NSTextAlignmentCenter;
+                    data2.byText(@"设备右横屏".tr)
+                         .byTextCor(JobsRedColor)
+                         .byTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param){
                     @jobs_strongify(self)
@@ -411,9 +411,9 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.text = @"设备竖直向上\n Home 按钮在下方".tr;
-                    data2.textCor = JobsRedColor;
-                    data2.textAlignment = NSTextAlignmentCenter;
+                    data2.byText(@"设备竖直向上\n Home 按钮在下方".tr)
+                         .byTextCor(JobsRedColor)
+                         .byTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param) {
                     @jobs_strongify(self)

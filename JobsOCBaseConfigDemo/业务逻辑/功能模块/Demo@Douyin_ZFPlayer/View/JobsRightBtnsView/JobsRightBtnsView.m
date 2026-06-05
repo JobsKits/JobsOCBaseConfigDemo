@@ -100,9 +100,9 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
     /// 实现masonry垂直方向固定控件高度方法
     self.masonryViewArr.installByMasonryModel2(jobsMakeMasonryModel(^(__kindof MasonryModel * _Nullable data) {
         data.axisType = MASAxisTypeVertical;
-        data.fixedItemLength = JobsRightBtnsView.viewSizeByModel(nil).width;
-        data.leadSpacing = JobsWidth(0);
-        data.tailSpacing = JobsWidth(0);
+        data.byFixedItemLength(JobsRightBtnsView.viewSizeByModel(nil).width)
+            .byLeadSpacing(JobsWidth(0))
+            .byTailSpacing(JobsWidth(0));
     })).installByMasonryBlock(^(MASConstraintMaker *_Nonnull make){/// 设置array的水平方向的约束
         make.centerX.equalTo(self);
         make.width.mas_equalTo(JobsRightBtnsView.viewSizeByModel(nil).width);
@@ -111,7 +111,7 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
     @jobs_weakify(self)
     self.loveBtn.richButtonByModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
         @jobs_strongify(self)
-        data.jobsRect = self.loveBtn.frame;
+        data.byJobsRect(self.loveBtn.frame);
     }));
 }
 #pragma mark —— Set方法

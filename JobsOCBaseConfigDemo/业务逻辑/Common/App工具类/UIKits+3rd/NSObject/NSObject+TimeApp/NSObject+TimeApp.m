@@ -22,8 +22,8 @@
     @jobs_weakify(self)
     NSUserDefaults.updateWithModel(jobsMakeUserDefaultModel(^(UserDefaultModel * _Nonnull data) {
         @jobs_strongify(self)
-        data.key = App当日首次进入;
-        data.obj = self.currentDate;
+        data.byKey(App当日首次进入)
+            .byObj(self.currentDate);
     }));return flag;
 }
 

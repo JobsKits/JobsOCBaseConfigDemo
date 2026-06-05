@@ -111,17 +111,17 @@
     return jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
         @jobs_strongify(self)
 //        data.backgroundImage = @"返回".img
-        data.highlightBackgroundImage = @"返回".img;
-        data.highlightImage = @"返回".img;
-        data.normalImage = @"返回".img;
-        data.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-        data.title = self.viewModel.backBtnTitleModel.text;
-        data.font = self.viewModel.backBtnTitleModel.font;
-        data.titleCor = JobsBlackColor;
-        data.selectedTitleCor = JobsBlackColor;
-        data.roundingCorners = UIRectCornerAllCorners;
-        data.imagePlacement = NSDirectionalRectEdgeLeading;
-        data.imagePadding = JobsWidth(5);
+        data.byHighlightBackgroundImage(@"返回".img)
+            .byHighlightImage(@"返回".img)
+            .byNormalImage(@"返回".img)
+            .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
+            .byTitle(self.viewModel.backBtnTitleModel.text)
+            .byFont(self.viewModel.backBtnTitleModel.font)
+            .byTitleCor(JobsBlackColor)
+            .bySelectedTitleCor(JobsBlackColor)
+            .byRoundingCorners(UIRectCornerAllCorners)
+            .byImagePlacement(NSDirectionalRectEdgeLeading)
+            .byImagePadding(JobsWidth(5));
     });
 }
 /// KVC 的二次封装
@@ -180,12 +180,12 @@
 
 -(MJRefreshConfigModel *_Nullable)mjHeaderDefaultConfig{
     return jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
-        data.stateIdleTitle = @"下拉可以刷新".tr;
-        data.pullingTitle = @"下拉可以刷新".tr;
-        data.refreshingTitle = @"松开立即刷新".tr;
-        data.willRefreshTitle = @"刷新数据中".tr;
-        data.noMoreDataTitle = @"下拉可以刷新".tr;
-        data.automaticallyChangeAlpha = YES;
+        data.byStateIdleTitle(@"下拉可以刷新".tr)
+            .byPullingTitle(@"下拉可以刷新".tr)
+            .byRefreshingTitle(@"松开立即刷新".tr)
+            .byWillRefreshTitle(@"刷新数据中".tr)
+            .byNoMoreDataTitle(@"下拉可以刷新".tr)
+            .byAutomaticallyChangeAlpha(YES);
     });
 }
 
@@ -195,12 +195,12 @@
 
 -(MJRefreshConfigModel *_Nullable)mjFooterDefaultConfig{
     return jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
-        data.stateIdleTitle = @"".tr;
-        data.pullingTitle = @"".tr;
-        data.refreshingTitle = @"".tr;
-        data.willRefreshTitle = @"".tr;
-        data.noMoreDataTitle = @"".tr;
-        data.automaticallyChangeAlpha = YES;
+        data.byStateIdleTitle(@"".tr)
+            .byPullingTitle(@"".tr)
+            .byRefreshingTitle(@"".tr)
+            .byWillRefreshTitle(@"".tr)
+            .byNoMoreDataTitle(@"".tr)
+            .byAutomaticallyChangeAlpha(YES);
     });
 }
 

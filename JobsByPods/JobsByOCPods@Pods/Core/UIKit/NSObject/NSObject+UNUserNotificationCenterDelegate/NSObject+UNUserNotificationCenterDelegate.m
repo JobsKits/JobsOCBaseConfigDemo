@@ -34,13 +34,13 @@
             NSString *text = ((UNTextInputNotificationResponse *)response).userText;
             if (isValue(text)) {
                 jobsGetMainWindow().rootViewController.comingToPresentVC(self.makeAlertControllerByAlertModel(jobsMakeAlertModel(^(JobsAlertModel * _Nullable data) {
-                    data.alertControllerTitle = @"Comment".tr;
+                    data.byAlertControllerTitle(@"Comment".tr);
                     data.message = @"You just said".tr
                         .add(@":")
                         .add(text.tr);
-                    data.preferredStyle = UIAlertControllerStyleAlert;
-                    data.alertActionTitle = @"OK".tr;
-                    data.alertActionStyle = UIAlertActionStyleDefault;
+                    data.byPreferredStyle(UIAlertControllerStyleAlert)
+                        .byAlertActionTitle(@"OK".tr)
+                        .byAlertActionStyle(UIAlertActionStyleDefault);
                     data.alertActionBlock = ^(__kindof UIAlertAction * _Nullable action) {
                         JobsLog(@"OK");
                     };
@@ -61,7 +61,7 @@
         NSDateComponents *components = [calendar componentsInTimeZone:NSTimeZone.localTimeZone
                                                              fromDate:date];
         UNNotificationRequest.initBy(jobsMakeUNNotificationRequestModel(^(UNNotificationRequestModel * _Nullable data) {
-            data.identifier = @"calendar";
+            data.byIdentifier(@"calendar");
             data.content = jobsMakeUNMutableNotificationContent(^(__kindof UNMutableNotificationContent * _Nullable content) {
                 content.title = @"Calendar Reminder".tr;
                 content.body = @"github.com/pro648";

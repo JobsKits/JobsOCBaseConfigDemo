@@ -46,16 +46,16 @@ NS_INLINE __kindof UIAlertController *_Nonnull JobsMakeAlertControllerBy(JobsAle
 /**
 
      self.getCurrentViewController.comingToPresentVC(self.makeAlertControllerByAlertModel(jobsMakeAlertModel(^(JobsAlertModel * _Nullable data) {
-         data.alertControllerTitle = @"主标题";
-         data.message = @"副标题";
-         data.preferredStyle = UIAlertControllerStyleAlert;
-         data.alertActionTitle = @"OK";
-         data.alertActionStyle = UIAlertActionStyleDefault;
+         data.byAlertControllerTitle(@"主标题")
+             .byMessage(@"副标题")
+             .byPreferredStyle(UIAlertControllerStyleAlert)
+             .byAlertActionTitle(@"OK")
+             .byAlertActionStyle(UIAlertActionStyleDefault);
          data.alertActionBlock = ^(__kindof UIAlertAction * _Nullable action) {
              JobsLog(@"OK");
          };
-         data.cancelAlertActionTitle = @"取消";
-         data.cancelAlertActionStyle = UIAlertActionStyleCancel;
+         data.byCancelAlertActionTitle(@"取消")
+             .byCancelAlertActionStyle(UIAlertActionStyleCancel);
          data.cancelAlertActionBlock = ^(__kindof UIAlertAction * _Nullable action) {
              JobsLog(@"Cancel");
          };

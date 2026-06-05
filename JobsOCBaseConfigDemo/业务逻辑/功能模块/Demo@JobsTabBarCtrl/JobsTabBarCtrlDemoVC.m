@@ -123,17 +123,17 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
                         .jobsResetBtnNormalAttributedTitle(self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
                             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                                 @jobs_strongify(self)
-                                data1.font = UIFontWeightRegularSize(14);
-                                data1.textCor = @"#666666".cor;
-                                data1.targetString = @"您".tr;
-                                data1.paragraphStyle = self.jobsParagraphStyleCenter;
+                                data1.byFont(UIFontWeightRegularSize(14))
+                                     .byTextCor(@"#666666".cor)
+                                     .byTargetString(@"您".tr)
+                                     .byParagraphStyle(self.jobsParagraphStyleCenter);
                             }))
                             .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                                 @jobs_strongify(self)
-                                data1.font = UIFontWeightRegularSize(14);
-                                data1.textCor = @"#BA9B77".cor;
-                                data1.targetString = @"好".tr;
-                                data1.paragraphStyle = self.jobsParagraphStyleCenter;
+                                data1.byFont(UIFontWeightRegularSize(14))
+                                     .byTextCor(@"#BA9B77".cor)
+                                     .byTargetString(@"好".tr)
+                                     .byParagraphStyle(self.jobsParagraphStyleCenter);
                             }));
                         })))
                         .onClickBy(^(UIButton *x){

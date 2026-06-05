@@ -208,12 +208,12 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
         @jobs_weakify(self)
         _scrollView = self.addSubview(jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView.delegate = self;
-            scrollView.frame = self.bounds;
+            scrollView.byDelegate(self);
+            scrollView.byFrame(self.bounds);
     //        scrollView.backgroundColor = JobsWhiteColor;
-            scrollView.contentSize = CGSizeMake(self->width, self->btnSize.height);
-            scrollView.showsVerticalScrollIndicator = NO;
-            scrollView.showsHorizontalScrollIndicator = NO;
+            scrollView.byContentSize(CGSizeMake(self->width, self->btnSize.height));
+            scrollView.byShowsVerticalScrollIndicator(NO);
+            scrollView.byShowsHorizontalScrollIndicator(NO);
         }));
     }return _scrollView;
 }

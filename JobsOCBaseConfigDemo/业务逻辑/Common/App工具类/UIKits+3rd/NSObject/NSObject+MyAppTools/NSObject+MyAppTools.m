@@ -112,23 +112,23 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         return jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable config) {
             config.viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
                 viewModel.Alpha = 1;
-                viewModel.navBgCor = JobsClearColor;
-                viewModel.navBgImage = @"".img;
-                viewModel.titleImage = @"BLuckyRedLogo".img; /// 配置中间的标题为图片
+                viewModel.byNavBgCor(JobsClearColor)
+                         .byNavBgImage(@"".img)
+                         .byTitleImage(@"BLuckyRedLogo".img); /// 配置中间的标题为图片
             });
             config.backBtn = BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
                 // @jobs_strongify(self)
-                buttonModel.normalImage = @"全局返回箭头".img;
-                buttonModel.highlightImage = @"全局返回箭头".img;
-                buttonModel.title = string;
-                buttonModel.titleFont = bayonRegular(18);
-                buttonModel.titleCor = @"#E20808".cor;
-                buttonModel.imagePlacement = NSDirectionalRectEdgeLeading;
-                buttonModel.textAlignment = NSTextAlignmentCenter;
-                buttonModel.subTextAlignment = NSTextAlignmentCenter;
-                buttonModel.baseBackgroundColor = JobsClearColor;
-                buttonModel.imagePadding = JobsWidth(5);
-                buttonModel.clickEventBlock = backActionBlock;
+                buttonModel.byNormalImage(@"全局返回箭头".img)
+                           .byHighlightImage(@"全局返回箭头".img)
+                           .byTitle(string)
+                           .byTitleFont(bayonRegular(18))
+                           .byTitleCor(@"#E20808".cor)
+                           .byImagePlacement(NSDirectionalRectEdgeLeading)
+                           .byTextAlignment(NSTextAlignmentCenter)
+                           .bySubTextAlignment(NSTextAlignmentCenter)
+                           .byBaseBackgroundColor(JobsClearColor)
+                           .byImagePadding(JobsWidth(5))
+                           .byClickEventBlock(backActionBlock);
                 buttonModel.longPressGestureEventBlock = ^id(__kindof UIButton *_Nullable x){
                     // @jobs_strongify(self)
                     return nil;
@@ -145,24 +145,24 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         return jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable config) {
             config.viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
                 viewModel.Alpha = 1;
-                viewModel.navBgCor = JobsClearColor;
-                viewModel.textModel.text = title;
-                viewModel.textModel.font = bayonRegular(JobsWidth(18));
-                viewModel.navBgImage = @"".img;
+                viewModel.byNavBgCor(JobsClearColor);
+                viewModel.textModel.byText(title)
+                                   .byFont(bayonRegular(JobsWidth(18)));
+                viewModel.byNavBgImage(@"".img);
             });
             config.backBtn = BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
                 // @jobs_strongify(self)
-                buttonModel.normalImage = @"全局返回箭头".img;
-                buttonModel.highlightImage = @"全局返回箭头".img;
-                buttonModel.title = backTitle;
-                buttonModel.titleFont = bayonRegular(18);
-                buttonModel.titleCor = @"#E20808".cor;
-                buttonModel.imagePlacement = NSDirectionalRectEdgeLeading;
-                buttonModel.textAlignment = NSTextAlignmentCenter;
-                buttonModel.subTextAlignment = NSTextAlignmentCenter;
-                buttonModel.baseBackgroundColor = JobsClearColor;
-                buttonModel.imagePadding = JobsWidth(5);
-                buttonModel.clickEventBlock = backActionBlock;
+                buttonModel.byNormalImage(@"全局返回箭头".img)
+                           .byHighlightImage(@"全局返回箭头".img)
+                           .byTitle(backTitle)
+                           .byTitleFont(bayonRegular(18))
+                           .byTitleCor(@"#E20808".cor)
+                           .byImagePlacement(NSDirectionalRectEdgeLeading)
+                           .byTextAlignment(NSTextAlignmentCenter)
+                           .bySubTextAlignment(NSTextAlignmentCenter)
+                           .byBaseBackgroundColor(JobsClearColor)
+                           .byImagePadding(JobsWidth(5))
+                           .byClickEventBlock(backActionBlock);
                 buttonModel.longPressGestureEventBlock = ^id(__kindof UIButton *_Nullable x){
                     // @jobs_strongify(self)
                     return nil;
@@ -265,13 +265,13 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
 -(JobsReturnViewModelByStringBlock _Nonnull)configPopUpDataBy{
     return ^__kindof UIViewModel *_Nullable(NSString *_Nullable data){
         return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.text = data;
-            viewModel.font = UIFontWeightRegularSize(JobsWidth(16));
-            viewModel.textCor = @"#5D5D5D".cor;
-            viewModel.selectedTextCor = JobsWhiteColor;
-            viewModel.bgSelectedCor = @"#5D5D5D".cor;
-            viewModel.bgCor = @"#1F1F1F".cor;
-            viewModel.textAlignment = NSTextAlignmentCenter;
+            viewModel.byText(data)
+                     .byFont(UIFontWeightRegularSize(JobsWidth(16)))
+                     .byTextCor(@"#5D5D5D".cor)
+                     .bySelectedTextCor(JobsWhiteColor)
+                     .byBgSelectedCor(@"#5D5D5D".cor)
+                     .byBgCor(@"#1F1F1F".cor)
+                     .byTextAlignment(NSTextAlignmentCenter);
         });
     };
 }
@@ -427,8 +427,8 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         @jobs_strongify(self)
         UIViewModel *viewModel = [self configViewModelWithAttributeTitle:model.title
                                                        attributeSubTitle:model.subTitle];
-        viewModel.cls = model.cls;
-        viewModel.requestParams = model.requestParams;
+        viewModel.byCls(model.cls)
+                 .byRequestParams(model.requestParams);
         return viewModel;
     };
 }
@@ -517,17 +517,17 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
     return jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
         @jobs_strongify(self)
 //        data.backgroundImage = @"返回".img
-        data.highlightBackgroundImage = @"返回".img;
-        data.highlightImage = @"返回".img;
-        data.normalImage = @"返回".img;
-        data.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-        data.title = self.viewModel.backBtnTitleModel.text;
-        data.font = self.viewModel.backBtnTitleModel.font;
-        data.titleCor = JobsBlackColor;
-        data.selectedTitleCor = JobsBlackColor;
-        data.roundingCorners = UIRectCornerAllCorners;
-        data.imagePlacement = NSDirectionalRectEdgeLeading;
-        data.imagePadding = JobsWidth(5);
+        data.byHighlightBackgroundImage(@"返回".img)
+            .byHighlightImage(@"返回".img)
+            .byNormalImage(@"返回".img)
+            .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
+            .byTitle(self.viewModel.backBtnTitleModel.text)
+            .byFont(self.viewModel.backBtnTitleModel.font)
+            .byTitleCor(JobsBlackColor)
+            .bySelectedTitleCor(JobsBlackColor)
+            .byRoundingCorners(UIRectCornerAllCorners)
+            .byImagePlacement(NSDirectionalRectEdgeLeading)
+            .byImagePadding(JobsWidth(5));
     });
 }
 /// 发通知：登录成功
@@ -591,7 +591,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
         //    if(!CasinoHomeVC_viewDidAppear) return;
         viewController.comingToPresentVCByRequestParams(JobsAppDoorVC.new,
                                                         jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.requestParams = @(JobsAppDoorBgType_Video);
+            data.byRequestParams(@(JobsAppDoorBgType_Video));
         }));
     };
 }
@@ -690,15 +690,15 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
                                 subTitle:(NSString *_Nullable)subTitle{
     return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
         viewModel.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
-            textModel.text = title.tr;
+            textModel.byText(title.tr);
         });
         
         viewModel.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
-            textModel.text = (isNull(subTitle) ? @"点击查看" : subTitle).tr;
+            textModel.byText((isNull(subTitle) ? @"点击查看" : subTitle).tr);
         });
         
         viewModel.backBtnTitleModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
-            textModel.text = @"返回首页".tr;
+            textModel.byText(@"返回首页".tr);
         });
     });
 }
@@ -709,8 +709,8 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
         {
             NSMutableAttributedString *attributedText = JobsMutAttributedString(title.tr);
             attributedText.addFontAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-                data.value = UITextModel.new.font;
-                data.range = NSMakeRange(0, title.tr.length);
+                data.byValue(UITextModel.new.font)
+                    .byRange(NSMakeRange(0, title.tr.length));
             }))
             .addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
                 data.value = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
@@ -718,16 +718,16 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
                     data.alignment = NSTextAlignmentLeft; // 设置对齐方式为左对齐
                     data.lineBreakMode = NSLineBreakByWordWrapping; // 设置换行模式为单词换行
                 });
-                data.range = NSMakeRange(0, title.tr.length);
+                data.byRange(NSMakeRange(0, title.tr.length));
             }));
-            viewModel.textModel.attributedTitle = attributedText;
+            viewModel.textModel.byAttributedTitle(attributedText);
         }
         
         {
             NSMutableAttributedString *attributedText = JobsMutAttributedString((isNull(subTitle) ? @"点击查看" : subTitle).tr);
             attributedText.addFontAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-                data.value = UITextModel.new.font;
-                data.range = NSMakeRange(0, (isNull(subTitle) ? @"点击查看" : subTitle).tr.length);
+                data.byValue(UITextModel.new.font)
+                    .byRange(NSMakeRange(0, (isNull(subTitle) ? @"点击查看" : subTitle).tr.length));
             }))
             .addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
                 data.value = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
@@ -735,13 +735,13 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
                     data.alignment = NSTextAlignmentLeft; // 设置对齐方式为左对齐
                     data.lineBreakMode = NSLineBreakByWordWrapping; // 设置换行模式为单词换行
                 });
-                data.range = NSMakeRange(0, (isNull(subTitle) ? @"点击查看" : subTitle).tr.length);
+                data.byRange(NSMakeRange(0, (isNull(subTitle) ? @"点击查看" : subTitle).tr.length));
             }));
-            viewModel.subTextModel.attributedTitle = attributedText;
+            viewModel.subTextModel.byAttributedTitle(attributedText);
         }
         
         viewModel.backBtnTitleModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data) {
-            data.text = @"返回首页".tr;
+            data.byText(@"返回首页".tr);
         });
     });
 }
@@ -764,60 +764,60 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
 -(NSMutableArray <__kindof UIButtonModel *>*)gameDataMutArr{
     return jobsMakeMutArr(^(__kindof NSMutableArray <UIButtonModel *>* _Nullable data) {
         data.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-            model.title = @"HOT Games".tr;
-            model.subTitle = @"".tr;
-            model.titleCor = @"#3D3D3D".cor;
-            model.titleFont = bayonRegular(JobsWidth(10));
-            model.backgroundImage = @"首页切换游戏种类按钮背景图（未选择）".img;
-            model.highlightBackgroundImage = @"首页切换游戏种类按钮背景图（已选择）".img;
-            model.highlightImage = @"HOT Games".img;
-            model.normalImage = @"HOT Games".img;
-            model.imagePlacement = NSDirectionalRectEdgeTop;
-            model.baseBackgroundColor = JobsClearColor;
+            model.byTitle(@"HOT Games".tr)
+                 .bySubTitle(@"".tr)
+                 .byTitleCor(@"#3D3D3D".cor)
+                 .byTitleFont(bayonRegular(JobsWidth(10)))
+                 .byBackgroundImage(@"首页切换游戏种类按钮背景图（未选择）".img)
+                 .byHighlightBackgroundImage(@"首页切换游戏种类按钮背景图（已选择）".img)
+                 .byHighlightImage(@"HOT Games".img)
+                 .byNormalImage(@"HOT Games".img)
+                 .byImagePlacement(NSDirectionalRectEdgeTop)
+                 .byBaseBackgroundColor(JobsClearColor);
         })).add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-            model.title = @"SPORTS".tr;
-            model.subTitle = @"".tr;
-            model.titleCor = @"#3D3D3D".cor;
-            model.titleFont = bayonRegular(JobsWidth(10));
-            model.backgroundImage = @"首页切换游戏种类按钮背景图（未选择）".img;
-            model.highlightBackgroundImage = @"首页切换游戏种类按钮背景图（已选择）".img;
-            model.highlightImage = @"SPORTS".img;
-            model.normalImage = @"SPORTS".img;
-            model.imagePlacement = NSDirectionalRectEdgeTop;
-            model.baseBackgroundColor = JobsClearColor;
+            model.byTitle(@"SPORTS".tr)
+                 .bySubTitle(@"".tr)
+                 .byTitleCor(@"#3D3D3D".cor)
+                 .byTitleFont(bayonRegular(JobsWidth(10)))
+                 .byBackgroundImage(@"首页切换游戏种类按钮背景图（未选择）".img)
+                 .byHighlightBackgroundImage(@"首页切换游戏种类按钮背景图（已选择）".img)
+                 .byHighlightImage(@"SPORTS".img)
+                 .byNormalImage(@"SPORTS".img)
+                 .byImagePlacement(NSDirectionalRectEdgeTop)
+                 .byBaseBackgroundColor(JobsClearColor);
         })).add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-            model.title = @"SLOT GAMES".tr;
-            model.subTitle = @"".tr;
-            model.titleCor = @"#3D3D3D".cor;
-            model.titleFont = bayonRegular(JobsWidth(10));
-            model.backgroundImage = @"首页切换游戏种类按钮背景图（未选择）".img;
-            model.highlightBackgroundImage = @"首页切换游戏种类按钮背景图（已选择）".img;
-            model.highlightImage = @"SLOT GAMES".img;
-            model.normalImage = @"SLOT GAMES".img;
-            model.imagePlacement = NSDirectionalRectEdgeTop;
-            model.baseBackgroundColor = JobsClearColor;
+            model.byTitle(@"SLOT GAMES".tr)
+                 .bySubTitle(@"".tr)
+                 .byTitleCor(@"#3D3D3D".cor)
+                 .byTitleFont(bayonRegular(JobsWidth(10)))
+                 .byBackgroundImage(@"首页切换游戏种类按钮背景图（未选择）".img)
+                 .byHighlightBackgroundImage(@"首页切换游戏种类按钮背景图（已选择）".img)
+                 .byHighlightImage(@"SLOT GAMES".img)
+                 .byNormalImage(@"SLOT GAMES".img)
+                 .byImagePlacement(NSDirectionalRectEdgeTop)
+                 .byBaseBackgroundColor(JobsClearColor);
         })).add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-            model.title = @"LIVE GAMES".tr;
-            model.subTitle = @"".tr;
-            model.titleCor = @"#3D3D3D".cor;
-            model.titleFont = bayonRegular(JobsWidth(10));
-            model.backgroundImage = @"首页切换游戏种类按钮背景图（未选择）".img;
-            model.highlightBackgroundImage = @"首页切换游戏种类按钮背景图（已选择）".img;
-            model.highlightImage = @"LIVE GAMES".img;
-            model.normalImage = @"LIVE GAMES".img;
-            model.imagePlacement = NSDirectionalRectEdgeTop;
-            model.baseBackgroundColor = JobsClearColor;
+            model.byTitle(@"LIVE GAMES".tr)
+                 .bySubTitle(@"".tr)
+                 .byTitleCor(@"#3D3D3D".cor)
+                 .byTitleFont(bayonRegular(JobsWidth(10)))
+                 .byBackgroundImage(@"首页切换游戏种类按钮背景图（未选择）".img)
+                 .byHighlightBackgroundImage(@"首页切换游戏种类按钮背景图（已选择）".img)
+                 .byHighlightImage(@"LIVE GAMES".img)
+                 .byNormalImage(@"LIVE GAMES".img)
+                 .byImagePlacement(NSDirectionalRectEdgeTop)
+                 .byBaseBackgroundColor(JobsClearColor);
         })).add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-            model.title = @"TABLE GAMES".tr;
-            model.subTitle = @"".tr;
-            model.titleCor = @"#3D3D3D".cor;
-            model.titleFont = bayonRegular(JobsWidth(10));
-            model.backgroundImage = @"首页切换游戏种类按钮背景图（未选择）".img;
-            model.highlightBackgroundImage = @"首页切换游戏种类按钮背景图（已选择）".img;
-            model.highlightImage = @"TABLE GAMES".img;
-            model.normalImage = @"TABLE GAMES".img;
-            model.imagePlacement = NSDirectionalRectEdgeTop;
-            model.baseBackgroundColor = JobsClearColor;
+            model.byTitle(@"TABLE GAMES".tr)
+                 .bySubTitle(@"".tr)
+                 .byTitleCor(@"#3D3D3D".cor)
+                 .byTitleFont(bayonRegular(JobsWidth(10)))
+                 .byBackgroundImage(@"首页切换游戏种类按钮背景图（未选择）".img)
+                 .byHighlightBackgroundImage(@"首页切换游戏种类按钮背景图（已选择）".img)
+                 .byHighlightImage(@"TABLE GAMES".img)
+                 .byNormalImage(@"TABLE GAMES".img)
+                 .byImagePlacement(NSDirectionalRectEdgeTop)
+                 .byBaseBackgroundColor(JobsClearColor);
         }));
     });
 }
@@ -825,20 +825,20 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
 -(NSMutableArray <__kindof UIViewModel *>*)favDataMutArr{
     return jobsMakeMutArr(^(__kindof NSMutableArray<UIViewModel *> * _Nullable arr) {
         arr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.bgImage = @"FlementalLinkFire".img;
-            data.imageUrl = @"https://zh.wikipedia.org/wiki/File:Jiang_Zemin_2002.jpg".jobsUrl;
-            data.image = @"点赞".img;
-            data.text = @"FlementalLinkFire".tr;
+            data.byBgImage(@"FlementalLinkFire".img)
+                .byImageUrl(@"https://zh.wikipedia.org/wiki/File:Jiang_Zemin_2002.jpg".jobsUrl)
+                .byImage(@"点赞".img)
+                .byText(@"FlementalLinkFire".tr);
         })).add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.bgImage = @"DragonSoar".img;
-            data.imageUrl = @"https://zh.wikipedia.org/wiki/File:Deng_Xiaoping_at_the_arrival_ceremony_for_the_Vice_Premier_of_China_(cropped).jpg".jobsUrl;
-            data.image = @"点赞".img;
-            data.text = @"DragonSoar".tr;
+            data.byBgImage(@"DragonSoar".img)
+                .byImageUrl(@"https://zh.wikipedia.org/wiki/File:Deng_Xiaoping_at_the_arrival_ceremony_for_the_Vice_Premier_of_China_(cropped).jpg".jobsUrl)
+                .byImage(@"点赞".img)
+                .byText(@"DragonSoar".tr);
         })).add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.bgImage = @"StreetFighter".img;
-            data.imageUrl = @"https://zh.wikipedia.org/wiki/File:Zhu_Rongji_in_2000.jpg".jobsUrl;
-            data.image = @"点赞".img;
-            data.text = @"ELEMENTAL LINK".tr;
+            data.byBgImage(@"StreetFighter".img)
+                .byImageUrl(@"https://zh.wikipedia.org/wiki/File:Zhu_Rongji_in_2000.jpg".jobsUrl)
+                .byImage(@"点赞".img)
+                .byText(@"ELEMENTAL LINK".tr);
         }));
     });
 }
@@ -882,10 +882,10 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
 -(UIViewModel *)testPopViewData{
     return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
         viewModel.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
-            textModel.text = @"主标题".tr;
+            textModel.byText(@"主标题".tr);
         });
         viewModel.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
-            textModel.text = @"副标题".tr;
+            textModel.byText(@"副标题".tr);
         });
     });
 }
@@ -1097,7 +1097,7 @@ JobsKey(_separateLab)
         @jobs_weakify(self)
         Jobs_setAssociatedRETAIN_NONATOMIC(_separateLab, jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = HEXCOLOR(0xC4C4C4);
+            label.byBgColor(HEXCOLOR(0xC4C4C4));
             UIViewController *viewController = (UIViewController *)self;
             [viewController.bgImageView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(2), JobsWidth(14)));
@@ -1218,16 +1218,16 @@ JobsKey(_richTextConfigMutArr)
         RichTextMutArr = jobsMakeMutArr(^(NSMutableArray <JobsRichTextConfig *>* _Nullable data) {
             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                 @jobs_strongify(self)
-                data1.font = UIFontWeightRegularSize(12);
-                data1.textCor = HEXCOLOR(0x757575);
-                data1.targetString = self.richTextMutArr[0];
+                data1.byFont(UIFontWeightRegularSize(12))
+                     .byTextCor(HEXCOLOR(0x757575))
+                     .byTargetString(self.richTextMutArr[0]);
             }))
             .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                 @jobs_strongify(self)
                 data1.font = UIFontWeightMediumSize(12);;
-                data1.textCor = HEXCOLOR(0xAE8330);
-                data1.targetString = self.richTextMutArr[1];
-                data1.urlStr = @"click://";
+                data1.byTextCor(HEXCOLOR(0xAE8330))
+                     .byTargetString(self.richTextMutArr[1])
+                     .byUrlStr(@"click://");
             }));
         });[self setRichTextConfigMutArr:RichTextMutArr];
         Jobs_setAssociatedRETAIN_NONATOMIC(_richTextConfigMutArr, RichTextMutArr)

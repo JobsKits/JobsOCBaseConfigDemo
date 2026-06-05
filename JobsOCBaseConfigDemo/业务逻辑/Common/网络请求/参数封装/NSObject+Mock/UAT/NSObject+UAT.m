@@ -16,20 +16,20 @@
 /// 手机验证码登录
 -(FMDoorModel *)mock_uat_login_data1{
     return jobsMakeDoorModel(^(__kindof FMDoorModel * _Nullable data) {
-        data.captcha_id = @"";
-        data.captcha_key = @"";
-        data.captcha_output = @"";
-        data.countryCode = @"CN";/// 国家编码两位码(中国CN、越南VN)-国家的ISO 3166-1 Alpha-2代码
-        data.domain = @"";
-        data.gen_time = @"";
-        data.inviteCode = @"";/// 代理邀请码
-        data.lot_number = @"";
-        data.mobile = @"09970000001";/// 手机号 09970000001
-        data.pass_token = @"";
-        data.password = @"Jobs29506045^";/// 密码 Jobs29506045^
-        data.referCode = @"";
-        data.smsCode = @"888";/// 短信验证码 888
-        data.userName = @"dev023";/// 用户名 dev023
+        data.byCaptcha_id(@"")
+            .byCaptcha_key(@"")
+            .byCaptcha_output(@"")
+            .byCountryCode(@"CN")/// 国家编码两位码(中国CN、越南VN)-国家的ISO 3166-1 Alpha-2代码
+            .byDomain(@"")
+            .byGen_time(@"")
+            .byInviteCode(@"")/// 代理邀请码
+            .byLot_number(@"")
+            .byMobile(@"09970000001")/// 手机号 09970000001
+            .byPass_token(@"")
+            .byPassword(@"Jobs29506045^")/// 密码 Jobs29506045^
+            .byReferCode(@"")
+            .bySmsCode(@"888")/// 短信验证码 888
+            .byUserName(@"dev023");/// 用户名 dev023
     });
 }
 /// 手机号码：09970000002
@@ -39,22 +39,22 @@
 /// 备注：账密登录
 -(FMDoorModel *)mock_uat_login_data2{
     return jobsMakeDoorModel(^(__kindof FMDoorModel *_Nullable data) {
-        data.captcha_id = @"";
-        data.captcha_key = @"";
-        data.captcha_output = @"";
-        data.countryCode = @"PH";/// 国家编码两位码(中国CN、越南VN)-国家的ISO 3166-1 Alpha-2代码
-        data.domain = @"";
-        data.domainName = @"";/// 好友邀请域名
-        data.gen_time = @"";
-        data.inviteName = @"";/// 好友邀请人账号
-        data.inviteCode = @"";/// 代理邀请码
-        data.lot_number = @"";
-        data.mobile = @"09970000002";/// 手机号 09970000002
-        data.pass_token = @"";
-        data.password = @"Jobs29506045^";/// 密码 Jobs29506045^
-        data.referCode = @"";
-        data.smsCode = @"888";/// 短信验证码 888
-        data.userName = @"JobsGo";/// 账号（用户名）：pendlessk01
+        data.byCaptcha_id(@"")
+            .byCaptcha_key(@"")
+            .byCaptcha_output(@"")
+            .byCountryCode(@"PH")/// 国家编码两位码(中国CN、越南VN)-国家的ISO 3166-1 Alpha-2代码
+            .byDomain(@"")
+            .byDomainName(@"")/// 好友邀请域名
+            .byGen_time(@"")
+            .byInviteName(@"")/// 好友邀请人账号
+            .byInviteCode(@"")/// 代理邀请码
+            .byLot_number(@"")
+            .byMobile(@"09970000002")/// 手机号 09970000002
+            .byPass_token(@"")
+            .byPassword(@"Jobs29506045^")/// 密码 Jobs29506045^
+            .byReferCode(@"")
+            .bySmsCode(@"888")/// 短信验证码 888
+            .byUserName(@"JobsGo");/// 账号（用户名）：pendlessk01
     });
 }
 #pragma mark —— 注册
@@ -64,20 +64,20 @@
 -(JobsReturnDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_uat_signUP_data1{
     return ^__kindof FMDoorModel *_Nullable(__kindof GTCaptcha4Model *_Nullable model){
         return jobsMakeDoorModel(^(__kindof FMDoorModel * _Nullable data) {
-            data.captcha_key = @"";
-            data.captcha_id = Guard(model.result.captcha_id);
-            data.captcha_output = Guard(model.result.captcha_output);
-            data.gen_time = Guard(model.result.gen_time);
-            data.lot_number = Guard(model.result.lot_number);
-            data.pass_token = Guard(model.result.pass_token);
-            data.countryCode = @"PH";/// 国家编码两位码(中国CN、越南VN)-国家的ISO 3166-1 Alpha-2代码
-            data.domain = @"";
-            data.inviteCode = @"";/// 代理邀请码
-            data.mobile = @"09970000001";
-            data.password = @"Jobs29506045^";/// 密码
-            data.referCode = @"";/// 好友邀请码
-            data.smsCode = @"888";/// 短信验证码
-            data.userName = @"dev023";/// 账号（用户名）：dev023
+            data.byCaptcha_key(@"")
+                .byCaptcha_id(Guard(model.result.captcha_id))
+                .byCaptcha_output(Guard(model.result.captcha_output))
+                .byGen_time(Guard(model.result.gen_time))
+                .byLot_number(Guard(model.result.lot_number))
+                .byPass_token(Guard(model.result.pass_token))
+                .byCountryCode(@"PH")/// 国家编码两位码(中国CN、越南VN)-国家的ISO 3166-1 Alpha-2代码
+                .byDomain(@"")
+                .byInviteCode(@"")/// 代理邀请码
+                .byMobile(@"09970000001")
+                .byPassword(@"Jobs29506045^")/// 密码
+                .byReferCode(@"")/// 好友邀请码
+                .bySmsCode(@"888")/// 短信验证码
+                .byUserName(@"dev023");/// 账号（用户名）：dev023
         });
     };
 }
@@ -87,20 +87,20 @@
 -(JobsReturnDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_uat_signUP_data2{
     return ^__kindof FMDoorModel *_Nullable(__kindof GTCaptcha4Model *_Nullable model){
         return jobsMakeDoorModel(^(__kindof FMDoorModel * _Nullable data) {
-            data.captcha_key = @"";
-            data.captcha_id = Guard(model.result.captcha_id);
-            data.captcha_output = Guard(model.result.captcha_output);
-            data.gen_time = Guard(model.result.gen_time);
-            data.lot_number = Guard(model.result.lot_number);
-            data.pass_token = Guard(model.result.pass_token);
-            data.countryCode = @"PH";/// 国家编码两位码(中国CN、越南VN)-国家的ISO 3166-1 Alpha-2代码
-            data.domain = @"";
-            data.inviteCode = @"";/// 代理邀请码
-            data.mobile = @"09970000002";
-            data.password = @"Jobs29506045^";/// 密码
-            data.referCode = @"";/// 好友邀请码
-            data.smsCode = @"888";/// 短信验证码
-            data.userName = @"JobsGo";/// 用户名
+            data.byCaptcha_key(@"")
+                .byCaptcha_id(Guard(model.result.captcha_id))
+                .byCaptcha_output(Guard(model.result.captcha_output))
+                .byGen_time(Guard(model.result.gen_time))
+                .byLot_number(Guard(model.result.lot_number))
+                .byPass_token(Guard(model.result.pass_token))
+                .byCountryCode(@"PH")/// 国家编码两位码(中国CN、越南VN)-国家的ISO 3166-1 Alpha-2代码
+                .byDomain(@"")
+                .byInviteCode(@"")/// 代理邀请码
+                .byMobile(@"09970000002")
+                .byPassword(@"Jobs29506045^")/// 密码
+                .byReferCode(@"")/// 好友邀请码
+                .bySmsCode(@"888")/// 短信验证码
+                .byUserName(@"JobsGo");/// 用户名
         });
     };
 }
@@ -110,19 +110,19 @@
 -(JobsReturnDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_uat_smsCode_data1{
     return ^__kindof FMDoorModel *_Nullable(__kindof GTCaptcha4Model *_Nullable model){
         return jobsMakeDoorModel(^(__kindof FMDoorModel * _Nullable data) {
-            data.actionType = @(USERTYPE_REGISTER);
-            data.businessSource = @(BUSINESSSOURCE_MEMBER);/// 业务来源（1.会员 2.代理）默认会员
-            data.callFlag = @"";/// 调用标识，用于判断是app还是后台管理，默认为空，为空则需要校验图形验证码（1.代理服务）
-            data.captcha_id = model.result.captcha_id;
-            data.captcha_key = @"";
-            data.captcha_output = model.result.captcha_output;
-            data.domain = @"";
-            data.gen_time = model.result.gen_time;
-            data.lot_number = model.result.lot_number;
-            data.mobile = @"09970000001";///
-            data.mobileArea = @"63";/// 区号代码
-            data.pass_token = model.result.pass_token;
-            data.userName = @"dev023";/// 会员/代理账号
+            data.byActionType(@(USERTYPE_REGISTER))
+                .byBusinessSource(@(BUSINESSSOURCE_MEMBER))/// 业务来源（1.会员 2.代理）默认会员
+                .byCallFlag(@"")/// 调用标识，用于判断是app还是后台管理，默认为空，为空则需要校验图形验证码（1.代理服务）
+                .byCaptcha_id(model.result.captcha_id)
+                .byCaptcha_key(@"")
+                .byCaptcha_output(model.result.captcha_output)
+                .byDomain(@"")
+                .byGen_time(model.result.gen_time)
+                .byLot_number(model.result.lot_number)
+                .byMobile(@"09970000001")///
+                .byMobileArea(@"63")/// 区号代码
+                .byPass_token(model.result.pass_token)
+                .byUserName(@"dev023");/// 会员/代理账号
         });
     };
 }
@@ -131,19 +131,19 @@
 -(JobsReturnDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_uat_smsCode_data2{
     return ^__kindof FMDoorModel *_Nullable(__kindof GTCaptcha4Model *_Nullable model){
         return jobsMakeDoorModel(^(__kindof FMDoorModel * _Nullable data) {
-            data.actionType = @(USERTYPE_REGISTER);
-            data.businessSource = @(BUSINESSSOURCE_MEMBER);/// 业务来源（1.会员 2.代理）默认会员
-            data.callFlag = @"";/// 调用标识，用于判断是app还是后台管理，默认为空，为空则需要校验图形验证码（1.代理服务）
-            data.captcha_id = model.result.captcha_id;
-            data.captcha_key = @"";
-            data.captcha_output = model.result.captcha_output;
-            data.domain = @"";
-            data.gen_time = model.result.gen_time;
-            data.lot_number = model.result.lot_number;
-            data.mobile = @"09970000002";///
-            data.mobileArea = @"63";/// 区号代码
-            data.pass_token = model.result.pass_token;
-            data.userName = @"JobsGo";/// 会员/代理账号
+            data.byActionType(@(USERTYPE_REGISTER))
+                .byBusinessSource(@(BUSINESSSOURCE_MEMBER))/// 业务来源（1.会员 2.代理）默认会员
+                .byCallFlag(@"")/// 调用标识，用于判断是app还是后台管理，默认为空，为空则需要校验图形验证码（1.代理服务）
+                .byCaptcha_id(model.result.captcha_id)
+                .byCaptcha_key(@"")
+                .byCaptcha_output(model.result.captcha_output)
+                .byDomain(@"")
+                .byGen_time(model.result.gen_time)
+                .byLot_number(model.result.lot_number)
+                .byMobile(@"09970000002")///
+                .byMobileArea(@"63")/// 区号代码
+                .byPass_token(model.result.pass_token)
+                .byUserName(@"JobsGo");/// 会员/代理账号
         });
     };
 }

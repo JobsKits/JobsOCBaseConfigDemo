@@ -140,12 +140,12 @@ static dispatch_once_t static_countdownViewOnceToken;
 -(JobsTimeModel *)formatTime{
     if (!_formatTime) {
         _formatTime = jobsMakeTimeModel(^(__kindof JobsTimeModel * _Nullable data) {
-            data.year = @"".tr;
-            data.month = @"".tr;
-            data.day = @"".tr;
-            data.hour = @"".tr;
-            data.minute = @"分".tr;
-            data.second = @"秒".tr;
+            data.byYear(@"".tr)
+                .byMonth(@"".tr)
+                .byDay(@"".tr)
+                .byHour(@"".tr)
+                .byMinute(@"分".tr)
+                .bySecond(@"秒".tr);
         });
     }return _formatTime;
 }
@@ -188,24 +188,24 @@ static dispatch_once_t static_countdownViewOnceToken;
     @jobs_weakify(self)
     _richTextConfigMutArr.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
         @jobs_strongify(self)
-        data.font = UIFontWeightBoldSize(48);
-        data.textCor = HEXCOLOR(0xAE8330);
-        data.targetString = self.minutesStr;
+        data.byFont(UIFontWeightBoldSize(48))
+            .byTextCor(HEXCOLOR(0xAE8330))
+            .byTargetString(self.minutesStr);
     }))
     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
-        data.font = UIFontWeightRegularSize(12);
-        data.textCor = HEXCOLOR(0x757575);
-        data.targetString = @"分".tr;
+        data.byFont(UIFontWeightRegularSize(12))
+            .byTextCor(HEXCOLOR(0x757575))
+            .byTargetString(@"分".tr);
     }))
     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
-        data.font = UIFontWeightBoldSize(48);
-        data.textCor = HEXCOLOR(0xAE8330);
-        data.targetString = self.secondStr;
+        data.byFont(UIFontWeightBoldSize(48))
+            .byTextCor(HEXCOLOR(0xAE8330))
+            .byTargetString(self.secondStr);
     }))
     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
-        data.font = UIFontWeightRegularSize(12);
-        data.textCor = HEXCOLOR(0x757575);
-        data.targetString = @"秒".tr;
+        data.byFont(UIFontWeightRegularSize(12))
+            .byTextCor(HEXCOLOR(0x757575))
+            .byTargetString(@"秒".tr);
     }));return _richTextConfigMutArr;
 }
 
