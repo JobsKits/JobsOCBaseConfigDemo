@@ -18,7 +18,7 @@
             [superview addSubview:self];
         }
         if (block){
-            self.byOn(block);
+            [self mas_makeConstraints:block];
             self.refresh();
         };return self;
     };
@@ -71,7 +71,7 @@
         if(!subView) return nil;
         [self addSubview:subView];
         if(subView.masonryBlock){
-            subView.byOn(subView.masonryBlock);
+            [subView mas_makeConstraints:subView.masonryBlock];
             self.refresh();
         };return subView;
     };
@@ -92,7 +92,9 @@
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(){
         @jobs_strongify(self)
-        self.byOn(self.masonryBlock);
+        if (self.masonryBlock){
+            [self mas_makeConstraints:self.masonryBlock];
+        }
         self.refresh();
         return self;
     };

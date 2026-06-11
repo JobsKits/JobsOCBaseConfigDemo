@@ -218,7 +218,7 @@ static void JobsAddClosureAction(UIControl *control,
     };
 }
 
--(JobsRetControlByEventsIdentifierActionHandlerBlock)byOn API_AVAILABLE(ios(14.0)){
+-(JobsRetControlByEventsIdentifierActionHandlerBlock)byOnAction API_AVAILABLE(ios(14.0)){
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIControlEvents events,
                                             UIActionIdentifier _Nullable identifier,

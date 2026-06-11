@@ -86,11 +86,8 @@ BaseViewProtocol_synthesize
             self.image = NavBarConfig.bgImage;
         }else self.backgroundColor = NavBarConfig.bgCor;
         self.titleLab.byText(NavBarConfig.title);
-
         self.backBtn.byAlpha(1);
-
         self.closeBtn.byAlpha(1);
-
         self.refresh();
     };
 }
