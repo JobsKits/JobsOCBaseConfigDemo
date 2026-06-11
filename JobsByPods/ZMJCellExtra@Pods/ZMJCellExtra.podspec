@@ -16,6 +16,7 @@ Pod::Spec.new do |spec|
   spec.frameworks = ['Foundation', 'UIKit']
   spec.dependency 'ZMJGanttChart'
   spec.dependency 'JobsMakes'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'
 

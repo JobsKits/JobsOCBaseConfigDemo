@@ -8,24 +8,24 @@
 #ifndef JobsBaseUI_h
 #define JobsBaseUI_h
 
-#pragma mark - UIBaseButtoms
+#pragma mark —— UIBaseButtoms
 #import <JobsBaseUI/IrregularBtn.h>
 #import <JobsBaseUI/JobsShakeBtn.h>
 #import <JobsBaseUI/RBCLikeButton.h>
 #import <JobsBaseUI/SoundBtn.h>
 
-#pragma mark - UIButton
+#pragma mark —— UIButton
 #import <JobsBaseUI/BaseButton.h>
 
-#pragma mark - UICollectionReusableView
+#pragma mark —— UICollectionReusableView
 #import <JobsBaseUI/BaseCollectionReusableView.h>
 #import <JobsBaseUI/JobsHeaderFooterView.h>
 #import <JobsBaseUI/TMSWalletCollectionReusableView.h>
 
-#pragma mark - UICollectionView
+#pragma mark —— UICollectionView
 #import <JobsBaseUI/BaseCollectionView.h>
 
-#pragma mark - UICollectionViewCell
+#pragma mark —— UICollectionViewCell
 #import <JobsBaseUI/BaseCollectionViewCell.h>
 #import <JobsBaseUI/JobsBaseCollectionViewCell.h>
 #import <JobsBaseUI/JobsBtnTextViewStyleCVCell.h>
@@ -36,43 +36,43 @@
 #import <JobsBaseUI/JobsTextViewStyleCVCell.h>
 #import <JobsBaseUI/TMSWalletCollectionViewCell.h>
 
-#pragma mark - UICollectionViewFlowLayout
+#pragma mark —— UICollectionViewFlowLayout
 #import <JobsBaseUI/HQCollectionViewFlowLayout.h>
 #import <JobsBaseUI/KFZShopCatoryFlowLayput.h>
 #import <JobsBaseUI/LMHWaterFallLayout.h>
 #import <JobsBaseUI/XZMLayout.h>
 
-#pragma mark - UIImageView
+#pragma mark —— UIImageView
 #import <JobsBaseUI/BaseImageView.h>
 
-#pragma mark - UILabel
+#pragma mark —— UILabel
 #import <JobsBaseUI/BaseLabel.h>
 #import <JobsBaseUI/JobsAnimationLabel.h>
 #import <JobsBaseUI/JobsBaseLabel.h>
 #import <JobsBaseUI/PointLabBaseView.h>
 
-#pragma mark - UIBaseLayout
+#pragma mark —— UIBaseLayout
 #import <JobsBaseUI/TMSCollectionViewLayout.h>
 #import <JobsBaseUI/WalletLayout.h>
 
-#pragma mark - UINavigationBar
+#pragma mark —— UINavigationBar
 #import <JobsBaseUI/BaseNavigationBar.h>
 
-#pragma mark - UINavigationController
+#pragma mark —— UINavigationController
 #import <JobsBaseUI/BaseNavigationVC.h>
 
-#pragma mark - NSObject
+#pragma mark —— NSObject
 #import <JobsBaseUI/JobsControlTarget.h>
 #import <JobsBaseUI/JobsKeychainHelper.h>
 #import <JobsBaseUI/JobsTuple.h>
 
-#pragma mark - UIScrollView
+#pragma mark —— UIScrollView
 #import <JobsBaseUI/BaseScrollView.h>
 
-#pragma mark - UITableView
+#pragma mark —— UITableView
 #import <JobsBaseUI/BaseTableView.h>
 
-#pragma mark - UITableViewCell
+#pragma mark —— UITableViewCell
 #import <JobsBaseUI/BaseTableViewCell.h>
 #import <JobsBaseUI/JobsBaseTableViewCell.h>
 #import <JobsBaseUI/JobsBtnTextViewStyleTBVCell.h>
@@ -82,18 +82,18 @@
 #import <JobsBaseUI/JobsTextLabStyleTBVCell.h>
 #import <JobsBaseUI/JobsTextViewStyleTBVCell.h>
 
-#pragma mark - UITextField
+#pragma mark —— UITextField
 #import <JobsBaseUI/CJTextField.h>
 #import <JobsBaseUI/HQTextField.h>
 #import <JobsBaseUI/JobsMagicTextField.h>
 #import <JobsBaseUI/JobsTextField.h>
 #import <JobsBaseUI/ZYTextField.h>
 
-#pragma mark - UITextView
+#pragma mark —— UITextView
 #import <JobsBaseUI/BaseTextView.h>
 #import <JobsBaseUI/JobsTextView.h>
 
-#pragma mark - UIViewController
+#pragma mark —— UIViewController
 #import <JobsBaseUI/BaseViewController.h>
 #import <JobsBaseUI/CheckMemFreeVC.h>
 #import <JobsBaseUI/JobsShowObjInfoVC.h>
@@ -107,11 +107,11 @@
 #import <JobsBaseUI/JobsNavBarWebVC.h>
 #import <JobsBaseUI/JobsWebViewController.h>
 
-#pragma mark - UIView
+#pragma mark —— UIView
 #import <JobsBaseUI/BaseView.h>
 #import <JobsBaseUI/UICollectionHeaderFooterView.h>
 
-#pragma mark - UITableViewHeaderFooterView
+#pragma mark —— UITableViewHeaderFooterView
 #import <JobsBaseUI/BaseTableViewHeaderFooterView.h>
 #import <JobsBaseUI/JobsTBVHeaderFooterView.h>
 

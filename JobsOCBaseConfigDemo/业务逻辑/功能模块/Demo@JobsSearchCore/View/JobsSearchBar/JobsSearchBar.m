@@ -17,8 +17,9 @@ Prop_strong()BaseButton *cancelBtn;
 
 - (instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-    }return self;
+        self.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
+
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -29,8 +30,10 @@ Prop_strong()BaseButton *cancelBtn;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.cancelBtn.alpha = 1;
-        self.textField.alpha = 1;
+        self.cancelBtn.byAlpha(1);
+
+        self.textField.byAlpha(1);
+
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -56,15 +59,15 @@ Prop_strong()BaseButton *cancelBtn;
                 [self.textField resignFirstResponder];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
-            })
-            .addOn(self)
+            });
+        _cancelBtn.addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(50), JobsWidth(30)));
                 make.centerY.equalTo(self);
                 make.right.equalTo(self);
             });
-    }return _cancelBtn;
+    };return _cancelBtn;
 }
 @synthesize textField = _textField;
 -(ZYTextField *)textField{
@@ -84,41 +87,42 @@ Prop_strong()BaseButton *cancelBtn;
                                       .JobsRichViewByModel2(nil)
                                       .JobsBlock1(^(id _Nullable data) {
 
-                                      }))
+                }))
                 .byLeftViewMode(UITextFieldViewModeAlways)
                 .byKeyboardAppearance(UIKeyboardAppearanceAlert)
                 .byReturnKeyType(UIReturnKeySearch)
                 .byPlaceHolderAlignment(NSTextAlignmentCenter)
                 .byLeftViewOffsetX(JobsWidth(5))
-                .byRightViewOffsetX(JobsWidth(3))
-                .addOn(self)
+                .byRightViewOffsetX(JobsWidth(3));
+            textField.addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
                     make.centerY.equalTo(self);
                     make.left.equalTo(self);
                     make.right.equalTo(self.cancelBtn.mas_left);
                     make.height.mas_equalTo(self.mj_h - JobsWidth(15));
-                })
-                .byBgColor(HEXCOLOR(0xFFFFFF))
-                .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-                    model.byJobsWidth(.05f)
-                         .byLayerCor(JobsBlueColor)
-                         .byCornerRadiusValue(JobsWidth(8));
+                });
+            textField.byBgColor(HEXCOLOR(0xFFFFFF));
+            textField.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
+                model.byJobsWidth(.05f)
+                     .byLayerCor(JobsBlueColor)
+                     .byCornerRadiusValue(JobsWidth(8));
             }));
         });
         /// 不能写在 jobsMakeZYTextField 里面，否则会崩溃
         [[_textField.rac_textSignal filter:^BOOL(NSString *_Nullable value) {
             @jobs_strongify(self)
             if (isValue(self.textField.text)) {
-                self.cancelBtn.alpha = 1;
+                self.cancelBtn.byAlpha(1);
+
                 self.textField.width = TextFieldWidth - (self.cancelBtn.sizer.width + JobsWidth(5));
-            }return isValue(value);
+            };return isValue(value);
         }] subscribeNext:^(NSString * _Nullable x) {
             @jobs_strongify(self)
             JobsLog(@"输入的字符为 = %@",x);
             if (self.objBlock) self.objBlock(x);
         }];
-    }return _textField;
+    };return _textField;
 }
 
 @end

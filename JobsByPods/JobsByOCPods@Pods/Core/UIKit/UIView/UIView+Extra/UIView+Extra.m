@@ -27,7 +27,7 @@
         UIView <BaseViewProtocol>*instance = self.class.new;
         if ([instance respondsToSelector:@selector(jobsRichViewByModel)]) {
             instance.jobsRichViewByModel(data);
-        }return instance;
+        };return instance;
     };
 }
 /// 用于实例
@@ -41,7 +41,7 @@
             if ([self respondsToSelector:@selector(jobsRichElementsCollectionViewCellBy)]) self.jobsRichElementsCollectionViewCellBy(data);
         }else{
             self.jobsRichViewByModel(data);
-        }return self;
+        };return self;
     };
 }
 
@@ -51,14 +51,14 @@
         @jobs_strongify(self)
         if(self.isKindOfClass(UICollectionView.class)){
             UICollectionView *view = (UICollectionView *)self;
-            view.byDelegate(target);
-            view.byDataSource(target);
+            view.byDelegate(target)
+                .byDataSource(target);
         }
         if(self.isKindOfClass(UITableView.class)){
             UITableView *view = (UITableView *)self;
-            view.byDelegate(target);
-            view.byDataSource(target);
-        }return (UIScrollView *)self;
+            view.byDelegate(target)
+                .byDataSource(target);
+        };return (UIScrollView *)self;
     };
 }
 /// 用于显示 UICollectionView / UITableView
@@ -68,16 +68,16 @@
         @jobs_strongify(self)
         if(self.isKindOfClass(UICollectionView.class)){
             UICollectionView *view = (UICollectionView *)self;
-            view.byDelegate(target);
-            view.byDataSource(target);
-            view.reloadDatas();
+            view.byDelegate(target)
+                .byDataSource(target)
+                .reloadDatas();
         }
         if(self.isKindOfClass(UITableView.class)){
             UITableView *view = (UITableView *)self;
-            view.byDelegate(target);
-            view.byDataSource(target);
-            view.reloadDatas();
-        }return (UIScrollView *)self;
+            view.byDelegate(target)
+                .byDataSource(target)
+                .reloadDatas();
+        };return (UIScrollView *)self;
     };
 }
 
@@ -305,7 +305,7 @@
     [self addNotificationName:UIKeyboardWillShowNotification
                         block:^(id _Nullable weakSelf,
                                 id _Nullable arg) {
-        //        @jobs_strongify(self)
+//        @jobs_strongify(self)
         NSNotification *notification = (NSNotification *)arg;
         if([notification.object isKindOfClass:NSNumber.class]){
             NSNumber *b = notification.object;
@@ -316,7 +316,7 @@
     [self addNotificationName:UIKeyboardWillHideNotification
                         block:^(id _Nullable weakSelf,
                                 id _Nullable arg) {
-        //        @jobs_strongify(self)
+//        @jobs_strongify(self)
         NSNotification *notification = (NSNotification *)arg;
         if([notification.object isKindOfClass:NSNumber.class]){
             NSNumber *b = notification.object;
@@ -326,10 +326,11 @@
 }
 #pragma mark —— 截屏
 /*
- 1、将图片存本地相册 UIImageWriteToSavedPhotosAlbum
- 2、iOS安全 —— 录屏、截屏判断
- 2.1、UIApplicationUserDidTakeScreenshotNotification iOS7+ 截屏事件通知
- 2.2、UIScreenCapturedDidChangeNotification 判断是否在录屏状态 而当录屏状态改变时，UIKit会发送录屏通知
+
+     1、将图片存本地相册 UIImageWriteToSavedPhotosAlbum
+     2、iOS安全 —— 录屏、截屏判断
+     2.1、UIApplicationUserDidTakeScreenshotNotification iOS7+ 截屏事件通知
+     2.2、UIScreenCapturedDidChangeNotification 判断是否在录屏状态 而当录屏状态改变时，UIKit会发送录屏通知
  */
 /// 获取屏幕截图
 -(UIImage *_Nullable)screenShot{
@@ -351,13 +352,13 @@
     if(vc){
         UIView *view = vc.view;
         UIWindow *window = jobsGetMainWindow();
-        view.frame = window.bounds;
+        view.byFrame(window.bounds);
         [window addSubview:view];
         window.refresh();
         UIImage *image = self.screenShot;
         window = nil;
         return image;
-    }return nil;
+    };return nil;
 }
 /// 获取某个view 上的截图
 -(UIImage *_Nullable)viewShots{
@@ -403,7 +404,7 @@
         UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         return image;
-    }return nil;
+    };return nil;
 }
 /// 截图
 -(JobsRetImageByViewBlock _Nonnull)rendImage{
@@ -446,7 +447,7 @@ JobsKey(_leftBorderLayer)
         layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
 
         }));Jobs_setAssociatedRETAIN_NONATOMIC(_leftBorderLayer, layer);
-    }return layer;
+    };return layer;
 }
 JobsKey(_rightBorderLayer)
 -(CALayer *)rightBorderLayer{
@@ -455,7 +456,7 @@ JobsKey(_rightBorderLayer)
         layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
 
         }));Jobs_setAssociatedRETAIN_NONATOMIC(_rightBorderLayer, layer);
-    }return layer;
+    };return layer;
 }
 JobsKey(_topBorderLayer)
 -(CALayer *)topBorderLayer{
@@ -464,7 +465,7 @@ JobsKey(_topBorderLayer)
         layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
 
         }));Jobs_setAssociatedRETAIN_NONATOMIC(_topBorderLayer, layer);
-    }return layer;
+    };return layer;
 }
 JobsKey(_bottomBorderLayer)
 -(CALayer *)bottomBorderLayer{
@@ -473,7 +474,7 @@ JobsKey(_bottomBorderLayer)
         layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
 
         }));Jobs_setAssociatedRETAIN_NONATOMIC(_bottomBorderLayer, layer);
-    }return layer;
+    };return layer;
 }
 /// 调用方式：view.leftBorderColor(color).leftBorderWidth(borderType);
 -(JobsRetViewByCorBlock _Nonnull)leftBorderColor{
@@ -481,7 +482,8 @@ JobsKey(_bottomBorderLayer)
     return ^__kindof UIView *_Nullable(UIColor *_Nullable color){
         @jobs_strongify(self)
         CALayer *layer = self.leftBorderLayer;
-        layer.backgroundColor = color.CGColor;
+        layer.byBgColor(color.CGColor);
+
         return self;
     };
 }
@@ -491,7 +493,7 @@ JobsKey(_bottomBorderLayer)
     return ^__kindof UIView *_Nullable(UIColor *_Nullable color){
         @jobs_strongify(self)
         CALayer *layer = self.rightBorderLayer;
-        layer.backgroundColor = color.CGColor;
+        layer.byBgColor(color.CGColor);
         return self;
     };
 }
@@ -501,7 +503,7 @@ JobsKey(_bottomBorderLayer)
     return ^__kindof UIView *_Nullable(UIColor *_Nullable color){
         @jobs_strongify(self)
         CALayer *layer = self.topBorderLayer;
-        layer.backgroundColor = color.CGColor;
+        layer.byBgColor(color.CGColor);
         return self;
     };
 }
@@ -511,7 +513,7 @@ JobsKey(_bottomBorderLayer)
     return ^__kindof UIView *_Nullable(UIColor *_Nullable color){
         @jobs_strongify(self)
         CALayer *layer = self.bottomBorderLayer;
-        layer.backgroundColor = color.CGColor;
+        layer.byBgColor(color.CGColor);
         return self;
     };
 }
@@ -664,7 +666,7 @@ JobsKey(_cornerRadii)
         /// 创建 CAShapeLayer 并设置 path
         self.layer.mask = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
             @jobs_strongify(self)
-            layer.frame = self.bounds;
+            layer.byFrame(self.bounds);
             layer.path = maskPath.CGPath;
         });return self;
     };
@@ -686,7 +688,7 @@ JobsKey(_cornerRadii)
     @jobs_weakify(self)
     self.layer.mask = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable data) {
         @jobs_strongify(self)
-        data.frame = self.bounds;
+        data.byFrame(self.bounds);
         data.path = maskPath.CGPath;
     });
 }
@@ -698,7 +700,7 @@ JobsKey(_cornerRadii)
         if([self isKindOfClass:UILabel.class]){
             UILabel *label = (UILabel *)self;
             label.makeLabelByShowingType(labelShowingType);
-        }return self;
+        };return self;
     };
 }
 
@@ -754,15 +756,6 @@ JobsKey(_cornerRadii)
     };
 }
 
--(JobsRetViewByViewBlock _Nonnull)addOn{
-    @jobs_weakify(self)
-    return ^__kindof UIView *_Nullable(__kindof UIView *_Nullable subView) {
-        @jobs_strongify(self)
-        [subView addSubview:self];
-        return self;
-    };
-}
-
 -(JobsRetViewByViewBlock _Nonnull)addSubview{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(__kindof UIView *_Nullable subView) {
@@ -772,34 +765,7 @@ JobsKey(_cornerRadii)
         if(subView.masonryBlock){
             [subView mas_makeConstraints:subView.masonryBlock];
             self.refresh();
-        }return subView;
-    };
-}
-
--(JobsRetViewByViewBlock _Nonnull)bringSubviewToFront{
-    @jobs_weakify(self)
-    return ^__kindof UIView *_Nullable(__kindof UIView *_Nullable subView) {
-        @jobs_strongify(self)
-        [self bringSubviewToFront:subView];
-        return subView;
-    };
-}
-
--(JobsRetViewByViewBlock _Nonnull)sendSubviewToBack{
-    @jobs_weakify(self)
-    return ^__kindof UIView *_Nullable(__kindof UIView *_Nullable subView) {
-        @jobs_strongify(self)
-        [self sendSubviewToBack:subView];
-        return subView;
-    };
-}
-
--(JobsRetViewByVoidBlock _Nonnull)remove{
-    @jobs_weakify(self)
-    return ^__kindof UIView *_Nullable() {
-        @jobs_strongify(self)
-        [self removeFromSuperview];
-        return self;
+        };return subView;
     };
 }
 /// 针对数据源是UIImage  *的GKPhotoBrowser
@@ -902,7 +868,6 @@ JobsKey(_cornerRadii)
         [self.layer renderInContext:context.CGContext];
     }];return image;
 }
-
 /// iOS 阴影效果 添加了shadowPath后消除了离屏渲染问题 。特别提示：不能存在 -(void)drawRect:(CGRect)rect 或者在-(void)drawRect:(CGRect)rect里面写，否则无效
 /// @param targetShadowview 需要作用阴影效果的View
 /// @param superview 该阴影效果的View的父View
@@ -1018,8 +983,8 @@ JobsKey(_jobsVisible)
 }
 
 -(void)setJobsVisible:(CGFloat)jobsVisible{
-    self.hidden = !jobsVisible;
-    self.alpha = jobsVisible;
+    self.byHidden(!jobsVisible);
+    self.byAlpha(jobsVisible);
     Jobs_setAssociatedRETAIN_NONATOMIC(_jobsVisible, @(jobsVisible))
 }
 

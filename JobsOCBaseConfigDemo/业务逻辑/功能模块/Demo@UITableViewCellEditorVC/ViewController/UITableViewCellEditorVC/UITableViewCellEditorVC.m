@@ -228,7 +228,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-    }return _editBtn;
+    };return _editBtn;
 }
 /// BaseViewProtocol
 @synthesize tableView = _tableView;
@@ -250,20 +250,20 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
                 .byShowsVerticalScrollIndicator(NO)
-                .byBgColor(JobsWhiteColor)
-                .addOn(self.view)
-                .byAdd(^(MASConstraintMaker *make) {
-                    @jobs_strongify(self)
-                    make.edges.equalTo(self.view);
-                });
+                .byBgColor(JobsWhiteColor);
+            tableView.addOn(self.view);
+            [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.edges.equalTo(self.view);
+            }];
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(MsgEditBoardView *)msgEditBoardView{
     if (!_msgEditBoardView) {
         _msgEditBoardView = MsgEditBoardView.new;
-        _msgEditBoardView.frame = MsgEditBoardView.viewFrameByModel(nil);
+        _msgEditBoardView.byFrame(MsgEditBoardView.viewFrameByModel(nil));
         _msgEditBoardView.jobsRichViewByModel(nil);
         _msgEditBoardView.getDeleteBtn.enabledBlock(self.selectedDataMutArr.count);
         @jobs_weakify(self)
@@ -287,7 +287,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 }else{}
             }
         }];
-    }return _msgEditBoardView;
+    };return _msgEditBoardView;
 }
 
 -(NSMutableArray<JobsMsgDataModel *> *)dataMutArr{
@@ -326,13 +326,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 viewModel.isRead = YES;
             }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 -(NSMutableArray<JobsMsgDataModel *> *)selectedDataMutArr{
     if (!_selectedDataMutArr) {
         _selectedDataMutArr = NSMutableArray.array;
-    }return _selectedDataMutArr;
+    };return _selectedDataMutArr;
 }
 
 @end

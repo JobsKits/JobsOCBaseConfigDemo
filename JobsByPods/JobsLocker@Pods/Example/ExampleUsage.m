@@ -24,7 +24,7 @@ Prop_strong()NSMutableArray<NSString *> *dataSource;
     if (self) {
         _locker = [JobsLocker unfairLock];
         _dataSource = [NSMutableArray array];
-    }return self;
+    };return self;
 }
 
 - (void)bootstrap {

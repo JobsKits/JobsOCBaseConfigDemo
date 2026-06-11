@@ -16,10 +16,10 @@
 #import "MGSwipeTableCell.h"
 #endif
 
-#if __has_include(<MGSwipeTableCellExtra/MGSwipeTableCellProtocol.h>)
-#import <MGSwipeTableCellExtra/MGSwipeTableCellProtocol.h>
+#if __has_include(<MGSwipeTableCellExtra/MGSwipeTableCellExtra.h>)
+#import <MGSwipeTableCellExtra/MGSwipeTableCellExtra.h>
 #else
-#import "MGSwipeTableCellProtocol.h"
+#import "MGSwipeTableCellExtra.h"
 #endif
 
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
@@ -50,6 +50,12 @@
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

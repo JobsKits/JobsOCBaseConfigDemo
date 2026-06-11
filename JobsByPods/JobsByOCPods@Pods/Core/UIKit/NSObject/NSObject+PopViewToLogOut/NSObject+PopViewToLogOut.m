@@ -21,7 +21,7 @@ JobsKey(_logOutPopupVM)
             data.subTextModel.byText(@"".tr);
             data.byBgCor(JobsWhiteColor);
         });Jobs_setAssociatedRETAIN_NONATOMIC(_logOutPopupVM, LogOutPopupVM)
-    }return LogOutPopupVM;
+    };return LogOutPopupVM;
 }
 
 -(void)setLogOutPopupVM:(UIViewModel *)logOutPopupVM{
@@ -49,7 +49,7 @@ JobsKey(_logOutPopupView)
                                                    JobsPostNotification(退出登录成功, @(NO));
                                                }[LogOutPopupView tf_hide:nil];
                                            }))
-    }return LogOutPopupView;
+    };return LogOutPopupView;
 }
 
 -(void)setLogOutPopupView:(JobsBasePopupView *)logOutPopupView{

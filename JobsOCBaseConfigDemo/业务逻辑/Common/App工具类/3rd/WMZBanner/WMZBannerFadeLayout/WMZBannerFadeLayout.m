@@ -72,6 +72,7 @@ Prop_assign()CGFloat last;
             rect.origin.x = self.collectionView.contentOffset.x;
         }
         attributes.frame = rect;
+
         if (i == self.param.myCurrentPath) {
             attributes.zIndex = 1200;
         }else{

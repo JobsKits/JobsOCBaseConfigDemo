@@ -21,7 +21,7 @@
 - (instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -53,7 +53,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsCyanColor;
+    self.view.byBgColor(JobsCyanColor);
     self.makeNavByAlpha(1);
 }
 

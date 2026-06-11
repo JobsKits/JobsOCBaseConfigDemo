@@ -37,7 +37,7 @@ Prop_strong()JobsExcelView *excelView;
                 }))
                 .byBgColor(JobsRedColor);
         });
-    }return _excelView;
+    };return _excelView;
 }
 ```
 
@@ -77,7 +77,7 @@ Prop_strong()JobsExcelView *excelView;
             });
 //            data.configureDataBy(nil);
         });
-    }return _excelData;
+    };return _excelData;
 }
 ```
 
@@ -145,7 +145,7 @@ Prop_strong()JobsExcelView *excelView;
                     }));/// 一行的数据
                 }
             }));
-        }return self.excelData;
+        };return self.excelData;
     };
 }
 ```

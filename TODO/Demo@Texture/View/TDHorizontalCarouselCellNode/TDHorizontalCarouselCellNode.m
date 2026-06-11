@@ -22,7 +22,7 @@
                 arr.add(@(i));
             }
         });
-    }return self;
+    };return self;
 }
 
 -(ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
@@ -54,13 +54,13 @@
             })];
             node.dataSource = self;
             node.delegate = self;
-            node.backgroundColor = UIColor.clearColor;
+            node.byBgColor(UIColor.clearColor);
             node.style.preferredSize = CGSizeMake(0, 90);
             /// 预取/范围调优（水平场景）
             node.leadingScreensForBatching = 1.5;
             node.inverted = NO;
         });
-    }return _collection;
+    };return _collection;
 }
 
 @end

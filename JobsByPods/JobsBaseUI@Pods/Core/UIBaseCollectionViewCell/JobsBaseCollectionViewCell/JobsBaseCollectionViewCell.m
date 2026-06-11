@@ -26,7 +26,7 @@ UITextFieldProtocol_synthesize_part2
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 - (void)drawRect:(CGRect)rect {

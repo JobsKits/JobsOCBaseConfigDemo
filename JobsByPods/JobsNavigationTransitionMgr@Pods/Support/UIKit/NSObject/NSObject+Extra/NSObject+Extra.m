@@ -92,7 +92,7 @@ UITextFieldProtocol_dynamic
             if (KindOfVCCls(responder)) {
                 return (UIViewController *)responder;
             }responder = responder.nextResponder;
-        }return (UIViewController *)nil;
+        };return (UIViewController *)nil;
     };
 }
 /// 获得当前的控制器。对getCurrentViewController的再次封装
@@ -126,7 +126,7 @@ UITextFieldProtocol_dynamic
         } else {
             /// 根视图为非导航类
             currentVC = rootVC;
-        }return currentVC;
+        };return currentVC;
     };
 }
 /// 自定义 push/pop 控制器的方向
@@ -381,7 +381,7 @@ UITextFieldProtocol_dynamic
         BOOL OK = NO;
         for (__kindof UIViewController *vc in self.jobsGetCurrentViewController.navigationController.viewControllers) {
             OK = vc.class == viewController.class;
-        }return OK;
+        };return OK;
     };
 }
 /// 可以组合使用
@@ -701,7 +701,7 @@ UITextFieldProtocol_dynamic
                 JobsLog(@"Exception: %@", exception);
                 value = @"nil"; // or handle the exception as needed
             }
-        }return value;
+        };return value;
     };
 }
 /// KVC 的二次封装
@@ -763,7 +763,7 @@ UITextFieldProtocol_dynamic
                  propertyName:(NSString *_Nullable)propertyName{
     if ([obj.propertyList containsObject:propertyName]) {
         return obj.valueForKey(propertyName);
-    }return nil;
+    };return nil;
 }
 /// 版本号比较 版本号的格式：数字中间由点隔开
 /// @param versionNumber1 版本号1
@@ -911,7 +911,8 @@ UITextFieldProtocol_dynamic
             if (isValue(view.internationalizationKEY)) {
                 if ([view isKindOfClass:UILabel.class]) {
                     UILabel *lab = (UILabel *)view;
-                    lab.text = view.internationalizationKEY.tr;
+                    lab.byText(view.internationalizationKEY.tr);
+
                 }else if ([view isKindOfClass:UIButton.class]){
                     UIButton *btn = (UIButton *)view;
                     btn.jobsResetBtnTitle(view.internationalizationKEY.tr);
@@ -926,7 +927,7 @@ UITextFieldProtocol_dynamic
     if (!isFirstLaunch) {
         JobsSetUserBoolKeyWithBool(APP安装以后首次启动, YES);
         JobsUserDefaultSynchronize;
-    }return !isFirstLaunch;
+    };return !isFirstLaunch;
 }
 /// 判断是否是App今日的首次启动
 -(BOOL)isTodayAppFirstLaunch{
@@ -945,7 +946,7 @@ UITextFieldProtocol_dynamic
         JobsLog(@"今天第一次启动");
         JobsSetUserDefaultKeyWithValue(@"APP今日首次启动", today);
         JobsUserDefaultSynchronize;//
-    }return !recordToday.isEqualToString(today);
+    };return !recordToday.isEqualToString(today);
 }
 /// 震动特效反馈
 +(jobsByViewBlock _Nonnull)feedbackGenerator{
@@ -1072,7 +1073,7 @@ UITextFieldProtocol_dynamic
                                                  @"plist");
         if (FileFolderHandleTool.isExistsAtPath(filePath)) {
             return NSDictionary.initByContentsOfFile(filePath);
-        }return (NSDictionary *)nil;
+        };return (NSDictionary *)nil;
     };
 }
 /// 监听程序被杀死前的时刻，进行一些需要异步的操作：磁盘读写、网络请求...
@@ -1121,7 +1122,7 @@ UITextFieldProtocol_dynamic
                                                &infoCount);
     if (kernReturn != KERN_SUCCESS) {
         return NSNotFound;
-    }return ((vm_page_size * vmStats.free_count)/1024.0)/1024.0;
+    };return ((vm_page_size * vmStats.free_count)/1024.0)/1024.0;
 }
 /// 获取当前任务所占用内存
 -(double)usedMemory{
@@ -1133,7 +1134,7 @@ UITextFieldProtocol_dynamic
                                          &infoCount);
     if (kernReturn != KERN_SUCCESS) {
         return NSNotFound;
-    }return taskInfo.resident_size/1024.0/1024.0;
+    };return taskInfo.resident_size/1024.0/1024.0;
 }
 #pragma mark —— 尺寸
 /*
@@ -1282,7 +1283,7 @@ UITextFieldProtocol_dynamic
         number = labs(number);// abs()
         if (number < 10){
             return number;
-        }return self.topDigit(((number - (number % 10)) / 10));
+        };return self.topDigit(((number - (number % 10)) / 10));
     };
 }
 #pragma mark —— 检测当前设备屏幕方向
@@ -1302,7 +1303,7 @@ UITextFieldProtocol_dynamic
     }else if ([self isKindOfClass:UIViewController.class]){
         UIViewController *vc = (UIViewController *)self;
         view = vc.view;
-    }return view;
+    };return view;
 }
 
 -(id _Nullable)getViewByBlock:(JobsReturnIDByComponentTypeAndUIViewBlock _Nullable)block{
@@ -1336,7 +1337,7 @@ UITextFieldProtocol_dynamic
         }];
     } else {
         SuppressWdeprecatedDeclarationsWarning(currentOrientation = UIApplication.sharedApplication.statusBarOrientation;);
-    }return currentOrientation;
+    };return currentOrientation;
 }
 /// UIInterfaceOrientation 检测屏幕方向
 -(CGSize)checkScreenOrientation_UIInterfaceOrientation:(JobsRetSizeByNSIntegerBlock _Nullable)interfaceOrientationBlock{
@@ -1464,7 +1465,7 @@ JobsKey(_weak_target)
     if (!weakTarget) {
         @jobs_weakify(self)
         Jobs_setAssociatedRETAIN_NONATOMIC(_weak_target, weak_self)
-    }return weakTarget;
+    };return weakTarget;
 }
 
 -(void)setWeak_target:(id)weak_target{
@@ -1482,7 +1483,7 @@ JobsKey(_currentPage)
     if (CurrentPage == 0) {
         CurrentPage = 1;
         Jobs_setAssociatedRETAIN_NONATOMIC(_currentPage, @(CurrentPage))
-    }return CurrentPage;
+    };return CurrentPage;
 }
 
 -(void)setCurrentPage:(NSInteger)currentPage{
@@ -1496,7 +1497,7 @@ JobsKey(_pageSize)
     if (PageSize == 0) {
         PageSize = 10;
         Jobs_setAssociatedRETAIN_NONATOMIC(_pageSize, @(PageSize))
-    }return PageSize;
+    };return PageSize;
 }
 
 -(void)setPageSize:(NSInteger)pageSize{

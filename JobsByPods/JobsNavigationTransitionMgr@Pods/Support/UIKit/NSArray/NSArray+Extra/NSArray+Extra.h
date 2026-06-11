@@ -120,7 +120,7 @@
              })).installByMasonryBlock(^(MASConstraintMaker *_Nonnull data){
 
              });
-         }return _subViewsMutArr;
+         };return _subViewsMutArr;
      }
  */
 #endif /* JOBS_HEADER_GUARD_NSARRAY_EXTRA_FA17F8D447 */

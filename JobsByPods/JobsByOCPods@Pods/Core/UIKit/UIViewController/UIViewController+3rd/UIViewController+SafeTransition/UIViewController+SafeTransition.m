@@ -15,13 +15,13 @@ static JobsRecordPresentedViewController *static_JobsRecordPresentedVC = nil;
         if (!static_JobsRecordPresentedVC) {
             static_JobsRecordPresentedVC = JobsRecordPresentedViewController.new;
         }
-    }return static_JobsRecordPresentedVC;
+    };return static_JobsRecordPresentedVC;
 }
 #pragma mark —— lazyLoad
 -(NSMutableArray<__kindof UIViewController *> *)presentedVCMutArr{
     if (!_presentedVCMutArr) {
         _presentedVCMutArr = NSMutableArray.array;
-    }return _presentedVCMutArr;
+    };return _presentedVCMutArr;
 }
 
 @end
@@ -85,7 +85,7 @@ static JobsRecordPresentedViewController *static_JobsRecordPresentedVC = nil;
 -(BOOL)checkPresented:(UIViewController *)viewController{
     for (UIViewController *vc in JobsRecordPresentedViewController.sharedManager.presentedVCMutArr) {
         if ([viewController isKindOfClass:vc.class]) return NO;
-    }return YES;
+    };return YES;
 }
 
 @end

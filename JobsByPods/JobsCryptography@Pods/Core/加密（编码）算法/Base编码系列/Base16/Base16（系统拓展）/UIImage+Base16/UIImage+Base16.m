@@ -36,7 +36,7 @@
         NSMutableString *hexString = [NSMutableString stringWithCapacity:length * 2];
         for (NSUInteger i = 0; i < length; i++) {
             [hexString appendFormat:@"%02X", bytes[i]];
-        }return hexString;
+        };return hexString;
     };
 }
 ///【实例方法】将UIImage对象 转换为 以Base16（也称为十六进制）编码的字符串

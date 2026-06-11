@@ -12,6 +12,12 @@
 #import <JobsBaseUI/BaseView.h>
 #import <JobsBaseUI/UIView+Extra.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
@@ -89,7 +95,8 @@ NS_INLINE __kindof JobsTextField *_Nonnull makeJobsTextField(jobsByJobsTextField
      }];
 
      // 修改 text 属性
-     textField.text = @"新内容";
+     textField.byText(@"新内容");
+
 
      或者
 
@@ -105,7 +112,8 @@ NS_INLINE __kindof JobsTextField *_Nonnull makeJobsTextField(jobsByJobsTextField
      }];
 
      // 模拟改变 text 值
-     textField.text = @"新内容";
+     textField.byText(@"新内容");
+
      // 手动发送信号
      [textFieldSignal sendNext:textField.text];
  */
@@ -170,7 +178,7 @@ NS_INLINE __kindof JobsTextField *_Nonnull makeJobsTextField(jobsByJobsTextField
                  make.top.equalTo(self.birthDayTitleLab.mas_bottom).offset(JobsWidth(10));
                  make.left.equalTo(self.scrollView).offset(JobsWidth(19));
              });
-         }return _textField_birthDay;
+         };return _textField_birthDay;
      }
  */
 #endif /* JOBS_HEADER_GUARD_JOBSTEXTFIELD_B4D8D8E9D5 */

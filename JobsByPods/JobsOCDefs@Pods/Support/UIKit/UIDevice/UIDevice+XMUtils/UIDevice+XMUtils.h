@@ -13,6 +13,12 @@
 #import <UIKit/UIKit.h>
 #import <JobsOCDefs/JobsDefineProperty.h>
 
+#if __has_include(<GKNavigationBar/GKNavigationBar.h>)
+#import <GKNavigationBar/GKNavigationBar.h>
+#else
+#import "GKNavigationBar.h"
+#endif
+
 typedef __kindof NSString *_Nullable(^JobsRetStrByStrBlock)(__kindof NSString *_Nullable data);
 
 NS_ASSUME_NONNULL_BEGIN

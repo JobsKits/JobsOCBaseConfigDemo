@@ -27,7 +27,7 @@ Prop_copy()NSString *URL;
 - (instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -61,7 +61,8 @@ Prop_copy()NSString *URL;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsWhiteColor;
+    self.view.byBgColor(JobsWhiteColor);
+
     self.makeGKNavByConfig(self.makeNav0ByTitle(self.viewModel.textModel.text));
 }
 

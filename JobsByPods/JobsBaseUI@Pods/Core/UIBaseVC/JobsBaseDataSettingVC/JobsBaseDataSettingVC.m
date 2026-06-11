@@ -129,7 +129,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         _vcs = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
             
         });
-    }return _vcs;
+    };return _vcs;
 }
 #pragma mark —— Prop_strong()UIViewModel *viewModel;
 /// AppToolsProtocol
@@ -140,7 +140,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
             data.textModel.byTextCor(HEXCOLOR(0x3D4A58))
                           .byFont(UIFontWeightRegularSize(16));
         });
-    }return _viewModel;
+    };return _viewModel;
 }
 #pragma mark —— Prop_strong()UIButtonModel *closeBtnModel;
 /// 在具体的子类去实现，以覆盖父类的方法实现
@@ -157,7 +157,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
             data.byRoundingCorners(UIRectCornerAllCorners)
                 .byBaseBackgroundColor(JobsClearColor);
         });
-    }return _closeBtnModel;
+    };return _closeBtnModel;
 } 
 #pragma mark —— Prop_strong()UIButtonModel *backBtnModel;
 /// 在具体的子类去实现，以覆盖父类的方法实现
@@ -177,7 +177,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
             self.backBtnClickEvent(x);
             return nil;
         };
-    }return _backBtnModel;
+    };return _backBtnModel;
 }
 
 @end

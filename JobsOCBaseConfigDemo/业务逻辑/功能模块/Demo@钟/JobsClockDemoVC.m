@@ -46,9 +46,9 @@ Prop_strong()JobsClockView *clockView;
     [super viewDidLoad];
     self.makeNavByAlpha(1);
     if (@available(iOS 13.0, *)) {
-        self.view.backgroundColor = UIColor.systemBackgroundColor;
+        self.view.byBgColor(UIColor.systemBackgroundColor);
     } else {
-        self.view.backgroundColor = UIColor.whiteColor;
+        self.view.byBgColor(UIColor.whiteColor);
     }
     self.clockView.byVisible(YES);
 }
@@ -64,7 +64,7 @@ Prop_strong()JobsClockView *clockView;
     /// 离开页面就停表，避免后台白跑
     [self.clockView stop];
 }
-#pragma mark - LazyLoad
+#pragma mark —— LazyLoad
 - (JobsClockView *)clockView {
     if (!_clockView) {
         @jobs_weakify(self)
@@ -75,7 +75,7 @@ Prop_strong()JobsClockView *clockView;
                 make.center.equalTo(self.view);
                 make.width.height.mas_equalTo(220);
             });
-    }return _clockView;
+    };return _clockView;
 }
 
 @end

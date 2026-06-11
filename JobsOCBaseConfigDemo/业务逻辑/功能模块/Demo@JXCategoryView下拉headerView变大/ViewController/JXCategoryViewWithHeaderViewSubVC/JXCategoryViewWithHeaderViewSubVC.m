@@ -54,7 +54,8 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UICollectionViewCell *>*>*
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     self.makeNavByAlpha(0);
     
     self.collectionView.byShow(self);
@@ -112,7 +113,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UICollectionViewCell *>*>*
         if (block4) return block4();
     }else{
         if (block5) return block5();
-    }return nil;
+    };return nil;
 }
 
 -(CGSize)planSizeAtIndexPath:(nonnull NSIndexPath *)indexPath
@@ -131,9 +132,9 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UICollectionViewCell *>*>*
         if (block4) return block4();
     }else{
         if (block5) return block5();
-    }return CGSizeZero;
+    };return CGSizeZero;
 }
-#pragma mark - UICollectionViewDataSource
+#pragma mark —— UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return self.cvcellMutArr.count;
 }
@@ -262,7 +263,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
 minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     if (section == 1) {
         return JobsWidth(12);
-    }return 0;
+    };return 0;
 }
 /// 定义的是UICollectionViewScrollDirectionVertical下，元素水平之间的间距。
 /// UICollectionViewScrollDirectionHorizontal下，垂直和水平正好相反
@@ -272,7 +273,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section {
 minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     if (section == 1) {
         return JobsWidth(15);
-    }return 0;
+    };return 0;
 }
 ///内间距
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView
@@ -289,24 +290,26 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             .JobsBlock1(^(id  _Nullable data) {
                 
             });
-    }return _choiceStadiumView;
+    };return _choiceStadiumView;
 }
 /// BaseViewProtocol
 @synthesize collectionView = _collectionView;
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
-        _collectionView = UICollectionView.initByLayout(self.verticalLayout);
-        _collectionView.dataLink(self);
-        _collectionView.backgroundColor = RGB_SAMECOLOR(246);
-        _collectionView.contentInset = UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight() + JobsTabBarHeight(nil), 0);
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.registerCollectionViewClass();
-        [self.scrollView.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
+        @jobs_weakify(self)
+        _collectionView = UICollectionView.initByLayout(self.verticalLayout)
+            .registerCollectionViewClass()
+            .dataLink(self)
+            .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight() + JobsTabBarHeight(nil), 0))
+            .byShowsVerticalScrollIndicator(NO)
+            .byBgColor(RGB_SAMECOLOR(246));
+        _collectionView.addOn(self.scrollView);
+        [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            @jobs_strongify(self)
             make.edges.equalTo(self.view);
         }];
-    }return _collectionView;
+    };return _collectionView;
 }
-
 -(NSMutableArray <NSMutableArray<__kindof UICollectionViewCell *>*>*)cvcellMutArr{
     if (!_cvcellMutArr) {
         _cvcellMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
@@ -332,7 +335,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 data2.add([BaiShaETProjVIPSubCVCell_05 cellWithCollectionView:self.collectionView forIndexPath:[self myIndexPath:(JobsIndexPath){4,0}]]);
             }));
         });
-    }return _cvcellMutArr;
+    };return _cvcellMutArr;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
@@ -340,7 +343,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

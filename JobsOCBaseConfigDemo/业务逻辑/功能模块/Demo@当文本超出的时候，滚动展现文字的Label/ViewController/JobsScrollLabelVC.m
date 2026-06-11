@@ -23,7 +23,7 @@ Prop_strong()RACDisposable *timerDisposable;
 -(instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -76,14 +76,13 @@ Prop_strong()RACDisposable *timerDisposable;
         @jobs_strongify(self)
         self.timerDisposable = [jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"-这是测试数据-".tr);
-            label.byTextCor(JobsRandomCor(1));
-            label.byBgColor(JobsCyanColor);
-            self.view.addSubview(label);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            label.byText(@"-这是测试数据-".tr)
+                .byTextCor(JobsRandomCor(1))
+                .byBgColor(JobsCyanColor);
+            label.byAddTo(self.view, ^(MASConstraintMaker *make) {
                 make.center.equalTo(self.view);
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(200), JobsWidth(20)));
-            }];
+            });
         }) startRACTimerWithDuration:0.1 byBlock:^{
             // 可以在这里添加每次触发时需要执行的操作
             JobsLog(@"Text has been scrolled.");
@@ -99,14 +98,13 @@ Prop_strong()RACDisposable *timerDisposable;
         @jobs_strongify(self)
         jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据".tr);
-            label.byTextCor(JobsRandomCor(1));
-            label.byBgColor(JobsCyanColor);
-            self.view.addSubview(label);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            label.byText(@"-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据".tr)
+                .byTextCor(JobsRandomCor(1))
+                .byBgColor(JobsCyanColor);
+            label.byAddTo(self.view, ^(MASConstraintMaker *make) {
                 make.center.equalTo(self.view);
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(200), JobsWidth(20)));
-            }];self.view.refresh();
+            });self.view.refresh();
         }).startScrollingIfNeededWithInterval(0.02f);
     };
 }

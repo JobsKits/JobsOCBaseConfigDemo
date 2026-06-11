@@ -11,6 +11,12 @@
 #import <UIKit/UIKit.h>
 #import <JobsBaseUI/JobsMonitorVC.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<GKNavigationBar/GKNavigationBar.h>)
 #import <GKNavigationBar/GKNavigationBar.h>
 #else

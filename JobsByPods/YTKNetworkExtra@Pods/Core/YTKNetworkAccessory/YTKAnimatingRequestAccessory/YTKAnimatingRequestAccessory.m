@@ -14,13 +14,13 @@
     if (self = [super init]) {
         _animatingView = animatingView;
         _animatingText = animatingText;
-    }return self;
+    };return self;
 }
 
 -(id)initWithAnimatingView:(UIView *)animatingView {
     if (self = [super init]) {
         _animatingView = animatingView;
-    }return self;
+    };return self;
 }
 
 +(id)accessoryWithAnimatingView:(UIView *)animatingView {

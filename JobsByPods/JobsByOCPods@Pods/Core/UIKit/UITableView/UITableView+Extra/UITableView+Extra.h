@@ -224,7 +224,7 @@ NS_INLINE __kindof UITableView *_Nonnull jobsMakeTableViewByInsetGrouped(jobsByT
                  make.left.right.bottom.equalTo(self.view);
                  [self make:make topOffset:10];
              });
-         }return _tableView;
+         };return _tableView;
      }
  */
 #endif /* JOBS_HEADER_GUARD_UITABLEVIEW_EXTRA_A82916970D */

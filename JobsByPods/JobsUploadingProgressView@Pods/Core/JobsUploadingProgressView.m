@@ -30,7 +30,7 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
                                                                                                    267,
                                                                                                    76)];
         }
-    }return static_uploadingProgressView;
+    };return static_uploadingProgressView;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -39,37 +39,33 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
         [jobsGetMainWindow() addSubview:self];
         [jobsGetMainWindow() bringSubviewToFront:self];
         self.imge = @"icon_upload_imge".img;
-        self.strokeColor = self.byPatternImage(@"gradualColor".img.imageResize(CGSizeMake(50, 25)));; //圆环底色
+        self.strokeColor = self.byPatternImage(@"gradualColor".img.imageResize(CGSizeMake(50, 25))); //圆环底色
         self.radius = 34;
-
-        self.hidden = YES;
-        
-        self.backgroundColor = JobsWhiteColor.colorWithAlphaComponentBy(.9f);
+        self.byHidden(YES);
+        self.byBgColor(JobsWhiteColor.colorWithAlphaComponentBy(.9f));
         self.layer.cornerRadius = 10;
         self.clipsToBounds = YES;
-        
-    }return self;
+    };return self;
 }
 #pragma mark —— 一些公有方法
 - (void)updateProgressText:(NSString *)progressText {
-    self.hidden = NO;
-    self.backView.hidden = NO;
-    self.subrefreshLabel.text = progressText;
+    self.byHidden(NO);
+    self.backView.byHidden(NO);
+    self.subrefreshLabel.byText(progressText);
     [self starAnimation];
 }
 #pragma mark —— 一些私有方法
 /// 创建动画
 - (void)starAnimation{
-    self.shapLayer.hidden = NO;
-    self.imgeV.alpha = 1;
+    self.shapLayer.byHidden(NO);
+    self.imgeV.byAlpha(1);
 }
 
 -(void)dismiss{
-    self.hidden = YES;
-    self.backView.hidden = YES;
+    self.byHidden(YES);
+    self.backView.byHidden(YES);
     [self.shapLayer removeAnimationForKey:@"CLAnimation"];
     [self.timer stop];
-
     self.anim = nil;
 }
 #pragma mark —— lazyLoad
@@ -100,25 +96,27 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
             timer.accumulatedElapsed       = 0;
             timer.lastStartDate            = nil;
         });
-    }return _timer;
+    };return _timer;
 }
 
-- (CAShapeLayer *)shapLayer{
+-(CAShapeLayer *)shapLayer{
     if (!_shapLayer) {
         @jobs_weakify(self)
-        _shapLayer = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
+        _shapLayer = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer *_Nullable layer) {
             @jobs_strongify(self)
-            layer.frame = CGRectMake(0, 0, self.radius, self.radius);
-            layer.fillColor = JobsClearColor.CGColor;
-            layer.lineWidth = 2.0f;
-            layer.strokeColor = self.strokeColor.CGColor;//线条颜色
-            layer.path = self.bezier.CGPath;
-            layer.strokeStart = 0;
-            layer.strokeEnd = 0.85;
-            [layer addAnimation:self.anim forKey:@"CLAnimation"];
+            layer
+                .byFillColor(JobsClearColor.CGColor)
+                .byLineWidth(2.0f)
+                .byStrokeColor(self.strokeColor.CGColor) // 线条颜色
+                .byPath(self.bezier.CGPath)
+                .byStrokeStart(0)
+                .byStrokeEnd(0.85)
+                .byFrame(CGRectMake(0, 0, self.radius, self.radius))
+                .byAddAnimation(self.anim, @"CLAnimation");
+
             self.shapLayerView.layer.addSublayer(layer);
         });
-    }return _shapLayer;
+    };return _shapLayer;
 }
 
 -(UIBezierPath *)bezier{
@@ -126,92 +124,102 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
         _bezier = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0,
                                                                     0,
                                                                     self.radius,
-                                                                    self.radius)];//画个圆
-    }return _bezier;
+                                                                    self.radius)];// 画个圆
+    };return _bezier;
 }
 
 -(CAKeyframeAnimation *)anim{
     if (!_anim) {
-        _anim = jobsMakeCAKeyframeAnimation(^(__kindof CAKeyframeAnimation * _Nullable animation) {
-            animation.repeatCount = MAXFLOAT;
-            animation.duration = 1;
-            animation.removedOnCompletion = NO;
-            animation.fillMode = kCAFillModeForwards;
-            animation.keyPath = @"transform.rotation";
-            animation.values = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
-                data.add(@(M_PI/4.0));
-                data.add(@(M_PI * 2/4.0));
-                data.add(@(M_PI * 3/4.0));
-                data.add(@(4 * M_PI /4.0));
-                data.add(@(5 *M_PI/4.0));
-                data.add(@(6 *M_PI/4.0));
-                data.add(@(7 *M_PI/4.0));
-                data.add(@(8 * M_PI /4.0));
-                data.add(@(8 * M_PI /4.0 + M_PI/4.0));
-            });
+        _anim = jobsMakeCAKeyframeAnimation(^(__kindof CAKeyframeAnimation *_Nullable animation) {
+            animation
+                .byValues(jobsMakeMutArr(^(NSMutableArray *_Nullable data) {
+                    data
+                        .add(@(M_PI / 4.0))
+                        .add(@(M_PI * 2 / 4.0))
+                        .add(@(M_PI * 3 / 4.0))
+                        .add(@(4 * M_PI / 4.0))
+                        .add(@(5 * M_PI / 4.0))
+                        .add(@(6 * M_PI / 4.0))
+                        .add(@(7 * M_PI / 4.0))
+                        .add(@(8 * M_PI / 4.0))
+                        .add(@(8 * M_PI / 4.0 + M_PI / 4.0));
+                }))
+                .byKeyPath(@"transform.rotation")
+                .byRepeatCount(MAXFLOAT)
+                .byDuration(1)
+                .byRemovedOnCompletion(NO)
+                .byFillMode(kCAFillModeForwards);
         });
-    }return _anim;
+    };return _anim;
 }
 
-- (UIView *)shapLayerView{
+-(UIView *)shapLayerView{
     if (!_shapLayerView) {
         @jobs_weakify(self)
-        _shapLayerView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+        _shapLayerView = jobsMakeView(^(__kindof UIView *_Nullable view) {
             @jobs_strongify(self)
-            [self.addSubview(view) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self);
-                make.left.equalTo(self).offset(JobsWidth(62));
-                make.height.offset(self.radius + JobsWidth(2));
-                make.width.offset(self.radius + JobsWidth(2));
-            }];
+            view
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self);
+                    make.left.equalTo(self).offset(JobsWidth(62));
+                    make.height.offset(self.radius + JobsWidth(2));
+                    make.width.offset(self.radius + JobsWidth(2));
+                });
         });
-    }return _shapLayerView;
+    };return _shapLayerView;
 }
 
 -(UIImageView *)imgeV{
     if (!_imgeV) {
         @jobs_weakify(self)
-        _imgeV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+        _imgeV = jobsMakeImageView(^(__kindof UIImageView *_Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = self.imge;
-            [self.shapLayerView.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self.shapLayerView).offset(-JobsWidth(2)); // 由于图片不是对称的，需要位置微调
-                make.centerX.equalTo(self.shapLayerView).offset(-JobsWidth(8)); // 位置微调
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(12), JobsWidth(20)));
-            }];
+            imageView
+                .byImage(self.imge)
+                .addOn(self.shapLayerView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.shapLayerView).offset(-JobsWidth(2)); // 由于图片不是对称的，需要位置微调
+                    make.centerX.equalTo(self.shapLayerView).offset(-JobsWidth(8)); // 位置微调
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(12), JobsWidth(20)));
+                });
         });
-    }return _imgeV;
+    };return _imgeV;
 }
 
-- (UILabel *)refreshLabel{
+-(UILabel *)refreshLabel{
     if (!_refreshLabel) {
         @jobs_weakify(self)
-        _refreshLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+        _refreshLabel = jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
             @jobs_strongify(self)
-            label.byTextCor(JobsWhiteColor);
-            label.byText(@"正在上传...".tr);
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.shapLayerView.mas_right).offset(JobsWidth(12));
-                make.centerY.equalTo(self);
-            }];
+            label
+                .byTextCor(JobsWhiteColor)
+                .byText(@"正在上传...".tr)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.shapLayerView.mas_right).offset(JobsWidth(12));
+                    make.centerY.equalTo(self);
+                });
         });
-    }return _refreshLabel;
+    };return _refreshLabel;
 }
 
-- (UILabel *)subrefreshLabel{
+-(UILabel *)subrefreshLabel{
     if (!_subrefreshLabel) {
         @jobs_weakify(self)
-        _subrefreshLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+        _subrefreshLabel = jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
             @jobs_strongify(self)
-            label.byTextCor(JobsWhiteColor)
+            label
+                .byTextCor(JobsWhiteColor)
                 .byTextAlignment(NSTextAlignmentRight)
-                .byFont(UIFontWeightBoldSize(JobsWidth(12)));
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self).offset(-JobsWidth(8));
-                make.bottom.equalTo(self).offset(-JobsWidth(8));
-            }];
+                .byFont(UIFontWeightBoldSize(JobsWidth(12)))
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.right.equalTo(self).offset(-JobsWidth(8));
+                    make.bottom.equalTo(self).offset(-JobsWidth(8));
+                });
         });
-    }return _subrefreshLabel;
+    };return _subrefreshLabel;
 }
 
 @end

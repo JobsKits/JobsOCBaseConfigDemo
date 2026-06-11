@@ -21,7 +21,7 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -44,11 +44,14 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
     @jobs_weakify(self)
     return ^(id _Nullable model) {
         @jobs_strongify(self)
-        self.backgroundColor = JobsClearColor;
+        self.byBgColor(JobsClearColor);
+
         if ([model isKindOfClass:JobsFirstCommentModel.class]) {
             self.firstCommentModel = model;
-            self.userInfoBtn.alpha = 1;
-            self.likeBtn.alpha = 1;
+            self.userInfoBtn.byAlpha(1);
+
+            self.likeBtn.byAlpha(1);
+
         }
     };
 }
@@ -74,11 +77,11 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
         _userInfoBtn.textLabelFrameOffsetX = JobsWidth(0);
         _userInfoBtn.subTextLabelFrameOffsetX = JobsWidth(0);
         
-        [self addSubview:_userInfoBtn];
-        [_userInfoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        _userInfoBtn.byAddTo(self, ^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(JobsWidth(0));
             make.top.bottom.equalTo(self);
-        }];
+        });
+
     }
     
     if (self.firstCommentModel.headImg.jobsCanOpenUrl) {
@@ -138,12 +141,12 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
                 JobsLog(@"");
             });
         _likeBtn.thumpNum = 0;
-        [self addSubview:_likeBtn];
-        [_likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        _likeBtn.byAddTo(self, ^(MASConstraintMaker *make) {
             make.height.mas_equalTo(JobsWidth(55 / 2));
             make.right.equalTo(self).offset(-JobsWidth(13));
             make.centerY.equalTo(self);
-        }];
+        });
+
     }
     _likeBtn.selected = self.firstCommentModel.isPraise;
     _likeBtn.thumpNum = self.firstCommentModel.praiseNum;

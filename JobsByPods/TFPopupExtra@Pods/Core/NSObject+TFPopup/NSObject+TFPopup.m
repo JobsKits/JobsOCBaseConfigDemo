@@ -14,7 +14,7 @@
         if (action) action(); // 执行传入的操作
     } else {
         toastBy(@"请初始化视图");
-    }return view;
+    };return view;
 }
 #pragma mark —— 关闭所有的弹出提示框
 -(jobsByViewBlock _Nonnull)tfHideAllPopupView{
@@ -116,6 +116,7 @@
         @jobs_strongify(self)
         self.popupParameter.dragEnable = YES;
         self.popupParameter.backgroundColor = JobsBlackColor.colorWithAlphaComponentBy(.3f);
+
         self.popupParameter.disuseBackgroundTouchHide = NO;// 允许点击背景消失弹框
         [self checkByView:data action:^{
             @jobs_strongify(self)
@@ -132,6 +133,7 @@
         @jobs_strongify(self)
         self.popupParameter.dragEnable = YES;
         self.popupParameter.backgroundColor = JobsBlackColor.colorWithAlphaComponentBy(.3f);
+
         self.popupParameter.disuseBackgroundTouchHide = NO;/// 允许点击背景消失弹框
         [self checkByView:data action:^{
             @jobs_strongify(self)
@@ -235,7 +237,7 @@ JobsKey(_popupParameter)
     if (!PopupParameter) {
         PopupParameter = makeNormalPopupParameter();
         Jobs_setAssociatedRETAIN_NONATOMIC(_popupParameter, PopupParameter)
-    }return PopupParameter;
+    };return PopupParameter;
 }
 
 -(void)setPopupParameter:(TFPopupParam *)popupParameter{
@@ -249,7 +251,7 @@ JobsKey(_tipsParameter)
     if (!TipsParameter) {
         TipsParameter = makeNormalTipsParameter();
         Jobs_setAssociatedRETAIN_NONATOMIC(_tipsParameter, TipsParameter)
-    }return TipsParameter;
+    };return TipsParameter;
 }
 
 -(void)setTipsParameter:(TFPopupParam *)tipsParameter{

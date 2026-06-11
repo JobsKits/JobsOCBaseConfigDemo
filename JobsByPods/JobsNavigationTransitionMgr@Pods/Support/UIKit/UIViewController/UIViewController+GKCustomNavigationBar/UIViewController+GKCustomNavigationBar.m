@@ -49,7 +49,7 @@ JobsKey(_gk_navTitleBtn)
                     make.center.equalTo(self.gk_navigationBar);
                 }make.size.mas_equalTo(self.gk_navTitleBtnModel.jobsSize);
             });
-    }return navTitleBtn;
+    };return navTitleBtn;
 }
 
 -(void)setGk_navTitleBtn:(__kindof UIButton *)gk_navTitleBtn{

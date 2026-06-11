@@ -16,14 +16,14 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.label.alpha = 1;
-    }return self;
+        self.label.byAlpha(1);
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
-        self.label.alpha = 1;
-    }return self;
+        self.label.byAlpha(1);
+    };return self;
 }
 #pragma mark —— LazyLoad
 @synthesize label = _label;
@@ -32,13 +32,14 @@
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byFrame(self.bounds);
-            label.byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-            label.byFont([UIFont boldSystemFontOfSize:14.f]);
-            label.byTextAlignment(NSTextAlignmentCenter);
-            self.contentView.addSubview(label);
+            label
+                .byFont([UIFont boldSystemFontOfSize:14.f])
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byFrame(self.bounds)
+                .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
+                .addOn(self.contentView);
         });
-    }return _label;
+    };return _label;
 }
 
 @end

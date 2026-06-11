@@ -8,7 +8,7 @@
 #import "UITableView+WWFoldableTableView.h"
 
 @implementation UITableView (WWFoldableTableView)
-#pragma mark - init
+#pragma mark —— init
 + (void)load{
     SuppressWundeclaredSelectorWarning(
 //                                       [self ww_swizzInstanceMethod:@selector(_numberOfSections)
@@ -61,7 +61,7 @@ JobsKey(_ww_foldState)
 - (BOOL)ww_isSectionFolded:(NSInteger)section{
     if(!self.ww_foldable || !self.ww_foldState){
         return NO;
-    }return [self.ww_foldState containsObject:@(section)];
+    };return [self.ww_foldState containsObject:@(section)];
 }
 
 - (void)ww_foldSection:(NSInteger)section fold:(BOOL)fold{

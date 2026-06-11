@@ -28,9 +28,11 @@ Prop_strong()NSTimer *shrinkTimer;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.bgView = [[UIView alloc]initWithFrame:CGRectMake((CGRectGetWidth(frame)-CGRectGetHeight(frame))*0.5, 0, CGRectGetHeight(frame), CGRectGetHeight(frame))];
-        self.bgView.backgroundColor = [UIColor grayColor];
+        self.bgView.byBgColor([UIColor grayColor]);
+
         self.bgView.layer.cornerRadius = CGRectGetHeight(frame) / 2;
-        self.bgView.hidden = YES;
+        self.bgView.byHidden(YES);
+
 //        self.handleDemoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame))];
         
 //        [self.handleDemoBtn setBackgroundColor:[UIColor blackColor]];
@@ -38,12 +40,13 @@ Prop_strong()NSTimer *shrinkTimer;
 //        [self.handleDemoBtn setBackgroundColor:[UIColor clearColor]];
         [self addSubview:self.bgView];
 //        [self addSubview:self.handleDemoBtn];
-    }return self;
+    };return self;
 }
 // 点击放大
 - (void)handleBtnTouchDownAction{
     currentMaxSide = [self calculateMaxSide];
-    self.bgView.hidden = NO;
+    self.bgView.byHidden(NO);
+
     self.enlangerTimer = [NSTimer scheduledTimerWithTimeInterval:enlangerDuration target:self selector:@selector(handleEnlargerAction) userInfo:nil repeats:YES];
 }
 // 点击放大
@@ -74,7 +77,8 @@ Prop_strong()NSTimer *shrinkTimer;
     if (currentScale <= 0) {
         [self.shrinkTimer invalidate];
 //        self.handleDemoBtn.userInteractionEnabled = YES;
-        self.bgView.hidden = YES;
+        self.bgView.byHidden(YES);
+
         self.bgView.transform = CGAffineTransformIdentity;
         if (self.delegate && [self.delegate respondsToSelector:@selector(animationCancel)]) {
             [self.delegate animationCancel];

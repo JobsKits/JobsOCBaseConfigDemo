@@ -8,16 +8,15 @@
 #import "FMHomeWebVC.h"
 /**
  
- 产品：https://www.bsports.ph/
- UAT：https://bsports.net.ph
- 测试：https://www.sports3333.com
- 开发：https://www.sports5555.com
- 
+     产品：https://www.bsports.ph/
+     UAT：https://bsports.net.ph
+     测试：https://www.sports3333.com
+     开发：https://www.sports5555.com
  */
 @interface FMHomeWebVC ()
 
-Prop_strong()UIImageView *launchImageView; /// 启动画面
-Prop_strong()UIActivityIndicatorView *loadingIndicator; /// 加载指示器
+Prop_strong()UIImageView *launchImageView; // 启动画面
+Prop_strong()UIActivityIndicatorView *loadingIndicator; // 加载指示器
 Prop_copy()NSString *urlString;
 
 @end
@@ -32,7 +31,7 @@ Prop_copy()NSString *urlString;
 - (instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -41,12 +40,11 @@ Prop_copy()NSString *urlString;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsWhiteColor;
-
-    self.launchImageView.alpha = 1;
+    self.view.byBgColor(JobsWhiteColor);
+    self.launchImageView.byAlpha(1);
     [self.loadingIndicator startAnimating];
-    self.webView.alpha = 1;
-    self.view.bringSubviewToFront(self.launchImageView); /// 确保启动图在最上层
+    self.webView.byAlpha(1);
+    self.view.bringSubviewToFront(self.launchImageView); // 确保启动图在最上层
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -78,7 +76,7 @@ Prop_copy()NSString *urlString;
 /// 网页开始加载
 - (void)webView:(WKWebView *)webView
 didStartProvisionalNavigation:(WKNavigation *)navigation {
-    self.launchImageView.hidden = NO;
+    self.launchImageView.byHidden(NO);
     [self.loadingIndicator startAnimating];
 }
 /// 网页加载完成
@@ -87,7 +85,7 @@ didFinishNavigation:(WKNavigation *)navigation {
     @jobs_weakify(self)
     [UIView animateWithDuration:0.5 animations:^{
         @jobs_strongify(self)
-        self.launchImageView.alpha = 0;
+        self.launchImageView.byAlpha(0);
     } completion:^(BOOL finished) {
         @jobs_strongify(self)
         [self.launchImageView removeFromSuperview];
@@ -105,11 +103,11 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
 #pragma mark —— LazyLoad
 -(NSString *)urlString{
     if(!_urlString){
-//        _urlString = @"https://www.bsports.ph/"; /// 产品
-        _urlString = @"https://bsports.net.ph"; /// UAT
-//        _urlString = @"https://www.sports3333.com"; /// 测试
-//        _urlString = @"https://www.sports5555.com"; /// 开发
-    }return _urlString;
+//        _urlString = @"https://www.bsports.ph/"; // 产品
+        _urlString = @"https://bsports.net.ph"; // UAT
+//        _urlString = @"https://www.sports3333.com"; // 测试
+//        _urlString = @"https://www.sports5555.com"; // 开发
+    };return _urlString;
 }
 /// BaseViewControllerProtocol
 @synthesize webView = _webView;
@@ -136,12 +134,11 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
                 NSLog(@"获取 User-Agent 失败: %@", error.localizedDescription);
             }
         }];
-        self.view.addSubview(_webView);
-        [_webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _webView.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             make.top.equalTo(self.view).offset(JobsStatusBarHeight());
-        }];
-    }return _webView;
+        });
+    };return _webView;
 }
 
 -(UIImageView *)launchImageView{
@@ -149,12 +146,12 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
         @jobs_weakify(self)
         _launchImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.frame = self.view.bounds;
+            imageView.byFrame(self.view.bounds);
             imageView.image = @"1242x2688".img;
-            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.byContentMode(UIViewContentModeScaleAspectFill);
             self.view.addSubview(imageView);
         });
-    }return _launchImageView;
+    };return _launchImageView;
 }
 
 -(UIActivityIndicatorView *)loadingIndicator{
@@ -162,7 +159,7 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
         _loadingIndicator = [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
         _loadingIndicator.center = self.view.center;
         self.view.addSubview(self.loadingIndicator);
-    }return _loadingIndicator;
+    };return _loadingIndicator;
 }
 
 @end

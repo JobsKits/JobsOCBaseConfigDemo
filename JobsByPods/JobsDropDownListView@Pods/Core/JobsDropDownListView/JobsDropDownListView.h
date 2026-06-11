@@ -10,11 +10,6 @@
 
 #import <UIKit/UIKit.h>
 #import <JobsDropDownListView/JobsDropDownListTBVCell.h>
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
@@ -32,6 +27,12 @@
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
 #import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
@@ -102,14 +103,14 @@ NS_ASSUME_NONNULL_END
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"按钮的长按事件触发");
              });
-         [self.view addSubview:_btn];
-         [_btn mas_makeConstraints:^(MASConstraintMaker *make) {
+         _btn.byAddTo(self.view, ^(MASConstraintMaker *make) {
              make.center.equalTo(self.view);
     //            make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(25)));
              make.height.mas_equalTo(JobsWidth(30));
-         }];
+         });
+
          _btn.makeBtnTitleByShowingType(UILabelShowingType_03);
-     }return _btn;
+     };return _btn;
     }
  */
 #endif /* JOBS_HEADER_GUARD_JOBSDROPDOWNLISTVIEW_52EDD9121F */

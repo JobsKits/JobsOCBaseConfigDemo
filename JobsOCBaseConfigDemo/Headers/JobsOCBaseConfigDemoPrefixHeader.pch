@@ -182,12 +182,6 @@
 #import "SZTextViewExtra.h"
 #endif
 
-#if __has_include(<TextureExtra/TextureExtra.h>)
-#import <TextureExtra/TextureExtra.h>
-#else
-#import "TextureExtra.h"
-#endif
-
 #if __has_include(<YTKNetworkExtra/YTKNetworkExtra.h>)
 #import <YTKNetworkExtra/YTKNetworkExtra.h>
 #else

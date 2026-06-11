@@ -29,7 +29,7 @@
     } else {
         jsonString = NSString.initByUTF8Data(jsonData);
         JobsLog(@"%@", jsonString);
-    }return jsonString;
+    };return jsonString;
 }
 
 @end

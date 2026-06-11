@@ -33,14 +33,15 @@ Prop_strong() JobsTimer *timer;
 
 -(instancetype)init{
     if(self = [super init]){
-        self.backgroundColor = UIColor.clearColor;
+        self.byBgColor(UIColor.clearColor);
+
         [self setupDialLayers];
         [self setupNumberLabels];
         [self setupHandLayers];
-    }return self;
+    };return self;
 }
 
-#pragma mark - Setup
+#pragma mark —— Setup
 
 - (void)setupDialLayers {
     self.dialLayer = [CAShapeLayer layer];
@@ -77,14 +78,19 @@ Prop_strong() JobsTimer *timer;
     NSMutableArray<UILabel *> *arr = NSMutableArray.array;
     for (NSInteger i = 1; i <= 12; i++) {
         UILabel *label = UILabel.new;
-        label.text = [NSString stringWithFormat:@"%ld", (long)i];
-        label.font = [UIFont systemFontOfSize:12 weight:UIFontWeightMedium];
+        label.byText([NSString stringWithFormat:@"%ld", (long)i]);
+
+        label.byFont([UIFont systemFontOfSize:12 weight:UIFontWeightMedium]);
+
         if (@available(iOS 13.0, *)) {
-            label.textColor = [UIColor labelColor];
+            label.byTextCor([UIColor labelColor]);
+
         } else {
-            label.textColor = [UIColor blackColor];
+            label.byTextCor([UIColor blackColor]);
+
         }
-        label.textAlignment = NSTextAlignmentCenter;
+        label.byTextAlignment(NSTextAlignmentCenter);
+
         [self addSubview:label];
         [arr addObject:label];
     }
@@ -94,24 +100,28 @@ Prop_strong() JobsTimer *timer;
 - (void)setupHandLayers {
     self.hourHand = [CALayer layer];
     self.hourHand.backgroundColor = [UIColor blackColor].CGColor;
+
     self.hourHand.cornerRadius = 3.0;
     [self.layer addSublayer:self.hourHand];
 
     self.minuteHand = [CALayer layer];
     if (@available(iOS 13.0, *)) {
         self.minuteHand.backgroundColor = [UIColor darkGrayColor].CGColor;
+
     } else {
         self.minuteHand.backgroundColor = [UIColor darkGrayColor].CGColor;
+
     }
     self.minuteHand.cornerRadius = 2.0;
     [self.layer addSublayer:self.minuteHand];
 
     self.secondHand = [CALayer layer];
     self.secondHand.backgroundColor = [UIColor redColor].CGColor;
+
     self.secondHand.cornerRadius = 1.0;
     [self.layer addSublayer:self.secondHand];
 }
-#pragma mark - Layout
+#pragma mark —— Layout
 - (void)layoutSubviews {
     [super layoutSubviews];
 
@@ -138,6 +148,7 @@ Prop_strong() JobsTimer *timer;
                                    radius * 2.0);
     UIBezierPath *circlePath = [UIBezierPath bezierPathWithOvalInRect:circleRect];
     self.dialLayer.frame = self.bounds;
+
     self.dialLayer.path  = circlePath.CGPath;
     // 12 个整点刻度
     UIBezierPath *tickPath = UIBezierPath.bezierPath;
@@ -153,6 +164,7 @@ Prop_strong() JobsTimer *timer;
         [tickPath addLineToPoint:outer];
     }
     self.tickLayer.frame = self.bounds;
+
     self.tickLayer.path  = tickPath.CGPath;
 
     // 中心小圆点
@@ -163,6 +175,7 @@ Prop_strong() JobsTimer *timer;
                                 dotRadius * 2.0);
     UIBezierPath *dotPath = [UIBezierPath bezierPathWithOvalInRect:dotRect];
     self.centerDotLayer.frame = self.bounds;
+
     self.centerDotLayer.path  = dotPath.CGPath;
 
     // 1～12 数字布局
@@ -259,7 +272,7 @@ Prop_strong() JobsTimer *timer;
         self.timer = nil;
     }
 }
-#pragma mark - Private: 指针角度更新
+#pragma mark —— Private: 指针角度更新
 - (void)updateHandsAnimated:(BOOL)animated {
     NSDate *now = NSDate.date;
     NSCalendar *calendar = NSCalendar.currentCalendar;

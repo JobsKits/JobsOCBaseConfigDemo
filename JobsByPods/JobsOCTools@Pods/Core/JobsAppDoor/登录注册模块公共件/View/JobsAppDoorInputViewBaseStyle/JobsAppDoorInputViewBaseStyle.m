@@ -12,13 +12,13 @@
 -(NSString *)PlaceHolder{
     if (!_PlaceHolder) {
         _PlaceHolder = @"".tr;
-    }return _PlaceHolder;
+    };return _PlaceHolder;
 }
 
 -(NSString *)resString{
     if (!_resString) {
         _resString = @"".tr;
-    }return _resString;
+    };return _resString;
 }
 
 @end
@@ -34,7 +34,7 @@
         _textFieldInputModel = JobsAppDoorInputViewTFModel.new;
         _textFieldInputModel.resString = @"".tr;
         _textFieldInputModel.PlaceHolder = self.textField.placeholder;
-    }return _textFieldInputModel;
+    };return _textFieldInputModel;
 }
 
 @end

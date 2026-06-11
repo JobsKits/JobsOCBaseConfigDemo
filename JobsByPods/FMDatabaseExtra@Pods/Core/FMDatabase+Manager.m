@@ -29,7 +29,7 @@
                      withArgumentsInArray:argumentsInArray];
         [self close];
         return result;
-    }return NO;
+    };return NO;
 }
 #pragma mark —— 增删改查中 除了查询（executeQuery），其余操作都用（executeUpdate）
 -(BOOL)handleInsert{

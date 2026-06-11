@@ -10,7 +10,7 @@
 @implementation UIView (AutoSelfAdaptionSize)
 #pragma mark —— UILabel
 /// 确定Label的字体大小，使其宽度自适应
--(jobsByVoidBlock _Nonnull)labelAutoWidthByFont{
+-(jobsByVoidBlock _Nonnull)bySizeToFit{
     @jobs_weakify(self)
     return ^() {
         @jobs_strongify(self)
@@ -83,7 +83,7 @@
                            rect.size.width,
                            maxHight);
         JobsLog(@"Button");
-    }return frame;
+    };return frame;
 }
 /// 自适应高度
 -(CGRect)getFrameWithFreeHight:(CGPoint)origin
@@ -91,7 +91,7 @@
     CGRect frame = CGRectZero;
     if ([self isKindOfClass:UILabel.class]) {
         UILabel *label = (UILabel *)self;
-        label.numberOfLines = 0;//无限行
+        label.byNumberOfLines(0);// 无限行
         CGRect rect = [label.text boundingRectWithSize:CGSizeMake(maxWidth,MAXFLOAT)
                                                options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
                                             attributes:@{NSFontAttributeName:label.font}
@@ -105,7 +105,7 @@
     
     if ([self isKindOfClass:UIButton.class]) {
         UIButton *button = (UIButton *)self;
-        button.titleLabel.numberOfLines = 0;//无限行
+        button.titleLabel.byNumberOfLines(0);// 无限行
         CGRect rect = [button.titleLabel.text boundingRectWithSize:CGSizeMake(200,MAXFLOAT)
                                                            options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
                                                         attributes:@{NSFontAttributeName:button.titleLabel.font}
@@ -116,7 +116,7 @@
                            rect.size.width,
                            rect.size.height);
         JobsLog(@"Button");
-    }return frame;
+    };return frame;
 }
 /// 自适应宽度--->可调整字间距
 -(CGRect)getFrameWithFreeWidth:(CGPoint)origin
@@ -132,7 +132,7 @@
             data.byValue(@(textSpace))
                 .byRange(NSMakeRange(0, attributedString.length));
         }));
-        label.attributedText = attributedString;
+        label.byAttributedString(attributedString);
         //计算自适应高度
         CGRect rect = [label.text boundingRectWithSize:CGSizeMake(MAXFLOAT, maxHight)
                                                options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
@@ -144,7 +144,7 @@
                            rect.size.width,
                            maxHight);
         JobsLog(@"Label");
-    }return frame;
+    };return frame;
 }
 /// 自适应高度--->可调整字间距和行间距
 -(CGRect)getFrameWithFreeHight:(CGPoint)origin
@@ -154,7 +154,7 @@
     CGRect frame = CGRectZero;
     if ([self isKindOfClass:UILabel.class]) {
         UILabel *label = (UILabel *)self;
-        label.numberOfLines = 0;// 无限行
+        label.byNumberOfLines(0);// 无限行
         /// 字间距
         NSMutableAttributedString *attributedString = [NSMutableAttributedString.alloc initWithString:label.text
                                                                                            attributes:@{
@@ -170,7 +170,7 @@
         })
 
                                  range:NSMakeRange(0, label.text.length)];
-        label.attributedText = attributedString;
+        label.byAttributedString(attributedString);
         /// 设置文本偏移量
 //        [attributedString addAttribute:NSBaselineOffsetAttributeName value:@(1) range:NSMakeRange(0, label.text.length)];
         /// 计算自适应高度
@@ -182,7 +182,7 @@
                            rect.size.width,
                            rect.size.height);
         JobsLog(@"Label");
-    }return frame;
+    };return frame;
 }
 
 @end

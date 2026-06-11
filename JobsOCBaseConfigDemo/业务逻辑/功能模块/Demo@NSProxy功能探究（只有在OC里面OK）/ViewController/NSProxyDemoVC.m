@@ -21,7 +21,7 @@
 -(instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{

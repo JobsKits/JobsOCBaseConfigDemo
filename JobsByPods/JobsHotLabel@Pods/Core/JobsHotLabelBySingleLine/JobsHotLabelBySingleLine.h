@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
@@ -73,7 +79,8 @@ NS_ASSUME_NONNULL_END
      -(JobsHotLabelWithSingleLine *)hl{
          if (!_hl) {
              _hl = JobsHotLabelWithSingleLine.new;
-             _hl.backgroundColor = JobsClearColor;
+             _hl.byBgColor(JobsClearColor);
+
              _hl.labelShowingType = UILabelShowingType_05;
              _hl.hotLabelDefaultHeight = JobsWidth(30);
              @jobs_weakify(self)
@@ -91,8 +98,7 @@ NS_ASSUME_NONNULL_END
 
                  [self chargeOrderChargeOrderList];/// 用户充值列表
              }];
-             [self.view addSubview:_hl];
-             [_hl mas_makeConstraints:^(MASConstraintMaker *make) {
+             _hl.byAddTo(self.view, ^(MASConstraintMaker *make) {
                  make.centerX.equalTo(self.view);
                  make.width.mas_equalTo(JobsMainScreen_WIDTH());
                  make.top.equalTo(self.dropdownMenu.mas_bottom).offset(JobsWidth(5));
@@ -108,10 +114,11 @@ NS_ASSUME_NONNULL_END
                          break;
                  }
 
-             }];
+             });
+
              [self.view layoutIfNeeded];
               _hl.jobsRichViewByModel(self.hotLabelDataMutArr);
-         }return _hl;
+         };return _hl;
      }
 
      -(NSMutableArray<UIViewModel *> *)hotLabelDataMutArr{
@@ -178,7 +185,7 @@ NS_ASSUME_NONNULL_END
                  [_hotLabelDataMutArr addObject:vm];
              }
 
-         }return _hotLabelDataMutArr;
+         };return _hotLabelDataMutArr;
      }
  */
 #endif /* JOBS_HEADER_GUARD_JOBSHOTLABELBYSINGLELINE_023995DE53 */

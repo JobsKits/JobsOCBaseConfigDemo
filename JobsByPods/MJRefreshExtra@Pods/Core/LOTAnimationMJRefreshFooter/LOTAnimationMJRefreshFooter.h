@@ -66,6 +66,12 @@
 //#import "RACEXTRuntimeExtensions.h"
 //#endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /// 上拉加载Lottie动画
 @interface LOTAnimationMJRefreshFooter : MJRefreshAutoGifFooter

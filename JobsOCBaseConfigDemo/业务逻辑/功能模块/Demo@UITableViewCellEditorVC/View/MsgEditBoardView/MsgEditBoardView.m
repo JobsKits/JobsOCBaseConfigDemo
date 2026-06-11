@@ -36,14 +36,15 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -56,8 +57,9 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -66,9 +68,12 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
         @jobs_strongify(self)
         self.viewModel = model;
         MakeDataNull
-        self.allChooseBtn.alpha = 1;
-        self.deleteBtn.alpha = 1;
-        self.markToReadBtn.alpha = 1;
+        self.allChooseBtn.byAlpha(1);
+
+        self.deleteBtn.byAlpha(1);
+
+        self.markToReadBtn.byAlpha(1);
+
     };
 }
 /// 具体由子类进行复写【FrameY的变化量】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -101,7 +106,8 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
         @jobs_strongify(self)
         CGRect rect = MsgEditBoardView.viewFrameByModel(nil);
         rect.origin.y -= MsgEditBoardView.viewChangeYByModel(nil);
-        self.frame = rect;
+        self.byFrame(rect);
+
         view.addSubview(self);
     } completion:nil];
 }
@@ -111,7 +117,8 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
     [UIView animateWithDuration:.5f
                      animations:^{
         @jobs_strongify(self)
-        self.frame = MsgEditBoardView.viewFrameByModel(nil);
+        self.byFrame(MsgEditBoardView.viewFrameByModel(nil));
+
     } completion:^(BOOL finished) {
         @jobs_strongify(self)
         [self removeFromSuperview];
@@ -146,12 +153,12 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
             x.selected = !x.selected;
             if (self.objBlock) self.objBlock(x);
         });
-        [self.addSubview(_allChooseBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _allChooseBtn.byAddTo(self, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsWidth(28 + 14 + 12), JobsWidth(14)));
             make.left.equalTo(self).offset(JobsWidth(16));
             make.top.equalTo(self).offset(JobsWidth(18));
-        }];
-    }return _allChooseBtn;
+        });
+    };return _allChooseBtn;
 }
 
 -(UIButton *)markToReadBtn{
@@ -166,13 +173,13 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
             x.selected = !x.selected;
             if (self.objBlock) self.objBlock(x);
         });
-        [self.addSubview(_markToReadBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _markToReadBtn.byAddTo(self, ^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.allChooseBtn);
             make.right.equalTo(self.deleteBtn.mas_left).offset(JobsWidth(-36));
             make.height.mas_equalTo(JobsWidth(14));
-        }];
+        });
         _markToReadBtn.enabledBlock(NO);
-    }return _markToReadBtn;
+    };return _markToReadBtn;
 }
 
 -(UIButton *)deleteBtn{
@@ -187,14 +194,14 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
             x.selected = !x.selected;
             if (self.objBlock) self.objBlock(x);
         });
-        [self.addSubview(_deleteBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _deleteBtn.byAddTo(self, ^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.allChooseBtn);
             make.right.equalTo(self).offset(JobsWidth(-18));
             make.height.mas_equalTo(JobsWidth(14));
-        }];
+        });
         _deleteBtn.enabledBlock(NO);
         _deleteBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _deleteBtn;
+    };return _deleteBtn;
 }
 
 @end

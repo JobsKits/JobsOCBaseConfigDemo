@@ -21,7 +21,7 @@ Prop_strong()UILabel *detailLab;
 //        self.backgroundColor = JobsWhiteColor;
 //        self.contentView.backgroundColor = JobsRandomColor;
         self.cornerCutToCircleWithCornerRadius(JobsWidth(8));
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
@@ -36,8 +36,10 @@ Prop_strong()UILabel *detailLab;
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model ? : UIViewModel.new;
-        self.titleBtn.alpha = 1;
-        self.detailLab.alpha = 1;
+        self.titleBtn.byAlpha(1);
+
+        self.detailLab.byAlpha(1);
+
         switch (self.indexPath.item) {
             case 0:
                 JobsCellSelfCor([UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
@@ -72,36 +74,45 @@ Prop_strong()UILabel *detailLab;
             default:
                 JobsCellSelfCor(JobsWhiteColor);
                 break;
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— lazyLoad
 -(BaseButton *)titleBtn{
     if (!_titleBtn) {
-        _titleBtn = BaseButton.jobsInit();
-        [self.contentView.addSubview(_titleBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView).offset(JobsWidth(12));
-            make.centerY.equalTo(self.contentView);
-        }];
+        @jobs_weakify(self)
+        _titleBtn = BaseButton.jobsInit()
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.left.equalTo(self.contentView).offset(JobsWidth(12));
+                make.centerY.equalTo(self.contentView);
+            });
     }
-    _titleBtn.jobsResetBtnTitle(self.viewModel.textModel.text);
-    _titleBtn.jobsResetBtnImage(self.viewModel.image);
-    _titleBtn.jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58));
-    _titleBtn.jobsResetBtnTitleFont(UIFontWeightBoldSize(14));
 
-    _titleBtn.imageViewSize = CGSizeMake(JobsWidth(40), JobsWidth(40));
+    _titleBtn
+        .jobsResetBtnTitle(self.viewModel.textModel.text)
+        .jobsResetBtnImage(self.viewModel.image)
+        .jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58))
+        .jobsResetBtnTitleFont(UIFontWeightBoldSize(14));
     _titleBtn.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-        model.byJobsWidth(1)
-             .byLayerCor(HEXCOLOR(0xEEE2C8))
-             .byCornerRadiusValue(JobsWidth(20));
-    }));
-    
-    _titleBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    _titleBtn.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeLeading,JobsWidth(50));
-    
-    _titleBtn.imageView.y = -JobsWidth(12);
-    _titleBtn.imageView.x = 0;
-    _titleBtn.titleLabel.x = JobsWidth(60);
+            model
+                .byJobsWidth(1)
+                .byLayerCor(HEXCOLOR(0xEEE2C8))
+                .byCornerRadiusValue(JobsWidth(20));
+        }));
+    _titleBtn
+        .makeBtnTitleByShowingType(UILabelShowingType_03)
+        .jobsResetImagePlacement_Padding(NSDirectionalRectEdgeLeading, JobsWidth(50))
+        .byImageView(^(UIImageView *imageView) {
+            _titleBtn.imageViewSize = CGSizeMake(JobsWidth(40), JobsWidth(40));
+            imageView.y = -JobsWidth(12);
+            imageView.x = 0;
+        })
+        .byTitleLabel(^(UILabel *titleLabel) {
+            titleLabel.x = JobsWidth(60);
+        });
+
     return _titleBtn;
 }
 
@@ -110,17 +121,22 @@ Prop_strong()UILabel *detailLab;
         @jobs_weakify(self)
         _detailLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byFont(UIFontWeightBoldSize(18));
-            label.byTextCor(HEXCOLOR(0x3D4A58));
-            label.byTextAlignment(NSTextAlignmentCenter);
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.contentView).offset(JobsWidth(-12));
-                make.centerY.equalTo(self.contentView);
-            }];
+            label
+                .byFont(UIFontWeightBoldSize(18))
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.right.equalTo(self.contentView).offset(JobsWidth(-12));
+                    make.centerY.equalTo(self.contentView);
+                });
         });
     }
-    _detailLab.text = self.viewModel.subTextModel.text;
-    _detailLab.makeLabelByShowingType(UILabelShowingType_03);
+
+    _detailLab
+        .byText(self.viewModel.subTextModel.text)
+        .makeLabelByShowingType(UILabelShowingType_03);
+
     return _detailLab;
 }
 

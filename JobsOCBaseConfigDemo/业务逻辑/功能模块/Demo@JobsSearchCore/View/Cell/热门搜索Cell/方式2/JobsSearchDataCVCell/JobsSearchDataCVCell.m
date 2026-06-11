@@ -21,9 +21,9 @@ Prop_strong()UIColor *serialNumLabBGCor;
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = JobsWhiteColor;
-        self.contentView.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+        self.contentView.byBgColor(JobsWhiteColor);
+    };return self;
 }
 #pragma mark —— BaseCellProtocol
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -47,8 +47,8 @@ Prop_strong()UIColor *serialNumLabBGCor;
                 self.serialNumLabBGCor = RGB_COLOR(232, 232, 232);
             }break;
         }
-        self.serialNumLab.alpha = 1;
-        self.contentLab.alpha = 1;
+        self.serialNumLab.byAlpha(1);
+        self.contentLab.byAlpha(1);
         return self;
     };
 }
@@ -58,17 +58,18 @@ Prop_strong()UIColor *serialNumLabBGCor;
         @jobs_weakify(self)
         _serialNumLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(self.serialStr);
-            label.byTextAlignment(NSTextAlignmentCenter);
-            label.byTextCor(JobsWhiteColor);
-            label.byBgColor(self.serialNumLabBGCor);
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
+            label
+                .byText(self.serialStr)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byTextCor(JobsWhiteColor)
+                .byBgColor(self.serialNumLabBGCor);
+            label.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake(20, 20));
                 make.left.equalTo(self.contentView).offset(10);
                 make.centerY.equalTo(self.contentView);
-            }];label.cornerCutToCircleWithCornerRadius(3);
+            });label.cornerCutToCircleWithCornerRadius(3);
         });
-    }return _serialNumLab;
+    };return _serialNumLab;
 }
 
 -(UILabel *)contentLab{
@@ -76,14 +77,15 @@ Prop_strong()UIColor *serialNumLabBGCor;
         @jobs_weakify(self)
         _contentLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(self.viewModel.textModel.text);
-            label.byTextCor(JobsLightGrayColor);
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
+            label
+                .byText(self.viewModel.textModel.text)
+                .byTextCor(JobsLightGrayColor);
+            label.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self.serialNumLab);
                 make.left.equalTo(self.serialNumLab.mas_right).offset(5);
-            }];
+            });
         });
-    }return _contentLab;
+    };return _contentLab;
 }
 
 @end

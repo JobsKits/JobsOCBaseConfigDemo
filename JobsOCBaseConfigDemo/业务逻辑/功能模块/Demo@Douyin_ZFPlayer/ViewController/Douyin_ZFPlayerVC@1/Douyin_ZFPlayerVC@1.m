@@ -18,11 +18,11 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
 }
-#pragma mark - Lifecycle
+#pragma mark —— Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
         self.index = 0;
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -51,7 +51,8 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
 -(void)viewDidLoad{
     [super viewDidLoad];
 
-    self.view.backgroundColor = JobsYellowColor;
+    self.view.byBgColor(JobsYellowColor);
+
     self.makeNavByAlpha(1);
     
     self.tableView.byShow(self);
@@ -162,7 +163,8 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
         if (self.tableView.contentOffset.y - self.tableView.contentSize.height < 80 &&
             self.tableView.contentSize.height > 80) {
             //上拉加载方法
-            self.tableView.mj_footer.hidden = NO;
+            self.tableView.mj_footer.byHidden(NO);
+
 //            [self.tableView.mj_footer endRefreshingWithNoMoreData]; MJRefreshStateNoMoreData
             self.tableView.mj_footer.state = MJRefreshStateNoMoreData;
             [self.tableView.mj_footer endRefreshing];
@@ -181,7 +183,7 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
         }
     }];
 }
-#pragma mark —————————— UITableViewDelegate,UITableViewDataSource ——————————
+#pragma mark —— UITableViewDelegate,UITableViewDataSource ——————————
 -(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return JobsPlayerTBVCell.cellHeightByModel(nil);
@@ -257,7 +259,6 @@ forRowAtIndexPath:(NSIndexPath*)indexPath{
         @jobs_weakify(self)
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
-
             tableView
                 .byMJRefreshHeader([MJRefreshNormalHeader headerWithRefreshingBlock:^{
                     @jobs_strongify(self)
@@ -309,7 +310,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath{
                 SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
             }
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray <VideoModel_Core *>*)dataMutArr{
@@ -516,7 +517,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath{
                 data.videoImg = @"视频封面";
             }));/// 第10条视频
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

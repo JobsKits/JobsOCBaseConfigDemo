@@ -85,13 +85,15 @@
 -(UIImageView *)imgView{
     if (!_imgView) {
         @jobs_weakify(self)
-        _imgView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+        _imgView = jobsMakeImageView(^(__kindof UIImageView *_Nullable imageView) {
             @jobs_strongify(self)
-            imageView.clipsToBounds = YES;
-            imageView.layer.cornerRadius = 20;
-            [self.contentView.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.contentView);
-            }];
+            imageView
+                .byClipsToBounds(YES)
+                .byCornerRadius(20)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.contentView);
+                });
         });
     }return _imgView;
 }

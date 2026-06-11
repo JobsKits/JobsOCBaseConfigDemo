@@ -61,7 +61,7 @@ JobsKey(_playerCtr)
         }
 #endif
         Jobs_setAssociatedRETAIN_NONATOMIC(_playerCtr, PlayerCtr)
-    }return PlayerCtr;
+    };return PlayerCtr;
 }
 
 -(void)setPlayerCtr:(ZFPlayerController *)playerCtr{
@@ -81,7 +81,7 @@ JobsKey(_avPlayerManager)
     //            data.assetURL = @"iph_X.mp4".pathForResourceWithFullName.jobsUrl;
     //        }
         });Jobs_setAssociatedRETAIN_NONATOMIC(_avPlayerManager, AVPlayerManager)
-    }return AVPlayerManager;
+    };return AVPlayerManager;
 }
 
 -(void)setAvPlayerManager:(ZFAVPlayerManager *)avPlayerManager{
@@ -98,7 +98,7 @@ JobsKey(_ijkPlayerManager)
             
         });
         Jobs_setAssociatedRETAIN_NONATOMIC(_ijkPlayerManager, IJKPlayerManager)
-    }return IJKPlayerManager;
+    };return IJKPlayerManager;
 }
 
 -(void)setIjkPlayerManager:(ZFIJKPlayerManager *)ijkPlayerManager{
@@ -114,7 +114,7 @@ JobsKey(_customPlayerControlView)
         playerControlView = CustomZFPlayerControlView.new;
 //        playerControlView.frame = self.bounds;
         Jobs_setAssociatedRETAIN_NONATOMIC(_customPlayerControlView, playerControlView)
-    }return playerControlView;
+    };return playerControlView;
 }
 
 -(void)setCustomPlayerControlView:(CustomZFPlayerControlView *)customPlayerControlView{

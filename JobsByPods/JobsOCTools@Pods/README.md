@@ -129,7 +129,6 @@ JobsOCTools@Pods/
 - `ReachabilityExtra`
 - `SRWebSocketExtra`
 - `SZTextViewExtra`
-- `TextureExtra`
 - `ZFPlayerExtra`
 - `ZMJCellExtra`
 - `JobsOCProtocols`

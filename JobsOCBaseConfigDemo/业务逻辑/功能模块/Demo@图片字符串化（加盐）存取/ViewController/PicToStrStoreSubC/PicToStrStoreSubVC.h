@@ -68,6 +68,12 @@ typedef NS_ENUM(NSInteger, PicToStrStyle) {
 };
 #endif /* PIC_TO_STR_STYLE_ENUM_DEFINED */
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PicToStrStoreSubVC : BaseViewController

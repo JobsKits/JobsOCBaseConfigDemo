@@ -48,7 +48,7 @@ static dispatch_once_t AppDelegateOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
 //        self.simulateUserData();
-    }return self;
+    };return self;
 }
 #pragma mark —— 一些私有方法
 /// 模拟用户数据
@@ -92,7 +92,7 @@ static dispatch_once_t AppDelegateOnceToken;
                 }
             }];
         }
-    }return _persistentContainer;
+    };return _persistentContainer;
 }
 
 @end

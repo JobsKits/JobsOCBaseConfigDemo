@@ -34,7 +34,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
     if (self = [super init]) {
 //        self.backgroundColor = JobsRedColor;
         self.thisViewSize = thisViewSize;
-    }return self;
+    };return self;
 }
 
 -(void)layoutSubviews{
@@ -67,10 +67,13 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
 }
 
 -(void)configTextField{
-    self.zyTextField.placeholder = self.doorInputViewBaseStyleModel.placeholder;
+    self.zyTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
+
     self.zyTextField.background = self.doorInputViewBaseStyleModel.background;
-    self.zyTextField.keyboardType = self.doorInputViewBaseStyleModel.keyboardType;
-    self.zyTextField.textColor = self.doorInputViewBaseStyleModel.ZYtextColor;
+    self.zyTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
+
+    self.zyTextField.byTextCor(self.doorInputViewBaseStyleModel.ZYtextColor);
+
     self.zyTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
     self.zyTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
     self.zyTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量
@@ -104,11 +107,13 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
 #warning 这里需要被修改
     //    self.chooseBtnSize = CGSizeMake([UIView widthByData:self.chooseBtnViewModel] + JobsWidth(10), JobsWidth(16));
         if (self.doorInputViewBaseStyleModel) {
-            self.titleLab.alpha = 1;
+            self.titleLab.byAlpha(1);
+
             switch (self.style_5) {
                 /// 带发送验证码按钮
                 case InputViewStyle_5_1:{
-                    self.authCodeBtn.alpha = 1;
+                    self.authCodeBtn.byAlpha(1);
+
                 }break;
                 /// 没有额外的UI控件
                 case InputViewStyle_5_2:{
@@ -116,8 +121,10 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                 }break;
                 /// 电话号码区号选择器
                 case InputViewStyle_5_3:{
-                    self.chooseBtn.alpha = 1;
-                    self.textField.alpha = 1;
+                    self.chooseBtn.byAlpha(1);
+
+                    self.textField.byAlpha(1);
+
                 }break;
                 default:
                     break;
@@ -142,27 +149,32 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
 #pragma mark —— lazyLoad
 -(BaseButton *)securityModeBtn{
     if (!_securityModeBtn) {
+        @jobs_weakify(self)
         _securityModeBtn = BaseButton
             .initByNormalImage(self.doorInputViewBaseStyleModel.unSelectedSecurityBtnIMG ? : JobsBlueColor.image)
             .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
+
                 x.selected = !x.selected;
-                if(x.selected){
+                if (x.selected) {
                     x.jobsResetBtnImage(self.doorInputViewBaseStyleModel.selectedSecurityBtnIMG ? : JobsRedColor.image);
                 }
-                self.textField.secureTextEntry = x.selected;
+
+                self.textField.bySecureTextEntry(x.selected);
+
                 if (x.selected && !self.textField.isEditing) {
-                    self.textField.placeholder = self.doorInputViewBaseStyleModel.placeholder;
+                    self.textField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
                 }
-        }).onLongPressGestureBy(^(id data){
-            JobsLog(@"");
-        });
-        [self addSubview:_securityModeBtn];
-        [_securityModeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.right.bottom.equalTo(self);
-            make.width.mas_equalTo(JobsWidth(40));
-        }];
-    }return _securityModeBtn;
+            }).onLongPressGestureBy(^(id data){
+                JobsLog(@"");
+            })
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.top.right.bottom.equalTo(self);
+                make.width.mas_equalTo(JobsWidth(40));
+            });
+    };return _securityModeBtn;
 }
 
 -(UILabel *)titleLab{
@@ -170,16 +182,21 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self);
-                make.left.equalTo(self);
-            }];
+            label
+                .byTextCor(self.doorInputViewBaseStyleModel.titleStrCor)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self);
+                    make.left.equalTo(self);
+                });
         });
     }
-    _titleLab.text = self.doorInputViewBaseStyleModel.titleLabStr;
-    _titleLab.font = self.doorInputViewBaseStyleModel.titleStrFont;
-    _titleLab.makeLabelByShowingType(UILabelShowingType_03);
+
+    _titleLab
+        .byText(self.doorInputViewBaseStyleModel.titleLabStr)
+        .byFont(self.doorInputViewBaseStyleModel.titleStrFont)
+        .makeLabelByShowingType(UILabelShowingType_03);
+
     return _titleLab;
 }
 
@@ -191,26 +208,30 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                 JobsLog(@"");
             })
             .byOnTick(^(CGFloat time) {
-                // 每 tick 一次
+                /// 每 tick 一次
                 NSLog(@"剩余: %.0f", time);
             })
-            .byOnFinish(^ (JobsTimer * _Nullable timer) {
-            // 倒计时完成
-            NSLog(@"倒计时结束");
-        });
-        [self.addSubview(_authCodeBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self).offset(-JobsWidth(16));
-            make.bottom.equalTo(self.textField);
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(25)));
-        }];
-    }return _authCodeBtn;
+            .byOnFinish(^(JobsTimer * _Nullable timer) {
+                /// 倒计时完成
+                NSLog(@"倒计时结束");
+            })
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.right.equalTo(self).offset(-JobsWidth(16));
+                make.bottom.equalTo(self.textField);
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(25)));
+            });
+    };return _authCodeBtn;
 }
 
 -(BaseButton *)chooseBtn{
     if (!_chooseBtn) {
         @jobs_weakify(self)
         _chooseBtn = BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-            data.byButtonConfigurationTitleAlignment(UIButtonConfigurationTitleAlignmentAutomatic)
+            @jobs_strongify(self)
+            data
+                .byButtonConfigurationTitleAlignment(UIButtonConfigurationTitleAlignmentAutomatic)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .bySubTextAlignment(NSTextAlignmentCenter)
                 .byNormalImage(self.chooseBtnViewModel.image)
@@ -224,38 +245,44 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                 .byContentHorizontalAlignment(UIControlContentHorizontalAlignmentCenter)
                 .byContentVerticalAlignment(UIControlContentVerticalAlignmentCenter)
                 .byRoundingCorners(UIRectCornerAllCorners);
-        })).onClickBy(^(UIButton *x){
-            @jobs_strongify(self)
-            x.selected = !x.selected;
-            if (self.objBlock) self.objBlock(x);
-            if (x.selected) {
-                self->dropDownListView = [self motivateFromView:x
-                                  jobsDropDownListViewDirection:JobsDropDownListViewDirection_UP
-                                                           data:self.jobsPageViewDataMutArr
-                                             motivateViewOffset:0
-                                                    finishBlock:^(UIViewModel *data) {
-                    JobsLog(@"data = %@",data);
-                    JobsLog(@"data = %@",data.data);
-                    x.jobsResetBtnTitle(data.textModel.text.add(data.subTextModel.text));
-                }];
-            }else{
-                self->dropDownListView.dropDownListViewDisappear(x);
-            }
-        }).onLongPressGestureBy(^(id data){
-            JobsLog(@"");
-        });
-        [self.addSubview(_chooseBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self).offset(-JobsWidth(8));
-            make.size.mas_equalTo(self.chooseBtnSize);
-            make.left.equalTo(self).offset(JobsWidth(0));
-        }];
-    }return _chooseBtn;
+        }))
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                x.selected = !x.selected;
+                if (self.objBlock) self.objBlock(x);
+
+                if (x.selected) {
+                    self->dropDownListView = [self motivateFromView:x
+                                          jobsDropDownListViewDirection:JobsDropDownListViewDirection_UP
+                                                                   data:self.jobsPageViewDataMutArr
+                                                     motivateViewOffset:0
+                                                            finishBlock:^(UIViewModel *data) {
+                        JobsLog(@"data = %@", data);
+                        JobsLog(@"data = %@", data.data);
+                        x.jobsResetBtnTitle(data.textModel.text.add(data.subTextModel.text));
+                    }];
+                } else {
+                    self->dropDownListView.dropDownListViewDisappear(x);
+                }
+            }).onLongPressGestureBy(^(id data){
+                JobsLog(@"");
+            })
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.bottom.equalTo(self).offset(-JobsWidth(8));
+                make.size.mas_equalTo(self.chooseBtnSize);
+                make.left.equalTo(self).offset(JobsWidth(0));
+            });
+    };return _chooseBtn;
 }
+
 @synthesize zyTextField = _zyTextField;
 -(ZYTextField *)zyTextField{
     if (!_zyTextField) {
         _zyTextField = ZYTextField.new;
-        _zyTextField.delegate = self;
+        _zyTextField.byDelegate(self);
+
         @jobs_weakify(self)
         [_zyTextField jobsTextFieldEventFilterBlock:^BOOL(NSString * _Nullable data) {
             @jobs_strongify(self)
@@ -269,7 +296,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                 if (self.objBlock) self.objBlock(self->_zyTextField);
             }
         }];
-        [self.addSubview(_zyTextField) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _zyTextField.byAddTo(self, ^(MASConstraintMaker *make) {
             make.top.equalTo(self.titleLab.mas_bottom);
             make.bottom.equalTo(self).offset(-JobsWidth(8));
             if (self.style_5 == InputViewStyle_5_1) {
@@ -282,11 +309,12 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                 make.right.equalTo(self);
                 make.left.equalTo(self.chooseBtn.mas_right).offset(JobsWidth(10));
             }else{}
-        }];
+        });
     }
     if (self.doorInputViewBaseStyleModel.textModel.text.isDebugText) {
-        _zyTextField.text = @"".tr;
-    }return _zyTextField;
+        _zyTextField.byText(@"".tr);
+
+    };return _zyTextField;
 }
 
 -(UIViewModel *)chooseBtnViewModel{
@@ -303,7 +331,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
             data.subTextModel.byText(@"".tr);
             data.byImage(@"向下的箭头".img);
         });
-    }return _chooseBtnViewModel;
+    };return _chooseBtnViewModel;
 }
 
 -(NSMutableArray<UIViewModel *> *)jobsPageViewDataMutArr{
@@ -331,7 +359,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                 viewModel.subTextModel.byText(@"".tr);
             }));
         });
-    }return _jobsPageViewDataMutArr;
+    };return _jobsPageViewDataMutArr;
 }
 
 @end

@@ -43,6 +43,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /// 包含一个按钮 和 一个TextView（用于承接富文本及其点击事件）
 @interface JobsBtnTextViewStyleTBVCell : JobsBaseTableViewCell<UITextViewDelegate>

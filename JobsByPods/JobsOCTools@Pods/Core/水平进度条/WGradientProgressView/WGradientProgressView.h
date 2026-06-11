@@ -28,6 +28,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /// 进度条上方的指示标签，可以作为动态跟随，也可以作为固定在栅栏的上方
 @interface WGradientProgressView : UIView

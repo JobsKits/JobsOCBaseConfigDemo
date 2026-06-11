@@ -7,12 +7,6 @@
 
 #import "JobsTabBarItem.h"
 
-#if __has_include(<JobsByOCPods/UITabBarItem+Extra.h>)
-#import <JobsByOCPods/UITabBarItem+Extra.h>
-#else
-#import "UITabBarItem+Extra.h"
-#endif
-
 @interface JobsTabBarItem ()
 
 Prop_strong()JobsTabBarItemConfig *tabBarControllerConfig;
@@ -39,7 +33,7 @@ Prop_strong()JobsTabBarItemConfig *tabBarControllerConfig;
             self.titleTextAttributesByNormalState(config.titleCorNormal);
             self.titleTextAttributesBySelectedState(config.titleCorNormal);
         }
-    }return self;
+    };return self;
 }
 
 @end

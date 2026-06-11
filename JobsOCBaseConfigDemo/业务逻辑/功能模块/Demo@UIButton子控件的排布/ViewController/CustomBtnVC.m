@@ -52,10 +52,14 @@ Prop_strong()UIButton *btn4;
     
     self.makeNavByAlpha(1);
     
-    self.btn1.alpha = 1;
-    self.btn2.alpha = 1;
-    self.btn3.alpha = 1;
-    self.btn4.alpha = 1;
+    self.btn1.byAlpha(1);
+
+    self.btn2.byAlpha(1);
+
+    self.btn3.byAlpha(1);
+
+    self.btn4.byAlpha(1);
+
 }
 #pragma mark —— lazyLoad
 -(UIButton *)btn1{
@@ -65,14 +69,15 @@ Prop_strong()UIButton *btn4;
         _btn1.jobsResetBtnImage(@"Lock".img);
         _btn1.jobsResetBtnTitleCor(JobsWhiteColor);
         _btn1.jobsResetBtnTitleFont(UIFontWeightRegularSize(14));
-        _btn1.backgroundColor = JobsCyanColor;
+        _btn1.byBgColor(JobsCyanColor);
+
     
-        [self.view addSubview:_btn1];
-        [_btn1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        _btn1.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(10);
             make.centerX.equalTo(self.view);
             make.height.mas_equalTo(JobsWidth(50));
-        }];
+        });
+
         _btn1.imageView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
             model.byJobsWidth(1)
                  .byLayerCor(HEXCOLOR(0xEEE2C8))
@@ -81,7 +86,7 @@ Prop_strong()UIButton *btn4;
         /// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
         _btn1.makeBtnTitleByShowingType(UILabelShowingType_03);
         _btn1.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeLeading,JobsWidth(8));
-    }return _btn1;
+    };return _btn1;
 }
 
 -(UIButton *)btn2{
@@ -91,14 +96,15 @@ Prop_strong()UIButton *btn4;
         _btn2.jobsResetBtnImage(@"Lock".img);
         _btn2.jobsResetBtnTitleCor(JobsWhiteColor);
         _btn2.jobsResetBtnTitleFont(UIFontWeightRegularSize(14));
-        _btn2.backgroundColor = JobsCyanColor;
+        _btn2.byBgColor(JobsCyanColor);
+
         
-        [self.view addSubview:_btn2];
-        [_btn2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        _btn2.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.top.equalTo(self.btn1.mas_bottom).offset(10);
             make.centerX.equalTo(self.view);
             make.height.mas_equalTo(JobsWidth(50));
-        }];
+        });
+
         _btn2.imageView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
             model.byJobsWidth(1)
                  .byLayerCor(HEXCOLOR(0xEEE2C8))
@@ -107,7 +113,7 @@ Prop_strong()UIButton *btn4;
         _btn2.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTrailing,JobsWidth(8));
         /// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
         _btn2.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _btn2;
+    };return _btn2;
 }
 
 -(UIButton *)btn3{
@@ -117,14 +123,15 @@ Prop_strong()UIButton *btn4;
         _btn3.jobsResetBtnImage(@"Lock".img);
         _btn3.jobsResetBtnTitleCor(JobsWhiteColor);
         _btn3.jobsResetBtnTitleFont(UIFontWeightRegularSize(14));
-        _btn3.backgroundColor = JobsCyanColor;
+        _btn3.byBgColor(JobsCyanColor);
+
         
-        [self.view addSubview:_btn3];
-        [_btn3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        _btn3.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.top.equalTo(self.btn2.mas_bottom).offset(10);
             make.centerX.equalTo(self.view);
             make.height.mas_equalTo(JobsWidth(50));
-        }];
+        });
+
         _btn3.imageView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
             model.byJobsWidth(1)
                  .byLayerCor(HEXCOLOR(0xEEE2C8))
@@ -133,7 +140,7 @@ Prop_strong()UIButton *btn4;
         /// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
         _btn3.makeBtnTitleByShowingType(UILabelShowingType_03);
         _btn3.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTop,JobsWidth(8));
-    }return _btn3;
+    };return _btn3;
 }
 
 -(UIButton *)btn4{
@@ -143,14 +150,15 @@ Prop_strong()UIButton *btn4;
         _btn4.jobsResetBtnImage(@"Lock".img);
         _btn4.jobsResetBtnTitleCor(JobsWhiteColor);
         _btn4.jobsResetBtnTitleFont(UIFontWeightRegularSize(14));
-        _btn4.backgroundColor = JobsCyanColor;
+        _btn4.byBgColor(JobsCyanColor);
+
         
-        [self.view addSubview:_btn4];
-        [_btn4 mas_makeConstraints:^(MASConstraintMaker *make) {
+        _btn4.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.top.equalTo(self.btn3.mas_bottom).offset(10);
             make.centerX.equalTo(self.view);
             make.height.mas_equalTo(JobsWidth(50));
-        }];
+        });
+
         _btn4.imageView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
             model.byJobsWidth(1)
                  .byLayerCor(HEXCOLOR(0xEEE2C8))
@@ -159,7 +167,7 @@ Prop_strong()UIButton *btn4;
         /// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
         _btn4.makeBtnTitleByShowingType(UILabelShowingType_03);
         _btn4.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeBottom,JobsWidth(8));
-    }return _btn4;
+    };return _btn4;
 }
 
 @end

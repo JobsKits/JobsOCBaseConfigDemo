@@ -45,7 +45,7 @@
         } else {
             // 停止旋转
             self.isStopRotateAnimation = !self.isStopRotateAnimation;
-        }return self;
+        };return self;
     };
 }
 /// 旋转一定时间之后停止下来
@@ -75,21 +75,24 @@
         CAKeyframeAnimation *popAnimation = @"transform".keyframeAnimation;
         popAnimation.duration = 1;
         popAnimation.values = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add([NSValue valueWithCATransform3D:CATransform3DMakeScale(0.01f,0.01f,1.0f)])
-            .add([NSValue valueWithCATransform3D:CATransform3DMakeScale(1.1f,1.1f,1.0f)])
-            .add([NSValue valueWithCATransform3D:CATransform3DIdentity]);
+            data
+                .add([NSValue valueWithCATransform3D:CATransform3DMakeScale(0.01f,0.01f,1.0f)])
+                .add([NSValue valueWithCATransform3D:CATransform3DMakeScale(1.1f,1.1f,1.0f)])
+                .add([NSValue valueWithCATransform3D:CATransform3DIdentity]);
         });
         popAnimation.keyTimes = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add(@0.0f)
-            .add(@0.5f)
-            .add(@0.75f)
-            .add(@1.0f);
+            data
+                .add(@0.0f)
+                .add(@0.5f)
+                .add(@0.75f)
+                .add(@1.0f);
         });
 
         popAnimation.timingFunctions = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction)
-            .add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction)
-            .add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction);
+            data
+                .add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction)
+                .add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction)
+                .add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction);
         });
         [self.layer addAnimation:popAnimation forKey:nil];
         return self;
@@ -145,14 +148,15 @@
 /// 逐渐显示
 -(void)graduallyShowWithAnimationBlock:(jobsByIDBlock _Nullable)animationBlock
                        completionBlock:(jobsByIDBlock _Nullable)completionBlock{
-    self.alpha = 0.0;
+    self.byAlpha(0.0);
     @jobs_weakify(self)
     [UIView animateWithDuration:0.3
                           delay:0.05
                         options:0
                      animations:^{
         @jobs_strongify(self)
-        self.alpha = 1.0;
+        self.byAlpha(1.0);
+
         if (animationBlock) animationBlock(@(1));
     } completion:^(BOOL finished) {
         if (completionBlock) completionBlock(@(1));
@@ -167,7 +171,7 @@
                         options:0
                      animations:^{
         @jobs_strongify(self)
-        self.alpha = 0.0;
+        self.byAlpha(0.0);
         if (animationBlock) animationBlock(@(1));
     } completion:^(BOOL finished) {
         if (completionBlock) completionBlock(@(1));
@@ -180,22 +184,24 @@
     CGFloat currentTx = self.transform.ty;
     animation.duration = duration;
     animation.values = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-        data.add(@(currentTx))
-        .add(@(currentTx + height))
-        .add(@(currentTx - height / 3 * 2))
-        .add(@(currentTx + height / 3 * 2))
-        .add(@(currentTx - height / 3))
-        .add(@(currentTx + height / 3))
-        .add(@(currentTx));
+        data
+            .add(@(currentTx))
+            .add(@(currentTx + height))
+            .add(@(currentTx - height / 3 * 2))
+            .add(@(currentTx + height / 3 * 2))
+            .add(@(currentTx - height / 3))
+            .add(@(currentTx + height / 3))
+            .add(@(currentTx));
     });
     animation.keyTimes = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-        data.add(@(0))
-        .add(@(0.225))
-        .add(@(0.425))
-        .add(@(0.6))
-        .add(@(0.75))
-        .add(@(0.875))
-        .add(@(1));
+        data
+            .add(@(0))
+            .add(@(0.225))
+            .add(@(0.425))
+            .add(@(0.6))
+            .add(@(0.75))
+            .add(@(0.875))
+            .add(@(1));
     });
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [self.layer addAnimation:animation forKey:@"kViewShakerAnimationKey"];
@@ -208,7 +214,7 @@ JobsKey(_rotateChangeAngle)
     if (RotateChangeAngle == 0) {
         RotateChangeAngle = 20;
         Jobs_setAssociatedRETAIN_NONATOMIC(_rotateChangeAngle, @(RotateChangeAngle))
-    }return RotateChangeAngle;
+    };return RotateChangeAngle;
 }
 
 -(void)setRotateChangeAngle:(CGFloat)rotateChangeAngle{
@@ -231,7 +237,7 @@ JobsKey(_durationTime)
     CGFloat DurationTime = [Jobs_getAssociatedObject(_durationTime) floatValue];
     if (DurationTime == 0) {
         DurationTime = 0.1;//缺省值
-    }return DurationTime;
+    };return DurationTime;
 }
 
 -(void)setDurationTime:(CGFloat)durationTime{
@@ -245,7 +251,7 @@ JobsKey(_delayTime)
     if (DelayTime == 0) {
         DelayTime = 0.01;//缺省值
         Jobs_setAssociatedRETAIN_NONATOMIC(_delayTime, @(DelayTime))
-    }return DelayTime;
+    };return DelayTime;
 }
 
 -(void)setDelayTime:(CGFloat)delayTime{
@@ -281,7 +287,7 @@ JobsKey(_shakeAnim)
             });
         });
         Jobs_setAssociatedRETAIN_NONATOMIC(_shakeAnim, ShakeAnim)
-    }return ShakeAnim;
+    };return ShakeAnim;
 }
 
 -(void)setShakeAnim:(CAKeyframeAnimation *)shakeAnim{

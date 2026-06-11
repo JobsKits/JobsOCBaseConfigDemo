@@ -20,7 +20,7 @@
                 @"VideoModel_Core":@"listMutArr"
             };
         }];
-    }return self;
+    };return self;
 }
 
 @end

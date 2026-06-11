@@ -17,17 +17,17 @@ JobsKey(_indicateWordLimitLab)
         @jobs_weakify(self)
         IndicateWordLimitLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byTextCor(RGB_COLOR(132, 134, 140));
-            label.byTextAlignment(NSTextAlignmentCenter);
-            label.byFont(UIFontWeightMediumSize(10));
-            label.byText([NSString stringWithFormat:@"   %ld / %ld   ",self.currentWordNum,self.wordLimitNum]);
+            label.byTextCor(RGB_COLOR(132, 134, 140))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byFont(UIFontWeightMediumSize(10))
+                .byText([NSString stringWithFormat:@"   %ld / %ld   ",self.currentWordNum,self.wordLimitNum]);
             label.makeLabelByShowingType(UILabelShowingType_03);
             self.addSubview(label);
             label.right = self.width - self.offsetX;
             label.bottom = self.height - self.offsetY;
             Jobs_setAssociatedRETAIN_NONATOMIC(_indicateWordLimitLab, label)
         });
-    }return IndicateWordLimitLab;
+    };return IndicateWordLimitLab;
 }
 
 -(void)setIndicateWordLimitLab:(UILabel *)indicateWordLimitLab{
@@ -41,7 +41,7 @@ JobsKey(_currentWordNum)
 }
 
 -(void)setCurrentWordNum:(NSInteger)currentWordNum{
-    self.indicateWordLimitLab.text = [NSString stringWithFormat:@"   %ld / %ld   ",currentWordNum,self.wordLimitNum];
+    self.indicateWordLimitLab.byText([NSString stringWithFormat:@"   %ld / %ld   ",currentWordNum,self.wordLimitNum]);
     self.indicateWordLimitLab.makeLabelByShowingType(UILabelShowingType_03);
     Jobs_setAssociatedRETAIN_NONATOMIC(_currentWordNum, @(currentWordNum))
 }
@@ -53,7 +53,7 @@ JobsKey(_wordLimitNum)
     if (!WordLimitNum) {
         WordLimitNum = 500;
         Jobs_setAssociatedRETAIN_NONATOMIC(_wordLimitNum, @(WordLimitNum))
-    }return WordLimitNum;
+    };return WordLimitNum;
 }
 
 -(void)setWordLimitNum:(NSInteger)wordLimitNum{
@@ -67,7 +67,7 @@ JobsKey(_offsetX)
     if (!OffsetX) {
         OffsetX = JobsWidth(19.1);
         Jobs_setAssociatedRETAIN_NONATOMIC(_offsetX, @(OffsetX))
-    }return OffsetX;
+    };return OffsetX;
 }
 
 -(void)setOffsetX:(CGFloat)offsetX{
@@ -81,7 +81,7 @@ JobsKey(_offsetY)
     if (!OffsetY) {
         OffsetY = JobsWidth(13.1);
         Jobs_setAssociatedRETAIN_NONATOMIC(_offsetY, @(OffsetY))
-    }return OffsetY;
+    };return OffsetY;
 }
 
 -(void)setOffsetY:(CGFloat)offsetY{

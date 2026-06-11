@@ -24,7 +24,6 @@
 #import <JobsByOCPods/UIView+UIBackgroundConfig.h>
 #import <JobsByOCPods/UIView+Masonry.h>
 #import <JobsByOCPods/UIView+Navigator.h>
-#import <JobsByOCPods/UIView+Gesture.h>
 #import <JobsByOCPods/UIView+JHGestureBlock.h>
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)

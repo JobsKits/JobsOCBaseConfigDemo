@@ -34,13 +34,13 @@ static dispatch_once_t static_collectionHeaderFooterViewOnceToken;
 - (instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -56,7 +56,8 @@ static dispatch_once_t static_collectionHeaderFooterViewOnceToken;
         CGRect frame = self.imageViewFrame;
         frame.size.height -= contentOffsetY;
         frame.origin.y = contentOffsetY;
-        self.imageView.frame = frame;
+        self.imageView.byFrame(frame);
+
     }
 }
 #pragma mark —— lazyLoad
@@ -64,28 +65,29 @@ static dispatch_once_t static_collectionHeaderFooterViewOnceToken;
 -(UIImageView *)imageView{
     if (!_imageView) {
         @jobs_weakify(self)
-        _imageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+        _imageView = jobsMakeImageView(^(__kindof UIImageView *_Nullable imageView) {
             @jobs_strongify(self)
             imageView.image = JobsLoadBundleImage(@"bundle",
-                                            @"Others",
-                                            nil,
-                                            @"个人中心背景图");
-            imageView.clipsToBounds = YES;
-            imageView.contentMode = UIViewContentModeScaleAspectFill;
-            self.addSubview(imageView);
+                                                  @"Others",
+                                                  nil,
+                                                  @"个人中心背景图");
+            imageView
+                .byClipsToBounds(YES)
+                .byContentMode(UIViewContentModeScaleAspectFill)
+                .addOn(self);
             if (self.isZoom) {
-                imageView.frame = CGRectMake(0,
-                                              0,
-                                              self.width,
-                                              self.height);
+                imageView.byFrame(CGRectMake(0,
+                                             0,
+                                             self.width,
+                                             self.height));
                 self.imageViewFrame = imageView.frame;
             }else{
-                [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                imageView.byAdd(^(MASConstraintMaker *make) {
                     make.edges.equalTo(self);
-                }];
+                });
             }
         });
-    }return _imageView;
+    };return _imageView;
 }
 
 @end

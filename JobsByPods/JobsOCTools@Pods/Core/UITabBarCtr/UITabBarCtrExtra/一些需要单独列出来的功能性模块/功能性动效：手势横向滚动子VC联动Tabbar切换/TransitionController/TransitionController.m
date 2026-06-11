@@ -27,7 +27,7 @@ Prop_weak()id<UIViewControllerContextTransitioning> transitionContext;
         _gestureRecognizer = gestureRecognizer;
         [_gestureRecognizer addTarget:self
                                action:@selector(gestureRecognizeDidUpdate:)];
-    }return self;
+    };return self;
 }
 
 - (instancetype)init{
@@ -48,7 +48,7 @@ Prop_weak()id<UIViewControllerContextTransitioning> transitionContext;
     if ((translation.x > 0.f && self.initialTranslationInContainerView.x < 0.f) ||
         (translation.x < 0.f && self.initialTranslationInContainerView.x > 0.f)){
         return -1.f;
-    }return fabs(translation.x)/CGRectGetWidth(transitionContainerView.bounds);
+    };return fabs(translation.x)/CGRectGetWidth(transitionContainerView.bounds);
 }
 
 - (void)gestureRecognizeDidUpdate:(UIScreenEdgePanGestureRecognizer *)gestureRecognizer{

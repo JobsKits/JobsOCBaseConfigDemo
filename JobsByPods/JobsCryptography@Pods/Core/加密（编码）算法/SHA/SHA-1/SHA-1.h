@@ -49,7 +49,7 @@ NS_INLINE NSString *sha_1(NSString *string,
             finalStr = output.lowercaseString;
         }else{
             finalStr = output.uppercaseString;
-        }return finalStr;
+        };return finalStr;
     }else{
         return nil;
     }

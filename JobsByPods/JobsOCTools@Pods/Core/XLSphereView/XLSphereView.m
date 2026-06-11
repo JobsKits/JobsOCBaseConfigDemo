@@ -27,10 +27,10 @@
                                                                                   action:@selector(handlePanGesture:)];
         
         [self addGestureRecognizer:gesture];
-    }return self;
+    };return self;
 }
 
-#pragma mark - initial set
+#pragma mark —— initial set
 - (void)setItems:(NSArray *)items{
     tags = [NSMutableArray arrayWithArray:items];
     coordinate = [NSMutableArray array];
@@ -64,7 +64,7 @@
     normalDirection = XLPointMake(a, b, 0);
     [self timerStart];
 }
-#pragma mark - set frame of point
+#pragma mark —— set frame of point
 - (void)updateFrameOfPoint:(NSInteger)index 
                  direction:(XLPoint)direction
                   andAngle:(CGFloat)angle{
@@ -84,10 +84,11 @@
     CGFloat transform = (point.z + 2) / 3;
     view.transform = CGAffineTransformScale(CGAffineTransformIdentity, transform, transform);
     view.layer.zPosition = transform;
-    view.alpha = transform;
+    view.byAlpha(transform);
+
     view.userInteractionEnabled = point.z >= 0;
 }
-#pragma mark - autoTurnRotation
+#pragma mark —— autoTurnRotation
 - (void)timerStart{
     timer = [CADisplayLink displayLinkWithTarget:self selector:@selector(autoTurnRotation)];
     [timer addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
@@ -103,7 +104,7 @@
         [self updateFrameOfPoint:i direction:normalDirection andAngle:0.002];
     }
 }
-#pragma mark - inertia
+#pragma mark —— inertia
 - (void)inertiaStart{
     [self timerStop];
     inertia = [CADisplayLink displayLinkWithTarget:self selector:@selector(inertiaStep)];
@@ -127,7 +128,7 @@
         }
     }
 }
-#pragma mark - gesture selector
+#pragma mark —— gesture selector
 - (void)handlePanGesture:(UIPanGestureRecognizer *)gesture{
     if (gesture.state == UIGestureRecognizerStateBegan) {
         last = [gesture locationInView:self];

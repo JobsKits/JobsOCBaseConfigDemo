@@ -52,10 +52,13 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsYellowColor;
+    self.view.byBgColor(JobsYellowColor);
+
     self.makeNavByAlpha(1);
-    self.btn.alpha = 1;
-    self.switcher.alpha = 1;
+    self.btn.byAlpha(1);
+
+    self.switcher.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -113,14 +116,14 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"按钮的长按事件触发");
             });
-        [self.view addSubview:_btn];
-        [_btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        _btn.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.center.equalTo(self.view);
 //            make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(25)));
             make.height.mas_equalTo(JobsWidth(30));
-        }];
+        });
+
         _btn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _btn;
+    };return _btn;
 }
 
 -(UISwitch *)switcher{
@@ -130,13 +133,14 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
         _switcher.thumbTintColor = _switcher.selected ? self.cor : HEXCOLOR(0xB0B0B0);
         _switcher.tintColor = JobsWhiteColor;
         _switcher.onTintColor = HEXCOLOR(0xFFFCF7);
-        _switcher.backgroundColor = JobsWhiteColor;
+        _switcher.byBgColor(JobsWhiteColor);
+
         _switcher.cornerCutToCircleWithCornerRadius(31 / 2);
-        [self.view addSubview:_switcher];
-        [_switcher mas_makeConstraints:^(MASConstraintMaker *make) {
+        _switcher.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom);
             make.left.equalTo(self.view).offset(JobsWidth(16));
-        }];
+        });
+
         _switcher.selected ? _switcher.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
             data.byLayerCor(self.cor)
                 .byJobsWidth(1);
@@ -163,7 +167,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
             self.dropDownListViewDirection = x.selected;
             self.btn.jobsResetBtnTitle(x.selected ? @"点击按钮弹出上拉列表".tr : @"点击按钮弹出下拉列表".tr);
         }];
-    }return _switcher;
+    };return _switcher;
 }
 
 -(UIColor *)cor{
@@ -176,7 +180,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
                                      endPoint:CGPointZero
                                        opaque:NO
                                targetViewRect:CGRectMake(0, 0, 51, 31)];
-    }return _cor;
+    };return _cor;
 }
 
 -(NSMutableArray<UIViewModel *> *)listViewData{
@@ -189,7 +193,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
                 }));
             }
         });
-    }return _listViewData;
+    };return _listViewData;
 }
 
 @end

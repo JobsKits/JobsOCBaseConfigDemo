@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else
@@ -100,7 +106,7 @@ NS_INLINE __kindof JobsStepView *_Nonnull jobsMakeStepView(jobsByStepViewBlock _
                  make.centerX.equalTo(self.view);
                  make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(100)));
              }).on().byBgColor(JobsWhiteColor);
-         }return _stepView;
+         };return _stepView;
      }
  */
 #endif /* JOBS_HEADER_GUARD_JOBSSTEPVIEW_F57DC2B909 */

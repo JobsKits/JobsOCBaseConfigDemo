@@ -42,7 +42,7 @@ Prop_assign()uint64_t lastGeneralMillisecond;
         self.IDC = IDC & ((1 << kIDCBits) - 1);
         self.machine = machine & ((1 << kMachineBits) - 1);
         self.sequence = 0;
-    }return self;
+    };return self;
 }
 
 -(nullable NSNumber *)nextID{

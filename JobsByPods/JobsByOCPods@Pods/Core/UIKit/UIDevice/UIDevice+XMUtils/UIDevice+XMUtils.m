@@ -180,7 +180,7 @@
     NSString *platformStr = self.platform;
     if (!platformStr) {
         return UIDevice.currentDevice.model; // e.g. @"iPhone", @"iPod touch"
-    }return self.platformBy(platformStr);
+    };return self.platformBy(platformStr);
 }
 /// 获取当前设备标识符Identifier（不区分iOS模拟器：把IOS模拟器当真机对待）
 +(NSString * _Nullable)platformIDStr{
@@ -225,7 +225,7 @@
     if (@available(iOS 11.0, *)) {
         CGFloat topInset = jobsGetMainWindow().safeAreaInsets.top;
         return topInset > 20.0;
-    }return NO;
+    };return NO;
 }
 /// 判断当前iOS机型
 +(NSString *_Nullable)machineName{
@@ -255,7 +255,7 @@
         NSDictionary *environment = NSProcessInfo.processInfo.environment;
         NSString *simulatorModel = environment[@"SIMULATOR_MODEL_IDENTIFIER"];
         return simulatorModel;
-    }return nil; /// 不在模拟器上运行，返回 nil 或其他合适的值
+    };return nil; /// 不在模拟器上运行，返回 nil 或其他合适的值
 }
 /**
  

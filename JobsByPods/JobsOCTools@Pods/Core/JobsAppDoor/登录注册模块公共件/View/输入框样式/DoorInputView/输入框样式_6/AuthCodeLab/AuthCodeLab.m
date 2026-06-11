@@ -17,7 +17,7 @@
     if (self = [super init]) {
         self.userInteractionEnabled = YES;
         [self requestAuthCode];
-    }return self;
+    };return self;
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches

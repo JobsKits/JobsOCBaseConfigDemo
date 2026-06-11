@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:TKPermissionPhoto::handler:Alert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Photo/TKPermissionPhoto.m:56"]
-  T1["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
+  S1["method:_ASCollectionViewCell::hitTest:withEvent:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASCollectionViewCell.mm:98"]
+  T1["method:_ASCollectionViewCell::hitTest:withEvent:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASCollectionViewCell.mm:98"]
   S1 -->|calls| T1
-  S2["method:TKPermissionPhoto::handler:Alert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Photo/TKPermissionPhoto.m:56"]
-  T2["method:TKPermissionPhoto::jumpSetting<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Photo/TKPermissionPhoto.m:101"]
+  S2["method:_ASDisplayLayer::setDisplaySuspended:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:27"]
+  T2["method:_ASDisplayLayer::setNeedsDisplay<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:107"]
   S2 -->|calls| T2
-  S3["method:TKPermissionPhoto::handler:Alert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Photo/TKPermissionPhoto.m:56"]
-  T3["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
+  S3["method:_ASDisplayLayer::setDisplaySuspended:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:27"]
+  T3["method:_ASDisplayLayer::cancelAsyncDisplay<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:196"]
   S3 -->|calls| T3
-  S4["method:TKPermissionPhoto::handler:Alert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Photo/TKPermissionPhoto.m:56"]
-  T4["method:TKPermissionPhoto::jumpSetting<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Photo/TKPermissionPhoto.m:101"]
+  S4["method:_ASDisplayLayer::setPosition:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:42"]
+  T4["function:ASIsCGPositionValidForLayout<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Layout/ASDimension.h:46"]
   S4 -->|calls| T4
-  S5["method:TKPermissionPhoto::handler:Alert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Photo/TKPermissionPhoto.m:56"]
-  T5["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
+  S5["method:_ASDisplayLayer::setTransform:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:52"]
+  T5["function:ASIsTransformValidForLayout<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Layout/ASDimension.h:56"]
   S5 -->|calls| T5
-  S6["method:TKPermissionPublic::alertTips:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Public/TKPermissionPublic.m:80"]
-  T6["method:TKPermissionPublic::alertActionTitle:msg:actionTitle:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Public/TKPermissionPublic.m:60"]
+  S6["method:_ASDisplayLayer::setBounds:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:62"]
+  T6["function:ASIsCGRectValidForLayout<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Layout/ASDimension.h:51"]
   S6 -->|calls| T6
-  S7["method:TKPermissionPublic::alertPromptTips:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Public/TKPermissionPublic.m:86"]
-  T7["method:TKPermissionPublic::alertTitle:msg:leftTitle:rightTitle:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Public/TKPermissionPublic.m:24"]
+  S7["method:_ASDisplayLayer::setBounds:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:62"]
+  T7["method:_ASDisplayLayer::setNeedsDisplay<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:107"]
   S7 -->|calls| T7
-  S8["method:TKPermissionReminder::authWithAlert:requestFullAccessToEventsWithCompletion:requestWriteOnlyAccessToEventsWithCompletion:requestFullAccessToRemindersWithCompletion:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Reminder/TKPermissionReminder.m:17"]
-  T8["variable:requestFullAccessToEventsWithCompletion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Reminder/TKPermissionReminder.h:38"]
+  S8["method:_ASDisplayLayer::setNeedsLayout<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:91"]
+  T8["function:ASNodeLog<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Base/ASLog.mm:29"]
   S8 -->|calls| T8
-  S9["method:TKPermissionReminder::authWithAlert:requestFullAccessToEventsWithCompletion:requestWriteOnlyAccessToEventsWithCompletion:requestFullAccessToRemindersWithCompletion:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Reminder/TKPermissionReminder.m:17"]
-  T9["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
+  S9["method:_ASDisplayLayer::setNeedsLayout<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:91"]
+  T9["method:_ASDisplayLayer::setNeedsLayout<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:91"]
   S9 -->|calls| T9
-  S10["method:TKPermissionReminder::authWithAlert:requestFullAccessToEventsWithCompletion:requestWriteOnlyAccessToEventsWithCompletion:requestFullAccessToRemindersWithCompletion:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Reminder/TKPermissionReminder.m:17"]
-  T10["method:TKPermissionReminder::jumpSetting<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Reminder/TKPermissionReminder.m:65"]
+  S10["method:_ASDisplayLayer::layoutSublayers<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:99"]
+  T10["method:_ASDisplayLayer::layoutSublayers<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:99"]
   S10 -->|calls| T10
-  S11["method:TKPermissionReminder::authWithAlert:requestFullAccessToEventsWithCompletion:requestWriteOnlyAccessToEventsWithCompletion:requestFullAccessToRemindersWithCompletion:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Reminder/TKPermissionReminder.m:17"]
-  T11["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
+  S11["method:_ASDisplayLayer::setNeedsDisplay<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:107"]
+  T11["method:_ASDisplayLayer::cancelAsyncDisplay<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:196"]
   S11 -->|calls| T11
-  S12["method:TKPermissionSiri::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Siri/TKPermissionSiri.m:16"]
-  T12["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
+  S12["method:_ASDisplayLayer::setNeedsDisplay<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:107"]
+  T12["method:_ASDisplayLayer::setNeedsDisplay<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:107"]
   S12 -->|calls| T12
-  S13["method:TKPermissionSiri::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Siri/TKPermissionSiri.m:16"]
-  T13["method:TKPermissionSiri::jumpSetting<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Siri/TKPermissionSiri.m:45"]
+  S13["method:_ASDisplayLayer::defaultValueForKey:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:143"]
+  T13["function:ASScreenScale<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASInternalHelpers.mm:179"]
   S13 -->|calls| T13
-  S14["method:TKPermissionSiri::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Siri/TKPermissionSiri.m:16"]
-  T14["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
+  S14["method:_ASDisplayLayer::displayImmediately<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:158"]
+  T14["method:_ASDisplayLayer::display<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:175"]
   S14 -->|calls| T14
-  S15["method:TKPermissionSiri::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Siri/TKPermissionSiri.m:16"]
-  T15["method:TKPermissionSiri::alertAction<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Siri/TKPermissionSiri.m:49"]
+  S15["method:_ASDisplayLayer::display<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:175"]
+  T15["method:_ASDisplayLayer::_hackResetNeedsDisplay<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:168"]
   S15 -->|calls| T15
-  S16["method:TKPermissionSiri::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Siri/TKPermissionSiri.m:16"]
-  T16["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
+  S16["method:_ASDisplayLayer::display<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:175"]
+  T16["method:_ASDisplayLayer::display<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:175"]
   S16 -->|calls| T16
-  S17["method:TKPermissionSpeech::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Speech/TKPermissionSpeech.m:17"]
-  T17["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
+  S17["method:_ASDisplayLayer::description<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:204"]
+  T17["method:_ASDisplayLayer::description<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:204"]
   S17 -->|calls| T17
-  S18["method:TKPermissionSpeech::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Speech/TKPermissionSpeech.m:17"]
-  T18["method:TKPermissionSpeech::jumpSetting<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Speech/TKPermissionSpeech.m:52"]
+  S18["method:_ASDisplayView::layerClass<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayView.mm:48"]
+  T18["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S18 -->|calls| T18
-  S19["method:TKPermissionSpeech::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Speech/TKPermissionSpeech.m:17"]
-  T19["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
+  S19["method:_ASDisplayView::description<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayView.mm:54"]
+  T19["method:_ASDisplayView::description<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayView.mm:54"]
   S19 -->|calls| T19
-  S20["method:TKPermissionSpeech::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Speech/TKPermissionSpeech.m:17"]
-  T20["method:TKPermissionSpeech::alertAction<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Speech/TKPermissionSpeech.m:56"]
+  S20["method:_ASDisplayView::actionForLayer:forKey:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayView.mm:83"]
+  T20["method:_ASDisplayView::actionForLayer:forKey:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayView.mm:83"]
   S20 -->|calls| T20
-  S21["method:TKPermissionSpeech::authWithAlert:completion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Speech/TKPermissionSpeech.m:17"]
-  T21["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
+  S21["method:_ASDisplayView::didMoveToWindow<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayView.mm:107"]
+  T21["method:ASControlNode::__exitHierarchy<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASControlNode.mm:114"]
   S21 -->|calls| T21
-  S22["method:TKPermissionTracking::authWithCompletion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Tracking/TKPermissionTracking.m:15"]
-  T22["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
+  S22["method:_ASDisplayView::didMoveToSuperview<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayView.mm:160"]
+  T22["method:ASControlNode::__exitHierarchy<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASControlNode.mm:114"]
   S22 -->|calls| T22
-  S23["method:TKPermissionTracking::authWithCompletion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Tracking/TKPermissionTracking.m:15"]
-  T23["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
+  S23["method:_ASDisplayView::didMoveToSuperview<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayView.mm:160"]
+  T23["method:ASDisplayNode::closestViewController<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Convenience.mm:17"]
   S23 -->|calls| T23
-  S24["method:TKPermissionTracking::authWithCompletion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Tracking/TKPermissionTracking.m:15"]
-  T24["function:PINCachedAnimatedImage::isDataSupported:::if<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASPINRemoteImageDownloader.mm:66"]
+  S24["method:_ASDisplayView::didMoveToSuperview<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayView.mm:160"]
+  T24["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S24 -->|calls| T24
-  S25["method:TKPermissionTracking::authWithCompletion:<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/Tracking/TKPermissionTracking.m:15"]
-  T25["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/TKPermissionKit/NetWork/TKPermissionNetWork.h:28"]
+  S25["method:_ASDisplayView::didMoveToSuperview<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayView.mm:160"]
+  T25["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S25 -->|calls| T25
 ```
 

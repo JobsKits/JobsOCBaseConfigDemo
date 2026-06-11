@@ -21,7 +21,7 @@ willConnectToSession:(UISceneSession *)session
         // 窗口兜底
         self.window = (UIWindow *)data ?: [UIWindow.alloc initWithWindowScene:ws];
         self.window.windowScene = ws;
-        self.window.frame = ws.coordinateSpace.bounds;
+        self.window.byFrame(ws.coordinateSpace.bounds);
         self.window.rootViewController = AppDelegate.jobsCustomTabBarNavCtrl;
         [self.window makeKeyAndVisible];
         AppDelegate.launchFunc1();
@@ -60,8 +60,8 @@ didUpdateCoordinateSpace:(id<UICoordinateSpace>)previousCoordinateSpace
 interfaceOrientation:(UIInterfaceOrientation)previousInterfaceOrientation
    traitCollection:(UITraitCollection *)previousTraitCollection {
     if (windowScene == self.window.windowScene) {
-        self.window.frame = windowScene.coordinateSpace.bounds;
-        self.window.rootViewController.view.frame = self.window.bounds;
+        self.window.byFrame(windowScene.coordinateSpace.bounds);
+        self.window.rootViewController.view.byFrame(self.window.bounds);
     }
 }
 

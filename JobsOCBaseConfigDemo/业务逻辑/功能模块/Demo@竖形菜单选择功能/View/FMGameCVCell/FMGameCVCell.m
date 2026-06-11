@@ -90,7 +90,7 @@ Prop_assign(class)SourceType sourceType;
                             JobsLog(@"图片加载成功");
                         }
                     }).load();
-        }return self;
+        };return self;
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -128,7 +128,7 @@ static SourceType _sourceType;
         @jobs_weakify(self)
         _imageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            [self.contentView.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            imageView.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
                 make.top.left.right.equalTo(self.contentView);
                 switch (FMGameCVCell.sourceType) {
                     case SourceType_Home:/// 来自首页
@@ -141,9 +141,9 @@ static SourceType _sourceType;
                         make.height.mas_equalTo(JobsWidth(0));
                         break;
                 }
-            }];
+            });
         });
-    }return _imageView;
+    };return _imageView;
 }
 @synthesize button = _button;
 -(__kindof UIButton *)button{
@@ -162,11 +162,11 @@ static SourceType _sourceType;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        [self.contentView.addSubview(_button) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _button.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
             make.height.mas_equalTo(JobsWidth(33));
             make.bottom.left.right.equalTo(self.contentView);
-        }];
-    }return _button;
+        });
+    };return _button;
 }
 
 @end

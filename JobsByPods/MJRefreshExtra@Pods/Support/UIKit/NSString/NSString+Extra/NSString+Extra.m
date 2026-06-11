@@ -45,7 +45,7 @@
         @jobs_strongify(self)
         if ([data isKindOfClass:NSString.class]) {
             return [self isEqualToString:data];
-        }return NO;
+        };return NO;
     };
 }
 

@@ -36,20 +36,22 @@ static dispatch_once_t static_titleView01OnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -67,9 +69,12 @@ static dispatch_once_t static_titleView01OnceToken;
         @jobs_strongify(self)
         self.viewModel = model ? : UIViewModel.new;
         MakeDataNull
-        self.titleLab.alpha = 1;
-        self.leftLab.alpha = 1;
-        self.rightLab.alpha = 1;
+        self.titleLab.byAlpha(1);
+
+        self.leftLab.byAlpha(1);
+
+        self.rightLab.byAlpha(1);
+
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -84,15 +89,18 @@ static dispatch_once_t static_titleView01OnceToken;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(isNull(self.viewModel.textModel.text) ? @"我是标题".tr : self.viewModel.textModel.text);
-            label.byFont([UIFont systemFontOfSize:JobsWidth(12) weight:UIFontWeightRegular]);
-            label.byTextCor(HEXCOLOR(0xAE8330));
-            label.byTextAlignment(NSTextAlignmentCenter);
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.center.equalTo(self);
-            }];label.makeLabelByShowingType(UILabelShowingType_03);
+            label
+                .byText(isNull(self.viewModel.textModel.text) ? @"我是标题".tr : self.viewModel.textModel.text)
+                .byFont([UIFont systemFontOfSize:JobsWidth(12) weight:UIFontWeightRegular])
+                .byTextCor(HEXCOLOR(0xAE8330))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.center.equalTo(self);
+                })
+                .makeLabelByShowingType(UILabelShowingType_03);
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(UILabel *)leftLab{
@@ -100,15 +108,17 @@ static dispatch_once_t static_titleView01OnceToken;
         @jobs_weakify(self)
         _leftLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byBgColor(HEXCOLOR(0xEEE2C8));
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self);
-                make.height.mas_equalTo(JobsWidth(1.5));
-                make.left.equalTo(self).offset(JobsWidth(16));
-                make.right.equalTo(self.titleLab.mas_left).offset(JobsWidth(-30));
-            }];
+            label
+                .byBgColor(HEXCOLOR(0xEEE2C8))
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self);
+                    make.height.mas_equalTo(JobsWidth(1.5));
+                    make.left.equalTo(self).offset(JobsWidth(16));
+                    make.right.equalTo(self.titleLab.mas_left).offset(JobsWidth(-30));
+                });
         });
-    }return _leftLab;
+    };return _leftLab;
 }
 
 -(UILabel *)rightLab{
@@ -116,15 +126,17 @@ static dispatch_once_t static_titleView01OnceToken;
         @jobs_weakify(self)
         _rightLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byBgColor(HEXCOLOR(0xEEE2C8));
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self);
-                make.height.mas_equalTo(JobsWidth(1.5));
-                make.right.equalTo(self).offset(JobsWidth(-16));
-                make.left.equalTo(self.titleLab.mas_right).offset(JobsWidth(30));
-            }];
+            label
+                .byBgColor(HEXCOLOR(0xEEE2C8))
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self);
+                    make.height.mas_equalTo(JobsWidth(1.5));
+                    make.right.equalTo(self).offset(JobsWidth(-16));
+                    make.left.equalTo(self.titleLab.mas_right).offset(JobsWidth(30));
+                });
         });
-    }return _rightLab;
+    };return _rightLab;
 }
 
 @end

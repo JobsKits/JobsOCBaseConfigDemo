@@ -363,7 +363,7 @@ NS_ASSUME_NONNULL_END
                  }).onLongPressGestureBy(^(id data){
                      JobsLog(@"");
                  });
-         }return _applyNowBtn;
+         };return _applyNowBtn;
      }
  */
 #endif /* JOBS_HEADER_GUARD_UIBUTTON_UI_290F313F77 */

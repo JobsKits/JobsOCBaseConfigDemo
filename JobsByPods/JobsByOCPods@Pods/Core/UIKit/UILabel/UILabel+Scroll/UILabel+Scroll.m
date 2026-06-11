@@ -34,7 +34,7 @@
                 self.text = self.text.add(firstCharacter);
             }if (doBlock) doBlock();
         }];
-    }return nil;
+    };return nil;
 }
 #pragma mark ——
 /// 取出并释放定时器
@@ -66,20 +66,20 @@ JobsKey(_stopScrolling)
         /// 添加子视图容器
         UIScrollView *scrollView = self.addSubview(jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView.byFrame(self.bounds);
-            scrollView.byShowsHorizontalScrollIndicator(NO);
-            scrollView.byScrollEnabled(NO);
-            /// 创建文字Label
-            scrollView.addSubview(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-                @jobs_strongify(self)
-                label.byFrame(CGRectMake(0, 0, textWidth, self.bounds.size.height));
-                label.byText(self.text);
-                label.byFont(self.font);
-                label.byTextCor(self.textColor);
-                label.byTextAlignment(NSTextAlignmentLeft);
-            }));
-            /// 设置ScrollView内容大小
-            scrollView.byContentSize(CGSizeMake(textWidth, self.bounds.size.height));
+            scrollView
+                .byShowsHorizontalScrollIndicator(NO)
+                .byScrollEnabled(NO)
+                .byContentSize(CGSizeMake(textWidth, self.bounds.size.height))// 设置ScrollView内容大小
+                .addSubview(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+                    @jobs_strongify(self)
+                    label
+                        .byText(self.text)
+                        .byFont(self.font)
+                        .byTextCor(self.textColor)
+                        .byTextAlignment(NSTextAlignmentLeft)
+                        .byFrame(CGRectMake(0, 0, textWidth, self.bounds.size.height));
+                }))
+                .byFrame(self.bounds);
         }));
         /// 定时器实现滚动动画
         RACDisposable *disposable = [[RACSignal interval:data

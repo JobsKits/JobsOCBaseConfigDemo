@@ -17,7 +17,7 @@
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self
                                                                                                action:@selector(longPress:)];
         [self addGestureRecognizer:longPress];
-    }return self;
+    };return self;
 }
 
 -(void)longPress:(UILongPressGestureRecognizer*)longPress{
@@ -32,7 +32,8 @@
         anim.repeatCount = MAXFLOAT;
         anim.duration = 0.2;
         [self.layer addAnimation:anim forKey:nil];
-        self.hidden = NO;
+        self.byHidden(NO);
+
     }
 }
 //// 恢复抖动

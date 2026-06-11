@@ -12,9 +12,9 @@
 /// 它默认在某些情况下会将内容垂直居中，比如文本少、没有足够内容填满 UITextView 的高度时。
 /// 所以一下操作就是在关闭这个新特性
 -(void)switchs{
-    self.byTextAlignment(NSTextAlignmentLeft);
-    self.byTextContainerInset(UIEdgeInsetsMake(0, 0, 0, 0));
-    self.byContentInset(UIEdgeInsetsZero);
+    self.byTextAlignment(NSTextAlignmentLeft)
+        .byTextContainerInset(UIEdgeInsetsMake(0, 0, 0, 0))
+        .byContentInset(UIEdgeInsetsZero);
     self.textContainer.lineFragmentPadding = 0;
     /// 强制滚动到顶部（必要）
     [self setContentOffset:CGPointZero animated:NO];
@@ -78,7 +78,7 @@
     };
 }
 
--(JobsRetTextViewByCor _Nonnull)byTextCor{
+-(JobsRetTextViewByCorBlock _Nonnull)byTextCor{
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(__kindof UIColor *_Nullable cor){
         @jobs_strongify(self)
@@ -223,7 +223,7 @@
         @jobs_strongify(self)
         if (self.text.length) {
             return [data isEqualToString:JobsEmpty] ? [self.text substringToIndex:(self.text.length - 1)] : self.text.add(data);
-        }return self.text;
+        };return self.text;
     };
 }
 /**
@@ -312,7 +312,7 @@
             }
             self.resStr = res;
             if (normalInputBlock) normalInputBlock(res);
-        }return self.currentWordNum < self.wordLimitNum;
+        };return self.currentWordNum < self.wordLimitNum;
     }
 }
 #pragma mark —— Prop_copy()NSString *replacementText;

@@ -30,7 +30,7 @@
         @jobs_strongify(self)
         if ([data isKindOfClass:NSString.class]) {
             return [self isEqualToString:data];
-        }return NO;
+        };return NO;
     };
 }
 /// 字符串是否包含URL【返回YES包含】

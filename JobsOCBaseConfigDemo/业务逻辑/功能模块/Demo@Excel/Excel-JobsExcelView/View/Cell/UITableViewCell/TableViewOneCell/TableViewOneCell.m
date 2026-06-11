@@ -28,8 +28,8 @@ Prop_assign()CGSize size;
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleValue1];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.backgroundColor = JobsWhiteColor;
-        }return cell;
+            cell.byBgColor(JobsWhiteColor);
+        };return cell;
     };
 }
 #pragma mark —— BaseCellProtocol
@@ -39,12 +39,12 @@ Prop_assign()CGSize size;
         @jobs_strongify(self)
 //        viewModel.buttonModel;
         self.excelConfigureData = viewModel.data;
-        self.bgImageView_.alpha = 1;
+        self.bgImageView_.byAlpha(1);
         CGSize size = CGSizeMake(self.excelConfigureData.itemW, self.excelConfigureData.itemH);
         if (!CGSizeEqualToSize(self.size, size)) {
             self.size = size;
             self.drawLineBySize(size);
-        }return self;
+        };return self;
     };
 }
 
@@ -52,18 +52,15 @@ Prop_assign()CGSize size;
     @jobs_weakify(self)
     return ^(CGSize size){
         @jobs_strongify(self)
-        // 其他点
-        self.linePath.add(CGPointMake(size.width, 0));
-        self.linePath.add(CGPointMake(size.width, size.height));
-        self.linePath.add(CGPointMake(0, size.height));
-        
-        [self.linePath stroke];
-        
+        /// 其他点
+        [self.linePath addLineToPoint:CGPointMake(size.width, 0)];
+        [self.linePath addLineToPoint:CGPointMake(size.width, size.height)];
+        [self.linePath addLineToPoint:CGPointMake(0, size.height)];
+        self.linePath.byStroke();
         UIGraphicsBeginImageContext(size);
-        [self.linePath stroke];
+        self.linePath.byStroke();
         UIGraphicsEndImageContext();
-
-        self.button.layer.addSublayer(self.lineLayer);
+        self.lineLayer.addOn(self.button.layer);
     };
 }
 #pragma mark —— lazyLoad
@@ -72,21 +69,22 @@ Prop_assign()CGSize size;
         @jobs_weakify(self)
         _bgImageView_ = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-    //        imageView.image = @"投注记录".img;
-            [self.contentView.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, 0, 0, 0));
-            }];
+            imageView
+                .byBgColor(JobsClearColor.colorWithAlphaComponentBy(0))
+    //            .byImage(@"投注记录".img)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, 0, 0, 0));
+                });
         });
-    }return _bgImageView_;
+    };return _bgImageView_;
 }
-
 -(UIBezierPath *)linePath{
     if(!_linePath){
         _linePath = jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable data) {
             data.moveTo(CGPointZero);
         });
-    }return _linePath;
+    };return _linePath;
 }
 
 -(CAShapeLayer *)lineLayer{
@@ -94,12 +92,13 @@ Prop_assign()CGSize size;
         @jobs_weakify(self)
         _lineLayer = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable data) {
             @jobs_strongify(self)
-            data.lineWidth = self.excelConfigureData.LineWidth;
-            data.strokeColor = self.excelConfigureData.cor6.CGColor;
-            data.path = self.linePath.CGPath;
-            data.fillColor = JobsClearColor.colorWithAlphaComponentBy(0).CGColor;
+            data
+                .byLineWidth(self.excelConfigureData.LineWidth)
+                .byStrokeColor(self.excelConfigureData.cor6.CGColor)
+                .byPath(self.linePath.CGPath)
+                .byFillColor(JobsClearColor.colorWithAlphaComponentBy(0).CGColor);
         });
-    }return _lineLayer;
+    };return _lineLayer;
 }
 
 @end

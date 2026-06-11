@@ -17,12 +17,13 @@
 BaseViewProtocol_synthesize
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = self.backgroundColor ? :JobsBlackColor;
+        self.byBgColor(self.backgroundColor ? :JobsBlackColor);
+
         [self jobs_onChange:^(__kindof UIControl * _Nullable ctrl) {
             JobsLog(@"Hello Jobs");
         }];
         self.cornerCutToCircleWithCornerRadius(JobsWidth(8));
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{

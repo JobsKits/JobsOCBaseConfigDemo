@@ -48,12 +48,11 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.view.backgroundColor = JobsWhiteColor;
+    self.view.byBgColor(JobsWhiteColor);
     self.makeNavByAlpha(1);
-    
-    self.cameraBtn.alpha = 1;
-    self.photoAlbumBtn.alpha = 1;
-    self.imageView.alpha = 1;
+    self.cameraBtn.byAlpha(1);
+    self.photoAlbumBtn.byAlpha(1);
+    self.imageView.byAlpha(1);
 }
 #pragma mark —— 一些私有方法
 /// 选取最后一张你选的图，作为显示
@@ -84,13 +83,12 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        _cameraBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-        [self.view.addSubview(_cameraBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(JobsWidth(50));
-            make.left.equalTo(self.view).offset(JobsWidth(20));
-            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(100));
-        }];_cameraBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _cameraBtn;
+        _cameraBtn.byAddTo(self.view, ^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(JobsWidth(50));
+                make.left.equalTo(self.view).offset(JobsWidth(20));
+                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(100));
+        });_cameraBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
+    };return _cameraBtn;
 }
 
 -(UIButton *)photoAlbumBtn{
@@ -121,13 +119,13 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
                 }];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
-            });
-        [self.view.addSubview(_photoAlbumBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(JobsWidth(50));
-            make.right.equalTo(self.view).offset(JobsWidth(-20));
-            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(100));
-        }];_photoAlbumBtn.makeBtnTitleByShowingType(UILabelShowingType_03);;
-    }return _photoAlbumBtn;
+            })
+            .byAddTo(self.view, ^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(JobsWidth(50));
+                make.right.equalTo(self.view).offset(JobsWidth(-20));
+                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(100));
+        });_photoAlbumBtn.makeBtnTitleByShowingType(UILabelShowingType_03);;
+    };return _photoAlbumBtn;
 }
 @synthesize imageView = _imageView;
 -(UIImageView *)imageView{
@@ -135,14 +133,16 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
         @jobs_weakify(self)
         _imageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = @"选择资源➕".img;
-            [self.view.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(200), JobsWidth(200)));
-                make.centerX.equalTo(self.view);
-                make.top.equalTo(self.photoAlbumBtn.mas_bottom).offset(JobsWidth(50));
-            }];
+            imageView
+                .byImage(@"选择资源➕".img)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(200), JobsWidth(200)));
+                    make.centerX.equalTo(self.view);
+                    make.top.equalTo(self.photoAlbumBtn.mas_bottom).offset(JobsWidth(50));
+                });
         });
-    }return _imageView;
+    };return _imageView;
 }
 
 @end

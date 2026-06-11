@@ -5,10 +5,10 @@
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#if __has_include(<YTKNetworkExtra/BaseUploadFileRequest.h>)
-#import <YTKNetworkExtra/BaseUploadFileRequest.h>
+#if __has_include(<YTKNetworkExtra/YTKNetworkExtra.h>)
+#import <YTKNetworkExtra/YTKNetworkExtra.h>
 #else
-#import "BaseUploadFileRequest.h"
+#import "YTKNetworkExtra.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

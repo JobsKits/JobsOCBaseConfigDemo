@@ -23,6 +23,12 @@
 #define  kAnimationKeyPathPositionY @"position.y"
 #define  kAnimationKeyPathOpacity @"opacity"
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /** 弹性动画 */
 @interface TLBounceAnimation : NSObject <TLAnimationProtocol>

@@ -11,6 +11,12 @@
 #import <UIKit/UIKit.h>
 #import <JobsOCTools/JobsOCTools.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
@@ -73,17 +79,17 @@ NS_ASSUME_NONNULL_END
      //            }
              }];
 
-             [self.view addSubview:_获取并输入手机验证码];
-             [_获取并输入手机验证码 mas_makeConstraints:^(MASConstraintMaker *make) {
+             _获取并输入手机验证码.byAddTo(self.view, ^(MASConstraintMaker *make) {
                  make.centerX.equalTo(self.view);
                  make.size.mas_equalTo(_获取并输入手机验证码.thisViewSize);
                  make.top.equalTo(self.选择区号并输入手机号.mas_bottom).offset(JobsWidth(32));
-             }];
+             });
+
 
              _获取并输入手机验证码.layer.cornerRadius = JobsWidth(52 / 2);
              _获取并输入手机验证码.layer.borderColor = HEXCOLOR(0xEEE2C8).CGColor;
              _获取并输入手机验证码.jobsRichViewByModel(.配置验证码输入);
-         }return _获取并输入手机验证码;
+         };return _获取并输入手机验证码;
      }
 
      -(JobsAppDoorInputViewBaseStyleModel *)配置验证码输入{
@@ -99,7 +105,7 @@ NS_ASSUME_NONNULL_END
              _配置验证码输入.leftViewMode = UITextFieldViewModeAlways;
              _配置验证码输入.titleStrCor = _配置验证码输入.placeholderColor = HEXCOLOR_ALPHA(0xC4C4C4,1.f);
      //        配置_配置验证码输入码输入.fieldEditorOffset = JobsWidth(80);
-         }return _配置验证码输入;
+         };return _配置验证码输入;
      }
  */
 #endif /* JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_9_39DC96EEC4 */

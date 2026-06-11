@@ -51,7 +51,8 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = JobsMagentaColor;
+    self.view.byBgColor(JobsMagentaColor);
+
     self.makeNavByAlpha(1);
     
     [self test_masonry_horizontal_fixSpace];
@@ -133,19 +134,23 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
 
     // 开始按钮：只有在非运行、非暂停（Idle / Finished / Canceled）时可点
     startBtn.userInteractionEnabled = isStop;
-    startBtn.alpha = startBtn.userInteractionEnabled ? 1.0 : 0.5;
+    startBtn.byAlpha(startBtn.userInteractionEnabled ? 1.0 : 0.5);
+
 
     // 暂停按钮：只有 Running 时可点
     pauseBtn.userInteractionEnabled = isRunning;
-    pauseBtn.alpha = pauseBtn.userInteractionEnabled ? 1.0 : 0.5;
+    pauseBtn.byAlpha(pauseBtn.userInteractionEnabled ? 1.0 : 0.5);
+
 
     // 继续按钮：只有 Paused 时可点
     resumeBtn.userInteractionEnabled = isPaused;
-    resumeBtn.alpha = resumeBtn.userInteractionEnabled ? 1.0 : 0.5;
+    resumeBtn.byAlpha(resumeBtn.userInteractionEnabled ? 1.0 : 0.5);
+
 
     // 结束按钮：Running / Paused 都可点
     stopBtn.userInteractionEnabled = (isRunning || isPaused);
-    stopBtn.alpha = stopBtn.userInteractionEnabled ? 1.0 : 0.5;
+    stopBtn.byAlpha(stopBtn.userInteractionEnabled ? 1.0 : 0.5);
+
 }
 #pragma mark —— lazyLoad
 -(NSMutableArray<__kindof UIButton *>*)btnMutArr{
@@ -174,7 +179,7 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
                 data.add(btn);
             }
         });
-    }return _btnMutArr;
+    };return _btnMutArr;
 }
 
 -(NSMutableArray<NSString *> *)btnTitleMutArr{
@@ -185,18 +190,18 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
             .add(@"继续".tr)
             .add(@"结束".tr);
         });
-    }return _btnTitleMutArr;
+    };return _btnTitleMutArr;
 }
 /// 内含定时器
 -(JobsCountdownView *)countdownView{
     if (!_countdownView) {
         _countdownView = JobsCountdownView.new;
         _countdownView.jobsRichViewByModel(nil);// 启动定时器
-        [self.view.addSubview(_countdownView) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _countdownView.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.center.equalTo(self.view);
             make.size.mas_equalTo(JobsCountdownView.viewSizeByModel(nil));
-        }];
-    }return _countdownView;
+        });
+    };return _countdownView;
 }
 /// ★ 倒计时按钮，使用 UIButton+JobsTimer 的封装
 /// 内含定时器
@@ -237,7 +242,7 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
                 make.width.mas_equalTo(JobsWidth(180));
             });
         });
-    }return _countdownBtn;
+    };return _countdownBtn;
 }
 
 @end

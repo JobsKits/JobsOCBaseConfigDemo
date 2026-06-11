@@ -37,6 +37,7 @@ JobsRichTextUtils contains Objective-C rich text helper categories and attribute
 
   spec.dependency 'XYColorOC'
   spec.dependency 'JobsModelDSL'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsClass'

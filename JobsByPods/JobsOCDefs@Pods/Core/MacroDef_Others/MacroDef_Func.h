@@ -9,6 +9,13 @@
 #define MacroDef_Func_h
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
 #import <JobsOCDefs/MacroDef_Notification.h>
 #import <JobsOCDefs/MacroDef_SysWarning.h>
 #import <JobsOCDefs/MacroDef_Singleton.h>
@@ -31,7 +38,7 @@ NS_INLINE id<UIApplicationDelegate> _Nullable getSysAppDelegate(void){
      -(instancetype)init{
          if (self = [super init]) {
              sceneDelegate = self;
-         }return self;
+         };return self;
      }
      
      获取方式：extern SceneDelegate *sceneDelegate;
@@ -40,7 +47,7 @@ NS_INLINE id<UIWindowSceneDelegate> _Nullable getSysSceneDelegate(void){
     id sceneDelegate = nil;
     if (@available(iOS 13.0, *)) {
         sceneDelegate = UIApplication.sharedApplication.connectedScenes.allObjects.firstObject.delegate;
-    }return sceneDelegate;
+    };return sceneDelegate;
 }
 #pragma mark —— 定义一些方法
 #ifndef JobsNonnullString

@@ -118,7 +118,7 @@ forNavigationController:(UINavigationController *)navCtrlVC{
             manager.direction = _storedDirection;
             manager.comingStyle = ComingStyle_POP;
         });
-    }return nil;
+    };return nil;
 }
 #pragma mark —— UIViewControllerAnimatedTransitioning
 /// 自定义转场动画需要多长时间
@@ -159,18 +159,23 @@ forNavigationController:(UINavigationController *)navCtrlVC{
 
     if (self.isPush) {
         containerView.addSubview(toVC.view);
-        toVC.view.frame = toStartFrame;
+        toVC.view.byFrame(toStartFrame);
+
     } else {
         [containerView insertSubview:toVC.view belowSubview:fromVC.view];
-        toVC.view.frame = screenBounds;
+        toVC.view.byFrame(screenBounds);
+
     }
 
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
         if (self.isPush) {
-            toVC.view.frame = screenBounds;
-            fromVC.view.frame = screenBounds;
+            toVC.view.byFrame(screenBounds);
+
+            fromVC.view.byFrame(screenBounds);
+
         } else {
-            fromVC.view.frame = fromEndFrame;
+            fromVC.view.byFrame(fromEndFrame);
+
         }
     } completion:^(BOOL finished) {
         /// 一定要调用 [transitionContext completeTransition:]，否则系统会认为转场未完成，界面卡住
@@ -182,7 +187,7 @@ forNavigationController:(UINavigationController *)navCtrlVC{
 -(CGFloat)time{
     if(!_time){
         _time = 1;
-    }return _time;
+    };return _time;
 }
 
 @end

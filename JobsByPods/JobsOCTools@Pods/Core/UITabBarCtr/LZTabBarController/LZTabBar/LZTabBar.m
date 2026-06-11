@@ -19,14 +19,16 @@ Prop_strong()UIView *topLine;
 - (instancetype)init {
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.effectView.frame = self.bounds;
+    self.effectView.byFrame(self.bounds);
+
     [self setupItems];
-    self.topLine.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), 0.6);
+    self.topLine.byFrame(CGRectMake(0, 0, CGRectGetWidth(self.frame), 0.6));
+
 }
 
 - (void)setupItems {
@@ -34,7 +36,8 @@ Prop_strong()UIView *topLine;
     CGFloat height = CGRectGetHeight(self.frame);
     for (int i = 0; i < self.items.count; i++) {
         LZTabBarItem *item = [self.items objectAtIndex:i];
-        item.frame = CGRectMake(i*width, 0, width, height);
+        item.byFrame(CGRectMake(i*width, 0, width, height));
+
         [self addSubview:item];
         item.delegate = self;
     }
@@ -52,18 +55,20 @@ Prop_strong()UIView *topLine;
 - (UIView *)topLine {
     if (!_topLine) {
         _topLine = UIView.new;
-        _topLine.backgroundColor = JobsGrayColor;
+        _topLine.byBgColor(JobsGrayColor);
+
         [self addSubview:_topLine];
-    }return _topLine;
+    };return _topLine;
 }
 
 - (UIVisualEffectView *)effectView {
     if (!_effectView) {
         UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
         _effectView = [UIVisualEffectView.alloc initWithEffect:effect];
-        _effectView.alpha = 1.0;
+        _effectView.byAlpha(1.0);
+
         [self addSubview:_effectView];
-    }return _effectView;
+    };return _effectView;
 }
 
 @end

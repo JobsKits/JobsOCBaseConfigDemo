@@ -41,6 +41,12 @@
 #import "JobsModelDSL.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsStringUtils/JobsStringUtils.h>)
 #import <JobsStringUtils/JobsStringUtils.h>
 #else

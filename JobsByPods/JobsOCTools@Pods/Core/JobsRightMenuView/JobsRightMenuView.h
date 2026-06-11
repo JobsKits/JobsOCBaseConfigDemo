@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
@@ -60,7 +66,8 @@ NS_ASSUME_NONNULL_END
 
      #import <JobsOCTools/JobsRightMenuView.h> /// 首页右侧菜单
      Prop_strong()JobsRightMenuView *rightMenuView; /// 首页右侧菜单
-     self.rightMenuView.alpha = 1;
+     self.rightMenuView.byAlpha(1);
+
 
      -(JobsRightMenuView *)rightMenuView{
          if(!_rightMenuView){
@@ -149,7 +156,7 @@ NS_ASSUME_NONNULL_END
                                                    }));
              _rightMenuView.resetOriginX(JobsMainScreen_WIDTH() - JobsWidth(20));
              _rightMenuView.resetOriginY(JobsStatusBarHeight() + JobsWidth(54 + 163 + 100));
-         }return _rightMenuView;
+         };return _rightMenuView;
      }
  */
 #endif /* JOBS_HEADER_GUARD_JOBSRIGHTMENUVIEW_61099153F8 */

@@ -13,7 +13,7 @@ NSArray *reversedArray(NSArray *arr) {
     NSMutableArray *temp = [NSMutableArray arrayWithCapacity:arr.count];
     for (NSInteger i = arr.count - 1; i >= 0; i--) {
         [temp addObject:arr[i]];
-    }return [temp copy];
+    };return [temp copy];
 }
 /// 创建CAKeyframeAnimation动画
 CAKeyframeAnimation * createAnimation(NSString *keyPath,
@@ -193,7 +193,8 @@ void playSelectLabelAnimation(UILabel *textLabel) {
                                                              @[@1.0,@0.0],
                                                              kDuration);
     [textLabel.layer addAnimation:opacityAnimation forKey:nil];
-    textLabel.alpha = 0;
+    textLabel.byAlpha(0);
+
 }
 
 void playDeselectLabelAnimation(UILabel *textLabel) {
@@ -206,7 +207,8 @@ void playDeselectLabelAnimation(UILabel *textLabel) {
                                                              @[@0.0, @1.0],
                                                              kDuration);
     [textLabel.layer addAnimation:opacityAnimation forKey:nil];
-    textLabel.alpha = 1;
+    textLabel.byAlpha(1);
+
 }
 
 @end

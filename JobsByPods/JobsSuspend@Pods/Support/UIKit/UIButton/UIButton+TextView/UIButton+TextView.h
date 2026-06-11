@@ -14,23 +14,25 @@
 #import <UIKit/UIKit.h>
 #import <JobsSuspend/UIView+Measure.h>
 
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
+#else
+#import "JobsBaseUI.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
 #endif
 
-#ifndef BaseTextView
-#define BaseTextView UITextView
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
-
-@interface UITextView (JobsSuspendExtra)
-
--(JobsRetTextViewByAttributedStringBlock _Nonnull)byAttributedText;
-
-@end
 
 @interface UIButton (TextView)
 

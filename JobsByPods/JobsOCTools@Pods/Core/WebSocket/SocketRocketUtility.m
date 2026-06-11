@@ -206,7 +206,7 @@ RACProtocol_synthesize
             timer.accumulatedElapsed       = 0;
             timer.lastStartDate            = nil;
         });
-    }return _timer;
+    };return _timer;
 }
 
 @end

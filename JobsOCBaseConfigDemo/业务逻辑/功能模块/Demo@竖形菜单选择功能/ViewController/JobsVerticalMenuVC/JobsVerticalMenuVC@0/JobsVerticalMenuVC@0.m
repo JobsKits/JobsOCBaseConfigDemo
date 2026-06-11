@@ -76,12 +76,10 @@ Prop_strong()UIViewModel *leftViewCurrentSelectModel;
                                         })));
     });
     self.makeNavByAlpha(1);
-    
-    self.searchView.alpha = 1;
+    self.searchView.byAlpha(1);
     self.tableView.byShow(self);
-    self.editBtn.alpha = 1;
+    self.editBtn.byAlpha(1);
     self.refreshLeftView();
-
     self.displayView(self.rightViewArray[0]);
 }
 
@@ -114,7 +112,7 @@ Prop_strong()UIViewModel *leftViewCurrentSelectModel;
             @jobs_strongify(self)
             for (int i = 0; i < self.titleMutArr.count; i++) {
                 JobsVerticalMenuSubView *subView = JobsVerticalMenuSubView.new;
-                subView.backgroundColor = JobsRandomColor;
+                subView.byBgColor(JobsRandomColor);
                 data.add(subView);
             }
         });
@@ -209,17 +207,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             @jobs_strongify(self)
             tableView
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
-                .byShowsVerticalScrollIndicator(NO)
-                .byBgColor(HEXCOLOR(0xFCFBFB))
-                .byFrame(jobsMakeCGRectByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
-                    @jobs_strongify(self)
-                    data.byJobsX(0)
-                        .byJobsY(JobsTopSafeAreaHeight() + JobsStatusBarHeight() + self.gk_navigationBar.mj_h)
-                        .byJobsWidth(TableViewWidth)
-                        .byJobsHeight(JobsMainScreen_HEIGHT() - JobsTopSafeAreaHeight() - JobsStatusBarHeight() - JobsTabBarHeight(AppDelegate.tabBarVC) - EditBtnHeight);
-                }));
+                .byShowsVerticalScrollIndicator(NO);
+            tableView.byBgColor(HEXCOLOR(0xFCFBFB));
+            tableView.byFrame(jobsMakeCGRectByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
+                @jobs_strongify(self)
+                data.byJobsX(0)
+                    .byJobsY(JobsTopSafeAreaHeight() + JobsStatusBarHeight() + self.gk_navigationBar.mj_h)
+                    .byJobsWidth(TableViewWidth)
+                    .byJobsHeight(JobsMainScreen_HEIGHT() - JobsTopSafeAreaHeight() - JobsStatusBarHeight() - JobsTabBarHeight(AppDelegate.tabBarVC) - EditBtnHeight);
+            }));
         }));
-    }return _tableView;
+    };return _tableView;
 }
 
 - (JobsSearchBar *)searchView {
@@ -230,8 +228,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             .JobsRichViewByModel2(nil)
             .JobsBlock1(^(id  _Nullable data) {
                 
-            })
-            .addOn(self.gk_navigationBar)
+            });
+        _searchView.addOn(self.gk_navigationBar)
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
                 make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH() / 3, JobsWidth(40)));
@@ -260,7 +258,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //                    break;
 //            }
 //        }];
-    }return _searchView;
+    };return _searchView;
 }
 
 - (BaseButton *)editBtn{
@@ -289,7 +287,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 make.top.equalTo(self.tableView.mas_bottom);
                 make.size.mas_equalTo(CGSizeMake(TableViewWidth, EditBtnHeight));
             });
-    }return _editBtn;
+    };return _editBtn;
 }
 
 - (NSMutableArray<__kindof UIViewModel *> *)titleMutArr {
@@ -315,25 +313,25 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 data1.textModel.byText(@"彩票".tr);
             }));
         });
-    }return _titleMutArr;
+    };return _titleMutArr;
 }
 
 - (NSMutableArray<__kindof UIViewModel *> *)leftDataArray {
     if (!_leftDataArray) {
         _leftDataArray = NSMutableArray.array;
-    }return _leftDataArray;
+    };return _leftDataArray;
 }
 
 - (__kindof UIViewModel *)leftViewCurrentSelectModel {
     if (!_leftViewCurrentSelectModel) {
         _leftViewCurrentSelectModel = UIViewModel.new;
-    }return _leftViewCurrentSelectModel;
+    };return _leftViewCurrentSelectModel;
 }
 
 - (NSMutableArray<__kindof UIView *> *)rightViewArray {
     if (!_rightViewArray) {
         _rightViewArray = NSMutableArray.array;
-    }return _rightViewArray;
+    };return _rightViewArray;
 }
 
 @end

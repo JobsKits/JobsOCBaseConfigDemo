@@ -46,9 +46,12 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
     
     self.makeNavByAlpha(1);
     
-    self.categoryView.alpha = 1;
-    self.filterBtn.alpha = 1;
-    self.customBtn.alpha = 1;
+    self.categoryView.byAlpha(1);
+
+    self.filterBtn.byAlpha(1);
+
+    self.customBtn.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -130,7 +133,7 @@ ratio:(CGFloat)ratio {
     if (self.filterBtn.selected) {
         [self.filterBtn changeAction: 0];
         self.filterBtn.selected = !self.filterBtn.selected;
-    }return YES;
+    };return YES;
 }
 
 - (BOOL)tf_popupViewWillShow:(UIView *)popup{
@@ -141,7 +144,8 @@ ratio:(CGFloat)ratio {
 -(JXCategoryTitleView *)categoryView{
     if (!_categoryView) {
         _categoryView = JXCategoryTitleView.new;
-        _categoryView.backgroundColor = JobsClearColor;
+        _categoryView.byBgColor(JobsClearColor);
+
         _categoryView.titleSelectedColor = JobsRandomColor;
         _categoryView.titleColor = JobsRandomColor;
         _categoryView.titleFont = [UIFont systemFontOfSize:18 weight:UIFontWeightRegular];
@@ -154,15 +158,15 @@ ratio:(CGFloat)ratio {
         _categoryView.cellSpacing = JobsWidth(-20);
         // 关联cotentScrollView，关联之后才可以互相联动！！！
         _categoryView.contentScrollView = self.listContainerView.scrollView;//
-        [self.view addSubview:_categoryView];
-        [_categoryView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _categoryView.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom);
             make.left.equalTo(self.view);
             make.right.equalTo(self.view).offset(JobsWidth(-48 * 2));
             make.height.mas_equalTo(listContainerViewDefaultOffset);
-        }];
+        });
+
         [self.view layoutIfNeeded];
-    }return _categoryView;
+    };return _categoryView;
 }
 
 -(JXCategoryIndicatorLineView *)lineView{
@@ -172,7 +176,7 @@ ratio:(CGFloat)ratio {
         _lineView.indicatorHeight = JobsWidth(4);
         _lineView.indicatorWidthIncrement = JobsWidth(10);
         _lineView.verticalMargin = 0;
-    }return _lineView;
+    };return _lineView;
 }
 /// 此属性决定依附于此的viewController
 -(JXCategoryListContainerView *)listContainerView{
@@ -180,16 +184,16 @@ ratio:(CGFloat)ratio {
         _listContainerView = [JXCategoryListContainerView.alloc initWithType:JXCategoryListContainerType_CollectionView
                                                                     delegate:self];
         _listContainerView.defaultSelectedIndex = 1;// 默认从第二个开始显示
-        [self.view addSubview:_listContainerView];
-        [_listContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _listContainerView.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(listContainerViewDefaultOffset);
             make.left.right.bottom.equalTo(self.view);
-        }];
+        });
+
         [self.view layoutIfNeeded];
         /// ❤️在需要的地方写❤️
         NSNumber *currentIndex = self.listContainerView.valueForKey(@"currentIndex");
         JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %d",currentIndex.intValue);
-    }return _listContainerView;
+    };return _listContainerView;
 }
 
 -(NSMutableArray<NSString *> *)titleMutArr{
@@ -202,7 +206,7 @@ ratio:(CGFloat)ratio {
             data.add(@"棋牌".tr);
             data.add(@"彩票".tr);
         });
-    }return _titleMutArr;
+    };return _titleMutArr;
 }
 
 -(NSMutableArray<__kindof UIViewController *> *)childVCMutArr{
@@ -214,7 +218,7 @@ ratio:(CGFloat)ratio {
                 data.add(JXCategoryPopupSubVC.new);
             }
         });
-    }return _childVCMutArr;
+    };return _childVCMutArr;
 }
 
 -(BaseButton *)filterBtn{
@@ -248,13 +252,13 @@ ratio:(CGFloat)ratio {
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        [self.view addSubview:_filterBtn];
-        [_filterBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        _filterBtn.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.right.equalTo(self.view);
             make.top.bottom.equalTo(self.categoryView);
-        }];
+        });
+
         _filterBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _filterBtn;
+    };return _filterBtn;
 }
 
 -(BaseButton *)customBtn{
@@ -288,13 +292,13 @@ ratio:(CGFloat)ratio {
                 JobsLog(@"");
             });
         _customBtn.selectedStateTitleColorBy(HEXCOLOR(0xAE8330));
-        [self.view addSubview:_customBtn];
-        [_customBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        _customBtn.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.right.equalTo(self.filterBtn.mas_left).offset(JobsWidth(-8));
             make.top.bottom.equalTo(self.categoryView);
             make.left.equalTo(self.categoryView.mas_right);
-        }];
-    }return _customBtn;
+        });
+
+    };return _customBtn;
 }
 
 @end

@@ -10,10 +10,10 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<JobsBaseUI/JobsBaseTableViewCell.h>)
-#import <JobsBaseUI/JobsBaseTableViewCell.h>
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
 #else
-#import "JobsBaseTableViewCell.h"
+#import "JobsBaseUI.h"
 #endif
 
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
@@ -38,6 +38,12 @@
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

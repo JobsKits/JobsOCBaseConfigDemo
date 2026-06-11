@@ -23,7 +23,7 @@ Prop_copy()jobsByIDBlock imageCodeViewBlock;
 -(instancetype)init{
     if (self = [super init]) {
         [self setupUI];
-    }return self;
+    };return self;
 }
 /// 兼容nib使用
 -(void)awakeFromNib{
@@ -32,7 +32,8 @@ Prop_copy()jobsByIDBlock imageCodeViewBlock;
 }
 ///设置默认参数
 -(void)setupUI{
-    self.backgroundColor = self.bgColor;
+    self.byBgColor(self.bgColor);
+
     self.addGesture([jobsMakeLongPressGesture(^(UILongPressGestureRecognizer * _Nullable gesture) {
         /// 这里写手势的配置
     }) gestureActionBy:^{
@@ -97,14 +98,15 @@ Prop_copy()jobsByIDBlock imageCodeViewBlock;
 
 -(void)setBgColor:(UIColor *)bgColor{
     _bgColor = bgColor;
-    self.backgroundColor = _bgColor;
+    self.byBgColor(_bgColor);
+
 }
 #pragma mark —— lazyLoad
 @synthesize CodeStr = _CodeStr;
 -(NSString *)CodeStr{
     if (!_CodeStr) {
         _CodeStr = self.randomCodeBy(self.CodeArr,CODE_LENGTH);
-    }return _CodeStr;
+    };return _CodeStr;
 }
 
 -(__kindof NSArray <NSString *>*)CodeArr{
@@ -123,19 +125,19 @@ Prop_copy()jobsByIDBlock imageCodeViewBlock;
                 .add(@"s").add(@"t").add(@"u").add(@"v").add(@"w").add(@"x")
                 .add(@"y").add(@"z");
         });
-    }return _CodeArr;
+    };return _CodeArr;
 }
 
 -(UIColor *)color{
     if (!_color) {
         _color = JobsWhiteColor;
-    }return _color;
+    };return _color;
 }
 
 -(UIFont *)font{
     if (!_font) {
         _font = UIFontWeightRegularSize(JobsWidth(9.6));
-    }return _font;
+    };return _font;
 }
 @synthesize bgColor = _bgColor;
 -(UIColor *)bgColor{

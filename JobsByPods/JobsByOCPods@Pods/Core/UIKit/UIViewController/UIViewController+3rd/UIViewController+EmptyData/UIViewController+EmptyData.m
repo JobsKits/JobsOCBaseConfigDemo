@@ -11,7 +11,8 @@
 
 -(void)ifEmptyData{
     [self.view ifEmptyData];
-    self.view.tipsLab.text = self.view.tipsTitle.add(@"\n").add(ReuseIdentifier);
+    self.view.tipsLab.byText(self.view.tipsTitle.add(@"\n").add(ReuseIdentifier));
+
 }
 
 @end

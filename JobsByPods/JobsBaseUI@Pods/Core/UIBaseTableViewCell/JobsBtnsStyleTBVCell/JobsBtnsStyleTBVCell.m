@@ -49,8 +49,10 @@ BaseLayerProtocol_synthesize_part3
         self.leftBtnVM = self.viewModel.data;
         self.rightBtnVM = self.viewModel.requestParams;
         
-        self.leftBtn.alpha = 1;
-        self.rightBtn.alpha = 1;
+        self.leftBtn.byAlpha(1);
+
+        self.rightBtn.byAlpha(1);
+
         return self;
     };
 }
@@ -81,11 +83,11 @@ BaseLayerProtocol_synthesize_part3
                 JobsLog(@"");
             });
         _leftBtn.tag = 1;
-        [self.contentView.addSubview(_leftBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _leftBtn.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.contentView);
             make.left.equalTo(self.contentView).offset(self.leftBtnVM.jobsOffsetX);
             make.height.mas_equalTo(self.leftBtnVM.jobsHeight);
-        }];
+        });
     }
     
     _leftBtn.data = self.leftBtnVM;
@@ -137,11 +139,11 @@ BaseLayerProtocol_synthesize_part3
                 JobsLog(@"");
             });;
         _rightBtn.tag = 2;
-        [self.contentView.addSubview(_rightBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _rightBtn.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.contentView);
             make.right.equalTo(self.contentView).offset(-self.rightBtnVM.jobsOffsetX);
             make.height.mas_equalTo(self.rightBtnVM.jobsHeight);
-        }];
+        });
     }
     
     _rightBtn.data = self.rightBtnVM;

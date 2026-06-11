@@ -11,12 +11,18 @@
 #pragma once
 
 #import <UIKit/UIKit.h>
-#import <JobsByOCPods/JobsString.h>
+#import <JobsByOCPods/JobsByOCPods.h>
 
 #if __has_include(<lottie-ios/Lottie.h>)
 #import <lottie-ios/Lottie.h>
 #else
 #import "Lottie.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

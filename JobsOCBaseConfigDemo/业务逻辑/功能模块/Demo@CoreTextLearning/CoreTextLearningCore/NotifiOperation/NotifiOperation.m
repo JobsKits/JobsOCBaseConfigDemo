@@ -18,7 +18,7 @@
     if (self = [super init]) {
         _executing = NO;
         _finished  = NO;
-    }return self;
+    };return self;
 }
 
 + (instancetype)addOperatioOnView:(UIView *)fatherView

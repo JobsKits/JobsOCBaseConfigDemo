@@ -19,7 +19,7 @@
             for (NSString *fontName in [UIFont fontNamesForFamilyName:fontFamilyName]) {
                 printf("%s\n",fontName.UTF8String);
             }
-        }return fontNamesMutArr;
+        };return fontNamesMutArr;
     };
 }
 /// 打印外援字体
@@ -305,7 +305,7 @@
         printf("--- 外来字体为 --- \n");
         for (NSString *string in temp) {
             printf("%s \n",string.UTF8String);
-        }return temp;
+        };return temp;
     };
 }
 

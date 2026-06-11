@@ -19,7 +19,7 @@ Prop_strong()BaseLabel *titleLab;
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 /// 由具体的子类进行覆写
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -27,8 +27,10 @@ Prop_strong()BaseLabel *titleLab;
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.backgroundColor = HEXCOLOR(0xFCFBFB);
-        self.titleLab.alpha = 1;
+        self.byBgColor(HEXCOLOR(0xFCFBFB));
+
+        self.titleLab.byAlpha(1);
+
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -44,15 +46,19 @@ Prop_strong()BaseLabel *titleLab;
         @jobs_weakify(self)
         _titleLab = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = self.viewModel.textModel.text;
-            label.font = self.viewModel.textModel.font ? : UIFontWeightBoldSize(14);
-            label.textColor = self.viewModel.textModel.textCor ? : HEXCOLOR(0xAE8330);
-            label.textAlignment = NSTextAlignmentCenter;
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
+            label.byText(self.viewModel.textModel.text);
+
+            label.byFont(self.viewModel.textModel.font ? : UIFontWeightBoldSize(14));
+
+            label.byTextCor(self.viewModel.textModel.textCor ? : HEXCOLOR(0xAE8330));
+
+            label.byTextAlignment(NSTextAlignmentCenter);
+
+            label.byAddTo(self, ^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
-            }];
+            });
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 @end

@@ -37,8 +37,14 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetScrollViewByUIEdgeInsetsBlock _Nonnull)byContentInset;
 -(JobsReturnScrollViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader;
 -(JobsReturnScrollViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter;
+/// mj_header / mj_footer 属性别名
+-(JobsReturnScrollViewByMJRefreshHeaderBlock _Nonnull)byMJ_header;
+-(JobsReturnScrollViewByMJRefreshFooterBlock _Nonnull)byMJ_footer;
 /// Content
 -(JobsRetScrollViewByPointBlock _Nonnull)byContentOffset;
+/// 对系统方法 -setContentOffset:animated: 的二次封装，animated 固定为 YES / NO
+-(JobsRetScrollViewByPointBlock _Nonnull)setContentOffsetByYES;
+-(JobsRetScrollViewByPointBlock _Nonnull)setContentOffsetByNO;
 #if defined(__IPHONE_17_4) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_17_4)
 -(JobsRetScrollViewByPointBlock _Nonnull)byContentAlignmentPoint;
 -(JobsRetScrollViewByBOOLBlock _Nonnull)byAlwaysBounceHorizontal;

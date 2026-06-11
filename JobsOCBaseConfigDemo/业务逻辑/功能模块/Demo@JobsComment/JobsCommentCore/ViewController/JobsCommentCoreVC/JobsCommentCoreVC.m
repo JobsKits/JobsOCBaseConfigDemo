@@ -21,11 +21,11 @@ Prop_strong()JobsCommentModel *yyModel;
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
 }
-#pragma mark - Lifecycle
+#pragma mark —— Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
 //        [self loadData];
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -40,7 +40,8 @@ Prop_strong()JobsCommentModel *yyModel;
 -(void)viewDidLoad{
     [super viewDidLoad];
     
-    self.view.backgroundColor = JobsOrangeColor;
+    self.view.byBgColor(JobsOrangeColor);
+
 //    @jobs_weakify(self)
 //    self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
 //        @jobs_strongify(self)
@@ -55,7 +56,8 @@ Prop_strong()JobsCommentModel *yyModel;
     self.gk_statusBarHidden = YES;
     self.gk_navigationBar.jobsVisible = YES;
     
-    self.titleHeaderView.alpha = 1;
+    self.titleHeaderView.byAlpha(1);
+
     self.tableView.byShow(self);
 }
 
@@ -102,7 +104,7 @@ Prop_strong()JobsCommentModel *yyModel;
 -(void)二级标题点击事件{
     @"二级标题点击事件".tr.toast();
 }
-#pragma mark —————————— UITableViewDelegate,UITableViewDataSource ——————————
+#pragma mark —— UITableViewDelegate,UITableViewDataSource ——————————
 -(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return JobsLoadMoreTBVCell.cellHeightByModel(nil);//isFullShow
@@ -195,11 +197,11 @@ heightForHeaderInSection:(NSInteger)section{///  👌
                 @jobs_strongify(self)
                 self.backViewControllerCore(self);
         });
-        [self.view.addSubview(_titleHeaderView) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _titleHeaderView.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.top.left.right.equalTo(self.view);
             make.height.mas_equalTo(JobsWidth(50));
-        }];
-    }return _titleHeaderView;
+        });
+    };return _titleHeaderView;
 }
 /// BaseViewProtocol
 @synthesize tableView = _tableView;
@@ -239,9 +241,8 @@ heightForHeaderInSection:(NSInteger)section{///  👌
                         // 特别说明：pagingEnabled = YES 在此会影响Cell的偏移量，原作者希望我们在这里临时关闭一下，刷新完成以后再打开
                         self.tableView.pagingEnabled = NO;
                         self.tableView.mj_footer.state = MJRefreshStateIdle;
-                        self.tableView.mj_footer.hidden = YES;
+                        self.tableView.mj_footer.byHidden(YES);
                         self.tableView.pagingEnabled = YES;
-
                         return nil;
                     };
                 })))
@@ -268,11 +269,11 @@ heightForHeaderInSection:(NSInteger)section{///  👌
                     make.top.equalTo(self.titleHeaderView.mas_bottom);
                     make.bottom.left.right.equalTo(self.view);
                 });
-            tableView.mj_footer.hidden = NO;
-            tableView.mj_footer.backgroundColor = JobsRedColor;
+            tableView.mj_footer.byHidden(NO);
+            tableView.mj_footer.byBgColor(JobsRedColor);
             self.view.mjRefreshTargetView = tableView;
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 @end

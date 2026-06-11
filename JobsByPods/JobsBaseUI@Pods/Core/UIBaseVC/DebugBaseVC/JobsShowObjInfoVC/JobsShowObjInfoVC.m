@@ -100,9 +100,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         .JobsBlock1(^(id _Nullable data) {
              
         });
-    cell.detailTextLabel.numberOfLines = 0;
-    cell.detailTextLabel.textColor = JobsBrownColor;
-    cell.textLabel.textColor = JobsBlackColor;
+    cell.detailTextLabel.byNumberOfLines(0);
+
+    cell.detailTextLabel.byTextCor(JobsBrownColor);
+
+    cell.textLabel.byTextCor(JobsBlackColor);
+
 
     return cell;
 }
@@ -110,7 +113,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(void)tableView:(UITableView *)tableView
  willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath{
-    cell.alpha = self.isVisible;
+    cell.byAlpha(self.isVisible);
+
 }
 #pragma mark —— lazyLoad
 /// BaseViewProtocol
@@ -121,9 +125,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView = jobsMakeBaseTableViewByPlain(^(__kindof BaseTableView * _Nullable tableView) {
             @jobs_strongify(self)
             tableView.dataLink(self);
-            tableView.byBgColor(JobsWhiteColor);
-            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine);
-            tableView.byShowsVerticalScrollIndicator(NO);
+            tableView.backgroundColor = JobsWhiteColor;
+            tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            tableView.showsVerticalScrollIndicator = NO;
             tableView.byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
                 /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
             }));
@@ -178,13 +182,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             self.view.addSubview(tableView);
             [self fullScreenConstraintTargetView:tableView topViewOffset:0];
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

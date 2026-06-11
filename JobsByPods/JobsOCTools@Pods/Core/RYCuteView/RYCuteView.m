@@ -6,6 +6,7 @@
 //
 
 #import "RYCuteView.h"
+
 /// 默认最小高度
 static const CGFloat kDefaultMinHeight = 64.f;
 @interface RYCuteView ()
@@ -27,7 +28,7 @@ Prop_strong() JobsTimer *displayTimer;
 @end
 
 @implementation RYCuteView
-#pragma mark - Life Cycle
+#pragma mark —— Life Cycle
 - (void)dealloc {
     JobsLog(@"%s", __FUNCTION__);
     // 保险起见，销毁前停掉定时器
@@ -37,22 +38,22 @@ Prop_strong() JobsTimer *displayTimer;
 - (instancetype)init {
     if (self = [super init]) {
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 // 如果你有从 frame / coder 初始化的场景，可以顺手也补上
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
         [self commonInit];
-    }return self;
+    };return self;
 }
-#pragma mark - Common Init
+#pragma mark —— Common Init
 - (void)commonInit {
     self.userInteractionEnabled = YES;
     self.MIN_HEIGHT  = kDefaultMinHeight;   // 默认图形最小高度
@@ -87,11 +88,12 @@ Prop_strong() JobsTimer *displayTimer;
     self.shapeLayer.opacity = 1.0;
     self.curveX = JobsMainScreen_WIDTH() / 2.0;   // r5 初始 x
     self.curveY = self.MIN_HEIGHT;                // r5 初始 y
-    self.curveView.alpha = 1.0;
+    self.curveView.byAlpha(1.0);
+
 
     [self configAction];
 }
-#pragma mark - 手势 & 动效
+#pragma mark —— 手势 & 动效
 - (void)configAction {
     @jobs_weakify(self)
     // 手势：内部仍然用你的 DSL
@@ -153,7 +155,7 @@ Prop_strong() JobsTimer *displayTimer;
         }
     }]);
 }
-#pragma mark - Lazy Load
+#pragma mark —— Lazy Load
 - (CAShapeLayer *)shapeLayer {
     if (!_shapeLayer) {
         @jobs_weakify(self)
@@ -163,7 +165,7 @@ Prop_strong() JobsTimer *displayTimer;
             layer.fillColor = UIColor.colorWithHexString(@"#37A6F0").CGColor;
             [self.layer addSublayer:layer];
         });
-    }return _shapeLayer;
+    };return _shapeLayer;
 }
 
 - (UIView *)curveView {
@@ -173,10 +175,10 @@ Prop_strong() JobsTimer *displayTimer;
             @jobs_strongify(self)
             if (!self) return;
             view.byBgColor(JobsRedColor);
-            view.byFrame(CGRectMake(self.curveX, self.curveY, 3, 3));
+            view.frame = CGRectMake(self.curveX, self.curveY, 3, 3);
             [self addSubview:view];
         });
-    }return _curveView;
+    };return _curveView;
 }
 
 - (JobsTimer *)displayTimer {
@@ -213,7 +215,7 @@ Prop_strong() JobsTimer *displayTimer;
             timer.accumulatedElapsed       = 0;
             timer.lastStartDate            = nil;
         });
-    }return _displayTimer;
+    };return _displayTimer;
 }
 
 @end

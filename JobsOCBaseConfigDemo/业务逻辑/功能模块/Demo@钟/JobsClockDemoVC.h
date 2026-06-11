@@ -25,16 +25,23 @@
 #import "JobsLanMgr.h"
 #endif
 
+#if __has_include(<JobsClockView/JobsClockView.h>)
+#import <JobsClockView/JobsClockView.h>
+#else
+#import "JobsClockView.h"
+#endif
+
+
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
 #import "JobsByOCPods.h"
 #endif
 
-#if __has_include(<JobsClockView/JobsClockView.h>)
-#import <JobsClockView/JobsClockView.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "JobsClockView.h"
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

@@ -14,7 +14,7 @@
 -(NSString *)fileName{
     if(!_fileName){
         _fileName = self.currentDate.toReadableTime(nil);
-    }return _fileName;
+    };return _fileName;
 }
 
 @end

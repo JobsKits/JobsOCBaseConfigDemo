@@ -22,13 +22,13 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
 -(instancetype)init{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -40,14 +40,18 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
     return ^(JobsGetiOSNewestVersionModel *_Nullable model) {
         @jobs_strongify(self)
         self.iOSNewestVersionModel = model;
-        self.titleLab.alpha = 1;
+        self.titleLab.byAlpha(1);
+
         
         if (self.iOSNewestVersionModel.isForced == JobsUpdateByUser) {
-            self.cancelBtn.alpha = 1;
+            self.cancelBtn.byAlpha(1);
+
         }else if (self.iOSNewestVersionModel.isForced == JobsUpdateBySys){
-            self.cancelBtn.alpha = 0;
+            self.cancelBtn.byAlpha(0);
+
         }
-        self.sureBtn.alpha = 1;
+        self.sureBtn.byAlpha(1);
+
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -62,21 +66,21 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byFont(UIFontWeightMediumSize(14));
-            label.byTextCor(HEXCOLOR(0x524740));
-            label.byText(@"The existing new version needs to be updated. Are you sure to download it?".tr);
-            label.byNumberOfLines(0);
-            label.byTextAlignment(NSTextAlignmentCenter);
-            label.makeLabelByShowingType(UILabelShowingType_03);
-            self.addSubview(label);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self);
-                make.top.equalTo(self).offset(JobsWidth(5));
-                make.left.equalTo(self).offset(JobsWidth(10));
-                make.right.equalTo(self).offset(JobsWidth(-10));
-            }];
+            label
+                .byFont(UIFontWeightMediumSize(14))
+                .byTextCor(HEXCOLOR(0x524740))
+                .byText(@"The existing new version needs to be updated. Are you sure to download it?".tr)
+                .byNumberOfLines(0)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .makeLabelByShowingType(UILabelShowingType_03)
+                .byAddTo(self, ^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self);
+                    make.top.equalTo(self).offset(JobsWidth(5));
+                    make.left.equalTo(self).offset(JobsWidth(10));
+                    make.right.equalTo(self).offset(JobsWidth(-10));
+                });
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(UIButton *)cancelBtn{
@@ -92,13 +96,13 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
             if(self.objBlock) self.objBlock(x);
             return nil;
         }];
-        [self addSubview:_cancelBtn];
-        [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        _cancelBtn.byAddTo(self, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsWidth(110), JobsWidth(44)));
             make.left.equalTo(self).offset(JobsWidth(20));
             make.bottom.equalTo(self).offset(-JobsWidth(20));
-        }];
-    }return _cancelBtn;
+        });
+
+    };return _cancelBtn;
 }
 
 -(UIButton *)sureBtn{
@@ -114,8 +118,7 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
             if(self.objBlock) self.objBlock(x);
             return nil;
         }];
-        [self addSubview:_sureBtn];
-        [_sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        _sureBtn.byAddTo(self, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsWidth(110), JobsWidth(44)));
             make.bottom.equalTo(self).offset(-JobsWidth(20));
             if (self.iOSNewestVersionModel &&
@@ -124,8 +127,9 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
             }else{
                 make.right.equalTo(self).offset(JobsWidth(-20));
             }
-        }];
-    }return _sureBtn;
+        });
+
+    };return _sureBtn;
 }
 
 @end

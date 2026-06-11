@@ -42,6 +42,7 @@ JobsDeviceInfo contains Objective-C device information, identifier, system info,
   spec.dependency 'TXFileOperation'
 
   spec.dependency 'JobsModelDSL'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsClass'

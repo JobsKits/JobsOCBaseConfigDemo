@@ -7,12 +7,6 @@
 
 #import "JobsMonitorNetwoking.h"
 
-#if __has_include(<JobsSuspend/JobsSuspendLab.h>)
-#import <JobsSuspend/JobsSuspendLab.h>
-#else
-#import "JobsSuspendLab.h"
-#endif
-
 @interface JobsMonitorNetwoking ()
 
 Prop_assign()long long int lastBytes;
@@ -28,14 +22,14 @@ static JobsMonitorNetwoking *monitorNetwoking = nil;
         if (!monitorNetwoking) {
             monitorNetwoking = JobsMonitorNetwoking.new;
         }
-    }return monitorNetwoking;
+    };return monitorNetwoking;
 }
 
 -(instancetype)init{
     if (self = [super init]) {
         monitorNetwoking = self;
         self.lastBytes = 0;
-    }return self;
+    };return self;
 }
 
 -(void)getInternetface{
@@ -52,7 +46,8 @@ static JobsMonitorNetwoking *monitorNetwoking = nil;
     //格式化一下
     NSString*rateStr = [self formatNetWork:rate];
     JobsLog(@"当前网速%@",rateStr);
-    _rateLabel.text = rateStr;
+    _rateLabel.byText(rateStr);
+
 //    JobsLog(@"hehe:%lld",hehe/1024/1024);
 }
 
@@ -97,7 +92,7 @@ static JobsMonitorNetwoking *monitorNetwoking = nil;
 -(JobsSuspendLab *)rateLabel{
     if (!_rateLabel) {
         _rateLabel = JobsSuspendLab.new;
-    }return _rateLabel;
+    };return _rateLabel;
 }
 
 @end

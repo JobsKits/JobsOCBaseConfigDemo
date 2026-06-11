@@ -30,6 +30,18 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /// 将一张图整个覆盖到TableViewCell上面
 @interface JobsImageStyleTBVCell : JobsBaseTableViewCell

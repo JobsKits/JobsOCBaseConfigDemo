@@ -7,6 +7,13 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
+
 #ifndef JobsBaseCustomizeUIKitCoreHeader_h
 #define JobsBaseCustomizeUIKitCoreHeader_h
 #pragma mark —— BaseProtocol
@@ -85,10 +92,10 @@
 #pragma mark —— UICollectionViewCell
 #import <JobsByOCPods/JobsCollectionViewCell.h>
 #pragma mark —— 实现类似于UItableView.tableHeaderView的头部视图
-#if __has_include(<JobsBaseUI/UICollectionHeaderFooterView.h>)
-#import <JobsBaseUI/UICollectionHeaderFooterView.h>
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
 #else
-#import "UICollectionHeaderFooterView.h"
+#import "JobsBaseUI.h"
 #endif
 #pragma mark —— UICollectionViewFlowLayout
 #import <JobsByOCPods/JobsCollectionViewFlowLayout.h>

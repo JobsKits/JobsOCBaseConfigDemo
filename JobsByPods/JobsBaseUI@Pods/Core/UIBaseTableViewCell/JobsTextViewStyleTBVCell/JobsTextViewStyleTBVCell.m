@@ -11,11 +11,7 @@
 #import <JobsBaseUI/SZTextView+Extra.h>
 #import <JobsBaseUI/UITableView+RegisterClass.h>
 #import <JobsBaseUI/UIView+Extra.h>
-#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
-#import <JobsModelDSL/JobsModelDSL.h>
-#else
-#import "JobsModelDSL.h"
-#endif
+
 #import <Masonry/Masonry.h>
 
 @interface JobsTextViewStyleTBVCell ()
@@ -47,7 +43,8 @@ BaseViewProtocol_synthesize
     return ^__kindof UITableViewCell *_Nullable(UIViewModel __kindof *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.textView.alpha = 1;
+        self.textView.byAlpha(1);
+
         return self;
     };
 }
@@ -114,9 +111,9 @@ BaseViewProtocol_synthesize
                 textView.textAlignment = self.viewModel.textAlignment;
                 textView.textColor = self.viewModel.textCor;
                 textView.font = self.viewModel.font;
-            }[self.contentView.addSubview(textView) mas_makeConstraints:self.masonryBlock];
+            }textView.byAddTo(self.contentView, self.masonryBlock);
         });
-    }return _textView;
+    };return _textView;
 }
 
 -(__kindof SZTextView *)szTextView{
@@ -126,7 +123,8 @@ BaseViewProtocol_synthesize
             @jobs_strongify(self)
             textView.delegate = self;
             textView.textColor = JobsBlackColor;
-            textView.backgroundColor = @"#F9F9F9".cor;
+            textView.byBgColor(@"#F9F9F9".cor);
+
             textView.returnKeyType = UIReturnKeyDefault;
             textView.keyboardAppearance = UIKeyboardAppearanceDefault;
             textView.keyboardType = UIKeyboardTypeNumberPad;
@@ -139,9 +137,9 @@ BaseViewProtocol_synthesize
                 return YES;
             } subscribeNextBlock:^(id _Nullable x) {
 //                @jobs_strongify(self)
-            }];[self.contentView.addSubview(textView) mas_makeConstraints:self.masonryBlock];
+            }];textView.byAddTo(self.contentView, self.masonryBlock);
         });
-    }return _textView;
+    };return _textView;
 }
 
 -(__kindof JobsTextView *)jobsTextView{
@@ -151,7 +149,8 @@ BaseViewProtocol_synthesize
             @jobs_strongify(self)
             textView.szTextView.delegate = self;
             textView.szTextView.textColor = JobsBlackColor;
-            textView.backgroundColor = @"#F9F9F9".cor;
+            textView.byBgColor(@"#F9F9F9".cor);
+
             textView.returnKeyType_ = UIReturnKeyDefault;
             textView.keyboardAppearance_ = UIKeyboardAppearanceDefault;
             textView.keyboardType_ = UIKeyboardTypeNumberPad;
@@ -164,9 +163,9 @@ BaseViewProtocol_synthesize
                 return YES;
             } subscribeNextBlock:^(id _Nullable x) {
 //                @jobs_strongify(self)
-            }];[self.contentView.addSubview(textView) mas_makeConstraints:self.masonryBlock];
+            }];textView.byAddTo(self.contentView, self.masonryBlock);
         });
-    }return _jobsTextView;
+    };return _jobsTextView;
 }
 
 -(jobsByMASConstraintMakerBlock _Nullable)masonryBlock{

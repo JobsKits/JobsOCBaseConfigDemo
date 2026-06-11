@@ -12,13 +12,13 @@
 -(NSString *)title{
     if(!_title){
         _title = @"";
-    }return _title;
+    };return _title;
 }
 /// 副标题
 -(NSString *)subTitle{
     if (!_subTitle) {
         _subTitle = @"";
-    }return _subTitle;
+    };return _subTitle;
 }
 
 -(JobsReturnDecorationModelByClsBlock _Nonnull)byCls{

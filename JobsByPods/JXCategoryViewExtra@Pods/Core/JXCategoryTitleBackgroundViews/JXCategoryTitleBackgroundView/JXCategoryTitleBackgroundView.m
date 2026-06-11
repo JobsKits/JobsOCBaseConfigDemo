@@ -64,7 +64,7 @@ Prop_strong()NSMutableArray <JXCategoryTitleBackgroundCellModel *>*tempMutArray;
         for (int i = 0; i < self.titles.count; i++) {
             [_tempMutArray addObject:JXCategoryTitleBackgroundCellModel.new];
         }
-    }return _tempMutArray;
+    };return _tempMutArray;
 }
 
 @end

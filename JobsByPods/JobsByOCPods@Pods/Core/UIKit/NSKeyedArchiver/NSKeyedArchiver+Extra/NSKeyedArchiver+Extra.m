@@ -24,7 +24,7 @@
         if(err){
             return nil;
             JobsLog(@"%@",err.description);
-        }return compressedData;
+        };return compressedData;
     };
 }
 
@@ -37,7 +37,7 @@
         if(err){
             return nil;
             JobsLog(@"%@",err.description);
-        }return compressedData;
+        };return compressedData;
     };
 }
 

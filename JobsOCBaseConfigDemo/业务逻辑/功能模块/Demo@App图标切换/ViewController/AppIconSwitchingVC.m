@@ -47,9 +47,11 @@ Prop_strong()BaseButton *switchBtn;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     self.makeNavByAlpha(1);
-    self.switchBtn.alpha = 1;
+    self.switchBtn.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -120,13 +122,13 @@ Prop_strong()BaseButton *switchBtn;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        [self.view addSubview:_switchBtn];
-        [_switchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        _switchBtn.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsWidth(80), JobsWidth(100)));
             make.center.equalTo(self.view);
-        }];
+        });
+
         _switchBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _switchBtn;
+    };return _switchBtn;
 }
 
 @end

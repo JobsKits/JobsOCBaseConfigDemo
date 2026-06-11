@@ -25,9 +25,11 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
             cell = [self initTableViewCell:self
                                  withStyle:UITableViewCellStyleValue1];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-            cell.collectionView.alpha = 1;
-        }return cell;
+            cell.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
+
+            cell.collectionView.byAlpha(1);
+
+        };return cell;
     };
 }
 #pragma mark —— BaseCellProtocol
@@ -85,7 +87,8 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
                            cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     MainTableViewCellItem *cell = [MainTableViewCellItem cellWithCollectionView:collectionView
                                                                    forIndexPath:indexPath];
-    cell.backgroundColor = cell.contentView.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
+    cell.byBgColor(cell.contentView.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0));
+
     @jobs_weakify(self)
     cell.jobsRichElementsCollectionViewCellBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable vm) {
         @jobs_strongify(self)
@@ -116,13 +119,14 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
             data.minimumInteritemSpacing = 0;
         })];
         _collectionView.dataLink(self);
-        _collectionView.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
+        _collectionView.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
+
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
-        [self.contentView.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _collectionView.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, 0, 0, 0));
-        }];
-    }return _collectionView;
+        });
+    };return _collectionView;
 }
 
 @end

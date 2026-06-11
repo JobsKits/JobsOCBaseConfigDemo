@@ -36,13 +36,13 @@ RACProtocol_synthesize
 -(instancetype)init{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -135,21 +135,23 @@ RACProtocol_synthesize
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.leftView.alpha = 1;
+        self.leftView.byAlpha(1);
+
         [self.realTextField jobsTextFieldEventFilterBlock:^BOOL(id data) {
 //            @jobs_strongify(self)
             JobsLog(@"");
             return YES;
         } subscribeNextBlock:^(NSString * _Nullable x) {
             @jobs_strongify(self)
-            self.realTextField.text = x;
+            self.realTextField.byText(x);
+
             if (self.objBlock) self.objBlock(x);
         }];self.rightView.alpha = 1;
     };
@@ -232,24 +234,24 @@ willDismissEditMenuWithAnimator:(id<UIEditMenuInteractionAnimating>)animator{
 #pragma mark —— UITextFieldProtocol
 -(void)setLeftView:(UIView *)leftView{
     _leftView = leftView;
-    [self.addSubview(_leftView) mas_makeConstraints:^(MASConstraintMaker *make) {
+    _leftView.byAddTo(self, ^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
         make.left.equalTo(self).offset(self.leftViewByOutLineOffset);
         if (_leftView.width) make.width.mas_equalTo(_leftView.width);
         if (_leftView.height) make.height.mas_equalTo(_leftView.height);
-    }];self.refresh();/// 会将之前设置的size值冲掉
+    });self.refresh();/// 会将之前设置的size值冲掉
 }
 
 -(void)setRightView:(UIView *)rightView{
     _rightView = rightView;
-    [self.addSubview(_rightView) mas_makeConstraints:^(MASConstraintMaker *make) {
+    _rightView.byAddTo(self, ^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
         make.right.equalTo(self).offset(-self.rightViewByOutLineOffset);
         if(self.isSizeZero(rightView.sizer)){
             if (rightView.width) make.width.mas_equalTo(rightView.width);
             if (rightView.height) make.height.mas_equalTo(rightView.height);
         }else make.size.mas_equalTo(rightView.sizer);
-    }];self.refresh();/// 会将之前设置的size值冲掉
+    });self.refresh();/// 会将之前设置的size值冲掉
 }
 #pragma mark —— lazyLoad
 -(UITextField *)realTextField{
@@ -264,7 +266,7 @@ willDismissEditMenuWithAnimator:(id<UIEditMenuInteractionAnimating>)animator{
             make.left.equalTo(self.leftView ? self.leftView.mas_right : self).offset(self.leftViewByTextFieldOffset);
             make.right.equalTo(self.rightView ? self.rightView.mas_left : self).offset(-self.rightViewByTextFieldOffset);
         }).on();
-    }return _realTextField;
+    };return _realTextField;
 }
 
 @end

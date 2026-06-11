@@ -21,7 +21,7 @@ JobsKey(_backgroundConfig)
                                                                         JobsWidth(3),
                                                                         JobsWidth(15));
         Jobs_setAssociatedRETAIN_NONATOMIC(_backgroundConfig, BackgroundConfig);
-    }return BackgroundConfig;
+    };return BackgroundConfig;
 }
 
 -(void)setBackgroundConfig:(UIBackgroundConfiguration *)backgroundConfig{

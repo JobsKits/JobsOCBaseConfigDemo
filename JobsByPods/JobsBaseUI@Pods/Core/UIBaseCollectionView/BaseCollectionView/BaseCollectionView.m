@@ -17,13 +17,13 @@ BaseViewProtocol_synthesize
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{

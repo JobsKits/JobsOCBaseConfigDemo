@@ -24,7 +24,7 @@ Prop_strong()JobsExcelView *excelView;
 - (instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -51,14 +51,17 @@ Prop_strong()JobsExcelView *excelView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     self.makeNavByAlpha(1);
-    self.excelView.alpha = 1;
+    self.excelView.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.gk_navigationBar.hidden = YES;
+    self.gk_navigationBar.byHidden(YES);
+
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -108,7 +111,7 @@ Prop_strong()JobsExcelView *excelView;
                 }))
                 .byBgColor(JobsRedColor);
         });
-    }return _excelView;
+    };return _excelView;
 }
 
 @end

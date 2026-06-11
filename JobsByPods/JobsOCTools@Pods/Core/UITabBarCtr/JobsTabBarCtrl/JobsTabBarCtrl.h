@@ -40,6 +40,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsTabBarCtrl : BaseViewController <UIScrollViewDelegate>
@@ -90,7 +96,7 @@ Prop_copy(nullable)jobsByArrBlock onButtonsLayouted;
 
 @end
 
-#pragma mark - 链式配置（和 Swift 版保持风格）
+#pragma mark —— 链式配置（和 Swift 版保持风格）
 @interface JobsTabBarCtrl (Chainable)
 
 -(JobsRetTabBarCtrlByBOOLBlock _Nonnull)bySwipeEnabled;

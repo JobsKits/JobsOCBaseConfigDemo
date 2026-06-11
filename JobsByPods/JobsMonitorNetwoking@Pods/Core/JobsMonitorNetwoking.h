@@ -14,6 +14,12 @@
 #include <arpa/inet.h>
 #include <net/if.h>
 
+#if __has_include(<JobsSuspend/JobsSuspend.h>)
+#import <JobsSuspend/JobsSuspend.h>
+#else
+#import "JobsSuspend.h"
+#endif
+
 @class JobsSuspendLab;
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
@@ -26,6 +32,12 @@
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

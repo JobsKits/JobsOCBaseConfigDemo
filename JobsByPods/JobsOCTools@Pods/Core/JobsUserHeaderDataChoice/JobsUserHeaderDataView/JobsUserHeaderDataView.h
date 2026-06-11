@@ -54,6 +54,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsUserHeaderDataView : BaseView
@@ -84,7 +90,7 @@ NS_ASSUME_NONNULL_END
                      self.popupParameter = nil;
                  }];
              }];
-         }return _userHeaderDataView;
+         };return _userHeaderDataView;
      }
  */
 #endif /* JOBS_HEADER_GUARD_JOBSUSERHEADERDATAVIEW_E03CB522DF */

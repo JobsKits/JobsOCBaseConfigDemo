@@ -6,17 +6,6 @@
 //
 
 #import "PreviewVC.h"
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
-#import "JobsBlock.h"
-#endif
 
 @interface PreviewVC ()
 
@@ -26,11 +15,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.byBgColor([UIColor whiteColor]);
+
 
     UILabel *label = [[UILabel alloc] initWithFrame:self.view.bounds];
-    label.text = self.previewText;
-    label.textAlignment = NSTextAlignmentCenter;
+    label.byText(self.previewText);
+
+    label.byTextAlignment(NSTextAlignmentCenter);
+
     [self.view addSubview:label];
 }
 

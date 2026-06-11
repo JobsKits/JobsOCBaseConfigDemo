@@ -35,7 +35,7 @@
             data = jobsMakeDateFormatter(^(__kindof NSDateFormatter *_Nullable data) {
                 data.dateFormat = @"yyyy-MM-dd";
             });
-        }return data.stringByDate(self);
+        };return data.stringByDate(self);
     };
 }
 

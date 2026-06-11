@@ -20,11 +20,6 @@
 #import <JobsBasePopupView/UIButton+UIButtonConfiguration.h>
 #import <JobsBasePopupView/UITextView+Extra.h>
 #import <JobsBasePopupView/UIView+Extra.h>
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
 #import <JobsBasePopupView/UIBackgroundConfiguration+Extra.h>
 #import <JobsBasePopupView/UIButtonConfiguration+Extra.h>
 #import <JobsBasePopupView/UIGestureRecognizer+Extra.h>
@@ -369,7 +364,7 @@ NS_ASSUME_NONNULL_END
                  }).onLongPressGestureBy(^(id data){
                      JobsLog(@"");
                  });
-         }return _applyNowBtn;
+         };return _applyNowBtn;
      }
  */
 #endif /* JOBS_HEADER_GUARD_UIBUTTON_UI_91353F756B */

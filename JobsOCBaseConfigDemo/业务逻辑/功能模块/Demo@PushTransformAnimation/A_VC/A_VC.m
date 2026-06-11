@@ -46,7 +46,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsYellowColor;
+    self.view.byBgColor(JobsYellowColor);
+
     self.makeNavByAlpha(1);
     self.tableView.byShow(self);
 }
@@ -71,7 +72,7 @@
                                                            toViewController:(UIViewController *)toVC  NS_AVAILABLE_IOS(7_0){
     return [toVC isKindOfClass:B_VC.class] ? PushAnimation.new : nil;
 }
-#pragma mark —————————— UITableViewDelegate,UITableViewDataSource ——————————
+#pragma mark —— UITableViewDelegate,UITableViewDataSource ——————————
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return MyFansTBVCell.cellHeightByModel(nil);
@@ -141,10 +142,10 @@ didHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
                     make.top.equalTo(self.gk_navigationBar.mas_bottom);
                     make.left.right.bottom.equalTo(self.view);
                 });
-            tableView.mj_footer.hidden = NO;
+            tableView.mj_footer.byHidden(NO);
             self.view.refresh();
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 @end

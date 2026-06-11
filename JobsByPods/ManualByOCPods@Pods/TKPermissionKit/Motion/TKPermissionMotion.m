@@ -23,7 +23,7 @@ static TKPermissionMotion * _shared = nil;
 +(TKPermissionMotion *)shared{
     if (!_shared) {
         _shared = TKPermissionMotion.new;
-    }return _shared;
+    };return _shared;
 }
 ///   请求运动与健身权限
 /// - Parameters:

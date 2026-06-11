@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:TLFrameAnimation::playSelectAnimationWhitTabBarButton:buttonImageView:buttonTextLabel:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：Tabbaritem的点击动效/TLTabBarAnimation/TLTabBarAnimation.m:237"]
-  T1["function:playFireworksAnimation<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：Tabbaritem的点击动效/TLTabBarAnimation/TLTabBarAnimation.m:42"]
+  S1["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T1["function:ASDisplayNodeSubclassOverridesSelector<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:69"]
   S1 -->|calls| T1
-  S2["method:TLFrameAnimation::playDeselectAnimationWhitTabBarButton:buttonImageView:buttonTextLabel:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：Tabbaritem的点击动效/TLTabBarAnimation/TLTabBarAnimation.m:252"]
-  T2["function:playFrameAnimation<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：Tabbaritem的点击动效/TLTabBarAnimation/TLTabBarAnimation.m:30"]
+  S2["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T2["function:ASDisplayNodeSubclassOverridesSelector<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:69"]
   S2 -->|calls| T2
-  S3["method:TLFrameAnimation::playDeselectAnimationWhitTabBarButton:buttonImageView:buttonTextLabel:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：Tabbaritem的点击动效/TLTabBarAnimation/TLTabBarAnimation.m:252"]
-  T3["function:reversedArray<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：Tabbaritem的点击动效/TLTabBarAnimation/TLTabBarAnimation.m:12"]
+  S3["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T3["function:ASDisplayNodeSubclassOverridesSelector<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:69"]
   S3 -->|calls| T3
-  S4["method:JobsPullListAutoSizeView::initWithTargetView:dataMutArr:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：高仿 Telegram，在指定位置出现菜单列表/JobsPullListAutoSizeView/JobsPullListAutoSizeView.m:25"]
-  T4["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S4["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T4["function:ASDisplayNodeSubclassOverridesSelector<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:69"]
   S4 -->|calls| T4
-  S5["method:JobsPullListAutoSizeView::initWithTargetView:dataMutArr:<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：高仿 Telegram，在指定位置出现菜单列表/JobsPullListAutoSizeView/JobsPullListAutoSizeView.m:46"]
-  T5["method:JobsPullListAutoSizeView::makeUI<br/>JobsByPods/JobsOCTools@Pods/Core/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：高仿 Telegram，在指定位置出现菜单列表/JobsPullListAutoSizeView/JobsPullListAutoSizeView.m:55"]
+  S5["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T5["function:ASDisplayNodeSubclassOverridesSelector<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:69"]
   S5 -->|calls| T5
-  S6["method:JobsVPN::configureVPN<br/>JobsByPods/JobsOCTools@Pods/Core/VPN/JobsVPN.m:20"]
-  T6["method:JobsVPN::getKeychainPassword<br/>JobsByPods/JobsOCTools@Pods/Core/VPN/JobsVPN.m:12"]
+  S6["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T6["function:ASDisplayNodeSubclassOverridesSelector<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:69"]
   S6 -->|calls| T6
-  S7["method:SocketRocketUtility::SRWebSocketOpenWithURLString<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:35"]
-  T7["method:SRWebSocket::initByURLRequest<br/>JobsByPods/SRWebSocketExtra@Pods/Core/SRWebSocket+Extra.m:12"]
+  S7["function:string<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:249"]
+  T7["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S7 -->|calls| T7
-  S8["method:SocketRocketUtility::SRWebSocketOpenWithURLString<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:35"]
-  T8["method:NSURLRequest::initBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSURLRequest/NSURLRequest+Extra/NSURLRequest+Extra.m:12"]
+  S8["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T8["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S8 -->|calls| T8
-  S9["method:SocketRocketUtility::SRWebSocketClose<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:49"]
-  T9["method:SocketRocketUtility::destoryHeartBeat<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:108"]
+  S9["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T9["function:ASScreenScale<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASInternalHelpers.mm:179"]
   S9 -->|calls| T9
-  S10["method:SocketRocketUtility::sendData<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:57"]
-  T10["method:SocketRocketUtility::reConnect<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:91"]
+  S10["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T10["function:ASPrimitiveTraitCollectionMakeDefault<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.mm:28"]
   S10 -->|calls| T10
-  S11["method:SocketRocketUtility::sendData<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:57"]
-  T11["method:SocketRocketUtility::reConnect<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:91"]
+  S11["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T11["method:ASDisplayNode::baseDidInit<br/>JobsByPods/ManualByOCPods@Pods/Texture/examples/CatDealsCollectionView/Sample/ASDisplayNode+CatDeals.mm:24"]
   S11 -->|calls| T11
-  S12["method:SocketRocketUtility::reConnect<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:91"]
-  T12["method:SocketRocketUtility::SRWebSocketClose<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:49"]
+  S12["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T12["method:ASButtonNode::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASButtonNode.mm:32"]
   S12 -->|calls| T12
-  S13["method:SocketRocketUtility::reConnect<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:91"]
-  T13["method:SocketRocketUtility::SRWebSocketOpenWithURLString<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:35"]
+  S13["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T13["method:ASDKViewController::_initializeInstance<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDKViewController.mm:78"]
   S13 -->|calls| T13
-  S14["method:SocketRocketUtility::webSocketDidOpen:<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:131"]
-  T14["method:SocketRocketUtility::initHeartBeat<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:116"]
+  S14["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T14["method:ASButtonNode::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASButtonNode.mm:32"]
   S14 -->|calls| T14
-  S15["method:SocketRocketUtility::webSocket:didFailWithError:<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:140"]
-  T15["method:SocketRocketUtility::reConnect<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:91"]
+  S15["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T15["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S15 -->|calls| T15
-  S16["method:SocketRocketUtility::webSocket:didCloseWithCode:reason:wasClean:<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:148"]
-  T16["method:SocketRocketUtility::SRWebSocketClose<br/>JobsByPods/JobsOCTools@Pods/Core/WebSocket/SocketRocketUtility.m:49"]
+  S16["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T16["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S16 -->|calls| T16
-  S17["method:XLSphereView::init<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:24"]
-  T17["method:XLSphereView::init<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:24"]
+  S17["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T17["method:ASButtonNode::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASButtonNode.mm:32"]
   S17 -->|calls| T17
-  S18["method:XLSphereView::init<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:24"]
-  T18["method:UIView::addGestureRecognizer<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:149"]
+  S18["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T18["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S18 -->|calls| T18
-  S19["method:XLSphereView::setItems:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:34"]
-  T19["method:XLSphereView::setTagOfPoint:andIndex:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:80"]
+  S19["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T19["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S19 -->|calls| T19
-  S20["method:XLSphereView::setItems:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:34"]
-  T20["method:XLSphereView::timerStart<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:91"]
+  S20["function:didLoadBlock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:368"]
+  T20["method:ASButtonNode::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASButtonNode.mm:32"]
   S20 -->|calls| T20
-  S21["method:XLSphereView::updateFrameOfPoint:direction:andAngle:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:68"]
-  T21["method:XLSphereView::setTagOfPoint:andIndex:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:80"]
+  S21["function:didLoadBlock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:387"]
+  T21["method:ASButtonNode::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASButtonNode.mm:32"]
   S21 -->|calls| T21
-  S22["method:XLSphereView::autoTurnRotation<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:101"]
-  T22["method:XLSphereView::updateFrameOfPoint:direction:andAngle:<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:68"]
+  S22["function:body<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:427"]
+  T22["function:body<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:427"]
   S22 -->|calls| T22
-  S23["method:XLSphereView::inertiaStart<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:107"]
-  T23["method:XLSphereView::timerStop<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:96"]
+  S23["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T23["function:ASPerformBlockOnMainThread<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASInternalHelpers.mm:133"]
   S23 -->|calls| T23
-  S24["method:XLSphereView::inertiaStop<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:113"]
-  T24["method:XLSphereView::timerStart<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:91"]
+  S24["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T24["method:_ASDisplayLayer::setNeedsDisplay<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASDisplayLayer.mm:107"]
   S24 -->|calls| T24
-  S25["method:XLSphereView::inertiaStep<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:119"]
-  T25["method:XLSphereView::inertiaStop<br/>JobsByPods/JobsOCTools@Pods/Core/XLSphereView/XLSphereView.m:113"]
+  S25["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm:1"]
+  T25["method:ASDisplayNode::baseWillDealloc<br/>JobsByPods/ManualByOCPods@Pods/Texture/examples/CatDealsCollectionView/Sample/ASDisplayNode+CatDeals.mm:29"]
   S25 -->|calls| T25
 ```
 

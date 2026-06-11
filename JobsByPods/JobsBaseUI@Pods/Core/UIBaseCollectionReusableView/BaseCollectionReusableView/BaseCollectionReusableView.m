@@ -22,7 +22,7 @@ UIPictureAndBackGroundCorProtocol_synthesize
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.jobsRichViewByModel(nil);
-    }return self;
+    };return self;
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
@@ -57,7 +57,7 @@ UIPictureAndBackGroundCorProtocol_synthesize
             @jobs_strongify(self)
             make.edges.equalTo(self);
         }).on();
-    }return _bgImageView;
+    };return _bgImageView;
 }
 
 @end

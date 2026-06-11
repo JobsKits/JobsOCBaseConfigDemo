@@ -45,7 +45,8 @@ Prop_strong()NSManagedObjectContext *context;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
+    
+    self.view.byBgColor(JobsRandomColor);
     self.makeNavByAlpha(1);
 }
 
@@ -112,7 +113,7 @@ Prop_strong()NSManagedObjectContext *context;
     NSArray *result = [self.context executeFetchRequest:fetchRequest error:&error];
     if (error) {
         JobsLog(@"Error fetching users: %@", error);
-    }return result;
+    };return result;
 }
 /// 更新/改正 数据
 - (void)updateUser:(NSManagedObject *)user

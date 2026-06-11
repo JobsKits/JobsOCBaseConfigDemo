@@ -20,7 +20,7 @@
 //        [self invoke2];
 //        [self invoke3];
 //        [self invoke4];
-    }return self;
+    };return self;
 }
 
 -(void)invoke1{

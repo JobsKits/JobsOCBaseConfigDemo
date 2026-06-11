@@ -45,7 +45,7 @@ Prop_strong()UILabel *topLineLab;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.topLineLab.alpha = 1;
+    self.topLineLab.byAlpha(1);
     [self 重定义父类控件的距离];
 }
 
@@ -75,8 +75,8 @@ Prop_strong()UILabel *topLineLab;
         appToolsSelf.setGKNavBackBtn(nil);
         if(self.leftBarButtonItems.count) self.gk_navLeftBarButtonItems = self.leftBarButtonItems;
         if(self.rightBarButtonItems.count) self.gk_navRightBarButtonItems = self.rightBarButtonItems;
-        self.gk_navigationBar.hidden = !data;
-        self.gk_navigationBar.alpha = data;
+        self.gk_navigationBar.byHidden(!data);
+        self.gk_navigationBar.byAlpha(data);
     };
 }
 
@@ -106,15 +106,15 @@ Prop_strong()UILabel *topLineLab;
         @jobs_weakify(self)
         _topLineLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byBgColor(HEXCOLOR(0xF8DA87));
-            [self.view addSubview:label];
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(2)));
-                make.centerX.equalTo(self.view);
-                make.top.equalTo(self.gk_navigationBar.mas_bottom);
-            }];
+            label
+                .byBgColor(HEXCOLOR(0xF8DA87))
+                .byAddTo(self.view, ^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(2)));
+                    make.centerX.equalTo(self.view);
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom);
+                });
         });
-    }return _topLineLab;
+    };return _topLineLab;
 }
 
 @end

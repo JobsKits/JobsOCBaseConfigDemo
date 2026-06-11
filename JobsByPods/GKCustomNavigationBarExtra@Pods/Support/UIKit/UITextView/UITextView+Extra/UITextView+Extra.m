@@ -8,14 +8,13 @@
 #import "UITextView+Extra.h"
 
 @implementation UITextView (Extra)
-
 /// 从 iOS 16 起，UITextView 使用新的文本渲染系统，会使用 UITextLayoutFragmentView。
 /// 它默认在某些情况下会将内容垂直居中，比如文本少、没有足够内容填满 UITextView 的高度时。
 /// 所以一下操作就是在关闭这个新特性
 -(void)switchs{
-    self.byTextAlignment(NSTextAlignmentLeft);
-    self.byTextContainerInset(UIEdgeInsetsMake(0, 0, 0, 0));
-    self.byContentInset(UIEdgeInsetsZero);
+    self.byTextAlignment(NSTextAlignmentLeft)
+        .byTextContainerInset(UIEdgeInsetsMake(0, 0, 0, 0))
+        .byContentInset(UIEdgeInsetsZero);
     self.textContainer.lineFragmentPadding = 0;
     [self setContentOffset:CGPointZero animated:NO];
     @jobs_weakify(self)

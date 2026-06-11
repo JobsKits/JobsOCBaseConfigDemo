@@ -59,7 +59,7 @@ requestFullAccessToRemindersWithCompletion:(JobsEKEventStoreRequestAccessComplet
     BOOL isAuth = NO;
     if ([EKEventStore authorizationStatusForEntityType:EKEntityTypeReminder] == EKAuthorizationStatusAuthorized) {
         isAuth = YES;
-    }return isAuth;
+    };return isAuth;
 }
 #pragma mark —— 一些私有方法
 +(void)jumpSetting{

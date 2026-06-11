@@ -22,7 +22,7 @@ Prop_assign()CGRect anchorRect;
 -(instancetype)init{
     if (self = [super init]) {
         [self configUI];
-    }return self;
+    };return self;
 }
 #pragma mark - config
 - (void)configUI{

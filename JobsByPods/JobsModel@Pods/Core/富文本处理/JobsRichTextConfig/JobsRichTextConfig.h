@@ -113,7 +113,7 @@ NS_INLINE __kindof JobsRichTextConfig *_Nonnull jobsMakeRichTextConfig(jobsByRic
                      data1.paragraphStyle = self.defaultParagraphStyle;
                  }));
              }));
-         }return _attributedTitle;
+         };return _attributedTitle;
      }
  */
 

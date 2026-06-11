@@ -21,12 +21,12 @@ Prop_assign() BOOL hasMore;
     if (self = [super initWithNode:self.tableNode]) {
         self.title = @"Texture Demo (OC)";
         _hasMore = YES;
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
     [super loadView];
-    self.node.backgroundColor = UIColor.systemBackgroundColor;
+    self.node.byBgColor(UIColor.systemBackgroundColor);
 }
 
 - (void)viewDidLoad {
@@ -38,7 +38,7 @@ Prop_assign() BOOL hasMore;
     }
     self.tableNode.inverted = NO;
 }
-#pragma mark - ASTable DataSource (推荐使用 Block 创建以获得异步构建收益)
+#pragma mark —— ASTable DataSource (推荐使用 Block 创建以获得异步构建收益)
 - (NSInteger)tableNode:(ASTableNode *)tableNode
  numberOfRowsInSection:(NSInteger)section {
     return self.rows.count;
@@ -73,7 +73,7 @@ Prop_assign() BOOL hasMore;
 #endif
             case TDDemoRowType_Draw:
                 return [[TDDrawCellNode alloc] init];
-        }return [[ASCellNode alloc] init];
+        };return [[ASCellNode alloc] init];
     };
 }
 #pragma mark —— ASTable Delegate (批量加载示例)
@@ -120,7 +120,7 @@ willBeginBatchFetchWithContext:(ASBatchContext *)context {
     [arr insertObject:@(TDDemoRowType_Map) atIndex:7];
 #endif
         });
-    }return _rows;
+    };return _rows;
 }
 
 -(ASTableNode *)tableNode{
@@ -145,7 +145,7 @@ willBeginBatchFetchWithContext:(ASBatchContext *)context {
                 });
             }];
         });
-    }return _tableNode;
+    };return _tableNode;
 }
 
 @end

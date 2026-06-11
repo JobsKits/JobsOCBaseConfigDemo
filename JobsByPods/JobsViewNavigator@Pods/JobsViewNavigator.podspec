@@ -36,6 +36,7 @@ navigation stack, supporting push, pop and pop-to-root transitions with optional
   spec.dependency 'Masonry'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsMakes'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsOCDefs'
   JobsPodspecKitForJobsViewNavigator.add_support_subspec(spec, support_context)
 

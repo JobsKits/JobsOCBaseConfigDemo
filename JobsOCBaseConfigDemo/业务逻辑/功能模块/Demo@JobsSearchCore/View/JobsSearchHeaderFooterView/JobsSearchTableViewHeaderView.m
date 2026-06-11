@@ -18,8 +18,8 @@ Prop_strong()UIButton *delBtn;
 
 -(instancetype)initWithReuseIdentifier:(nullable NSString *)reuseIdentifier{
     if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
-        self.contentView.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.contentView.byBgColor(JobsWhiteColor);
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -33,8 +33,8 @@ Prop_strong()UIButton *delBtn;
         @jobs_strongify(self)
         if ([model isKindOfClass:UIViewModel.class]) {
             self.viewModel = model ? : UIViewModel.new;
-            self.titleLab.text = self.viewModel.textModel.text;
-            self.delBtn.alpha = 1;
+            self.titleLab.byText(self.viewModel.textModel.text);
+            self.delBtn.byAlpha(1);
         }
     };
 }
@@ -50,17 +50,17 @@ Prop_strong()UIButton *delBtn;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byTextCor(self.viewModel.textModel.textCor);
-            label.byBgColor(self.viewModel.bgCor);
-            label.byFont(self.viewModel.textModel.font);
-            label.byTextAlignment(NSTextAlignmentLeft);
-            self.contentView.addSubview(label);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            label
+                .byTextCor(self.viewModel.textModel.textCor)
+                .byFont(self.viewModel.textModel.font)
+                .byTextAlignment(NSTextAlignmentLeft)
+                .byBgColor(self.viewModel.bgCor);
+            label.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
                 make.top.right.bottom.equalTo(self.contentView);
                 make.left.equalTo(self.contentView).offset(JobsWidth(10));
-            }];
+            });
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(UIButton *)delBtn{
@@ -73,13 +73,13 @@ Prop_strong()UIButton *delBtn;
             if(self.objBlock)self.objBlock(x);
             return nil;
         }];
-        [self.contentView addSubview:_delBtn];
-        [_delBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        _delBtn.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsWidth(25), JobsWidth(25)));
             make.right.equalTo(self.contentView).offset(-JobsWidth(10));
             make.centerY.equalTo(self.contentView);
-        }];
-    }return _delBtn;
+        });
+
+    };return _delBtn;
 }
 
 @end

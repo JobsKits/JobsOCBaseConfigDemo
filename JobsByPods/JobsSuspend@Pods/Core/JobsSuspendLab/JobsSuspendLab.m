@@ -10,7 +10,7 @@
 #import <JobsSuspend/NSString+Extra.h>
 #import <JobsSuspend/UIView+Extra.h>
 #import <JobsSuspend/UIView+Measure.h>
-#import <JobsLanMgr/NSString+JobsLanMgr.h>
+#import <JobsLanMgr/JobsLanMgr.h>
 
 @interface JobsSuspendLab ()
 
@@ -20,11 +20,12 @@
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = self.backgroundColor ? :JobsBlackColor;
+        self.byBgColor(self.backgroundColor ? :JobsBlackColor);
+
         self.text = JobsNonnullString(self.text, @"No Data".tr);
         self.internationalizationKEY = @"No Data";
         self.textAlignment = NSTextAlignmentCenter;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{

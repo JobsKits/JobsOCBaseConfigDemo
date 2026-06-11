@@ -23,7 +23,7 @@ BaseViewProtocol_synthesize
         /// 只有 self.backgroundView.backgroundColor 是有效操作✅
         /// 默认情况下，backgroundView 是 nil
         self.backgroundView = UIView.initByFrame(self.bounds);
-    }return self;
+    };return self;
 }
 /**
  #import <JobsBaseUI/UITableViewHeaderFooterView+Attribute.h>

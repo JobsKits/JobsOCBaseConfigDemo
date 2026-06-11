@@ -12,6 +12,12 @@
 #import <UIKit/UIKit.h>
 #import <JobsByOCPods/UIView+Extra.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsViewNavigator/JobsViewNavigator.h>)
 #import <JobsViewNavigator/JobsViewNavigator.h>
 #else

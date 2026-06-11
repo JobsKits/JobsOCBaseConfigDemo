@@ -105,7 +105,7 @@
                     }
                 }if (flbreak) break;
             }
-        }return theData;
+        };return theData;
     };
 }
 ///【实例方法】将给定的以Base64编码的字符串 转换为 NSData对象。实现了将Base64字符串解码为原始二进制数据的过程。

@@ -31,13 +31,13 @@ GestureProtocol_synthesize
 -(instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 +(instancetype)buttonWithConfiguration:(UIButtonConfiguration *)configuration
@@ -54,10 +54,9 @@ GestureProtocol_synthesize
     [super layoutSubviews];
 //    [self printValue];
     [self resetSubViews];
-    
     for (UIView *subview in self.subviews) {
         if ([subview isKindOfClass:NSClassFromString(UISystemBackgroundView)]) {
-            subview.frame = self.bounds;
+            subview.byFrame(self.bounds);
         }
     }
 }
@@ -87,7 +86,7 @@ GestureProtocol_synthesize
                 return subview; /// 返回 UITextView
             }
         }
-    }return hitView; /// 默认返回按钮自身
+    };return hitView; /// 默认返回按钮自身
 }
 #pragma mark —— 一些私有方法
 /// 只能在-(void)layoutSubviews里面进行调用
@@ -95,15 +94,15 @@ GestureProtocol_synthesize
     @jobs_weakify(self)
     {/// 【组 1】UIButton 单独自定义设置系统自带控件的Frame ❤️与组2、3属性互斥❤️
         if (!jobsZeroRectValue(self.textLabelFrame)) {
-            self.titleLabel.frame = self.textLabelFrame;
+            self.titleLabel.byFrame(self.textLabelFrame);
         }
         if (!jobsZeroRectValue(self.subTextLabelFrame)) {
             if (@available(iOS 15.0, *)) {
-                self.subtitleLabel.frame = self.subTextLabelFrame;
+                self.subtitleLabel.byFrame(self.subTextLabelFrame);
             }
         }
         if (!jobsZeroRectValue(self.imageViewFrame)) {
-            self.imageView.frame = self.imageViewFrame;
+            self.imageView.byFrame(self.imageViewFrame);
         }
     }
     

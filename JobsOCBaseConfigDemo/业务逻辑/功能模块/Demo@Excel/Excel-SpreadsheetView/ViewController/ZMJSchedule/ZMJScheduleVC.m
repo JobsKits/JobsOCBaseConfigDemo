@@ -52,10 +52,12 @@ Prop_strong()UIColor *oddRowColor;  //奇数
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
-    self.spreadsheetView.alpha = 1;
+    self.spreadsheetView.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -130,27 +132,33 @@ Prop_strong()UIColor *oddRowColor;  //奇数
         (indexPath.row    == 0)){
         DateCell *cell  = (DateCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(DateCell.class)
                                                                                  forIndexPath:indexPath];
-        cell.label.text = self.dates[indexPath.column - 1];
+        cell.label.byText(self.dates[indexPath.column - 1]);
+
         return cell;
     } else if ((indexPath.column >= 1 && indexPath.column <= self.days.count + 1) &&
                (indexPath.row    == 1)){
         DayTitleCell *cell = (DayTitleCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(DayTitleCell.class)
                                                                                         forIndexPath:indexPath];
-        cell.label.text      = self.days[indexPath.column - 1];
-        cell.label.textColor = self.dayColors[indexPath.column - 1];
+        cell.label.byText(self.days[indexPath.column - 1]);
+
+        cell.label.byTextCor(self.dayColors[indexPath.column - 1]);
+
         return cell;
     } else if ((indexPath.column == 0) &&
                (indexPath.row    == 1)){
         TimeTitleCell *cell = (TimeTitleCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(TimeTitleCell.class)
                                                                                           forIndexPath:indexPath];
-        cell.label.text     = @"TIME";
+        cell.label.byText(@"TIME");
+
         return cell;
     } else if ((indexPath.column == 0) &&
                (indexPath.row    >= 2 && indexPath.row <= self.hours.count + 2)){
         TimeCell *cell = (TimeCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(TimeCell.class)
                                                                                 forIndexPath:indexPath];
-        cell.label.text      = self.hours[indexPath.row - 2];
-        cell.backgroundColor = indexPath.row % 2 == 0 ? self.evenRowColor : self.oddRowColor;
+        cell.label.byText(self.hours[indexPath.row - 2]);
+
+        cell.byBgColor(indexPath.row % 2 == 0 ? self.evenRowColor : self.oddRowColor);
+
         return cell;
     } else if ((indexPath.column >= 1 && indexPath.column <= self.days.count + 1) &&
                (indexPath.row    >= 2 && indexPath.row <= self.hours.count + 2)){
@@ -158,19 +166,22 @@ Prop_strong()UIColor *oddRowColor;  //奇数
                                                                                         forIndexPath:indexPath];
         NSString *text = self.datas[indexPath.column - 1][indexPath.row - 2];
         if (text && text.length != 0) {
-            cell.label.text = text;
+            cell.label.byText(text);
+
             UIColor *color  = self.dayColors[indexPath.column - 1];
-            cell.label.textColor = color;
+            cell.label.byTextCor(color);
+
             cell.color           = color.colorWithAlphaComponentBy(.2f);
             cell.borders.top     = [BorderStyle.alloc initWithStyle:BorderStyle_solid width:2 color:color];
             cell.borders.bottom  = [BorderStyle.alloc initWithStyle:BorderStyle_solid width:2 color:color];
         } else {
-            cell.label.text     = nil;
+            cell.label.byText(nil);
+
             cell.color          = indexPath.row % 2 == 0 ? self.evenRowColor : self.oddRowColor;
             cell.borders.top    = BorderStyle.borderStyleNone;
             cell.borders.bottom = BorderStyle.borderStyleNone;
-        }return cell;
-    }return nil;
+        };return cell;
+    };return nil;
 }
 #pragma mark —— SpreadsheetViewDelegate
 - (void)spreadsheetView:(SpreadsheetView *)spreadsheetView
@@ -188,7 +199,7 @@ Prop_strong()UIColor *oddRowColor;  //奇数
         _dates.add(@"7/14/2017");
         _dates.add(@"7/15/2017");
         _dates.add(@"7/16/2017");
-    }return _dates;
+    };return _dates;
 }
 
 -(NSMutableArray<NSString *> *)days{
@@ -201,7 +212,7 @@ Prop_strong()UIColor *oddRowColor;  //奇数
         _days.add(@"FRIDAY");
         _days.add(@"SATURDAY");
         _days.add(@"SUNDAY");
-    }return _days;
+    };return _days;
 }
 
 -(NSMutableArray<UIColor *> *)dayColors{
@@ -214,7 +225,7 @@ Prop_strong()UIColor *oddRowColor;  //奇数
         _dayColors.add([UIColor colorWithRed:0.400 green:0.584 blue:0.141 alpha:1]);
         _dayColors.add([UIColor colorWithRed:0.835 green:0.655 blue:0.051 alpha:1]);
         _dayColors.add([UIColor colorWithRed:0.153 green:0.569 blue:0.835 alpha:1]);
-    }return _dayColors;
+    };return _dayColors;
 }
 
 -(NSMutableArray<NSString *> *)hours{
@@ -239,19 +250,19 @@ Prop_strong()UIColor *oddRowColor;  //奇数
         _hours.add(@"22:00 AM");
         _hours.add(@"23:00 AM");
         _hours.add(@"24:00 AM");
-    }return _hours;
+    };return _hours;
 }
 
 -(UIColor *)evenRowColor{
     if(!_evenRowColor){
         _evenRowColor = [UIColor colorWithRed:0.91 green:0.91 blue:0.91 alpha:1];
-    }return _evenRowColor;
+    };return _evenRowColor;
 }
 
 -(UIColor *)oddRowColor{
     if(!_oddRowColor){
         _oddRowColor = JobsWhiteColor;
-    }return _oddRowColor;
+    };return _oddRowColor;
 }
 
 -(NSMutableArray<NSArray<NSString *> *> *)datas{
@@ -264,7 +275,7 @@ Prop_strong()UIColor *oddRowColor;  //奇数
         _datas.add(@[@"", @"", @"", @"", @"", @"Family BBQ", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @""]);
         _datas.add(@[@"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @""]);
         _datas.add(@[@"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"Return home", @"", @"", @"", @"", @"", @""]);
-    }return _datas;
+    };return _datas;
 }
 
 -(SpreadsheetView *)spreadsheetView{
@@ -282,11 +293,11 @@ Prop_strong()UIColor *oddRowColor;  //奇数
         [_spreadsheetView registerClass:TimeCell.class forCellWithReuseIdentifier:NSStringFromClass(TimeCell.class)];
         [_spreadsheetView registerClass:DayTitleCell.class forCellWithReuseIdentifier:NSStringFromClass(DayTitleCell.class)];
         [_spreadsheetView registerClass:ScheduleCell.class forCellWithReuseIdentifier:NSStringFromClass(ScheduleCell.class)];
-        [self.view addSubview:_spreadsheetView];
-        [_spreadsheetView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _spreadsheetView.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             [self make:make topOffset:10];
-        }];
+        });
+
         
 //        if (@available(iOS 11.0, *)) {
 //            _spreadsheetView.frame = self.view.safeAreaLayoutGuide.layoutFrame;
@@ -295,7 +306,7 @@ Prop_strong()UIColor *oddRowColor;  //奇数
 //        }
         
         [_spreadsheetView flashScrollIndicators];
-    }return _spreadsheetView;
+    };return _spreadsheetView;
 }
 
 @end

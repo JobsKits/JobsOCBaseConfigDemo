@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:AuthCodeLab::touchesBegan:withEvent:<br/>JobsByPods/JobsOCTools@Pods/Core/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_6/AuthCodeLab/AuthCodeLab.m:23"]
-  T1["method:AuthCodeLab::requestAuthCode<br/>JobsByPods/JobsOCTools@Pods/Core/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_6/AuthCodeLab/AuthCodeLab.m:28"]
+  S1["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T1["method:ASDisplayNode::_locked_isLayoutTransitionInvalid<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:570"]
   S1 -->|calls| T1
-  S2["method:JobsRightMenuView::init<br/>JobsByPods/JobsOCTools@Pods/Core/JobsRightMenuView/JobsRightMenuView.m:26"]
-  T2["method:JobsRightMenuView::init<br/>JobsByPods/JobsOCTools@Pods/Core/JobsRightMenuView/JobsRightMenuView.m:26"]
+  S2["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T2["function:ASHierarchyStateIncludesLayoutPending<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASDisplayNode+FrameworkPrivate.h:46"]
   S2 -->|calls| T2
-  S3["method:JobsRightMenuView::layoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/JobsRightMenuView/JobsRightMenuView.m:44"]
-  T3["method:JobsRightMenuView::layoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/JobsRightMenuView/JobsRightMenuView.m:44"]
+  S3["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T3["variable:invalidateCalculatedLayout<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Subclasses.h:170"]
   S3 -->|calls| T3
-  S4["method:JobsRightMenuView::layoutSubviews<br/>JobsByPods/JobsOCTools@Pods/Core/JobsRightMenuView/JobsRightMenuView.m:44"]
-  T4["method:UIView::appointCornerCutToCircleByRoundingCorners:cornerRadii:<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:120"]
+  S4["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T4["method:ASDisplayNode::_startNewTransition<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:583"]
   S4 -->|calls| T4
-  S5["method:JobsRightMenuView::initWithSize:<br/>JobsByPods/JobsOCTools@Pods/Core/JobsRightMenuView/JobsRightMenuView.m:51"]
-  T5["method:JobsRightMenuView::init<br/>JobsByPods/JobsOCTools@Pods/Core/JobsRightMenuView/JobsRightMenuView.m:26"]
+  S5["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T5["function:ASLayoutLog<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Base/ASLog.mm:33"]
   S5 -->|calls| T5
-  S6["method:JobsRightMenuView::resetUI<br/>JobsByPods/JobsOCTools@Pods/Core/JobsRightMenuView/JobsRightMenuView.m:77"]
-  T6["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S6["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T6["function:ASLayoutLog<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Base/ASLog.mm:33"]
   S6 -->|calls| T6
-  S7["method:JobsRightMenuView::stackImageView<br/>JobsByPods/JobsOCTools@Pods/Core/JobsRightMenuView/JobsRightMenuView.m:113"]
-  T7["method:UIImageView::byImage<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIImageView/UIImageView+Extra/UIImageView+Extra.m:18"]
+  S7["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T7["function:ASDisplayNodePerformBlockOnEverySubnode<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNodeExtras.mm:132"]
   S7 -->|calls| T7
-  S8["method:JobsRightMenuView::stackView<br/>JobsByPods/JobsOCTools@Pods/Core/JobsRightMenuView/JobsRightMenuView.m:128"]
-  T8["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S8["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T8["method:ASBasicImageDownloaderContext::isCancelled<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASBasicImageDownloader.mm:111"]
   S8 -->|calls| T8
-  S9["method:JobsRightMenuView::stackView<br/>JobsByPods/JobsOCTools@Pods/Core/JobsRightMenuView/JobsRightMenuView.m:128"]
-  T9["method:UIStackView::add<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIStackView/UIStackView+Extra/UIStackView+Extra.m:12"]
+  S9["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T9["method:ASButtonNode::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASButtonNode.mm:32"]
   S9 -->|calls| T9
-  S10["method:JobsScale::scaleX<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:77"]
-  T10["method:JobsScale::screenWidth<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:28"]
+  S10["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T10["function:ASLayoutElementPushContext<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Layout/ASLayoutElement.mm:45"]
   S10 -->|calls| T10
-  S11["method:JobsScale::scaleY<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:82"]
-  T11["method:JobsScale::screenHeight<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:53"]
+  S11["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T11["method:ASScrollNode::calculateLayoutThatFits:restrictedToSize:relativeToParentSize:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASScrollNode.mm:80"]
   S11 -->|calls| T11
-  S12["function:JXScaleSetup<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:93"]
-  T12["method:JobsTuple::new<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseObject/JobsTuple/JobsTuple.m:27"]
+  S12["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T12["function:ASLayoutElementPopContext<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Layout/ASLayoutElement.mm:59"]
   S12 -->|calls| T12
-  S13["function:JXScaleSetupUsingSafeArea<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:103"]
-  T13["method:JobsTuple::new<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseObject/JobsTuple/JobsTuple.m:27"]
+  S13["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T13["method:ASBasicImageDownloaderContext::isCancelled<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASBasicImageDownloader.mm:111"]
   S13 -->|calls| T13
-  S14["function:_ensureSetup<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:114"]
-  T14["function:JXScaleSetup<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:93"]
+  S14["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T14["function:ASPerformBlockOnMainThread<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASInternalHelpers.mm:133"]
   S14 -->|calls| T14
-  S15["function:w<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:124"]
-  T15["function:_ensureSetup<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:114"]
+  S15["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T15["method:ASBasicImageDownloaderContext::isCancelled<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASBasicImageDownloader.mm:111"]
   S15 -->|calls| T15
-  S16["function:h<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:129"]
-  T16["function:_ensureSetup<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:114"]
+  S16["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T16["method:ASLayoutTransition::initWithNode:pendingLayout:previousLayout:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASLayoutTransition.mm:66"]
   S16 -->|calls| T16
-  S17["function:fz<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:134"]
-  T17["function:_ensureSetup<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:114"]
+  S17["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T17["method:_ASTransitionContext::initWithAnimation:layoutDelegate:completionDelegate:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/_ASTransitionContext.mm:27"]
   S17 -->|calls| T17
-  S18["function:JXScaleX<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:140"]
-  T18["function:_ensureSetup<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:114"]
+  S18["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T18["function:ASDisplayNodePerformBlockOnEverySubnode<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNodeExtras.mm:132"]
   S18 -->|calls| T18
-  S19["function:JXScaleY<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:145"]
-  T19["function:_ensureSetup<br/>JobsByPods/JobsOCTools@Pods/Core/JobsScale/JobsScale.m:114"]
+  S19["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T19["method:ASDisplayNode::_completePendingLayoutTransition<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:925"]
   S19 -->|calls| T19
-  S20["method:JobsUserHeaderDataViewTBVCell::cellStyleValue1WithTableView<br/>JobsByPods/JobsOCTools@Pods/Core/JobsUserHeaderDataChoice/JobsUserHeaderDataViewTBVCell/JobsUserHeaderDataViewTBVCell.m:29"]
-  T20["method:UITableView::tableViewCellClass<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableView/UITableView+RegisterClass/UITableView+RegisterClass.m:62"]
+  S20["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T20["method:ASCellNode::_layoutTransitionMeasurementDidFinish<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASCellNode.mm:121"]
   S20 -->|calls| T20
-  S21["method:JobsUserHeaderDataViewTBVCell::cellStyleValue2WithTableView<br/>JobsByPods/JobsOCTools@Pods/Core/JobsUserHeaderDataChoice/JobsUserHeaderDataViewTBVCell/JobsUserHeaderDataViewTBVCell.m:38"]
-  T21["method:UITableView::tableViewCellClass<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableView/UITableView+RegisterClass/UITableView+RegisterClass.m:62"]
+  S21["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T21["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASCollectionNode+Beta.h:73"]
   S21 -->|calls| T21
-  S22["method:JobsUserHeaderDataViewTBVCell::cellStyleSubtitleWithTableView<br/>JobsByPods/JobsOCTools@Pods/Core/JobsUserHeaderDataChoice/JobsUserHeaderDataViewTBVCell/JobsUserHeaderDataViewTBVCell.m:47"]
-  T22["method:UITableView::tableViewCellClass<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableView/UITableView+RegisterClass/UITableView+RegisterClass.m:62"]
+  S22["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T22["method:ASLayoutTransition::applySubnodeInsertionsAndMoves<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASLayoutTransition.mm:93"]
   S22 -->|calls| T22
-  S23["method:JobsUserHeaderDataViewTBVCell::titleLab<br/>JobsByPods/JobsOCTools@Pods/Core/JobsUserHeaderDataChoice/JobsUserHeaderDataViewTBVCell/JobsUserHeaderDataViewTBVCell.m:76"]
-  T23["function:isNull<br/>JobsByPods/JobsStringUtils@Pods/Core/JobsStringUtils.m:24"]
+  S23["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T23["method:DemoCellNode::animateLayoutTransition<br/>JobsByPods/ManualByOCPods@Pods/Texture/examples_extra/BackgroundPropertySetting/Sample/DemoCellNode.swift:39"]
   S23 -->|calls| T23
-  S24["method:JobsWelcomeVC::loadView<br/>JobsByPods/JobsOCTools@Pods/Core/JobsWelcomeVC/JobsWelcomeVC.m:25"]
-  T24["method:JobsWelcomeVC::loadView<br/>JobsByPods/JobsOCTools@Pods/Core/JobsWelcomeVC/JobsWelcomeVC.m:25"]
+  S24["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T24["method:ASDisplayNode::_finishOrCancelTransition<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:592"]
   S24 -->|calls| T24
-  S25["method:JobsWelcomeVC::loadView<br/>JobsByPods/JobsOCTools@Pods/Core/JobsWelcomeVC/JobsWelcomeVC.m:25"]
-  T25["function:UIFontWeightRegularSize<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Font.h:30"]
+  S25["method:ASDisplayNode::transitionLayoutWithSizeRange:animated:shouldMeasureAsync:measurementCompletion:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode+Layout.mm:611"]
+  T25["function:ASPerformBlockOnBackgroundThread<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASInternalHelpers.mm:145"]
   S25 -->|calls| T25
 ```
 

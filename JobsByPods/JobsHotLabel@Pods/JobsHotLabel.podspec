@@ -40,6 +40,7 @@ collection view cell support, and a unified umbrella header for Jobs projects.
 
     ss.dependency 'JobsMakes'
     ss.dependency 'JobsModelDSL'
+    ss.dependency 'JobsOCDSL'
     ss.dependency 'JobsBlock'
     ss.dependency 'JobsOCDefs'
     ss.dependency 'JobsBaseUI'

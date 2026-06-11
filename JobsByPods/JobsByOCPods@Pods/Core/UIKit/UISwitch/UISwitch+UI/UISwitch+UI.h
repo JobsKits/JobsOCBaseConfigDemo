@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
@@ -61,12 +67,12 @@ NS_ASSUME_NONNULL_END
                  Switch.thumbTintColor = _switcher.selected ? self.cor : HEXCOLOR(0xB0B0B0);
                  Switch.tintColor = JobsWhiteColor;
                  Switch.onTintColor = HEXCOLOR(0xFFFCF7);
-                 Switch.backgroundColor = JobsWhiteColor;
+                 Switch.byBgColor(JobsWhiteColor);
                  Switch.cornerCutToCircleWithCornerRadius(31 / 2);
-                 [Switch mas_makeConstraints:^(MASConstraintMaker *make) {
+                 Switch.byMakeConstraints(^(MASConstraintMaker *make) {
          //            make.top.equalTo(self.titleLab);
                      make.right.equalTo(self.view).offset(JobsWidth(-16));
-                 }];
+                 });
                  Switch.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
                      data.layerCor = Switch.selected ? self.cor : HEXCOLOR(0xB0B0B0)
                      data.byJobsWidth(1);
@@ -81,7 +87,7 @@ NS_ASSUME_NONNULL_END
                      }));
                  }];
              })
-         }return _switcher;
+         };return _switcher;
      }
 
      -(UIColor *)cor{
@@ -91,7 +97,7 @@ NS_ASSUME_NONNULL_END
                                           endPoint:CGPointZero
                                             opaque:NO
                                     targetViewRect:CGRectMake(0, 0, 51, 31)];
-         }return _cor;
+         };return _cor;
      }
  */
 #endif /* JOBS_HEADER_GUARD_UISWITCH_UI_5B6491D372 */

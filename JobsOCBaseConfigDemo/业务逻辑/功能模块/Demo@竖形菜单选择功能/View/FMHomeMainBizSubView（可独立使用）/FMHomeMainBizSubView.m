@@ -31,14 +31,14 @@ Prop_assign()NSUInteger thisIndex;
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsClearColor;
-    }return self;
+        self.byBgColor(JobsClearColor);
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = JobsClearColor;
-    }return self;
+        self.byBgColor(JobsClearColor);
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -54,8 +54,8 @@ Prop_assign()NSUInteger thisIndex;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsClearColor;
-    }return self;
+        self.byBgColor(JobsClearColor);
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -301,9 +301,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                          20,
                                          headerView.width - 20.f,
                                          17.f));
-                label.byFont(JobsFontBold(JobsWidth(12)));
-                label.byTextCor(JobsGrayColor);
-                label.byTag(666);
+                label.byFont(JobsFontBold(JobsWidth(12)))
+                    .byTextCor(JobsGrayColor)
+                    .byTag(666);
             });headerView.addSubview(label);
         }
         
@@ -316,7 +316,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         UICollectionReusableView *footView = [collectionView UICollectionElementKindSectionFooterClass:UICollectionReusableView.class
                                                                                           forIndexPath:indexPath];
         return footView;
-    }return nil;
+    };return nil;
 }
 
 - (CGSize)collectionView:(__kindof UICollectionView *)collectionView
@@ -348,12 +348,11 @@ referenceSizeForFooterInSection:(NSInteger)section{
             tableView
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .byBounces(NO)
-                .byShowsVerticalScrollIndicator(NO)
-                .byBgColor(JobsClearColor)
-                .byFrame(CGRectMake(0,0,
-                                    TableViewWidth,JobsWidth(300)));
+                .byShowsVerticalScrollIndicator(NO);
+            tableView.byBgColor(JobsClearColor);
+            tableView.byFrame(CGRectMake(0,0,TableViewWidth,JobsWidth(300)));
         }));
-    }return _tableView;
+    };return _tableView;
 }
 /// BaseViewProtocol
 @synthesize collectionView = _collectionView;
@@ -367,10 +366,10 @@ referenceSizeForFooterInSection:(NSInteger)section{
 //            .registerCollectionElementKindSectionFooterClass(UICollectionReusableView.class,@"")
             .byAlwaysBounceVertical(YES)
             .byFrame(CGRectMake(self.tableView.right,self.tableView.top,
-                                JobsMainScreen_WIDTH() - self.tableView.width,JobsWidth(300)))
-            .byBgColor(ThreeClassCellBgCor)
-            .addOn(self);
-    }return _collectionView;
+                                JobsMainScreen_WIDTH() - self.tableView.width,JobsWidth(300)));
+        _collectionView.byBgColor(ThreeClassCellBgCor);
+        _collectionView.addOn(self);
+    };return _collectionView;
 }
 
 -(ThreeClassCell *)tempCell{
@@ -382,7 +381,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
             cell.frame = CGRectMake(0,0,
                                     ThreeClassCell.cellSizeByModel(nil).width,ThreeClassCell.cellSizeByModel(nil).height);
         });
-    }return _tempCell;
+    };return _tempCell;
 }
 
 -(NSMutableArray<UIButtonModel *> *)leftCellDataMutArr{
@@ -394,7 +393,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 arr.add(self.makeLeftCellDataByUnSelect(self.cellTitleMutArr[i]));
             }
         });
-    }return _leftCellDataMutArr;
+    };return _leftCellDataMutArr;
 }
 
 -(NSMutableArray<UIButtonModel *> *)cellDataMutArr{
@@ -405,7 +404,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
             @jobs_strongify(self)
             self.makeCellData(arr);
         });
-    }return _cellDataMutArr;
+    };return _cellDataMutArr;
 }
 
 -(NSMutableArray<NSString *> *)cellTitleMutArr{
@@ -428,19 +427,19 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 .add(@"EVO")
                 .add(@"CQ9");
         });
-    }return _cellTitleMutArr;
+    };return _cellTitleMutArr;
 }
 
 -(NSMutableArray<GoodsClassModel *> *)leftDataArray{
     if (!_leftDataArray) {
         _leftDataArray = NSMutableArray.array;
-    }return _leftDataArray;
+    };return _leftDataArray;
 }
 
 -(NSMutableArray<GoodsClassModel *> *)rightDataArray{
     if (!_rightDataArray) {
         _rightDataArray = NSMutableArray.array;
-    }return _rightDataArray;
+    };return _rightDataArray;
 }
 
 @end

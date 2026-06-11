@@ -70,7 +70,7 @@ JobsKey(_customSysClearBtn)
                 JobsLog(@"");
             }).byFrame(CGRectMake(0.0f,0.0f,15.0f,15.0f));
         Jobs_setAssociatedRETAIN_NONATOMIC(_customSysClearBtn, CustomSysClearBtn)
-    }return CustomSysClearBtn;
+    };return CustomSysClearBtn;
 }
 
 -(void)setCustomSysClearBtn:(__kindof UIButton *)customSysClearBtn{

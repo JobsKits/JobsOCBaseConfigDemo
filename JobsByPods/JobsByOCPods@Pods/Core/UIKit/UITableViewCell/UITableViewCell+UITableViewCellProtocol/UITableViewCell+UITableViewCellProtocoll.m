@@ -34,7 +34,7 @@ UITableViewCellProtocol_dynamic
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleDefault];
             cell.settingForTableViewCell();
-        }return cell;
+        };return cell;
     };
 }
 /// UITableViewCellStyleValue1 = 左边：imageView＋textLabel；右边：detailTextLabel
@@ -46,7 +46,7 @@ UITableViewCellProtocol_dynamic
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleValue1];
             cell.settingForTableViewCell();
-        }return cell;
+        };return cell;
     };
 }
 /// UITableViewCellStyleValue2 = 左边：textLabel字体偏小；右边：detailTextLabel。imageView可选（显示在最左边）
@@ -58,7 +58,7 @@ UITableViewCellProtocol_dynamic
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleValue2];
             cell.settingForTableViewCell();
-        }return cell;
+        };return cell;
     };
 }
 /// UITableViewCellStyleSubtitle = 左边：textLabel字体偏小；右边：detailTextLabel。imageView可选（显示在最左边）
@@ -70,7 +70,7 @@ UITableViewCellProtocol_dynamic
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleSubtitle];
             cell.settingForTableViewCell();
-        }return cell;
+        };return cell;
     };
 }
 /// UITableViewCell的一些默认样式设置
@@ -81,9 +81,9 @@ UITableViewCellProtocol_dynamic
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         /// 适配iOS 13夜间模式/深色外观(Dark Mode)
-        self.backgroundColor = [UIColor xy_createWithLightColor:JobsWhiteColor darkColor:JobsWhiteColor];
-        self.detailTextLabel.textColor = JobsBrownColor;
-        self.textLabel.textColor = JobsBlackColor;
+        self.byBgColor([UIColor xy_createWithLightColor:JobsWhiteColor darkColor:JobsWhiteColor]);
+        self.detailTextLabel.byTextCor(JobsBrownColor);
+        self.textLabel.byTextCor(JobsBlackColor);
     };
 }
 /// 获取这个UITableViewCell所承载的UITableView
@@ -108,11 +108,12 @@ UITableViewCellProtocol_dynamic
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         if (model.isKindOfClass(UIViewModel.class)) {
-            self.textLabel.textColor = model.textModel.textCor;
-            self.textLabel.font = model.textModel.font;
-            self.textLabel.text = model.textModel.text;
+            self.textLabel
+                .byTextCor(model.textModel.textCor)
+                .byFont(model.textModel.font)
+                .byText(model.textModel.text);
             self.imageView.image = model.image;
-        }return self;
+        };return self;
     };
 }
 
@@ -120,7 +121,7 @@ UITableViewCellProtocol_dynamic
     @jobs_weakify(self)
     return ^(UIImage *_Nullable bgImage){
         @jobs_strongify(self)
-        self.backgroundColor = self.contentView.backgroundColor = JobsClearColor;
+        self.byBgColor(self.contentView.backgroundColor = JobsClearColor);
         self.backgroundImageView.image = bgImage;
     };
 }
@@ -144,7 +145,7 @@ UITableViewCellProtocol_dynamic
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UIColor *_Nonnull cor){
         @jobs_strongify(self)
-        self.textLabel.textColor = cor;
+        self.textLabel.byTextCor(cor);
         return self;
     };
 }
@@ -153,7 +154,7 @@ UITableViewCellProtocol_dynamic
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UIColor *_Nonnull cor){
         @jobs_strongify(self)
-        self.detailTextLabel.textColor = cor;
+        self.detailTextLabel.byTextCor(cor);
         return self;
     };
 }
@@ -162,7 +163,7 @@ UITableViewCellProtocol_dynamic
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UIFont *_Nonnull font){
         @jobs_strongify(self)
-        self.textLabel.font = font;
+        self.textLabel.byFont(font);
         return self;
     };
 }
@@ -171,7 +172,7 @@ UITableViewCellProtocol_dynamic
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UIFont *_Nonnull font){
         @jobs_strongify(self)
-        self.detailTextLabel.font = font;
+        self.detailTextLabel.byFont(font);
         return self;
     };
 }
@@ -207,7 +208,7 @@ UITableViewCellProtocol_dynamic
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UIColor *_Nonnull cor){
         @jobs_strongify(self)
-        self.contentView.backgroundColor = cor;
+        self.contentView.byBgColor(cor);
         return self;
     };
 }
@@ -454,7 +455,7 @@ UITableViewCellProtocol_dynamic
             if ([sublayer.name isEqualToString:RoundedBorderLayer]) {
                 [sublayer removeFromSuperlayer];
             }
-        }return self.layer;
+        };return self.layer;
     }
     // 设置圆角路径
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds
@@ -462,8 +463,8 @@ UITableViewCellProtocol_dynamic
                                                          cornerRadii:layerConfig.roundingCornersRadii];
     self.layer.mask = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
         @jobs_strongify(self)
-        layer.frame = self.bounds;
-        layer.path = maskPath.CGPath;
+        layer.byFrame(self.bounds);
+        layer.byPath(maskPath.CGPath);
     });
     // 添加边框 Layer（可选）
     if (layerConfig.layerBorderCor && layerConfig.borderWidth > 0) {
@@ -476,14 +477,14 @@ UITableViewCellProtocol_dynamic
         }
         self.layer.addSublayer(jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable borderLayer) {
             @jobs_strongify(self)
-            borderLayer.frame = self.bounds;
-            borderLayer.path = maskPath.CGPath;
-            borderLayer.strokeColor = layerConfig.layerBorderCor.CGColor;
-            borderLayer.fillColor = UIColor.clearColor.CGColor;
-            borderLayer.lineWidth = layerConfig.borderWidth;
-            borderLayer.name = RoundedBorderLayer;
+            borderLayer.byPath(maskPath.CGPath)
+                .byStrokeColor(layerConfig.layerBorderCor.CGColor)
+                .byFillColor(UIColor.clearColor.CGColor)
+                .byLineWidth(layerConfig.borderWidth);
+            borderLayer.byFrame(self.bounds);
+            borderLayer.byName(RoundedBorderLayer);
         }));
-    }return self.layer;
+    };return self.layer;
 }
 /// 以 section 为单位，仅对每个 section 的最后一行 cell 做圆角处理（cell 之间没有分割线），且不描边顶部
 -(__kindof CALayer *)roundedCornerLastCellByTableView:(UITableView *)tableView
@@ -502,8 +503,9 @@ UITableViewCellProtocol_dynamic
                                                              cornerRadii:layerConfig.roundingCornersRadii];
         self.layer.mask = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
             @jobs_strongify(self)
-            layer.frame = self.bounds;
-            layer.path = maskPath.CGPath;
+            layer
+                .byPath(maskPath.CGPath)
+                .byFrame(self.bounds);
         });
         // 处理边框
         if (layerConfig.layerBorderCor && layerConfig.borderWidth > 0) {
@@ -518,39 +520,36 @@ UITableViewCellProtocol_dynamic
             CGFloat height = CGRectGetHeight(self.bounds);
             CGFloat radius = layerConfig.roundingCornersRadii.height;
 
-            UIBezierPath *borderPath = [UIBezierPath bezierPath];
-
-            // 左下圆弧起点
-            [borderPath moveToPoint:CGPointMake(0, height - radius)];
-            // 左下圆角
-            [borderPath addArcWithCenter:CGPointMake(radius, height - radius)
-                                  radius:radius
-                              startAngle:M_PI
-                                endAngle:M_PI_2
-                               clockwise:NO];
-            // 底边线到右下角
-            [borderPath addLineToPoint:CGPointMake(width - radius, height)];
-            // 右下圆角
-            [borderPath addArcWithCenter:CGPointMake(width - radius, height - radius)
-                                  radius:radius
-                              startAngle:M_PI_2
-                                endAngle:0
-                               clockwise:NO];
-            // 右边竖线往上
-            [borderPath addLineToPoint:CGPointMake(width, 0)];
-            // 👉 左边竖线补充（修复左边断线问题）
-            [borderPath moveToPoint:CGPointMake(0, height - radius)];
-            [borderPath addLineToPoint:CGPointMake(0, 0)];
-            // 添加边框图层
-            self.layer.addSublayer(jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable borderLayer) {
-                @jobs_strongify(self)
-                borderLayer.frame = self.bounds;
-                borderLayer.path = borderPath.CGPath;
-                borderLayer.strokeColor = layerConfig.layerBorderCor.CGColor;
-                borderLayer.fillColor = UIColor.clearColor.CGColor;
-                borderLayer.lineWidth = layerConfig.borderWidth;
-                borderLayer.name = RoundedBorderLayer;
-            }));
+            jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable data) {
+                data
+                    .byMoveToPoint(CGPointMake(0, height - radius))// 左下圆弧起点
+                    .byAddArcWithCenter(CGPointMake(radius, height - radius),// 左下圆角
+                                    radius,
+                                    M_PI,
+                                    M_PI_2,
+                                    NO)
+                    .byAddLineToPoint(CGPointMake(width - radius, height));// 底边线到右下角
+                /// 右下圆角
+                [data addArcWithCenter:CGPointMake(width - radius, height - radius)
+                                radius:radius
+                            startAngle:M_PI_2
+                              endAngle:0
+                             clockwise:NO];
+                data
+                .byAddLineToPoint(CGPointMake(width, 0))// 右边竖线往上
+                .byMoveToPoint(CGPointMake(0, height - radius))// 左边竖线补充，修复左边断线问题
+                .byAddLineToPoint(CGPointMake(0, 0));
+                /// 添加边框图层
+                self.layer.addSublayer(jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable borderLayer) {
+                    @jobs_strongify(self)
+                    borderLayer.byPath(data.CGPath)
+                        .byStrokeColor(layerConfig.layerBorderCor.CGColor)
+                        .byFillColor(UIColor.clearColor.CGColor)
+                        .byLineWidth(layerConfig.borderWidth);
+                    borderLayer.byFrame(self.bounds);
+                    borderLayer.byName(RoundedBorderLayer);
+                }));
+            });
         }
     } else {
         // 非最后一个 cell，清除圆角遮罩和边框
@@ -561,7 +560,7 @@ UITableViewCellProtocol_dynamic
                 [sublayer removeFromSuperlayer];
             }
         }
-    }return self.layer;
+    };return self.layer;
 }
 /// 以section为单位，每个section的第一行的cell圆角化处理【cell之间没有分割线】
 -(__kindof CALayer *)roundedCornerFirstCellByTableView:(UITableView *)tableView
@@ -581,8 +580,9 @@ UITableViewCellProtocol_dynamic
                                                              cornerRadii:layerConfig.roundingCornersRadii];
         self.layer.mask = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
             @jobs_strongify(self)
-            layer.frame = self.bounds;
-            layer.path = maskPath.CGPath;
+            layer
+                .byPath(maskPath.CGPath)
+                .byFrame(self.bounds);
         });
         // 处理边框
         if (layerConfig.layerBorderCor && layerConfig.borderWidth > 0) {
@@ -597,38 +597,34 @@ UITableViewCellProtocol_dynamic
             CGFloat height = CGRectGetHeight(self.bounds);
             CGFloat radius = layerConfig.roundingCornersRadii.height;
 
-            UIBezierPath *borderPath = [UIBezierPath bezierPath];
-            // 左上圆弧起点
-            [borderPath moveToPoint:CGPointMake(0, radius)];
-            // 左上圆角
-            [borderPath addArcWithCenter:CGPointMake(radius, radius)
-                                  radius:radius
-                              startAngle:M_PI
-                                endAngle:3 * M_PI_2
-                               clockwise:YES];
-            // 顶部边线到右上角
-            [borderPath addLineToPoint:CGPointMake(width - radius, 0)];
-            // 右上圆角
-            [borderPath addArcWithCenter:CGPointMake(width - radius, radius)
-                                  radius:radius
-                              startAngle:3 * M_PI_2
-                                endAngle:0
-                               clockwise:YES];
-            // 右边竖线到底部
-            [borderPath addLineToPoint:CGPointMake(width, height)];
-            // 👉 左边竖线补充（修复左边断线问题）
-            [borderPath moveToPoint:CGPointMake(0, radius)];
-            [borderPath addLineToPoint:CGPointMake(0, height)];
-            // 添加边框图层
-            self.layer.addSublayer(jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable borderLayer) {
-                @jobs_strongify(self)
-                borderLayer.frame = self.bounds;
-                borderLayer.path = borderPath.CGPath;
-                borderLayer.strokeColor = layerConfig.layerBorderCor.CGColor;
-                borderLayer.fillColor = UIColor.clearColor.CGColor;
-                borderLayer.lineWidth = layerConfig.borderWidth;
-                borderLayer.name = RoundedBorderLayer;
-            }));
+            jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable borderPath) {
+                borderPath
+                    .byMoveToPoint(CGPointMake(0, radius))
+                    .byAddArcWithCenter(CGPointMake(radius, radius),
+                                        radius,
+                                        M_PI,
+                                        3 * M_PI_2,
+                                        YES)
+                    .byAddLineToPoint(CGPointMake(width - radius, 0))
+                    .byAddArcWithCenter(CGPointMake(width - radius, radius),
+                                        radius,
+                                        3 * M_PI_2,
+                                        0,
+                                        YES)
+                    .byAddLineToPoint(CGPointMake(width, height))
+                    .byMoveToPoint(CGPointMake(0, radius))
+                    .byAddLineToPoint(CGPointMake(0, height));
+
+                self.layer.addSublayer(jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable borderLayer) {
+                    borderLayer
+                        .byPath(borderPath.CGPath)
+                        .byStrokeColor(layerConfig.layerBorderCor.CGColor)
+                        .byFillColor(UIColor.clearColor.CGColor)
+                        .byLineWidth(layerConfig.borderWidth)
+                        .byFrame(self.bounds)
+                        .byName(RoundedBorderLayer);
+                }));
+            });
         }
     } else {
         // 非第一个 cell，清除圆角遮罩和边框
@@ -639,7 +635,7 @@ UITableViewCellProtocol_dynamic
                 [sublayer removeFromSuperlayer];
             }
         }
-    }return self.layer;
+    };return self.layer;
 }
 /// 只描 UITableViewCell 的左右两边
 -(void)leftAndRightLineCellByTableView:(UITableView *)tableView
@@ -663,16 +659,18 @@ UITableViewCellProtocol_dynamic
 
     // 左边线
     self.contentView.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable leftLayer) {
-        leftLayer.name = @"left-border";
-        leftLayer.backgroundColor = layerConfig.layerBorderCor.CGColor;
-        leftLayer.frame = CGRectMake(0, 0, borderWidth, height);
+        leftLayer
+            .byName(@"left-border")
+            .byBgColor(layerConfig.layerBorderCor.CGColor)
+            .byFrame(CGRectMake(0, 0, borderWidth, height));
     }));
 
     // 右边线
     self.contentView.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable rightLayer) {
-        rightLayer.name = @"right-border";
-        rightLayer.backgroundColor = layerConfig.layerBorderCor.CGColor;
-        rightLayer.frame = CGRectMake(width - borderWidth, 0, borderWidth, height);
+        rightLayer
+            .byName(@"right-border")
+            .byBgColor(layerConfig.layerBorderCor.CGColor)
+            .byFrame(CGRectMake(width - borderWidth, 0, borderWidth, height));
     }));
 }
 /// 除了最后一行以外，所有的cell的最下面的线的颜色为：layerConfig.layerBorderCor
@@ -690,12 +688,12 @@ UITableViewCellProtocol_dynamic
     if (indexPath.row != numberOfRowsInSection - 1) {
         /// 将图层添加到cell的图层中,并插到最底层
         [self.layer insertSublayer:jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
-            layer.borderWidth = layerConfig.borderWidth;
-            layer.strokeColor = layerConfig.layerBorderCor.CGColor;
-            layer.path = jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable data) {
+            layer.byStrokeColor(layerConfig.layerBorderCor.CGColor)
+                .byPath(jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable data) {
                 [data moveToPoint:CGPointMake(bounds.origin.x, bounds.size.height)];// 起点
                 [data addLineToPoint:CGPointMake(bounds.origin.x + bounds.size.width, bounds.size.height)];// 其他点
-            }).CGPath;
+            }).CGPath);
+            layer.byBorderWidth(layerConfig.borderWidth);
         }) atIndex:1];
     }
 }
@@ -714,12 +712,13 @@ UITableViewCellProtocol_dynamic
     if(indexPath.row){
         /// 将图层添加到cell的图层中,并插到最底层
         [self.layer insertSublayer:jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
-            layer.borderWidth = layerConfig.borderWidth;
-            layer.strokeColor = layerConfig.layerBorderCor.CGColor;
-            layer.path = jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable linePath) {
-                [linePath moveToPoint:CGPointMake(bounds.origin.x, 0)];/// 起点
-                [linePath addLineToPoint:CGPointMake(bounds.origin.x + bounds.size.width,0)];/// 其他点
-            }).CGPath;
+            layer.byStrokeColor(layerConfig.layerBorderCor.CGColor)
+                .byPath(jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable linePath) {
+                    linePath
+                        .byMoveToPoint(CGPointMake(bounds.origin.x, 0))// 起点
+                        .byAddLineToPoint(CGPointMake(bounds.origin.x + bounds.size.width, 0));// 其他点
+            }).CGPath);
+            layer.byBorderWidth(layerConfig.borderWidth);
         }) atIndex:1];
     }
 }

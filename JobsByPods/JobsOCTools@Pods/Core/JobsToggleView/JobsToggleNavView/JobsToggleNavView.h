@@ -35,6 +35,12 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 @interface JobsToggleNavView : BaseView<JobsToggleNavViewProtocol>
 /// UI
 Prop_copy(nullable)NSMutableArray <__kindof UIButton *>*buttonsArray;

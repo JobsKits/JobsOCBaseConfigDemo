@@ -61,11 +61,12 @@ static dispatch_once_t MyAppToolsOnceToken;
         @jobs_weakify(self)
         _appDelegateWindow = jobsMakeWindow(^(__kindof UIWindow * _Nullable data) {
             @jobs_strongify(self)
-            data.frame = UIScreen.mainScreen.bounds;
+            data.byFrame(UIScreen.mainScreen.bounds);
+
             data.rootViewController = RootViewController;
             [data makeKeyAndVisible];
         });AppDelegate.tabBarVC.ppBadge(YES);
-    }return _appDelegateWindow;
+    };return _appDelegateWindow;
 }
 
 //-(UIWindow *)sceneDelegateWindow{
@@ -75,7 +76,7 @@ static dispatch_once_t MyAppToolsOnceToken;
 //        _sceneDelegateWindow.frame = sceneDelegate.windowScene.coordinateSpace.bounds;
 //        _sceneDelegateWindow.rootViewController = self.rootViewControllerBy(FMHomeVC.new);;
 //        [_sceneDelegateWindow makeKeyAndVisible];
-//    }return _sceneDelegateWindow;
+//    };return _sceneDelegateWindow;
 //}
 
 @end

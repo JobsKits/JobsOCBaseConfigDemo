@@ -27,7 +27,7 @@ Prop_strong() NSURL *pendingURL; // 仅在 didLoad 再喂给 video
                 NSForegroundColorAttributeName: UIColor.secondaryLabelColor
             }];
         });
-    }return self;
+    };return self;
 }
 /// 保证在主线程设置 assetURL
 -(void)didLoad {
@@ -57,12 +57,12 @@ Prop_strong() NSURL *pendingURL; // 仅在 didLoad 再喂给 video
             node.shouldAutorepeat = NO;
             node.gravity          = AVLayerVideoGravityResizeAspectFill;
             node.placeholderColor = UIColor.secondarySystemFillColor;
-            node.backgroundColor  = UIColor.blackColor;
+            node.byBgColor(UIColor.blackColor);
             node.cornerRadius     = 8;
             node.clipsToBounds    = YES;
             node.style.preferredSize = CGSizeMake(0, 200);
         });
-    }return _video;
+    };return _video;
 }
 
 @end

@@ -6,6 +6,7 @@
 //
 
 #import "UIButton+UI.h"
+
 /**
  NSLineBreakByWordWrapping：这是默认的换行模式，会在单词边界换行。适用于希望保留单词完整性的场合。例如，如果单词太长而无法放入当前行，那么该单词将移动到下一行。
  NSLineBreakByCharWrapping：在字符边界处换行，而不是单词边界。适用于需要最大限度地利用行宽的场合，即使这意味着单词会被拆分。
@@ -309,7 +310,8 @@
     @jobs_weakify(self)
     return ^(BOOL breakLine) {
         @jobs_strongify(self)
-        self.titleLabel.numberOfLines = !breakLine;
+        self.titleLabel.byNumberOfLines(!breakLine);
+
         return self;
     };
 }
@@ -502,7 +504,7 @@
                     config.byAttributedTitle(title);
                 }];
             } else self.normalStateAttributedTitleBy(title);
-        }return self;
+        };return self;
     };
 }
 ///【兼容】重设Btn副标题富文本
@@ -516,7 +518,7 @@
                     config.attributedSubtitle = title;
                 }];
             }
-        }return self;
+        };return self;
     };
 }
 /// 用 UITextView 替换 UIButton.titleLabel
@@ -526,10 +528,10 @@
         @jobs_strongify(self)
         if(title){
             self.jobsResetBtnNormalAttributedTitle(title.changeTextColorBy(JobsClearColor).removeHyperlinks);
-            self.titleTextView.byFrame(self.titleLabel.frame);
-            self.titleTextView.byAttributedText(title);
+            self.titleTextView.frame = self.titleLabel.frame;
+            self.titleTextView.attributedText = title;
             self.jobsResetBtnNormalAttributedTitle(nil);
-        }return self;
+        };return self;
     };
 }
 /// 用 UITextView 替换 UIButton.subtitleLabel
@@ -540,10 +542,10 @@
         if(title){
             self.jobsResetBtnNormalAttributedSubTitle(title.changeTextColorBy(JobsClearColor));
             if (@available(iOS 15.0, *)) {
-                self.subtitleTextView.byFrame(self.subtitleLabel.frame);
-                self.subtitleTextView.byAttributedText(title);
+                self.subtitleTextView.frame = self.subtitleLabel.frame;
+                self.subtitleTextView.attributedText = title;
             }self.jobsResetBtnNormalAttributedSubTitle(nil);
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— 一些通用修改.间距
@@ -575,7 +577,7 @@
 }
 ///【兼容】获取按钮富文本字符串内容
 -(NSString *_Nullable)titleForConfigurationAttributedText{
-    return self.titleForConfigurationAttributed.text;
+    return self.titleForConfigurationAttributed.string;
 }
 ///【兼容】获取按钮富文本内容（更通用）
 -(NSAttributedString *_Nullable)titleForConfigurationAttributed{

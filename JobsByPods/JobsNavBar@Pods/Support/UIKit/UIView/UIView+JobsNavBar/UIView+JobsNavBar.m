@@ -24,7 +24,7 @@ JobsKey(_jobs_navBar)
     JobsNavBar *navBar = Jobs_getAssociatedObject(_jobs_navBar);
     if (!navBar) {
         navBar = [self jobs_addNavBarWithConfig:self.jobs_navBarConfig ?: self.makeNavBarConfig(nil, nil)];
-    }return navBar;
+    };return navBar;
 }
 
 -(void)setJobs_navBar:(JobsNavBar *)jobs_navBar{
@@ -65,8 +65,7 @@ JobsKey(_jobs_navBar)
         JobsLog(@"%f",self.jobs_navBarConfig.backBtnModel.jobsOffsetX);
         JobsLog(@"%f",self.jobs_navBarConfig.closeBtnModel.jobsOffsetX);
         data.navBarConfig = self.jobs_navBarConfig;
-        [self addSubview:data];
-        [data mas_makeConstraints:^(MASConstraintMaker *make) {
+        data.byAddTo(self, ^(MASConstraintMaker *make) {
             if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
                 make.top.equalTo(self);
             }else{
@@ -74,7 +73,8 @@ JobsKey(_jobs_navBar)
             }
             make.left.right.equalTo(self);
             make.height.mas_equalTo(JobsWidth(40));
-        }];self.refresh();
+        });
+self.refresh();
         @jobs_weakify(self)
         data.JobsRichViewByModel2(nil)
             .JobsNavBarBackBtnClickBlock(^(__kindof UIButton *_Nullable x){

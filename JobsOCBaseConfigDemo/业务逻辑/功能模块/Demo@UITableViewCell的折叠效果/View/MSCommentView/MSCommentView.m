@@ -30,8 +30,9 @@ static dispatch_once_t static_commentViewOnceToken;
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -49,7 +50,7 @@ static dispatch_once_t static_commentViewOnceToken;
             JobsLog(@"通知传递过来的 = %@",notification.object);
         }];
 //        [self netWorking];
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -77,8 +78,9 @@ static dispatch_once_t static_commentViewOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -185,11 +187,11 @@ willDisplayHeaderView:(UIView *)view
         _tableView = jobsMakeBaseTableViewByGrouped(^(__kindof BaseTableView * _Nullable tableView) {
             tableView.ww_foldable = YES;
             tableView.dataLink(self);
+            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .bySeparatorColor(HEXCOLOR(0xEEE2C8))
+                .byShowsVerticalScrollIndicator(NO)
+                .byScrollEnabled(YES);
             tableView.byBgColor(@"#FFFFFF".cor);
-            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone);
-            tableView.bySeparatorColor(HEXCOLOR(0xEEE2C8));
-            tableView.byShowsVerticalScrollIndicator(NO);
-            tableView.byScrollEnabled(YES);
             tableView.byTableHeaderView(jobsMakeView(^(__kindof UIView * _Nullable view) {
                 /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
             }));
@@ -222,11 +224,12 @@ willDisplayHeaderView:(UIView *)view
     ////            _tableView.tabAnimated.animatedBackgroundColor = JobsRedColor;
     //            [_tableView tab_startAnimation];   // 开启动画
     //        }
-            [self.addSubview(tableView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            tableView.addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
-            }];
+            });
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray<MSCommentModel *> *)dataMutArr{
@@ -293,7 +296,7 @@ willDisplayHeaderView:(UIView *)view
                 });;
             }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

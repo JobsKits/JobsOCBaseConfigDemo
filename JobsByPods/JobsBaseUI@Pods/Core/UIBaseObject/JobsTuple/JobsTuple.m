@@ -43,7 +43,7 @@ Prop_strong()NSMutableArray *valueMutArr;
                 value = va_arg(args, id);
             }va_end(args);
         }
-    }return self;
+    };return self;
 }
 
 -(NSArray *)jobsTupleValueArr{
@@ -53,7 +53,7 @@ Prop_strong()NSMutableArray *valueMutArr;
 -(NSMutableArray *)valueMutArr{
     if(!_valueMutArr){
         _valueMutArr = NSMutableArray.array;
-    }return _valueMutArr;
+    };return _valueMutArr;
 }
 
 @end

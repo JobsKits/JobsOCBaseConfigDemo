@@ -32,7 +32,7 @@ Prop_strong()UILabel *titleLab;
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(id _Nullable model) {
         @jobs_strongify(self)
-        self.titleLab.alpha = 1;
+        self.titleLab.byAlpha(1);
         return self;
     };
 }
@@ -42,14 +42,15 @@ Prop_strong()UILabel *titleLab;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"点击加载更多".tr.add(@"..."));
-            label.byTextAlignment(NSTextAlignmentCenter);
-            label.byBgColor(JobsSystemYellowColor);
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
+            label
+                .byText(@"点击加载更多".tr.add(@"..."))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byBgColor(JobsSystemYellowColor);
+            label.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);
-            }];
+            });
         });
-    }return _titleLab;
+    };return _titleLab;
 }
  
 

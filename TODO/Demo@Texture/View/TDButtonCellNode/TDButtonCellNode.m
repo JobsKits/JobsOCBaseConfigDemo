@@ -18,7 +18,7 @@
         self.automaticallyManagesSubnodes = YES;
         self.button.enabled = YES;
         self.descNode.enabled = YES;
-    }return self;
+    };return self;
 }
 
 -(ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize{
@@ -43,7 +43,7 @@
                     @jobs_strongify(self)
                     if (!self) return;
                     BOOL on = [self.button.backgroundColor isEqual:UIColor.systemBlueColor];
-                    btn.backgroundColor = on ? UIColor.systemGreenColor : UIColor.systemBlueColor;
+                    btn.byBgColor(on ? UIColor.systemGreenColor : UIColor.systemBlueColor);
                     btn.accessibilityLabel = @"Tap to Toggle";
                     [self setNeedsLayout];
                 })
@@ -53,7 +53,7 @@
                     JobsLog(@"长按触发 %@", gr);
                 });
         });
-    }return _button;
+    };return _button;
 }
 
 -(ASTextNode *)descNode{
@@ -65,7 +65,7 @@
                 NSForegroundColorAttributeName: UIColor.secondaryLabelColor
             }];
         });
-    }return _descNode;
+    };return _descNode;
 }
 
 @end

@@ -473,7 +473,7 @@ static void * _##varName = &_##varName; \
 -(void)set##VarName:(CGPoint)varName{ \
     objc_setAssociatedObject(self, \
                              &_##varName,\
-                             NSValue.byPoint(varName), \
+                             [NSValue valueWithCGPoint:varName], \
                              OBJC_ASSOCIATION_RETAIN_NONATOMIC); \
 }
 #endif /* PROP_CGPOINT */
@@ -488,7 +488,7 @@ static void * _##varName = &_##varName; \
 -(void)set##VarName:(CGSize)varName{ \
     objc_setAssociatedObject(self, \
                              &_##varName,\
-                             NSValue.bySize(varName), \
+                             [NSValue valueWithCGSize:varName], \
                              OBJC_ASSOCIATION_RETAIN_NONATOMIC); \
 }
 #endif /* PROP_CGSIZE */
@@ -503,7 +503,7 @@ static void * _##varName = &_##varName; \
 - (void)set##VarName:(CGRect)varName{ \
     objc_setAssociatedObject(self, \
                              &_##varName,\
-                             NSValue.byRect(varName), \
+                             [NSValue valueWithCGRect:varName], \
                              OBJC_ASSOCIATION_RETAIN_NONATOMIC); \
 }
 #endif /* PROP_CGRECT */

@@ -11,6 +11,12 @@
 #import "AppDelegate+TabBarCtr.h"
 #import "MyAppTools.h"
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsAppTools/JobsAppTools.h>)
 #import <JobsAppTools/JobsAppTools.h>
 #else

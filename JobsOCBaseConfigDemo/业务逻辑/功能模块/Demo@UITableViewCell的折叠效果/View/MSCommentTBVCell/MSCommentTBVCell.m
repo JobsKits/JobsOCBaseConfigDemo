@@ -41,8 +41,9 @@ BaseLayerProtocol_synthesize_part3
         @jobs_strongify(self)
         if([model isKindOfClass:MSCommentDetailModel.class]){
             self.commentDetailModel = model;
-            self.titleLab.alpha = 1;
-        }return self;
+            self.titleLab.byAlpha(1);
+
+        };return self;
     };
 }
 /// 具体由子类进行复写【数据定高】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -67,19 +68,22 @@ BaseLayerProtocol_synthesize_part3
 }
 #pragma mark —— lazyLoad
 -(UILabel *)titleLab{
-    if(!_titleLab){
+    if (!_titleLab) {
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
             @jobs_strongify(self)
-            label.byTextCor(@"#666666".cor);
-            label.byBgColor(@"#F7F7F7".cor);
-            label.byFont(UIFontWeightRegularSize(14));
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
+            label
+                .byTextCor(@"#666666".cor)
+                .byFont(UIFontWeightRegularSize(14))
+                .byBgColor(@"#F7F7F7".cor)
+                .byCornerRadius(JobsWidth(8));
+            label.addOn(self.contentView);
+            [label mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView).with.insets(UIEdgeInsetsMake(JobsWidth(5),
                                                                                   JobsWidth(25),
                                                                                   JobsWidth(5),
                                                                                   JobsWidth(25)));
-            }];label.cornerCutToCircleWithCornerRadius(JobsWidth(8));
+            }];
         });
     };return _titleLab;
 }

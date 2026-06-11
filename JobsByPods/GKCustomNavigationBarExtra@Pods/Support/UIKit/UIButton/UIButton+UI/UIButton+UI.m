@@ -307,7 +307,7 @@
     @jobs_weakify(self)
     return ^(BOOL breakLine) {
         @jobs_strongify(self)
-        self.titleLabel.numberOfLines = !breakLine;
+        self.titleLabel.byNumberOfLines(!breakLine);
         return self;
     };
 }
@@ -500,7 +500,7 @@
                     config.byAttributedTitle(title);
                 }];
             } else self.normalStateAttributedTitleBy(title);
-        }return self;
+        };return self;
     };
 }
 ///【兼容】重设Btn副标题富文本
@@ -514,7 +514,7 @@
                     config.attributedSubtitle = title;
                 }];
             }
-        }return self;
+        };return self;
     };
 }
 /// 用 UITextView 替换 UIButton.titleLabel
@@ -527,7 +527,7 @@
             self.titleTextView.byFrame(self.titleLabel.frame);
             self.titleTextView.byAttributedText(title);
             self.jobsResetBtnNormalAttributedTitle(nil);
-        }return self;
+        };return self;
     };
 }
 /// 用 UITextView 替换 UIButton.subtitleLabel
@@ -541,7 +541,7 @@
                 self.subtitleTextView.byFrame(self.subtitleLabel.frame);
                 self.subtitleTextView.byAttributedText(title);
             }self.jobsResetBtnNormalAttributedSubTitle(nil);
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— 一些通用修改.间距
@@ -573,7 +573,7 @@
 }
 ///【兼容】获取按钮富文本字符串内容
 -(NSString *_Nullable)titleForConfigurationAttributedText{
-    return self.titleForConfigurationAttributed.text;
+    return self.titleForConfigurationAttributed.string;
 }
 ///【兼容】获取按钮富文本内容（更通用）
 -(NSAttributedString *_Nullable)titleForConfigurationAttributed{

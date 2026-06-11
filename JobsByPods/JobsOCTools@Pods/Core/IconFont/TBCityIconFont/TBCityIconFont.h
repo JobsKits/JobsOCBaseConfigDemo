@@ -13,6 +13,12 @@
 #import <JobsOCTools/UIImage+TBCityIconFont.h>
 #import <JobsOCTools/TBCityIconInfo.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #define TBCityIconInfoMake(text, imageSize, imageColor) [TBCityIconInfo iconInfoWithText:text size:imageSize color:imageColor]
 
 @interface TBCityIconFont : NSObject
@@ -33,7 +39,8 @@
 
      - (void)viewDidLoad {
          [super viewDidLoad];
-         self.view.backgroundColor = [UIColor  whiteColor];
+         self.view.byBgColor([UIColor  whiteColor]);
+
          UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(100, 100, 30, 30)];
          [self.view addSubview:imageView];
          // 图标编码是&#xe600，需要转成\U0000e600
@@ -46,15 +53,17 @@
 
          // button
          UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-         button.frame = CGRectMake(100, 150, 40, 40);
+         button.byFrame(CGRectMake(100, 150, 40, 40));
+
          [self.view addSubview:button];
          [button setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e614", 40, [UIColor redColor])] forState:UIControlStateNormal];
 
          // label,label可以将文字与图标结合一起，直接用label的text属性将图标显示出来
          UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50, 200, 280, 40)];
          [self.view addSubview:label];
-         label.font = [UIFont fontWithName:@"iconfont" size:15];//设置label的字体
-         label.text = @"在lable上显示  \U0000e658";
+         label.byFont([UIFont fontWithName:@"iconfont" size:15]);//设置label的字体
+         label.byText(@"在lable上显示  \U0000e658");
+
          // Do any additional setup after loading the view, typically from a nib.
      }
  */

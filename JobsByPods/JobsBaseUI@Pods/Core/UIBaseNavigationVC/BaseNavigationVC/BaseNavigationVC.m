@@ -24,7 +24,7 @@ Prop_strong()NSShadow *shadow;
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController {
     if (self = [super initWithRootViewController:rootViewController]) {
         // [self 自定义navigationBar];
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -104,7 +104,7 @@ Prop_strong()NSShadow *shadow;
 - (void)navigationController:(UINavigationController *)navigationController
       willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated{
-    self.navigationBar.hidden = self.isHiddenNavigationBar;// 全局隐藏系统的导航栏，这一句是手势返回的时候，再次隐藏
+    self.navigationBar.byHidden(self.isHiddenNavigationBar);// 全局隐藏系统的导航栏，这一句是手势返回的时候，再次隐藏
 }
 
 - (void)navigationController:(UINavigationController *)navigationController
@@ -137,7 +137,7 @@ Prop_strong()NSShadow *shadow;
             shadow.shadowColor = RGBA_COLOR(0,0,0,0.8);
             shadow.shadowOffset = CGSizeZero;
         });
-    }return _shadow;
+    };return _shadow;
 }
 
 @end

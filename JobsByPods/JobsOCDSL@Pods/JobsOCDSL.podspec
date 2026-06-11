@@ -5,11 +5,17 @@ Pod::Spec.new do |spec|
   support_context = JobsPodspecKitForJobsOCDSL.build_support_context(
     podspec_dir: File.expand_path(File.dirname(__FILE__)),
     support_dir: 'Support',
-    support_dependencies: []
+    support_dependencies: [
+      'JobsBlock',
+      'JobsOCDefs',
+      'JobsOCProtocols',
+      'JobsMakes',
+      'JobsOCRuntimeKits'
+    ]
   )
 
   spec.name             = 'JobsOCDSL'
-  spec.version          = '1.0.0'
+  spec.version          = '1.0.4'
   spec.summary          = 'Objective-C chain DSL categories for Jobs projects.'
   spec.description      = 'JobsOCDSL centralizes Objective-C dot-syntax DSL category wrappers for system and selected third-party UI classes.'
   spec.homepage         = 'https://example.local/JobsOCDSL'
@@ -28,18 +34,27 @@ Pod::Spec.new do |spec|
   spec.frameworks = [
     'Foundation',
     'UIKit',
-    'QuartzCore'
+    'QuartzCore',
+    'Metal',
+    'MessageUI',
+    'PDFKit',
+    'UserNotifications'
   ]
 
+  spec.dependency 'JobsMakes'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsOCProtocols'
+  spec.dependency 'JobsOCRuntimeKits'
   spec.dependency 'GKNavigationBar'
   spec.dependency 'Masonry'
-  spec.dependency 'MJRefresh'
   spec.dependency 'Texture'
-  spec.dependency 'YTKNetwork'
   spec.dependency 'ZFPlayer'
+  spec.dependency 'MJRefresh'
+  spec.dependency 'YTKNetwork'
+  spec.dependency 'FSCalendar'
+  spec.dependency 'ReactiveObjC'
+  spec.dependency 'HXPhotoPickerObjC'
 
   JobsPodspecKitForJobsOCDSL.add_support_subspec(spec, support_context)
 

@@ -66,7 +66,7 @@ static void JobsDeviceIDKeychainRemove(NSString *service) {
     if (deviceID.length == 0) {
         deviceID = UIDevice.currentDevice.identifierForVendor.UUIDString;
         JobsDeviceIDKeychainSave(设备ID, deviceID);
-    }return deviceID;
+    };return deviceID;
 }
 
 @end

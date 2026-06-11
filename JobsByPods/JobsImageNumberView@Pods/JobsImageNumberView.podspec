@@ -116,6 +116,7 @@ JobsImageNumberView is a component for displaying numbers using images.
   ]
 
   spec.dependency 'JobsMakes'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsBaseUI'

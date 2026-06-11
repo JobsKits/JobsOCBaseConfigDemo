@@ -26,5 +26,6 @@
 #import <JobsByOCPods/UIButton+Extra.h>
 ///
 #import <JobsByOCPods/UIButton+TextView.h>
+#import <JobsByOCPods/UIButton+UIButtonConfiguration.h>
 
 #endif /* JobsButton_h */

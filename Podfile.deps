@@ -171,6 +171,7 @@ def byJobsDo
   pod 'JobsMakes',                    :path => './JobsByPods/JobsMakes@Pods', :modular_headers => true
   pod 'JobsBlock',                    :path => './JobsByPods/JobsBlock@Pods'
   pod 'JobsOCDSL',                    :path => './JobsByPods/JobsOCDSL@Pods'
+  pod 'UIBaseTextFieldDSL',           :path => './JobsByPods/UIBaseTextFieldDSL@Pods'
   pod 'JobsLanMgr',                   :path => './JobsByPods/JobsLanMgr@Pods'
   pod 'JobsClass',                    :path => './JobsByPods/JobsClass@Pods'
   pod 'JobsModel',                    :path => './JobsByPods/JobsModel@Pods'
@@ -239,7 +240,6 @@ def byJobsDo
   pod 'ReachabilityExtra',            :path => './JobsByPods/ReachabilityExtra@Pods'
   pod 'SRWebSocketExtra',             :path => './JobsByPods/SRWebSocketExtra@Pods'
   pod 'SZTextViewExtra',              :path => './JobsByPods/SZTextViewExtra@Pods'
-  pod 'TextureExtra',                 :path => './JobsByPods/TextureExtra@Pods'
   pod 'ZMJCellExtra',                 :path => './JobsByPods/ZMJCellExtra@Pods'
 
   pod 'Texture',                      :path => './JobsByPods/ManualByOCPods@Pods/Texture'

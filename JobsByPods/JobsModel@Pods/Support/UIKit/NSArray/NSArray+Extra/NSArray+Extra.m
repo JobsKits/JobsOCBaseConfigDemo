@@ -33,7 +33,7 @@
                     make.width.equalTo(@(data.width));
                 }
             }];
-        }return self;
+        };return self;
     };
 }
 /// 将一组视图沿某个方向（水平或垂直）等间距分布，视图的宽度（或高度）是固定的，且视图与容器的两端没有间隔。
@@ -60,7 +60,7 @@
                     make.width.equalTo(@(data.width));
                 }
             }];
-        }return self;
+        };return self;
     };
 }
 /// 数组取值（无法关联数组的泛型）

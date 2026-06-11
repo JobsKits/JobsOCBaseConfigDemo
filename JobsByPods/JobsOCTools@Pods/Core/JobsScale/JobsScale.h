@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDefs/JobsDefineProperty.h>)
+#import <JobsOCDefs/JobsDefineProperty.h>
+#else
+#import "JobsDefineProperty.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /// 在 App 入口处配置一次（设计稿尺寸，比如 375x812）
 FOUNDATION_EXPORT void JXScaleSetup(CGFloat designWidth, CGFloat designHeight);

@@ -27,7 +27,7 @@ static TKPermissionHealth * _shared = nil;
         HKObjectType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
         _shared.writeTypes = [NSSet setWithObject:type];
         _shared.readTypes  = [NSSet setWithObject:type];
-    }return _shared;
+    };return _shared;
 }
 /// 需要写入Health中的HKSampleType NSSet集合
 /// PS:可以通过该方法自定义设置需要写入的HKSampleType 集合
@@ -46,7 +46,7 @@ static TKPermissionHealth * _shared = nil;
         HKAuthorizationStatus status = [self.shared.healthStore authorizationStatusForType:type];
         if (HKAuthorizationStatusSharingAuthorized == status) {
             return YES;
-        }return  NO;
+        };return  NO;
     }else return NO;
 }
 /// 请求HealthKit权限，需要先通过+setHKWriteTypes:或+setHKReadTypes:添加授权类型
@@ -115,7 +115,7 @@ static TKPermissionHealth * _shared = nil;
 -(HKHealthStore *)healthStore{
     if (!_healthStore) {
         _healthStore = HKHealthStore.new;
-    }return _healthStore;
+    };return _healthStore;
 }
 
 @end

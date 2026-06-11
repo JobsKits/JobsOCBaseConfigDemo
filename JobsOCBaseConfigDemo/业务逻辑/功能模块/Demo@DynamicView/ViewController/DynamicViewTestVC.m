@@ -46,9 +46,11 @@ Prop_copy()NSString *path;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsYellowColor;
+    self.view.byBgColor(JobsYellowColor);
+
     self.makeNavByAlpha(1);
-    self.gifImageView.alpha = 1;
+    self.gifImageView.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -85,19 +87,20 @@ Prop_copy()NSString *path;
         @jobs_weakify(self)
         _gifImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = self.image;
-            [self.view addSubview:imageView];
-            [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.view);
-            }];
+            imageView
+                .byImage(self.image)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.view);
+                });
         });
-    }return _gifImageView;
+    };return _gifImageView;
 }
 
 -(NSString *)path{
     if (!_path) {
         _path = @"GIF大图.gif".pathForResourceWithFullName;
-    }return _path;
+    };return _path;
 }
 
 @end

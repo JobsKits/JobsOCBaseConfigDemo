@@ -19,7 +19,7 @@ Prop_strong()UILabel *textLab;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 -(UIViewModel *_Nullable)getViewModel{
@@ -70,16 +70,17 @@ Prop_strong()UILabel *textLab;
         @jobs_weakify(self)
         _textLab = self.contentView.addSubview(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byBgColor(self.viewModel.bgCor);
-            label.byTextCor(self.viewModel.textModel.textCor);
-            label.byTextAlignment(NSTextAlignmentCenter);
-            label.byText(self.viewModel.textModel.text);
-            label.byFont(self.viewModel.textModel.font);
+            label
+                .byTextCor(self.viewModel.textModel.textCor)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byText(self.viewModel.textModel.text)
+                .byFont(self.viewModel.textModel.font)
+                .byBgColor(self.viewModel.bgCor);
         })).byAdd(^(MASConstraintMaker *make) {
             @jobs_strongify(self)
             make.edges.equalTo(self.contentView);
         });
-    }return _textLab;
+    };return _textLab;
 }
 
 @end

@@ -32,7 +32,7 @@ Prop_strong()XLChannelBlock block;
 - (instancetype)init {
     if (self = [super init]) {
         [self buildChannelView];
-    }return self;
+    };return self;
 }
 
 - (void)buildChannelView {
@@ -50,7 +50,8 @@ Prop_strong()XLChannelBlock block;
     [UIView animateWithDuration:0.3 animations:^{
         CGRect frame = self.nav.view.frame;
         frame.origin.y = - self.nav.view.bounds.size.height;
-        self.nav.view.frame = frame;
+        self.nav.view.byFrame(frame);
+
     }completion:^(BOOL finished) {
         [self.nav.view removeFromSuperview];
     }];
@@ -65,12 +66,16 @@ Prop_strong()XLChannelBlock block;
 
     CGRect frame = self.nav.view.frame;
     frame.origin.y = - self.nav.view.bounds.size.height;
-    self.nav.view.frame = frame;
-    self.nav.view.alpha = 0;
+    self.nav.view.byFrame(frame);
+
+    self.nav.view.byAlpha(0);
+
     [[UIApplication sharedApplication].keyWindow addSubview:self.nav.view];
     [UIView animateWithDuration:0.3 animations:^{
-        self.nav.view.alpha = 1;
-        self.nav.view.frame = [UIScreen mainScreen].bounds;
+        self.nav.view.byAlpha(1);
+
+        self.nav.view.byFrame([UIScreen mainScreen].bounds);
+
     }];
 }
 

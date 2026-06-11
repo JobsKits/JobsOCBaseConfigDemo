@@ -27,7 +27,8 @@ Prop_strong()UIImageView *textIMGV;
     @jobs_weakify(self)
     return ^__kindof UICollectionViewCell *_Nullable(id _Nullable model) {
         @jobs_strongify(self)
-        self.backgroundColor = self.contentView.backgroundColor = JobsClearColor;
+        self.byBgColor(self.contentView.backgroundColor = JobsClearColor);
+
         self.textIMGV.image = model;
         return self;
     };
@@ -37,7 +38,7 @@ Prop_strong()UIImageView *textIMGV;
     return ^CGSize(UIImage *_Nullable data){
         if ([data isEqual:@"小数点".img]) {
             return CGSizeMake(JobsWidth(15), JobsWidth(28));
-        }return CGSizeMake(JobsWidth(19), JobsWidth(28));
+        };return CGSizeMake(JobsWidth(19), JobsWidth(28));
     };
 }
 #pragma mark —— lazyLoad
@@ -46,11 +47,11 @@ Prop_strong()UIImageView *textIMGV;
         @jobs_weakify(self)
         _textIMGV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            [self.contentView.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            imageView.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);
-            }];
+            });
         });
-    }return _textIMGV;
+    };return _textIMGV;
 }
 
 @end

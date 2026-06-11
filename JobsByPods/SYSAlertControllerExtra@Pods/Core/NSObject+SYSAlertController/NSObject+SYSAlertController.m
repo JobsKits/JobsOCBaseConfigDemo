@@ -116,15 +116,18 @@
     @jobs_weakify(self)
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         @jobs_strongify(self)
-        textField.placeholder = @"username".tr;
+        textField.byPlaceholder(@"username".tr);
+
         [textField addTarget:self
                       action:@selector(alertUserAccountInfoDidChange:targetVC:)
             forControlEvents:UIControlEventEditingChanged];
     }];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         @jobs_strongify(self)
-        textField.placeholder = @"password".tr;
-        textField.secureTextEntry = YES;
+        textField.byPlaceholder(@"password".tr);
+
+        textField.bySecureTextEntry(YES);
+
         [textField addTarget:self
                       action:@selector(alertUserAccountInfoDidChange:targetVC:)
             forControlEvents:UIControlEventEditingChanged];

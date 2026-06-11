@@ -6,6 +6,7 @@
 //
 
 #import "JobsAppDoorVC.h"
+
 //ZFPlayerController *ZFPlayer_DoorVC;
 @interface JobsAppDoorVC (){
     NSInteger index;// 当前被激活的TextField的序号，从1开始
@@ -55,7 +56,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -247,15 +248,15 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
 -(JobsAppDoorLogoContentView *)logoContentView{
     if (!_logoContentView) {
         _logoContentView = JobsAppDoorLogoContentView.new;
-        [self.view addSubview:_logoContentView];
-        [_logoContentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _logoContentView.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsWidth(150), JobsWidth(150)));
             make.bottom.equalTo(self.jobsAppDoorContentView.mas_top).offset(-JobsWidth(50));
             make.centerX.equalTo(self.view);
-        }];
+        });
+
         [self.view layoutIfNeeded];
         self.logoContentViewY = self.logoContentView.y;
-    }return _logoContentView;
+    };return _logoContentView;
 }
 
 -(JobsAppDoorForgotCodeContentView *)forgotCodeContentView{
@@ -285,13 +286,14 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                                         options:UIViewAnimationOptionCurveEaseInOut
                                      animations:^{
                         @jobs_strongify(self)
-                        self.customerServiceBtn.alpha = 1;
+                        self.customerServiceBtn.byAlpha(1);
+
                     } completion:nil];
                 }else{}
             }
         }];
         _forgotCodeContentView.cornerCutToCircleWithCornerRadius(8);
-    }return _forgotCodeContentView;
+    };return _forgotCodeContentView;
 }
 
 -(JobsAppDoorContentView *)jobsAppDoorContentView{
@@ -303,7 +305,8 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                                                    JobsAppDoorContentViewLoginWidth,
                                                    JobsAppDoorContentViewLoginHeight);
         self.jobsAppDoorContentViewY = _jobsAppDoorContentView.y;
-        _jobsAppDoorContentView.backgroundColor = Cor2;
+        _jobsAppDoorContentView.byBgColor(Cor2);
+
         @jobs_weakify(self)
         //监测输入字符回调 和 激活的textField 和 toRegisterBtn/abandonLoginBtn点击事件
         [_jobsAppDoorContentView actionObjBlock:^(id data) {
@@ -346,7 +349,8 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                         self.currentPage = @(CurrentPage_ForgotCode);
                         [self->_jobsAppDoorContentView removeContentViewWithOffsetY:0];
                         [self.forgotCodeContentView showContentViewWithOffsetY:0];
-                        self.customerServiceBtn.alpha = 0;
+                        self.customerServiceBtn.byAlpha(0);
+
                     }
 
                 }else{}
@@ -357,7 +361,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
         [self.view addSubview:_jobsAppDoorContentView];
         _jobsAppDoorContentView.cornerCutToCircleWithCornerRadius(8);
         _jobsAppDoorContentView.jobsRichViewByModel(nil);
-    }return _jobsAppDoorContentView;
+    };return _jobsAppDoorContentView;
 }
 
 - (UIButton *)customerServiceBtn {
@@ -408,7 +412,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             self->_customerServiceBtn.layer.cornerRadius = self->_customerServiceBtn.bounds.size.height * 0.5;
             self->_customerServiceBtn.layer.masksToBounds = YES;
         });
-    }return _customerServiceBtn;
+    };return _customerServiceBtn;
 }
 
 -(ZFAVPlayerManager *)playerManager{
@@ -421,7 +425,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                 data.assetURL = @"非iph_X.mp4".pathForResourceWithFullName.jobsFileUrl;
             }
         });
-    }return _playerManager;
+    };return _playerManager;
 }
 
 -(ZFPlayerController *)player{
@@ -435,7 +439,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             @jobs_strongify(self)
             [self.playerManager replay];//设置循环播放
         }];
-    }return _player;
+    };return _player;
 }
 
 -(CustomZFPlayerControlView *)customPlayerControlView{
@@ -446,7 +450,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             @jobs_strongify(self)
             [self.view endEditing:YES];
         }];
-    }return _customPlayerControlView;
+    };return _customPlayerControlView;
 }
 
 -(UIImageView *)bgImgV{
@@ -455,7 +459,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             imageView.image = @"AppDoorBgImage".img;
             imageView.userInteractionEnabled = YES;
         });
-    }return _bgImgV;
+    };return _bgImgV;
 }
 
 @end

@@ -10,13 +10,6 @@
 #import <JobsModel/UIButtonModel.h>
 #import <JobsModel/JobsLocationModel.h>
 #import <JobsModel/NSObject+Extra.h>
-#import <JobsLanMgr/NSString+JobsLanMgr.h>
-
-#if __has_include(<XYColorOC/XYColorOC.h>)
-#import <XYColorOC/XYColorOC.h>
-#else
-#import "XYColorOC.h"
-#endif
 
 @implementation UIViewModel
 /// UIViewModelOthersProtocol
@@ -51,13 +44,13 @@ AppToolsProtocol_synthesize
 -(UITextModel *)textModel{
     if (!_textModel) {
         _textModel = UITextModel.new;
-    }return _textModel;
+    };return _textModel;
 }
 
 -(UITextModel *)subTextModel{
     if (!_subTextModel) {
         _subTextModel = UITextModel.new;
-    }return _subTextModel;
+    };return _subTextModel;
 }
 
 -(UITextModel *)backBtnTitleModel{
@@ -66,62 +59,62 @@ AppToolsProtocol_synthesize
             data.text = @"Back".tr;
             data.textCor = HEXCOLOR(0xD3B698);
         });
-    }return _backBtnTitleModel;
+    };return _backBtnTitleModel;
 }
 
 -(UIImage *)backBtnIMG{
     if (!_backBtnIMG) {
         /// 这里修改全局返回箭头
         _backBtnIMG = @"全局返回箭头".img;
-    }return _backBtnIMG;
+    };return _backBtnIMG;
 }
 
 -(UIColor *)bgCor{
     if (!_bgCor) {
         _bgCor = JobsRandomColor;
-    }return _bgCor;
+    };return _bgCor;
 }
 
 -(UIImage *)image{
     if (!_image) {
 //        _image = [UIImage imageWithColor:JobsRandomColor];
-    }return _image;
+    };return _image;
 }
 
 -(UIImage *)bgImage{
     if (!_bgImage) {
 //        _bgImage = [UIImage imageWithColor:JobsRandomColor];
-    }return _bgImage;
+    };return _bgImage;
 }
 
 -(CGFloat)cornerRadiusValue{
     if(!_cornerRadiusValue){
 //        _cornerRadiusValue = 3;
-    }return _cornerRadiusValue;
+    };return _cornerRadiusValue;
 }
 
 -(CGFloat)width{
     if (_jobsWidth == 0 && !jobsZeroSizeValue(self.jobsSize)) {
         _jobsWidth = self.jobsSize.width;
-    }return _jobsWidth;
+    };return _jobsWidth;
 }
 
 -(CGFloat)height{
     if (_jobsHeight == 0 && !jobsZeroSizeValue(self.jobsSize)) {
         _jobsHeight = self.jobsSize.height;
-    }return _jobsHeight;
+    };return _jobsHeight;
 }
 
 -(CGFloat)offsetXForEach{
     if (_offsetXForEach == 0) {
 //        _offsetXForEach = 8;
-    }return _offsetXForEach;
+    };return _offsetXForEach;
 }
 
 -(CGFloat)offsetYForEach{
     if (_offsetYForEach == 0) {
 //        _offsetYForEach = 8;
-    }return _offsetYForEach;
+    };return _offsetYForEach;
 }
 
 -(NSIndexPath *)indexPath{
@@ -132,7 +125,7 @@ AppToolsProtocol_synthesize
             data.row = self.row;
             data.section = self.section;
         });
-    }return _indexPath;
+    };return _indexPath;
 }
 
 -(NSMutableArray *)jobsDataMutArr{
@@ -140,85 +133,85 @@ AppToolsProtocol_synthesize
         _jobsDataMutArr = jobsMakeMutArr(^(NSMutableArray *_Nullable data) {
             
         });
-    }return _jobsDataMutArr;
+    };return _jobsDataMutArr;
 }
 
 -(NSMutableSet *)jobsDataMutSet{
     if (!_jobsDataMutSet) {
         _jobsDataMutSet = NSMutableSet.set;
-    }return _jobsDataMutSet;
+    };return _jobsDataMutSet;
 }
 
 -(NSMutableDictionary *)jobsDataMutDic{
     if (!_jobsDataMutDic) {
         _jobsDataMutDic = NSMutableDictionary.dictionary;
-    }return _jobsDataMutDic;
+    };return _jobsDataMutDic;
 }
 
 -(NSTextAlignment)textAlignment{
     if (!_textAlignment) {
         _textAlignment = NSTextAlignmentLeft;
-    }return _textAlignment;
+    };return _textAlignment;
 }
 
 -(NSLineBreakMode)lineBreakMode{
     if(!_lineBreakMode){
         _lineBreakMode = NSLineBreakByWordWrapping;
-    }return _lineBreakMode;
+    };return _lineBreakMode;
 }
 
 -(CGFloat)textLineSpacing{
     if(!_textLineSpacing){
         _textLineSpacing = 0.0f;
-    }return _textLineSpacing;
+    };return _textLineSpacing;
 }
 
 -(NSString *)placeholder{
     if(!_placeholder){
         _placeholder = @"";
-    }return _placeholder;
+    };return _placeholder;
 }
 
 -(UIColor *)placeholderColor{
     if (!_placeholderColor) {
         _placeholderColor = JobsBlackColor;
-    }return _placeholderColor;
+    };return _placeholderColor;
 }
 
 -(NSInteger)curWordCount{
     if(!_curWordCount){
         
-    }return _curWordCount;
+    };return _curWordCount;
 }
 
 -(NSInteger)maxWordCount{
     if(!_maxWordCount){
    
-    }return _maxWordCount;
+    };return _maxWordCount;
 }
 
 -(NSString *)text{
     if(!_text){
         _text = @"";
-    }return _text;
+    };return _text;
 }
 
 -(UIFont *)font{
     if(!_font){
         _font = JobsFontRegular(17);
-    }return _font;
+    };return _font;
 }
 
 -(UIColor *)textCor{
     if(!_textCor){
         _textCor = JobsBlackColor;
-    }return _textCor;
+    };return _textCor;
 }
 
 -(NSAttributedString *)attributedTitle{
     if(!_attributedTitle){
         
-    }return _attributedTitle;
+    };return _attributedTitle;
 }
 
 -(NSMutableArray<JobsRichTextConfig *>*)titleAttributedDataMutArr{
@@ -226,31 +219,31 @@ AppToolsProtocol_synthesize
         _titleAttributedDataMutArr = jobsMakeMutArr(^(NSMutableArray <JobsRichTextConfig *>*_Nullable data) {
             
         });
-    }return _titleAttributedDataMutArr;
+    };return _titleAttributedDataMutArr;
 }
 
 -(NSString *)selectedText{
     if(!_selectedText){
         _selectedText = @"";
-    }return _selectedText;
+    };return _selectedText;
 }
 
 -(UIFont *)selectedFont{
     if(!_selectedFont){
         
-    }return _selectedFont;
+    };return _selectedFont;
 }
 
 -(UIColor *)selectedTextCor{
     if(!_selectedTextCor){
         
-    }return _selectedTextCor;
+    };return _selectedTextCor;
 }
 
 -(NSAttributedString *)selectedAttributedText{
     if(!_selectedAttributedText){
         
-    }return _selectedAttributedText;
+    };return _selectedAttributedText;
 }
 
 -(NSMutableArray <JobsRichTextConfig *>*)selectedTitleAttributedDataMutArr{
@@ -258,7 +251,7 @@ AppToolsProtocol_synthesize
         _selectedTitleAttributedDataMutArr = jobsMakeMutArr(^(NSMutableArray <JobsRichTextConfig *>*_Nullable data) {
             
         });
-    }return _selectedTitleAttributedDataMutArr;
+    };return _selectedTitleAttributedDataMutArr;
 }
 
 -(NSMutableArray<JobsRetIDByIDBlock>*)jobsBlockMutArr{
@@ -266,7 +259,7 @@ AppToolsProtocol_synthesize
         _jobsBlockMutArr = jobsMakeMutArr(^(NSMutableArray <JobsRetIDByIDBlock>*_Nullable data) {
             
         });
-    }return _jobsBlockMutArr;
+    };return _jobsBlockMutArr;
 }
 
 -(UIButtonModel *)buttonModel{
@@ -274,7 +267,7 @@ AppToolsProtocol_synthesize
         _buttonModel = jobsMakeButtonModel(^(__kindof UIButtonModel *_Nullable data) {
             
         });
-    }return _buttonModel;
+    };return _buttonModel;
 }
 
 -(UIButtonModel *)subButtonModel{
@@ -282,7 +275,7 @@ AppToolsProtocol_synthesize
         _subButtonModel = jobsMakeButtonModel(^(__kindof UIButtonModel *_Nullable data) {
             
         });
-    }return _subButtonModel;
+    };return _subButtonModel;
 }
 
 @end

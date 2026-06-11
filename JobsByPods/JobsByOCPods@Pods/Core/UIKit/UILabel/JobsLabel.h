@@ -7,6 +7,13 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
+
 #ifndef JobsLabel_h
 #define JobsLabel_h
 #pragma mark —— Category

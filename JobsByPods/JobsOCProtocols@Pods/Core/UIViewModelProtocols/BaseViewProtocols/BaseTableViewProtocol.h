@@ -43,8 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol BaseTableViewProtocol <UIScrollViewProtocol>
 @optional
 #pragma mark —— 数据源
--(JobsRetScrollViewByIDBlock _Nonnull)dataLink;
--(JobsRetScrollViewByIDBlock _Nonnull)byShow; // 用于显示 UITableView
+-(JobsRetTableViewByIDBlock _Nonnull)dataLink;
+-(JobsRetTableViewByIDBlock _Nonnull)byShow; // 用于显示 UITableView
 #pragma mark —— UITableView
 +(instancetype)initWithStylePlain; // 一般用这个
 +(instancetype)initWithStyleGrouped; // 会在section之间自己预留一块空间

@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCollectionViewByLayoutBlock _Nonnull)byCollectionViewLayout;
 -(JobsRetCollectionViewByDelegateBlock _Nonnull)byDelegate;
 -(JobsRetCollectionViewByDataSourceBlock _Nonnull)byDataSource;
+-(JobsRetCollectionViewByIDBlock _Nonnull)byTarget;
 -(JobsRetCollectionViewByDataSourcePrefetchingBlock _Nonnull)byPrefetchDataSource;
 -(JobsRetCollectionViewByBOOLBlock _Nonnull)byPrefetchingEnabled;
 -(JobsRetCollectionViewByDragDelegateBlock _Nonnull)byDragDelegate;
@@ -49,6 +50,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCollectionViewByBOOLBlock _Nonnull)bySelectionFollowsFocus;
 -(JobsRetCollectionViewByBOOLBlock _Nonnull)byAllowsFocus;
 -(JobsRetCollectionViewByBOOLBlock _Nonnull)byAllowsFocusDuringEditing;
+/// 非正式协议 Block 化
+-(JobsRetCollectionViewByNumberOfSectionsConfigBlock _Nonnull)byNumberOfSections;
+-(JobsRetCollectionViewByNumberOfItemsInSectionConfigBlock _Nonnull)byNumberOfItemsInSection;
+-(JobsRetCollectionViewByCellForItemAtConfigBlock _Nonnull)cellForItemAt;
+-(JobsRetCollectionViewByDidSelectItemAtConfigBlock _Nonnull)didSelectItemAt;
 
 @end
 

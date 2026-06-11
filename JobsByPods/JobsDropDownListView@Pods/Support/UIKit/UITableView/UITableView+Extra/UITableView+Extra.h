@@ -9,7 +9,7 @@
 #define JOBS_HEADER_GUARD_UITABLEVIEW_EXTRA_E1D46DA88E
 
 #import <UIKit/UIKit.h>
-#import <JobsBaseUI/UIView+Refresh.h>
+#import <JobsBaseUI/JobsBaseUI.h>
 
 #if __has_include(<MJRefresh/MJRefresh.h>)
 #import <MJRefresh/MJRefresh.h>
@@ -223,7 +223,7 @@ NS_INLINE __kindof UITableView *_Nonnull jobsMakeTableViewByInsetGrouped(jobsByT
                  make.left.right.bottom.equalTo(self.view);
                  [self make:make topOffset:10];
              });
-         }return _tableView;
+         };return _tableView;
      }
  */
 #endif /* JOBS_HEADER_GUARD_UITABLEVIEW_EXTRA_E1D46DA88E */

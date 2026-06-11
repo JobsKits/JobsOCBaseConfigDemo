@@ -48,11 +48,6 @@
 #import "JobsBaseProtocolHeader.h"
 #endif
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
 
 #if __has_include(<JobsDeviceInfo/JobsDeviceInfo.h>)
 #import <JobsDeviceInfo/JobsDeviceInfo.h>
@@ -375,7 +370,7 @@ NS_ASSUME_NONNULL_END
                  }).onLongPressGestureBy(^(id data){
                      JobsLog(@"");
                  });
-         }return _applyNowBtn;
+         };return _applyNowBtn;
      }
  */
 #endif /* JOBS_HEADER_GUARD_UIBUTTON_UI_3F4B01D077 */

@@ -44,7 +44,8 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRedCor(1);
+    self.view.byBgColor(JobsRedCor(1));
+
     @jobs_weakify(self)
     self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
         @jobs_strongify(self)
@@ -95,7 +96,7 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
                                       placeholderImage:@"tray".sys_img
                                         imageURLString:@"https://picsum.photos/30"]);
         });
-    }return _segments;
+    };return _segments;
 }
 
 -(LuckyWheelView *)wheelView{
@@ -125,7 +126,7 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
             make.center.equalTo(self.view);
             make.size.mas_equalTo(CGSizeMake(300.0, 300.0));
         });
-    }return _wheelView;
+    };return _wheelView;
 }
 
 @end

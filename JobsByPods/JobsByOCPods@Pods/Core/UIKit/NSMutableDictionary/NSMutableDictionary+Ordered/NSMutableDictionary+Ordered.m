@@ -80,7 +80,7 @@ static const void *OrderedDictionaryKeys = (void *)@"OrderedDictionaryKeys";
 - (id)objectAtIndex:(NSUInteger)index {
     if (index >= self.keys.count) {
         return nil;
-    }return [self objectForKey:self.keys[index]];
+    };return [self objectForKey:self.keys[index]];
 }
 /// 插入键值对至给定index
 -(void)insertObject:(id)anObject

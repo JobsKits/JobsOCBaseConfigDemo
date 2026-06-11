@@ -21,7 +21,7 @@
 
 @implementation JobsLocker
 
-#pragma mark - Life Cycle
+#pragma mark —— Life Cycle
 
 - (instancetype)initWithType:(JobsLockerType)type {
     self = [super init];
@@ -50,7 +50,7 @@
                 _semaphore = dispatch_semaphore_create(1);
             } break;
         }
-    }return self;
+    };return self;
 }
 
 - (void)dealloc {
@@ -59,7 +59,7 @@
     }
 }
 
-#pragma mark - Factory
+#pragma mark —— Factory
 
 + (instancetype)lock {
     return [[self alloc] initWithType:JobsLockerTypeNSLock];
@@ -81,7 +81,7 @@
     return [[self alloc] initWithType:JobsLockerTypeSemaphore];
 }
 
-#pragma mark - Public
+#pragma mark —— Public
 
 - (void)withLock:(NS_NOESCAPE dispatch_block_t)block {
     if (!block) return;

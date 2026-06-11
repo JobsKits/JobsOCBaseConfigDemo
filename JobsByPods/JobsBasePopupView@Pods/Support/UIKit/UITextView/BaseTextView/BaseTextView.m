@@ -23,7 +23,7 @@
 - (instancetype)init{
     if (self = [super init]) {
         [self setupDefaults];
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -34,7 +34,7 @@
         UIMenuController *menu = jobsMakeMenuController(^(__kindof UIMenuController * _Nullable menu) {
             menu.menuItems = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
                 data.add(@"响应事件".tr.initMenuItemBy(selectorBlocks(^id _Nullable(id _Nullable weakSelf,
-                                                                                                       id _Nullable arg) {
+                                                                                id _Nullable arg) {
                     @jobs_strongify(self)
                     if (self.retIDBySelectorBlock) self.retIDBySelectorBlock(weakSelf,arg);
                     return nil;
@@ -49,20 +49,20 @@
             [menu setMenuVisible:YES animated:YES];
         }
 #pragma clang diagnostic pop
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame
                textContainer:(NSTextContainer *)textContainer {
     if (self = [super initWithFrame:frame textContainer:textContainer]) {
        
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)layoutSubviews{

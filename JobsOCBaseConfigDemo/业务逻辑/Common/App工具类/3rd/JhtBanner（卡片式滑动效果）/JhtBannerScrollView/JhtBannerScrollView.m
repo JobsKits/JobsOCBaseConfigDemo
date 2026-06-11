@@ -41,7 +41,7 @@ Prop_strong()UIScrollView *insideScrollView;
     if (self = [super initWithFrame:frame]) {
         [self bsvInitParam];
         [self bsvRegisterSystemNotification];
-    }return self;
+    };return self;
 }
 #pragma mark —— UIView
 /// 在父控件中移除后销毁定时器
@@ -64,8 +64,8 @@ Prop_strong()UIScrollView *insideScrollView;
         /// insideScrollView以外
         for (JhtBannerCardView *view in self.insideScrollView.subviews) {
             if (CGRectContainsPoint(view.frame, newPoint)) return view;
-        }return self.insideScrollView;
-    }return nil;
+        };return self.insideScrollView;
+    };return nil;
 }
 #pragma mark —— 一些私有方法
 /// 初始化相关参数
@@ -179,7 +179,8 @@ Prop_strong()UIScrollView *insideScrollView;
                 
                 if (delta < _pageSize.width) {
                     // _minCoverViewAlpha ===> 0（两侧 ==> 中间）
-                    cardView.coverView.alpha = (delta / _pageSize.width) * _minCoverViewAlpha;
+                    cardView.coverView.byAlpha((delta / _pageSize.width) * _minCoverViewAlpha);
+
                     
                     CGFloat leftRightInset = self.leftRightMargin * delta / _pageSize.width;
                     CGFloat topBottomInset = self.topBottomMargin * delta / _pageSize.width;
@@ -196,7 +197,8 @@ Prop_strong()UIScrollView *insideScrollView;
                     
                 } else {
                     // 中间 ==> 两侧
-                    cardView.coverView.alpha = _minCoverViewAlpha;
+                    cardView.coverView.byAlpha(_minCoverViewAlpha);
+
                     cardView.layer.transform = CATransform3DMakeScale((_pageSize.width - self.leftRightMargin * 2) / _pageSize.width,
                                                                       (_pageSize.height - self.topBottomMargin * 2) / _pageSize.height, 1.0);
                     // UIEdgeInsetsInsetRect: 表示在原来的rect基础上根据边缘距离内切一个rect出来
@@ -224,7 +226,8 @@ Prop_strong()UIScrollView *insideScrollView;
                                                         _pageSize.height);
                 
                 if (delta < _pageSize.height) {
-                    cardView.coverView.alpha = (delta / _pageSize.height) * _minCoverViewAlpha;
+                    cardView.coverView.byAlpha((delta / _pageSize.height) * _minCoverViewAlpha);
+
                     
                     CGFloat leftRightInset = self.leftRightMargin * delta / _pageSize.height;
                     CGFloat topBottomInset = self.topBottomMargin * delta / _pageSize.height;
@@ -237,16 +240,19 @@ Prop_strong()UIScrollView *insideScrollView;
                                                                             leftRightInset,
                                                                             topBottomInset,
                                                                             leftRightInset));
-                    cardView.cardImageView.frame = cardView.bounds;
+                    cardView.cardImageView.byFrame(cardView.bounds);
+
                     
                 } else {
-                    cardView.coverView.alpha = _minCoverViewAlpha;
+                    cardView.coverView.byAlpha(_minCoverViewAlpha);
+
                     cardView.frame = UIEdgeInsetsInsetRect(originCardViewFrame,
                                                            UIEdgeInsetsMake(self.topBottomMargin,
                                                                             self.leftRightMargin,
                                                                             self.topBottomMargin,
                                                                             self.leftRightMargin));
-                    cardView.cardImageView.frame = cardView.bounds;
+                    cardView.cardImageView.byFrame(cardView.bounds);
+
                 }
             }
         }default:
@@ -695,13 +701,13 @@ Prop_strong()UIScrollView *insideScrollView;
 - (NSMutableArray *)cardViewArray {
     if (!_cardViewArray) {
         _cardViewArray = NSMutableArray.array;
-    }return _cardViewArray;
+    };return _cardViewArray;
 }
 
 - (NSMutableArray *)reusableArray {
     if (!_reusableArray) {
         _reusableArray = NSMutableArray.array;
-    }return _reusableArray;
+    };return _reusableArray;
 }
 
 - (UIScrollView *)insideScrollView {
@@ -709,15 +715,15 @@ Prop_strong()UIScrollView *insideScrollView;
         @jobs_weakify(self)
         _insideScrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView.byFrame(self.bounds);
-            scrollView.byScrollsToTop(NO);
-            scrollView.byDelegate(self);
-            scrollView.byPagingEnabled(YES);
+            scrollView.byScrollsToTop(NO)
+                .byDelegate(self)
+                .byPagingEnabled(YES)
+                .byShowsHorizontalScrollIndicator(NO)
+                .byShowsVerticalScrollIndicator(NO);
             scrollView.byClipsToBounds(NO);
-            scrollView.byShowsHorizontalScrollIndicator(NO);
-            scrollView.byShowsVerticalScrollIndicator(NO);
+            scrollView.byFrame(self.bounds);
         });
-    }return _insideScrollView;
+    };return _insideScrollView;
 }
 #pragma mark —— Setter
 - (void)setLeftRightMargin:(CGFloat)leftRightMargin {

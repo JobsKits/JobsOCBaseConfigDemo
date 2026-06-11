@@ -54,7 +54,8 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
     self.makeNavByAlpha(1);
     
     [self test_masonry_horizontal_fixSpace];
-    self.valueLab.alpha = 1;
+    self.valueLab.byAlpha(1);
+
     
     @jobs_weakify(self)
     /// 开始
@@ -83,7 +84,7 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
         @jobs_strongify(self)
         [self reloadBtn:data];
         [self.timer stop];
-        self.valueLab.text = @"".tr;
+        self.valueLab.byText(@"".tr);
         return nil;
     }];
 }
@@ -132,7 +133,7 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
         @jobs_weakify(self)
         _timer = jobsMakeTimer(^(JobsTimer * _Nullable timer) {
             timer
-            /// 必须配置的项
+                /// 必须配置的项
                 .byTimerType(JobsTimerTypeNSTimer)           // 计时器核心选择
                 .byTimerStyle(TimerStyle_anticlockwise)          // 正计时模式
                 .byTimeInterval(1)                           // 跳动步长（频率间距）
@@ -154,7 +155,7 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
             timer.accumulatedElapsed = 0;   // 已经流逝的时间（总 elapsed，单位秒）
             timer.lastStartDate      = nil; // 最近一次 start/resume 的时间点（支持 pause/resume）
         });
-    }return _timer;
+    };return _timer;
 }
 
 -(UILabel *)valueLab{
@@ -163,13 +164,13 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
         _valueLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label.byBgColor(HEXCOLOR(0xAE8330));
-            [self.view addSubview:label];
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            label.byAddTo(self.view, ^(MASConstraintMaker *make) {
                 make.height.mas_equalTo(JobsWidth(20));
                 make.center.equalTo(self.view);
-            }];label.makeLabelByShowingType(UILabelShowingType_03);
+            });
+            label.makeLabelByShowingType(UILabelShowingType_03);
         });
-    }return _valueLab;
+    };return _valueLab;
 }
 
 -(NSMutableArray <__kindof UIButton *>*)btnMutArr{
@@ -192,18 +193,19 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
                 data.add(btn);
             }
         });
-    }return _btnMutArr;
+    };return _btnMutArr;
 }
 
 -(NSMutableArray<NSString *> *)btnTitleMutArr{
     if (!_btnTitleMutArr) {
         _btnTitleMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>*_Nullable data) {
-            data.add(@"开始".tr);
-            data.add(@"暂停".tr);
-            data.add(@"继续".tr);
-            data.add(@"结束".tr);
+            data
+                .add(@"开始".tr)
+                .add(@"暂停".tr)
+                .add(@"继续".tr)
+                .add(@"结束".tr);
         });
-    }return _btnTitleMutArr;
+    };return _btnTitleMutArr;
 }
 
 @end

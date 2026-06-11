@@ -52,8 +52,8 @@ and linked content switching support.
 #import <JobsOCDefs/JobsDefines.h>
 #import <JobsLinkageMenuView/UIButton+SimplyMake.h>
 #import <JobsLinkageMenuView/UIView+Extra.h>
-#import <JobsLinkageMenuView/UIBackgroundConfiguration+Extra.h>
-#import <JobsLinkageMenuView/UIGestureRecognizer+Extra.h>
+#import <JobsBaseUI/UIBackgroundConfiguration+Extra.h>
+#import <JobsBaseUI/UIGestureRecognizer+Extra.h>
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
@@ -61,7 +61,7 @@ and linked content switching support.
 #endif
 #import <JobsLinkageMenuView/UIButton+TextView.h>
 #import <JobsLinkageMenuView/UIView+Measure.h>
-#import <JobsLinkageMenuView/UITextItem+Extra.h>
+#import <JobsBaseUI/UITextItem+Extra.h>
 #import <JobsBaseUI/UITextView+Extra.h>
   PCH
 

@@ -132,7 +132,7 @@
 -(NSString *)stringValueOrEmpty{
     if (self.intValue == -1) {
         return @""; // 返回空字符串
-    }return self.stringValue;
+    };return self.stringValue;
 }
 
 -(JobsRetNumberByNSIntegerBlock _Nonnull)updateByStepInt{

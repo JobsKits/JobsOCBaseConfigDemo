@@ -25,6 +25,12 @@
 
 @protocol LZTabBarDelegate;
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 @interface LZTabBar : UIView<LZTabBarItemDelegate>
 
 Prop_strong()NSArray<LZTabBarItem *>* _Nullable items;

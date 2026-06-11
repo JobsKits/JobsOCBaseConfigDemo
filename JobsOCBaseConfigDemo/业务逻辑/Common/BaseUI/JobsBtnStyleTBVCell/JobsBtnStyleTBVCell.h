@@ -37,6 +37,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /// 将一个按钮整个覆盖到TableViewCell上面，以实现图文混排
 /// 同 JobsBtnStyleCVCell

@@ -34,8 +34,9 @@ static dispatch_once_t static_shareViewOnceToken;
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -52,7 +53,7 @@ static dispatch_once_t static_shareViewOnceToken;
             }JobsLog(@"通知传递过来的 = %@",notification.object);
         }];
 //        [self netWorking];
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -69,8 +70,9 @@ static dispatch_once_t static_shareViewOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -80,7 +82,8 @@ static dispatch_once_t static_shareViewOnceToken;
         self.viewModel = model;
         self.sizer = JobsShareView.viewSizeByModel(nil);
         self.collectionView.byShow(self);
-        self.cancelBtn.alpha = 1;
+        self.cancelBtn.byAlpha(1);
+
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -223,45 +226,43 @@ insetForSectionAtIndex:(NSInteger)section {
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        [self.addSubview(_cancelBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _cancelBtn.byAddTo(self, ^(MASConstraintMaker *make) {
             make.top.equalTo(self.collectionView.mas_bottom);
             make.left.right.bottom.equalTo(self);
-        }];
-    }return _cancelBtn;
+        });
+    };return _cancelBtn;
 }
 /// BaseViewProtocol
 @synthesize collectionView = _collectionView;
 -(BaseCollectionView *)collectionView{
     if (!_collectionView) {
         @jobs_weakify(self)
-        _collectionView = BaseCollectionView.initByLayout(self.verticalLayout);
-        _collectionView.dataLink(self);
-        _collectionView.backgroundColor = @"#FFFFFF".cor;
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.showsHorizontalScrollIndicator = NO;
-        _collectionView.bounces = NO;
-        
-        _collectionView.registerCollectionViewClass();
-        _collectionView.registerCollectionViewCellClass(MSMineView6CVCell.class,@"");
-        
-        {
-            _collectionView.mj_header = self.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
+        _collectionView = BaseCollectionView.initByLayout(self.verticalLayout)
+            .dataLink(self)
+            .registerCollectionViewClass()
+            .registerCollectionViewCellClass(MSMineView6CVCell.class, @"")
+            .byShowsVerticalScrollIndicator(NO)
+            .byShowsHorizontalScrollIndicator(NO)
+            .byBounces(NO)
+            .byMJ_header(self.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id _Nullable data) {
                 @jobs_strongify(self)
-                NSObject.feedbackGenerator(nil);//震动反馈
+                NSObject.feedbackGenerator(nil);// 震动反馈
                 self->_collectionView.endRefreshing(YES);
                 return nil;
-            }]);
-            _collectionView.mj_footer = self.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
+            }]))
+            .byMJ_footer(self.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id _Nullable data) {
                 @jobs_strongify(self)
                 self->_collectionView.endRefreshing(YES);
                 return nil;
-            }]);
-        }
-        [self.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            }]));
+        _collectionView.byBgColor(@"#FFFFFF".cor);
+        _collectionView.addOn(self);
+        [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            @jobs_strongify(self)
             make.top.left.right.equalTo(self);
             make.height.mas_equalTo(JobsWidth(102));
         }];
-    }return _collectionView;
+    };return _collectionView;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
@@ -284,7 +285,7 @@ insetForSectionAtIndex:(NSInteger)section {
                 data1.byImage(@"信用分数".img);
             }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

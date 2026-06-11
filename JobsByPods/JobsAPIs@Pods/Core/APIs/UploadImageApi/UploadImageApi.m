@@ -28,7 +28,7 @@ Prop_strong()UIImage *image;
 -(instancetype)initWithImage:(UIImage *)image {
     if (self = [super init]) {
         self.image = image;
-    }return self;
+    };return self;
 }
 /// 请求的完整URL：
 -(NSString *)requestUrl {

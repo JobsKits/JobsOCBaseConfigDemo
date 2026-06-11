@@ -250,7 +250,7 @@ AppToolsProtocol_synthesize
         self.contentView
             .addSubview(_button)
             .byAdd(self.masonryBlock);
-    }return _button;
+    };return _button;
 }
 
 -(WKWebView *)webView{
@@ -279,7 +279,7 @@ AppToolsProtocol_synthesize
             make.edges.equalTo(self.contentView);///
             /// 如果这里用self.contentView，在某些情况下，约束会失灵。因为self.contentView的生命周期的缘故，还没有完全展开
         };
-    }return _masonryBlock;
+    };return _masonryBlock;
 }
 
 @end

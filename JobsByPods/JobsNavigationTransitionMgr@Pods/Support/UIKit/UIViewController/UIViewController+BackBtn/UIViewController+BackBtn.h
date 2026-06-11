@@ -42,10 +42,10 @@
 #import "JobsLoadingImage.h"
 #endif
 
-#if __has_include(<JobsBaseUI/BaseButton.h>)
-#import <JobsBaseUI/BaseButton.h>
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
 #else
-#import "BaseButton.h"
+#import "JobsBaseUI.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

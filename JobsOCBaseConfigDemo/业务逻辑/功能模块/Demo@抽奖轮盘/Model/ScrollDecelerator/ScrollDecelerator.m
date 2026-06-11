@@ -14,7 +14,7 @@
     if (self = [super init]) {
         _velocity = velocity;
         _decelerationRate = decelerationRate;
-    }return self;
+    };return self;
 }
 
 -(JobsRetCGFloatByCGFloatBlock _Nonnull)stepVtDt{

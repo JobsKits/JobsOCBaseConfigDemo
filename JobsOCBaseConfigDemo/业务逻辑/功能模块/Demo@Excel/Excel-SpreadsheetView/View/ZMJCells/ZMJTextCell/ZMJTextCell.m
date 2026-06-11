@@ -15,14 +15,16 @@
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.btn.alpha = 1;
-    }return self;
+        self.btn.byAlpha(1);
+
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
-        self.btn.alpha = 1;
-    }return self;
+        self.btn.byAlpha(1);
+
+    };return self;
 }
 
 @end

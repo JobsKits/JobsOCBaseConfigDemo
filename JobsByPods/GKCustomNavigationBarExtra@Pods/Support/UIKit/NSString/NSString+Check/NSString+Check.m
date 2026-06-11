@@ -22,7 +22,7 @@
         @jobs_strongify(self)
         if ([data isKindOfClass:NSString.class]) {
             return [self isEqualToString:data];
-        }return NO;
+        };return NO;
     };
 }
 
@@ -32,7 +32,7 @@
         @jobs_strongify(self)
         if ([data isKindOfClass:NSString.class]) {
             return [self containsString:data];
-        }return NO;
+        };return NO;
     };
 }
 
@@ -42,7 +42,7 @@
         @jobs_strongify(self)
         if ([data isKindOfClass:NSString.class]) {
             return [self hasPrefix:data];
-        }return NO;
+        };return NO;
     };
 }
 
@@ -52,7 +52,7 @@
         @jobs_strongify(self)
         if ([data isKindOfClass:NSString.class]) {
             return [self hasSuffix:data];
-        }return NO;
+        };return NO;
     };
 }
 /// 判断字符串对象是否为狭义范围内的空格
@@ -60,7 +60,7 @@
     for (NSInteger i = 0; i < self.length; ++i) {
         unichar c = [self characterAtIndex:i];
         if (![NSCharacterSet.whitespaceAndNewlineCharacterSet characterIsMember:c]) return YES;
-    }return NO;
+    };return NO;
 }
 /// 判断是否是广义范围内的空格(space、\t、\r、\n)
 -(BOOL)isSpace{
@@ -69,7 +69,7 @@
         c = [self characterAtIndex:i];
         if (!isspace(c)) return NO;
 //        if (!isblank(c)) return NO;/// 只能判断是否是空格(space和\t)
-    }return YES;
+    };return YES;
 }
 /// 判断字符串是否包含空格：返回YES【没有空格】
 -(BOOL)isContainBlank{
@@ -90,7 +90,7 @@
                 }
             }
         });return carries.count == self.length;
-    }return NO;
+    };return NO;
 }
 /// 是否是系统自带九宫格输入 yes-是 no-不是
 -(BOOL)isNineKeyBoard{
@@ -98,7 +98,7 @@
     int len = (int)self.length;
     for(int i = 0;i < len;i++){
         if(!([other rangeOfString:self].location != NSNotFound)) return NO;
-    }return YES;
+    };return YES;
 }
 /// 判断是否为整形
 -(BOOL)isPureInt{
@@ -118,7 +118,7 @@
     for (int i = 0; i < self.length; i++) {
         c = [self characterAtIndex:i];
         if (!isalnum(c)) return NO;
-    }return YES;
+    };return YES;
 }
 /// 判断是否是ASCII码的控制字符
 -(BOOL)isCntrl{
@@ -126,7 +126,7 @@
     for (int i = 0; i < self.length; i++) {
         c = [self characterAtIndex:i];
         if (!iscntrl(c)) return NO;
-    }return YES;
+    };return YES;
 }
 /// 判断是否是为可打印字符(不包含空格)
 -(BOOL)isGraph{
@@ -134,7 +134,7 @@
     for (int i = 0; i < self.length; i++) {
         c = [self characterAtIndex:i];
         if (!isgraph(c)) return NO;
-    }return YES;
+    };return YES;
 }
 /// 判断字符是否为可打印字符（含空格）
 -(BOOL)isPrint{
@@ -142,7 +142,7 @@
     for (int i = 0; i < self.length; i++) {
         c = [self characterAtIndex:i];
         if (!isprint(c)) return NO;
-    }return YES;
+    };return YES;
 }
 /// 判断是否是小写的英文字母
 -(BOOL)isLower{
@@ -150,7 +150,7 @@
     for (int i = 0; i < self.length; i++) {
         c = [self characterAtIndex:i];
         if (!islower(c)) return NO;
-    }return YES;
+    };return YES;
 }
 /// 判断字符是否为大写英文字母
 -(BOOL)isUpper{
@@ -158,7 +158,7 @@
     for (int i = 0; i < self.length; i++) {
         c = [self characterAtIndex:i];
         if (!isupper(c)) return NO;
-    }return YES;
+    };return YES;
 }
 /// 判断字符是否为16进制数字
 -(BOOL)isXdigit{
@@ -166,7 +166,7 @@
     for (int i = 0; i < self.length; i++) {
         c = [self characterAtIndex:i];
         if (!isxdigit(c)) return NO;
-    }return YES;
+    };return YES;
 }
 /// 判断字符是否为标点符号或特殊字符
 -(BOOL)isPunct{
@@ -174,7 +174,7 @@
     for (int i = 0; i < self.length; i++) {
         c = [self characterAtIndex:i];
         if (!ispunct(c)) return NO;
-    }return YES;
+    };return YES;
 }
 /// 是否全是字母（26个英文字母）
 -(BOOL)isAllLetterCharacter{

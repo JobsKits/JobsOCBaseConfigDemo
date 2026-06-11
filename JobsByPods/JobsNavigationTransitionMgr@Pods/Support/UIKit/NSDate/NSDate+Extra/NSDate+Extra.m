@@ -53,7 +53,7 @@
             data = jobsMakeDateFormatter(^(__kindof NSDateFormatter *_Nullable data) {
                 data.dateFormat = @"yyyy-MM-dd";
             });
-        }return data.stringByDate(self);
+        };return data.stringByDate(self);
     };
 }
 /// 将NSDate *转化为可视化的时间字符串

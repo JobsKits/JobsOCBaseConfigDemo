@@ -60,8 +60,10 @@ BaseLayerProtocol_synthesize_part3
         self.leftBtnVM = self.viewModel.data;
         self.rightBtnVM = self.viewModel.requestParams;
         
-        self.leftBtn.alpha = 1;
-        self.rightBtn.alpha = 1;
+        self.leftBtn.byAlpha(1);
+
+        self.rightBtn.byAlpha(1);
+
         return self;
     };
 }

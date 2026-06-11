@@ -20,7 +20,7 @@ Prop_strong()NSMutableArray <JobsIMListDataModel *>*jobsIMListMutArr;
 -(instancetype)init{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -37,7 +37,7 @@ Prop_strong()NSMutableArray <JobsIMListDataModel *>*jobsIMListMutArr;
 }
 #pragma mark —— 一些私有方法
 
-#pragma mark —————————— UITableViewDelegate,UITableViewDataSource ——————————
+#pragma mark —— UITableViewDelegate,UITableViewDataSource ——————————
 -(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return JobsIMListTBVCell.cellHeightByModel(nil);
@@ -116,7 +116,8 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                         // 特别说明：pagingEnabled = YES 在此会影响Cell的偏移量，原作者希望我们在这里临时关闭一下，刷新完成以后再打开
                         tableView.byPagingEnabled(NO);
                         tableView.mj_footer.state = MJRefreshStateIdle;
-                        tableView.mj_footer.hidden = YES;
+                        tableView.mj_footer.byHidden(YES);
+
                         tableView.byPagingEnabled(YES);
                         tableView.endRefreshing(self.jobsIMListMutArr.count);
                         return nil;
@@ -125,17 +126,17 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .byPagingEnabled(YES) // 这个属性为YES会使得Tableview一格一格的翻动
                 .byShowsVerticalScrollIndicator(NO)
-                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
-                .byBgColor(self.bgColour)
-                .addOn(self)
-                .byAdd(^(MASConstraintMaker *make) {
-                    @jobs_strongify(self)
-                    make.edges.equalTo(self);
-                });
-            tableView.mj_footer.backgroundColor = JobsRedColor;
-            tableView.mj_footer.hidden = NO;
+                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
+            tableView.byBgColor(self.bgColour);
+            tableView.addOn(self);
+            [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.edges.equalTo(self);
+            }];
+            tableView.mj_footer.byBgColor(JobsRedColor);
+            tableView.mj_footer.byHidden(NO);
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray<JobsIMListDataModel *> *)jobsIMListMutArr{
@@ -163,13 +164,13 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                 model.userHeaderIMG = UIImage.animatedGIFByName(@"动态头像_1\2 尺寸126");;
             }));
         });
-    }return _jobsIMListMutArr;
+    };return _jobsIMListMutArr;
 }
 
 -(UIColor *)bgColour{
     if (!_bgColour) {
         _bgColour = self.byPatternImage(JobsLoadBundleImage(@"⚽️PicResource", @"Telegram",nil, @"1"));
-    }return _bgColour;
+    };return _bgColour;
 }
 
 @end

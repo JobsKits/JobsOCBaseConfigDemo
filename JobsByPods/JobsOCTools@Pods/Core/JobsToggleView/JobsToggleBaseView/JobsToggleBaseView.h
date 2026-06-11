@@ -12,6 +12,12 @@
 #import <JobsOCTools/JobsToggleNavViewProtocol.h>
 #import <JobsOCTools/JobsToggleNavView.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
@@ -117,7 +123,7 @@ NS_INLINE __kindof JobsToggleBaseView *_Nonnull jobsMakeToggleBaseView(jobsByTog
                              @jobs_strongify(self)
                              if(KindOfBaseButtonCls(x)){
                                  self.toggleBaseView.switchViewsBy(x.index);
-                             }return nil;
+                             };return nil;
                          };
                      }));
                      data.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data1) {
@@ -139,17 +145,17 @@ NS_INLINE __kindof JobsToggleBaseView *_Nonnull jobsMakeToggleBaseView(jobsByTog
                              @jobs_strongify(self)
                              if(KindOfBaseButtonCls(x)){
                                  self.toggleBaseView.switchViewsBy(x.index);
-                             }return nil;
+                             };return nil;
                          };
                      }));
                  }));
-                 [self.view.addSubview(toggleBaseView) mas_makeConstraints:^(MASConstraintMaker *make) {
+                 toggleBaseView.byAddTo(self.view, ^(MASConstraintMaker *make) {
                      make.size.mas_equalTo(toggleBaseView.sizer);
                      make.top.equalTo(self.titleLab.mas_bottom);
                      make.centerX.equalTo(self.view);
-                 }];self.view.refresh();
+                 });self.view.refresh();
              });
-         }return _toggleBaseView;
+         };return _toggleBaseView;
      }
  */
 #endif /* JOBS_HEADER_GUARD_JOBSTOGGLEBASEVIEW_298E076974 */

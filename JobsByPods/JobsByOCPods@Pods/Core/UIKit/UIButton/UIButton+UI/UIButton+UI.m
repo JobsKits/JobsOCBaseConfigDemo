@@ -314,7 +314,7 @@
     @jobs_weakify(self)
     return ^(BOOL breakLine) {
         @jobs_strongify(self)
-        self.titleLabel.numberOfLines = !breakLine;
+        self.titleLabel.byNumberOfLines(!breakLine);
         return self;
     };
 }
@@ -507,7 +507,7 @@
                     config.byAttributedTitle(title);
                 }];
             } else self.normalStateAttributedTitleBy(title);
-        }return self;
+        };return self;
     };
 }
 ///【兼容】重设Btn副标题富文本
@@ -521,7 +521,7 @@
                     config.attributedSubtitle = title;
                 }];
             }
-        }return self;
+        };return self;
     };
 }
 /// 用 UITextView 替换 UIButton.titleLabel
@@ -531,10 +531,11 @@
         @jobs_strongify(self)
         if(title){
             self.jobsResetBtnNormalAttributedTitle(title.changeTextColorBy(JobsClearColor).removeHyperlinks);
-            self.titleTextView.byFrame(self.titleLabel.frame);
-            self.titleTextView.byAttributedText(title);
+            self.titleTextView
+                .byAttributedText(title)
+                .byFrame(self.titleLabel.frame);
             self.jobsResetBtnNormalAttributedTitle(nil);
-        }return self;
+        };return self;
     };
 }
 /// 用 UITextView 替换 UIButton.subtitleLabel
@@ -545,10 +546,11 @@
         if(title){
             self.jobsResetBtnNormalAttributedSubTitle(title.changeTextColorBy(JobsClearColor));
             if (@available(iOS 15.0, *)) {
-                self.subtitleTextView.byFrame(self.subtitleLabel.frame);
-                self.subtitleTextView.byAttributedText(title);
+                self.subtitleTextView
+                    .byAttributedText(title)
+                    .byFrame(self.subtitleLabel.frame);
             }self.jobsResetBtnNormalAttributedSubTitle(nil);
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— 一些通用修改.间距
@@ -580,7 +582,7 @@
 }
 ///【兼容】获取按钮富文本字符串内容
 -(NSString *_Nullable)titleForConfigurationAttributedText{
-    return self.titleForConfigurationAttributed.text;
+    return self.titleForConfigurationAttributed.string;
 }
 ///【兼容】获取按钮富文本内容（更通用）
 -(NSAttributedString *_Nullable)titleForConfigurationAttributed{

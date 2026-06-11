@@ -5,6 +5,12 @@
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 #ifndef JOBS_HEADER_GUARD_UICOLOR_EXTRA_8122946AD2
 #define JOBS_HEADER_GUARD_UICOLOR_EXTRA_8122946AD2
 
@@ -83,7 +89,8 @@ NS_ASSUME_NONNULL_END
                                                       endPoint:CGPointMake(320, 480)
                                                         opaque:NO
                                                 targetViewRect:viewRect];
- yourView.backgroundColor = gradientColor;
+ yourView.byBgColor(gradientColor);
+
  
  */
 #endif /* JOBS_HEADER_GUARD_UICOLOR_EXTRA_8122946AD2 */

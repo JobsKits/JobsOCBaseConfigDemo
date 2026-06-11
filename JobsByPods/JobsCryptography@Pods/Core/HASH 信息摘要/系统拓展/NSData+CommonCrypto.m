@@ -104,7 +104,7 @@ NSString * const kCommonCryptoErrorDomain = @"CommonCryptoErrorDomain";
 
 @end
 
-#pragma mark -
+#pragma mark ——
 @implementation NSData (CommonDigest)
 - (NSData *) MD2Sum{
 	unsigned char hash[CC_MD2_DIGEST_LENGTH];

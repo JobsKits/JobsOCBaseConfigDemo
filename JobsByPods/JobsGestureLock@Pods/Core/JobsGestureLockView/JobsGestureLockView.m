@@ -23,7 +23,8 @@ Prop_assign()BOOL finished;
     self = [self initWithConfiguration:nil];
     if (self) {
         self.frame = frame;
-    }return self;
+
+    };return self;
 }
 
 - (instancetype)initWithConfiguration:(JobsGestureLockConfiguration *)configuration {
@@ -33,8 +34,9 @@ Prop_assign()BOOL finished;
         _selectedButtons = [NSMutableArray array];
         _errorButtons = [NSMutableArray array];
         self.backgroundColor = UIColor.clearColor;
+
         [self buildSubviews];
-    }return self;
+    };return self;
 }
 
 - (void)buildSubviews {
@@ -64,6 +66,7 @@ Prop_assign()BOOL finished;
         CGFloat x = margin + (side + margin) * column;
         CGFloat y = margin + (side + margin) * row;
         view.frame = CGRectMake(x, y, side, side);
+
     }];
 }
 

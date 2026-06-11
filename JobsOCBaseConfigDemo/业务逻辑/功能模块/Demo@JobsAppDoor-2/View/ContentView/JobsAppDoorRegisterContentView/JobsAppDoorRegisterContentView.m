@@ -25,10 +25,11 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
 }
-#pragma mark - Lifecycle
+#pragma mark —— Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = Cor1;
+        self.byBgColor(Cor1);
+
 //        @jobs_weakify(self)
         [self addNotificationName:@"textFieldTag"
                             block:^(id _Nullable weakSelf,
@@ -40,7 +41,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
                 JobsLog(@"木头 = %@",b.requestParams);
             }JobsLog(@"通知传递过来的 = %@",notification.object);
         }];
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -61,10 +62,10 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
     @jobs_weakify(self)
     return ^(id _Nullable model) {
         @jobs_strongify(self)
-        self.backToLoginBtn.alpha = 0.7f;
-        self.titleLab.alpha = 1;
+        self.backToLoginBtn.byAlpha(0.7f);
+        self.titleLab.byAlpha(1);
         self.makeInputView();
-        self.sendBtn.alpha = 1;
+        self.sendBtn.byAlpha(1);
     };
 }
 #pragma mark —— 一些私有化方法
@@ -109,7 +110,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(data);
             }];return inputView;
-        }return nil;
+        };return nil;
     };
 }
 #pragma mark —— lazyLoad
@@ -124,21 +125,23 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnTitleFont(UIFontWeightMediumSize(13))
             .jobsResetBtnTitle(Title1)
+            .byTitleLabel(^(UILabel *label) {
+                label.byNumberOfLines(0);
+            })
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
-                [self endEditing:YES];
+                self.byEndEditing(YES);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.top.left.bottom.equalTo(self);
+                make.width.mas_equalTo(btnWidth);
             });
-        _backToLoginBtn.titleLabel.numberOfLines = 0;
-        [self addSubview:_backToLoginBtn];
-        [_backToLoginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.bottom.equalTo(self);
-            make.width.mas_equalTo(btnWidth);
-        }];
-        [self layoutIfNeeded];
-    }return _backToLoginBtn;
+        self.byLayoutIfNeeded();
+    };return _backToLoginBtn;
 }
 
 -(UILabel *)titleLab{
@@ -146,15 +149,15 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(Title6);
-            label.byTextCor(JobsWhiteColor);
-            label.byFont(UIFontWeightRegularSize(20));
+            label.byText(Title6)
+                .byTextCor(JobsWhiteColor)
+                .byFont(UIFontWeightRegularSize(20));
             [label sizeToFit];
             self.addSubview(label);
             label.centerX = (self.width + self.backToLoginBtn.width) / 2;
             label.top = 20;
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(UIButton *)sendBtn{
@@ -178,7 +181,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
         _sendBtn.sizer = CGSizeMake(self.width - self.backToLoginBtn.width - JobsWidth(40), ThingsHeight);
         _sendBtn.bottom = JobsAppDoorContentViewRegisterHeight - JobsWidth(20);
         [self addSubview:_sendBtn];
-    }return _sendBtn;
+    };return _sendBtn;
 }
 
 -(NSMutableArray<JobsAppDoorInputViewBaseStyleModel *> *)registerDoorInputViewBaseStyleModelMutArr{
@@ -234,13 +237,13 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
                 图形验证码.leftViewMode = UITextFieldViewModeAlways;
             }));
         });
-    }return _registerDoorInputViewBaseStyleModelMutArr;
+    };return _registerDoorInputViewBaseStyleModelMutArr;
 }
 
 -(NSMutableArray<JobsAppDoorInputViewBaseStyle *> *)registerDoorInputViewBaseStyleMutArr{
     if (!_registerDoorInputViewBaseStyleMutArr) {
         _registerDoorInputViewBaseStyleMutArr = NSMutableArray.array;
-    }return _registerDoorInputViewBaseStyleMutArr;
+    };return _registerDoorInputViewBaseStyleMutArr;
 }
 
 @end

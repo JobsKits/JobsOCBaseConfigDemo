@@ -88,6 +88,12 @@
  *  message、title 你不想要就传nil，传@"".tr 系统会为你留位置,从而造成界面问题（空一坨出来）
  *  showLoginAlertViewWithTargetVC 是一种登录样式
  */
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (SYSAlertController)

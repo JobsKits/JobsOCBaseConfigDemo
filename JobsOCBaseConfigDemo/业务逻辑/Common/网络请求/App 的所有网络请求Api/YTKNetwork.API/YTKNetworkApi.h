@@ -14,16 +14,16 @@
 #import "FM_GetKYCInfo_api.h" /// 获取会员KYC信息@GET
 #import "FM_kyc_image_upload_api.h" /// KYC身份证上传@POST
 
-#if __has_include(<JobsAPIs/JobsBaseApi.h>)
-#import <JobsAPIs/JobsBaseApi.h>
+#if __has_include(<JobsAPIs/JobsAPIs.h>)
+#import <JobsAPIs/JobsAPIs.h>
 #else
-#import "JobsBaseApi.h"
+#import "JobsAPIs.h"
 #endif
 
-#if __has_include(<YTKNetworkExtra/NSObject+YTKNetwork.h>)
-#import <YTKNetworkExtra/NSObject+YTKNetwork.h>
+#if __has_include(<YTKNetworkExtra/YTKNetworkExtra.h>)
+#import <YTKNetworkExtra/YTKNetworkExtra.h>
 #else
-#import "NSObject+YTKNetwork.h"
+#import "YTKNetworkExtra.h"
 #endif
 
 #endif /* YTKNetworkApi_h */

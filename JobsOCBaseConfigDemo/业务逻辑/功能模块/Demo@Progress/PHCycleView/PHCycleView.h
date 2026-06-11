@@ -34,6 +34,12 @@
 #define kBorderWith 10
 #define KCenter CGPointMake(self.bounds.size.width / 2.0, self.bounds.size.height / 2.0)
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PHCycleView : UIView

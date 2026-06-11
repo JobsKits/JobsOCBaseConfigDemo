@@ -11,6 +11,12 @@
 #import <UIKit/UIKit.h>
 #import <JobsRichTextUtils/NSMutableAttributedString+Extra.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsModelDSL/JobsModelDSL.h>)
 #import <JobsModelDSL/JobsModelDSL.h>
 #else
@@ -72,102 +78,105 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
-/*
+/**
  
- 调用示例:
- 特别说明：
- 1、普通文本和富文本的 左/中/右 段落对齐不是一样的写法
- 2、使用 UITextView 实现链接点击跳转的效果;UILabel可以实现效果，但是不支持部分文字点击效果。（支持方法比较麻烦）
- 
- // 关于富文本
- Prop_strong()UILabel *connectionTipsLab;
- Prop_strong()UITextView *connectionTipsTV;
- 
- Prop_strong()NSMutableAttributedString *attributedStringData;
- Prop_strong()NSMutableArray <NSString *>*richTextMutArr;
- Prop_strong()NSMutableArray <JobsRichTextConfig *>*richTextConfigMutArr;
- 
- -(UILabel *)connectionTipsLab{
-     if (!_connectionTipsLab) {
-         @jobs_weakify(self)
-         _connectionTipsLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-             @jobs_strongify(self)
-             label.byAttributedString(self.attributedStringData);
-             self.view.addSubview(label);
-             [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                 make.centerX.equalTo(self.view);
-                 make.bottom.equalTo(self.view).offset(JobsWidth(-65));
-                 make.height.mas_equalTo(JobsWidth(12));
-             }];
-         });
-     }return _connectionTipsLab;
- }
+     调用示例:
+     特别说明：
+     1、普通文本和富文本的 左/中/右 段落对齐不是一样的写法
+     2、使用 UITextView 实现链接点击跳转的效果;UILabel可以实现效果，但是不支持部分文字点击效果。（支持方法比较麻烦）
 
- -(UITextView *)tipsTextView{
-     if (!_tipsTextView) {
-         @jobs_weakify(self)
-         _tipsTextView = jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
-             @jobs_strongify(self)
-             textView.delegate = self;
-             textView.editable = NO;/// 必须禁止输入，否则点击将会弹出输入键盘
-             textView.scrollEnabled = NO;/// 可选的，视具体情况而定
-             textView.linkTextAttributes = @{NSForegroundColorAttributeName:HEXCOLOR(0xCCB17E)};/// 链接文字颜色
-             textView.attributedText = self.attributedStringData;
-             textView.userInteractionEnabled = YES;
-             self.contentView.addSubview(textView);
-             [textView mas_makeConstraints:^(MASConstraintMaker *make) {
-                 make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(30)));
-                 make.centerX.equalTo(self.contentView);
-                 make.bottom.equalTo(self.contentView).offset(-JobsWidth(38));
-             }];
-         });
-     }return _tipsTextView;
- }
+     // 关于富文本
+     Prop_strong()UILabel *connectionTipsLab;
+     Prop_strong()UITextView *connectionTipsTV;
 
- -(NSMutableArray<NSString *> *)richTextMutArr{
-     NSMutableArray <NSString *>*RichTextMutArr = Jobs_getAssociatedObject(_richTextMutArr);
-     if (!RichTextMutArr) {
-         RichTextMutArr = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
-             data.add(@"如需帮助，请联系".tr);
-             data.add(@"专属客服".tr);
-         });
-         [self setRichTextMutArr:RichTextMutArr];
-         Jobs_setAssociatedRETAIN_NONATOMIC(_richTextMutArr, RichTextMutArr)
-     }return RichTextMutArr;
- }
- 
- -(NSMutableAttributedString *)attributedStringData{
-     if (!_attributedStringData) {
-         @jobs_weakify(self)
-         _attributedStringData = self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray <JobsRichTextConfig *>*_Nullable data) {
-             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
+     Prop_strong()NSMutableAttributedString *attributedStringData;
+     Prop_strong()NSMutableArray <NSString *>*richTextMutArr;
+     Prop_strong()NSMutableArray <JobsRichTextConfig *>*richTextConfigMutArr;
+
+     -(UILabel *)connectionTipsLab{
+         if (!_connectionTipsLab) {
+             @jobs_weakify(self)
+             _connectionTipsLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
                  @jobs_strongify(self)
-                 data1.byFont(UIFontWeightRegularSize(14))
-                      .byTextCor(HEXCOLOR(0x757575))
-                      .byTargetString(self.richTextMutArr[0]);
-             }));
-             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
+                 label
+                     .byAttributedString(self.attributedStringData)
+                     .addOn(self.view)
+                     .byAdd(^(MASConstraintMaker *make) {
+                         make.centerX.equalTo(self.view);
+                         make.bottom.equalTo(self.view).offset(JobsWidth(-65));
+                         make.height.mas_equalTo(JobsWidth(12));
+                     });
+             });
+         };return _connectionTipsLab;
+     }
+
+     -(UITextView *)tipsTextView{
+         if (!_tipsTextView) {
+             @jobs_weakify(self)
+             _tipsTextView = jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
                  @jobs_strongify(self)
-                 data1.byFont(UIFontWeightRegularSize(14))
-                      .byTextCor(HEXCOLOR(0xAE8330))
-                      .byTargetString(self.richTextMutArr[1])
-                      .byUrlStr(@"click://"); /// 根据这个属性加链接,点击进行跳转
+                 textView
+                     .byDelegate(self)
+                     .byEditable(NO)/// 必须禁止输入，否则点击将会弹出输入键盘
+                     .byScrollEnabled(NO)/// 可选的，视具体情况而定
+                     .byLinkTextAttributes(@{NSForegroundColorAttributeName: HEXCOLOR(0xCCB17E)})/// 链接文字颜色
+                     .byAttributedText(self.attributedStringData)
+                     .byUserInteractionEnabled(YES)
+                     .addOn(self.contentView)
+                     .byAdd(^(MASConstraintMaker *make) {
+                         make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(30)));
+                         make.centerX.equalTo(self.contentView);
+                         make.bottom.equalTo(self.contentView).offset(-JobsWidth(38));
+                     });
+             });
+         };return _tipsTextView;
+     }
+
+     -(NSMutableArray<NSString *> *)richTextMutArr{
+         NSMutableArray <NSString *>*RichTextMutArr = Jobs_getAssociatedObject(_richTextMutArr);
+         if (!RichTextMutArr) {
+             RichTextMutArr = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
+                 data
+                    .add(@"如需帮助，请联系".tr)
+                    .add(@"专属客服".tr);
+             });
+             [self setRichTextMutArr:RichTextMutArr];
+             Jobs_setAssociatedRETAIN_NONATOMIC(_richTextMutArr, RichTextMutArr)
+         };return RichTextMutArr;
+     }
+
+     -(NSMutableAttributedString *)attributedStringData{
+         if (!_attributedStringData) {
+             @jobs_weakify(self)
+             _attributedStringData = self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray <JobsRichTextConfig *>*_Nullable data) {
+                 data
+                    .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
+                         @jobs_strongify(self)
+                         data1.byFont(UIFontWeightRegularSize(14))
+                              .byTextCor(HEXCOLOR(0x757575))
+                              .byTargetString(self.richTextMutArr[0]);
+                     }))
+                    .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
+                         @jobs_strongify(self)
+                         data1.byFont(UIFontWeightRegularSize(14))
+                              .byTextCor(HEXCOLOR(0xAE8330))
+                              .byTargetString(self.richTextMutArr[1])
+                              .byUrlStr(@"click://"); /// 根据这个属性加链接,点击进行跳转
+                     }));
              }));
-         }));
-     }return _attributedStringData;
- }
- 
- #pragma mark —— UITextViewDelegate
- /// 点击事件监听
- - (BOOL)textView:(UITextView *)textView
- shouldInteractWithURL:(NSURL *)URL
-          inRange:(NSRange)characterRange
-      interaction:(UITextItemInteraction)interaction{
-     @"专属客服".tr.toast();
-     return YES;
- }
- 
- ***/
+         };return _attributedStringData;
+     }
+
+     #pragma mark —— UITextViewDelegate
+     /// 点击事件监听
+     - (BOOL)textView:(UITextView *)textView
+     shouldInteractWithURL:(NSURL *)URL
+              inRange:(NSRange)characterRange
+          interaction:(UITextItemInteraction)interaction{
+         @"专属客服".tr.toast();
+         return YES;
+     }
+ */
 
 /**
     富文本的属性介绍

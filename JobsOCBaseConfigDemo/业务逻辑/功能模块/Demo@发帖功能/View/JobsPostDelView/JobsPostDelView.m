@@ -32,8 +32,8 @@ static dispatch_once_t static_postDelViewOnceToken;
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -49,7 +49,7 @@ static dispatch_once_t static_postDelViewOnceToken;
                 JobsLog(@"SSS = %d",b.boolValue);
             }JobsLog(@"通知传递过来的 = %@",notification.object);
         }];
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -65,18 +65,18 @@ static dispatch_once_t static_postDelViewOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+    };return self;
 }
 
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
     @jobs_weakify(self)
     return ^(NSNumber *_Nullable model) {
         @jobs_strongify(self)
-        self.backgroundColor = JobsRedColor;
+        self.byBgColor(JobsRedColor);
         self.imageView.highlighted = model;
         self.imageView.image = model.boolValue ? @"hx_photo_edit_trash_open".img : @"hx_photo_edit_trash_close".img;
-        self.titleLab.text = model.boolValue ? @"松手即可删除".tr : @"拖动到此处删除".tr;
+        self.titleLab.byText(model.boolValue ? @"松手即可删除".tr : @"拖动到此处删除".tr);
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -101,14 +101,17 @@ static dispatch_once_t static_postDelViewOnceToken;
         @jobs_weakify(self)
         _imageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = @"hx_photo_edit_trash_close".img;
-            [self.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(20), JobsWidth(20)));
-                make.centerX.equalTo(self);
-                make.top.equalTo(self).offset(JobsWidth(5));
-            }];
+            if (!self) return;
+            imageView
+                .byImage(@"hx_photo_edit_trash_close".img)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(20), JobsWidth(20)));
+                    make.centerX.equalTo(self);
+                    make.top.equalTo(self).offset(JobsWidth(5));
+                });
         });
-    }return _imageView;
+    };return _imageView;
 }
 
 -(UILabel *)titleLab{
@@ -116,17 +119,18 @@ static dispatch_once_t static_postDelViewOnceToken;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byBgColor(JobsRedColor);
-            label.byText(@"拖动到此处删除".tr);
-            label.byTextCor(JobsWhiteColor);
-            label.byTextAlignment(NSTextAlignmentCenter);
-            [label sizeToFit];
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
+            label
+                .byText(@"拖动到此处删除".tr)
+                .byTextCor(JobsWhiteColor)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byBgColor(JobsRedColor);
+            label.bySizeToFit();
+            label.byAddTo(self, ^(MASConstraintMaker *make) {
                 make.top.equalTo(self.imageView.mas_bottom).offset(JobsWidth(5));
                 make.centerX.equalTo(self);
-            }];
+            });
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 @end

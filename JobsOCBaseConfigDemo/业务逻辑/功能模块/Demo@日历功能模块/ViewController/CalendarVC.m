@@ -23,7 +23,7 @@ Prop_strong()FSCalendar *calendar;
 -(instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -175,34 +175,33 @@ atMonthPosition:(FSCalendarMonthPosition)monthPosition{
 #pragma mark —— lazyLoad
 -(FSCalendar *)calendar{
     if(!_calendar){
-        _calendar = [FSCalendar.alloc initWithFrame:CGRectZero];
-//        _calendar.calendarHeaderView.backgroundColor = JobsRedColor;
-//        _calendar.calendarWeekdayView.backgroundColor = JobsYellowColor;
-        _calendar.dataSource = self;
-        _calendar.delegate = self;
-        _calendar.calendarHeaderView.backgroundColor = JobsLightGrayColor.colorWithAlphaComponentBy(.1f);
-        _calendar.appearance.headerMinimumDissolvedAlpha = 1;
-        _calendar.appearance.headerDateFormat = @"yyyy"
-            .add(@"年".tr)
-            .add(@"MM")
-            .add(@"月".tr);
-        _calendar.appearance.caseOptions = FSCalendarCaseOptionsHeaderUsesUpperCase;
-        _calendar.appearance.headerTitleFont = UIFontSystemFontOfSize(JobsWidth(20));
-        _calendar.appearance.headerTitleColor = JobsBlackColor;
-        _calendar.swipeToChooseGesture.enabled = YES;
-        _calendar.allowsMultipleSelection = YES;
-        
-        [self.view addSubview:_calendar];
-        [_calendar mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.view);
-            [self make:make topOffset:10];
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(450), JobsWidth(340)));
-        }];
-        [_calendar setNeedsLayout];
-        [_calendar layoutIfNeeded];
-    }return _calendar;
-}
-@synthesize backBtnModel = _backBtnModel;
+        @jobs_weakify(self)
+        _calendar = jobsMakeFSCalendar(^(__kindof FSCalendar * _Nullable calendar) {
+            @jobs_strongify(self)
+            calendar.byDataSource(self);
+            calendar.byDelegate(self);
+            calendar.byGetSwipeToChooseGesture().byEnabled(YES);
+            calendar.appearance.byHeaderMinimumDissolvedAlpha(1);
+            calendar.appearance.byHeaderDateFormat(@"yyyy"
+                                                   .add(@"年".tr)
+                                                   .add(@"MM")
+                                                   .add(@"月".tr));
+            calendar.appearance.byCaseOptions(FSCalendarCaseOptionsHeaderUsesUpperCase);
+            calendar.appearance.byHeaderTitleFont(UIFontSystemFontOfSize(JobsWidth(20)));
+            calendar.appearance.byHeaderTitleColor(JobsBlackColor);
+            calendar.byAllowsMultipleSelection(YES);
+            calendar.addOn(self.view);
+            [calendar mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(self.view);
+                [self make:make topOffset:10];
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(450), JobsWidth(340)));
+            }];
+            calendar.bySetNeedsLayout();
+            calendar.byLayoutIfNeeded();
+            calendar.byBgColor(JobsLightGrayColor.colorWithAlphaComponentBy(.1f));
+        });
+    };return _calendar;
+}@synthesize backBtnModel = _backBtnModel;
 -(UIButtonModel *)backBtnModel{
     if(!_backBtnModel){
         @jobs_weakify(self)
@@ -220,7 +219,7 @@ atMonthPosition:(FSCalendarMonthPosition)monthPosition{
             self.popToRootVCBy(YES);
             return nil;
         };
-    }return _backBtnModel;
+    };return _backBtnModel;
 }
 
 @end

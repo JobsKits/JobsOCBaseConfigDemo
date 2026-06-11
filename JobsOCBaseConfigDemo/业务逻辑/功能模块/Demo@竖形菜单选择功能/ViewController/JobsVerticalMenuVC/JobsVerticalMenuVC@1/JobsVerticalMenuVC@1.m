@@ -78,10 +78,9 @@ Prop_strong()UIViewModel *leftViewCurrentSelectModel;
                                         })));
     });
     self.makeNavByAlpha(1);
-    
-    self.searchView.alpha = 1;
+    self.searchView.byAlpha(1);
     self.tableView.byShow(self);
-    self.editBtn.alpha = 1;
+    self.editBtn.byAlpha(1);
     self.refreshLeftView();
     
     self.displayViewController(self.vcs[0]);
@@ -131,7 +130,7 @@ Prop_strong()UIViewModel *leftViewCurrentSelectModel;
         }
         /// 添加新视图控制器
         self.addChildViewController(viewController);
-        viewController.view.frame = self.view.bounds;
+        viewController.view.byFrame(self.view.bounds);
         viewController.view.resetOriginX(self.tableView.right);
         viewController.view.resetWidth(self.view.width - self.tableView.width);
         self.view.addSubview(viewController.view);
@@ -162,7 +161,7 @@ Prop_strong()UIViewModel *leftViewCurrentSelectModel;
                 data1.textModel.byText(@"彩票".tr);
             }));
         });
-    }return _titleMutArr;
+    };return _titleMutArr;
 }
 
 -(jobsByVoidBlock)refreshLeftView{
@@ -222,12 +221,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             @jobs_strongify(self)
             tableView
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
-                .byShowsVerticalScrollIndicator(NO)
-                .byBgColor(HEXCOLOR(0xFCFBFB))
-                .byFrame(CGRectMake(0,JobsTopSafeAreaHeight() + JobsStatusBarHeight() + self.gk_navigationBar.mj_h,
-                                    TableViewWidth,JobsMainScreen_HEIGHT() - JobsTopSafeAreaHeight() - JobsStatusBarHeight() - JobsTabBarHeight(AppDelegate.tabBarVC) - EditBtnHeight));
+                .byShowsVerticalScrollIndicator(NO);
+            tableView.byBgColor(HEXCOLOR(0xFCFBFB));
+            tableView.byFrame(CGRectMake(0,JobsTopSafeAreaHeight() + JobsStatusBarHeight() + self.gk_navigationBar.mj_h,
+                                         TableViewWidth,JobsMainScreen_HEIGHT() - JobsTopSafeAreaHeight() - JobsStatusBarHeight() - JobsTabBarHeight(AppDelegate.tabBarVC) - EditBtnHeight));
         }));
-    }return _tableView;
+    };return _tableView;
 }
 
 -(JobsSearchBar *)searchView{
@@ -240,8 +239,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .JobsRichViewByModel2(nil)
                 .JobsBlock1(^(id _Nullable data) {
 
-                })
-                .addOn(self.gk_navigationBar)
+                });
+            searchBar.addOn(self.gk_navigationBar)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
                     make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH() / 3, JobsWidth(40)));
@@ -249,7 +248,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                     make.centerY.equalTo(self.gk_navigationBar);
                 });
         });
-    }return _searchView;
+    };return _searchView;
 }
 
 -(BaseButton *)editBtn{
@@ -277,7 +276,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 make.top.equalTo(self.tableView.mas_bottom);
                 make.size.mas_equalTo(CGSizeMake(TableViewWidth, EditBtnHeight));
             });
-    }return _editBtn;
+    };return _editBtn;
 }
 
 -(NSMutableArray<UIViewModel *> *)leftDataArray{
@@ -285,7 +284,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _leftDataArray = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
 
         });
-    }return _leftDataArray;
+    };return _leftDataArray;
 }
 @synthesize vcs = _vcs;
 -(__kindof NSMutableArray<__kindof UIViewController *> *)vcs{
@@ -293,7 +292,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _vcs = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
 
         });
-    }return _vcs;
+    };return _vcs;
 }
 
 @end

@@ -12,6 +12,12 @@
 #import <JobsOCTools/JobsAppDoorConfig.h>
 #import <JobsOCTools/JobsAppDoorInputViewBaseStyle.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
@@ -36,6 +42,18 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
+#endif
+
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
+#else
+#import "JobsBaseUI.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsAppDoorInputViewBaseStyle_8 : JobsAppDoorInputViewBaseStyle
@@ -58,7 +76,8 @@ NS_ASSUME_NONNULL_END
      -(JobsAppDoorInputViewBaseStyle_8 *)inputView{
          if (!_inputView) {
              _inputView = [JobsAppDoorInputViewBaseStyle_8.alloc initWithSize:self.inputViewSize];
-             _inputView.backgroundColor = HEXCOLOR(0xFFFCF7);
+             _inputView.byBgColor(HEXCOLOR(0xFFFCF7));
+
              @jobs_weakify(self)
              [_inputView actionObjBlock:^(UITextField *data) {
      //            JobsAppDoorInputViewTFModel *textFieldInputModel = (JobsAppDoorInputViewTFModel *)data.requestParams;
@@ -66,15 +85,15 @@ NS_ASSUME_NONNULL_END
              }];
 
              _inputView.jobsRichViewByModel(self.inputViewDataModel;)
-             [self addSubview:_inputView];
-             [_inputView mas_makeConstraints:^(MASConstraintMaker *make) {
+             _inputView.byAddTo(self, ^(MASConstraintMaker *make) {
                  make.size.mas_equalTo(self.inputViewSize);
                  make.left.equalTo(self);
                  make.bottom.equalTo(self.mas_bottom);
-             }];
+             });
+
              [self layoutIfNeeded];
              _inputView.cornerCutToCircleWithCornerRadius(JobsWidth(self.inputViewSize.height / 2));
-         }return _inputView;
+         };return _inputView;
      }
 
      -(JobsAppDoorInputViewBaseStyleModel *)inputViewDataModel{
@@ -92,7 +111,7 @@ NS_ASSUME_NONNULL_END
              _inputViewDataModel.titleStrCor = HEXCOLOR(0x6D655D);
              _inputViewDataModel.placeHolderOffset = JobsWidth(35);
              _inputViewDataModel.textModel.textCor = HEXCOLOR(0xFFE8D1);
-         }return _inputViewDataModel;
+         };return _inputViewDataModel;
      }
  */
 #endif /* JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_8_FA17C60162 */

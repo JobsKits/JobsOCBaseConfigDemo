@@ -21,7 +21,7 @@ Prop_strong()UILabel *subtitleLabel;
 {
     if (self = [super initWithFrame:frame]) {
         [self buildUI];
-    }return self;
+    };return self;
 }
 
 -(void)buildUI
@@ -31,26 +31,32 @@ Prop_strong()UILabel *subtitleLabel;
     CGFloat labelWidth = (self.bounds.size.width - 2*marginX)/2.0f;
     
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(marginX, 0, labelWidth, self.bounds.size.height)];
-    self.titleLabel.textColor = [UIColor blackColor];
+    self.titleLabel.byTextCor([UIColor blackColor]);
+
     [self addSubview:self.titleLabel];
     
     self.subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth + marginX, 0, labelWidth, self.bounds.size.height)];
-    self.subtitleLabel.textColor = [UIColor lightGrayColor];
-    self.subtitleLabel.textAlignment = NSTextAlignmentRight;
-    self.subtitleLabel.font = [UIFont systemFontOfSize:15.0f weight:UIFontWeightRegular];
+    self.subtitleLabel.byTextCor([UIColor lightGrayColor]);
+
+    self.subtitleLabel.byTextAlignment(NSTextAlignmentRight);
+
+    self.subtitleLabel.byFont([UIFont systemFontOfSize:15.0f weight:UIFontWeightRegular]);
+
     [self addSubview:self.subtitleLabel];
 }
 
 -(void)setTitle:(NSString *)title
 {
     _title = title;
-    self.titleLabel.text = title;
+    self.titleLabel.byText(title);
+
 }
 
 -(void)setSubTitle:(NSString *)subTitle
 {
     _subTitle = subTitle;
-    self.subtitleLabel.text = subTitle;
+    self.subtitleLabel.byText(subTitle);
+
 }
 
 @end

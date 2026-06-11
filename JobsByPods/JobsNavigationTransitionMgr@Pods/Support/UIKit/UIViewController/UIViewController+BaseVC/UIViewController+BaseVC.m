@@ -14,7 +14,8 @@
     return ^(UIView *_Nullable superview,
              UIView *_Nullable view) {
         @jobs_strongify(self)
-        self.view.navigator.frame = view.bounds;
+        self.view.navigator.byFrame(view.bounds);
+
         view.navigator = superview.navigator;
         superview.addSubview(self.view.navigator);
     };
@@ -155,7 +156,7 @@
             default:
                 JobsLog(@"错误的推进方式");
                 break;
-        }return toVC;
+        };return toVC;
     }else return nil;// 为了防止多次推VC
 }
 #pragma mark —— <BaseViewControllerProtocol> @property(nonatomic,weak)UIViewController *fromVC;
@@ -196,7 +197,7 @@ JobsKey(_bgImage)
     if (!BgImage) {
         BgImage = @"启动页SLOGAN".img;
         Jobs_setAssociatedRETAIN_NONATOMIC(_bgImage, BgImage)
-    }return BgImage;
+    };return BgImage;
 }
 
 -(void)setBgImage:(UIImage *)bgImage{
@@ -235,7 +236,7 @@ JobsKey(_navBarConfig)
         Jobs_setAssociatedRETAIN_NONATOMIC(_navBarConfig, jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable data) {
             
         }))
-    }return NavBarConfig;
+    };return NavBarConfig;
 }
 #pragma mark —— Prop_strong()JobsNavBar *navBar;
 JobsKey(_navBar)
@@ -275,7 +276,7 @@ JobsKey(_navBar)
                                      }
                                  }).on();
         }))
-    }return NavBar;
+    };return NavBar;
 }
 
 @end

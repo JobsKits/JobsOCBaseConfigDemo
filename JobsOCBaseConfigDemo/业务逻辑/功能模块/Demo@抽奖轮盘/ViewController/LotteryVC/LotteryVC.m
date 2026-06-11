@@ -44,7 +44,8 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
     self.tableView.byShow(self);
@@ -151,7 +152,7 @@ viewForHeaderInSection:(NSInteger)section{
             .JobsBlock1(^(id _Nullable data) {
                 
             });
-    }return nil;
+    };return nil;
 }
 /// 这里涉及到复用机制，return出去的是UITableViewHeaderFooterView的派生类
 /// tableView.registerHeaderFooterViewClass(BaseTableViewHeaderFooterView.class,@"");
@@ -175,7 +176,7 @@ viewForHeaderInSection:(NSInteger)section{
         /// 只有 tbvFooterView.backgroundView.backgroundColor 是有效操作✅
         tbvFooterView.contentView.byBgColor(HEXCOLOR(0xEAEBED));
         return tbvFooterView;
-    }return nil;
+    };return nil;
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -239,7 +240,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             make.left.right.bottom.equalTo(self.view);
             [self make:make topOffset:10];
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray<__kindof UITableViewCell *> *)tbvSectionRowCellMutArr{
@@ -250,7 +251,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             data.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView))
             .add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
         });
-    }return _tbvSectionRowCellMutArr;
+    };return _tbvSectionRowCellMutArr;
 }
 
 -(NSMutableArray<__kindof UIViewModel *> *)dataMutArr{
@@ -267,7 +268,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(LuckyWheelDemoVC.class);
             })));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

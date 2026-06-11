@@ -95,7 +95,8 @@ BaseViewControllerProtocol_synthesize
                 [self.statusBar removeFromSuperview];
             }
             if(!cor) cor = JobsWhiteColor;
-            self.statusBar.backgroundColor = cor;
+            self.statusBar.byBgColor(cor);
+
         } else {
             self.changeStatusBarCor(JobsClearColor);
         }
@@ -121,7 +122,8 @@ BaseViewControllerProtocol_synthesize
     return ^(UIColor *_Nullable data){
         UIView *statusBar = [UIApplication.sharedApplication.valueForKey(@"statusBarWindow") valueForKey:@"statusBar"];
         if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
-            statusBar.backgroundColor = data;
+            statusBar.byBgColor(data);
+
         }[self setNeedsStatusBarAppearanceUpdate];// 手动触发 preferredStatusBarStyle 更新状态栏颜色
     };
 }
@@ -129,7 +131,7 @@ BaseViewControllerProtocol_synthesize
 -(UIView *)statusBar{
     if (!_statusBar) {
         _statusBar = [UIView.alloc initWithFrame:jobsGetMainWindowWithSize().windowScene.statusBarManager.statusBarFrame];
-    }return _statusBar;
+    };return _statusBar;
 }
 
 @end

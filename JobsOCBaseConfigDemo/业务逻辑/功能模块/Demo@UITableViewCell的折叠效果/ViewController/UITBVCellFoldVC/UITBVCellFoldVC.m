@@ -47,10 +47,13 @@ Prop_strong()MSCommentView *commentView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsWhiteColor;
+    self.view.byBgColor(JobsWhiteColor);
+
     self.makeNavByAlpha(1);
-    self.titleLab.alpha = 1;
-    self.commentView.alpha = 1;
+    self.titleLab.byAlpha(1);
+
+    self.commentView.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -78,33 +81,34 @@ Prop_strong()MSCommentView *commentView;
 }
 #pragma mark —— lazyLoad
 -(UILabel *)titleLab{
-    if(!_titleLab){
+    if (!_titleLab) {
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"评论".tr);
-            label.byTextCor(@"#333333".cor);
-            label.byFont(UIFontWeightBoldSize(18));
-            [self.view addSubview:label];
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.view).offset(JobsWidth(15));
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(25));
-                make.height.mas_equalTo(JobsWidth(20));
-            }];label.makeLabelByShowingType(UILabelShowingType_03);
+            label
+                .byText(@"评论".tr)
+                .byTextCor(@"#333333".cor)
+                .byFont(UIFontWeightBoldSize(18))
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.view).offset(JobsWidth(15));
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(25));
+                    make.height.mas_equalTo(JobsWidth(20));
+                })
+                .makeLabelByShowingType(UILabelShowingType_03);
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(MSCommentView *)commentView{
     if(!_commentView){
         _commentView = MSCommentView.new;
         _commentView.jobsRichViewByModel(nil);
-        [self.view addSubview:_commentView];
-        [_commentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _commentView.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.top.equalTo(self.titleLab.mas_bottom);
             make.left.right.bottom.equalTo(self.view);
-        }];
-    }return _commentView;
+        });
+    };return _commentView;
 }
 
 @end

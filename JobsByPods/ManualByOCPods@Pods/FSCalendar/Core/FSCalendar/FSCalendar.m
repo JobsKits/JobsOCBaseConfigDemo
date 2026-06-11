@@ -149,86 +149,86 @@ Prop_strong()FSCalendarAppearance *appearance;
     if(!_appearance){
         _appearance = FSCalendarAppearance.new;
         _appearance.calendar = self;
-    }return _appearance;
+    };return _appearance;
 }
 
 -(NSCalendar *)gregorian{
     if(!_gregorian){
         _gregorian = [NSCalendar.alloc initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    }return _gregorian;
+    };return _gregorian;
 }
 
 -(NSDateFormatter *)formatter{
     if(!_formatter){
         _formatter = NSDateFormatter.new;
         _formatter.dateFormat = @"yyyy-MM-dd";
-    }return _formatter;
+    };return _formatter;
 }
 @synthesize locale = _locale;
 -(NSLocale *)locale{
     if(!_locale){
         _locale = NSLocale.currentLocale;
-    }return _locale;
+    };return _locale;
 }
 @synthesize timeZone = _timeZone;
 -(NSTimeZone *)timeZone{
     if(!_timeZone){
         _timeZone = NSTimeZone.defaultTimeZone;
-    }return _timeZone;
+    };return _timeZone;
 }
 @synthesize today = _today;
 -(NSDate *)today{
     if(!_today){
         _today = [self.gregorian startOfDayForDate:NSDate.date];
-    }return _today;
+    };return _today;
 }
 @synthesize currentPage = _currentPage;
 -(NSDate *)currentPage{
     if(!_currentPage){
         _currentPage = [self.gregorian fs_firstDayOfMonth:self.today];
-    }return _currentPage;
+    };return _currentPage;
 }
 @synthesize minimumDate = _minimumDate;
 -(NSDate *)minimumDate{
     if(!_minimumDate){
         _minimumDate = [self.formatter dateFromString:@"1970-01-01"];
-    }return _minimumDate;
+    };return _minimumDate;
 }
 @synthesize maximumDate = _maximumDate;
 -(NSDate *)maximumDate{
     if(!_maximumDate){
         _maximumDate = [self.formatter dateFromString:@"2099-12-31"];
-    }return _maximumDate;
+    };return _maximumDate;
 }
 
 -(NSArray<NSDate *> *)selectedDates{
     if(!_selectedDates){
         _selectedDates = NSMutableArray.array;
-    }return _selectedDates;
+    };return _selectedDates;
 }
 
 -(NSMapTable *)visibleSectionHeaders{
     if(!_visibleSectionHeaders){
         _visibleSectionHeaders = NSMapTable.weakToWeakObjectsMapTable;
-    }return _visibleSectionHeaders;
+    };return _visibleSectionHeaders;
 }
 
 -(FSCalendarDelegationProxy *)dataSourceProxy{
     if(!_dataSourceProxy){
         _dataSourceProxy = FSCalendarDelegationFactory.dataSourceProxy;
-    }return _dataSourceProxy;
+    };return _dataSourceProxy;
 }
 
 -(FSCalendarDelegationProxy *)delegateProxy{
     if(!_delegateProxy){
         _delegateProxy = FSCalendarDelegationFactory.delegateProxy;
-    }return _delegateProxy;
+    };return _delegateProxy;
 }
 
 -(NSMutableArray<NSOperation *> *)didLayoutOperations{
     if(!_didLayoutOperations){
         _didLayoutOperations = NSMutableArray.array;
-    }return _didLayoutOperations;
+    };return _didLayoutOperations;
 }
 
 -(UIView *)contentView{
@@ -240,7 +240,7 @@ Prop_strong()FSCalendarAppearance *appearance;
             view.clipsToBounds = YES;
             [self addSubview:view];
         });
-    }return _contentView;
+    };return _contentView;
 }
 
 -(UIView *)daysContainer{
@@ -252,7 +252,7 @@ Prop_strong()FSCalendarAppearance *appearance;
             view.clipsToBounds = YES;
             [self.contentView addSubview:view];
         });
-    }return _daysContainer;
+    };return _daysContainer;
 }
 
 -(__kindof UICollectionView *)collectionView{
@@ -275,26 +275,26 @@ Prop_strong()FSCalendarAppearance *appearance;
         [_collectionView registerClass:UICollectionReusableView.class forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
                    withReuseIdentifier:@"placeholderHeader"];
         [self.daysContainer addSubview:_collectionView];
-    }return _collectionView;
+    };return _collectionView;
 }
 
 -(FSCalendarCollectionViewLayout *)collectionViewLayout{
     if(!_collectionViewLayout){
         _collectionViewLayout = FSCalendarCollectionViewLayout.new;
         _collectionViewLayout.calendar = self;
-    }return _collectionViewLayout;
+    };return _collectionViewLayout;
 }
 
 -(FSCalendarTransitionCoordinator *)transitionCoordinator{
     if(!_transitionCoordinator){
         _transitionCoordinator = [FSCalendarTransitionCoordinator.alloc initWithCalendar:self];
-    }return _transitionCoordinator;
+    };return _transitionCoordinator;
 }
 
 -(FSCalendarCalculator *)calculator{
     if(!_calculator){
         _calculator = [FSCalendarCalculator.alloc initWithCalendar:self];
-    }return _calculator;
+    };return _calculator;
 }
 
 - (void)initialize

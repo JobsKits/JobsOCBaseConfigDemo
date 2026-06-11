@@ -22,6 +22,18 @@
 #import "MJExtension.h"
 #endif
 
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsModelDSL/JobsModelDSL.h>)
 #import <JobsModelDSL/JobsModelDSL.h>
 #else
@@ -61,10 +73,11 @@ NS_ASSUME_NONNULL_END
              @jobs_strongify(self)
              if(title){
                  self.jobsResetBtnNormalAttributedTitle(title.changeTextColorBy(JobsClearColor).removeHyperlinks);
-                 self.titleTextView.frame = self.titleLabel.frame;
+                 self.titleTextView.byFrame(self.titleLabel.frame);
+
                  self.titleTextView.attributedText = title;
                  self.jobsResetBtnNormalAttributedTitle(nil);
-             }return self;
+             };return self;
          };
      }
      /// 用 UITextView 替换 UIButton.subtitleLabel
@@ -74,10 +87,11 @@ NS_ASSUME_NONNULL_END
              @jobs_strongify(self)
              if(title){
                  self.jobsResetBtnNormalAttributedSubTitle(title.changeTextColorBy(JobsClearColor));
-                 self.subtitleTextView.frame = self.subtitleLabel.frame;
+                 self.subtitleTextView.byFrame(self.subtitleLabel.frame);
+
                  self.subtitleTextView.attributedText = title;
                  self.jobsResetBtnNormalAttributedSubTitle(nil);
-             }return self;
+             };return self;
          };
      }
  */

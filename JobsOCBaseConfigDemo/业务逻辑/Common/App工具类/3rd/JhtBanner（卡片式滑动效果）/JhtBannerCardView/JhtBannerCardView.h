@@ -38,6 +38,12 @@
 #endif
 
 /// banner cardView（单张卡片）
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 @interface JhtBannerCardView : UIView
 /// 图片
 Prop_strong(nullable)UIImageView *cardImageView;

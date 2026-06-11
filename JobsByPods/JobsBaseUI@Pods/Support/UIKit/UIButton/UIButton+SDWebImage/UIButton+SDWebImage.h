@@ -50,6 +50,12 @@ typedef __kindof UIButton *_Nullable(^JobsRetButBySDWebImageOptionsBlocks)(SDWeb
 typedef __kindof UIButton *_Nullable(^JobsRetButBySDImageLoaderProgressBlocks)(SDImageLoaderProgressBlock _Nullable data);
 #endif /* SDWebImageButtonBlock */
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButton (SDWebImage)

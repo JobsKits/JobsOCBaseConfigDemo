@@ -46,7 +46,8 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsYellowColor;
+    self.view.byBgColor(JobsYellowColor);
+
     self.scrollView.jobsVisible = YES;
     self.pageControl.jobsVisible = YES;
 
@@ -69,7 +70,8 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
 - (void)loadPhoto{
     for (NSUInteger i = 0; i < self.dataMutArr.count; i++) {
         UIImageView * imageView = UIImageView.new;
-        imageView.frame = CGRectMake(JobsMainScreen_WIDTH() * i, 0, JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT());
+        imageView.byFrame(CGRectMake(JobsMainScreen_WIDTH() * i, 0, JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT()));
+
         //用SDWebImage下载图片
         NSString *imageName = @"".tr;
         if (i < 10) {
@@ -106,12 +108,12 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
         _pageControl.currentPage = 0;
         _pageControl.currentPageIndicatorTintColor = JobsRedColor;
         _pageControl.pageIndicatorTintColor = JobsWhiteColor;
-        [self.view addSubview:_pageControl];
-        [_pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
+        _pageControl.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.centerX.offset(0);
             make.bottom.offset(-JobsWidth(60));
-        }];
-    }return _pageControl;
+        });
+
+    };return _pageControl;
 }
 /// BaseViewProtocol
 @synthesize scrollView = _scrollView;
@@ -126,7 +128,7 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         [self.view addSubview:_scrollView];
-    }return _scrollView;
+    };return _scrollView;
 }
 
 -(NSMutableArray<NSString *> *)dataMutArr{
@@ -135,7 +137,7 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
         [_dataMutArr addObject:@"https://b-ssl.duitang.com/uploads/item/201503/25/20150325184145_SBu3J.jpeg"];
         [_dataMutArr addObject:@"https://b-ssl.duitang.com/uploads/item/201503/25/20150325184145_SBu3J.jpeg"];
         [_dataMutArr addObject:@"https://b-ssl.duitang.com/uploads/item/201503/25/20150325184145_SBu3J.jpeg"];
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

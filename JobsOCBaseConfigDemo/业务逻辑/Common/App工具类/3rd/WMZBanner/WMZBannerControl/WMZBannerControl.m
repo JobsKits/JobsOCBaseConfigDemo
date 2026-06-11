@@ -6,6 +6,7 @@
 //
 
 #import "WMZBannerControl.h"
+
 #define bannerPointSize CGSizeMake(8,8)
 
 @interface WMZBannerControl(){
@@ -52,7 +53,8 @@ Prop_strong()NSMutableArray *imageArr;
     for (int i = 0; i<numberOfPages; i++) {
         UIView *bgView = [UIView new];
         
-        bgView.frame = CGRectMake(tempView?(CGRectGetMaxX(tempView.frame)+self.param.wBannerControlSelectMargin):self.param.wBannerControlSelectMargin, 0,self.frame.size.width/numberOfPages , self.frame.size.height);
+        bgView.byFrame(CGRectMake(tempView?(CGRectGetMaxX(tempView.frame)+self.param.wBannerControlSelectMargin):self.param.wBannerControlSelectMargin, 0,self.frame.size.width/numberOfPages , self.frame.size.height));
+
         [self addSubview:bgView];
         UIImageView *imageView = [UIImageView new];
         imageView.tag = 111;
@@ -61,8 +63,10 @@ Prop_strong()NSMutableArray *imageArr;
         UIView  *pointView = [UIImageView new];
         [bgView addSubview:pointView];
         pointView.tag = 222;
-        pointView.frame = CGRectMake((bgView.frame.size.width - bannerPointSize.width)/2, (bgView.frame.size.height - bannerPointSize.height)/2, bannerPointSize.width, bannerPointSize.height);
-        pointView.layer.backgroundColor = self.param.wBannerControlColor.CGColor;
+        pointView.byFrame(CGRectMake((bgView.frame.size.width - bannerPointSize.width)/2, (bgView.frame.size.height - bannerPointSize.height)/2, bannerPointSize.width, bannerPointSize.height));
+
+        pointView.layer.byBgColor(self.param.wBannerControlColor.CGColor);
+
         pointView.layer.cornerRadius = pointView.frame.size.height/2;
         
         tempView = bgView;
@@ -75,26 +79,34 @@ Prop_strong()NSMutableArray *imageArr;
         UIImageView *dot = [bgView viewWithTag:111];
         UIView *pointView = [bgView viewWithTag:222];
         if (i == self.currentPage){
-           pointView.layer.backgroundColor = self.param.wBannerControlSelectColor.CGColor;
-           pointView.hidden = self.currentImage?YES:NO;
-           dot.hidden = self.currentImage?NO:YES;
+           pointView.layer.byBgColor(self.param.wBannerControlSelectColor.CGColor);
+
+           pointView.byHidden(self.currentImage?YES:NO);
+
+           dot.byHidden(self.currentImage?NO:YES);
+
            if (self.currentImage) {
                dot.image = self.currentImage;
                CGRect rect = dot.frame;
                rect.size = self.currentImageSize;
-               dot.frame = rect;
+               dot.byFrame(rect);
+
                dot.layer.masksToBounds = YES;
                dot.layer.cornerRadius =  self.param.wBannerControlImageRadius?:self. self.currentImageSize.height/2;
            }
         }else{
-            pointView.layer.backgroundColor = self.param.wBannerControlColor.CGColor;
-            pointView.hidden = self.inactiveImage?YES:NO;
-            dot.hidden = self.currentImage?NO:YES;
+            pointView.layer.byBgColor(self.param.wBannerControlColor.CGColor);
+
+            pointView.byHidden(self.inactiveImage?YES:NO);
+
+            dot.byHidden(self.currentImage?NO:YES);
+
             if (self.inactiveImage) {
                 dot.image = self.inactiveImage;
                 CGRect rect = dot.frame;
                 rect.size = self.inactiveImageSize;
-                dot.frame = rect;
+                dot.byFrame(rect);
+
                 dot.layer.masksToBounds = YES;
                 dot.layer.cornerRadius = self.param.wBannerControlImageRadius?:self. self.inactiveImageSize.height/2;
             }
@@ -124,7 +136,8 @@ Prop_strong()NSMutableArray *imageArr;
                 CGRect rect = self.frame;
                 rect.size.width = CGRectGetMaxX(dot.frame);
                 rect.origin.x = (self.param.wFrame.size.width - rect.size.width)/2;
-                self.frame = rect;
+                self.byFrame(rect);
+
             }
         }
     }
@@ -139,18 +152,21 @@ Prop_strong()NSMutableArray *imageArr;
             CGRect rect = self.frame;
             rect.size.width = CGRectGetMaxX(dot.frame);
             rect.origin.x = (self.param.wFrame.size.width - rect.size.width)/2;
-            self.frame = rect;
+            self.byFrame(rect);
+
         }
     }
     if (self.param.wBannerControlPosition == BannerControlLeft) {
           CGRect rect = self.frame;
           rect.origin.x = 30;
-          self.frame = rect;
+          self.byFrame(rect);
+
       }
       if (self.param.wBannerControlPosition == BannerControlRight) {
           CGRect rect = self.frame;
           rect.origin.x = self.superview.frame.size.width - rect.size.width  - 30;
-          self.frame = rect;
+          self.byFrame(rect);
+
       }
       if (self.param.wCustomControl) {
           self.param.wCustomControl(self);

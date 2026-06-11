@@ -32,6 +32,24 @@
 #define LOTAnimationViewWidth 33
 #define LOTAnimationViewHeight 33
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsStringUtils/JobsStringUtils.h>)
+#import <JobsStringUtils/JobsStringUtils.h>
+#else
+#import "JobsStringUtils.h"
+#endif
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
 @interface UITabBar (Ex)
 /// 移除系统的 UITabBarButton
 -(void)deleteUITabBarButton;

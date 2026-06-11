@@ -48,8 +48,10 @@ Prop_assign()NSInteger cellCount;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.backgroundColor = JobsRedColor;
-    self.cardView.alpha = 1;
+    self.view.byBgColor(JobsRedColor);
+
+    self.cardView.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -82,10 +84,14 @@ Prop_assign()NSInteger cellCount;
 - (GXCardViewCell *)cardView:(GXCardView *)cardView
            cellForRowAtIndex:(NSInteger)index {
     GXCardItemDemoCell *cell = [cardView dequeueReusableCellWithIdentifier:@"GXCardViewCell"];
-    cell.backgroundColor = JobsYellowColor;
-    cell.numberLabel.text = [NSString stringWithFormat:@"%ld", (long)index];
-    cell.leftLabel.hidden = YES;
-    cell.rightLabel.hidden = YES;
+    cell.byBgColor(JobsYellowColor);
+
+    cell.numberLabel.byText([NSString stringWithFormat:@"%ld", (long)index]);
+
+    cell.leftLabel.byHidden(YES);
+
+    cell.rightLabel.byHidden(YES);
+
     cell.layer.cornerRadius = 12.0;
     return cell;
 }
@@ -125,8 +131,10 @@ didRemoveLastCell:(GXCardViewCell *)cell
        direction:(GXCardCellSwipeDirection)direction {
     GXCardItemDemoCell *dcell = (GXCardItemDemoCell*)cell;
     
-    dcell.leftLabel.hidden = !(direction == GXCardCellSwipeDirectionRight);
-    dcell.rightLabel.hidden = !(direction == GXCardCellSwipeDirectionLeft);
+    dcell.leftLabel.byHidden(!(direction == GXCardCellSwipeDirectionRight));
+
+    dcell.rightLabel.byHidden(!(direction == GXCardCellSwipeDirectionLeft));
+
 
     JobsLog(@"move point = %@,  direction = %ld", NSStringFromCGPoint(point), direction);
 }
@@ -153,11 +161,11 @@ didRemoveLastCell:(GXCardViewCell *)cell
     //    _cardView.isRepeat = YES; // 新加入
         [_cardView registerNib:[UINib nibWithNibName:NSStringFromClass(GXCardItemDemoCell.class) bundle:nil] forCellReuseIdentifier:@"GXCardViewCell"];
         
-        [self.view addSubview:_cardView];
-        [_cardView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _cardView.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
-        }];
-    }return _cardView;
+        });
+
+    };return _cardView;
 }
 
 @end

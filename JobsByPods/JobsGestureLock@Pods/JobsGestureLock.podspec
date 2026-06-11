@@ -35,6 +35,7 @@ and an optional ready-to-use view controller for create/validate flows.
     ss.resources           = 'Core/Resources/**/*'
 
     ss.dependency 'JobsOCDefs'
+    ss.dependency 'JobsOCDSL'
   end
 
   JobsPodspecKitForJobsGestureLock.apply_standard_xcconfig(spec)

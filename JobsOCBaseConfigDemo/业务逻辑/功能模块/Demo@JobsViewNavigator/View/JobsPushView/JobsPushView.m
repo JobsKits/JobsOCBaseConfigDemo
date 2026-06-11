@@ -26,8 +26,10 @@ Prop_strong()JobsPushView *pushView;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.push_btn.alpha = 1;
-        self.pop_btn.alpha = 1;
+        self.push_btn.byAlpha(1);
+
+        self.pop_btn.byAlpha(1);
+
     };
 }
 #pragma mark —— lazyLoad
@@ -64,11 +66,11 @@ Prop_strong()JobsPushView *pushView;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        [self.addSubview(_push_btn) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _push_btn.byAddTo(self, ^(MASConstraintMaker *make) {
             make.center.equalTo(self);
             make.height.mas_equalTo(JobsWidth(30));
-        }];_push_btn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _push_btn;
+        });_push_btn.makeBtnTitleByShowingType(UILabelShowingType_03);
+    };return _push_btn;
 }
 
 -(BaseButton *)pop_btn{
@@ -87,23 +89,25 @@ Prop_strong()JobsPushView *pushView;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        [self.addSubview(_pop_btn) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _pop_btn.byAddTo(self, ^(MASConstraintMaker *make) {
             make.size.equalTo(self.push_btn);
             make.centerY.equalTo(self.push_btn);
             make.left.equalTo(self.push_btn.mas_right).offset(JobsWidth(10));
             make.height.mas_equalTo(JobsWidth(30));
-        }];
+        });
         _pop_btn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _pop_btn;
+    };return _pop_btn;
 }
 
 -(JobsPushView *)pushView{
     if(!_pushView){
         _pushView = JobsPushView.new;
-        _pushView.frame = self.bounds;
-        _pushView.backgroundColor = JobsRandomColor;
+        _pushView.byFrame(self.bounds);
+
+        _pushView.byBgColor(JobsRandomColor);
+
         _pushView.jobsRichViewByModel(nil);
-    }return _pushView;
+    };return _pushView;
 }
 
 @end

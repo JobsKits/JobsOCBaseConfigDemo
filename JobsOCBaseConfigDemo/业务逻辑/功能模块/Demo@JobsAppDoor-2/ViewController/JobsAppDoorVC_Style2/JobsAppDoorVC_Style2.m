@@ -66,7 +66,8 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsBlueColor;
+    self.view.byBgColor(JobsBlueColor);
+
 
     //标的值初始化
     self.logoContentViewY = 0;
@@ -215,7 +216,8 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
                     self.currentPage = @(CurrentPage_ForgotCode);
                     [self->_loginContentView removeContentViewWithOffsetY:0];
                     [self.forgotCodeContentView showContentViewWithOffsetY:0];
-                    self.customerServiceBtn.alpha = 0;
+                    self.customerServiceBtn.byAlpha(0);
+
                     
                 }else if([btn.titleLabel.text isEqualToString:Title4]){
                     self.backBtnClickEvent(btn);
@@ -229,7 +231,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
             }else{}
         }];
         _loginContentView.cornerCutToCircleWithCornerRadius(8);
-    }return _loginContentView;
+    };return _loginContentView;
 }
 
 -(JobsAppDoorRegisterContentView *)registerContentView{
@@ -265,7 +267,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
             }
         }];
         _registerContentView.cornerCutToCircleWithCornerRadius(8);
-    }return _registerContentView;
+    };return _registerContentView;
 }
 
 -(JobsAppDoorForgotCodeContentView *)forgotCodeContentView{
@@ -295,27 +297,28 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
                                         options:UIViewAnimationOptionCurveEaseInOut
                                      animations:^{
                         @jobs_strongify(self)
-                        self.customerServiceBtn.alpha = 1;
+                        self.customerServiceBtn.byAlpha(1);
+
                     } completion:nil];
                 }else{}
             }
         }];
         _forgotCodeContentView.cornerCutToCircleWithCornerRadius(8);
-    }return _forgotCodeContentView;
+    };return _forgotCodeContentView;
 }
 
 -(JobsAppDoorLogoContentView *)logoContentView{
     if (!_logoContentView) {
         _logoContentView = JobsAppDoorLogoContentView.new;
-        [self.view addSubview:_logoContentView];
-        [_logoContentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _logoContentView.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsWidth(150), JobsWidth(50)));
             make.bottom.equalTo(self.loginContentView.mas_top).offset(-JobsWidth(50));
             make.centerX.equalTo(self.view);
-        }];
+        });
+
         [self.view layoutIfNeeded];
         self.logoContentViewY = self.logoContentView.y;
-    }return _logoContentView;
+    };return _logoContentView;
 }
 
 -(BaseButton *)customerServiceBtn{
@@ -336,17 +339,17 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
                 JobsLog(@"");
             });
         [_customerServiceBtn buttonAutoFontByWidth];
-        [self.view addSubview:_customerServiceBtn];
-        [_customerServiceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        _customerServiceBtn.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH() / 2.5, JobsMainScreen_WIDTH() / 9));
             make.centerX.equalTo(self.view);
             make.top.mas_equalTo(self.loginContentView.top + self.loginContentView.height + 20);
-        }];
+        });
+
         [self.view layoutIfNeeded];
         self.loginCustomerServiceBtnY = _customerServiceBtn.y;
         _customerServiceBtn.jobsResetBtnLayerBorderCor(JobsWhiteColor);
         _customerServiceBtn.jobsResetBtnLayerBorderWidth(2);
-    }return _customerServiceBtn;
+    };return _customerServiceBtn;
 }
 
 -(ZFAVPlayerManager *)playerManager{
@@ -359,7 +362,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
                 data.assetURL = @"非iph_X.mp4".pathForResourceWithFullName.jobsFileUrl;
             }
         });
-    }return _playerManager;
+    };return _playerManager;
 }
 
 -(ZFPlayerController *)player{
@@ -373,7 +376,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
             @jobs_strongify(self)
             [self.playerManager replay];//设置循环播放
         }];
-    }return _player;
+    };return _player;
 }
 
 -(CustomZFPlayerControlView *)customPlayerControlView{
@@ -384,7 +387,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
             @jobs_strongify(self)
             [self.view endEditing:YES];
         }];
-    }return _customPlayerControlView;
+    };return _customPlayerControlView;
 }
 
 -(UIImageView *)bgImgV{
@@ -393,7 +396,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
             imageView.image = @"AppDoorBgImage".img;
             imageView.userInteractionEnabled = YES;
         });
-    }return _bgImgV;
+    };return _bgImgV;
 }
 
 @end

@@ -23,7 +23,7 @@
                 .byJobsRect(CGRectZero)
                 .byJobsPoint(CGPointZero);
         });
-    }return _headerViewModel;
+    };return _headerViewModel;
 }
 
 -(JobsHeaderFooterViewModel *)footerViewModel{
@@ -40,7 +40,7 @@
                 .byJobsRect(CGRectZero)
                 .byJobsPoint(CGPointZero);
         });
-    }return _footerViewModel;
+    };return _footerViewModel;
 }
 
 @end

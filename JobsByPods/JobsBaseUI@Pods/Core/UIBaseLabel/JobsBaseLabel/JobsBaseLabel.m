@@ -36,14 +36,15 @@ static dispatch_once_t static_baseLabelOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsClearColor;
-    }return self;
+        self.byBgColor(JobsClearColor);
+
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.thisFrame = frame;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -64,8 +65,9 @@ static dispatch_once_t static_baseLabelOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -74,8 +76,10 @@ static dispatch_once_t static_baseLabelOnceToken;
         @jobs_strongify(self)
         self.viewModel = model ? : UIViewModel.new;
         MakeDataNull
-        self.bgImageView.alpha = 1;
-        self.label.alpha = 1;
+        self.bgImageView.byAlpha(1);
+
+        self.label.byAlpha(1);
+
     };
 }
 #pragma mark —— lazyLoad
@@ -84,11 +88,11 @@ static dispatch_once_t static_baseLabelOnceToken;
         @jobs_weakify(self)
         _bgImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            [self.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            imageView.byAddTo(self, ^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
-            }];
+            });
         });
-    }return _bgImageView;
+    };return _bgImageView;
 }
 
 -(BaseLabel *)label{
@@ -96,9 +100,9 @@ static dispatch_once_t static_baseLabelOnceToken;
         @jobs_weakify(self)
         _label = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
             @jobs_strongify(self)
-            [self.bgImageView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
+            label.byAddTo(self.bgImageView, ^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
-            }];
+            });
             
             [label actionRetIDByGestureRecognizerBlock:^id(UIGestureRecognizer *data) {
                 JobsLog(@"JobsBaseLabel的Tap手势");
@@ -110,7 +114,7 @@ static dispatch_once_t static_baseLabelOnceToken;
                 return @1;
             }];
         });
-    }return _label;
+    };return _label;
 }
 
 @end

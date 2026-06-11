@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:NSData::decryptedDataUsingAlgorithm:key:initializationVector:options:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:433"]
-  T1["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S1["method:JXCategoryFactory::interpolationColorFrom:to:percent:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Common/JXCategoryFactory.m:19"]
+  T1["method:JXCategoryFactory::interpolationFrom:to:percent:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Common/JXCategoryFactory.m:13"]
   S1 -->|calls| T1
-  S2["method:NSData::decryptedDataUsingAlgorithm:key:initializationVector:options:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:433"]
-  T2["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S2["method:JXCategoryFactory::interpolationColorFrom:to:percent:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Common/JXCategoryFactory.m:19"]
+  T2["method:JXCategoryFactory::interpolationFrom:to:percent:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Common/JXCategoryFactory.m:13"]
   S2 -->|calls| T2
-  S3["method:NSData::decryptedDataUsingAlgorithm:key:initializationVector:options:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:433"]
-  T3["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S3["method:JXCategoryDotView::initializeData<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Dot/JXCategoryDotView.m:12"]
+  T3["method:JXCategoryDotView::initializeData<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Dot/JXCategoryDotView.m:12"]
   S3 -->|calls| T3
-  S4["method:NSData::decryptedDataUsingAlgorithm:key:initializationVector:options:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:433"]
-  T4["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S4["method:JXCategoryDotView::preferredCellClass<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Dot/JXCategoryDotView.m:21"]
+  T4["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S4 -->|calls| T4
-  S5["method:NSData::decryptedDataUsingAlgorithm:key:initializationVector:options:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:433"]
-  T5["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S5["method:JXCategoryDotView::refreshCellModel:index:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Dot/JXCategoryDotView.m:34"]
+  T5["method:JXCategoryDotView::refreshCellModel:index:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Dot/JXCategoryDotView.m:34"]
   S5 -->|calls| T5
-  S6["method:NSData::decryptedDataUsingAlgorithm:key:initializationVector:options:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:433"]
-  T6["function:FixKeyLengths<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:268"]
+  S6["method:JXCategoryImageView::initializeData<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Image/JXCategoryImageView.m:18"]
+  T6["method:JXCategoryImageView::initializeData<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Image/JXCategoryImageView.m:18"]
   S6 -->|calls| T6
-  S7["method:NSData::decryptedDataUsingAlgorithm:key:initializationVector:options:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:433"]
-  T7["method:ASMutableAttributedStringBuilder::length<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:223"]
+  S7["method:JXCategoryImageView::preferredCellClass<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Image/JXCategoryImageView.m:27"]
+  T7["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S7 -->|calls| T7
-  S8["method:NSData::decryptedDataUsingAlgorithm:key:initializationVector:options:error:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:433"]
-  T8["method:NSData::_runCryptor:result:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:305"]
+  S8["method:JXCategoryImageView::refreshSelectedCellModel:unselectedCellModel:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Image/JXCategoryImageView.m:41"]
+  T8["method:JXCategoryImageView::refreshSelectedCellModel:unselectedCellModel:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Image/JXCategoryImageView.m:41"]
   S8 -->|calls| T8
-  S9["method:NSData::HMACWithAlgorithm:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:492"]
-  T9["method:NSData::HMACWithAlgorithm:key:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:497"]
+  S9["method:JXCategoryImageView::refreshCellModel:index:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Image/JXCategoryImageView.m:51"]
+  T9["method:JXCategoryImageView::refreshCellModel:index:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Image/JXCategoryImageView.m:51"]
   S9 -->|calls| T9
-  S10["method:NSData::HMACWithAlgorithm:key:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:497"]
-  T10["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S10["method:JXCategoryImageView::refreshLeftCellModel:rightCellModel:ratio:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Image/JXCategoryImageView.m:75"]
+  T10["method:JXCategoryImageView::refreshLeftCellModel:rightCellModel:ratio:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Image/JXCategoryImageView.m:75"]
   S10 -->|calls| T10
-  S11["method:NSData::HMACWithAlgorithm:key:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:497"]
-  T11["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S11["method:JXCategoryIndicatorLineView::jx_refreshState:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/IndicatorViews/JXCategoryIndicatorLineView.m:30"]
+  T11["method:JXCategoryIndicatorLineView::getIndicatorLineViewCornerRadius<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/IndicatorViews/JXCategoryIndicatorLineView.m:117"]
   S11 -->|calls| T11
-  S12["method:NSData::HMACWithAlgorithm:key:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:497"]
-  T12["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S12["method:JXCategoryIndicatorView::initializeData<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:18"]
+  T12["method:JXCategoryIndicatorView::initializeData<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:18"]
   S12 -->|calls| T12
-  S13["method:NSData::HMACWithAlgorithm:key:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:497"]
-  T13["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S13["method:JXCategoryIndicatorView::initializeViews<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:29"]
+  T13["method:JXCategoryIndicatorView::initializeViews<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:29"]
   S13 -->|calls| T13
-  S14["method:NSData::HMACWithAlgorithm:key:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:497"]
-  T14["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S14["method:JXCategoryIndicatorView::refreshState<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:39"]
+  T14["method:JXCategoryIndicatorView::refreshState<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:39"]
   S14 -->|calls| T14
-  S15["method:NSData::HMACWithAlgorithm:key:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:497"]
-  T15["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S15["method:JXCategoryIndicatorView::refreshState<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:39"]
+  T15["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S15 -->|calls| T15
-  S16["method:NSData::HMACWithAlgorithm:key:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:497"]
-  T16["method:ASMutableAttributedStringBuilder::length<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:223"]
+  S16["method:JXCategoryIndicatorView::refreshState<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:39"]
+  T16["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S16 -->|calls| T16
-  S17["method:NSData::HMACWithAlgorithm:key:<br/>JobsByPods/JobsCryptography@Pods/Core/HASH 信息摘要/系统拓展/NSData+CommonCrypto.m:497"]
-  T17["method:ASMutableAttributedStringBuilder::length<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:223"]
+  S17["method:JXCategoryIndicatorView::refreshSelectedCellModel:unselectedCellModel:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:81"]
+  T17["method:JXCategoryIndicatorView::refreshSelectedCellModel:unselectedCellModel:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:81"]
   S17 -->|calls| T17
-  S18["method:AES::decrypt:password:<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/AES/AES.m:23"]
-  T18["method:NSData::dataByBase64String<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/Base编码系列/Base64/Base64（系统拓展）/NSData+Base64/NSData+Base64.m:24"]
+  S18["method:JXCategoryIndicatorView::contentOffsetOfContentScrollViewDidChanged:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:94"]
+  T18["method:JXCategoryIndicatorView::refreshLeftCellModel:rightCellModel:ratio:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:182"]
   S18 -->|calls| T18
-  S19["function:aesEncryptData<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/AES/AESCipher/AESCipher.m:48"]
-  T19["function:cipherOperation<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/AES/AESCipher/AESCipher.m:14"]
+  S19["method:JXCategoryIndicatorView::contentOffsetOfContentScrollViewDidChanged:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:94"]
+  T19["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S19 -->|calls| T19
-  S20["function:aesDecryptData<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/AES/AESCipher/AESCipher.m:58"]
-  T20["function:cipherOperation<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/AES/AESCipher/AESCipher.m:14"]
+  S20["method:JXCategoryIndicatorView::contentOffsetOfContentScrollViewDidChanged:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:94"]
+  T20["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S20 -->|calls| T20
-  S21["function:aesEncryptString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/AES/AESCipher/AESCipher.m:68"]
-  T21["function:aesEncryptData<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/AES/AESCipher/AESCipher.m:48"]
+  S21["method:JXCategoryIndicatorView::selectCellAtIndex:selectedType:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:151"]
+  T21["method:JXCategoryIndicatorView::selectCellAtIndex:selectedType:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:151"]
   S21 -->|calls| T21
-  S22["function:aesDecryptString<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/AES/AESCipher/AESCipher.m:79"]
-  T22["function:aesDecryptData<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/AES/AESCipher/AESCipher.m:58"]
+  S22["method:JXCategoryIndicatorView::selectCellAtIndex:selectedType:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:151"]
+  T22["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
   S22 -->|calls| T22
-  S23["method:NSData::base16StringByData<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/Base编码系列/Base16/Base16（系统拓展）/NSData+Base16/NSData+Base16.m:13"]
-  T23["method:NSString::initByCapacity<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:80"]
+  S23["method:JXCategoryIndicatorView::selectCellAtIndex:selectedType:<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Indicator/JXCategoryIndicatorView.m:151"]
+  T23["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
   S23 -->|calls| T23
-  S24["method:NSData::base16StringByImage<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/Base编码系列/Base16/Base16（系统拓展）/NSData+Base16/NSData+Base16.m:31"]
-  T24["method:NSData::base16StringByData<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/Base编码系列/Base16/Base16（系统拓展）/NSData+Base16/NSData+Base16.m:13"]
+  S24["method:JXCategoryNumberCell::initializeViews<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Number/JXCategoryNumberCell.m:17"]
+  T24["method:JXCategoryNumberCell::initializeViews<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Number/JXCategoryNumberCell.m:17"]
   S24 -->|calls| T24
-  S25["method:NSData::dataByBase16String<br/>JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/Base编码系列/Base16/Base16（系统拓展）/NSData+Base16/NSData+Base16.m:36"]
-  T25["method:NSData::initByData<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSData/NSData+Extra/NSData+Extra.m:26"]
+  S25["method:JXCategoryNumberCell::layoutSubviews<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Number/JXCategoryNumberCell.m:29"]
+  T25["method:JXCategoryNumberCell::layoutSubviews<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/JXCategoryView/Sources/Number/JXCategoryNumberCell.m:29"]
   S25 -->|calls| T25
 ```
 

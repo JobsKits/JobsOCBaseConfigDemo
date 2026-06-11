@@ -18,7 +18,7 @@
     if (self = [super init]) {
         self.automaticallyManagesSubnodes = YES;
         self.mapNode.needsMapReloadOnBoundsChange = YES;
-    }return self;
+    };return self;
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
@@ -35,7 +35,7 @@
             node.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(35.0, 103.0), MKCoordinateSpanMake(20, 20));
             node.liveMap = YES;
         });
-    }return _mapNode;
+    };return _mapNode;
 }
 
 @end

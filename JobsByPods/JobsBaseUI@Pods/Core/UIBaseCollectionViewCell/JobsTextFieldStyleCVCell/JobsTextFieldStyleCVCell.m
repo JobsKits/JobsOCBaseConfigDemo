@@ -22,7 +22,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 -(UIViewModel *_Nullable)getViewModel{
@@ -51,7 +51,8 @@
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.textField.alpha = 1;
+        self.textField.byAlpha(1);
+
         return self;
     };
 }
@@ -83,14 +84,22 @@
         @jobs_weakify(self)
         _textField = self.contentView.addSubview(jobsMakeZYTextField(^(ZYTextField * _Nullable textField) {
             @jobs_strongify(self)
-            textField.delegate = self;
-            textField.textColor = JobsBlackColor;
-            textField.backgroundColor = @"#F9F9F9".cor;
-            textField.returnKeyType = UIReturnKeyDefault;
-            textField.keyboardAppearance = UIKeyboardAppearanceDefault;
-            textField.keyboardType = UIKeyboardTypeNumberPad;
-            textField.placeholder = @"请输入充值金额".tr;
-            textField.font = UIFontWeightMediumSize(18);
+            textField.byDelegate(self);
+
+            textField.byTextCor(JobsBlackColor);
+
+            textField.byBgColor(@"#F9F9F9".cor);
+
+            textField.byReturnKeyType(UIReturnKeyDefault);
+
+            textField.byKeyboardAppearance(UIKeyboardAppearanceDefault);
+
+            textField.byKeyboardType(UIKeyboardTypeNumberPad);
+
+            textField.byPlaceholder(@"请输入充值金额".tr);
+
+            textField.byFont(UIFontWeightMediumSize(18));
+
             textField.placeholderFont = textField.font;
             textField.placeholderColor = @"#AAAAAA".cor;
             [textField jobsTextFieldEventFilterBlock:^BOOL(id data) {
@@ -104,7 +113,7 @@
             @jobs_strongify(self)
             make.edges.equalTo(self.contentView);
         });
-    }return _textField;
+    };return _textField;
 }
 
 @end

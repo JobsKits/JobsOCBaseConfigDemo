@@ -48,7 +48,8 @@ Prop_assign()CGSize size;
     return ^__kindof UICollectionViewCell *_Nullable(JobsExcelConfigureViewModel *_Nullable viewModel) {
         @jobs_strongify(self)
         self.viewModel_ = viewModel;
-        self.bgImageView.alpha = 1;
+        self.bgImageView.byAlpha(1);
+
         CGSize size = CGSizeMake(viewModel.itemW, viewModel.itemH);
         if (!CGSizeEqualToSize(self.size, size)) {
             self.size = size;
@@ -60,8 +61,9 @@ Prop_assign()CGSize size;
             UIGraphicsBeginImageContext(size);
             [self.linePath stroke];
             UIGraphicsEndImageContext();
-            self.lineLayer.hidden = NO;
-        }return self;
+            self.lineLayer.byHidden(NO);
+
+        };return self;
     };
 }
 #pragma mark —— lazyLoad
@@ -71,12 +73,14 @@ Prop_assign()CGSize size;
         @jobs_weakify(self)
         _bgImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = @"投注记录".img;
-            [self.contentView.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, 0, 0, 0));
-            }];
+            imageView
+                .byImage(@"投注记录".img)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, 0, 0, 0));
+                });
         });
-    }return _bgImageView;
+    };return _bgImageView;
 }
 
 -(UIBezierPath *)linePath{
@@ -84,7 +88,7 @@ Prop_assign()CGSize size;
         _linePath = jobsMakeBezierPath(^(__kindof UIBezierPath *_Nullable data) {
             data.moveTo(CGPointZero);// 起点
         });
-    }return _linePath;
+    };return _linePath;
 }
 
 -(CAShapeLayer *)lineLayer{
@@ -97,7 +101,7 @@ Prop_assign()CGSize size;
                                           .pathByBezierPath(self.linePath)
                                           .fillColorBy(JobsClearColor));
         });
-    }return _lineLayer;
+    };return _lineLayer;
 }
 
 @end

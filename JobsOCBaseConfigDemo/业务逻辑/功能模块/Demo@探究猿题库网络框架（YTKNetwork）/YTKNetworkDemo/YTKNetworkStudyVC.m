@@ -52,10 +52,10 @@
     });
 }
 
-- (void)viewDidLoad {///
+- (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = JobsYellowColor;
+    self.view.byBgColor(JobsYellowColor);
     self.makeNavByAlpha(1);
 }
 

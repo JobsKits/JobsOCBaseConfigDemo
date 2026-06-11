@@ -11,6 +11,12 @@
 #import "JobsBtnStyleTBVCell.h"
 #import "LeftCell.h"
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
@@ -63,30 +69,28 @@ NS_INLINE __kindof FMHomeMainBizSubView *_Nonnull jobsMakeBizSubView(jobsByBizSu
 
 /**
  
- Prop_strong()NSMutableArray <FMHomeMainBizSubView *>*subViewMutArr;
- 
- FMHomeMainBizSubView *subView = self.subViewMutArr[indexPath.item];
- self.bringSubviewToFront(subView);
- 
- -(NSMutableArray<FMHomeMainBizSubView *> *)subViewMutArr{
-     if(!_subViewMutArr){
-         @jobs_weakify(self)
-         _subViewMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <FMHomeMainBizSubView *>* _Nullable arr) {
-             @jobs_strongify(self)
-             for (UIButtonModel *buttonModel in self.dataMutArr) {
-                 arr.add(jobsMakeBizSubView(^(__kindof FMHomeMainBizSubView * _Nullable subView) {
-                     @jobs_strongify(self)
-                     subView.jobsRichViewByModel(nil);
-                     self.addSubview(subView);
-                     [subView mas_makeConstraints:^(MASConstraintMaker *make) {
-                         make.size.mas_equalTo(FMHomeMainBizSubView.viewSizeByModel(nil));
-                         make.centerX.equalTo(self);
-                         make.top.equalTo(self.collectionView.mas_bottom);
-                     }];
-                 }));
-             }
-         });
-     }return _subViewMutArr;
- }
+     Prop_strong()NSMutableArray <FMHomeMainBizSubView *>*subViewMutArr;
 
+     FMHomeMainBizSubView *subView = self.subViewMutArr[indexPath.item];
+     self.bringSubviewToFront(subView);
+
+     -(NSMutableArray<FMHomeMainBizSubView *> *)subViewMutArr{
+         if(!_subViewMutArr){
+             @jobs_weakify(self)
+             _subViewMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <FMHomeMainBizSubView *>* _Nullable arr) {
+                 @jobs_strongify(self)
+                 for (UIButtonModel *buttonModel in self.dataMutArr) {
+                     arr.add(jobsMakeBizSubView(^(__kindof FMHomeMainBizSubView * _Nullable subView) {
+                         @jobs_strongify(self)
+                         subView.jobsRichViewByModel(nil);
+                         subView.byAddTo(self, ^(MASConstraintMaker *make) {
+                             make.size.mas_equalTo(FMHomeMainBizSubView.viewSizeByModel(nil));
+                             make.centerX.equalTo(self);
+                             make.top.equalTo(self.collectionView.mas_bottom);
+                         });
+                     }));
+                 }
+             });
+         };return _subViewMutArr;
+     }
 */

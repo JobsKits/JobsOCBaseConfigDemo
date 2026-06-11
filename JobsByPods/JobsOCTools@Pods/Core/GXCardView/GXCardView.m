@@ -45,7 +45,7 @@ Prop_weak()id<GXCardViewCellDelagate> cell_delegate;
     if (self) {
         self.reuseIdentifier = reuseIdentifier;
         [self setupView];
-    }return self;
+    };return self;
 }
 
 - (void)setupView {
@@ -185,7 +185,8 @@ Prop_weak()id<GXCardViewCellDelagate> cell_delegate;
 // 向右边移除动画
 - (void)removeFromSuperviewRight {
     __block UIView *snapshotView = [self snapshotViewAfterScreenUpdates:NO];
-    snapshotView.frame = self.frame;
+    snapshotView.byFrame(self.frame);
+
     [self.superview.superview addSubview:snapshotView];
     [self didCellRemoveFromSuperviewWithDirection:GXCardCellSwipeDirectionRight];
     
@@ -233,7 +234,7 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
     self = [super initWithFrame:frame];
     if (self) {
         [self configCardView];
-    }return self;
+    };return self;
 }
 
 - (void)configCardView {
@@ -333,7 +334,8 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
     NSInteger showCount = self.visibleCount - 1;
     CGFloat width = self.frame.size.width;
     CGFloat height = self.frame.size.height - (showCount * self.interitemSpacing);
-    cell.frame = CGRectMake(0, 0, width, height);
+    cell.byFrame(CGRectMake(0, 0, width, height));
+
     [self.containerView insertSubview:cell atIndex:0];
     [self.containerView layoutIfNeeded];
     self.currentIndex = index;
@@ -359,7 +361,8 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
     NSInteger showCount = self.visibleCount;
     CGFloat width = self.frame.size.width;
     CGFloat height = self.frame.size.height - (showCount * self.interitemSpacing);
-    cell.frame = CGRectMake(0, 0, width, height);
+    cell.byFrame(CGRectMake(0, 0, width, height));
+
     [self.containerView insertSubview:cell atIndex:0];
     [self.containerView layoutIfNeeded];
     self.currentIndex = index;
@@ -500,7 +503,7 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
     [topcell removeFromSuperviewSwipe:direction];
 }
 
-#pragma mark - GXCardViewCellDelagate
+#pragma mark —— GXCardViewCellDelagate
 
 - (void)cardViewCellDidRemoveFromSuperView:(GXCardViewCell *)cell withDirection:(GXCardCellSwipeDirection)direction {
     // 当cell被移除时重新刷新视图

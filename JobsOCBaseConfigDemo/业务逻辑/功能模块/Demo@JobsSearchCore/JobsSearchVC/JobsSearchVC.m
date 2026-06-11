@@ -76,7 +76,8 @@ Prop_assign()HotSearchStyle hotSearchStyle;
 //    });
 //    self.makeNavByAlpha(1);
     
-    self.getTabBar.hidden = YES;
+    self.getTabBar.byHidden(YES);
+
     self.tableView.byShow(self);
 }
 
@@ -156,7 +157,7 @@ Prop_assign()HotSearchStyle hotSearchStyle;
     for (UIViewModel *vm in dataArr) {
         NSString *str2 = [self checkTargetObj:vm.textModel propertyName:propertyName];
         if (str1.isEqualToString(str2)) return YES;
-    }return NO;
+    };return NO;
 }
 
 -(void)cancelBtnEvent{
@@ -200,14 +201,15 @@ Prop_assign()HotSearchStyle hotSearchStyle;
             }
         }else{//正常状态
             if (isValue(self.titleStr)) {
-                self.gk_navigationBar.alpha = 1;
+                self.gk_navigationBar.byAlpha(1);
+
                 self.gk_navigationBar.mj_h = self.gk_navigationBarHeight;
             }
             self.tableView.mj_y = self.tableViewRect.origin.y;
         }
     } completion:nil];
 }
-#pragma mark —————————— UITableViewDelegate,UITableViewDataSource ——————————
+#pragma mark —— UITableViewDelegate,UITableViewDataSource ——————————
 -(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.section) {
@@ -238,7 +240,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    [self.view endEditing:YES];
     JobsSearchShowHistoryDataTBVCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    self.jobsSearchBar.textField.text = cell.textLabel.text;
+    self.jobsSearchBar.textField.byText(cell.textLabel.text);
+
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
@@ -269,7 +272,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                         .jobsRichElementsTableViewCellBy(self.hotSearchMutArr)
                             .JobsBlock1(^(JobsHotLabelByMultiLineCVCell *cell) {/// 点击的哪个btn？
                                 @jobs_strongify(self)
-                                self.jobsSearchBar.textField.text = cell.getViewModel.textModel.text;
+                                self.jobsSearchBar.textField.byText(cell.getViewModel.textModel.text);
+
                             });
                 }break;
                 case HotSearchStyle_2:{
@@ -279,7 +283,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                         .jobsRichElementsTableViewCellBy(self.hotSearchMutArr)
                         .JobsBlock1(^(UIViewModel *data) {
                                 @jobs_strongify(self)
-                                self.jobsSearchBar.textField.text = data.textModel.text;
+                                self.jobsSearchBar.textField.byText(data.textModel.text);
+
                                 /// 点选了推荐，则映入输入框＋存入历史
                                 /// 防止相同的元素存入
                                 if (![self filtrationData:data
@@ -378,11 +383,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         /// 否则viewForHeaderInSection 和 tableHeaderView 之间会有一段距离
         _tableView = jobsMakeBaseTableViewByGrouped(^(__kindof BaseTableView * _Nullable tableView) {
             @jobs_strongify(self)
+            tableView.byDelegate(self)
+                .byDataSource(self)
+                .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .byShowsVerticalScrollIndicator(NO);
             tableView.byBgColor(self.bgColour);
-            tableView.byDelegate(self);
-            tableView.byDataSource(self);
-            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone);
-            tableView.byShowsVerticalScrollIndicator(NO);
             tableView.byTableHeaderView(self.jobsSearchBar);/// 这里接入的就是一个UIView的派生类
             tableView.byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
                 /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
@@ -413,7 +418,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             }else{
                 SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
             }
-            [self.view.addSubview(tableView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            tableView.byAddTo(self.view, ^(MASConstraintMaker *make) {
                 make.left.right.equalTo(self.view);
                 if (self.gk_navBarAlpha &&
                     !self.gk_navigationBar.hidden &&
@@ -423,11 +428,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
                     make.top.equalTo(self.view);
                 }
                 make.bottom.equalTo(self.view);
-            }];
+            });
             self.view.refresh();
             self.tableViewRect = tableView.frame;
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(JobsSearchBar *)jobsSearchBar{
@@ -462,7 +467,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 //                }
 //            }];
         });
-    }return _jobsSearchBar;
+    };return _jobsSearchBar;
 }
 
 -(BaseButton *)scanBtn{
@@ -477,13 +482,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-    }return _scanBtn;
+    };return _scanBtn;
 }
 
 -(UIColor *)bgColour{
     if (!_bgColour) {
         _bgColour = self.byPatternImage(JobsLoadBundleImage(nil, @"Telegram",nil, @"1"));
-    }return _bgColour;
+    };return _bgColour;
 }
 
 -(NSMutableArray<__kindof UIViewModel *> *)sectionTitleMutArr{
@@ -496,7 +501,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
                 data.add(self.makeViewModelBy(@"搜索历史".tr));
             }
         });
-    }return _sectionTitleMutArr;
+    };return _sectionTitleMutArr;
 }
 
 -(NSMutableArray<UIViewModel *> *)hotSearchMutArr{
@@ -519,13 +524,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
                 .add(self.makeViewModelBy(@"R".tr))
                 .add(self.makeViewModelBy(@"MATLAB".tr));
         });
-    }return _hotSearchMutArr;
+    };return _hotSearchMutArr;
 }
 
 -(NSMutableArray<__kindof UIViewModel *> *)listViewData{
     if (!_listViewData) {
         _listViewData = NSMutableArray.array;
-    }return _listViewData;
+    };return _listViewData;
 }
 
 @end

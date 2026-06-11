@@ -38,6 +38,7 @@ menu view presentation and interaction support for Jobs projects.
 
     ss.dependency 'JobsBlock'
     ss.dependency 'JobsMakes'
+    ss.dependency 'JobsOCDSL'
     ss.dependency 'JobsOCDefs'
     ss.dependency 'JobsByOCPods'
     ss.dependency 'JobsLinkageMenuView'

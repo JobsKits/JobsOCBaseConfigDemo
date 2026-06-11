@@ -38,7 +38,7 @@
         [self setFrame:self.param.wFrame];
         self.data = [NSArray arrayWithArray:self.param.wData];
         [self setUp];
-    }return self;
+    };return self;
 }
 /**
  *  调用方法
@@ -53,7 +53,7 @@
         [self setFrame:self.param.wFrame];
         self.data = [NSArray arrayWithArray:self.param.wData];
         [self setUp];
-    }return self;
+    };return self;
 }
 
 +(JobsReturnWMZBannerViewByBannerParamBlock _Nonnull)initBy{
@@ -68,11 +68,14 @@
 }
 
 - (void)resetCollection{
-    self.bannerControl.frame = CGRectMake((self.bounds.size.width - 60)/2 , self.bounds.size.height - 30,60, 30);
+    self.bannerControl.byFrame(CGRectMake((self.bounds.size.width - 60)/2 , self.bounds.size.height - 30,60, 30));
+
     self.bannerControl.numberOfPages = self.data.count;
-    self.bannerControl.hidden = self.param.wHideBannerControl;
+    self.bannerControl.byHidden(self.param.wHideBannerControl);
+
     if (self.data.count == 1) {
-        self.bannerControl.hidden = YES;
+        self.bannerControl.byHidden(YES);
+
     }
     [UIView animateWithDuration:0.0 animations:^{
         [self.myCollectionV reloadData];
@@ -97,17 +100,21 @@
     
     if (self.param.wSpecialStyle == SpecialStyleLine&&self.param.wData.count) {
         [self addSubview:self.line];
-        self.line.hidden = NO;
-        self.line.backgroundColor = [UIColor redColor];
+        self.line.byHidden(NO);
+
+        self.line.byBgColor([UIColor redColor]);
+
         if (self.param.wSpecialCustumLine) {
             self.param.wSpecialCustumLine(self.line);
         }
         
         CGFloat lineHeight = self.line.frame.size.height?:2;
         CGFloat lineWidth = self.param.wFrame.size.width/self.param.wData.count;
-        self.line.frame = CGRectMake(0, self.param.wFrame.size.height -lineHeight,  lineWidth, lineHeight);
+        self.line.byFrame(CGRectMake(0, self.param.wFrame.size.height -lineHeight,  lineWidth, lineHeight));
+
     }else{
-        self.line.hidden = YES;
+        self.line.byHidden(YES);
+
     }
 }
 
@@ -132,7 +139,8 @@
         rect.size.width = rect.size.width * self.param.wScreenScale;
         rect.size.height = rect.size.height * self.param.wScreenScale;
         self.param.wFrame = rect;
-        self.frame = self.param.wFrame;
+        self.byFrame(self.param.wFrame);
+
         
         CGSize size = self.param.wItemSize;
         size.width *= self.param.wScreenScale;
@@ -212,21 +220,26 @@
     [self addSubview:self.bannerControl];
 
     self.bgImgView = [UIImageView new];
-    self.bgImgView.contentMode = self.param.wImageFill?UIViewContentModeScaleAspectFill:UIViewContentModeScaleToFill;
+    self.bgImgView.byContentMode(self.param.wImageFill?UIViewContentModeScaleAspectFill:UIViewContentModeScaleToFill);
+
     [self addSubview:self.bgImgView];
     [self sendSubviewToBack:self.bgImgView];
-    self.bgImgView.hidden = !self.param.wEffect;
+    self.bgImgView.byHidden(!self.param.wEffect);
+
     self.bgImgView.layer.masksToBounds = YES;
     UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     [self.bgImgView addSubview:effectView];
     
-    self.myCollectionV.frame = self.bounds;
+    self.myCollectionV.byFrame(self.bounds);
+
     if (self.param.wCustomControl) {
         self.param.wCustomControl(self.bannerControl);
     }
-    self.bgImgView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height*self.param.wEffectHeight);
-    effectView.frame = self.bgImgView.bounds;
+    self.bgImgView.byFrame(CGRectMake(0, 0, self.frame.size.width, self.frame.size.height*self.param.wEffectHeight));
+
+    effectView.byFrame(self.bgImgView.bounds);
+
     [self resetCollection];
     
 }
@@ -569,7 +582,8 @@
         [UIView animateWithDuration:0.5 animations:^{
             CGRect rect = self.line.frame;
             rect.origin.x = (self.param.wRepeat?self.param.myCurrentPath%self.data.count:self.param.myCurrentPath)*rect.size.width;
-            self.line.frame = rect;
+            self.line.byFrame(rect);
+
         }];
     }
 }
@@ -614,7 +628,8 @@
         _myCollectionV.dataSource = self;
         _myCollectionV.showsVerticalScrollIndicator = NO;
         _myCollectionV.showsHorizontalScrollIndicator = NO;
-        _myCollectionV.backgroundColor = [UIColor clearColor];
+        _myCollectionV.byBgColor([UIColor clearColor]);
+
         _myCollectionV.decelerationRate = _param.wDecelerationRate;
     }
     return _myCollectionV;
@@ -658,14 +673,16 @@
         self.icon = [UIImageView new];
         self.icon.layer.masksToBounds = YES;
         [self.contentView addSubview:self.icon];
-        self.icon.frame = self.contentView.bounds;
+        self.icon.byFrame(self.contentView.bounds);
+
         self.contentView.layer.masksToBounds = YES;
-    }return self;
+    };return self;
 }
 
 - (void)setParam:(WMZBannerParam *)param{
     _param = param;
-    self.icon.contentMode = param.wImageFill?UIViewContentModeScaleAspectFill:UIViewContentModeScaleToFill;
+    self.icon.byContentMode(param.wImageFill?UIViewContentModeScaleAspectFill:UIViewContentModeScaleToFill);
+
 }
 
 @end
@@ -674,18 +691,23 @@
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]){
-        self.contentView.backgroundColor = [UIColor whiteColor];
+        self.contentView.byBgColor([UIColor whiteColor]);
+
         self.label = [UILabel new];
-        self.label.font = [UIFont systemFontOfSize:17.0];
-        self.label.textColor = [UIColor redColor];
+        self.label.byFont([UIFont systemFontOfSize:17.0]);
+
+        self.label.byTextCor([UIColor redColor]);
+
         [self.contentView addSubview:self.label];
-        self.label.frame = CGRectMake(10, 0, frame.size.width-20, frame.size.height);
-    }return self;
+        self.label.byFrame(CGRectMake(10, 0, frame.size.width-20, frame.size.height));
+
+    };return self;
 }
 
 - (void)setParam:(WMZBannerParam *)param{
     _param = param;
-    self.label.textColor = self.param.wMarqueeTextColor;
+    self.label.byTextCor(self.param.wMarqueeTextColor);
+
 }
 
 @end

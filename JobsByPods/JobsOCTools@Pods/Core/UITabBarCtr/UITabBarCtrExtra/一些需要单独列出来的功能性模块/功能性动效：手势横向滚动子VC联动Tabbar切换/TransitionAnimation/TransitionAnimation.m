@@ -12,7 +12,7 @@
 - (instancetype)initWithTargetEdge:(UIRectEdge)targetEdge{
     if (self = [self init]) {
         _targetEdge = targetEdge;
-    }return self;
+    };return self;
 }
 
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext{
@@ -39,7 +39,8 @@
         NSAssert(NO, @"targetEdge must be one of UIRectEdgeLeft, or UIRectEdgeRight.");
     }
     
-    fromView.frame = fromFrame;
+    fromView.byFrame(fromFrame);
+
     toView.frame = CGRectOffset(toFrame,
                                 toFrame.size.width * offset.dx * -1,
                                 toFrame.size.height * offset.dy * -1);
@@ -50,7 +51,8 @@
         fromView.frame = CGRectOffset(fromFrame,
                                       fromFrame.size.width * offset.dx,
                                       fromFrame.size.height * offset.dy);
-        toView.frame = toFrame;
+        toView.byFrame(toFrame);
+
     } completion:^(BOOL finished) {
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];

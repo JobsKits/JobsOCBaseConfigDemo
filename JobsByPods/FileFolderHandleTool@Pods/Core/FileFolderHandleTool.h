@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark —— 禁止App系统文件夹document同步
 /// 因为它会同步。苹果要求：可重复产生的数据不得进行同步,什么叫做可重复数据？这里最好禁止，否则会影响上架，被拒！
 +(jobsByVoidBlock _Nonnull)banSysDocSynchronization;
-#pragma mark - 创建Library/Caches下的文件夹📂路径 还未真正创建
+#pragma mark —— 创建Library/Caches下的文件夹📂路径 还未真正创建
 /// 以当前时间戳生成缓存路径 Library/Caches：存放缓存文件，iTunes不会备份此目录，此目录下文件不会在应用退出删除。一般存放体积比较大，不是特别重要的资源。
 /// @param folderNameEx 中间层自定义的文件夹
 /// @param fileNameEx 文件后缀名

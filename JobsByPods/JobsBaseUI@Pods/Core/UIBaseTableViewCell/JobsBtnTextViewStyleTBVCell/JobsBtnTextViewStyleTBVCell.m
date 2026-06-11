@@ -14,11 +14,7 @@
 #import <JobsBaseUI/UIButton+UI.h>
 #import <JobsBaseUI/UITableView+RegisterClass.h>
 #import <JobsBaseUI/UIView+Extra.h>
-#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
-#import <JobsModelDSL/JobsModelDSL.h>
-#else
-#import "JobsModelDSL.h"
-#endif
+
 #import <Masonry/Masonry.h>
 
 @interface JobsBtnTextViewStyleTBVCell ()
@@ -94,7 +90,7 @@ AppToolsProtocol_synthesize
                 self.textView.textColor = self.buttonModel.titleCor;
                 self.textView.font = self.buttonModel.titleFont;
             }if(!self.buttonModel.highlightImage) self.buttonModel.highlightImage = self.buttonModel.normalImage;
-        }return self;
+        };return self;
     };
 }
 /// 具体由子类进行复写【数据定高】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -145,7 +141,7 @@ AppToolsProtocol_synthesize
                                  handler:^(__kindof UIAction * _Nonnull action) {
             if(self.objBlock) self.objBlock(action);
         }];
-    }return defaultAction;/// 如果没有匹配到自定义条件，返回默认的动作
+    };return defaultAction;/// 如果没有匹配到自定义条件，返回默认的动作
 }
 //-(nullable UITextItemMenuConfiguration *)textView:(UITextView *)textView menuConfigurationForTextItem:(UITextItem *)textItem defaultMenu:(UIMenu *)defaultMenu API_AVAILABLE(ios(17.0)) API_UNAVAILABLE(watchos, tvos);
 //-(void)textView:(UITextView *)textView textItemMenuWillDisplayForTextItem:(UITextItem *)textItem animator:(id<UIContextMenuInteractionAnimating>)animator API_AVAILABLE(ios(17.0)) API_UNAVAILABLE(watchos, tvos);
@@ -175,12 +171,12 @@ AppToolsProtocol_synthesize
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        [self.contentView.addSubview(_button) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _button.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsWidth(20), JobsWidth(20)));
             make.left.equalTo(self.contentView).offset(JobsWidth(13));
             make.top.equalTo(self.contentView);
-        }];
-    }return _button;
+        });
+    };return _button;
 }
 /// 如果需要用其他的自定义的TextView，继承此类并重写-(JobsReturnTableViewCellByIDBlock _Nonnull)jobsRichElementsTableViewCellBy;
 -(__kindof BaseTextView *)textView{
@@ -195,9 +191,9 @@ AppToolsProtocol_synthesize
             textView.editable = NO; /// 禁止编辑。必须 editable = NO 才能点击链接跳转
             textView.selectable = YES; /// 允许选择链接
             textView.linkTextAttributes = self.makeLinkTextAttributes;
-            [self.contentView.addSubview(textView) mas_makeConstraints:self.masonryBlock];
+            textView.byAddTo(self.contentView, self.masonryBlock);
         });
-    }return _textView;
+    };return _textView;
 }
 
 -(__kindof SZTextView *)szTextView{
@@ -207,7 +203,8 @@ AppToolsProtocol_synthesize
             @jobs_strongify(self)
             textView.delegate = self;
             textView.textColor = JobsBlackColor;
-            textView.backgroundColor = @"#F9F9F9".cor;
+            textView.byBgColor(@"#F9F9F9".cor);
+
             textView.returnKeyType = UIReturnKeyDefault;
             textView.keyboardAppearance = UIKeyboardAppearanceDefault;
             textView.keyboardType = UIKeyboardTypeNumberPad;
@@ -220,9 +217,9 @@ AppToolsProtocol_synthesize
                 return YES;
             } subscribeNextBlock:^(id _Nullable x) {
 //                @jobs_strongify(self)
-            }];[self.contentView.addSubview(textView) mas_makeConstraints:self.masonryBlock];
+            }];textView.byAddTo(self.contentView, self.masonryBlock);
         });
-    }return _textView;
+    };return _textView;
 }
 
 -(__kindof JobsTextView *)jobsTextView{
@@ -246,9 +243,9 @@ AppToolsProtocol_synthesize
                 return YES;
             } subscribeNextBlock:^(id _Nullable x) {
 //                @jobs_strongify(self)
-            }];[self.contentView.addSubview(textView) mas_makeConstraints:self.masonryBlock];
+            }];textView.byAddTo(self.contentView, self.masonryBlock);
         });
-    }return _jobsTextView;
+    };return _jobsTextView;
 }
 
 -(jobsByMASConstraintMakerBlock _Nullable)masonryBlock{

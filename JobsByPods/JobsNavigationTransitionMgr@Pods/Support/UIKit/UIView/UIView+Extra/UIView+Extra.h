@@ -19,14 +19,8 @@
 #import <JobsNavigationTransitionMgr/UIBarButtonItem+Extra.h>
 #import <JobsNavigationTransitionMgr/UIBezierPath+Extra.h>
 #import <JobsNavigationTransitionMgr/CALayer+Extra.h>
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
 #import <JobsNavigationTransitionMgr/UIView+ViewController.h>
 #import <JobsNavigationTransitionMgr/UIScrollView+UIScrollViewProtocol.h>
-#import <JobsNavigationTransitionMgr/UIView+Gesture.h>
 #import <JobsNavigationTransitionMgr/NSObject+GKPhotoBrowser.h>
 
 #if __has_include(<TFPopup/UIView+TFPopup.h>)
@@ -160,11 +154,16 @@ Prop_assign()CGFloat jobsVisible;
 -(JobsRetViewByNSIntegerBlock _Nonnull)viewWithTag;
 -(JobsRetViewByInteractionBlock _Nonnull)addInteraction;
 -(JobsRetViewByInteractionBlock _Nonnull)removeInteraction;
+/// 对 UIKit API addSubview 的二次封装：附着在父视图上
 -(JobsRetViewByViewBlock _Nonnull)addOn;
--(JobsRetViewByViewBlock _Nonnull)addSubview;
--(JobsRetViewByViewBlock _Nonnull)bringSubviewToFront;
--(JobsRetViewByViewBlock _Nonnull)sendSubviewToBack;
--(JobsRetViewByVoidBlock _Nonnull)remove;
+/// 对 UIKit API addSubview 的二次封装：加入子视图
+-(JobsRetViewByViewBlock _Nonnull)addBy;
+/// 对 UIKit API bringSubviewToFront 的二次封装
+-(JobsRetViewByViewBlock _Nonnull)byBringSubviewToFront;
+/// 对 UIKit API sendSubviewToBack 的二次封装
+-(JobsRetViewByViewBlock _Nonnull)bySendSubviewToBack;
+/// 对 UIKit API removeFromSuperview 的二次封装
+-(JobsRetViewByVoidBlock _Nonnull)byRemove;
 /// 针对数据源是UIImage  *的GKPhotoBrowser
 -(void)viewTapGRSavePicsWithImageDataMutArr:(NSMutableArray <UIImage *>*_Nonnull)imageDataMutArr
                                 atIndexPath:(NSIndexPath *_Nonnull)indexPath

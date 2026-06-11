@@ -69,25 +69,27 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+
 //        [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
 //                                            cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 //        [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
 //                                            cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+
 //        [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
 //                                            cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -228,7 +230,7 @@ viewForHeaderInSection:(NSInteger)section{
             .JobsBlock1(^(id _Nullable data) {
                 
             });
-    }return nil;
+    };return nil;
 }
 #pragma mark —— lazyLoad
 /// BaseViewProtocol
@@ -280,13 +282,13 @@ viewForHeaderInSection:(NSInteger)section{
             @jobs_strongify(self)
             make.edges.equalTo(self);
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = JobsUserHeaderDataView.createDataMutArr;
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

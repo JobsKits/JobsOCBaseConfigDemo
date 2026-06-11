@@ -18,7 +18,7 @@
            forCellWithReuseIdentifier:reuseIdentifier(self.class)];
         [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier(self.class)
                                                   forIndexPath:indexPath];
-    }return cell;
+    };return cell;
 }
 /// 获取这个UICollectionViewCell所承载的UICollectionView
 -(UICollectionView *)jobsGetCurrentCollectionView{
@@ -50,7 +50,7 @@
     @jobs_weakify(self)
     return ^__kindof UICollectionViewCell *_Nullable(UIColor *_Nonnull cor){
         @jobs_strongify(self)
-        self.contentView.backgroundColor = cor;
+        self.contentView.byBgColor(cor);
         return self;
     };
 }

@@ -50,7 +50,7 @@ static dispatch_once_t JobsFMDBMgrOnceToken;
         NSString *dbPath = docsPath.addPathComponent(@"users.db");
         self.databaseQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
         [self createTable];
-    }return self;
+    };return self;
 }
 /// 建表
 - (void)createTable {

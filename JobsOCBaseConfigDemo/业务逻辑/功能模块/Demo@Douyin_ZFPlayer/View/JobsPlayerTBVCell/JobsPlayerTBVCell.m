@@ -37,7 +37,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
             [self.customPlayerControlView removeFromSuperview];
             self.customPlayerControlView = nil;
         }];
-    }return self;
+    };return self;
 }
 
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
@@ -46,8 +46,9 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
         if (!cell) {
             cell = JobsPlayerTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.contentView.backgroundColor = JobsRandomColor;
-        }return cell;
+            cell.contentView.byBgColor(JobsRandomColor);
+
+        };return cell;
     };
 }
 #pragma mark —— BaseCellProtocol
@@ -63,9 +64,10 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
         @jobs_strongify(self)
         if ([model isKindOfClass:UIViewModel.class]) {
             self.viewModel = model;
-            self.label.text = [NSString stringWithFormat:@"%ld",(long)self.viewModel.row];
+            self.label.byText([NSString stringWithFormat:@"%ld",(long)self.viewModel.row]);
+
             self.videoModel_Core = (VideoModel_Core *)self.viewModel.data;
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— Get方法
@@ -79,14 +81,15 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byTextAlignment(NSTextAlignmentCenter);
-            label.byFont(UIFontWeightRegularSize(100));
-            label.byBgColor(self.contentView.backgroundColor);
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
+            label
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byFont(UIFontWeightRegularSize(100))
+                .byBgColor(self.contentView.backgroundColor);
+            label.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);
-            }];
+            });
         });
-    }return _label;
+    };return _label;
 }
 
 -(ZFAVPlayerManager *)playerManager{
@@ -98,7 +101,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
             JobsLog(@"videoIdcUrl = %@",self.videoModel_Core.videoIdcUrl);
             data.assetURL = self.videoModel_Core.videoIdcUrl.jobsUrl;
         });
-    }return _playerManager;
+    };return _playerManager;
 }
 
 -(CustomZFPlayerControlView *)customPlayerControlView{
@@ -116,7 +119,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
                 }
             }];
         });
-    }return _customPlayerControlView;
+    };return _customPlayerControlView;
 }
 
 -(ZFPlayerController *)player{
@@ -131,24 +134,25 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
             @jobs_strongify(self)
             [self.playerManager replay];//设置循环播放
         }];
-    }return _player;
+    };return _player;
 }
 
 -(NSMutableArray <NSURL *>*)assetURLs{
     if (!_assetURLs) {
         _assetURLs = jobsMakeMutArr(^(__kindof NSMutableArray <NSURL *>*_Nullable data) {
-            data.add(@"https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/feature/iphone-x-feature-tpl-cc-us-20170912_1280x720h.mp4".jobsUrl)
-            .add(@"https://www.apple.com/105/media/cn/mac/family/2018/46c4b917_abfd_45a3_9b51_4e3054191797/films/bruce/mac-bruce-tpl-cn-2018_1280x720h.mp4".jobsUrl)
-            .add(@"https://www.apple.com/105/media/us/mac/family/2018/46c4b917_abfd_45a3_9b51_4e3054191797/films/peter/mac-peter-tpl-cc-us-2018_1280x720h.mp4".jobsUrl)
-            .add(@"https://www.apple.com/105/media/us/mac/family/2018/46c4b917_abfd_45a3_9b51_4e3054191797/films/grimes/mac-grimes-tpl-cc-us-2018_1280x720h.mp4".jobsUrl)
-            .add(@"https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7194236f31b2e1e3da0fe06cfed4ba2b.mp4".jobsUrl)
-            .add(@"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4".jobsUrl)
-            .add(@"http://vjs.zencdn.net/v/oceans.mp4".jobsUrl)
-            .add(@"https://media.w3.org/2010/05/sintel/trailer.mp4".jobsUrl)
-            .add(@"http://mirror.aarnet.edu.au/pub/TED-talks/911Mothers_2010W-480p.mp4".jobsUrl)
-            .add(@"https://sample-videos.com/video123/mp4/480/big_buck_bunny_480p_2mb.mp4".jobsUrl);
+            data
+                .add(@"https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/feature/iphone-x-feature-tpl-cc-us-20170912_1280x720h.mp4".jobsUrl)
+                .add(@"https://www.apple.com/105/media/cn/mac/family/2018/46c4b917_abfd_45a3_9b51_4e3054191797/films/bruce/mac-bruce-tpl-cn-2018_1280x720h.mp4".jobsUrl)
+                .add(@"https://www.apple.com/105/media/us/mac/family/2018/46c4b917_abfd_45a3_9b51_4e3054191797/films/peter/mac-peter-tpl-cc-us-2018_1280x720h.mp4".jobsUrl)
+                .add(@"https://www.apple.com/105/media/us/mac/family/2018/46c4b917_abfd_45a3_9b51_4e3054191797/films/grimes/mac-grimes-tpl-cc-us-2018_1280x720h.mp4".jobsUrl)
+                .add(@"https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7194236f31b2e1e3da0fe06cfed4ba2b.mp4".jobsUrl)
+                .add(@"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4".jobsUrl)
+                .add(@"http://vjs.zencdn.net/v/oceans.mp4".jobsUrl)
+                .add(@"https://media.w3.org/2010/05/sintel/trailer.mp4".jobsUrl)
+                .add(@"http://mirror.aarnet.edu.au/pub/TED-talks/911Mothers_2010W-480p.mp4".jobsUrl)
+                .add(@"https://sample-videos.com/video123/mp4/480/big_buck_bunny_480p_2mb.mp4".jobsUrl);
         });
-    }return _assetURLs;
+    };return _assetURLs;
 }
 
 @end

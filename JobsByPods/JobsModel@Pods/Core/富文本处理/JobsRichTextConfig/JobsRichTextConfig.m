@@ -23,13 +23,13 @@
             /// 调整全部文字的缩进像素
             data.headIndent = JobsWidth(10);
         });
-    }return _paragraphStyle;
+    };return _paragraphStyle;
 }
 
 -(NSString *)urlStr{
     if (!_urlStr) {
 //        _urlStr = @"www.google.com";
-    }return _urlStr;
+    };return _urlStr;
 }
 
 @end

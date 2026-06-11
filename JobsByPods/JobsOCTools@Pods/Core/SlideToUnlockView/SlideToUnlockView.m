@@ -22,15 +22,16 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
 @end
 
 @implementation SlideToUnlockView
-#pragma mark - Init
+#pragma mark —— Init
 -(instancetype)init{
     if(self = [super init]){
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 -(void)commonInit{
-    self.backgroundColor = UIColor.clearColor;
+    self.byBgColor(UIColor.clearColor);
+
     self.thumbInset = 4.f;
     self.thumbSize  = CGSizeMake(52.f, 52.f);
     self.progress   = 0.f;
@@ -72,7 +73,8 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
         CGFloat maxOffset = self.bounds.size.width - self.thumbInset - self.thumbSize.width;
         CGFloat offset = self.thumbInset + maxOffset * self.progress;
         [self.thumbLeadingConstraint setOffset:offset];
-        self.titleLabel.alpha = 1.f - self.progress * 0.8f;
+        self.titleLabel.byAlpha(1.f - self.progress * 0.8f);
+
         if (animated) {
             [UIView animateWithDuration:0.2 animations:^{
                 @jobs_strongify(self)
@@ -90,108 +92,114 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
         self.byUpdateLayoutForProgress(animated);
     };
 }
-#pragma mark - Lazyload
+#pragma mark —— Lazyload
 -(UIView *)trackView{
     if (!_trackView) {
         @jobs_weakify(self)
         _trackView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
             view.byBgColor(UIColor.systemGray5Color);
-            view.byCornerRadius(28.f);
+            view.layer.cornerRadius = 28.f;
             view.layer.masksToBounds = YES;
-            [self addSubview:view];
-            [view mas_makeConstraints:^(MASConstraintMaker *make) {
+            view.byAddTo(self, ^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
-            }];
+            });
+
         });
-    }return _trackView;
+    };return _trackView;
 }
 
 -(UILabel *)titleLabel{
-    if(!_titleLabel){
+    if (!_titleLabel) {
         @jobs_weakify(self)
         _titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"滑动以解锁".tr);
-            label.byTextCor(UIColor.darkGrayColor);
-            label.byFont([UIFont systemFontOfSize:16 weight:UIFontWeightMedium]);
-            label.byTextAlignment(NSTextAlignmentCenter);
-            [self addSubview:label];
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 16, 0, 16));
-            }];
+            label
+                .byText(@"滑动以解锁".tr)
+                .byTextCor(UIColor.darkGrayColor)
+                .byFont([UIFont systemFontOfSize:16 weight:UIFontWeightMedium])
+                .byTextAlignment(NSTextAlignmentCenter)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 16, 0, 16));
+                });
         });
-    }return _titleLabel;
+    };return _titleLabel;
 }
 
 -(UIView *)thumbView{
-    if(!_thumbView){
+    if (!_thumbView) {
         @jobs_weakify(self)
         _thumbView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            view.byBgColor(UIColor.whiteColor);
-            view.byCornerRadius(self.thumbSize.height / 2.f);
-            view.layer.masksToBounds = YES; // 和你 Swift 一样
-            view.layer.shadowColor = UIColor.blackColor.CGColor;
-            view.layer.shadowOpacity = 0.15f;
-            view.layer.shadowRadius = 4.f;
-            view.layer.shadowOffset = CGSizeMake(0, 2);
-            view.byUserInteractionEnabled(YES);
-            view.addGesture([jobsMakePanGesture(^(__kindof UIPanGestureRecognizer * _Nullable gesture) {
-                /// 这里写手势的配置
-            }) GestureActionBy:^(__kindof UIGestureRecognizer * _Nullable pan) {
-                /// 这里写手势的触发
-                @jobs_strongify(self)
-                UIView *container = pan.view.superview;
-                if (!container) return;
-                CGPoint translation = [pan translationInView:container];
-                CGFloat dragWidth = MAX(container.bounds.size.width
-                                        - self.thumbInset * 2.f
-                                        - self.thumbSize.width,
-                                        1.f);
+            view
+                .byBgColor(UIColor.whiteColor)
+                .byUserInteractionEnabled(YES)
+                .byLayer(^(CALayer *layer) {
+                    layer
+                        .byCornerRadius(self.thumbSize.height / 2.f)
+                        .byMasksToBounds(YES)/// 和你 Swift 一样
+                        .byShadowColor(UIColor.blackColor.CGColor)
+                        .byShadowOpacity(0.15f)
+                        .byShadowRadius(4.f)
+                        .byShadowOffset(CGSizeMake(0, 2));
+                })
+                .addGesture([jobsMakePanGesture(^(__kindof UIPanGestureRecognizer * _Nullable gesture) {
+                    /// 这里写手势的配置
+                }) GestureActionBy:^(__kindof UIGestureRecognizer * _Nullable pan) {
+                    /// 这里写手势的触发
+                    @jobs_strongify(self)
+                    UIView *container = pan.view.superview;
+                    if (!container) return;
 
-                switch (pan.state) {
-                    case UIGestureRecognizerStateBegan: {
-                        self.panStartProgress = self.progress;
-                    } break;
+                    CGPoint translation = [pan translationInView:container];
+                    CGFloat dragWidth = MAX(container.bounds.size.width
+                                            - self.thumbInset * 2.f
+                                            - self.thumbSize.width,
+                                            1.f);
 
-                    case UIGestureRecognizerStateChanged: {
-                        CGFloat delta = translation.x / dragWidth;
-                        self.progress = self.panStartProgress + delta;
-                        [self layoutIfNeeded];
-                    } break;
+                    switch (pan.state) {
+                        case UIGestureRecognizerStateBegan: {
+                            self.panStartProgress = self.progress;
+                        } break;
 
-                    case UIGestureRecognizerStateEnded:
-                    case UIGestureRecognizerStateCancelled:
-                    case UIGestureRecognizerStateFailed: {
-                        if (self.progress > 0.85f) {
-                            self.progress = 1.f;
-                            self.byUpdateLayoutForProgress(YES);
-                            if (self.onUnlock) self.onUnlock();
-                            // 如果希望可重复使用，稍后自动复位
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)),
-                                           dispatch_get_main_queue(), ^{
-                                @jobs_strongify(self)
-                                if(self) self.byResetAnimated(YES);
-                            });
-                        } else {
-                            self.byResetAnimated(YES);
-                        }
-                    } break;
+                        case UIGestureRecognizerStateChanged: {
+                            CGFloat delta = translation.x / dragWidth;
+                            self.progress = self.panStartProgress + delta;
+                            self.byLayoutIfNeeded();
+                        } break;
 
-                    default:
-                        break;
-                }
-            }]);
-            [self addSubview:view];
-            [view mas_makeConstraints:^(MASConstraintMaker *make) {
-                @jobs_strongify(self)
-                make.centerY.equalTo(self);
-                make.size.mas_equalTo(self.thumbSize);
-                self.thumbLeadingConstraint = make.leading.equalTo(self).offset(self.thumbInset);
-            }];
+                        case UIGestureRecognizerStateEnded:
+                        case UIGestureRecognizerStateCancelled:
+                        case UIGestureRecognizerStateFailed: {
+                            if (self.progress > 0.85f) {
+                                self.progress = 1.f;
+                                self.byUpdateLayoutForProgress(YES);
+                                if (self.onUnlock) self.onUnlock();
+                                /// 如果希望可重复使用，稍后自动复位
+                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)),
+                                               dispatch_get_main_queue(), ^{
+                                    @jobs_strongify(self)
+                                    if (self) self.byResetAnimated(YES);
+                                });
+                            } else {
+                                self.byResetAnimated(YES);
+                            }
+                        } break;
+
+                        default:
+                            break;
+                    }
+                }])
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    @jobs_strongify(self)
+                    make.centerY.equalTo(self);
+                    make.size.mas_equalTo(self.thumbSize);
+                    self.thumbLeadingConstraint = make.leading.equalTo(self).offset(self.thumbInset);
+                });
         });
-    }return _thumbView;
+    };return _thumbView;
 }
 
 -(UIImageView *)arrow{
@@ -201,12 +209,12 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
             @jobs_strongify(self)
             imageView.tintColor = UIColor.systemBlueColor;
             imageView.image = [UIImage systemImageNamed:@"chevron.right" withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:18 weight:UIImageSymbolWeightBold]];
-            [self.thumbView addSubview:imageView];
-            [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            imageView.byAddTo(self.thumbView, ^(MASConstraintMaker *make) {
                 make.center.equalTo(self.thumbView);
-            }];
+            });
+
         });
-    }return _arrow;
+    };return _arrow;
 }
 
 @end

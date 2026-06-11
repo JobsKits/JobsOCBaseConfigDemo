@@ -23,13 +23,13 @@ Prop_strong()NSMutableArray <__kindof NSString *>*datas;
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -40,7 +40,7 @@ Prop_strong()NSMutableArray <__kindof NSString *>*datas;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -146,7 +146,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             @jobs_strongify(self)
             make.edges.equalTo(self);
         }).on().dataLink(self);/// dataLink(self)不能写在Block里面，会出问题
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray <__kindof UITableViewCell *>*)tbvCellMutArr{
@@ -159,7 +159,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 data.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
             }
         });
-    }return _tbvCellMutArr;
+    };return _tbvCellMutArr;
 }
 
 -(NSMutableArray<__kindof NSString *> *)datas{
@@ -169,7 +169,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             .add(@"选项2".tr)
             .add(@"选项3".tr);
         });
-    }return _datas;
+    };return _datas;
 }
 @synthesize dataMutArr = _dataMutArr;
 -(void)setDataMutArr:(NSMutableArray <__kindof UIViewModel *>*)dataMutArr{
@@ -186,31 +186,31 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 data.add(self.configPopUpDataBy(t));
             }
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 static CGFloat _CellHeight = 0;
 +(CGFloat)CellHeight {
     if (!_CellHeight) {
         _CellHeight = JobsWidth(37);
-    }return _CellHeight;
+    };return _CellHeight;
 }
 static CGFloat _CellWidth = 0;
 +(CGFloat)CellWidth {
     if (!_CellWidth) {
         _CellWidth = JobsWidth(300);
-    }return _CellWidth;
+    };return _CellWidth;
 }
 @synthesize cellHeight = _cellHeight;
 -(CGFloat)cellHeight{
     if(!_cellHeight){
         _cellHeight = PopListBaseView.CellHeight;
-    }return _cellHeight;
+    };return _cellHeight;
 }
 @synthesize cellWidth = _cellWidth;
 -(CGFloat)cellWidth{
     if(!_cellWidth){
         _cellWidth = PopListBaseView.CellWidth;
-    }return _cellWidth;
+    };return _cellWidth;
 }
 
 @end

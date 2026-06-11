@@ -59,10 +59,12 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsYellowColor;
+    self.view.byBgColor(JobsYellowColor);
+
     self.makeNavByAlpha(1);
     
-    self.scrollView.alpha = 1;
+    self.scrollView.byAlpha(1);
+
     
     self.lab1.makeLabelByShowingType(UILabelShowingType_01);
     self.lab2.makeLabelByShowingType(UILabelShowingType_02);
@@ -100,13 +102,14 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
         @jobs_weakify(self)
         _scrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView.byContentSize(CGSizeMake(JobsMainScreen_WIDTH(), 2 * JobsMainScreen_HEIGHT()));
-            [self.view.addSubview(scrollView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            scrollView
+                .byContentSize(CGSizeMake(JobsMainScreen_WIDTH(), 2 * JobsMainScreen_HEIGHT()))
+                .byAddTo(self.view, ^(MASConstraintMaker *make) {
                 make.top.equalTo(self.gk_navigationBar.mas_bottom);
                 make.left.right.bottom.equalTo(self.view);
-            }];
+            });
         });
-    }return _scrollView;
+    };return _scrollView;
 }
 #pragma mark —— 富文本
 @synthesize attributedTitle = _attributedTitle;
@@ -138,7 +141,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
                      .byParagraphStyle(self.defaultParagraphStyle);
             }));
         }));
-    }return _attributedTitle;
+    };return _attributedTitle;
 }
 #pragma mark —— BaseLabel
 /// 一行显示普通文本。定宽、定高、定字体。多余部分用…表示（省略号的位置由NSLineBreakMode控制）
@@ -147,15 +150,16 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
         @jobs_weakify(self)
         _lab1 = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = JobsRedColor;
-            label.text = @"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr;
-            [self.scrollView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(100, 20));
-                make.top.equalTo(self.scrollView).offset(20);
-                make.centerX.equalTo(self.scrollView);
-            }];
+            label
+                .byText(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr)
+                .byBgColor(JobsRedColor)
+                .byAddTo(self.scrollView, ^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(100, 20));
+                    make.top.equalTo(self.scrollView).offset(20);
+                    make.centerX.equalTo(self.scrollView);
+                });
         });
-    }return _lab1;
+    };return _lab1;
 }
 /// 一行显示普通文本。定宽、定高、定字体。多余部分scrollerView ❤️集成@implementation UILabel (AutoScroll)❤️
 -(BaseLabel *)lab2{
@@ -163,15 +167,16 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
         @jobs_weakify(self)
         _lab2 = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = JobsRedColor;
-            label.text = @"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr;
-            [self.scrollView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(100, 20));
-                make.top.equalTo(self.lab1.mas_bottom).offset(20);
-                make.centerX.equalTo(self.scrollView);
-            }];
+            label
+                .byText(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr)
+                .byBgColor(JobsRedColor)
+                .byAddTo(self.scrollView, ^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(100, 20));
+                    make.top.equalTo(self.lab1.mas_bottom).offset(20);
+                    make.centerX.equalTo(self.scrollView);
+                });
         });
-    }return _lab2;
+    };return _lab2;
 }
 /// 一行显示普通文本。不定宽、定高、定字体。宽度自适应
 -(BaseLabel *)lab3{
@@ -179,15 +184,16 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
         @jobs_weakify(self)
         _lab3 = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = JobsRedColor;
-            label.text = @"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr;
-            [self.scrollView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.height.mas_equalTo(20);
-                make.top.equalTo(self.lab2.mas_bottom).offset(20);
-                make.centerX.equalTo(self.scrollView);
-            }];
+            label
+                .byText(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr)
+                .byBgColor(JobsRedColor)
+                .byAddTo(self.scrollView, ^(MASConstraintMaker *make) {
+                    make.height.mas_equalTo(20);
+                    make.top.equalTo(self.lab2.mas_bottom).offset(20);
+                    make.centerX.equalTo(self.scrollView);
+                });
         });
-    }return _lab3;
+    };return _lab3;
 }
 /// 一行显示普通文本。定宽、定高。缩小字体方式全展示
 -(BaseLabel *)lab4{
@@ -195,15 +201,16 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
         @jobs_weakify(self)
         _lab4 = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = JobsRedColor;
-            label.text = @"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr;
-            [self.scrollView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(100, 20));
-                make.top.equalTo(self.lab3.mas_bottom).offset(20);
-                make.centerX.equalTo(self.scrollView);
-            }];
+            label
+                .byText(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr)
+                .byBgColor(JobsRedColor)
+                .byAddTo(self.scrollView, ^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(100, 20));
+                    make.top.equalTo(self.lab3.mas_bottom).offset(20);
+                    make.centerX.equalTo(self.scrollView);
+                });
         });
-    }return _lab4;
+    };return _lab4;
 }
 /// 多行显示普通文本。定宽、不定高、定字体
 -(BaseLabel *)lab5{
@@ -211,15 +218,16 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
         @jobs_weakify(self)
         _lab5 = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = JobsRedColor;
-            label.text = @"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr;
-            [self.scrollView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.width.mas_equalTo(100);
-                make.top.equalTo(self.lab4.mas_bottom).offset(20);
-                make.centerX.equalTo(self.scrollView);
-            }];
+            label
+                .byText(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr)
+                .byBgColor(JobsRedColor)
+                .byAddTo(self.scrollView, ^(MASConstraintMaker *make) {
+                    make.width.mas_equalTo(100);
+                    make.top.equalTo(self.lab4.mas_bottom).offset(20);
+                    make.centerX.equalTo(self.scrollView);
+                });
         });
-    }return _lab5;
+    };return _lab5;
 }
 /// 多行显示普通文本，手动\n提行。定宽（宽要足够长，否则就面临自动提行）、定字体
 -(BaseLabel *)lab6{
@@ -227,20 +235,21 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
         @jobs_weakify(self)
         _lab6 = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = JobsRedColor;
-            label.text = @"编译器自动管理内存地址".tr
-                .add(JobsComma.add(JobsNewline))
-                .add(@"让程序员更加专注于".tr)
-                .add(JobsNewline)
-                .add(@"APP的业务".tr)
-                .add(JobsDot);
-            [self.scrollView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.width.mas_equalTo(JobsMainScreen_WIDTH());
-                make.top.equalTo(self.lab5.mas_bottom).offset(20);
-                make.centerX.equalTo(self.scrollView);
-            }];
+            label
+                .byText(@"编译器自动管理内存地址".tr
+                         .add(JobsComma.add(JobsNewline))
+                         .add(@"让程序员更加专注于".tr)
+                         .add(JobsNewline)
+                         .add(@"APP的业务".tr)
+                         .add(JobsDot))
+                .byBgColor(JobsRedColor)
+                .byAddTo(self.scrollView, ^(MASConstraintMaker *make) {
+                    make.width.mas_equalTo(JobsMainScreen_WIDTH());
+                    make.top.equalTo(self.lab5.mas_bottom).offset(20);
+                    make.centerX.equalTo(self.scrollView);
+                });
         });
-    }return _lab6;
+    };return _lab6;
 }
 /// 多行显示富文本，手动\n提行。定宽（宽要足够长，否则就面临自动提行）、定字体
 -(BaseLabel *)lab7{
@@ -248,98 +257,99 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
         @jobs_weakify(self)
         _lab7 = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = JobsRedColor;
-            label.attributedText = self.attributedTitle;
-            [self.scrollView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.width.mas_equalTo(JobsMainScreen_WIDTH());
-                make.top.equalTo(self.lab6.mas_bottom).offset(20);
-                make.centerX.equalTo(self.scrollView);
-            }];
+            label
+                .byAttributedString(self.attributedTitle)
+                .byBgColor(JobsRedColor)
+                .byAddTo(self.scrollView, ^(MASConstraintMaker *make) {
+                    make.width.mas_equalTo(JobsMainScreen_WIDTH());
+                    make.top.equalTo(self.lab6.mas_bottom).offset(20);
+                    make.centerX.equalTo(self.scrollView);
+                });
         });
-    }return _lab7;
+    };return _lab7;
 }
 #pragma mark —— BaseButton
 /// 一行显示普通文本。定宽、定高、定字体。多余部分用…表示（省略号的位置由NSLineBreakMode控制）
 -(BaseButton *)btn1{
     if (!_btn1) {
         _btn1 = BaseButton.jobsInit();
-        _btn1.backgroundColor = JobsBrownColor;
         _btn1.jobsResetBtnTitle(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr);
-        [self.scrollView.addSubview(_btn1) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _btn1.byBgColor(JobsBrownColor);
+        _btn1.byAddTo(self.scrollView, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(100, 20));
             make.top.equalTo(self.lab7.mas_bottom).offset(20);
             make.centerX.equalTo(self.scrollView);
-        }];
-    }return _btn1;
+        });
+    };return _btn1;
 }
 /// 一行显示普通文本。定宽、定高、定字体。多余部分scrollerView ❤️集成@implementation UILabel (AutoScroll)❤️
 -(BaseButton *)btn2{
     if (!_btn2) {
         _btn2 = BaseButton.jobsInit();
-        _btn2.backgroundColor = JobsBrownColor;
         _btn2.jobsResetBtnTitle(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr);
-        [self.scrollView.addSubview(_btn2) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _btn2.byBgColor(JobsBrownColor);
+        _btn2.byAddTo(self.scrollView, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(100, 20));
             make.top.equalTo(self.btn1.mas_bottom).offset(20);
             make.centerX.equalTo(self.scrollView);
-        }];
-    }return _btn2;
+        });
+    };return _btn2;
 }
 /// 一行显示普通文本。不定宽、定高、定字体。宽度自适应
 -(BaseButton *)btn3{
     if (!_btn3) {
         _btn3 = BaseButton.jobsInit();
-        _btn3.backgroundColor = JobsBrownColor;
         _btn3.jobsResetBtnTitle(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr);
-        [self.scrollView.addSubview(_btn3) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _btn3.byBgColor(JobsBrownColor);
+        _btn3.byAddTo(self.scrollView, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(100, 20));
             make.top.equalTo(self.btn2.mas_bottom).offset(20);
             make.centerX.equalTo(self.scrollView);
-        }];
-    }return _btn3;
+        });
+    };return _btn3;
 }
 /// 一行显示普通文本。定宽、定高。缩小字体方式全展示
 -(BaseButton *)btn4{
     if (!_btn4) {
         _btn4 = BaseButton.jobsInit();
-        _btn4.backgroundColor = JobsBrownColor;
         _btn4.jobsResetBtnTitle(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr);
-        [self.scrollView.addSubview(_btn4) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _btn4.byBgColor(JobsBrownColor);
+        _btn4.byAddTo(self.scrollView, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(100, 20));
             make.top.equalTo(self.btn3.mas_bottom).offset(20);
             make.centerX.equalTo(self.scrollView);
-        }];
-    }return _btn4;
+        });
+    };return _btn4;
 }
 /// 多行显示普通文本。定宽、不定高、定字体
 -(BaseButton *)btn5{
     if (!_btn5) {
         _btn5 = BaseButton.jobsInit();
-        _btn5.backgroundColor = JobsBrownColor;
         _btn5.jobsResetBtnTitle(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr);
-        _btn5.titleLabel.numberOfLines = 0;
-        _btn5.labelAutoWidthByFont();
-        [self.scrollView.addSubview(_btn5) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _btn5.titleLabel.byNumberOfLines(0);
+        _btn5.bySizeToFit();
+        _btn5.byBgColor(JobsBrownColor);
+        _btn5.byAddTo(self.scrollView, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(100, 20));
             make.top.equalTo(self.btn4.mas_bottom).offset(20);
             make.centerX.equalTo(self.scrollView);
-        }];
-    }return _btn5;
+        });
+    };return _btn5;
 }
 /// 多行显示普通文本，手动\n提行。定宽（宽要足够长，否则就面临自动提行）、定字体
 -(BaseButton *)btn6{
     if (!_btn6) {
         _btn6 = BaseButton.jobsInit();
-        _btn6.backgroundColor = JobsBrownColor;
         _btn6.jobsResetBtnTitle(@"编译器自动管理内存地址，\n让程序员更加专注于\nAPP的业务。".tr);
-        _btn6.titleLabel.numberOfLines = 0;
-        _btn6.labelAutoWidthByFont();
-        [self.scrollView.addSubview(_btn6) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _btn6.titleLabel.byNumberOfLines(0);
+        _btn6.bySizeToFit();
+        _btn6.byBgColor(JobsBrownColor);
+        _btn6.byAddTo(self.scrollView, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH(), 20));
             make.top.equalTo(self.btn5.mas_bottom).offset(20);
             make.centerX.equalTo(self.scrollView);
-        }];
-    }return _btn6;
+        });
+    };return _btn6;
 }
 /// 多行显示普通文本，手动\n提行。定宽（宽要足够长，否则就面临自动提行）、定字体
 -(BaseButton *)btn7{
@@ -353,13 +363,13 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
          3、富文本以后的btn的frame要做出调整，btn是从中心向四周发散开的，这也就是下文的k位置为什么是40而不是20的原因
          4、定宽 > 富文本文字的真正所需宽度 => 富文本文字的真正所需宽度
          */
-        _btn7.labelAutoWidthByFont();
-        [self.scrollView.addSubview(_btn7) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _btn7.bySizeToFit();
+        _btn7.byAddTo(self.scrollView, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH(), 20));
             make.top.equalTo(self.btn6.mas_bottom).offset(40);//K
             make.centerX.equalTo(self.scrollView);
-        }];
-    }return _btn7;
+        });
+    };return _btn7;
 }
 
 @end

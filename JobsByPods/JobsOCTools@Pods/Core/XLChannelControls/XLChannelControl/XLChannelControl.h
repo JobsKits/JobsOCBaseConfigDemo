@@ -12,6 +12,12 @@
 
 typedef void(^XLChannelBlock)(NSArray *enabledTitles,NSArray *disabledTitles);
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 @interface XLChannelControl : NSObject
 
 + (XLChannelControl *)shareControl;

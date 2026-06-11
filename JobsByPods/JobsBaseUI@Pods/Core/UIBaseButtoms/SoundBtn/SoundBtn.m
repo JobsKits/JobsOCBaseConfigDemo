@@ -18,7 +18,7 @@
 -(instancetype)init{
     if (self = [super init]) {
         self.uxy_acceptEventInterval = 0.5f;
-    }return self;
+    };return self;
 }
 
 - (void)touchesBegan:(NSSet *)touches

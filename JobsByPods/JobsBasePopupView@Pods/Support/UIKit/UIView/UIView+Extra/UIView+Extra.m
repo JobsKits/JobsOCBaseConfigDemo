@@ -18,7 +18,7 @@
         if(subView.masonryBlock){
             [subView mas_makeConstraints:subView.masonryBlock];
             self.refresh();
-        }return subView;
+        };return subView;
     };
 }
 /// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
@@ -64,11 +64,12 @@
                                                    byRoundingCorners:corners
                                                          cornerRadii:cornerRadii];
     @jobs_weakify(self)
-    self.layer.mask = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable data) {
+    self.layer.byMask(jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable data) {
         @jobs_strongify(self)
-        data.frame = self.bounds;
-        data.path = maskPath.CGPath;
-    });
+        data
+            .byPath(maskPath.CGPath)
+            .byFrame(self.bounds);
+    }));
 }
 
 -(JobsRetViewByGestureRecognizer _Nonnull)addGesture{

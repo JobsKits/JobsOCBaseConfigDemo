@@ -51,7 +51,7 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.tabCtrl.view.frame = self.view.bounds;
+    self.tabCtrl.view.byFrame(self.view.bounds);
 }
 
 -(JobsTabBarCtrl *)tabCtrl{
@@ -214,10 +214,11 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
 
             [self addChildViewController:ctrl];
             [self.view addSubview:ctrl.view];
-            ctrl.view.frame = self.view.bounds;
+            ctrl.view.byFrame(self.view.bounds);
+
             [ctrl didMoveToParentViewController:self];
         });
-    }return _tabCtrl;
+    };return _tabCtrl;
 }
 
 @end

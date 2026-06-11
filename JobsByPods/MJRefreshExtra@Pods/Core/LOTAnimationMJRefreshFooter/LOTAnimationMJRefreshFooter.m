@@ -20,14 +20,16 @@ Prop_strong()LOTAnimationView *animationView;
 
 - (void)prepare{
     [super prepare];
-    self.animationView.alpha = 1;
-    self.gifView.alpha = 0;//屏蔽掉父类的gifView控件，否则将会有Gif图和Lottie动画一起出现
+    self.animationView.byAlpha(1);
+
+    self.gifView.byAlpha(0);//屏蔽掉父类的gifView控件，否则将会有Gif图和Lottie动画一起出现
     @jobs_weakify(self)
     self.endRefreshingCompletionBlock = ^{
         @jobs_strongify(self)
         [self updateStateLabelText];
     };
-    self.stateLabel.font = UIFontWeightRegularSize(14);
+    self.stateLabel.byFont(UIFontWeightRegularSize(14));
+
     [self updateStateLabelText];
 }
 // 执行重新给子视图布局的时候
@@ -99,19 +101,19 @@ Prop_strong()LOTAnimationView *animationView;
         _animationView.loopAnimation = YES;
         _animationView.sizer = self.lOTAnimationViewSize;
         [self addSubview:_animationView];
-    }return _animationView;
+    };return _animationView;
 }
 
 -(CGSize)lOTAnimationViewSize{
     if (jobsZeroSizeValue(_lOTAnimationViewSize)) {
         _lOTAnimationViewSize = CGSizeMake(30, 30);
-    }return _lOTAnimationViewSize;
+    };return _lOTAnimationViewSize;
 }
 
 -(MJRefreshConfigModel *)refreshConfigModel{
     if (!_refreshConfigModel) {
         _refreshConfigModel = MJRefreshConfigModel.new;
-    }return _refreshConfigModel;
+    };return _refreshConfigModel;
 }
 
 @end

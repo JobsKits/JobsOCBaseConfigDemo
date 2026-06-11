@@ -14,67 +14,6 @@
         return [UIView.alloc initWithFrame:data];
     };
 }
-
--(JobsRetViewByViewBlock _Nonnull)addSubview{
-    @jobs_weakify(self)
-    return ^__kindof UIView *_Nullable(__kindof UIView *_Nullable subView) {
-        @jobs_strongify(self)
-        if(!subView) return nil;
-        [self addSubview:subView];
-        if(subView.masonryBlock){
-            [subView mas_makeConstraints:subView.masonryBlock];
-            self.refresh();
-        }return subView;
-    };
-}
-
--(JobsReturnViewByMasonryConstraintsBlocks _Nonnull)byAdd{
-    @jobs_weakify(self)
-    return ^__kindof UIView *_Nullable(jobsByMASConstraintMakerBlock _Nullable block){
-        @jobs_strongify(self)
-        self.setMasonryBy(block).on();
-        return self;
-    };
-}
-/// 含义：添加新的约束
-/// 适用场景：第一次为视图添加约束
-/// 行为：不会影响已有约束；不会自动删除或更新已存在的约束
--(JobsRetViewByVoidBlock _Nonnull)on{
-    @jobs_weakify(self)
-    return ^__kindof UIView *_Nullable(){
-        @jobs_strongify(self)
-        [self mas_makeConstraints:self.masonryBlock];
-        self.refresh();
-        return self;
-    };
-}
-
--(JobsRetViewByViewBlock _Nonnull)addOn{
-    @jobs_weakify(self)
-    return ^__kindof UIView *_Nullable(__kindof UIView *_Nullable subView) {
-        @jobs_strongify(self)
-        [subView addSubview:self];
-        return self;
-    };
-}
-
--(jobsByVoidBlock _Nonnull)refresh{
-    @jobs_weakify(self)
-    return ^(){
-        @jobs_strongify(self)
-        [self setNeedsLayout];
-        [self layoutIfNeeded];
-    };
-}
-
--(JobsReturnViewByMasonryConstraintsBlocks _Nonnull)setMasonryBy{
-    @jobs_weakify(self)
-    return ^__kindof UIView *_Nullable(jobsByMASConstraintMakerBlock _Nullable block){
-        @jobs_strongify(self)
-        self.masonryBlock = block;
-        return self;
-    };
-}
 /// 描边：统一设置Layer的线宽+颜色+圆切角（不一定切角）
 -(JobsReturnViewByLocationModelBlock _Nonnull)layerBy{
     @jobs_weakify(self)
@@ -132,7 +71,7 @@
     @jobs_weakify(self)
     self.layer.mask = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable data) {
         @jobs_strongify(self)
-        data.frame = self.bounds;
+        data.byFrame(self.bounds);
         data.path = maskPath.CGPath;
     });
 }
@@ -262,7 +201,7 @@
 }
 #pragma mark —— UILabel
 /// 确定Label的字体大小，使其宽度自适应
--(jobsByVoidBlock _Nonnull)labelAutoWidthByFont{
+-(jobsByVoidBlock _Nonnull)bySizeToFit{
     @jobs_weakify(self)
     return ^() {
         @jobs_strongify(self)
@@ -311,8 +250,10 @@ JobsKey(_jobsVisible)
 }
 
 -(void)setJobsVisible:(CGFloat)jobsVisible{
-    self.hidden = !jobsVisible;
-    self.alpha = jobsVisible;
+    self.byHidden(!jobsVisible);
+
+    self.byAlpha(jobsVisible);
+
     Jobs_setAssociatedRETAIN_NONATOMIC(_jobsVisible, @(jobsVisible))
 }
 

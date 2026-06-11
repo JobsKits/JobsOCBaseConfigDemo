@@ -21,13 +21,13 @@ Prop_strong()UILabel *timeLab;
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -41,17 +41,21 @@ Prop_strong()UILabel *timeLab;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.imageView.alpha = 1;
-        self.label.alpha = 1;
-        self.subLabel.alpha = 1;
-        self.timeLab.alpha = 1;
+        self.imageView.byAlpha(1);
+
+        self.label.byAlpha(1);
+
+        self.subLabel.byAlpha(1);
+
+        self.timeLab.byAlpha(1);
+
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -71,7 +75,7 @@ Prop_strong()UILabel *timeLab;
             make.left.equalTo(self).offset(JobsWidth(41.44));
             make.size.mas_equalTo(CGSizeMake(JobsWidth(187), JobsWidth(174)));
         }).on();
-    }return _imageView;
+    };return _imageView;
 }
 @synthesize label = _label;
 -(__kindof UILabel *)label{
@@ -87,7 +91,7 @@ Prop_strong()UILabel *timeLab;
             make.left.equalTo(self);
             make.size.mas_equalTo(CGSizeMake(JobsWidth(270), JobsWidth(28)));
         }).on();
-    }return _label;
+    };return _label;
 }
 @synthesize subLabel = _subLabel;
 -(__kindof UILabel *)subLabel{
@@ -106,7 +110,7 @@ Prop_strong()UILabel *timeLab;
             make.width.mas_equalTo(JobsWidth(270));
         }).on();
         _subLabel.makeLabelByShowingType(UILabelShowingType_05);
-    }return _subLabel;
+    };return _subLabel;
 }
 
 -(UILabel *)timeLab{
@@ -122,14 +126,16 @@ Prop_strong()UILabel *timeLab;
                          .add(self.currentTimeStringByStyle1))
                 .byTextCor(@"#8A93A1".cor)
                 .byFont(pingFangHKSemibold(JobsWidth(11)));
-        })).setMasonryBy(^(MASConstraintMaker *_Nonnull make){
+        }))
+        .setMasonryBy(^(MASConstraintMaker *_Nonnull make){
             @jobs_strongify(self)
             make.top.equalTo(self.subLabel.mas_bottom).offset(JobsWidth(5));
             make.left.equalTo(self);
             make.width.mas_equalTo(JobsWidth(270));
-        }).on();
-        _timeLab.makeLabelByShowingType(UILabelShowingType_05);
-    }return _timeLab;
+        })
+        .on()
+        .makeLabelByShowingType(UILabelShowingType_05);
+    };return _timeLab;
 }
 
 @end

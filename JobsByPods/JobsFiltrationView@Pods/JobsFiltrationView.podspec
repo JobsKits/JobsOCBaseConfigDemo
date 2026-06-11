@@ -37,6 +37,7 @@ filtration and filter presentation support for Jobs projects.
 
     ss.dependency 'Masonry'
     ss.dependency 'JobsModelDSL'
+    ss.dependency 'JobsOCDSL'
     ss.dependency 'JobsMakes'
     ss.dependency 'JobsBlock'
     ss.dependency 'JobsOCDefs'
@@ -54,6 +55,7 @@ filtration and filter presentation support for Jobs projects.
     ss.dependency 'Masonry'
     ss.dependency 'XYColorOC'
     ss.dependency 'JobsModelDSL'
+    ss.dependency 'JobsOCDSL'
     ss.dependency 'JobsOCDefs'
     ss.dependency 'JobsHotLabel'
     ss.dependency 'JobsLanMgr'

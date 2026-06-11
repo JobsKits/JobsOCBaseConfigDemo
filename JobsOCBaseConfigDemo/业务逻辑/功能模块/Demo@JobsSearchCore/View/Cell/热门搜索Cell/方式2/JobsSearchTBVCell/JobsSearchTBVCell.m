@@ -42,10 +42,10 @@ BaseLayerProtocol_synthesize_part3
         if (model) {
             self.viewModels = (NSMutableArray *)model;
             self.collectionView.byShow(self);
-        }return self;
+        };return self;
     };
 }
-#pragma mark - UICollectionViewDataSource
+#pragma mark —— UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
@@ -135,13 +135,16 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
 @synthesize collectionView = _collectionView;
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
-        _collectionView = UICollectionView.initByLayout(self.verticalLayout);
-        _collectionView.dataLink(self);
-        _collectionView.registerCollectionViewClass();
-        [self.contentView.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
+        @jobs_weakify(self)
+        _collectionView = UICollectionView.initByLayout(self.verticalLayout)
+        .registerCollectionViewClass()
+        .dataLink(self)
+        .addOn(self.contentView)
+        .byOn(^(MASConstraintMaker *make) {
+            @jobs_strongify(self)
             make.edges.equalTo(self.contentView);
-        }];
-    }return _collectionView;
+        });
+    };return _collectionView;
 }
 
 @end

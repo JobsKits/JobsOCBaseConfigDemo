@@ -11,6 +11,12 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JXPagingView/JXPagerView.h>)
 #import <JXPagingView/JXPagerView.h>
 #else
@@ -72,19 +78,19 @@ NS_ASSUME_NONNULL_END
                  _listContainerView = [JXCategoryListContainerView.alloc initWithType:JXCategoryListContainerType_CollectionView
                                                                              delegate:self];
                  _listContainerView.defaultSelectedIndex = 1;// 默认从第二个开始显示
-                 [self.view addSubview:_listContainerView];
-                 [_listContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
+                 _listContainerView.byAddTo(self.view, ^(MASConstraintMaker *make) {
          //            make.edges.equalTo(self.view);
                      make.top.equalTo(self.topLineLab.mas_bottom).offset(listContainerViewDefaultOffset);
                      make.left.right.bottom.equalTo(self.view);
 
-                 }];
+                 });
+
                  [self.view layoutIfNeeded];
          //        /// ❤️在需要的地方写❤️
          //        NSNumber *currentIndex = [self.listContainerView valueForKey:@"currentIndex"];
          //        JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %d",currentIndex.intValue);
 
-             }return _listContainerView;
+             };return _listContainerView;
          }
  3、JXCategoryTitleView 舍弃部分属性：
     3.1、舍弃：_categoryView.contentScrollView = self.listContainerView.scrollView;/// 关联cotentScrollView，关联之后才可以互相联动！！！

@@ -43,10 +43,12 @@ Prop_strong()PHCycleView *progressView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsYellowColor;
+    self.view.byBgColor(JobsYellowColor);
+
     self.makeNavByAlpha(1);
     
-    self.progressView.alpha = 1;
+    self.progressView.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -66,7 +68,8 @@ Prop_strong()PHCycleView *progressView;
     if (!_progressView) {
         _progressView = [PHCycleView.alloc initWithFrame:CGRectMake(0, 0, 130, 130)];
         _progressView.center = self.view.center;
-        _progressView.backgroundColor = [UIColor clearColor];
+        _progressView.byBgColor([UIColor clearColor]);
+
         [_progressView setProgressColor:[UIColor blueColor]];
         _progressView.progressFont = [UIFont systemFontOfSize:30];
         [self.view addSubview:_progressView];
@@ -77,7 +80,7 @@ Prop_strong()PHCycleView *progressView;
         _progressView.progressTextColor = [UIColor blackColor];
         _progressView.describeTextColor = [UIColor blackColor];
         _progressView.outLayerColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:0.3];
-    }return _progressView;
+    };return _progressView;
 }
 
 @end

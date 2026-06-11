@@ -32,7 +32,8 @@ Prop_strong()UILabel *lab2;
                                     -width/2,
                                     width,
                                     width);
-    self.labView.backgroundColor = JobsYellowColor;
+    self.labView.byBgColor(JobsYellowColor);
+
     self.labView.clipsToBounds = YES;
     self.labView.layer.cornerRadius = cornerRadius;
     self.labView.transform = CGAffineTransformMakeRotation(-M_PI_4);
@@ -50,7 +51,7 @@ Prop_strong()UILabel *lab2;
     } else {
         self.lab2.font = [UIFont systemFontOfSize:10 weight:UIFontWeightRegular];
     }
-    self.lab2.backgroundColor = JobsClearColor;//lab2 不要颜色
+    self.lab2.byBgColor(JobsClearColor);//lab2 不要颜色
     self.lab2.transform = CGAffineTransformMakeRotation(-M_PI_4);
     [superView addSubview:self.lab2];
     return jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
@@ -65,7 +66,7 @@ Prop_strong()UILabel *lab2;
         _labView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             
         });
-    }return _labView;
+    };return _labView;
 }
 
 -(UILabel *)lab2{
@@ -73,7 +74,7 @@ Prop_strong()UILabel *lab2;
         _lab2 = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             
         });
-    }return _lab2;
+    };return _lab2;
 }
 
 @end

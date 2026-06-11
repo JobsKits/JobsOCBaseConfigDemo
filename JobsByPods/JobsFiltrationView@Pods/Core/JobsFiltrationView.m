@@ -35,20 +35,23 @@ static dispatch_once_t static_filtrationViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -66,7 +69,8 @@ static dispatch_once_t static_filtrationViewOnceToken;
         @jobs_strongify(self)
         self.viewModel = model;
         MakeDataNull
-        self.hotLabel.alpha = 1;
+        self.hotLabel.byAlpha(1);
+
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -123,10 +127,10 @@ static dispatch_once_t static_filtrationViewOnceToken;
             
         });
 
-        [self.addSubview(_hotLabel) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _hotLabel.byAddTo(self, ^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
-        }];
-    }return _hotLabel;
+        });
+    };return _hotLabel;
 }
 
 @end

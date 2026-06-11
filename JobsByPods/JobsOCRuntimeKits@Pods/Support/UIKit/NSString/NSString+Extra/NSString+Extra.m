@@ -15,7 +15,7 @@
         @jobs_strongify(self)
         if ([data isKindOfClass:NSString.class]) {
             return [self containsString:data];
-        }return NO;
+        };return NO;
     };
 }
 /// OC字符串拼接

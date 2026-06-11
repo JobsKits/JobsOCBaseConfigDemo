@@ -19,13 +19,13 @@ Prop_strong()CasinoUpgradeContentView *upgradeContentView;
 -(instancetype)init{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -36,8 +36,10 @@ Prop_strong()CasinoUpgradeContentView *upgradeContentView;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.backgroundColor = JobsWhiteColor;
-        self.imageView.alpha = 1;
+        self.byBgColor(JobsWhiteColor);
+
+        self.imageView.byAlpha(1);
+
         self.upgradeContentView.jobsRichViewByModel(model);
     };
 }
@@ -52,16 +54,18 @@ Prop_strong()CasinoUpgradeContentView *upgradeContentView;
 -(UIImageView *)imageView{
     if (!_imageView) {
         @jobs_weakify(self)
-        _imageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+        _imageView = jobsMakeImageView(^(__kindof UIImageView *_Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = @"弹窗升级背景图".img;
-            [self.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.right.equalTo(self);
-                make.top.equalTo(self).offset(-JobsWidth(117));
-                make.height.mas_equalTo(JobsWidth(207));
-            }];
+            imageView
+                .byImage(@"弹窗升级背景图".img)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self);
+                    make.top.equalTo(self).offset(-JobsWidth(117));
+                    make.height.mas_equalTo(JobsWidth(207));
+                });
         });
-    }return _imageView;
+    };return _imageView;
 }
 
 -(CasinoUpgradeContentView *)upgradeContentView{
@@ -72,12 +76,12 @@ Prop_strong()CasinoUpgradeContentView *upgradeContentView;
             @jobs_strongify(self)
             if (self.objBlock) self.objBlock(data);
         }];
-        [self.addSubview(_upgradeContentView) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _upgradeContentView.byAddTo(self, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CasinoUpgradeContentView.viewSizeByModel(nil));
             make.top.equalTo(self.imageView.mas_bottom);
             make.centerX.equalTo(self);
-        }];
-    }return _upgradeContentView;
+        });
+    };return _upgradeContentView;
 }
 
 @end

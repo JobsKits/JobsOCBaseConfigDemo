@@ -16,11 +16,11 @@
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
 }
-#pragma mark - Lifecycle
+#pragma mark —— Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -29,25 +29,28 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRedColor;
+    self.view.byBgColor(JobsRedColor);
+
     self.isHiddenNavigationBar = YES;//禁用系统的导航栏
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
+    self.tabBarController.tabBar.byHidden(YES);
+
     self.view.mj_y = self.popUpHeight;// 只能用present方式退出界面，否则无效
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
+    self.tabBarController.tabBar.byHidden(NO);
+
 }
 #pragma mark —— lazyLoad
 -(CGFloat)popUpHeight{
     if (_popUpHeight == 0) {
         _popUpHeight = 200;//默认弹出高度300
-    }return _popUpHeight;
+    };return _popUpHeight;
 }
 
 @end

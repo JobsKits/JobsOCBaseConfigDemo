@@ -184,7 +184,7 @@ JobsKey(_messageComposeVC)
             /// 设置代理
             vc.messageComposeDelegate = self;
         }))
-    }return MessageComposeVC;
+    };return MessageComposeVC;
 }
 
 -(void)setMessageComposeVC:(MFMessageComposeViewController *)messageComposeVC{
@@ -214,7 +214,7 @@ JobsKey(_mailComposeVC)
             /// 设置代理
             vc.mailComposeDelegate = self;
         }))
-    }return MailComposeVC;
+    };return MailComposeVC;
 }
 
 -(void)setMailComposeVC:(MFMailComposeViewController *)mailComposeVC{

@@ -20,13 +20,13 @@ BaseLayerProtocol_synthesize_part3
 -(NSString *)title{
     if(!_title){
         _title = @"";
-    }return _title;
+    };return _title;
 }
 
 -(NSString *)content{
     if(!_content){
         _content = @"";
-    }return _content;
+    };return _content;
 }
 
 @end

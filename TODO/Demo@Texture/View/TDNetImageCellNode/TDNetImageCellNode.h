@@ -11,10 +11,16 @@
 #import "AsyncDisplayKit.h"
 #endif
 
-#if __has_include(<JobsByOCPods/UIKits.h>)
-#import <JobsByOCPods/UIKits.h>
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
 #else
-#import "UIKits.h"
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

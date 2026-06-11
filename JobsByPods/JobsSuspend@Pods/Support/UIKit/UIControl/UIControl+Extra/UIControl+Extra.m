@@ -15,7 +15,7 @@ static inline NSMutableDictionary<NSNumber *, JobsControlTarget *> *jobs_targets
     if (!map && createIfMissing) {
         map = NSMutableDictionary.dictionary;
         objc_setAssociatedObject(ctl, kJobsTargetsMapKey, map, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }return map;
+    };return map;
 }
 
 static inline JobsControlTarget *_jobs_bind(UIControl *ctl, UIControlEvents singleEvent, jobsByCtrlBlock block) {

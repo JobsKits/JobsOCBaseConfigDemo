@@ -27,7 +27,7 @@
         if(subView.masonryBlock){
             [subView mas_makeConstraints:subView.masonryBlock];
             self.refresh();
-        }return subView;
+        };return subView;
     };
 }
 #pragma mark —— Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;

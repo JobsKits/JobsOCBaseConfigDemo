@@ -17,7 +17,6 @@
 #import <JobsOCDefs/JobsDefinesNetworkingConstant.h>
 #import <JobsOCDefs/JobsDefineURLs.h>
 #import <JobsOCDefs/JobsDefineOCProtocol.h>
-
 /// JobsOCDefs@MacroDef_App
 #import <JobsOCDefs/MacroDef_App.h>
 /// JobsOCDefs@MacroDef_Others

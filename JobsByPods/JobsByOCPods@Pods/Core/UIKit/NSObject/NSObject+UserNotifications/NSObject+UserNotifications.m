@@ -119,7 +119,7 @@
                                                                                                     error:&error];
     if (error) {
         JobsLog(@"attachment error %@", error);
-    }return notificationAttachment;
+    };return notificationAttachment;
 }
 /// 触发模式
 -(UNTimeIntervalNotificationTrigger *)notificationTriggerWithTimeInterval:(NSTimeInterval)timeInterval

@@ -24,7 +24,7 @@ Prop_strong()CAShapeLayer *insideLayer;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self drawProgress];
-    }return self;
+    };return self;
 }
 /// 核心代码
 -(CALayer*)_createLinesLayerWithFrame:(CGRect)frame
@@ -32,25 +32,26 @@ Prop_strong()CAShapeLayer *insideLayer;
                              lineSize:(CGSize)size
                                 color:(UIColor *)color{
     CALayer *linesLayer = CALayer.layer;
-    linesLayer.frame = frame;
+    linesLayer.byFrame(frame);
+
     for (int i = 0; i < (int)(360 / angle); i++) {
         CGFloat curAngle = i * angle;
         if (curAngle > 225 && curAngle < 315) continue;
         CGPoint layerCenter = CGPointMake(frame.size.width * 0.5, frame.size.height * 0.5);
         linesLayer.addSublayer(jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
-            layer.strokeColor = color.CGColor;
-            layer.lineWidth = size.width;
+            layer.byStrokeColor(color.CGColor)
+                .byLineWidth(size.width);
             layer.lineCap = kCALineCapRound;
-            layer.path = jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable data) {
+            layer.byPath(jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable data) {
                 data.moveTo([self _calcCircleCoordinateWithCenter:layerCenter
                                                             angle:i * angle
                                                            radius:layerCenter.x]);
                 data.add([self _calcCircleCoordinateWithCenter:layerCenter
                                                          angle:i * angle
                                                         radius:layerCenter.x - size.height]);
-            }).CGPath;
+            }).CGPath);
         }));
-    }return linesLayer;
+    };return linesLayer;
 }
 
 -(CGPoint)_calcCircleCoordinateWithCenter:(CGPoint)ct
@@ -67,7 +68,8 @@ Prop_strong()CAShapeLayer *insideLayer;
     [CATransaction setAnimationDuration:0.5];
     self.progressLayer.strokeEnd =  (progress + 13) / 100.0;
     [CATransaction commit];
-    self.progressLabel.text = [NSString stringWithFormat:@"%.0f",progress];
+    self.progressLabel.byText([NSString stringWithFormat:@"%.0f",progress]);
+
 }
 //外界调用
 -(void)setLinePreAngle:(CGFloat)preAngle
@@ -90,8 +92,10 @@ Prop_strong()CAShapeLayer *insideLayer;
     self.insideLayer.opaque = 1;
     self.outLayer.opaque = 1;
     self.progressLayer.opaque = 1;
-    self.progressLabel.alpha = 1;
-    self.describeLabel.alpha = 1;
+    self.progressLabel.byAlpha(1);
+
+    self.describeLabel.byAlpha(1);
+
 }
 #pragma mark —— set方法
 - (void)setProgressColor:(UIColor *)progressColor{
@@ -99,27 +103,32 @@ Prop_strong()CAShapeLayer *insideLayer;
 }
 
 - (void)setProgressFont:(UIFont *)progressFont{
-    self.progressLabel.font = progressFont;
+    self.progressLabel.byFont(progressFont);
+
 }
 
 -(void)setDescribeStr:(NSString *)describeStr{
     _describeStr = describeStr;
-    self.describeLabel.text = describeStr;
+    self.describeLabel.byText(describeStr);
+
 }
 
 -(void)setDescribeFont:(UIFont *)describeFont{
     _describeFont = describeFont;
-    self.describeLabel.font = describeFont;
+    self.describeLabel.byFont(describeFont);
+
 }
 
 -(void)setProgressTextColor:(UIColor *)progressTextColor{
     _progressTextColor = progressTextColor;
-    self.progressLabel.textColor = progressTextColor;
+    self.progressLabel.byTextCor(progressTextColor);
+
 }
 
 -(void)setDescribeTextColor:(UIColor *)describeTextColor{
     _describeTextColor = describeTextColor;
-    self.describeLabel.textColor = describeTextColor;
+    self.describeLabel.byTextCor(describeTextColor);
+
 }
 
 -(void)setOutLayerColor:(UIColor *)outLayerColor{
@@ -134,7 +143,7 @@ Prop_strong()CAShapeLayer *insideLayer;
                                                   startAngle:-M_PI_2
                                                     endAngle:M_PI * 3.0 / 2.0
                                                    clockwise:YES];
-    }return _outsidePath;
+    };return _outsidePath;
 }
 
 -(UIBezierPath *)insidePath{
@@ -144,7 +153,7 @@ Prop_strong()CAShapeLayer *insideLayer;
                                                  startAngle:-M_PI_2
                                                    endAngle:M_PI * 3.0 / 2.0
                                                   clockwise:YES];
-    }return _insidePath;
+    };return _insidePath;
 }
 
 -(CAShapeLayer *)insideLayer{
@@ -152,13 +161,14 @@ Prop_strong()CAShapeLayer *insideLayer;
         @jobs_weakify(self)
         _insideLayer = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
             @jobs_strongify(self)
-            layer.strokeColor = [UIColor clearColor].CGColor;
-            layer.lineWidth = kBorderWith;
-            layer.fillColor =  [UIColor colorWithWhite:1 alpha:0.5].CGColor;
-            layer.path = self.insidePath.CGPath;
-            self.layer.addSublayer(layer);
+            layer
+                .byStrokeColor(JobsClearColor.CGColor)
+                .byLineWidth(kBorderWith)
+                .byFillColor([UIColor colorWithWhite:1 alpha:0.5].CGColor)
+                .byPath(self.insidePath.CGPath)
+                .addOn(self.layer);
         });
-    }return _insideLayer;
+    };return _insideLayer;
 }
 /// 外圈
 -(CAShapeLayer *)outLayer{
@@ -166,15 +176,16 @@ Prop_strong()CAShapeLayer *insideLayer;
         @jobs_weakify(self)
         _outLayer = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
             @jobs_strongify(self)
-            layer.lineWidth = 3;
-            layer.strokeColor = RGBA_COLOR(0, 0, 255, .3f).CGColor;
-            layer.fillColor = JobsClearColor.CGColor;
-            layer.path = self.outsidePath.CGPath;
-            layer.strokeStart = M_PI / 12;
-            layer.strokeEnd = 1;
-            self.layer.addSublayer(layer);
+            layer
+                .byLineWidth(3)
+                .byStrokeColor(RGBA_COLOR(0, 0, 255, .3f).CGColor)
+                .byFillColor(JobsClearColor.CGColor)
+                .byPath(self.outsidePath.CGPath)
+                .byStrokeStart(M_PI / 12)
+                .byStrokeEnd(1)
+                .addOn(self.layer);
         });
-    }return _outLayer;
+    };return _outLayer;
 }
 /// 进度条
 -(CAShapeLayer *)progressLayer{
@@ -182,13 +193,14 @@ Prop_strong()CAShapeLayer *insideLayer;
         @jobs_weakify(self)
         _progressLayer = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
             @jobs_strongify(self)
-            layer.fillColor = JobsClearColor.CGColor;
-            layer.lineWidth = 3;
-            layer.strokeStart = M_PI / 12;
-            layer.path = self.outsidePath.CGPath;
-            self.layer.addSublayer(layer);
+            layer
+                .byFillColor(JobsClearColor.CGColor)
+                .byLineWidth(3)
+                .byPath(self.outsidePath.CGPath)
+                .byStrokeStart(M_PI / 12)
+                .addOn(self.layer);
         });
-    }return _progressLayer;
+    };return _progressLayer;
 }
 /// 进度Label
 -(UILabel *)progressLabel{
@@ -196,12 +208,16 @@ Prop_strong()CAShapeLayer *insideLayer;
         @jobs_weakify(self)
         _progressLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byTransform(CGAffineTransformMakeRotation(M_PI / 0.8));
-            label.byFrame(CGRectMake(10,55,self.frame.size.width - 100 ,40));
-            label.byTextAlignment(NSTextAlignmentCenter);
-            self.addSubview(label);
+            label
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byTransform(CGAffineTransformMakeRotation(M_PI / 0.8))
+                .byFrame(CGRectMake(10,
+                                    55,
+                                    self.frame.size.width - 100,
+                                    40))
+                .addOn(self);
         });
-    }return _progressLabel;
+    };return _progressLabel;
 }
 /// 描述Label
 -(UILabel *)describeLabel{
@@ -209,12 +225,16 @@ Prop_strong()CAShapeLayer *insideLayer;
         @jobs_weakify(self)
         _describeLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byTransform(CGAffineTransformMakeRotation(M_PI / 0.8));
-            label.byFrame(CGRectMake(30, 40, self.frame.size.width - 100, 30));
-            label.byTextAlignment(NSTextAlignmentCenter);
-            self.addSubview(label);
+            label
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byTransform(CGAffineTransformMakeRotation(M_PI / 0.8))
+                .byFrame(CGRectMake(30,
+                                    40,
+                                    self.frame.size.width - 100,
+                                    30))
+                .addOn(self);
         });
-    }return _describeLabel;
+    };return _describeLabel;
 }
 
 @end

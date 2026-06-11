@@ -32,8 +32,9 @@ static dispatch_once_t static_mineView2OnceToken;
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -49,7 +50,7 @@ static dispatch_once_t static_mineView2OnceToken;
                 JobsLog(@"SSS = %d",b.boolValue);
             }JobsLog(@"通知传递过来的 = %@",notification.object);
         }];
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -63,16 +64,19 @@ static dispatch_once_t static_mineView2OnceToken;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.backgroundColor = @"#F0F0EF".cor;
-        self.btn1.alpha = 1;
-        self.btn2.alpha = 1;
+        self.byBgColor(@"#F0F0EF".cor);
+
+        self.btn1.byAlpha(1);
+
+        self.btn2.byAlpha(1);
+
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -98,13 +102,13 @@ static dispatch_once_t static_mineView2OnceToken;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        [self addSubview:_btn1];
-        [_btn1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        _btn1.byAddTo(self, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsWidth(105), JobsWidth(16)));
             make.centerY.equalTo(self);
             make.left.equalTo(self).offset(JobsWidth(6));
-        }];
-    }return _btn1;
+        });
+
+    };return _btn1;
 }
 
 -(UIButton *)btn2{
@@ -121,13 +125,13 @@ static dispatch_once_t static_mineView2OnceToken;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        [self addSubview:_btn2];
-        [_btn2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        _btn2.byAddTo(self, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsWidth(88), JobsWidth(28)));
             make.centerY.equalTo(self);
             make.right.equalTo(self).offset(JobsWidth(-5));
-        }];
-    }return _btn2;
+        });
+
+    };return _btn2;
 }
 
 @end

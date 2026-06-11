@@ -28,10 +28,6 @@
 #import "JobsLanMgr.h"
 #endif
 
-#if __has_include(<JobsLanMgr/NSString+JobsLanMgr.h>)
-#import <JobsLanMgr/NSString+JobsLanMgr.h>
-#endif
-
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else

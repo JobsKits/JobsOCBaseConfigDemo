@@ -10,11 +10,6 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
 #import <JobsByOCPods/UIView+Extra.h>
 
 #if __has_include(<Masonry/Masonry.h>)
@@ -27,6 +22,12 @@
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
 #import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)

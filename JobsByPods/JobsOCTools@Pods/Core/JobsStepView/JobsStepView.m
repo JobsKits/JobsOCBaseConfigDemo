@@ -31,14 +31,15 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -51,8 +52,9 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -188,10 +190,10 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
         for (UIButtonModel *buttonModel in self.btnModelMutArr) {
             /// 数据源创建按钮
             BaseButton *btn = BaseButton.initByButtonModel(buttonModel);
-            [self.addSubview(btn) mas_makeConstraints:^(MASConstraintMaker *make) {
+            btn.byAddTo(self, ^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self);
                 make.height.mas_equalTo(self.viewSizeByModel(nil).height);
-            }];self.refresh();
+            });self.refresh();
             if(self.btnMutArr.count){
                 UIView *view = self.btnMutArr.lastObject;
                 CGFloat d = ((self.viewSizeByModel(nil).width - btn.width * self.btnModelMutArr.count - self.offset) / (self.btnModelMutArr.count - 1));
@@ -234,12 +236,12 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
         return jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             btn.rightLab = label;
-            [self.addSubview(label.byBgColor(self.rightLabNormalBgCor)) mas_makeConstraints:^(MASConstraintMaker *make) {
+            label.byBgColor(self.rightLabNormalBgCor).byAddTo(self, ^(MASConstraintMaker *make) {
                 make.centerY.equalTo(btn.imageView);
                 make.left.equalTo(btn.mas_right);
                 make.height.mas_equalTo(1);
                 make.width.mas_equalTo(self.rightViewWidth);
-            }];
+            });
         });
     };
 }
@@ -250,12 +252,12 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
         return jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             btn.leftLab = label;
-            [self.addSubview(label.byBgColor(self.leftLabNormalBgCor)) mas_makeConstraints:^(MASConstraintMaker *make) {
+            label.byBgColor(self.leftLabNormalBgCor).byAddTo(self, ^(MASConstraintMaker *make) {
                 make.centerY.equalTo(btn.imageView);
                 make.right.equalTo(btn.mas_left);
                 make.height.mas_equalTo(1);
                 make.width.mas_equalTo(self.leftViewWidth);
-            }];
+            });
         });
     };
 }
@@ -263,49 +265,49 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
 -(NSMutableArray<BaseButton *> *)btnMutArr{
     if(!_btnMutArr){
         _btnMutArr = NSMutableArray.array;
-    }return _btnMutArr;
+    };return _btnMutArr;
 }
 
 -(NSMutableArray<UIButtonModel *> *)btnModelMutArr{
     if(!_btnModelMutArr){
         _btnModelMutArr = NSMutableArray.array;
-    }return _btnModelMutArr;
+    };return _btnModelMutArr;
 }
 
 -(CGFloat)leftViewWidth{
     if(!_leftViewWidth){
         _leftViewWidth = JobsWidth(80);
-    }return _leftViewWidth;
+    };return _leftViewWidth;
 }
 
 -(CGFloat)rightViewWidth{
     if(!_rightViewWidth){
         _rightViewWidth = JobsWidth(80);
-    }return _rightViewWidth;
+    };return _rightViewWidth;
 }
 
 -(UIColor *)leftLabHighlightBgCor{
     if(!_leftLabHighlightBgCor){
         _leftLabHighlightBgCor = JobsWhiteColor;
-    }return _leftLabHighlightBgCor;
+    };return _leftLabHighlightBgCor;
 }
 
 -(UIColor *)rightLabHighlightBgCor{
     if(!_rightLabHighlightBgCor){
         _rightLabHighlightBgCor = JobsWhiteColor;
-    }return _rightLabHighlightBgCor;
+    };return _rightLabHighlightBgCor;
 }
 
 -(UIColor *)leftLabNormalBgCor{
     if(!_leftLabNormalBgCor){
         _leftLabNormalBgCor = JobsGrayColor;
-    }return _leftLabNormalBgCor;
+    };return _leftLabNormalBgCor;
 }
 
 -(UIColor *)rightLabNormalBgCor{
     if(!_rightLabNormalBgCor){
         _rightLabNormalBgCor = JobsGrayColor;
-    }return _rightLabNormalBgCor;
+    };return _rightLabNormalBgCor;
 }
 
 @end

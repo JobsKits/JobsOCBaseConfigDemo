@@ -17,9 +17,8 @@ Prop_strong()UILabel *adNoticeLab;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsCyanColor;
-
-    }return self;
+        self.byBgColor(JobsCyanColor);
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -30,7 +29,7 @@ Prop_strong()UILabel *adNoticeLab;
     @jobs_weakify(self)
     return ^(id _Nullable model) {
         @jobs_strongify(self)
-        self.adNoticeLab.alpha = 1;
+        self.adNoticeLab.byAlpha(1);
     };
 }
 
@@ -45,16 +44,18 @@ Prop_strong()UILabel *adNoticeLab;
         @jobs_weakify(self)
         _adNoticeLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"Jobs安全聊天，为您的聊天加密护航".tr);
-            label.byTextCor(JobsRedColor);
-            label.byTextAlignment(NSTextAlignmentCenter);
-            label.byFont(UIFontWeightRegularSize(JobsWidth(12)));
-            label.byBgColor(JobsClearColor);
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self);
-            }];
+            label
+                .byText(@"Jobs安全聊天，为您的聊天加密护航".tr)
+                .byTextCor(JobsRedColor)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byFont(UIFontWeightRegularSize(JobsWidth(12)))
+                .byBgColor(JobsClearColor)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                });
         });
-    }return _adNoticeLab;
+    };return _adNoticeLab;
 }
 
 @end

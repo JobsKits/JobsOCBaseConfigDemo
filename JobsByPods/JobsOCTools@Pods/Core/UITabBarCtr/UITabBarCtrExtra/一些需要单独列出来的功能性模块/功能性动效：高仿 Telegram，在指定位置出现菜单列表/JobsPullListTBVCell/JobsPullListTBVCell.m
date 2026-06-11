@@ -24,7 +24,8 @@
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.textLabel.text = model.textModel.text;
+        self.textLabel.byText(model.textModel.text);
+
         self.imageView.image = model.image;
         return self;
     };

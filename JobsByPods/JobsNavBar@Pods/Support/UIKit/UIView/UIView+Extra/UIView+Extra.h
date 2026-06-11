@@ -28,6 +28,12 @@
 #import "JobsMakes.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsModelDSL/JobsModelDSL.h>)
 #import <JobsModelDSL/JobsModelDSL.h>
 #else
@@ -52,18 +58,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_assign()BOOL ableRespose;
 Prop_assign()CGFloat jobsVisible;
-Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
-
-+(JobsRetViewByFrameBlock _Nonnull)initByFrame;
--(JobsRetViewByViewBlock _Nonnull)addSubview;
--(JobsReturnViewByMasonryConstraintsBlocks _Nonnull)byAdd;
-/// 含义：添加新的约束
-/// 适用场景：第一次为视图添加约束
-/// 行为：不会影响已有约束；不会自动删除或更新已存在的约束
--(JobsRetViewByVoidBlock _Nonnull)on;
--(JobsRetViewByViewBlock _Nonnull)addOn;
--(jobsByVoidBlock _Nonnull)refresh;
--(JobsReturnViewByMasonryConstraintsBlocks _Nonnull)setMasonryBy;
 /// 描边：统一设置Layer的线宽+颜色+圆切角（不一定切角）
 -(JobsReturnViewByLocationModelBlock _Nonnull)layerBy;
 /// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
@@ -103,7 +97,7 @@ Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
           layerShadowRadius:(CGFloat)layerShadowRadius;
 #pragma mark —— UILabel
 /// 确定Label的字体大小，使其宽度自适应
--(jobsByVoidBlock _Nonnull)labelAutoWidthByFont;
+-(jobsByVoidBlock _Nonnull)bySizeToFit;
 /// 确定Label的宽度，使字体大小自适应
 -(jobsByVoidBlock _Nonnull)labelAutoFontByWidth;
 

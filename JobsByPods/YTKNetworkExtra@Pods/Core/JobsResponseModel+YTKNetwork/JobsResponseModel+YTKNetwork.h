@@ -22,10 +22,10 @@
 #import "YTKNetworkProtocols.h"
 #endif
 
-#if __has_include(<WHToastExtra/NSObject+WHToast.h>)
-#import <WHToastExtra/NSObject+WHToast.h>
+#if __has_include(<WHToastExtra/WHToastExtra.h>)
+#import <WHToastExtra/WHToastExtra.h>
 #else
-#import "NSObject+WHToast.h"
+#import "WHToastExtra.h"
 #endif
 
 #if __has_include(<JobsModelDSL/JobsModelDSL.h>)

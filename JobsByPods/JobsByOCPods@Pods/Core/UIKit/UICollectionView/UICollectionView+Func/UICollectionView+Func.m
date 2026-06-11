@@ -49,8 +49,8 @@
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(id _Nonnull target) {
         @jobs_strongify(self)
-        self.byDelegate(target);
-        self.byDataSource(target);
+        self.byDelegate(target)
+            .byDataSource(target);
         return self;
     };
 }
@@ -119,7 +119,7 @@
                 cell.selected = NO;
             }
         }
-    }return self.cellBy(indexPath).bySelected(YES);;
+    };return self.cellBy(indexPath).bySelected(YES);;
 }
 
 -(__kindof UICollectionViewCell *)didDeselectItemAtIndexPath:(NSIndexPath *)indexPath

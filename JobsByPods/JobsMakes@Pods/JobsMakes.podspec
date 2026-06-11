@@ -46,12 +46,8 @@ UIKit/Foundation categories, and common model base classes for Jobs projects.
     'NetworkExtension'
   ]
 
-#  spec.dependency 'Texture'
-  spec.dependency 'MJExtension'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'
-  spec.dependency 'JobsOCDSL'
-  spec.dependency 'JobsStringUtils'
 
   JobsPodspecKitForJobsMakes.apply_standard_xcconfig(spec)
 

@@ -44,7 +44,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = JobsYellowColor;
+    self.view.byBgColor(JobsYellowColor);
+
     self.makeNavByAlpha(1);
 }
 
@@ -71,7 +72,8 @@
                                                                      TOP + (HEIGHT + PADDING) * index,
                                                                      WIDTH,
                                                                      HEIGHT)];
-    nView.backgroundColor = [UIColor linkColor];
+    nView.byBgColor([UIColor linkColor]);
+
     nView.layer.cornerRadius = 5;
     nView.duration = 5;
     return nView;

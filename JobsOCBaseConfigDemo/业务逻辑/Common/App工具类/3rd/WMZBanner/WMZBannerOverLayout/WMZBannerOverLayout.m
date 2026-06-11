@@ -104,6 +104,7 @@ Prop_assign()BOOL right;
                }
                if (self.param.wCardOverAlphaOpen) {
                     attributes.alpha = MAX(1-offsetProgress, MAX(self.param.wCardOverMinAlpha, 0));
+
                }
            }else if (visibleIndex == self.param.wCardOverLapCount + 1){
                attributes.center = self.param.wVertical?
@@ -111,6 +112,7 @@ Prop_assign()BOOL right;
                     CGPointMake(attributes.center.x + attributes.size.width * (1 - scale)/2 - self.param.wLineSpacing, attributes.center.y);
                     if (self.param.wCardOverAlphaOpen) {
                         attributes.alpha = MAX(offsetProgress, MAX(self.param.wCardOverMinAlpha, 0));
+
                     }
            }else{
                attributes.center = self.param.wVertical?
@@ -118,6 +120,7 @@ Prop_assign()BOOL right;
                         CGPointMake(attributes.center.x + attributes.size.width * (1 - scale)/2 - self.param.wLineSpacing * offsetProgress, attributes.center.y);
               if (self.param.wCardOverAlphaOpen) {
                  attributes.alpha = MAX(offsetProgress, MAX(self.param.wCardOverMinAlpha*2, 0));
+
               }
            }
            [mArr addObject:attributes];

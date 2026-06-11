@@ -20,7 +20,7 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(JobsReturnViewNavigatorByViewAndAnimatedBlock _Nonnull)pushView{
@@ -34,11 +34,13 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
         
         CGRect offScreenRight = CGRectOffset(self.bounds,
                                              self.bounds.size.width, 0);
-        nextView.frame = offScreenRight;
+        nextView.byFrame(offScreenRight);
+
         
         jobsByVoidBlock transitionBlock = ^{
             @jobs_strongify(self)
-            nextView.frame = self.bounds;
+            nextView.byFrame(self.bounds);
+
             currentTopView.frame = CGRectOffset(self.bounds,
                                                 -self.bounds.size.width, 0);
         };
@@ -49,7 +51,7 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
                              completion:nil];
         } else {
             if(transitionBlock) transitionBlock();
-        }return self;
+        };return self;
     };
 }
 
@@ -65,8 +67,10 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
 
         jobsByVoidBlock transitionBlock = ^{
             @jobs_strongify(self)
-            topView.frame = CGRectOffset(self.bounds, self.bounds.size.width, 0);
-            previousView.frame = self.bounds;
+            topView.byFrame(CGRectOffset(self.bounds, self.bounds.size.width, 0));
+
+            previousView.byFrame(self.bounds);
+
         };
         
         jobsByBOOLBlock completionBlock = ^(BOOL finished) {
@@ -85,7 +89,7 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
         } else {
             if(transitionBlock) transitionBlock();
             if(completionBlock) completionBlock(YES);
-        }return self;
+        };return self;
     };
 }
 
@@ -104,7 +108,8 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
         UIView *rootView = self.viewStack.firstObject;
         jobsByVoidBlock transitionBlock = ^{
             @jobs_strongify(self)
-            rootView.frame = self.bounds;
+            rootView.byFrame(self.bounds);
+
         };
         
         if (animated) {
@@ -119,7 +124,7 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
 -(NSMutableArray<__kindof UIView *> *)viewStack{
     if(!_viewStack){
         _viewStack = NSMutableArray.array;
-    }return _viewStack;
+    };return _viewStack;
 }
 
 @end

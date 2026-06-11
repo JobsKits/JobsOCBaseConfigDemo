@@ -13,8 +13,8 @@
     @jobs_weakify(self)
     return ^__kindof UITableView *(id _Nonnull target) {
         @jobs_strongify(self)
-        self.byDelegate(target);
-        self.byDataSource(target);
+        self.byDelegate(target)
+            .byDataSource(target);
         return self;
     };
 }
@@ -238,7 +238,7 @@
         tableViewCell = [tableViewCellClass initTableViewCell:tableViewCellClass
                                                     withStyle:cellStyle];
         tableViewCell.settingForTableViewCell();
-    }return tableViewCell;
+    };return tableViewCell;
 }
 
 -(__kindof UITableViewCell *)tableViewCellClass:(Class <UITableViewCellProtocol>)tableViewCellClass

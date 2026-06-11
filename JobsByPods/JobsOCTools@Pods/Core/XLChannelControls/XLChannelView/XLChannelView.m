@@ -33,11 +33,12 @@ Prop_strong()NSIndexPath *targetIndexPath;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self buildUI];
-    }return self;
+    };return self;
 }
 
 -(void)buildUI{
-    self.backgroundColor = [UIColor whiteColor];
+    self.byBgColor([UIColor whiteColor]);
+
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     CGFloat cellWidth = (self.bounds.size.width - (ColumnNumber + 1) * CellMarginX)/ColumnNumber;
@@ -49,7 +50,8 @@ Prop_strong()NSIndexPath *targetIndexPath;
     
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
     self.collectionView.showsHorizontalScrollIndicator = false;
-    self.collectionView.backgroundColor = [UIColor clearColor];
+    self.collectionView.byBgColor([UIColor clearColor]);
+
     [self.collectionView registerClass:[XLChannelItem class] forCellWithReuseIdentifier:@"XLChannelItem"];
     [self.collectionView registerClass:[XLChannelHeader class]
         forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"XLChannelHeader"];
@@ -62,11 +64,12 @@ Prop_strong()NSIndexPath *targetIndexPath;
     [self.collectionView addGestureRecognizer:longPress];
     
     self.dragingItem = [[XLChannelItem alloc] initWithFrame:CGRectMake(0, 0, cellWidth, cellWidth/2.0f)];
-    self.dragingItem.hidden = true;
+    self.dragingItem.byHidden(true);
+
     [self.collectionView addSubview:self.dragingItem];
 }
 
-#pragma mark -
+#pragma mark ——
 #pragma mark LongPressMethod
 -(void)longPressMethod:(UILongPressGestureRecognizer*)gesture{
     CGPoint point = [gesture locationInView:self.collectionView];
@@ -93,8 +96,10 @@ Prop_strong()NSIndexPath *targetIndexPath;
     XLChannelItem *item = (XLChannelItem*)[self.collectionView cellForItemAtIndexPath:self.dragingIndexPath];
     item.isMoving = true;
     //更新被拖拽的item
-    self.dragingItem.hidden = false;
-    self.dragingItem.frame = item.frame;
+    self.dragingItem.byHidden(false);
+
+    self.dragingItem.byFrame(item.frame);
+
     self.dragingItem.title = item.title;
     [self.dragingItem setTransform:CGAffineTransformMakeScale(1.1, 1.1)];
 }
@@ -120,15 +125,17 @@ Prop_strong()NSIndexPath *targetIndexPath;
     CGRect endFrame = [self.collectionView cellForItemAtIndexPath:self.dragingIndexPath].frame;
     [self.dragingItem setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
     [UIView animateWithDuration:0.3 animations:^{
-        self.dragingItem.frame = endFrame;
+        self.dragingItem.byFrame(endFrame);
+
     }completion:^(BOOL finished) {
-        self.dragingItem.hidden = true;
+        self.dragingItem.byHidden(true);
+
         XLChannelItem *item = (XLChannelItem*)[self.collectionView cellForItemAtIndexPath:self.dragingIndexPath];
         item.isMoving = false;
     }];
 }
 
-#pragma mark -
+#pragma mark ——
 #pragma mark 辅助方法
 
 //获取被拖动IndexPath的方法
@@ -168,7 +175,7 @@ Prop_strong()NSIndexPath *targetIndexPath;
     return targetIndexPath;
 }
 
-#pragma mark -
+#pragma mark ——
 #pragma mark CollectionViewDelegate&DataSource
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -221,7 +228,7 @@ Prop_strong()NSIndexPath *targetIndexPath;
     }
 }
 
-#pragma mark -
+#pragma mark ——
 #pragma mark 刷新方法
 //拖拽排序后需要重新排序数据源
 -(void)rearrangeInUseTitles

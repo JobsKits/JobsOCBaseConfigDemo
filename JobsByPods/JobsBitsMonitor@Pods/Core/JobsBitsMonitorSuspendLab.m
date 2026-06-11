@@ -127,7 +127,7 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
                 };return nil;
             }];self.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
         };[self commonInit_JobsBitsMonitorSuspendLab];
-    }return self;
+    };return self;
 }
 
 -(void)commonInit_JobsBitsMonitorSuspendLab{
@@ -136,7 +136,8 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
     self.textAlignment   = NSTextAlignmentCenter;
     self.layer.cornerRadius  = 8.0;
     self.layer.masksToBounds = YES;
-    self.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
+    self.byBgColor([UIColor.blackColor colorWithAlphaComponent:0.7]);
+
     /// 默认字体 & 颜色
     self.textColor = UIColor.whiteColor;
     self.font      = [UIFont monospacedDigitSystemFontOfSize:11 weight:UIFontWeightMedium];
@@ -200,7 +201,7 @@ static NSString * _Nonnull JobsFormatSpeed(uint64_t bytesPerSec) {
             .add(@"UAT环境".tr)
             .add(@"生产环境".tr);
         });
-    }return _operationEnvironMutArr;
+    };return _operationEnvironMutArr;
 }
 
 @end

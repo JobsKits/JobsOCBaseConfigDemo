@@ -18,6 +18,12 @@
 #import <JobsByOCPods/UIButton+UIButtonConfiguration.h>
 #import <JobsByOCPods/UIButton+UIControlState.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
@@ -353,7 +359,7 @@ NS_ASSUME_NONNULL_END
                  }).onLongPressGestureBy(^(id data){
                      JobsLog(@"");
                  });
-         }return _applyNowBtn;
+         };return _applyNowBtn;
      }
  */
 #endif /* JOBS_HEADER_GUARD_UIBUTTON_UI_E0EB84B915 */

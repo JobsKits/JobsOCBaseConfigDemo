@@ -225,7 +225,7 @@ JobsKey(_configure)
                 break;
         }
         Jobs_setAssociatedRETAIN_NONATOMIC(_configure, Configure)
-    }return Configure;
+    };return Configure;
 }
 
 -(void)setConfigure:(JPImageresizerConfigure *)configure{
@@ -272,7 +272,7 @@ JobsKey(_JPImageresizerView_data)
 -(void)setJPImageresizerView_data:(NSData *)JPImageresizerView_data{
     Jobs_setAssociatedRETAIN_NONATOMIC(_JPImageresizerView_data, JPImageresizerView_data)
 }
-#pragma mark ——Prop_strong()UIImage *JPImageresizerView_img; BaseVC_JPImageresizerView_JPImageresizerView_img
+#pragma mark —— Prop_strong()UIImage *JPImageresizerView_img; BaseVC_JPImageresizerView_JPImageresizerView_img
 JobsKey(_JPImageresizerView_img)
 @dynamic JPImageresizerView_img;
 -(UIImage *)JPImageresizerView_img{

@@ -79,7 +79,7 @@
         [self removeObject:element];
         [self insertObject:element atIndex:toIndex];
         return self;
-    }return nil;
+    };return nil;
 }
 /// 将数组里的元素复制times次
 -(JobsRetArrByIntegerBlock _Nonnull)copyElementBytimes{

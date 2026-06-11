@@ -60,13 +60,15 @@ UILocationProtocol_dynamic
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        self.contentView.frame = self.bounds;
+        self.contentView.byFrame(self.bounds);
+
         
         {///【组 1】 UITableViewCell单独自定义设置系统自带控件的Frame 【形成Frame后直接return，避免被其他中间过程修改】❤️与组2、3属性互斥❤️
             if (!jobsZeroRectValue(self.textLabelFrame)) self.textLabel.frame = self.textLabelFrame;
             
             if (!jobsZeroRectValue(self.detailTextLabelFrame) && self.detailTextLabel) {
-                self.detailTextLabel.frame = self.detailTextLabelFrame;
+                self.detailTextLabel.byFrame(self.detailTextLabelFrame);
+
             }
 
             if (!jobsZeroRectValue(self.imageViewFrame)) self.imageView.frame = self.imageViewFrame;
@@ -170,7 +172,8 @@ UILocationProtocol_dynamic
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        self.contentView.frame = self.bounds;
+        self.contentView.byFrame(self.bounds);
+
         self.textLabelFrameOffsetX = JobsWidth(0);// 等价于用这个 self.textLabel.resetOriginXByOffset(JobsWidth(0));
         self.textLabelFrameOffsetY = JobsWidth(0);// 等价于用这个 self.textLabel.resetOriginYByOffset(JobsWidth(0));
         self.textLabelFrameOffsetWidth = JobsWidth(0);// 等价于用这个 self.textLabel.resetWidthByOffset(JobsWidth(0));

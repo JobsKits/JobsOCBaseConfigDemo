@@ -32,6 +32,12 @@
 #import "JobsModelDSL.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
@@ -103,6 +109,7 @@ NS_ASSUME_NONNULL_END
                                                           endPoint:CGPointMake(320, 480)
                                                             opaque:NO
                                                     targetViewRect:viewRect];
-     yourView.backgroundColor = gradientColor;
+     yourView.byBgColor(gradientColor);
+
  */
 #endif /* JOBS_HEADER_GUARD_UICOLOR_EXTRA_28D1D45CA9 */

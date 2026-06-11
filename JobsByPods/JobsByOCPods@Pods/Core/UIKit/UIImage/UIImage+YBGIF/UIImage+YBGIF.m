@@ -87,7 +87,7 @@
             NSData *data = [NSData dataWithContentsOfFile:path];
             if (data) {
                 return UIImage.animatedGIFWithData(data);
-            }return @"name".img;
+            };return @"name".img;
         }
     };
 }

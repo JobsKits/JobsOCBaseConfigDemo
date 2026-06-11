@@ -44,6 +44,7 @@
                                                          cornerRadii:cornerRadii];
     CAShapeLayer *maskLayer = CAShapeLayer.layer;
     maskLayer.frame = self.bounds;
+
     maskLayer.path = maskPath.CGPath;
     self.layer.mask = maskLayer;
 }
@@ -76,7 +77,7 @@
             }];
         } else {
             self.isStopRotateAnimation = !self.isStopRotateAnimation;
-        }return self;
+        };return self;
     };
 }
 
@@ -97,7 +98,7 @@ JobsKey(_rotateChangeAngle)
     if (RotateChangeAngle == 0) {
         RotateChangeAngle = 20;
         Jobs_setAssociatedRETAIN_NONATOMIC(_rotateChangeAngle, @(RotateChangeAngle))
-    }return RotateChangeAngle;
+    };return RotateChangeAngle;
 }
 
 -(void)setRotateChangeAngle:(CGFloat)rotateChangeAngle{
@@ -132,7 +133,7 @@ JobsKey(_delayTime)
     if (DelayTime == 0) {
         DelayTime = 0.01;
         Jobs_setAssociatedRETAIN_NONATOMIC(_delayTime, @(DelayTime))
-    }return DelayTime;
+    };return DelayTime;
 }
 
 -(void)setDelayTime:(CGFloat)delayTime{

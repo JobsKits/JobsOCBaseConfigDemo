@@ -43,8 +43,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
-    
+    self.view.byBgColor(JobsRandomColor);
+
     @jobs_weakify(self)
     self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
 //        @jobs_strongify(self)
@@ -55,7 +55,6 @@
 //        data.add(UIBarButtonItem.initBy(self.aboutBtn));
     });
     self.makeNavByAlpha(0);
-
 //    [self.bgImageView removeFromSuperview];
 }
 

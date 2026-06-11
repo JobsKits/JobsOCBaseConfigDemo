@@ -18,6 +18,12 @@
 #import "UICollectionViewCellProtocol.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -42,8 +48,8 @@ Prop_assign()CGFloat sectionInsetTop;
 Prop_assign()CGFloat sectionInsetLeft;
 Prop_assign()CGFloat sectionInsetBottom;
 Prop_assign()CGFloat sectionInsetRight;
-Prop_assign()CGFloat minimumLineSpacing;/// 上下行间距
-Prop_assign()CGFloat minimumInteritemSpacing;/// 左右列间距
+Prop_assign()CGFloat minimumLineSpacing;// 上下行间距
+Prop_assign()CGFloat minimumInteritemSpacing;// 左右列间距
 Prop_strong()Class <UICollectionViewCellProtocol>cellCls;
 #pragma mark —— 一些公有方法
 -(JobsRetCGFloatByArrBlock _Nonnull)getCollectionHeight;

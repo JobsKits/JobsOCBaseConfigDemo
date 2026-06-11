@@ -14,7 +14,7 @@
         if ([accessory isKindOfClass:YTKAnimatingRequestAccessory.class]){
             return accessory;
         }
-    }return nil;
+    };return nil;
 }
 
 -(UIView *)animatingView {

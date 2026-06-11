@@ -36,9 +36,8 @@ UITextFieldProtocol_synthesize_part2
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model ? : UIViewModel.new;
-
-        self.titleLabel.alpha = 1;
-        self.flagView.alpha = 1;
+        self.titleLabel.byAlpha(1);
+        self.flagView.byAlpha(1);
         return self;
     };
 }
@@ -53,7 +52,7 @@ UITextFieldProtocol_synthesize_part2
               reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]){
-    }return self;
+    };return self;
 }
 
 -(void)layoutSubviews{
@@ -61,7 +60,6 @@ UITextFieldProtocol_synthesize_part2
     self.printValue();
     /// 取内部类UITableViewCellEditControl,对编辑状态的Cell的点击按钮进行替换成自定义的
     self.customCellEditStateImage();
-    
     self.modifySysChildViewFrame1();
     // 或者
     self.modifySysChildViewFrame2();
@@ -76,30 +74,26 @@ UITextFieldProtocol_synthesize_part2
     [super setSelected:selected
               animated:animated];
     if (selected){
-        self.contentView.backgroundColor = ThreeClassCellBgCor;
-        self.flagView.backgroundColor = JobsWhiteColor;
-        self.titleLabel.textColor = HEXCOLOR(0xAE8330);
-        self.titleLabel.font = UIFontWeightBoldSize(14);
+        self.contentView.byBgColor(ThreeClassCellBgCor);
+        self.flagView.byBgColor(JobsWhiteColor);
+        self.titleLabel.byTextCor(HEXCOLOR(0xAE8330)).byFont(UIFontWeightBoldSize(14));
     }else{
-        self.contentView.backgroundColor = HEXCOLOR(0xFCFBFB);
-        self.flagView.backgroundColor = HEXCOLOR(0xFCFBFB);
-        self.titleLabel.textColor = HEXCOLOR(0xB0B0B0);
-        self.titleLabel.font = UIFontWeightRegularSize(14);
+        self.contentView.byBgColor(HEXCOLOR(0xFCFBFB));
+        self.flagView.byBgColor(HEXCOLOR(0xFCFBFB));
+        self.titleLabel.byTextCor(HEXCOLOR(0xB0B0B0)).byFont(UIFontWeightRegularSize(14));
     }
 }
 
 - (void)setHighlighted:(BOOL)highlighted
               animated:(BOOL)animated{
     if (highlighted){
-        self.contentView.backgroundColor = ThreeClassCellBgCor;
-        self.flagView.backgroundColor = JobsWhiteColor;
-        self.titleLabel.textColor = HEXCOLOR(0xB0B0B0);
-        self.titleLabel.font = UIFontWeightBoldSize(14);
+        self.contentView.byBgColor(ThreeClassCellBgCor);
+        self.flagView.byBgColor(JobsWhiteColor);
+        self.titleLabel.byTextCor(HEXCOLOR(0xB0B0B0)).byFont(UIFontWeightBoldSize(14));
     }else{
-        self.contentView.backgroundColor = HEXCOLOR(0xFCFBFB);
-        self.flagView.backgroundColor = HEXCOLOR(0xFCFBFB);
-        self.titleLabel.textColor = HEXCOLOR(0xB0B0B0);
-        self.titleLabel.font = UIFontWeightRegularSize(14);
+        self.contentView.byBgColor(HEXCOLOR(0xFCFBFB));
+        self.flagView.byBgColor(HEXCOLOR(0xFCFBFB));
+        self.titleLabel.byTextCor(HEXCOLOR(0xB0B0B0)).byFont(UIFontWeightRegularSize(14));
     }
 }
 #pragma mark —— lazyLoad
@@ -108,15 +102,17 @@ UITextFieldProtocol_synthesize_part2
         @jobs_weakify(self)
         _titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byTextCor(HEXCOLOR(0xB0B0B0));
-            label.byFont(bayonRegular(JobsWidth(14)));
-            label.byTextAlignment(NSTextAlignmentCenter);
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
+            label
+                .byTextCor(HEXCOLOR(0xB0B0B0))
+                .byFont(bayonRegular(JobsWidth(14)))
+                .byTextAlignment(NSTextAlignmentCenter);
+            label.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
                 make.left.equalTo(self.contentView).offset(JobsWidth(5));
                 make.centerY.equalTo(self.contentView);
-            }];label.makeLabelByShowingType(UILabelShowingType_03);
+            });
+            label.makeLabelByShowingType(UILabelShowingType_03);
         });
-    }_titleLabel.text = self.viewModel.textModel.text;
+    }_titleLabel.byText(self.viewModel.textModel.text);
     return _titleLabel;
 }
 
@@ -125,14 +121,15 @@ UITextFieldProtocol_synthesize_part2
         @jobs_weakify(self)
         _flagView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            view.byFrame(CGRectMake(0,
+            view
+                .byFrame(CGRectMake(0,
                                     0,
                                     3,
                                     LeftCell_Height));
             view.byBgColor(HEXCOLOR(0xFCFBFB));
-            self.contentView.addSubview(view);
+            view.addOn(self.contentView);
         });
-    }return _flagView;
+    };return _flagView;
 }
 
 @end

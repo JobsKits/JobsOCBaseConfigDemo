@@ -91,10 +91,12 @@ static dispatch_once_t JobsCustomTabBarVCOnceToken;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tabBar.hidden = YES;
+    self.tabBar.byHidden(YES);
+
     self.delegate = self;
 //    self.view.byBgColor(JobsGreenColor);
-    self.customTabBar.alpha = 1;
+    self.customTabBar.byAlpha(1);
+
     extern NSUInteger DefaultIndex;
     self.selectedIndex = DefaultIndex;
 }
@@ -143,10 +145,11 @@ didSelectViewController:(UIViewController *)viewController{
 -(JobsCustomTabBar *)customTabBar{
     if(!_customTabBar){
         _customTabBar = jobsMakeCustomTabBar(^(__kindof JobsCustomTabBar * _Nullable customTabBar) {
-            customTabBar.backgroundColor = JobsClearColor;
+            customTabBar.byBgColor(JobsClearColor);
+
             customTabBar.configMasonryBy(self.view);
         });
-    }return _customTabBar;
+    };return _customTabBar;
 }
 
 @end

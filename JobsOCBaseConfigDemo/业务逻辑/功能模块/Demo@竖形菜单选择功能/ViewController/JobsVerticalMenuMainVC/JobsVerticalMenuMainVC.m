@@ -45,7 +45,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
     self.tableView.byShow(self);
@@ -147,7 +147,7 @@ viewForHeaderInSection:(NSInteger)section{
             .JobsBlock1(^(id _Nullable data) {
                 
             });
-    }return nil;
+    };return nil;
 }
 /// 这里涉及到复用机制，return出去的是UITableViewHeaderFooterView的派生类
 /// tableView.registerHeaderFooterViewClass(BaseTableViewHeaderFooterView.class,@"");
@@ -171,7 +171,7 @@ viewForHeaderInSection:(NSInteger)section{
         /// 只有 tbvFooterView.backgroundView.backgroundColor 是有效操作✅
         tbvFooterView.contentView.byBgColor(HEXCOLOR(0xEAEBED));
         return tbvFooterView;
-    }return nil;
+    };return nil;
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -219,21 +219,21 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .bySeparatorColor(HEXCOLOR(0xEEE2C8))
                 .byShowsVerticalScrollIndicator(NO)
                 .byScrollEnabled(YES)
-                .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
-                .byBgColor(JobsBlueColor)
-                .addOn(self.view)
-                    .byAdd(^(MASConstraintMaker *make) {
-                        @jobs_strongify(self)
-                        make.left.right.bottom.equalTo(self.view);
-                        [self make:make topOffset:10];
-                    });
+                .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0));
+            tableView.byBgColor(JobsBlueColor);
+            tableView.addOn(self.view);
+            [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.left.right.bottom.equalTo(self.view);
+                [self make:make topOffset:10];
+            }];
             if(@available(iOS 11.0, *)) {
                 tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             }else{
                 SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
             }
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray<NSMutableArray<__kindof UITableViewCell *> *> *)tbvSectionRowCellMutArr{
@@ -253,7 +253,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 data1.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
             }));
         });
-    }return _tbvSectionRowCellMutArr;
+    };return _tbvSectionRowCellMutArr;
 }
 
 -(NSMutableArray<NSMutableArray<__kindof UIViewModel *> *> *)dataMutArr{
@@ -282,7 +282,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 })));
             }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

@@ -33,7 +33,7 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
     if (self = [super initWithFrame:frame]) {
         self.clipsToBounds = NO;//超出视图部分显示
         self.barStyle = UIBarStyleBlack;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -48,7 +48,8 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
             UIImageView *imageView = nil; /// TabBar的图片
             if ([subview isKindOfClass:UILabel.class]) {
                 label = (UILabel *)subview;
-                label.backgroundColor = JobsRedColor;
+                label.byBgColor(JobsRedColor);
+
                 [label sizeToFit];
             }
             if ([subview isKindOfClass:UIImageView.class]) {
@@ -89,7 +90,8 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
         if(tabBarControllerConfig.tabBarItemWidth){
             tabBarButton.resetWidth(tabBarControllerConfig.tabBarItemWidth);
         }
-        lOTAnimationView.frame = tabBarButton.frame;
+        lOTAnimationView.byFrame(tabBarButton.frame);
+
     }
 }
 ///【覆写父类方法】自定义 TabBar 的高度
@@ -129,7 +131,8 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
             }
             
             if (self.viewModel.bgCor) {
-                self.backgroundColor = self.viewModel.bgCor;
+                self.byBgColor(self.viewModel.bgCor);
+
             }
         }
     };
@@ -166,7 +169,8 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
                                      centerY - labelHeight / 2.0,
                                      labelWidth,
                                      labelHeight);
-            label.textAlignment = NSTextAlignmentLeft;
+            label.byTextAlignment(NSTextAlignmentLeft);
+
             break;
         }
         case ImageRightTitleLeft: {
@@ -180,7 +184,8 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
                                          (totalHeight - imageHeight) / 2.0,
                                          imageWidth,
                                          imageHeight);
-            label.textAlignment = NSTextAlignmentRight;
+            label.byTextAlignment(NSTextAlignmentRight);
+
             break;
         }
         case ImageTopTitleBottom: {
@@ -201,7 +206,8 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
 //            label.jobsLogFrame(@"打印的时候额外添加的标识字符.Frame");
 //            label.jobsLogPoint(@"打印的时候额外添加的标识字符.Point");
 //            label.jobsLogSize(@"打印的时候额外添加的标识字符.Size");
-            label.textAlignment = NSTextAlignmentCenter;
+            label.byTextAlignment(NSTextAlignmentCenter);
+
             break;
         }
         case ImageBottomTitleTop: {
@@ -215,7 +221,8 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
                                          CGRectGetMaxY(label.frame) + spacing,
                                          imageWidth,
                                          imageHeight);
-            label.textAlignment = NSTextAlignmentCenter;
+            label.byTextAlignment(NSTextAlignmentCenter);
+
             break;
         }
     }
@@ -232,7 +239,7 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
                 }
             }
         });
-    }return _tabBarButtons;
+    };return _tabBarButtons;
 }
 
 -(NSMutableArray<__kindof LOTAnimationView *> *)lOTAnimationViews{
@@ -254,14 +261,14 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
                 }
             }
         });
-    }return _lOTAnimationViews;
+    };return _lOTAnimationViews;
 }
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 -(UIViewModel *)viewModel{
     if(!_viewModel){
         _viewModel = UIViewModel.new;
-    }return _viewModel;
+    };return _viewModel;
 }
 
 @end

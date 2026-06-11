@@ -18,15 +18,16 @@ Prop_strong()UIImageView *imageView;
 static dispatch_once_t dispatchOnce;
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsClearColor;
+        self.byBgColor(JobsClearColor);
         dispatchOnce = 0;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
     dispatch_once(&dispatchOnce, ^{
-        self.imageView.alpha = 1;
+        self.imageView.byAlpha(1);
+
         self.stopped = NO;// YES: 没有播放，NO：正在播放
     });
 }
@@ -44,14 +45,14 @@ static dispatch_once_t dispatchOnce;
 -(UIImageView *)imageView{
     if (!_imageView) {
         @jobs_weakify(self)
-        _imageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+        _imageView = jobsMakeImageView(^(__kindof UIImageView *_Nullable imageView) {
             @jobs_strongify(self)
-            imageView.frame = self.bounds;
             imageView.image = self.pauseImage;
-            imageView.animationImages = (NSArray *)self.gifMutArr; //动画图片数组
+            imageView.animationImages = (NSArray *)self.gifMutArr; // 动画图片数组
             imageView.animationDuration = self.duration;
-            imageView.animationRepeatCount = 0;  //动画重复次数，无限循环
-            self.addSubview(imageView);
+            imageView.animationRepeatCount = 0; // 动画重复次数，无限循环
+            imageView.byFrame(self.bounds);
+            imageView.addOn(self);
         });
     }return _imageView;
 }
@@ -61,19 +62,19 @@ static dispatch_once_t dispatchOnce;
         _gifMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
             arr.add(JobsLoadBundleImage(nil,@"音律跳动", nil, @"1"));
         });
-    }return _gifMutArr;
+    };return _gifMutArr;
 }
 
 -(CGFloat)duration{
     if (_duration == 0) {
         _duration = 1.5;// 执行一次完整动画所需的时长
-    }return _duration;
+    };return _duration;
 }
 
 -(UIImage *)pauseImage{
     if (!_pauseImage) {
         _pauseImage = self.gifMutArr[0];
-    }return _pauseImage;
+    };return _pauseImage;
 }
 
 @end

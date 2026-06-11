@@ -20,7 +20,7 @@ Prop_strong()NSMutableArray<UIButton *> *nodeButtons;
     self = [self initWithConfiguration:nil];
     if (self) {
         self.frame = frame;
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithConfiguration:(JobsGestureLockConfiguration *)configuration {
@@ -29,7 +29,7 @@ Prop_strong()NSMutableArray<UIButton *> *nodeButtons;
         _configuration = configuration ?: [JobsGestureLockConfiguration defaultConfiguration];
         _nodeButtons = [NSMutableArray array];
         [self buildSubviews];
-    }return self;
+    };return self;
 }
 
 - (void)buildSubviews {

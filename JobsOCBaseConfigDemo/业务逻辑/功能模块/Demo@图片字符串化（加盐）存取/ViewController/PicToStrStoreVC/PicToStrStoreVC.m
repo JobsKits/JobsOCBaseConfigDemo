@@ -47,7 +47,8 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     self.makeNavByAlpha(1);
     self.tableView.byShow(self);
 //    [self.bgImageView removeFromSuperview];
@@ -177,7 +178,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     }
                 });
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray<__kindof UITableViewCell *> *)tbvCellMutArr{
@@ -192,7 +193,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                  data.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
             }];
         });
-    }return _tbvCellMutArr;
+    };return _tbvCellMutArr;
 }
 
 -(NSMutableArray<__kindof UIViewModel *> *)dataMutArr{
@@ -231,7 +232,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byRequestParams(@(PicToStrStyle_MIME));
             })));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

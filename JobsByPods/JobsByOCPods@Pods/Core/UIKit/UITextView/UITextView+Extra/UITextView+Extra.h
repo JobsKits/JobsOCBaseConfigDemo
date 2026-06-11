@@ -38,6 +38,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UITextView (Extra)
@@ -55,7 +61,7 @@ Prop_copy()NSString *resStr;
 -(JobsRetTextViewByNSUIntegerBlock _Nonnull)byDataDetectorTypes;
 -(JobsRetTextViewByDelegateBlock _Nonnull)byDelegate;
 -(JobsRetTextViewByStringBlock _Nonnull)byText;
--(JobsRetTextViewByCor _Nonnull)byTextCor;
+-(JobsRetTextViewByCorBlock _Nonnull)byTextCor;
 -(JobsRetTextViewByFontBlock _Nonnull)byFont;
 -(JobsRetTextViewByBOOLBlock _Nonnull)byUserInteractionEnabled;
 -(JobsRetTextViewByBOOLBlock _Nonnull)byEditable;

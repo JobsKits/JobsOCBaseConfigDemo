@@ -44,12 +44,18 @@
 /// 资料来源：
 /// https://github.com/zhuchenglong/LabelDemo
 /// https://www.jianshu.com/p/37b3e382dcab
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /// UIView & UIButton 文字自适应
 @interface UIView (AutoSelfAdaptionSize)
 #pragma mark —— UILabel
 /// 确定Label的字体大小，使其宽度自适应
--(jobsByVoidBlock _Nonnull)labelAutoWidthByFont;
+-(jobsByVoidBlock _Nonnull)bySizeToFit;
 /// 确定Label的宽度，使字体大小自适应
 -(jobsByVoidBlock _Nonnull)labelAutoFontByWidth;
 #pragma mark —— UIButton

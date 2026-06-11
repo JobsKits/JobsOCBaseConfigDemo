@@ -55,7 +55,7 @@
         return self;
     };
 }
-#pragma mark - Background
+#pragma mark —— Background
 - (JobsRetBtnConfigByBackgroundBlock _Nonnull)byBackground {
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIBackgroundConfiguration *bg) {
@@ -64,7 +64,7 @@
         return self;
     };
 }
-#pragma mark - Style / Size / Idiom
+#pragma mark —— Style / Size / Idiom
 - (JobsRetBtnConfigByCornerStyleBlock _Nonnull)byCornerStyle {
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIButtonConfigurationCornerStyle style) {
@@ -91,7 +91,7 @@
         return self;
     };
 }
-#pragma mark - Base colors
+#pragma mark —— Base colors
 - (JobsReBtnConfigByBaseForegroundCorBlock _Nonnull)byBaseForegroundColor {
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIColor *color) {
@@ -109,7 +109,7 @@
         return self;
     };
 }
-#pragma mark - Image & transformers
+#pragma mark —— Image & transformers
 - (JobsRetBtnConfigByImageBlock _Nonnull)byImage {
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIImage *img) {
@@ -136,7 +136,7 @@
         return self;
     };
 }
-#pragma mark - Activity indicator
+#pragma mark —— Activity indicator
 - (JobsRetBtnConfigByShowsActivityIndicatorBlock _Nonnull)byShowsActivityIndicator {
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(BOOL on) {
@@ -154,7 +154,7 @@
         return self;
     };
 }
-#pragma mark - Title / Subtitle
+#pragma mark —— Title / Subtitle
 - (JobsRetBtnConfigByStrBlock _Nonnull)byTitle {
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(NSString *text) {
@@ -226,7 +226,7 @@
         return self;
     };
 }
-#pragma mark - Indicator (iOS 16+)
+#pragma mark —— Indicator (iOS 16+)
 - (JobsRetBtnConfigByIndicatorBlock _Nonnull)byIndicator {
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIButtonConfigurationIndicator ind) {
@@ -244,7 +244,7 @@
         return self;
     };
 }
-#pragma mark - Layout
+#pragma mark —— Layout
 - (JobsRetBtnConfigByContentInsetsBlock _Nonnull)byContentInsets {
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(NSDirectionalEdgeInsets insets) {
@@ -289,7 +289,7 @@
         return self;
     };
 }
-#pragma mark - Auto update for selection
+#pragma mark —— Auto update for selection
 - (JobsRetBtnConfigByAutomaticallyUpdateForSelectionBlock _Nonnull)byAutomaticallyUpdateForSelection {
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(BOOL on) {

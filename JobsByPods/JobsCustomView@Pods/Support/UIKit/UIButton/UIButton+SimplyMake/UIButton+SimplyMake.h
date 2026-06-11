@@ -5,6 +5,12 @@
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 #ifndef JOBS_HEADER_GUARD_UIBUTTON_SIMPLYMAKE_99F84616C5
 #define JOBS_HEADER_GUARD_UIBUTTON_SIMPLYMAKE_99F84616C5
 
@@ -162,7 +168,7 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeButton(jobsByBtnBlock _Nonnull blo
                  }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
              }).bgNormalLoad();
-         }return _mailBtn;
+         };return _mailBtn;
      }
 
      -(UIButton *)valueBtn{
@@ -182,7 +188,7 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeButton(jobsByBtnBlock _Nonnull blo
                               }).onLongPressGestureBy(^(id data){
                                   JobsLog(@"");
                               });
-         }return _valueBtn;
+         };return _valueBtn;
      }
 
      -(UIButton *)usrNameBtn{
@@ -208,7 +214,7 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeButton(jobsByBtnBlock _Nonnull blo
                  make.height.mas_equalTo(JobsWidth(16));
              });
              _usrNameBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-         }return _usrNameBtn;
+         };return _usrNameBtn;
      }
 
      -(BaseButton *)applyNowBtn{
@@ -251,7 +257,7 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeButton(jobsByBtnBlock _Nonnull blo
                  }).onLongPressGestureBy(^(id data){
                      JobsLog(@"");
                  });
-         }return _applyNowBtn;
+         };return _applyNowBtn;
      }
 
      -(BaseButton *)registerBtn{
@@ -271,7 +277,7 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeButton(jobsByBtnBlock _Nonnull blo
                      .byJobsWidth(1)
                      .byCornerRadiusValue(JobsWidth(8));
              })));
-         }return _registerBtn;
+         };return _registerBtn;
      }
  */
 #endif /* JOBS_HEADER_GUARD_UIBUTTON_SIMPLYMAKE_99F84616C5 */

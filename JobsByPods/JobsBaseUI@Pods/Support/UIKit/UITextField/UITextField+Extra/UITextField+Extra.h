@@ -5,6 +5,12 @@
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 #ifndef JOBS_HEADER_GUARD_UITEXTFIELD_EXTRA_CE9E7C197C
 #define JOBS_HEADER_GUARD_UITEXTFIELD_EXTRA_CE9E7C197C
 
@@ -94,7 +100,7 @@ NS_ASSUME_NONNULL_END
                  make.left.equalTo(self.section_1_titleLab);
                  make.width.mas_equalTo(JobsWidth(345));
              }).on();
-         }return _idTypeTextField;
+         };return _idTypeTextField;
      }
  */
 #endif /* JOBS_HEADER_GUARD_UITEXTFIELD_EXTRA_CE9E7C197C */

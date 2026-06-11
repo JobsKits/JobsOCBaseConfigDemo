@@ -8,7 +8,7 @@
 #import "UIButton+FillColor.h"
 
 @implementation UIButton (FillColor)
-#pragma mark - Associated Object (titleName)
+#pragma mark —— Associated Object (titleName)
 static const void *kUIButtonTitleNameKey = &kUIButtonTitleNameKey;
 @dynamic titleName;
 - (void)setTitleName:(NSString *)titleName {
@@ -21,7 +21,7 @@ static const void *kUIButtonTitleNameKey = &kUIButtonTitleNameKey;
 - (NSString *)titleName {
     return objc_getAssociatedObject(self, kUIButtonTitleNameKey);
 }
-#pragma mark - Background Color For State
+#pragma mark —— Background Color For State
 - (void)by_setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state {
     UIImage *img = [UIButton by_imageWithColor:backgroundColor];
     [self setBackgroundImage:img forState:state];

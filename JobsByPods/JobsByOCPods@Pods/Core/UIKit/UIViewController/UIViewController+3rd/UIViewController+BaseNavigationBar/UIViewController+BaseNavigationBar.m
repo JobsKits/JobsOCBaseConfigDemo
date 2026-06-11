@@ -18,7 +18,7 @@
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             [self dismissViewControllerAnimated:YES completion:nil];
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— Prop_strong()NavigationBar *navigationBar;
@@ -31,7 +31,7 @@ JobsKey(_navigationBar)
         NavBar = jobsMakeBaseNavigationBar(^(__kindof BaseNavigationBar * _Nullable navBar) {
             @jobs_strongify(self)
             /// 优先级:背景图 > 背景色
-            navBar.backgroundColor = self.bgCor;
+            navBar.byBgColor(self.bgCor);
             [navBar setBackgroundImage:self.bgImage forBarMetrics:UIBarMetricsDefault];/// 仅仅是 navigationBar 背景
             navBar.titleTextAttributes = @{
                 NSForegroundColorAttributeName:self.foregroundColorAttributeNameCor,
@@ -45,13 +45,13 @@ JobsKey(_navigationBar)
                 data.add(self.navItem);
             });
             navBar.translucent = self.isBarTranslucent;
-            navBar.hidden = self.isHiddenNavigationBar;
-            [self.view.addSubview(navBar) mas_makeConstraints:^(MASConstraintMaker *make) {
+            navBar.byHidden(self.isHiddenNavigationBar);
+            navBar.byAddTo(self.view, ^(MASConstraintMaker *make) {
                 make.left.right.top.equalTo(self.view);
                 make.height.mas_offset(self.jobsNavigationBarHeight);
-            }];
+            });
         });Jobs_setAssociatedRETAIN_NONATOMIC(_navigationBar, NavBar)
-    }return NavBar;
+    };return NavBar;
 }
 
 -(void)setNavigationBar:(BaseNavigationBar *)navigationBar{
@@ -82,7 +82,7 @@ JobsKey(_leftBarButtonItem_back)
 
             [self setLeftBarButtonItem_back:LeftBarButtonItem_back];
         }
-    }return LeftBarButtonItem_back;
+    };return LeftBarButtonItem_back;
 }
 
 - (void)setLeftBarButtonItem_back:(UIBarButtonItem *)leftBarButtonItem_back{
@@ -96,7 +96,7 @@ JobsKey(_bgCor)
     if (!BgCor) {
         BgCor = JobsLightGrayColor;
         Jobs_setAssociatedRETAIN_NONATOMIC(_bgCor, BgCor)
-    }return BgCor;
+    };return BgCor;
 }
 
 -(void)setBgCor:(UIColor *)bgCor{
@@ -110,7 +110,7 @@ JobsKey(_jobsNavigationBarHeight)
     if (jobsNavigationBarHeight == 0) {
         jobsNavigationBarHeight = JobsNavigationBarAndStatusBarHeight(nil);
         Jobs_setAssociatedRETAIN_NONATOMIC(_jobsNavigationBarHeight, @(jobsNavigationBarHeight));
-    }return jobsNavigationBarHeight;
+    };return jobsNavigationBarHeight;
 }
 
 -(void)setJobsNavigationBarHeight:(CGFloat)jobsNavigationBarHeight{
@@ -149,7 +149,7 @@ JobsKey(_shadow)
             Shadow.shadowColor = self.shadowCor;
             Shadow.shadowOffset = CGSizeZero;
         });Jobs_setAssociatedRETAIN_NONATOMIC(_shadow, Shadow)
-    }return Shadow;
+    };return Shadow;
 }
 
 -(void)setShadow:(NSShadow *)shadow{
@@ -167,7 +167,7 @@ JobsKey(_navItem)
             NavItem.title = self.title;
             NavItem.leftBarButtonItem = self.leftBarButtonItem_back;
         });Jobs_setAssociatedRETAIN_NONATOMIC(_navItem, NavItem)
-    }return NavItem;
+    };return NavItem;
 }
 
 -(void)setNavItem:(UINavigationItem *)navItem{
@@ -181,7 +181,7 @@ JobsKey(_foregroundColorAttributeNameCor)
     if (!ForegroundColorAttributeNameCor) {
         ForegroundColorAttributeNameCor = JobsGreenColor;
         Jobs_setAssociatedRETAIN_NONATOMIC(_foregroundColorAttributeNameCor, ForegroundColorAttributeNameCor)
-    }return ForegroundColorAttributeNameCor;
+    };return ForegroundColorAttributeNameCor;
 }
 
 -(void)setForegroundColorAttributeNameCor:(UIColor *)foregroundColorAttributeNameCor{
@@ -195,7 +195,7 @@ JobsKey(_fontAttributeName)
     if (!FontAttributeName) {
         FontAttributeName = JobsFontRegular(18);
         Jobs_setAssociatedRETAIN_NONATOMIC(_fontAttributeName, FontAttributeName)
-    }return FontAttributeName;
+    };return FontAttributeName;
 }
 
 -(void)setFontAttributeName:(UIFont *)fontAttributeName{
@@ -209,7 +209,7 @@ JobsKey(_tintColor)
     if (!TintColor) {
         TintColor = JobsGreenColor;
         Jobs_setAssociatedRETAIN_NONATOMIC(_tintColor, TintColor)
-    }return TintColor;
+    };return TintColor;
 }
 
 -(void)setTintColor:(UIColor *)tintColor{
@@ -223,7 +223,7 @@ JobsKey(_barTintColor)
     if (!BarTintColor) {
         BarTintColor = JobsGreenColor;
         Jobs_setAssociatedRETAIN_NONATOMIC(_barTintColor, BarTintColor)
-    }return BarTintColor;
+    };return BarTintColor;
 }
 
 -(void)setBarTintColor:(UIColor *)barTintColor{
@@ -250,7 +250,7 @@ JobsKey(_shadowCor)
                               0,
                               0.8);
         Jobs_setAssociatedRETAIN_NONATOMIC(_shadowCor, ShadowCor)
-    }return ShadowCor;
+    };return ShadowCor;
 }
 
 -(void)setShadowCor:(UIColor *)shadowCor{

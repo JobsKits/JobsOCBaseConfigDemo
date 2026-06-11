@@ -7,12 +7,6 @@
 
 #import "JobsLocker+Once.h"
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 typedef NS_ENUM(NSUInteger, _JobsOnceStatus) {
     _JobsOnceStatusIdle = 0,
     _JobsOnceStatusExecuting,
@@ -33,7 +27,7 @@ Prop_assign()_JobsOnceStatus status;
     if (self) {
         _condition = [[NSCondition alloc] init];
         _status = _JobsOnceStatusIdle;
-    }return self;
+    };return self;
 }
 
 @end

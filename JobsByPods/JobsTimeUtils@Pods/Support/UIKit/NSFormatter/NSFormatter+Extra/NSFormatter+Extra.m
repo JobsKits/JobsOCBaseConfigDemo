@@ -18,7 +18,7 @@
                 NSDateFormatter *dateFormatter = (NSDateFormatter *)self;
                 return [dateFormatter stringFromDate:date];
             }
-        }return @"";
+        };return @"";
     };
 }
 
@@ -32,7 +32,7 @@
                 NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:timeInterval];
                 return dateFormatter.date(date);
             }
-        }return nil;
+        };return nil;
     };
 }
 

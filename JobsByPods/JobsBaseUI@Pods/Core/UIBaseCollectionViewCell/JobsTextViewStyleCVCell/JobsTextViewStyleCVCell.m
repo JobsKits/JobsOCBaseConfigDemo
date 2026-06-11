@@ -30,7 +30,7 @@ BaseViewProtocol_synthesize
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 -(UIViewModel *_Nullable)getViewModel{
@@ -59,7 +59,8 @@ BaseViewProtocol_synthesize
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.textField.alpha = 1;
+        self.textField.byAlpha(1);
+
         return self;
     };
 }
@@ -98,7 +99,7 @@ BaseViewProtocol_synthesize
                 textView.font = self.viewModel.font;
             }
         })).byAdd(self.masonryBlock);
-    }return _textView;
+    };return _textView;
 }
 
 -(__kindof SZTextView *)szTextView{
@@ -108,7 +109,8 @@ BaseViewProtocol_synthesize
             @jobs_strongify(self)
             textView.delegate = self;
             textView.textColor = JobsBlackColor;
-            textView.backgroundColor = @"#F9F9F9".cor;
+            textView.byBgColor(@"#F9F9F9".cor);
+
             textView.returnKeyType = UIReturnKeyDefault;
             textView.keyboardAppearance = UIKeyboardAppearanceDefault;
             textView.keyboardType = UIKeyboardTypeNumberPad;
@@ -124,7 +126,7 @@ BaseViewProtocol_synthesize
 //                @jobs_strongify(self)
             }];
         })).byAdd(self.masonryBlock);
-    }return _textView;
+    };return _textView;
 }
 
 -(__kindof JobsTextView *)jobsTextView{
@@ -134,7 +136,8 @@ BaseViewProtocol_synthesize
             @jobs_strongify(self)
             textView.szTextView.delegate = self;
             textView.szTextView.textColor = JobsBlackColor;
-            textView.backgroundColor = @"#F9F9F9".cor;
+            textView.byBgColor(@"#F9F9F9".cor);
+
             textView.returnKeyType_ = UIReturnKeyDefault;
             textView.keyboardAppearance_ = UIKeyboardAppearanceDefault;
             textView.keyboardType_ = UIKeyboardTypeNumberPad;
@@ -150,7 +153,7 @@ BaseViewProtocol_synthesize
 //                @jobs_strongify(self)
             }];
         })).byAdd(self.masonryBlock);
-    }return _jobsTextView;
+    };return _jobsTextView;
 }
 
 -(jobsByMASConstraintMakerBlock _Nullable)masonryBlock{

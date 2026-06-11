@@ -19,13 +19,13 @@ Prop_strong()CABasicAnimation *animation;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.time = 3;// 倒计时的时间
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
     [self.layer addSublayer:self.shapeLayer];
-    self.label.alpha = 1;
-    
+    self.label.byAlpha(1);
+
     self.addGesture([jobsMakeTapGesture(^(UITapGestureRecognizer * _Nullable gesture) {
         ///  这里写手势的配置
     }) gestureActionBy:^{
@@ -49,12 +49,12 @@ Prop_strong()CABasicAnimation *animation;
 }
 #pragma mark —— SET 方法
 -(void)setStr:(NSString *)str{
-    self.label.text = str ? : @"跳过".tr;
-    [self.label sizeToFit];/// 刷新视图，否则label.frame为0
+    self.label.byText(str ? : @"跳过".tr);
+    [self.label sizeToFit];// 刷新视图，否则label.frame为0
 }
 
 -(void)setFont:(UIFont *)font{
-    self.label.font = font ? : UIFontWeightRegularSize(JobsWidth(12));
+    self.label.byFont(font ? : UIFontWeightRegularSize(JobsWidth(12)));
 }
 
 -(void)setTextColor:(UIColor *)textColor{
@@ -86,7 +86,7 @@ Prop_strong()CABasicAnimation *animation;
                                                     clockwise:YES].CGPath;
             [data addAnimation:self.animation forKey:nil];
         });
-    }return _shapeLayer;
+    };return _shapeLayer;
 }
 
 -(CABasicAnimation *)animation{
@@ -97,7 +97,7 @@ Prop_strong()CABasicAnimation *animation;
         _animation.toValue = @(1.f);
         _animation.removedOnCompletion = NO;
         _animation.fillMode = kCAFillModeBoth;
-    }return _animation;
+    };return _animation;
 }
 @synthesize label = _label;
 -(UILabel *)label{
@@ -105,15 +105,17 @@ Prop_strong()CABasicAnimation *animation;
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(self.str);
-            label.byFont(self.font);
-            label.byTextAlignment(NSTextAlignmentCenter);
-            label.byTextCor(self.textColor);
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self);
-            }];
+            label
+                .byText(self.str)
+                .byFont(self.font)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byTextCor(self.textColor)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                });
         });
-    }return _label;
+    };return _label;
 }
 
 @end

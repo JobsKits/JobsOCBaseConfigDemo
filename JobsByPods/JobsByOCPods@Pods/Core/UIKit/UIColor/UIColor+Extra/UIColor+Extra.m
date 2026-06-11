@@ -7,12 +7,6 @@
 
 #import "UIColor+Extra.h"
 
-#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
-#import <JobsModelDSL/JobsModelDSL.h>
-#else
-#import "JobsModelDSL.h"
-#endif
-
 @implementation UIColor (Extra)
 #pragma mark —— 类方法
 /// 十六进制字符串 => UIColor *

@@ -29,9 +29,9 @@ UITextFieldProtocol_synthesize_part2
         if (!cell) {
             cell = JobsIMListTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.contentView.backgroundColor = JobsWhiteColor;
-            cell.backgroundColor = JobsWhiteColor;
-        }return cell;
+            cell.contentView.byBgColor(JobsWhiteColor);
+            cell.byBgColor(JobsWhiteColor);
+        };return cell;
     };
 }
 
@@ -42,7 +42,8 @@ UITextFieldProtocol_synthesize_part2
         self.longPG.enabled = YES;
         self.swipeBackgroundColor = JobsClearColor;
         self.selectedBackgroundView = UIView.new;
-        self.selectedBackgroundView.backgroundColor = JobsYellowColor.colorWithAlphaComponentBy(0.3);
+        self.selectedBackgroundView.byBgColor(JobsYellowColor.colorWithAlphaComponentBy(0.3));
+
         self.leftSwipeSettings.transition = MGSwipeTransitionBorder;
         self.rightSwipeSettings.transition = MGSwipeTransitionDrag;
         self.leftExpansion.buttonIndex = 0;
@@ -51,7 +52,7 @@ UITextFieldProtocol_synthesize_part2
         self.rightExpansion.fillOnTrigger = YES;
         self.leftButtons = [self createLeftButtons];
         self.rightButtons = [self createRightButtons];
-    }return self;
+    };return self;
 }
 
 +(JobsRetCGFloatByIDBlock _Nonnull)cellHeightByModel{
@@ -78,11 +79,12 @@ UITextFieldProtocol_synthesize_part2
             self.timeStr = @"数据异常".tr;
         }
         
-        self.textLabel.text = self.usernameStr;
-        self.detailTextLabel.text = self.contentStr;
-        self.detailTextLabel.textColor = JobsLightGrayColor;
+        self.textLabel.byText(self.usernameStr);
+        self.detailTextLabel.byText(self.contentStr);
+        self.detailTextLabel.byTextCor(JobsLightGrayColor);
         self.imageView.image = self.userHeaderIMG;
-        self.timeLab.alpha = 1;
+        self.timeLab.byAlpha(1);
+
         return self;
     };
 }
@@ -130,17 +132,17 @@ UITextFieldProtocol_synthesize_part2
         @jobs_weakify(self)
         _timeLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(self.timeStr);
-            label.byTextCor(JobsLightGrayColor);
-            label.byFont(UIFontWeightRegularSize(JobsWidth(12)));
-            [label sizeToFit];
-            self.contentView.addSubview(label);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            label
+                .byText(self.timeStr)
+                .byTextCor(JobsLightGrayColor)
+                .byFont(UIFontWeightRegularSize(JobsWidth(12)));
+            label.bySizeToFit();
+            label.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
                 make.top.equalTo(self.contentView).offset(5);
                 make.right.equalTo(self.contentView).offset(-5);
-            }];
+            });
         });
-    }return _timeLab;
+    };return _timeLab;
 }
 
 -(UILongPressGestureRecognizer *)longPG{
@@ -153,7 +155,7 @@ UITextFieldProtocol_synthesize_part2
                 JobsLog(@"长按手势做什么");
             }
         }];self.addGesture(_longPG);
-    }return _longPG;
+    };return _longPG;
 }
 
 -(NSMutableArray<MGSwipeButtonModel *> *)leftBtnMutArr{
@@ -175,7 +177,7 @@ UITextFieldProtocol_synthesize_part2
                 model.bgCor = RGBA_COLOR(0.59, 0.29, 0.08, 1);
             }));
         });
-    }return _leftBtnMutArr;
+    };return _leftBtnMutArr;
 }
 
 -(NSMutableArray<MGSwipeButtonModel *> *)rightBtnMutArr{
@@ -197,8 +199,7 @@ UITextFieldProtocol_synthesize_part2
                 model.bgCor = JobsCyanColor;
             }));
         });
-    }return _rightBtnMutArr;
+    };return _rightBtnMutArr;
 }
-    
 
 @end

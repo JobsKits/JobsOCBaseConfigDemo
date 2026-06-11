@@ -27,7 +27,7 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
 -(instancetype)init{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -61,7 +61,8 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     self.makeNavByAlpha(1);
     self.tableView.byShow(self);
     self.bitsMonitorSuspendLab.byVisible(YES);
@@ -208,7 +209,7 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [scrollView zf_scrollViewWillBeginDragging];
 }
-#pragma mark —————————— UITableViewDelegate,UITableViewDataSource ——————————
+#pragma mark —— UITableViewDelegate,UITableViewDataSource ——————————
 -(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return JobsVideoTBVCell.cellHeightByModel(tableView);
@@ -246,14 +247,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!_bitsMonitorSuspendLab) {
         @jobs_weakify(self)
         _bitsMonitorSuspendLab = [JobsBitsMonitorSuspendLab.alloc initBy:JobsBitsMonitorDisplayStyleRichText];
-        _bitsMonitorSuspendLab.font = UIFontWeightBoldSize(10);
-        _bitsMonitorSuspendLab.backgroundColor = JobsLightGrayColor;
-        _bitsMonitorSuspendLab.textColor = JobsRedColor;
+        _bitsMonitorSuspendLab.byFont(UIFontWeightBoldSize(10));
+
+        _bitsMonitorSuspendLab.byBgColor(JobsLightGrayColor);
+
+        _bitsMonitorSuspendLab.byTextCor(JobsRedColor);
+
         _bitsMonitorSuspendLab.vc = weak_self;
         _bitsMonitorSuspendLab.isAllowDrag = YES;/// 悬浮效果必须要的参数
-        _bitsMonitorSuspendLab.frame = JobsBitsMonitorSuspendLab.viewFrameByModel(nil);
+        _bitsMonitorSuspendLab.byFrame(JobsBitsMonitorSuspendLab.viewFrameByModel(nil));
+
         self.view.addSubview(_bitsMonitorSuspendLab);
-    }return _bitsMonitorSuspendLab;
+    };return _bitsMonitorSuspendLab;
 }
 /// BaseViewProtocol
 @synthesize tableView = _tableView;
@@ -262,18 +267,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         @jobs_weakify(self)
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
-            tableView.byPagingEnabled(YES);
-            tableView.byBgColor(JobsLightGrayColor);
+            tableView.byPagingEnabled(YES)
+                .byBgColor(JobsLightGrayColor);
             tableView.dataLink(self);
-            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone);
-            tableView.byShowsVerticalScrollIndicator(NO);
-            tableView.byScrollsToTop(NO);
+            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .byShowsVerticalScrollIndicator(NO)
+                .byScrollsToTop(NO);
             
             if (@available(iOS 11.0, *)) {
-                tableView.byEstimatedRowHeight(0);
-                tableView.byEstimatedSectionFooterHeight(0);
-                tableView.byEstimatedSectionHeaderHeight(0);
-                tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
+                tableView.byEstimatedRowHeight(0)
+                    .byEstimatedSectionFooterHeight(0)
+                    .byEstimatedSectionHeaderHeight(0)
+                    .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             } else {
                 SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
             }
@@ -309,17 +314,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //            [tableView tab_startAnimation];   // 开启动画
     //        }
             
-            self.view.addSubview(tableView);
-            [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            tableView.byAddTo(self.view, ^(MASConstraintMaker *make) {
                 make.left.right.equalTo(self.view);
                 if (self.gk_navBarAlpha && !self.gk_navigationBar.hidden) {//显示
                     make.top.equalTo(self.gk_navigationBar.mas_bottom);
                 }else{
                     make.top.equalTo(self.view.mas_top);
                 }make.bottom.equalTo(self.view.mas_bottom);
-            }];
+            });
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(ZFPlayerController *)player{
@@ -393,7 +397,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 self.tableView.reloadDatas();
             }[self playTheVideoAtIndexPath:indexPath];
         };
-    }return _player;
+    };return _player;
 }
 
 -(NSMutableArray <VideoModel_Core *>*)dataMutArr{
@@ -460,13 +464,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 data1.videoImg = @"视频封面.jpg";
             }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 @synthesize pageSize = _pageSize;
 -(NSNumber *)pageSize{
     if(!_pageSize){
         _pageSize = @(6);
-    }return _pageSize;
+    };return _pageSize;
 }
 
 -(ZFDouYinControlView *)controlView{
@@ -474,13 +478,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         _controlView = jobsMakeZFDouYinControlView(^(__kindof ZFDouYinControlView * _Nullable label) {
             
         });
-    }return _controlView;
+    };return _controlView;
 }
 
 -(ZFCustomControlView *)fullControlView{
     if (!_fullControlView) {
         _fullControlView = ZFCustomControlView.new;
-    }return _fullControlView;
+    };return _fullControlView;
 }
 #pragma mark —— 暂时用不到的
 -(jobsByBOOLBlock _Nonnull)requestDataBy{

@@ -12,6 +12,12 @@
 #import <UIKit/UIKit.h>
 #import <TFPopupExtra/NSObject+TFPopup.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<TFPopup/TFPopup.h>)
 #import <TFPopup/TFPopup.h>
 #else
@@ -83,7 +89,7 @@ NS_ASSUME_NONNULL_END
              for (NSString *str in self.titleMutArr) {
                  [_childVCMutArr addObject:BaiShaETProjAlreadySettledSubBaseVC.new];
              }
-         }return _childVCMutArr;
+         };return _childVCMutArr;
      }
 
      -(UIButton *)filterBtn{
@@ -93,11 +99,11 @@ NS_ASSUME_NONNULL_END
              _filterBtn.jobsResetBtnImage = @"向下的箭头".img);
              _filterBtn.titleFont = fontName(@"NotoSans-Bold", 12);
              _filterBtn.jobsResetBtnTitleCor = HEXCOLOR(0x3D4A58);
-             [self.view addSubview:_filterBtn];
-             [_filterBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+             _filterBtn.byAddTo(self.view, ^(MASConstraintMaker *make) {
                  make.right.equalTo(self.view);
                  make.top.bottom.equalTo(categoryView);
-             }];
+             });
+
              _filterBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
              _filterBtn.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTrailing,JobsWidth(6));
 
@@ -118,7 +124,7 @@ NS_ASSUME_NONNULL_END
                      [self.vc hidePopupView:self.popUpFiltrationView];
                  }
              });
-         }return _filterBtn;
+         };return _filterBtn;
      }
 
      -(UIButton *)customBtn{
@@ -128,12 +134,12 @@ NS_ASSUME_NONNULL_END
              _customBtn.titleFont = fontName(@"NotoSans-Bold", 12);
              _customBtn.jobsResetBtnTitleCor = HEXCOLOR(0x3D4A58);
              _customBtn.selectedStateTitleColorBy = HEXCOLOR(0xAE8330);
-             [self.view addSubview:_customBtn];
-             [_customBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+             _customBtn.byAddTo(self.view, ^(MASConstraintMaker *make) {
                  make.right.equalTo(self.filterBtn.mas_left).offset(JobsWidth(-8));
                  make.top.bottom.equalTo(categoryView);
                  make.left.equalTo(categoryView.mas_right);
-             }];
+             });
+
 
              BtnClickEvent(_customBtn, {
                  x.selected = !x.selected;
@@ -154,7 +160,7 @@ NS_ASSUME_NONNULL_END
                      [self.vc hidePopupView:self.popUpCustomView];
                  }
              });
-         }return _customBtn;
+         };return _customBtn;
      }
  */
 #endif /* JOBS_HEADER_GUARD_UIVIEWCONTROLLER_TFPOPUPVIEW_D6286FCE92 */

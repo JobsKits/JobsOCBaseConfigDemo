@@ -34,13 +34,17 @@
     UIView *snapShotView = [cell.imgView snapshotViewAfterScreenUpdates:NO];
     CGRect firstFrame  = [containerView convertRect:cell.imgView.frame fromView:cell];
     CGRect secondFrame = [containerView convertRect:secondVC.imageView.frame fromView:secondVC.view];
-    snapShotView.frame = firstFrame;
-    cell.imgView.hidden = YES;
+    snapShotView.byFrame(firstFrame);
+
+    cell.imgView.byHidden(YES);
+
     
     // 3.设置第二个控制器的位置、透明度，并把透明度设为0，在后面的动画中慢慢显示出来变为1
-    secondVC.view.frame = [transitionContext finalFrameForViewController:secondVC];//初始化secondVC的位置,否则约束无效
-    secondVC.view.alpha = 0;
-    secondVC.imageView.hidden = YES;
+    secondVC.view.byFrame([transitionContext finalFrameForViewController:secondVC]);//初始化secondVC的位置,否则约束无效
+    secondVC.view.byAlpha(0);
+
+    secondVC.imageView.byHidden(YES);
+
     
     // 4.把动画前后的两个ViewController加到容器中,顺序很重要,snapShotView在上方 就是截图和secondVC.view之间的动画
     [containerView addSubview:secondVC.view];
@@ -54,14 +58,18 @@
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
         [containerView layoutIfNeeded];
-        secondVC.view.alpha = 1;
-        snapShotView.frame = secondFrame;
+        secondVC.view.byAlpha(1);
+
+        snapShotView.byFrame(secondFrame);
+
         // ====
         snapShotView.clipsToBounds = NO;
     } completion:^(BOOL finished) {
         //为了让回来的时候，cell上的图片显示，必须要让cell上的图片显示出来
-        cell.imgView.hidden = NO;
-        secondVC.imageView.hidden = NO;
+        cell.imgView.byHidden(NO);
+
+        secondVC.imageView.byHidden(NO);
+
         [snapShotView removeFromSuperview];
         //告诉系统动画结束 一定要记得动画完成后执行此方法，让系统管理 navigation
         [transitionContext completeTransition:YES];

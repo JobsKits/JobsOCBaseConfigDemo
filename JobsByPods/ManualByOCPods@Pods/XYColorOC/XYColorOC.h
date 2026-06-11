@@ -18,7 +18,7 @@ FOUNDATION_EXPORT const unsigned char XYColorOCVersionString[];
 #elif __has_include("UIColor+XYColorOC.h")
 #import "UIColor+XYColorOC.h"
 #else
-#import "Support/UIKit/UIColor+XYColorOC/UIColor+XYColorOC.h"
+#import "Support/UIKit/UIColor/UIColor+XYColorOC/UIColor+XYColorOC.h"
 #endif
 
 #if __has_include(<XYColorOC/UIView+XYColorOC.h>)
@@ -26,7 +26,7 @@ FOUNDATION_EXPORT const unsigned char XYColorOCVersionString[];
 #elif __has_include("UIView+XYColorOC.h")
 #import "UIView+XYColorOC.h"
 #else
-#import "Support/UIKit/UIView+XYColorOC/UIView+XYColorOC.h"
+#import "Support/UIKit/UIView/UIView+XYColorOC/UIView+XYColorOC.h"
 #endif
 
 #if __has_include(<XYColorOC/CALayer+XYColorOC.h>)
@@ -34,5 +34,5 @@ FOUNDATION_EXPORT const unsigned char XYColorOCVersionString[];
 #elif __has_include("CALayer+XYColorOC.h")
 #import "CALayer+XYColorOC.h"
 #else
-#import "Support/UIKit/CALayer+XYColorOC/CALayer+XYColorOC.h"
+#import "Support/UIKit/CALayer/CALayer+XYColorOC/CALayer+XYColorOC.h"
 #endif

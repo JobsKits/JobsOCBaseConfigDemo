@@ -19,15 +19,19 @@ JobsKey(_btn)
     UIButton *Btn = Jobs_getAssociatedObject(_btn);
     if (!Btn) {
         Btn = UIButton.new;
-        Btn.frame = self.bounds;
+        Btn.byFrame(self.bounds);
+
         Btn.userInteractionEnabled = NO;//❤️cell上加button，要相应cell协议就要关闭button的userInteractionEnabled，如果要相应Button则需要打开
         Btn.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        Btn.titleLabel.font = [UIFont boldSystemFontOfSize:10.f];
-        Btn.titleLabel.textAlignment = NSTextAlignmentCenter;
-        Btn.titleLabel.numberOfLines = 0;
+        Btn.titleLabel.byFont([UIFont boldSystemFontOfSize:10.f]);
+
+        Btn.titleLabel.byTextAlignment(NSTextAlignmentCenter);
+
+        Btn.titleLabel.byNumberOfLines(0);
+
         [self.contentView addSubview:Btn];
         Jobs_setAssociatedRETAIN_NONATOMIC(_btn, Btn);
-    }return Btn;
+    };return Btn;
 }
 #pragma mark —— Prop_strong()UIView *colorBarView;
 JobsKey(_colorBarView)
@@ -42,11 +46,11 @@ JobsKey(_colorBarView)
         @jobs_weakify(self)
         ColorBarView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            view.byBgColor(self.color);
-            view.byFrame(CGRectInset(self.bounds, 2, 2));
+            view.backgroundColor = self.color;
+            view.frame = CGRectInset(self.bounds, 2, 2);
             [self.contentView addSubview:view];
         });Jobs_setAssociatedRETAIN_NONATOMIC(_colorBarView, ColorBarView);
-    }return ColorBarView;
+    };return ColorBarView;
 }
 #pragma mark —— Prop_strong()UIColor *color;
 JobsKey(_color)
@@ -60,7 +64,7 @@ JobsKey(_color)
     if (!Color) {
         Color = UIColor.blueColor;
         Jobs_setAssociatedRETAIN_NONATOMIC(_color, Color);
-    }return Color;
+    };return Color;
 }
 
 @end

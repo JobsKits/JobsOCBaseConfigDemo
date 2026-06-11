@@ -124,7 +124,7 @@ successCompletionHandlerBlock:^(id data) {
             selectedLanguage = name;
             break;
         }
-    }return selectedLanguage;
+    };return selectedLanguage;
 }
 /// 获取当前语言lproj文件对应的bundle 方式一
 -(NSBundle *)lprojBundle{

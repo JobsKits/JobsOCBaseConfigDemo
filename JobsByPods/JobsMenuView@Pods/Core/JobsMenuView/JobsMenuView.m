@@ -23,13 +23,13 @@ Prop_strong()JobsLinkageMenuView *menuView;
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -46,7 +46,7 @@ Prop_strong()JobsLinkageMenuView *menuView;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -56,7 +56,8 @@ Prop_strong()JobsLinkageMenuView *menuView;
 //        self.viewModel = model ? : UIViewModel.new;
 //        MakeDataNull
 //        self.backgroundColor = JobsRedColor;
-        self.menuView.alpha = 1;
+        self.menuView.byAlpha(1);
+
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -81,7 +82,7 @@ Prop_strong()JobsLinkageMenuView *menuView;
             @jobs_strongify(self)
             if (self.objBlock) self.objBlock(x);
         }];self.addSubview(_menuView);
-    }return _menuView;
+    };return _menuView;
 }
 
 -(UIButtonModel *)buttonModel{
@@ -99,13 +100,13 @@ Prop_strong()JobsLinkageMenuView *menuView;
                 .byImagePaddings(self.imagePaddings)
                 .byImagePlacement(NSDirectionalRectEdgeLeading);
         });
-    }return _buttonModel;
+    };return _buttonModel;
 }
 
 -(JobsLinkageMenuViewConfig *)linkageMenuViewConfig{
     if(!_linkageMenuViewConfig){
         _linkageMenuViewConfig = JobsLinkageMenuViewConfig.new;
-    }return _linkageMenuViewConfig;
+    };return _linkageMenuViewConfig;
 }
 
 @end

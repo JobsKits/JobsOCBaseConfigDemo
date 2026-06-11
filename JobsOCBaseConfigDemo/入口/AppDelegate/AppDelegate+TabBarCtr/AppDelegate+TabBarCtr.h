@@ -35,6 +35,12 @@
 #import "JobsMakes.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
@@ -78,8 +84,8 @@ Prop_strong(class)NSMutableArray <__kindof NSString *>*imageSelectedNameMutArr;
 Prop_strong(class)NSMutableArray <__kindof NSString *>*imageUnselectedNameMutArr;
 Prop_strong(class)NSMutableArray <__kindof UIImage *>*imageSelectedMutArr;
 Prop_strong(class)NSMutableArray <__kindof UIImage *>*imageUnSelectedMutArr;
-Prop_strong(class)NSMutableArray <__kindof UIViewController *>*viewCtrlByTabBarCtrlConfigMutArr;///【从配置TabBarCtrl信息添加的】Tabbar管理的，不含导航的根控制器
-Prop_strong(class)NSMutableArray <__kindof UIViewController *>*viewCtrlMutArr;///【手动添加的】Tabbar管理的，不含导航的根控制器
+Prop_strong(class)NSMutableArray <__kindof UIViewController *>*viewCtrlByTabBarCtrlConfigMutArr;//【从配置TabBarCtrl信息添加的】Tabbar管理的，不含导航的根控制器
+Prop_strong(class)NSMutableArray <__kindof UIViewController *>*viewCtrlMutArr;//【手动添加的】Tabbar管理的，不含导航的根控制器
 Prop_strong(class)NSMutableArray <__kindof UINavigationController *>*navCtrMutArr;
 #pragma mark —— 一些公有方法
 /// 切换控制器

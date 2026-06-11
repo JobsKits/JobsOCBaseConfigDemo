@@ -7,12 +7,6 @@
 
 #import "JobsAppDoorInputViewBaseStyle_3.h"
 
-#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
-#import <JobsModelDSL/JobsModelDSL.h>
-#else
-#import "JobsModelDSL.h"
-#endif
-
 @interface JobsAppDoorInputViewBaseStyle_3 ()
 /// UI
 Prop_strong()UIButton *securityModeBtn;
@@ -30,7 +24,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             data.byJobsWidth(1)
                 .byLayerCor(Cor3);
         }));
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -41,7 +35,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             data.byJobsWidth(1)
                 .byLayerCor(Cor3);
         }));
-    }return self;
+    };return self;
 }
 
 -(void)layoutSubviews{
@@ -50,18 +44,25 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 #pragma mark —— 一些私有方法
 -(void)configTextField{
     if (isValue(self.doorInputViewBaseStyleModel.inputStr)) {
-        self.magicTextField.text = self.doorInputViewBaseStyleModel.inputStr;
+        self.magicTextField.byText(self.doorInputViewBaseStyleModel.inputStr);
+
     }
     self.magicTextField.background = self.doorInputViewBaseStyleModel.background;
-    self.magicTextField.backgroundColor = self.doorInputViewBaseStyleModel.backgroundColor;
+    self.magicTextField.byBgColor(self.doorInputViewBaseStyleModel.backgroundColor);
+
     self.magicTextField.disabledBackground = self.doorInputViewBaseStyleModel.disabledBackground;
-    self.magicTextField.keyboardType = self.doorInputViewBaseStyleModel.keyboardType;
+    self.magicTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
+
     self.magicTextField.leftView = [UIImageView.alloc initWithImage:self.doorInputViewBaseStyleModel.leftViewIMG];
     self.magicTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
-    self.magicTextField.textColor = self.doorInputViewBaseStyleModel.titleStrCor;
-    self.magicTextField.placeholder = self.doorInputViewBaseStyleModel.placeholder;
-    self.magicTextField.returnKeyType = self.doorInputViewBaseStyleModel.returnKeyType;
-    self.magicTextField.keyboardAppearance = self.doorInputViewBaseStyleModel.keyboardAppearance;
+    self.magicTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
+
+    self.magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
+
+    self.magicTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
+
+    self.magicTextField.byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance);
+
     self.magicTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
     self.magicTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
     self.magicTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量
@@ -140,18 +141,20 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         .onClickBy(^(UIButton *x){
             @jobs_strongify(self)
             x.selected = !x.selected;
-            self.textField.secureTextEntry = !x.selected;
+            self.textField.bySecureTextEntry(!x.selected);
+
             if (x.selected && !self.textField.isEditing) {
-                self.textField.placeholder = self.doorInputViewBaseStyleModel.placeholder;
+                self.textField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
+
             }
         }).onLongPressGestureBy(^(id data){
             JobsLog(@"");
         });
-        [self.addSubview(_securityModeBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _securityModeBtn.byAddTo(self, ^(MASConstraintMaker *make) {
             make.top.right.bottom.equalTo(self);
             make.width.mas_equalTo(JobsWidth(40));
-        }];
-    }return _securityModeBtn;
+        });
+    };return _securityModeBtn;
 }
 @synthesize magicTextField = _magicTextField;
 -(JobsMagicTextField *)magicTextField{
@@ -159,8 +162,10 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         @jobs_weakify(self)
         _magicTextField = jobsMakeMagicTextField(^(__kindof JobsMagicTextField * _Nullable textField) {
             @jobs_strongify(self)
-            textField.delegate = self;
-            textField.secureTextEntry = self.doorInputViewBaseStyleModel.isShowSecurityBtn;
+            textField.byDelegate(self);
+
+            textField.bySecureTextEntry(self.doorInputViewBaseStyleModel.isShowSecurityBtn);
+
             [textField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
                 JobsLog(@"SSS = %@",self.textFieldInputModel.PlaceHolder);
                 @jobs_strongify(self)
@@ -176,16 +181,16 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                     [self block:textField value:x];
                 }
             }];
-            [self.addSubview(textField) mas_makeConstraints:^(MASConstraintMaker *make) {
+            textField.byAddTo(self, ^(MASConstraintMaker *make) {
                 make.top.left.bottom.equalTo(self);
                 if (self.doorInputViewBaseStyleModel.isShowSecurityBtn) {
                     make.right.equalTo(self.securityModeBtn.mas_left);
                 }else{
                     make.right.equalTo(self);
                 }
-            }];
+            });
         });
-    }return _magicTextField;
+    };return _magicTextField;
 }
 
 @end

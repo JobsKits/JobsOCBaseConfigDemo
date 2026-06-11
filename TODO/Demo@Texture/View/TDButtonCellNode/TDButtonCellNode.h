@@ -6,11 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
 
 #if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
@@ -18,10 +13,16 @@
 #import "AsyncDisplayKit.h"
 #endif
 
-#if __has_include(<JobsByOCPods/UIKits.h>)
-#import <JobsByOCPods/UIKits.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "UIKits.h"
+#import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

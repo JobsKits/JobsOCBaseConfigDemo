@@ -42,24 +42,24 @@ NS_ASSUME_NONNULL_BEGIN
  JPEG格式通常用于照片和图像，因为它可以提供较小的文件大小，而且人眼对于JPEG压缩引起的细节损失不太敏感。
  **/
 @interface UIImage (Base32)
-#pragma mark ——【Sys】NSData ==> UIImage
+#pragma mark —— 【Sys】NSData ==> UIImage
 ///【类方法】NSData 转 UIImage
 +(JobsRetImageByDataBlock _Nonnull)getImageWithData;
 ///【实例方法】NSData 转 UIImage
 -(JobsRetImageByDataBlock _Nonnull)getImageWithData;
-#pragma mark ——【Sys】
-#pragma mark ——【Sys】UIImage ==> NSData.PNG
+#pragma mark —— 【Sys】
+#pragma mark —— 【Sys】UIImage ==> NSData.PNG
 ///【类方法】UIImage 转 NSData（PNG格式）
 +(JobsRetDataByImageBlock _Nonnull)dataWithPNGImage;
 ///【实例方法】UIImage 转 NSData（PNG格式）
 -(NSData *_Nullable)PNGImageData;
-#pragma mark ——【Sys】UIImage ==> NSData.JPEG
+#pragma mark —— 【Sys】UIImage ==> NSData.JPEG
 ///【类方法】UIImage 转 NSData（JPEG格式），指定压缩质量
 +(NSData *_Nullable)dataWithJPEGImage:(UIImage *_Nonnull)image
                    compressionQuality:(CGFloat)compressionQuality;
 ///【实例方法】UIImage 转 NSData（JPEG格式），指定压缩质量
 -(JobsRetDataByFloatBlock _Nonnull)JPEGImageDataWithCompressionQuality;
-#pragma mark ——【Custom】
+#pragma mark —— 【Custom】
 #pragma mark —— Base32 <==> UIImage
 ///【类方法】将UIimage对象转成用Base32编码的字符串
 +(JobsRetStrByImageBlock _Nonnull)base32StringByImage;

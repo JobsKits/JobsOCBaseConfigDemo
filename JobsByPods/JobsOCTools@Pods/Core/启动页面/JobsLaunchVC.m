@@ -33,13 +33,14 @@ Prop_strong()UIImageView *launchImageView;
 - (instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    self.view.backgroundColor = JobsRedColor;
-    self.launchImageView.alpha = 1;
+    self.launchImageView.byAlpha(1);
+
     self.switchBy(2);
 }
 
@@ -87,12 +88,14 @@ Prop_strong()UIImageView *launchImageView;
         @jobs_weakify(self)
         _launchImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.frame = self.view.bounds;
+            imageView.byFrame(self.view.bounds);
+
             imageView.image = @"BSport".img;
-            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.byContentMode(UIViewContentModeScaleAspectFill);
+
             self.view.addSubview(imageView);
         });
-    }return _launchImageView;
+    };return _launchImageView;
 }
 
 @end

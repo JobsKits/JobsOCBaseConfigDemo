@@ -15,7 +15,7 @@
         @jobs_strongify(self)
         if(animation.keyPath){
             [self addAnimation:animation forKey:animation.keyPath];
-        }return self;
+        };return self;
     };
 }
 
@@ -34,7 +34,7 @@
         @jobs_strongify(self)
         if(animation.keyPath){
             [self addAnimation:animation forKey:animation.keyPath];
-        }return animation;
+        };return animation;
     };
 }
 

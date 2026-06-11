@@ -46,7 +46,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 - (void)viewDidLoad {
     [super viewDidLoad];
     @jobs_weakify(self)
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
     self.makeNavByAlpha(1);
     self.collectionView.byShow(self);
     self.jobsBackBlock = ^id _Nullable(id _Nullable data) {
@@ -163,7 +163,8 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
                                    cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     JobsBtnStyleCVCell *cell = [JobsBtnStyleCVCell cellWithCollectionView:collectionView forIndexPath:indexPath];
     cell.jobsRichElementsCollectionViewCellBy(self.dataMutArr[indexPath.item]);
-    cell.contentView.backgroundColor = JobsRandomColor;
+    cell.contentView.byBgColor(JobsRandomColor);
+
     return cell;
 }
 
@@ -272,53 +273,36 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
 -(BaseCollectionView *)collectionView{
     if (!_collectionView) {
         @jobs_weakify(self)
-        _collectionView = BaseCollectionView.initByLayout(self.verticalLayout);
-        _collectionView.backgroundColor = JobsGreenColor;//RGB_SAMECOLOR(246);
-        _collectionView.layoutSubviewsRectCorner = UIRectCornerTopLeft | UIRectCornerTopRight;
-        _collectionView.layoutSubviewsRectCornerSize = CGSizeMake(JobsWidth(20), JobsWidth(20));
-        _collectionView.dataLink(self);
-        
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.showsHorizontalScrollIndicator = NO;
-        
-        _collectionView.bounces = NO;///设置为NO，使得collectionView只能上拉，不能下拉
-        
-        _collectionView.contentInset = UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0);
-        //_collectionView.contentOffset = CGPointMake(0, -JobsWidth(250));//
-        [_collectionView setContentOffset:CGPointMake(0, -400) animated:YES];// 这句最快在 viewWillLayoutSubviews 有效
-
-        _collectionView.registerCollectionViewCellClass(JobsBtnStyleCVCell.class,@"");
-
-        _collectionView.registerCollectionViewCellClass(TMSWalletCollectionViewCell.class,@"");
-        _collectionView.registerCollectionElementKindSectionHeaderClass(TMSWalletCollectionReusableView.class,@"");
-        _collectionView.registerCollectionElementKindSectionFooterClass(TMSWalletCollectionReusableView.class,@"");
-        
-        {
-            _collectionView.mj_header = self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
+        _collectionView = BaseCollectionView.initByLayout(self.verticalLayout)
+            .registerCollectionViewCellClass(JobsBtnStyleCVCell.class, @"")
+            .registerCollectionViewCellClass(TMSWalletCollectionViewCell.class, @"")
+            .registerCollectionElementKindSectionHeaderClass(TMSWalletCollectionReusableView.class, @"")
+            .registerCollectionElementKindSectionFooterClass(TMSWalletCollectionReusableView.class, @"")
+            .dataLink(self)
+            .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
+            .byShowsVerticalScrollIndicator(NO)
+            .byShowsHorizontalScrollIndicator(NO)
+            .byBounces(NO)// 设置为 NO，使得 collectionView 只能上拉，不能下拉
+            .setContentOffsetByYES(CGPointMake(0, -400))// 这句最快在 viewWillLayoutSubviews 有效
+            .byMJ_header(self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id _Nullable data) {
                 @jobs_strongify(self)
-                NSObject.feedbackGenerator(nil);//震动反馈
+                NSObject.feedbackGenerator(nil);// 震动反馈
                 return nil;
-            }]);
-            _collectionView.mj_footer = self.view.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
+            }]))
+            .byMJ_footer(self.view.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id _Nullable data) {
                 @jobs_strongify(self)
                 self->_collectionView.endRefreshing(self.dataMutArr.count);
                 return nil;
-            }]);
-        }
-        
-//        {
-//            _collectionView.tabAnimated = [TABCollectionAnimated animatedWithCellClass:HomeCVCell.class
-//                                                                              cellSize:HomeCVCell.cellSizeByModel(nil)];
-//            _collectionView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeBinAnimation;
-//            _collectionView.tabAnimated.canLoadAgain = YES;
-//            _collectionView.tabAnimated.animatedBackViewCornerRadius = JobsWidth(8);
-////            _collectionView.tabAnimated.animatedBackgroundColor = JobsRedColor;
-//            [_collectionView tab_startAnimation];   // 开启动画
-//        }
-        [self.view.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            }]));
+        _collectionView.byLayoutSubviewsRectCorner(UIRectCornerTopLeft | UIRectCornerTopRight);
+        _collectionView.byLayoutSubviewsRectCornerSize(CGSizeMake(JobsWidth(20), JobsWidth(20)));
+        _collectionView.byBgColor(JobsGreenColor);// RGB_SAMECOLOR(246)
+        _collectionView.addOn(self.view);
+        [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            @jobs_strongify(self)
             make.edges.equalTo(self.view);
         }];
-    }return _collectionView;
+    };return _collectionView;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
@@ -442,7 +426,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
 //                };
 //            }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

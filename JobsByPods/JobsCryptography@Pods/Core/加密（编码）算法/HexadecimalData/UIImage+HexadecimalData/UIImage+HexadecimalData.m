@@ -17,7 +17,7 @@
         const unsigned char *bytes = imageData.bytes;
         for (int i = 0; i < imageData.length; ++i) {
             [hexString appendFormat:@"%02X", bytes[i]];
-        }return hexString;
+        };return hexString;
     };
 }
 ///【实例方法】UIImage对象 转换为 16进制字符串

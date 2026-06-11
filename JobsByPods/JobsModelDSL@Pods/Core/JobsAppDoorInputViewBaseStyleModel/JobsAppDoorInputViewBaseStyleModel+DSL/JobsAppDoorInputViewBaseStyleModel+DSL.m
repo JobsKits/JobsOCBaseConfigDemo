@@ -7,6 +7,7 @@
 
 #import "JobsAppDoorInputViewBaseStyleModel+DSL.h"
 
+
 @implementation JobsAppDoorInputViewBaseStyleModel (DSL)
 
 -(JobsRetJobsAppDoorInputViewBaseStyleModelByImageBlock _Nonnull)byLeftViewIMG{

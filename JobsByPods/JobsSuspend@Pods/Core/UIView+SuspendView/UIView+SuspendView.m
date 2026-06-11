@@ -7,7 +7,6 @@
 
 #import "UIView+SuspendView.h"
 #import <JobsSuspend/UIView+Measure.h>
-#import <JobsSuspend/UIView+Gesture.h>
 
 @implementation UIView (SuspendView)
 #pragma mark —— @property(nonatomic,weak)UIViewController *vc;
@@ -17,7 +16,7 @@ JobsKey(_vc)
     UIViewController *VC = Jobs_getAssociatedObject(_vc);
     if (!VC) {
         JobsLog(@"VC 不能为空");
-    }return VC;
+    };return VC;
 }
 
 -(void)setVc:(UIViewController *)vc{
@@ -120,7 +119,7 @@ JobsKey(_panRcognize)
             return nil;
         }];
         Jobs_setAssociatedRETAIN_NONATOMIC(_panRcognize, self.panGR)
-    }return PanRcognize;
+    };return PanRcognize;
 }
 
 -(void)setPanRcognize:(UIPanGestureRecognizer *)panRcognize{

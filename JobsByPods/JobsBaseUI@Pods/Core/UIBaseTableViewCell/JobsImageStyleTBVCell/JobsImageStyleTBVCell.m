@@ -8,11 +8,7 @@
 #import "JobsImageStyleTBVCell.h"
 #import <JobsBaseUI/UITableView+RegisterClass.h>
 #import <JobsBaseUI/UIView+Extra.h>
-#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
-#import <JobsModelDSL/JobsModelDSL.h>
-#else
-#import "JobsModelDSL.h"
-#endif
+
 #import <Masonry/Masonry.h>
 
 @interface JobsImageStyleTBVCell ()
@@ -45,7 +41,8 @@ BaseLayerProtocol_synthesize_part3
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.backgroudImageView.alpha = 1;
+        self.backgroudImageView.byAlpha(1);
+
         return self;
     };
 }
@@ -67,11 +64,11 @@ BaseLayerProtocol_synthesize_part3
         _backgroudImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
             imageView.image = self.viewModel.bgImage;
-            [self.contentView.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            imageView.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);
-            }];
+            });
         });
-    }return _backgroudImageView;
+    };return _backgroudImageView;
 }
 
 @end

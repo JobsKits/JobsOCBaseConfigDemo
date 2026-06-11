@@ -76,7 +76,8 @@ Prop_strong()UITextModel *postTextModel;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsWhiteColor;
+    self.view.byBgColor(JobsWhiteColor);
+
 
     @jobs_weakify(self)
     self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
@@ -89,10 +90,14 @@ Prop_strong()UITextModel *postTextModel;
     });
     self.makeNavByAlpha(1);
     
-    self.jobsTextView.alpha = 1;
-    self.tipsLab.alpha = 1;
-    self.postPhotoView.alpha = 1;
-    self.postDelView.alpha = 1;
+    self.jobsTextView.byAlpha(1);
+
+    self.tipsLab.byAlpha(1);
+
+    self.postPhotoView.byAlpha(1);
+
+    self.postDelView.byAlpha(1);
+
     [self releaseBtnState:self.historyPhotoDataArr inputDataString:self.inputDataHistoryString];
     self.fd_interactivePopDisabled = YES;
 }
@@ -372,7 +377,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         _releaseBtn.width = JobsWidth(38);
         _releaseBtn.height = JobsWidth(23);
         self.view.addSubview(_releaseBtn);
-    }return _releaseBtn;
+    };return _releaseBtn;
 }
 @synthesize jobsTextView = _jobsTextView;
 -(__kindof JobsTextView *)jobsTextView{
@@ -380,68 +385,72 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         @jobs_weakify(self)
         _jobsTextView = makeJobsTextView(^(__kindof JobsTextView * _Nullable textView) {
             @jobs_strongify(self)
-            textView.backgroundColor = JobsWhiteColor;
-            textView.JobsRichViewByModel2(self.viewModel.textModel)
+            textView
+                .byBgColor(JobsWhiteColor)
+                .JobsRichViewByModel2(self.viewModel.textModel)
                 .JobsBlock1(^(id  _Nullable data) {
                     @jobs_strongify(self)
                     NSString *x = (NSString *)data;
                     self.inputDataString = x;
                     [self releaseBtnState:self.photoManager.afterSelectedArray
                           inputDataString:self.inputDataString];
-            });
-            [self.view.addSubview(textView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
-                make.left.equalTo(self.view).offset(JobsWidth(0));
-                make.right.equalTo(self.view).offset(JobsWidth(-0));
-                make.height.mas_equalTo(JobsWidth(101));
-            }];
+                })
+                .byAddTo(self.view, ^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
+                    make.left.equalTo(self.view).offset(JobsWidth(0));
+                    make.right.equalTo(self.view).offset(JobsWidth(-0));
+                    make.height.mas_equalTo(JobsWidth(101));
+                });
         });
-    }return _jobsTextView;
+    };return _jobsTextView;
 }
 
 -(HXPhotoView *)postPhotoView{
     if (!_postPhotoView) {
-        _postPhotoView = HXPhotoView.initBy(self.photoManager);
-        _postPhotoView.spacing = 20.f;
-        _postPhotoView.delegate = self;
-        _postPhotoView.deleteCellShowAlert = NO;
-        _postPhotoView.outerCamera = YES;
-        _postPhotoView.previewShowDeleteButton = YES;
-        [self.view.addSubview(_postPhotoView) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _postPhotoView = HXPhotoView.initBy(self.photoManager)
+            .bySpacing(20.f)
+            .byDelegate(self)
+            .byDeleteCellShowAlert(NO)
+            .byOuterCamera(YES)
+            .byPreviewShowDeleteButton(YES);
+        _postPhotoView.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.left.equalTo(self.view).offset(JobsWidth(10));
             make.top.equalTo(self.tipsLab.mas_bottom).offset(JobsWidth(20));
             make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH() - JobsWidth(10) * 2, JobsWidth(600)));
-        }];
-    }return _postPhotoView;
+        });
+    };return _postPhotoView;
 }
 
 -(HXPhotoManager *)photoManager {
     if (!_photoManager) {
         _photoManager = jobsMakeHXPhotoManagerBySelectedTypePhotoAndVideo(^(__kindof HXPhotoManager * _Nullable manager) {
-            manager.configuration.localFileName = jobsCurrentAppName();// 设置保存的文件名称
-            manager.configuration.type = HXConfigurationTypeWXChat;
-            manager.configuration.showOriginalBytes = YES;
-            manager.configuration.showOriginalBytesLoading = YES;
-            manager.configuration.videoMaximumSelectDuration = -1;
-            manager.configuration.limitVideoSize = 100 * 1024 * 1024;
-            manager.configuration.selectVideoLimitSize = YES;
-            manager.configuration.selectVideoBeyondTheLimitTimeAutoEdit = NO;
-            manager.configuration.specialModeNeedHideVideoSelectBtn = NO;
-            manager.configuration.videoMaxNum = 1;
-            manager.configuration.maxNum = 9;
-            manager.configuration.photoMaxNum = 9;
-            manager.configuration.selectTogether = NO;
+            manager.byConfiguration(^(__kindof HXPhotoConfiguration * _Nullable config) {
+                config
+                    .byLocalFileName(jobsCurrentAppName())// 设置保存的文件名称
+                    .byType(HXConfigurationTypeWXChat)
+                    .byShowOriginalBytes(YES)
+                    .byShowOriginalBytesLoading(YES)
+                    .byVideoMaximumSelectDuration(-1)
+                    .byLimitVideoSize(100 * 1024 * 1024)
+                    .bySelectVideoLimitSize(YES)
+                    .bySelectVideoBeyondTheLimitTimeAutoEdit(NO)
+                    .bySpecialModeNeedHideVideoSelectBtn(NO)
+                    .byVideoMaxNum(1)
+                    .byMaxNum(9)
+                    .byPhotoMaxNum(9)
+                    .bySelectTogether(NO);
+            });
         });
-    }return _photoManager;
+    };return _photoManager;
 }
 
 -(JobsPostDelView *)postDelView{
     if (!_postDelView) {
         _postDelView = JobsPostDelView.new;
         self.view.addSubview(_postDelView);
-        _postDelView.frame = JobsPostDelView.viewFrameByModel(nil);
+        _postDelView.byFrame(JobsPostDelView.viewFrameByModel(nil));
         _postDelView.jobsRichViewByModel(nil);
-    }return _postDelView;
+    };return _postDelView;
 }
 
 -(UILabel *)tipsLab{
@@ -455,13 +464,14 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
                 .byNumberOfLines(0)
                 .byText(@"1、内容不允许出现纯数字，英文字母；".tr
                         .add(JobsNewline)
-                        .add(@"2、图片/视频(图片最多9张/仅上传一段视频，大小不超100M)。".tr));
-            [self.view.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.view).offset(JobsWidth(14));
-                make.top.equalTo(self.jobsTextView.mas_bottom).offset(JobsWidth(11));
-            }];label.makeLabelByShowingType(UILabelShowingType_03);
+                        .add(@"2、图片/视频(图片最多9张/仅上传一段视频，大小不超100M)。".tr))
+                .byAddTo(self.view, ^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.view).offset(JobsWidth(14));
+                    make.top.equalTo(self.jobsTextView.mas_bottom).offset(JobsWidth(11));
+                });
+            label.makeLabelByShowingType(UILabelShowingType_03);
         });
-    }return _tipsLab;
+    };return _tipsLab;
 }
 
 -(UITextModel *)postTextModel{
@@ -476,13 +486,13 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
                 .byFont(UIFontWeightRegularSize(14))
                 .byMaxWordCount(10);
         });
-    }return _postTextModel;
+    };return _postTextModel;
 }
 
 -(NSString *)inputDataHistoryString{
     if(!_inputDataHistoryString){
         _inputDataHistoryString = @"";
-    }return _inputDataHistoryString;
+    };return _inputDataHistoryString;
 }
 
 -(NSMutableArray<UIImage *> *)photosImageMutArr{
@@ -490,7 +500,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         _photosImageMutArr = jobsMakeMutArr(^(NSMutableArray <UIImage *>* _Nullable data) {
             
         });
-    }return _photosImageMutArr;
+    };return _photosImageMutArr;
 }
 
 @end

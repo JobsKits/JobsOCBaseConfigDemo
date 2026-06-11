@@ -94,7 +94,7 @@ static dispatch_once_t JobsTabBarVCOnceToken;
 -(instancetype _Nonnull)initWithJobsTabBar:(JobsTabBar *_Nonnull)tabBar{
     if (self = [super init]) {
         self.myTabBar = tabBar;
-    }return self;
+    };return self;
 }
 #pragma mark —— 单例的销毁
 +(void)destroySingleton {
@@ -123,7 +123,8 @@ static dispatch_once_t JobsTabBarVCOnceToken;
         [self openPan];
         self.view.panGR.enabled = self.isOpenScrollTabbar;
     }
-    self.myTabBar.alpha = 1;
+    self.myTabBar.byAlpha(1);
+
 //    self.suspendBtn.alpha = 1;
 //    UIDeviceOrientation f =  UIDevice.currentDevice.orientation;
 //    UIInterfaceOrientation s = self.getInterfaceOrientation;
@@ -220,7 +221,7 @@ static dispatch_once_t onceToken;
             if (pan.state == UIGestureRecognizerStateBegan ||
                 pan.state == UIGestureRecognizerStateChanged){
                 self.beginInteractiveTransitionIfPossible(pan);
-            }return nil;
+            };return nil;
         }];
         self.view.panGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
     };
@@ -257,7 +258,7 @@ static dispatch_once_t onceToken;
                 self.forcedLogin();
                 return YES;
             }
-        }return NO;
+        };return NO;
     };
 }
 /// 判别是否有Lottie
@@ -267,7 +268,7 @@ static dispatch_once_t onceToken;
         NSArray<__kindof JobsTabBarItemConfig *> *tabBarItemConfigs = JobsTabBarVCItemConfigs();
         if(index >= 0 && index < tabBarItemConfigs.count){
             config = (JobsTabBarItemConfig *)tabBarItemConfigs[index];
-        }return isValue(config.lottieName);
+        };return isValue(config.lottieName);
     };
 }
 /// ❤️关键方法❤️
@@ -346,7 +347,7 @@ static dispatch_once_t onceToken;
                                 }
                                 // 向外回调需要做的事
                                 if (self.retBoolByUIntegerBlock) self->A = self.retBoolByUIntegerBlock(d);
-                            }return;
+                            };return;
                         }
                         // 手势从右到左
                         if (self.selectedIndex == d + 1) {
@@ -356,7 +357,7 @@ static dispatch_once_t onceToken;
                                 if (self.isJumpToNextVC) self.selectedIndex -= 2;
                                 // 向外回调需要做的事
                                 if (self.retBoolByUIntegerBlock) self->A = self.retBoolByUIntegerBlock(d);
-                            }return;
+                            };return;
                         }
                     }
                 }
@@ -409,7 +410,7 @@ static dispatch_once_t onceToken;
                 }break;
                 default:
                     break;
-            }return nil;
+            };return nil;
         }];subView.longPressGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
     }
 }
@@ -442,7 +443,7 @@ static dispatch_once_t onceToken;
         if (self.isAnimationAlert) self.UITabBarButtonMutArr[index].图片从小放大();
     }
 }
-#pragma mark - UITabBarControllerDelegate
+#pragma mark —— UITabBarControllerDelegate
 /**
  【点击TabBarItem进行切换】return YES可以切换 | return NO 不可切换
  
@@ -500,7 +501,7 @@ shouldSelectViewController:(UIViewController *)viewController {
             data.byIsTranslucent(NO)
                 .byOffsetHeight(JobsWidth(5));
         });
-    }return _viewModel;
+    };return _viewModel;
 }
 @synthesize myTabBar = _myTabBar;
 -(void)setMyTabBar:(JobsTabBar *)myTabBar{
@@ -516,7 +517,7 @@ shouldSelectViewController:(UIViewController *)viewController {
             tabBar.jobsRichViewByModel(self.viewModel);
             self.jobsKVC(@"tabBar",tabBar);/// ❤️KVC 进行替换❤️
         });
-    }return _myTabBar;
+    };return _myTabBar;
 }
 
 -(NSMutableArray <UIViewModel *>*)pullListAutoSizeViewMutArr{
@@ -535,7 +536,7 @@ shouldSelectViewController:(UIViewController *)viewController {
                 viewModel.textModel.byText(@"333".tr);
             }));
         });
-    }return _pullListAutoSizeViewMutArr;
+    };return _pullListAutoSizeViewMutArr;
 }
 
 -(NSMutableArray <UIView *>*)UITabBarButtonMutArr{
@@ -543,7 +544,7 @@ shouldSelectViewController:(UIViewController *)viewController {
         _UITabBarButtonMutArr = jobsMakeMutArr(^(__kindof NSMutableArray<UIView *> * _Nullable arr) {
 
         });
-    }return _UITabBarButtonMutArr;
+    };return _UITabBarButtonMutArr;
 }
 
 @end

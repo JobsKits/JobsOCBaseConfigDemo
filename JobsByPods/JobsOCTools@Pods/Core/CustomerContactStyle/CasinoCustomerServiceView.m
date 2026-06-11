@@ -30,20 +30,20 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
         if (!static_customerServiceView) {
             static_customerServiceView = CasinoCustomerServiceView.new;
         }
-    }return static_customerServiceView;
+    };return static_customerServiceView;
 }
 
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundImageView.image = @"客服_背景图".img;
         [self customerContact];
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self customerContact];
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -54,16 +54,23 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
     @jobs_weakify(self)
     return ^(NSMutableArray <UIViewModel *>*_Nullable model) {
         @jobs_strongify(self)
-        self.titleLab.alpha = 1;
-        self.contactCustomerServiceBtn.alpha = 1;
-        self.closeBtn.alpha = 1;
-        self.subTitleLab.alpha = 1;
-        self.leftIMGV.alpha = 1;
-        self.rightIMGV.alpha = 1;
+        self.titleLab.byAlpha(1);
+
+        self.contactCustomerServiceBtn.byAlpha(1);
+
+        self.closeBtn.byAlpha(1);
+
+        self.subTitleLab.byAlpha(1);
+
+        self.leftIMGV.byAlpha(1);
+
+        self.rightIMGV.byAlpha(1);
+
         
         self.hotLabelDataMutArr = model;
         if (self.hotLabelDataMutArr.count) {
-            self.hl.alpha = 1;
+            self.hl.byAlpha(1);
+
         }
     };
 }
@@ -85,18 +92,19 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(Title10.tr);
-            label.byTextCor(HEXCOLOR(0x502600));
-            label.byFont([UIFont systemFontOfSize:JobsWidth(20)
-                                               weight:UIFontWeightRegular]);
-            [label sizeToFit];
-            self.backgroundImageView.addSubview(label);
+            label
+                .byText(Title10.tr)
+                .byTextCor(HEXCOLOR(0x502600))
+                .byFont([UIFont systemFontOfSize:JobsWidth(20)
+                                           weight:UIFontWeightRegular]);
+            label.bySizeToFit();
+            label.addOn(self.backgroundImageView);
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self);
                 make.top.equalTo(self).offset(JobsWidth(20));
             }];
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(BaseButton *)contactCustomerServiceBtn{
@@ -109,7 +117,7 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
                 @jobs_strongify(self)
                 JobsLog(@"返回登录");
                 if (isNull(self.customerContactModel.onlineUrl.customerAccount)) {
-                    [self customerContact];/// 获取客服联系方式
+                    [self customerContact];// 获取客服联系方式
                 }else{
                     self.jobsOpenURL(self.customerContactModel.onlineUrl.customerAccount);
                 }
@@ -117,15 +125,14 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
-            });
-        [self.backgroundImageView addSubview:_contactCustomerServiceBtn];
-        [_contactCustomerServiceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(150), JobsWidth(38)));
-            make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(12));
-            make.centerX.equalTo(self.titleLab);
-        }];
-
-    }return _contactCustomerServiceBtn;
+            })
+            .addOn(self.backgroundImageView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(150), JobsWidth(38)));
+                    make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(12));
+                    make.centerX.equalTo(self.titleLab);
+                });
+    };return _contactCustomerServiceBtn;
 }
 
 -(BaseButton *)closeBtn{
@@ -139,14 +146,14 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .addOn(self.backgroundImageView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(24), JobsWidth(24)));
+                make.right.equalTo(self).offset(JobsWidth(-20));
+                make.top.equalTo(self).offset(JobsWidth(20));
             });
-        [self.backgroundImageView addSubview:_closeBtn];
-        [_closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(24), JobsWidth(24)));
-            make.right.equalTo(self).offset(JobsWidth(-20));
-            make.top.equalTo(self).offset(JobsWidth(20));
-        }];
-    }return _closeBtn;
+    };return _closeBtn;
 }
 
 -(UILabel *)subTitleLab{
@@ -154,13 +161,14 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
         @jobs_weakify(self)
         _subTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(Title11.tr);
-            label.byTextAlignment(NSTextAlignmentCenter);
-            label.byNumberOfLines(0);
-            label.byTextCor(HEXCOLOR(0x502600));
-            label.byFont(UIFontWeightMediumSize(12));
-            [label sizeToFit];
-            self.addSubview(label);
+            label
+                .byText(Title11.tr)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byNumberOfLines(0)
+                .byTextCor(HEXCOLOR(0x502600))
+                .byFont(UIFontWeightMediumSize(12));
+            label.bySizeToFit();
+            label.addOn(self);
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self.contactCustomerServiceBtn);
                 make.top.equalTo(self.contactCustomerServiceBtn.mas_bottom).offset(JobsWidth(23));
@@ -168,25 +176,26 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
                 make.right.equalTo(self).offset(JobsWidth(-15));
             }];
         });
-    }return _subTitleLab;
+    };return _subTitleLab;
 }
 
 -(JobsHotLabelBySingleLine *)hl{
     if (!_hl) {
         _hl = JobsHotLabelBySingleLine.new;
-        _hl.backgroundColor = JobsClearColor;
+        _hl.byBgColor(JobsClearColor);
+
         _hl.labelShowingType = UILabelShowingType_02;
         _hl.elementDefaultSize = CGSizeMake(JobsWidth(43), JobsWidth(43));
         self.actionForHotLabel(_hl);
-        [self addSubview:_hl];
-        [_hl mas_makeConstraints:^(MASConstraintMaker *make) {
+        _hl.byAddTo(self, ^(MASConstraintMaker *make) {
             make.centerX.equalTo(self);
             make.top.equalTo(self.subTitleLab.mas_bottom).offset(JobsWidth(13));
             make.size.mas_equalTo(JobsHotLabelBySingleLine.viewSizeByModel(self.hotLabelDataMutArr));
-        }];
+        });
+
         [self layoutIfNeeded];
         _hl.jobsRichViewByModel(self.hotLabelDataMutArr);
-    }return _hl;
+    };return _hl;
 }
 
 -(UIImageView *)leftIMGV{
@@ -194,15 +203,16 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
         @jobs_weakify(self)
         _leftIMGV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = @"客服_左线".img;
-            self.addSubview(imageView);
-            [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(51.6), JobsWidth(1)));
-                make.centerY.equalTo(self.subTitleLab);
-                make.right.equalTo(self.subTitleLab).offset(JobsWidth(-5));
-            }];
+            imageView
+                .byImage(@"客服_左线".img)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(51.6), JobsWidth(1)));
+                    make.centerY.equalTo(self.subTitleLab);
+                    make.right.equalTo(self.subTitleLab).offset(JobsWidth(-5));
+                });
         });
-    }return _leftIMGV;
+    };return _leftIMGV;
 }
 
 -(UIImageView *)rightIMGV{
@@ -210,15 +220,16 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
         @jobs_weakify(self)
         _rightIMGV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = @"客服_右线".img;
-            self.addSubview(imageView);
-            [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(51.6), JobsWidth(1)));
-                make.centerY.equalTo(self.subTitleLab);
-                make.left.equalTo(self.subTitleLab).offset(JobsWidth(5));
-            }];
+            imageView
+                .byImage(@"客服_右线".img)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(51.6), JobsWidth(1)));
+                    make.centerY.equalTo(self.subTitleLab);
+                    make.left.equalTo(self.subTitleLab).offset(JobsWidth(5));
+                });
         });
-    }return _rightIMGV;
+    };return _rightIMGV;
 }
 
 @end

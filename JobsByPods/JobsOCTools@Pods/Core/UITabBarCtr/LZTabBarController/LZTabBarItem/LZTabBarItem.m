@@ -29,7 +29,7 @@ Prop_strong()UILabel *titleLabel;
                 [self.delegate tabBarItem:self didSelectIndex:self.tag - defaultTag];
             }
         }]);
-    }return self;
+    };return self;
 }
 
 - (void)layoutSubviews {
@@ -88,12 +88,14 @@ Prop_strong()UILabel *titleLabel;
 
 - (void)setTitle:(NSString *)title {
     _title = title;
-    self.titleLabel.text = title;
+    self.titleLabel.byText(title);
+
 }
 
 - (void)setTitleColor:(UIColor *)titleColor {
     _titleColor = titleColor;
-    self.titleLabel.textColor = titleColor;
+    self.titleLabel.byTextCor(titleColor);
+
 }
 #pragma mark —— lazyLoad
 - (UIImageView *)iconImageView {
@@ -101,10 +103,11 @@ Prop_strong()UILabel *titleLabel;
         @jobs_weakify(self)
         _iconImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.contentMode = UIViewContentModeScaleAspectFit;
+            imageView.byContentMode(UIViewContentModeScaleAspectFit);
+
             self.addSubview(imageView);
         });
-    }return _iconImageView;
+    };return _iconImageView;
 }
 
 - (UILabel *)titleLabel {
@@ -112,13 +115,13 @@ Prop_strong()UILabel *titleLabel;
         @jobs_weakify(self)
         _titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byTextAlignment(NSTextAlignmentCenter);
-            label.byFont([UIFont systemFontOfSize:10]);
-            label.byNumberOfLines(0);
-            label.byTextCor(JobsGrayColor);
+            label.byTextAlignment(NSTextAlignmentCenter)
+                .byFont([UIFont systemFontOfSize:10])
+                .byNumberOfLines(0)
+                .byTextCor(JobsGrayColor);
             self.addSubview(label);
         });
-    }return _titleLabel;
+    };return _titleLabel;
 }
 
 @end

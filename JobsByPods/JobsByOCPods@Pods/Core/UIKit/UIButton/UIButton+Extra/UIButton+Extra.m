@@ -31,7 +31,8 @@
                 self.buttonAutoFontByWidth();
             }break;
             case UILabelShowingType_05:{/// 多行显示。定宽、不定高、定字体
-                self.titleLabel.numberOfLines = 0;
+                self.titleLabel.byNumberOfLines(0);
+
                 self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;/// 自动折行设置【默认】需要提前设置imageTitleSpace
                 self.uninstall(NSLayoutAttributeHeight);
                 JobsLog(@"%f,%f",self.width,self.height);
@@ -45,7 +46,7 @@
                 if (self.objBlock) self.objBlock(@(size.height));
             }break;
             default:break;
-        }return self;
+        };return self;
     };
 }
 
@@ -71,7 +72,8 @@
                 self.buttonAutoFontByWidth();
             }break;
             case UILabelShowingType_05:{/// 多行显示。定宽、不定高、定字体
-                self.subtitleLabel.numberOfLines = 0;
+                self.subtitleLabel.byNumberOfLines(0);
+
                 self.subtitleLabel.lineBreakMode = NSLineBreakByWordWrapping;/// 自动折行设置【默认】需要提前设置imageTitleSpace
                 self.uninstall(NSLayoutAttributeHeight);
                 JobsLog(@"%f,%f",self.width,self.height);
@@ -85,7 +87,7 @@
                 if (self.objBlock) self.objBlock(@(size.height));
             }break;
             default:break;
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— BaseButtonProtocol

@@ -176,7 +176,7 @@ Prop_strong()CAShapeLayer *maskLayer;
         if (radius <= realRadius) {
             radius = realRadius;
         }
-    }return radius;
+    };return radius;
 }
 
 - (void)animationDidStop:(CAAnimation *)anim

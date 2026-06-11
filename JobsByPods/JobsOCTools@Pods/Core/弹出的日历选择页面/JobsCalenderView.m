@@ -19,14 +19,15 @@ Prop_strong()FSCalendar *calendar;
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -42,8 +43,9 @@ Prop_strong()FSCalendar *calendar;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -181,8 +183,10 @@ atMonthPosition:(FSCalendarMonthPosition)monthPosition{
             @jobs_strongify(self)
             calendar.dataSource = self;
             calendar.delegate = self;
-            calendar.frame = CGRectMake(0, 0, self.width, self.height);
-            calendar.calendarHeaderView.backgroundColor = JobsLightGrayColor.colorWithAlphaComponentBy(.1f);
+            calendar.byFrame(CGRectMake(0, 0, self.width, self.height));
+
+            calendar.calendarHeaderView.byBgColor(JobsLightGrayColor.colorWithAlphaComponentBy(.1f));
+
             calendar.appearance.headerMinimumDissolvedAlpha = 1;
             calendar.appearance.headerDateFormat = @"yyyy年MM月";
             calendar.appearance.caseOptions = FSCalendarCaseOptionsHeaderUsesUpperCase;
@@ -196,7 +200,7 @@ atMonthPosition:(FSCalendarMonthPosition)monthPosition{
             @jobs_strongify(self)
             make.edges.equalTo(self);
         }).on();
-    }return _calendar;
+    };return _calendar;
 }
 
 @end

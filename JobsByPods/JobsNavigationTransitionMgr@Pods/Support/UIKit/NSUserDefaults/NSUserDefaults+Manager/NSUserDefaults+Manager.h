@@ -15,16 +15,10 @@
 #import "JobsModelDSL.h"
 #endif
 
-#if __has_include(<JobsNavigationTransitionMgr/NSString+Path.h>)
-#import <JobsNavigationTransitionMgr/NSString+Path.h>
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
 #else
-#import "NSString+Path.h"
-#endif
-
-#if __has_include(<JobsModel/NSObject+Path.h>)
-#import <JobsModel/NSObject+Path.h>
-#else
-#import "NSObject+Path.h"
+#import "JobsModel.h"
 #endif
 
 #if __has_include(<MJExtension/MJExtension.h>)

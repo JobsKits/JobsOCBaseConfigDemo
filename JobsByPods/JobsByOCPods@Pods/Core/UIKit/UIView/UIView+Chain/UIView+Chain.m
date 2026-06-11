@@ -31,7 +31,7 @@
                     return v;
                 }
             }
-        }return nil;
+        };return nil;
     }
 }
 #pragma mark —— Prop_assign()BOOL ableRespose

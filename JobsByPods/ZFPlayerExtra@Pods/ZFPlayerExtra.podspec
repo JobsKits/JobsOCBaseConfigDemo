@@ -20,6 +20,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'ZFPlayer/ijkplayer'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsOCDSL'
 
   spec.subspec 'Core' do |ss|
     ss.source_files = 'Core/**/*.{h,m,mm}'

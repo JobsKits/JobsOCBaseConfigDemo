@@ -70,10 +70,10 @@ isEqualToSize2:(CGSize)size2{
                               title:(NSString *)title
                                font:(UIFont *)font{
     return ceil(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label.byFrame(CGRectMake(0, 0, width, 0));
-        label.byText(title);
-        label.byFont(font);
-        label.byNumberOfLines(0);
+        label.frame = CGRectMake(0, 0, width, 0);
+        label.text = title;
+        label.font = font;
+        label.numberOfLines = 0;
         [label sizeToFit];
     }).frame.size.height);
 }
@@ -88,10 +88,10 @@ isEqualToSize2:(CGSize)size2{
                              title:(NSString *)title
                               font:(UIFont *)font{
     UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label.byFrame(CGRectMake(0, 0, width, 0));
-        label.byText(title);
-        label.byFont(font);
-        label.byNumberOfLines(0);
+        label.frame = CGRectMake(0, 0, width, 0);
+        label.text = title;
+        label.font = font;
+        label.numberOfLines = 0;
         [label sizeToFit];
     });
     CGFloat height = label.frame.size.height;

@@ -151,7 +151,8 @@ ratio:(CGFloat)ratio {
 -(JXCategoryTitleView *)categoryView{
     if (!_categoryView) {
         _categoryView = JXCategoryTitleView.new;
-        _categoryView.backgroundColor = JobsCyanColor;
+        _categoryView.byBgColor(JobsCyanColor);
+
         _categoryView.titleSelectedColor = JobsRedColor;
         _categoryView.titleColor = JobsRedColor;
 //        _categoryView.titleFont = UIFontWeightRegularSize(16);
@@ -164,12 +165,12 @@ ratio:(CGFloat)ratio {
         _categoryView.cellSpacing = JobsWidth(15);
         // 关联cotentScrollView，关联之后才可以互相联动！！！
         _categoryView.contentScrollView = self.listContainerView.scrollView;//
-        [self.view addSubview:_categoryView];
-        [_categoryView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _categoryView.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.top.equalTo(self.view).offset(self.gk_navigationBar.height);
             make.left.right.equalTo(self.view);
             make.height.mas_equalTo(listContainerViewDefaultOffset);
-        }];
+        });
+
         [self.view layoutIfNeeded];
         
         /// 本来的值
@@ -179,7 +180,7 @@ ratio:(CGFloat)ratio {
 //                                         listContainerViewDefaultOffset);
         
        
-    }return _categoryView;
+    };return _categoryView;
 }
 
 -(JXCategoryIndicatorLineView *)lineView{
@@ -189,7 +190,7 @@ ratio:(CGFloat)ratio {
         _lineView.indicatorHeight = JobsWidth(4);
         _lineView.indicatorWidthIncrement = JobsWidth(10);
         _lineView.verticalMargin = 0;
-    }return _lineView;
+    };return _lineView;
 }
 /// 此属性决定依附于此的viewController
 -(JXCategoryListContainerView *)listContainerView{
@@ -197,11 +198,11 @@ ratio:(CGFloat)ratio {
         _listContainerView = [JXCategoryListContainerView.alloc initWithType:JXCategoryListContainerType_CollectionView
                                                                     delegate:self];
         _listContainerView.defaultSelectedIndex = 1;// 默认从第二个开始显示
-        [self.view addSubview:_listContainerView];
-        [_listContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _listContainerView.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.top.equalTo(self.view).offset(listContainerViewDefaultOffset + self.gk_navigationBar.height);
             make.left.right.bottom.equalTo(self.view);
-        }];
+        });
+
         [self.view layoutIfNeeded];
         /// 本来的值
 //        _listContainerView.frame = CGRectMake(0,
@@ -213,7 +214,7 @@ ratio:(CGFloat)ratio {
         NSNumber *currentIndex = [self.listContainerView valueForKey:@"currentIndex"];
         JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %d",currentIndex.intValue);
         
-    }return _listContainerView;
+    };return _listContainerView;
 }
 
 -(NSMutableArray<NSString *> *)titleMutArr{
@@ -225,7 +226,7 @@ ratio:(CGFloat)ratio {
         _titleMutArr.add(@"排骨".tr);
         _titleMutArr.add(@"美女".tr);
         _titleMutArr.add(@"豪车".tr);
-    }return _titleMutArr;
+    };return _titleMutArr;
 }
 
 -(NSMutableArray<__kindof UIViewController *> *)childVCMutArr{
@@ -234,7 +235,7 @@ ratio:(CGFloat)ratio {
         for (NSString *str in self.titleMutArr) {
             _childVCMutArr.add(JXCategoryViewVerticalShowSubBaseVC.new);
         }
-    }return _childVCMutArr;
+    };return _childVCMutArr;
 }
 
 @end

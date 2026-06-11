@@ -17,6 +17,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'JXCategoryView'
   spec.dependency 'JXPagingView/Pager'
   spec.dependency 'JobsMakes'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'
 

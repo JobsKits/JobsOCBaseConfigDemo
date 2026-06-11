@@ -37,7 +37,7 @@ NS_INLINE UIWindow *_Nullable jobsGetMainWindowBefore13(void){
             if (UIApplication.sharedApplication.keyWindow) {
                 window = UIApplication.sharedApplication.keyWindow;
             });
-    }return window;
+    };return window;
 }
 /// 获取 iOS 13 之后的 window
 NS_INLINE UIWindow *_Nullable jobsGetMainWindowAfter13(void){
@@ -58,7 +58,7 @@ NS_INLINE UIWindow *_Nullable jobsGetMainWindowAfter13(void){
                 mainWindow = windowScene.windows.firstObject;
             }
         }
-    }return mainWindow;
+    };return mainWindow;
 }
 
 //NS_INLINE UIWindow *_Nullable jobsGetMainWindowAfter13(void){
@@ -71,7 +71,7 @@ NS_INLINE UIWindow *_Nullable jobsGetMainWindowAfter13(void){
 //                window = windowScene.windows.firstObject;
 //            }
 //        }
-//    }return window;
+//    };return window;
 //}
 /**
  注意：有些时候UIApplication.sharedApplication.keyWindow获取到的window有frame，而windowScene.windows.firstObject获取到的window没有frame
@@ -137,6 +137,6 @@ NS_INLINE BOOL isiPhoneX_series(void) {
         UIWindow *window;
         SuppressWdeprecatedDeclarationsWarning(window = UIApplication.sharedApplication.keyWindow;);
         iPhoneXSeries = window.safeAreaInsets.top > 20;
-    }return iPhoneXSeries;
+    };return iPhoneXSeries;
 }
 #endif /* JOBS_HEADER_GUARD_WINDOW_9AE162DC9A */

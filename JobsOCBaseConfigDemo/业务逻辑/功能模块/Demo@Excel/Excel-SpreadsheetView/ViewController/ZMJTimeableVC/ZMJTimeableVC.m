@@ -51,10 +51,12 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
-    self.spreadsheetView.alpha = 1;
+    self.spreadsheetView.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -146,7 +148,8 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
     
     if (indexPath.column == 0 && indexPath.row > 0) {
         HourCell *cell = (HourCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(HourCell.class) forIndexPath:indexPath];
-        cell.label.text = [self.hourFormatter stringFromDate:[self.twelveHourFormatter dateFromString:[NSString stringWithFormat:@"%ld", (long)(indexPath.row / 60 % 24)]]];
+        cell.label.byText([self.hourFormatter stringFromDate:[self.twelveHourFormatter dateFromString:[NSString stringWithFormat:@"%ld", (long)(indexPath.row / 60 % 24)]]]);
+
         cell.gridlines.top = [GridStyle style:GridStyle_solid width:1 color:JobsWhiteColor];
         cell.gridlines.bottom = [GridStyle style:GridStyle_solid width:1 color:JobsWhiteColor];
         return cell;
@@ -154,7 +157,8 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
     
     if (indexPath.column > 0 && indexPath.row == 0) {
         ChannelCell *cell = (ChannelCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(ChannelCell.class) forIndexPath:indexPath];
-        cell.label.text = self.channels[indexPath.column - 1];
+        cell.label.byText(self.channels[indexPath.column - 1]);
+
         cell.gridlines.top = [GridStyle style:GridStyle_solid width:1 color:JobsBlackColor];
         cell.gridlines.bottom = [GridStyle style:GridStyle_solid width:1 color:JobsWhiteColor];
         cell.gridlines.left = [GridStyle style:GridStyle_solid width:1 / UIScreen.mainScreen.scale color:[UIColor colorWithWhite:.3 alpha:1]];
@@ -171,7 +175,7 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
         cell.title = @"Dummy Text";
         cell.tableHighlight = duration > 20 ? @"Lorem ipsum dolor sit amet, consectetur adipiscing elit" : @"";
         return cell;
-    }return [spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(MyBlankCell.class) forIndexPath:indexPath];
+    };return [spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(MyBlankCell.class) forIndexPath:indexPath];
 }
 #pragma mark —— SpreadsheetViewDelegate
 - (void)spreadsheetView:(SpreadsheetView *)spreadsheetView
@@ -202,19 +206,19 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
         _channels.add(@"Drama");
         _channels.add(@"Hobby");
         _channels.add(@"Music");
-    }return _channels;
+    };return _channels;
 }
 
 -(NSInteger)numberOfRows{
     if (!_numberOfRows) {
         _numberOfRows = 24 * 60 + 1;
-    }return _numberOfRows;
+    };return _numberOfRows;
 }
 
 -(NSMutableDictionary<NSIndexPath *,NSArray<NSNumber *> *> *)slotInfo{
     if(!_slotInfo){
         _slotInfo = NSMutableDictionary.dictionary;
-    }return _slotInfo;
+    };return _slotInfo;
 }
 
 -(NSDateFormatter *)hourFormatter{
@@ -224,7 +228,7 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
             data.locale = [NSLocale.alloc initWithLocaleIdentifier:@"en_US_POSIX"];
             data.dateFormat = @"h\na";
         });
-    }return _hourFormatter;
+    };return _hourFormatter;
 }
 
 -(NSDateFormatter *)twelveHourFormatter{
@@ -234,7 +238,7 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
             data.locale = [NSLocale.alloc initWithLocaleIdentifier:@"en_US_POSIX"];
             data.dateFormat = @"H";
         });
-    }return _twelveHourFormatter;
+    };return _twelveHourFormatter;
 }
 
 -(SpreadsheetView *)spreadsheetView{
@@ -247,17 +251,18 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
         [_spreadsheetView registerClass:ChannelCell.class forCellWithReuseIdentifier:NSStringFromClass(ChannelCell.class)];
         [_spreadsheetView registerClass:SlotCell.class forCellWithReuseIdentifier:NSStringFromClass(SlotCell.class)];
         [_spreadsheetView registerClass:MyBlankCell.class forCellWithReuseIdentifier:NSStringFromClass(MyBlankCell.class)];
-        _spreadsheetView.backgroundColor = JobsLightGrayColor.colorWithAlphaComponentBy(.7f);
+        _spreadsheetView.byBgColor(JobsLightGrayColor.colorWithAlphaComponentBy(.7f));
+
         CGFloat hairline = 1 / UIScreen.mainScreen.scale;
         _spreadsheetView.intercellSpacing = CGSizeMake(hairline, hairline);
         _spreadsheetView.gridStyle = [GridStyle style:GridStyle_solid width:hairline color:UIColor.lightGrayColor];
         _spreadsheetView.circularScrolling = [CircularScrollingConfigurationBuilder configurationBuilderWithCircularScrollingState:ZMJCircularScrolling_horizontally_rowHeaderStartsFirstColumn];
-        [self.view addSubview:_spreadsheetView];
-        [_spreadsheetView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _spreadsheetView.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             [self make:make topOffset:10];
-        }];[_spreadsheetView flashScrollIndicators];
-    }return _spreadsheetView;
+        });
+[_spreadsheetView flashScrollIndicators];
+    };return _spreadsheetView;
 }
 
 @end

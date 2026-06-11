@@ -38,74 +38,90 @@ Prop_strong()UILabel *viewDetailLabel;
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
         [self setupViews];
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self setupViews];
-    }return self;
+    };return self;
 }
 
 - (void)setupViews {
     self.taskTitleLabel = ({
         UILabel *label = [UILabel new];
-        label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
+        label.byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:14]);
+
         label.lineBreakMode = NSLineBreakByWordWrapping;
-        label.textColor = TitleColor;
+        label.byTextCor(TitleColor);
+
         [self addSubview:label];
         label;
     });
                            
     self.startTimeTitleLabel = ({
         UILabel *label = [UILabel new];
-        label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10];
-        label.text = @"Start time:";
-        label.textColor = TitleColor;
+        label.byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:10]);
+
+        label.byText(@"Start time:");
+
+        label.byTextCor(TitleColor);
+
         [self addSubview:label];
         label;
     });
     
     self.startTimeLabel = ({
         UILabel *label = [UILabel new];
-        label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10];
+        label.byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:10]);
+
         label.lineBreakMode = NSLineBreakByWordWrapping;
-        label.textColor = ValueColor;
+        label.byTextCor(ValueColor);
+
         [self addSubview:label];
         label;
     });
     
     self.endTimeTitleLabel = ({
         UILabel *label = [UILabel new];
-        label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10];
-        label.text = @"End time:";
-        label.textColor = TitleColor;
+        label.byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:10]);
+
+        label.byText(@"End time:");
+
+        label.byTextCor(TitleColor);
+
         [self addSubview:label];
         label;
     });
     
     self.endTimeLabel = ({
         UILabel *label = [UILabel new];
-        label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10];
+        label.byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:10]);
+
         label.lineBreakMode = NSLineBreakByWordWrapping;
-        label.textColor = ValueColor;
+        label.byTextCor(ValueColor);
+
         [self addSubview:label];
         label;
     });
     
     self.separatorLine = ({
         UIView *line = [UIView new];
-        line.backgroundColor = LineColor;
+        line.byBgColor(LineColor);
+
         [self addSubview:line];
         line;
     });
     
     self.viewDetailLabel = ({
         UILabel *label = [UILabel new];
-        label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
+        label.byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:12]);
+
         label.lineBreakMode = NSLineBreakByWordWrapping;
-        label.text = @"View the detail";
-        label.textColor = ValueColor;
+        label.byText(@"View the detail");
+
+        label.byTextCor(ValueColor);
+
         [self addSubview:label];
         label;
     });
@@ -164,18 +180,21 @@ Prop_strong()UILabel *viewDetailLabel;
                            range:NSMakeRange(0, taskTitle.length)];
     [attributedText addAttribute:NSBaselineOffsetAttributeName value:@(NSUnderlineStyleNone)
                            range:NSMakeRange(0, taskTitle.length)];
-    self.taskTitleLabel.attributedText = attributedText;
+    self.taskTitleLabel.byAttributedString(attributedText);
+
     //self.taskTitleLabel.text = taskTitle;
 }
 
 - (void)setStartTime:(NSString *)startTime {
     _startTime = startTime;
-    self.startTimeLabel.text = startTime;
+    self.startTimeLabel.byText(startTime);
+
 }
 
 - (void)setEndTime:(NSString *)endTime {
     _endTime = endTime;
-    self.endTimeLabel.text = endTime;
+    self.endTimeLabel.byText(endTime);
+
 }
 
 @end

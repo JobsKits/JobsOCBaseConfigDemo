@@ -45,11 +45,11 @@ Prop_strong()BaseButton *btn;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     self.makeNavByAlpha(1);
-    self.btn.alpha = 1;
-    
-    CGRect rect = CGRectMake(ScaleW(20), ScaleH(10), ScaleW(200), ScaleH(44));
+    self.btn.byAlpha(1);
+//    CGRect rect = CGRectMake(ScaleW(20), ScaleH(10), ScaleW(200), ScaleH(44));
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -97,14 +97,14 @@ Prop_strong()BaseButton *btn;
                 [JobsMakeLocalNotification.new triggerLocalNotification:JobsLocalNotificationModel.new];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.center.equalTo(self.view);
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(80), JobsWidth(60)));
             });
-        [self.view addSubview:_btn];
-        [_btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(self.view);
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(80), JobsWidth(60)));
-        }];
         _btn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _btn;
+    };return _btn;
 }
 
 @end

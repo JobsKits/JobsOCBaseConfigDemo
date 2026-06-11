@@ -32,14 +32,16 @@ static dispatch_once_t static_hotLabelWithMultiLineOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = HEXCOLOR(0xFFFFFF);
-    }return self;
+        self.byBgColor(HEXCOLOR(0xFFFFFF));
+
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = HEXCOLOR(0xFFFFFF);
-    }return self;
+        self.byBgColor(HEXCOLOR(0xFFFFFF));
+
+    };return self;
 }
 /// 必须有frame的前提下才会进行绘制
 -(void)drawRect:(CGRect)rect{
@@ -52,7 +54,8 @@ static dispatch_once_t static_hotLabelWithMultiLineOnceToken;
     return ^(JobsHotLabelWithMultiLineModel * _Nullable model) {
         @jobs_strongify(self)
         self.dataModel = model;
-        self.backgroundColor = self.dataModel.bgCor;
+        self.byBgColor(self.dataModel.bgCor);
+
         if (self.dataModel.viewModels.count) {
             self.collectionView.byShow(self);
         }
@@ -81,7 +84,7 @@ static dispatch_once_t static_hotLabelWithMultiLineOnceToken;
                           (height + hotLabOffsetY) * row + (hotLabTop + hotLabBottom) + offset);
     };
 }
-#pragma mark - UICollectionViewDataSource
+#pragma mark —— UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
@@ -94,9 +97,11 @@ static dispatch_once_t static_hotLabelWithMultiLineOnceToken;
     cell.cornerCutToCircleWithCornerRadius(itemSize.height / 2);
     cell.contentView.cornerCutToCircleWithCornerRadius(itemSize.height / 2);
     if (indexPath.section == 0 && indexPath.row == 0) {
-        cell.textLab.textColor = HEXCOLOR(0xAE8330);
-        cell.textLab.backgroundColor = HEXCOLOR(0xFFEABA);
-    }return cell;
+        cell.textLab.byTextCor(HEXCOLOR(0xAE8330));
+
+        cell.textLab.byBgColor(HEXCOLOR(0xFFEABA));
+
+    };return cell;
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView
@@ -151,11 +156,15 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     JobsHotLabelByMultiLineCVCell *_cell = (JobsHotLabelByMultiLineCVCell *)[collectionView cellForItemAtIndexPath:indexPath];
 //    self.jobsToastSuccessMsg(_cell.getViewModel.textModel.text);
     for (JobsHotLabelByMultiLineCVCell *cell in collectionView.visibleCells) {
-        cell.textLab.backgroundColor = HEXCOLOR(0xF3F3F3);
-        cell.textLab.textColor = HEXCOLOR(0x757575);
+        cell.textLab.byBgColor(HEXCOLOR(0xF3F3F3));
+
+        cell.textLab.byTextCor(HEXCOLOR(0x757575));
+
     }
-    _cell.textLab.textColor = HEXCOLOR(0xAE8330);
-    _cell.textLab.backgroundColor = HEXCOLOR(0xFFEABA);
+    _cell.textLab.byTextCor(HEXCOLOR(0xAE8330));
+
+    _cell.textLab.byBgColor(HEXCOLOR(0xFFEABA));
+
     
     if (self.objBlock) self.objBlock(_cell);
 }
@@ -172,7 +181,7 @@ referenceSizeForHeaderInSection:(NSInteger)section {
     /// ❤️外部传入配置优先❤️
     if (self.dataModel.headerViewModel.useHeaderView) {
         return jobsZeroSizeValue(self.dataModel.headerViewModel.jobsSize) ? JobsHeaderFooterView.collectionReusableViewSizeByModel(nil) : self.dataModel.headerViewModel.jobsSize;
-    }return CGSizeZero;
+    };return CGSizeZero;
 }
 /// footer 大小
 - (CGSize)collectionView:(UICollectionView *)collectionView
@@ -181,7 +190,7 @@ referenceSizeForFooterInSection:(NSInteger)section {
     /// ❤️外部传入配置优先❤️
     if (self.dataModel.footerViewModel.useFooterView) {
         return jobsZeroSizeValue(self.dataModel.footerViewModel.jobsSize) ? JobsHeaderFooterView.collectionReusableViewSizeByModel(nil) : self.dataModel.headerViewModel.jobsSize;
-    }return CGSizeZero;
+    };return CGSizeZero;
 }
 /// item/cell 的大小
 -(CGSize)collectionView:(UICollectionView *)collectionView
@@ -215,18 +224,20 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
 @synthesize collectionView = _collectionView;
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
-        _collectionView = UICollectionView.initByLayout(self.verticalLayout);
-        _collectionView.dataLink(self);
-        _collectionView.backgroundColor = JobsClearColor;
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.scrollEnabled = NO;
-        _collectionView.registerCollectionViewCellClass(JobsHotLabelByMultiLineCVCell.class,@"");
-        [self.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self).insets(jobsMakeSameEdgeInset(JobsWidth(2)));
-        }];
-    }return _collectionView;
+        @jobs_weakify(self)
+        _collectionView = UICollectionView.initByLayout(self.verticalLayout)
+            .registerCollectionViewCellClass(JobsHotLabelByMultiLineCVCell.class, @"")
+            .dataLink(self)
+            .byShowsVerticalScrollIndicator(NO)
+            .byScrollEnabled(NO)
+            .byBgColor(JobsClearColor)
+            .addOn(self)
+            .byOn(^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.edges.equalTo(self).insets(jobsMakeSameEdgeInset(JobsWidth(2)));
+            });
+    };return _collectionView;
 }
-
 -(NSMutableArray<__kindof UICollectionViewCell *> *)cvcellMutArr{
     if (!_cvcellMutArr) {
         @jobs_weakify(self)
@@ -238,7 +249,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                                                                   forIndexPath:[self myIndexPath:(JobsIndexPath){0,index}]]);
             }
         });
-    }return _cvcellMutArr;
+    };return _cvcellMutArr;
 }
 
 @end

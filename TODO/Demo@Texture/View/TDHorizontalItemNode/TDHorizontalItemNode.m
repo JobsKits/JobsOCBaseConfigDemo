@@ -24,7 +24,7 @@
                NSForegroundColorAttributeName: UIColor.whiteColor
             }];
         });
-    }return self;
+    };return self;
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
@@ -39,11 +39,11 @@
 -(ASDisplayNode *)colorNode{
     if(!_colorNode){
         _colorNode = jobsMakeDisplayNode(^(ASDisplayNode * _Nullable node) {
-            node.backgroundColor = JobsRandomColor;
+            node.byBgColor(JobsRandomColor);
             node.cornerRadius = 8.0;
             node.style.preferredSize = CGSizeMake(120, 70);
         });
-    }return _colorNode;
+    };return _colorNode;
 }
 
 @end

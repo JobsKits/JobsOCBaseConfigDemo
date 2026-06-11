@@ -14,13 +14,13 @@ UIViewModelOthersProtocol_synthesize
 -(UIColor *)textCor{
     if (!_textCor) {
         _textCor = RGB_SAMECOLOR(51);
-    }return _textCor;
+    };return _textCor;
 }
 
 -(UIFont *)font{
     if (!_font) {
         _font = UIFontWeightRegularSize(12);
-    }return _font;
+    };return _font;
 }
 
 //-(NSString *)text{
@@ -28,7 +28,7 @@ UIViewModelOthersProtocol_synthesize
 //#ifdef DEBUG
 //        _text = TextModelDataString.tr;
 //#endif
-//    }return _text;
+//    };return _text;
 //}
 //
 //-(NSString *)subText{
@@ -36,14 +36,14 @@ UIViewModelOthersProtocol_synthesize
 //#ifdef DEBUG
 //        _subText = TextModelDataString2.tr;
 //#endif
-//    }return _subText;
+//    };return _subText;
 //}
 
 -(UILabelShowingType)labelShowingType{
     if (!_labelShowingType) {
         /// 默认：一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
         _labelShowingType = UILabelShowingType_03;
-    }return _labelShowingType;
+    };return _labelShowingType;
 }
 
 @end

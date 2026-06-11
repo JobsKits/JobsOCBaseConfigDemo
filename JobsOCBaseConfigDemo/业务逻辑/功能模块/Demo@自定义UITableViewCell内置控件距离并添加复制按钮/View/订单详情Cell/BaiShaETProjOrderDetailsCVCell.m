@@ -19,7 +19,7 @@ Prop_strong()UIButton *jobsCopyBtn;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 -(UIViewModel *_Nullable)getViewModel{
@@ -81,18 +81,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         .byTextLabelFont(UIFontWeightRegularSize(12))
         .byDetailTextLabelCor(HEXCOLOR(0x757575))
         .byDetailTextLabellFont(UIFontWeightBoldSize(14))
-        .byTextLabelFrameOffsetY(JobsWidth(-2))/// 这里需要设置一个偏移量去抵消有一个莫名出现的偏移量
-        .byDetailTextLabelOffsetY(JobsWidth(-2))/// 这里需要设置一个偏移量去抵消有一个莫名出现的偏移量
-        .byTextLabelFrameOffsetX(JobsWidth(-13))/// 这里需要设置一个偏移量去抵消有一个莫名出现的偏移量
-        .byDetailTextLabelOffsetX(JobsWidth(-65))/// 这里需要设置一个偏移量去抵消有一个莫名出现的偏移量
+        .byTextLabelFrameOffsetY(JobsWidth(-2))// 这里需要设置一个偏移量去抵消有一个莫名出现的偏移量
+        .byDetailTextLabelOffsetY(JobsWidth(-2))// 这里需要设置一个偏移量去抵消有一个莫名出现的偏移量
+        .byTextLabelFrameOffsetX(JobsWidth(-13))// 这里需要设置一个偏移量去抵消有一个莫名出现的偏移量
+        .byDetailTextLabelOffsetX(JobsWidth(-65))// 这里需要设置一个偏移量去抵消有一个莫名出现的偏移量
         .jobsRichElementsTableViewCellBy(self.viewModel.jobsDataMutArr[indexPath.row]);
     
     _jobsCopyBtn = nil;/// ❤️ 关键。[self layoutIfNeeded];会出现异常
-    [cell.contentView.addSubview(self.jobsCopyBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.jobsCopyBtn.byAddTo(cell.contentView, ^(MASConstraintMaker *make) {
         make.centerY.equalTo(cell.contentView);
         make.right.equalTo(cell.contentView).offset(JobsWidth(-12));
         make.height.mas_equalTo(JobsWidth(18));
-    }];
+    });
     @jobs_weakify(self)
     self.jobsCopyBtn
         .onClickBy(^(UIButton *x){
@@ -131,7 +131,7 @@ heightForFooterInSectionByModel:(NSInteger)section{
         /// 只有 tbvFooterView.backgroundView.backgroundColor 是有效操作✅
         tbvFooterView.contentView.byBgColor(HEXCOLOR(0xEAEBED));
         return tbvFooterView;
-    }return nil;
+    };return nil;
 }
 #pragma mark —— lazyLoad
 -(UIButton *)jobsCopyBtn{
@@ -143,7 +143,7 @@ heightForFooterInSectionByModel:(NSInteger)section{
             .bgColorBy(HEXCOLOR(0xEAEBED));
         _jobsCopyBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
         _jobsCopyBtn.cornerCutToCircleWithCornerRadius(JobsWidth(18 / 2));
-    }return _jobsCopyBtn;
+    };return _jobsCopyBtn;
 }
 /// BaseViewProtocol
 @synthesize tableView = _tableView;
@@ -174,7 +174,7 @@ heightForFooterInSectionByModel:(NSInteger)section{
                     make.edges.mas_equalTo(self.contentView).insets(UIEdgeInsetsMake(JobsWidth(20), 0, JobsWidth(20), 0));
                 });
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 @end

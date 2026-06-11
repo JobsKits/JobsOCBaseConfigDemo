@@ -128,7 +128,7 @@
             if( decodedBytes != NULL ) {
                 free( decodedBytes );
             }
-        }return data;
+        };return data;
     };
 }
 /// 将NSData对象转换为Base32编码的字符串
@@ -230,7 +230,7 @@
         }
         @finally {
             if(encodingBytes != NULL) free(encodingBytes);
-        }return encoding;
+        };return encoding;
     };
 }
 

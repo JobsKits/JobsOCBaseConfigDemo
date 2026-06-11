@@ -46,14 +46,15 @@ static dispatch_once_t static_countdownViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -66,8 +67,9 @@ static dispatch_once_t static_countdownViewOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -92,7 +94,8 @@ static dispatch_once_t static_countdownViewOnceToken;
     self.minutesStr = nil;
     self.secondStr = nil;
     self.richTextConfigMutArr = nil;
-    self.countdownTimeLab.attributedText = nil;
+    self.countdownTimeLab.byAttributedString(nil);
+
 }
 #pragma mark —— lazyLoad
 @synthesize timer = _timer;
@@ -122,7 +125,8 @@ static dispatch_once_t static_countdownViewOnceToken;
                     NSArray *strArr2 = [strArr1[1] componentsSeparatedByString:@"秒".tr];
                     self.secondStr = strArr2[0];
 
-                    self.countdownTimeLab.attributedText = [self richTextWithDataConfigMutArr:self.richTextConfigMutArr paragraphStyle:self.paragraphStyle];
+                    self.countdownTimeLab.byAttributedString([self richTextWithDataConfigMutArr:self.richTextConfigMutArr paragraphStyle:self.paragraphStyle]);
+
                     if (self.objBlock) self.objBlock(@(time));
                 })
                 .byOnFinish(^(__kindof JobsTimer * _Nullable t){
@@ -134,7 +138,7 @@ static dispatch_once_t static_countdownViewOnceToken;
             timer.accumulatedElapsed = 0;   // 已经流逝的时间（总 elapsed，单位秒）
             timer.lastStartDate      = nil; // 最近一次 start/resume 的时间点（支持 pause/resume）
         });
-    }return _timer;
+    };return _timer;
 }
 
 -(JobsTimeModel *)formatTime{
@@ -147,7 +151,7 @@ static dispatch_once_t static_countdownViewOnceToken;
                 .byMinute(@"分".tr)
                 .bySecond(@"秒".tr);
         });
-    }return _formatTime;
+    };return _formatTime;
 }
 
 -(UILabel *)titleLab{
@@ -155,14 +159,19 @@ static dispatch_once_t static_countdownViewOnceToken;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"支付時間還有".tr).byFont(UIFontWeightRegularSize(14)).byTextCor(HEXCOLOR(0x757575));
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self);
-                make.top.equalTo(self).offset(JobsWidth(28));
-                make.height.mas_equalTo(JobsWidth(14));
-            }];label.makeLabelByShowingType(UILabelShowingType_03);
+            label
+                .byText(@"支付時間還有".tr)
+                .byFont(UIFontWeightRegularSize(14))
+                .byTextCor(HEXCOLOR(0x757575))
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self);
+                    make.top.equalTo(self).offset(JobsWidth(28));
+                    make.height.mas_equalTo(JobsWidth(14));
+                })
+                .makeLabelByShowingType(UILabelShowingType_03);
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(UILabel *)countdownTimeLab{
@@ -171,16 +180,18 @@ static dispatch_once_t static_countdownViewOnceToken;
         _countdownTimeLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byAttributedString([self richTextWithDataConfigMutArr:self.richTextConfigMutArr paragraphStyle:self.paragraphStyle])
-                .byTextAlignment(NSTextAlignmentCenter);
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self);
-                make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(16));
-                make.height.mas_equalTo(JobsWidth(60));
-                make.width.mas_equalTo(JobsCountdownView.viewSizeByModel(nil).width);
-            }];
+                .byAttributedString([self richTextWithDataConfigMutArr:self.richTextConfigMutArr
+                                                        paragraphStyle:self.paragraphStyle])
+                .byTextAlignment(NSTextAlignmentCenter)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self);
+                    make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(16));
+                    make.height.mas_equalTo(JobsWidth(60));
+                    make.width.mas_equalTo(JobsCountdownView.viewSizeByModel(nil).width);
+                });
         });
-    }return _countdownTimeLab;
+    };return _countdownTimeLab;
 }
 
 -(NSMutableArray<JobsRichTextConfig *> *)richTextConfigMutArr{
@@ -211,11 +222,11 @@ static dispatch_once_t static_countdownViewOnceToken;
 
 -(NSMutableArray<NSString *> *)richTextMutArr{
     JobsMutableArray(_richTextMutArr);
-    _richTextMutArr.add(self.minutesStr)
-    .add(@"分".tr)
-    .add(self.secondStr)
-    .add(@"秒".tr);
-    return _richTextMutArr;
+    return _richTextMutArr
+        .add(self.minutesStr)
+        .add(@"分".tr)
+        .add(self.secondStr)
+        .add(@"秒".tr);
 }
 
 -(NSMutableParagraphStyle *)paragraphStyle{
@@ -223,19 +234,19 @@ static dispatch_once_t static_countdownViewOnceToken;
         _paragraphStyle = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
             data.alignment = NSTextAlignmentCenter;
         });
-    }return _paragraphStyle;
+    };return _paragraphStyle;
 }
 
 -(NSString *)minutesStr{
     if (!_minutesStr) {
         _minutesStr = @"30".tr;
-    }return _minutesStr;
+    };return _minutesStr;
 }
 
 -(NSString *)secondStr{
     if (!_secondStr) {
         _secondStr = @"0".tr;
-    }return _secondStr;
+    };return _secondStr;
 }
 
 @end

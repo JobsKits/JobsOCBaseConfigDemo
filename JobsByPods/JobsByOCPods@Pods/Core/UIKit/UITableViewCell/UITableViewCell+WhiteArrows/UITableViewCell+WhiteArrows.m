@@ -33,7 +33,7 @@ JobsKey(_img)
     if (!image) {
         image = @"WhiteRightArrow".img;
         Jobs_setAssociatedRETAIN_NONATOMIC(_img, image)
-    }return image;
+    };return image;
 }
 
 -(void)setImg:(UIImage *)img{
@@ -47,7 +47,7 @@ JobsKey(_arrows_size)
     if (jobsZeroSizeValue(Size)) {
         Size = CGSizeMake(JobsWidth(10), JobsWidth(18.3));//缺省值
         Jobs_setAssociatedRETAIN_NONATOMIC(_arrows_size, [NSValue valueWithCGSize:Size])
-    }return Size;
+    };return Size;
 }
 
 -(void)setArrows_size:(CGSize)arrows_size{

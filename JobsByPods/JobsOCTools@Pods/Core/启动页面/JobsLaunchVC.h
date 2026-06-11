@@ -34,6 +34,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /// 系统的启动页因为版本升级兼容度降低的问题，现在为了统一处理，即摒弃系统设置
 /// 本页是对系统提供的Api接口LaunchScreen.storyboard的一个平替处理方案

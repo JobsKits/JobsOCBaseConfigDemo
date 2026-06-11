@@ -40,17 +40,17 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 @end
 
 @implementation LuckyWheelView
-#pragma mark - Init
+#pragma mark —— Init
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 - (instancetype)onSegmentTap:(jobsByLuckyWheelSegmentBlock)handler {
@@ -64,9 +64,8 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 }
 
 - (void)commonInit {
-    self.backgroundColor = [UIColor clearColor];
+    self.byBgColor([UIColor clearColor]);
     self.clipsToBounds = NO;
-
     _pointerDirection     = JobsDirectionUp;
     _panRotationEnabled   = YES;
     _decelerationRate     = UIScrollViewDecelerationRateNormal;
@@ -116,22 +115,21 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     _panRotationEnabled = panRotationEnabled;
     self.panGesture.enabled = panRotationEnabled;
 }
-#pragma mark - Layout / Draw
+#pragma mark —— Layout / Draw
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.plateView.frame = self.bounds;
+    self.plateView.byFrame(self.bounds);
     [self rebuildSlices];
     [self bringSubviewToFront:self.centerButton];
 }
 
 - (void)rebuildSlices {
-    // 清理旧图层
+    /// 清理旧图层
     for (CAShapeLayer *layer in self.sliceLayers) {
         [layer removeFromSuperlayer];
     }
     [self.sliceLayers removeAllObjects];
-
-    // 清理旧 label / imageView
+    /// 清理旧 label / imageView
     NSArray<UIView *> *subviewsCopy = [self.plateView.subviews copy];
     for (UIView *v in subviewsCopy) {
         [v removeFromSuperview];
@@ -173,7 +171,6 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 
         [self.plateView.layer addSublayer:layer];
         [self.sliceLayers addObject:layer];
-
         // ===== 文本：整体“对准圆心” =====================
         CGFloat midAngle = (startAngle + endAngle) / 2.0;
         NSAttributedString *attr = [self attributedStringForSegment:segment];
@@ -181,8 +178,8 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
             UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable lab) {
                 lab.byNumberOfLines(0)
                     .byTextAlignment(NSTextAlignmentCenter)
-                    .byBgColor(JobsClearColor)
-                    .byAttributedString(attr);
+                    .byAttributedString(attr)
+                    .byBgColor(JobsClearColor);
             });
 
             CGFloat textRadius = radius * 0.55;
@@ -209,7 +206,6 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 
             [self.plateView addSubview:label];
         }
-
         // ===== 图片：文字外侧的圆形 ImageView ============
         if (segment.placeholderImage) {
             CGFloat imageRadius = radius * 0.8;
@@ -218,7 +214,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
             CGFloat imageSize = radius * 0.22;
             [self.plateView addSubview:jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
                 imageView.image = segment.placeholderImage;
-                imageView.contentMode = UIViewContentModeScaleAspectFill;
+                imageView.byContentMode(UIViewContentModeScaleAspectFill);
                 imageView.clipsToBounds = YES;
                 imageView.bounds = CGRectMake(0, 0, imageSize, imageSize);
                 imageView.center = imageCenter;
@@ -268,7 +264,6 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     } else {
         v0 = self.velocityForTargetDuration(self.spinDuration);
     }
-
     // 开始旋转时统一锁死按钮
     self.centerButton.selected = YES;
     self.centerButton.userInteractionEnabled = NO;
@@ -331,7 +326,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     self.centerButton.selected = NO;
     self.centerButton.userInteractionEnabled = YES;
 }
-#pragma mark - Segment 命中计算
+#pragma mark —— Segment 命中计算
 -(JobsRetNSIntegerByPointBlock _Nonnull)segmentIndexForPoint{
     @jobs_weakify(self)
     return ^NSInteger(CGPoint point){
@@ -490,19 +485,19 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 -(NSTimeInterval)spinDuration{
     if(!_spinDuration){
         _spinDuration = 3.0;
-    }return _spinDuration;
+    };return _spinDuration;
 }
 
 -(CGFloat)timerInterval{
     if(!_timerInterval){
         _timerInterval = 1.0 / 60.0;
-    }return _timerInterval;
+    };return _timerInterval;
 }
 
 -(CGFloat)stopThreshold{
     if(!_stopThreshold){
         _stopThreshold = 0.05;
-    }return _stopThreshold;
+    };return _stopThreshold;
 }
 
 -(NSMutableArray<CAShapeLayer *> *)sliceLayers{
@@ -510,21 +505,21 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
         _sliceLayers = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
 
         });
-    }return _sliceLayers;
+    };return _sliceLayers;
 }
 
 -(UIView *)plateView{
     if(!_plateView){
         @jobs_weakify(self)
         _plateView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.byBgColor(JobsClearColor)
-                .addOn(self)
+            view.byBgColor(JobsClearColor);
+            view.addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
                     make.edges.equalTo(self);
                 });
         });
-    }return _plateView;
+    };return _plateView;
 }
 
 -(UIButton *)centerButton{
@@ -560,7 +555,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                 make.height.mas_equalTo(60.0);
             });
         _centerButton.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _centerButton;
+    };return _centerButton;
 }
 
 -(UIPanGestureRecognizer *)panGesture{
@@ -626,7 +621,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                     break;
             }
         });
-    }return _panGesture;
+    };return _panGesture;
 }
 
 -(UILongPressGestureRecognizer *)longPressRecognizer{
@@ -652,7 +647,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                 self.segmentLongPressHandlerInternal(segment, gesture);
             }
         }];
-    }return _longPressRecognizer;
+    };return _longPressRecognizer;
 }
 
 -(UITapGestureRecognizer *)tapRecognizer{
@@ -678,7 +673,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                 self.segmentTapHandlerInternal(segment);
             }
         }];
-    }return _tapRecognizer;
+    };return _tapRecognizer;
 }
 
 @end

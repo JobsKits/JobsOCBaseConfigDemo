@@ -12,10 +12,22 @@
 #import <JobsOCTools/TLTabBarAnimation.h>
 #import <JobsOCTools/UITabBarItem+TLAnimation.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
 #import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
@@ -54,7 +66,7 @@ NS_INLINE NSArray *imgs(void){//静态轮播图
         NSString *imgName = [NSString stringWithFormat:@"Tools_000%zi", i];
         CGImageRef img = imgName.img.CGImage;
         [temp addObject:(__bridge id _Nonnull)(img)];
-    }return temp;
+    };return temp;
 }
 
 NS_INLINE TLFrameAnimation *frameAnimation(void){
@@ -91,7 +103,8 @@ NS_INLINE void setAnimation(UITabBarItem *item,
 NS_INLINE UIViewController *childViewController_SystemStyle(UIViewController *viewController,
                                                                 UITabBarSystemItem systemItem,
                                                                 NSUInteger tag){
-    viewController.view.backgroundColor = JobsWhiteColor;
+    viewController.view.byBgColor(JobsWhiteColor);
+
     viewController.tabBarItem = [UITabBarItem.alloc initWithTabBarSystemItem:systemItem tag:tag];
     setAnimation(viewController.tabBarItem, tag);//可选实现
     return viewController;

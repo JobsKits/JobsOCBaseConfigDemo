@@ -13,6 +13,12 @@
 #import <JobsHotLabel/JobsHotLabelByMultiLineCVCell.h>
 #import <JobsHotLabel/JobsHotLabelWithMultiLineModel.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else
@@ -78,11 +84,11 @@ NS_ASSUME_NONNULL_END
          if (!_hotLabel) {
              _hotLabel = JobsHotLabelWithMultiLine.new;
              _hotLabel.jobsRichViewByModel(self.hotLabelModel);
-             [self addSubview:_hotLabel];
-             [_hotLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+             _hotLabel.byAddTo(self, ^(MASConstraintMaker *make) {
                  make.edges.equalTo(self);
-             }];
-         }return _hotLabel;
+             });
+
+         };return _hotLabel;
      }
 
      -(JobsHotLabelWithMultiLineModel *)hotLabelModel{
@@ -92,7 +98,7 @@ NS_ASSUME_NONNULL_END
              _hotLabelModel.viewModelMutArr = self.dataMutArr;
              _hotLabelModel.headerViewModel = self.headerViewModel;
              _hotLabelModel.footerViewModel = self.footerViewModel;
-         }return _hotLabelModel;
+         };return _hotLabelModel;
      }
 
      -(JobsHeaderFooterViewModel *)headerViewModel{
@@ -105,7 +111,7 @@ NS_ASSUME_NONNULL_END
              _headerViewModel.textModel.textAlignment = NSTextAlignmentLeft;
              _headerViewModel.bgCor = HEXCOLOR(0xFDFCF9);
      //        _headerViewModel.jobsSize = CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(20));
-         }return _headerViewModel;
+         };return _headerViewModel;
      }
 
      -(JobsHeaderFooterViewModel *)footerViewModel{
@@ -118,7 +124,7 @@ NS_ASSUME_NONNULL_END
              _footerViewModel.textModel.font = UIFontWeightBoldSize(14);
              _footerViewModel.bgCor = HEXCOLOR(0xFDFCF9);
      //        _footerViewModel.jobsSize = CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(20));
-         }return _footerViewModel;
+         };return _footerViewModel;
      }
 
      -(NSMutableArray<UIViewModel *> *)dataMutArr{
@@ -133,7 +139,7 @@ NS_ASSUME_NONNULL_END
                           .byJobsSize(CGSizeMake(JobsWidth(80), JobsWidth(30)));
                  [_dataMutArr addObject:viewModel];
              }
-         }return _dataMutArr;
+         };return _dataMutArr;
      }
 
      -(NSMutableArray<NSString *> *)btnTitleMutArr{
@@ -147,7 +153,7 @@ NS_ASSUME_NONNULL_END
              [_btnTitleMutArr addObject:@"会员活动".tr];
              [_btnTitleMutArr addObject:@"VIP福利".tr];
              [_btnTitleMutArr addObject:@"其他".tr];
-         }return _btnTitleMutArr;
+         };return _btnTitleMutArr;
      }
 
      /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】

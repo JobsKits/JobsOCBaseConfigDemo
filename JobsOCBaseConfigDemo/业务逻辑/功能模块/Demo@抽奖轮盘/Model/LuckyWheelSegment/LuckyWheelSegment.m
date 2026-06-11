@@ -44,7 +44,7 @@
         _backgroundColor = backgroundColor ?: JobsClearColor;
         _placeholderImage = placeholderImage;
         _imageURLString   = imageURLString;
-    }return self;
+    };return self;
 }
 /// 把字符串转成竖排（逐个“字”之间插入 \n），兼容 emoji 等复合字符
 + (NSString *)verticalStringFrom:(NSString *)text {

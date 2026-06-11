@@ -6,6 +6,7 @@
 //
 
 #import "UIButton+Timer.h"
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 #pragma clang diagnostic ignored "-Wunguarded-availability"
@@ -58,7 +59,7 @@ JobsKey(_timer)
             t.lastStartDate      = nil;
         });
         Jobs_setAssociatedRETAIN_NONATOMIC(_timer, timer)
-    }return timer;
+    };return timer;
 }
 
 -(void)setTimer:(JobsTimer *)timer{
@@ -197,7 +198,7 @@ JobsKey(_startTime)
     if (!STime) {
         STime = 10;// 缺省值
         [self setStartTime:STime];
-    }return STime;
+    };return STime;
 }
 
 - (void)setStartTime:(NSTimeInterval)startTime{
@@ -211,7 +212,7 @@ JobsKey(_timeInterval)
     if (!TimeInterval) {
         TimeInterval = 1;// 缺省值
         [self setTimeInterval:TimeInterval];
-    }return TimeInterval;
+    };return TimeInterval;
 }
 
 - (void)setTimeInterval:(NSTimeInterval)timeInterval{

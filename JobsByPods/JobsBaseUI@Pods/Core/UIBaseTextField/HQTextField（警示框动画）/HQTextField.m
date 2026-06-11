@@ -16,7 +16,7 @@ Prop_strong()CABasicAnimation *opacityAnimation;
 @end
 
 @implementation HQTextField
-#pragma mark -- 警示框
+#pragma mark —— 警示框
 - (void)showWarn {
     self.layer.addSublayer(self.warnLayer);
     /// 2秒后(异步)移除动画
@@ -28,7 +28,7 @@ Prop_strong()CABasicAnimation *opacityAnimation;
         self.warnLayer.remove();
     });
 }
-#pragma mark -- 改变光标起始位置
+#pragma mark —— 改变光标起始位置
 // 控制placeHolder的位置，左右缩20，但是光标位置不变
 /*
  - (CGRect)placeholderRectForBounds:(CGRect)bounds
@@ -61,7 +61,7 @@ Prop_strong()CABasicAnimation *opacityAnimation;
         @jobs_weakify(self)
         _warnLayer = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer *_Nullable data) {
             @jobs_strongify(self)
-            data.frame = self.bounds;// 大小和文本框一致
+            data.byFrame(self.bounds);// 大小和文本框一致
             data.path = [UIBezierPath bezierPathWithRoundedRect:self.warnLayer.bounds
                                                    cornerRadius:0].CGPath;// 画线 非圆角
             data.lineWidth = 6. / UIScreen.mainScreen.scale;// 线宽
@@ -70,7 +70,7 @@ Prop_strong()CABasicAnimation *opacityAnimation;
             data.strokeColor = JobsRedColor.CGColor;// 边框颜色为红色
             [data addAnimation:self.opacityAnimation forKey:@"opacity"];
         });
-    }return _warnLayer;
+    };return _warnLayer;
 }
 
 -(CABasicAnimation *)opacityAnimation{
@@ -81,7 +81,7 @@ Prop_strong()CABasicAnimation *opacityAnimation;
         _opacityAnimation.repeatCount = 5;
         _opacityAnimation.repeatDuration = 2;
         _opacityAnimation.autoreverses = YES;
-    }return _opacityAnimation;
+    };return _opacityAnimation;
 }
 
 @end

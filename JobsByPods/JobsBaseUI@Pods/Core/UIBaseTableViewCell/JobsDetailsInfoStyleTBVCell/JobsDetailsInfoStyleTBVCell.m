@@ -8,11 +8,7 @@
 #import "JobsDetailsInfoStyleTBVCell.h"
 #import <JobsBaseUI/UITableView+RegisterClass.h>
 #import <JobsBaseUI/UIView+Extra.h>
-#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
-#import <JobsModelDSL/JobsModelDSL.h>
-#else
-#import "JobsModelDSL.h"
-#endif
+
 #import <Masonry/Masonry.h>
 
 @interface JobsDetailsInfoStyleTBVCell ()
@@ -53,7 +49,7 @@ Prop_strong()UIImageView *detailsInfoImageView;
                 /// 如果有系统向右的箭头，此时这个offset其实是于箭头左边距的距离
                 if(self.viewModel.jobsOffsetX) make.right.equalTo(self.contentView).offset(self.viewModel.jobsOffsetX);
             }];
-        }return self;
+        };return self;
     };
 }
 /// 具体由子类进行复写【数据定高】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -68,14 +64,15 @@ Prop_strong()UIImageView *detailsInfoImageView;
         @jobs_weakify(self)
         _detailsInfoImageView = self.contentView
             .addSubview(jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-                imageView.backgroundColor = JobsClearColor;
+                imageView.byBgColor(JobsClearColor);
+
             })).byAdd(^(MASConstraintMaker *_Nonnull make){
                 @jobs_strongify(self)
                 make.centerY.equalTo(self.contentView);
                 make.right.equalTo(self.contentView);
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(50), JobsWidth(50)));
             });
-    }return _detailsInfoImageView;
+    };return _detailsInfoImageView;
 }
 
 @end

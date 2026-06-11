@@ -5,6 +5,12 @@
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 #ifndef JOBS_HEADER_GUARD_JXCATEGORYNUMBERVIEW_EXTRA_74B711E4BE
 #define JOBS_HEADER_GUARD_JXCATEGORYNUMBERVIEW_EXTRA_74B711E4BE
 
@@ -56,7 +62,7 @@ NS_ASSUME_NONNULL_END
                  .byNumberStringFormatterBlock(^NSString *(NSInteger number) {
                      if (number > 999) {
                          return @"999+";
-                     }return [NSString stringWithFormat:@"%ld", (long)number];
+                     };return [NSString stringWithFormat:@"%ld", (long)number];
                  })
                  .byTitles(self.titles)
                  .byTitleSelectedColor(HEXCOLOR(0xAE8330))
@@ -92,7 +98,7 @@ NS_ASSUME_NONNULL_END
              make.left.right.equalTo(self.view);
              make.height.mas_equalTo(listContainerViewDefaultOffset);
          }).on();
-     }return _categoryView;
+     };return _categoryView;
  }
  
  */

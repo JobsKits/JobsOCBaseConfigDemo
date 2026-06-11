@@ -24,16 +24,19 @@
     MyFansTBVCell *cell = [firstVC.tableView cellForRowAtIndexPath:[firstVC.tableView indexPathForSelectedRow]];
     CGRect firstFrame  = [containerView convertRect:cell.imgView.frame fromView:cell];
     CGRect secondFrame = [containerView convertRect:secondVC.imageView.frame fromView:secondVC.view];
-    snapShotView.frame = secondFrame;
-    secondVC.imageView.hidden = YES;
-    cell.imgView.hidden = YES;
+    snapShotView.byFrame(secondFrame);
+
+    secondVC.imageView.byHidden(YES);
+
+    cell.imgView.byHidden(YES);
+
 //    JobsLog(@"firstFrame = %@, secondFrame = %@, secondVC = %@",NSStringFromCGRect(firstFrame),NSStringFromCGRect(secondFrame), NSStringFromCGRect(secondVC.view.frame));
     
     //------
 //    UIImageView *imgView = cell.imgView;
     
     // 3.设置firstVC控制器的位置
-    firstVC.view.frame = [transitionContext finalFrameForViewController:firstVC];//初始化firstVC的位置
+    firstVC.view.byFrame([transitionContext finalFrameForViewController:firstVC]);//初始化firstVC的位置
     
     
     // 4.把动画前后的两个ViewController加到容器中,顺序很重要,snapShotView在上方  就是截图和secondVC.view之间的动画
@@ -47,13 +50,17 @@
           initialSpringVelocity:1
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
-        secondVC.view.alpha = 0;
-        snapShotView.frame = firstFrame;
+        secondVC.view.byAlpha(0);
+
+        snapShotView.byFrame(firstFrame);
+
 //        [snapShotView removeFromSuperview];
     } completion:^(BOOL finished) {
         [snapShotView removeFromSuperview];
-        secondVC.imageView.hidden = NO;
-        cell.imgView.hidden = NO;
+        secondVC.imageView.byHidden(NO);
+
+        cell.imgView.byHidden(NO);
+
         [transitionContext completeTransition:YES];
     }];
 }

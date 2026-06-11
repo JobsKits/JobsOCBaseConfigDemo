@@ -20,13 +20,13 @@ static dispatch_once_t irregularBtnDispatchOnce;
 -(instancetype)init{
     if (self = [super init]) {
         irregularBtnDispatchOnce = 0;
-    }return self;
+    };return self;
 }
 // 绘制图形时添加path遮罩
 - (void)drawRect:(CGRect)rect{
     [super drawRect:rect];
     dispatch_once(&irregularBtnDispatchOnce, ^{
-        self.shapLayer.hidden = NO;
+        self.shapLayer.byHidden(NO);
     });
 }
 // 点击的覆盖方法，点击时判断点是否在path内，YES则响应，NO则不响应
@@ -36,16 +36,18 @@ static dispatch_once_t irregularBtnDispatchOnce;
     if (res){
         if ([self.path containsPoint:point]){
             return YES;
-        }return NO;
-    }return NO;
+        };return NO;
+    };return NO;
 }
 #pragma mark —— lazyLoad
 -(CAShapeLayer *)shapLayer{
     if (!_shapLayer) {
-        _shapLayer = CAShapeLayer.layer;
-        _shapLayer.path = self.path.CGPath;
-        self.layer.mask = _shapLayer;
-    }return _shapLayer;
+        @jobs_weakify(self)
+        self.layer.byMask(_shapLayer = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
+            @jobs_strongify(self)
+            layer.byPath(self.path.CGPath);
+        }));
+    };return _shapLayer;
 }
 
 -(UIBezierPath *)path{
@@ -59,13 +61,13 @@ static dispatch_once_t irregularBtnDispatchOnce;
                 [_path addLineToPoint:retrievedPoint];
         }
         [_path closePath];
-    }return _path;
+    };return _path;
 }
 
 -(NSMutableArray<NSValue *> *)pointMutArr{
     if (!_pointMutArr) {
         _pointMutArr = NSMutableArray.array;
-    }return _pointMutArr;
+    };return _pointMutArr;
 }
 
 @end

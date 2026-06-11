@@ -36,7 +36,7 @@
             JobsLog(@"不是正确的时间戳，请检查");
             toastBy(@"不是正确的时间戳，请检查".tr);
             return nil;
-        }return jobsMakeDateFormatter(^(__kindof NSDateFormatter *_Nullable dateFormatter) {
+        };return jobsMakeDateFormatter(^(__kindof NSDateFormatter *_Nullable dateFormatter) {
             dateFormatter.dateFormat = timeFormat;
         }).stringByDate(NSDate.initDateBy(sec));
     };
@@ -55,7 +55,7 @@
         date = NSDate.initDateBy(self.doubleValue);
     }else if(intervalStyle == intervalByMilliSec){// 毫秒级时间戳（13位）
         date = NSDate.initDateBy(self.doubleValue / 1000.0);
-    }return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable data) {
+    };return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable data) {
         @jobs_strongify(self)
         data.dateFormat = isNull(timeFormatter) ? @"yyyy-MM-dd HH:mm:ss" : timeFormatter;
         data.timeZone = timeZone(timeZoneType);

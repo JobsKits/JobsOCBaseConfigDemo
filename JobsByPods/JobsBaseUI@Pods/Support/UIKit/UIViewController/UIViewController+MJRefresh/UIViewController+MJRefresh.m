@@ -52,7 +52,7 @@ JobsKey(_refreshConfigHeader)
     if (!RefreshConfigHeader) {
         RefreshConfigHeader = MJRefreshConfigModel.new;
         Jobs_setAssociatedRETAIN_NONATOMIC(_refreshConfigHeader, RefreshConfigHeader)
-    }return RefreshConfigHeader;
+    };return RefreshConfigHeader;
 }
 
 -(void)setRefreshConfigHeader:(MJRefreshConfigModel *)refreshConfigHeader{
@@ -66,7 +66,7 @@ JobsKey(_refreshConfigFooter)
     if (!RefreshConfigFooter) {
         RefreshConfigFooter = MJRefreshConfigModel.new;
         Jobs_setAssociatedRETAIN_NONATOMIC(_refreshConfigFooter, RefreshConfigFooter)
-    }return RefreshConfigFooter;
+    };return RefreshConfigFooter;
 }
 
 -(void)setRefreshConfigFooter:(MJRefreshConfigModel *)refreshConfigFooter{
@@ -88,7 +88,7 @@ JobsKey(_lotAnimMJRefreshHeader)
     if (!lotAnimMJRefreshHeader) {
         lotAnimMJRefreshHeader = self.view.LOTAnimationMJRefreshHeaderBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_lotAnimMJRefreshHeader, lotAnimMJRefreshHeader)
-    }return lotAnimMJRefreshHeader;
+    };return lotAnimMJRefreshHeader;
 }
 
 -(void)setLotAnimMJRefreshHeader:(LOTAnimationMJRefreshHeader *)lotAnimMJRefreshHeader{
@@ -102,7 +102,7 @@ JobsKey(_mjRefreshNormalHeader)
     if (!MjRefreshNormalHeader) {
         MjRefreshNormalHeader = self.view.MJRefreshNormalHeaderBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshNormalHeader, MjRefreshNormalHeader);
-    }return MjRefreshNormalHeader;
+    };return MjRefreshNormalHeader;
 }
 
 -(void)setMjRefreshNormalHeader:(MJRefreshNormalHeader *)mjRefreshNormalHeader{
@@ -116,7 +116,7 @@ JobsKey(_mjRefreshStateHeader)
     if (!MjRefreshStateHeader) {
         MjRefreshStateHeader = self.view.MJRefreshStateHeaderBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshStateHeader, MjRefreshStateHeader)
-    }return MjRefreshStateHeader;
+    };return MjRefreshStateHeader;
 }
 
 -(void)setMjRefreshStateHeader:(MJRefreshStateHeader *)mjRefreshStateHeader{
@@ -130,7 +130,7 @@ JobsKey(_mjRefreshHeader)
     if (!MjRefreshHeader) {
         MjRefreshHeader = self.view.MJRefreshHeaderBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshHeader, MjRefreshHeader)
-    }return MjRefreshHeader;
+    };return MjRefreshHeader;
 }
 
 -(void)setMjRefreshHeader:(MJRefreshHeader *)mjRefreshHeader{
@@ -144,7 +144,7 @@ JobsKey(_mjRefreshGifHeader)
     if (!MjRefreshGifHeader) {
         MjRefreshGifHeader = self.view.MJRefreshGifHeaderBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshGifHeader, MjRefreshGifHeader)
-    }return MjRefreshGifHeader;
+    };return MjRefreshGifHeader;
 }
 
 -(void)setMjRefreshGifHeader:(MJRefreshGifHeader *)mjRefreshGifHeader{
@@ -159,7 +159,7 @@ JobsKey(_mjRefreshAutoGifFooter)
     if (!MjRefreshAutoGifFooter) {
         MjRefreshAutoGifFooter = self.view.MJRefreshAutoGifFooterBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshAutoGifFooter, MjRefreshAutoGifFooter)
-    }return MjRefreshAutoGifFooter;
+    };return MjRefreshAutoGifFooter;
 }
 
 -(void)setMjRefreshAutoGifFooter:(MJRefreshAutoGifFooter *)mjRefreshAutoGifFooter{
@@ -173,7 +173,7 @@ JobsKey(_mjRefreshBackNormalFooter)
     if (!MjRefreshBackNormalFooter) {
         MjRefreshBackNormalFooter = self.view.MJRefreshBackNormalFooterBy(self.refreshConfigFooter);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshBackNormalFooter, MjRefreshBackNormalFooter)
-    }return MjRefreshBackNormalFooter;
+    };return MjRefreshBackNormalFooter;
 }
 
 -(void)setMjRefreshBackNormalFooter:(MJRefreshBackNormalFooter *)mjRefreshBackNormalFooter{
@@ -187,7 +187,7 @@ JobsKey(_mjRefreshAutoNormalFooter)
     if (!MjRefreshAutoNormalFooter) {
         MjRefreshAutoNormalFooter = self.view.MJRefreshAutoNormalFooterBy(self.refreshConfigFooter);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshAutoNormalFooter, MjRefreshAutoNormalFooter)
-    }return MjRefreshAutoNormalFooter;
+    };return MjRefreshAutoNormalFooter;
 }
 
 -(void)setMjRefreshAutoNormalFooter:(MJRefreshAutoNormalFooter *)mjRefreshAutoNormalFooter{
@@ -201,7 +201,7 @@ JobsKey(_mjRefreshAutoStateFooter)
     if (!MjRefreshAutoStateFooter) {
         MjRefreshAutoStateFooter = self.view.MJRefreshAutoStateFooterBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshAutoStateFooter, MjRefreshAutoStateFooter)
-    }return MjRefreshAutoStateFooter;
+    };return MjRefreshAutoStateFooter;
 }
 
 -(void)setMjRefreshAutoStateFooter:(MJRefreshAutoStateFooter *)mjRefreshAutoStateFooter{
@@ -215,7 +215,7 @@ JobsKey(_mjRefreshAutoFooter)
     if (!MjRefreshAutoFooter) {
         MjRefreshAutoFooter = self.view.MJRefreshAutoFooterBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshAutoFooter, MjRefreshAutoFooter)
-    }return MjRefreshAutoFooter;
+    };return MjRefreshAutoFooter;
 }
 
 -(void)setMjRefreshAutoFooter:(MJRefreshAutoFooter *)mjRefreshAutoFooter{
@@ -229,7 +229,7 @@ JobsKey(_mjRefreshBackGifFooter)
     if (!MjRefreshBackGifFooter) {
         MjRefreshBackGifFooter = self.view.MJRefreshBackGifFooterBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshBackGifFooter, MjRefreshBackGifFooter)
-    }return MjRefreshBackGifFooter;
+    };return MjRefreshBackGifFooter;
 }
 
 -(void)setMjRefreshBackGifFooter:(MJRefreshBackGifFooter *)mjRefreshBackGifFooter{
@@ -243,7 +243,7 @@ JobsKey(_mjRefreshBackStateFooter)
     if (!MjRefreshBackStateFooter) {
         MjRefreshBackStateFooter = self.view.MJRefreshBackStateFooterBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshBackStateFooter, MjRefreshBackStateFooter)
-    }return MjRefreshBackStateFooter;
+    };return MjRefreshBackStateFooter;
 }
 
 -(void)setMjRefreshBackStateFooter:(MJRefreshBackStateFooter *)mjRefreshBackStateFooter{
@@ -257,7 +257,7 @@ JobsKey(_mjRefreshBackFooter)
     if (!MjRefreshBackFooter) {
         MjRefreshBackFooter = self.view.MJRefreshBackFooterBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshBackFooter, MjRefreshBackFooter)
-    }return MjRefreshBackFooter;
+    };return MjRefreshBackFooter;
 }
 
 -(void)setMjRefreshBackFooter:(MJRefreshBackFooter *)mjRefreshBackFooter{
@@ -271,7 +271,7 @@ JobsKey(_mjRefreshFooter)
     if (!MjRefreshFooter) {
         MjRefreshFooter = self.view.MJRefreshFooterBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshFooter, MjRefreshFooter)
-    }return MjRefreshFooter;
+    };return MjRefreshFooter;
 }
 
 -(void)setMjRefreshFooter:(MJRefreshFooter *)mjRefreshFooter{

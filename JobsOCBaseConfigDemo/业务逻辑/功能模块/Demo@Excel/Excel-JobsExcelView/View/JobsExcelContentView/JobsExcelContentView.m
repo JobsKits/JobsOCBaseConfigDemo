@@ -19,7 +19,7 @@ Prop_assign()CGPoint contentOffenset;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.tableView.byShow(self);
-    }return self;
+    };return self;
 }
 /// 在某些情况下，当UITableView加载到一个子UIView上的时候，只有在layoutSubviews刷新页面的时候，UITableView才会有Frame
 -(void)layoutSubviews{
@@ -53,11 +53,10 @@ Prop_assign()CGPoint contentOffenset;
             vm.byData(self.excelConfigureData)
               .byButtonModels(self.excelConfigureData.contentArr[indexPath.row]);
         }))
-    
-        .byBgColor(indexPath.row % 2 ? self.excelConfigureData.cor1 : self.excelConfigureData.cor2)
         .JobsBlock1(^(id _Nullable data) {
              
         });
+    cell.byBgColor(indexPath.row % 2 ? self.excelConfigureData.cor1 : self.excelConfigureData.cor2);
     return cell;
 }
 #pragma mark —— UIScrollViewDelegate
@@ -102,9 +101,9 @@ Prop_assign()CGPoint contentOffenset;
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
             tableView.dataLink(self);
+            tableView.byRowHeight(self.excelConfigureData.itemH)
+                .bySeparatorStyle(UITableViewCellSeparatorStyleNone);
             tableView.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
-            tableView.byRowHeight(self.excelConfigureData.itemH);
-            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone);
             tableView.buttonModelEmptyData = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
                 data.byTitle(@"No Datas".tr)
                     .byTitleCor(JobsWhiteColor)
@@ -114,11 +113,11 @@ Prop_assign()CGPoint contentOffenset;
                     .byJobsOffsetX(JobsWidth(-100))
                     .byJobsOffsetY(0);
             });
-            [self.addSubview(tableView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            tableView.byAddTo(self, ^(MASConstraintMaker *make) {
                 make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0, 0, 0));
-            }];
+            });
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 @end

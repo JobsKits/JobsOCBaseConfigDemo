@@ -72,11 +72,11 @@ UILabel *textLabel(UIView *btn) {
                 if ([subView isKindOfClass:NSClassFromString(UITabBarButtonLabel)]) {
                     return (UILabel *)subView;
                 }
-            }return nil;
-        }return [btn valueForKeyPath:@"_label"];
+            };return nil;
+        };return [btn valueForKeyPath:@"_label"];
     }else if([btn isKindOfClass:NSClassFromString(@"UIButton")]) {
         return [(UIButton *)btn titleLabel];
-    }return nil;
+    };return nil;
 }
 
 UIImageView *imageView(UIView *btn) {
@@ -86,11 +86,11 @@ UIImageView *imageView(UIView *btn) {
                 if ([subView isKindOfClass:NSClassFromString(UITabBarSwappableImageView)]) {
                     return (UIImageView *)subView;
                 }
-            }return nil;
-        }return [btn valueForKeyPath:@"_info"];
+            };return nil;
+        };return [btn valueForKeyPath:@"_info"];
     }else if([btn isKindOfClass:NSClassFromString(@"UIButton")]) {
         return [(UIButton *)btn imageView];
-    }return nil;
+    };return nil;
 }
 #pragma mark —— @property(nonatomic,copy,readonly)NSMutableArray *btns;
 JobsKey(_btns)
@@ -105,7 +105,7 @@ JobsKey(_btns)
         Btns = NSMutableArray.array;
         self.selectedIndex = 0;
         Jobs_setAssociatedRETAIN_NONATOMIC(_btns, Btns);
-    }return Btns;
+    };return Btns;
 }
 #pragma mark —— @property(nonatomic,assign,readonly)NSUInteger selectedIndex;
 JobsKey(_selectedIndex)

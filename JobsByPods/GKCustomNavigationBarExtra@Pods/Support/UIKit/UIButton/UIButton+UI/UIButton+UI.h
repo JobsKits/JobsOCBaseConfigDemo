@@ -19,11 +19,6 @@
 #import <GKCustomNavigationBarExtra/UIButton+UIButtonConfiguration.h>
 #import <GKCustomNavigationBarExtra/UITextView+Extra.h>
 #import <GKCustomNavigationBarExtra/UIView+Extra.h>
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
 #import <GKCustomNavigationBarExtra/UIBackgroundConfiguration+Extra.h>
 #import <GKCustomNavigationBarExtra/UIButtonConfiguration+Extra.h>
 #import <GKCustomNavigationBarExtra/UIGestureRecognizer+Extra.h>
@@ -375,7 +370,7 @@ NS_ASSUME_NONNULL_END
                  }).onLongPressGestureBy(^(id data){
                      JobsLog(@"");
                  });
-         }return _applyNowBtn;
+         };return _applyNowBtn;
      }
  */
 #endif /* JOBS_HEADER_GUARD_UIBUTTON_UI_66D2EC86F5 */

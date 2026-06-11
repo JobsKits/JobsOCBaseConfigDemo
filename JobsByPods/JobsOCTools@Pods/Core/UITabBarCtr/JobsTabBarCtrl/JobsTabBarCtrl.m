@@ -38,16 +38,18 @@ Prop_assign(readwrite)BOOL builtOnce;
         } else {
             _barBackgroundColor = [UIColor whiteColor];
         }
-    }return self;
+    };return self;
 }
 
 #pragma mark —— Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (@available(iOS 13.0, *)) {
-        self.view.backgroundColor = [UIColor systemBackgroundColor];
+        self.view.byBgColor([UIColor systemBackgroundColor]);
+
     } else {
-        self.view.backgroundColor = [UIColor whiteColor];
+        self.view.byBgColor([UIColor whiteColor]);
+
     }
     [self.view addSubview:self.contentScrollView];
     [self.tabBar addSubview:self.bgImageView];
@@ -61,7 +63,8 @@ Prop_assign(readwrite)BOOL builtOnce;
 
     self.tabBar.frame = CGRectMake(0,CGRectGetHeight(self.view.bounds) - barH - self.barBottomOffset,
                                    CGRectGetWidth(self.view.bounds),barH);
-    self.bgImageView.frame = self.tabBar.bounds;
+    self.bgImageView.byFrame(self.tabBar.bounds);
+
     self.contentScrollView.frame = CGRectMake(0,0,
                                               CGRectGetWidth(self.view.bounds),CGRectGetHeight(self.view.bounds) - barH - self.barBottomOffset);
     // 布局按钮
@@ -84,7 +87,8 @@ Prop_assign(readwrite)BOOL builtOnce;
 
     for (NSInteger i = 0; i < pageCount; i++) {
         UIViewController *vc = self.childViewControllers[i];
-        vc.view.frame = CGRectMake((CGFloat)i * pageW, 0, pageW, pageH);
+        vc.view.byFrame(CGRectMake((CGFloat)i * pageW, 0, pageW, pageH));
+
     }
     self.contentScrollView.contentSize = CGSizeMake(pageW * pageCount, pageH);
 
@@ -104,7 +108,8 @@ Prop_assign(readwrite)BOOL builtOnce;
 
 - (void)setBarBackgroundColor:(UIColor *)barBackgroundColor {
     _barBackgroundColor = barBackgroundColor;
-    self.tabBar.backgroundColor = barBackgroundColor;
+    self.tabBar.byBgColor(barBackgroundColor);
+
 }
 
 - (void)setBarBackgroundImage:(UIImage *)barBackgroundImage {
@@ -172,7 +177,8 @@ Prop_assign(readwrite)BOOL builtOnce;
     /// 应用 frame
     for (NSInteger i = 0; i < total; i++) {
         UIButton *btn = self.buttons[i];
-        btn.frame = frames[i].CGRectValue;
+        btn.byFrame(frames[i].CGRectValue);
+
     }
     /// contentSize
     CGFloat widthSum;
@@ -280,9 +286,9 @@ Prop_assign(readwrite)BOOL builtOnce;
                 toastBy(@"请配置子控制器");
                 return;
             }[self selectIndex:index animated:YES];
-        })
-        .byTag(idx)
-        .addOn(self.tabBar);
+        });
+        b.tag = idx;
+        [self.tabBar addSubview:b];
     }];
     /// 5. 添加子控制器（只取 min(buttons, controllers)）
     NSInteger pageCount = MIN(self.buttons.count, self.controllers.count);
@@ -353,13 +359,12 @@ Prop_assign(readwrite)BOOL builtOnce;
         @jobs_weakify(self)
         _tabBar = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView
-                .byShowsHorizontalScrollIndicator(NO)
-                .byAlwaysBounceHorizontal(YES)
-                .byClipsToBounds(NO)
-                .byBgColor(self.barBackgroundColor);
+            scrollView.showsHorizontalScrollIndicator = NO;
+            scrollView.alwaysBounceHorizontal = YES;
+            scrollView.clipsToBounds = NO;
+            scrollView.backgroundColor = self.barBackgroundColor;
         });
-    }return _tabBar;
+    };return _tabBar;
 }
 
 -(UIScrollView *)contentScrollView {
@@ -367,19 +372,18 @@ Prop_assign(readwrite)BOOL builtOnce;
         @jobs_weakify(self)
         _contentScrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView
-                .byPagingEnabled(YES)
-                .byBounces(NO)
-                .byShowsHorizontalScrollIndicator(NO)
-                .byShowsVerticalScrollIndicator(NO)
-                .byDelegate(self)
-                .byScrollEnabled(self.swipeEnabled)
-                .byAlwaysBounceVertical(!self.horizontalOnly)
-                .byDirectionalLockEnabled(YES)
-                .byAlwaysBounceHorizontal(YES)
-                .byBgColor(JobsClearColor);
+            scrollView.pagingEnabled = YES;
+            scrollView.bounces = NO;
+            scrollView.showsHorizontalScrollIndicator = NO;
+            scrollView.showsVerticalScrollIndicator = NO;
+            scrollView.delegate = self;
+            scrollView.scrollEnabled = self.swipeEnabled;
+            scrollView.alwaysBounceVertical = !self.horizontalOnly;
+            scrollView.directionalLockEnabled = YES;
+            scrollView.alwaysBounceHorizontal = YES;
+            scrollView.backgroundColor = JobsClearColor;
         });
-    }return _contentScrollView;
+    };return _contentScrollView;
 }
 @synthesize bgImageView = _bgImageView;
 - (UIImageView *)bgImageView {
@@ -387,7 +391,7 @@ Prop_assign(readwrite)BOOL builtOnce;
         _bgImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             imageView.byContentMode(UIViewContentModeScaleToFill);
         });
-    }return _bgImageView;
+    };return _bgImageView;
 }
 
 -(NSMutableArray<__kindof UIButton *> *)buttons{
@@ -395,7 +399,7 @@ Prop_assign(readwrite)BOOL builtOnce;
         _buttons = jobsMakeMutArr(^(__kindof NSMutableArray<__kindof UIButton *> * _Nullable arr) {
 
         });
-    }return _buttons;
+    };return _buttons;
 }
 
 -(NSMutableArray<__kindof UIViewController *> *)controllers{
@@ -403,7 +407,7 @@ Prop_assign(readwrite)BOOL builtOnce;
         _controllers = jobsMakeMutArr(^(__kindof NSMutableArray<__kindof UIViewController *> * _Nullable arr) {
 
         });
-    }return _controllers;
+    };return _controllers;
 }
 
 @end

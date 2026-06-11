@@ -112,7 +112,7 @@ JobsKey(_motionManager)
         MotionManager = CMMotionManager.new;
         MotionManager.accelerometerUpdateInterval = 0.5;//加速仪更新频率，以秒为单位
         Jobs_setAssociatedRETAIN_NONATOMIC(_motionManager, MotionManager)
-    }return MotionManager;
+    };return MotionManager;
 }
 
 -(void)setMotionManager:(CMMotionManager *)motionManager{

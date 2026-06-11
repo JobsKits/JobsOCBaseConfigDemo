@@ -30,23 +30,26 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 -(instancetype)init{
     if (self = [super init]) {
         self.tableView.byShow(self);
-        self.backgroundColor = JobsClearColor;
-    }return self;
+        self.byBgColor(JobsClearColor);
+
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.tableView.byShow(self);
-        self.backgroundColor = JobsClearColor;
-    }return self;
+        self.byBgColor(JobsClearColor);
+
+    };return self;
 }
 
 -(instancetype)initWithTableViewClass:(Class <UITableViewCellProtocol>_Nonnull)tableViewClass{
     if (self = [super init]) {
         self.tbvCell_cls = tableViewClass;
         self.tableView.byShow(self);
-        self.backgroundColor = JobsClearColor;
-    }return self;
+        self.byBgColor(JobsClearColor);
+
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -147,7 +150,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     make.edges.equalTo(self);
                 });
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray<__kindof UITableViewCell *> *)tbvCellMutArr{
@@ -163,7 +166,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 dataMutArrCount -= 1;
             } while (dataMutArrCount);
         });
-    }return _tbvCellMutArr;
+    };return _tbvCellMutArr;
 }
 
 @end

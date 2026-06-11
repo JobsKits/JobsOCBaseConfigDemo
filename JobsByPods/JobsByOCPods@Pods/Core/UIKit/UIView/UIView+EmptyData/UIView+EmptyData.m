@@ -33,16 +33,17 @@
 
 -(void)ifEmptyData{
 #ifdef DEBUG
-    //光板返回YES，有其他控件返回NO
+    /// 光板返回YES，有其他控件返回NO
     @jobs_weakify(self)
     BOOL (^checkSubviews)(void) = ^(){
         @jobs_strongify(self)
         if (self.subviews.count) {// 有控件
-            /// return YES;//除了self.tipsLab就没有了，光板;return NO;//有其他控件
+            /// return YES; 除了self.tipsLab就没有了，光板
+            /// ;return NO; 有其他控件
             return [self.subviews[0] isEqual:self.tipsLab];
-        }return YES;//光板
+        };return YES;//光板
     };
-    self.tipsLab.alpha = checkSubviews();
+    self.tipsLab.byAlpha(checkSubviews());
 #endif
 }
 #pragma mark —— Prop_strong()UILabel *tipsLab;
@@ -54,18 +55,18 @@ JobsKey(_tipsLab)
         @jobs_weakify(self)
         TipsLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(self.tipsTitle);
-            label.byTextAlignment(NSTextAlignmentCenter);
-                label.byTextCor(self.backgroundColor == JobsBlueColor ? JobsRedColor : JobsBlueColor);// 防止某些VC在调试阶段，设置view.backgroundColor为随机色
-            label.byFont(UIFontWeightBoldSize(20));
-            label.byNumberOfLines(0);
-            label.makeLabelByShowingType(UILabelShowingType_03);
-            [self addSubview:label];
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.center.equalTo(self);
-            }];
+            label
+                .byText(self.tipsTitle)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byTextCor(self.backgroundColor == JobsBlueColor ? JobsRedColor : JobsBlueColor)// 防止某些VC在调试阶段，设置view.backgroundColor为随机色
+                .byFont(UIFontWeightBoldSize(20))
+                .byNumberOfLines(0)
+                .makeLabelByShowingType(UILabelShowingType_03)
+                .byAddTo(self, ^(MASConstraintMaker *make) {
+                    make.center.equalTo(self);
+                });
         });Jobs_setAssociatedRETAIN_NONATOMIC(_tipsLab, TipsLab)
-    }return TipsLab;
+    };return TipsLab;
 }
 
 -(void)setTipsLab:(UILabel *)tipsLab{
@@ -79,7 +80,7 @@ JobsKey(_tipsTitle)
     if (isNull(TipsTitle)) {
         TipsTitle = @"快来将我填满吧".tr;
         Jobs_setAssociatedCOPY_NONATOMIC(_tipsTitle, TipsTitle)
-    }return TipsTitle;
+    };return TipsTitle;
 }
 
 -(void)setTipsTitle:(NSString *)tipsTitle{

@@ -36,8 +36,8 @@
 #import "JobsBlock.h"
 #endif
 
-#if __has_include(<JobsLanMgr/NSString+JobsLanMgr.h>)
-#import <JobsLanMgr/NSString+JobsLanMgr.h>
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)

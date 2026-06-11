@@ -16,6 +16,12 @@
 #import "JobsDefineProperty.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 @interface TransitionAnimation : NSObject<UIViewControllerAnimatedTransitioning>
 
 -(instancetype)initWithTargetEdge:(UIRectEdge)targetEdge;

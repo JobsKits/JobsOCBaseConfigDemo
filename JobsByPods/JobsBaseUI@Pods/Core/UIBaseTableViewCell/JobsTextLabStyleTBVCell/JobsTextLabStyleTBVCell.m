@@ -8,11 +8,7 @@
 #import "JobsTextLabStyleTBVCell.h"
 #import <JobsBaseUI/UITableView+RegisterClass.h>
 #import <JobsBaseUI/UIView+Extra.h>
-#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
-#import <JobsModelDSL/JobsModelDSL.h>
-#else
-#import "JobsModelDSL.h"
-#endif
+
 #import <Masonry/Masonry.h>
 
 @interface JobsTextLabStyleTBVCell ()
@@ -42,7 +38,8 @@ BaseLayerProtocol_synthesize_part3
     return ^__kindof UITableViewCell *_Nullable(UIViewModel __kindof *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.label.alpha = 1;
+        self.label.byAlpha(1);
+
         return self;
     };
 }
@@ -60,26 +57,30 @@ BaseLayerProtocol_synthesize_part3
 #pragma mark —— lazyLoad
 @synthesize label = _label;
 -(UILabel *)label{
-    if(!_label){
+    if (!_label) {
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
             @jobs_strongify(self)
             /// 富文本的优先级大于普通文本
-            if(self.viewModel.attributedTitle){
+            if (self.viewModel.attributedTitle) {
                 label.byAttributedString(self.viewModel.attributedTitle);
-            }else{
-                label.byText(self.viewModel.text);
-                label.byNumberOfLines(0);
-                label.lineBreakMode = NSLineBreakByWordWrapping;
-                label.byTextAlignment(self.viewModel.textAlignment);
-                label.byTextCor(self.viewModel.textCor);
-                label.byFont(self.viewModel.font);
+            } else {
+                label
+                    .byText(self.viewModel.text)
+                    .byNumberOfLines(0)
+                    .byLineBreakMode(NSLineBreakByWordWrapping)
+                    .byTextAlignment(self.viewModel.textAlignment)
+                    .byTextCor(self.viewModel.textCor)
+                    .byFont(self.viewModel.font);
             }
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.contentView);
-            }];
+
+            label
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.contentView);
+                });
         });
-    }return _label;
+    };return _label;
 }
 
 @end

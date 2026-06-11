@@ -59,6 +59,7 @@ Prop_assign()BOOL isExpand;
     CGFloat expandH = (self.isExpand && self.clickIndexPath && self.clickIndexPath.section == indexPath.section && self.clickIndexPath.item + 1 == indexPath.item) ? -10 : offfsetY;
     frame.origin = CGPointMake(self.padding, CGRectGetMaxY(lastAttributes.frame) - expandH);
     attribute.frame = frame;
+
     return attribute;
 }
 
@@ -80,6 +81,7 @@ Prop_assign()BOOL isExpand;
     }
     frame.origin = CGPointMake(0, CGRectGetMaxY(lastAttributes.frame));
     attributes.frame = frame;
+
     return attributes;
 }
 
@@ -88,7 +90,7 @@ Prop_assign()BOOL isExpand;
     CGFloat safeAreaBottom = 0;
     if (@available(iOS 11.0, *)) {
         safeAreaBottom = self.collectionView.safeAreaInsets.bottom;
-    }return CGSizeMake(JobsMainScreen_WIDTH(), CGRectGetMaxY(attribute.frame) + 5 + safeAreaBottom);
+    };return CGSizeMake(JobsMainScreen_WIDTH(), CGRectGetMaxY(attribute.frame) + 5 + safeAreaBottom);
 }
 
 -(NSArray *)layoutAttributesForElementsInRect:(CGRect)rect{
@@ -120,7 +122,7 @@ Prop_assign()BOOL isExpand;
 -(NSMutableArray<UICollectionViewLayoutAttributes *> *)attrubutesArray{
     if (!_attrubutesArray) {
         _attrubutesArray = NSMutableArray.array;
-    }return _attrubutesArray;
+    };return _attrubutesArray;
 }
 
 @end

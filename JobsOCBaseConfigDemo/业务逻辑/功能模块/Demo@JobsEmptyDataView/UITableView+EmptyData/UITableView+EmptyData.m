@@ -31,7 +31,7 @@
             hasData = YES;
             break;
         }
-    }return hasData;
+    };return hasData;
 }
 
 -(JobsReturnViewByButtonModelBlock _Nonnull)showEmptyButtonBy{
@@ -44,7 +44,8 @@
         }else{
             return jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
                 @jobs_strongify(self)
-                view.frame = self.bounds;
+                view.byFrame(self.bounds);
+
                 view.cleanSubviewBy(BaseView.class);
                 self.addSubview(view)
                     .addSubview(UIButton.initByButtonModel(model ? : jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
@@ -74,13 +75,14 @@
         }else{
             return jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
                 @jobs_strongify(self)
-                view.frame = self.bounds;
+                view.byFrame(self.bounds);
+
                 view.cleanSubviewBy(BaseView.class);
                 self.addSubview(view);
                 view.addSubview(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
-                    label.byTextAlignment(model.textAlignment ? : NSTextAlignmentCenter);
-                    label.byTextCor(model.textCor ? : JobsRedColor);
-                    label.byText(isValue(model.text) ? model.text : @"No Datas".tr);
+                    label.byTextAlignment(model.textAlignment ? : NSTextAlignmentCenter)
+                        .byTextCor(model.textCor ? : JobsRedColor)
+                        .byText(isValue(model.text) ? model.text : @"No Datas".tr);
                     label.makeLabelByShowingType(UILabelShowingType_05);
                     label.setMasonryBy(^(MASConstraintMaker *make){
                         @jobs_strongify(self)

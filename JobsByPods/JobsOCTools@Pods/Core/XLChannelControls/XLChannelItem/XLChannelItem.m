@@ -19,18 +19,22 @@ Prop_strong()CAShapeLayer *borderLayer;
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self initUI];
-    }return self;
+    };return self;
 }
 
 -(void)initUI{
     self.userInteractionEnabled = true;
     self.layer.cornerRadius = 5.0f;
-    self.backgroundColor = [self backgroundColor];
+    self.byBgColor([self backgroundColor]);
+
     
     self.textLabel = [UILabel new];
-    self.textLabel.frame = self.bounds;
-    self.textLabel.textAlignment = NSTextAlignmentCenter;
-    self.textLabel.textColor = [self textColor];
+    self.textLabel.byFrame(self.bounds);
+
+    self.textLabel.byTextAlignment(NSTextAlignmentCenter);
+
+    self.textLabel.byTextCor([self textColor]);
+
     self.textLabel.adjustsFontSizeToFitWidth = true;
     self.textLabel.userInteractionEnabled = true;
     [self addSubview:self.textLabel];
@@ -51,12 +55,14 @@ Prop_strong()CAShapeLayer *borderLayer;
     self.borderLayer.fillColor = JobsClearColor.CGColor;
     self.borderLayer.strokeColor = [self backgroundColor].CGColor;
     [self.layer addSublayer:self.borderLayer];
-    self.borderLayer.hidden = true;
+    self.borderLayer.byHidden(true);
+
 }
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    self.textLabel.frame = self.bounds;
+    self.textLabel.byFrame(self.bounds);
+
 }
 
 -(UIColor*)backgroundColor{
@@ -73,26 +79,33 @@ Prop_strong()CAShapeLayer *borderLayer;
 
 -(void)setTitle:(NSString *)title{
     _title = title;
-    self.textLabel.text = title;
+    self.textLabel.byText(title);
+
 }
 
 -(void)setIsMoving:(BOOL)isMoving{
     _isMoving = isMoving;
     if (_isMoving) {
-        self.backgroundColor = [UIColor clearColor];
-        self.borderLayer.hidden = false;
+        self.byBgColor([UIColor clearColor]);
+
+        self.borderLayer.byHidden(false);
+
     }else{
-        self.backgroundColor = [self backgroundColor];
-        self.borderLayer.hidden = true;
+        self.byBgColor([self backgroundColor]);
+
+        self.borderLayer.byHidden(true);
+
     }
 }
 
 -(void)setIsFixed:(BOOL)isFixed{
     _isFixed = isFixed;
     if (isFixed) {
-        self.textLabel.textColor = [self lightTextColor];
+        self.textLabel.byTextCor([self lightTextColor]);
+
     }else{
-        self.textLabel.textColor = [self textColor];
+        self.textLabel.byTextCor([self textColor]);
+
     }
 }
 

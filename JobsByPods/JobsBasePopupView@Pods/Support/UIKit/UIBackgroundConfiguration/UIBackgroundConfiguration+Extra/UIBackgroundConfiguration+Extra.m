@@ -69,7 +69,7 @@
         @jobs_strongify(self)
         if (@available(iOS 15.0, *)) {
             self.image = image;
-        }return self;
+        };return self;
     };
 }
 
@@ -79,7 +79,7 @@
         @jobs_strongify(self)
         if (@available(iOS 15.0, *)) {
             self.imageContentMode = mode;
-        }return self;
+        };return self;
     };
 }
 
@@ -136,7 +136,7 @@
         @jobs_strongify(self)
         if (@available(iOS 18.0, *)) {
             self.shadowProperties.opacity = opacity;
-        }return self;
+        };return self;
     };
 }
 #endif

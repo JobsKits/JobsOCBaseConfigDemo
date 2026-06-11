@@ -35,6 +35,6 @@
 #import <JobsByOCPods/UIViewController+BaseNavigationBar.h>
 #import <JobsByOCPods/UIViewController+Lottie.h>
 #import <JobsByOCPods/UIViewController+Extra.h>
-#import <JobsByOCPods/UIViewController+Masonry.h>
+#import <JobsOCDSL/UIViewController+MasonryDSL.h>
 
 #endif /* JobsViewController_h */

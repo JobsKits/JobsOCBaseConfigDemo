@@ -66,8 +66,10 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
     self.gk_navItemRightSpace = JobsWidth(16);
     self.makeNavByAlpha(1);
     
-    self.topLineLab.alpha = 0;
-    self.categoryView.alpha = 1;
+    self.topLineLab.byAlpha(0);
+
+    self.categoryView.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -95,7 +97,7 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
 }
-#pragma mark - JXPagingViewDelegate
+#pragma mark —— JXPagingViewDelegate
 - (UIView *)tableHeaderViewInPagerView:(JXPagerView *)pagerView {
     return self.collectionHeaderView;
 }
@@ -108,11 +110,15 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 mainTableViewDidScroll:(UIScrollView *)scrollView{
     JobsLog(@"contentOffsetY = %f",scrollView.contentOffset.y);
     
-    self.gk_navigationBar.alpha = scrollView.contentOffset.y / 200;
-    self.gk_navigationBar.hidden = NO;
-    self.gk_navigationBar.alpha = scrollView.contentOffset.y / 200;
+    self.gk_navigationBar.byAlpha(scrollView.contentOffset.y / 200);
+
+    self.gk_navigationBar.byHidden(NO);
+
+    self.gk_navigationBar.byAlpha(scrollView.contentOffset.y / 200);
+
     
-    self.topLineLab.alpha = scrollView.contentOffset.y / 200;
+    self.topLineLab.byAlpha(scrollView.contentOffset.y / 200);
+
     
     [self.collectionHeaderView scrollViewDidScrollWithContentOffsetY:scrollView.contentOffset.y];
 }
@@ -150,7 +156,7 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
                                       JobsMainScreen_WIDTH(),
                                       JobsMainScreen_HEIGHT());
         _pagerView.pinSectionHeaderVerticalOffset = JobsWidth(0);/// 额外的偏移量
-    }return _pagerView;
+    };return _pagerView;
 }
 
 -(BaiShaETProjCollectionHeaderView *)collectionHeaderView{
@@ -162,7 +168,7 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
                                                  BaiShaETProjCollectionHeaderView.viewSizeByModel(nil).height);
         _collectionHeaderView.isZoom = YES;
         _collectionHeaderView.jobsRichViewByModel(nil);
-    }return _collectionHeaderView;
+    };return _collectionHeaderView;
 }
 
 -(JXCategoryTitleView *)categoryView{
@@ -170,7 +176,8 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
         @jobs_weakify(self)
         _categoryView = jobsMakeCategoryTitleView(^(JXCategoryTitleView * _Nullable view) {
             @jobs_strongify(self)
-            view.backgroundColor = JobsClearColor;
+            view.byBgColor(JobsClearColor);
+
             view.titleSelectedColor = JobsWhiteColor;
             view.titleColor = JobsWhiteColor;
             view.titleFont = UIFontWeightRegularSize(JobsWidth(18));
@@ -190,15 +197,14 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
             view.defaultSelectedIndex = 1;// 默认从第二个开始显示
             view.cellSpacing = JobsWidth(-20);
             view.listContainer = (id<JXCategoryViewListContainer>)self.pagerView.listContainerView;
-            self.view.addSubview(view);
-            [view mas_makeConstraints:^(MASConstraintMaker *make) {
+            view.byAddTo(self.view, ^(MASConstraintMaker *make) {
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(0);
                 make.left.right.equalTo(self.view);
                 make.height.mas_equalTo(listContainerViewDefaultOffset);
-            }];[self.view layoutIfNeeded];
+            });[self.view layoutIfNeeded];
         });
 
-    }return _categoryView;
+    };return _categoryView;
 }
 
 -(BaseButton *)ruleBtn{
@@ -216,7 +222,7 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-    }return _ruleBtn;
+    };return _ruleBtn;
 }
 
 -(NSMutableArray<NSString *>*)titleMutArr{
@@ -226,7 +232,7 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
                 data.add(@"Lv".add(toStringByInt(i)).tr);
             }
         });
-    }return _titleMutArr;
+    };return _titleMutArr;
 }
 
 -(NSMutableArray<__kindof UIViewController *>*)childVCMutArr{
@@ -240,7 +246,7 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
                 data.add(vipSubVC);
             }
         });
-    }return _childVCMutArr;
+    };return _childVCMutArr;
 }
 
 @end

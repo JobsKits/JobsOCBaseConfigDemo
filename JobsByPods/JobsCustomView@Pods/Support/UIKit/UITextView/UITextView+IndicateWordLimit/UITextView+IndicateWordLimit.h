@@ -10,11 +10,6 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
 #import <JobsCustomView/UIView+Extra.h>
 #import <JobsCustomView/UIView+Measure.h>
 
@@ -22,6 +17,12 @@
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
@@ -71,15 +72,16 @@ NS_ASSUME_NONNULL_END
 
              _textView.placeholderTextColor = RGB_COLOR(132, 134, 140);
              _textView.font = [UIFont systemFontOfSize:12 weight:UIFontWeightMedium];
-             [self.view addSubview:_textView];
-             [_textView mas_makeConstraints:^(MASConstraintMaker *make) {
+             _textView.byAddTo(self.view, ^(MASConstraintMaker *make) {
                  make.centerX.equalTo(self.view);
                  make.top.equalTo(self.chooseFeedbackTypeBtn.mas_bottom).offset(JobsHeight(8));
                  make.size.mas_equalTo(CGSizeMake(JobsWidth(343), JobsHeight(150)));
-             }];
+             });
+
              [self.view layoutIfNeeded];
-             _textView.indicateWordLimitLab.alpha = 1;
-         }return _textView;
+             _textView.indicateWordLimitLab.byAlpha(1);
+
+         };return _textView;
      }
 
     与之相对应的协议方法：
@@ -122,7 +124,7 @@ NS_ASSUME_NONNULL_END
          }else{
              [self.submitBtn setBackgroundImage:@"填写邀请码——可提交".img) forState:UIControlStateNormal];
              self.submitBtn.userInteractionEnabled = YES;
-         }return YES;
+         };return YES;
      }
  */
 #endif /* JOBS_HEADER_GUARD_UITEXTVIEW_INDICATEWORDLIMIT_22DE56C870 */

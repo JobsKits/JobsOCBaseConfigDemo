@@ -18,7 +18,7 @@
         if(subView.masonryBlock){
             [subView mas_makeConstraints:subView.masonryBlock];
             self.refresh();
-        }return subView;
+        };return subView;
     };
 }
 
@@ -30,7 +30,8 @@
     @jobs_weakify(self)
     self.layer.mask = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable data) {
         @jobs_strongify(self)
-        data.frame = self.bounds;
+        data.byFrame(self.bounds);
+
         data.path = maskPath.CGPath;
     });
 }

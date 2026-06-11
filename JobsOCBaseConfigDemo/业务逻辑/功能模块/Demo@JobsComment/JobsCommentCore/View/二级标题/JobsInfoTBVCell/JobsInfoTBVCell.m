@@ -23,8 +23,9 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
         if (!cell) {
             cell = JobsInfoTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.contentView.backgroundColor = JobsCommentConfig.sharedManager.bgCor;
-        }return cell;
+            cell.contentView.byBgColor(JobsCommentConfig.sharedManager.bgCor);
+
+        };return cell;
     };
 }
 #pragma mark —— BaseCellProtocol
@@ -40,9 +41,12 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
         @jobs_strongify(self)
         if ([model isKindOfClass:JobsChildCommentModel.class]) {
             self.childCommentModel = (JobsChildCommentModel *)model;
-            self.likeBtn.alpha = 1;
-            self.textLabel.text = self.childCommentModel.nickname;
-            self.detailTextLabel.text = self.childCommentModel.content;
+            self.likeBtn.byAlpha(1);
+
+            self.textLabel.byText(self.childCommentModel.nickname);
+
+            self.detailTextLabel.byText(self.childCommentModel.content);
+
             self.imageView
                 .imageURL(self.childCommentModel.headImg.imageURLPlus.jobsUrl)
                 .placeholderImage(@"动态头像 尺寸126".gif_img ? : @"用户默认头像".img)
@@ -57,7 +61,7 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
                         JobsLog(@"图片加载成功");
                     }
                 }).load();
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— 复写系统父类方法
@@ -65,10 +69,14 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
     [super layoutSubviews];
     self.imageView.sizer = JobsCommentConfig.sharedManager.headerImageViewSize;//subTitleOffset
     self.imageView.cornerCutToCircleWithCornerRadius(self.imageView.height / 2);
-    self.textLabel.font = JobsCommentConfig.sharedManager.titleFont;
-    self.detailTextLabel.font = JobsCommentConfig.sharedManager.subTitleFont;
-    self.textLabel.textColor = JobsCommentConfig.sharedManager.titleCor;
-    self.detailTextLabel.textColor = JobsCommentConfig.sharedManager.subTitleCor;
+    self.textLabel.byFont(JobsCommentConfig.sharedManager.titleFont);
+
+    self.detailTextLabel.byFont(JobsCommentConfig.sharedManager.subTitleFont);
+
+    self.textLabel.byTextCor(JobsCommentConfig.sharedManager.titleCor);
+
+    self.detailTextLabel.byTextCor(JobsCommentConfig.sharedManager.subTitleCor);
+
     /// 因为二级评论和一级评论的控件之间存在一定的offset(向右偏)，故这里进行重写约束
     self.imageView.resetOriginX(JobsWidth(50));
     self.imageView.resetOriginY(JobsWidth(0));
@@ -107,11 +115,11 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
                 JobsLog(@"");
             });
         _likeBtn.thumpNum = 0;
-        [self.contentView.addSubview(_likeBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _likeBtn.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
             make.height.mas_equalTo(JobsWidth(55 / 2));
             make.right.equalTo(self.contentView).offset(-JobsWidth(13));
             make.centerY.equalTo(self.contentView);
-        }];
+        });
     }
     _likeBtn.selected = self.childCommentModel.isPraise.boolValue;
     _likeBtn.thumpNum = self.childCommentModel.praiseNum;

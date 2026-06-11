@@ -16,7 +16,7 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -63,7 +63,7 @@
         }else if (touch.phase == UITouchPhaseMoved){
             JobsLog(@"Touches Moved");
         }
-    }return [super hitTest:point withEvent:event];
+    };return [super hitTest:point withEvent:event];
 }
 
 @end

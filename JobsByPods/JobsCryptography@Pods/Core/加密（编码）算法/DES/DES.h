@@ -34,7 +34,7 @@ NS_INLINE NSData *_Nullable encryptUseDES(NSData *_Nonnull plainText,
         NSData *data = [NSData dataWithBytes:buffer
                                       length:(NSUInteger)numBytesEncrypted];
         return data;
-    }return nil;
+    };return nil;
 }
 /// DES 解密
 NS_INLINE NSData *_Nullable decrypUseDES(NSData *_Nonnull plainText,
@@ -58,6 +58,6 @@ NS_INLINE NSData *_Nullable decrypUseDES(NSData *_Nonnull plainText,
         NSData *plaindata = [NSData dataWithBytes:buffer
                                            length:(NSUInteger)numBytesDecrypted];
         return plaindata;
-    }return nil;
+    };return nil;
 }
 #endif /* JOBS_HEADER_GUARD_DES_757A32D9E5 */

@@ -8,12 +8,6 @@
 #import "JobsDebugVC.h"
 #import <JobsBaseUI/NSString+Extra.h>
 
-#if __has_include(<WHToastExtra/NSObject+WHToast.h>)
-#import <WHToastExtra/NSObject+WHToast.h>
-#else
-#import "NSObject+WHToast.h"
-#endif
-
 @interface JobsDebugVC ()
 
 @end

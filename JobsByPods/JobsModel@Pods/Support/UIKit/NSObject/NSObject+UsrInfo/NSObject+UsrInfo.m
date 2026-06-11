@@ -85,7 +85,7 @@
                     JobsLog(@"解档失败: %@", error.localizedDescription);
                     /// 没取到用户数据，就直接跳登录
     //                self.toLogin();
-                }return userModel;
+                };return userModel;
             }
         }else{
             JobsLog(@"解档失败:需要被解档的数据为空");

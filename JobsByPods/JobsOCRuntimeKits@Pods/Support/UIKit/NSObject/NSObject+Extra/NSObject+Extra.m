@@ -30,7 +30,7 @@
                 JobsLog(@"Exception: %@", exception);
                 value = @"nil"; // or handle the exception as needed
             }
-        }return value;
+        };return value;
     };
 }
 

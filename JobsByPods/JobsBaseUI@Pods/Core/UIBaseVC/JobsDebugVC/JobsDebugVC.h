@@ -33,6 +33,13 @@
 
 #ifndef VC_LIFE_CYCLE_ENUM_DEFINED
 #define VC_LIFE_CYCLE_ENUM_DEFINED
+
+#if __has_include(<WHToastExtra/WHToastExtra.h>)
+#import <WHToastExtra/WHToastExtra.h>
+#else
+#import "WHToastExtra.h"
+#endif
+
 typedef NS_ENUM(NSUInteger, UIViewControllerLifeCycle) {
     VCLifeCycle_loadView = 0,
     VCLifeCycle_viewDidLoad,

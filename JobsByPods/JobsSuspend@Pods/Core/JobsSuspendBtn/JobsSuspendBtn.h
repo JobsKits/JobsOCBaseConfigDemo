@@ -35,6 +35,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsSuspendBtn : UIButton<BaseViewProtocol>
@@ -82,7 +88,7 @@ NS_ASSUME_NONNULL_END
                                            JobsWidth(50));
              SuspendBtn.cornerCutToCircleWithCornerRadius(SuspendBtn.width / 2));
              Jobs_setAssociatedRETAIN_NONATOMIC(_suspendBtn, SuspendBtn)
-         }return SuspendBtn;
+         };return SuspendBtn;
      }
 
      -(void)setSuspendBtn:(JobsSuspendBtn *)suspendBtn{

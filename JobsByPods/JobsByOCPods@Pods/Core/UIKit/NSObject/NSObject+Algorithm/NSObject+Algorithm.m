@@ -66,7 +66,7 @@
         JobsLog(@"Generated Snowflake ID: %@", snowflakeID);
     }else{
         JobsLog(@"Failed to generate Snowflake ID.");
-    }return snowflakeID;
+    };return snowflakeID;
 }
 /// 查询算法
 /// @param data 查询的数据源
@@ -105,7 +105,7 @@
                     }
                 }
             }
-        }return resMutSet;
+        };return resMutSet;
     };
     
     if ([data isKindOfClass:NSDictionary.class]){
@@ -122,7 +122,7 @@
     }else if([data isKindOfClass:NSArray.class] ||
              [data isKindOfClass:NSSet.class]){
         if(dimSearchBlock) resMutSet = dimSearchBlock(data);
-    }else{}return resMutSet;
+    }else{};return resMutSet;
 }
 /// 以当前手机系统时间（包含了时区）为基准，给定一个日期偏移值（正值代表未来，负值代表过去，0代表现在），返回字符串特定格式的“星期几”
 -(JobsRetStrByIntegerBlock _Nonnull)whatDayOfWeekDistanceNow{
@@ -228,7 +228,7 @@
             for (NSValue *value in data) {
                 CGRect rect = value.CGRectValue;
                 if (rect.size.height > maxHeight) maxHeight = rect.size.height;
-            }return maxHeight;
+            };return maxHeight;
         }else return 0.f;
     };
 }
@@ -240,7 +240,7 @@
             for (NSValue *value in data) {
                 CGRect rect = value.CGRectValue;
                 if (rect.size.height < minHeight) minHeight = rect.size.height;
-            }return minHeight;
+            };return minHeight;
         }else return 0.f;
     };
 }
@@ -252,7 +252,7 @@
             for (NSValue *value in data) {
                 CGRect rect = value.CGRectValue;
                 if (rect.size.width > maxWidth) maxWidth = rect.size.width;
-            }return maxWidth;
+            };return maxWidth;
         }else return 0.f;
     };
 }
@@ -264,7 +264,7 @@
             for (NSValue *value in data) {
                 CGRect rect = value.CGRectValue;
                 if (rect.size.width < minWidth) minWidth = rect.size.width;
-            }return minWidth;
+            };return minWidth;
         }else return 0.f;
     };
 }
@@ -276,7 +276,7 @@
             for (NSValue *value in data) {
                 CGSize size = value.CGSizeValue;
                 if (size.height > maxHeight) maxHeight = size.height;
-            }return maxHeight;
+            };return maxHeight;
         } else return 0.f;
     };
 }
@@ -288,7 +288,7 @@
             for (NSValue *value in data) {
                 CGSize size = value.CGSizeValue;
                 if (size.height < minHeight) minHeight = size.height;
-            }return minHeight;
+            };return minHeight;
         } else return 0.f;
     };
 }
@@ -300,7 +300,7 @@
             for (NSValue *value in data) {
                 CGSize size = value.CGSizeValue;
                 if (size.width > maxWidth) maxWidth = size.width;
-            }return maxWidth;
+            };return maxWidth;
         } else return 0.f;
     };
 }
@@ -312,7 +312,7 @@
             for (NSValue *value in data) {
                 CGSize size = value.CGSizeValue;
                 if (size.width < minWidth) minWidth = size.width;
-            }return minWidth;
+            };return minWidth;
         } else return 0.f;
     };
 }

@@ -31,7 +31,7 @@ static const char *JHGestureBlockKey;
         [blockDic setObject:block forKey:string];
     
         return gesture;
-    }return nil;
+    };return nil;
 }
 
 - (void)gestureAction:(UIGestureRecognizer *)gesture{

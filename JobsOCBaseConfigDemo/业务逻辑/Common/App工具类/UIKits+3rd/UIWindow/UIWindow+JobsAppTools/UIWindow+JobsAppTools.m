@@ -11,8 +11,9 @@
 /// 横屏模式下的Window（宽高互换）
 -(__kindof UIWindow *)landscape{
     if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
-        self.frame = self.landscapeWindowFrame();
-    }return self;
+        self.byFrame(self.landscapeWindowFrame());
+
+    };return self;
 }
 
 @end

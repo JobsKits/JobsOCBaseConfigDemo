@@ -34,7 +34,7 @@
                       self.class,
                       @selector(safePopToViewController:animated:));
 }
-#pragma mark - setter & getter
+#pragma mark —— setter & getter
 - (void)setViewTransitionInProgress:(BOOL)property {
     NSNumber *number = [NSNumber numberWithBool:property];
     objc_setAssociatedObject(self,
@@ -47,14 +47,14 @@
     NSNumber *number = objc_getAssociatedObject(self, @selector(viewTransitionInProgress));
     return number.boolValue;
 }
-#pragma mark - Intercept Pop, Push, PopToRootVC
+#pragma mark —— Intercept Pop, Push, PopToRootVC
 - (NSArray *)safePopToRootViewControllerAnimated:(BOOL)animated {
     if (self.viewTransitionInProgress) return nil;
     if (animated) self.viewTransitionInProgress = YES;
     NSArray *viewControllers = [self safePopToRootViewControllerAnimated:animated];
     if (viewControllers.count == 0) {
         self.viewTransitionInProgress = NO;
-    }return viewControllers;
+    };return viewControllers;
 }
 
 - (NSArray *)safePopToViewController:(UIViewController *)viewController
@@ -64,7 +64,7 @@
     NSArray *viewControllers = [self safePopToViewController:viewController animated:animated];
     if (viewControllers.count == 0) {
         self.viewTransitionInProgress = NO;
-    }return viewControllers;
+    };return viewControllers;
 }
 
 - (UIViewController *)safePopViewControllerAnimated:(BOOL)animated {

@@ -58,7 +58,7 @@ JobsKey(_urls)
     if (!arr) {
         arr = NSMutableArray.array;
         Jobs_setAssociatedRETAIN_NONATOMIC(_urls, arr)
-    }return arr;
+    };return arr;
 }
 
 -(void)setUrls:(NSMutableArray<NSURL *> *)urls{

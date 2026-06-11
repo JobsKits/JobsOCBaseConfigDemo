@@ -28,7 +28,7 @@ Prop_strong()UIView *presentationWrappingView;
         // of UIModalPresentationCustom for a custom presentation controller
         // to be used.
         presentedViewController.modalPresentationStyle = UIModalPresentationCustom;
-    }return self;
+    };return self;
 }
 
 - (UIView *)presentedView{
@@ -58,7 +58,8 @@ Prop_strong()UIView *presentationWrappingView;
     // SEE ALSO: The note in AAPLCustomPresentationSecondViewController.m.
     {
         UIView *presentationWrapperView = UIView.new;
-        presentationWrapperView.frame = self.frameOfPresentedViewInContainerView;
+        presentationWrapperView.byFrame(self.frameOfPresentedViewInContainerView);
+
         presentationWrapperView.layer.shadowOpacity = 0.44f;
         presentationWrapperView.layer.shadowRadius = 13.f;
         presentationWrapperView.layer.shadowOffset = CGSizeMake(0, -6.f);
@@ -71,7 +72,8 @@ Prop_strong()UIView *presentationWrappingView;
         // the view such that the bottom CORNER_RADIUS points lie below
         // the bottom edge of the screen.
         UIView *presentationRoundedCornerView = UIView.new;
-        presentationRoundedCornerView.frame = UIEdgeInsetsInsetRect(presentationWrapperView.bounds, UIEdgeInsetsMake(0, 0, -CORNER_RADIUS, 0));
+        presentationRoundedCornerView.byFrame(UIEdgeInsetsInsetRect(presentationWrapperView.bounds, UIEdgeInsetsMake(0, 0, -CORNER_RADIUS, 0)));
+
         presentationRoundedCornerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         presentationRoundedCornerView.layer.cornerRadius = CORNER_RADIUS;
         presentationRoundedCornerView.layer.masksToBounds = YES;
@@ -81,12 +83,14 @@ Prop_strong()UIView *presentationWrappingView;
         // This also matches the size of presentedViewControllerWrapperView's
         // bounds to the size of -frameOfPresentedViewInContainerView.
         UIView *presentedViewControllerWrapperView = UIView.new;
-        presentedViewControllerWrapperView.frame = UIEdgeInsetsInsetRect(presentationRoundedCornerView.bounds, UIEdgeInsetsMake(0, 0, CORNER_RADIUS, 0));
+        presentedViewControllerWrapperView.byFrame(UIEdgeInsetsInsetRect(presentationRoundedCornerView.bounds, UIEdgeInsetsMake(0, 0, CORNER_RADIUS, 0)));
+
         presentedViewControllerWrapperView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
         // Add presentedViewControllerView -> presentedViewControllerWrapperView.
         presentedViewControllerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        presentedViewControllerView.frame = presentedViewControllerWrapperView.bounds;
+        presentedViewControllerView.byFrame(presentedViewControllerWrapperView.bounds);
+
         [presentedViewControllerWrapperView addSubview:presentedViewControllerView];
         
         // Add presentedViewControllerWrapperView -> presentationRoundedCornerView.
@@ -101,8 +105,10 @@ Prop_strong()UIView *presentationWrappingView;
     // appear behind the -presentedView.
     {
         UIView *dimmingView = UIView.new;
-        dimmingView.frame = self.containerView.bounds;
-        dimmingView.backgroundColor = JobsBlackColor;
+        dimmingView.byFrame(self.containerView.bounds);
+
+        dimmingView.byBgColor(JobsBlackColor);
+
         dimmingView.opaque = NO;
         dimmingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
@@ -121,11 +127,13 @@ Prop_strong()UIView *presentationWrappingView;
         // fade in the dimmingView alongside the presentation animation.
         id<UIViewControllerTransitionCoordinator> transitionCoordinator = self.presentingViewController.transitionCoordinator;
         
-        self.dimmingView.alpha = 0.f;
+        self.dimmingView.byAlpha(0.f);
+
         @jobs_weakify(self)
         [transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
             @jobs_strongify(self)
-            self.dimmingView.alpha = 0.5f;
+            self.dimmingView.byAlpha(0.5f);
+
         } completion:NULL];
     }
 }
@@ -152,7 +160,8 @@ Prop_strong()UIView *presentationWrappingView;
     @jobs_weakify(self)
     [transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         @jobs_strongify(self)
-        self.dimmingView.alpha = 0.f;
+        self.dimmingView.byAlpha(0.f);
+
     } completion:NULL];
 }
 
@@ -222,8 +231,10 @@ Prop_strong()UIView *presentationWrappingView;
  */
 - (void)containerViewWillLayoutSubviews{
     [super containerViewWillLayoutSubviews];
-    self.dimmingView.frame = self.containerView.bounds;
-    self.presentationWrappingView.frame = self.frameOfPresentedViewInContainerView;
+    self.dimmingView.byFrame(self.containerView.bounds);
+
+    self.presentationWrappingView.byFrame(self.frameOfPresentedViewInContainerView);
+
 }
 #pragma mark —— UIViewControllerAnimatedTransitioning
 -(NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext{
@@ -285,7 +296,8 @@ Prop_strong()UIView *presentationWrappingView;
     if (isPresenting) {
         toViewInitialFrame.origin = CGPointMake(CGRectGetMinX(containerView.bounds), CGRectGetMaxY(containerView.bounds));
         toViewInitialFrame.size = toViewFinalFrame.size;
-        toView.frame = toViewInitialFrame;
+        toView.byFrame(toViewInitialFrame);
+
     } else {
         // Because our presentation wraps the presented view controller's view
         // in an intermediate view hierarchy, it is more accurate to rely

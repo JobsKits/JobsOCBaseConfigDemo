@@ -20,10 +20,11 @@ Prop_copy()FinishBlock finishBlock;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self addSubview:self.contentLabel];
-        self.backgroundColor = [UIColor orangeColor];
+        self.byBgColor([UIColor orangeColor]);
+
         _state = NotifiViewStateInit;
         _offsetX = frame.origin.x;
-    }return self;
+    };return self;
 }
 
 - (void)layoutSubviews{
@@ -34,14 +35,16 @@ Prop_copy()FinishBlock finishBlock;
         CGFloat x = 0 - _offsetX - CGRectGetWidth(self.frame);
         CGRect newFrame = self.frame;
         newFrame.origin.x = x;
-        self.frame = newFrame;
+        self.byFrame(newFrame);
+
     }
 }
 
 - (void)setData:(NSDictionary *)data{
     _data = data;
     _key = _data[kNotifiViewKey];
-    _contentLabel.text = _data[kNotifiViewContent];
+    _contentLabel.byText(_data[kNotifiViewContent]);
+
 }
 
 - (void)updateWithData:(NSDictionary *)data finish:(FinishBlock)finishBlock{
@@ -79,12 +82,14 @@ Prop_copy()FinishBlock finishBlock;
 
 - (void)showWithData:(NSDictionary*)data finish:(FinishBlock)finishBlock{
     self.data = data;
-    self.alpha = 1;
+    self.byAlpha(1);
+
     self.state = NotifiViewStateBegin;
     [UIView animateWithDuration:0.25f animations:^{
         CGRect newFrame = self.frame;
         newFrame.origin.x = self.offsetX;
-        self.frame = newFrame;
+        self.byFrame(newFrame);
+
     } completion:^(BOOL finished) {
         self.state = NotifiViewStateStart;
         [self performSelector:@selector(dismiss) withObject:nil afterDelay:(self.duration - 0.5)];
@@ -99,8 +104,10 @@ Prop_copy()FinishBlock finishBlock;
         CGFloat x = 0 - self.offsetX - CGRectGetWidth(self.frame);
         CGRect newFrame = self.frame;
         newFrame.origin.x = x;
-        self.alpha = 0;
-        self.frame = newFrame;
+        self.byAlpha(0);
+
+        self.byFrame(newFrame);
+
     } completion:^(BOOL finished) {
         self.state = NotifiViewStateFinish;
         [self removeFromSuperview];
@@ -126,10 +133,13 @@ Prop_copy()FinishBlock finishBlock;
     if (!_contentLabel) {
         _contentLabel = [[UILabel alloc] initWithFrame:self.bounds];
         _contentLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _contentLabel.textColor = [UIColor whiteColor];
-        _contentLabel.font = [UIFont systemFontOfSize:20];
-        _contentLabel.textAlignment = NSTextAlignmentCenter;
-    }return _contentLabel;
+        _contentLabel.byTextCor([UIColor whiteColor]);
+
+        _contentLabel.byFont([UIFont systemFontOfSize:20]);
+
+        _contentLabel.byTextAlignment(NSTextAlignmentCenter);
+
+    };return _contentLabel;
 }
 
 @end

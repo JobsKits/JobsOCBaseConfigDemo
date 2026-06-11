@@ -23,14 +23,16 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = HEXCOLOR(0xFFFFFF);
-    }return self;
+        self.byBgColor(HEXCOLOR(0xFFFFFF));
+
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = HEXCOLOR(0xFFFFFF);
-    }return self;
+        self.byBgColor(HEXCOLOR(0xFFFFFF));
+
+    };return self;
 }
 /// 必须有frame的前提下才会进行绘制
 -(void)drawRect:(CGRect)rect{
@@ -139,9 +141,9 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
             highestNum = @(MAX(highestNum.floatValue, num.floatValue));
         }
         
-        [btn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        btn.byRemake(^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(self.elementDefaultSize.width, highestNum.floatValue));
-        }];
+        });
     }
 }
 
@@ -183,7 +185,7 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
             stackView.distribution = UIStackViewDistributionEqualSpacing;
             stackView.alignment = UIStackViewAlignmentCenter;
             /// 注意这里设置的约束，最后一个宽度的约束很关键
-            [self.scrollView.addSubview(stackView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            stackView.byAddTo(self.scrollView, ^(MASConstraintMaker *make) {
                 make.height.equalTo(self);
                 make.centerY.equalTo(self.scrollView);
                 if (self.scrollView.contentSize.width > self.scrollView.width) {
@@ -196,9 +198,9 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
                     }else make.width.mas_equalTo(self->btnSize.width);
                     make.centerX.equalTo(self.scrollView);
                 }
-            }];
+            });
         });
-    }return _stackView;
+    };return _stackView;
 }
 /// BaseViewProtocol
 @synthesize scrollView = _scrollView;
@@ -208,26 +210,26 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
         @jobs_weakify(self)
         _scrollView = self.addSubview(jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView.byDelegate(self);
-            scrollView.byFrame(self.bounds);
+            scrollView.byDelegate(self)
+                .byFrame(self.bounds);
     //        scrollView.backgroundColor = JobsWhiteColor;
-            scrollView.byContentSize(CGSizeMake(self->width, self->btnSize.height));
-            scrollView.byShowsVerticalScrollIndicator(NO);
-            scrollView.byShowsHorizontalScrollIndicator(NO);
+            scrollView.byContentSize(CGSizeMake(self->width, self->btnSize.height))
+                .byShowsVerticalScrollIndicator(NO)
+                .byShowsHorizontalScrollIndicator(NO);
         }));
-    }return _scrollView;
+    };return _scrollView;
 }
 
 -(NSMutableArray<UIButton *> *)btnMutArr{
     if (!_btnMutArr) {
         _btnMutArr = NSMutableArray.array;
-    }return _btnMutArr;
+    };return _btnMutArr;
 }
 
 -(NSMutableArray<NSNumber *> *)btnHeightMutArr{
     if (!_btnHeightMutArr) {
         _btnHeightMutArr = NSMutableArray.array;
-    }return _btnHeightMutArr;
+    };return _btnHeightMutArr;
 }
 
 @end

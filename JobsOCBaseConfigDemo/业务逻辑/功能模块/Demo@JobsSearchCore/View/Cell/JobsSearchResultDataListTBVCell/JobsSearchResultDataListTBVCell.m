@@ -33,8 +33,9 @@
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         if ([model isKindOfClass:UIViewModel.class]) {
-            self.textLabel.text = model.textModel.text;
-        }return self;
+            self.textLabel.byText(model.textModel.text);
+
+        };return self;
     };
 }
 #pragma mark —— UIGestureRecognizerDelegate
@@ -59,7 +60,7 @@
              */
             if(self.objBlock) self.objBlock(self.textLabel.text);
         }]);
-    }return _tapGR;
+    };return _tapGR;
 }
 
 @end

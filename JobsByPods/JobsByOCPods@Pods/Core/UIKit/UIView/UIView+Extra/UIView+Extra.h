@@ -17,14 +17,8 @@
 #import <JobsByOCPods/UIButton+UI.h>
 #import <JobsByOCPods/UIBarButtonItem+Extra.h>
 #import <JobsByOCPods/UIBezierPath+Extra.h>
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
 #import <JobsByOCPods/UIView+Refresh.h>
 #import <JobsByOCPods/UIView+ViewController.h>
-#import <JobsByOCPods/UIView+Gesture.h>
 #import <JobsByOCPods/UIView+Extra.h>
 #import <JobsByOCPods/UICollectionView+Func.h>
 #import <JobsByOCPods/UITableView+Extra.h>
@@ -51,6 +45,12 @@
 #import <JobsOCRuntimeKits/JobsOCRuntimeKits.h>
 #else
 #import "JobsOCRuntimeKits.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)

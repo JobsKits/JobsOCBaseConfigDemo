@@ -18,27 +18,31 @@ Prop_strong()JobsScrollYView *scrollYView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.jobsView.alpha = 1;
-    self.scrollYView.alpha = 1;
+    self.jobsView.byAlpha(1);
+
+    self.scrollYView.byAlpha(1);
+
 }
 #pragma mark —— lazyLoad
 -(UIView *)jobsView{
     if(!_jobsView){
         _jobsView = UIView.new;
-        _jobsView.backgroundColor = JobsRandomColor;
-        [self.view addSubview:_jobsView];
-        [_jobsView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _jobsView.byBgColor(JobsRandomColor);
+
+        _jobsView.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
             make.height.mas_equalTo(初始位置 - 终点位置);
             make.top.mas_equalTo(终点位置);
-        }];
-    }return _jobsView;
+        });
+
+    };return _jobsView;
 }
 
 -(JobsScrollYView *)scrollYView{
     if(!_scrollYView){
         _scrollYView = JobsScrollYView.new;
-        _scrollYView.backgroundColor = JobsGreenColor;
+        _scrollYView.byBgColor(JobsGreenColor);
+
         [self.view addSubview:_scrollYView];
         
         [self.view layoutIfNeeded];
@@ -81,7 +85,7 @@ Prop_strong()JobsScrollYView *scrollYView;
                 }
             }
         }];
-    }return _scrollYView;
+    };return _scrollYView;
 }
 
 @end

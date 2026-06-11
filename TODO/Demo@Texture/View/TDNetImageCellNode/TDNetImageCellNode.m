@@ -21,7 +21,7 @@
               NSForegroundColorAttributeName: UIColor.secondaryLabelColor
             }];
         });
-    }return self;
+    };return self;
 }
 
 -(ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
@@ -29,8 +29,7 @@
     @jobs_weakify(self)
     return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(8, 16, 8, 16) child:jobsMakeVerticalStackLayoutSpec(^(ASStackLayoutSpec * _Nullable v) {
         @jobs_strongify(self)
-        v.bySpacing(8);
-        v.byChildren(@[self.netImage, self.title]);
+        v.bySpacing(8).byChildren(@[self.netImage, self.title]);
     })];
 }
 #pragma mark —— lazyLoad
@@ -39,11 +38,11 @@
         _netImage = jobsMakeNetworkImageNode(^(ASNetworkImageNode * _Nullable node) {
             node.byDefaultImage(@"photo".sys_img);
             node.placeholderFadeDuration = 0.25;
-            node.contentMode = UIViewContentModeScaleAspectFill;
+            node.byContentMode(UIViewContentModeScaleAspectFill);
             node.cornerRadius = 8;
             node.clipsToBounds = YES;
         });
-    }return _netImage;
+    };return _netImage;
 }
 
 @end

@@ -38,8 +38,9 @@ static dispatch_once_t static_textViewOnceToken;
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -55,7 +56,7 @@ static dispatch_once_t static_textViewOnceToken;
                 JobsLog(@"SSS = %d",b.boolValue);
             }JobsLog(@"通知传递过来的 = %@",notification.object);
         }];
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -76,8 +77,10 @@ static dispatch_once_t static_textViewOnceToken;
         if([model isKindOfClass:UITextModel.class]){
             self.textModel = (UITextModel *)model;
             self.updateWordCount(0);
-            self.countLabel.alpha = 1;
-            self.textView.alpha = 1;
+            self.countLabel.byAlpha(1);
+
+            self.textView.byAlpha(1);
+
         }
     };
 }
@@ -106,12 +109,12 @@ static dispatch_once_t static_textViewOnceToken;
             @jobs_strongify(self)
             textView.byBgColor(JobsClearColor);
             textView.editable = YES;
-            [self.addSubview(textView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            textView.byAddTo(self, ^(MASConstraintMaker *make) {
                 make.top.equalTo(self).offset(JobsWidth(5));
                 make.left.equalTo(self).offset(JobsWidth(10));
                 make.right.equalTo(self).offset(JobsWidth(-10));
                 make.bottom.equalTo(self.countLabel.mas_top);
-            }];
+            });
         });
         /// 这里的x是整个textView目前的所有字符串的值
         [_szTextView jobsTextViewSubscribeNextBlock:^(NSString * _Nullable x) {
@@ -143,13 +146,13 @@ static dispatch_once_t static_textViewOnceToken;
             label.byTextCor(JobsWhiteColor)
                 .byFont(UIFontWeightBoldSize(12))
                 .byTextAlignment(NSTextAlignmentCenter);
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
+            label.byAddTo(self, ^(MASConstraintMaker *make) {
                 make.height.mas_equalTo(JobsWidth(17));
                 make.bottom.mas_equalTo(-JobsWidth(8));
                 make.right.equalTo(self).offset(-JobsWidth(5));
-            }];
+            });
         });
-    }return _countLabel;
+    };return _countLabel;
 }
 
 @end

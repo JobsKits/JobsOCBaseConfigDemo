@@ -13,6 +13,12 @@
 #import <JobsOCTools/JobsAppDoorInputViewBaseStyle.h>
 #import <JobsOCTools/JobsOCTools.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
@@ -41,6 +47,12 @@
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
@@ -76,17 +88,17 @@ NS_ASSUME_NONNULL_END
      //            }
              }];
 
-             [self.view addSubview:_选择区号并输入手机号];
-             [_选择区号并输入手机号 mas_makeConstraints:^(MASConstraintMaker *make) {
+             _选择区号并输入手机号.byAddTo(self.view, ^(MASConstraintMaker *make) {
                  make.centerX.equalTo(self.view);
                  make.size.mas_equalTo(inputSize());
                  make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(72));
-             }];
+             });
+
 
              _选择区号并输入手机号.layer.cornerRadius = JobsWidth(52 / 2);
              _选择区号并输入手机号.layer.borderColor = HEXCOLOR(0xEEE2C8).CGColor;
              _选择区号并输入手机号.jobsRichViewByModel(self.配置选择区号并输入手机号);
-         }return _选择区号并输入手机号;
+         };return _选择区号并输入手机号;
      }
 
      -(JobsAppDoorInputViewBaseStyleModel *)配置选择区号并输入手机号{
@@ -104,7 +116,7 @@ NS_ASSUME_NONNULL_END
              _配置选择区号并输入手机号.moveDistance = JobsWidth(60);
              _配置选择区号并输入手机号.titleStrCor = _配置选择区号并输入手机号.placeholderColor = HEXCOLOR_ALPHA(0xC4C4C4,1.f);
      //        配置选择区号并输入手机号.background = @"设置弹出框输入框背景图".img;
-         }return _配置选择区号并输入手机号;
+         };return _配置选择区号并输入手机号;
      }
  */
 #endif /* JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_7_D1F2310759 */

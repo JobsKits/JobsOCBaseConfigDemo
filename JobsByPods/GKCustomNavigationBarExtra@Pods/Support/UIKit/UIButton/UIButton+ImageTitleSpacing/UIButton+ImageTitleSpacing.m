@@ -47,7 +47,7 @@
                  _btnConfig.baseBackgroundColor = JobsWhiteColor;// 背景颜色
                  _btnConfig.contentInsets = NSDirectionalEdgeInsetsMake(0, 0, 0, 0); // 内边距
              }
-         }return _btnConfig;
+         };return _btnConfig;
      }
 
      -(UIButton *)btn1{
@@ -62,16 +62,16 @@
                  _btn1.jobsResetBtnTitleCor = JobsBlackColor;
              }
              // 添加按钮到视图中
-             [self addSubview:_btn1];
-             [_btn1 mas_makeConstraints:^(MASConstraintMaker *make) {
+             _btn1.byAddTo(self, ^(MASConstraintMaker *make) {
                  make.size.mas_equalTo(CGSizeMake(JobsWidth(85), JobsWidth(16)));
                  make.centerY.equalTo(self);
                  make.left.equalTo(self).offset(JobsWidth(6));
-             }];
+             });
+
              if(self.deviceSystemVersion.floatValue < 15.0){
                  [_btn1 layoutButtonWithEdgeInsetsStyle:NSDirectionalRectEdgeLeading imagePadding:JobsWidth(8)];
              }
-         }return _btn1;
+         };return _btn1;
      }
  */
     }

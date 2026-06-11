@@ -95,7 +95,7 @@ static bool safeLock = NO;//防止连续请求lock
         if (PHPhotoLibrary.authorizationStatus == PHAuthorizationStatusAuthorized) {
             isAuth = YES;
         }
-    }return isAuth;
+    };return isAuth;
 }
 
 +(void)jumpSetting{

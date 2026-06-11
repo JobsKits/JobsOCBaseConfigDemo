@@ -43,11 +43,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsYellowColor;
+    self.view.byBgColor(JobsYellowColor);
+
     self.makeNavByAlpha(1);
     
-    self.scrollView.alpha = 1;
-    self.label.alpha = 1;
+    self.scrollView.byAlpha(1);
+
+    self.label.byAlpha(1);
+
     [self addArc];
 }
 
@@ -64,22 +67,17 @@
 }
 #pragma mark —— 一些私有方法
 -(void)addArc{
-    /// 中间镂空的矩形框
-    CGRect myRect = CGRectMake(100,100,200,200);
-    /// 背景
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:UIScreen.mainScreen.bounds
-                                                    cornerRadius:0];
-    /// 镂空
-    UIBezierPath *circlePath = [UIBezierPath bezierPathWithOvalInRect:myRect];
-    [path appendPath:circlePath];
-    [path setUsesEvenOddFillRule:YES];
-
-    [self.view.layer addSublayer:jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable data) {
-        data.path = path.CGPath;
-        data.fillRule = kCAFillRuleEvenOdd;
-        data.fillColor = JobsWhiteColor.CGColor;
-        data.opacity = 0.5;
-    })];
+    jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
+        layer
+            .byPath(UIBezierPath
+                    .byBezierPathWithRect(UIScreen.mainScreen.bounds)
+                    .byAppendPath(UIBezierPath.byBezierPathWithOvalInRect(CGRectMake(100, 100, 200, 200)))// 中间镂空的矩形框
+                    .byUsesEvenOddFillRule(YES).CGPath)
+            .byFillRule(kCAFillRuleEvenOdd)
+            .byFillColor(JobsWhiteColor.CGColor)
+            .byOpacity(0.5)
+            .addOn(self.view.layer);
+    });
 }
 #pragma mark —— lazyLoad
 /// BaseViewProtocol
@@ -89,13 +87,15 @@
         @jobs_weakify(self)
         _scrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView.byBgColor([UIColor redColor]);
-            scrollView.byContentSize(CGSizeMake(JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT() * 2));
-            [self.view.addSubview(scrollView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.left.right.bottom.equalTo(self.view);
-            }];
+            scrollView
+                .byContentSize(CGSizeMake(JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT() * 2))
+                .byBgColor(JobsRedColor)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.left.right.bottom.equalTo(self.view);
+                });
         });
-    }return _scrollView;
+    };return _scrollView;
 }
 @synthesize label = _label;
 -(UILabel *)label{
@@ -103,21 +103,24 @@
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"iOS-UIView设置阴影效果".tr);
-            label.byFrame(CGRectMake(100, 400, 200, 200));
-            label.byBgColor(JobsYellowColor);
-            label.layer.shadowColor = JobsBlueColor.CGColor;/// 阴影颜色
-            label.layer.shadowOpacity = 0.8;/// 阴影透明度，默认为0，如果不设置的话看不到阴影，切记，这是个大坑
-            label.layer.shadowOffset = CGSizeMake(0, 0);/// 设置偏移量
-            label.byCornerRadius(9.0);
-            label.layer.shadowRadius = 9.0;
-            /// 参数依次为大小，设置四个角圆角状态，圆角曲度
-            label.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:label.bounds
-                                                           byRoundingCorners:5
-                                                                 cornerRadii:CGSizeMake(0, 0)].CGPath;
-            [self.scrollView addSubview:label];
+            label
+                .byText(@"iOS-UIView设置阴影效果".tr)
+                .byFrame(CGRectMake(100, 400, 200, 200))
+                .byBgColor(JobsYellowColor)
+                .byCornerRadius(9.0)
+                .byLayer(^(CALayer *layer) {
+                    layer
+                        .byShadowColor(JobsBlueColor.CGColor) // 阴影颜色
+                        .byShadowOpacity(0.8)                 // 阴影透明度
+                        .byShadowOffset(CGSizeMake(0, 0))     // 阴影偏移量
+                        .byShadowRadius(9.0)
+                        .byShadowPath([UIBezierPath bezierPathWithRoundedRect:label.bounds
+                                                             byRoundingCorners:5
+                                                                   cornerRadii:CGSizeMake(0, 0)].CGPath);
+                })
+                .addOn(self.scrollView);
         });
-    }return _label;
+    };return _label;
 }
 
 @end

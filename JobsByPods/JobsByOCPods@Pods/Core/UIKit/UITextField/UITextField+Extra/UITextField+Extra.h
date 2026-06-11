@@ -15,6 +15,12 @@
 #import <JobsByOCPods/JobsString.h>
 #import <JobsByOCPods/NSString+Check.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
@@ -82,7 +88,7 @@ NS_ASSUME_NONNULL_END
                  make.left.equalTo(self.section_1_titleLab);
                  make.width.mas_equalTo(JobsWidth(345));
              }).on();
-         }return _idTypeTextField;
+         };return _idTypeTextField;
      }
  */
 #endif /* JOBS_HEADER_GUARD_UITEXTFIELD_EXTRA_C6F6D7346F */

@@ -13,21 +13,21 @@
     @jobs_weakify(self)
     return ^(__kindof UITextView *_Nullable textView){
         @jobs_strongify(self)
-        textView.backgroundColor = JobsClearColor;
-        textView.delegate = self;
-        textView.userInteractionEnabled = YES; // 需要处理点击事件（比如：链接检测和文本选择）
-        textView.editable = NO;// UITextView 即使是不可编辑的情况下（editable = NO），也会处理点击事件（如链接检测和文本选择）。这会阻止事件向父视图传递。
-        textView.scrollEnabled = NO;
-        textView.textAlignment = NSTextAlignmentCenter;
-        textView.selectable = YES; // 确保可以选择
-        textView.dataDetectorTypes = UIDataDetectorTypeLink; // 启用链接检测
-        /// 对于 textView ，只有通过下面的方法，才可以完整的修改超链接的（文字+下划线）的颜色
-//        textView.linkTextAttributes = @{
-//            NSForegroundColorAttributeName: UIColor.yellowColor,
-//            NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-//            NSUnderlineColorAttributeName: UIColor.yellowColor
-//        };
-        self.addSubview(textView);
+        textView.byDelegate(self);
+        textView.byEditable(NO);// UITextView 即使不可编辑，也会处理点击事件，如链接检测和文本选择
+        textView.byTextAlignment(NSTextAlignmentCenter);
+        textView.bySelectable(YES);// 确保可以选择
+        textView.byDataDetectorTypes(UIDataDetectorTypeLink);// 启用链接检测
+        textView.byScrollEnabled(NO);
+        textView.byUserInteractionEnabled(YES);// 需要处理点击事件，比如：链接检测和文本选择
+        textView.byBgColor(JobsClearColor);
+            /// 对于 textView，只有通过下面的方法，才可以完整修改超链接的文字颜色 + 下划线颜色
+//            .byLinkTextAttributes(@{
+//                NSForegroundColorAttributeName: UIColor.yellowColor,
+//                NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+//                NSUnderlineColorAttributeName: UIColor.yellowColor
+//            })
+        textView.addOn(self);
     };
 }
 #pragma mark —— UITextViewDelegate
@@ -47,11 +47,11 @@ JobsKey(_titleTextView)
         @jobs_weakify(self)
         textView = jobsMakeBaseTextView(^(__kindof BaseTextView * _Nullable textView) {
             @jobs_strongify(self)
-            textView.frame = self.titleLabel.frame;
+            textView.byFrame(self.titleLabel.frame);
 //            textView.linkTextAttributes = self.makeLinkTextAttributes;
             self.configTextView(textView);
           });Jobs_setAssociatedRETAIN_NONATOMIC(_titleTextView, textView);
-    }return textView;
+    };return textView;
 }
 
 -(void)setTitleTextView:(UITextView *)titleTextView{
@@ -66,10 +66,10 @@ JobsKey(_subtitleTextView)
         @jobs_weakify(self)
         textView = jobsMakeBaseTextView(^(__kindof BaseTextView * _Nullable textView) {
             @jobs_strongify(self)
-            textView.frame = self.titleLabel.frame;
+            textView.byFrame(self.titleLabel.frame);
             self.configTextView(textView);
           });Jobs_setAssociatedRETAIN_NONATOMIC(_subtitleTextView, textView);
-    }return textView;
+    };return textView;
 }
 
 -(void)setSubtitleTextView:(UITextView *)subtitleTextView{

@@ -58,7 +58,7 @@ Prop_strong()NSOperationQueue* queue;
     if (!_queue) {
         _queue = NSOperationQueue.new;
         _queue.maxConcurrentOperationCount = 1;
-    }return _queue;
+    };return _queue;
 }
 
 @end

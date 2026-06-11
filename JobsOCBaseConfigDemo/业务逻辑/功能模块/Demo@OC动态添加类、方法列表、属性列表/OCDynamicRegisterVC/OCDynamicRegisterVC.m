@@ -53,7 +53,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     self.makeNavByAlpha(1);
     
 //    [self msgSend];
@@ -179,7 +180,7 @@ NSString *jobsName(){
  1、【在类注册完成之后，不可以继续添加成员变量了】
  2、【所以，在类注册完成之后，可以继续添加方法、属性和协议】
  */
-    }return NSClassFromString(className);
+    };return NSClassFromString(className);
 }
 /// 【添加属性】
 -(void)addProperty:(NSString *)propertyName{

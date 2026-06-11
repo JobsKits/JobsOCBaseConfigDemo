@@ -16,7 +16,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 -(UIViewModel *_Nullable)getViewModel{
@@ -37,7 +37,8 @@
         model.buttonEdgeInsetsStyle = NSDirectionalRectEdgeTop;
         model.bgSelectedCor = model.bgCor = JobsClearColor;
         super.jobsRichElementsCollectionViewCellBy(model);
-        self.contentView.backgroundColor = self.backgroundColor = @"#FFFFFF".cor;
+        self.contentView.byBgColor(self.backgroundColor = @"#FFFFFF".cor);
+
         return self;
     };
 }

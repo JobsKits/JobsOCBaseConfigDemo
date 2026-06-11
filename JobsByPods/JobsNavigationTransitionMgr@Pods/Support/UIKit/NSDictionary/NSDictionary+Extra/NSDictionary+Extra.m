@@ -44,7 +44,7 @@
             }
         } else {
             JobsLog(@"Invalid key: '%@' does not conform to the required format.", key);
-        }return value;
+        };return value;
     };
 }
 

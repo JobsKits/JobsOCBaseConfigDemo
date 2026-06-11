@@ -18,7 +18,7 @@ Prop_assign()CGRect initialContentViewRect;// 登录框 初始frame值
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{

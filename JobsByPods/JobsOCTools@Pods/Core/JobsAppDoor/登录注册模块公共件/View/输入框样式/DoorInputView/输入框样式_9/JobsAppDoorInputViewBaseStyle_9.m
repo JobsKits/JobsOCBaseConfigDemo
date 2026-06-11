@@ -30,7 +30,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             data.byLayerCor(JobsWhiteColor)
                 .byCornerRadiusValue(1);
         }));
-    }return self;
+    };return self;
 }
 
 -(void)layoutSubviews{
@@ -43,11 +43,16 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 -(void)configTextField{
     self.zyTextField.leftView = UIImageView.initBy(self.doorInputViewBaseStyleModel.leftViewIMG);
     self.zyTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
-    self.zyTextField.placeholder = self.doorInputViewBaseStyleModel.placeholder;
-    self.zyTextField.keyboardType = self.doorInputViewBaseStyleModel.keyboardType;
-    self.zyTextField.returnKeyType = self.doorInputViewBaseStyleModel.returnKeyType;
-    self.zyTextField.keyboardAppearance = self.doorInputViewBaseStyleModel.keyboardAppearance;
-    self.zyTextField.textColor = self.doorInputViewBaseStyleModel.titleStrCor;
+    self.zyTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
+
+    self.zyTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
+
+    self.zyTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
+
+    self.zyTextField.byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance);
+
+    self.zyTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
+
     self.zyTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
     self.zyTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
     self.zyTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量
@@ -89,8 +94,10 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     return ^(JobsAppDoorInputViewBaseStyleModel *_Nullable doorInputViewBaseStyleModel) {
         @jobs_strongify(self)
         self.doorInputViewBaseStyleModel = doorInputViewBaseStyleModel;
-        self.countDownBtn.alpha = 1;
-        self.textField.alpha = 1;
+        self.countDownBtn.byAlpha(1);
+
+        self.textField.byAlpha(1);
+
         [self configTextField];
     };
 }
@@ -120,19 +127,20 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             // 倒计时完成
             NSLog(@"倒计时结束");
         });
-        [self.addSubview(_countDownBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _countDownBtn.byAddTo(self, ^(MASConstraintMaker *make) {
             make.right.equalTo(self).offset(-JobsWidth(120));
             make.top.equalTo(self).offset(JobsWidth(8));
             make.bottom.equalTo(self).offset(-JobsWidth(8));
             make.width.mas_equalTo(self.countDownBtnWidth);
-        }];
-    }return _countDownBtn;
+        });
+    };return _countDownBtn;
 }
 @synthesize zyTextField = _zyTextField;
 -(ZYTextField *)zyTextField{
     if (!_zyTextField) {
         _zyTextField = ZYTextField.new;
-        _zyTextField.delegate = self;
+        _zyTextField.byDelegate(self);
+
         @jobs_weakify(self)
         [_zyTextField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
             @jobs_strongify(self)
@@ -142,11 +150,11 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             JobsLog(@"MMM = %@",x);
             [self block:self->_zyTextField value:x];
         }];
-        [self.addSubview(_zyTextField) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _zyTextField.byAddTo(self, ^(MASConstraintMaker *make) {
             make.top.left.bottom.equalTo(self);
 //            make.right.equalTo(self.countDownBtn.mas_left);
-        }];
-    }return _zyTextField;
+        });
+    };return _zyTextField;
 }
 
 @end

@@ -53,6 +53,7 @@ methods for popup views, toast presentation, filtration views, and custom views.
     ss.dependency 'TFPopup'
     ss.dependency 'JobsBlock'
     ss.dependency 'JobsModelDSL'
+    ss.dependency 'JobsOCDSL'
     ss.dependency 'JobsOCDefs'
     ss.dependency 'JobsByOCPods'
     ss.dependency 'JobsCustomView'

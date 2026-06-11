@@ -25,7 +25,8 @@
                                          andWithDirection:directionStr];
     /// 创建路径图层
     return jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
-        layer.frame = aRect;
+        layer.byFrame(aRect);
+
         layer.bounds = CGPathGetBoundingBox(path.CGPath);
         layer.geometryFlipped = NO;
         layer.path = path.CGPath;

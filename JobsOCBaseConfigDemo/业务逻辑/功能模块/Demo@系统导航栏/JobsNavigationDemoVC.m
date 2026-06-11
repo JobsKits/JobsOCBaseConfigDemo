@@ -26,7 +26,7 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
 
-    self.view.backgroundColor = UIColor.lightGrayColor;
+    self.view.byBgColor(UIColor.lightGrayColor);
     self.setupAppearanceByNavigationBar(self.navigationController.navigationBar); // 1. 外观：背景图、底色、tintColor 等
     [self setupNavigationTitle];                                                  // 2. 标题：普通 + 富文本
     [self setupLeftBackItem];                                                     // 3. 左侧自定义返回键
@@ -37,7 +37,7 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     [self.navigationController setNavigationBarHidden:NO animated:NO];
-    UINavigationBar.appearance.hidden = NO;
+    UINavigationBar.appearance.byHidden(NO);
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -113,8 +113,7 @@
     self.navigationItem.titleView = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byTextAlignment(NSTextAlignmentCenter)
-            .byBgColor(UIColor.clearColor)
-        .byAttributedString(self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray <JobsRichTextConfig *>*_Nullable data) {
+            .byAttributedString(self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray <JobsRichTextConfig *>*_Nullable data) {
             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                 data1.byFont(UIFontWeightRegularSize(JobsWidth(12)))
                      .byTextCor(JobsBlueColor)
@@ -145,12 +144,14 @@
                      .byTextBgCor(JobsBrownColor)
                      .byParagraphStyle(self.defaultParagraphStyle);
             }));
-        }))).labelAutoWidthByFont();
+        })))
+            .byBgColor(UIColor.clearColor);
+        label.bySizeToFit();
     });
 }
 #pragma mark —— 左边：自定义返回键
-//自定义 leftBarButtonItem 后，有些写法会把「右滑返回」手势搞没，可以在需要的控制器里：
-//self.navigationController.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
+/// 自定义 leftBarButtonItem 后，有些写法会把「右滑返回」手势搞没，可以在需要的控制器里：
+/// self.navigationController.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
 - (void)setupLeftBackItem {
     // 隐藏系统默认返回按钮（如果当前不是根控制器）
     self.navigationItem.hidesBackButton = YES;
@@ -220,7 +221,7 @@
              .bySize(CGSizeMake(30, 30)).barBtnItem);
     });
 }
-#pragma mark ——（可选）状态栏样式
+#pragma mark —— （可选）状态栏样式
 // 如果你需要跟导航栏联动改变状态栏文字颜色：
 - (UIStatusBarStyle)preferredStatusBarStyle {
     // 深色背景图时，返回 lightContent

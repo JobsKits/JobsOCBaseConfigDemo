@@ -12,6 +12,12 @@
 #import <JobsBaseUI/BaseView.h>
 #import <JobsBaseUI/UIView+Extra.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else
@@ -62,24 +68,32 @@ NS_INLINE __kindof PointLabBaseView *_Nonnull jobsMakePointLabView(jobsByPointLa
              @jobs_weakify(self)
              _tipsLab = jobsMakePointLabView(^(__kindof PointLabBaseView * _Nullable view) {
                  @jobs_strongify(self)
-                 view.pointView.backgroundColor = @"#D0D0D0".cor;
+                 view.pointView.byBgColor(@"#D0D0D0".cor);
+
                  view.pointView.cornerCutToCircleWithCornerRadius(JobsWidth(4));
-                 view.label.text = @"Your deposit will be successfully credited to your wallet once the transaction completed.".tr;
-                 view.label.textColor = @"#D0D0D0".cor;
-                 view.label.font = UIFontWeightRegularSize(JobsWidth(12));
-                 view.label.textAlignment = NSTextAlignmentLeft;
-                 view.label.numberOfLines = 0;
+                 view.label.byText(@"Your deposit will be successfully credited to your wallet once the transaction completed.".tr);
+
+                 view.label.byTextCor(@"#D0D0D0".cor);
+
+                 view.label.byFont(UIFontWeightRegularSize(JobsWidth(12)));
+
+                 view.label.byTextAlignment(NSTextAlignmentLeft);
+
+                 view.label.byNumberOfLines(0);
+
                  view.label.lineBreakMode = NSLineBreakByWordWrapping;
-                 view.label.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-                 view.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-                 [self.addSubview(_tipsLab) mas_makeConstraints:^(MASConstraintMaker *make) {
+                 view.label.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
+
+                 view.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
+
+                 _tipsLab.byAddTo(self, ^(MASConstraintMaker *make) {
                      make.centerX.equalTo(self);
                      make.top.equalTo(self.tableView.mas_bottom).offset(JobsWidth(0));
                      make.width.mas_equalTo(JobsWidth(256));
-                 }];
+                 });
                  view.label.makeLabelByShowingType(UILabelShowingType_05);
              });
-         }return _tipsLab;
+         };return _tipsLab;
      }
  */
 #endif /* JOBS_HEADER_GUARD_POINTLABBASEVIEW_870F83CE08 */

@@ -29,7 +29,7 @@ Prop_copy()NSString *content;
 - (instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -57,14 +57,17 @@ Prop_copy()NSString *content;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     self.makeNavByAlpha(1);
-    self.spreadsheetView.alpha = 1;
+    self.spreadsheetView.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.gk_navigationBar.hidden = YES;
+    self.gk_navigationBar.byHidden(YES);
+
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -118,16 +121,18 @@ Prop_copy()NSString *content;
     if (indexPath.row == 0) {
         HeaderCell *cell = (HeaderCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(HeaderCell.class)
                                                                                     forIndexPath:indexPath];
-        cell.label.text = self.header[indexPath.column];
+        cell.label.byText(self.header[indexPath.column]);
+
         if (indexPath.column == self.sortedColumn.column) {
             cell.sortArrow.text = getSymbol(self.sortedColumn.sorting);
         } else {
             cell.sortArrow.text = @"";
-        }return cell;
+        };return cell;
     } else {
         TextCell *cell = (TextCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(TextCell.class)
                                                                                 forIndexPath:indexPath];
-        cell.label.text = self.original_excelData.copy[indexPath.row - 1][indexPath.column];
+        cell.label.byText(self.original_excelData.copy[indexPath.row - 1][indexPath.column]);
+
         return cell;
     }
 }
@@ -163,18 +168,18 @@ Prop_copy()NSString *content;
         _spreadsheetView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [_spreadsheetView registerClass:HeaderCell.class forCellWithReuseIdentifier:NSStringFromClass(HeaderCell.class)];
         [_spreadsheetView registerClass:TextCell.class forCellWithReuseIdentifier:NSStringFromClass(TextCell.class)];
-        [self.view addSubview:_spreadsheetView];
-        [_spreadsheetView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _spreadsheetView.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             [self make:make topOffset:10];
-        }];
+        });
+
 //        if (@available(iOS 11.0, *)) {
 //            _spreadsheetView.frame = self.view.safeAreaLayoutGuide.layoutFrame;
 //        } else {
 //            _spreadsheetView.frame = self.view.bounds;
 //        }
         [_spreadsheetView flashScrollIndicators];
-    }return _spreadsheetView;
+    };return _spreadsheetView;
 }
 
 -(NSString *)content{
@@ -186,20 +191,20 @@ Prop_copy()NSString *content;
         if (!error){
             JobsLog(@"error = %@",error);
         }
-    }return _content;
+    };return _content;
 }
 
 -(NSArray<NSString *> *)header{
     if(!_header){
         _header = self.original_excelData[0];
-    }return _header;
+    };return _header;
 }
 
 -(NSMutableArray <NSArray<NSString *>*>*)excelData{
     if(!_excelData){
         [self.original_excelData removeObjectAtIndex:0];
         _excelData = self.original_excelData.copy;
-    }return _excelData;
+    };return _excelData;
 }
 
 -(NSMutableArray<NSArray<NSString *> *> *)original_excelData{
@@ -207,7 +212,7 @@ Prop_copy()NSString *content;
         _original_excelData = [[self.content componentsSeparatedByString:@"\r\n"] wbg_map:^NSArray<NSString *> * _Nullable(NSString * _Nonnull stuff) {
             return [stuff componentsSeparatedByString:@"\t"];
         }].mutableCopy;
-    }return _original_excelData;
+    };return _original_excelData;
 }
 
 @end

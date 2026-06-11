@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 FOUNDATION_EXPORT double JobsLoadingImageVersionNumber;
 FOUNDATION_EXPORT const unsigned char JobsLoadingImageVersionString[];
 
-#pragma mark - Core helpers
+#pragma mark —— Core helpers
 /// 判断对象是否为空值。
 FOUNDATION_EXPORT BOOL JobsObjectIsNull(id _Nullable obj);
 /// 判断对象是否为有效值。
@@ -24,7 +24,7 @@ FOUNDATION_EXPORT BOOL JobsObjectIsValue(id _Nullable obj);
 FOUNDATION_EXPORT NSString *JobsAppendExtensionIfNeeded(NSString * _Nullable name,
                                                         NSString * _Nullable fileExtension);
 
-#pragma mark - Upgraded APIs
+#pragma mark —— Upgraded APIs
 /// 更明确的资源路径 API。
 FOUNDATION_EXPORT NSString *JobsBundleResourcePath(NSString * _Nullable blueFolderName,
                                                    NSString * _Nullable bundleName,

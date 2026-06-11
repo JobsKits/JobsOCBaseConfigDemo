@@ -17,8 +17,9 @@ Prop_strong()NSArray <UIImage *>*dataMutArr;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsClearColor;
-    }return self;
+        self.byBgColor(JobsClearColor);
+
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -33,7 +34,7 @@ Prop_strong()NSArray <UIImage *>*dataMutArr;
         self.collectionView.byShow(self);
     };
 }
-#pragma mark - UICollectionViewDataSource
+#pragma mark —— UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
@@ -120,15 +121,18 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
 @synthesize collectionView = _collectionView;
 -(BaseCollectionView *)collectionView{
     if (!_collectionView) {
+        @jobs_weakify(self)
         _collectionView = BaseCollectionView.initByLayout(self.verticalLayout);
-        _collectionView.backgroundColor = JobsClearColor;
         _collectionView.dataLink(self);
-        _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.registerCollectionViewClass();
-        [self.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _collectionView.byShowsVerticalScrollIndicator(NO);
+        _collectionView.byBgColor(JobsClearColor);
+        _collectionView.addOn(self);
+        [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            @jobs_strongify(self)
             make.edges.equalTo(self);
         }];
-    }return _collectionView;
+    };return _collectionView;
 }
 
 @end

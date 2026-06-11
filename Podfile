@@ -244,6 +244,21 @@ def patch_cocoapods_realpath_on_error_scripts
   end
 end
 
+def patch_xcframework_shell_script_invocations(installer)
+  installer.pods_project.targets.each do |target|
+    target.shell_script_build_phases.each do |phase|
+      next unless phase.name.to_s.include?('Copy XCFrameworks')
+
+      script = phase.shell_script.to_s
+      new_script = script.gsub(
+        /"(\$\{PODS_ROOT\}\/Target Support Files\/[^"]+-xcframeworks\.sh)"/,
+        '/bin/sh "\1"'
+      )
+      phase.shell_script = new_script if new_script != script
+    end
+  end
+end
+
 def jobs_config_xcconfig_path(installer)
   installer.aggregate_targets.each do |aggregate_target|
     project = aggregate_target.user_project
@@ -343,6 +358,7 @@ post_install do |installer|
   patch_zfplayer_netinet6_private_header
   patch_reactiveobjc_metamacros_header(installer)
   patch_cocoapods_realpath_on_error_scripts
+  patch_xcframework_shell_script_invocations(installer)
 
   pods_project.save
 

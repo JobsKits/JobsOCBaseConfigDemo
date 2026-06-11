@@ -284,7 +284,7 @@ NS_INLINE BOOL isFullScreen(void){
      * iPhone 16 Pro Max                  (62, 0, 34, 0)
      * -----------------------------------------------------------------
  */
-#pragma mark ——Tabbar 作图大小
+#pragma mark —— Tabbar 作图大小
 /**
  *
 
@@ -349,7 +349,7 @@ NS_INLINE CGFloat JobsDeviceRealHeight(void){
 NS_INLINE CGFloat JobsDeviceRealWidth(void){
     return MIN(JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT());
 }
-#pragma mark ——【全局比例尺】
+#pragma mark —— 【全局比例尺】
 /// 基准设计尺寸
 #ifndef JobsDesignWidth
 #define JobsDesignWidth 375.0
@@ -541,7 +541,7 @@ NS_INLINE CGFloat JobsTabBarHeight(UITabBarController * _Nullable tabBarControll
 NS_INLINE CGFloat JobsTabBarHeightByBottomSafeArea(UITabBarController * _Nullable tabBarController){
     return JobsTabBarHeight(tabBarController) + JobsBottomSafeAreaHeight();
 }
-#pragma mark ——  除开 tabBarController 和 navigationController 的内容可用区域的大小
+#pragma mark —— 除开 tabBarController 和 navigationController 的内容可用区域的大小
 NS_INLINE CGFloat JobsContentAreaHeight(UITabBarController * _Nullable tabBarController,
                                             UINavigationController * _Nullable navigationController){
     CGFloat tabBarHeightByBottomSafeArea = JobsTabBarHeightByBottomSafeArea(tabBarController);

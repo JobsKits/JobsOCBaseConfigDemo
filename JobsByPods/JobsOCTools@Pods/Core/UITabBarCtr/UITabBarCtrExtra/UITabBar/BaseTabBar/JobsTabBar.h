@@ -41,6 +41,12 @@ typedef NS_ENUM(NSInteger, AlignmentType) {
 };
 #endif /* ALIGNMENT_TYPE_ENUM_DEFINED */
 /// 超过 6 个 系统会变成更多，过不了审核
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 @interface JobsTabBar : UITabBar
 
 Prop_assign()AlignmentType alignmentType;

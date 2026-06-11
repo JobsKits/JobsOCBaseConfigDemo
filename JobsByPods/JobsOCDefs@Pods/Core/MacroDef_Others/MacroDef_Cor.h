@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
 #ifndef MacroDef_Cor_h
 #define MacroDef_Cor_h
 #pragma mark —— XYColorOC.常见颜色

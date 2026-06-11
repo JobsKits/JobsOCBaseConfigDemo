@@ -334,7 +334,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         default:{
             imgNameOrUrlStr = @"启动页SLOGAN.png";
         }break;
-    }return imgNameOrUrlStr;
+    };return imgNameOrUrlStr;
 }
 /// 适配各种机型的开屏视频
 -(NSString * _Nullable)videoNameOrURLString{
@@ -395,7 +395,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         default:{
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;
-    }return imgNameOrUrlStr;
+    };return imgNameOrUrlStr;
 }
 /// 检查当前IP是否为菲律宾IP
 -(void)checkIfIPInPhilippinesByBlock:(jobsByBOOLBlock _Nonnull)block{
@@ -504,11 +504,12 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
     return ^JobsCustomTabBar *_Nullable(__kindof UIView *_Nullable view){
         if(!sharedCustomTabBar){
             sharedCustomTabBar = jobsMakeCustomTabBar(^(__kindof JobsCustomTabBar *_Nullable customTabBar) {
-                customTabBar.backgroundColor = JobsClearColor;
+                customTabBar.byBgColor(JobsClearColor);
+
 //                customTabBar.backgroundColor = JobsRedColor;
                 customTabBar.configMasonryBy(view);
             });
-        }return sharedCustomTabBar;
+        };return sharedCustomTabBar;
     };
 }
 /// 导航返回键的配置
@@ -997,7 +998,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
                 self.jobsToastErrMsg(@"Please enter a user name".tr);
             }else{
                 self.jobsToastErrMsg(@"The password consists of 6 to 15 characters and can only be letters and numbers".tr);
-            }return NO;
+            };return NO;
         }
     };
 }
@@ -1048,7 +1049,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
                       self.checkUserPassword(model.confirmPassword)){
                 self.jobsToastErrMsg(@"The password consists of 6 to 15 characters and can only be letters and numbers");
             }else self.jobsToastErrMsg(@"Please complete the registration information");
-        }return NO;
+        };return NO;
     };
 }
 /// 电话号码可以最多20位数，超过后无法输入，且电话号码中无法包含特殊字符或者空格
@@ -1082,7 +1083,7 @@ JobsKey(_hotLabelDataMutArr)
 //        }
 
         Jobs_setAssociatedRETAIN_NONATOMIC(_hotLabelDataMutArr, HotLabelDataMutArr)
-    }return HotLabelDataMutArr;
+    };return HotLabelDataMutArr;
 }
 
 -(void)setHotLabelDataMutArr:(NSMutableArray<UIViewModel *> *)hotLabelDataMutArr{
@@ -1092,20 +1093,25 @@ JobsKey(_hotLabelDataMutArr)
 JobsKey(_separateLab)
 @dynamic separateLab;
 -(UILabel *)separateLab{
-    UILabel *SeparateLab = Jobs_getAssociatedObject(_separateLab);
-    if ([self isKindOfClass:UIViewController.class] && !SeparateLab) {
+    UILabel *separateLab = Jobs_getAssociatedObject(_separateLab);
+    if ([self isKindOfClass:UIViewController.class] && !separateLab) {
         @jobs_weakify(self)
         Jobs_setAssociatedRETAIN_NONATOMIC(_separateLab, jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byBgColor(HEXCOLOR(0xC4C4C4));
             UIViewController *viewController = (UIViewController *)self;
-            [viewController.bgImageView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(2), JobsWidth(14)));
-                make.centerX.equalTo(viewController.view);
-                make.bottom.equalTo(viewController.view).offset(JobsWidth(-64));
-            }];[self setSeparateLab:label];
-        }))
-    }return SeparateLab;
+            label
+                .byBgColor(HEXCOLOR(0xC4C4C4))
+                .addOn(viewController.bgImageView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(2), JobsWidth(14)));
+                    make.centerX.equalTo(viewController.view);
+                    make.bottom.equalTo(viewController.view).offset(JobsWidth(-64));
+                });
+
+            [self setSeparateLab:label];
+        }));
+        separateLab = Jobs_getAssociatedObject(_separateLab);
+    };return separateLab;
 }
 
 -(void)setSeparateLab:(UILabel *)separateLab{
@@ -1116,8 +1122,9 @@ JobsKey(__立即注册)
 @dynamic 立即注册;
 -(BaseButton *)立即注册{
     BaseButton *_立即注册 = Jobs_getAssociatedObject(_立即注册);
-    if ([self isKindOfClass:UIViewController.class] && !_立即注册 ) {
+    if ([self isKindOfClass:UIViewController.class] && !_立即注册) {
         @jobs_weakify(self)
+        UIViewController *viewController = (UIViewController *)self;
         _立即注册 = BaseButton
             .initByStyle1(@"立即注册".tr,
                           UIFontWeightRegularSize(14),
@@ -1129,16 +1136,17 @@ JobsKey(__立即注册)
             })
             .onLongPressGestureBy(^(id data){
                 JobsLog(@"按钮的长按事件触发");
+            })
+            .addOn(viewController.bgImageView)
+            .byAdd(^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.height.mas_equalTo(JobsWidth(14));
+                make.bottom.equalTo(viewController.view).offset(JobsWidth(-64));
+                make.left.equalTo(self.separateLab.mas_right).offset(JobsWidth(24));
             });
-        UIViewController *viewController = (UIViewController *)self;
-        [viewController.bgImageView.addSubview(_立即注册) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(JobsWidth(14));
-            make.bottom.equalTo(viewController.view).offset(JobsWidth(-64));
-            make.left.equalTo(self.separateLab.mas_right).offset(JobsWidth(24));
-        }];
         _立即注册.makeBtnTitleByShowingType(UILabelShowingType_03);
         Jobs_setAssociatedRETAIN_NONATOMIC(__立即注册, _立即注册);
-    }return _立即注册;
+    };return _立即注册;
 }
 
 -(void)set立即注册:(UIButton *)立即注册{
@@ -1151,6 +1159,7 @@ JobsKey(__联系客服)
     BaseButton *_联系客服 = Jobs_getAssociatedObject(__联系客服);
     if ([self isKindOfClass:UIViewController.class] && !_联系客服) {
         @jobs_weakify(self)
+        UIViewController *viewController = (UIViewController *)self;
         _联系客服 = BaseButton
             .initByStyle1(@"联系客服".tr,
                           UIFontWeightRegularSize(14),
@@ -1162,16 +1171,16 @@ JobsKey(__联系客服)
             })
             .onLongPressGestureBy(^(id data){
                 JobsLog(@"按钮的长按事件触发");
+            })
+            .addOn(viewController.bgImageView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(JobsWidth(14));
+                make.bottom.equalTo(viewController.view).offset(JobsWidth(-64));
+                make.right.equalTo(viewController.separateLab.mas_left).offset(JobsWidth(-24));
             });
-        UIViewController *viewController = (UIViewController *)self;
-        [viewController.bgImageView.addSubview(_联系客服) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(JobsWidth(14));
-            make.bottom.equalTo(viewController.view).offset(JobsWidth(-64));
-            make.right.equalTo(viewController.separateLab.mas_left).offset(JobsWidth(-24));
-        }];
         _联系客服.makeBtnTitleByShowingType(UILabelShowingType_03);
-        Jobs_setAssociatedRETAIN_NONATOMIC(__联系客服, _联系客服)
-    }return _联系客服;
+        Jobs_setAssociatedRETAIN_NONATOMIC(__联系客服, _联系客服);
+    };return _联系客服;
 }
 
 -(void)set联系客服:(BaseButton *)联系客服{
@@ -1185,7 +1194,7 @@ JobsKey(_attributedStringData)
     if (!AttributedStringData) {
         AttributedStringData = self.richTextWithDataConfigMutArr(self.richTextConfigMutArr);
         Jobs_setAssociatedRETAIN_NONATOMIC(_attributedStringData, AttributedStringData)
-    }return AttributedStringData;
+    };return AttributedStringData;
 }
 
 -(void)setAttributedStringData:(NSMutableAttributedString *)attributedStringData{
@@ -1202,7 +1211,7 @@ JobsKey(_richTextMutArr)
             .add(@"专属客服".tr);
         });[self setRichTextMutArr:RichTextMutArr];
         Jobs_setAssociatedRETAIN_NONATOMIC(_richTextMutArr, RichTextMutArr)
-    }return RichTextMutArr;
+    };return RichTextMutArr;
 }
 
 -(void)setRichTextMutArr:(NSMutableArray<NSString *> *)richTextMutArr{
@@ -1218,20 +1227,22 @@ JobsKey(_richTextConfigMutArr)
         RichTextMutArr = jobsMakeMutArr(^(NSMutableArray <JobsRichTextConfig *>* _Nullable data) {
             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                 @jobs_strongify(self)
-                data1.byFont(UIFontWeightRegularSize(12))
-                     .byTextCor(HEXCOLOR(0x757575))
-                     .byTargetString(self.richTextMutArr[0]);
+                data1
+                    .byFont(UIFontWeightRegularSize(12))
+                    .byTextCor(HEXCOLOR(0x757575))
+                    .byTargetString(self.richTextMutArr[0]);
             }))
             .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                 @jobs_strongify(self)
-                data1.font = UIFontWeightMediumSize(12);;
-                data1.byTextCor(HEXCOLOR(0xAE8330))
-                     .byTargetString(self.richTextMutArr[1])
-                     .byUrlStr(@"click://");
+                data1
+                    .byFont(UIFontWeightMediumSize(12))
+                    .byTextCor(HEXCOLOR(0xAE8330))
+                    .byTargetString(self.richTextMutArr[1])
+                    .byUrlStr(@"click://");
             }));
         });[self setRichTextConfigMutArr:RichTextMutArr];
         Jobs_setAssociatedRETAIN_NONATOMIC(_richTextConfigMutArr, RichTextMutArr)
-    }return RichTextMutArr;
+    };return RichTextMutArr;
 }
 
 -(void)setRichTextConfigMutArr:(NSMutableArray<JobsRichTextConfig *> *)richTextConfigMutArr{
@@ -1248,27 +1259,28 @@ JobsKey(_connectionTipsTV)
             textView.userInteractionEnabled = YES;
             textView.linkTextAttributes = jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable data) {
                 @jobs_strongify(self)
-                [data setValue:self.richTextConfigMutArr[1].textCor forKey:NSForegroundColorAttributeName];/// 链接文字颜色
+                [data setValue:self.richTextConfigMutArr[1].textCor forKey:NSForegroundColorAttributeName];// 链接文字颜色
                 [data setValue:JobsLightGrayColor forKey:NSUnderlineColorAttributeName];
                 [data setValue:@(NSUnderlinePatternSolid) forKey:NSUnderlineStyleAttributeName];
             });
             
             textView.attributedText = self.attributedStringData;//
             [textView sizeToFit];
-            textView.backgroundColor = JobsClearColor;
-            textView.editable = NO;/// 必须禁止输入，否则点击将会弹出输入键盘
-            textView.scrollEnabled = NO;/// 可选的，视具体情况而定
+            textView.byBgColor(JobsClearColor);
+
+            textView.editable = NO;// 必须禁止输入，否则点击将会弹出输入键盘
+            textView.scrollEnabled = NO;// 可选的，视具体情况而定
 
             if ([self isKindOfClass:UIViewController.class]) {
                 textView.delegate = self;
                 UIViewController *viewController = (UIViewController *)self;
-                [viewController.view.addSubview(textView) mas_makeConstraints:^(MASConstraintMaker *make) {
+                textView.byAddTo(viewController.view, ^(MASConstraintMaker *make) {
                     make.centerX.equalTo(viewController.view);
                     make.bottom.equalTo(viewController.view).offset(JobsWidth(-65));
-                }];
+                });
             }
         }))
-    }return ConnectionTipsTV;
+    };return ConnectionTipsTV;
 }
 
 -(void)setConnectionTipsTV:(UITextView *)connectionTipsTV{
@@ -1287,7 +1299,7 @@ JobsKey(_jxCategoryViewTitleMutArr)
             .add(@"近30日".tr);
         });
         Jobs_setAssociatedRETAIN_NONATOMIC(_jxCategoryViewTitleMutArr, JXCategoryViewTitleMutArr)
-    }return JXCategoryViewTitleMutArr;
+    };return JXCategoryViewTitleMutArr;
 }
 
 -(void)setJxCategoryViewTitleMutArr:(NSMutableArray<NSString *> *)jxCategoryViewTitleMutArr{
@@ -1302,7 +1314,7 @@ JobsKey(_loadingIndicator)
         view = [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
         view.color = JobsGrayColor;
         Jobs_setAssociatedRETAIN_NONATOMIC(_loadingIndicator, view)
-    }return view;
+    };return view;
 }
 
 -(void)setActivityIndicatorView:(__kindof UIActivityIndicatorView *)loadingIndicator{

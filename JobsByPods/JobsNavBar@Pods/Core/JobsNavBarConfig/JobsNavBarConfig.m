@@ -49,7 +49,7 @@ UIPictureAndBackGroundCorProtocol_synthesize
             if (self.objBlock) self.objBlock(x);
             return nil;
         };
-    }return _backBtnModel;
+    };return _backBtnModel;
 }
 /// 在具体的子类去实现，以覆盖父类的方法实现
 -(UIButtonModel *)closeBtnModel{
@@ -72,31 +72,31 @@ UIPictureAndBackGroundCorProtocol_synthesize
                 return nil;
             };
         });
-    }return _closeBtnModel;
+    };return _closeBtnModel;
 }
 
 -(NSString *)text{
     if(!_text){
         _text = @"JobsNavBar".tr;
-    }return _text;
+    };return _text;
 }
 
 -(UIFont *)font{
     if(!_font){
         _font = bayonRegular(JobsWidth(20));
-    }return _font;
+    };return _font;
 }
 
 -(UIColor *)textCor{
     if(!_textCor){
         _textCor = @"#FFC700".cor;
-    }return _textCor;
+    };return _textCor;
 }
 
 -(UIColor *)bgCor{
     if(!_bgCor){
         _bgCor = JobsClearColor;
-    }return _bgCor;
+    };return _bgCor;
 }
 
 @end

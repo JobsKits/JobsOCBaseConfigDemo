@@ -59,13 +59,17 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsWhiteColor;
+    self.view.byBgColor(JobsWhiteColor);
+
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
     
-    self.btn_1.alpha = 1;
-    self.btn_2.alpha = 1;
-    self.textView.alpha = 1;
+    self.btn_1.byAlpha(1);
+
+    self.btn_2.byAlpha(1);
+
+    self.textView.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -186,7 +190,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             }break;
             default:
                 break;
-        }return resultStr;
+        };return resultStr;
     };
 }
 #pragma mark —— 字符串（加盐）=解码=> 图片
@@ -217,7 +221,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             }break;
             default:
                 break;
-        }return self->_picAfter;
+        };return self->_picAfter;
     };
 }
 #pragma mark —— lazyLoad
@@ -260,14 +264,14 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        [self.view.addSubview(_btn_1) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _btn_1.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
             make.left.equalTo(self.view).offset(JobsWidth(10));
             make.right.equalTo(self.view).offset(JobsWidth(-10));
             make.height.mas_equalTo(@200);
-        }];
+        });
         _btn_1.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _btn_1;
+    };return _btn_1;
 }
 
 -(BaseButton *)btn_2{
@@ -298,14 +302,14 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        [self.view.addSubview(_btn_2) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _btn_2.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.top.equalTo(self.btn_1.mas_bottom).offset(JobsWidth(10));
             make.left.equalTo(self.view).offset(JobsWidth(10));
             make.right.equalTo(self.view).offset(JobsWidth(-10));
             make.height.mas_equalTo(@200);
-        }];
+        });
         _btn_2.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _btn_2;
+    };return _btn_2;
 }
 @synthesize textView = _textView;
 -(UITextView *)textView{
@@ -313,22 +317,25 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
         @jobs_weakify(self)
         _textView = jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
             @jobs_strongify(self)
-            textView.backgroundColor = JobsLightTextColor;
-            textView.text = @"暂无编码数据！！！".tr;
-            textView.textColor = HEXCOLOR(0xB0B0B0);
-            textView.font = UIFontSystemFontOfSize(14);
-            [self.view.addSubview(textView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            textView.byText(@"暂无编码数据！！！".tr);
+            textView.byTextColor(HEXCOLOR(0xB0B0B0));
+            textView.byFont(UIFontSystemFontOfSize(14));
+            textView.byBgColor(JobsLightTextColor);
+            textView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
+                model
+                    .byLayerCor(JobsLightGrayColor)
+                    .byJobsWidth(.5f);
+            }));
+            textView.addOn(self.view);
+            [textView mas_makeConstraints:^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
                 make.left.equalTo(self.view).offset(JobsWidth(10));
                 make.right.equalTo(self.view).offset(JobsWidth(-10));
                 make.top.equalTo(self.btn_2.mas_bottom).offset(JobsWidth(10));
                 make.bottom.equalTo(self.view).offset(JobsWidth(-20));
             }];
-            textView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-                model.byLayerCor(JobsLightGrayColor)
-                     .byJobsWidth(.5f);
-            }));
         });
-    }return _textView;
+    };return _textView;
 }
 
 @end

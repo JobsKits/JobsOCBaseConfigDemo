@@ -44,9 +44,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
     self.makeNavByAlpha(1);
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated{

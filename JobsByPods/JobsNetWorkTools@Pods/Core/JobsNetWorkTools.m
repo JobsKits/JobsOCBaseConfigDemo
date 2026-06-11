@@ -20,7 +20,7 @@ static JobsNetworkTrafficMonitor *_sharedInstance = nil;
     @synchronized(self) {
         if (!_sharedInstance) {
             _sharedInstance = [self.alloc init];
-        }return _sharedInstance;
+        };return _sharedInstance;
     }
 }
 
@@ -124,7 +124,7 @@ static JobsNetworkTrafficMonitor *_sharedInstance = nil;
             timer.accumulatedElapsed       = 0;
             timer.lastStartDate            = nil;
         });
-    }return _timer;
+    };return _timer;
 }
 
 @end

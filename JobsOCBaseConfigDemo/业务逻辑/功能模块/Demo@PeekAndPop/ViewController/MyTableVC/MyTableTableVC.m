@@ -48,7 +48,8 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     self.makeNavByAlpha(1);
     self.tableView.byShow(self);
 }
@@ -118,7 +119,7 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
         }));
     });return dataMutArr;
 }
-#pragma mark - UIContextMenuInteractionDelegate
+#pragma mark —— UIContextMenuInteractionDelegate
 /**
  * 当长按触发上下文菜单交互时调用此方法。
  * 返回一个 UIContextMenuConfiguration 对象，用于配置菜单的内容和行为。
@@ -160,7 +161,7 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
                 }]);
             })];
         }];return configuration;
-    }return nil;
+    };return nil;
 }
 /**
  * 提供一个定制的 UITargetedPreview 对象，用于在高亮显示菜单项时使用。
@@ -312,14 +313,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
                 .byShowsVerticalScrollIndicator(NO)
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
-                .byBgColor(JobsWhiteColor)
-                .addOn(self.view)
-                .byAdd(^(MASConstraintMaker *make) {
-                    @jobs_strongify(self)
-                    make.edges.equalTo(self.view);
-                });
+                .byBgColor(JobsWhiteColor);
+            tableView.addOn(self.view);
+            [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.edges.equalTo(self.view);
+            }];
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(BaiShaETProjChoiceStadiumTBVHeaderView *)tbvHeaderView{
@@ -330,13 +331,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             .byFont(UIFontWeightBoldSize(16))
             .byTextAlignment(NSTextAlignmentCenter)
             .bySize(BaiShaETProjChoiceStadiumTBVHeaderView.viewSizeByModel(nil));
-    }return _tbvHeaderView;
+    };return _tbvHeaderView;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = MyTableTableVC.createDataMutArr;
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 -(NSMutableArray<JobsBaseTableViewCell *> *)tbvCellMutArr{
@@ -351,8 +352,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 data.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
             }];
         });
-    }return _tbvCellMutArr;
+    };return _tbvCellMutArr;
 }
 
 @end
-

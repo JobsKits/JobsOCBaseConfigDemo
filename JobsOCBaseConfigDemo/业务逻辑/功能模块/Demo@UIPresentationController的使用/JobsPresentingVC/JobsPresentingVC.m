@@ -44,7 +44,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     self.makeNavByAlpha(1);
 }
 
@@ -81,7 +82,8 @@
     JobsPresentationCtrl *presentationController NS_VALID_UNTIL_END_OF_SCOPE;
     presentationController = [JobsPresentationCtrl.alloc initWithPresentedViewController:vc presentingViewController:self];
     vc.presentUpHeight = JobsWidth(200);
-    vc.view.backgroundColor = JobsRedColor;
+    vc.view.byBgColor(JobsRedColor);
+
     vc.transitioningDelegate = presentationController;
     
     [self presentViewController:vc animated:YES completion:NULL];

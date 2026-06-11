@@ -13,9 +13,7 @@
     @jobs_weakify(self)
     return ^__kindof UITableView *(id _Nonnull target) {
         @jobs_strongify(self)
-        self.byDelegate(target);
-        self.byDataSource(target);
-        return self;
+        return self.byDelegate(target).byDataSource(target);
     };
 }
 /// 用于显示 UITableView
@@ -23,9 +21,7 @@
     @jobs_weakify(self)
     return ^__kindof UITableView *(id _Nonnull target) {
         @jobs_strongify(self)
-        self.dataLink(target);
-        self.reloadDatas();
-        return self;
+        return self.dataLink(target).reloadDatas();
     };
 }
 #pragma mark —— UITableView
@@ -253,7 +249,7 @@
             appToolsCell.settingForTableViewCell();
         };
 
-    }return tableViewCell;
+    };return tableViewCell;
 }
 
 -(__kindof UITableViewCell *)tableViewCellClass:(Class <UITableViewCellProtocol>)tableViewCellClass

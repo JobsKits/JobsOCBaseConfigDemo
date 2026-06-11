@@ -40,8 +40,8 @@ static dispatch_once_t static_popupView10OnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsClearColor;
-    }return self;
+        self.byBgColor(JobsClearColor);
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -56,11 +56,11 @@ static dispatch_once_t static_popupView10OnceToken;
         self.dataMutArr = model.data;
         self.selectedIndex = model.index;
         MakeDataNull
-        self.titleLab.alpha = 1;
-        self.closeBtn.alpha = 1;
-        self.bgView.alpha = 1;
-        self.cancelBtn.alpha = 1;
-        self.sureBtn.alpha = 1;
+        self.titleLab.byAlpha(1);
+        self.closeBtn.byAlpha(1);
+        self.bgView.byAlpha(1);
+        self.cancelBtn.byAlpha(1);
+        self.sureBtn.byAlpha(1);
         [self.collectionView reloadData];
     };
 }
@@ -91,10 +91,10 @@ static dispatch_once_t static_popupView10OnceToken;
                                                              forIndexPath:indexPath];
     cell.jobsRichElementsCollectionViewCellBy(self.dataMutArr[indexPath.item]);
     if (indexPath.item == self.selectedIndex - 1) {
-        cell.button.backgroundColor = HEXCOLOR(0xFFEABA);
+        cell.button.byBgColor(HEXCOLOR(0xFFEABA));
         cell.button.jobsResetBtnTitleCor(HEXCOLOR(0xAE8330));
     }else{
-        cell.button.backgroundColor = HEXCOLOR(0xF3F3F3);
+        cell.button.byBgColor(HEXCOLOR(0xF3F3F3));
         cell.button.jobsResetBtnTitleCor(HEXCOLOR(0x757575));
     }
     cell.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable data) {
@@ -119,12 +119,12 @@ numberOfItemsInSection:(NSInteger)section {
             viewModel.textModel.byText(@"拖動按鈕迸行位置調整".tr);
             viewModel.subTextModel.byText(@"".tr);
         }));
-        headerView.backgroundColor = HEXCOLOR(0xFFFCF7);
-        [headerView.getTitleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        headerView.byBgColor(HEXCOLOR(0xFFFCF7));
+        headerView.getTitleBtn.byRemake(^(MASConstraintMaker *make) {
             make.center.equalTo(headerView);
             make.top.equalTo(self.titleLab.mas_bottom);
             make.height.mas_equalTo(JobsWidth(20));
-        }];return headerView;
+        });return headerView;
     }else ReturnBaseCollectionReusableHeaderView;
 }
 #pragma mark —— UICollectionViewDelegate
@@ -204,7 +204,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
        insetForSectionAtIndex:(NSInteger)section {
     return jobsMakeSameEdgeInset(JobsWidth(16));
 }
-#pragma mark ——  iOS9的新特性实现UICollectionViewCell拖拽
+#pragma mark —— iOS9的新特性实现UICollectionViewCell拖拽
 /// 开始移动的时候调用此方法，可以获取相应的datasource方法设置特殊的indexpath 能否移动,如果能移动返回的是YES ,不能移动返回的是NO
 -(BOOL)beginInteractiveMovementForItemAtIndexPath:(NSIndexPath *)indexPath{
     return YES;
@@ -249,67 +249,66 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
 @synthesize collectionView = _collectionView;
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
-        _collectionView = UICollectionView.initByLayout(self.verticalLayout);
-        _collectionView.dataLink(self);
-        _collectionView.backgroundColor = JobsWhiteColor;
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.scrollEnabled = NO;
-    
-        _collectionView.registerCollectionViewClass();
-        [self.bgView.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
+        @jobs_weakify(self)
+        /// 创建 UICollectionView
+        _collectionView = UICollectionView.initByLayout(self.verticalLayout)
+            .registerCollectionViewClass()
+            .dataLink(self)
+            .byShowsVerticalScrollIndicator(NO)
+            .byScrollEnabled(NO)
+            .byUserInteractionEnabled(YES);
+        _collectionView.byBgColor(JobsWhiteColor);
+        _collectionView.addOn(self.bgView);
+        [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            @jobs_strongify(self)
             make.centerX.equalTo(self);
             make.top.equalTo(self.bgView);
             make.width.mas_equalTo(BaiShaETProjPopupView10.viewSizeByModel(nil).width);
-            make.height.mas_equalTo(200);// 需要动态添加
+            make.height.mas_equalTo(200);/// 需要动态添加
         }];
-    
-        {
-            _collectionView.numberOfTouchesRequired = 1;
-            _collectionView.numberOfTapsRequired = 1;/// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
-            _collectionView.minimumPressDuration = 0.1;
-            _collectionView.allowableMovement = 1;
-            _collectionView.userInteractionEnabled = YES;
-            _collectionView.weak_target = self;
-            @jobs_weakify(self)
-            _collectionView.longPressGR_SelImp.selector = [self jobsSelectorBlock:^id _Nullable(id _Nullable target,
-                                                                                                UILongPressGestureRecognizer *_Nullable arg) {
+        _collectionView
+            /// 配置长按拖拽手势
+            .byNumberOfTouchesRequired(1)
+            .byNumberOfTapsRequired(0) // ⚠️长按手势这里建议为 0
+            .byMinimumPressDuration(0.1)
+            .byAllowableMovement(1)
+            .addLongPressGR(^(__kindof UILongPressGestureRecognizer *_Nullable gesture) {
                 @jobs_strongify(self)
+                if (!self) return;
                 self.shakeCell(YES);
-                /// 获取此次点击的坐标，根据坐标获取cell对应的indexPath
-                BaiShaETProjPopupView10 *popupView = (BaiShaETProjPopupView10 *)target;
-                CGPoint point = [arg locationInView:popupView.collectionView];
-                NSIndexPath *indexPath = [popupView.collectionView indexPathForItemAtPoint:point];
-                //根据长按手势的状态进行处理。
-                switch (arg.state) {
-                    case UIGestureRecognizerStateBegan:
+                /// 获取此次点击的坐标，根据坐标获取 cell 对应的 indexPath
+                UICollectionView *collectionView = (UICollectionView *)gesture.view;
+                CGPoint point = [gesture locationInView:collectionView];
+                NSIndexPath *indexPath = [collectionView indexPathForItemAtPoint:point];
+                /// 根据长按手势的状态进行处理
+                switch (gesture.state) {
+                    case UIGestureRecognizerStateBegan:{
                         if (indexPath) {
                             /// 开始移动
-                            [popupView.collectionView beginInteractiveMovementForItemAtIndexPath:indexPath];
-                        } break;// 当没有点击到cell的时候不进行处理
+                            [collectionView beginInteractiveMovementForItemAtIndexPath:indexPath];
+                        }
+                    } break;// 当没有点击到 cell 的时候不进行处理
                     case UIGestureRecognizerStateChanged:
                         /// 移动过程中更新位置坐标
-                        [popupView.collectionView updateInteractiveMovementTargetPosition:point];
+                        [collectionView updateInteractiveMovementTargetPosition:point];
                         break;
                     case UIGestureRecognizerStateEnded:
                         /// 停止移动调用此方法
-                        [popupView.collectionView endInteractiveMovement];
+                        [collectionView endInteractiveMovement];
                         break;
                     default:
                         /// 取消移动
-                        [popupView.collectionView cancelInteractiveMovement];
+                        [collectionView cancelInteractiveMovement];
                         break;
-                }return nil;
-            }];
-            _collectionView.longPressGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
-            _collectionView.tapGR_SelImp.selector = [self jobsSelectorBlock:^id _Nullable(id  _Nullable weakSelf,
-                                                                                          id  _Nullable arg) {
+                }
+            })
+            .addTapGR(^(__kindof UITapGestureRecognizer *_Nullable gesture) {
                 JobsLog(@"");
                 @jobs_strongify(self)
+                if (!self) return;
                 self.shakeCell(NO);
-                return nil;
-            }];_collectionView.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
-        }
-    }return _collectionView;
+            });
+    } return _collectionView;
 }
 
 -(UILabel *)titleLab{
@@ -317,20 +316,23 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byUserInteractionEnabled(YES);
-            label.byBgColor(self.cor);
+            label
+                .byUserInteractionEnabled(YES)
+                .byBgColor(self.cor);
             label.byText(@"全部分類".tr)
-            .byTextAlignment(NSTextAlignmentCenter)
-            .byTextCor(JobsBlueColor);
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byTextCor(JobsBlueColor);
+            label.addOn(self);
+            [label mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self);
                 make.centerX.equalTo(self);
                 make.size.mas_equalTo(CGSizeMake(BaiShaETProjPopupView10.viewSizeByModel(nil).width, JobsWidth(44)));
-            }];self.refresh();
+            }];
+            label.refresh();
             [label appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
                                                  cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(BaseButton *)closeBtn{
@@ -345,13 +347,13 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
                 self.shakeCell(NO);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .byAddTo(self.titleLab, ^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(9.75f), JobsWidth(9.75f)));
+                make.centerY.equalTo(self.titleLab);
+                make.right.equalTo(self.titleLab.mas_right).offset(JobsWidth(-25.12));
             });
-        [self.titleLab.addSubview(_closeBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(9.75f), JobsWidth(9.75f)));
-            make.centerY.equalTo(self.titleLab);
-            make.right.equalTo(self.titleLab.mas_right).offset(JobsWidth(-25.12));
-        }];
-    }return _closeBtn;
+    };return _closeBtn;
 }
 
 -(BaseButton *)cancelBtn{
@@ -370,13 +372,13 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
             })
             .onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .byAddTo(self.bgView, ^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.mas_bottom).offset(JobsWidth(-26));
+                make.left.equalTo(self).offset(JobsWidth(24));
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(40)));
             });
-        [self.bgView.addSubview(_cancelBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.mas_bottom).offset(JobsWidth(-26));
-            make.left.equalTo(self).offset(JobsWidth(24));
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(40)));
-        }];
-    }return _cancelBtn;
+    };return _cancelBtn;
 }
 
 -(BaseButton *)sureBtn{
@@ -395,13 +397,13 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
             })
             .onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .byAddTo(self.bgView, ^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.mas_bottom).offset(JobsWidth(-26));
+                make.right.equalTo(self).offset(JobsWidth(-24));
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(40)));
             });
-        [self.bgView.addSubview(_sureBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.mas_bottom).offset(JobsWidth(-26));
-            make.right.equalTo(self).offset(JobsWidth(-24));
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(40)));
-        }];
-    }return _sureBtn;
+    };return _sureBtn;
 }
 
 -(UIView *)bgView{
@@ -409,21 +411,22 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
         @jobs_weakify(self)
         _bgView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            view.byBgColor(JobsWhiteColor);
-            [self.addSubview(view) mas_makeConstraints:^(MASConstraintMaker *make) {
+            view
+                .byBgColor(JobsWhiteColor);
+            view.byAddTo(self, ^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake(BaiShaETProjPopupView10.viewSizeByModel(nil).width, BaiShaETProjPopupView10.viewSizeByModel(nil).height - JobsWidth(44)));
                 make.centerX.equalTo(self);
                 make.top.equalTo(self.titleLab.mas_bottom);
-            }];
+            });
         });
-    }return _bgView;
+    };return _bgView;
 }
 
 -(UIColor *)cor{
     if (!_cor) {
         _cor = [UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add(HEXCOLOR(0xFFEABA));
-            data.add(HEXCOLOR(0xF2CD7A));
+            data.add(HEXCOLOR(0xFFEABA))
+                .add(HEXCOLOR(0xF2CD7A));
         })
                                    startPoint:CGPointZero
                                      endPoint:CGPointZero
@@ -432,7 +435,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
                                                          0,
                                                          BaiShaETProjPopupView10.viewSizeByModel(nil).width,
                                                          JobsWidth(44))];
-    }return _cor;
+    };return _cor;
 }
 
 @end

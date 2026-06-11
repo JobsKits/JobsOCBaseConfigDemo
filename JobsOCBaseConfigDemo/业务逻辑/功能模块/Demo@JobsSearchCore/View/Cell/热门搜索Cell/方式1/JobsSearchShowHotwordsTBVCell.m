@@ -50,7 +50,7 @@ Prop_strong()JobsHotLabelByMultiLine *jobsHotLabel;
         self.viewModels = model;
         if (self.viewModels.count) {
             self.jobsHotLabel.jobsRichViewByModel(self.viewModels);
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— lazyLoad
@@ -62,10 +62,10 @@ Prop_strong()JobsHotLabelByMultiLine *jobsHotLabel;
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(cell);
             });
-        [self.contentView.addSubview(_jobsHotLabel) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _jobsHotLabel.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView);
-        }];
-    }return _jobsHotLabel;
+        });
+    };return _jobsHotLabel;
 }
 
 @end

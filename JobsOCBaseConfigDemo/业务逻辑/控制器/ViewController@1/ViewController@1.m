@@ -27,7 +27,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 - (instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -63,11 +63,12 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsWhiteColor;
+    self.view.byBgColor(JobsWhiteColor);
     if (@available(iOS 11.0, *)) {
-        self.view.backgroundColor = @"TextColor0".namedCor;
+        self.view.byBgColor(@"TextColor0".namedCor);
+
     }else{
-        self.view.backgroundColor = JobsWhiteColor;
+        self.view.byBgColor(JobsWhiteColor);
     }
     @jobs_weakify(self)
     self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
@@ -80,10 +81,11 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
     });
     self.makeNavByAlpha(1);
     self.navBar.backBtn.jobsVisible = NO;
-    self.navBar.titleLab.text = self.viewModel.textModel.text;
+    self.navBar.titleLab.byText(self.viewModel.textModel.text);
     
     self.tableView.byShow(self);
-    self.suspendBtn.alpha = 1;
+    self.suspendBtn.byAlpha(1);
+
     self.objBlock = ^(id data) {
         @jobs_strongify(self)
         if ([data isKindOfClass:JobsSuspendBtn.class]) {
@@ -194,7 +196,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 JobsLog(@"");
             })
             .bySize(CGSizeMake(JobsWidth(32), JobsWidth(32)));
-    }return _userHeadBtn;
+    };return _userHeadBtn;
 }
 /// self.tableView.dataLink(self);不要写在Block里面，会引起循环调用。用它进行唤起
 /// BaseViewProtocol
@@ -239,7 +241,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     NSObject.feedbackGenerator(nil);/// 震动反馈
                     self->_tableView.endRefreshing(YES);
                 }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
-
                 .byShowsVerticalScrollIndicator(NO)
                 .byShowsHorizontalScrollIndicator(NO)
                 .byScrollEnabled(YES)
@@ -298,7 +299,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             make.left.right.bottom.equalTo(self.view);
             [self make:make topOffset:10];
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray<__kindof UITableViewCell *> *)tbvCellMutArr{
@@ -313,7 +314,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 data.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
             }];
         });
-    }return _tbvCellMutArr;
+    };return _tbvCellMutArr;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
@@ -644,7 +645,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(ProtocolKitVC.class);
             })));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

@@ -126,7 +126,7 @@
         NSString *tempStr = arr[i];
         tempStr = tempStr.removeSeparationMark;//去除字符 /
         resultStr.add(@"/").add(tempStr);
-    }return resultStr;
+    };return resultStr;
 }
 /// 纯字符串格式化为4位数字为一组的银行卡格式字符串
 -(__kindof NSString *_Nullable)bankCardStyle{
@@ -141,7 +141,7 @@
             NSMutableString *formattedString = self.pureString.Mutable;
             for (NSInteger i = formattedString.length - data; i > 0; i -= data) {
                 [formattedString insertString:JobsSpace atIndex:i];
-            }return formattedString;
+            };return formattedString;
         }else{
             JobsLog(@"当前字符串为%@,不是纯字符串，无法格式化输出",self);
             return @"";
@@ -178,7 +178,7 @@
         if(err){
             JobsLog(@"err = %@",err.description)
             return nil;
-        }return string;
+        };return string;
     };
 }
 

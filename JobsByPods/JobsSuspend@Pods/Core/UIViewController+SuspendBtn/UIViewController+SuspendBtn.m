@@ -36,7 +36,7 @@ JobsKey(_suspendBtn)
         SuspendBtn.isAllowDrag = YES;/// 悬浮效果必须要的参数
         self.view.vc = weak_self;
         Jobs_setAssociatedRETAIN_NONATOMIC(_suspendBtn, SuspendBtn)
-    }return SuspendBtn;
+    };return SuspendBtn;
 }
 
 -(void)setSuspendBtn:(JobsSuspendBtn *)suspendBtn{

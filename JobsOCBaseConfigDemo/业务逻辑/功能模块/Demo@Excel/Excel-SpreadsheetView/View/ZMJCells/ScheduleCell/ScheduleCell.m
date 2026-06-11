@@ -16,25 +16,25 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.label.alpha = 1;
-    }return self;
+        self.label.byAlpha(1);
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     self = [super initWithCoder:coder];
     if (self) {
-        self.label.alpha = 1;
-    }return self;
+        self.label.byAlpha(1);
+    };return self;
 }
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
-    self.label.frame = CGRectInset(self.bounds, 4, 0);
+    self.label.byFrame(CGRectInset(self.bounds, 4, 0));
 }
 
 - (void)setColor:(UIColor *)color {
     _color = color;
-    self.backgroundView.backgroundColor = color;
+    self.backgroundView.byBgColor(color);
 }
 #pragma mark —— LazyLoad
 @synthesize label = _label;
@@ -43,13 +43,14 @@
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byFrame(self.bounds);
-            label.byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-            label.byFont([UIFont boldSystemFontOfSize:12.f]);
-            label.byTextAlignment(NSTextAlignmentLeft);
-            self.contentView.addSubview(label);
+            label
+                .byFont([UIFont boldSystemFontOfSize:12.f])
+                .byTextAlignment(NSTextAlignmentLeft)
+                .byFrame(self.bounds)
+                .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
+                .addOn(self.contentView);
         });
-    }return _label;
+    };return _label;
 }
 
 @end

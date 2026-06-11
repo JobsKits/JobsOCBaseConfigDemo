@@ -22,7 +22,7 @@ UILocationProtocol_synthesize
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -48,7 +48,7 @@ UILocationProtocol_synthesize
                 return nil;
             }, MethodName(self), self);
         }
-    }return self;
+    };return self;
 }
 #pragma mark —— 一些公有方法
 /// UILabel文字的复制

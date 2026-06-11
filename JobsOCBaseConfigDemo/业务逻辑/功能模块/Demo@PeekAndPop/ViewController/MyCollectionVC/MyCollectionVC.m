@@ -45,7 +45,8 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     self.makeNavByAlpha(1);
     self.collectionView.byShow(self);
 }
@@ -86,7 +87,7 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
    
 }
 
-#pragma mark - UIContextMenuInteractionDelegate
+#pragma mark —— UIContextMenuInteractionDelegate
 /**
  * 当长按触发上下文菜单交互时调用此方法。
  * 返回一个 UIContextMenuConfiguration 对象，用于配置菜单的内容和行为。
@@ -128,7 +129,7 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
                 }]);
             })];
         }];return configuration;
-    }return nil;
+    };return nil;
 }
 /**
  * 提供一个定制的 UITargetedPreview 对象，用于在高亮显示菜单项时使用。
@@ -281,17 +282,20 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
 @synthesize collectionView = _collectionView;
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
-        _collectionView = UICollectionView.initByLayout(self.verticalLayout);
-        _collectionView.dataLink(self);
-        _collectionView.backgroundColor = HEXCOLOR(0xFCFBFB);
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.registerCollectionViewClass();
-        [self.view.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view);
-            make.top.equalTo(self.gk_navigationBar.mas_bottom);
-            make.bottom.equalTo(self.view).offset(JobsBottomSafeAreaHeight() + JobsWidth(64));
-        }];
-    }return _collectionView;
+        @jobs_weakify(self)
+        _collectionView = UICollectionView.initByLayout(self.verticalLayout)
+            .registerCollectionViewClass()
+            .dataLink(self)
+            .byShowsVerticalScrollIndicator(NO)
+            .byBgColor(HEXCOLOR(0xFCFBFB))
+            .addOn(self.view)
+            .byOn(^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.left.right.equalTo(self.view);
+                make.top.equalTo(self.gk_navigationBar.mas_bottom);
+                make.bottom.equalTo(self.view).offset(JobsBottomSafeAreaHeight() + JobsWidth(64));
+            });
+    };return _collectionView;
 }
 
 -(NSMutableArray<__kindof UIViewModel *> *)dataMutArr{
@@ -326,7 +330,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 });
             }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

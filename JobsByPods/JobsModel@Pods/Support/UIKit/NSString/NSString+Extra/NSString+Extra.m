@@ -45,7 +45,7 @@
         @jobs_strongify(self)
         if ([data isKindOfClass:NSString.class]) {
             return [self isEqualToString:data];
-        }return NO;
+        };return NO;
     };
 }
 /// 获取一行字符串的高度
@@ -114,7 +114,7 @@
         date = NSDate.initDateBy(self.doubleValue);
     }else if(intervalStyle == intervalByMilliSec){/// 毫秒级时间戳（13位）
         date = NSDate.initDateBy(self.doubleValue / 1000.0);
-    }return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable data) {
+    };return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable data) {
         @jobs_strongify(self)
         data.dateFormat = isNull(timeFormatter) ? @"yyyy-MM-dd HH:mm:ss" : timeFormatter;
         data.timeZone = timeZone(timeZoneType);

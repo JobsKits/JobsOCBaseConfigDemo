@@ -13,6 +13,12 @@
 #import <JobsOCTools/JobsAppDoorInputViewHeader.h>
 #import <JobsOCTools/JobsAppDoorInputViewBaseStyle.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
@@ -41,6 +47,18 @@
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
+#endif
+
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
+#else
+#import "JobsBaseUI.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
@@ -78,13 +96,19 @@ NS_ASSUME_NONNULL_END
                          
                          JobsBaseTableViewCell *cell00 = [self.tableView cellForRowAtIndexPath:[self myIndexPath:(JobsIndexPath){0,0}]];
                          if (self->OK) {
-                             cell00.textLabel.text = @"输入金额已超过可取款金额".tr;
-                             cell00.detailTextLabel.text = @"".tr;
-                             self.tbvCellTipsLab.text = @"".tr;
+                             cell00.textLabel.byText(@"输入金额已超过可取款金额".tr);
+
+                             cell00.detailTextLabel.byText(@"".tr);
+
+                             self.tbvCellTipsLab.byText(@"".tr);
+
                          }else{
-                             cell00.textLabel.text = self.dataMutArr[0].textModel.text;
-                             cell00.detailTextLabel.text = self.viewModel.amount;
-                             self.tbvCellTipsLab.text = @"USDT".tr;
+                             cell00.textLabel.byText(self.dataMutArr[0].textModel.text);
+
+                             cell00.detailTextLabel.byText(self.viewModel.amount);
+
+                             self.tbvCellTipsLab.byText(@"USDT".tr);
+
                          }
                      }
                  }else if ([data isKindOfClass:JobsAppDoorInputViewTFModel.class]){
@@ -93,18 +117,18 @@ NS_ASSUME_NONNULL_END
                      
                  }
              }];
-             [self.contentView addSubview:_inputView];
-             [_inputView mas_makeConstraints:^(MASConstraintMaker *make) {
+             _inputView.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
                  make.left.equalTo(self.contentView).offset(JobsWidth(16));
                  make.size.mas_equalTo(inputViewSize);
                  make.top.equalTo(self).offset(JobsWidth(3));
-             }];
+             });
+
              _inputView.jobsRichViewByModel(配置金额输入框);
              [self layoutIfNeeded];
              [_inputView setBorderWithColor:HEXCOLOR(0xEAEBED)
                                 borderWidth:JobsWidth(1)
                                  borderType:UIBorderSideTypeBottom];
-         }return _inputView;
+         };return _inputView;
      }
 
      -(JobsAppDoorInputViewBaseStyleModel *)配置金额输入框{
@@ -122,7 +146,7 @@ NS_ASSUME_NONNULL_END
              _配置金额输入框.titleStrCor = _配置金额输入框.placeholderColor = HEXCOLOR_ALPHA(0xC4C4C4,1.f);
              _配置金额输入框.keyboardType = UIKeyboardTypeNumberPad;
      //        _配置金额输入框.fieldEditorOffset = JobsWidth(80);
-         }return _配置金额输入框;
+         };return _配置金额输入框;
      }
  */
 #endif /* JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_10_010EC3A340 */

@@ -18,7 +18,7 @@ Prop_copy()jobsByIDBlock baseNavigationBarBlock;
 - (instancetype)init{
     if (self = [super init]) {
         self.translucent = YES;
-    }return self;
+    };return self;
 }
 
 - (void)layoutSubviews{

@@ -26,7 +26,7 @@
             }
             self.children = [tempArr copy];
         }
-    }return self;
+    };return self;
 }
 
 /// 判断两个对象是否相等

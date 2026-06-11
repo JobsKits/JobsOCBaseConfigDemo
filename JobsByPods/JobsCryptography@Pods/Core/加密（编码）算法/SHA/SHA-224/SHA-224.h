@@ -16,6 +16,6 @@ NS_INLINE NSString *SHA_224(NSString *string){
     NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA224_DIGEST_LENGTH * 2];
     for(int i = 0; i < CC_SHA224_DIGEST_LENGTH; i++){
         [output appendFormat:@"%02x", digest[i]];
-    }return output;
+    };return output;
 }
 #endif /* JOBS_HEADER_GUARD_SHA_224_73810ABD20 */

@@ -18,7 +18,7 @@
                 NSDateFormatter *dateFormatter = (NSDateFormatter *)self;
                 return [dateFormatter stringFromDate:date];
             }
-        }return @"";
+        };return @"";
     };
 }
 

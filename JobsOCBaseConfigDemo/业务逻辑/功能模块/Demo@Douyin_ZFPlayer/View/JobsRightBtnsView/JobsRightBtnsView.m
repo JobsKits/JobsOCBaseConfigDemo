@@ -39,7 +39,7 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -55,7 +55,7 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
                 JobsLog(@"SSS = %d",b.boolValue);
             }JobsLog(@"通知传递过来的 = %@",notification.object);
         }];
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -69,7 +69,7 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 +(JobsRetCGSizeByIDBlock _Nonnull)viewSizeByModel{
@@ -84,9 +84,12 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.loveBtn.alpha = 1;
-        self.commentBtn.alpha = 1;
-        self.shareBtn.alpha = 1;
+        self.loveBtn.byAlpha(1);
+
+        self.commentBtn.byAlpha(1);
+
+        self.shareBtn.byAlpha(1);
+
         [self 子视图垂直等间距排列];
     };
 }
@@ -187,7 +190,7 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
             });
         [self addSubview:_commentBtn];
         [self layoutIfNeeded];
-    }return _commentBtn;
+    };return _commentBtn;
 }
 
 -(BaseButton *)shareBtn{
@@ -216,7 +219,7 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
             });
         [self addSubview:_shareBtn];
         [self layoutIfNeeded];
-    }return _shareBtn;
+    };return _shareBtn;
 }
 
 -(NSMutableArray<__kindof UIButton *> *)masonryViewArr{
@@ -228,7 +231,7 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
             .add(self.commentBtn)
             .add(self.shareBtn);
         });
-    }return _masonryViewArr;
+    };return _masonryViewArr;
 }
 
 @end

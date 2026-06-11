@@ -11,6 +11,12 @@
 #import <UIKit/UIKit.h>
 #import <JobsBaseUI/JobsDebugVC.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
@@ -65,7 +71,8 @@ NS_ASSUME_NONNULL_END
      JobsPresentationCtrl *presentationController NS_VALID_UNTIL_END_OF_SCOPE;
      presentationController = [JobsPresentationCtrl.alloc initWithPresentedViewController:vc presentingViewController:self];
      vc.presentUpHeight = JobsWidth(200);
-     vc.view.backgroundColor = JobsRedColor;
+     vc.view.byBgColor(JobsRedColor);
+
      vc.transitioningDelegate = presentationController;
 
      [self presentViewController:vc animated:YES completion:NULL];

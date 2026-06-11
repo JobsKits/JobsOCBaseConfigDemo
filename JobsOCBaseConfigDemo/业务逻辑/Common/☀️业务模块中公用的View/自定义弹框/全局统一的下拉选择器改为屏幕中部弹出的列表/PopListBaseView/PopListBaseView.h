@@ -8,6 +8,12 @@
 #import <UIKit/UIKit.h>
 #import "JobsTextLabStyleTBVCell.h"
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
@@ -73,7 +79,7 @@ NS_INLINE __kindof PopListBaseView *_Nonnull jobsMakePopListBaseView(jobsByPopLi
              _nationalPopListView = PopListBaseView.new;
              _nationalPopListView.size = _nationalPopListView.viewSizeByModel(nil);
              _nationalPopListView.jobsRichViewByModel(self.nationalPopList_dataMutArr);
-         }return _nationalPopListView;
+         };return _nationalPopListView;
      }
 
      -(NSMutableArray<__kindof UIViewModel *> *)nationalPopList_dataMutArr{
@@ -95,6 +101,6 @@ NS_INLINE __kindof PopListBaseView *_Nonnull jobsMakePopListBaseView(jobsByPopLi
                  _nationalPopList_dataMutArr.add(viewModel);
 
              }
-         }return _nationalPopList_dataMutArr;
+         };return _nationalPopList_dataMutArr;
      }
  */

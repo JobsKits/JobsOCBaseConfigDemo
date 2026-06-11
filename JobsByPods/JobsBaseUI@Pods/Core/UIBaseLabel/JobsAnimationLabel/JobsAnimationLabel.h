@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -47,9 +53,11 @@ NS_ASSUME_NONNULL_END
  -(JobsAnimationLabel *)animationLab{
      if (!_animationLab) {
          _animationLab = JobsAnimationLabel.new;
-         _animationLab.textColor = JobsBlackColor;
+         _animationLab.byTextCor(JobsBlackColor);
+
          
-         _animationLab.text = @"12";
+         _animationLab.byText(@"12");
+
          _animationLab.value = 12;
          _animationLab.lastValue = 120;
          
@@ -57,17 +65,18 @@ NS_ASSUME_NONNULL_END
                                        endValue:_animationLab.lastValue
                                        duration:1.0
                                        complete:^(UILabel *label, CGFloat value) {
-             label.text = [NSString stringWithFormat:@"%f", value];
+             label.byText([NSString stringWithFormat:@"%f", value]);
+
              label.value = value;
              label.lastValue = (label.value * 3);
          }];
          
-         [self addSubview:_animationLab];
-         [_animationLab mas_makeConstraints:^(MASConstraintMaker *make) {
+         _animationLab.byAddTo(self, ^(MASConstraintMaker *make) {
              make.bottom.equalTo(self.progressView);
              make.left.equalTo(self.progressView);
-         }];
-     }return _animationLab;
+         });
+
+     };return _animationLab;
  }
 
  */

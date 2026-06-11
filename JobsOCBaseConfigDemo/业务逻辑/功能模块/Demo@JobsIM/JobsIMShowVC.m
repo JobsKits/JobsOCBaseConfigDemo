@@ -47,7 +47,8 @@ Prop_strong()JobsIMListView *listView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsYellowColor;
+    self.view.byBgColor(JobsYellowColor);
+
     {
         @jobs_weakify(self)
         self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
@@ -60,7 +61,8 @@ Prop_strong()JobsIMListView *listView;
         });
         self.makeNavByAlpha(1);
     }
-    self.listView.alpha = 1;
+    self.listView.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -101,16 +103,16 @@ Prop_strong()JobsIMListView *listView;
             @jobs_strongify(self)
             self.comingToPushVCByRequestParams(JobsIMVC.new,[self makeData:data]);
         }];
-        [self.view addSubview:_listView];
-        [_listView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _listView.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             if (self.gk_navBarAlpha && !self.gk_navigationBar.hidden) {//显示
                 make.top.equalTo(self.gk_navigationBar.mas_bottom);
             }else{
                 make.top.equalTo(self.view.mas_top);
             }
-        }];
-    }return _listView;
+        });
+
+    };return _listView;
 }
 
 -(BaseButton *)shareBtn{
@@ -129,7 +131,7 @@ Prop_strong()JobsIMListView *listView;
             });
         _shareBtn.width = JobsWidth(23);
         _shareBtn.height = JobsWidth(23);
-    }return _shareBtn;
+    };return _shareBtn;
 }
 
 @end

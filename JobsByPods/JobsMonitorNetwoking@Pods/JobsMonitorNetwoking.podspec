@@ -34,6 +34,7 @@ network traffic speed and displays it with JobsSuspendLab.
 
     ss.dependency 'JobsSuspend'
     ss.dependency 'JobsOCDefs'
+    ss.dependency 'JobsOCDSL'
     ss.dependency 'JobsBlock'
   end
 

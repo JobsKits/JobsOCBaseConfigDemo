@@ -17,33 +17,37 @@ Prop_strong()UILabel *timeLabel;
 
 -(void)initializeViews{
     [super initializeViews];
-    self.timeLabel.alpha = 1;
+    self.timeLabel.byAlpha(1);
 }
 
 -(void)reloadData:(JXCategoryBaseCellModel *)cellModel{
     [super reloadData:cellModel];
     JXCategoryTimelineCellModel *myCellModel = (JXCategoryTimelineCellModel *)cellModel;
-    self.timeLabel.text = myCellModel.timeTitle;
+    self.timeLabel.byText(myCellModel.timeTitle);
+
     if (myCellModel.isSelected) {
-        self.timeLabel.textColor = myCellModel.timeTitleSelectedColor;
-        self.timeLabel.font = myCellModel.timeTitleSelectedFont;
+        self.timeLabel.byTextCor(myCellModel.timeTitleSelectedColor);
+        self.timeLabel.byFont(myCellModel.timeTitleSelectedFont);
     }else {
-        self.timeLabel.textColor = myCellModel.timeTitleNormalColor;
-        self.timeLabel.font = myCellModel.timeTitleFont;
+        self.timeLabel.byTextCor(myCellModel.timeTitleNormalColor);
+        self.timeLabel.byFont(myCellModel.timeTitleFont);
     }
 }
 #pragma mark —— lazyLoad
 -(UILabel *)timeLabel{
     if (!_timeLabel) {
-        _timeLabel = UILabel.new;
-        _timeLabel.textAlignment = NSTextAlignmentCenter;
-        _timeLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.contentView addSubview:_timeLabel];
-        [NSLayoutConstraint activateConstraints:@[
-            [_timeLabel.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
-            [_timeLabel.centerYAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:20]
-        ]];
-    }return _timeLabel;
+        @jobs_weakify(self)
+        _timeLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            @jobs_strongify(self)
+            label
+                .byTextAlignment(NSTextAlignmentCenter)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self.contentView);
+                    make.centerY.equalTo(self.contentView.mas_top).offset(JobsWidth(20));
+                });
+        });
+    };return _timeLabel;
 }
 
 @end

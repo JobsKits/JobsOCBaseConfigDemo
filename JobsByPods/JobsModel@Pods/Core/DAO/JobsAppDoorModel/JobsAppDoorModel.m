@@ -13,7 +13,7 @@
 -(NSString *)userName{
     if (!_userName) {
         _userName = self.readUserNameMutArr[0];
-    }return _userName;
+    };return _userName;
 }
 
 @end

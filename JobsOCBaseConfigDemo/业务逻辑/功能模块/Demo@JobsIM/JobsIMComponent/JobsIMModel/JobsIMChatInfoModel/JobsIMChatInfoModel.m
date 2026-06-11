@@ -12,7 +12,7 @@
 -(NSString *)identification{
     if (!_identification) {
         _identification = @"我是我自己";
-    }return _identification;
+    };return _identification;
 }
 
 @end

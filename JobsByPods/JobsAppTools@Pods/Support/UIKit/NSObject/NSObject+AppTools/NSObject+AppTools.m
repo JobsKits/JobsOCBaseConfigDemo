@@ -9,12 +9,6 @@
 #import <JobsAppTools/NSObject+Image.h>
 #import <JobsAppTools/UIColor+Extra.h>
 
-#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
-#import <JobsModelDSL/JobsModelDSL.h>
-#else
-#import "JobsModelDSL.h"
-#endif
-
 @implementation NSObject (AppTools)
 
 -(UIButtonModel *)makeBackBtnModel{

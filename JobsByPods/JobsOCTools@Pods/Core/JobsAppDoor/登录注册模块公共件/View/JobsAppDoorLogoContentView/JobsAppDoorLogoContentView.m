@@ -15,7 +15,7 @@ Prop_strong()UIImageView *mainImgV;
 
 static dispatch_once_t JobsAppDoorLogoContentViewDispatchOnce;
 @implementation JobsAppDoorLogoContentView
-#pragma mark - Lifecycle
+#pragma mark —— Lifecycle
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
 }
@@ -23,13 +23,14 @@ static dispatch_once_t JobsAppDoorLogoContentViewDispatchOnce;
 -(instancetype)init{
     if (self = [super init]) {
         JobsAppDoorLogoContentViewDispatchOnce = 0;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
     dispatch_once(&JobsAppDoorLogoContentViewDispatchOnce, ^{
-        self.mainImgV.alpha = 1;
+        self.mainImgV.byAlpha(1);
+
     });
 }
 #pragma mark —— lazyLoad
@@ -39,11 +40,11 @@ static dispatch_once_t JobsAppDoorLogoContentViewDispatchOnce;
         _mainImgV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
             imageView.image = @"AppDoorLogo".img;
-            [self.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            imageView.byAddTo(self, ^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
-            }];
+            });
         });
-    }return _mainImgV;
+    };return _mainImgV;
 }
 
 @end

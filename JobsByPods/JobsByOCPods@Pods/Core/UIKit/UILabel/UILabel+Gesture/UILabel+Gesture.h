@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_UILABEL_GESTURE_A652C744E8
 
 #import <UIKit/UIKit.h>
-#import <JobsByOCPods/UIView+Gesture.h>
 
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>
@@ -45,6 +44,12 @@
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
 #import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)

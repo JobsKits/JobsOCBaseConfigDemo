@@ -30,10 +30,10 @@
 #import "JobsModelDSL.h"
 #endif
 
-#if __has_include(<JobsOCRuntimeKits/NSObject+DynamicInvoke.h>)
-#import <JobsOCRuntimeKits/NSObject+DynamicInvoke.h>
+#if __has_include(<JobsOCRuntimeKits/JobsOCRuntimeKits.h>)
+#import <JobsOCRuntimeKits/JobsOCRuntimeKits.h>
 #else
-#import "NSObject+DynamicInvoke.h"
+#import "JobsOCRuntimeKits.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)

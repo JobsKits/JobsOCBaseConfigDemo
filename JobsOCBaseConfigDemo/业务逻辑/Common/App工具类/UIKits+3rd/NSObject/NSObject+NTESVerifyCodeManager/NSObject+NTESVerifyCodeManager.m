@@ -81,16 +81,18 @@ JobsKey(_verifyCodeManager)
                 VerifyCodeManager.lang = NTESVerifyCodeLangFIL;
             } break;
                 
-            default:
+        default:
                 break;
         }
         // 设置透明度
         VerifyCodeManager.alpha = 0.3;
+
         VerifyCodeManager.userInterfaceStyle = NTESUserInterfaceStyleDark;
         // 设置颜色
         VerifyCodeManager.color = JobsBlackColor;
         // 设置frame
         VerifyCodeManager.frame = CGRectNull;
+
         // 私有化协议类型
         VerifyCodeManager.protocol = NTESVerifyCodeProtocolHttps;
         // 是否开启降级方案
@@ -100,7 +102,7 @@ JobsKey(_verifyCodeManager)
         VerifyCodeManager.closeButtonHidden = NO;
         
         Jobs_setAssociatedRETAIN_NONATOMIC(_verifyCodeManager, VerifyCodeManager)
-    }return VerifyCodeManager;
+    };return VerifyCodeManager;
 }
 
 -(void)setVerifyCodeManager:(NTESVerifyCodeManager *)verifyCodeManager{
@@ -124,7 +126,7 @@ JobsKey(_verifyCodeStyleConfig)
         VerifyCodeStyleConfig.executeBorderRadius = 10;
         VerifyCodeStyleConfig.executeBackground = @"#DC143C";
         Jobs_setAssociatedRETAIN_NONATOMIC(_verifyCodeStyleConfig, VerifyCodeStyleConfig)
-    }return VerifyCodeStyleConfig;
+    };return VerifyCodeStyleConfig;
 }
 
 -(void)setVerifyCodeStyleConfig:(NTESVerifyCodeStyleConfig *)verifyCodeStyleConfig{

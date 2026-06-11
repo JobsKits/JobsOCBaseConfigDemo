@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsLoadingImage/JobsLoadingImage.h>)
 #import <JobsLoadingImage/JobsLoadingImage.h>
 #else
@@ -58,14 +64,15 @@ NS_ASSUME_NONNULL_END
      -(GifLoopPlayView *)gifLoopPlayView{
          if (!_gifLoopPlayView) {
              _gifLoopPlayView = GifLoopPlayView.new;
-             _gifLoopPlayView.frame = CGRectMake(100, 200, 104, 11);
+             _gifLoopPlayView.byFrame(CGRectMake(100, 200, 104, 11));
+
              [self.view addSubview:_gifLoopPlayView];
              for (int t = 1; t <= 10; t++) {
                  [_gifLoopPlayView.gifMutArr addObject:JobsLoadBundleImage(nil,@"音律跳动",  nil,[NSString stringWithFormat:@"%d",t])];
              }
              // 设置动画时长
              _gifLoopPlayView.duration = 0.85;
-         }return _gifLoopPlayView;
+         };return _gifLoopPlayView;
      }
  */
 #endif /* JOBS_HEADER_GUARD_GIFLOOPPLAYVIEW_C24003D652 */

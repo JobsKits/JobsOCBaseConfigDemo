@@ -34,9 +34,10 @@ static dispatch_once_t static_testPopupViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+
         self.backgroundImageView.image = @"测试弹窗的背景图".img;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -49,8 +50,10 @@ static dispatch_once_t static_testPopupViewOnceToken;
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.containerView.alpha = 1;
-        self.testPopupViewSureBtn.alpha = 1;
+        self.containerView.byAlpha(1);
+
+        self.testPopupViewSureBtn.byAlpha(1);
+
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -79,11 +82,11 @@ static dispatch_once_t static_testPopupViewOnceToken;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        [self.addSubview(_containerView) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _containerView.byAddTo(self, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(_containerView.jobsSize);
             make.center.equalTo(self);
-        }];
-    }return _containerView;
+        });
+    };return _containerView;
 }
 
 -(UIButton *)testPopupViewSureBtn{
@@ -101,12 +104,12 @@ static dispatch_once_t static_testPopupViewOnceToken;
             [self tf_hide:nil];
             if(self.objBlock) self.objBlock(x);
         });
-        [self.addSubview(_testPopupViewSureBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _testPopupViewSureBtn.byAddTo(self, ^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.mas_bottom).offset(JobsWidth(-15));
             make.centerX.equalTo(self);
             make.size.mas_equalTo(CGSizeMake(JobsWidth(190), JobsWidth(40)));
-        }];
-    }return _testPopupViewSureBtn;
+        });
+    };return _testPopupViewSureBtn;
 }
 
 @end

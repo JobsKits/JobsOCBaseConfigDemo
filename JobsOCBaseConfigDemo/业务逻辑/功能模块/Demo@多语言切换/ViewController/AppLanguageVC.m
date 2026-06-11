@@ -98,12 +98,11 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
         [SDImageCache.sharedImageCache clearDiskOnCompletion:nil];
         return jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             imageView.image = @"6.59".tr.img;
-            headerFooterView.addSubview(imageView);
-            [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            imageView.byAddTo(headerFooterView, ^(MASConstraintMaker *make) {
                 make.center.equalTo(headerFooterView);
                 make.size.mas_equalTo(CGSizeMake(BaseTableViewHeaderFooterView.heightForHeaderInSection(nil),
                                                  BaseTableViewHeaderFooterView.heightForHeaderInSection(nil)));
-            }];
+            });
         });
     };
 }
@@ -161,7 +160,7 @@ heightForHeaderInSection:(NSInteger)section{
 - (void)tableView:(UITableView *)tableView
   willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath{
-    cell.alpha = self.isVisible;
+    cell.byAlpha(self.isVisible);
     [tableView hideSeparatorLineAtLast:indexPath cell:cell];
 }
 /// 这里涉及到复用机制，return出去的是UITableViewHeaderFooterView的派 生类
@@ -172,7 +171,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     headerView.section = section;
     /// headerView.backgroundColor 和  headerView.contentView.backgroundColor 均是无效操作❌
     /// 只有 headerView.backgroundView.backgroundColor 是有效操作✅
-    headerView.backgroundView.backgroundColor = JobsCyanColor;
+    headerView.backgroundView.byBgColor(JobsCyanColor);
     self.makeViewOnTableViewHeaderFooterView(headerView).alpha = 1;
     headerView.jobsRichViewByModel(UIViewModel.new);
 //        @jobs_weakify(self)
@@ -189,42 +188,43 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
             /// 普通的MJRefreshHeader（触发事件）@二选一
-            tableView.byMJRefreshHeader([MJRefreshNormalHeader headerWithRefreshingBlock:^{
-                @jobs_strongify(self)
-                NSObject.feedbackGenerator(nil); // 震动反馈
-                // 刷新本界面
-                if (self.dataMutArr.count) {
-                    [self.dataMutArr remove];
-                    self->_dataMutArr = nil;
-                }
-                self.isVisible = YES;
-                if (self.dataMutArr.count) {
-                    self->_tableView.endRefreshing(self.dataMutArr);
-                }else{
-                    self->_tableView.endRefreshingWithNoMoreData(self.dataMutArr);
-                }
-                /// 在reloadData后做的操作，因为reloadData刷新UI是在主线程上，那么就在主线程上等待
-                @jobs_weakify(self)
-                dispatch_async(dispatch_get_main_queue(), ^(){
+            tableView
+                .byMJRefreshHeader([MJRefreshNormalHeader headerWithRefreshingBlock:^{
                     @jobs_strongify(self)
-                    [self.tableView alphaAnimWithSortingType:(SortingType)SortingType_Positive
-                                              animationBlock:nil
-                                             completionBlock:nil];
+                    NSObject.feedbackGenerator(nil); // 震动反馈
+                    // 刷新本界面
+                    if (self.dataMutArr.count) {
+                        [self.dataMutArr remove];
+                        self->_dataMutArr = nil;
+                    }
+                    self.isVisible = YES;
+                    if (self.dataMutArr.count) {
+                        self->_tableView.endRefreshing(self.dataMutArr);
+                    }else{
+                        self->_tableView.endRefreshingWithNoMoreData(self.dataMutArr);
+                    }
+                    /// 在reloadData后做的操作，因为reloadData刷新UI是在主线程上，那么就在主线程上等待
+                    @jobs_weakify(self)
+                    dispatch_async(dispatch_get_main_queue(), ^(){
+                        @jobs_strongify(self)
+                        [self.tableView alphaAnimWithSortingType:(SortingType)SortingType_Positive
+                                                  animationBlock:nil
+                                                 completionBlock:nil];
+                    });
+                }].byMJRefreshHeaderConfigModel(self.mjHeaderDefaultConfig))
+                .byMJRefreshFooter([MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+                    @jobs_strongify(self)
+                    NSObject.feedbackGenerator(nil); // 震动反馈
+                    self->_tableView.endRefreshing(YES);
+                }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    @jobs_strongify(self)
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom);
+                    make.left.right.bottom.equalTo(self.view);
                 });
-            }].byMJRefreshHeaderConfigModel(self.mjHeaderDefaultConfig))
-            .byMJRefreshFooter([MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-                @jobs_strongify(self)
-                NSObject.feedbackGenerator(nil); // 震动反馈
-                self->_tableView.endRefreshing(YES);
-            }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
-            .addOn(self.view)
-            .byAdd(^(MASConstraintMaker *make) {
-                @jobs_strongify(self)
-                make.top.equalTo(self.gk_navigationBar.mas_bottom);
-                make.left.right.bottom.equalTo(self.view);
-            });
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
@@ -247,7 +247,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byText(@"他加禄语".tr);
             }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

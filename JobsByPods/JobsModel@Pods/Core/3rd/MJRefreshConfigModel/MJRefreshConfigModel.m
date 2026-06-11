@@ -8,7 +8,7 @@
 #import "MJRefreshConfigModel.h"
 #import <JobsModel/NSString+Extra.h>
 #import <JobsModel/NSMutableArray+Extra.h>
-#import <JobsLanMgr/NSString+JobsLanMgr.h>
+#import <JobsLanMgr/JobsLanMgr.h>
 
 @implementation MJRefreshConfigModel
 
@@ -25,73 +25,73 @@
 -(UIFont *)font{
     if (!_font) {
         _font = UIFontWeightThinSize(17);
-    }return _font;
+    };return _font;
 }
 /// TextColor
 -(UIColor *)textColor{
     if (!_textColor) {
         _textColor = JobsLightGrayColor;
-    }return _textColor;
+    };return _textColor;
 }
 /// duration
 -(CGFloat)stateIdleDuration{
     if (!_stateIdleDuration) {
         _stateIdleDuration = 0.1f;
-    }return _stateIdleDuration;
+    };return _stateIdleDuration;
 }
 
 -(CGFloat)pullingDuration{
     if (!_pullingDuration) {
         _pullingDuration = 0.1f;
-    }return _pullingDuration;
+    };return _pullingDuration;
 }
 
 -(CGFloat)refreshingDuration{
     if (!_refreshingDuration) {
         _refreshingDuration = 0.7f;
-    }return _refreshingDuration;
+    };return _refreshingDuration;
 }
 
 -(CGFloat)willRefreshDuration{
     if (!_willRefreshDuration) {
         _willRefreshDuration = 0.1f;
-    }return _willRefreshDuration;
+    };return _willRefreshDuration;
 }
 
 -(CGFloat)noMoreDataDuration{
     if (!_noMoreDataDuration) {
         _noMoreDataDuration = 0.5;
-    }return _noMoreDataDuration;
+    };return _noMoreDataDuration;
 }
 /// title
 -(NSString *)stateIdleTitle{
     if (!_stateIdleTitle) {
         _stateIdleTitle = @"普通闲置状态".tr;
-    }return _stateIdleTitle;
+    };return _stateIdleTitle;
 }
 
 -(NSString *)pullingTitle{
     if (!_pullingTitle) {
         _pullingTitle = @"松开就可以进行刷新的状态".tr;
-    }return _pullingTitle;
+    };return _pullingTitle;
 }
 
 -(NSString *)refreshingTitle{
     if (!_refreshingTitle) {
         _refreshingTitle = @"正在刷新中的状态".tr;
-    }return _refreshingTitle;
+    };return _refreshingTitle;
 }
 
 -(NSString *)willRefreshTitle{
     if (!_willRefreshTitle) {
         _willRefreshTitle = @"即将刷新的状态".tr;
-    }return _willRefreshTitle;
+    };return _willRefreshTitle;
 }
 
 -(NSString *)noMoreDataTitle{
     if (!_noMoreDataTitle) {
         _noMoreDataTitle = @"所有数据加载完毕，没有更多的数据了".tr;
-    }return _noMoreDataTitle;
+    };return _noMoreDataTitle;
 }
 /// 静态图内部拼接出的动效，而非Gif
 -(NSMutableArray<UIImage *> *)stateIdlePicsMutArr{
@@ -102,7 +102,7 @@
                                    nil,
                                    @"header.png"));
         });
-    }return _stateIdlePicsMutArr;
+    };return _stateIdlePicsMutArr;
 }
 
 -(NSMutableArray<UIImage *> *)pullingPicsMutArr{
@@ -113,7 +113,7 @@
                                    nil,
                                    @"Indeterminate Spinner - Small.png"));
         });
-    }return _pullingPicsMutArr;
+    };return _pullingPicsMutArr;
 }
 
 -(NSMutableArray<UIImage *> *)refreshingPicsMutArr{
@@ -128,7 +128,7 @@
                                        str));
             }
         });
-    }return _refreshingPicsMutArr;
+    };return _refreshingPicsMutArr;
 }
 
 -(NSMutableArray<UIImage *> *)willRefreshPicsMutArr{
@@ -143,7 +143,7 @@
                                        str));
             }
         });
-    }return _willRefreshPicsMutArr;
+    };return _willRefreshPicsMutArr;
 }
 
 -(NSMutableArray<UIImage *> *)noMoreDataPicsMutArr{
@@ -158,7 +158,7 @@
                                        str));
             }
         });
-    }return _noMoreDataPicsMutArr;
+    };return _noMoreDataPicsMutArr;
 }
 /// Lottie配置
 -(NSString *)jsonLottiefilePaths{
@@ -167,7 +167,7 @@
                                                     @"JsonRes",
                                                     nil,
                                                     @"下拉刷新.json");
-    }return _jsonLottiefilePaths;
+    };return _jsonLottiefilePaths;
 }
 
 @end

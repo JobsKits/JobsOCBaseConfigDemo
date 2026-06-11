@@ -18,7 +18,7 @@
         if(subView.masonryBlock){
             [subView mas_makeConstraints:subView.masonryBlock];
             self.refresh();
-        }return subView;
+        };return subView;
     };
 }
 
@@ -69,7 +69,8 @@
                                                    byRoundingCorners:corners
                                                          cornerRadii:cornerRadii];
     CAShapeLayer *maskLayer = CAShapeLayer.layer;
-    maskLayer.frame = self.bounds;
+    maskLayer.byFrame(self.bounds);
+
     maskLayer.path = maskPath.CGPath;
     self.layer.mask = maskLayer;
 }
@@ -112,8 +113,10 @@ JobsKey(_jobsVisible)
 }
 
 -(void)setJobsVisible:(CGFloat)jobsVisible{
-    self.hidden = !jobsVisible;
-    self.alpha = jobsVisible;
+    self.byHidden(!jobsVisible);
+
+    self.byAlpha(jobsVisible);
+
     Jobs_setAssociatedRETAIN_NONATOMIC(_jobsVisible, @(jobsVisible))
 }
 

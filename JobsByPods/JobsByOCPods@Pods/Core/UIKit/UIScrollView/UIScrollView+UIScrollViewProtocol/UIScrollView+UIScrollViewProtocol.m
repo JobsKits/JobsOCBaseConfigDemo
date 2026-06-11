@@ -21,9 +21,9 @@
     return self.judgementScrollDirectionByPoint(self.contentOffset);
 }
 /// 如果使用：dispatch_async + dispatch_get_main_queue()进行主线程上的调用，会执行2次刷新的协议方法
--(JobsRetViewByVoidBlock _Nonnull)reloadDatas{
+-(JobsRetScrollViewByVoidBlock _Nonnull)reloadDatas{
     @jobs_weakify(self)
-    return ^__kindof UIView *_Nullable(){
+    return ^__kindof UIScrollView *_Nullable(){
         @jobs_strongify(self)
         if(self){
             if (self.isKindOfClass(UICollectionView.class)) {
@@ -33,7 +33,7 @@
                 UITableView *tableView = (UITableView *)self;
                 [tableView reloadData];
             }else{}
-        }return self;
+        };return self;
     };
 }
 /// 得到visibleCells
@@ -47,7 +47,7 @@
             UITableView *tableView = (UITableView *)self;
             cells = tableView.visibleCells;
         }else{}
-    }return cells;
+    };return cells;
 }
 /// 依据index得到cell
 -(JobsRetViewByNSUIntegerBlock _Nonnull)scrollViewCellsByIndex{
@@ -61,7 +61,7 @@
                 UITableView *tableView = (UITableView *)self;
                 cell = [tableView.visibleCells objectAtIndex:index];
             }else{}
-        }return cell;
+        };return cell;
     };
 }
 /// 对系统方法 - (void)setContentOffset:(CGPoint)contentOffset animated:(BOOL)animated;  的二次封装

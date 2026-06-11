@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsRichTextUtils/JobsRichTextUtils.h>)
 #import <JobsRichTextUtils/JobsRichTextUtils.h>
 #else
@@ -61,39 +67,47 @@ NS_INLINE __kindof BaseTextView *_Nonnull jobsMakeBaseTextView(jobsByBaseTextVie
              @jobs_weakify(self)
              _tipsTextView = jobsMakeBaseTextView(^(__kindof BaseTextView * _Nullable textView) {
                  @jobs_strongify(self)
-                 textView.byDelegate(self)
-                 .byEditable(NO)
-                 .byLinkTextAttributes(@{NSForegroundColorAttributeName:HEXCOLOR(0xCCB17E)})
-                 .byUserInteractionEnabled(YES)
-                 .byAttributedText(self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray <JobsRichTextConfig *>*_Nullable data) {
-                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable config) {
-                         config.byFont(UIFontWeightRegularSize(JobsWidth(12)))
-                               .byTextCor(JobsWhiteColor)
-                               .byTargetString(@"Already have account?".tr);
-                 //        config.textBgCor = UIColor.clearColor;
-                         config.byParagraphStyle(self.defaultParagraphStyle);
-                     }));
-                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable config) {
-                         config.byFont(UIFontWeightRegularSize(JobsWidth(12)))
-                               .byTextCor(@"#FFC700".cor)
-                               .byTargetString(@" ".add(@"Login Here".tr));
-                 //        config.textBgCor = UIColor.clearColor;
-                         config.byParagraphStyle(self.defaultParagraphStyle)
-                               .byUrlStr(@"www.google.com");
-                     }));
-                 }))).byBgColor(JobsClearColor);
+                 textView
+                     .byDelegate(self)
+                     .byEditable(NO)
+                     .byLinkTextAttributes(@{
+                         NSForegroundColorAttributeName: HEXCOLOR(0xCCB17E)
+                     })
+                     .byUserInteractionEnabled(YES)
+                     .byAttributedText(self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray <JobsRichTextConfig *>*_Nullable data) {
 
-                 textView.textContainer.lineFragmentPadding = 0;
-                 textView.layoutManager.allowsNonContiguousLayout = YES;
-
-                 [self.addSubview(textView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                     make.centerX.equalTo(self);
-                     make.top.equalTo(self.sign_up_btn.mas_bottom).offset(JobsWidth(5));
-                     make.height.mas_equalTo(JobsWidth(25));
-                     make.width.mas_equalTo(JobsWidth(233));
-                 }];
+                         data
+                             .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable config) {
+                                 config
+                                     .byFont(UIFontWeightRegularSize(JobsWidth(12)))
+                                     .byTextCor(JobsWhiteColor)
+                                     .byTargetString(@"Already have account?".tr)
+                                     .byParagraphStyle(self.defaultParagraphStyle);
+                                 // config.textBgCor = UIColor.clearColor;
+                             }))
+                             .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable config) {
+                                 config
+                                     .byFont(UIFontWeightRegularSize(JobsWidth(12)))
+                                     .byTextCor(@"#FFC700".cor)
+                                     .byTargetString(@" ".add(@"Login Here".tr))
+                                     .byParagraphStyle(self.defaultParagraphStyle)
+                                     .byUrlStr(@"www.google.com");
+                                 // config.textBgCor = UIColor.clearColor;
+                             }));
+                     })))
+                     .byBgColor(JobsClearColor)
+                     .addOn(self)
+                     .byOn(^(MASConstraintMaker *make) {
+                         @jobs_strongify(self)
+                         make.centerX.equalTo(self);
+                         make.top.equalTo(self.sign_up_btn.mas_bottom).offset(JobsWidth(5));
+                         make.height.mas_equalTo(JobsWidth(25));
+                         make.width.mas_equalTo(JobsWidth(233));
+                     });
+                 textView.textContainer.byLineFragmentPadding(0);
+                 textView.layoutManager.byAllowsNonContiguousLayout(YES);
              });
-         }return _tipsTextView;
+         };return _tipsTextView;
      }
  */
 #endif /* JOBS_HEADER_GUARD_BASETEXTVIEW_E78E1C0334 */

@@ -6,38 +6,38 @@
 //
 
 #import "JobsLocalNotificationModel.h"
-#import <JobsLanMgr/NSString+JobsLanMgr.h>
+#import <JobsLanMgr/JobsLanMgr.h>
 
 @implementation JobsLocalNotificationModel
 
 -(NSString *)identifier{
     if (!_identifier) {
         _identifier = @"DemoNotification";
-    }return _identifier;
+    };return _identifier;
 }
 
 -(NSString *)title{
     if (!_title) {
         _title = @"本地通知".tr;
-    }return _title;
+    };return _title;
 }
 
 -(NSString *)body{
     if (!_body) {
         _body = @"这是一个示例本地通知".tr;
-    }return _body;
+    };return _body;
 }
 
 -(UNNotificationSound *)sound{
     if (!_sound) {
         _sound = UNNotificationSound.defaultSound;
-    }return _sound;
+    };return _sound;
 }
 
 -(NSTimeInterval)triggerWithTimeInterval{
     if (_triggerWithTimeInterval <= 0) {
         _triggerWithTimeInterval = 1;
-    }return _triggerWithTimeInterval;
+    };return _triggerWithTimeInterval;
 }
 
 @end

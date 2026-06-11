@@ -13,7 +13,7 @@
 #import <UIKit/UIKit.h>
 #import <GKCustomNavigationBarExtra/NSMutableArray+Extra.h>
 #import <GKCustomNavigationBarExtra/NSString+Extra.h>
-#import <MJRefreshExtra/NSMutableArray+Extra.h>
+#import <MJRefreshExtra/MJRefreshExtra.h>
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
@@ -31,6 +31,12 @@
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
 #import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsModelDSL/JobsModelDSL.h>)
@@ -104,6 +110,7 @@ NS_ASSUME_NONNULL_END
                                                           endPoint:CGPointMake(320, 480)
                                                             opaque:NO
                                                     targetViewRect:viewRect];
-     yourView.backgroundColor = gradientColor;
+     yourView.byBgColor(gradientColor);
+
  */
 #endif /* JOBS_HEADER_GUARD_UICOLOR_EXTRA_0FAB788B5B */

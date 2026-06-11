@@ -22,8 +22,9 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.tableView.alpha = 1;
-    }return self;
+        self.tableView.byAlpha(1);
+
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 - (jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -105,7 +106,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byShowsHorizontalScrollIndicator(NO)
                 .byScrollEnabled(YES)
                 .byBgColor(JobsClearColor);
-
             if(@available(iOS 11.0, *)) {
                 tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             }
@@ -115,7 +115,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             @jobs_strongify(self)
             make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0, 0, 0));
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 @end

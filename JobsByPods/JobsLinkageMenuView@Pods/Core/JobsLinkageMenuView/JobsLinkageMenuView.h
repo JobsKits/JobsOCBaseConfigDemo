@@ -31,6 +31,12 @@
 
 @class JobsLinkageMenuViewConfig;
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 @interface JobsLinkageMenuView : BaseView
 
 Prop_strong()UIColor *selectViewColor; // 滑块颜色

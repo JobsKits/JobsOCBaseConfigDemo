@@ -22,14 +22,15 @@
 @end
 
 @implementation XWCountryCodeController
-#pragma mark - system
+#pragma mark —— system
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsWhiteColor;
+    self.view.byBgColor(JobsWhiteColor);
+
     [self creatSubviews];
 }
 
-#pragma mark - private
+#pragma mark —— private
 //创建子视图
 - (void)creatSubviews{
     _results = [NSMutableArray arrayWithCapacity:1];
@@ -39,7 +40,8 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.rowHeight = 44.0;
-    _tableView.backgroundColor = JobsClearColor;
+    _tableView.byBgColor(JobsClearColor);
+
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
     //判断当前系统语言
@@ -100,7 +102,7 @@
 //    JobsLog(@"选择国家: %@   代码: %@",originText,originText);
 }
 
-#pragma mark - UISearchResultsUpdating
+#pragma mark —— UISearchResultsUpdating
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     if (_results.count > 0) {
         [_results removeAllObjects];
@@ -118,7 +120,7 @@
     [_tableView reloadData];
 }
 
-#pragma mark - UITableViewDelegate && UITableViewDataSource
+#pragma mark —— UITableViewDelegate && UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     //    if (_searchController.isActive) {
     //        return 1;
@@ -145,10 +147,12 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
-        cell.textLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightRegular];
+        cell.textLabel.byFont([UIFont systemFontOfSize:16.0 weight:UIFontWeightRegular]);
+
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.textLabel.text = [self showCodeStringIndex:indexPath jieQue:YES];
+    cell.textLabel.byText([self showCodeStringIndex:indexPath jieQue:YES]);
+
     return cell;
 }
 
@@ -182,10 +186,10 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (_indexArray.count && _indexArray.count > section) {
         return [_indexArray objectAtIndex:section];
-    }return nil;
+    };return nil;
 }
 
-#pragma mark - 选择国际获取代码
+#pragma mark —— 选择国际获取代码
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self selectCodeIndex:indexPath];
 }

@@ -59,7 +59,7 @@ Pod::Spec.new do |spec|
   support_subspec_names = folder_subspec_names.call('Support')
 
   spec.name         = 'JobsByOCPods'
-  spec.version      = '0.0.1'
+  spec.version      = '0.0.2'
   spec.summary      = 'Jobs OC Base Customize UIKit Core (local pod)'
   spec.description  = 'Local pod wrapper for JobsOCBaseCustomizeUIKitCore categories/base components.'
   spec.homepage     = 'https://example.local/JobsOCBaseCustomizeUIKitCore'

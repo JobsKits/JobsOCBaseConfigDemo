@@ -33,7 +33,8 @@
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(id _Nullable model) {
         @jobs_strongify(self)
-        self.textLabel.text = model;
+        self.textLabel.byText(model);
+
         return self;
     };
 }

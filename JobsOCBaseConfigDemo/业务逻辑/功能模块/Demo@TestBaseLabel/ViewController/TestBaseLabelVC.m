@@ -47,8 +47,10 @@ Prop_strong()BaseLabel *baseLabel;
     
     self.makeNavByAlpha(1);
     
-    self.titleLab.alpha = 1;
-    self.baseLabel.alpha = 1;
+    self.titleLab.byAlpha(1);
+
+    self.baseLabel.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -76,15 +78,18 @@ Prop_strong()BaseLabel *baseLabel;
         _titleLab = JobsBaseLabel.new;
         _titleLab.jobsRichViewByModel(nil);
         _titleLab.getLabel.jobsOffsetY = JobsWidth(-2);
-        _titleLab.getLabel.textColor = JobsWhiteColor;
-        _titleLab.getLabel.font = UIFontWeightRegularSize(12);
-        _titleLab.getLabel.textAlignment = NSTextAlignmentCenter;
-        [self.view addSubview:_titleLab];
-        [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        _titleLab.getLabel.byTextCor(JobsWhiteColor);
+
+        _titleLab.getLabel.byFont(UIFontWeightRegularSize(12));
+
+        _titleLab.getLabel.byTextAlignment(NSTextAlignmentCenter);
+
+        _titleLab.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.top.equalTo(self.view).offset(JobsWidth(100));
             make.left.equalTo(self.view).offset(JobsWidth(100));
             make.height.mas_equalTo(JobsWidth(26));
-        }];
+        });
+
 
         [_titleLab.getLabel actionRetIDByGestureRecognizerBlock:^id(UIGestureRecognizer *data) {
             JobsLog(@"JobsBaseLabel的Tap手势");
@@ -96,7 +101,8 @@ Prop_strong()BaseLabel *baseLabel;
             return @1;
         }];
     }
-    _titleLab.getLabel.text = @" 真人           ".tr;
+    _titleLab.getLabel.byText(@" 真人           ".tr);
+
     _titleLab.getBgImageView.image = @"优惠活动背景图_真人".img;
     
     _titleLab.getLabel.makeLabelByShowingType(UILabelShowingType_03);
@@ -110,14 +116,16 @@ Prop_strong()BaseLabel *baseLabel;
         _baseLabel = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
             @jobs_strongify(self)
             label.jobsOffsetX = JobsWidth(10);
-            label.text = @"测试 -BaseLabel-".tr;
-            label.backgroundColor = JobsCyanColor;
-            [self.view addSubview:label];
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            label.byText(@"测试 -BaseLabel-".tr);
+
+            label.byBgColor(JobsCyanColor);
+
+            label.byAddTo(self.view, ^(MASConstraintMaker *make) {
                 make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(20));
                 make.left.equalTo(self.view).offset(JobsWidth(100));
                 make.height.mas_equalTo(JobsWidth(26));
-            }];
+            });
+
             [label actionRetIDByGestureRecognizerBlock:^id(UIGestureRecognizer *data) {
                 JobsLog(@"BaseLabel的Tap手势");
                 return @1;
@@ -127,7 +135,7 @@ Prop_strong()BaseLabel *baseLabel;
                 return @1;
             }];
         });
-    }return _baseLabel;
+    };return _baseLabel;
 }
 
 @end

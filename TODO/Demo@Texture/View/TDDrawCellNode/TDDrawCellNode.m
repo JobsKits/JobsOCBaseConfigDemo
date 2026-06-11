@@ -17,7 +17,7 @@
     if (self = [super init]) {
         self.automaticallyManagesSubnodes = YES;
         self.canvas.placeholderEnabled = YES;
-    }return self;
+    };return self;
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
@@ -29,7 +29,7 @@
         _canvas = jobsMakeDrawingNode(^(TDDrawingNode * _Nullable node) {
             node.style.preferredSize = CGSizeMake(0, 120); // 高度 120，宽度由父布局给
         });
-    }return _canvas;
+    };return _canvas;
 }
 
 @end

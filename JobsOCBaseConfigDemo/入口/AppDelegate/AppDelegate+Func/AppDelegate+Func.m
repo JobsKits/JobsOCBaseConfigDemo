@@ -220,7 +220,7 @@
     return ^(){
         [GKConfigure setupCustomConfigure:^(GKNavigationBarConfigure * _Nonnull configure) {
             // 导航栏背景色
-            configure.backgroundColor = JobsClearColor;
+            configure.byBackgroundColor(JobsClearColor);
             // 导航栏标题颜色
             configure.titleColor = HEXCOLOR(0x3D4A58);
             // 导航栏标题字体

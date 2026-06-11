@@ -22,7 +22,8 @@
         UIViewController <BaseViewControllerProtocol>*vc = (UIViewController *)self.class.new;
         vc.webView = webView;
         vc.view.addSubview(webView);
-        webView.frame = vc.view.bounds;
+        webView.byFrame(vc.view.bounds);
+
         return vc;
     };
 }

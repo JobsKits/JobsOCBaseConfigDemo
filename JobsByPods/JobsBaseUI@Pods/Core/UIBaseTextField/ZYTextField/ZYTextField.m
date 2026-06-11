@@ -20,7 +20,7 @@ UITextFieldProtocol_synthesize
     if (self = [super init]) {
         self.placeHolderAlignment = NSTextAlignmentLeft;
         self.textAlignment = NSTextAlignmentLeft;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -140,7 +140,7 @@ UITextFieldProtocol_synthesize
         }break;
         default:
             break;
-    }return jobsEqualToZeroRect(self.placeholderRectForBounds) ? newbounds : self.placeholderRectForBounds;
+    };return jobsEqualToZeroRect(self.placeholderRectForBounds) ? newbounds : self.placeholderRectForBounds;
 }
 /// 重写来重置文字区域 【未编辑状态下光标的起始位置】【键盘弹起会调用此方法】
 -(CGRect)textRectForBounds:(CGRect)bounds{
@@ -168,37 +168,37 @@ UITextFieldProtocol_synthesize
 -(CGFloat)text_offset{
     if(!_text_offset){
         _text_offset = 0.1;
-    }return _text_offset;
+    };return _text_offset;
 }
 
 -(CGFloat)leftViewOffsetX{
     if (_leftViewOffsetX == 0) {
         _leftViewOffsetX = 0.1;
-    }return _leftViewOffsetX;
+    };return _leftViewOffsetX;
 }
 
 -(CGFloat)rightViewOffsetX{
     if (_rightViewOffsetX == 0) {
         _rightViewOffsetX = 0.1;
-    }return _rightViewOffsetX;
+    };return _rightViewOffsetX;
 }
 
 -(CGFloat)ZYTextFieldBorderWidth{
     if (_ZYTextFieldBorderWidth == 0) {
         _ZYTextFieldBorderWidth = 0.1;
-    }return _ZYTextFieldBorderWidth;
+    };return _ZYTextFieldBorderWidth;
 }
 
 -(UIColor *)ZYTextFieldBorderColor{
     if (!_ZYTextFieldBorderColor) {
         _ZYTextFieldBorderColor = JobsBlackColor;
-    }return _ZYTextFieldBorderColor;
+    };return _ZYTextFieldBorderColor;
 }
 
 -(CGFloat)fieldEditorOffset{
     if (!_fieldEditorOffset) {
         _fieldEditorOffset = JobsWidth(50);
-    }return _fieldEditorOffset;
+    };return _fieldEditorOffset;
 }
 
 @end

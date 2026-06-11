@@ -33,6 +33,12 @@ typedef void(^returnCountryCode) (NSString *countryName, NSString *code);
 
 @end
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 @interface XWCountryCodeController : UIViewController
 <
 UITableViewDataSource

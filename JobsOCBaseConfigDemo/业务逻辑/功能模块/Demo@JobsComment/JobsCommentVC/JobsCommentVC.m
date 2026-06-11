@@ -46,7 +46,8 @@ Prop_strong()UIButton *contactCustomerServiceBtn;// 联系客服按钮
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.contactCustomerServiceBtn.alpha = 1;
+    self.contactCustomerServiceBtn.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -83,12 +84,12 @@ Prop_strong()UIButton *contactCustomerServiceBtn;// 联系客服按钮
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        [self.view addSubview:_contactCustomerServiceBtn];
-        [_contactCustomerServiceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        _contactCustomerServiceBtn.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsWidth(230), JobsWidth(50)));
             make.center.equalTo(self.view);
-        }];
-    }return _contactCustomerServiceBtn;
+        });
+
+    };return _contactCustomerServiceBtn;
 }
 
 @end

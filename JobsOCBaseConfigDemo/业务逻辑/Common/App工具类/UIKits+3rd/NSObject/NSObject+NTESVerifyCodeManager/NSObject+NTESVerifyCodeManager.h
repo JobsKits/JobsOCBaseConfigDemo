@@ -33,6 +33,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 ///【NTESVerifyCodeManager】 二次封装 https://github.com/yidun/NTESVerifyCode
 @interface NSObject (NTESVerifyCodeManager)<NTESVerifyCodeManagerDelegate>

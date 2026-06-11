@@ -45,7 +45,7 @@
     return ^BOOL(NSString *_Nullable data){
         if(isValue(data)){
             return !data.isExpired();
-        }return NO;
+        };return NO;
     };
 }
 /// 检查是否登录并执行传入的代码块

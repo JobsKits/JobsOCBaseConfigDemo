@@ -17,14 +17,16 @@ Prop_strong()UIColor *cor;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = self.cor;
-    }return self;
+        self.byBgColor(self.cor);
+
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = self.cor;
-    }return self;
+        self.byBgColor(self.cor);
+
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -54,7 +56,7 @@ Prop_strong()UIColor *cor;
 //                                                  0,
 //                                                  JobsMainScreen_WIDTH(),
 //                                                  JobsWidth(46))];
-    }return _cor;
+    };return _cor;
 }
 
 @end
@@ -89,14 +91,15 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -109,8 +112,9 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -241,9 +245,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     @jobs_strongify(self)
                     make.edges.equalTo(self);
                 });
-            tableView.mj_footer.hidden = NO;
+            tableView.mj_footer.byHidden(NO);
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(BaiShaETProjChoiceStadiumTBVHeaderView *)tbvHeaderView{
@@ -254,13 +258,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             .byFont(UIFontWeightBoldSize(16))
             .byTextAlignment(NSTextAlignmentCenter)
             .bySize(BaiShaETProjChoiceStadiumTBVHeaderView.viewSizeByModel(nil));
-    }return _tbvHeaderView;
+    };return _tbvHeaderView;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = [BaiShaETProjChoiceStadiumView createDataMutArr];
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 -(NSMutableArray<JobsBaseTableViewCell *> *)tbvCellMutArr{
@@ -272,7 +276,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 data.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
             }
         });
-    }return _tbvCellMutArr;
+    };return _tbvCellMutArr;
 }
 
 @end

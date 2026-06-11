@@ -9,11 +9,11 @@ Pod::Spec.new do |spec|
   )
 
   spec.name             = 'JobsBlock'
-  spec.version          = '1.0.0'
+  spec.version          = '1.0.4'
   spec.summary          = 'Objective-C block type definitions for Jobs projects.'
   spec.description      = <<-DESC
 JobsBlock is a header-only Objective-C definitions library containing common block typedefs,
-business block typedefs, and parameterized block macro helpers used across Jobs projects.
+business block typedefs, parameterized block macro helpers, and centralized forward declarations used across Jobs projects.
   DESC
 
   spec.homepage         = 'https://example.local/JobsBlock'
@@ -24,12 +24,18 @@ business block typedefs, and parameterized block macro helpers used across Jobs 
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
-
   spec.frameworks = [
     'Foundation',
     'UIKit',
-    'MessageUI'
+    'MessageUI',
+    'WebKit',
+    'QuartzCore',
+    'Metal',
+    'PDFKit',
+    'UserNotifications',
+    'Photos',
+    'JavaScriptCore',
+    'NetworkExtension'
   ]
 
   spec.dependency 'SDWebImage'
@@ -37,17 +43,21 @@ business block typedefs, and parameterized block macro helpers used across Jobs 
 
   JobsPodspecKitForJobsBlock.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsBlock.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsBlockDef.h',
+    'JobsBlockHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
 
-    ss.source_files = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
+  spec.public_header_files = [
+    'JobsBlockDef.h',
+    'JobsBlockHeader.h',
+    'Core/**/*.h'
+  ]
 
-    # 支持 #import <JobsBlock/xxx.h>
-    # 注意：这里故意不写 header_mappings_dir，避免保留 Core 下面的子目录层级
-    ss.header_dir = 'JobsBlock'
-  end
+  # 支持 #import <JobsBlock/xxx.h>
+  # 不再使用 Core subspec，避免 Pods 工程里出现 JobsBlock/Core/Core 的双层 Core 结构。
+  spec.header_dir = 'JobsBlock'
 
   JobsPodspecKitForJobsBlock.apply_standard_exclude_files(spec)
 

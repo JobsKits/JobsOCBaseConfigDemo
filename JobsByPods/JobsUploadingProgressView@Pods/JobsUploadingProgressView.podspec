@@ -27,6 +27,7 @@ JobsUploadingProgressView provides an uploading progress view component.
 
   spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsMakes'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsBaseUI'
   spec.dependency 'JobsByOCPods'
   spec.dependency 'JobsLanMgr'

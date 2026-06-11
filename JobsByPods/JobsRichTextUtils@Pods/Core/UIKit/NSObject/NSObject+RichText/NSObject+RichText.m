@@ -119,7 +119,7 @@
                         .byRange(config.range);
                 }));
             }
-        }return attrString;
+        };return attrString;
     };
 }
 /// 字符串中划线

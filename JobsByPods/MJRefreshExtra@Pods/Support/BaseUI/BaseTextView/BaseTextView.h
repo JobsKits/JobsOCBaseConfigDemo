@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsRichTextUtils/JobsRichTextUtils.h>)
 #import <JobsRichTextUtils/JobsRichTextUtils.h>
 #else
@@ -86,14 +92,14 @@ NS_INLINE __kindof BaseTextView *_Nonnull jobsMakeBaseTextView(jobsByBaseTextVie
                  textView.textContainer.lineFragmentPadding = 0;
                  textView.layoutManager.allowsNonContiguousLayout = YES;
 
-                 [self.addSubview(textView) mas_makeConstraints:^(MASConstraintMaker *make) {
+                 textView.byAddTo(self, ^(MASConstraintMaker *make) {
                      make.centerX.equalTo(self);
                      make.top.equalTo(self.sign_up_btn.mas_bottom).offset(JobsWidth(5));
                      make.height.mas_equalTo(JobsWidth(25));
                      make.width.mas_equalTo(JobsWidth(233));
-                 }];
+                 });
              });
-         }return _tipsTextView;
+         };return _tipsTextView;
      }
  */
 #endif /* JOBS_HEADER_GUARD_BASETEXTVIEW_D3FDC254C1 */

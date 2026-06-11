@@ -19,7 +19,7 @@ Prop_strong()NSArray <UIViewModel *>*dataArr;
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -84,15 +84,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_weakify(self)
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
-            tableView.bySeparatorColor(HEXCOLOR(0xEEEEEE))
-            .byPagingEnabled(YES)
-            .addOn(self)
+            tableView
+                .bySeparatorColor(HEXCOLOR(0xEEEEEE))
+                .byPagingEnabled(YES)
+                .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
                     make.edges.equalTo(self);
                 });
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 @end

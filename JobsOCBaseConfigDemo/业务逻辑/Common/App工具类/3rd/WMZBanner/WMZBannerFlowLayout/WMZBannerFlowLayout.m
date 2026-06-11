@@ -6,6 +6,7 @@
 //
 
 #import "WMZBannerFlowLayout.h"
+
 @interface WMZBannerFlowLayout(){
     CGSize factItemSize;
 }
@@ -92,6 +93,7 @@
             CGFloat ratio = (maxDistance - distance1) / maxDistance;
             CGFloat alpha = ratio * (1 - self.param.wAlpha) +self.param.wAlpha;
             attributes.alpha = alpha;
+
         }
         if (self.param.wZindex) {
            attributes.zIndex = zoom*100;

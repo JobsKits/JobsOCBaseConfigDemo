@@ -30,7 +30,7 @@
         (self.deviceSystemVersion.intValue == 8) &&
         (self.deviceSystemVersion.floatValue < 8.3f)) {
         [self deleteBackward];
-    }return shouldDelete;
+    };return shouldDelete;
 }
 
 @end

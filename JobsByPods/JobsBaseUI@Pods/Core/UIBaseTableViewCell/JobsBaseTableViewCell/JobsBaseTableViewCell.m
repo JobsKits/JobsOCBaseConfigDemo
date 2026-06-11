@@ -38,7 +38,7 @@ AppToolsProtocol_synthesize
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleDefault];
             cell.settingForTableViewCell();
-        }return cell;
+        };return cell;
     };
 }
 /// UITableViewCellStyleValue1 ：左边显示图片的imageView和一个主标题textLabel，右边一个副标题detailTextLabel。
@@ -50,7 +50,7 @@ AppToolsProtocol_synthesize
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleValue1];
             cell.settingForTableViewCell();
-        }return cell;
+        };return cell;
     };
 }
 /// UITableViewCellStyleValue2 ：左边一个主标题textLabel字体偏小，右边一个副标题detailTextLabel。
@@ -62,7 +62,7 @@ AppToolsProtocol_synthesize
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleValue2];
             cell.settingForTableViewCell();
-        }return cell;
+        };return cell;
     };
 }
 /// UITableViewCellStyleSubtitle ：左边还是一个显示图片的imageView，不同的是上边有一个主标题textLabel和一个副标题detailTextLabel。主标题字体大且加黑，副标题字体小在主标题下边。
@@ -74,7 +74,7 @@ AppToolsProtocol_synthesize
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleSubtitle];
             cell.settingForTableViewCell();
-        }return cell;
+        };return cell;
     };
 }
 
@@ -84,10 +84,13 @@ AppToolsProtocol_synthesize
                     reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;// 取消点击效果 【不能在cellStyleValue1WithTableView里面写】
         /// 适配iOS 13夜间模式/深色外观(Dark Mode)
-        self.backgroundColor = JobsWhiteColor;
-        self.detailTextLabel.textColor = JobsBrownColor;
-        self.textLabel.textColor = JobsBlackColor;
-    }return self;
+        self.byBgColor(JobsWhiteColor);
+
+        self.detailTextLabel.byTextCor(JobsBrownColor);
+
+        self.textLabel.byTextCor(JobsBlackColor);
+
+    };return self;
 }
 /// UITableViewCell 的横向和纵向的缩进
 /// 在具体的子类，去覆盖-(void)setFrame:(CGRect)frame方法
@@ -192,21 +195,29 @@ AppToolsProtocol_synthesize
                 self.viewModel = model;
                 if(self.textLabel){
                     if (self.viewModel.textModel.attributedTitle) {
-                        self.textLabel.attributedText = self.viewModel.textModel.attributedTitle;
+                        self.textLabel.byAttributedString(self.viewModel.textModel.attributedTitle);
+
                     }else{
-                        self.textLabel.text = self.viewModel.textModel.text;
-                        self.textLabel.textColor = self.viewModel.textModel.textCor;
-                        self.textLabel.font = self.viewModel.textModel.font;
+                        self.textLabel.byText(self.viewModel.textModel.text);
+
+                        self.textLabel.byTextCor(self.viewModel.textModel.textCor);
+
+                        self.textLabel.byFont(self.viewModel.textModel.font);
+
                     }self.textLabel.numberOfLines = 0;
                 }
                 
                 if(self.detailTextLabel){
                     if (self.viewModel.subTextModel.attributedTitle) {
-                        self.detailTextLabel.attributedText = self.viewModel.subTextModel.attributedTitle;
+                        self.detailTextLabel.byAttributedString(self.viewModel.subTextModel.attributedTitle);
+
                     }else{
-                        self.detailTextLabel.text = self.viewModel.subTextModel.text;
-                        self.detailTextLabel.textColor = self.viewModel.subTextModel.textCor;
-                        self.detailTextLabel.font = self.viewModel.subTextModel.font;
+                        self.detailTextLabel.byText(self.viewModel.subTextModel.text);
+
+                        self.detailTextLabel.byTextCor(self.viewModel.subTextModel.textCor);
+
+                        self.detailTextLabel.byFont(self.viewModel.subTextModel.font);
+
                         self.detailTextLabel.width = UITableViewCellSubTitleWidth;
                         self.detailTextLabel.makeLabelByShowingType(UILabelShowingType_05);
                     }self.detailTextLabel.numberOfLines = 0;
@@ -216,27 +227,35 @@ AppToolsProtocol_synthesize
                 self.buttonModel = model;
                 if(self.textLabel){
                     if (self.buttonModel.attributedTitle) {
-                        self.textLabel.attributedText = self.buttonModel.attributedTitle;
+                        self.textLabel.byAttributedString(self.buttonModel.attributedTitle);
+
                     }else{
-                        self.textLabel.text = self.buttonModel.title;
-                        self.textLabel.textColor = self.buttonModel.titleCor;
-                        self.textLabel.font = self.buttonModel.titleFont;
+                        self.textLabel.byText(self.buttonModel.title);
+
+                        self.textLabel.byTextCor(self.buttonModel.titleCor);
+
+                        self.textLabel.byFont(self.buttonModel.titleFont);
+
                     }self.textLabel.numberOfLines = 0;
                 }
                 
                 if(self.detailTextLabel){
                     if (self.viewModel.subTextModel.attributedTitle) {
-                        self.detailTextLabel.attributedText = self.buttonModel.attributedTitle;
+                        self.detailTextLabel.byAttributedString(self.buttonModel.attributedTitle);
+
                     }else{
-                        self.detailTextLabel.text = self.buttonModel.subTitle;
-                        self.detailTextLabel.textColor = self.buttonModel.subTitleCor;
-                        self.detailTextLabel.font = self.buttonModel.subTitleFont;
+                        self.detailTextLabel.byText(self.buttonModel.subTitle);
+
+                        self.detailTextLabel.byTextCor(self.buttonModel.subTitleCor);
+
+                        self.detailTextLabel.byFont(self.buttonModel.subTitleFont);
+
                         self.detailTextLabel.width = UITableViewCellSubTitleWidth;
                         self.detailTextLabel.makeLabelByShowingType(UILabelShowingType_05);
                     }self.detailTextLabel.numberOfLines = 0;
                 }self.imageView.image = self.buttonModel.normalImage;
             }
-        }return self;
+        };return self;
     };
 }
 
@@ -272,7 +291,7 @@ AppToolsProtocol_synthesize
             return [vm.textModel.text jobsTextHeightWithFont:vm.textModel.font
                                                   lineHeight:vm.textModel.textLineSpacing
                                                 controlWidth:vm.jobsWidth].jobsHeight;
-        }return JobsWidth(50);/// 没有数据源传入的时候的缺省值
+        };return JobsWidth(50);/// 没有数据源传入的时候的缺省值
     };
 }
 

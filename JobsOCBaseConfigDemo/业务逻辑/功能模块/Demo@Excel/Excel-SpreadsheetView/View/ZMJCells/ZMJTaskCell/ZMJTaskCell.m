@@ -16,18 +16,19 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
         
-    }return self;
+    };return self;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.btn.alpha = 1;
+    self.btn.byAlpha(1);
+
 }
 
 @end

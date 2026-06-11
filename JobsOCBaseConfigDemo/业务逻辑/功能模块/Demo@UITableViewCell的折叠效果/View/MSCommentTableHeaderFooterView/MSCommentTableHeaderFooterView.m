@@ -17,7 +17,7 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 - (void)layoutSubviews {
@@ -40,9 +40,12 @@
         @jobs_strongify(self)
         if([model isKindOfClass:UIViewModel.class]){
             self.viewModel = model;
-            self.textLabel.text = self.viewModel.textModel.text;
-            self.textLabel.textColor = self.viewModel.textModel.textCor;
-            self.textLabel.font = self.viewModel.textModel.font;
+            self.textLabel.byText(self.viewModel.textModel.text);
+
+            self.textLabel.byTextCor(self.viewModel.textModel.textCor);
+
+            self.textLabel.byFont(self.viewModel.textModel.font);
+
         }
     };
 }

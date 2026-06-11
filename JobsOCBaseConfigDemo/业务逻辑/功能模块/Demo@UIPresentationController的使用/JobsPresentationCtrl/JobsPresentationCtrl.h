@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -34,7 +40,8 @@ UIViewControllerAnimatedTransitioning
      JobsPresentationCtrl *presentationController NS_VALID_UNTIL_END_OF_SCOPE;
      presentationController = [JobsPresentationCtrl.alloc initWithPresentedViewController:vc presentingViewController:self];
      vc.presentUpHeight = JobsWidth(200);
-     vc.view.backgroundColor = JobsRedColor;
+     vc.view.byBgColor(JobsRedColor);
+
      vc.transitioningDelegate = presentationController;
 
      [self presentViewController:vc animated:YES completion:NULL];

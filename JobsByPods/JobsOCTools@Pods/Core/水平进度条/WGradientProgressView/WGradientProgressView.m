@@ -20,7 +20,7 @@ static dispatch_once_t dispatchOnce;
 - (instancetype)init{
     if (self = [super init]) {
         dispatchOnce = 0;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -38,18 +38,18 @@ static dispatch_once_t dispatchOnce;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(self.titleStr);
-            label.byTextCor(self.titleColor);
-            label.byFont(self.titleFont);
-            [label sizeToFit];
-            if (self.img) {
-                [self.imgV addSubview:label];
-            }else self.addSubview(label);
+            UIView *containerView = self.img ? self.imgV : self;
+            label
+                .byText(self.titleStr)
+                .byTextCor(self.titleColor)
+                .byFont(self.titleFont);
+            label.bySizeToFit();
+            label.addOn(containerView);
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.center.equalTo(self);
+                make.center.equalTo(containerView);
             }];
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(UIImageView *)imgV{
@@ -57,30 +57,31 @@ static dispatch_once_t dispatchOnce;
         @jobs_weakify(self)
         _imgV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = self.img;
-            self.addSubview(imageView);
-            [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self);
-            }];
+            imageView
+                .byImage(self.img)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                });
         });
-    }return _imgV;
+    };return _imgV;
 }
 
 -(UIFont *)titleFont{
     if (!_titleFont) {
         _titleFont = UIFontWeightRegularSize(JobsWidth(6.5));
-    }return _titleFont;
+    };return _titleFont;
 }
 
 -(UIColor *)titleColor{
     if (!_titleColor) {
         _titleColor = JobsRedColor;
-    }return _titleColor;
+    };return _titleColor;
 }
 
 -(void)setTitleStr:(NSString *)titleStr{
     _titleStr = titleStr;
-    _titleLab.text = _titleStr;
+    _titleLab.byText(_titleStr);
 //    [self.titleLab sizeToFit];
 }
 

@@ -17,14 +17,16 @@ JobsKey(_backgroundLabel)
         @jobs_weakify(self)
         BackgroundLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byUserInteractionEnabled(YES);
-            self.addSubview(label);
+            label
+                .byUserInteractionEnabled(YES)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                });
             self.sendSubviewToBack(label);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self);
-            }];Jobs_setAssociatedRETAIN_NONATOMIC(_backgroundLabel, label)
         });
-    }return BackgroundLabel;
+        Jobs_setAssociatedRETAIN_NONATOMIC(_backgroundLabel, BackgroundLabel);
+    };return BackgroundLabel;
 }
 
 -(void)setBackgroundLabel:(UILabel *)backgroundLabel{

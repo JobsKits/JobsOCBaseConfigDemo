@@ -40,7 +40,7 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
         self.isSingle = YES;
         
         self.selectArr = [NSMutableArray array];
-    }return self;
+    };return self;
 }
 
 - (void)setBorderWidth:(CGFloat)borderWidth
@@ -80,7 +80,8 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
             btnY = btnY + self.marginY + self.btnHeight;
         }
         
-        btn.frame = CGRectMake(btnX, btnY, btnWidth, self.btnHeight);
+        btn.byFrame(CGRectMake(btnX, btnY, btnWidth, self.btnHeight));
+
         
         [btn setTitle:text forState:UIControlStateNormal];
         
@@ -95,7 +96,8 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
         
         [self unSelectBtn:btn];
         
-        btn.titleLabel.font = [UIFont systemFontOfSize:self.textFontSize];
+        btn.titleLabel.byFont([UIFont systemFontOfSize:self.textFontSize]);
+
         
         [self addSubview:btn];
         
@@ -173,7 +175,8 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
 - (void)selectBtn:(UIButton *)btn
 {
     if (self.selectBackgroundColor) {
-        btn.backgroundColor = self.selectBackgroundColor;
+        btn.byBgColor(self.selectBackgroundColor);
+
     }
     if (self.selectTextColor) {
         [btn setTitleColor:self.selectTextColor forState:UIControlStateNormal];
@@ -183,7 +186,8 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
 - (void)unSelectBtn:(UIButton *)btn
 {
     if (self.backgroundColor) {
-        btn.backgroundColor = self.backgroundColor;
+        btn.byBgColor(self.backgroundColor);
+
     }
     if (self.textColor) {
         [btn setTitleColor:self.textColor forState:UIControlStateNormal];

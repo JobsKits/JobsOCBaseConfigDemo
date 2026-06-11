@@ -11,7 +11,7 @@
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>                         // 用于嵌入和管理网页内容，例如加载和显示网页。
 #import <JobsCustomView/NSMutableArray+Extra.h>
-#import <JobsCustomView/WKWebView+Extra.h>
+#import <JobsBaseUI/WKWebView+Extra.h>
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_END
                      NSLog(@"获取 User-Agent 失败: %@", error.localizedDescription);
                  }
              }];
-         }return _webView;
+         };return _webView;
      }
  */
 #endif /* JOBS_HEADER_GUARD_NSOBJECT_HTML_E003C98DDC */

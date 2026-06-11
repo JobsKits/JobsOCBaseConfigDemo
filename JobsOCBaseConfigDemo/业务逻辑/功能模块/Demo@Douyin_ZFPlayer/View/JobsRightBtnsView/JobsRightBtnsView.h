@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "JobsCommentCoreVC.h"
 #import "JobsPresentationCtrl.h"
+#import "JobsShareView.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -33,10 +34,10 @@
 #import "JobsBaseUI.h"
 #endif
 
-#if __has_include(<JobsOCTools/JobsShareView.h>)
-#import <JobsOCTools/JobsShareView.h>
+#if __has_include(<JobsOCTools/JobsOCTools.h>)
+#import <JobsOCTools/JobsOCTools.h>
 #else
-#import "JobsShareView.h"
+#import "JobsOCTools.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
@@ -61,6 +62,12 @@
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

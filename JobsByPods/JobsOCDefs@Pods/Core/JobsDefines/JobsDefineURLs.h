@@ -57,7 +57,7 @@ NS_INLINE JobsNetworkingEnvir networkingEnvir(NSInteger data) {
         default:
             _networkingEnvir = JobsNetworkingEnvir_Undefined; // 未定义的网络环境
             break;
-    }return _networkingEnvir;
+    };return _networkingEnvir;
 }
 
 #endif /* JobsDefineURLs_h */

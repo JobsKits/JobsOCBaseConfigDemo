@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<SPAlertController/SPAlertController.h>)
 #import <SPAlertController/SPAlertController.h>
 #else
@@ -81,7 +87,8 @@ NS_ASSUME_NONNULL_END
              _channelBtn = UIButton.new;
              [_channelBtn setTitle:@"渠道切换点我就行" forState:UIControlStateNormal];
              [_channelBtn setTitleColor:JobsRedColor forState:UIControlStateNormal];
-             _channelBtn.backgroundColor = JobsYellowColor;
+             _channelBtn.byBgColor(JobsYellowColor);
+
              @jobs_weakify(self)
              [[_channelBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIButton * _Nullable x) {
                  @jobs_strongify(self)
@@ -133,7 +140,7 @@ NS_ASSUME_NONNULL_END
 
                     } completionBlock:nil];
              }];
-         }return _channelBtn;
+         };return _channelBtn;
      }
  */
 

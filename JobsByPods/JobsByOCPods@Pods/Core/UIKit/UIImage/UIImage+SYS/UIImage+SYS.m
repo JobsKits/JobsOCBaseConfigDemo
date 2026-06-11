@@ -24,20 +24,20 @@
             image = [UIImage imageNamed:@"nodata"];//替换图片 保证一定要有
             if (!image) {
                 image = nil;
-            }return image;
+            };return image;
         };
         JobsRetIDByIDBlock UIImageBlock_1 = ^UIImage *(NSString *name){//name 在这里一定不为空 过滤条件在上一层
             image = [UIImage imageNamed:name];
             if (!image) {
                 JobsLog(@"缺失的图片资源名:%@",name);
                 if (UIImageBlock_2) UIImageBlock_2();
-            }return image;
+            };return image;
         };
         if (isNull(name)) {
             if (UIImageBlock_2) return UIImageBlock_2();
         }else{
             if (UIImageBlock_1) return UIImageBlock_1(name);
-        }return nil;
+        };return nil;
     };
 }
 /// 替换系统的 imageWithData 方法

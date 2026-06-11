@@ -9,6 +9,12 @@
 #import <JobsOCTools/JobsAppDoorConfig.h>
 #import <JobsOCTools/JobsAppDoorInputViewBaseStyle.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
@@ -79,16 +85,16 @@ NS_ASSUME_NONNULL_END
                  _inputView.style_5 = InputViewStyle_5_2;
              }
 
-             [self.contentView addSubview:_inputView];
-             [_inputView mas_makeConstraints:^(MASConstraintMaker *make) {
+             _inputView.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
                  make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, JobsWidth(16), 0, JobsWidth(-16)));
-             }];
+             });
+
              _inputView.jobsRichViewByModel(self.inputViewStyleModel);
              @jobs_weakify(self)
              [_inputView actionObjBlock:^(id data) {
                  @jobs_strongify(self)
              }];
-         }return _inputView;
+         };return _inputView;
      }
 
      -(JobsAppDoorInputViewBaseStyleModel *)inputViewStyleModel{
@@ -101,6 +107,6 @@ NS_ASSUME_NONNULL_END
              _inputViewStyleModel.offset = 0.1;
              _inputViewStyleModel.titleStrCor = self.viewModel.textModel.textCor;
              _inputViewStyleModel.ZYtextColor = self.viewModel.subTextModel.textCor ? : JobsLightGrayColor;
-         }return _inputViewStyleModel;
+         };return _inputViewStyleModel;
      }
  */

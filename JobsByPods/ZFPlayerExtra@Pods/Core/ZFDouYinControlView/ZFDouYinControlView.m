@@ -22,7 +22,7 @@ Prop_strong()ZFSliderView *sliderView;
         [self addSubview:self.playBtn];
         [self addSubview:self.sliderView];
         [self resetControlView];
-    }return self;
+    };return self;
 }
 
 - (void)layoutSubviews {
@@ -37,6 +37,7 @@ Prop_strong()ZFSliderView *sliderView;
     min_w = 100;
     min_h = 100;
     self.playBtn.frame = CGRectMake(min_x, min_y, min_w, min_h);
+
     self.playBtn.center = self.center;
     
     min_x = 0;
@@ -44,10 +45,12 @@ Prop_strong()ZFSliderView *sliderView;
     min_w = min_view_w;
     min_h = 1;
     self.sliderView.frame = CGRectMake(min_x, min_y, min_w, min_h);
+
 }
 
 - (void)resetControlView {
     self.playBtn.hidden = YES;
+
     self.sliderView.value = 0;
     self.sliderView.bufferValue = 0;
 }
@@ -73,6 +76,7 @@ Prop_strong()ZFSliderView *sliderView;
     if (self.player.currentPlayerManager.isPlaying) {
         [self.player.currentPlayerManager pause];
         self.playBtn.hidden = NO;
+
         self.playBtn.transform = CGAffineTransformMakeScale(1.5f, 1.5f);
         __weak typeof(self) weakSelf = self;
         [UIView animateWithDuration:0.2f
@@ -85,6 +89,7 @@ Prop_strong()ZFSliderView *sliderView;
     } else {
         [self.player.currentPlayerManager play];
         self.playBtn.hidden = YES;
+
     }
 }
 
@@ -103,7 +108,7 @@ Prop_strong()ZFSliderView *sliderView;
         _playBtn.userInteractionEnabled = NO;
         [_playBtn setImage:[UIImage imageNamed:@"icon_play_pause"]
                   forState:UIControlStateNormal];
-    }return _playBtn;
+    };return _playBtn;
 }
 
 - (ZFSliderView *)sliderView {
@@ -114,7 +119,7 @@ Prop_strong()ZFSliderView *sliderView;
         _sliderView.bufferTrackTintColor  = [UIColor clearColor];
         _sliderView.sliderHeight = 1;
         _sliderView.isHideSliderBlock = NO;
-    }return _sliderView;
+    };return _sliderView;
 }
 
 @end

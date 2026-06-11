@@ -162,7 +162,7 @@ Prop_copy()_FDViewControllerWillAppearInjectBlock fd_willAppearInjectBlock;
                                  _cmd,
                                  delegate,
                                  OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }return delegate;
+    };return delegate;
 }
 
 - (BOOL)fd_viewControllerBasedNavigationBarAppearanceEnabled{

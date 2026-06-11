@@ -124,8 +124,10 @@
         appToolsSelf.setGKNavBackBtn(nil);
         if(self.leftBarButtonItems.count) self.gk_navLeftBarButtonItems = self.leftBarButtonItems;
         if(self.rightBarButtonItems.count) self.gk_navRightBarButtonItems = self.rightBarButtonItems;
-        self.gk_navigationBar.hidden = !data;
-        self.gk_navigationBar.alpha = data;
+        self.gk_navigationBar.byHidden(!data);
+
+        self.gk_navigationBar.byAlpha(data);
+
     };
 }
 

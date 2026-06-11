@@ -35,15 +35,16 @@ static dispatch_once_t static_showNumViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsClearColor;
+        self.byBgColor(JobsClearColor);
+
 //        self.backgroundImageView.image = @"弹框样式_03背景图".img;
-    }return self;
+    };return self;
 }
 /// 初始化的时候最好传入一个size值将其子视图的大小固定死。因为只有当父视图有Size的情况下子视图才会展开，从而避免刷新约束时候的一系列麻烦事。
 -(instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.thisViewSize = thisViewSize;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -83,7 +84,7 @@ static dispatch_once_t static_showNumViewOnceToken;
                 if (self.objBlock) self.objBlock(x);
             });
 
-            [self.addSubview(btn) mas_makeConstraints:^(MASConstraintMaker *make) {
+            btn.byAddTo(self, ^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(btnSize);
                 make.centerY.equalTo(self);
                 if (self.btnMutArr.count) {
@@ -92,7 +93,7 @@ static dispatch_once_t static_showNumViewOnceToken;
                 }else{
                     make.left.equalTo(self).offset(model.jobsLeft);
                 }
-            }];
+            });
             
             self.btnMutArr.add(btn);
         }
@@ -108,7 +109,7 @@ static dispatch_once_t static_showNumViewOnceToken;
 -(NSMutableArray<UIButton *> *)btnMutArr{
     if (!_btnMutArr) {
         _btnMutArr = NSMutableArray.array;
-    }return _btnMutArr;
+    };return _btnMutArr;
 }
 
 @end

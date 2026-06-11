@@ -16,8 +16,8 @@ Prop_strong()BaiShaETProjPopupView10 *popupView;
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*titleMutArr;
 Prop_strong()NSMutableArray <UIViewModel *>*popupViewDataMutArr;
-Prop_strong()NSMutableArray <GoodsClassModel *>*leftDataArray;/// 左边的数据源
-Prop_strong()NSMutableArray <GoodsClassModel *>*rightDataArray;/// 右边的数据源
+Prop_strong()NSMutableArray <GoodsClassModel *>*leftDataArray;// 左边的数据源
+Prop_strong()NSMutableArray <GoodsClassModel *>*rightDataArray;// 右边的数据源
 Prop_strong()GoodsClassModel *rightViewCurrentSelectModel;
 Prop_strong()UIViewModel *leftViewCurrentSelectModel;
 Prop_strong()NSMutableArray <UIButtonModel *>*cellDataMutArr;
@@ -84,10 +84,9 @@ Prop_assign()NSUInteger thisIndex;
                                         })));
     });
     self.makeNavByAlpha(1);
-    
-    self.searchView.alpha = 1;
+    self.searchView.byAlpha(1);
     self.tableView.byShow(self);
-    self.editBtn.alpha = 1;
+    self.editBtn.byAlpha(1);
     self.collectionView.byShow(self);
     self.refreshLeftView();
     [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionMiddle animated:YES];
@@ -360,10 +359,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 @jobs_strongify(self)
                 label
                     .byTextCor(JobsGrayColor)
-                    .byFont(JobsFontBold(JobsWidth(12)))
-                    .byFrame(CGRectMake(10,20,headerView.width - 20.f,17.f))
-                    .byTag(666)
-                    .addOn(headerView);
+                    .byFont(JobsFontBold(JobsWidth(12)));
+                label.byFrame(CGRectMake(10,20,headerView.width - 20.f,17.f));
+                label.byTag(666);
+                label.addOn(headerView);
             });
         }
 
@@ -374,7 +373,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }else if (kind.isEqualToString(UICollectionElementKindSectionFooter)){
         /// 底部视图
         return [collectionView UICollectionElementKindSectionFooterClass:UICollectionReusableView.class forIndexPath:indexPath];
-    }return nil;
+    };return nil;
 }
 
 - (CGSize)collectionView:(__kindof UICollectionView *)collectionView
@@ -406,12 +405,12 @@ referenceSizeForFooterInSection:(NSInteger)section{
             tableView
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .byShowsVerticalScrollIndicator(NO)
-                .byBounces(NO)
-                .byBgColor(JobsClearColor)
-                .byFrame(CGRectMake(0,JobsTopSafeAreaHeight() + JobsStatusBarHeight() + self.gk_navigationBar.mj_h,
-                                    TableViewWidth,JobsMainScreen_HEIGHT() - JobsTopSafeAreaHeight() - JobsStatusBarHeight() - JobsTabBarHeight(AppDelegate.tabBarVC) - EditBtnHeight));
+                .byBounces(NO);
+            tableView.byBgColor(JobsClearColor);
+            tableView.byFrame(CGRectMake(0,JobsTopSafeAreaHeight() + JobsStatusBarHeight() + self.gk_navigationBar.mj_h,
+                                         TableViewWidth,JobsMainScreen_HEIGHT() - JobsTopSafeAreaHeight() - JobsStatusBarHeight() - JobsTabBarHeight(AppDelegate.tabBarVC) - EditBtnHeight));
         }));
-    }return _tableView;
+    };return _tableView;
 }
 /// BaseViewProtocol
 @synthesize collectionView = _collectionView;
@@ -423,24 +422,25 @@ referenceSizeForFooterInSection:(NSInteger)section{
 //            .registerCollectionViewCellClass(ThreeClassCell.class,@"")
 //            .registerCollectionElementKindSectionHeaderClass(UICollectionReusableView.class,@"")
 //            .registerCollectionElementKindSectionFooterClass(UICollectionReusableView.class,@"")
-            .byAlwaysBounceVertical(YES)
-            .byFrame(CGRectMake(self.tableView.right,self.tableView.top,
-                                JobsMainScreen_WIDTH() - self.tableView.width,self.tableView.height + EditBtnHeight))
-            .byBgColor(JobsRandomColor)
-            .addOn(self.view);
-    }return _collectionView;
+            .byAlwaysBounceVertical(YES);
+        _collectionView.byFrame(CGRectMake(self.tableView.right,self.tableView.top,
+                                           JobsMainScreen_WIDTH() - self.tableView.width,self.tableView.height + EditBtnHeight));
+        _collectionView.byBgColor(JobsRandomColor);
+        _collectionView.addOn(self.view);
+    };return _collectionView;
 }
 
 -(ThreeClassCell *)tempCell{
     if (!_tempCell){
         _tempCell = jobsMakeThreeClassCell(^(__kindof ThreeClassCell * _Nullable cell) {
-            cell.backgroundColor = JobsRedColor;
+            cell.byBgColor(JobsRedColor);
+
             cell.frame = CGRectMake(0,
                                     0,
                                     ThreeClassCell.cellSizeByModel(nil).width,
                                     ThreeClassCell.cellSizeByModel(nil).height);
         });
-    }return _tempCell;
+    };return _tempCell;
 }
 
 -(JobsSearchBar *)searchView{
@@ -484,7 +484,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
 //                }
 //            }];
         });
-    }return _searchView;
+    };return _searchView;
 }
 
 -(BaseButton *)editBtn{
@@ -518,7 +518,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 make.top.equalTo(self.tableView.mas_bottom);
                 make.size.mas_equalTo(CGSizeMake(TableViewWidth, EditBtnHeight));
             });
-    }return _editBtn;
+    };return _editBtn;
 }
 
 -(NSMutableArray<UIButtonModel *> *)cellDataMutArr{
@@ -529,7 +529,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
             @jobs_strongify(self)
             self.makeCellData(arr);
         });
-    }return _cellDataMutArr;
+    };return _cellDataMutArr;
 }
 
 -(BaiShaETProjPopupView10 *)popupView{
@@ -596,31 +596,31 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 .add(@"EVO")
                 .add(@"CQ9");
         });
-    }return _cellTitleMutArr;
+    };return _cellTitleMutArr;
 }
 
 -(NSMutableArray<UIViewModel *> *)popupViewDataMutArr{
     if (!_popupViewDataMutArr) {
         _popupViewDataMutArr = self.makePopViewDataMutArr;
-    }return _popupViewDataMutArr;
+    };return _popupViewDataMutArr;
 }
 
 -(NSMutableArray<UIViewModel *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = self.makeTitleMutArr;
-    }return _titleMutArr;
+    };return _titleMutArr;
 }
 
 -(NSMutableArray<GoodsClassModel *> *)leftDataArray{
     if (!_leftDataArray) {
         _leftDataArray = NSMutableArray.array;
-    }return _leftDataArray;
+    };return _leftDataArray;
 }
 
 -(NSMutableArray<GoodsClassModel *> *)rightDataArray{
     if (!_rightDataArray) {
         _rightDataArray = NSMutableArray.array;
-    }return _rightDataArray;
+    };return _rightDataArray;
 }
 
 @end

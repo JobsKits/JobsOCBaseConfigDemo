@@ -41,7 +41,7 @@ static AppLanguage _language = AppLanguageBySys;
 +(NSBundle *_Nullable)bundle{
     if (!bundle) {
         [self setLanguage:JobsGetUserDefaultIntegerForKey(JobsLanguageKey)];
-    }return bundle;
+    };return bundle;
 }
 /// 通过key取值对应的语言
 +(JobsRetStrByStrBlock _Nonnull)localStringByKey{

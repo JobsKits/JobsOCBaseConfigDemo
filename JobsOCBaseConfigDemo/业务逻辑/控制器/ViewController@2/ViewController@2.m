@@ -21,7 +21,7 @@
 - (instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -53,13 +53,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsGreenColor;
+    self.view.byBgColor(JobsGreenColor);
     self.makeNavByAlpha(1);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.gk_navigationBar.hidden = YES;
+    self.gk_navigationBar.byHidden(YES);
 }
 
 -(void)viewDidAppear:(BOOL)animated{

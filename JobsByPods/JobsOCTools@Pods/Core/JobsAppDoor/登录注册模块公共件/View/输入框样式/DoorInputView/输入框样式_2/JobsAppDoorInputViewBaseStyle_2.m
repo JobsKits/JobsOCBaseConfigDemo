@@ -7,12 +7,6 @@
 
 #import "JobsAppDoorInputViewBaseStyle_2.h"
 
-#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
-#import <JobsModelDSL/JobsModelDSL.h>
-#else
-#import "JobsModelDSL.h"
-#endif
-
 @interface JobsAppDoorInputViewBaseStyle_2 ()
 /// UI
 Prop_strong()ImageCodeView *imageCodeView;
@@ -30,7 +24,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             data.byJobsWidth(1)
                 .byLayerCor(JobsWhiteColor);
         }));
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -41,7 +35,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             data.byJobsWidth(1)
                 .byLayerCor(JobsWhiteColor);
         }));
-    }return self;
+    };return self;
 }
 
 -(void)layoutSubviews{
@@ -57,11 +51,16 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 -(void)configTextField{
     _magicTextField.leftView = [UIImageView.alloc initWithImage:self.doorInputViewBaseStyleModel.leftViewIMG];
     _magicTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
-    _magicTextField.returnKeyType = self.doorInputViewBaseStyleModel.returnKeyType;
-    _magicTextField.keyboardAppearance = self.doorInputViewBaseStyleModel.keyboardAppearance;
-    _magicTextField.placeholder = self.doorInputViewBaseStyleModel.placeholder;
-    _magicTextField.keyboardType = self.doorInputViewBaseStyleModel.keyboardType;
-    _magicTextField.textColor = self.doorInputViewBaseStyleModel.titleStrCor;
+    _magicTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
+
+    _magicTextField.byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance);
+
+    _magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
+
+    _magicTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
+
+    _magicTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
+
     _magicTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
     _magicTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
     _magicTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量
@@ -103,8 +102,10 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     return ^(JobsAppDoorInputViewBaseStyleModel *_Nullable doorInputViewBaseStyleModel) {
         @jobs_strongify(self)
         self.doorInputViewBaseStyleModel = doorInputViewBaseStyleModel;
-        self.imageCodeView.alpha = 1;
-        self.textField.alpha = 1;
+        self.imageCodeView.byAlpha(1);
+
+        self.textField.byAlpha(1);
+
         [self configTextField];
     };
 }
@@ -125,14 +126,15 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     if (!_imageCodeView) {
         _imageCodeView = ImageCodeView.new;
         _imageCodeView.font = JobsFontRegular(16);
-        _imageCodeView.alpha = 0.7;
+        _imageCodeView.byAlpha(0.7);
+
         _imageCodeView.bgColor = JobsWhiteColor;
-        [self.addSubview(_imageCodeView) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _imageCodeView.byAddTo(self, ^(MASConstraintMaker *make) {
             make.top.bottom.equalTo(self);
             make.right.equalTo(self);
             make.width.mas_equalTo(80);
-        }];
-    }return _imageCodeView;
+        });
+    };return _imageCodeView;
 }
 @synthesize magicTextField = _magicTextField;
 -(JobsMagicTextField *)magicTextField{
@@ -140,7 +142,8 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         @jobs_weakify(self)
         _magicTextField = jobsMakeMagicTextField(^(__kindof JobsMagicTextField * _Nullable textField) {
             @jobs_strongify(self)
-            textField.delegate = self;
+            textField.byDelegate(self);
+
             [textField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
                 @jobs_strongify(self)
                 return self.retBoolByIDBlock ? self.retBoolByIDBlock(data) : YES;
@@ -149,12 +152,12 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 JobsLog(@"MMM = %@",x);
                 [self block:textField value:x];
             }];
-            [self.addSubview(textField) mas_makeConstraints:^(MASConstraintMaker *make) {
+            textField.byAddTo(self, ^(MASConstraintMaker *make) {
                 make.left.top.bottom.equalTo(self);
                 make.right.equalTo(self.imageCodeView.mas_left);
-            }];
+            });
         });
-    }return _magicTextField;
+    };return _magicTextField;
 }
 
 @end

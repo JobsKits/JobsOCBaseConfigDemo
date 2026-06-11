@@ -96,7 +96,7 @@ AppToolsProtocol_synthesize
                 self.textView.textColor = self.buttonModel.titleCor;
                 self.textView.font = self.buttonModel.titleFont;
             }if(!self.buttonModel.highlightImage) self.buttonModel.highlightImage = self.buttonModel.normalImage;
-        }return self;
+        };return self;
     };
 }
 /// 具体由子类进行复写【数据定高】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -164,7 +164,7 @@ AppToolsProtocol_synthesize
                                                   make.left.equalTo(self.contentView).offset(JobsWidth(13));
                                                   make.top.equalTo(self.contentView);
                                               });
-    }return _button;
+    };return _button;
 }
 /// 如果需要用其他的自定义的TextView，继承此类并重写-(JobsReturnCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy;
 -(__kindof BaseTextView *)textView{
@@ -179,7 +179,7 @@ AppToolsProtocol_synthesize
             textView.selectable = YES; /// 允许选择链接
             textView.linkTextAttributes = self.makeLinkTextAttributes;
         })).byAdd(self.masonryBlock);
-    }return _textView;
+    };return _textView;
 }
 
 -(__kindof SZTextView *)szTextView{
@@ -189,7 +189,8 @@ AppToolsProtocol_synthesize
             @jobs_strongify(self)
             textView.delegate = self;
             textView.textColor = JobsBlackColor;
-            textView.backgroundColor = @"#F9F9F9".cor;
+            textView.byBgColor(@"#F9F9F9".cor);
+
             textView.returnKeyType = UIReturnKeyDefault;
             textView.keyboardAppearance = UIKeyboardAppearanceDefault;
             textView.keyboardType = UIKeyboardTypeNumberPad;
@@ -204,7 +205,7 @@ AppToolsProtocol_synthesize
 //                @jobs_strongify(self)
             }];
         })).byAdd(self.masonryBlock);
-    }return _textView;
+    };return _textView;
 }
 
 -(__kindof JobsTextView *)jobsTextView{
@@ -214,7 +215,8 @@ AppToolsProtocol_synthesize
             @jobs_strongify(self)
             textView.szTextView.delegate = self;
             textView.szTextView.textColor = JobsBlackColor;
-            textView.backgroundColor = @"#F9F9F9".cor;
+            textView.byBgColor(@"#F9F9F9".cor);
+
             textView.returnKeyType_ = UIReturnKeyDefault;
             textView.keyboardAppearance_ = UIKeyboardAppearanceDefault;
             textView.keyboardType_ = UIKeyboardTypeNumberPad;
@@ -229,7 +231,7 @@ AppToolsProtocol_synthesize
 //                @jobs_strongify(self)
             }];
         })).byAdd(self.masonryBlock);
-    }return _jobsTextView;
+    };return _jobsTextView;
 }
 
 -(jobsByMASConstraintMakerBlock _Nullable)masonryBlock{

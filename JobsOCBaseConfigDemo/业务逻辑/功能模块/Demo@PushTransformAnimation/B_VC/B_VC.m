@@ -40,10 +40,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsYellowColor;
+    self.view.byBgColor(JobsYellowColor);
+
     self.makeNavByAlpha(1);
     
-    self.imageView.alpha = 1;
+    self.imageView.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -60,7 +62,7 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 }
-#pragma mark - UINavigationControllerDelegate
+#pragma mark —— UINavigationControllerDelegate
 - (nullable id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
                                             animationControllerForOperation:(UINavigationControllerOperation)operation
                                                          fromViewController:(UIViewController *)fromVC
@@ -72,14 +74,16 @@
 -(UIImageView *)imageView{
     if (!_imageView) {
         @jobs_weakify(self)
-        _imageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+        _imageView = jobsMakeImageView(^(__kindof UIImageView *_Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = self.viewModel.image;
-            [self.view.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(10);
-                make.left.equalTo(self.view).offset(10);
-                make.size.mas_equalTo(CGSizeMake(300, 300));
-            }];
+            imageView
+                .byImage(self.viewModel.image)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(10);
+                    make.left.equalTo(self.view).offset(10);
+                    make.size.mas_equalTo(CGSizeMake(300, 300));
+                });
         });
     }return _imageView;
 }

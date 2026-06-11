@@ -12,6 +12,12 @@
 #import <JobsBaseUI/UIView+Extra.h>
 #import <JobsBaseUI/BaseLabel.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
@@ -71,16 +77,20 @@ NS_ASSUME_NONNULL_END
              _titleLab = JobsBaseLabel.new;
              _titleLab.jobsRichViewByModel(nil);
              _titleLab.getLabel.offsetY = JobsWidth(-2);
-             _titleLab.getLabel.textColor = JobsWhiteColor;
-             _titleLab.getLabel.font = UIFontWeightRegularSize(12);
-             _titleLab.getLabel.textAlignment = NSTextAlignmentCenter;
-             [self.contentView addSubview:_titleLab];
-             [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+             _titleLab.getLabel.byTextCor(JobsWhiteColor);
+
+             _titleLab.getLabel.byFont(UIFontWeightRegularSize(12));
+
+             _titleLab.getLabel.byTextAlignment(NSTextAlignmentCenter);
+
+             _titleLab.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
                  make.top.left.equalTo(self.contentView);
                  make.height.mas_equalTo(JobsWidth(26));
-             }];
+             });
+
          }
-         _titleLab.getLabel.text = @" 真人           ".tr;
+         _titleLab.getLabel.byText(@" 真人           ".tr);
+
          _titleLab.getBgImageView.image = @"优惠活动背景图_真人".img
 
          _titleLab.getLabel.makeLabelByShowingType(UILabelShowingType_03);

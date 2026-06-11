@@ -150,13 +150,13 @@ Prop_assign()CGFloat contentHeight;
 -(NSMutableArray<UICollectionViewLayoutAttributes *> *)attrsArr{
     if (!_attrsArr) {
         _attrsArr = NSMutableArray.array;
-    }return _attrsArr;
+    };return _attrsArr;
 }
 
 -(NSMutableArray<NSNumber *> *)columnHeights{
     if (!_columnHeights) {
         _columnHeights = NSMutableArray.array;
-    }return _columnHeights;
+    };return _columnHeights;
 }
 
 @end

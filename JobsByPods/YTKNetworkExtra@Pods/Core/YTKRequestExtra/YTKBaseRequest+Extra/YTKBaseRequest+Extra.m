@@ -27,7 +27,7 @@
         YTKBaseRequest *instance = self.class.new;
         if ([instance respondsToSelector:@selector(byURLParameters)]) {
             instance.byURLParameters(data);
-        }return instance;
+        };return instance;
     };
 }
 
@@ -47,7 +47,7 @@
         YTKBaseRequest *instance = self.class.new;
         if ([instance respondsToSelector:@selector(byBodyParameters)]) {
             instance.byBodyParameters(data);
-        }return instance;
+        };return instance;
     };
 }
 
@@ -67,7 +67,7 @@
         YTKBaseRequest *instance = self.class.new;
         if ([instance respondsToSelector:@selector(byHeaderParameters)]) {
             instance.byHeaderParameters(data);
-        }return instance;
+        };return instance;
     };
 }
 
@@ -90,7 +90,7 @@ JobsKey(_responseModel)
             ResponseModel = JobsResponseModel.byData(self.responseObject);
             Jobs_setAssociatedRETAIN_NONATOMIC(_responseModel, ResponseModel);
         }
-    }return ResponseModel;
+    };return ResponseModel;
 }
 
 -(void)setResponseModel:(JobsResponseModel *)responseModel{

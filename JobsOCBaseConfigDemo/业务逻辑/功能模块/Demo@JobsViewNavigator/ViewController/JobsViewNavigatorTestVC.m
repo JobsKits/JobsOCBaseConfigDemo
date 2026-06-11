@@ -47,10 +47,12 @@ Prop_strong()BaseButton *btn;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
-    self.btn.alpha = 1;
+    self.btn.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -126,22 +128,24 @@ Prop_strong()BaseButton *btn;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        [self.view addSubview:_btn];
-        [_btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        _btn.byAddTo(self.view, ^(MASConstraintMaker *make) {
             make.center.equalTo(self.view);
             make.height.mas_equalTo(JobsWidth(30));
-        }];
+        });
+
         _btn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _btn;
+    };return _btn;
 }
 
 -(JobsPushView *)pushView{
     if(!_pushView){
         _pushView = JobsPushView.new;
-        _pushView.frame = self.view.bounds;
-        _pushView.backgroundColor = JobsRandomColor;
+        _pushView.byFrame(self.view.bounds);
+
+        _pushView.byBgColor(JobsRandomColor);
+
         _pushView.jobsRichViewByModel(nil);
-    }return _pushView;
+    };return _pushView;
 }
 
 @end

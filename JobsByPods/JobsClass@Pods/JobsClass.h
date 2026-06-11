@@ -10,10 +10,6 @@
 
 #import <Foundation/Foundation.h>
 
-#if __has_include(<JobsClass/NSObject+Class.h>)
-#import <JobsClass/NSObject+Class.h>
-#else
 #import "NSObject+Class.h"
-#endif
 
 #endif /* JOBS_HEADER_GUARD_JOBSCLASS_55BD1913F1 */

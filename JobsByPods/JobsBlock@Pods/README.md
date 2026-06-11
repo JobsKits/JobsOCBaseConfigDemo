@@ -25,7 +25,7 @@
 | ---- | ---- |
 | Pod 名称 | `JobsBlock` |
 | Pod 类型 | 自建本地 Pod |
-| 版本 | `1.0.0` |
+| 版本 | `1.0.1` |
 | 平台 | `ios 12.0` |
 | 摘要 | Objective-C block type definitions for Jobs projects. |
 | 首页 | [https://example.local/JobsBlock](https://example.local/JobsBlock) |
@@ -68,6 +68,11 @@ JobsBlock@Pods/
 
 - `Core/**/*.h`
 
+- `Core/确定参数的Block/ReturnByCertainParametersBlock.h` 集中维护带返回值的确定参数 Block，`UITextView`、`UIBezierPath / CALayer / UIView` 方法型 DSL 相关返回类型统一从这里暴露。
+- `JobsOCDSL` 新增系统类 DSL 时，所需 `JobsRet<Class>By<Type>Block` 统一先在 `ReturnByCertainParametersBlock.h` 查找；缺失时补在这里，避免 DSL 头文件私自定义 Block。
+- `HXPhotoPickerObjC` 相关 DSL 需要的 `HXPhotoView`、`HXPhotoManager`、`HXPhotoConfiguration` Block 别名统一在 `JobsBlock.h` 暴露，协议 / 类向前声明集中放在 `JobsBlockHeader.h`。
+- `JobsBlockHeader.h` 集中维护向前声明，避免 `@class` / `@protocol` 分散在业务头文件中。
+
 ### 5.2、源码入口
 
 - `Core/**/*.{h,m,mm}`
@@ -81,6 +86,8 @@ JobsBlock@Pods/
 - `Foundation`
 - `UIKit`
 - `MessageUI`
+- `QuartzCore`
+- `Metal`
 
 ### 5.5、Pod 依赖
 
@@ -136,3 +143,5 @@ pod install --no-repo-update
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>
+
+- QuartzCore 子类 DSL 已同步补齐返回当前子类类型的通用 Block typedef，避免链式调用中从 CAShapeLayer/CAGradientLayer 等降级为 CALayer。

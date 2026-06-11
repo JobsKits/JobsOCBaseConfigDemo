@@ -17,7 +17,7 @@ Prop_strong()SlideToUnlockView *slideView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsBlueColor;
+    self.view.byBgColor(JobsBlueColor);
     self.slideView.byVisible(YES);
 }
 
@@ -25,7 +25,7 @@ Prop_strong()SlideToUnlockView *slideView;
     if (!_slideView) {
         @jobs_weakify(self)
         _slideView = jobsMakeSlideToUnlockView(^(__kindof SlideToUnlockView * _Nullable view) {
-            view.backgroundColor = JobsClearColor;
+            view.byBgColor(JobsClearColor);
             view.byOnUnlock(^{
                 @jobs_strongify(self)
                 NSLog(@"✅ 已滑到最右侧，执行解锁 block");
@@ -39,7 +39,7 @@ Prop_strong()SlideToUnlockView *slideView;
                 make.height.mas_equalTo(56);
             });
         });
-    }return _slideView;
+    };return _slideView;
 }
 
 @end

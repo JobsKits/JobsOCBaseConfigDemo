@@ -51,7 +51,7 @@
         @jobs_strongify(self)
         if (model.isKindOfClass(UIViewModel.class)) {
             /// self.contentView.backgroundColor = JobsCyanColor; 这样设置无效
-            self.backgroundView.backgroundColor = JobsCyanColor;
+            self.backgroundView.byBgColor(JobsCyanColor);
         }
     };
 }

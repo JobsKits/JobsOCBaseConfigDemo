@@ -15,21 +15,21 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
-        self.label.alpha = 1;
-        self.sortArrow.alpha = 1;
-    }return self;
+        self.label.byAlpha(1);
+        self.sortArrow.byAlpha(1);
+    };return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.label.alpha = 1;
-        self.sortArrow.alpha = 1;
-    }return self;
+        self.label.byAlpha(1);
+        self.sortArrow.byAlpha(1);
+    };return self;
 }
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
-    self.label.frame = CGRectInset(self.bounds, 4, 2);
+    self.label.byFrame(CGRectInset(self.bounds, 4, 2));
 }
 
 - (void)layoutSubviews {
@@ -38,7 +38,8 @@
     CGRect frame = self.sortArrow.frame;
     frame.origin.x = self.frame.size.width - self.sortArrow.frame.size.width - 8;
     frame.origin.y = (self.frame.size.height - self.sortArrow.frame.size.height) / 2;
-    self.sortArrow.frame = frame;
+    self.sortArrow.byFrame(frame);
+
 }
 #pragma mark —— lazyLoad
 @synthesize label = _label;
@@ -47,14 +48,14 @@
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byFrame(self.bounds);
-            label.byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-            label.byFont(UIFontWeightBoldSize(JobsWidth(14)));
-            label.byTextAlignment(NSTextAlignmentCenter);
-            label.byNumberOfLines(2);
-            self.contentView.addSubview(label);
+            label.byFont(UIFontWeightBoldSize(JobsWidth(14)))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byNumberOfLines(2)
+                .byFrame(self.bounds)
+                .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
+                .addOn(self.contentView);
         });
-    }return _label;
+    };return _label;
 }
 
 -(UILabel *)sortArrow{
@@ -62,13 +63,14 @@
         @jobs_weakify(self)
         _sortArrow = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"");
-//            label.backgroundColor = JobsRedColor;
-            label.byFont([UIFont boldSystemFontOfSize:14]);
-            label.byTextAlignment(NSTextAlignmentCenter);
-            self.contentView.addSubview(label);
+            label
+                .byText(@"")
+                .byFont([UIFont boldSystemFontOfSize:14])
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byBgColor(JobsRedColor)
+                .addOn(self.contentView);
         });
-    }return _sortArrow;
+    };return _sortArrow;
 }
 
 @end

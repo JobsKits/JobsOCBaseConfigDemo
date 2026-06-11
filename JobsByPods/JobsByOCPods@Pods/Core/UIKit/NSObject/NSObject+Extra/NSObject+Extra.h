@@ -145,6 +145,12 @@ NS_INLINE NSObject *_Nullable JobsByOCPodsIDToObject(id _Nullable data){
     }else return nil;
 }
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 @interface NSObject (Extra)
 <
 AppToolsProtocol

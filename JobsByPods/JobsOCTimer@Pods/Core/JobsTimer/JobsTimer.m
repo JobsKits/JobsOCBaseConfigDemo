@@ -55,12 +55,12 @@ static void JobsTimerRunLoopTimerCallback(CFRunLoopTimerRef timer, void *info) {
 }
 
 @implementation JobsTimer
-#pragma mark - Thread constraints
+#pragma mark —— Thread constraints
 NS_INLINE void jobs_requireMainThread(NSString *reason) {
     NSCAssert(NSThread.isMainThread, (@"JobsTimer: %@ must be called on main thread (RunLoop/DisplayLink are thread-affine).", reason));
 }
 
-#pragma mark - TimerProtocol associated storage
+#pragma mark —— TimerProtocol associated storage
 JobsKey(_time)
 - (CGFloat)time {
     return [Jobs_getAssociatedObject(_time) doubleValue];
@@ -195,7 +195,7 @@ JobsKey(_nsTimer)
                                        repeats:self.repeats];
         timer.tolerance = 0;
         Jobs_setAssociatedRETAIN_NONATOMIC(_nsTimer, timer)
-    }return timer;
+    };return timer;
 }
 
 - (void)setNsTimer:(NSTimer *)nsTimer {
@@ -217,7 +217,7 @@ JobsKey(_displayLink)
     if (!displayLink) {
         displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(handleTick)];
         Jobs_setAssociatedRETAIN_NONATOMIC(_displayLink, displayLink)
-    }return displayLink;
+    };return displayLink;
 }
 
 - (void)setDisplayLink:(CADisplayLink *)displayLink {
@@ -284,7 +284,7 @@ JobsKey(_stop)
         _rlTimer = NULL;
         self.timerState = JobsTimerStateIdle;
         self.repeats = YES; // 默认重复
-    }return self;
+    };return self;
 }
 
 - (void)dealloc {
@@ -297,7 +297,7 @@ JobsKey(_stop)
     }
 }
 
-#pragma mark - Core
+#pragma mark —— Core
 - (BOOL)isNonGCDKind {
     return (self.timerType != JobsTimerTypeGCD);
 }
@@ -363,7 +363,7 @@ JobsKey(_stop)
     }
 }
 
-#pragma mark - TimerProtocol
+#pragma mark —— TimerProtocol
 - (void)start {
     [self setupAppStateIfNeeded];
 
@@ -525,7 +525,7 @@ JobsKey(_stop)
     [self invalidateInternal](YES);
 }
 
-#pragma mark - Invalidate
+#pragma mark —— Invalidate
 /// 内部销毁逻辑（线程安全：先取快照再销毁）
 - (jobsByBOOLBlock)invalidateInternal {
     return ^(BOOL markCanceled) {
@@ -586,7 +586,7 @@ JobsKey(_stop)
     };
 }
 
-#pragma mark - NSTimer
+#pragma mark —— NSTimer
 - (void)startNSTimerWithToken:(uint64_t)token {
     jobs_requireMainThread(@"startNSTimer");
     // 用 mainRunLoop，对齐 Swift（RunLoop.main）
@@ -601,7 +601,7 @@ JobsKey(_stop)
     [self fireTickIfValid:token];
 }
 
-#pragma mark - GCD
+#pragma mark —— GCD
 - (void)startGCDTimerWithToken:(uint64_t)token {
     if (self.timeInterval <= 0) self.timeInterval = 1.0;
     uint64_t intervalNSEC = (uint64_t)(self.timeInterval * NSEC_PER_SEC);
@@ -631,7 +631,7 @@ JobsKey(_stop)
     self.gcdTimerSuspended = NO;
 }
 
-#pragma mark - DisplayLink
+#pragma mark —— DisplayLink
 - (void)startDisplayLinkWithToken:(uint64_t)token {
     jobs_requireMainThread(@"startDisplayLink");
 
@@ -642,7 +642,7 @@ JobsKey(_stop)
     [self fireTickIfValid:token];
 }
 
-#pragma mark - RunLoop (CFRunLoopTimer)
+#pragma mark —— RunLoop (CFRunLoopTimer)
 - (void)startRunLoopTimerWithToken:(uint64_t)token {
     jobs_requireMainThread(@"startRunLoopTimer");
 
@@ -682,7 +682,7 @@ JobsKey(_stop)
     [self fireTickIfValid:token];
 }
 
-#pragma mark - Selector ticks
+#pragma mark —— Selector ticks
 - (void)handleTick {
     // 兼容旧 selector：统一转发到 token 校验
     uint64_t token = 0;
@@ -692,7 +692,7 @@ JobsKey(_stop)
     [self fireTickIfValid:token];
 }
 
-#pragma mark - App State (UIKit)
+#pragma mark —— App State (UIKit)
 - (void)setupAppStateMonitorIfNeeded {
     if (!self.autoManageAppState || !self.pauseInBackground) {
         [self teardownAppStateMonitor];
@@ -766,7 +766,7 @@ JobsKey(_stop)
     [self resume];
 }
 
-#pragma mark - onTick / onFinish（线程安全，且保持 DSL 语义）
+#pragma mark —— onTick / onFinish（线程安全，且保持 DSL 语义）
 JobsKey(_onTick)
 - (jobsByCGFloatBlock)onTick {
     [self.stateLock lock];
@@ -795,7 +795,7 @@ JobsKey(_onFinish)
     [self.stateLock unlock];
 }
 
-#pragma mark - DSL
+#pragma mark —— DSL
 - (JobsRetTimerByNSUInteger)byTimerType {
     @jobs_weakify(self)
     return ^__kindof JobsTimer *_Nullable(JobsTimerType timerType) {

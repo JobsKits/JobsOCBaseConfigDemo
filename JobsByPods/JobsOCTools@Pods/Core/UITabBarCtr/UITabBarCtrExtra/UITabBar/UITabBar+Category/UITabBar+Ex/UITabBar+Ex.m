@@ -7,18 +7,6 @@
 
 #import "UITabBar+Ex.h"
 
-#if __has_include(<JobsStringUtils/JobsStringUtils.h>)
-#import <JobsStringUtils/JobsStringUtils.h>
-#else
-#import "JobsStringUtils.h"
-#endif
-
-#if __has_include(<XYColorOC/XYColorOC.h>)
-#import <XYColorOC/XYColorOC.h>
-#else
-#import "XYColorOC.h"
-#endif
-
 @implementation UITabBar (Ex)
 /// 移除系统的 UITabBarButton
 -(void)deleteUITabBarButton{
@@ -36,10 +24,12 @@
         lottieView = [LOTAnimationView animationNamed:lottieName];
         [self addSubview:lottieView];
         lottieView.userInteractionEnabled = NO;
-        lottieView.contentMode = UIViewContentModeScaleAspectFit;
+        lottieView.byContentMode(UIViewContentModeScaleAspectFit);
+
         lottieView.tag = 888 + index;
-        lottieView.backgroundColor = JobsYellowColor;
-    }return lottieView;
+        lottieView.byBgColor(JobsYellowColor);
+
+    };return lottieView;
 }
 
 -(jobsByNSIntegerBlock _Nonnull)animationLottieImageBy{

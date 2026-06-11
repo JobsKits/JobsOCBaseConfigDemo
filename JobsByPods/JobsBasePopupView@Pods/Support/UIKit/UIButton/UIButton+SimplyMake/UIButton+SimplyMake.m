@@ -468,7 +468,7 @@
             self.clickBlock = mergedBlock;
         } else {
             self.clickBlock = block;
-        }return self;
+        };return self;
     };
 }
 /// 长按方法@普通
@@ -494,7 +494,7 @@
             self.longPressGestureBlock = mergedBlock;
         } else {
             self.longPressGestureBlock = block;
-        }return self;
+        };return self;
     };
 }
 
@@ -541,7 +541,7 @@
                 self.jobsResetBtnSubTitleCor(selected ? viewModel.subTextModel.selectedSubTextCor : viewModel.subTextModel.subTextCor);
                 self.jobsResetBtnSubTitleFont(selected ? viewModel.subTextModel.selectedSubFont : viewModel.subTextModel.subFont);
             }
-        }return self;
+        };return self;
     };
 }
 
@@ -570,7 +570,7 @@
                 self.jobsResetBtnSubTitleCor(selected ? buttonModel.selectedSubTitleCor : buttonModel.subTitleCor);
                 self.jobsResetBtnSubTitleFont(selected ? buttonModel.selectedSubTitleFont : buttonModel.subTitleFont);
             }
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— Prop_copy()jobsByBtnBlock clickBlock;

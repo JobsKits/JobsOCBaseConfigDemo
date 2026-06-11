@@ -41,7 +41,7 @@ JobsKey(_backBtnCategory)
                 JobsLog(@"");
             });
         Jobs_setAssociatedRETAIN_NONATOMIC(_backBtnCategory, BackBtnCategory)
-    }return BackBtnCategory;
+    };return BackBtnCategory;
 }
 
 -(void)setBackBtnCategory:(UIButton *)backBtnCategory{
@@ -55,7 +55,7 @@ JobsKey(_backBtnCategoryItem)
     if (!BackBtnCategoryItem) {
         BackBtnCategoryItem = UIBarButtonItem.initBy(self.backBtnCategory);
         Jobs_setAssociatedRETAIN_NONATOMIC(_backBtnCategoryItem, BackBtnCategoryItem)
-    }return BackBtnCategoryItem;
+    };return BackBtnCategoryItem;
 }
 
 -(void)setBackBtnCategoryItem:(UIBarButtonItem *)backBtnCategoryItem{

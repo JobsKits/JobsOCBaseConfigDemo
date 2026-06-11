@@ -8,7 +8,7 @@
 #ifndef JobsDefineBaseProtocol_h
 #define JobsDefineBaseProtocol_h
 
-#pragma mark - BaseProtocol synthesize
+#pragma mark —— BaseProtocol synthesize
 
 #ifndef BaseProtocol_synthesize_lock
 #define BaseProtocol_synthesize_lock \
@@ -85,7 +85,7 @@ BaseProtocol_synthesize_data \
 
 #endif /* BaseProtocol_synthesize */
 
-#pragma mark - BaseProtocol dynamic
+#pragma mark —— BaseProtocol dynamic
 
 #ifndef BaseProtocol_dynamic
 #define BaseProtocol_dynamic \

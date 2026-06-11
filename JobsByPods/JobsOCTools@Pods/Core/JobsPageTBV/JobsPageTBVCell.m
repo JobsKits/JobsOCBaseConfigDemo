@@ -22,8 +22,9 @@ Prop_strong()UILabel *textLab;
             cell = JobsPageTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
     //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.backgroundColor = cell.contentView.backgroundColor = JobsClearColor;
-        }return cell;
+            cell.byBgColor(cell.contentView.backgroundColor = JobsClearColor);
+
+        };return cell;
     };
 }
 #pragma mark —— BaseCellProtocol
@@ -32,12 +33,12 @@ Prop_strong()UILabel *textLab;
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         if (model) {
-            self.textLab.textColor = model.textModel.textCor;
-            self.textLab.text = model.textModel.text;
-            self.textLab.font = model.textModel.font;
-            self.textLab.backgroundColor = model.bgCor;
+            self.textLab.byTextCor(model.textModel.textCor);
+            self.textLab.byText(model.textModel.text);
+            self.textLab.byFont(model.textModel.font);
+            self.textLab.byBgColor(model.bgCor);
         //    self.imageView.image = (UIImage *)model[@"image"];
-        }return self;
+        };return self;
     };
 }
 
@@ -52,11 +53,13 @@ Prop_strong()UILabel *textLab;
         @jobs_weakify(self)
         _textLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.contentView);
-            }];
+            label
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.contentView);
+                });
         });
-    }return _textLab;
+    };return _textLab;
 }
 
 @end

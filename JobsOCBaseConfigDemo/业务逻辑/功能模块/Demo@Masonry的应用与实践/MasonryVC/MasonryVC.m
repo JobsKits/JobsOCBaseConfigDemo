@@ -47,7 +47,8 @@ Prop_strong()MSMineView2 *view2;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     self.makeNavByAlpha(1);
     
 //    [self demo1];
@@ -108,9 +109,9 @@ Prop_strong()MSMineView2 *view2;
         .add(@"标签10".tr);
     })) {
         self.view.addSubview(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText(tagName);
-            label.byBgColor(JobsLightGrayColor);
-            label.byTextAlignment(NSTextAlignmentCenter);
+            label.byText(tagName)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byBgColor(JobsLightGrayColor);
             label.byCornerRadius(5.0);
             label.byClipsToBounds(YES);
             // 根据标签文本计算标签宽度
@@ -139,7 +140,8 @@ Prop_strong()MSMineView2 *view2;
     [self.view addSubview:containerView];
     
     // 设置父视图容器的背景色为红色
-    containerView.backgroundColor = [UIColor redColor];
+    containerView.byBgColor([UIColor redColor]);
+
     
     // 设置父视图容器的约束
     [containerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -177,7 +179,7 @@ Prop_strong()MSMineView2 *view2;
             
             if (index < itemCount) {
                 UIView *itemView = [UIView new];
-                itemView.backgroundColor = [UIColor blueColor]; // 子元素背景色为蓝色
+                itemView.byBgColor([UIColor blueColor]); // 子元素背景色为蓝色
                 [containerView addSubview:itemView];
                 [itemViews addObject:itemView];
                 
@@ -209,7 +211,8 @@ Prop_strong()MSMineView2 *view2;
 }
 /// Masonry 动画
 -(void)demo4{
-    self.view2.alpha = 1;
+    self.view2.byAlpha(1);
+
 }
 #pragma mark —— lazyLoad
 -(MSMineView2 *)view2{
@@ -219,12 +222,13 @@ Prop_strong()MSMineView2 *view2;
             @jobs_strongify(self)
             view.jobsRichViewByModel(nil);
             // 移除第一个 _view2 的约束
-            [self.view.addSubview(view) mas_remakeConstraints:^(MASConstraintMaker *make) {
+            view.addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
                 // 添加第一个 _view2 的约束
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(88), JobsWidth(28)));
                 make.right.equalTo(self.view).offset(JobsWidth(-10));
                 make.top.equalTo(self.view).offset(JobsWidth(12));
-            }];
+            });
             // 告诉视图需要更新布局
             [self.view setNeedsUpdateConstraints];
             // 执行动画
@@ -232,12 +236,12 @@ Prop_strong()MSMineView2 *view2;
                 [self.view layoutIfNeeded]; // 让视图更新布局
             } completion:^(BOOL finished) {
                 // 在动画完成后，切换到第二个 _view2 的约束
-                [self.view2 mas_remakeConstraints:^(MASConstraintMaker *make) {
+                self.view2.byRemake(^(MASConstraintMaker *make) {
                     // 添加第二个 _view2 的约束
                     make.size.mas_equalTo(MSMineView2.viewSizeByModel(nil));
                     make.centerX.equalTo(self.view);
                     make.top.equalTo(self.view).offset(JobsWidth(12));
-                }];
+                });
                 // 再次告诉视图需要更新布局
                 [self.view setNeedsUpdateConstraints];
                 // 再次执行动画
@@ -246,7 +250,7 @@ Prop_strong()MSMineView2 *view2;
                 }];
             }];view.cornerCutToCircleWithCornerRadius(MSMineView2.viewSizeByModel(nil).height / 2);
         });
-    }return _view2;
+    };return _view2;
 }
 
 @end

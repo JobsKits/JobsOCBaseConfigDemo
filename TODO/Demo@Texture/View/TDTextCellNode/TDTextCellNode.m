@@ -16,7 +16,7 @@
 - (instancetype)initWithTitle:(NSString *)t subtitle:(NSString *)s {
     if (self = [super init]) {
         self.automaticallyManagesSubnodes = YES;
-        self.backgroundColor = UIColor.systemBackgroundColor;
+        self.byBgColor(UIColor.systemBackgroundColor);
         self.neverShowPlaceholders = NO; // 展示占位渲染
         self.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -38,7 +38,7 @@
                 NSForegroundColorAttributeName: UIColor.secondaryLabelColor
             }];
         });
-    }return self;
+    };return self;
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {

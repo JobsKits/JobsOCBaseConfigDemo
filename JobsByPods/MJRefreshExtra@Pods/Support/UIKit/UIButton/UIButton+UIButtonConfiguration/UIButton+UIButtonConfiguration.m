@@ -6,7 +6,7 @@
 //
 
 #import "UIButton+UIButtonConfiguration.h"
-#import <MJRefreshExtra/UIButton+UI.h>
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
 @implementation UIButton (UIButtonConfiguration)
@@ -46,13 +46,21 @@
         if (configurationBlock) configurationBlock(config);
         self.configuration = config;
         self.updateConfigBy();
-    }return self;
+    };return self;
 }
 
 -(UIButtonConfiguration *)JobsUpdateButtonConfiguration:(jobsByBtnConfigBlock _Nullable)configurationBlock{
     [self jobsUpdateButtonConfiguration:configurationBlock];
     self.updateConfigBy();
     return self.configuration;
+}
+/// 点语法入口：UIButtonConfiguration 作为回调参数，外层仍返回 UIButton，便于继续按钮链式调用
+-(JobsRetBtnByBtnConfigBlock _Nonnull)jobsUpdateButtonConfigurationBy API_IOS15_TVOS15_UNAVAILABLE_WATCHOS{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(jobsByBtnConfigBlock _Nullable block) {
+        @jobs_strongify(self)
+        return [self jobsUpdateButtonConfiguration:block];
+    };
 }
 ///【最新的Api】修改主标题的对齐方式
 -(JobsRetBtnByTextAlignmentBlock _Nonnull)_jobsResetTitleTextAlignment API_AVAILABLE(ios(16.0)){
@@ -202,6 +210,7 @@
             UIBackgroundConfiguration *bgConfig = config.background.copy;
             config.baseBackgroundColor = data;
             bgConfig.backgroundColor = data;
+
             config.background = bgConfig;
         }];
     };

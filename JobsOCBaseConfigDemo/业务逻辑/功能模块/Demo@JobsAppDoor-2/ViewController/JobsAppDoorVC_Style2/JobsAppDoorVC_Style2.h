@@ -135,6 +135,12 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /// 注册和登录共用一个控制器DoorVC；忘记密码单独一个控制器
 @interface JobsAppDoorVC_Style2 : BaseViewController

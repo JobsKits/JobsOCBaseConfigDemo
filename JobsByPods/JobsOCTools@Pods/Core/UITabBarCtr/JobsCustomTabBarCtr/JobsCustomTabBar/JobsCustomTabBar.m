@@ -28,13 +28,13 @@ static JobsCustomTabBarConfig *JobsCustomTabBarAppConfig(void) {
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.setup();
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
         self.setup();
-    }return self;
+    };return self;
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -78,7 +78,8 @@ static JobsCustomTabBarConfig *JobsCustomTabBarAppConfig(void) {
         JobsCustomTabBarConfig *config = JobsCustomTabBarAppConfig();
         view.addSubview(self);
         if(!jobsZeroRectValue(config.tabBarFrame)){
-            self.frame = config.tabBarFrame;
+            self.byFrame(config.tabBarFrame);
+
         }else{
             [self mas_makeConstraints:^(MASConstraintMaker *make) {
                 

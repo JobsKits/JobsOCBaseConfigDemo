@@ -26,7 +26,7 @@
 - (instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -59,7 +59,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = @"#FF0000".cor;
+    self.view.byBgColor(@"#FF0000".cor);
+
     self.makeNavByConfig(self.makeNav0ByTitle(self.viewModel.textModel.text));
 }
 
@@ -139,7 +140,7 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
     if(!_activityIndicatorView){
         _activityIndicatorView = self.view.addSubview(UIActivityIndicatorView.initBy(UIActivityIndicatorViewStyleLarge));
         _activityIndicatorView.center = self.view.center;
-    }return _activityIndicatorView;
+    };return _activityIndicatorView;
 }
 
 @end

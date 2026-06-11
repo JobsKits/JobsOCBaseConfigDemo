@@ -47,6 +47,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BaseViewController : JobsTabBarSettingVC <BaseViewControllerProtocol>
@@ -75,7 +81,7 @@ NS_ASSUME_NONNULL_END
                 self.popToRootVCBy(YES);
                 return nil;
             };
-        }return _backBtnModel;
+        };return _backBtnModel;
     }
 */
 #endif /* JOBS_HEADER_GUARD_BASEVIEWCONTROLLER_31EF1238C2 */

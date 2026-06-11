@@ -18,9 +18,10 @@
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = self.backgroundColor ? :JobsBlackColor;
+        self.byBgColor(self.backgroundColor ? :JobsBlackColor);
+
         self.cornerCutToCircleWithCornerRadius(8);
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{

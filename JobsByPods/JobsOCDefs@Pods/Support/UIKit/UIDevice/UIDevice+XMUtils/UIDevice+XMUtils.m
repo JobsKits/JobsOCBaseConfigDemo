@@ -10,12 +10,6 @@
 #import <sys/utsname.h>
 #import <JobsOCDefs/MacroDef_Strong@Weak.h>
 
-#if __has_include(<GKNavigationBar/GKNavigationBar.h>)
-#import <GKNavigationBar/GKNavigationBar.h>
-#else
-#import "GKNavigationBar.h"
-#endif
-
 @implementation UIDevice (XMUtils)
 /**
 
@@ -56,7 +50,7 @@
     NSString *platformStr = self.platform;
     if (!platformStr) {
         return UIDevice.currentDevice.model; // e.g. @"iPhone", @"iPod touch"
-    }return self.platformBy(platformStr);
+    };return self.platformBy(platformStr);
 }
 /// 机型判定
 ///
@@ -202,7 +196,7 @@
     if (TARGET_OS_SIMULATOR) {
         NSDictionary *environment = NSProcessInfo.processInfo.environment;
         return environment[@"SIMULATOR_MODEL_IDENTIFIER"];
-    }return nil; /// 不在模拟器上运行，返回 nil 或其他合适的值
+    };return nil; /// 不在模拟器上运行，返回 nil 或其他合适的值
 }
 /// 判断当前机型是否为全面屏 iPhone（基于 machine identifier）
 /// 全面屏机型返回 YES，非全面屏机型返回 NO

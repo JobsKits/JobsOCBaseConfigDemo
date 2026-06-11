@@ -16,8 +16,9 @@
 @synthesize viewModel = _viewModel;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.contentView.backgroundColor = JobsRedColor;
-    }return self;
+        self.contentView.byBgColor(JobsRedColor);
+
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 -(UIViewModel *_Nullable)getViewModel{

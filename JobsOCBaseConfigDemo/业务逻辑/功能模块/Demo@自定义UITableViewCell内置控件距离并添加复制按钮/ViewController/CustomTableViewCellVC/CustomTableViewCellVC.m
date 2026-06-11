@@ -113,17 +113,21 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
 @synthesize collectionView = _collectionView;
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
-        _collectionView = UICollectionView.initByLayout(self.verticalLayout);
-        _collectionView.dataLink(self);
-        _collectionView.backgroundColor = HEXCOLOR(0xFCFBFB);
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.registerCollectionViewClass();
-        [self.view.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
+        @jobs_weakify(self)
+        /// 创建 UICollectionView
+        _collectionView = UICollectionView.initByLayout(self.verticalLayout)
+            .dataLink(self)
+            .registerCollectionViewClass()
+            .byShowsVerticalScrollIndicator(NO);
+        _collectionView.byBgColor(HEXCOLOR(0xFCFBFB));
+        _collectionView.addOn(self.view);
+        [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            @jobs_strongify(self)
             make.left.right.equalTo(self.view);
             make.top.equalTo(self.gk_navigationBar.mas_bottom);
             make.bottom.equalTo(self.view).offset(JobsBottomSafeAreaHeight() + JobsWidth(64));
         }];
-    }return _collectionView;
+    };return _collectionView;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
@@ -158,7 +162,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 });
             }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

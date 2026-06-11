@@ -38,7 +38,7 @@ Prop_strong()LZTabBarConfig *config;
         [self setupViewControllers];
         [self setupTabBar];
         _isAutoRotation = YES;
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -71,10 +71,12 @@ Prop_strong()LZTabBarConfig *config;
         [UIView animateWithDuration:0.2
                          animations:^{
             @jobs_strongify(self)
-            self.customTabBar.alpha = 0;
+            self.customTabBar.byAlpha(0);
+
         }];
     } else {
-        self.customTabBar.alpha = 0;
+        self.customTabBar.byAlpha(0);
+
     }
 }
 
@@ -83,10 +85,12 @@ Prop_strong()LZTabBarConfig *config;
         @jobs_weakify(self)
         [UIView animateWithDuration:0.2 animations:^{
             @jobs_strongify(self)
-            self.customTabBar.alpha = 1.0;
+            self.customTabBar.byAlpha(1.0);
+
         }];
     } else {
-        self.customTabBar.alpha = 1.0;
+        self.customTabBar.byAlpha(1.0);
+
     }
 }
 
@@ -116,7 +120,8 @@ Prop_strong()LZTabBarConfig *config;
         type = LZTabBarItemTypeDefault;
     }
     /// 隐藏掉系统的tabBar
-    self.tabBar.hidden = YES;
+    self.tabBar.byHidden(YES);
+
     self.customTabBar.items = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
         @jobs_strongify(self)
         for (int i = 0; i < self.config.viewControllers.count; i++) {
@@ -210,7 +215,7 @@ didSelectItem:(LZTabBarItem *_Nonnull)item
             @jobs_strongify(self)
             tabBar.delegate = self;
         });
-    }return _customTabBar;
+    };return _customTabBar;
 }
 
 @end

@@ -22,7 +22,7 @@ UITableViewCellProtocol_Synthesize
         JobsDropDownListTBVCell *cell = (JobsDropDownListTBVCell *)tableView.tableViewCellClass(JobsDropDownListTBVCell.class,@"");
         if (!cell) {
             cell = JobsDropDownListTBVCell.initTableViewCellWithStyle(UITableViewCellStyleValue1);
-        }return cell;
+        };return cell;
     };
 }
 #pragma mark —— BaseCellProtocol
@@ -32,10 +32,12 @@ UITableViewCellProtocol_Synthesize
                     reuseIdentifier:reuseIdentifier]) {
         self.jobsRichElementsTableViewCellBy(nil);
         self.selectionStyle = UITableViewCellSelectionStyleNone;// 取消点击效果 【不能在cellStyleValue1WithTableView里面写】
-        self.backgroundColor = self.contentView.backgroundColor = HEXCOLOR(0xFBF7E3);
+        self.byBgColor(self.contentView.backgroundColor = HEXCOLOR(0xFBF7E3));
+
         self.selectedBackgroundView = [UIView.alloc initWithFrame:self.frame];// 这句不可省略
-        self.selectedBackgroundView.backgroundColor = HEXCOLOR(0xE4B94B);
-    }return self;
+        self.selectedBackgroundView.byBgColor(HEXCOLOR(0xE4B94B));
+
+    };return self;
 }
 
 -(JobsRetTableViewCellByIDBlock _Nonnull)jobsRichElementsTableViewCellBy{
@@ -44,9 +46,11 @@ UITableViewCellProtocol_Synthesize
         @jobs_strongify(self)
         if (model) {
             self.viewModel = model;
-            self.textLabel.text = [NSString stringWithFormat:@"%@",model.textModel.text];
-            self.detailTextLabel.text = [NSString stringWithFormat:@"%@",model.subTextModel.text];
-        }return self;
+            self.textLabel.byText([NSString stringWithFormat:@"%@",model.textModel.text]);
+
+            self.detailTextLabel.byText([NSString stringWithFormat:@"%@",model.subTextModel.text]);
+
+        };return self;
     };
 }
 

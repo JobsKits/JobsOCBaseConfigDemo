@@ -90,7 +90,7 @@ JobsKey(_captchaSession)
         // config.timeout = 8.0f;
         // gtCaptcha4Session = [GTCaptcha4Session sessionWithCaptchaID:极验验证码KEY configuration:config];
         Jobs_setAssociatedRETAIN_NONATOMIC(_captchaSession, gtCaptcha4Session);
-    }return gtCaptcha4Session;
+    };return gtCaptcha4Session;
 }
 
 -(void)setCaptchaSession:(GTCaptcha4Session *)captchaSession{

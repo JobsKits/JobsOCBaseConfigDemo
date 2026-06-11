@@ -33,6 +33,7 @@ with dial, number labels, hour hand, minute hand and second hand support.
     ss.public_header_files = 'Core/**/*.h'
 
     ss.dependency 'JobsBlock'
+    ss.dependency 'JobsOCDSL'
     ss.dependency 'JobsOCTimer'
     ss.dependency 'JobsOCProtocols'
   end

@@ -71,7 +71,7 @@
     // 判断是否存储成功
     if (saveState == errSecSuccess) {
         return YES;
-    }return NO;
+    };return NO;
 }
 #pragma mark —— 🔑钥匙串存储：账户 + 密码
 +(BOOL)saveAccount:(NSString *_Nonnull)account
@@ -95,7 +95,7 @@
             .addByDic(JobsKeychainHelper.getKeychainBaseQuery2(service));
     }), &result) == errSecSuccess) {
         return NSString.initByUTF8Data((__bridge_transfer NSData *)result);
-    }return nil;
+    };return nil;
 }
 /// 删除已有数据
 +(JobsRetBOOLByStrBlock _Nonnull)deleteAccountInfoByService{

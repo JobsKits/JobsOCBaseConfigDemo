@@ -152,7 +152,7 @@
         timeSp = toStringByLongLong(date.timeIntervalSince1970);
     }else if(intervalStyle == intervalByMilliSec){
         timeSp = toStringByLongLong(date.timeIntervalSince1970 * 1000);
-    }return timeSp;
+    };return timeSp;
 }
 /// NSTimeInterval ---> NSString *
 -(JobsRetStrByTimeIntervalBlock _Nonnull)timeIntervalByInterval{
@@ -180,7 +180,7 @@
         interval = [self strByDate:dateStr timeFormatter:timeFormatter].timeIntervalSince1970;
     }else if (intervalStyle == intervalByMilliSec){
         interval = [self strByDate:dateStr timeFormatter:timeFormatter].timeIntervalSince1970 * 1000;
-    }else{}return interval;
+    }else{};return interval;
 }
 /// NSTimeInterval ---> NSDate *
 -(JobsRetDateByTimeIntervalBlock _Nonnull)dateByTimeInterval{
@@ -217,7 +217,7 @@
     if (!endDate) {
         JobsLog(@"结束时间格式不正确");
         return 0;
-    }return endDate.timeIntervalSinceDate(startDate);/// 计算两个日期之间的时间间隔
+    };return endDate.timeIntervalSinceDate(startDate);/// 计算两个日期之间的时间间隔
 }
 /**
     iOS 获取 加上多少时间以后的时间A (NSDate *) = 基础时间（NSDate *） +  时间间隔（NSInteger）
@@ -416,7 +416,7 @@
                                                NSYearForWeekOfYearCalendarUnit |
                                                NSCalendarCalendarUnit |
                                                NSTimeZoneCalendarUnit);
-    }return jobsMakeTimeModel(^(__kindof JobsTimeModel * _Nullable timeModel) {
+    };return jobsMakeTimeModel(^(__kindof JobsTimeModel * _Nullable timeModel) {
         NSDateComponents *dateComponent = [calendar components:unitFlags
                                                       fromDate:timeModel.currentDate];
         timeModel.byCurrentEra(dateComponent.era)
@@ -472,7 +472,7 @@
             data.minute =
             data.bySecond(@":");
         });
-    }return [formatTime formatTimeWithYear:nil
+    };return [formatTime formatTimeWithYear:nil
                                      month:nil
                                        day:nil
                                       hour:toStringByFloatDecimalPlaces(totalTime.integerValue / 3600, 2)
@@ -492,7 +492,7 @@
             data.minute =
             data.bySecond(JobsColon);
         });
-    }return [formatTime formatTimeWithYear:nil
+    };return [formatTime formatTimeWithYear:nil
                                      month:nil
                                        day:nil
                                       hour:nil

@@ -45,7 +45,7 @@
         id data = nil;
         if (isValue(key)){
             data = JobsGetUserDefaultValueForKey(key);
-        }return data;
+        };return data;
     };
 }
 /// 删除数据

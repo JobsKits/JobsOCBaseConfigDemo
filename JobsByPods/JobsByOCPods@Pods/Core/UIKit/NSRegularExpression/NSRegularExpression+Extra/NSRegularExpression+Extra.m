@@ -18,7 +18,7 @@
         if(err){
             JobsLog(@"err = %@",err.description);
             return nil;
-        }return regex;
+        };return regex;
     };
 }
 

@@ -21,7 +21,7 @@ Prop_strong()NSMutableArray<JobsTimerBlock> *finishBlocks;
 - (instancetype)init {
     if (self = [super init]) {
         _pauseState = _JobsTimerPauseStateRunning;
-    }return self;
+    };return self;
 }
 
 -(NSMutableArray<jobsByCGFloatBlock> *)tickBlocks{
@@ -29,7 +29,7 @@ Prop_strong()NSMutableArray<JobsTimerBlock> *finishBlocks;
         _tickBlocks = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
 
         });
-    }return _tickBlocks;
+    };return _tickBlocks;
 }
 
 -(NSMutableArray<JobsTimerBlock> *)finishBlocks{
@@ -37,7 +37,7 @@ Prop_strong()NSMutableArray<JobsTimerBlock> *finishBlocks;
         _finishBlocks = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
 
         });
-    }return _finishBlocks;
+    };return _finishBlocks;
 }
 
 @end
@@ -81,9 +81,9 @@ Prop_strong(nullable)id willEnterFGToken;
     if (self = [super init]) {
         _isolationQueue = dispatch_queue_create("com.jobs.timer.manager.lock", DISPATCH_QUEUE_SERIAL);
         [self setupAppStateObservers];
-    }return self;
+    };return self;
 }
-#pragma mark - Upsert
+#pragma mark —— Upsert
 - (BOOL)upsertTimerWithIdentifiable:(id<JobsTimerIdentifiable>)identifier
                           timerType:(JobsTimerType)timerType
                              policy:(JobsTimerBackgroundPolicy)policy
@@ -167,9 +167,9 @@ Prop_strong(nullable)id willEnterFGToken;
         jobs_runOnMainSyncIfNeeded(^{
             [timer start];
         });
-    }return YES;
+    };return YES;
 }
-#pragma mark - Register callbacks
+#pragma mark —— Register callbacks
 - (BOOL)onTickVoid:(NSString *)identifier block:(jobsByVoidBlock)block {
     if (!block) return NO;
     return [self onTick:identifier block:^(__unused CGFloat t) { block(); }];
@@ -206,7 +206,7 @@ Prop_strong(nullable)id willEnterFGToken;
     return ok;
 }
 
-#pragma mark - Controls
+#pragma mark —— Controls
 - (BOOL)start:(NSString *)identifier {
     __block JobsTimer *timer = nil;
     __block BOOL ok = NO;
@@ -324,7 +324,7 @@ Prop_strong(nullable)id willEnterFGToken;
         }
     });
 }
-#pragma mark - Query
+#pragma mark —— Query
 - (BOOL)exists:(NSString *)identifier {
     __block BOOL ok = NO;
     dispatch_sync(self.isolationQueue, ^{
@@ -352,7 +352,7 @@ Prop_strong(nullable)id willEnterFGToken;
         timer = self.entries[identifier].timer;
     });return timer;
 }
-#pragma mark - Private: callback invoke (snapshot)
+#pragma mark —— Private: callback invoke (snapshot)
 - (void)invokeTickBlocksForIdentifier:(NSString *)identifier time:(CGFloat)time {
     __block NSArray<jobsByCGFloatBlock> *blocks = nil;
     dispatch_sync(self.isolationQueue, ^{
@@ -374,7 +374,7 @@ Prop_strong(nullable)id willEnterFGToken;
         if (b) b(timer);
     }
 }
-#pragma mark - App State Observers
+#pragma mark —— App State Observers
 - (void)setupAppStateObservers {
     @jobs_weakify(self)
     self.didEnterBGToken =
@@ -463,7 +463,7 @@ Prop_strong(nullable)id willEnterFGToken;
 -(NSMutableDictionary<NSString *,_JobsTimerManagerEntry *> *)entries{
     if(!_entries){
 
-    }return _entries;
+    };return _entries;
 }
 
 @end

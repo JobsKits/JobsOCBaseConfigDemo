@@ -44,8 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    
-    self.topLineLab.alpha = 1;
+    self.topLineLab.byAlpha(1);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -68,19 +67,19 @@
 -(UILabel *)topLineLab{
     if (!_topLineLab) {
         _topLineLab = UILabel.new;
-        _topLineLab.backgroundColor = HEXCOLOR(0xF8DA87);
-        [self.view addSubview:_topLineLab];
-        [_topLineLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(self.getTopLineLabSize.width, self.getTopLineLabSize.height));
-            make.centerX.equalTo(self.view);
-//            make.top.equalTo(self.gk_navigationBar.jobsVisible ? self.gk_navigationBar.mas_bottom : self.view);
-            if (self.gk_navigationBar.jobsVisible) {
-                make.top.equalTo(self.gk_navigationBar.mas_bottom);
-            }else{
-                make.top.equalTo(self.view);
-            }
-        }];
-    }return _topLineLab;
+        _topLineLab
+            .byBgColor(HEXCOLOR(0xF8DA87))
+            .byAddTo(self.view, ^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(self.getTopLineLabSize.width, self.getTopLineLabSize.height));
+                make.centerX.equalTo(self.view);
+    //            make.top.equalTo(self.gk_navigationBar.jobsVisible ? self.gk_navigationBar.mas_bottom : self.view);
+                if (self.gk_navigationBar.jobsVisible) {
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom);
+                }else{
+                    make.top.equalTo(self.view);
+                }
+            });
+    };return _topLineLab;
 }
 
 @end

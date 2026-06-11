@@ -33,7 +33,7 @@
 //            @jobs_strongify(self)
         }];
 //
-    }return _bannerView;
+    };return _bannerView;
 }
 ```
 

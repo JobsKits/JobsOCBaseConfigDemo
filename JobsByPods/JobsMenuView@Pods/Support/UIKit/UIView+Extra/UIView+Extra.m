@@ -25,7 +25,8 @@
     @jobs_weakify(self)
     self.layer.mask = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable data) {
         @jobs_strongify(self)
-        data.frame = self.bounds;
+        data.byFrame(self.bounds);
+
         data.path = maskPath.CGPath;
     });
 }

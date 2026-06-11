@@ -46,13 +46,13 @@ JobsKey(_scrollViewClass)
 @dynamic scrollView;
 /**
  1、Masonry约束必须以self.scrollView为锚点，不能以self.view。否则无法拖动
- [self.scrollView addSubview:_tableView];
- [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+ _tableView.byAddTo(self.scrollView, ^(MASConstraintMaker *make) {
      make.top.equalTo(self.scrollView);
      make.height.mas_equalTo(JobsMainScreen_HEIGHT());
      make.width.mas_equalTo(JobsMainScreen_WIDTH());
      make.centerX.equalTo(self.scrollView);
- }];
+ });
+
  2、必须设置 contentSize。否则无法拖动
  self.scrollView.contentSize = CGSizeMake(JobsMainScreen_WIDTH(), 2*JobsMainScreen_HEIGHT());
  3、加在scrollView上的内容物的相关长度比如超出scrollView容器的相关长度。否则无法拖动
@@ -70,7 +70,7 @@ JobsKey(_scrollViewClass)
         [ScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
         }];
-    }return ScrollView;
+    };return ScrollView;
 }
 
 -(void)setScrollView:(UIScrollView *)scrollView{

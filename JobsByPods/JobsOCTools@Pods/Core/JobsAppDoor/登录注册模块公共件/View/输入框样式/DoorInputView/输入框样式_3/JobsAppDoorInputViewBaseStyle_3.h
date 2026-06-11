@@ -12,6 +12,12 @@
 #import <JobsOCTools/JobsAppDoorConfig.h>
 #import <JobsOCTools/JobsAppDoorInputViewBaseStyle.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
@@ -34,6 +40,12 @@
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
@@ -67,12 +79,12 @@ NS_ASSUME_NONNULL_END
      //            }
              }];
 
-             [self.view addSubview:_用户名输入框];
-             [_用户名输入框 mas_makeConstraints:^(MASConstraintMaker *make) {
+             _用户名输入框.byAddTo(self.view, ^(MASConstraintMaker *make) {
                  make.centerX.equalTo(self.view);
                  make.size.mas_equalTo(inputSize());
                  make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(85));
-             }];
+             });
+
 
              _用户名输入框.layer.cornerRadius = inputSize().height / 2;
              _用户名输入框.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
@@ -80,7 +92,7 @@ NS_ASSUME_NONNULL_END
                      .byLayerCor(HEXCOLOR(0xEEE2C8));
              }));
              _用户名输入框.jobsRichViewByModel(配置用户名输入框);
-         }return _用户名输入框;
+         };return _用户名输入框;
      }
 
      -(JobsAppDoorInputViewBaseStyleModel *)配置用户名输入框{
@@ -101,7 +113,7 @@ NS_ASSUME_NONNULL_END
              _配置用户名输入框.titleStrCor = _配置用户名输入框.placeholderColor = HEXCOLOR(0x524740);
              _配置用户名输入框.background = @"设置弹出框输入框背景图".img;
              _配置用户名输入框.animationColor = HEXCOLOR(0xF2CC78);
-         }return _配置用户名输入框;
+         };return _配置用户名输入框;
      }
  */
 #endif /* JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_3_42510BFE2E */
