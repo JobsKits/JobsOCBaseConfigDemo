@@ -44,7 +44,7 @@ Prop_assign()CGPoint contentOffenset;
 #pragma mark —— UITableViewDataSource
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MainTableViewCell *cell = MainTableViewCell.cellStyleValue1WithTableView(tableView)
+    MainTableViewCell *cell = MainTableViewCell.cellStyleValue1ByTableView(tableView)
         .byAccessoryType(UITableViewCellAccessoryNone)
         .byIndexPath(indexPath)
         .byDelegate(self)
@@ -53,7 +53,7 @@ Prop_assign()CGPoint contentOffenset;
             vm.byData(self.excelConfigureData)
               .byButtonModels(self.excelConfigureData.contentArr[indexPath.row]);
         }))
-        .JobsBlock1(^(id _Nullable data) {
+        .JobsBlock1(^(id _Nullable data) {;
              
         });
     cell.byBgColor(indexPath.row % 2 ? self.excelConfigureData.cor1 : self.excelConfigureData.cor2);
@@ -113,7 +113,7 @@ Prop_assign()CGPoint contentOffenset;
                     .byJobsOffsetX(JobsWidth(-100))
                     .byJobsOffsetY(0);
             });
-            tableView.byAddTo(self, ^(MASConstraintMaker *make) {
+            tableView.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0, 0, 0));
             });
         });

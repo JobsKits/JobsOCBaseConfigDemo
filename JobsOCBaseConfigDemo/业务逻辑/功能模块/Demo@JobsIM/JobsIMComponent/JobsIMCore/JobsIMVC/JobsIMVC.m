@@ -38,8 +38,13 @@ Prop_strong()JobsIMChatInfoModel *chatInfoModel;
         self.chatInfoModel = (JobsIMChatInfoModel *)self.viewModel.data;
         self.chatInfoModelMutArr.add(self.chatInfoModel);
         
-        self.viewModel.textModel.text = self.chatInfoModel.userNameStr;
-        self.viewModel.backBtnTitleModel.text = @"聊天列表".tr;
+        self.viewModel
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(self.chatInfoModel.userNameStr);
+            })
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"聊天列表".tr);
+            });
     }
 }
 
@@ -141,12 +146,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    JobsIMChatInfoTBVCell *cell = JobsIMChatInfoTBVCell.cellStyleValue1WithTableView(tableView)
+    JobsIMChatInfoTBVCell *cell = JobsIMChatInfoTBVCell.cellStyleValue1ByTableView(tableView)
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byIndexPath(indexPath)
         .byDelegate(self)
         .jobsRichElementsTableViewCellBy(self.chatInfoModelMutArr[indexPath.row])
-            .JobsBlock1(^(id _Nullable data) {
+            .JobsBlock1(^(id _Nullable data) {;
              
             });
     return cell.byShowChatUserName(YES).byAllowsMultipleSwipe(YES);;

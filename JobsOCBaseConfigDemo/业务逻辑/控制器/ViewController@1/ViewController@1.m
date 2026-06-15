@@ -43,19 +43,23 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
     self.setupNavigationBarHidden = YES;
     
     {
-        self.viewModel.backBtnTitleModel.text = @"返回".tr;
-        self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-        self.viewModel.textModel.text = @"相关功能列表".tr;
-        self.viewModel.textModel.font = UIFontWeightRegularSize(16);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".tr);
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byTextCor(HEXCOLOR(0x3D4A58));
+                data.byText(@"相关功能列表".tr);
+                data.byFont(UIFontWeightRegularSize(16));
+            })
         
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-        self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    }
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+                //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);    }
     /// 装填用户信息数据
     /// json生成器 ： https://www.site24x7.com/zhcn/tools/json-generator.html
     self.saveUserInfo(JobsUserModel.byData(@"UserData".readLocalFileWithName));// 保存全局唯一的一份用户档案
@@ -215,7 +219,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     /// TODO
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .byTableFooterView(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
-                    label.byText(@"- 没有更多的内容了 -".tr)
+                    label
+                        .byText(@"- 没有更多的内容了 -".tr)
                         .byFont(UIFontWeightRegularSize(12))
                         .byTextAlignment(NSTextAlignmentCenter)
                         .byTextCor(HEXCOLOR(0xB0B0B0))
@@ -311,7 +316,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                           NSUInteger idx,
                                                           BOOL * _Nonnull stop) {
                 @jobs_strongify(self)
-                data.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
+                data.add(JobsBaseTableViewCell.cellStyleValue1ByTableView(self.tableView));
             }];
         });
     };return _tbvCellMutArr;

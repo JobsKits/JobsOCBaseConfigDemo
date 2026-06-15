@@ -1244,7 +1244,7 @@ classDiagram
 #### 6.3、<font color=red>**字符串拼接**</font>  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * ```objective-c
-  -(JobsReturnStringByStringBlock _Nonnull)add{
+  -(JobsRetStringByStringBlock _Nonnull)add{
       @jobs_weakify(self)
       return ^NSMutableString *_Nullable(NSString *_Nonnull str) {
           @jobs_strongify(self)
@@ -1264,7 +1264,7 @@ classDiagram
 * **字符串相等**
 
   ```objective-c
-  -(JobsReturnBOOLByIDBlock _Nullable)isEqualToString{
+  -(JobsRetBOOLByIDBlock _Nullable)isEqualToString{
       @jobs_weakify(self)
       return ^(NSString *data){
           @jobs_strongify(self)
@@ -1278,7 +1278,7 @@ classDiagram
 * **字符串包含**
 
   ```objective-c
-  -(JobsReturnBOOLByIDBlock _Nullable)containsString{
+  -(JobsRetBOOLByIDBlock _Nullable)containsString{
       @jobs_weakify(self)
       return ^(NSString *data){
           @jobs_strongify(self)
@@ -1894,7 +1894,7 @@ classDiagram
   * 对[**ReactiveCocoa**](https://github.com/ReactiveCocoa/ReactiveObjC)框架的二次封装，方便对[**ReactiveCocoa**](https://github.com/ReactiveCocoa/ReactiveObjC)框架不熟悉的使用者
 
     ```objective-c
-    -(RACDisposable *)jobsTextFieldEventFilterBlock:(JobsReturnBOOLByIDBlock)filterBlock
+    -(RACDisposable *)jobsTextFieldEventFilterBlock:(JobsRetBOOLByIDBlock)filterBlock
                                  subscribeNextBlock:(jobsByIDBlock)subscribeNextBlock{
         return [[self.rac_textSignal filter:^BOOL(NSString * _Nullable value) {
             return filterBlock ? filterBlock(value) : YES;
@@ -2065,7 +2065,7 @@ classDiagram
     `@implementation NSObject (Extras)`
 
     ```objective-c
-    +(JobsReturnWindowByVoidBlock _Nonnull)mainWindow{
+    +(JobsRetWindowByVoidBlock _Nonnull)mainWindow{
         return ^__kindof UIWindow *_Nullable(){
             UIWindow *mainWindowBefore13 = jobsGetMainWindowBefore13().landscape;
             UIWindow *mainWindowAfter13 = jobsGetMainWindowAfter13().landscape;
@@ -2547,7 +2547,7 @@ classDiagram
   @implementation NSObject (Data)
   #pragma mark —— 关于数据（MJExtension）解析
   /// 对待输入参数是含字典的数组
-  +(JobsReturnArrByArrBlock _Nullable)byDataArr{
+  +(JobsRetArrByArrBlock _Nullable)byDataArr{
       @jobs_weakify(self)
       return ^__kindof NSArray *_Nullable(__kindof NSArray <NSDictionary *>*_Nullable data){
           @jobs_strongify(self)
@@ -2555,7 +2555,7 @@ classDiagram
       };
   }
   /// 对待输入参数是字典
-  +(JobsReturnIDByDicBlock _Nullable)byDataDic{
+  +(JobsRetIDByDicBlock _Nullable)byDataDic{
       @jobs_weakify(self)
       return ^id _Nullable(__kindof NSDictionary *_Nullable data){
           @jobs_strongify(self)
@@ -2563,7 +2563,7 @@ classDiagram
       };
   }
   /// 万能解析
-  +(JobsReturnIDByIDBlock _Nullable)byData{
+  +(JobsRetIDByIDBlock _Nullable)byData{
       @jobs_weakify(self)
       return ^id _Nullable(id _Nullable data){
           @jobs_strongify(self)
@@ -4064,7 +4064,7 @@ static const uint32_t kSequenceBits = 12;
   如果没有加入需要进行<u>归档/解档</u>的类，那么需要进行<u>归档/解档</u>的目标类只会执行`-(void)encodeWithCoder:(NSCoder *)encoder`而不会执行`- (nullable instancetype)initWithCoder:(NSCoder *)decoder`
 
   ```objective-c
-  -(JobsReturnIDByClsAndSaltStrBlock _Nonnull)readUserInfoByUserName{
+  -(JobsRetIDByClsAndSaltStrBlock _Nonnull)readUserInfoByUserName{
       return ^id _Nullable(Class _Nonnull cls,NSString *_Nullable userName){
           NSData *archivedData = NSUserDefaults.readWithKey(userName);
           if(archivedData){
@@ -4117,7 +4117,7 @@ static const uint32_t kSequenceBits = 12;
       };
   }
   /// 元素包含
-  -(JobsReturnBOOLByIDBlock _Nonnull)containsObject{
+  -(JobsRetBOOLByIDBlock _Nonnull)containsObject{
     @jobs_weakify(self)
       return ^BOOL((id _Nullable data)){
       @jobs_strongify(self)
@@ -4125,7 +4125,7 @@ static const uint32_t kSequenceBits = 12;
       };
   }
   /// 数组取值（无法关联数组的泛型）
-  -(JobsReturnIDByUIntegerBlock _Nonnull)objectAt{
+  -(JobsRetIDByUIntegerBlock _Nonnull)objectAt{
       @jobs_weakify(self)
       return ^id _Nullable(NSUInteger data){
           @jobs_strongify(self)
@@ -4133,7 +4133,7 @@ static const uint32_t kSequenceBits = 12;
       };
   }
   /// 数组取下标
-  -(JobsReturnNSUIntegerByIDBlock _Nonnull)indexBy{
+  -(JobsRetNSUIntegerByIDBlock _Nonnull)indexBy{
       @jobs_weakify(self)
       return ^NSUInteger(id _Nullable data){
           @jobs_strongify(self)
@@ -4141,7 +4141,7 @@ static const uint32_t kSequenceBits = 12;
       };
   }
   /// 阻止向可变数组添加空元素
-  -(JobsReturnIDByIDBlock _Nonnull)add{
+  -(JobsRetIDByIDBlock _Nonnull)add{
       @jobs_weakify(self)
       return ^id (id _Nullable data) {
           @jobs_strongify(self)
@@ -4153,7 +4153,7 @@ static const uint32_t kSequenceBits = 12;
       };
   }
   /// 向数组加入一个从来没有没有过的元素，以保证数组元素的单一性
-  -(JobsReturnIDByIDBlock _Nonnull)jobsAddSoleObject{
+  -(JobsRetIDByIDBlock _Nonnull)jobsAddSoleObject{
       @jobs_weakify(self)
       return ^id (id _Nullable data) {
           @jobs_strongify(self)
@@ -4183,7 +4183,7 @@ static const uint32_t kSequenceBits = 12;
 
   ```objective-c
   /// 阻止向可变集合添加空元素
-  -(JobsReturnIDByIDBlock _Nonnull)add{
+  -(JobsRetIDByIDBlock _Nonnull)add{
       @jobs_weakify(self)
       return ^id (id _Nullable data) {
           @jobs_strongify(self)
@@ -4987,8 +4987,8 @@ self.countDownBtn.timerContinue();
  <summary><strong>点我了解详情</strong></summary>
 
    ```objective-c
- typedef id _Nullable(^JobsReturnIDBySelectorBlock)(id _Nullable weakSelf, id _Nullable arg);
--(SEL _Nullable)jobsSelectorBlock:(JobsReturnIDBySelectorBlock)selectorBlock{
+ typedef id _Nullable(^JobsRetIDBySelectorBlock)(id _Nullable weakSelf, id _Nullable arg);
+-(SEL _Nullable)jobsSelectorBlock:(JobsRetIDBySelectorBlock)selectorBlock{
     return selectorBlocks(selectorBlock, MethodName(self), self);
 }
    ```
@@ -5000,7 +5000,7 @@ self.countDownBtn.timerContinue();
    ///   - block: 最终的执行体
    ///   - selectorName: 实际调用的方法名（可不填），用于对外输出和定位调用实际使用的方法
    ///   - target: 执行目标
-   SEL _Nullable selectorBlocks(JobsReturnIDBySelectorBlock _Nullable block,
+   SEL _Nullable selectorBlocks(JobsRetIDBySelectorBlock _Nullable block,
                                 NSString *_Nullable selectorName,// MethodName(self)
                                 NSObject *_Nonnull target) {
        if (!block) {
@@ -5629,7 +5629,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
         }return _backBtnModel;
     }
     JobsNavBarConfig *static_navBarConfig = nil;
-    -(JobsReturnNavBarConfigByButtonModelBlock _Nonnull)makeNavBarConfig{
+    -(JobsRetNavBarConfigByButtonModelBlock _Nonnull)makeNavBarConfig{
         return ^JobsNavBarConfig *_Nullable(UIButtonModel *_Nullable backBtnModel,
                                             UIButtonModel *_Nullable closeBtnModel) {
             @jobs_weakify(self)
@@ -5807,13 +5807,13 @@ vc.navCtrl
 
   ```objective-c
   /// 从一个视图（UIView）出发，获取它所在的视图控制器（UIViewController）
-  -(JobsReturnVCByView _Nonnull)getViewControllerByView;
+  -(JobsRetVCByView _Nonnull)getViewControllerByView;
   /// 获得当前的控制器。对getCurrentViewController的再次封装
   -(UIViewController *_Nullable)jobsGetCurrentViewController;
   /// 获得当前的控制器
   -(UIViewController *_Nullable)getCurrentViewController;
   /// 获得当前控制器的根控制器
-  -(JobsReturnVCByVC _Nullable )getCurrentViewControllerByRootVC;
+  -(JobsRetVCByVC _Nullable )getCurrentViewControllerByRootVC;
   ```
 
 * 关注实现类：[**@interface UIView (ViewController)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIView/UIView%2BCategory/UIView%2BViewController)
@@ -5835,7 +5835,7 @@ vc.navCtrl
   * 取值
 
     ```objective-c
-    -(JobsReturnIDByIDBlock _Nonnull)valueForKeyBlock;
+    -(JobsRetIDByIDBlock _Nonnull)valueForKeyBlock;
     ```
 
 * 使用方法
@@ -6092,7 +6092,7 @@ vc.navCtrl
 * 读取数据
 
   ```objective-c
-  +(JobsReturnIDByStringBlock _Nonnull)readWithKey;
+  +(JobsRetIDByStringBlock _Nonnull)readWithKey;
   ```
 
 * 删除数据
@@ -9288,7 +9288,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
   * <font color=blue>**UITableViewCellStyleDefault**</font>
 
     ```objective-c
-    +(JobsReturnTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
+    +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
         @jobs_weakify(self)
         return ^(UITableView * _Nonnull tableView) {
             @jobs_strongify(self)
@@ -9307,7 +9307,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
   * <font color=blue>**UITableViewCellStyleSubtitle**</font>
 
     ```objective-c
-    +(JobsReturnTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleWithTableView{
+    +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleWithTableView{
         @jobs_weakify(self)
         return ^(UITableView * _Nonnull tableView) {
             @jobs_strongify(self)
@@ -9326,7 +9326,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
   * <font color=blue>**UITableViewCellStyleValue1**</font>
 
     ```objective-c
-    +(JobsReturnTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
+    +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
         @jobs_weakify(self)
         return ^(UITableView * _Nonnull tableView) {
             @jobs_strongify(self)
@@ -9345,7 +9345,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
   * <font color=blue>**UITableViewCellStyleValue2**</font>
 
     ```objective-c
-    +(JobsReturnTableViewCellByTableViewBlock _Nonnull)cellStyleValue2WithTableView{
+    +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2WithTableView{
         @jobs_weakify(self)
         return ^(UITableView * _Nonnull tableView) {
             @jobs_strongify(self)
@@ -9507,7 +9507,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
 
 ```objective-c
 #pragma mark —— 一些公有方法
-+(JobsReturnButtonModelByStringAndImagesBlock _Nonnull)makeButtonModelBy{
++(JobsRetButtonModelByStringAndImagesBlock _Nonnull)makeButtonModelBy{
     return ^__kindof UIButtonModel *_Nullable(__kindof NSString *_Nullable title,
                                               UIImage *_Nullable image,
                                               UIImage *_Nullable highlightImage){
@@ -9557,7 +9557,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
 * 切整个**View**的4个角为统一的切角参数
 
   ```objective-c
-  -(JobsReturnViewByFloatBlock _Nonnull)cornerCutToCircleWithCornerRadius{
+  -(JobsRetViewByFloatBlock _Nonnull)cornerCutToCircleWithCornerRadius{
       @jobs_weakify(self)
       return ^(CGFloat cornerRadiusValue) {
           @jobs_strongify(self)
@@ -10207,7 +10207,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
     
     @interface UploadImageApi : JobsBaseApi
     
-    +(JobsReturnIDByImageBlock _Nonnull)initByImage;
+    +(JobsRetIDByImageBlock _Nonnull)initByImage;
     -(instancetype)initWithImage:(UIImage *)image;
     -(NSString *)responseImageId;
     
@@ -10225,7 +10225,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
     
     @implementation UploadImageApi
     
-    +(JobsReturnIDByImageBlock _Nonnull)initByImage{
+    +(JobsRetIDByImageBlock _Nonnull)initByImage{
         @jobs_weakify(self)
         return ^id(UIImage *_Nullable data){
             @jobs_strongify(self)
@@ -10743,7 +10743,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
 
     ```objective-c
     /// 阻止向可变数组添加空元素
-    -(JobsReturnMutableArrayByIDBlock _Nonnull)add{
+    -(JobsRetMutableArrayByIDBlock _Nonnull)add{
         @jobs_weakify(self)
         return ^NSMutableArray *_Nullable(id _Nullable data) {
             @jobs_strongify(self)
@@ -10754,7 +10754,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
         };
     }
     /// 向数组加入一个从来没有没有过的元素，以保证数组元素的单一性
-    -(JobsReturnIDByIDBlock _Nonnull)jobsAddSoleObject{
+    -(JobsRetIDByIDBlock _Nonnull)jobsAddSoleObject{
         @jobs_weakify(self)
         return ^id (id _Nullable data) {
             @jobs_strongify(self)
@@ -11059,7 +11059,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
       self.refreshAdBy(_dataMutArr);
   }
   /// 首页轮播图的数据源
-  -(JobsReturnWMZBannerParamByArrBlock _Nonnull)makeHomeGameBannerParamBy{
+  -(JobsRetWMZBannerParamByArrBlock _Nonnull)makeHomeGameBannerParamBy{
       @jobs_weakify(self)
       return ^WMZBannerParam *_Nonnull(NSMutableArray <FMBannerAdsModel *>* data){
           @jobs_strongify(self)
@@ -11310,9 +11310,9 @@ FMHomeMenuVC *vc = [self viewController:FMHomeMenuVC.new transitionDirection:Job
 
 ### 73、Layer <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-* `-(JobsReturnViewByCorBlock _Nonnull)layerByBorderCor;`
-* `-(JobsReturnViewByFloatBlock _Nonnull)layerByBorderWidth;`
-* `-(JobsReturnViewByFloatBlock _Nonnull)cornerCutToCircleWithCornerRadius;`
+* `-(JobsRetViewByCorBlock _Nonnull)layerByBorderCor;`
+* `-(JobsRetViewByFloatBlock _Nonnull)layerByBorderWidth;`
+* `-(JobsRetViewByFloatBlock _Nonnull)cornerCutToCircleWithCornerRadius;`
 
 ```objective-c
 -(FMAnnouncementView *)announcementView{
@@ -11335,7 +11335,7 @@ FMHomeMenuVC *vc = [self viewController:FMHomeMenuVC.new transitionDirection:Job
 }
 ```
 
-* `-(JobsReturnViewByLocationModelBlock _Nonnull)setLayerBy;`
+* `-(JobsRetViewByLocationModelBlock _Nonnull)setLayerBy;`
 
 ```objective-c
  -(JobsTextField *)textField_birthDay{
@@ -11397,7 +11397,7 @@ FMHomeMenuVC *vc = [self viewController:FMHomeMenuVC.new transitionDirection:Job
  }
 ```
 
-* `-(JobsReturnViewByLocationModelBlock _Nonnull)layerBy;`
+* `-(JobsRetViewByLocationModelBlock _Nonnull)layerBy;`
 
 ```objective-c
 cell.contentView.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {

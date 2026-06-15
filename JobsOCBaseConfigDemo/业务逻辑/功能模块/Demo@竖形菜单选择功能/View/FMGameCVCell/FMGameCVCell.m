@@ -31,20 +31,23 @@ Prop_assign(class)SourceType sourceType;
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     FMGameCVCell *cell = JobsRegisterDequeueCollectionViewCell(FMGameCVCell);
-    cell.contentView.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-        model.byMasksToBounds(YES)
-             .byLayerCor(RGBA_COLOR(255, 225, 144, 1))
-             .byJobsWidth(JobsWidth(1))
-             .byCornerRadiusValue(JobsWidth(8));
-    }));
-    cell.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-        model.byMasksToBounds(YES)
-             .byLayerCor(RGBA_COLOR(255, 225, 144, 1))
-             .byJobsWidth(JobsWidth(1))
-             .byCornerRadiusValue(JobsWidth(15));
-    }));
-    cell.indexPath = indexPath;
-    return cell;
+    return (FMGameCVCell *)cell
+        .byContentView(^(__kindof UIView * _Nullable view) {
+            view.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
+                model.byMasksToBounds(YES)
+                     .byLayerCor(RGBA_COLOR(255, 225, 144, 1))
+                     .byJobsWidth(JobsWidth(1))
+                     .byCornerRadiusValue(JobsWidth(8));
+            }));
+        })
+        .byIndexPath(indexPath)
+        .byLayer(^(CALayer * _Nullable layer) {
+            layer
+                .cornerRadiusBy(JobsWidth(15))
+                .borderWidthBy(JobsWidth(1))
+                .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
+                .masksToBoundsBy(YES);
+        });
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(JobsRetCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy{
@@ -128,7 +131,7 @@ static SourceType _sourceType;
         @jobs_weakify(self)
         _imageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+            imageView.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
                 make.top.left.right.equalTo(self.contentView);
                 switch (FMGameCVCell.sourceType) {
                     case SourceType_Home:/// 来自首页
@@ -161,11 +164,11 @@ static SourceType _sourceType;
                 JobsLog(@"");
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(JobsWidth(33));
+                make.bottom.left.right.equalTo(self.contentView);
             });
-        _button.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(JobsWidth(33));
-            make.bottom.left.right.equalTo(self.contentView);
-        });
     };return _button;
 }
 

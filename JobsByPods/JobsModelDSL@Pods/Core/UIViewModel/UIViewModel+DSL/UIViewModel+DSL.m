@@ -1030,7 +1030,7 @@
     };
 }
 
--(JobsRetUIViewModelByUIViewPointerBlock _Nonnull)byVIEW{
+-(JobsRetViewModelByViewBlock _Nonnull)byVIEW{
     @jobs_weakify(self)
     return ^__kindof UIViewModel *_Nullable(UIView * _Nullable data) {
         @jobs_strongify(self)
@@ -1804,7 +1804,7 @@
     };
 }
 
--(JobsRetUIViewModelByKindofUIViewPointerBlock _Nonnull)byLeftView{
+-(JobsRetViewModelByViewBlock _Nonnull)byLeftView{
     @jobs_weakify(self)
     return ^__kindof UIViewModel *_Nullable(__kindof UIView * _Nullable data) {
         @jobs_strongify(self)
@@ -1813,7 +1813,7 @@
     };
 }
 
--(JobsRetUIViewModelByKindofUIViewPointerBlock _Nonnull)byRightView{
+-(JobsRetViewModelByViewBlock _Nonnull)byRightView{
     @jobs_weakify(self)
     return ^__kindof UIViewModel *_Nullable(__kindof UIView * _Nullable data) {
         @jobs_strongify(self)
@@ -2722,6 +2722,15 @@
     };
 }
 
+-(JobsRetUIViewModelByJobsByViewModelBlockBlock _Nonnull)byViewModelBlock{
+    @jobs_weakify(self)
+    return ^__kindof UIViewModel *_Nullable(jobsByViewModelBlock _Nullable data) {
+        @jobs_strongify(self)
+        if (data && self.viewModel) data(self.viewModel);
+        return self;
+    };
+}
+
 -(JobsRetUIViewModelByUIButtonModelPointerBlock _Nonnull)byButtonModel{
     @jobs_weakify(self)
     return ^__kindof UIViewModel *_Nullable(UIButtonModel * _Nullable data) {
@@ -2736,6 +2745,24 @@
     return ^__kindof UIViewModel *_Nullable(UIButtonModel * _Nullable data) {
         @jobs_strongify(self)
         self.subButtonModel = data;
+        return self;
+    };
+}
+
+-(JobsRetUIViewModelByJobsByButtonModelBlockBlock _Nonnull)byButtonModelBlock{
+    @jobs_weakify(self)
+    return ^__kindof UIViewModel *_Nullable(jobsByButtonModelBlock _Nullable data) {
+        @jobs_strongify(self)
+        if (data) data(self.buttonModel);
+        return self;
+    };
+}
+
+-(JobsRetUIViewModelByJobsByButtonModelBlockBlock _Nonnull)bySubButtonModelBlock{
+    @jobs_weakify(self)
+    return ^__kindof UIViewModel *_Nullable(jobsByButtonModelBlock _Nullable data) {
+        @jobs_strongify(self)
+        if (data) data(self.subButtonModel);
         return self;
     };
 }
@@ -2763,6 +2790,33 @@
     return ^__kindof UIViewModel *_Nullable(UITextModel * _Nullable data) {
         @jobs_strongify(self)
         self.backBtnTitleModel = data;
+        return self;
+    };
+}
+
+-(JobsRetUIViewModelByJobsByTextModelBlockBlock _Nonnull)byTextModelBlock{
+    @jobs_weakify(self)
+    return ^__kindof UIViewModel *_Nullable(jobsByTextModelBlock _Nullable data) {
+        @jobs_strongify(self)
+        if (data) data(self.textModel);
+        return self;
+    };
+}
+
+-(JobsRetUIViewModelByJobsByTextModelBlockBlock _Nonnull)bySubTextModelBlock{
+    @jobs_weakify(self)
+    return ^__kindof UIViewModel *_Nullable(jobsByTextModelBlock _Nullable data) {
+        @jobs_strongify(self)
+        if (data) data(self.subTextModel);
+        return self;
+    };
+}
+
+-(JobsRetUIViewModelByJobsByTextModelBlockBlock _Nonnull)byBackBtnTitleModelBlock{
+    @jobs_weakify(self)
+    return ^__kindof UIViewModel *_Nullable(jobsByTextModelBlock _Nullable data) {
+        @jobs_strongify(self)
+        if (data) data(self.backBtnTitleModel);
         return self;
     };
 }
@@ -2875,7 +2929,7 @@
     };
 }
 
--(JobsRetUIViewModelByKindofUIViewPointerBlock _Nonnull)byViewer{
+-(JobsRetViewModelByViewBlock _Nonnull)byViewer{
     @jobs_weakify(self)
     return ^__kindof UIViewModel *_Nullable(__kindof UIView * _Nullable data) {
         @jobs_strongify(self)

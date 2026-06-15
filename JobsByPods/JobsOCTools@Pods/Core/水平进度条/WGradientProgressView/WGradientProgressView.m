@@ -42,12 +42,12 @@ static dispatch_once_t dispatchOnce;
             label
                 .byText(self.titleStr)
                 .byTextCor(self.titleColor)
-                .byFont(self.titleFont);
-            label.bySizeToFit();
-            label.addOn(containerView);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                .byFont(self.titleFont)
+            .bySizeToFit()
+            .addOn(containerView)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.center.equalTo(containerView);
-            }];
+            });
         });
     };return _titleLab;
 }

@@ -84,7 +84,7 @@ static dispatch_once_t static_showNumViewOnceToken;
                 if (self.objBlock) self.objBlock(x);
             });
 
-            btn.byAddTo(self, ^(MASConstraintMaker *make) {
+            btn.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(btnSize);
                 make.centerY.equalTo(self);
                 if (self.btnMutArr.count) {

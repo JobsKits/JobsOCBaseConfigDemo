@@ -203,11 +203,12 @@ JobsToggleNavViewProtocolSynthesize
         @jobs_weakify(self)
         _sliderView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            view.resetSize(CGSizeMake(self.sliderW, self.sliderH));
-            view.resetCenterX(self.buttonWidth / 2);
-            view.resetOriginY(self.height - self.sliderH);
-            view.byBgColor(self.sliderColor);
-            self.addSubview(view);
+            view
+                .bySize(CGSizeMake(self.sliderW, self.sliderH))
+                .byCenterX(self.buttonWidth / 2)
+                .byY(self.height - self.sliderH)
+                .byBgColor(self.sliderColor)
+                .addOn(self);
         });
     };return _sliderView;
 }
@@ -239,9 +240,9 @@ JobsToggleNavViewProtocolSynthesize
 -(UIButtonModel *)buttonModel{
     if(!_buttonModel){
         _buttonModel = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-            model.buttonConfiguration = nil;
-            model.backgroundConfiguration = nil;
-            model.byButtonConfigurationTitleAlignment(UIButtonConfigurationTitleAlignmentAutomatic)
+            model.byButtonConfiguration(nil)
+                 .byBackgroundConfiguration(nil)
+                 .byButtonConfigurationTitleAlignment(UIButtonConfigurationTitleAlignmentAutomatic)
                  .byTextAlignment(NSTextAlignmentCenter)
                  .bySubTextAlignment(NSTextAlignmentCenter)
                  .byNormalImage(nil)

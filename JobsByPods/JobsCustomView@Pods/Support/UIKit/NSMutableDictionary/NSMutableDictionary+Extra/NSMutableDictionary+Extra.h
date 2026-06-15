@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(JobsRetMutableDicByKeyValueBlock _Nonnull)add;
 -(JobsRetMutableDicByDicBlock _Nonnull)addByDic;
--(JobsReturnMutableDicByKeyValueModelBlock _Nonnull)saveDataBy;
+-(JobsRetMutableDicByKeyValueModelBlock _Nonnull)saveDataBy;
 /// 打印的结果可以直接用于Postman
 -(NSString *)jsonString;
 

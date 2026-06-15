@@ -36,14 +36,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JXCategoryImageView (Extra)
 
--(JobsReturnCategoryImageViewByStringsBlock _Nonnull)byImageNames;
--(JobsReturnCategoryImageViewByStringsBlock _Nonnull)bySelectedImageNames;
--(JobsReturnCategoryImageViewByStringsBlock _Nonnull)byImageInfoArray;
--(JobsReturnCategoryImageViewByStringsBlock _Nonnull)bySelectedImageInfoArray;
--(JobsReturnCategoryImageViewBySizeBlock _Nonnull)byImageSize;
--(JobsReturnCategoryImageViewByCGFloatBlock _Nonnull)byImageCornerRadius;
--(JobsReturnCategoryImageViewByBOOLBlock _Nonnull)byImageZoomEnabled;
--(JobsReturnCategoryImageViewByNSIntegerBlock _Nonnull)byImageZoomScale;
+-(JobsRetCategoryImageViewByStringsBlock _Nonnull)byImageNames;
+-(JobsRetCategoryImageViewByStringsBlock _Nonnull)bySelectedImageNames;
+-(JobsRetCategoryImageViewByStringsBlock _Nonnull)byImageInfoArray;
+-(JobsRetCategoryImageViewByStringsBlock _Nonnull)bySelectedImageInfoArray;
+-(JobsRetCategoryImageViewBySizeBlock _Nonnull)byImageSize;
+-(JobsRetCategoryImageViewByCGFloatBlock _Nonnull)byImageCornerRadius;
+-(JobsRetCategoryImageViewByBOOLBlock _Nonnull)byImageZoomEnabled;
+-(JobsRetCategoryImageViewByNSIntegerBlock _Nonnull)byImageZoomScale;
 
 @end
 

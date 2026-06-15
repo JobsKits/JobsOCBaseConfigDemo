@@ -25,7 +25,4 @@
 #import <JobsModel/NSObject+Path.h>
 #import <JobsModel/NSString+Path.h>
 
-#pragma mark —— JobsModel+DSL
-#import <JobsModel/JobsModel+DSL.h>
-
 #endif /* JobsModel_h */

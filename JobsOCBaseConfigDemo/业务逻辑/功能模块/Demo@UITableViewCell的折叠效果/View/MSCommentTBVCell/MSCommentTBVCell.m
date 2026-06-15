@@ -25,7 +25,7 @@ UIViewModelProtocol_synthesize_part2
 BaseLayerProtocol_synthesize_part3
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^(UITableView * _Nonnull tableView) {
         MSCommentTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(MSCommentTBVCell);
         cell.offsetXForEach = JobsWidth(7);
@@ -76,14 +76,14 @@ BaseLayerProtocol_synthesize_part3
                 .byTextCor(@"#666666".cor)
                 .byFont(UIFontWeightRegularSize(14))
                 .byBgColor(@"#F7F7F7".cor)
-                .byCornerRadius(JobsWidth(8));
-            label.addOn(self.contentView);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.contentView).with.insets(UIEdgeInsetsMake(JobsWidth(5),
-                                                                                  JobsWidth(25),
-                                                                                  JobsWidth(5),
-                                                                                  JobsWidth(25)));
-            }];
+                .byCornerRadius(JobsWidth(8))
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.contentView).with.insets(UIEdgeInsetsMake(JobsWidth(5),
+                                                                                      JobsWidth(25),
+                                                                                      JobsWidth(5),
+                                                                                      JobsWidth(25)));
+                });
         });
     };return _titleLab;
 }

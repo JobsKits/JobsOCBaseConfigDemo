@@ -53,23 +53,28 @@
      -(UIButton *)btn1{
          if(!_btn1){
              if(self.deviceSystemVersion.floatValue >= 15.0){
-                 _btn1 = [UIButton buttonWithConfiguration:self.btnConfig primaryAction:nil];
+                 _btn1 = (UIButton *)[UIButton buttonWithConfiguration:self.btnConfig primaryAction:nil]
+                     .addOn(self)
+                     .byAdd(^(MASConstraintMaker *make) {
+                         make.size.mas_equalTo(CGSizeMake(JobsWidth(85), JobsWidth(16)));
+                         make.centerY.equalTo(self);
+                         make.left.equalTo(self).offset(JobsWidth(6));
+                     });
              }else{
-                 _btn1 = UIButton.new;
-                 _btn1.jobsResetBtnImage = @"入职Mata".img;
-                 _btn1.titleFont = UIFontWeightRegularSize(14);
-                 _btn1.jobsResetBtnTitle = @"入职Mata".tr;
-                 _btn1.jobsResetBtnTitleCor = JobsBlackColor;
-             }
-             // 添加按钮到视图中
-             _btn1.byAddTo(self, ^(MASConstraintMaker *make) {
-                 make.size.mas_equalTo(CGSizeMake(JobsWidth(85), JobsWidth(16)));
-                 make.centerY.equalTo(self);
-                 make.left.equalTo(self).offset(JobsWidth(6));
-             });
-
-             if(self.deviceSystemVersion.floatValue < 15.0){
-                 [_btn1 layoutButtonWithEdgeInsetsStyle:NSDirectionalRectEdgeLeading imagePadding:JobsWidth(8)];
+                 _btn1 = UIButton.jobsInit()
+                     .jobsResetBtnImage(@"入职Mata".img)
+                     .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
+                     .jobsResetBtnTitle(@"入职Mata".tr)
+                     .jobsResetBtnTitleCor(JobsBlackColor)
+                     .byViewBlock(^(__kindof UIView *view) {
+                         [(UIButton *)view layoutButtonWithEdgeInsetsStyle:NSDirectionalRectEdgeLeading imagePadding:JobsWidth(8)];
+                     })
+                     .addOn(self)
+                     .byAdd(^(MASConstraintMaker *make) {
+                         make.size.mas_equalTo(CGSizeMake(JobsWidth(85), JobsWidth(16)));
+                         make.centerY.equalTo(self);
+                         make.left.equalTo(self).offset(JobsWidth(6));
+                     });
              }
          };return _btn1;
      }

@@ -84,11 +84,11 @@ Prop_assign()NSInteger colNumber;// 列数
                             model.byJobsEnabled(YES)
                                  .byImagePlacement(NSDirectionalRectEdgeTrailing)
                                  .byImagePadding(JobsWidth(8))
-                                 .byNormalImage(@"复制图标".img);
-                            model.clickEventBlock = ^id _Nullable(UIButton *_Nullable data) {
+                                 .byNormalImage(@"复制图标".img)
+                                 .byClickEventBlock(^id _Nullable(UIButton *_Nullable data) {
                                 data.titleForNormalState.pasteboard();
                                 return nil;
-                            };
+                            });
                         }
                         model.byBaseBackgroundColor(i % 2 ? self.cor2: self.cor1)
                              .byBackgroundImage(i % 2 ? self.image2: self.image1)

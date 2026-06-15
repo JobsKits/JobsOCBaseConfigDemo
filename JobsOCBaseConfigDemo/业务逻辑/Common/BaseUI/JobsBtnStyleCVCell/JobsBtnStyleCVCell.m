@@ -111,7 +111,7 @@ AppToolsProtocol_synthesize
 }
 #pragma mark —— 一些私有方法
 /// 数据源UIViewModel设置UIButton
--(JobsReturnButtonByViewModelBlock _Nonnull)setBtnByViewModel{
+-(JobsRetButtonByViewModelBlock _Nonnull)setBtnByViewModel{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(__kindof UIViewModel *_Nullable viewModel){
         @jobs_strongify(self)
@@ -151,7 +151,7 @@ AppToolsProtocol_synthesize
     };
 }
 /// 数据源UIButtonModel设置UIButton
--(JobsReturnButtonByButtonModelBlock _Nonnull)setBtnByButtonModel{
+-(JobsRetButtonByButtonModelBlock _Nonnull)setBtnByButtonModel{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(__kindof UIButtonModel *_Nullable buttonModel){
         @jobs_strongify(self)
@@ -242,14 +242,14 @@ AppToolsProtocol_synthesize
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if(self.objBlock) self.objBlock(x);
-            });
+            })
+            .byEnabled(NO)
+            .byUserInteractionEnabled(YES)
+            .addOn(self.contentView)
+            .byAdd(self.masonryBlock);
         /// enabled 是 userInteractionEnabled 的子集
         /// enabled = NO ,则不响应：-(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event（此方法不要写在分类里面）
-        _button.enabled = NO; /// 这个属性为YES，则优先响应Btn。这个属性为NO，则响应 UITableViewCell 协议方法
-        _button.userInteractionEnabled = YES;
-        self.contentView
-            .addSubview(_button)
-            .byAdd(self.masonryBlock);
+        /// enabled 这个属性为YES，则优先响应Btn。这个属性为NO，则响应 UITableViewCell 协议方法
     };return _button;
 }
 

@@ -72,7 +72,7 @@ Prop_strong(nullable)UIViewModel *titleModel;
 /// 配置GKNavigationBar（不包括返回键的设定）
 -(jobsByViewModelBlock _Nonnull)setGKNav;
 /// 配置 JobsNavBarConfig
--(JobsReturnNavBarConfigByButtonModelBlock _Nonnull)makeNavBarConfig;
+-(JobsRetNavBarConfigByButtonModelBlock _Nonnull)makeNavBarConfig;
 /// 配置GKNavigationBar的返回按钮（从上个页面推过来才有返回键）
 -(jobsByBtnBlock _Nonnull)setGKNavBackBtn;
 /// 配置GKNavigationBar的返回按钮
@@ -80,9 +80,9 @@ Prop_strong(nullable)UIViewModel *titleModel;
 /// 配置GKNavigationBar的标题（按钮）
 -(jobsByButtonModelBlock _Nonnull)setGKNavTitleBtnBy;
 /// 返回按钮的回调
--(JobsReturnNavBarByVoidBtnBlocks _Nullable)JobsNavBarBackBtnClickBlock;
+-(JobsRetNavBarByVoidBtnBlocks _Nullable)JobsNavBarBackBtnClickBlock;
 /// 关闭按钮的回调
--(JobsReturnNavBarByVoidBtnBlocks _Nullable)JobsNavBarCloseBtnClickBlock;
+-(JobsRetNavBarByVoidBtnBlocks _Nullable)JobsNavBarCloseBtnClickBlock;
 #pragma mark —— 获取绑定的数据源
 -(UIViewModel *_Nullable)getViewModel;
 -(__kindof UIButtonModel *_Nullable)getButtonModel;

@@ -27,7 +27,7 @@
     };
 }
 
--(JobsReturnMutableDicByKeyValueModelBlock _Nonnull)saveDataBy{
+-(JobsRetMutableDicByKeyValueModelBlock _Nonnull)saveDataBy{
     @jobs_weakify(self)
     return ^NSMutableDictionary *_Nonnull(JobsKeyValueModel *_Nullable model){
         @jobs_strongify(self)

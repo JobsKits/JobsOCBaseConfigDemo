@@ -117,7 +117,7 @@ NS_ASSUME_NONNULL_END
                      
                  }
              }];
-             _inputView.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+             _inputView.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
                  make.left.equalTo(self.contentView).offset(JobsWidth(16));
                  make.size.mas_equalTo(inputViewSize);
                  make.top.equalTo(self).offset(JobsWidth(3));

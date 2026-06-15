@@ -24,7 +24,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSDate (Extra)
+@interface NSDate (JobsModelExtra)
 /// 创建一个基于 1970年1月1日00:00:00 UTC 时间 的 NSDate 对象
 /// 基准时间点：1970 年 1 月 1 日 00:00
 /// 入参data：秒数，计算距离 1970 的偏移量

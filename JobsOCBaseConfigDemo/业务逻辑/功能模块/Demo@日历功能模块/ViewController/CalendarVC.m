@@ -36,18 +36,23 @@ Prop_strong()FSCalendar *calendar;
     }
     self.setupNavigationBarHidden = YES;
     {
-        self.viewModel.backBtnTitleModel.text = @"返回".tr;
-        self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-        self.viewModel.textModel.text = @"日历功能".tr;
-        self.viewModel.textModel.font = UIFontWeightRegularSize(16);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".tr);
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byTextCor(HEXCOLOR(0x3D4A58));
+                data.byText(@"日历功能".tr);
+                data.byFont(UIFontWeightRegularSize(16));
+            })
         
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-        self.viewModel.navBgImage = @"导航栏左侧底图".img;
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
     }
     /// 装填用户信息数据
     /// json生成器 ： https://www.site24x7.com/zhcn/tools/json-generator.html
@@ -178,47 +183,54 @@ atMonthPosition:(FSCalendarMonthPosition)monthPosition{
         @jobs_weakify(self)
         _calendar = jobsMakeFSCalendar(^(__kindof FSCalendar * _Nullable calendar) {
             @jobs_strongify(self)
-            calendar.byDataSource(self);
-            calendar.byDelegate(self);
-            calendar.byGetSwipeToChooseGesture().byEnabled(YES);
-            calendar.appearance.byHeaderMinimumDissolvedAlpha(1);
-            calendar.appearance.byHeaderDateFormat(@"yyyy"
-                                                   .add(@"年".tr)
-                                                   .add(@"MM")
-                                                   .add(@"月".tr));
-            calendar.appearance.byCaseOptions(FSCalendarCaseOptionsHeaderUsesUpperCase);
-            calendar.appearance.byHeaderTitleFont(UIFontSystemFontOfSize(JobsWidth(20)));
-            calendar.appearance.byHeaderTitleColor(JobsBlackColor);
-            calendar.byAllowsMultipleSelection(YES);
-            calendar.addOn(self.view);
-            [calendar mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self.view);
-                [self make:make topOffset:10];
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(450), JobsWidth(340)));
-            }];
-            calendar.bySetNeedsLayout();
-            calendar.byLayoutIfNeeded();
-            calendar.byBgColor(JobsLightGrayColor.colorWithAlphaComponentBy(.1f));
+            calendar
+                .byDataSource(self)
+                .byDelegate(self)
+                .byAllowsMultipleSelection(YES)
+                .bySwipeToChooseGestureBlock(^(__kindof UILongPressGestureRecognizer * _Nullable data) {
+                    data.byEnabled(YES);
+                })
+                .byAppearanceBlock(^(__kindof FSCalendarAppearance * _Nullable data) {
+                    data
+                        .byHeaderMinimumDissolvedAlpha(1)
+                        .byHeaderDateFormat(@"yyyy"
+                                            .add(@"年".tr)
+                                            .add(@"MM")
+                                            .add(@"月".tr))
+                        .byCaseOptions(FSCalendarCaseOptionsHeaderUsesUpperCase)
+                        .byHeaderTitleFont(UIFontSystemFontOfSize(JobsWidth(20)))
+                        .byHeaderTitleColor(JobsBlackColor);
+                })
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self.view);
+                    [self make:make topOffset:10];
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(450), JobsWidth(340)));
+                })
+                .bySetNeedsLayout()
+                .byLayoutIfNeeded()
+                .byBgColor(JobsLightGrayColor.colorWithAlphaComponentBy(.1f));
         });
     };return _calendar;
-}@synthesize backBtnModel = _backBtnModel;
+}
+@synthesize backBtnModel = _backBtnModel;
 -(UIButtonModel *)backBtnModel{
     if(!_backBtnModel){
         @jobs_weakify(self)
-        _backBtnModel = self.makeBackBtnModel;
-        _backBtnModel.titleFont = bayonRegular(JobsWidth(18));
-        _backBtnModel.titleCor = JobsRedColor;
-        _backBtnModel.selectedTitleCor = JobsWhiteColor;
-        _backBtnModel.longPressGestureEventBlock = ^id(__kindof UIButton *x) {
-            JobsLog(@"按钮的长按事件触发");
-            return nil;
-        };
-        _backBtnModel.clickEventBlock = ^id(BaseButton *x){
-            @jobs_strongify(self)
-            self.jobsBackBtnClickEvent(x);
-            self.popToRootVCBy(YES);
-            return nil;
-        };
+        _backBtnModel = self.makeBackBtnModel
+            .byTitleFont(bayonRegular(JobsWidth(18)))
+            .byTitleCor(JobsRedColor)
+            .bySelectedTitleCor(JobsWhiteColor)
+            .byLongPressGestureEventBlock(^id(__kindof UIButton *x) {
+                JobsLog(@"按钮的长按事件触发");
+                return nil;
+            })
+            .byClickEventBlock(^id(BaseButton *x){
+                @jobs_strongify(self)
+                self.jobsBackBtnClickEvent(x);
+                self.popToRootVCBy(YES);
+                return nil;
+            });
     };return _backBtnModel;
 }
 

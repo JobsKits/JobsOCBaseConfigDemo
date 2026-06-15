@@ -31,7 +31,7 @@ JobsKey(_jobs_navBar)
     Jobs_setAssociatedRETAIN_NONATOMIC(_jobs_navBar, jobs_navBar)
 }
 
--(JobsReturnNavBarConfigByButtonModelBlock)makeNavBarConfig{
+-(JobsRetNavBarConfigByButtonModelBlock)makeNavBarConfig{
     return ^(UIButtonModel *_Nullable backBtnModel,
              UIButtonModel *_Nullable closeBtnModel) {
         @jobs_weakify(self)
@@ -65,7 +65,7 @@ JobsKey(_jobs_navBar)
         JobsLog(@"%f",self.jobs_navBarConfig.backBtnModel.jobsOffsetX);
         JobsLog(@"%f",self.jobs_navBarConfig.closeBtnModel.jobsOffsetX);
         data.navBarConfig = self.jobs_navBarConfig;
-        data.byAddTo(self, ^(MASConstraintMaker *make) {
+        data.addOn(self).byAdd(^(MASConstraintMaker *make) {
             if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
                 make.top.equalTo(self);
             }else{

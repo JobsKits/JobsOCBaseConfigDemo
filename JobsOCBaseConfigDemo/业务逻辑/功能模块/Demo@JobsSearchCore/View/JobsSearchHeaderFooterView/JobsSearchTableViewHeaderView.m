@@ -32,7 +32,7 @@ Prop_strong()UIButton *delBtn;
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         if ([model isKindOfClass:UIViewModel.class]) {
-            self.viewModel = model ? : UIViewModel.new;
+            self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
             self.titleLab.byText(self.viewModel.textModel.text);
             self.delBtn.byAlpha(1);
         }
@@ -54,31 +54,31 @@ Prop_strong()UIButton *delBtn;
                 .byTextCor(self.viewModel.textModel.textCor)
                 .byFont(self.viewModel.textModel.font)
                 .byTextAlignment(NSTextAlignmentLeft)
-                .byBgColor(self.viewModel.bgCor);
-            label.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
-                make.top.right.bottom.equalTo(self.contentView);
-                make.left.equalTo(self.contentView).offset(JobsWidth(10));
-            });
+                .byBgColor(self.viewModel.bgCor)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.right.bottom.equalTo(self.contentView);
+                    make.left.equalTo(self.contentView).offset(JobsWidth(10));
+                });
         });
     };return _titleLab;
 }
 
 -(UIButton *)delBtn{
     if (!_delBtn) {
-        _delBtn = UIButton.new;
-        _delBtn.jobsResetBtnImage(@"垃圾箱".img);
         @jobs_weakify(self)
-        [_delBtn jobsBtnClickEventBlock:^id(UIButton *x) {
-            @jobs_strongify(self)
-            if(self.objBlock)self.objBlock(x);
-            return nil;
-        }];
-        _delBtn.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(25), JobsWidth(25)));
-            make.right.equalTo(self.contentView).offset(-JobsWidth(10));
-            make.centerY.equalTo(self.contentView);
-        });
-
+        _delBtn = UIButton.jobsInit()
+            .jobsResetBtnImage(@"垃圾箱".img)
+            .onClickBy(^(UIButton *x) {
+                @jobs_strongify(self)
+                if(self.objBlock)self.objBlock(x);
+            })
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(25), JobsWidth(25)));
+                make.right.equalTo(self.contentView).offset(-JobsWidth(10));
+                make.centerY.equalTo(self.contentView);
+            });
     };return _delBtn;
 }
 

@@ -30,7 +30,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSFormatter (Extra)
+@interface NSFormatter (JobsByOCPodsExtra)
 
 -(JobsRetStrByDateBlock _Nonnull)date;
 -(JobsRetStrByTimeIntervalBlock _Nonnull)time;

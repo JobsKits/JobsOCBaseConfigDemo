@@ -48,9 +48,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// UIInterfaceOrientationMaskLandscapeLeft :左手边是iPhone刘海，应用程序横屏倒置
 /// 在应用程序初始化的阶段，是没有办法通过诸如：UIDevice.currentDevice.orientation 获取到正确的方向的
 Prop_assign()UIInterfaceOrientationMask currentInterfaceOrientationMask; // 定义应用程序支持的方向
-Prop_assign()UIInterfaceOrientation currentInterfaceOrientation;         // 描述界面当前的方向，用于确定应用界面是如何显示的
-Prop_assign()UIDeviceOrientation currentDeviceOrientation;               // 描述设备本身的物理方向，即设备如何被用户持握
-Prop_assign()DeviceOrientation jobsDeviceOrientation;                    // 自定义枚举，直接输出横竖屏判定
+Prop_assign()UIInterfaceOrientation currentInterfaceOrientation;
+         // 描述界面当前的方向，用于确定应用界面是如何显示的
+Prop_assign()UIDeviceOrientation currentDeviceOrientation;
+               // 描述设备本身的物理方向，即设备如何被用户持握
+Prop_assign()DeviceOrientation jobsDeviceOrientation;
+                    // 自定义枚举，直接输出横竖屏判定
 /// 根据 x 和 y 的绝对值判断主方向
 -(JobsRetStrByCGPointBlock _Nonnull)directionByTranslation;
 -(JobsRetNSIntegerByPointBlock _Nonnull)directionByPoint;

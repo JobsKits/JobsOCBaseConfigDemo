@@ -130,7 +130,9 @@ BaseViewControllerProtocol_synthesize
 #pragma mark —— lazyLoad
 -(UIView *)statusBar{
     if (!_statusBar) {
-        _statusBar = [UIView.alloc initWithFrame:jobsGetMainWindowWithSize().windowScene.statusBarManager.statusBarFrame];
+        _statusBar = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byFrame(jobsGetMainWindowWithSize().windowScene.statusBarManager.statusBarFrame);
+        });
     };return _statusBar;
 }
 

@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSObject (Path)
+@interface NSObject (JobsByOCPodsPath)
 /// 获取bundle路径
 -(NSString *_Nonnull)bundlePath;
 /// 获取沙盒的主目录路径：

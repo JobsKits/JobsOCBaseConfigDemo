@@ -149,7 +149,7 @@ NS_INLINE __kindof JobsToggleBaseView *_Nonnull jobsMakeToggleBaseView(jobsByTog
                          };
                      }));
                  }));
-                 toggleBaseView.byAddTo(self.view, ^(MASConstraintMaker *make) {
+                 toggleBaseView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                      make.size.mas_equalTo(toggleBaseView.sizer);
                      make.top.equalTo(self.titleLab.mas_bottom);
                      make.centerX.equalTo(self.view);

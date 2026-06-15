@@ -54,10 +54,11 @@ Prop_strong()UIView *topLine;
 
 - (UIView *)topLine {
     if (!_topLine) {
-        _topLine = UIView.new;
-        _topLine.byBgColor(JobsGrayColor);
-
-        [self addSubview:_topLine];
+        _topLine = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(JobsGrayColor)
+                .addOn(self);
+        });
     };return _topLine;
 }
 

@@ -52,25 +52,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(JobsRetBtnModelByStrAndImagesBlock _Nonnull)makeButtonModelBy;
 /// 值越大 = 按钮之间的距离越小
--(JobsReturnStepViewByCGFloatBlock _Nonnull)byOffset;
+-(JobsRetStepViewByCGFloatBlock _Nonnull)byOffset;
 /// 设置左边线长度
--(JobsReturnStepViewByCGFloatBlock _Nonnull)byLeftViewWidth;
+-(JobsRetStepViewByCGFloatBlock _Nonnull)byLeftViewWidth;
 /// 设置右边线长度
--(JobsReturnStepViewByCGFloatBlock _Nonnull)byRightViewWidth;
+-(JobsRetStepViewByCGFloatBlock _Nonnull)byRightViewWidth;
 /// 设置按钮之间的距离
--(JobsReturnStepViewByCGFloatBlock _Nonnull)byBtnOffset;
+-(JobsRetStepViewByCGFloatBlock _Nonnull)byBtnOffset;
 /// 设置第一个按钮距离父视图左边的距离
--(JobsReturnStepViewByCGFloatBlock _Nonnull)byFirstBtnLeftOffset;
+-(JobsRetStepViewByCGFloatBlock _Nonnull)byFirstBtnLeftOffset;
 /// 设置左边线（高亮）颜色
--(JobsReturnStepViewByColorBlock _Nonnull)byLeftLabHighlightBgCor;
+-(JobsRetStepViewByColorBlock _Nonnull)byLeftLabHighlightBgCor;
 /// 设置左边线（普通）颜色
--(JobsReturnStepViewByColorBlock _Nonnull)byLeftLabNormalBgCor;
+-(JobsRetStepViewByColorBlock _Nonnull)byLeftLabNormalBgCor;
 /// 设置右边线（高亮）颜色
--(JobsReturnStepViewByColorBlock _Nonnull)byRightLabHighlightBgCor;
+-(JobsRetStepViewByColorBlock _Nonnull)byRightLabHighlightBgCor;
 /// 设置右边线（普通）颜色
--(JobsReturnStepViewByColorBlock _Nonnull)byRightLabNormalBgCor;
+-(JobsRetStepViewByColorBlock _Nonnull)byRightLabNormalBgCor;
 /// 设置当前显示状态
--(JobsReturnStepViewByNSIntegerBlock _Nonnull)byStatus;
+-(JobsRetStepViewByNSIntegerBlock _Nonnull)byStatus;
 
 @end
 

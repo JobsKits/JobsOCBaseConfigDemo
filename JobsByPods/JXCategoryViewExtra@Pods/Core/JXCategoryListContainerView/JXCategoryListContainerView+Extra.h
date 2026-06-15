@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JXCategoryListContainerView (Extra)
 
--(JobsReturnCategoryListContainerViewByNSIntegerBlock _Nonnull)byDefaultSelectedIndex;
+-(JobsRetCategoryListContainerViewByNSIntegerBlock _Nonnull)byDefaultSelectedIndex;
 
 @end
 

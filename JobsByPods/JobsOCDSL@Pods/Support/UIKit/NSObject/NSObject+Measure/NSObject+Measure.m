@@ -6,6 +6,11 @@
 //
 
 #import "NSObject+Measure.h"
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 
 @implementation NSObject (JobsOCDSLMeasureSupport)
 UILocationProtocol_dynamic /// 方位
@@ -70,11 +75,12 @@ isEqualToSize2:(CGSize)size2{
                               title:(NSString *)title
                                font:(UIFont *)font{
     return ceil(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label.frame = CGRectMake(0, 0, width, 0);
-        label.text = title;
-        label.font = font;
-        label.numberOfLines = 0;
-        [label sizeToFit];
+        label
+            .byText(title)
+            .byFont(font)
+            .byNumberOfLines(0)
+            .bySizeToFit()
+            .byFrame(CGRectMake(0, 0, width, 0));
     }).frame.size.height);
 }
 /// UILabe单行文本的宽度：根据字体计算单行文本的宽度
@@ -88,11 +94,12 @@ isEqualToSize2:(CGSize)size2{
                              title:(NSString *)title
                               font:(UIFont *)font{
     UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label.frame = CGRectMake(0, 0, width, 0);
-        label.text = title;
-        label.font = font;
-        label.numberOfLines = 0;
-        [label sizeToFit];
+        label
+            .byText(title)
+            .byFont(font)
+            .byNumberOfLines(0)
+            .bySizeToFit()
+            .byFrame(CGRectMake(0, 0, width, 0));
     });
     CGFloat height = label.frame.size.height;
     /// 先用UILabel的 sizeToFit 计算出最佳大小，然后用高度/lineHeight就是行数，lineHeight为UIFont的属性

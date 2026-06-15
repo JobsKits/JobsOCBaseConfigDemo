@@ -60,7 +60,7 @@ RACProtocol_synthesize
     self.otherActionBlock = otherActionBlock;
 }
 /// 这个值需要在leftView之前设置才有效
--(JobsReturnJobsTextFieldByCGFloatBlock _Nonnull)byLeftViewByOutLineOffset{
+-(JobsRetJobsTextFieldByCGFloatBlock _Nonnull)byLeftViewByOutLineOffset{
     @jobs_weakify(self)
     return ^__kindof JobsTextField *_Nonnull(CGFloat data){
         @jobs_strongify(self)
@@ -69,7 +69,7 @@ RACProtocol_synthesize
     };
 }
 
--(JobsReturnJobsTextFieldByCGFloatBlock _Nonnull)byLeftViewByTextFieldOffset{
+-(JobsRetJobsTextFieldByCGFloatBlock _Nonnull)byLeftViewByTextFieldOffset{
     @jobs_weakify(self)
     return ^__kindof JobsTextField *_Nonnull(CGFloat data){
         @jobs_strongify(self)
@@ -78,7 +78,7 @@ RACProtocol_synthesize
     };
 }
 /// 这个值需要在rightView之前设置才有效
--(JobsReturnJobsTextFieldByCGFloatBlock _Nonnull)byRightViewByOutLineOffset{
+-(JobsRetJobsTextFieldByCGFloatBlock _Nonnull)byRightViewByOutLineOffset{
     @jobs_weakify(self)
     return ^__kindof JobsTextField *_Nonnull(CGFloat data){
         @jobs_strongify(self)
@@ -87,7 +87,7 @@ RACProtocol_synthesize
     };
 }
 
--(JobsReturnJobsTextFieldByCGFloatBlock _Nonnull)byRightViewByTextFieldOffset{
+-(JobsRetJobsTextFieldByCGFloatBlock _Nonnull)byRightViewByTextFieldOffset{
     @jobs_weakify(self)
     return ^__kindof JobsTextField *_Nonnull(CGFloat data){
         @jobs_strongify(self)
@@ -96,7 +96,7 @@ RACProtocol_synthesize
     };
 }
 
--(JobsReturnJobsTextFieldByViewBlock _Nonnull)byLeftView{
+-(JobsRetJobsTextFieldByViewBlock _Nonnull)byLeftView{
     @jobs_weakify(self)
     return ^__kindof JobsTextField *_Nonnull(__kindof UIView *_Nullable view){
         @jobs_strongify(self)
@@ -105,7 +105,7 @@ RACProtocol_synthesize
     };
 }
 
--(JobsReturnJobsTextFieldByViewBlock _Nonnull)byRightView{
+-(JobsRetJobsTextFieldByViewBlock _Nonnull)byRightView{
     @jobs_weakify(self)
     return ^__kindof JobsTextField *_Nonnull(__kindof UIView *_Nullable view){
         @jobs_strongify(self)
@@ -114,7 +114,7 @@ RACProtocol_synthesize
     };
 }
 
--(JobsReturnJobsTextFieldByBOOLBlock _Nonnull)byNotAllowEdit{
+-(JobsRetJobsTextFieldByBOOLBlock _Nonnull)byNotAllowEdit{
     @jobs_weakify(self)
     return ^__kindof JobsTextField *_Nonnull(BOOL data){
         @jobs_strongify(self)
@@ -123,7 +123,7 @@ RACProtocol_synthesize
     };
 }
 /// 只有在输入框不允许编辑的大前提之下，才允许加入手势
--(JobsReturnJobsTextFieldByGestureRecognizerBlock _Nonnull)byGesture{
+-(JobsRetJobsTextFieldByGestureRecognizerBlock _Nonnull)byGesture{
     @jobs_weakify(self)
     return ^__kindof JobsTextField *_Nonnull(__kindof UIGestureRecognizer * _Nullable gesture){
         @jobs_strongify(self)
@@ -234,7 +234,7 @@ willDismissEditMenuWithAnimator:(id<UIEditMenuInteractionAnimating>)animator{
 #pragma mark —— UITextFieldProtocol
 -(void)setLeftView:(UIView *)leftView{
     _leftView = leftView;
-    _leftView.byAddTo(self, ^(MASConstraintMaker *make) {
+    _leftView.addOn(self).byAdd(^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
         make.left.equalTo(self).offset(self.leftViewByOutLineOffset);
         if (_leftView.width) make.width.mas_equalTo(_leftView.width);
@@ -244,7 +244,7 @@ willDismissEditMenuWithAnimator:(id<UIEditMenuInteractionAnimating>)animator{
 
 -(void)setRightView:(UIView *)rightView{
     _rightView = rightView;
-    _rightView.byAddTo(self, ^(MASConstraintMaker *make) {
+    _rightView.addOn(self).byAdd(^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
         make.right.equalTo(self).offset(-self.rightViewByOutLineOffset);
         if(self.isSizeZero(rightView.sizer)){

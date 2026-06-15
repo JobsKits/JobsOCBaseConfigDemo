@@ -98,7 +98,7 @@ NS_ASSUME_NONNULL_END
 
                  [self chargeOrderChargeOrderList];/// 用户充值列表
              }];
-             _hl.byAddTo(self.view, ^(MASConstraintMaker *make) {
+             _hl.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                  make.centerX.equalTo(self.view);
                  make.width.mas_equalTo(JobsMainScreen_WIDTH());
                  make.top.equalTo(self.dropdownMenu.mas_bottom).offset(JobsWidth(5));
@@ -126,7 +126,7 @@ NS_ASSUME_NONNULL_END
              _hotLabelDataMutArr = NSMutableArray.array;
 
              {
-                 UIViewModel *vm = UIViewModel.new;
+                 UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
                  vm.byBgImage(@"service_skype".img)
                    .byText(@"".tr);
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));
@@ -136,7 +136,7 @@ NS_ASSUME_NONNULL_END
              }
 
              {
-                 UIViewModel *vm = UIViewModel.new;
+                 UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
                  vm.byBgImage(@"service_qq".img)
                    .byText(@"".tr);
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));
@@ -146,7 +146,7 @@ NS_ASSUME_NONNULL_END
              }
 
              {
-                 UIViewModel *vm = UIViewModel.new;
+                 UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
                  vm.byBgImage(@"service_telegram".img)
                    .byText(@"".tr);
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));
@@ -156,7 +156,7 @@ NS_ASSUME_NONNULL_END
              }
 
              {
-                 UIViewModel *vm = UIViewModel.new;
+                 UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
                  vm.byBgImage(@"service_wechat".img)
                    .byText(@"".tr);
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));
@@ -166,7 +166,7 @@ NS_ASSUME_NONNULL_END
              }
 
              {
-                 UIViewModel *vm = UIViewModel.new;
+                 UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
                  vm.byBgImage(@"login_skype".img)
                    .byText(@"".tr);
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));
@@ -176,7 +176,7 @@ NS_ASSUME_NONNULL_END
              }
 
              {
-                 UIViewModel *vm = UIViewModel.new;
+                 UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
                  vm.byBgImage(@"service_meiqia".img)
                    .byText(@"".tr);
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));

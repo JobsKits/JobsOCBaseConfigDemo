@@ -8,50 +8,50 @@
 #import "UIView+AutoSelfAdaptionSize.h"
 
 @implementation UIView (AutoSelfAdaptionSize)
-#pragma mark —— UILabel
 /// 确定Label的字体大小，使其宽度自适应
--(jobsByVoidBlock _Nonnull)bySizeToFit{
+-(JobsRetViewByVoidBlock _Nonnull)bySizeToFit{
     @jobs_weakify(self)
-    return ^() {
+    return ^__kindof UIView *_Nullable() {
         @jobs_strongify(self)
         [self sizeToFit];// 必须有text，然后根据text来进行约束计算和布局
+        return self;
     };
 }
 /// 确定Label的宽度，使字体大小自适应
--(jobsByVoidBlock _Nonnull)labelAutoFontByWidth{
+-(JobsRetViewByVoidBlock _Nonnull)labelAutoFontByWidth{
     @jobs_weakify(self)
-    return ^() {
+    return ^__kindof UIView *_Nullable() {
         @jobs_strongify(self)
         if ([self isKindOfClass:UILabel.class]) {
             UILabel *label = (UILabel *)self;
             label.adjustsFontSizeToFitWidth = YES;// 必须有text，然后根据text来进行约束计算和布局
-        }
+        };return self;
     };
 }
 #pragma mark —— UIButton
 /// 确定Button的字体大小，使其宽度自适应
--(jobsByVoidBlock _Nonnull)buttonAutoWidthByFont{
+-(JobsRetViewByVoidBlock _Nonnull)buttonAutoWidthByFont{
     @jobs_weakify(self)
-    return ^() {
+    return ^__kindof UIView *_Nullable() {
         @jobs_strongify(self)
         if ([self isKindOfClass:UIButton.class]) {
             UIButton *btn = (UIButton *)self;
             /// 必须有text，然后根据text来进行约束计算和布局
             [btn.titleLabel sizeToFit];
             [btn sizeToFit];
-        }
+        };return self;
     };
 }
 /// 确定Button的宽度，使字体大小自适应
--(jobsByVoidBlock _Nonnull)buttonAutoFontByWidth{
+-(JobsRetViewByVoidBlock _Nonnull)buttonAutoFontByWidth{
     @jobs_weakify(self)
-    return ^() {
+    return ^__kindof UIView *_Nullable() {
         @jobs_strongify(self)
         if ([self isKindOfClass:UIButton.class]) {
             UIButton *btn = (UIButton *)self;
             [btn.titleLabel sizeToFit];
             btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-        }
+        };return self;
     };
 }
 /// 自适应宽度

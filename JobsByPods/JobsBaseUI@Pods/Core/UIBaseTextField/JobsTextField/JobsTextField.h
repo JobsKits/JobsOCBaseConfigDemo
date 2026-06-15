@@ -64,18 +64,18 @@ UITextFieldDelegate
 /// UI
 Prop_strong(nonnull) UITextField *realTextField;
 /// 这个值需要在leftView之前设置才有效
--(JobsReturnJobsTextFieldByCGFloatBlock _Nonnull)byLeftViewByOutLineOffset;
--(JobsReturnJobsTextFieldByCGFloatBlock _Nonnull)byLeftViewByTextFieldOffset;
+-(JobsRetJobsTextFieldByCGFloatBlock _Nonnull)byLeftViewByOutLineOffset;
+-(JobsRetJobsTextFieldByCGFloatBlock _Nonnull)byLeftViewByTextFieldOffset;
 /// 这个值需要在rightView之前设置才有效
--(JobsReturnJobsTextFieldByCGFloatBlock _Nonnull)byRightViewByOutLineOffset;
--(JobsReturnJobsTextFieldByCGFloatBlock _Nonnull)byRightViewByTextFieldOffset;
+-(JobsRetJobsTextFieldByCGFloatBlock _Nonnull)byRightViewByOutLineOffset;
+-(JobsRetJobsTextFieldByCGFloatBlock _Nonnull)byRightViewByTextFieldOffset;
 
--(JobsReturnJobsTextFieldByViewBlock _Nonnull)byLeftView;
--(JobsReturnJobsTextFieldByViewBlock _Nonnull)byRightView;
+-(JobsRetJobsTextFieldByViewBlock _Nonnull)byLeftView;
+-(JobsRetJobsTextFieldByViewBlock _Nonnull)byRightView;
 
--(JobsReturnJobsTextFieldByBOOLBlock _Nonnull)byNotAllowEdit;
+-(JobsRetJobsTextFieldByBOOLBlock _Nonnull)byNotAllowEdit;
 /// 只有在输入框不允许编辑的大前提之下，才允许加入手势
--(JobsReturnJobsTextFieldByGestureRecognizerBlock _Nonnull)byGesture;
+-(JobsRetJobsTextFieldByGestureRecognizerBlock _Nonnull)byGesture;
 
 @end
 

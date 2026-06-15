@@ -81,7 +81,7 @@
     };
 }
 
--(JobsReturnGestureByGesture _Nonnull)addGestureRecognizer{
+-(JobsRetGestureByGesture _Nonnull)addGestureRecognizer{
     @jobs_weakify(self)
     return ^__kindof UIGestureRecognizer *_Nullable(__kindof UIGestureRecognizer *_Nullable gesture) {
         @jobs_strongify(self)

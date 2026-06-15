@@ -32,6 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByLabelBlock _Nonnull)bySubtitleLabel;
 /// 回调 UIButton 原生 imageView。
 -(JobsRetBtnByImageViewBlock _Nonnull)byImageView;
+/// 设置标题对齐方式；BaseButton 等子类若持有 titleAlignment 属性，也会同步写入。
+-(JobsRetBtnByTextAlignmentBlock _Nonnull)byTitleAlignment;
+/// 设置标题换行方式；BaseButton 等子类若持有 lineBreakMode / titleLineBreakMode 属性，也会同步写入。
+-(JobsRetBtnByLineBreakModeBlock _Nonnull)byLineBreakMode;
 
 @end
 

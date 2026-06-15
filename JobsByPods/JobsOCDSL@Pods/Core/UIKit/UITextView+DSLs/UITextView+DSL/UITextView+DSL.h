@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetTextViewByNSRangeBlock _Nonnull)bySelectedRange;
 -(JobsRetTextViewByNSDictionaryBlock _Nonnull)byTypingAttributes API_AVAILABLE(ios(6.0));
 -(JobsRetTextViewByNSDictionaryBlock _Nonnull)byMarkedTextStyle;
--(JobsRetTextViewByUIEdgeInsetsBlock _Nonnull)byTextContainerInset;
+-(JobsRetTextViewByEdgeInsetsBlock _Nonnull)byTextContainerInset;
 -(JobsRetTextViewByNSDictionaryBlock _Nonnull)byLinkTextAttributes;
 #pragma mark —— 编辑行为
 -(JobsRetTextViewByDelegateBlock _Nonnull)byDelegate;

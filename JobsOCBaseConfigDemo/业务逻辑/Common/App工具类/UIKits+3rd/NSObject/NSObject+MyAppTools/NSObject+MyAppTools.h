@@ -125,23 +125,23 @@ Prop_strong()NSMutableArray <JobsRichTextConfig *>*richTextConfigMutArr;
                                         direction:(UICollectionViewScrollDirection)direction;
 #pragma mark —— 一些公共设置
 /// 设置返回按钮的文字、返回按钮的行为（默认导航栏标题（图片）为 BLuckyRedLogo）
--(JobsReturnNavBarConfigByStringAndActionBlock _Nullable)makeNavByTitleImageAndAction;
+-(JobsRetNavBarConfigByStringAndActionBlock _Nullable)makeNavByTitleImageAndAction;
 /// 设置导航栏标题（文字）、返回按钮的文字、返回按钮的行为
--(JobsReturnNavBarConfigByStringsAndActionBlock _Nullable)makeNavByTitlesAndAction;
+-(JobsRetNavBarConfigByStringsAndActionBlock _Nullable)makeNavByTitlesAndAction;
 /// 设置返回按钮的文字（默认退回上一个页面）
--(JobsReturnNavBarConfigByStringBlock _Nullable)makeNav0ByTitle;
+-(JobsRetNavBarConfigByStringBlock _Nullable)makeNav0ByTitle;
 /// 设置返回按钮的文字（默认退回TabBar0）
--(JobsReturnNavBarConfigByStringBlock _Nullable)makeNav1ByTitle;
+-(JobsRetNavBarConfigByStringBlock _Nullable)makeNav1ByTitle;
 /// 设置导航栏标题、返回按钮文字、返回按钮的行为
--(JobsReturnNavBarConfigByStringsBlock _Nullable)makeNav2ByTitle;
--(JobsReturnNavBarConfigByStringsBlock _Nullable)makeNav3ByTitle;
+-(JobsRetNavBarConfigByStringsBlock _Nullable)makeNav2ByTitle;
+-(JobsRetNavBarConfigByStringsBlock _Nullable)makeNav3ByTitle;
 -(jobsByVoidBlock _Nonnull)唤起人工客服;
 -(jobsByVoidBlock _Nonnull)唤起Telegram;
 -(jobsByVoidBlock _Nonnull)唤起FaceBook;
 /// 选择电话号码区位
 -(__kindof UIButton *)zoneCodeBtnByBlock:(jobsByIDBlock _Nonnull)block;
 /// 配置弹窗数据
--(JobsReturnViewModelByStringBlock _Nonnull)configPopUpDataBy;
+-(JobsRetViewModelByStringBlock _Nonnull)configPopUpDataBy;
 /// 适配各种机型的开屏图片
 -(NSString * _Nullable)imageNameOrURLString;
 /// 适配各种机型的开屏视频
@@ -149,7 +149,7 @@ Prop_strong()NSMutableArray <JobsRichTextConfig *>*richTextConfigMutArr;
 /// 检查当前IP是否为菲律宾IP
 -(void)checkIfIPInPhilippinesByBlock:(jobsByBOOLBlock _Nonnull)block;
 /// 数据组装
--(JobsReturnViewModelByDecorationModelBlock _Nonnull)makeDatas;
+-(JobsRetViewModelByDecorationModelBlock _Nonnull)makeDatas;
 /// 默认文本段落样式（两端对齐）
 -(NSMutableParagraphStyle *)defaultParagraphStyle;
 /// 默认文本段落样式（左端对齐）
@@ -163,7 +163,7 @@ Prop_strong()NSMutableArray <JobsRichTextConfig *>*richTextConfigMutArr;
 /// 控制CustomTabBar的显隐
 -(jobsByBOOLBlock _Nonnull)showCustomTabBar;
 /// 创建JobsCustomTabBar（单例模式）
-+(JobsReturnCustomTabBarByViewBlock _Nonnull)makeCustomTabBarBy;
++(JobsRetCustomTabBarByViewBlock _Nonnull)makeCustomTabBarBy;
 /// 导航返回键的配置
 -(UIButtonModel *)makeBackBtnModel;
 /// 发通知：登录成功
@@ -235,7 +235,7 @@ Prop_strong()NSMutableArray <JobsRichTextConfig *>*richTextConfigMutArr;
 -(UIViewModel *)testPopViewData;
 /// 测试和业务密切相关的弹窗 ：在外层进行调用，[ 需要被展现的视图 popupWithView:popupView];
 /// @param popViewClass 被测试的弹窗视图
-/// @param viewModel 此视图所绑定的数据。传nil则使用testPopViewData的数据、传UIViewModel.new则使用popViewClass预埋的数据
+/// @param viewModel 此视图所绑定的数据。传nil则使用testPopViewData的数据、传空UIViewModel则使用popViewClass预埋的数据
 -(UIView<BaseViewProtocol> *)jobsPopView:(Class<BaseViewProtocol> _Nullable)popViewClass
                                viewModel:(UIViewModel *_Nullable)viewModel;
 /// Debug模式下的弹出框 及其相关的数据封装。在外层进行调用，[ 需要被展现的视图 popupShowScaleWithView:popupView];
@@ -254,9 +254,9 @@ Prop_strong()NSMutableArray <JobsRichTextConfig *>*richTextConfigMutArr;
 /// 用户密码由6-15个字符组成，只能输入字母大小写和数字
 -(JobsRetBOOLByStrBlock _Nonnull)checkUserPassword;
 /// 登录的数据检验
--(JobsReturnBOOLByAppDoorModelBlock _Nonnull)checkLoginDataBy;
+-(JobsRetBOOLByAppDoorModelBlock _Nonnull)checkLoginDataBy;
 /// 注册的数据检验
--(JobsReturnBOOLByAppDoorModelBlock _Nonnull)checkRegisterData;
+-(JobsRetBOOLByAppDoorModelBlock _Nonnull)checkRegisterData;
 /// 电话号码可以最多20位数，超过后无法输入，且电话号码中无法包含特殊字符或者空格
 -(JobsRetBOOLByStrBlock _Nonnull)checkTelNum;
 

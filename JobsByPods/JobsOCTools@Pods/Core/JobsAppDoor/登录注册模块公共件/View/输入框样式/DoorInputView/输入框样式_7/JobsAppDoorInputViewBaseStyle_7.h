@@ -88,7 +88,7 @@ NS_ASSUME_NONNULL_END
      //            }
              }];
 
-             _选择区号并输入手机号.byAddTo(self.view, ^(MASConstraintMaker *make) {
+             _选择区号并输入手机号.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                  make.centerX.equalTo(self.view);
                  make.size.mas_equalTo(inputSize());
                  make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(72));

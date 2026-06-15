@@ -94,10 +94,12 @@ typedef NS_ENUM(NSUInteger, CequenceForShowTitleRuningStrType) {
 @interface UIButton (Timer)<BaseProtocol,BaseButtonProtocol,TimerProtocol>
 /// ❤️如果配置了富文本，则优先显示富文本属性
 #pragma mark —— 一些通用的设置
-Prop_assign()ShowTimeType showTimeType;                                             // 时间@显示风格
+Prop_assign()ShowTimeType showTimeType;
+                                             // 时间@显示风格
 Prop_assign()CequenceForShowTitleRuningStrType cequenceForShowTitleRuningStrType;   //（时间）文本@显示类型
 Prop_assign()UILabelShowingType labelShowingType;
-Prop_assign()CGFloat widthCompensationValue;                                        // 因为有圆角的时候需要有补偿值否则UI很难看
+Prop_assign()CGFloat widthCompensationValue;
+                                        // 因为有圆角的时候需要有补偿值否则UI很难看
 /// 计时器运行期间，按钮是否允许点击
 Prop_assign()BOOL isCanBeClickWhenTimerCycle;
 

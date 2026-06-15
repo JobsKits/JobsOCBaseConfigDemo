@@ -20,7 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsLinkageMenuViewConfig : NSObject
 
-Prop_assign()CGFloat MENU_WIDTH;        // 左侧菜单栏宽度，默认136
+Prop_assign()CGFloat MENU_WIDTH;
+        // 左侧菜单栏宽度，默认136
 Prop_assign()CGFloat BOTTOMVIEW_HEIGHT; // 滑块高度
 Prop_assign()CGFloat BOTTOMVIEW_WIDTH;  // 滑块宽度
 Prop_assign()CGFloat LINEVIEW_WIDTH;    // 分割线宽度

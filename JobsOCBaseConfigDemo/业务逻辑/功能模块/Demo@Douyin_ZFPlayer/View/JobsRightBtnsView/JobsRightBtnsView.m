@@ -187,9 +187,9 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
                 }];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
-            });
-        [self addSubview:_commentBtn];
-        [self layoutIfNeeded];
+            })
+            .addOn(self);
+        self.byLayoutIfNeeded();
     };return _commentBtn;
 }
 
@@ -216,8 +216,8 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
                 }];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
-            });
-        [self addSubview:_shareBtn];
+            })
+            .addOn(self);
         [self layoutIfNeeded];
     };return _shareBtn;
 }

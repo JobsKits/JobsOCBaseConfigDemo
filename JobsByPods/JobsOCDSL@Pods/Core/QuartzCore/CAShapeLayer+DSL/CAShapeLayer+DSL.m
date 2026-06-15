@@ -28,7 +28,7 @@
     };
 }
 
--(JobsRetCAShapeLayerByCGColorRefBlock _Nonnull)byStrokeColor{
+-(JobsRetCAShapeLayerByCGCorRefBlock _Nonnull)byStrokeColor{
     @jobs_weakify(self)
     return ^__kindof CAShapeLayer *_Nullable(CGColorRef _Nullable data){
         @jobs_strongify(self)
@@ -37,7 +37,7 @@
     };
 }
 
--(JobsRetCAShapeLayerByUIColorBlock _Nonnull)byStrokeColorUIColor{
+-(JobsRetCAShapeLayerByCorBlock _Nonnull)byStrokeColorUIColor{
     @jobs_weakify(self)
     return ^__kindof CAShapeLayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
@@ -46,7 +46,7 @@
     };
 }
 
--(JobsRetCAShapeLayerByCGColorRefBlock _Nonnull)byFillColor{
+-(JobsRetCAShapeLayerByCGCorRefBlock _Nonnull)byFillColor{
     @jobs_weakify(self)
     return ^__kindof CAShapeLayer *_Nullable(CGColorRef _Nullable data){
         @jobs_strongify(self)
@@ -55,7 +55,7 @@
     };
 }
 
--(JobsRetCAShapeLayerByUIColorBlock _Nonnull)byFillColorUIColor{
+-(JobsRetCAShapeLayerByCorBlock _Nonnull)byFillColorUIColor{
     @jobs_weakify(self)
     return ^__kindof CAShapeLayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)

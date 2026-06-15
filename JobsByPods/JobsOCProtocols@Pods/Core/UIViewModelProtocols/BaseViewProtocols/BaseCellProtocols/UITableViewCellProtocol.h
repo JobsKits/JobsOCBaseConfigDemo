@@ -74,19 +74,20 @@ Prop_assign()CGFloat imageViewFrameOffsetHeight;/// 负值缩小，正值放大
 /// 资料来源：https://www.jianshu.com/p/62ac18f8cf69
 /// 具体子类实现
 /// UITableViewCellStyleDefault ：左边有一个显示图片的imageView和一个标题textLabel。
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView;
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView;
 /// UITableViewCellStyleValue1 = 左边：imageView＋textLabel；右边：detailTextLabel
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView;
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView;
 /// UITableViewCellStyleValue2 = 左边：textLabel字体偏小；右边：detailTextLabel。imageView可选（显示在最左边）
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2WithTableView;
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2ByTableView;
 /// UITableViewCellStyleSubtitle = 左边：textLabel字体偏小；右边：detailTextLabel。imageView可选（显示在最左边）
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleWithTableView;
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleByTableView;
 #pragma mark —— 设置UITableViewCell
 -(JobsRetTableViewCellByImageBlock _Nonnull)byImageViewData;
 -(JobsRetTableViewCellByCorBlock _Nonnull)byTextLabelTextCor;
 -(JobsRetTableViewCellByCorBlock _Nonnull)byDetailTextLabelCor;
 -(JobsRetTableViewCellByFontBlock _Nonnull)byTextLabelFont;
 -(JobsRetTableViewCellByFontBlock _Nonnull)byDetailTextLabellFont;
+-(JobsRetTableViewCellBySelectionStyleBlock _Nonnull)bySelectionStyle;
 -(JobsRetTableViewCellByAccessoryTypeBlock _Nonnull)byAccessoryType;
 -(JobsRetTableViewCellByIndexPathBlock _Nonnull)byIndexPath;
 -(JobsRetTableViewCellByIndexBlock _Nonnull)byIndex;

@@ -40,14 +40,16 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
     };return self;
 }
 
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsPlayerTBVCell *cell = (JobsPlayerTBVCell *)tableView.tableViewCellClass(JobsPlayerTBVCell.class,@"");
         if (!cell) {
             cell = JobsPlayerTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.contentView.byBgColor(JobsRandomColor);
-
+            cell
+                .bySelectionStyle(UITableViewCellSelectionStyleNone)
+                .byContentView(^(__kindof UIView * _Nullable view) {
+                    view.byBgColor(JobsRandomColor);
+                });
         };return cell;
     };
 }
@@ -84,8 +86,9 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
             label
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightRegularSize(100))
-                .byBgColor(self.contentView.backgroundColor);
-            label.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+                .byBgColor(self.contentView.backgroundColor)
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);
             });
         });

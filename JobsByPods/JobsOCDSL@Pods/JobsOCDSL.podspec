@@ -43,6 +43,7 @@ Pod::Spec.new do |spec|
 
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsBlock'
+  spec.dependency 'JobsModelDSL'
   spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsOCProtocols'
   spec.dependency 'JobsOCRuntimeKits'
@@ -55,6 +56,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'FSCalendar'
   spec.dependency 'ReactiveObjC'
   spec.dependency 'HXPhotoPickerObjC'
+  spec.dependency 'SDWebImage'
 
   JobsPodspecKitForJobsOCDSL.add_support_subspec(spec, support_context)
 

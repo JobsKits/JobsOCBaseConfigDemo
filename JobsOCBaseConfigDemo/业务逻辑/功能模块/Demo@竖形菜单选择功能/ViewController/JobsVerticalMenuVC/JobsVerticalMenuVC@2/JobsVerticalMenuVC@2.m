@@ -41,18 +41,22 @@ Prop_assign()NSUInteger thisIndex;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
     self.loadData();
 }
 
@@ -130,7 +134,7 @@ Prop_assign()NSUInteger thisIndex;
     };
 }
 
--(JobsReturnButtonModelByString _Nonnull)makeLeftCellData{
+-(JobsRetButtonModelByString _Nonnull)makeLeftCellData{
 //    @jobs_weakify(self)
     return ^__kindof UIButtonModel *_Nullable(__kindof NSString *_Nullable data){
 //        @jobs_strongify(self)
@@ -252,7 +256,7 @@ Prop_assign()NSUInteger thisIndex;
     };
 }
 
--(JobsReturnGoodsClassModelByIntBlock _Nonnull)createOneModel{
+-(JobsRetGoodsClassModelByIntBlock _Nonnull)createOneModel{
 //    @jobs_weakify(self)
     return ^__kindof GoodsClassModel *_Nullable(int iflag){
         return jobsMakeGoodsClassModel(^(GoodsClassModel * _Nullable model) {
@@ -265,7 +269,7 @@ Prop_assign()NSUInteger thisIndex;
     };
 }
 
--(JobsReturnGoodsClassModelByInt2Block _Nonnull)createTwoModel{
+-(JobsRetGoodsClassModelByInt2Block _Nonnull)createTwoModel{
     @jobs_weakify(self)
     return ^__kindof GoodsClassModel *_Nullable(NSUInteger data1,int iFlag){
         return jobsMakeGoodsClassModel(^(GoodsClassModel * _Nullable model) {
@@ -289,7 +293,7 @@ Prop_assign()NSUInteger thisIndex;
     };
 }
 
--(JobsReturnGoodsClassModelByIntBlock _Nonnull)createThreeModel{
+-(JobsRetGoodsClassModelByIntBlock _Nonnull)createThreeModel{
     return ^__kindof GoodsClassModel *_Nullable(int iflag){
         return jobsMakeGoodsClassModel(^(GoodsClassModel * _Nullable model) {
             model.idField = toStringByInt(iflag);
@@ -307,7 +311,7 @@ numberOfRowsInSection:(NSInteger)section{
 -(__kindof UITableViewCell *)tableView:(__kindof UITableView *)tableView
                  cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     @jobs_weakify(self)
-    return LeftCell.cellStyleDefaultWithTableView(tableView)
+    return LeftCell.cellStyleDefaultByTableView(tableView)
         .jobsRichElementsTableViewCellBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
             @jobs_strongify(self)
             viewModel.textModel.byText(self.titleMutArr[indexPath.row].textModel.text);
@@ -359,16 +363,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 @jobs_strongify(self)
                 label
                     .byTextCor(JobsGrayColor)
-                    .byFont(JobsFontBold(JobsWidth(12)));
-                label.byFrame(CGRectMake(10,20,headerView.width - 20.f,17.f));
-                label.byTag(666);
-                label.addOn(headerView);
+                    .byFont(JobsFontBold(JobsWidth(12)))
+                .byFrame(CGRectMake(10,20,headerView.width - 20.f,17.f))
+                .byTag(666)
+                .addOn(headerView);
             });
         }
 
         GoodsClassModel *rightModel = self.rightDataArray.objectAt(indexPath.section);
         label.byText(rightModel.name ? : @"".tr);
-        
+
         return headerView;
     }else if (kind.isEqualToString(UICollectionElementKindSectionFooter)){
         /// 底部视图
@@ -451,8 +455,8 @@ referenceSizeForFooterInSection:(NSInteger)section{
             searchBar
                 .bySize(CGSizeMake(JobsMainScreen_WIDTH() / 3, JobsWidth(40)))
                 .JobsRichViewByModel2(nil)
-                .JobsBlock1(^(id  _Nullable data) {
-                    
+                .JobsBlock1(^(id  _Nullable data) {;
+
                 })
                 .addOn(self.gk_navigationBar)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -461,7 +465,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
                     make.right.equalTo(self.gk_navigationBar).offset(JobsWidth(0));
                     make.centerY.equalTo(self.gk_navigationBar);
                 });
-            
+
 //            [searchBar actionNSIntegerBlock:^(UITextFieldFocusType data) {
 //                @jobs_strongify(self)
 //                switch (data) {

@@ -22,8 +22,10 @@ JobsKey(_backgroundLabel)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.edges.equalTo(self);
+                })
+                .byViewBlock(^(__kindof UIView * _Nullable data) {
+                    if (data) self.sendSubviewToBack(data);
                 });
-            self.sendSubviewToBack(label);
         });
         Jobs_setAssociatedRETAIN_NONATOMIC(_backgroundLabel, BackgroundLabel);
     };return BackgroundLabel;

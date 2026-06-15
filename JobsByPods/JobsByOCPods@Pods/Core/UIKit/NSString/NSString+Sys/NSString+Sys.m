@@ -7,7 +7,7 @@
 
 #import "NSString+Sys.h"
 
-@implementation NSString (Sys)
+@implementation NSString (JobsByOCPodsSys)
 
 -(UIColor *)cor{
     return UIColor.jobsCor(self);

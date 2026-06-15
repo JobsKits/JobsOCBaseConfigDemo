@@ -74,9 +74,9 @@ Prop_copy(readonly,nonnull) JobsRetBtnConfigByContentInsetsBlock byContentInsets
 /// 图片位置
 Prop_copy(readonly,nonnull) JobsRetBtnConfigByImagePlacementBlock byImagePlacement API_AVAILABLE(ios(16.0));
 /// 图文间距
-Prop_copy(readonly,nonnull) JobsRetBtnConfigByImagePaddingBlock byImagePadding API_AVAILABLE(ios(16.0));
+Prop_copy(readonly,nonnull) JobsRetBtnConfigByCGFloatBlock byImagePadding API_AVAILABLE(ios(16.0));
 /// 标题与副标题间距
-Prop_copy(readonly,nonnull) JobsRetBtnConfigByTitlePaddingBlock byTitlePadding API_AVAILABLE(ios(16.0));
+Prop_copy(readonly,nonnull) JobsRetBtnConfigByCGFloatBlock byTitlePadding API_AVAILABLE(ios(16.0));
 /// 标题/副标题对齐
 Prop_copy(readonly,nonnull) JobsRetBtnConfigByTitleAlignmentBlock byTitleAlignment API_AVAILABLE(ios(16.0));
 /// 是否自动跟随 selected 更新样式

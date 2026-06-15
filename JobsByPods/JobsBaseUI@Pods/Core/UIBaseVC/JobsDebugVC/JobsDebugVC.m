@@ -72,9 +72,10 @@
     @jobs_weakify(self)
     return ^(NSString *_Nullable lifeCycle) {
         @jobs_strongify(self)
-        UIViewModel *viewModel = UIViewModel.new;
-        viewModel.byData(nil)
-                 .byRequestParams(lifeCycle);
+        UIViewModel *viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
+            data.byData(nil)
+                .byRequestParams(lifeCycle);
+        });
         if(self.objBlock) self.objBlock(viewModel);
     };
 }

@@ -62,12 +62,15 @@ Prop_strong()UIColor *serialNumLabBGCor;
                 .byText(self.serialStr)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byTextCor(JobsWhiteColor)
-                .byBgColor(self.serialNumLabBGCor);
-            label.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(20, 20));
-                make.left.equalTo(self.contentView).offset(10);
-                make.centerY.equalTo(self.contentView);
-            });label.cornerCutToCircleWithCornerRadius(3);
+                .byBgColor(self.serialNumLabBGCor)
+                .byCornerRadius(3)
+                .byClipsToBounds(YES)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(20, 20));
+                    make.left.equalTo(self.contentView).offset(10);
+                    make.centerY.equalTo(self.contentView);
+                });
         });
     };return _serialNumLab;
 }
@@ -79,8 +82,9 @@ Prop_strong()UIColor *serialNumLabBGCor;
             @jobs_strongify(self)
             label
                 .byText(self.viewModel.textModel.text)
-                .byTextCor(JobsLightGrayColor);
-            label.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+                .byTextCor(JobsLightGrayColor)
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self.serialNumLab);
                 make.left.equalTo(self.serialNumLab.mas_right).offset(5);
             });

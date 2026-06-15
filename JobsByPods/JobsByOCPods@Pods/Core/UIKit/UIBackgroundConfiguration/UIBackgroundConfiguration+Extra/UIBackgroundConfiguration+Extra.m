@@ -7,7 +7,7 @@
 
 #import "UIBackgroundConfiguration+Extra.h"
 
-@implementation UIBackgroundConfiguration (Extra)
+@implementation UIBackgroundConfiguration (JobsByOCPodsExtra)
 
 - (JobsRetBackgroundConfigByCorBlock _Nonnull)byBackgroundColor {
     @jobs_weakify(self)

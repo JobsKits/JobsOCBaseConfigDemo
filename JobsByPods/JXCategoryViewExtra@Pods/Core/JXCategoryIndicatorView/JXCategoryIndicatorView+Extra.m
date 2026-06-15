@@ -9,7 +9,7 @@
 
 @implementation JXCategoryIndicatorView (Extra)
 
--(JobsReturnCategoryIndicatorViewByViewsBlock _Nonnull)byIndicators{
+-(JobsRetCategoryIndicatorViewByViewsBlock _Nonnull)byIndicators{
     @jobs_weakify(self)
     return ^__kindof JXCategoryBaseView *_Nullable(__kindof NSArray <__kindof UIView <JXCategoryIndicatorProtocol>*>* _Nullable arr){
         @jobs_strongify(self)

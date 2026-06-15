@@ -9,7 +9,7 @@
 
 @implementation MJRefreshGifHeader (Extra)
 /// 普通闲置状态
--(JobsReturnMJRefreshViewByArrayBlock _Nonnull)refreshStateIdleByImages{
+-(JobsRetMJRefreshViewByArrayBlock _Nonnull)refreshStateIdleByImages{
     @jobs_weakify(self)
     return ^__kindof UIView <MJRefreshProtocol>*_Nullable(__kindof NSArray <UIImage *>*_Nullable data){
         @jobs_strongify(self)
@@ -18,7 +18,7 @@
     };
 }
 /// 松开就可以进行刷新的状态【图】
--(JobsReturnMJRefreshViewByArrayBlock _Nonnull)refreshStatePullingByImages{
+-(JobsRetMJRefreshViewByArrayBlock _Nonnull)refreshStatePullingByImages{
     @jobs_weakify(self)
     return ^__kindof UIView <MJRefreshProtocol>*_Nullable(__kindof NSArray <UIImage *>*_Nullable data){
         @jobs_strongify(self)
@@ -27,7 +27,7 @@
     };
 }
 /// 正在刷新中的状态【图】
--(JobsReturnMJRefreshViewByArrayBlock _Nonnull)refreshStateRefreshingByImages{
+-(JobsRetMJRefreshViewByArrayBlock _Nonnull)refreshStateRefreshingByImages{
     @jobs_weakify(self)
     return ^__kindof UIView <MJRefreshProtocol>*_Nullable(__kindof NSArray <UIImage *>*_Nullable data){
         @jobs_strongify(self)
@@ -36,7 +36,7 @@
     };
 }
 /// 即将刷新的状态【图】
--(JobsReturnMJRefreshViewByArrayBlock _Nonnull)refreshStateWillRefreshByImages{
+-(JobsRetMJRefreshViewByArrayBlock _Nonnull)refreshStateWillRefreshByImages{
     @jobs_weakify(self)
     return ^__kindof UIView <MJRefreshProtocol>*_Nullable(__kindof NSArray <UIImage *>*_Nullable data){
         @jobs_strongify(self)
@@ -45,7 +45,7 @@
     };
 }
 /// 所有数据加载完毕，没有更多的数据了【图】
--(JobsReturnMJRefreshViewByArrayBlock _Nonnull)refreshStateNoMoreDataByImages{
+-(JobsRetMJRefreshViewByArrayBlock _Nonnull)refreshStateNoMoreDataByImages{
     @jobs_weakify(self)
     return ^__kindof UIView <MJRefreshProtocol>*_Nullable(__kindof NSArray <UIImage *>*_Nullable data){
         @jobs_strongify(self)
@@ -54,7 +54,7 @@
     };
 }
 /// 松开就可以进行刷新的状态【字】
--(JobsReturnMJRefreshViewByStringBlock _Nonnull)refreshStateIdleByString{
+-(JobsRetMJRefreshViewByStringBlock _Nonnull)refreshStateIdleByString{
     @jobs_weakify(self)
     return ^__kindof UIView <MJRefreshProtocol>*_Nullable(__kindof NSString *_Nullable string){
         @jobs_strongify(self)
@@ -63,7 +63,7 @@
     };
 }
 /// 松开就可以进行刷新的状态【字】
--(JobsReturnMJRefreshViewByStringBlock _Nonnull)refreshStatePullingByString{
+-(JobsRetMJRefreshViewByStringBlock _Nonnull)refreshStatePullingByString{
     @jobs_weakify(self)
     return ^__kindof UIView <MJRefreshProtocol>*_Nullable(__kindof NSString *_Nullable string){
         @jobs_strongify(self)
@@ -72,7 +72,7 @@
     };
 }
 /// 松开就可以进行刷新的状态【字】
--(JobsReturnMJRefreshViewByStringBlock _Nonnull)refreshStateRefreshingByString{
+-(JobsRetMJRefreshViewByStringBlock _Nonnull)refreshStateRefreshingByString{
     @jobs_weakify(self)
     return ^__kindof UIView <MJRefreshProtocol>*_Nullable(__kindof NSString *_Nullable string){
         @jobs_strongify(self)
@@ -81,7 +81,7 @@
     };
 }
 /// 松开就可以进行刷新的状态【字】
--(JobsReturnMJRefreshViewByStringBlock _Nonnull)refreshStateWillRefreshByString{
+-(JobsRetMJRefreshViewByStringBlock _Nonnull)refreshStateWillRefreshByString{
     @jobs_weakify(self)
     return ^__kindof UIView <MJRefreshProtocol>*_Nullable(__kindof NSString *_Nullable string){
         @jobs_strongify(self)
@@ -90,7 +90,7 @@
     };
 }
 /// 松开就可以进行刷新的状态【字】
--(JobsReturnMJRefreshViewByStringBlock _Nonnull)refreshStateNoMoreDataByString{
+-(JobsRetMJRefreshViewByStringBlock _Nonnull)refreshStateNoMoreDataByString{
     @jobs_weakify(self)
     return ^__kindof UIView <MJRefreshProtocol>*_Nullable(__kindof NSString *_Nullable string){
         @jobs_strongify(self)

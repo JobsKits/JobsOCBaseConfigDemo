@@ -134,7 +134,7 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
                 NSLog(@"获取 User-Agent 失败: %@", error.localizedDescription);
             }
         }];
-        _webView.byAddTo(self.view, ^(MASConstraintMaker *make) {
+        _webView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             make.top.equalTo(self.view).offset(JobsStatusBarHeight());
         });

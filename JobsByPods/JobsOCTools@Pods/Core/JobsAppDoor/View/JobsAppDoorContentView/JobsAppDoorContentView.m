@@ -427,28 +427,27 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*inputViewMutArr;
 #pragma mark —— lazyLoad
 -(UIButton *)toRegisterBtn{
     if (!_toRegisterBtn) {
-        _toRegisterBtn = UIButton.new;
-        _toRegisterBtn.frame = CGRectMake(self.width - RegisterBtnWidth,
-                                          0,
-                                          RegisterBtnWidth,
-                                          self.height);
-        _toRegisterBtn.jobsResetBtnImage(@"用户名称".img);
-        _toRegisterBtn.titleLabel.byNumberOfLines(0);
-
-        _toRegisterBtn.byBgColor(Cor1);
-
-        _toRegisterBtn.jobsResetBtnTitleCor(Cor4);
-        _toRegisterBtn.titleLabel.byFont(UIFontWeightMediumSize(13));
-
         @jobs_weakify(self)
-        [_toRegisterBtn jobsBtnClickEventBlock:^id(UIButton *x) {
-            @jobs_strongify(self)
-            x.selected = !x.selected;
-            [self endEditing:YES];
-            [self animationChangeRegisterBtnFrame];
-            return nil;
-        }];
-        [self addSubview:_toRegisterBtn];
+        _toRegisterBtn = UIButton.jobsInit()
+            .jobsResetBtnImage(@"用户名称".img)
+            .jobsResetBtnTitleCor(Cor4)
+            .byTitleLabel(^(UILabel *label) {
+                label
+                    .byNumberOfLines(0)
+                    .byFont(UIFontWeightMediumSize(13));
+            })
+            .onClickBy(^(UIButton *x) {
+                @jobs_strongify(self)
+                x.selected = !x.selected;
+                [self endEditing:YES];
+                [self animationChangeRegisterBtnFrame];
+            })
+            .addOn(self)
+            .byBgColor(Cor1)
+            .byFrame(CGRectMake(self.width - RegisterBtnWidth,
+                                0,
+                                RegisterBtnWidth,
+                                self.height));
     };return _toRegisterBtn;
 }
 
@@ -457,90 +456,97 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*inputViewMutArr;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            self.addSubview(label);
+            label.addOn(self);
         });
     };return _titleLab;
 }
 
 -(UIButton *)abandonLoginBtn{
     if (!_abandonLoginBtn) {
-        _abandonLoginBtn = UIButton.new;
         @jobs_weakify(self)
-        [_abandonLoginBtn jobsBtnClickEventBlock:^id(UIButton *x) {
-            @jobs_strongify(self)
-            if (self.objBlock) self.objBlock(x);
-            return nil;
-        }];[self addSubview:_abandonLoginBtn];
+        _abandonLoginBtn = UIButton.jobsInit()
+            .onClickBy(^(UIButton *x) {
+                @jobs_strongify(self)
+                if (self.objBlock) self.objBlock(x);
+            })
+            .addOn(self);
     };return _abandonLoginBtn;
 }
 /// 登录 或者 注册按钮
 -(UIButton *)sendBtn{
     if (!_sendBtn) {
-        _sendBtn = UIButton.new;
         @jobs_weakify(self)
-        [_sendBtn jobsBtnClickEventBlock:^id(UIButton *x) {
-            @jobs_strongify(self)
-            [self endEditing:YES];
-            x.requestParams = self.appDoorModel;
-            if (self.objBlock) self.objBlock(x);
-            return nil;
-        }];
-        [self addSubview:_sendBtn];
-        _sendBtn.cornerCutToCircleWithCornerRadius(_sendBtn.height / 2);
+        _sendBtn = UIButton.jobsInit()
+            .onClickBy(^(UIButton *x) {
+                @jobs_strongify(self)
+                [self endEditing:YES];
+                x.requestParams = self.appDoorModel;
+                if (self.objBlock) self.objBlock(x);
+            })
+            .addOn(self)
+            .byViewBlock(^(__kindof UIView *view) {
+                UIButton *button = (UIButton *)view;
+                button.cornerCutToCircleWithCornerRadius(button.height / 2);
+            });
     };return _sendBtn;
 }
 /// 记住登录成功的账号和密码
 -(UIButton *)storeCodeBtn{
     if (!_storeCodeBtn) {
-        _storeCodeBtn = UIButton.new;
-        _storeCodeBtn.jobsResetBtnTitle(Title5);
-        _storeCodeBtn.titleLabel.byFont(UIFontWeightRegularSize(10));
-
-        _storeCodeBtn.selected = YES;// 默认记住密码
-        _storeCodeBtn.jobsResetBtnImage(@"没有记住密码".img);
-        _storeCodeBtn.selectedStateImageBy(@"记住密码".img);
-        _storeCodeBtn.jobsResetBtnTitleCor(Cor3);
-        _storeCodeBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-        _storeCodeBtn.titleLabel.adjustsFontForContentSizeCategory = YES;
-        _storeCodeBtn.byAddTo(self, ^(MASConstraintMaker *make) {
-            JobsAppDoorInputViewBaseStyle_3 *inputView = (JobsAppDoorInputViewBaseStyle_3 *)self.inputViewMutArr.lastObject;
-            make.left.equalTo(inputView).offset(JobsWidth(20));
-            make.top.equalTo(inputView.mas_bottom).offset(JobsWidth(25));
-        });
-
-        [self layoutIfNeeded];
-        _storeCodeBtn.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeLeading,JobsWidth(3));
         @jobs_weakify(self)
-        [_storeCodeBtn jobsBtnClickEventBlock:^id(UIButton *x) {
-            @jobs_strongify(self)
-            x.selected = !x.selected;
-            if (self.objBlock) self.objBlock(x);
-            return nil;
-        }];
+        _storeCodeBtn = UIButton.jobsInit()
+            .jobsResetBtnTitle(Title5)
+            .jobsResetBtnImage(@"没有记住密码".img)
+            .selectedStateImageBy(@"记住密码".img)
+            .jobsResetBtnTitleCor(Cor3)
+            .makeBtnTitleByShowingType(UILabelShowingType_03)
+            .byTitleLabel(^(UILabel *label) {
+                label.byFont(UIFontWeightRegularSize(10));
+                label.adjustsFontForContentSizeCategory = YES;
+            })
+            .onClickBy(^(UIButton *x) {
+                @jobs_strongify(self)
+                x.selected = !x.selected;
+                if (self.objBlock) self.objBlock(x);
+            })
+            .bySelected(YES)
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                JobsAppDoorInputViewBaseStyle_3 *inputView = (JobsAppDoorInputViewBaseStyle_3 *)self.inputViewMutArr.lastObject;
+                make.left.equalTo(inputView).offset(JobsWidth(20));
+                make.top.equalTo(inputView.mas_bottom).offset(JobsWidth(25));
+            })
+            .byViewBlock(^(__kindof UIView *view) {
+                @jobs_strongify(self)
+                [self layoutIfNeeded];
+                ((UIButton *)view).jobsResetImagePlacement_Padding(NSDirectionalRectEdgeLeading,JobsWidth(3));
+            });
     };return _storeCodeBtn;
 }
 
 -(UIButton *)findCodeBtn{
     if (!_findCodeBtn) {
-        _findCodeBtn = UIButton.new;
-        _findCodeBtn.jobsResetBtnTitle(Title3);
-        _findCodeBtn.titleLabel.byFont(UIFontWeightRegularSize(10));
-
-        _findCodeBtn.jobsResetBtnTitleCor(Cor4);
-        _findCodeBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-        _findCodeBtn.titleLabel.adjustsFontForContentSizeCategory = YES;
-        _findCodeBtn.byAddTo(self, ^(MASConstraintMaker *make) {
-            JobsAppDoorInputViewBaseStyle_3 *inputView = (JobsAppDoorInputViewBaseStyle_3 *)self.inputViewMutArr.lastObject;
-            make.right.equalTo(inputView).offset(-JobsWidth(20));
-            make.top.equalTo(inputView.mas_bottom).offset(JobsWidth(20));
-        });
-
         @jobs_weakify(self)
-        [_findCodeBtn jobsBtnClickEventBlock:^id(UIButton *x) {
-            @jobs_strongify(self)
-            if (self.objBlock) self.objBlock(x);
-            return nil;
-        }];
+        _findCodeBtn = UIButton.jobsInit()
+            .jobsResetBtnTitle(Title3)
+            .jobsResetBtnTitleCor(Cor4)
+            .makeBtnTitleByShowingType(UILabelShowingType_03)
+            .byTitleLabel(^(UILabel *label) {
+                label.byFont(UIFontWeightRegularSize(10));
+                label.adjustsFontForContentSizeCategory = YES;
+            })
+            .onClickBy(^(UIButton *x) {
+                @jobs_strongify(self)
+                if (self.objBlock) self.objBlock(x);
+            })
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                JobsAppDoorInputViewBaseStyle_3 *inputView = (JobsAppDoorInputViewBaseStyle_3 *)self.inputViewMutArr.lastObject;
+                make.right.equalTo(inputView).offset(-JobsWidth(20));
+                make.top.equalTo(inputView.mas_bottom).offset(JobsWidth(20));
+            });
     };return _findCodeBtn;
 }
 

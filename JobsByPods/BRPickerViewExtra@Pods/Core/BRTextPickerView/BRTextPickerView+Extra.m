@@ -10,7 +10,7 @@
 
 @implementation BRTextPickerView (Extra)
 
-+(BRPickerViewExtraReturnTextPickerViewByPickerModeBlock)initBy {
++(BRPickerViewExtraRetTextPickerViewByPickerModeBlock)initBy {
     return ^BRTextPickerView *_Nonnull(BRTextPickerMode mode) {
         return [[BRTextPickerView alloc] initWithPickerMode:mode];
     };

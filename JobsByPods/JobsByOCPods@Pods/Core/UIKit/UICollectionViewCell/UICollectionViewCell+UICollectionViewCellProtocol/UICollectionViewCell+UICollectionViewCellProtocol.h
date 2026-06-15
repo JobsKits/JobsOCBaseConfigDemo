@@ -51,6 +51,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface UICollectionViewCell (UICollectionViewCellProtocol)<UICollectionViewCellProtocol>
 
+-(JobsRetCollectionViewCellByIndexPathBlock _Nonnull)byIndexPath;
+-(JobsRetCollectionViewCellByJobsByViewBlock _Nonnull)byContentView;
+-(JobsRetCollectionViewCellByCorBlock _Nonnull)byContentViewBgCor;
+-(JobsRetCollectionViewCellByDelegateBlock _Nonnull)byDelegate;
+
 @end
 
 NS_ASSUME_NONNULL_END

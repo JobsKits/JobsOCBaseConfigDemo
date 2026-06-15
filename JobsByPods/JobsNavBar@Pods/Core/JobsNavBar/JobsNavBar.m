@@ -99,7 +99,7 @@ BaseViewProtocol_synthesize
 }
 #pragma mark —— BaseViewProtocol
 /// 返回键事件
--(JobsReturnNavBarByVoidBtnBlocks _Nullable)JobsNavBarBackBtnClickBlock{
+-(JobsRetNavBarByVoidBtnBlocks _Nullable)JobsNavBarBackBtnClickBlock{
     @jobs_weakify(self)
     return ^__kindof JobsNavBar *_Nullable(jobsByBtnBlock _Nullable block){
         @jobs_strongify(self)
@@ -108,7 +108,7 @@ BaseViewProtocol_synthesize
     };
 }
 /// 关闭键事件
--(JobsReturnNavBarByVoidBtnBlocks _Nullable)JobsNavBarCloseBtnClickBlock{
+-(JobsRetNavBarByVoidBtnBlocks _Nullable)JobsNavBarCloseBtnClickBlock{
     @jobs_weakify(self)
     return ^__kindof JobsNavBar *_Nullable(jobsByBtnBlock _Nullable block){
         @jobs_strongify(self)
@@ -141,17 +141,23 @@ BaseViewProtocol_synthesize
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            if(NavBarConfig.attributedTitle){
-                label.byAttributedString(NavBarConfig.attributedTitle);
-            }else{
-                label.byText(NavBarConfig.title)
-                    .byFont(NavBarConfig.font)
-                    .byTextCor(NavBarConfig.titleCor);
-            }
-            label.byAddTo(self, ^(MASConstraintMaker *make) {
-                make.center.equalTo(self);
-                make.height.mas_equalTo(self.height);
-            });label.makeLabelByShowingType(UILabelShowingType_03);
+            label
+                .byLabelBlock(^(__kindof UILabel * _Nullable data) {
+                    if(NavBarConfig.attributedTitle){
+                        data.byAttributedString(NavBarConfig.attributedTitle);
+                    }else{
+                        data
+                            .byText(NavBarConfig.title)
+                            .byFont(NavBarConfig.font)
+                            .byTextCor(NavBarConfig.titleCor);
+                    }
+                    data.makeLabelByShowingType(UILabelShowingType_03);
+                })
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.center.equalTo(self);
+                    make.height.mas_equalTo(self.height);
+                });
             self.refresh();
         });
     };return _titleLab;
@@ -159,28 +165,31 @@ BaseViewProtocol_synthesize
 
 -(BaseButton *)backBtn{
     if(!_backBtn){
-        _backBtn = BaseButton.initByButtonModel(BackBtnModel);
-        _backBtn.jobsVisible = !BackBtnModel.isInvisible;
-        _backBtn.tag = 456;
-        _backBtn.byAddTo(self, BackBtnModel.masonryBlock ? : ^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(JobsWidth(18));
-            make.centerY.equalTo(self);
-            JobsLog(@"%f",self.navBarConfig.backBtnModel.jobsOffsetX);
-            make.left.equalTo(self).offset(self.navBarConfig.backBtnModel.jobsOffsetX ? : JobsWidth(20));
-        });_backBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
+        _backBtn = BaseButton.initByButtonModel(BackBtnModel)
+            .makeBtnTitleByShowingType(UILabelShowingType_03)
+            .byJobsVisible(!BackBtnModel.isInvisible)
+            .byTag(456)
+            .addOn(self)
+            .byAdd(BackBtnModel.masonryBlock ? : ^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(JobsWidth(18));
+                make.centerY.equalTo(self);
+                JobsLog(@"%f",self.navBarConfig.backBtnModel.jobsOffsetX);
+                make.left.equalTo(self).offset(self.navBarConfig.backBtnModel.jobsOffsetX ? : JobsWidth(20));
+            });
     };return _backBtn;
 }
 
 -(BaseButton *)closeBtn{
     if(!_closeBtn){
-        _closeBtn = BaseButton.initByButtonModel(CloseBtnModel);
-        _closeBtn.jobsVisible = !CloseBtnModel.isInvisible;
-        _closeBtn.tag = 123;
-        _closeBtn.byAddTo(self, CloseBtnModel.masonryBlock ? : ^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(22), JobsWidth(22)));
-            make.centerY.equalTo(self);
-            make.right.equalTo(self).offset(-(self.navBarConfig.closeBtnModel.jobsOffsetX ? : JobsWidth(15)));
-        });
+        _closeBtn = BaseButton.initByButtonModel(CloseBtnModel)
+            .byJobsVisible(!CloseBtnModel.isInvisible)
+            .byTag(123)
+            .addOn(self)
+            .byAdd(CloseBtnModel.masonryBlock ? : ^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(22), JobsWidth(22)));
+                make.centerY.equalTo(self);
+                make.right.equalTo(self).offset(-(self.navBarConfig.closeBtnModel.jobsOffsetX ? : JobsWidth(15)));
+            });
     };return _closeBtn;
 }
 

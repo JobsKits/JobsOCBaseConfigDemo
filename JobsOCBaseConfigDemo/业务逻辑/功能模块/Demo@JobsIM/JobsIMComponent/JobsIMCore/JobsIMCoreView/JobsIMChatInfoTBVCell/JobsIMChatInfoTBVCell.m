@@ -39,8 +39,9 @@ UITextFieldProtocol_synthesize_part2
                     reuseIdentifier:reuseIdentifier]) {
         self.longPG.enabled = YES;
         self.swipeBackgroundColor = JobsClearColor;
-        self.selectedBackgroundView = UIView.new;
-        self.selectedBackgroundView.byBgColor(JobsYellowColor.colorWithAlphaComponentBy(.3f));
+        self.bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(JobsYellowColor.colorWithAlphaComponentBy(.3f));
+        }));
 
         self.leftSwipeSettings.transition = MGSwipeTransitionBorder;
         self.rightSwipeSettings.transition = MGSwipeTransitionDrag;
@@ -53,7 +54,7 @@ UITextFieldProtocol_synthesize_part2
     };return self;
 }
 #pragma mark —— BaseCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsIMChatInfoTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsIMChatInfoTBVCell);
         return cell;
@@ -141,7 +142,7 @@ UITextFieldProtocol_synthesize_part2
     };
 }
 #pragma mark —— UITableViewCellProtocol
--(JobsReturnMGSwipeTableCellByDelegateBlock _Nonnull)byDelegate{
+-(JobsRetMGSwipeTableCellByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^JobsIMChatInfoTBVCell *_Nonnull(id<MGSwipeTableCellDelegate> delegate){
         @jobs_strongify(self)
@@ -167,7 +168,7 @@ UITextFieldProtocol_synthesize_part2
     });;
 }
 
--(JobsReturnMGSwipeTableCellByBOOLBlock _Nonnull)byAllowsMultipleSwipe{
+-(JobsRetMGSwipeTableCellByBOOLBlock _Nonnull)byAllowsMultipleSwipe{
     @jobs_weakify(self)
     return ^__kindof MGSwipeTableCell *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -176,7 +177,7 @@ UITextFieldProtocol_synthesize_part2
     };
 }
 
--(JobsReturnMGSwipeTableCellByBOOLBlock _Nonnull)byShowChatUserName{
+-(JobsRetMGSwipeTableCellByBOOLBlock _Nonnull)byShowChatUserName{
     @jobs_weakify(self)
     return ^__kindof MGSwipeTableCell *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -271,10 +272,12 @@ UITextFieldProtocol_synthesize_part2
         @jobs_weakify(self)
         _chatUserNameLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byTextCor(JobsBlackColor)
+            label
+                .byTextCor(JobsBlackColor)
             .byFont(UIFontWeightRegularSize(JobsWidth(10)))
             .byTextAlignment(NSTextAlignmentCenter)
             .byText(self.senderUserNameStr)
+            .makeLabelByShowingType(UILabelShowingType_03)
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
@@ -290,8 +293,7 @@ UITextFieldProtocol_synthesize_part2
                     default:
                         break;
                 }
-            })
-            .makeLabelByShowingType(UILabelShowingType_03);
+            });
         });
     };return _chatUserNameLab;
 }
@@ -326,6 +328,7 @@ UITextFieldProtocol_synthesize_part2
                 .byText(self.senderChatTextTimeStr)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightRegularSize(JobsWidth(10)))
+                .makeLabelByShowingType(UILabelShowingType_03)
                 .byBgColor(JobsLightGrayColor)
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -340,10 +343,9 @@ UITextFieldProtocol_synthesize_part2
                             make.right.equalTo(self.chatBubbleIMGV.mas_left).offset(-5);
                         }break;
                         default:
-                            break;
+                        break;
                     }
                 })
-                .makeLabelByShowingType(UILabelShowingType_03)
                 .cornerCutToCircleWithCornerRadius(20 / 2);
         });
     };return _timeLab;

@@ -72,14 +72,13 @@ NS_ASSUME_NONNULL_END
              SuspendBtn.jobsResetBtnImage = @"旋转".img;
              SuspendBtn.isAllowDrag = YES;//悬浮效果必须要的参数
              @jobs_weakify(self)
-             [SuspendBtn jobsBtnClickEventBlock:^id(UIButton *x) {
+             SuspendBtn.onClickBy(^(UIButton *x) {
                  @jobs_strongify(self)
                  x.selected = !x.selected;
                  JobsLog(@"%@",x.selected ? @"开始旋转".tr : @"停止旋转".tr);
                  // x.旋转动画(x.selected);
                  if (self.objBlock) self.objBlock(x);
-                 return nil;
-             }];
+             });
              self.view.vc = weak_self;
              [self.view addSubview:SuspendBtn];
              SuspendBtn.frame = CGRectMake(JobsMainScreen_WIDTH() - JobsWidth(50) - JobsWidth(5),

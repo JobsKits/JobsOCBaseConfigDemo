@@ -11,14 +11,14 @@
 @implementation NSObject (URLMgr_1)
 #pragma mark —— 主播管理接口
 /// 获取主播详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_presenter_getInfo_ByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_presenter_getInfo_ByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/api/user/presenter/getInfo/{".add(ID).add(@"}");
         return JobsURL(url);
     };
 }
 /// 根据会员ID查询主播信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_presenter_getInfo2BymemberId{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_presenter_getInfo2BymemberId{
     return ^URLManagerModel *_Nullable(NSString *_Nullable memberId){
         NSString *url = @"/api/user/presenter/getInfo2/{".add(memberId).add(@"}");
         return JobsURL(url);
@@ -55,7 +55,7 @@
     return JobsURL(@"/api/member/kyc/submit");
 }
 /// KYC认证提醒@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_kyc_verifyBymemberId{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_kyc_verifyBymemberId{
     return ^URLManagerModel *_Nullable(NSString *_Nullable memberId){
         NSString *url = @"/api/member/kyc/verify/{".add(memberId).add(@"}");
         return JobsURL(url);
@@ -100,14 +100,14 @@
 }
 #pragma mark —— 会员收货地址
 /// 会员收货地址删除@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_address_deleteByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_address_deleteByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/api/member/address/delete/{".add(ID).add(@"}");
         return JobsURL(url);
     };
 }
 /// 会员收货地址详情@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_address_detailByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_address_detailByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/api/member/address/detail/{".add(ID).add(@"}");
         return JobsURL(url);

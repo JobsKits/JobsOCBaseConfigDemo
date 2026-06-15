@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AFSecurityPolicy (Extra)
 
-+(JobsReturnAFSecurityPolicyByAFSSLPinningModeBlock _Nonnull)initBy;
++(JobsRetAFSecurityPolicyByAFSSLPinningModeBlock _Nonnull)initBy;
 +(AFSecurityPolicy *_Nonnull)initByModeNone;
 +(AFSecurityPolicy *_Nonnull)initByModePublicKey;
 +(AFSecurityPolicy *_Nonnull)initByModeCertificate;

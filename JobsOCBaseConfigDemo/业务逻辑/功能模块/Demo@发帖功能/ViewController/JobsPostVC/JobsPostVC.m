@@ -43,27 +43,31 @@ Prop_strong()UITextModel *postTextModel;
 
 -(void)loadView{
     [super loadView];
-    
+
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
-    
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//        self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    
+
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
+
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //        self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
     {
         JobsPostDelViewHeight = JobsPostDelView.viewSizeByModel(nil).height;
         self.historyPhotoDataArr = [self.photoManager getLocalModelsInFileWithAddData:YES];
@@ -89,7 +93,7 @@ Prop_strong()UITextModel *postTextModel;
         data.add(UIBarButtonItem.initBy(self.releaseBtn));
     });
     self.makeNavByAlpha(1);
-    
+
     self.jobsTextView.byAlpha(1);
 
     self.tipsLab.byAlpha(1);
@@ -143,25 +147,25 @@ Prop_strong()UITextModel *postTextModel;
 /// 帖子视频上传 POST
 -(jobsByVoidBlock _Nonnull)networking_postuploadVideoPOST{
     return ^(){
-        
+
     };
 }
 /// 帖子图片上传 POST
 -(jobsByVoidBlock _Nonnull)networking_postUploadImagePOST{
     return ^(){
-        
+
     };
 }
 /// 发帖 POST
 -(jobsByVoidBlock _Nonnull)networking_postAddPostPOST{
     return ^(){
-        
+
     };
 }
 /// 发帖权限检测
 -(jobsByVoidBlock _Nonnull)networking_checkHadRoleGET{
     return ^(){
-        
+
     };
 }
 
@@ -222,21 +226,21 @@ Prop_strong()UITextModel *postTextModel;
     })
                            alertVCBlock:^(SPAlertController *data,
                                           NSMutableArray <SPAlertAction *>*data2) {
-        
+
         data.titleColor = JobsBlackColor;
         data.messageColor = JobsBlackColor;
         data.titleFont = UIFontWeightSemiboldSize(16);
         data.messageFont = UIFontWeightMediumSize(14);
-        
+
         SPAlertAction *action1 = (SPAlertAction *)data2[0];
         SPAlertAction *action2 = (SPAlertAction *)data2[1];
-        
+
         action1.titleColor = JobsLightGrayColor;
         action1.titleFont = UIFontWeightSemiboldSize(16);
 
         action2.titleColor = JobsBlackColor;
         action2.titleFont = UIFontWeightSemiboldSize(16);
-        
+
     } completionBlock:nil];
 }
 /// 返回按钮点击方法 【覆写父类方法】 // 清空草稿   [self.photoManager deleteLocalModelsInFile];
@@ -373,10 +377,10 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
             .onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
-            .byEnabled(NO);
-        _releaseBtn.width = JobsWidth(38);
-        _releaseBtn.height = JobsWidth(23);
-        self.view.addSubview(_releaseBtn);
+            .byEnabled(NO)
+            .byWidth(JobsWidth(38))
+            .byHeight(JobsWidth(23))
+            .addOn(self.view);
     };return _releaseBtn;
 }
 @synthesize jobsTextView = _jobsTextView;
@@ -395,7 +399,8 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
                     [self releaseBtnState:self.photoManager.afterSelectedArray
                           inputDataString:self.inputDataString];
                 })
-                .byAddTo(self.view, ^(MASConstraintMaker *make) {
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
                     make.left.equalTo(self.view).offset(JobsWidth(0));
                     make.right.equalTo(self.view).offset(JobsWidth(-0));
@@ -413,7 +418,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
             .byDeleteCellShowAlert(NO)
             .byOuterCamera(YES)
             .byPreviewShowDeleteButton(YES);
-        _postPhotoView.byAddTo(self.view, ^(MASConstraintMaker *make) {
+        _postPhotoView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.left.equalTo(self.view).offset(JobsWidth(10));
             make.top.equalTo(self.tipsLab.mas_bottom).offset(JobsWidth(20));
             make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH() - JobsWidth(10) * 2, JobsWidth(600)));
@@ -465,11 +470,12 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
                 .byText(@"1、内容不允许出现纯数字，英文字母；".tr
                         .add(JobsNewline)
                         .add(@"2、图片/视频(图片最多9张/仅上传一段视频，大小不超100M)。".tr))
-                .byAddTo(self.view, ^(MASConstraintMaker *make) {
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(self.view).offset(JobsWidth(14));
                     make.top.equalTo(self.jobsTextView.mas_bottom).offset(JobsWidth(11));
-                });
-            label.makeLabelByShowingType(UILabelShowingType_03);
+                })
+            .makeLabelByShowingType(UILabelShowingType_03);
         });
     };return _tipsLab;
 }
@@ -498,7 +504,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
 -(NSMutableArray<UIImage *> *)photosImageMutArr{
     if (!_photosImageMutArr) {
         _photosImageMutArr = jobsMakeMutArr(^(NSMutableArray <UIImage *>* _Nullable data) {
-            
+
         });
     };return _photosImageMutArr;
 }

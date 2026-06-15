@@ -7,7 +7,7 @@
 
 #import "UIView+Extra.h"
 
-@implementation UIView (Extra)
+@implementation UIView (JobsBaseUIExtra)
 
 +(JobsRetViewByFrameBlock _Nonnull)initByFrame{
     return ^__kindof UIView *_Nullable(CGRect data){
@@ -15,7 +15,7 @@
     };
 }
 /// 描边：统一设置Layer的线宽+颜色+圆切角（不一定切角）
--(JobsReturnViewByLocationModelBlock _Nonnull)layerBy{
+-(JobsRetViewByLocationModelBlock _Nonnull)layerBy{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(__kindof JobsLocationModel *_Nullable data){
         @jobs_strongify(self)
@@ -85,7 +85,7 @@
     };
 }
 
--(JobsReturnGestureByGesture _Nonnull)addGestureRecognizer{
+-(JobsRetGestureByGesture _Nonnull)addGestureRecognizer{
     @jobs_weakify(self)
     return ^__kindof UIGestureRecognizer *_Nullable(__kindof UIGestureRecognizer *_Nullable gesture) {
         @jobs_strongify(self)
@@ -201,22 +201,23 @@
 }
 #pragma mark —— UILabel
 /// 确定Label的字体大小，使其宽度自适应
--(jobsByVoidBlock _Nonnull)bySizeToFit{
+-(JobsRetViewByVoidBlock _Nonnull)bySizeToFit{
     @jobs_weakify(self)
-    return ^() {
+    return ^__kindof UIView *_Nullable() {
         @jobs_strongify(self)
         [self sizeToFit];// 必须有text，然后根据text来进行约束计算和布局
+        return self;
     };
 }
 /// 确定Label的宽度，使字体大小自适应
--(jobsByVoidBlock _Nonnull)labelAutoFontByWidth{
+-(JobsRetViewByVoidBlock _Nonnull)labelAutoFontByWidth{
     @jobs_weakify(self)
-    return ^() {
+    return ^__kindof UIView *_Nullable() {
         @jobs_strongify(self)
         if ([self isKindOfClass:UILabel.class]) {
             UILabel *label = (UILabel *)self;
             label.adjustsFontSizeToFitWidth = YES;// 必须有text，然后根据text来进行约束计算和布局
-        }
+        };return self;
     };
 }
 #pragma mark —— Prop_assign()BOOL ableRespose

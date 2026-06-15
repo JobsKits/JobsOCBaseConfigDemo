@@ -129,7 +129,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         _imageCodeView.byAlpha(0.7);
 
         _imageCodeView.bgColor = JobsWhiteColor;
-        _imageCodeView.byAddTo(self, ^(MASConstraintMaker *make) {
+        _imageCodeView.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.top.bottom.equalTo(self);
             make.right.equalTo(self);
             make.width.mas_equalTo(80);
@@ -152,7 +152,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 JobsLog(@"MMM = %@",x);
                 [self block:textField value:x];
             }];
-            textField.byAddTo(self, ^(MASConstraintMaker *make) {
+            textField.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.left.top.bottom.equalTo(self);
                 make.right.equalTo(self.imageCodeView.mas_left);
             });

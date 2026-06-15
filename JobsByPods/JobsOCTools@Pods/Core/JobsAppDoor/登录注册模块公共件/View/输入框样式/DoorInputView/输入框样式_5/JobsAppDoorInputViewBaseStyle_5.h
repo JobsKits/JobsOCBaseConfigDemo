@@ -85,7 +85,7 @@ NS_ASSUME_NONNULL_END
                  _inputView.style_5 = InputViewStyle_5_2;
              }
 
-             _inputView.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+             _inputView.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
                  make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, JobsWidth(16), 0, JobsWidth(-16)));
              });
 

@@ -39,16 +39,16 @@ UIPictureAndBackGroundCorProtocol_synthesize
 -(UIButtonModel *)backBtnModel{
     if(!_backBtnModel){
         @jobs_weakify(self)
-        _backBtnModel = self.makeBackBtnModel;
-        _backBtnModel.longPressGestureEventBlock = ^id (__kindof UIButton *x) {
-            JobsLog(@"按钮的长按事件触发");
-            return nil;
-        };
-        _backBtnModel.clickEventBlock = ^id(BaseButton *x){
-            @jobs_strongify(self)
-            if (self.objBlock) self.objBlock(x);
-            return nil;
-        };
+        _backBtnModel = self.makeBackBtnModel
+            .byLongPressGestureEventBlock(^id (__kindof UIButton *x) {
+                JobsLog(@"按钮的长按事件触发");
+                return nil;
+            })
+            .byClickEventBlock(^id(BaseButton *x){
+                @jobs_strongify(self)
+                if (self.objBlock) self.objBlock(x);
+                return nil;
+            });
     };return _backBtnModel;
 }
 /// 在具体的子类去实现，以覆盖父类的方法实现
@@ -62,15 +62,14 @@ UIPictureAndBackGroundCorProtocol_synthesize
                 .byTitleCor(JobsClearColor)
                 .bySelectedTitleCor(JobsClearColor)
                 .byRoundingCorners(UIRectCornerAllCorners);
-            data.longPressGestureEventBlock = ^id(__kindof UIButton *x) {
+            data.byLongPressGestureEventBlock(^id(__kindof UIButton *x) {
                 JobsLog(@"按钮的长按事件触发");
                 return nil;
-            };
-            data.clickEventBlock = ^id(BaseButton *x){
+            }).byClickEventBlock(^id(BaseButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
                 return nil;
-            };
+            });
         });
     };return _closeBtnModel;
 }

@@ -41,14 +41,16 @@ Prop_copy()NSString *dot;
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byAttributedString(self.attributedString);
-            label.byNumberOfLines(0);
-            label.byBgColor(JobsRandomColor);
-            label.byAddTo(self.view, ^(MASConstraintMaker *make) {
+            label
+                .byAttributedString(self.attributedString)
+            .byNumberOfLines(0)
+            .byBgColor(JobsRandomColor)
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.width.mas_equalTo(200);
                 make.center.equalTo(self.view);
-            });
-            label.makeLabelByShowingType(UILabelShowingType_05);
+            })
+            .makeLabelByShowingType(UILabelShowingType_05);
         });
     };return _label;
 }
@@ -58,15 +60,17 @@ Prop_copy()NSString *dot;
         @jobs_weakify(self)
         _label2 = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byAttributedString(self.attributedString2);
-            label.byNumberOfLines(0);
-            label.byBgColor(JobsRandomColor);
-            label.byAddTo(self.view, ^(MASConstraintMaker *make) {
+            label
+                .byAttributedString(self.attributedString2)
+            .byNumberOfLines(0)
+            .byBgColor(JobsRandomColor)
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.width.mas_equalTo(200);
                 make.centerX.equalTo(self.view);
                 make.top.equalTo(self.label.mas_bottom);
-            });
-            label.makeLabelByShowingType(UILabelShowingType_05);
+            })
+            .makeLabelByShowingType(UILabelShowingType_05);
         });
     };return _label2;
 }

@@ -91,7 +91,8 @@ Prop_strong()NSIndexPath *targetIndexPath;
 //拖拽开始 找到被拖拽的item
 -(void)dragBegin:(CGPoint)point{
     self.dragingIndexPath = [self getDragingIndexPathWithPoint:point];
-    if (!self.dragingIndexPath) {return;}
+    if (!self.dragingIndexPath) {return;
+}
     [self.collectionView bringSubviewToFront:self.dragingItem];
     XLChannelItem *item = (XLChannelItem*)[self.collectionView cellForItemAtIndexPath:self.dragingIndexPath];
     item.isMoving = true;
@@ -106,7 +107,8 @@ Prop_strong()NSIndexPath *targetIndexPath;
 
 //正在被拖拽、、、
 -(void)dragChanged:(CGPoint)point{
-    if (!self.dragingIndexPath) {return;}
+    if (!self.dragingIndexPath) {return;
+}
     self.dragingItem.center = point;
     self.targetIndexPath = [self getTargetIndexPathWithPoint:point];
     //交换位置 如果没有找到self.targetIndexPath则不交换位置
@@ -121,7 +123,8 @@ Prop_strong()NSIndexPath *targetIndexPath;
 
 //拖拽结束
 -(void)dragEnd{
-    if (!self.dragingIndexPath) {return;}
+    if (!self.dragingIndexPath) {return;
+}
     CGRect endFrame = [self.collectionView cellForItemAtIndexPath:self.dragingIndexPath].frame;
     [self.dragingItem setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
     [UIView animateWithDuration:0.3 animations:^{
@@ -142,10 +145,12 @@ Prop_strong()NSIndexPath *targetIndexPath;
 -(NSIndexPath*)getDragingIndexPathWithPoint:(CGPoint)point{
     NSIndexPath* dragIndexPath = nil;
     //最后剩一个怎不可以排序
-    if ([self.collectionView numberOfItemsInSection:0] == 1) {return dragIndexPath;}
+    if ([self.collectionView numberOfItemsInSection:0] == 1) {return dragIndexPath;
+}
     for (NSIndexPath *indexPath in self.collectionView.indexPathsForVisibleItems) {
         //下半部分不需要排序
-        if (indexPath.section > 0) {continue;}
+        if (indexPath.section > 0) {continue;
+}
         //在上半部分中找出相对应的Item
         if (CGRectContainsPoint([self.collectionView cellForItemAtIndexPath:indexPath].frame, point)) {
             if (indexPath.row != 0) {
@@ -162,9 +167,11 @@ Prop_strong()NSIndexPath *targetIndexPath;
     NSIndexPath *targetIndexPath = nil;
     for (NSIndexPath *indexPath in self.collectionView.indexPathsForVisibleItems) {
         //如果是自己不需要排序
-        if ([indexPath isEqual:self.dragingIndexPath]) {continue;}
+        if ([indexPath isEqual:self.dragingIndexPath]) {continue;
+}
         //第二组不需要排序
-        if (indexPath.section > 0) {continue;}
+        if (indexPath.section > 0) {continue;
+}
         //在第一组中找出将被替换位置的Item
         if (CGRectContainsPoint([self.collectionView cellForItemAtIndexPath:indexPath].frame, point)) {
             if (indexPath.row != 0) {
@@ -213,9 +220,11 @@ Prop_strong()NSIndexPath *targetIndexPath;
 {
     if (indexPath.section == 0) {
         //只剩一个的时候不可删除
-        if ([self.collectionView numberOfItemsInSection:0] == 1) {return;}
+        if ([self.collectionView numberOfItemsInSection:0] == 1) {return;
+}
         //第一个不可删除
-        if (indexPath.row  == 0) {return;}
+        if (indexPath.row  == 0) {return;
+}
         id obj = [self.enabledTitles objectAtIndex:indexPath.row];
         [self.enabledTitles removeObject:obj];
         [self.disabledTitles insertObject:obj atIndex:0];

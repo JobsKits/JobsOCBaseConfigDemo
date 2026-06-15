@@ -79,7 +79,7 @@ NS_ASSUME_NONNULL_END
      //            }
              }];
 
-             _获取并输入手机验证码.byAddTo(self.view, ^(MASConstraintMaker *make) {
+             _获取并输入手机验证码.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                  make.centerX.equalTo(self.view);
                  make.size.mas_equalTo(_获取并输入手机验证码.thisViewSize);
                  make.top.equalTo(self.选择区号并输入手机号.mas_bottom).offset(JobsWidth(32));

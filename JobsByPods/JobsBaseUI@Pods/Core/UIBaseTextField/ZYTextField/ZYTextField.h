@@ -103,24 +103,16 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
          if (!_textField) {
              _textField = ZYTextField.new;
              _textField.byDelegate(self);
-
              _textField.byTextCor(JobsBlackColor);
-
              _textField.byBgColor(RGBA_COLOR(245, 245, 245, 1));
-
              _textField.byReturnKeyType(UIReturnKeyDefault);
-
              _textField.byKeyboardAppearance(UIKeyboardAppearanceDefault);
-
              _textField.byKeyboardType(UIKeyboardTypeDefault);
-
              _textField.rightView = self.titleLab;
              _textField.rightViewMode = UITextFieldViewModeAlways;
              _textField.byPlaceholder(@"打赏的Mata值".tr);
-
              _textField.placeholderColor = @"#333333".cor;
              _textField.placeholderFont = UIFontWeightRegularSize(12);
-
              _textField.drawPlaceholderInRect = CGRectMake(0, 0, JobsWidth(255 - 20 - 40 - 5), JobsWidth(32));
              _textField.rightViewRectForBounds = CGRectMake(JobsWidth(255 - 20 - 40), JobsWidth(10), JobsWidth(40), JobsWidth(12));
              _textField.placeholderRectForBounds = CGRectMake(JobsWidth(10), JobsWidth(10), JobsWidth(255 - 20 - 40 - 5), JobsWidth(12));
@@ -139,7 +131,7 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
                        textFieldValue:x];
              }];
              _textField.cornerCutToCircleWithCornerRadius(JobsWidth(8));
-             _textField.byAddTo(self, ^(MASConstraintMaker *make) {
+             _textField.addOn(self).byAdd(^(MASConstraintMaker *make) {
                  make.size.mas_equalTo(CGSizeMake(JobsWidth(255), JobsWidth(32)));
                  make.centerX.equalTo(self);
                  make.top.equalTo(self.titleView.mas_bottom).offset(JobsWidth(10));
@@ -157,23 +149,15 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
          if (!_textField) {
              _textField = ZYTextField.new;
              _textField.byDelegate(self);
-
              _textField.byTextCor(JobsBlackColor);
-
              _textField.byBgColor(@"#F9F9F9".cor);
-
              _textField.byReturnKeyType(UIReturnKeyDefault);
-
              _textField.byKeyboardAppearance(UIKeyboardAppearanceDefault);
-
              _textField.byKeyboardType(UIKeyboardTypeDefault);
-
              _textField.leftView = [UIImageView.alloc initWithImage:self.viewModel.image];
              _textField.leftViewMode = UITextFieldViewModeAlways;
              _textField.byPlaceholder(self.viewModel.textModel.text);
-
              _textField.byFont(UIFontWeightRegularSize(14));
-
              _textField.placeholderFont = _textField.font;
              _textField.placeholderColor = JobsGrayColor;
              CGFloat placeholderHeight = [self jobsGetLabelWidthWithTitle:_textField.placeholder font:_textField.placeholderFont].height;
@@ -190,12 +174,11 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
                  [self textFieldBlock:self->_textField
                        textFieldValue:x];
              }];
-             _textField.byAddTo(self, ^(MASConstraintMaker *make) {
+             _textField.addOn(self).byAdd(^(MASConstraintMaker *make) {
                  make.size.mas_equalTo(CGSizeMake(MSInputStyle1View.viewSizeByModel(nil).width - JobsWidth(32 + 12), JobsWidth(28)));
                  make.centerY.equalTo(self);
                  make.left.equalTo(self).offset(JobsWidth(12));
              });
-
          };return _textField;
      }
     只有leftView，右边有个获取验证码
@@ -203,23 +186,15 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
          if (!_textField) {
              _textField = ZYTextField.new;
              _textField.byDelegate(self);
-
              _textField.byTextCor(JobsBlackColor);
-
              _textField.byBgColor(@"#F9F9F9".cor);
-
              _textField.byReturnKeyType(UIReturnKeyDefault);
-
              _textField.byKeyboardAppearance(UIKeyboardAppearanceDefault);
-
              _textField.byKeyboardType(UIKeyboardTypeDefault);
-
              _textField.leftView = [UIImageView.alloc initWithImage:self.viewModel.image];
              _textField.leftViewMode = UITextFieldViewModeAlways;
              _textField.byPlaceholder(self.viewModel.textModel.text);
-
              _textField.byFont(UIFontWeightRegularSize(14));
-
              _textField.placeholderFont = _textField.font;
              _textField.placeholderColor = JobsGrayColor;
              CGFloat placeholderHeight = [self jobsGetLabelWidthWithTitle:_textField.placeholder font:_textField.placeholderFont].height;
@@ -236,7 +211,7 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
                  [self textFieldBlock:self->_textField
                        textFieldValue:x];
              }];
-             _textField.byAddTo(self, ^(MASConstraintMaker *make) {
+             _textField.addOn(self).byAdd(^(MASConstraintMaker *make) {
                  make.size.mas_equalTo(CGSizeMake(MSInputStyle3View.viewSizeByModel(nil).width - JobsWidth(32 + 12 + 100), JobsWidth(28)));
                  make.centerY.equalTo(self);
                  make.left.equalTo(self).offset(JobsWidth(12));
@@ -252,15 +227,10 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
          if (!_textField) {
              _textField = ZYTextField.new;
              _textField.byDelegate(self);
-
              _textField.byBgColor(RGBA_COLOR(245, 245, 245, 1));
-
              _textField.byReturnKeyType(UIReturnKeyDefault);
-
              _textField.byKeyboardAppearance(UIKeyboardAppearanceDefault);
-
              _textField.byKeyboardType(UIKeyboardTypeDefault);
-
              _textField.leftView = [UIImageView.alloc initWithImage:@"新首页的搜索放大镜".img];
              _textField.leftViewMode = UITextFieldViewModeAlways;
              _textField.rightView = self.searchBtn;
@@ -300,7 +270,7 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
                  [self textFieldBlock:self->_textField
                        textFieldValue:x];
              }];
-             _textField.byAddTo(self, ^(MASConstraintMaker *make) {
+             _textField.addOn(self).byAdd(^(MASConstraintMaker *make) {
                  make.size.mas_equalTo(_textField.size);
                  make.right.equalTo(self).offset(JobsWidth(-12));
                  make.centerY.equalTo(self);

@@ -65,11 +65,13 @@ Prop_strong()JobsPushView *pushView;
                 self.navigator.pushView(self.pushView,YES);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .makeBtnTitleByShowingType(UILabelShowingType_03)
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.center.equalTo(self);
+                make.height.mas_equalTo(JobsWidth(30));
             });
-        _push_btn.byAddTo(self, ^(MASConstraintMaker *make) {
-            make.center.equalTo(self);
-            make.height.mas_equalTo(JobsWidth(30));
-        });_push_btn.makeBtnTitleByShowingType(UILabelShowingType_03);
     };return _push_btn;
 }
 
@@ -88,14 +90,15 @@ Prop_strong()JobsPushView *pushView;
                 if(self.navigator) self.navigator.popViewAnimated(YES);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .makeBtnTitleByShowingType(UILabelShowingType_03)
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.size.equalTo(self.push_btn);
+                make.centerY.equalTo(self.push_btn);
+                make.left.equalTo(self.push_btn.mas_right).offset(JobsWidth(10));
+                make.height.mas_equalTo(JobsWidth(30));
             });
-        _pop_btn.byAddTo(self, ^(MASConstraintMaker *make) {
-            make.size.equalTo(self.push_btn);
-            make.centerY.equalTo(self.push_btn);
-            make.left.equalTo(self.push_btn.mas_right).offset(JobsWidth(10));
-            make.height.mas_equalTo(JobsWidth(30));
-        });
-        _pop_btn.makeBtnTitleByShowingType(UILabelShowingType_03);
     };return _pop_btn;
 }
 

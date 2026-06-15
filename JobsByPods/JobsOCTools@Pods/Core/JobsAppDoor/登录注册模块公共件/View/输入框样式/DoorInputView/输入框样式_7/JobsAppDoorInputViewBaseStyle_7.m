@@ -130,7 +130,7 @@ Prop_assign()CGSize chooseBtnSize;
         _leftIMGV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
             imageView.image = self.doorInputViewBaseStyleModel.leftViewIMG;
-            imageView.byAddTo(self, ^(MASConstraintMaker *make) {
+            imageView.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.left.equalTo(self).offset(JobsWidth(17));
                 make.centerY.equalTo(self);
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(12), JobsWidth(16)));
@@ -189,17 +189,18 @@ Prop_assign()CGSize chooseBtnSize;
                         JobsLog(@"data = %@",data.data);
                         x.jobsResetBtnTitle(data.textModel.text.add(data.subTextModel.text));
                     }];
-                }else self->dropDownListView.dropDownListViewDisappear(x);
+            }else self->dropDownListView.dropDownListViewDisappear(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
-            });
-        _chooseBtn.byAddTo(self, ^(MASConstraintMaker *make) {
-            make.left.equalTo(self.leftIMGV.mas_right).offset(JobsWidth(20));
-            make.centerY.equalTo(self);
-            make.height.mas_equalTo(JobsWidth(16));
+            })
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.left.equalTo(self.leftIMGV.mas_right).offset(JobsWidth(20));
+                make.centerY.equalTo(self);
+                make.height.mas_equalTo(JobsWidth(16));
 #warning 这里需要被修改
 //            make.width.mas_equalTo([UIView widthByData:self.jobsPageViewDataMutArr[0]]);
-        });
+            });
     };return _chooseBtn;
 }
 
@@ -235,7 +236,7 @@ Prop_assign()CGSize chooseBtnSize;
                 JobsLog(@"输入的字符为 = %@",x);
                 [self block:self->_magicTextField value:x];
             }];
-            textField.byAddTo(self, ^(MASConstraintMaker *make) {
+            textField.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.top.bottom.equalTo(self);
                 make.right.equalTo(self).offset(-JobsWidth(17));
                 make.left.equalTo(self.chooseBtn.mas_right).offset(JobsWidth(2));

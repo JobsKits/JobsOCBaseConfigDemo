@@ -114,7 +114,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(URLManagerModel *)post_fund_report_trade_page;
 #pragma mark —— 资金模块-微服务内部使用-四方商户接口
 /// 查询电子钱包商户余额@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_eWallet_balance_fiatByMCHID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_eWallet_balance_fiatByMCHID;
 /// 会员电子钱包出款下单@POST
 -(URLManagerModel *)post_fund_eWallet_payment_fiat;
 /// 代理法币出款下单@POST
@@ -122,9 +122,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 代理USDT出款下单@POST
 -(URLManagerModel *)post_fund_merchantBiz_agentPayment_usdt;
 /// 查询法币商户余额@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_merchantBiz_balance_fiatByMCHID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_merchantBiz_balance_fiatByMCHID;
 /// 查询USDT商户余额@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_merchantBiz_balance_usdtByMCHID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_merchantBiz_balance_usdtByMCHID;
 /// 会员法币充值创建订单@POST`
 -(URLManagerModel *)post_fund_merchantBiz_deposit_fiat;
 /// 会员USDT充值创建订单@POST
@@ -141,7 +141,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// EB币提现下单@POST
 -(URLManagerModel *)post_fund_withdraw_ebpay_order;
 /// 查询提现订单状态@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_withdraw_get_order_statusByOrderNo;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_withdraw_get_order_statusByOrderNo;
 /// 查询正在进行中的提现订单的收银台详情@POST
 -(URLManagerModel *)post_fund_withdraw_getOrder;
 /// 法币提现下单@POST
@@ -163,7 +163,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 查询用户充值加送剩余额度@GET
 -(URLManagerModel *)get_fund_deposit_getDeposit_gift;
 /// 查询充值订单状态@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_deposit_getOrder_statusByOrderNo;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_deposit_getOrder_statusByOrderNo;
 /// 查询用户充值当日已加送额度@POST
 -(URLManagerModel *)post_fund_deposit_getChannelDepositGift;
 /// 获取系统当前时间@POST
@@ -180,7 +180,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 查询代理可用的充值通道@GET
 -(URLManagerModel *)get_fund_dpChannel_agentDepositChannelList;
 /// 拉取充值通道类型页面提示文案@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_dpChannel_contentByChannelTypeId;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_dpChannel_contentByChannelTypeId;
 /// 拉取会员可用的充值通道列表@GET
 -(URLManagerModel *)get_fund_dpChannel_list;
 #pragma mark —— 资金管理-提现类型列表接口

@@ -100,7 +100,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 #pragma mark —— BaseViewControllerProtocol
 #warning 以下写在具体的子类
-//-(JobsReturnNavBarConfigByButtonModelBlock _Nonnull)makeNavBarConfig{
+//-(JobsRetNavBarConfigByButtonModelBlock _Nonnull)makeNavBarConfig{
 //    return ^JobsNavBarConfig *_Nullable(UIButtonModel *_Nullable backBtnModel,
 //                                        UIButtonModel *_Nullable closeBtnModel) {
 //        @jobs_weakify(self)
@@ -166,17 +166,17 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 -(UIButtonModel *)backBtnModel{
     if(!_backBtnModel){
         @jobs_weakify(self)
-        _backBtnModel = self.makeBackBtnModel;
-        _backBtnModel.longPressGestureEventBlock = ^id(__kindof UIButton *x) {
-            JobsLog(@"按钮的长按事件触发");
-            return nil;
-        };
-        _backBtnModel.clickEventBlock = ^id(BaseButton *x){
-            @jobs_strongify(self)
-            if (self.objBlock) self.objBlock(x);
-            self.backBtnClickEvent(x);
-            return nil;
-        };
+        _backBtnModel = self.makeBackBtnModel
+            .byLongPressGestureEventBlock(^id(__kindof UIButton *x) {
+                JobsLog(@"按钮的长按事件触发");
+                return nil;
+            })
+            .byClickEventBlock(^id(BaseButton *x){
+                @jobs_strongify(self)
+                if (self.objBlock) self.objBlock(x);
+                self.backBtnClickEvent(x);
+                return nil;
+            });
     };return _backBtnModel;
 }
 

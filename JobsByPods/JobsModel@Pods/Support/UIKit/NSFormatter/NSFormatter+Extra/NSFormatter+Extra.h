@@ -30,7 +30,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSFormatter (Extra)
+@interface NSFormatter (JobsModelExtra)
 
 -(JobsRetStrByDateBlock _Nonnull)date;
 

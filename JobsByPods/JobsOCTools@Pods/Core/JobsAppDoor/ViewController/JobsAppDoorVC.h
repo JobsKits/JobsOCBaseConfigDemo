@@ -149,6 +149,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 #pragma mark —— 高仿蜜柚
 @interface JobsAppDoorVC : BaseViewController

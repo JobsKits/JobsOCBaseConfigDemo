@@ -28,9 +28,12 @@
 
     self.view.byBgColor(UIColor.lightGrayColor);
     self.setupAppearanceByNavigationBar(self.navigationController.navigationBar); // 1. 外观：背景图、底色、tintColor 等
-    [self setupNavigationTitle];                                                  // 2. 标题：普通 + 富文本
-    [self setupLeftBackItem];                                                     // 3. 左侧自定义返回键
-    [self setupRightItems];                                                       // 4. 右侧自定义按钮
+    [self setupNavigationTitle];
+                                                  // 2. 标题：普通 + 富文本
+    [self setupLeftBackItem];
+                                                     // 3. 左侧自定义返回键
+    [self setupRightItems];
+                                                       // 4. 右侧自定义按钮
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -63,7 +66,8 @@
                 /// 先设为不透明背景，避免半透明那套乱七八糟的效果
                 [appearance configureWithOpaqueBackground];
                 /// ② 背景图 + 底色（背景图优先）
-                appearance.backgroundImage = bgImage;             // 背景图（优先级最高）
+                appearance.backgroundImage = bgImage;
+             // 背景图（优先级最高）
                 appearance.backgroundColor = UIColor.yellowColor; // 底色，在图透明处才可见
                 /// ③ 标题文字基础样式（非富文本标题时用这一套）
                 appearance.titleTextAttributes = jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable dic) {
@@ -121,11 +125,14 @@
                      .byTextBgCor(JobsBrownColor);
                 data1.paragraphStyle = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data2) {
                     data2.alignment = NSTextAlignmentJustified;
-                    data2.paragraphSpacing = 0;         // 段距，取值 float
+                    data2.paragraphSpacing = 0;
+         // 段距，取值 float
                     data2.paragraphSpacingBefore = 0;   // 段首空间，取值 float
                     data2.firstLineHeadIndent = 0.0;    // 首行缩进，取值 float
-                    data2.headIndent = 0.0;             // 整体缩进(首行除外)，取值 float
-                    data2.lineSpacing = 0;              // 行距，取值 float
+                    data2.headIndent = 0.0;
+             // 整体缩进(首行除外)，取值 float
+                    data2.lineSpacing = 0;
+              // 行距，取值 float
                 });
             }));
             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
@@ -145,8 +152,8 @@
                      .byParagraphStyle(self.defaultParagraphStyle);
             }));
         })))
-            .byBgColor(UIColor.clearColor);
-        label.bySizeToFit();
+            .byBgColor(UIColor.clearColor)
+        .bySizeToFit();
     });
 }
 #pragma mark —— 左边：自定义返回键

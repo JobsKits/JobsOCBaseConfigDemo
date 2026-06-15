@@ -83,7 +83,7 @@ NS_INLINE __kindof FMHomeMainBizSubView *_Nonnull jobsMakeBizSubView(jobsByBizSu
                      arr.add(jobsMakeBizSubView(^(__kindof FMHomeMainBizSubView * _Nullable subView) {
                          @jobs_strongify(self)
                          subView.jobsRichViewByModel(nil);
-                         subView.byAddTo(self, ^(MASConstraintMaker *make) {
+                         subView.addOn(self).byAdd(^(MASConstraintMaker *make) {
                              make.size.mas_equalTo(FMHomeMainBizSubView.viewSizeByModel(nil));
                              make.centerX.equalTo(self);
                              make.top.equalTo(self.collectionView.mas_bottom);

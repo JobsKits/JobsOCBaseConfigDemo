@@ -77,21 +77,18 @@ Prop_strong() JobsTimer *timer;
 - (void)setupNumberLabels {
     NSMutableArray<UILabel *> *arr = NSMutableArray.array;
     for (NSInteger i = 1; i <= 12; i++) {
-        UILabel *label = UILabel.new;
-        label.byText([NSString stringWithFormat:@"%ld", (long)i]);
-
-        label.byFont([UIFont systemFontOfSize:12 weight:UIFontWeightMedium]);
-
-        if (@available(iOS 13.0, *)) {
-            label.byTextCor([UIColor labelColor]);
-
-        } else {
-            label.byTextCor([UIColor blackColor]);
-
-        }
-        label.byTextAlignment(NSTextAlignmentCenter);
-
-        [self addSubview:label];
+        UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            UIColor *textCor = UIColor.blackColor;
+            if (@available(iOS 13.0, *)) {
+                textCor = UIColor.labelColor;
+            }
+            label
+                .byText([NSString stringWithFormat:@"%ld", (long)i])
+                .byFont([UIFont systemFontOfSize:12 weight:UIFontWeightMedium])
+                .byTextCor(textCor)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .addOn(self);
+        });
         [arr addObject:label];
     }
     self.numberLabels = arr.copy;
@@ -193,14 +190,14 @@ Prop_strong() JobsTimer *timer;
         if ([label respondsToSelector:@selector(intrinsicContentSize)]) {
             labelSize = label.intrinsicContentSize;
         } else {
-            [label sizeToFit];
+            label.bySizeToFit();
             labelSize = label.bounds.size;
         }
 
-        label.frame = CGRectMake(labelCenter.x - labelSize.width / 2.0,
+        label.byFrame(CGRectMake(labelCenter.x - labelSize.width / 2.0,
                                  labelCenter.y - labelSize.height / 2.0,
                                  labelSize.width,
-                                 labelSize.height);
+                                 labelSize.height));
     }];
 }
 /// 布局三根指针
@@ -244,11 +241,13 @@ Prop_strong() JobsTimer *timer;
         self.timer = jobsMakeTimer(^(JobsTimer<TimerProtocol> * _Nullable timer) {
             @jobs_strongify(self)
             timer.byTimerType(timerType)
-            .byTimeInterval(1.0)                 // 每秒 tick 一次
+            .byTimeInterval(1.0)
+                 // 每秒 tick 一次
             .byTimeSecIntervalSinceDate(0)       // 立即开始
             .byQueue(dispatch_get_main_queue())  // UI 更新必须主线程
             .byTimerState(JobsTimerStateIdle)
-            .byStartTime(0)                      // 非倒计时模式
+            .byStartTime(0)
+                      // 非倒计时模式
             .byTime(0)
             .byOnTick(^(CGFloat time) {
                 @jobs_strongify(self)

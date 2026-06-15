@@ -59,7 +59,7 @@ static dispatch_once_t static_searchViewOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         MakeDataNull
         self.byBgColor(JobsRedColor);
     };

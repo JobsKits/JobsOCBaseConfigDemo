@@ -19,7 +19,11 @@
 /// 动画封装
 #import <JobsByOCPods/UIButton+Animation.h>
 /// SDWebImage
+#if __has_include(<JobsOCDSL/UIButton+SDWebImage.h>)
+#import <JobsOCDSL/UIButton+SDWebImage.h>
+#else
 #import <JobsByOCPods/UIButton+SDWebImage.h>
+#endif
 /// UIButton按照状态着色
 #import <JobsByOCPods/UIButton+FillColor.h>
 /// 其他

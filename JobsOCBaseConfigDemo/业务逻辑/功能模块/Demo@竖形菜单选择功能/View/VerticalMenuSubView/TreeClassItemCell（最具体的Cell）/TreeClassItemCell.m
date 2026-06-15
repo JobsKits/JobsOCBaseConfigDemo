@@ -70,7 +70,8 @@ UILocationProtocol_synthesize
                 .byContentMode(UIViewContentModeScaleAspectFill)
                 .byClipsToBounds(YES)
                 .byCornerRadius(JobsWidth(8))
-                .byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
                     make.size.mas_equalTo(CGSizeMake(self.imageWidth, self.imageWidth));
                     make.centerX.equalTo(self.contentView);
                     make.top.equalTo(self.contentView);
@@ -79,11 +80,9 @@ UILocationProtocol_synthesize
     }
 
     if (self.dataModel.bgImage) {
-        _logoImgView.image = self.dataModel.bgImage;
-        _logoImgView.byBgColor(JobsClearColor);
+        _logoImgView.byImage(self.dataModel.bgImage).byBgColor(JobsClearColor);
     } else {
-        _logoImgView.image = nil;
-        _logoImgView.byBgColor(JobsRandomCor(.5f));
+        _logoImgView.byImage(nil).byBgColor(JobsRandomCor(.5f));
     };return _logoImgView;
 }
 
@@ -95,12 +94,13 @@ UILocationProtocol_synthesize
             label
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightRegularSize(12))
-                .byTextCor(JobsBlackColor);
-            label.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self.contentView);
-                make.top.equalTo(self.logoImgView.mas_bottom).offset(JobsWidth(5));
-                make.height.mas_equalTo(JobsWidth(10));
-            });
+                .byTextCor(JobsBlackColor)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self.contentView);
+                    make.top.equalTo(self.logoImgView.mas_bottom).offset(JobsWidth(5));
+                    make.height.mas_equalTo(JobsWidth(10));
+                });
         });
     }_nameLabel.byText(self.dataModel.textModel.text);
     return _nameLabel;
@@ -129,15 +129,17 @@ UILocationProtocol_synthesize
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
-            .byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.height.mas_equalTo(JobsWidth(12));
                 make.centerX.equalTo(self.contentView);
                 make.bottom.equalTo(self.contentView).offset(JobsWidth(-5));
             });
     }
-    _btn.jobsResetBtnTitle(self.dataModel.title);
-    _btn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    _btn.selected = self.dataModel.jobsSelected;
+    _btn
+        .jobsResetBtnTitle(self.dataModel.title)
+        .makeBtnTitleByShowingType(UILabelShowingType_03)
+        .bySelected(self.dataModel.jobsSelected);
     return _btn;
 }
 

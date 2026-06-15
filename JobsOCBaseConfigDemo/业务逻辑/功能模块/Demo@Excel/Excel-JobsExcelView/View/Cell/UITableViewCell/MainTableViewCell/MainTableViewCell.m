@@ -16,7 +16,7 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
 
 @implementation MainTableViewCell
 
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     @jobs_weakify(self)
     return ^(UITableView * _Nonnull tableView) {
         @jobs_strongify(self)
@@ -24,11 +24,10 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
         if (!cell) {
             cell = [self initTableViewCell:self
                                  withStyle:UITableViewCellStyleValue1];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
-
+            cell
+                .bySelectionStyle(UITableViewCellSelectionStyleNone)
+                .byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
             cell.collectionView.byAlpha(1);
-
         };return cell;
     };
 }
@@ -52,7 +51,7 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
     };
 }
 #pragma mark —— UITableViewCellProtocol
--(JobsReturnMainTableViewCellByDelegateBlock _Nonnull)byDelegate{
+-(JobsRetMainTableViewCellByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^MainTableViewCell *_Nonnull(NSObject<MianTableViewCellDelegate> *delegate){
         @jobs_strongify(self)
@@ -87,7 +86,11 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
                            cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     MainTableViewCellItem *cell = [MainTableViewCellItem cellWithCollectionView:collectionView
                                                                    forIndexPath:indexPath];
-    cell.byBgColor(cell.contentView.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0));
+    cell
+        .byContentView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
+        })
+        .byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
 
     @jobs_weakify(self)
     cell.jobsRichElementsCollectionViewCellBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable vm) {
@@ -123,7 +126,7 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
 
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
-        _collectionView.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+        _collectionView.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, 0, 0, 0));
         });
     };return _collectionView;

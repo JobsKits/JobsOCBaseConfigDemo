@@ -258,7 +258,7 @@
     };
 }
 
--(JobsRetBtnConfigByImagePaddingBlock _Nonnull)byImagePadding API_AVAILABLE(ios(16.0)){
+-(JobsRetBtnConfigByCGFloatBlock _Nonnull)byImagePadding API_AVAILABLE(ios(16.0)){
     @jobs_weakify(self)
     return ^UIButtonConfiguration *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -267,7 +267,7 @@
     };
 }
 
--(JobsRetBtnConfigByTitlePaddingBlock _Nonnull)byTitlePadding API_AVAILABLE(ios(16.0)){
+-(JobsRetBtnConfigByCGFloatBlock _Nonnull)byTitlePadding API_AVAILABLE(ios(16.0)){
     @jobs_weakify(self)
     return ^UIButtonConfiguration *_Nullable(CGFloat data){
         @jobs_strongify(self)

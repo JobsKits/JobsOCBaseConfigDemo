@@ -29,21 +29,22 @@ Prop_strong()UIButton *jobsCopyBtn;
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     BaiShaETProjOrderDetailsCVCell *cell = JobsRegisterDequeueCollectionViewCell(BaiShaETProjOrderDetailsCVCell);
-    cell.indexPath = indexPath;
-    cell.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-        model.byJobsWidth(.5f)
-             .byLayerCor(HEXCOLOR(0xEEE2C8))
-             .byCornerRadiusValue(JobsWidth(8));
-    }));
-    JobsCellCor(JobsWhiteColor);
-    return cell;
+    return (BaiShaETProjOrderDetailsCVCell *)cell
+        .byIndexPath(indexPath)
+        .byContentViewBgCor(JobsWhiteColor)
+        .byBgColor(JobsWhiteColor)
+        .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
+            model.byJobsWidth(.5f)
+                 .byLayerCor(HEXCOLOR(0xEEE2C8))
+                 .byCornerRadiusValue(JobsWidth(8));
+        }));
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(JobsRetCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy{
     @jobs_weakify(self)
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         self.tableView.byShow(self);
         return self;
     };
@@ -76,7 +77,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    JobsBaseTableViewCell *cell = JobsBaseTableViewCell.cellStyleValue1WithTableView(tableView)
+    JobsBaseTableViewCell *cell = JobsBaseTableViewCell.cellStyleValue1ByTableView(tableView)
         .byTextLabelTextCor(HEXCOLOR(0x757575))
         .byTextLabelFont(UIFontWeightRegularSize(12))
         .byDetailTextLabelCor(HEXCOLOR(0x757575))
@@ -88,7 +89,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         .jobsRichElementsTableViewCellBy(self.viewModel.jobsDataMutArr[indexPath.row]);
     
     _jobsCopyBtn = nil;/// ❤️ 关键。[self layoutIfNeeded];会出现异常
-    self.jobsCopyBtn.byAddTo(cell.contentView, ^(MASConstraintMaker *make) {
+    self.jobsCopyBtn.addOn(cell.contentView).byAdd(^(MASConstraintMaker *make) {
         make.centerY.equalTo(cell.contentView);
         make.right.equalTo(cell.contentView).offset(JobsWidth(-12));
         make.height.mas_equalTo(JobsWidth(18));
@@ -122,7 +123,7 @@ heightForFooterInSectionByModel:(NSInteger)section{
             .byStyle(JobsHeaderViewStyle)/// 悬浮开关
             .bySection(section)/// 悬浮配置
             .JobsRichViewByModel2(nil)
-            .JobsBlock1(^(id _Nullable data) {
+            .JobsBlock1(^(id _Nullable data) {;
                 
             });
         tbvFooterView.byBgColor(HEXCOLOR(0xEAEBED));
@@ -140,9 +141,9 @@ heightForFooterInSectionByModel:(NSInteger)section{
             .jobsResetBtnTitle(JobsSpace.add(@"複製".tr).add(JobsSpace))
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(12))
             .jobsResetBtnTitleCor(HEXCOLOR(0x757575))
+            .makeBtnTitleByShowingType(UILabelShowingType_03)
+            .jobsResetBtnCornerRadiusValue(JobsWidth(18 / 2))
             .bgColorBy(HEXCOLOR(0xEAEBED));
-        _jobsCopyBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-        _jobsCopyBtn.cornerCutToCircleWithCornerRadius(JobsWidth(18 / 2));
     };return _jobsCopyBtn;
 }
 /// BaseViewProtocol
@@ -157,7 +158,8 @@ heightForFooterInSectionByModel:(NSInteger)section{
                     /// TODO
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .byTableFooterView(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
-                    label.byText(@"- 没有更多的内容了 -".tr)
+                    label
+                        .byText(@"- 没有更多的内容了 -".tr)
                         .byFont(UIFontWeightRegularSize(12))
                         .byTextAlignment(NSTextAlignmentCenter)
                         .byTextCor(HEXCOLOR(0xB0B0B0))

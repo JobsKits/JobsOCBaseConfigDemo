@@ -23,7 +23,7 @@ typedef __kindof NSString *_Nullable(^JobsRetStrByStrBlock)(__kindof NSString *_
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIDevice (XMUtils)
+@interface UIDevice (JobsOCDefsXMUtils)
 
 Prop_assign(readonly)NSString *machineModel;
 /**

@@ -23,7 +23,7 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
     };return self;
 }
 
--(JobsReturnViewNavigatorByViewAndAnimatedBlock _Nonnull)pushView{
+-(JobsRetViewNavigatorByViewAndAnimatedBlock _Nonnull)pushView{
     @jobs_weakify(self)
     return ^JobsViewNavigator *_Nonnull(UIView __kindof * _Nullable nextView,BOOL animated) {
         @jobs_strongify(self)
@@ -55,7 +55,7 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
     };
 }
 
--(JobsReturnViewNavigatorByBOOLBlock _Nonnull)popViewAnimated{
+-(JobsRetViewNavigatorByBOOLBlock _Nonnull)popViewAnimated{
     @jobs_weakify(self)
     return ^JobsViewNavigator *_Nonnull(BOOL animated) {
         @jobs_strongify(self)
@@ -93,7 +93,7 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
     };
 }
 
--(JobsReturnViewNavigatorByBOOLBlock _Nonnull)popToRootViewAnimated{
+-(JobsRetViewNavigatorByBOOLBlock _Nonnull)popToRootViewAnimated{
     @jobs_weakify(self)
     return ^JobsViewNavigator *_Nonnull(BOOL animated) {
         @jobs_strongify(self)

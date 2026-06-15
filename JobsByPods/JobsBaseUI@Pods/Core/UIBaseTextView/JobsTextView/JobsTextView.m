@@ -78,9 +78,7 @@ static dispatch_once_t static_textViewOnceToken;
             self.textModel = (UITextModel *)model;
             self.updateWordCount(0);
             self.countLabel.byAlpha(1);
-
             self.textView.byAlpha(1);
-
         }
     };
 }
@@ -94,10 +92,11 @@ static dispatch_once_t static_textViewOnceToken;
     return ^(NSInteger count){
         @jobs_strongify(self)
         if(count) self.textModel.curWordCount = count;
-        self.countLabel.text = toStringByNSInteger(self.textModel.curWordCount)
-            .add(JobsSeparation)
-            .add(toStringByNSInteger(self.textModel.maxWordCount));
-        self.countLabel.makeLabelByShowingType(UILabelShowingType_03);
+        self.countLabel
+            .byText(toStringByNSInteger(self.textModel.curWordCount)
+                    .add(JobsSeparation)
+                    .add(toStringByNSInteger(self.textModel.maxWordCount)))
+            .makeLabelByShowingType(UILabelShowingType_03);
     };
 }
 #pragma mark —— lazyLoad
@@ -109,7 +108,7 @@ static dispatch_once_t static_textViewOnceToken;
             @jobs_strongify(self)
             textView.byBgColor(JobsClearColor);
             textView.editable = YES;
-            textView.byAddTo(self, ^(MASConstraintMaker *make) {
+            textView.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(self).offset(JobsWidth(5));
                 make.left.equalTo(self).offset(JobsWidth(10));
                 make.right.equalTo(self).offset(JobsWidth(-10));
@@ -143,10 +142,12 @@ static dispatch_once_t static_textViewOnceToken;
         @jobs_weakify(self)
         _countLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byTextCor(JobsWhiteColor)
+            label
+                .byTextCor(JobsWhiteColor)
                 .byFont(UIFontWeightBoldSize(12))
-                .byTextAlignment(NSTextAlignmentCenter);
-            label.byAddTo(self, ^(MASConstraintMaker *make) {
+                .byTextAlignment(NSTextAlignmentCenter)
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.height.mas_equalTo(JobsWidth(17));
                 make.bottom.mas_equalTo(-JobsWidth(8));
                 make.right.equalTo(self).offset(-JobsWidth(5));

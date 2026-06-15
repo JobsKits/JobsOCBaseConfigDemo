@@ -55,12 +55,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    JobsIMListTBVCell *cell = JobsIMListTBVCell.cellStyleValue1WithTableView(tableView)
+    JobsIMListTBVCell *cell = JobsIMListTBVCell.cellStyleValue1ByTableView(tableView)
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byIndexPath(indexPath)
         .byDelegate(self)
         .jobsRichElementsTableViewCellBy(self.jobsIMListMutArr[indexPath.row])
-        .JobsBlock1(^(id _Nullable data) {
+        .JobsBlock1(^(id _Nullable data) {;
              
         });
     return cell.byAllowsMultipleSwipe(YES);

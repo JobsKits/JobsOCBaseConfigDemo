@@ -61,7 +61,7 @@
 /// 电话号码：
 /// 密码：
 /// 用户名：
--(JobsReturnDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_dev_signUP_data1{
+-(JobsRetDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_dev_signUP_data1{
     return ^__kindof FMDoorModel *_Nullable(__kindof GTCaptcha4Model *_Nullable model){
         return jobsMakeDoorModel(^(__kindof FMDoorModel * _Nullable data) {
             data.byCaptcha_key(@"")
@@ -84,7 +84,7 @@
 /// 电话号码：
 /// 密码：
 /// 用户名：
--(JobsReturnDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_dev_signUP_data2{
+-(JobsRetDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_dev_signUP_data2{
     return ^__kindof FMDoorModel *_Nullable(__kindof GTCaptcha4Model *_Nullable model){
         return jobsMakeDoorModel(^(__kindof FMDoorModel * _Nullable data) {
             data.byCaptcha_key(@"")
@@ -107,7 +107,7 @@
 #pragma mark —— 发送验证码
 /// 电话号码：
 /// 用户名：
--(JobsReturnDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_dev_smsCode_data1{
+-(JobsRetDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_dev_smsCode_data1{
     return ^__kindof FMDoorModel *_Nullable(__kindof GTCaptcha4Model *_Nullable model){
         return jobsMakeDoorModel(^(__kindof FMDoorModel * _Nullable data) {
             data.byActionType(@(USERTYPE_REGISTER))
@@ -128,7 +128,7 @@
 }
 /// 电话号码：
 /// 用户名：
--(JobsReturnDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_dev_smsCode_data2{
+-(JobsRetDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_dev_smsCode_data2{
     return ^__kindof FMDoorModel *_Nullable(__kindof GTCaptcha4Model *_Nullable model){
         return jobsMakeDoorModel(^(__kindof FMDoorModel * _Nullable data) {
             data.byActionType(@(USERTYPE_REGISTER))

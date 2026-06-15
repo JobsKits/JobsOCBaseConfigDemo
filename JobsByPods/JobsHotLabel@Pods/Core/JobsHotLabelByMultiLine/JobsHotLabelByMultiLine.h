@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_END
          if (!_hotLabel) {
              _hotLabel = JobsHotLabelWithMultiLine.new;
              _hotLabel.jobsRichViewByModel(self.hotLabelModel);
-             _hotLabel.byAddTo(self, ^(MASConstraintMaker *make) {
+             _hotLabel.addOn(self).byAdd(^(MASConstraintMaker *make) {
                  make.edges.equalTo(self);
              });
 
@@ -131,7 +131,7 @@ NS_ASSUME_NONNULL_END
          if (!_dataMutArr) {
              _dataMutArr = NSMutableArray.array;
              for (NSString *str in self.btnTitleMutArr) {
-                 UIViewModel *viewModel = UIViewModel.new;
+                 UIViewModel *viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
                  viewModel.textModel.byText(str)
                                     .byFont(UIFontWeightRegularSize(12))
                                     .byTextCor(HEXCOLOR(0x757575));

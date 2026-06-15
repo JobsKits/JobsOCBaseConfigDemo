@@ -7,8 +7,6 @@
 
 #import "UICollectionView+DSL.h"
 
-#import <objc/runtime.h>
-
 static void *JobsCollectionViewBlocksProxyKey = &JobsCollectionViewBlocksProxyKey;
 static void *JobsCollectionViewDataSourceMuxKey = &JobsCollectionViewDataSourceMuxKey;
 static void *JobsCollectionViewDelegateMuxKey = &JobsCollectionViewDelegateMuxKey;

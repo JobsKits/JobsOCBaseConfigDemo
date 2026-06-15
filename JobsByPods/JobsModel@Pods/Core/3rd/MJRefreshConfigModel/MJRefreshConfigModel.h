@@ -86,7 +86,7 @@ Prop_copy()JobsRetIDByIDBlock loadBlock;
 Prop_assign(getter=isAutomaticallyChangeAlpha)BOOL automaticallyChangeAlpha;/// 根据拖拽比例自动切换透明度
 Prop_assign()BOOL isShake;/// 是否需要震动反馈？默认不需要
 
--(JobsReturnMJRefreshConfigModelByReturnIDByIDBlocks _Nonnull)byLoadBlock;
+-(JobsRetMJRefreshConfigModelByRetIDByIDBlocks _Nonnull)byLoadBlock;
 
 @end
 

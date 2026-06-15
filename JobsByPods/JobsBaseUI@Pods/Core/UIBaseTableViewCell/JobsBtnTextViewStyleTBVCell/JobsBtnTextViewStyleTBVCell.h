@@ -13,6 +13,13 @@
 #import <JobsBaseUI/JobsBaseTableViewCell.h>
 #import <JobsBaseUI/BaseTextView.h>
 #import <JobsBaseUI/JobsTextView.h>
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else

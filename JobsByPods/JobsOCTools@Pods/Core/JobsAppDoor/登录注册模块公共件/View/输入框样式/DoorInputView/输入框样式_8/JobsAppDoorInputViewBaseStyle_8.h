@@ -85,7 +85,7 @@ NS_ASSUME_NONNULL_END
              }];
 
              _inputView.jobsRichViewByModel(self.inputViewDataModel;)
-             _inputView.byAddTo(self, ^(MASConstraintMaker *make) {
+             _inputView.addOn(self).byAdd(^(MASConstraintMaker *make) {
                  make.size.mas_equalTo(self.inputViewSize);
                  make.left.equalTo(self);
                  make.bottom.equalTo(self.mas_bottom);

@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JXCategoryIndicatorView (Extra)
 
--(JobsReturnCategoryIndicatorViewByViewsBlock _Nonnull)byIndicators;
+-(JobsRetCategoryIndicatorViewByViewsBlock _Nonnull)byIndicators;
 
 @end
 

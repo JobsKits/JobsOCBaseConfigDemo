@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIView (Extra)
 
 -(JobsRetViewByGestureRecognizer _Nonnull)addGesture;
--(JobsReturnGestureByGesture _Nonnull)addGestureRecognizer;
+-(JobsRetGestureByGesture _Nonnull)addGestureRecognizer;
 
 @end
 

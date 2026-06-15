@@ -313,11 +313,11 @@
     };
 }
 /// 依靠UIViewModel进行创建
-+(JobsReturnButtonByViewModelBlock _Nonnull)initByViewModel API_AVAILABLE(ios(16.0)){
++(JobsRetButtonByViewModelBlock _Nonnull)initByViewModel API_AVAILABLE(ios(16.0)){
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UIViewModel *_Nullable data){
         @jobs_strongify(self)
-        if(!data) data = UIViewModel.new;
+        if(!data) data = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         return [self.alloc jobsInitBtnByConfiguration:data.buttonConfiguration
                                            background:data.backgroundConfiguration
                            buttonConfigTitleAlignment:data.buttonConfigurationTitleAlignment//UIButtonConfigurationTitleAlignmentAutomatic
@@ -357,11 +357,11 @@
     };
 }
 /// 依靠UIButtonModel进行创建
-+(JobsReturnButtonByButtonModelBlock _Nonnull)initByButtonModel API_AVAILABLE(ios(16.0)){
++(JobsRetButtonByButtonModelBlock _Nonnull)initByButtonModel API_AVAILABLE(ios(16.0)){
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UIButtonModel *_Nullable data){
         @jobs_strongify(self)
-        if(!data) data = UIButtonModel.new;
+        if(!data) data = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {});
         return [self.alloc jobsInitBtnByConfiguration:data.buttonConfiguration
                                            background:data.backgroundConfiguration
                            buttonConfigTitleAlignment:data.buttonConfigurationTitleAlignment
@@ -401,7 +401,7 @@
     };
 }
 /// 依靠UITextModel进行创建
-+(JobsReturnButtonByTextModelBlock _Nonnull)initByTextModel API_AVAILABLE(ios(15.0)){
++(JobsRetButtonByTextModelBlock _Nonnull)initByTextModel API_AVAILABLE(ios(15.0)){
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UITextModel *_Nullable data){
         @jobs_strongify(self)
@@ -446,7 +446,7 @@
 }
 #pragma mark —— 一些公有方法
 /// 点击方法@普通
--(JobsReturnButtonByClickBlocks _Nonnull)onClickBy{
+-(JobsRetButtonByClickBlocks _Nonnull)onClickBy{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(jobsByBtnBlock block) {
         @jobs_strongify(self)
@@ -455,7 +455,7 @@
     };
 }
 /// 点击方法@叠加
--(JobsReturnButtonByClickBlocks _Nonnull)onClickAppendBy{
+-(JobsRetButtonByClickBlocks _Nonnull)onClickAppendBy{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(jobsByBtnBlock block) {
         @jobs_strongify(self)
@@ -472,7 +472,7 @@
     };
 }
 /// 长按方法@普通
--(JobsReturnButtonByClickBlocks _Nonnull)onLongPressGestureBy{
+-(JobsRetButtonByClickBlocks _Nonnull)onLongPressGestureBy{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(jobsByBtnBlock block) {
         @jobs_strongify(self)
@@ -481,7 +481,7 @@
     };
 }
 /// 长按方法@叠加
--(JobsReturnButtonByClickBlocks _Nonnull)onLongPressGestureAppendBy{
+-(JobsRetButtonByClickBlocks _Nonnull)onLongPressGestureAppendBy{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(jobsByBtnBlock block) {
         @jobs_strongify(self)
@@ -516,7 +516,7 @@
     };
 }
 #pragma mark —— 依据数据源进行按钮的统一重设
--(JobsReturnButtonByViewModelAndBOOLBlock _Nonnull)resetByViewModel{
+-(JobsRetButtonByViewModelAndBOOLBlock _Nonnull)resetByViewModel{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(__kindof UIViewModel *_Nonnull viewModel,BOOL selected){
         @jobs_strongify(self)
@@ -545,7 +545,7 @@
     };
 }
 
--(JobsReturnButtonByButtonModelAndBOOLBlock _Nonnull)resetByButtonModel{
+-(JobsRetButtonByButtonModelAndBOOLBlock _Nonnull)resetByButtonModel{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(__kindof UIButtonModel *_Nonnull buttonModel,BOOL selected){
         @jobs_strongify(self)

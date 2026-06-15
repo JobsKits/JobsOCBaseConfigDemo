@@ -69,8 +69,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 下拉刷新Lottie动画
 @interface LOTAnimationMJRefreshHeader : MJRefreshGifHeader
 
--(JobsReturnLOTAnimationMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)byRefreshConfigModel;
--(JobsReturnLOTAnimationMJRefreshHeaderBySizeBlock _Nonnull)bySize;
+-(JobsRetLOTAnimationMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)byRefreshConfigModel;
+-(JobsRetLOTAnimationMJRefreshHeaderBySizeBlock _Nonnull)bySize;
 
 @end
 

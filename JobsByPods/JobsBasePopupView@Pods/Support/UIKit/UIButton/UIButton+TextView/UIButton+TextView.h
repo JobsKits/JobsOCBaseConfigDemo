@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_END
 /**
 
      /// 用 UITextView 替换 UIButton.titleLabel
-     -(JobsReturnButtonByAttributedStringBlock _Nonnull)jobsResetBtnTextViewNormalAttributedTitle{
+     -(JobsRetButtonByAttributedStringBlock _Nonnull)jobsResetBtnTextViewNormalAttributedTitle{
          @jobs_weakify(self)
          return ^__kindof UIButton *(NSAttributedString *_Nonnull title) {
              @jobs_strongify(self)
@@ -80,7 +80,7 @@ NS_ASSUME_NONNULL_END
          };
      }
      /// 用 UITextView 替换 UIButton.subtitleLabel
-     -(JobsReturnButtonByAttributedStringBlock _Nonnull)jobsResetBtnTextViewNormalAttributedSubTitle{
+     -(JobsRetButtonByAttributedStringBlock _Nonnull)jobsResetBtnTextViewNormalAttributedSubTitle{
          @jobs_weakify(self)
          return ^__kindof UIButton *(NSAttributedString *_Nonnull title) {
              @jobs_strongify(self)

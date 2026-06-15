@@ -11,9 +11,9 @@
 
 @interface JobsAppDoorRegisterContentView ()
 /// UI
-Prop_strong()BaseButton *backToLoginBtn;/// 返回登录
-Prop_strong()UILabel *titleLab;/// 标题
-Prop_strong()BaseButton *sendBtn;/// 注册按钮
+Prop_strong()BaseButton *backToLoginBtn;// 返回登录
+Prop_strong()UILabel *titleLab;// 标题
+Prop_strong()BaseButton *sendBtn;// 注册按钮
 /// Data
 Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyleModel *>*registerDoorInputViewBaseStyleModelMutArr;
 Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputViewBaseStyleMutArr;
@@ -29,7 +29,6 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(Cor1);
-
 //        @jobs_weakify(self)
         [self addNotificationName:@"textFieldTag"
                             block:^(id _Nullable weakSelf,
@@ -100,7 +99,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
     };
 }
 
--(JobsReturnAppDoorInputViewBaseStyleByClassBlock _Nonnull)dk{
+-(JobsRetAppDoorInputViewBaseStyleByClassBlock _Nonnull)dk{
     return ^JobsAppDoorInputViewBaseStyle *_Nullable(Class _Nonnull cls){
         if ([cls isSubclassOfClass:JobsAppDoorInputViewBaseStyle.class]) {
             JobsAppDoorInputViewBaseStyle *inputView = cls.new;
@@ -149,13 +148,14 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(Title6)
+            label
+                .byText(Title6)
                 .byTextCor(JobsWhiteColor)
-                .byFont(UIFontWeightRegularSize(20));
-            [label sizeToFit];
-            self.addSubview(label);
-            label.centerX = (self.width + self.backToLoginBtn.width) / 2;
-            label.top = 20;
+                .byFont(UIFontWeightRegularSize(20))
+                .bySizeToFit()
+                .addOn(self)
+                .byCenterX((self.width + self.backToLoginBtn.width) / 2)
+                .byTop(20);
         });
     };return _titleLab;
 }
@@ -163,7 +163,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
 -(UIButton *)sendBtn{
     if (!_sendBtn) {
         @jobs_weakify(self)
-        _sendBtn = BaseButton.jobsInit()
+        _sendBtn = (BaseButton *)BaseButton.jobsInit()
             .bgColorBy(JobsSystemPinkColor.colorWithAlphaComponentBy(0.7))
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnTitleFont(UIFontWeightRegularSize(16))
@@ -175,12 +175,12 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
                 [self endEditing:YES];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
-            });
-        [_sendBtn buttonAutoWidthByFont];
-        _sendBtn.x = self.backToLoginBtn.width + JobsWidth(20);
-        _sendBtn.sizer = CGSizeMake(self.width - self.backToLoginBtn.width - JobsWidth(40), ThingsHeight);
-        _sendBtn.bottom = JobsAppDoorContentViewRegisterHeight - JobsWidth(20);
-        [self addSubview:_sendBtn];
+            })
+            .buttonAutoWidthByFont()
+            .byX(self.backToLoginBtn.width + JobsWidth(20))
+            .bySize(CGSizeMake(self.width - self.backToLoginBtn.width - JobsWidth(40), ThingsHeight))
+            .byBottom(JobsAppDoorContentViewRegisterHeight - JobsWidth(20))
+            .addOn(self);
     };return _sendBtn;
 }
 

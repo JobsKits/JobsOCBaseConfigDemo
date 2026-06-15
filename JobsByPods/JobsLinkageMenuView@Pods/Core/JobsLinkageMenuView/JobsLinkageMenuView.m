@@ -22,14 +22,17 @@ Prop_strong()NSMutableArray <__kindof UIButton *>*btnMutArr;
 Prop_strong()NSArray <__kindof UIView *>*viewArray;
 /// Data
 Prop_assign()NSInteger newChoseTag;     // 选择的button tag
-Prop_assign()NSInteger choseTag;        // 上次选择的button tag
-Prop_assign()CGFloat btnHeight;         // button高度，适配不同屏幕
+Prop_assign()NSInteger choseTag;
+        // 上次选择的button tag
+Prop_assign()CGFloat btnHeight;
+         // button高度，适配不同屏幕
 Prop_assign()NSInteger DTScrollTag;     // 滚动tag
 Prop_assign()CGFloat blankHeight;
 Prop_assign()CGFloat half_blankHeight;
 Prop_strong()UIButtonModel *btnConfig;
 Prop_strong()JobsLinkageMenuViewConfig *linkageMenuViewConfig;
-Prop_assign()CGFloat MENU_WIDTH;        // 左侧菜单栏宽度，默认136
+Prop_assign()CGFloat MENU_WIDTH;
+        // 左侧菜单栏宽度，默认136
 Prop_assign()CGFloat BOTTOMVIEW_HEIGHT; // 滑块高度
 Prop_assign()CGFloat BOTTOMVIEW_WIDTH;  // 滑块宽度
 Prop_assign()CGFloat LINEVIEW_WIDTH;    // 分割线宽度
@@ -169,32 +172,32 @@ Prop_assign()CGFloat ANIMATION_TIME;    // 菜单栏滚动的时间
 #pragma mark —— LazyLoad
 - (UIView *)lineView{
     if (!_lineView) {
-        _lineView = UIView.new;
-        _lineView.frame = CGRectMake(self.MENU_WIDTH,
-                                     0,
-                                     self.LINEVIEW_WIDTH,
-                                     self.frame.size.height);
-        _lineView.byBgColor(JobsClearColor);
-
-        [self addSubview:_lineView];
+        _lineView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(CGRectMake(self.MENU_WIDTH,
+                                    0,
+                                    self.LINEVIEW_WIDTH,
+                                    self.frame.size.height))
+                .byBgColor(JobsClearColor)
+                .addOn(self);
+        });
     };return _lineView;
 }
 
 - (UIView *)rightview{
     if (!_rightview) {
-        _rightview = UIView.new;
-        if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
-            _rightview.frame = CGRectMake(self.MENU_WIDTH + self.LINEVIEW_WIDTH,
-                                          0,
-                                          JobsRealWidth(),
-                                          JobsRealHeight());
-        }else{
-            _rightview.frame = CGRectMake(self.MENU_WIDTH + self.LINEVIEW_WIDTH,
-                                          NAVIGATION_HEIGHT,
-                                          JobsRealWidth() - self.MENU_WIDTH + self.LINEVIEW_WIDTH,
-                                          JobsRealHeight());
-        }
-        
+        _rightview = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byFrame(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape ?
+                         CGRectMake(self.MENU_WIDTH + self.LINEVIEW_WIDTH,
+                                    0,
+                                    JobsRealWidth(),
+                                    JobsRealHeight()) :
+                         CGRectMake(self.MENU_WIDTH + self.LINEVIEW_WIDTH,
+                                    NAVIGATION_HEIGHT,
+                                    JobsRealWidth() - self.MENU_WIDTH + self.LINEVIEW_WIDTH,
+                                    JobsRealHeight()))
+                .addOn(self);
+        });
         if (_viewArray.count < self.btnConfig.normal_titles.count) {
             JobsLog(@"Please Add More Views");
         }
@@ -204,37 +207,40 @@ Prop_assign()CGFloat ANIMATION_TIME;    // 菜单栏滚动的时间
 
         }
         [_rightview addSubview:(UIView *)[_viewArray objectAtIndex:0]];
-        
-        [self addSubview:_rightview];
     };return _rightview;
 }
 
 -(UIView *)bottomView{
     if(!_bottomView){
-        _bottomView = UIView.new;
-        _bottomView.frame = CGRectMake((self.MENU_WIDTH - self.BOTTOMVIEW_WIDTH) / 2.0,
-                                       self.blankHeight + 1.0,
-                                       self.BOTTOMVIEW_WIDTH ,
-                                       self.BOTTOMVIEW_HEIGHT);
-
-        _bottomView.layer.cornerRadius = self.BOTTOMVIEW_HEIGHT / 2.0;
+        _bottomView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(CGRectMake((self.MENU_WIDTH - self.BOTTOMVIEW_WIDTH) / 2.0,
+                                    self.blankHeight + 1.0,
+                                    self.BOTTOMVIEW_WIDTH ,
+                                    self.BOTTOMVIEW_HEIGHT))
+                .byLayer(^(CALayer *layer) {
+                    layer.byCornerRadius(self.BOTTOMVIEW_HEIGHT / 2.0);
+                });
+        });
 //        _bottomView.backgroundColor = _selectViewColor;
     };return _bottomView;
 }
 
 - (UIScrollView *)menuView{
     if (!_menuView) {
-        _menuView = UIScrollView.new;
-        _menuView.frame = CGRectMake(0,
-                                     0,
-                                     self.MENU_WIDTH,
-                                     self.frame.size.height);
-        _menuView.byBgColor(JobsClearColor);
-
-        _menuView.scrollsToTop = NO;
-        _menuView.showsVerticalScrollIndicator = NO;
-        _menuView.contentSize = CGSizeMake(0, self.btnConfig.normal_titles.count * self.btnHeight + self.blankHeight + 5.0);
-        [_menuView addSubview:self.bottomView];
+        _menuView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
+            scrollView
+                .byScrollsToTop(NO)
+                .byShowsVerticalScrollIndicator(NO)
+                .byContentSize(CGSizeMake(0, self.btnConfig.normal_titles.count * self.btnHeight + self.blankHeight + 5.0))
+                .byFrame(CGRectMake(0,
+                                    0,
+                                    self.MENU_WIDTH,
+                                    self.frame.size.height))
+                .byBgColor(JobsClearColor)
+                .addOn(self);
+        });
+        self.bottomView.addOn(_menuView);
         for (int i = 1; i <= self.btnConfig.normal_titles.count; i++) {
             @jobs_weakify(self)
             BaseButton *menuButton = BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
@@ -262,7 +268,7 @@ Prop_assign()CGFloat ANIMATION_TIME;    // 菜单栏滚动的时间
                                           self.btnHeight);
             self.btnMutArr.add(menuButton);
             [_menuView addSubview:menuButton];
-        }[self addSubview:_menuView];
+        }
     };return _menuView;
 }
 

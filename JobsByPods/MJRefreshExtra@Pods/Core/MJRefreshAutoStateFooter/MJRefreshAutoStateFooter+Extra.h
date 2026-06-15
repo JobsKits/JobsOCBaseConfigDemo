@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MJRefreshAutoStateFooter (Extra)<MJRefreshProtocol>
 
--(JobsReturnMJRefreshAutoStateFooterByRefreshConfigModelBlock _Nonnull)byMJRefreshFooterConfigModel;
+-(JobsRetMJRefreshAutoStateFooterByRefreshConfigModelBlock _Nonnull)byMJRefreshFooterConfigModel;
 
 @end
 

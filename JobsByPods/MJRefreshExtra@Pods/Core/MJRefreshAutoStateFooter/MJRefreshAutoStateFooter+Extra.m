@@ -34,7 +34,7 @@ static inline void MJRefreshExtraFeedbackIfNeeded(MJRefreshConfigModel *config) 
 
 @implementation MJRefreshAutoStateFooter (Extra)
 
--(JobsReturnMJRefreshAutoStateFooterByRefreshConfigModelBlock _Nonnull)byMJRefreshFooterConfigModel{
+-(JobsRetMJRefreshAutoStateFooterByRefreshConfigModelBlock _Nonnull)byMJRefreshFooterConfigModel{
     @jobs_weakify(self)
     return ^__kindof MJRefreshAutoStateFooter *_Nullable(MJRefreshConfigModel *_Nullable config){
         @jobs_strongify(self)
@@ -46,7 +46,7 @@ static inline void MJRefreshExtraFeedbackIfNeeded(MJRefreshConfigModel *config) 
     };
 }
 /// 松开就可以进行刷新的状态【字】
--(JobsReturnMJRefreshViewByStringBlock _Nonnull)refreshStateIdleByString{
+-(JobsRetMJRefreshViewByStringBlock _Nonnull)refreshStateIdleByString{
     @jobs_weakify(self)
     return ^__kindof UIView <MJRefreshProtocol>*_Nullable(__kindof NSString *_Nullable string){
         @jobs_strongify(self)
@@ -55,7 +55,7 @@ static inline void MJRefreshExtraFeedbackIfNeeded(MJRefreshConfigModel *config) 
     };
 }
 /// 松开就可以进行刷新的状态【字】
--(JobsReturnMJRefreshViewByStringBlock _Nonnull)refreshStatePullingByString{
+-(JobsRetMJRefreshViewByStringBlock _Nonnull)refreshStatePullingByString{
     @jobs_weakify(self)
     return ^__kindof UIView <MJRefreshProtocol>*_Nullable(__kindof NSString *_Nullable string){
         @jobs_strongify(self)
@@ -64,7 +64,7 @@ static inline void MJRefreshExtraFeedbackIfNeeded(MJRefreshConfigModel *config) 
     };
 }
 /// 松开就可以进行刷新的状态【字】
--(JobsReturnMJRefreshViewByStringBlock _Nonnull)refreshStateRefreshingByString{
+-(JobsRetMJRefreshViewByStringBlock _Nonnull)refreshStateRefreshingByString{
     @jobs_weakify(self)
     return ^__kindof UIView <MJRefreshProtocol>*_Nullable(__kindof NSString *_Nullable string){
         @jobs_strongify(self)
@@ -73,7 +73,7 @@ static inline void MJRefreshExtraFeedbackIfNeeded(MJRefreshConfigModel *config) 
     };
 }
 /// 松开就可以进行刷新的状态【字】
--(JobsReturnMJRefreshViewByStringBlock _Nonnull)refreshStateWillRefreshByString{
+-(JobsRetMJRefreshViewByStringBlock _Nonnull)refreshStateWillRefreshByString{
     @jobs_weakify(self)
     return ^__kindof UIView <MJRefreshProtocol>*_Nullable(__kindof NSString *_Nullable string){
         @jobs_strongify(self)
@@ -82,7 +82,7 @@ static inline void MJRefreshExtraFeedbackIfNeeded(MJRefreshConfigModel *config) 
     };
 }
 /// 松开就可以进行刷新的状态【字】
--(JobsReturnMJRefreshViewByStringBlock _Nonnull)refreshStateNoMoreDataByString{
+-(JobsRetMJRefreshViewByStringBlock _Nonnull)refreshStateNoMoreDataByString{
     @jobs_weakify(self)
     return ^__kindof UIView <MJRefreshProtocol>*_Nullable(__kindof NSString *_Nullable string){
         @jobs_strongify(self)

@@ -296,7 +296,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                 if (self.objBlock) self.objBlock(self->_zyTextField);
             }
         }];
-        _zyTextField.byAddTo(self, ^(MASConstraintMaker *make) {
+        _zyTextField.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.top.equalTo(self.titleLab.mas_bottom);
             make.bottom.equalTo(self).offset(-JobsWidth(8));
             if (self.style_5 == InputViewStyle_5_1) {

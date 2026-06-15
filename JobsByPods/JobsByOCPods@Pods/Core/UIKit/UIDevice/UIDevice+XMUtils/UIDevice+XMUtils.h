@@ -33,7 +33,7 @@
 
 /// https://kangzubin.com/ios-device-model/
 /// https://gist.github.com/kangzubin/5b4f989d6b1113bfbe43c5772f3ba1fd
-@interface UIDevice (XMUtils)
+@interface UIDevice (JobsByOCPodsXMUtils)
 /**
 
      获取硬件平台名称，叫 device model 或者 machine name

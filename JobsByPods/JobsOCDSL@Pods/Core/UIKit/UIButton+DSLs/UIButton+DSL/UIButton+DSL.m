@@ -44,4 +44,32 @@
     };
 }
 
+-(JobsRetBtnByTextAlignmentBlock _Nonnull)byTitleAlignment{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(NSTextAlignment data){
+        @jobs_strongify(self)
+        self.titleLabel.textAlignment = data;
+        SEL selector = NSSelectorFromString(@"setTitleAlignment:");
+        if ([self respondsToSelector:selector]) {
+            [self setValue:@(data) forKey:@"titleAlignment"];
+        }return self;
+    };
+}
+
+-(JobsRetBtnByLineBreakModeBlock _Nonnull)byLineBreakMode{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(NSLineBreakMode data){
+        @jobs_strongify(self)
+        self.titleLabel.lineBreakMode = data;
+        SEL lineBreakModeSelector = NSSelectorFromString(@"setLineBreakMode:");
+        if ([self respondsToSelector:lineBreakModeSelector]) {
+            [self setValue:@(data) forKey:@"lineBreakMode"];
+        }
+        SEL titleLineBreakModeSelector = NSSelectorFromString(@"setTitleLineBreakMode:");
+        if ([self respondsToSelector:titleLineBreakModeSelector]) {
+            [self setValue:@(data) forKey:@"titleLineBreakMode"];
+        }return self;
+    };
+}
+
 @end

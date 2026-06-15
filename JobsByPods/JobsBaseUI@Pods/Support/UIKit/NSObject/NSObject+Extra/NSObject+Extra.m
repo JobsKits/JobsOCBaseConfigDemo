@@ -8,7 +8,7 @@
 #import "NSObject+Extra.h"
 #import <JobsBaseUI/BaseButton.h>
 
-@implementation NSObject (Extra)
+@implementation NSObject (JobsBaseUIExtra)
 /**
 
      NSMutableArray <UIViewModel *>*dataMutArr = popupView.valueForKey(@"dataMutArr");
@@ -282,7 +282,7 @@
     }
 }
 
--(JobsReturnNavBarConfigByStringBlock _Nullable)makeNav0ByTitle{
+-(JobsRetNavBarConfigByStringBlock _Nullable)makeNav0ByTitle{
     @jobs_weakify(self)
     return ^JobsNavBarConfig *_Nullable(NSString *_Nullable string){
         @jobs_strongify(self)
@@ -303,17 +303,16 @@
                            .byTextAlignment(NSTextAlignmentCenter)
                            .bySubTextAlignment(NSTextAlignmentCenter)
                            .byBaseBackgroundColor(JobsClearColor)
-                           .byImagePadding(JobsWidth(5));
-                buttonModel.clickEventBlock = ^id(__kindof UIButton *_Nullable x){
+                           .byImagePadding(JobsWidth(5))
+                           .byClickEventBlock(^id(__kindof UIButton *_Nullable x){
                     @jobs_strongify(self)
                     x.selected = !x.selected;
                     UIViewController *vc = [self isKindOfClass:UIViewController.class] ? (UIViewController *)self : nil;
                     [vc.navigationController popViewControllerAnimated:YES];
                     return nil;
-                };
-                buttonModel.longPressGestureEventBlock = ^id(__kindof UIButton *_Nullable x){
+                }).byLongPressGestureEventBlock(^id(__kindof UIButton *_Nullable x){
                     return nil;
-                };
+                });
             }));
         });
     };

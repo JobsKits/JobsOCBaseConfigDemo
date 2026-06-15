@@ -146,14 +146,16 @@
     NSString *identifier = @"identifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
-        cell.textLabel.byFont([UIFont systemFontOfSize:16.0 weight:UIFontWeightRegular]);
-
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell = ((UITableViewCell *)[UITableViewCell.alloc initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier])
+            .byTextLabel(^(__kindof UILabel * _Nullable label) {
+                label.byFont([UIFont systemFontOfSize:16.0 weight:UIFontWeightRegular]);
+            })
+            .bySelectionStyle(UITableViewCellSelectionStyleNone);
     }
-    cell.textLabel.byText([self showCodeStringIndex:indexPath jieQue:YES]);
-
-    return cell;
+    return cell
+        .byTextLabel(^(__kindof UILabel * _Nullable label) {
+            label.byText([self showCodeStringIndex:indexPath jieQue:YES]);
+        });
 }
 
 - (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {

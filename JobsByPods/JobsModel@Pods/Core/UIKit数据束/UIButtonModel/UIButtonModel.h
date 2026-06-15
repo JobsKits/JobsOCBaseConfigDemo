@@ -83,7 +83,7 @@ Prop_copy(nullable)jobsByMASConstraintMakerBlock masonryBlock;
 Prop_strong(nullable)id data;
 Prop_strong(nullable)__kindof UIView *view;
 #pragma mark —— 保留(测试)字段
-Prop_copy(nullable)JobsReturnRACDisposableByReturnIDByIDBlocks jobsReturnedTestBlock;
+Prop_copy(nullable)JobsRetRACDisposableByRetIDByIDBlocks jobsReturnedTestBlock;
 Prop_copy(nullable)jobsByVoidBlock jobsTestBlock;
 
 @end

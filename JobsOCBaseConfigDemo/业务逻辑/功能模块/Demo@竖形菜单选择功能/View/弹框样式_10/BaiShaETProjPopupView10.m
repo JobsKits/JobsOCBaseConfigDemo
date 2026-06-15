@@ -257,16 +257,16 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
             .byShowsVerticalScrollIndicator(NO)
             .byScrollEnabled(NO)
             .byUserInteractionEnabled(YES);
-        _collectionView.byBgColor(JobsWhiteColor);
-        _collectionView.addOn(self.bgView);
-        [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-            @jobs_strongify(self)
-            make.centerX.equalTo(self);
-            make.top.equalTo(self.bgView);
-            make.width.mas_equalTo(BaiShaETProjPopupView10.viewSizeByModel(nil).width);
-            make.height.mas_equalTo(200);/// 需要动态添加
-        }];
         _collectionView
+            .byBgColor(JobsWhiteColor)
+            .addOn(self.bgView)
+            .byAdd(^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.centerX.equalTo(self);
+                make.top.equalTo(self.bgView);
+                make.width.mas_equalTo(BaiShaETProjPopupView10.viewSizeByModel(nil).width);
+                make.height.mas_equalTo(200);/// 需要动态添加
+            })
             /// 配置长按拖拽手势
             .byNumberOfTouchesRequired(1)
             .byNumberOfTapsRequired(0) // ⚠️长按手势这里建议为 0
@@ -317,20 +317,20 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byUserInteractionEnabled(YES)
-                .byBgColor(self.cor);
-            label.byText(@"全部分類".tr)
+                .byText(@"全部分類".tr)
                 .byTextAlignment(NSTextAlignmentCenter)
-                .byTextCor(JobsBlueColor);
-            label.addOn(self);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self);
-                make.centerX.equalTo(self);
-                make.size.mas_equalTo(CGSizeMake(BaiShaETProjPopupView10.viewSizeByModel(nil).width, JobsWidth(44)));
-            }];
-            label.refresh();
-            [label appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
-                                                 cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+                .byTextCor(JobsBlueColor)
+                .byUserInteractionEnabled(YES)
+                .byBgColor(self.cor)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self);
+                    make.centerX.equalTo(self);
+                    make.size.mas_equalTo(CGSizeMake(BaiShaETProjPopupView10.viewSizeByModel(nil).width, JobsWidth(44)));
+                })
+                .byLayoutSubviewsRectCorner(UIRectCornerTopLeft | UIRectCornerTopRight)
+                .byLayoutSubviewsRectCornerSize(CGSizeMake(JobsWidth(8), JobsWidth(8)))
+                .refresh();
         });
     };return _titleLab;
 }
@@ -348,7 +348,8 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
-            .byAddTo(self.titleLab, ^(MASConstraintMaker *make) {
+            .addOn(self.titleLab)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(9.75f), JobsWidth(9.75f)));
                 make.centerY.equalTo(self.titleLab);
                 make.right.equalTo(self.titleLab.mas_right).offset(JobsWidth(-25.12));
@@ -373,7 +374,8 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
             .onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
-            .byAddTo(self.bgView, ^(MASConstraintMaker *make) {
+            .addOn(self.bgView)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.bottom.equalTo(self.mas_bottom).offset(JobsWidth(-26));
                 make.left.equalTo(self).offset(JobsWidth(24));
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(40)));
@@ -398,7 +400,8 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
             .onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
-            .byAddTo(self.bgView, ^(MASConstraintMaker *make) {
+            .addOn(self.bgView)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.bottom.equalTo(self.mas_bottom).offset(JobsWidth(-26));
                 make.right.equalTo(self).offset(JobsWidth(-24));
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(40)));
@@ -412,12 +415,13 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
         _bgView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
             view
-                .byBgColor(JobsWhiteColor);
-            view.byAddTo(self, ^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(BaiShaETProjPopupView10.viewSizeByModel(nil).width, BaiShaETProjPopupView10.viewSizeByModel(nil).height - JobsWidth(44)));
-                make.centerX.equalTo(self);
-                make.top.equalTo(self.titleLab.mas_bottom);
-            });
+                .byBgColor(JobsWhiteColor)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(BaiShaETProjPopupView10.viewSizeByModel(nil).width, BaiShaETProjPopupView10.viewSizeByModel(nil).height - JobsWidth(44)));
+                    make.centerX.equalTo(self);
+                    make.top.equalTo(self.titleLab.mas_bottom);
+                });
         });
     };return _bgView;
 }

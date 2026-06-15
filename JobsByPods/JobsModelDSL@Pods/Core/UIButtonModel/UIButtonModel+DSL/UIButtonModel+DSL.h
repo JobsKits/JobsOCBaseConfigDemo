@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetUIButtonModelByJobsByMASConstraintMakerBlockBlock _Nonnull)byMasonryBlock;
 -(JobsRetUIButtonModelByIDBlock _Nonnull)byData;
 -(JobsRetUIButtonModelByKindofUIViewPointerBlock _Nonnull)byView;
--(JobsRetUIButtonModelByJobsReturnRACDisposableByReturnIDByIDBlocksBlock _Nonnull)byJobsReturnedTestBlock;
+-(JobsRetUIButtonModelByJobsRetRACDisposableByRetIDByIDBlocksBlock _Nonnull)byJobsReturnedTestBlock;
 -(JobsRetUIButtonModelByJobsByVoidBlockBlock _Nonnull)byJobsTestBlock;
 -(JobsRetUIButtonModelByCGFloatBlock _Nonnull)byCornerRadiusValue;
 -(JobsRetUIButtonModelByUIRectCornerBlock _Nonnull)byRoundingCorners;
@@ -172,6 +172,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetUIButtonModelByBOOLBlock _Nonnull)byJobsEnabled;
 -(JobsRetUIButtonModelByUIViewPointerBlock _Nonnull)byVIEW;
 -(JobsRetUIButtonModelByUIViewControllerPointerBlock _Nonnull)byVC;
+-(__kindof UIButtonModel *_Nonnull (^ _Nonnull)(UIButtonConfiguration * _Nullable data))byButtonConfiguration;
+-(__kindof UIButtonModel *_Nonnull (^ _Nonnull)(UIBackgroundConfiguration * _Nullable data))byBackgroundConfiguration;
 -(JobsRetUIButtonModelByUIControlContentHorizontalAlignmentBlock _Nonnull)byContentHorizontalAlignment;
 -(JobsRetUIButtonModelByUIControlContentVerticalAlignmentBlock _Nonnull)byContentVerticalAlignment;
 -(JobsRetUIButtonModelByNSDirectionalEdgeInsetsBlock _Nonnull)byContentInsets;
@@ -356,11 +358,17 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetUIButtonModelByIDBlock _Nonnull)byRequestParams_weak;
 -(JobsRetUIButtonModelByUIViewModelPointerBlock _Nonnull)byViewModel;
 -(JobsRetUIButtonModelByUIViewModelPointerBlock _Nonnull)byViewModel_weak;
+-(JobsRetUIButtonModelByJobsByViewModelBlockBlock _Nonnull)byViewModelBlock;
 -(JobsRetUIButtonModelByUIButtonModelPointerBlock _Nonnull)byButtonModel;
 -(JobsRetUIButtonModelByUIButtonModelPointerBlock _Nonnull)bySubButtonModel;
+-(JobsRetUIButtonModelByJobsByButtonModelBlockBlock _Nonnull)byButtonModelBlock;
+-(JobsRetUIButtonModelByJobsByButtonModelBlockBlock _Nonnull)bySubButtonModelBlock;
 -(JobsRetUIButtonModelByUITextModelPointerBlock _Nonnull)byTextModel;
 -(JobsRetUIButtonModelByUITextModelPointerBlock _Nonnull)bySubTextModel;
 -(JobsRetUIButtonModelByUITextModelPointerBlock _Nonnull)byBackBtnTitleModel;
+-(JobsRetUIButtonModelByJobsByTextModelBlockBlock _Nonnull)byTextModelBlock;
+-(JobsRetUIButtonModelByJobsByTextModelBlockBlock _Nonnull)bySubTextModelBlock;
+-(JobsRetUIButtonModelByJobsByTextModelBlockBlock _Nonnull)byBackBtnTitleModelBlock;
 -(JobsRetUIButtonModelByNSMutableArrayKindofUIViewModelPointerPointerBlock _Nonnull)byViewModels;
 -(JobsRetUIButtonModelByNSMutableArrayKindofUIButtonModelPointerPointerBlock _Nonnull)byButtonModels;
 -(JobsRetUIButtonModelByNSMutableArrayJobsRichTextConfigPointerPointerBlock _Nonnull)byTitleAttributedDataMutArr;

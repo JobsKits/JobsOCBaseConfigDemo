@@ -46,6 +46,15 @@
     };
 }
 
+-(JobsRetCollectionViewCellByJobsByViewBlock _Nonnull)byContentView{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionViewCell *_Nullable(jobsByViewBlock _Nullable block){
+        @jobs_strongify(self)
+        if (block) block(self.contentView);
+        return self;
+    };
+}
+
 -(JobsRetCollectionViewCellByCorBlock _Nonnull)byContentViewBgCor{
     @jobs_weakify(self)
     return ^__kindof UICollectionViewCell *_Nullable(UIColor *_Nonnull cor){

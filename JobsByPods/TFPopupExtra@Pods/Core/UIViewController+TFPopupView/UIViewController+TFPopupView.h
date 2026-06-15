@@ -94,18 +94,18 @@ NS_ASSUME_NONNULL_END
 
      -(UIButton *)filterBtn{
          if (!_filterBtn) {
-             _filterBtn = UIButton.new;
-             _filterBtn.jobsResetBtnTitle = @"篩選".tr;
-             _filterBtn.jobsResetBtnImage = @"向下的箭头".img);
-             _filterBtn.titleFont = fontName(@"NotoSans-Bold", 12);
-             _filterBtn.jobsResetBtnTitleCor = HEXCOLOR(0x3D4A58);
-             _filterBtn.byAddTo(self.view, ^(MASConstraintMaker *make) {
-                 make.right.equalTo(self.view);
-                 make.top.bottom.equalTo(categoryView);
-             });
-
-             _filterBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-             _filterBtn.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTrailing,JobsWidth(6));
+             _filterBtn = UIButton.jobsInit()
+                 .jobsResetBtnTitle(@"篩選".tr)
+                 .jobsResetBtnImage(@"向下的箭头".img)
+                 .jobsResetBtnTitleFont(fontName(@"NotoSans-Bold", 12))
+                 .jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58))
+                 .makeBtnTitleByShowingType(UILabelShowingType_03)
+                 .jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTrailing, JobsWidth(6))
+                 .addOn(self.view)
+                 .byAdd(^(MASConstraintMaker *make) {
+                     make.right.equalTo(self.view);
+                     make.top.bottom.equalTo(categoryView);
+                 });
 
              BtnClickEvent(_filterBtn, {
                  x.selected = !x.selected;
@@ -129,16 +129,17 @@ NS_ASSUME_NONNULL_END
 
      -(UIButton *)customBtn{
          if (!_customBtn) {
-             _customBtn = UIButton.new;
-             _customBtn.jobsResetBtnTitle = @"自定义".tr;
-             _customBtn.titleFont = fontName(@"NotoSans-Bold", 12);
-             _customBtn.jobsResetBtnTitleCor = HEXCOLOR(0x3D4A58);
-             _customBtn.selectedStateTitleColorBy = HEXCOLOR(0xAE8330);
-             _customBtn.byAddTo(self.view, ^(MASConstraintMaker *make) {
-                 make.right.equalTo(self.filterBtn.mas_left).offset(JobsWidth(-8));
-                 make.top.bottom.equalTo(categoryView);
-                 make.left.equalTo(categoryView.mas_right);
-             });
+             _customBtn = UIButton.jobsInit()
+                 .jobsResetBtnTitle(@"自定义".tr)
+                 .jobsResetBtnTitleFont(fontName(@"NotoSans-Bold", 12))
+                 .jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58))
+                 .selectedStateTitleColorBy(HEXCOLOR(0xAE8330))
+                 .addOn(self.view)
+                 .byAdd(^(MASConstraintMaker *make) {
+                     make.right.equalTo(self.filterBtn.mas_left).offset(JobsWidth(-8));
+                     make.top.bottom.equalTo(categoryView);
+                     make.left.equalTo(categoryView.mas_right);
+                 });
 
 
              BtnClickEvent(_customBtn, {

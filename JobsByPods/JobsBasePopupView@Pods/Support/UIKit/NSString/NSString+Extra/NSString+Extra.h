@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// OC字符串拼接
 -(JobsRetStrByStrBlock _Nonnull)add;
 /// 完整的文件名提取普通文件名和文件后缀名
--(JobsRetFileNameModelByFileFullNameStringBlock _Nonnull)byFileFullName;
+-(JobsRetFileNameModelByStrBlock _Nonnull)byFileFullName;
 
 -(NSString *)pathForResourceWithFullName;
 /// 返回网址相关的NSURL *

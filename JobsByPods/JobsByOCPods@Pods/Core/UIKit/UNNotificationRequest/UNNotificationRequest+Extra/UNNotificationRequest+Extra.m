@@ -9,7 +9,7 @@
 
 @implementation UNNotificationRequest (Extra)
 
-+(JobsReturnUNNotificationRequestByModelBlock)initBy{
++(JobsRetUNNotificationRequestByModelBlock)initBy{
     return ^__kindof UNNotificationRequest *_Nullable(UNNotificationRequestModel *_Nullable data){
         return [UNNotificationRequest requestWithIdentifier:data.identifier
                                                     content:data.content

@@ -24,7 +24,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 API_AVAILABLE(ios(14.0))
-@interface UIBackgroundConfiguration (Extra)
+@interface UIBackgroundConfiguration (JobsByOCPodsExtra)
 /// 背景色
 Prop_copy(readonly,nonnull)JobsRetBackgroundConfigByCorBlock byBackgroundColor;
 /// 圆角

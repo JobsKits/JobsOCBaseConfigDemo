@@ -225,11 +225,12 @@ insetForSectionAtIndex:(NSInteger)section {
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.top.equalTo(self.collectionView.mas_bottom);
+                make.left.right.bottom.equalTo(self);
             });
-        _cancelBtn.byAddTo(self, ^(MASConstraintMaker *make) {
-            make.top.equalTo(self.collectionView.mas_bottom);
-            make.left.right.bottom.equalTo(self);
-        });
     };return _cancelBtn;
 }
 /// BaseViewProtocol

@@ -570,7 +570,7 @@ for (int i = 0; i < n; i++) {
   * 举例：`MJRefreshConfigModel` 是通过分类挂载的，`loadBlock`是它的一个属性。当在其他地方取值的时候，如果是**assign**修饰，会崩溃
 
     ```objective-c
-    @property(nonatomic,copy)JobsReturnIDByIDBlock loadBlock;
+    @property(nonatomic,copy)JobsRetIDByIDBlock loadBlock;
     ```
 
   * 原因：<u>**可能这个Block是栈Block（默认创建时在栈上，函数返回后就失效）**</u>
@@ -1449,7 +1449,7 @@ ViewController.m       // 控制器，组合 View 和 Presenter
   #pragma mark —— BaseViewProtocol
   /// makeNormaleWebView
   /// self.webView.loadRequest(self.urlString.URLRequest);
-  +(JobsReturnVCByWebViewBlock _Nonnull)initByWebView{
+  +(JobsRetVCByWebViewBlock _Nonnull)initByWebView{
       @jobs_weakify(self)
       return ^__kindof UIViewController <BaseViewControllerProtocol>*_Nullable(__kindof WKWebView *_Nonnull webView){
           @jobs_strongify(self)
@@ -1576,7 +1576,7 @@ ViewController.m       // 控制器，组合 View 和 Presenter
   >
   /// makeNormaleWebView
   /// self.webView.loadRequest(self.urlString.URLRequest);
-  +(JobsReturnVCByWebViewBlock _Nonnull)initByWebView;
+  +(JobsRetVCByWebViewBlock _Nonnull)initByWebView;
   
   @end
   ```
@@ -1594,7 +1594,7 @@ ViewController.m       // 控制器，组合 View 和 Presenter
   #pragma mark —— BaseViewProtocol
   /// makeNormaleWebView
   /// self.webView.loadRequest(self.urlString.URLRequest);
-  +(JobsReturnVCByWebViewBlock _Nonnull)initByWebView{
+  +(JobsRetVCByWebViewBlock _Nonnull)initByWebView{
       @jobs_weakify(self)
       return ^__kindof UIViewController <BaseViewControllerProtocol>*_Nullable(__kindof WKWebView *_Nonnull webView){
           @jobs_strongify(self)

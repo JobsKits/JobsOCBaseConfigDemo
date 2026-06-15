@@ -32,25 +32,29 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 
 -(void)loadView{
     [super loadView];
-    
+
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(18);
-    
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(18));
+        })
+
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
     _picBefore = nil;
     _picAfter = nil;
     _resultStr = @"".tr;
@@ -63,7 +67,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
-    
+
     self.btn_1.byAlpha(1);
 
     self.btn_2.byAlpha(1);
@@ -101,14 +105,14 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
+
 }
 /*
  UIImagePNGRepresentation：
  这个方法将UIImage对象转换为PNG格式的NSData对象。
  PNG格式是一种无损压缩格式，因此生成的图像数据保留了原始图像的质量，但文件大小可能会比JPEG格式大。
  PNG格式通常用于需要保留图像透明度、精确颜色和细节的情况，如图标、线条图和图形设计等。
- 
+
  UIImageJPEGRepresentation：
  这个方法将UIImage对象转换为JPEG格式的NSData对象。
  JPEG格式是一种有损压缩格式，通过牺牲一些图像细节来实现更小的文件大小。
@@ -263,14 +267,15 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
                 }];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .makeBtnTitleByShowingType(UILabelShowingType_03)
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
+                make.left.equalTo(self.view).offset(JobsWidth(10));
+                make.right.equalTo(self.view).offset(JobsWidth(-10));
+                make.height.mas_equalTo(@200);
             });
-        _btn_1.byAddTo(self.view, ^(MASConstraintMaker *make) {
-            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
-            make.left.equalTo(self.view).offset(JobsWidth(10));
-            make.right.equalTo(self.view).offset(JobsWidth(-10));
-            make.height.mas_equalTo(@200);
-        });
-        _btn_1.makeBtnTitleByShowingType(UILabelShowingType_03);
     };return _btn_1;
 }
 
@@ -301,14 +306,15 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
                 }else @"请先编码图片".tr.toast();
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .makeBtnTitleByShowingType(UILabelShowingType_03)
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.top.equalTo(self.btn_1.mas_bottom).offset(JobsWidth(10));
+                make.left.equalTo(self.view).offset(JobsWidth(10));
+                make.right.equalTo(self.view).offset(JobsWidth(-10));
+                make.height.mas_equalTo(@200);
             });
-        _btn_2.byAddTo(self.view, ^(MASConstraintMaker *make) {
-            make.top.equalTo(self.btn_1.mas_bottom).offset(JobsWidth(10));
-            make.left.equalTo(self.view).offset(JobsWidth(10));
-            make.right.equalTo(self.view).offset(JobsWidth(-10));
-            make.height.mas_equalTo(@200);
-        });
-        _btn_2.makeBtnTitleByShowingType(UILabelShowingType_03);
     };return _btn_2;
 }
 @synthesize textView = _textView;

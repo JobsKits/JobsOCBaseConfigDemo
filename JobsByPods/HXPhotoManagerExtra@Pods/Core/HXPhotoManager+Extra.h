@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HXPhotoManager (Extra)
 
-+(JobsReturnHXPhotoManagerByNSUIntegerBlock _Nonnull)initByType;
++(JobsRetHXPhotoManagerByNSUIntegerBlock _Nonnull)initByType;
 /// 只显示图片
 +(HXPhotoManager *)initByTypePhoto;
 /// 只显示视频

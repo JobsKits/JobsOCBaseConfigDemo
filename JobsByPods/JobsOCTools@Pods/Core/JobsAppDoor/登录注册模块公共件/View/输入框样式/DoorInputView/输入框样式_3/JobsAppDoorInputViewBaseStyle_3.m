@@ -149,8 +149,9 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             }
         }).onLongPressGestureBy(^(id data){
             JobsLog(@"");
-        });
-        _securityModeBtn.byAddTo(self, ^(MASConstraintMaker *make) {
+        })
+        .addOn(self)
+        .byAdd(^(MASConstraintMaker *make) {
             make.top.right.bottom.equalTo(self);
             make.width.mas_equalTo(JobsWidth(40));
         });
@@ -181,7 +182,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                     [self block:textField value:x];
                 }
             }];
-            textField.byAddTo(self, ^(MASConstraintMaker *make) {
+            textField.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.top.left.bottom.equalTo(self);
                 if (self.doorInputViewBaseStyleModel.isShowSecurityBtn) {
                     make.right.equalTo(self.securityModeBtn.mas_left);

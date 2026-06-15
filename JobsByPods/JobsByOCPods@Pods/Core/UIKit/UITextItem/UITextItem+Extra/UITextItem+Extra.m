@@ -7,7 +7,7 @@
 
 #import "UITextItem+Extra.h"
 
-@implementation UITextItem (Extra)
+@implementation UITextItem (JobsByOCPodsExtra)
 
 #pragma mark —— Prop_strong()UITextView *textView;
 JobsKey(_textView)

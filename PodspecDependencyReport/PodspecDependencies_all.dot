@@ -38,6 +38,7 @@ digraph PodspecDependencies {
   "JobsBitsMonitor";
   "JobsBlock";
   "JobsByOCPods";
+  "JobsCallBackBlockDSL";
   "JobsClass";
   "JobsClockView";
   "JobsCryptography";
@@ -334,6 +335,8 @@ digraph PodspecDependencies {
   "JobsByOCPods" -> "ZFPlayerExtra";
   "JobsByOCPods" -> "ZMJGanttChart";
   "JobsByOCPods" -> "lottie-ios";
+  "JobsCallBackBlockDSL" -> "JobsBlock";
+  "JobsCallBackBlockDSL" -> "JobsOCDefs";
   "JobsClass" -> "JobsBlock";
   "JobsClass" -> "JobsOCDefs";
   "JobsClass" -> "MJExtension";
@@ -560,12 +563,14 @@ digraph PodspecDependencies {
   "JobsOCDSL" -> "HXPhotoPickerObjC";
   "JobsOCDSL" -> "JobsBlock";
   "JobsOCDSL" -> "JobsMakes";
+  "JobsOCDSL" -> "JobsModelDSL";
   "JobsOCDSL" -> "JobsOCDefs";
   "JobsOCDSL" -> "JobsOCProtocols";
   "JobsOCDSL" -> "JobsOCRuntimeKits";
   "JobsOCDSL" -> "MJRefresh";
   "JobsOCDSL" -> "Masonry";
   "JobsOCDSL" -> "ReactiveObjC";
+  "JobsOCDSL" -> "SDWebImage";
   "JobsOCDSL" -> "Texture";
   "JobsOCDSL" -> "YTKNetwork";
   "JobsOCDSL" -> "ZFPlayer";

@@ -35,7 +35,7 @@
 }
 #pragma mark —— 创建不同类型的MJHeader 和 MJFootor
 /// Header
--(JobsReturnLOTAnimationMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)LOTAnimationMJRefreshHeaderBy{
+-(JobsRetLOTAnimationMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)LOTAnimationMJRefreshHeaderBy{
     @jobs_weakify(self)
     return ^LOTAnimationMJRefreshHeader *_Nonnull(MJRefreshConfigModel *_Nonnull refreshConfigModel){
         @jobs_strongify(self)
@@ -71,7 +71,7 @@
     };
 }
 
--(JobsReturnMJRefreshNormalHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshNormalHeaderBy{
+-(JobsRetMJRefreshNormalHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshNormalHeaderBy{
     @jobs_weakify(self)
     return ^__kindof MJRefreshNormalHeader *_Nonnull(MJRefreshConfigModel *_Nonnull refreshConfigModel){
         @jobs_strongify(self)
@@ -91,7 +91,7 @@
     };
 }
 
--(JobsReturnMJRefreshStateHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshStateHeaderBy{
+-(JobsRetMJRefreshStateHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshStateHeaderBy{
     @jobs_weakify(self)
     return ^__kindof MJRefreshStateHeader *_Nonnull(MJRefreshConfigModel *_Nonnull refreshConfigModel){
         @jobs_strongify(self)
@@ -111,7 +111,7 @@
     };
 }
 
--(JobsReturnMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshHeaderBy{
+-(JobsRetMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshHeaderBy{
     return ^__kindof MJRefreshHeader *_Nonnull(MJRefreshConfigModel *_Nonnull refreshConfigModel){
         MJRefreshHeader *refreshHeader = [MJRefreshHeader headerWithRefreshingBlock:^{
             if(refreshConfigModel.loadBlock) refreshConfigModel.loadBlock(nil);
@@ -125,7 +125,7 @@
     };
 }
 
--(JobsReturnMJRefreshGifHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshGifHeaderBy{
+-(JobsRetMJRefreshGifHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshGifHeaderBy{
     @jobs_weakify(self)
     return ^__kindof MJRefreshGifHeader *_Nonnull(MJRefreshConfigModel *_Nonnull refreshConfigModel){
         @jobs_strongify(self)
@@ -156,7 +156,7 @@
     };
 }
 /// Footer
--(JobsReturnMJRefreshAutoGifFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoGifFooterBy{
+-(JobsRetMJRefreshAutoGifFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoGifFooterBy{
     @jobs_weakify(self)
     return ^__kindof MJRefreshAutoGifFooter *_Nonnull(MJRefreshConfigModel *_Nonnull refreshConfigModel){
         @jobs_strongify(self)
@@ -185,7 +185,7 @@
         };return refreshFooter;
     };
 }
--(JobsReturnMJRefreshBackNormalFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackNormalFooterBy{
+-(JobsRetMJRefreshBackNormalFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackNormalFooterBy{
     @jobs_weakify(self)
     return ^__kindof MJRefreshBackNormalFooter *_Nonnull(MJRefreshConfigModel *_Nonnull refreshConfigModel){
         @jobs_strongify(self)
@@ -204,7 +204,7 @@
     };
 }
 
--(JobsReturnMJRefreshAutoNormalFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoNormalFooterBy{
+-(JobsRetMJRefreshAutoNormalFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoNormalFooterBy{
     @jobs_weakify(self)
     return ^__kindof MJRefreshAutoNormalFooter *_Nonnull(MJRefreshConfigModel *_Nonnull refreshConfigModel){
         @jobs_strongify(self)
@@ -223,7 +223,7 @@
     };
 }
 
--(JobsReturnMJRefreshAutoStateFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoStateFooterBy{
+-(JobsRetMJRefreshAutoStateFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoStateFooterBy{
     @jobs_weakify(self)
     return ^__kindof MJRefreshAutoStateFooter *_Nonnull(MJRefreshConfigModel *_Nonnull refreshConfigModel){
         @jobs_strongify(self)
@@ -242,14 +242,14 @@
     };
 }
 
--(JobsReturnMJRefreshAutoFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoFooterBy{
+-(JobsRetMJRefreshAutoFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoFooterBy{
     return ^__kindof MJRefreshAutoFooter *_Nonnull(MJRefreshConfigModel *_Nonnull refreshConfigModel){
         MJRefreshAutoFooter *refreshFooter = [MJRefreshAutoFooter footerWithRefreshingBlock:^{
             if(refreshConfigModel.loadBlock) refreshConfigModel.loadBlock(nil);
         }];return refreshFooter;
     };
 }
--(JobsReturnMJRefreshBackGifFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackGifFooterBy{
+-(JobsRetMJRefreshBackGifFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackGifFooterBy{
     @jobs_weakify(self)
     return ^__kindof MJRefreshBackGifFooter *_Nonnull(MJRefreshConfigModel *_Nonnull refreshConfigModel){
         @jobs_strongify(self)
@@ -278,7 +278,7 @@
     };
 }
 
--(JobsReturnMJRefreshBackStateFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackStateFooterBy{
+-(JobsRetMJRefreshBackStateFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackStateFooterBy{
     @jobs_weakify(self)
     return ^__kindof MJRefreshBackStateFooter *_Nonnull(MJRefreshConfigModel *_Nonnull refreshConfigModel){
         @jobs_strongify(self)
@@ -297,7 +297,7 @@
     };
 }
 
--(JobsReturnMJRefreshBackFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackFooterBy{
+-(JobsRetMJRefreshBackFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackFooterBy{
     return ^__kindof MJRefreshBackFooter *_Nonnull(MJRefreshConfigModel *_Nonnull refreshConfigModel){
         MJRefreshBackFooter *refreshFooter = [MJRefreshBackFooter footerWithRefreshingBlock:^{
             if(refreshConfigModel.loadBlock) refreshConfigModel.loadBlock(nil);
@@ -310,7 +310,7 @@
     };
 }
 
--(JobsReturnMJRefreshFooterByRefreshConfigModelBlock _Nonnull)MJRefreshFooterBy{
+-(JobsRetMJRefreshFooterByRefreshConfigModelBlock _Nonnull)MJRefreshFooterBy{
     return ^__kindof MJRefreshFooter *_Nonnull(MJRefreshConfigModel *_Nonnull refreshConfigModel){
         MJRefreshFooter *refreshFooter = [MJRefreshFooter footerWithRefreshingBlock:^{
             if(refreshConfigModel.loadBlock) refreshConfigModel.loadBlock(nil);

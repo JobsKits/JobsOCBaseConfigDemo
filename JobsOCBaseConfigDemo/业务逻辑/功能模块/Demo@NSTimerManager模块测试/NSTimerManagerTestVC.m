@@ -33,19 +33,26 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = @"NSTimerManager模块测试".tr;
-//        self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(@"NSTimerManager模块测试".tr);
+        })
+        //        self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byFont(UIFontWeightRegularSize(16));
+        })
     
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
@@ -59,34 +66,30 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
     
     @jobs_weakify(self)
     /// 开始
-    [self.btnMutArr[0] jobsBtnClickEventBlock:^id(UIButton *data) {
+    ((UIButton *)self.btnMutArr[0]).onClickBy(^(UIButton *data) {
         @jobs_strongify(self)
         [self reloadBtn:data];
         [self.timer start];
-        return nil;
-    }];
+    });
     /// 暂停
-    [self.btnMutArr[1] jobsBtnClickEventBlock:^id(UIButton *data) {
+    ((UIButton *)self.btnMutArr[1]).onClickBy(^(UIButton *data) {
         @jobs_strongify(self)
         [self reloadBtn:data];
         [self.timer pause];
-        return nil;
-    }];
+    });
     /// 继续
-    [self.btnMutArr[2] jobsBtnClickEventBlock:^id(UIButton *data) {
+    ((UIButton *)self.btnMutArr[2]).onClickBy(^(UIButton *data) {
         @jobs_strongify(self)
         [self reloadBtn:data];
         [self.timer resume];
-        return nil;
-    }];
+    });
     /// 结束
-    [self.btnMutArr[3] jobsBtnClickEventBlock:^id(UIButton *data) {
+    ((UIButton *)self.btnMutArr[3]).onClickBy(^(UIButton *data) {
         @jobs_strongify(self)
         [self reloadBtn:data];
         [self.timer stop];
         self.valueLab.byText(@"".tr);
-        return nil;
-    }];
+    });
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -134,11 +137,16 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
         _timer = jobsMakeTimer(^(JobsTimer * _Nullable timer) {
             timer
                 /// 必须配置的项
-                .byTimerType(JobsTimerTypeNSTimer)           // 计时器核心选择
-                .byTimerStyle(TimerStyle_anticlockwise)          // 正计时模式
-                .byTimeInterval(1)                           // 跳动步长（频率间距）
-                .byStartTime(10)                        // ✅ 总时长
-                .byTimeSecIntervalSinceDate(3)               // dispatch_after 延迟（这里等价 0）
+                .byTimerType(JobsTimerTypeNSTimer)
+                /// 计时器核心选择
+                .byTimerStyle(TimerStyle_anticlockwise)
+                /// 正计时模式
+                .byTimeInterval(1)
+                /// 跳动步长（频率间距）
+                .byStartTime(10)
+                /// ✅ 总时长
+                .byTimeSecIntervalSinceDate(3)
+                /// dispatch_after 延迟（这里等价 0）
                 .byQueue(dispatch_get_main_queue())
                 .byOnTick(^(CGFloat time){
                     @jobs_strongify(self)
@@ -163,12 +171,14 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
         @jobs_weakify(self)
         _valueLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byBgColor(HEXCOLOR(0xAE8330));
-            label.byAddTo(self.view, ^(MASConstraintMaker *make) {
-                make.height.mas_equalTo(JobsWidth(20));
-                make.center.equalTo(self.view);
-            });
-            label.makeLabelByShowingType(UILabelShowingType_03);
+            label
+                .makeLabelByShowingType(UILabelShowingType_03)
+                .byBgColor(HEXCOLOR(0xAE8330))
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.height.mas_equalTo(JobsWidth(20));
+                    make.center.equalTo(self.view);
+                });
         });
     };return _valueLab;
 }
@@ -179,18 +189,18 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
         _btnMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIButton *>* _Nullable data) {
             @jobs_strongify(self)
             for (NSString *title in self.btnTitleMutArr) {
-                UIButton *btn = UIButton.new;
-                btn.jobsResetBtnTitle(title);
-                btn.jobsResetBtnTitleCor(JobsBlackColor);
-                btn.jobsResetBtnBgImage(@"弹窗取消按钮背景图".img);
-                btn.selectedStateBackgroundImageBy(@"弹窗取消按钮背景图".img);
-                btn.cornerCutToCircleWithCornerRadius(JobsWidth(8));
-                btn.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-                    data.byLayerCor(HEXCOLOR(0xAE8330))
-                        .byJobsWidth(0.5f);
-                }));
-                [self.view addSubview:btn];
-                data.add(btn);
+                data.add(UIButton.jobsInit()
+                         .jobsResetBtnTitle(title)
+                         .jobsResetBtnTitleCor(JobsBlackColor)
+                         .jobsResetBtnBgImage(@"弹窗取消按钮背景图".img)
+                         .selectedStateBackgroundImageBy(@"弹窗取消按钮背景图".img)
+                         .cornerCutToCircleWithCornerRadius(JobsWidth(8))
+                         .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
+                             data
+                                 .byLayerCor(HEXCOLOR(0xAE8330))
+                                 .byJobsWidth(0.5f);
+                         }))
+                         .addOn(self.view));
             }
         });
     };return _btnMutArr;

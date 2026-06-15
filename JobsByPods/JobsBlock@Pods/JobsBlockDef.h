@@ -386,6 +386,305 @@
     id _Nullable data
 #endif /* Jobs_ByViewAndDataBlock_Arguments */
 
+#ifndef Jobs_LuckyWheelSegment_LPGestureRecognizer_Arguments
+#define Jobs_LuckyWheelSegment_LPGestureRecognizer_Arguments \
+    LuckyWheelSegment *_Nullable segment, \
+    UILongPressGestureRecognizer *_Nullable gr
+#endif /* Jobs_LuckyWheelSegment_LPGestureRecognizer_Arguments */
+
+#ifndef BRDateResult_Arguments
+#define BRDateResult_Arguments \
+    NSDate *_Nullable selectDate, \
+    NSString *_Nullable selectValue
+#endif /* BRDateResult_Arguments */
+
+#ifndef BRDateResultRange_Arguments
+#define BRDateResultRange_Arguments \
+    NSDate *_Nullable selectStartDate, \
+    NSDate *_Nullable selectEndDate, \
+    NSString *_Nullable selectValue
+#endif /* BRDateResultRange_Arguments */
+
+#ifndef Jobs_BaseModel_Index_Arguments
+#define Jobs_BaseModel_Index_Arguments \
+    __kindof BaseModel *_Nullable model, \
+    NSInteger index
+#endif /* Jobs_BaseModel_Index_Arguments */
+
+#ifndef Jobs_UserModel_Key_Arguments
+#define Jobs_UserModel_Key_Arguments \
+    NSObject <NSCoding> *_Nonnull userModel, \
+    NSString *_Nullable key
+#endif /* Jobs_UserModel_Key_Arguments */
+
+#ifndef Jobs_EKEventStoreRequestAccessCompletionHandler_Arguments
+#define Jobs_EKEventStoreRequestAccessCompletionHandler_Arguments \
+    BOOL granted, \
+    EKEventStore *_Nullable eventStore, \
+    NSError *_Nullable error
+#endif /* Jobs_EKEventStoreRequestAccessCompletionHandler_Arguments */
+
+#ifndef Jobs_NetworkUpdate_Arguments
+#define Jobs_NetworkUpdate_Arguments \
+    JobsNetworkSource *_Nullable source, \
+    uint64_t uploadBytesPerSec, \
+    uint64_t downloadBytesPerSec
+#endif /* Jobs_NetworkUpdate_Arguments */
+
+#ifndef TKPermissionCustomMsg_Arguments
+#define TKPermissionCustomMsg_Arguments \
+    NSString *_Nullable title, \
+    NSString *_Nullable msg, \
+    NSString *_Nullable left, \
+    NSString *_Nullable right
+#endif /* TKPermissionCustomMsg_Arguments */
+
+#ifndef Jobs_String_NSUInteger_Arguments
+#define Jobs_String_NSUInteger_Arguments \
+    __kindof NSString *_Nullable data1, \
+    NSUInteger data2
+#endif /* Jobs_String_NSUInteger_Arguments */
+
+#ifndef Jobs_WMZBannerParam_Arr_ADType_Arguments
+#define Jobs_WMZBannerParam_Arr_ADType_Arguments \
+    __kindof NSArray <FMBannerAdsModel *>*_Nullable models, \
+    FMAdsType ADType
+#endif /* Jobs_WMZBannerParam_Arr_ADType_Arguments */
+
+#ifndef Jobs_CollectionView_Target_CollectionView_Arguments
+#define Jobs_CollectionView_Target_CollectionView_Arguments \
+    id _Nonnull target, \
+    UICollectionView *_Nonnull collectionView
+#endif /* Jobs_CollectionView_Target_CollectionView_Arguments */
+
+#ifndef Jobs_CollectionView_Target_CollectionView_Section_Arguments
+#define Jobs_CollectionView_Target_CollectionView_Section_Arguments \
+    id _Nonnull target, \
+    UICollectionView *_Nonnull collectionView, \
+    NSInteger section
+#endif /* Jobs_CollectionView_Target_CollectionView_Section_Arguments */
+
+#ifndef Jobs_TableView_Target_TableView_Arguments
+#define Jobs_TableView_Target_TableView_Arguments \
+    id _Nonnull target, \
+    UITableView *_Nonnull tableView
+#endif /* Jobs_TableView_Target_TableView_Arguments */
+
+#ifndef Jobs_TableView_Target_TableView_Section_Arguments
+#define Jobs_TableView_Target_TableView_Section_Arguments \
+    id _Nonnull target, \
+    UITableView *_Nonnull tableView, \
+    NSInteger section
+#endif /* Jobs_TableView_Target_TableView_Section_Arguments */
+
+#ifndef Jobs_CollectionView_Target_CollectionView_IndexPath_Arguments
+#define Jobs_CollectionView_Target_CollectionView_IndexPath_Arguments \
+    id _Nonnull target, \
+    UICollectionView *_Nonnull collectionView, \
+    NSIndexPath *_Nonnull indexPath
+#endif /* Jobs_CollectionView_Target_CollectionView_IndexPath_Arguments */
+
+#ifndef Jobs_TableView_Target_TableView_IndexPath_Arguments
+#define Jobs_TableView_Target_TableView_IndexPath_Arguments \
+    id _Nonnull target, \
+    UITableView *_Nonnull tableView, \
+    NSIndexPath *_Nonnull indexPath
+#endif /* Jobs_TableView_Target_TableView_IndexPath_Arguments */
+
+#ifndef Jobs_ButtonNode_LongPress_Arguments
+#define Jobs_ButtonNode_LongPress_Arguments \
+    __kindof ASButtonNode *_Nullable node, \
+    UILongPressGestureRecognizer *_Nullable gr
+#endif /* Jobs_ButtonNode_LongPress_Arguments */
+
+#ifndef Jobs_EditableTextEvent_Arguments
+#define Jobs_EditableTextEvent_Arguments \
+    __kindof ASEditableTextNode *_Nullable node, \
+    UITextView *_Nullable tv
+#endif /* Jobs_EditableTextEvent_Arguments */
+
+#ifndef Jobs_ID_NSErrorPointer_Arguments
+#define Jobs_ID_NSErrorPointer_Arguments \
+    id _Nullable value, \
+    NSError *_Nullable *_Nullable errorPtr
+#endif /* Jobs_ID_NSErrorPointer_Arguments */
+
+#ifndef Jobs_ID_ID_NSUInteger_Arguments
+#define Jobs_ID_ID_NSUInteger_Arguments \
+    id _Nullable data, \
+    id _Nullable data2, \
+    NSUInteger index
+#endif /* Jobs_ID_ID_NSUInteger_Arguments */
+
+#ifndef Jobs_Control_Events_Handler_Arguments
+#define Jobs_Control_Events_Handler_Arguments \
+    UIControlEvents events, \
+    jobsByCtrlBlock _Nullable handler
+#endif /* Jobs_Control_Events_Handler_Arguments */
+
+#ifndef Jobs_Control_Align_Arguments
+#define Jobs_Control_Align_Arguments \
+    UIControlContentHorizontalAlignment horizontal, \
+    UIControlContentVerticalAlignment vertical
+#endif /* Jobs_Control_Align_Arguments */
+
+#ifndef Jobs_Control_Target_Action_Events_Arguments
+#define Jobs_Control_Target_Action_Events_Arguments \
+    __kindof id _Nullable target, \
+    SEL _Nullable action, \
+    UIControlEvents events
+#endif /* Jobs_Control_Target_Action_Events_Arguments */
+
+#ifndef Jobs_Control_Action_Events_Arguments
+#define Jobs_Control_Action_Events_Arguments \
+    UIAction *_Nonnull action, \
+    UIControlEvents events
+#endif /* Jobs_Control_Action_Events_Arguments */
+
+#ifndef Jobs_Control_Identifier_Events_Arguments
+#define Jobs_Control_Identifier_Events_Arguments \
+    UIActionIdentifier _Nonnull identifier, \
+    UIControlEvents events
+#endif /* Jobs_Control_Identifier_Events_Arguments */
+
+#ifndef Jobs_Control_Events_Identifier_ActionHandler_Arguments
+#define Jobs_Control_Events_Identifier_ActionHandler_Arguments \
+    UIControlEvents events, \
+    UIActionIdentifier _Nullable identifier, \
+    void(^ _Nonnull handler)(UIAction *_Nullable action)
+#endif /* Jobs_Control_Events_Identifier_ActionHandler_Arguments */
+
+#ifndef Jobs_BezierPath_AddArc_Arguments
+#define Jobs_BezierPath_AddArc_Arguments \
+    CGPoint center, \
+    CGFloat radius, \
+    CGFloat startAngle, \
+    CGFloat endAngle, \
+    BOOL clockwise
+#endif /* Jobs_BezierPath_AddArc_Arguments */
+
+#ifndef Jobs_BezierPath_AddCurve_Arguments
+#define Jobs_BezierPath_AddCurve_Arguments \
+    CGPoint endPoint, \
+    CGPoint controlPoint1, \
+    CGPoint controlPoint2
+#endif /* Jobs_BezierPath_AddCurve_Arguments */
+
+#ifndef Jobs_BezierPath_AddQuadCurve_Arguments
+#define Jobs_BezierPath_AddQuadCurve_Arguments \
+    CGPoint endPoint, \
+    CGPoint controlPoint
+#endif /* Jobs_BezierPath_AddQuadCurve_Arguments */
+
+#ifndef Jobs_BezierPath_LineDash_Arguments
+#define Jobs_BezierPath_LineDash_Arguments \
+    NSArray<NSNumber *> *_Nullable pattern, \
+    CGFloat phase
+#endif /* Jobs_BezierPath_LineDash_Arguments */
+
+#ifndef Jobs_CALayer_CAAnimation_Key_Arguments
+#define Jobs_CALayer_CAAnimation_Key_Arguments \
+    __kindof CAAnimation *_Nullable animation, \
+    NSString *_Nullable key
+#endif /* Jobs_CALayer_CAAnimation_Key_Arguments */
+
+#ifndef Jobs_Center_Arguments
+#define Jobs_Center_Arguments \
+    CGFloat x, \
+    CGFloat y
+#endif /* Jobs_Center_Arguments */
+
+#ifndef Jobs_PageControl_Image_Page_Arguments
+#define Jobs_PageControl_Image_Page_Arguments \
+    UIImage *_Nullable image, \
+    NSInteger page
+#endif /* Jobs_PageControl_Image_Page_Arguments */
+
+#ifndef Jobs_Progress_Animated_Arguments
+#define Jobs_Progress_Animated_Arguments \
+    float progress, \
+    BOOL animated
+#endif /* Jobs_Progress_Animated_Arguments */
+
+#ifndef Jobs_ButtonNode_Image_State_Arguments
+#define Jobs_ButtonNode_Image_State_Arguments \
+    UIImage *_Nonnull image, \
+    UIControlState state
+#endif /* Jobs_ButtonNode_Image_State_Arguments */
+
+#ifndef Jobs_ButtonNode_Title_Font_Color_State_Arguments
+#define Jobs_ButtonNode_Title_Font_Color_State_Arguments \
+    NSString *_Nonnull title, \
+    UIFont *_Nullable font, \
+    UIColor *_Nullable color, \
+    UIControlState state
+#endif /* Jobs_ButtonNode_Title_Font_Color_State_Arguments */
+
+#ifndef Jobs_ButtonNode_LongPressTime_Arguments
+#define Jobs_ButtonNode_LongPressTime_Arguments \
+    NSTimeInterval minDuration, \
+    CGFloat allowableMovement, \
+    jobsByButtonNodeLongPressBlock _Nullable handler
+#endif /* Jobs_ButtonNode_LongPressTime_Arguments */
+
+#ifndef Jobs_CollectionNode_Point_Animated_Arguments
+#define Jobs_CollectionNode_Point_Animated_Arguments \
+    CGPoint point, \
+    BOOL animated
+#endif /* Jobs_CollectionNode_Point_Animated_Arguments */
+
+#ifndef Jobs_CollectionNode_BatchAnimated_Arguments
+#define Jobs_CollectionNode_BatchAnimated_Arguments \
+    BOOL animated, \
+    dispatch_block_t _Nullable updates, \
+    jobsByBOOLBlock _Nullable completion
+#endif /* Jobs_CollectionNode_BatchAnimated_Arguments */
+
+#ifndef Jobs_CollectionNode_Batch_Arguments
+#define Jobs_CollectionNode_Batch_Arguments \
+    dispatch_block_t _Nullable updates, \
+    jobsByBOOLBlock _Nullable completion
+#endif /* Jobs_CollectionNode_Batch_Arguments */
+
+#ifndef Jobs_CollectionNode_Select_Arguments
+#define Jobs_CollectionNode_Select_Arguments \
+    NSIndexPath *_Nullable indexPath, \
+    BOOL animated, \
+    UICollectionViewScrollPosition scrollPosition
+#endif /* Jobs_CollectionNode_Select_Arguments */
+
+#ifndef Jobs_CollectionNode_Deselect_Arguments
+#define Jobs_CollectionNode_Deselect_Arguments \
+    NSIndexPath *_Nullable indexPath, \
+    BOOL animated
+#endif /* Jobs_CollectionNode_Deselect_Arguments */
+
+#ifndef Jobs_CollectionNode_ScrollToItem_Arguments
+#define Jobs_CollectionNode_ScrollToItem_Arguments \
+    NSIndexPath *_Nullable indexPath, \
+    UICollectionViewScrollPosition scrollPosition, \
+    BOOL animated
+#endif /* Jobs_CollectionNode_ScrollToItem_Arguments */
+
+#ifndef Jobs_CollectionNode_SetTuning_Arguments
+#define Jobs_CollectionNode_SetTuning_Arguments \
+    ASRangeTuningParameters params, \
+    NSInteger type
+#endif /* Jobs_CollectionNode_SetTuning_Arguments */
+
+#ifndef Jobs_CollectionNode_SetTuningForMode_Arguments
+#define Jobs_CollectionNode_SetTuningForMode_Arguments \
+    ASRangeTuningParameters params, \
+    char mode, \
+    NSInteger type
+#endif /* Jobs_CollectionNode_SetTuningForMode_Arguments */
+
+#ifndef Jobs_ID_BOOLPointer_Arguments
+#define Jobs_ID_BOOLPointer_Arguments \
+    id _Nullable value, \
+    BOOL *_Nullable stop
+#endif /* Jobs_ID_BOOLPointer_Arguments */
+
 #ifndef API_IOS14_TVOS14_UNAVAILABLE_WATCHOS
 #define API_IOS14_TVOS14_UNAVAILABLE_WATCHOS \
     API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos)

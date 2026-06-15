@@ -137,7 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetUIViewModelByJobsRetIDByIDBlockBlock _Nonnull)byLongPressGestureEventBlock;
 -(JobsRetUIViewModelByJobsByBtnBlockBlock _Nonnull)byOnClickBlock;
 -(JobsRetUIViewModelByJobsByBtnBlockBlock _Nonnull)byOnLongPressGestureEventBlock;
--(JobsRetUIViewModelByUIViewPointerBlock _Nonnull)byVIEW;
+-(JobsRetViewModelByViewBlock _Nonnull)byVIEW;
 -(JobsRetUIViewModelByUIViewControllerPointerBlock _Nonnull)byVC;
 -(JobsRetUIViewModelByUIControlContentHorizontalAlignmentBlock _Nonnull)byContentHorizontalAlignment;
 -(JobsRetUIViewModelByUIControlContentVerticalAlignmentBlock _Nonnull)byContentVerticalAlignment;
@@ -223,8 +223,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetUIViewModelByCGFloatBlock _Nonnull)byLeftViewOffsetX;
 -(JobsRetUIViewModelByCGFloatBlock _Nonnull)byRightViewOffsetX;
 -(JobsRetUIViewModelByCGFloatBlock _Nonnull)byFieldEditorOffset;
--(JobsRetUIViewModelByKindofUIViewPointerBlock _Nonnull)byLeftView;
--(JobsRetUIViewModelByKindofUIViewPointerBlock _Nonnull)byRightView;
+-(JobsRetViewModelByViewBlock _Nonnull)byLeftView;
+-(JobsRetViewModelByViewBlock _Nonnull)byRightView;
 -(JobsRetUIViewModelByUITextFieldViewModeBlock _Nonnull)byLeftViewMode;
 -(JobsRetUIViewModelByUITextFieldViewModeBlock _Nonnull)byRightViewMode;
 -(JobsRetUIViewModelByBOOLBlock _Nonnull)byIsShowDelBtn;
@@ -325,11 +325,17 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetUIViewModelByIDBlock _Nonnull)byRequestParams_weak;
 -(JobsRetUIViewModelByUIViewModelPointerBlock _Nonnull)byViewModel;
 -(JobsRetUIViewModelByUIViewModelPointerBlock _Nonnull)byViewModel_weak;
+-(JobsRetUIViewModelByJobsByViewModelBlockBlock _Nonnull)byViewModelBlock;
 -(JobsRetUIViewModelByUIButtonModelPointerBlock _Nonnull)byButtonModel;
 -(JobsRetUIViewModelByUIButtonModelPointerBlock _Nonnull)bySubButtonModel;
+-(JobsRetUIViewModelByJobsByButtonModelBlockBlock _Nonnull)byButtonModelBlock;
+-(JobsRetUIViewModelByJobsByButtonModelBlockBlock _Nonnull)bySubButtonModelBlock;
 -(JobsRetUIViewModelByUITextModelPointerBlock _Nonnull)byTextModel;
 -(JobsRetUIViewModelByUITextModelPointerBlock _Nonnull)bySubTextModel;
 -(JobsRetUIViewModelByUITextModelPointerBlock _Nonnull)byBackBtnTitleModel;
+-(JobsRetUIViewModelByJobsByTextModelBlockBlock _Nonnull)byTextModelBlock;
+-(JobsRetUIViewModelByJobsByTextModelBlockBlock _Nonnull)bySubTextModelBlock;
+-(JobsRetUIViewModelByJobsByTextModelBlockBlock _Nonnull)byBackBtnTitleModelBlock;
 -(JobsRetUIViewModelByNSMutableArrayKindofUIViewModelPointerPointerBlock _Nonnull)byViewModels;
 -(JobsRetUIViewModelByNSMutableArrayKindofUIButtonModelPointerPointerBlock _Nonnull)byButtonModels;
 -(JobsRetUIViewModelByNSMutableArrayJobsRichTextConfigPointerPointerBlock _Nonnull)byTitleAttributedDataMutArr;
@@ -342,7 +348,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetUIViewModelByUIViewModelPointerBlock _Nonnull)byTitleModel;
 -(JobsRetUIViewModelByUIActivityIndicatorViewPointerBlock _Nonnull)byActivityIndicatorView;
 -(JobsRetUIViewModelByUIStackViewPointerBlock _Nonnull)byStackView;
--(JobsRetUIViewModelByKindofUIViewPointerBlock _Nonnull)byViewer;
+-(JobsRetViewModelByViewBlock _Nonnull)byViewer;
 -(JobsRetUIViewModelByUICollectionViewPointerBlock _Nonnull)byCollectionView;
 -(JobsRetUIViewModelByUITableViewPointerBlock _Nonnull)byTableView;
 -(JobsRetUIViewModelByUIScrollViewPointerBlock _Nonnull)byScrollView;

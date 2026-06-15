@@ -8,7 +8,7 @@
 #import "NSMutableSet+Extra.h"
 
 @implementation NSMutableSet (Extra)
-/// 阻止向可变集合添加空元素 JobsReturnIDByIDBlock
+/// 阻止向可变集合添加空元素 JobsRetIDByIDBlock
 -(JobsRetMutableSetByIDBlock _Nonnull)add{
     @jobs_weakify(self)
     return ^NSMutableSet *(id _Nullable data) {

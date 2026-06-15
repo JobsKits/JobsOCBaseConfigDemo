@@ -30,7 +30,7 @@ AppToolsProtocol_synthesize
 #pragma mark —— UITableViewCellProtocol
 /// 4种UITableViewCell系统样式类型
 /// UITableViewCellStyleDefault ：左边有一个显示图片的imageView和一个标题textLabel。
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         @jobs_strongify(self)
@@ -42,7 +42,7 @@ AppToolsProtocol_synthesize
     };
 }
 /// UITableViewCellStyleValue1 ：左边显示图片的imageView和一个主标题textLabel，右边一个副标题detailTextLabel。
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         @jobs_strongify(self)
@@ -54,7 +54,7 @@ AppToolsProtocol_synthesize
     };
 }
 /// UITableViewCellStyleValue2 ：左边一个主标题textLabel字体偏小，右边一个副标题detailTextLabel。
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2ByTableView{
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         @jobs_strongify(self)
@@ -66,7 +66,7 @@ AppToolsProtocol_synthesize
     };
 }
 /// UITableViewCellStyleSubtitle ：左边还是一个显示图片的imageView，不同的是上边有一个主标题textLabel和一个副标题detailTextLabel。主标题字体大且加黑，副标题字体小在主标题下边。
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleByTableView{
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         @jobs_strongify(self)
@@ -82,14 +82,15 @@ AppToolsProtocol_synthesize
               reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;// 取消点击效果 【不能在cellStyleValue1WithTableView里面写】
-        /// 适配iOS 13夜间模式/深色外观(Dark Mode)
-        self.byBgColor(JobsWhiteColor);
-
-        self.detailTextLabel.byTextCor(JobsBrownColor);
-
-        self.textLabel.byTextCor(JobsBlackColor);
-
+        self
+            .bySelectionStyle(UITableViewCellSelectionStyleNone)// 取消点击效果 【不能在cellStyleValue1ByTableView里面写】
+            .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
+                label.byTextCor(JobsBrownColor);
+            })
+            .byTextLabel(^(__kindof UILabel * _Nullable label) {
+                label.byTextCor(JobsBlackColor);
+            })
+            .byBgColor(JobsWhiteColor);
     };return self;
 }
 /// UITableViewCell 的横向和纵向的缩进

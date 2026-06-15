@@ -53,10 +53,13 @@ Prop_strong(nullable)__kindof UIView *leftView;
 Prop_strong(nullable)__kindof UIView *rightView;
 Prop_assign()UITextFieldViewMode leftViewMode;
 Prop_assign()UITextFieldViewMode rightViewMode;
-Prop_assign()BOOL isShowDelBtn;         // 是否显示删除按钮，默认不显示
+Prop_assign()BOOL isShowDelBtn;
+         // 是否显示删除按钮，默认不显示
 Prop_assign()BOOL useCustomClearButton; // 是否使用自定义的删除按钮 默认不使用
-Prop_assign()BOOL isShowMenu;           // 是否显示菜单 默认不显示
-Prop_assign()BOOL notAllowEdit;         // 默认不允许编辑
+Prop_assign()BOOL isShowMenu;
+           // 是否显示菜单 默认不显示
+Prop_assign()BOOL notAllowEdit;
+         // 默认不允许编辑
 Prop_assign()BOOL textFieldSecureTextEntry;
 #pragma mark —— 关于键盘
 Prop_assign()CGFloat TFRiseHeight;      // 键盘在此手机上的最高弹起，区别于全面屏结合非全面屏，有一个安全区域34
@@ -70,7 +73,8 @@ Prop_assign()CGRect drawPlaceholderInRect;    // Placeholder位置 【初始化�
 Prop_assign()CGRect leftViewRectForBounds;    // leftView位置 【键盘弹起会调用此方法，但是键盘落下去不会调用】❤️
 Prop_assign()CGRect rightViewRectForBounds;   // rightView位置 【键盘弹起会调用此方法，但是键盘落下去不会调用】❤️
 Prop_assign()CGRect placeholderRectForBounds; // Placeholder区域 【键盘弹起会调用此方法，但是键盘落下去不会调用】❤️ UITextFieldLabel的高度，即承载placeholder的控件的高度
-Prop_assign()CGRect textRectForBounds;        // 重置文字区域 ，这也是结束编辑的时候的文字区域 【未编辑状态下光标的起始位置】【键盘弹起+落下会调用此方法】❤️❤️这个属性决定承载text的控件UITextLayoutFragmentView的父控件UITextLayoutCanvasView和UITouchPassthroughView的Fram。图层结构由上至下是：UITextLayoutFragmentView—>UITextLayoutCanvasView—>UITouchPassthroughView。其x和y都是0，文本超过这个size会以...的形式出现。textRectForBounds的高度过于小就会导致UITextLayoutFragmentView加载不到图层。一般这里的最后一个参数（高度，固定写死100，不要有任何比例尺）
+Prop_assign()CGRect textRectForBounds;
+        // 重置文字区域 ，这也是结束编辑的时候的文字区域 【未编辑状态下光标的起始位置】【键盘弹起+落下会调用此方法】❤️❤️这个属性决定承载text的控件UITextLayoutFragmentView的父控件UITextLayoutCanvasView和UITouchPassthroughView的Fram。图层结构由上至下是：UITextLayoutFragmentView—>UITextLayoutCanvasView—>UITouchPassthroughView。其x和y都是0，文本超过这个size会以...的形式出现。textRectForBounds的高度过于小就会导致UITextLayoutFragmentView加载不到图层。一般这里的最后一个参数（高度，固定写死100，不要有任何比例尺）
 Prop_assign()CGRect editingRectForBounds;     // 重置编辑区域【编辑状态下的起始位置】、UIFieldEditor的位置大小【键盘弹起+落下会调用此方法】❤️❤️这个值，一般 == textRectForBounds。当超过输入距离的时候，新输入的字符会将之前的字符往左边顶
 
 -(void)otherActionBlock:(JobsRetIDByIDBlock _Nullable)otherActionBlock;

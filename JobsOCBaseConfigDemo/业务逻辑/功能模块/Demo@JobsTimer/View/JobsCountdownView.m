@@ -76,7 +76,7 @@ static dispatch_once_t static_countdownViewOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         MakeDataNull
         [self.timer start];
         self.titleLab.byVisible(YES);
@@ -105,11 +105,16 @@ static dispatch_once_t static_countdownViewOnceToken;
         _timer = jobsMakeTimer(^(JobsTimer * _Nullable timer) {
             timer
             /// 必须配置的项
-                .byTimerType(JobsTimerTypeNSTimer)           // 计时器核心选择
-                .byTimerStyle(TimerStyle_clockwise)          // 正计时模式
-                .byTimeInterval(1)                           // 跳动步长（频率间距）
-                .byStartTime(30 * 60)                        // ✅ 总时长
-                .byTimeSecIntervalSinceDate(3)               // dispatch_after 延迟（这里等价 0）
+                .byTimerType(JobsTimerTypeNSTimer)
+           // 计时器核心选择
+                .byTimerStyle(TimerStyle_clockwise)
+          // 正计时模式
+                .byTimeInterval(1)
+                           // 跳动步长（频率间距）
+                .byStartTime(30 * 60)
+                        // ✅ 总时长
+                .byTimeSecIntervalSinceDate(3)
+               // dispatch_after 延迟（这里等价 0）
                 .byQueue(dispatch_get_main_queue())
                 .byOnTick(^(CGFloat time){
                     @jobs_strongify(self)

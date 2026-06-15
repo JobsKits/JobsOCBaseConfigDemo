@@ -24,7 +24,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIImpactFeedbackGenerator (Extra)
+@interface UIImpactFeedbackGenerator (JobsByOCPodsExtra)
 
 +(JobsRetImpactFeedbackGeneratorByNSIntegerBlock _Nonnull)initByStyle;
 +(UIImpactFeedbackGenerator *_Nonnull)initByLightStyle;

@@ -34,9 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSObject (URLMgr_1)
 #pragma mark —— 主播管理接口
 /// 获取主播详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_presenter_getInfo_ByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_presenter_getInfo_ByID;
 /// 根据会员ID查询主播信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_presenter_getInfo2BymemberId;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_presenter_getInfo2BymemberId;
 /// 查询主播信息列表@POST
 -(URLManagerModel *)post_presenter_list;
 /// 修改主播信息@PUT
@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 用户提交KYC认证@POST
 -(URLManagerModel *)post_kyc_submit;
 /// KYC认证提醒@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_kyc_verifyBymemberId;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_kyc_verifyBymemberId;
 /// 用户提交个人信息@POST
 -(URLManagerModel *)post_personal_information_submit;
 #pragma mark —— 会员vip
@@ -76,9 +76,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(URLManagerModel *)get_vip_queryVipSwitchConfig;
 #pragma mark —— 会员收货地址
 /// 会员收货地址删除@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_address_deleteByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_address_deleteByID;
 /// 会员收货地址详情@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_address_detailByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_address_detailByID;
 /// 会员收货地址查询@GET
 -(URLManagerModel *)get_address_list;
 /// 会员收货地址保存@POST

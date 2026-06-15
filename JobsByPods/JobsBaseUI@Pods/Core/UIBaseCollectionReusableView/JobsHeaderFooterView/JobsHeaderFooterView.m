@@ -78,7 +78,8 @@ Prop_strong()UIViewModel *subTitleModel;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
-            .byAddTo(self, ^(MASConstraintMaker *make) {
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.left.equalTo(self).offset(self.viewModel.textModel.offsetXForEach);
                 make.top.bottom.equalTo(self);
             });
@@ -131,7 +132,8 @@ Prop_strong()UIViewModel *subTitleModel;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
-            .byAddTo(self, ^(MASConstraintMaker *make) {
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.right.equalTo(self).offset(self.viewModel.subTextModel.offsetXForEach);
                 make.top.bottom.equalTo(self);
         });

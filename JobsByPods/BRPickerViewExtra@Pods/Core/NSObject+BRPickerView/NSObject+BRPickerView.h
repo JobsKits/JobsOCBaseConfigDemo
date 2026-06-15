@@ -62,10 +62,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSObject (BRPickerView)
 #pragma mark —— BRTextPickerView / BRDatePickerView
 /// UI
-Prop_strong()BRTextPickerView *textPickerView;        // 文本选择器（新版主入口）
+Prop_strong()BRTextPickerView *textPickerView;
+        // 文本选择器（新版主入口）
 Prop_strong()BRTextPickerView *stringPickerView;      // 旧命名兼容，实际等同于 textPickerView
 Prop_strong()BRTextPickerView *addressPickerView;     // 旧地址选择器兼容，实际为 BRTextPickerComponentCascade 文本级联选择器
-Prop_strong()BRDatePickerView *datePickerView;        // 时间选择器
+Prop_strong()BRDatePickerView *datePickerView;
+        // 时间选择器
 /// Data
 Prop_assign()BRTextPickerMode brTextPickerMode;
 Prop_assign()BRTextPickerMode brStringPickerMode;     // 旧命名兼容，实际等同于 brTextPickerMode
@@ -76,10 +78,10 @@ Prop_strong()BRPickerStyle *customStyle;
 /// 以应对一个视图上面多个 BRPickerView 的情况。
 /// 关键代码：[self.pickerView1 addPickerToView:承接的视图1]; 只能一对一承接。
 - (BRPickerStyle *)makeCustomStyle;
-- (BRPickerViewExtraReturnTextPickerViewByPickerModeBlock)makeTextPickerView;
-- (BRPickerViewExtraReturnTextPickerViewByPickerModeBlock)makeStringPickerView;       // 旧命名兼容
-- (BRPickerViewExtraReturnTextPickerViewByPickerStyleBlock)makeAddressPickerView;     // 旧命名兼容：返回 BRTextPickerView 级联选择器
-- (BRPickerViewExtraReturnDatePickerViewByPickerStyleBlock)makeDatePickerView;
+- (BRPickerViewExtraRetTextPickerViewByPickerModeBlock)makeTextPickerView;
+- (BRPickerViewExtraRetTextPickerViewByPickerModeBlock)makeStringPickerView;       // 旧命名兼容
+- (BRPickerViewExtraRetTextPickerViewByPickerStyleBlock)makeAddressPickerView;     // 旧命名兼容：返回 BRTextPickerView 级联选择器
+- (BRPickerViewExtraRetDatePickerViewByPickerStyleBlock)makeDatePickerView;
 
 @end
 

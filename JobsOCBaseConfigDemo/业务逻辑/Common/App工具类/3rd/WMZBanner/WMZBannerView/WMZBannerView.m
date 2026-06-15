@@ -56,7 +56,7 @@
     };return self;
 }
 
-+(JobsReturnWMZBannerViewByBannerParamBlock _Nonnull)initBy{
++(JobsRetWMZBannerViewByBannerParamBlock _Nonnull)initBy{
     return ^WMZBannerView *_Nonnull(WMZBannerParam *_Nonnull bannerParam){
         return [WMZBannerView.alloc initConfigureWithModel:bannerParam];
     };
@@ -219,10 +219,11 @@
     self.bannerControl = [[WMZBannerControl alloc]initWithFrame:CGRectMake((self.bounds.size.width - 60)/2 , self.bounds.size.height - 30,60, 30) WithModel:self.param];
     [self addSubview:self.bannerControl];
 
-    self.bgImgView = [UIImageView new];
-    self.bgImgView.byContentMode(self.param.wImageFill?UIViewContentModeScaleAspectFill:UIViewContentModeScaleToFill);
-
-    [self addSubview:self.bgImgView];
+    self.bgImgView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+        imageView
+            .byContentMode(self.param.wImageFill?UIViewContentModeScaleAspectFill:UIViewContentModeScaleToFill)
+            .addOn(self);
+    });
     [self sendSubviewToBack:self.bgImgView];
     self.bgImgView.byHidden(!self.param.wEffect);
 
@@ -260,7 +261,11 @@
             [self setIconData:cell.icon withData:dic];
         }
         tmpCell = cell;
-        cell.contentView.layer.cornerRadius = self.param.wCustomImageRadio;
+        cell.byContentView(^(__kindof UIView * _Nullable view) {
+            view.byLayer(^(CALayer * _Nullable layer) {
+                layer.cornerRadiusBy(self.param.wCustomImageRadio);
+            });
+        });
     }
     return tmpCell;
 }
@@ -644,9 +649,8 @@
 
 - (UIView *)line{
     if (!_line) {
-        _line = [UIView new];
-    }
-    return _line;
+        _line = jobsMakeView(^(__kindof UIView * _Nullable view) {});
+    };return _line;
 }
 
 - (void)dealloc{
@@ -670,12 +674,17 @@
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]){
-        self.icon = [UIImageView new];
-        self.icon.layer.masksToBounds = YES;
-        [self.contentView addSubview:self.icon];
-        self.icon.byFrame(self.contentView.bounds);
-
-        self.contentView.layer.masksToBounds = YES;
+        self.icon = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byFrame(self.contentView.bounds)
+                .addOn(self.contentView)
+                .byLayer(^(CALayer * _Nullable layer) {
+                    layer.masksToBoundsBy(YES);
+                });
+        });
+        self.contentView.byLayer(^(CALayer * _Nullable layer) {
+            layer.masksToBoundsBy(YES);
+        });
     };return self;
 }
 
@@ -693,13 +702,13 @@
     if (self = [super initWithFrame:frame]){
         self.contentView.byBgColor([UIColor whiteColor]);
 
-        self.label = [UILabel new];
-        self.label.byFont([UIFont systemFontOfSize:17.0]);
-
-        self.label.byTextCor([UIColor redColor]);
-
-        [self.contentView addSubview:self.label];
-        self.label.byFrame(CGRectMake(10, 0, frame.size.width-20, frame.size.height));
+        self.label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byFont([UIFont systemFontOfSize:17.0])
+                .byTextCor([UIColor redColor])
+                .byFrame(CGRectMake(10, 0, frame.size.width-20, frame.size.height))
+                .addOn(self.contentView);
+        });
 
     };return self;
 }

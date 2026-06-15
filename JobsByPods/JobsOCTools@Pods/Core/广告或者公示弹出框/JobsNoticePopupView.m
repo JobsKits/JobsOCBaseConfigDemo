@@ -27,7 +27,7 @@
     @jobs_weakify(self)
     return ^(id _Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         MakeDataNull
         self.imageView.byAlpha(1);
 
@@ -45,7 +45,7 @@
                 .byNumberOfTapsRequired(1) /// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
                 .byMinimumPressDuration(0.1)
                 .byAllowableMovement(1)
-                .addTapGR(^(__kindof UITapGestureRecognizer *_Nullable gesture) {
+                .addTapGR(^(__kindof UITapGestureRecognizer *_Nullable gesture) {;
 
                 })
                 .addOn(self)

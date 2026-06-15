@@ -24,12 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JXCategoryBaseView (Extra)
 
--(JobsReturnCategoryBaseViewByDelegateBlock _Nonnull)byDelegate;
--(JobsReturnCategoryBaseViewByCGFloatBlock _Nonnull)byCellSpacing;
--(JobsReturnCategoryBaseViewByViewBlock _Nonnull)byContentScrollView;
--(JobsReturnCategoryTitleViewByNSIntegerBlock _Nonnull)byDefaultSelectedIndex;
--(JobsReturnCategoryBaseViewByListContainerBlock _Nonnull)byListContainer;
--(JobsReturnCategoryBaseViewByVoidBlock _Nonnull)reloadDatasWithoutListContainer;
+-(JobsRetCategoryBaseViewByDelegateBlock _Nonnull)byDelegate;
+-(JobsRetCategoryBaseViewByCGFloatBlock _Nonnull)byCellSpacing;
+-(JobsRetCategoryBaseViewByViewBlock _Nonnull)byContentScrollView;
+-(JobsRetCategoryTitleViewByNSIntegerBlock _Nonnull)byDefaultSelectedIndex;
+-(JobsRetCategoryBaseViewByListContainerBlock _Nonnull)byListContainer;
+-(JobsRetCategoryBaseViewByVoidBlock _Nonnull)reloadDatasWithoutListContainer;
 
 @end
 

@@ -152,8 +152,9 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
             @jobs_strongify(self)
             x.selected = !x.selected;
             if (self.objBlock) self.objBlock(x);
-        });
-        _allChooseBtn.byAddTo(self, ^(MASConstraintMaker *make) {
+        })
+        .addOn(self)
+        .byAdd(^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsWidth(28 + 14 + 12), JobsWidth(14)));
             make.left.equalTo(self).offset(JobsWidth(16));
             make.top.equalTo(self).offset(JobsWidth(18));
@@ -172,13 +173,14 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
             @jobs_strongify(self)
             x.selected = !x.selected;
             if (self.objBlock) self.objBlock(x);
-        });
-        _markToReadBtn.byAddTo(self, ^(MASConstraintMaker *make) {
+        })
+        .enabledBlock(NO)
+        .addOn(self)
+        .byAdd(^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.allChooseBtn);
             make.right.equalTo(self.deleteBtn.mas_left).offset(JobsWidth(-36));
             make.height.mas_equalTo(JobsWidth(14));
         });
-        _markToReadBtn.enabledBlock(NO);
     };return _markToReadBtn;
 }
 
@@ -188,19 +190,20 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
         _deleteBtn = UIButton.jobsInit()
         .jobsResetBtnTitle(@"删除".tr)
         .jobsResetBtnTitleCor(HEXCOLOR(0xEB677F))
-        .jobsResetBtnTitleFont(UIFontWeightBoldSize(14))\
+        .jobsResetBtnTitleFont(UIFontWeightBoldSize(14))
         .onClickBy(^(UIButton *x){
             @jobs_strongify(self)
             x.selected = !x.selected;
             if (self.objBlock) self.objBlock(x);
-        });
-        _deleteBtn.byAddTo(self, ^(MASConstraintMaker *make) {
+        })
+        .enabledBlock(NO)
+        .makeBtnTitleByShowingType(UILabelShowingType_03)
+        .addOn(self)
+        .byAdd(^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.allChooseBtn);
             make.right.equalTo(self).offset(JobsWidth(-18));
             make.height.mas_equalTo(JobsWidth(14));
         });
-        _deleteBtn.enabledBlock(NO);
-        _deleteBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
     };return _deleteBtn;
 }
 

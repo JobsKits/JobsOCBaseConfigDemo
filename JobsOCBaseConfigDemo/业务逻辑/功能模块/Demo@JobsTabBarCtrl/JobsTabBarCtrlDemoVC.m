@@ -30,17 +30,22 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = @"JobsTabBarCtrl@横滑 Demo（>5 个按钮）";
-    self.viewModel.textModel.font = UIFontWeightRegularSize(18);
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.bgImage = @"新首页的底图".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(@"JobsTabBarCtrl@横滑 Demo（>5 个按钮）");
+            data.byFont(UIFontWeightRegularSize(18));
+        })
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byBgImage(@"新首页的底图".img)
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
@@ -60,18 +65,28 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
         _tabCtrl = jobsMakeTabBarCtrl(^(__kindof JobsTabBarCtrl * _Nullable ctrl) {
             @jobs_strongify(self)
             ctrl
-                .bySwipeEnabled(YES)                            // 是否允许内容区域左右滑动
-                .byHorizontalOnly(YES)                          // 只允许横向翻页（默认 YES）
-                .bySuppressChildVerticalScrolls(YES)            // 可选：对子 VC 内滚动视图禁用纵向滚动
+                .bySwipeEnabled(YES)
+                            // 是否允许内容区域左右滑动
+                .byHorizontalOnly(YES)
+                          // 只允许横向翻页（默认 YES）
+                .bySuppressChildVerticalScrolls(YES)
+            // 可选：对子 VC 内滚动视图禁用纵向滚动
                 .byBarBackgroundColor(JobsLightGrayColor)
-                .byCustomBarHeight(nil)                         // TabBar 高度；nil 表示用默认：49 + safeAreaBottom
-                .byBarBottomOffset(0)                           // 距底部上移量（>0 上移）
-                .byBarBackgroundImage(nil)                      // TabBar 背景图
+                .byCustomBarHeight(nil)
+                         // TabBar 高度；nil 表示用默认：49 + safeAreaBottom
+                .byBarBottomOffset(0)
+                           // 距底部上移量（>0 上移）
+                .byBarBackgroundImage(nil)
+                      // TabBar 背景图
                 .byContentInset(UIEdgeInsetsMake(6, 12, 6, 12))
-                .byEqualSpacing(10)                             // 按钮间距（2~5 等分时）
-                .byLockUnitToMaxEqualCount(YES)                 // >max(默认5) 时是否仍按“max 等分”的单元宽度布局
-                .byAutoRelayoutForBoundsChange(YES);            // 旋转 / 尺寸变化时是否自动重排按钮
-            [ctrl byEqualVisibleRangeFrom:2 to:5];              // 2 ~ 5 个按钮时，一屏内等分，不滚动；超过 5 个按钮时，每个按钮宽度算成“5 等分的宽度”，多出来的靠 UIScrollView 滚动解决
+                .byEqualSpacing(10)
+                             // 按钮间距（2~5 等分时）
+                .byLockUnitToMaxEqualCount(YES)
+                 // >max(默认5) 时是否仍按“max 等分”的单元宽度布局
+                .byAutoRelayoutForBoundsChange(YES);
+            // 旋转 / 尺寸变化时是否自动重排按钮
+            [ctrl byEqualVisibleRangeFrom:2 to:5];
+              // 2 ~ 5 个按钮时，一屏内等分，不滚动；超过 5 个按钮时，每个按钮宽度算成“5 等分的宽度”，多出来的靠 UIScrollView 滚动解决
             /// 安全监听点“按钮布局完成后”的回调@解决设定某个按钮的垂直凸起
             [ctrl onButtonsLayoutedWeakOwner:^(JobsTabBarCtrl *owner,
                                                NSArray<UIButton *> *btns) {

@@ -55,49 +55,49 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CJTextField (JobsUIBaseTextFieldDSL)
--(JobsReturnCJTextFieldByDeleteDelegateBlock _Nonnull)byCJDelegate;
+-(JobsRetCJTextFieldByDeleteDelegateBlock _Nonnull)byCJDelegate;
 @end
 
 @interface HQTextField (JobsUIBaseTextFieldDSL)
--(JobsReturnHQTextFieldByVoidBlock _Nonnull)byShowWarn;
+-(JobsRetHQTextFieldByVoidBlock _Nonnull)byShowWarn;
 @end
 
 @interface ZYTextField (JobsUIBaseTextFieldDSL)
--(JobsReturnZYTextFieldByCGFloatBlock _Nonnull)byZYTextFieldCornerRadius;
--(JobsReturnZYTextFieldByCGFloatBlock _Nonnull)byZYTextFieldBorderWidth;
--(JobsReturnZYTextFieldByCorBlock _Nonnull)byZYTextFieldBorderColor;
--(JobsReturnZYTextFieldByBOOLBlock _Nonnull)byZYTextFieldMasksToBounds;
+-(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byZYTextFieldCornerRadius;
+-(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byZYTextFieldBorderWidth;
+-(JobsRetZYTextFieldByCorBlock _Nonnull)byZYTextFieldBorderColor;
+-(JobsRetZYTextFieldByBOOLBlock _Nonnull)byZYTextFieldMasksToBounds;
 
--(JobsReturnZYTextFieldByBOOLBlock _Nonnull)byIsShowDelBtn;
--(JobsReturnZYTextFieldByBOOLBlock _Nonnull)byUseCustomClearButton;
--(JobsReturnZYTextFieldByCGRectBlock _Nonnull)byClearButtonRectForBounds;
--(JobsReturnZYTextFieldByCGRectBlock _Nonnull)byLeftViewRectForBounds;
--(JobsReturnZYTextFieldByCGRectBlock _Nonnull)byRightViewRectForBounds;
--(JobsReturnZYTextFieldByCGRectBlock _Nonnull)byDrawPlaceholderInRect;
--(JobsReturnZYTextFieldByCGRectBlock _Nonnull)byPlaceholderRectForBounds;
--(JobsReturnZYTextFieldByCGRectBlock _Nonnull)byTextRectForBounds;
--(JobsReturnZYTextFieldByCGRectBlock _Nonnull)byEditingRectForBounds;
--(JobsReturnZYTextFieldByCorBlock _Nonnull)byPlaceholderColor;
--(JobsReturnZYTextFieldByFontBlock _Nonnull)byPlaceholderFont;
--(JobsReturnZYTextFieldByNSIntegerBlock _Nonnull)byPlaceHolderAlignment;
--(JobsReturnZYTextFieldByCGFloatBlock _Nonnull)byPlaceHolderOffset;
--(JobsReturnZYTextFieldByCGFloatBlock _Nonnull)byTextOffset;
--(JobsReturnZYTextFieldByCGFloatBlock _Nonnull)byFieldEditorOffset;
--(JobsReturnZYTextFieldByCGFloatBlock _Nonnull)byLeftViewOffsetX;
--(JobsReturnZYTextFieldByCGFloatBlock _Nonnull)byRightViewOffsetX;
+-(JobsRetZYTextFieldByBOOLBlock _Nonnull)byIsShowDelBtn;
+-(JobsRetZYTextFieldByBOOLBlock _Nonnull)byUseCustomClearButton;
+-(JobsRetZYTextFieldByCGRectBlock _Nonnull)byClearButtonRectForBounds;
+-(JobsRetZYTextFieldByCGRectBlock _Nonnull)byLeftViewRectForBounds;
+-(JobsRetZYTextFieldByCGRectBlock _Nonnull)byRightViewRectForBounds;
+-(JobsRetZYTextFieldByCGRectBlock _Nonnull)byDrawPlaceholderInRect;
+-(JobsRetZYTextFieldByCGRectBlock _Nonnull)byPlaceholderRectForBounds;
+-(JobsRetZYTextFieldByCGRectBlock _Nonnull)byTextRectForBounds;
+-(JobsRetZYTextFieldByCGRectBlock _Nonnull)byEditingRectForBounds;
+-(JobsRetZYTextFieldByCorBlock _Nonnull)byPlaceholderColor;
+-(JobsRetZYTextFieldByFontBlock _Nonnull)byPlaceholderFont;
+-(JobsRetZYTextFieldByNSIntegerBlock _Nonnull)byPlaceHolderAlignment;
+-(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byPlaceHolderOffset;
+-(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byTextOffset;
+-(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byFieldEditorOffset;
+-(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byLeftViewOffsetX;
+-(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byRightViewOffsetX;
 @end
 
 @interface JobsMagicTextField (JobsUIBaseTextFieldDSL)
--(JobsReturnMagicTextFieldByBOOLBlock _Nonnull)byPlaceholdAnimationable;
--(JobsReturnMagicTextFieldByCorBlock _Nonnull)byAnimationColor;
--(JobsReturnMagicTextFieldByFontBlock _Nonnull)byAnimationFont;
--(JobsReturnMagicTextFieldByCGFloatBlock _Nonnull)byMoveDistance;
--(JobsReturnMagicTextFieldByTimeIntervalBlock _Nonnull)byAnimationTime;
+-(JobsRetMagicTextFieldByBOOLBlock _Nonnull)byPlaceholdAnimationable;
+-(JobsRetMagicTextFieldByCorBlock _Nonnull)byAnimationColor;
+-(JobsRetMagicTextFieldByFontBlock _Nonnull)byAnimationFont;
+-(JobsRetMagicTextFieldByCGFloatBlock _Nonnull)byMoveDistance;
+-(JobsRetMagicTextFieldByTimeIntervalBlock _Nonnull)byAnimationTime;
 @end
 
 @interface JobsTextField (JobsUIBaseTextFieldDSL)
--(JobsReturnJobsTextFieldByUITextFieldBlock _Nonnull)byRealTextField;
--(JobsReturnJobsTextFieldByTextFieldConfigBlock _Nonnull)byRealTextFieldConfig;
+-(JobsRetJobsTextFieldByUITextFieldBlock _Nonnull)byRealTextField;
+-(JobsRetJobsTextFieldByTextFieldConfigBlock _Nonnull)byRealTextFieldConfig;
 @end
 
 NS_ASSUME_NONNULL_END

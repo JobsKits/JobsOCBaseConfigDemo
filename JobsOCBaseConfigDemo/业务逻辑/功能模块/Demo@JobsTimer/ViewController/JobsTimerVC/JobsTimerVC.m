@@ -34,18 +34,23 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
     
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
@@ -60,30 +65,26 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
     self.countdownBtn.byVisible(YES);
     @jobs_weakify(self)
     /// 开始
-    [self.btnMutArr[0] jobsBtnClickEventBlock:^id(UIButton *data) {
+    ((UIButton *)self.btnMutArr[0]).onClickBy(^(UIButton *data) {
         @jobs_strongify(self)
         [self.countdownView.timer start];
-        return nil;
-    }];
+    });
     /// 暂停
-    [self.btnMutArr[1] jobsBtnClickEventBlock:^id(UIButton *data) {
+    ((UIButton *)self.btnMutArr[1]).onClickBy(^(UIButton *data) {
         @jobs_strongify(self)
         [self.countdownView.timer pause];
-        return nil;
-    }];
+    });
     /// 继续
-    [self.btnMutArr[2] jobsBtnClickEventBlock:^id(UIButton *data) {
+    ((UIButton *)self.btnMutArr[2]).onClickBy(^(UIButton *data) {
         @jobs_strongify(self)
         [self.countdownView.timer resume];
-        return nil;
-    }];
+    });
     /// 结束
-    [self.btnMutArr[3] jobsBtnClickEventBlock:^id(UIButton *data) {
+    ((UIButton *)self.btnMutArr[3]).onClickBy(^(UIButton *data) {
         @jobs_strongify(self)
         [self.countdownView.timer stop];
         [self.countdownView refreshData];
-        return nil;
-    }];
+    });
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -197,7 +198,7 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
     if (!_countdownView) {
         _countdownView = JobsCountdownView.new;
         _countdownView.jobsRichViewByModel(nil);// 启动定时器
-        _countdownView.byAddTo(self.view, ^(MASConstraintMaker *make) {
+        _countdownView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.center.equalTo(self.view);
             make.size.mas_equalTo(JobsCountdownView.viewSizeByModel(nil));
         });
@@ -208,32 +209,28 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
 -(UIButton *)countdownBtn{
     if (!_countdownBtn) {
         @jobs_weakify(self)
-        _countdownBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {//
-            @jobs_strongify(self)
-            self.view.addSubview
-            (
-             /// 基础 UI
-             btn.jobsResetBtnBgCor(HEXCOLOR(0xAE8330))
-                .jobsResetBtnTitle(@"获取验证码".tr)
-                .jobsResetBtnTitleCor(JobsWhiteColor)
-                .jobsResetBtnTitleFont(UIFontWeightRegularSize(24))
-                /// Timer 配置（UIButton+Timer 提供的属性）
-                .byTimerStyle(TimerStyle_anticlockwise)  // 倒计时模式
-                .byStartTime(8)                          // 总时长 8 秒
-                .byTimeInterval(1)
-                .byClickWhenTimerCycle(YES)               // 计时器运行期间：禁止点击
-                .byOnTick(^(CGFloat time){
-                    btn.jobsResetBtnTitle([NSString stringWithFormat:@"%d",(int)ceil(time)].add(JobsSpace).add(@"秒"));
-                })
-                .byOnFinish(^(JobsTimer *_Nullable timer){
-                    btn.jobsResetBtnTitle(@"获取验证码".tr);
-                })
-                /// 点击开始倒计时
-                .onClickBy(^(UIButton *x){
-                    x.startTimer();
-                })
-                .jobsResetBtnCornerRadiusValue(JobsWidth(18))
-             )
+        _countdownBtn = UIButton.jobsInit()
+            .jobsResetBtnBgCor(HEXCOLOR(0xAE8330))
+            .jobsResetBtnTitle(@"获取验证码".tr)
+            .jobsResetBtnTitleCor(JobsWhiteColor)
+            .jobsResetBtnTitleFont(UIFontWeightRegularSize(24))
+            .byTimerStyle(TimerStyle_anticlockwise)
+            .byStartTime(8)
+            .byTimeInterval(1)
+            .byClickWhenTimerCycle(YES)
+            .byOnTick(^(CGFloat time){
+                @jobs_strongify(self)
+                self.countdownBtn.jobsResetBtnTitle([NSString stringWithFormat:@"%d",(int)ceil(time)].add(JobsSpace).add(@"秒"));
+            })
+            .byOnFinish(^(JobsTimer *_Nullable timer){
+                @jobs_strongify(self)
+                self.countdownBtn.jobsResetBtnTitle(@"获取验证码".tr);
+            })
+            .onClickBy(^(UIButton *x){
+                x.startTimer();
+            })
+            .jobsResetBtnCornerRadiusValue(JobsWidth(18))
+            .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
                 make.centerX.equalTo(self.view);
@@ -241,7 +238,6 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
                 make.height.mas_equalTo(JobsWidth(80));
                 make.width.mas_equalTo(JobsWidth(180));
             });
-        });
     };return _countdownBtn;
 }
 

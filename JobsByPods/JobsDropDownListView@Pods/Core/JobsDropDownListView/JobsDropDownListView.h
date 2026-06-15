@@ -103,7 +103,7 @@ NS_ASSUME_NONNULL_END
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"按钮的长按事件触发");
              });
-         _btn.byAddTo(self.view, ^(MASConstraintMaker *make) {
+         _btn.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
              make.center.equalTo(self.view);
     //            make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(25)));
              make.height.mas_equalTo(JobsWidth(30));

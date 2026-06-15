@@ -58,8 +58,8 @@ API_IOS15_TVOS15_UNAVAILABLE_WATCHOS
 #pragma mark —— 布局
 -(JobsRetBtnConfigByContentInsetsBlock _Nonnull)byContentInsets API_AVAILABLE(ios(16.0));
 -(JobsRetBtnConfigByImagePlacementBlock _Nonnull)byImagePlacement API_AVAILABLE(ios(16.0));
--(JobsRetBtnConfigByImagePaddingBlock _Nonnull)byImagePadding API_AVAILABLE(ios(16.0));
--(JobsRetBtnConfigByTitlePaddingBlock _Nonnull)byTitlePadding API_AVAILABLE(ios(16.0));
+-(JobsRetBtnConfigByCGFloatBlock _Nonnull)byImagePadding API_AVAILABLE(ios(16.0));
+-(JobsRetBtnConfigByCGFloatBlock _Nonnull)byTitlePadding API_AVAILABLE(ios(16.0));
 -(JobsRetBtnConfigByAutomaticallyUpdateForSelectionBlock _Nonnull)byAutomaticallyUpdateForSelection API_AVAILABLE(ios(16.0));
 
 @end

@@ -151,7 +151,7 @@
 }
 #pragma mark —— 资金模块-微服务内部使用-四方商户接口
 /// 查询电子钱包商户余额@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_eWallet_balance_fiatByMCHID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_eWallet_balance_fiatByMCHID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable mchId){
         NSString *url = @"/api/fund/eWallet/balance/fiat/{".add(mchId).add(@"}");
         return JobsURL(url);
@@ -170,14 +170,14 @@
     return JobsURL(@"/api/fund/merchant-biz/agentPayment/usdt");
 }
 /// 查询法币商户余额@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_merchantBiz_balance_fiatByMCHID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_merchantBiz_balance_fiatByMCHID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable mchId){
         NSString *url = @"/api/fund/merchant-biz/balance/fiat/{".add(mchId).add(@"}");
         return JobsURL(url);
     };
 }
 /// 查询USDT商户余额@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_merchantBiz_balance_usdtByMCHID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_merchantBiz_balance_usdtByMCHID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable mchId){
         NSString *url = @"/api/fund/merchant-biz/balance/usdt/{".add(mchId).add(@"}");
         return JobsURL(url);
@@ -213,7 +213,7 @@
     return JobsURL(@"/api/fund/withdraw/ebpay/order");
 }
 /// 查询提现订单状态@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_withdraw_get_order_statusByOrderNo{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_withdraw_get_order_statusByOrderNo{
     return ^URLManagerModel *_Nullable(NSString *_Nullable orderNo){
         NSString *url = @"/api/fund/withdraw/get-order-status/{".add(orderNo).add(@"}");
         return JobsURL(url);
@@ -259,7 +259,7 @@
     return JobsURL(@"/api/fund/deposit/get-deposit-gift");
 }
 /// 查询充值订单状态@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_deposit_getOrder_statusByOrderNo{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_deposit_getOrder_statusByOrderNo{
     return ^URLManagerModel *_Nullable(NSString *_Nullable orderNo){
         NSString *url = @"/api/fund/deposit/get-order-status/{".add(orderNo).add(@"}");
         return JobsURL(url);
@@ -302,7 +302,7 @@
     return JobsURL(url);
 }
 /// 拉取充值通道类型页面提示文案@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_dpChannel_contentByChannelTypeId{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_dpChannel_contentByChannelTypeId{
     return ^URLManagerModel *_Nullable(NSString *_Nullable channelTypeId){
         NSString *url = @"/api/fund/dp-channel/content/{".add(channelTypeId).add(@"}");
         return JobsURL(url);

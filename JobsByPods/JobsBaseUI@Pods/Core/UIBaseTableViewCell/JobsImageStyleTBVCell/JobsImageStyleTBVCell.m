@@ -9,8 +9,6 @@
 #import <JobsBaseUI/UITableView+RegisterClass.h>
 #import <JobsBaseUI/UIView+Extra.h>
 
-#import <Masonry/Masonry.h>
-
 @interface JobsImageStyleTBVCell ()
 /// UI
 Prop_strong()UIImageView *backgroudImageView;
@@ -29,7 +27,7 @@ BaseLayerProtocol_synthesize_part3
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsImageStyleTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsImageStyleTBVCell);
         return cell;
@@ -64,7 +62,7 @@ BaseLayerProtocol_synthesize_part3
         _backgroudImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
             imageView.image = self.viewModel.bgImage;
-            imageView.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+            imageView.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);
             });
         });

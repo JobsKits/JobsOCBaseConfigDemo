@@ -56,7 +56,7 @@ def appCommon
 end
 ## GK一族
 def gk
-  pod 'GKNavigationBar'        # https://github.com/QuintGao/GKNavigationBar 
+  pod 'GKNavigationBar'        # https://github.com/QuintGao/GKNavigationBar
   pod 'GKPhotoBrowser'         # https://github.com/QuintGao/GKPhotoBrowser iOS仿微信、今日头条等图片浏览器
   pod 'GKCycleScrollView'      # https://github.com/QuintGao/GKCycleScrollView     ❤️ 图片、文字轮播器
 end
@@ -170,6 +170,7 @@ def byJobsDo
   pod 'JobsAPIs',                     :path => './JobsByPods/JobsAPIs@Pods'
   pod 'JobsMakes',                    :path => './JobsByPods/JobsMakes@Pods', :modular_headers => true
   pod 'JobsBlock',                    :path => './JobsByPods/JobsBlock@Pods'
+  pod 'JobsCallBackBlockDSL',         :path => './JobsByPods/JobsCallBackBlockDSL@Pods'
   pod 'JobsOCDSL',                    :path => './JobsByPods/JobsOCDSL@Pods'
   pod 'UIBaseTextFieldDSL',           :path => './JobsByPods/UIBaseTextFieldDSL@Pods'
   pod 'JobsLanMgr',                   :path => './JobsByPods/JobsLanMgr@Pods'

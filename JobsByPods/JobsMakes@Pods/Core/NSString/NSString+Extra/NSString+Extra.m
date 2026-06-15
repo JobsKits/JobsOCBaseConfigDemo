@@ -8,7 +8,7 @@
 #import "NSString+Extra.h"
 #import <JobsMakes/UIColor+Extra.h>
 
-@implementation NSString (Extra)
+@implementation NSString (JobsMakesExtra)
 
 -(UIColor *)cor{
     return UIColor.jobsCor(self);

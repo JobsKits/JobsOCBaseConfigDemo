@@ -7,7 +7,7 @@
 
 #import "UIButton+TextView.h"
 
-@implementation UIButton (TextView)
+@implementation UIButton (JobsLinkageMenuViewTextView)
 #pragma mark —— 一些私有方法
 -(jobsByTextViewBlock _Nonnull)configTextView{
     @jobs_weakify(self)

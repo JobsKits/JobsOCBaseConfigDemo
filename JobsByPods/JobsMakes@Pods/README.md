@@ -56,7 +56,8 @@
           .byTextAlignment(NSTextAlignmentCenter)
           .byNumberOfLines(1)
           .byBgColor(UIColor.clearColor)
-          .byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+          .addOn(self.contentView)
+          .byAdd(^(MASConstraintMaker *make) {
               make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(8, 12, 8, 12));
           });
   });

@@ -7,7 +7,7 @@
 
 #import "NSData+Extra.h"
 
-@implementation NSData (Extra)
+@implementation NSData (JobsBaseUIExtra)
 #pragma mark —— 对系统初始化方法的封装
 -(JobsRetDataByDataBlock _Nonnull)initWithData{
     @jobs_weakify(self)

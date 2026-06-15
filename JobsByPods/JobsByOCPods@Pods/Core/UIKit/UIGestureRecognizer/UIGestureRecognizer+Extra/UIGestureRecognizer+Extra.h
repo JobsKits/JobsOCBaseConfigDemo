@@ -37,7 +37,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIGestureRecognizer (Extra)<BaseProtocol>
+@interface UIGestureRecognizer (JobsByOCPodsExtra)<BaseProtocol>
 
 -(__kindof UIGestureRecognizer *)gestureActionBy:(jobsByVoidBlock _Nonnull)block;
 -(__kindof UIGestureRecognizer *)GestureActionBy:(jobsByGestureRecognizerBlock _Nonnull)block;

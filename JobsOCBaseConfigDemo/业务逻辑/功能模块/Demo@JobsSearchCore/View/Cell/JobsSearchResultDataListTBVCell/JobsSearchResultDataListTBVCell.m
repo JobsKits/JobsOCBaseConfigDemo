@@ -13,10 +13,12 @@
 
 @implementation JobsSearchResultDataListTBVCell
 #pragma mark —— UITableViewCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsSearchResultDataListTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsSearchResultDataListTBVCell);
-        cell.imageView.image = @"放大镜".img;
+        cell.byCellImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView.byImage(@"放大镜".img);
+        });
         cell.tapGR.enabled = YES;
         return cell;
     };

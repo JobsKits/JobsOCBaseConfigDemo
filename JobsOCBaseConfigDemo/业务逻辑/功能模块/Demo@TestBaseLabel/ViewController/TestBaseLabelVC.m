@@ -29,17 +29,22 @@ Prop_strong()BaseLabel *baseLabel;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
@@ -84,7 +89,7 @@ Prop_strong()BaseLabel *baseLabel;
 
         _titleLab.getLabel.byTextAlignment(NSTextAlignmentCenter);
 
-        _titleLab.byAddTo(self.view, ^(MASConstraintMaker *make) {
+        _titleLab.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.top.equalTo(self.view).offset(JobsWidth(100));
             make.left.equalTo(self.view).offset(JobsWidth(100));
             make.height.mas_equalTo(JobsWidth(26));
@@ -120,7 +125,7 @@ Prop_strong()BaseLabel *baseLabel;
 
             label.byBgColor(JobsCyanColor);
 
-            label.byAddTo(self.view, ^(MASConstraintMaker *make) {
+            label.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(20));
                 make.left.equalTo(self.view).offset(JobsWidth(100));
                 make.height.mas_equalTo(JobsWidth(26));

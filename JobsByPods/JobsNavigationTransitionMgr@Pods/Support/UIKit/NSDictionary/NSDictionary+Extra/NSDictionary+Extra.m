@@ -15,7 +15,7 @@
     };
 }
 /// 对系统方法 initWithContentsOfURL 的二次封装
-+(JobsReturnDicByURLBlock _Nonnull)initByContentsOfURL{
++(JobsRetDicByURLBlock _Nonnull)initByContentsOfURL{
     return ^__kindof NSDictionary *_Nullable(NSURL *_Nullable filePath){
         return [NSDictionary.alloc initWithContentsOfURL:filePath];
     };

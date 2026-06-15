@@ -76,13 +76,19 @@ Prop_strong()NSMutableArray <__kindof NSString *>*datas;
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UIViewModel *viewModel = self.dataMutArr[indexPath.row];
     for (JobsTextLabStyleTBVCell *visibleCell in tableView.visibleCells) {
-        visibleCell.byBgColor(viewModel.bgCor);
-        visibleCell.contentView.byBgColor(viewModel.bgCor);
+        visibleCell
+            .byContentView(^(__kindof UIView * _Nullable view) {
+                view.byBgColor(viewModel.bgCor);
+            })
+            .byBgColor(viewModel.bgCor);
         visibleCell.label.byTextCor(viewModel.textCor);
     }
     JobsTextLabStyleTBVCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.byBgColor(viewModel.bgSelectedCor);
-    cell.contentView.byBgColor(viewModel.bgSelectedCor);
+    cell
+        .byContentView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(viewModel.bgSelectedCor);
+        })
+        .byBgColor(viewModel.bgSelectedCor);
     cell.label.byTextCor(viewModel.selectedTextCor);
     if (self.objBlock) self.objBlock(cell);/// 数据在cell.viewModel
     [self tf_hide:nil];
@@ -104,11 +110,11 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return JobsTextLabStyleTBVCell.cellStyleDefaultWithTableView(tableView)
+    return JobsTextLabStyleTBVCell.cellStyleDefaultByTableView(tableView)
         .byAccessoryType(UITableViewCellAccessoryNone)
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
-        .JobsBlock1(^(id _Nullable data) {
+        .JobsBlock1(^(id _Nullable data) {;
 
         });
 }
@@ -156,7 +162,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             @jobs_strongify(self)
             for (int d = 0; d < self.dataMutArr.count; d++) {
                 @jobs_strongify(self)
-                data.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
+                data.add(JobsBaseTableViewCell.cellStyleValue1ByTableView(self.tableView));
             }
         });
     };return _tbvCellMutArr;

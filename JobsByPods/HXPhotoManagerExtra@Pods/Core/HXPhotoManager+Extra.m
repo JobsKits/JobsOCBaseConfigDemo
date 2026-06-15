@@ -9,7 +9,7 @@
 
 @implementation HXPhotoManager (Extra)
 
-+(JobsReturnHXPhotoManagerByNSUIntegerBlock _Nonnull)initByType{
++(JobsRetHXPhotoManagerByNSUIntegerBlock _Nonnull)initByType{
     return ^__kindof HXPhotoManager *_Nonnull(HXPhotoManagerSelectedType type){
         return [HXPhotoManager.alloc initWithType:type];
     };

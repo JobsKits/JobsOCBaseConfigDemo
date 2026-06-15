@@ -51,14 +51,14 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIView (AutoSelfAdaptionSize)
 #pragma mark —— UILabel
 /// 确定Label的字体大小，使其宽度自适应
--(jobsByVoidBlock _Nonnull)bySizeToFit;
+-(JobsRetViewByVoidBlock _Nonnull)bySizeToFit;
 /// 确定Label的宽度，使字体大小自适应
--(jobsByVoidBlock _Nonnull)labelAutoFontByWidth;
+-(JobsRetViewByVoidBlock _Nonnull)labelAutoFontByWidth;
 #pragma mark —— UIButton
 /// 确定Button的字体大小，使其宽度自适应
--(jobsByVoidBlock _Nonnull)buttonAutoWidthByFont;
+-(JobsRetViewByVoidBlock _Nonnull)buttonAutoWidthByFont;
 /// 确定Button的宽度，使字体大小自适应
--(jobsByVoidBlock _Nonnull)buttonAutoFontByWidth;
+-(JobsRetViewByVoidBlock _Nonnull)buttonAutoFontByWidth;
 /// 自适应宽度
 -(CGRect)getFrameWithFreeWidth:(CGPoint)origin
                       maxHight:(CGFloat)maxHight;

@@ -90,7 +90,7 @@ NS_INLINE __kindof PopListBaseView *_Nonnull jobsMakePopListBaseView(jobsByPopLi
              NSMutableArray <JobsCountriesModel *>*tags = [JobsCountriesModel mj_objectArrayWithKeyValuesArray:dic];
 
              for (JobsCountriesModel *model in tags) {
-                 UIViewModel *viewModel = UIViewModel.new;
+                 UIViewModel *viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
                  viewModel.byText(model.chinese)
                           .byFont(UIFontWeightRegularSize(JobsWidth(16)))
                           .byTextCor(@"#5D5D5D".cor)

@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YTKBatchRequest (Extra)
 
-+(JobsReturnBatchRequestByArrBlock _Nonnull)initByRequestArray;
++(JobsRetBatchRequestByArrBlock _Nonnull)initByRequestArray;
 
 @end
 

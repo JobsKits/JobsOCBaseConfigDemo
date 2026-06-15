@@ -30,14 +30,14 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
-/// 用于 +(JobsReturnTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView；内部
+/// 用于 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView；内部
 #ifndef JobsRegisterDequeueTableViewCell
 #define JobsRegisterDequeueTableViewCell(CellClass,CellStyle) \
 ({ \
     CellClass *cell = (CellClass *)tableView.tableViewCellClass(CellClass.class,@""); \
     if (!cell) { \
         cell = (CellClass *)CellClass.initTableViewCellWithStyle(CellStyle); \
-        cell.selectionStyle = UITableViewCellSelectionStyleNone; \
+        ((id<UITableViewCellProtocol>)cell).bySelectionStyle(UITableViewCellSelectionStyleNone); \
     } \
     cell; \
 })

@@ -166,11 +166,15 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     for (JobsBaseTableViewCell *cell in self.tbvCellMutArr) {
-        cell.imageView.jobsVisible = NO;
+        cell.byCellImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView.byJobsVisible(NO);
+        });
     }
     
     JobsBaseTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.imageView.jobsVisible = !cell.imageView.jobsVisible;
+    cell.byCellImageView(^(__kindof UIImageView * _Nullable imageView) {
+        imageView.byJobsVisible(!imageView.jobsVisible);
+    });
     
     if (self.objBlock) self.objBlock(self.dataMutArr[indexPath.row]);
     [self tf_hide:nil];
@@ -201,11 +205,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         .byImageViewFrameOffsetX(JobsMainScreen_WIDTH() - JobsWidth(50))
         .byTextLabelFont(UIFontWeightRegularSize(16))
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
+        .byCellImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byImage(@"红色的对勾".img)
+                .byJobsVisible(NO);
+        })
         .JobsBlock1(^(id _Nullable data) {
              
         }).byBgColor(HEXCOLOR(0xFFFCF7));
-    cell.imageView.image = @"红色的对勾".img;
-    cell.imageView.jobsVisible = NO;
     return cell;
 }
 #pragma mark —— lazyLoad
@@ -273,7 +280,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         _tbvCellMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <JobsBaseTableViewCell *>* _Nullable data) {
             @jobs_strongify(self)
             for (UIViewModel *viewModel in self.dataMutArr) {
-                data.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
+                data.add(JobsBaseTableViewCell.cellStyleValue1ByTableView(self.tableView));
             }
         });
     };return _tbvCellMutArr;

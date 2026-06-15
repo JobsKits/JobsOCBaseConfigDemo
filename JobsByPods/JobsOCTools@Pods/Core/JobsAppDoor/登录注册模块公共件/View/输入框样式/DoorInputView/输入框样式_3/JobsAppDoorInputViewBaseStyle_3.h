@@ -79,7 +79,7 @@ NS_ASSUME_NONNULL_END
      //            }
              }];
 
-             _用户名输入框.byAddTo(self.view, ^(MASConstraintMaker *make) {
+             _用户名输入框.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                  make.centerX.equalTo(self.view);
                  make.size.mas_equalTo(inputSize());
                  make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(85));

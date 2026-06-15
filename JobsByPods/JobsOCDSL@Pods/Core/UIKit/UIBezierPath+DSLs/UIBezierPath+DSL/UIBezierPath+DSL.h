@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBezierPathByLineDashBlock _Nonnull)byLineDash;
 
 #pragma mark —— Query
--(JobsRetBOOLByCGPointBlock _Nonnull)byContainsPoint;
+-(JobsRetBOOLByPointBlock _Nonnull)byContainsPoint;
 
 @end
 

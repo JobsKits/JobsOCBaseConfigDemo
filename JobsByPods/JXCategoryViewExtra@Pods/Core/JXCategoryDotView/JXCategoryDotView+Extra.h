@@ -36,12 +36,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JXCategoryDotView (Extra)
 
--(JobsReturnCategoryDotViewByNumbersBlock _Nonnull)byDotStates;
--(JobsReturnCategoryDotViewByRelativePositionBlock _Nonnull)byRelativePosition;
--(JobsReturnCategoryDotViewBySizeBlock _Nonnull)byDotSize;
--(JobsReturnCategoryDotViewByCorBlock _Nonnull)byDotColor;
--(JobsReturnCategoryDotViewByCGFloatBlock _Nonnull)byDotCornerRadius;
--(JobsReturnCategoryDotViewByPointBlock _Nonnull)byDotOffset;
+-(JobsRetCategoryDotViewByNumbersBlock _Nonnull)byDotStates;
+-(JobsRetCategoryDotViewByRelativePositionBlock _Nonnull)byRelativePosition;
+-(JobsRetCategoryDotViewBySizeBlock _Nonnull)byDotSize;
+-(JobsRetCategoryDotViewByCorBlock _Nonnull)byDotColor;
+-(JobsRetCategoryDotViewByCGFloatBlock _Nonnull)byDotCornerRadius;
+-(JobsRetCategoryDotViewByPointBlock _Nonnull)byDotOffset;
 
 @end
 

@@ -37,9 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(URLManagerModel *)post_game_home_queryTopGamesList;
 #pragma mark —— CQ9电子游戏接口19
 /// CheckPlayer@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_CQ9_checkPlayerByPlayerName;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_CQ9_checkPlayerByPlayerName;
 /// getBalance@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_CQ9_getBalanceByPlayerName;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_CQ9_getBalanceByPlayerName;
 /// bet@POST
 -(URLManagerModel *)post_CQ9_bet;
 /// credit@POST
@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// takeAll@POST
 -(URLManagerModel *)post_CQ9_takeAll;
 /// record@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_CQ9_recordByMTCode;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_CQ9_recordByMTCode;
 /// payoff@POST
 -(URLManagerModel *)post_CQ9_payoff;
 /// errorHtml@GET

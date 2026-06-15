@@ -56,7 +56,7 @@
  */
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIView (Masonry)
+@interface UIView (JobsBaseUIMasonry)
 #pragma mark —— 一些Masonry算法
 /// 制作一个带有n*m小矩形内容的大矩形（二次封装）
 -(jobsByViewArrayRowsColumnsBlock _Nonnull)gridLayoutBy;

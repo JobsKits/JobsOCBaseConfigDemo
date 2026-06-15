@@ -42,8 +42,8 @@ Prop_strong()__kindof NSMutableSet <__kindof NSString *>*registeredIdentifiers;/
 +(JobsRetCollectionViewByLayoutBlock _Nonnull)initByLayout;
 /// 对系统方法 cellForItemAtIndexPath 的二次封装
 -(JobsRetCollectionViewCellByIndexPathBlock _Nonnull)cellBy;
--(JobsReturnCollectionViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader;
--(JobsReturnCollectionViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter;
+-(JobsRetCollectionViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader;
+-(JobsRetCollectionViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter;
 -(JobsRetCollectionViewByIDBlock _Nonnull)dataLink; // 用于显示 UICollectionView
 -(JobsRetCollectionViewByIDBlock _Nonnull)byShow;
 -(JobsRetCollectionViewByDelegateBlock _Nonnull)byDelegate;

@@ -47,9 +47,10 @@ Prop_strong()UIButton *cancelBtn;
             label
                 .byText(@"评论".tr)
                 .byTextCor(@"#999999".cor)
-                .byFont(UIFontWeightRegularSize(18));
-            label.bySizeToFit();
-            label.byAddTo(self, ^(MASConstraintMaker *make) {
+                .byFont(UIFontWeightRegularSize(18))
+            .bySizeToFit()
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.center.equalTo(self);
             });
         });
@@ -68,7 +69,8 @@ Prop_strong()UIButton *cancelBtn;
             .onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
-            .byAddTo(self, ^(MASConstraintMaker *make) {
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self);
                 make.right.equalTo(self);
                 make.size.mas_equalTo(CGSizeMake(40, 40));

@@ -13,12 +13,15 @@
 
 @implementation JobsSearchShowHistoryDataTBVCell
 #pragma mark —— BaseCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsSearchShowHistoryDataTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsSearchShowHistoryDataTBVCell);
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 //        cell.contentView.backgroundColor = JobsRandomColor;
-        cell.imageView.image = @"时钟".img;
+        cell
+            .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
+            .byCellImageView(^(__kindof UIImageView * _Nullable imageView) {
+                imageView.byImage(@"时钟".img);
+            });
         return cell;
     };
 }

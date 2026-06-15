@@ -7,6 +7,7 @@
 
 #import "UIView+DSL.h"
 
+#import <objc/message.h>
 #import <objc/runtime.h>
 
 #if __has_include("../../../Support/NSObject+Measure/NSObject+Measure.h")
@@ -130,6 +131,15 @@ static void *JobsUIViewLayoutSubviewsRectCornerSizeKey = &JobsUIViewLayoutSubvie
     };
 }
 #pragma mark —— Rendering
+-(JobsRetViewByJobsByViewBlock _Nonnull)byViewBlock{
+    @jobs_weakify(self)
+    return ^__kindof UIView *_Nullable(jobsByViewBlock _Nullable block){
+        @jobs_strongify(self)
+        if (block) block(self);
+        return self;
+    };
+}
+
 -(UIRectCorner)layoutSubviewsRectCorner{
     NSNumber *number = objc_getAssociatedObject(self, JobsUIViewLayoutSubviewsRectCornerKey);
     return number ? (UIRectCorner)number.unsignedIntegerValue : 0;
@@ -240,6 +250,21 @@ static void *JobsUIViewLayoutSubviewsRectCornerSizeKey = &JobsUIViewLayoutSubvie
     return ^__kindof UIView * (BOOL hidden){
         @jobs_strongify(self)
         self.hidden = hidden;
+        return self;
+    };
+}
+
+-(JobsRetViewByCGFloatBlock _Nonnull)byJobsVisible{
+    @jobs_weakify(self)
+    return ^__kindof UIView * (CGFloat jobsVisible){
+        @jobs_strongify(self)
+        SEL selector = @selector(setJobsVisible:);
+        if ([self respondsToSelector:selector]) {
+            ((void (*)(id, SEL, CGFloat))objc_msgSend)(self, selector, jobsVisible);
+        } else {
+            self.hidden = !jobsVisible;
+            self.alpha = jobsVisible;
+        }
         return self;
     };
 }

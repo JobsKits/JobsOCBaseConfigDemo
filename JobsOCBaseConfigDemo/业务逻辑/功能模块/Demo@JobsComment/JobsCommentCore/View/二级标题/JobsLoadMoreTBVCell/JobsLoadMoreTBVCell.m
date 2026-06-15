@@ -15,7 +15,7 @@ Prop_strong()UILabel *titleLab;
 
 @implementation JobsLoadMoreTBVCell
 #pragma mark —— BaseCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsLoadMoreTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsLoadMoreTBVCell);
         return cell;
@@ -45,8 +45,9 @@ Prop_strong()UILabel *titleLab;
             label
                 .byText(@"点击加载更多".tr.add(@"..."))
                 .byTextAlignment(NSTextAlignmentCenter)
-                .byBgColor(JobsSystemYellowColor);
-            label.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+                .byBgColor(JobsSystemYellowColor)
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);
             });
         });

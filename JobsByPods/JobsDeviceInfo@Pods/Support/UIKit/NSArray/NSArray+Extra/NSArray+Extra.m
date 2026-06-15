@@ -96,7 +96,7 @@
     };
 }
 
--(JobsReturnArrByMasonryBlocks _Nonnull)installByMasonryBlock{
+-(JobsRetArrByMasonryBlocks _Nonnull)installByMasonryBlock{
     @jobs_weakify(self)
     return ^__kindof NSArray *_Nullable(jobsByMASConstraintMakerBlock _Nonnull data){
         @jobs_strongify(self)

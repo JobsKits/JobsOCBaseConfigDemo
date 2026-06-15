@@ -114,11 +114,16 @@
             @jobs_strongify(self)
             config.byImage(self.isHighlighted ? highlightBackgroundImage : backgroundImage)
                 .byEdgesAddingLayoutMarginsToBackgroundInsets(imagePlacement) // ✅ 新增的链式
-                .byBackgroundInsets(contentInsets)                            // 内边距
-                .byBackgroundColor(baseBackgroundColor)                       // 背景颜色
-                .byCornerRadius(cornerRadiusValue)                            // 圆切角
-                .byStrokeColor(layerBorderCor)                                // 描边颜色
-                .byStrokeWidth(borderWidth);                                  // 描边线宽
+                .byBackgroundInsets(contentInsets)
+                            // 内边距
+                .byBackgroundColor(baseBackgroundColor)
+                       // 背景颜色
+                .byCornerRadius(cornerRadiusValue)
+                            // 圆切角
+                .byStrokeColor(layerBorderCor)
+                                // 描边颜色
+                .byStrokeWidth(borderWidth);
+                                  // 描边线宽
             /// ❤️要设置UIButton.imageView的宽\高\尺寸\坐标，请参阅 BaseButtonProtocol❤️
         });
         if(btnConfiguration){
@@ -142,15 +147,20 @@
                 config.byTitle(title)
                     .bySubtitle(subTitle)
                     .byTitlePadding(titlePadding)
-                    .byBaseForegroundColor(titleCor)                                   /// 文本颜色
-                    .byTitleAlignment(buttonConfigTitleAlignment)                      /// 文本的对齐方式
-                    .byTitleLineBreakMode(titleLineBreakMode)                          /// 主标题的提行方式
-                    .bySubtitleLineBreakMode(subtitleLineBreakMode)                    /// 副标题的提行方式
+                    .byBaseForegroundColor(titleCor)
+                                   /// 文本颜色
+                    .byTitleAlignment(buttonConfigTitleAlignment)
+                      /// 文本的对齐方式
+                    .byTitleLineBreakMode(titleLineBreakMode)
+                          /// 主标题的提行方式
+                    .bySubtitleLineBreakMode(subtitleLineBreakMode)
+                    /// 副标题的提行方式
                     .byTitleTextAttributesTransformer([self jobsSetConfigTextAttributesTransformerByTitleFont:titleFont btnTitleCor:titleCor])
                     .bySubtitleTextAttributesTransformer([self jobsSetConfigTextAttributesTransformerByTitleFont:subTitleFont btnTitleCor:subTitleCor])
                     /// 前景图片
                     .byImage(self.isHighlighted ? highlightImage : normalImage)
-                    .byImagePadding(imagePadding)                                      /// 设置图像与标题之间的间距
+                    .byImagePadding(imagePadding)
+                                      /// 设置图像与标题之间的间距
                     .byImagePlacement(imagePlacement)
                     /// 富文本（优先级高于普通文本）
                     /// 这个方法，同时设置了普通文本和富文本，其实是走富文本的创建路线。富文本4要素：文字信息、文字颜色、段落、字体
@@ -169,8 +179,10 @@
                         if (subTitleFont) [data setObject:subTitleFont forKey:NSFontAttributeName];
                         [data setObject:self.jobsparagraphStyleByTextAlignment(subTextAlignment) forKey:NSParagraphStyleAttributeName];
                     })))
-                    .byContentInsets(contentInsets)                                    /// 内边距
-                    .byBaseBackgroundColor(baseBackgroundColor)                        /// 背景颜色
+                    .byContentInsets(contentInsets)
+                                    /// 内边距
+                    .byBaseBackgroundColor(baseBackgroundColor)
+                        /// 背景颜色
                     .byBackground(background);
             }) primaryAction:primaryAction];
             /// 按钮的点击事件
@@ -221,7 +233,7 @@
     return self.jobsBtnClickEventByBlock(subscribeNextBlock);
 }
 
--(JobsReturnRACDisposableByReturnIDByIDBlocks _Nonnull)jobsBtnClickEventByBlock{
+-(JobsRetRACDisposableByRetIDByIDBlocks _Nonnull)jobsBtnClickEventByBlock{
     @jobs_weakify(self)
     return ^RACDisposable *_Nonnull(JobsRetIDByIDBlock _Nullable block){
         @jobs_strongify(self)
@@ -439,7 +451,7 @@
 }
 #pragma mark —— 一些通用修改.Layer
 ///【合并】统一设置按钮Layer的线宽+颜色+圆切角
--(JobsReturnViewByLocationModelBlock _Nonnull)jobsResetBtnLayerBy{
+-(JobsRetViewByLocationModelBlock _Nonnull)jobsResetBtnLayerBy{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(__kindof JobsLocationModel *_Nullable data){
         @jobs_strongify(self)

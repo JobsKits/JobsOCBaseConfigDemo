@@ -13,7 +13,7 @@
 
 @implementation MyFansTBVCell
 #pragma mark —— UITableViewCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         MyFansTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(MyFansTBVCell);
         cell.offsetXForEach = 10;

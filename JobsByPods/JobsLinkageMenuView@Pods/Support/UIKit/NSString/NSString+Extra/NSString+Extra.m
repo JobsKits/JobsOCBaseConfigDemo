@@ -7,7 +7,7 @@
 
 #import "NSString+Extra.h"
 
-@implementation NSString (Extra)
+@implementation NSString (JobsLinkageMenuViewExtra)
 /// OC字符串拼接
 -(JobsRetStrByStrBlock _Nonnull)add{
     @jobs_weakify(self)

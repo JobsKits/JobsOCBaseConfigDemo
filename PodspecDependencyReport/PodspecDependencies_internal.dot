@@ -26,6 +26,7 @@ digraph PodspecDependencies {
   "JobsBitsMonitor";
   "JobsBlock";
   "JobsByOCPods";
+  "JobsCallBackBlockDSL";
   "JobsClass";
   "JobsClockView";
   "JobsCryptography";
@@ -245,6 +246,8 @@ digraph PodspecDependencies {
   "JobsByOCPods" -> "YTKNetworkExtra";
   "JobsByOCPods" -> "ZBNetworking";
   "JobsByOCPods" -> "ZFPlayerExtra";
+  "JobsCallBackBlockDSL" -> "JobsBlock";
+  "JobsCallBackBlockDSL" -> "JobsOCDefs";
   "JobsClass" -> "JobsBlock";
   "JobsClass" -> "JobsOCDefs";
   "JobsClockView" -> "JobsBlock";
@@ -424,6 +427,7 @@ digraph PodspecDependencies {
   "JobsOCDSL" -> "FSCalendar";
   "JobsOCDSL" -> "JobsBlock";
   "JobsOCDSL" -> "JobsMakes";
+  "JobsOCDSL" -> "JobsModelDSL";
   "JobsOCDSL" -> "JobsOCDefs";
   "JobsOCDSL" -> "JobsOCProtocols";
   "JobsOCDSL" -> "JobsOCRuntimeKits";

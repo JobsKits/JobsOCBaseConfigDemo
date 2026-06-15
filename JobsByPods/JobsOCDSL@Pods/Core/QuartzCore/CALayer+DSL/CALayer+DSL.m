@@ -136,7 +136,7 @@
     };
 }
 
--(JobsRetCALayerByCGColorRefBlock _Nonnull)byBgColor{
+-(JobsRetCALayerByCGCorRefBlock _Nonnull)byBgColor{
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(CGColorRef _Nullable data){
         @jobs_strongify(self)
@@ -145,7 +145,7 @@
     };
 }
 
--(JobsRetCALayerByUIColorBlock _Nonnull)byBgColorUIColor{
+-(JobsRetCALayerByCorBlock _Nonnull)byBgColorUIColor{
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
@@ -154,7 +154,7 @@
     };
 }
 
--(JobsRetCALayerByCGColorRefBlock _Nonnull)byBackgroundColor{
+-(JobsRetCALayerByCGCorRefBlock _Nonnull)byBackgroundColor{
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(CGColorRef _Nullable data){
         @jobs_strongify(self)
@@ -163,7 +163,7 @@
     };
 }
 
--(JobsRetCALayerByUIColorBlock _Nonnull)byBackgroundColorUIColor{
+-(JobsRetCALayerByCorBlock _Nonnull)byBackgroundColorUIColor{
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
@@ -417,7 +417,7 @@
     };
 }
 
--(JobsRetCALayerByCGColorRefBlock _Nonnull)byBorderColor{
+-(JobsRetCALayerByCGCorRefBlock _Nonnull)byBorderColor{
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(CGColorRef _Nullable data){
         @jobs_strongify(self)
@@ -426,7 +426,7 @@
     };
 }
 
--(JobsRetCALayerByUIColorBlock _Nonnull)byBorderColorUIColor{
+-(JobsRetCALayerByCorBlock _Nonnull)byBorderColorUIColor{
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
@@ -435,7 +435,7 @@
     };
 }
 
--(JobsRetCALayerByCGColorRefBlock _Nonnull)byShadowColor{
+-(JobsRetCALayerByCGCorRefBlock _Nonnull)byShadowColor{
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(CGColorRef _Nullable data){
         @jobs_strongify(self)
@@ -444,7 +444,7 @@
     };
 }
 
--(JobsRetCALayerByUIColorBlock _Nonnull)byShadowColorUIColor{
+-(JobsRetCALayerByCorBlock _Nonnull)byShadowColorUIColor{
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
@@ -650,7 +650,7 @@
     };
 }
 
--(JobsRetBOOLByCGPointBlock _Nonnull)byContainsPoint{
+-(JobsRetBOOLByPointBlock _Nonnull)byContainsPoint{
     @jobs_weakify(self)
     return ^BOOL(CGPoint data){
         @jobs_strongify(self)

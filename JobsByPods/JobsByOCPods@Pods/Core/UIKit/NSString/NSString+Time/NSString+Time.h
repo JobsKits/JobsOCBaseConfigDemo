@@ -51,7 +51,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSString (Time)
+@interface NSString (JobsByOCPodsTime)
 /// 当前时间戳较之当前时间是否已过期【过期返回YES】
 -(JobsRetBOOLByVoidBlock _Nonnull)isExpired;
 -(JobsRetStrByStrBlock _Nonnull)chinaTime;

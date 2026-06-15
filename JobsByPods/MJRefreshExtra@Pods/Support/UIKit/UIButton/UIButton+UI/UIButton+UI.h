@@ -192,7 +192,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCorByConfigTextAttributesTransformerBlock _Nonnull)getTitleColorByTransformer;
 /// RAC 点击事件2次封装
 -(RACDisposable *)jobsBtnClickEventBlock:(JobsRetIDByIDBlock _Nullable)subscribeNextBlock;
--(JobsReturnRACDisposableByReturnIDByIDBlocks _Nonnull)jobsBtnClickEventByBlock;
+-(JobsRetRACDisposableByRetIDByIDBlocks _Nonnull)jobsBtnClickEventByBlock;
 /// 设置按钮的长按手势
 -(void)jobsBtnLongPressGestureEventBlock:(JobsRetIDByIDBlock _Nullable)longPressGestureEventBlock;
 -(jobsByRetIDByIDBlocks _Nonnull)jobsBtnLongPressGestureEventByBlock;
@@ -236,7 +236,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByCorBlock _Nonnull)jobsResetBtnBgCor;
 #pragma mark —— 一些通用修改.Layer
 ///【合并】统一设置按钮Layer的线宽+颜色+圆切角
--(JobsReturnViewByLocationModelBlock _Nonnull)jobsResetBtnLayerBy;
+-(JobsRetViewByLocationModelBlock _Nonnull)jobsResetBtnLayerBy;
 ///【兼容】重设Btn的圆切角
 -(JobsRetBtnByCGFloatBlock _Nonnull)jobsResetBtnCornerRadiusValue;
 ///【兼容】重设Btn的描边线段的颜色

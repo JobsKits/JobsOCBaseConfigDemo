@@ -67,7 +67,7 @@ Prop_assign()CGFloat jobsVisible;
 
 +(JobsRetViewByFrameBlock _Nonnull)initByFrame;
 /// 描边：统一设置Layer的线宽+颜色+圆切角（不一定切角）
--(JobsReturnViewByLocationModelBlock _Nonnull)layerBy;
+-(JobsRetViewByLocationModelBlock _Nonnull)layerBy;
 /// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
 -(JobsRetViewByCorBlock _Nonnull)layerByBorderCor;
 /// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
@@ -80,7 +80,7 @@ Prop_assign()CGFloat jobsVisible;
                                      cornerRadii:(CGSize)cornerRadii;
 
 -(JobsRetViewByGestureRecognizer _Nonnull)addGesture;
--(JobsReturnGestureByGesture _Nonnull)addGestureRecognizer;
+-(JobsRetGestureByGesture _Nonnull)addGestureRecognizer;
 -(JobsRetViewByCGFloatBlock _Nonnull)byVisible;
 /// iOS 阴影效果 添加了shadowPath后消除了离屏渲染问题 。特别提示：不能存在 -(void)drawRect:(CGRect)rect 或者在-(void)drawRect:(CGRect)rect里面写，否则无效
 /// @param targetShadowview 需要作用阴影效果的View
@@ -105,9 +105,9 @@ Prop_assign()CGFloat jobsVisible;
           layerShadowRadius:(CGFloat)layerShadowRadius;
 #pragma mark —— UILabel
 /// 确定Label的字体大小，使其宽度自适应
--(jobsByVoidBlock _Nonnull)bySizeToFit;
+-(JobsRetViewByVoidBlock _Nonnull)bySizeToFit;
 /// 确定Label的宽度，使字体大小自适应
--(jobsByVoidBlock _Nonnull)labelAutoFontByWidth;
+-(JobsRetViewByVoidBlock _Nonnull)labelAutoFontByWidth;
 
 @end
 

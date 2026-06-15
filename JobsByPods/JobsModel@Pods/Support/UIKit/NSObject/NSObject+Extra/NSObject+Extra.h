@@ -24,7 +24,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSObject (Extra)
+@interface NSObject (JobsModelExtra)
 /// 获取本地普通图像
 Prop_strong(readonly,nullable)UIImage *img; // -(nullable UIImage *)img;
 

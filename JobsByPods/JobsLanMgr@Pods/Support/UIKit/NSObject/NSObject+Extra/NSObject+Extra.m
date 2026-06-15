@@ -7,7 +7,7 @@
 
 #import "NSObject+Extra.h"
 
-@implementation NSObject (Extra)
+@implementation NSObject (JobsLanMgrExtra)
 /// App 国际化相关系统宏二次封装 + 设置缺省值
 +(NSString *_Nullable)localStringWithKey:(nonnull NSString *)key{
     return NSLocalizedString(key, nil);

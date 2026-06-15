@@ -71,16 +71,16 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.left.equalTo(self).offset(JobsWidth(0));
+                make.top.bottom.equalTo(self);
             });
         /// 很重要，自定义设置UIBotton.imageView
         _userInfoBtn.imageViewFrame = CGRectMake(JobsWidth(15), 0, JobsWidth(45), JobsWidth(45));
         _userInfoBtn.textLabelFrameOffsetX = JobsWidth(0);
         _userInfoBtn.subTextLabelFrameOffsetX = JobsWidth(0);
-        
-        _userInfoBtn.byAddTo(self, ^(MASConstraintMaker *make) {
-            make.left.equalTo(self).offset(JobsWidth(0));
-            make.top.bottom.equalTo(self);
-        });
 
     }
     
@@ -103,13 +103,17 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
         self->_userInfoBtn.jobsResetBtnImage(@"动态头像 尺寸126".gif_img ? : @"头像01".img);
     }
     
-    _userInfoBtn.jobsResetAttributedTitle([NSMutableAttributedString.alloc initWithString:self.firstCommentModel.nickname
-                                                                               attributes:@{NSFontAttributeName: JobsCommentConfig.sharedManager.titleFont,
-                                                                             NSForegroundColorAttributeName: JobsCommentConfig.sharedManager.titleCor}]);
-    _userInfoBtn.jobsResetAttributedSubtitle([NSMutableAttributedString.alloc initWithString:self.firstCommentModel.content
-                                                                                  attributes:@{NSFontAttributeName: JobsCommentConfig.sharedManager.subTitleFont,
-                                                                                NSForegroundColorAttributeName: JobsCommentConfig.sharedManager.subTitleCor}]);
-    _userInfoBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
+    _userInfoBtn
+        .jobsUpdateButtonConfigurationBy(^(UIButtonConfiguration *config) {
+            config
+                .byAttributedTitle([NSMutableAttributedString.alloc initWithString:self.firstCommentModel.nickname
+                                                                        attributes:@{NSFontAttributeName: JobsCommentConfig.sharedManager.titleFont,
+                                                                  NSForegroundColorAttributeName: JobsCommentConfig.sharedManager.titleCor}])
+                .byAttributedSubtitle([NSMutableAttributedString.alloc initWithString:self.firstCommentModel.content
+                                                                           attributes:@{NSFontAttributeName: JobsCommentConfig.sharedManager.subTitleFont,
+                                                                     NSForegroundColorAttributeName: JobsCommentConfig.sharedManager.subTitleCor}]);
+        })
+        .makeBtnTitleByShowingType(UILabelShowingType_03);
     return _userInfoBtn;
 }
 
@@ -139,16 +143,17 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(JobsWidth(55 / 2));
+                make.right.equalTo(self).offset(-JobsWidth(13));
+                make.centerY.equalTo(self);
             });
         _likeBtn.thumpNum = 0;
-        _likeBtn.byAddTo(self, ^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(JobsWidth(55 / 2));
-            make.right.equalTo(self).offset(-JobsWidth(13));
-            make.centerY.equalTo(self);
-        });
 
     }
-    _likeBtn.selected = self.firstCommentModel.isPraise;
+    _likeBtn.bySelected(self.firstCommentModel.isPraise);
     _likeBtn.thumpNum = self.firstCommentModel.praiseNum;
     _likeBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
     return _likeBtn;

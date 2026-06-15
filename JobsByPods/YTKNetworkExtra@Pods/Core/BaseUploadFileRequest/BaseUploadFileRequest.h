@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BaseUploadFileRequest : BaseRequest
 
--(JobsReturnRequestByFileModelBlock _Nonnull)initBy;
+-(JobsRetRequestByFileModelBlock _Nonnull)initBy;
 
 @end
 

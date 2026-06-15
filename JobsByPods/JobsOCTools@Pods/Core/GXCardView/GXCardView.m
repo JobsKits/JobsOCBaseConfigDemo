@@ -249,11 +249,13 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
 
 - (UIView *)containerView {
     if (!_containerView) {
-        _containerView = [[UIView alloc] initWithFrame:self.bounds];
-        _containerView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        [self addSubview:_containerView];
-    }
-    return _containerView;
+        _containerView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(self.bounds)
+                .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
+                .addOn(self);
+        });
+    };return _containerView;
 }
 
 - (void)reloadData {
@@ -560,4 +562,3 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
 }
 
 @end
-

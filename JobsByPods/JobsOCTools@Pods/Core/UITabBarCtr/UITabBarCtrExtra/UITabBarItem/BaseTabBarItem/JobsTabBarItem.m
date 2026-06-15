@@ -15,7 +15,7 @@ Prop_strong()JobsTabBarItemConfig *tabBarControllerConfig;
 
 @implementation JobsTabBarItem
 
-+(JobsReturnTabBarItemByConfigBlock _Nonnull)initByConfig{
++(JobsRetTabBarItemByConfigBlock _Nonnull)initByConfig{
     return ^__kindof UITabBarItem *_Nullable(__kindof JobsTabBarItemConfig *_Nullable data){
         return [self.class.alloc initWithConfig:data];
     };

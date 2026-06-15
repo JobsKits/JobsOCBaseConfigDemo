@@ -7,7 +7,7 @@
 
 #import "NSObject+Extra.h"
 
-@implementation NSObject (Extra)
+@implementation NSObject (JobsModelExtra)
 /// 获取本地普通图像
 -(nullable UIImage *)img{
     if([self isKindOfClass:NSString.class]){

@@ -177,6 +177,8 @@ Prop(readonly)CGPoint boundCenter;
 -(JobsRetViewByBOOLBlock _Nonnull)byMultipleTouchEnabled;
 -(JobsRetViewByBOOLBlock _Nonnull)byExclusiveTouch;
 #pragma mark —— Rendering
+/// 回调当前 UIView，便于父层 DSL 之后继续做当前 view 相关操作
+-(JobsRetViewByJobsByViewBlock _Nonnull)byViewBlock;
 /// 回调当前 UIView 的 layer，便于继续使用 CALayer+DSL 进行链式配置
 -(JobsRetViewByLayerBlock _Nonnull)byLayer;
 /// 圆切角参数：通常作用于 -layoutSubviews
@@ -192,6 +194,7 @@ Prop_assign()CGSize layoutSubviewsRectCornerSize;
 -(JobsRetViewByBOOLBlock _Nonnull)byOpaque;
 -(JobsRetViewByBOOLBlock _Nonnull)byClearsContextBeforeDrawing;
 -(JobsRetViewByBOOLBlock _Nonnull)byHidden;
+-(JobsRetViewByCGFloatBlock _Nonnull)byJobsVisible;
 -(JobsRetViewByNSIntegerBlock _Nonnull)byContentMode;
 -(JobsRetViewByViewBlock _Nonnull)byMaskView;
 -(JobsRetViewByCorBlock _Nonnull)byTintColor;

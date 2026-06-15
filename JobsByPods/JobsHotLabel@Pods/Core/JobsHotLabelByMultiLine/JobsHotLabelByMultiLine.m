@@ -92,10 +92,13 @@ static dispatch_once_t static_hotLabelWithMultiLineOnceToken;
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
                                    cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     JobsHotLabelByMultiLineCVCell *cell = (JobsHotLabelByMultiLineCVCell *)self.cvcellMutArr[indexPath.item];
-    cell.jobsRichElementsCollectionViewCellBy(self.dataModel.viewModels[indexPath.item]);
     CGSize itemSize = jobsZeroSizeValue(self.dataModel.cellSize) ? JobsHotLabelByMultiLineCVCell.cellSizeByModel(self.dataModel.viewModels[indexPath.item]) : self.dataModel.cellSize;
-    cell.cornerCutToCircleWithCornerRadius(itemSize.height / 2);
-    cell.contentView.cornerCutToCircleWithCornerRadius(itemSize.height / 2);
+    cell
+        .jobsRichElementsCollectionViewCellBy(self.dataModel.viewModels[indexPath.item])
+        .byContentView(^(__kindof UIView * _Nullable view) {
+            view.cornerCutToCircleWithCornerRadius(itemSize.height / 2);
+        })
+        .cornerCutToCircleWithCornerRadius(itemSize.height / 2);
     if (indexPath.section == 0 && indexPath.row == 0) {
         cell.textLab.byTextCor(HEXCOLOR(0xAE8330));
 

@@ -46,8 +46,8 @@ JobsOCDefs provides shared macros, constants and base definitions.
     # Dynamic Support dependencies
     JobsPodspecKitForJobsOCDefs.add_dynamic_support_dependencies(ss, spec, support_context)
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
+    ss.source_files        = ['JobsDefines.h', 'Core/**/*.{h,m,mm}']
+    ss.public_header_files = ['JobsDefines.h', 'Core/**/*.h']
     ss.resources           = 'Core/**/*.{png,jpg,jpeg,gif,webp,xcassets,bundle,json,plist}'
     ss.dependency 'JobsOCDefs/Support/UIKit'
   end

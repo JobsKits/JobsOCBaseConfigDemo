@@ -49,81 +49,72 @@ Prop_strong()UILabel *viewDetailLabel;
 
 - (void)setupViews {
     self.taskTitleLabel = ({
-        UILabel *label = [UILabel new];
-        label.byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:14]);
-
-        label.lineBreakMode = NSLineBreakByWordWrapping;
-        label.byTextCor(TitleColor);
-
-        [self addSubview:label];
-        label;
+        jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:14])
+                .byLineBreakMode(NSLineBreakByWordWrapping)
+                .byTextCor(TitleColor)
+                .addOn(self);
+        });
     });
                            
     self.startTimeTitleLabel = ({
-        UILabel *label = [UILabel new];
-        label.byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:10]);
-
-        label.byText(@"Start time:");
-
-        label.byTextCor(TitleColor);
-
-        [self addSubview:label];
-        label;
+        jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:10])
+                .byText(@"Start time:")
+                .byTextCor(TitleColor)
+                .addOn(self);
+        });
     });
     
     self.startTimeLabel = ({
-        UILabel *label = [UILabel new];
-        label.byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:10]);
-
-        label.lineBreakMode = NSLineBreakByWordWrapping;
-        label.byTextCor(ValueColor);
-
-        [self addSubview:label];
-        label;
+        jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:10])
+                .byLineBreakMode(NSLineBreakByWordWrapping)
+                .byTextCor(ValueColor)
+                .addOn(self);
+        });
     });
     
     self.endTimeTitleLabel = ({
-        UILabel *label = [UILabel new];
-        label.byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:10]);
-
-        label.byText(@"End time:");
-
-        label.byTextCor(TitleColor);
-
-        [self addSubview:label];
-        label;
+        jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:10])
+                .byText(@"End time:")
+                .byTextCor(TitleColor)
+                .addOn(self);
+        });
     });
     
     self.endTimeLabel = ({
-        UILabel *label = [UILabel new];
-        label.byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:10]);
-
-        label.lineBreakMode = NSLineBreakByWordWrapping;
-        label.byTextCor(ValueColor);
-
-        [self addSubview:label];
-        label;
+        jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:10])
+                .byLineBreakMode(NSLineBreakByWordWrapping)
+                .byTextCor(ValueColor)
+                .addOn(self);
+        });
     });
     
     self.separatorLine = ({
-        UIView *line = [UIView new];
-        line.byBgColor(LineColor);
-
-        [self addSubview:line];
-        line;
+        jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(LineColor)
+                .addOn(self);
+        });
     });
     
     self.viewDetailLabel = ({
-        UILabel *label = [UILabel new];
-        label.byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:12]);
-
-        label.lineBreakMode = NSLineBreakByWordWrapping;
-        label.byText(@"View the detail");
-
-        label.byTextCor(ValueColor);
-
-        [self addSubview:label];
-        label;
+        jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:12])
+                .byLineBreakMode(NSLineBreakByWordWrapping)
+                .byText(@"View the detail")
+                .byTextCor(ValueColor)
+                .addOn(self);
+        });
     });
 }
 

@@ -48,7 +48,8 @@
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byFont(UIFontWeightBoldSize(JobsWidth(14)))
+            label
+                .byFont(UIFontWeightBoldSize(JobsWidth(14)))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(2)
                 .byFrame(self.bounds)

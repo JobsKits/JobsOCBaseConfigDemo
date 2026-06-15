@@ -62,7 +62,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSString (Extra)
+@interface NSString (JobsByOCPodsExtra)
 
 -(UIColor *)cor;
 /// 图片URL路径补齐
@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 复制到系统剪切板
 -(JobsRetStrByVoidBlock _Nonnull)pasteboard;
 /// 完整的文件名提取普通文件名和文件后缀名
-- (JobsRetFileNameModelByFileFullNameStringBlock _Nonnull)byFileFullName;
+- (JobsRetFileNameModelByStrBlock _Nonnull)byFileFullName;
 
 @end
 

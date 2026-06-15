@@ -11,7 +11,11 @@
 #define JobsImageView_h
 
 #import <JobsByOCPods/UIImageView+GIF.h>
+#if __has_include(<JobsOCDSL/UIImageView+SDWebImage.h>)
+#import <JobsOCDSL/UIImageView+SDWebImage.h>
+#else
 #import <JobsByOCPods/UIImageView+SDWebImage.h>
+#endif
 #import <JobsByOCPods/UIImageView+Extra.h>
 #import <JobsByOCPods/UIImageView+RAC.h>
 

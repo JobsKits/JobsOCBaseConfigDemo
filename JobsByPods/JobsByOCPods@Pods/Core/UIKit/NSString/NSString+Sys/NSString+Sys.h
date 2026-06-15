@@ -25,7 +25,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSString (Sys)
+@interface NSString (JobsByOCPodsSys)
 
 -(UIColor *)cor;
 -(UIColor *)namedCor;

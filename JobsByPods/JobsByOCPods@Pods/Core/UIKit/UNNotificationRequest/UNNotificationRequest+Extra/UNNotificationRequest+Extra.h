@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UNNotificationRequest (Extra)
 
-+(JobsReturnUNNotificationRequestByModelBlock)initBy;
++(JobsRetUNNotificationRequestByModelBlock)initBy;
 -(jobsByErrBlocks _Nonnull)notificationRequestCompletionHandlerBy;
 
 @end

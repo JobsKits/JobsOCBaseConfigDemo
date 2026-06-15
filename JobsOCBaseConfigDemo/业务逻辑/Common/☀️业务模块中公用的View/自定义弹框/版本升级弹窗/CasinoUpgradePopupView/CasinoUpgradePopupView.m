@@ -76,7 +76,7 @@ Prop_strong()CasinoUpgradeContentView *upgradeContentView;
             @jobs_strongify(self)
             if (self.objBlock) self.objBlock(data);
         }];
-        _upgradeContentView.byAddTo(self, ^(MASConstraintMaker *make) {
+        _upgradeContentView.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CasinoUpgradeContentView.viewSizeByModel(nil));
             make.top.equalTo(self.imageView.mas_bottom);
             make.centerX.equalTo(self);

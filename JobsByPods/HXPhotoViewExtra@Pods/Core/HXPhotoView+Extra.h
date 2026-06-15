@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HXPhotoView (Extra)
 
-+(JobsReturnHXPhotoViewByPhotoManagerBlock _Nonnull)initBy;
++(JobsRetHXPhotoViewByPhotoMgrBlock _Nonnull)initBy;
 
 @end
 

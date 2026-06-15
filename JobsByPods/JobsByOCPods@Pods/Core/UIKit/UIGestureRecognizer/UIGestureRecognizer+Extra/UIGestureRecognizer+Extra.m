@@ -7,7 +7,7 @@
 
 #import "UIGestureRecognizer+Extra.h"
 
-@implementation UIGestureRecognizer (Extra)
+@implementation UIGestureRecognizer (JobsByOCPodsExtra)
 
 -(__kindof UIGestureRecognizer *)gestureActionBy:(jobsByVoidBlock _Nonnull)block{
     [self.rac_gestureSignal subscribeNext:^(__kindof UIGestureRecognizer * _Nullable gesture) {

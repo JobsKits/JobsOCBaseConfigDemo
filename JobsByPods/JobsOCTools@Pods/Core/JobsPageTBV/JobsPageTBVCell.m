@@ -15,15 +15,18 @@ Prop_strong()UILabel *textLab;
 
 @implementation JobsPageTBVCell
 #pragma mark —— UITableViewCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsPageTBVCell *cell = (JobsPageTBVCell *)tableView.tableViewCellClass(JobsPageTBVCell.class,@"");
         if (!cell) {
             cell = JobsPageTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
     //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.byBgColor(cell.contentView.backgroundColor = JobsClearColor);
-
+            cell
+                .bySelectionStyle(UITableViewCellSelectionStyleNone)
+                .byContentView(^(__kindof UIView * _Nullable view) {
+                    view.byBgColor(JobsClearColor);
+                })
+                .byBgColor(JobsClearColor);
         };return cell;
     };
 }

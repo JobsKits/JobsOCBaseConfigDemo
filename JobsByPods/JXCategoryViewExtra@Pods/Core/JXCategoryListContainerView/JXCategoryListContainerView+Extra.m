@@ -9,7 +9,7 @@
 
 @implementation JXCategoryListContainerView (Extra)
 
--(JobsReturnCategoryListContainerViewByNSIntegerBlock _Nonnull)byDefaultSelectedIndex{
+-(JobsRetCategoryListContainerViewByNSIntegerBlock _Nonnull)byDefaultSelectedIndex{
     @jobs_weakify(self)
     return ^__kindof JXCategoryListContainerView *_Nullable(NSInteger data){
         @jobs_strongify(self)

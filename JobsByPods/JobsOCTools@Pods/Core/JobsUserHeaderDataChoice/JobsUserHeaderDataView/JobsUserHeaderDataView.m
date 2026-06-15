@@ -139,7 +139,7 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
     });
 }
 
-+(JobsReturnViewModelByStringBlock _Nonnull)makeViewModelBy{
++(JobsRetViewModelByStringBlock _Nonnull)makeViewModelBy{
     return ^ __kindof UIViewModel *_Nullable(NSString *_Nullable data){
         return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
             viewModel.textModel.byText(data)
@@ -154,7 +154,7 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
     //    self.viewModel.usesTableViewHeaderView = YES;// 这个属性在外面设置
         MakeDataNull
         self.tableView.byShow(self);
@@ -163,7 +163,7 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 +(JobsRetCGSizeByIDBlock _Nonnull)viewSizeByModel{
     return ^CGSize(UIViewModel *_Nullable data){
-        data = data ? : UIViewModel.new;
+        data = data ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
     //    model.usesTableViewHeaderView = YES;// 这个属性在外面设置
         return CGSizeMake(JobsMainScreen_WIDTH(),
                           (data.usesTableViewHeaderView ? JobsUserHeaderDataViewForHeaderInSection.viewHeightByModel(nil) : 0 ) +
@@ -194,11 +194,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return JobsUserHeaderDataViewTBVCell.cellStyleValue2WithTableView(tableView)
+    return JobsUserHeaderDataViewTBVCell.cellStyleValue2ByTableView(tableView)
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
-            .JobsBlock1(^(id _Nullable data) {
+            .JobsBlock1(^(id _Nullable data) {;
              
             });
 }
@@ -227,7 +227,7 @@ viewForHeaderInSection:(NSInteger)section{
             .byStyle(JobsHeaderViewStyle)/// 悬浮开关
             .bySection(section)/// 悬浮配置
             .JobsRichViewByModel2(nil)
-            .JobsBlock1(^(id _Nullable data) {
+            .JobsBlock1(^(id _Nullable data) {;
                 
             });
     };return nil;
@@ -248,7 +248,8 @@ viewForHeaderInSection:(NSInteger)section{
                     /// TODO
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .byTableFooterView(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
-                    label.byText(@"- 没有更多的内容了 -".tr)
+                    label
+                        .byText(@"- 没有更多的内容了 -".tr)
                         .byFont(UIFontWeightRegularSize(12))
                         .byTextAlignment(NSTextAlignmentCenter)
                         .byTextCor(HEXCOLOR(0xB0B0B0))

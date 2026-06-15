@@ -36,12 +36,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JXCategoryTitleView (Extra)
 
--(JobsReturnCategoryTitleViewByCorBlock _Nonnull)byTitleSelectedColor;
--(JobsReturnCategoryTitleViewByCorBlock _Nonnull)byTitleColor;
--(JobsReturnCategoryTitleViewByFontBlock _Nonnull)byTitleFont;
--(JobsReturnCategoryTitleViewByFontBlock _Nonnull)byTitleSelectedFont;
--(JobsReturnCategoryTitleViewByStringsBlock _Nonnull)byTitles;
--(JobsReturnCategoryTitleViewByBOOLBlock _Nonnull)byTitleColorGradientEnabled;
+-(JobsRetCategoryTitleViewByCorBlock _Nonnull)byTitleSelectedColor;
+-(JobsRetCategoryTitleViewByCorBlock _Nonnull)byTitleColor;
+-(JobsRetCategoryTitleViewByFontBlock _Nonnull)byTitleFont;
+-(JobsRetCategoryTitleViewByFontBlock _Nonnull)byTitleSelectedFont;
+-(JobsRetCategoryTitleViewByStringsBlock _Nonnull)byTitles;
+-(JobsRetCategoryTitleViewByBOOLBlock _Nonnull)byTitleColorGradientEnabled;
 
 @end
 

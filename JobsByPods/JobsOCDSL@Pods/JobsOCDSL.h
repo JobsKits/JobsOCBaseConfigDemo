@@ -69,6 +69,11 @@
 #import "FSCalendar+DSL.h"
 #endif
 
+#if __has_include(<SDWebImage/SDWebImage.h>)
+#import "UIButton+SDWebImage.h"
+#import "UIImageView+SDWebImage.h"
+#endif
+
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import "ReactiveObjC+DSL.h"
 #endif

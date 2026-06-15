@@ -9,7 +9,7 @@
 
 @implementation JXCategoryImageView (Extra)
 
--(JobsReturnCategoryImageViewByStringsBlock _Nonnull)byImageNames{
+-(JobsRetCategoryImageViewByStringsBlock _Nonnull)byImageNames{
     @jobs_weakify(self)
     return ^__kindof JXCategoryImageView *_Nullable(__kindof NSArray <__kindof NSString *>* _Nullable strings){
         @jobs_strongify(self)
@@ -18,7 +18,7 @@
     };
 }
 
--(JobsReturnCategoryImageViewByStringsBlock _Nonnull)bySelectedImageNames{
+-(JobsRetCategoryImageViewByStringsBlock _Nonnull)bySelectedImageNames{
     @jobs_weakify(self)
     return ^__kindof JXCategoryImageView *_Nullable(__kindof NSArray <__kindof NSString *>* _Nullable strings){
         @jobs_strongify(self)
@@ -27,7 +27,7 @@
     };
 }
 
--(JobsReturnCategoryImageViewByStringsBlock _Nonnull)byImageInfoArray{
+-(JobsRetCategoryImageViewByStringsBlock _Nonnull)byImageInfoArray{
     @jobs_weakify(self)
     return ^__kindof JXCategoryImageView *_Nullable(__kindof NSArray <__kindof NSString *>* _Nullable strings){
         @jobs_strongify(self)
@@ -36,7 +36,7 @@
     };
 }
 
--(JobsReturnCategoryImageViewByStringsBlock _Nonnull)bySelectedImageInfoArray{
+-(JobsRetCategoryImageViewByStringsBlock _Nonnull)bySelectedImageInfoArray{
     @jobs_weakify(self)
     return ^__kindof JXCategoryImageView *_Nullable(__kindof NSArray <__kindof NSString *>* _Nullable strings){
         @jobs_strongify(self)
@@ -45,7 +45,7 @@
     };
 }
 
--(JobsReturnCategoryImageViewBySizeBlock _Nonnull)byImageSize{
+-(JobsRetCategoryImageViewBySizeBlock _Nonnull)byImageSize{
     @jobs_weakify(self)
     return ^__kindof JXCategoryImageView *_Nullable(CGSize size){
         @jobs_strongify(self)
@@ -54,7 +54,7 @@
     };
 }
 
--(JobsReturnCategoryImageViewByCGFloatBlock _Nonnull)byImageCornerRadius{
+-(JobsRetCategoryImageViewByCGFloatBlock _Nonnull)byImageCornerRadius{
     @jobs_weakify(self)
     return ^__kindof JXCategoryImageView *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -63,7 +63,7 @@
     };
 }
 
--(JobsReturnCategoryImageViewByBOOLBlock _Nonnull)byImageZoomEnabled{
+-(JobsRetCategoryImageViewByBOOLBlock _Nonnull)byImageZoomEnabled{
     @jobs_weakify(self)
     return ^__kindof JXCategoryImageView *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -72,7 +72,7 @@
     };
 }
 
--(JobsReturnCategoryImageViewByNSIntegerBlock _Nonnull)byImageZoomScale{
+-(JobsRetCategoryImageViewByNSIntegerBlock _Nonnull)byImageZoomScale{
     @jobs_weakify(self)
     return ^__kindof JXCategoryImageView *_Nullable(NSInteger data){
         @jobs_strongify(self)

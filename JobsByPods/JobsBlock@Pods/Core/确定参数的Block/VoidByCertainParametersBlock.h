@@ -43,7 +43,7 @@ typedef void(^WKNavigationDelegateBlock2)(WKNavigationActionPolicy policy);
 typedef void(^jobsByJSValueBlock)(JSValue *_Nullable value);
 #pragma mark —— 关于View
 typedef void(^jobsByViewBlock)(__kindof UIView *_Nullable view);
-typedef void(^jobsByPageControlBlock)(UIPageControl *_Nullable pageControl);
+typedef void(^jobsByPageControlBlock)(__kindof UIPageControl *_Nullable pageControl);
 typedef void(^jobsByScrollViewBlock)(__kindof UIScrollView *_Nullable scrollView);
 typedef void(^jobsByBtnBlock)(__kindof UIButton *_Nullable btn);
 typedef void(^jobsByWindowBlock)(__kindof UIWindow *_Nullable window);
@@ -68,6 +68,15 @@ typedef void(^jobsByImageViewBlock)(__kindof UIImageView *_Nullable imageView);
 typedef void(^jobsByStackViewBlock)(__kindof UIStackView *_Nullable stackView);
 typedef void(^jobsByCAEmitterCellBlock)(__kindof CAEmitterCell *_Nullable cell);
 typedef void(^jobsByCAEmitterLayerBlock)(__kindof CAEmitterLayer *_Nullable layer);
+typedef void(^jobsByButtonConfigurationBlock)(__kindof UIButtonConfiguration *_Nullable config);
+/// 按钮配置
+typedef void(^jobsByBtnConfigBlock)(__kindof UIButtonConfiguration * _Nullable config) API_AVAILABLE(ios(15.0), tvos(15.0)) API_UNAVAILABLE(watchos);
+typedef void(^jobsByBackgroundConfigBlock)(__kindof UIBackgroundConfiguration * _Nullable config) API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos);
+/// UICollectionView配置
+typedef void(^jobsByCollectionViewFlowLayoutBlock)(__kindof UICollectionViewFlowLayout *_Nullable layout);
+typedef void(^jobsCollectionViewDidSelectItemAtBlock)(Jobs_CollectionView_Target_CollectionView_IndexPath_Arguments);
+/// UITableView配置
+typedef void(^jobsTableViewDidSelectRowAtBlock)(Jobs_TableView_Target_TableView_IndexPath_Arguments);
 /// 多参数
 typedef void(^jobsByViewAndAnimatedBlock)(Jobs_ReturnViewNavigatorByViewAndAnimatedBlock_Arguments);
 typedef void(^jobsByViewAndDataBlock)(Jobs_ByViewAndDataBlock_Arguments);
@@ -85,29 +94,23 @@ typedef void(^jobsByMutableSetBlock)(__kindof NSMutableSet <NSObject *>*_Nullabl
 typedef void(^jobsByDicBlock)(__kindof NSDictionary *_Nullable dic);
 typedef void(^jobsByMutableDictBlock)(__kindof NSMutableDictionary *_Nullable dic);
 #pragma mark —— 关于（富）文本
+typedef void(^jobsByTextAlignmentBlock)(NSTextAlignment alignment);
 typedef void(^jobsByStrBlock)(__kindof NSString *_Nullable string);
 typedef void(^jobsByAttributedStrBlock)(__kindof NSAttributedString *_Nullable aString);
 typedef void(^jobsByMutableParagraphStyleBlock)(NSMutableParagraphStyle *_Nullable style);
 typedef void(^jobsByTextAttachmentBlock)(NSTextAttachment *_Nullable attachment);
-typedef void(^jobsByTextAlignmentBlock)(NSTextAlignment alignment);
 #pragma mark —— 关于UI表现力
 typedef void(^jobsByLayoutAttributeBlock)(NSLayoutAttribute data);
 typedef void(^jobsByImageBlock)(UIImage *_Nullable image);
 typedef void(^jobsByCorBlock)(UIColor *_Nullable cor);
 typedef void(^jobsByFontBlock)(UIFont *_Nullable font);
-#pragma mark —— 关于UI配置
-/// 按钮配置
-typedef void(^jobsByBtnConfigBlock)(__kindof UIButtonConfiguration * _Nullable config) API_AVAILABLE(ios(15.0), tvos(15.0)) API_UNAVAILABLE(watchos);
-typedef void(^jobsByBackgroundConfigBlock)(__kindof UIBackgroundConfiguration * _Nullable config) API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos);
-/// UICollectionView配置
-typedef void(^jobsByCollectionViewFlowLayoutBlock)(__kindof UICollectionViewFlowLayout *_Nullable layout);
 #pragma mark —— URL
 typedef void(^jobsByURLBlock)(NSURL *_Nullable url);
 typedef void(^jobsByURLRequestBlock)(__kindof NSURLRequest *_Nullable request);
-typedef __kindof NSMutableURLRequest *_Nullable(^JobsReturnMutableURLRequestByURLRequestBlock)(__kindof NSURLRequest *_Nullable request);
+typedef __kindof NSMutableURLRequest *_Nullable(^JobsRetMutableURLRequestByURLRequestBlock)(__kindof NSURLRequest *_Nullable request);
 typedef void(^jobsByMutableURLRequestBlock)(__kindof NSMutableURLRequest *_Nullable request);
 typedef void(^jobsByURLSessionTaskBlock)(__kindof NSURLSessionTask *_Nullable SessionTask);
-typedef __kindof NSMutableURLRequest *_Nullable(^JobsReturnURLRequestByURLSessionTaskBlock)(__kindof NSURLSessionTask *_Nullable SessionTask);
+typedef __kindof NSMutableURLRequest *_Nullable(^JobsRetURLRequestByURLSessionTaskBlock)(__kindof NSURLSessionTask *_Nullable SessionTask);
 #pragma mark —— 关于 UIViewController
 typedef void(^jobsByVCAndDataBlock)(Jobs_ByVCAndDataBlock_Arguments);
 #pragma mark —— 关于手势
@@ -126,10 +129,6 @@ typedef void(^jobsBySizeBlock)(CGSize size);
 typedef void(^jobsByEdgeInsetBlock)(UIEdgeInsets insets);
 typedef void(^jobsByIndexPathBlock)(NSIndexPath *_Nullable indexPath);
 #pragma mark —— 关于数据类型
-typedef void(^jobsByNSIntegerBlock)(NSInteger data);
-typedef void(^jobsByNSUIntegerBlock)(NSUInteger data);
-typedef void(^jobsByUInt64_tBlock)(uint64_t data);
-typedef void(^jobsByCGFloatBlock)(CGFloat data);
 typedef void(^jobsByBOOLBlock)(BOOL data);
 typedef void(^jobsByIntBlock)(int data);
 typedef void(^jobsByUnsignedIntBlock)(unsigned int data);
@@ -142,6 +141,10 @@ typedef void(^jobsByUnsignedShortBlock)(unsigned short data);
 typedef void(^jobsByLongBlock)(long data);
 typedef void(^jobsByUnsignedLongBlock)(unsigned long data);
 typedef void(^jobsByUnsignedLongLongBlock)(unsigned long long data);
+typedef void(^jobsByNSIntegerBlock)(NSInteger data);
+typedef void(^jobsByNSUIntegerBlock)(NSUInteger data);
+typedef void(^jobsByUInt64_tBlock)(uint64_t data);
+typedef void(^jobsByCGFloatBlock)(CGFloat data);
 typedef void(^jobsByUNNotificationPresentationOptionsBlock)(UNNotificationPresentationOptions options);
 #pragma mark —— 关于时间
 typedef void(^jobsByTimeIntervalBlock)(NSTimeInterval data);
@@ -152,10 +155,10 @@ typedef void(^jobsByDateFormatterBlock)(__kindof NSDateFormatter *_Nullable date
 typedef void(^jobsByNotificationResponseBlock)(UNNotificationResponse *_Nullable response);
 #pragma mark —— 关于Texture
 typedef void(^jobsByButtonNodeBlock)(__kindof ASButtonNode *_Nullable node);
-typedef void(^jobsByButtonNodeLongPressBlock)(__kindof ASButtonNode *_Nullable node, UILongPressGestureRecognizer *_Nullable gr);
+typedef void(^jobsByButtonNodeLongPressBlock)(Jobs_ButtonNode_LongPress_Arguments);
 typedef void(^jobsByDrawingNodeBlock)(__kindof TDDrawingNode *_Nullable node);
 typedef void(^jobsByEditableTextNodeBlock)(__kindof ASEditableTextNode *_Nullable node);
-typedef void(^JobsEditableTextEventBlock)(__kindof ASEditableTextNode * _Nullable node, UITextView *_Nullable tv);
+typedef void(^JobsEditableTextEventBlock)(Jobs_EditableTextEvent_Arguments);
 typedef void(^jobsByCollectionNodeBlock)(__kindof ASCollectionNode *_Nullable node);
 typedef void(^jobsByDisplayNodeBlock)(__kindof ASDisplayNode *_Nullable node);
 typedef void(^jobsByImageNodeBlock)(__kindof ASImageNode *_Nullable node);
@@ -167,22 +170,18 @@ typedef void(^jobsByTableNodeBlock)(__kindof ASTableNode *_Nullable node);
 typedef void(^jobsByScrollNodeBlock)(__kindof ASScrollNode *_Nullable node);
 typedef void(^jobsByCellNodeBlock)(__kindof ASCellNode *_Nullable node);
 typedef void(^jobsByStackLayoutSpecBlock)(__kindof ASStackLayoutSpec *_Nullable layout);
-
 #pragma mark —— ReactiveObjC / RAC
-typedef void(^jobsByRACNextBlock)(id _Nullable value);
-typedef void(^jobsByRACErrorBlock)(NSError *_Nullable error);
-typedef void(^jobsByRACCompletedBlock)(void);
 typedef void(^jobsByRACSignalBlock)(__kindof RACSignal *_Nullable signal);
 typedef void(^jobsByRACSchedulerRecursiveBlock)(jobsByVoidBlock _Nonnull reschedule);
 #pragma mark —— 其他
-typedef void(^jobsByShadowBlock)(__kindof NSShadow *_Nullable shadow);
+typedef void(^jobsByDataBlock)(NSData *_Nullable data);
 typedef void(^jobsByLockBlock)(NSLock *_Nullable lock);
 typedef void(^jobsByRunLoopBlock)(NSRunLoop *_Nullable runLoop);
 typedef void(^jobsByPHFetchOptionsBlock)(PHFetchOptions *_Nullable options);
+typedef void(^jobsByPHImageManagerBlock)(PHImageManager *_Nullable imageManager);
 typedef void(^jobsByPHVideoRequestOptionsBlock)(PHVideoRequestOptions *_Nullable options);
 typedef void(^jobsByPHImageRequestOptionsBlock)(PHImageRequestOptions *_Nullable options);
-typedef void(^jobsByPHImageManagerBlock)(PHImageManager *_Nullable imageManager);
-typedef void(^jobsByDataBlock)(NSData *_Nullable data);
+typedef void(^jobsByShadowBlock)(__kindof NSShadow *_Nullable shadow);
 typedef void(^jobsByMutableDataBlock)(__kindof NSMutableData *_Nullable data);
 typedef void(^jobsByMutableStringBlock)(__kindof NSMutableString *_Nullable data);
 typedef void(^jobsByBezierPathBlock)(__kindof UIBezierPath *_Nullable data);
@@ -206,7 +205,7 @@ typedef void(^jobsByColor_FloatBlock)(Jobs_ReturnButtonByColor_FloatBlock_Argume
 /// weakSelf 方便使用，用来打破循环引用。使用时需要改成实际类型，否则没有代码提示
 /// selector 实际调用的方法
 /// arg 事件默认传递的对象，比如`NSNotification`，`UIButton`
-typedef void(^jobsByTwoIDBlock) (Jobs_2_Arguments);/// weakSelf、arg
-typedef void(^JobsSelectorBlock1) (Jobs_3_Arguments);/// weakSelf、arg、data
+typedef void(^jobsByTwoIDBlock) (Jobs_2_Arguments);// weakSelf、arg
+typedef void(^JobsSelectorBlock1) (Jobs_3_Arguments);// weakSelf、arg、data
 #pragma clang diagnostic pop
 #endif /* VoidByCertainParameters_h */

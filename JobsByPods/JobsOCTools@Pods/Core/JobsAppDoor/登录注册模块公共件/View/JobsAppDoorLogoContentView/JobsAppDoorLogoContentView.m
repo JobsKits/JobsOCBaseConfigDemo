@@ -40,7 +40,7 @@ static dispatch_once_t JobsAppDoorLogoContentViewDispatchOnce;
         _mainImgV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
             imageView.image = @"AppDoorLogo".img;
-            imageView.byAddTo(self, ^(MASConstraintMaker *make) {
+            imageView.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
             });
         });

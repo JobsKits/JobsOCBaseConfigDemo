@@ -141,9 +141,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 将NSTimeInterval类型的时间戳翻译成人类能看懂的文字
 -(JobsRetStrByTimeIntervalBlock _Nonnull)toReadableTimeBy;
 /// 接受一个秒数，对这个秒数进行解析出：时、分、秒，存入JobsTimeModel，外层再对这个JobsTimeModel进行取值，对数据进行拼装
--(JobsReturnTimeModelByIntegerBlock _Nonnull)HHMMSS;
+-(JobsRetTimeModelByIntegerBlock _Nonnull)HHMMSS;
 /// 获得今天的时间：年/月/日
--(JobsReturnTimeModelByStringBlock _Nonnull)getToday;
+-(JobsRetTimeModelByStringBlock _Nonnull)getToday;
 /// 各个具体时间的拆解
 -(JobsTimeModel *)makeSpecificTime;
 /// 获得当前时间

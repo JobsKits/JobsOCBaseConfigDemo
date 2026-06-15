@@ -51,6 +51,6 @@ Prop_strong(nullable)UILabel *cardLab;
 /// 蒙板 View（覆盖在cardImageView上）
 Prop_strong(nullable)UIView *coverView;
 
-+(JobsReturnJhtBannerCardViewByFrameBlock _Nonnull)initByFrame;
++(JobsRetJhtBannerCardViewByFrameBlock _Nonnull)initByFrame;
 
 @end

@@ -62,7 +62,7 @@
     };
 }
 
--(JobsReturnViewByButtonModelBlock _Nonnull)showEmptyButtonBy{
+-(JobsRetViewByButtonModelBlock _Nonnull)showEmptyButtonBy{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(UIButtonModel *model){
         @jobs_strongify(self)
@@ -93,7 +93,7 @@
     };
 }
 
--(JobsReturnViewByTextModelBlock _Nonnull)showEmptyLabelBy{
+-(JobsRetViewByTextModelBlock _Nonnull)showEmptyLabelBy{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(UITextModel *model){
         @jobs_strongify(self)
@@ -107,17 +107,19 @@
 
                 self.cleanSubviewBy(UIView.class);
                 self.addSubview(view);
-                view.addSubview(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
-                    label.byTextAlignment(model.textAlignment ? : NSTextAlignmentCenter)
+                jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
+                    label
+                        .byTextAlignment(model.textAlignment ? : NSTextAlignmentCenter)
                         .byTextCor(model.textCor ? : JobsRedColor)
-                        .byText(isValue(model.text) ? model.text : @"No Datas".tr);
-                    label.makeLabelByShowingType(UILabelShowingType_05);
-                    label.setMasonryBy(^(MASConstraintMaker *make){
-                        @jobs_strongify(self)
-                        make.center.equalTo(self);
-                        make.width.equalTo(self);
-                    });
-                }));
+                        .byText(isValue(model.text) ? model.text : @"No Datas".tr)
+                        .makeLabelByShowingType(UILabelShowingType_05)
+                        .addOn(view)
+                        .byAdd(^(MASConstraintMaker *make){
+                            @jobs_strongify(self)
+                            make.center.equalTo(self);
+                            make.width.equalTo(self);
+                        });
+                });
             });
         }
     };

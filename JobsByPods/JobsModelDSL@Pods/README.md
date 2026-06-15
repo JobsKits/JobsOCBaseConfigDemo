@@ -10,10 +10,13 @@
 
 `JobsModelDSL` 是 `JobsModel` 的链式 DSL 扩展 Pod，负责把 `JobsModel` 中模型类的自有属性、父类属性以及 `JobsOCProtocols` 协议属性统一转换为 `byXxx` 链式写法。
 
+`UIButtonModel+DSL` 统一维护在 `Core/UIButtonModel/UIButtonModel+DSL/`，包含原 `JobsModel/Core/JobsModel+DSL/UIButtonModel/` 的链式能力。
+
 ## 一、适用场景
 
 - 对 `JobsModel` 子模型进行链式赋值。
 - 复用协议属性时保持和普通模型属性一致的 DSL 写法。
+- 对 `UIViewModel` / `UIButtonModel` 内嵌的 `UITextModel`、`UIButtonModel` 等子模型，使用 `byTextModelBlock`、`byButtonModelBlock` 这类回调入口进入子模型，再继续使用对应 `*Model+DSL` 链式配置。
 - 保持 DSL 能力独立于 `JobsModel` 本体，避免模型 Pod 直接膨胀。
 
 ## 二、依赖关系

@@ -176,7 +176,8 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
         NSAttributedString *attr = [self attributedStringForSegment:segment];
         if (attr.length > 0) {
             UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable lab) {
-                lab.byNumberOfLines(0)
+                lab
+                    .byNumberOfLines(0)
                     .byTextAlignment(NSTextAlignmentCenter)
                     .byAttributedString(attr)
                     .byBgColor(JobsClearColor);
@@ -198,13 +199,12 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
             CGFloat w = MIN(maxTextWidth, ceil(rect.size.width));
             CGFloat h = MIN(maxTextHeight, ceil(rect.size.height));
 
-            label.bounds = CGRectMake(0, 0, w, h);
-            label.center = textCenter;
-
             CGFloat rotation = midAngle - (CGFloat)M_PI_2;
-            label.transform = CGAffineTransformMakeRotation(rotation);
-
-            [self.plateView addSubview:label];
+            label
+                .byBounds(CGRectMake(0, 0, w, h))
+                .byCenterPoint(textCenter)
+                .byTransform(CGAffineTransformMakeRotation(rotation))
+                .addOn(self.plateView);
         }
         // ===== 图片：文字外侧的圆形 ImageView ============
         if (segment.placeholderImage) {
@@ -512,8 +512,9 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     if(!_plateView){
         @jobs_weakify(self)
         _plateView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.byBgColor(JobsClearColor);
-            view.addOn(self)
+            view
+                .byBgColor(JobsClearColor)
+                .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
                     make.edges.equalTo(self);
@@ -544,9 +545,10 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
             .onClickAppendBy(^(UIButton *x){
                 JobsLog(@"追加的点击事件");
             })
-            .onLongPressGestureBy(^(UIButton *x){
+            .onLongPressGestureBy(^(UIButton *x){;
 
             })
+            .makeBtnTitleByShowingType(UILabelShowingType_03)
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
@@ -554,7 +556,6 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                 make.width.mas_equalTo(60.0);
                 make.height.mas_equalTo(60.0);
             });
-        _centerButton.makeBtnTitleByShowingType(UILabelShowingType_03);
     };return _centerButton;
 }
 

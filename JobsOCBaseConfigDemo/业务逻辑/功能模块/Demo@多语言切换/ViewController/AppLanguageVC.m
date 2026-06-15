@@ -28,19 +28,23 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = @"App国际化之应用内部切换语言".tr;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
-    
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(@"App国际化之应用内部切换语言".tr);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
+
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
     @jobs_weakify(self)
     [self addNotificationName:语言切换
                         block:^(id _Nullable weakSelf,
@@ -53,7 +57,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
         }
         JobsLog(@"通知传递过来的 = %@",notification.object);
     }];
-    
+
     self.jobsBackBlock = ^id _Nullable(id _Nullable data) {
         JobsLog(@"退出页面的逻辑");
         return nil;
@@ -98,7 +102,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
         [SDImageCache.sharedImageCache clearDiskOnCompletion:nil];
         return jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             imageView.image = @"6.59".tr.img;
-            imageView.byAddTo(headerFooterView, ^(MASConstraintMaker *make) {
+            imageView.addOn(headerFooterView).byAdd(^(MASConstraintMaker *make) {
                 make.center.equalTo(headerFooterView);
                 make.size.mas_equalTo(CGSizeMake(BaseTableViewHeaderFooterView.heightForHeaderInSection(nil),
                                                  BaseTableViewHeaderFooterView.heightForHeaderInSection(nil)));
@@ -143,12 +147,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return UITableViewCell.cellStyleValue1WithTableView(tableView)
+    return UITableViewCell.cellStyleValue1ByTableView(tableView)
         .byAccessoryType(self.dataMutArr[indexPath.row].appLanguage == LanMgr.language ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone)
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
-            .JobsBlock1(^(id _Nullable data) {
-             
+            .JobsBlock1(^(id _Nullable data) {;
+
             });
 }
 
@@ -160,7 +164,7 @@ heightForHeaderInSection:(NSInteger)section{
 - (void)tableView:(UITableView *)tableView
   willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath{
-    cell.byAlpha(self.isVisible);
+    cell.byAlpha(self.viewModel.isVisible);
     [tableView hideSeparatorLineAtLast:indexPath cell:cell];
 }
 /// 这里涉及到复用机制，return出去的是UITableViewHeaderFooterView的派 生类
@@ -173,7 +177,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     /// 只有 headerView.backgroundView.backgroundColor 是有效操作✅
     headerView.backgroundView.byBgColor(JobsCyanColor);
     self.makeViewOnTableViewHeaderFooterView(headerView).alpha = 1;
-    headerView.jobsRichViewByModel(UIViewModel.new);
+    headerView.jobsRichViewByModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
 //        @jobs_weakify(self)
     [headerView actionObjBlock:^(id data) {
 //            @jobs_strongify(self)
@@ -197,7 +201,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                         [self.dataMutArr remove];
                         self->_dataMutArr = nil;
                     }
-                    self.isVisible = YES;
+                    self.viewModel.byIsVisible(YES);
                     if (self.dataMutArr.count) {
                         self->_tableView.endRefreshing(self.dataMutArr);
                     }else{

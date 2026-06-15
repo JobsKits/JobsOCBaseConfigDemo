@@ -18,7 +18,7 @@ UIViewModelProtocol_synthesize_part2
 /// BaseLayerProtocol
 BaseLayerProtocol_synthesize_part3
 #pragma mark —— BaseCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsSearchTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsSearchTBVCell);
         return cell;

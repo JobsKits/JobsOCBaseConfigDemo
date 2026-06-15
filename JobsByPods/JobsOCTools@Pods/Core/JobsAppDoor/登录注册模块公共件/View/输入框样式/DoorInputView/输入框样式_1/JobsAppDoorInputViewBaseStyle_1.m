@@ -135,24 +135,25 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         @jobs_weakify(self)
         _countDownBtn = (UIButton<TimerProtocol> *)UIButton.jobsInit()
             .onClickBy(^(__kindof UIButton *x){
-            @jobs_strongify(self)
-            if (self.objBlock) self.objBlock(x);
-        }).onLongPressGestureBy(^(id data){
-            JobsLog(@"");
-        }).byOnTick(^(CGFloat time) {
-            // 每 tick 一次
-            NSLog(@"剩余: %.0f", time);
-        })
-        .byOnFinish(^ (JobsTimer * _Nullable timer) {
-            // 倒计时完成
-            NSLog(@"倒计时结束");
-        });
-        _countDownBtn.byAddTo(self, ^(MASConstraintMaker *make) {
-            make.right.equalTo(self).offset(-JobsWidth(120));
-            make.top.equalTo(self).offset(JobsWidth(8));
-            make.bottom.equalTo(self).offset(-JobsWidth(8));
-            make.width.mas_equalTo(JobsWidth(80));
-        });
+                @jobs_strongify(self)
+                if (self.objBlock) self.objBlock(x);
+            }).onLongPressGestureBy(^(id data){
+                JobsLog(@"");
+            }).byOnTick(^(CGFloat time) {
+                // 每 tick 一次
+                NSLog(@"剩余: %.0f", time);
+            })
+            .byOnFinish(^ (JobsTimer * _Nullable timer) {
+                // 倒计时完成
+                NSLog(@"倒计时结束");
+            })
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.right.equalTo(self).offset(-JobsWidth(120));
+                make.top.equalTo(self).offset(JobsWidth(8));
+                make.bottom.equalTo(self).offset(-JobsWidth(8));
+                make.width.mas_equalTo(JobsWidth(80));
+            });
     };return _countDownBtn;
 }
 @synthesize magicTextField = _magicTextField;
@@ -171,7 +172,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 JobsLog(@"MMM = %@",x);
                 [self block:textField value:x];
             }];
-            textField.byAddTo(self, ^(MASConstraintMaker *make) {
+            textField.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.top.left.bottom.equalTo(self);
     //            make.right.equalTo(self.countDownBtn.mas_left);
             });

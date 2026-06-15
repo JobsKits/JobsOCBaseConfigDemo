@@ -89,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 资料来源  https://blog.csdn.net/thanklife/article/details/25784879
 -(JobsRetStrByCorBlock _Nonnull)rgbCorStrBy;
 /// 将一个确定的UIColor子类，翻译成十六进制格式的字符串值并对外输出
--(JobsReturnCorModelByVoidBlock _Nonnull)hexadecimalCorStrBy;
+-(JobsRetCorModelByVoidBlock _Nonnull)hexadecimalCorStrBy;
 /// iOS 父视图透明度影响到子视图
 /// https://blog.csdn.net/ios_xumin/article/details/114263960
 -(JobsRetCorByCGFloatBlock _Nonnull)colorWithAlphaComponentBy;

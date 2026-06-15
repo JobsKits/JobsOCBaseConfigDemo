@@ -60,7 +60,7 @@ Prop_strong(nullable)UIViewController *VC; // 慎用：挂载的对象除非主�
 
 @end
 
-typedef JobsRetIDByIDBlock _Nonnull (^JobsReturnIDBlockByIDBlock)(id <UIViewModelOthersProtocol>_Nullable data);
+typedef JobsRetIDByIDBlock _Nonnull (^JobsRetIDBlockByIDBlock)(id <UIViewModelOthersProtocol>_Nullable data);
 
 NS_ASSUME_NONNULL_END
 #endif /* JOBS_HEADER_GUARD_UIVIEWMODELOTHERSPROTOCOL_369DD6C6F4 */

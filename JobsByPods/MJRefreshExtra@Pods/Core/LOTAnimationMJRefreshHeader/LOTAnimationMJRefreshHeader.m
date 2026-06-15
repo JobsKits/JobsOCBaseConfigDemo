@@ -83,7 +83,7 @@ Prop_assign()CGSize lOTAnimationViewSize;
     if (self.objBlock) self.objBlock(@(RefreshingType_EndRefreshing));
 }
 #pragma mark —— 一些公有方法
--(JobsReturnLOTAnimationMJRefreshHeaderBySizeBlock _Nonnull)bySize{
+-(JobsRetLOTAnimationMJRefreshHeaderBySizeBlock _Nonnull)bySize{
     @jobs_weakify(self)
     return ^LOTAnimationMJRefreshHeader *_Nonnull(CGSize size){
         @jobs_strongify(self)
@@ -93,7 +93,7 @@ Prop_assign()CGSize lOTAnimationViewSize;
     };
 }
 
--(JobsReturnLOTAnimationMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)byRefreshConfigModel{
+-(JobsRetLOTAnimationMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)byRefreshConfigModel{
     @jobs_weakify(self)
     return ^LOTAnimationMJRefreshHeader *_Nonnull(MJRefreshConfigModel *_Nonnull model){
         @jobs_strongify(self)

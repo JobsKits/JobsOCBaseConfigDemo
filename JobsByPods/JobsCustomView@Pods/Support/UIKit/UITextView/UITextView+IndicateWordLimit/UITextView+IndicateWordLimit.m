@@ -17,15 +17,18 @@ JobsKey(_indicateWordLimitLab)
         @jobs_weakify(self)
         IndicateWordLimitLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byTextCor(RGB_COLOR(132, 134, 140))
+            label
+                .byTextCor(RGB_COLOR(132, 134, 140))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightMediumSize(10))
-                .byText([NSString stringWithFormat:@"   %ld / %ld   ",self.currentWordNum,self.wordLimitNum]);
-            label.makeLabelByShowingType(UILabelShowingType_03);
-            self.addSubview(label);
-            label.right = self.width - self.offsetX;
-            label.bottom = self.height - self.offsetY;
-            Jobs_setAssociatedRETAIN_NONATOMIC(_indicateWordLimitLab, label)
+                .byText([NSString stringWithFormat:@"   %ld / %ld   ",self.currentWordNum,self.wordLimitNum])
+                .makeLabelByShowingType(UILabelShowingType_03)
+                .byLabelBlock(^(__kindof UILabel * _Nullable data) {
+                    Jobs_setAssociatedRETAIN_NONATOMIC(_indicateWordLimitLab, data)
+                })
+                .addOn(self)
+                .byRight(self.width - self.offsetX)
+                .byBottom(self.height - self.offsetY);
         });
     };return IndicateWordLimitLab;
 }

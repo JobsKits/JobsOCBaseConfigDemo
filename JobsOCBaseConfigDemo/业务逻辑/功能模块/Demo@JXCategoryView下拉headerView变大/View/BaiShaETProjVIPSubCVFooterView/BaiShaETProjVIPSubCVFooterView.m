@@ -54,7 +54,7 @@ Prop_strong()BaseLabel *titleLab;
 
             label.byTextAlignment(NSTextAlignmentCenter);
 
-            label.byAddTo(self, ^(MASConstraintMaker *make) {
+            label.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
             });
         });

@@ -9,7 +9,7 @@
 
 @implementation HTMLDocument (Extra)
 
-+(JobsReturnHTMLDocumentByStringBlock _Nonnull)initBy{
++(JobsRetHTMLDocumentByStringBlock _Nonnull)initBy{
     return ^HTMLDocument *_Nullable(__kindof NSString *_Nullable string){
         return [HTMLDocument documentWithString:string];
     };

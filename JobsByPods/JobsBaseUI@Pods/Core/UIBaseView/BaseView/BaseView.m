@@ -84,17 +84,17 @@ UIViewModelProtocol_synthesize_part1
 -(UIButtonModel *)backBtnModel{
     if(!_backBtnModel){
         @jobs_weakify(self)
-        _backBtnModel = self.makeBackBtnModel;
-        _backBtnModel.longPressGestureEventBlock = ^id(__kindof UIButton *x) {
-            JobsLog(@"按钮的长按事件触发");
-            return nil;
-        };
-        _backBtnModel.clickEventBlock = ^id(BaseButton *x){
-            @jobs_strongify(self)
-            if (self.objBlock) self.objBlock(x);
-            self.jobsBackBtnClickEvent(x);
-            return nil;
-        };
+        _backBtnModel = self.makeBackBtnModel
+            .byLongPressGestureEventBlock(^id(__kindof UIButton *x) {
+                JobsLog(@"按钮的长按事件触发");
+                return nil;
+            })
+            .byClickEventBlock(^id(BaseButton *x){
+                @jobs_strongify(self)
+                if (self.objBlock) self.objBlock(x);
+                self.jobsBackBtnClickEvent(x);
+                return nil;
+            });
     };return _backBtnModel;
 }
 

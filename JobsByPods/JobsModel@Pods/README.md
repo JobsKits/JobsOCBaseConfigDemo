@@ -48,8 +48,7 @@ JobsModel@Pods/
 ├── README.md  # 当前自述
 ├── JobsModel.h  # 根入口头文件
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
-├── Core/  # 公开 API 与核心实现，208 个源码 / 头文件
-│   └── JobsModel+DSL/  # model 链式 DSL，50 个类目录，101 个文件
+├── Core/  # 公开 API 与核心实现
 ├── Support/  # 内部支撑层，34 个文件
 └── LICENSE  # 许可证文件
 ```
@@ -60,8 +59,9 @@ JobsModel@Pods/
 
 ## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 当前包含 208 个源码 / 头文件；按 Jobs 规范，它是 `JobsModel` 对外公开 API 和核心实现的边界。
-- `Core/JobsModel+DSL` 负责把 `JobsModel` 内的 model 属性和其协议链属性封装为链式 DSL。每个类单独一个 `类名+DSL.h/.m` 文件组，文件内部用 `#pragma mark —— 来自 XXX` 标明属性来源。
+- `Core` 是 `JobsModel` 对外公开 API 和核心实现的边界，只保留 Model 本体、协议、DAO、JSON、UIKit 数据束和必要的内部实现。
+- Model 链式 DSL 已从 `JobsModel` 拆出到独立 Pod `JobsModelDSL`，不再在 `JobsModel` 内保留 `JobsModel+DSL` 历史目录，避免重复 Category 定义和反向依赖。
+- 需要 `UIViewModel`、`UITextModel`、`UIButtonModel`、`MasonryModel` 等链式能力时，调用方应显式引用 `JobsModelDSL`，不要从 `JobsModel` 聚合头绕回旧 DSL。
 - `Support` 当前包含 34 个文件，其中源码 / 头文件 34 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
@@ -72,13 +72,11 @@ JobsModel@Pods/
 
 - `JobsModel.h`
 - `Core/**/*.h`
-- `Core/JobsModel+DSL/JobsModel+DSL.h`
 
 ### 5.2、源码入口
 
 - `JobsModel.h`
 - `Core/**/*.{h,m,mm}`
-- `Core/JobsModel+DSL/**/*.{h,m}`
 
 ### 5.3、默认 subspec
 

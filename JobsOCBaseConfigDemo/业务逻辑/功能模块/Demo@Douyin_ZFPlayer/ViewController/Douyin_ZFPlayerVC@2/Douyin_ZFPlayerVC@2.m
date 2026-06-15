@@ -38,20 +38,25 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.bgCor = JobsClearColor;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.font = UIFontWeightRegularSize(18);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byBgCor(JobsClearColor)
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byFont(UIFontWeightRegularSize(18));
+            data.byText(data.attributedTitle.string);
+        })
     
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    // self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    /// 全局只需要写一次。在AppDelegate里面进行配置
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        // self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
+        /// 全局只需要写一次。在AppDelegate里面进行配置
     NSError *error = nil;
     [KTVHTTPCache proxyStart:&error];
     if(error){
@@ -223,13 +228,13 @@ numberOfRowsInSection:(NSInteger)section {
 -(__kindof UITableViewCell *)tableView:(UITableView *)tableView
                  cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     self.indexPath = indexPath;
-    return JobsVideoTBVCell.cellStyleValue1WithTableView(tableView)
+    return JobsVideoTBVCell.cellStyleValue1ByTableView(tableView)
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byIndexPath(indexPath)
         .byIndex(indexPath.row)
         .byDelegate(self)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
-            .JobsBlock1(^(id _Nullable data) {
+            .JobsBlock1(^(id _Nullable data) {;
              
             });
 }
@@ -314,7 +319,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //            [tableView tab_startAnimation];   // 开启动画
     //        }
             
-            tableView.byAddTo(self.view, ^(MASConstraintMaker *make) {
+            tableView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                 make.left.right.equalTo(self.view);
                 if (self.gk_navBarAlpha && !self.gk_navigationBar.hidden) {//显示
                     make.top.equalTo(self.gk_navigationBar.mas_bottom);

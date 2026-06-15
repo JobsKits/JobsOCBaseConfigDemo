@@ -26,13 +26,15 @@ Prop_strong()JobsScrollYView *scrollYView;
 #pragma mark —— lazyLoad
 -(UIView *)jobsView{
     if(!_jobsView){
-        _jobsView = UIView.new;
-        _jobsView.byBgColor(JobsRandomColor);
-
-        _jobsView.byAddTo(self.view, ^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view);
-            make.height.mas_equalTo(初始位置 - 终点位置);
-            make.top.mas_equalTo(终点位置);
+        _jobsView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(JobsRandomColor)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.view);
+                    make.height.mas_equalTo(初始位置 - 终点位置);
+                    make.top.mas_equalTo(终点位置);
+                });
         });
 
     };return _jobsView;

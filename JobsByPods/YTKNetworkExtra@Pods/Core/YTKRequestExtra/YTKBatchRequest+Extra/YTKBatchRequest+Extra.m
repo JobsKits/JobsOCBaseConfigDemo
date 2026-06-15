@@ -9,7 +9,7 @@
 
 @implementation YTKBatchRequest (Extra)
 
-+(JobsReturnBatchRequestByArrBlock _Nonnull)initByRequestArray{
++(JobsRetBatchRequestByArrBlock _Nonnull)initByRequestArray{
     return ^__kindof YTKBatchRequest *_Nullable(__kindof NSArray <YTKRequest *>*_Nullable data){
         return [YTKBatchRequest.alloc initWithRequestArray:data];
     };

@@ -20,7 +20,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface UIGestureRecognizer (JobsChain)
 
-+(JobsRetGestureRecognizerByVoidBlock _Nonnull)byGestureRecognizer;
++(JobsRetGestureByVoidBlock _Nonnull)byGestureRecognizer;
 -(JobsRetGestureRecognizerByDelegateBlock _Nonnull)byDelegate;
 -(JobsRetGestureRecognizerByBOOLBlock _Nonnull)byEnabled;
 -(JobsRetGestureRecognizerByBOOLBlock _Nonnull)byCancelsTouchesInView;
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetGestureRecognizerByArrBlock _Nonnull)byAllowedPressTypes;
 -(JobsRetGestureRecognizerByBOOLBlock _Nonnull)byRequiresExclusiveTouchType;
 -(JobsRetGestureRecognizerByStringBlock _Nonnull)byName API_AVAILABLE(ios(11.0));
--(JobsRetGestureRecognizerByGestureRecognizerBlock _Nonnull)byRequireGestureRecognizerToFail;
+-(JobsRetGestureByGesture _Nonnull)byRequireGestureRecognizerToFail;
 -(JobsRetCGPointByViewBlock _Nonnull)byLocationInView;
 
 @end

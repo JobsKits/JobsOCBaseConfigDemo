@@ -81,7 +81,7 @@ CREATE TABLE nodes (
     decorators TEXT, -- JSON array
     type_parameters TEXT, -- JSON array
     updated_at INTEGER NOT NULL
-)
+, return_type TEXT)
 CREATE VIRTUAL TABLE nodes_fts USING fts5(
     id,
     name,

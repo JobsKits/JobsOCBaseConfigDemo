@@ -62,7 +62,8 @@ JobsKey(_tipsLab)
                 .byFont(UIFontWeightBoldSize(20))
                 .byNumberOfLines(0)
                 .makeLabelByShowingType(UILabelShowingType_03)
-                .byAddTo(self, ^(MASConstraintMaker *make) {
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
                     make.center.equalTo(self);
                 });
         });Jobs_setAssociatedRETAIN_NONATOMIC(_tipsLab, TipsLab)

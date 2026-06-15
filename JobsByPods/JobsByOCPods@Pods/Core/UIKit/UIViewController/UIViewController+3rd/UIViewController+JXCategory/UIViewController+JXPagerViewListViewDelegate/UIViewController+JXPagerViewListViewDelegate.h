@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_END
                  _listContainerView = [JXCategoryListContainerView.alloc initWithType:JXCategoryListContainerType_CollectionView
                                                                              delegate:self];
                  _listContainerView.defaultSelectedIndex = 1;// 默认从第二个开始显示
-                 _listContainerView.byAddTo(self.view, ^(MASConstraintMaker *make) {
+                 _listContainerView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
          //            make.edges.equalTo(self.view);
                      make.top.equalTo(self.topLineLab.mas_bottom).offset(listContainerViewDefaultOffset);
                      make.left.right.bottom.equalTo(self.view);

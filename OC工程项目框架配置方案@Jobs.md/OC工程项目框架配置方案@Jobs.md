@@ -42,7 +42,8 @@ _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         .byTextAlignment(NSTextAlignmentCenter)
         .byNumberOfLines(1)
         .byBgColor(UIColor.clearColor)
-        .byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+        .addOn(self.contentView)
+        .byAdd(^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(8, 12, 8, 12));
         });
 });
@@ -54,7 +55,8 @@ _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
 _badgeView = jobsMakeView(^(__kindof UIView * _Nullable view) {
     view
         .byBgColor(UIColor.systemRedColor)
-        .byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+        .addOn(self.contentView)
+        .byAdd(^(MASConstraintMaker *make) {
             make.right.top.equalTo(self.contentView);
             make.size.mas_equalTo(CGSizeMake(18, 18));
         });
@@ -76,7 +78,8 @@ label
     .byFont([UIFont systemFontOfSize:15])
     .byTextAlignment(NSTextAlignmentCenter)
     .byBgColor(UIColor.clearColor)
-    .byAddTo(self.view, ^(MASConstraintMaker *make) {
+    .addOn(self.view)
+    .byAdd(^(MASConstraintMaker *make) {
         make.center.equalTo(self.view);
     });
 ```
@@ -111,7 +114,8 @@ _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableVi
         })
         .byDelegate(self)
         .byDataSource(self)
-        .byAddTo(self.view, ^(MASConstraintMaker *make) {
+        .addOn(self.view)
+        .byAdd(^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
         });
 });
@@ -133,7 +137,8 @@ _collectionView = jobsMakeCollectionView(^(__kindof UICollectionView * _Nullable
         .didSelectItemAt(^(id  _Nonnull target, UICollectionView * _Nonnull cv, NSIndexPath * _Nonnull indexPath) {
             [cv deselectItemAtIndexPath:indexPath animated:YES];
         })
-        .byAddTo(self.view, ^(MASConstraintMaker *make) {
+        .addOn(self.view)
+        .byAdd(^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
         });
 });

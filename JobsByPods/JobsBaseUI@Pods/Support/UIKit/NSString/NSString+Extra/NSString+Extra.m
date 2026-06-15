@@ -7,7 +7,7 @@
 
 #import "NSString+Extra.h"
 
-@implementation NSString (Extra)
+@implementation NSString (JobsBaseUIExtra)
 /// 获取一行字符串的高度
 /// 这个方法仅计算文本本身的高度，不包括行间距等因素
 -(JobsRetCGFloatByFontBlock _Nonnull)widthBy{
@@ -38,7 +38,7 @@
     return [self rangeOfString:checkStr].location != NSNotFound;
 }
 /// 完整的文件名提取普通文件名和文件后缀名
-- (JobsRetFileNameModelByFileFullNameStringBlock _Nonnull)byFileFullName{
+- (JobsRetFileNameModelByStrBlock _Nonnull)byFileFullName{
     return ^FileNameModel *_Nonnull(NSString *_Nullable fileFullName) {
         return jobsMakeFileNameModel(^(FileNameModel * _Nonnull model) {
             /// 使用 "." 分割文件名，获取文件名和文件类型

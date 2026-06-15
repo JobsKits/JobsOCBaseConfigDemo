@@ -24,7 +24,7 @@ UITextFieldProtocol_synthesize_part2
 @synthesize viewModel = _viewModel;
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^(UITableView * _Nonnull tableView) {
         LeftCell *cell = JobsRegisterDequeueTableViewDefaultCell(LeftCell);
         return cell;
@@ -35,7 +35,7 @@ UITextFieldProtocol_synthesize_part2
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         self.titleLabel.byAlpha(1);
         self.flagView.byAlpha(1);
         return self;
@@ -105,12 +105,13 @@ UITextFieldProtocol_synthesize_part2
             label
                 .byTextCor(HEXCOLOR(0xB0B0B0))
                 .byFont(bayonRegular(JobsWidth(14)))
-                .byTextAlignment(NSTextAlignmentCenter);
-            label.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+                .byTextAlignment(NSTextAlignmentCenter)
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.left.equalTo(self.contentView).offset(JobsWidth(5));
                 make.centerY.equalTo(self.contentView);
-            });
-            label.makeLabelByShowingType(UILabelShowingType_03);
+            })
+            .makeLabelByShowingType(UILabelShowingType_03);
         });
     }_titleLabel.byText(self.viewModel.textModel.text);
     return _titleLabel;
@@ -125,9 +126,9 @@ UITextFieldProtocol_synthesize_part2
                 .byFrame(CGRectMake(0,
                                     0,
                                     3,
-                                    LeftCell_Height));
-            view.byBgColor(HEXCOLOR(0xFCFBFB));
-            view.addOn(self.contentView);
+                                    LeftCell_Height))
+                .byBgColor(HEXCOLOR(0xFCFBFB))
+                .addOn(self.contentView);
         });
     };return _flagView;
 }

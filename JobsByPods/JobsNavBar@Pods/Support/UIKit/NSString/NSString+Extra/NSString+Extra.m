@@ -38,7 +38,7 @@
     return [self rangeOfString:checkStr].location != NSNotFound;
 }
 /// 完整的文件名提取普通文件名和文件后缀名
-- (JobsRetFileNameModelByFileFullNameStringBlock _Nonnull)byFileFullName{
+- (JobsRetFileNameModelByStrBlock _Nonnull)byFileFullName{
     return ^FileNameModel *_Nonnull(NSString *_Nullable fileFullName) {
         return jobsMakeFileNameModel(^(FileNameModel * _Nonnull model) {
             /// 使用 "." 分割文件名，获取文件名和文件类型

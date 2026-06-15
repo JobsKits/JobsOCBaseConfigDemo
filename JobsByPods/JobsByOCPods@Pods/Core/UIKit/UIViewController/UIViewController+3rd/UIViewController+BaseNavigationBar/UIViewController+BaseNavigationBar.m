@@ -46,7 +46,7 @@ JobsKey(_navigationBar)
             });
             navBar.translucent = self.isBarTranslucent;
             navBar.byHidden(self.isHiddenNavigationBar);
-            navBar.byAddTo(self.view, ^(MASConstraintMaker *make) {
+            navBar.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                 make.left.right.top.equalTo(self.view);
                 make.height.mas_offset(self.jobsNavigationBarHeight);
             });

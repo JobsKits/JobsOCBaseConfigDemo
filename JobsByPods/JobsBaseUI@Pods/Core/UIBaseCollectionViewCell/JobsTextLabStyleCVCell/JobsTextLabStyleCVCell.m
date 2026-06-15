@@ -27,18 +27,24 @@ BaseLayerProtocol_synthesize_part3
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     JobsTextLabStyleCVCell *cell = JobsRegisterDequeueCollectionViewCell(JobsTextLabStyleCVCell);
-    cell.contentView.layer
-        .cornerRadiusBy(JobsWidth(8))
-        .borderWidthBy(JobsWidth(1))
-        .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
-        .masksToBoundsBy(YES);
-    cell.layer
-        .cornerRadiusBy(JobsWidth(8))
-        .borderWidthBy(JobsWidth(1))
-        .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
-        .masksToBoundsBy(YES);
-    cell.indexPath = indexPath;
-    return cell;
+    return (JobsTextLabStyleCVCell *)cell
+        .byContentView(^(__kindof UIView * _Nullable view) {
+            view.byLayer(^(CALayer * _Nullable layer) {
+                layer
+                    .cornerRadiusBy(JobsWidth(8))
+                    .borderWidthBy(JobsWidth(1))
+                    .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
+                    .masksToBoundsBy(YES);
+            });
+        })
+        .byIndexPath(indexPath)
+        .byLayer(^(CALayer * _Nullable layer) {
+            layer
+                .cornerRadiusBy(JobsWidth(8))
+                .borderWidthBy(JobsWidth(1))
+                .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
+                .masksToBoundsBy(YES);
+        });
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(JobsRetCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy{
@@ -69,19 +75,21 @@ BaseLayerProtocol_synthesize_part3
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
             @jobs_strongify(self)
-            /// 富文本的优先级大于普通文本
-            if (self.viewModel.attributedTitle) {
-                label.byAttributedString(self.viewModel.attributedTitle);
-            } else {
-                label
-                    .byText(self.viewModel.text)
-                    .byNumberOfLines(0)
-                    .byLineBreakMode(NSLineBreakByWordWrapping)
-                    .byTextAlignment(self.viewModel.textAlignment)
-                    .byTextCor(self.viewModel.textCor)
-                    .byFont(self.viewModel.font);
-            }
             label
+                .byLabelBlock(^(__kindof UILabel * _Nullable data) {
+                    /// 富文本的优先级大于普通文本
+                    if (self.viewModel.attributedTitle) {
+                        data.byAttributedString(self.viewModel.attributedTitle);
+                    } else {
+                        data
+                            .byText(self.viewModel.text)
+                            .byNumberOfLines(0)
+                            .byLineBreakMode(NSLineBreakByWordWrapping)
+                            .byTextAlignment(self.viewModel.textAlignment)
+                            .byTextCor(self.viewModel.textCor)
+                            .byFont(self.viewModel.font);
+                    }
+                })
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.edges.equalTo(self.contentView);

@@ -7,7 +7,7 @@
 
 #import "NSString+Replace.h"
 
-@implementation NSString (Replace)
+@implementation NSString (JobsByOCPodsReplace)
 #pragma mark —— 字符串加工
 /// 输入单词的首字母大写（适用于拼接set方法）
 -(NSString *_Nonnull)capitalizeFirstLetter{

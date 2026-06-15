@@ -42,7 +42,7 @@ Prop_strong()UILabel *titleLab;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         MakeDataNull
         self.titleLab.byAlpha(1);
 
@@ -60,15 +60,16 @@ Prop_strong()UILabel *titleLab;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(isNull(self.viewModel.textModel.text) ? @"请设置大标题".tr : self.viewModel.textModel.text);
-            label.byTextCor(self.viewModel.textModel.textCor);
-            label.byFont([UIFont systemFontOfSize:JobsWidth(20) weight:UIFontWeightRegular]);
-            label.byTextAlignment(NSTextAlignmentCenter);
-            label.byBgColor(HEXCOLOR(0xFFFFFF));
-            label.addOn(self.contentView);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            label
+                .byText(isNull(self.viewModel.textModel.text) ? @"请设置大标题".tr : self.viewModel.textModel.text)
+            .byTextCor(self.viewModel.textModel.textCor)
+            .byFont([UIFont systemFontOfSize:JobsWidth(20) weight:UIFontWeightRegular])
+            .byTextAlignment(NSTextAlignmentCenter)
+            .byBgColor(HEXCOLOR(0xFFFFFF))
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);
-            }];
+            });
         });
     };return _titleLab;
 }

@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_END
 
              _textView.placeholderTextColor = RGB_COLOR(132, 134, 140);
              _textView.font = [UIFont systemFontOfSize:12 weight:UIFontWeightMedium];
-             _textView.byAddTo(self.view, ^(MASConstraintMaker *make) {
+             _textView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                  make.centerX.equalTo(self.view);
                  make.top.equalTo(self.chooseFeedbackTypeBtn.mas_bottom).offset(JobsHeight(8));
                  make.size.mas_equalTo(CGSizeMake(JobsWidth(343), JobsHeight(150)));

@@ -124,7 +124,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         }).onLongPressGestureBy(^(id data){
             JobsLog(@"");
         });
-        _securityModelBtn.byAddTo(self, ^(MASConstraintMaker *make) {
+        _securityModelBtn.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.top.right.equalTo(self);
             make.width.mas_equalTo(40);
             make.bottom.equalTo(self.titleLab.mas_top);
@@ -153,7 +153,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                       value:x];
             }
         }];
-        _zyTextField.byAddTo(self, ^(MASConstraintMaker *make) {
+        _zyTextField.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         });
     };return _zyTextField;
@@ -164,7 +164,8 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byFont(UIFontWeightRegularSize(JobsWidth(11)))
+            label
+                .byFont(UIFontWeightRegularSize(JobsWidth(11)))
                 .byText(self.doorInputViewBaseStyleModel.textModel.text)
                 .byTextCor(self.doorInputViewBaseStyleModel.textModel.textCor)
                 .setMasonryBy(^(MASConstraintMaker *_Nonnull make){

@@ -84,10 +84,12 @@ Prop_strong()UIView *pointView;
         @jobs_weakify(self)
         _pointView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            view.byAddTo(self, ^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(8), JobsWidth(8)));
-                make.left.top.equalTo(self);
-            });
+            view
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(8), JobsWidth(8)));
+                    make.left.top.equalTo(self);
+                });
         });
     };return _pointView;
 }

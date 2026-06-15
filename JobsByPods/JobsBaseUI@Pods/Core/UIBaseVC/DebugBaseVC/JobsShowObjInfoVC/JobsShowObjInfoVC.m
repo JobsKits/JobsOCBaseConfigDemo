@@ -34,19 +34,24 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.backBtnTitleModel.textCor = JobsRedColor;
-    self.viewModel.textModel.textCor = JobsGreenColor;
-    self.viewModel.textModel.text = @"用户信息展示(开发测试专用)".tr;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+            data.byTextCor(JobsRedColor);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(JobsGreenColor);
+            data.byText(@"用户信息展示(开发测试专用)".tr);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
     
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
@@ -94,26 +99,27 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    JobsBaseTableViewCell *cell = ((id<UITableViewCellProtocol>)JobsBaseTableViewCell.cellStyleValue1WithTableView(tableView))
+    JobsBaseTableViewCell *cell = ((id<UITableViewCellProtocol>)JobsBaseTableViewCell.cellStyleValue1ByTableView(tableView))
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
-        .JobsBlock1(^(id _Nullable data) {
+        .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byNumberOfLines(0)
+                .byTextCor(JobsBrownColor);
+        })
+        .byTextLabel(^(__kindof UILabel * _Nullable label) {
+            label.byTextCor(JobsBlackColor);
+        })
+        .JobsBlock1(^(id _Nullable data) {;
              
         });
-    cell.detailTextLabel.byNumberOfLines(0);
-
-    cell.detailTextLabel.byTextCor(JobsBrownColor);
-
-    cell.textLabel.byTextCor(JobsBlackColor);
-
-
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView
  willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath{
-    cell.byAlpha(self.isVisible);
+    cell.byAlpha(self.viewModel.isVisible);
 
 }
 #pragma mark —— lazyLoad
@@ -158,7 +164,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                             }
                         }
                     }
-                    self.isVisible = YES;
+                    self.viewModel.byIsVisible(YES);
                     if (self.dataMutArr.count) {
                         self->_tableView.endRefreshing(self.dataMutArr.count);
                     }else{

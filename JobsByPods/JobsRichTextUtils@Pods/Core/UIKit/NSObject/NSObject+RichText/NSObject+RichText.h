@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSMutableAttributedString *_Nullable)richTextWithDataConfigMutArr:(NSArray <JobsRichTextConfig *>*_Nonnull)richTextDataConfigMutArr
                                                      paragraphStyle:(NSMutableParagraphStyle *_Nullable)paragraphStyle;
 /// 利用 NSArray <JobsRichTextConfig *>* 形成富文本
--(JobsReturnAttributedStringByRichTextConfigArrayBlock _Nonnull)richTextWithDataConfigMutArr;
+-(JobsRetAttributedStringByRichTextConfigArrayBlock _Nonnull)richTextWithDataConfigMutArr;
 /// 字符串中划线
 -(JobsRetAttributedStringByStrBlock _Nonnull)jobsHorizontalCentralLineation;
 /// 字符串下划线

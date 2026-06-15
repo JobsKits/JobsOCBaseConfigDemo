@@ -43,6 +43,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /// 平铺的WebView控制器
 @interface JobsBaseWebVC : BaseViewController

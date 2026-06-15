@@ -10,7 +10,7 @@
 #import <JobsAPIs/NSData+Extra.h>
 #import <JobsAPIs/JobsBaseApi.h>
 
-@implementation NSObject (Extra)
+@implementation NSObject (JobsAPIsExtra)
 
 -(URLManagerModel *_Nonnull)url:(NSString *_Nonnull)url funcName:(NSString *_Nonnull)funcName{
     return jobsMakeURLManagerModel(^(__kindof URLManagerModel * _Nullable data) {
@@ -92,16 +92,18 @@
 }
 #ifdef DEBUG
 /// 打印请求体
--(JobsReturnURLRequestByURLSessionTaskBlock _Nullable)printURLSessionRequestMessage{
+-(JobsRetURLRequestByURLSessionTaskBlock _Nullable)printURLSessionRequestMessage{
     return ^__kindof NSMutableURLRequest *_Nullable(__kindof NSURLSessionDataTask *_Nullable task) {
-        if(!task){JobsLog(@"NSURLSessionDataTask *task 为空,请检查");return nil;}
+        if(!task){JobsLog(@"NSURLSessionDataTask *task 为空,请检查");return nil;
+}
         return task.originalRequest.print();
     };
 }
 /// 打印URLRequest
--(JobsReturnMutableURLRequestByURLRequestBlock _Nullable)printRequestMessage{
+-(JobsRetMutableURLRequestByURLRequestBlock _Nullable)printRequestMessage{
     return ^__kindof NSMutableURLRequest *_Nullable(__kindof NSURLRequest *_Nullable data) {
-        if (!data) {JobsLog(@"NSURLRequest *data 为空,请检查");return nil;}
+        if (!data) {JobsLog(@"NSURLRequest *data 为空,请检查");return nil;
+}
         return data.print();
     };
 }

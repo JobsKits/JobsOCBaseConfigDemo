@@ -35,11 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetScrollViewByBOOLBlock _Nonnull)byScrollEnabled;
 -(JobsRetScrollViewByBOOLBlock _Nonnull)byBounces;
 -(JobsRetScrollViewByUIEdgeInsetsBlock _Nonnull)byContentInset;
--(JobsReturnScrollViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader;
--(JobsReturnScrollViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter;
+-(JobsRetScrollViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader;
+-(JobsRetScrollViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter;
 /// mj_header / mj_footer 属性别名
--(JobsReturnScrollViewByMJRefreshHeaderBlock _Nonnull)byMJ_header;
--(JobsReturnScrollViewByMJRefreshFooterBlock _Nonnull)byMJ_footer;
+-(JobsRetScrollViewByMJRefreshHeaderBlock _Nonnull)byMJ_header;
+-(JobsRetScrollViewByMJRefreshFooterBlock _Nonnull)byMJ_footer;
 /// Content
 -(JobsRetScrollViewByPointBlock _Nonnull)byContentOffset;
 /// 对系统方法 -setContentOffset:animated: 的二次封装，animated 固定为 YES / NO

@@ -112,7 +112,8 @@ static JobsNetworkTrafficMonitor *_sharedInstance = nil;
                 uint64_t uploadBps   = (uint64_t)((double)deltaUp   / self.timeInterval);
                 if (self.onUpdate) self.onUpdate(jobsMakeNetworkSource(^(__kindof JobsNetworkSource * _Nullable source) {
                     source.byType(JobsNetworkSourceTypeWiFi)  // TODO: 根据实际网络类型改
-                          .byDisplayName(@"Wi-Fi");                   // 或 @"蜂窝数据" 等
+                          .byDisplayName(@"Wi-Fi");
+                   // 或 @"蜂窝数据" 等
                 }), uploadBps, downloadBps);
             })
             .byOnFinish(^(JobsTimer *_Nullable timer){

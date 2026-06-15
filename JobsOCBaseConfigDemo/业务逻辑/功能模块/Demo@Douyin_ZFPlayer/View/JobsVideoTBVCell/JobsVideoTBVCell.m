@@ -21,19 +21,21 @@ Prop_strong()VideoModel_Core *core_data;
 @synthesize index = _index;
 @synthesize label = _label;
 #pragma mark —— UITableViewCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         JobsVideoTBVCell *cell = (JobsVideoTBVCell *)tableView.tableViewCellClass(JobsVideoTBVCell.class,@"");
         if (!cell) {
             cell = JobsVideoTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.contentView.byBgColor(JobsRandomColor);
-
+            cell
+                .bySelectionStyle(UITableViewCellSelectionStyleNone)
+                .byContentView(^(__kindof UIView * _Nullable view) {
+                    view.byBgColor(JobsRandomColor);
+                });
         };return cell;
     };
 }
 
--(JobsReturnVideoTBVCellByDelegateBlock _Nonnull)byDelegate{
+-(JobsRetVideoTBVCellByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^JobsVideoTBVCell *_Nonnull(id<UIViewModelOthersProtocol> delegate){
         @jobs_strongify(self)
@@ -89,7 +91,9 @@ Prop_strong()VideoModel_Core *core_data;
 -(__kindof UILabel *)label{
     if(!_label){
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+            label
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
                 make.left.top.equalTo(self.contentView);
             });
         });
@@ -122,7 +126,7 @@ Prop_strong()VideoModel_Core *core_data;
             [view actionObjBlock:^(id data) {
                 
             }];
-            view.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+            view.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
                 make.right.equalTo(self.contentView);
                 make.bottom.equalTo(self.contentView).offset(JobsWidth(-150));
                 make.size.mas_equalTo(JobsRightBtnsView.viewSizeByModel(nil));
@@ -141,12 +145,13 @@ Prop_strong()VideoModel_Core *core_data;
                 if ([self.delegate respondsToSelector:@selector(zf_douyinRotation)]) [self.delegate zf_douyinRotation];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(50), JobsWidth(50)));
+                make.centerY.equalTo(self.contentView);
+                make.left.equalTo(self.contentView);
             });
-        _rotation.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(50), JobsWidth(50)));
-            make.centerY.equalTo(self.contentView);
-            make.left.equalTo(self.contentView);
-        });
     };return _rotation;
 }
 

@@ -9,6 +9,42 @@
 
 @implementation UITableViewCell (DSL)
 
+-(JobsRetTableViewCellByLabelBlock _Nonnull)byTextLabel{
+    @jobs_weakify(self)
+    return ^__kindof UITableViewCell *_Nullable(jobsByLabelBlock _Nullable block){
+        @jobs_strongify(self)
+        if (block) block(self.textLabel);
+        return self;
+    };
+}
+
+-(JobsRetTableViewCellByLabelBlock _Nonnull)byDetailTextLabel{
+    @jobs_weakify(self)
+    return ^__kindof UITableViewCell *_Nullable(jobsByLabelBlock _Nullable block){
+        @jobs_strongify(self)
+        if (block) block(self.detailTextLabel);
+        return self;
+    };
+}
+
+-(JobsRetTableViewCellByImageViewBlock _Nonnull)byCellImageView{
+    @jobs_weakify(self)
+    return ^__kindof UITableViewCell *_Nullable(jobsByImageViewBlock _Nullable block){
+        @jobs_strongify(self)
+        if (block) block(self.imageView);
+        return self;
+    };
+}
+
+-(JobsRetTableViewCellByJobsByViewBlock _Nonnull)byContentView{
+    @jobs_weakify(self)
+    return ^__kindof UITableViewCell *_Nullable(jobsByViewBlock _Nullable block){
+        @jobs_strongify(self)
+        if (block) block(self.contentView);
+        return self;
+    };
+}
+
 #if defined(__IPHONE_14_0)
 -(JobsRetTableViewCellByVoidBlock _Nonnull)bySetNeedsUpdateConfiguration{
     @jobs_weakify(self)

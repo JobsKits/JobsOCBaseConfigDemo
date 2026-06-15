@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_strong(nullable)JobsNavBarConfig *jobs_navBarConfig;
 Prop_strong(nullable)JobsNavBar *jobs_navBar;
 
--(JobsReturnNavBarConfigByButtonModelBlock _Nonnull)makeNavBarConfig;
+-(JobsRetNavBarConfigByButtonModelBlock _Nonnull)makeNavBarConfig;
 -(JobsNavBar *_Nullable)jobs_addNavBarWithConfig:(JobsNavBarConfig *_Nullable)config;
 -(void)jobs_removeNavBar;
 

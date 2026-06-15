@@ -19,8 +19,7 @@ UITextModelProtocol_dynamic
     if (isNull(self.placeholder)) self.placeholder = JobsSpace;
     Ivar ivar = class_getInstanceVariable(UITextField.class, "_placeholderLabel");
     UILabel *placeholderLabel = object_getIvar(self, ivar);
-    placeholderLabel.byNumberOfLines(0);/// 默认折行处理
-    return placeholderLabel;
+    return placeholderLabel.byNumberOfLines(0);/// 默认折行处理
 }
 #pragma mark —— Prop_strong()UIColor *placeholderColor;
 JobsKey(_placeholderColor)

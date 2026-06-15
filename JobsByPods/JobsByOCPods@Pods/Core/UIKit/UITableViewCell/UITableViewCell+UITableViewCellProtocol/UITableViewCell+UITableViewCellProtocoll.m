@@ -26,7 +26,7 @@ UITableViewCellProtocol_dynamic
 }
 /// 4种UITableViewCell系统样式类型
 /// UITableViewCellStyleDefault = 左边：imageView＋textLabel
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         @jobs_strongify(self)
@@ -38,7 +38,7 @@ UITableViewCellProtocol_dynamic
     };
 }
 /// UITableViewCellStyleValue1 = 左边：imageView＋textLabel；右边：detailTextLabel
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         @jobs_strongify(self)
@@ -50,7 +50,7 @@ UITableViewCellProtocol_dynamic
     };
 }
 /// UITableViewCellStyleValue2 = 左边：textLabel字体偏小；右边：detailTextLabel。imageView可选（显示在最左边）
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2ByTableView{
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         @jobs_strongify(self)
@@ -62,7 +62,7 @@ UITableViewCellProtocol_dynamic
     };
 }
 /// UITableViewCellStyleSubtitle = 左边：textLabel字体偏小；右边：detailTextLabel。imageView可选（显示在最左边）
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleByTableView{
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         @jobs_strongify(self)
@@ -78,12 +78,16 @@ UITableViewCellProtocol_dynamic
     @jobs_weakify(self)
     return ^() {
         @jobs_strongify(self)
-        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
-        /// 适配iOS 13夜间模式/深色外观(Dark Mode)
-        self.byBgColor([UIColor xy_createWithLightColor:JobsWhiteColor darkColor:JobsWhiteColor]);
-        self.detailTextLabel.byTextCor(JobsBrownColor);
-        self.textLabel.byTextCor(JobsBlackColor);
+        self
+            .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
+            .bySelectionStyle(UITableViewCellSelectionStyleNone)
+            .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
+                label.byTextCor(JobsBrownColor);
+            })
+            .byTextLabel(^(__kindof UILabel * _Nullable label) {
+                label.byTextCor(JobsBlackColor);
+            })
+            .byBgColor([UIColor xy_createWithLightColor:JobsWhiteColor darkColor:JobsWhiteColor]);
     };
 }
 /// 获取这个UITableViewCell所承载的UITableView

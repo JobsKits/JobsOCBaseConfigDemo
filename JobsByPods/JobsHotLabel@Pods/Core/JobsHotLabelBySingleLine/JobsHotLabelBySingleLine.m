@@ -106,7 +106,7 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
          };
      }
  */
--(JobsReturnButtonByViewModelBlock _Nonnull)configBtnBy{
+-(JobsRetButtonByViewModelBlock _Nonnull)configBtnBy{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UIViewModel *_Nullable vm){
         return jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
@@ -185,7 +185,7 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
             stackView.distribution = UIStackViewDistributionEqualSpacing;
             stackView.alignment = UIStackViewAlignmentCenter;
             /// 注意这里设置的约束，最后一个宽度的约束很关键
-            stackView.byAddTo(self.scrollView, ^(MASConstraintMaker *make) {
+            stackView.addOn(self.scrollView).byAdd(^(MASConstraintMaker *make) {
                 make.height.equalTo(self);
                 make.centerY.equalTo(self.scrollView);
                 if (self.scrollView.contentSize.width > self.scrollView.width) {
@@ -208,15 +208,16 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
 -(UIScrollView *)scrollView{
     if (!_scrollView) {
         @jobs_weakify(self)
-        _scrollView = self.addSubview(jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
+        _scrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView.byDelegate(self)
-                .byFrame(self.bounds);
-    //        scrollView.backgroundColor = JobsWhiteColor;
-            scrollView.byContentSize(CGSizeMake(self->width, self->btnSize.height))
+            scrollView
+                .byDelegate(self)
+                .byContentSize(CGSizeMake(self->width, self->btnSize.height))
                 .byShowsVerticalScrollIndicator(NO)
-                .byShowsHorizontalScrollIndicator(NO);
-        }));
+                .byShowsHorizontalScrollIndicator(NO)
+                .byFrame(self.bounds)
+                .addOn(self);
+        });
     };return _scrollView;
 }
 

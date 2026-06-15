@@ -12,7 +12,8 @@
 Prop_assign()CGFloat thumbInset;
 Prop_assign()CGSize  thumbSize;
 Prop_assign()CGFloat panStartProgress;   // < 手势开始时的进度备份
-Prop_assign()CGFloat progress;           // < 0 ~ 1，映射滑块位置
+Prop_assign()CGFloat progress;
+           // < 0 ~ 1，映射滑块位置
 Prop_strong()UIView *trackView;
 Prop_strong()UILabel *titleLabel;
 Prop_strong()UIImageView  *arrow;
@@ -98,12 +99,17 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
         @jobs_weakify(self)
         _trackView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            view.byBgColor(UIColor.systemGray5Color);
-            view.layer.cornerRadius = 28.f;
-            view.layer.masksToBounds = YES;
-            view.byAddTo(self, ^(MASConstraintMaker *make) {
-                make.edges.equalTo(self);
-            });
+            view
+                .byBgColor(UIColor.systemGray5Color)
+                .byLayer(^(CALayer *layer) {
+                    layer
+                        .byCornerRadius(28.f)
+                        .byMasksToBounds(YES);
+                })
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                });
 
         });
     };return _trackView;
@@ -209,7 +215,7 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
             @jobs_strongify(self)
             imageView.tintColor = UIColor.systemBlueColor;
             imageView.image = [UIImage systemImageNamed:@"chevron.right" withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:18 weight:UIImageSymbolWeightBold]];
-            imageView.byAddTo(self.thumbView, ^(MASConstraintMaker *make) {
+            imageView.addOn(self.thumbView).byAdd(^(MASConstraintMaker *make) {
                 make.center.equalTo(self.thumbView);
             });
 

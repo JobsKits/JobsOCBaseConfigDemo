@@ -61,7 +61,7 @@ UITextModelProtocol_synthesize_part2
     };return _roundingCorners;
 }
 
--(JobsReturnRACDisposableByReturnIDByIDBlocks _Nullable)jobsReturnedTestBlock{
+-(JobsRetRACDisposableByRetIDByIDBlocks _Nullable)jobsReturnedTestBlock{
     if(!_jobsReturnedTestBlock){
         _jobsReturnedTestBlock = ^RACDisposable *_Nonnull(JobsRetIDByIDBlock _Nullable data) {
             JobsLog(@"JobsTestBlock");

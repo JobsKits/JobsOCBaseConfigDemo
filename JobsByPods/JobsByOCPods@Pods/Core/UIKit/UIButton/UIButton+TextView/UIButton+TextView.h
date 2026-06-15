@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// UIButton.titleLabel 是 UILabel，无法处理富文本的点击事件。
 /// 此分类对 UIButton.titleLabel 和 UIButton.subtitleLabel 进行覆盖屏蔽（非KVC替换）
 /// 以期望可以响应富文本的点击事件
-@interface UIButton (TextView)<UITextViewDelegate>
+@interface UIButton (JobsByOCPodsTextView)<UITextViewDelegate>
 
 Prop_strong()BaseTextView *titleTextView;
 Prop_strong()BaseTextView *subtitleTextView;
@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_END
 /**
 
      /// 用 UITextView 替换 UIButton.titleLabel
-     -(JobsReturnButtonByAttributedStringBlock _Nonnull)jobsResetBtnTextViewNormalAttributedTitle{
+     -(JobsRetButtonByAttributedStringBlock _Nonnull)jobsResetBtnTextViewNormalAttributedTitle{
          @jobs_weakify(self)
          return ^__kindof UIButton *(NSAttributedString *_Nonnull title) {
              @jobs_strongify(self)
@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_END
          };
      }
      /// 用 UITextView 替换 UIButton.subtitleLabel
-     -(JobsReturnButtonByAttributedStringBlock _Nonnull)jobsResetBtnTextViewNormalAttributedSubTitle{
+     -(JobsRetButtonByAttributedStringBlock _Nonnull)jobsResetBtnTextViewNormalAttributedSubTitle{
          @jobs_weakify(self)
          return ^__kindof UIButton *(NSAttributedString *_Nonnull title) {
              @jobs_strongify(self)

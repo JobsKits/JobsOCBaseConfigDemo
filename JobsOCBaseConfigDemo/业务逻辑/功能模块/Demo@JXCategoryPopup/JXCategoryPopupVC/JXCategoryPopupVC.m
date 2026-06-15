@@ -35,7 +35,10 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
     [super loadView];
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
-        self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
+        self.viewModel
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(data.attributedTitle.string);
+            });
     }
 //    self.viewModel.textModel.text = @"JXCategoryPopupVC".tr;
     self.bgImage = nil;
@@ -158,7 +161,7 @@ ratio:(CGFloat)ratio {
         _categoryView.cellSpacing = JobsWidth(-20);
         // 关联cotentScrollView，关联之后才可以互相联动！！！
         _categoryView.contentScrollView = self.listContainerView.scrollView;//
-        _categoryView.byAddTo(self.view, ^(MASConstraintMaker *make) {
+        _categoryView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom);
             make.left.equalTo(self.view);
             make.right.equalTo(self.view).offset(JobsWidth(-48 * 2));
@@ -184,7 +187,7 @@ ratio:(CGFloat)ratio {
         _listContainerView = [JXCategoryListContainerView.alloc initWithType:JXCategoryListContainerType_CollectionView
                                                                     delegate:self];
         _listContainerView.defaultSelectedIndex = 1;// 默认从第二个开始显示
-        _listContainerView.byAddTo(self.view, ^(MASConstraintMaker *make) {
+        _listContainerView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(listContainerViewDefaultOffset);
             make.left.right.bottom.equalTo(self.view);
         });
@@ -251,13 +254,13 @@ ratio:(CGFloat)ratio {
                 }
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .makeBtnTitleByShowingType(UILabelShowingType_03)
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.right.equalTo(self.view);
+                make.top.bottom.equalTo(self.categoryView);
             });
-        _filterBtn.byAddTo(self.view, ^(MASConstraintMaker *make) {
-            make.right.equalTo(self.view);
-            make.top.bottom.equalTo(self.categoryView);
-        });
-
-        _filterBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
     };return _filterBtn;
 }
 
@@ -290,14 +293,14 @@ ratio:(CGFloat)ratio {
                 }
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .selectedStateTitleColorBy(HEXCOLOR(0xAE8330))
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.right.equalTo(self.filterBtn.mas_left).offset(JobsWidth(-8));
+                make.top.bottom.equalTo(self.categoryView);
+                make.left.equalTo(self.categoryView.mas_right);
             });
-        _customBtn.selectedStateTitleColorBy(HEXCOLOR(0xAE8330));
-        _customBtn.byAddTo(self.view, ^(MASConstraintMaker *make) {
-            make.right.equalTo(self.filterBtn.mas_left).offset(JobsWidth(-8));
-            make.top.bottom.equalTo(self.categoryView);
-            make.left.equalTo(self.categoryView.mas_right);
-        });
-
     };return _customBtn;
 }
 

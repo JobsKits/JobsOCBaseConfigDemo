@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_END
      2、在这个协议里面打开 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
      - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
      cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-         JobsBaseTableViewCell *cell = JobsBaseTableViewCell.cellStyleValue1WithTableView(tableView);
+         JobsBaseTableViewCell *cell = JobsBaseTableViewCell.cellStyleValue1ByTableView(tableView);
          cell.detailTextLabelOffsetX = JobsWidth(-165);/// 这里需要设置一个偏移量去抵消有一个莫名出现的偏移量
          cell.JobsRichViewByModel2(self.dataMutArr[indexPath.row]);
          cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

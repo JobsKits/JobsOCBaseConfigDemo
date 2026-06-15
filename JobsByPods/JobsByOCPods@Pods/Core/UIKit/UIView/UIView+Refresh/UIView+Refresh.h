@@ -73,7 +73,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 /// https://github.com/CoderMJLee/MJRefresh/issues/1495
-@interface UIView (Refresh)
+@interface UIView (JobsByOCPodsRefresh)
 /// MJRefresh 作用于targetView
 Prop_weak()UIScrollView *mjRefreshTargetView;
 Prop_strong()MJRefreshConfigModel *refreshConfigHeader;//头部的配置信息
@@ -100,21 +100,21 @@ Prop_strong()MJRefreshFooter *mjRefreshFooter;
 -(jobsByVoidBlock _Nonnull)refresh;
 #pragma mark —— 创建不同类型的MJHeader 和 MJFootor
 /// Header
--(JobsReturnLOTAnimationMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)LOTAnimationMJRefreshHeaderBy;
--(JobsReturnMJRefreshNormalHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshNormalHeaderBy;
--(JobsReturnMJRefreshStateHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshStateHeaderBy;
--(JobsReturnMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshHeaderBy;
--(JobsReturnMJRefreshGifHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshGifHeaderBy;
+-(JobsRetLOTAnimationMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)LOTAnimationMJRefreshHeaderBy;
+-(JobsRetMJRefreshNormalHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshNormalHeaderBy;
+-(JobsRetMJRefreshStateHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshStateHeaderBy;
+-(JobsRetMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshHeaderBy;
+-(JobsRetMJRefreshGifHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshGifHeaderBy;
 /// Footer
--(JobsReturnMJRefreshAutoGifFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoGifFooterBy;
--(JobsReturnMJRefreshBackNormalFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackNormalFooterBy;
--(JobsReturnMJRefreshAutoNormalFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoNormalFooterBy;
--(JobsReturnMJRefreshAutoStateFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoStateFooterBy;
--(JobsReturnMJRefreshAutoFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoFooterBy;
--(JobsReturnMJRefreshBackGifFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackGifFooterBy;
--(JobsReturnMJRefreshBackStateFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackStateFooterBy;
--(JobsReturnMJRefreshBackFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackFooterBy;
--(JobsReturnMJRefreshFooterByRefreshConfigModelBlock _Nonnull)MJRefreshFooterBy;
+-(JobsRetMJRefreshAutoGifFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoGifFooterBy;
+-(JobsRetMJRefreshBackNormalFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackNormalFooterBy;
+-(JobsRetMJRefreshAutoNormalFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoNormalFooterBy;
+-(JobsRetMJRefreshAutoStateFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoStateFooterBy;
+-(JobsRetMJRefreshAutoFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoFooterBy;
+-(JobsRetMJRefreshBackGifFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackGifFooterBy;
+-(JobsRetMJRefreshBackStateFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackStateFooterBy;
+-(JobsRetMJRefreshBackFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackFooterBy;
+-(JobsRetMJRefreshFooterByRefreshConfigModelBlock _Nonnull)MJRefreshFooterBy;
 #pragma mark —— 关于 XZMRefresh 的二次封装
 -(jobsByVoidBlock _Nonnull)XZM_beginRefreshingNormalHeader;
 -(jobsByVoidBlock _Nonnull)XZM_endRefreshingNormalHeader;

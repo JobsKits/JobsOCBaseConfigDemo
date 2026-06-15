@@ -12,8 +12,6 @@
 #import <JobsBaseUI/UIButton+UI.h>
 #import <JobsBaseUI/UIView+Extra.h>
 
-#import <Masonry/Masonry.h>
-
 @interface JobsTBVHeaderFooterView ()
 /// UI
 Prop_strong()UILabel *titleLab;
@@ -33,13 +31,10 @@ Prop_strong()BaseButton *subTitleBtn;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         self.titleLab.byAlpha(1);
-
         self.subTitleBtn.byAlpha(1);
-
         self.contentView.byBgColor(self.viewModel.bgCor);
-
     };
 }
 /// 具体由子类进行复写【数据定高】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -79,7 +74,7 @@ Prop_strong()BaseButton *subTitleBtn;
             .byFont(self.viewModel.textModel.font)
             .byTextCor(self.viewModel.textModel.textCor)
             .byTextAlignment(self.viewModel.textModel.textAlignment)
-            .makeLabelByShowingType(self.viewModel.textModel.labelShowingType);/// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
+            .makeLabelByShowingType(self.viewModel.textModel.labelShowingType);// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
     };return _titleLab;
 }
 
@@ -108,11 +103,10 @@ Prop_strong()BaseButton *subTitleBtn;
         .selectedAttributedTitleBy(self.viewModel.subTextModel.attributedTitle)
         .jobsResetBtnTitleFont(self.viewModel.subTextModel.font)
         .makeBtnTitleByShowingType(self.viewModel.labelShowingType)
-        .jobsResetImagePlacement_Padding(self.viewModel.buttonEdgeInsetsStyle,
-                                         self.viewModel.imageTitleSpace);
-
-    _subTitleBtn.titleAlignment = self.viewModel.subTextModel.textAlignment;
-    _subTitleBtn.lineBreakMode = self.viewModel.subTextModel.lineBreakMode;return _subTitleBtn;
+        .jobsResetImagePlacement_Padding(self.viewModel.buttonEdgeInsetsStyle,self.viewModel.imageTitleSpace)
+        .byTitleAlignment(self.viewModel.subTextModel.textAlignment)
+        .byLineBreakMode(self.viewModel.subTextModel.lineBreakMode);
+    return _subTitleBtn;
 }
 
 @end

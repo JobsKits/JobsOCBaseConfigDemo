@@ -74,7 +74,7 @@ static dispatch_once_t static_baseLabelOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         MakeDataNull
         self.bgImageView.byAlpha(1);
 
@@ -88,7 +88,7 @@ static dispatch_once_t static_baseLabelOnceToken;
         @jobs_weakify(self)
         _bgImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.byAddTo(self, ^(MASConstraintMaker *make) {
+            imageView.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
             });
         });
@@ -100,7 +100,7 @@ static dispatch_once_t static_baseLabelOnceToken;
         @jobs_weakify(self)
         _label = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byAddTo(self.bgImageView, ^(MASConstraintMaker *make) {
+            label.addOn(self.bgImageView).byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
             });
             

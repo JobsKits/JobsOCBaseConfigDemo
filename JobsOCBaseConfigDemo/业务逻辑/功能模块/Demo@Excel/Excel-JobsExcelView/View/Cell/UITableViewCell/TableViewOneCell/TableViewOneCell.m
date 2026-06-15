@@ -20,15 +20,16 @@ Prop_assign()CGSize size;
 
 @implementation TableViewOneCell
 
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     @jobs_weakify(self)
     return ^(UITableView * _Nonnull tableView) {
         @jobs_strongify(self)
         JobsBaseTableViewCell *cell = (JobsBaseTableViewCell *)tableView.tableViewCellClass(self.class,@"");
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleValue1];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.byBgColor(JobsWhiteColor);
+            cell
+                .bySelectionStyle(UITableViewCellSelectionStyleNone)
+                .byBgColor(JobsWhiteColor);
         };return cell;
     };
 }

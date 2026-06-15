@@ -9,4 +9,13 @@
 
 @implementation UIImageView (DSL)
 
+-(JobsRetImageViewByImageBlock _Nonnull)byImage{
+    @jobs_weakify(self)
+    return ^__kindof UIImageView *_Nonnull(UIImage *_Nullable image){
+        @jobs_strongify(self)
+        self.image = image;
+        return self;
+    };
+}
+
 @end

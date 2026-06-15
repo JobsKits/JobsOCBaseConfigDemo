@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImageView (DSL)
 
-/// 对 UIImageView 的 userInteractionEnabled 进行链式设置。
+-(JobsRetImageViewByImageBlock _Nonnull)byImage;
 
 @end
 

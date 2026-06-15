@@ -20,7 +20,7 @@
 @protocol JhtBannerScrollViewDelegate <NSObject>
 @optional
 /// 当前显示cardView Size
--(JobsReturnCGSizeByJhtBannerScrollViewBlock _Nonnull)sizeForCurrentCardViewInBannerView;
+-(JobsRetCGSizeByJhtBannerScrollViewBlock _Nonnull)sizeForCurrentCardViewInBannerView;
 /// 滚动到了某一个cardView
 - (void)bannerView:(JhtBannerScrollView *_Nonnull)bannerView didScrollToCardViewWithIndex:(NSInteger)index;
 /// 点击了第几个cardView
@@ -33,7 +33,7 @@ withCardViewIndex:(NSInteger)index;
 @protocol JhtBannerScrollViewDataSource <NSObject>
 @required
 /// 显示cardView 个数
--(JobsReturnNSIntegerByJhtBannerScrollViewBlock _Nonnull)numberOfCardViewInBannerView;
+-(JobsRetNSIntegerByJhtBannerScrollViewBlock _Nonnull)numberOfCardViewInBannerView;
 /// 单个cardView
 -(UIView *_Nonnull)bannerView:(JhtBannerScrollView *_Nonnull)bannerView cardViewForBannerViewAtIndex:(NSInteger)index;
 

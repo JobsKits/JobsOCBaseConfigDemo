@@ -44,10 +44,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// 一个 gif 动画显示组件，允许在指定时间内播放动画序列，无限循环，支持停止、播放
 @interface GifLoopPlayView : UIView
 
-Prop_assign()BOOL stopped;                         // YES: 没有播放，NO：正在播放
-Prop_assign()CGFloat duration;                     // 动图执行周期
+Prop_assign()BOOL stopped;
+                         // YES: 没有播放，NO：正在播放
+Prop_assign()CGFloat duration;
+                     // 动图执行周期
 Prop_strong()NSMutableArray<UIImage *> *gifMutArr; // 要播放的动画序列
-Prop_strong()UIImage *pauseImage;                  // 暂停时显示的图片
+Prop_strong()UIImage *pauseImage;
+                  // 暂停时显示的图片
 
 @end
 

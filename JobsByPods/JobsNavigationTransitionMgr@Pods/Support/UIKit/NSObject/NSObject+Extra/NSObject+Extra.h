@@ -248,13 +248,13 @@ AppToolsProtocol
                   swizzledSel:(SEL _Nonnull)swizzledSelector;
 /// UIAlertController + UIAlertAction
 /// UIAlertController 的标题和消息属性仅支持简单的字符串 (NSString) 类型，而不直接支持富文本 (NSAttributedString)
--(JobsReturnAlertControllerByAlertModelBlock _Nonnull)makeAlertControllerByAlertModel;
+-(JobsRetAlertControllerByAlertModelBlock _Nonnull)makeAlertControllerByAlertModel;
 /// 将 NSDate  *转换输出成人类可读的（年\月\日）时间（字符串）
 -(JobsRetStrByDateBlock _Nonnull)toReadableDayTimeByDate;
 /// 将 NSDate  *转换输出成人类可读的（年\月\日\时\分\秒）时间（字符串）
 -(JobsRetStrByDateBlock _Nonnull)toReadableTimeByDate;
 /// 将 NSTimeInterval 按照 NSDateFormatter 转换输出成人类可读的时间
--(JobsReturnStringByTimeModelBlock _Nonnull)toReadableTimeBy;
+-(JobsRetStringByTimeModelBlock _Nonnull)toReadableTimeBy;
 /// baseURL：指定 HTML 内容的基本 URL，可以用于解析相对路径
 /// data：包含 HTML 内容的字符串
 -(JobsRetWKWebViewByStrBlock _Nonnull)makeWebViewByString;
@@ -365,7 +365,7 @@ AppToolsProtocol
 /// 依据不断地传入的CGPoint *point，系统通过lastPoint来记录上一次的数据，两者进行比较，以此判断滑动的方向
 -(JobsRetNSIntegerByPointBlock _Nonnull)judgementScrollDirectionByPoint;
 /// 创建IndexPath坐标
--(JobsReturnIndexPathByXYBlock _Nonnull)indexPathBy;
+-(JobsRetIndexPathByXYBlock _Nonnull)indexPathBy;
 -(NSIndexPath *_Nonnull)myIndexPath:(JobsIndexPath)indexPath;
 /// iOS 获取任意控件在屏幕中的坐标
 -(JobsRetFrameByViewBlock _Nonnull)getWindowFrameByView;
@@ -491,7 +491,7 @@ AppToolsProtocol
 -(CGFloat)jobsMainScreen_HEIGHT;
 -(CGFloat)jobsMainScreen_WIDTH;
 -(__kindof UIView *_Nullable)getView;
--(id _Nullable)getViewByBlock:(JobsReturnIDByComponentTypeAndUIViewBlock _Nullable)block;
+-(id _Nullable)getViewByBlock:(JobsRetIDByComponentTypeAndUIViewBlock _Nullable)block;
 /// UIInterfaceOrientationMask 检测屏幕方向
 -(CGSize)checkScreenOrientation_UIInterfaceOrientationMask:(JobsRetSizeByUIntegerBlock _Nullable)interfaceOrientationMaskBlock;
 /// UIInterfaceOrientation 检测屏幕方向

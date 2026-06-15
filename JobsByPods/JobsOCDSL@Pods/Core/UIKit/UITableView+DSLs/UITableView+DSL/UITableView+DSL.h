@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(JobsRetTableViewByDataSourceBlock _Nonnull)byDataSource;
 -(JobsRetTableViewByDelegateBlock _Nonnull)byDelegate;
--(JobsRetTableViewByTargetBlock _Nonnull)byTarget;
+-(JobsRetTableViewByIDBlock _Nonnull)byTarget;
 -(JobsRetTableViewByDataSourcePrefetchingBlock _Nonnull)byPrefetchDataSource;
 -(JobsRetTableViewByBOOLBlock _Nonnull)byPrefetchingEnabled;
 -(JobsRetTableViewByDragDelegateBlock _Nonnull)byDragDelegate;

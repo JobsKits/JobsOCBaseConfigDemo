@@ -38,7 +38,7 @@ Prop_strong()UILabel *titleLabel;
     @jobs_weakify(self)
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         self.titleLabel.byAlpha(1);
         return self;
     };

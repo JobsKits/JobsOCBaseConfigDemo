@@ -106,7 +106,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
 }
 #pragma mark —— 一些公共设置
 /// 设置返回按钮的文字、返回按钮的行为（默认导航栏标题（图片）为 BLuckyRedLogo）
--(JobsReturnNavBarConfigByStringAndActionBlock _Nullable)makeNavByTitleImageAndAction{
+-(JobsRetNavBarConfigByStringAndActionBlock _Nullable)makeNavByTitleImageAndAction{
     return ^JobsNavBarConfig *_Nullable(NSString *_Nullable string,
                                         JobsRetIDByIDBlock _Nullable backActionBlock){
         return jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable config) {
@@ -128,17 +128,17 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
                            .bySubTextAlignment(NSTextAlignmentCenter)
                            .byBaseBackgroundColor(JobsClearColor)
                            .byImagePadding(JobsWidth(5))
-                           .byClickEventBlock(backActionBlock);
-                buttonModel.longPressGestureEventBlock = ^id(__kindof UIButton *_Nullable x){
+                           .byClickEventBlock(backActionBlock)
+                           .byLongPressGestureEventBlock(^id(__kindof UIButton *_Nullable x){
                     // @jobs_strongify(self)
                     return nil;
-                };
+                });
             }));
         });
     };
 }
 /// 设置导航栏标题（文字）、返回按钮的文字、返回按钮的行为
--(JobsReturnNavBarConfigByStringsAndActionBlock _Nullable)makeNavByTitlesAndAction{
+-(JobsRetNavBarConfigByStringsAndActionBlock _Nullable)makeNavByTitlesAndAction{
     return ^JobsNavBarConfig *_Nullable(NSString *_Nullable title,
                                         NSString *_Nullable backTitle,
                                         JobsRetIDByIDBlock _Nullable backActionBlock){
@@ -162,17 +162,17 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
                            .bySubTextAlignment(NSTextAlignmentCenter)
                            .byBaseBackgroundColor(JobsClearColor)
                            .byImagePadding(JobsWidth(5))
-                           .byClickEventBlock(backActionBlock);
-                buttonModel.longPressGestureEventBlock = ^id(__kindof UIButton *_Nullable x){
+                           .byClickEventBlock(backActionBlock)
+                           .byLongPressGestureEventBlock(^id(__kindof UIButton *_Nullable x){
                     // @jobs_strongify(self)
                     return nil;
-                };
+                });
             }));
         });
     };
 }
 /// 设置返回按钮的文字（默认退回上一个页面）
--(JobsReturnNavBarConfigByStringBlock _Nullable)makeNav0ByTitle{
+-(JobsRetNavBarConfigByStringBlock _Nullable)makeNav0ByTitle{
     @jobs_weakify(self)
     return ^JobsNavBarConfig *_Nullable(NSString *_Nullable string){
         @jobs_strongify(self)
@@ -186,7 +186,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
     };
 }
 /// 设置返回按钮的文字（默认退回TabBar0）
--(JobsReturnNavBarConfigByStringBlock _Nullable)makeNav1ByTitle{
+-(JobsRetNavBarConfigByStringBlock _Nullable)makeNav1ByTitle{
     @jobs_weakify(self)
     return ^JobsNavBarConfig *_Nullable(NSString *_Nullable string){
         @jobs_strongify(self)
@@ -200,7 +200,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
     };
 }
 /// 设置导航栏标题、返回按钮文字、返回按钮的行为
--(JobsReturnNavBarConfigByStringsBlock _Nullable)makeNav2ByTitle{
+-(JobsRetNavBarConfigByStringsBlock _Nullable)makeNav2ByTitle{
     @jobs_weakify(self)
     return ^JobsNavBarConfig *_Nullable(NSString *_Nullable title,NSString *_Nullable backBtnTitle){
         @jobs_strongify(self)
@@ -213,7 +213,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
     };
 }
 
--(JobsReturnNavBarConfigByStringsBlock _Nullable)makeNav3ByTitle{
+-(JobsRetNavBarConfigByStringsBlock _Nullable)makeNav3ByTitle{
     @jobs_weakify(self)
     return ^JobsNavBarConfig *_Nullable(NSString *_Nullable title,NSString *_Nullable backBtnTitle){
         @jobs_strongify(self)
@@ -262,7 +262,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         .rightBorderWidth(1);
 }
 /// 配置弹窗数据
--(JobsReturnViewModelByStringBlock _Nonnull)configPopUpDataBy{
+-(JobsRetViewModelByStringBlock _Nonnull)configPopUpDataBy{
     return ^__kindof UIViewModel *_Nullable(NSString *_Nullable data){
         return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
             viewModel.byText(data)
@@ -421,7 +421,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
     }] resume];
 }
 /// 数据组装
--(JobsReturnViewModelByDecorationModelBlock _Nonnull)makeDatas{
+-(JobsRetViewModelByDecorationModelBlock _Nonnull)makeDatas{
     @jobs_weakify(self)
     return ^UIViewModel *_Nullable(JobsDecorationModel *_Nullable model){
         @jobs_strongify(self)
@@ -500,7 +500,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
 }
 /// 创建JobsCustomTabBar（单例模式）
 static JobsCustomTabBar *sharedCustomTabBar = nil;
-+(JobsReturnCustomTabBarByViewBlock _Nonnull)makeCustomTabBarBy{
++(JobsRetCustomTabBarByViewBlock _Nonnull)makeCustomTabBarBy{
     return ^JobsCustomTabBar *_Nullable(__kindof UIView *_Nullable view){
         if(!sharedCustomTabBar){
             sharedCustomTabBar = jobsMakeCustomTabBar(^(__kindof JobsCustomTabBar *_Nullable customTabBar) {
@@ -690,17 +690,16 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
 -(UIViewModel *)configViewModelWithTitle:(NSString *_Nullable)title
                                 subTitle:(NSString *_Nullable)subTitle{
     return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-        viewModel.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
-            textModel.byText(title.tr);
-        });
-        
-        viewModel.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
-            textModel.byText((isNull(subTitle) ? @"点击查看" : subTitle).tr);
-        });
-        
-        viewModel.backBtnTitleModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
-            textModel.byText(@"返回首页".tr);
-        });
+        viewModel
+            .byTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
+                textModel.byText(title.tr);
+            }))
+            .bySubTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
+                textModel.byText((isNull(subTitle) ? @"点击查看" : subTitle).tr);
+            }))
+            .byBackBtnTitleModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
+                textModel.byText(@"返回首页".tr);
+            }));
     });
 }
 /// 带段落配置的文本
@@ -741,9 +740,9 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
             viewModel.subTextModel.byAttributedTitle(attributedText);
         }
         
-        viewModel.backBtnTitleModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data) {
+        viewModel.byBackBtnTitleModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"返回首页".tr);
-        });
+        }));
     });
 }
 /// （在登陆与否的情况下）默认的用户头像
@@ -882,17 +881,18 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
 /// Debug模式下的弹出框 及其相关的数据封装
 -(UIViewModel *)testPopViewData{
     return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-        viewModel.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
-            textModel.byText(@"主标题".tr);
-        });
-        viewModel.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
-            textModel.byText(@"副标题".tr);
-        });
+        viewModel
+            .byTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
+                textModel.byText(@"主标题".tr);
+            }))
+            .bySubTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
+                textModel.byText(@"副标题".tr);
+            }));
     });
 }
 /// 测试和业务密切相关的弹窗 ：在外层进行调用，[ 需要被展现的视图 popupWithView:popupView];
 /// @param popViewClass 被测试的弹窗视图
-/// @param viewModel 此视图所绑定的数据。传nil则使用testPopViewData的数据、传UIViewModel.new则使用popViewClass预埋的数据
+/// @param viewModel 此视图所绑定的数据。传nil则使用testPopViewData的数据、传空UIViewModel则使用popViewClass预埋的数据
 -(UIView<BaseViewProtocol> *)jobsPopView:(Class<BaseViewProtocol> _Nullable)popViewClass
                                viewModel:(UIViewModel *_Nullable)viewModel{
     // 将方法内的变量进行单例化,避免重复创建
@@ -917,7 +917,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
 }
 /// Debug模式下的弹出框 及其相关的数据封装。在外层进行调用，[ 需要被展现的视图 popupShowScaleWithView:popupView];
 //-(JobsOCBaseConfigTestPopupView *)JobsTestPopView:(NSString *)string{
-//    UIViewModel *viewModel = UIViewModel.new;
+//    UIViewModel *viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
 //    UITextModel *textModel = UITextModel.new;
 //    textModel.text = isNull(string) ? @"登入按钮".tr : string;
 //    viewModel.textModel = textModel;
@@ -979,7 +979,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
     };
 }
 /// 登录的数据检验
--(JobsReturnBOOLByAppDoorModelBlock _Nonnull)checkLoginDataBy{
+-(JobsRetBOOLByAppDoorModelBlock _Nonnull)checkLoginDataBy{
     @jobs_weakify(self)
     return ^BOOL(__kindof JobsAppDoorModel *_Nullable model){
         @jobs_strongify(self)
@@ -1003,7 +1003,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
     };
 }
 /// 注册的数据检验
--(JobsReturnBOOLByAppDoorModelBlock _Nonnull)checkRegisterData{
+-(JobsRetBOOLByAppDoorModelBlock _Nonnull)checkRegisterData{
     @jobs_weakify(self)
     return ^BOOL(__kindof JobsAppDoorModel *_Nullable model){
         @jobs_strongify(self)
@@ -1071,7 +1071,7 @@ JobsKey(_hotLabelDataMutArr)
         });
 
 //        for (CasinoCustomerContactElementModel *element in self.customerContactModel.customerList) {
-//            UIViewModel *vm = UIViewModel.new;
+//            UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
 //
 //            vm.requestParams = element;
 //            vm.bgImageURLString = @"".tr;//[This.BaseUrl stringByAppendingString:element.appIconUrl];
@@ -1100,6 +1100,9 @@ JobsKey(_separateLab)
             @jobs_strongify(self)
             UIViewController *viewController = (UIViewController *)self;
             label
+                .byLabelBlock(^(__kindof UILabel * _Nullable data) {
+                    [self setSeparateLab:data];
+                })
                 .byBgColor(HEXCOLOR(0xC4C4C4))
                 .addOn(viewController.bgImageView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -1107,8 +1110,6 @@ JobsKey(_separateLab)
                     make.centerX.equalTo(viewController.view);
                     make.bottom.equalTo(viewController.view).offset(JobsWidth(-64));
                 });
-
-            [self setSeparateLab:label];
         }));
         separateLab = Jobs_getAssociatedObject(_separateLab);
     };return separateLab;
@@ -1137,6 +1138,7 @@ JobsKey(__立即注册)
             .onLongPressGestureBy(^(id data){
                 JobsLog(@"按钮的长按事件触发");
             })
+            .makeBtnTitleByShowingType(UILabelShowingType_03)
             .addOn(viewController.bgImageView)
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
@@ -1144,7 +1146,6 @@ JobsKey(__立即注册)
                 make.bottom.equalTo(viewController.view).offset(JobsWidth(-64));
                 make.left.equalTo(self.separateLab.mas_right).offset(JobsWidth(24));
             });
-        _立即注册.makeBtnTitleByShowingType(UILabelShowingType_03);
         Jobs_setAssociatedRETAIN_NONATOMIC(__立即注册, _立即注册);
     };return _立即注册;
 }
@@ -1172,13 +1173,13 @@ JobsKey(__联系客服)
             .onLongPressGestureBy(^(id data){
                 JobsLog(@"按钮的长按事件触发");
             })
+            .makeBtnTitleByShowingType(UILabelShowingType_03)
             .addOn(viewController.bgImageView)
             .byAdd(^(MASConstraintMaker *make) {
                 make.height.mas_equalTo(JobsWidth(14));
                 make.bottom.equalTo(viewController.view).offset(JobsWidth(-64));
                 make.right.equalTo(viewController.separateLab.mas_left).offset(JobsWidth(-24));
             });
-        _联系客服.makeBtnTitleByShowingType(UILabelShowingType_03);
         Jobs_setAssociatedRETAIN_NONATOMIC(__联系客服, _联系客服);
     };return _联系客服;
 }
@@ -1274,7 +1275,7 @@ JobsKey(_connectionTipsTV)
             if ([self isKindOfClass:UIViewController.class]) {
                 textView.delegate = self;
                 UIViewController *viewController = (UIViewController *)self;
-                textView.byAddTo(viewController.view, ^(MASConstraintMaker *make) {
+                textView.addOn(viewController.view).byAdd(^(MASConstraintMaker *make) {
                     make.centerX.equalTo(viewController.view);
                     make.bottom.equalTo(viewController.view).offset(JobsWidth(-65));
                 });

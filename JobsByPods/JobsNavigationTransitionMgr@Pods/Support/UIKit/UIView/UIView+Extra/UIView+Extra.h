@@ -121,9 +121,9 @@ Prop_assign()CGFloat jobsVisible;
 /// 调用方式：view.bottomBorderColor(color).bottomBorderWidth(borderType);
 -(JobsRetViewByFloatBlock _Nonnull)bottomBorderWidth;
 /// 描边：统一设置Layer的线宽+颜色+圆切角（一定切角）
--(JobsReturnViewByLocationModelBlock _Nonnull)setLayerBy;
+-(JobsRetViewByLocationModelBlock _Nonnull)setLayerBy;
 /// 描边：统一设置Layer的线宽+颜色+圆切角（不一定切角）
--(JobsReturnViewByLocationModelBlock _Nonnull)layerBy;
+-(JobsRetViewByLocationModelBlock _Nonnull)layerBy;
 /// 指定描边 【在使用这个方法的一个前提是被描边的view刷新后存在frame】
 /// @param color 作用颜色
 /// @param borderWidth 线宽
@@ -150,7 +150,7 @@ Prop_assign()CGFloat jobsVisible;
 -(JobsRetViewByNSUIntegerBlock _Nonnull)makeLabelByShowingType;
 -(JobsRetViewByNSIntegerBlock _Nonnull)viewByID;
 -(JobsRetViewByGestureRecognizer _Nonnull)addGesture;
--(JobsReturnGestureByGesture _Nonnull)addGestureRecognizer;
+-(JobsRetGestureByGesture _Nonnull)addGestureRecognizer;
 -(JobsRetViewByNSIntegerBlock _Nonnull)viewWithTag;
 -(JobsRetViewByInteractionBlock _Nonnull)addInteraction;
 -(JobsRetViewByInteractionBlock _Nonnull)removeInteraction;

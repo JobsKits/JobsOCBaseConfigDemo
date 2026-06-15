@@ -16,14 +16,14 @@
 }
 #pragma mark —— CQ9电子游戏接口19
 /// CheckPlayer@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_CQ9_checkPlayerByPlayerName{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_CQ9_checkPlayerByPlayerName{
     return ^URLManagerModel *_Nullable(NSString *_Nullable playerName){
         NSString *url = @"api/game/callback/cq9/slot/player/check/{".add(playerName).add(@"}");
         return JobsURL(url);
     };
 }
 /// getBalance@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_CQ9_getBalanceByPlayerName{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_CQ9_getBalanceByPlayerName{
     return ^URLManagerModel *_Nullable(NSString *_Nullable playerName){
         NSString *url = @"/api/game/callback/cq9/slot/transaction/balance/{".add(playerName).add(@"}");
         return JobsURL(url);
@@ -62,7 +62,7 @@
     return JobsURL(@"/api/game/callback/cq9/slot/transaction/game/takeall");
 }
 /// record@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_CQ9_recordByMTCode{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_CQ9_recordByMTCode{
     return ^URLManagerModel *_Nullable(NSString *_Nullable mtcode){
         NSString *url = @"/api/game/callback/cq9/slot/transaction/record/{".add(mtcode).add(@"}");
         return JobsURL(url);

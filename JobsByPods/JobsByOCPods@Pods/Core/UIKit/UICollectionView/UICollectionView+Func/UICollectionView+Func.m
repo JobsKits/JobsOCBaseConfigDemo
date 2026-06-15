@@ -25,7 +25,7 @@
     };
 }
 
--(JobsReturnCollectionViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader{
+-(JobsRetCollectionViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(__kindof MJRefreshHeader * _Nullable header){
         @jobs_strongify(self)
@@ -35,7 +35,7 @@
     };
 }
 
--(JobsReturnCollectionViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter{
+-(JobsRetCollectionViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(__kindof MJRefreshFooter * _Nullable header){
         @jobs_strongify(self)

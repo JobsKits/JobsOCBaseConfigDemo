@@ -44,6 +44,7 @@ Prop_assign()JobsDirectionType transformLayerDirectionType;
 -(JobsRetLabelByTextBlock _Nonnull)byNextText;
 -(JobsRetLabelByAttributedStringBlock _Nonnull)byNextAttributedText;
 -(JobsRetLabelByAttributedStringBlock _Nonnull)byNextAttributedTextWithvalue;
+-(JobsRetLabelByLabelBlock _Nonnull)byLabelBlock;
 -(JobsRetLabelByCorBlock _Nonnull)byTextCor;
 -(JobsRetLabelByFontBlock _Nonnull)byFont;
 -(JobsRetLabelByTextAlignmentBlock _Nonnull)byTextAlignment;

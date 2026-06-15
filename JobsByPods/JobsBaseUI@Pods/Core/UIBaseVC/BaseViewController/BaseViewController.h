@@ -35,6 +35,12 @@
 #import "JobsMakes.h"
 #endif
 
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -67,20 +73,20 @@ NS_ASSUME_NONNULL_END
     -(UIButtonModel *)backBtnModel{
         if(!_backBtnModel){
             @jobs_weakify(self)
-            _backBtnModel = self.makeBackBtnModel;
-            _backBtnModel.titleFont = bayonRegular(JobsWidth(18));
-            _backBtnModel.titleCor = JobsWhiteColor;
-            _backBtnModel.selectedTitleCor = JobsWhiteColor;
-            _backBtnModel.longPressGestureEventBlock = ^id(__kindof UIButton *x) {
-                JobsLog(@"按钮的长按事件触发");
-                return nil;
-            };
-            _backBtnModel.clickEventBlock = ^id(BaseButton *x){
-                @jobs_strongify(self)
-                self.jobsBackBtnClickEvent(x);
-                self.popToRootVCBy(YES);
-                return nil;
-            };
+            _backBtnModel = self.makeBackBtnModel
+                .byTitleFont(bayonRegular(JobsWidth(18)))
+                .byTitleCor(JobsWhiteColor)
+                .bySelectedTitleCor(JobsWhiteColor)
+                .byLongPressGestureEventBlock(^id(__kindof UIButton *x) {
+                    JobsLog(@"按钮的长按事件触发");
+                    return nil;
+                })
+                .byClickEventBlock(^id(BaseButton *x){
+                    @jobs_strongify(self)
+                    self.jobsBackBtnClickEvent(x);
+                    self.popToRootVCBy(YES);
+                    return nil;
+                });
         };return _backBtnModel;
     }
 */

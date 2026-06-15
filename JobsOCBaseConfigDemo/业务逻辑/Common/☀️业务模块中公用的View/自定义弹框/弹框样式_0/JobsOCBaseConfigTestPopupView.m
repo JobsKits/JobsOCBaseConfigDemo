@@ -82,7 +82,7 @@ static dispatch_once_t static_testPopupViewOnceToken;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        _containerView.byAddTo(self, ^(MASConstraintMaker *make) {
+        _containerView.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.size.mas_equalTo(_containerView.jobsSize);
             make.center.equalTo(self);
         });
@@ -103,8 +103,9 @@ static dispatch_once_t static_testPopupViewOnceToken;
             x.selected = !x.selected;
             [self tf_hide:nil];
             if(self.objBlock) self.objBlock(x);
-        });
-        _testPopupViewSureBtn.byAddTo(self, ^(MASConstraintMaker *make) {
+        })
+        .addOn(self)
+        .byAdd(^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.mas_bottom).offset(JobsWidth(-15));
             make.centerX.equalTo(self);
             make.size.mas_equalTo(CGSizeMake(JobsWidth(190), JobsWidth(40)));

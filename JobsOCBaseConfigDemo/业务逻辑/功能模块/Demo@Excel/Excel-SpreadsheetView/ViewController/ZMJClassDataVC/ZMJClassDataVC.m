@@ -40,18 +40,22 @@ Prop_copy()NSString *content;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = @"相关功能列表".tr;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    // self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    
+
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(@"相关功能列表".tr);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        // self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
     self.sortedColumn = (SortedColumn){0, ZMJAscending};
 }
 
@@ -168,7 +172,7 @@ Prop_copy()NSString *content;
         _spreadsheetView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [_spreadsheetView registerClass:HeaderCell.class forCellWithReuseIdentifier:NSStringFromClass(HeaderCell.class)];
         [_spreadsheetView registerClass:TextCell.class forCellWithReuseIdentifier:NSStringFromClass(TextCell.class)];
-        _spreadsheetView.byAddTo(self.view, ^(MASConstraintMaker *make) {
+        _spreadsheetView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             [self make:make topOffset:10];
         });

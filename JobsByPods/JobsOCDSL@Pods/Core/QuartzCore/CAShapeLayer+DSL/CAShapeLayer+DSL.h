@@ -32,10 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark —— CAShapeLayer
 -(JobsRetCAShapeLayerByCGPathRefBlock _Nonnull)byPath;
--(JobsRetCAShapeLayerByCGColorRefBlock _Nonnull)byStrokeColor;
--(JobsRetCAShapeLayerByUIColorBlock _Nonnull)byStrokeColorUIColor;
--(JobsRetCAShapeLayerByCGColorRefBlock _Nonnull)byFillColor;
--(JobsRetCAShapeLayerByUIColorBlock _Nonnull)byFillColorUIColor;
+-(JobsRetCAShapeLayerByCGCorRefBlock _Nonnull)byStrokeColor;
+-(JobsRetCAShapeLayerByCorBlock _Nonnull)byStrokeColorUIColor;
+-(JobsRetCAShapeLayerByCGCorRefBlock _Nonnull)byFillColor;
+-(JobsRetCAShapeLayerByCorBlock _Nonnull)byFillColorUIColor;
 -(JobsRetCAShapeLayerByFillRuleBlock _Nonnull)byFillRule;
 -(JobsRetCAShapeLayerByCGFloatBlock _Nonnull)byLineWidth;
 -(JobsRetCAShapeLayerByCGFloatBlock _Nonnull)byStrokeStart;

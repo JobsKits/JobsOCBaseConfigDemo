@@ -119,11 +119,11 @@ numberOfRowsInSection:(NSInteger)section{
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MSCommentTBVCell *cell = MSCommentTBVCell.cellStyleDefaultWithTableView(tableView)
+    MSCommentTBVCell *cell = MSCommentTBVCell.cellStyleDefaultByTableView(tableView)
         .byAccessoryType(UITableViewCellAccessoryNone)
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.section].commentDataMutArr[indexPath.row])
-            .JobsBlock1(^(id _Nullable data) {
+            .JobsBlock1(^(id _Nullable data) {;
              
             });
     cell.resetWidthByOffset(-JobsWidth(15 * 2));
@@ -150,7 +150,7 @@ viewForHeaderInSection:(NSInteger)section{
         .byStyle(JobsHeaderViewStyle)/// 悬浮开关
         .bySection(section)/// 悬浮配置
         .JobsRichViewByModel2(nil)
-        .JobsBlock1(^(id _Nullable data) {
+        .JobsBlock1(^(id _Nullable data) {;
             
         });
     {

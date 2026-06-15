@@ -123,11 +123,10 @@ static dispatch_once_t static_codeViewOnceToken;
                                         40,
                                         40);
         @jobs_weakify(self)
-        [self.refresh jobsBtnClickEventBlock:^id(UIButton *x) {
+        self.refresh.onClickBy(^(UIButton *x) {
             @jobs_strongify(self)
             [self refreshAction];
-            return nil;
-        }];
+        });
         self.refresh.jobsResetBtnImage(@"refresh".img);
         self.refresh;
     })];
@@ -164,11 +163,10 @@ static dispatch_once_t static_codeViewOnceToken;
                                         40);
         self.refresh.jobsResetBtnImage(@"refresh".img);
         @jobs_weakify(self)
-        [self.refresh jobsBtnClickEventBlock:^id(id data) {
+        self.refresh.onClickBy(^(UIButton *x) {
             @jobs_strongify(self)
             [self refreshAction];
-            return nil;
-        }];
+        });
         self.refresh;
     })];
     self.resetHeight(CGRectGetMaxY(self.refresh.frame) + WMZmargin);
@@ -292,11 +290,10 @@ static dispatch_once_t static_codeViewOnceToken;
             btn.layer.masksToBounds = YES;
             btn.layer.cornerRadius = btnWidth/2;
             @jobs_weakify(self)
-            [btn jobsBtnClickEventBlock:^id(UIButton *x) {
+            btn.onClickBy(^(UIButton *x) {
                 @jobs_strongify(self)
                 [self tapAction:x];
-                return nil;
-            }];
+            });
             CGFloat h = [self getRandomNumber:btnWidth to:WMZimageHeight-WMZmargin];
             if (self.type == CodeTypeLabel) {
                 btn.frame = tempBtn ? CGRectMake(CGRectGetMaxX(tempBtn.frame) + WMZmargin, h, btnWidth, btnWidth) : CGRectMake(WMZmargin, h, btnWidth, btnWidth);

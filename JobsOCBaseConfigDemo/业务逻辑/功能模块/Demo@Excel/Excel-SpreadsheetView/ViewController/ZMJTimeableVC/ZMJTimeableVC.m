@@ -35,18 +35,21 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
         }
     }
     
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = @"ZMJTimeable".tr;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(18);
-    
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.bgImage = @"新首页的底图".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);/// self.gk_navBackgroundColor 和 self.view.backgroundColor
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(@"ZMJTimeable".tr);
+            data.byFont(UIFontWeightRegularSize(18));
+        })
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byBgImage(@"新首页的底图".img)
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1)); // self.gk_navBackgroundColor 和 self.view.backgroundColor        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
@@ -185,27 +188,29 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
 #pragma mark —— lazyLoad
 -(NSMutableArray<NSString *> *)channels{
     if(!_channels){
-        _channels = NSMutableArray.array;
-        _channels.add(@"ABC");
-        _channels.add(@"NNN");
-        _channels.add(@"BBC");
-        _channels.add(@"J-Sports");
-        _channels.add(@"OK News");
-        _channels.add(@"SSS");
-        _channels.add(@"Apple");
-        _channels.add(@"CUK");
-        _channels.add(@"KKR");
-        _channels.add(@"APAR");
-        _channels.add(@"SU");
-        _channels.add(@"CCC");
-        _channels.add(@"Game");
-        _channels.add(@"Anime");
-        _channels.add(@"Tokyo NX");
-        _channels.add(@"NYC");
-        _channels.add(@"SAN");
-        _channels.add(@"Drama");
-        _channels.add(@"Hobby");
-        _channels.add(@"Music");
+        _channels = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
+            arr
+                .add(@"ABC")
+                .add(@"NNN")
+                .add(@"BBC")
+                .add(@"J-Sports")
+                .add(@"OK News")
+                .add(@"SSS")
+                .add(@"Apple")
+                .add(@"CUK")
+                .add(@"KKR")
+                .add(@"APAR")
+                .add(@"SU")
+                .add(@"CCC")
+                .add(@"Game")
+                .add(@"Anime")
+                .add(@"Tokyo NX")
+                .add(@"NYC")
+                .add(@"SAN")
+                .add(@"Drama")
+                .add(@"Hobby")
+                .add(@"Music");
+        });
     };return _channels;
 }
 
@@ -257,7 +262,7 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
         _spreadsheetView.intercellSpacing = CGSizeMake(hairline, hairline);
         _spreadsheetView.gridStyle = [GridStyle style:GridStyle_solid width:hairline color:UIColor.lightGrayColor];
         _spreadsheetView.circularScrolling = [CircularScrollingConfigurationBuilder configurationBuilderWithCircularScrollingState:ZMJCircularScrolling_horizontally_rowHeaderStartsFirstColumn];
-        _spreadsheetView.byAddTo(self.view, ^(MASConstraintMaker *make) {
+        _spreadsheetView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             [self make:make topOffset:10];
         });

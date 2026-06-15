@@ -17,14 +17,16 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
 
 @implementation JobsInfoTBVCell
 #pragma mark —— UITableViewCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsInfoTBVCell *cell = (JobsInfoTBVCell *)tableView.tableViewCellClass(JobsInfoTBVCell.class,@"");
         if (!cell) {
             cell = JobsInfoTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.contentView.byBgColor(JobsCommentConfig.sharedManager.bgCor);
-
+            cell
+                .bySelectionStyle(UITableViewCellSelectionStyleNone)
+                .byContentView(^(__kindof UIView * _Nullable view) {
+                    view.byBgColor(JobsCommentConfig.sharedManager.bgCor);
+                });
         };return cell;
     };
 }
@@ -113,21 +115,22 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(JobsWidth(55 / 2));
+                make.right.equalTo(self.contentView).offset(-JobsWidth(13));
+                make.centerY.equalTo(self.contentView);
             });
         _likeBtn.thumpNum = 0;
-        _likeBtn.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(JobsWidth(55 / 2));
-            make.right.equalTo(self.contentView).offset(-JobsWidth(13));
-            make.centerY.equalTo(self.contentView);
-        });
     }
-    _likeBtn.selected = self.childCommentModel.isPraise.boolValue;
+    _likeBtn.bySelected(self.childCommentModel.isPraise.boolValue);
     _likeBtn.thumpNum = self.childCommentModel.praiseNum;
-    
-    _likeBtn.jobsResetTitle(toStringByNSInteger(_likeBtn.thumpNum));
-    _likeBtn.jobsResetBtnTitleCor(_likeBtn.selected ? JobsRedColor : JobsGrayColor);
-    _likeBtn.jobsResetBtnImage(_likeBtn.selected ? JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like"));
-    _likeBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
+    _likeBtn
+        .jobsResetBtnTitle(toStringByNSInteger(_likeBtn.thumpNum))
+        .jobsResetBtnTitleCor(_likeBtn.selected ? JobsRedColor : JobsGrayColor)
+        .jobsResetBtnImage(_likeBtn.selected ? JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like"))
+        .makeBtnTitleByShowingType(UILabelShowingType_03);
     return _likeBtn;
 }
 

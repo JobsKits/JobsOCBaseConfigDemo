@@ -10,6 +10,12 @@
 #import <JobsGestureLock/JobsGestureLockResource.h>
 #import <JobsGestureLock/JobsGestureLockStorage.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 @interface JobsGestureLockVC ()
 
 Prop_assign()JobsGestureLockMode mode;
@@ -137,11 +143,12 @@ Prop_assign()NSInteger remainingRetryCount;
 }
 
 -(UIButton *)actionButtonWithTitle:(NSString *)title selector:(SEL)selector {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    [button setTitle:title forState:UIControlStateNormal];
-    [button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
-    return button;
+    return (UIButton *)UIButton.alloc.init
+        .byAddTarget(self, selector, UIControlEventTouchUpInside)
+        .byViewBlock(^(__kindof UIView *view) {
+            [(UIButton *)view setTitle:title forState:UIControlStateNormal];
+        })
+        .addOn(self.view);
 }
 
 -(void)applyMode {

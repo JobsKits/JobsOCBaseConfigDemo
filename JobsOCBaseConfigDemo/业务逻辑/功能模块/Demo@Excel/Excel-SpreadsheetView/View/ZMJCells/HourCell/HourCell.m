@@ -39,9 +39,9 @@
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(2)
                 .byFrame(self.bounds)
-                .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-            label.byBgColor([UIColor colorWithRed:0.2 green:0.4 blue:0.8 alpha:1]);
-            label.addOn(self);
+                .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
+            .byBgColor([UIColor colorWithRed:0.2 green:0.4 blue:0.8 alpha:1])
+            .addOn(self);
         });
     };return _label;
 }

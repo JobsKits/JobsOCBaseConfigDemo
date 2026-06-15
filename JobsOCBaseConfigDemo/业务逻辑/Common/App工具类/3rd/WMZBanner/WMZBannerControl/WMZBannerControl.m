@@ -51,23 +51,27 @@ Prop_strong()NSMutableArray *imageArr;
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];\
     UIView *tempView = nil;
     for (int i = 0; i<numberOfPages; i++) {
-        UIView *bgView = [UIView new];
-        
-        bgView.byFrame(CGRectMake(tempView?(CGRectGetMaxX(tempView.frame)+self.param.wBannerControlSelectMargin):self.param.wBannerControlSelectMargin, 0,self.frame.size.width/numberOfPages , self.frame.size.height));
-
-        [self addSubview:bgView];
-        UIImageView *imageView = [UIImageView new];
-        imageView.tag = 111;
-        [bgView addSubview:imageView];
-        
-        UIView  *pointView = [UIImageView new];
-        [bgView addSubview:pointView];
-        pointView.tag = 222;
-        pointView.byFrame(CGRectMake((bgView.frame.size.width - bannerPointSize.width)/2, (bgView.frame.size.height - bannerPointSize.height)/2, bannerPointSize.width, bannerPointSize.height));
-
-        pointView.layer.byBgColor(self.param.wBannerControlColor.CGColor);
-
-        pointView.layer.cornerRadius = pointView.frame.size.height/2;
+        UIView *bgView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(CGRectMake(tempView?(CGRectGetMaxX(tempView.frame)+self.param.wBannerControlSelectMargin):self.param.wBannerControlSelectMargin, 0,self.frame.size.width/numberOfPages , self.frame.size.height))
+                .addOn(self);
+        });
+        jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byTag(111)
+                .addOn(bgView);
+        });
+        jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byTag(222)
+                .byFrame(CGRectMake((bgView.frame.size.width - bannerPointSize.width)/2, (bgView.frame.size.height - bannerPointSize.height)/2, bannerPointSize.width, bannerPointSize.height))
+                .addOn(bgView)
+                .byLayer(^(CALayer * _Nullable layer) {
+                    layer
+                        .byBgColor(self.param.wBannerControlColor.CGColor)
+                        .cornerRadiusBy(imageView.frame.size.height / 2);
+                });
+        });
         
         tempView = bgView;
     }

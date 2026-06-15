@@ -47,7 +47,7 @@ Prop_strong()UIImageView *textIMGV;
         @jobs_weakify(self)
         _textIMGV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+            imageView.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);
             });
         });

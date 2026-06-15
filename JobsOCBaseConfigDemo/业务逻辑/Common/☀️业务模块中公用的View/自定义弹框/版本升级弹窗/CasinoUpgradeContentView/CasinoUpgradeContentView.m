@@ -73,7 +73,8 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
                 .byNumberOfLines(0)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .makeLabelByShowingType(UILabelShowingType_03)
-                .byAddTo(self, ^(MASConstraintMaker *make) {
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
                     make.centerX.equalTo(self);
                     make.top.equalTo(self).offset(JobsWidth(5));
                     make.left.equalTo(self).offset(JobsWidth(10));
@@ -85,49 +86,48 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
 
 -(UIButton *)cancelBtn{
     if (!_cancelBtn) {
-        _cancelBtn = UIButton.new;
-        _cancelBtn.jobsResetBtnTitle(@"Cancel".tr);
-        _cancelBtn.jobsResetBtnTitleCor(HEXCOLOR(0x502600));
-        _cancelBtn.jobsResetBtnTitleFont(UIFontWeightRegularSize(14));
-        _cancelBtn.jobsResetBtnBgImage(@"弹窗取消按钮背景图".img);
         @jobs_weakify(self)
-        [_cancelBtn jobsBtnClickEventBlock:^id(UIButton *x) {
-            @jobs_strongify(self)
-            if(self.objBlock) self.objBlock(x);
-            return nil;
-        }];
-        _cancelBtn.byAddTo(self, ^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(110), JobsWidth(44)));
-            make.left.equalTo(self).offset(JobsWidth(20));
-            make.bottom.equalTo(self).offset(-JobsWidth(20));
-        });
-
+        _cancelBtn = UIButton.jobsInit()
+            .jobsResetBtnTitle(@"Cancel".tr)
+            .jobsResetBtnTitleCor(HEXCOLOR(0x502600))
+            .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
+            .jobsResetBtnBgImage(@"弹窗取消按钮背景图".img)
+            .onClickBy(^(UIButton *x) {
+                @jobs_strongify(self)
+                if(self.objBlock) self.objBlock(x);
+            })
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(110), JobsWidth(44)));
+                make.left.equalTo(self).offset(JobsWidth(20));
+                make.bottom.equalTo(self).offset(-JobsWidth(20));
+            });
     };return _cancelBtn;
 }
 
 -(UIButton *)sureBtn{
     if (!_sureBtn) {
-        _sureBtn = UIButton.new;
-        _sureBtn.jobsResetBtnTitle(@"Sure".tr);
-        _sureBtn.jobsResetBtnTitleCor(HEXCOLOR(0x502600));
-        _sureBtn.jobsResetBtnBgImage(@"弹窗确定按钮背景图".img);
-        _sureBtn.jobsResetBtnTitleFont(UIFontWeightRegularSize(14));
         @jobs_weakify(self)
-        [_sureBtn jobsBtnClickEventBlock:^id(UIButton *x) {
-            @jobs_strongify(self)
-            if(self.objBlock) self.objBlock(x);
-            return nil;
-        }];
-        _sureBtn.byAddTo(self, ^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(110), JobsWidth(44)));
-            make.bottom.equalTo(self).offset(-JobsWidth(20));
-            if (self.iOSNewestVersionModel &&
-                self.iOSNewestVersionModel.isForced == JobsUpdateBySys) {
-                make.centerX.equalTo(self);
-            }else{
-                make.right.equalTo(self).offset(JobsWidth(-20));
-            }
-        });
+        _sureBtn = UIButton.jobsInit()
+            .jobsResetBtnTitle(@"Sure".tr)
+            .jobsResetBtnTitleCor(HEXCOLOR(0x502600))
+            .jobsResetBtnBgImage(@"弹窗确定按钮背景图".img)
+            .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
+            .onClickBy(^(UIButton *x) {
+                @jobs_strongify(self)
+                if(self.objBlock) self.objBlock(x);
+            })
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(110), JobsWidth(44)));
+                make.bottom.equalTo(self).offset(-JobsWidth(20));
+                if (self.iOSNewestVersionModel &&
+                    self.iOSNewestVersionModel.isForced == JobsUpdateBySys) {
+                    make.centerX.equalTo(self);
+                }else{
+                    make.right.equalTo(self).offset(JobsWidth(-20));
+                }
+            });
 
     };return _sureBtn;
 }

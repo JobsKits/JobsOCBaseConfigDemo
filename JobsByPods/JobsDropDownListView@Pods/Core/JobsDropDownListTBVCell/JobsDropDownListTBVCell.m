@@ -17,7 +17,7 @@
 /// UITableViewCellProtocol
 UITableViewCellProtocol_Synthesize
 #pragma mark —— UITableViewCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsDropDownListTBVCell *cell = (JobsDropDownListTBVCell *)tableView.tableViewCellClass(JobsDropDownListTBVCell.class,@"");
         if (!cell) {
@@ -31,12 +31,17 @@ UITableViewCellProtocol_Synthesize
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
         self.jobsRichElementsTableViewCellBy(nil);
-        self.selectionStyle = UITableViewCellSelectionStyleNone;// 取消点击效果 【不能在cellStyleValue1WithTableView里面写】
-        self.byBgColor(self.contentView.backgroundColor = HEXCOLOR(0xFBF7E3));
-
-        self.selectedBackgroundView = [UIView.alloc initWithFrame:self.frame];// 这句不可省略
-        self.selectedBackgroundView.byBgColor(HEXCOLOR(0xE4B94B));
-
+        self
+            .bySelectionStyle(UITableViewCellSelectionStyleNone)// 取消点击效果 【不能在cellStyleValue1ByTableView里面写】
+            .byContentView(^(__kindof UIView * _Nullable view) {
+                view.byBgColor(HEXCOLOR(0xFBF7E3));
+            })
+            .bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+                view
+                    .byFrame(self.frame)// 这句不可省略
+                    .byBgColor(HEXCOLOR(0xE4B94B));
+            }))
+            .byBgColor(HEXCOLOR(0xFBF7E3));
     };return self;
 }
 
@@ -61,7 +66,9 @@ UITableViewCellProtocol_Synthesize
             data.byJobsWidth(JobsMainScreen_WIDTH() - JobsWidth(200));
             data.textModel.byText(data.subTextModel.text)
                           .byTextLineSpacing(0);
-        });return UIView.new.heightByData(model ? : vm) + JobsWidth(20);
+        });return jobsMakeView(^(__kindof UIView * _Nullable view) {
+            /// 仅用于高度测量
+        }).heightByData(model ? : vm) + JobsWidth(20);
     };
 }
 

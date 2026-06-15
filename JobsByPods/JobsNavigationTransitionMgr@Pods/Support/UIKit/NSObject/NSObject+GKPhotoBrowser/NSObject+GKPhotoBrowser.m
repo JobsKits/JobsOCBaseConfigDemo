@@ -23,7 +23,7 @@ NS_INLINE __kindof GKPhotoBrowser *_Nonnull jobsMakeGKPhotoBrowserByPhotosArray(
     return photoBrowser;
 }
 
--(JobsReturnGKPhotoBrowserByPhotosArrayAndCurrentIndexBlock _Nonnull)makeGKPhotoBrowser{
+-(JobsRetGKPhotoBrowserByPhotosArrayAndCurrentIndexBlock _Nonnull)makeGKPhotoBrowser{
     return ^GKPhotoBrowser *_Nullable(__kindof NSArray <GKPhoto *>*_Nullable photosArray,
                                       NSInteger currentIndex){
         return [GKPhotoBrowser photoBrowserWithPhotos:photosArray currentIndex:currentIndex];

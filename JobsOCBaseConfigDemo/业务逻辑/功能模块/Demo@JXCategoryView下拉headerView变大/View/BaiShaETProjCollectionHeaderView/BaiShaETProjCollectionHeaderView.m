@@ -117,7 +117,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return JobsBaseTableViewCell.cellStyleValue1WithTableView(tableView)
+    return JobsBaseTableViewCell.cellStyleValue1ByTableView(tableView)
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byIndexPath(indexPath)
         .byContentViewBgCor(HEXCOLOR(0xFFFCF7))
@@ -140,21 +140,20 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                                          .add(@"VIP".tr.add(JobsSpace).add(@"0")))
         .jobsResetBtnImage(@"默认头像".img)
         .jobsResetBtnTitleCor(HEXCOLOR(0xAE8330))
-        .jobsResetBtnTitleFont(UIFontWeightBoldSize(16));
-        JobsLog(@"%@",_userHeaderBtn.titleForNormalState);
-        _userHeaderBtn.byAddTo(self, ^(MASConstraintMaker *make) {
+        .jobsResetBtnTitleFont(UIFontWeightBoldSize(16))
+        .makeBtnTitleByShowingType(UILabelShowingType_05)
+        .jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTop, JobsWidth(12))
+        .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
+            model.byJobsWidth(1.f)
+                 .byLayerCor(HEXCOLOR(0xEEE2C8))
+                 .byCornerRadiusValue(@"默认头像".img.jobsHeight / 2);
+        }))
+        .addOn(self)
+        .byAdd(^(MASConstraintMaker *make) {
             make.centerX.equalTo(self);
             make.top.equalTo(self).offset(JobsWidth(43));
         });
-        _userHeaderBtn.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-            @jobs_strongify(self)
-            model.byJobsWidth(1.f)
-                 .byLayerCor(HEXCOLOR(0xEEE2C8))
-                 .byCornerRadiusValue(self->_userHeaderBtn.imageView.image.jobsHeight / 2);
-        }));
-        _userHeaderBtn.imageTitleSpace = JobsWidth(12);
-        _userHeaderBtn.makeBtnTitleByShowingType(UILabelShowingType_05);
-        _userHeaderBtn.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTop,_userHeaderBtn.imageTitleSpace);
+        JobsLog(@"%@",_userHeaderBtn.titleForNormalState);
     };return _userHeaderBtn;
 }
 
@@ -230,18 +229,19 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_weakify(self)
         _leftLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"Lv".tr.add(@" ").add(@"0"))
+            label
+                .byText(@"Lv".tr.add(@" ").add(@"0"))
             .byTextCor(HEXCOLOR(0x757575))
             .byFont(UIFontWeightRegularSize(12))
             .byTextAlignment(NSTextAlignmentCenter)
+            .makeLabelByShowingType(UILabelShowingType_03)
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
                 make.left.equalTo(self.animationLab);
                 make.top.equalTo(self.animationLab.mas_bottom).offset(JobsWidth(22));
                 make.height.mas_equalTo(JobsWidth(12));
-            })
-            .makeLabelByShowingType(UILabelShowingType_03);
+            });
         });
     };return _leftLab;
 }
@@ -256,14 +256,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byTextCor(HEXCOLOR(0x757575))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightRegularSize(12))
+                .makeLabelByShowingType(UILabelShowingType_03)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
                     make.right.equalTo(self).offset(JobsWidth(-16));
                     make.top.equalTo(self.animationLab.mas_bottom).offset(JobsWidth(22));
                     make.height.mas_equalTo(JobsWidth(12));
-                })
-                .makeLabelByShowingType(UILabelShowingType_03);
+                });
         });
     };return _rightLab;
 }

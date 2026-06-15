@@ -36,9 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JXCategoryNumberView (Extra)
 
--(JobsReturnCategoryNumberViewByNumbersBlock _Nonnull)byCounts;
--(JobsReturnCategoryNumberViewByCGPointBlock _Nonnull)byNumberLabelOffset;
--(JobsReturnCategoryNumberViewByReturnStringByIntegerBlocks _Nonnull)byNumberStringFormatterBlock;
+-(JobsRetCategoryNumberViewByNumbersBlock _Nonnull)byCounts;
+-(JobsRetCategoryNumberViewByCGPointBlock _Nonnull)byNumberLabelOffset;
+-(JobsRetCategoryNumberViewByRetStringByIntegerBlocks _Nonnull)byNumberStringFormatterBlock;
 
 @end
 

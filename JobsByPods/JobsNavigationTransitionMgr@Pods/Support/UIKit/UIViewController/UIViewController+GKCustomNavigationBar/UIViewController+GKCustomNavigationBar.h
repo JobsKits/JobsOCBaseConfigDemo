@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_strong(nullable)__kindof UIButtonModel *gk_navTitleBtnModel;
 Prop_strong(nullable)__kindof UIButton *gk_navTitleBtn;
 
--(JobsReturnGKNavBarByButtonModelBlock _Nonnull)gk_navTitleBtnBy;
+-(JobsRetGKNavBarByButtonModelBlock _Nonnull)gk_navTitleBtnBy;
 
 @end
 

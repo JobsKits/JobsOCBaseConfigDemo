@@ -31,7 +31,7 @@
     self.jobsResetSubtitleTextAttributesTransformer([self jobsSetConfigTextAttributesTransformerByTitleFont:subTitleFont
                                                                                                 btnTitleCor:subTitleCor]);
 }
-/// 重设UIButtonConfiguration并使之生效  JobsReturnButtonConfigurationByButtonConfigurationBlock
+/// 重设UIButtonConfiguration并使之生效  JobsRetButtonConfigurationByButtonConfigurationBlock
 -(__kindof UIButton *)jobsUpdateButtonConfiguration:(jobsByBtnConfigBlock _Nullable)configurationBlock {
     if (@available(iOS 16.0, *)) {
         UIButtonConfiguration *config = nil;

@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSData (Extra)
+@interface NSData (YTKNetworkExtraExtra)
 
 -(NSString *)stringByUTF8Encoding;
 

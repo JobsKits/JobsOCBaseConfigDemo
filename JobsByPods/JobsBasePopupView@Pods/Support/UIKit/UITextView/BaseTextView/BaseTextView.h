@@ -106,7 +106,8 @@ NS_INLINE __kindof JobsBasePopupTextView *_Nonnull jobsMakeJobsBasePopupTextView
                              }));
                      })))
                      .byBgColor(JobsClearColor)
-                     .byAddTo(self, ^(MASConstraintMaker *make) {
+                     .addOn(self)
+                     .byAdd(^(MASConstraintMaker *make) {
                          make.centerX.equalTo(self);
                          make.top.equalTo(self.sign_up_btn.mas_bottom).offset(JobsWidth(5));
                          make.height.mas_equalTo(JobsWidth(25));

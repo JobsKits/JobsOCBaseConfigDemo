@@ -25,7 +25,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSString (Path)
+@interface NSString (JobsLinkageMenuViewPath)
 #pragma mark —— iOS 获取文件的 文件名 和 后缀
 /// 从路径中获得完整的文件名 （带后缀）
 -(NSString *)getFullFileNameByFilePath;

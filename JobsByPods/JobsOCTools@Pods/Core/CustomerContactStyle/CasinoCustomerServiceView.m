@@ -96,13 +96,13 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
                 .byText(Title10.tr)
                 .byTextCor(HEXCOLOR(0x502600))
                 .byFont([UIFont systemFontOfSize:JobsWidth(20)
-                                           weight:UIFontWeightRegular]);
-            label.bySizeToFit();
-            label.addOn(self.backgroundImageView);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                                           weight:UIFontWeightRegular])
+            .bySizeToFit()
+            .addOn(self.backgroundImageView)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self);
                 make.top.equalTo(self).offset(JobsWidth(20));
-            }];
+            });
         });
     };return _titleLab;
 }
@@ -166,15 +166,15 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(0)
                 .byTextCor(HEXCOLOR(0x502600))
-                .byFont(UIFontWeightMediumSize(12));
-            label.bySizeToFit();
-            label.addOn(self);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                .byFont(UIFontWeightMediumSize(12))
+            .bySizeToFit()
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self.contactCustomerServiceBtn);
                 make.top.equalTo(self.contactCustomerServiceBtn.mas_bottom).offset(JobsWidth(23));
                 make.left.equalTo(self).offset(JobsWidth(15));
                 make.right.equalTo(self).offset(JobsWidth(-15));
-            }];
+            });
         });
     };return _subTitleLab;
 }
@@ -187,7 +187,7 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
         _hl.labelShowingType = UILabelShowingType_02;
         _hl.elementDefaultSize = CGSizeMake(JobsWidth(43), JobsWidth(43));
         self.actionForHotLabel(_hl);
-        _hl.byAddTo(self, ^(MASConstraintMaker *make) {
+        _hl.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.centerX.equalTo(self);
             make.top.equalTo(self.subTitleLab.mas_bottom).offset(JobsWidth(13));
             make.size.mas_equalTo(JobsHotLabelBySingleLine.viewSizeByModel(self.hotLabelDataMutArr));

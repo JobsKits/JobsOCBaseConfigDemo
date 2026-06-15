@@ -131,14 +131,14 @@ Prop_copy()FinishBlock finishBlock;
 #pragma mark —— lazyLoad
 - (UILabel *)contentLabel{
     if (!_contentLabel) {
-        _contentLabel = [[UILabel alloc] initWithFrame:self.bounds];
-        _contentLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _contentLabel.byTextCor([UIColor whiteColor]);
-
-        _contentLabel.byFont([UIFont systemFontOfSize:20]);
-
-        _contentLabel.byTextAlignment(NSTextAlignmentCenter);
-
+        _contentLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byTextCor([UIColor whiteColor])
+                .byFont([UIFont systemFontOfSize:20])
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byFrame(self.bounds)
+                .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+        });
     };return _contentLabel;
 }
 

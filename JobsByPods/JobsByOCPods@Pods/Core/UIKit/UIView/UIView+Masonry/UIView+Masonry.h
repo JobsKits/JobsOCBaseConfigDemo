@@ -48,7 +48,7 @@
  */
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIView (Masonry)
+@interface UIView (JobsByOCPodsMasonry)
 
 Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
 #pragma mark —— 一些Masonry算法

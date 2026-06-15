@@ -25,7 +25,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UITextItem (Extra)
+@interface UITextItem (JobsByOCPodsExtra)
 
 Prop_strong()UITextView *textView;
 

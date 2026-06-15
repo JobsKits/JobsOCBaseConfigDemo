@@ -38,7 +38,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSObject (Extra)
+@interface NSObject (JobsAPIsExtra)
 
 -(URLManagerModel *_Nonnull)url:(NSString *_Nonnull)url funcName:(NSString *_Nonnull)funcName;
 -(JobsRetDataByStrBlock _Nonnull)initByContentsOfFile;
@@ -50,9 +50,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Tips封装
 -(jobsByIDBlock _Nonnull)tipsByApi;
 /// 打印请求体
--(JobsReturnURLRequestByURLSessionTaskBlock _Nullable)printURLSessionRequestMessage;
+-(JobsRetURLRequestByURLSessionTaskBlock _Nullable)printURLSessionRequestMessage;
 /// 打印URLRequest
--(JobsReturnMutableURLRequestByURLRequestBlock _Nullable)printRequestMessage;
+-(JobsRetMutableURLRequestByURLRequestBlock _Nullable)printRequestMessage;
 
 @end
 

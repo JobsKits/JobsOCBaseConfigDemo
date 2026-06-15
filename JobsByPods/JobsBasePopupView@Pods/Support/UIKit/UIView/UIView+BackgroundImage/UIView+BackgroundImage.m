@@ -29,12 +29,12 @@ JobsKey(_backgroundImageView)
             self.byBgColor(JobsClearColor);
             if ([self isKindOfClass:UICollectionViewCell.class]) {
                 UICollectionViewCell *cell = (UICollectionViewCell *)self;
-                imageView.byAddTo(cell.contentView, ^(MASConstraintMaker *make) {
+                imageView.addOn(cell.contentView).byAdd(^(MASConstraintMaker *make) {
                     make.edges.equalTo(cell.contentView);
                 });
             }else if ([self isKindOfClass:UITableViewCell.class]){
                 UITableViewCell *cell = (UITableViewCell *)self;
-                imageView.byAddTo(cell.contentView, ^(MASConstraintMaker *make) {
+                imageView.addOn(cell.contentView).byAdd(^(MASConstraintMaker *make) {
                     make.edges.equalTo(cell.contentView);
                 });
             }else{

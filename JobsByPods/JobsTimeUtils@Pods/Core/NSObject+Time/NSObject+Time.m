@@ -352,7 +352,7 @@
     };
 }
 /// 接受一个秒数，对这个秒数进行解析出：时、分、秒，存入JobsTimeModel，外层再对这个JobsTimeModel进行取值，对数据进行拼装
--(JobsReturnTimeModelByIntegerBlock _Nonnull)HHMMSS{
+-(JobsRetTimeModelByIntegerBlock _Nonnull)HHMMSS{
     return ^JobsTimeModel *(NSInteger TimeSec){
         return jobsMakeTimeModel(^(__kindof JobsTimeModel *_Nullable data) {
             data.byCustomHour(toStringByFloatDecimalPlaces(TimeSec / 3600, 2).integerValue)
@@ -362,7 +362,7 @@
     };
 }
 /// 获得今天的时间：年/月/日
--(JobsReturnTimeModelByStringBlock _Nonnull)getToday{
+-(JobsRetTimeModelByStringBlock _Nonnull)getToday{
     @jobs_weakify(self)
     return ^JobsTimeModel *_Nullable(NSString *_Nullable dateFormat){
         @jobs_strongify(self )
@@ -453,10 +453,13 @@
                           timeFormatStr:(NSString *_Nullable)timeFormatStr{
     if(!date) date = NSDate.date;
     return jobsMakeTimeModel(^(__kindof JobsTimeModel *_Nullable timeModel) {
-        timeModel.byDate(date)                                             // 时间字符串NSDate
+        timeModel.byDate(date)
+                                             // 时间字符串NSDate
                  .byDateStr(self.dateFormatterBy(timeFormatStr).date(date))// NSDate转时间字符串
-                 .byIntervalBySec(date.timeIntervalSince1970)              // (NSDate *)时间转时间戳 单位：秒
-                 .byIntervalByMilliSec(intervalBySec * 1000);               // (NSDate *)时间转时间戳 单位：毫秒
+                 .byIntervalBySec(date.timeIntervalSince1970)
+              // (NSDate *)时间转时间戳 单位：秒
+                 .byIntervalByMilliSec(intervalBySec * 1000);
+               // (NSDate *)时间转时间戳 单位：毫秒
     });
 }
 /// NSString * ---> NSString *   格式转换为   小时：分钟：秒

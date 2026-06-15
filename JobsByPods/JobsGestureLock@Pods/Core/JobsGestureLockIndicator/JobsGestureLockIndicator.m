@@ -8,6 +8,12 @@
 #import "JobsGestureLockIndicator.h"
 #import <JobsGestureLock/JobsGestureLockConfiguration.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 @interface JobsGestureLockIndicator ()
 
 Prop_strong()NSMutableArray<UIButton *> *nodeButtons;
@@ -34,11 +40,14 @@ Prop_strong()NSMutableArray<UIButton *> *nodeButtons;
 
 - (void)buildSubviews {
     for (NSInteger index = 0; index < 9; index++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.userInteractionEnabled = NO;
-        [button setImage:self.configuration.indicatorNormalImage forState:UIControlStateNormal];
-        [button setImage:self.configuration.indicatorSelectedImage forState:UIControlStateSelected];
-        [self addSubview:button];
+        UIButton *button = (UIButton *)UIButton.alloc.init
+            .byViewBlock(^(__kindof UIView *view) {
+                UIButton *btn = (UIButton *)view;
+                [btn setImage:self.configuration.indicatorNormalImage forState:UIControlStateNormal];
+                [btn setImage:self.configuration.indicatorSelectedImage forState:UIControlStateSelected];
+            })
+            .byUserInteractionEnabled(NO)
+            .addOn(self);
         [self.nodeButtons addObject:button];
     }
 }

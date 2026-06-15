@@ -18,7 +18,7 @@ JobsKey(_gifImageView)
         GifImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
             imageView.image = self.image;
-            imageView.byAddTo(self.view, ^(MASConstraintMaker *make) {
+            imageView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.view);
             });
 Jobs_setAssociatedRETAIN_NONATOMIC(_gifImageView, GifImageView)

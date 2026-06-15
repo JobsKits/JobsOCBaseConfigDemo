@@ -92,7 +92,7 @@
     };
 }
 
--(JobsReturnScrollViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader{
+-(JobsRetScrollViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader{
     @jobs_weakify(self)
     return ^__kindof UIScrollView *_Nullable(__kindof MJRefreshHeader * _Nullable header){
         @jobs_strongify(self)
@@ -102,7 +102,7 @@
     };
 }
 
--(JobsReturnScrollViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter{
+-(JobsRetScrollViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter{
     @jobs_weakify(self)
     return ^__kindof UIScrollView *_Nullable(__kindof MJRefreshFooter * _Nullable header){
         @jobs_strongify(self)
@@ -112,7 +112,7 @@
     };
 }
 
--(JobsReturnScrollViewByMJRefreshHeaderBlock _Nonnull)byMJ_header{
+-(JobsRetScrollViewByMJRefreshHeaderBlock _Nonnull)byMJ_header{
     @jobs_weakify(self)
     return ^__kindof UIScrollView *_Nullable(__kindof MJRefreshHeader *_Nullable header){
         @jobs_strongify(self)
@@ -122,7 +122,7 @@
     };
 }
 
--(JobsReturnScrollViewByMJRefreshFooterBlock _Nonnull)byMJ_footer{
+-(JobsRetScrollViewByMJRefreshFooterBlock _Nonnull)byMJ_footer{
     @jobs_weakify(self)
     return ^__kindof UIScrollView *_Nullable(__kindof MJRefreshFooter *_Nullable footer){
         @jobs_strongify(self)

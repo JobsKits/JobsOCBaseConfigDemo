@@ -57,12 +57,16 @@ Prop_strong()UIView *presentationWrappingView;
     //
     // SEE ALSO: The note in AAPLCustomPresentationSecondViewController.m.
     {
-        UIView *presentationWrapperView = UIView.new;
-        presentationWrapperView.byFrame(self.frameOfPresentedViewInContainerView);
-
-        presentationWrapperView.layer.shadowOpacity = 0.44f;
-        presentationWrapperView.layer.shadowRadius = 13.f;
-        presentationWrapperView.layer.shadowOffset = CGSizeMake(0, -6.f);
+        UIView *presentationWrapperView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(self.frameOfPresentedViewInContainerView)
+                .byLayer(^(CALayer *layer) {
+                    layer
+                        .byShadowOpacity(0.44f)
+                        .byShadowRadius(13.f)
+                        .byShadowOffset(CGSizeMake(0, -6.f));
+                });
+        });
         self.presentationWrappingView = presentationWrapperView;
         
         // presentationRoundedCornerView is CORNER_RADIUS points taller than the
@@ -71,46 +75,51 @@ Prop_strong()UIView *presentationWrappingView;
         // effect calls for only the top two corners to be rounded we size
         // the view such that the bottom CORNER_RADIUS points lie below
         // the bottom edge of the screen.
-        UIView *presentationRoundedCornerView = UIView.new;
-        presentationRoundedCornerView.byFrame(UIEdgeInsetsInsetRect(presentationWrapperView.bounds, UIEdgeInsetsMake(0, 0, -CORNER_RADIUS, 0)));
-
-        presentationRoundedCornerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        presentationRoundedCornerView.layer.cornerRadius = CORNER_RADIUS;
-        presentationRoundedCornerView.layer.masksToBounds = YES;
+        UIView *presentationRoundedCornerView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(UIEdgeInsetsInsetRect(presentationWrapperView.bounds, UIEdgeInsetsMake(0, 0, -CORNER_RADIUS, 0)))
+                .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
+                .byLayer(^(CALayer *layer) {
+                    layer
+                        .byCornerRadius(CORNER_RADIUS)
+                        .byMasksToBounds(YES);
+                });
+        });
         
         // To undo the extra height added to presentationRoundedCornerView,
         // presentedViewControllerWrapperView is inset by CORNER_RADIUS points.
         // This also matches the size of presentedViewControllerWrapperView's
         // bounds to the size of -frameOfPresentedViewInContainerView.
-        UIView *presentedViewControllerWrapperView = UIView.new;
-        presentedViewControllerWrapperView.byFrame(UIEdgeInsetsInsetRect(presentationRoundedCornerView.bounds, UIEdgeInsetsMake(0, 0, CORNER_RADIUS, 0)));
-
-        presentedViewControllerWrapperView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        UIView *presentedViewControllerWrapperView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(UIEdgeInsetsInsetRect(presentationRoundedCornerView.bounds, UIEdgeInsetsMake(0, 0, CORNER_RADIUS, 0)))
+                .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+        });
         
         // Add presentedViewControllerView -> presentedViewControllerWrapperView.
-        presentedViewControllerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        presentedViewControllerView.byFrame(presentedViewControllerWrapperView.bounds);
-
-        [presentedViewControllerWrapperView addSubview:presentedViewControllerView];
+        presentedViewControllerView
+            .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
+            .byFrame(presentedViewControllerWrapperView.bounds)
+            .addOn(presentedViewControllerWrapperView);
         
         // Add presentedViewControllerWrapperView -> presentationRoundedCornerView.
-        [presentationRoundedCornerView addSubview:presentedViewControllerWrapperView];
+        presentedViewControllerWrapperView.addOn(presentationRoundedCornerView);
         
         // Add presentationRoundedCornerView -> presentationWrapperView.
-        [presentationWrapperView addSubview:presentationRoundedCornerView];
+        presentationRoundedCornerView.addOn(presentationWrapperView);
     }
     
     // Add a dimming view behind presentationWrapperView.  self.presentedView
     // is added later (by the animator) so any views added here will be
     // appear behind the -presentedView.
     {
-        UIView *dimmingView = UIView.new;
-        dimmingView.byFrame(self.containerView.bounds);
-
-        dimmingView.byBgColor(JobsBlackColor);
-
-        dimmingView.opaque = NO;
-        dimmingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        UIView *dimmingView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(self.containerView.bounds)
+                .byBgColor(JobsBlackColor)
+                .byOpaque(NO)
+                .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+        });
         
         dimmingView.weak_target = self;
         dimmingView.tapGR_SelImp.selector = [self jobsSelectorBlock:^id _Nullable(id _Nullable target,
@@ -121,7 +130,7 @@ Prop_strong()UIView *presentationWrappingView;
         dimmingView.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
         
         self.dimmingView = dimmingView;
-        [self.containerView addSubview:dimmingView];
+        dimmingView.addOn(self.containerView);
         
         // Get the transition coordinator for the presentation so we can
         // fade in the dimmingView alongside the presentation animation.

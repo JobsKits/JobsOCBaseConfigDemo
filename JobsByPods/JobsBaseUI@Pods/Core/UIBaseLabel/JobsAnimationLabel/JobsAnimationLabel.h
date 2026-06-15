@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_END
              label.lastValue = (label.value * 3);
          }];
          
-         _animationLab.byAddTo(self, ^(MASConstraintMaker *make) {
+         _animationLab.addOn(self).byAdd(^(MASConstraintMaker *make) {
              make.bottom.equalTo(self.progressView);
              make.left.equalTo(self.progressView);
          });

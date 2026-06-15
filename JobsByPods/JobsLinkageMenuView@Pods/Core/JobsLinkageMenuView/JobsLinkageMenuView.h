@@ -42,7 +42,8 @@
 Prop_strong()UIColor *selectViewColor; // 滑块颜色
 Prop_strong()UIColor *textColor;       // 标题颜色
 Prop_strong()UIColor *selectTextColor; // 标题选中的颜色
-Prop_assign()CGFloat textSize;         // 标题字体大小
+Prop_assign()CGFloat textSize;
+         // 标题字体大小
 
 -(instancetype)initWithFrame:(CGRect)frame
                    btnConfig:(UIButtonModel *)btnConfig

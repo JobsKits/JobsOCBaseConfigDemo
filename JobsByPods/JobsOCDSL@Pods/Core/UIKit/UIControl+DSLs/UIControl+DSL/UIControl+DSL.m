@@ -9,15 +9,15 @@
 /// 内部闭包包装器
 @interface _JobsClosureWrapper : NSObject
 
-Prop_copy()JobsControlHandler handler;
--(instancetype)initWithHandler:(JobsControlHandler)handler;
+Prop_copy()jobsByCtrlBlock handler;
+-(instancetype)initWithHandler:(jobsByCtrlBlock)handler;
 -(void)invoke:(UIControl *)sender;
 
 @end
 
 @implementation _JobsClosureWrapper
 
--(instancetype)initWithHandler:(JobsControlHandler)handler{
+-(instancetype)initWithHandler:(jobsByCtrlBlock)handler{
     if ( self = [super init]){
         _handler = [handler copy];
     };return self;
@@ -33,7 +33,7 @@ Prop_copy()JobsControlHandler handler;
 /// 辅助函数：注册事件 + Block
 static void JobsAddClosureAction(UIControl *control,
                                  UIControlEvents events,
-                                 JobsControlHandler handler){
+                                 jobsByCtrlBlock handler){
     if (!control || !handler) return;
     _JobsClosureWrapper *wrapper = [_JobsClosureWrapper.alloc initWithHandler:handler];
     NSString *key = [NSString stringWithFormat:@"[[jobs_event_%lu]]",(unsigned long)events];
@@ -50,7 +50,7 @@ static void JobsAddClosureAction(UIControl *control,
 
 -(JobsRetControlByHandlerBlock)onJobsTap{
     @jobs_weakify(self)
-    return ^__kindof UIControl * _Nullable (JobsControlHandler handler){
+    return ^__kindof UIControl * _Nullable (jobsByCtrlBlock handler){
         @jobs_strongify(self)
         if (!handler) return self;
         JobsAddClosureAction(self, UIControlEventTouchUpInside, handler);
@@ -60,7 +60,7 @@ static void JobsAddClosureAction(UIControl *control,
 
 -(JobsRetControlByHandlerBlock)onJobsChange{
     @jobs_weakify(self)
-    return ^__kindof UIControl * _Nullable (JobsControlHandler handler){
+    return ^__kindof UIControl * _Nullable (jobsByCtrlBlock handler){
         @jobs_strongify(self)
         if (!handler) return self;
         JobsAddClosureAction(self, UIControlEventValueChanged, handler);
@@ -71,7 +71,7 @@ static void JobsAddClosureAction(UIControl *control,
 -(JobsRetControlByEventsHandlerBlock)onJobsEvent{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIControlEvents events,
-                                            JobsControlHandler handler){
+                                            jobsByCtrlBlock handler){
         @jobs_strongify(self)
         if (!handler) return self;
         JobsAddClosureAction(self, events, handler);

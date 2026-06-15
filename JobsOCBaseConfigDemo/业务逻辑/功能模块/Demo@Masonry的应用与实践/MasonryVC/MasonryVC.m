@@ -29,19 +29,26 @@ Prop_strong()MSMineView2 *view2;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-//    self.viewModel.textModel.text = @"消息详情页".tr;
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+        })
+        //    self.viewModel.textModel.text = @"消息详情页".tr;
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
     
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
@@ -108,20 +115,25 @@ Prop_strong()MSMineView2 *view2;
         .add(@"标签9".tr)
         .add(@"标签10".tr);
     })) {
-        self.view.addSubview(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText(tagName)
+        jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(tagName)
                 .byTextAlignment(NSTextAlignmentCenter)
-                .byBgColor(JobsLightGrayColor);
-            label.byCornerRadius(5.0);
-            label.byClipsToBounds(YES);
-            // 根据标签文本计算标签宽度
-            CGSize tagSize = [label sizeThatFits:CGSizeMake(containerWidth, tagHeight)];
-            // 如果当前行放不下该标签，则换行
-            if (currentX + tagSize.width > containerWidth) {
-                currentX = containerX;
-                currentY += tagHeight + tagSpacing;
-            }label.frame = CGRectMake(currentX, currentY, tagSize.width, tagHeight);
-        }));currentX += tagSize.width + tagSpacing;/// 更新当前行的x坐标
+                .byLabelBlock(^(__kindof UILabel * _Nullable data) {
+                    // 根据标签文本计算标签宽度
+                    tagSize = [data sizeThatFits:CGSizeMake(containerWidth, tagHeight)];
+                    // 如果当前行放不下该标签，则换行
+                    if (currentX + tagSize.width > containerWidth) {
+                        currentX = containerX;
+                        currentY += tagHeight + tagSpacing;
+                    }
+                })
+                .byBgColor(JobsLightGrayColor)
+                .byCornerRadius(5.0)
+                .byClipsToBounds(YES)
+                .byFrame(CGRectMake(currentX, currentY, tagSize.width, tagHeight))
+                .addOn(self.view);
+        });currentX += tagSize.width + tagSpacing;/// 更新当前行的x坐标
     }
 }
 /**
@@ -136,17 +148,14 @@ Prop_strong()MSMineView2 *view2;
  */
 -(void)demo2{
     // 创建父视图容器
-    UIView *containerView = [UIView new];
-    [self.view addSubview:containerView];
-    
-    // 设置父视图容器的背景色为红色
-    containerView.byBgColor([UIColor redColor]);
-
-    
-    // 设置父视图容器的约束
-    [containerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(100, 20, 100, 20)); // 设置四个边界紧贴父视图
-    }];
+    UIView *containerView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+        view
+            .byBgColor(UIColor.redColor)
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(100, 20, 100, 20)); // 设置四个边界紧贴父视图
+            });
+    });
     
     [self.view layoutIfNeeded];
     JobsLog(@"ddd = %f",CGRectGetWidth(containerView.frame));
@@ -178,20 +187,19 @@ Prop_strong()MSMineView2 *view2;
             NSInteger index = row * columns + column;
             
             if (index < itemCount) {
-                UIView *itemView = [UIView new];
-                itemView.byBgColor([UIColor blueColor]); // 子元素背景色为蓝色
-                [containerView addSubview:itemView];
+                UIView *itemView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+                    view
+                        .byBgColor(UIColor.blueColor) // 子元素背景色为蓝色
+                        .addOn(containerView)
+                        .byAdd(^(MASConstraintMaker *make) {
+                            make.width.equalTo(@(itemWidth)); // 设置子元素宽度
+                            make.height.equalTo(@(itemHeight)); // 设置子元素高度
+                            // 计算子元素的位置
+                            make.left.equalTo(containerView.mas_left).offset(column * (itemWidth + horizontalSpacing));
+                            make.top.equalTo(containerView.mas_top).offset(row * (itemHeight + verticalSpacing));
+                        });
+                });
                 [itemViews addObject:itemView];
-                
-                // 设置子元素的约束
-                [itemView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(@(itemWidth)); // 设置子元素宽度
-                    make.height.equalTo(@(itemHeight)); // 设置子元素高度
-                    
-                    // 计算子元素的位置
-                    make.left.equalTo(containerView.mas_left).offset(column * (itemWidth + horizontalSpacing));
-                    make.top.equalTo(containerView.mas_top).offset(row * (itemHeight + verticalSpacing));
-                }];
             }
         }
     }

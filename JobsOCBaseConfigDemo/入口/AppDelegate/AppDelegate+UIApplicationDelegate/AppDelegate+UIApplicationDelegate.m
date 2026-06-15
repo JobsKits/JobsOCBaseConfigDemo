@@ -20,7 +20,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     self.localNotifications();
     self.launchFunc2();
-    AppDelegate.launchFunc1();          // 如遇“重复副作用”，可改到 SceneDelegate，或在此加 @available 保护
+    AppDelegate.launchFunc1();
+          // 如遇“重复副作用”，可改到 SceneDelegate，或在此加 @available 保护
 
     if (@available(iOS 13.0, *)) {
         // 👉 iOS 13+ 由 SceneDelegate 负责挂窗，这里不再创建 window

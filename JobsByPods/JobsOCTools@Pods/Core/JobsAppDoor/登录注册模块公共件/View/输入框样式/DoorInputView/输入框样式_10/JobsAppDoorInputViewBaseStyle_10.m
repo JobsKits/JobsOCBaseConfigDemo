@@ -126,7 +126,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             @jobs_strongify(self)
             [self block:self->_zyTextField value:x];
         }];
-        _zyTextField.byAddTo(self, ^(MASConstraintMaker *make) {
+        _zyTextField.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.left.equalTo(self);
             make.top.bottom.equalTo(self);
             make.size.mas_equalTo(inputSize_02());

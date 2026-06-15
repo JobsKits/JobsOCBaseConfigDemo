@@ -189,7 +189,7 @@ static inline void jobs_installTableViewDelegateMux(UITableView *tableView){
     };
 }
 
--(JobsRetTableViewByTargetBlock _Nonnull)byTarget{
+-(JobsRetTableViewByIDBlock _Nonnull)byTarget{
     @jobs_weakify(self)
     return ^__kindof UITableView * _Nullable(id _Nullable target){
         @jobs_strongify(self)

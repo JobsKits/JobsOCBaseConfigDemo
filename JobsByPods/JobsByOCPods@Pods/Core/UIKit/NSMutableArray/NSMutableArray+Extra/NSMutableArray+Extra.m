@@ -7,7 +7,7 @@
 
 #import "NSMutableArray+Extra.h"
 
-@implementation NSMutableArray (Extra)
+@implementation NSMutableArray (JobsByOCPodsExtra)
 
 +(JobsRetArrByArrBlock _Nonnull)initBy{
     return ^__kindof NSArray *_Nullable(__kindof NSArray *_Nullable data){

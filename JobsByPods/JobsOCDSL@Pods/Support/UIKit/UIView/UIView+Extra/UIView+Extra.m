@@ -18,7 +18,7 @@
     };
 }
 
--(JobsReturnGestureByGesture _Nonnull)addGestureRecognizer{
+-(JobsRetGestureByGesture _Nonnull)addGestureRecognizer{
     __weak typeof(self) weakSelf = self;
     return ^__kindof UIGestureRecognizer *_Nullable(__kindof UIGestureRecognizer *_Nullable gesture) {
         __strong typeof(weakSelf) self = weakSelf;

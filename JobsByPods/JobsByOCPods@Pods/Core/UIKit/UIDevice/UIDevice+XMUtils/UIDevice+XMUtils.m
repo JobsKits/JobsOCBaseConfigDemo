@@ -7,7 +7,7 @@
 
 #import "UIDevice+XMUtils.h"
 
-@implementation UIDevice (XMUtils)
+@implementation UIDevice (JobsByOCPodsXMUtils)
 /**
 
      获取硬件平台名称，叫 device model 或者 machine name

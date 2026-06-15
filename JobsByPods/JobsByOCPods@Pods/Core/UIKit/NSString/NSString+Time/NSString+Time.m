@@ -7,7 +7,7 @@
 
 #import "NSString+Time.h"
 
-@implementation NSString (Time)
+@implementation NSString (JobsByOCPodsTime)
 /// 格式化为中国时间
 -(JobsRetStrByStrBlock _Nonnull)chinaTime{
     @jobs_weakify(self)

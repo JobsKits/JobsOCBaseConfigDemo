@@ -95,11 +95,12 @@ static dispatch_once_t static_termsOfUseViewOnceToken;
                 .byFont(bayonRegular(JobsWidth(20)))
                 .byTextCor(@"#8A93A1E5".cor)
                 .byTextAlignment(NSTextAlignmentCenter)
-                .byAddTo(self, ^(MASConstraintMaker *make) {
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
                     make.centerX.equalTo(self);
                     make.top.equalTo(self).offset(JobsWidth(5));
-                });
-            label.makeLabelByShowingType(UILabelShowingType_03);
+                })
+            .makeLabelByShowingType(UILabelShowingType_03);
             });
     };return _label;
 }
@@ -141,7 +142,8 @@ static dispatch_once_t static_termsOfUseViewOnceToken;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
-            .byAddTo(self, ^(MASConstraintMaker *make) {
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(self.pdfView.mas_bottom).offset(JobsWidth(10));
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(264), JobsWidth(44)));
                 make.centerX.equalTo(self);

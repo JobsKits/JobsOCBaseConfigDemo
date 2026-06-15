@@ -56,18 +56,23 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark —— 关于（二次封装）定时器
 Prop_strong(nullable)JobsTimer *timer;
 #pragma mark —— 锁🔐
-Prop_strong(nullable)NSLock *lock;                     // Foundation 框架提供的互斥锁。更灵活，性能比 @synchronized 高。需要手动管理加锁和解锁。
+Prop_strong(nullable)NSLock *lock;
+                     // Foundation 框架提供的互斥锁。更灵活，性能比 @synchronized 高。需要手动管理加锁和解锁。
 Prop_strong(nullable)NSRecursiveLock *recursiveLock;   // 递归锁，同一线程可以多次获得锁而不会导致死锁
-Prop_assign(readonly)os_unfair_lock os_lock;           // Apple 推荐的轻量级锁，性能极高。替代 OSSpinLock。不需要显式销毁
+Prop_assign(readonly)os_unfair_lock os_lock;
+           // Apple 推荐的轻量级锁，性能极高。替代 OSSpinLock。不需要显式销毁
 /// pthread_mutex_t是底层的非对象类型，不支持 ARC（自动引用计数）的内存管理规则。pthread_mutex_init(&_mutex, NULL);
-Prop_assign(readonly)pthread_mutex_t mutex;            // 初始化互斥锁
-Prop_retain()dispatch_semaphore_t semaphore;           // 也可以作为锁
+Prop_assign(readonly)pthread_mutex_t mutex;
+            // 初始化互斥锁
+Prop_retain()dispatch_semaphore_t semaphore;
+           // 也可以作为锁
 #pragma mark —— 一些状态
 Prop_assign()BOOL isLock;
 Prop_assign()BOOL isRead;
 Prop_assign()BOOL becomeFirstResponder;
 Prop_assign()AppLanguage appLanguage;
-Prop_assign()CGPoint lastContentOffset;                // 主要用于记录与计算 UIScrollView 的滑动方向
+Prop_assign()CGPoint lastContentOffset;
+                // 主要用于记录与计算 UIScrollView 的滑动方向
 #pragma mark —— JS
 Prop_strong(nullable)WKUserContentController *userContentCtrl;
 Prop_strong(nullable)WKScriptMessage *scriptMsg;
@@ -97,15 +102,20 @@ Prop_assign(nullable)IMP implementation;
 Prop_strong(nullable)id target;
 Prop_weak(nullable)id weak_target;
 /// 强引用数据源
-Prop_strong(nullable)id data;                        //【强引用】绑定的数据源，数据类型id
-Prop_strong(nullable)id requestParams;               //【强引用】绑定的数据源，数据类型id
-Prop_strong(nullable)id modelData;                   // 挂载修饰的ViewModel/UIButtonModel/TextModel...
+Prop_strong(nullable)id data;
+                        //【强引用】绑定的数据源，数据类型id
+Prop_strong(nullable)id requestParams;
+               //【强引用】绑定的数据源，数据类型id
+Prop_strong(nullable)id modelData;
+                   // 挂载修饰的ViewModel/UIButtonModel/TextModel...
 Prop_assign()CGFloat value_CGFloat;
 Prop_assign()NSInteger value_NSInteger;
 Prop_assign()NSUInteger value_NSUInteger;
 /// 弱引用数据源
-Prop_weak(nullable)id data_weak;                    //【弱引用】绑定的数据源，数据类型id
-Prop_weak(nullable)id requestParams_weak;           //【弱引用】绑定的数据源，数据类型id
+Prop_weak(nullable)id data_weak;
+                    //【弱引用】绑定的数据源，数据类型id
+Prop_weak(nullable)id requestParams_weak;
+           //【弱引用】绑定的数据源，数据类型id
 /// 更改UITabBarItem的标题
 -(jobsByIndexPathBlock _Nonnull)changeTabBarItemTitleBy;
 #pragma mark —— iOS 通知

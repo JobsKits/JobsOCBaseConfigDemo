@@ -28,9 +28,11 @@
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byFont(UIFontWeightHeavySize(JobsWidth(20)));
-            label.bySizeToFit();
-            label.byAddTo(self.bacKIMGV, ^(MASConstraintMaker *make) {
+            label
+                .byFont(UIFontWeightHeavySize(JobsWidth(20)))
+            .bySizeToFit()
+            .addOn(self.bacKIMGV)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self.bacKIMGV);
                 make.bottom.equalTo(self.bacKIMGV.mas_centerY).offset(JobsWidth(7));
             });
@@ -43,9 +45,11 @@
         @jobs_weakify(self)
         _subTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byFont(UIFontWeightRegularSize(JobsWidth(8)));
-            label.bySizeToFit();
-            label.byAddTo(self.bacKIMGV, ^(MASConstraintMaker *make) {
+            label
+                .byFont(UIFontWeightRegularSize(JobsWidth(8)))
+            .bySizeToFit()
+            .addOn(self.bacKIMGV)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self.bacKIMGV);
                 make.top.equalTo(self.bacKIMGV.mas_centerY).offset(JobsWidth(7));
             });
@@ -58,7 +62,7 @@
         @jobs_weakify(self)
         _bacKIMGV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.byAddTo(self, ^(MASConstraintMaker *make) {
+            imageView.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
             });
         });
@@ -100,7 +104,7 @@ static dispatch_once_t dispatchOnce;
             singleElement.titleLab.byText(self.titleMutArr[t]);
             singleElement.subTitleLab.byText(self.subTitleMutArr[t]);
             [self changeState:singleElement index:t];
-            singleElement.byAddTo(self, ^(MASConstraintMaker *make) {
+            singleElement.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.width.mas_equalTo(singleElementW);
                 make.top.bottom.equalTo(self);
                 if (t == 0) {/// 第一个元素，从左边开始布局

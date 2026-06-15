@@ -40,31 +40,35 @@ Prop_assign()HotSearchStyle hotSearchStyle;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
-    
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    
+
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
+
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
     self.isHiddenNavigationBar = YES;
     self.isOpenLetterCase = YES;/// 模糊查询时，是否开启输入字母大小写检测？默认开启
     self.hotSearchStyle = HotSearchStyle_2;
-    
+
     self.gk_interactivePopDisabled = NO;
     self.gk_fullScreenPopDisabled = NO;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
 //    @jobs_weakify(self)
 //    self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
 //        @jobs_strongify(self)
@@ -75,7 +79,7 @@ Prop_assign()HotSearchStyle hotSearchStyle;
 //        data.add(UIBarButtonItem.initBy(self.scanBtn));
 //    });
 //    self.makeNavByAlpha(1);
-    
+
     self.getTabBar.byHidden(YES);
 
     self.tableView.byShow(self);
@@ -114,7 +118,7 @@ Prop_assign()HotSearchStyle hotSearchStyle;
 }
 #pragma mark —— 一些私有化方法
 /// 数据包装
--(JobsReturnViewModelByStringBlock _Nonnull)makeViewModelBy{
+-(JobsRetViewModelByStringBlock _Nonnull)makeViewModelBy{
     return ^__kindof UIViewModel *_Nullable(NSString *_Nullable data){
         return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
             viewModel.textModel.byText(data)
@@ -140,7 +144,7 @@ Prop_assign()HotSearchStyle hotSearchStyle;
 //    NSArray *arr = dic[@"data"];
 //    for (NSString *str in arr) {
 //        if (self.isOpenLetterCase ? [str.lowercaseString containsString:string.lowercaseString] : [str containsString:string]) {
-//            UIViewModel *viewModel = UIViewModel.new;
+//            UIViewModel *viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
 //            viewModel.textModel.text = str;
 //            [self.listViewData addObject:viewModel];
 //        }
@@ -194,7 +198,7 @@ Prop_assign()HotSearchStyle hotSearchStyle;
             if (isValue(self.titleStr)) {
                 self.gk_navigationBar.mj_h = 0;
                 self.gk_navBarAlpha = 0;
-                
+
                 self.tableView.mj_y = self.gk_navigationBar.mj_y;
             }else{
                 self.tableView.mj_y = 0;
@@ -221,7 +225,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 case HotSearchStyle_2:{
                     return JobsSearchTBVCell.cellHeightByModel(self.hotSearchMutArr);
                 }break;
-                    
+
                 default:{
                     return 0;
                 }break;
@@ -266,7 +270,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         case 0:{/// 热门搜索
             switch (self.hotSearchStyle) {
                 case HotSearchStyle_1:{
-                    return JobsSearchShowHotwordsTBVCell.cellStyleValue1WithTableView(tableView)
+                    return JobsSearchShowHotwordsTBVCell.cellStyleValue1ByTableView(tableView)
                         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
                         .byIndexPath(indexPath)
                         .jobsRichElementsTableViewCellBy(self.hotSearchMutArr)
@@ -277,7 +281,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                             });
                 }break;
                 case HotSearchStyle_2:{
-                    return JobsSearchTBVCell.cellStyleValue1WithTableView(tableView)
+                    return JobsSearchTBVCell.cellStyleValue1ByTableView(tableView)
                         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
                         .byIndexPath(indexPath)
                         .jobsRichElementsTableViewCellBy(self.hotSearchMutArr)
@@ -294,24 +298,26 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                 }[self endDropDownListView];
                             });
                 }break;
-                    
+
                 default:{
-                    return UITableViewCell.new;
+                    return UITableViewCell.cellStyleDefaultByTableView(tableView)
+                        .bySelectionStyle(UITableViewCellSelectionStyleNone);
                 }break;
             }
         }break;
         case 1:{
             /// 搜索历史
-            return JobsSearchShowHistoryDataTBVCell.cellStyleValue1WithTableView(tableView)
+            return JobsSearchShowHistoryDataTBVCell.cellStyleValue1ByTableView(tableView)
                 .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
                 .byIndexPath(indexPath)
                 .jobsRichElementsTableViewCellBy(self.listViewData[indexPath.row])
-                    .JobsBlock1(^(id _Nullable data) {
-                     
+                    .JobsBlock1(^(id _Nullable data) {;
+
                     });
         }break;
         default:
-            return UITableViewCell.new;
+            return UITableViewCell.cellStyleDefaultByTableView(tableView)
+                .bySelectionStyle(UITableViewCellSelectionStyleNone);
             break;
     }
 }
@@ -394,7 +400,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             }));
             tableView.ww_foldable = YES;//设置可折叠
             [tableView registerTableViewClass];
-            
+
             {
                 tableView.byMJRefreshHeader(self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
                     NSObject.feedbackGenerator(nil);//震动反馈
@@ -412,13 +418,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
                 @jobs_strongify(self)
                 [self endDropDownListView];
             }];
-            
+
             if(@available(iOS 11.0, *)) {
                 tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             }else{
                 SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
             }
-            tableView.byAddTo(self.view, ^(MASConstraintMaker *make) {
+            tableView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                 make.left.right.equalTo(self.view);
                 if (self.gk_navBarAlpha &&
                     !self.gk_navigationBar.hidden &&

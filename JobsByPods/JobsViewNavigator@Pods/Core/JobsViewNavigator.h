@@ -38,9 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsViewNavigator : UIView
 
--(JobsReturnViewNavigatorByViewAndAnimatedBlock _Nonnull)pushView;
--(JobsReturnViewNavigatorByBOOLBlock _Nonnull)popViewAnimated;
--(JobsReturnViewNavigatorByBOOLBlock _Nonnull)popToRootViewAnimated;
+-(JobsRetViewNavigatorByViewAndAnimatedBlock _Nonnull)pushView;
+-(JobsRetViewNavigatorByBOOLBlock _Nonnull)popViewAnimated;
+-(JobsRetViewNavigatorByBOOLBlock _Nonnull)popToRootViewAnimated;
 
 @end
 

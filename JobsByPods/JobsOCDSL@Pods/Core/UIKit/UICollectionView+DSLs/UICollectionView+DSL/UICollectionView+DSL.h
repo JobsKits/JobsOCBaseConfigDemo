@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_UICOLLECTIONVIEW_DSL_3D1FBB77CC
 
 #import <UIKit/UIKit.h>
+#import <objc/runtime.h>
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>

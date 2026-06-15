@@ -359,10 +359,11 @@ Prop_assign(readwrite)BOOL builtOnce;
         @jobs_weakify(self)
         _tabBar = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView.showsHorizontalScrollIndicator = NO;
-            scrollView.alwaysBounceHorizontal = YES;
-            scrollView.clipsToBounds = NO;
-            scrollView.backgroundColor = self.barBackgroundColor;
+            scrollView
+                .byShowsHorizontalScrollIndicator(NO)
+                .byAlwaysBounceHorizontal(YES)
+                .byClipsToBounds(NO)
+                .byBgColor(self.barBackgroundColor);
         });
     };return _tabBar;
 }
@@ -372,16 +373,17 @@ Prop_assign(readwrite)BOOL builtOnce;
         @jobs_weakify(self)
         _contentScrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView.pagingEnabled = YES;
-            scrollView.bounces = NO;
-            scrollView.showsHorizontalScrollIndicator = NO;
-            scrollView.showsVerticalScrollIndicator = NO;
-            scrollView.delegate = self;
-            scrollView.scrollEnabled = self.swipeEnabled;
-            scrollView.alwaysBounceVertical = !self.horizontalOnly;
-            scrollView.directionalLockEnabled = YES;
-            scrollView.alwaysBounceHorizontal = YES;
-            scrollView.backgroundColor = JobsClearColor;
+            scrollView
+                .byPagingEnabled(YES)
+                .byBounces(NO)
+                .byShowsHorizontalScrollIndicator(NO)
+                .byShowsVerticalScrollIndicator(NO)
+                .byDelegate(self)
+                .byScrollEnabled(self.swipeEnabled)
+                .byAlwaysBounceVertical(!self.horizontalOnly)
+                .byDirectionalLockEnabled(YES)
+                .byAlwaysBounceHorizontal(YES)
+                .byBgColor(JobsClearColor);
         });
     };return _contentScrollView;
 }

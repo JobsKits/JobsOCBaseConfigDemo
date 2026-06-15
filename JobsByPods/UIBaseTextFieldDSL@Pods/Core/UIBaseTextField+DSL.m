@@ -8,7 +8,7 @@
 #import "UIBaseTextField+DSL.h"
 
 @implementation CJTextField (JobsUIBaseTextFieldDSL)
--(JobsReturnCJTextFieldByDeleteDelegateBlock _Nonnull)byCJDelegate{
+-(JobsRetCJTextFieldByDeleteDelegateBlock _Nonnull)byCJDelegate{
     @jobs_weakify(self)
     return ^__kindof CJTextField *_Nullable(id<CJTextFieldDeleteDelegate> _Nullable delegate){
         @jobs_strongify(self)
@@ -19,7 +19,7 @@
 @end
 
 @implementation HQTextField (JobsUIBaseTextFieldDSL)
--(JobsReturnHQTextFieldByVoidBlock _Nonnull)byShowWarn{
+-(JobsRetHQTextFieldByVoidBlock _Nonnull)byShowWarn{
     @jobs_weakify(self)
     return ^__kindof HQTextField *_Nullable(void){
         @jobs_strongify(self)
@@ -30,7 +30,7 @@
 @end
 
 @implementation ZYTextField (JobsUIBaseTextFieldDSL)
--(JobsReturnZYTextFieldByCGFloatBlock _Nonnull)byZYTextFieldCornerRadius{
+-(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byZYTextFieldCornerRadius{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -39,7 +39,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByCGFloatBlock _Nonnull)byZYTextFieldBorderWidth{
+-(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byZYTextFieldBorderWidth{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -48,7 +48,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByCorBlock _Nonnull)byZYTextFieldBorderColor{
+-(JobsRetZYTextFieldByCorBlock _Nonnull)byZYTextFieldBorderColor{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(UIColor *_Nullable cor){
         @jobs_strongify(self)
@@ -57,7 +57,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByBOOLBlock _Nonnull)byZYTextFieldMasksToBounds{
+-(JobsRetZYTextFieldByBOOLBlock _Nonnull)byZYTextFieldMasksToBounds{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -66,7 +66,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByBOOLBlock _Nonnull)byIsShowDelBtn{
+-(JobsRetZYTextFieldByBOOLBlock _Nonnull)byIsShowDelBtn{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -75,7 +75,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByBOOLBlock _Nonnull)byUseCustomClearButton{
+-(JobsRetZYTextFieldByBOOLBlock _Nonnull)byUseCustomClearButton{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -84,7 +84,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByCGRectBlock _Nonnull)byClearButtonRectForBounds{
+-(JobsRetZYTextFieldByCGRectBlock _Nonnull)byClearButtonRectForBounds{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(CGRect data){
         @jobs_strongify(self)
@@ -93,7 +93,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByCGRectBlock _Nonnull)byLeftViewRectForBounds{
+-(JobsRetZYTextFieldByCGRectBlock _Nonnull)byLeftViewRectForBounds{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(CGRect data){
         @jobs_strongify(self)
@@ -102,7 +102,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByCGRectBlock _Nonnull)byRightViewRectForBounds{
+-(JobsRetZYTextFieldByCGRectBlock _Nonnull)byRightViewRectForBounds{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(CGRect data){
         @jobs_strongify(self)
@@ -111,7 +111,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByCGRectBlock _Nonnull)byDrawPlaceholderInRect{
+-(JobsRetZYTextFieldByCGRectBlock _Nonnull)byDrawPlaceholderInRect{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(CGRect data){
         @jobs_strongify(self)
@@ -120,7 +120,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByCGRectBlock _Nonnull)byPlaceholderRectForBounds{
+-(JobsRetZYTextFieldByCGRectBlock _Nonnull)byPlaceholderRectForBounds{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(CGRect data){
         @jobs_strongify(self)
@@ -129,7 +129,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByCGRectBlock _Nonnull)byTextRectForBounds{
+-(JobsRetZYTextFieldByCGRectBlock _Nonnull)byTextRectForBounds{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(CGRect data){
         @jobs_strongify(self)
@@ -138,7 +138,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByCGRectBlock _Nonnull)byEditingRectForBounds{
+-(JobsRetZYTextFieldByCGRectBlock _Nonnull)byEditingRectForBounds{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(CGRect data){
         @jobs_strongify(self)
@@ -147,7 +147,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByCorBlock _Nonnull)byPlaceholderColor{
+-(JobsRetZYTextFieldByCorBlock _Nonnull)byPlaceholderColor{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(UIColor *_Nullable cor){
         @jobs_strongify(self)
@@ -156,7 +156,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByFontBlock _Nonnull)byPlaceholderFont{
+-(JobsRetZYTextFieldByFontBlock _Nonnull)byPlaceholderFont{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(UIFont *_Nullable font){
         @jobs_strongify(self)
@@ -165,7 +165,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByNSIntegerBlock _Nonnull)byPlaceHolderAlignment{
+-(JobsRetZYTextFieldByNSIntegerBlock _Nonnull)byPlaceHolderAlignment{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -174,7 +174,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByCGFloatBlock _Nonnull)byPlaceHolderOffset{
+-(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byPlaceHolderOffset{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -183,7 +183,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByCGFloatBlock _Nonnull)byTextOffset{
+-(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byTextOffset{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -192,7 +192,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByCGFloatBlock _Nonnull)byFieldEditorOffset{
+-(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byFieldEditorOffset{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -201,7 +201,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByCGFloatBlock _Nonnull)byLeftViewOffsetX{
+-(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byLeftViewOffsetX{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -210,7 +210,7 @@
     };
 }
 
--(JobsReturnZYTextFieldByCGFloatBlock _Nonnull)byRightViewOffsetX{
+-(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byRightViewOffsetX{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -221,7 +221,7 @@
 @end
 
 @implementation JobsMagicTextField (JobsUIBaseTextFieldDSL)
--(JobsReturnMagicTextFieldByBOOLBlock _Nonnull)byPlaceholdAnimationable{
+-(JobsRetMagicTextFieldByBOOLBlock _Nonnull)byPlaceholdAnimationable{
     @jobs_weakify(self)
     return ^__kindof JobsMagicTextField *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -230,7 +230,7 @@
     };
 }
 
--(JobsReturnMagicTextFieldByCorBlock _Nonnull)byAnimationColor{
+-(JobsRetMagicTextFieldByCorBlock _Nonnull)byAnimationColor{
     @jobs_weakify(self)
     return ^__kindof JobsMagicTextField *_Nullable(UIColor *_Nullable cor){
         @jobs_strongify(self)
@@ -239,7 +239,7 @@
     };
 }
 
--(JobsReturnMagicTextFieldByFontBlock _Nonnull)byAnimationFont{
+-(JobsRetMagicTextFieldByFontBlock _Nonnull)byAnimationFont{
     @jobs_weakify(self)
     return ^__kindof JobsMagicTextField *_Nullable(UIFont *_Nullable font){
         @jobs_strongify(self)
@@ -248,7 +248,7 @@
     };
 }
 
--(JobsReturnMagicTextFieldByCGFloatBlock _Nonnull)byMoveDistance{
+-(JobsRetMagicTextFieldByCGFloatBlock _Nonnull)byMoveDistance{
     @jobs_weakify(self)
     return ^__kindof JobsMagicTextField *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -257,7 +257,7 @@
     };
 }
 
--(JobsReturnMagicTextFieldByTimeIntervalBlock _Nonnull)byAnimationTime{
+-(JobsRetMagicTextFieldByTimeIntervalBlock _Nonnull)byAnimationTime{
     @jobs_weakify(self)
     return ^__kindof JobsMagicTextField *_Nullable(NSTimeInterval data){
         @jobs_strongify(self)
@@ -268,7 +268,7 @@
 @end
 
 @implementation JobsTextField (JobsUIBaseTextFieldDSL)
--(JobsReturnJobsTextFieldByUITextFieldBlock _Nonnull)byRealTextField{
+-(JobsRetJobsTextFieldByUITextFieldBlock _Nonnull)byRealTextField{
     @jobs_weakify(self)
     return ^__kindof JobsTextField *_Nonnull(__kindof UITextField *_Nullable textField){
         @jobs_strongify(self)
@@ -277,7 +277,7 @@
     };
 }
 
--(JobsReturnJobsTextFieldByTextFieldConfigBlock _Nonnull)byRealTextFieldConfig{
+-(JobsRetJobsTextFieldByTextFieldConfigBlock _Nonnull)byRealTextFieldConfig{
     @jobs_weakify(self)
     return ^__kindof JobsTextField *_Nonnull(jobsByTextFieldBlock _Nullable config){
         @jobs_strongify(self)

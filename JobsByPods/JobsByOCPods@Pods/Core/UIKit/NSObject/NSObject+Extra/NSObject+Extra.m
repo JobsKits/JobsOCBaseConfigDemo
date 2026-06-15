@@ -8,7 +8,7 @@
 #import "NSObject+Extra.h"
 #import <JobsByOCPods/FileFolderHandleTool.h>
 
-@implementation NSObject (Extra)
+@implementation NSObject (JobsByOCPodsExtra)
 /// UITextFieldProtocol
 UITextFieldProtocol_dynamic
 #pragma mark —— 系统类单例的二次封装
@@ -303,7 +303,7 @@ UITextFieldProtocol_dynamic
 }
 /// UIAlertController + UIAlertAction
 /// UIAlertController 的标题和消息属性仅支持简单的字符串 (NSString) 类型，而不直接支持富文本 (NSAttributedString)
--(JobsReturnAlertControllerByAlertModelBlock _Nonnull)makeAlertControllerByAlertModel{
+-(JobsRetAlertControllerByAlertModelBlock _Nonnull)makeAlertControllerByAlertModel{
     return ^__kindof UIAlertController *_Nullable(JobsAlertModel *_Nullable model){
         UIAlertController *alertVC = JobsMakeAlertControllerBy(jobsMakeAlertModel(^(JobsAlertModel * _Nullable data) {
             data.byAlertControllerTitle(model.alertControllerTitle)
@@ -347,7 +347,7 @@ UITextFieldProtocol_dynamic
     };
 }
 /// 将 NSTimeInterval 按照 NSDateFormatter 转换输出成人类可读的时间
--(JobsReturnStringByTimeModelBlock _Nonnull)toReadableTimeBy{
+-(JobsRetStringByTimeModelBlock _Nonnull)toReadableTimeBy{
     return ^__kindof NSString *_Nullable(JobsTimeModel *_Nullable dateModel){
         if(dateModel.date){
             return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
@@ -887,7 +887,7 @@ UITextFieldProtocol_dynamic
     };
 }
 /// 创建IndexPath坐标
--(JobsReturnIndexPathByXYBlock _Nonnull)indexPathBy{
+-(JobsRetIndexPathByXYBlock _Nonnull)indexPathBy{
     return ^NSIndexPath *_Nonnull(CGFloat x,CGFloat y){
         if (JobsAvailableSysVersion(6.0)) {
             return JobsIndexPathForItem(x, y);
@@ -1378,7 +1378,7 @@ UITextFieldProtocol_dynamic
     };return view;
 }
 
--(id _Nullable)getViewByBlock:(JobsReturnIDByComponentTypeAndUIViewBlock _Nullable)block{
+-(id _Nullable)getViewByBlock:(JobsRetIDByComponentTypeAndUIViewBlock _Nullable)block{
     UIView *view = nil;
     if ([self isKindOfClass:UIView.class]) {
         view = (UIView *)self;

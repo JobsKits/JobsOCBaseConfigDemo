@@ -60,7 +60,10 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
         }else if ([self.viewModel.requestParams integerValue] == JobsAppDoorBgType_Video){
             [self.player.currentPlayerManager play];
         }else{}
-        self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
+        self.viewModel
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(data.attributedTitle.string);
+            });
     }
 }
 
@@ -310,7 +313,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
 -(JobsAppDoorLogoContentView *)logoContentView{
     if (!_logoContentView) {
         _logoContentView = JobsAppDoorLogoContentView.new;
-        _logoContentView.byAddTo(self.view, ^(MASConstraintMaker *make) {
+        _logoContentView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsWidth(150), JobsWidth(50)));
             make.bottom.equalTo(self.loginContentView.mas_top).offset(-JobsWidth(50));
             make.centerX.equalTo(self.view);
@@ -339,7 +342,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
                 JobsLog(@"");
             });
         [_customerServiceBtn buttonAutoFontByWidth];
-        _customerServiceBtn.byAddTo(self.view, ^(MASConstraintMaker *make) {
+        _customerServiceBtn.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH() / 2.5, JobsMainScreen_WIDTH() / 9));
             make.centerX.equalTo(self.view);
             make.top.mas_equalTo(self.loginContentView.top + self.loginContentView.height + 20);

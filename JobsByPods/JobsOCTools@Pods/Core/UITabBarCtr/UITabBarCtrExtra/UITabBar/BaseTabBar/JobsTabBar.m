@@ -267,7 +267,7 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
 @synthesize viewModel = _viewModel;
 -(UIViewModel *)viewModel{
     if(!_viewModel){
-        _viewModel = UIViewModel.new;
+        _viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
     };return _viewModel;
 }
 

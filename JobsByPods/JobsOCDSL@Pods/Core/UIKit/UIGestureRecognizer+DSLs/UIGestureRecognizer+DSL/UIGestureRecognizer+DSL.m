@@ -5,7 +5,7 @@
 #import "UIGestureRecognizer+DSL.h"
 
 @implementation UIGestureRecognizer (JobsChain)
-+(JobsRetGestureRecognizerByVoidBlock)byGestureRecognizer{
++(JobsRetGestureByVoidBlock)byGestureRecognizer{
     return ^__kindof UIGestureRecognizer *_Nullable(void){
         return [[self alloc] init];
     };
@@ -92,7 +92,7 @@
     };
 }
 
--(JobsRetGestureRecognizerByGestureRecognizerBlock)byRequireGestureRecognizerToFail{
+-(JobsRetGestureByGesture)byRequireGestureRecognizerToFail{
     @jobs_weakify(self)
     return ^__kindof UIGestureRecognizer *_Nullable(__kindof UIGestureRecognizer *_Nullable data){
         @jobs_strongify(self)

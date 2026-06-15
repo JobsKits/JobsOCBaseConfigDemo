@@ -39,8 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIScrollView (DSL)<UIScrollViewDSLProtocol>
 
--(JobsReturnScrollViewByMJRefreshHeaderBlock _Nonnull)byMJ_header;
--(JobsReturnScrollViewByMJRefreshFooterBlock _Nonnull)byMJ_footer;
+-(JobsRetScrollViewByMJRefreshHeaderBlock _Nonnull)byMJ_header;
+-(JobsRetScrollViewByMJRefreshFooterBlock _Nonnull)byMJ_footer;
 -(JobsRetScrollViewByPointBlock _Nonnull)setContentOffsetByYES;
 -(JobsRetScrollViewByPointBlock _Nonnull)setContentOffsetByNO;
 #pragma mark —— UIScrollView.contentSize

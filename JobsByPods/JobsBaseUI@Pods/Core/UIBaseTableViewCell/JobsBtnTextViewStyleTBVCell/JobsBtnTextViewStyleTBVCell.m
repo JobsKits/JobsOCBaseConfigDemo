@@ -15,8 +15,6 @@
 #import <JobsBaseUI/UITableView+RegisterClass.h>
 #import <JobsBaseUI/UIView+Extra.h>
 
-#import <Masonry/Masonry.h>
-
 @interface JobsBtnTextViewStyleTBVCell ()
 
 @end
@@ -36,7 +34,7 @@ AppToolsProtocol_synthesize
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         JobsBtnTextViewStyleTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsBtnTextViewStyleTBVCell);
         return cell;
@@ -171,14 +169,14 @@ AppToolsProtocol_synthesize
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        _button.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+        _button.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsWidth(20), JobsWidth(20)));
             make.left.equalTo(self.contentView).offset(JobsWidth(13));
             make.top.equalTo(self.contentView);
         });
     };return _button;
 }
-/// 如果需要用其他的自定义的TextView，继承此类并重写-(JobsReturnTableViewCellByIDBlock _Nonnull)jobsRichElementsTableViewCellBy;
+/// 如果需要用其他的自定义的TextView，继承此类并重写-(JobsRetTableViewCellByIDBlock _Nonnull)jobsRichElementsTableViewCellBy;
 -(__kindof BaseTextView *)textView{
     if (!_textView) {
         @jobs_weakify(self)
@@ -191,7 +189,7 @@ AppToolsProtocol_synthesize
             textView.editable = NO; /// 禁止编辑。必须 editable = NO 才能点击链接跳转
             textView.selectable = YES; /// 允许选择链接
             textView.linkTextAttributes = self.makeLinkTextAttributes;
-            textView.byAddTo(self.contentView, self.masonryBlock);
+            textView.addOn(self.contentView).byAdd(self.masonryBlock);
         });
     };return _textView;
 }
@@ -217,7 +215,7 @@ AppToolsProtocol_synthesize
                 return YES;
             } subscribeNextBlock:^(id _Nullable x) {
 //                @jobs_strongify(self)
-            }];textView.byAddTo(self.contentView, self.masonryBlock);
+            }];textView.addOn(self.contentView).byAdd(self.masonryBlock);
         });
     };return _textView;
 }
@@ -243,7 +241,7 @@ AppToolsProtocol_synthesize
                 return YES;
             } subscribeNextBlock:^(id _Nullable x) {
 //                @jobs_strongify(self)
-            }];textView.byAddTo(self.contentView, self.masonryBlock);
+            }];textView.addOn(self.contentView).byAdd(self.masonryBlock);
         });
     };return _jobsTextView;
 }

@@ -456,6 +456,94 @@
 
 @end
 
+@implementation UIPageControl (JobsSystemAPIDSLSupplement)
+-(JobsRetPageControlByNSIntegerBlock)byNumberOfPages{
+    @jobs_weakify(self)
+    return ^__kindof UIPageControl *_Nullable(NSInteger data){
+        @jobs_strongify(self)
+        self.numberOfPages = data;
+        return self;
+    };
+}
+
+-(JobsRetPageControlByNSIntegerBlock)byCurrentPage{
+    @jobs_weakify(self)
+    return ^__kindof UIPageControl *_Nullable(NSInteger data){
+        @jobs_strongify(self)
+        self.currentPage = data;
+        return self;
+    };
+}
+
+-(JobsRetPageControlByBOOLBlock)byHidesForSinglePage{
+    @jobs_weakify(self)
+    return ^__kindof UIPageControl *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.hidesForSinglePage = data;
+        return self;
+    };
+}
+
+-(JobsRetPageControlByColorBlock)byPageIndicatorTintColor{
+    @jobs_weakify(self)
+    return ^__kindof UIPageControl *_Nullable(UIColor *_Nullable color){
+        @jobs_strongify(self)
+        self.pageIndicatorTintColor = color;
+        return self;
+    };
+}
+
+-(JobsRetPageControlByColorBlock)byCurrentPageIndicatorTintColor{
+    @jobs_weakify(self)
+    return ^__kindof UIPageControl *_Nullable(UIColor *_Nullable color){
+        @jobs_strongify(self)
+        self.currentPageIndicatorTintColor = color;
+        return self;
+    };
+}
+
+-(JobsRetPageControlByImageBlock)byPreferredIndicatorImage API_AVAILABLE(ios(14.0), tvos(14.0)){
+    @jobs_weakify(self)
+    return ^__kindof UIPageControl *_Nullable(UIImage *_Nullable image){
+        @jobs_strongify(self)
+        if (@available(iOS 14.0, tvOS 14.0, *)) {
+            self.preferredIndicatorImage = image;
+        }return self;
+    };
+}
+
+-(JobsRetPageControlByImageAndNSIntegerBlock)byIndicatorImageForPage API_AVAILABLE(ios(14.0), tvos(14.0)){
+    @jobs_weakify(self)
+    return ^__kindof UIPageControl *_Nullable(UIImage *_Nullable image, NSInteger page){
+        @jobs_strongify(self)
+        if (@available(iOS 14.0, tvOS 14.0, *)) {
+            [self setIndicatorImage:image forPage:page];
+        }return self;
+    };
+}
+
+-(JobsRetPageControlByBackgroundStyleBlock)byBackgroundStyle API_AVAILABLE(ios(14.0), tvos(14.0)){
+    @jobs_weakify(self)
+    return ^__kindof UIPageControl *_Nullable(UIPageControlBackgroundStyle style){
+        @jobs_strongify(self)
+        if (@available(iOS 14.0, tvOS 14.0, *)) {
+            self.backgroundStyle = style;
+        }return self;
+    };
+}
+
+-(JobsRetPageControlByDirectionBlock)byDirection API_AVAILABLE(ios(16.0), tvos(16.0)){
+    @jobs_weakify(self)
+    return ^__kindof UIPageControl *_Nullable(UIPageControlDirection direction){
+        @jobs_strongify(self)
+        if (@available(iOS 16.0, tvOS 16.0, *)) {
+            self.direction = direction;
+        }return self;
+    };
+}
+
+@end
+
 @implementation UILabel (JobsSystemAPIDSLSupplement)
 -(JobsRetUILabelByUIColorBlock)byTextColor{
     @jobs_weakify(self)

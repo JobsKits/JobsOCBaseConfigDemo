@@ -6,8 +6,10 @@
 //
 
 #import "ZFCustomControlView.h"
+#import <JobsMakes/JobsMakes.h>
+#import <JobsOCDSL/JobsOCDSL.h>
 
-@interface ZFCustomControlView () 
+@interface ZFCustomControlView ()
 /// 底部工具栏
 Prop_strong()UIView *bottomToolView;
 /// 顶部工具栏
@@ -499,46 +501,59 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
 #pragma mark —— getter
 - (UIView *)topToolView {
     if (!_topToolView) {
-        _topToolView = [[UIView alloc] init];
         UIImage *image = ZFPlayer_Image(@"ZFPlayer_top_shadow");
-        _topToolView.layer.contents = (id)image.CGImage;
+        _topToolView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byLayer(^(CALayer *layer) {
+                layer.byContents((id)image.CGImage);
+            });
+        });
     };return _topToolView;
 }
 
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] init];
-        _titleLabel.textColor = [UIColor whiteColor];
-        _titleLabel.font = [UIFont systemFontOfSize:JobsWidth(15.0)
-                                             weight:UIFontWeightRegular];
+        _titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byTextCor([UIColor whiteColor])
+                .byFont([UIFont systemFontOfSize:JobsWidth(15.0)
+                                          weight:UIFontWeightRegular]);
+        });
     };return _titleLabel;
 }
 
 - (UIView *)bottomToolView {
     if (!_bottomToolView) {
-        _bottomToolView = [[UIView alloc] init];
         UIImage *image = ZFPlayer_Image(@"ZFPlayer_bottom_shadow");
-        _bottomToolView.layer.contents = (id)image.CGImage;
+        _bottomToolView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byLayer(^(CALayer *layer) {
+                layer.byContents((id)image.CGImage);
+            });
+        });
     };return _bottomToolView;
 }
 
 - (UIButton *)playOrPauseBtn {
     if (!_playOrPauseBtn) {
-        _playOrPauseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_playOrPauseBtn setImage:ZFPlayer_Image(@"new_allPlay_44x44_")
+        _playOrPauseBtn = UIButton.alloc.init
+            .byViewBlock(^(__kindof UIView *view) {
+                UIButton *button = (UIButton *)view;
+                [button setImage:ZFPlayer_Image(@"new_allPlay_44x44_")
                          forState:UIControlStateNormal];
-        [_playOrPauseBtn setImage:ZFPlayer_Image(@"new_allPause_44x44_")
+                [button setImage:ZFPlayer_Image(@"new_allPause_44x44_")
                          forState:UIControlStateSelected];
+            });
     };return _playOrPauseBtn;
 }
 
 - (UILabel *)currentTimeLabel {
     if (!_currentTimeLabel) {
-        _currentTimeLabel = [[UILabel alloc] init];
-        _currentTimeLabel.textColor = [UIColor whiteColor];
-        _currentTimeLabel.font = [UIFont systemFontOfSize:JobsWidth(14.0f)
-                                                   weight:UIFontWeightRegular];
-        _currentTimeLabel.textAlignment = NSTextAlignmentCenter;
+        _currentTimeLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byTextCor([UIColor whiteColor])
+                .byFont([UIFont systemFontOfSize:JobsWidth(14.0f)
+                                          weight:UIFontWeightRegular])
+                .byTextAlignment(NSTextAlignmentCenter);
+        });
     };return _currentTimeLabel;
 }
 
@@ -563,18 +578,22 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
 
 - (UILabel *)totalTimeLabel {
     if (!_totalTimeLabel) {
-        _totalTimeLabel = [[UILabel alloc] init];
-        _totalTimeLabel.textColor = [UIColor whiteColor];
-        _totalTimeLabel.font = [UIFont systemFontOfSize:JobsWidth(14.0f)];
-        _totalTimeLabel.textAlignment = NSTextAlignmentCenter;
+        _totalTimeLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byTextCor([UIColor whiteColor])
+                .byFont([UIFont systemFontOfSize:JobsWidth(14.0f)])
+                .byTextAlignment(NSTextAlignmentCenter);
+        });
     };return _totalTimeLabel;
 }
 
 - (UIButton *)fullScreenBtn {
     if (!_fullScreenBtn) {
-        _fullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_fullScreenBtn setImage:ZFPlayer_Image(@"ZFPlayer_fullscreen")
-                        forState:UIControlStateNormal];
+        _fullScreenBtn = UIButton.alloc.init
+            .byViewBlock(^(__kindof UIView *view) {
+                [(UIButton *)view setImage:ZFPlayer_Image(@"ZFPlayer_fullscreen")
+                                  forState:UIControlStateNormal];
+            });
     };return _fullScreenBtn;
 }
 

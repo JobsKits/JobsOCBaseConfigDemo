@@ -7,7 +7,7 @@
 
 #import "UIView+Extra.h"
 
-@implementation UIView (Extra)
+@implementation UIView (JobsByOCPodsExtra)
 #pragma mark —— init
 +(JobsRetViewByFrameBlock _Nonnull)initByFrame{
     return ^__kindof UIView *_Nullable(CGRect data){
@@ -570,7 +570,7 @@ JobsKey(_bottomBorderLayer)
     };
 }
 /// 描边：统一设置Layer的线宽+颜色+圆切角（一定切角）
--(JobsReturnViewByLocationModelBlock _Nonnull)setLayerBy{
+-(JobsRetViewByLocationModelBlock _Nonnull)setLayerBy{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(__kindof JobsLocationModel *_Nullable data){
         @jobs_strongify(self)
@@ -580,7 +580,7 @@ JobsKey(_bottomBorderLayer)
     };
 }
 /// 描边：统一设置Layer的线宽+颜色+圆切角（不一定切角）
--(JobsReturnViewByLocationModelBlock _Nonnull)layerBy{
+-(JobsRetViewByLocationModelBlock _Nonnull)layerBy{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(__kindof JobsLocationModel *_Nullable data){
         @jobs_strongify(self)
@@ -721,7 +721,7 @@ JobsKey(_cornerRadii)
     };
 }
 
--(JobsReturnGestureByGesture _Nonnull)addGestureRecognizer{
+-(JobsRetGestureByGesture _Nonnull)addGestureRecognizer{
     @jobs_weakify(self)
     return ^__kindof UIGestureRecognizer *_Nullable(__kindof UIGestureRecognizer *_Nullable gesture) {
         @jobs_strongify(self)

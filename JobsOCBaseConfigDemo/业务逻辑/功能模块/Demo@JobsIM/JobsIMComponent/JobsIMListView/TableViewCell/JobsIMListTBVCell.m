@@ -23,14 +23,17 @@ Prop_strong()UIImage *userHeaderIMG;
 
 @implementation JobsIMListTBVCell
 UITextFieldProtocol_synthesize_part2
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsIMListTBVCell *cell = (JobsIMListTBVCell *)tableView.tableViewCellClass(JobsIMListTBVCell.class,@"");
         if (!cell) {
             cell = JobsIMListTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.contentView.byBgColor(JobsWhiteColor);
-            cell.byBgColor(JobsWhiteColor);
+            cell
+                .bySelectionStyle(UITableViewCellSelectionStyleNone)
+                .byContentView(^(__kindof UIView * _Nullable view) {
+                    view.byBgColor(JobsWhiteColor);
+                })
+                .byBgColor(JobsWhiteColor);
         };return cell;
     };
 }
@@ -41,8 +44,9 @@ UITextFieldProtocol_synthesize_part2
                     reuseIdentifier:reuseIdentifier]) {
         self.longPG.enabled = YES;
         self.swipeBackgroundColor = JobsClearColor;
-        self.selectedBackgroundView = UIView.new;
-        self.selectedBackgroundView.byBgColor(JobsYellowColor.colorWithAlphaComponentBy(0.3));
+        self.bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(JobsYellowColor.colorWithAlphaComponentBy(0.3));
+        }));
 
         self.leftSwipeSettings.transition = MGSwipeTransitionBorder;
         self.rightSwipeSettings.transition = MGSwipeTransitionDrag;
@@ -135,9 +139,10 @@ UITextFieldProtocol_synthesize_part2
             label
                 .byText(self.timeStr)
                 .byTextCor(JobsLightGrayColor)
-                .byFont(UIFontWeightRegularSize(JobsWidth(12)));
-            label.bySizeToFit();
-            label.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+                .byFont(UIFontWeightRegularSize(JobsWidth(12)))
+            .bySizeToFit()
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(self.contentView).offset(5);
                 make.right.equalTo(self.contentView).offset(-5);
             });

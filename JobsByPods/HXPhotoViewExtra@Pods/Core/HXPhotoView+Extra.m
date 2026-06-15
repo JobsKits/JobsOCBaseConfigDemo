@@ -9,7 +9,7 @@
 
 @implementation HXPhotoView (Extra)
 
-+(JobsReturnHXPhotoViewByPhotoManagerBlock _Nonnull)initBy{
++(JobsRetHXPhotoViewByPhotoMgrBlock _Nonnull)initBy{
     return ^HXPhotoView *_Nullable(HXPhotoManager *_Nullable manager){
         return [HXPhotoView photoManager:manager];
     };

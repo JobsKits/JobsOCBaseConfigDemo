@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 手动停止滚动
 -(jobsByVoidBlock _Nonnull)stopScrolling;
 /// 开始滚动动画，返回一个 RACDisposable 以便手动停止
--(JobsReturnRACDisposableByTimeIntervalBlock _Nonnull)startScrollingIfNeededWithInterval;
+-(JobsRetRACDisposableByTimeIntervalBlock _Nonnull)startScrollingIfNeededWithInterval;
 
 @end
 
@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_END
              label.byText(@"-这是测试数据-".tr)
                  .byTextCor(JobsRandomCor(1))
                  .byBgColor(JobsCyanColor);
-             label.byAddTo(self.view, ^(MASConstraintMaker *make) {
+             label.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                  make.center.equalTo(self.view);
                  make.size.mas_equalTo(CGSizeMake(JobsWidth(200), JobsWidth(20)));
              });
@@ -86,7 +86,7 @@ NS_ASSUME_NONNULL_END
              label.byText(@"-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据".tr)
                  .byTextCor(JobsRandomCor(1))
                  .byBgColor(JobsCyanColor);
-             label.byAddTo(self.view, ^(MASConstraintMaker *make) {
+             label.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                  make.center.equalTo(self.view);
                  make.size.mas_equalTo(CGSizeMake(JobsWidth(200), JobsWidth(20)));
              });self.view.refresh();

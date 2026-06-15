@@ -10,7 +10,7 @@
 #import <JobsTimeUtils/NSFormatter+Extra.h>
 #import <JobsTimeUtils/NSDateFormatter+Extra.h>
 
-@implementation NSString (Time)
+@implementation NSString (JobsTimeUtilsTime)
 /// 格式化为中国时间
 -(JobsRetStrByStrBlock _Nonnull)chinaTime{
     @jobs_weakify(self)

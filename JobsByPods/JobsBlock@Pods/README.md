@@ -70,6 +70,8 @@ JobsBlock@Pods/
 
 - `Core/确定参数的Block/ReturnByCertainParametersBlock.h` 集中维护带返回值的确定参数 Block，`UITextView`、`UIBezierPath / CALayer / UIView` 方法型 DSL 相关返回类型统一从这里暴露。
 - `JobsOCDSL` 新增系统类 DSL 时，所需 `JobsRet<Class>By<Type>Block` 统一先在 `ReturnByCertainParametersBlock.h` 查找；缺失时补在这里，避免 DSL 头文件私自定义 Block。
+- `JobsBlock.h` 暴露 `JobsRetUIViewModelByJobsByTextModelBlockBlock`、`JobsRetUIButtonModelByJobsByTextModelBlockBlock` 等嵌套 Model 配置返回类型，用于 `JobsModelDSL` 在大 Model 里回调配置子 Model 后继续返回自身。
+- `JobsBlock.h` / `ReturnByCertainParametersBlock.h` 暴露 `FSCalendar` 子对象配置相关 Block 类型，用于 `JobsOCDSL` 在 `appearance`、`calendarHeaderView`、`swipeToChooseGesture` 回调配置后继续返回主 `FSCalendar`。
 - `HXPhotoPickerObjC` 相关 DSL 需要的 `HXPhotoView`、`HXPhotoManager`、`HXPhotoConfiguration` Block 别名统一在 `JobsBlock.h` 暴露，协议 / 类向前声明集中放在 `JobsBlockHeader.h`。
 - `JobsBlockHeader.h` 集中维护向前声明，避免 `@class` / `@protocol` 分散在业务头文件中。
 

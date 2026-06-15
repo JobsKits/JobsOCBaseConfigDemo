@@ -76,18 +76,23 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     self.jobsAppDoorContentViewY = 0;
     self.customerServiceBtnY = 0;
     
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
     
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
@@ -248,7 +253,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
 -(JobsAppDoorLogoContentView *)logoContentView{
     if (!_logoContentView) {
         _logoContentView = JobsAppDoorLogoContentView.new;
-        _logoContentView.byAddTo(self.view, ^(MASConstraintMaker *make) {
+        _logoContentView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsWidth(150), JobsWidth(150)));
             make.bottom.equalTo(self.jobsAppDoorContentView.mas_top).offset(-JobsWidth(50));
             make.centerX.equalTo(self.view);
@@ -268,7 +273,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
         _forgotCodeContentView.height = JobsAppDoorContentViewFindPasswordHeight;
         self.forgotCodeContentViewY = _forgotCodeContentView.y;
         [self.view addSubview:_forgotCodeContentView];
-        _forgotCodeContentView.jobsRichViewByModel(UIViewModel.new);
+        _forgotCodeContentView.jobsRichViewByModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
         @jobs_weakify(self)
         [_forgotCodeContentView actionObjBlock:^(id data) {
             @jobs_strongify(self)
@@ -367,18 +372,22 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
 - (UIButton *)customerServiceBtn {
     if (!_customerServiceBtn) {
         @jobs_weakify(self)
-        UIButton *btn = UIButton.jobsInit().bgColorBy(JobsWhiteColor);
+        UIButton *btn = UIButton.jobsInit();
         if (@available(iOS 16.0, *)) {
             btn = btn
-            .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
-            .jobsResetImagePadding(1);
+                .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
+                .jobsResetImagePadding(1);
         } else {
-            // < iOS 16：用语义方向 + EdgeInsets 粗略模拟
-            btn.semanticContentAttribute = UISemanticContentAttributeForceLeftToRight;
-            btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
-            btn.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0);
+            btn = (UIButton *)btn.byViewBlock(^(__kindof UIView *view) {
+                UIButton *button = (UIButton *)view;
+                button
+                    .bySemanticContentAttribute(UISemanticContentAttributeForceLeftToRight);
+                button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
+                button.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0);
+            });
         }
-        btn.jobsResetBtnImage(@"客服".img)
+        _customerServiceBtn = (UIButton *)btn
+            .jobsResetBtnImage(@"客服".img)
             .jobsResetBtnBgImage(@"APPLY NOW".img)
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
@@ -389,6 +398,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             .onLongPressGestureBy(^ (id data) {
                 JobsLog(@"");
             })
+            .bgColorBy(JobsWhiteColor)
             // 圆角依赖最终尺寸：等约束生效后再设
             .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
                 @jobs_strongify(self)
@@ -397,6 +407,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                 // 先给个占位，真正的 cornerRadius 放到布局后再设置
                 data.byCornerRadiusValue(0);
             }))
+            .addOn(self.view)
             .byAdd(^ (MASConstraintMaker *make) {
                 @jobs_strongify(self)
                 make.top.equalTo(@(self.jobsAppDoorContentView.top + self.jobsAppDoorContentView.height + 20));

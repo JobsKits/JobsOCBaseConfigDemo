@@ -86,7 +86,7 @@ Prop_strong()JobsExcelView *excelView;
 ```objective-c
 #pragma mark —— 一些私有方法
 /// 配置Excel表格的数据源
--(JobsReturnExcelConfigureDataByMyBetOrderDetailModelBlock _Nonnull)configExcelDataBy{
+-(JobsRetExcelConfigureDataByMyBetOrderDetailModelBlock _Nonnull)configExcelDataBy{
     @jobs_weakify(self)
     return ^JobsExcelConfigureViewModel *(__kindof FMMyBetOrderDetailModel *_Nullable model){
         @jobs_strongify(self)

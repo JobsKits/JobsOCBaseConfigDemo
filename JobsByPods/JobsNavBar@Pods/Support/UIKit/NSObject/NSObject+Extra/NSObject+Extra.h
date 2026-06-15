@@ -103,7 +103,7 @@ Prop_strong(readonly,nullable)UIImage *img;    // -(nullable UIImage *)img;
 /// DeviceOrientation 检测屏幕方向
 -(DeviceOrientation)getDeviceOrientation;
 /// 设置返回按钮的文字（默认退回上一个页面）
--(JobsReturnNavBarConfigByStringBlock _Nullable)makeNav0ByTitle;
+-(JobsRetNavBarConfigByStringBlock _Nullable)makeNav0ByTitle;
 
 @end
 

@@ -7,7 +7,7 @@
 
 #import "NSFormatter+Extra.h"
 
-@implementation NSFormatter (Extra)
+@implementation NSFormatter (JobsByOCPodsExtra)
 
 -(JobsRetStrByDateBlock _Nonnull)date{
     @jobs_weakify(self)

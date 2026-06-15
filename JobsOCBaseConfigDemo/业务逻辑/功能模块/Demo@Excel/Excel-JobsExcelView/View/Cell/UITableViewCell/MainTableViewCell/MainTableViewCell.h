@@ -41,7 +41,7 @@
 -(jobsByScrollViewBlock _Nonnull)mianTableViewCellScrollerDid;
 @end
 
-typedef MainTableViewCell *_Nonnull(^JobsReturnMainTableViewCellByDelegateBlock)(NSObject<MianTableViewCellDelegate> * _Nullable delegate);
+typedef MainTableViewCell *_Nonnull(^JobsRetMainTableViewCellByDelegateBlock)(NSObject<MianTableViewCellDelegate> * _Nullable delegate);
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
@@ -60,7 +60,7 @@ UICollectionViewDelegateFlowLayout
 Prop_weak()NSObject <MianTableViewCellDelegate> *delegate;
 
 -(jobsByPointBlock _Nonnull)scrollerItemBy;
--(JobsReturnMainTableViewCellByDelegateBlock _Nonnull)byDelegate;
+-(JobsRetMainTableViewCellByDelegateBlock _Nonnull)byDelegate;
 
 @end
 

@@ -7,7 +7,7 @@
 
 #import "NSObject+Path.h"
 
-@implementation NSObject (Path)
+@implementation NSObject (JobsByOCPodsPath)
 /// 获取bundle路径
 -(NSString *_Nonnull)bundlePath{
     return NSBundle.mainBundle.bundlePath;

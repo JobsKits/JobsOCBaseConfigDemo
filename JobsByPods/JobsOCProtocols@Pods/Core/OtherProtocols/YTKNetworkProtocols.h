@@ -47,7 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
    successData:(id _Nullable)successData                               // 本层对success的解析数据
    actionBlock:(jobsByResponseModelBlock _Nullable)actionBlock         // 本层对success的解析回调
   successBlock:(jobsByResponseModelBlock _Nullable)successBlock        // 外层对success的解析回调
-     failBlock:(jobsByVoidBlock _Nullable)failBlock;                   // 失败解析回调
+     failBlock:(jobsByVoidBlock _Nullable)failBlock;
+                   // 失败解析回调
 
 -(void)request:(YTKBaseRequest <YTKCustomBaseRequestProtocol>*)request
   successBlock:(jobsByResponseModelBlock _Nullable)successBlock;

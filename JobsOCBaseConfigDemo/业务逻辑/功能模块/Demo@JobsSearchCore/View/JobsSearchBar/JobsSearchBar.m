@@ -59,8 +59,8 @@ Prop_strong()BaseButton *cancelBtn;
                 [self.textField resignFirstResponder];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
-            });
-        _cancelBtn.addOn(self)
+            })
+            .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(50), JobsWidth(30)));
@@ -85,7 +85,7 @@ Prop_strong()BaseButton *cancelBtn;
                 .byInputAccessoryView(JobsAdNoticeView
                                       .BySize(JobsAdNoticeView.viewSizeByModel(nil))
                                       .JobsRichViewByModel2(nil)
-                                      .JobsBlock1(^(id _Nullable data) {
+                                      .JobsBlock1(^(id _Nullable data) {;
 
                 }))
                 .byLeftViewMode(UITextFieldViewModeAlways)

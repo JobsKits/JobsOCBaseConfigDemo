@@ -12,19 +12,26 @@
 Prop_strong() NSURL *videoURL;
 Prop_strong() NSString *result;
 Prop_strong() __kindof NSArray *itemTitleArray;      //< 奖品标题数组（懒加载）
-Prop_strong() UIImageView *rotaryTable;              //< 顶部灯光背景图（懒加载）
-Prop_strong() UIView *itemBorderView;                //< 高亮边框（懒加载）
+Prop_strong() UIImageView *rotaryTable;
+              //< 顶部灯光背景图（懒加载）
+Prop_strong() UIView *itemBorderView;
+                //< 高亮边框（懒加载）
 Prop_strong() NSTimer *itemBorderTimer;
 Prop_strong() NSTimer *fastTimer;
 Prop_strong() NSTimer *slowTimer;
 Prop_assign() NSInteger fastIndex;
 Prop_assign() NSInteger slowIndex;
 Prop_assign() NSInteger selectedIndex;
-Prop_strong() UIButton *startButton;                 //< 开始抽奖按钮（懒加载）
-Prop_strong() UILabel *startLabel;                   //< 按钮内部文字（懒加载）
-Prop_strong() UIView *lotteryResultView;             //< 抽奖结果弹窗（懒加载）
-Prop_strong() UIView *lotteryResultBgView;           //< 弹窗背景遮罩（懒加载）
-Prop_strong() UILabel *resultLabel;                  //< 弹窗中奖结果文案（懒加载）
+Prop_strong() UIButton *startButton;
+                 //< 开始抽奖按钮（懒加载）
+Prop_strong() UILabel *startLabel;
+                   //< 按钮内部文字（懒加载）
+Prop_strong() UIView *lotteryResultView;
+             //< 抽奖结果弹窗（懒加载）
+Prop_strong() UIView *lotteryResultBgView;
+           //< 弹窗背景遮罩（懒加载）
+Prop_strong() UILabel *resultLabel;
+                  //< 弹窗中奖结果文案（懒加载）
 
 @end
 
@@ -33,16 +40,18 @@ Prop_strong() UILabel *resultLabel;                  //< 弹窗中奖结果文�
 - (void)viewDidLoad {
     [super viewDidLoad];
     /// 容器 ScrollView
-    UIScrollView *scrollView =
-    [[UIScrollView alloc] initWithFrame:CGRectMake(0,
-                                                   JobsMainScreen_HEIGHT() > 800 ? -44 : -20,
-                                                   JobsMainScreen_WIDTH(),
-                                                   JobsMainScreen_HEIGHT() + (JobsMainScreen_HEIGHT() > 800 ? 44 : 20))];
-    scrollView.bounces = NO;
-    scrollView.showsVerticalScrollIndicator = NO;
-    scrollView.showsHorizontalScrollIndicator = NO;
-    scrollView.contentSize = CGSizeMake(JobsMainScreen_WIDTH(), ScaleW(810));
-    [self.view addSubview:scrollView];
+    UIScrollView *scrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
+        scrollView
+            .byBounces(NO)
+            .byShowsVerticalScrollIndicator(NO)
+            .byShowsHorizontalScrollIndicator(NO)
+            .byContentSize(CGSizeMake(JobsMainScreen_WIDTH(), ScaleW(810)))
+            .byFrame(CGRectMake(0,
+                                JobsMainScreen_HEIGHT() > 800 ? -44 : -20,
+                                JobsMainScreen_WIDTH(),
+                                JobsMainScreen_HEIGHT() + (JobsMainScreen_HEIGHT() > 800 ? 44 : 20)))
+            .addOn(self.view);
+    });
     /// 背景图
     UIImageView *bgImageView =
     [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT() )];
@@ -363,10 +372,14 @@ Prop_strong() UILabel *resultLabel;                  //< 弹窗中奖结果文�
 - (UIView *)itemBorderView {
     if (!_itemBorderView) {
         _itemBorderView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.layer.borderColor = RGB_COLOR(247, 227, 2).CGColor;
-            view.byCornerRadius(ScaleW(12));
-            view.layer.borderWidth = ScaleW(2);
-            view.byAlpha(0.0f); // 初始隐藏
+            view
+                .byAlpha(0.0f) // 初始隐藏
+                .byLayer(^(CALayer *layer) {
+                    layer
+                        .byBorderColor(RGB_COLOR(247, 227, 2).CGColor)
+                        .byBorderWidth(ScaleW(2));
+                })
+                .byCornerRadius(ScaleW(12));
         });
     };return _itemBorderView;
 }
@@ -379,30 +392,35 @@ Prop_strong() UILabel *resultLabel;                  //< 弹窗中奖结果文�
 
 - (UILabel *)startLabel {
     if (!_startLabel) {
-        _startLabel = [[UILabel alloc] init];
-        _startLabel.byAlpha(0.0f);
+        _startLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label.byAlpha(0.0f);
+        });
     };return _startLabel;
 }
 
 - (UIView *)lotteryResultBgView {
     if (!_lotteryResultBgView) {
-        _lotteryResultBgView =
-        [[UIView alloc] initWithFrame:CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT())];
-        _lotteryResultBgView.byBgColor([UIColor clearColor]);
-        _lotteryResultBgView.byAlpha(0.0f);
-        [self.view addSubview:_lotteryResultBgView];
+        _lotteryResultBgView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT()))
+                .byBgColor(UIColor.clearColor)
+                .byAlpha(0.0f)
+                .addOn(self.view);
+        });
     };return _lotteryResultBgView;
 }
 
 - (UIView *)lotteryResultView {
     if (!_lotteryResultView) {
-        _lotteryResultView =
-        [[UIView alloc] initWithFrame:CGRectMake(ScaleW(25),
-                                                 JobsMainScreen_HEIGHT(),
-                                                 ScaleW(325),
-                                                 ScaleW(386))];
-        _lotteryResultView.byAlpha(0.0f);
-        [self.view addSubview:_lotteryResultView];
+        _lotteryResultView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(CGRectMake(ScaleW(25),
+                                    JobsMainScreen_HEIGHT(),
+                                    ScaleW(325),
+                                    ScaleW(386)))
+                .byAlpha(0.0f)
+                .addOn(self.view);
+        });
         // 关闭按钮
         UIButton *close =
         [[UIButton alloc] initWithFrame:CGRectMake(ScaleW(145),

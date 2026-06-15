@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSString (Extra)
+@interface NSString (JobsMakesExtra)
 
 -(UIColor *)cor;
 

@@ -64,8 +64,6 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
     
     for (int i = 0; i < textArr.count; i ++) {
         
-        UIButton *btn = [UIButton buttonWithType:0];
-        
         NSString *text = textArr[i];
         
         CGFloat textWidth = [text boundingRectWithSize:CGSizeMake(kAllBtnMaxWidth, self.btnHeight) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:self.textFontSize + 0.5 weight:UIFontWeightRegular]} context:nil].size.width;
@@ -79,34 +77,31 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
             btnX = self.marginX;
             btnY = btnY + self.marginY + self.btnHeight;
         }
-        
-        btn.byFrame(CGRectMake(btnX, btnY, btnWidth, self.btnHeight));
-
-        
-        [btn setTitle:text forState:UIControlStateNormal];
-        
-        if (self.borderWidth > 0 && self.borderColor) {
-            btn.layer.borderWidth = self.borderWidth;
-            btn.layer.borderColor = self.borderColor.CGColor;
-        }
-        
-        if (self.cornerRadius > 0) {
-            btn.layer.cornerRadius = self.cornerRadius;
-        }
-        
-        [self unSelectBtn:btn];
-        
-        btn.titleLabel.byFont([UIFont systemFontOfSize:self.textFontSize]);
-
-        
-        [self addSubview:btn];
+        UIButton *btn = (UIButton *)UIButton.jobsInit()
+            .jobsResetBtnTitle(text)
+            .byTitleLabel(^(UILabel *label) {
+                label.byFont([UIFont systemFontOfSize:self.textFontSize]);
+            })
+            .byAddTarget(self, @selector(btnAction:), UIControlEventTouchUpInside)
+            .byTag(kXDTextBtnViewBtnTagPlus + i)
+            .byLayer(^(CALayer *layer) {
+                if (self.borderWidth > 0 && self.borderColor) {
+                    layer
+                        .byBorderWidth(self.borderWidth)
+                        .byBorderColor(self.borderColor.CGColor);
+                }
+                if (self.cornerRadius > 0) {
+                    layer.byCornerRadius(self.cornerRadius);
+                }
+            })
+            .byViewBlock(^(__kindof UIView *view) {
+                [self unSelectBtn:(UIButton *)view];
+            })
+            .byFrame(CGRectMake(btnX, btnY, btnWidth, self.btnHeight))
+            .addOn(self);
         
         self.maxX = CGRectGetMaxX(btn.frame);
         self.maxY = CGRectGetMinY(btn.frame);
-        
-        btn.tag = kXDTextBtnViewBtnTagPlus + i;
-        
-        [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     if (textArr.count > 0) {

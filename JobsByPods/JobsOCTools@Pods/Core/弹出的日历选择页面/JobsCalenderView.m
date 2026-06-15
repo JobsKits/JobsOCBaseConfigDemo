@@ -179,27 +179,32 @@ atMonthPosition:(FSCalendarMonthPosition)monthPosition{
 -(FSCalendar *)calendar{
     if(!_calendar){
         @jobs_weakify(self)
-        _calendar = self.addSubview(jobsMakeFSCalendar(^(__kindof FSCalendar * _Nullable calendar) {
+        _calendar = jobsMakeFSCalendar(^(__kindof FSCalendar * _Nullable calendar) {
             @jobs_strongify(self)
-            calendar.dataSource = self;
-            calendar.delegate = self;
-            calendar.byFrame(CGRectMake(0, 0, self.width, self.height));
-
-            calendar.calendarHeaderView.byBgColor(JobsLightGrayColor.colorWithAlphaComponentBy(.1f));
-
-            calendar.appearance.headerMinimumDissolvedAlpha = 1;
-            calendar.appearance.headerDateFormat = @"yyyy年MM月";
-            calendar.appearance.caseOptions = FSCalendarCaseOptionsHeaderUsesUpperCase;
-            calendar.appearance.headerTitleFont = pingFangHKBold(JobsWidth(20));
-            calendar.appearance.headerTitleColor = JobsBlackColor;
-            calendar.swipeToChooseGesture.enabled = YES;
-            calendar.allowsMultipleSelection = YES;
-//            calendar.calendarHeaderView.backgroundColor = JobsRedColor;
-//            calendar.calendarWeekdayView.backgroundColor = JobsYellowColor;
-        })).setMasonryBy(^(MASConstraintMaker *_Nonnull make){
-            @jobs_strongify(self)
-            make.edges.equalTo(self);
-        }).on();
+            calendar
+                .byDataSource(self)
+                .byDelegate(self)
+                .byAllowsMultipleSelection(YES)
+                .bySwipeToChooseGestureBlock(^(__kindof UILongPressGestureRecognizer * _Nullable data) {
+                    data.byEnabled(YES);
+                })
+                .byCalendarHeaderViewBlock(^(__kindof FSCalendarHeaderView * _Nullable data) {
+                    data.byBgColor(JobsLightGrayColor.colorWithAlphaComponentBy(.1f));
+                })
+                .byAppearanceBlock(^(__kindof FSCalendarAppearance * _Nullable data) {
+                    data
+                        .byHeaderMinimumDissolvedAlpha(1)
+                        .byHeaderDateFormat(@"yyyy年MM月")
+                        .byCaseOptions(FSCalendarCaseOptionsHeaderUsesUpperCase)
+                        .byHeaderTitleFont(pingFangHKBold(JobsWidth(20)))
+                        .byHeaderTitleColor(JobsBlackColor);
+                })
+                .byFrame(CGRectMake(0, 0, self.width, self.height))
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *_Nonnull make){
+                    make.edges.equalTo(self);
+                });
+        });
     };return _calendar;
 }
 

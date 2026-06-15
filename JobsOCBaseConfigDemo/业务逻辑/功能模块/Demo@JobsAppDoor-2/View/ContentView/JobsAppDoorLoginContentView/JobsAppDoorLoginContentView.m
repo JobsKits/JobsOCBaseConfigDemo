@@ -135,9 +135,9 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
                 .byTextCor(JobsWhiteColor)
                 .byFont(JobsFontRegular(JobsWidth(20)))
                 .addOn(self)
-                .bySizeToFit();
-            label.centerX = (self.width - self.toRegisterBtn.width) / 2;
-            label.top = JobsWidth(20);
+                .bySizeToFit()
+                .byCenterX((self.width - self.toRegisterBtn.width) / 2)
+                .byTop(JobsWidth(20));
         });
     };return _titleLab;
 }
@@ -156,13 +156,13 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
                 JobsLog(@"");
             })
             .bgColorBy(JobsBlackColor)
+            .buttonAutoWidthByFont()
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self.titleLab);
                 make.height.mas_equalTo(JobsWidth(15));
                 make.bottom.mas_equalTo(self).offset(-JobsWidth(30));
             });
-        _abandonLoginBtn.buttonAutoWidthByFont();
     };return _abandonLoginBtn;
 }
 
@@ -213,6 +213,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
                 JobsLog(@"");
             })
             .bySelected(YES) // 默认记住密码
+            .buttonAutoWidthByFont()
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
                 JobsAppDoorInputViewBaseStyle *inputView =
@@ -221,7 +222,6 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
                 make.left.equalTo(inputView).offset(JobsWidth(20));
                 make.top.equalTo(inputView.mas_bottom).offset(JobsWidth(25));
             });
-        _storeCodeBtn.buttonAutoWidthByFont();
         self.byLayoutIfNeeded();
     };return _storeCodeBtn;
 }
@@ -239,6 +239,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
+            .buttonAutoWidthByFont()
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
                 JobsAppDoorInputViewBaseStyle *inputView =
@@ -247,7 +248,6 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
                 make.right.equalTo(inputView).offset(-JobsWidth(20));
                 make.top.equalTo(inputView.mas_bottom).offset(JobsWidth(20));
             });
-        _findCodeBtn.buttonAutoWidthByFont();
     };return _findCodeBtn;
 }
 

@@ -6,16 +6,16 @@
 
 - 此文件由脚本自动运行分析得出
 - 分析目录：`/Users/jobs/Documents/Github/JobsOCBaseConfigDemo@ByPods`
-- 生成时间：`2026-06-11 22:16:12`
-- Podspec 数量：`88`
+- 生成时间：`2026-06-15 20:18:05`
+- Podspec 数量：`89`
 - 0 下游依赖 Pod 数量：`13`
-- 全部依赖边数量：`667`
-- 仓库内 Pod 依赖边数量：`521`
+- 全部依赖边数量：`671`
+- 仓库内 Pod 依赖边数量：`524`
 - Pod 间循环依赖数量：`0`
 - 已过滤同 Pod 内部 subspec 依赖数量：`965`
 - 外部依赖来源注释文件数量：`41`
 - 已识别外部依赖来源链接数量：`78`
-- DSL 执行式解析 Podspec 数量：`88`
+- DSL 执行式解析 Podspec 数量：`89`
 - 静态兜底解析 Podspec 数量：`0`
 
 > 更易读的动态关系图见：`PodspecDependencies_interactive.html`，其中默认保留 2D 关系图，并新增可拖动旋转的 3D 空间图。
@@ -47,8 +47,9 @@
 | [**JobsBaseUI**](#JobsBaseUI) | `JobsByPods/JobsBaseUI@Pods/JobsBaseUI.podspec` | 31 | [GKNavigationBar](https://github.com/QuintGao/GKNavigationBar), [JobsAppTools](#JobsAppTools), [JobsBasePopupView](#JobsBasePopupView), [JobsBlock](#JobsBlock), [JobsClass](#JobsClass), [JobsDeviceInfo](#JobsDeviceInfo), [JobsLanMgr](#JobsLanMgr), [JobsLoadingImage](#JobsLoadingImage), [JobsMakes](#JobsMakes), [JobsModelDSL](#JobsModelDSL), [JobsNavBar](#JobsNavBar), [JobsOCDSL](#JobsOCDSL), [JobsOCDefs](#JobsOCDefs), [JobsOCProtocols](#JobsOCProtocols), [JobsOCRuntimeKits](#JobsOCRuntimeKits), [JobsRandomUtils](#JobsRandomUtils), [JobsRichTextUtils](#JobsRichTextUtils), [JobsStringUtils](#JobsStringUtils), [JobsTimeUtils](#JobsTimeUtils), [MJExtension](https://github.com/CoderMJLee/MJExtension), [MJRefresh](https://github.com/CoderMJLee/MJRefresh), [MJRefreshExtra](#MJRefreshExtra), [Masonry](https://github.com/SnapKit/Masonry), [ReactiveObjC](https://github.com/ReactiveCocoa/ReactiveObjC), [SZTextView](https://github.com/glaszig/SZTextView), [TABAnimated](#TABAnimated), [This](#This), [WHToastExtra](#WHToastExtra), [XYColorOC](#XYColorOC), [XZMRefresh](https://github.com/xiezhongmin/XZMRefresh), [lottie-ios](https://github.com/airbnb/lottie-ios) | 13 | [**GKCustomNavigationBarExtra**](#GKCustomNavigationBarExtra), [**JobsByOCPods**](#JobsByOCPods), [**JobsCustomView**](#JobsCustomView), [**JobsDropDownListView**](#JobsDropDownListView), [**JobsFiltrationView**](#JobsFiltrationView), [**JobsHotLabel**](#JobsHotLabel), [**JobsImageNumberView**](#JobsImageNumberView), [**JobsLinkageMenuView**](#JobsLinkageMenuView), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr), [**JobsOCTools**](#JobsOCTools), [**JobsSuspend**](#JobsSuspend), [**JobsUploadingProgressView**](#JobsUploadingProgressView), [**UIBaseTextFieldDSL**](#UIBaseTextFieldDSL) |
 | [**JobsBioKit**](#JobsBioKit) | `JobsByPods/JobsBioKit@Pods/JobsBioKit.podspec` | 0 |  | 0 |  |
 | [**JobsBitsMonitor**](#JobsBitsMonitor) | `JobsByPods/JobsBitsMonitor@Pods/JobsBitsMonitor.podspec` | 9 | [JobsBlock](#JobsBlock), [JobsByOCPods](#JobsByOCPods), [JobsLanMgr](#JobsLanMgr), [JobsModelDSL](#JobsModelDSL), [JobsNetWorkTools](#JobsNetWorkTools), [JobsOCDSL](#JobsOCDSL), [JobsOCDefs](#JobsOCDefs), [JobsSuspend](#JobsSuspend), [ZWPullMenuView](#ZWPullMenuView) | 0 |  |
-| [**JobsBlock**](#JobsBlock) | `JobsByPods/JobsBlock@Pods/JobsBlock.podspec` | 2 | [JobsOCDefs](#JobsOCDefs), [SDWebImage](https://github.com/SDWebImage/SDWebImage) | 63 | [**AFSecurityPolicyExtra**](#AFSecurityPolicyExtra), [**BRPickerViewExtra**](#BRPickerViewExtra), [**FDFullscreenPopGesture**](#FDFullscreenPopGesture), [**FMDatabaseExtra**](#FMDatabaseExtra), [**FSCalendar**](#FSCalendar), [**FSCalendarExtra**](#FSCalendarExtra), [**FileFolderHandleTool**](#FileFolderHandleTool), [**GKCustomNavigationBarExtra**](#GKCustomNavigationBarExtra), [**HTMLDocumentExtra**](#HTMLDocumentExtra), [**HXPhotoManagerExtra**](#HXPhotoManagerExtra), [**HXPhotoViewExtra**](#HXPhotoViewExtra), [**IQKeyboardManagerExtra**](#IQKeyboardManagerExtra), [**JXCategoryViewExtra**](#JXCategoryViewExtra), [**JobsAPIs**](#JobsAPIs), [**JobsAppTools**](#JobsAppTools), [**JobsBaseUI**](#JobsBaseUI), [**JobsBitsMonitor**](#JobsBitsMonitor), [**JobsByOCPods**](#JobsByOCPods), [**JobsClass**](#JobsClass), [**JobsClockView**](#JobsClockView), [**JobsCryptography**](#JobsCryptography), [**JobsCustomView**](#JobsCustomView), [**JobsDebug**](#JobsDebug), [**JobsDeviceInfo**](#JobsDeviceInfo), [**JobsDropDownListView**](#JobsDropDownListView), [**JobsFiltrationView**](#JobsFiltrationView), [**JobsHotLabel**](#JobsHotLabel), [**JobsImageNumberView**](#JobsImageNumberView), [**JobsLanMgr**](#JobsLanMgr), [**JobsLinkageMenuView**](#JobsLinkageMenuView), [**JobsMakes**](#JobsMakes), [**JobsMenuView**](#JobsMenuView), [**JobsModel**](#JobsModel), [**JobsModelDSL**](#JobsModelDSL), [**JobsMonitorNetwoking**](#JobsMonitorNetwoking), [**JobsNavBar**](#JobsNavBar), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr), [**JobsNetWorkTools**](#JobsNetWorkTools), [**JobsOCDSL**](#JobsOCDSL), [**JobsOCProtocols**](#JobsOCProtocols), [**JobsOCRuntimeKits**](#JobsOCRuntimeKits), [**JobsOCSnowflake**](#JobsOCSnowflake), [**JobsOCTimer**](#JobsOCTimer), [**JobsOCTimerMgr**](#JobsOCTimerMgr), [**JobsOCTools**](#JobsOCTools), [**JobsRichTextUtils**](#JobsRichTextUtils), [**JobsSuspend**](#JobsSuspend), [**JobsTimeUtils**](#JobsTimeUtils), [**JobsViewNavigator**](#JobsViewNavigator), [**MGSwipeTableCellExtra**](#MGSwipeTableCellExtra), [**MJRefreshExtra**](#MJRefreshExtra), [**SRWebSocketExtra**](#SRWebSocketExtra), [**SYSAlertControllerExtra**](#SYSAlertControllerExtra), [**SZTextViewExtra**](#SZTextViewExtra), [**TFPopup**](#TFPopup), [**TFPopupExtra**](#TFPopupExtra), [**TKPermissionKit**](#TKPermissionKit), [**UIBaseTextFieldDSL**](#UIBaseTextFieldDSL), [**WHToastExtra**](#WHToastExtra), [**WMZCode**](#WMZCode), [**YTKNetworkExtra**](#YTKNetworkExtra), [**ZFPlayerExtra**](#ZFPlayerExtra), [**ZMJCellExtra**](#ZMJCellExtra) |
+| [**JobsBlock**](#JobsBlock) | `JobsByPods/JobsBlock@Pods/JobsBlock.podspec` | 2 | [JobsOCDefs](#JobsOCDefs), [SDWebImage](https://github.com/SDWebImage/SDWebImage) | 64 | [**AFSecurityPolicyExtra**](#AFSecurityPolicyExtra), [**BRPickerViewExtra**](#BRPickerViewExtra), [**FDFullscreenPopGesture**](#FDFullscreenPopGesture), [**FMDatabaseExtra**](#FMDatabaseExtra), [**FSCalendar**](#FSCalendar), [**FSCalendarExtra**](#FSCalendarExtra), [**FileFolderHandleTool**](#FileFolderHandleTool), [**GKCustomNavigationBarExtra**](#GKCustomNavigationBarExtra), [**HTMLDocumentExtra**](#HTMLDocumentExtra), [**HXPhotoManagerExtra**](#HXPhotoManagerExtra), [**HXPhotoViewExtra**](#HXPhotoViewExtra), [**IQKeyboardManagerExtra**](#IQKeyboardManagerExtra), [**JXCategoryViewExtra**](#JXCategoryViewExtra), [**JobsAPIs**](#JobsAPIs), [**JobsAppTools**](#JobsAppTools), [**JobsBaseUI**](#JobsBaseUI), [**JobsBitsMonitor**](#JobsBitsMonitor), [**JobsByOCPods**](#JobsByOCPods), [**JobsCallBackBlockDSL**](#JobsCallBackBlockDSL), [**JobsClass**](#JobsClass), [**JobsClockView**](#JobsClockView), [**JobsCryptography**](#JobsCryptography), [**JobsCustomView**](#JobsCustomView), [**JobsDebug**](#JobsDebug), [**JobsDeviceInfo**](#JobsDeviceInfo), [**JobsDropDownListView**](#JobsDropDownListView), [**JobsFiltrationView**](#JobsFiltrationView), [**JobsHotLabel**](#JobsHotLabel), [**JobsImageNumberView**](#JobsImageNumberView), [**JobsLanMgr**](#JobsLanMgr), [**JobsLinkageMenuView**](#JobsLinkageMenuView), [**JobsMakes**](#JobsMakes), [**JobsMenuView**](#JobsMenuView), [**JobsModel**](#JobsModel), [**JobsModelDSL**](#JobsModelDSL), [**JobsMonitorNetwoking**](#JobsMonitorNetwoking), [**JobsNavBar**](#JobsNavBar), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr), [**JobsNetWorkTools**](#JobsNetWorkTools), [**JobsOCDSL**](#JobsOCDSL), [**JobsOCProtocols**](#JobsOCProtocols), [**JobsOCRuntimeKits**](#JobsOCRuntimeKits), [**JobsOCSnowflake**](#JobsOCSnowflake), [**JobsOCTimer**](#JobsOCTimer), [**JobsOCTimerMgr**](#JobsOCTimerMgr), [**JobsOCTools**](#JobsOCTools), [**JobsRichTextUtils**](#JobsRichTextUtils), [**JobsSuspend**](#JobsSuspend), [**JobsTimeUtils**](#JobsTimeUtils), [**JobsViewNavigator**](#JobsViewNavigator), [**MGSwipeTableCellExtra**](#MGSwipeTableCellExtra), [**MJRefreshExtra**](#MJRefreshExtra), [**SRWebSocketExtra**](#SRWebSocketExtra), [**SYSAlertControllerExtra**](#SYSAlertControllerExtra), [**SZTextViewExtra**](#SZTextViewExtra), [**TFPopup**](#TFPopup), [**TFPopupExtra**](#TFPopupExtra), [**TKPermissionKit**](#TKPermissionKit), [**UIBaseTextFieldDSL**](#UIBaseTextFieldDSL), [**WHToastExtra**](#WHToastExtra), [**WMZCode**](#WMZCode), [**YTKNetworkExtra**](#YTKNetworkExtra), [**ZFPlayerExtra**](#ZFPlayerExtra), [**ZMJCellExtra**](#ZMJCellExtra) |
 | [**JobsByOCPods**](#JobsByOCPods) | `JobsByPods/JobsByOCPods@Pods/JobsByOCPods.podspec` | 61 | [BRPickerView](#BRPickerView), [BRPickerViewExtra](#BRPickerViewExtra), [DeviceKit](#DeviceKit), [FMDB](https://github.com/ccgus/fmdb), [FSCalendar](#FSCalendar), [GKCustomNavigationBarExtra](#GKCustomNavigationBarExtra), [GKNavigationBar](https://github.com/QuintGao/GKNavigationBar), [GKPhotoBrowser](https://github.com/QuintGao/GKPhotoBrowser), [IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager), [JPImageresizerView](https://github.com/Rogue24/JPImageresizerView), [JXCategoryView](https://github.com/pujiaxin33/JXCategoryView), [JXPagingView](https://github.com/pujiaxin33/JXPagingView), [JobsAPIs](#JobsAPIs), [JobsAppTools](#JobsAppTools), [JobsBaseUI](#JobsBaseUI), [JobsBlock](#JobsBlock), [JobsClass](#JobsClass), [JobsDebug](#JobsDebug), [JobsDeviceInfo](#JobsDeviceInfo), [JobsDropDownListView](#JobsDropDownListView), [JobsLanMgr](#JobsLanMgr), [JobsMakes](#JobsMakes), [JobsModelDSL](#JobsModelDSL), [JobsNavigationTransitionMgr](#JobsNavigationTransitionMgr), [JobsOCDSL](#JobsOCDSL), [JobsOCDefs](#JobsOCDefs), [JobsOCProtocols](#JobsOCProtocols), [JobsOCRuntimeKits](#JobsOCRuntimeKits), [JobsOCSnowflake](#JobsOCSnowflake), [JobsOCTimer](#JobsOCTimer), [JobsRandomUtils](#JobsRandomUtils), [JobsRichTextUtils](#JobsRichTextUtils), [JobsStringUtils](#JobsStringUtils), [JobsTimeUtils](#JobsTimeUtils), [JobsViewNavigator](#JobsViewNavigator), [MGSwipeTableCell](https://github.com/MortimerGoro/MGSwipeTableCell), [MJExtension](https://github.com/CoderMJLee/MJExtension), [MJRefresh](https://github.com/CoderMJLee/MJRefresh), [Masonry](https://github.com/SnapKit/Masonry), [PPBadgeView](https://github.com/jkpang/PPBadgeView), [Reachability](https://github.com/tonymillion/Reachability), [ReactiveObjC](https://github.com/ReactiveCocoa/ReactiveObjC), [SDWebImage](https://github.com/SDWebImage/SDWebImage), [SZTextView](https://github.com/glaszig/SZTextView), [SocketRocket](https://github.com/facebookincubator/SocketRocket), [TABAnimated](#TABAnimated), [TFPopup](#TFPopup), [TXFileOperation](https://github.com/xtzPioneer/TXFileOperation), [This](#This), [UITextView+Placeholder](https://github.com/devxoul/UITextView-Placeholder), [WHToast](https://github.com/remember17/WHToast), [WHToastExtra](#WHToastExtra), [XYColorOC](#XYColorOC), [XZMRefresh](https://github.com/xiezhongmin/XZMRefresh), [YTKNetworkExtra](#YTKNetworkExtra), YYImage, [ZBNetworking](#ZBNetworking), [ZFPlayer](https://github.com/renzifeng/ZFPlayer), [ZFPlayerExtra](#ZFPlayerExtra), [ZMJGanttChart](https://github.com/keshiim/ZMJGanttChart), [lottie-ios](https://github.com/airbnb/lottie-ios) | 12 | [**FileFolderHandleTool**](#FileFolderHandleTool), [**JobsBitsMonitor**](#JobsBitsMonitor), [**JobsCryptography**](#JobsCryptography), [**JobsHotLabel**](#JobsHotLabel), [**JobsImageNumberView**](#JobsImageNumberView), [**JobsMenuView**](#JobsMenuView), [**JobsOCTools**](#JobsOCTools), [**JobsUploadingProgressView**](#JobsUploadingProgressView), [**TFPopupExtra**](#TFPopupExtra), [**TKPermissionKit**](#TKPermissionKit), [**WMZCode**](#WMZCode), [**ZWPullMenuView**](#ZWPullMenuView) |
+| [**JobsCallBackBlockDSL**](#JobsCallBackBlockDSL) | `JobsByPods/JobsCallBackBlockDSL@Pods/JobsCallBackBlockDSL.podspec` | 2 | [JobsBlock](#JobsBlock), [JobsOCDefs](#JobsOCDefs) | 0 |  |
 | [**JobsClass**](#JobsClass) | `JobsByPods/JobsClass@Pods/JobsClass.podspec` | 3 | [JobsBlock](#JobsBlock), [JobsOCDefs](#JobsOCDefs), [MJExtension](https://github.com/CoderMJLee/MJExtension) | 15 | [**JobsAPIs**](#JobsAPIs), [**JobsAppTools**](#JobsAppTools), [**JobsBasePopupView**](#JobsBasePopupView), [**JobsBaseUI**](#JobsBaseUI), [**JobsByOCPods**](#JobsByOCPods), [**JobsCustomView**](#JobsCustomView), [**JobsDeviceInfo**](#JobsDeviceInfo), [**JobsDropDownListView**](#JobsDropDownListView), [**JobsLinkageMenuView**](#JobsLinkageMenuView), [**JobsModel**](#JobsModel), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr), [**JobsOCRuntimeKits**](#JobsOCRuntimeKits), [**JobsRichTextUtils**](#JobsRichTextUtils), [**JobsTimeUtils**](#JobsTimeUtils), [**WHToastExtra**](#WHToastExtra) |
 | [**JobsClockView**](#JobsClockView) | `JobsByPods/JobsClockView@Pods/JobsClockView.podspec` | 4 | [JobsBlock](#JobsBlock), [JobsOCDSL](#JobsOCDSL), [JobsOCProtocols](#JobsOCProtocols), [JobsOCTimer](#JobsOCTimer) | 0 |  |
 | [**JobsCryptography**](#JobsCryptography) | `JobsByPods/JobsCryptography@Pods/JobsCryptography.podspec` | 4 | [JobsBlock](#JobsBlock), [JobsByOCPods](#JobsByOCPods), [JobsMakes](#JobsMakes), [JobsOCDefs](#JobsOCDefs) | 1 | [**JobsOCTools**](#JobsOCTools) |
@@ -68,13 +69,13 @@
 | [**JobsMakes**](#JobsMakes) | `JobsByPods/JobsMakes@Pods/JobsMakes.podspec` | 2 | [JobsBlock](#JobsBlock), [JobsOCDefs](#JobsOCDefs) | 36 | [**BRPickerViewExtra**](#BRPickerViewExtra), [**FSCalendar**](#FSCalendar), [**FileFolderHandleTool**](#FileFolderHandleTool), [**GKCustomNavigationBarExtra**](#GKCustomNavigationBarExtra), [**JXCategoryViewExtra**](#JXCategoryViewExtra), [**JobsAppTools**](#JobsAppTools), [**JobsBasePopupView**](#JobsBasePopupView), [**JobsBaseUI**](#JobsBaseUI), [**JobsByOCPods**](#JobsByOCPods), [**JobsCryptography**](#JobsCryptography), [**JobsCustomView**](#JobsCustomView), [**JobsDebug**](#JobsDebug), [**JobsDeviceInfo**](#JobsDeviceInfo), [**JobsDropDownListView**](#JobsDropDownListView), [**JobsFiltrationView**](#JobsFiltrationView), [**JobsHotLabel**](#JobsHotLabel), [**JobsImageNumberView**](#JobsImageNumberView), [**JobsLinkageMenuView**](#JobsLinkageMenuView), [**JobsMenuView**](#JobsMenuView), [**JobsModel**](#JobsModel), [**JobsNavBar**](#JobsNavBar), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr), [**JobsOCDSL**](#JobsOCDSL), [**JobsOCRuntimeKits**](#JobsOCRuntimeKits), [**JobsOCTimer**](#JobsOCTimer), [**JobsOCTimerMgr**](#JobsOCTimerMgr), [**JobsOCTools**](#JobsOCTools), [**JobsRichTextUtils**](#JobsRichTextUtils), [**JobsTimeUtils**](#JobsTimeUtils), [**JobsUploadingProgressView**](#JobsUploadingProgressView), [**JobsViewNavigator**](#JobsViewNavigator), [**MJRefreshExtra**](#MJRefreshExtra), [**WHToastExtra**](#WHToastExtra), [**WMZCode**](#WMZCode), [**YTKNetworkExtra**](#YTKNetworkExtra), [**ZMJCellExtra**](#ZMJCellExtra) |
 | [**JobsMenuView**](#JobsMenuView) | `JobsByPods/JobsMenuView@Pods/JobsMenuView.podspec` | 6 | [JobsBlock](#JobsBlock), [JobsByOCPods](#JobsByOCPods), [JobsLinkageMenuView](#JobsLinkageMenuView), [JobsMakes](#JobsMakes), [JobsOCDSL](#JobsOCDSL), [JobsOCDefs](#JobsOCDefs) | 0 |  |
 | [**JobsModel**](#JobsModel) | `JobsByPods/JobsModel@Pods/JobsModel.podspec` | 16 | [GTCaptcha4](#GTCaptcha4), [HXPhotoPickerObjC](https://github.com/SilenceLove/HXPhotoPickerObjC), [JobsBlock](#JobsBlock), [JobsClass](#JobsClass), [JobsLanMgr](#JobsLanMgr), [JobsLoadingImage](#JobsLoadingImage), [JobsMakes](#JobsMakes), [JobsOCDefs](#JobsOCDefs), [JobsOCProtocols](#JobsOCProtocols), [JobsStringUtils](#JobsStringUtils), [MJExtension](https://github.com/CoderMJLee/MJExtension), [Masonry](https://github.com/SnapKit/Masonry), [ReactiveObjC](https://github.com/ReactiveCocoa/ReactiveObjC), [SDWebImage](https://github.com/SDWebImage/SDWebImage), [SPAlertController](https://github.com/SPStore/SPAlertController), [XYColorOC](#XYColorOC) | 1 | [**JobsModelDSL**](#JobsModelDSL) |
-| [**JobsModelDSL**](#JobsModelDSL) | `JobsByPods/JobsModelDSL@Pods/JobsModelDSL.podspec` | 4 | [JobsBlock](#JobsBlock), [JobsModel](#JobsModel), [JobsOCDefs](#JobsOCDefs), [JobsOCProtocols](#JobsOCProtocols) | 29 | [**BRPickerView**](#BRPickerView), [**BRPickerViewExtra**](#BRPickerViewExtra), [**FileFolderHandleTool**](#FileFolderHandleTool), [**GKCustomNavigationBarExtra**](#GKCustomNavigationBarExtra), [**JobsAPIs**](#JobsAPIs), [**JobsAppTools**](#JobsAppTools), [**JobsBasePopupView**](#JobsBasePopupView), [**JobsBaseUI**](#JobsBaseUI), [**JobsBitsMonitor**](#JobsBitsMonitor), [**JobsByOCPods**](#JobsByOCPods), [**JobsCustomView**](#JobsCustomView), [**JobsDeviceInfo**](#JobsDeviceInfo), [**JobsDropDownListView**](#JobsDropDownListView), [**JobsFiltrationView**](#JobsFiltrationView), [**JobsHotLabel**](#JobsHotLabel), [**JobsLinkageMenuView**](#JobsLinkageMenuView), [**JobsNavBar**](#JobsNavBar), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr), [**JobsNetWorkTools**](#JobsNetWorkTools), [**JobsOCRuntimeKits**](#JobsOCRuntimeKits), [**JobsOCTools**](#JobsOCTools), [**JobsRichTextUtils**](#JobsRichTextUtils), [**JobsSuspend**](#JobsSuspend), [**JobsTimeUtils**](#JobsTimeUtils), [**MJRefreshExtra**](#MJRefreshExtra), [**SYSAlertControllerExtra**](#SYSAlertControllerExtra), [**TFPopupExtra**](#TFPopupExtra), [**WHToastExtra**](#WHToastExtra), [**YTKNetworkExtra**](#YTKNetworkExtra) |
+| [**JobsModelDSL**](#JobsModelDSL) | `JobsByPods/JobsModelDSL@Pods/JobsModelDSL.podspec` | 4 | [JobsBlock](#JobsBlock), [JobsModel](#JobsModel), [JobsOCDefs](#JobsOCDefs), [JobsOCProtocols](#JobsOCProtocols) | 30 | [**BRPickerView**](#BRPickerView), [**BRPickerViewExtra**](#BRPickerViewExtra), [**FileFolderHandleTool**](#FileFolderHandleTool), [**GKCustomNavigationBarExtra**](#GKCustomNavigationBarExtra), [**JobsAPIs**](#JobsAPIs), [**JobsAppTools**](#JobsAppTools), [**JobsBasePopupView**](#JobsBasePopupView), [**JobsBaseUI**](#JobsBaseUI), [**JobsBitsMonitor**](#JobsBitsMonitor), [**JobsByOCPods**](#JobsByOCPods), [**JobsCustomView**](#JobsCustomView), [**JobsDeviceInfo**](#JobsDeviceInfo), [**JobsDropDownListView**](#JobsDropDownListView), [**JobsFiltrationView**](#JobsFiltrationView), [**JobsHotLabel**](#JobsHotLabel), [**JobsLinkageMenuView**](#JobsLinkageMenuView), [**JobsNavBar**](#JobsNavBar), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr), [**JobsNetWorkTools**](#JobsNetWorkTools), [**JobsOCDSL**](#JobsOCDSL), [**JobsOCRuntimeKits**](#JobsOCRuntimeKits), [**JobsOCTools**](#JobsOCTools), [**JobsRichTextUtils**](#JobsRichTextUtils), [**JobsSuspend**](#JobsSuspend), [**JobsTimeUtils**](#JobsTimeUtils), [**MJRefreshExtra**](#MJRefreshExtra), [**SYSAlertControllerExtra**](#SYSAlertControllerExtra), [**TFPopupExtra**](#TFPopupExtra), [**WHToastExtra**](#WHToastExtra), [**YTKNetworkExtra**](#YTKNetworkExtra) |
 | [**JobsMonitorNetwoking**](#JobsMonitorNetwoking) | `JobsByPods/JobsMonitorNetwoking@Pods/JobsMonitorNetwoking.podspec` | 4 | [JobsBlock](#JobsBlock), [JobsOCDSL](#JobsOCDSL), [JobsOCDefs](#JobsOCDefs), [JobsSuspend](#JobsSuspend) | 0 |  |
 | [**JobsNavBar**](#JobsNavBar) | `JobsByPods/JobsNavBar@Pods/JobsNavBar.podspec` | 22 | [JobsAppTools](#JobsAppTools), [JobsBlock](#JobsBlock), [JobsDeviceInfo](#JobsDeviceInfo), [JobsLanMgr](#JobsLanMgr), [JobsMakes](#JobsMakes), [JobsModelDSL](#JobsModelDSL), [JobsOCDSL](#JobsOCDSL), [JobsOCDefs](#JobsOCDefs), [JobsOCProtocols](#JobsOCProtocols), [JobsOCRuntimeKits](#JobsOCRuntimeKits), [JobsRichTextUtils](#JobsRichTextUtils), [JobsStringUtils](#JobsStringUtils), [MJExtension](https://github.com/CoderMJLee/MJExtension), [MJRefresh](https://github.com/CoderMJLee/MJRefresh), [MJRefreshExtra](#MJRefreshExtra), [Masonry](https://github.com/SnapKit/Masonry), [ReactiveObjC](https://github.com/ReactiveCocoa/ReactiveObjC), [TABAnimated](#TABAnimated), [WHToastExtra](#WHToastExtra), [XYColorOC](#XYColorOC), [XZMRefresh](https://github.com/xiezhongmin/XZMRefresh), [lottie-ios](https://github.com/airbnb/lottie-ios) | 2 | [**JobsBaseUI**](#JobsBaseUI), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr) |
 | [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr) | `JobsByPods/JobsNavigationTransitionMgr@Pods/JobsNavigationTransitionMgr.podspec` | 35 | [FDFullscreenPopGesture](#FDFullscreenPopGesture), [GKNavigationBar](https://github.com/QuintGao/GKNavigationBar), [GKPhotoBrowser](https://github.com/QuintGao/GKPhotoBrowser), [JobsAppTools](#JobsAppTools), [JobsBaseUI](#JobsBaseUI), [JobsBlock](#JobsBlock), [JobsClass](#JobsClass), [JobsDebug](#JobsDebug), [JobsDeviceInfo](#JobsDeviceInfo), [JobsLanMgr](#JobsLanMgr), [JobsLoadingImage](#JobsLoadingImage), [JobsMakes](#JobsMakes), [JobsModelDSL](#JobsModelDSL), [JobsNavBar](#JobsNavBar), [JobsOCDSL](#JobsOCDSL), [JobsOCDefs](#JobsOCDefs), [JobsOCProtocols](#JobsOCProtocols), [JobsOCRuntimeKits](#JobsOCRuntimeKits), [JobsOCSnowflake](#JobsOCSnowflake), [JobsRichTextUtils](#JobsRichTextUtils), [JobsStringUtils](#JobsStringUtils), [JobsTimeUtils](#JobsTimeUtils), [JobsViewNavigator](#JobsViewNavigator), [MJExtension](https://github.com/CoderMJLee/MJExtension), [MJRefresh](https://github.com/CoderMJLee/MJRefresh), [MJRefreshExtra](#MJRefreshExtra), [Masonry](https://github.com/SnapKit/Masonry), [ReactiveObjC](https://github.com/ReactiveCocoa/ReactiveObjC), [SDWebImage](https://github.com/SDWebImage/SDWebImage), [TABAnimated](#TABAnimated), [TFPopup](#TFPopup), [WHToast](https://github.com/remember17/WHToast), [WHToastExtra](#WHToastExtra), [XZMRefresh](https://github.com/xiezhongmin/XZMRefresh), YYImage | 1 | [**JobsByOCPods**](#JobsByOCPods) |
 | [**JobsNetWorkTools**](#JobsNetWorkTools) | `JobsByPods/JobsNetWorkTools@Pods/JobsNetWorkTools.podspec` | 5 | [JobsBlock](#JobsBlock), [JobsModelDSL](#JobsModelDSL), [JobsOCDefs](#JobsOCDefs), [JobsOCProtocols](#JobsOCProtocols), [JobsOCTimer](#JobsOCTimer) | 1 | [**JobsBitsMonitor**](#JobsBitsMonitor) |
-| [**JobsOCDSL**](#JobsOCDSL) | `JobsByPods/JobsOCDSL@Pods/JobsOCDSL.podspec` | 14 | [FSCalendar](#FSCalendar), [GKNavigationBar](https://github.com/QuintGao/GKNavigationBar), [HXPhotoPickerObjC](https://github.com/SilenceLove/HXPhotoPickerObjC), [JobsBlock](#JobsBlock), [JobsMakes](#JobsMakes), [JobsOCDefs](#JobsOCDefs), [JobsOCProtocols](#JobsOCProtocols), [JobsOCRuntimeKits](#JobsOCRuntimeKits), [MJRefresh](https://github.com/CoderMJLee/MJRefresh), [Masonry](https://github.com/SnapKit/Masonry), [ReactiveObjC](https://github.com/ReactiveCocoa/ReactiveObjC), [Texture](#Texture), [YTKNetwork](https://github.com/yuantiku/YTKNetwork), [ZFPlayer](https://github.com/renzifeng/ZFPlayer) | 30 | [**GKCustomNavigationBarExtra**](#GKCustomNavigationBarExtra), [**JXCategoryViewExtra**](#JXCategoryViewExtra), [**JobsAppTools**](#JobsAppTools), [**JobsBasePopupView**](#JobsBasePopupView), [**JobsBaseUI**](#JobsBaseUI), [**JobsBitsMonitor**](#JobsBitsMonitor), [**JobsByOCPods**](#JobsByOCPods), [**JobsClockView**](#JobsClockView), [**JobsCustomView**](#JobsCustomView), [**JobsDeviceInfo**](#JobsDeviceInfo), [**JobsDropDownListView**](#JobsDropDownListView), [**JobsFiltrationView**](#JobsFiltrationView), [**JobsGestureLock**](#JobsGestureLock), [**JobsHotLabel**](#JobsHotLabel), [**JobsImageNumberView**](#JobsImageNumberView), [**JobsLinkageMenuView**](#JobsLinkageMenuView), [**JobsMenuView**](#JobsMenuView), [**JobsMonitorNetwoking**](#JobsMonitorNetwoking), [**JobsNavBar**](#JobsNavBar), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr), [**JobsOCTools**](#JobsOCTools), [**JobsRichTextUtils**](#JobsRichTextUtils), [**JobsSuspend**](#JobsSuspend), [**JobsUploadingProgressView**](#JobsUploadingProgressView), [**JobsViewNavigator**](#JobsViewNavigator), [**MJRefreshExtra**](#MJRefreshExtra), [**SYSAlertControllerExtra**](#SYSAlertControllerExtra), [**TFPopupExtra**](#TFPopupExtra), [**ZFPlayerExtra**](#ZFPlayerExtra), [**ZMJCellExtra**](#ZMJCellExtra) |
-| [**JobsOCDefs**](#JobsOCDefs) | `JobsByPods/JobsOCDefs@Pods/JobsOCDefs.podspec` | 5 | [GKNavigationBar](https://github.com/QuintGao/GKNavigationBar), [JobsGetWindow](#JobsGetWindow), [JobsStringUtils](#JobsStringUtils), [XYColorOC](#XYColorOC), [YTKNetwork](https://github.com/yuantiku/YTKNetwork) | 67 | [**AFSecurityPolicyExtra**](#AFSecurityPolicyExtra), [**BRPickerViewExtra**](#BRPickerViewExtra), [**FDFullscreenPopGesture**](#FDFullscreenPopGesture), [**FMDatabaseExtra**](#FMDatabaseExtra), [**FSCalendar**](#FSCalendar), [**FSCalendarExtra**](#FSCalendarExtra), [**FileFolderHandleTool**](#FileFolderHandleTool), [**GKCustomNavigationBarExtra**](#GKCustomNavigationBarExtra), [**HTMLDocumentExtra**](#HTMLDocumentExtra), [**HXPhotoManagerExtra**](#HXPhotoManagerExtra), [**HXPhotoViewExtra**](#HXPhotoViewExtra), [**IQKeyboardManagerExtra**](#IQKeyboardManagerExtra), [**JXCategoryViewExtra**](#JXCategoryViewExtra), [**JobsAPIs**](#JobsAPIs), [**JobsAppTools**](#JobsAppTools), [**JobsBasePopupView**](#JobsBasePopupView), [**JobsBaseUI**](#JobsBaseUI), [**JobsBitsMonitor**](#JobsBitsMonitor), [**JobsBlock**](#JobsBlock), [**JobsByOCPods**](#JobsByOCPods), [**JobsClass**](#JobsClass), [**JobsCryptography**](#JobsCryptography), [**JobsCustomView**](#JobsCustomView), [**JobsDebug**](#JobsDebug), [**JobsDeviceInfo**](#JobsDeviceInfo), [**JobsDropDownListView**](#JobsDropDownListView), [**JobsFiltrationView**](#JobsFiltrationView), [**JobsGestureLock**](#JobsGestureLock), [**JobsHotLabel**](#JobsHotLabel), [**JobsImageNumberView**](#JobsImageNumberView), [**JobsLanMgr**](#JobsLanMgr), [**JobsLinkageMenuView**](#JobsLinkageMenuView), [**JobsLocker**](#JobsLocker), [**JobsMakes**](#JobsMakes), [**JobsMenuView**](#JobsMenuView), [**JobsModel**](#JobsModel), [**JobsModelDSL**](#JobsModelDSL), [**JobsMonitorNetwoking**](#JobsMonitorNetwoking), [**JobsNavBar**](#JobsNavBar), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr), [**JobsNetWorkTools**](#JobsNetWorkTools), [**JobsOCDSL**](#JobsOCDSL), [**JobsOCProtocols**](#JobsOCProtocols), [**JobsOCRuntimeKits**](#JobsOCRuntimeKits), [**JobsOCSnowflake**](#JobsOCSnowflake), [**JobsOCTimer**](#JobsOCTimer), [**JobsOCTimerMgr**](#JobsOCTimerMgr), [**JobsOCTools**](#JobsOCTools), [**JobsRichTextUtils**](#JobsRichTextUtils), [**JobsSuspend**](#JobsSuspend), [**JobsTimeUtils**](#JobsTimeUtils), [**JobsUploadingProgressView**](#JobsUploadingProgressView), [**JobsViewNavigator**](#JobsViewNavigator), [**MGSwipeTableCellExtra**](#MGSwipeTableCellExtra), [**MJRefreshExtra**](#MJRefreshExtra), [**SRWebSocketExtra**](#SRWebSocketExtra), [**SYSAlertControllerExtra**](#SYSAlertControllerExtra), [**SZTextViewExtra**](#SZTextViewExtra), [**TFPopup**](#TFPopup), [**TFPopupExtra**](#TFPopupExtra), [**TKPermissionKit**](#TKPermissionKit), [**UIBaseTextFieldDSL**](#UIBaseTextFieldDSL), [**WHToastExtra**](#WHToastExtra), [**WMZCode**](#WMZCode), [**YTKNetworkExtra**](#YTKNetworkExtra), [**ZFPlayerExtra**](#ZFPlayerExtra), [**ZMJCellExtra**](#ZMJCellExtra) |
+| [**JobsOCDSL**](#JobsOCDSL) | `JobsByPods/JobsOCDSL@Pods/JobsOCDSL.podspec` | 16 | [FSCalendar](#FSCalendar), [GKNavigationBar](https://github.com/QuintGao/GKNavigationBar), [HXPhotoPickerObjC](https://github.com/SilenceLove/HXPhotoPickerObjC), [JobsBlock](#JobsBlock), [JobsMakes](#JobsMakes), [JobsModelDSL](#JobsModelDSL), [JobsOCDefs](#JobsOCDefs), [JobsOCProtocols](#JobsOCProtocols), [JobsOCRuntimeKits](#JobsOCRuntimeKits), [MJRefresh](https://github.com/CoderMJLee/MJRefresh), [Masonry](https://github.com/SnapKit/Masonry), [ReactiveObjC](https://github.com/ReactiveCocoa/ReactiveObjC), [SDWebImage](https://github.com/SDWebImage/SDWebImage), [Texture](#Texture), [YTKNetwork](https://github.com/yuantiku/YTKNetwork), [ZFPlayer](https://github.com/renzifeng/ZFPlayer) | 30 | [**GKCustomNavigationBarExtra**](#GKCustomNavigationBarExtra), [**JXCategoryViewExtra**](#JXCategoryViewExtra), [**JobsAppTools**](#JobsAppTools), [**JobsBasePopupView**](#JobsBasePopupView), [**JobsBaseUI**](#JobsBaseUI), [**JobsBitsMonitor**](#JobsBitsMonitor), [**JobsByOCPods**](#JobsByOCPods), [**JobsClockView**](#JobsClockView), [**JobsCustomView**](#JobsCustomView), [**JobsDeviceInfo**](#JobsDeviceInfo), [**JobsDropDownListView**](#JobsDropDownListView), [**JobsFiltrationView**](#JobsFiltrationView), [**JobsGestureLock**](#JobsGestureLock), [**JobsHotLabel**](#JobsHotLabel), [**JobsImageNumberView**](#JobsImageNumberView), [**JobsLinkageMenuView**](#JobsLinkageMenuView), [**JobsMenuView**](#JobsMenuView), [**JobsMonitorNetwoking**](#JobsMonitorNetwoking), [**JobsNavBar**](#JobsNavBar), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr), [**JobsOCTools**](#JobsOCTools), [**JobsRichTextUtils**](#JobsRichTextUtils), [**JobsSuspend**](#JobsSuspend), [**JobsUploadingProgressView**](#JobsUploadingProgressView), [**JobsViewNavigator**](#JobsViewNavigator), [**MJRefreshExtra**](#MJRefreshExtra), [**SYSAlertControllerExtra**](#SYSAlertControllerExtra), [**TFPopupExtra**](#TFPopupExtra), [**ZFPlayerExtra**](#ZFPlayerExtra), [**ZMJCellExtra**](#ZMJCellExtra) |
+| [**JobsOCDefs**](#JobsOCDefs) | `JobsByPods/JobsOCDefs@Pods/JobsOCDefs.podspec` | 5 | [GKNavigationBar](https://github.com/QuintGao/GKNavigationBar), [JobsGetWindow](#JobsGetWindow), [JobsStringUtils](#JobsStringUtils), [XYColorOC](#XYColorOC), [YTKNetwork](https://github.com/yuantiku/YTKNetwork) | 68 | [**AFSecurityPolicyExtra**](#AFSecurityPolicyExtra), [**BRPickerViewExtra**](#BRPickerViewExtra), [**FDFullscreenPopGesture**](#FDFullscreenPopGesture), [**FMDatabaseExtra**](#FMDatabaseExtra), [**FSCalendar**](#FSCalendar), [**FSCalendarExtra**](#FSCalendarExtra), [**FileFolderHandleTool**](#FileFolderHandleTool), [**GKCustomNavigationBarExtra**](#GKCustomNavigationBarExtra), [**HTMLDocumentExtra**](#HTMLDocumentExtra), [**HXPhotoManagerExtra**](#HXPhotoManagerExtra), [**HXPhotoViewExtra**](#HXPhotoViewExtra), [**IQKeyboardManagerExtra**](#IQKeyboardManagerExtra), [**JXCategoryViewExtra**](#JXCategoryViewExtra), [**JobsAPIs**](#JobsAPIs), [**JobsAppTools**](#JobsAppTools), [**JobsBasePopupView**](#JobsBasePopupView), [**JobsBaseUI**](#JobsBaseUI), [**JobsBitsMonitor**](#JobsBitsMonitor), [**JobsBlock**](#JobsBlock), [**JobsByOCPods**](#JobsByOCPods), [**JobsCallBackBlockDSL**](#JobsCallBackBlockDSL), [**JobsClass**](#JobsClass), [**JobsCryptography**](#JobsCryptography), [**JobsCustomView**](#JobsCustomView), [**JobsDebug**](#JobsDebug), [**JobsDeviceInfo**](#JobsDeviceInfo), [**JobsDropDownListView**](#JobsDropDownListView), [**JobsFiltrationView**](#JobsFiltrationView), [**JobsGestureLock**](#JobsGestureLock), [**JobsHotLabel**](#JobsHotLabel), [**JobsImageNumberView**](#JobsImageNumberView), [**JobsLanMgr**](#JobsLanMgr), [**JobsLinkageMenuView**](#JobsLinkageMenuView), [**JobsLocker**](#JobsLocker), [**JobsMakes**](#JobsMakes), [**JobsMenuView**](#JobsMenuView), [**JobsModel**](#JobsModel), [**JobsModelDSL**](#JobsModelDSL), [**JobsMonitorNetwoking**](#JobsMonitorNetwoking), [**JobsNavBar**](#JobsNavBar), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr), [**JobsNetWorkTools**](#JobsNetWorkTools), [**JobsOCDSL**](#JobsOCDSL), [**JobsOCProtocols**](#JobsOCProtocols), [**JobsOCRuntimeKits**](#JobsOCRuntimeKits), [**JobsOCSnowflake**](#JobsOCSnowflake), [**JobsOCTimer**](#JobsOCTimer), [**JobsOCTimerMgr**](#JobsOCTimerMgr), [**JobsOCTools**](#JobsOCTools), [**JobsRichTextUtils**](#JobsRichTextUtils), [**JobsSuspend**](#JobsSuspend), [**JobsTimeUtils**](#JobsTimeUtils), [**JobsUploadingProgressView**](#JobsUploadingProgressView), [**JobsViewNavigator**](#JobsViewNavigator), [**MGSwipeTableCellExtra**](#MGSwipeTableCellExtra), [**MJRefreshExtra**](#MJRefreshExtra), [**SRWebSocketExtra**](#SRWebSocketExtra), [**SYSAlertControllerExtra**](#SYSAlertControllerExtra), [**SZTextViewExtra**](#SZTextViewExtra), [**TFPopup**](#TFPopup), [**TFPopupExtra**](#TFPopupExtra), [**TKPermissionKit**](#TKPermissionKit), [**UIBaseTextFieldDSL**](#UIBaseTextFieldDSL), [**WHToastExtra**](#WHToastExtra), [**WMZCode**](#WMZCode), [**YTKNetworkExtra**](#YTKNetworkExtra), [**ZFPlayerExtra**](#ZFPlayerExtra), [**ZMJCellExtra**](#ZMJCellExtra) |
 | [**JobsOCProtocols**](#JobsOCProtocols) | `JobsByPods/JobsOCProtocols@Pods/JobsOCProtocols.podspec` | 5 | [JobsBlock](#JobsBlock), [JobsOCDefs](#JobsOCDefs), [ReactiveObjC](https://github.com/ReactiveCocoa/ReactiveObjC), [SPAlertController](https://github.com/SPStore/SPAlertController), [YTKNetwork](https://github.com/yuantiku/YTKNetwork) | 28 | [**GKCustomNavigationBarExtra**](#GKCustomNavigationBarExtra), [**JobsAPIs**](#JobsAPIs), [**JobsAppTools**](#JobsAppTools), [**JobsBaseUI**](#JobsBaseUI), [**JobsByOCPods**](#JobsByOCPods), [**JobsClockView**](#JobsClockView), [**JobsCustomView**](#JobsCustomView), [**JobsDeviceInfo**](#JobsDeviceInfo), [**JobsDropDownListView**](#JobsDropDownListView), [**JobsFiltrationView**](#JobsFiltrationView), [**JobsHotLabel**](#JobsHotLabel), [**JobsImageNumberView**](#JobsImageNumberView), [**JobsLinkageMenuView**](#JobsLinkageMenuView), [**JobsModel**](#JobsModel), [**JobsModelDSL**](#JobsModelDSL), [**JobsNavBar**](#JobsNavBar), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr), [**JobsNetWorkTools**](#JobsNetWorkTools), [**JobsOCDSL**](#JobsOCDSL), [**JobsOCRuntimeKits**](#JobsOCRuntimeKits), [**JobsOCTimer**](#JobsOCTimer), [**JobsOCTimerMgr**](#JobsOCTimerMgr), [**JobsOCTools**](#JobsOCTools), [**JobsRichTextUtils**](#JobsRichTextUtils), [**MJRefreshExtra**](#MJRefreshExtra), [**WHToastExtra**](#WHToastExtra), [**WMZCode**](#WMZCode), [**YTKNetworkExtra**](#YTKNetworkExtra) |
 | [**JobsOCRuntimeKits**](#JobsOCRuntimeKits) | `JobsByPods/JobsOCRuntimeKits@Pods/JobsOCRuntimeKits.podspec` | 11 | [JobsBlock](#JobsBlock), [JobsClass](#JobsClass), [JobsLanMgr](#JobsLanMgr), [JobsMakes](#JobsMakes), [JobsModelDSL](#JobsModelDSL), [JobsOCDefs](#JobsOCDefs), [JobsOCProtocols](#JobsOCProtocols), [JobsOCSnowflake](#JobsOCSnowflake), [JobsRandomUtils](#JobsRandomUtils), [JobsTimeUtils](#JobsTimeUtils), [WHToastExtra](#WHToastExtra) | 15 | [**FMDatabaseExtra**](#FMDatabaseExtra), [**GKCustomNavigationBarExtra**](#GKCustomNavigationBarExtra), [**JobsBasePopupView**](#JobsBasePopupView), [**JobsBaseUI**](#JobsBaseUI), [**JobsByOCPods**](#JobsByOCPods), [**JobsCustomView**](#JobsCustomView), [**JobsDropDownListView**](#JobsDropDownListView), [**JobsLinkageMenuView**](#JobsLinkageMenuView), [**JobsNavBar**](#JobsNavBar), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr), [**JobsOCDSL**](#JobsOCDSL), [**JobsOCTools**](#JobsOCTools), [**JobsSuspend**](#JobsSuspend), [**MJRefreshExtra**](#MJRefreshExtra), [**SYSAlertControllerExtra**](#SYSAlertControllerExtra) |
 | [**JobsOCSnowflake**](#JobsOCSnowflake) | `JobsByPods/JobsOCSnowflake@Pods/JobsOCSnowflake.podspec` | 2 | [JobsBlock](#JobsBlock), [JobsOCDefs](#JobsOCDefs) | 3 | [**JobsByOCPods**](#JobsByOCPods), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr), [**JobsOCRuntimeKits**](#JobsOCRuntimeKits) |
@@ -1269,6 +1270,8 @@ flowchart LR
   Nb81862f08afd["JobsByOCPods"] --> N445bb6c02ab7["YTKNetworkExtra"]
   Nb81862f08afd["JobsByOCPods"] --> Ncd4126ca9727["ZBNetworking"]
   Nb81862f08afd["JobsByOCPods"] --> N53b4ffc64c52["ZFPlayerExtra"]
+  Nb7992c83f5f2["JobsCallBackBlockDSL"] --> N1df8cd4ff855["JobsBlock"]
+  Nb7992c83f5f2["JobsCallBackBlockDSL"] --> N0394efe9fe42["JobsOCDefs"]
   Nb3ef9cb29680["JobsClass"] --> N1df8cd4ff855["JobsBlock"]
   Nb3ef9cb29680["JobsClass"] --> N0394efe9fe42["JobsOCDefs"]
   N0c0a38e86b25["JobsClockView"] --> N1df8cd4ff855["JobsBlock"]
@@ -1448,6 +1451,7 @@ flowchart LR
   N018c2243ba9d["JobsOCDSL"] --> Nad368d2952f0["FSCalendar"]
   N018c2243ba9d["JobsOCDSL"] --> N1df8cd4ff855["JobsBlock"]
   N018c2243ba9d["JobsOCDSL"] --> N590072ebdded["JobsMakes"]
+  N018c2243ba9d["JobsOCDSL"] --> N6be7f32159cc["JobsModelDSL"]
   N018c2243ba9d["JobsOCDSL"] --> N0394efe9fe42["JobsOCDefs"]
   N018c2243ba9d["JobsOCDSL"] --> Ncb2d118b07ea["JobsOCProtocols"]
   N018c2243ba9d["JobsOCDSL"] --> Na65e59600826["JobsOCRuntimeKits"]
@@ -1850,6 +1854,8 @@ flowchart LR
   Nb81862f08afd["JobsByOCPods"] --> N53b4ffc64c52["ZFPlayerExtra"]
   Nb81862f08afd["JobsByOCPods"] --> Ndda2a7afc7e7["ZMJGanttChart"]
   Nb81862f08afd["JobsByOCPods"] --> N71d0944e102a["lottie-ios"]
+  Nb7992c83f5f2["JobsCallBackBlockDSL"] --> N1df8cd4ff855["JobsBlock"]
+  Nb7992c83f5f2["JobsCallBackBlockDSL"] --> N0394efe9fe42["JobsOCDefs"]
   Nb3ef9cb29680["JobsClass"] --> N1df8cd4ff855["JobsBlock"]
   Nb3ef9cb29680["JobsClass"] --> N0394efe9fe42["JobsOCDefs"]
   Nb3ef9cb29680["JobsClass"] --> N8ab384f265d0["MJExtension"]
@@ -2076,12 +2082,14 @@ flowchart LR
   N018c2243ba9d["JobsOCDSL"] --> N90f81e089744["HXPhotoPickerObjC"]
   N018c2243ba9d["JobsOCDSL"] --> N1df8cd4ff855["JobsBlock"]
   N018c2243ba9d["JobsOCDSL"] --> N590072ebdded["JobsMakes"]
+  N018c2243ba9d["JobsOCDSL"] --> N6be7f32159cc["JobsModelDSL"]
   N018c2243ba9d["JobsOCDSL"] --> N0394efe9fe42["JobsOCDefs"]
   N018c2243ba9d["JobsOCDSL"] --> Ncb2d118b07ea["JobsOCProtocols"]
   N018c2243ba9d["JobsOCDSL"] --> Na65e59600826["JobsOCRuntimeKits"]
   N018c2243ba9d["JobsOCDSL"] --> N0fbdcc518572["MJRefresh"]
   N018c2243ba9d["JobsOCDSL"] --> Naa47777dc638["Masonry"]
   N018c2243ba9d["JobsOCDSL"] --> Ndb4e3bc90cf4["ReactiveObjC"]
+  N018c2243ba9d["JobsOCDSL"] --> N1173b6117a2c["SDWebImage"]
   N018c2243ba9d["JobsOCDSL"] --> Na3e8ae43188a["Texture"]
   N018c2243ba9d["JobsOCDSL"] --> N14727719233d["YTKNetwork"]
   N018c2243ba9d["JobsOCDSL"] --> Nfe492d71a912["ZFPlayer"]
@@ -2336,7 +2344,7 @@ flowchart LR
 | [PPBadgeView](https://github.com/jkpang/PPBadgeView) | 2 | [**JobsByOCPods**](#JobsByOCPods), [**JobsOCTools**](#JobsOCTools) | [PPBadgeView](https://github.com/jkpang/PPBadgeView) |
 | [Reachability](https://github.com/tonymillion/Reachability) | 3 | [**JobsByOCPods**](#JobsByOCPods), [**JobsCustomView**](#JobsCustomView), [**ReachabilityExtra**](#ReachabilityExtra) | [Reachability](https://github.com/tonymillion/Reachability) |
 | [ReactiveObjC](https://github.com/ReactiveCocoa/ReactiveObjC) | 15 | [**GKCustomNavigationBarExtra**](#GKCustomNavigationBarExtra), [**JobsBaseUI**](#JobsBaseUI), [**JobsByOCPods**](#JobsByOCPods), [**JobsCustomView**](#JobsCustomView), [**JobsDeviceInfo**](#JobsDeviceInfo), [**JobsLinkageMenuView**](#JobsLinkageMenuView), [**JobsModel**](#JobsModel), [**JobsNavBar**](#JobsNavBar), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr), [**JobsOCDSL**](#JobsOCDSL), [**JobsOCProtocols**](#JobsOCProtocols), [**JobsOCTools**](#JobsOCTools), [**JobsSuspend**](#JobsSuspend), [**SYSAlertControllerExtra**](#SYSAlertControllerExtra), [**WHToastExtra**](#WHToastExtra) | [ReactiveObjC](https://github.com/ReactiveCocoa/ReactiveObjC) |
-| [SDWebImage](https://github.com/SDWebImage/SDWebImage) | 7 | [**JobsBlock**](#JobsBlock), [**JobsByOCPods**](#JobsByOCPods), [**JobsLanMgr**](#JobsLanMgr), [**JobsModel**](#JobsModel), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr), [**JobsOCTimer**](#JobsOCTimer), [**WHToastExtra**](#WHToastExtra) | [SDWebImage](https://github.com/SDWebImage/SDWebImage) |
+| [SDWebImage](https://github.com/SDWebImage/SDWebImage) | 8 | [**JobsBlock**](#JobsBlock), [**JobsByOCPods**](#JobsByOCPods), [**JobsLanMgr**](#JobsLanMgr), [**JobsModel**](#JobsModel), [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr), [**JobsOCDSL**](#JobsOCDSL), [**JobsOCTimer**](#JobsOCTimer), [**WHToastExtra**](#WHToastExtra) | [SDWebImage](https://github.com/SDWebImage/SDWebImage) |
 | [SPAlertController](https://github.com/SPStore/SPAlertController) | 2 | [**JobsModel**](#JobsModel), [**JobsOCProtocols**](#JobsOCProtocols) | [SPAlertController](https://github.com/SPStore/SPAlertController) |
 | [SZTextView](https://github.com/glaszig/SZTextView) | 3 | [**JobsBaseUI**](#JobsBaseUI), [**JobsByOCPods**](#JobsByOCPods), [**SZTextViewExtra**](#SZTextViewExtra) | [SZTextView](https://github.com/glaszig/SZTextView) |
 | [SocketRocket](https://github.com/facebookincubator/SocketRocket) | 3 | [**JobsByOCPods**](#JobsByOCPods), [**JobsOCTools**](#JobsOCTools), [**SRWebSocketExtra**](#SRWebSocketExtra) | [SocketRocket](https://github.com/facebookincubator/SocketRocket) |
@@ -2799,6 +2807,7 @@ Podspec：`JobsByPods/JobsBlock@Pods/JobsBlock.podspec`
   - [**JobsBaseUI**](#JobsBaseUI)
   - [**JobsBitsMonitor**](#JobsBitsMonitor)
   - [**JobsByOCPods**](#JobsByOCPods)
+  - [**JobsCallBackBlockDSL**](#JobsCallBackBlockDSL)
   - [**JobsClass**](#JobsClass)
   - [**JobsClockView**](#JobsClockView)
   - [**JobsCryptography**](#JobsCryptography)
@@ -2935,7 +2944,17 @@ Podspec：`JobsByPods/JobsByOCPods@Pods/JobsByOCPods.podspec`
   - [**lottie-ios**](https://github.com/airbnb/lottie-ios)
 
 
-### 26、<font id="JobsClass">JobsClass</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 26、<font id="JobsCallBackBlockDSL">JobsCallBackBlockDSL</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+Podspec：`JobsByPods/JobsCallBackBlockDSL@Pods/JobsCallBackBlockDSL.podspec`
+
+- **下游依赖**
+
+  - [**JobsBlock**](#JobsBlock)
+  - [**JobsOCDefs**](#JobsOCDefs)
+
+
+### 27、<font id="JobsClass">JobsClass</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsClass@Pods/JobsClass.podspec`
 
@@ -2964,7 +2983,7 @@ Podspec：`JobsByPods/JobsClass@Pods/JobsClass.podspec`
   - [**MJExtension**](https://github.com/CoderMJLee/MJExtension)
 
 
-### 27、<font id="JobsClockView">JobsClockView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 28、<font id="JobsClockView">JobsClockView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsClockView@Pods/JobsClockView.podspec`
 
@@ -2976,7 +2995,7 @@ Podspec：`JobsByPods/JobsClockView@Pods/JobsClockView.podspec`
   - [**JobsOCTimer**](#JobsOCTimer)
 
 
-### 28、<font id="JobsCryptography">JobsCryptography</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 29、<font id="JobsCryptography">JobsCryptography</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsCryptography@Pods/JobsCryptography.podspec`
 
@@ -2992,7 +3011,7 @@ Podspec：`JobsByPods/JobsCryptography@Pods/JobsCryptography.podspec`
   - [**JobsOCDefs**](#JobsOCDefs)
 
 
-### 29、<font id="JobsCustomView">JobsCustomView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 30、<font id="JobsCustomView">JobsCustomView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsCustomView@Pods/JobsCustomView.podspec`
 
@@ -3029,7 +3048,7 @@ Podspec：`JobsByPods/JobsCustomView@Pods/JobsCustomView.podspec`
   - [**YTKNetworkExtra**](#YTKNetworkExtra)
 
 
-### 30、<font id="JobsDebug">JobsDebug</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 31、<font id="JobsDebug">JobsDebug</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsDebug@Pods/JobsDebug.podspec`
 
@@ -3047,7 +3066,7 @@ Podspec：`JobsByPods/JobsDebug@Pods/JobsDebug.podspec`
   - [**JobsStringUtils**](#JobsStringUtils)
 
 
-### 31、<font id="JobsDeviceInfo">JobsDeviceInfo</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 32、<font id="JobsDeviceInfo">JobsDeviceInfo</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsDeviceInfo@Pods/JobsDeviceInfo.podspec`
 
@@ -3085,7 +3104,7 @@ Podspec：`JobsByPods/JobsDeviceInfo@Pods/JobsDeviceInfo.podspec`
   - [**YTKNetwork**](https://github.com/yuantiku/YTKNetwork)
 
 
-### 32、<font id="JobsDropDownListView">JobsDropDownListView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 33、<font id="JobsDropDownListView">JobsDropDownListView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsDropDownListView@Pods/JobsDropDownListView.podspec`
 
@@ -3108,7 +3127,7 @@ Podspec：`JobsByPods/JobsDropDownListView@Pods/JobsDropDownListView.podspec`
   - [**MJRefresh**](https://github.com/CoderMJLee/MJRefresh)
 
 
-### 33、<font id="JobsFiltrationView">JobsFiltrationView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 34、<font id="JobsFiltrationView">JobsFiltrationView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsFiltrationView@Pods/JobsFiltrationView.podspec`
 
@@ -3132,7 +3151,7 @@ Podspec：`JobsByPods/JobsFiltrationView@Pods/JobsFiltrationView.podspec`
   - [**XYColorOC**](#XYColorOC)
 
 
-### 34、<font id="JobsGestureLock">JobsGestureLock</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 35、<font id="JobsGestureLock">JobsGestureLock</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsGestureLock@Pods/JobsGestureLock.podspec`
 
@@ -3142,7 +3161,7 @@ Podspec：`JobsByPods/JobsGestureLock@Pods/JobsGestureLock.podspec`
   - [**JobsOCDefs**](#JobsOCDefs)
 
 
-### 35、<font id="JobsGetWindow">JobsGetWindow</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 36、<font id="JobsGetWindow">JobsGetWindow</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsGetWindow@Pods/JobsGetWindow.podspec`
 
@@ -3151,7 +3170,7 @@ Podspec：`JobsByPods/JobsGetWindow@Pods/JobsGetWindow.podspec`
   - [**JobsOCDefs**](#JobsOCDefs)
 
 
-### 36、<font id="JobsHotLabel">JobsHotLabel</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 37、<font id="JobsHotLabel">JobsHotLabel</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsHotLabel@Pods/JobsHotLabel.podspec`
 
@@ -3172,7 +3191,7 @@ Podspec：`JobsByPods/JobsHotLabel@Pods/JobsHotLabel.podspec`
   - [**JobsOCProtocols**](#JobsOCProtocols)
 
 
-### 37、<font id="JobsImageNumberView">JobsImageNumberView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 38、<font id="JobsImageNumberView">JobsImageNumberView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsImageNumberView@Pods/JobsImageNumberView.podspec`
 
@@ -3187,7 +3206,7 @@ Podspec：`JobsByPods/JobsImageNumberView@Pods/JobsImageNumberView.podspec`
   - [**JobsOCProtocols**](#JobsOCProtocols)
 
 
-### 38、<font id="JobsLanMgr">JobsLanMgr</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 39、<font id="JobsLanMgr">JobsLanMgr</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsLanMgr@Pods/JobsLanMgr.podspec`
 
@@ -3230,7 +3249,7 @@ Podspec：`JobsByPods/JobsLanMgr@Pods/JobsLanMgr.podspec`
   - [**SDWebImage**](https://github.com/SDWebImage/SDWebImage)
 
 
-### 39、<font id="JobsLinkageMenuView">JobsLinkageMenuView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 40、<font id="JobsLinkageMenuView">JobsLinkageMenuView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsLinkageMenuView@Pods/JobsLinkageMenuView.podspec`
 
@@ -3267,7 +3286,7 @@ Podspec：`JobsByPods/JobsLinkageMenuView@Pods/JobsLinkageMenuView.podspec`
   - [**YTKNetworkExtra**](#YTKNetworkExtra)
 
 
-### 40、<font id="JobsLoadingImage">JobsLoadingImage</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 41、<font id="JobsLoadingImage">JobsLoadingImage</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsLoadingImage@Pods/JobsLoadingImage.podspec`
 
@@ -3281,7 +3300,7 @@ Podspec：`JobsByPods/JobsLoadingImage@Pods/JobsLoadingImage.podspec`
   - [**MJRefreshExtra**](#MJRefreshExtra)
 
 
-### 41、<font id="JobsLocker">JobsLocker</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 42、<font id="JobsLocker">JobsLocker</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsLocker@Pods/JobsLocker.podspec`
 
@@ -3290,7 +3309,7 @@ Podspec：`JobsByPods/JobsLocker@Pods/JobsLocker.podspec`
   - [**JobsOCDefs**](#JobsOCDefs)
 
 
-### 42、<font id="JobsMakes">JobsMakes</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 43、<font id="JobsMakes">JobsMakes</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsMakes@Pods/JobsMakes.podspec`
 
@@ -3339,7 +3358,7 @@ Podspec：`JobsByPods/JobsMakes@Pods/JobsMakes.podspec`
   - [**JobsOCDefs**](#JobsOCDefs)
 
 
-### 43、<font id="JobsMenuView">JobsMenuView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 44、<font id="JobsMenuView">JobsMenuView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsMenuView@Pods/JobsMenuView.podspec`
 
@@ -3353,7 +3372,7 @@ Podspec：`JobsByPods/JobsMenuView@Pods/JobsMenuView.podspec`
   - [**JobsOCDefs**](#JobsOCDefs)
 
 
-### 44、<font id="JobsModel">JobsModel</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 45、<font id="JobsModel">JobsModel</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsModel@Pods/JobsModel.podspec`
 
@@ -3381,7 +3400,7 @@ Podspec：`JobsByPods/JobsModel@Pods/JobsModel.podspec`
   - [**XYColorOC**](#XYColorOC)
 
 
-### 45、<font id="JobsModelDSL">JobsModelDSL</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 46、<font id="JobsModelDSL">JobsModelDSL</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsModelDSL@Pods/JobsModelDSL.podspec`
 
@@ -3406,6 +3425,7 @@ Podspec：`JobsByPods/JobsModelDSL@Pods/JobsModelDSL.podspec`
   - [**JobsNavBar**](#JobsNavBar)
   - [**JobsNavigationTransitionMgr**](#JobsNavigationTransitionMgr)
   - [**JobsNetWorkTools**](#JobsNetWorkTools)
+  - [**JobsOCDSL**](#JobsOCDSL)
   - [**JobsOCRuntimeKits**](#JobsOCRuntimeKits)
   - [**JobsOCTools**](#JobsOCTools)
   - [**JobsRichTextUtils**](#JobsRichTextUtils)
@@ -3425,7 +3445,7 @@ Podspec：`JobsByPods/JobsModelDSL@Pods/JobsModelDSL.podspec`
   - [**JobsOCProtocols**](#JobsOCProtocols)
 
 
-### 46、<font id="JobsMonitorNetwoking">JobsMonitorNetwoking</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 47、<font id="JobsMonitorNetwoking">JobsMonitorNetwoking</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsMonitorNetwoking@Pods/JobsMonitorNetwoking.podspec`
 
@@ -3437,7 +3457,7 @@ Podspec：`JobsByPods/JobsMonitorNetwoking@Pods/JobsMonitorNetwoking.podspec`
   - [**JobsSuspend**](#JobsSuspend)
 
 
-### 47、<font id="JobsNavBar">JobsNavBar</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 48、<font id="JobsNavBar">JobsNavBar</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsNavBar@Pods/JobsNavBar.podspec`
 
@@ -3472,7 +3492,7 @@ Podspec：`JobsByPods/JobsNavBar@Pods/JobsNavBar.podspec`
   - [**lottie-ios**](https://github.com/airbnb/lottie-ios)
 
 
-### 48、<font id="JobsNavigationTransitionMgr">JobsNavigationTransitionMgr</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 49、<font id="JobsNavigationTransitionMgr">JobsNavigationTransitionMgr</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsNavigationTransitionMgr@Pods/JobsNavigationTransitionMgr.podspec`
 
@@ -3519,7 +3539,7 @@ Podspec：`JobsByPods/JobsNavigationTransitionMgr@Pods/JobsNavigationTransitionM
   - **YYImage**
 
 
-### 49、<font id="JobsNetWorkTools">JobsNetWorkTools</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 50、<font id="JobsNetWorkTools">JobsNetWorkTools</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsNetWorkTools@Pods/JobsNetWorkTools.podspec`
 
@@ -3536,7 +3556,7 @@ Podspec：`JobsByPods/JobsNetWorkTools@Pods/JobsNetWorkTools.podspec`
   - [**JobsOCTimer**](#JobsOCTimer)
 
 
-### 50、<font id="JobsOCDSL">JobsOCDSL</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 51、<font id="JobsOCDSL">JobsOCDSL</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsOCDSL@Pods/JobsOCDSL.podspec`
 
@@ -3580,18 +3600,20 @@ Podspec：`JobsByPods/JobsOCDSL@Pods/JobsOCDSL.podspec`
   - [**HXPhotoPickerObjC**](https://github.com/SilenceLove/HXPhotoPickerObjC)
   - [**JobsBlock**](#JobsBlock)
   - [**JobsMakes**](#JobsMakes)
+  - [**JobsModelDSL**](#JobsModelDSL)
   - [**JobsOCDefs**](#JobsOCDefs)
   - [**JobsOCProtocols**](#JobsOCProtocols)
   - [**JobsOCRuntimeKits**](#JobsOCRuntimeKits)
   - [**MJRefresh**](https://github.com/CoderMJLee/MJRefresh)
   - [**Masonry**](https://github.com/SnapKit/Masonry)
   - [**ReactiveObjC**](https://github.com/ReactiveCocoa/ReactiveObjC)
+  - [**SDWebImage**](https://github.com/SDWebImage/SDWebImage)
   - [**Texture**](#Texture)
   - [**YTKNetwork**](https://github.com/yuantiku/YTKNetwork)
   - [**ZFPlayer**](https://github.com/renzifeng/ZFPlayer)
 
 
-### 51、<font id="JobsOCDefs">JobsOCDefs</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 52、<font id="JobsOCDefs">JobsOCDefs</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsOCDefs@Pods/JobsOCDefs.podspec`
 
@@ -3617,6 +3639,7 @@ Podspec：`JobsByPods/JobsOCDefs@Pods/JobsOCDefs.podspec`
   - [**JobsBitsMonitor**](#JobsBitsMonitor)
   - [**JobsBlock**](#JobsBlock)
   - [**JobsByOCPods**](#JobsByOCPods)
+  - [**JobsCallBackBlockDSL**](#JobsCallBackBlockDSL)
   - [**JobsClass**](#JobsClass)
   - [**JobsCryptography**](#JobsCryptography)
   - [**JobsCustomView**](#JobsCustomView)
@@ -3674,7 +3697,7 @@ Podspec：`JobsByPods/JobsOCDefs@Pods/JobsOCDefs.podspec`
   - [**YTKNetwork**](https://github.com/yuantiku/YTKNetwork)
 
 
-### 52、<font id="JobsOCProtocols">JobsOCProtocols</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 53、<font id="JobsOCProtocols">JobsOCProtocols</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsOCProtocols@Pods/JobsOCProtocols.podspec`
 
@@ -3718,7 +3741,7 @@ Podspec：`JobsByPods/JobsOCProtocols@Pods/JobsOCProtocols.podspec`
   - [**YTKNetwork**](https://github.com/yuantiku/YTKNetwork)
 
 
-### 53、<font id="JobsOCRuntimeKits">JobsOCRuntimeKits</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 54、<font id="JobsOCRuntimeKits">JobsOCRuntimeKits</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsOCRuntimeKits@Pods/JobsOCRuntimeKits.podspec`
 
@@ -3755,7 +3778,7 @@ Podspec：`JobsByPods/JobsOCRuntimeKits@Pods/JobsOCRuntimeKits.podspec`
   - [**WHToastExtra**](#WHToastExtra)
 
 
-### 54、<font id="JobsOCSnowflake">JobsOCSnowflake</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 55、<font id="JobsOCSnowflake">JobsOCSnowflake</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsOCSnowflake@Pods/JobsOCSnowflake.podspec`
 
@@ -3771,7 +3794,7 @@ Podspec：`JobsByPods/JobsOCSnowflake@Pods/JobsOCSnowflake.podspec`
   - [**JobsOCDefs**](#JobsOCDefs)
 
 
-### 55、<font id="JobsOCTimer">JobsOCTimer</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 56、<font id="JobsOCTimer">JobsOCTimer</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsOCTimer@Pods/JobsOCTimer.podspec`
 
@@ -3796,7 +3819,7 @@ Podspec：`JobsByPods/JobsOCTimer@Pods/JobsOCTimer.podspec`
   - [**WHToastExtra**](#WHToastExtra)
 
 
-### 56、<font id="JobsOCTimerMgr">JobsOCTimerMgr</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 57、<font id="JobsOCTimerMgr">JobsOCTimerMgr</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsOCTimerMgr@Pods/JobsOCTimerMgr.podspec`
 
@@ -3809,7 +3832,7 @@ Podspec：`JobsByPods/JobsOCTimerMgr@Pods/JobsOCTimerMgr.podspec`
   - [**JobsOCTimer**](#JobsOCTimer)
 
 
-### 57、<font id="JobsOCTools">JobsOCTools</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 58、<font id="JobsOCTools">JobsOCTools</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsOCTools@Pods/JobsOCTools.podspec`
 
@@ -3862,7 +3885,7 @@ Podspec：`JobsByPods/JobsOCTools@Pods/JobsOCTools.podspec`
   - [**lottie-ios**](https://github.com/airbnb/lottie-ios)
 
 
-### 58、<font id="JobsRandomUtils">JobsRandomUtils</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 59、<font id="JobsRandomUtils">JobsRandomUtils</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsRandomUtils@Pods/JobsRandomUtils.podspec`
 
@@ -3873,7 +3896,7 @@ Podspec：`JobsByPods/JobsRandomUtils@Pods/JobsRandomUtils.podspec`
   - [**JobsOCRuntimeKits**](#JobsOCRuntimeKits)
 
 
-### 59、<font id="JobsRichTextUtils">JobsRichTextUtils</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 60、<font id="JobsRichTextUtils">JobsRichTextUtils</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsRichTextUtils@Pods/JobsRichTextUtils.podspec`
 
@@ -3904,7 +3927,7 @@ Podspec：`JobsByPods/JobsRichTextUtils@Pods/JobsRichTextUtils.podspec`
   - [**XYColorOC**](#XYColorOC)
 
 
-### 60、<font id="JobsStringUtils">JobsStringUtils</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 61、<font id="JobsStringUtils">JobsStringUtils</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsStringUtils@Pods/JobsStringUtils.podspec`
 
@@ -3933,7 +3956,7 @@ Podspec：`JobsByPods/JobsStringUtils@Pods/JobsStringUtils.podspec`
   - [**YTKNetworkExtra**](#YTKNetworkExtra)
 
 
-### 61、<font id="JobsSuspend">JobsSuspend</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 62、<font id="JobsSuspend">JobsSuspend</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsSuspend@Pods/JobsSuspend.podspec`
 
@@ -3959,7 +3982,7 @@ Podspec：`JobsByPods/JobsSuspend@Pods/JobsSuspend.podspec`
   - [**XYColorOC**](#XYColorOC)
 
 
-### 62、<font id="JobsTimeUtils">JobsTimeUtils</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 63、<font id="JobsTimeUtils">JobsTimeUtils</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsTimeUtils@Pods/JobsTimeUtils.podspec`
 
@@ -3984,7 +4007,7 @@ Podspec：`JobsByPods/JobsTimeUtils@Pods/JobsTimeUtils.podspec`
   - [**WHToastExtra**](#WHToastExtra)
 
 
-### 63、<font id="JobsUploadingProgressView">JobsUploadingProgressView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 64、<font id="JobsUploadingProgressView">JobsUploadingProgressView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsUploadingProgressView@Pods/JobsUploadingProgressView.podspec`
 
@@ -3998,7 +4021,7 @@ Podspec：`JobsByPods/JobsUploadingProgressView@Pods/JobsUploadingProgressView.p
   - [**JobsOCDefs**](#JobsOCDefs)
 
 
-### 64、<font id="JobsViewNavigator">JobsViewNavigator</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 65、<font id="JobsViewNavigator">JobsViewNavigator</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/JobsViewNavigator@Pods/JobsViewNavigator.podspec`
 
@@ -4016,7 +4039,7 @@ Podspec：`JobsByPods/JobsViewNavigator@Pods/JobsViewNavigator.podspec`
   - [**Masonry**](https://github.com/SnapKit/Masonry)
 
 
-### 65、<font id="LMJDropdownMenuExtra">LMJDropdownMenuExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 66、<font id="LMJDropdownMenuExtra">LMJDropdownMenuExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/LMJDropdownMenuExtra@Pods/LMJDropdownMenuExtra.podspec`
 
@@ -4029,7 +4052,7 @@ Podspec：`JobsByPods/LMJDropdownMenuExtra@Pods/LMJDropdownMenuExtra.podspec`
   - [**LMJDropdownMenu**](https://github.com/JerryLMJ/LMJDropdownMenu)
 
 
-### 66、<font id="MGSwipeTableCellExtra">MGSwipeTableCellExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 67、<font id="MGSwipeTableCellExtra">MGSwipeTableCellExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/MGSwipeTableCellExtra@Pods/MGSwipeTableCellExtra.podspec`
 
@@ -4044,7 +4067,7 @@ Podspec：`JobsByPods/MGSwipeTableCellExtra@Pods/MGSwipeTableCellExtra.podspec`
   - [**MGSwipeTableCell**](https://github.com/MortimerGoro/MGSwipeTableCell)
 
 
-### 67、<font id="MJRefreshExtra">MJRefreshExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 68、<font id="MJRefreshExtra">MJRefreshExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/MJRefreshExtra@Pods/MJRefreshExtra.podspec`
 
@@ -4079,7 +4102,7 @@ Podspec：`JobsByPods/MJRefreshExtra@Pods/MJRefreshExtra.podspec`
   - [**lottie-ios**](https://github.com/airbnb/lottie-ios)
 
 
-### 68、<font id="RACExtra">RACExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 69、<font id="RACExtra">RACExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/RACExtra@Pods/RACExtra.podspec`
 
@@ -4088,7 +4111,7 @@ Podspec：`JobsByPods/RACExtra@Pods/RACExtra.podspec`
   - [**JobsOCTools**](#JobsOCTools)
 
 
-### 69、<font id="ReachabilityExtra">ReachabilityExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 70、<font id="ReachabilityExtra">ReachabilityExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/ReachabilityExtra@Pods/ReachabilityExtra.podspec`
 
@@ -4101,7 +4124,7 @@ Podspec：`JobsByPods/ReachabilityExtra@Pods/ReachabilityExtra.podspec`
   - [**Reachability**](https://github.com/tonymillion/Reachability)
 
 
-### 70、<font id="SRWebSocketExtra">SRWebSocketExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 71、<font id="SRWebSocketExtra">SRWebSocketExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/SRWebSocketExtra@Pods/SRWebSocketExtra.podspec`
 
@@ -4116,7 +4139,7 @@ Podspec：`JobsByPods/SRWebSocketExtra@Pods/SRWebSocketExtra.podspec`
   - [**SocketRocket**](https://github.com/facebookincubator/SocketRocket)
 
 
-### 71、<font id="SYSAlertControllerExtra">SYSAlertControllerExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 72、<font id="SYSAlertControllerExtra">SYSAlertControllerExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/SYSAlertControllerExtra@Pods/SYSAlertControllerExtra.podspec`
 
@@ -4133,7 +4156,7 @@ Podspec：`JobsByPods/SYSAlertControllerExtra@Pods/SYSAlertControllerExtra.podsp
   - [**WHToastExtra**](#WHToastExtra)
 
 
-### 72、<font id="SZTextViewExtra">SZTextViewExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 73、<font id="SZTextViewExtra">SZTextViewExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/SZTextViewExtra@Pods/SZTextViewExtra.podspec`
 
@@ -4148,7 +4171,7 @@ Podspec：`JobsByPods/SZTextViewExtra@Pods/SZTextViewExtra.podspec`
   - [**SZTextView**](https://github.com/glaszig/SZTextView)
 
 
-### 73、<font id="TABAnimated">TABAnimated</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 74、<font id="TABAnimated">TABAnimated</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimated.podspec`
 
@@ -4164,7 +4187,7 @@ Podspec：`JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimated.podspec`
   - [**MJRefreshExtra**](#MJRefreshExtra)
 
 
-### 74、<font id="TFPopup">TFPopup</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 75、<font id="TFPopup">TFPopup</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/ManualByOCPods@Pods/TFPopup/TFPopup.podspec`
 
@@ -4180,7 +4203,7 @@ Podspec：`JobsByPods/ManualByOCPods@Pods/TFPopup/TFPopup.podspec`
   - [**JobsOCDefs**](#JobsOCDefs)
 
 
-### 75、<font id="TFPopupExtra">TFPopupExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 76、<font id="TFPopupExtra">TFPopupExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/TFPopupExtra@Pods/TFPopupExtra.podspec`
 
@@ -4200,7 +4223,7 @@ Podspec：`JobsByPods/TFPopupExtra@Pods/TFPopupExtra.podspec`
   - [**TFPopup**](#TFPopup)
 
 
-### 76、<font id="TKPermissionKit">TKPermissionKit</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 77、<font id="TKPermissionKit">TKPermissionKit</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/ManualByOCPods@Pods/TKPermissionKit/TKPermissionKit.podspec`
 
@@ -4212,7 +4235,7 @@ Podspec：`JobsByPods/ManualByOCPods@Pods/TKPermissionKit/TKPermissionKit.podspe
   - [**JobsOCDefs**](#JobsOCDefs)
 
 
-### 77、<font id="Texture">Texture</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 78、<font id="Texture">Texture</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/ManualByOCPods@Pods/Texture/Texture.podspec`
 
@@ -4228,7 +4251,7 @@ Podspec：`JobsByPods/ManualByOCPods@Pods/Texture/Texture.podspec`
   - **Yoga**
 
 
-### 78、<font id="This">This</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 79、<font id="This">This</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/This@Pods/This.podspec`
 
@@ -4240,7 +4263,7 @@ Podspec：`JobsByPods/This@Pods/This.podspec`
   - [**JobsCustomView**](#JobsCustomView)
 
 
-### 79、<font id="UIBaseTextFieldDSL">UIBaseTextFieldDSL</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 80、<font id="UIBaseTextFieldDSL">UIBaseTextFieldDSL</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/UIBaseTextFieldDSL@Pods/UIBaseTextFieldDSL.podspec`
 
@@ -4251,7 +4274,7 @@ Podspec：`JobsByPods/UIBaseTextFieldDSL@Pods/UIBaseTextFieldDSL.podspec`
   - [**JobsOCDefs**](#JobsOCDefs)
 
 
-### 80、<font id="WHToastExtra">WHToastExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 81、<font id="WHToastExtra">WHToastExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/WHToastExtra@Pods/WHToastExtra.podspec`
 
@@ -4287,7 +4310,7 @@ Podspec：`JobsByPods/WHToastExtra@Pods/WHToastExtra.podspec`
   - [**XYColorOC**](#XYColorOC)
 
 
-### 81、<font id="WMZCode">WMZCode</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 82、<font id="WMZCode">WMZCode</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/ManualByOCPods@Pods/WMZCode/WMZCode.podspec`
 
@@ -4300,7 +4323,7 @@ Podspec：`JobsByPods/ManualByOCPods@Pods/WMZCode/WMZCode.podspec`
   - [**JobsOCProtocols**](#JobsOCProtocols)
 
 
-### 82、<font id="XYColorOC">XYColorOC</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 83、<font id="XYColorOC">XYColorOC</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/ManualByOCPods@Pods/XYColorOC/XYColorOC.podspec`
 
@@ -4324,7 +4347,7 @@ Podspec：`JobsByPods/ManualByOCPods@Pods/XYColorOC/XYColorOC.podspec`
   - [**WHToastExtra**](#WHToastExtra)
 
 
-### 83、<font id="YTKNetworkExtra">YTKNetworkExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 84、<font id="YTKNetworkExtra">YTKNetworkExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/YTKNetworkExtra@Pods/YTKNetworkExtra.podspec`
 
@@ -4351,12 +4374,12 @@ Podspec：`JobsByPods/YTKNetworkExtra@Pods/YTKNetworkExtra.podspec`
   - [**YTKNetwork**](https://github.com/yuantiku/YTKNetwork)
 
 
-### 84、<font id="YYKits">YYKits</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 85、<font id="YYKits">YYKits</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/ManualByOCPods@Pods/YYKits/YYKits.podspec`
 
 
-### 85、<font id="ZBNetworking">ZBNetworking</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 86、<font id="ZBNetworking">ZBNetworking</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/ManualByOCPods@Pods/ZBNetworking/ZBNetworking.podspec`
 
@@ -4369,7 +4392,7 @@ Podspec：`JobsByPods/ManualByOCPods@Pods/ZBNetworking/ZBNetworking.podspec`
   - [**AFNetworking**](https://github.com/AFNetworking/AFNetworking)
 
 
-### 86、<font id="ZFPlayerExtra">ZFPlayerExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 87、<font id="ZFPlayerExtra">ZFPlayerExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/ZFPlayerExtra@Pods/ZFPlayerExtra.podspec`
 
@@ -4386,7 +4409,7 @@ Podspec：`JobsByPods/ZFPlayerExtra@Pods/ZFPlayerExtra.podspec`
   - [**ZFPlayer**](https://github.com/renzifeng/ZFPlayer)
 
 
-### 87、<font id="ZMJCellExtra">ZMJCellExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 88、<font id="ZMJCellExtra">ZMJCellExtra</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/ZMJCellExtra@Pods/ZMJCellExtra.podspec`
 
@@ -4403,7 +4426,7 @@ Podspec：`JobsByPods/ZMJCellExtra@Pods/ZMJCellExtra.podspec`
   - [**ZMJGanttChart**](https://github.com/keshiim/ZMJGanttChart)
 
 
-### 88、<font id="ZWPullMenuView">ZWPullMenuView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 89、<font id="ZWPullMenuView">ZWPullMenuView</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Podspec：`JobsByPods/ManualByOCPods@Pods/ZWPullMenuView/ZWPullMenuView.podspec`
 

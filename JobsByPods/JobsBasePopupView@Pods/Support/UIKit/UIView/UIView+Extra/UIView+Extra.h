@@ -55,7 +55,7 @@ Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
 -(void)appointCornerCutToCircleByRoundingCorners:(UIRectCorner)corners
                                      cornerRadii:(CGSize)cornerRadii;
 -(JobsRetViewByGestureRecognizer _Nonnull)addGesture;
--(JobsReturnGestureByGesture _Nonnull)addGestureRecognizer;
+-(JobsRetGestureByGesture _Nonnull)addGestureRecognizer;
 #pragma mark —— UI刷新（调用系统底层方法）
 -(jobsByVoidBlock _Nonnull)refresh;
 

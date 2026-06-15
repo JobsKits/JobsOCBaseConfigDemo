@@ -123,12 +123,13 @@ static dispatch_once_t static_postDelViewOnceToken;
                 .byText(@"拖动到此处删除".tr)
                 .byTextCor(JobsWhiteColor)
                 .byTextAlignment(NSTextAlignmentCenter)
-                .byBgColor(JobsRedColor);
-            label.bySizeToFit();
-            label.byAddTo(self, ^(MASConstraintMaker *make) {
-                make.top.equalTo(self.imageView.mas_bottom).offset(JobsWidth(5));
-                make.centerX.equalTo(self);
-            });
+                .byBgColor(JobsRedColor)
+                .bySizeToFit()
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.imageView.mas_bottom).offset(JobsWidth(5));
+                    make.centerX.equalTo(self);
+                });
         });
     };return _titleLab;
 }

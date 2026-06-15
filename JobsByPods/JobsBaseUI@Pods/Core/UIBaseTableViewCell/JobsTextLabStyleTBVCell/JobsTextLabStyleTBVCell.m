@@ -9,8 +9,6 @@
 #import <JobsBaseUI/UITableView+RegisterClass.h>
 #import <JobsBaseUI/UIView+Extra.h>
 
-#import <Masonry/Masonry.h>
-
 @interface JobsTextLabStyleTBVCell ()
 
 @end
@@ -26,7 +24,7 @@ BaseLayerProtocol_synthesize_part3
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsTextLabStyleTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsTextLabStyleTBVCell);
         return cell;
@@ -61,20 +59,21 @@ BaseLayerProtocol_synthesize_part3
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
             @jobs_strongify(self)
-            /// 富文本的优先级大于普通文本
-            if (self.viewModel.attributedTitle) {
-                label.byAttributedString(self.viewModel.attributedTitle);
-            } else {
-                label
-                    .byText(self.viewModel.text)
-                    .byNumberOfLines(0)
-                    .byLineBreakMode(NSLineBreakByWordWrapping)
-                    .byTextAlignment(self.viewModel.textAlignment)
-                    .byTextCor(self.viewModel.textCor)
-                    .byFont(self.viewModel.font);
-            }
-
             label
+                .byLabelBlock(^(__kindof UILabel * _Nullable data) {
+                    /// 富文本的优先级大于普通文本
+                    if (self.viewModel.attributedTitle) {
+                        data.byAttributedString(self.viewModel.attributedTitle);
+                    } else {
+                        data
+                            .byText(self.viewModel.text)
+                            .byNumberOfLines(0)
+                            .byLineBreakMode(NSLineBreakByWordWrapping)
+                            .byTextAlignment(self.viewModel.textAlignment)
+                            .byTextCor(self.viewModel.textCor)
+                            .byFont(self.viewModel.font);
+                    }
+                })
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.edges.equalTo(self.contentView);

@@ -31,7 +31,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSMutableArray (Extra)
+@interface NSMutableArray (JobsByOCPodsExtra)
 
 +(JobsRetArrByArrBlock _Nonnull)initBy;
 /// 清除数组元素

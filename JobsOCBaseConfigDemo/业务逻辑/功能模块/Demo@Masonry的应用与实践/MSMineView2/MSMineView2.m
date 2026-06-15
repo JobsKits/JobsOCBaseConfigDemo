@@ -101,12 +101,13 @@ static dispatch_once_t static_mineView2OnceToken;
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(105), JobsWidth(16)));
+                make.centerY.equalTo(self);
+                make.left.equalTo(self).offset(JobsWidth(6));
             });
-        _btn1.byAddTo(self, ^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(105), JobsWidth(16)));
-            make.centerY.equalTo(self);
-            make.left.equalTo(self).offset(JobsWidth(6));
-        });
 
     };return _btn1;
 }
@@ -124,12 +125,13 @@ static dispatch_once_t static_mineView2OnceToken;
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(88), JobsWidth(28)));
+                make.centerY.equalTo(self);
+                make.right.equalTo(self).offset(JobsWidth(-5));
             });
-        _btn2.byAddTo(self, ^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(88), JobsWidth(28)));
-            make.centerY.equalTo(self);
-            make.right.equalTo(self).offset(JobsWidth(-5));
-        });
 
     };return _btn2;
 }

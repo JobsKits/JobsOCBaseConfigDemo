@@ -10,10 +10,13 @@
 @interface JhtBannerScrollView () {
     NSTimer *_bannerTimer;
     NSInteger _timerPageIndex;
-    BOOL _timerIsPause;          // 标识定时器是否为 暂停状态
+    BOOL _timerIsPause;
+          // 标识定时器是否为 暂停状态
     NSInteger _orginPageCount;   // 原始页数（代理传入的值）
-    NSInteger _pageCount;        // 总页数
-    CGSize _pageSize;            // 单页的尺寸（代理传入的值）
+    NSInteger _pageCount;
+        // 总页数
+    CGSize _pageSize;
+            // 单页的尺寸（代理传入的值）
     NSRange _visibleRange;       // 可视范围
 }
 
@@ -31,7 +34,7 @@ Prop_strong()UIScrollView *insideScrollView;
     JobsRemoveNotification(self);
 }
 
-+(JobsReturnJhtBannerScrollViewByFrameBlock _Nonnull)initByFrame{
++(JobsRetJhtBannerScrollViewByFrameBlock _Nonnull)initByFrame{
     return ^JhtBannerScrollView *_Nullable(CGRect frame){
         return [JhtBannerScrollView.alloc initWithFrame:frame];
     };

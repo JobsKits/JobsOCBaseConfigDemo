@@ -86,7 +86,7 @@ NS_INLINE __kindof PointLabBaseView *_Nonnull jobsMakePointLabView(jobsByPointLa
 
                  view.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
 
-                 _tipsLab.byAddTo(self, ^(MASConstraintMaker *make) {
+                 _tipsLab.addOn(self).byAdd(^(MASConstraintMaker *make) {
                      make.centerX.equalTo(self);
                      make.top.equalTo(self.tableView.mas_bottom).offset(JobsWidth(0));
                      make.width.mas_equalTo(JobsWidth(256));

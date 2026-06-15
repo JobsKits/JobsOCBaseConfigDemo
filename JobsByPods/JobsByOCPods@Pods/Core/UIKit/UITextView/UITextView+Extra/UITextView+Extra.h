@@ -46,7 +46,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UITextView (Extra)
+@interface UITextView (JobsByOCPodsExtra)
 
 Prop_copy()NSString *replacementText;
 Prop_copy()NSString *resStr;

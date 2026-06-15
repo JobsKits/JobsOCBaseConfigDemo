@@ -31,7 +31,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSString (Path)
+@interface NSString (JobsModelPath)
 #pragma mark —— iOS 获取文件的 文件名 和 后缀
 /// 从路径中获得完整的文件名 （带后缀）
 -(NSString *)getFullFileNameByFilePath;
@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// OC字符串路径拼接
 -(JobsRetStrByStrBlock _Nonnull)addPathComponent;
 /// 完整的文件名提取普通文件名和文件后缀名
--(JobsRetFileNameModelByFileFullNameStringBlock _Nonnull)byFileFullName;
+-(JobsRetFileNameModelByStrBlock _Nonnull)byFileFullName;
 
 @end
 

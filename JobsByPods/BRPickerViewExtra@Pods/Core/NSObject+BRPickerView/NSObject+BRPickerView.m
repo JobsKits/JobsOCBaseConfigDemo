@@ -21,17 +21,17 @@
     });
 }
 
-- (BRPickerViewExtraReturnTextPickerViewByPickerModeBlock)makeTextPickerView {
+- (BRPickerViewExtraRetTextPickerViewByPickerModeBlock)makeTextPickerView {
     return ^BRTextPickerView *_Nonnull(BRTextPickerMode mode) {
         return BRTextPickerView.initBy(mode);
     };
 }
 
-- (BRPickerViewExtraReturnTextPickerViewByPickerModeBlock)makeStringPickerView {
+- (BRPickerViewExtraRetTextPickerViewByPickerModeBlock)makeStringPickerView {
     return self.makeTextPickerView;
 }
 
-- (BRPickerViewExtraReturnTextPickerViewByPickerStyleBlock)makeAddressPickerView {
+- (BRPickerViewExtraRetTextPickerViewByPickerStyleBlock)makeAddressPickerView {
     @jobs_weakify(self)
     return ^BRTextPickerView *_Nonnull(BRPickerStyle *_Nullable style) {
         @jobs_strongify(self)
@@ -51,7 +51,7 @@
     };
 }
 
-- (BRPickerViewExtraReturnDatePickerViewByPickerStyleBlock)makeDatePickerView {
+- (BRPickerViewExtraRetDatePickerViewByPickerStyleBlock)makeDatePickerView {
     @jobs_weakify(self)
     return ^BRDatePickerView *_Nonnull(BRPickerStyle *_Nullable customStyle) {
         @jobs_strongify(self)

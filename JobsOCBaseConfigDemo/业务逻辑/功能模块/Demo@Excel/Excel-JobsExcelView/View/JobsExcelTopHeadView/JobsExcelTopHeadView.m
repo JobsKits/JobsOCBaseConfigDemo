@@ -89,7 +89,7 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
 
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
-        _collectionView.byAddTo(self, ^(MASConstraintMaker *make) {
+        _collectionView.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0, 0, 0));
         });
     };return _collectionView;

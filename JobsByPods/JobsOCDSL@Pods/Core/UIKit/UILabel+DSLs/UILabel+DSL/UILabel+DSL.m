@@ -130,6 +130,15 @@
     };
 }
 
+-(JobsRetLabelByLabelBlock _Nonnull)byLabelBlock{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(jobsByLabelBlock _Nullable block){
+        @jobs_strongify(self)
+        if (block) block(self);
+        return self;
+    };
+}
+
 -(JobsRetLabelByCorBlock _Nonnull)byTextCor{
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(__kindof UIColor *_Nullable cor){

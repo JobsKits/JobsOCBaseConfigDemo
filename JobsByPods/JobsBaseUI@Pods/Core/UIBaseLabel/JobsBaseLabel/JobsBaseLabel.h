@@ -83,7 +83,7 @@ NS_ASSUME_NONNULL_END
 
              _titleLab.getLabel.byTextAlignment(NSTextAlignmentCenter);
 
-             _titleLab.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+             _titleLab.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
                  make.top.left.equalTo(self.contentView);
                  make.height.mas_equalTo(JobsWidth(26));
              });

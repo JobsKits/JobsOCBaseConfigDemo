@@ -86,13 +86,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(__kindof UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return JobsPullListTBVCell.cellStyleDefaultWithTableView(tableView)
+    return JobsPullListTBVCell.cellStyleDefaultByTableView(tableView)
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byIndexPath(indexPath)
         .byContentViewBgCor(self.bgColorListTBV)
         .byContentViewBgCor(self.bgColorListTBV)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
-        .JobsBlock1(^(id _Nullable data) {
+        .JobsBlock1(^(id _Nullable data) {;
              
         })
         .byBgColor(self.bgColorListTBV);;

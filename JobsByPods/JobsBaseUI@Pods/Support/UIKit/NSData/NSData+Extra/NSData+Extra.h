@@ -27,7 +27,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSData (Extra)
+@interface NSData (JobsBaseUIExtra)
 #pragma mark —— 对系统初始化方法的封装
 -(JobsRetDataByDataBlock _Nonnull)initWithData;
 

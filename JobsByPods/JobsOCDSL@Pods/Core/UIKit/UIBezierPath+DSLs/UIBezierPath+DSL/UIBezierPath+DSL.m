@@ -245,7 +245,7 @@
     };
 }
 
--(JobsRetBOOLByCGPointBlock _Nonnull)byContainsPoint{
+-(JobsRetBOOLByPointBlock _Nonnull)byContainsPoint{
     @jobs_weakify(self)
     return ^BOOL(CGPoint data){
         @jobs_strongify(self)

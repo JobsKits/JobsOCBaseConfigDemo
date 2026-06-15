@@ -145,7 +145,7 @@
     };
 }
 
--(JobsReturnTableViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader{
+-(JobsRetTableViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader{
     @jobs_weakify(self)
     return ^__kindof UITableView *_Nullable(__kindof MJRefreshHeader * _Nullable header){
         @jobs_strongify(self)
@@ -155,7 +155,7 @@
     };
 }
 
--(JobsReturnTableViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter{
+-(JobsRetTableViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter{
     @jobs_weakify(self)
     return ^__kindof UITableView *_Nullable(__kindof MJRefreshFooter * _Nullable header){
         @jobs_strongify(self)

@@ -74,13 +74,14 @@ Prop_strong()NSMutableArray <UIViewModel *>*hotLabelDataMutArr;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(Title10.tr)
+            label
+                .byText(Title10.tr)
                 .byTextCor(JobsWhiteColor)
-                .byFont(UIFontWeightRegularSize(20));
-            label.makeLabelByShowingType(UILabelShowingType_03);
-            label.centerX = (self.width - self.backToLoginBtn.width) / 2;
-            label.top = JobsWidth(20);
-            self.addSubview(label);
+                .byFont(UIFontWeightRegularSize(20))
+                .makeLabelByShowingType(UILabelShowingType_03)
+                .byCenterX((self.width - self.backToLoginBtn.width) / 2)
+                .byTop(JobsWidth(20))
+                .addOn(self);
         });
     };return _titleLab;
 }
@@ -103,14 +104,12 @@ Prop_strong()NSMutableArray <UIViewModel *>*hotLabelDataMutArr;
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .byAlpha(0.7f)
+            .addOn(self).byAdd(^(MASConstraintMaker *make) {
+                make.top.right.bottom.equalTo(self);
+                make.width.mas_equalTo(btnWidth);
             });
-        _backToLoginBtn.byAlpha(0.7f);
-
-        _backToLoginBtn.byAddTo(self, ^(MASConstraintMaker *make) {
-            make.top.right.bottom.equalTo(self);
-            make.width.mas_equalTo(btnWidth);
-        });
-
         [self layoutIfNeeded];
         _backToLoginBtn.makeBtnTitleByShowingType(UILabelShowingType_05);
     };return _backToLoginBtn;
@@ -128,14 +127,12 @@ Prop_strong()NSMutableArray <UIViewModel *>*hotLabelDataMutArr;
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .addOn(self).byAdd(^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(230), JobsWidth(50)));
+                make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(15));
+                make.centerX.equalTo(self.titleLab);
             });
-        _contactCustomerServiceBtn.byAddTo(self, ^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(230), JobsWidth(50)));
-            make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(15));
-            make.centerX.equalTo(self.titleLab);
-        });
-
-
     };return _contactCustomerServiceBtn;
 }
 
@@ -169,7 +166,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*hotLabelDataMutArr;
         _hl.labelShowingType = UILabelShowingType_02;
         _hl.elementDefaultSize = CGSizeMake(JobsWidth(46), JobsWidth(46));
         self.actionForHotLabel(_hl);
-        _hl.byAddTo(self, ^(MASConstraintMaker *make) {
+        _hl.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.subTitleLab);
             make.top.equalTo(self.subTitleLab.mas_bottom).offset(JobsWidth(29));
             make.size.mas_equalTo(CGSizeMake(JobsWidth(250), JobsWidth(50)));
@@ -190,7 +187,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*hotLabelDataMutArr;
 //        _hotLabelDataMutArr = NSMutableArray.array;
 //
 //        for (CasinoCustomerContactElementModel *element in self.customerContactModel.customerList) {
-//            UIViewModel *vm = UIViewModel.new;
+//            UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
 //
 //            vm.requestParams = element;
 //            vm.bgImageURLString = [This.BaseUrl stringByAppendingString:element.appIconUrl];

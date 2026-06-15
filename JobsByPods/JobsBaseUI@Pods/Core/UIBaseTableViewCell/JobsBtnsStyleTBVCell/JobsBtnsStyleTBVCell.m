@@ -34,7 +34,7 @@ BaseLayerProtocol_synthesize_part3
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsBtnsStyleTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsBtnsStyleTBVCell);
         return cell;
@@ -81,13 +81,14 @@ BaseLayerProtocol_synthesize_part3
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .byTag(1)
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.contentView);
+                make.left.equalTo(self.contentView).offset(self.leftBtnVM.jobsOffsetX);
+                make.height.mas_equalTo(self.leftBtnVM.jobsHeight);
             });
-        _leftBtn.tag = 1;
-        _leftBtn.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.contentView);
-            make.left.equalTo(self.contentView).offset(self.leftBtnVM.jobsOffsetX);
-            make.height.mas_equalTo(self.leftBtnVM.jobsHeight);
-        });
     }
     
     _leftBtn.data = self.leftBtnVM;
@@ -137,13 +138,14 @@ BaseLayerProtocol_synthesize_part3
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
-            });;
-        _rightBtn.tag = 2;
-        _rightBtn.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.contentView);
-            make.right.equalTo(self.contentView).offset(-self.rightBtnVM.jobsOffsetX);
-            make.height.mas_equalTo(self.rightBtnVM.jobsHeight);
-        });
+            })
+            .byTag(2)
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.contentView);
+                make.right.equalTo(self.contentView).offset(-self.rightBtnVM.jobsOffsetX);
+                make.height.mas_equalTo(self.rightBtnVM.jobsHeight);
+            });
     }
     
     _rightBtn.data = self.rightBtnVM;

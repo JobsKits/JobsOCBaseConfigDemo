@@ -110,25 +110,25 @@ Prop_copy(nullable)jobsByBtnBlock longPressGestureBlock;
 #pragma mark —— 依靠数据束进行创建
 +(JobsRetBtnByVoidBlock _Nonnull)jobsInit;
 /// 依靠UIViewModel进行创建
-+(JobsReturnButtonByViewModelBlock _Nonnull)initByViewModel API_AVAILABLE(ios(16.0));
++(JobsRetButtonByViewModelBlock _Nonnull)initByViewModel API_AVAILABLE(ios(16.0));
 /// 依靠UIButtonModel进行创建
-+(JobsReturnButtonByButtonModelBlock _Nonnull)initByButtonModel API_AVAILABLE(ios(16.0));
++(JobsRetButtonByButtonModelBlock _Nonnull)initByButtonModel API_AVAILABLE(ios(16.0));
 /// 依靠UITextModel进行创建
-+(JobsReturnButtonByTextModelBlock _Nonnull)initByTextModel API_AVAILABLE(ios(15.0));
++(JobsRetButtonByTextModelBlock _Nonnull)initByTextModel API_AVAILABLE(ios(15.0));
 #pragma mark —— 一些公有方法
 /// 点击方法@普通
--(JobsReturnButtonByClickBlocks _Nonnull)onClickBy;
+-(JobsRetButtonByClickBlocks _Nonnull)onClickBy;
 /// 点击方法@叠加
--(JobsReturnButtonByClickBlocks _Nonnull)onClickAppendBy;
+-(JobsRetButtonByClickBlocks _Nonnull)onClickAppendBy;
 /// 长按方法@普通
--(JobsReturnButtonByClickBlocks _Nonnull)onLongPressGestureBy;
+-(JobsRetButtonByClickBlocks _Nonnull)onLongPressGestureBy;
 /// 长按方法@叠加
--(JobsReturnButtonByClickBlocks _Nonnull)onLongPressGestureAppendBy;
+-(JobsRetButtonByClickBlocks _Nonnull)onLongPressGestureAppendBy;
 -(JobsRetBtnByCorBlock _Nonnull)bgColorBy;
 -(JobsRetBtnByCGFloatBlock _Nonnull)cornerRadiusValueBy;
 #pragma mark —— 依据数据源进行按钮的统一重设
--(JobsReturnButtonByViewModelAndBOOLBlock _Nonnull)resetByViewModel;
--(JobsReturnButtonByButtonModelAndBOOLBlock _Nonnull)resetByButtonModel;
+-(JobsRetButtonByViewModelAndBOOLBlock _Nonnull)resetByViewModel;
+-(JobsRetButtonByButtonModelAndBOOLBlock _Nonnull)resetByButtonModel;
 
 @end
 
@@ -192,26 +192,28 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeButton(jobsByBtnBlock _Nonnull blo
      -(UIButton *)usrNameBtn{
          if(!_usrNameBtn){
              @jobs_weakify(self)
-             _usrNameBtn = self.byAdd(UIButton.jobsInit()
-                                           .bgColorBy(JobsWhiteColor)
-                                           .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
-                                           .jobsResetImagePadding(1)
-                                           .jobsResetBtnImage(@"APPLY NOW".img)
-                                           .jobsResetBtnBgImage(@"APPLY NOW".img)
-                                           .jobsResetBtnTitleCor(JobsWhiteColor)
-                                           .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-                                           .jobsResetBtnTitle(@"APPLY NOW".tr)
-                                           .onClickBy(^(UIButton *x){
-                                               JobsLog(@"");
-                                           }).onLongPressGestureBy(^(id data){
-                                               JobsLog(@"");
-                                           }),^(MASConstraintMaker *_Nonnull make){
-                 @jobs_strongify(self)
-                 make.top.equalTo(self.headIMGV);
-                 make.left.equalTo(self.headIMGV.mas_right).offset(JobsWidth(10));
-                 make.height.mas_equalTo(JobsWidth(16));
-             });
-             _usrNameBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
+             _usrNameBtn = UIButton.jobsInit()
+                 .bgColorBy(JobsWhiteColor)
+                 .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
+                 .jobsResetImagePadding(1)
+                 .jobsResetBtnImage(@"APPLY NOW".img)
+                 .jobsResetBtnBgImage(@"APPLY NOW".img)
+                 .jobsResetBtnTitleCor(JobsWhiteColor)
+                 .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
+                 .jobsResetBtnTitle(@"APPLY NOW".tr)
+                 .onClickBy(^(UIButton *x){
+                     JobsLog(@"");
+                 }).onLongPressGestureBy(^(id data){
+                     JobsLog(@"");
+                 })
+                 .makeBtnTitleByShowingType(UILabelShowingType_03)
+                 .addOn(self)
+                 .byAdd(^(MASConstraintMaker *make) {
+                     @jobs_strongify(self)
+                     make.top.equalTo(self.headIMGV);
+                     make.left.equalTo(self.headIMGV.mas_right).offset(JobsWidth(10));
+                     make.height.mas_equalTo(JobsWidth(16));
+                 });
          };return _usrNameBtn;
      }
 

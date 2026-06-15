@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <MessageUI/MessageUI.h>
 #import <PDFKit/PDFKit.h>
+
 #if __has_include(<Metal/Metal.h>)
 #import <Metal/Metal.h>
 #endif
@@ -103,6 +104,18 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCollectionViewByArrBlock _Nonnull)byReloadItemsAtIndexPaths;
 -(JobsRetCollectionViewByArrBlock _Nonnull)byInsertItemsAtIndexPaths;
 -(JobsRetCollectionViewByArrBlock _Nonnull)byDeleteItemsAtIndexPaths;
+@end
+
+@interface UIPageControl (JobsSystemAPIDSLSupplement)
+-(JobsRetPageControlByNSIntegerBlock _Nonnull)byNumberOfPages;
+-(JobsRetPageControlByNSIntegerBlock _Nonnull)byCurrentPage;
+-(JobsRetPageControlByBOOLBlock _Nonnull)byHidesForSinglePage;
+-(JobsRetPageControlByColorBlock _Nonnull)byPageIndicatorTintColor;
+-(JobsRetPageControlByColorBlock _Nonnull)byCurrentPageIndicatorTintColor;
+-(JobsRetPageControlByImageBlock _Nonnull)byPreferredIndicatorImage API_AVAILABLE(ios(14.0), tvos(14.0));
+-(JobsRetPageControlByImageAndNSIntegerBlock _Nonnull)byIndicatorImageForPage API_AVAILABLE(ios(14.0), tvos(14.0));
+-(JobsRetPageControlByBackgroundStyleBlock _Nonnull)byBackgroundStyle API_AVAILABLE(ios(14.0), tvos(14.0));
+-(JobsRetPageControlByDirectionBlock _Nonnull)byDirection API_AVAILABLE(ios(16.0), tvos(16.0));
 @end
 
 @interface UILabel (JobsSystemAPIDSLSupplement)

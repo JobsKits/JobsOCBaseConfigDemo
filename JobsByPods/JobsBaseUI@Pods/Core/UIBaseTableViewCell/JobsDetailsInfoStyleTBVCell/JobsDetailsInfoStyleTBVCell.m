@@ -9,8 +9,6 @@
 #import <JobsBaseUI/UITableView+RegisterClass.h>
 #import <JobsBaseUI/UIView+Extra.h>
 
-#import <Masonry/Masonry.h>
-
 @interface JobsDetailsInfoStyleTBVCell ()
 
 Prop_strong()UIImageView *detailsInfoImageView;
@@ -24,7 +22,7 @@ Prop_strong()UIImageView *detailsInfoImageView;
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         JobsDetailsInfoStyleTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsDetailsInfoStyleTBVCell);
         return cell;

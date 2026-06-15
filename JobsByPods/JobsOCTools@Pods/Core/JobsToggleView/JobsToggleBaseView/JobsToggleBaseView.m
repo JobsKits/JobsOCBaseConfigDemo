@@ -213,21 +213,23 @@ JobsToggleNavViewProtocolSynthesize
 -(UIScrollView *)bgScroll{
     if(!_bgScroll){
         @jobs_weakify(self)
-        _bgScroll = self.addSubview(jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
+        _bgScroll = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView.byDelegate(self)
+            scrollView
+                .byDelegate(self)
                 .byShowsHorizontalScrollIndicator(NO)
                 .byShowsVerticalScrollIndicator(NO)
                 .byScrollEnabled(YES)
-                .byPagingEnabled(YES);
-            scrollView.byFrame(jobsMakeCGRectByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
-                @jobs_strongify(self)
-                data.byJobsX(0)
-                    .byJobsY(self.taggedNavView.height + self.taggedNavView_bgScroll_offset)
-                    .byJobsWidth(self.viewSizeByModel(nil).width)
-                    .byJobsHeight(self.viewSizeByModel(nil).height - (self.taggedNavView_height + self.taggedNavView_bgScroll_offset));
-            }));
-        }));
+                .byPagingEnabled(YES)
+                .byFrame(jobsMakeCGRectByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
+                    @jobs_strongify(self)
+                    data.byJobsX(0)
+                        .byJobsY(self.taggedNavView.height + self.taggedNavView_bgScroll_offset)
+                        .byJobsWidth(self.viewSizeByModel(nil).width)
+                        .byJobsHeight(self.viewSizeByModel(nil).height - (self.taggedNavView_height + self.taggedNavView_bgScroll_offset));
+                }))
+                .addOn(self);
+        });
     };return _bgScroll;
 }
 
@@ -251,12 +253,13 @@ JobsToggleNavViewProtocolSynthesize
             int t = 0;
             for (NSString *title in self.tempTitles) {
                 data.add(jobsMakeLabel(^(__kindof UILabel<BaseViewProtocol> * _Nullable label) {
-                    label.byTextAlignment(NSTextAlignmentCenter);
-                    label.byNumberOfLines(0);
-                    label.byBgColor(JobsRandomColor);
-                    label.byText(toStringByInt(t)
-                        .add(JobsNewline)
-                        .add(title));
+                    label
+                        .byTextAlignment(NSTextAlignmentCenter)
+                        .byNumberOfLines(0)
+                        .byText(toStringByInt(t)
+                            .add(JobsNewline)
+                            .add(title))
+                        .byBgColor(JobsRandomColor);
                 }));t += 1;
             }
         });
@@ -270,9 +273,9 @@ JobsToggleNavViewProtocolSynthesize
             @jobs_strongify(self)
             for (int y = 0; y < self.tempTitles.count; y++) {
                 data.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                    data.title = @"第".tr
+                    data.byTitle(@"第".tr
                         .add(toStringByInt(y))
-                        .add(@"个".tr);
+                        .add(@"个".tr));
                 }));
             }
         });
@@ -282,9 +285,9 @@ JobsToggleNavViewProtocolSynthesize
 -(UIButtonModel *)buttonModel{
     if(!_buttonModel){
         _buttonModel = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-            model.buttonConfiguration = nil;
-            model.backgroundConfiguration = nil;
-            model.byButtonConfigurationTitleAlignment(UIButtonConfigurationTitleAlignmentAutomatic)
+            model.byButtonConfiguration(nil)
+                 .byBackgroundConfiguration(nil)
+                 .byButtonConfigurationTitleAlignment(UIButtonConfigurationTitleAlignmentAutomatic)
                  .byTextAlignment(NSTextAlignmentCenter)
                  .bySubTextAlignment(NSTextAlignmentCenter)
                  .byNormalImage(nil)

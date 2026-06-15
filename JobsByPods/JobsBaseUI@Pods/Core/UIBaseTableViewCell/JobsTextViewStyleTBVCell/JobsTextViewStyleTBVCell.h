@@ -1,4 +1,3 @@
-#import <JobsBaseUI/UIView+Extra.h>
 //
 //  JobsTextViewStyleTBVCell.h
 //  JobsBaseUI
@@ -9,8 +8,15 @@
 #ifndef JOBS_HEADER_GUARD_JOBSTEXTVIEWSTYLETBVCELL_1CAC990851
 #define JOBS_HEADER_GUARD_JOBSTEXTVIEWSTYLETBVCELL_1CAC990851
 
-#import <JobsBaseUI/JobsBaseTableViewCell.h>
 #import <JobsBaseUI/JobsTextView.h>
+#import <JobsBaseUI/UIView+Extra.h>
+#import <JobsBaseUI/JobsBaseTableViewCell.h>
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
@@ -24,12 +30,6 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
@@ -40,6 +40,12 @@
 #import <JobsModelDSL/JobsModelDSL.h>
 #else
 #import "JobsModelDSL.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

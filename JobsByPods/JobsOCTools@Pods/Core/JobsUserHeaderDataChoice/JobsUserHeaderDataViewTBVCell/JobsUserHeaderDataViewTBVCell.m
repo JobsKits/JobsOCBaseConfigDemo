@@ -18,7 +18,7 @@ Prop_strong()UILabel *titleLab;
 @synthesize viewModel = _viewModel;
 #pragma mark —— UITableViewCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsUserHeaderDataViewTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsUserHeaderDataViewTBVCell);
         cell.byBgColor(HEXCOLOR(0xFFFFFF));
@@ -27,7 +27,7 @@ Prop_strong()UILabel *titleLab;
     };
 }
 /// 左边：imageView＋textLabel；右边：detailTextLabel。
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsUserHeaderDataViewTBVCell *cell = (JobsUserHeaderDataViewTBVCell *)tableView.tableViewCellClass(JobsUserHeaderDataViewTBVCell.class,@"");
         if (!cell) {
@@ -36,7 +36,7 @@ Prop_strong()UILabel *titleLab;
     };
 }
 /// 左边：textLabel字体偏小；右边：detailTextLabel。imageView可选（显示在最左边）
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsUserHeaderDataViewTBVCell *cell = (JobsUserHeaderDataViewTBVCell *)tableView.tableViewCellClass(JobsUserHeaderDataViewTBVCell.class,@"");
         if (!cell) {
@@ -45,7 +45,7 @@ Prop_strong()UILabel *titleLab;
     };
 }
 /// 左边：imageView；左上：textLabel；左下：detailTextLabel。主标题字体大且加黑，副标题字体小在主标题下边。
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsUserHeaderDataViewTBVCell *cell = (JobsUserHeaderDataViewTBVCell *)tableView.tableViewCellClass(JobsUserHeaderDataViewTBVCell.class,@"");
         if (!cell) {

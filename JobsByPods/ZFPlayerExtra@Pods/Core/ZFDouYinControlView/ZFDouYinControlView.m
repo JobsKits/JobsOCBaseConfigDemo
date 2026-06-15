@@ -7,6 +7,12 @@
 
 #import "ZFDouYinControlView.h"
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 @interface ZFDouYinControlView ()
 
 Prop_strong()UIButton *playBtn;
@@ -104,10 +110,12 @@ Prop_strong()ZFSliderView *sliderView;
 #pragma mark —— lazyLoad
 - (UIButton *)playBtn {
     if (!_playBtn) {
-        _playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _playBtn.userInteractionEnabled = NO;
-        [_playBtn setImage:[UIImage imageNamed:@"icon_play_pause"]
-                  forState:UIControlStateNormal];
+        _playBtn = (UIButton *)UIButton.alloc.init
+            .byViewBlock(^(__kindof UIView *view) {
+                [(UIButton *)view setImage:[UIImage imageNamed:@"icon_play_pause"]
+                                  forState:UIControlStateNormal];
+            })
+            .byUserInteractionEnabled(NO);
     };return _playBtn;
 }
 

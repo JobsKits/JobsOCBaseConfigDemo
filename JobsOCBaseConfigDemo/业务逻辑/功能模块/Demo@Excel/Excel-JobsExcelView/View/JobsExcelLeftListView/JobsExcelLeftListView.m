@@ -54,7 +54,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 -(__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     @jobs_weakify(self)
-    return TableViewOneCell.cellStyleValue1WithTableView(tableView)
+    return TableViewOneCell.cellStyleValue1ByTableView(tableView)
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable vm) {

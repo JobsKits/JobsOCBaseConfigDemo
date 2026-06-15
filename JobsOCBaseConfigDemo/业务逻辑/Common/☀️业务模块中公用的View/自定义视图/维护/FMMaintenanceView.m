@@ -82,7 +82,8 @@ Prop_strong()UILabel *timeLab;
     if(!_label){
         @jobs_weakify(self)
         _label = self.addSubview(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText(@"UNDER MAINTENANCE".tr)
+            label
+                .byText(@"UNDER MAINTENANCE".tr)
                 .byTextCor(@"#8A93A1".cor)
                 .byFont(pingFangHKSemibold(JobsWidth(20)));
         })).setMasonryBy(^(MASConstraintMaker *_Nonnull make){
@@ -98,7 +99,8 @@ Prop_strong()UILabel *timeLab;
     if(!_subLabel){
         @jobs_weakify(self)
         _subLabel = self.addSubview(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText(@"Dear Valued Customers:".tr
+            label
+                .byText(@"Dear Valued Customers:".tr
                          .add(JobsNewline)
                          .add(@"We are currently performing maintenance on our services. We apologize for any inconvenience this may cause and appreciate your understanding.".tr))
                 .byTextCor(@"#8A93A1".cor)
@@ -117,7 +119,8 @@ Prop_strong()UILabel *timeLab;
     if(!_timeLab){
         @jobs_weakify(self)
         _timeLab = self.addSubview(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText(@"Maintenance Time:".tr
+            label
+                .byText(@"Maintenance Time:".tr
                          .add(JobsNewline)
                          .add(self.currentTimeStringByStyle1)
                          .add(JobsSpace)

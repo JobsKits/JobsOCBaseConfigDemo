@@ -44,7 +44,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol BaseViewProtocol <UIViewModelProtocol>
-typedef id _Nullable(^JobsReturnIDByObjWithBaseViewProtocolBlock)(id<BaseViewProtocol> _Nullable data);
+typedef id _Nullable(^JobsRetIDByObjWithBaseViewProtocolBlock)(id<BaseViewProtocol> _Nullable data);
 @optional
 Prop_strong(nullable)__kindof UIActivityIndicatorView *activityIndicatorView;
 Prop_strong(nullable)__kindof UIStackView *stackView;
@@ -155,8 +155,8 @@ Prop_copy(nullable)jobsByBtnBlock closeBtnClickAction;
 -(JobsRetScrollViewByIDBlock _Nonnull)dataLink; // 用于 UIScrollView/UITableView/UICollectionView 的数据源绑定
 -(JobsRetScrollViewByIDBlock _Nonnull)byShow; // 用于显示 UICollectionView / UITableView
 -(jobsByIDBlock _Nonnull)update;
--(JobsReturnNavBarByVoidBtnBlocks _Nullable)JobsNavBarBackBtnClickBlock; // 返回按钮的回调
--(JobsReturnNavBarByVoidBtnBlocks _Nullable)JobsNavBarCloseBtnClickBlock; // 关闭按钮的回调
+-(JobsRetNavBarByVoidBtnBlocks _Nullable)JobsNavBarBackBtnClickBlock; // 返回按钮的回调
+-(JobsRetNavBarByVoidBtnBlocks _Nullable)JobsNavBarCloseBtnClickBlock; // 关闭按钮的回调
 #pragma mark —— 关于 UITableViewHeaderFooterView
 +(JobsRetTableViewHeaderFooterViewByTableViewAndSaltBlock _Nonnull)initByReuseIdentifier;
 -(JobsRetTableViewHeaderFooterViewByNSIntegerBlock _Nonnull)bySection;

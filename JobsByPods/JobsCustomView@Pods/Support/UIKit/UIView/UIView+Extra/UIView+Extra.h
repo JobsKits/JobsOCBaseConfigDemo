@@ -57,7 +57,7 @@ Prop_assign()CGFloat jobsVisible;
 -(void)appointCornerCutToCircleByRoundingCorners:(UIRectCorner)corners
                                      cornerRadii:(CGSize)cornerRadii;
 -(JobsRetViewByGestureRecognizer _Nonnull)addGesture;
--(JobsReturnGestureByGesture _Nonnull)addGestureRecognizer;
+-(JobsRetGestureByGesture _Nonnull)addGestureRecognizer;
 
 @end
 

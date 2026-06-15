@@ -26,7 +26,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSMutableArray (Extra)
+@interface NSMutableArray (JobsBaseUIExtra)
 /// 阻止向可变数组添加空元素
 -(JobsRetMutableArrayByIDBlock _Nonnull)add;
 

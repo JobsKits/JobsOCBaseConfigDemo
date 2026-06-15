@@ -42,11 +42,13 @@ JobsOCDSL@Pods/
 │   │   └── NSMutableParagraphStyle+DSL/
 │   ├── QuartzCore/
 │   │   └── CALayer+DSL/
-│   └── ThirdParty/
+│   └── 3rd/
+│       ├── FSCalendar+DSL/
 │       ├── GKNavigationBar/
 │       │   ├── GKGestureHandleConfigure/
 │       │   └── GKNavigationBarConfigure/
 │       ├── Masonry/
+│       ├── SDWebImage+DSL/
 │       ├── HXPhotoPickerObjC/
 │       ├── Texture/
 │       ├── YTKNetwork/
@@ -62,6 +64,7 @@ JobsOCDSL@Pods/
 - `CALayer+DSL` 除属性包装外，补齐 `addSublayer:`、`removeAnimationForKey:`、`drawInContext:`、`renderInContext:`、`containsPoint:` 等方法型 DSL。
 - `UIView+DSL` 补齐 `addSubview:`、`bringSubviewToFront:`、`sendSubviewToBack:`、`addGestureRecognizer:`、`removeGestureRecognizer:`、`addInteraction:`、`removeInteraction:`、`setNeedsDisplayInRect:`、`removeFromSuperview`、`layoutIfNeeded`、`sizeToFit` 等链式入口。
 - `UIBarButtonItem+DSL`、`UITableViewCell+DSL`、`UIImpactFeedbackGenerator+DSL` 覆盖各自当前类本层属性和 0 / 1 参数方法，不复制 `UIBarItem`、`UIView`、`UIFeedbackGenerator` 的父类能力。
+- `FSCalendar+DSL` 对 `appearance`、`calendarHeaderView`、`swipeToChooseGesture` 这类子对象提供 block 配置入口，回调内部配置子对象后继续返回主 `FSCalendar`，方便调用方保持一个 `calendar` 中心链。
 
 ## 三、引用方式
 
@@ -84,6 +87,8 @@ JobsOCDSL@Pods/
 - `YTKNetwork`：服务请求、批量请求、链式请求 DSL。
 - `ZFPlayer`：服务 OC 侧播放器 DSL，对齐 Swift 项目中的 `BMPlayer+DSL` 职责。
 - `HXPhotoPickerObjC`：服务 `HXPhotoView`、`HXPhotoManager`、`HXPhotoConfiguration` 的发帖图片选择链式配置。
+- `SDWebImage`：服务 `UIButton`、`UIImageView` 的网络图片链式加载 DSL。
+- `JobsModelDSL`：服务 `SDWebImageModel` 等模型对象的链式配置。
 
 ## 五、Masonry 链式约束
 
@@ -95,7 +100,8 @@ JobsOCDSL@Pods/
       .byText(@"Demo")
       .byFont([UIFont systemFontOfSize:16])
       .byTextAlignment(NSTextAlignmentCenter)
-      .byAddTo(self.view, ^(MASConstraintMaker *make) {
+      .addOn(self.view)
+      .byAdd(^(MASConstraintMaker *make) {
           make.center.equalTo(self.view);
           make.size.mas_equalTo(CGSizeMake(JobsWidth(200), JobsWidth(20)));
       });
@@ -132,7 +138,8 @@ JobsOCDSL@Pods/
           .didSelectRowAt(^(id  _Nonnull target, UITableView * _Nonnull tv, NSIndexPath * _Nonnull indexPath) {
               [tv deselectRowAtIndexPath:indexPath animated:YES];
           })
-          .byAddTo(self.view, ^(MASConstraintMaker *make) {
+          .addOn(self.view)
+          .byAdd(^(MASConstraintMaker *make) {
               make.edges.equalTo(self.view);
           });
   });
@@ -154,7 +161,8 @@ JobsOCDSL@Pods/
           .byTextCor(UIColor.darkTextColor)
           .byTextContainerInset(UIEdgeInsetsMake(8, 10, 8, 10))
           .byEditable(YES)
-          .byAddTo(self.view, ^(MASConstraintMaker *make) {
+          .addOn(self.view)
+          .byAdd(^(MASConstraintMaker *make) {
               make.left.right.equalTo(self.view).insets(UIEdgeInsetsMake(0, 16, 0, 16));
               make.top.equalTo(self.view).offset(20);
               make.height.mas_equalTo(120);
@@ -192,7 +200,14 @@ JobsOCDSL@Pods/
   });
   ```
 
-## 十一、风险说明
+## 十一、SDWebImage 链式 DSL
+
+- `3rd/SDWebImage+DSL` 统一承接 `UIButton+SDWebImage` 和 `UIImageView+SDWebImage` 的链式封装。
+- 原来散落在 `JobsBaseUI`、`JobsByOCPods` 里的同名文件只保留兼容 import，不再保留 category 实现，避免 duplicate category 和实现重复。
+- `UIButton` 支持 `imageURL(...)`、`placeholderImage(...)`、`options(...)`、`completed(...)`、`progress(...)` 以及普通图片 / 背景图片的状态加载入口。
+- `UIImageView` 支持 `imageURL(...)`、`placeholderImage(...)`、`options(...)`、`completed(...)`、`load()`，Block 类型统一由 `JobsBlock+SDWebImage` 管理。
+
+## 十二、风险说明
 
 - 不把非 DSL 辅助文件迁入本 Pod；如果某个旧 `+DSL` 文件混入了业务辅助能力，需要先拆干净再迁入。
 - 修改 `Core`、podspec 或依赖后，需要重新执行 `pod install --no-repo-update` 并检查依赖报告。

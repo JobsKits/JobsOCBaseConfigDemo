@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SRWebSocket (Extra)
 
-+(JobsReturnSRWebSocketByNSURLRequestBlock _Nonnull)initByURLRequest;
++(JobsRetSRWebSocketByNSURLRequestBlock _Nonnull)initByURLRequest;
 
 @end
 

@@ -32,12 +32,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface UICollectionViewCell (JobsUICollectionViewCellProtocolDSL)
+
+-(JobsRetCollectionViewCellByIndexPathBlock _Nonnull)byIndexPath;
+-(JobsRetCollectionViewCellByJobsByViewBlock _Nonnull)byContentView;
+-(JobsRetCollectionViewCellByCorBlock _Nonnull)byContentViewBgCor;
+-(JobsRetCollectionViewCellByDelegateBlock _Nonnull)byDelegate;
+
+@end
+
 @protocol UICollectionViewCellProtocol <BaseCellProtocol>
 @optional
 #pragma mark —— 设置UICollectionViewCell
 +(instancetype)cellWithCollectionView:(UICollectionView *_Nonnull)collectionView
                          forIndexPath:(NSIndexPath *_Nonnull)indexPath;
 -(JobsRetCollectionViewCellByIndexPathBlock _Nonnull)byIndexPath;
+-(JobsRetCollectionViewCellByJobsByViewBlock _Nonnull)byContentView;
 -(JobsRetCollectionViewCellByCorBlock _Nonnull)byContentViewBgCor;
 -(JobsRetCollectionViewCellByDelegateBlock _Nonnull)byDelegate;
 #pragma mark —— 获取

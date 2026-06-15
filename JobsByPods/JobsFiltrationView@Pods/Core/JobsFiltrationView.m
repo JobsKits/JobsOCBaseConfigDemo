@@ -123,11 +123,11 @@ static dispatch_once_t static_filtrationViewOnceToken;
                     .byJobsSize(CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(20)));
             });
         }))
-        .JobsBlock1(^(id _Nullable data) {
+        .JobsBlock1(^(id _Nullable data) {;
             
         });
 
-        _hotLabel.byAddTo(self, ^(MASConstraintMaker *make) {
+        _hotLabel.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         });
     };return _hotLabel;

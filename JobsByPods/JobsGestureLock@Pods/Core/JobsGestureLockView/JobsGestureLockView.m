@@ -7,6 +7,12 @@
 
 #import "JobsGestureLockView.h"
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 @interface JobsGestureLockView ()
 
 Prop_strong()NSMutableArray<UIButton *> *selectedButtons;
@@ -44,12 +50,15 @@ Prop_assign()BOOL finished;
     [self addGestureRecognizer:pan];
 
     for (NSInteger index = 0; index < 9; index++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.tag = index;
-        button.userInteractionEnabled = NO;
-        [button setImage:self.configuration.nodeNormalImage forState:UIControlStateNormal];
-        [button setImage:self.configuration.nodeSelectedImage forState:UIControlStateSelected];
-        [self addSubview:button];
+        UIButton.alloc.init
+            .byViewBlock(^(__kindof UIView *view) {
+                UIButton *button = (UIButton *)view;
+                [button setImage:self.configuration.nodeNormalImage forState:UIControlStateNormal];
+                [button setImage:self.configuration.nodeSelectedImage forState:UIControlStateSelected];
+            })
+            .byTag(index)
+            .byUserInteractionEnabled(NO)
+            .addOn(self);
     }
 }
 

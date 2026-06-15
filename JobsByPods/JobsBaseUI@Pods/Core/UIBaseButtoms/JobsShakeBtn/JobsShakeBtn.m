@@ -101,7 +101,7 @@ Prop_strong()CAKeyframeAnimation *anim;
         _iconBtn.userInteractionEnabled = YES;
         _iconBtn.ableRespose = YES;
         [_iconBtn addGestureRecognizer:self.iconBtnTap];
-        _iconBtn.byAddTo(self, ^(MASConstraintMaker *make) {
+        _iconBtn.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(20,20));
             make.top.equalTo(self).offset(-20 / 2);
             make.right.equalTo(self).offset(20 / 2);
@@ -130,9 +130,13 @@ Prop_strong()CAKeyframeAnimation *anim;
 
 - (UIView *)coverView {
     if (!_coverView) {
-        _coverView = UIView.new;
-        _coverView.byBgColor(JobsClearColor);
-        _coverView.byHidden(YES);        
+        _coverView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(JobsClearColor)
+                .byHidden(YES)
+                .addOn(self)
+                .byFrame(self.bounds);
+        });
         {
             _coverView.numberOfTouchesRequired = 1;
             _coverView.numberOfTapsRequired = 1;/// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
@@ -149,10 +153,6 @@ Prop_strong()CAKeyframeAnimation *anim;
             }];
             _coverView.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
         }
-        
-        [self addSubview:_coverView];
-        _coverView.byFrame(self.bounds);
-
     };return _coverView;
 }
 

@@ -48,10 +48,10 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCALayerByVoidBlock _Nonnull)byRemoveFromSuperlayer;
 
 #pragma mark —— Display
--(JobsRetCALayerByCGColorRefBlock _Nonnull)byBgColor;
--(JobsRetCALayerByUIColorBlock _Nonnull)byBgColorUIColor;
--(JobsRetCALayerByCGColorRefBlock _Nonnull)byBackgroundColor;
--(JobsRetCALayerByUIColorBlock _Nonnull)byBackgroundColorUIColor;
+-(JobsRetCALayerByCGCorRefBlock _Nonnull)byBgColor;
+-(JobsRetCALayerByCorBlock _Nonnull)byBgColorUIColor;
+-(JobsRetCALayerByCGCorRefBlock _Nonnull)byBackgroundColor;
+-(JobsRetCALayerByCorBlock _Nonnull)byBackgroundColorUIColor;
 -(JobsRetCALayerByIDBlock _Nonnull)byContents;
 -(JobsRetCALayerByCGRectBlock _Nonnull)byContentsRect;
 -(JobsRetCALayerByCALayerContentsGravityBlock _Nonnull)byContentsGravity;
@@ -83,10 +83,10 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCALayerByCACornerMaskBlock _Nonnull)byMaskedCorners;
 -(JobsRetCALayerByCALayerCornerCurveBlock _Nonnull)byCornerCurve;
 -(JobsRetCALayerByCGFloatBlock _Nonnull)byBorderWidth;
--(JobsRetCALayerByCGColorRefBlock _Nonnull)byBorderColor;
--(JobsRetCALayerByUIColorBlock _Nonnull)byBorderColorUIColor;
--(JobsRetCALayerByCGColorRefBlock _Nonnull)byShadowColor;
--(JobsRetCALayerByUIColorBlock _Nonnull)byShadowColorUIColor;
+-(JobsRetCALayerByCGCorRefBlock _Nonnull)byBorderColor;
+-(JobsRetCALayerByCorBlock _Nonnull)byBorderColorUIColor;
+-(JobsRetCALayerByCGCorRefBlock _Nonnull)byShadowColor;
+-(JobsRetCALayerByCorBlock _Nonnull)byShadowColorUIColor;
 -(JobsRetCALayerByCGFloatBlock _Nonnull)byShadowOpacity;
 -(JobsRetCALayerByCGSizeBlock _Nonnull)byShadowOffset;
 -(JobsRetCALayerByCGFloatBlock _Nonnull)byShadowRadius;
@@ -114,7 +114,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCALayerByVoidBlock _Nonnull)byRemoveAllAnimations;
 
 -(JobsRetCAActionByStringBlock _Nonnull)byActionForKey;
--(JobsRetBOOLByCGPointBlock _Nonnull)byContainsPoint;
+-(JobsRetBOOLByPointBlock _Nonnull)byContainsPoint;
 
 @end
 

@@ -303,23 +303,19 @@ BaseButtonProtocol_synthesize
         @jobs_weakify(self)
         _countLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byFont(UIFontWeightRegularSize(12))
+            NSTextAlignment textAlignment = NSTextAlignmentCenter;
+            if(@available(iOS 16.0, *)){
+                textAlignment = self.configuration.imagePlacement == NSDirectionalRectEdgeLeading ? NSTextAlignmentLeft : NSTextAlignmentCenter;
+            }else{
+                textAlignment = self.buttonEdgeInsetsStyle == NSDirectionalRectEdgeLeading ? NSTextAlignmentLeft : NSTextAlignmentCenter;
+            }
+            label
+                .byFont(UIFontWeightRegularSize(12))
                 .byTextCor(HEXCOLOR(0xCFD2D6))
                 .byText(@"0")
-                .byNumberOfLines(1);
-            if(@available(iOS 16.0, *)){
-                if (self.configuration.imagePlacement == NSDirectionalRectEdgeLeading) {
-                    label.byTextAlignment(NSTextAlignmentLeft);
-                }else{
-                    label.byTextAlignment(NSTextAlignmentCenter);
-                }
-            }else{
-                if(self.buttonEdgeInsetsStyle == NSDirectionalRectEdgeLeading){
-                    label.byTextAlignment(NSTextAlignmentLeft);
-                }else{
-                    label.byTextAlignment(NSTextAlignmentCenter);
-                }
-            }self.addSubview(label);
+                .byNumberOfLines(1)
+                .byTextAlignment(textAlignment)
+                .addOn(self);
         });
     };return _countLabel;
 }

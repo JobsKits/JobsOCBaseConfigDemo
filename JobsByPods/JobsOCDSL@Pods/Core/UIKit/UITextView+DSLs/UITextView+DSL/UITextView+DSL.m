@@ -82,7 +82,7 @@
     };
 }
 
--(JobsRetTextViewByUIEdgeInsetsBlock _Nonnull)byTextContainerInset{
+-(JobsRetTextViewByEdgeInsetsBlock _Nonnull)byTextContainerInset{
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(UIEdgeInsets insets){
         @jobs_strongify(self)

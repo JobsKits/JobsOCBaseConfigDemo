@@ -26,6 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UITableViewCell (DSL)
 
+-(JobsRetTableViewCellByLabelBlock _Nonnull)byTextLabel;
+-(JobsRetTableViewCellByLabelBlock _Nonnull)byDetailTextLabel;
+-(JobsRetTableViewCellByImageViewBlock _Nonnull)byCellImageView;
+-(JobsRetTableViewCellByJobsByViewBlock _Nonnull)byContentView;
 #if defined(__IPHONE_14_0)
 -(JobsRetTableViewCellByVoidBlock _Nonnull)bySetNeedsUpdateConfiguration API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos);
 -(JobsRetTableViewCellByContentConfigurationBlock _Nonnull)byContentConfiguration API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos);

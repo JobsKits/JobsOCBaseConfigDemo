@@ -93,7 +93,7 @@ Prop_assign()NSUInteger thisIndex;
     };
 }
 
--(JobsReturnButtonModelByString _Nonnull)makeLeftCellDataByUnSelect{
+-(JobsRetButtonModelByString _Nonnull)makeLeftCellDataByUnSelect{
 //    @jobs_weakify(self)
     return ^__kindof UIButtonModel *_Nullable(__kindof NSString *_Nullable data){
 //        @jobs_strongify(self)
@@ -184,7 +184,7 @@ Prop_assign()NSUInteger thisIndex;
     };
 }
 /// 暂时没用到
--(JobsReturnGoodsClassModelByIntBlock _Nonnull)createOneModel{
+-(JobsRetGoodsClassModelByIntBlock _Nonnull)createOneModel{
 //    @jobs_weakify(self)
     return ^__kindof GoodsClassModel *_Nullable(int iflag){
         return jobsMakeGoodsClassModel(^(GoodsClassModel * _Nullable model) {
@@ -197,7 +197,7 @@ Prop_assign()NSUInteger thisIndex;
     };
 }
 
--(JobsReturnGoodsClassModelByInt2Block _Nonnull)createTwoModel{
+-(JobsRetGoodsClassModelByInt2Block _Nonnull)createTwoModel{
     @jobs_weakify(self)
     return ^__kindof GoodsClassModel *_Nullable(NSUInteger data1,int iFlag){
         return jobsMakeGoodsClassModel(^(GoodsClassModel * _Nullable model) {
@@ -225,7 +225,7 @@ Prop_assign()NSUInteger thisIndex;
     };
 }
 
--(JobsReturnGoodsClassModelByIntStringBlock _Nonnull)createThreeModel{
+-(JobsRetGoodsClassModelByIntStringBlock _Nonnull)createThreeModel{
     return ^__kindof GoodsClassModel *_Nullable(int iflag,NSString *_Nullable string){
         return jobsMakeGoodsClassModel(^(GoodsClassModel * _Nullable model) {
             model.idField = toStringByInt(iflag);
@@ -244,7 +244,7 @@ numberOfRowsInSection:(NSInteger)section{
 
 -(__kindof UITableViewCell *)tableView:(__kindof UITableView *)tableView
                  cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    JobsBtnStyleTBVCell *cell = JobsBtnStyleTBVCell.cellStyleDefaultWithTableView(tableView);
+    JobsBtnStyleTBVCell *cell = JobsBtnStyleTBVCell.cellStyleDefaultByTableView(tableView);
     cell.contentEdgeInsets = jobsMakeSameEdgeInset(JobsWidth(3));
     cell.JobsRichViewByModel2(self.leftCellDataMutArr[indexPath.row]);
     return cell;
@@ -297,12 +297,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         UILabel *label = headerView.viewWithTag(666);
         if (!label){
             label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-                label.byFrame(CGRectMake(10,
+                label
+                    .byFont(JobsFontBold(JobsWidth(12)))
+                    .byTextCor(JobsGrayColor)
+                    .byFrame(CGRectMake(10,
                                          20,
                                          headerView.width - 20.f,
-                                         17.f));
-                label.byFont(JobsFontBold(JobsWidth(12)))
-                    .byTextCor(JobsGrayColor)
+                                         17.f))
                     .byTag(666);
             });headerView.addSubview(label);
         }

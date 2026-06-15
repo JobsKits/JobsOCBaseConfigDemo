@@ -31,18 +31,23 @@ Prop_strong()BaseButton *btn;
         }
     }
     
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = @"让 UIView 像 UINavigationController 一样支持 push 和 pop".tr;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(18);
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(@"让 UIView 像 UINavigationController 一样支持 push 和 pop".tr);
+            data.byFont(UIFontWeightRegularSize(18));
+        })
     
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.bgImage = @"新首页的底图".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);/// self.gk_navBackgroundColor 和 self.view.backgroundColor
-//    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byBgImage(@"新首页的底图".img)
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1));/// self.gk_navBackgroundColor 和 self.view.backgroundColor
+        //    self.viewModel.navBgImage = @"导航栏左侧底图".img;
 }
 
 - (void)viewDidLoad {
@@ -127,13 +132,13 @@ Prop_strong()BaseButton *btn;
     //            self.view.navigator.pushView(self.pushView,YES);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .makeBtnTitleByShowingType(UILabelShowingType_03)
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.center.equalTo(self.view);
+                make.height.mas_equalTo(JobsWidth(30));
             });
-        _btn.byAddTo(self.view, ^(MASConstraintMaker *make) {
-            make.center.equalTo(self.view);
-            make.height.mas_equalTo(JobsWidth(30));
-        });
-
-        _btn.makeBtnTitleByShowingType(UILabelShowingType_03);
     };return _btn;
 }
 

@@ -331,4 +331,26 @@
 @protocol TimerProtocol;
 @protocol UIGestureRecognizerDelegate;
 @protocol UIViewModelOthersProtocol;
+/// https://github.com/agiapp/BRPickerView
+#ifndef BR_TEXT_PICKER_MODE_DEFINED
+#define BR_TEXT_PICKER_MODE_DEFINED
+/// 文本选择器类型
+typedef NS_ENUM(NSInteger, BRTextPickerMode) {
+    /** 单列选择器 */
+    BRTextPickerComponentSingle,
+    /** 多列选择器 */
+    BRTextPickerComponentMulti,
+    /** 多列联动选择器 */
+    BRTextPickerComponentCascade
+};
+#endif
+/// https://github.com/texturegroup/texture
+#if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
+#import <AsyncDisplayKit/AsyncDisplayKit.h>
+#else
+typedef struct {
+    CGFloat leadingBufferScreenfuls;
+    CGFloat trailingBufferScreenfuls;
+} ASRangeTuningParameters;
+#endif
 #endif /* JobsBlockHeader_h */

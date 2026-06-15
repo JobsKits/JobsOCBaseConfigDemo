@@ -116,21 +116,24 @@ Prop_strong()UILabel *placeholderAnimationLbl;
         @jobs_weakify(self)
         _placeholderAnimationLbl = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.jobsVisible = YES;
-            label.byFrame(CGRectMake(self.placeHolderOffset + self.leftViewOffsetX,
-                                     self.y,
-                                     self.width,
-                                     self.height));
-            label.byBgColor(JobsClearColor);
-            label.byTextAlignment(self.textAlignment);
-            if (self.attributedPlaceholder && !self.placeholder) {
-                label.byAttributedString(self.attributedPlaceholder);
-            } else {
-                label
-                    .byText(self.placeholder)
-                    .byFont(self.font);
-            }
-            label.addOn(self);
+            label
+                .byLabelBlock(^(__kindof UILabel * _Nullable data) {
+                    if (self.attributedPlaceholder && !self.placeholder) {
+                        data.byAttributedString(self.attributedPlaceholder);
+                    } else {
+                        data
+                            .byText(self.placeholder)
+                            .byFont(self.font);
+                    }
+                })
+                .byTextAlignment(self.textAlignment)
+                .byJobsVisible(YES)
+                .byFrame(CGRectMake(self.placeHolderOffset + self.leftViewOffsetX,
+                                    self.y,
+                                    self.width,
+                                    self.height))
+                .byBgColor(JobsClearColor)
+                .addOn(self);
         });
     };return _placeholderAnimationLbl;
 }

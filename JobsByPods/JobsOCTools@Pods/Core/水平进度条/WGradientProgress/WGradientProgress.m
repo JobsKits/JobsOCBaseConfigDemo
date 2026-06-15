@@ -9,12 +9,17 @@
 
 @interface WGradientProgress ()
 /// UI
-Prop_strong()CALayer *roadLayer;                 // 跑道 即将运行的轨迹
-Prop_strong()CALayer *fenceLayer;                // 栅栏
-Prop_strong()CAGradientLayer *gradLayer;         // 通过改变layer的宽度来实现进度 运动员
+Prop_strong()CALayer *roadLayer;
+                 // 跑道 即将运行的轨迹
+Prop_strong()CALayer *fenceLayer;
+                // 栅栏
+Prop_strong()CAGradientLayer *gradLayer;
+         // 通过改变layer的宽度来实现进度 运动员
 /// Data
-Prop_strong()JobsTimer *timer_color;             // 主管线条颜色的翻滚
-Prop_strong()JobsTimer *timer_length;            // 主管线条长度的递增
+Prop_strong()JobsTimer *timer_color;
+             // 主管线条颜色的翻滚
+Prop_strong()JobsTimer *timer_length;
+            // 主管线条长度的递增
 Prop_strong()NSMutableArray *colors;
 
 @end

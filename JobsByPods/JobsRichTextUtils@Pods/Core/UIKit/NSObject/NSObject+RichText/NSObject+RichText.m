@@ -55,7 +55,7 @@
     }));return attributedString;
 }
 /// 利用 NSArray <JobsRichTextConfig *>* 形成富文本
--(JobsReturnAttributedStringByRichTextConfigArrayBlock _Nonnull)richTextWithDataConfigMutArr{
+-(JobsRetAttributedStringByRichTextConfigArrayBlock _Nonnull)richTextWithDataConfigMutArr{
     /// richTextDataConfigMutArr 富文本的配置集合,对该纯文本字符串的释义
     /// JobsRichTextConfig：富文本里面单个字符单元的配置
     return ^NSMutableAttributedString *_Nullable(NSArray <JobsRichTextConfig *>*_Nullable arr) {

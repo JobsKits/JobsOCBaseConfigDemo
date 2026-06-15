@@ -15,7 +15,7 @@ Prop_strong()JobsHotLabelByMultiLine *jobsHotLabel;
 
 @implementation JobsSearchShowHotwordsTBVCell
 #pragma mark —— BaseCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsSearchShowHotwordsTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsSearchShowHotwordsTBVCell);
         return cell;
@@ -62,7 +62,7 @@ Prop_strong()JobsHotLabelByMultiLine *jobsHotLabel;
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(cell);
             });
-        _jobsHotLabel.byAddTo(self.contentView, ^(MASConstraintMaker *make) {
+        _jobsHotLabel.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView);
         });
     };return _jobsHotLabel;

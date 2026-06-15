@@ -9,7 +9,7 @@
 
 @implementation SRWebSocket (Extra)
 
-+(JobsReturnSRWebSocketByNSURLRequestBlock _Nonnull)initByURLRequest{
++(JobsRetSRWebSocketByNSURLRequestBlock _Nonnull)initByURLRequest{
     return ^SRWebSocket *_Nonnull(NSURLRequest *_Nullable webSocket){
         return [SRWebSocket.alloc initWithURLRequest:webSocket];
     };

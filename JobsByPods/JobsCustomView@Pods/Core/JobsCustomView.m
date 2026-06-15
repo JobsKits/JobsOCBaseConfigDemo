@@ -103,12 +103,13 @@ static dispatch_once_t static_customViewOnceToken;
         _indicatorIMGV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
             imageView.image = @"起止".img;
-            imageView.addOn(self);
-            [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(56), JobsWidth(196)));
-                make.left.equalTo(self).offset(JobsWidth(16));
-                make.top.equalTo(self).offset(JobsWidth(27));
-            }];
+            imageView
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(56), JobsWidth(196)));
+                    make.left.equalTo(self).offset(JobsWidth(16));
+                    make.top.equalTo(self).offset(JobsWidth(27));
+                });
         });
     };return _indicatorIMGV;
 }
@@ -184,13 +185,13 @@ static dispatch_once_t static_customViewOnceToken;
             label
                 .byText(@"當前支持查詢最近30天的投注記錄".tr)
                 .byFont(UIFontWeightRegularSize(12))
-                .byTextCor(HEXCOLOR(0x757575));
-            label.addOn(self);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.indicatorIMGV.mas_bottom).offset(JobsWidth(20));
-                make.left.equalTo(self).offset(JobsWidth(19));
-            }];
-            label.makeLabelByShowingType(UILabelShowingType_03);
+                .byTextCor(HEXCOLOR(0x757575))
+                .makeLabelByShowingType(UILabelShowingType_03)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.indicatorIMGV.mas_bottom).offset(JobsWidth(20));
+                    make.left.equalTo(self).offset(JobsWidth(19));
+                });
         });
     };return _tipsLab;
 }

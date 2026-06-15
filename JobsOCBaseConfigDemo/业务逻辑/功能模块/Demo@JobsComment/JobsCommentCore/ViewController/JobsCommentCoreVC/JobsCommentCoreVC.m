@@ -142,7 +142,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         model.childDataArr = firstCommentModel.childDataArr;
     });
     if (customCofigModel.isFullShow) {
-        JobsInfoTBVCell *cell = JobsInfoTBVCell.cellStyleValue1WithTableView(tableView);
+        JobsInfoTBVCell *cell = JobsInfoTBVCell.cellStyleValue1ByTableView(tableView);
         cell.jobsRichElementsTableViewCellBy(childCommentModel)
             .JobsBlock1(^(id _Nullable data) {
             
@@ -150,14 +150,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }else{
         if (indexPath.row <= customCofigModel.firstShowNum) {
             // 二级评论展示...
-            JobsInfoTBVCell *cell = JobsInfoTBVCell.cellStyleValue1WithTableView(tableView);
+            JobsInfoTBVCell *cell = JobsInfoTBVCell.cellStyleValue1ByTableView(tableView);
             cell.jobsRichElementsTableViewCellBy(childCommentModel)
                 .JobsBlock1(^(id _Nullable data) {
                 
             });return cell;
         }else{
             // 加载更多...
-            JobsLoadMoreTBVCell *cell = JobsLoadMoreTBVCell.cellStyleValue1WithTableView(tableView);
+            JobsLoadMoreTBVCell *cell = JobsLoadMoreTBVCell.cellStyleValue1ByTableView(tableView);
             cell.jobsRichElementsTableViewCellBy(nil)
                 .JobsBlock1(^(id _Nullable data) {
                 
@@ -197,7 +197,7 @@ heightForHeaderInSection:(NSInteger)section{///  👌
                 @jobs_strongify(self)
                 self.backViewControllerCore(self);
         });
-        _titleHeaderView.byAddTo(self.view, ^(MASConstraintMaker *make) {
+        _titleHeaderView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.top.left.right.equalTo(self.view);
             make.height.mas_equalTo(JobsWidth(50));
         });

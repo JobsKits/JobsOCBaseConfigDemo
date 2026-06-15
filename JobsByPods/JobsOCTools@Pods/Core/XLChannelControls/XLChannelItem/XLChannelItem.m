@@ -28,16 +28,15 @@ Prop_strong()CAShapeLayer *borderLayer;
     self.byBgColor([self backgroundColor]);
 
     
-    self.textLabel = [UILabel new];
-    self.textLabel.byFrame(self.bounds);
-
-    self.textLabel.byTextAlignment(NSTextAlignmentCenter);
-
-    self.textLabel.byTextCor([self textColor]);
-
-    self.textLabel.adjustsFontSizeToFitWidth = true;
-    self.textLabel.userInteractionEnabled = true;
-    [self addSubview:self.textLabel];
+    self.textLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+        label
+            .byTextAlignment(NSTextAlignmentCenter)
+            .byTextCor([self textColor])
+            .labelAutoFontByWidth()
+            .byFrame(self.bounds)
+            .byUserInteractionEnabled(YES)
+            .addOn(self);
+    });
     
     [self addBorderLayer];
 }

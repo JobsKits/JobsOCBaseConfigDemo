@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 对系统方法 initWithContentsOfFile 的二次封装
 +(JobsRetDicByStringBlock _Nonnull)initByContentsOfFile;
 /// 对系统方法 initWithContentsOfURL 的二次封装
-+(JobsReturnDicByURLBlock _Nonnull)initByContentsOfURL;
++(JobsRetDicByURLBlock _Nonnull)initByContentsOfURL;
 /// 转成可变字典
 -(JobsRetMutableDicByVoidBlock _Nonnull)mutableDic;
 /// 对系统方法 objectForKey 的二次封装

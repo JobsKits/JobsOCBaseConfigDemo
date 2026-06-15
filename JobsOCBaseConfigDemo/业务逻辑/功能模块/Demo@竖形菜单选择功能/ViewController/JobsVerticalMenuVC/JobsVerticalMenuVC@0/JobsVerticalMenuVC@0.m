@@ -34,18 +34,22 @@ Prop_strong()UIViewModel *leftViewCurrentSelectModel;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    self.makeSubViews();
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);    self.makeSubViews();
 }
 
 - (void)viewDidLoad {
@@ -119,7 +123,7 @@ Prop_strong()UIViewModel *leftViewCurrentSelectModel;
     };
 }
 
-//-(JobsReturnViewByClassBlock _Nonnull)makeSubViews{
+//-(JobsRetViewByClassBlock _Nonnull)makeSubViews{
 //    return ^UIView *_Nullable(Class _Nonnull cls){
 //        UIView *view = cls.new;
 //        view.frame = CGRectMake(MenuWidth,
@@ -181,7 +185,7 @@ Prop_strong()UIViewModel *leftViewCurrentSelectModel;
 - (__kindof UITableViewCell *)tableView:(__kindof UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     @jobs_weakify(self)
-    return LeftCell.cellStyleDefaultWithTableView(tableView)
+    return LeftCell.cellStyleDefaultByTableView(tableView)
         .JobsRichViewByModel2(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
         @jobs_strongify(self)
         data.textModel.byText(self.titleMutArr[indexPath.row].textModel.text);
@@ -226,7 +230,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         _searchView = JobsSearchBar
             .BySize(CGSizeMake(JobsMainScreen_WIDTH() / 3, JobsWidth(40)))
             .JobsRichViewByModel2(nil)
-            .JobsBlock1(^(id  _Nullable data) {
+            .JobsBlock1(^(id  _Nullable data) {;
                 
             });
         _searchView.addOn(self.gk_navigationBar)
@@ -324,7 +328,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (__kindof UIViewModel *)leftViewCurrentSelectModel {
     if (!_leftViewCurrentSelectModel) {
-        _leftViewCurrentSelectModel = UIViewModel.new;
+        _leftViewCurrentSelectModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
     };return _leftViewCurrentSelectModel;
 }
 

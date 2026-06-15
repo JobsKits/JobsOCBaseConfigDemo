@@ -12,8 +12,6 @@
 #import <JobsBaseUI/UITableView+RegisterClass.h>
 #import <JobsBaseUI/UIView+Extra.h>
 
-#import <Masonry/Masonry.h>
-
 @interface JobsTextViewStyleTBVCell ()
 
 @end
@@ -31,7 +29,7 @@ BaseViewProtocol_synthesize
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsTextViewStyleTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsTextViewStyleTBVCell);
         return cell;
@@ -93,7 +91,7 @@ BaseViewProtocol_synthesize
 //-(BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange API_DEPRECATED_WITH_REPLACEMENT("textView:shouldInteractWithURL:inRange:interaction:", ios(7.0, 10.0)) API_UNAVAILABLE(visionos);
 //-(BOOL)textView:(UITextView *)textView shouldInteractWithTextAttachment:(NSTextAttachment *)textAttachment inRange:(NSRange)characterRange API_DEPRECATED_WITH_REPLACEMENT("textView:shouldInteractWithTextAttachment:inRange:interaction:", ios(7.0, 10.0)) API_UNAVAILABLE(visionos);
 #pragma mark —— lazyLoad
-/// 如果需要用其他的自定义的TextView，继承此类并重写-(JobsReturnTableViewCellByIDBlock _Nonnull)jobsRichElementsTableViewCellBy;
+/// 如果需要用其他的自定义的TextView，继承此类并重写-(JobsRetTableViewCellByIDBlock _Nonnull)jobsRichElementsTableViewCellBy;
 -(__kindof UITextView *)textView{
     if (!_textView) {
         @jobs_weakify(self)
@@ -111,7 +109,7 @@ BaseViewProtocol_synthesize
                 textView.textAlignment = self.viewModel.textAlignment;
                 textView.textColor = self.viewModel.textCor;
                 textView.font = self.viewModel.font;
-            }textView.byAddTo(self.contentView, self.masonryBlock);
+            }textView.addOn(self.contentView).byAdd(self.masonryBlock);
         });
     };return _textView;
 }
@@ -137,7 +135,7 @@ BaseViewProtocol_synthesize
                 return YES;
             } subscribeNextBlock:^(id _Nullable x) {
 //                @jobs_strongify(self)
-            }];textView.byAddTo(self.contentView, self.masonryBlock);
+            }];textView.addOn(self.contentView).byAdd(self.masonryBlock);
         });
     };return _textView;
 }
@@ -163,7 +161,7 @@ BaseViewProtocol_synthesize
                 return YES;
             } subscribeNextBlock:^(id _Nullable x) {
 //                @jobs_strongify(self)
-            }];textView.byAddTo(self.contentView, self.masonryBlock);
+            }];textView.addOn(self.contentView).byAdd(self.masonryBlock);
         });
     };return _jobsTextView;
 }
