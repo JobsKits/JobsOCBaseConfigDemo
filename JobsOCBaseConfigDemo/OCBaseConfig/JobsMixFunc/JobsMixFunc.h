@@ -1,6 +1,6 @@
 //
 //  JobsMixFunc.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/10.
 //
@@ -8,7 +8,7 @@
 #ifndef JobsMixFunc_h
 #define JobsMixFunc_h
 
-#import "ZBNetworking.h"/// 网络请求
+#import "ZBNetworking.h"
 #import "JobsNoticePopupView.h"
 #import "JobsHotLabelBySingleLine.h"
 #import "JobsHotLabelByMultiLine.h"
@@ -23,7 +23,7 @@
 #import "ImageCodeView.h"
 #import "ZFCustomControlView.h"
 #import "CustomZFPlayerControlView.h"
-#import "UINavigationController+FDFullscreenPopGesture.h"/// 手势滑动返回
+#import "UINavigationController+FDFullscreenPopGesture.h"
 #import "JobsShareView.h"
 #import "JobsLinkageMenuView.h"
 #import "JobsViewNavigator.h"

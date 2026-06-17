@@ -1,12 +1,12 @@
 //
 //  JobsTextField.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/20/24.
 //
 
 #import "BaseView.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "JobsBlock.h"
 #import "MacroDef_Cor.h"
 #import "MacroDef_String.h"
@@ -143,7 +143,7 @@ NS_INLINE __kindof JobsTextField *_Nonnull makeJobsTextField(jobsByJobsTextField
              make.top.equalTo(self.birthDayTitleLab.mas_bottom).offset(JobsWidth(10));
              make.left.equalTo(self.scrollView).offset(JobsWidth(19));
          });
-     }return _textField_birthDay;
+     };return _textField_birthDay;
  }
 
  */

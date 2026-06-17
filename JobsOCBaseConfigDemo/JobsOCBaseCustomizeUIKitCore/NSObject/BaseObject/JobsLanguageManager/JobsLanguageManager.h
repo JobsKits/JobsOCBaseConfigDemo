@@ -7,12 +7,11 @@
 
 #import <Foundation/Foundation.h>
 #import "JobsBlock.h"
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
+#import "JobsDefineEnums.h"
 #import "JobsUserDefaultDefine.h"
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
 #import "NSBundle+Extra.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,14 +1,12 @@
 //
 //  CustomZFPlayerControlView.m
-//  Shooting
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/4.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "CustomZFPlayerControlView.h"
-
-#import "DefineProperty.h"
 
 @interface CustomZFPlayerControlView ()
 

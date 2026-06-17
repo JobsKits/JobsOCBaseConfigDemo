@@ -1,6 +1,6 @@
 //
 //  LOTAnimationMJRefreshFooter.m
-//  DouYin
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/1/8.
 //
@@ -8,8 +8,6 @@
 #import "LOTAnimationMJRefreshFooter.h"
 
 static const CGFloat OffsetBetweenStateLabelAndAnimationView = 5;//StateLabel 和 AnimationView 之间的间距
-
-#import "DefineProperty.h"
 
 @interface LOTAnimationMJRefreshFooter ()
 
@@ -100,19 +98,19 @@ Prop_strong()LOTAnimationView *animationView;
         _animationView.loopAnimation = YES;
         _animationView.sizer = self.lOTAnimationViewSize;
         [self addSubview:_animationView];
-    }return _animationView;
+    };return _animationView;
 }
 
 -(CGSize)lOTAnimationViewSize{
     if (jobsZeroSizeValue(_lOTAnimationViewSize)) {
         _lOTAnimationViewSize = CGSizeMake(30, 30);
-    }return _lOTAnimationViewSize;
+    };return _lOTAnimationViewSize;
 }
 
 -(MJRefreshConfigModel *)refreshConfigModel{
     if (!_refreshConfigModel) {
         _refreshConfigModel = MJRefreshConfigModel.new;
-    }return _refreshConfigModel;
+    };return _refreshConfigModel;
 }
 
 @end

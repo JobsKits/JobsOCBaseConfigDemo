@@ -1,6 +1,6 @@
 //
 //  UIView+JHGestureBlock.h
-//  JHKit
+//  JobsOCBaseConfigDemo
 //
 //  Created by HaoCold on 2019/4/9.
 //  Copyright © 2019 HaoCold. All rights reserved.
@@ -29,6 +29,7 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
+#import "JobsBlock.h"
 
 typedef NS_ENUM(NSUInteger, JHGestureType) {
     JHGestureType_Tap, /// 点击
@@ -38,7 +39,6 @@ typedef NS_ENUM(NSUInteger, JHGestureType) {
     JHGestureType_Rotate, /// 旋转
     JHGestureType_Pinch,/// 缩放
 };
-typedef void(^JHGestureBlock)(__kindof UIView *view, __kindof UIGestureRecognizer *gesture);
 
 @interface UIView (JHGestureBlock)
 

@@ -1,6 +1,6 @@
 //
 //  NSKeyedArchiver+Extra.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 23/11/2024.
 //
@@ -24,7 +24,7 @@
         if(err){
             return nil;
             JobsLog(@"%@",err.description);
-        }return compressedData;
+        };return compressedData;
     };
 }
 
@@ -37,7 +37,7 @@
         if(err){
             return nil;
             JobsLog(@"%@",err.description);
-        }return compressedData;
+        };return compressedData;
     };
 }
 

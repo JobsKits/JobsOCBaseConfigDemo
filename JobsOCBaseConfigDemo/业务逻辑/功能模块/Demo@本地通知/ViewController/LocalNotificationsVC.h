@@ -1,6 +1,6 @@
 //
 //  LocalNotificationsVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by admin on 5/26/24.
 //
@@ -8,6 +8,7 @@
 #import "BaseViewController.h"
 #import "JobsMakeLocalNotification.h"
 #import "AppDelegate.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +20,7 @@ NS_ASSUME_NONNULL_END
 /**
  额外的，还需要配置 AppDelegate
  
- #import "AppDelegate.h"
+#import "AppDelegate.h"
  @import UserNotifications;
 
  @interface AppDelegate () <UNUserNotificationCenterDelegate>

@@ -1,6 +1,6 @@
 //
 //  JobsMagicTextField.h
-//  BHBMagicFieldDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/6.
 //  Copyright © 2020 bihongbo. All rights reserved.
@@ -10,8 +10,7 @@
 #import "JobsBlock.h"
 #import "ZYTextField.h"
 #import "UIView+Measure.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

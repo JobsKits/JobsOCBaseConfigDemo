@@ -1,6 +1,6 @@
 //
 //  JobsPlayerTBVCell.h
-//  DouYin
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/23.
 //
@@ -9,6 +9,7 @@
 #import "CustomZFPlayerControlView.h"
 #import "VideoModel.h"
 #import "JobsTuple.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

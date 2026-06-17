@@ -1,13 +1,11 @@
 //
 //  JobsPageTBVCell.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/24.
 //
 
 #import "JobsPageTBVCell.h"
-
-#import "DefineProperty.h"
 
 @interface JobsPageTBVCell ()
 
@@ -25,7 +23,7 @@ Prop_strong()UILabel *textLab;
     //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundColor = cell.contentView.backgroundColor = JobsClearColor;
-        }return cell;
+        };return cell;
     };
 }
 #pragma mark —— BaseCellProtocol
@@ -39,7 +37,7 @@ Prop_strong()UILabel *textLab;
             self.textLab.font = model.textModel.font;
             self.textLab.backgroundColor = model.bgCor;
         //    self.imageView.image = (UIImage *)model[@"image"];
-        }return self;
+        };return self;
     };
 }
 
@@ -58,7 +56,7 @@ Prop_strong()UILabel *textLab;
                 make.edges.equalTo(self.contentView);
             }];
         });
-    }return _textLab;
+    };return _textLab;
 }
 
 @end

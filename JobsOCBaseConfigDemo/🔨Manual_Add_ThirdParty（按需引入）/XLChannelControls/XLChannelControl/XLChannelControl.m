@@ -1,6 +1,6 @@
 //
 //  XLChannelControl.m
-//  XLChannelControlDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by MengXianLiang on 2017/3/3.
 //  Copyright © 2017年 MengXianLiang. All rights reserved.
@@ -8,8 +8,6 @@
 
 #import "XLChannelControl.h"
 #import "XLChannelView.h"
-
-#import "DefineProperty.h"
 
 @interface XLChannelControl ()
 
@@ -33,7 +31,7 @@ Prop_strong()XLChannelBlock block;
 - (instancetype)init {
     if (self = [super init]) {
         [self buildChannelView];
-    }return self;
+    };return self;
 }
 
 - (void)buildChannelView {

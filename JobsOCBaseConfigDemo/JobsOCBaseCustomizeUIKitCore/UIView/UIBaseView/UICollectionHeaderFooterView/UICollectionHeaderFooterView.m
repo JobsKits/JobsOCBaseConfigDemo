@@ -1,6 +1,6 @@
 //
 //  UICollectionHeaderFooterView.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/10.
 //
@@ -32,13 +32,13 @@ static dispatch_once_t static_collectionHeaderFooterViewOnceToken;
 - (instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -84,7 +84,7 @@ static dispatch_once_t static_collectionHeaderFooterViewOnceToken;
                 }];
             }
         });
-    }return _imageView;
+    };return _imageView;
 }
 
 @end

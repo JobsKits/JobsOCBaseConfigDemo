@@ -1,14 +1,12 @@
 //
 //  UIView+Animation.m
-//  Shooting
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/3.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "UIView+Animation.h"
-
-#import "DefineProperty.h"
 
 @implementation UIView (Animation)
 #pragma mark —— 一些功能方法
@@ -48,7 +46,7 @@
         } else {
             // 停止旋转
             self.isStopRotateAnimation = !self.isStopRotateAnimation;
-        }return self;
+        };return self;
     };
 }
 /// 旋转一定时间之后停止下来
@@ -211,7 +209,7 @@ JobsKey(_rotateChangeAngle)
     if (RotateChangeAngle == 0) {
         RotateChangeAngle = 20;
         Jobs_setAssociatedRETAIN_NONATOMIC(_rotateChangeAngle, @(RotateChangeAngle))
-    }return RotateChangeAngle;
+    };return RotateChangeAngle;
 }
 
 -(void)setRotateChangeAngle:(CGFloat)rotateChangeAngle{
@@ -234,7 +232,7 @@ JobsKey(_durationTime)
     CGFloat DurationTime = [Jobs_getAssociatedObject(_durationTime) floatValue];
     if (DurationTime == 0) {
         DurationTime = 0.1;//缺省值
-    }return DurationTime;
+    };return DurationTime;
 }
 
 -(void)setDurationTime:(CGFloat)durationTime{
@@ -248,7 +246,7 @@ JobsKey(_delayTime)
     if (DelayTime == 0) {
         DelayTime = 0.01;//缺省值
         Jobs_setAssociatedRETAIN_NONATOMIC(_delayTime, @(DelayTime))
-    }return DelayTime;
+    };return DelayTime;
 }
 
 -(void)setDelayTime:(CGFloat)delayTime{
@@ -284,7 +282,7 @@ JobsKey(_shakeAnim)
             });
         });
         Jobs_setAssociatedRETAIN_NONATOMIC(_shakeAnim, ShakeAnim)
-    }return ShakeAnim;
+    };return ShakeAnim;
 }
 
 -(void)setShakeAnim:(CAKeyframeAnimation *)shakeAnim{

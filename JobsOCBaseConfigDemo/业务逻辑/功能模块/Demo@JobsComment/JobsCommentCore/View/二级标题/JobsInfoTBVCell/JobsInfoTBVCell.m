@@ -1,14 +1,12 @@
 //
 //  InfoTBVCell.m
-//  commentList
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/7/14.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "JobsInfoTBVCell.h"
-
-#import "DefineProperty.h"
 
 @interface JobsInfoTBVCell ()
 /// UI
@@ -27,7 +25,7 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
             cell = JobsInfoTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.contentView.backgroundColor = JobsCommentConfig.sharedManager.bgCor;
-        }return cell;
+        };return cell;
     };
 }
 #pragma mark —— BaseCellProtocol
@@ -60,7 +58,7 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
                         JobsLog(@"图片加载成功");
                     }
                 }).load();
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— 复写系统父类方法

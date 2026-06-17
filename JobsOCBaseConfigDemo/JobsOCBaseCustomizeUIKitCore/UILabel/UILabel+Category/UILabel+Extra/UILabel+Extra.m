@@ -1,13 +1,11 @@
 //
 //  UILabel+Extra.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/27.
 //
 
 #import "UILabel+Extra.h"
-
-#import "DefineProperty.h"
 
 @implementation UILabel (Extra)
 #pragma mark —— 一些公共方法
@@ -91,7 +89,7 @@
                 }
             }break;
             default:break;
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— 系统方法链式语法封装
@@ -216,7 +214,7 @@ JobsKey(_shapeLayer)
                                                                          forFont:self.font
                                                                        withColor:self.textColor
                                                                     andDirection:self.transformLayerDirectionType]);
-    }return ShapeLayer;
+    };return ShapeLayer;
 }
 
 -(void)setShapeLayer:(CAShapeLayer *)shapeLayer{

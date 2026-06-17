@@ -1,6 +1,6 @@
 //
 //  UIView+AutoSelfAdaptionSize.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/3.
 //
@@ -83,7 +83,7 @@
                            rect.size.width,
                            maxHight);
         JobsLog(@"Button");
-    }return frame;
+    };return frame;
 }
 /// 自适应高度
 -(CGRect)getFrameWithFreeHight:(CGPoint)origin
@@ -116,7 +116,7 @@
                            rect.size.width,
                            rect.size.height);
         JobsLog(@"Button");
-    }return frame;
+    };return frame;
 }
 /// 自适应宽度--->可调整字间距
 -(CGRect)getFrameWithFreeWidth:(CGPoint)origin
@@ -144,7 +144,7 @@
                            rect.size.width,
                            maxHight);
         JobsLog(@"Label");
-    }return frame;
+    };return frame;
 }
 /// 自适应高度--->可调整字间距和行间距
 -(CGRect)getFrameWithFreeHight:(CGPoint)origin
@@ -180,7 +180,7 @@
                            rect.size.width,
                            rect.size.height);
         JobsLog(@"Label");
-    }return frame;
+    };return frame;
 }
 
 @end

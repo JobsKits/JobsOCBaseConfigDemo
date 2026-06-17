@@ -1,14 +1,12 @@
 //
 //  LogoContentView.m
-//  Shooting
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/3.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "JobsAppDoorLogoContentView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsAppDoorLogoContentView ()
 
@@ -26,7 +24,7 @@ static dispatch_once_t JobsAppDoorLogoContentViewDispatchOnce;
 -(instancetype)init{
     if (self = [super init]) {
         JobsAppDoorLogoContentViewDispatchOnce = 0;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -46,7 +44,7 @@ static dispatch_once_t JobsAppDoorLogoContentViewDispatchOnce;
                 make.edges.equalTo(self);
             }];
         });
-    }return _mainImgV;
+    };return _mainImgV;
 }
 
 @end

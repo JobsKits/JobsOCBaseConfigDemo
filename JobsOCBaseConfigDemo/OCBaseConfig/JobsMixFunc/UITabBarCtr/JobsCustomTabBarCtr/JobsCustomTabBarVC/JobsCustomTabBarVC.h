@@ -13,6 +13,7 @@
 #import "BaseProtocol.h"
 #import "UIView+Measure.h"
 #import "NSObject+AppTools.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

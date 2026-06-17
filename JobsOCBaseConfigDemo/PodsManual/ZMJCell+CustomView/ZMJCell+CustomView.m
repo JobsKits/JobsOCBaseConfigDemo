@@ -1,6 +1,6 @@
 //
 //  ZMJCell+CustomView.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/8.
 //
@@ -27,7 +27,7 @@ JobsKey(_btn)
         Btn.titleLabel.numberOfLines = 0;
         [self.contentView addSubview:Btn];
         Jobs_setAssociatedRETAIN_NONATOMIC(_btn, Btn);
-    }return Btn;
+    };return Btn;
 }
 #pragma mark —— Prop_strong()UIView *colorBarView;
 JobsKey(_colorBarView)
@@ -46,7 +46,7 @@ JobsKey(_colorBarView)
             view.frame = CGRectInset(self.bounds, 2, 2);
             [self.contentView addSubview:view];
         });Jobs_setAssociatedRETAIN_NONATOMIC(_colorBarView, ColorBarView);
-    }return ColorBarView;
+    };return ColorBarView;
 }
 #pragma mark —— Prop_strong()UIColor *color;
 JobsKey(_color)
@@ -60,7 +60,7 @@ JobsKey(_color)
     if (!Color) {
         Color = JobsBlueColor;
         Jobs_setAssociatedRETAIN_NONATOMIC(_color, Color);
-    }return Color;
+    };return Color;
 }
 
 @end

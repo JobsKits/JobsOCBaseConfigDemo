@@ -1,13 +1,11 @@
 //
 //  TabBarItem.m
-//  TabbarItemLottie
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/14.
 //
 
 #import "JobsTabBarItem.h"
-
-#import "DefineProperty.h"
 
 @interface JobsTabBarItem ()
 
@@ -35,7 +33,7 @@ Prop_strong()JobsTabBarItemConfig *tabBarControllerConfig;
             self.titleTextAttributesByNormalState(config.titleCorNormal);
             self.titleTextAttributesBySelectedState(config.titleCorNormal);
         }
-    }return self;
+    };return self;
 }
 
 @end

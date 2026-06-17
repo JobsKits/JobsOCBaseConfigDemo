@@ -399,7 +399,7 @@ enum GCDAsyncSocketConfig
 		
 		readPointer = preBuffer;
 		writePointer = preBuffer;
-	}return self;
+	};return self;
 }
 
 - (void)dealloc
@@ -569,7 +569,7 @@ enum GCDAsyncSocketConfig
 			bufferOwner = YES;
 			originalBufferLength = 0;
 		}
-	}return self;
+	};return self;
 }
 
 /**
@@ -984,7 +984,7 @@ enum GCDAsyncSocketConfig
 		bytesDone = 0;
 		timeout = t;
 		tag = i;
-	}return self;
+	};return self;
 }
 
 
@@ -1013,7 +1013,7 @@ enum GCDAsyncSocketConfig
 	if((self = [super init]))
 	{
 		tlsSettings = [settings copy];
-	}return self;
+	};return self;
 }
 
 
@@ -1103,7 +1103,7 @@ enum GCDAsyncSocketConfig
 		currentWrite = nil;
 		
 		preBuffer = [[GCDAsyncSocketPreBuffer alloc] initWithCapacity:(1024 * 4)];
-	}return self;
+	};return self;
 }
 
 - (void)dealloc
@@ -1158,6 +1158,7 @@ enum GCDAsyncSocketConfig
 	}
 }
 
+#pragma mark —— delegate
 - (void)setDelegate:(id)newDelegate synchronously:(BOOL)synchronously
 {
 	dispatch_block_t block = ^{
@@ -1175,6 +1176,7 @@ enum GCDAsyncSocketConfig
 	}
 }
 
+#pragma mark —— delegate
 - (void)setDelegate:(id)newDelegate
 {
 	[self setDelegate:newDelegate synchronously:NO];
@@ -1203,6 +1205,7 @@ enum GCDAsyncSocketConfig
 	}
 }
 
+#pragma mark —— delegateQueue
 - (void)setDelegateQueue:(dispatch_queue_t)newDelegateQueue synchronously:(BOOL)synchronously
 {
 	dispatch_block_t block = ^{
@@ -1226,6 +1229,7 @@ enum GCDAsyncSocketConfig
 	}
 }
 
+#pragma mark —— delegateQueue
 - (void)setDelegateQueue:(dispatch_queue_t)newDelegateQueue
 {
 	[self setDelegateQueue:newDelegateQueue synchronously:NO];
@@ -1258,6 +1262,7 @@ enum GCDAsyncSocketConfig
 	}
 }
 
+#pragma mark —— delegate
 - (void)setDelegate:(id)newDelegate delegateQueue:(dispatch_queue_t)newDelegateQueue synchronously:(BOOL)synchronously
 {
 	dispatch_block_t block = ^{
@@ -1283,6 +1288,7 @@ enum GCDAsyncSocketConfig
 	}
 }
 
+#pragma mark —— delegate
 - (void)setDelegate:(id)newDelegate delegateQueue:(dispatch_queue_t)newDelegateQueue
 {
 	[self setDelegate:newDelegate delegateQueue:newDelegateQueue synchronously:NO];
@@ -1313,6 +1319,7 @@ enum GCDAsyncSocketConfig
 	}
 }
 
+#pragma mark —— iPv4Enabled
 - (void)setIPv4Enabled:(BOOL)flag
 {
 	// Note: YES means kIPv4Disabled is OFF
@@ -1351,6 +1358,7 @@ enum GCDAsyncSocketConfig
 	}
 }
 
+#pragma mark —— iPv6Enabled
 - (void)setIPv6Enabled:(BOOL)flag
 {
 	// Note: YES means kIPv6Disabled is OFF
@@ -1389,6 +1397,7 @@ enum GCDAsyncSocketConfig
 	}
 }
 
+#pragma mark —— preferIPv4OverIPv6
 - (void)setPreferIPv4OverIPv6:(BOOL)flag
 {
 	// Note: YES means kPreferIPv6 is OFF
@@ -1424,6 +1433,7 @@ enum GCDAsyncSocketConfig
 	return result;
 }
 
+#pragma mark —— userData
 - (void)setUserData:(id)arbitraryUserData
 {
 	dispatch_block_t block = ^{
@@ -7098,6 +7108,7 @@ static void CFWriteStreamCallback (CFWriteStreamRef stream, CFStreamEventType ty
 /**
  * See header file for big discussion of this method.
 **/
+#pragma mark —— autoDisconnectOnClosedReadStream
 - (void)setAutoDisconnectOnClosedReadStream:(BOOL)flag
 {
 	// Note: YES means kAllowHalfDuplexConnection is OFF

@@ -1,13 +1,11 @@
 //
 //  FMGameCVCell.m
-//  FM_Normal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/4/19.
 //
 
 #import "FMGameCVCell.h"
-
-#import "DefineProperty.h"
 
 @interface FMGameCVCell ()
 
@@ -92,7 +90,7 @@ Prop_assign(class)SourceType sourceType;
                             JobsLog(@"图片加载成功");
                         }
                     }).load();
-        }return self;
+        };return self;
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -145,7 +143,7 @@ static SourceType _sourceType;
                 }
             }];
         });
-    }return _imageView;
+    };return _imageView;
 }
 @synthesize button = _button;
 -(__kindof UIButton *)button{
@@ -168,7 +166,7 @@ static SourceType _sourceType;
             make.height.mas_equalTo(JobsWidth(33));
             make.bottom.left.right.equalTo(self.contentView);
         }];
-    }return _button;
+    };return _button;
 }
 
 @end

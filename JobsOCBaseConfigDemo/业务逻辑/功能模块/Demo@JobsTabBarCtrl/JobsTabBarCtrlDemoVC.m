@@ -7,8 +7,6 @@
 
 #import "JobsTabBarCtrlDemoVC.h"
 
-#import "DefineProperty.h"
-
 @interface JobsTabBarCtrlDemoVC ()
 
 Prop_strong()JobsTabBarCtrl *tabCtrl;
@@ -219,7 +217,7 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
             ctrl.view.frame = self.view.bounds;
             [ctrl didMoveToParentViewController:self];
         });
-    }return _tabCtrl;
+    };return _tabCtrl;
 }
 
 @end

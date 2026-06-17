@@ -1,6 +1,6 @@
 //
 //  UIWindow+Extra.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/10.
 //
@@ -29,7 +29,7 @@
 -(__kindof UIWindow *)landscape{
     if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
         self.frame = self.landscapeWindowFrame();
-    }return self;
+    };return self;
 }
 /// 横屏模式下Window的宽高互换
 -(JobsRetFrameByVoidBlock _Nonnull)landscapeWindowFrame{

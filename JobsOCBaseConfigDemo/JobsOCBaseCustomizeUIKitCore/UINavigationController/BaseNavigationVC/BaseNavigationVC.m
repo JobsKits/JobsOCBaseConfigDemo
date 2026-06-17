@@ -1,14 +1,12 @@
 //
 //  NavigationViewController.m
-//  ShengAi
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2018/10/29.
 //  Copyright © 2018年 Jobs. All rights reserved.
 //
 
 #import "BaseNavigationVC.h"
-
-#import "DefineProperty.h"
 
 @interface BaseNavigationVC ()
 
@@ -25,7 +23,7 @@ Prop_strong()NSShadow *shadow;
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController {
     if (self = [super initWithRootViewController:rootViewController]) {
         // [self 自定义navigationBar];
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -138,7 +136,7 @@ Prop_strong()NSShadow *shadow;
             shadow.shadowColor = RGBA_COLOR(0,0,0,0.8);
             shadow.shadowOffset = CGSizeZero;
         });
-    }return _shadow;
+    };return _shadow;
 }
 
 @end

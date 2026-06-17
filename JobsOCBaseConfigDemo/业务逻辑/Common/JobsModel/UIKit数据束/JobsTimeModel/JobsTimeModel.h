@@ -1,6 +1,6 @@
 //
 //  JobsTimeModel.h
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -8,7 +8,7 @@
 #pragma once
 
 #import <Foundation/Foundation.h>
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 为了防止溢出，基本上时间戳传给后台或者后台返回给我们的都是字符串类型的。

@@ -1,12 +1,13 @@
 //
 //  BaiShaETProjPopupView10.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/16.
 //
 
 #import "BaseView.h"
 #import "JobsBtnStyleCVCell.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

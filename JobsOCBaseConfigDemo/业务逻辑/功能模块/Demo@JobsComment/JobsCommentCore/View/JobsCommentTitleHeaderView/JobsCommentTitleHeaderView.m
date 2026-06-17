@@ -1,13 +1,11 @@
 //
 //  JobsCommentTitleHeaderView.m
-//  JobsComment
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/17.
 //
 
 #import "JobsCommentTitleHeaderView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsCommentTitleHeaderView ()
 /// UI
@@ -21,7 +19,7 @@ Prop_strong()UIButton *cancelBtn;
 -(instancetype)init{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -55,7 +53,7 @@ Prop_strong()UIButton *cancelBtn;
                 make.center.equalTo(self);
             }];
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(UIButton *)cancelBtn{
@@ -75,7 +73,7 @@ Prop_strong()UIButton *cancelBtn;
             make.right.equalTo(self);
             make.size.mas_equalTo(CGSizeMake(40, 40));
         }];
-    }return _cancelBtn;
+    };return _cancelBtn;
 }
 
 @end

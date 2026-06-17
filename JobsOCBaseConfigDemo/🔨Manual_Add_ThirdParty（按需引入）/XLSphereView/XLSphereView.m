@@ -1,6 +1,6 @@
 //
 //  XLSphereView.m
-//  XLSphereView
+//  JobsOCBaseConfigDemo
 //
 //  Created by 袁小龙 on 16/4/4.
 //  Copyright © 2016年 xiaolong. All rights reserved.
@@ -29,10 +29,11 @@
                                                                                   action:@selector(handlePanGesture:)];
         
         [self addGestureRecognizer:gesture];
-    }return self;
+    };return self;
 }
 
 #pragma mark - initial set
+#pragma mark —— items
 - (void)setItems:(NSArray *)items{
     tags = [NSMutableArray arrayWithArray:items];
     coordinate = [NSMutableArray array];
@@ -79,6 +80,7 @@
     [self setTagOfPoint:rPoint andIndex:index];
 }
 
+#pragma mark —— tagOfPoint
 - (void)setTagOfPoint:(XLPoint)point
              andIndex:(NSInteger)index{
     UIView *view = [tags objectAtIndex:index];

@@ -1,6 +1,6 @@
 //
 //  ScheduleCell.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/30/24.
 //
@@ -17,21 +17,23 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.label.alpha = 1;
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     self = [super initWithCoder:coder];
     if (self) {
         self.label.alpha = 1;
-    }return self;
+    };return self;
 }
 
+#pragma mark —— frame
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     self.label.frame = CGRectInset(self.bounds, 4, 0);
 }
 
+#pragma mark —— color
 - (void)setColor:(UIColor *)color {
     _color = color;
     self.backgroundView.backgroundColor = color;
@@ -49,7 +51,7 @@
             label.textAlignment = NSTextAlignmentLeft;
             self.contentView.addSubview(label);
         });
-    }return _label;
+    };return _label;
 }
 
 @end

@@ -1,13 +1,12 @@
 //
 //  NotifiView.h
-//  CoreTextLearning
+//  JobsOCBaseConfigDemo
 //
 //  Created by alan comb on 2021/4/10.
 //
 
 #import <UIKit/UIKit.h>
 
-typedef void(^FinishBlock)(NSString* _Nullable key);
 #ifndef NOTIFI_VIEW_STATE_ENUM_DEFINED
 #define NOTIFI_VIEW_STATE_ENUM_DEFINED
 typedef NS_ENUM(NSInteger, NotifiViewState) {
@@ -32,7 +31,8 @@ typedef NS_ENUM(NSInteger, NotifiViewState) {
 #define kNotifiViewKey @"key"
 #define kNotifiViewContent @"content"
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
+#import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

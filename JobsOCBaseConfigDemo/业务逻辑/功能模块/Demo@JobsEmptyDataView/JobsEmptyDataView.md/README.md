@@ -57,7 +57,7 @@
               @jobs_strongify(self)
               make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0, 0, 0));
           }).on().dataLink(self);/// dataLink(self)不能写在Block里面，会出问题
-      }return _tableView;
+      };return _tableView;
   }
   ```
   
@@ -92,6 +92,6 @@
               @jobs_strongify(self)
               make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0, 0, 0));
           }).on().dataLink(self);/// dataLink(self)不能写在Block里面，会出问题
-      }return _tableView;
+      };return _tableView;
   }
   ```

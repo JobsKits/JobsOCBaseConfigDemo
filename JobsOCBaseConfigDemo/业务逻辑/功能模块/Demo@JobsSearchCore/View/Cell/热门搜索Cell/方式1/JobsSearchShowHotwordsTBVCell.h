@@ -1,6 +1,6 @@
 //
 //  JobsSearchShowHotwordsTBVCell.h
-//  JobsSearch
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/4.
 //
@@ -9,6 +9,7 @@
 #import "BaseCellProtocol.h"
 #import "UITableViewCell+Margin.h"
 #import "JobsHotLabelByMultiLine.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

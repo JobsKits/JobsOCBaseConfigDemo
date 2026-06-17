@@ -1,6 +1,6 @@
 //
 //  CJTextField.h
-//  Feidegou
+//  JobsOCBaseConfigDemo
 //
 //  Created by Kite on 2019/11/24.
 //  Copyright © 2019 朝花夕拾. All rights reserved.
@@ -10,8 +10,7 @@
 #import "JobsBlock.h"
 #import "UITextField+Extend.h"
 #import "NSObject+CurrentDevice.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// iOS监听键盘删除事件

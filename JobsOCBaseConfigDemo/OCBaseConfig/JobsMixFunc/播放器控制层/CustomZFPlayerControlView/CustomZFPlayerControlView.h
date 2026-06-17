@@ -1,6 +1,6 @@
 //
 //  CustomZFPlayerControlView.h
-//  Shooting
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/4.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
+#import "JobsDefineProperty.h"
 
 #pragma mark —— ZFPlayer 播放器相关
 //Core

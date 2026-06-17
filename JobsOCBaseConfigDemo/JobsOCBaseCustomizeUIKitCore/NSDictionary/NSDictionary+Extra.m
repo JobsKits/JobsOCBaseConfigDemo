@@ -1,6 +1,6 @@
 //
 //  NSDictionary+Extra.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 9/21/24.
 //
@@ -44,7 +44,7 @@
             }
         } else {
             JobsLog(@"Invalid key: '%@' does not conform to the required format.", key);
-        }return value;
+        };return value;
     };
 }
 

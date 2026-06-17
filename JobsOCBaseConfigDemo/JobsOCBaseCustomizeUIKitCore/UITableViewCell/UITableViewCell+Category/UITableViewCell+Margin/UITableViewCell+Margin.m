@@ -1,26 +1,25 @@
 //
 //  UITableViewCell+Margin.m
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/13.
 //
 
 #import "UITableViewCell+Margin.h"
 
-#import "DefineProperty.h"
-
 @implementation UITableViewCell (Margin)
 UILocationProtocol_dynamic
 // 在具体的子类去实现,分类调用异常
-//-(void)setFrame:(CGRect)frame{
+//#pragma mark —— frame
+-(void)setFrame:(CGRect)frame{
 //    JobsLog(@"self.offsetXForEach = %f",self.offsetXForEach);
 //    JobsLog(@"self.offsetYForEach = %f",self.offsetYForEach);
 //    frame.origin.x += self.offsetXForEach;
 //    frame.origin.y += self.offsetYForEach;
 //    frame.size.height -= self.offsetYForEach * 2;
 //    frame.size.width -= self.offsetXForEach * 2;
-//    [super setFrame:frame];
-//}
+    [super setFrame:frame];
+}
 /// 值打印
 -(jobsByVoidBlock _Nonnull)printValue{
     @jobs_weakify(self)

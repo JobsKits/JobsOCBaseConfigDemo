@@ -1,6 +1,6 @@
 //
 //  MSCommentView.h
-//  MataShop
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 10/1/23.
 //
@@ -9,6 +9,7 @@
 #import "MSCommentTBVCell.h"
 #import "MSCommentTableHeaderFooterView.h"
 #import "MSCommentModel.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

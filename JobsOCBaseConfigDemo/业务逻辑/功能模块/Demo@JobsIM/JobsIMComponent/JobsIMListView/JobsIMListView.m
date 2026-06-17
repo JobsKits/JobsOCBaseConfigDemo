@@ -1,13 +1,11 @@
 //
 //  JobsIMListView.m
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/17.
 //
 
 #import "JobsIMListView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsIMListView ()
 /// UI
@@ -22,7 +20,7 @@ Prop_strong()NSMutableArray <JobsIMListDataModel *>*jobsIMListMutArr;
 -(instancetype)init{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -137,7 +135,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
             tableView.mj_footer.backgroundColor = JobsRedColor;
             tableView.mj_footer.hidden = NO;
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray<JobsIMListDataModel *> *)jobsIMListMutArr{
@@ -165,13 +163,13 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                 model.userHeaderIMG = UIImage.animatedGIFByName(@"动态头像_1\2 尺寸126");;
             }));
         });
-    }return _jobsIMListMutArr;
+    };return _jobsIMListMutArr;
 }
 
 -(UIColor *)bgColour{
     if (!_bgColour) {
         _bgColour = self.byPatternImage(JobsBuddleIMG(@"⚽️PicResource", @"Telegram",nil, @"1"));
-    }return _bgColour;
+    };return _bgColour;
 }
 
 @end

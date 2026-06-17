@@ -1,6 +1,6 @@
 //
 //  NSObject+JobsDeployCellConfig.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/23.
 //

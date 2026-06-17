@@ -1,3 +1,4 @@
+# 外部脚本统一放在 Podfile 中安全调用；Podfile.deps 只维护 pod 依赖，不直接执行脚本。
 # 单元测试框架
 def testApp
 
@@ -150,7 +151,6 @@ def func
   pod 'AYCheckVersion'                    # https://github.com/AYJk/AYCheckVersion 提示更新 Check version from AppStore / 从AppStore检查更新
 #  pod 'FSCalendar'                        # https://github.com/WenchaoD/FSCalendar 日历签到
 #  pod 'LCAuthManager'                     # https://github.com/LennonChin/LCAuthManager 简单易用的权限验证库，提供了手势密码、生物特性验证（包括Touch ID和Face ID）的集成
-  videoFunc # 视频相关
 end
 # 数据库相关
 def database
@@ -178,6 +178,7 @@ target 'JobsOCBaseConfigDemo' do
   appCommon                   # 几乎每个App都会用到的
   ui                          # UI相关
   func                        # 一些功能性
+  videoFunc                   # 视频相关
   database                    # 数据库相关
   byJobs                      #
   flutterPods                 # Flutter框架

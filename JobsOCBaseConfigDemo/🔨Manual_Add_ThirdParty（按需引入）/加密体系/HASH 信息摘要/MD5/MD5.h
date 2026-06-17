@@ -1,6 +1,6 @@
 //
 //  MD5.h
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/14.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -45,7 +45,7 @@ NS_INLINE NSString *MD5_32bits(NSString *salt,
         NSString *finalStr = Nil;
         finalStr = isLowercase ? output.lowercaseString : output.uppercaseString;
         return finalStr.copy;
-    }return nil;
+    };return nil;
 }
 /// HmacMD5加密，使用秘钥
 NS_INLINE NSString *hMacMD5String(NSString *string,

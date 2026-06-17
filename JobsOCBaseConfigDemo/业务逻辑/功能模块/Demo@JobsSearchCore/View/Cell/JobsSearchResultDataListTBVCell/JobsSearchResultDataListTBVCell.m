@@ -1,6 +1,6 @@
 //
 //  JobsSearchResultDataListTBVCell.m
-//  JobsSearch
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/6.
 //
@@ -34,7 +34,7 @@
         @jobs_strongify(self)
         if ([model isKindOfClass:UIViewModel.class]) {
             self.textLabel.text = model.textModel.text;
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— UIGestureRecognizerDelegate
@@ -59,7 +59,7 @@
              */
             if(self.objBlock) self.objBlock(self.textLabel.text);
         }]);
-    }return _tapGR;
+    };return _tapGR;
 }
 
 @end

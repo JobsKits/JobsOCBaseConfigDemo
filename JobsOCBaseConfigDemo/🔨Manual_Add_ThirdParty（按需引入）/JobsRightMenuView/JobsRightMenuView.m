@@ -1,13 +1,11 @@
 //
 //  FMHomeRightMenuView.m
-//  FM_Normal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 10/4/2025.
 //
 
 #import "JobsRightMenuView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsRightMenuView ()
 /// UI
@@ -28,13 +26,13 @@ Prop_copy()NSArray <__kindof UIButton*>*datas;
 -(instancetype)init{
     if (self = [super init]) {
 //        self.backgroundColor = JobsClearColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 //        self.backgroundColor = JobsClearColor;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -53,7 +51,7 @@ Prop_copy()NSArray <__kindof UIButton*>*datas;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
 //        self.backgroundColor = JobsClearColor;
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -109,7 +107,7 @@ Prop_copy()NSArray <__kindof UIButton*>*datas;
                 make.centerY.equalTo(self);
                 make.left.equalTo(self);
         }).on();
-    }return _suspendBtn;
+    };return _suspendBtn;
 }
 
 -(UIImageView *)stackImageView{
@@ -123,7 +121,7 @@ Prop_copy()NSArray <__kindof UIButton*>*datas;
             make.centerY.equalTo(self);
             make.left.equalTo(self.suspendBtn.mas_right);
         }).on();
-    }return _stackImageView;
+    };return _stackImageView;
 }
 /// BaseViewProtocol
 @synthesize stackView = _stackView;
@@ -147,13 +145,13 @@ Prop_copy()NSArray <__kindof UIButton*>*datas;
             @jobs_strongify(self)
             make.edges.equalTo(self.stackImageView);
         }).on();
-    }return _stackView;
+    };return _stackView;
 }
 
 -(NSArray<__kindof UIButton *> *)datas{
     if (!_datas) {
         _datas = NSMutableArray.array;
-    }return _datas;
+    };return _datas;
 }
 
 @end

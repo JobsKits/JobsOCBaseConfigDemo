@@ -2,30 +2,30 @@
 //  UIControl+DSL.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 11/26/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIControl+DSL.h"
+#import "MacroDef_Sys.h"
 /// 内部闭包包装器
-#import "DefineProperty.h"
-
 @interface _JobsClosureWrapper : NSObject
-Prop_copy()JobsControlHandler handler;
--(instancetype)initWithHandler:(JobsControlHandler)handler;
+
+Prop_copy()jobsByCtrlBlock handler;
+-(instancetype)initWithHandler:(jobsByCtrlBlock)handler;
 -(void)invoke:(UIControl *)sender;
 
 @end
 
 @implementation _JobsClosureWrapper
 
-- (instancetype)initWithHandler:(JobsControlHandler)handler {
-    if ( self = [super init]) {
+-(instancetype)initWithHandler:(jobsByCtrlBlock)handler{
+    if (self = [super init]){
         _handler = [handler copy];
-    }return self;
+    };return self;
 }
 
-- (void)invoke:(UIControl *)sender {
-    if (self.handler) {
+-(void)invoke:(UIControl *)sender{
+    if (self.handler){
         self.handler(sender);
     }
 }
@@ -34,14 +34,11 @@ Prop_copy()JobsControlHandler handler;
 /// 辅助函数：注册事件 + Block
 static void JobsAddClosureAction(UIControl *control,
                                  UIControlEvents events,
-                                 JobsControlHandler handler) {
+                                 jobsByCtrlBlock handler){
     if (!control || !handler) return;
     _JobsClosureWrapper *wrapper = [_JobsClosureWrapper.alloc initWithHandler:handler];
     NSString *key = [NSString stringWithFormat:@"[[jobs_event_%lu]]",(unsigned long)events];
-    objc_setAssociatedObject(control,
-                             (__bridge const void *)(key),
-                             wrapper,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey(control, (__bridge const void *)(key), wrapper)
     [control addTarget:wrapper
                 action:@selector(invoke:)
       forControlEvents:events];
@@ -49,9 +46,9 @@ static void JobsAddClosureAction(UIControl *control,
 
 @implementation UIControl (DSL)
 
--(JobsRetControlByHandlerBlock)onJobsTap {
+-(JobsRetControlByHandlerBlock)onJobsTap{
     @jobs_weakify(self)
-    return ^__kindof UIControl * _Nullable (JobsControlHandler handler) {
+    return ^__kindof UIControl * _Nullable (jobsByCtrlBlock handler){
         @jobs_strongify(self)
         if (!handler) return self;
         JobsAddClosureAction(self, UIControlEventTouchUpInside, handler);
@@ -59,9 +56,9 @@ static void JobsAddClosureAction(UIControl *control,
     };
 }
 
--(JobsRetControlByHandlerBlock)onJobsChange {
+-(JobsRetControlByHandlerBlock)onJobsChange{
     @jobs_weakify(self)
-    return ^__kindof UIControl * _Nullable (JobsControlHandler handler) {
+    return ^__kindof UIControl * _Nullable (jobsByCtrlBlock handler){
         @jobs_strongify(self)
         if (!handler) return self;
         JobsAddClosureAction(self, UIControlEventValueChanged, handler);
@@ -69,10 +66,10 @@ static void JobsAddClosureAction(UIControl *control,
     };
 }
 
--(JobsRetControlByEventsHandlerBlock)onJobsEvent {
+-(JobsRetControlByEventsHandlerBlock)onJobsEvent{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIControlEvents events,
-                                            JobsControlHandler handler) {
+                                            jobsByCtrlBlock handler){
         @jobs_strongify(self)
         if (!handler) return self;
         JobsAddClosureAction(self, events, handler);
@@ -80,11 +77,11 @@ static void JobsAddClosureAction(UIControl *control,
     };
 }
 
-#pragma mark - 基础状态
+#pragma mark —— 基础状态
 
-- (JobsRetControlByBOOLBlock)byEnabled {
+-(JobsRetControlByBOOLBlock)byEnabled{
     @jobs_weakify(self)
-    return ^__kindof UIControl * _Nullable (BOOL value) {
+    return ^__kindof UIControl * _Nullable (BOOL value){
         @jobs_strongify(self)
         if (!self) return nil;
         self.enabled = value;
@@ -92,9 +89,9 @@ static void JobsAddClosureAction(UIControl *control,
     };
 }
 
-- (JobsRetControlByBOOLBlock)bySelected {
+-(JobsRetControlByBOOLBlock)bySelected{
     @jobs_weakify(self)
-    return ^__kindof UIControl * _Nullable (BOOL value) {
+    return ^__kindof UIControl * _Nullable (BOOL value){
         @jobs_strongify(self)
         if (!self) return nil;
         self.selected = value;
@@ -102,9 +99,9 @@ static void JobsAddClosureAction(UIControl *control,
     };
 }
 
-- (JobsRetControlByBOOLBlock)byHighlighted {
+-(JobsRetControlByBOOLBlock)byHighlighted{
     @jobs_weakify(self)
-    return ^__kindof UIControl * _Nullable (BOOL value) {
+    return ^__kindof UIControl * _Nullable (BOOL value){
         @jobs_strongify(self)
         if (!self) return nil;
         self.highlighted = value;
@@ -112,12 +109,12 @@ static void JobsAddClosureAction(UIControl *control,
     };
 }
 
-#pragma mark - 内容对齐
+#pragma mark —— 内容对齐
 
-- (JobsRetControlByAlignBlock)byContentAlignment {
+-(JobsRetControlByAlignBlock)byContentAlignment{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIControlContentHorizontalAlignment horizontal,
-                                            UIControlContentVerticalAlignment vertical) {
+                                            UIControlContentVerticalAlignment vertical){
         @jobs_strongify(self)
         if (!self) return nil;
         self.contentHorizontalAlignment = horizontal;
@@ -126,9 +123,9 @@ static void JobsAddClosureAction(UIControl *control,
     };
 }
 
-- (JobsRetControlByHorizontalAlignBlock)byContentHorizontalAlignment {
+-(JobsRetControlByHorizontalAlignBlock)byContentHorizontalAlignment{
     @jobs_weakify(self)
-    return ^__kindof UIControl * _Nullable (UIControlContentHorizontalAlignment horizontal) {
+    return ^__kindof UIControl * _Nullable (UIControlContentHorizontalAlignment horizontal){
         @jobs_strongify(self)
         if (!self) return nil;
         self.contentHorizontalAlignment = horizontal;
@@ -136,9 +133,9 @@ static void JobsAddClosureAction(UIControl *control,
     };
 }
 
-- (JobsRetControlByVerticalAlignBlock)byContentVerticalAlignment {
+-(JobsRetControlByVerticalAlignBlock)byContentVerticalAlignment{
     @jobs_weakify(self)
-    return ^__kindof UIControl * _Nullable (UIControlContentVerticalAlignment vertical) {
+    return ^__kindof UIControl * _Nullable (UIControlContentVerticalAlignment vertical){
         @jobs_strongify(self)
         if (!self) return nil;
         self.contentVerticalAlignment = vertical;
@@ -146,11 +143,11 @@ static void JobsAddClosureAction(UIControl *control,
     };
 }
 
--(JobsRetControlByTargetActionEventsBlock)byAddTarget {
+-(JobsRetControlByTargetActionEventsBlock)byAddTarget{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (__kindof id target,
                                             SEL action,
-                                            UIControlEvents events) {
+                                            UIControlEvents events){
         @jobs_strongify(self)
         if (!self) return nil;
         [self addTarget:target action:action forControlEvents:events];
@@ -158,11 +155,11 @@ static void JobsAddClosureAction(UIControl *control,
     };
 }
 
--(JobsRetControlByTargetActionEventsBlock)byRemoveTarget {
+-(JobsRetControlByTargetActionEventsBlock)byRemoveTarget{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (__kindof id target,
                                             SEL action,
-                                            UIControlEvents events) {
+                                            UIControlEvents events){
         @jobs_strongify(self)
         if (!self) return nil;
         [self removeTarget:target action:action forControlEvents:events];
@@ -170,9 +167,9 @@ static void JobsAddClosureAction(UIControl *control,
     };
 }
 
--(JobsRetControlByEventsBlock)bySendActions {
+-(JobsRetControlByEventsBlock)bySendActions{
     @jobs_weakify(self)
-    return ^__kindof UIControl * _Nullable (UIControlEvents events) {
+    return ^__kindof UIControl * _Nullable (UIControlEvents events){
         @jobs_strongify(self)
         if (!self) return nil;
         [self sendActionsForControlEvents:events];
@@ -180,119 +177,119 @@ static void JobsAddClosureAction(UIControl *control,
     };
 }
 
--(JobsRetControlByActionEventsBlock)byAddAction API_AVAILABLE(ios(14.0)) {
+-(JobsRetControlByActionEventsBlock)byAddAction API_AVAILABLE(ios(14.0)){
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIAction *action,
-                                            UIControlEvents events) {
+                                            UIControlEvents events){
         @jobs_strongify(self)
         if (!self) return nil;
 
-        if (@available(iOS 14.0, *)) {
-            if (action) {
+        if (@available(iOS 14.0, *)){
+            if (action){
                 [self addAction:action forControlEvents:events];
             }
-        }return self;
+        };return self;
     };
 }
 
--(JobsRetControlByActionEventsBlock)byRemoveAction API_AVAILABLE(ios(14.0)) {
+-(JobsRetControlByActionEventsBlock)byRemoveAction API_AVAILABLE(ios(14.0)){
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIAction *action,
-                                            UIControlEvents events) {
+                                            UIControlEvents events){
         @jobs_strongify(self)
         if (!self) return nil;
-        if (@available(iOS 14.0, *)) {
+        if (@available(iOS 14.0, *)){
             if (action) [self removeAction:action forControlEvents:events];
-        }return self;
+        };return self;
     };
 }
 
--(JobsRetControlByIdentifierEventsBlock)byRemoveActionByIdentifier API_AVAILABLE(ios(14.0)) {
+-(JobsRetControlByIdentifierEventsBlock)byRemoveActionByIdentifier API_AVAILABLE(ios(14.0)){
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIActionIdentifier identifier,
-                                            UIControlEvents events) {
+                                            UIControlEvents events){
         @jobs_strongify(self)
         if (!self) return nil;
-        if (@available(iOS 14.0, *)) {
+        if (@available(iOS 14.0, *)){
             [self removeActionForIdentifier:identifier forControlEvents:events];
-        }return self;
+        };return self;
     };
 }
 
--(JobsRetControlByEventsIdentifierActionHandlerBlock)byOn API_AVAILABLE(ios(14.0)) {
+-(JobsRetControlByEventsIdentifierActionHandlerBlock)byOnAction API_AVAILABLE(ios(14.0)){
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIControlEvents events,
                                             UIActionIdentifier _Nullable identifier,
-                                            void(^handler)(UIAction *action)) {
+                                            void(^handler)(UIAction *action)){
         @jobs_strongify(self)
         if (!handler) return self;
-        if (@available(iOS 14.0, *)) {
+        if (@available(iOS 14.0, *)){
             UIAction *action = nil;
-            if (identifier.length > 0) {
+            if (identifier.length > 0){
                 action = [UIAction actionWithTitle:@""
                                              image:nil
                                         identifier:identifier
                                           handler:handler];
-            } else {
+            } else{
                 action = [UIAction actionWithHandler:handler];
             }[self addAction:action forControlEvents:events];
-        }return self;
+        };return self;
     };
 }
 
--(JobsRetControlByBOOLBlock)byShowsMenuAsPrimaryAction API_AVAILABLE(ios(14.0)) {
+-(JobsRetControlByBOOLBlock)byShowsMenuAsPrimaryAction API_AVAILABLE(ios(14.0)){
     @jobs_weakify(self)
-    return ^__kindof UIControl * _Nullable (BOOL value) {
+    return ^__kindof UIControl * _Nullable (BOOL value){
         @jobs_strongify(self)
         if (!self) return nil;
-        if (@available(iOS 14.0, *)) {
+        if (@available(iOS 14.0, *)){
             self.showsMenuAsPrimaryAction = value;
-        }return self;
+        };return self;
     };
 }
 
--(JobsRetControlByBOOLBlock)byContextMenuEnabled API_AVAILABLE(ios(14.0)) {
+-(JobsRetControlByBOOLBlock)byContextMenuEnabled API_AVAILABLE(ios(14.0)){
     @jobs_weakify(self)
-    return ^__kindof UIControl * _Nullable (BOOL value) {
+    return ^__kindof UIControl * _Nullable (BOOL value){
         @jobs_strongify(self)
         if (!self) return nil;
-        if (@available(iOS 14.0, *)) {
+        if (@available(iOS 14.0, *)){
             self.contextMenuInteractionEnabled = value;
-        }return self;
+        };return self;
     };
 }
 
--(JobsRetControlByStringBlock)byToolTip API_AVAILABLE(ios(15.0)) {
+-(JobsRetControlByStringBlock)byToolTip API_AVAILABLE(ios(15.0)){
     @jobs_weakify(self)
-    return ^__kindof UIControl * _Nullable (NSString * _Nullable text) {
+    return ^__kindof UIControl * _Nullable (NSString * _Nullable text){
         @jobs_strongify(self)
         if (!self) return nil;
-        if (@available(iOS 15.0, *)) {
+        if (@available(iOS 15.0, *)){
             self.toolTip = text;
-        }return self;
+        };return self;
     };
 }
 
--(JobsRetControlByBOOLBlock)bySymbolAnimationEnabled API_AVAILABLE(ios(17.0)) {
+-(JobsRetControlByBOOLBlock)bySymbolAnimationEnabled API_AVAILABLE(ios(17.0)){
     @jobs_weakify(self)
-    return ^__kindof UIControl * _Nullable (BOOL value) {
+    return ^__kindof UIControl * _Nullable (BOOL value){
         @jobs_strongify(self)
         if (!self) return nil;
-        if (@available(iOS 17.0, *)) {
+        if (@available(iOS 17.0, *)){
             self.symbolAnimationEnabled = value;
-        }return self;
+        };return self;
     };
 }
 
 #if defined(__IPHONE_17_4) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_17_4)
--(JobsRetControlByVoidBlock)byPerformPrimaryAction API_AVAILABLE(ios(17.4)) {
+-(JobsRetControlByVoidBlock)byPerformPrimaryAction API_AVAILABLE(ios(17.4)){
     @jobs_weakify(self)
-    return ^__kindof UIControl * _Nullable (void) {
+    return ^__kindof UIControl * _Nullable (void){
         @jobs_strongify(self)
         if (!self) return nil;
-        if (@available(iOS 17.4, *)) {
+        if (@available(iOS 17.4, *)){
             [self performPrimaryAction];
-        }return self;
+        };return self;
     };
 }
 #endif

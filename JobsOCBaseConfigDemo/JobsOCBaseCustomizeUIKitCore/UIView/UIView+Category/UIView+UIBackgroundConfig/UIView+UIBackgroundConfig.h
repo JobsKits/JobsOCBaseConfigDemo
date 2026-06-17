@@ -1,13 +1,12 @@
 //
 //  UIView+UIBackgroundConfig.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/25.
 //
 
 #import <UIKit/UIKit.h>
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /**

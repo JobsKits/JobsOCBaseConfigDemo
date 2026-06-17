@@ -1,6 +1,6 @@
 //
 //  UITableView+Extra.m
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/4/10.
 //
@@ -238,7 +238,7 @@
         tableViewCell = [tableViewCellClass initTableViewCell:tableViewCellClass
                                                     withStyle:cellStyle];
         tableViewCell.settingForTableViewCell();
-    }return tableViewCell;
+    };return tableViewCell;
 }
 
 -(__kindof UITableViewCell *)tableViewCellClass:(Class <UITableViewCellProtocol>)tableViewCellClass

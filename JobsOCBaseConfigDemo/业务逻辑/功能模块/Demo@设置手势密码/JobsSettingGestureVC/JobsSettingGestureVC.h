@@ -1,12 +1,13 @@
 //
 //  JobsSettingGestureVC.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/24.
 //
 
 #import "JobsMembersSubsBaseVC.h"
 #import "ZLGestureLockViewController.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

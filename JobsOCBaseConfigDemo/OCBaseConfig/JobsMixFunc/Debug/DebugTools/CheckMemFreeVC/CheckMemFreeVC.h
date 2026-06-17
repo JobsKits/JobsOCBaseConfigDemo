@@ -1,12 +1,12 @@
 //
 //  CheckMemFreeVC.h
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/3/5.
 //
 
 #import "BaseViewController.h"
-#import "NSObject+WHToast.h"//提示
+#import "NSObject+WHToast.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 本类用来测试是否正常走deallco方法的控制器

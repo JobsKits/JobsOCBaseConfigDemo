@@ -1,6 +1,6 @@
 //
 //  RBCLikeButton.h
-//  EmitterAnimation
+//  JobsOCBaseConfigDemo
 //
 //  Created by 刘庆贺 on 2019/3/13.
 //  Copyright © 2019 lmh. All rights reserved.
@@ -11,19 +11,22 @@
 #import "JobsLoadingImage.h"
 #import "BaseButtonProtocol.h"
 
+#ifndef RBCLikeButtonStatus_DEFINED
+#define RBCLikeButtonStatus_DEFINED
 typedef NS_ENUM(NSInteger, RBCLikeButtonStatus) {
-    RBCLikeButtonStatusHadThumbs,/// 已点赞
-    RBCLikeButtonStatusNoneThumbs,/// 未点赞
-    RBCLikeButtonStatusThumbsing,/// 正在点赞
-    RBCLikeButtonStatusCancelThumbsing /// 正在取消点赞
+    RBCLikeButtonStatusHadThumbs,// 已点赞
+    RBCLikeButtonStatusNoneThumbs,// 未点赞
+    RBCLikeButtonStatusThumbsing,// 正在点赞
+    RBCLikeButtonStatusCancelThumbsing // 正在取消点赞
 };
+#endif /* RBCLikeButtonStatus_DEFINED */
 /// 高仿抖音点赞动画
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @interface RBCLikeButton : UIButton <BaseButtonProtocol>
 
-Prop_assign()NSInteger thumpNum;/// 点赞数
-Prop_assign()RBCLikeButtonStatus thumbStatus;/// 按钮状态
+Prop_assign()NSInteger thumpNum;// 点赞数
+Prop_assign()RBCLikeButtonStatus thumbStatus;// 按钮状态
 
 -(void)recoverLike;/// 恢复点赞
 -(void)cancelLike;/// 取消点赞

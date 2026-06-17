@@ -1,13 +1,11 @@
 //
 //  JobsHotLabelWithMultiLine.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/15.
 //
 
 #import "JobsHotLabelByMultiLine.h"
-
-#import "DefineProperty.h"
 
 @interface JobsHotLabelByMultiLine ()
 /// Data
@@ -35,13 +33,13 @@ static dispatch_once_t static_hotLabelWithMultiLineOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = HEXCOLOR(0xFFFFFF);
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = HEXCOLOR(0xFFFFFF);
-    }return self;
+    };return self;
 }
 /// 必须有frame的前提下才会进行绘制
 -(void)drawRect:(CGRect)rect{
@@ -98,7 +96,7 @@ static dispatch_once_t static_hotLabelWithMultiLineOnceToken;
     if (indexPath.section == 0 && indexPath.row == 0) {
         cell.textLab.textColor = HEXCOLOR(0xAE8330);
         cell.textLab.backgroundColor = HEXCOLOR(0xFFEABA);
-    }return cell;
+    };return cell;
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView
@@ -174,7 +172,7 @@ referenceSizeForHeaderInSection:(NSInteger)section {
     /// ❤️外部传入配置优先❤️
     if (self.dataModel.headerViewModel.useHeaderView) {
         return jobsZeroSizeValue(self.dataModel.headerViewModel.jobsSize) ? JobsHeaderFooterView.collectionReusableViewSizeByModel(nil) : self.dataModel.headerViewModel.jobsSize;
-    }return CGSizeZero;
+    };return CGSizeZero;
 }
 /// footer 大小
 - (CGSize)collectionView:(UICollectionView *)collectionView
@@ -183,7 +181,7 @@ referenceSizeForFooterInSection:(NSInteger)section {
     /// ❤️外部传入配置优先❤️
     if (self.dataModel.footerViewModel.useFooterView) {
         return jobsZeroSizeValue(self.dataModel.footerViewModel.jobsSize) ? JobsHeaderFooterView.collectionReusableViewSizeByModel(nil) : self.dataModel.headerViewModel.jobsSize;
-    }return CGSizeZero;
+    };return CGSizeZero;
 }
 /// item/cell 的大小
 -(CGSize)collectionView:(UICollectionView *)collectionView
@@ -226,7 +224,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
         [self.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self).insets(jobsMakeSameEdgeInset(JobsWidth(2)));
         }];
-    }return _collectionView;
+    };return _collectionView;
 }
 
 -(NSMutableArray<__kindof UICollectionViewCell *> *)cvcellMutArr{
@@ -240,7 +238,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                                                                   forIndexPath:[self myIndexPath:(JobsIndexPath){0,index}]]);
             }
         });
-    }return _cvcellMutArr;
+    };return _cvcellMutArr;
 }
 
 @end
@@ -261,7 +259,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             data.jobsRect = CGRectZero;
             data.jobsPoint = CGPointZero;
         });
-    }return _headerViewModel;
+    };return _headerViewModel;
 }
 
 -(JobsHeaderFooterViewModel *)footerViewModel{
@@ -278,7 +276,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             data.jobsRect = CGRectZero;
             data.jobsPoint = CGPointZero;
         });
-    }return _footerViewModel;
+    };return _footerViewModel;
 }
 
 @end

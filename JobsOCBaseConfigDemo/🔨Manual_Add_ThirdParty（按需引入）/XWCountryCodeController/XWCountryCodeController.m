@@ -183,7 +183,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (_indexArray.count && _indexArray.count > section) {
         return [_indexArray objectAtIndex:section];
-    }return nil;
+    };return nil;
 }
 
 #pragma mark - 选择国际获取代码

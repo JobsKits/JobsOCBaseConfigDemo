@@ -1,6 +1,6 @@
 //
 //  TKPermissionPhoto.m
-//  TKPermissionKitDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 2019/10/11.
 //  Copyright © 2019 mac. All rights reserved.
@@ -96,7 +96,7 @@ static bool safeLock = NO;//防止连续请求lock
         if (PHPhotoLibrary.authorizationStatus == PHAuthorizationStatusAuthorized) {
             isAuth = YES;
         }
-    }return isAuth;
+    };return isAuth;
 }
 
 +(void)jumpSetting{

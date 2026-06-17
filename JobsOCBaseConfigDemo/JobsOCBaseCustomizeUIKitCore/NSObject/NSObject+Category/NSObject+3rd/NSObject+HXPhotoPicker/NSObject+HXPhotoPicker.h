@@ -1,6 +1,6 @@
 //
 //  NSObject+HXPhotoPicker.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/20.
 //
@@ -13,10 +13,8 @@
 #import "NSObject+CurrentDevice.h"
 #import "NSObject+Extras.h"
 #import "HXPhotoPickerModel.h"
+#import "JobsDefineProperty.h"
 
-//#import "UIViewController+HXExtension.h"
-
-#import "DefineProperty.h"
 #if __has_include(<HXPhotoPicker/HXPhotoPicker.h>)
 #import <HXPhotoPicker/HXPhotoPicker.h>
 #else

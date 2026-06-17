@@ -7,8 +7,6 @@
 
 #import "JobsTabBarCtrl.h"
 
-#import "DefineProperty.h"
-
 @interface JobsTabBarCtrl ()
 
 Prop_strong(readwrite)UIScrollView *tabBar;
@@ -40,7 +38,7 @@ Prop_assign(readwrite)BOOL builtOnce;
         } else {
             _barBackgroundColor = [UIColor whiteColor];
         }
-    }return self;
+    };return self;
 }
 
 #pragma mark —— Lifecycle
@@ -93,32 +91,38 @@ Prop_assign(readwrite)BOOL builtOnce;
     self.syncContentOffsetAnimated(NO);
 }
 #pragma mark —— Property override
+#pragma mark —— swipeEnabled
 - (void)setSwipeEnabled:(BOOL)swipeEnabled {
     _swipeEnabled = swipeEnabled;
     self.contentScrollView.scrollEnabled = swipeEnabled;
 }
 
+#pragma mark —— horizontalOnly
 - (void)setHorizontalOnly:(BOOL)horizontalOnly {
     _horizontalOnly = horizontalOnly;
     self.contentScrollView.alwaysBounceVertical = !horizontalOnly;
     self.contentScrollView.directionalLockEnabled = horizontalOnly;
 }
 
+#pragma mark —— barBackgroundColor
 - (void)setBarBackgroundColor:(UIColor *)barBackgroundColor {
     _barBackgroundColor = barBackgroundColor;
     self.tabBar.backgroundColor = barBackgroundColor;
 }
 
+#pragma mark —— barBackgroundImage
 - (void)setBarBackgroundImage:(UIImage *)barBackgroundImage {
     _barBackgroundImage = barBackgroundImage;
     self.bgImageView.image = barBackgroundImage;
 }
 
+#pragma mark —— customBarHeight
 - (void)setCustomBarHeight:(NSNumber *)customBarHeight {
     _customBarHeight = customBarHeight;
     [self.view setNeedsLayout];
 }
 
+#pragma mark —— barBottomOffset
 - (void)setBarBottomOffset:(CGFloat)barBottomOffset {
     _barBottomOffset = barBottomOffset;
     [self.view setNeedsLayout];
@@ -248,6 +252,7 @@ Prop_assign(readwrite)BOOL builtOnce;
     };
 }
 #pragma mark —— 一些公共方法
+#pragma mark —— dataSourceByButtons
 - (void)setDataSourceByButtons:(NSArray<UIButton *> *)buttons
                    controllers:(NSArray<UIViewController *> *)controllers {
     /// 1. 清理旧的按钮
@@ -361,7 +366,7 @@ Prop_assign(readwrite)BOOL builtOnce;
                 .byClipsToBounds(NO)
                 .byBgColor(self.barBackgroundColor);
         });
-    }return _tabBar;
+    };return _tabBar;
 }
 
 -(UIScrollView *)contentScrollView {
@@ -381,7 +386,7 @@ Prop_assign(readwrite)BOOL builtOnce;
                 .byAlwaysBounceHorizontal(YES)
                 .byBgColor(JobsClearColor);
         });
-    }return _contentScrollView;
+    };return _contentScrollView;
 }
 @synthesize bgImageView = _bgImageView;
 - (UIImageView *)bgImageView {
@@ -389,7 +394,7 @@ Prop_assign(readwrite)BOOL builtOnce;
         _bgImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             imageView.byContentMode(UIViewContentModeScaleToFill);
         });
-    }return _bgImageView;
+    };return _bgImageView;
 }
 
 -(NSMutableArray<__kindof UIButton *> *)buttons{
@@ -397,7 +402,7 @@ Prop_assign(readwrite)BOOL builtOnce;
         _buttons = jobsMakeMutArr(^(__kindof NSMutableArray<__kindof UIButton *> * _Nullable arr) {
 
         });
-    }return _buttons;
+    };return _buttons;
 }
 
 -(NSMutableArray<__kindof UIViewController *> *)controllers{
@@ -405,7 +410,7 @@ Prop_assign(readwrite)BOOL builtOnce;
         _controllers = jobsMakeMutArr(^(__kindof NSMutableArray<__kindof UIViewController *> * _Nullable arr) {
 
         });
-    }return _controllers;
+    };return _controllers;
 }
 
 @end

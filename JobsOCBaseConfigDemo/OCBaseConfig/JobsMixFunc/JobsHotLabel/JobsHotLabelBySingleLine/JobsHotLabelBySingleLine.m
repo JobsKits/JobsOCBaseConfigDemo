@@ -1,13 +1,11 @@
 //
 //  JobsHotLabelBySingleLine.m
-//  JobsSearch
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/4.
 //
 
 #import "JobsHotLabelBySingleLine.h"
-
-#import "DefineProperty.h"
 
 @interface JobsHotLabelBySingleLine (){
     CGSize btnSize;
@@ -26,13 +24,13 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = HEXCOLOR(0xFFFFFF);
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = HEXCOLOR(0xFFFFFF);
-    }return self;
+    };return self;
 }
 /// 必须有frame的前提下才会进行绘制
 -(void)drawRect:(CGRect)rect{
@@ -200,7 +198,7 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
                 }
             }];
         });
-    }return _stackView;
+    };return _stackView;
 }
 /// BaseViewProtocol
 @synthesize scrollView = _scrollView;
@@ -217,19 +215,19 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
             scrollView.showsVerticalScrollIndicator = NO;
             scrollView.showsHorizontalScrollIndicator = NO;
         }));
-    }return _scrollView;
+    };return _scrollView;
 }
 
 -(NSMutableArray<UIButton *> *)btnMutArr{
     if (!_btnMutArr) {
         _btnMutArr = NSMutableArray.array;
-    }return _btnMutArr;
+    };return _btnMutArr;
 }
 
 -(NSMutableArray<NSNumber *> *)btnHeightMutArr{
     if (!_btnHeightMutArr) {
         _btnHeightMutArr = NSMutableArray.array;
-    }return _btnHeightMutArr;
+    };return _btnHeightMutArr;
 }
 
 @end

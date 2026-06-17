@@ -1,13 +1,12 @@
 //
 //  MGSwipeButtonModel.h
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/13.
 //
 
 #import <Foundation/Foundation.h>
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

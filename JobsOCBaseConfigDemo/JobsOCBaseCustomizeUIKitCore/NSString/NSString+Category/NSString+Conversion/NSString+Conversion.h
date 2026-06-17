@@ -1,6 +1,6 @@
 //
 //  NSString+Conversion.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/30.
 //
@@ -11,7 +11,7 @@
 #import "NSData+Other.h"
 #import "JobsBlock.h"
 #import "MacroDef_Func.h"
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
 
 #define FORMAT_STRING(fmt, val) [NSString stringWithFormat:(fmt), (val)]
 

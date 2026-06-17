@@ -1,6 +1,6 @@
 //
 //  KTVHCHTTPResponse.m
-//  KTVHTTPCache
+//  JobsOCBaseConfigDemo
 //
 //  Created by Single on 2017/8/10.
 //  Copyright © 2017年 Single. All rights reserved.
@@ -30,7 +30,7 @@
         self.reader.delegate = self;
         [self.reader prepare];
         KTVHCLogHTTPResponse(@"%p, Create response\nrequest : %@", self, dataRequest);
-    }return self;
+    };return self;
 }
 
 - (void)dealloc
@@ -84,6 +84,7 @@
     return self.reader.readedLength;
 }
 
+#pragma mark —— offset
 - (void)setOffset:(UInt64)offset
 {
     KTVHCLogHTTPResponse(@"%p, Set offset : %lld, %lld", self, offset, self.reader.readedLength);

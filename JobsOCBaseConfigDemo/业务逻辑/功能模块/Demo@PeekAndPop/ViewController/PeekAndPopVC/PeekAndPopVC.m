@@ -1,13 +1,11 @@
 //
 //  PeekAndPopVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 6/22/24.
 //
 
 #import "PeekAndPopVC.h"
-
-#import "DefineProperty.h"
 
 @interface PeekAndPopVC ()
 
@@ -110,7 +108,7 @@ Prop_strong()BaseButton *switchBtn;
             make.center.equalTo(self.view);
         }];
         _switchBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _switchBtn;
+    };return _switchBtn;
 }
 
 @end

@@ -1,13 +1,11 @@
 //
 //  BaiShaETProjOrderDetailsCVCell.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/26.
 //
 
 #import "BaiShaETProjOrderDetailsCVCell.h"
-
-#import "DefineProperty.h"
 
 @interface BaiShaETProjOrderDetailsCVCell ()
 /// UI
@@ -21,7 +19,7 @@ Prop_strong()UIButton *jobsCopyBtn;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 -(UIViewModel *_Nullable)getViewModel{
@@ -133,7 +131,7 @@ heightForFooterInSectionByModel:(NSInteger)section{
         /// 只有 tbvFooterView.backgroundView.backgroundColor 是有效操作✅
         tbvFooterView.contentView.byBgColor(HEXCOLOR(0xEAEBED));
         return tbvFooterView;
-    }return nil;
+    };return nil;
 }
 #pragma mark —— lazyLoad
 -(UIButton *)jobsCopyBtn{
@@ -145,7 +143,7 @@ heightForFooterInSectionByModel:(NSInteger)section{
             .bgColorBy(HEXCOLOR(0xEAEBED));
         _jobsCopyBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
         _jobsCopyBtn.cornerCutToCircleWithCornerRadius(JobsWidth(18 / 2));
-    }return _jobsCopyBtn;
+    };return _jobsCopyBtn;
 }
 /// BaseViewProtocol
 @synthesize tableView = _tableView;
@@ -176,7 +174,7 @@ heightForFooterInSectionByModel:(NSInteger)section{
                     make.edges.mas_equalTo(self.contentView).insets(UIEdgeInsetsMake(JobsWidth(20), 0, JobsWidth(20), 0));
                 });
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 @end

@@ -1,6 +1,6 @@
 //
 //  UITableView+WWFoldableTableView.h
-//  WWFoldableTableView
+//  JobsOCBaseConfigDemo
 //
 //  https://github.com/Tidusww/WWFoldableTableView
 //  Created by Tidus on 17/1/6.
@@ -11,7 +11,7 @@
 #import <UIKit/UIKit.h>
 #import "MacroDef_Sys.h"
 #import "MacroDef_SysWarning.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @interface UITableView (WWFoldableTableView)
 /// 设为YES，让tableView具备折叠功能

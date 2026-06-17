@@ -8,6 +8,7 @@
 #import "BaseViewController.h"
 #import "LuckyDiskDemoVC.h"
 #import "LuckyWheelDemoVC.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

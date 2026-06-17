@@ -1,6 +1,6 @@
 //
 //  KFZShopCatoryFlowLayput.m
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/30.
 //
@@ -11,7 +11,6 @@
     自定义section背景view 注意继承于UICollectionReusableView
     有点内部类的味道，你品、你细品
  */
-#import "DefineProperty.h"
 
 @interface KFZShopCatorySectionWhiteBgView : UICollectionReusableView
 
@@ -132,43 +131,43 @@ Prop_strong()NSMutableArray<UICollectionViewLayoutAttributes *> *decorationViewA
         if (CGRectIntersectsRect(rect, attr.frame)) {
             [attrs addObject:attr];
         }
-    }return [attrs copy];
+    };return [attrs copy];
 }
 #pragma mark —— lazyLoad
 - (NSMutableArray<UICollectionViewLayoutAttributes *> *)decorationViewAttrs{
     if (!_decorationViewAttrs) {
         _decorationViewAttrs = NSMutableArray.array;
-    }return _decorationViewAttrs;
+    };return _decorationViewAttrs;
 }
 
 -(NSMutableArray<NSNumber *> *)affectedSectionsMutArr{
     if (!_affectedSectionsMutArr) {
         _affectedSectionsMutArr = NSMutableArray.array;
-    }return _affectedSectionsMutArr;
+    };return _affectedSectionsMutArr;
 }
 
 -(CGFloat)offsetX{
     if (_offsetX == 0) {
         _offsetX = -15;
-    }return _offsetX;
+    };return _offsetX;
 }
 
 -(CGFloat)offsetY{
     if (_offsetY == 0) {
         _offsetY = -7;
-    }return _offsetY;
+    };return _offsetY;
 }
 
 -(CGFloat)offsetWidth{
     if (_offsetWidth == 0) {
         _offsetWidth = 30;
-    }return _offsetWidth;
+    };return _offsetWidth;
 }
 
 -(CGFloat)offsetHeight{
     if (_offsetHeight == 0) {
         _offsetHeight = 15;
-    }return _offsetHeight;
+    };return _offsetHeight;
 }
 
 @end

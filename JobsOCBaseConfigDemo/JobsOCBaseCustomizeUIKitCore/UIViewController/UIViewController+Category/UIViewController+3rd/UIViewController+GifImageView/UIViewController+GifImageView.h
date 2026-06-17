@@ -1,6 +1,6 @@
 //
 //  UIViewController+GifImageView.h
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/12.
 //
@@ -8,8 +8,8 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "JobsString.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else

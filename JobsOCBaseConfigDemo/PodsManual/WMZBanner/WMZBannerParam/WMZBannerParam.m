@@ -1,6 +1,6 @@
 //
 //  WMZBannerParam.m
-//  WMZBanner
+//  JobsOCBaseConfigDemo
 //
 //  Created by wmz on 2019/9/6.
 //  Copyright © 2019 wmz. All rights reserved.
@@ -99,7 +99,7 @@ WMZBannerParam * BannerParam(void){
         _wCardOverLapCount = 4;
         _wCardOverMinAlpha = 0.1;
         _wCustomImageRadio = 5.0f;
-    }return self;
+    };return self;
 }
 
 @end

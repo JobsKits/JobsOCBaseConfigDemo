@@ -1,6 +1,6 @@
 //
 //  JobsTabBar.h
-//  HitTesting
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 2017/5/19.
 //  Copyright © 2017年 flowyears. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "JobsLoadingImage.h"
 #import "UIView+Measure.h"
 #import "NSMutableArray+Extra.h"

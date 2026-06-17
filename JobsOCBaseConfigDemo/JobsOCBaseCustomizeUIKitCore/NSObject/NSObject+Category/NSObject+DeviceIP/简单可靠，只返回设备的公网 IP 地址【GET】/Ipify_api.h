@@ -1,13 +1,12 @@
 //
 //  Ipify_api.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 23/11/2024.
 //
 
 #import "JobsBaseApi.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 简单可靠，只返回设备的公网IP地址@GET

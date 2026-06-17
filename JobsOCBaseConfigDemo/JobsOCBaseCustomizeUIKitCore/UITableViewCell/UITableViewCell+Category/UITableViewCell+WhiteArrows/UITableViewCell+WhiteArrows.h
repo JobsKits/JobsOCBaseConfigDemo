@@ -1,6 +1,6 @@
 //
 //  UITableViewCell+WhiteArrows.h
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/7/26.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -12,8 +12,8 @@
 #import "UIView+Measure.h"
 #import "UIButton+UI.h"
 #import "JobsLoadingImage.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else

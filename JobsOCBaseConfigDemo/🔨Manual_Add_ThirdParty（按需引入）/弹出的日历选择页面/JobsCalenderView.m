@@ -1,13 +1,11 @@
 //
 //  JobsCalenderView.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 9/13/24.
 //
 
 #import "JobsCalenderView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsCalenderView ()
 /// UI
@@ -22,13 +20,13 @@ Prop_strong()FSCalendar *calendar;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -45,7 +43,7 @@ Prop_strong()FSCalendar *calendar;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -198,7 +196,7 @@ atMonthPosition:(FSCalendarMonthPosition)monthPosition{
             @jobs_strongify(self)
             make.edges.equalTo(self);
         }).on();
-    }return _calendar;
+    };return _calendar;
 }
 
 @end

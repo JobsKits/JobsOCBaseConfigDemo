@@ -1,6 +1,6 @@
 //
 //  NSData+HexadecimalData.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2024/4/26.
 //
@@ -18,7 +18,7 @@
         NSMutableString *hexString = NSMutableString.initByCapacity(dataLength * 2);
         for (int i = 0; i < dataLength; ++i) {
             [hexString appendFormat:@"%02X", (unsigned int)dataBuffer[i]];
-        }return hexString;
+        };return hexString;
     };
 }
 ///【实例方法】NSData对象  转换为  16进制字符串

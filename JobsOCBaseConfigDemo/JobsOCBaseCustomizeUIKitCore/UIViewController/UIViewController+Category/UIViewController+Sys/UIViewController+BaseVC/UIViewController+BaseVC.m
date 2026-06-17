@@ -1,13 +1,11 @@
 //
 //  UIViewController+BaseVC.m
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/12.
 //
 
 #import "UIViewController+BaseVC.h"
-
-#import "DefineProperty.h"
 
 @implementation UIViewController (BaseVC)
 #pragma mark —— 一些功能性
@@ -157,7 +155,7 @@
             default:
                 JobsLog(@"错误的推进方式");
                 break;
-        }return toVC;
+        };return toVC;
     }else return nil;// 为了防止多次推VC
 }
 #pragma mark —— <BaseViewControllerProtocol> @property(nonatomic,weak)UIViewController *fromVC;
@@ -198,7 +196,7 @@ JobsKey(_bgImage)
     if (!BgImage) {
         BgImage = @"启动页SLOGAN".img;
         Jobs_setAssociatedRETAIN_NONATOMIC(_bgImage, BgImage)
-    }return BgImage;
+    };return BgImage;
 }
 
 -(void)setBgImage:(UIImage *)bgImage{
@@ -237,7 +235,7 @@ JobsKey(_navBarConfig)
         Jobs_setAssociatedRETAIN_NONATOMIC(_navBarConfig, jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable data) {
             
         }))
-    }return NavBarConfig;
+    };return NavBarConfig;
 }
 #pragma mark —— Prop_strong()JobsNavBar *navBar;
 JobsKey(_navBar)
@@ -277,7 +275,7 @@ JobsKey(_navBar)
                                      }
                                  }).on();
         }))
-    }return NavBar;
+    };return NavBar;
 }
 
 @end

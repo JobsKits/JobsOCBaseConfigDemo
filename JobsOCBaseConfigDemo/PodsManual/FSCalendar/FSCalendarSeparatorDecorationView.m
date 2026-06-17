@@ -1,6 +1,6 @@
 //
 //  FSCalendarSeparatorDecorationView.m
-//  FSCalendar
+//  JobsOCBaseConfigDemo
 //
 //  Created by 丁文超 on 2018/10/10.
 //  Copyright © 2018 wenchaoios. All rights reserved.
@@ -16,7 +16,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = FSCalendarStandardSeparatorColor;
-    }return self;
+    };return self;
 }
 
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes

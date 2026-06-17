@@ -1,6 +1,6 @@
 //
 //  JobsExcelTopHeadView.h
-//  JobsExcelView
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 17/6/16.
 //  Copyright © 2017年 Mephsito. All rights reserved.
@@ -11,8 +11,8 @@
 #import "NSValue+Extra.h"
 #import "JobsTopViewItem.h"
 #import "JobsExcelConfigureViewModel.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else

@@ -1,11 +1,12 @@
 //
 //  JobsBasePopupView.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/11.
 //
 
 #import "BaseView.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

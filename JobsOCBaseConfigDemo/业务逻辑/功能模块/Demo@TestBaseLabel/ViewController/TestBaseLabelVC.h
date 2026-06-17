@@ -1,6 +1,6 @@
 //
 //  TestBaseLabelVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/20.
 //
@@ -8,6 +8,7 @@
 #import "BaseViewController.h"
 #import "BaseLabel.h"
 #import "JobsBaseLabel.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /**

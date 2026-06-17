@@ -1,6 +1,6 @@
 //
 //  UIView+TFPopup.m
-//  TFPopupDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by ztf on 2019/1/14.
 //  Copyright © 2019年 ztf. All rights reserved.
@@ -31,7 +31,6 @@ Prop_assign()NSInteger hideAnimationCount;
 @end
 
 @implementation UIView (TFPopup)
-@dynamic inView,extension,popupDataSource,popupDelegate,backgroundDelegate,popupParam;
 
 #pragma mark -- 【入口函数】基本
 -(void)tf_showNormal:(UIView *)inView animated:(BOOL)animated{
@@ -860,6 +859,7 @@ Prop_assign()NSInteger hideAnimationCount;
 
 
 //根据拖动方向和设置的frame设置运行时的拖动方向和目标拖动消失frame
+#pragma mark —— dragStyleAndDissmissFrame
 -(BOOL)setDragStyleAndDissmissFrame:(DragStyle)style dissmissFrame:(CGRect)dissmissFrame{
     BOOL caseSuccess = NO;
     CGRect st = self.extension.showToFrame;
@@ -1829,7 +1829,7 @@ tf_synthesize_category_property_assign(backgroundDelegate, setBackgroundDelegate
 tf_synthesize_category_property_retain(popupParam, setPopupParam);
 
 -(TFPopupExtension *)extension{
-    id value = objc_getAssociatedObject(self, @selector(extension));
+    id value = Jobs_getAssociatedObject(_extension);
     if (value) {
         return value;
     }else{
@@ -1838,8 +1838,11 @@ tf_synthesize_category_property_retain(popupParam, setPopupParam);
     }
     return value;;
 }
+#pragma mark —— extension
+JobsKey(_extension)
+@dynamic extension;
 -(void)setExtension:(TFPopupExtension *)extension{
-    objc_setAssociatedObject(self, @selector(extension), extension, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(_extension, extension)
 }
 
 
@@ -1848,7 +1851,6 @@ tf_synthesize_category_property_retain(popupParam, setPopupParam);
 
 
 @implementation CAAnimation (TFPopup)
-@dynamic startBlock,stopBlock;
 
 -(BOOL)openOberserBlock{
     if (self.delegate == self) {
@@ -1856,6 +1858,8 @@ tf_synthesize_category_property_retain(popupParam, setPopupParam);
     }
     return NO;
 }
+#pragma mark —— openOberserBlock
+@dynamic openOberserBlock;
 -(void)setOpenOberserBlock:(BOOL)openOberserBlock{
     if (openOberserBlock && self.delegate == nil) {
         self.delegate = self;
@@ -1863,21 +1867,27 @@ tf_synthesize_category_property_retain(popupParam, setPopupParam);
 }
 
 -(AnimationStartBlock)startBlock{
-    id value = objc_getAssociatedObject(self, @selector(startBlock));
+    id value = Jobs_getAssociatedObject(_startBlock);
     if (value)return value;
     return nil;
 }
+#pragma mark —— startBlock
+JobsKey(_startBlock)
+@dynamic startBlock;
 -(void)setStartBlock:(AnimationStartBlock)startBlock{
-    objc_setAssociatedObject(self, @selector(startBlock), startBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    Jobs_setAssociatedCOPY_NONATOMIC(_startBlock, startBlock)
 }
 -(AnimationStopBlock)stopBlock{
-    id value = objc_getAssociatedObject(self, @selector(stopBlock));
+    id value = Jobs_getAssociatedObject(_stopBlock);
     if (value)return value;
     return nil;
 }
 
+#pragma mark —— stopBlock
+JobsKey(_stopBlock)
+@dynamic stopBlock;
 -(void)setStopBlock:(AnimationStopBlock)stopBlock{
-    objc_setAssociatedObject(self, @selector(stopBlock), stopBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    Jobs_setAssociatedCOPY_NONATOMIC(_stopBlock, stopBlock)
 }
 
 -(void)observerAnimationDidStart:(AnimationStartBlock)start{

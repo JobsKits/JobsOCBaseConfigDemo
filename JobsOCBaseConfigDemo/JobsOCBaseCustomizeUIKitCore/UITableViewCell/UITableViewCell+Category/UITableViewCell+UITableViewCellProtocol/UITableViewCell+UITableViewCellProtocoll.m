@@ -1,6 +1,6 @@
 //
 //  UITableViewCell+UITableViewCellProtocol.m
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/19.
 //
@@ -34,7 +34,7 @@ UITableViewCellProtocol_dynamic
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleDefault];
             cell.settingForTableViewCell();
-        }return cell;
+        };return cell;
     };
 }
 /// UITableViewCellStyleValue1 = 左边：imageView＋textLabel；右边：detailTextLabel
@@ -46,7 +46,7 @@ UITableViewCellProtocol_dynamic
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleValue1];
             cell.settingForTableViewCell();
-        }return cell;
+        };return cell;
     };
 }
 /// UITableViewCellStyleValue2 = 左边：textLabel字体偏小；右边：detailTextLabel。imageView可选（显示在最左边）
@@ -58,7 +58,7 @@ UITableViewCellProtocol_dynamic
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleValue2];
             cell.settingForTableViewCell();
-        }return cell;
+        };return cell;
     };
 }
 /// UITableViewCellStyleSubtitle = 左边：textLabel字体偏小；右边：detailTextLabel。imageView可选（显示在最左边）
@@ -70,7 +70,7 @@ UITableViewCellProtocol_dynamic
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleSubtitle];
             cell.settingForTableViewCell();
-        }return cell;
+        };return cell;
     };
 }
 /// UITableViewCell的一些默认样式设置
@@ -112,7 +112,7 @@ UITableViewCellProtocol_dynamic
             self.textLabel.font = model.textModel.font;
             self.textLabel.text = model.textModel.text;
             self.imageView.image = model.image;
-        }return self;
+        };return self;
     };
 }
 
@@ -454,7 +454,7 @@ UITableViewCellProtocol_dynamic
             if ([sublayer.name isEqualToString:RoundedBorderLayer]) {
                 [sublayer removeFromSuperlayer];
             }
-        }return self.layer;
+        };return self.layer;
     }
     // 设置圆角路径
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds
@@ -483,7 +483,7 @@ UITableViewCellProtocol_dynamic
             borderLayer.lineWidth = layerConfig.borderWidth;
             borderLayer.name = RoundedBorderLayer;
         }));
-    }return self.layer;
+    };return self.layer;
 }
 /// 以 section 为单位，仅对每个 section 的最后一行 cell 做圆角处理（cell 之间没有分割线），且不描边顶部
 -(__kindof CALayer *)roundedCornerLastCellByTableView:(UITableView *)tableView
@@ -561,7 +561,7 @@ UITableViewCellProtocol_dynamic
                 [sublayer removeFromSuperlayer];
             }
         }
-    }return self.layer;
+    };return self.layer;
 }
 /// 以section为单位，每个section的第一行的cell圆角化处理【cell之间没有分割线】
 -(__kindof CALayer *)roundedCornerFirstCellByTableView:(UITableView *)tableView
@@ -639,7 +639,7 @@ UITableViewCellProtocol_dynamic
                 [sublayer removeFromSuperlayer];
             }
         }
-    }return self.layer;
+    };return self.layer;
 }
 /// 只描 UITableViewCell 的左右两边
 -(void)leftAndRightLineCellByTableView:(UITableView *)tableView

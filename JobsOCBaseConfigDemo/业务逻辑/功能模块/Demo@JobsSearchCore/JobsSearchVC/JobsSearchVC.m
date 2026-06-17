@@ -1,13 +1,11 @@
 //
 //  JobsSearchVC.m
-//  JobsSearch
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/2.
 //
 
 #import "JobsSearchVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsSearchVC ()
 /// UI
@@ -158,7 +156,7 @@ Prop_assign()HotSearchStyle hotSearchStyle;
     for (UIViewModel *vm in dataArr) {
         NSString *str2 = [self checkTargetObj:vm.textModel propertyName:propertyName];
         if (str1.isEqualToString(str2)) return YES;
-    }return NO;
+    };return NO;
 }
 
 -(void)cancelBtnEvent{
@@ -429,7 +427,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             self.view.refresh();
             self.tableViewRect = tableView.frame;
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(JobsSearchBar *)jobsSearchBar{
@@ -464,7 +462,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 //                }
 //            }];
         });
-    }return _jobsSearchBar;
+    };return _jobsSearchBar;
 }
 
 -(BaseButton *)scanBtn{
@@ -479,13 +477,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-    }return _scanBtn;
+    };return _scanBtn;
 }
 
 -(UIColor *)bgColour{
     if (!_bgColour) {
         _bgColour = self.byPatternImage(JobsBuddleIMG(nil, @"Telegram",nil, @"1"));
-    }return _bgColour;
+    };return _bgColour;
 }
 
 -(NSMutableArray<__kindof UIViewModel *> *)sectionTitleMutArr{
@@ -498,7 +496,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
                 data.add(self.makeViewModelBy(@"搜索历史".tr));
             }
         });
-    }return _sectionTitleMutArr;
+    };return _sectionTitleMutArr;
 }
 
 -(NSMutableArray<UIViewModel *> *)hotSearchMutArr{
@@ -521,13 +519,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
                 .add(self.makeViewModelBy(@"R".tr))
                 .add(self.makeViewModelBy(@"MATLAB".tr));
         });
-    }return _hotSearchMutArr;
+    };return _hotSearchMutArr;
 }
 
 -(NSMutableArray<__kindof UIViewModel *> *)listViewData{
     if (!_listViewData) {
         _listViewData = NSMutableArray.array;
-    }return _listViewData;
+    };return _listViewData;
 }
 
 @end

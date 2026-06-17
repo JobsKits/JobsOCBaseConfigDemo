@@ -1,13 +1,12 @@
 //
 //  NSObject+DynamicInvoke.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/28.
 //
 
 #import "NSObject+DynamicInvoke.h"
-
-#import "DefineProperty.h"
+#import "MacroDef_Sys.h"
 
 @implementation NSObject (DynamicInvoke)
 #pragma mark —— 参数 和 相关调用
@@ -149,7 +148,7 @@ callingMethodWithName:(NSString *_Nullable)methodName{
         }else if( !strcmp(returnType, @encode(NSUInteger)) ){
             returnValue = [NSNumber numberWithUnsignedInteger:*((NSUInteger*)buffer)];
         }else returnValue = [NSValue valueWithBytes:buffer objCType:returnType];
-    }return returnValue;
+    };return returnValue;
 }
 /// 判断本程序是否存在某个类
 +(JobsRetBOOLByStrBlock _Nonnull)judgementAppExistClassWithName{
@@ -217,17 +216,17 @@ SEL _Nullable selectorBlocks(JobsRetIDByTwoIDBlock _Nullable block,
     } else {
         /// 动态添加方法
         if (class_addMethod([target class], sel, (IMP)selectorImp, "v@:@@")) {
-            objc_setAssociatedObject(target, sel, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
+            Jobs_setAssociatedCOPY_NONATOMICByTargetRawKey(target, sel, block)
             methodCache[selName] = NSValue.byPointer(sel);
         } else {
             [NSException raise:@"添加方法失败".tr
                         format:@"%@ selectorBlock error", target];
         }
-    }return sel;
+    };return sel;
 }
 /// 内部调用无需暴露
 static void selectorImp(id target, SEL _cmd, id arg) {
-    JobsRetIDByTwoIDBlock block = objc_getAssociatedObject(target, _cmd);
+    JobsRetIDByTwoIDBlock block = Jobs_getAssociatedObjectByTargetRawKey(target, _cmd);
     if (block) block(target, arg);
 }
 /// 对 SEL和IMP的统一管理
@@ -239,7 +238,7 @@ JobsKey(_selImp)
     if (!SelImp) {
         SelImp = JobsSEL_IMP.new;
         Jobs_setAssociatedRETAIN_NONATOMIC(_selImp, SelImp)
-    }return SelImp;
+    };return SelImp;
 }
 
 -(void)setSelImp:(JobsSEL_IMP *)selImp{
@@ -253,7 +252,7 @@ JobsKey(_methodCache)
     if (!MethodCache) {
         MethodCache = NSMutableDictionary.dictionary;
         Jobs_setAssociatedCOPY_NONATOMIC(_methodCache, MethodCache)
-    }return MethodCache;
+    };return MethodCache;
 }
 
 -(void)setMethodCache:(NSMutableDictionary<NSString *,NSValue *> *)methodCache{
@@ -279,7 +278,7 @@ JobsKey(_methodCache)
                 [invocation getReturnValue:&returnValue];
                 return returnValue; // 返回调用的结果
             }
-        }return nil; // 如果对象不响应该属性，返回 nil
+        };return nil; // 如果对象不响应该属性，返回 nil
     };
 }
 /// 是否遵从这样的协议？

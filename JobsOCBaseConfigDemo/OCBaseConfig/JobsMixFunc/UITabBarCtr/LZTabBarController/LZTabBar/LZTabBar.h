@@ -1,6 +1,6 @@
 //
 //  LZTabBar.h
-//  LZTabBarController
+//  JobsOCBaseConfigDemo
 //
 //  Created by Artron_LQQ on 2016/12/12.
 //  Copyright © 2016年 Artup. All rights reserved.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "LZTabBarItem.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @protocol LZTabBarDelegate;
 

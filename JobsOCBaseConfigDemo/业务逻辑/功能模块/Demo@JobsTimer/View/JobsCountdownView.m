@@ -1,13 +1,11 @@
 //
 //  JobsCountdownView.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/27.
 //
 
 #import "JobsCountdownView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsCountdownView ()
 /// UI
@@ -49,13 +47,13 @@ static dispatch_once_t static_countdownViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -69,7 +67,7 @@ static dispatch_once_t static_countdownViewOnceToken;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -136,7 +134,7 @@ static dispatch_once_t static_countdownViewOnceToken;
             timer.accumulatedElapsed = 0;   // 已经流逝的时间（总 elapsed，单位秒）
             timer.lastStartDate      = nil; // 最近一次 start/resume 的时间点（支持 pause/resume）
         });
-    }return _timer;
+    };return _timer;
 }
 
 -(JobsTimeModel *)formatTime{
@@ -149,7 +147,7 @@ static dispatch_once_t static_countdownViewOnceToken;
             data.minute = @"分".tr;
             data.second = @"秒".tr;
         });
-    }return _formatTime;
+    };return _formatTime;
 }
 
 -(UILabel *)titleLab{
@@ -164,7 +162,7 @@ static dispatch_once_t static_countdownViewOnceToken;
                 make.height.mas_equalTo(JobsWidth(14));
             }];label.makeLabelByShowingType(UILabelShowingType_03);
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(UILabel *)countdownTimeLab{
@@ -182,7 +180,7 @@ static dispatch_once_t static_countdownViewOnceToken;
                 make.width.mas_equalTo(JobsCountdownView.viewSizeByModel(nil).width);
             }];
         });
-    }return _countdownTimeLab;
+    };return _countdownTimeLab;
 }
 
 -(NSMutableArray<JobsRichTextConfig *> *)richTextConfigMutArr{
@@ -225,19 +223,19 @@ static dispatch_once_t static_countdownViewOnceToken;
         _paragraphStyle = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
             data.alignment = NSTextAlignmentCenter;
         });
-    }return _paragraphStyle;
+    };return _paragraphStyle;
 }
 
 -(NSString *)minutesStr{
     if (!_minutesStr) {
         _minutesStr = @"30".tr;
-    }return _minutesStr;
+    };return _minutesStr;
 }
 
 -(NSString *)secondStr{
     if (!_secondStr) {
         _secondStr = @"0".tr;
-    }return _secondStr;
+    };return _secondStr;
 }
 
 @end

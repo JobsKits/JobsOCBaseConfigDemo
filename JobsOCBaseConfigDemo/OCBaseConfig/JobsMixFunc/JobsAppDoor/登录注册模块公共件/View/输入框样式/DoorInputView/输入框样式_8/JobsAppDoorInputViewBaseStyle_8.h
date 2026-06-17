@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorInputViewBaseStyle_8.h
-//  My_BaseProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/4.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -11,6 +11,7 @@
 #import "JobsAppDoorInputViewBaseStyleModel.h"
 #import "JobsAppDoorInputViewBaseStyle.h"
 #import "ZYTextField.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -50,7 +51,7 @@ NS_ASSUME_NONNULL_END
          }];
          [self layoutIfNeeded];
          _inputView.cornerCutToCircleWithCornerRadius(JobsWidth(self.inputViewSize.height / 2));
-     }return _inputView;
+     };return _inputView;
  }
 
  -(JobsAppDoorInputViewBaseStyleModel *)inputViewDataModel{
@@ -68,7 +69,7 @@ NS_ASSUME_NONNULL_END
          _inputViewDataModel.titleStrCor = HEXCOLOR(0x6D655D);
          _inputViewDataModel.placeHolderOffset = JobsWidth(35);
          _inputViewDataModel.textModel.textCor = HEXCOLOR(0xFFE8D1);
-     }return _inputViewDataModel;
+     };return _inputViewDataModel;
  }
  
  */

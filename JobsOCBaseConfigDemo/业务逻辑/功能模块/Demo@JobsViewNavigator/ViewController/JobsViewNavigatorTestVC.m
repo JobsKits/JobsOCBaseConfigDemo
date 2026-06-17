@@ -7,8 +7,6 @@
 
 #import "JobsViewNavigatorTestVC.h"
 
-#import "DefineProperty.h"
-
 @interface JobsViewNavigatorTestVC ()
 
 Prop_strong()JobsPushView *pushView;
@@ -135,7 +133,7 @@ Prop_strong()BaseButton *btn;
             make.height.mas_equalTo(JobsWidth(30));
         }];
         _btn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _btn;
+    };return _btn;
 }
 
 -(JobsPushView *)pushView{
@@ -144,7 +142,7 @@ Prop_strong()BaseButton *btn;
         _pushView.frame = self.view.bounds;
         _pushView.backgroundColor = JobsRandomColor;
         _pushView.jobsRichViewByModel(nil);
-    }return _pushView;
+    };return _pushView;
 }
 
 @end

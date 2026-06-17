@@ -1,6 +1,6 @@
 //
 //  JobsIMChatInfoModel.h
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/10.
 //
@@ -8,8 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "JobsIMDefine.h"
 #import "JobsBlock.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

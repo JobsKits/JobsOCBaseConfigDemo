@@ -1,13 +1,11 @@
 //
 //  JobsUserHeaderDataViewForHeaderInSection.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/20.
 //
 
 #import "JobsUserHeaderDataViewForHeaderInSection.h"
-
-#import "DefineProperty.h"
 
 @interface JobsUserHeaderDataViewForHeaderInSection ()
 
@@ -21,13 +19,13 @@ Prop_strong()UILabel *titleLab;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier{
     if(self == [super initWithReuseIdentifier:reuseIdentifier]){
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -69,7 +67,7 @@ Prop_strong()UILabel *titleLab;
                 make.edges.equalTo(self.contentView);
             }];
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 @end

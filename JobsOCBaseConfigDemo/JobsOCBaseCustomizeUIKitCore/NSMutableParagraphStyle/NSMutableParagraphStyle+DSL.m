@@ -2,211 +2,211 @@
 //  NSMutableParagraphStyle+DSL.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Mac on 11/3/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSMutableParagraphStyle+DSL.h"
 
 @implementation NSMutableParagraphStyle (DSL)
 #pragma mark —— CGFloat
--(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byLineSpacing {
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byLineSpacing{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (CGFloat v) {
+    return ^__kindof NSMutableParagraphStyle * (CGFloat v){
         @jobs_strongify(self) 
         self.lineSpacing = v;
         return self;
     };
 }
 
--(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byParagraphSpacing {
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byParagraphSpacing{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (CGFloat v) {
+    return ^__kindof NSMutableParagraphStyle * (CGFloat v){
         @jobs_strongify(self) 
         self.paragraphSpacing = v;
         return self;
     };
 }
 
--(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byFirstLineHeadIndent {
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byFirstLineHeadIndent{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (CGFloat v) {
+    return ^__kindof NSMutableParagraphStyle * (CGFloat v){
         @jobs_strongify(self) 
         self.firstLineHeadIndent = v;
         return self;
     };
 }
 
--(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byHeadIndent {
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byHeadIndent{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (CGFloat v) {
+    return ^__kindof NSMutableParagraphStyle * (CGFloat v){
         @jobs_strongify(self) 
         self.headIndent = v;
         return self;
     };
 }
 
--(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byTailIndent {
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byTailIndent{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (CGFloat v) {
+    return ^__kindof NSMutableParagraphStyle * (CGFloat v){
         @jobs_strongify(self) 
         self.tailIndent = v;
         return self;
     };
 }
 
--(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byMinimumLineHeight {
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byMinimumLineHeight{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (CGFloat v) {
+    return ^__kindof NSMutableParagraphStyle * (CGFloat v){
         @jobs_strongify(self) 
         self.minimumLineHeight = v;
         return self;
     };
 }
 
--(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byMaximumLineHeight {
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byMaximumLineHeight{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (CGFloat v) {
+    return ^__kindof NSMutableParagraphStyle * (CGFloat v){
         @jobs_strongify(self) 
         self.maximumLineHeight = v;
         return self;
     };
 }
 
--(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byLineHeightMultiple {
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byLineHeightMultiple{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (CGFloat v) {
+    return ^__kindof NSMutableParagraphStyle * (CGFloat v){
         @jobs_strongify(self) 
         self.lineHeightMultiple = v;
         return self;
     };
 }
 
--(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byParagraphSpacingBefore {
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byParagraphSpacingBefore{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (CGFloat v) {
+    return ^__kindof NSMutableParagraphStyle * (CGFloat v){
         @jobs_strongify(self) 
         self.paragraphSpacingBefore = v;
         return self;
     };
 }
 
--(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byDefaultTabInterval {
+-(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byDefaultTabInterval{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (CGFloat v) {
+    return ^__kindof NSMutableParagraphStyle * (CGFloat v){
         @jobs_strongify(self) 
-        if (@available(iOS 7.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)) {
+        if (@available(iOS 7.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)){
             self.defaultTabInterval = v;
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— float
--(JobsRetMutableParagraphStyleByFloatBlock _Nonnull)byHyphenationFactor {
+-(JobsRetMutableParagraphStyleByFloatBlock _Nonnull)byHyphenationFactor{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (float v) {
+    return ^__kindof NSMutableParagraphStyle * (float v){
         @jobs_strongify(self) 
         self.hyphenationFactor = v;
         return self;
     };
 }
 #pragma mark —— BOOL
--(JobsRetMutableParagraphStyleByBOOLBlock _Nonnull)byAllowsDefaultTighteningForTruncation {
+-(JobsRetMutableParagraphStyleByBOOLBlock _Nonnull)byAllowsDefaultTighteningForTruncation{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (BOOL on) {
+    return ^__kindof NSMutableParagraphStyle * (BOOL on){
         @jobs_strongify(self) 
-        if (@available(iOS 9.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)) {
+        if (@available(iOS 9.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)){
             self.allowsDefaultTighteningForTruncation = on;
-        }return self;
+        };return self;
     };
 }
 
--(JobsRetMutableParagraphStyleByBOOLBlock _Nonnull)byUsesDefaultHyphenation {
+-(JobsRetMutableParagraphStyleByBOOLBlock _Nonnull)byUsesDefaultHyphenation{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (BOOL on) {
+    return ^__kindof NSMutableParagraphStyle * (BOOL on){
         @jobs_strongify(self) 
-        if (@available(iOS 15.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)) {
+        if (@available(iOS 15.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)){
             self.usesDefaultHyphenation = on;
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— Enums
--(JobsRetMutableParagraphStyleByNSIntegerBlock _Nonnull)byLineBreakMode {
+-(JobsRetMutableParagraphStyleByNSIntegerBlock _Nonnull)byLineBreakMode{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (NSLineBreakMode mode) {
+    return ^__kindof NSMutableParagraphStyle * (NSLineBreakMode mode){
         @jobs_strongify(self) 
         self.lineBreakMode = mode;
         return self;
     };
 }
 
--(JobsRetMutableParagraphStyleByNSIntegerBlock _Nonnull)byBaseWritingDirection {
+-(JobsRetMutableParagraphStyleByNSIntegerBlock _Nonnull)byBaseWritingDirection{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (NSWritingDirection dir) {
+    return ^__kindof NSMutableParagraphStyle * (NSWritingDirection dir){
         @jobs_strongify(self) 
         self.baseWritingDirection = dir;
         return self;
     };
 }
 
--(JobsRetMutableParagraphStyleByNSUIntegerBlock _Nonnull)byLineBreakStrategy {
+-(JobsRetMutableParagraphStyleByNSUIntegerBlock _Nonnull)byLineBreakStrategy{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (NSLineBreakStrategy strategy) {
+    return ^__kindof NSMutableParagraphStyle * (NSLineBreakStrategy strategy){
         @jobs_strongify(self) 
-        if (@available(iOS 9.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)) {
+        if (@available(iOS 9.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)){
             self.lineBreakStrategy = strategy;
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— Arrays
--(JobsRetMutableParagraphStyleByArrBlock _Nonnull)byTabStops {
+-(JobsRetMutableParagraphStyleByArrBlock _Nonnull)byTabStops{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (NSArray<NSTextTab *> * _Nullable stops) {
+    return ^__kindof NSMutableParagraphStyle * (NSArray<NSTextTab *> * _Nullable stops){
         @jobs_strongify(self) 
-        if (@available(iOS 7.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)) {
+        if (@available(iOS 7.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)){
             self.tabStops = stops;
-        }return self;
+        };return self;
     };
 }
 
--(JobsRetMutableParagraphStyleByArrBlock _Nonnull)byTextLists {
+-(JobsRetMutableParagraphStyleByArrBlock _Nonnull)byTextLists{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (NSArray<NSTextList *> * _Nullable lists) {
+    return ^__kindof NSMutableParagraphStyle * (NSArray<NSTextList *> * _Nullable lists){
         @jobs_strongify(self) 
-        if (@available(iOS 7.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)) {
+        if (@available(iOS 7.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)){
             self.textLists = lists;
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— Single object operations
--(JobsRetMutableParagraphStyleByNSTextTabBlock _Nonnull)byAddTabStop {
+-(JobsRetMutableParagraphStyleByNSTextTabBlock _Nonnull)byAddTabStop{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (NSTextTab * _Nullable tab) {
+    return ^__kindof NSMutableParagraphStyle * (NSTextTab * _Nullable tab){
         @jobs_strongify(self) 
         if (!tab) return self;
-        if (@available(iOS 9.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)) {
+        if (@available(iOS 9.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)){
             [self addTabStop:tab];
-        }return self;
+        };return self;
     };
 }
 
--(JobsRetMutableParagraphStyleByNSTextTabBlock _Nonnull)byRemoveTabStop {
+-(JobsRetMutableParagraphStyleByNSTextTabBlock _Nonnull)byRemoveTabStop{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (NSTextTab * _Nullable tab) {
+    return ^__kindof NSMutableParagraphStyle * (NSTextTab * _Nullable tab){
         @jobs_strongify(self) 
         if (!tab) return self;
-        if (@available(iOS 9.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)) {
+        if (@available(iOS 9.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)){
             [self removeTabStop:tab];
-        }return self;
+        };return self;
     };
 }
 
--(JobsRetMutableParagraphStyleByNSParagraphStyleBlock _Nonnull)bySetParagraphStyle {
+-(JobsRetMutableParagraphStyleByNSParagraphStyleBlock _Nonnull)bySetParagraphStyle{
     @jobs_weakify(self)
-    return ^__kindof NSMutableParagraphStyle * (NSParagraphStyle * _Nullable style) {
+    return ^__kindof NSMutableParagraphStyle * (NSParagraphStyle * _Nullable style){
         @jobs_strongify(self) 
         if (!style) return self;
-        if (@available(iOS 9.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)) {
+        if (@available(iOS 9.0, tvOS 9.0, watchOS 2.0, visionOS 1.0, *)){
             [self setParagraphStyle:style];
-        }return self;
+        };return self;
     };
 }
 

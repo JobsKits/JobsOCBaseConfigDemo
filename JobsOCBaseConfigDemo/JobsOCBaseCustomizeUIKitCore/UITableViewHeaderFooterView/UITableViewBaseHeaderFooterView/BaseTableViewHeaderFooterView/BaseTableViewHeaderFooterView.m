@@ -1,6 +1,6 @@
 //
 //  BaseTableViewHeaderFooterView.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/30.
 //
@@ -20,10 +20,10 @@ BaseViewProtocol_synthesize
         /// 只有 self.backgroundView.backgroundColor 是有效操作✅
         /// 默认情况下，backgroundView 是 nil
         self.backgroundView = UIView.initByFrame(self.bounds);
-    }return self;
+    };return self;
 }
 /**
- #import "UITableViewHeaderFooterView+Attribute.h"
+#import "UITableViewHeaderFooterView+Attribute.h"
  在具体的子类实现，实现控制UITableViewHeaderFooterView是否悬停
  资料来源：https://github.com/Zydhjx/HeaderDemo
  UITableView类型：UITableViewStylePlain

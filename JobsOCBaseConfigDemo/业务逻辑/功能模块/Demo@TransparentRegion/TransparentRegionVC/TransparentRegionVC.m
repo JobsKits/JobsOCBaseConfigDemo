@@ -1,6 +1,6 @@
 //
 //  TransparentRegionVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/8.
 //
@@ -95,7 +95,7 @@
                 make.top.left.right.bottom.equalTo(self.view);
             }];
         });
-    }return _scrollView;
+    };return _scrollView;
 }
 @synthesize label = _label;
 -(UILabel *)label{
@@ -117,7 +117,7 @@
                                                                  cornerRadii:CGSizeMake(0, 0)].CGPath;
             [self.scrollView addSubview:label];
         });
-    }return _label;
+    };return _label;
 }
 
 @end

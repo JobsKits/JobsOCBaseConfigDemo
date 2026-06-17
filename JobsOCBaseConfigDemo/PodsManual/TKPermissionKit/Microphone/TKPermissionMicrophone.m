@@ -1,6 +1,6 @@
 //
 //  TKPermissionMicrophone.m
-//  TKPermissionKitDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 2019/10/11.
 //  Copyright © 2019 mac. All rights reserved.
@@ -37,7 +37,7 @@ static bool safeLock = NO;/// 防止连续请求lock
     BOOL isAuth = NO;
     if ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio] == AVAuthorizationStatusAuthorized) {
         isAuth = YES;
-    }return isAuth;
+    };return isAuth;
 }
 #pragma mark —— 一些私有方法
 +(void)jumpSetting{

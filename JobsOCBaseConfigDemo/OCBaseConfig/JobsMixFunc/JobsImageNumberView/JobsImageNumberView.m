@@ -1,13 +1,11 @@
 //
 //  ImageNumberView.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/29.
 //
 
 #import "JobsImageNumberView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsImageNumberView ()
 /// Data
@@ -20,7 +18,7 @@ Prop_strong()NSArray <UIImage *>*dataMutArr;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsClearColor;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -130,7 +128,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
         [self.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
-    }return _collectionView;
+    };return _collectionView;
 }
 
 @end

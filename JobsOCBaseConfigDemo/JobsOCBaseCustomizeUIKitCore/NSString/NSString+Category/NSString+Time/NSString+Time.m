@@ -1,11 +1,12 @@
 //
 //  NSString+Time.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 9/3/24.
 //
 
 #import "NSString+Time.h"
+#import "NSObject+WHToast.h"
 
 @implementation NSString (Time)
 /// 格式化为中国时间
@@ -31,9 +32,9 @@
             sec = self.doubleValue / 1000.0;/// 毫秒级时间戳（13位）
         }else{
             JobsLog(@"不是正确的时间戳，请检查");
-            toastBy(@"不是正确的时间戳，请检查".tr);
+            NSObject.jobsToastMsg(@"不是正确的时间戳，请检查".tr);
             return nil;
-        }return jobsMakeDateFormatter(^(__kindof NSDateFormatter *_Nullable dateFormatter) {
+        };return jobsMakeDateFormatter(^(__kindof NSDateFormatter *_Nullable dateFormatter) {
             dateFormatter.dateFormat = timeFormat;
         }).stringByDate(NSDate.initDateBy(sec));
     };
@@ -52,7 +53,7 @@
         date = NSDate.initDateBy(self.doubleValue);
     }else if(intervalStyle == intervalByMilliSec){/// 毫秒级时间戳（13位）
         date = NSDate.initDateBy(self.doubleValue / 1000.0);
-    }return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable data) {
+    };return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable data) {
         @jobs_strongify(self)
         data.dateFormat = isNull(timeFormatter) ? @"yyyy-MM-dd HH:mm:ss" : timeFormatter;
         data.timeZone = self.timeZone(timeZoneType);
@@ -65,7 +66,7 @@
         @jobs_strongify(self)
 #ifdef DEBUG
         JobsLog(@"当前时间为:%@, Token过期时间为:%@", NSDate.date, self.chinaTime(nil));
-        toastBy(JobsFormattedString(@"Token过期时间为:%@", self.chinaTime(nil)));
+        NSObject.jobsToastMsg(JobsFormattedString(@"Token过期时间为:%@", self.chinaTime(nil)));
 #endif
         /// 将时间戳字符串转换为 double 类型的时间戳
         double timeStamp = self.doubleValue;

@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorInputViewBaseStyleModel.m
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -16,31 +16,31 @@ UIViewModelProtocol_synthesize
 - (instancetype)init{
     if (self = [super init]) {
         self.keyboardEnable = YES;
-    }return self;
+    };return self;
 }
 
 -(UIFont *)titleStrFont{
     if (!_titleStrFont) {
         _titleStrFont = UIFontWeightRegularSize(9);
-    }return _titleStrFont;
+    };return _titleStrFont;
 }
 
 -(UIColor *)titleStrCor{
     if (!_titleStrCor) {
         _titleStrCor = JobsWhiteColor;
-    }return _titleStrCor;
+    };return _titleStrCor;
 }
 
 -(UIFont *)placeholderFont{
     if (!_placeholderFont) {
         _placeholderFont = UIFontWeightRegularSize(14);
-    }return _placeholderFont;
+    };return _placeholderFont;
 }
 
 -(UIColor *)placeholderColor{
     if (!_placeholderColor) {
         _placeholderColor = HEXCOLOR(0x524740);
-    }return _placeholderColor;
+    };return _placeholderColor;
 }
 
 @end

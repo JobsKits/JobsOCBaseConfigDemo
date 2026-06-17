@@ -1,6 +1,6 @@
 //
 //  UIViewController+SuspendBtn.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/15.
 //
@@ -10,8 +10,7 @@
 #import "UIButton+UI.h"
 #import "JobsLoadingImage.h"
 #import "MacroDef_App.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

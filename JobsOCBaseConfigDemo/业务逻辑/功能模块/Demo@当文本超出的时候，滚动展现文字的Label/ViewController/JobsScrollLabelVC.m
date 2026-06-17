@@ -1,13 +1,11 @@
 //
 //  JobsScrollLabelVC.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 28/11/2024.
 //
 
 #import "JobsScrollLabelVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsScrollLabelVC ()
 
@@ -25,7 +23,7 @@ Prop_strong()RACDisposable *timerDisposable;
 -(instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{

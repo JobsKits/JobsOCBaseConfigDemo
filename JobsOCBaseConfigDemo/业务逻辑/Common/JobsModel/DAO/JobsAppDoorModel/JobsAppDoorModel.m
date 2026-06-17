@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorModel.m
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -13,7 +13,7 @@
 -(NSString *)userName{
     if (!_userName) {
         _userName = self.readUserNameMutArr[0];
-    }return _userName;
+    };return _userName;
 }
 
 @end

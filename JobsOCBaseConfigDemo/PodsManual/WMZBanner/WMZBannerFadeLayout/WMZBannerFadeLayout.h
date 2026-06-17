@@ -1,6 +1,6 @@
 //
 //  WMZBannerFadeLayout.h
-//  WMZBanner
+//  JobsOCBaseConfigDemo
 //
 //  Created by wmz on 2020/6/15.
 //  Copyright © 2020 wmz. All rights reserved.

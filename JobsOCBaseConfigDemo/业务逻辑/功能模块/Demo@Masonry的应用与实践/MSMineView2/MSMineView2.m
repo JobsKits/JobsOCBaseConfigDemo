@@ -1,13 +1,11 @@
 //
 //  MSMineView2.m
-//  MataShop
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 9/23/23.
 //
 
 #import "MSMineView2.h"
-
-#import "DefineProperty.h"
 
 @interface MSMineView2 ()
 /// UI
@@ -35,7 +33,7 @@ static dispatch_once_t static_mineView2OnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -51,7 +49,7 @@ static dispatch_once_t static_mineView2OnceToken;
                 JobsLog(@"SSS = %d",b.boolValue);
             }JobsLog(@"通知传递过来的 = %@",notification.object);
         }];
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -65,7 +63,7 @@ static dispatch_once_t static_mineView2OnceToken;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -106,7 +104,7 @@ static dispatch_once_t static_mineView2OnceToken;
             make.centerY.equalTo(self);
             make.left.equalTo(self).offset(JobsWidth(6));
         }];
-    }return _btn1;
+    };return _btn1;
 }
 
 -(UIButton *)btn2{
@@ -129,7 +127,7 @@ static dispatch_once_t static_mineView2OnceToken;
             make.centerY.equalTo(self);
             make.right.equalTo(self).offset(JobsWidth(-5));
         }];
-    }return _btn2;
+    };return _btn2;
 }
 
 @end

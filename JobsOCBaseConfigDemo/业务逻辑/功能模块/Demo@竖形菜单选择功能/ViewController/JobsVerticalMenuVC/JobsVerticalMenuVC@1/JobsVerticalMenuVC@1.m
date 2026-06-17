@@ -7,8 +7,6 @@
 
 #import "JobsVerticalMenuVC@1.h"
 
-#import "DefineProperty.h"
-
 @interface JobsVerticalMenuVC_1 ()
 /// UI
 Prop_strong()BaseButton *editBtn;
@@ -164,7 +162,7 @@ Prop_strong()UIViewModel *leftViewCurrentSelectModel;
                 data1.textModel.text = @"彩票".tr;
             }));
         });
-    }return _titleMutArr;
+    };return _titleMutArr;
 }
 
 -(jobsByVoidBlock)refreshLeftView{
@@ -229,7 +227,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byFrame(CGRectMake(0,JobsTopSafeAreaHeight() + JobsStatusBarHeight() + self.gk_navigationBar.mj_h,
                                     TableViewWidth,JobsMainScreen_HEIGHT() - JobsTopSafeAreaHeight() - JobsStatusBarHeight() - JobsTabBarHeight(AppDelegate.tabBarVC) - EditBtnHeight));
         }));
-    }return _tableView;
+    };return _tableView;
 }
 
 -(JobsSearchBar *)searchView{
@@ -251,7 +249,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                     make.centerY.equalTo(self.gk_navigationBar);
                 });
         });
-    }return _searchView;
+    };return _searchView;
 }
 
 -(BaseButton *)editBtn{
@@ -279,7 +277,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 make.top.equalTo(self.tableView.mas_bottom);
                 make.size.mas_equalTo(CGSizeMake(TableViewWidth, EditBtnHeight));
             });
-    }return _editBtn;
+    };return _editBtn;
 }
 
 -(NSMutableArray<UIViewModel *> *)leftDataArray{
@@ -287,7 +285,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _leftDataArray = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
 
         });
-    }return _leftDataArray;
+    };return _leftDataArray;
 }
 @synthesize vcs = _vcs;
 -(__kindof NSMutableArray<__kindof UIViewController *> *)vcs{
@@ -295,7 +293,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _vcs = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
 
         });
-    }return _vcs;
+    };return _vcs;
 }
 
 @end

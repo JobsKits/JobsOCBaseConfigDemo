@@ -1,13 +1,11 @@
 //
 //  JobsIMInputview.m
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/10.
 //
 
 #import "JobsIMInputview.h"
-
-#import "DefineProperty.h"
 
 @interface JobsIMInputview ()
 /// UI
@@ -23,7 +21,7 @@ Prop_strong()BaseButton *sendBtn;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -101,7 +99,7 @@ Prop_strong()BaseButton *sendBtn;
             make.right.equalTo(self).offset(-10);
             make.width.mas_equalTo(50);
         }];
-    }return _sendBtn;
+    };return _sendBtn;
 }
 
 -(ZYTextField *)inputTextField{
@@ -141,7 +139,7 @@ Prop_strong()BaseButton *sendBtn;
             JobsLog(@"输入的字符为 = %@",x);
             self.someChangeUIBy(x);
         }];
-    }return _inputTextField;
+    };return _inputTextField;
 }
 
 -(UIImageView *)imgView{
@@ -149,7 +147,7 @@ Prop_strong()BaseButton *sendBtn;
         _imgView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             imageView.image = @"输入框无值".img;
         });
-    }return _imgView;
+    };return _imgView;
 }
 
 -(JobsAdNoticeView *)adNoticeView{
@@ -157,7 +155,7 @@ Prop_strong()BaseButton *sendBtn;
         _adNoticeView = JobsAdNoticeView.new;
         _adNoticeView.sizer = JobsAdNoticeView.viewSizeByModel(nil);
         _adNoticeView.jobsRichViewByModel(nil);
-    }return _adNoticeView;
+    };return _adNoticeView;
 }
 
 @end

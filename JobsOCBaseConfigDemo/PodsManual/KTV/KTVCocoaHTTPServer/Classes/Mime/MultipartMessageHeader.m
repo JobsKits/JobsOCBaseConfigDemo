@@ -1,13 +1,12 @@
 //
 //  MultipartMessagePart.m
-//  HttpServer
+//  JobsOCBaseConfigDemo
 //
 //  Created by Валерий Гаврилов on 29.03.12.
 //  Copyright (c) 2012 LLC "Online Publishing Partners" (onlinepp.ru). All rights reserved.
 
 #import "MultipartMessageHeader.h"
 #import "MultipartMessageHeaderField.h"
-
 #import "HTTPLogging.h"
 
 //-----------------------------------------------------------------

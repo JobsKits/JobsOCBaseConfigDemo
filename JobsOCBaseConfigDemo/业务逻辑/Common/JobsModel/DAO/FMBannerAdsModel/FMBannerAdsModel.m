@@ -1,6 +1,6 @@
 //
 //  FMBannerAdsModel.m
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -20,13 +20,13 @@ BaseLayerProtocol_synthesize_part3
 -(NSString *)title{
     if(!_title){
         _title = @"";
-    }return _title;
+    };return _title;
 }
 
 -(NSString *)content{
     if(!_content){
         _content = @"";
-    }return _content;
+    };return _content;
 }
 
 @end

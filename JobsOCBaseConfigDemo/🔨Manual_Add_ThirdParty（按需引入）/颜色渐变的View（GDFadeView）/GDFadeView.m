@@ -1,14 +1,12 @@
 //
 //  GDFadeView.m
-//  FadeView
+//  JobsOCBaseConfigDemo
 //
 //  Created by xiaoyu on 15/11/13.
 //  Copyright © 2015年 guoda. All rights reserved.
 //
 
 #import "GDFadeView.h"
-
-#import "DefineProperty.h"
 
 @interface GDFadeView ()
 
@@ -23,19 +21,20 @@ Prop_strong()CAGradientLayer *cagradientLayer;
 -(instancetype)init{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
 }
 
+#pragma mark —— frame
 -(void)setFrame:(CGRect)frame{
     [super setFrame:frame];
     self.backLabel.alpha = 1;
@@ -82,28 +81,33 @@ Prop_strong()CAGradientLayer *cagradientLayer;
     };
 }
 #pragma mark —— Set方法
+#pragma mark —— backColor
 -(void)setBackColor:(UIColor *)backColor{
     _backColor = backColor;
     _backLabel.textColor = backColor;
 }
 
+#pragma mark —— foreColor
 -(void)setForeColor:(UIColor *)foreColor{
     _foreColor = foreColor;
     _frontLabel.textColor = foreColor;
 }
 
+#pragma mark —— font
 -(void)setFont:(UIFont *)font{
     _font = font;
     _backLabel.font = font;
     _frontLabel.font = font;
 }
 
+#pragma mark —— alignment
 -(void)setAlignment:(NSTextAlignment)alignment{
     _alignment = alignment;
     _backLabel.textAlignment = alignment;
     _frontLabel.textAlignment = alignment;
 }
 
+#pragma mark —— text
 -(void)setText:(NSString *)text{
     _text = text;
     _backLabel.text = text;
@@ -118,7 +122,7 @@ Prop_strong()CAGradientLayer *cagradientLayer;
             label.frame = self.bounds;
             self.addSubview(label);
         });
-    }return _backLabel;
+    };return _backLabel;
 }
 
 -(UILabel *)frontLabel{
@@ -129,7 +133,7 @@ Prop_strong()CAGradientLayer *cagradientLayer;
             label.frame = self.bounds;
             self.addSubview(label);
         });
-    }return _frontLabel;
+    };return _frontLabel;
 }
 
 -(CAGradientLayer *)cagradientLayer{
@@ -137,7 +141,7 @@ Prop_strong()CAGradientLayer *cagradientLayer;
         _cagradientLayer = jobsMakeCAGradientLayer(^(__kindof CALayer * _Nullable layer) {
             
         });
-    }return _cagradientLayer;
+    };return _cagradientLayer;
 }
 
 @end

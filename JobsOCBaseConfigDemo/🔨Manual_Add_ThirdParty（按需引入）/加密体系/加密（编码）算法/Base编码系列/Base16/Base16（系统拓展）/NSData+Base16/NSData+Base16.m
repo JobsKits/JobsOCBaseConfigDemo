@@ -1,6 +1,6 @@
 //
 //  NSData+Base16.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2024/4/24.
 //
@@ -24,7 +24,7 @@
         NSMutableString *hexString = NSMutableString.initByCapacity(length * 2);
         for (NSUInteger i = 0; i < length; i++) {
             [hexString appendFormat:@"%02X", bytes[i]];
-        }return hexString;
+        };return hexString;
     };
 }
 ///【实例方法】将NSData对象 转换为 以Base16（也称为十六进制）编码的字符串

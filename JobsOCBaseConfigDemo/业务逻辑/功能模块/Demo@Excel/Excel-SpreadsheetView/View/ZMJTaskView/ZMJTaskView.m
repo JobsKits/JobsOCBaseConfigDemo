@@ -1,6 +1,6 @@
 //
 //  ZMJTaskView.m
-//  ZMJTipView_Example
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jason on 2018/2/11.
 //  Copyright © 2018年 keshiim. All rights reserved.
@@ -22,8 +22,6 @@
 
 #define DateTitleWidth 45.f
 
-#import "DefineProperty.h"
-
 @interface ZMJTaskView () 
 
 Prop_strong()UILabel *taskTitleLabel;
@@ -41,13 +39,13 @@ Prop_strong()UILabel *viewDetailLabel;
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
         [self setupViews];
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self setupViews];
-    }return self;
+    };return self;
 }
 
 - (void)setupViews {
@@ -160,6 +158,7 @@ Prop_strong()UILabel *viewDetailLabel;
 }
 
 // MARK: getter
+#pragma mark —— taskTitle
 - (void)setTaskTitle:(NSString *)taskTitle {
     _taskTitle = taskTitle;
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:taskTitle];
@@ -171,11 +170,13 @@ Prop_strong()UILabel *viewDetailLabel;
     //self.taskTitleLabel.text = taskTitle;
 }
 
+#pragma mark —— startTime
 - (void)setStartTime:(NSString *)startTime {
     _startTime = startTime;
     self.startTimeLabel.text = startTime;
 }
 
+#pragma mark —— endTime
 - (void)setEndTime:(NSString *)endTime {
     _endTime = endTime;
     self.endTimeLabel.text = endTime;

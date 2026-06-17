@@ -1,13 +1,11 @@
 //
 //  UIViewController+GifImageView.m
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/12.
 //
 
 #import "UIViewController+GifImageView.h"
-
-#import "DefineProperty.h"
 
 @implementation UIViewController (GifImageView)
 #pragma mark —— Prop_strong()UIImageView *gifImageView;
@@ -25,7 +23,7 @@ JobsKey(_gifImageView)
                 make.edges.equalTo(self.view);
             }];Jobs_setAssociatedRETAIN_NONATOMIC(_gifImageView, GifImageView)
         });
-    }return GifImageView;
+    };return GifImageView;
 }
 
 -(void)setGifImageView:(UIImageView *)gifImageView{
@@ -40,7 +38,7 @@ JobsKey(_path)
     if (isValue(Path)) {
         Path = @"GIF大图.gif".pathForResourceWithFullName;
         Jobs_setAssociatedCOPY_NONATOMIC(_path, Path)
-    }return Path;
+    };return Path;
 }
 
 -(void)setPath:(NSString *)path{
@@ -54,7 +52,7 @@ JobsKey(_data)
     if (!Data) {
         Data = [NSData dataWithContentsOfFile:self.path];
         Jobs_setAssociatedRETAIN_NONATOMIC(_data, Data);
-    }return Data;
+    };return Data;
 }
 
 -(void)setData:(NSData *)data{
@@ -68,7 +66,7 @@ JobsKey(_image)
     if (!img) {
         img = [UIImage sd_imageWithGIFData:self.data];
         Jobs_setAssociatedRETAIN_NONATOMIC(_image, img)
-    }return img;
+    };return img;
 }
 
 -(void)setImage:(UIImage *)image{

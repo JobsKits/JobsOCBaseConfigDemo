@@ -1,13 +1,11 @@
 //
 //  JobsShootingVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 9/26/23.
 //
 
 #import "JobsShootingVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsShootingVC ()
 /// UI
@@ -92,7 +90,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             make.left.equalTo(self.view).offset(JobsWidth(20));
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(100));
         }];_cameraBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _cameraBtn;
+    };return _cameraBtn;
 }
 
 -(UIButton *)photoAlbumBtn{
@@ -129,7 +127,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             make.right.equalTo(self.view).offset(JobsWidth(-20));
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(100));
         }];_photoAlbumBtn.makeBtnTitleByShowingType(UILabelShowingType_03);;
-    }return _photoAlbumBtn;
+    };return _photoAlbumBtn;
 }
 @synthesize imageView = _imageView;
 -(UIImageView *)imageView{
@@ -144,7 +142,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
                 make.top.equalTo(self.photoAlbumBtn.mas_bottom).offset(JobsWidth(50));
             }];
         });
-    }return _imageView;
+    };return _imageView;
 }
 
 @end

@@ -1,6 +1,6 @@
 //
 //  UIView+SuspendView.h
-//  Search
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/8/13.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -10,8 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "UIView+Measure.h"
 #import "MacroDef_Size.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,6 +1,6 @@
 //
 //  UIView+BackgroundImage.h
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/1/22.
 //  Copyright © 2021 MonkeyKingVideo. All rights reserved.
@@ -8,8 +8,8 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else

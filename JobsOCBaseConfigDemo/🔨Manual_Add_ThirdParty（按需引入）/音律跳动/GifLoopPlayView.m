@@ -1,14 +1,12 @@
 //
 //  GifLoopPlayView.m
-//  TFRememberHistoryInputContentWithDropList
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/30.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "GifLoopPlayView.h"
-
-#import "DefineProperty.h"
 
 @interface GifLoopPlayView ()
 
@@ -23,7 +21,7 @@ static dispatch_once_t dispatchOnce;
     if (self = [super init]) {
         self.backgroundColor = JobsClearColor;
         dispatchOnce = 0;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -34,6 +32,7 @@ static dispatch_once_t dispatchOnce;
     });
 }
 //  YES - 停止；NO - 播放
+#pragma mark —— stopped
 -(void)setStopped:(BOOL)stopped{
     _stopped = stopped;
     if(!stopped) {
@@ -56,7 +55,7 @@ static dispatch_once_t dispatchOnce;
             imageView.animationRepeatCount = 0;  //动画重复次数，无限循环
             self.addSubview(imageView);
         });
-    }return _imageView;
+    };return _imageView;
 }
 
 -(NSMutableArray<UIImage *> *)gifMutArr{
@@ -64,19 +63,19 @@ static dispatch_once_t dispatchOnce;
         _gifMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
             arr.add(JobsBuddleIMG(nil,@"音律跳动", nil, @"1"));
         });
-    }return _gifMutArr;
+    };return _gifMutArr;
 }
 
 -(CGFloat)duration{
     if (_duration == 0) {
         _duration = 1.5;// 执行一次完整动画所需的时长
-    }return _duration;
+    };return _duration;
 }
 
 -(UIImage *)pauseImage{
     if (!_pauseImage) {
         _pauseImage = self.gifMutArr[0];
-    }return _pauseImage;
+    };return _pauseImage;
 }
 
 @end

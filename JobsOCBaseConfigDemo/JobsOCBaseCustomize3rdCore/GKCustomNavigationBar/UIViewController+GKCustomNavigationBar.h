@@ -1,6 +1,6 @@
 //
 //  UIViewController+GKCustomNavigationBar.h
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/5.
 //
@@ -9,8 +9,8 @@
 #import "UIButtonModel.h"
 #import "UIView+Extras.h"
 #import "JobsBlock.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else

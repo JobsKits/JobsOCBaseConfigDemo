@@ -1,6 +1,6 @@
 //
 //  UIView+Extras.h
-//  MJRefreshExample
+//  JobsOCBaseConfigDemo
 //
 //  Created by Aalto on 14-5-28.
 //  Copyright (c) 2014年 itcast. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
+#import "JobsDefineEnums.h"
 #import "BaseViewProtocol.h"
 #import "BaseCellProtocol.h"
 #import "JobsBlock.h"
@@ -30,17 +30,19 @@
 ///  要解决这个问题，首先可以强制指定参数为 __strong 以避免自动推导为 __autoreleasing
 ///  如果你希望在函数内部能够修改外部变量的值，你可以使用指针的指针（UIView **），传递变量的地址来改变原变量的值。
 ///  destroyView(&view);
+#ifndef JobsDefineFuncs_h
 NS_INLINE void destroyView(__strong __kindof UIView *_Nonnull *_Nonnull view) {
     [*view removeFromSuperview];
     *view = nil;
 }
+#endif /* JobsDefineFuncs_h */
 /// 在 Objective-C 中，无法直接通过函数参数隐式传递对象的地址。
 /// 如果希望在函数调用时自动传递对象的地址，只能通过宏来实现。
 #ifndef DestroyView
 #define DestroyView(view) destroyView(&(view))
 #endif /* DestroyView */
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @interface UIView (Extras) <BaseViewProtocol,BaseCellProtocol>
 #pragma mark —— init

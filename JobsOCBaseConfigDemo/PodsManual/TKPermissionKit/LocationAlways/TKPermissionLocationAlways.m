@@ -1,6 +1,6 @@
 //
 //  TKPermissionLocationAlways.m
-//  TKPermissionKitDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 2019/10/11.
 //  Copyright © 2019 mac. All rights reserved.
@@ -54,7 +54,7 @@ static TKPermissionLocationAlways * _shared = nil;
 +(TKPermissionLocationAlways *)shared{
     if (!_shared) {
         _shared = TKPermissionLocationAlways.new;
-    }return _shared;
+    };return _shared;
 }
 /// 查询是否获取了仅在使用应用期间位置权限
 +(BOOL)checkAuth{
@@ -70,7 +70,7 @@ static TKPermissionLocationAlways * _shared = nil;
         if (status == kCLAuthorizationStatusAuthorizedAlways || status == kCLAuthorizationStatusAuthorizedWhenInUse) {
             isAuth = YES;
         }
-    }return isAuth;
+    };return isAuth;
 }
 ///   请求始终访问位置权限
 /// - Parameters:

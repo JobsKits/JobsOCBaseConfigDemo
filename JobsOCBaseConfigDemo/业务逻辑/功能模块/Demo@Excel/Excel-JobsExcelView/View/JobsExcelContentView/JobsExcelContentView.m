@@ -1,14 +1,12 @@
 //
 //  JobsExcelContentView.m
-//  JobsExcelView
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 17/6/16.
 //  Copyright © 2017年 Mephsito. All rights reserved.
 //  特别鸣谢 https://github.com/Mephsito23/iOS-Excel-
 
 #import "JobsExcelContentView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsExcelContentView()
 /// Data
@@ -22,7 +20,7 @@ Prop_assign()CGPoint contentOffenset;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.tableView.byShow(self);
-    }return self;
+    };return self;
 }
 /// 在某些情况下，当UITableView加载到一个子UIView上的时候，只有在layoutSubviews刷新页面的时候，UITableView才会有Frame
 -(void)layoutSubviews{
@@ -121,7 +119,7 @@ Prop_assign()CGPoint contentOffenset;
                 make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0, 0, 0));
             }];
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 @end

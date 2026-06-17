@@ -1,6 +1,6 @@
 //
 //  RYCuteView.m
-//  testUIBezierPath
+//  JobsOCBaseConfigDemo
 //
 //  Created by billionsfinance-resory on 15/11/2.
 //  Updated by Jobs on 2025/11/21
@@ -10,7 +10,6 @@
 #import "RYCuteView.h"
 /// 默认最小高度
 static const CGFloat kDefaultMinHeight = 64.f;
-#import "DefineProperty.h"
 
 @interface RYCuteView ()
 /// 手势移动时相对高度
@@ -41,20 +40,20 @@ Prop_strong() JobsTimer *displayTimer;
 - (instancetype)init {
     if (self = [super init]) {
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 // 如果你有从 frame / coder 初始化的场景，可以顺手也补上
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
         [self commonInit];
-    }return self;
+    };return self;
 }
 #pragma mark - Common Init
 - (void)commonInit {
@@ -167,7 +166,7 @@ Prop_strong() JobsTimer *displayTimer;
             layer.fillColor = UIColor.colorWithHexString(@"#37A6F0").CGColor;
             [self.layer addSublayer:layer];
         });
-    }return _shapeLayer;
+    };return _shapeLayer;
 }
 
 - (UIView *)curveView {
@@ -180,7 +179,7 @@ Prop_strong() JobsTimer *displayTimer;
             view.frame = CGRectMake(self.curveX, self.curveY, 3, 3);
             [self addSubview:view];
         });
-    }return _curveView;
+    };return _curveView;
 }
 
 - (JobsTimer *)displayTimer {
@@ -217,7 +216,7 @@ Prop_strong() JobsTimer *displayTimer;
             timer.accumulatedElapsed       = 0;
             timer.lastStartDate            = nil;
         });
-    }return _displayTimer;
+    };return _displayTimer;
 }
 
 @end

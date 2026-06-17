@@ -1,6 +1,6 @@
 //
 //  JobsDecorationModel.m
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -12,13 +12,13 @@
 -(NSString *)title{
     if(!_title){
         _title = @"";
-    }return _title;
+    };return _title;
 }
 /// 副标题
 -(NSString *)subTitle{
     if (!_subTitle) {
         _subTitle = @"";
-    }return _subTitle;
+    };return _subTitle;
 }
 
 -(JobsReturnDecorationModelByClsBlock _Nonnull)byCls{

@@ -1,6 +1,6 @@
 //
 //  NSString+Replace.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/30.
 //
@@ -157,7 +157,7 @@
             NSString *resultStrB = [self substringWithRange:rangeB];
             resultStr = resultStrA.add(pointStr).add(resultStrB);
         }else{}
-    }return resultStr;
+    };return resultStr;
 }
 /// 将字符串中除首尾字符外的所有字符替换为星号 (*)
 -(NSString *_Nonnull)getAnonymousString{

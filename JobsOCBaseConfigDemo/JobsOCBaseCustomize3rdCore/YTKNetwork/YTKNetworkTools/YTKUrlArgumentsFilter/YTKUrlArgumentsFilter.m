@@ -16,7 +16,7 @@
 -(instancetype _Nullable)initWithArguments:(NSDictionary *)arguments {
     if (self = [super init]) {
         _arguments = arguments;
-    }return self;
+    };return self;
 }
 
 -(NSString *)filterUrl:(NSString *)originUrl

@@ -1,13 +1,11 @@
 //
 //  JobsSearchHoveringHeaderView.m
-//  JobsSearch
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/2.
 //
 
 #import "JobsSearchTableViewHeaderView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsSearchTableViewHeaderView()
 
@@ -21,7 +19,7 @@ Prop_strong()UIButton *delBtn;
 -(instancetype)initWithReuseIdentifier:(nullable NSString *)reuseIdentifier{
     if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
         self.contentView.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -62,7 +60,7 @@ Prop_strong()UIButton *delBtn;
                 make.left.equalTo(self.contentView).offset(JobsWidth(10));
             }];
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(UIButton *)delBtn{
@@ -81,7 +79,7 @@ Prop_strong()UIButton *delBtn;
             make.right.equalTo(self.contentView).offset(-JobsWidth(10));
             make.centerY.equalTo(self.contentView);
         }];
-    }return _delBtn;
+    };return _delBtn;
 }
 
 @end

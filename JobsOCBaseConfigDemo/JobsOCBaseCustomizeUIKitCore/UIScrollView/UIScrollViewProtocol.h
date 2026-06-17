@@ -1,14 +1,14 @@
 //
 //  UIScrollViewProtocol.h
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/19.
 //
 
 #import <Foundation/Foundation.h>
 #import "JobsBlock.h"
-#import "DefineProperty.h"
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
+#import "JobsDefineProperty.h"
+#import "JobsDefineEnums.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

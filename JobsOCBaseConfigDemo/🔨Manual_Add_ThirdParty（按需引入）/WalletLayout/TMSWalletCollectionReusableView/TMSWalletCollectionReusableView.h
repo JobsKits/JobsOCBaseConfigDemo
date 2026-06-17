@@ -1,6 +1,6 @@
 //
 //  TMSWalletCollectionReusableView.h
-//  TMSWalletCollectionViewLayout
+//  JobsOCBaseConfigDemo
 //
 //  Created by TmmmS on 2019/8/8.
 //  Copyright © 2019 TMS. All rights reserved.

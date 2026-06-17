@@ -1,14 +1,12 @@
 //
 //  JobsRightBtnsView.m
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/19.
 //  Copyright © 2020 MonkeyKingVideo. All rights reserved.
 //
 
 #import "JobsRightBtnsView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsRightBtnsView ()
 /// UI
@@ -42,7 +40,7 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -58,7 +56,7 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
                 JobsLog(@"SSS = %d",b.boolValue);
             }JobsLog(@"通知传递过来的 = %@",notification.object);
         }];
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -72,7 +70,7 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 +(JobsRetCGSizeByIDBlock _Nonnull)viewSizeByModel{
@@ -118,6 +116,7 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
     }));
 }
 #pragma mark —— Set方法
+#pragma mark —— isSelected
 -(void)setIsSelected:(BOOL)isSelected{
     _isSelected = isSelected;
     self.loveBtn.selected = _isSelected;
@@ -190,7 +189,7 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
             });
         [self addSubview:_commentBtn];
         [self layoutIfNeeded];
-    }return _commentBtn;
+    };return _commentBtn;
 }
 
 -(BaseButton *)shareBtn{
@@ -219,7 +218,7 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
             });
         [self addSubview:_shareBtn];
         [self layoutIfNeeded];
-    }return _shareBtn;
+    };return _shareBtn;
 }
 
 -(NSMutableArray<__kindof UIButton *> *)masonryViewArr{
@@ -231,7 +230,7 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
             .add(self.commentBtn)
             .add(self.shareBtn);
         });
-    }return _masonryViewArr;
+    };return _masonryViewArr;
 }
 
 @end

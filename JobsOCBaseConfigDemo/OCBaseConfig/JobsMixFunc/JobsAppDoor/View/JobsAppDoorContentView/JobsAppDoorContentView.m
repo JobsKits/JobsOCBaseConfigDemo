@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorContentView.m
-//  My_BaseProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/3.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -9,7 +9,6 @@
 #import "JobsAppDoorContentView.h"
 // 可以发现：（animateWithDuration + Masonry，动画参数设置无效）
 // 用户名 和 密码 ，登录注册两个界面共用，只不过frame不一样
-#import "DefineProperty.h"
 
 @interface JobsAppDoorContentView (){
     JobsAppDoorInputViewBaseStyle_7 *inputView_7;
@@ -40,7 +39,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*inputViewMutArr;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = Cor2;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -122,7 +121,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*inputViewMutArr;
     if (isValue(phone) &&
         [phone isPureInt]) {
         return YES;
-    }return NO;
+    };return NO;
 }
 /// 除了传入的textfield，其他的全部放弃第一响应者
 -(void)allRise:(UITextField *)textfield{
@@ -294,7 +293,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*inputViewMutArr;
              i++) {
             JobsAppDoorInputViewBaseStyle *inputView = (JobsAppDoorInputViewBaseStyle *)self.registerDoorInputViewBaseStyleMutArr[i];
             inputView.alpha = 1;
-        }return;
+        };return;
     }
     
     [self.registerDoorInputViewBaseStyleMutArr addObjectsFromArray:self.loginDoorInputViewBaseStyleMutArr];
@@ -442,7 +441,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*inputViewMutArr;
             return nil;
         }];
         [self addSubview:_toRegisterBtn];
-    }return _toRegisterBtn;
+    };return _toRegisterBtn;
 }
 
 -(UILabel *)titleLab{
@@ -452,7 +451,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*inputViewMutArr;
             @jobs_strongify(self)
             self.addSubview(label);
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(UIButton *)abandonLoginBtn{
@@ -464,7 +463,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*inputViewMutArr;
             if (self.objBlock) self.objBlock(x);
             return nil;
         }];[self addSubview:_abandonLoginBtn];
-    }return _abandonLoginBtn;
+    };return _abandonLoginBtn;
 }
 /// 登录 或者 注册按钮
 -(UIButton *)sendBtn{
@@ -480,7 +479,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*inputViewMutArr;
         }];
         [self addSubview:_sendBtn];
         _sendBtn.cornerCutToCircleWithCornerRadius(_sendBtn.height / 2);
-    }return _sendBtn;
+    };return _sendBtn;
 }
 /// 记住登录成功的账号和密码
 -(UIButton *)storeCodeBtn{
@@ -509,7 +508,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*inputViewMutArr;
             if (self.objBlock) self.objBlock(x);
             return nil;
         }];
-    }return _storeCodeBtn;
+    };return _storeCodeBtn;
 }
 
 -(UIButton *)findCodeBtn{
@@ -532,7 +531,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*inputViewMutArr;
             if (self.objBlock) self.objBlock(x);
             return nil;
         }];
-    }return _findCodeBtn;
+    };return _findCodeBtn;
 }
 
 -(NSMutableArray<JobsAppDoorInputViewBaseStyleModel *> *)loginDoorInputViewBaseStyleModelMutArr{
@@ -572,7 +571,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*inputViewMutArr;
                 密码.offset = JobsWidth(0);
             }));
         });
-    }return _loginDoorInputViewBaseStyleModelMutArr;
+    };return _loginDoorInputViewBaseStyleModelMutArr;
 }
 
 -(NSMutableArray<JobsAppDoorInputViewBaseStyleModel *> *)registerDoorInputViewBaseStyleModelMutArr{
@@ -653,31 +652,31 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*inputViewMutArr;
     //            手机验证码.placeHolderOffset = JobsWidth(35);
             }));
         });
-    }return _registerDoorInputViewBaseStyleModelMutArr;
+    };return _registerDoorInputViewBaseStyleModelMutArr;
 }
 
 -(NSMutableArray<JobsAppDoorInputViewBaseStyle *> *)loginDoorInputViewBaseStyleMutArr{
     if (!_loginDoorInputViewBaseStyleMutArr) {
         _loginDoorInputViewBaseStyleMutArr = NSMutableArray.array;
-    }return _loginDoorInputViewBaseStyleMutArr;
+    };return _loginDoorInputViewBaseStyleMutArr;
 }
 
 -(NSMutableArray<JobsAppDoorInputViewBaseStyle *> *)registerDoorInputViewBaseStyleMutArr{
     if (!_registerDoorInputViewBaseStyleMutArr) {
         _registerDoorInputViewBaseStyleMutArr = NSMutableArray.array;
-    }return _registerDoorInputViewBaseStyleMutArr;
+    };return _registerDoorInputViewBaseStyleMutArr;
 }
 
 -(NSMutableArray<JobsAppDoorInputViewBaseStyle *> *)inputViewMutArr{
     if (!_inputViewMutArr) {
         _inputViewMutArr = NSMutableArray.array;
-    }return _inputViewMutArr;
+    };return _inputViewMutArr;
 }
 
 -(JobsAppDoorModel *)appDoorModel{
     if (!_appDoorModel) {
         _appDoorModel = JobsAppDoorModel.new;
-    }return _appDoorModel;
+    };return _appDoorModel;
 }
 
 @end

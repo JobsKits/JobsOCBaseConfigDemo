@@ -1,6 +1,6 @@
 //
 //  ZFIJKPlayerManager.m
-//  ZFPlayer
+//  JobsOCBaseConfigDemo
 //
 // Copyright (c) 2016年 任子丰 ( http://github.com/renzifeng )
 //
@@ -24,7 +24,6 @@
 
 #import "ZFIJKPlayerManager.h"
 
-#import "DefineProperty.h"
 #if __has_include(<IJKMediaFramework/IJKMediaFramework.h>)
 
 @interface ZFIJKPlayerManager ()
@@ -73,7 +72,7 @@ Prop_assign()BOOL isReadyToPlay;
     if (self) {
         _scalingMode = ZFPlayerScalingModeAspectFit;
         _shouldAutoPlay = YES;
-    }return self;
+    };return self;
 }
 
 - (void)prepareToPlay {
@@ -386,22 +385,30 @@ Prop_assign()BOOL isReadyToPlay;
 
 #pragma mark - setter
 
+#pragma mark —— playState
+@dynamic playState;
 - (void)setPlayState:(ZFPlayerPlaybackState)playState {
     _playState = playState;
     if (self.playerPlayStateChanged) self.playerPlayStateChanged(self, playState);
 }
 
+#pragma mark —— loadState
+@dynamic loadState;
 - (void)setLoadState:(ZFPlayerLoadState)loadState {
     _loadState = loadState;
     if (self.playerLoadStateChanged) self.playerLoadStateChanged(self, loadState);
 }
 
+#pragma mark —— assetURL
+@dynamic assetURL;
 - (void)setAssetURL:(NSURL *)assetURL {
     if (self.player) [self stop];
     _assetURL = assetURL;
     [self prepareToPlay];
 }
 
+#pragma mark —— rate
+@dynamic rate;
 - (void)setRate:(float)rate {
     _rate = rate;
     if (self.player && fabsf(_player.playbackRate) > 0.00001f) {
@@ -409,6 +416,8 @@ Prop_assign()BOOL isReadyToPlay;
     }
 }
 
+#pragma mark —— muted
+@dynamic muted;
 - (void)setMuted:(BOOL)muted {
     _muted = muted;
     if (muted) {
@@ -421,6 +430,8 @@ Prop_assign()BOOL isReadyToPlay;
     }
 }
 
+#pragma mark —— scalingMode
+@dynamic scalingMode;
 - (void)setScalingMode:(ZFPlayerScalingMode)scalingMode {
     _scalingMode = scalingMode;
     self.view.scalingMode = scalingMode;
@@ -442,6 +453,8 @@ Prop_assign()BOOL isReadyToPlay;
     }
 }
 
+#pragma mark —— volume
+@dynamic volume;
 - (void)setVolume:(float)volume {
     _volume = MIN(MAX(0, volume), 1);
     self.player.playbackVolume = _volume;

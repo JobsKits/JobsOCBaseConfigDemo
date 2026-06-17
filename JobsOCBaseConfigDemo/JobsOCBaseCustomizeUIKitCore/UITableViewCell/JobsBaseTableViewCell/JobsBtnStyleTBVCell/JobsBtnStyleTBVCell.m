@@ -1,6 +1,6 @@
 //
 //  JobsBtnStyleTBVCell.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/11/24.
 //
@@ -67,6 +67,7 @@ BaseViewProtocol_synthesize
     };
 }
 
+#pragma mark —— viewModel
 -(void)setViewModel:(UIViewModel *)viewModel{
     _viewModel = viewModel;
     @jobs_weakify(self)
@@ -104,6 +105,7 @@ BaseViewProtocol_synthesize
     _button.jobsResetBtnCornerRadiusValue(viewModel.layerCornerRadius);
 }
 
+#pragma mark —— buttonModel
 -(void)setButtonModel:(UIButtonModel *)buttonModel{
     _buttonModel = buttonModel;
     @jobs_weakify(self)
@@ -167,7 +169,7 @@ BaseViewProtocol_synthesize
         [self.contentView.addSubview(_button) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self).insets(self.contentEdgeInsets);/// 如果这里用self.contentView，在某些情况下，约束会失灵。因为self.contentView的生命周期的缘故，还没有完全展开
         }];
-    }return _button;
+    };return _button;
 }
 
 @end

@@ -1,13 +1,11 @@
 //
 //  PicToStrStoreSubVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2024/4/24.
 //
 
 #import "PicToStrStoreSubVC.h"
-
-#import "DefineProperty.h"
 
 @interface PicToStrStoreSubVC (){
     UIImage *_picBefore;
@@ -188,7 +186,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             }break;
             default:
                 break;
-        }return resultStr;
+        };return resultStr;
     };
 }
 #pragma mark —— 字符串（加盐）=解码=> 图片
@@ -219,7 +217,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             }break;
             default:
                 break;
-        }return self->_picAfter;
+        };return self->_picAfter;
     };
 }
 #pragma mark —— lazyLoad
@@ -269,7 +267,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             make.height.mas_equalTo(@200);
         }];
         _btn_1.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _btn_1;
+    };return _btn_1;
 }
 
 -(BaseButton *)btn_2{
@@ -307,7 +305,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             make.height.mas_equalTo(@200);
         }];
         _btn_2.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _btn_2;
+    };return _btn_2;
 }
 @synthesize textView = _textView;
 -(UITextView *)textView{
@@ -330,7 +328,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
                 model.jobsWidth = .5f;
             }));
         });
-    }return _textView;
+    };return _textView;
 }
 
 @end

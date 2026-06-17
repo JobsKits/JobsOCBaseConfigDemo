@@ -1,6 +1,6 @@
 //
 //  JobsToggleBaseView.h
-//  RPTaggedNavView
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/20/24.
 //  Copyright © 2024 Tao. All rights reserved.
@@ -12,10 +12,9 @@
 #import "UIView+Measure.h"
 #import "JobsToggleNavView.h"
 #import "UIButtonModel.h"
-#import "DefineConstString.h"
+#import "JobsDefineConstString.h"
 #import "JobsToggleNavViewProtocol.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -80,7 +79,7 @@ NS_INLINE __kindof JobsToggleBaseView *_Nonnull jobsMakeToggleBaseView(jobsByTog
                          @jobs_strongify(self)
                          if(KindOfBaseButtonCls(x)){
                              self.toggleBaseView.switchViewsBy(x.index);
-                         }return nil;
+                         };return nil;
                      };
                  }));
                  data.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data1) {
@@ -102,7 +101,7 @@ NS_INLINE __kindof JobsToggleBaseView *_Nonnull jobsMakeToggleBaseView(jobsByTog
                          @jobs_strongify(self)
                          if(KindOfBaseButtonCls(x)){
                              self.toggleBaseView.switchViewsBy(x.index);
-                         }return nil;
+                         };return nil;
                      };
                  }));
              }));
@@ -112,7 +111,7 @@ NS_INLINE __kindof JobsToggleBaseView *_Nonnull jobsMakeToggleBaseView(jobsByTog
                  make.centerX.equalTo(self.view);
              }];self.view.refresh();
          });
-     }return _toggleBaseView;
+     };return _toggleBaseView;
  }
  
  */

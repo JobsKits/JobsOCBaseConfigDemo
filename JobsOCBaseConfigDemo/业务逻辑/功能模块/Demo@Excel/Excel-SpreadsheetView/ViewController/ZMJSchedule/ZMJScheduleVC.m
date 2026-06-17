@@ -1,13 +1,11 @@
 //
 //  ZMJScheduleVC.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/29/24.
 //
 
 #import "ZMJScheduleVC.h"
-
-#import "DefineProperty.h"
 
 @interface ZMJScheduleVC ()
 
@@ -171,8 +169,8 @@ Prop_strong()UIColor *oddRowColor;  //奇数
             cell.color          = indexPath.row % 2 == 0 ? self.evenRowColor : self.oddRowColor;
             cell.borders.top    = BorderStyle.borderStyleNone;
             cell.borders.bottom = BorderStyle.borderStyleNone;
-        }return cell;
-    }return nil;
+        };return cell;
+    };return nil;
 }
 #pragma mark —— SpreadsheetViewDelegate
 - (void)spreadsheetView:(SpreadsheetView *)spreadsheetView
@@ -190,7 +188,7 @@ Prop_strong()UIColor *oddRowColor;  //奇数
         _dates.add(@"7/14/2017");
         _dates.add(@"7/15/2017");
         _dates.add(@"7/16/2017");
-    }return _dates;
+    };return _dates;
 }
 
 -(NSMutableArray<NSString *> *)days{
@@ -203,7 +201,7 @@ Prop_strong()UIColor *oddRowColor;  //奇数
         _days.add(@"FRIDAY");
         _days.add(@"SATURDAY");
         _days.add(@"SUNDAY");
-    }return _days;
+    };return _days;
 }
 
 -(NSMutableArray<UIColor *> *)dayColors{
@@ -216,7 +214,7 @@ Prop_strong()UIColor *oddRowColor;  //奇数
         _dayColors.add([UIColor colorWithRed:0.400 green:0.584 blue:0.141 alpha:1]);
         _dayColors.add([UIColor colorWithRed:0.835 green:0.655 blue:0.051 alpha:1]);
         _dayColors.add([UIColor colorWithRed:0.153 green:0.569 blue:0.835 alpha:1]);
-    }return _dayColors;
+    };return _dayColors;
 }
 
 -(NSMutableArray<NSString *> *)hours{
@@ -241,19 +239,19 @@ Prop_strong()UIColor *oddRowColor;  //奇数
         _hours.add(@"22:00 AM");
         _hours.add(@"23:00 AM");
         _hours.add(@"24:00 AM");
-    }return _hours;
+    };return _hours;
 }
 
 -(UIColor *)evenRowColor{
     if(!_evenRowColor){
         _evenRowColor = [UIColor colorWithRed:0.91 green:0.91 blue:0.91 alpha:1];
-    }return _evenRowColor;
+    };return _evenRowColor;
 }
 
 -(UIColor *)oddRowColor{
     if(!_oddRowColor){
         _oddRowColor = JobsWhiteColor;
-    }return _oddRowColor;
+    };return _oddRowColor;
 }
 
 -(NSMutableArray<NSArray<NSString *> *> *)datas{
@@ -266,7 +264,7 @@ Prop_strong()UIColor *oddRowColor;  //奇数
         _datas.add(@[@"", @"", @"", @"", @"", @"Family BBQ", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @""]);
         _datas.add(@[@"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @""]);
         _datas.add(@[@"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"Return home", @"", @"", @"", @"", @"", @""]);
-    }return _datas;
+    };return _datas;
 }
 
 -(SpreadsheetView *)spreadsheetView{
@@ -297,7 +295,7 @@ Prop_strong()UIColor *oddRowColor;  //奇数
 //        }
         
         [_spreadsheetView flashScrollIndicators];
-    }return _spreadsheetView;
+    };return _spreadsheetView;
 }
 
 @end

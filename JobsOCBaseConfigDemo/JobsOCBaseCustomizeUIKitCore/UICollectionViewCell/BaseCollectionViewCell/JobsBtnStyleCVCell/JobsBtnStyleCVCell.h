@@ -1,13 +1,13 @@
 //
 //  JobsBtnStyleCVCell.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/16.
 //
 
 #import "JobsBaseCollectionViewCell.h"
 #import "JobsBlock.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "UIButtonModel.h"
 #import "UIViewModel.h"
 #import "UIButton+UI.h"

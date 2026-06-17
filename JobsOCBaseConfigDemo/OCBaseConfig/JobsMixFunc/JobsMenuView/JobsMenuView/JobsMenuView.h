@@ -8,8 +8,7 @@
 #import "JobsBlock.h"
 #import "BaseView.h"
 #import "JobsLinkageMenuView.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,7 +44,7 @@ NS_INLINE __kindof UILabel *_Nonnull jobsMakeMenuView(jobsByMenuViewBlock _Nonnu
              @jobs_strongify(self)
              if (self.objBlock) self.objBlock(data);
          });
-     }return _menuView;
+     };return _menuView;
  }
 
  -(UIButtonModel *)buttonModel{
@@ -60,7 +59,7 @@ NS_INLINE __kindof UILabel *_Nonnull jobsMakeMenuView(jobsByMenuViewBlock _Nonnu
              data.selected_backgroundImages = self.select_titleBgImageMutArr;// TODO
              data.data = self.subViewMutArr;
          });
-     }return _buttonModel;
+     };return _buttonModel;
  }
 
  -(NSMutableArray<NSString *> *)titleMutArr{
@@ -73,7 +72,7 @@ NS_INLINE __kindof UILabel *_Nonnull jobsMakeMenuView(jobsByMenuViewBlock _Nonnu
              .add(@"SPORTS".tr.add(@"                   "))
              .add(@"FISHING".tr.add(@"                  "));
          });
-     }return _titleMutArr;
+     };return _titleMutArr;
  }
 
  -(NSMutableArray<__kindof UIView *> *)subViewMutArr{
@@ -118,7 +117,7 @@ NS_INLINE __kindof UILabel *_Nonnull jobsMakeMenuView(jobsByMenuViewBlock _Nonnu
                       
                   }));
          });
-     }return _subViewMutArr;
+     };return _subViewMutArr;
  }
 
  -(NSMutableArray<UIImage *> *)normal_titleBgImageMutArr{
@@ -131,7 +130,7 @@ NS_INLINE __kindof UILabel *_Nonnull jobsMakeMenuView(jobsByMenuViewBlock _Nonnu
              .add(@"Sport_Menu_未点击".img)
              .add(@"Fishing_menu_未点击".img);
          });
-     }return _normal_titleBgImageMutArr;
+     };return _normal_titleBgImageMutArr;
  }
 
  -(NSMutableArray<UIImage *> *)select_titleBgImageMutArr{
@@ -144,7 +143,7 @@ NS_INLINE __kindof UILabel *_Nonnull jobsMakeMenuView(jobsByMenuViewBlock _Nonnu
              .add(@"Sport_Menu_已点击".img)
              .add(@"Fishing_menu_已点击".img);
          });
-     }return _select_titleBgImageMutArr;
+     };return _select_titleBgImageMutArr;
  }
  
  */

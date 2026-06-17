@@ -1,13 +1,11 @@
 //
 //  TestLabelVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/18.
 //
 
 #import "TestLabelVC.h"
-
-#import "DefineProperty.h"
 
 @interface TestLabelVC ()
 /// UILabel
@@ -108,7 +106,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
                 make.left.right.bottom.equalTo(self.view);
             }];
         });
-    }return _scrollView;
+    };return _scrollView;
 }
 #pragma mark —— 富文本
 @synthesize attributedTitle = _attributedTitle;
@@ -140,7 +138,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
                 data1.paragraphStyle = self.defaultParagraphStyle;
             }));
         }));
-    }return _attributedTitle;
+    };return _attributedTitle;
 }
 #pragma mark —— BaseLabel
 /// 一行显示普通文本。定宽、定高、定字体。多余部分用…表示（省略号的位置由NSLineBreakMode控制）
@@ -157,7 +155,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
                 make.centerX.equalTo(self.scrollView);
             }];
         });
-    }return _lab1;
+    };return _lab1;
 }
 /// 一行显示普通文本。定宽、定高、定字体。多余部分scrollerView ❤️集成@implementation UILabel (AutoScroll)❤️
 -(BaseLabel *)lab2{
@@ -173,7 +171,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
                 make.centerX.equalTo(self.scrollView);
             }];
         });
-    }return _lab2;
+    };return _lab2;
 }
 /// 一行显示普通文本。不定宽、定高、定字体。宽度自适应
 -(BaseLabel *)lab3{
@@ -189,7 +187,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
                 make.centerX.equalTo(self.scrollView);
             }];
         });
-    }return _lab3;
+    };return _lab3;
 }
 /// 一行显示普通文本。定宽、定高。缩小字体方式全展示
 -(BaseLabel *)lab4{
@@ -205,7 +203,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
                 make.centerX.equalTo(self.scrollView);
             }];
         });
-    }return _lab4;
+    };return _lab4;
 }
 /// 多行显示普通文本。定宽、不定高、定字体
 -(BaseLabel *)lab5{
@@ -221,7 +219,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
                 make.centerX.equalTo(self.scrollView);
             }];
         });
-    }return _lab5;
+    };return _lab5;
 }
 /// 多行显示普通文本，手动\n提行。定宽（宽要足够长，否则就面临自动提行）、定字体
 -(BaseLabel *)lab6{
@@ -242,7 +240,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
                 make.centerX.equalTo(self.scrollView);
             }];
         });
-    }return _lab6;
+    };return _lab6;
 }
 /// 多行显示富文本，手动\n提行。定宽（宽要足够长，否则就面临自动提行）、定字体
 -(BaseLabel *)lab7{
@@ -258,7 +256,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
                 make.centerX.equalTo(self.scrollView);
             }];
         });
-    }return _lab7;
+    };return _lab7;
 }
 #pragma mark —— BaseButton
 /// 一行显示普通文本。定宽、定高、定字体。多余部分用…表示（省略号的位置由NSLineBreakMode控制）
@@ -272,7 +270,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
             make.top.equalTo(self.lab7.mas_bottom).offset(20);
             make.centerX.equalTo(self.scrollView);
         }];
-    }return _btn1;
+    };return _btn1;
 }
 /// 一行显示普通文本。定宽、定高、定字体。多余部分scrollerView ❤️集成@implementation UILabel (AutoScroll)❤️
 -(BaseButton *)btn2{
@@ -285,7 +283,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
             make.top.equalTo(self.btn1.mas_bottom).offset(20);
             make.centerX.equalTo(self.scrollView);
         }];
-    }return _btn2;
+    };return _btn2;
 }
 /// 一行显示普通文本。不定宽、定高、定字体。宽度自适应
 -(BaseButton *)btn3{
@@ -298,7 +296,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
             make.top.equalTo(self.btn2.mas_bottom).offset(20);
             make.centerX.equalTo(self.scrollView);
         }];
-    }return _btn3;
+    };return _btn3;
 }
 /// 一行显示普通文本。定宽、定高。缩小字体方式全展示
 -(BaseButton *)btn4{
@@ -311,7 +309,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
             make.top.equalTo(self.btn3.mas_bottom).offset(20);
             make.centerX.equalTo(self.scrollView);
         }];
-    }return _btn4;
+    };return _btn4;
 }
 /// 多行显示普通文本。定宽、不定高、定字体
 -(BaseButton *)btn5{
@@ -326,7 +324,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
             make.top.equalTo(self.btn4.mas_bottom).offset(20);
             make.centerX.equalTo(self.scrollView);
         }];
-    }return _btn5;
+    };return _btn5;
 }
 /// 多行显示普通文本，手动\n提行。定宽（宽要足够长，否则就面临自动提行）、定字体
 -(BaseButton *)btn6{
@@ -341,7 +339,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
             make.top.equalTo(self.btn5.mas_bottom).offset(20);
             make.centerX.equalTo(self.scrollView);
         }];
-    }return _btn6;
+    };return _btn6;
 }
 /// 多行显示普通文本，手动\n提行。定宽（宽要足够长，否则就面临自动提行）、定字体
 -(BaseButton *)btn7{
@@ -361,7 +359,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
             make.top.equalTo(self.btn6.mas_bottom).offset(40);//K
             make.centerX.equalTo(self.scrollView);
         }];
-    }return _btn7;
+    };return _btn7;
 }
 
 @end

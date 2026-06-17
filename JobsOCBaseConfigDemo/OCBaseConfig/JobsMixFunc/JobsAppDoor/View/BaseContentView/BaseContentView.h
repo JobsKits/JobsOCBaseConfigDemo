@@ -1,12 +1,13 @@
 //
 //  BaseContentView.h
-//  JobsAppDoor
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/7.
 //
 
 #import <UIKit/UIKit.h>
 #import "BaseView.h"
+#import "JobsDefineProperty.h"
 
 static const CGFloat btnWidth = 64;
 

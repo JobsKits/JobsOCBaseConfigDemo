@@ -1,13 +1,13 @@
 //
 //  NSString+FilteringSpecialCharacters.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/30.
 //
 
 #import <Foundation/Foundation.h>
 #import "JobsBlock.h"
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
 #import "NSString+Others.h"
 
 /// 参考文献：https://www.jianshu.com/p/de17fd495935

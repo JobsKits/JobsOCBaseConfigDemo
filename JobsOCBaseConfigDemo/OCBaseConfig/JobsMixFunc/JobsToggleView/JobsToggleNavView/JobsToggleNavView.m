@@ -8,8 +8,6 @@
 //
 #import "JobsToggleNavView.h"
 
-#import "DefineProperty.h"
-
 @interface JobsToggleNavView ()
 /// UI
 Prop_strong()__kindof UIView *sliderView;
@@ -29,13 +27,13 @@ JobsToggleNavViewProtocolSynthesize
 -(instancetype)init{
     if (self = [super init]) {
 //        self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -52,7 +50,7 @@ JobsToggleNavViewProtocolSynthesize
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
 //        self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -211,31 +209,31 @@ JobsToggleNavViewProtocolSynthesize
             view.backgroundColor = self.sliderColor;
             self.addSubview(view);
         });
-    }return _sliderView;
+    };return _sliderView;
 }
 
 -(NSMutableArray<__kindof UIButton *> *)buttonsArray{
     if(!_buttonsArray){
         _buttonsArray = NSMutableArray.array;
-    }return _buttonsArray;
+    };return _buttonsArray;
 }
 
 -(UIColor *)sliderColor{
     if(!_sliderColor){
         _sliderColor = JobsRedColor;
-    }return _sliderColor;
+    };return _sliderColor;
 }
 
 -(CGFloat)sliderH{
     if(!_sliderH){
         _sliderH = JobsWidth(30);
-    }return _sliderH;
+    };return _sliderH;
 }
 
 -(CGFloat)sliderW{
     if(!_sliderW){
         _sliderW = JobsWidth(1);
-    }return _sliderW;
+    };return _sliderW;
 }
 
 -(UIButtonModel *)buttonModel{
@@ -276,13 +274,13 @@ JobsToggleNavViewProtocolSynthesize
             model.longPressGestureEventBlock = nil;
             model.clickEventBlock = nil;
         });
-    }return _buttonModel;
+    };return _buttonModel;
 }
 //@synthesize buttonModels = _buttonModels;
 //-(NSMutableArray<UIButtonModel *> *)buttonModels{
 //    if(!_buttonModels){
 //        _buttonModels = NSMutableArray.array;
-//    }return _buttonModels;
+//    };return _buttonModels;
 //}
 
 @end

@@ -8,6 +8,7 @@
 #import "NSString+Others.h"
 #import "BaseViewController.h"
 #import "LuckyWheelView.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>

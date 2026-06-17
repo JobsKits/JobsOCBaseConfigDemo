@@ -1,6 +1,6 @@
 //
 //  JobsSuspendLab.h
-//  Search
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/8/13.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -12,8 +12,7 @@
 #import "UIView+Extras.h"
 #import "UIView+SuspendView.h"
 #import "JobsString.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

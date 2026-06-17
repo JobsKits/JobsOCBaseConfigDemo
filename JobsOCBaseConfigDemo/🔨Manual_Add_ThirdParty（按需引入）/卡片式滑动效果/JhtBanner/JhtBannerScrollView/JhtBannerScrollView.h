@@ -1,6 +1,6 @@
 //
 //  JhtBannerScrollView.h
-//  JhtBannerScrollView
+//  JobsOCBaseConfigDemo
 //
 //  GitHub主页: https://github.com/jinht
 //  CSDN博客: http://blog.csdn.net/anticipate91
@@ -12,8 +12,8 @@
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "MacroDef_Size.h"
-#import "DefineConstString.h" /// 常量字符串的定义
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
+#import "JobsDefineConstString.h"
+#import "JobsDefineEnums.h"
 #import "JhtBannerScrollViewProtocol.h"
 #import "UIGestureRecognizer+Extra.h"
 #import "NSObject+Extras.h"
@@ -28,7 +28,7 @@ static const NSString * _Nullable subviewClassName = @"JhtBannerCardView";
 
 @class JhtBannerScrollView;
 /// banner view（整条view）
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @interface JhtBannerScrollView : UIView <UIScrollViewDelegate>
 /// 滚动方向：default: BV_Orientation_Horizontal

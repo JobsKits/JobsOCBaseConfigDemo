@@ -1,13 +1,11 @@
 //
 //  NSNotificationCenter+JobsBlock.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 9/24/23.
 //
 
 #import "NSNotificationCenter+JobsBlock.h"
-
-#import "DefineProperty.h"
 
 @implementation NSNotificationCenter (JobsBlock)
 -(jobsByIDBlock _Nonnull)remove{
@@ -24,15 +22,15 @@
     };
 }
 #pragma mark —— Prop_copy()jobsByNotificationBlock jobsNotificationBlock;
+#pragma mark —— jobsNotificationBlock
+JobsKey(_jobsNotificationBlock)
+@dynamic jobsNotificationBlock;
 -(jobsByNotificationBlock _Nonnull)jobsNotificationBlock{
-    return objc_getAssociatedObject(self, _cmd);
+    return Jobs_getAssociatedObject(_jobsNotificationBlock);
 }
 
 -(void)setJobsNotificationBlock:(jobsByNotificationBlock)jobsNotificationBlock{
-    objc_setAssociatedObject(self,
-                             _cmd,
-                             jobsNotificationBlock,
-                             OBJC_ASSOCIATION_COPY_NONATOMIC);
+    Jobs_setAssociatedCOPY_NONATOMIC(_jobsNotificationBlock, jobsNotificationBlock)
 }
 
 @end

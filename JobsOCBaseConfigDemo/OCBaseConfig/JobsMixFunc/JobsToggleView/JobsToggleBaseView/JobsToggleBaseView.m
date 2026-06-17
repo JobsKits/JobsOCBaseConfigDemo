@@ -1,14 +1,12 @@
 //
 //  JobsToggleBaseView.m
-//  RPTaggedNavView
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/20/24.
 //  Copyright © 2024 Tao. All rights reserved.
 //
 
 #import "JobsToggleBaseView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsToggleBaseView ()
 /// UI
@@ -32,13 +30,13 @@ JobsToggleNavViewProtocolSynthesize
 -(instancetype)init{
     if (self = [super init]) {
 //        self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -55,7 +53,7 @@ JobsToggleNavViewProtocolSynthesize
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
 //        self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -208,7 +206,7 @@ JobsToggleNavViewProtocolSynthesize
 -(JobsToggleNavView *)taggedNavView{
     if(!_taggedNavView){
         _taggedNavView = self.makeTaggedNavViewBy(self.taggedNavDatas);
-    }return _taggedNavView;
+    };return _taggedNavView;
 }
 
 -(UIScrollView *)bgScroll{
@@ -229,7 +227,7 @@ JobsToggleNavViewProtocolSynthesize
                 data.jobsHeight = self.viewSizeByModel(nil).height - (self.taggedNavView_height + self.taggedNavView_bgScroll_offset);
             });
         }));
-    }return _bgScroll;
+    };return _bgScroll;
 }
 
 -(NSMutableArray <__kindof UIView<BaseViewProtocol> *>*)scrollContentViews{
@@ -241,7 +239,7 @@ JobsToggleNavViewProtocolSynthesize
                 data.add(data1.view);
             }
         });if(!_scrollContentViews.count) _scrollContentViews = self.tempLabs;
-    }return _scrollContentViews;
+    };return _scrollContentViews;
 }
 
 -(NSMutableArray<__kindof UIView <BaseViewProtocol>*>*)tempLabs{
@@ -261,7 +259,7 @@ JobsToggleNavViewProtocolSynthesize
                 }));t += 1;
             }
         });
-    }return _tempLabs;
+    };return _tempLabs;
 }
 
 -(NSMutableArray<UIButtonModel *>*)taggedNavDatas{
@@ -277,7 +275,7 @@ JobsToggleNavViewProtocolSynthesize
                 }));
             }
         });
-    }return _taggedNavDatas;
+    };return _taggedNavDatas;
 }
 
 -(UIButtonModel *)buttonModel{
@@ -318,31 +316,31 @@ JobsToggleNavViewProtocolSynthesize
             model.longPressGestureEventBlock = nil;
             model.clickEventBlock = nil;
         });
-    }return _buttonModel;
+    };return _buttonModel;
 }
 
 -(CGFloat)taggedNavView_width{
     if(!_taggedNavView_width){
         _taggedNavView_width = self.viewSizeByModel(nil).width;
-    }return _taggedNavView_width;
+    };return _taggedNavView_width;
 }
 
 -(CGSize)taggedNavSingleBtn_size{
     if(jobsEqualToZeroSize(_taggedNavSingleBtn_size)){
         _taggedNavSingleBtn_size = CGSizeMake(JobsWidth(80), self.taggedNavView_height);
-    }return _taggedNavSingleBtn_size;
+    };return _taggedNavSingleBtn_size;
 }
 
 -(CGFloat)taggedNavView_height{
     if(!_taggedNavView_height){
         _taggedNavView_height = JobsWidth(44);
-    }return _taggedNavView_height;
+    };return _taggedNavView_height;
 }
 
 -(CGFloat)taggedNavView_bgScroll_offset{
     if(!_taggedNavView_bgScroll_offset){
         _taggedNavView_bgScroll_offset = 0;
-    }return _taggedNavView_bgScroll_offset;
+    };return _taggedNavView_bgScroll_offset;
 }
 
 -(NSMutableArray<NSString *>*)tempTitles{
@@ -353,7 +351,7 @@ JobsToggleNavViewProtocolSynthesize
             .add(@"老僧已死成新塔，坏壁无由见旧题；".tr)
             .add(@"往日崎岖还记否，路长人困蹇驴嘶。".tr);
         });
-    }return _tempTitles;
+    };return _tempTitles;
 }
 
 @end

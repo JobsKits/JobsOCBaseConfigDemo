@@ -1,6 +1,6 @@
 //
 //  GoodsClassModel.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/15.
 //
@@ -10,8 +10,8 @@
 #import "AppToolsProtocol.h"
 #import "BaseModel.h"
 #import "BaseButtonProtocol.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>
 #else

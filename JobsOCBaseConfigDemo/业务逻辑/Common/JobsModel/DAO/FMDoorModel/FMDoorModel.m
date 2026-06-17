@@ -1,6 +1,6 @@
 //
 //  FMDoorModel.m
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -30,7 +30,7 @@
 //                if (value) self.jobsKVC(key,value);
 //            }
 //        }
-//    }return self;
+//    };return self;
 //}
 - (nullable instancetype)initWithCoder:(NSCoder *)decoder {
     if (self = [super initWithCoder:decoder]) {
@@ -87,7 +87,7 @@
         _tokenExpireTime = decoder.decodeStringBy(@"tokenExpireTime");
         _userDefaultHeadImage = decoder.decodeImageBy(@"userDefaultHeadImage");
         // 解码更多属性（如有）
-    }return self;
+    };return self;
 }
 /// 归档
 //- (void)encodeWithCoder:(NSCoder *)encoder {
@@ -184,6 +184,7 @@
     return [super mj_replacedKeyFromPropertyName].mutableCopy;
 }
 
+#pragma mark —— expireTime
 -(void)setExpireTime:(NSString *)expireTime{
     _expireTime = expireTime;
     if(_expireTime) self.tokenExpireTime = _expireTime.chinaTime(nil);
@@ -204,44 +205,44 @@
                     if(isValue(str)) [self setValue:str forKey:key];
                 }else [self setValue:bp[key] forKey:key];
             }
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— 默认值
 -(NSString *)userName{
     if(!_userName){
         _userName = @"";
-    }return _userName;
+    };return _userName;
 }
 
 -(NSString *)nickName{
     if(!_nickName){
         _nickName = @"";
-    }return _nickName;
+    };return _nickName;
 }
 
 -(NSString *)realName{
     if(!_realName){
         _realName = @"";
-    }return _realName;
+    };return _realName;
 }
 
 -(NSString *)accessToken{
     if(!_accessToken){
         _accessToken = @"";
-    }return _accessToken;
+    };return _accessToken;
 }
 
 -(UIImage *)userDefaultHeadImage{
     if(!_userDefaultHeadImage){
         _userDefaultHeadImage = @"用户默认头像".img;
-    }return _userDefaultHeadImage;
+    };return _userDefaultHeadImage;
 }
 
 -(NSString *)tokenExpireTime{
     if(!_tokenExpireTime){
         _tokenExpireTime = @"";
-    }return _tokenExpireTime;
+    };return _tokenExpireTime;
 }
 
 @end

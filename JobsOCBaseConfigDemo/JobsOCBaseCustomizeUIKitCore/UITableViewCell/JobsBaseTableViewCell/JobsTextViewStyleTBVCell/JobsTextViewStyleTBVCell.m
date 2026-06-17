@@ -1,6 +1,6 @@
 //
 //  JobsTextViewStyleTBVCell.m
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/4/28.
 //
@@ -105,7 +105,7 @@ BaseViewProtocol_synthesize
                 textView.font = self.viewModel.font;
             }[self.contentView.addSubview(textView) mas_makeConstraints:self.masonryBlock];
         });
-    }return _textView;
+    };return _textView;
 }
 
 -(__kindof SZTextView *)szTextView{
@@ -130,7 +130,7 @@ BaseViewProtocol_synthesize
 //                @jobs_strongify(self)
             }];[self.contentView.addSubview(textView) mas_makeConstraints:self.masonryBlock];
         });
-    }return _textView;
+    };return _textView;
 }
 
 -(__kindof JobsTextView *)jobsTextView{
@@ -155,7 +155,7 @@ BaseViewProtocol_synthesize
 //                @jobs_strongify(self)
             }];[self.contentView.addSubview(textView) mas_makeConstraints:self.masonryBlock];
         });
-    }return _jobsTextView;
+    };return _jobsTextView;
 }
 
 -(jobsByMASConstraintMakerBlock _Nullable)masonryBlock{

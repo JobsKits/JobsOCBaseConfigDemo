@@ -1,6 +1,6 @@
 //
 //  JobsAppDoor.m
-//  My_BaseProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/3.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -8,7 +8,6 @@
 
 #import "JobsAppDoorVC.h"
 //ZFPlayerController *ZFPlayer_DoorVC;
-#import "DefineProperty.h"
 
 @interface JobsAppDoorVC (){
     NSInteger index;// 当前被激活的TextField的序号，从1开始
@@ -58,7 +57,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -258,7 +257,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
         }];
         [self.view layoutIfNeeded];
         self.logoContentViewY = self.logoContentView.y;
-    }return _logoContentView;
+    };return _logoContentView;
 }
 
 -(JobsAppDoorForgotCodeContentView *)forgotCodeContentView{
@@ -294,7 +293,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             }
         }];
         _forgotCodeContentView.cornerCutToCircleWithCornerRadius(8);
-    }return _forgotCodeContentView;
+    };return _forgotCodeContentView;
 }
 
 -(JobsAppDoorContentView *)jobsAppDoorContentView{
@@ -360,7 +359,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
         [self.view addSubview:_jobsAppDoorContentView];
         _jobsAppDoorContentView.cornerCutToCircleWithCornerRadius(8);
         _jobsAppDoorContentView.jobsRichViewByModel(nil);
-    }return _jobsAppDoorContentView;
+    };return _jobsAppDoorContentView;
 }
 
 - (UIButton *)customerServiceBtn {
@@ -411,7 +410,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             self->_customerServiceBtn.layer.cornerRadius = self->_customerServiceBtn.bounds.size.height * 0.5;
             self->_customerServiceBtn.layer.masksToBounds = YES;
         });
-    }return _customerServiceBtn;
+    };return _customerServiceBtn;
 }
 
 
@@ -425,7 +424,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                 data.assetURL = @"非iph_X.mp4".pathForResourceWithFullName.jobsFileUrl;
             }
         });
-    }return _playerManager;
+    };return _playerManager;
 }
 
 -(ZFPlayerController *)player{
@@ -439,7 +438,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             @jobs_strongify(self)
             [self.playerManager replay];//设置循环播放
         }];
-    }return _player;
+    };return _player;
 }
 
 -(CustomZFPlayerControlView *)customPlayerControlView{
@@ -450,7 +449,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             @jobs_strongify(self)
             [self.view endEditing:YES];
         }];
-    }return _customPlayerControlView;
+    };return _customPlayerControlView;
 }
 
 -(UIImageView *)bgImgV{
@@ -459,7 +458,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             imageView.image = @"AppDoorBgImage".img;
             imageView.userInteractionEnabled = YES;
         });
-    }return _bgImgV;
+    };return _bgImgV;
 }
 
 @end

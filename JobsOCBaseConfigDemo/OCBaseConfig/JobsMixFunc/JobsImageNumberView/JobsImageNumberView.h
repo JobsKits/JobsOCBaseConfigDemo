@@ -1,14 +1,13 @@
 //
 //  ImageNumberView.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/29.
 //
 
 #import "BaseView.h"
 #import "JobsImageNumberViewCVCell.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,17 +1,17 @@
 //
 //  UIViewController+TFPopupView.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/29.
 //
 
 #import <UIKit/UIKit.h>
 #import "JobsBaseCustomizeUIKitCoreHeader.h"
-#import "JobsBlock.h" // 自定义
-#import "JobsCustomView.h" // 自定义
-#import "JobsFiltrationView.h" // 过滤
+#import "JobsBlock.h"
+#import "JobsCustomView.h"
+#import "JobsFiltrationView.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<TFPopup/TFPopup.h>)
 #import <TFPopup/TFPopup.h>
 #else
@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_END
          for (NSString *str in self.titleMutArr) {
              [_childVCMutArr addObject:BaiShaETProjAlreadySettledSubBaseVC.new];
          }
-     }return _childVCMutArr;
+     };return _childVCMutArr;
  }
  
  -(UIButton *)filterBtn{
@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_END
                  [self.vc hidePopupView:self.popUpFiltrationView];
              }
          });
-     }return _filterBtn;
+     };return _filterBtn;
  }
 
  -(UIButton *)customBtn{
@@ -123,7 +123,7 @@ NS_ASSUME_NONNULL_END
                  [self.vc hidePopupView:self.popUpCustomView];
              }
          });
-     }return _customBtn;
+     };return _customBtn;
  }
  
  */

@@ -1,13 +1,11 @@
 //
 //  JobsBtnsStyleCVCell.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/18/24.
 //
 
 #import "JobsBtnsStyleCVCell.h"
-
-#import "DefineProperty.h"
 
 @interface JobsBtnsStyleCVCell ()
 /// UI

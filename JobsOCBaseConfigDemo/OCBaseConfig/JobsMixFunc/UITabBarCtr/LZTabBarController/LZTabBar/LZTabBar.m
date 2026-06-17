@@ -1,14 +1,12 @@
 //
 //  LZTabBar.m
-//  LZTabBarController
+//  JobsOCBaseConfigDemo
 //
 //  Created by Artron_LQQ on 2016/12/12.
 //  Copyright © 2016年 Artup. All rights reserved.
 //
 
 #import "LZTabBar.h"
-
-#import "DefineProperty.h"
 
 @interface LZTabBar ()
 
@@ -22,7 +20,7 @@ Prop_strong()UIView *topLine;
 - (instancetype)init {
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 - (void)layoutSubviews {
@@ -57,7 +55,7 @@ Prop_strong()UIView *topLine;
         _topLine = UIView.new;
         _topLine.backgroundColor = JobsGrayColor;
         [self addSubview:_topLine];
-    }return _topLine;
+    };return _topLine;
 }
 
 - (UIVisualEffectView *)effectView {
@@ -66,7 +64,7 @@ Prop_strong()UIView *topLine;
         _effectView = [UIVisualEffectView.alloc initWithEffect:effect];
         _effectView.alpha = 1.0;
         [self addSubview:_effectView];
-    }return _effectView;
+    };return _effectView;
 }
 
 @end

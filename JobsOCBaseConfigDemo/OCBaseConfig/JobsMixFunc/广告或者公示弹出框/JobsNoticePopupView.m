@@ -1,6 +1,6 @@
 //
 //  NoticePopupView.m
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/26.
 //
@@ -16,7 +16,7 @@
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -58,7 +58,7 @@
                 make.edges.equalTo(self);
             }];
         });
-    }return _imageView;
+    };return _imageView;
 }
 
 @end

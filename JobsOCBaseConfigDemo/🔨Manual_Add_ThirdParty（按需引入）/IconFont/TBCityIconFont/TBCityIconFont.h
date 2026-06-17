@@ -1,6 +1,6 @@
 //
 //  TBCityIconFont.h
-//  iCoupon
+//  JobsOCBaseConfigDemo
 //
 //  Created by John Wong on 10/12/14.
 //  Copyright (c) 2014 Taodiandian. All rights reserved.
@@ -24,8 +24,8 @@
 iOS 教你如何使用iconfont图标    https://blog.csdn.net/u010960265/article/details/82531268
 阿里巴巴矢量图标库   https://www.iconfont.cn
 
- #import "TBCityIconFont.h"
- #import "UIImage+TBCityIconFont.h"
+#import "TBCityIconFont.h"
+#import "UIImage+TBCityIconFont.h"
 
  - (void)viewDidLoad {
      [super viewDidLoad];

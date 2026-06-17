@@ -1,0 +1,42 @@
+//
+//  XProtocol.h
+//  JobsOCBaseConfigDemo
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_XPROTOCOL_389E720B54
+#define JOBS_HEADER_GUARD_XPROTOCOL_389E720B54
+
+#import <Foundation/Foundation.h>
+#import "BaseLayerProtocol.h"
+#import "RACProtocol.h"
+#import "UILocationProtocol.h"
+#import "UIMarkProtocol.h"
+#import "UIPictureAndBackGroundCorProtocol.h"
+#import "UITextModelProtocol.h"
+#import "UIViewModelOthersProtocol.h"
+#import "BaseButtonProtocol.h"
+#import "UITextFieldProtocol.h"
+#import "JobsDefines.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@protocol XProtocol
+<
+NSObject,
+BaseLayerProtocol, // <NSObject>：BaseLayerProtocol_synthesize、BaseLayerProtocol_dynamic
+UILocationProtocol, // <NSObject>：UILocationProtocol_synthesize、UILocationProtocol_dynamic
+UIMarkProtocol, // <NSObject>：UIMarkProtocol_synthesize、UIMarkProtocol_dynamic
+UIPictureAndBackGroundCorProtocol, // <NSObject>： UIPictureAndBackGroundCorProtocol_synthesize、UIPictureAndBackGroundCorProtocol_dynamic
+UITextModelProtocol, // <NSObject>：UITextModelProtocol_synthesize、UITextModelProtocol_dynamic
+UIViewModelOthersProtocol, // <NSObject>：UIViewModelOthersProtocol_synthesize、UIViewModelOthersProtocol_dynamic
+BaseButtonProtocol, // <NSObject>：
+UITextFieldProtocol, // <NSObject>：
+RACProtocol // <NSObject>：
+>
+
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_XPROTOCOL_389E720B54 */

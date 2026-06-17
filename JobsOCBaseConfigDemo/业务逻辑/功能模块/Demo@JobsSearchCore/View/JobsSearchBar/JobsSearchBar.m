@@ -1,13 +1,11 @@
 //
 //  JobsSearchBar.m
-//  JobsSearch
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/2.
 //
 
 #import "JobsSearchBar.h"
-
-#import "DefineProperty.h"
 
 @interface JobsSearchBar ()
 /// UI
@@ -20,7 +18,7 @@ Prop_strong()BaseButton *cancelBtn;
 - (instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -66,7 +64,7 @@ Prop_strong()BaseButton *cancelBtn;
                 make.centerY.equalTo(self);
                 make.right.equalTo(self);
             });
-    }return _cancelBtn;
+    };return _cancelBtn;
 }
 @synthesize textField = _textField;
 -(ZYTextField *)textField{
@@ -114,13 +112,13 @@ Prop_strong()BaseButton *cancelBtn;
             if (isValue(self.textField.text)) {
                 self.cancelBtn.alpha = 1;
                 self.textField.width = TextFieldWidth - (self.cancelBtn.sizer.width + JobsWidth(5));
-            }return isValue(value);
+            };return isValue(value);
         }] subscribeNext:^(NSString * _Nullable x) {
             @jobs_strongify(self)
             JobsLog(@"输入的字符为 = %@",x);
             if (self.objBlock) self.objBlock(x);
         }];
-    }return _textField;
+    };return _textField;
 }
 
 @end

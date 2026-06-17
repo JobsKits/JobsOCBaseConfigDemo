@@ -1,13 +1,11 @@
 //
 //  CasinoUpgradePopupView.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/25.
 //
 
 #import "CasinoUpgradePopupView.h"
-
-#import "DefineProperty.h"
 
 @interface CasinoUpgradePopupView ()
 /// UI
@@ -21,13 +19,13 @@ Prop_strong()CasinoUpgradeContentView *upgradeContentView;
 -(instancetype)init{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -63,7 +61,7 @@ Prop_strong()CasinoUpgradeContentView *upgradeContentView;
                 make.height.mas_equalTo(JobsWidth(207));
             }];
         });
-    }return _imageView;
+    };return _imageView;
 }
 
 -(CasinoUpgradeContentView *)upgradeContentView{
@@ -79,7 +77,7 @@ Prop_strong()CasinoUpgradeContentView *upgradeContentView;
             make.top.equalTo(self.imageView.mas_bottom);
             make.centerX.equalTo(self);
         }];
-    }return _upgradeContentView;
+    };return _upgradeContentView;
 }
 
 @end

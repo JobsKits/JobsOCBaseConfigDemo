@@ -1,13 +1,11 @@
 //
 //  JobsAppDoorInputViewBaseStyle_5.m
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/17.
 //
 
 #import "JobsAppDoorInputViewBaseStyle_5.h"
-
-#import "DefineProperty.h"
 
 @interface JobsAppDoorInputViewBaseStyle_5 (){
     JobsDropDownListView *dropDownListView;
@@ -36,7 +34,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
     if (self = [super init]) {
 //        self.backgroundColor = JobsRedColor;
         self.thisViewSize = thisViewSize;
-    }return self;
+    };return self;
 }
 
 -(void)layoutSubviews{
@@ -164,7 +162,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
             make.top.right.bottom.equalTo(self);
             make.width.mas_equalTo(JobsWidth(40));
         }];
-    }return _securityModeBtn;
+    };return _securityModeBtn;
 }
 
 -(UILabel *)titleLab{
@@ -205,7 +203,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
             make.bottom.equalTo(self.textField);
             make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(25)));
         }];
-    }return _authCodeBtn;
+    };return _authCodeBtn;
 }
 
 -(BaseButton *)chooseBtn{
@@ -251,7 +249,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
             make.size.mas_equalTo(self.chooseBtnSize);
             make.left.equalTo(self).offset(JobsWidth(0));
         }];
-    }return _chooseBtn;
+    };return _chooseBtn;
 }
 @synthesize zyTextField = _zyTextField;
 -(ZYTextField *)zyTextField{
@@ -288,7 +286,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
     }
     if (self.doorInputViewBaseStyleModel.textModel.text.isDebugText) {
         _zyTextField.text = @"".tr;
-    }return _zyTextField;
+    };return _zyTextField;
 }
 
 -(UIViewModel *)chooseBtnViewModel{
@@ -305,7 +303,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
             data.subTextModel.text = @"".tr;
             data.image = @"向下的箭头".img;
         });
-    }return _chooseBtnViewModel;
+    };return _chooseBtnViewModel;
 }
 
 -(NSMutableArray<UIViewModel *> *)jobsPageViewDataMutArr{
@@ -333,7 +331,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                 viewModel.subTextModel.text = @"".tr;
             }));
         });
-    }return _jobsPageViewDataMutArr;
+    };return _jobsPageViewDataMutArr;
 }
 
 @end

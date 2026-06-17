@@ -1,6 +1,6 @@
 //
 //  JXCategoryTimelineCell.m
-//  JXCategoryView
+//  JobsOCBaseConfigDemo
 //
 //  Created by jiaxin on 2019/7/23.
 //  Copyright © 2019 jiaxin. All rights reserved.
@@ -60,7 +60,7 @@ Prop_strong()UILabel *timeLabel;
                                                       constant:20]);
             }));
         });
-    }return _timeLabel;
+    };return _timeLabel;
 }
 
 @end

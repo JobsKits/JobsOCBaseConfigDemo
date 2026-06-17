@@ -1,13 +1,11 @@
 //
 //  SlotCell.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/30/24.
 //
 
 #import "SlotCell.h"
-
-#import "DefineProperty.h"
 
 @interface SlotCell ()
 
@@ -24,7 +22,7 @@ Prop_strong()UILabel *tableHighlightLabel;
         self.minutesLabel.alpha = 1;
         self.titleLabel.alpha = 1;
         self.tableHighlightLabel.alpha = 1;
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
@@ -32,21 +30,24 @@ Prop_strong()UILabel *tableHighlightLabel;
         self.minutesLabel.alpha = 1;
         self.titleLabel.alpha = 1;
         self.tableHighlightLabel.alpha = 1;
-    }return self;
+    };return self;
 }
 
+#pragma mark —— minutes
 - (void)setMinutes:(NSInteger)minutes {
     _minutes = minutes;
     self.minutesLabel.text = [NSString stringWithFormat:@"%02ld", (long)minutes];
     self.minutesLabel.makeLabelByShowingType(UILabelShowingType_03);
 }
 
+#pragma mark —— title
 - (void)setTitle:(NSString *)title {
     _title = title;
     self.titleLabel.text = title;
     self.titleLabel.makeLabelByShowingType(UILabelShowingType_03);
 }
 
+#pragma mark —— tableHighlight
 - (void)setTableHighlight:(NSString *)tableHighlight {
     _tableHighlight = tableHighlight;
     self.tableHighlightLabel.text = tableHighlight;
@@ -64,7 +65,7 @@ Prop_strong()UILabel *tableHighlightLabel;
                 make.height.mas_equalTo(JobsWidth(10));
             }];
         });
-    }return _minutesLabel;
+    };return _minutesLabel;
 }
 
 -(UILabel *)titleLabel{
@@ -79,7 +80,7 @@ Prop_strong()UILabel *tableHighlightLabel;
                 make.height.mas_equalTo(JobsWidth(10));
             }];
         });
-    }return _titleLabel;
+    };return _titleLabel;
 }
 
 -(UILabel *)tableHighlightLabel{
@@ -94,7 +95,7 @@ Prop_strong()UILabel *tableHighlightLabel;
                 make.height.mas_equalTo(JobsWidth(10));
             }];
         });
-    }return _tableHighlightLabel;
+    };return _tableHighlightLabel;
 }
 
 @end

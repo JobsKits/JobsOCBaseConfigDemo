@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorInputViewBaseStyle_3.h
-//  My_BaseProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/4.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -11,6 +11,7 @@
 #import "JobsAppDoorInputViewBaseStyleModel.h"
 #import "JobsAppDoorInputViewBaseStyle.h"
 #import "JobsMagicTextField.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -56,7 +57,7 @@ NS_ASSUME_NONNULL_END
              data.layerCor = HEXCOLOR(0xEEE2C8) ;
          }));
          _用户名输入框.jobsRichViewByModel(配置用户名输入框);
-     }return _用户名输入框;
+     };return _用户名输入框;
  }
 
  -(JobsAppDoorInputViewBaseStyleModel *)配置用户名输入框{
@@ -77,7 +78,7 @@ NS_ASSUME_NONNULL_END
          _配置用户名输入框.titleStrCor = _配置用户名输入框.placeholderColor = HEXCOLOR(0x524740);
          _配置用户名输入框.background = @"设置弹出框输入框背景图".img;
          _配置用户名输入框.animationColor = HEXCOLOR(0xF2CC78);
-     }return _配置用户名输入框;
+     };return _配置用户名输入框;
  }
  
  */

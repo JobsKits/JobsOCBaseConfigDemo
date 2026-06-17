@@ -1,12 +1,12 @@
 //
 //  NSObject+OpenURL.h
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/11.
 //
 
 #import <UIKit/UIKit.h>
-#import <MessageUI/MessageUI.h> // 发短信、发邮件
+#import <MessageUI/MessageUI.h>
 #import "MacroDef_String.h"
 #import "JobsBlock.h"
 #import "MacroDef_SysWarning.h"
@@ -14,8 +14,7 @@
 #import "NSObject+WHToast.h"
 #import "NSObject+Extras.h"
 #import "NSString+Others.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

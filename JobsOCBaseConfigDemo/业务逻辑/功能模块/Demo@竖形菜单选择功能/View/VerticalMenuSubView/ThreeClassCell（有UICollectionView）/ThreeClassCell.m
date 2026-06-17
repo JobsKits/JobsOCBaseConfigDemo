@@ -1,13 +1,11 @@
 //
 //  ThreeClassCell.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/15.
 //
 
 #import "ThreeClassCell.h"
-
-#import "DefineProperty.h"
 
 @interface ThreeClassCell()
 /// Data
@@ -32,7 +30,7 @@ Prop_strong()NSMutableArray <GoodsClassModel *>*dataArray; // 总共有多少个
     if (self = [super initWithFrame:frame]){
         self.backgroundColor = self.contentView.backgroundColor = ThreeClassCellBgCor;
         self.jobsRichElementsCollectionViewCellBy(nil);
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(JobsRetCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy{
@@ -132,61 +130,61 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
         _collectionView.contentInset = UIEdgeInsetsMake(JobsWidth(10), 0, 0, 0);
         _collectionView.registerCollectionViewCellClass(self.cellCls,@"");
         self.contentView.addSubview(_collectionView);
-    }return _collectionView;
+    };return _collectionView;
 }
 
 -(CGFloat)sectionInsetTop{
     if(!_sectionInsetTop){
         _sectionInsetTop = JobsWidth(15.f);
-    }return _sectionInsetTop;
+    };return _sectionInsetTop;
 }
 
 -(CGFloat)sectionInsetLeft{
     if (!_sectionInsetLeft) {
         _sectionInsetLeft = JobsWidth(15.f);
-    }return _sectionInsetLeft;
+    };return _sectionInsetLeft;
 }
 
 -(CGFloat)sectionInsetBottom{
     if(!_sectionInsetBottom){
         _sectionInsetBottom = JobsWidth(15.f);
-    }return _sectionInsetBottom;
+    };return _sectionInsetBottom;
 }
 
 -(CGFloat)sectionInsetRight{
     if(!_sectionInsetRight){
         _sectionInsetRight = JobsWidth(15.f);
-    }return _sectionInsetRight;
+    };return _sectionInsetRight;
 }
 
 -(CGFloat)minimumLineSpacing{
     if(!_minimumLineSpacing){
         _minimumLineSpacing = JobsWidth(17);
-    }return _minimumLineSpacing;
+    };return _minimumLineSpacing;
 }
 
 -(CGFloat)minimumInteritemSpacing{
     if(!_minimumInteritemSpacing){
         _minimumInteritemSpacing = JobsWidth(13);
-    }return _minimumInteritemSpacing;
+    };return _minimumInteritemSpacing;
 }
 
 -(Class<UICollectionViewCellProtocol>)cellCls{
     if(!_cellCls){
         _cellCls = TreeClassItemCell.class;
-    }return _cellCls;
+    };return _cellCls;
 }
 
 -(NSInteger)columns{
     if(!_columns){
         _columns = 3;
-    }return _columns;
+    };return _columns;
 }
 
 -(CGFloat)itemHeight{
     if (!_itemHeight) {
         _itemHeight = self.cellCls.cellSizeByModel(self.data).height;
-    }return _itemHeight;
+    };return _itemHeight;
 }
 
 @end

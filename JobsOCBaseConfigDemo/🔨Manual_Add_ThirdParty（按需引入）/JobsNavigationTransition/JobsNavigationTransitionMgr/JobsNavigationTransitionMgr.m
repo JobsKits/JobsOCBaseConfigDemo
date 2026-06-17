@@ -1,13 +1,12 @@
 //
 //  JobsNavigationTransitionMgr.m
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/4.
 //
 
 #import "JobsNavigationTransitionMgr.h"
-
-#import "DefineProperty.h"
+#import "MacroDef_Sys.h"
 
 @interface JobsNavigationTransitionMgr ()
 
@@ -51,10 +50,7 @@ forNavigationController:(UINavigationController *)navCtrlVC{
         manager.direction = direction;
     });
     /// 关联对象，防止被释放
-    objc_setAssociatedObject(viewController,
-                             _cmd,
-                             manager,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey(viewController, _cmd, manager)
     /// 禁用系统的 pop 手势
     viewController.clzPopGesture();
     /// 设置导航控制器代理
@@ -116,7 +112,7 @@ forNavigationController:(UINavigationController *)navCtrlVC{
             manager.direction = _storedDirection;
             manager.comingStyle = ComingStyle_POP;
         });
-    }return nil;
+    };return nil;
 }
 #pragma mark —— UIViewControllerAnimatedTransitioning
 /// 自定义转场动画需要多长时间
@@ -180,7 +176,7 @@ forNavigationController:(UINavigationController *)navCtrlVC{
 -(CGFloat)time{
     if(!_time){
         _time = 1;
-    }return _time;
+    };return _time;
 }
 
 @end

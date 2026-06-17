@@ -1,6 +1,6 @@
 //
 //  ExcelVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by admin on 5/26/24.
 //
@@ -11,6 +11,7 @@
 #import "ZMJScheduleVC.h"
 #import "ZMJGanttListVC.h"
 #import "JobsExcelVC.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -21,6 +21,7 @@
 #import "TDVideoCellNode.h"
 #import "TDMapCellNode.h"
 #import "TDDrawCellNode.h"
+#import "JobsDefineProperty.h"
 
 #pragma mark - Table Section Model
 typedef NS_ENUM(NSInteger, TDDemoRowType) {

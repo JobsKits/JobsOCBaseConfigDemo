@@ -1,6 +1,6 @@
 //
 //  UIButton+Animation.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/30.
 //

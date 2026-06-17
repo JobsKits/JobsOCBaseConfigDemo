@@ -1,6 +1,6 @@
 //
 //  KTVHCDataUnitItem.m
-//  KTVHTTPCache
+//  JobsOCBaseConfigDemo
 //
 //  Created by Single on 2017/8/11.
 //  Copyright © 2017年 Single. All rights reserved.
@@ -45,7 +45,7 @@
         self->_offset = offset;
         self->_length = [KTVHCPathTool sizeAtPath:self.absolutePath];
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
@@ -57,7 +57,7 @@
         self->_offset = [[aDecoder decodeObjectForKey:@"offset"] longLongValue];
         self->_length = [KTVHCPathTool sizeAtPath:self.absolutePath];
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder

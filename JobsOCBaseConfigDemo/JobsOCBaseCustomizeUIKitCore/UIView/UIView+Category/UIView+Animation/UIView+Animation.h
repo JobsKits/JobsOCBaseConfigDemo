@@ -1,6 +1,6 @@
 //
 //  UIView+Animation.h
-//  Shooting
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/3.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -11,8 +11,8 @@
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "NSString+Others.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>
 #else

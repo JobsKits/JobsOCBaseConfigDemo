@@ -7,8 +7,6 @@
 
 #import "JobsTimerManager.h"
 
-#import "DefineProperty.h"
-
 @interface _JobsTimerManagerEntry : NSObject
 
 Prop_strong()JobsTimer *timer;
@@ -23,7 +21,7 @@ Prop_strong()NSMutableArray<JobsTimerBlock> *finishBlocks;
 - (instancetype)init {
     if (self = [super init]) {
         _pauseState = _JobsTimerPauseStateRunning;
-    }return self;
+    };return self;
 }
 
 -(NSMutableArray<jobsByCGFloatBlock> *)tickBlocks{
@@ -31,7 +29,7 @@ Prop_strong()NSMutableArray<JobsTimerBlock> *finishBlocks;
         _tickBlocks = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
 
         });
-    }return _tickBlocks;
+    };return _tickBlocks;
 }
 
 -(NSMutableArray<JobsTimerBlock> *)finishBlocks{
@@ -39,7 +37,7 @@ Prop_strong()NSMutableArray<JobsTimerBlock> *finishBlocks;
         _finishBlocks = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
 
         });
-    }return _finishBlocks;
+    };return _finishBlocks;
 }
 
 @end
@@ -83,7 +81,7 @@ Prop_strong(nullable)id willEnterFGToken;
     if (self = [super init]) {
         _isolationQueue = dispatch_queue_create("com.jobs.timer.manager.lock", DISPATCH_QUEUE_SERIAL);
         [self setupAppStateObservers];
-    }return self;
+    };return self;
 }
 #pragma mark - Upsert
 - (BOOL)upsertTimerWithIdentifiable:(id<JobsTimerIdentifiable>)identifier
@@ -169,7 +167,7 @@ Prop_strong(nullable)id willEnterFGToken;
         jobs_runOnMainSyncIfNeeded(^{
             [timer start];
         });
-    }return YES;
+    };return YES;
 }
 #pragma mark - Register callbacks
 - (BOOL)onTickVoid:(NSString *)identifier block:(jobsByVoidBlock)block {
@@ -465,7 +463,7 @@ Prop_strong(nullable)id willEnterFGToken;
 -(NSMutableDictionary<NSString *,_JobsTimerManagerEntry *> *)entries{
     if(!_entries){
 
-    }return _entries;
+    };return _entries;
 }
 
 @end

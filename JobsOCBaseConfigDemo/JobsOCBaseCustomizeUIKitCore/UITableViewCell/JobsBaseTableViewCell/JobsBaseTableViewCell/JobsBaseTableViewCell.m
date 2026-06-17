@@ -1,14 +1,12 @@
 //
 //  JobsBaseTableViewCell.m
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/1/20.
 //  Copyright © 2021 MonkeyKingVideo. All rights reserved.
 //
 
 #import "JobsBaseTableViewCell.h"
-
-#import "DefineProperty.h"
 
 @interface JobsBaseTableViewCell ()
 /// Data
@@ -37,7 +35,7 @@ AppToolsProtocol_synthesize
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleDefault];
             cell.settingForTableViewCell();
-        }return cell;
+        };return cell;
     };
 }
 /// UITableViewCellStyleValue1 ：左边显示图片的imageView和一个主标题textLabel，右边一个副标题detailTextLabel。
@@ -49,7 +47,7 @@ AppToolsProtocol_synthesize
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleValue1];
             cell.settingForTableViewCell();
-        }return cell;
+        };return cell;
     };
 }
 /// UITableViewCellStyleValue2 ：左边一个主标题textLabel字体偏小，右边一个副标题detailTextLabel。
@@ -61,7 +59,7 @@ AppToolsProtocol_synthesize
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleValue2];
             cell.settingForTableViewCell();
-        }return cell;
+        };return cell;
     };
 }
 /// UITableViewCellStyleSubtitle ：左边还是一个显示图片的imageView，不同的是上边有一个主标题textLabel和一个副标题detailTextLabel。主标题字体大且加黑，副标题字体小在主标题下边。
@@ -73,7 +71,7 @@ AppToolsProtocol_synthesize
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleSubtitle];
             cell.settingForTableViewCell();
-        }return cell;
+        };return cell;
     };
 }
 
@@ -86,10 +84,11 @@ AppToolsProtocol_synthesize
         self.backgroundColor = JobsWhiteColor;
         self.detailTextLabel.textColor = JobsBrownColor;
         self.textLabel.textColor = JobsBlackColor;
-    }return self;
+    };return self;
 }
 /// UITableViewCell 的横向和纵向的缩进
-/// 在具体的子类，去覆盖-(void)setFrame:(CGRect)frame方法
+/// 在具体的子类，去覆盖#pragma mark —— frame
+/// -(void)setFrame:(CGRect)frame 方法
 /// - Parameters:
 ///   - frame: 最原始的Cell的Frame
 ///   - offsetX: X轴的偏移量
@@ -105,7 +104,8 @@ AppToolsProtocol_synthesize
         self.isSetTBVCellOffset = !self.isSetTBVCellOffset;
     }[super setFrame:frame];
 }
-// 在具体的子类，去覆盖-(void)setFrame:(CGRect)frame方法
+// 在具体的子类，去覆盖#pragma mark —— frame
+// -(void)setFrame:(CGRect)frame 方法
 //-(void)setFrame:(CGRect)frame{
 //    [self jobsResetTableViewCellFrame:frame
 //                          cellOffsetX:self.offsetXForEach
@@ -117,14 +117,11 @@ AppToolsProtocol_synthesize
     [super setSelected:selected animated:animated];
 }
 /// CXB 所言 全局只有在cellForRowAtIndexPath里面才能设置真正的selected值。而didSelectRowAtIndexPath不行
+#pragma mark —— selected
 -(void)setSelected:(BOOL)selected{
     [super setSelected:selected];
     JobsLog(@"%d",self.selected);
 }
-//@synthesize selected = _selected;
-//-(void)setSelected:(BOOL)selected{
-//    selected = _selected;
-//}
 
 -(void)setEditing:(BOOL)editing
          animated:(BOOL)animated{
@@ -142,7 +139,9 @@ AppToolsProtocol_synthesize
     self.modifySysChildViewFrame2();
 }
 /**
- 1、-(void)setFrame:(CGRect)frame 此方法仅限于具体的 UITableViewCell子类使用
+ 1、#pragma mark —— frame
+不要用 dynamic 方式处理 frame;
+-(void)setFrame:(CGRect)frame 此方法仅限于具体的 UITableViewCell子类使用
  2、如果在 JobsBaseTableViewCell 实现此方法，那么一单相关子类集成 JobsBaseTableViewCell 则会对-(void)setFrame:(CGRect)frame进行反复调用，因为[super setFrame:frame];
  3、禁止分类去调用，否则引起异常
  */
@@ -234,7 +233,7 @@ AppToolsProtocol_synthesize
                     }self.detailTextLabel.numberOfLines = 0;
                 }self.imageView.image = self.buttonModel.normalImage;
             }
-        }return self;
+        };return self;
     };
 }
 
@@ -270,7 +269,7 @@ AppToolsProtocol_synthesize
             return [vm.textModel.text jobsTextHeightWithFont:vm.textModel.font
                                                   lineHeight:vm.textModel.textLineSpacing
                                                 controlWidth:vm.jobsWidth].jobsHeight;
-        }return JobsWidth(50);/// 没有数据源传入的时候的缺省值
+        };return JobsWidth(50);/// 没有数据源传入的时候的缺省值
     };
 }
 

@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorInputViewBaseStyle_5.h
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/17.
 //
@@ -9,8 +9,7 @@
 #import "JobsDoorInputViewProtocol.h"
 #import "JobsAppDoorInputViewBaseStyle.h"
 #import "ZYTextField.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -59,7 +58,7 @@ NS_ASSUME_NONNULL_END
          [_inputView actionObjBlock:^(id data) {
              @jobs_strongify(self)
          }];
-     }return _inputView;
+     };return _inputView;
  }
 
  -(JobsAppDoorInputViewBaseStyleModel *)inputViewStyleModel{
@@ -72,7 +71,7 @@ NS_ASSUME_NONNULL_END
          _inputViewStyleModel.offset = 0.1;
          _inputViewStyleModel.titleStrCor = self.viewModel.textModel.textCor;
          _inputViewStyleModel.ZYtextColor = self.viewModel.subTextModel.textCor ? : JobsLightGrayColor;
-     }return _inputViewStyleModel;
+     };return _inputViewStyleModel;
  }
 
  

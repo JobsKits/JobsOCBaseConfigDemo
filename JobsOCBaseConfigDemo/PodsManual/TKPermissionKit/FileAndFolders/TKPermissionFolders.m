@@ -1,6 +1,6 @@
 //
 //  TKPermissionFolders.m
-//  TKPermissionKitDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by PC on 2020/8/12.
 //  Copyright © 2020 mac. All rights reserved.

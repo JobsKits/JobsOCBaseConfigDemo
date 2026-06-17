@@ -79,9 +79,10 @@ dissmissDuration:(NSTimeInterval)duration
         self.userInteractionEnabled = NO;
         [self addSubview:self.msgLabel];
         
-    }return self;
+    };return self;
 }
 
+#pragma mark —— msg
 -(void)setMsg:(NSString *)msg{
     _msg = [msg copy];
     

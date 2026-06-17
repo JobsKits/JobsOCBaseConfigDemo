@@ -1,6 +1,6 @@
 //
 //  NSRegularExpression+Extra.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 23/11/2024.
 //
@@ -18,7 +18,7 @@
         if(err){
             JobsLog(@"err = %@",err.description);
             return nil;
-        }return regex;
+        };return regex;
     };
 }
 

@@ -1,12 +1,12 @@
 //
 //  NSObject+UserInfo.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/1.
 //
 
 #import <Foundation/Foundation.h>
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
 #import "JobsBlock.h"
 #import "JobsUserModel.h"
 #import "NSUserDefaults+Manager.h"

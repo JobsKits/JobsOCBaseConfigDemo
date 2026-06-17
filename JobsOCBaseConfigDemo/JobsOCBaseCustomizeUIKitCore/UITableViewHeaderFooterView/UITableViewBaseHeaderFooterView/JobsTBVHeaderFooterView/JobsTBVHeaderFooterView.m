@@ -1,13 +1,11 @@
 //
 //  JobsTBVHeaderFooterView.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/30.
 //
 
 #import "JobsTBVHeaderFooterView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsTBVHeaderFooterView ()
 /// UI
@@ -22,7 +20,7 @@ Prop_strong()BaseButton *subTitleBtn;
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 /// 由具体的子类进行覆写
@@ -71,7 +69,7 @@ Prop_strong()BaseButton *subTitleBtn;
         _titleLab.textColor = self.viewModel.textModel.textCor;
         _titleLab.textAlignment = self.viewModel.textModel.textAlignment;
         _titleLab.makeLabelByShowingType(self.viewModel.textModel.labelShowingType);/// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(BaseButton *)subTitleBtn{

@@ -1,14 +1,13 @@
 //
 //  KFZShopCatoryFlowLayput.h
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/30.
 //
 
 #import <UIKit/UIKit.h>
 #import "UIView+Extras.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 给UICollectionView的每个section加背景

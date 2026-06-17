@@ -1,13 +1,11 @@
 //
 //  UIView+BackgroundLabel.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/6.
 //
 
 #import "UIView+BackgroundLabel.h"
-
-#import "DefineProperty.h"
 
 @implementation UIView (BackgroundLabel)
 #pragma mark —— Prop_strong()UILabel *backgroundLabel;
@@ -26,7 +24,7 @@ JobsKey(_backgroundLabel)
                 make.edges.equalTo(self);
             }];Jobs_setAssociatedRETAIN_NONATOMIC(_backgroundLabel, label)
         });
-    }return BackgroundLabel;
+    };return BackgroundLabel;
 }
 
 -(void)setBackgroundLabel:(UILabel *)backgroundLabel{

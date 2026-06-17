@@ -2,14 +2,14 @@
 //  ASCollectionNode+DSL.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Mac on 11/6/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "ASCollectionNode+DSL.h"
 
 @implementation ASCollectionNode (DSL)
 
--(JobsRetCollectionNodeByDelegateBlock _Nonnull)byDelegate {
+-(JobsRetCollectionNodeByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^ASCollectionNode* (id<ASCollectionDelegate> delegate){
         @jobs_strongify(self)
@@ -18,7 +18,7 @@
     };
 }
 
--(JobsRetCollectionNodeByDataSourceBlock _Nonnull)byDataSource {
+-(JobsRetCollectionNodeByDataSourceBlock _Nonnull)byDataSource{
     @jobs_weakify(self)
     return ^ASCollectionNode* (id<ASCollectionDataSource> dataSource){
         @jobs_strongify(self)
@@ -27,7 +27,7 @@
     };
 }
 
--(JobsRetCollectionNodeByCGFloatBlock _Nonnull)byLeadingScreensForBatching {
+-(JobsRetCollectionNodeByCGFloatBlock _Nonnull)byLeadingScreensForBatching{
     @jobs_weakify(self)
     return ^ASCollectionNode* (CGFloat v){
         @jobs_strongify(self)
@@ -36,7 +36,7 @@
     };
 }
 
--(JobsRetCollectionNodeByBoolBlock _Nonnull)byInverted {
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byInverted{
     @jobs_weakify(self)
     return ^ASCollectionNode* (BOOL flag){
         @jobs_strongify(self)
@@ -45,7 +45,7 @@
     };
 }
 
--(JobsRetCollectionNodeByBoolBlock _Nonnull)byAllowsSelection {
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byAllowsSelection{
     @jobs_weakify(self)
     return ^ASCollectionNode* (BOOL flag){
         @jobs_strongify(self)
@@ -54,7 +54,7 @@
     };
 }
 
--(JobsRetCollectionNodeByBoolBlock _Nonnull)byAllowsMultipleSelection {
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byAllowsMultipleSelection{
     @jobs_weakify(self)
     return ^ASCollectionNode* (BOOL flag){
         @jobs_strongify(self)
@@ -63,7 +63,7 @@
     };
 }
 
--(JobsRetCollectionNodeByBoolBlock _Nonnull)byAlwaysBounceVertical {
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byAlwaysBounceVertical{
     @jobs_weakify(self)
     return ^ASCollectionNode* (BOOL flag){
         @jobs_strongify(self)
@@ -72,7 +72,7 @@
     };
 }
 
--(JobsRetCollectionNodeByBoolBlock _Nonnull)byAlwaysBounceHorizontal {
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byAlwaysBounceHorizontal{
     @jobs_weakify(self)
     return ^ASCollectionNode* (BOOL flag){
         @jobs_strongify(self)
@@ -81,7 +81,7 @@
     };
 }
 
--(JobsRetCollectionNodeByBoolBlock _Nonnull)byShowsVerticalScrollIndicator {
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byShowsVerticalScrollIndicator{
     @jobs_weakify(self)
     return ^ASCollectionNode* (BOOL flag){
         @jobs_strongify(self)
@@ -90,7 +90,7 @@
     };
 }
 
--(JobsRetCollectionNodeByBoolBlock _Nonnull)byShowsHorizontalScrollIndicator {
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byShowsHorizontalScrollIndicator{
     @jobs_weakify(self)
     return ^ASCollectionNode* (BOOL flag){
         @jobs_strongify(self)
@@ -99,7 +99,7 @@
     };
 }
 
--(JobsRetCollectionNodeByBoolBlock _Nonnull)byPagingEnabled {
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byPagingEnabled{
     @jobs_weakify(self)
     return ^ASCollectionNode* (BOOL flag){
         @jobs_strongify(self)
@@ -108,7 +108,7 @@
     };
 }
 
--(JobsRetCollectionNodeByLayoutBlock _Nonnull)byLayout {
+-(JobsRetCollectionNodeByLayoutBlock _Nonnull)byLayout{
     @jobs_weakify(self)
     return ^ASCollectionNode* (UICollectionViewLayout *layout){
         @jobs_strongify(self)
@@ -117,7 +117,7 @@
     };
 }
 
--(JobsRetCollectionNodeByInspectorBlock _Nonnull)byLayoutInspector {
+-(JobsRetCollectionNodeByInspectorBlock _Nonnull)byLayoutInspector{
     @jobs_weakify(self)
     return ^ASCollectionNode* (id<ASCollectionViewLayoutInspecting> inspector){
         @jobs_strongify(self)
@@ -126,7 +126,7 @@
     };
 }
 
--(JobsRetCollectionNodeByInsetsBlock _Nonnull)byContentInset {
+-(JobsRetCollectionNodeByInsetsBlock _Nonnull)byContentInset{
     @jobs_weakify(self)
     return ^ASCollectionNode* (UIEdgeInsets insets){
         @jobs_strongify(self)
@@ -135,7 +135,7 @@
     };
 }
 
--(JobsRetCollectionNodeByPointBlock _Nonnull)byContentOffset {
+-(JobsRetCollectionNodeByPointBlock _Nonnull)byContentOffset{
     @jobs_weakify(self)
     return ^ASCollectionNode* (CGPoint p){
         @jobs_strongify(self)
@@ -144,7 +144,7 @@
     };
 }
 
--(JobsRetCollectionNodeByPointAnimatedBlock _Nonnull)bySetContentOffsetAnimated {
+-(JobsRetCollectionNodeByPointAnimatedBlock _Nonnull)bySetContentOffsetAnimated{
     @jobs_weakify(self)
     return ^ASCollectionNode* (CGPoint p, BOOL animated){
         jobs_on_main(^{
@@ -154,7 +154,7 @@
     };
 }
 
--(JobsRetCollectionNodeByStringBlock _Nonnull)byRegisterSupplementaryKind {
+-(JobsRetCollectionNodeByStringBlock _Nonnull)byRegisterSupplementaryKind{
     @jobs_weakify(self)
     return ^ASCollectionNode* (NSString *kind){
         jobs_on_main(^{
@@ -164,7 +164,7 @@
     };
 }
 
--(JobsRetCollectionNodeByScrollToItemBlock _Nonnull)byScrollToItem {
+-(JobsRetCollectionNodeByScrollToItemBlock _Nonnull)byScrollToItem{
     @jobs_weakify(self)
     return ^ASCollectionNode* (NSIndexPath *indexPath,
                                UICollectionViewScrollPosition pos,
@@ -178,7 +178,7 @@
     };
 }
 
--(JobsRetCollectionNodeBySelectBlock _Nonnull)bySelectItem {
+-(JobsRetCollectionNodeBySelectBlock _Nonnull)bySelectItem{
     @jobs_weakify(self)
     return ^ASCollectionNode* (NSIndexPath *indexPath,
                                BOOL animated,
@@ -192,7 +192,7 @@
     };
 }
 
--(JobsRetCollectionNodeByDeselectBlock _Nonnull)byDeselectItem {
+-(JobsRetCollectionNodeByDeselectBlock _Nonnull)byDeselectItem{
     @jobs_weakify(self)
     return ^ASCollectionNode* (NSIndexPath *indexPath, BOOL animated){
         jobs_on_main(^{
@@ -202,7 +202,7 @@
     };
 }
 
--(JobsRetCollectionNodeByBatchAnimatedBlock _Nonnull)byPerformBatchAnimated {
+-(JobsRetCollectionNodeByBatchAnimatedBlock _Nonnull)byPerformBatchAnimated{
     @jobs_weakify(self)
     return ^ASCollectionNode* (BOOL animated,
                                dispatch_block_t updates,
@@ -216,7 +216,7 @@
     };
 }
 
--(JobsRetCollectionNodeByBatchBlock _Nonnull)byPerformBatchUpdates {
+-(JobsRetCollectionNodeByBatchBlock _Nonnull)byPerformBatchUpdates{
     @jobs_weakify(self)
     return ^ASCollectionNode* (dispatch_block_t updates,
                                void (^completion)(BOOL)){
@@ -227,7 +227,7 @@
     };
 }
 
--(JobsRetCollectionNodeByReloadWithCompletionBlock _Nonnull)byReloadWithCompletion {
+-(JobsRetCollectionNodeByReloadWithCompletionBlock _Nonnull)byReloadWithCompletion{
     @jobs_weakify(self)
     return ^ASCollectionNode* (dispatch_block_t completion){
         jobs_on_main(^{
@@ -237,7 +237,7 @@
     };
 }
 
--(JobsRetCollectionNodeByVoidBlock _Nonnull)byReload {
+-(JobsRetCollectionNodeByVoidBlock _Nonnull)byReload{
     @jobs_weakify(self)
     return ^ASCollectionNode* (){
         jobs_on_main(^{
@@ -247,7 +247,7 @@
     };
 }
 
--(JobsRetCollectionNodeByVoidBlock _Nonnull)byRelayoutItems {
+-(JobsRetCollectionNodeByVoidBlock _Nonnull)byRelayoutItems{
     @jobs_weakify(self)
     return ^ASCollectionNode* (){
         jobs_on_main(^{
@@ -257,7 +257,7 @@
     };
 }
 
--(JobsRetCollectionNodeBySetTuningBlock _Nonnull)bySetTuningForRangeType {
+-(JobsRetCollectionNodeBySetTuningBlock _Nonnull)bySetTuningForRangeType{
     @jobs_weakify(self)
     return ^ASCollectionNode* (ASRangeTuningParameters params,
                                ASLayoutRangeType type){
@@ -267,7 +267,7 @@
     };
 }
 
--(JobsRetCollectionNodeBySetTuningForModeBlock _Nonnull)bySetTuningForModeRangeType {
+-(JobsRetCollectionNodeBySetTuningForModeBlock _Nonnull)bySetTuningForModeRangeType{
     @jobs_weakify(self)
     return ^ASCollectionNode* (ASRangeTuningParameters params,
                                ASLayoutRangeMode mode,
@@ -280,7 +280,7 @@
     };
 }
 
--(JobsRetCollectionNodeByVoidBlock _Nonnull)byOnDidFinishProcessingUpdatesOnce {
+-(JobsRetCollectionNodeByVoidBlock _Nonnull)byOnDidFinishProcessingUpdatesOnce{
     @jobs_weakify(self)
     return ^ASCollectionNode* (){
         jobs_on_main(^{
@@ -290,7 +290,7 @@
     };
 }
 
--(JobsRetCollectionNodeByDispatchBlock _Nonnull)byOnDidFinishProcessingUpdates {
+-(JobsRetCollectionNodeByDispatchBlock _Nonnull)byOnDidFinishProcessingUpdates{
     @jobs_weakify(self)
     return ^ASCollectionNode* (dispatch_block_t block){
         jobs_on_main(^{
@@ -300,7 +300,7 @@
     };
 }
 
--(JobsRetCollectionNodeByVoidBlock _Nonnull)byWaitUntilAllUpdatesProcessed {
+-(JobsRetCollectionNodeByVoidBlock _Nonnull)byWaitUntilAllUpdatesProcessed{
     @jobs_weakify(self)
     return ^ASCollectionNode* (){
         jobs_on_main(^{

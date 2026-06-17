@@ -1,13 +1,13 @@
 //
 //  NSObject+DeviceID.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/2.
 //
 
 #import <Foundation/Foundation.h>
 #import "JobsKeychainHelper.h"
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

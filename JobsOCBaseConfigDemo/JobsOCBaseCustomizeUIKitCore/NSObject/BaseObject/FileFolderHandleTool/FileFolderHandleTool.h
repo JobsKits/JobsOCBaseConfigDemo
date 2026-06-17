@@ -1,6 +1,6 @@
 //
 //  FileFolderHandleTool.h
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/7/27.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineEnums.h"
+#import "JobsDefineConstString.h"
 #import "JobsBlock.h"
 #import "UIImage+Extras.h"
 #import "JobsString.h"

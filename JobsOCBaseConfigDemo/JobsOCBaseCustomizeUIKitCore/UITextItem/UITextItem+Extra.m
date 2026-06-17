@@ -1,13 +1,11 @@
 //
 //  UITextItem+Extra.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 11/12/2024.
 //
 
 #import "UITextItem+Extra.h"
-
-#import "DefineProperty.h"
 
 @implementation UITextItem (Extra)
 

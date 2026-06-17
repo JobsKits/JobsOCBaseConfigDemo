@@ -1,14 +1,12 @@
 //
 //  MainTableViewCell.m
-//  BlankProject
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 17/6/15.
 //  Copyright © 2017年 Mephsito. All rights reserved.
 //  特别鸣谢 https://github.com/Mephsito23/iOS-Excel-
 
 #import "MainTableViewCell.h"
-
-#import "DefineProperty.h"
 
 @interface MainTableViewCell()
 /// Data
@@ -30,7 +28,7 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
             cell.collectionView.alpha = 1;
-        }return cell;
+        };return cell;
     };
 }
 #pragma mark —— BaseCellProtocol
@@ -125,7 +123,7 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
         [self.contentView.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, 0, 0, 0));
         }];
-    }return _collectionView;
+    };return _collectionView;
 }
 
 @end

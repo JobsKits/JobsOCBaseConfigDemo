@@ -1,6 +1,6 @@
 //
 //  HeaderCell.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/27/24.
 //
@@ -17,16 +17,17 @@
     if (self = [super initWithCoder:coder]) {
         self.label.alpha = 1;
         self.sortArrow.alpha = 1;
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.label.alpha = 1;
         self.sortArrow.alpha = 1;
-    }return self;
+    };return self;
 }
 
+#pragma mark —— frame
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     self.label.frame = CGRectInset(self.bounds, 4, 2);
@@ -54,7 +55,7 @@
             label.numberOfLines = 2;
             self.contentView.addSubview(label);
         });
-    }return _label;
+    };return _label;
 }
 
 -(UILabel *)sortArrow{
@@ -68,7 +69,7 @@
             label.textAlignment = NSTextAlignmentCenter;
             self.contentView.addSubview(label);
         });
-    }return _sortArrow;
+    };return _sortArrow;
 }
 
 @end

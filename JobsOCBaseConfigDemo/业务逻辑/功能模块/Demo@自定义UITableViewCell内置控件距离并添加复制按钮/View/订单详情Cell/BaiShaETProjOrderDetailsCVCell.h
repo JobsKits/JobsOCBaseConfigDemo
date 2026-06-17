@@ -1,11 +1,12 @@
 //
 //  BaiShaETProjOrderDetailsCVCell.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/26.
 //
 
 #import "JobsBaseCollectionViewCell.h"
+#import "JobsDefineProperty.h"
 
 #define 子TableViewCell的高度 JobsWidth(22)
 

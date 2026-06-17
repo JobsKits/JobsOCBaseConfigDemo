@@ -1,6 +1,6 @@
 //
 //  BaseRequest.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/7/10.
 //
@@ -69,7 +69,7 @@ YTKCustomBaseRequestProtocol_synthesize
             NSDictionary *json = self.responseJSONObject;
 //            JobsLog(@"可以 = %@", api.parameters);
 //            JobsLog(@"打断点 = %@", [json decodeUnicodeLog]);
-        }return self;
+        };return self;
     };
 }
 #pragma clang diagnostic pop
@@ -77,13 +77,13 @@ YTKCustomBaseRequestProtocol_synthesize
 -(instancetype _Nullable)initByBodyParameters:(NSDictionary *_Nonnull)bodyParameters{
     if (self = [super init]) {
         if(bodyParameters) self.parameters = bodyParameters.mutableDic();
-    }return self;
+    };return self;
 }
 
 -(instancetype _Nullable)initByURLParameters:(id _Nullable)urlParameters{
     if (self = [super init]) {
         self.urlParameters = urlParameters;
-    }return self;
+    };return self;
 }
 /// Body 参数（GET 请求不可用）
 -(id _Nullable)requestArgument{
@@ -126,7 +126,7 @@ YTKCustomBaseRequestProtocol_synthesize
     //                break;
     //        }
         });
-    }return _customHTTPHeader;
+    };return _customHTTPHeader;
 }
 #pragma mark —— 在链式请求中，下一个请求的参数来源于上一个请求的结果
 //-(NSString *_Nonnull)userId{
@@ -178,7 +178,7 @@ YTKCustomBaseRequestProtocol_synthesize
         _parameters = jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable data) {
             
         });
-    }return _parameters;
+    };return _parameters;
 }
 
 @end

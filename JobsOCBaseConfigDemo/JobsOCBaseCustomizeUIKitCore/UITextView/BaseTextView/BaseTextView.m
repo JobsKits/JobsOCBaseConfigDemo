@@ -1,6 +1,6 @@
 //
 //  BaseTextView.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2024/4/27.
 //
@@ -21,7 +21,7 @@
 - (instancetype)init{
     if (self = [super init]) {
         [self setupDefaults];
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -47,20 +47,20 @@
             [menu setMenuVisible:YES animated:YES];
         }
 #pragma clang diagnostic pop
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame
                textContainer:(NSTextContainer *)textContainer {
     if (self = [super initWithFrame:frame textContainer:textContainer]) {
        
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)layoutSubviews{

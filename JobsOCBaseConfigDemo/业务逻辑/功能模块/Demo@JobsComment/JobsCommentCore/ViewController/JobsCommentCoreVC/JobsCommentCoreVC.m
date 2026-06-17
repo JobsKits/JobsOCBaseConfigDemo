@@ -1,13 +1,11 @@
 //
 //  JobsCommentCoreVC.m
-//  JobsComment
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/15.
 //
 
 #import "JobsCommentCoreVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsCommentCoreVC ()
 /// UI
@@ -27,7 +25,7 @@ Prop_strong()JobsCommentModel *yyModel;
 -(instancetype)init{
     if (self = [super init]) {
 //        [self loadData];
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -79,11 +77,13 @@ Prop_strong()JobsCommentModel *yyModel;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 #pragma mark —— 一些公有方法
+#pragma mark —— mJModel
 -(void)setMJModel:(JobsCommentModel *)mjModel{
     self.mjModel = mjModel;
     self.tableView.endRefreshing(self.mjModel.listDataArr.count);
 }
 
+#pragma mark —— yYModel
 -(void)setYYModel:(JobsCommentModel *)yyModel{
     self.yyModel = yyModel;
     self.tableView.endRefreshing(self.mjModel.listDataArr.count);
@@ -201,7 +201,7 @@ heightForHeaderInSection:(NSInteger)section{///  👌
             make.top.left.right.equalTo(self.view);
             make.height.mas_equalTo(JobsWidth(50));
         }];
-    }return _titleHeaderView;
+    };return _titleHeaderView;
 }
 /// BaseViewProtocol
 @synthesize tableView = _tableView;
@@ -274,7 +274,7 @@ heightForHeaderInSection:(NSInteger)section{///  👌
             tableView.mj_footer.backgroundColor = JobsRedColor;
             self.view.mjRefreshTargetView = tableView;
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 @end

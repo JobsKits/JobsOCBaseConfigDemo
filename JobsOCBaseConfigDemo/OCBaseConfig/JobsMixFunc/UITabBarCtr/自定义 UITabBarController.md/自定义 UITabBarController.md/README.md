@@ -78,7 +78,7 @@
               tabBar.jobsRichViewByModel(self.viewModel);
               self.jobsKVC(@"tabBar",tabBar);/// ❤️KVC 进行替换❤️
           });
-      }return _myTabBar;
+      };return _myTabBar;
   }
   ```
 
@@ -106,7 +106,7 @@
           if (pan.state == UIGestureRecognizerStateBegan ||
               pan.state == UIGestureRecognizerStateChanged){
               [self beginInteractiveTransitionIfPossible:pan];
-          }return nil;
+          };return nil;
       }];
       self.view.panGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
   }
@@ -168,7 +168,7 @@
                   }break;
                   default:
                       break;
-              }return nil;
+              };return nil;
           }];
           subView.longPressGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
       }
@@ -270,7 +270,7 @@ Prop_assign()BOOL isNeedjump;/// 跳开处理，即不切控制器，而是做�
             self.forcedLogin();
             return YES;
         }
-    }return NO;
+    };return NO;
 }
 ```
 
@@ -443,7 +443,7 @@ Prop_assign()BOOL isNeedjump;/// 跳开处理，即不切控制器，而是做�
       
       if(self.titleModel.subTextModel.attributedText){
           _titleBtn.jobsResetAttributedSubtitle(self.titleModel.subTextModel.attributedText);
-      }return _titleBtn;
+      };return _titleBtn;
   }
   ```
 

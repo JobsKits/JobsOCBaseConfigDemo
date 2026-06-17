@@ -1,6 +1,6 @@
 //
 //  TLTabBarAnimation.h
-//  TabBar
+//  JobsOCBaseConfigDemo
 //
 //  Copyright © 2019 故乡的云. All rights reserved.
 //
@@ -8,7 +8,7 @@
 
 
 #import "TLAnimationProtocol.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 #define  kDuration  0.5f
 #define  kAnimationKeyPathScale @"transform.scale"

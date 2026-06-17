@@ -1,6 +1,6 @@
 //
 //  RegisterApi.h
-//  Solar
+//  JobsOCBaseConfigDemo
 //
 //  Created by TangQiao on 11/8/14.
 //  Copyright (c) 2014 fenbi. All rights reserved.

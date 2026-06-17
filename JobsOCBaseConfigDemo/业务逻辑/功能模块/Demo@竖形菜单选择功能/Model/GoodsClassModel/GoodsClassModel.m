@@ -1,6 +1,6 @@
 //
 //  GoodsClassModel.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/15.
 //
@@ -30,7 +30,7 @@ UITextModelProtocol_synthesize_part3
 -(NSMutableArray<GoodsClassModel *> *)childrenList{
     if (!_childrenList) {
         _childrenList = NSMutableArray.array;
-    }return _childrenList;
+    };return _childrenList;
 }
 
 @end

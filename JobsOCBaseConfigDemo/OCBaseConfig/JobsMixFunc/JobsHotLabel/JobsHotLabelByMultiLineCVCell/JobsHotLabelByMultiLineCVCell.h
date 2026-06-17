@@ -1,12 +1,13 @@
 //
 //  JobsHotLabelWithMultiLineCVCell.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/15.
 //
 
 #import "JobsBaseCollectionViewCell.h"
 #import "JobsDoorInputViewProtocol.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

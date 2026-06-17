@@ -1,6 +1,6 @@
 //
 //  MainTableViewCell.h
-//  BlankProject
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 17/6/15.
 //  Copyright © 2017年 Mephsito. All rights reserved.
@@ -10,7 +10,7 @@
 #import "JobsBlock.h"
 #import "JobsBaseTableViewCell.h"
 #import "MainTableViewCellItem.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "BaseCellProtocol.h"
 #import "JobsExcelConfigureViewModel.h"
 
@@ -21,7 +21,6 @@
 -(jobsByScrollViewBlock _Nonnull)mianTableViewCellScrollerDid;
 @end
 
-typedef MainTableViewCell *_Nonnull(^JobsReturnMainTableViewCellByDelegateBlock)(NSObject<MianTableViewCellDelegate> * _Nullable delegate);
 
 @interface MainTableViewCell : JobsBaseTableViewCell
 <

@@ -1,6 +1,6 @@
 //
 //  NSObject+GKPhotoBrowser.h
-//  MataShop
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 10/15/23.
 //

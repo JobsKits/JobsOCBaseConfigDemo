@@ -1,6 +1,6 @@
 //
 //  MainTableViewCellItem.h
-//  BlankProject
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 17/6/15.
 //  Copyright © 2017年 Mephsito. All rights reserved.
@@ -10,6 +10,7 @@
 #import "JobsBtnStyleCVCell.h"
 #import "UICollectionViewCellProtocol.h"
 #import "JobsExcelConfigureViewModel.h"
+#import "JobsDefineProperty.h"
 
 @class UIButtonModel;
 

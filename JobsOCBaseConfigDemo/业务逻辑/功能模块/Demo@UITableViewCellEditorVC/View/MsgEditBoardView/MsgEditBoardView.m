@@ -1,13 +1,11 @@
 //
 //  MsgEditBoardView.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/6.
 //
 
 #import "MsgEditBoardView.h"
-
-#import "DefineProperty.h"
 
 @interface MsgEditBoardView ()
 /// UI
@@ -39,13 +37,13 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -59,7 +57,7 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -153,7 +151,7 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
             make.left.equalTo(self).offset(JobsWidth(16));
             make.top.equalTo(self).offset(JobsWidth(18));
         }];
-    }return _allChooseBtn;
+    };return _allChooseBtn;
 }
 
 -(UIButton *)markToReadBtn{
@@ -174,7 +172,7 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
             make.height.mas_equalTo(JobsWidth(14));
         }];
         _markToReadBtn.enabledBlock(NO);
-    }return _markToReadBtn;
+    };return _markToReadBtn;
 }
 
 -(UIButton *)deleteBtn{
@@ -196,7 +194,7 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
         }];
         _deleteBtn.enabledBlock(NO);
         _deleteBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _deleteBtn;
+    };return _deleteBtn;
 }
 
 @end

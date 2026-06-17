@@ -1,6 +1,6 @@
 //
 //  NSObject+DeviceIP.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/9.
 //
@@ -75,7 +75,7 @@
                 JobsLog(@"%@",result);
                 return YES;
             }
-        }return NO;
+        };return NO;
     };
 }
 /// 用于获取设备的所有 IP 地址（包括 IPv4 和 IPv6 地址），并以字典形式返回。通过查询网络接口获取这些信息。
@@ -120,7 +120,7 @@
                 }
             }
         }freeifaddrs(interfaces); // 释放分配的内存
-    }return [addresses count] ? addresses : nil;// 如果字典中有数据，返回字典；否则返回 nil
+    };return [addresses count] ? addresses : nil;// 如果字典中有数据，返回字典；否则返回 nil
 }
 #pragma mark —— 简单可靠，只返回设备的公网 IP 地址【GET】
 /// https://api.ipify.org?format=json

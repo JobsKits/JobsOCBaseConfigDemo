@@ -1,6 +1,6 @@
 //
 //  AESCrypt.h
-//  Gurpartap Singh
+//  JobsOCBaseConfigDemo
 //
 //  Created by Gurpartap Singh on 06/05/12.
 //  Copyright (c) 2012 Gurpartap Singh

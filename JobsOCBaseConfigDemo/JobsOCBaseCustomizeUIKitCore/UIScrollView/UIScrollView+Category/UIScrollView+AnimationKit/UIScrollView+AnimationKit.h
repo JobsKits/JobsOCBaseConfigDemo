@@ -1,6 +1,6 @@
 //
 //  UIScrollView+AnimationKit.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/7/2.
 //
@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "UIScrollView+UIScrollViewProtocol.h"
 #import "NSMutableArray+Extra.h"
-#import "JobsDefineAllEnumHeader.h"
+#import "JobsDefineEnums.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

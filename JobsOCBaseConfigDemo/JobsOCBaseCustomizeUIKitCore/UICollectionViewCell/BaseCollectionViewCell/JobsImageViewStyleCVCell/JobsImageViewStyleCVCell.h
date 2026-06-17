@@ -1,6 +1,6 @@
 //
 //  JobsImageViewStyleCVCell.h
-//  MataShop
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 9/23/23.
 //

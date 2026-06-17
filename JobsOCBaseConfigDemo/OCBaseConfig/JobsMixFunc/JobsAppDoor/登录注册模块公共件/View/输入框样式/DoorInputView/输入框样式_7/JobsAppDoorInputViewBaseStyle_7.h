@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorInputViewBaseStyle_7.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/24.
 //
@@ -10,6 +10,7 @@
 #import "JobsAppDoorInputViewBaseStyleModel.h"
 #import "JobsAppDoorInputViewBaseStyle.h"
 #import "JobsMagicTextField.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -53,7 +54,7 @@ NS_ASSUME_NONNULL_END
          _选择区号并输入手机号.layer.cornerRadius = JobsWidth(52 / 2);
          _选择区号并输入手机号.layer.borderColor = HEXCOLOR(0xEEE2C8).CGColor;
          _选择区号并输入手机号.jobsRichViewByModel(self.配置选择区号并输入手机号);
-     }return _选择区号并输入手机号;
+     };return _选择区号并输入手机号;
  }
  
  -(JobsAppDoorInputViewBaseStyleModel *)配置选择区号并输入手机号{
@@ -71,7 +72,7 @@ NS_ASSUME_NONNULL_END
          _配置选择区号并输入手机号.moveDistance = JobsWidth(60);
          _配置选择区号并输入手机号.titleStrCor = _配置选择区号并输入手机号.placeholderColor = HEXCOLOR_ALPHA(0xC4C4C4,1.f);
  //        配置选择区号并输入手机号.background = @"设置弹出框输入框背景图".img;
-     }return _配置选择区号并输入手机号;
+     };return _配置选择区号并输入手机号;
  }
 
  

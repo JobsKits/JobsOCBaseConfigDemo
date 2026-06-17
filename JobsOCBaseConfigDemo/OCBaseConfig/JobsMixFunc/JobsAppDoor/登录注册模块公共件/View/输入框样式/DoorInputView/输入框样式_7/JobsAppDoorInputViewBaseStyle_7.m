@@ -1,13 +1,11 @@
 //
 //  JobsAppDoorInputViewBaseStyle_7.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/24.
 //
 
 #import "JobsAppDoorInputViewBaseStyle_7.h"
-
-#import "DefineProperty.h"
 
 @interface JobsAppDoorInputViewBaseStyle_7 (){
     JobsDropDownListView *dropDownListView;
@@ -32,7 +30,7 @@ Prop_assign()CGSize chooseBtnSize;
             data.jobsWidth = 1;
             data.layerCor = Cor3;
         }));
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -42,7 +40,7 @@ Prop_assign()CGSize chooseBtnSize;
             data.jobsWidth = 1;
             data.layerCor = Cor3;
         }));
-    }return self;
+    };return self;
 }
 
 -(void)layoutSubviews{
@@ -129,7 +127,7 @@ Prop_assign()CGSize chooseBtnSize;
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(12), JobsWidth(16)));
             }];
         });
-    }return _leftIMGV;
+    };return _leftIMGV;
 }
 
 -(NSMutableArray<UIViewModel *> *)jobsPageViewDataMutArr{
@@ -154,7 +152,7 @@ Prop_assign()CGSize chooseBtnSize;
                 data.textModel.font = UIFontWeightRegularSize(16);
             }));
         });
-    }return _jobsPageViewDataMutArr;
+    };return _jobsPageViewDataMutArr;
 }
 
 -(UIButton *)chooseBtn{
@@ -193,7 +191,7 @@ Prop_assign()CGSize chooseBtnSize;
 #warning 这里需要被修改
 //            make.width.mas_equalTo([UIView widthByData:self.jobsPageViewDataMutArr[0]]);
         }];
-    }return _chooseBtn;
+    };return _chooseBtn;
 }
 
 -(UIViewModel *)chooseBtnViewModel{
@@ -210,7 +208,7 @@ Prop_assign()CGSize chooseBtnSize;
             data.subTextModel.text = @"".tr;
             data.image = @"向下的箭头".img;
         });
-    }return _chooseBtnViewModel;
+    };return _chooseBtnViewModel;
 }
 @synthesize magicTextField = _magicTextField;
 -(JobsMagicTextField *)magicTextField{
@@ -233,7 +231,7 @@ Prop_assign()CGSize chooseBtnSize;
                 make.left.equalTo(self.chooseBtn.mas_right).offset(JobsWidth(2));
             }];
         });
-    }return _magicTextField;
+    };return _magicTextField;
 }
 
 @end

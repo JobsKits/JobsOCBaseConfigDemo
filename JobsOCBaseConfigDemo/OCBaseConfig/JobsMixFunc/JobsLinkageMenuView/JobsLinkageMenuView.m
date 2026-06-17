@@ -1,6 +1,6 @@
 //
 //  LinkageMenuView.m
-//  LinkageMenu
+//  JobsOCBaseConfigDemo
 //
 //  Created by 风间 on 2017/3/8.
 //  Copyright © 2017年 EmotionV. All rights reserved.
@@ -11,8 +11,6 @@
 #define FULLVIEW_FOR6 667  //iPhone6(s)高度
 #define NAVIGATION_HEIGHT 64  //navigationbar高度
 #define TABBAR_HEIGHT 49  //tabbar高度
-
-#import "DefineProperty.h"
 
 @interface JobsLinkageMenuView()
 /// UI
@@ -56,7 +54,7 @@ Prop_assign()CGFloat ANIMATION_TIME;/// 菜单栏滚动的时间
             self.LINEVIEW_WIDTH = self.linkageMenuViewConfig.LINEVIEW_WIDTH;
             self.ANIMATION_TIME = self.linkageMenuViewConfig.ANIMATION_TIME;
         }
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -148,6 +146,7 @@ Prop_assign()CGFloat ANIMATION_TIME;/// 菜单栏滚动的时间
     }
 }
 #pragma mark —— Setter Method
+#pragma mark —— textColor
 -(void)setTextColor:(UIColor *)textColor{
     _textColor = textColor;
     for (int i = 2; i <= self.btnConfig.normal_titles.count; i++) {
@@ -156,6 +155,7 @@ Prop_assign()CGFloat ANIMATION_TIME;/// 菜单栏滚动的时间
     }
 }
 
+#pragma mark —— textSize
 -(void)setTextSize:(CGFloat)textSize{
     _textSize = textSize;
     for (int i = 1; i <= self.btnConfig.normal_titles.count; i++) {
@@ -173,7 +173,7 @@ Prop_assign()CGFloat ANIMATION_TIME;/// 菜单栏滚动的时间
                                      self.frame.size.height);
         _lineView.backgroundColor = JobsClearColor;
         [self addSubview:_lineView];
-    }return _lineView;
+    };return _lineView;
 }
 
 - (UIView *)rightview{
@@ -201,7 +201,7 @@ Prop_assign()CGFloat ANIMATION_TIME;/// 菜单栏滚动的时间
         [_rightview addSubview:(UIView *)[_viewArray objectAtIndex:0]];
         
         [self addSubview:_rightview];
-    }return _rightview;
+    };return _rightview;
 }
 
 -(UIView *)bottomView{
@@ -214,7 +214,7 @@ Prop_assign()CGFloat ANIMATION_TIME;/// 菜单栏滚动的时间
 
         _bottomView.layer.cornerRadius = self.BOTTOMVIEW_HEIGHT / 2.0;
 //        _bottomView.backgroundColor = _selectViewColor;
-    }return _bottomView;
+    };return _bottomView;
 }
 
 - (UIScrollView *)menuView{
@@ -257,43 +257,43 @@ Prop_assign()CGFloat ANIMATION_TIME;/// 菜单栏滚动的时间
             self.btnMutArr.add(menuButton);
             [_menuView addSubview:menuButton];
         }[self addSubview:_menuView];
-    }return _menuView;
+    };return _menuView;
 }
 
 -(NSMutableArray<__kindof UIButton *> *)btnMutArr{
     if(!_btnMutArr){
         _btnMutArr = NSMutableArray.array;
-    }return _btnMutArr;
+    };return _btnMutArr;
 }
 /// 左侧菜单栏宽度（即，按钮的宽度），默认136
 -(CGFloat)MENU_WIDTH{
     if(!_MENU_WIDTH){
         _MENU_WIDTH = JobsWidth(136);
-    }return _MENU_WIDTH;
+    };return _MENU_WIDTH;
 }
 /// 滑块高度
 -(CGFloat)BOTTOMVIEW_HEIGHT{
     if(!_BOTTOMVIEW_HEIGHT){
         _BOTTOMVIEW_HEIGHT = JobsWidth(25);
-    }return _BOTTOMVIEW_HEIGHT;
+    };return _BOTTOMVIEW_HEIGHT;
 }
 /// 滑块宽度
 -(CGFloat)BOTTOMVIEW_WIDTH{
     if(!_BOTTOMVIEW_WIDTH){
         _BOTTOMVIEW_WIDTH = self.MENU_WIDTH - JobsWidth(10);
-    }return _BOTTOMVIEW_WIDTH;
+    };return _BOTTOMVIEW_WIDTH;
 }
 /// 分割线宽度
 -(CGFloat)LINEVIEW_WIDTH{
     if(!_LINEVIEW_WIDTH){
         _LINEVIEW_WIDTH = JobsWidth(1.0f);
-    }return _LINEVIEW_WIDTH;
+    };return _LINEVIEW_WIDTH;
 }
 /// 菜单栏滚动的时
 -(CGFloat)ANIMATION_TIME{
     if(!_ANIMATION_TIME){
         _ANIMATION_TIME = 0.2f;
-    }return _ANIMATION_TIME;
+    };return _ANIMATION_TIME;
 }
 
 @end

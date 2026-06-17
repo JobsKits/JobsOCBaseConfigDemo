@@ -1,14 +1,12 @@
 //
 //  Irregular_Btn.m
-//  TestIrregularView
+//  JobsOCBaseConfigDemo
 //
 //  Created by LuoKI on 2018/4/23.
 //  Copyright © 2018年 LuoLi. All rights reserved.
 //
 
 #import "IrregularBtn.h"
-
-#import "DefineProperty.h"
 
 @interface IrregularBtn()
 /// UI
@@ -23,7 +21,7 @@ static dispatch_once_t irregularBtnDispatchOnce;
 -(instancetype)init{
     if (self = [super init]) {
         irregularBtnDispatchOnce = 0;
-    }return self;
+    };return self;
 }
 // 绘制图形时添加path遮罩
 - (void)drawRect:(CGRect)rect{
@@ -39,8 +37,8 @@ static dispatch_once_t irregularBtnDispatchOnce;
     if (res){
         if ([self.path containsPoint:point]){
             return YES;
-        }return NO;
-    }return NO;
+        };return NO;
+    };return NO;
 }
 #pragma mark —— lazyLoad
 -(CAShapeLayer *)shapLayer{
@@ -48,7 +46,7 @@ static dispatch_once_t irregularBtnDispatchOnce;
         _shapLayer = CAShapeLayer.layer;
         _shapLayer.path = self.path.CGPath;
         self.layer.mask = _shapLayer;
-    }return _shapLayer;
+    };return _shapLayer;
 }
 
 -(UIBezierPath *)path{
@@ -62,13 +60,13 @@ static dispatch_once_t irregularBtnDispatchOnce;
                 [_path addLineToPoint:retrievedPoint];
         }
         [_path closePath];
-    }return _path;
+    };return _path;
 }
 
 -(NSMutableArray<NSValue *> *)pointMutArr{
     if (!_pointMutArr) {
         _pointMutArr = NSMutableArray.array;
-    }return _pointMutArr;
+    };return _pointMutArr;
 }
 
 @end

@@ -1,12 +1,12 @@
 //
 //  JobsNetworkSource.h
-//  JobsNetWorkTools
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026/5/23.
 //
 
 #import <Foundation/Foundation.h>
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,6 +1,6 @@
 //
 //  HQTextField.m
-//  HQTextFieldDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Mr_Han on 2018/10/10.
 //  Copyright © 2018年 Mr_Han. All rights reserved.
@@ -9,8 +9,6 @@
 //
 
 #import "HQTextField.h"
-
-#import "DefineProperty.h"
 
 @interface HQTextField ()
 
@@ -74,7 +72,7 @@ Prop_strong()CABasicAnimation *opacityAnimation;
             data.strokeColor = JobsRedColor.CGColor;// 边框颜色为红色
             [data addAnimation:self.opacityAnimation forKey:@"opacity"];
         });
-    }return _warnLayer;
+    };return _warnLayer;
 }
 
 -(CABasicAnimation *)opacityAnimation{
@@ -85,7 +83,7 @@ Prop_strong()CABasicAnimation *opacityAnimation;
         _opacityAnimation.repeatCount = 5;
         _opacityAnimation.repeatDuration = 2;
         _opacityAnimation.autoreverses = YES;
-    }return _opacityAnimation;
+    };return _opacityAnimation;
 }
 
 @end

@@ -1,6 +1,6 @@
 //
 //  JXCategoryNumberView+Extra.h
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/29.
 //
@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_END
                  .byNumberStringFormatterBlock(^NSString *(NSInteger number) {
                      if (number > 999) {
                          return @"999+";
-                     }return [NSString stringWithFormat:@"%ld", (long)number];
+                     };return [NSString stringWithFormat:@"%ld", (long)number];
                  })
                  .byTitles(self.titles)
                  .byTitleSelectedColor(HEXCOLOR(0xAE8330))
@@ -79,7 +79,7 @@ NS_ASSUME_NONNULL_END
              make.left.right.equalTo(self.view);
              make.height.mas_equalTo(listContainerViewDefaultOffset);
          }).on();
-     }return _categoryView;
+     };return _categoryView;
  }
  
  */

@@ -1,12 +1,13 @@
 //
 //  XZExcelVC.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/5/24.
 //  特别鸣谢 https://github.com/Mephsito23/iOS-Excel-
 
 #import "BaseViewController.h"
 #import "JobsExcelView.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

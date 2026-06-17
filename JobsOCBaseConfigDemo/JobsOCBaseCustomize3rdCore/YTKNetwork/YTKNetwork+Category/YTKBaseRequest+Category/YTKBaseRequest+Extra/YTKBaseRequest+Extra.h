@@ -1,12 +1,12 @@
 //
 //  YTKBaseRequest+Extra.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 28/10/2024.
 //
 
 #import "JobsBlock.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "YTKCustomBaseRequestProtocol.h"
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)

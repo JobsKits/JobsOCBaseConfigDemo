@@ -59,7 +59,7 @@
 			cnonce   = [self quotedSubHeaderFieldValue:@"cnonce" fromHeaderFieldValue:authInfo];
 			response = [self quotedSubHeaderFieldValue:@"response" fromHeaderFieldValue:authInfo];
 		}
-	}return self;
+	};return self;
 }
 
 

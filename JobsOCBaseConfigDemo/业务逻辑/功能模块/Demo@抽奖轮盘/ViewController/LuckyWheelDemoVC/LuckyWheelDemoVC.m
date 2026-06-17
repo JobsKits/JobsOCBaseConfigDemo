@@ -5,8 +5,6 @@
 
 #import "LuckyWheelDemoVC.h"
 
-#import "DefineProperty.h"
-
 @interface LuckyWheelDemoVC ()
 
 Prop_strong()LuckyWheelView *wheelView;
@@ -95,7 +93,7 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
                                       placeholderImage:@"tray".sys_img
                                         imageURLString:@"https://picsum.photos/30"]);
         });
-    }return _segments;
+    };return _segments;
 }
 
 -(LuckyWheelView *)wheelView{
@@ -125,7 +123,7 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
             make.center.equalTo(self.view);
             make.size.mas_equalTo(CGSizeMake(300.0, 300.0));
         });
-    }return _wheelView;
+    };return _wheelView;
 }
 
 @end

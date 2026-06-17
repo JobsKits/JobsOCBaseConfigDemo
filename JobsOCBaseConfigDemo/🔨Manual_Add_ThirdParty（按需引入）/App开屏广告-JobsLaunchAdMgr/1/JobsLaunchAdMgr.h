@@ -1,13 +1,12 @@
 #import <UIKit/UIKit.h>
-
-typedef void(^JobsLaunchAdMgrCallback)(void);
+#import "JobsBlock.h"
 
 typedef NS_ENUM(NSUInteger, JobsLaunchAdMode) {
     JobsLaunchAdModeNormal,
     JobsLaunchAdModeCountdown
 };
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @interface JobsLaunchAdMgr : NSObject
 

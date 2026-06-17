@@ -1,6 +1,6 @@
 //
 //  KTVHCHTTPServer.m
-//  KTVHTTPCache
+//  JobsOCBaseConfigDemo
 //
 //  Created by Single on 2017/8/10.
 //  Copyright © 2017年 Single. All rights reserved.
@@ -53,7 +53,7 @@
                                                  selector:@selector(HTTPConnectionDidDie)
                                                      name:HTTPConnectionDidDieNotification
                                                    object:nil];
-    }return self;
+    };return self;
 }
 
 - (void)dealloc

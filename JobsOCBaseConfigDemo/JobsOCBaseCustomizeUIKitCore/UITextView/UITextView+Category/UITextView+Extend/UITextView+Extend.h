@@ -1,6 +1,6 @@
 //
 //  UITextView+Extend.h
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/3/16.
 //
@@ -10,7 +10,7 @@
 #import "JobsBlock.h"
 #import "JobsString.h"
 #import "MacroDef_Font.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "UITextView+IndicateWordLimit.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)

@@ -1,6 +1,6 @@
 //
 //  JobsCommentCoreVC.h
-//  JobsComment
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/15.
 //
@@ -10,8 +10,8 @@
 #pragma mark —— View
 #import "JobsCommentPopUpView_viewForHeaderInSection.h"
 #import "JobsCommentTitleHeaderView.h"
-#import "JobsInfoTBVCell.h"//显示具体的有用讯息
-#import "JobsLoadMoreTBVCell.h"//加载更多
+#import "JobsInfoTBVCell.h"
+#import "JobsLoadMoreTBVCell.h"
 #import "LOTAnimationMJRefreshHeader.h"
 
 #pragma mark —— ViewController
@@ -25,6 +25,8 @@
 #pragma mark —— 3rd
 #import "NSString+Conversion.h"
 #import "NSObject+Queue.h"
+#import "JobsDefineProperty.h"
+
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>
 #else

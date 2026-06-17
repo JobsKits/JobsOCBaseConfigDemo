@@ -1,6 +1,6 @@
 //
 //  BaseTableViewer.h
-//  Feidegou
+//  JobsOCBaseConfigDemo
 //
 //  Created by Kite on 2019/10/31.
 //  Copyright © 2019 朝花夕拾. All rights reserved.

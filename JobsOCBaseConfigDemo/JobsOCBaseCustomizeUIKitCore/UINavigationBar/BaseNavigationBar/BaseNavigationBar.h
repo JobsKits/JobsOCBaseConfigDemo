@@ -1,6 +1,6 @@
 //
 //  BaseNavigationBar.h
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/21.
 //
@@ -8,7 +8,8 @@
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "MacroDef_Func.h"
-#import "DefineConstString.h"
+#import "JobsDefineConstString.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -13,6 +13,7 @@
 #import "JobsSearchBar.h"
 #import "BaiShaETProjPopupView10.h"
 #import "JobsVerticalMenuSubVC.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 左边的目录是UITableView，右边的内容是UIViewController

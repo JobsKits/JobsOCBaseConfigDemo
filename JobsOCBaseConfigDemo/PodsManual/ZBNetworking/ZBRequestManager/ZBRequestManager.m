@@ -1,6 +1,6 @@
 //
 //  ZBRequestManager.m
-//  ZBNetworkingDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by NQ UEC on 2017/8/17.
 //  Copyright © 2017年 Suzhibin. All rights reserved.

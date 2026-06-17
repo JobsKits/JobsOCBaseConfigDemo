@@ -1,11 +1,12 @@
 //
 //  JobsBaseLabel.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/20.
 //
 
 #import "BaseLabel.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// UILabel实现背景图片

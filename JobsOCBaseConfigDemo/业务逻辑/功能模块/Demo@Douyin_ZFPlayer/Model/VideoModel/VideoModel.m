@@ -1,6 +1,6 @@
 //
 //  VideoModel.m
-//  DouYin
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/24.
 //
@@ -20,7 +20,7 @@
                 @"VideoModel_Core":@"listMutArr"
             };
         }];
-    }return self;
+    };return self;
 }
 
 @end

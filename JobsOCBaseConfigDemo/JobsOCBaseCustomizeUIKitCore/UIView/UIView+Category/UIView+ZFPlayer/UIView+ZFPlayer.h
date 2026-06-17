@@ -1,6 +1,6 @@
 //
 //  UIView+ZFPlayer.h
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/3.
 //
@@ -8,8 +8,8 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
-#import "DefineConstString.h" /// 常量字符串的定义
-#import "DefineProperty.h"
+#import "JobsDefineConstString.h"
+#import "JobsDefineProperty.h"
 
 #pragma mark —— ZFPlayer 播放器相关
 /// Core
@@ -103,7 +103,7 @@
 #import "ZFVolumeBrightnessView.h"
 #endif
 
-#import "CustomZFPlayerControlView.h"/// 播放器控制层
+#import "CustomZFPlayerControlView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

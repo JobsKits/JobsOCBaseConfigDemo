@@ -1,6 +1,6 @@
 //
 //  XLChannelView.m
-//  XLChannelControlDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by MengXianLiang on 2017/3/3.
 //  Copyright © 2017年 MengXianLiang. All rights reserved.
@@ -16,9 +16,6 @@ static NSInteger ColumnNumber = 4;
 static CGFloat CellMarginX = 15.0f;
 static CGFloat CellMarginY = 10.0f;
 
-
-#import "DefineProperty.h"
-
 @interface XLChannelView ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 Prop_strong()UICollectionView *collectionView;
@@ -33,7 +30,7 @@ Prop_strong()NSIndexPath *targetIndexPath;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self buildUI];
-    }return self;
+    };return self;
 }
 
 -(void)buildUI{

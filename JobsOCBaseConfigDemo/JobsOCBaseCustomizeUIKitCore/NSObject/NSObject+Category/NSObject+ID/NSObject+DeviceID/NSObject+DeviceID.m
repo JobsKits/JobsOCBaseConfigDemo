@@ -1,6 +1,6 @@
 //
 //  NSObject+DeviceID.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/2.
 //
@@ -23,7 +23,7 @@
     if (isNull(deviceID)) {
         deviceID = UIDevice.currentDevice.identifierForVendor.UUIDString;
         [JobsKeychainHelper save:设备ID data:deviceID];
-    }return deviceID;
+    };return deviceID;
 }
 
 @end

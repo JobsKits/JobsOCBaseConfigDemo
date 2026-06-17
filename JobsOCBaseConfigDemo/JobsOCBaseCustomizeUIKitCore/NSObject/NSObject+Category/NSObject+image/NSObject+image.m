@@ -15,7 +15,7 @@
         UIImage *image = UIImage.animatedGIFByName(SELF);
         if(!image && isValue(SELF)){
             JobsLog(@"文件名为%@的图片获取失败，请检查",SELF);
-        }return image;
+        };return image;
     }else return nil;
 }
 /// 获取系统内置图像
@@ -30,7 +30,7 @@
         if (named) { return named; }
         if (!named && isValue(self)) {
             JobsLog(@"文件名为%@的图片获取失败，请检查", self);
-        }return nil;
+        };return nil;
     }else return nil;
 }
 /// 获取本地普通图像
@@ -65,7 +65,7 @@
 
         if (!named && isValue(self)) {
             JobsLog(@"文件名为%@的图片获取失败，请检查", self);
-        }return nil;
+        };return nil;
     }else return nil;
 }
 /// 获取网络图像

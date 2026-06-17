@@ -1,6 +1,6 @@
 //
 //  AppDelegate+TabBarCtr.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/11.
 //
@@ -29,10 +29,10 @@ static JobsTabBarVC *_tabBarVC = nil;
                         toastBy(@"这个跳开");
                         return NO;
                     }
-                }return YES;
+                };return YES;
             }];
         });
-    }return _tabBarVC;
+    };return _tabBarVC;
 }
 
 +(void)setTabBarVC:(JobsTabBarVC *)tabBarVC{
@@ -46,7 +46,7 @@ static JobsCustomTabBarVC *_jobsCustomTabBarVC = nil;
             tabBarVC.viewControllers = AppDelegate.viewCtrlByTabBarCtrlConfigMutArr;
             NSLog(@"");
         });
-    }return _jobsCustomTabBarVC;
+    };return _jobsCustomTabBarVC;
 }
 
 +(void)setJobsCustomTabBarVC:(JobsCustomTabBarVC *)jobsCustomTabBarVC{
@@ -61,7 +61,7 @@ static LZTabBarController *_lZTabBarCtrl = nil;
             @jobs_strongify(self)
             return self.lZTabBarConfig;
         }];
-    }return _lZTabBarCtrl;
+    };return _lZTabBarCtrl;
 }
 
 +(void)setLZTabBarCtrl:(LZTabBarController *)lZTabBarCtrl{
@@ -74,7 +74,7 @@ static UINavigationController *_tabBarNavCtrl = nil;
     if(!_tabBarNavCtrl){
         _tabBarNavCtrl = self.tabBarVC.navCtrl;
         _tabBarNavCtrl.hidesBottomBarWhenPushed = YES;
-    }return _tabBarNavCtrl;
+    };return _tabBarNavCtrl;
 }
 
 +(void)setTabBarNavCtrl:(UINavigationController *)tabBarNavCtrl{
@@ -86,7 +86,7 @@ static UINavigationController *_jobsCustomTabBarNavCtrl = nil;
     if(!_jobsCustomTabBarNavCtrl){
         _jobsCustomTabBarNavCtrl = self.jobsCustomTabBarVC.navCtrl;
         _jobsCustomTabBarNavCtrl.hidesBottomBarWhenPushed = YES;
-    }return _jobsCustomTabBarNavCtrl;
+    };return _jobsCustomTabBarNavCtrl;
 }
 
 +(void)setJobsTabBarNavCtrl:(UINavigationController *)jobsCustomTabBarNavCtrl{
@@ -98,7 +98,7 @@ static UINavigationController *_lZTabBarNavCtrl = nil;
     if(!_lZTabBarNavCtrl){
         _lZTabBarNavCtrl = self.lZTabBarCtrl.navCtrl;
         _lZTabBarNavCtrl.hidesBottomBarWhenPushed = YES;
-    }return _lZTabBarNavCtrl;
+    };return _lZTabBarNavCtrl;
 }
 
 +(void)setLZTabBarNavCtrl:(UINavigationController *)lZTabBarNavCtrl{
@@ -118,7 +118,7 @@ static LZTabBarConfig *_lZTabBarConfig = nil;
             data.titles = self.tabBarItemTitleMutArr;
             data.isNavigation = NO;
         });
-    }return _lZTabBarConfig;
+    };return _lZTabBarConfig;
 }
 
 +(void)setLZTabBarConfig:(LZTabBarConfig *)lZTabBarConfig{
@@ -233,7 +233,7 @@ static NSMutableArray <__kindof JobsTabBarItemConfig *>*_tabBarItemConfigMutArr 
                 config.isNeedjump = NO;
             }));
         });
-    }return _tabBarItemConfigMutArr;
+    };return _tabBarItemConfigMutArr;
 }
 
 +(void)setTabBarItemConfigMutArr:(NSMutableArray<__kindof JobsTabBarItemConfig *> *)tabBarItemConfigMutArr{
@@ -380,7 +380,7 @@ static NSMutableArray <__kindof NSString *>*_tabBarItemTitleMutArr = nil;
             data.add(@"INVITE".tr);
             data.add(@"CONTACT US".tr);
         });
-    }return _tabBarItemTitleMutArr;
+    };return _tabBarItemTitleMutArr;
 }
 
 +(void)setTabBarItemTitleMutArr:(NSMutableArray<__kindof NSString *> *)tabBarItemTitleMutArr{
@@ -397,7 +397,7 @@ static NSMutableArray <__kindof NSString *>*_imageSelectedNameMutArr = nil;
             data.add(@"INVITE_已点击");
             data.add(@"CONTACT US_已点击");
         });
-    }return _imageSelectedNameMutArr;
+    };return _imageSelectedNameMutArr;
 }
 
 +(void)setImageSelectedNameMutArr:(NSMutableArray<__kindof NSString *> *)imageSelectedNameMutArr{
@@ -414,7 +414,7 @@ static NSMutableArray <__kindof NSString *>*_imageUnselectedNameMutArr = nil;
             data.add(@"INVITE_未点击");
             data.add(@"CONTACT US_未点击");
         });
-    }return _imageUnselectedNameMutArr;
+    };return _imageUnselectedNameMutArr;
 }
 
 +(void)setImageUnselectedNameMutArr:(NSMutableArray<__kindof NSString *> *)imageUnselectedNameMutArr{
@@ -431,7 +431,7 @@ static NSMutableArray <__kindof UIImage *>*_imageSelectedMutArr = nil;
                 data.add(imageSelectedName.img);
             }
         });
-    }return _imageSelectedMutArr;
+    };return _imageSelectedMutArr;
 }
 
 +(void)setImageSelectedMutArr:(NSMutableArray<__kindof UIImage *> *)imageSelectedMutArr{
@@ -448,7 +448,7 @@ static NSMutableArray <__kindof UIImage *>*_imageUnSelectedMutArr = nil;
                 data.add(imageUnSelectedName.img);
             }
         });
-    }return _imageUnSelectedMutArr;
+    };return _imageUnSelectedMutArr;
 }
 
 +(void)setImageUnSelectedMutArr:(NSMutableArray<__kindof UIImage *> *)imageUnSelectedMutArr{
@@ -465,7 +465,7 @@ static NSMutableArray <__kindof UIViewController *>*_viewCtrlByTabBarCtrlConfigM
                 data.add(tabBarCtrlConfig.vc);
             }
         });
-    }return _viewCtrlByTabBarCtrlConfigMutArr;
+    };return _viewCtrlByTabBarCtrlConfigMutArr;
 }
 
 +(void)setViewCtrlByTabBarCtrlConfigMutArr:(NSMutableArray<__kindof UIViewController *> *)viewCtrlByTabBarCtrlConfigMutArr{
@@ -482,7 +482,7 @@ static NSMutableArray <__kindof UIViewController *>*_viewCtrlMutArr = nil;
             data.add(ViewController_4.new);
             data.add(ViewController_5.new);
         });
-    }return _viewCtrlMutArr;
+    };return _viewCtrlMutArr;
 }
 
 +(void)setViewCtrlMutArr:(NSMutableArray<__kindof UIViewController *> *)viewCtrlMutArr{
@@ -499,7 +499,7 @@ static NSMutableArray <__kindof UINavigationController *>*_navCtrMutArr = nil;
                 data.add(vc.navCtrl);
             }
         });
-    }return _navCtrMutArr;
+    };return _navCtrMutArr;
 }
 
 +(void)setNavCtrMutArr:(NSMutableArray<__kindof UINavigationController *> *)navCtrMutArr{

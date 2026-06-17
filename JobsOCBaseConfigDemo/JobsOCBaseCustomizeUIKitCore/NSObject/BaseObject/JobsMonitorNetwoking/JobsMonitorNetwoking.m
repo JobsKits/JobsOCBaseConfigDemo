@@ -1,13 +1,12 @@
 //
 //  MonitorNetwoking.m
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/8/13.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
-#import "JobsMonitorNetwoking.h"
 
-#import "DefineProperty.h"
+#import "JobsMonitorNetwoking.h"
 
 @interface JobsMonitorNetwoking ()
 
@@ -24,14 +23,14 @@ static JobsMonitorNetwoking *monitorNetwoking = nil;
         if (!monitorNetwoking) {
             monitorNetwoking = JobsMonitorNetwoking.new;
         }
-    }return monitorNetwoking;
+    };return monitorNetwoking;
 }
 
 -(instancetype)init{
     if (self = [super init]) {
         monitorNetwoking = self;
         self.lastBytes = 0;
-    }return self;
+    };return self;
 }
 
 -(void)getInternetface{
@@ -93,7 +92,7 @@ static JobsMonitorNetwoking *monitorNetwoking = nil;
 -(JobsSuspendLab *)rateLabel{
     if (!_rateLabel) {
         _rateLabel = JobsSuspendLab.new;
-    }return _rateLabel;
+    };return _rateLabel;
 }
 
 @end

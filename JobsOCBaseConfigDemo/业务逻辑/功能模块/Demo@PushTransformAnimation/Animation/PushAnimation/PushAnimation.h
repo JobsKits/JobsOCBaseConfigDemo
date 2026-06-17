@@ -1,6 +1,6 @@
 //
 //  PushAnimation.h
-//  PushTransFormDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jane on 16/8/23.
 //  Copyright © 2016年 Jane. All rights reserved.

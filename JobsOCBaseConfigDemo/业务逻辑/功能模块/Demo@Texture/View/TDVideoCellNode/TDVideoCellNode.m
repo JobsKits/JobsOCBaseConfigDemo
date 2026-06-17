@@ -7,8 +7,6 @@
 
 #import "TDVideoCellNode.h"
 
-#import "DefineProperty.h"
-
 @interface TDVideoCellNode ()
 
 Prop_strong() NSURL *pendingURL; // 仅在 didLoad 再喂给 video
@@ -29,7 +27,7 @@ Prop_strong() NSURL *pendingURL; // 仅在 didLoad 再喂给 video
                 NSForegroundColorAttributeName: UIColor.secondaryLabelColor
             }];
         });
-    }return self;
+    };return self;
 }
 /// 保证在主线程设置 assetURL
 -(void)didLoad {
@@ -64,7 +62,7 @@ Prop_strong() NSURL *pendingURL; // 仅在 didLoad 再喂给 video
             node.clipsToBounds    = YES;
             node.style.preferredSize = CGSizeMake(0, 200);
         });
-    }return _video;
+    };return _video;
 }
 
 @end

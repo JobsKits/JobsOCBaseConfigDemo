@@ -1,6 +1,6 @@
 //
 //  UIViewController+SafeTransition.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/1.
 //

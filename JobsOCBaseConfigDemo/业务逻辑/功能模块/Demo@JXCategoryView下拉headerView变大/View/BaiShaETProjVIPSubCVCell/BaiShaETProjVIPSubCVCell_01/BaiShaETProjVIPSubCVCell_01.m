@@ -1,6 +1,6 @@
 //
 //  BaiShaETProjVIPSubCVCell_01.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/10.
 //
@@ -17,7 +17,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.contentView.backgroundColor = JobsRedColor;
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 -(UIViewModel *_Nullable)getViewModel{

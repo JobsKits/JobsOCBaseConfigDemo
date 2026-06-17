@@ -1,6 +1,6 @@
 //
 //  ZWPullMenuCell.m
-//  ZWPullMenuDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by 王子武 on 2017/8/30.
 //  Copyright © 2017年 wang_ziwu. All rights reserved.
@@ -21,11 +21,12 @@
         self.selectedBackgroundView = self.selectedBgView;
         [self addSubview:self.menuImageView];
         [self addSubview:self.menuTitleLab];
-    }return self;
+    };return self;
 }
 - (void)layoutSubviews {
     [super layoutSubviews];
 }
+#pragma mark —— menuModel
 -(void)setMenuModel:(ZWPullMenuModel *)menuModel{
     _menuModel = menuModel;
     if (!menuModel.imageName.length) {
@@ -40,6 +41,7 @@
     self.menuTitleLab.text = menuModel.title;
     self.menuTitleLab.font = [UIFont systemFontOfSize:self.zw_menuConfg.zw_menuTitleFontSize weight:UIFontWeightRegular];
 }
+#pragma mark —— zwPullMenuStyle
 -(void)setZwPullMenuStyle:(ZWPullMenuStyle)zwPullMenuStyle{
     _zwPullMenuStyle = zwPullMenuStyle;
     switch (zwPullMenuStyle) {
@@ -61,6 +63,7 @@
             break;
     }
 }
+#pragma mark —— isFinalCell
 -(void)setIsFinalCell:(BOOL)isFinalCell{
     _isFinalCell = isFinalCell;
     if (!isFinalCell) {
@@ -81,6 +84,7 @@
     [self.layer addSublayer:lineLayer];
     self.lineLayer = lineLayer;
 }
+#pragma mark —— lineColor
 - (void)setLineColor:(UIColor *)lineColor{
     if (lineColor) {
         _lineColor = lineColor;
@@ -98,6 +102,8 @@
     }
     return _menuTitleLab;
 }
+#pragma mark —— selected
+@dynamic selected;
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

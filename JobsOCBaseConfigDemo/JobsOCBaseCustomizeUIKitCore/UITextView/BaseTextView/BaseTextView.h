@@ -1,6 +1,6 @@
 //
 //  BaseTextView.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2024/4/27.
 //
@@ -61,6 +61,6 @@ NS_INLINE __kindof BaseTextView *_Nonnull jobsMakeBaseTextView(jobsByBaseTextVie
                  make.width.mas_equalTo(JobsWidth(233));
              }];
          });
-     }return _tipsTextView;
+     };return _tipsTextView;
  }
  */

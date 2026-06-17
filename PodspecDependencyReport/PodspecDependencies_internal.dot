@@ -1,0 +1,7 @@
+digraph PodspecDependencies {
+  rankdir=LR;
+  node [shape=box, fontname="Helvetica"];
+  "BRPickerView";
+  "DeviceKitByObjc";
+  "Texture";
+}

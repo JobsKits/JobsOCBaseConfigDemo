@@ -1,7 +1,6 @@
 #import "HTTPAsyncFileResponse.h"
 #import "HTTPConnection.h"
 #import "HTTPLogging.h"
-
 #import <unistd.h>
 #import <fcntl.h>
 
@@ -66,7 +65,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 		
 		// We don't bother opening the file here.
 		// If this is a HEAD request we only need to know the fileLength.
-	}return self;
+	};return self;
 }
 
 - (void)abort
@@ -287,6 +286,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 	return fileOffset;
 }
 
+#pragma mark —— offset
 - (void)setOffset:(UInt64)offset
 {
 	HTTPLogTrace2(@"%@[%p]: setOffset:%llu", THIS_FILE, self, offset);

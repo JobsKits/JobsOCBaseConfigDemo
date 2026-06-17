@@ -1,6 +1,6 @@
 //
 //  ViewController@1.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/8.
 //
@@ -8,7 +8,6 @@
 #import "ViewController@1.h"
 
 BOOL ISLogin;
-#import "DefineProperty.h"
 
 @interface ViewController_1 ()
 /// UI
@@ -29,7 +28,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 - (instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -196,7 +195,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 JobsLog(@"");
             })
             .bySize(CGSizeMake(JobsWidth(32), JobsWidth(32)));
-    }return _userHeadBtn;
+    };return _userHeadBtn;
 }
 /// self.tableView.dataLink(self);不要写在Block里面，会引起循环调用。用它进行唤起
 /// BaseViewProtocol
@@ -300,7 +299,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             make.left.right.bottom.equalTo(self.view);
             [self make:make topOffset:10];
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray<__kindof UITableViewCell *> *)tbvCellMutArr{
@@ -315,7 +314,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 data.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
             }];
         });
-    }return _tbvCellMutArr;
+    };return _tbvCellMutArr;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
@@ -646,7 +645,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 model.cls = ProtocolKitVC.class;
             })));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

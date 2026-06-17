@@ -1,6 +1,6 @@
 //
 //  NSObject+SysInfo.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 16/12/2024.
 //

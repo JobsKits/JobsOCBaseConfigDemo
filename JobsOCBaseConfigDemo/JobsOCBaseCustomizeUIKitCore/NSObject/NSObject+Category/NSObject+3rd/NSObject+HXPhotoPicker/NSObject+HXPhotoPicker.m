@@ -1,13 +1,11 @@
 //
 //  NSObject+HXPhotoPicker.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/20.
 //
 
 #import "NSObject+HXPhotoPicker.h"
-
-#import "DefineProperty.h"
 
 @implementation NSObject (HXPhotoPicker)
 #pragma mark —— 一些公有方法
@@ -153,7 +151,7 @@ JobsKey(_photoManager)
             /// 只会影响 viewWillAppear 和 viewWillDisappear 两个生命周期
             [viewController.navigationController setNavigationBarHidden:NO animated:NO];
         };Jobs_setAssociatedRETAIN_NONATOMIC(_photoManager, PhotoManager)
-    }return PhotoManager;
+    };return PhotoManager;
 }
 
 -(void)setPhotoManager:(HXPhotoManager *)photoManager{
@@ -171,7 +169,7 @@ JobsKey(_historyPhotoDataMutArr)
         /// @param addData 是否添加到manager的数据中
         HistoryPhotoDataMutArr = NSMutableArray.initBy([self.photoManager getLocalModelsInFileWithAddData:YES]);
         Jobs_setAssociatedRETAIN_NONATOMIC(_historyPhotoDataMutArr, HistoryPhotoDataMutArr)
-    }return HistoryPhotoDataMutArr;
+    };return HistoryPhotoDataMutArr;
 }
 
 -(void)setHistoryPhotoDataMutArr:(NSMutableArray<HXPhotoModel *> *)historyPhotoDataMutArr{
@@ -185,7 +183,7 @@ JobsKey(_photosDataMutArr)
     if (!PhotosDataMutArr) {
         PhotosDataMutArr = NSMutableArray.array;
         Jobs_setAssociatedRETAIN_NONATOMIC(_photosDataMutArr, PhotosDataMutArr)
-    }return PhotosDataMutArr;
+    };return PhotosDataMutArr;
 }
 
 -(void)setPhotosDataMutArr:(NSMutableArray<HXPhotoModel *> *)photosDataMutArr{
@@ -199,7 +197,7 @@ JobsKey(_videosDataMutArr)
     if (!VideosDataMutArr) {
         VideosDataMutArr = NSMutableArray.array;
         Jobs_setAssociatedRETAIN_NONATOMIC(_videosDataMutArr, VideosDataMutArr)
-    }return VideosDataMutArr;
+    };return VideosDataMutArr;
 }
 
 -(void)setVideosDataMutArr:(NSMutableArray<HXPhotoModel *> *)videosDataMutArr{

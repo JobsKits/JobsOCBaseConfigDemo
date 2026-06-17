@@ -1,14 +1,12 @@
 //
 //  JobsShakeBtn.m
-//  My_BaseProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by hello on 2019/7/4.
 //  Copyright © 2019 Corp. All rights reserved.
 //
 
 #import "JobsShakeBtn.h"
-
-#import "DefineProperty.h"
 
 @interface JobsShakeBtn ()
 /// UI
@@ -73,10 +71,12 @@ Prop_strong()CAKeyframeAnimation *anim;
         if (![self.imageView.image isEqual:JobsBuddleIMG(nil,@"Others",nil,@"加号.png")]) {
             if (self.shaking) return nil;
             self.shaking = YES;
-        }return nil;
+        };return nil;
     }];self.longPressGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
 }
 /// 是否执行动画
+#pragma mark —— shaking
+@dynamic shaking;
 - (void)setShaking:(BOOL)shaking {
     if (shaking) {
         [self.layer addAnimation:self.anim
@@ -106,7 +106,7 @@ Prop_strong()CAKeyframeAnimation *anim;
             make.top.equalTo(self).offset(-20 / 2);
             make.right.equalTo(self).offset(20 / 2);
         }];
-    }return _iconBtn;
+    };return _iconBtn;
 }
 /// 抖动动画
 -(CAKeyframeAnimation *)anim{
@@ -125,7 +125,7 @@ Prop_strong()CAKeyframeAnimation *anim;
         // 保持动画执行完毕后的状态
         _anim.removedOnCompletion = NO;
         _anim.fillMode = kCAFillModeForwards;
-    }return _anim;
+    };return _anim;
 }
 
 - (UIView *)coverView {
@@ -154,13 +154,13 @@ Prop_strong()CAKeyframeAnimation *anim;
         
         [self addSubview:_coverView];
         _coverView.frame = self.bounds;
-    }return _coverView;
+    };return _coverView;
 }
 
 -(UITapGestureRecognizer *)iconBtnTap{
     if (!_iconBtnTap) {
         _iconBtnTap = [UITapGestureRecognizer.alloc initWithTarget:self action:@selector(iconClick)];
-    }return _iconBtnTap;
+    };return _iconBtnTap;
 }
 
 @end

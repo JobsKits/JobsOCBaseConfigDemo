@@ -1,6 +1,6 @@
 //
 //  JobsUserModel.m
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -8,7 +8,7 @@
 #import "JobsUserModel.h"
 #import "NSObject+Extras.h"
 #import "NSString+Others.h"
-#import "NSMutableSet+Extra.h""
+#import "NSMutableSet+Extra.h"
 
 @implementation JobsUserModel
 BaseProtocol_synthesize
@@ -18,7 +18,7 @@ RACProtocol_synthesize
                      property:(MJProperty *)property{
     if (property.name.isEqualToString(@"headImage")) {
         return toStringByID(oldValue).jobsUrl;
-    }return oldValue;
+    };return oldValue;
 }
 
 +(NSDictionary *)mj_replacedKeyFromPropertyName {
@@ -57,7 +57,7 @@ static dispatch_once_t static_userModelOnceToken;
                 if (value) self.jobsKVC(key,value);
             }
         }
-    }return self;
+    };return self;
 }
 /// 归档
 -(void)encodeWithCoder:(NSCoder *)encoder{
@@ -101,7 +101,7 @@ static dispatch_once_t static_userModelOnceToken;
 //        _userId = decoder.decodeNumberBy(@"userId");
 //        _webChat = decoder.decodeStringBy(@"webChat");
 //        // 解码更多属性...
-//    }return self;
+//    };return self;
 //}
 //
 //- (void)encodeWithCoder:(NSCoder *)encoder {
@@ -140,6 +140,7 @@ static dispatch_once_t static_userModelOnceToken;
     return YES;
 }
 #pragma mark —— 自动补全
+#pragma mark —— expireTime
 -(void)setExpireTime:(NSString *)expireTime{
     _expireTime = expireTime;
     if(_expireTime) self.tokenExpireTime = _expireTime.chinaTime(nil);
@@ -149,25 +150,25 @@ static dispatch_once_t static_userModelOnceToken;
 -(NSString *)token{
     if (!_token) {
         _token = @"";
-    }return _token;
+    };return _token;
 }
 
 -(NSString *)userName{
     if (!_userName) {
         _userName = @"";
-    }return _userName;
+    };return _userName;
 }
 //
 //-(NSString *)uid{
 //    if (!_uid) {
 //        _uid = @"暂时没有值";
-//    }return _uid;
+//    };return _uid;
 //}
 //
 //-(UIImage *)userHeaderIMG{
 //    if (!_userHeaderIMG) {
 //        _userHeaderIMG = @"用户默认头像".img;
-//    }return _userHeaderIMG;
+//    };return _userHeaderIMG;
 //}
 
 @end

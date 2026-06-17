@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorInputViewBaseStyle_10.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/15.
 //
@@ -12,6 +12,7 @@
 #import "JobsAppDoorInputViewBaseStyleModel.h"
 #import "JobsAppDoorInputViewBaseStyle.h"
 #import "ZYTextField.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -74,7 +75,7 @@ NS_ASSUME_NONNULL_END
          [_inputView setBorderWithColor:HEXCOLOR(0xEAEBED)
                             borderWidth:JobsWidth(1)
                              borderType:UIBorderSideTypeBottom];
-     }return _inputView;
+     };return _inputView;
  }
 
  -(JobsAppDoorInputViewBaseStyleModel *)配置金额输入框{
@@ -92,7 +93,7 @@ NS_ASSUME_NONNULL_END
          _配置金额输入框.titleStrCor = _配置金额输入框.placeholderColor = HEXCOLOR_ALPHA(0xC4C4C4,1.f);
          _配置金额输入框.keyboardType = UIKeyboardTypeNumberPad;
  //        _配置金额输入框.fieldEditorOffset = JobsWidth(80);
-     }return _配置金额输入框;
+     };return _配置金额输入框;
  }
  
  */

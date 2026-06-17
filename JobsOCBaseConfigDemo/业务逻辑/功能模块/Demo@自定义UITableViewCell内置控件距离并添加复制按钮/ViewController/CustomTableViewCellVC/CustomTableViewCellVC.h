@@ -1,6 +1,6 @@
 //
 //  CustomTableViewCellVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/27.
 //
@@ -8,6 +8,7 @@
 #import "BaseViewController.h"
 #import "BaiShaETProjOrderDetailsCVCell.h"
 #import "NSObject+JobsDeployCellConfig.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

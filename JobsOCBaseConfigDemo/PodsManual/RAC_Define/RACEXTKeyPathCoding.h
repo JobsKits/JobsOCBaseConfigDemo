@@ -1,6 +1,6 @@
 //
 //  EXTKeyPathCoding.h
-//  extobjc
+//  JobsOCBaseConfigDemo
 //
 //  Created by Justin Spahr-Summers on 19.06.12.
 //  Copyright (C) 2012 Justin Spahr-Summers.

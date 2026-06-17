@@ -48,7 +48,7 @@ int main(int argc, char * argv[]) {
         }else{
             JobsLog(@"Failed to generate Snowflake ID.");
         }
-    }return UIApplicationMain(argc,
+    };return UIApplicationMain(argc,
                               argv,
                               nil,
                               appDelegateClassName);

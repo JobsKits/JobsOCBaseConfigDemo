@@ -1,13 +1,11 @@
 //
 //  MasonryVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 9/27/23.
 //
 
 #import "MasonryVC.h"
-
-#import "DefineProperty.h"
 
 @interface MasonryVC ()
 /// UI
@@ -248,7 +246,7 @@ Prop_strong()MSMineView2 *view2;
                 }];
             }];view.cornerCutToCircleWithCornerRadius(MSMineView2.viewSizeByModel(nil).height / 2);
         });
-    }return _view2;
+    };return _view2;
 }
 
 @end

@@ -1,6 +1,6 @@
 //
 //  JobsOCBaseCustomize3rdCore.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 25/11/2024.
 //
@@ -40,12 +40,8 @@
 
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFNetworking.h>
-#elif __has_include("AFNetworking.h")
-#import "AFNetworking.h"
-#elif __has_include("AFNetworking-umbrella.h")
-#import "AFNetworking-umbrella.h"
 #else
-#error "AFNetworking header not found"
+#import "AFNetworking.h"
 #endif
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
@@ -114,9 +110,7 @@
 #import "ASEditableTextNode+DSL.h"
 #import "ASCollectionNode+DSL.h"
 #import "ASNetworkImageNode+DSL.h"
-
 #import "YTKRequest+Extra.h"
-
 #import "JXCategoryExtra.h"
 #import "ZFPlayerExtras.h"
 #import "ZFIJKPlayerManager.h"

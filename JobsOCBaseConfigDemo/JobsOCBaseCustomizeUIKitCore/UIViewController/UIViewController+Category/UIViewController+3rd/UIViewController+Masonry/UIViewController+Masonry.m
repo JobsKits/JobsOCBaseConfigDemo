@@ -1,13 +1,11 @@
 //
 //  UIViewController+Masonry.m
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/14.
 //
 
 #import "UIViewController+Masonry.h"
-
-#import "DefineProperty.h"
 
 @implementation UIViewController (Masonry)
 

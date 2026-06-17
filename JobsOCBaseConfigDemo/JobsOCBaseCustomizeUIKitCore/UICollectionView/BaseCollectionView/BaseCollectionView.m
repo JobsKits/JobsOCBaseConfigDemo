@@ -1,6 +1,6 @@
 //
 //  CollectionView.m
-//  My_BaseProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/31.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -17,13 +17,13 @@ BaseViewProtocol_synthesize
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{

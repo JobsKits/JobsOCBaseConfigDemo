@@ -1,6 +1,6 @@
 //
 //  WMZBannerFlowLayout.m
-//  WMZBanner
+//  JobsOCBaseConfigDemo
 //
 //  Created by wmz on 2019/9/6.
 //  Copyright © 2019 wmz. All rights reserved.
@@ -15,7 +15,7 @@
 - (instancetype)initConfigureWithModel:(WMZBannerParam *)param{
     if (self = [super init]) {
         self.param = param;
-    }return self;
+    };return self;
 }
 
 - (void)prepareLayout

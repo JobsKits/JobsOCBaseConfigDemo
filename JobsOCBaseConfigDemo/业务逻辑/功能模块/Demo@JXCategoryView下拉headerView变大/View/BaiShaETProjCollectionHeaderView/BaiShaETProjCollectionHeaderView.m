@@ -1,13 +1,11 @@
 //
 //  BaiShaETProjCollectionHeaderView.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/10.
 //
 
 #import "BaiShaETProjCollectionHeaderView.h"
-
-#import "DefineProperty.h"
 
 @interface BaiShaETProjCollectionHeaderView ()
 /// UI
@@ -47,13 +45,13 @@ static dispatch_once_t static_collectionHeaderViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -76,7 +74,7 @@ static dispatch_once_t static_collectionHeaderViewOnceToken;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.backgroundColor = JobsRedColor;
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -154,7 +152,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         _userHeaderBtn.imageTitleSpace = JobsWidth(12);
         _userHeaderBtn.makeBtnTitleByShowingType(UILabelShowingType_05);
         _userHeaderBtn.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTop,_userHeaderBtn.imageTitleSpace);
-    }return _userHeaderBtn;
+    };return _userHeaderBtn;
 }
 
 -(UIProgressView *)progressView{
@@ -175,7 +173,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     make.top.equalTo(self.userHeaderBtn.mas_bottom).offset(JobsWidth(58));
                 }) animateWithDuration:1 progress:0.8];
         });
-    }return _progressView;
+    };return _progressView;
 }
 
 -(JobsAnimationLabel *)animationLab{
@@ -221,7 +219,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 make.bottom.equalTo(self.progressView).offset(JobsWidth(-12));
                 make.left.equalTo(self.progressView);
             });
-    }return _animationLab;
+    };return _animationLab;
 }
 
 -(UILabel *)leftLab{
@@ -242,7 +240,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             })
             .makeLabelByShowingType(UILabelShowingType_03);
         });
-    }return _leftLab;
+    };return _leftLab;
 }
 
 -(UILabel *)rightLab{
@@ -264,7 +262,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 })
                 .makeLabelByShowingType(UILabelShowingType_03);
         });
-    }return _rightLab;
+    };return _rightLab;
 }
 /// BaseViewProtocol
 @synthesize tableView = _tableView;
@@ -289,7 +287,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     make.bottom.equalTo(self).offset(JobsWidth(-24));
                 });
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray<NSString *> *)richTextMutArr{
@@ -297,7 +295,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         _richTextMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(@"當前晉級進度".tr).add(JobsSpace.add(JobsPercent));
         });
-    }return _richTextMutArr;
+    };return _richTextMutArr;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
@@ -317,7 +315,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                                                                         paragraphStyle:nil];
             }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 -(NSMutableArray<NSMutableArray<NSString *>*>*)richTextMutArr2{
@@ -330,7 +328,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 data1.add(@"1.00 ").add(@"/ ".add(@"20,000.00"));
             }));
         });
-    }return _richTextMutArr2;
+    };return _richTextMutArr2;
 }
 
 -(NSMutableArray<NSMutableArray<JobsRichTextConfig *> *> *)richTextConfigMutArr2{
@@ -366,7 +364,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 }));
             }));
         });
-    }return _richTextConfigMutArr2;
+    };return _richTextConfigMutArr2;
 }
 
 @end

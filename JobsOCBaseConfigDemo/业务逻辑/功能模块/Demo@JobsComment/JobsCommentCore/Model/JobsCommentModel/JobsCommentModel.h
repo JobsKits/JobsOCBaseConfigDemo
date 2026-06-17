@@ -1,14 +1,13 @@
 //
 //  MKCommentModel.h
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/7/23.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "BaseModel.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 对应字段 child

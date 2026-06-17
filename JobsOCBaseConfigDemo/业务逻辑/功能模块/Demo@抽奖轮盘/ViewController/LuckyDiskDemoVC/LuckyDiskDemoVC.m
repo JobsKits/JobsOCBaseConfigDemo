@@ -1,14 +1,12 @@
 //
 //  LuckyDiskDemoVC.m
-//  XLLuckyDrawDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Mac-Qke on 2019/2/11.
 //  Copyright © 2019 Mac-Qke. All rights reserved.
 //
 
 #import "LuckyDiskDemoVC.h"
-
-#import "DefineProperty.h"
 
 @interface LuckyDiskDemoVC ()
 
@@ -35,7 +33,6 @@ Prop_strong() UILabel *resultLabel;         ///< 弹窗中奖结果文案（懒�
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
 
     // 容器 ScrollView
     UIScrollView *scrollView =
@@ -377,7 +374,7 @@ Prop_strong() UILabel *resultLabel;         ///< 弹窗中奖结果文案（懒�
                 .add(@"28朵花")
                 .add(@"88跳币");
         });
-    }return _itemTitleArray;
+    };return _itemTitleArray;
 }
 
 - (UIImageView *)rotaryTable {
@@ -387,7 +384,7 @@ Prop_strong() UILabel *resultLabel;         ///< 弹窗中奖结果文案（懒�
             imageView.image = @"bg_lamp_1".img;
             imageView.alpha = 0.0f;   // 初始不显示，外部用 alpha = 1 唤起
         });
-    }return _rotaryTable;
+    };return _rotaryTable;
 }
 
 - (UIView *)itemBorderView {
@@ -405,7 +402,7 @@ Prop_strong() UILabel *resultLabel;         ///< 弹窗中奖结果文案（懒�
 - (UIButton *)startButton {
     if (!_startButton) {
         _startButton =  UIButton.jobsInit().byAlpha(0.0f);
-    }return _startButton;
+    };return _startButton;
 }
 
 - (UILabel *)startLabel {

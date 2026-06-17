@@ -1,13 +1,11 @@
 //
 //  JobsAppDoorInputViewBaseStyle_10.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/15.
 //
 
 #import "JobsAppDoorInputViewBaseStyle_10.h"
-
-#import "DefineProperty.h"
 
 @interface JobsAppDoorInputViewBaseStyle_10 ()
 /// UI
@@ -29,7 +27,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         self.titleStr_1 = @"請輸入金額".tr;
         self.titleStr_2 = @"全部金額".tr;
         
-    }return self;
+    };return self;
 }
 
 -(instancetype)init{
@@ -37,7 +35,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         if ([self.requestParams isKindOfClass:UIViewModel.class]) {
             self.viewModel = (UIViewModel *)self.requestParams;
         }
-    }return self;
+    };return self;
 }
 
 -(void)layoutSubviews{
@@ -125,7 +123,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             make.top.bottom.equalTo(self);
             make.size.mas_equalTo(inputSize_02());
         }];
-    }return _zyTextField;
+    };return _zyTextField;
 }
 
 -(UILabel *)titleLab{
@@ -141,7 +139,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 make.centerY.equalTo(self.textField);
             }];label.makeLabelByShowingType(UILabelShowingType_03);
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 @end

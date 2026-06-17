@@ -1,13 +1,11 @@
 //
 //  JobsAdNoticeView.m
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/15.
 //
 
 #import "JobsAdNoticeView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsAdNoticeView ()
 
@@ -21,7 +19,7 @@ Prop_strong()UILabel *adNoticeLab;
     if (self = [super init]) {
         self.backgroundColor = JobsCyanColor;
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -56,7 +54,7 @@ Prop_strong()UILabel *adNoticeLab;
                 make.edges.equalTo(self);
             }];
         });
-    }return _adNoticeLab;
+    };return _adNoticeLab;
 }
 
 @end

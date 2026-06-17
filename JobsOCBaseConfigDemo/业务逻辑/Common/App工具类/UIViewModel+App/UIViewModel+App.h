@@ -1,14 +1,13 @@
 //
 //  UIViewModel+App.h
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/7.
 //
 
 #import "UIViewModel.h"
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
-
-#import "DefineProperty.h"
+#import "JobsDefineEnums.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

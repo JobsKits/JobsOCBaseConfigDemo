@@ -1,14 +1,12 @@
 //
 //  UIGestureRecognizer+ReactiveCocoaProtected.m
-//  GestureRecognizerRACExt
+//  JobsOCBaseConfigDemo
 //
 //  Created by kaiinui on 2014/09/07.
 //  Copyright (c) 2014年 kaiinui. All rights reserved.
 //  特别鸣谢：https://github.com/kaiinui/UIGestureRecognizer-RACExtension
 
 #import "UIGestureRecognizer+ReactiveCocoaProtected.h"
-
-#import "DefineProperty.h"
 
 @implementation UIGestureRecognizer (ReactiveCocoaProtected)
 #pragma mark —— Prop_strong()RACGestureRecognizerActionHandler *rac_gestureHandler;

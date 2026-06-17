@@ -1,13 +1,11 @@
 //
 //  LandscapeSwitchVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 6/29/24.
 //
 
 #import "LandscapeSwitchVC.h"
-
-#import "DefineProperty.h"
 
 @interface LandscapeSwitchVC ()
 /// Data
@@ -320,7 +318,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
         [self.view.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
         }];
-    }return _collectionView;
+    };return _collectionView;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
@@ -444,7 +442,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
 //                };
 //            }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

@@ -1,6 +1,6 @@
 //
 //  TouchID.m
-//  JinXian Finance
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2017/7/19.
 //  Copyright © 2017年 Jobs. All rights reserved.
@@ -94,7 +94,7 @@
                 break;
             }
         }JobsLog(@"%@",error.localizedDescription);
-    }return touchID;
+    };return touchID;
 }
 
 @end

@@ -1,6 +1,6 @@
 //
 //  TFPopupConst.h
-//  TFPopupDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by zhutaofeng on 2019/5/13.
 //  Copyright © 2019 ztf. All rights reserved.
@@ -10,24 +10,36 @@
 #define TFPopupConst_h
 
 #import <objc/runtime.h>
+#import "MacroDef_Sys.h"
 
 #pragma mark -- 属性绑定
 #ifndef tf_synthesize_category_property
 #define tf_synthesize_category_property(getter,settter,objc_AssociationPolicy,TYPE)\
-- (TYPE)getter{return objc_getAssociatedObject(self, @selector(getter));}\
-- (void)settter:(TYPE)obj{objc_setAssociatedObject(self, @selector(getter), obj, objc_AssociationPolicy);}
+tf_synthesize_category_property_retain(getter,settter)
 #endif
 
 #ifndef tf_synthesize_category_property_retain
-#define tf_synthesize_category_property_retain(getter,settter) tf_synthesize_category_property(getter,settter,OBJC_ASSOCIATION_RETAIN_NONATOMIC,id)
+#define tf_synthesize_category_property_retain(getter,settter)\
+JobsKey(_##getter)\
+@dynamic getter;\
+- (id)getter{return Jobs_getAssociatedObject(_##getter);}\
+- (void)settter:(id)obj{Jobs_setAssociatedRETAIN_NONATOMIC(_##getter, obj)}
 #endif
 
 #ifndef tf_synthesize_category_property_copy
-#define tf_synthesize_category_property_copy(getter,settter)   tf_synthesize_category_property(getter,settter,OBJC_ASSOCIATION_COPY,id)
+#define tf_synthesize_category_property_copy(getter,settter)\
+JobsKey(_##getter)\
+@dynamic getter;\
+- (id)getter{return Jobs_getAssociatedObject(_##getter);}\
+- (void)settter:(id)obj{Jobs_setAssociatedCOPY(_##getter, obj)}
 #endif
 
 #ifndef tf_synthesize_category_property_assign
-#define tf_synthesize_category_property_assign(getter,settter) tf_synthesize_category_property(getter,settter,OBJC_ASSOCIATION_ASSIGN,id)
+#define tf_synthesize_category_property_assign(getter,settter)\
+JobsKey(_##getter)\
+@dynamic getter;\
+- (id)getter{return Jobs_getAssociatedObject(_##getter);}\
+- (void)settter:(id)obj{Jobs_setAssociatedASSIGN(_##getter, obj)}
 #endif
 
 #ifndef x_weakSelf

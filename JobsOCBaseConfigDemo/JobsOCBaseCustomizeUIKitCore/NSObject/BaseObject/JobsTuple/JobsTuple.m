@@ -1,13 +1,11 @@
 //
 //  JobsTuple.m
-//  MataShop
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 9/21/23.
 //
 
 #import "JobsTuple.h"
-
-#import "DefineProperty.h"
 
 @interface JobsTuple ()
 
@@ -45,7 +43,7 @@ Prop_strong()NSMutableArray *valueMutArr;
                 value = va_arg(args, id);
             }va_end(args);
         }
-    }return self;
+    };return self;
 }
 
 -(NSArray *)jobsTupleValueArr{
@@ -55,7 +53,7 @@ Prop_strong()NSMutableArray *valueMutArr;
 -(NSMutableArray *)valueMutArr{
     if(!_valueMutArr){
         _valueMutArr = NSMutableArray.array;
-    }return _valueMutArr;
+    };return _valueMutArr;
 }
 
 @end

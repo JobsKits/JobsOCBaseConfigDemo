@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "JobsBlock.h"
 #import "UIViewController+Extra.h"
 

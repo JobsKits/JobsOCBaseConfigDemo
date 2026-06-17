@@ -1,6 +1,6 @@
 //
 //  UIButtonModel.m
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -28,37 +28,37 @@ UITextModelProtocol_synthesize_part2
 -(NSTextAlignment)textAlignment{
     if (!_textAlignment) {
         _textAlignment = NSTextAlignmentCenter;
-    }return _textAlignment;
+    };return _textAlignment;
 }
 
 -(NSTextAlignment)subTextAlignment{
     if(!_subTextAlignment){
         _subTextAlignment = NSTextAlignmentCenter;
-    }return _subTextAlignment;
+    };return _subTextAlignment;
 }
 
 -(UIImage *)highlightImage{
     if(!_highlightImage){
         _highlightImage = self.normalImage;
-    }return _highlightImage;
+    };return _highlightImage;
 }
 /// 主标题的显示方式
 -(UILabelShowingType)titleShowingType{
     if(!_titleShowingType){
         _titleShowingType = UILabelShowingType_03;
-    }return _titleShowingType;
+    };return _titleShowingType;
 }
 /// 副标题的显示方式
 -(UILabelShowingType)subTitleShowingType{
     if(!_subTitleShowingType){
         _subTitleShowingType = UILabelShowingType_03;
-    }return _subTitleShowingType;
+    };return _subTitleShowingType;
 }
 
 -(UIRectCorner)roundingCorners{
     if(!_roundingCorners){
         _roundingCorners = UIRectCornerAllCorners;
-    }return _roundingCorners;
+    };return _roundingCorners;
 }
 
 -(JobsReturnRACDisposableByReturnIDByIDBlocks _Nullable)jobsReturnedTestBlock{
@@ -67,19 +67,19 @@ UITextModelProtocol_synthesize_part2
             JobsLog(@"JobsTestBlock");
             return nil;
         };
-    }return _jobsReturnedTestBlock;
+    };return _jobsReturnedTestBlock;
 }
 
 -(CGFloat)titleWidth{
     if(!_titleWidth){
         if(isValue(self.title)) _titleWidth = self.title.widthBy(self.titleFont);
-    }return _titleWidth;
+    };return _titleWidth;
 }
 
 -(CGFloat)subTitleWidth API_AVAILABLE(ios(16.0)){
     if(!_subTitleWidth){
         if(isValue(self.subTitle)) _subTitleWidth = self.subTitle.widthBy(self.subTitleFont);
-    }return _subTitleWidth;
+    };return _subTitleWidth;
 }
 
 -(jobsByVoidBlock _Nullable)jobsTestBlock{
@@ -87,7 +87,7 @@ UITextModelProtocol_synthesize_part2
         _jobsTestBlock = ^{
             JobsLog(@"jobsTestBlock");
         };
-    }return _jobsTestBlock;
+    };return _jobsTestBlock;
 }
 
 -(NSString *)title{
@@ -96,7 +96,7 @@ UITextModelProtocol_synthesize_part2
 //        _title = TextModelDataString.tr;
         _title = @"";
 #endif
-    }return _title;
+    };return _title;
 }
 
 -(NSString *)subTitle{
@@ -105,7 +105,7 @@ UITextModelProtocol_synthesize_part2
 //        _subTitle = TextModelDataString2.tr;
         _subTitle = @"";
 #endif
-    }return _subTitle;
+    };return _subTitle;
 }
 
 @end

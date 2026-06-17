@@ -1,13 +1,11 @@
 //
 //  AppInternationalizationVC.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/19.
 //
 
 #import "AppLanguageVC.h"
-
-#import "DefineProperty.h"
 
 @interface AppLanguageVC ()
 /// Data
@@ -226,7 +224,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 make.left.right.bottom.equalTo(self.view);
             });
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
@@ -249,7 +247,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 data1.text = @"他加禄语".tr;
             }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

@@ -1,6 +1,6 @@
 //
 //  DayTitleCell.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/30/24.
 //
@@ -17,13 +17,13 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.label.alpha = 1;
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
         self.label.alpha = 1;
-    }return self;
+    };return self;
 }
 #pragma mark —— LazyLoad
 @synthesize label = _label;
@@ -38,7 +38,7 @@
             label.textAlignment = NSTextAlignmentCenter;
             self.contentView.addSubview(label);
         });
-    }return _label;
+    };return _label;
 }
 
 @end

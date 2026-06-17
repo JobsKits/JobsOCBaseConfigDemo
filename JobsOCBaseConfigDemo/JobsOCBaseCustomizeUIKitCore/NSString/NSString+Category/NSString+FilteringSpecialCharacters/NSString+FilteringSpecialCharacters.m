@@ -1,6 +1,6 @@
 //
 //  NSString+FilteringSpecialCharacters.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/30.
 //
@@ -14,7 +14,7 @@
         NSString *tempStr = @"";
         for (NSString *specialSymbolsString in arr) {
             tempStr = tempStr.add(specialSymbolsString);
-        }return tempStr;
+        };return tempStr;
     };
 }
 /// 给定一个字符串，通过给定的过滤策略，过滤以后的字符串
@@ -46,7 +46,7 @@
             if ([self containsString:str]) {
                 return YES;
             }
-        }return NO;
+        };return NO;
     };
 }
 #pragma mark —— 一些私有方法

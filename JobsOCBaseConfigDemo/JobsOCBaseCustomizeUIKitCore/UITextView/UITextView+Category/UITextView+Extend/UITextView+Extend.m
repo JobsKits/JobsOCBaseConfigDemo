@@ -1,13 +1,11 @@
 //
 //  UITextView+Extend.m
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/3/16.
 //
 
 #import "UITextView+Extend.h"
-
-#import "DefineProperty.h"
 
 @implementation UITextView (Extend)
 /// 从 iOS 16 起，UITextView 使用新的文本渲染系统，会使用 UITextLayoutFragmentView。
@@ -225,7 +223,7 @@
         @jobs_strongify(self)
         if (self.text.length) {
             return [data isEqualToString:JobsEmpty] ? [self.text substringToIndex:(self.text.length - 1)] : self.text.add(data);
-        }return self.text;
+        };return self.text;
     };
 }
 /**
@@ -314,7 +312,7 @@
             }
             self.resStr = res;
             if (normalInputBlock) normalInputBlock(res);
-        }return self.currentWordNum < self.wordLimitNum;
+        };return self.currentWordNum < self.wordLimitNum;
     }
 }
 #pragma mark —— Prop_copy()NSString *replacementText;

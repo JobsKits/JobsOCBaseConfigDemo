@@ -1,6 +1,6 @@
 //
 //  UIBezierPath+Extras.h
-//  test
+//  JobsOCBaseConfigDemo
 //
 //  Created by zwwuchn on 2017/1/2.
 //  Copyright © 2017 zwwuchn. All rights reserved.
@@ -9,7 +9,7 @@
 #import <CoreText/CoreText.h>
 #import <UIKit/UIKit.h>
 #import "JobsAttributedString.h"
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
+#import "JobsDefineEnums.h"
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

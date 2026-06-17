@@ -1,6 +1,6 @@
 //
 //  JobsIMListView.h
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/17.
 //
@@ -11,6 +11,7 @@
 #import "LOTAnimationMJRefreshHeader.h"
 #import "JobsIMListDataModel.h"
 #import "UIImage+YBGIF.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<MGSwipeTableCell/MGSwipeTableCell.h>)
 #import <MGSwipeTableCell/MGSwipeTableCell.h>

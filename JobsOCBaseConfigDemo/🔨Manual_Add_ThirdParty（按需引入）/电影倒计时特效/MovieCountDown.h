@@ -1,6 +1,6 @@
 //
 //  movieCountDown.h
-//  Timer
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/2.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BaseProtocol.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

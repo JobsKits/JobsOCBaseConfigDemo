@@ -1,6 +1,6 @@
 //
 //  UICollectionView+Func.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/24.
 //
@@ -119,7 +119,7 @@
                 cell.selected = NO;
             }
         }
-    }return self.cellBy(indexPath).bySelected(YES);;
+    };return self.cellBy(indexPath).bySelected(YES);;
 }
 
 -(__kindof UICollectionViewCell *)didDeselectItemAtIndexPath:(NSIndexPath *)indexPath

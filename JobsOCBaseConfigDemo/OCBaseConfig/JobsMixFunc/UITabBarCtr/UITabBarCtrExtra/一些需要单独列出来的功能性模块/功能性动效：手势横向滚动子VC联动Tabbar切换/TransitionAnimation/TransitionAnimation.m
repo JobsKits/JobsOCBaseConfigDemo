@@ -1,6 +1,6 @@
 //
 //  TransitionAnimation.m
-//  CCSildeTabBarController
+//  JobsOCBaseConfigDemo
 //
 //  Created by wsk on 16/8/22.
 //  Copyright © 2016年 cyd. All rights reserved.
@@ -13,7 +13,7 @@
 - (instancetype)initWithTargetEdge:(UIRectEdge)targetEdge{
     if (self = [self init]) {
         _targetEdge = targetEdge;
-    }return self;
+    };return self;
 }
 
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext{

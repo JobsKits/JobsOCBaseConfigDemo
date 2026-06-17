@@ -1,12 +1,11 @@
 //
 //  AppDelegate.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/16.
 //
 
 #import "AppDelegate.h"
-
 #import "AppDelegate+TabBarCtr.h"
 #import "AppDelegate+Func.h"
 #import "AppDelegate+UIApplicationDelegate.h"
@@ -48,7 +47,7 @@ static dispatch_once_t AppDelegateOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
 //        self.simulateUserData();
-    }return self;
+    };return self;
 }
 #pragma mark —— 一些私有方法
 /// 模拟用户数据
@@ -92,7 +91,7 @@ static dispatch_once_t AppDelegateOnceToken;
                 }
             }];
         }
-    }return _persistentContainer;
+    };return _persistentContainer;
 }
 
 @end

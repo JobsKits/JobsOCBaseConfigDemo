@@ -1,6 +1,6 @@
 //
 //  JobsTabbarCtrlSysEx.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/29.
 //
@@ -8,8 +8,8 @@
 #ifndef JobsTabbarCtrlSysEx_h
 #define JobsTabbarCtrlSysEx_h
 
-#import "JobsTabBarItemConfig.h"//全局配置文件
-#import "JobsTabBarCtrlConstruction.h"//构造方法
+#import "JobsTabBarItemConfig.h"
+#import "JobsTabBarCtrlConstruction.h"
 
 //UITabBarItem
 #import "UITabBarItem+TLAnimation.h"
@@ -28,7 +28,7 @@
 #import "UIView+Chain.h"
 #import "UIView+Extras.h"
 #import "UIView+Measure.h"
-#import "UIView+SuspendView.h"//悬浮的根
+#import "UIView+SuspendView.h"
 //NSString
 #import "JobsString.h"
 //NSObject

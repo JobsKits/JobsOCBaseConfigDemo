@@ -1,6 +1,6 @@
 //
 //  ZFDouYinCell.h
-//  DouYin
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/28.
 //
@@ -9,13 +9,13 @@
 #import "BaseCellProtocol.h"
 #import "UIMarkProtocol.h"
 #import "UIViewModelOthersProtocol.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "JobsRightBtnsView.h"
 #import "VideoModel.h"
+#import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @class JobsVideoTBVCell;
-typedef JobsVideoTBVCell *_Nonnull(^JobsReturnVideoTBVCellByDelegateBlock)(id<UIViewModelOthersProtocol> delegate);
 
 @interface JobsVideoTBVCell : UITableViewCell
 <

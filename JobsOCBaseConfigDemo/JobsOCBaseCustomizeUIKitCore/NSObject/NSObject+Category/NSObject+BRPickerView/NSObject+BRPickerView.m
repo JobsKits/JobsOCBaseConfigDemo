@@ -1,14 +1,12 @@
 //
 //  NSObject+BRPickerView.m
-//  BRPickerViewExtra
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //  Updated for latest BRPickerView on 2026年5月29日，星期五.
 //
 
 #import "NSObject+BRPickerView.h"
-
-#import "DefineProperty.h"
 
 @implementation NSObject (BRPickerView)
 #pragma mark —— 一些公有方法

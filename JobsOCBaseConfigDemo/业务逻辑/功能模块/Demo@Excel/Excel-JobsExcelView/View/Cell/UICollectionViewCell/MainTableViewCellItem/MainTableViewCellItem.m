@@ -1,14 +1,12 @@
 //
 //  MainTableViewCellItem.m
-//  BlankProject
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 17/6/15.
 //  Copyright © 2017年 Mephsito. All rights reserved.
 //  特别鸣谢 https://github.com/Mephsito23/iOS-Excel-
 
 #import "MainTableViewCellItem.h"
-
-#import "DefineProperty.h"
 
 @interface MainTableViewCellItem()
 /// Data

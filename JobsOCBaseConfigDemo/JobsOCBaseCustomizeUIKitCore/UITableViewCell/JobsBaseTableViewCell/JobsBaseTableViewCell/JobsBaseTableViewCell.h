@@ -1,6 +1,6 @@
 //
 //  JobsBaseTableViewCell.h
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/1/20.
 //  Copyright © 2021 MonkeyKingVideo. All rights reserved.
@@ -16,6 +16,7 @@
 #import "UIViewModel.h"
 #import "UIView+Measure.h"
 #import "UITableViewCell+Margin.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>

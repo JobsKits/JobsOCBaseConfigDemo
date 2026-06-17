@@ -1,6 +1,6 @@
 //
 //  UIView+Gesture.h
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/1/4.
 //
@@ -12,6 +12,7 @@
 #import "JobsString.h"
 #import "NSObject+Extras.h"
 #import "NSObject+DynamicInvoke.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>

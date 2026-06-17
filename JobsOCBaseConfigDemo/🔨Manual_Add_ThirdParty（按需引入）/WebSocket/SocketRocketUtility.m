@@ -1,14 +1,12 @@
 //
 //  SocketRocketUtility.m
-//  SUN
+//  JobsOCBaseConfigDemo
 //
 //  Created by 孙俊 on 17/2/16.
 //  Copyright © 2017年 SUN. All rights reserved.
 //
 
 #import "SocketRocketUtility.h"
-
-#import "DefineProperty.h"
 
 @interface SocketRocketUtility(){
     NSTimeInterval reConnectTime;
@@ -209,7 +207,7 @@ RACProtocol_synthesize
             timer.accumulatedElapsed       = 0;
             timer.lastStartDate            = nil;
         });
-    }return _timer;
+    };return _timer;
 }
 
 @end

@@ -1,13 +1,11 @@
 //
 //  YTKBaseRequest+Extra.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 28/10/2024.
 //
 
 #import "YTKBaseRequest+Extra.h"
-
-#import "DefineProperty.h"
 
 @implementation YTKBaseRequest (Extra)
 YTKCustomBaseRequestProtocol_dynamic
@@ -26,7 +24,7 @@ JobsKey(_responseModel)
             ResponseModel = JobsResponseModel.byData(self.responseObject);
             Jobs_setAssociatedRETAIN_NONATOMIC(_responseModel, ResponseModel);
         }
-    }return ResponseModel;
+    };return ResponseModel;
 }
 
 -(void)setResponseModel:(JobsResponseModel *)responseModel{

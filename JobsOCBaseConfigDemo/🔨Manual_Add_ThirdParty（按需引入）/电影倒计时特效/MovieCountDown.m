@@ -1,14 +1,12 @@
 //
 //  movieCountDown.m
-//  Timer
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/2.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "MovieCountDown.h"
-
-#import "DefineProperty.h"
 
 @interface MovieCountDown ()
 /// UI
@@ -21,14 +19,13 @@ Prop_strong()UIView *aphView;
 
 -(instancetype)init{
     if (self = [super init]) {
-    }return self;
+    };return self;
 }
 #pragma mark —— 一些私有方法
 -(void)倒计时放大特效{
     [self.timer start];
     [self secountDown];
 }
-
 
 -(void)secountDown{
     if (!self.effectView) {
@@ -68,7 +65,7 @@ Prop_strong()UIView *aphView;
             label.width = self->_countDown.height = 100;
             [self.effectView addSubview:label];
         });
-    }return _countDown;
+    };return _countDown;
 }
 
 -(UIView *)aphView{
@@ -87,25 +84,25 @@ Prop_strong()UIView *aphView;
                 data.cornerRadiusValue = 50.f;
             }));[self.effectView addSubview:view];
         });
-    }return _aphView;
+    };return _aphView;
 }
 
 -(UIColor *)countDownTextColor{
     if (!_countDownTextColor) {
         _countDownTextColor = JobsRedColor;
-    }return _countDownTextColor;
+    };return _countDownTextColor;
 }
 
 -(UIColor *)aphViewBackgroundColor{
     if (!_aphViewBackgroundColor) {
         _aphViewBackgroundColor = JobsClearColor;
-    }return _aphViewBackgroundColor;
+    };return _aphViewBackgroundColor;
 }
 
 -(CGFloat)countDownTime{
     if (_countDownTime == 0) {
         _countDownTime = 5;
-    }return _countDownTime;
+    };return _countDownTime;
 }
 @synthesize timer = _timer;
 -(JobsTimer *)timer{
@@ -135,7 +132,7 @@ Prop_strong()UIView *aphView;
             timer.accumulatedElapsed       = 0;
             timer.lastStartDate            = nil;
         });
-    }return _timer;
+    };return _timer;
 }
 
 @end

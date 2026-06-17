@@ -1,6 +1,6 @@
 //
 //  NSArray+Tools.m
-//  Wifi
+//  JobsOCBaseConfigDemo
 //
 //  Created by muxi on 14/11/27.
 //  Copyright (c) 2014年 muxi. All rights reserved.
@@ -130,7 +130,7 @@
                     make.width.equalTo(@(data.width));
                 }
             }];
-        }return self;
+        };return self;
     };
 }
 /// 将一组视图沿某个方向（水平或垂直）等间距分布，视图的宽度（或高度）是固定的，且视图与容器的两端没有间隔。
@@ -157,7 +157,7 @@
                     make.width.equalTo(@(data.width));
                 }
             }];
-        }return self;
+        };return self;
     };
 }
 /// 转成可变数组

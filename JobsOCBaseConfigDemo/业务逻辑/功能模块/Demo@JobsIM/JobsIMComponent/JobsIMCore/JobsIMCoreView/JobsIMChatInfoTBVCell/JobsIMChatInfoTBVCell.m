@@ -1,13 +1,11 @@
 //
 //  JobsIMChatInfoTBVCell.m
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/10.
 //
 
 #import "JobsIMChatInfoTBVCell.h"
-
-#import "DefineProperty.h"
 
 @interface JobsIMChatInfoTBVCell ()
 /// UI
@@ -51,7 +49,7 @@ UITextFieldProtocol_synthesize_part2
         self.rightExpansion.fillOnTrigger = YES;
         self.leftButtons = self.createLeftButtons;
         self.rightButtons = self.createRightButtons;
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseCellProtocol
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
@@ -134,7 +132,7 @@ UITextFieldProtocol_synthesize_part2
             self.chatBubbleIMGV.alpha = 1;
             self.chatContentLab.alpha = 1;
             self.timeLab.alpha= 1;
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— UITableViewCellProtocol
@@ -236,7 +234,7 @@ UITextFieldProtocol_synthesize_part2
                 }
             }];
         });
-    }return _iconIMGV;
+    };return _iconIMGV;
 }
 
 -(UIImageView *)chatBubbleIMGV{
@@ -265,7 +263,7 @@ UITextFieldProtocol_synthesize_part2
                     }
                 });
         });
-    }return _chatBubbleIMGV;
+    };return _chatBubbleIMGV;
 }
 
 -(UILabel *)chatUserNameLab{
@@ -295,7 +293,7 @@ UITextFieldProtocol_synthesize_part2
             })
             .makeLabelByShowingType(UILabelShowingType_03);
         });
-    }return _chatUserNameLab;
+    };return _chatUserNameLab;
 }
 
 -(UILabel *)chatContentLab{
@@ -315,7 +313,7 @@ UITextFieldProtocol_synthesize_part2
                     make.edges.equalTo(self.chatBubbleIMGV).with.insets(UIEdgeInsetsMake(5, 5, 5, 5));
                 });
         });
-    }return _chatContentLab;
+    };return _chatContentLab;
 }
 
 -(UILabel *)timeLab{
@@ -348,7 +346,7 @@ UITextFieldProtocol_synthesize_part2
                 .makeLabelByShowingType(UILabelShowingType_03)
                 .cornerCutToCircleWithCornerRadius(20 / 2);
         });
-    }return _timeLab;
+    };return _timeLab;
 }
 
 -(NSMutableArray<UIImage *> *)chatBubbleMutArr{
@@ -357,7 +355,7 @@ UITextFieldProtocol_synthesize_part2
             arr.add(@"左气泡".img)
             .add(@"右气泡".img);
         });
-    }return _chatBubbleMutArr;
+    };return _chatBubbleMutArr;
 }
 
 -(UILongPressGestureRecognizer *)longPG{
@@ -387,7 +385,7 @@ UITextFieldProtocol_synthesize_part2
 #pragma clang diagnostic pop
             }
         }];self.addGesture(_longPG);
-    }return _longPG;
+    };return _longPG;
 }
 
 -(NSMutableArray<UIMenuItem *> *)menuItemMutArr{
@@ -396,7 +394,7 @@ UITextFieldProtocol_synthesize_part2
             arr.add(@"置顶".tr.initMenuItemBy(@selector(menuTopBtnPressed:)))
             .add(@"删除".tr.initMenuItemBy(@selector(menuDelBtnPressed:)));
         });
-    }return _menuItemMutArr;
+    };return _menuItemMutArr;
 }
 
 -(NSMutableArray<MGSwipeButtonModel *> *)leftBtnMutArr{
@@ -418,7 +416,7 @@ UITextFieldProtocol_synthesize_part2
                 model.bgCor = RGBA_COLOR(0.59, 0.29, 0.08, 1);
             }));
         });
-    }return _leftBtnMutArr;
+    };return _leftBtnMutArr;
 }
 
 -(NSMutableArray<MGSwipeButtonModel *> *)rightBtnMutArr{
@@ -440,7 +438,7 @@ UITextFieldProtocol_synthesize_part2
                 model.bgCor = JobsCyanColor;
             }));
         });
-    }return _rightBtnMutArr;
+    };return _rightBtnMutArr;
 }
 
 @end

@@ -1,6 +1,6 @@
 //
 //  TKPermissionNotification.h
-//  TKPermissionKitDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 2019/10/12.
 //  Copyright © 2019 mac. All rights reserved.
@@ -13,7 +13,6 @@
 #endif
 
 #import "TKPermissionPublic.h"
-
 #import "MacroDef_SysWarning.h"
 
 NS_ASSUME_NONNULL_BEGIN

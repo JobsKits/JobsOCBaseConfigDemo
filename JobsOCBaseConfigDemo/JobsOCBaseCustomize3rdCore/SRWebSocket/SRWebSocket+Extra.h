@@ -1,6 +1,6 @@
 //
 //  SRWebSocket+Extra.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 21/12/2024.
 //
@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 
-#if __has_include(<SocketRocket/SocketRocket.h>)
+#if __has_include(<SocketRocket/SRWebSocket.h>)
 #import <SocketRocket/SRWebSocket.h>
 #else
 #import "SRWebSocket.h"

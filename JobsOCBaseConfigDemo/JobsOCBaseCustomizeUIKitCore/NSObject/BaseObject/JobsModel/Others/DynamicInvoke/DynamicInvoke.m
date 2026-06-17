@@ -1,6 +1,6 @@
 //
 //  DynamicInvoke.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/28.
 //
@@ -19,7 +19,7 @@
 //        [self invoke2];
 //        [self invoke3];
 //        [self invoke4];
-    }return self;
+    };return self;
 }
 
 -(void)invoke1{

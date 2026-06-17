@@ -1,14 +1,12 @@
 //
 //  LZTabBarController.m
-//  LZTabBarController
+//  JobsOCBaseConfigDemo
 //
 //  Created by Artron_LQQ on 2016/12/12.
 //  Copyright © 2016年 Artup. All rights reserved.
 //
 
 #import "LZTabBarController.h"
-
-#import "DefineProperty.h"
 
 @interface LZTabBarController ()
 
@@ -41,7 +39,7 @@ Prop_strong()LZTabBarConfig *config;
         [self setupViewControllers];
         [self setupTabBar];
         _isAutoRotation = YES;
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -213,7 +211,7 @@ didSelectItem:(LZTabBarItem *_Nonnull)item
             @jobs_strongify(self)
             tabBar.delegate = self;
         });
-    }return _customTabBar;
+    };return _customTabBar;
 }
 
 @end

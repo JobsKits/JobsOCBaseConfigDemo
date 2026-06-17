@@ -1,13 +1,11 @@
 //
 //  JobsAppDoorVC_Style2.m
-//  JobsAppDoor
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/7.
 //
 
 #import "JobsAppDoorVC_Style2.h"
-
-#import "DefineProperty.h"
 
 @interface JobsAppDoorVC_Style2 ()
 /// UI
@@ -231,7 +229,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
             }else{}
         }];
         _loginContentView.cornerCutToCircleWithCornerRadius(8);
-    }return _loginContentView;
+    };return _loginContentView;
 }
 
 -(JobsAppDoorRegisterContentView *)registerContentView{
@@ -267,7 +265,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
             }
         }];
         _registerContentView.cornerCutToCircleWithCornerRadius(8);
-    }return _registerContentView;
+    };return _registerContentView;
 }
 
 -(JobsAppDoorForgotCodeContentView *)forgotCodeContentView{
@@ -303,7 +301,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
             }
         }];
         _forgotCodeContentView.cornerCutToCircleWithCornerRadius(8);
-    }return _forgotCodeContentView;
+    };return _forgotCodeContentView;
 }
 
 -(JobsAppDoorLogoContentView *)logoContentView{
@@ -317,7 +315,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
         }];
         [self.view layoutIfNeeded];
         self.logoContentViewY = self.logoContentView.y;
-    }return _logoContentView;
+    };return _logoContentView;
 }
 
 -(BaseButton *)customerServiceBtn{
@@ -348,7 +346,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
         self.loginCustomerServiceBtnY = _customerServiceBtn.y;
         _customerServiceBtn.jobsResetBtnLayerBorderCor(JobsWhiteColor);
         _customerServiceBtn.jobsResetBtnLayerBorderWidth(2);
-    }return _customerServiceBtn;
+    };return _customerServiceBtn;
 }
 
 -(ZFAVPlayerManager *)playerManager{
@@ -361,7 +359,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
                 data.assetURL = @"非iph_X.mp4".pathForResourceWithFullName.jobsFileUrl;
             }
         });
-    }return _playerManager;
+    };return _playerManager;
 }
 
 -(ZFPlayerController *)player{
@@ -375,7 +373,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
             @jobs_strongify(self)
             [self.playerManager replay];//设置循环播放
         }];
-    }return _player;
+    };return _player;
 }
 
 -(CustomZFPlayerControlView *)customPlayerControlView{
@@ -386,7 +384,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
             @jobs_strongify(self)
             [self.view endEditing:YES];
         }];
-    }return _customPlayerControlView;
+    };return _customPlayerControlView;
 }
 
 -(UIImageView *)bgImgV{
@@ -395,7 +393,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
             imageView.image = @"AppDoorBgImage".img;
             imageView.userInteractionEnabled = YES;
         });
-    }return _bgImgV;
+    };return _bgImgV;
 }
 
 @end

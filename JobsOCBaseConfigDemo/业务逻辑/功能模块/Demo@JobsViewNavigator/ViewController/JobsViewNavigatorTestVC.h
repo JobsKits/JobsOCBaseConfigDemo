@@ -9,6 +9,7 @@
 #import "UIView+Navigator.h"
 #import "JobsViewNavigator.h"
 #import "JobsPushView.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

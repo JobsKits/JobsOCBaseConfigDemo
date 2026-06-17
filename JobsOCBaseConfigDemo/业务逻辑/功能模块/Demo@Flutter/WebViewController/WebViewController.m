@@ -7,8 +7,6 @@
 
 #import "WebViewController.h"
 
-#import "DefineProperty.h"
-
 @interface WebViewController ()
 
 Prop_copy()NSString *url;
@@ -24,7 +22,7 @@ Prop_strong()WKWebView *webView;
   if (self) {
     _url = url;
     _titleStr = title;
-  }return self;
+  };return self;
 }
 
 - (void)viewDidLoad {

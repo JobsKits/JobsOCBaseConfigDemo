@@ -1,6 +1,6 @@
 //
 //  BaseCollectionViewCell.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/3/24.
 //
@@ -18,7 +18,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 - (void)drawRect:(CGRect)rect {

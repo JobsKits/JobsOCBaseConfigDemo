@@ -1,6 +1,6 @@
 //
 //  JobsSnowflake.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/27/24.
 //  通过ChatGPT 翻译自 https://github.com/DamonHu/SnowflakeSwift
@@ -12,8 +12,6 @@ static const uint32_t kTimeBits = 41;
 static const uint32_t kIDCBits = 5;
 static const uint32_t kMachineBits = 5;
 static const uint32_t kSequenceBits = 12;
-
-#import "DefineProperty.h"
 
 @interface JobsSnowflake ()
 
@@ -44,7 +42,7 @@ Prop_assign()uint64_t lastGeneralMillisecond;
         self.IDC = IDC & ((1 << kIDCBits) - 1);
         self.machine = machine & ((1 << kMachineBits) - 1);
         self.sequence = 0;
-    }return self;
+    };return self;
 }
 
 -(nullable NSNumber *)nextID{

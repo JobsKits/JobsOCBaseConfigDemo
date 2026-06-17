@@ -1,6 +1,6 @@
 //
 //  UIButton+Timer.h
-//  SelectorBlock
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/3/23.
 //
@@ -12,17 +12,17 @@
 #import "TimerProtocol.h"
 #import "MacroDef_Func.h"
 #import "JobsAttributedString.h"
-#import "JobsDefineAllEnumHeader.h"
+#import "JobsDefineEnums.h"
 #import "NSObject+Time.h"
-#import "NSObject+RichText.h"/// 富文本
+#import "NSObject+RichText.h"
 #import "NSObject+NSMutableParagraphStyle.h"
 #import "NSObject+Extras.h"
 #import "NSString+Others.h"
 #import "NSMutableArray+Extra.h"
-#import "JobsTimer.h"/// 时间管理
+#import "JobsTimer.h"
 #import "UIButton+UI.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else

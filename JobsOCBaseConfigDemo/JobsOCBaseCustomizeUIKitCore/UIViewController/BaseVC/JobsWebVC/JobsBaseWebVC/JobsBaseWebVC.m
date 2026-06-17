@@ -1,6 +1,6 @@
 //
 //  JobsWebVC.m
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/9.
 //
@@ -21,7 +21,7 @@
 - (instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -133,7 +133,7 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
     if(!_activityIndicatorView){
         _activityIndicatorView = self.view.addSubview(UIActivityIndicatorView.initBy(UIActivityIndicatorViewStyleLarge));
         _activityIndicatorView.center = self.view.center;
-    }return _activityIndicatorView;
+    };return _activityIndicatorView;
 }
 
 @end

@@ -1,11 +1,12 @@
 //
 //  MSMineView2.h
-//  MataShop
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 9/23/23.
 //
 
 #import "BaseView.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

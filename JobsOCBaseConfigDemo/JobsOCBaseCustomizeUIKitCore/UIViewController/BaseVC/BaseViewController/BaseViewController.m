@@ -1,6 +1,6 @@
 //
 //  BaseViewController.m
-//  JobsSearch
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/1.
 //
@@ -20,7 +20,7 @@ BaseViewControllerProtocol_synthesize
 - (instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 /// new方法触发
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil
@@ -28,7 +28,7 @@ BaseViewControllerProtocol_synthesize
     if(self = [super initWithNibName:nibNameOrNil
                               bundle:nibBundleOrNil]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -123,7 +123,7 @@ BaseViewControllerProtocol_synthesize
     //        self.view = _bgImageView; // 如果用UIImageView来替换原本的View，有时候会出现一些错误
             [self.view insertSubview:imageView atIndex:0];
         });
-    }return _bgImageView;
+    };return _bgImageView;
 }
 /// 在具体的子类去实现，以覆盖父类的方法实现
 //@synthesize backBtnModel = _backBtnModel;
@@ -142,7 +142,7 @@ BaseViewControllerProtocol_synthesize
 //            self.backTo(2);
 //            return nil;
 //        };
-//    }return _backBtnModel;
+//    };return _backBtnModel;
 //}
 
 @end

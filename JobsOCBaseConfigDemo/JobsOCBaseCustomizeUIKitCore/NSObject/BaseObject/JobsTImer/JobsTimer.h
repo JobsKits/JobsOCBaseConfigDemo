@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "TimerProtocol.h"
-#import "DefineProperty.h"
-#import "DefineConstString.h"
+#import "JobsDefineProperty.h"
+#import "JobsDefineConstString.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 统一的 OC 版计时器实现：基于 TimerProtocol，只额外提供进度语义

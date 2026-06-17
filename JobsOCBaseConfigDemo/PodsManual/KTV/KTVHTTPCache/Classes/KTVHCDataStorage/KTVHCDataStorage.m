@@ -1,6 +1,6 @@
 //
 //  KTVHCDataManager.m
-//  KTVHTTPCache
+//  JobsOCBaseConfigDemo
 //
 //  Created by Single on 2017/8/11.
 //  Copyright © 2017年 Single. All rights reserved.
@@ -27,7 +27,7 @@
 {
     if (self = [super init]) {
         self.maxCacheLength = 500 * 1024 * 1024;
-    }return self;
+    };return self;
 }
 
 - (NSURL *)completeFileURLWithURL:(NSURL *)URL

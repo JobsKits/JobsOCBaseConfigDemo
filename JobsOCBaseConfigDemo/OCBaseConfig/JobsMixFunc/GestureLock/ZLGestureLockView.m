@@ -1,14 +1,12 @@
 //
 //  ZLGestureLockView.m
-//  GestureLockDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by ZL on 2017/4/5.
 //  Copyright © 2017年 ZL. All rights reserved.
 //
 
 #import "ZLGestureLockView.h"
-
-#import "DefineProperty.h"
 
 @interface ZLGestureLockView ()
 
@@ -25,7 +23,7 @@ Prop_assign()ResultKindType resultType;//学生端结果
 -(instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self initSubviews];
-    }return self;
+    };return self;
 }
 // 子视图初始化
 - (void)initSubviews {
@@ -245,7 +243,7 @@ Prop_assign()ResultKindType resultType;//学生端结果
 - (NSMutableArray *)selectBtns {
     if (!_selectBtns) {
         _selectBtns = NSMutableArray.array;
-    }return _selectBtns;
+    };return _selectBtns;
 }
 
 @end

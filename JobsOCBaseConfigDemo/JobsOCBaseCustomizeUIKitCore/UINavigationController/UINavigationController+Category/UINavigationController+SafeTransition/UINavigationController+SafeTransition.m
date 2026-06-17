@@ -1,12 +1,13 @@
 //
 //  UINavigationController+SafeTransition.m
-//  FirefoxGames
+//  JobsOCBaseConfigDemo
 //
 //  Created by Billie on 2020/3/8.
 //  Copyright © 2020 FirefoxGames. All rights reserved.
 //
 
 #import "UINavigationController+SafeTransition.h"
+#import "MacroDef_Sys.h"
 
 @interface UINavigationController ()
 
@@ -35,17 +36,16 @@
                       self.class,
                       @selector(safePopToViewController:animated:));
 }
-#pragma mark - setter & getter
+#pragma mark —— Prop_assign()BOOL viewTransitionInProgress;
+JobsKey(_viewTransitionInProgress)
+@dynamic viewTransitionInProgress;
 - (void)setViewTransitionInProgress:(BOOL)property {
     NSNumber *number = [NSNumber numberWithBool:property];
-    objc_setAssociatedObject(self,
-                             @selector(viewTransitionInProgress),
-                             number,
-                             OBJC_ASSOCIATION_RETAIN);
+    Jobs_setAssociatedRETAIN(_viewTransitionInProgress, number)
 }
 
 - (BOOL)viewTransitionInProgress {
-    NSNumber *number = objc_getAssociatedObject(self, @selector(viewTransitionInProgress));
+    NSNumber *number = Jobs_getAssociatedObject(_viewTransitionInProgress);
     return number.boolValue;
 }
 #pragma mark - Intercept Pop, Push, PopToRootVC
@@ -55,7 +55,7 @@
     NSArray *viewControllers = [self safePopToRootViewControllerAnimated:animated];
     if (viewControllers.count == 0) {
         self.viewTransitionInProgress = NO;
-    }return viewControllers;
+    };return viewControllers;
 }
 
 - (NSArray *)safePopToViewController:(UIViewController *)viewController
@@ -65,7 +65,7 @@
     NSArray *viewControllers = [self safePopToViewController:viewController animated:animated];
     if (viewControllers.count == 0) {
         self.viewTransitionInProgress = NO;
-    }return viewControllers;
+    };return viewControllers;
 }
 
 - (UIViewController *)safePopViewControllerAnimated:(BOOL)animated {

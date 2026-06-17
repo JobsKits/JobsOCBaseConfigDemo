@@ -1,14 +1,12 @@
 //
 //  ZLGestureLockIndicator.m
-//  GestureLockDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by ZL on 2017/4/5.
 //  Copyright © 2017年 ZL. All rights reserved.
 //
 
 #import "ZLGestureLockIndicator.h"
-
-#import "DefineProperty.h"
 
 @interface ZLGestureLockIndicator()
 
@@ -21,7 +19,7 @@ Prop_strong()NSMutableArray *btns;
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self initSubviews];
-    }return self;
+    };return self;
 }
 // 子视图初始化
 - (void)initSubviews {
@@ -62,12 +60,14 @@ Prop_strong()NSMutableArray *btns;
     }
 }
 #pragma mark —— public
+#pragma mark —— gesturePassword
+@dynamic gesturePassword;
 - (void)setGesturePassword:(NSString *)gesturePassword {
     
     if (gesturePassword.length == 0) {
         for (UIButton *button in self.btns) {
             button.selected = NO;
-        }return;
+        };return;
     }
     
     for (int i = 0; i < gesturePassword.length; i++) {
@@ -82,7 +82,7 @@ Prop_strong()NSMutableArray *btns;
 - (NSMutableArray *)btns {
     if (!_btns) {
         _btns = NSMutableArray.array;
-    }return _btns;
+    };return _btns;
 }
 
 @end

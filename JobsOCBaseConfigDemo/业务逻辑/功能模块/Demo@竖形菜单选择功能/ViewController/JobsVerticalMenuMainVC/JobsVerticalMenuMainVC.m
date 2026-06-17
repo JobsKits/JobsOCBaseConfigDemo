@@ -7,8 +7,6 @@
 
 #import "JobsVerticalMenuMainVC.h"
 
-#import "DefineProperty.h"
-
 @interface JobsVerticalMenuMainVC ()
 /// Data
 Prop_strong()NSMutableArray <NSMutableArray <__kindof UITableViewCell *>*>*tbvSectionRowCellMutArr;
@@ -149,7 +147,7 @@ viewForHeaderInSection:(NSInteger)section{
             .JobsBlock1(^(id _Nullable data) {
                 
             });
-    }return nil;
+    };return nil;
 }
 /// 这里涉及到复用机制，return出去的是UITableViewHeaderFooterView的派生类
 /// tableView.registerHeaderFooterViewClass(BaseTableViewHeaderFooterView.class,@"");
@@ -173,7 +171,7 @@ viewForHeaderInSection:(NSInteger)section{
         /// 只有 tbvFooterView.backgroundView.backgroundColor 是有效操作✅
         tbvFooterView.contentView.byBgColor(HEXCOLOR(0xEAEBED));
         return tbvFooterView;
-    }return nil;
+    };return nil;
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -235,7 +233,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
             }
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray<NSMutableArray<__kindof UITableViewCell *> *> *)tbvSectionRowCellMutArr{
@@ -255,7 +253,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 data1.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
             }));
         });
-    }return _tbvSectionRowCellMutArr;
+    };return _tbvSectionRowCellMutArr;
 }
 
 -(NSMutableArray<NSMutableArray<__kindof UIViewModel *> *> *)dataMutArr{
@@ -284,7 +282,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 })));
             }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

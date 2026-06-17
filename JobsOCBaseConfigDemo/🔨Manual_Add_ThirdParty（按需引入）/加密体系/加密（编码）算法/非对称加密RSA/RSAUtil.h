@@ -1,12 +1,12 @@
 //
 //  RSAUtil.h
-//  Encryption
+//  JobsOCBaseConfigDemo
 //
 //  Created by 雷传营 on 16/1/10.
 //  Copyright © 2016年 leichuanying. All rights reserved.
 //
 
-#import <Security/Security.h> /// 该框架提供了与应用程序的安全性相关的功能（加密、密钥管理、证书和身份验证）
+#import <Security/Security.h>
 #import <UIKit/UIKit.h>
 
 @interface RSAUtil : NSObject

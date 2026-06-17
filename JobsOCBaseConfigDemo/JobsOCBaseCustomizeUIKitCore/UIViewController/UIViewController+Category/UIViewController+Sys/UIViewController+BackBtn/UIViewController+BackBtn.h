@@ -1,6 +1,6 @@
 //
 //  UIViewController+BackBtn.h
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/12.
 //
@@ -14,8 +14,8 @@
 #import "BaseViewControllerProtocol.h"
 #import "UIButton+ImageTitleSpacing.h"
 #import "UIButton+UI.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<GKNavigationBar/GKNavigationBar.h>)
 #import <GKNavigationBar/GKNavigationBar.h>
 #else

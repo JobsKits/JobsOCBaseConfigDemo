@@ -1,6 +1,6 @@
 //
 //  FSCalendarHeader.m
-//  Pods
+//  JobsOCBaseConfigDemo
 //
 //  Created by Wenchao Ding on 29/1/15.
 //
@@ -28,7 +28,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self initialize];
-    }return self;
+    };return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -36,7 +36,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self initialize];
-    }return self;
+    };return self;
 }
 
 - (void)initialize
@@ -98,17 +98,20 @@
 
 #pragma mark - Properties
 
+#pragma mark —— calendar
 - (void)setCalendar:(FSCalendar *)calendar
 {
     _calendar = calendar;
     [self configureAppearance];
 }
 
+#pragma mark —— scrollOffset
 - (void)setScrollOffset:(CGFloat)scrollOffset
 {
     [self setScrollOffset:scrollOffset animated:NO];
 }
 
+#pragma mark —— scrollOffset
 - (void)setScrollOffset:(CGFloat)scrollOffset animated:(BOOL)animated
 {
     [self scrollToOffset:scrollOffset animated:NO];
@@ -125,6 +128,7 @@
     }
 }
 
+#pragma mark —— scrollDirection
 - (void)setScrollDirection:(UICollectionViewScrollDirection)scrollDirection
 {
     if (_scrollDirection != scrollDirection) {
@@ -134,6 +138,7 @@
     }
 }
 
+#pragma mark —— scrollEnabled
 - (void)setScrollEnabled:(BOOL)scrollEnabled
 {
     if (_scrollEnabled != scrollEnabled) {
@@ -219,9 +224,10 @@
         titleLabel.numberOfLines = 0;
         [self.contentView addSubview:titleLabel];
         self.titleLabel = titleLabel;
-    }return self;
+    };return self;
 }
 
+#pragma mark —— bounds
 - (void)setBounds:(CGRect)bounds
 {
     [super setBounds:bounds];
@@ -267,7 +273,7 @@
         self.sectionInset = UIEdgeInsetsZero;
         self.itemSize = CGSizeMake(1, 1);
         [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didReceiveOrientationChangeNotification:) name:UIDeviceOrientationDidChangeNotification object:nil];
-    }return self;
+    };return self;
 }
 
 - (void)dealloc
@@ -310,5 +316,4 @@
 }
 
 @end
-
 

@@ -41,7 +41,7 @@
         [self setFrame:self.param.wFrame];
         self.data = [NSArray arrayWithArray:self.param.wData];
         [self setUp];
-    }return self;
+    };return self;
 }
 /**
  *  调用方法
@@ -56,7 +56,7 @@
         [self setFrame:self.param.wFrame];
         self.data = [NSArray arrayWithArray:self.param.wData];
         [self setUp];
-    }return self;
+    };return self;
 }
 
 +(JobsReturnWMZBannerViewByBannerParamBlock _Nonnull)initBy{
@@ -257,6 +257,7 @@
     return tmpCell;
 }
 
+#pragma mark —— iconData
 - (void)setIconData:(UIImageView *)icon withData:(NSString *)data{
     if (!data) return;
     if ([data isKindOfClass:NSString.class]) {
@@ -665,9 +666,10 @@
         [self.contentView addSubview:self.icon];
         self.icon.frame = self.contentView.bounds;
         self.contentView.layer.masksToBounds = YES;
-    }return self;
+    };return self;
 }
 
+#pragma mark —— param
 - (void)setParam:(WMZBannerParam *)param{
     _param = param;
     self.icon.contentMode = param.wImageFill?UIViewContentModeScaleAspectFill:UIViewContentModeScaleToFill;
@@ -685,9 +687,10 @@
         self.label.textColor = [UIColor redColor];
         [self.contentView addSubview:self.label];
         self.label.frame = CGRectMake(10, 0, frame.size.width-20, frame.size.height);
-    }return self;
+    };return self;
 }
 
+#pragma mark —— param
 - (void)setParam:(WMZBannerParam *)param{
     _param = param;
     self.label.textColor = self.param.wMarqueeTextColor;

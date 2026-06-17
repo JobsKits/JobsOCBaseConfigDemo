@@ -1,6 +1,6 @@
 //
 //  UINavigationController+SafeTransition.h
-//  FirefoxGames
+//  JobsOCBaseConfigDemo
 //
 //  Created by Billie on 2020/3/8.
 //  Copyright © 2020 FirefoxGames. All rights reserved.
@@ -11,8 +11,7 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "NSObject+Swizzling.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

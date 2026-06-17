@@ -2,13 +2,13 @@
 //  UIProgressView+DSL.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 11/29/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIProgressView+DSL.h"
 
 @implementation UIProgressView (DSL)
-#pragma mark - Style
+#pragma mark —— Style
 -(JobsRetProgressViewByStyleBlock _Nonnull)byProgressViewStyle{
     @jobs_weakify(self)
     return ^__kindof UIProgressView *_Nullable(UIProgressViewStyle style){
@@ -17,7 +17,7 @@
         return self;
     };
 }
-#pragma mark - Progress
+#pragma mark —— Progress
 -(JobsRetProgressViewByFloatBlock _Nonnull)byProgress{
     @jobs_weakify(self)
     return ^__kindof UIProgressView *_Nullable(float progress){
@@ -31,14 +31,14 @@
     @jobs_weakify(self)
     return ^__kindof UIProgressView *_Nullable(float progress, BOOL animated){
         @jobs_strongify(self)
-        if (@available(iOS 5.0, *)) {
+        if (@available(iOS 5.0, *)){
             [self setProgress:progress animated:animated];
         }else{
             self.progress = progress;
         };return self;
     };
 }
-#pragma mark - Tint & Image
+#pragma mark —— Tint & Image
 -(JobsRetProgressViewByColorBlock _Nonnull)byProgressTintColor{
     @jobs_weakify(self)
     return ^__kindof UIProgressView *_Nullable(UIColor * _Nullable color){
@@ -74,12 +74,12 @@
         return self;
     };
 }
-#pragma mark - NSProgress 绑定
+#pragma mark —— NSProgress 绑定
 -(JobsRetProgressViewByNSProgressBlock _Nonnull)byObservedProgress{
     @jobs_weakify(self)
     return ^__kindof UIProgressView *_Nullable(NSProgress * _Nullable progress){
         @jobs_strongify(self)
-        if (@available(iOS 9.0, *)) {
+        if (@available(iOS 9.0, *)){
             self.observedProgress = progress;
         };return self;
     };

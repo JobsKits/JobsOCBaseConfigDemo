@@ -1,6 +1,6 @@
 //
 //  BaseViewController.h
-//  JobsSearch
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/1.
 //
@@ -9,7 +9,7 @@
 #import "UIViewModelProtocol.h"
 #import "BaseViewControllerProtocol.h"
 #import "JobsBlock.h"
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
 #import "MacroDef_Notification.h"
 #import "MacroDef_Log.h"
 #import "MacroDef_String.h"
@@ -53,6 +53,6 @@ NS_ASSUME_NONNULL_END
             self.popToRootVCBy(YES);
             return nil;
         };
-    }return _backBtnModel;
+    };return _backBtnModel;
 }
 */

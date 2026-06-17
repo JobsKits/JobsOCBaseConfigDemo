@@ -1,12 +1,12 @@
 //
 //  NetworkingConstant.h
-//  DouYin
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/24.
 //
-#import "DefineConstString.h"         // 常量字符串的定义
-#import "JobsDefineAllEnumHeader.h"   // 此文件用来存储记录全局的一些枚举
 
+#import "JobsDefineConstString.h"
+#import "JobsDefineEnums.h"
 /// 服务器相关
 #ifndef NetworkingConstant_h
 #define NetworkingConstant_h
@@ -51,19 +51,20 @@
 #define HTTPServiceResponseDataKey @"data"
 #endif /* HTTPServiceResponseDataKey */
 /**
- 后台定义：
  
- 【返回状态码(code)】
- -1、服务器异常。
- 0、表示成功。
- 1、登录已过期，请重新登录。
- 2、授权失败。
- 4、限定时间内超过请求次数
- 6.、风险操作。
- 7、未设置交易密码。
- 8、帐号已在其他设备登录。
- 
- 【需要权限的接口】请求头加上authorization字段，值为服务器颁发的jwt令牌。令牌无感刷新，需实时更新
+     后台定义：
+
+     【返回状态码(code)】
+     -1、服务器异常。
+     0、表示成功。
+     1、登录已过期，请重新登录。
+     2、授权失败。
+     4、限定时间内超过请求次数
+     6.、风险操作。
+     7、未设置交易密码。
+     8、帐号已在其他设备登录。
+
+     【需要权限的接口】请求头加上authorization字段，值为服务器颁发的jwt令牌。令牌无感刷新，需实时更新
  */
 #ifndef HTTP_RESPONSE_CODE_ENUM_DEFINED
 #define HTTP_RESPONSE_CODE_ENUM_DEFINED

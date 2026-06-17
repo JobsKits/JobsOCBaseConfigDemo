@@ -1,6 +1,6 @@
 //
 //  JobsDropDownListTBVCell.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/28.
 //
@@ -20,7 +20,7 @@ UITableViewCellProtocol_Synthesize
         JobsDropDownListTBVCell *cell = (JobsDropDownListTBVCell *)tableView.tableViewCellClass(JobsDropDownListTBVCell.class,@"");
         if (!cell) {
             cell = JobsDropDownListTBVCell.initTableViewCellWithStyle(UITableViewCellStyleValue1);
-        }return cell;
+        };return cell;
     };
 }
 #pragma mark —— BaseCellProtocol
@@ -33,7 +33,7 @@ UITableViewCellProtocol_Synthesize
         self.backgroundColor = self.contentView.backgroundColor = HEXCOLOR(0xFBF7E3);
         self.selectedBackgroundView = [UIView.alloc initWithFrame:self.frame];// 这句不可省略
         self.selectedBackgroundView.backgroundColor = HEXCOLOR(0xE4B94B);
-    }return self;
+    };return self;
 }
 
 -(JobsRetTableViewCellByIDBlock _Nonnull)jobsRichElementsTableViewCellBy{
@@ -44,7 +44,7 @@ UITableViewCellProtocol_Synthesize
             self.viewModel = model;
             self.textLabel.text = [NSString stringWithFormat:@"%@",model.textModel.text];
             self.detailTextLabel.text = [NSString stringWithFormat:@"%@",model.subTextModel.text];
-        }return self;
+        };return self;
     };
 }
 

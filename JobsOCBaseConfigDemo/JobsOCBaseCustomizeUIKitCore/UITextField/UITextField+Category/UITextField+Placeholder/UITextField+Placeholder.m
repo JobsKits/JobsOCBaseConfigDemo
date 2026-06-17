@@ -1,13 +1,11 @@
 //
 //  UITextField+Placeholder.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/20.
 //
 
 #import "UITextField+Placeholder.h"
-
-#import "DefineProperty.h"
 
 @implementation UITextField (Placeholder)
 /// UITextModelProtocol
@@ -32,7 +30,7 @@ JobsKey(_placeholderColor)
         PlaceholderColor = self.textColor;
         self.placeholderLabel.textColor = PlaceholderColor;
         Jobs_setAssociatedRETAIN_NONATOMIC(_placeholderColor, PlaceholderColor)
-    }return PlaceholderColor;
+    };return PlaceholderColor;
 }
 
 -(void)setPlaceholderColor:(UIColor *)placeholderColor{
@@ -47,7 +45,7 @@ JobsKey(_placeholderFont)
         PlaceholderFont = self.font;
         self.placeholderLabel.font = PlaceholderFont;
         Jobs_setAssociatedRETAIN_NONATOMIC(_placeholderFont, PlaceholderFont)
-    }return PlaceholderFont;
+    };return PlaceholderFont;
 }
 
 -(void)setPlaceholderFont:(UIFont *)placeholderFont{
@@ -72,7 +70,7 @@ JobsKey(_titleAttributedDataMutArr)
                 config.range = NSMakeRange(0, self.placeholder.length);
             }));
         });Jobs_setAssociatedRETAIN_NONATOMIC(_titleAttributedDataMutArr, TitleAttributedDataMutArr)
-    }return TitleAttributedDataMutArr;
+    };return TitleAttributedDataMutArr;
 }
 
 -(void)setTitleAttributedDataMutArr:(NSMutableArray<JobsRichTextConfig *> *)titleAttributedDataMutArr{

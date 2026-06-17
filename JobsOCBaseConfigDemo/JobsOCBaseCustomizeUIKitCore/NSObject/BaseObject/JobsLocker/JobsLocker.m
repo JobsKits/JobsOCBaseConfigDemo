@@ -1,13 +1,11 @@
 //
 //  JobsLocker.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 20/1/2025.
 //
 
 #import "JobsLocker.h"
-
-#import "DefineProperty.h"
 
 @interface JobsLocker (){
     pthread_mutex_t _mutex;/// 高性能。更适合需要精细控制的场景。
@@ -29,7 +27,7 @@ BaseProtocol_synthesize_lock
         _os_lock = OS_UNFAIR_LOCK_INIT; /// os_unfair_lock 初始化
         self.semaphore_lock = dispatch_semaphore_create(1);
         self.lock = jobsMakeLock(nil);
-    }return self;
+    };return self;
 }
 /// pthread_mutex 是 POSIX 线程库提供的低级锁，性能很高，但使用起来稍显复杂
 -(void)pthreadLockByBlock:(jobsByVoidBlock _Nonnull)block{

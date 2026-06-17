@@ -1,14 +1,12 @@
 //
 //  TMSWalletCollectionViewCell.m
-//  TMSWalletCollectionViewLayout
+//  JobsOCBaseConfigDemo
 //
 //  Created by TmmmS on 2019/8/8.
 //  Copyright © 2019 TMS. All rights reserved.
 //
 
 #import "TMSWalletCollectionViewCell.h"
-
-#import "DefineProperty.h"
 
 @interface TMSWalletCollectionViewCell ()
 /// UI
@@ -25,7 +23,7 @@ Prop_strong()UILabel *titleLabel;
         self.contentView.backgroundColor = JobsRandomColor;
         self.layer.cornerRadius = 20;
         self.layer.masksToBounds = YES;
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView

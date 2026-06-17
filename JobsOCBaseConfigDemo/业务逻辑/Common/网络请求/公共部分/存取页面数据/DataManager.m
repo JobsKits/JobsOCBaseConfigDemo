@@ -1,14 +1,12 @@
 //
 //  DataManager.m
-//  ZBNetworkingDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Suzhibin on 2020/1/19.
 //  Copyright © 2020 Suzhibin. All rights reserved.
 //
 
 #import "DataManager.h"
-
-#import "DefineProperty.h"
 
 @interface DataManager()
 
@@ -24,7 +22,7 @@ Prop_copy()NSMutableDictionary *dataInfo;
         if (!sharedManager) {
             sharedManager = DataManager.new;
         }
-    }return sharedManager;
+    };return sharedManager;
 }
 /// 保存页面数据
 -(void)saveDataInfo:(__kindof NSDictionary *)info
@@ -42,7 +40,7 @@ Prop_copy()NSMutableDictionary *dataInfo;
 -(NSMutableDictionary *)dataInfo{
     if(!_dataInfo){
         _dataInfo = NSMutableDictionary.dictionary;
-    }return _dataInfo;
+    };return _dataInfo;
 }
 
 @end

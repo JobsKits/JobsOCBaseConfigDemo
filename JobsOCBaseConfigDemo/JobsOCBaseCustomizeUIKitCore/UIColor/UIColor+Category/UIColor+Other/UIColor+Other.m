@@ -1,6 +1,6 @@
 //
 //  UIColor+Other.m
-//  MataShop
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 9/16/23.
 //

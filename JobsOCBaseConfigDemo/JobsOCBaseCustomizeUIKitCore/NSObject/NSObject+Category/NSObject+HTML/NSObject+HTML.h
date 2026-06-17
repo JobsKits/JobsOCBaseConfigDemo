@@ -1,12 +1,12 @@
 //
 //  NSObject+HTML.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 19/12/2024.
 //
 
 #import <Foundation/Foundation.h>
-#import <WebKit/WebKit.h>                         /// 用于嵌入和管理网页内容，例如加载和显示网页。
+#import <WebKit/WebKit.h>
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_END
                  NSLog(@"获取 User-Agent 失败: %@", error.localizedDescription);
              }
          }];
-     }return _webView;
+     };return _webView;
  }
  
  */

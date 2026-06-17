@@ -1,6 +1,6 @@
 //
 //  TKPermissionHome.m
-//  TKPermissionKitDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 2019/10/12.
 //  Copyright © 2019 mac. All rights reserved.
@@ -45,7 +45,7 @@ static TKPermissionHome * _shared = nil;
 +(TKPermissionHome *)shared{
     if (!_shared) {
         _shared = TKPermissionHome.new;
-    }return _shared;
+    };return _shared;
 }
 ///  请求HomeKit住宅数据权限
 /// - Parameters:
@@ -128,13 +128,13 @@ static TKPermissionHome * _shared = nil;
     NSString *name = [NSBundle.mainBundle.infoDictionary objectForKey:@"CFBundleDisplayName"];
     if (!name) {
         name = [NSBundle.mainBundle.infoDictionary objectForKey:@"CFBundleName"];
-    }return name;
+    };return name;
 }
 
 -(HMHomeManager *)homeManager{
     if (!_homeManager) {
         _homeManager = HMHomeManager.new;
-    }return _homeManager;
+    };return _homeManager;
 }
 
 @end

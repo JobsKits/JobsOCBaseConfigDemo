@@ -1,6 +1,6 @@
 //
 //  handleDemoView.m
-//  HandleAnimationDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by ZengYong on 16/4/8.
 //  Copyright © 2016年 maipu. All rights reserved.
@@ -11,8 +11,6 @@
 static const NSTimeInterval duration = 1.f;
 static const NSTimeInterval enlangerDuration = 0.05f;
 static const NSTimeInterval shrinkDuration = 0.1f;
-
-#import "DefineProperty.h"
 
 @interface HAHandleDemoView ()
 
@@ -41,7 +39,7 @@ Prop_strong()NSTimer *shrinkTimer;
 //        [self.handleDemoBtn setBackgroundColor:[UIColor clearColor]];
         [self addSubview:self.bgView];
 //        [self addSubview:self.handleDemoBtn];
-    }return self;
+    };return self;
 }
 // 点击放大
 - (void)handleBtnTouchDownAction{

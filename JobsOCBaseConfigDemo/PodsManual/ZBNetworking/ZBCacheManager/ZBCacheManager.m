@@ -1,6 +1,6 @@
 //
 //  ZBCacheManager.m
-//  ZBNetworking
+//  JobsOCBaseConfigDemo
 //
 //  Created by NQ UEC on 16/6/8.
 //  Copyright © 2016年 Suzhibin. All rights reserved.
@@ -65,7 +65,7 @@ static const CGFloat unit = 1000.0;
 #if  TARGET_OS_OSX
         [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(applicationWillTerminate:) name:NSApplicationWillTerminateNotification object:nil];
 #endif
-    }return self;
+    };return self;
 }
 
 - (void)dealloc{
@@ -179,6 +179,7 @@ static const CGFloat unit = 1000.0;
     });
 }
 
+#pragma mark —— content
 - (BOOL)setContent:(NSObject *)content writeToFile:(NSString *)path{
     if (!content||!path){
         return NO;
@@ -296,6 +297,8 @@ static const CGFloat unit = 1000.0;
     return self.memoryCache.countLimit;
 }
 
+#pragma mark —— maxMemoryCountLimit
+@dynamic maxMemoryCountLimit;
 - (void)setMaxMemoryCountLimit:(NSUInteger)maxCountLimit {
     self.memoryCache.countLimit = maxCountLimit;
 }

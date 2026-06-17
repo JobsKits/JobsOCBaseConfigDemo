@@ -1,12 +1,13 @@
 //
 //  PicToStrStoreSubVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2024/4/24.
 //
 
 #import "BaseViewController.h"
 #import "Cryptography.h"
+#import "JobsDefineProperty.h"
 
 #ifndef PIC_TO_STR_STYLE_ENUM_DEFINED
 #define PIC_TO_STR_STYLE_ENUM_DEFINED

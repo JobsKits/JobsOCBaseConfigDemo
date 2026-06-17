@@ -1,13 +1,11 @@
 //
 //  BaseNavigationBar.m
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/21.
 //
 
 #import "BaseNavigationBar.h"
-
-#import "DefineProperty.h"
 
 @interface BaseNavigationBar ()
 
@@ -20,7 +18,7 @@ Prop_copy()jobsByIDBlock baseNavigationBarBlock;
 - (instancetype)init{
     if (self = [super init]) {
         self.translucent = YES;
-    }return self;
+    };return self;
 }
 
 - (void)layoutSubviews{

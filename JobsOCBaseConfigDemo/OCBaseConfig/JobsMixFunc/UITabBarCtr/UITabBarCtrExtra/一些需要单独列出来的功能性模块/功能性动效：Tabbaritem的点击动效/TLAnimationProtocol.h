@@ -1,14 +1,13 @@
 //
 //  TLAnimationProtocol.h
-//  TabBar
+//  JobsOCBaseConfigDemo
 //
 //  Created by 故乡的云 on 2019/7/19.
 //  Copyright © 2019 故乡的云. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,6 +1,6 @@
 //
 //  FSCalendarStaticHeader.m
-//  FSCalendar
+//  JobsOCBaseConfigDemo
 //
 //  Created by dingwenchao on 9/17/15.
 //  Copyright (c) 2015 Wenchao Ding. All rights reserved.
@@ -50,7 +50,7 @@
         FSCalendarWeekdayView *weekdayView = [[FSCalendarWeekdayView alloc] init];
         [self.contentView addSubview:weekdayView];
         self.weekdayView = weekdayView;
-    }return self;
+    };return self;
 }
 
 - (void)layoutSubviews
@@ -78,6 +78,7 @@
 
 #pragma mark - Properties
 
+#pragma mark —— calendar
 - (void)setCalendar:(FSCalendar *)calendar
 {
     if (![_calendar isEqual:calendar]) {
@@ -98,6 +99,7 @@
     [self.weekdayView configureAppearance];
 }
 
+#pragma mark —— month
 - (void)setMonth:(NSDate *)month
 {
     _month = month;
@@ -116,5 +118,4 @@
 }
 
 @end
-
 

@@ -1,14 +1,13 @@
 //
 //  handleDemoView.h
-//  HandleAnimationDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by ZengYong on 16/4/8.
 //  Copyright © 2016年 maipu. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @protocol HAHandleDemoViewDelegate <NSObject>
 

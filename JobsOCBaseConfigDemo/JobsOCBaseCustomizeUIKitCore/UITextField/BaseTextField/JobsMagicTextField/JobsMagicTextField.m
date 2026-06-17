@@ -1,14 +1,12 @@
 //
 //  JobsMagicTextField.m
-//  BHBMagicFieldDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/6.
 //  Copyright © 2020 bihongbo. All rights reserved.
 //
 
 #import "JobsMagicTextField.h"
-
-#import "DefineProperty.h"
 
 @interface JobsMagicTextField ()
 
@@ -34,7 +32,7 @@ Prop_strong()UILabel *placeholderAnimationLbl;
             @jobs_strongify(self)
             self.placeholderAnimationLbl.jobsVisible = self.placeholdAnimationable && isValue(self.text);
         }];
-    }return self;
+    };return self;
 }
 /// ⚠️当一个TF1->TF2，先获得焦点再失去焦点
 /// 这个方法里面，正在获得、但还没有获得焦点，此时的self.isFirstResponder == NO
@@ -129,31 +127,31 @@ Prop_strong()UILabel *placeholderAnimationLbl;
             }
             self.addSubview(label);
         });
-    }return _placeholderAnimationLbl;
+    };return _placeholderAnimationLbl;
 }
 
 -(UIColor *)animationColor{
     if (!_animationColor) {
         _animationColor = self.placeholderColor;
-    }return _animationColor;
+    };return _animationColor;
 }
 
 -(UIFont *)animationFont{
     if (!_animationFont) {
         _animationFont = self.placeholderFont;
-    }return _animationFont;
+    };return _animationFont;
 }
 
 -(CGFloat)moveDistance{
     if (_moveDistance == 0) {
         _moveDistance = self.frame.size.height / 2;
-    }return _moveDistance;
+    };return _moveDistance;
 }
     
 -(NSTimeInterval)animationTime{
     if (!_animationTime) {
         _animationTime = 0.25f;
-    }return _animationTime;
+    };return _animationTime;
 }
 
 @end

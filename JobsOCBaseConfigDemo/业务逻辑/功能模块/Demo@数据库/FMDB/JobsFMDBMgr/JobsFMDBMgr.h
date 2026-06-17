@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JobsDefineProperty.h"
 
 #if __has_include(<FMDB/FMDB.h>)
 #import <FMDB/FMDB.h>

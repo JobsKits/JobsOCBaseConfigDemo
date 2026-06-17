@@ -1,6 +1,6 @@
 //
 //  AuthCodeLab.m
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/20.
 //
@@ -17,7 +17,7 @@
     if (self = [super init]) {
         self.userInteractionEnabled = YES;
         [self requestAuthCode];
-    }return self;
+    };return self;
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches

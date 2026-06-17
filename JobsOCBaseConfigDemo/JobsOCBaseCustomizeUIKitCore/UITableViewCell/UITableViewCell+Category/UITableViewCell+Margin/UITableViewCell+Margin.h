@@ -1,6 +1,6 @@
 //
 //  UITableViewCell+Margin.h
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/13.
 //
@@ -12,6 +12,7 @@
 #import "BaseCellProtocol.h"
 #import "UIViewModelProtocol.h"
 #import "UITableViewCellProtocol.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 重设边距

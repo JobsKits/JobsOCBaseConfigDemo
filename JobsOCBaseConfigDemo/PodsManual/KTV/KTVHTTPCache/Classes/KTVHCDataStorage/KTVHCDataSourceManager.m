@@ -1,6 +1,6 @@
 //
 //  KTVHCDataSourceManager.m
-//  KTVHTTPCache
+//  JobsOCBaseConfigDemo
 //
 //  Created by Single on 2017/8/11.
 //  Copyright © 2017年 Single. All rights reserved.
@@ -37,7 +37,7 @@
         self->_sources = [sources mutableCopy];
         self->_delegate = delegate;
         self->_delegateQueue = delegateQueue;
-    }return self;
+    };return self;
 }
 
 - (void)dealloc

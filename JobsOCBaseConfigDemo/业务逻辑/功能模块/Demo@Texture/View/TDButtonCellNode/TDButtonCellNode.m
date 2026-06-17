@@ -18,7 +18,7 @@
         self.automaticallyManagesSubnodes = YES;
         self.button.enabled = YES;
         self.descNode.enabled = YES;
-    }return self;
+    };return self;
 }
 
 -(ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize{
@@ -53,7 +53,7 @@
                     JobsLog(@"长按触发 %@", gr);
                 });
         });
-    }return _button;
+    };return _button;
 }
 
 -(ASTextNode *)descNode{
@@ -65,7 +65,7 @@
                 NSForegroundColorAttributeName: UIColor.secondaryLabelColor
             }];
         });
-    }return _descNode;
+    };return _descNode;
 }
 
 @end

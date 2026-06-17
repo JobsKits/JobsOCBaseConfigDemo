@@ -1,18 +1,18 @@
 //
 //  NSObject+Extras.h
-//  TestDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by AaltoChen on 15/10/31.
 //  Copyright © 2015年 AaltoChen. All rights reserved.
 //
 
 #import <objc/runtime.h>
-#import <sys/sysctl.h>                       // 允许查询系统信息和配置，如设备硬件详细信息。
-#import <mach/mach.h>                        // 提供对底层内存和CPU信息的访问，如内存使用情况和CPU负载。
+#import <sys/sysctl.h>
+#import <mach/mach.h>
 #import <Foundation/Foundation.h>
-#import <ImageIO/CGImageSource.h>            // 读取和处理图像文件中的图像数据，包括但不限于 PNG、JPEG、TIFF、GIF、HEIC 等格式。
-#import <WebKit/WebKit.h>                    // 用于嵌入和管理网页内容，例如加载和显示网页。
-#import <Photos/Photos.h>                    // 用于访问和管理设备的照片和视频资源。
+#import <ImageIO/CGImageSource.h>
+#import <WebKit/WebKit.h>
+#import <Photos/Photos.h>
 #import "NSObject+Class.h"
 #import "NSObject+Algorithm.h"
 #import "NSData+Other.h"
@@ -25,14 +25,15 @@
 #import "MacroDef_Func.h"
 #import "MacroDef_SysWarning.h"
 #import "FileFolderHandleTool.h"
-#import "JobsDefineAllStructHeader.h"          // 此文件用来存储记录全局的一些结构体
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
-#import "DefineConstString.h"                  // 常量字符串的定义
+#import "JobsDefineStructs.h"
+#import "JobsDefineEnums.h"
+#import "JobsDefineConstString.h"
 #import "JobsAppTools.h"
 #import "JobsSnowflake.h"
 #import "JobsModel.h"
 #import "JobsDropDownListView.h"
 #import "JobsNavigationTransitionMgr.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<WHToast/WHToast.h>)
 #import <WHToast/WHToast.h>

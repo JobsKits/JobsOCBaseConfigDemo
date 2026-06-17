@@ -1,13 +1,11 @@
 //
 //  UIView+Masonry.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/18.
 //
 
 #import "UIView+Masonry.h"
-
-#import "DefineProperty.h"
 
 @implementation UIView (Masonry)
 #pragma mark —— 一些Masonry算法

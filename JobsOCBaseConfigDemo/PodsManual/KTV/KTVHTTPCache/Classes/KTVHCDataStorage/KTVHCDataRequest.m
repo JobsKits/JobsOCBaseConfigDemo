@@ -1,6 +1,6 @@
 //
 //  KTVHCDataRequest.m
-//  KTVHTTPCache
+//  JobsOCBaseConfigDemo
 //
 //  Created by Single on 2017/8/11.
 //  Copyright © 2017年 Single. All rights reserved.
@@ -20,7 +20,7 @@
         self->_headers = KTVHCRangeFillToRequestHeadersIfNeeded(KTVHCRangeFull(), headers);
         self->_range = KTVHCRangeWithRequestHeaderValue([self.headers objectForKey:@"Range"]);
         KTVHCLogDataRequest(@"%p Create data request\nURL : %@\nHeaders : %@\nRange : %@", self, self.URL, self.headers, KTVHCStringFromRange(self.range));
-    }return self;
+    };return self;
 }
 
 - (void)dealloc

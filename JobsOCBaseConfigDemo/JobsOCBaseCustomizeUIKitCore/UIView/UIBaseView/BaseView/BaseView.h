@@ -1,6 +1,6 @@
 //
 //  BaseView.h
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/2/5.
 //  Copyright © 2021 MonkeyKingVideo. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "BaseProtocol.h"
 #import "BaseViewProtocol.h"
 #import "UIViewModelProtocol.h"

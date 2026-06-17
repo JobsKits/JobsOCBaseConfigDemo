@@ -1,6 +1,6 @@
 //
 //  MyFansTBVCell.m
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/7/3.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -38,6 +38,7 @@
     [super drawRect:rect];
 }
 
+#pragma mark —— frame
 -(void)setFrame:(CGRect)frame{
     JobsLog(@"self.offsetXForEach = %f",self.offsetXForEach);
     JobsLog(@"self.offsetYForEach = %f",self.offsetYForEach);
@@ -94,7 +95,7 @@
                 make.edges.equalTo(self.contentView);
             }];
         });
-    }return _imgView;
+    };return _imgView;
 }
 
 @end

@@ -1,6 +1,6 @@
 //
 //  UITabBar+Ex.m
-//  TabbarItemLottie
+//  JobsOCBaseConfigDemo
 //
 //  Created by 叶晓倩 on 2017/9/29.
 //  Copyright © 2017年 xa. All rights reserved.
@@ -28,7 +28,7 @@
         lottieView.contentMode = UIViewContentModeScaleAspectFit;
         lottieView.tag = 888 + index;
         lottieView.backgroundColor = JobsYellowColor;
-    }return lottieView;
+    };return lottieView;
 }
 
 -(jobsByNSIntegerBlock _Nonnull)animationLottieImageBy{

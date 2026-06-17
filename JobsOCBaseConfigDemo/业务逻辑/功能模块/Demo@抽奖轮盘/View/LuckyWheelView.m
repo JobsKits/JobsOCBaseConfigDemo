@@ -5,8 +5,6 @@
 
 #import "LuckyWheelView.h"
 
-#import "DefineProperty.h"
-
 @interface LuckyWheelView ()
 
 Prop_strong()UIView *plateView;
@@ -44,13 +42,13 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 - (instancetype)onSegmentTap:(jobsByLuckyWheelSegmentBlock)handler {
@@ -83,6 +81,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     [self.longPressRecognizer requireGestureRecognizerToFail:self.panGesture];
 }
 #pragma mark —— Property
+#pragma mark —— segments
 - (void)setSegments:(NSArray<LuckyWheelSegment *> *)segments {
     _segments = [segments copy];
     [self setNeedsLayout];
@@ -98,6 +97,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     });
 }
 
+#pragma mark —— colors
 - (void)setColors:(NSArray<UIColor *> *)colors {
     self.segments = jobsMakeMutArr(^(__kindof NSMutableArray<LuckyWheelSegment *> * _Nullable arr) {
         for (UIColor *color in colors) {
@@ -112,6 +112,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     });
 }
 
+#pragma mark —— panRotationEnabled
 - (void)setPanRotationEnabled:(BOOL)panRotationEnabled {
     _panRotationEnabled = panRotationEnabled;
     self.panGesture.enabled = panRotationEnabled;
@@ -490,19 +491,19 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 -(NSTimeInterval)spinDuration{
     if(!_spinDuration){
         _spinDuration = 3.0;
-    }return _spinDuration;
+    };return _spinDuration;
 }
 
 -(CGFloat)timerInterval{
     if(!_timerInterval){
         _timerInterval = 1.0 / 60.0;
-    }return _timerInterval;
+    };return _timerInterval;
 }
 
 -(CGFloat)stopThreshold{
     if(!_stopThreshold){
         _stopThreshold = 0.05;
-    }return _stopThreshold;
+    };return _stopThreshold;
 }
 
 -(NSMutableArray<CAShapeLayer *> *)sliceLayers{
@@ -510,7 +511,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
         _sliceLayers = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
 
         });
-    }return _sliceLayers;
+    };return _sliceLayers;
 }
 
 -(UIView *)plateView{
@@ -524,7 +525,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                     make.edges.equalTo(self);
                 });
         });
-    }return _plateView;
+    };return _plateView;
 }
 
 -(UIButton *)centerButton{
@@ -560,7 +561,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                 make.height.mas_equalTo(60.0);
             });
         _centerButton.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _centerButton;
+    };return _centerButton;
 }
 
 -(UIPanGestureRecognizer *)panGesture{
@@ -626,7 +627,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                     break;
             }
         });
-    }return _panGesture;
+    };return _panGesture;
 }
 
 -(UILongPressGestureRecognizer *)longPressRecognizer{
@@ -652,7 +653,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                 self.segmentLongPressHandlerInternal(segment, gesture);
             }
         }];
-    }return _longPressRecognizer;
+    };return _longPressRecognizer;
 }
 
 -(UITapGestureRecognizer *)tapRecognizer{
@@ -678,7 +679,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                 self.segmentTapHandlerInternal(segment);
             }
         }];
-    }return _tapRecognizer;
+    };return _tapRecognizer;
 }
 
 @end

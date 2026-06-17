@@ -26,7 +26,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 		
 		separator = [separatorStr dataUsingEncoding:NSUTF8StringEncoding];
 		replacementDict = dict;
-	}return self;
+	};return self;
 }
 
 - (BOOL)isChunked
@@ -46,6 +46,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 	return 0;
 }
 
+#pragma mark —— offset
 - (void)setOffset:(UInt64)offset
 {
 	// This method shouldn't be called since we're using a chunked response.

@@ -1,14 +1,12 @@
 //
 //  JobsAppDoorInputViewBaseStyle_2.m
-//  My_BaseProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/4.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "JobsAppDoorInputViewBaseStyle_2.h"
-
-#import "DefineProperty.h"
 
 @interface JobsAppDoorInputViewBaseStyle_2 ()
 /// UI
@@ -27,7 +25,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             data.jobsWidth = 1;
             data.layerCor = JobsWhiteColor;
         }));
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -38,7 +36,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             data.jobsWidth = 1;
             data.layerCor = JobsWhiteColor;
         }));
-    }return self;
+    };return self;
 }
 
 -(void)layoutSubviews{
@@ -129,7 +127,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             make.right.equalTo(self);
             make.width.mas_equalTo(80);
         }];
-    }return _imageCodeView;
+    };return _imageCodeView;
 }
 @synthesize magicTextField = _magicTextField;
 -(JobsMagicTextField *)magicTextField{
@@ -151,7 +149,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 make.right.equalTo(self.imageCodeView.mas_left);
             }];
         });
-    }return _magicTextField;
+    };return _magicTextField;
 }
 
 @end

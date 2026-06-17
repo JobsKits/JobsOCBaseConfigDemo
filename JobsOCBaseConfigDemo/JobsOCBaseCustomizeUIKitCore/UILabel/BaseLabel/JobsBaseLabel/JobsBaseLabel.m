@@ -1,13 +1,11 @@
 //
 //  JobsBaseLabel.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/20.
 //
 
 #import "JobsBaseLabel.h"
-
-#import "DefineProperty.h"
 
 @interface JobsBaseLabel ()
 /// UI
@@ -39,13 +37,13 @@ static dispatch_once_t static_baseLabelOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsClearColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.thisFrame = frame;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -67,7 +65,7 @@ static dispatch_once_t static_baseLabelOnceToken;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -90,7 +88,7 @@ static dispatch_once_t static_baseLabelOnceToken;
                 make.edges.equalTo(self);
             }];
         });
-    }return _bgImageView;
+    };return _bgImageView;
 }
 
 -(BaseLabel *)label{
@@ -112,7 +110,7 @@ static dispatch_once_t static_baseLabelOnceToken;
                 return @1;
             }];
         });
-    }return _label;
+    };return _label;
 }
 
 @end

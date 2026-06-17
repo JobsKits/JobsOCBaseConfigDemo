@@ -1,6 +1,6 @@
 //
 //  A_VC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/8.
 //
@@ -141,7 +141,7 @@ didHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
             tableView.mj_footer.hidden = NO;
             self.view.refresh();
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 @end

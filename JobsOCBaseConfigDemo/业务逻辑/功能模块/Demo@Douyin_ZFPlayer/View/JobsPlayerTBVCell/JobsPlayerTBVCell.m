@@ -1,13 +1,11 @@
 //
 //  PlayerCell.m
-//  DouYin
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/23.
 //
 
 #import "JobsPlayerTBVCell.h"
-
-#import "DefineProperty.h"
 
 @interface JobsPlayerTBVCell ()
 /// UI
@@ -39,7 +37,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
             [self.customPlayerControlView removeFromSuperview];
             self.customPlayerControlView = nil;
         }];
-    }return self;
+    };return self;
 }
 
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
@@ -49,7 +47,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
             cell = JobsPlayerTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.contentView.backgroundColor = JobsRandomColor;
-        }return cell;
+        };return cell;
     };
 }
 #pragma mark —— BaseCellProtocol
@@ -67,7 +65,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
             self.viewModel = model;
             self.label.text = [NSString stringWithFormat:@"%ld",(long)self.viewModel.row];
             self.videoModel_Core = (VideoModel_Core *)self.viewModel.data;
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— Get方法
@@ -88,7 +86,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
                 make.edges.equalTo(self.contentView);
             }];
         });
-    }return _label;
+    };return _label;
 }
 
 -(ZFAVPlayerManager *)playerManager{
@@ -100,7 +98,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
             JobsLog(@"videoIdcUrl = %@",self.videoModel_Core.videoIdcUrl);
             data.assetURL = self.videoModel_Core.videoIdcUrl.jobsUrl;
         });
-    }return _playerManager;
+    };return _playerManager;
 }
 
 -(CustomZFPlayerControlView *)customPlayerControlView{
@@ -118,7 +116,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
                 }
             }];
         });
-    }return _customPlayerControlView;
+    };return _customPlayerControlView;
 }
 
 -(ZFPlayerController *)player{
@@ -133,7 +131,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
             @jobs_strongify(self)
             [self.playerManager replay];//设置循环播放
         }];
-    }return _player;
+    };return _player;
 }
 
 -(NSMutableArray <NSURL *>*)assetURLs{
@@ -150,7 +148,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
             .add(@"http://mirror.aarnet.edu.au/pub/TED-talks/911Mothers_2010W-480p.mp4".jobsUrl)
             .add(@"https://sample-videos.com/video123/mp4/480/big_buck_bunny_480p_2mb.mp4".jobsUrl);
         });
-    }return _assetURLs;
+    };return _assetURLs;
 }
 
 @end

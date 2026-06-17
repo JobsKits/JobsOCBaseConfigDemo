@@ -1,11 +1,14 @@
 //
 //  EXTRuntimeExtensions.h
-//  extobjc
+//  JobsOCBaseConfigDemo
 //
 //  Created by Justin Spahr-Summers on 2011-03-05.
 //  Copyright (C) 2012 Justin Spahr-Summers.
 //  Released under the MIT license.
 //
+
+#ifndef RACEXTRUNTIMEEXTENSIONS_H
+#define RACEXTRUNTIMEEXTENSIONS_H
 
 #import <objc/runtime.h>
 
@@ -120,3 +123,5 @@ Method rac_getImmediateInstanceMethod (Class aClass, SEL aSelector);
  * obtaining information from \a property.
  */
 rac_propertyAttributes *rac_copyPropertyAttributes (objc_property_t property);
+
+#endif /* RACEXTRUNTIMEEXTENSIONS_H */

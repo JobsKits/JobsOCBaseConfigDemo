@@ -1,6 +1,6 @@
 //
 //  BaiShaETProjVIPVC.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/7.
 //
@@ -9,6 +9,7 @@
 #import "JXCategoryViewWithHeaderViewSubVC.h"
 #import "BaiShaETProjCollectionHeaderView.h"
 #import "JXPagerView.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<JXCategoryView/JXCategoryView.h>)
 #import <JXCategoryView/JXCategoryView.h>

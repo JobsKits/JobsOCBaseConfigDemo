@@ -1,6 +1,6 @@
 //
 //  UIColor+Other.h
-//  MataShop
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 9/16/23.
 //
@@ -67,6 +67,7 @@ NS_ASSUME_NONNULL_END
  yourView.backgroundColor = gradientColor;
  
  */
+#ifndef MacroDef_Cor_h
 NS_INLINE UIColor *_Nullable JobsLightTextCor(CGFloat alpha){
     JobsCorModel *corModel = JobsLightTextColor.hexadecimalCorStrBy();
     return [UIColor colorWithRed:corModel.red
@@ -509,5 +510,5 @@ NS_INLINE UIColor *_Nullable JobsUnderPageBackgroundCor(CGFloat alpha){
 }
 
 #pragma clang pop
-
+#endif /* MacroDef_Cor_h */
 

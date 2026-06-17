@@ -1,13 +1,11 @@
 //
 //  JobsImageStyleTBVCell.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/11/24.
 //
 
 #import "JobsImageStyleTBVCell.h"
-
-#import "DefineProperty.h"
 
 @interface JobsImageStyleTBVCell ()
 /// UI
@@ -65,7 +63,7 @@ BaseLayerProtocol_synthesize_part3
                 make.edges.equalTo(self.contentView);
             }];
         });
-    }return _backgroudImageView;
+    };return _backgroudImageView;
 }
 
 @end

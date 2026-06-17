@@ -1,16 +1,14 @@
 //
 //  NotifiViewFactory.h
-//  CoreTextLearning
+//  JobsOCBaseConfigDemo
 //
 //  Created by alan comb on 2021/4/10.
 //
 
 #import <Foundation/Foundation.h>
 #import "NotifiView.h"
-
-typedef void(^FetchNotifiViewBlock)(NotifiView *_Nullable view);
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
+#import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

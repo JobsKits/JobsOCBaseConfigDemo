@@ -1,6 +1,6 @@
 //
 //  ZFCustomControlView.h
-//  ZFPlayer_Example
+//  JobsOCBaseConfigDemo
 //
 //  Created by 紫枫 on 2019/6/5.
 //  Copyright © 2019 紫枫. All rights reserved.
@@ -15,8 +15,7 @@
 #import "ZFSpeedLoadingView.h"
 #import "ZFUtilities.h"
 #import "ZFSliderView.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

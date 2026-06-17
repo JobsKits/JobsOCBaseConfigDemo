@@ -7,8 +7,6 @@
 
 #import "CoreDataVC.h"
 
-#import "DefineProperty.h"
-
 @interface CoreDataVC ()
 
 Prop_strong()NSManagedObjectContext *context;
@@ -114,7 +112,7 @@ Prop_strong()NSManagedObjectContext *context;
     NSArray *result = [self.context executeFetchRequest:fetchRequest error:&error];
     if (error) {
         JobsLog(@"Error fetching users: %@", error);
-    }return result;
+    };return result;
 }
 /// 更新/改正 数据
 - (void)updateUser:(NSManagedObject *)user

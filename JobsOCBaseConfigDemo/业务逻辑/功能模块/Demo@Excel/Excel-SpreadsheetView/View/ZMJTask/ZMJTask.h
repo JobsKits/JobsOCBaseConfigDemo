@@ -1,14 +1,13 @@
 //
 //  ZMJTask.h
-//  ZMJGanttList
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jason on 2018/2/27.
 //  Copyright © 2018年 keshiim. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @interface ZMJTask : NSObject
 /// lol

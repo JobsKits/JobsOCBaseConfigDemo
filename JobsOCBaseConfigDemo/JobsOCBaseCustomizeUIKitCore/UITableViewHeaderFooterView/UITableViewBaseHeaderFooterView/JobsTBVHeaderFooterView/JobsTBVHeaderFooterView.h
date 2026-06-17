@@ -1,11 +1,12 @@
 //
 //  JobsTBVHeaderFooterView.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/30.
 //
 
 #import "BaseTableViewHeaderFooterView.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

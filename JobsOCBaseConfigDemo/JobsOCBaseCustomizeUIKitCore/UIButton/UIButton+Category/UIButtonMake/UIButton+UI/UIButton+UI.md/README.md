@@ -27,7 +27,7 @@
              }).onLongPressGestureBy(^(id data){
              JobsLog(@"");
          }).bgNormalLoad();
-     }return _mailBtn;
+     };return _mailBtn;
  }
 ```
 
@@ -49,7 +49,7 @@
                           }).onLongPressGestureBy(^(id data){
                               JobsLog(@"");
                           });
-     }return _valueBtn;
+     };return _valueBtn;
  }
 ```
 
@@ -77,7 +77,7 @@
              make.height.mas_equalTo(JobsWidth(16));
          });
          _usrNameBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-     }return _usrNameBtn;
+     };return _usrNameBtn;
  }
 ```
 
@@ -122,7 +122,7 @@
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
              });
-     }return _applyNowBtn;
+     };return _applyNowBtn;
  }
 ```
 
@@ -144,7 +144,7 @@
              data.jobsWidth = 1;
              data.cornerRadiusValue = JobsWidth(8);
          })));
-     }return _registerBtn;
+     };return _registerBtn;
  }
 ```
 
@@ -176,7 +176,7 @@
             make.size.mas_equalTo(CGSizeMake(JobsWidth(16), JobsWidth(16)));
             make.center.equalTo(self.contentView);
         }];
-    }return _playBtn;
+    };return _playBtn;
 }
 ```
 
@@ -238,7 +238,7 @@
            make.centerX.equalTo(self);
        }];
        _titleBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-   }return _titleBtn;
+   };return _titleBtn;
 }
 ```
 

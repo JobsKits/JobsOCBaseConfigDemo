@@ -1,13 +1,13 @@
 //
 //  ZMJChartBarCell.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/27/24.
 //
 
 #import "ZMJCell+CustomView.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<ZMJGanttChart/ZMJGanttChart.h>)
 #import <ZMJGanttChart/ZMJGanttChart.h>
 #else

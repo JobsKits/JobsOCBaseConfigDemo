@@ -1,14 +1,14 @@
 //
 //  UISwitch+UI.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/24.
 //
 
 #import <UIKit/UIKit.h>
 #import "MacroDef_Strong@Weak.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_END
                  }));
              }];
          })
-     }return _switcher;
+     };return _switcher;
  }
 
  -(UIColor *)cor{
@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_END
                                       endPoint:CGPointZero
                                         opaque:NO
                                 targetViewRect:CGRectMake(0, 0, 51, 31)];
-     }return _cor;
+     };return _cor;
  }
  
  */

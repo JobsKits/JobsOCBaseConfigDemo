@@ -1,6 +1,6 @@
 //
 //  NSObject+SPAlertController.m
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/12.
 //  Copyright © 2020 Jobs. All rights reserved.

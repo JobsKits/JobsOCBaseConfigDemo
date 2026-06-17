@@ -1,14 +1,12 @@
 //
 //  PHCycleView.m
-//  mtc_kwm
+//  JobsOCBaseConfigDemo
 //
 //  Created by 1 on 2020/11/13.
 //  Copyright © 2020 yzl. All rights reserved.
 //
 
 #import "PHCycleView.h"
-
-#import "DefineProperty.h"
 
 @interface PHCycleView()
 
@@ -27,7 +25,7 @@ Prop_strong()CAShapeLayer *insideLayer;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self drawProgress];
-    }return self;
+    };return self;
 }
 /// 核心代码
 -(CALayer*)_createLinesLayerWithFrame:(CGRect)frame
@@ -53,7 +51,7 @@ Prop_strong()CAShapeLayer *insideLayer;
                                                         radius:layerCenter.x - size.height]);
             }).CGPath;
         }));
-    }return linesLayer;
+    };return linesLayer;
 }
 
 -(CGPoint)_calcCircleCoordinateWithCenter:(CGPoint)ct
@@ -97,34 +95,41 @@ Prop_strong()CAShapeLayer *insideLayer;
     self.describeLabel.alpha = 1;
 }
 #pragma mark —— set方法
+#pragma mark —— progressColor
 - (void)setProgressColor:(UIColor *)progressColor{
     self.progressLayer.strokeColor = progressColor.CGColor;
 }
 
+#pragma mark —— progressFont
 - (void)setProgressFont:(UIFont *)progressFont{
     self.progressLabel.font = progressFont;
 }
 
+#pragma mark —— describeStr
 -(void)setDescribeStr:(NSString *)describeStr{
     _describeStr = describeStr;
     self.describeLabel.text = describeStr;
 }
 
+#pragma mark —— describeFont
 -(void)setDescribeFont:(UIFont *)describeFont{
     _describeFont = describeFont;
     self.describeLabel.font = describeFont;
 }
 
+#pragma mark —— progressTextColor
 -(void)setProgressTextColor:(UIColor *)progressTextColor{
     _progressTextColor = progressTextColor;
     self.progressLabel.textColor = progressTextColor;
 }
 
+#pragma mark —— describeTextColor
 -(void)setDescribeTextColor:(UIColor *)describeTextColor{
     _describeTextColor = describeTextColor;
     self.describeLabel.textColor = describeTextColor;
 }
 
+#pragma mark —— outLayerColor
 -(void)setOutLayerColor:(UIColor *)outLayerColor{
     _outLayerColor = outLayerColor;
     self.outLayer.strokeColor = outLayerColor.CGColor;
@@ -137,7 +142,7 @@ Prop_strong()CAShapeLayer *insideLayer;
                                                   startAngle:-M_PI_2
                                                     endAngle:M_PI * 3.0 / 2.0
                                                    clockwise:YES];
-    }return _outsidePath;
+    };return _outsidePath;
 }
 
 -(UIBezierPath *)insidePath{
@@ -147,7 +152,7 @@ Prop_strong()CAShapeLayer *insideLayer;
                                                  startAngle:-M_PI_2
                                                    endAngle:M_PI * 3.0 / 2.0
                                                   clockwise:YES];
-    }return _insidePath;
+    };return _insidePath;
 }
 
 -(CAShapeLayer *)insideLayer{
@@ -161,7 +166,7 @@ Prop_strong()CAShapeLayer *insideLayer;
             layer.path = self.insidePath.CGPath;
             self.layer.addSublayer(layer);
         });
-    }return _insideLayer;
+    };return _insideLayer;
 }
 /// 外圈
 -(CAShapeLayer *)outLayer{
@@ -177,7 +182,7 @@ Prop_strong()CAShapeLayer *insideLayer;
             layer.strokeEnd = 1;
             self.layer.addSublayer(layer);
         });
-    }return _outLayer;
+    };return _outLayer;
 }
 /// 进度条
 -(CAShapeLayer *)progressLayer{
@@ -191,7 +196,7 @@ Prop_strong()CAShapeLayer *insideLayer;
             layer.path = self.outsidePath.CGPath;
             self.layer.addSublayer(layer);
         });
-    }return _progressLayer;
+    };return _progressLayer;
 }
 /// 进度Label
 -(UILabel *)progressLabel{
@@ -204,7 +209,7 @@ Prop_strong()CAShapeLayer *insideLayer;
             label.textAlignment = NSTextAlignmentCenter;
             self.addSubview(label);
         });
-    }return _progressLabel;
+    };return _progressLabel;
 }
 /// 描述Label
 -(UILabel *)describeLabel{
@@ -217,7 +222,7 @@ Prop_strong()CAShapeLayer *insideLayer;
             label.textAlignment = NSTextAlignmentCenter;
             self.addSubview(label);
         });
-    }return _describeLabel;
+    };return _describeLabel;
 }
 
 @end

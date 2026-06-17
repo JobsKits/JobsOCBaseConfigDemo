@@ -1,6 +1,6 @@
 //
 //  UICollectionViewCell+UICollectionViewCellProtocol.h
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/3/11.
 //
@@ -9,7 +9,7 @@
 #import "MacroDef_Func.h"
 #import "JobsMakes.h"
 #import "UIBezierPath+Extras.h"
-#import "JobsDefineAllEnumHeader.h"
+#import "JobsDefineEnums.h"
 #import "UICollectionViewCellProtocol.h"
 #import "CALayer+Extra.h"
 

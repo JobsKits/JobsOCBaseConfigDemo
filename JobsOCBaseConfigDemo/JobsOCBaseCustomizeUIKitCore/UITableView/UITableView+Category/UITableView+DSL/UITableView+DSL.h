@@ -2,11 +2,15 @@
 //  UITableView+DSL.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Mac on 11/3/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UITABLEVIEW_DSL_07F87BFB47
+#define JOBS_HEADER_GUARD_UITABLEVIEW_DSL_07F87BFB47
 
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,11 +18,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(JobsRetTableViewByDataSourceBlock _Nonnull)byDataSource;
 -(JobsRetTableViewByDelegateBlock _Nonnull)byDelegate;
+-(JobsRetTableViewByIDBlock _Nonnull)byTarget;
 -(JobsRetTableViewByDataSourcePrefetchingBlock _Nonnull)byPrefetchDataSource;
 -(JobsRetTableViewByBOOLBlock _Nonnull)byPrefetchingEnabled;
 -(JobsRetTableViewByDragDelegateBlock _Nonnull)byDragDelegate;
 -(JobsRetTableViewByDropDelegateBlock _Nonnull)byDropDelegate;
-#pragma mark - Heights & Estimations
+/// 非正式协议 Block 化
+-(JobsRetTableViewByNumberOfSectionsConfigBlock _Nonnull)byNumberOfSections;
+-(JobsRetTableViewByNumberOfRowsInSectionConfigBlock _Nonnull)byNumberOfRowsInSection;
+-(JobsRetTableViewByCellForRowAtConfigBlock _Nonnull)cellForRowAt;
+-(JobsRetTableViewByDidSelectRowAtConfigBlock _Nonnull)didSelectRowAt;
+#pragma mark —— Heights & Estimations
 -(JobsRetTableViewByCGFloatBlock _Nonnull)byRowHeight;
 -(JobsRetTableViewByCGFloatBlock _Nonnull)bySectionHeaderHeight;
 -(JobsRetTableViewByCGFloatBlock _Nonnull)bySectionFooterHeight;
@@ -27,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetTableViewByCGFloatBlock _Nonnull)byEstimatedSectionFooterHeight;
 -(JobsRetTableViewByCGFloatBlock _Nonnull)byFillerRowHeight;
 -(JobsRetTableViewByCGFloatBlock _Nonnull)bySectionHeaderTopPadding;
-#pragma mark - Separators & Insets
+#pragma mark —— Separators & Insets
 -(JobsRetTableViewByEdgeInsetsBlock _Nonnull)bySeparatorInset;
 -(JobsRetTableViewByNSIntegerBlock _Nonnull)bySeparatorInsetReference;
 -(JobsRetTableViewByNSIntegerBlock _Nonnull)bySeparatorStyle;
@@ -63,10 +73,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetTableViewByBOOLBlock _Nonnull)byDragInteractionEnabled;
 #pragma mark —— Content Hugging Elements (iOS 18+)
 #if defined(__IPHONE_18_0) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_18_0)
-- (JobsRetTableViewByNSIntegerBlock _Nonnull)byContentHuggingElements
+-(JobsRetTableViewByNSIntegerBlock _Nonnull)byContentHuggingElements
     API_AVAILABLE(ios(18.0), tvos(18.0), visionos(2.0)) API_UNAVAILABLE(watchos);
 #endif
 
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UITABLEVIEW_DSL_07F87BFB47 */

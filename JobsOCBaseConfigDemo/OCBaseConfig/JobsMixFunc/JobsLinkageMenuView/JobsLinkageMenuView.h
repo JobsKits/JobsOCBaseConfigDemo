@@ -1,6 +1,6 @@
 //
 //  LinkageMenuView.h
-//  LinkageMenu
+//  JobsOCBaseConfigDemo
 //
 //  Created by 风间 on 2017/3/8.
 //  Copyright © 2017年 EmotionV. All rights reserved.
@@ -12,7 +12,7 @@
 
 @class JobsLinkageMenuViewConfig;
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @interface JobsLinkageMenuView : BaseView
 

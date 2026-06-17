@@ -1,13 +1,11 @@
 //
 //  UIGestureRecognizer+Extra.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 4/11/2024.
 //
 
 #import "UIGestureRecognizer+Extra.h"
-
-#import "DefineProperty.h"
 
 @implementation UIGestureRecognizer (Extra)
 

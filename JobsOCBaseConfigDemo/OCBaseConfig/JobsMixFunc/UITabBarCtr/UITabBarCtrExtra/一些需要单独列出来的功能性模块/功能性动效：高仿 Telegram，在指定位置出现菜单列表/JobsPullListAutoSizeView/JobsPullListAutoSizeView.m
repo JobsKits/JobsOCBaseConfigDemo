@@ -1,13 +1,11 @@
 //
 //  JobsPullListAutoSizeView.m
-//  TabbarItemLottie
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/15.
 //
 
 #import "JobsPullListAutoSizeView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsPullListAutoSizeView ()
 /// UI
@@ -33,7 +31,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
             if ([subview isKindOfClass:JobsPullListAutoSizeView.class]) {
                 jobsPullListAutoSizeView = (JobsPullListAutoSizeView *)subview;
             }
-        }return jobsPullListAutoSizeView;
+        };return jobsPullListAutoSizeView;
     };
     
     JobsPullListAutoSizeView *view = checkMainWindowExistSelf();
@@ -42,7 +40,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
     }else{
         view = [JobsPullListAutoSizeView.alloc initWithTargetView:targetView
                                                        dataMutArr:dataMutArr];
-    }return view;
+    };return view;
 }
 
 - (instancetype)initWithTargetView:(UIView *__nonnull)targetView
@@ -51,7 +49,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
         self.targetView = targetView;
         self.dataMutArr = (NSMutableArray *)dataMutArr;
         [self makeUI];
-    }return self;
+    };return self;
 }
 
 -(void)makeUI{
@@ -116,31 +114,31 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                 self.listTbVWidth, // 相对固定
                                     tableviewHeight));  // 相对固定
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(CGFloat)listTbVWidth{
     if (_listTbVWidth == 0) {
         _listTbVWidth = JobsWidth(100);
-    }return _listTbVWidth;
+    };return _listTbVWidth;
 }
 
 -(CGFloat)listTbVCellHeight{
     if (_listTbVCellHeight == 0) {
         _listTbVCellHeight = JobsWidth(50);
-    }return _listTbVCellHeight;
+    };return _listTbVCellHeight;
 }
 
 -(CGFloat)listTbVOffset{
     if (_listTbVOffset == 0) {
         _listTbVOffset = JobsWidth(10);
-    }return _listTbVOffset;
+    };return _listTbVOffset;
 }
 
 -(UIColor *)bgColorListTBV{
     if (!_bgColorListTBV) {
         _bgColorListTBV = JobsWhiteColor;
-    }return _bgColorListTBV;
+    };return _bgColorListTBV;
 }
 
 @end

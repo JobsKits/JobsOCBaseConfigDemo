@@ -6,7 +6,7 @@
 //
 
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "MacroDef_Cor.h"
 
 NS_ASSUME_NONNULL_BEGIN

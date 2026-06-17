@@ -1,13 +1,11 @@
 //
 //  JobsScale.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Mac on 9/22/25.
 //
 
 #import "JobsScale.h"
-
-#import "DefineProperty.h"
 
 @interface JobsScale : NSObject
 

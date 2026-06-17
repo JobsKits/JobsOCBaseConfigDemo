@@ -1,13 +1,13 @@
 //
 //  BaseUploadFileRequest.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 5/12/2024.
 //
 
 #import "BaseRequest.h"
 #import "JobsFileModel.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "JobsBlock.h"
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
@@ -18,12 +18,8 @@
 
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFNetworking.h>
-#elif __has_include("AFNetworking.h")
-#import "AFNetworking.h"
-#elif __has_include("AFNetworking-umbrella.h")
-#import "AFNetworking-umbrella.h"
 #else
-#error "AFNetworking header not found"
+#import "AFNetworking.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

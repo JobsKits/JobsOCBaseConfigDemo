@@ -1,13 +1,11 @@
 //
 //  JobsAppDoorInputViewBaseStyle_9.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/11.
 //
 
 #import "JobsAppDoorInputViewBaseStyle_9.h"
-
-#import "DefineProperty.h"
 
 @interface JobsAppDoorInputViewBaseStyle_9 ()
 /// UI
@@ -32,7 +30,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             data.layerCor = JobsWhiteColor;
             data.cornerRadiusValue = 1;
         }));
-    }return self;
+    };return self;
 }
 
 -(void)layoutSubviews{
@@ -128,7 +126,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             make.bottom.equalTo(self).offset(-JobsWidth(8));
             make.width.mas_equalTo(self.countDownBtnWidth);
         }];
-    }return _countDownBtn;
+    };return _countDownBtn;
 }
 @synthesize zyTextField = _zyTextField;
 -(ZYTextField *)zyTextField{
@@ -148,7 +146,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             make.top.left.bottom.equalTo(self);
 //            make.right.equalTo(self.countDownBtn.mas_left);
         }];
-    }return _zyTextField;
+    };return _zyTextField;
 }
 
 @end

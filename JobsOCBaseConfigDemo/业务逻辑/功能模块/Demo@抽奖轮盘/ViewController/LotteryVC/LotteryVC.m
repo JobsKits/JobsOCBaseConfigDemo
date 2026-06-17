@@ -7,8 +7,6 @@
 
 #import "LotteryVC.h"
 
-#import "DefineProperty.h"
-
 @interface LotteryVC ()
 /// Data
 Prop_strong()NSMutableArray <__kindof UITableViewCell *>*tbvSectionRowCellMutArr;
@@ -153,7 +151,7 @@ viewForHeaderInSection:(NSInteger)section{
             .JobsBlock1(^(id _Nullable data) {
                 
             });
-    }return nil;
+    };return nil;
 }
 /// 这里涉及到复用机制，return出去的是UITableViewHeaderFooterView的派生类
 /// tableView.registerHeaderFooterViewClass(BaseTableViewHeaderFooterView.class,@"");
@@ -177,7 +175,7 @@ viewForHeaderInSection:(NSInteger)section{
         /// 只有 tbvFooterView.backgroundView.backgroundColor 是有效操作✅
         tbvFooterView.contentView.byBgColor(HEXCOLOR(0xEAEBED));
         return tbvFooterView;
-    }return nil;
+    };return nil;
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -241,7 +239,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             make.left.right.bottom.equalTo(self.view);
             [self make:make topOffset:10];
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 
@@ -253,7 +251,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             data.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView))
             .add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
         });
-    }return _tbvSectionRowCellMutArr;
+    };return _tbvSectionRowCellMutArr;
 }
 
 -(NSMutableArray<__kindof UIViewModel *> *)dataMutArr{
@@ -270,7 +268,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 model.cls = LuckyWheelDemoVC.class;
             })));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

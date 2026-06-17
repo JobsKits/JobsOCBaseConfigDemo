@@ -12,7 +12,7 @@
 	if ((self = [super init]))
 	{
 		message = CFHTTPMessageCreateEmpty(NULL, YES);
-	}return self;
+	};return self;
 }
 
 - (id)initRequestWithMethod:(NSString *)method URL:(NSURL *)url version:(NSString *)version
@@ -23,7 +23,7 @@
 		                                    (__bridge CFStringRef)method,
 		                                    (__bridge CFURLRef)url,
 		                                    (__bridge CFStringRef)version);
-	}return self;
+	};return self;
 }
 
 - (id)initResponseWithStatusCode:(NSInteger)code description:(NSString *)description version:(NSString *)version
@@ -34,7 +34,7 @@
 		                                      (CFIndex)code,
 		                                      (__bridge CFStringRef)description,
 		                                      (__bridge CFStringRef)version);
-	}return self;
+	};return self;
 }
 
 - (void)dealloc
@@ -85,6 +85,7 @@
 	return (__bridge_transfer NSString *)CFHTTPMessageCopyHeaderFieldValue(message, (__bridge CFStringRef)headerField);
 }
 
+#pragma mark —— headerField
 - (void)setHeaderField:(NSString *)headerField value:(NSString *)headerFieldValue
 {
 	CFHTTPMessageSetHeaderFieldValue(message,
@@ -102,6 +103,7 @@
 	return (__bridge_transfer NSData *)CFHTTPMessageCopyBody(message);
 }
 
+#pragma mark —— body
 - (void)setBody:(NSData *)body
 {
 	CFHTTPMessageSetBody(message, (__bridge CFDataRef)body);

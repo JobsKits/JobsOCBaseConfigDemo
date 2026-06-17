@@ -1,6 +1,6 @@
 //
 //  ThreeClassCell.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/15.
 //
@@ -13,8 +13,7 @@
 #import "JobsBaseCollectionViewCell.h"
 #import "FMMaintenanceView.h"
 #import "GoodsClassModel.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 这个类用于计算，不用于显示

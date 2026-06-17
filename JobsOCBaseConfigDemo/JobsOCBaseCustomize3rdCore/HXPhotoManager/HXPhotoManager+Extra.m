@@ -1,6 +1,6 @@
 //
 //  HXPhotoManager+Extra.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 7/12/2024.
 //

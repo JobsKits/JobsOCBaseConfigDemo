@@ -1,13 +1,11 @@
 //
 //  BaseContentView.m
-//  JobsAppDoor
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/7.
 //
 
 #import "BaseContentView.h"
-
-#import "DefineProperty.h"
 
 @interface BaseContentView ()
 
@@ -20,7 +18,7 @@ Prop_assign()CGRect initialContentViewRect;// 登录框 初始frame值
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{

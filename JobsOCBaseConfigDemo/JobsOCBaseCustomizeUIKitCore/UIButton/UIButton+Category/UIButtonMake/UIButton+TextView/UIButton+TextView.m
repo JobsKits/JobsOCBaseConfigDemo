@@ -1,13 +1,11 @@
 //
 //  UIButton+TextView.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 10/12/2024.
 //
 
 #import "UIButton+TextView.h"
-
-#import "DefineProperty.h"
 
 @implementation UIButton (TextView)
 #pragma mark —— 一些私有方法
@@ -53,7 +51,7 @@ JobsKey(_titleTextView)
 //            textView.linkTextAttributes = self.makeLinkTextAttributes;
             self.configTextView(textView);
           });Jobs_setAssociatedRETAIN_NONATOMIC(_titleTextView, textView);
-    }return textView;
+    };return textView;
 }
 
 -(void)setTitleTextView:(UITextView *)titleTextView{
@@ -71,7 +69,7 @@ JobsKey(_subtitleTextView)
             textView.frame = self.titleLabel.frame;
             self.configTextView(textView);
           });Jobs_setAssociatedRETAIN_NONATOMIC(_subtitleTextView, textView);
-    }return textView;
+    };return textView;
 }
 
 -(void)setSubtitleTextView:(UITextView *)subtitleTextView{

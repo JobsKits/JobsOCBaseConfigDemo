@@ -41,7 +41,7 @@
                 [self.inputViewMutArr addObject:inputView];
             }
             
-        }return _inputViewMutArr;
+        };return _inputViewMutArr;
     }
 
 ```

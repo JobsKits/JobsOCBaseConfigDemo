@@ -1,6 +1,6 @@
 //
 //  NSCache+Extra.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/9.
 //
@@ -23,7 +23,7 @@
         }
         // 将大小转化为M
         return size / 1024.0 / 1024.0;
-    }return 0;
+    };return 0;
 }
 /// 计算全部缓存文件大小
 +(CGFloat)calcCacheSize{

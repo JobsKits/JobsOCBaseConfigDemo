@@ -1,6 +1,6 @@
 //
 //  JobsIMVC.h
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/10.
 //
@@ -12,6 +12,7 @@
 #import "JobsIMChatInfoModel.h"
 #import "JobsTimeModel.h"
 #import "BaseViewController.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<MGSwipeTableCell/MGSwipeTableCell.h>)
 #import <MGSwipeTableCell/MGSwipeTableCell.h>

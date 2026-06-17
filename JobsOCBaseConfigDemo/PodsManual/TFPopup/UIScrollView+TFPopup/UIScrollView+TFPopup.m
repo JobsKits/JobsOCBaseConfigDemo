@@ -1,6 +1,6 @@
 //
 //  UIScrollView+TFPopup.m
-//  TFPopupDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by zhutaofeng on 2019/8/15.
 //  Copyright © 2019 ztf. All rights reserved.
@@ -9,7 +9,6 @@
 #import "UIScrollView+TFPopup.h"
 #import "UIView+TFPopup.h"
 @implementation UIScrollView (TFPopup)
-@dynamic faterPopupView;
 
 +(void)load{
     static dispatch_once_t onceToken;

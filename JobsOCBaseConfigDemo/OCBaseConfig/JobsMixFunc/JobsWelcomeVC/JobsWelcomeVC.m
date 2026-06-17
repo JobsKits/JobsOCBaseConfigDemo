@@ -1,13 +1,11 @@
 //
 //  JobsWelcomeVC.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/15.
 //
 
 #import "JobsWelcomeVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsWelcomeVC ()
 // UI
@@ -113,7 +111,7 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
             make.centerX.offset(0);
             make.bottom.offset(-JobsWidth(60));
         }];
-    }return _pageControl;
+    };return _pageControl;
 }
 /// BaseViewProtocol
 @synthesize scrollView = _scrollView;
@@ -128,7 +126,7 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         [self.view addSubview:_scrollView];
-    }return _scrollView;
+    };return _scrollView;
 }
 
 -(NSMutableArray<NSString *> *)dataMutArr{
@@ -137,7 +135,7 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
         [_dataMutArr addObject:@"https://b-ssl.duitang.com/uploads/item/201503/25/20150325184145_SBu3J.jpeg"];
         [_dataMutArr addObject:@"https://b-ssl.duitang.com/uploads/item/201503/25/20150325184145_SBu3J.jpeg"];
         [_dataMutArr addObject:@"https://b-ssl.duitang.com/uploads/item/201503/25/20150325184145_SBu3J.jpeg"];
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

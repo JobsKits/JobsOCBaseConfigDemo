@@ -1,13 +1,11 @@
 //
 //  LeftCell.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/15.
 //
 
 #import "LeftCell.h"
-
-#import "DefineProperty.h"
 
 @interface LeftCell()
 /// UI
@@ -55,7 +53,7 @@ UITextFieldProtocol_synthesize_part2
               reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]){
-    }return self;
+    };return self;
 }
 
 -(void)layoutSubviews{
@@ -73,6 +71,8 @@ UITextFieldProtocol_synthesize_part2
     }
 }
 
+#pragma mark —— selected
+@dynamic selected;
 - (void)setSelected:(BOOL)selected
            animated:(BOOL)animated{
     [super setSelected:selected
@@ -90,6 +90,8 @@ UITextFieldProtocol_synthesize_part2
     }
 }
 
+#pragma mark —— highlighted
+@dynamic highlighted;
 - (void)setHighlighted:(BOOL)highlighted
               animated:(BOOL)animated{
     if (highlighted){
@@ -134,7 +136,7 @@ UITextFieldProtocol_synthesize_part2
             view.backgroundColor = HEXCOLOR(0xFCFBFB);
             self.contentView.addSubview(view);
         });
-    }return _flagView;
+    };return _flagView;
 }
 
 @end

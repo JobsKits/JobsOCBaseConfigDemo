@@ -1,6 +1,6 @@
 //
 //  GXCardView.h
-//  GXCardViewDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Gin on 2018/7/31.
 //  Copyright © 2018年 gin. All rights reserved.
@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger,GXCardCellSwipeDirection) {
     GXCardCellSwipeDirectionRight,
 };
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

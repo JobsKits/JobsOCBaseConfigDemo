@@ -1,14 +1,12 @@
 //
 //  XDTextBtnView.m
-//  文字按钮
+//  JobsOCBaseConfigDemo
 //
 //  Created by XD on 2019/6/10.
 //  Copyright © 2019 XDTextBtnView. All rights reserved.
 //
 
 #import "XDTextBtnView.h"
-
-#import "DefineProperty.h"
 
 @interface XDTextBtnView ()
 
@@ -40,24 +38,28 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
         self.isSingle = YES;
         
         self.selectArr = [NSMutableArray array];
-    }return self;
+    };return self;
 }
 
+#pragma mark —— borderWidth
 - (void)setBorderWidth:(CGFloat)borderWidth
 {
     _borderWidth = borderWidth;
 }
 
+#pragma mark —— btnHeight
 - (void)setBtnHeight:(CGFloat)btnHeight
 {
     _btnHeight = btnHeight;
 }
 
+#pragma mark —— marginX
 - (void)setMarginX:(CGFloat)marginX
 {
     _marginX = marginX;
 }
 
+#pragma mark —— textArr
 - (void)setTextArr:(NSArray<NSString *> *)textArr
 {
     _textArr = textArr;
@@ -113,6 +115,7 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
 
 }
 
+#pragma mark —— defultIndexArr
 - (void)setDefultIndexArr:(NSArray<NSString *> *)defultIndexArr
 {
     _defultIndexArr = defultIndexArr;

@@ -109,7 +109,7 @@
     NSMutableArray *users = NSMutableArray.array;
     for (User_Realm *user in results) {
         [users addObject:user];
-    }return users;
+    };return users;
 }
 /// 更新/改正 数据
 - (void)updateUser:(User_Realm *)user

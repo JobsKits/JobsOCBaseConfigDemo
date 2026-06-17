@@ -1,6 +1,6 @@
 //
 //  3rd.h
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -17,5 +17,7 @@
 #import "GTCaptcha4ResultModel.h"
 #import "SPAlertControllerConfig.h"
 #import "SYSAlertControllerConfig.h"
+#import "BRStringPickerViewModel.h"
+#import "BRTextModel.h"
 
 #endif /* _3rd_h */

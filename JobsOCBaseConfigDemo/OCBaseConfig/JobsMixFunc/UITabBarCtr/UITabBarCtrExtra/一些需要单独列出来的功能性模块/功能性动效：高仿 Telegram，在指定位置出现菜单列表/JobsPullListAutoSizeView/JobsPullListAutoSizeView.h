@@ -1,6 +1,6 @@
 //
 //  JobsPullListAutoSizeView.h
-//  TabbarItemLottie
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/15.
 //
@@ -10,7 +10,7 @@
 #import "BaseView.h"
 #import "JobsPullListTBVCell.h"
 #import "UIView+Extras.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,14 +1,12 @@
 //
 //  JobsExcelView.m
-//  JobsExcelView
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 17/6/16.
 //  Copyright © 2017年 Mephsito. All rights reserved.
 //  特别鸣谢 https://github.com/Mephsito23/iOS-Excel-
 
 #import "JobsExcelView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsExcelView()
 /// UI
@@ -29,7 +27,7 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -43,7 +41,7 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(JobsRetViewByIDBlock _Nonnull)JobsRichViewByModel{
@@ -99,7 +97,7 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
                 make.height.mas_equalTo(self.excelConfigureDatas.itemH);
             }];
         });
-    }return _bgImageView;
+    };return _bgImageView;
 }
 
 -(BaseButton *)titleBtn{
@@ -112,7 +110,7 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
             make.width.mas_equalTo(itemW);
             make.height.mas_equalTo(self.excelConfigureDatas.itemH);
         }];
-    }return _titleBtn;
+    };return _titleBtn;
 }
 
 - (JobsExcelLeftListView *)leftListView{
@@ -133,7 +131,7 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
             @jobs_strongify(self)
             self.contentView.tableView.contentOffset = scrollValue.CGPointValue;
         }];
-    }return _leftListView;
+    };return _leftListView;
 }
 
 -(JobsExcelTopHeadView *)headView{
@@ -153,7 +151,7 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
             @jobs_strongify(self)
             self.contentView.configureContentOffSet([x CGPointValue]);
         }];
-    }return _headView;
+    };return _headView;
 }
 
 -(JobsExcelContentView *)contentView{
@@ -176,7 +174,7 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
             @jobs_strongify(self)
             self.headView.collectionView.contentOffset = value.CGPointValue;
         }];
-    }return _contentView;
+    };return _contentView;
 }
 
 -(JobsExcelConfigureViewModel *)excelConfigureDatas{
@@ -184,7 +182,7 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
         _excelConfigureDatas = jobsMakeExcelConfigureViewModel(^(JobsExcelConfigureViewModel * _Nullable data) {
             
         });
-    }return _excelConfigureDatas;
+    };return _excelConfigureDatas;
 }
 
 @end

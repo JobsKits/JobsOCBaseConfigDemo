@@ -1,13 +1,11 @@
 //
 //  NSObject+NTESVerifyCodeManager.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/2/24.
 //
 
 #import "NSObject+NTESVerifyCodeManager.h"
-
-#import "DefineProperty.h"
 
 @implementation NSObject (NTESVerifyCodeManager)
 #pragma mark —— BaseProtocol
@@ -102,7 +100,7 @@ JobsKey(_verifyCodeManager)
         VerifyCodeManager.closeButtonHidden = NO;
         
         Jobs_setAssociatedRETAIN_NONATOMIC(_verifyCodeManager, VerifyCodeManager)
-    }return VerifyCodeManager;
+    };return VerifyCodeManager;
 }
 
 -(void)setVerifyCodeManager:(NTESVerifyCodeManager *)verifyCodeManager{
@@ -126,7 +124,7 @@ JobsKey(_verifyCodeStyleConfig)
         VerifyCodeStyleConfig.executeBorderRadius = 10;
         VerifyCodeStyleConfig.executeBackground = @"#DC143C";
         Jobs_setAssociatedRETAIN_NONATOMIC(_verifyCodeStyleConfig, VerifyCodeStyleConfig)
-    }return VerifyCodeStyleConfig;
+    };return VerifyCodeStyleConfig;
 }
 
 -(void)setVerifyCodeStyleConfig:(NTESVerifyCodeStyleConfig *)verifyCodeStyleConfig{

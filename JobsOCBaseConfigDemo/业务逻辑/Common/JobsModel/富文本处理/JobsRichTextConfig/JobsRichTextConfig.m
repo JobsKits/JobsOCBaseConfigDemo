@@ -1,6 +1,6 @@
 //
 //  JobsRichTextConfig.m
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -23,13 +23,13 @@
             /// 调整全部文字的缩进像素
             data.headIndent = JobsWidth(10);
         });
-    }return _paragraphStyle;
+    };return _paragraphStyle;
 }
 
 -(NSString *)urlStr{
     if (!_urlStr) {
 //        _urlStr = @"www.google.com";
-    }return _urlStr;
+    };return _urlStr;
 }
 
 @end

@@ -1,6 +1,6 @@
 //
 //  PopUpVC.m
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/7/6.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -21,7 +21,7 @@
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -48,7 +48,7 @@
 -(CGFloat)popUpHeight{
     if (_popUpHeight == 0) {
         _popUpHeight = 200;//默认弹出高度300
-    }return _popUpHeight;
+    };return _popUpHeight;
 }
 
 @end

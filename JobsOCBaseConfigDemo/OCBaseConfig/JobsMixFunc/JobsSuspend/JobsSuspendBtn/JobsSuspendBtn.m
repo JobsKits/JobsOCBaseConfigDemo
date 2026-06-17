@@ -1,6 +1,6 @@
 //
 //  JobsSuspendBtn.m
-//  Search
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/8/13.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -21,7 +21,7 @@ BaseViewProtocol_synthesize
             JobsLog(@"Hello Jobs");
         }];
         self.cornerCutToCircleWithCornerRadius(JobsWidth(8));
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -29,6 +29,8 @@ BaseViewProtocol_synthesize
     self.panRcognize.enabled = self.isAllowDrag;// 关键代码
 }
 #pragma mark —— 复写父类方法
+#pragma mark —— selected
+@dynamic selected;
 -(void)setSelected:(BOOL)selected{
     [super setSelected:selected];
 }

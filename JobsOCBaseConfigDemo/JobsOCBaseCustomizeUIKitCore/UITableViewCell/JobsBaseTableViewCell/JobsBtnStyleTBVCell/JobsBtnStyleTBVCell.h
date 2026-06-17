@@ -1,13 +1,13 @@
 //
 //  JobsBtnStyleTBVCell.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/11/24.
 //
 
 #import "JobsBaseTableViewCell.h"
 #import "BaseButtonProtocol.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "JobsBlock.h"
 #import "UIButton+UI.h"
 #import "UIButton+SimplyMake.h"

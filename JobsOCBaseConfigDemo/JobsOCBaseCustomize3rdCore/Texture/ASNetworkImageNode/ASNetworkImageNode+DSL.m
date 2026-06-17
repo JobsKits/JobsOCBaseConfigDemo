@@ -2,7 +2,7 @@
 //  ASNetworkImageNode+DSL.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Mac on 11/6/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "ASNetworkImageNode+DSL.h"
@@ -10,23 +10,24 @@
 @implementation ASNetworkImageNode (DSL) 
 
 -(instancetype)byInitWithCache:(id<ASImageCacheProtocol> _Nullable)cache
-                    downloader:(id<ASImageDownloaderProtocol>)downloader {
-    if (!downloader) { return self; }
+                    downloader:(id<ASImageDownloaderProtocol>)downloader{
+    if (!downloader){ return self; }
     // 重新指定初始化：由于 ASNetworkImageNode 的 designated initializer 不同，
     // 这里采用“就地替换”的方式重建实例（常见于 DSL 里让代码显式可读）。
     return [(ASNetworkImageNode *)ASNetworkImageNode.alloc initWithCache:cache downloader:downloader];
 }
 
--(instancetype)bySetURL:(NSURL * _Nullable)url resetToDefault:(BOOL)reset {
+-(instancetype)bySetURL:(NSURL * _Nullable)url resetToDefault:(BOOL)reset{
     [self setURL:url resetToDefault:reset];
     return self;
 }
 
-+(jobsByBOOLBlock _Nonnull)byUseMainThreadDelegateCallbacks{
++(JobsRetClassByBOOLBlock _Nonnull)byUseMainThreadDelegateCallbacks{
     @jobs_weakify(self)
-    return ^(BOOL on){
+    return ^Class _Nullable(BOOL on){
         @jobs_strongify(self)
         self.useMainThreadDelegateCallbacks = on;
+        return self;
     };
 }
 
@@ -95,8 +96,16 @@
     };
 }
 
--(CGFloat)by_currentImageQuality { return self.currentImageQuality; }
--(CGFloat)by_renderedImageQuality { return self.renderedImageQuality; }
--(CGFloat)by_downloadProgress    { return self.downloadProgress; }
+-(CGFloat)by_currentImageQuality{
+    return self.currentImageQuality;
+}
+
+-(CGFloat)by_renderedImageQuality{
+    return self.renderedImageQuality;
+}
+
+-(CGFloat)by_downloadProgress{
+    return self.downloadProgress;
+}
 
 @end

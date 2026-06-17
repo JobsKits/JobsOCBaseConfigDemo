@@ -1,6 +1,6 @@
 //
 //  SHA-384.h
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/14.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -14,5 +14,5 @@ NS_INLINE NSString *SHA_384(NSString *string){
     NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA384_DIGEST_LENGTH * 2];
     for(int i = 0; i < CC_SHA384_DIGEST_LENGTH; i++){
         [output appendFormat:@"%02x", digest[i]];
-    }return output;
+    };return output;
 }

@@ -1,6 +1,6 @@
 //
 //  LandscapeSwitchVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 6/29/24.
 //
@@ -8,6 +8,7 @@
 #import "BaseViewController.h"
 #import "NSObject+Extras.h"
 #import "MacroDef_SysWarning.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

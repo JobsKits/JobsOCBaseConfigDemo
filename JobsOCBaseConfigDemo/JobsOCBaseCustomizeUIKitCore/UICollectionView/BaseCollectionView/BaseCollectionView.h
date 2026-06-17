@@ -1,6 +1,6 @@
 //
 //  CollectionView.h
-//  My_BaseProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/31.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /**
@@ -17,7 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface BaseCollectionView : UICollectionView
 
+Prop_assign()UIRectCorner layoutSubviewsRectCorner;
+Prop_assign()CGSize layoutSubviewsRectCornerSize;
+
 @end
 
 NS_ASSUME_NONNULL_END
-

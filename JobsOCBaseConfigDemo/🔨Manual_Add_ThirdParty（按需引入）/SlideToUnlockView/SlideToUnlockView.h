@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "JobsBlock.h"
 
 #if __has_include(<Masonry/Masonry.h>)

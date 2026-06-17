@@ -7,8 +7,6 @@
 
 #import "JobsClockView.h"
 
-#import "DefineProperty.h"
-
 @interface JobsClockView ()
 /// 外圈表盘
 Prop_strong() CAShapeLayer *dialLayer;
@@ -39,7 +37,7 @@ Prop_strong() JobsTimer *timer;
         [self setupDialLayers];
         [self setupNumberLabels];
         [self setupHandLayers];
-    }return self;
+    };return self;
 }
 
 #pragma mark - Setup

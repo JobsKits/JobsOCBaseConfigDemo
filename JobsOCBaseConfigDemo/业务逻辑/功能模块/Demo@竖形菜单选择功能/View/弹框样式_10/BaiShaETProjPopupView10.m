@@ -1,13 +1,11 @@
 //
 //  BaiShaETProjPopupView10.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/16.
 //
 
 #import "BaiShaETProjPopupView10.h"
-
-#import "DefineProperty.h"
 
 @interface BaiShaETProjPopupView10 ()
 /// UI
@@ -43,7 +41,7 @@ static dispatch_once_t static_popupView10OnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsClearColor;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -301,7 +299,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
                         /// 取消移动
                         [popupView.collectionView cancelInteractiveMovement];
                         break;
-                }return nil;
+                };return nil;
             }];
             _collectionView.longPressGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
             _collectionView.tapGR_SelImp.selector = [self jobsSelectorBlock:^id _Nullable(id  _Nullable weakSelf,
@@ -312,7 +310,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
                 return nil;
             }];_collectionView.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
         }
-    }return _collectionView;
+    };return _collectionView;
 }
 
 -(UILabel *)titleLab{
@@ -333,7 +331,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
             [label appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
                                                  cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(BaseButton *)closeBtn{
@@ -354,7 +352,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
             make.centerY.equalTo(self.titleLab);
             make.right.equalTo(self.titleLab.mas_right).offset(JobsWidth(-25.12));
         }];
-    }return _closeBtn;
+    };return _closeBtn;
 }
 
 -(BaseButton *)cancelBtn{
@@ -379,7 +377,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
             make.left.equalTo(self).offset(JobsWidth(24));
             make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(40)));
         }];
-    }return _cancelBtn;
+    };return _cancelBtn;
 }
 
 -(BaseButton *)sureBtn{
@@ -404,7 +402,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
             make.right.equalTo(self).offset(JobsWidth(-24));
             make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(40)));
         }];
-    }return _sureBtn;
+    };return _sureBtn;
 }
 
 -(UIView *)bgView{
@@ -419,7 +417,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
                 make.top.equalTo(self.titleLab.mas_bottom);
             }];
         });
-    }return _bgView;
+    };return _bgView;
 }
 
 -(UIColor *)cor{
@@ -435,7 +433,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
                                                          0,
                                                          BaiShaETProjPopupView10.viewSizeByModel(nil).width,
                                                          JobsWidth(44))];
-    }return _cor;
+    };return _cor;
 }
 
 @end

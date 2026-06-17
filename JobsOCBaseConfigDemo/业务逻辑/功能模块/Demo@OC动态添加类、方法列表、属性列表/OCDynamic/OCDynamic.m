@@ -1,6 +1,6 @@
 //
 //  OCDynamic.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/9.
 //
@@ -20,7 +20,7 @@
         [self invokeIMP];
         [self InvokeIMP];
 
-    }return self;
+    };return self;
 }
 
 +(BOOL)resolveInstanceMethod:(SEL)sel{
@@ -35,7 +35,7 @@
                         method_getImplementation(method),/// 第三个参数是所添加方法的函数实现的指针IMP
                         method_getTypeEncoding(method));/// 第四个参数是所添加方法的签名
         return YES;
-    }return [super resolveInstanceMethod:sel];
+    };return [super resolveInstanceMethod:sel];
 }
 
 + (BOOL)resolveClassMethod:(SEL)sel{
@@ -50,7 +50,7 @@
                         method_getImplementation(method),/// 第三个参数是所添加方法的函数实现的指针IMP
                         method_getTypeEncoding(method));/// 第四个参数是所添加方法的签名
         return YES;
-    }return [super resolveClassMethod:sel];
+    };return [super resolveClassMethod:sel];
 }
 
 -(void)instanceMethod{

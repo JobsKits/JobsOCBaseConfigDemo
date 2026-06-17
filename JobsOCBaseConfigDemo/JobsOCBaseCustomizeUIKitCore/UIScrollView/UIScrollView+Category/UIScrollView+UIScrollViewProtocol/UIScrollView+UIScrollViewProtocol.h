@@ -1,6 +1,6 @@
 //
 //  UIScrollView+UIScrollViewProtocol.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/22.
 //
@@ -8,8 +8,9 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "UIScrollViewProtocol.h"
-#import "JobsDefineAllEnumHeader.h"
+#import "JobsDefineEnums.h"
 #import "UIView+Measure.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<MJRefresh/MJRefresh.h>)
 #import <MJRefresh/MJRefresh.h>

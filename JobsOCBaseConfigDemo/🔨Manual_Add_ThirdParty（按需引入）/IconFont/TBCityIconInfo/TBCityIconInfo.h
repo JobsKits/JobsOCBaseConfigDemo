@@ -1,13 +1,12 @@
 //
 //  TBCityIconInfo.h
-//  iCoupon
+//  JobsOCBaseConfigDemo
 //
 //  Created by John Wong on 10/12/14.
 //  Copyright (c) 2014 Taodiandian. All rights reserved.
 //
 #import <UIKit/UIKit.h>
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @interface TBCityIconInfo : NSObject
 

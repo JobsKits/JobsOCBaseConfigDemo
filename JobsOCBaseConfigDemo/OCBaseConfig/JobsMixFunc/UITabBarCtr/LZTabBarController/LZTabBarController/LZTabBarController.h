@@ -1,6 +1,6 @@
 //
 //  LZTabBarController.h
-//  LZTabBarController
+//  JobsOCBaseConfigDemo
 //
 //  Created by Artron_LQQ on 2016/12/12.
 //  Copyright © 2016年 Artup. All rights reserved.
@@ -16,9 +16,8 @@
 #import "LZTabBarConfig.h"
 #import "LZTabBar.h"
 #import "MacroDef_Size.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
-typedef LZTabBarConfig *_Nullable(^tabBarBlock)(LZTabBarConfig * _Nonnull config);
 
 @interface LZTabBarController : UITabBarController<LZTabBarDelegate>
 /// 是否可用自动旋转屏幕

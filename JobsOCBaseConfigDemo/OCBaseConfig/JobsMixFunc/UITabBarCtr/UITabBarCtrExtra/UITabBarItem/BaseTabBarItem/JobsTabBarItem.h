@@ -1,6 +1,6 @@
 //
 //  TabBarItem.h
-//  TabbarItemLottie
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/14.
 //
@@ -9,6 +9,7 @@
 #import "JobsBlock.h"
 #import "JobsTabBarItemConfig.h"
 #import "UITabBarItem+Extra.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

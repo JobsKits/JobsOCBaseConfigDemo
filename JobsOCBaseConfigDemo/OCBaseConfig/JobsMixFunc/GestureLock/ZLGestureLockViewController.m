@@ -1,6 +1,6 @@
 //
 //  ZLGestureLockViewController.m
-//  GestureLockDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by ZL on 2017/4/5.
 //  Copyright © 2017年 ZL. All rights reserved.
@@ -9,8 +9,6 @@
 #import "ZLGestureLockViewController.h"
 
 #define GesturesPassword @"gesturespassword"
-
-#import "DefineProperty.h"
 
 @interface ZLGestureLockViewController (){
     CGFloat maginX;
@@ -55,7 +53,7 @@ Prop_assign()ZLUnlockType unlockType;
 - (instancetype)initWithUnlockType:(ZLUnlockType)unlockType {
     if (self = [super init]) {
         _unlockType = unlockType;
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -218,7 +216,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
             imageView.image = @"gesture_headIcon".img;
             self.view.addSubview(imageView);
         });
-    }return _headIcon;
+    };return _headIcon;
 }
 
 -(UILabel *)nameLabel{
@@ -236,7 +234,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
             label.textColor = JobsOrangeColor;
             self.view.addSubview(label);
         });
-    }return _nameLabel;
+    };return _nameLabel;
 }
 
 -(UILabel *)statusLabel{
@@ -253,7 +251,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
                                     JobsWidth(200),
                                     JobsWidth(30)));
         }));
-    }return _statusLabel;
+    };return _statusLabel;
 }
 
 -(ZLGestureLockView *)gestureLockView{
@@ -264,7 +262,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
                                                                              self.view.frame.size.width)];
         _gestureLockView.delegate = self;
         [self.view addSubview:_gestureLockView];
-    }return _gestureLockView;
+    };return _gestureLockView;
 }
 
 -(ZLGestureLockIndicator *)gestureLockIndicator{
@@ -274,7 +272,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
                                                                                        JobsWidth(60),
                                                                                        JobsWidth(60))];
         [self.view addSubview:_gestureLockIndicator];
-    }return _gestureLockIndicator;
+    };return _gestureLockIndicator;
 }
 
 -(UIButton *)otherAcountBtn{
@@ -297,7 +295,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
                                                                    btnW,
                                                                    btnH)));
         _otherAcountBtn.backgroundColor = JobsClearColor;
-    }return _otherAcountBtn;
+    };return _otherAcountBtn;
 }
 
 -(UIButton *)resetPswBtn{
@@ -323,7 +321,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
                                                                 btnW,
                                                                 btnH)));
         _resetPswBtn.backgroundColor = self.otherAcountBtn.backgroundColor;
-    }return _resetPswBtn;
+    };return _resetPswBtn;
 }
 
 -(UIButton *)forgetPswBtn{
@@ -346,7 +344,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex {
                                                                  btnW,
                                                                  btnH)));
          _resetPswBtn.backgroundColor = self.otherAcountBtn.backgroundColor;
-    }return _forgetPswBtn;
+    };return _forgetPswBtn;
 }
 
 @end

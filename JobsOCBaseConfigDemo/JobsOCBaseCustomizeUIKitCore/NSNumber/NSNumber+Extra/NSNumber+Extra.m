@@ -1,6 +1,6 @@
 //
 //  NSNumber+Extra.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/28.
 //
@@ -160,7 +160,7 @@
 -(NSString *)stringValueOrEmpty{
     if (self.intValue == -1) {
         return @""; // 返回空字符串
-    }return self.stringValue;
+    };return self.stringValue;
 }
 
 -(JobsRetNumberByNSIntegerBlock _Nonnull)updateByStepInt{

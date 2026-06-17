@@ -1,6 +1,6 @@
 //
 //  NSObject+BRPickerView.h
-//  BRPickerViewExtra
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //  Updated for latest BRPickerView on 2026年5月29日，星期五.
@@ -12,8 +12,8 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "BRTextPickerView+Extra.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
@@ -26,11 +26,7 @@
 #import "BRPickerView.h"
 #endif
 
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
 #import "JobsBlock.h"
-#endif
 
 NS_ASSUME_NONNULL_BEGIN
 /// 平替 UIPickerView：https://github.com/agiapp/BRPickerView

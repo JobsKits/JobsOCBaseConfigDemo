@@ -1,13 +1,11 @@
 //
 //  JobsTextField.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/20/24.
 //
 
 #import "JobsTextField.h"
-
-#import "DefineProperty.h"
 
 @interface JobsTextField ()
 /// Data
@@ -32,13 +30,13 @@ RACProtocol_synthesize
 -(instancetype)init{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -131,7 +129,7 @@ RACProtocol_synthesize
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -260,7 +258,7 @@ willDismissEditMenuWithAnimator:(id<UIEditMenuInteractionAnimating>)animator{
             make.left.equalTo(self.leftView ? self.leftView.mas_right : self).offset(self.leftViewByTextFieldOffset);
             make.right.equalTo(self.rightView ? self.rightView.mas_left : self).offset(-self.rightViewByTextFieldOffset);
         }).on();
-    }return _realTextField;
+    };return _realTextField;
 }
 
 @end

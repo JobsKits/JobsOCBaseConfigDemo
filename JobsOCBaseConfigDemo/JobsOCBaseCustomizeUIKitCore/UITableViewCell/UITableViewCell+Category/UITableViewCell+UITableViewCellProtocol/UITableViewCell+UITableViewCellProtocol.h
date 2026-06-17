@@ -1,6 +1,6 @@
 //
 //  UITableViewCell+UITableViewCellProtocol.h
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/19.
 //
@@ -11,7 +11,7 @@
 #import "UIViewModel.h"
 #import "MacroDef_Size.h"
 #import "UITableViewCellProtocol.h"
-#import "DefineConstString.h"
+#import "JobsDefineConstString.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>

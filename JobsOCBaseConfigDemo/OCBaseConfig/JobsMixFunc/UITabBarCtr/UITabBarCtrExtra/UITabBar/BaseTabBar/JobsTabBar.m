@@ -1,14 +1,12 @@
 //
 //  JobsTabBar.m
-//  HitTesting
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 2017/5/19.
 //  Copyright © 2017年 flowyears. All rights reserved.
 //
 
 #import "JobsTabBar.h"
-
-#import "DefineProperty.h"
 
 @interface JobsTabBar ()
 
@@ -23,7 +21,7 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
     if (self = [super initWithFrame:frame]) {
         self.clipsToBounds = NO;//超出视图部分显示
         self.barStyle = UIBarStyleBlack;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -218,7 +216,7 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
                 }
             }
         });
-    }return _tabBarButtons;
+    };return _tabBarButtons;
 }
 
 -(NSMutableArray<__kindof LOTAnimationView *> *)lOTAnimationViews{
@@ -238,14 +236,14 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
                 }
             }
         });
-    }return _lOTAnimationViews;
+    };return _lOTAnimationViews;
 }
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 -(UIViewModel *)viewModel{
     if(!_viewModel){
         _viewModel = UIViewModel.new;
-    }return _viewModel;
+    };return _viewModel;
 }
 
 @end

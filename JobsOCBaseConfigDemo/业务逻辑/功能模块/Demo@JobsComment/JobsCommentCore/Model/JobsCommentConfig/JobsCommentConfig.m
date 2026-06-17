@@ -1,13 +1,11 @@
 //
 //  JobsCommentConfig.m
-//  JobsComment
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/17.
 //
 
 #import "JobsCommentConfig.h"
-
-#import "DefineProperty.h"
 
 @interface JobsCommentConfig ()
 

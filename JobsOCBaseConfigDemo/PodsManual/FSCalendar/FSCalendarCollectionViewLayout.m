@@ -1,6 +1,6 @@
 //
 //  FSCalendarAnimationLayout.m
-//  FSCalendar
+//  JobsOCBaseConfigDemo
 //
 //  Created by dingwenchao on 1/3/16.
 //  Copyright © 2016 Wenchao Ding. All rights reserved.
@@ -75,7 +75,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotifications:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         
         [self registerClass:FSCalendarSeparatorDecorationView.class forDecorationViewOfKind:kFSCalendarSeparatorInterRows];
-    }return self;
+    };return self;
 }
 
 - (void)dealloc
@@ -522,6 +522,7 @@
 
 #pragma mark - Private properties
 
+#pragma mark —— scrollDirection
 - (void)setScrollDirection:(UICollectionViewScrollDirection)scrollDirection
 {
     if (_scrollDirection != scrollDirection) {

@@ -1,13 +1,11 @@
 //
 //  JobsUserHeaderDataViewTBVCell.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/19.
 //
 
 #import "JobsUserHeaderDataViewTBVCell.h"
-
-#import "DefineProperty.h"
 
 @interface JobsUserHeaderDataViewTBVCell ()
 
@@ -33,7 +31,7 @@ Prop_strong()UILabel *titleLab;
         JobsUserHeaderDataViewTBVCell *cell = (JobsUserHeaderDataViewTBVCell *)tableView.tableViewCellClass(JobsUserHeaderDataViewTBVCell.class,@"");
         if (!cell) {
             cell = JobsUserHeaderDataViewTBVCell.initTableViewCellWithStyle(UITableViewCellStyleValue1);
-        }return cell;
+        };return cell;
     };
 }
 /// 左边：textLabel字体偏小；右边：detailTextLabel。imageView可选（显示在最左边）
@@ -42,7 +40,7 @@ Prop_strong()UILabel *titleLab;
         JobsUserHeaderDataViewTBVCell *cell = (JobsUserHeaderDataViewTBVCell *)tableView.tableViewCellClass(JobsUserHeaderDataViewTBVCell.class,@"");
         if (!cell) {
             cell = JobsUserHeaderDataViewTBVCell.initTableViewCellWithStyle(UITableViewCellStyleValue2);
-        }return cell;
+        };return cell;
     };
 }
 /// 左边：imageView；左上：textLabel；左下：detailTextLabel。主标题字体大且加黑，副标题字体小在主标题下边。
@@ -51,7 +49,7 @@ Prop_strong()UILabel *titleLab;
         JobsUserHeaderDataViewTBVCell *cell = (JobsUserHeaderDataViewTBVCell *)tableView.tableViewCellClass(JobsUserHeaderDataViewTBVCell.class,@"");
         if (!cell) {
             cell = JobsUserHeaderDataViewTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
-        }return cell;
+        };return cell;
     };
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -88,7 +86,7 @@ Prop_strong()UILabel *titleLab;
             @jobs_strongify(self)
             make.edges.equalTo(self.contentView);
         }).on();
-    }return _titleLab;
+    };return _titleLab;
 }
 
 @end

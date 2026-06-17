@@ -1,6 +1,6 @@
 //
 //  Douyin_ZFPlayerVC@1.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/8.
 //
@@ -10,6 +10,7 @@
 #import "LOTAnimationMJRefreshHeader.h"
 #import "JobsPlayerTBVCell.h"
 #import "VideoModel.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 这个类是我自己的理解

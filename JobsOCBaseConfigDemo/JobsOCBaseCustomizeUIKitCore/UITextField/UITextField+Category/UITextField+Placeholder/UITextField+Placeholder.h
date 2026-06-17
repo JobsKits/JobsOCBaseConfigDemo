@@ -1,6 +1,6 @@
 //
 //  UITextField+Placeholder.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/20.
 //
@@ -9,6 +9,7 @@
 #import "UITextModelProtocol.h"
 #import "AppToolsProtocol.h"
 #import "NSMutableArray+Extra.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 修改UITextField.Placeholder

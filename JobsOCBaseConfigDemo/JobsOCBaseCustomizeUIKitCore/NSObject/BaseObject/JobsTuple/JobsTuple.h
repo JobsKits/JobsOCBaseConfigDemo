@@ -1,11 +1,12 @@
 //
 //  JobsTuple.h
-//  MataShop
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 9/21/23.
 //
 
 #import <Foundation/Foundation.h>
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 用Objective-C仿写Swift中的元祖

@@ -1,13 +1,11 @@
 //
 //  JobsMsgDetailVC.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/7.
 //
 
 #import "JobsMsgDetailVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsMsgDetailVC ()
 /// UI
@@ -112,7 +110,7 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
                 make.width.mas_equalTo(JobsWidth(217));
             }];label.makeLabelByShowingType(UILabelShowingType_05);
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(UILabel *)subTitleLab{
@@ -128,7 +126,7 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
                 make.left.equalTo(self.titleLab);
             }];label.makeLabelByShowingType(UILabelShowingType_01);
         });
-    }return _subTitleLab;
+    };return _subTitleLab;
 }
 
 -(UIButton *)drawBtn{
@@ -144,7 +142,7 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
             make.right.equalTo(self.view).offset(JobsWidth(-16));
             make.top.equalTo(self.view).offset(JobsWidth(28));
         }];
-    }return _drawBtn;
+    };return _drawBtn;
 }
 
 -(UILabel *)lineLab{
@@ -159,7 +157,7 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
                 make.top.equalTo(self.subTitleLab.mas_bottom).offset(JobsWidth(24));
             }];
         });
-    }return _lineLab;
+    };return _lineLab;
 }
 @synthesize textView = _textView;
 -(UITextView *)textView{
@@ -176,7 +174,7 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(343), JobsWidth(452)));
             }];
         });
-    }return _textView;
+    };return _textView;
 }
 
 -(BaseButton *)deleteBtn{
@@ -198,7 +196,7 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-    }return _deleteBtn;
+    };return _deleteBtn;
 }
 
 @end

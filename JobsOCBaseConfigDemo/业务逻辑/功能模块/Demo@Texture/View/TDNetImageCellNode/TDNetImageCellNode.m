@@ -21,7 +21,7 @@
               NSForegroundColorAttributeName: UIColor.secondaryLabelColor
             }];
         });
-    }return self;
+    };return self;
 }
 
 -(ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
@@ -43,7 +43,7 @@
             node.cornerRadius = 8;
             node.clipsToBounds = YES;
         });
-    }return _netImage;
+    };return _netImage;
 }
 
 @end

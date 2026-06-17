@@ -1,6 +1,6 @@
 //
 //  UITextField+Extend.h
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/15.
 //  Copyright © 2020 MonkeyKingVideo. All rights reserved.
@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "JobsString.h"
 #import "JobsBlock.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "UIButton+SimplyMake.h"
 #import "UITextField+Placeholder.h"
 
@@ -62,6 +62,6 @@ NS_ASSUME_NONNULL_END
              make.left.equalTo(self.section_1_titleLab);
              make.width.mas_equalTo(JobsWidth(345));
          }).on();
-     }return _idTypeTextField;
+     };return _idTypeTextField;
  }
  */

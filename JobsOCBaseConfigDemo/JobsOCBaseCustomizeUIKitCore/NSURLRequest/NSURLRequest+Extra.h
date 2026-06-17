@@ -1,13 +1,13 @@
 //
 //  NSURLRequest+Extra.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 9/12/24.
 //
 
 #import <Foundation/Foundation.h>
 #import "YTKNetworkToolsHeader.h"
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
 #import "JobsBlock.h"
 
 #ifndef GETMethod
@@ -55,6 +55,7 @@ NS_INLINE void JobsPrintURLRequest(NSURLRequest *_Nonnull request){
           request.currentTimestampString(nil));
 }
 
+#ifndef JobsDefineFuncs_h
 NS_INLINE NSString * _Nullable httpMethod(YTKRequestMethod method){
     switch (method) {
         case YTKRequestMethodGET:return GET;break;
@@ -68,6 +69,7 @@ NS_INLINE NSString * _Nullable httpMethod(YTKRequestMethod method){
             break;
     }
 }
+#endif /* JobsDefineFuncs_h */
 
 NS_ASSUME_NONNULL_BEGIN
 

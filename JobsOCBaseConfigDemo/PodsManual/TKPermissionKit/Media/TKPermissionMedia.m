@@ -1,6 +1,6 @@
 //
 //  TKPermissionMedia.m
-//  TKPermissionKitDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 2019/10/11.
 //  Copyright © 2019 mac. All rights reserved.
@@ -48,7 +48,7 @@ static bool safeLock = NO;//防止连续请求lock
     } else {
         JobsLog(@"当前系统版本低于iOS9.3，直接返回获取到了权限（如果有问题请更改权限获取方式！）");
         isAuth = YES;
-    }return isAuth;
+    };return isAuth;
 }
 #pragma mark —— 一些私有方法
 +(void)jumpSetting{

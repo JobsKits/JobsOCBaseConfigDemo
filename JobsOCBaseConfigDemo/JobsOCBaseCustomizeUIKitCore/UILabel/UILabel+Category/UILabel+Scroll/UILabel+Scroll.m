@@ -1,11 +1,12 @@
 //
 //  UILabel+Scroll.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 28/11/2024.
 //
 
 #import "UILabel+Scroll.h"
+#import "MacroDef_Sys.h"
 
 @implementation UILabel (Scroll)
 #pragma mark ——
@@ -34,7 +35,7 @@
                 self.text = self.text.add(firstCharacter);
             }if (doBlock) doBlock();
         }];
-    }return nil;
+    };return nil;
 }
 #pragma mark ——
 /// 取出并释放定时器
@@ -43,7 +44,7 @@ JobsKey(_stopScrolling)
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        RACDisposable *disposable = objc_getAssociatedObject(self, @selector(stopScrolling));
+        RACDisposable *disposable = Jobs_getAssociatedObject(_stopScrolling);
         if (disposable) {
             [disposable dispose];
             Jobs_setAssociatedRETAIN_NONATOMIC(_stopScrolling, nil);
@@ -92,7 +93,6 @@ JobsKey(_stopScrolling)
             [scrollView setContentOffset:CGPointMake(offsetX, 0) animated:NO];
         }];
         /// 保存 disposable，以便手动停止
-        objc_setAssociatedObject(self, @selector(stopScrolling), disposable, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         Jobs_setAssociatedRETAIN_NONATOMIC(_stopScrolling, disposable);
         return disposable;
     };

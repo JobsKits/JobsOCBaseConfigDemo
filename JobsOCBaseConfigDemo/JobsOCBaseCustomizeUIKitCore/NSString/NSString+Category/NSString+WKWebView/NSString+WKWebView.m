@@ -1,6 +1,6 @@
 //
 //  NSString+WKWebView.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 8/11/2024.
 //
@@ -59,13 +59,13 @@
 -(BOOL)isHTMLString{
     for (NSString *tag in self.htmlTags) {
         if (self.containsString(tag)) return YES;
-    }return NO;
+    };return NO;
 }
 /// 某个字符串是否包含这些HTML必要的成像标签。如果没有就要做特殊处理
 -(BOOL)isContainsRequiredHTMLTags{
     for (NSString *tag in self.requiredHTMLTags) {
         if (self.containsString(tag)) return YES;
-    }return NO;
+    };return NO;
 }
 /// 包装 HTML 字符串，使之能被 WKWebView 正确显示
 -(__kindof NSString *_Nullable)wrapHTMLString{

@@ -1,14 +1,12 @@
 //
 //  XLChannelHeaderView.m
-//  XLChannelControlDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by MengXianLiang on 2017/3/3.
 //  Copyright © 2017年 MengXianLiang. All rights reserved.
 //
 
 #import "XLChannelHeader.h"
-
-#import "DefineProperty.h"
 
 @interface XLChannelHeader ()
 
@@ -23,7 +21,7 @@ Prop_strong()UILabel *subtitleLabel;
 {
     if (self = [super initWithFrame:frame]) {
         [self buildUI];
-    }return self;
+    };return self;
 }
 
 -(void)buildUI
@@ -43,12 +41,14 @@ Prop_strong()UILabel *subtitleLabel;
     [self addSubview:self.subtitleLabel];
 }
 
+#pragma mark —— title
 -(void)setTitle:(NSString *)title
 {
     _title = title;
     self.titleLabel.text = title;
 }
 
+#pragma mark —— subTitle
 -(void)setSubTitle:(NSString *)subTitle
 {
     _subTitle = subTitle;

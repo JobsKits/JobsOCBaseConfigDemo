@@ -1,13 +1,11 @@
 //
 //  JobsTimerVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/20.
 //
 
 #import "JobsTimerVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsTimerVC ()
 /// UI
@@ -176,7 +174,7 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
                 data.add(btn);
             }
         });
-    }return _btnMutArr;
+    };return _btnMutArr;
 }
 
 -(NSMutableArray<NSString *> *)btnTitleMutArr{
@@ -187,7 +185,7 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
             .add(@"继续".tr)
             .add(@"结束".tr);
         });
-    }return _btnTitleMutArr;
+    };return _btnTitleMutArr;
 }
 /// 内含定时器
 -(JobsCountdownView *)countdownView{
@@ -198,7 +196,7 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
             make.center.equalTo(self.view);
             make.size.mas_equalTo(JobsCountdownView.viewSizeByModel(nil));
         }];
-    }return _countdownView;
+    };return _countdownView;
 }
 /// ★ 倒计时按钮，使用 UIButton+JobsTimer 的封装
 /// 内含定时器
@@ -239,7 +237,7 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
                 make.width.mas_equalTo(JobsWidth(180));
             });
         });
-    }return _countdownBtn;
+    };return _countdownBtn;
 }
 
 @end

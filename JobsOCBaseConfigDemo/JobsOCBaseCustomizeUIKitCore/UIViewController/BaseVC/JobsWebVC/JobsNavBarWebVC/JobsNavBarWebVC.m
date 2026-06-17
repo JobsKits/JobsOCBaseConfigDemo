@@ -1,13 +1,11 @@
 //
 //  JobsNavBarWebVC.m
-//  FMOnlyH5
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 8/4/2025.
 //
 
 #import "JobsNavBarWebVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsNavBarWebVC ()
 
@@ -25,7 +23,7 @@ Prop_copy()NSString *URL;
 - (instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{

@@ -7,8 +7,6 @@
 
 #import "SlideToUnlockDemoVC.h"
 
-#import "DefineProperty.h"
-
 @interface SlideToUnlockDemoVC ()
 
 Prop_strong()SlideToUnlockView *slideView;
@@ -41,7 +39,7 @@ Prop_strong()SlideToUnlockView *slideView;
                 make.height.mas_equalTo(56);
             });
         });
-    }return _slideView;
+    };return _slideView;
 }
 
 @end

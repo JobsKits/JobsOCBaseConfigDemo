@@ -1,13 +1,11 @@
 //
 //  UIView+EmptyData.m
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/17.
 //
 
 #import "UIView+EmptyData.h"
-
-#import "DefineProperty.h"
 
 @implementation UIView (EmptyData)
 
@@ -42,7 +40,7 @@
         if (self.subviews.count) {// 有控件
             /// return YES;//除了self.tipsLab就没有了，光板;return NO;//有其他控件
             return [self.subviews[0] isEqual:self.tipsLab];
-        }return YES;//光板
+        };return YES;//光板
     };
     self.tipsLab.alpha = checkSubviews();
 #endif
@@ -67,7 +65,7 @@ JobsKey(_tipsLab)
                 make.center.equalTo(self);
             }];
         });Jobs_setAssociatedRETAIN_NONATOMIC(_tipsLab, TipsLab)
-    }return TipsLab;
+    };return TipsLab;
 }
 
 -(void)setTipsLab:(UILabel *)tipsLab{
@@ -81,7 +79,7 @@ JobsKey(_tipsTitle)
     if (isNull(TipsTitle)) {
         TipsTitle = @"快来将我填满吧".tr;
         Jobs_setAssociatedCOPY_NONATOMIC(_tipsTitle, TipsTitle)
-    }return TipsTitle;
+    };return TipsTitle;
 }
 
 -(void)setTipsTitle:(NSString *)tipsTitle{

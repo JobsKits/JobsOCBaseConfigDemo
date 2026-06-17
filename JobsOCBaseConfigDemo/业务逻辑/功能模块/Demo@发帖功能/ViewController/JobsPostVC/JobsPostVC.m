@@ -1,13 +1,11 @@
 //
 //  JobsShootingVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 9/26/23.
 //
 
 #import "JobsPostVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsPostVC (){
     CGFloat JobsPostDelViewHeight;
@@ -374,7 +372,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         _releaseBtn.width = JobsWidth(38);
         _releaseBtn.height = JobsWidth(23);
         self.view.addSubview(_releaseBtn);
-    }return _releaseBtn;
+    };return _releaseBtn;
 }
 @synthesize jobsTextView = _jobsTextView;
 -(__kindof JobsTextView *)jobsTextView{
@@ -398,7 +396,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
                 make.height.mas_equalTo(JobsWidth(101));
             }];
         });
-    }return _jobsTextView;
+    };return _jobsTextView;
 }
 
 -(HXPhotoView *)postPhotoView{
@@ -414,7 +412,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
             make.top.equalTo(self.tipsLab.mas_bottom).offset(JobsWidth(20));
             make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH() - JobsWidth(10) * 2, JobsWidth(600)));
         }];
-    }return _postPhotoView;
+    };return _postPhotoView;
 }
 
 -(HXPhotoManager *)photoManager {
@@ -434,7 +432,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
             manager.configuration.photoMaxNum = 9;
             manager.configuration.selectTogether = NO;
         });
-    }return _photoManager;
+    };return _photoManager;
 }
 
 -(JobsPostDelView *)postDelView{
@@ -443,7 +441,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         self.view.addSubview(_postDelView);
         _postDelView.frame = JobsPostDelView.viewFrameByModel(nil);
         _postDelView.jobsRichViewByModel(nil);
-    }return _postDelView;
+    };return _postDelView;
 }
 
 -(UILabel *)tipsLab{
@@ -463,7 +461,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
                 make.top.equalTo(self.jobsTextView.mas_bottom).offset(JobsWidth(11));
             }];label.makeLabelByShowingType(UILabelShowingType_03);
         });
-    }return _tipsLab;
+    };return _tipsLab;
 }
 
 -(UITextModel *)postTextModel{
@@ -478,13 +476,13 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
             data.font = UIFontWeightRegularSize(14);
             data.maxWordCount = 10;
         });
-    }return _postTextModel;
+    };return _postTextModel;
 }
 
 -(NSString *)inputDataHistoryString{
     if(!_inputDataHistoryString){
         _inputDataHistoryString = @"";
-    }return _inputDataHistoryString;
+    };return _inputDataHistoryString;
 }
 
 -(NSMutableArray<UIImage *> *)photosImageMutArr{
@@ -492,7 +490,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         _photosImageMutArr = jobsMakeMutArr(^(NSMutableArray <UIImage *>* _Nullable data) {
             
         });
-    }return _photosImageMutArr;
+    };return _photosImageMutArr;
 }
 
 @end

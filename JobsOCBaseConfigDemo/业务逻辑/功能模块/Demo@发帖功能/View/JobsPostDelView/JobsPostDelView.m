@@ -1,13 +1,11 @@
 //
 //  JobsPostDelView.m
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/1/1.
 //
 
 #import "JobsPostDelView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsPostDelView ()
 /// UI
@@ -35,7 +33,7 @@ static dispatch_once_t static_postDelViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -51,7 +49,7 @@ static dispatch_once_t static_postDelViewOnceToken;
                 JobsLog(@"SSS = %d",b.boolValue);
             }JobsLog(@"通知传递过来的 = %@",notification.object);
         }];
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -68,7 +66,7 @@ static dispatch_once_t static_postDelViewOnceToken;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -110,7 +108,7 @@ static dispatch_once_t static_postDelViewOnceToken;
                 make.top.equalTo(self).offset(JobsWidth(5));
             }];
         });
-    }return _imageView;
+    };return _imageView;
 }
 
 -(UILabel *)titleLab{
@@ -128,7 +126,7 @@ static dispatch_once_t static_postDelViewOnceToken;
                 make.centerX.equalTo(self);
             }];
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 @end

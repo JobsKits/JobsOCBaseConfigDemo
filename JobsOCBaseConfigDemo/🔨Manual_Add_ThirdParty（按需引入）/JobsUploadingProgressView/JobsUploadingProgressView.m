@@ -1,13 +1,11 @@
 //
 //  JobsUploadingProgressView.m
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by xxx on 2021/1/12.
 //
 
 #import "JobsUploadingProgressView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsUploadingProgressView()
 /// UI
@@ -32,7 +30,7 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
                                                                                                    267,
                                                                                                    76)];
         }
-    }return static_uploadingProgressView;
+    };return static_uploadingProgressView;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -50,7 +48,7 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
         self.layer.cornerRadius = 10;
         self.clipsToBounds = YES;
         
-    }return self;
+    };return self;
 }
 #pragma mark —— 一些公有方法
 - (void)updateProgressText:(NSString *)progressText {
@@ -102,7 +100,7 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
             timer.accumulatedElapsed       = 0;
             timer.lastStartDate            = nil;
         });
-    }return _timer;
+    };return _timer;
 }
 
 - (CAShapeLayer *)shapLayer{
@@ -120,7 +118,7 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
             [layer addAnimation:self.anim forKey:@"CLAnimation"];
             self.shapLayerView.layer.addSublayer(layer);
         });
-    }return _shapLayer;
+    };return _shapLayer;
 }
 
 -(UIBezierPath *)bezier{
@@ -129,7 +127,7 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
                                                                     0,
                                                                     self.radius,
                                                                     self.radius)];//画个圆
-    }return _bezier;
+    };return _bezier;
 }
 
 -(CAKeyframeAnimation *)anim{
@@ -152,7 +150,7 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
                 data.add(@(8 * M_PI /4.0 + M_PI/4.0));
             });
         });
-    }return _anim;
+    };return _anim;
 }
 
 - (UIView *)shapLayerView{
@@ -167,7 +165,7 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
                 make.width.offset(self.radius + JobsWidth(2));
             }];
         });
-    }return _shapLayerView;
+    };return _shapLayerView;
 }
 
 -(UIImageView *)imgeV{
@@ -182,7 +180,7 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(12), JobsWidth(20)));
             }];
         });
-    }return _imgeV;
+    };return _imgeV;
 }
 
 - (UILabel *)refreshLabel{
@@ -197,7 +195,7 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
                 make.centerY.equalTo(self);
             }];
         });
-    }return _refreshLabel;
+    };return _refreshLabel;
 }
 
 - (UILabel *)subrefreshLabel{
@@ -213,7 +211,7 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
                 make.bottom.equalTo(self).offset(-JobsWidth(8));
             }];
         });
-    }return _subrefreshLabel;
+    };return _subrefreshLabel;
 }
 
 @end

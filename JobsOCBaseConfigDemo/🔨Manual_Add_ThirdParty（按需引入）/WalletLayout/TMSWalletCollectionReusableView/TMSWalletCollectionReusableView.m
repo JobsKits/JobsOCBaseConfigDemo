@@ -1,6 +1,6 @@
 //
 //  TMSWalletCollectionReusableView.m
-//  TMSWalletCollectionViewLayout
+//  JobsOCBaseConfigDemo
 //
 //  Created by TmmmS on 2019/8/8.
 //  Copyright © 2019 TMS. All rights reserved.
@@ -19,7 +19,7 @@
     if (self == [super initWithFrame:frame]) {
         self.backgroundColor = JobsBlueColor;
         
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 /// 由具体的子类进行覆写

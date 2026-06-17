@@ -1,6 +1,6 @@
 //
 //  OCDynamicRegisterVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/9.
 //
@@ -179,7 +179,7 @@ NSString *jobsName(){
  1、【在类注册完成之后，不可以继续添加成员变量了】
  2、【所以，在类注册完成之后，可以继续添加方法、属性和协议】
  */
-    }return NSClassFromString(className);
+    };return NSClassFromString(className);
 }
 /// 【添加属性】
 -(void)addProperty:(NSString *)propertyName{

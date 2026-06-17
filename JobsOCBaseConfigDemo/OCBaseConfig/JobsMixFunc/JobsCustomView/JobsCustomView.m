@@ -1,13 +1,11 @@
 //
 //  JobsCustomView.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/25.
 //
 
 #import "JobsCustomView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsCustomView ()
 /// UI
@@ -46,19 +44,19 @@ static dispatch_once_t static_customViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = JobsRedColor;
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -106,7 +104,7 @@ static dispatch_once_t static_customViewOnceToken;
                 make.top.equalTo(self).offset(JobsWidth(27));
             }];
         });
-    }return _indicatorIMGV;
+    };return _indicatorIMGV;
 }
 
 -(UILabel *)segmentationLine{
@@ -121,7 +119,7 @@ static dispatch_once_t static_customViewOnceToken;
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(263), JobsWidth(1)));
             }];
         });
-    }return _segmentationLine;
+    };return _segmentationLine;
 }
 
 -(BaseView *)containFromView{
@@ -137,7 +135,7 @@ static dispatch_once_t static_customViewOnceToken;
     //        view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             self.addSubview(view);
         });
-    }return _containFromView;
+    };return _containFromView;
 }
 
 -(BaseView *)containToView{
@@ -153,19 +151,19 @@ static dispatch_once_t static_customViewOnceToken;
     //        view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             self.addSubview(view);
         });
-    }return _containToView;
+    };return _containToView;
 }
 
 -(BRDatePickerView *)fromDatePickerView{
     if (!_fromDatePickerView) {
         _fromDatePickerView = [self jobs_makeDatePickerView];
-    }return _fromDatePickerView;
+    };return _fromDatePickerView;
 }
 
 -(BRDatePickerView *)toDatePickerView{
     if (!_toDatePickerView) {
         _toDatePickerView = [self jobs_makeDatePickerView];
-    }return _toDatePickerView;
+    };return _toDatePickerView;
 }
 
 -(UILabel *)tipsLab{
@@ -181,7 +179,7 @@ static dispatch_once_t static_customViewOnceToken;
                 make.left.equalTo(self).offset(JobsWidth(19));
             }];label.makeLabelByShowingType(UILabelShowingType_03);
         });
-    }return _tipsLab;
+    };return _tipsLab;
 }
 
 -(UIButton *)cancelBtn{
@@ -216,7 +214,7 @@ static dispatch_once_t static_customViewOnceToken;
             make.bottom.equalTo(self).offset(JobsWidth(-16));
             make.left.equalTo(self).offset(JobsWidth(16));
         }];
-    }return _cancelBtn;
+    };return _cancelBtn;
 }
 
 -(UIButton *)sureBtn{
@@ -251,7 +249,7 @@ static dispatch_once_t static_customViewOnceToken;
             make.bottom.equalTo(self).offset(JobsWidth(-16));
             make.right.equalTo(self).offset(JobsWidth(-16));
         }];
-    }return _sureBtn;
+    };return _sureBtn;
 }
 
 - (BRDatePickerView *)jobs_makeDatePickerView {

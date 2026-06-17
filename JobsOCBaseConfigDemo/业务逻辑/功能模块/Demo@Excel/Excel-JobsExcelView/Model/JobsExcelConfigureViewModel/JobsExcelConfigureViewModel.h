@@ -1,6 +1,6 @@
 //
 //  JobsExcelConfigureViewModel.h
-//  JobsExcelView
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 17/6/16.
 //  Copyright © 2017年 Mephsito. All rights reserved.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "UIButtonModel.h"
 #import "JobsBlock.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>

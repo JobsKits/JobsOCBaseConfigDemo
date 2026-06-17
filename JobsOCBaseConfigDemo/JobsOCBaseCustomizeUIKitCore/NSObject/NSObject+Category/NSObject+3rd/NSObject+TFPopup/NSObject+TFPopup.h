@@ -1,6 +1,6 @@
 //
 //  NSObject+TFPopup.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/15.
 //
@@ -8,8 +8,8 @@
 #import <Foundation/Foundation.h>
 #import "AppDelegate+TabBarCtr.h"
 #import "MacroDef_SDK.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<TFPopup/TFPopup.h>)
 #import <TFPopup/TFPopup.h>
 #else

@@ -12,13 +12,15 @@
         if ([accessory isKindOfClass:YTKAnimatingRequestAccessory.class]){
             return accessory;
         }
-    }return nil;
+    };return nil;
 }
 
 -(UIView *)animatingView{
     return self.animatingRequestAccessory.animatingView;
 }
 
+#pragma mark —— animatingView
+@dynamic animatingView;
 -(void)setAnimatingView:(UIView *)animatingView{
     if (self.animatingRequestAccessory) {
         self.animatingRequestAccessory.animatingView = animatingView;
@@ -32,6 +34,8 @@
     return self.animatingRequestAccessory.animatingText;
 }
 
+#pragma mark —— animatingText
+@dynamic animatingText;
 -(void)setAnimatingText:(NSString *)animatingText{
     if (self.animatingRequestAccessory) {
         self.animatingRequestAccessory.animatingText = animatingText;

@@ -1,6 +1,6 @@
 //
 //  JhtBannerView.h
-//  JhtBannerScrollView
+//  JobsOCBaseConfigDemo
 //
 //  GitHub主页: https://github.com/jinht
 //  CSDN博客: http://blog.csdn.net/anticipate91
@@ -11,11 +11,11 @@
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "JhtBannerScrollView.h"
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
 #import "JhtBannerScrollViewProtocol.h"
 
 /// banner ScrollView
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @interface JhtBannerView : UIView
 <

@@ -1,6 +1,6 @@
 //
 //  ZWPullMenuView.m
-//  ZWPullMenuDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by 王子武 on 2017/8/28.
 //  Copyright © 2017年 wang_ziwu. All rights reserved.
@@ -24,7 +24,7 @@
 -(instancetype)init{
     if (self = [super init]) {
         [self configUI];
-    }return self;
+    };return self;
 }
 #pragma mark - config
 - (void)configUI{
@@ -328,10 +328,12 @@
     }
     return _zw_menuConfg;
 }
+#pragma mark —— menuArray
 -(void)setMenuArray:(NSArray<ZWPullMenuModel *> *)menuArray{
     _menuArray = menuArray;
     [self refreshUI];
 }
+#pragma mark —— titleArray
 -(void)setTitleArray:(NSArray *)titleArray{
     _titleArray = titleArray;
     if (!titleArray.count) return;
@@ -342,6 +344,7 @@
     }
     [self handleMenuModelArray:titleArray];
 }
+#pragma mark —— imageArray
 -(void)setImageArray:(NSArray *)imageArray{
     _imageArray = imageArray;
     if (!imageArray.count) return;
@@ -353,6 +356,7 @@
     [self handleMenuModelArray:imageArray];
 }
 
+#pragma mark —— zwPullMenuStyle
 -(void)setZwPullMenuStyle:(ZWPullMenuStyle)zwPullMenuStyle{
     _zwPullMenuStyle = zwPullMenuStyle;
     switch (zwPullMenuStyle) {
@@ -372,30 +376,36 @@
             break;
     }
 }
+#pragma mark —— coverBgColor
 - (void)setCoverBgColor:(UIColor *)coverBgColor{
     _coverBgColor = coverBgColor;
     self.backgroundColor = self.coverBgColor;
 }
+#pragma mark —— menuBgColor
 - (void)setMenuBgColor:(UIColor *)menuBgColor{
     _menuBgColor = menuBgColor;
     self.mTable.backgroundColor = self.menuBgColor;
     [self refreshUI];
 }
 
+#pragma mark —— anchorRect
 -(void)setAnchorRect:(CGRect)anchorRect{
     _anchorRect = anchorRect;
 }
 
+#pragma mark —— lineColor
 - (void)setLineColor:(UIColor *)lineColor {
     _lineColor = lineColor;
     [self refreshUI];
 }
 
+#pragma mark —— menuCellHeight
 - (void)setMenuCellHeight:(CGFloat)menuCellHeight {
     _menuCellHeight = menuCellHeight;
     [self refreshUI];
 }
 
+#pragma mark —— zw_adjustPullDown
 - (void)setZw_adjustPullDown:(BOOL)zw_adjustPullDown {
     _zw_adjustPullDown = zw_adjustPullDown;
     [self refreshUI];

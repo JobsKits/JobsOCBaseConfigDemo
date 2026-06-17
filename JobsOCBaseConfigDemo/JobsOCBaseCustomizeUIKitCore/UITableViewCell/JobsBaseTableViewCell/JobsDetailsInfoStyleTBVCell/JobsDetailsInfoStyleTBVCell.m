@@ -1,13 +1,11 @@
 //
 //  JobsDetailsInfoStyleTBVCell.m
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/15.
 //
 
 #import "JobsDetailsInfoStyleTBVCell.h"
-
-#import "DefineProperty.h"
 
 @interface JobsDetailsInfoStyleTBVCell ()
 
@@ -47,7 +45,7 @@ Prop_strong()UIImageView *detailsInfoImageView;
                 /// 如果有系统向右的箭头，此时这个offset其实是于箭头左边距的距离
                 if(self.viewModel.jobsOffsetX) make.right.equalTo(self.contentView).offset(self.viewModel.jobsOffsetX);
             }];
-        }return self;
+        };return self;
     };
 }
 /// 具体由子类进行复写【数据定高】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -69,7 +67,7 @@ Prop_strong()UIImageView *detailsInfoImageView;
                 make.right.equalTo(self.contentView);
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(50), JobsWidth(50)));
             });
-    }return _detailsInfoImageView;
+    };return _detailsInfoImageView;
 }
 
 @end

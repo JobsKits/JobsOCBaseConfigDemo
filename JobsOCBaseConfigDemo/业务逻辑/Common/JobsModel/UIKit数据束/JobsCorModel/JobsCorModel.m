@@ -15,7 +15,7 @@
                    (int)(self.red * 255),
                    (int)(self.green * 255),
                    (int)(self.blue * 255)];
-    }return _corStr;
+    };return _corStr;
 }
 
 @end

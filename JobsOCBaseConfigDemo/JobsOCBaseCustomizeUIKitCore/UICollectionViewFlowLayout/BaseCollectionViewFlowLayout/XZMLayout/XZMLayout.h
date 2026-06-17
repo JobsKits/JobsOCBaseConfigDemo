@@ -1,6 +1,6 @@
 //
 //  XZMLayout.h
-//  XZMRefreshExample
+//  JobsOCBaseConfigDemo
 //
 //  Created by 谢忠敏 on 15/12/17.
 //

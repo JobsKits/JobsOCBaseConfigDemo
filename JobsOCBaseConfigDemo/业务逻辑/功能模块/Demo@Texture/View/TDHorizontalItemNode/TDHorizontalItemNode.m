@@ -24,7 +24,7 @@
                NSForegroundColorAttributeName: UIColor.whiteColor
             }];
         });
-    }return self;
+    };return self;
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
@@ -43,7 +43,7 @@
             node.cornerRadius = 8.0;
             node.style.preferredSize = CGSizeMake(120, 70);
         });
-    }return _colorNode;
+    };return _colorNode;
 }
 
 @end

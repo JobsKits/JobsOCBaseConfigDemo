@@ -1,28 +1,12 @@
 //
 //  KTVHTTPCache.h
-//  KTVHTTPCache
+//  JobsOCBaseConfigDemo
 //
 //  Created by Single on 2017/8/13.
 //  Copyright © 2017年 Single. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-
-#if __has_include(<KTVHTTPCache/KTVHTTPCache.h>)
-
-FOUNDATION_EXPORT double KTVHTTPCacheVersionNumber;
-FOUNDATION_EXPORT const unsigned char KTVHTTPCacheVersionString[];
-
-#import <KTVHTTPCache/KTVHCRange.h>
-#import <KTVHTTPCache/KTVHCDataReader.h>
-#import <KTVHTTPCache/KTVHCDataLoader.h>
-#import <KTVHTTPCache/KTVHCDataRequest.h>
-#import <KTVHTTPCache/KTVHCDataResponse.h>
-#import <KTVHTTPCache/KTVHCDataCacheItem.h>
-#import <KTVHTTPCache/KTVHCDataCacheItemZone.h>
-
-#else
-
 #import "KTVHCRange.h"
 #import "KTVHCDataReader.h"
 #import "KTVHCDataLoader.h"
@@ -30,8 +14,6 @@ FOUNDATION_EXPORT const unsigned char KTVHTTPCacheVersionString[];
 #import "KTVHCDataResponse.h"
 #import "KTVHCDataCacheItem.h"
 #import "KTVHCDataCacheItemZone.h"
-
-#endif
 
 /**
  *  KTVHTTPCache is a smart media cache framework.

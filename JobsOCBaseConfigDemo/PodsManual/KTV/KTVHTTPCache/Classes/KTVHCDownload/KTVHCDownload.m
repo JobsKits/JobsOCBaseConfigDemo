@@ -1,6 +1,6 @@
 //
 //  KTVHCDataDownload.m
-//  KTVHTTPCache
+//  JobsOCBaseConfigDemo
 //
 //  Created by Single on 2017/8/12.
 //  Copyright © 2017年 Single. All rights reserved.
@@ -12,7 +12,6 @@
 #import "KTVHCDataStorage.h"
 #import "KTVHCError.h"
 #import "KTVHCLog.h"
-
 #import <UIKit/UIKit.h>
 
 NSString * const KTVHCContentTypeVideo                  = @"video/";
@@ -76,7 +75,7 @@ NSString * const KTVHCContentTypeBinaryOctetStream      = @"binary/octet-stream"
                                                  selector:@selector(applicationWillEnterForeground:)
                                                      name:UIApplicationWillEnterForegroundNotification
                                                    object:[UIApplication sharedApplication]];
-    }return self;
+    };return self;
 }
 
 - (void)dealloc

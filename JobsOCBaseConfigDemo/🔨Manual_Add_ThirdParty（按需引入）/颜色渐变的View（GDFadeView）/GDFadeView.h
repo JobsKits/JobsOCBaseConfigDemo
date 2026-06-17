@@ -1,6 +1,6 @@
 //
 //  GDFadeView.h
-//  FadeView
+//  JobsOCBaseConfigDemo
 //
 //  Created by xiaoyu on 15/11/13.
 //  Copyright © 2015年 guoda. All rights reserved.
@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @interface GDFadeView : UIView
 

@@ -1,11 +1,12 @@
 //
 //  JobsBtnsStyleCVCell.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/18/24.
 //
 
 #import "JobsBaseCollectionViewCell.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 左右两边各有一个UIButton

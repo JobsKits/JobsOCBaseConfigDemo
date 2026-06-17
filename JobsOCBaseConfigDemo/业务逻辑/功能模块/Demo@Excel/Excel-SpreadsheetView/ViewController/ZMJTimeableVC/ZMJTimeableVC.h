@@ -1,6 +1,6 @@
 //
 //  ZMJTimeableVC.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/29/24.
 //
@@ -10,6 +10,7 @@
 #import "ChannelCell.h"
 #import "SlotCell.h"
 #import "MyBlankCell.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<ZMJGanttChart/ZMJGanttChart.h>)
 #import <ZMJGanttChart/ZMJGanttChart.h>

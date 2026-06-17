@@ -1,6 +1,6 @@
 //
 //  JobsTextLabStyleCVCell.m
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/4/28.
 //
@@ -80,7 +80,7 @@ BaseLayerProtocol_synthesize_part3
             @jobs_strongify(self)
             make.edges.equalTo(self.contentView);
         });
-    }return _label;
+    };return _label;
 }
 
 @end

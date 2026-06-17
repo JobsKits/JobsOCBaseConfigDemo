@@ -1,6 +1,6 @@
 //
 //  FSCalendarCell.m
-//  Pods
+//  JobsOCBaseConfigDemo
 //
 //  Created by Wenchao Ding on 12/3/15.
 //
@@ -32,7 +32,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
@@ -40,7 +40,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 - (void)commonInit
@@ -342,6 +342,7 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
 
 #undef OFFSET_PROPERTY
 
+#pragma mark —— calendar
 - (void)setCalendar:(FSCalendar *)calendar
 {
     if (![_calendar isEqual:calendar]) {
@@ -351,6 +352,7 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
     }
 }
 
+#pragma mark —— subtitle
 - (void)setSubtitle:(NSString *)subtitle
 {
     if (![_subtitle isEqualToString:subtitle]) {
@@ -392,7 +394,7 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
             [self.eventLayers addPointer:(__bridge void * _Nullable)(layer)];
         }
         
-    }return self;
+    };return self;
 }
 
 - (void)layoutSubviews
@@ -423,6 +425,7 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
     }
 }
 
+#pragma mark —— color
 - (void)setColor:(id)color
 {
     if (![_color isEqual:color]) {
@@ -444,6 +447,7 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
     }
 }
 
+#pragma mark —— numberOfEvents
 - (void)setNumberOfEvents:(NSInteger)numberOfEvents
 {
     if (_numberOfEvents != numberOfEvents) {

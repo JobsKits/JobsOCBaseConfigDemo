@@ -1,6 +1,6 @@
 //
 //  KTVHCDataLoader.m
-//  KTVHTTPCache
+//  JobsOCBaseConfigDemo
 //
 //  Created by Single on 2018/6/7.
 //  Copyright © 2018 Single. All rights reserved.
@@ -25,7 +25,7 @@
         self.reader = [[KTVHCDataReader alloc] initWithRequest:request];
         self.reader.delegate = self;
         KTVHCLogDataLoader(@"%p, Create loader\norignalRequest : %@\nreader : %@", self, request, self.reader);
-    }return self;
+    };return self;
 }
 
 - (void)dealloc

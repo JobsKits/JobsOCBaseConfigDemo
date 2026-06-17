@@ -1,16 +1,14 @@
 //
 //  XWCountryCodeController.h
-//  XWCountryCodeDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by 邱学伟 on 16/4/19.
 //  Copyright © 2016年 邱学伟. All rights reserved.
 //  国家代码选择界面
 
 #import <UIKit/UIKit.h>
-
-typedef void(^returnCountryCode) (NSString *countryName, NSString *code);
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
+#import "JobsBlock.h"
 
 @protocol XWCountryCodeControllerDelegate <NSObject>
 @optional

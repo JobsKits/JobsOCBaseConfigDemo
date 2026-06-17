@@ -1,6 +1,6 @@
 //
 //  UITableView+RegisterClass.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/26.
 //
@@ -79,7 +79,7 @@
         if(!tableViewCell){
             self.registerTableViewCellClass(cls,salt);
             tableViewCell = [self dequeueReusableCellWithIdentifier:cls.description.add(salt) forIndexPath:indexPath];
-        }return tableViewCell;
+        };return tableViewCell;
     };
 }
 /// 一种用字符串取UITableViewHeaderFooterView及其子类的方法❤️复用字符串是目标类的类名❤️
@@ -92,7 +92,7 @@
         if(!tableViewHeaderFooterView){
             self.registerHeaderFooterViewClass(cls,salt);
             tableViewHeaderFooterView = self.tableViewHeaderFooterView(cls,salt);
-        }return tableViewHeaderFooterView;
+        };return tableViewHeaderFooterView;
     };
 }
 

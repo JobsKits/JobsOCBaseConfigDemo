@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#import "JobsDefineProperty.h"
 
 @interface JobsPresentationCtrl : UIPresentationController 
 <

@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// Segment 模型（对应 Swift: LuckyWheelSegment）

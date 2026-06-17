@@ -1,28 +1,28 @@
 //
 //  NSObject+Network.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 9/18/24.
 //
 
 #import <Foundation/Foundation.h>
 #import "JobsBlock.h"
-#import "DefineConstString.h"                  // 常量字符串的定义
+#import "JobsDefineConstString.h"
 #import "MacroDef_Func.h"
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
+#import "JobsDefineEnums.h"
 #import "URLManager.h"
 #import "NSObject+Data.h"
 #import "NSObject+Extras.h"
 #import "NSURLRequest+Extra.h"
 #import "YTKRequest+Extra.h"
-#import "YTKNetworkToolsHeader.h"              // 猿题库的网络框架工具
+#import "YTKNetworkToolsHeader.h"
 #import "GetImageApi.h"
 #import "GetUserInfoApi.h"
 #import "RegisterApi.h"
 #import "UploadImageApi.h"
 #import "GetCustomerContactApi.h"
-#import "JobsNetworkingHeader.h"               // Api
-#import "JobsModel.h"                          // 数据模型层
+#import "JobsNetworkingHeader.h"
+#import "JobsModel.h"
 #import "YTKBaseRequest+Extra.h"
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)

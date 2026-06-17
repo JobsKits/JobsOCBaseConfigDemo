@@ -1,13 +1,11 @@
 //
 //  NSObject+AppTools.m
-//  DouYin
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/4/6.
 //
 
 #import "NSObject+AppTools.h"
-
-#import "DefineProperty.h"
 
 @implementation NSObject (AppTools)
 #pragma mark —— 一些私有化方法
@@ -336,7 +334,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         default:{
             imgNameOrUrlStr = @"启动页SLOGAN.png";
         }break;
-    }return imgNameOrUrlStr;
+    };return imgNameOrUrlStr;
 }
 /// 适配各种机型的开屏视频
 -(NSString * _Nullable)videoNameOrURLString{
@@ -397,7 +395,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         default:{
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;
-    }return imgNameOrUrlStr;
+    };return imgNameOrUrlStr;
 }
 /// 检查当前IP是否为菲律宾IP
 -(void)checkIfIPInPhilippinesByBlock:(jobsByBOOLBlock _Nonnull)block{
@@ -510,7 +508,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
 //                customTabBar.backgroundColor = JobsRedColor;
                 customTabBar.configMasonryBy(view);
             });
-        }return sharedCustomTabBar;
+        };return sharedCustomTabBar;
     };
 }
 /// 导航返回键的配置
@@ -1019,7 +1017,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
                 self.jobsToastErrMsg(@"Please enter a user name".tr);
             }else{
                 self.jobsToastErrMsg(@"The password consists of 6 to 15 characters and can only be letters and numbers".tr);
-            }return NO;
+            };return NO;
         }
     };
 }
@@ -1070,7 +1068,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
                       self.checkUserPassword(model.confirmPassword)){
                 self.jobsToastErrMsg(@"The password consists of 6 to 15 characters and can only be letters and numbers");
             }else self.jobsToastErrMsg(@"Please complete the registration information");
-        }return NO;
+        };return NO;
     };
 }
 /// 电话号码可以最多20位数，超过后无法输入，且电话号码中无法包含特殊字符或者空格
@@ -1104,7 +1102,7 @@ JobsKey(_hotLabelDataMutArr)
 //        }
 
         Jobs_setAssociatedRETAIN_NONATOMIC(_hotLabelDataMutArr, HotLabelDataMutArr)
-    }return HotLabelDataMutArr;
+    };return HotLabelDataMutArr;
 }
 
 -(void)setHotLabelDataMutArr:(NSMutableArray<UIViewModel *> *)hotLabelDataMutArr{
@@ -1127,7 +1125,7 @@ JobsKey(_separateLab)
                 make.bottom.equalTo(viewController.view).offset(JobsWidth(-64));
             }];[self setSeparateLab:label];
         }))
-    }return SeparateLab;
+    };return SeparateLab;
 }
 
 -(void)setSeparateLab:(UILabel *)separateLab{
@@ -1160,7 +1158,7 @@ JobsKey(__立即注册)
         }];
         _立即注册.makeBtnTitleByShowingType(UILabelShowingType_03);
         Jobs_setAssociatedRETAIN_NONATOMIC(__立即注册, _立即注册);
-    }return _立即注册;
+    };return _立即注册;
 }
 
 -(void)set立即注册:(UIButton *)立即注册{
@@ -1193,7 +1191,7 @@ JobsKey(__联系客服)
         }];
         _联系客服.makeBtnTitleByShowingType(UILabelShowingType_03);
         Jobs_setAssociatedRETAIN_NONATOMIC(__联系客服, _联系客服)
-    }return _联系客服;
+    };return _联系客服;
 }
 
 -(void)set联系客服:(BaseButton *)联系客服{
@@ -1207,7 +1205,7 @@ JobsKey(_attributedStringData)
     if (!AttributedStringData) {
         AttributedStringData = self.richTextWithDataConfigMutArr(self.richTextConfigMutArr);
         Jobs_setAssociatedRETAIN_NONATOMIC(_attributedStringData, AttributedStringData)
-    }return AttributedStringData;
+    };return AttributedStringData;
 }
 
 -(void)setAttributedStringData:(NSMutableAttributedString *)attributedStringData{
@@ -1224,7 +1222,7 @@ JobsKey(_richTextMutArr)
             .add(@"专属客服".tr);
         });[self setRichTextMutArr:RichTextMutArr];
         Jobs_setAssociatedRETAIN_NONATOMIC(_richTextMutArr, RichTextMutArr)
-    }return RichTextMutArr;
+    };return RichTextMutArr;
 }
 
 -(void)setRichTextMutArr:(NSMutableArray<NSString *> *)richTextMutArr{
@@ -1253,7 +1251,7 @@ JobsKey(_richTextConfigMutArr)
             }));
         });[self setRichTextConfigMutArr:RichTextMutArr];
         Jobs_setAssociatedRETAIN_NONATOMIC(_richTextConfigMutArr, RichTextMutArr)
-    }return RichTextMutArr;
+    };return RichTextMutArr;
 }
 
 -(void)setRichTextConfigMutArr:(NSMutableArray<JobsRichTextConfig *> *)richTextConfigMutArr{
@@ -1290,7 +1288,7 @@ JobsKey(_connectionTipsTV)
                 }];
             }
         }))
-    }return ConnectionTipsTV;
+    };return ConnectionTipsTV;
 }
 
 -(void)setConnectionTipsTV:(UITextView *)connectionTipsTV{
@@ -1309,14 +1307,13 @@ JobsKey(_jxCategoryViewTitleMutArr)
             .add(@"近30日".tr);
         });
         Jobs_setAssociatedRETAIN_NONATOMIC(_jxCategoryViewTitleMutArr, JXCategoryViewTitleMutArr)
-    }return JXCategoryViewTitleMutArr;
+    };return JXCategoryViewTitleMutArr;
 }
 
 -(void)setJxCategoryViewTitleMutArr:(NSMutableArray<NSString *> *)jxCategoryViewTitleMutArr{
     Jobs_setAssociatedRETAIN_NONATOMIC(_jxCategoryViewTitleMutArr, jxCategoryViewTitleMutArr)
 }
 #pragma mark —— @property(nonatomic,strong,nullable)JobsUserModel *doorModel;
-JobsKey(_loginModel)
 @dynamic doorModel;
 -(JobsUserModel *_Nullable)doorModel{
     return self.readUserInfoByUserName(JobsUserModel.class,用户信息);
@@ -1338,7 +1335,7 @@ JobsKey(_loadingIndicator)
         view = [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
         view.color = JobsGrayColor;
         Jobs_setAssociatedRETAIN_NONATOMIC(_loadingIndicator, view)
-    }return view;
+    };return view;
 }
 
 -(void)setActivityIndicatorView:(__kindof UIActivityIndicatorView *)loadingIndicator{

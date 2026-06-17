@@ -1,6 +1,6 @@
 //
 //  CJTextField.m
-//  Feidegou
+//  JobsOCBaseConfigDemo
 //
 //  Created by Kite on 2019/11/24.
 //  Copyright © 2019 朝花夕拾. All rights reserved.
@@ -30,7 +30,7 @@
         (self.deviceSystemVersion.intValue == 8) &&
         (self.deviceSystemVersion.floatValue < 8.3f)) {
         [self deleteBackward];
-    }return shouldDelete;
+    };return shouldDelete;
 }
 
 @end

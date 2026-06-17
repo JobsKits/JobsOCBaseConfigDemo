@@ -1,6 +1,6 @@
 //
 //  JobsTimeModel.m
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -72,13 +72,13 @@
 -(NSTimeZone *)localTimeZone{
     if (!_localTimeZone) {
         _localTimeZone = NSTimeZone.localTimeZone;
-    }return _localTimeZone;
+    };return _localTimeZone;
 }
 /// 自定义时区名【默认北京时区】
 -(NSString *)customTimeZoneStr{
     if(!_customTimeZoneStr){
         _customTimeZoneStr = @"GMT+0800";
-    }return _customTimeZoneStr;
+    };return _customTimeZoneStr;
 }
 /// 自定义时区
 -(NSTimeZone *)customTimeZone{
@@ -116,7 +116,7 @@
          S: 毫秒
          */
         _dateFormatterStr = @"yyyy-MM-dd HH:mm:ss zzz";//设置缺省类型，外层可自定义
-    }return _dateFormatterStr;
+    };return _dateFormatterStr;
 }
 
 -(NSDateFormatter *)dateFormatter{
@@ -127,7 +127,7 @@
             data.timeZone = NSTimeZone.initByAbbreviation(@"UTC");/// 设置为 UTC 时区
             data.dateFormat = self.dateFormatterStr;/// 格式化为日期字符串
         });
-    }return _dateFormatter;
+    };return _dateFormatter;
 }
 #pragma mark —— 结论部分
 /// 当前时区与格林威治时间的时间差
@@ -168,43 +168,43 @@
 -(NSString *)year{
     if (!_year) {
         _year = @"year".tr;
-    }return _year;
+    };return _year;
 }
 
 -(NSString *)month{
     if (!_month) {
         _month = @"month".tr;
-    }return _month;
+    };return _month;
 }
 
 -(NSString *)day{
     if (!_day) {
         _day = @"day".tr;
-    }return _day;
+    };return _day;
 }
 
 -(NSString *)hour{
     if (!_hour) {
         _hour = @"hour".tr;
-    }return _hour;
+    };return _hour;
 }
 
 -(NSString *)minute{
     if (!_minute) {
         _minute = @"minute".tr;
-    }return _minute;
+    };return _minute;
 }
 
 -(NSString *)second{
     if (!_second) {
         _second = @"second".tr;
-    }return _second;
+    };return _second;
 }
 
 -(NSTimeZone *)timeZone{
     if(!_timeZone){
         _timeZone = NSTimeZone.initByAbbreviation(@"UTC"); /// 设置为 UTC 时区
-    }return _timeZone;
+    };return _timeZone;
 }
 
 @end

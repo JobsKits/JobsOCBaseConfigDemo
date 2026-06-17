@@ -1,6 +1,6 @@
 //
 //  UIView+JHGestureBlock.m
-//  JHKit
+//  JobsOCBaseConfigDemo
 //
 //  Created by HaoCold on 2019/4/9.
 //  Copyright © 2019 HaoCold. All rights reserved.
@@ -28,10 +28,18 @@
 //  SOFTWARE.
 
 #import "UIView+JHGestureBlock.h"
+#import "MacroDef_Sys.h"
+
+@interface UIView (JHGestureBlock)
+
+Prop_strong()NSMutableDictionary *jhGestureBlockMutDic;
+
+@end
 
 @implementation UIView (JHGestureBlock)
-
-static const char *JHGestureBlockKey;
+#pragma mark —— Prop_strong()NSMutableDictionary *jhGestureBlockMutDic;
+JobsKey(_jhGestureBlockMutDic)
+@dynamic jhGestureBlockMutDic;
 - (__kindof UIGestureRecognizer *)addGestureRecognizer:(JHGestureType)type block:(JHGestureBlock)block{
     if (block) {
         NSDictionary *dic = @{@"0":@"UITapGestureRecognizer",
@@ -45,19 +53,19 @@ static const char *JHGestureBlockKey;
         UIGestureRecognizer *gesture = [NSClassFromString(string).alloc initWithTarget:self action:@selector(gestureAction:)];
         [self addGestureRecognizer:gesture];
         
-        NSMutableDictionary *blockDic = objc_getAssociatedObject(self, JHGestureBlockKey);
+        NSMutableDictionary *blockDic = Jobs_getAssociatedObject(_jhGestureBlockMutDic);
         if (!blockDic) {
             blockDic = @{}.mutableCopy;
-            objc_setAssociatedObject(self, JHGestureBlockKey, blockDic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            Jobs_setAssociatedRETAIN_NONATOMIC(_jhGestureBlockMutDic, blockDic)
         }
         [blockDic setObject:block forKey:string];
     
         return gesture;
-    }return nil;
+    };return nil;
 }
 
 - (void)gestureAction:(UIGestureRecognizer *)gesture{
-    NSMutableDictionary *blockDic = objc_getAssociatedObject(gesture.view, JHGestureBlockKey);
+    NSMutableDictionary *blockDic = Jobs_getAssociatedObjectByTargetRawKey(gesture.view, &_jhGestureBlockMutDic);
     JHGestureBlock block = blockDic[NSStringFromClass(gesture.class)];
     if (block) block(gesture.view, gesture);
 }

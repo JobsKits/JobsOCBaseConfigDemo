@@ -19,7 +19,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_OFF; // | HTTP_LOG_FLAG_TRACE;
 		HTTPLogTrace();
 		
 		redirectPath = [path copy];
-	}return self;
+	};return self;
 }
 
 - (UInt64)contentLength
@@ -32,6 +32,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_OFF; // | HTTP_LOG_FLAG_TRACE;
 	return 0;
 }
 
+#pragma mark —— offset
 - (void)setOffset:(UInt64)offset
 {
 	// Nothing to do

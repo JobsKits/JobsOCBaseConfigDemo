@@ -1,6 +1,6 @@
 //
 //  UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/19.
 //
@@ -9,6 +9,7 @@
 #import "BaseViewProtocol.h"
 #import "JobsBlock.h"
 #import "UIViewModel.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

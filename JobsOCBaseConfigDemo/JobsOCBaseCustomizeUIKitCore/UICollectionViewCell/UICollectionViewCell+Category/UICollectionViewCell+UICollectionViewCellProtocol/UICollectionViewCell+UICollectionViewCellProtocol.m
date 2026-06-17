@@ -1,6 +1,6 @@
 //
 //  UICollectionViewCell+UICollectionViewCellProtocol.m
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/3/11.
 //
@@ -18,7 +18,7 @@
            forCellWithReuseIdentifier:reuseIdentifier(self.class)];
         [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier(self.class)
                                                   forIndexPath:indexPath];
-    }return cell;
+    };return cell;
 }
 /// 获取这个UICollectionViewCell所承载的UICollectionView
 -(UICollectionView *)jobsGetCurrentCollectionView{

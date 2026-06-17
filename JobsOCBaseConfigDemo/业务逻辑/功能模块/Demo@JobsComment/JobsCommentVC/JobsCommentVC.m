@@ -1,13 +1,11 @@
 //
 //  JobsCommentVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/10.
 //
 
 #import "JobsCommentVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsCommentVC ()
 
@@ -90,7 +88,7 @@ Prop_strong()UIButton *contactCustomerServiceBtn;// 联系客服按钮
             make.size.mas_equalTo(CGSizeMake(JobsWidth(230), JobsWidth(50)));
             make.center.equalTo(self.view);
         }];
-    }return _contactCustomerServiceBtn;
+    };return _contactCustomerServiceBtn;
 }
 
 @end

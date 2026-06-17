@@ -1,12 +1,12 @@
 //
 //  NSObject+AFNReachability.h
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/5.
 //
 
 #import <Foundation/Foundation.h>
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
 #import "JobsBlock.h"
 
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
@@ -29,12 +29,8 @@
 
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFNetworking.h>
-#elif __has_include("AFNetworking.h")
-#import "AFNetworking.h"
-#elif __has_include("AFNetworking-umbrella.h")
-#import "AFNetworking-umbrella.h"
 #else
-#error "AFNetworking header not found"
+#import "AFNetworking.h"
 #endif
 
 //#if __has_include(<ReactiveObjC/RACEXTRuntimeExtensions.h>)

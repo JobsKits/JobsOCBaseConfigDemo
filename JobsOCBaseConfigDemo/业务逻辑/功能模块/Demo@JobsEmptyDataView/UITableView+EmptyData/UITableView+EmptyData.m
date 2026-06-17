@@ -1,6 +1,6 @@
 //
 //  UITableView+EmptyData.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 14/11/2024.
 //
@@ -31,7 +31,7 @@
             hasData = YES;
             break;
         }
-    }return hasData;
+    };return hasData;
 }
 
 -(JobsReturnViewByButtonModelBlock _Nonnull)showEmptyButtonBy{

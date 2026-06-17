@@ -1,6 +1,6 @@
 //
 //  NSObject+DynamicInvoke.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/28.
 //
@@ -16,7 +16,7 @@
 #define MethodName(obj) NSStringFromClass([obj class]).add(@"_").add(NSStringFromSelector(_cmd))
 #endif /* MethodName */
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

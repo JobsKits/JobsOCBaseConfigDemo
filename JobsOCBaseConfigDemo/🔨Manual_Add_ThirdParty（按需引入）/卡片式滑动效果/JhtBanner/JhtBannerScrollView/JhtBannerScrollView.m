@@ -1,6 +1,6 @@
 //
 //  JhtBannerScrollView.m
-//  JhtBannerScrollView
+//  JobsOCBaseConfigDemo
 //
 //  GitHub主页: https://github.com/jinht
 //  CSDN博客: http://blog.csdn.net/anticipate91
@@ -10,8 +10,6 @@
 //
 
 #import "JhtBannerScrollView.h"
-
-#import "DefineProperty.h"
 
 @interface JhtBannerScrollView () {
     NSTimer *_bannerTimer;
@@ -46,7 +44,7 @@ Prop_strong()UIScrollView *insideScrollView;
     if (self = [super initWithFrame:frame]) {
         [self bsvInitParam];
         [self bsvRegisterSystemNotification];
-    }return self;
+    };return self;
 }
 #pragma mark —— UIView
 /// 在父控件中移除后销毁定时器
@@ -69,8 +67,8 @@ Prop_strong()UIScrollView *insideScrollView;
         /// insideScrollView以外
         for (JhtBannerCardView *view in self.insideScrollView.subviews) {
             if (CGRectContainsPoint(view.frame, newPoint)) return view;
-        }return self.insideScrollView;
-    }return nil;
+        };return self.insideScrollView;
+    };return nil;
 }
 #pragma mark —— 一些私有方法
 /// 初始化相关参数
@@ -700,13 +698,13 @@ Prop_strong()UIScrollView *insideScrollView;
 - (NSMutableArray *)cardViewArray {
     if (!_cardViewArray) {
         _cardViewArray = NSMutableArray.array;
-    }return _cardViewArray;
+    };return _cardViewArray;
 }
 
 - (NSMutableArray *)reusableArray {
     if (!_reusableArray) {
         _reusableArray = NSMutableArray.array;
-    }return _reusableArray;
+    };return _reusableArray;
 }
 
 - (UIScrollView *)insideScrollView {
@@ -722,17 +720,20 @@ Prop_strong()UIScrollView *insideScrollView;
             scrollView.showsHorizontalScrollIndicator = NO;
             scrollView.showsVerticalScrollIndicator = NO;
         });
-    }return _insideScrollView;
+    };return _insideScrollView;
 }
 #pragma mark —— Setter
+#pragma mark —— leftRightMargin
 - (void)setLeftRightMargin:(CGFloat)leftRightMargin {
     _leftRightMargin = leftRightMargin;
 }
 
+#pragma mark —— topBottomMargin
 - (void)setTopBottomMargin:(CGFloat)topBottomMargin {
     _topBottomMargin = topBottomMargin;
 }
 
+#pragma mark —— isOpenAutoScroll
 -(void)setIsOpenAutoScroll:(BOOL)isOpenAutoScroll{
     _isOpenAutoScroll = isOpenAutoScroll;
 }

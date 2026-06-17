@@ -1,6 +1,6 @@
 //
 //  BaseModel.h
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -8,8 +8,8 @@
 #pragma once
 
 #import <Foundation/Foundation.h>
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>
 #else

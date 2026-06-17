@@ -1,13 +1,11 @@
 //
 //  WKWebView+Extra.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 8/11/2024.
 //
 
 #import "WKWebView+Extra.h"
-
-#import "DefineProperty.h"
 
 @implementation WKWebView (Extra)
 
@@ -60,7 +58,7 @@ JobsKey(_urls)
     if (!arr) {
         arr = NSMutableArray.array;
         Jobs_setAssociatedRETAIN_NONATOMIC(_urls, arr)
-    }return arr;
+    };return arr;
 }
 
 -(void)setUrls:(NSMutableArray<NSURL *> *)urls{

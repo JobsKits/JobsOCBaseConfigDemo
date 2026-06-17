@@ -1,6 +1,6 @@
 //
 //  HourCell.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/30/24.
 //
@@ -16,13 +16,13 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.label.alpha = 1;
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
         self.label.alpha = 1;
-    }return self;
+    };return self;
 }
 #pragma mark —— LazyLoad
 @synthesize label = _label;
@@ -40,7 +40,7 @@
             label.numberOfLines = 2;
             self.addSubview(label);
         });
-    }return _label;
+    };return _label;
 }
 
 @end

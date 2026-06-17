@@ -1,6 +1,6 @@
 //
 //  UITableView+WWFoldableTableView.m
-//  WWFoldableTableView
+//  JobsOCBaseConfigDemo
 //
 //  https://github.com/Tidusww/WWFoldableTableView
 //  Created by Tidus on 17/1/6.
@@ -63,7 +63,7 @@ JobsKey(_ww_foldState)
 - (BOOL)ww_isSectionFolded:(NSInteger)section{
     if(!self.ww_foldable || !self.ww_foldState){
         return NO;
-    }return [self.ww_foldState containsObject:@(section)];
+    };return [self.ww_foldState containsObject:@(section)];
 }
 
 - (void)ww_foldSection:(NSInteger)section fold:(BOOL)fold{

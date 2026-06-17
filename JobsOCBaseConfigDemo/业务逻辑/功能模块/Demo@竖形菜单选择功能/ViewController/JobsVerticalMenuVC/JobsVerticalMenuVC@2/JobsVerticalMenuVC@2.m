@@ -7,8 +7,6 @@
 
 #import "JobsVerticalMenuVC@2.h"
 
-#import "DefineProperty.h"
-
 @interface JobsVerticalMenuVC_2 ()
 /// UI
 Prop_strong()BaseButton *editBtn;
@@ -376,7 +374,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }else if (kind.isEqualToString(UICollectionElementKindSectionFooter)){
         /// 底部视图
         return [collectionView UICollectionElementKindSectionFooterClass:UICollectionReusableView.class forIndexPath:indexPath];
-    }return nil;
+    };return nil;
 }
 
 - (CGSize)collectionView:(__kindof UICollectionView *)collectionView
@@ -413,7 +411,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 .byFrame(CGRectMake(0,JobsTopSafeAreaHeight() + JobsStatusBarHeight() + self.gk_navigationBar.mj_h,
                                     TableViewWidth,JobsMainScreen_HEIGHT() - JobsTopSafeAreaHeight() - JobsStatusBarHeight() - JobsTabBarHeight(AppDelegate.tabBarVC) - EditBtnHeight));
         }));
-    }return _tableView;
+    };return _tableView;
 }
 /// BaseViewProtocol
 @synthesize collectionView = _collectionView;
@@ -430,7 +428,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
                                 JobsMainScreen_WIDTH() - self.tableView.width,self.tableView.height + EditBtnHeight))
             .byBgColor(JobsRandomColor)
             .addOn(self.view);
-    }return _collectionView;
+    };return _collectionView;
 }
 
 -(ThreeClassCell *)tempCell{
@@ -442,7 +440,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
                                     ThreeClassCell.cellSizeByModel(nil).width,
                                     ThreeClassCell.cellSizeByModel(nil).height);
         });
-    }return _tempCell;
+    };return _tempCell;
 }
 
 -(JobsSearchBar *)searchView{
@@ -486,7 +484,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
 //                }
 //            }];
         });
-    }return _searchView;
+    };return _searchView;
 }
 
 -(BaseButton *)editBtn{
@@ -520,7 +518,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 make.top.equalTo(self.tableView.mas_bottom);
                 make.size.mas_equalTo(CGSizeMake(TableViewWidth, EditBtnHeight));
             });
-    }return _editBtn;
+    };return _editBtn;
 }
 
 -(NSMutableArray<UIButtonModel *> *)cellDataMutArr{
@@ -531,7 +529,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
             @jobs_strongify(self)
             self.makeCellData(arr);
         });
-    }return _cellDataMutArr;
+    };return _cellDataMutArr;
 }
 
 -(BaiShaETProjPopupView10 *)popupView{
@@ -540,10 +538,10 @@ referenceSizeForFooterInSection:(NSInteger)section{
         _popupView = BaiShaETProjPopupView10.BySize(BaiShaETProjPopupView10.viewSizeByModel(nil))
             .JobsRichViewByModel2(nil)
             .JobsBlock1(^(id _Nullable data) {
-                @strongify(self)
+                @jobs_strongify(self)
                 if ([data isKindOfClass:NSMutableArray.class]) {
                     NSMutableArray <UIViewModel *>*dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
-                        @strongify(self)
+                        @jobs_strongify(self)
                         arr.add(self.titleMutArr[0]);
                         arr.addBy(data);
                     });
@@ -565,7 +563,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 self.collectionView.reloadDatas();
             });
         [_popupView tf_observerDelegateProcess:^(UIView *pop, DelegateProcess pro) {
-            @strongify(self)
+            @jobs_strongify(self)
             if (pro == DelegateProcessWillHide) self.popupView.shakeCell(NO);
         }];
     }
@@ -598,31 +596,31 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 .add(@"EVO")
                 .add(@"CQ9");
         });
-    }return _cellTitleMutArr;
+    };return _cellTitleMutArr;
 }
 
 -(NSMutableArray<UIViewModel *> *)popupViewDataMutArr{
     if (!_popupViewDataMutArr) {
         _popupViewDataMutArr = self.makePopViewDataMutArr;
-    }return _popupViewDataMutArr;
+    };return _popupViewDataMutArr;
 }
 
 -(NSMutableArray<UIViewModel *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = self.makeTitleMutArr;
-    }return _titleMutArr;
+    };return _titleMutArr;
 }
 
 -(NSMutableArray<GoodsClassModel *> *)leftDataArray{
     if (!_leftDataArray) {
         _leftDataArray = NSMutableArray.array;
-    }return _leftDataArray;
+    };return _leftDataArray;
 }
 
 -(NSMutableArray<GoodsClassModel *> *)rightDataArray{
     if (!_rightDataArray) {
         _rightDataArray = NSMutableArray.array;
-    }return _rightDataArray;
+    };return _rightDataArray;
 }
 
 @end

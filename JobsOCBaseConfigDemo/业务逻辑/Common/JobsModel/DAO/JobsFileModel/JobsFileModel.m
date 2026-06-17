@@ -1,6 +1,6 @@
 //
 //  JobsFileModel.m
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -14,7 +14,7 @@
 -(NSString *)fileName{
     if(!_fileName){
         _fileName = self.currentDate.toReadableTime(nil);
-    }return _fileName;
+    };return _fileName;
 }
 
 @end

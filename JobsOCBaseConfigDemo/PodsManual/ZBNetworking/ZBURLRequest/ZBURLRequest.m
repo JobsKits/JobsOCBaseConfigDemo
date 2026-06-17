@@ -1,6 +1,6 @@
 //
 //  ZBURLRequest.m
-//  ZBNetworking
+//  JobsOCBaseConfigDemo
 //
 //  Created by NQ UEC on 16/12/20.
 //  Copyright © 2016年 Suzhibin. All rights reserved.
@@ -29,16 +29,19 @@
     return self;
 }
 
+#pragma mark —— requestSerializer
 - (void)setRequestSerializer:(ZBRequestSerializerType)requestSerializer{
     _requestSerializer=requestSerializer;
     _isRequestSerializer=YES;
 }
 
+#pragma mark —— responseSerializer
 - (void)setResponseSerializer:(ZBResponseSerializerType)responseSerializer{
     _responseSerializer=responseSerializer;
     _isResponseSerializer=YES;
 }
 
+#pragma mark —— methodType
 - (void)setMethodType:(ZBMethodType)methodType{
     _methodType=methodType;
     _isMethodType=YES;
@@ -52,6 +55,7 @@
     _delegate=nil;
 }
 
+#pragma mark —— value
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
     //  JobsLog(@"undefinedKey:%@",key);
 }
@@ -184,16 +188,19 @@
 #pragma mark - ZBConfig
 
 @implementation ZBConfig
+#pragma mark —— requestSerializer
 - (void)setRequestSerializer:(ZBRequestSerializerType)requestSerializer{
     _requestSerializer=requestSerializer;
     _isRequestSerializer=YES;
 }
 
+#pragma mark —— responseSerializer
 - (void)setResponseSerializer:(ZBResponseSerializerType)responseSerializer{
     _responseSerializer=responseSerializer;
     _isResponseSerializer=YES;
 }
 
+#pragma mark —— defaultMethodType
 - (void)setDefaultMethodType:(ZBMethodType)defaultMethodType{
     _defaultMethodType=defaultMethodType;
     _isDefaultMethodType=YES;

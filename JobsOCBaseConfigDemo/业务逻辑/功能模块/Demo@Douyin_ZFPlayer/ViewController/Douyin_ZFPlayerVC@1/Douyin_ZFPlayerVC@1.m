@@ -1,13 +1,11 @@
 //
 //  Douyin_ZFPlayerVC@1.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/8.
 //
 
 #import "Douyin_ZFPlayerVC@1.h"
-
-#import "DefineProperty.h"
 
 @interface Douyin_ZFPlayerVC_1 ()
 
@@ -24,7 +22,7 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
 -(instancetype)init{
     if (self = [super init]) {
         self.index = 0;
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -311,7 +309,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath{
                 SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
             }
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray <VideoModel_Core *>*)dataMutArr{
@@ -518,7 +516,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath{
                 data.videoImg = @"视频封面";
             }));/// 第10条视频
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

@@ -2,11 +2,20 @@
 //  ASNetworkImageNode+DSL.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Mac on 11/6/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <AsyncDisplayKit/AsyncDisplayKit.h>
+#ifndef JOBS_HEADER_GUARD_ASNETWORKIMAGENODE_DSL_EC9A3059AA
+#define JOBS_HEADER_GUARD_ASNETWORKIMAGENODE_DSL_EC9A3059AA
+
 #import "JobsBlock.h"
+#import "JobsDefines.h"
+
+#if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
+#import <AsyncDisplayKit/AsyncDisplayKit.h>
+#else
+#import "AsyncDisplayKit.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(instancetype)bySetURL:(NSURL * _Nullable)url resetToDefault:(BOOL)reset;
 
-+(jobsByBOOLBlock _Nonnull)byUseMainThreadDelegateCallbacks;
++(JobsRetClassByBOOLBlock _Nonnull)byUseMainThreadDelegateCallbacks;
 
 -(JobsRetNetworkImageNodeByDelegateBlock _Nonnull)byDelegate;
 -(JobsRetNetworkImageNodeByImageBlock _Nonnull)byImage;
@@ -31,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(CGFloat)by_renderedImageQuality;
 -(CGFloat)by_downloadProgress;
 
-
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_ASNETWORKIMAGENODE_DSL_EC9A3059AA */

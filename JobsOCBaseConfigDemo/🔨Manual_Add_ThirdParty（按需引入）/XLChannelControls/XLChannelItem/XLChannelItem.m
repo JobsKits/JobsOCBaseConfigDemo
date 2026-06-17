@@ -1,14 +1,12 @@
 //
 //  XLChannelItem.m
-//  XLChannelControlDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by MengXianLiang on 2017/3/3.
 //  Copyright © 2017年 MengXianLiang. All rights reserved.
 //
 
 #import "XLChannelItem.h"
-
-#import "DefineProperty.h"
 
 @interface XLChannelItem ()
 
@@ -22,7 +20,7 @@ Prop_strong()CAShapeLayer *borderLayer;
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self initUI];
-    }return self;
+    };return self;
 }
 
 -(void)initUI{
@@ -74,11 +72,13 @@ Prop_strong()CAShapeLayer *borderLayer;
     return [UIColor colorWithRed:200/255.0f green:200/255.0f blue:200/255.0f alpha:1];
 }
 
+#pragma mark —— title
 -(void)setTitle:(NSString *)title{
     _title = title;
     self.textLabel.text = title;
 }
 
+#pragma mark —— isMoving
 -(void)setIsMoving:(BOOL)isMoving{
     _isMoving = isMoving;
     if (_isMoving) {
@@ -90,6 +90,7 @@ Prop_strong()CAShapeLayer *borderLayer;
     }
 }
 
+#pragma mark —— isFixed
 -(void)setIsFixed:(BOOL)isFixed{
     _isFixed = isFixed;
     if (isFixed) {

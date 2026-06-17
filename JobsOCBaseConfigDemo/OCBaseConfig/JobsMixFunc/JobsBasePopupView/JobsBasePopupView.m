@@ -1,13 +1,11 @@
 //
 //  JobsBasePopupView.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/11.
 //
 
 #import "JobsBasePopupView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsBasePopupView ()
 /// UI
@@ -24,13 +22,13 @@ Prop_strong()BaseButton *btn2;
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -75,7 +73,7 @@ Prop_strong()BaseButton *btn2;
                 make.top.equalTo(self).offset(JobsWidth(50));
             }];
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(UILabel *)subTitleLab{
@@ -91,7 +89,7 @@ Prop_strong()BaseButton *btn2;
                 make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(5));
             }];
         });
-    }return _subTitleLab;
+    };return _subTitleLab;
 }
 
 -(BaseButton *)btn1{
@@ -114,7 +112,7 @@ Prop_strong()BaseButton *btn2;
             make.left.equalTo(self).offset(JobsWidth(20));
             make.bottom.equalTo(self).offset(-JobsWidth(25));
         }];
-    }return _btn1;
+    };return _btn1;
 }
 
 -(BaseButton *)btn2{
@@ -139,7 +137,7 @@ Prop_strong()BaseButton *btn2;
             make.right.equalTo(self).offset(JobsWidth(-20));
             make.bottom.equalTo(self).offset(-JobsWidth(25));
         }];
-    }return _btn2;
+    };return _btn2;
 }
 
 @end

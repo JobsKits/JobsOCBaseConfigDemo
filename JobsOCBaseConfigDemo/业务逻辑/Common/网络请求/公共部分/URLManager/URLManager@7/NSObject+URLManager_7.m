@@ -1,6 +1,6 @@
 //
 //  NSObject+URLManager_7.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 23/11/2024.
 //

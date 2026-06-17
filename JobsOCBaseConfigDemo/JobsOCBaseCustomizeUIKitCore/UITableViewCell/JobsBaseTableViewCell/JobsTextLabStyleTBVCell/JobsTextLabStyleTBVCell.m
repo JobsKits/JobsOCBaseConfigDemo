@@ -1,6 +1,6 @@
 //
 //  JobsTextLabStyleTBVCell.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/11/24.
 //
@@ -71,7 +71,7 @@ BaseLayerProtocol_synthesize_part3
                 make.edges.equalTo(self.contentView);
             }];
         });
-    }return _label;
+    };return _label;
 }
 
 @end

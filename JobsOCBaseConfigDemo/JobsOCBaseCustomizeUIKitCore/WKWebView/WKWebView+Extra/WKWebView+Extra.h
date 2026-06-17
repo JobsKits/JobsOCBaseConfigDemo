@@ -1,6 +1,6 @@
 //
 //  WKWebView+Extra.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 8/11/2024.
 //
@@ -9,6 +9,7 @@
 #import "JobsBlock.h"
 #import "BaseProtocol.h"
 #import "WKWebViewConfiguration+Extra.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

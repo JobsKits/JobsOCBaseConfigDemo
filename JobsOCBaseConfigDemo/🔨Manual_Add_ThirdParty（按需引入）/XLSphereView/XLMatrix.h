@@ -1,6 +1,6 @@
 //
 //  XLMatrix.h
-//  XLSphereView
+//  JobsOCBaseConfigDemo
 //
 //  Created by 袁小龙 on 16/4/4.
 //  Copyright © 2016年 xiaolong. All rights reserved.
@@ -40,7 +40,7 @@ static XLMatrix XLMatrixMake(NSInteger column, NSInteger row) {
         for(NSInteger j = 0; j < row; j++){
             matrix.matrix[i][j] = 0;
         }
-    }return matrix;
+    };return matrix;
 }
 
 static XLMatrix XLMatrixMakeFromArray(NSInteger column,
@@ -52,7 +52,7 @@ static XLMatrix XLMatrixMakeFromArray(NSInteger column,
         for (int j = 0; j < row; j++) {
             matrix.matrix[i][j] = *(t + j);
         }
-    }return matrix;
+    };return matrix;
 }
 
 static XLMatrix XLMatrixMutiply(XLMatrix a, XLMatrix b) {
@@ -63,7 +63,7 @@ static XLMatrix XLMatrixMutiply(XLMatrix a, XLMatrix b) {
                 result.matrix[i][j] += a.matrix[i][k] * b.matrix[k][j];
             }
         }
-    }return result;
+    };return result;
 }
 
 static XLPoint XLPointMakeRotation(XLPoint point,

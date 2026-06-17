@@ -7,8 +7,6 @@
 
 #import "JobsCustomTabBarVC.h"
 
-#import "DefineProperty.h"
-
 @interface JobsCustomTabBarVC ()
 
 Prop_strong()JobsCustomTabBar *customTabBar;
@@ -107,7 +105,7 @@ didSelectViewController:(UIViewController *)viewController{
 -(JobsCustomTabBar *)customTabBar{
     if(!_customTabBar){
         _customTabBar = NSObject.makeCustomTabBarBy(self.view);
-    }return _customTabBar;
+    };return _customTabBar;
 }
 
 @end

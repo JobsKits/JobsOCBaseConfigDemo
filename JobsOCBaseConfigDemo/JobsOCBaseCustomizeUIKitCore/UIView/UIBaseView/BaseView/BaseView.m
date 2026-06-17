@@ -1,6 +1,6 @@
 //
 //  BaseView.m
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/2/5.
 //  Copyright © 2021 MonkeyKingVideo. All rights reserved.
@@ -30,13 +30,13 @@ UIViewModelProtocol_synthesize_part1
 -(instancetype)init{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -116,7 +116,7 @@ UIViewModelProtocol_synthesize_part1
                     if(self.closeBtnClickAction)self.closeBtnClickAction(x);
                 });
         });
-    }return _navBar;
+    };return _navBar;
 }
 /// 在具体的子类去实现，以覆盖父类的方法实现
 -(UIButtonModel *)closeBtnModel{
@@ -130,7 +130,7 @@ UIViewModelProtocol_synthesize_part1
             data.roundingCorners = UIRectCornerAllCorners;
             data.baseBackgroundColor = JobsClearColor;
         });
-    }return _closeBtnModel;
+    };return _closeBtnModel;
 }
 /// 在具体的子类去实现，以覆盖父类的方法实现
 -(UIButtonModel *)backBtnModel{
@@ -147,7 +147,7 @@ UIViewModelProtocol_synthesize_part1
             self.jobsBackBtnClickEvent(x);
             return nil;
         };
-    }return _backBtnModel;
+    };return _backBtnModel;
 }
 
 @end

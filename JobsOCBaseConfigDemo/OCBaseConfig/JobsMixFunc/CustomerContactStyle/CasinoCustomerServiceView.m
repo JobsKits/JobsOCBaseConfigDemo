@@ -1,13 +1,11 @@
 //
 //  CasinoCustomerServiceView.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/24.
 //
 
 #import "CasinoCustomerServiceView.h"
-
-#import "DefineProperty.h"
 
 @interface CasinoCustomerServiceView ()
 /// UI
@@ -32,20 +30,20 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
         if (!static_customerServiceView) {
             static_customerServiceView = CasinoCustomerServiceView.new;
         }
-    }return static_customerServiceView;
+    };return static_customerServiceView;
 }
 
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundImageView.image = @"客服_背景图".img;
         [self customerContact];
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self customerContact];
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -98,7 +96,7 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
                 make.top.equalTo(self).offset(JobsWidth(20));
             }];
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(BaseButton *)contactCustomerServiceBtn{
@@ -127,7 +125,7 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
             make.centerX.equalTo(self.titleLab);
         }];
 
-    }return _contactCustomerServiceBtn;
+    };return _contactCustomerServiceBtn;
 }
 
 -(BaseButton *)closeBtn{
@@ -148,7 +146,7 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
             make.right.equalTo(self).offset(JobsWidth(-20));
             make.top.equalTo(self).offset(JobsWidth(20));
         }];
-    }return _closeBtn;
+    };return _closeBtn;
 }
 
 -(UILabel *)subTitleLab{
@@ -170,7 +168,7 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
                 make.right.equalTo(self).offset(JobsWidth(-15));
             }];
         });
-    }return _subTitleLab;
+    };return _subTitleLab;
 }
 
 -(JobsHotLabelBySingleLine *)hl{
@@ -188,7 +186,7 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
         }];
         [self layoutIfNeeded];
         _hl.jobsRichViewByModel(self.hotLabelDataMutArr);
-    }return _hl;
+    };return _hl;
 }
 
 -(UIImageView *)leftIMGV{
@@ -204,7 +202,7 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
                 make.right.equalTo(self.subTitleLab).offset(JobsWidth(-5));
             }];
         });
-    }return _leftIMGV;
+    };return _leftIMGV;
 }
 
 -(UIImageView *)rightIMGV{
@@ -220,7 +218,7 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
                 make.left.equalTo(self.subTitleLab).offset(JobsWidth(5));
             }];
         });
-    }return _rightIMGV;
+    };return _rightIMGV;
 }
 
 @end

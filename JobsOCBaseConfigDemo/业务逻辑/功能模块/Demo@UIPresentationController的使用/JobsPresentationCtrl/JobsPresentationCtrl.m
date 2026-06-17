@@ -4,8 +4,6 @@
 //! controller.
 #define CORNER_RADIUS   16.f
 
-#import "DefineProperty.h"
-
 @interface JobsPresentationCtrl ()
 /// UI
 Prop_strong()UIView *dimmingView;
@@ -23,7 +21,7 @@ Prop_strong()UIView *presentationWrappingView;
         // of UIModalPresentationCustom for a custom presentation controller
         // to be used.
         presentedViewController.modalPresentationStyle = UIModalPresentationCustom;
-    }return self;
+    };return self;
 }
 
 - (UIView *)presentedView{

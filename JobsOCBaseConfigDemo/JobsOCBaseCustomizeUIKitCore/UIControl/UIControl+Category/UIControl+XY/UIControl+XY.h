@@ -1,6 +1,6 @@
 //
 //  UIControl+XY.h
-//  JinXian Finance
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2017/7/17.
 //  Copyright © 2017年 Jobs. All rights reserved.
@@ -8,8 +8,7 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 资料来源：http://www.jianshu.com/p/a830d0a57378

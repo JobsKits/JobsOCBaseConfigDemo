@@ -1,13 +1,11 @@
 //
 //  BaseUploadFileRequest.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 5/12/2024.
 //
 
 #import "BaseUploadFileRequest.h"
-
-#import "DefineProperty.h"
 
 @interface BaseUploadFileRequest ()
 

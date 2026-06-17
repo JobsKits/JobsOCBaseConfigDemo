@@ -1,6 +1,6 @@
 //
 //  JobsSuspendView.m
-//  Search
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/8/13.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -18,7 +18,7 @@
     if (self = [super init]) {
         self.backgroundColor = self.backgroundColor ? :JobsBlackColor;
         self.cornerCutToCircleWithCornerRadius(8);
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{

@@ -1,14 +1,13 @@
 //
 //  XDTextBtnView.h
-//  文字按钮
+//  JobsOCBaseConfigDemo
 //
 //  Created by XD on 2019/6/10.
 //  Copyright © 2019 XDTextBtnView. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

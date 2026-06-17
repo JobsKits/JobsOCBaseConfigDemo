@@ -1,13 +1,11 @@
 //
 //  DynamicViewTestVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/8.
 //
 
 #import "DynamicViewTestVC.h"
-
-#import "DefineProperty.h"
 
 @interface DynamicViewTestVC ()
 
@@ -93,13 +91,13 @@ Prop_copy()NSString *path;
                 make.edges.equalTo(self.view);
             }];
         });
-    }return _gifImageView;
+    };return _gifImageView;
 }
 
 -(NSString *)path{
     if (!_path) {
         _path = @"GIF大图.gif".pathForResourceWithFullName;
-    }return _path;
+    };return _path;
 }
 
 @end

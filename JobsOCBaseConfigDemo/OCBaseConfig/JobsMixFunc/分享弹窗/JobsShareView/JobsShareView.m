@@ -1,13 +1,11 @@
 //
 //  JobsShareView.m
-//  MataShop
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 10/16/23.
 //
 
 #import "JobsShareView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsShareView ()
 /// UI
@@ -37,7 +35,7 @@ static dispatch_once_t static_shareViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -54,7 +52,7 @@ static dispatch_once_t static_shareViewOnceToken;
             }JobsLog(@"通知传递过来的 = %@",notification.object);
         }];
 //        [self netWorking];
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -72,7 +70,7 @@ static dispatch_once_t static_shareViewOnceToken;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -229,7 +227,7 @@ insetForSectionAtIndex:(NSInteger)section {
             make.top.equalTo(self.collectionView.mas_bottom);
             make.left.right.bottom.equalTo(self);
         }];
-    }return _cancelBtn;
+    };return _cancelBtn;
 }
 /// BaseViewProtocol
 @synthesize collectionView = _collectionView;
@@ -263,7 +261,7 @@ insetForSectionAtIndex:(NSInteger)section {
             make.top.left.right.equalTo(self);
             make.height.mas_equalTo(JobsWidth(102));
         }];
-    }return _collectionView;
+    };return _collectionView;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
@@ -286,7 +284,7 @@ insetForSectionAtIndex:(NSInteger)section {
                 data1.image = @"信用分数".img;
             }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

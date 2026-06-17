@@ -1,15 +1,15 @@
 //
 //  JobsNavigationTransitionMgr.h
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/4.
 //
 
 #import <Foundation/Foundation.h>
 #import "UIViewController+Extra.h"
-#import "JobsDefineAllEnumHeader.h"
+#import "JobsDefineEnums.h"
 #import "BaseProtocol.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,6 +1,6 @@
 //
 //  FSCalendarAppearance.m
-//  Pods
+//  JobsOCBaseConfigDemo
 //
 //  Created by DingWenchao on 6/29/15.
 //  Copyright © 2016 Wenchao Ding. All rights reserved.
@@ -78,9 +78,10 @@
         _fakeEventDots = YES;
 #endif
         
-    }return self;
+    };return self;
 }
 
+#pragma mark —— titleFont
 - (void)setTitleFont:(UIFont *)titleFont
 {
     if (![_titleFont isEqual:titleFont]) {
@@ -89,6 +90,7 @@
     }
 }
 
+#pragma mark —— subtitleFont
 - (void)setSubtitleFont:(UIFont *)subtitleFont
 {
     if (![_subtitleFont isEqual:subtitleFont]) {
@@ -97,6 +99,7 @@
     }
 }
 
+#pragma mark —— weekdayFont
 - (void)setWeekdayFont:(UIFont *)weekdayFont
 {
     if (![_weekdayFont isEqual:weekdayFont]) {
@@ -105,6 +108,7 @@
     }
 }
 
+#pragma mark —— headerTitleFont
 - (void)setHeaderTitleFont:(UIFont *)headerTitleFont
 {
     if (![_headerTitleFont isEqual:headerTitleFont]) {
@@ -113,6 +117,8 @@
     }
 }
 
+#pragma mark —— headerTitleOffset
+JobsKey(_headerTitleOffset)
 - (void)setHeaderTitleOffset:(CGPoint)headerTitleOffset {
     if (!CGPointEqualToPoint(_headerTitleOffset, headerTitleOffset)) {
         _headerTitleOffset = headerTitleOffset;
@@ -120,6 +126,8 @@
     }
 }
 
+#pragma mark —— titleOffset
+JobsKey(_titleOffset)
 - (void)setTitleOffset:(CGPoint)titleOffset
 {
     if (!CGPointEqualToPoint(_titleOffset, titleOffset)) {
@@ -128,6 +136,8 @@
     }
 }
 
+#pragma mark —— subtitleOffset
+JobsKey(_subtitleOffset)
 - (void)setSubtitleOffset:(CGPoint)subtitleOffset
 {
     if (!CGPointEqualToPoint(_subtitleOffset, subtitleOffset)) {
@@ -136,6 +146,8 @@
     }
 }
 
+#pragma mark —— imageOffset
+JobsKey(_imageOffset)
 - (void)setImageOffset:(CGPoint)imageOffset
 {
     if (!CGPointEqualToPoint(_imageOffset, imageOffset)) {
@@ -144,6 +156,8 @@
     }
 }
 
+#pragma mark —— eventOffset
+JobsKey(_eventOffset)
 - (void)setEventOffset:(CGPoint)eventOffset
 {
     if (!CGPointEqualToPoint(_eventOffset, eventOffset)) {
@@ -152,6 +166,7 @@
     }
 }
 
+#pragma mark —— titleDefaultColor
 - (void)setTitleDefaultColor:(UIColor *)color
 {
     if (color) {
@@ -167,6 +182,7 @@
     return _titleColors[@(FSCalendarCellStateNormal)];
 }
 
+#pragma mark —— titleSelectionColor
 - (void)setTitleSelectionColor:(UIColor *)color
 {
     if (color) {
@@ -182,6 +198,7 @@
     return _titleColors[@(FSCalendarCellStateSelected)];
 }
 
+#pragma mark —— titleTodayColor
 - (void)setTitleTodayColor:(UIColor *)color
 {
     if (color) {
@@ -197,6 +214,7 @@
     return _titleColors[@(FSCalendarCellStateToday)];
 }
 
+#pragma mark —— titlePlaceholderColor
 - (void)setTitlePlaceholderColor:(UIColor *)color
 {
     if (color) {
@@ -212,6 +230,7 @@
     return _titleColors[@(FSCalendarCellStatePlaceholder)];
 }
 
+#pragma mark —— titleWeekendColor
 - (void)setTitleWeekendColor:(UIColor *)color
 {
     if (color) {
@@ -227,6 +246,7 @@
     return _titleColors[@(FSCalendarCellStateWeekend)];
 }
 
+#pragma mark —— subtitleDefaultColor
 - (void)setSubtitleDefaultColor:(UIColor *)color
 {
     if (color) {
@@ -242,6 +262,7 @@
     return _subtitleColors[@(FSCalendarCellStateNormal)];
 }
 
+#pragma mark —— subtitleSelectionColor
 - (void)setSubtitleSelectionColor:(UIColor *)color
 {
     if (color) {
@@ -257,6 +278,7 @@
     return _subtitleColors[@(FSCalendarCellStateSelected)];
 }
 
+#pragma mark —— subtitleTodayColor
 - (void)setSubtitleTodayColor:(UIColor *)color
 {
     if (color) {
@@ -272,6 +294,7 @@
     return _subtitleColors[@(FSCalendarCellStateToday)];
 }
 
+#pragma mark —— subtitlePlaceholderColor
 - (void)setSubtitlePlaceholderColor:(UIColor *)color
 {
     if (color) {
@@ -287,6 +310,7 @@
     return _subtitleColors[@(FSCalendarCellStatePlaceholder)];
 }
 
+#pragma mark —— subtitleWeekendColor
 - (void)setSubtitleWeekendColor:(UIColor *)color
 {
     if (color) {
@@ -302,6 +326,7 @@
     return _subtitleColors[@(FSCalendarCellStateWeekend)];
 }
 
+#pragma mark —— selectionColor
 - (void)setSelectionColor:(UIColor *)color
 {
     if (color) {
@@ -317,6 +342,7 @@
     return _backgroundColors[@(FSCalendarCellStateSelected)];
 }
 
+#pragma mark —— todayColor
 - (void)setTodayColor:(UIColor *)todayColor
 {
     if (todayColor) {
@@ -332,6 +358,7 @@
     return _backgroundColors[@(FSCalendarCellStateToday)];
 }
 
+#pragma mark —— todaySelectionColor
 - (void)setTodaySelectionColor:(UIColor *)todaySelectionColor
 {
     if (todaySelectionColor) {
@@ -347,6 +374,7 @@
     return _backgroundColors[@(FSCalendarCellStateToday|FSCalendarCellStateSelected)];
 }
 
+#pragma mark —— eventDefaultColor
 - (void)setEventDefaultColor:(UIColor *)eventDefaultColor
 {
     if (![_eventDefaultColor isEqual:eventDefaultColor]) {
@@ -355,6 +383,7 @@
     }
 }
 
+#pragma mark —— borderDefaultColor
 - (void)setBorderDefaultColor:(UIColor *)color
 {
     if (color) {
@@ -370,6 +399,7 @@
     return _borderColors[@(FSCalendarCellStateNormal)];
 }
 
+#pragma mark —— borderSelectionColor
 - (void)setBorderSelectionColor:(UIColor *)color
 {
     if (color) {
@@ -385,6 +415,7 @@
     return _borderColors[@(FSCalendarCellStateSelected)];
 }
 
+#pragma mark —— borderRadius
 - (void)setBorderRadius:(CGFloat)borderRadius
 {
     borderRadius = MAX(0.0, borderRadius);
@@ -395,6 +426,7 @@
     }
 }
 
+#pragma mark —— weekdayTextColor
 - (void)setWeekdayTextColor:(UIColor *)weekdayTextColor
 {
     if (![_weekdayTextColor isEqual:weekdayTextColor]) {
@@ -403,6 +435,7 @@
     }
 }
 
+#pragma mark —— headerTitleColor
 - (void)setHeaderTitleColor:(UIColor *)color
 {
     if (![_headerTitleColor isEqual:color]) {
@@ -411,6 +444,7 @@
     }
 }
 
+#pragma mark —— headerSeparatorColor
 - (void)setHeaderSeparatorColor:(UIColor *)headerSeparatorColor
 {
     if (![_headerSeparatorColor isEqual:headerSeparatorColor]) {
@@ -419,6 +453,7 @@
     }
 }
 
+#pragma mark —— headerMinimumDissolvedAlpha
 - (void)setHeaderMinimumDissolvedAlpha:(CGFloat)headerMinimumDissolvedAlpha
 {
     if (_headerMinimumDissolvedAlpha != headerMinimumDissolvedAlpha) {
@@ -427,6 +462,7 @@
     }
 }
 
+#pragma mark —— headerDateFormat
 - (void)setHeaderDateFormat:(NSString *)headerDateFormat
 {
     if (![_headerDateFormat isEqual:headerDateFormat]) {
@@ -435,6 +471,7 @@
     }
 }
 
+#pragma mark —— headerTitleAlignment
 - (void)setHeaderTitleAlignment:(NSTextAlignment)headerTitleAlignment
 {
     if (_headerTitleAlignment != headerTitleAlignment) {
@@ -443,6 +480,7 @@
     }
 }
 
+#pragma mark —— caseOptions
 - (void)setCaseOptions:(FSCalendarCaseOptions)caseOptions
 {
     if (_caseOptions != caseOptions) {
@@ -451,6 +489,7 @@
     }
 }
 
+#pragma mark —— separators
 - (void)setSeparators:(FSCalendarSeparators)separators
 {
     if (_separators != separators) {
@@ -464,6 +503,7 @@
 
 @implementation FSCalendarAppearance (Deprecated)
 
+#pragma mark —— useVeryShortWeekdaySymbols
 - (void)setUseVeryShortWeekdaySymbols:(BOOL)useVeryShortWeekdaySymbols
 {
     _caseOptions &= 15;
@@ -475,6 +515,7 @@
     return (_caseOptions & (15<<4) ) == FSCalendarCaseOptionsWeekdayUsesSingleUpperCase;
 }
 
+#pragma mark —— titleVerticalOffset
 - (void)setTitleVerticalOffset:(CGFloat)titleVerticalOffset
 {
     self.titleOffset = CGPointMake(0, titleVerticalOffset);
@@ -485,6 +526,7 @@
     return self.titleOffset.y;
 }
 
+#pragma mark —— subtitleVerticalOffset
 - (void)setSubtitleVerticalOffset:(CGFloat)subtitleVerticalOffset
 {
     self.subtitleOffset = CGPointMake(0, subtitleVerticalOffset);
@@ -495,6 +537,7 @@
     return self.subtitleOffset.y;
 }
 
+#pragma mark —— eventColor
 - (void)setEventColor:(UIColor *)eventColor
 {
     self.eventDefaultColor = eventColor;
@@ -505,21 +548,25 @@
     return self.eventDefaultColor;
 }
 
+#pragma mark —— titleTextSize
 - (void)setTitleTextSize:(CGFloat)titleTextSize
 {
     self.titleFont = [self.titleFont fontWithSize:titleTextSize];
 }
 
+#pragma mark —— subtitleTextSize
 - (void)setSubtitleTextSize:(CGFloat)subtitleTextSize
 {
     self.subtitleFont = [self.subtitleFont fontWithSize:subtitleTextSize];
 }
 
+#pragma mark —— weekdayTextSize
 - (void)setWeekdayTextSize:(CGFloat)weekdayTextSize
 {
     self.weekdayFont = [self.weekdayFont fontWithSize:weekdayTextSize];
 }
 
+#pragma mark —— headerTitleTextSize
 - (void)setHeaderTitleTextSize:(CGFloat)headerTitleTextSize
 {
     self.headerTitleFont = [self.headerTitleFont fontWithSize:headerTitleTextSize];

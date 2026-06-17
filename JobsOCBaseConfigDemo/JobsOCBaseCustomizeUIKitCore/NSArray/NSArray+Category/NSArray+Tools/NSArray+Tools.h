@@ -1,6 +1,6 @@
 //
 //  NSArray+Tools.h
-//  Wifi
+//  JobsOCBaseConfigDemo
 //
 //  Created by muxi on 14/11/27.
 //  Copyright (c) 2014年 muxi. All rights reserved.
@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "JobsBlock.h"
 #import "MasonryModel.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
@@ -43,54 +43,54 @@
 -(JobsRetMutableArrayByVoidBlock _Nonnull)mutableArr;
 
 @end
-
 /**
- Prop_strong()NSMutableArray <UIImageView *>*subViewsMutArr;
- self.subViewsMutArr.jobsVisible(YES);
  
- -(NSMutableArray<__kindof UIView *> *)subViewsMutArr{
-     if(!_subViewsMutArr){
-         @jobs_weakify(self)
-         _subViewsMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIView *>*_Nullable data) {
-             @jobs_strongify(self)
-             data.add(BaseButton.jobsInit()
-                      .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
-                      .jobsResetBtnBgImage(@"纸飞机账户绑定".img)
-                      .onClickBy(^(UIButton *x){
-                          toastBy(@"纸飞机");
-                      }).onLongPressGestureBy(^(id data){
-                          JobsLog(@"");
-                      }));
-             data.add(BaseButton.jobsInit()
-                      .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
-                      .jobsResetBtnBgImage(@"脸书账户绑定".img)
-                      .onClickBy(^(UIButton *x){
-                          toastBy(@"脸书");
-                      }).onLongPressGestureBy(^(id data){
-                          JobsLog(@"");
-                      }));
-             data.add(BaseButton.jobsInit()
-                      .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
-                      .jobsResetBtnBgImage(@"Viber账户绑定".img)
-                      .onClickBy(^(UIButton *x){
-                          toastBy(@"Viber");
-                      }).onLongPressGestureBy(^(id data){
-                          JobsLog(@"");
-                      }));
-             for (UIView *view in data) {
-                 self.addSubview(view);
-             }
-         }).installByMasonryModel1(jobsMakeMasonryModel(^(__kindof MasonryModel * _Nullable data) {
-             data.axisType = MASAxisTypeHorizontal;
-             data.fixedSpacing = JobsWidth(17);
-             data.leadSpacing = JobsWidth(22);
-             data.tailSpacing = JobsWidth(22);
-             data.bottom = JobsWidth(-10);
-             data.height = JobsWidth(26);
-             data.is_mas_makeConstraints = YES;
-         })).installByMasonryBlock(^(MASConstraintMaker *_Nonnull data){
-             
-         });
-     }return _subViewsMutArr;
- }
+     Prop_strong()NSMutableArray <UIImageView *>*subViewsMutArr;
+     self.subViewsMutArr.jobsVisible(YES);
+
+     -(NSMutableArray<__kindof UIView *> *)subViewsMutArr{
+         if(!_subViewsMutArr){
+             @jobs_weakify(self)
+             _subViewsMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIView *>*_Nullable data) {
+                 @jobs_strongify(self)
+                 data.add(BaseButton.jobsInit()
+                          .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
+                          .jobsResetBtnBgImage(@"纸飞机账户绑定".img)
+                          .onClickBy(^(UIButton *x){
+                              toastBy(@"纸飞机");
+                          }).onLongPressGestureBy(^(id data){
+                              JobsLog(@"");
+                          }));
+                 data.add(BaseButton.jobsInit()
+                          .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
+                          .jobsResetBtnBgImage(@"脸书账户绑定".img)
+                          .onClickBy(^(UIButton *x){
+                              toastBy(@"脸书");
+                          }).onLongPressGestureBy(^(id data){
+                              JobsLog(@"");
+                          }));
+                 data.add(BaseButton.jobsInit()
+                          .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
+                          .jobsResetBtnBgImage(@"Viber账户绑定".img)
+                          .onClickBy(^(UIButton *x){
+                              toastBy(@"Viber");
+                          }).onLongPressGestureBy(^(id data){
+                              JobsLog(@"");
+                          }));
+                 for (UIView *view in data) {
+                     self.addSubview(view);
+                 }
+             }).installByMasonryModel1(jobsMakeMasonryModel(^(__kindof MasonryModel * _Nullable data) {
+                 data.axisType = MASAxisTypeHorizontal;
+                 data.fixedSpacing = JobsWidth(17);
+                 data.leadSpacing = JobsWidth(22);
+                 data.tailSpacing = JobsWidth(22);
+                 data.bottom = JobsWidth(-10);
+                 data.height = JobsWidth(26);
+                 data.is_mas_makeConstraints = YES;
+             })).installByMasonryBlock(^(MASConstraintMaker *_Nonnull data){
+
+             });
+         };return _subViewsMutArr;
+     }
  */

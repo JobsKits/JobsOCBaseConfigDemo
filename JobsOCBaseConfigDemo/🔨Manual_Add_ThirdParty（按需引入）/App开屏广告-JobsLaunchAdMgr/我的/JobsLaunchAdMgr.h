@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, SkipButtonMode) {
     SkipButtonModeCountdown
 };
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /**

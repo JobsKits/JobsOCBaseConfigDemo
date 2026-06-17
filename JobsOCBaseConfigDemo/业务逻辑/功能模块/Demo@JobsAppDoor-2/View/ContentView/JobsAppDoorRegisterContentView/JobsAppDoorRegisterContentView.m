@@ -1,6 +1,6 @@
 //
 //  RegisterContentView.m
-//  Shooting
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/3.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -9,8 +9,6 @@
 #import "JobsAppDoorRegisterContentView.h"
 
 @class JobsAppDoorDoorInputViewBaseStyle;
-
-#import "DefineProperty.h"
 
 @interface JobsAppDoorRegisterContentView ()
 /// UI
@@ -43,7 +41,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
                 JobsLog(@"木头 = %@",b.requestParams);
             }JobsLog(@"通知传递过来的 = %@",notification.object);
         }];
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -112,7 +110,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(data);
             }];return inputView;
-        }return nil;
+        };return nil;
     };
 }
 #pragma mark —— lazyLoad
@@ -141,7 +139,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
             make.width.mas_equalTo(btnWidth);
         }];
         [self layoutIfNeeded];
-    }return _backToLoginBtn;
+    };return _backToLoginBtn;
 }
 
 -(UILabel *)titleLab{
@@ -157,7 +155,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
             label.centerX = (self.width + self.backToLoginBtn.width) / 2;
             label.top = 20;
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(UIButton *)sendBtn{
@@ -181,7 +179,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
         _sendBtn.sizer = CGSizeMake(self.width - self.backToLoginBtn.width - JobsWidth(40), ThingsHeight);
         _sendBtn.bottom = JobsAppDoorContentViewRegisterHeight - JobsWidth(20);
         [self addSubview:_sendBtn];
-    }return _sendBtn;
+    };return _sendBtn;
 }
 
 -(NSMutableArray<JobsAppDoorInputViewBaseStyleModel *> *)registerDoorInputViewBaseStyleModelMutArr{
@@ -237,13 +235,13 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
                 图形验证码.leftViewMode = UITextFieldViewModeAlways;
             }));
         });
-    }return _registerDoorInputViewBaseStyleModelMutArr;
+    };return _registerDoorInputViewBaseStyleModelMutArr;
 }
 
 -(NSMutableArray<JobsAppDoorInputViewBaseStyle *> *)registerDoorInputViewBaseStyleMutArr{
     if (!_registerDoorInputViewBaseStyleMutArr) {
         _registerDoorInputViewBaseStyleMutArr = NSMutableArray.array;
-    }return _registerDoorInputViewBaseStyleMutArr;
+    };return _registerDoorInputViewBaseStyleMutArr;
 }
 
 @end

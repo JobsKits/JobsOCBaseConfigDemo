@@ -1,12 +1,13 @@
 //
 //  NSMutableDictionary+Ordered.m
-//  OrderedMutableDictionary
+//  JobsOCBaseConfigDemo
 //
 //  Created by Locke on 2017/3/17.
 //  Copyright © 2017年 lainkai. All rights reserved.
 //
 
 #import "NSMutableDictionary+Ordered.h"
+#import "MacroDef_Sys.h"
 
 static BOOL isHasBeenRemoved;
 /**
@@ -31,16 +32,15 @@ static BOOL isHasBeenRemoved;
         }
     });
 }
-static const void *OrderedDictionaryKeys = (void *)@"OrderedDictionaryKeys";
+#pragma mark —— Prop_copy(readonly, nullable)NSMutableArray *keys;
+JobsKey(_keys)
+@dynamic keys;
 -(NSMutableArray *)keys{
-    return objc_getAssociatedObject(self, OrderedDictionaryKeys);
+    return Jobs_getAssociatedObject(_keys);
 }
 
 -(void)setKeys:(NSMutableArray *)keys {
-    objc_setAssociatedObject(self,
-                             OrderedDictionaryKeys,
-                             keys,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(_keys, keys)
 }
 /// 添加键值对
 -(void)swizzled_setObject:(nonnull id)anObject
@@ -81,7 +81,7 @@ static const void *OrderedDictionaryKeys = (void *)@"OrderedDictionaryKeys";
 - (id)objectAtIndex:(NSUInteger)index {
     if (index >= self.keys.count) {
         return nil;
-    }return [self objectForKey:self.keys[index]];
+    };return [self objectForKey:self.keys[index]];
 }
 /// 插入键值对至给定index
 -(void)insertObject:(id)anObject

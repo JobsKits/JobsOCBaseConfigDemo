@@ -1,12 +1,12 @@
 //
 //  JobsNavBar.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/24/24.
 //
 
 #import "JobsBlock.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "BaseImageView.h"
 #import "BaseButton.h"
 #import "JobsNavBarConfig.h"

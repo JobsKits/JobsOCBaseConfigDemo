@@ -1,6 +1,6 @@
 //
 //  FMHomeWebVC.m
-//  FMOnlyH5
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 7/3/2025.
 //
@@ -14,7 +14,6 @@
  开发：https://www.sports5555.com
  
  */
-#import "DefineProperty.h"
 
 @interface FMHomeWebVC ()
 
@@ -34,7 +33,7 @@ Prop_copy()NSString *urlString;
 - (instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -111,7 +110,7 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
         _urlString = @"https://bsports.net.ph"; /// UAT
 //        _urlString = @"https://www.sports3333.com"; /// 测试
 //        _urlString = @"https://www.sports5555.com"; /// 开发
-    }return _urlString;
+    };return _urlString;
 }
 /// BaseViewControllerProtocol
 @synthesize webView = _webView;
@@ -143,7 +142,7 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
             make.left.right.bottom.equalTo(self.view);
             make.top.equalTo(self.view).offset(JobsStatusBarHeight());
         }];
-    }return _webView;
+    };return _webView;
 }
 
 -(UIImageView *)launchImageView{
@@ -156,7 +155,7 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
             imageView.contentMode = UIViewContentModeScaleAspectFill;
             self.view.addSubview(imageView);
         });
-    }return _launchImageView;
+    };return _launchImageView;
 }
 
 -(UIActivityIndicatorView *)loadingIndicator{
@@ -164,7 +163,7 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
         _loadingIndicator = [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
         _loadingIndicator.center = self.view.center;
         self.view.addSubview(self.loadingIndicator);
-    }return _loadingIndicator;
+    };return _loadingIndicator;
 }
 
 @end

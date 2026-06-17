@@ -1,13 +1,11 @@
 //
 //  XZExcelVC.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/5/24.
 //  特别鸣谢 https://github.com/Mephsito23/iOS-Excel-
 
 #import "JobsExcelVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsExcelVC ()
 /// UI
@@ -26,7 +24,7 @@ Prop_strong()JobsExcelView *excelView;
 - (instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -110,7 +108,7 @@ Prop_strong()JobsExcelView *excelView;
                 }))
                 .byBgColor(JobsRedColor);
         });
-    }return _excelView;
+    };return _excelView;
 }
 
 @end

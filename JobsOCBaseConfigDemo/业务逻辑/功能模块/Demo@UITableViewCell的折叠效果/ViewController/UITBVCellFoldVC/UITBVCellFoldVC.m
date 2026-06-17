@@ -1,13 +1,11 @@
 //
 //  UITBVCellFoldVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 10/2/23.
 //
 
 #import "UITBVCellFoldVC.h"
-
-#import "DefineProperty.h"
 
 @interface UITBVCellFoldVC ()
 /// UI
@@ -94,7 +92,7 @@ Prop_strong()MSCommentView *commentView;
                 make.height.mas_equalTo(JobsWidth(20));
             }];label.makeLabelByShowingType(UILabelShowingType_03);
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(MSCommentView *)commentView{
@@ -106,7 +104,7 @@ Prop_strong()MSCommentView *commentView;
             make.top.equalTo(self.titleLab.mas_bottom);
             make.left.right.bottom.equalTo(self.view);
         }];
-    }return _commentView;
+    };return _commentView;
 }
 
 @end

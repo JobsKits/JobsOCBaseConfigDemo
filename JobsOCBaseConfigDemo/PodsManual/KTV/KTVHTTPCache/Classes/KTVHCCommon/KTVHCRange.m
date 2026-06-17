@@ -1,6 +1,6 @@
 //
 //  KTVHCRange.m
-//  KTVHTTPCache
+//  JobsOCBaseConfigDemo
 //
 //  Created by Single on 2018/5/20.
 //  Copyright © 2018年 Single. All rights reserved.
@@ -27,7 +27,7 @@ BOOL KTVHCEqualRanges(KTVHCRange range1, KTVHCRange range2){
 long long KTVHCRangeGetLength(KTVHCRange range){
     if (range.start == KTVHCNotFound || range.end == KTVHCNotFound) {
         return KTVHCNotFound;
-    }return range.end - range.start + 1;
+    };return range.end - range.start + 1;
 }
 
 NSString *KTVHCStringFromRange(KTVHCRange range){
@@ -110,7 +110,7 @@ KTVHCRange KTVHCRangeWithSeparateValue(NSString *value){
                 }
             }
         }
-    }return range;
+    };return range;
 }
 
 KTVHCRange KTVHCRangeWithRequestHeaderValue(NSString *value){
@@ -131,11 +131,11 @@ KTVHCRange KTVHCRangeWithResponseHeaderValue(NSString *value, long long *totalLe
             *totalLength = totalLengthString.longLongValue;
             return KTVHCRangeWithSeparateValue(rangeString);
         }
-    }return KTVHCRangeInvaild();
+    };return KTVHCRangeInvaild();
 }
 
 KTVHCRange KTVHCRangeWithEnsureLength(KTVHCRange range, long long ensureLength){
     if (range.end == KTVHCNotFound && ensureLength > 0) {
         return KTVHCMakeRange(range.start, ensureLength - 1);
-    }return range;
+    };return range;
 }

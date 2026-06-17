@@ -1,6 +1,6 @@
 //
 //  JobsNavBar.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/24/24.
 //
@@ -18,8 +18,6 @@
 #ifndef CloseBtnModel
 #define CloseBtnModel NavBarConfig.closeBtnModel
 #endif /* CloseBtnModel */
-
-#import "DefineProperty.h"
 
 @interface JobsNavBar ()
 /// UI
@@ -39,13 +37,13 @@ Prop_strong()JobsNavBarConfig *navBarConfig;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -62,7 +60,7 @@ Prop_strong()JobsNavBarConfig *navBarConfig;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -121,7 +119,7 @@ Prop_strong()JobsNavBarConfig *navBarConfig;
                 }
             }];
         });
-    }return _navBarConfig;
+    };return _navBarConfig;
 }
 
 -(UILabel *)titleLab{
@@ -142,7 +140,7 @@ Prop_strong()JobsNavBarConfig *navBarConfig;
             }];label.makeLabelByShowingType(UILabelShowingType_03);
             self.refresh();
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(BaseButton *)backBtn{
@@ -156,7 +154,7 @@ Prop_strong()JobsNavBarConfig *navBarConfig;
             JobsLog(@"%f",self.navBarConfig.backBtnModel.jobsOffsetX);
             make.left.equalTo(self).offset(self.navBarConfig.backBtnModel.jobsOffsetX ? : JobsWidth(20));
         }];_backBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _backBtn;
+    };return _backBtn;
 }
 
 -(BaseButton *)closeBtn{
@@ -169,7 +167,7 @@ Prop_strong()JobsNavBarConfig *navBarConfig;
             make.centerY.equalTo(self);
             make.right.equalTo(self).offset(-(self.navBarConfig.closeBtnModel.jobsOffsetX ? : JobsWidth(15)));
         }];
-    }return _closeBtn;
+    };return _closeBtn;
 }
 
 @end

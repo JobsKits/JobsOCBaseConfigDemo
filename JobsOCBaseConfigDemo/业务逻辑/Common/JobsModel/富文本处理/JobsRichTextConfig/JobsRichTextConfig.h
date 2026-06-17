@@ -1,6 +1,6 @@
 //
 //  JobsRichTextConfig.h
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -32,7 +32,7 @@ NS_INLINE NSMutableParagraphStyle *_Nonnull jobsMakeParagraphStyle(jobsByMutable
     return data;
 }
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 富文本4要素：文字信息、文字颜色、段落、字体
@@ -100,6 +100,6 @@ NS_INLINE __kindof JobsRichTextConfig *_Nonnull jobsMakeRichTextConfig(jobsByRic
                      data1.paragraphStyle = self.defaultParagraphStyle;
                  }));
              }));
-         }return _attributedTitle;
+         };return _attributedTitle;
      }
  */

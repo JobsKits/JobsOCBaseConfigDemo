@@ -1,6 +1,6 @@
 //
 //  NSObject+NTESVerifyCodeManager.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/2/24.
 //
@@ -9,8 +9,8 @@
 #import "JobsLanguageManager.h"
 #import "JobsBlock.h"
 #import "APIKey.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<VerifyCode/NTESVerifyCodeManager.h>)
 #import <VerifyCode/NTESVerifyCodeManager.h>
 #else

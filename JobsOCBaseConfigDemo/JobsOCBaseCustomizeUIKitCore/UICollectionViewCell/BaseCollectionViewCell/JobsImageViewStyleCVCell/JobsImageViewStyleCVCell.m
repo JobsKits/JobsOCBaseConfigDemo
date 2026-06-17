@@ -1,6 +1,6 @@
 //
 //  JobsImageViewStyleCVCell.m
-//  MataShop
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 9/23/23.
 //
@@ -17,7 +17,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 -(UIViewModel *_Nullable)getViewModel{
@@ -73,7 +73,7 @@
                 @jobs_strongify(self)
                 make.edges.equalTo(self.contentView);
             });
-    }return _imageView;
+    };return _imageView;
 }
 
 @end

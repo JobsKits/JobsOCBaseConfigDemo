@@ -1,6 +1,6 @@
 //
 //  GTC4Error.h
-//  GTCaptcha4
+//  JobsOCBaseConfigDemo
 //
 //  Created by NikoXu on 2020/9/30.
 //  Copyright © 2020 GT. All rights reserved.

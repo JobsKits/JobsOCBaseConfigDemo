@@ -1,6 +1,6 @@
 //
 //  UILabel+RichText.h
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/4.
 //
@@ -23,7 +23,7 @@ NS_INLINE NSTextAttachment *_Nonnull jobsMakeTextAttachment(jobsByTextAttachment
     return data;
 }
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_END
                  make.height.mas_equalTo(JobsWidth(12));
              }];
          });
-     }return _connectionTipsLab;
+     };return _connectionTipsLab;
  }
 
  -(UITextView *)tipsTextView{
@@ -92,7 +92,7 @@ NS_ASSUME_NONNULL_END
                  make.bottom.equalTo(self.contentView).offset(-JobsWidth(38));
              }];
          });
-     }return _tipsTextView;
+     };return _tipsTextView;
  }
 
  -(NSMutableArray<NSString *> *)richTextMutArr{
@@ -104,7 +104,7 @@ NS_ASSUME_NONNULL_END
          });
          [self setRichTextMutArr:RichTextMutArr];
          Jobs_setAssociatedRETAIN_NONATOMIC(_richTextMutArr, RichTextMutArr)
-     }return RichTextMutArr;
+     };return RichTextMutArr;
  }
  
  -(NSMutableAttributedString *)attributedStringData{
@@ -125,7 +125,7 @@ NS_ASSUME_NONNULL_END
                  data1.urlStr = @"click://"; /// 根据这个属性加链接,点击进行跳转
              }));
          }));
-     }return _attributedStringData;
+     };return _attributedStringData;
  }
  
  #pragma mark —— UITextViewDelegate

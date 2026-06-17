@@ -2,18 +2,28 @@
 //  ASCollectionNode+DSL.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Mac on 11/6/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_ASCOLLECTIONNODE_DSL_859CD03C8D
+#define JOBS_HEADER_GUARD_ASCOLLECTIONNODE_DSL_859CD03C8D
+
 #import <objc/runtime.h>
+#import "JobsBlock.h"
+#import "JobsDefines.h"
+
+#if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
+#else
+#import "AsyncDisplayKit.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
-static inline void jobs_on_main(jobsByVoidBlock _Nullable work) {
-    if (NSThread.isMainThread) {
+static inline void jobs_on_main(jobsByVoidBlock _Nullable work){
+    if (NSThread.isMainThread){
         if(work) work();
-    }else {
+    }else{
         dispatch_async(dispatch_get_main_queue(), work);
     }
 }
@@ -23,3 +33,4 @@ static inline void jobs_on_main(jobsByVoidBlock _Nullable work) {
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_ASCOLLECTIONNODE_DSL_859CD03C8D */

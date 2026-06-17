@@ -1,13 +1,11 @@
 //
 //  ZMJGanttListVC.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/29/24.
 //
 
 #import "ZMJGanttListVC.h"
-
-#import "DefineProperty.h"
 
 @interface ZMJGanttListVC ()
 /// UI
@@ -100,6 +98,7 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
     
 }
 
+#pragma mark —— displayMode
 - (void)setDisplayMode:(ZMJDisplayMode)displayMode {
     _displayMode = displayMode;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.02 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -209,7 +208,7 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
     if (!formatter) {
         formatter = NSDateFormatter.new;
         formatter.dateFormat = @"yyyy-MM";
-    }return [formatter stringFromDate:theDay];
+    };return [formatter stringFromDate:theDay];
 }
 /// yyyy
 - (NSString *)formateYearLimmited:(NSDate *)theDay {
@@ -218,7 +217,7 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
     if (!formatter) {
         formatter = NSDateFormatter.new;
         formatter.dateFormat = @"yyyy";
-    }return [formatter stringFromDate:theDay];
+    };return [formatter stringFromDate:theDay];
 }
 /// 获取两个日期之间的所有日期，精确到天
 - (NSArray<NSDate *> *)getDayArrayLeftDate:(NSDate *)aLeftDate rightDate:(NSDate *)aRightDate {
@@ -241,7 +240,7 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
         currentDate = tDate;
         results.add(tDate);
         components.day = components.day + 1;
-    }return results.copy;
+    };return results.copy;
 }
 /// 获取两个日期之间的距离
 - (NSInteger)getDistanceLeftDate:(NSDate *)aLeftDate rightDate:(NSDate *)aRightDate {
@@ -267,7 +266,7 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
         result += 1;
         components.day += 1;//自增
         currentDate = [gregorian dateFromComponents:components];
-    }return result;
+    };return result;
 }
 /// 日和星期几拼接
 - (NSString *)dailyAppendWeaklyForDate:(NSDate *)date {
@@ -275,7 +274,7 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
     if (!formatter) {
         formatter = NSDateFormatter.new;
         formatter.dateFormat = @"dd";
-    }return [formatter stringFromDate:date].add([formatter stringFromDate:date]).add(@" ").add([self getweekDayWithDate:date]);
+    };return [formatter stringFromDate:date].add([formatter stringFromDate:date]).add(@" ").add([self getweekDayWithDate:date]);
 }
 
 NSDate *dateFromString(NSString *dateStr) {
@@ -283,7 +282,7 @@ NSDate *dateFromString(NSString *dateStr) {
     if (!formatter) {
         formatter = NSDateFormatter.new;
         formatter.dateFormat = @"yyyy-MM-dd";
-    }return [formatter dateFromString:dateStr];
+    };return [formatter dateFromString:dateStr];
 }
 
 NSString *date2String(NSDate *date) {
@@ -291,7 +290,7 @@ NSString *date2String(NSDate *date) {
     if (!formatter) {
         formatter = NSDateFormatter.new;
         formatter.dateFormat = @"yyyy-MM-dd hh:mm";
-    }return [formatter stringFromDate:date];
+    };return [formatter stringFromDate:date];
 }
 
 NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
@@ -299,7 +298,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
         if (begin - offset >= 0) {
             return begin - offset;
         }
-    }return 0;
+    };return 0;
 }
 #pragma mark —— Generate ZMJCellRanges
 - (NSArray<ZMJCellRange *> *)yearCellRangesWithRow:(NSInteger)row {
@@ -332,7 +331,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                 }
             }
         }
-    }return _yearCellRanges.copy;
+    };return _yearCellRanges.copy;
 }
 
 - (NSArray<ZMJCellRange *> *)monthCellRanges {
@@ -358,7 +357,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                 fromLocation = [Location locationWithRow:row column:[self.days indexOfObject:date]];
             }
         }
-    }return _monthCellRanges.copy;
+    };return _monthCellRanges.copy;
 }
 
 - (NSArray<ZMJCellRange *> *)weekCellRangesWithRow:(NSInteger)row {
@@ -391,7 +390,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                 }
             }
         }
-    }return _weekCellRanges.copy;
+    };return _weekCellRanges.copy;
 }
 #pragma mark —— SpreadsheetViewDataSource
 - (NSInteger)numberOfColumns:(SpreadsheetView *)spreadsheetView {
@@ -452,7 +451,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                                                                                column:[self getDistanceLeftDate:self.startDate rightDate:task.startDate ?: task.dueDate]]
                                                          to:[Location locationWithRow:index + 2
                                                                                column:[self getDistanceLeftDate:self.startDate rightDate:task.startDate ?: task.dueDate]]];
-                }return cellRange;
+                };return cellRange;
             }];
             [result addObjectsFromArray:titleHeader];
             [result addObjectsFromArray:charts];
@@ -483,7 +482,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                                                              to:[Location locationWithRow:index + 2
                                                                                    column:[self getDistanceLeftDate:self.startDate rightDate:task.dueDate]]];
                     }
-                }return cellRange;
+                };return cellRange;
             }];
             [result addObjectsFromArray:titleHeader];
             [result addObjectsFromArray:weekTitleHeader];
@@ -515,13 +514,13 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                                                              to:[Location locationWithRow:index + 2
                                                                                    column:[self getDistanceLeftDate:self.startDate rightDate:task.dueDate]]];
                     }
-                }return cellRange;
+                };return cellRange;
             }];
             [result addObjectsFromArray:titleHeader];
             [result addObjectsFromArray:monthTitleHeader];
             [result addObjectsFromArray:charts];
         }break;
-    }return result.copy;
+    };return result.copy;
 }
 
 - (ZMJCell *)spreadsheetView:(SpreadsheetView *)spreadsheetView
@@ -541,7 +540,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                             if (range.from.row == r && range.from.column == c) {
                                 return self.months[[[self monthCellRangesWithRow:r] indexOfObject:range]];
                             }
-                        }return nil;
+                        };return nil;
                     };
                     cell.label.text = [self formateMonthLimmited:getVilabelDateBlock(row, column)];
                 }break;
@@ -552,7 +551,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                             if (range.from.row == r && range.from.column == c) {
                                 return self.years[[[self yearCellRangesWithRow:r] indexOfObject:range]];
                             }
-                        }return nil;
+                        };return nil;
                     };
                     cell.label.text = [self formateYearLimmited:getVilabelDateBlock(row, column)];
                 }break;
@@ -570,7 +569,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                             if (range.from.row == r && range.from.column == c) {
                                 return idx;
                             }
-                        }return 0;
+                        };return 0;
                     };
                     cell.label.text = @"第"
                         .add([self translationArabicNum:[self getweekdayOrdinalWithDate:self.weeks[getVilabelIdxBlock(row, column)]]])
@@ -584,7 +583,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                             if (range.from.row == r && range.from.column == c) {
                                 return idx;
                             }
-                        }return 0;
+                        };return 0;
                     };
                     cell.label.text = @"第"
                         .add([self translationArabicNum:[self getmonthOrdinalWithDate:self.years[getVilabelIdxBlock(row, column)]]])
@@ -646,7 +645,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                         if (range.from.column == c) {
                             return YES;
                         }
-                    }return NO;
+                    };return NO;
                 };
                 cell.gridlines.left = enableLeftGridlineBlock(row, column) ? [GridStyle style:GridStyle_default width:0 color:nil] : GridStyle.borderStyleNone;
             }break;
@@ -657,12 +656,12 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                         if (range.from.column == c) {
                             return YES;
                         }
-                    }return NO;
+                    };return NO;
                 };
                 cell.gridlines.left = enableLeftGridlineBlock(row, column) ? [GridStyle style:GridStyle_default width:0 color:nil] : GridStyle.borderStyleNone;
             }break;
-        }return cell;
-    }return nil;
+        };return cell;
+    };return nil;
 }
 /// Delegate
 - (void)spreadsheetView:(SpreadsheetView *)spreadsheetView
@@ -718,7 +717,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
         _tasks.add([ZMJTask taskWithName:@"Office itinerancy" startDate:dateFromString(@"2017-12-24") endDate:dateFromString(@"2017-12-30")]);
         _tasks.add([ZMJTask taskWithName:@"Office facingy" startDate:dateFromString(@"2017-12-18") endDate:dateFromString(@"2018-1-2")]);
         _tasks.add([ZMJTask taskWithName:@"Office facingy" startDate:nil endDate:dateFromString(@"2017-12-8")]);
-    }return _tasks;
+    };return _tasks;
 }
 
 -(NSMutableArray<UIColor *> *)colors{
@@ -727,7 +726,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
         _colors.add([UIColor colorWithRed:72/255.f green:194/255.f blue:169/255.f alpha:1]);
         _colors.add([UIColor colorWithRed:255/255.f green:121/255.f blue:121/255.f alpha:1]);
         _colors.add([UIColor colorWithRed:204/255.f green:204/255.f blue:204/255.f alpha:1]);
-    }return _colors;
+    };return _colors;
 }
 
 -(SpreadsheetView *)spreadsheetView{
@@ -753,7 +752,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
 //            _spreadsheetView.frame = self.view.bounds;
 //        }
         [_spreadsheetView flashScrollIndicators];
-    }return _spreadsheetView;
+    };return _spreadsheetView;
 }
 
 -(NSDate *)startDate{
@@ -764,7 +763,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
             formatter.dateFormat = @"yyyy-MM-dd";
         }
         _startDate = [formatter dateFromString:@"2017-12-07"];
-    }return _startDate;
+    };return _startDate;
 }
 
 - (NSDate *)endDate {
@@ -775,13 +774,13 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
             formatter.dateFormat = @"yyyy-MM-dd";
         }
         _endDate = [formatter dateFromString:@"2018-01-07"];
-    }return _endDate;
+    };return _endDate;
 }
 
 - (NSArray<NSDate *> *)days {
     if (self.startDate && self.endDate) {
         return [self getDayArrayLeftDate:self.startDate rightDate:self.endDate];
-    }return nil;
+    };return nil;
 }
 
 - (NSArray<NSDate *> *)years {
@@ -830,7 +829,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
             [_months addObject:date];
             previousDate = dateComponentTimeUnitValue;
         }
-    }return _months.copy;
+    };return _months.copy;
 }
 
 - (ZMJTipView *)tipView {
@@ -838,7 +837,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
         ZMJTipView.globalPreferences = self.preferences;
         _tipView = [ZMJTipView.alloc initWithText:nil preferences:nil delegate:self];
         _tipView.fakeView = self.taskView;
-    }return _tipView;
+    };return _tipView;
 }
 
 -(ZMJTaskView *)taskView{
@@ -848,7 +847,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
         _taskView.taskTitle = @"ZMJTipView show task!";
         _taskView.startTime = @"2018-02-10 15:33:22";
         _taskView.endTime = @"2019-02-10 15:33:22";
-    }return _taskView;
+    };return _taskView;
 }
 
 -(ZMJPreferences *)preferences{
@@ -857,7 +856,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
         _preferences.drawing.font = [UIFont fontWithName:@"Futura-Medium" size:13];
         _preferences.drawing.foregroundColor = JobsWhiteColor;
         _preferences.drawing.backgroundColor = JobsWhiteColor;
-    }return _preferences;
+    };return _preferences;
 }
 
 @end

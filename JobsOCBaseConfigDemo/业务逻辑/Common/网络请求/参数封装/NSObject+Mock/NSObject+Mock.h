@@ -1,14 +1,14 @@
 //
 //  NSObject+Mock.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 18/11/2024.
 //
 
 #import <Foundation/Foundation.h>
-#import "NSObject+DEV.h"/// 开发环境
-#import "NSObject+TEST.h"/// 测试环境
-#import "NSObject+UAT.h"/// UAT 环境
+#import "NSObject+DEV.h"
+#import "NSObject+TEST.h"
+#import "NSObject+UAT.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 测试调试专用

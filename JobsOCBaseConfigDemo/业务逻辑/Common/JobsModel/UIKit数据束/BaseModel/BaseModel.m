@@ -1,6 +1,6 @@
 //
 //  BaseModel.m
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -33,7 +33,7 @@
                 }
             }
         }
-    }return self;
+    };return self;
 }
 
 -(void)encodeWithCoder:(NSCoder *)encoder{
@@ -82,7 +82,7 @@
 //            if (stringValue.isEqualToString(@"0")) return @(NoBinded);
 //            if (stringValue.isEqualToString(@"1")) return @(Binded);
 //        }
-//    }return oldValue;/// 对于不需要转换的其他字段，直接返回原始值
+//    };return oldValue;/// 对于不需要转换的其他字段，直接返回原始值
 //}
 #pragma mark —— 字段映射
 //+(__kindof NSDictionary *)mj_objectClassInArray {

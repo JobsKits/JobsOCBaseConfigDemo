@@ -1,13 +1,11 @@
 //
 //  UIView+UIBackgroundConfig.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/25.
 //
 
 #import "UIView+UIBackgroundConfig.h"
-
-#import "DefineProperty.h"
 
 @implementation UIView (UIBackgroundConfig)
 #pragma mark —— Prop_strong()UIBackgroundConfiguration *backgroundConfig;
@@ -23,7 +21,7 @@ JobsKey(_backgroundConfig)
                                                                         JobsWidth(3),
                                                                         JobsWidth(15));
         Jobs_setAssociatedRETAIN_NONATOMIC(_backgroundConfig, BackgroundConfig);
-    }return BackgroundConfig;
+    };return BackgroundConfig;
 }
 
 -(void)setBackgroundConfig:(UIBackgroundConfiguration *)backgroundConfig{

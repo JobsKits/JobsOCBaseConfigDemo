@@ -1,15 +1,15 @@
 //
 //  NSString+Others.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/30.
 //
 
 #import <Foundation/Foundation.h>
 #import "JobsBlock.h"
-#import "DefineConstString.h" /// 常量字符串的定义
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
+#import "JobsDefineEnums.h"
+#import "JobsDefineConstString.h"
 #import "NSObject+Extras.h"
 #import "NSString+Check.h"
 #import "FileNameModel.h"

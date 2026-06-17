@@ -1,6 +1,6 @@
 //
 //  JobsIMChatInfoModel.m
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/10.
 //
@@ -12,7 +12,7 @@
 -(NSString *)identification{
     if (!_identification) {
         _identification = @"我是我自己";
-    }return _identification;
+    };return _identification;
 }
 
 @end

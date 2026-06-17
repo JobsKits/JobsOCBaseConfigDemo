@@ -1,6 +1,6 @@
 //
 //  KTVHCDataUnitQueue.m
-//  KTVHTTPCache
+//  JobsOCBaseConfigDemo
 //
 //  Created by Single on 2017/8/11.
 //  Copyright © 2017年 Single. All rights reserved.
@@ -36,7 +36,7 @@
                 [self.unitArray addObject:obj];
             }
         }
-    }return self;
+    };return self;
 }
 
 - (NSArray<KTVHCDataUnit *> *)allUnits

@@ -7,8 +7,6 @@
 
 #import "JobsClockDemoVC.h"
 
-#import "DefineProperty.h"
-
 @interface JobsClockDemoVC ()
 
 Prop_strong()JobsClockView *clockView;
@@ -77,7 +75,7 @@ Prop_strong()JobsClockView *clockView;
                 make.center.equalTo(self.view);
                 make.width.height.mas_equalTo(220);
             });
-    }return _clockView;
+    };return _clockView;
 }
 
 @end

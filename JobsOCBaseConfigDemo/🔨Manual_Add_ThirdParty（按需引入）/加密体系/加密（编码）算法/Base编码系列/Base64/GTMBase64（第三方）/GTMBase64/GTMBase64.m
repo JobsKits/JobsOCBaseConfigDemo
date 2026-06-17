@@ -302,7 +302,7 @@ GTM_INLINE NSUInteger GuessDecodedLength(NSUInteger srcLen) {
                          length:data.length
                         charset:kBase64DecodeChars
                  requirePadding:YES];
-    }return result;
+    };return result;
 }
 //
 // Modified Base64 encoding so the results can go onto urls.
@@ -375,7 +375,7 @@ GTM_INLINE NSUInteger GuessDecodedLength(NSUInteger srcLen) {
                                length:data.length
                               charset:kWebSafeBase64DecodeChars
                        requirePadding:NO];
-        }return result;
+        };return result;
     };
 }
 #pragma mark —— base64
@@ -454,7 +454,7 @@ GTM_INLINE NSUInteger GuessDecodedLength(NSUInteger srcLen) {
     } else {
         // shouldn't happen, this means we ran out of space
         result = nil;
-    }return result;
+    };return result;
 }
 //
 // baseDecode:length:charset:requirePadding:
@@ -491,7 +491,7 @@ GTM_INLINE NSUInteger GuessDecodedLength(NSUInteger srcLen) {
     } else {
     // either an error in the args, or we ran out of space
     result = nil;
-    }return result;
+    };return result;
 }
 //
 // baseEncode:srcLen:destBytes:destLen:charset:padded:
@@ -563,7 +563,7 @@ GTM_INLINE NSUInteger GuessDecodedLength(NSUInteger srcLen) {
                 curDest += 1;
             }
             break;
-        }return (curDest - destBytes);// return the length
+        };return (curDest - destBytes);// return the length
 }
 //
 // baseDecode:srcLen:destBytes:destLen:charset:requirePadding:

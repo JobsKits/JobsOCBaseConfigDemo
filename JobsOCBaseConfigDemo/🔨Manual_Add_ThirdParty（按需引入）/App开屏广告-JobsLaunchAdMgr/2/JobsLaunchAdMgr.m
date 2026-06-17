@@ -1,8 +1,6 @@
 #import "JobsLaunchAdMgr.h"
 #import <CoreMotion/CoreMotion.h>
 
-#import "DefineProperty.h"
-
 @interface JobsLaunchAdMgr ()
 
 Prop_strong()UIView *adView;
@@ -34,7 +32,7 @@ Prop_strong()CMMotionManager *motionManager;
         _countdownDuration = 5;
         _redirectURL = @"https://www.google.com";
         [self setupMotionManager];
-    }return self;
+    };return self;
 }
 
 - (void)setupMotionManager {

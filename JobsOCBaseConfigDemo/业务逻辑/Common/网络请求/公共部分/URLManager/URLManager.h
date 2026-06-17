@@ -1,6 +1,6 @@
 //
 //  URLManager.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 10/11/24.
 //
@@ -30,6 +30,7 @@
 /// http://18.162.73.145:19201/doc.html#/home （URLManager@6）
 
 /// 接口文档会因为后端开发而同步，使用时务必进行确认
+#ifndef JobsDefineURLs_h
 NS_INLINE JobsNetworkingEnvir NetworkingEnvir(void) {
 //    static JobsNetworkingEnvir _networkingEnvir =  JobsNetworkingEnvir_Dev;/// 开发环境
 //    static JobsNetworkingEnvir _networkingEnvir =  JobsNetworkingEnvir_Test;/// 测试环境
@@ -57,10 +58,11 @@ NS_INLINE JobsNetworkingEnvir networkingEnvir(NSInteger data) {
         default:
             _networkingEnvir = JobsNetworkingEnvir_Undefined; /// 未定义的网络环境
             break;
-    }return _networkingEnvir;
+    };return _networkingEnvir;
 }
+#endif /* JobsDefineURLs_h */
 
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
+#import "JobsDefineEnums.h"
 
 #ifndef JobsURL
 #define JobsURL(URL) [NSObject url:(URL) funcName:NSStringFromSelector(_cmd)];

@@ -1,6 +1,6 @@
 //
 //  NotifiViewFactory.m
-//  CoreTextLearning
+//  JobsOCBaseConfigDemo
 //
 //  Created by alan comb on 2021/4/10.
 //
@@ -21,6 +21,7 @@
     });return factory;
 }
 
+#pragma mark —— notifiViews
 - (void)setNotifiViews:(NSArray *)notifiViews{
     _notifiViews = notifiViews;
 }
@@ -41,7 +42,7 @@
         if ([v.key isEqualToString:key]) {
             return v;
         }
-    }return nil;
+    };return nil;
 }
 
 @end

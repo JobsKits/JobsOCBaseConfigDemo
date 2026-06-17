@@ -1,13 +1,11 @@
 //
 //  JobsTextView.m
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by alan comb on 2021/4/3.
 //
 
 #import "JobsTextView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsTextView()
 /// UI
@@ -37,7 +35,7 @@ static dispatch_once_t static_textViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -53,7 +51,7 @@ static dispatch_once_t static_textViewOnceToken;
                 JobsLog(@"SSS = %d",b.boolValue);
             }JobsLog(@"通知传递过来的 = %@",notification.object);
         }];
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -147,7 +145,7 @@ static dispatch_once_t static_textViewOnceToken;
                 make.right.equalTo(self).offset(-JobsWidth(5));
             }];
         });
-    }return _countLabel;
+    };return _countLabel;
 }
 
 @end

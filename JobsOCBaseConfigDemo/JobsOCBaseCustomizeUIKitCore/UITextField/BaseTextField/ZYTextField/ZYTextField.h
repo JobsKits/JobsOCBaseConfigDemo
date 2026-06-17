@@ -1,6 +1,6 @@
 //
 //  ZYTextField.h
-//  BHBMagicFieldDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/6.
 //  Copyright © 2020 bihongbo. All rights reserved.
@@ -16,9 +16,8 @@
 #import "NSObject+CurrentDevice.h"
 #import "NSObject+RichText.h"
 #import "UITextField+Extend.h"
-#import "UITextField+Placeholder.h" /// 修改UITextField.Placeholder
-
-#import "DefineProperty.h"
+#import "UITextField+Placeholder.h"
+#import "JobsDefineProperty.h"
 
 @interface ZYTextField : UITextField <UITextFieldProtocol>
 
@@ -89,7 +88,7 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
              make.centerX.equalTo(self);
              make.top.equalTo(self.titleView.mas_bottom).offset(JobsWidth(10));
          }];
-     }return _textField;
+     };return _textField;
  }
  */
 
@@ -131,7 +130,7 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
              make.centerY.equalTo(self);
              make.left.equalTo(self).offset(JobsWidth(12));
          }];
-     }return _textField;
+     };return _textField;
  }
 只有leftView，右边有个获取验证码
  -(ZYTextField *)textField{
@@ -169,7 +168,7 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
              make.centerY.equalTo(self);
              make.left.equalTo(self).offset(JobsWidth(12));
          }];
-     }return _textField;
+     };return _textField;
  }
  /// 搜索框，leftView 和 rightView都存在
  _searchBtn.size = CGSizeMake(JobsWidth(60), JobsWidth(32));
@@ -228,6 +227,6 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
              make.centerY.equalTo(self);
              make.left.equalTo(self).offset(JobsWidth(12));
          }];
-     }return _textField;
+     };return _textField;
  }
  */

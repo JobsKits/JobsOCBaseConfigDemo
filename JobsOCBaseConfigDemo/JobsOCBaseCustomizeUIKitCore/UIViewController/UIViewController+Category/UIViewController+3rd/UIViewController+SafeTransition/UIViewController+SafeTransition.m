@@ -1,6 +1,6 @@
 //
 //  UIViewController+SafeTransition.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/1.
 //
@@ -66,7 +66,7 @@
 -(BOOL)checkPresented:(UIViewController *)viewController{
     for (UIViewController *vc in JobsRecordPresentedViewController.sharedManager.presentedVCMutArr) {
         if ([viewController isKindOfClass:vc.class]) return NO;
-    }return YES;
+    };return YES;
 }
 
 @end

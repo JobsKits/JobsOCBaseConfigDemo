@@ -1,6 +1,6 @@
 //
 //  BaiShaETProjMembersSubsBaseVC.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/18.
 //
@@ -80,7 +80,7 @@
                 make.top.equalTo(self.view);
             }
         }];
-    }return _topLineLab;
+    };return _topLineLab;
 }
 
 @end

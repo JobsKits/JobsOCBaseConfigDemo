@@ -1,6 +1,6 @@
 //
 //  DatasBundleByUIKit.h
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -18,6 +18,8 @@
 #import "BaseModel.h"
 #import "JobsImageModel.h"
 #import "NotificationModel.h"
+#import "NSNotificationKeyboardModel.h"
+#import "UNNotificationRequestModel.h"
 #import "JobsLocationModel.h"
 #import "UIViewModel.h"
 #import "UIButtonModel.h"

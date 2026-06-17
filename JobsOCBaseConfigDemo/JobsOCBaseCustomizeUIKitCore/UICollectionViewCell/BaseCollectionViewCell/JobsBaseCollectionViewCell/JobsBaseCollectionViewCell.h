@@ -1,6 +1,6 @@
 //
 //  JobsBaseCollectionViewCell.h
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/18.
 //

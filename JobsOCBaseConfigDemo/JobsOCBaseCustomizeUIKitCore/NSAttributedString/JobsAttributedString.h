@@ -15,6 +15,7 @@
 #define AttributedString NSMutableAttributedString.alloc
 #endif /* AttributedString */
 
+#ifndef JobsMakes_h
 #pragma mark —— 创建不可变富文本
 NS_INLINE NSAttributedString *_Nonnull JobsAttributedString(NSString *_Nonnull data) {
     if (!data) data = @"";
@@ -55,5 +56,6 @@ NS_INLINE NSMutableAttributedString *_Nonnull JobsMutAttributedStringByTextAttac
     if (!data) data = NSTextAttachment.alloc.init;
     return toMutAttributedString(JobsAttributedStringByTextAttachment(data));
 }
+#endif /* JobsMakes_h */
 
 #endif /* JobsAttributedString_h */

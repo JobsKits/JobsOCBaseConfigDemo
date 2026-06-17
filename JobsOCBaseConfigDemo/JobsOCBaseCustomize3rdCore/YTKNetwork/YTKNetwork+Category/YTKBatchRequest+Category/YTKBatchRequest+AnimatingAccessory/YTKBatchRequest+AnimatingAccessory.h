@@ -5,9 +5,9 @@
 
 #import <UIKit/UIKit.h>
 #import "YTKAnimatingRequestAccessory.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
-#if __has_include(<YTKNetwork/YTKChainRequest.h>)
+#if __has_include(<YTKNetwork/YTKBatchRequest.h>)
 #import <YTKNetwork/YTKBatchRequest.h>
 #else
 #import "YTKBatchRequest.h"

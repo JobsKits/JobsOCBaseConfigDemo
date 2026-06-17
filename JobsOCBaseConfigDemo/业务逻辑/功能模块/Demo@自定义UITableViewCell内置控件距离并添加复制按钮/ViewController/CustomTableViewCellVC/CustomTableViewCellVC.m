@@ -1,13 +1,11 @@
 //
 //  CustomTableViewCellVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/27.
 //
 
 #import "CustomTableViewCellVC.h"
-
-#import "DefineProperty.h"
 
 @interface CustomTableViewCellVC ()
 /// Data
@@ -125,7 +123,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             make.top.equalTo(self.gk_navigationBar.mas_bottom);
             make.bottom.equalTo(self.view).offset(JobsBottomSafeAreaHeight() + JobsWidth(64));
         }];
-    }return _collectionView;
+    };return _collectionView;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
@@ -160,7 +158,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 });
             }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

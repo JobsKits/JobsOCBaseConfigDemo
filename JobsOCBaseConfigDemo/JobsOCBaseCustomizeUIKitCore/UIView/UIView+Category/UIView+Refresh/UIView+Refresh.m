@@ -1,13 +1,11 @@
 //
 //  UIView+Refresh.m
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/1/17.
 //
 
 #import "UIView+Refresh.h"
-
-#import "DefineProperty.h"
 
 @implementation UIView (Refresh)
 #pragma mark —— 一些公有方法
@@ -69,7 +67,7 @@
             refreshHeader.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
             // 震动特效反馈
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
-        }return refreshHeader;
+        };return refreshHeader;
     };
 }
 
@@ -89,7 +87,7 @@
             refreshHeader.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
             //震动特效反馈
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
-        }return refreshHeader;
+        };return refreshHeader;
     };
 }
 
@@ -109,7 +107,7 @@
             refreshHeader.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
             //震动特效反馈
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
-        }return refreshHeader;
+        };return refreshHeader;
     };
 }
 
@@ -123,7 +121,7 @@
             refreshHeader.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
             // 震动特效反馈
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
-        }return refreshHeader;
+        };return refreshHeader;
     };
 }
 
@@ -153,7 +151,7 @@
             refreshHeader.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
             //震动特效反馈
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
-        }return refreshHeader;
+        };return refreshHeader;
     };
 }
 /// Footer
@@ -182,7 +180,7 @@
             // 根据拖拽比例自动切换透明度
             refreshFooter.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
             if (self.refreshConfigFooter.isShake) NSObject.feedbackGenerator(nil);
-        }return refreshFooter;
+        };return refreshFooter;
     };
 }
 
@@ -201,7 +199,7 @@
             // 根据拖拽比例自动切换透明度
             refreshFooter.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
             if (self.refreshConfigFooter.isShake) NSObject.feedbackGenerator(nil);
-        }return refreshFooter;
+        };return refreshFooter;
     };
 }
 
@@ -220,7 +218,7 @@
             // 根据拖拽比例自动切换透明度
             refreshFooter.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
             if (self.refreshConfigFooter.isShake) NSObject.feedbackGenerator(nil);
-        }return refreshFooter;
+        };return refreshFooter;
     };
 }
 
@@ -239,7 +237,7 @@
             // 根据拖拽比例自动切换透明度
             refreshFooter.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
-        }return refreshFooter;
+        };return refreshFooter;
     };
 }
 
@@ -275,7 +273,7 @@
             // 根据拖拽比例自动切换透明度
             refreshFooter.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
-        }return refreshFooter;
+        };return refreshFooter;
     };
 }
 
@@ -294,7 +292,7 @@
             // 根据拖拽比例自动切换透明度
             refreshFooter.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
             if (self.refreshConfigFooter.isShake) NSObject.feedbackGenerator(nil);
-        }return refreshFooter;
+        };return refreshFooter;
     };
 }
 
@@ -307,7 +305,7 @@
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
             // 根据拖拽比例自动切换透明度
             refreshFooter.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
-        }return refreshFooter;
+        };return refreshFooter;
     };
 }
 
@@ -320,7 +318,7 @@
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
             // 根据拖拽比例自动切换透明度
             refreshFooter.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
-        }return refreshFooter;
+        };return refreshFooter;
     };
 }
 #pragma mark —— 关于 XZMRefresh 的二次封装
@@ -631,7 +629,7 @@ JobsKey(_lotAnimMJRefreshHeader)
     if (!refreshHeader) {
         refreshHeader = self.LOTAnimationMJRefreshHeaderBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_lotAnimMJRefreshHeader, refreshHeader);
-    }return refreshHeader;
+    };return refreshHeader;
 }
 
 -(void)setLotAnimMJRefreshHeader:(LOTAnimationMJRefreshHeader *)lotAnimMJRefreshHeader{
@@ -645,7 +643,7 @@ JobsKey(_mjRefreshNormalHeader)
     if (!refreshHeader) {
         refreshHeader = self.MJRefreshNormalHeaderBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshNormalHeader, refreshHeader)
-    }return refreshHeader;
+    };return refreshHeader;
 }
 
 -(void)setMjRefreshNormalHeader:(MJRefreshNormalHeader *)mjRefreshNormalHeader{
@@ -659,7 +657,7 @@ JobsKey(_mjRefreshStateHeader)
     if (!refreshHeader) {
         refreshHeader = self.MJRefreshStateHeaderBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshStateHeader, refreshHeader)
-    }return refreshHeader;
+    };return refreshHeader;
 }
 
 -(void)setMjRefreshStateHeader:(MJRefreshStateHeader *)mjRefreshStateHeader{
@@ -673,7 +671,7 @@ JobsKey(_mjRefreshHeader)
     if (!refreshHeader) {
         refreshHeader = self.MJRefreshHeaderBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshHeader, refreshHeader)
-    }return refreshHeader;
+    };return refreshHeader;
 }
 
 -(void)setMjRefreshHeader:(MJRefreshHeader *)mjRefreshHeader{
@@ -687,7 +685,7 @@ JobsKey(_mjRefreshGifHeader)
     if (!refreshHeader) {
         refreshHeader = self.MJRefreshGifHeaderBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshGifHeader, refreshHeader)
-    }return refreshHeader;
+    };return refreshHeader;
 }
 
 -(void)setMjRefreshGifHeader:(MJRefreshGifHeader *)mjRefreshGifHeader{
@@ -702,7 +700,7 @@ JobsKey(_mjRefreshAutoGifFooter)
     if (!refreshFooter) {
         refreshFooter = self.MJRefreshAutoGifFooterBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshAutoGifFooter, refreshFooter)
-    }return refreshFooter;
+    };return refreshFooter;
 }
 
 -(void)setMjRefreshAutoGifFooter:(MJRefreshAutoGifFooter *)mjRefreshAutoGifFooter{
@@ -716,7 +714,7 @@ JobsKey(_mjRefreshBackNormalFooter)
     if (!refreshFooter) {
         refreshFooter = self.MJRefreshBackNormalFooterBy(self.refreshConfigFooter);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshBackNormalFooter, refreshFooter)
-    }return refreshFooter;
+    };return refreshFooter;
 }
 
 -(void)setMjRefreshBackNormalFooter:(MJRefreshBackNormalFooter *)mjRefreshBackNormalFooter{
@@ -730,7 +728,7 @@ JobsKey(_mjRefreshAutoNormalFooter)
     if (!refreshFooter) {
         refreshFooter = self.MJRefreshAutoNormalFooterBy(self.refreshConfigFooter);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshAutoNormalFooter, refreshFooter)
-    }return refreshFooter;
+    };return refreshFooter;
 }
 
 -(void)setMjRefreshAutoNormalFooter:(MJRefreshAutoNormalFooter *)mjRefreshAutoNormalFooter{
@@ -744,7 +742,7 @@ JobsKey(_mjRefreshAutoStateFooter)
     if (!refreshFooter) {
         refreshFooter = self.MJRefreshAutoStateFooterBy(self.refreshConfigFooter);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshAutoStateFooter, refreshFooter)
-    }return refreshFooter;
+    };return refreshFooter;
 }
 
 -(void)setMjRefreshAutoStateFooter:(MJRefreshAutoStateFooter *)mjRefreshAutoStateFooter{
@@ -758,7 +756,7 @@ JobsKey(_mjRefreshAutoFooter)
     if (!refreshFooter) {
         refreshFooter = self.MJRefreshAutoFooterBy(self.refreshConfigFooter);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshAutoFooter, refreshFooter)
-    }return refreshFooter;
+    };return refreshFooter;
 }
 
 -(void)setMjRefreshAutoFooter:(MJRefreshAutoFooter *)mjRefreshAutoFooter{
@@ -772,7 +770,7 @@ JobsKey(_mjRefreshBackGifFooter)
     if (!refreshFooter) {
         refreshFooter = self.MJRefreshBackGifFooterBy(self.refreshConfigFooter);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshBackGifFooter, refreshFooter);
-    }return refreshFooter;
+    };return refreshFooter;
 }
 
 -(void)setMjRefreshBackGifFooter:(MJRefreshBackGifFooter *)mjRefreshBackGifFooter{
@@ -786,7 +784,7 @@ JobsKey(_mjRefreshBackStateFooter)
     if (!refreshFooter) {
         refreshFooter = self.MJRefreshBackStateFooterBy(self.refreshConfigFooter);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshBackStateFooter, refreshFooter);
-    }return refreshFooter;
+    };return refreshFooter;
 }
 
 -(void)setMjRefreshBackStateFooter:(MJRefreshBackStateFooter *)mjRefreshBackStateFooter{
@@ -800,7 +798,7 @@ JobsKey(_mjRefreshBackFooter)
     if (!refreshFooter) {
         refreshFooter = self.MJRefreshBackFooterBy(self.refreshConfigFooter);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshBackFooter, refreshFooter);
-    }return refreshFooter;
+    };return refreshFooter;
 }
 
 -(void)setMjRefreshBackFooter:(MJRefreshBackFooter *)mjRefreshBackFooter{
@@ -814,7 +812,7 @@ JobsKey(_mjRefreshFooter)
     if (!refreshFooter) {
         refreshFooter = self.MJRefreshFooterBy(self.refreshConfigFooter);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshFooter, refreshFooter)
-    }return refreshFooter;
+    };return refreshFooter;
 }
 
 -(void)setMjRefreshFooter:(MJRefreshFooter *)mjRefreshFooter{
@@ -838,7 +836,7 @@ JobsKey(_refreshConfigHeader)
     if (!RefreshConfigHeader) {
         RefreshConfigHeader = MJRefreshConfigModel.new;
         Jobs_setAssociatedRETAIN_NONATOMIC(_refreshConfigHeader, RefreshConfigHeader)
-    }return RefreshConfigHeader;
+    };return RefreshConfigHeader;
 }
 
 -(void)setRefreshConfigHeader:(MJRefreshConfigModel *)refreshConfigHeader{
@@ -852,7 +850,7 @@ JobsKey(_refreshConfigFooter)
     if (!RefreshConfigFooter) {
         RefreshConfigFooter = MJRefreshConfigModel.new;
         Jobs_setAssociatedRETAIN_NONATOMIC(_refreshConfigFooter, RefreshConfigFooter);
-    }return RefreshConfigFooter;
+    };return RefreshConfigFooter;
 }
 
 -(void)setRefreshConfigFooter:(MJRefreshConfigModel *)refreshConfigFooter{

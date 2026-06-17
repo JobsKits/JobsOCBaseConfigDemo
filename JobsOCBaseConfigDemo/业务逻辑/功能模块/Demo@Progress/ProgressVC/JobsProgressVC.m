@@ -1,13 +1,11 @@
 //
 //  JobsProgressVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/8.
 //
 
 #import "JobsProgressVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsProgressVC ()
 
@@ -79,7 +77,7 @@ Prop_strong()PHCycleView *progressView;
         _progressView.progressTextColor = [UIColor blackColor];
         _progressView.describeTextColor = [UIColor blackColor];
         _progressView.outLayerColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:0.3];
-    }return _progressView;
+    };return _progressView;
 }
 
 @end

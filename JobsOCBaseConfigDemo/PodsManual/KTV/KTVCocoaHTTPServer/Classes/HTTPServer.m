@@ -94,7 +94,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
 		                                           object:nil];
 		
 		isRunning = NO;
-	}return self;
+	};return self;
 }
 
 /**
@@ -141,6 +141,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
 	return result;
 }
 
+#pragma mark —— documentRoot
 - (void)setDocumentRoot:(NSString *)value
 {
 	HTTPLogTrace();
@@ -180,6 +181,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
 	return result;
 }
 
+#pragma mark —— connectionClass
 - (void)setConnectionClass:(Class)value
 {
 	HTTPLogTrace();
@@ -203,6 +205,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
 	return result;
 }
 
+#pragma mark —— interface
 - (void)setInterface:(NSString *)value
 {
 	NSString *valueCopy = [value copy];
@@ -243,6 +246,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
 	return result;
 }
 
+#pragma mark —— port
 - (void)setPort:(UInt16)value
 {
 	HTTPLogTrace();
@@ -267,6 +271,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
     return result;
 }
 
+#pragma mark —— domain
 - (void)setDomain:(NSString *)value
 {
 	HTTPLogTrace();
@@ -319,6 +324,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
 	return result;
 }
 
+#pragma mark —— name
 - (void)setName:(NSString *)value
 {
 	NSString *valueCopy = [value copy];
@@ -344,6 +350,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
 	return result;
 }
 
+#pragma mark —— type
 - (void)setType:(NSString *)value
 {
 	NSString *valueCopy = [value copy];
@@ -368,6 +375,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
 	return result;
 }
 
+#pragma mark —— tXTRecordDictionary
 - (void)setTXTRecordDictionary:(NSDictionary *)value
 {
 	HTTPLogTrace();

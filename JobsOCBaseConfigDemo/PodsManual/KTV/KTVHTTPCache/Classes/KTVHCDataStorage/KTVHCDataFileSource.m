@@ -1,6 +1,6 @@
 //
 //  KTVHCDataFileSource.m
-//  KTVHTTPCache
+//  JobsOCBaseConfigDemo
 //
 //  Created by Single on 2017/8/11.
 //  Copyright © 2017年 Single. All rights reserved.
@@ -36,7 +36,7 @@
         self->_range = range;
         self->_readRange = readRange;
         KTVHCLogDataFileSource(@"%p, Create file source\npath : %@\nrange : %@\nreadRange : %@", self, path, KTVHCStringFromRange(range), KTVHCStringFromRange(readRange));
-    }return self;
+    };return self;
 }
 
 - (void)dealloc
@@ -148,6 +148,7 @@
     }
 }
 
+#pragma mark —— delegate
 - (void)setDelegate:(id <KTVHCDataFileSourceDelegate>)delegate delegateQueue:(dispatch_queue_t)delegateQueue
 {
     self->_delegate = delegate;

@@ -1,6 +1,6 @@
 //
 //  NSObject+Queue.h
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/3/24.
 //

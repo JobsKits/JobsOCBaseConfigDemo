@@ -1,14 +1,12 @@
 //
 //  CountdownView.m
-//  GuideViewDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by 天蓝 on 2016/12/2.
 //  Copyright © 2016年 PT. All rights reserved.
 //
 
 #import "CountdownView.h"
-
-#import "DefineProperty.h"
 
 @interface CountdownView ()
 
@@ -22,7 +20,7 @@ Prop_strong()CABasicAnimation *animation;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.time = 3;// 倒计时的时间
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -45,21 +43,25 @@ Prop_strong()CABasicAnimation *animation;
     });
 }
 
+#pragma mark —— time
 -(void)setTime:(NSInteger)time{
     if (time) {
         _time = time;
     }else _time = 3;
 }
 #pragma mark —— SET 方法
+#pragma mark —— str
 -(void)setStr:(NSString *)str{
     self.label.text = str ? : @"跳过".tr;
     [self.label sizeToFit];/// 刷新视图，否则label.frame为0
 }
 
+#pragma mark —— font
 -(void)setFont:(UIFont *)font{
     self.label.font = font ? : UIFontWeightRegularSize(JobsWidth(12));
 }
 
+#pragma mark —— textColor
 -(void)setTextColor:(UIColor *)textColor{
     self.label.textColor = textColor ? : [UIColor colorWithRed:0.27f
                                                          green:0.27f
@@ -89,7 +91,7 @@ Prop_strong()CABasicAnimation *animation;
                                                     clockwise:YES].CGPath;
             [data addAnimation:self.animation forKey:nil];
         });
-    }return _shapeLayer;
+    };return _shapeLayer;
 }
 
 -(CABasicAnimation *)animation{
@@ -100,7 +102,7 @@ Prop_strong()CABasicAnimation *animation;
         _animation.toValue = @(1.f);
         _animation.removedOnCompletion = NO;
         _animation.fillMode = kCAFillModeBoth;
-    }return _animation;
+    };return _animation;
 }
 @synthesize label = _label;
 -(UILabel *)label{
@@ -116,7 +118,7 @@ Prop_strong()CABasicAnimation *animation;
                 make.edges.equalTo(self);
             }];
         });
-    }return _label;
+    };return _label;
 }
 
 @end

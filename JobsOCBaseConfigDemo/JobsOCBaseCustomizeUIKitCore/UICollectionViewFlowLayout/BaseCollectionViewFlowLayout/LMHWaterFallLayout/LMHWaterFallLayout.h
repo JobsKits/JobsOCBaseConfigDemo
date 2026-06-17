@@ -1,6 +1,6 @@
 //
 //  LMHWaterFallLayout.h
-//  WateFallLayoutTest
+//  JobsOCBaseConfigDemo
 //
 //  Created by 刘梦桦 on 2017/5/18.
 //  Copyright © 2017年 lmh. All rights reserved.
@@ -10,7 +10,7 @@
 
 @class LMHWaterFallLayout;
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @protocol  LMHWaterFallLayoutDeleaget<NSObject>
 

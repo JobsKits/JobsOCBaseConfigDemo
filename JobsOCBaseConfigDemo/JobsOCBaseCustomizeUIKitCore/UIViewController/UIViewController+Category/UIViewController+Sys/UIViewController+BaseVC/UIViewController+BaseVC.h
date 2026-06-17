@@ -1,6 +1,6 @@
 //
 //  UIViewController+BaseVC.h
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/12.
 //
@@ -19,6 +19,7 @@
 #import "JobsViewNavigator.h"
 #import "NSObject+Extras.h"
 #import "UIViewController+GKCustomNavigationBar.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>

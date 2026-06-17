@@ -1,13 +1,11 @@
 //
 //  ZMJClassDataVC.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/29/24.
 //
 
 #import "ZMJClassDataVC.h"
-
-#import "DefineProperty.h"
 
 @interface ZMJClassDataVC ()
 /// UI
@@ -31,7 +29,7 @@ Prop_copy()NSString *content;
 - (instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -125,7 +123,7 @@ Prop_copy()NSString *content;
             cell.sortArrow.text = getSymbol(self.sortedColumn.sorting);
         } else {
             cell.sortArrow.text = @"";
-        }return cell;
+        };return cell;
     } else {
         TextCell *cell = (TextCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(TextCell.class)
                                                                                 forIndexPath:indexPath];
@@ -176,7 +174,7 @@ Prop_copy()NSString *content;
 //            _spreadsheetView.frame = self.view.bounds;
 //        }
         [_spreadsheetView flashScrollIndicators];
-    }return _spreadsheetView;
+    };return _spreadsheetView;
 }
 
 -(NSString *)content{
@@ -188,20 +186,20 @@ Prop_copy()NSString *content;
         if (!error){
             JobsLog(@"error = %@",error);
         }
-    }return _content;
+    };return _content;
 }
 
 -(NSArray<NSString *> *)header{
     if(!_header){
         _header = self.original_excelData[0];
-    }return _header;
+    };return _header;
 }
 
 -(NSMutableArray <NSArray<NSString *>*>*)excelData{
     if(!_excelData){
         [self.original_excelData removeObjectAtIndex:0];
         _excelData = self.original_excelData.copy;
-    }return _excelData;
+    };return _excelData;
 }
 
 -(NSMutableArray<NSArray<NSString *> *> *)original_excelData{
@@ -209,7 +207,7 @@ Prop_copy()NSString *content;
         _original_excelData = [[self.content componentsSeparatedByString:@"\r\n"] wbg_map:^NSArray<NSString *> * _Nullable(NSString * _Nonnull stuff) {
             return [stuff componentsSeparatedByString:@"\t"];
         }].mutableCopy;
-    }return _original_excelData;
+    };return _original_excelData;
 }
 
 @end

@@ -1,12 +1,13 @@
 //
 //  JXCategoryViewVerticalShowVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/15.
 //
 
 #import "BaseViewController.h"
 #import "JXCategoryViewVerticalShowSubBaseVC.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<JXCategoryView/JXCategoryView.h>)
 #import <JXCategoryView/JXCategoryView.h>

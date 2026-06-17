@@ -1,6 +1,6 @@
 //
 //  UITableViewCellEditorVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/6.
 //
@@ -9,6 +9,7 @@
 #import "JobsMsgDetailVC.h"
 #import "MsgEditBoardView.h"
 #import "JobsMsgDataModel.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

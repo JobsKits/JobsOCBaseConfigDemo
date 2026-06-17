@@ -1,14 +1,12 @@
 //
 //  JobsExcelConfigureViewModel.m
-//  JobsExcelView
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 17/6/16.
 //  Copyright © 2017年 Mephsito. All rights reserved.
 //
 
 #import "JobsExcelConfigureViewModel.h"
-
-#import "DefineProperty.h"
 
 @interface JobsExcelConfigureViewModel()
 
@@ -23,7 +21,7 @@ Prop_assign()NSInteger colNumber;/// 列数
     if (self = [super init]) {
         self.verticalScrollSignal = RACSubject.subject;
         self.horizontalScrollSignal = RACSubject.subject;
-    }return self;
+    };return self;
 }
 #pragma mark —— lazyLoad
 /// 因为UI架构的原因，数据必须先行后列
@@ -112,13 +110,13 @@ Prop_assign()NSInteger colNumber;/// 列数
 -(NSInteger)rowNumber{
     if(!_rowNumber){
         _rowNumber = self.leftTitles.count;
-    }return _rowNumber;
+    };return _rowNumber;
 }
 
 -(NSInteger)colNumber{
     if(!_colNumber){
         _colNumber = self.topHeaderTitles.count - 1;
-    }return _colNumber;
+    };return _colNumber;
 }
 
 -(NSMutableArray<NSMutableArray<UIButtonModel *> *> *)contentArr{
@@ -126,7 +124,7 @@ Prop_assign()NSInteger colNumber;/// 列数
         _contentArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             
         });
-    }return _contentArr;
+    };return _contentArr;
 }
 /// 外界需要进行覆写
 -(UIButtonModel *)data_00{
@@ -139,7 +137,7 @@ Prop_assign()NSInteger colNumber;/// 列数
             data.baseBackgroundColor = self.cor0;
             data.backgroundImage = self.image0;
         });
-    }return _data_00;
+    };return _data_00;
 }
 /// 外界需要进行覆写
 -(NSMutableArray<UIButtonModel *> *)topHeaderDatas{
@@ -158,7 +156,7 @@ Prop_assign()NSInteger colNumber;/// 列数
                 }));
             }
         });
-    }return _topHeaderDatas;
+    };return _topHeaderDatas;
 }
 /// 外界需要进行覆写
 -(NSMutableArray <UIButtonModel *>*)leftListDatas{
@@ -177,91 +175,91 @@ Prop_assign()NSInteger colNumber;/// 列数
 //                }));
 //            }
         });
-    }return _leftListDatas;
+    };return _leftListDatas;
 }
 /// 整张Excel表的宽度
 -(CGFloat)XZExcelW{
     if(!_XZExcelW){
         _XZExcelW = JobsExcelView.viewSizeByModel(nil).width;
-    }return _XZExcelW;
+    };return _XZExcelW;
 }
 /// 整张Excel表的高度
 -(CGFloat)XZExcelH{
     if(!_XZExcelH){
         _XZExcelH = JobsExcelView.viewSizeByModel(nil).height;
-    }return _XZExcelH;
+    };return _XZExcelH;
 }
 /// 线宽
 -(CGFloat)LineWidth{
     if(!_LineWidth){
         _LineWidth = 1;
-    }return _LineWidth;
+    };return _LineWidth;
 }
 /// 第一行、第一列格子的背景颜色
 -(UIColor *)cor0{
     if(!_cor0){
         _cor0 = self.cor1;
-    }return _cor0;
+    };return _cor0;
 }
 /// 奇数行的背景颜色
 -(UIColor *)cor1{
     if(!_cor1){
         _cor1 = @"#7900B2".cor;
-    }return _cor1;
+    };return _cor1;
 }
 /// 偶数行的背景颜色
 -(UIColor *)cor2{
     if(!_cor2){
         _cor2 = @"#4B00AB".cor;
-    }return _cor2;
+    };return _cor2;
 }
 /// 第一行的背景颜色
 -(UIColor *)cor3{
     if(!_cor3){
         _cor3 = self.cor1;
-    }return _cor3;
+    };return _cor3;
 }
 /// 第一行的主文字颜色
 -(UIColor *)cor4{
     if(!_cor4){
         _cor4 = JobsBlackColor;
-    }return _cor4;
+    };return _cor4;
 }
 /// 其他行的主文字颜色
 -(UIColor *)cor5{
     if(!_cor5){
         _cor5 = JobsWhiteColor;
-    }return _cor5;
+    };return _cor5;
 }
 /// 表格线的颜色
 -(UIColor *)cor6{
     if(!_cor6){
         _cor6 = JobsGrayColor;
-    }return _cor6;
+    };return _cor6;
 }
 /// 第一行、第一列格子的背景图片
 -(UIImage *)image0{
     if(!_image0){
         _image0 = @"Excel表头的背景图".img;
-    }return _image0;
+    };return _image0;
 }
 /// 奇数行的背景图片
 -(UIImage *)image1{
     if(!_image1){
         _image1 = @"".img;
-    }return _image1;
+    };return _image1;
 }
 /// 偶数行的背景图片
 -(UIImage *)image2{
     if(!_image2){
         _image2 = @"".img;
-    }return _image2;
+    };return _image2;
 }
 /// 第一行的背景图片
 -(UIImage *)image3{
     if(!_image3){
         _image3 = @"Excel表头的背景图".img;
-    }return _image3;
+    };return _image3;
 }
 @synthesize topHeaderTitles = _topHeaderTitles;
 -(NSMutableArray <NSString *>*)topHeaderTitles{
@@ -269,9 +267,10 @@ Prop_assign()NSInteger colNumber;/// 列数
         _topHeaderTitles = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>*_Nullable data) {
             
         });
-    }return _topHeaderTitles;
+    };return _topHeaderTitles;
 }
 
+#pragma mark —— topHeaderTitles
 -(void)setTopHeaderTitles:(NSMutableArray <NSString *>*)topHeaderTitles{
     _topHeaderTitles = topHeaderTitles;
     self.colNumber = _topHeaderTitles.count;
@@ -295,9 +294,10 @@ Prop_assign()NSInteger colNumber;/// 列数
         _leftTitles = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>*_Nullable data) {
             
         });
-    }return _leftTitles;
+    };return _leftTitles;
 }
 
+#pragma mark —— leftTitles
 -(void)setLeftTitles:(NSMutableArray <NSString *>*)leftTitles{
     _leftTitles = leftTitles;
     self.rowNumber = _leftTitles.count;
@@ -306,13 +306,13 @@ Prop_assign()NSInteger colNumber;/// 列数
 -(CGFloat)itemH{
     if(!_itemH){
         _itemH = JobsWidth(35);
-    }return _itemH;
+    };return _itemH;
 }
 
 -(CGFloat)itemW{
     if(!_itemW){
         _itemW = JobsWidth(60);
-    }return _itemW;
+    };return _itemW;
 }
 
 @end

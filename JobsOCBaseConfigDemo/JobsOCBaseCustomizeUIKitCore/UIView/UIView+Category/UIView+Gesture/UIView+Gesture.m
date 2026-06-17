@@ -1,6 +1,6 @@
 //
 //  UIView+Gesture.m
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/1/4.
 //
@@ -8,7 +8,6 @@
 #import "UIView+Gesture.h"
 
 #warning —— 本类不实现UIGestureRecognizerDelegate的原因说明:覆盖了 UISCrollView 里面对应的方法
-#import "DefineProperty.h"
 
 @implementation UIView (Gesture)
 #pragma mark —— 一些私有方法
@@ -24,7 +23,7 @@
     @jobs_weakify(self)
     return ^__kindof UIGestureRecognizer *_Nullable(void *_Nullable key){
         @jobs_strongify(self)
-        return objc_getAssociatedObject(self, key);
+        return Jobs_getAssociatedObjectByRawKey(key);
     };
 }
 #pragma mark —— 一些公有方法
@@ -83,7 +82,7 @@ JobsKey(_longPressGR)
             }self.addGesture(gesture);
             [self setLongPressGR:gesture];
         });
-    }return LongPressGR;
+    };return LongPressGR;
 }
 
 -(void)setLongPressGR:(UILongPressGestureRecognizer *)longPressGR{
@@ -107,7 +106,7 @@ JobsKey(_tapGR)
             self.addGesture(gesture);
             [self setTapGR:gesture];
         });
-    }return TapGR;
+    };return TapGR;
 }
 
 -(void)setTapGR:(UITapGestureRecognizer *)tapGR{
@@ -131,7 +130,7 @@ JobsKey(_doubleTapGR)
             self.addGesture(gesture);
             [self setDoubleTapGR:gesture];
         });
-    }return DoubleTapGR;
+    };return DoubleTapGR;
 }
 
 -(void)setDoubleTapGR:(UITapGestureRecognizer *)doubleTapGR{
@@ -155,7 +154,7 @@ JobsKey(_swipeGR)
             self.addGesture(gesture);
             [self setSwipeGR:gesture];
         });
-    }return SwipeGR;
+    };return SwipeGR;
 }
 
 -(void)setSwipeGR:(UISwipeGestureRecognizer *)swipeGR{
@@ -179,7 +178,7 @@ JobsKey(_panGR)
             self.addGesture(gesture);
             [self setPanGR:gesture];
         });
-    }return PanGR;
+    };return PanGR;
 }
 
 -(void)setPanGR:(UIPanGestureRecognizer *)panGR{
@@ -202,7 +201,7 @@ JobsKey(_pinchGR)
             self.addGesture(gesture);
             [self setPinchGR:gesture];
         });
-    }return PinchGR;
+    };return PinchGR;
 }
 
 -(void)setPinchGR:(UIPinchGestureRecognizer *)pinchGR{
@@ -225,7 +224,7 @@ JobsKey(_rotationGR)
             self.addGesture(gesture);
             [self setRotationGR:gesture];
         });
-    }return RotationGR;
+    };return RotationGR;
 }
 
 -(void)setRotationGR:(UIRotationGestureRecognizer *)rotationGR{
@@ -247,7 +246,7 @@ JobsKey(_screenEdgePanGR)
             self.addGesture(gesture);
             [self setScreenEdgePanGR:gesture];
         });
-    }return ScreenEdgePanGR;
+    };return ScreenEdgePanGR;
 }
 
 -(void)setScreenEdgePanGR:(UIScreenEdgePanGestureRecognizer *)screenEdgePanGR{

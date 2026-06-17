@@ -1,6 +1,6 @@
 //
 //  UIViewController+Shake.h
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/8/21.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -13,8 +13,8 @@
 #import <CoreMotion/CoreMotion.h>
 #import "JobsBlock.h"
 #import "NSObject+Shake.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>
 #else

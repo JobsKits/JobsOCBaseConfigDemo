@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/16.
 //
@@ -31,7 +31,7 @@ SceneDelegate *sceneDelegate;
             JobsLog(@"通知传递过来的 = %@",notification.object);
             self.windowScene = notification.object;
         }];
-    }return self;
+    };return self;
 }
 #pragma mark —— lazyLoad
 

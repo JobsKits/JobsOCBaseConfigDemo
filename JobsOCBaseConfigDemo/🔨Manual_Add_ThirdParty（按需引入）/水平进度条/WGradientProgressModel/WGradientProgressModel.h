@@ -1,14 +1,13 @@
 //
 //  WGradientProgressModel.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 28/12/2024.
 //
 
 #import <Foundation/Foundation.h>
 #import "JobsBlock.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

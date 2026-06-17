@@ -2,81 +2,81 @@
 //  UITextField+DSL.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Mac on 11/3/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UITextField+DSL.h"
 
 @implementation UITextField (DSL)
 #pragma mark —— 基础文本
--(JobsRetTextFieldByStringBlock _Nonnull)byText {
+-(JobsRetTextFieldByStringBlock _Nonnull)byText{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (NSString * _Nullable text) {
+    return ^__kindof UITextField * (NSString * _Nullable text){
         @jobs_strongify(self)
         self.text = text;
         return self;
     };
 }
 
--(JobsRetTextFieldByAttributedStringBlock _Nonnull)byAttributedText {
+-(JobsRetTextFieldByAttributedStringBlock _Nonnull)byAttributedText{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (NSAttributedString * _Nullable attrText) {
+    return ^__kindof UITextField * (NSAttributedString * _Nullable attrText){
         @jobs_strongify(self)
-        if (@available(iOS 6.0, *)) {
+        if (@available(iOS 6.0, *)){
             self.attributedText = attrText;
-        }return self;
+        };return self;
     };
 }
 
--(JobsRetTextFieldByCorBlock _Nonnull)byTextCor {
+-(JobsRetTextFieldByCorBlock _Nonnull)byTextCor{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (UIColor * _Nullable color) {
+    return ^__kindof UITextField * (UIColor * _Nullable color){
         @jobs_strongify(self)
         self.textColor = color;
         return self;
     };
 }
 
--(JobsRetTextFieldByFontBlock _Nonnull)byFont {
+-(JobsRetTextFieldByFontBlock _Nonnull)byFont{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (UIFont * _Nullable font) {
+    return ^__kindof UITextField * (UIFont * _Nullable font){
         @jobs_strongify(self)
         self.font = font;
         return self;
     };
 }
 
--(JobsRetTextFieldByNSIntegerBlock _Nonnull)byTextAlignment {
+-(JobsRetTextFieldByNSIntegerBlock _Nonnull)byTextAlignment{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (NSTextAlignment alignment) {
+    return ^__kindof UITextField * (NSTextAlignment alignment){
         @jobs_strongify(self)
         self.textAlignment = alignment;
         return self;
     };
 }
 
--(JobsRetTextFieldByNSIntegerBlock _Nonnull)byBorderStyle {
+-(JobsRetTextFieldByNSIntegerBlock _Nonnull)byBorderStyle{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (UITextBorderStyle style) {
+    return ^__kindof UITextField * (UITextBorderStyle style){
         @jobs_strongify(self)
         self.borderStyle = style;
         return self;
     };
 }
 
--(JobsRetTextFieldByNSDictionaryBlock _Nonnull)byDefaultTextAttributes {
+-(JobsRetTextFieldByNSDictionaryBlock _Nonnull)byDefaultTextAttributes{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (NSDictionary<NSAttributedStringKey,id> * _Nullable attrs) {
+    return ^__kindof UITextField * (NSDictionary<NSAttributedStringKey,id> * _Nullable attrs){
         @jobs_strongify(self)
-        if (@available(iOS 7.0, *)) {
+        if (@available(iOS 7.0, *)){
             self.defaultTextAttributes = attrs ?: @{};
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— 占位符
--(JobsRetTextFieldByStringBlock _Nonnull)byPlaceholder {
+-(JobsRetTextFieldByStringBlock _Nonnull)byPlaceholder{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (NSString * _Nullable ph) {
+    return ^__kindof UITextField * (NSString * _Nullable ph){
         @jobs_strongify(self)
         self.placeholder = ph;
         return self;
@@ -87,7 +87,13 @@
     @jobs_weakify(self)
     return ^__kindof UITextField *_Nullable(__kindof UIColor *_Nullable cor){
         @jobs_strongify(self)
-        self.placeholderColor = cor;
+        NSString *placeholder = self.placeholder ?: self.attributedPlaceholder.string ?: @"";
+        NSMutableDictionary<NSAttributedStringKey, id> *attributes = NSMutableDictionary.dictionary;
+        if (self.attributedPlaceholder.length){
+            [attributes addEntriesFromDictionary:[self.attributedPlaceholder attributesAtIndex:0 effectiveRange:nil]];
+        }
+        if (cor) attributes[NSForegroundColorAttributeName] = cor;
+        self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:attributes];
         return self;
     };
 }
@@ -96,117 +102,123 @@
     @jobs_weakify(self)
     return ^__kindof UITextField *_Nullable(__kindof UIFont *_Nullable font){
         @jobs_strongify(self)
-        self.placeholderFont = font;
+        NSString *placeholder = self.placeholder ?: self.attributedPlaceholder.string ?: @"";
+        NSMutableDictionary<NSAttributedStringKey, id> *attributes = NSMutableDictionary.dictionary;
+        if (self.attributedPlaceholder.length){
+            [attributes addEntriesFromDictionary:[self.attributedPlaceholder attributesAtIndex:0 effectiveRange:nil]];
+        }
+        if (font) attributes[NSFontAttributeName] = font;
+        self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:attributes];
         return self;
     };
 }
 
--(JobsRetTextFieldByAttributedStringBlock _Nonnull)byAttributedPlaceholder {
+-(JobsRetTextFieldByAttributedStringBlock _Nonnull)byAttributedPlaceholder{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (NSAttributedString * _Nullable ph) {
+    return ^__kindof UITextField * (NSAttributedString * _Nullable ph){
         @jobs_strongify(self)
-        if (@available(iOS 6.0, *)) {
+        if (@available(iOS 6.0, *)){
             self.attributedPlaceholder = ph;
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— 编辑行为
--(JobsRetTextFieldByBOOLBlock _Nonnull)byClearsOnBeginEditing {
+-(JobsRetTextFieldByBOOLBlock _Nonnull)byClearsOnBeginEditing{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (BOOL on) {
+    return ^__kindof UITextField * (BOOL on){
         @jobs_strongify(self)
         self.clearsOnBeginEditing = on;
         return self;
     };
 }
 
--(JobsRetTextFieldByBOOLBlock _Nonnull)byAdjustsFontSizeToFitWidth {
+-(JobsRetTextFieldByBOOLBlock _Nonnull)byAdjustsFontSizeToFitWidth{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (BOOL on) {
+    return ^__kindof UITextField * (BOOL on){
         @jobs_strongify(self)
         self.adjustsFontSizeToFitWidth = on;
         return self;
     };
 }
 
--(JobsRetTextFieldByCGFloatrBlock _Nonnull)byMinimumFontSize {
+-(JobsRetTextFieldByCGFloatrBlock _Nonnull)byMinimumFontSize{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (CGFloat size) {
+    return ^__kindof UITextField * (CGFloat size){
         @jobs_strongify(self)
         self.minimumFontSize = size;
         return self;
     };
 }
 
--(JobsRetTextFieldByBOOLBlock _Nonnull)byAllowsEditingTextAttributes {
+-(JobsRetTextFieldByBOOLBlock _Nonnull)byAllowsEditingTextAttributes{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (BOOL on) {
+    return ^__kindof UITextField * (BOOL on){
         @jobs_strongify(self)
-        if (@available(iOS 6.0, *)) {
+        if (@available(iOS 6.0, *)){
             self.allowsEditingTextAttributes = on;
-        }return self;
+        };return self;
     };
 }
 
--(JobsRetTextFieldByNSDictionaryBlock _Nonnull)byTypingAttributes {
+-(JobsRetTextFieldByNSDictionaryBlock _Nonnull)byTypingAttributes{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (NSDictionary<NSAttributedStringKey,id> * _Nullable attrs) {
+    return ^__kindof UITextField * (NSDictionary<NSAttributedStringKey,id> * _Nullable attrs){
         @jobs_strongify(self)
-        if (@available(iOS 6.0, *)) {
+        if (@available(iOS 6.0, *)){
             self.typingAttributes = attrs;
-        }return self;
+        };return self;
     };
 }
 
--(JobsRetTextFieldByBOOLBlock _Nonnull)byClearsOnInsertion {
+-(JobsRetTextFieldByBOOLBlock _Nonnull)byClearsOnInsertion{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (BOOL on) {
+    return ^__kindof UITextField * (BOOL on){
         @jobs_strongify(self)
-        if (@available(iOS 6.0, *)) {
+        if (@available(iOS 6.0, *)){
             self.clearsOnInsertion = on;
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— 背景
--(JobsRetTextFieldByImageBlock _Nonnull)byBackground {
+-(JobsRetTextFieldByImageBlock _Nonnull)byBackground{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (UIImage * _Nullable img) {
+    return ^__kindof UITextField * (UIImage * _Nullable img){
         @jobs_strongify(self)
         self.background = img;
         return self;
     };
 }
 
--(JobsRetTextFieldByImageBlock _Nonnull)byDisabledBackground {
+-(JobsRetTextFieldByImageBlock _Nonnull)byDisabledBackground{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (UIImage * _Nullable img) {
+    return ^__kindof UITextField * (UIImage * _Nullable img){
         @jobs_strongify(self)
         self.disabledBackground = img;
         return self;
     };
 }
 #pragma mark —— 清除按钮
--(JobsRetTextFieldByNSIntegerBlock _Nonnull)byClearButtonMode {
+-(JobsRetTextFieldByNSIntegerBlock _Nonnull)byClearButtonMode{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (UITextFieldViewMode mode) {
+    return ^__kindof UITextField * (UITextFieldViewMode mode){
         @jobs_strongify(self)
         self.clearButtonMode = mode;
         return self;
     };
 }
 #pragma mark —— 左右视图
--(JobsRetTextFieldByViewBlock _Nonnull)byLeftView {
+-(JobsRetTextFieldByViewBlock _Nonnull)byLeftView{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (UIView * _Nullable v) {
+    return ^__kindof UITextField * (UIView * _Nullable v){
         @jobs_strongify(self)
         self.leftView = v;
         return self;
     };
 }
 
--(JobsRetTextFieldByNSIntegerBlock _Nonnull)byLeftViewMode {
+-(JobsRetTextFieldByNSIntegerBlock _Nonnull)byLeftViewMode{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (UITextFieldViewMode mode) {
+    return ^__kindof UITextField * (UITextFieldViewMode mode){
         @jobs_strongify(self)
         self.leftViewMode = mode;
         NSTextAlignment d;
@@ -214,45 +226,45 @@
     };
 }
 
--(JobsRetTextFieldByViewBlock _Nonnull)byRightView {
+-(JobsRetTextFieldByViewBlock _Nonnull)byRightView{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (UIView * _Nullable v) {
+    return ^__kindof UITextField * (UIView * _Nullable v){
         @jobs_strongify(self)
         self.rightView = v;
         return self;
     };
 }
 
--(JobsRetTextFieldByNSIntegerBlock _Nonnull)byRightViewMode {
+-(JobsRetTextFieldByNSIntegerBlock _Nonnull)byRightViewMode{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (UITextFieldViewMode mode) {
+    return ^__kindof UITextField * (UITextFieldViewMode mode){
         @jobs_strongify(self)
         self.rightViewMode = mode;
         return self;
     };
 }
 #pragma mark —— 输入视图
--(JobsRetTextFieldByViewBlock _Nonnull)byInputView {
+-(JobsRetTextFieldByViewBlock _Nonnull)byInputView{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (UIView * _Nullable v) {
+    return ^__kindof UITextField * (UIView * _Nullable v){
         @jobs_strongify(self)
         self.inputView = v;
         return self;
     };
 }
 
--(JobsRetTextFieldByViewBlock _Nonnull)byInputAccessoryView {
+-(JobsRetTextFieldByViewBlock _Nonnull)byInputAccessoryView{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (UIView * _Nullable v) {
+    return ^__kindof UITextField * (UIView * _Nullable v){
         @jobs_strongify(self)
         self.inputAccessoryView = v; // visionOS 不可用，已在 .h 标注
         return self;
     };
 }
 #pragma mark —— delegate
--(JobsRetTextFieldByDelegateBlock _Nonnull)byDelegate {
+-(JobsRetTextFieldByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (id<UITextFieldDelegate> _Nullable dg) {
+    return ^__kindof UITextField * (id<UITextFieldDelegate> _Nullable dg){
         @jobs_strongify(self)
         self.delegate = dg;
         return self;
@@ -295,31 +307,64 @@
     };
 }
 
--(JobsRetTextFieldByNSIntegerBlock _Nonnull)byPlaceHolderAlignment {
+-(JobsRetTextFieldByNSIntegerBlock _Nonnull)byPlaceHolderAlignment{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (NSTextAlignment alignment) {
+    return ^__kindof UITextField * (NSTextAlignment alignment){
         @jobs_strongify(self)
         self.placeHolderAlignment  = alignment;
         return self;
     };
 }
 
--(JobsRetTextFieldByCGFloatrBlock _Nonnull)byLeftViewOffsetX {
+-(JobsRetTextFieldByCGFloatrBlock _Nonnull)byLeftViewOffsetX{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (CGFloat offsetX) {
+    return ^__kindof UITextField * (CGFloat offsetX){
         @jobs_strongify(self)
         self.leftViewOffsetX = offsetX;
         return self;
     };
 }
 
--(JobsRetTextFieldByCGFloatrBlock _Nonnull)byRightViewOffsetX {
+-(JobsRetTextFieldByCGFloatrBlock _Nonnull)byRightViewOffsetX{
     @jobs_weakify(self)
-    return ^__kindof UITextField * (CGFloat offsetX) {
+    return ^__kindof UITextField * (CGFloat offsetX){
         @jobs_strongify(self)
         self.rightViewOffsetX = offsetX;
         return self;
     };
+}
+
+#pragma mark —— placeHolderAlignment
+JobsKey(_placeHolderAlignment)
+@dynamic placeHolderAlignment;
+-(NSTextAlignment)placeHolderAlignment{
+    return [Jobs_getAssociatedObject(_placeHolderAlignment) integerValue];
+}
+
+-(void)setPlaceHolderAlignment:(NSTextAlignment)placeHolderAlignment{
+    Jobs_setAssociatedRETAIN_NONATOMIC(_placeHolderAlignment, @(placeHolderAlignment))
+}
+
+#pragma mark —— leftViewOffsetX
+JobsKey(_leftViewOffsetX)
+@dynamic leftViewOffsetX;
+-(CGFloat)leftViewOffsetX{
+    return [Jobs_getAssociatedObject(_leftViewOffsetX) doubleValue];
+}
+
+-(void)setLeftViewOffsetX:(CGFloat)leftViewOffsetX{
+    Jobs_setAssociatedRETAIN_NONATOMIC(_leftViewOffsetX, @(leftViewOffsetX))
+}
+
+#pragma mark —— rightViewOffsetX
+JobsKey(_rightViewOffsetX)
+@dynamic rightViewOffsetX;
+-(CGFloat)rightViewOffsetX{
+    return [Jobs_getAssociatedObject(_rightViewOffsetX) doubleValue];
+}
+
+-(void)setRightViewOffsetX:(CGFloat)rightViewOffsetX{
+    Jobs_setAssociatedRETAIN_NONATOMIC(_rightViewOffsetX, @(rightViewOffsetX))
 }
 
 @end

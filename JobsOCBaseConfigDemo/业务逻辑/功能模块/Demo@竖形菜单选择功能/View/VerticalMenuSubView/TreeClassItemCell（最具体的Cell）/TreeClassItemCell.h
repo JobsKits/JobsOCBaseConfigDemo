@@ -1,6 +1,6 @@
 //
 //  TreeClassItemCell.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/15.
 //
@@ -9,6 +9,7 @@
 #import "JobsVerticalMenuDefineHeader.h"
 #import "UILocationProtocol.h"
 #import "JobsBaseCollectionViewCell.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

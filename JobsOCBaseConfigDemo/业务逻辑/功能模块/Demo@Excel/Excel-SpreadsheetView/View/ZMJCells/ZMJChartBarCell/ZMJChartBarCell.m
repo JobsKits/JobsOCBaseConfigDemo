@@ -1,6 +1,6 @@
 //
 //  ZMJChartBarCell.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/27/24.
 //
@@ -22,13 +22,13 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
         
-    }return self;
+    };return self;
 }
 
 @end

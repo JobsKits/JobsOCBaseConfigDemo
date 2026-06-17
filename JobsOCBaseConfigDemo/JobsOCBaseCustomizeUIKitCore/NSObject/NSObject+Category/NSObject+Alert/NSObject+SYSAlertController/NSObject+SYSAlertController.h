@@ -1,6 +1,6 @@
 //
 //  NSObject+SYSAlertController.h
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/12.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -10,7 +10,7 @@
 #import "JobsBlock.h"
 #import "JobsString.h"
 #import "NSObject+Extras.h"
-#import "NSObject+WHToast.h"/// 提示
+#import "NSObject+WHToast.h"
 #import "SYSAlertControllerConfig.h"
 
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)

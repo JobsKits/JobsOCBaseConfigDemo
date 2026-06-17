@@ -7,7 +7,7 @@
 
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 #import "TDDrawingNode.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// Custom Drawing Node (Async displayWithParameters:)

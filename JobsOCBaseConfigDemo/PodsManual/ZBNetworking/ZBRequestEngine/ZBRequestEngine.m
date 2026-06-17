@@ -1,6 +1,6 @@
 //
 //  ZBRequestEngine.m
-//  ZBNetworkingDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by NQ UEC on 2017/8/17.
 //  Copyright © 2017年 Suzhibin. All rights reserved.
@@ -10,6 +10,7 @@
 #if TARGET_OS_IOS
 #import "AFNetworkActivityIndicatorManager.h"
 #endif
+
 #import "ZBURLRequest.h"
 #import "NSString+ZBURLEncoding.h"
 
@@ -67,7 +68,7 @@ NSString *const _delegate =@"_delegate";
         [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 #endif
          _requestDic =[[NSMutableDictionary alloc] init];
-    }return self;
+    };return self;
 }
 
 + (void)load {
@@ -202,6 +203,7 @@ NSString *const _delegate =@"_delegate";
     return [AFNetworkReachabilityManager sharedManager].networkReachabilityStatus;
 }
 
+#pragma mark —— reachabilityStatusChangeBlock
 - (void)setReachabilityStatusChangeBlock:(void (^)(NSInteger status))block{
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:block];
 }
@@ -454,6 +456,7 @@ NSString *const _delegate =@"_delegate";
 }
 
 #pragma mark - request 生命周期管理
+#pragma mark —— requestObject
 - (void)setRequestObject:(id)obj forkey:(NSString *)key{
     if (obj) {
         [_requestDic setObject:obj forKey:key];

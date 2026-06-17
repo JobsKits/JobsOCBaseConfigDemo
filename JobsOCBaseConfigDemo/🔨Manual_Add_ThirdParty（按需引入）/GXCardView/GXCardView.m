@@ -1,6 +1,6 @@
 //
 //  GXCardView.m
-//  GXCardViewDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Gin on 2018/7/31.
 //  Copyright © 2018年 gin. All rights reserved.
@@ -18,7 +18,6 @@ static CGFloat const GX_SpringWithDamping  = 0.5f;
 static CGFloat const GX_SpringVelocity     = 0.8f;
 
 @class GXCardViewCell;
-#import "DefineProperty.h"
 
 @protocol GXCardViewCellDelagate <NSObject>
 @optional
@@ -48,7 +47,7 @@ Prop_weak()id<GXCardViewCellDelagate> cell_delegate;
     if (self) {
         self.reuseIdentifier = reuseIdentifier;
         [self setupView];
-    }return self;
+    };return self;
 }
 
 - (void)setupView {
@@ -236,7 +235,7 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
     self = [super initWithFrame:frame];
     if (self) {
         [self configCardView];
-    }return self;
+    };return self;
 }
 
 - (void)configCardView {

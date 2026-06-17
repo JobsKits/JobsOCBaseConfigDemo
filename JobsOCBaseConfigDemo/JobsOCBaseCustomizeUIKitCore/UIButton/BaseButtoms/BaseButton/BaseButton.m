@@ -1,6 +1,6 @@
 //
 //  BaseButton.m
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/6/1.
 //
@@ -28,13 +28,13 @@ BaseButtonProtocol_synthesize
 -(instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 +(instancetype)buttonWithConfiguration:(UIButtonConfiguration *)configuration
@@ -59,15 +59,18 @@ BaseButtonProtocol_synthesize
     }
 }
 
+#pragma mark —— frame
 -(void)setFrame:(CGRect)frame{
     [super setFrame:frame];
 }
 //@synthesize highlighted = _highlighted;
-//-(void)setHighlighted:(BOOL)highlighted{
+//#pragma mark —— highlighted
+-(void)setHighlighted:(BOOL)highlighted{
 //    _highlighted = highlighted;
 //    self.jobsResetImage(highlighted ? self.highlightImage : self.normalImage);
 //    self.jobsResetBtnBgImage(highlighted ? self.highlightBackgroundImage : self.backgroundImage);
 //}
+}
 /// 判断触摸点是否在 UITextView 内
 /// 当 UIButton.enabled = NO时，此方法不响应
 -(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
@@ -84,7 +87,7 @@ BaseButtonProtocol_synthesize
                 return subview; /// 返回 UITextView
             }
         }
-    }return hitView; /// 默认返回按钮自身
+    };return hitView; /// 默认返回按钮自身
 }
 #pragma mark —— 一些私有方法
 /// 只能在-(void)layoutSubviews里面进行调用
@@ -290,6 +293,7 @@ BaseButtonProtocol_synthesize
     };
 }
 @synthesize selected = _selected;
+#pragma mark —— selected
 -(void)setSelected:(BOOL)selected{
     [super setSelected:selected];
     _selected = selected;

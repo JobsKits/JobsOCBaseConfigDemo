@@ -1,13 +1,11 @@
 //
 //  JobsIMListTBVCell.m
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/17.
 //
 
 #import "JobsIMListTBVCell.h"
-
-#import "DefineProperty.h"
 
 @interface JobsIMListTBVCell ()
 
@@ -32,7 +30,7 @@ UITextFieldProtocol_synthesize_part2
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.contentView.backgroundColor = JobsWhiteColor;
             cell.backgroundColor = JobsWhiteColor;
-        }return cell;
+        };return cell;
     };
 }
 
@@ -52,7 +50,7 @@ UITextFieldProtocol_synthesize_part2
         self.rightExpansion.fillOnTrigger = YES;
         self.leftButtons = [self createLeftButtons];
         self.rightButtons = [self createRightButtons];
-    }return self;
+    };return self;
 }
 
 +(JobsRetCGFloatByIDBlock _Nonnull)cellHeightByModel{
@@ -141,7 +139,7 @@ UITextFieldProtocol_synthesize_part2
                 make.right.equalTo(self.contentView).offset(-5);
             }];
         });
-    }return _timeLab;
+    };return _timeLab;
 }
 
 -(UILongPressGestureRecognizer *)longPG{
@@ -154,7 +152,7 @@ UITextFieldProtocol_synthesize_part2
                 JobsLog(@"长按手势做什么");
             }
         }];self.addGesture(_longPG);
-    }return _longPG;
+    };return _longPG;
 }
 
 -(NSMutableArray<MGSwipeButtonModel *> *)leftBtnMutArr{
@@ -176,7 +174,7 @@ UITextFieldProtocol_synthesize_part2
                 model.bgCor = RGBA_COLOR(0.59, 0.29, 0.08, 1);
             }));
         });
-    }return _leftBtnMutArr;
+    };return _leftBtnMutArr;
 }
 
 -(NSMutableArray<MGSwipeButtonModel *> *)rightBtnMutArr{
@@ -198,7 +196,7 @@ UITextFieldProtocol_synthesize_part2
                 model.bgCor = JobsCyanColor;
             }));
         });
-    }return _rightBtnMutArr;
+    };return _rightBtnMutArr;
 }
     
 

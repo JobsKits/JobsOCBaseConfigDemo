@@ -1,12 +1,13 @@
 //
 //  NSTimerManagerTestVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/24.
 //
 
 #import "BaseViewController.h"
 #import "JobsTimer.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

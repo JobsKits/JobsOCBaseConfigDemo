@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 #import "SlideToUnlockView.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>

@@ -1,6 +1,6 @@
 //
 //  UIViewController+XLBubbleTransition.m
-//  XLBubbleTransitionDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by MengXianLiang on 2017/4/1.
 //  Copyright © 2017年 MengXianLiang. All rights reserved.
@@ -31,8 +31,11 @@
 }
 
 #pragma mark —— @property(nonatomic,retain) XLBubbleTransition *xl_pushTranstion;
+#pragma mark —— xl_pushTranstion
+JobsKey(_xl_pushTranstion)
+@dynamic xl_pushTranstion;
 - (XLBubbleTransition *)xl_pushTranstion {
-    return objc_getAssociatedObject(self, _cmd);
+    return Jobs_getAssociatedObject(_xl_pushTranstion);
 }
 
 - (void)setXl_pushTranstion:(XLBubbleTransition *)xl_pushTranstion{
@@ -42,14 +45,14 @@
     }else {
         self.navigationController.delegate = nil;
     }
-    objc_setAssociatedObject(self,
-                             _cmd,
-                             xl_pushTranstion,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(_xl_pushTranstion, xl_pushTranstion)
 }
 #pragma mark —— @property(nonatomic,retain)XLBubbleTransition *xl_popTranstion;
+#pragma mark —— xl_popTranstion
+JobsKey(_xl_popTranstion)
+@dynamic xl_popTranstion;
 - (XLBubbleTransition *)xl_popTranstion{
-    return objc_getAssociatedObject(self, _cmd);
+    return Jobs_getAssociatedObject(_xl_popTranstion);
 }
 
 - (void)setXl_popTranstion:(XLBubbleTransition *)xl_popTranstion {
@@ -59,14 +62,14 @@
     }else {
         self.navigationController.delegate = nil;
     }
-    objc_setAssociatedObject(self,
-                             _cmd,
-                             xl_popTranstion,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(_xl_popTranstion, xl_popTranstion)
 }
 #pragma mark —— @property(nonatomic,retain)XLBubbleTransition *xl_presentTranstion;
+#pragma mark —— xl_presentTranstion
+JobsKey(_xl_presentTranstion)
+@dynamic xl_presentTranstion;
 - (XLBubbleTransition *)xl_presentTranstion {
-    return objc_getAssociatedObject(self, _cmd);
+    return Jobs_getAssociatedObject(_xl_presentTranstion);
 }
 
 - (void)setXl_presentTranstion:(XLBubbleTransition *)xl_presentTranstion{
@@ -76,14 +79,14 @@
     }else {
         self.transitioningDelegate = nil;
     }
-    objc_setAssociatedObject(self,
-                             _cmd,
-                             xl_presentTranstion,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(_xl_presentTranstion, xl_presentTranstion)
 }
 #pragma mark —— @property(nonatomic,retain)XLBubbleTransition *xl_dismissTranstion;
+#pragma mark —— xl_dismissTranstion
+JobsKey(_xl_dismissTranstion)
+@dynamic xl_dismissTranstion;
 - (XLBubbleTransition *)xl_dismissTranstion {
-    return objc_getAssociatedObject(self, _cmd);
+    return Jobs_getAssociatedObject(_xl_dismissTranstion);
 }
 
 - (void)setXl_dismissTranstion:(XLBubbleTransition *)xl_dismissTranstion {
@@ -93,10 +96,7 @@
     }else {
         self.transitioningDelegate = nil;
     }
-    objc_setAssociatedObject(self,
-                             _cmd,
-                             xl_dismissTranstion,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(_xl_dismissTranstion, xl_dismissTranstion)
 }
 
 @end

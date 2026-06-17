@@ -1,6 +1,6 @@
 //
 //  XZMLayout.m
-//  XZMRefreshExample
+//  JobsOCBaseConfigDemo
 //
 //  Created by 谢忠敏 on 15/12/17.
 //
@@ -12,7 +12,7 @@
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 /**
  * 当collectionView的显示范围发生改变的时候，是否需要重新刷新布局
@@ -52,7 +52,7 @@
         CGFloat scale = 1 - delta / self.collectionView.frame.size.width * 0.15;
         // 设置缩放比例
         attrs.transform = CGAffineTransformMakeScale(scale, scale);
-    }return array;
+    };return array;
 }
 /// 这个方法的返回值，就决定了collectionView停止滚动时的偏移量
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset

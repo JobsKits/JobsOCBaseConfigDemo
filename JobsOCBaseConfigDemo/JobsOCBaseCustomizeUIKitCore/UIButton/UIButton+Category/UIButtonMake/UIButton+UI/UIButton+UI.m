@@ -1,6 +1,6 @@
 //
 //  UIButton+UI.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/29.
 //
@@ -501,7 +501,7 @@
                     config.byAttributedTitle(title);
                 }];
             } else self.normalStateAttributedTitleBy(title);
-        }return self;
+        };return self;
     };
 }
 ///【兼容】重设Btn副标题富文本
@@ -515,7 +515,7 @@
                     config.attributedSubtitle = title;
                 }];
             }
-        }return self;
+        };return self;
     };
 }
 /// 用 UITextView 替换 UIButton.titleLabel
@@ -528,7 +528,7 @@
             self.titleTextView.byFrame(self.titleLabel.frame);
             self.titleTextView.byAttributedText(title);
             self.jobsResetBtnNormalAttributedTitle(nil);
-        }return self;
+        };return self;
     };
 }
 /// 用 UITextView 替换 UIButton.subtitleLabel
@@ -542,7 +542,7 @@
                 self.subtitleTextView.byFrame(self.subtitleLabel.frame);
                 self.subtitleTextView.byAttributedText(title);
             }self.jobsResetBtnNormalAttributedSubTitle(nil);
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— 一些通用修改.间距

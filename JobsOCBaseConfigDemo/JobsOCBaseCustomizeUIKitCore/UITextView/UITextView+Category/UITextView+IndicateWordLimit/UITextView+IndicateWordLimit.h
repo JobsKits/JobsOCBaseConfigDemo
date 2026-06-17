@@ -1,6 +1,6 @@
 //
 //  UITextView+IndicateWordLimit.h
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/2/25.
 //
@@ -11,8 +11,8 @@
 #import "MacroDef_Cor.h"
 #import "MacroDef_Size.h"
 #import "MacroDef_App.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_END
          }];
          [self.view layoutIfNeeded];
          _textView.indicateWordLimitLab.alpha = 1;
-     }return _textView;
+     };return _textView;
  }
  
 与之相对应的协议方法：
@@ -99,7 +99,7 @@ NS_ASSUME_NONNULL_END
      }else{
          [self.submitBtn setBackgroundImage:@"填写邀请码——可提交".img) forState:UIControlStateNormal];
          self.submitBtn.userInteractionEnabled = YES;
-     }return YES;
+     };return YES;
  }
  
  */

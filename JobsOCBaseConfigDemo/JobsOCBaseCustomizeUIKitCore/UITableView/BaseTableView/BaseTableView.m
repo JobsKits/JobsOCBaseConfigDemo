@@ -1,6 +1,6 @@
 //
 //  BaseTableViewer.m
-//  Feidegou
+//  JobsOCBaseConfigDemo
 //
 //  Created by Kite on 2019/10/31.
 //  Copyright © 2019 朝花夕拾. All rights reserved.
@@ -17,7 +17,7 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -64,7 +64,7 @@
         }else if (touch.phase == UITouchPhaseMoved){
             JobsLog(@"Touches Moved");
         }
-    }return [super hitTest:point withEvent:event];
+    };return [super hitTest:point withEvent:event];
 }
 
 @end

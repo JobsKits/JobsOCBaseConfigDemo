@@ -1,6 +1,6 @@
 //
 //  NSObject+Time.h
-//  Feidegou
+//  JobsOCBaseConfigDemo
 //
 //  Created by Kite on 2019/12/9.
 //  Copyright © 2019 朝花夕拾. All rights reserved.
@@ -14,7 +14,7 @@
 #import "NSString+Conversion.h"
 #import "NSMutableArray+Extra.h"
 #import "JobsTimeModel.h"
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

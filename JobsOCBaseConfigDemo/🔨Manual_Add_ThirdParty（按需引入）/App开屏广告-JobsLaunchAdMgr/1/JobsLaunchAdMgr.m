@@ -1,8 +1,6 @@
 #import "JobsLaunchAdMgr.h"
 #import <AVKit/AVKit.h>
 
-#import "DefineProperty.h"
-
 @interface JobsLaunchAdMgr ()
 
 Prop_strong()UIView *adView;

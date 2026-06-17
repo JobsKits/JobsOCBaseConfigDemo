@@ -1,6 +1,6 @@
 //
 //  JobsModel.h
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -25,5 +25,8 @@
 
 #pragma mark —— Common
 #import "DAO.h"
+
+#pragma mark —— JobsModelDSL
+#import "JobsModelDSL.h"
 
 #endif /* JobsModel_h */

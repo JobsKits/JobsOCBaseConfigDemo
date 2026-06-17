@@ -1,6 +1,6 @@
 //
 //  NSObject+CallBackInfoByBlock.h
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/2/26.
 //
@@ -8,7 +8,7 @@
 #import <objc/runtime.h>
 #import <Foundation/Foundation.h>
 #import "JobsBlock.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 /**
 【命名规则】：

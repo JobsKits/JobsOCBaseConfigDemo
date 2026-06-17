@@ -1,13 +1,11 @@
 //
 //  UIViewController+TFPopupView.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/29.
 //
 
 #import "UIViewController+TFPopupView.h"
-
-#import "DefineProperty.h"
 
 @implementation UIViewController (TFPopupView)
 /// 弹出筛选视图
@@ -21,7 +19,7 @@
         })
                                direction:PopupDirectionTop
                               popupParam:self.popupParameter];
-    }return self.filtrationView;
+    };return self.filtrationView;
 }
 /// 弹出自定义视图
 -(__kindof UIView *)popUpCustomView{
@@ -34,7 +32,7 @@
         })
                            direction:PopupDirectionTop
                           popupParam:self.popupParameter];
-    }return self.customView;
+    };return self.customView;
 }
 /// 关闭弹出的视图
 -(jobsByViewBlock _Nonnull)hidePopupView{
@@ -51,7 +49,7 @@ JobsKey(_filtrationView)
         Jobs_setAssociatedRETAIN_NONATOMIC(_filtrationView, JobsFiltrationView
                                            .BySize(JobsFiltrationView.viewSizeByModel(nil))
                                            .JobsRichViewByModel2(nil));
-    }return FiltrationView;
+    };return FiltrationView;
 }
 
 -(void)setFiltrationView:(JobsFiltrationView *)filtrationView{
@@ -66,7 +64,7 @@ JobsKey(_customView)
         Jobs_setAssociatedRETAIN_NONATOMIC(_customView, JobsCustomView
                                            .BySize(JobsFiltrationView.viewSizeByModel(nil))
                                            .JobsRichViewByModel2(nil))
-    }return CustomView;
+    };return CustomView;
 }
 
 -(void)setCustomView:(JobsCustomView *)customView{

@@ -1,14 +1,13 @@
 //
 //  FMHomeRightMenuView.h
-//  FM_Normal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 10/4/2025.
 //
 
 #import "BaseImageView.h"
 #import "JobsBlock.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 NS_ASSUME_NONNULL_END
 
 /**
- #import "JobsRightMenuView.h" /// 首页右侧菜单
+#import "JobsRightMenuView.h"
  Prop_strong()JobsRightMenuView *rightMenuView; /// 首页右侧菜单
  self.rightMenuView.alpha = 1;
  
@@ -112,7 +111,7 @@ NS_ASSUME_NONNULL_END
                                                }));
          _rightMenuView.resetOriginX(JobsMainScreen_WIDTH() - JobsWidth(20));
          _rightMenuView.resetOriginY(JobsStatusBarHeight() + JobsWidth(54 + 163 + 100));
-     }return _rightMenuView;
+     };return _rightMenuView;
  }
  
  */

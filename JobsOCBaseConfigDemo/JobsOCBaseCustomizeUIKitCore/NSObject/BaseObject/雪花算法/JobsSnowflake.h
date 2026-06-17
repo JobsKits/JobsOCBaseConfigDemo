@@ -1,11 +1,12 @@
 //
 //  JobsSnowflake.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/27/24.
 //  通过ChatGPT 翻译自 https://github.com/DamonHu/SnowflakeSwift
 
 #import <Foundation/Foundation.h>
+#import "JobsDefineProperty.h"
 
 #include <unistd.h>
 

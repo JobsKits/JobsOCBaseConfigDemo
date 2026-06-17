@@ -1,6 +1,6 @@
 //
 //  MKCommentModel.m
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/7/23.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -85,7 +85,7 @@
 -(NSInteger)preMax{
     if (_preMax == 0) {
         _preMax = 3;
-    }return _preMax;
+    };return _preMax;
 }
 
 -(NSInteger)loadMoreDataNum{
@@ -93,7 +93,7 @@
         if (self.childDataArr.count) {
             return self.childDataArr.count - self.firstShowNum;//全加载 = 数据库有的 - 默认已经显示的
         }
-    }return _loadMoreDataNum;
+    };return _loadMoreDataNum;
 }
 
 -(NSInteger)firstShowNum{

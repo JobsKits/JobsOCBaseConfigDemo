@@ -1,6 +1,6 @@
 //
 //  UIView+ZFPlayer.m
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/3.
 //
@@ -17,11 +17,11 @@
                                     usingBlock:^(NSNotification * _Nonnull notification) {
         @jobs_strongify(self)
 //        NSString *notificationName = notification.name;
-        if (objc_getAssociatedObject(self, _avPlayerManager)) {
+        if (Jobs_getAssociatedObject(_avPlayerManager)) {
             [self.avPlayerManager stop];
         }
 #if __has_include(<IJKMediaFramework/IJKMediaFramework.h>)
-        if (objc_getAssociatedObject(self, _ijkPlayerManager)) {
+        if (Jobs_getAssociatedObject(_ijkPlayerManager)) {
             [self.ijkPlayerManager stop];
         }
 #endif
@@ -33,7 +33,7 @@ JobsKey(_playerCtr)
 -(ZFPlayerController *)playerCtr{
     ZFPlayerController *PlayerCtr = Jobs_getAssociatedObject(_playerCtr);
     if (!PlayerCtr) {
-        if (objc_getAssociatedObject(self, _avPlayerManager)) {
+        if (Jobs_getAssociatedObject(_avPlayerManager)) {
             @jobs_weakify(self)
             PlayerCtr = [ZFPlayerController.alloc initWithPlayerManager:self.avPlayerManager
                                                           containerView:self];
@@ -47,7 +47,7 @@ JobsKey(_playerCtr)
         }
         
 #if __has_include(<IJKMediaFramework/IJKMediaFramework.h>)
-        if (objc_getAssociatedObject(self, _ijkPlayerManager)) {
+        if (Jobs_getAssociatedObject(_ijkPlayerManager)) {
             @jobs_weakify(self)
             PlayerCtr = [ZFPlayerController.alloc initWithPlayerManager:self.ijkPlayerManager
                                                           containerView:self];
@@ -61,7 +61,7 @@ JobsKey(_playerCtr)
         }
 #endif
         Jobs_setAssociatedRETAIN_NONATOMIC(_playerCtr, PlayerCtr)
-    }return PlayerCtr;
+    };return PlayerCtr;
 }
 
 -(void)setPlayerCtr:(ZFPlayerController *)playerCtr{
@@ -81,7 +81,7 @@ JobsKey(_avPlayerManager)
     //            data.assetURL = @"iph_X.mp4".pathForResourceWithFullName.jobsUrl;
     //        }
         });Jobs_setAssociatedRETAIN_NONATOMIC(_avPlayerManager, AVPlayerManager)
-    }return AVPlayerManager;
+    };return AVPlayerManager;
 }
 
 -(void)setAvPlayerManager:(ZFAVPlayerManager *)avPlayerManager{
@@ -98,7 +98,7 @@ JobsKey(_ijkPlayerManager)
             
         });
         Jobs_setAssociatedRETAIN_NONATOMIC(_ijkPlayerManager, IJKPlayerManager)
-    }return IJKPlayerManager;
+    };return IJKPlayerManager;
 }
 
 -(void)setIjkPlayerManager:(ZFIJKPlayerManager *)ijkPlayerManager{
@@ -114,7 +114,7 @@ JobsKey(_customPlayerControlView)
         playerControlView = CustomZFPlayerControlView.new;
 //        playerControlView.frame = self.bounds;
         Jobs_setAssociatedRETAIN_NONATOMIC(_customPlayerControlView, playerControlView)
-    }return playerControlView;
+    };return playerControlView;
 }
 
 -(void)setCustomPlayerControlView:(CustomZFPlayerControlView *)customPlayerControlView{

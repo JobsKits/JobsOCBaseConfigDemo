@@ -1,6 +1,6 @@
 //
 //  UIButton+SDWebImage.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 9/19/24.
 //
@@ -10,7 +10,7 @@
 #import "JobsBlock.h"
 #import "NSString+Others.h"
 #import "SDWebImageModel.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<SDWebImage/SDWebImage.h>)
 #import <SDWebImage/SDWebImage.h>
@@ -21,9 +21,6 @@
 /// SDWebImage+UIButton
 #ifndef SDWebImageButtonBlock
 #define SDWebImageButtonBlock
-typedef __kindof UIButton *_Nullable(^JobsReturnButtonBySDExternalCompletionBlocks)(SDExternalCompletionBlock _Nullable data);
-typedef __kindof UIButton *_Nullable(^JobsReturnButtonBySDWebImageOptionsBlocks)(SDWebImageOptions data);
-typedef __kindof UIButton *_Nullable(^JobsReturnButtonBySDImageLoaderProgressBlocks)(SDImageLoaderProgressBlock _Nullable data);
 #endif /* SDWebImageButtonBlock */
 
 NS_ASSUME_NONNULL_BEGIN

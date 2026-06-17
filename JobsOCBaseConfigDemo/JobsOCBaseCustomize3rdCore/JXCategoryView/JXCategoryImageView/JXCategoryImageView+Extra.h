@@ -1,6 +1,6 @@
 //
 //  JXCategoryImageView+Extra.h
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/29.
 //
@@ -99,7 +99,7 @@ NS_ASSUME_NONNULL_END
              make.left.right.equalTo(self.view);
              make.height.mas_equalTo(listContainerViewDefaultOffset);
          }).on();
-     }return _categoryView;
+     };return _categoryView;
  }
  
  */

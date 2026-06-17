@@ -1,6 +1,6 @@
 //
 //  ZMJGanttListVC.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/29/24.
 //
@@ -11,6 +11,7 @@
 #import "ZMJChartBarCell.h"
 #import "ZMJTaskCell.h"
 #import "ZMJTaskView.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<ZMJTipView/ZMJTipView.h>)
 #import <ZMJTipView/ZMJTipView.h>

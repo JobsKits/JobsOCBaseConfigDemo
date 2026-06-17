@@ -1,6 +1,6 @@
 //
 //  UICollectionViewCell+ShakeAnimation.m
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/1/1.
 //

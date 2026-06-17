@@ -1,18 +1,18 @@
 //
 //  NSObject+TFPopup.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/15.
 //
 
 #import <Foundation/Foundation.h>
 #import "AppDelegate+TabBarCtr.h"
-#import "LoginView.h" /// 登录
-#import "SignUpView.h" /// 注册
-#import "PwdSettingView.h" /// 密码重置-密码确认
-#import "PwdSettingByCodeView.h" /// 密码重置-手机验证码
+#import "LoginView.h"
+#import "SignUpView.h"
+#import "PwdSettingView.h"
+#import "PwdSettingByCodeView.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<TFPopup/TFPopup.h>)
 #import <TFPopup/TFPopup.h>
 #else

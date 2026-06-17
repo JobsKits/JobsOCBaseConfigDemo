@@ -1,14 +1,12 @@
 //
 //  UITableViewCell+WhiteArrows.m
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/7/26.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "UITableViewCell+WhiteArrows.h"
-
-#import "DefineProperty.h"
 
 @implementation UITableViewCell (WhiteArrows)
 /// 必须 self.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 打开后才可以启用
@@ -36,7 +34,7 @@ JobsKey(_img)
     if (!image) {
         image = @"WhiteRightArrow".img;
         Jobs_setAssociatedRETAIN_NONATOMIC(_img, image)
-    }return image;
+    };return image;
 }
 
 -(void)setImg:(UIImage *)img{
@@ -50,7 +48,7 @@ JobsKey(_arrows_size)
     if (jobsZeroSizeValue(Size)) {
         Size = CGSizeMake(JobsWidth(10), JobsWidth(18.3));//缺省值
         Jobs_setAssociatedRETAIN_NONATOMIC(_arrows_size, [NSValue valueWithCGSize:Size])
-    }return Size;
+    };return Size;
 }
 
 -(void)setArrows_size:(CGSize)arrows_size{

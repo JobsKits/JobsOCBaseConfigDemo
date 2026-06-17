@@ -1,6 +1,6 @@
 //
 //  InfoTBVCell.h
-//  commentList
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/7/14.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -12,8 +12,7 @@
 #import "JobsCommentConfig.h"
 #import "JobsCommentModel.h"
 #import "RBCLikeButton.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

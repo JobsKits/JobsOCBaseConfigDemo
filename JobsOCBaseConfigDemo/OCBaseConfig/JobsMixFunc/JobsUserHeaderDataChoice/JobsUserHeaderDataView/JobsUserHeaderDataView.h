@@ -1,6 +1,6 @@
 //
 //  JobsUserHeaderDataView.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/19.
 //
@@ -10,6 +10,7 @@
 #import "JobsUserHeaderDataViewTBVCell.h"
 #import "JobsUserHeaderDataViewForHeaderInSection.h"
 #import "UITableView+RegisterClass.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -40,6 +41,6 @@ NS_ASSUME_NONNULL_END
                  self.popupParameter = nil;
              }];
          }];
-     }return _userHeaderDataView;
+     };return _userHeaderDataView;
  }
  */

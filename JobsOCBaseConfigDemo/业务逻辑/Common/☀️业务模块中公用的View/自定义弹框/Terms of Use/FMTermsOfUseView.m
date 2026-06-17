@@ -1,6 +1,6 @@
 //
 //  FMTermsOfUseView.m
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/2.
 //
@@ -31,13 +31,13 @@ static dispatch_once_t static_termsOfUseViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -54,7 +54,7 @@ static dispatch_once_t static_termsOfUseViewOnceToken;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -97,7 +97,7 @@ static dispatch_once_t static_termsOfUseViewOnceToken;
                 make.top.equalTo(self).offset(JobsWidth(5));
             }];label.makeLabelByShowingType(UILabelShowingType_03);
         });
-    }return _label;
+    };return _label;
 }
 @synthesize pdfView = _pdfView;
 -(__kindof PDFView *)pdfView{
@@ -113,7 +113,7 @@ static dispatch_once_t static_termsOfUseViewOnceToken;
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(290), JobsWidth(300)));
             }];
         });
-    }return _pdfView;
+    };return _pdfView;
 }
 @synthesize button = _button;
 -(__kindof UIButton *)button{
@@ -139,7 +139,7 @@ static dispatch_once_t static_termsOfUseViewOnceToken;
             make.size.mas_equalTo(CGSizeMake(JobsWidth(264), JobsWidth(44)));
             make.centerX.equalTo(self);
         }];
-    }return _button;
+    };return _button;
 }
 
 @end

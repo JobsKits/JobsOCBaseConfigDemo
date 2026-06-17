@@ -8,6 +8,7 @@
 #import "BaseViewController.h"
 #import "AppDelegate.h"
 #import <CoreData/CoreData.h>
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

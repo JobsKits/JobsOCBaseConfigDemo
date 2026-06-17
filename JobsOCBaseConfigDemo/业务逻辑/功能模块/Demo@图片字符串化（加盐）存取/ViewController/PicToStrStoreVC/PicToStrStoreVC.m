@@ -1,13 +1,11 @@
 //
 //  PicToStrStoreVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2024/4/24.
 //
 
 #import "PicToStrStoreVC.h"
-
-#import "DefineProperty.h"
 
 @interface PicToStrStoreVC ()
 /// Data
@@ -179,7 +177,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     }
                 });
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray<__kindof UITableViewCell *> *)tbvCellMutArr{
@@ -194,7 +192,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                  data.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
             }];
         });
-    }return _tbvCellMutArr;
+    };return _tbvCellMutArr;
 }
 
 -(NSMutableArray<__kindof UIViewModel *> *)dataMutArr{
@@ -233,7 +231,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 model.requestParams = @(PicToStrStyle_MIME);
             })));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

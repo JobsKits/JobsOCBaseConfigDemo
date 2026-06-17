@@ -1,6 +1,6 @@
 //
 //  CFGradientLabel.m
-//  My_BaseProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/7/8.
 //  Copyright © 2020 Corp. All rights reserved.

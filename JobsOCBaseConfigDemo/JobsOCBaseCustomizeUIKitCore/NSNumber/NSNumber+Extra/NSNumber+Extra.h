@@ -1,14 +1,13 @@
 //
 //  NSNumber+Extra.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/28.
 //
 
 #import <Foundation/Foundation.h>
+#import "JobsDefineProperty.h"
 #import "JobsBlock.h"
-
-#import "DefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

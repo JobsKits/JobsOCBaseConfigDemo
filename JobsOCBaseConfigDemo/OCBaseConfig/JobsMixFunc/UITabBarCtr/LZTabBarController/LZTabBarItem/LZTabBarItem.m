@@ -9,8 +9,6 @@
 
 static NSInteger defaultTag = 100000;
 
-#import "DefineProperty.h"
-
 @interface LZTabBarItem ()
 
 Prop_strong()UIImageView *iconImageView;
@@ -31,7 +29,7 @@ Prop_strong()UILabel *titleLabel;
                 [self.delegate tabBarItem:self didSelectIndex:self.tag - defaultTag];
             }
         }]);
-    }return self;
+    };return self;
 }
 
 - (void)layoutSubviews {
@@ -79,20 +77,24 @@ Prop_strong()UILabel *titleLabel;
 //    }
 }
 
+#pragma mark —— tag
 -(void)setTag:(NSInteger)tag {
     [super setTag:tag + defaultTag];
 }
 
+#pragma mark —— icon
 - (void)setIcon:(NSString *)icon {
     _icon = icon;
     self.iconImageView.image = [UIImage imageNamed:icon];
 }
 
+#pragma mark —— title
 - (void)setTitle:(NSString *)title {
     _title = title;
     self.titleLabel.text = title;
 }
 
+#pragma mark —— titleColor
 - (void)setTitleColor:(UIColor *)titleColor {
     _titleColor = titleColor;
     self.titleLabel.textColor = titleColor;
@@ -106,7 +108,7 @@ Prop_strong()UILabel *titleLabel;
             imageView.contentMode = UIViewContentModeScaleAspectFit;
             self.addSubview(imageView);
         });
-    }return _iconImageView;
+    };return _iconImageView;
 }
 
 - (UILabel *)titleLabel {
@@ -120,8 +122,7 @@ Prop_strong()UILabel *titleLabel;
             label.textColor = JobsGrayColor;
             self.addSubview(label);
         });
-    }return _titleLabel;
+    };return _titleLabel;
 }
 
 @end
-

@@ -1,12 +1,13 @@
 //
 //  MasonryVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 9/27/23.
 //
 
 #import "MSMineView2.h"
 #import "BaseViewController.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,6 +1,6 @@
 //
 //  SoundBtn.m
-//  JinXian Finance
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2017/6/6.
 //  Copyright © 2017年 Jobs. All rights reserved.
@@ -17,7 +17,7 @@
 -(instancetype)init{
     if (self = [super init]) {
         self.uxy_acceptEventInterval = 0.5f;
-    }return self;
+    };return self;
 }
 
 - (void)touchesBegan:(NSSet *)touches

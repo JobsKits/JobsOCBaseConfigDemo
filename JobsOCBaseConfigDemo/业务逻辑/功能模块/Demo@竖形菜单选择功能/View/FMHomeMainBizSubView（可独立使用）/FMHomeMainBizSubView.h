@@ -1,6 +1,6 @@
 //
 //  FMHomeMainBizSubView.h
-//  FM_Normal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 11/4/2025.
 //
@@ -10,8 +10,7 @@
 #import "JobsBtnStyleTBVCell.h"
 #import "ThreeClassCell.h"
 #import "FMGameCVCell.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -58,7 +57,7 @@ NS_INLINE __kindof FMHomeMainBizSubView *_Nonnull jobsMakeBizSubView(jobsByBizSu
                  }));
              }
          });
-     }return _subViewMutArr;
+     };return _subViewMutArr;
  }
 
 */

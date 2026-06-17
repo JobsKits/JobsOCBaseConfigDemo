@@ -1,12 +1,13 @@
 //
 //  XXTools.h
-//  Feidegou
+//  JobsOCBaseConfigDemo
 //
 //  Created by Kite on 2019/11/29.
 //  Copyright © 2019 朝花夕拾. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

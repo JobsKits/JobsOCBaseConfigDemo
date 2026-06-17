@@ -1,18 +1,18 @@
 //
 //  NSObject+AppTools.h
-//  DouYin
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/4/6.
 //
 
 #import <Foundation/Foundation.h>
-#import "JobsDefineAllEnumHeader.h"
+#import "JobsDefineEnums.h"
 #import "AppToolsProtocol.h"
 #import "NSObject+UserInfo.h"
 #import "NSObject+Extras.h"
 #import "UIView+Extras.h"
 #import "AppDelegate+TabBarCtr.h"
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
 #import "AppDelegate.h"
 #import "JobsAppDoorVC.h"
 #import "AppLanguageVC.h"
@@ -25,7 +25,6 @@
 #import "JobsNetworkingHeader.h"
 #import "UIViewModel.h"
 #import "BaseButton.h"
-
 #import "NSString+Check.h"
 
 #ifndef MakeCustomTabBarBy
@@ -36,7 +35,7 @@
 #define CustomTabBar MakeCustomTabBarBy(jobsGetMainWindow())
 #endif /*CustomTabBar*/
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

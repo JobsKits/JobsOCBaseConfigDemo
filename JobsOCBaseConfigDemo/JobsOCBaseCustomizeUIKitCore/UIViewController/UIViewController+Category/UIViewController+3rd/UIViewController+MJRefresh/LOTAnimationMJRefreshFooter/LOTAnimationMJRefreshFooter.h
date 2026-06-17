@@ -1,6 +1,6 @@
 //
 //  LOTAnimationMJRefreshFooter.h
-//  DouYin
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/1/8.
 //
@@ -9,8 +9,8 @@
 #import "JobsBlock.h"
 #import "MJRefreshConfigModel.h"
 #import "UIView+Measure.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>
 #else

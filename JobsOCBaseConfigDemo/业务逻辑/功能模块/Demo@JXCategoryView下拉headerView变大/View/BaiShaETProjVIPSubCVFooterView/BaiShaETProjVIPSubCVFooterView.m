@@ -1,13 +1,11 @@
 //
 //  BaiShaETProjVIPSubCVFooterView.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/10.
 //
 
 #import "BaiShaETProjVIPSubCVFooterView.h"
-
-#import "DefineProperty.h"
 
 @interface BaiShaETProjVIPSubCVFooterView ()
 
@@ -21,7 +19,7 @@ Prop_strong()BaseLabel *titleLab;
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 /// 由具体的子类进行覆写
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -54,7 +52,7 @@ Prop_strong()BaseLabel *titleLab;
                 make.edges.equalTo(self);
             }];
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 @end

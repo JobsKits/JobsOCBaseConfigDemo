@@ -1,13 +1,11 @@
 //
 //  JobsLaunchVC.m
-//  FMOnlyH5
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 3/4/2025.
 //
 
 #import "JobsLaunchVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsLaunchVC ()
 
@@ -24,7 +22,7 @@ Prop_strong()UIImageView *launchImageView;
 - (instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 - (void)viewDidLoad {
@@ -82,7 +80,7 @@ Prop_strong()UIImageView *launchImageView;
             imageView.contentMode = UIViewContentModeScaleAspectFill;
             self.view.addSubview(imageView);
         });
-    }return _launchImageView;
+    };return _launchImageView;
 }
 
 @end

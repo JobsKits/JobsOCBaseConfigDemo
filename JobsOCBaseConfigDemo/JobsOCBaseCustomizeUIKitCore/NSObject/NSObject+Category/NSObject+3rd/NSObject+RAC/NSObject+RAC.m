@@ -1,6 +1,6 @@
 //
 //  NSObject+RAC.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 10/12/2024.
 //
@@ -16,7 +16,7 @@ JobsKey(_racSubject)
     if(!RacSubject){
         RacSubject = RACSubject.subject;
         Jobs_setAssociatedRETAIN_NONATOMIC(_racSubject, RacSubject);
-    }return RacSubject;
+    };return RacSubject;
 }
 
 -(void)setRacSubject:(RACSubject *)racSubject{

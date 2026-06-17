@@ -1,14 +1,12 @@
 //
 //  JobsExcelTopHeadView.m
-//  JobsExcelView
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 17/6/16.
 //  Copyright © 2017年 Mephsito. All rights reserved.
 //  特别鸣谢 https://github.com/Mephsito23/iOS-Excel-
 
 #import "JobsExcelTopHeadView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsExcelTopHeadView()
 
@@ -26,7 +24,7 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.collectionView.alpha = 1;
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 - (jobsByIDBlock _Nonnull)jobsRichViewByModel {
@@ -92,7 +90,7 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
         [self.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0, 0, 0));
         }];
-    }return _collectionView;
+    };return _collectionView;
 }
 
 @end

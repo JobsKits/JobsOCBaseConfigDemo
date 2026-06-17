@@ -2,15 +2,22 @@
 //  ASButtonNode+DSL.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Mac on 11/6/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_ASBUTTONNODE_DSL_B84AAEA0DD
+#define JOBS_HEADER_GUARD_ASBUTTONNODE_DSL_B84AAEA0DD
 
 #import <objc/runtime.h>
 #import <Foundation/Foundation.h>
-#import <AsyncDisplayKit/AsyncDisplayKit.h>
-#import "ASButtonNode.h"
 #import "JobsBlock.h"
-#import "DefineProperty.h"
+#import "JobsDefines.h"
+
+#if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
+#import <AsyncDisplayKit/AsyncDisplayKit.h>
+#else
+#import "AsyncDisplayKit.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 /// ASButtonNode 链式 DSL（节选：标题/图片/边距/圆角/事件）
@@ -31,3 +38,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_ASBUTTONNODE_DSL_B84AAEA0DD */

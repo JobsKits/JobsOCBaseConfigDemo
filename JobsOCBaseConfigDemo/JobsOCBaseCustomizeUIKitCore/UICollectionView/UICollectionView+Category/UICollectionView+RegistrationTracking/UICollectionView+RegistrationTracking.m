@@ -1,13 +1,11 @@
 //
 //  UICollectionView+RegistrationTracking.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/6/24.
 //
 
 #import "UICollectionView+RegistrationTracking.h"
-
-#import "DefineProperty.h"
 
 @implementation UICollectionView (RegistrationTracking)
 
@@ -57,7 +55,7 @@
         // 如果未注册，则进行注册
         [self registerClass:NSClassFromString(identifier) forCellWithReuseIdentifier:identifier];
         self.registeredIdentifiers.add(identifier);
-    }return [self swizzled_dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath]; // 调用原方法
+    };return [self swizzled_dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath]; // 调用原方法
 }
 
 - (UICollectionReusableView *)swizzled_dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
@@ -73,7 +71,7 @@
  forSupplementaryViewOfKind:elementKind
         withReuseIdentifier:identifier];
         self.registeredIdentifiers.add(identifier);
-    }return [self swizzled_dequeueReusableSupplementaryViewOfKind:elementKind
+    };return [self swizzled_dequeueReusableSupplementaryViewOfKind:elementKind
                                               withReuseIdentifier:identifier
                                                      forIndexPath:indexPath]; // 调用原方法
 }
@@ -93,7 +91,7 @@ JobsKey(_registeredIdentifiers)
     if (!RegisteredIdentifiers) {
         RegisteredIdentifiers = NSMutableSet.set;
         Jobs_setAssociatedRETAIN_NONATOMIC(_registeredIdentifiers, RegisteredIdentifiers)
-    }return RegisteredIdentifiers;
+    };return RegisteredIdentifiers;
 }
 
 -(void)setRegisteredIdentifiers:(NSMutableSet<NSString *> *)registeredIdentifiers{

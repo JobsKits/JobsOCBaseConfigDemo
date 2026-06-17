@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorVC_Style2.h
-//  JobsAppDoor
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/7.
 //
@@ -8,9 +8,10 @@
 #import "BaseViewController.h"
 #import "JobsAppDoorConfig.h"
 #import "JobsAppDoorLogoContentView.h"
-#import "JobsAppDoorLoginContentView.h"/// 登录
-#import "JobsAppDoorRegisterContentView.h"/// 注册
-#import "JobsAppDoorForgotCodeContentView.h"/// 忘记密码
+#import "JobsAppDoorLoginContentView.h"
+#import "JobsAppDoorRegisterContentView.h"
+#import "JobsAppDoorForgotCodeContentView.h"
+#import "JobsDefineProperty.h"
 
 #pragma mark —— ZFPlayer 播放器相关
 //Core
@@ -104,7 +105,7 @@
 #import "ZFVolumeBrightnessView.h"
 #endif
 
-#import "CustomZFPlayerControlView.h"//播放器的控制层
+#import "CustomZFPlayerControlView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

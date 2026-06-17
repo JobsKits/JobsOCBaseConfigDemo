@@ -1,6 +1,6 @@
 //
 //  KTVHCDataNetworkSource.m
-//  KTVHTTPCache
+//  JobsOCBaseConfigDemo
 //
 //  Created by Single on 2017/8/11.
 //  Copyright © 2017年 Single. All rights reserved.
@@ -46,7 +46,7 @@
         self->_request = reqeust;
         self->_range = reqeust.range;
         KTVHCLogDataNetworkSource(@"%p, Create network source\nrequest : %@\nrange : %@", self, self.request, KTVHCStringFromRange(self.range));
-    }return self;
+    };return self;
 }
 
 - (void)dealloc
@@ -128,6 +128,7 @@
     return data;
 }
 
+#pragma mark —— delegate
 - (void)setDelegate:(id <KTVHCDataNetworkSourceDelegate>)delegate delegateQueue:(dispatch_queue_t)delegateQueue
 {
     self->_delegate = delegate;

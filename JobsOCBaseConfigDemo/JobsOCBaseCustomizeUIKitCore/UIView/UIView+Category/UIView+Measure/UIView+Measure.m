@@ -1,6 +1,6 @@
 //
 //  UIView+Measure.m
-//  My_BaseProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/1.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -8,7 +8,6 @@
 
 #import "UIView+Measure.h"
 /* ❤️【优先级】 @implementation UIView (Measure) > Masonry,因为Masonry刷新后才有frame ❤️*/
-#import "DefineProperty.h"
 
 @implementation UIView (Measure)
 #pragma mark —— 初始化方法封装
@@ -129,7 +128,7 @@
         UIView <BaseViewProtocol>*instance = UIView.build(self.class);
         if ([instance respondsToSelector:@selector(bySize)]) {
             instance.bySize(data); // 确保视图有 bySize: 方法
-        }return instance;
+        };return instance;
     };
 }
 /// 设置控件的 Frame
@@ -140,7 +139,7 @@
         UIView <BaseViewProtocol>*instance = UIView.build(self.class);
         if ([instance respondsToSelector:@selector(byFrame)]) {
             instance.byFrame(data); // 确保视图有 bySize: 方法
-        }return instance;
+        };return instance;
     };
 }
 /// 设置控件的 Origin
@@ -151,7 +150,7 @@
         UIView <BaseViewProtocol>*instance = UIView.build(self.class);
         if ([instance respondsToSelector:@selector(byOrigin)]) {
             instance.byOrigin(data); // 确保视图有 bySize: 方法
-        }return instance;
+        };return instance;
     };
 }
 /// 设置控件的 Width
@@ -162,7 +161,7 @@
         UIView <BaseViewProtocol>*instance = UIView.build(self.class);
         if ([instance respondsToSelector:@selector(byWidth)]) {
             instance.byWidth(data); // 确保视图有 bySize: 方法
-        }return instance;
+        };return instance;
     };
 }
 /// 设置控件的 Height
@@ -173,7 +172,7 @@
         UIView <BaseViewProtocol>*instance = UIView.build(self.class);
         if ([instance respondsToSelector:@selector(byHeight)]) {
             instance.byHeight(data); // 确保视图有 bySize: 方法
-        }return instance;
+        };return instance;
     };
 }
 /// 设置控件的 Center
@@ -184,7 +183,7 @@
         UIView <BaseViewProtocol>*instance = UIView.build(self.class);
         if ([instance respondsToSelector:@selector(byCenter)]) {
             instance.byCenter(x,y); // 确保视图有 bySize: 方法
-        }return instance;
+        };return instance;
     };
 }
 #pragma mark ——【实例方法】设置控件的约束（返回控件自己本身）
@@ -434,7 +433,7 @@
             self.center = CGPointMake(view.center.x - view.x, self.center.y);
         }else{
             self.center = CGPointMake(view.center.x, self.center.y);
-        }return self;
+        };return self;
     };
 }
 /// 设置垂平方向对齐
@@ -447,7 +446,7 @@
              self.center = CGPointMake(self.center.x, view.center.y - view.y);
          }else{
              self.center = CGPointMake(self.center.x, view.center.y);
-         }return self;
+         };return self;
     };
 }
 /// 设置中心方向对齐
@@ -460,7 +459,7 @@
             self.center = CGPointMake(view.center.x - view.x , view.center.y - view.y);
         }else{
             self.center = view.center;
-        }return self;
+        };return self;
     };
 }
 /// 设置左对齐
@@ -474,7 +473,7 @@
             self.x =  self.centerX - view.width/2;
         }else{
             self.x = view.x;
-        }return self;
+        };return self;
     };
 }
 /// 设置右对齐
@@ -488,7 +487,7 @@
             self.right =  self.centerX + view.width/2;
         }else{
             self.right = view.right;
-        }return self;
+        };return self;
     };
 }
 /// 设置顶部对齐
@@ -502,7 +501,7 @@
             self.y =  self.centerY - view.height/2;
         }else{
             self.y = view.y;
-        }return self;
+        };return self;
     };
 }
 /// 设置底部对齐
@@ -516,7 +515,7 @@
             self.height = self.centerY + view.height/2;
         }else{
             self.height = view.height;
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— UIScrollView.contentSize
@@ -527,7 +526,7 @@
         if([self isKindOfClass:UIScrollView.class]){
             UIScrollView *scrollView = (UIScrollView *)self;
             scrollView.contentSize = data;
-        }return self;
+        };return self;
     };
 }
 
@@ -538,7 +537,7 @@
         if([self isKindOfClass:UIScrollView.class]){
             UIScrollView *scrollView = (UIScrollView *)self;
             scrollView.contentSize = CGSizeMake(data,scrollView.contentSize.height);
-        }return self;
+        };return self;
     };
 }
 
@@ -549,7 +548,7 @@
         if([self isKindOfClass:UIScrollView.class]){
             UIScrollView *scrollView = (UIScrollView *)self;
             scrollView.contentSize = CGSizeMake(scrollView.contentSize.width,data);
-        }return self;
+        };return self;
     };
 }
 
@@ -561,7 +560,7 @@
             UIScrollView *scrollView = (UIScrollView *)self;
             scrollView.contentSize = CGSizeMake(scrollView.contentSize.width + data,
                                                 scrollView.contentSize.height);
-        }return self;
+        };return self;
     };
 }
 
@@ -573,7 +572,7 @@
             UIScrollView *scrollView = (UIScrollView *)self;
             scrollView.contentSize = CGSizeMake(scrollView.contentSize.width,
                                                 scrollView.contentSize.height + data);
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— UIScrollView.contentOffset
@@ -584,7 +583,7 @@
         if([self isKindOfClass:UIScrollView.class]){
             UIScrollView *scrollView = (UIScrollView *)self;
             scrollView.contentOffset = data;
-        }return self;
+        };return self;
     };
 }
 
@@ -595,7 +594,7 @@
         if([self isKindOfClass:UIScrollView.class]){
             UIScrollView *scrollView = (UIScrollView *)self;
             scrollView.contentOffset = CGPointMake(data, scrollView.contentOffset.y);
-        }return self;
+        };return self;
     };
 }
 
@@ -606,7 +605,7 @@
         if([self isKindOfClass:UIScrollView.class]){
             UIScrollView *scrollView = (UIScrollView *)self;
             scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, data);
-        }return self;
+        };return self;
     };
 }
 
@@ -618,7 +617,7 @@
             UIScrollView *scrollView = (UIScrollView *)self;
             scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x + data,
                                                 scrollView.contentOffset.y);
-        }return self;
+        };return self;
     };
 }
 
@@ -630,7 +629,7 @@
             UIScrollView *scrollView = (UIScrollView *)self;
             scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x,
                                                 scrollView.contentOffset.y + data);
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— UIScrollView.contentInset
@@ -641,7 +640,7 @@
         if([self isKindOfClass:UIScrollView.class]){
             UIScrollView *scrollView = (UIScrollView *)self;
             scrollView.contentInset = data;
-        }return self;
+        };return self;
     };
 }
 
@@ -655,7 +654,7 @@
                                                        scrollView.contentInset.left,
                                                        scrollView.contentInset.bottom,
                                                        scrollView.contentInset.right);
-        }return self;
+        };return self;
     };
 }
 
@@ -669,7 +668,7 @@
                                                        data,
                                                        scrollView.contentInset.bottom,
                                                        scrollView.contentInset.right);
-        }return self;
+        };return self;
     };
 }
 
@@ -683,7 +682,7 @@
                                                        scrollView.contentInset.left,
                                                        data,
                                                        scrollView.contentInset.right);
-        }return self;
+        };return self;
     };
 }
 
@@ -697,7 +696,7 @@
                                                        scrollView.contentInset.left,
                                                        scrollView.contentInset.bottom,
                                                        data);
-        }return self;
+        };return self;
     };
 }
 
@@ -711,7 +710,7 @@
                                                        scrollView.contentInset.left,
                                                        scrollView.contentInset.bottom,
                                                        scrollView.contentInset.right);
-        }return self;
+        };return self;
     };
 }
 
@@ -725,7 +724,7 @@
                                                        scrollView.contentInset.left + data,
                                                        scrollView.contentInset.bottom,
                                                        scrollView.contentInset.right);
-        }return self;
+        };return self;
     };
 }
 
@@ -739,7 +738,7 @@
                                                        scrollView.contentInset.left,
                                                        scrollView.contentInset.bottom + data,
                                                        scrollView.contentInset.right);
-        }return self;
+        };return self;
     };
 }
 
@@ -753,7 +752,7 @@
                                                        scrollView.contentInset.left,
                                                        scrollView.contentInset.bottom,
                                                        scrollView.contentInset.right + data);
-        }return self;
+        };return self;
     };
 }
 /// 依据偏移量重塑Frame

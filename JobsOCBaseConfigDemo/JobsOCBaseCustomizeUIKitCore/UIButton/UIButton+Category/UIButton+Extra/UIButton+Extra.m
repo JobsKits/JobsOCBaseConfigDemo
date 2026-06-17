@@ -1,13 +1,11 @@
 //
 //  UIButton+Extra.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/18.
 //
 
 #import "UIButton+Extra.h"
-
-#import "DefineProperty.h"
 
 @implementation UIButton (Extra)
 
@@ -47,7 +45,7 @@
                 if (self.objBlock) self.objBlock(@(size.height));
             }break;
             default:break;
-        }return self;
+        };return self;
     };
 }
 
@@ -87,7 +85,7 @@
                 if (self.objBlock) self.objBlock(@(size.height));
             }break;
             default:break;
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— BaseButtonProtocol

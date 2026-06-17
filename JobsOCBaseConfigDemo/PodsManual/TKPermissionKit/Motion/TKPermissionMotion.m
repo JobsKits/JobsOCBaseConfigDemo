@@ -1,6 +1,6 @@
 //
 //  TKPermissionMotion.m
-//  TKPermissionKitDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 2019/10/12.
 //  Copyright © 2019 mac. All rights reserved.
@@ -24,7 +24,7 @@ static TKPermissionMotion * _shared = nil;
 +(TKPermissionMotion *)shared{
     if (!_shared) {
         _shared = TKPermissionMotion.new;
-    }return _shared;
+    };return _shared;
 }
 ///   请求运动与健身权限
 /// - Parameters:

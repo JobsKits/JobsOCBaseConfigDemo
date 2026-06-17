@@ -1,6 +1,6 @@
 //
 //  JobsStatusBarSetttingVC.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 9/9/24.
 //
@@ -126,7 +126,7 @@ BaseViewControllerProtocol_synthesize
 -(UIView *)statusBar{
     if (!_statusBar) {
         _statusBar = [UIView.alloc initWithFrame:jobsGetMainWindowWithSize().windowScene.statusBarManager.statusBarFrame];
-    }return _statusBar;
+    };return _statusBar;
 }
 
 @end

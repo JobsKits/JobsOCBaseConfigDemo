@@ -7,8 +7,6 @@
 
 #import "JobsPushView.h"
 
-#import "DefineProperty.h"
-
 @interface JobsPushView ()
 
 Prop_strong()BaseButton *push_btn;
@@ -70,7 +68,7 @@ Prop_strong()JobsPushView *pushView;
             make.center.equalTo(self);
             make.height.mas_equalTo(JobsWidth(30));
         }];_push_btn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _push_btn;
+    };return _push_btn;
 }
 
 -(BaseButton *)pop_btn{
@@ -96,7 +94,7 @@ Prop_strong()JobsPushView *pushView;
             make.height.mas_equalTo(JobsWidth(30));
         }];
         _pop_btn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _pop_btn;
+    };return _pop_btn;
 }
 
 -(JobsPushView *)pushView{
@@ -105,7 +103,7 @@ Prop_strong()JobsPushView *pushView;
         _pushView.frame = self.bounds;
         _pushView.backgroundColor = JobsRandomColor;
         _pushView.jobsRichViewByModel(nil);
-    }return _pushView;
+    };return _pushView;
 }
 
 @end

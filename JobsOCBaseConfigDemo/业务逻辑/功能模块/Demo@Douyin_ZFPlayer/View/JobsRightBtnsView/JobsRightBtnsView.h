@@ -1,6 +1,6 @@
 //
 //  JobsRightBtnsView.h
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/19.
 //  Copyright © 2020 MonkeyKingVideo. All rights reserved.
@@ -10,6 +10,7 @@
 #import "UIButton+UI.h"
 #import "RBCLikeButton.h"
 #import "JobsShareView.h"
+#import "JobsDefineProperty.h"
 
 #ifndef MK_RIGHT_BTN_VIEW_BTN_TYPE_ENUM_DEFINED
 #define MK_RIGHT_BTN_VIEW_BTN_TYPE_ENUM_DEFINED

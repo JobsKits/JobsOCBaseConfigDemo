@@ -1,6 +1,6 @@
 //
 //  PopListView.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/11/24.
 //
@@ -8,8 +8,7 @@
 #import "BaseView.h"
 #import "JobsBlock.h"
 #import "JobsTextLabStyleTBVCell.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -40,7 +39,7 @@ NS_INLINE __kindof PopListBaseView *_Nonnull jobsMakePopListBaseView(jobsByPopLi
          _nationalPopListView = PopListBaseView.new;
          _nationalPopListView.size = _nationalPopListView.viewSizeByModel(nil);
          _nationalPopListView.jobsRichViewByModel(self.nationalPopList_dataMutArr);
-     }return _nationalPopListView;
+     };return _nationalPopListView;
  }
 
  -(NSMutableArray<__kindof UIViewModel *> *)nationalPopList_dataMutArr{
@@ -62,6 +61,6 @@ NS_INLINE __kindof PopListBaseView *_Nonnull jobsMakePopListBaseView(jobsByPopLi
              _nationalPopList_dataMutArr.add(viewModel);
              
          }
-     }return _nationalPopList_dataMutArr;
+     };return _nationalPopList_dataMutArr;
  }
  */

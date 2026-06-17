@@ -1,6 +1,6 @@
 //
 //  UIView+EmptyData.h
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/17.
 //
@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MacroDef_Cor.h"
 #import "JobsString.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else

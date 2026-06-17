@@ -1,14 +1,12 @@
 //
 //  LoginContentView.m
-//  Shooting
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/3.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "JobsAppDoorLoginContentView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsAppDoorLoginContentView ()
 /// UI
@@ -44,7 +42,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
                 JobsLog(@"木头 = %@",b.requestParams);
             }JobsLog(@"通知传递过来的 = %@",notification.object);
         }];
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -122,7 +120,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
             make.top.right.bottom.equalTo(self);
             make.width.mas_equalTo(btnWidth);
         }];
-    }return _toRegisterBtn;
+    };return _toRegisterBtn;
 }
 
 -(UILabel *)titleLab{
@@ -138,7 +136,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
             label.centerX = (self.width - self.toRegisterBtn.width) / 2;
             label.top = JobsWidth(20);
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(BaseButton *)abandonLoginBtn{
@@ -162,7 +160,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
             make.height.mas_equalTo(JobsWidth(15));
             make.bottom.mas_equalTo(self).offset(-JobsWidth(30));
         }];
-    }return _abandonLoginBtn;
+    };return _abandonLoginBtn;
 }
 
 -(BaseButton *)sendBtn{
@@ -188,7 +186,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
             make.bottom.mas_equalTo(self).offset(-JobsWidth(60));
         }];
         [self layoutIfNeeded];
-    }return _sendBtn;
+    };return _sendBtn;
 }
 /// 记住登录成功的账号和密码
 -(BaseButton *)storeCodeBtn{
@@ -217,7 +215,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
             make.top.equalTo(inputView.mas_bottom).offset(JobsWidth(25));
         }];
         [self layoutIfNeeded];
-    }return _storeCodeBtn;
+    };return _storeCodeBtn;
 }
 
 -(BaseButton *)findCodeBtn{
@@ -239,7 +237,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
             make.right.equalTo(inputView).offset(-JobsWidth(20));
             make.top.equalTo(inputView.mas_bottom).offset(JobsWidth(20));
         }];
-    }return _findCodeBtn;
+    };return _findCodeBtn;
 }
 
 -(NSMutableArray<JobsAppDoorInputViewBaseStyleModel *> *)loginDoorInputViewBaseStyleModelMutArr{
@@ -267,7 +265,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
                 密码.leftViewMode = UITextFieldViewModeAlways;
             }));
         });
-    }return _loginDoorInputViewBaseStyleModelMutArr;
+    };return _loginDoorInputViewBaseStyleModelMutArr;
 }
 
 -(NSMutableArray<JobsAppDoorInputViewBaseStyle *> *)loginDoorInputViewBaseStyleMutArr{
@@ -275,7 +273,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
         _loginDoorInputViewBaseStyleMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             
         });
-    }return _loginDoorInputViewBaseStyleMutArr;
+    };return _loginDoorInputViewBaseStyleMutArr;
 }
 
 @end

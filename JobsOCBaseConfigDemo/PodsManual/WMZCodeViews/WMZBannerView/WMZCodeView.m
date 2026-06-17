@@ -1,12 +1,13 @@
 //
 //  WMZCodeView.m
-//  WMZCode
+//  JobsOCBaseConfigDemo
 //
 //  Created by wmz on 2018/12/14.
 //  Copyright © 2018年 wmz. All rights reserved.
 //
 
 #import "WMZCodeView.h"
+#import "NSObject+WHToast.h"
 
 @interface WMZCodeView(){
     dispatch_source_t timer; //定时器
@@ -470,7 +471,7 @@ NS_INLINE CABasicAnimation *failAnimal(void){
                                  (int64_t)(0.2 * NSEC_PER_SEC)),
                    dispatch_get_main_queue(), ^{
         if (self.seconds > 0) {
-            toastBy([NSString stringWithFormat:@"耗时%.1fs",self.seconds]);
+            NSObject.jobsToastMsg([NSString stringWithFormat:@"耗时%.1fs",self.seconds]);
             self.bOOLBlock(YES);
         }
     });
@@ -527,14 +528,14 @@ NS_INLINE UIBezierPath *getCodePath(void){
            NSData *data = [NSData dataWithBytes:&number length:2];
            NSString *string = [NSString.alloc initWithData:data encoding:gbkEncoding];
            if (string) mString.add(string);
-       }return [NSString stringWithFormat:@"%@",mString];
+       };return [NSString stringWithFormat:@"%@",mString];
     };
 }
 
 - (NSString *)name{
     if (!_name) {
         _name = @"A";
-    }return _name;
+    };return _name;
 }
 
 - (UILabel *)tipLabel{
@@ -543,70 +544,70 @@ NS_INLINE UIBezierPath *getCodePath(void){
             label.textAlignment = NSTextAlignmentCenter;
             label.font = [UIFont systemFontOfSize:WMZfont];
         });
-    }return _tipLabel;
+    };return _tipLabel;
 }
 
 - (UIImageView *)mainImage{
     if (!_mainImage) {
         _mainImage = UIImageView.new;
-    }return _mainImage;
+    };return _mainImage;
 }
 
 - (UIView *)maskView{
     if (!_maskView) {
         _maskView = UIView.new;
         _maskView.alpha = 0.5;
-    }return _maskView;
+    };return _maskView;
 }
 
 - (UIImageView *)moveImage{
     if (!_moveImage) {
         _moveImage = UIImageView.new;
-    }return _moveImage;
+    };return _moveImage;
 }
 
 - (WMZSlider *)slider{
     if (!_slider) {
         _slider = WMZSlider.new;
         _slider.thumbTintColor = JobsGreenColor;
-    }return _slider;
+    };return _slider;
 }
 
 -(UIButton *)refresh{
     if (!_refresh) {
         _refresh = [UIButton buttonWithType:UIButtonTypeCustom];
         [_refresh setAdjustsImageWhenHighlighted:NO];
-    }return _refresh;
+    };return _refresh;
 }
 
 - (CAShapeLayer *)maskLayer{
     if (!_maskLayer) {
         _maskLayer = CAShapeLayer.layer;
-    }return _maskLayer;
+    };return _maskLayer;
 }
 
 - (WMZSlider *)WMZSlider{
     if (!_WMZSlider) {
         _WMZSlider = WMZSlider.new;
-    }return _WMZSlider;
+    };return _WMZSlider;
 }
 
 - (NSString *)factChinese{
     if (!_factChinese) {
         _factChinese = self.getRandomChineseWithCount(codeLabelCount);
-    }return _factChinese;
+    };return _factChinese;
 }
 
 - (NSString *)allChinese{
     if (!_allChinese) {
         _allChinese = self.factChinese.add(self.getRandomChineseWithCount(self.type == CodeTypeNineLabel ? 9 - codeLabelCount:codeAddLabelCount));
-    }return _allChinese;
+    };return _allChinese;
 }
 
 - (NSMutableArray *)btnArr{
     if (!_btnArr) {
         _btnArr = NSMutableArray.array;
-    }return _btnArr;
+    };return _btnArr;
 }
 
 @end
@@ -631,7 +632,7 @@ NS_INLINE UIBezierPath *getCodePath(void){
             label.layer.borderWidth = 1;
             label.layer.borderColor = RGBA_COLOR(193, 193, 193, 1).CGColor;
         });
-    }return _label;
+    };return _label;
 }
 
 @end

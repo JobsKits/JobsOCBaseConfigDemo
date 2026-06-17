@@ -1,6 +1,6 @@
 //
 //  ZLGestureLockViewController.h
-//  GestureLockDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by ZL on 2017/4/5.
 //  Copyright © 2017年 ZL. All rights reserved.
@@ -13,7 +13,7 @@
 #import "ZLGestureLockView.h"
 #import "ZLGestureLockIndicator.h"
 #import "BaseViewController.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 typedef NS_ENUM(NSInteger,ZLUnlockType) {
     ZLUnlockTypeCreatePsw, // 创建手势密码

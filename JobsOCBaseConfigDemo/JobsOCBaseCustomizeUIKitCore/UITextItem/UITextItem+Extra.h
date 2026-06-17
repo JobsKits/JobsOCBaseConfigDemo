@@ -1,13 +1,12 @@
 //
 //  UITextItem+Extra.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 11/12/2024.
 //
 
 #import <UIKit/UIKit.h>
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

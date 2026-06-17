@@ -1,6 +1,6 @@
 //
 //  ZMJTextCell.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/27/24.
 //
@@ -16,13 +16,13 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.btn.alpha = 1;
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
         self.btn.alpha = 1;
-    }return self;
+    };return self;
 }
 
 @end

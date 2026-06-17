@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorContentView.h
-//  My_BaseProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/3.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -14,8 +14,7 @@
 #import "JobsAppDoorConfig.h"
 #import "JobsAppDoorModel.h"
 #import "JobsAppDoorInputViewBaseStyleModel.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,6 +1,6 @@
 //
 //  WMZBannerControl.m
-//  WMZBanner
+//  JobsOCBaseConfigDemo
 //
 //  Created by wmz on 2019/9/6.
 //  Copyright © 2019 wmz. All rights reserved.
@@ -36,14 +36,18 @@ Prop_strong()NSMutableArray *imageArr;
         
         [self resetFrame];
 
-    }return self;
+    };return self;
 }
 
+#pragma mark —— currentPage
+@dynamic currentPage;
 - (void)setCurrentPage:(NSInteger)currentPage{
     _currentPage = currentPage;
     [self updateDots];
 }
 
+#pragma mark —— numberOfPages
+@dynamic numberOfPages;
 - (void)setNumberOfPages:(NSInteger)numberOfPages{
     _numberOfPages = numberOfPages;
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];\

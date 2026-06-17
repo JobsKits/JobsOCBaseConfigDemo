@@ -1,11 +1,12 @@
 //
 //  JobsPostDelView.h
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/1/1.
 //
 
 #import "BaseView.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

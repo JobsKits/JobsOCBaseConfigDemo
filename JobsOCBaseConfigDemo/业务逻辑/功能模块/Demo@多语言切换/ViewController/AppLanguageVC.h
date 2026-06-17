@@ -1,6 +1,6 @@
 //
 //  AppInternationalizationVC.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/19.
 //
@@ -10,11 +10,12 @@
 #import "BaseViewController.h"
 #import "MacroDef_Func.h"
 #import "MacroDef_Notification.h"
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
 #import "NSObject+AppTools.h"
 #import "UIViewController+BackBtn.h"
 #import "UITableViewCell+UITableViewCellProtocol.h"
 #import "UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>

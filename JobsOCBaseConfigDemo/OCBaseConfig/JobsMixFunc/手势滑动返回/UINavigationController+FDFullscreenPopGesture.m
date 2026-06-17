@@ -21,8 +21,8 @@
 // SOFTWARE.
 
 #import "UINavigationController+FDFullscreenPopGesture.h"
+#import "JobsBlock.h"
 
-#import "DefineProperty.h"
 
 @interface _FDFullscreenPopGestureRecognizerDelegate : NSObject<UIGestureRecognizerDelegate>
 
@@ -53,7 +53,14 @@ Prop_weak()UINavigationController *navigationController;
 
 @end
 
-typedef void (^_FDViewControllerWillAppearInjectBlock)(UIViewController *viewController, BOOL animated);
+@interface UINavigationController (FDFullscreenPopGesture)
+
+Prop_strong()_FDFullscreenPopGestureRecognizerDelegate *fd_popGestureRecognizerDelegate;
+Prop_assign()BOOL fd_viewControllerBasedNavigationBarAppearanceEnabled;
+Prop_strong(readonly)UIPanGestureRecognizer *fd_fullscreenPopGestureRecognizer;
+
+@end
+
 @interface UIViewController (FDFullscreenPopGesturePrivate)
 
 Prop_copy()_FDViewControllerWillAppearInjectBlock fd_willAppearInjectBlock;
@@ -86,15 +93,15 @@ Prop_copy()_FDViewControllerWillAppearInjectBlock fd_willAppearInjectBlock;
     [self fd_viewWillDisappear:animated];
 }
 
+#pragma mark —— fd_willAppearInjectBlock
+JobsKey(_fd_willAppearInjectBlock)
+@dynamic fd_willAppearInjectBlock;
 - (_FDViewControllerWillAppearInjectBlock)fd_willAppearInjectBlock{
-    return objc_getAssociatedObject(self, _cmd);
+    return Jobs_getAssociatedObject(_fd_willAppearInjectBlock);
 }
 
 - (void)setFd_willAppearInjectBlock:(_FDViewControllerWillAppearInjectBlock)block{
-    objc_setAssociatedObject(self,
-                             @selector(fd_willAppearInjectBlock),
-                             block,
-                             OBJC_ASSOCIATION_COPY_NONATOMIC);
+    Jobs_setAssociatedCOPY_NONATOMIC(_fd_willAppearInjectBlock, block)
 }
 
 @end
@@ -168,31 +175,29 @@ Prop_copy()_FDViewControllerWillAppearInjectBlock fd_willAppearInjectBlock;
     }
 }
 
+#pragma mark —— Prop_strong()_FDFullscreenPopGestureRecognizerDelegate *fd_popGestureRecognizerDelegate;
+JobsKey(_fd_popGestureRecognizerDelegate)
+@dynamic fd_popGestureRecognizerDelegate;
 - (_FDFullscreenPopGestureRecognizerDelegate *)fd_popGestureRecognizerDelegate{
-    _FDFullscreenPopGestureRecognizerDelegate *delegate = objc_getAssociatedObject(self, _cmd);
+    _FDFullscreenPopGestureRecognizerDelegate *delegate = Jobs_getAssociatedObject(_fd_popGestureRecognizerDelegate);
     if (!delegate) {
         delegate = _FDFullscreenPopGestureRecognizerDelegate.new;
         delegate.navigationController = self;
-        objc_setAssociatedObject(self,
-                                 _cmd,
-                                 delegate,
-                                 OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }return delegate;
+        Jobs_setAssociatedRETAIN_NONATOMIC(_fd_popGestureRecognizerDelegate, delegate)
+    };return delegate;
 }
 
+#pragma mark —— fd_viewControllerBasedNavigationBarAppearanceEnabled
+JobsKey(_fd_viewControllerBasedNavigationBarAppearanceEnabled)
+@dynamic fd_viewControllerBasedNavigationBarAppearanceEnabled;
 - (BOOL)fd_viewControllerBasedNavigationBarAppearanceEnabled{
-    NSNumber *number = objc_getAssociatedObject(self, _cmd);
+    NSNumber *number = Jobs_getAssociatedObject(_fd_viewControllerBasedNavigationBarAppearanceEnabled);
     if (number) return number.boolValue;
     self.fd_viewControllerBasedNavigationBarAppearanceEnabled = YES;
     return YES;
 }
 
-- (void)setFd_viewControllerBasedNavigationBarAppearanceEnabled:(BOOL)enabled{
-    SEL key = @selector(fd_viewControllerBasedNavigationBarAppearanceEnabled);
-    objc_setAssociatedObject(self,
-                             key,
-                             @(enabled),
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setFd_viewControllerBasedNavigationBarAppearanceEnabled:(BOOL)enabled{    Jobs_setAssociatedRETAIN_NONATOMIC(_fd_viewControllerBasedNavigationBarAppearanceEnabled, @(enabled))
 }
 
 PROP_STRONG_OBJECT_LAZY(UIPanGestureRecognizer,

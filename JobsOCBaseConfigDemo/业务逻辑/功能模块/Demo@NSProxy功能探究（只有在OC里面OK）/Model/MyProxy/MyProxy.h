@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "JobsBlock.h"
 #import "WeakTarget.h"
 

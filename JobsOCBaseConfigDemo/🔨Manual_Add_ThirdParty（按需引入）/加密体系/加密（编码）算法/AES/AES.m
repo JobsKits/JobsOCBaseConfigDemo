@@ -1,6 +1,6 @@
 //
 //  AESCrypt.m
-//  Gurpartap Singh
+//  JobsOCBaseConfigDemo
 //
 //  Created by Gurpartap Singh on 06/05/12.
 //  Copyright (c) 2012 Gurpartap Singh
@@ -28,7 +28,6 @@
 //
 
 #import "AES.h"
-
 #import "NSData+Base64.h"
 #import "NSString+Base64.h"
 #import "NSData+CommonCrypto.h"

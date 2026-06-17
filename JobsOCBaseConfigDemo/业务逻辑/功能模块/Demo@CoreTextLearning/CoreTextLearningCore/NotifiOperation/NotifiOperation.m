@@ -1,6 +1,6 @@
 //
 //  NotifiOperation.m
-//  CoreTextLearning
+//  JobsOCBaseConfigDemo
 //
 //  Created by alan comb on 2021/4/10.
 //
@@ -18,7 +18,7 @@
     if (self = [super init]) {
         _executing = NO;
         _finished  = NO;
-    }return self;
+    };return self;
 }
 
 + (instancetype)addOperatioOnView:(UIView *)fatherView
@@ -56,18 +56,21 @@
     }];
 }
 #pragma mark —— 手动触发 KVO
+#pragma mark —— executing
 - (void)setExecuting:(BOOL)executing{
     [self willChangeValueForKey:@"isExecuting"];
     _executing = executing;
     [self didChangeValueForKey:@"isExecuting"];
 }
 
+#pragma mark —— finished
 - (void)setFinished:(BOOL)finished{
     [self willChangeValueForKey:@"isFinished"];
     _finished = finished;
     [self didChangeValueForKey:@"isFinished"];
 }
 
+#pragma mark —— cancelled
 - (void)setCancelled:(BOOL)cancelled{
     [self willChangeValueForKey:@"isCancelled"];
     _cancelled = cancelled;

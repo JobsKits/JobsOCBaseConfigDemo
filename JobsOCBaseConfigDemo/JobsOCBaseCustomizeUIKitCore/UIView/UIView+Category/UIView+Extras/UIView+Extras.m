@@ -1,6 +1,6 @@
 //
 //  UIView+Extras.m
-//  MJRefreshExample
+//  JobsOCBaseConfigDemo
 //
 //  Created by Aalto on 14-5-28.
 //  Copyright (c) 2014年 itcast. All rights reserved.
@@ -28,7 +28,7 @@
         UIView <BaseViewProtocol>*instance = self.class.new;
         if ([instance respondsToSelector:@selector(jobsRichViewByModel)]) {
             instance.jobsRichViewByModel(data);
-        }return instance;
+        };return instance;
     };
 }
 /// 用于实例
@@ -42,7 +42,7 @@
             if ([self respondsToSelector:@selector(jobsRichElementsCollectionViewCellBy)]) self.jobsRichElementsCollectionViewCellBy(data);
         }else{
             self.jobsRichViewByModel(data);
-        }return self;
+        };return self;
     };
 }
 
@@ -59,7 +59,7 @@
             UITableView *view = (UITableView *)self;
             view.byDelegate(target);
             view.byDataSource(target);
-        }return (UIScrollView *)self;
+        };return (UIScrollView *)self;
     };
 }
 /// 用于显示 UICollectionView / UITableView
@@ -78,7 +78,7 @@
             view.byDelegate(target);
             view.byDataSource(target);
             view.reloadDatas();
-        }return (UIScrollView *)self;
+        };return (UIScrollView *)self;
     };
 }
 
@@ -358,7 +358,7 @@
         UIImage *image = self.screenShot;
         window = nil;
         return image;
-    }return nil;
+    };return nil;
 }
 /// 获取某个view 上的截图
 -(UIImage *_Nullable)viewShots{
@@ -404,7 +404,7 @@
         UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         return image;
-    }return nil;
+    };return nil;
 }
 /// 截图
 -(JobsRetImageByViewBlock _Nonnull)rendImage{
@@ -447,7 +447,7 @@ JobsKey(_leftBorderLayer)
         layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
 
         }));Jobs_setAssociatedRETAIN_NONATOMIC(_leftBorderLayer, layer);
-    }return layer;
+    };return layer;
 }
 JobsKey(_rightBorderLayer)
 -(CALayer *)rightBorderLayer{
@@ -456,7 +456,7 @@ JobsKey(_rightBorderLayer)
         layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
 
         }));Jobs_setAssociatedRETAIN_NONATOMIC(_rightBorderLayer, layer);
-    }return layer;
+    };return layer;
 }
 JobsKey(_topBorderLayer)
 -(CALayer *)topBorderLayer{
@@ -465,7 +465,7 @@ JobsKey(_topBorderLayer)
         layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
 
         }));Jobs_setAssociatedRETAIN_NONATOMIC(_topBorderLayer, layer);
-    }return layer;
+    };return layer;
 }
 JobsKey(_bottomBorderLayer)
 -(CALayer *)bottomBorderLayer{
@@ -474,7 +474,7 @@ JobsKey(_bottomBorderLayer)
         layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
 
         }));Jobs_setAssociatedRETAIN_NONATOMIC(_bottomBorderLayer, layer);
-    }return layer;
+    };return layer;
 }
 /// 调用方式：view.leftBorderColor(color).leftBorderWidth(borderType);
 -(JobsRetViewByCorBlock _Nonnull)leftBorderColor{
@@ -699,7 +699,7 @@ JobsKey(_cornerRadii)
         if([self isKindOfClass:UILabel.class]){
             UILabel *label = (UILabel *)self;
             label.makeLabelByShowingType(labelShowingType);
-        }return self;
+        };return self;
     };
 }
 
@@ -773,7 +773,7 @@ JobsKey(_cornerRadii)
         if(subView.masonryBlock){
             [subView mas_makeConstraints:subView.masonryBlock];
             self.refresh();
-        }return subView;
+        };return subView;
     };
 }
 

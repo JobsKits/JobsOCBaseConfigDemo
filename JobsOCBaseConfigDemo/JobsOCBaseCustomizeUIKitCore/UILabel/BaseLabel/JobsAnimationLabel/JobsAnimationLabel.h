@@ -1,11 +1,12 @@
 //
 //  AnimationLabel.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/13.
 //
 
 #import <UIKit/UIKit.h>
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -52,7 +53,7 @@ NS_ASSUME_NONNULL_END
              make.bottom.equalTo(self.progressView);
              make.left.equalTo(self.progressView);
          }];
-     }return _animationLab;
+     };return _animationLab;
  }
 
  */

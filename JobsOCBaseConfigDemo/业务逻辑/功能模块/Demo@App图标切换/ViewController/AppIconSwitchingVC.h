@@ -1,11 +1,12 @@
 //
 //  AppIconSwitchingVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 6/19/24.
 //
 
 #import "BaseViewController.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 动态更改应用程序图标仅在真实设备上有效，不能在模拟器上测试。

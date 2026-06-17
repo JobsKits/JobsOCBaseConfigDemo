@@ -1,6 +1,6 @@
 //
 //  KTVHCDataUnitPool.m
-//  KTVHTTPCache
+//  JobsOCBaseConfigDemo
 //
 //  Created by Single on 2017/8/11.
 //  Copyright © 2017年 Single. All rights reserved.
@@ -12,7 +12,6 @@
 #import "KTVHCPathTool.h"
 #import "KTVHCURLTool.h"
 #import "KTVHCLog.h"
-
 #import <UIKit/UIKit.h>
 
 @interface KTVHCDataUnitPool () <NSLocking, KTVHCDataUnitDelegate>
@@ -48,7 +47,7 @@
         [[NSNotificationCenter defaultCenter]  addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
         [[NSNotificationCenter defaultCenter]  addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
         KTVHCLogDataUnitPool(@"%p, Create Pool\nUnits : %@", self, self.unitQueue.allUnits);
-    }return self;
+    };return self;
 }
 
 - (void)dealloc

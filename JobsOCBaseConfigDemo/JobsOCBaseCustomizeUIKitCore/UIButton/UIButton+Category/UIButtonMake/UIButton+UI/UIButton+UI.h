@@ -1,6 +1,6 @@
 //
 //  UIButton+UI.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/29.
 //
@@ -303,7 +303,7 @@ NS_ASSUME_NONNULL_END
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
              });
-     }return _applyNowBtn;
+     };return _applyNowBtn;
  }
  
  */

@@ -1,14 +1,12 @@
 //
 //  JobsExcelLeftListView.m
-//  JobsExcelView
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 17/6/16.
 //  Copyright © 2017年 Mephsito. All rights reserved.
 //  特别鸣谢 https://github.com/Mephsito23/iOS-Excel-
 
 #import "JobsExcelLeftListView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsExcelLeftListView()
 /// Data
@@ -26,7 +24,7 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.tableView.alpha = 1;
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 - (jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -118,7 +116,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             @jobs_strongify(self)
             make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0, 0, 0));
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 @end

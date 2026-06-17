@@ -1,6 +1,6 @@
 //
 //  NSObject+GTCaptcha4.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 9/12/24.
 //
@@ -9,8 +9,8 @@
 #import "APIKey.h"
 #import "JobsBlock.h"
 #import "GTCaptcha4Model.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<GTCaptcha4/GTCaptcha4.h>)
 #import <GTCaptcha4/GTCaptcha4.h>
 #else

@@ -1,6 +1,6 @@
 //
 //  AFSecurityPolicy+Extra.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 25/11/2024.
 //
@@ -10,12 +10,8 @@
 
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFNetworking.h>
-#elif __has_include("AFNetworking.h")
-#import "AFNetworking.h"
-#elif __has_include("AFNetworking-umbrella.h")
-#import "AFNetworking-umbrella.h"
 #else
-#error "AFNetworking header not found"
+#import "AFNetworking.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

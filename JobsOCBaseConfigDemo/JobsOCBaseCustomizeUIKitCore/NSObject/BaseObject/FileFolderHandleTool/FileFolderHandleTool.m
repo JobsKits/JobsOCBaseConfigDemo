@@ -1,6 +1,6 @@
 //
 //  FileFolderHandleTool.m
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/7/27.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -40,7 +40,7 @@
             NSString *FolderName = folderName.add(fileNameEx);
             cachePath = NSString.cachesDir.addPathComponent(folderNameEx).addPathComponent(FolderName);
         }
-    }return cachePath;
+    };return cachePath;
 }
 #pragma mark —— 创建文件（夹）
 /// 软性 仅仅是创建文件夹：返回是否创建成功
@@ -59,7 +59,7 @@
                                               error:error];
     if (error){
         JobsLog(@"createDirectoryAtPath_err = %@",(*error).description);
-    }return isSuccess;
+    };return isSuccess;
 }
 /// 创建带文件夹的文件 返回是否创建带文件夹的文件成功状态
 /// @param path 文件创建的路径
@@ -90,7 +90,7 @@
                                                           contents:contentsData /// 文件的二进制内容（NSData）
                                                         attributes:nil]; /// 文件的属性
         }
-    }return NO;
+    };return NO;
 }
 /* 硬性创建文件夹
  * 给定一个具体的精确到文件📃的路径地址
@@ -118,7 +118,7 @@
     if (!FileFolderHandleTool.isExistsAtPath(folder_url)){
         /// 创建文件夹，返回文件夹是否创建成功：先有文件夹再有文件，没有文件夹就没有文件
         return [FileFolderHandleTool createDirectoryAtPath:folder_url error:error];
-    }return YES;
+    };return YES;
 }
 /// 获取文件创建的时间
 +(NSDate *)creationDateOfItemAtPath:(NSString *)path
@@ -149,7 +149,7 @@
     
     if (isValue(bundleFileSuffix)){
         bundlePath = bundlePath.add(bundleFileSuffix);
-    }return [FileFolderHandleTool filePath:bundlePath fileType:fileType];
+    };return [FileFolderHandleTool filePath:bundlePath fileType:fileType];
 }
 /// 给定一个地址读取内容
 /// @param filePath 文件全路径
@@ -218,7 +218,7 @@
         d = [FileFolderHandleTool writeFileAtPath:ff
                                           content:content
                                             error:error];
-    }return fileFolderPathStr = d? fileFolderPathStr : nil;
+    };return fileFolderPathStr = d? fileFolderPathStr : nil;
 }
 /// 写入文件内容：按照文件路径向文件写入内容，内容可为数组、字典、NSData等等，返回写入成功与否的状态
 /// @param path 要写入的文件路径
@@ -267,7 +267,7 @@
     }else{
         JobsLog(@"文件路径不存在");
         return NO;
-    }return YES;
+    };return YES;
 }
 #pragma mark —— 删除文件（夹）
 /// 删除指定后缀名的文件
@@ -321,7 +321,7 @@
     for (NSString *file in subFiles){
         NSString *absolutePath = NSString.cachesDir.addPathComponent(file);
         isSuccess &= [TXFileOperation removeItemAtPath:absolutePath];
-    }return isSuccess;
+    };return isSuccess;
 }
 /// 清空temp文件夹
 +(BOOL)clearTmpDirectory{
@@ -330,7 +330,7 @@
     for (NSString *file in subFiles){
         NSString *absolutePath = NSString.tmpDir.addPathComponent(file);
         isSuccess &= [TXFileOperation removeItemAtPath:absolutePath];
-    }return isSuccess;
+    };return isSuccess;
 }
 #pragma mark —— 复制文件（夹）
 /// 复制文件 依据源文件的路径复制一份到目标路径：
@@ -496,8 +496,8 @@
         while (file = [contentsEnumurator nextObject]){
             NSDictionary *fileAttributes = [NSFileManager.defaultManager attributesOfItemAtPath:path.addPathComponent(file) error:nil];
             folderSize += [fileAttributes.objectForKey(NSFileSize) intValue];
-        }return @(folderSize);
-    }return nil;
+        };return @(folderSize);
+    };return nil;
 }
 /// 获取文件大小（单位为字节）:
 +(NSString *)sizeFormattedOfItemAtPath:(NSString *)path error:(NSError *__autoreleasing *)error{
@@ -547,7 +547,7 @@
         if (!error){
             listArr = shallowArr;
         }else listArr = nil;
-    }return listArr;
+    };return listArr;
 }
 #pragma mark —— 系统相册相关
 /// 获取相册最新加载（录制、拍摄）的资源

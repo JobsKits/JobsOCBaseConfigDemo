@@ -1,13 +1,11 @@
 //
 //  JobsDropDownListVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/26.
 //
 
 #import "JobsDropDownListVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsDropDownListVC ()
 /// UI
@@ -122,7 +120,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
             make.height.mas_equalTo(JobsWidth(30));
         }];
         _btn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _btn;
+    };return _btn;
 }
 
 -(UISwitch *)switcher{
@@ -165,7 +163,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
             self.dropDownListViewDirection = x.selected;
             self.btn.jobsResetBtnTitle(x.selected ? @"点击按钮弹出上拉列表".tr : @"点击按钮弹出下拉列表".tr);
         }];
-    }return _switcher;
+    };return _switcher;
 }
 
 -(UIColor *)cor{
@@ -178,7 +176,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
                                      endPoint:CGPointZero
                                        opaque:NO
                                targetViewRect:CGRectMake(0, 0, 51, 31)];
-    }return _cor;
+    };return _cor;
 }
 
 -(NSMutableArray<UIViewModel *> *)listViewData{
@@ -191,7 +189,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
                 }));
             }
         });
-    }return _listViewData;
+    };return _listViewData;
 }
 
 @end

@@ -14,7 +14,7 @@
         _isNavigation = YES;
         _normalColor = JobsGrayColor;
         _selectedColor = JobsRedColor;
-    }return self;
+    };return self;
 }
 
 @end

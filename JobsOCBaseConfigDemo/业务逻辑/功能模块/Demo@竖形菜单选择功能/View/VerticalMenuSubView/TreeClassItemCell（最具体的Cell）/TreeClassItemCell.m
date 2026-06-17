@@ -1,13 +1,11 @@
 //
 //  TreeClassItemCell.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/15.
 //
 
 #import "TreeClassItemCell.h"
-
-#import "DefineProperty.h"
 
 @interface TreeClassItemCell ()
 /// UI
@@ -35,7 +33,7 @@ UILocationProtocol_synthesize
     if (self = [super initWithFrame:frame]){
         self.jobsRect = frame;
         self.backgroundColor = self.contentView.backgroundColor = ThreeClassCellBgCor;
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(JobsRetCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy{
@@ -60,7 +58,7 @@ UILocationProtocol_synthesize
     CGFloat imageWidth = JobsWidth(68.f);
     if (self.jobsRect.size.width < imageWidth){
         imageWidth = self.jobsRect.size.width;
-    }return imageWidth;
+    };return imageWidth;
 }
 
 -(UIImageView *)logoImgView{
@@ -83,7 +81,7 @@ UILocationProtocol_synthesize
         _logoImgView.image = self.dataModel.bgImage;
     }else{
         _logoImgView.backgroundColor = JobsRandomCor(.5f);
-    }return _logoImgView;
+    };return _logoImgView;
 }
 
 -(UILabel *)nameLabel{

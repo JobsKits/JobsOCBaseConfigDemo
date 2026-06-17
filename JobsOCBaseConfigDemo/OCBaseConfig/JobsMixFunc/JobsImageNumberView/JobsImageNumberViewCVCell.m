@@ -1,13 +1,11 @@
 //
 //  ImageNumberViewCVCell.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/29.
 //
 
 #import "JobsImageNumberViewCVCell.h"
-
-#import "DefineProperty.h"
 
 @interface JobsImageNumberViewCVCell ()
 
@@ -39,7 +37,7 @@ Prop_strong()UIImageView *textIMGV;
     return ^CGSize(UIImage *_Nullable data){
         if ([data isEqual:@"小数点".img]) {
             return CGSizeMake(JobsWidth(15), JobsWidth(28));
-        }return CGSizeMake(JobsWidth(19), JobsWidth(28));
+        };return CGSizeMake(JobsWidth(19), JobsWidth(28));
     };
 }
 #pragma mark —— lazyLoad
@@ -52,7 +50,7 @@ Prop_strong()UIImageView *textIMGV;
                 make.edges.equalTo(self.contentView);
             }];
         });
-    }return _textIMGV;
+    };return _textIMGV;
 }
 
 @end

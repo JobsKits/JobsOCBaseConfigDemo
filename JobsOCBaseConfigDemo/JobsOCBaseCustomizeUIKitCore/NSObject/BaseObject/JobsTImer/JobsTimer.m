@@ -7,8 +7,6 @@
 
 #import "JobsTimer.h"
 
-#import "DefineProperty.h"
-
 @interface JobsTimer ()
 /// YES  = 已经 suspend 了
 /// NO   = 正在运行 / 已经 resume
@@ -36,7 +34,7 @@ TimerProtocol_synthesize_lock
         _autoPausedByAppState = NO;
         _gcdTimerSuspended = NO;
         self.timerState = JobsTimerStateIdle;
-    }return self;
+    };return self;
 }
 
 -(void)dealloc {
@@ -309,37 +307,37 @@ TimerProtocol_synthesize_lock
                                          selector:@selector(handleTick)
                                          userInfo:self.userInfo
                                           repeats:self.repeats];
-    }return _nsTimer;
+    };return _nsTimer;
 }
 
 -(dispatch_source_t)gcdTimer{
     if(!_gcdTimer){
         _gcdTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, self.queue);
-    }return _gcdTimer;
+    };return _gcdTimer;
 }
 
 -(CADisplayLink *)displayLink{
     if(!_displayLink){
         _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(handleTick)];
-    }return _displayLink;
+    };return _displayLink;
 }
 
 -(NSRunLoopMode)runLoopMode{
     if(!_runLoopMode){
         _runLoopMode = NSRunLoopCommonModes;
-    }return _runLoopMode;
+    };return _runLoopMode;
 }
 
 -(NSTimeInterval)timeInterval{
     if(_timeInterval <= 0){
         _timeInterval = 1.0;
-    }return _timeInterval;
+    };return _timeInterval;
 }
 
 -(dispatch_queue_t)queue{
     if(!_queue){
         _queue = dispatch_get_main_queue();
-    }return _queue;
+    };return _queue;
 }
 #pragma mark —— 前后台感知（直接用 UIKit，无条件编译）
 - (void)setupAppStateMonitorIfNeeded {

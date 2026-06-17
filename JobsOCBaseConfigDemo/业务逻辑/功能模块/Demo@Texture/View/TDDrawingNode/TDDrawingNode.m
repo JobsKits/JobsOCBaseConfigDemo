@@ -20,7 +20,7 @@
         self.opaque = YES;                                       // 不透明更高效
         self.backgroundColor = UIColor.secondarySystemBackgroundColor;
         self.cornerRadius = 0;
-    }return self;
+    };return self;
 }
 /// 传递绘制所需的不可变参数（在主线程调用）
 -(id<NSObject>)drawParametersForAsyncLayer:(_ASDisplayLayer *)layer {

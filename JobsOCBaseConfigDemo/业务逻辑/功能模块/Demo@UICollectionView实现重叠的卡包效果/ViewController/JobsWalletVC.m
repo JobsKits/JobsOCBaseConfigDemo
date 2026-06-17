@@ -1,13 +1,11 @@
 //
 //  JobsWalletVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/7/6.
 //
 
 #import "JobsWalletVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsWalletVC ()
 /// Data
@@ -89,7 +87,7 @@ resuableHeaderViewHeightForIndexPath:(NSIndexPath *)indexPath {
 //    return indexPath.section == 0 ? 30 : 0;
     if (indexPath.section == self.dataSourceMutArr.count - 1) {
         return JobsWidth(45);
-    }return JobsWidth(30);
+    };return JobsWidth(30);
 }
 
 -(CGFloat)collectionView:(UICollectionView *)collectionView
@@ -172,7 +170,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
             viewModel.textModel.text = [NSString stringWithFormat:@"Section Header:%zd-%zd", indexPath.section, indexPath.item];
             reusableView.jobsRichViewByModel(viewModel);
         }
-    }return reusableView;
+    };return reusableView;
 }
 #pragma mark —— lazyLoad
 /// BaseViewProtocol
@@ -198,7 +196,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
         }
         self.view.addSubview(_collectionView);
         [self fullScreenConstraintTargetView:_collectionView topViewOffset:0];
-    }return _collectionView;
+    };return _collectionView;
 }
 
 -(TMSCollectionViewLayout *)tms_layout{
@@ -209,7 +207,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
             layout.padding = JobsWidth(15);
             layout.layout_delegate = self;
         });
-    }return _tms_layout;
+    };return _tms_layout;
 }
 
 -(NSMutableArray<NSMutableArray<UIViewModel *> *> *)dataSourceMutArr{
@@ -260,7 +258,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
                 }));
             }));
         });
-    }return _dataSourceMutArr;
+    };return _dataSourceMutArr;
 }
 
 -(NSMutableArray<UIViewModel *> *)sectionHeaderDataSource{
@@ -270,7 +268,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
                 data1.textModel.text = @"我是头部".tr;
             }));
         });
-    }return _sectionHeaderDataSource;
+    };return _sectionHeaderDataSource;
 }
 
 -(NSMutableArray<UIViewModel *> *)sectionFooterDataSource{
@@ -280,7 +278,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
                 data1.textModel.text = @"我是尾部".tr;
             }));
         });
-    }return _sectionFooterDataSource;
+    };return _sectionFooterDataSource;
 }
 
 @end

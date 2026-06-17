@@ -1,6 +1,6 @@
 //
 //  NSObject+UserInfo.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/1.
 //
@@ -44,7 +44,7 @@
     return ^BOOL(NSString *_Nullable data){
         if(isValue(data)){
             return !data.isExpired();
-        }return NO;
+        };return NO;
     };
 }
 /// 检查是否登录并执行传入的代码块
@@ -152,7 +152,7 @@
                     JobsLog(@"解档失败: %@", error.localizedDescription);
                     /// 没取到用户数据，就直接跳登录
     //                self.toLogin();
-                }return userModel;
+                };return userModel;
             }
         }else{
             JobsLog(@"解档失败:需要被解档的数据为空");

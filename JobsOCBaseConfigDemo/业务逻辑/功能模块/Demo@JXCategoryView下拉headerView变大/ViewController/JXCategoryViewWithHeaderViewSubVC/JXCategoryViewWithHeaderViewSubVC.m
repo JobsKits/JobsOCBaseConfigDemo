@@ -1,13 +1,11 @@
 //
 //  JXCategoryViewWithHeaderViewVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/10.
 //
 
 #import "JXCategoryViewWithHeaderViewVC.h"
-
-#import "DefineProperty.h"
 
 @interface JXCategoryViewWithHeaderViewSubVC (){
     BaiShaETProjVIPSubCVCell_01 *cell01;
@@ -114,7 +112,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UICollectionViewCell *>*>*
         if (block4) return block4();
     }else{
         if (block5) return block5();
-    }return nil;
+    };return nil;
 }
 
 -(CGSize)planSizeAtIndexPath:(nonnull NSIndexPath *)indexPath
@@ -133,7 +131,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UICollectionViewCell *>*>*
         if (block4) return block4();
     }else{
         if (block5) return block5();
-    }return CGSizeZero;
+    };return CGSizeZero;
 }
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -264,7 +262,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
 minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     if (section == 1) {
         return JobsWidth(12);
-    }return 0;
+    };return 0;
 }
 /// 定义的是UICollectionViewScrollDirectionVertical下，元素水平之间的间距。
 /// UICollectionViewScrollDirectionHorizontal下，垂直和水平正好相反
@@ -274,7 +272,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section {
 minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     if (section == 1) {
         return JobsWidth(15);
-    }return 0;
+    };return 0;
 }
 ///内间距
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView
@@ -291,7 +289,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             .JobsBlock1(^(id  _Nullable data) {
                 
             });
-    }return _choiceStadiumView;
+    };return _choiceStadiumView;
 }
 /// BaseViewProtocol
 @synthesize collectionView = _collectionView;
@@ -306,7 +304,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
         [self.scrollView.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
         }];
-    }return _collectionView;
+    };return _collectionView;
 }
 
 -(NSMutableArray <NSMutableArray<__kindof UICollectionViewCell *>*>*)cvcellMutArr{
@@ -334,7 +332,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 data2.add([BaiShaETProjVIPSubCVCell_05 cellWithCollectionView:self.collectionView forIndexPath:[self myIndexPath:(JobsIndexPath){4,0}]]);
             }));
         });
-    }return _cvcellMutArr;
+    };return _cvcellMutArr;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
@@ -342,7 +340,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

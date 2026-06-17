@@ -1,12 +1,13 @@
 //
 //  BaiShaETProjCollectionHeaderView.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/10.
 //
 
 #import "UICollectionHeaderFooterView.h"
 #import "JobsAnimationLabel.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

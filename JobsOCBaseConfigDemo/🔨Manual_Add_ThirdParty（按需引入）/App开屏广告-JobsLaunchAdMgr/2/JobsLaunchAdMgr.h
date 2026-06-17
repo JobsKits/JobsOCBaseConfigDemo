@@ -13,12 +13,11 @@ typedef NS_ENUM(NSUInteger, SkipButtonMode) {
     SkipButtonModeCountdown
 };
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
+#import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^AdInteractionCallback)(void);
-typedef void (^AdCompletionCallback)(void);
 
 @interface JobsLaunchAdMgr : NSObject
 

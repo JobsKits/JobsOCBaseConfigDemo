@@ -8,9 +8,9 @@
 #import <UIKit/UIKit.h>
 #import "LuckyWheelSegment.h"
 #import "ScrollDecelerator.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "JobsBlock.h"
-#import "JobsDefineAllEnumHeader.h"
+#import "JobsDefineEnums.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>

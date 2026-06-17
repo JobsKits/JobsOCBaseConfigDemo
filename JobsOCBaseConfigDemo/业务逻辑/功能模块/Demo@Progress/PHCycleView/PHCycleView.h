@@ -1,6 +1,6 @@
 //
 //  PHCycleView.h
-//  mtc_kwm
+//  JobsOCBaseConfigDemo
 //
 //  Created by 1 on 2020/11/13.
 //  Copyright © 2020 yzl. All rights reserved.
@@ -11,7 +11,7 @@
 #define kBorderWith 10
 #define KCenter CGPointMake(self.bounds.size.width / 2.0, self.bounds.size.height / 2.0)
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

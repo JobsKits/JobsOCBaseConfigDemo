@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,6 +1,6 @@
 //
 //  UBLCustomGifHeader.m
-//  DouYin
+//  JobsOCBaseConfigDemo
 //
 //  Created by John on 2020/11/14.
 //
@@ -8,8 +8,6 @@
 #import "LOTAnimationMJRefreshHeader.h"
 
 static const CGFloat OffsetBetweenStateLabelAndAnimationView = 5;/// StateLabel 和 AnimationView 之间的间距
-
-#import "DefineProperty.h"
 
 @interface LOTAnimationMJRefreshHeader ()
 /// UI
@@ -129,13 +127,13 @@ Prop_assign()CGSize lOTAnimationViewSize;
         _animationView.loopAnimation = YES;
         _animationView.sizer = self.lOTAnimationViewSize;
         self.addSubview(_animationView);
-    }return _animationView;
+    };return _animationView;
 }
 
 -(CGSize)lOTAnimationViewSize{
     if (jobsZeroSizeValue(_lOTAnimationViewSize)) {
         _lOTAnimationViewSize = CGSizeMake(30, 30);
-    }return _lOTAnimationViewSize;
+    };return _lOTAnimationViewSize;
 }
 
 -(MJRefreshConfigModel *)refreshConfigModel{
@@ -143,7 +141,7 @@ Prop_assign()CGSize lOTAnimationViewSize;
         _refreshConfigModel = jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable model) {
             
         });
-    }return _refreshConfigModel;
+    };return _refreshConfigModel;
 }
 
 @end

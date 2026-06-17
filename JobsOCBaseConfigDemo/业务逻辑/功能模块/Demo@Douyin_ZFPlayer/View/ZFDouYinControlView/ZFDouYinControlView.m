@@ -1,14 +1,12 @@
 //
 //  ZFDouYinControlView.m
-//  ZFPlayer_Example
+//  JobsOCBaseConfigDemo
 //
 //  Created by 任子丰 on 2018/6/4.
 //  Copyright © 2018年 紫枫. All rights reserved.
 //
 
 #import "ZFDouYinControlView.h"
-
-#import "DefineProperty.h"
 
 @interface ZFDouYinControlView ()
 
@@ -25,7 +23,7 @@ Prop_strong()ZFSliderView *sliderView;
         [self addSubview:self.playBtn];
         [self addSubview:self.sliderView];
         [self resetControlView];
-    }return self;
+    };return self;
 }
 
 - (void)layoutSubviews {
@@ -91,6 +89,7 @@ Prop_strong()ZFSliderView *sliderView;
     }
 }
 
+#pragma mark —— player
 - (void)setPlayer:(ZFPlayerController *)player {
     _player = player;
 }
@@ -106,7 +105,7 @@ Prop_strong()ZFSliderView *sliderView;
         _playBtn.userInteractionEnabled = NO;
         [_playBtn setImage:[UIImage imageNamed:@"icon_play_pause"]
                   forState:UIControlStateNormal];
-    }return _playBtn;
+    };return _playBtn;
 }
 
 - (ZFSliderView *)sliderView {
@@ -117,7 +116,7 @@ Prop_strong()ZFSliderView *sliderView;
         _sliderView.bufferTrackTintColor  = [UIColor clearColor];
         _sliderView.sliderHeight = 1;
         _sliderView.isHideSliderBlock = NO;
-    }return _sliderView;
+    };return _sliderView;
 }
 
 @end

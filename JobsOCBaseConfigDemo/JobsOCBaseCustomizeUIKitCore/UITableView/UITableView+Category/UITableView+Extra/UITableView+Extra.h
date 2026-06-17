@@ -1,6 +1,6 @@
 //
 //  UITableView+Extra.h
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/4/10.
 //
@@ -181,6 +181,6 @@ NS_INLINE __kindof UITableView *_Nonnull jobsMakeTableViewByInsetGrouped(jobsByT
              make.left.right.bottom.equalTo(self.view);
              [self make:make topOffset:10];
          });
-     }return _tableView;
+     };return _tableView;
  }
  */

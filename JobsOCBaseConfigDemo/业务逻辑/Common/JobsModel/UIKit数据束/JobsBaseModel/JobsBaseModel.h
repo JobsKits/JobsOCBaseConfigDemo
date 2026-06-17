@@ -1,13 +1,13 @@
 //
 //  JobsBaseModel.h
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <Foundation/Foundation.h>
 #import "UIViewModel.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>

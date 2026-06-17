@@ -1,11 +1,12 @@
 //
 //  NSObject+YTKNetwork.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 9/18/24.
 //
 
 #import "NSObject+YTKNetwork.h"
+#import "NSObject+WHToast.h"
 
 @implementation NSObject (YTKNetwork)
 #pragma mark —— 示例代码
@@ -118,7 +119,7 @@
         /// 服务器异常
         case HTTPResponseCodeServeError:{
             JobsLog(@"服务器异常");
-            toastBy(@"服务器异常".tr);
+            NSObject.jobsToastMsg(@"服务器异常".tr);
         }break;
         /// 令牌不能为空
         case HTTPResponseCodeNoToken:{
@@ -127,32 +128,32 @@
         /// 登录失败：账密错误
         case HTTPResponseCodeLoginFailed:{
             JobsLog(@"登录失败：账密错误");
-            toastBy(@"登录失败：账密错误".tr);
+            NSObject.jobsToastMsg(@"登录失败：账密错误".tr);
         }break;
         /// 授权失败
         case HTTPResponseCodeAuthorizationFailure:{
             JobsLog(@"授权失败");
-            toastBy(@"授权失败".tr);
+            NSObject.jobsToastMsg(@"授权失败".tr);
         }break;
         /// 限定时间内超过请求次数
         case HTTPResponseCodeLeakTime:{
             JobsLog(@"限定时间内超过请求次数");
-            toastBy(@"限定时间内超过请求次数".tr);
+            NSObject.jobsToastMsg(@"限定时间内超过请求次数".tr);
         }break;
         /// 风险操作
         case HTTPResponseCodeRiskOperation:{
             JobsLog(@"风险操作");
-            toastBy(@"风险操作".tr);
+            NSObject.jobsToastMsg(@"风险操作".tr);
         }break;
         /// 未设置交易密码
         case HTTPResponseCodeNoSettingTransactionPassword:{
             JobsLog(@"未设置交易密码");
-            toastBy(@"未设置交易密码".tr);
+            NSObject.jobsToastMsg(@"未设置交易密码".tr);
         }break;
         /// 账号已在其他设备登录
         case HTTPResponseCodeOffline:{
             JobsLog(@"账号已在其他设备登录");
-            toastBy(@"账号已在其他设备登录".tr);
+            NSObject.jobsToastMsg(@"账号已在其他设备登录".tr);
         }break;
         /// Token 过期：登录已过期，请重新登录
         case HTTPResponseCodeTokenExpire:{
@@ -162,11 +163,11 @@
         /// 手机号码不存在
         case HTTPResponseCodePhoneNumberNotExist:{
             JobsLog(@"手机号码不存在");
-            toastBy(@"手机号码不存在".tr);
+            NSObject.jobsToastMsg(@"手机号码不存在".tr);
         }break;
         case HTTPResponseCodeAccountLocked:{
             JobsLog(@"账户被锁");
-            toastBy(@"账户被锁，请联系系统管理员".tr);
+            NSObject.jobsToastMsg(@"账户被锁，请联系系统管理员".tr);
         }break;
         /// 服务器返500可能会有很多其他的业务场景定义
         case HTTPResponseCodeNoOK:{

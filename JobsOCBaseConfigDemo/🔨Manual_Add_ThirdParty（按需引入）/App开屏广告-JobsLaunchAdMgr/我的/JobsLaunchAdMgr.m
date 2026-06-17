@@ -7,8 +7,6 @@
 
 #import "JobsLaunchAdMgr.h"
 
-#import "DefineProperty.h"
-
 @interface JobsLaunchAdMgr ()
 /// UI
 Prop_strong()UIView *adView;
@@ -54,7 +52,7 @@ static dispatch_once_t JobsLaunchAdMgrOnceToken;
 - (instancetype)init {
     if (self = [super init]) {
         _buttonFrame = CGRectZero;
-    }return self;
+    };return self;
 }
 
 - (void)showAdWithLocalResource:(NSString *)resourcePath
@@ -155,7 +153,7 @@ static dispatch_once_t JobsLaunchAdMgrOnceToken;
 -(AVPlayer *)videoPlayer{
     if(!_videoPlayer){
         _videoPlayer = [AVPlayer playerWithURL:self.url];
-    }return _videoPlayer;
+    };return _videoPlayer;
 }
 
 -(AVPlayerLayer *)playerLayer{
@@ -163,19 +161,19 @@ static dispatch_once_t JobsLaunchAdMgrOnceToken;
         _playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.videoPlayer];
         _playerLayer.frame = self.adView.bounds;
         [self.adView.layer addSublayer:_playerLayer];
-    }return _playerLayer;
+    };return _playerLayer;
 }
 
 -(NSURL *)url{
     if(!_url){
         _url = @"".jobsUrl;
-    }return _url;
+    };return _url;
 }
 
 -(NSString *)path{
     if(!_path){
         _path = @"";
-    }return _path;
+    };return _path;
 }
 
 -(UIImageView *)imageView{
@@ -184,13 +182,13 @@ static dispatch_once_t JobsLaunchAdMgrOnceToken;
         _imageView.frame = self.adView.bounds;
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.adView addSubview:_imageView];
-    }return _imageView;
+    };return _imageView;
 }
 
 -(UIImage *)image{
     if(_image){
         _image = [UIImage imageWithContentsOfFile:self.path];
-    }return _image;
+    };return _image;
 }
 
 -(UIView *)adView{
@@ -239,7 +237,7 @@ static dispatch_once_t JobsLaunchAdMgrOnceToken;
                         }];
                         
                         [self adDidFinish];
-                    }return nil;
+                    };return nil;
                 }];
                 _adView.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
             }
@@ -249,14 +247,14 @@ static dispatch_once_t JobsLaunchAdMgrOnceToken;
                     NSLog(@"双击手势被触发");
                     if (self.onDoubleTap) {
                         self.onDoubleTap();
-                    }return nil;
+                    };return nil;
                 }];
                 _adView.doubleTapGR.enabled = YES; // 必须在设置完Target和selector以后方可开启执行
             }
 
         }
         
-    }return _adView;
+    };return _adView;
 }
 
 -(UIButton *)countDownBtn{
@@ -297,7 +295,7 @@ static dispatch_once_t JobsLaunchAdMgrOnceToken;
             }
             [self adDidFinish];
         }];
-    }return _countDownBtn;
+    };return _countDownBtn;
 }
 
 -(UIButton<TimerProtocol> *)countDownBtn{
@@ -322,25 +320,25 @@ static dispatch_once_t JobsLaunchAdMgrOnceToken;
             make.top.equalTo(self).offset(JobsWidth(20));
             make.centerX.equalTo(self);
         }];
-    }return _countDownBtn;
+    };return _countDownBtn;
 }
 
 -(NSString *)buttonTitle{
     if(!_buttonTitle){
         _buttonTitle = @"跳过".tr;
-    }return _buttonTitle;
+    };return _buttonTitle;
 }
 
 -(NSInteger)countdownDuration{
     if(!_countdownDuration){
         _countdownDuration = 5;
-    }return _countdownDuration;
+    };return _countdownDuration;
 }
 
 -(NSString *)redirectURL{
     if(!_redirectURL){
         _redirectURL = @"https://www.google.com";
-    }return _redirectURL;
+    };return _redirectURL;
 }
 
 @end

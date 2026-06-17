@@ -1,6 +1,6 @@
 //
 //  LongPressToDeleteImageView.m
-//  ShengAi
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2018/12/4.
 //  Copyright © 2018 Jobs. All rights reserved.
@@ -18,7 +18,7 @@
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self
                                                                                                action:@selector(longPress:)];
         [self addGestureRecognizer:longPress];
-    }return self;
+    };return self;
 }
 
 -(void)longPress:(UILongPressGestureRecognizer*)longPress{

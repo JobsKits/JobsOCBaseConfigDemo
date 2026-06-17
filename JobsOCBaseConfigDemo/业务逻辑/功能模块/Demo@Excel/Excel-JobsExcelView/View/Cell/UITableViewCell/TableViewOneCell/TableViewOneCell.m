@@ -1,14 +1,12 @@
 //
 //  TableViewOneCell.m
-//  BlankProject
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 17/6/15.
 //  Copyright © 2017年 Mephsito. All rights reserved.
 //  特别鸣谢 https://github.com/Mephsito23/iOS-Excel-
 
 #import "TableViewOneCell.h"
-
-#import "DefineProperty.h"
 
 @interface TableViewOneCell()
 /// UI
@@ -32,7 +30,7 @@ Prop_assign()CGSize size;
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleValue1];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundColor = JobsWhiteColor;
-        }return cell;
+        };return cell;
     };
 }
 #pragma mark —— BaseCellProtocol
@@ -47,7 +45,7 @@ Prop_assign()CGSize size;
         if (!CGSizeEqualToSize(self.size, size)) {
             self.size = size;
             self.drawLineBySize(size);
-        }return self;
+        };return self;
     };
 }
 
@@ -81,7 +79,7 @@ Prop_assign()CGSize size;
                 make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, 0, 0, 0));
             }];
         });
-    }return _bgImageView_;
+    };return _bgImageView_;
 }
 
 -(UIBezierPath *)linePath{
@@ -89,7 +87,7 @@ Prop_assign()CGSize size;
         _linePath = jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable data) {
             data.moveTo(CGPointZero);
         });
-    }return _linePath;
+    };return _linePath;
 }
 
 -(CAShapeLayer *)lineLayer{
@@ -102,7 +100,7 @@ Prop_assign()CGSize size;
             data.path = self.linePath.CGPath;
             data.fillColor = JobsClearColor.colorWithAlphaComponentBy(0).CGColor;
         });
-    }return _lineLayer;
+    };return _lineLayer;
 }
 
 @end

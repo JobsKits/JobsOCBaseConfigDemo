@@ -1,13 +1,11 @@
 //
 //  UIImageView+SDWebImage.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 9/5/24.
 //
 
 #import "UIImageView+SDWebImage.h"
-
-#import "DefineProperty.h"
 
 @implementation UIImageView (SDWebImage)
 

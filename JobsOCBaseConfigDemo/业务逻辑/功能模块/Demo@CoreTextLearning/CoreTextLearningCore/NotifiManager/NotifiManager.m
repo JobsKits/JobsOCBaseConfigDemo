@@ -1,6 +1,6 @@
 //
 //  NotifiManager.m
-//  CoreTextLearning
+//  JobsOCBaseConfigDemo
 //
 //  Created by alan comb on 2021/4/10.
 //
@@ -8,8 +8,6 @@
 #import "NotifiManager.h"
 #import "NotifiOperation.h"
 #import "NotifiViewFactory.h"
-
-#import "DefineProperty.h"
 
 @interface NotifiManager()
 
@@ -60,7 +58,7 @@ Prop_strong()NSOperationQueue* queue;
     if (!_queue) {
         _queue = NSOperationQueue.new;
         _queue.maxConcurrentOperationCount = 1;
-    }return _queue;
+    };return _queue;
 }
 
 @end

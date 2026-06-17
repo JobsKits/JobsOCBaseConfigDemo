@@ -1,13 +1,11 @@
 //
 //  JobsSearchShowHotwordsTBVCell.m
-//  JobsSearch
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/4.
 //
 
 #import "JobsSearchShowHotwordsTBVCell.h"
-
-#import "DefineProperty.h"
 
 @interface JobsSearchShowHotwordsTBVCell ()
 
@@ -52,7 +50,7 @@ Prop_strong()JobsHotLabelByMultiLine *jobsHotLabel;
         self.viewModels = model;
         if (self.viewModels.count) {
             self.jobsHotLabel.jobsRichViewByModel(self.viewModels);
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— lazyLoad
@@ -67,7 +65,7 @@ Prop_strong()JobsHotLabelByMultiLine *jobsHotLabel;
         [self.contentView.addSubview(_jobsHotLabel) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView);
         }];
-    }return _jobsHotLabel;
+    };return _jobsHotLabel;
 }
 
 @end

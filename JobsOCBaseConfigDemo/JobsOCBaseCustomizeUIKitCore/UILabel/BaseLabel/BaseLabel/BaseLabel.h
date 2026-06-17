@@ -1,6 +1,6 @@
 //
 //  AutoScrollLabel.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/18.
 //
@@ -12,8 +12,7 @@
 #import "UILabel+Extra.h"
 #import "NSString+Others.h"
 #import "NSString+Check.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /**

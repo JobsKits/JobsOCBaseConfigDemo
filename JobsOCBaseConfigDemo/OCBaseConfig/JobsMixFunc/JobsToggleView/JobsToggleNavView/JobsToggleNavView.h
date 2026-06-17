@@ -1,6 +1,6 @@
 //
 //  RPTaggedNavView.h
-//  RPTaggedNavView
+//  JobsOCBaseConfigDemo
 //
 //  Created by Tao on 2018/8/8.
 //  Copyright © 2018年 Tao. All rights reserved.
@@ -16,8 +16,7 @@
 #import "UIView+Measure.h"
 #import "UIButtonModel.h"
 #import "JobsToggleNavViewProtocol.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @interface JobsToggleNavView : BaseView<JobsToggleNavViewProtocol>
 /// UI

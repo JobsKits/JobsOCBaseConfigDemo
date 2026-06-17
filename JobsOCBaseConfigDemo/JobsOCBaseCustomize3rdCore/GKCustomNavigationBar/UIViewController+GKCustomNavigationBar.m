@@ -1,13 +1,11 @@
 //
 //  UIViewController+GKCustomNavigationBar.m
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/5.
 //
 
 #import "UIViewController+GKCustomNavigationBar.h"
-
-#import "DefineProperty.h"
 
 @implementation UIViewController (GKCustomNavigationBar)
 #pragma mark —— 一些公有方法
@@ -50,7 +48,7 @@ JobsKey(_gk_navTitleBtn)
                     make.center.equalTo(self.gk_navigationBar);
                 }make.size.mas_equalTo(self.gk_navTitleBtnModel.jobsSize);
             });
-    }return navTitleBtn;
+    };return navTitleBtn;
 }
 
 -(void)setGk_navTitleBtn:(__kindof UIButton *)gk_navTitleBtn{

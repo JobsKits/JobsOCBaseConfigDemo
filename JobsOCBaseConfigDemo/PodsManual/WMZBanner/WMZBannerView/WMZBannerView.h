@@ -1,6 +1,6 @@
 //
 //  WMZBannerView.h
-//  WMZBanner
+//  JobsOCBaseConfigDemo
 //
 //  Created by wmz on 2019/9/6.
 //  Copyright © 2019 wmz. All rights reserved.
@@ -10,13 +10,11 @@
 
 //#import "NSString+Others.h"
 #import "JobsBlock.h"
-
 #import "WMZBannerParam.h"
 #import "WMZBannerFlowLayout.h"
 #import "WMZBannerControl.h"
 #import "WMZBannerOverLayout.h"
 #import "WMZBannerFadeLayout.h"
-
 #import "NSObject+Image.h"
 
 NS_ASSUME_NONNULL_BEGIN

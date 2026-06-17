@@ -1,6 +1,6 @@
 //
 //  JobsBaseDataSettingVC.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 9/9/24.
 //
@@ -123,7 +123,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         _vcs = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
             
         });
-    }return _vcs;
+    };return _vcs;
 }
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
@@ -133,7 +133,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
             data.textModel.textCor = HEXCOLOR(0x3D4A58);
             data.textModel.font = UIFontWeightRegularSize(16);
         });
-    }return _viewModel;
+    };return _viewModel;
 }
 /// 在具体的子类去实现，以覆盖父类的方法实现
 /// AppToolsProtocol
@@ -149,7 +149,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
             data.roundingCorners = UIRectCornerAllCorners;
             data.baseBackgroundColor = JobsClearColor;
         });
-    }return _closeBtnModel;
+    };return _closeBtnModel;
 }
 /// 在具体的子类去实现，以覆盖父类的方法实现
 /// AppToolsProtocol
@@ -168,7 +168,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
             self.backBtnClickEvent(x);
             return nil;
         };
-    }return _backBtnModel;
+    };return _backBtnModel;
 }
 
 @end

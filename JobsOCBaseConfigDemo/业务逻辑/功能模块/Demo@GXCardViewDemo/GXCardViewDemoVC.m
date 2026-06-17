@@ -1,13 +1,11 @@
 //
 //  GXCardViewDemoVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/7/6.
 //
 
 #import "GXCardViewDemoVC.h"
-
-#import "DefineProperty.h"
 
 @interface GXCardViewDemoVC ()
 /// UI
@@ -159,7 +157,7 @@ didRemoveLastCell:(GXCardViewCell *)cell
         [_cardView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
         }];
-    }return _cardView;
+    };return _cardView;
 }
 
 @end

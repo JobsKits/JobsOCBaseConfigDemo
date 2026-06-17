@@ -1,13 +1,11 @@
 //
 //  JobsScrollViewVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 9/20/23.
 //
 
 #import "JobsScrollViewVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsScrollViewVC ()
 
@@ -34,7 +32,7 @@ Prop_strong()JobsScrollYView *scrollYView;
             make.height.mas_equalTo(初始位置 - 终点位置);
             make.top.mas_equalTo(终点位置);
         }];
-    }return _jobsView;
+    };return _jobsView;
 }
 
 -(JobsScrollYView *)scrollYView{
@@ -83,7 +81,7 @@ Prop_strong()JobsScrollYView *scrollYView;
                 }
             }
         }];
-    }return _scrollYView;
+    };return _scrollYView;
 }
 
 @end

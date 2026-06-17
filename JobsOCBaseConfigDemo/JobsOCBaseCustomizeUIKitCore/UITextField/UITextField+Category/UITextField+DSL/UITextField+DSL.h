@@ -2,15 +2,20 @@
 //  UITextField+DSL.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Mac on 11/3/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UITEXTFIELD_DSL_7C1D8B29C3
+#define JOBS_HEADER_GUARD_UITEXTFIELD_DSL_7C1D8B29C3
 
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UITextField (DSL)
+
 #pragma mark —— 基础文本
 -(JobsRetTextFieldByStringBlock _Nonnull)byText;
 -(JobsRetTextFieldByAttributedStringBlock _Nonnull)byAttributedText API_AVAILABLE(ios(6.0));
@@ -56,6 +61,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetTextFieldByCGFloatrBlock _Nonnull)byLeftViewOffsetX;
 -(JobsRetTextFieldByCGFloatrBlock _Nonnull)byRightViewOffsetX;
 
+Prop_assign()NSTextAlignment placeHolderAlignment;
+Prop_assign()CGFloat leftViewOffsetX;
+Prop_assign()CGFloat rightViewOffsetX;
+
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UITEXTFIELD_DSL_7C1D8B29C3 */

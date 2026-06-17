@@ -1,12 +1,12 @@
 //
 //  YTKCustomBaseRequestProtocol.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 31/10/2024.
 //
 
 #import <Foundation/Foundation.h>
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

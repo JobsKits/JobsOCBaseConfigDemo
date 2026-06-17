@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "BaseProtocol.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @class AppDelegate;
 /// 单例工具箱
@@ -59,3 +59,17 @@ Prop_assign()FMLoginWork loginWork;
 @end
 
 NS_ASSUME_NONNULL_END
+/// 寻找当前屏幕真正的高
+NS_INLINE CGFloat JobsRealHeight(void){
+    return JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape ? JobsDeviceRealWidth() : JobsDeviceRealHeight();
+}
+/// 寻找当前屏幕真正的宽
+NS_INLINE CGFloat JobsRealWidth(void){
+    return JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape ? JobsDeviceRealHeight() : JobsDeviceRealWidth();
+}
+NS_INLINE __kindof UIWindow *_Nonnull
+jobsMakeAppDelegateWindow(jobsByWindowBlock _Nonnull block){
+    UIWindow *data = JobsAppTool.makeAppDelegateWindow;
+    if (block) block(data);
+    return data;
+}

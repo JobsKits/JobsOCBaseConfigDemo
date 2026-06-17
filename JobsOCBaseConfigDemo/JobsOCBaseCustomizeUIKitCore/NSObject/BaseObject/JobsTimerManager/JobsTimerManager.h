@@ -6,9 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "JobsTimer.h" // 依赖 JobsTimer / TimerProtocol / JobsBlock
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
+#import "JobsTimer.h"
+#import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,8 +29,6 @@ typedef NS_ENUM(NSUInteger, JobsTimerBackgroundPolicy) {
     JobsTimerBackgroundPolicyPauseAndResume,    // 后台自动 pause，前台自动 resume（只恢复“自动暂停”的）
     JobsTimerBackgroundPolicyCancel             // 进后台直接 stop + remove
 };
-
-typedef void(^JobsTimerManagerBuildBlock)(JobsTimer *timer);
 
 @interface JobsTimerManager : NSObject
 

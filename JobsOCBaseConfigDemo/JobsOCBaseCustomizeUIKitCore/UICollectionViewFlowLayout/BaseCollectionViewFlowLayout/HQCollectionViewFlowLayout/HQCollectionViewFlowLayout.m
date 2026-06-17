@@ -1,6 +1,6 @@
 //
 //  HQCollectionViewFlowLayout.m
-//  HQCollectionViewDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Mr_Han on 2018/10/10.
 //  Copyright © 2018年 Mr_Han. All rights reserved.
@@ -15,7 +15,7 @@
 - (instancetype)init{
     if (self = [super init]){
         _naviHeight = 0.0f;
-    }return self;
+    };return self;
 }
 /*
  // 作用:返回指定区域的cell布局对象

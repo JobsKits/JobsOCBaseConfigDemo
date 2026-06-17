@@ -1,6 +1,6 @@
 //
 //  NSObject+RunrtimeGet.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/6.
 //

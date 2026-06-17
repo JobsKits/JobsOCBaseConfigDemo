@@ -1,6 +1,6 @@
 //
 //  JobsDropDownListView.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/21.
 //
@@ -8,10 +8,9 @@
 #import "BaseView.h"
 #import "JobsBlock.h"
 #import "UITableViewCellProtocol.h"
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
+#import "JobsDefineEnums.h"
 #import "JobsDropDownListTBVCell.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -64,7 +63,7 @@ NS_ASSUME_NONNULL_END
          make.height.mas_equalTo(JobsWidth(30));
      }];
      _btn.makeBtnTitleByShowingType(UILabelShowingType_03);
- }return _btn;
+ };return _btn;
 }
  
  */

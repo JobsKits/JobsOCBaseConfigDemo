@@ -1,14 +1,12 @@
 //
 //  JobsAppDoorInputViewBaseStyle_8.m
-//  My_BaseProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/4.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "JobsAppDoorInputViewBaseStyle_8.h"
-
-#import "DefineProperty.h"
 
 @interface JobsAppDoorInputViewBaseStyle_8 ()
 /// UI
@@ -24,7 +22,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 -(instancetype)init{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -34,7 +32,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             data.jobsWidth = 1;
             data.layerCor = Cor3;
         }));
-    }return self;
+    };return self;
 }
 
 -(void)layoutSubviews{
@@ -132,7 +130,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             make.width.mas_equalTo(40);
             make.bottom.equalTo(self.titleLab.mas_top);
         }];
-    }return _securityModelBtn;
+    };return _securityModelBtn;
 }
 @synthesize zyTextField = _zyTextField;
 -(ZYTextField *)zyTextField{
@@ -158,7 +156,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         [self.addSubview(_zyTextField) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
-    }return _zyTextField;
+    };return _zyTextField;
 }
 
 -(UILabel *)titleLab{
@@ -175,7 +173,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                     make.top.equalTo(self.textField.mas_bottom);
                 }).on();
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 @end

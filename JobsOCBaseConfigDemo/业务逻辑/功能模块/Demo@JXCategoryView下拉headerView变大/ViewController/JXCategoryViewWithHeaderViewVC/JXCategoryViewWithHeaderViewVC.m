@@ -1,13 +1,11 @@
 //
 //  BaiShaETProjVIPVC.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/7.
 //
 
 #import "JXCategoryViewWithHeaderViewVC.h"
-
-#import "DefineProperty.h"
 
 @interface JXCategoryViewWithHeaderViewVC ()
 /// UI
@@ -152,7 +150,7 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
                                       JobsMainScreen_WIDTH(),
                                       JobsMainScreen_HEIGHT());
         _pagerView.pinSectionHeaderVerticalOffset = JobsWidth(0);/// 额外的偏移量
-    }return _pagerView;
+    };return _pagerView;
 }
 
 -(BaiShaETProjCollectionHeaderView *)collectionHeaderView{
@@ -164,7 +162,7 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
                                                  BaiShaETProjCollectionHeaderView.viewSizeByModel(nil).height);
         _collectionHeaderView.isZoom = YES;
         _collectionHeaderView.jobsRichViewByModel(nil);
-    }return _collectionHeaderView;
+    };return _collectionHeaderView;
 }
 
 -(JXCategoryTitleView *)categoryView{
@@ -200,7 +198,7 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
             }];[self.view layoutIfNeeded];
         });
 
-    }return _categoryView;
+    };return _categoryView;
 }
 
 -(BaseButton *)ruleBtn{
@@ -218,7 +216,7 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-    }return _ruleBtn;
+    };return _ruleBtn;
 }
 
 -(NSMutableArray<NSString *>*)titleMutArr{
@@ -228,7 +226,7 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
                 data.add(@"Lv".add(toStringByInt(i)).tr);
             }
         });
-    }return _titleMutArr;
+    };return _titleMutArr;
 }
 
 -(NSMutableArray<__kindof UIViewController *>*)childVCMutArr{
@@ -242,7 +240,7 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
                 data.add(vipSubVC);
             }
         });
-    }return _childVCMutArr;
+    };return _childVCMutArr;
 }
 
 @end

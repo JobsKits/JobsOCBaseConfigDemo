@@ -1,13 +1,11 @@
 //
 //  UIViewModel+App.m
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/7.
 //
 
 #import "UIViewModel+App.h"
-
-#import "DefineProperty.h"
 
 @implementation UIViewModel (App)
 #pragma mark —— Prop_assign()DataSourceType dataSourceType;

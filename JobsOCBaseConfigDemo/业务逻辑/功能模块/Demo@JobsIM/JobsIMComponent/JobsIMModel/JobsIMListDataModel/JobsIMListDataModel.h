@@ -1,6 +1,6 @@
 //
 //  JobsIMListDataModel.h
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/17.
 //
@@ -8,8 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "UIImage+YBGIF.h"
 #import "JobsBlock.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

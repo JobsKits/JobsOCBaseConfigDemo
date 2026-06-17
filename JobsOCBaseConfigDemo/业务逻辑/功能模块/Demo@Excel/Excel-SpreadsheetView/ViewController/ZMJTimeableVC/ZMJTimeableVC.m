@@ -1,13 +1,11 @@
 //
 //  ZMJTimeableVC.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/29/24.
 //
 
 #import "ZMJTimeableVC.h"
-
-#import "DefineProperty.h"
 
 @interface ZMJTimeableVC ()
 
@@ -173,7 +171,7 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
         cell.title = @"Dummy Text";
         cell.tableHighlight = duration > 20 ? @"Lorem ipsum dolor sit amet, consectetur adipiscing elit" : @"";
         return cell;
-    }return [spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(MyBlankCell.class) forIndexPath:indexPath];
+    };return [spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(MyBlankCell.class) forIndexPath:indexPath];
 }
 #pragma mark —— SpreadsheetViewDelegate
 - (void)spreadsheetView:(SpreadsheetView *)spreadsheetView
@@ -204,19 +202,19 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
         _channels.add(@"Drama");
         _channels.add(@"Hobby");
         _channels.add(@"Music");
-    }return _channels;
+    };return _channels;
 }
 
 -(NSInteger)numberOfRows{
     if (!_numberOfRows) {
         _numberOfRows = 24 * 60 + 1;
-    }return _numberOfRows;
+    };return _numberOfRows;
 }
 
 -(NSMutableDictionary<NSIndexPath *,NSArray<NSNumber *> *> *)slotInfo{
     if(!_slotInfo){
         _slotInfo = NSMutableDictionary.dictionary;
-    }return _slotInfo;
+    };return _slotInfo;
 }
 
 -(NSDateFormatter *)hourFormatter{
@@ -226,7 +224,7 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
             data.locale = [NSLocale.alloc initWithLocaleIdentifier:@"en_US_POSIX"];
             data.dateFormat = @"h\na";
         });
-    }return _hourFormatter;
+    };return _hourFormatter;
 }
 
 -(NSDateFormatter *)twelveHourFormatter{
@@ -236,7 +234,7 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
             data.locale = [NSLocale.alloc initWithLocaleIdentifier:@"en_US_POSIX"];
             data.dateFormat = @"H";
         });
-    }return _twelveHourFormatter;
+    };return _twelveHourFormatter;
 }
 
 -(SpreadsheetView *)spreadsheetView{
@@ -259,7 +257,7 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
             make.left.right.bottom.equalTo(self.view);
             [self make:make topOffset:10];
         }];[_spreadsheetView flashScrollIndicators];
-    }return _spreadsheetView;
+    };return _spreadsheetView;
 }
 
 @end

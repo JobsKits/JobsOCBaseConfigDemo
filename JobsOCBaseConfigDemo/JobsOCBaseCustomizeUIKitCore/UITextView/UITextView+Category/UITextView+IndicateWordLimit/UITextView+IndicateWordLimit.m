@@ -1,13 +1,11 @@
 //
 //  UITextView+IndicateWordLimit.m
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/2/25.
 //
 
 #import "UITextView+IndicateWordLimit.h"
-
-#import "DefineProperty.h"
 
 @implementation UITextView (IndicateWordLimit)
 #pragma mark —— Prop_strong()UILabel *indicateWordLimitLab;
@@ -29,7 +27,7 @@ JobsKey(_indicateWordLimitLab)
             label.bottom = self.height - self.offsetY;
             Jobs_setAssociatedRETAIN_NONATOMIC(_indicateWordLimitLab, label)
         });
-    }return IndicateWordLimitLab;
+    };return IndicateWordLimitLab;
 }
 
 -(void)setIndicateWordLimitLab:(UILabel *)indicateWordLimitLab{
@@ -55,7 +53,7 @@ JobsKey(_wordLimitNum)
     if (!WordLimitNum) {
         WordLimitNum = 500;
         Jobs_setAssociatedRETAIN_NONATOMIC(_wordLimitNum, @(WordLimitNum))
-    }return WordLimitNum;
+    };return WordLimitNum;
 }
 
 -(void)setWordLimitNum:(NSInteger)wordLimitNum{
@@ -69,7 +67,7 @@ JobsKey(_offsetX)
     if (!OffsetX) {
         OffsetX = JobsWidth(19.1);
         Jobs_setAssociatedRETAIN_NONATOMIC(_offsetX, @(OffsetX))
-    }return OffsetX;
+    };return OffsetX;
 }
 
 -(void)setOffsetX:(CGFloat)offsetX{
@@ -83,7 +81,7 @@ JobsKey(_offsetY)
     if (!OffsetY) {
         OffsetY = JobsWidth(13.1);
         Jobs_setAssociatedRETAIN_NONATOMIC(_offsetY, @(OffsetY))
-    }return OffsetY;
+    };return OffsetY;
 }
 
 -(void)setOffsetY:(CGFloat)offsetY{

@@ -1,6 +1,6 @@
 //
 //  NSString+Notification.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 10/4/24.
 //

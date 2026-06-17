@@ -7,8 +7,6 @@
 
 #import "UIView+Navigator.h"
 
-#import "DefineProperty.h"
-
 @implementation UIView (Navigator)
 #pragma mark —— 汇总方法
 /// 推页面
@@ -102,7 +100,7 @@ JobsKey(_navigator)
         Navigator = jobsMakeViewNavigator(^(__kindof JobsViewNavigator * _Nullable viewNavigator) {
             
         });Jobs_setAssociatedRETAIN_NONATOMIC(_navigator, Navigator)
-    }return Navigator;
+    };return Navigator;
 }
 
 -(void)setNavigator:(JobsViewNavigator *)navigator{

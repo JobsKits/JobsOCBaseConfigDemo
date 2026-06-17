@@ -1,13 +1,11 @@
 //
 //  NSObject+GTCaptcha4.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 9/12/24.
 //
 
 #import "NSObject+GTCaptcha4.h"
-
-#import "DefineProperty.h"
 
 @implementation NSObject (GTCaptcha4)
 #pragma mark —— BaseProtocol
@@ -92,7 +90,7 @@ JobsKey(_captchaSession)
         // config.timeout = 8.0f;
         // gtCaptcha4Session = [GTCaptcha4Session sessionWithCaptchaID:极验验证码KEY configuration:config];
         Jobs_setAssociatedRETAIN_NONATOMIC(_captchaSession, gtCaptcha4Session);
-    }return gtCaptcha4Session;
+    };return gtCaptcha4Session;
 }
 
 -(void)setCaptchaSession:(GTCaptcha4Session *)captchaSession{

@@ -7,7 +7,7 @@
 
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 #import "NSObject+image.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// Network Image Cell (ASNetworkImageNode) + Round

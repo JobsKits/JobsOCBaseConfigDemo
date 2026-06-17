@@ -1,6 +1,6 @@
 //
 //  ZMJHeaderCell.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/27/24.
 //
@@ -17,14 +17,14 @@
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0];
         self.btn.alpha = 1;
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
         self.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0];
         self.btn.alpha = 1;
-    }return self;
+    };return self;
 }
 
 @end

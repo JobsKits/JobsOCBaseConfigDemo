@@ -1,14 +1,12 @@
 //
 //  UITextField+Extend.m
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/15.
 //  Copyright © 2020 MonkeyKingVideo. All rights reserved.
 //
 
 #import "UITextField+Extend.h"
-
-#import "DefineProperty.h"
 
 @implementation UITextField (Extend)
 #pragma mark —— 一些功能方法
@@ -64,7 +62,7 @@ JobsKey(_customSysClearBtn)
                 JobsLog(@"");
             }).byFrame(CGRectMake(0.0f,0.0f,15.0f,15.0f));
         Jobs_setAssociatedRETAIN_NONATOMIC(_customSysClearBtn, CustomSysClearBtn)
-    }return CustomSysClearBtn;
+    };return CustomSysClearBtn;
 }
 
 -(void)setCustomSysClearBtn:(__kindof UIButton *)customSysClearBtn{

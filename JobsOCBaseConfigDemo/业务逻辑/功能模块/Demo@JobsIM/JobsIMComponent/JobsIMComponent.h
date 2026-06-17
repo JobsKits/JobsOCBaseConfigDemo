@@ -1,6 +1,6 @@
 //
 //  JobsIMComponent.h
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/3/29.
 //

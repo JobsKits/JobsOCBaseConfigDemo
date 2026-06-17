@@ -1,12 +1,13 @@
 //
 //  JobsShareView.h
-//  MataShop
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 10/16/23.
 //
 
 #import "BaseView.h"
 #import "MSMineView6CVCell.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

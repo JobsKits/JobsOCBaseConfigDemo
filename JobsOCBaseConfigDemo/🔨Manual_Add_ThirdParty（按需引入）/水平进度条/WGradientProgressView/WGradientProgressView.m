@@ -1,14 +1,12 @@
 //
 //  WGradientProgressLab.m
-//  Shooting
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/9.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "WGradientProgressView.h"
-
-#import "DefineProperty.h"
 
 @interface WGradientProgressView ()
 
@@ -23,7 +21,7 @@ static dispatch_once_t dispatchOnce;
 - (instancetype)init{
     if (self = [super init]) {
         dispatchOnce = 0;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -52,7 +50,7 @@ static dispatch_once_t dispatchOnce;
                 make.center.equalTo(self);
             }];
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(UIImageView *)imgV{
@@ -66,21 +64,22 @@ static dispatch_once_t dispatchOnce;
                 make.edges.equalTo(self);
             }];
         });
-    }return _imgV;
+    };return _imgV;
 }
 
 -(UIFont *)titleFont{
     if (!_titleFont) {
         _titleFont = UIFontWeightRegularSize(JobsWidth(6.5));
-    }return _titleFont;
+    };return _titleFont;
 }
 
 -(UIColor *)titleColor{
     if (!_titleColor) {
         _titleColor = JobsRedColor;
-    }return _titleColor;
+    };return _titleColor;
 }
 
+#pragma mark —— titleStr
 -(void)setTitleStr:(NSString *)titleStr{
     _titleStr = titleStr;
     _titleLab.text = _titleStr;

@@ -1,13 +1,11 @@
 //
 //  FMMaintenanceView.m
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/19.
 //
 
 #import "FMMaintenanceView.h"
-
-#import "DefineProperty.h"
 
 @interface FMMaintenanceView ()
 /// UI
@@ -23,13 +21,13 @@ Prop_strong()UILabel *timeLab;
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -43,7 +41,7 @@ Prop_strong()UILabel *timeLab;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -73,7 +71,7 @@ Prop_strong()UILabel *timeLab;
             make.left.equalTo(self).offset(JobsWidth(41.44));
             make.size.mas_equalTo(CGSizeMake(JobsWidth(187), JobsWidth(174)));
         }).on();
-    }return _imageView;
+    };return _imageView;
 }
 @synthesize label = _label;
 -(__kindof UILabel *)label{
@@ -89,7 +87,7 @@ Prop_strong()UILabel *timeLab;
             make.left.equalTo(self);
             make.size.mas_equalTo(CGSizeMake(JobsWidth(270), JobsWidth(28)));
         }).on();
-    }return _label;
+    };return _label;
 }
 @synthesize subLabel = _subLabel;
 -(__kindof UILabel *)subLabel{
@@ -108,7 +106,7 @@ Prop_strong()UILabel *timeLab;
             make.width.mas_equalTo(JobsWidth(270));
         }).on();
         _subLabel.makeLabelByShowingType(UILabelShowingType_05);
-    }return _subLabel;
+    };return _subLabel;
 }
 
 -(UILabel *)timeLab{
@@ -131,7 +129,7 @@ Prop_strong()UILabel *timeLab;
             make.width.mas_equalTo(JobsWidth(270));
         }).on();
         _timeLab.makeLabelByShowingType(UILabelShowingType_05);
-    }return _timeLab;
+    };return _timeLab;
 }
 
 @end

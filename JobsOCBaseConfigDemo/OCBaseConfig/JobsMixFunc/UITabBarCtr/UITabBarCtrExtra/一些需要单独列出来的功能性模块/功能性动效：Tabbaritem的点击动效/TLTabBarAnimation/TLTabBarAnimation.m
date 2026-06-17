@@ -1,6 +1,6 @@
 //
 //  TLTabBarAnimation.m
-//  TabBar
+//  JobsOCBaseConfigDemo
 //
 //  Created by 故乡的云 on 2019/7/19.
 //  Copyright © 2019 故乡的云. All rights reserved.
@@ -14,7 +14,7 @@ NSArray *reversedArray(NSArray *arr) {
     NSMutableArray *temp = [NSMutableArray arrayWithCapacity:arr.count];
     for (NSInteger i = arr.count - 1; i >= 0; i--) {
         [temp addObject:arr[i]];
-    }return [temp copy];
+    };return [temp copy];
 }
 /// 创建CAKeyframeAnimation动画
 CAKeyframeAnimation * createAnimation(NSString *keyPath,

@@ -1,6 +1,6 @@
 //
 //  RequestTool.h
-//  ZBNetworkingDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Suzhibin on 2020/6/2.
 //  Copyright © 2020 Suzhibin. All rights reserved.
@@ -15,16 +15,12 @@
 #import "NSObject+UserInfo.h"
 #import "NSMutableArray+Extra.h"
 #import "NSMutableDictionary+Extra.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFNetworking.h>
-#elif __has_include("AFNetworking.h")
-#import "AFNetworking.h"
-#elif __has_include("AFNetworking-umbrella.h")
-#import "AFNetworking-umbrella.h"
 #else
-#error "AFNetworking header not found"
+#import "AFNetworking.h"
 #endif
 
 NS_INLINE AFHTTPRequestSerializer <AFURLRequestSerialization> *_Nonnull AFRequestSerializer(void){

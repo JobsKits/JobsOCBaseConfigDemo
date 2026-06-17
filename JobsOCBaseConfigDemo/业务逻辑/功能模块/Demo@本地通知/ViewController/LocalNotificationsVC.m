@@ -1,13 +1,11 @@
 //
 //  CtrlClipboardCueVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2024/4/26.
 //
 
 #import "LocalNotificationsVC.h"
-
-#import "DefineProperty.h"
 
 @interface LocalNotificationsVC ()
 /// UI
@@ -106,7 +104,7 @@ Prop_strong()BaseButton *btn;
             make.size.mas_equalTo(CGSizeMake(JobsWidth(80), JobsWidth(60)));
         }];
         _btn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _btn;
+    };return _btn;
 }
 
 @end

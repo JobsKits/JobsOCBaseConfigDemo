@@ -18,7 +18,7 @@ Prop_assign()BOOL right;
     if (self = [super init]) {
         self.param = param;
         self.collectionView.bounces = NO;
-    }return self;
+    };return self;
 }
 
 - (void)prepareLayout

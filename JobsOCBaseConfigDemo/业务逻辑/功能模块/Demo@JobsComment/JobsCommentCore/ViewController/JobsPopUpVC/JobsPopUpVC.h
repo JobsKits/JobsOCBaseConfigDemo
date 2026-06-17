@@ -1,6 +1,6 @@
 //
 //  PopUpVC.h
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/7/6.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
-#import "JobsDefineAllEnumHeader.h"
-#import "DefineProperty.h"
+#import "JobsDefineEnums.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 //此类解耦手势

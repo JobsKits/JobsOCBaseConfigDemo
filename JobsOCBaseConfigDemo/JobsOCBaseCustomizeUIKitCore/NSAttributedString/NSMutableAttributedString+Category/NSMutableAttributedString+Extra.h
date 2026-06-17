@@ -1,6 +1,6 @@
 //
 //  NSMutableAttributedString+Extra.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2024/4/26.
 //
@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 NS_ASSUME_NONNULL_END
 /**
  
- #import <CoreText/CoreText.h>
+#import <CoreText/CoreText.h>
  
  kCTFontAttributeName    设置字体 (CTFontRef)
  kCTForegroundColorAttributeName    设置字体颜色 (CGColorRef)

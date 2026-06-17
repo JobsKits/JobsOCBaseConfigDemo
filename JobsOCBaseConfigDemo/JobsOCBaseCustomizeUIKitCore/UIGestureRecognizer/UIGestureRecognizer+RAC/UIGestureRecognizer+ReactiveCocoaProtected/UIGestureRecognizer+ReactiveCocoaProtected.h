@@ -1,6 +1,6 @@
 //
 //  UIGestureRecognizer+ReactiveCocoaProtected.h
-//  GestureRecognizerRACExt
+//  JobsOCBaseConfigDemo
 //
 //  Created by kaiinui on 2014/09/07.
 //  Copyright (c) 2014年 kaiinui. All rights reserved.
@@ -9,8 +9,8 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "MacroDef_Sys.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else

@@ -1,6 +1,6 @@
 //
 //  JobsTabBarCtrlConstruction.h
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/1/11.
 //
@@ -40,7 +40,7 @@ NS_INLINE NSArray *imgs(void){//静态轮播图
         NSString *imgName = [NSString stringWithFormat:@"Tools_000%zi", i];
         CGImageRef img = imgName.img.CGImage;
         [temp addObject:(__bridge id _Nonnull)(img)];
-    }return temp;
+    };return temp;
 }
 
 NS_INLINE TLFrameAnimation *frameAnimation(void){

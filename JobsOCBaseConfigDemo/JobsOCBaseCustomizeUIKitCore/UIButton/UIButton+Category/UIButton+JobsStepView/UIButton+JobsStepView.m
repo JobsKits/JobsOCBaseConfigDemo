@@ -1,13 +1,11 @@
 //
 //  UIButton+JobsStepView.m
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/22.
 //
 
 #import "UIButton+JobsStepView.h"
-
-#import "DefineProperty.h"
 
 @implementation UIButton (JobsStepView)
 

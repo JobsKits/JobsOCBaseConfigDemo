@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorForgotCodeContentView.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/22.
 //
@@ -8,8 +8,6 @@
 #import "JobsAppDoorForgotCodeContentView.h"
 
 @class JobsAppDoorDoorInputViewBaseStyle;
-
-#import "DefineProperty.h"
 
 @interface JobsAppDoorForgotCodeContentView ()
 /// UI
@@ -31,7 +29,7 @@ Prop_strong()JobsHotLabelBySingleLine *hl;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = Cor2;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -78,7 +76,7 @@ Prop_strong()JobsHotLabelBySingleLine *hl;
             label.top = JobsWidth(20);
             self.addSubview(label);
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(BaseButton *)backToLoginBtn{
@@ -108,7 +106,7 @@ Prop_strong()JobsHotLabelBySingleLine *hl;
         }];
         [self layoutIfNeeded];
         _backToLoginBtn.makeBtnTitleByShowingType(UILabelShowingType_05);
-    }return _backToLoginBtn;
+    };return _backToLoginBtn;
 }
 
 -(BaseButton *)contactCustomerServiceBtn{
@@ -131,7 +129,7 @@ Prop_strong()JobsHotLabelBySingleLine *hl;
             make.centerX.equalTo(self.titleLab);
         }];
 
-    }return _contactCustomerServiceBtn;
+    };return _contactCustomerServiceBtn;
 }
 
 -(UILabel *)subTitleLab{
@@ -152,7 +150,7 @@ Prop_strong()JobsHotLabelBySingleLine *hl;
                 make.width.mas_equalTo(self.width - JobsWidth(80));
             }];
         });
-    }return _subTitleLab;
+    };return _subTitleLab;
 }
 
 -(JobsHotLabelBySingleLine *)hl{
@@ -170,7 +168,7 @@ Prop_strong()JobsHotLabelBySingleLine *hl;
         }];
         [self layoutIfNeeded];
         _hl.jobsRichViewByModel(self.hotLabelDataMutArr);
-    }return _hl;
+    };return _hl;
 }
 /**
     在 @interface NSObject (AppTools)<AppToolsProtocol>里
@@ -194,7 +192,7 @@ Prop_strong()JobsHotLabelBySingleLine *hl;
 //            [_hotLabelDataMutArr addObject:vm];
 //        }
 //
-//    }return _hotLabelDataMutArr;
+//    };return _hotLabelDataMutArr;
 //}
 
 @end

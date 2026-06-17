@@ -1,13 +1,11 @@
 //
 //  JobsStepView.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/31/24.
 //
 
 #import "JobsStepView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsStepView ()
 
@@ -34,13 +32,13 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -54,7 +52,7 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -265,49 +263,49 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
 -(NSMutableArray<BaseButton *> *)btnMutArr{
     if(!_btnMutArr){
         _btnMutArr = NSMutableArray.array;
-    }return _btnMutArr;
+    };return _btnMutArr;
 }
 
 -(NSMutableArray<UIButtonModel *> *)btnModelMutArr{
     if(!_btnModelMutArr){
         _btnModelMutArr = NSMutableArray.array;
-    }return _btnModelMutArr;
+    };return _btnModelMutArr;
 }
 
 -(CGFloat)leftViewWidth{
     if(!_leftViewWidth){
         _leftViewWidth = JobsWidth(80);
-    }return _leftViewWidth;
+    };return _leftViewWidth;
 }
 
 -(CGFloat)rightViewWidth{
     if(!_rightViewWidth){
         _rightViewWidth = JobsWidth(80);
-    }return _rightViewWidth;
+    };return _rightViewWidth;
 }
 
 -(UIColor *)leftLabHighlightBgCor{
     if(!_leftLabHighlightBgCor){
         _leftLabHighlightBgCor = JobsWhiteColor;
-    }return _leftLabHighlightBgCor;
+    };return _leftLabHighlightBgCor;
 }
 
 -(UIColor *)rightLabHighlightBgCor{
     if(!_rightLabHighlightBgCor){
         _rightLabHighlightBgCor = JobsWhiteColor;
-    }return _rightLabHighlightBgCor;
+    };return _rightLabHighlightBgCor;
 }
 
 -(UIColor *)leftLabNormalBgCor{
     if(!_leftLabNormalBgCor){
         _leftLabNormalBgCor = JobsGrayColor;
-    }return _leftLabNormalBgCor;
+    };return _leftLabNormalBgCor;
 }
 
 -(UIColor *)rightLabNormalBgCor{
     if(!_rightLabNormalBgCor){
         _rightLabNormalBgCor = JobsGrayColor;
-    }return _rightLabNormalBgCor;
+    };return _rightLabNormalBgCor;
 }
 
 @end

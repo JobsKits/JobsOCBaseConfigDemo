@@ -1,13 +1,13 @@
 //
 //  NSString+Replace.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/30.
 //
 
 #import <Foundation/Foundation.h>
 #import "MacroDef_SysWarning.h"
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
 #import "JobsBlock.h"
 #import "NSNumber+Extra.h"
 #import "NSString+Others.h"

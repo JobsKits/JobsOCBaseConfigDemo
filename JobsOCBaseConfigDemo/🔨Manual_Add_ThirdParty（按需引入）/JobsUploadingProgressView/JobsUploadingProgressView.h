@@ -1,13 +1,12 @@
 //
 //  JobsUploadingProgressView.h
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by xxx on 2021/1/12.
 //
 
 #import "BaseView.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

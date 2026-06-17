@@ -1,6 +1,6 @@
 //
 //  UIViewController+XLBubbleTransition.h
-//  XLBubbleTransitionDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by MengXianLiang on 2017/4/1.
 //  Copyright © 2017年 MengXianLiang. All rights reserved.
@@ -11,7 +11,7 @@
 #import "XLBubbleTransition.h"
 
 @class XLBubbleTransition;
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @interface UIViewController (XLBubbleTransition)
 <

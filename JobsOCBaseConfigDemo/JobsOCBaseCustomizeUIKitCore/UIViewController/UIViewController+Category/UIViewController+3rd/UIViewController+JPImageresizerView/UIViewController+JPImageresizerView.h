@@ -1,6 +1,6 @@
 //
 //  UIViewController+JPImageresizerView.h
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/12.
 //
@@ -8,14 +8,16 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<JPImageresizerView/JPImageresizerView.h>)
 #import <JPImageresizerView/JPImageresizerView.h>
 #else
 #import "JPImageresizerView.h"
 #endif
 
+#ifndef JPIMAGERESIZER_CONFIGURE_TYPE_ENUM
+#define JPIMAGERESIZER_CONFIGURE_TYPE_ENUM
 typedef enum : NSInteger {
     /// 默认配置裁剪图片/GIF（UIImage）
     JPImageresizerConfigureType_1 = 0,
@@ -42,6 +44,7 @@ typedef enum : NSInteger {
     /// 深色毛玻璃配置裁剪视频（AVURLAsset）
     JPImageresizerConfigureType_12
 } JPImageresizerConfigureType;
+#endif /* JPIMAGERESIZER_CONFIGURE_TYPE_ENUM */
 
 NS_ASSUME_NONNULL_BEGIN
 

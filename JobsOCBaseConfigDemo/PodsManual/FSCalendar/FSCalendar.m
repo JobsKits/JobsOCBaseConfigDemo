@@ -1,6 +1,6 @@
 //
 //  FSCalendar.m
-//  FSCalendar
+//  JobsOCBaseConfigDemo
 //
 //  Created by Wenchao Ding on 29/1/15.
 //  Copyright © 2016 Wenchao Ding. All rights reserved.
@@ -11,7 +11,6 @@
 #import "FSCalendarWeekdayView.h"
 #import "FSCalendarStickyHeader.h"
 #import "FSCalendarCollectionViewLayout.h"
-
 #import "FSCalendarExtensions.h"
 #import "FSCalendarDynamicHeader.h"
 #import "FSCalendarCollectionView.h"
@@ -112,8 +111,6 @@ Prop_strong()FSCalendarAppearance *appearance;
 @end
 
 @implementation FSCalendar
-
-@dynamic selectedDate;
 @synthesize scopeGesture = _scopeGesture, swipeToChooseGesture = _swipeToChooseGesture;
 
 #pragma mark - Life Cycle && Initialize
@@ -123,7 +120,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     self = [super initWithFrame:frame];
     if (self) {
         [self initialize];
-    }return self;
+    };return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -131,93 +128,93 @@ Prop_strong()FSCalendarAppearance *appearance;
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self initialize];
-    }return self;
+    };return self;
 }
 
 -(FSCalendarAppearance *)appearance{
     if(!_appearance){
         _appearance = FSCalendarAppearance.new;
         _appearance.calendar = self;
-    }return _appearance;
+    };return _appearance;
 }
 
 -(NSCalendar *)gregorian{
     if(!_gregorian){
         _gregorian = [NSCalendar.alloc initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    }return _gregorian;
+    };return _gregorian;
 }
 
 -(NSDateFormatter *)formatter{
     if(!_formatter){
         _formatter = NSDateFormatter.new;
         _formatter.dateFormat = @"yyyy-MM-dd";
-    }return _formatter;
+    };return _formatter;
 }
 @synthesize locale = _locale;
 -(NSLocale *)locale{
     if(!_locale){
         _locale = NSLocale.currentLocale;
-    }return _locale;
+    };return _locale;
 }
 @synthesize timeZone = _timeZone;
 -(NSTimeZone *)timeZone{
     if(!_timeZone){
         _timeZone = NSTimeZone.defaultTimeZone;
-    }return _timeZone;
+    };return _timeZone;
 }
 @synthesize today = _today;
 -(NSDate *)today{
     if(!_today){
         _today = [self.gregorian startOfDayForDate:NSDate.date];
-    }return _today;
+    };return _today;
 }
 @synthesize currentPage = _currentPage;
 -(NSDate *)currentPage{
     if(!_currentPage){
         _currentPage = [self.gregorian fs_firstDayOfMonth:self.today];
-    }return _currentPage;
+    };return _currentPage;
 }
 @synthesize minimumDate = _minimumDate;
 -(NSDate *)minimumDate{
     if(!_minimumDate){
         _minimumDate = [self.formatter dateFromString:@"1970-01-01"];
-    }return _minimumDate;
+    };return _minimumDate;
 }
 @synthesize maximumDate = _maximumDate;
 -(NSDate *)maximumDate{
     if(!_maximumDate){
         _maximumDate = [self.formatter dateFromString:@"2099-12-31"];
-    }return _maximumDate;
+    };return _maximumDate;
 }
 
 -(NSArray<NSDate *> *)selectedDates{
     if(!_selectedDates){
         _selectedDates = NSMutableArray.array;
-    }return _selectedDates;
+    };return _selectedDates;
 }
 
 -(NSMapTable *)visibleSectionHeaders{
     if(!_visibleSectionHeaders){
         _visibleSectionHeaders = NSMapTable.weakToWeakObjectsMapTable;
-    }return _visibleSectionHeaders;
+    };return _visibleSectionHeaders;
 }
 
 -(FSCalendarDelegationProxy *)dataSourceProxy{
     if(!_dataSourceProxy){
         _dataSourceProxy = FSCalendarDelegationFactory.dataSourceProxy;
-    }return _dataSourceProxy;
+    };return _dataSourceProxy;
 }
 
 -(FSCalendarDelegationProxy *)delegateProxy{
     if(!_delegateProxy){
         _delegateProxy = FSCalendarDelegationFactory.delegateProxy;
-    }return _delegateProxy;
+    };return _delegateProxy;
 }
 
 -(NSMutableArray<NSOperation *> *)didLayoutOperations{
     if(!_didLayoutOperations){
         _didLayoutOperations = NSMutableArray.array;
-    }return _didLayoutOperations;
+    };return _didLayoutOperations;
 }
 
 -(UIView *)contentView{
@@ -229,7 +226,7 @@ Prop_strong()FSCalendarAppearance *appearance;
             view.clipsToBounds = YES;
             [self addSubview:view];
         });
-    }return _contentView;
+    };return _contentView;
 }
 
 -(UIView *)daysContainer{
@@ -241,7 +238,7 @@ Prop_strong()FSCalendarAppearance *appearance;
             view.clipsToBounds = YES;
             [self.contentView addSubview:view];
         });
-    }return _daysContainer;
+    };return _daysContainer;
 }
 
 -(__kindof UICollectionView *)collectionView{
@@ -264,26 +261,26 @@ Prop_strong()FSCalendarAppearance *appearance;
         [_collectionView registerClass:UICollectionReusableView.class forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
                    withReuseIdentifier:@"placeholderHeader"];
         [self.daysContainer addSubview:_collectionView];
-    }return _collectionView;
+    };return _collectionView;
 }
 
 -(FSCalendarCollectionViewLayout *)collectionViewLayout{
     if(!_collectionViewLayout){
         _collectionViewLayout = FSCalendarCollectionViewLayout.new;
         _collectionViewLayout.calendar = self;
-    }return _collectionViewLayout;
+    };return _collectionViewLayout;
 }
 
 -(FSCalendarTransitionCoordinator *)transitionCoordinator{
     if(!_transitionCoordinator){
         _transitionCoordinator = [FSCalendarTransitionCoordinator.alloc initWithCalendar:self];
-    }return _transitionCoordinator;
+    };return _transitionCoordinator;
 }
 
 -(FSCalendarCalculator *)calculator{
     if(!_calculator){
         _calculator = [FSCalendarCalculator.alloc initWithCalendar:self];
-    }return _calculator;
+    };return _calculator;
 }
 
 - (void)initialize
@@ -326,6 +323,7 @@ Prop_strong()FSCalendarAppearance *appearance;
 
 #pragma mark - Overriden methods
 
+#pragma mark —— bounds
 - (void)setBounds:(CGRect)bounds
 {
     [super setBounds:bounds];
@@ -334,6 +332,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     }
 }
 
+#pragma mark —— frame
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
@@ -342,6 +341,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     }
 }
 
+#pragma mark —— value
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
 #if !TARGET_INTERFACE_BUILDER
@@ -363,6 +363,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     
 }
 
+#pragma mark —— timeZone
 - (void)setTimeZone:(NSTimeZone *)tz
 {
     _timeZone = tz;
@@ -736,6 +737,7 @@ Prop_strong()FSCalendarAppearance *appearance;
 
 #pragma mark - Properties
 
+#pragma mark —— scrollDirection
 - (void)setScrollDirection:(FSCalendarScrollDirection)scrollDirection
 {
     if (_scrollDirection != scrollDirection) {
@@ -767,11 +769,13 @@ Prop_strong()FSCalendarAppearance *appearance;
     return NO;
 }
 
+#pragma mark —— scope
 - (void)setScope:(FSCalendarScope)scope
 {
     [self setScope:scope animated:NO];
 }
 
+#pragma mark —— firstWeekday
 - (void)setFirstWeekday:(NSUInteger)firstWeekday
 {
     if (_firstWeekday != firstWeekday) {
@@ -784,6 +788,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     }
 }
 
+#pragma mark —— today
 - (void)setToday:(NSDate *)today
 {
     if (!today) {
@@ -799,11 +804,13 @@ Prop_strong()FSCalendarAppearance *appearance;
     }
 }
 
+#pragma mark —— currentPage
 - (void)setCurrentPage:(NSDate *)currentPage
 {
     [self setCurrentPage:currentPage animated:NO];
 }
 
+#pragma mark —— currentPage
 - (void)setCurrentPage:(NSDate *)currentPage animated:(BOOL)animated
 {
     [self requestBoundingDatesIfNecessary];
@@ -878,6 +885,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     return frame;
 }
 
+#pragma mark —— headerHeight
 - (void)setHeaderHeight:(CGFloat)headerHeight
 {
     if (_headerHeight != headerHeight) {
@@ -887,6 +895,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     }
 }
 
+#pragma mark —— weekdayHeight
 - (void)setWeekdayHeight:(CGFloat)weekdayHeight
 {
     if (_weekdayHeight != weekdayHeight) {
@@ -896,6 +905,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     }
 }
 
+#pragma mark —— locale
 - (void)setLocale:(NSLocale *)locale
 {
     if (![_locale isEqual:locale]) {
@@ -908,6 +918,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     }
 }
 
+#pragma mark —— allowsMultipleSelection
 - (void)setAllowsMultipleSelection:(BOOL)allowsMultipleSelection
 {
     _collectionView.allowsMultipleSelection = allowsMultipleSelection;
@@ -918,6 +929,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     return _collectionView.allowsMultipleSelection;
 }
 
+#pragma mark —— allowsSelection
 - (void)setAllowsSelection:(BOOL)allowsSelection
 {
     _collectionView.allowsSelection = allowsSelection;
@@ -928,6 +940,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     return _collectionView.allowsSelection;
 }
 
+#pragma mark —— pagingEnabled
 - (void)setPagingEnabled:(BOOL)pagingEnabled
 {
     if (_pagingEnabled != pagingEnabled) {
@@ -937,6 +950,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     }
 }
 
+#pragma mark —— scrollEnabled
 - (void)setScrollEnabled:(BOOL)scrollEnabled
 {
     if (_scrollEnabled != scrollEnabled) {
@@ -949,6 +963,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     }
 }
 
+#pragma mark —— orientation
 - (void)setOrientation:(FSCalendarOrientation)orientation
 {
     if (_orientation != orientation) {
@@ -1052,6 +1067,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     return _swipeToChooseGesture;
 }
 
+#pragma mark —— dataSource
 - (void)setDataSource:(id<FSCalendarDataSource>)dataSource
 {
     self.dataSourceProxy.delegation = dataSource;
@@ -1062,6 +1078,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     return self.dataSourceProxy.delegation;
 }
 
+#pragma mark —— delegate
 - (void)setDelegate:(id<FSCalendarDelegate>)delegate
 {
     self.delegateProxy.delegation = delegate;
@@ -1083,6 +1100,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     [self.collectionView reloadData];
 }
 
+#pragma mark —— scope
 - (void)setScope:(FSCalendarScope)scope animated:(BOOL)animated
 {
     if (self.floatingMode) return;
@@ -1093,6 +1111,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     }];
 }
 
+#pragma mark —— placeholderType
 - (void)setPlaceholderType:(FSCalendarPlaceholderType)placeholderType
 {
     _placeholderType = placeholderType;
@@ -1103,6 +1122,7 @@ Prop_strong()FSCalendarAppearance *appearance;
     [self adjustBoundingRectIfNecessary];
 }
 
+#pragma mark —— adjustsBoundingRectWhenChangingMonths
 - (void)setAdjustsBoundingRectWhenChangingMonths:(BOOL)adjustsBoundingRectWhenChangingMonths
 {
     _adjustsBoundingRectWhenChangingMonths = adjustsBoundingRectWhenChangingMonths;
@@ -1690,5 +1710,4 @@ Prop_strong()FSCalendarAppearance *appearance;
 
 
 @end
-
 

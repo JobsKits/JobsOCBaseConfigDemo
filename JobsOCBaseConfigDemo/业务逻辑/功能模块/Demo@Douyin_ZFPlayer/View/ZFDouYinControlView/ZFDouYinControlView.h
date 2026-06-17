@@ -1,6 +1,6 @@
 //
 //  ZFDouYinControlView.h
-//  ZFPlayer_Example
+//  JobsOCBaseConfigDemo
 //
 //  Created by 任子丰 on 2018/6/4.
 //  Copyright © 2018年 紫枫. All rights reserved.
@@ -14,6 +14,7 @@
 #import <ZFPlayer/ZFUtilities.h>
 #import <ZFPlayer/ZFSliderView.h>
 #import <ZFPlayer/ZFPlayerController.h>
+#import "JobsDefineProperty.h"
 
 @interface ZFDouYinControlView : UIView <ZFPlayerMediaControl>
 

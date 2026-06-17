@@ -1,13 +1,11 @@
 //
 //  JobsShowNumView.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/13.
 //
 
 #import "JobsShowNumView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsShowNumView ()
 /// UI
@@ -39,13 +37,13 @@ static dispatch_once_t static_showNumViewOnceToken;
     if (self = [super init]) {
         self.backgroundColor = JobsClearColor;
 //        self.backgroundImageView.image = @"弹框样式_03背景图".img;
-    }return self;
+    };return self;
 }
 /// 初始化的时候最好传入一个size值将其子视图的大小固定死。因为只有当父视图有Size的情况下子视图才会展开，从而避免刷新约束时候的一系列麻烦事。
 -(instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.thisViewSize = thisViewSize;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -110,7 +108,7 @@ static dispatch_once_t static_showNumViewOnceToken;
 -(NSMutableArray<UIButton *> *)btnMutArr{
     if (!_btnMutArr) {
         _btnMutArr = NSMutableArray.array;
-    }return _btnMutArr;
+    };return _btnMutArr;
 }
 
 @end

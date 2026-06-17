@@ -1,6 +1,6 @@
 //
 //  UIImage+YBGIF.m
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/7/1.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -88,7 +88,7 @@
             NSData *data = [NSData dataWithContentsOfFile:path];
             if (data) {
                 return UIImage.animatedGIFWithData(data);
-            }return @"name".img;
+            };return @"name".img;
         }
     };
 }

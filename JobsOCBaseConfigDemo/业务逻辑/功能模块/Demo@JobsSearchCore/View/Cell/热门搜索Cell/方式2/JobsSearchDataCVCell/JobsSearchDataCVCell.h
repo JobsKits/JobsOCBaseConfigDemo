@@ -1,6 +1,6 @@
 //
 //  DataCollectionViewCell.h
-//  JobsSearch
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/22.
 //
@@ -8,6 +8,7 @@
 #import "BaseCellProtocol.h"
 #import "UIViewModelProtocol.h"
 #import "JobsBaseCollectionViewCell.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

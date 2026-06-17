@@ -1,11 +1,12 @@
 //
 //  BaiShaETProjBankAccMgmtCVCell.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/7/7.
 //
 
 #import "TMSWalletCollectionViewCell.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

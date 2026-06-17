@@ -1,6 +1,6 @@
 //
 //  UIScrollView+FDFullscreenPopGesture.m
-//  FDFullscreenPopGestureDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/6.
 //  Copyright © 2020 forkingdog. All rights reserved.
@@ -16,7 +16,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         if ([otherGestureRecognizer.delegate isKindOfClass:NSClassFromString(@"_FDFullscreenPopGestureRecognizerDelegate")]) {
             return YES;
         }
-    }return NO;
+    };return NO;
 }
 
 @end

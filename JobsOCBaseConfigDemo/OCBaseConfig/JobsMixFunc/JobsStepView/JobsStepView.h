@@ -1,15 +1,15 @@
 //
 //  JobsStepView.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/31/24.
 //
 
 #import "BaseView.h"
 #import "JobsBlock.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "UIButton+JobsStepView.h"
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
+#import "JobsDefineEnums.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -72,7 +72,7 @@ NS_INLINE __kindof JobsStepView *_Nonnull jobsMakeStepView(jobsByStepViewBlock _
              make.centerX.equalTo(self.view);
              make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(100)));
          }).on().byBgColor(JobsWhiteColor);
-     }return _stepView;
+     };return _stepView;
  }
  
  */

@@ -1,14 +1,12 @@
 //
 //  UIView+Chain.m
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/8/11.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "UIView+Chain.h"
-
-#import "DefineProperty.h"
 
 @implementation UIView (Chain)
 
@@ -34,19 +32,19 @@
                     return v;
                 }
             }
-        }return nil;
+        };return nil;
     }
 }
 #pragma mark —— Prop_assign()BOOL ableRespose
 - (void)setAbleRespose:(BOOL)ableRespose {
-    objc_setAssociatedObject(self,
-                             _cmd,
-                             @(ableRespose),
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(_ableRespose, @(ableRespose))
 }
  
+#pragma mark —— ableRespose
+JobsKey(_ableRespose)
+@dynamic ableRespose;
 - (BOOL)ableRespose {
-    return objc_getAssociatedObject(self, _cmd) != nil ? [objc_getAssociatedObject(self, _cmd) boolValue] : NO;
+    return Jobs_getAssociatedObject(_ableRespose) != nil ? [Jobs_getAssociatedObject(_ableRespose) boolValue] : NO;
 }
 
 @end

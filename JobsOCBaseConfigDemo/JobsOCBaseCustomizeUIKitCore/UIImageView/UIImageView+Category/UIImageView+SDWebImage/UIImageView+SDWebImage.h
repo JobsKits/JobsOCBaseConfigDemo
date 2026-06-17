@@ -1,6 +1,6 @@
 //
 //  UIImageView+SDWebImage.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 9/5/24.
 //
@@ -8,7 +8,7 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<SDWebImage/SDWebImage.h>)
 #import <SDWebImage/SDWebImage.h>
@@ -19,8 +19,6 @@
 /// SDWebImage+UIImageView
 #ifndef SDWebImageImageViewBlock
 #define SDWebImageImageViewBlock
-typedef __kindof UIImageView *_Nullable(^JobsReturnImageViewBySDExternalCompletionBlocks)(SDExternalCompletionBlock _Nullable data);
-typedef __kindof UIImageView *_Nullable(^JobsReturnImageViewBySDWebImageOptionsBlocks)(SDWebImageOptions data);
 #endif /* SDWebImageImageViewBlock */
 
 NS_ASSUME_NONNULL_BEGIN

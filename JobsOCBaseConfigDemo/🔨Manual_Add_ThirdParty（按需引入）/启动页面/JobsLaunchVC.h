@@ -1,6 +1,6 @@
 //
 //  JobsLaunchVC.h
-//  FMOnlyH5
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 3/4/2025.
 //
@@ -8,6 +8,7 @@
 #import "BaseViewController.h"
 #import "NSObject+Extras.h"
 #import "FMHomeWebVC.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 系统的启动页因为版本升级兼容度降低的问题，现在为了统一处理，即摒弃系统设置

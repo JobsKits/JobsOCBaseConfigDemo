@@ -1,6 +1,6 @@
 //
 //  SHA1.h
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/14.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -42,7 +42,7 @@ NS_INLINE NSString *sha_1(NSString *string,
             finalStr = output.lowercaseString;
         }else{
             finalStr = output.uppercaseString;
-        }return finalStr;
+        };return finalStr;
     }else{
         return nil;
     }

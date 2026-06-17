@@ -1,12 +1,12 @@
 //
 //  JobsScale.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Mac on 9/22/25.
 //
 
 #import <UIKit/UIKit.h>
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 在 App 入口处配置一次（设计稿尺寸，比如 375x812）

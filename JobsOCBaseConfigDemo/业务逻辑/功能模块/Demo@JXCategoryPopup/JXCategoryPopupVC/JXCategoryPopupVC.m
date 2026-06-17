@@ -1,13 +1,11 @@
 //
 //  JXCategoryPopupVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/29.
 //
 
 #import "JXCategoryPopupVC.h"
-
-#import "DefineProperty.h"
 
 @interface JXCategoryPopupVC ()
 /// UI
@@ -132,7 +130,7 @@ ratio:(CGFloat)ratio {
     if (self.filterBtn.selected) {
         [self.filterBtn changeAction: 0];
         self.filterBtn.selected = !self.filterBtn.selected;
-    }return YES;
+    };return YES;
 }
 
 - (BOOL)tf_popupViewWillShow:(UIView *)popup{
@@ -164,7 +162,7 @@ ratio:(CGFloat)ratio {
             make.height.mas_equalTo(listContainerViewDefaultOffset);
         }];
         [self.view layoutIfNeeded];
-    }return _categoryView;
+    };return _categoryView;
 }
 
 -(JXCategoryIndicatorLineView *)lineView{
@@ -174,7 +172,7 @@ ratio:(CGFloat)ratio {
         _lineView.indicatorHeight = JobsWidth(4);
         _lineView.indicatorWidthIncrement = JobsWidth(10);
         _lineView.verticalMargin = 0;
-    }return _lineView;
+    };return _lineView;
 }
 /// 此属性决定依附于此的viewController
 -(JXCategoryListContainerView *)listContainerView{
@@ -191,7 +189,7 @@ ratio:(CGFloat)ratio {
         /// ❤️在需要的地方写❤️
         NSNumber *currentIndex = self.listContainerView.valueForKey(@"currentIndex");
         JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %d",currentIndex.intValue);
-    }return _listContainerView;
+    };return _listContainerView;
 }
 
 -(NSMutableArray<NSString *> *)titleMutArr{
@@ -204,7 +202,7 @@ ratio:(CGFloat)ratio {
             data.add(@"棋牌".tr);
             data.add(@"彩票".tr);
         });
-    }return _titleMutArr;
+    };return _titleMutArr;
 }
 
 -(NSMutableArray<__kindof UIViewController *> *)childVCMutArr{
@@ -216,7 +214,7 @@ ratio:(CGFloat)ratio {
                 data.add(JXCategoryPopupSubVC.new);
             }
         });
-    }return _childVCMutArr;
+    };return _childVCMutArr;
 }
 
 -(BaseButton *)filterBtn{
@@ -256,7 +254,7 @@ ratio:(CGFloat)ratio {
             make.top.bottom.equalTo(self.categoryView);
         }];
         _filterBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _filterBtn;
+    };return _filterBtn;
 }
 
 -(BaseButton *)customBtn{
@@ -296,7 +294,7 @@ ratio:(CGFloat)ratio {
             make.top.bottom.equalTo(self.categoryView);
             make.left.equalTo(self.categoryView.mas_right);
         }];
-    }return _customBtn;
+    };return _customBtn;
 }
 
 @end

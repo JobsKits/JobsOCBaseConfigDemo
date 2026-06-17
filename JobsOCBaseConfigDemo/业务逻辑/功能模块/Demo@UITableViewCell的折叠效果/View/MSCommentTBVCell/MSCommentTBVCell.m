@@ -1,13 +1,11 @@
 //
 //  MSCommentTBVCell.m
-//  MataShop
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 10/2/23.
 //
 
 #import "MSCommentTBVCell.h"
-
-#import "DefineProperty.h"
 
 @interface MSCommentTBVCell ()
 /// UI
@@ -44,7 +42,7 @@ BaseLayerProtocol_synthesize_part3
         if([model isKindOfClass:MSCommentDetailModel.class]){
             self.commentDetailModel = model;
             self.titleLab.alpha = 1;
-        }return self;
+        };return self;
     };
 }
 /// 具体由子类进行复写【数据定高】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -58,6 +56,7 @@ BaseLayerProtocol_synthesize_part3
     };
 }
 // 在具体的子类去实现,分类调用异常
+#pragma mark —— frame
 -(void)setFrame:(CGRect)frame{
     JobsLog(@"self.offsetXForEach = %f",self.offsetXForEach);
     JobsLog(@"self.offsetYForEach = %f",self.offsetYForEach);

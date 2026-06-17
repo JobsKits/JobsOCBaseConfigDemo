@@ -1,14 +1,12 @@
 //
 //  FindCodeFlowChartView.m
-//  Shooting
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/3.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "FindCodeFlowChartView.h"
-
-#import "DefineProperty.h"
 
 @interface FlowChartSingleElementView ()
 
@@ -36,7 +34,7 @@
                 make.bottom.equalTo(self.bacKIMGV.mas_centerY).offset(JobsWidth(7));
             }];
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(UILabel *)subTitleLab{
@@ -52,7 +50,7 @@
                 make.top.equalTo(self.bacKIMGV.mas_centerY).offset(JobsWidth(7));
             }];
         });
-    }return _subTitleLab;
+    };return _subTitleLab;
 }
 
 -(UIImageView *)bacKIMGV{
@@ -65,7 +63,7 @@
                 make.edges.equalTo(self);
             }];
         });
-    }return _bacKIMGV;
+    };return _bacKIMGV;
 }
 
 @end
@@ -82,7 +80,7 @@ static dispatch_once_t dispatchOnce;
 -(instancetype)init{
     if (self = [super init]) {
         dispatchOnce = 0;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -138,6 +136,7 @@ static dispatch_once_t dispatchOnce;
     }
 }
 
+#pragma mark —— currentFlowSerialNum
 -(void)setCurrentFlowSerialNum:(NSInteger)currentFlowSerialNum{
     _currentFlowSerialNum = currentFlowSerialNum;
     
@@ -153,7 +152,7 @@ static dispatch_once_t dispatchOnce;
 -(NSMutableArray<FlowChartSingleElementView *> *)singleElementMutArr{
     if (!_singleElementMutArr) {
         _singleElementMutArr = NSMutableArray.array;
-    }return _singleElementMutArr;
+    };return _singleElementMutArr;
 }
 
 @end

@@ -1,6 +1,6 @@
 //
 //  BaseTableViewCell.m
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/29.
 //
@@ -14,6 +14,8 @@
     // Initialization code
 }
 
+#pragma mark —— selected
+@dynamic selected;
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

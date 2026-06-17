@@ -1,6 +1,6 @@
 //
 //  AutoScrollLabel.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/18.
 //
@@ -16,7 +16,7 @@ UILocationProtocol_synthesize
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -43,7 +43,7 @@ UILocationProtocol_synthesize
                 return nil;
             }, MethodName(self), self);
         }
-    }return self;
+    };return self;
 }
 #pragma mark —— 一些公有方法
 /// UILabel文字的复制
@@ -156,6 +156,7 @@ UILocationProtocol_synthesize
     [super drawRect:rect];
 }
 
+#pragma mark —— frame
 -(void)setFrame:(CGRect)frame{
     [super setFrame:frame];
 }

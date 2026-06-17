@@ -1,6 +1,6 @@
 //
 //  UILabelWordRotatingVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/14.
 //
@@ -31,7 +31,7 @@
                 data.jobsX = data.jobsY = data.jobsWidth = data.jobsHeight = JobsWidth(100);
             });self.view.addSubview(label);
         });
-    }return _label;
+    };return _label;
 }
 
 @end

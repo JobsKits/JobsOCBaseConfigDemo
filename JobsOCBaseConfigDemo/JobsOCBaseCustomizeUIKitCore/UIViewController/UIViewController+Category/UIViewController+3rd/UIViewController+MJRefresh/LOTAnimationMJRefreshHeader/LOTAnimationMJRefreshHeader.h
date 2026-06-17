@@ -1,6 +1,6 @@
 //
 //  UBLCustomGifHeader.h
-//  DouYin
+//  JobsOCBaseConfigDemo
 //
 //  Created by John on 2020/11/14.
 //
@@ -10,6 +10,7 @@
 #import "UIView+Measure.h"
 #import "MJRefreshConfigModel.h"
 #import "MJRefresh+Extra.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>

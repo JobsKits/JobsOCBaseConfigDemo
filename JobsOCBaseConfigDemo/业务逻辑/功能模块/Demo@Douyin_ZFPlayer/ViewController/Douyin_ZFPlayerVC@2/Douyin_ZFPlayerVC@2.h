@@ -1,6 +1,6 @@
 //
 //  Douyin_ZFPlayerVC@2.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/8.
 //
@@ -13,6 +13,7 @@
 #import "JobsVideoTBVCell.h"
 #import "VideoModel.h"
 #import "JobsNetWorkTools.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<ZFPlayer/ZFPlayer.h>)
 #import <ZFPlayer/ZFPlayer.h>

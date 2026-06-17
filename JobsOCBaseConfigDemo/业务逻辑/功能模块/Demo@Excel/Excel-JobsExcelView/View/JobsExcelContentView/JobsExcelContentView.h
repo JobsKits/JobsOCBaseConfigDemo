@@ -1,6 +1,6 @@
 //
 //  JobsExcelContentView.h
-//  JobsExcelView
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 17/6/16.
 //  Copyright © 2017年 Mephsito. All rights reserved.
@@ -16,7 +16,7 @@
 
 @class UIButtonModel;
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @interface JobsExcelContentView : UIView
 <

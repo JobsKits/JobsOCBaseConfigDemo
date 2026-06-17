@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorInputViewBaseStyle_6.h
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/20.
 //
@@ -12,6 +12,7 @@
 #import "ImageCodeView.h"
 #import "JobsMagicTextField.h"
 #import "AuthCodeLab.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

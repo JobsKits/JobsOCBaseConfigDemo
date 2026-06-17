@@ -1,13 +1,11 @@
 //
 //  JobsSettingGestureVC.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/24.
 //
 
 #import "JobsSettingGestureVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsSettingGestureVC ()
 
@@ -101,7 +99,7 @@ Prop_strong()UILabel *topLineLab;
                 make.top.equalTo(self.gk_navigationBar.mas_bottom);
             }];
         });
-    }return _topLineLab;
+    };return _topLineLab;
 }
 
 @end

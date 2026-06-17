@@ -1,13 +1,11 @@
 //
 //  ZFDouYinCell.m
-//  DouYin
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/28.
 //
 
 #import "JobsVideoTBVCell.h"
-
-#import "DefineProperty.h"
 
 @interface JobsVideoTBVCell ()
 /// UI
@@ -30,7 +28,7 @@ Prop_strong()VideoModel_Core *core_data;
             cell = JobsVideoTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.contentView.backgroundColor = JobsRandomColor;
-        }return cell;
+        };return cell;
     };
 }
 
@@ -48,7 +46,7 @@ Prop_strong()VideoModel_Core *core_data;
         if ([data isKindOfClass:UITableView.class]) {
             UITableView *tbv = (UITableView *)data;
             return tbv.mj_h;
-        }return JobsMainScreen_HEIGHT();
+        };return JobsMainScreen_HEIGHT();
     };
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -78,7 +76,7 @@ Prop_strong()VideoModel_Core *core_data;
             self.textLabel.text = self.core_data.videoTitle;
             self.textLabel.textColor = JobsRedColor;
 //            self.rotation.hidden;// 宽大于高 = 横屏视频，才支持旋转
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— lazyLoad
@@ -89,7 +87,7 @@ Prop_strong()VideoModel_Core *core_data;
                 make.left.top.equalTo(self.contentView);
             }];
         });
-    }return _label;
+    };return _label;
 }
 
 -(UIImageView *)coverImageView{
@@ -104,7 +102,7 @@ Prop_strong()VideoModel_Core *core_data;
                 make.edges.equalTo(self.contentView);
             }];
         });
-    }return _coverImageView;
+    };return _coverImageView;
 }
 
 -(JobsRightBtnsView *)rbView{
@@ -122,7 +120,7 @@ Prop_strong()VideoModel_Core *core_data;
                 make.size.mas_equalTo(JobsRightBtnsView.viewSizeByModel(nil));
             }];
         });
-    }return _rbView;
+    };return _rbView;
 }
 
 -(UIButton *)rotation{
@@ -141,7 +139,7 @@ Prop_strong()VideoModel_Core *core_data;
             make.centerY.equalTo(self.contentView);
             make.left.equalTo(self.contentView);
         }];
-    }return _rotation;
+    };return _rotation;
 }
 
 @end

@@ -1,6 +1,6 @@
 //
 //  MyBlankCell.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/30/24.
 //
@@ -16,13 +16,13 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
         self.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
-    }return self;
+    };return self;
 }
 
 #pragma mark —— LazyLoad

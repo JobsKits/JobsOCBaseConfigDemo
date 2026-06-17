@@ -1,6 +1,6 @@
 //
 //  ZFIJKPlayerManager.h
-//  ZFPlayer
+//  JobsOCBaseConfigDemo
 //
 // Copyright (c) 2016年 任子丰 ( http://github.com/renzifeng )
 //
@@ -23,6 +23,7 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "JobsDefineProperty.h"
 
 #if __has_include(<ZFPlayer/ZFPlayer.h>)
 #import <ZFPlayer/ZFPlayer.h>
@@ -32,8 +33,6 @@
 
 #if __has_include(<IJKMediaFramework/IJKMediaFramework.h>)
 #import <IJKMediaFramework/IJKMediaFramework.h>
-
-#import "DefineProperty.h"
 
 @interface ZFIJKPlayerManager : NSObject <ZFPlayerMediaPlayback>
 

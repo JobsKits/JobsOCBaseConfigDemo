@@ -1,13 +1,11 @@
 //
 //  NSObject+TFPopup.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/15.
 //
 
 #import "NSObject+TFPopup.h"
-
-#import "DefineProperty.h"
 
 @implementation NSObject (TFPopup)
 #pragma mark —— 保证弹窗一定是被初始化
@@ -16,7 +14,7 @@
         if (action) action(); // 执行传入的操作
     } else {
         toastBy(@"请初始化视图");
-    }return view;
+    };return view;
 }
 #pragma mark —— 关闭所有的弹出提示框
 -(jobsByViewBlock _Nonnull)tfHideAllPopupView{
@@ -249,7 +247,7 @@ JobsKey(_popupParameter)
     if (!PopupParameter) {
         PopupParameter = makeNormalPopupParameter();
         Jobs_setAssociatedRETAIN_NONATOMIC(_popupParameter, PopupParameter)
-    }return PopupParameter;
+    };return PopupParameter;
 }
 
 -(void)setPopupParameter:(TFPopupParam *)popupParameter{
@@ -259,11 +257,11 @@ JobsKey(_popupParameter)
 JobsKey(_tipsParameter)
 @dynamic tipsParameter;
 -(TFPopupParam *)tipsParameter{
-    TFPopupParam *TipsParameter = Jobs_getAssociatedObject(_popupParameter);
+    TFPopupParam *TipsParameter = Jobs_getAssociatedObject(_tipsParameter);
     if (!TipsParameter) {
         TipsParameter = makeNormalTipsParameter();
         Jobs_setAssociatedRETAIN_NONATOMIC(_tipsParameter, TipsParameter)
-    }return TipsParameter;
+    };return TipsParameter;
 }
 
 -(void)setTipsParameter:(TFPopupParam *)tipsParameter{

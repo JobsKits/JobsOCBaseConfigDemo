@@ -1,20 +1,21 @@
 //
 //  UIControl+Extra.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/26.
 //
 
 #import "UIControl+Extra.h"
+#import "MacroDef_Sys.h"
 /// 存储 & 绑定工具
-static const void *kJobsTargetsMapKey = &kJobsTargetsMapKey;
+JobsKey(_jobsTargetsMap)
 /// 控件级别的“事件 -> target”映射
 static inline NSMutableDictionary<NSNumber *, JobsControlTarget *> *_jobs_targetsMap(UIControl *ctl, BOOL createIfMissing) {
-    NSMutableDictionary *map = objc_getAssociatedObject(ctl, kJobsTargetsMapKey);
+    NSMutableDictionary *map = Jobs_getAssociatedObjectByTargetRawKey(ctl, &_jobsTargetsMap);
     if (!map && createIfMissing) {
         map = NSMutableDictionary.dictionary;
-        objc_setAssociatedObject(ctl, kJobsTargetsMapKey, map, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }return map;
+        Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey(ctl, &_jobsTargetsMap, map)
+    };return map;
 }
 /// 将位掩码拆成“单事件”数组（特殊处理 AllEvents：保持为一个整体）
 static inline NSArray<NSNumber *> *jobs_splitEvents(UIControlEvents events) {
@@ -26,7 +27,7 @@ static inline NSArray<NSNumber *> *jobs_splitEvents(UIControlEvents events) {
     for (NSUInteger bit = 0; bit < sizeof(UIControlEvents) * 8; bit++) {
         UIControlEvents mask = ((UIControlEvents)1) << bit;
         if (events & mask) [arr addObject:@(mask)];
-    }return arr;
+    };return arr;
 }
 /// 绑定（先移除旧 target，再绑定新 target）
 static inline JobsControlTarget *
@@ -60,7 +61,7 @@ _jobs_bind(UIControl *ctl, UIControlEvents singleEvent,
                  block:(jobsByCtrlBlock _Nonnull)block{
     for (NSNumber *n in jobs_splitEvents(events)) {
         _jobs_bind(self, n.unsignedIntegerValue, _JobsInvokePolicyNone, 0, block);
-    }return self;
+    };return self;
 }
 /// 节流：间隔 seconds 内只执行一次（适合重复点击/拖动频繁场景）
 -(instancetype)jobs_on:(UIControlEvents)events
@@ -68,7 +69,7 @@ _jobs_bind(UIControl *ctl, UIControlEvents singleEvent,
                  block:(jobsByCtrlBlock _Nonnull)block{
     for (NSNumber *n in jobs_splitEvents(events)) {
         _jobs_bind(self, n.unsignedIntegerValue, _JobsInvokePolicyThrottle, seconds, block);
-    }return self;
+    };return self;
 }
 /// 防抖：停止触发后等待 seconds 再执行（适合搜索框等输入联想）
 -(instancetype)jobs_on:(UIControlEvents)events
@@ -76,14 +77,14 @@ _jobs_bind(UIControl *ctl, UIControlEvents singleEvent,
                  block:(jobsByCtrlBlock _Nonnull)block{
     for (NSNumber *n in jobs_splitEvents(events)) {
         _jobs_bind(self, n.unsignedIntegerValue, _JobsInvokePolicyDebounce, seconds, block);
-    }return self;
+    };return self;
 }
 /// 只执行一次：触发后即自动解绑
 -(instancetype)jobs_once:(UIControlEvents)events
                    block:(jobsByCtrlBlock _Nonnull)block{
     for (NSNumber *n in jobs_splitEvents(events)) {
         _jobs_bind(self, n.unsignedIntegerValue, _JobsInvokePolicyOnce, 0, block);
-    }return self;
+    };return self;
 }
 /// 便捷：点击（.touchUpInside）
 -(instancetype)jobs_onTap:(jobsByCtrlBlock _Nonnull)block{
@@ -107,7 +108,7 @@ _jobs_bind(UIControl *ctl, UIControlEvents singleEvent,
         if (t) {
             [self removeTarget:t action:@selector(invoke:) forControlEvents:UIControlEventAllEvents];
             [map removeObjectForKey:@(UIControlEventAllEvents)];
-        }return;
+        };return;
     }
 
     for (NSNumber *n in jobs_splitEvents(events)) {

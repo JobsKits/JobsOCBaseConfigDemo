@@ -1,14 +1,12 @@
 //
 //  WGradientProgress.m
-//  WGradientProgressDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by zilin_weng on 15/7/19.
 //  Copyright (c) 2015年 Weng-Zilin. All rights reserved.
 //
 
 #import "WGradientProgress.h"
-
-#import "DefineProperty.h"
 
 @interface WGradientProgress ()
 /// UI
@@ -28,7 +26,7 @@ Prop_strong()NSMutableArray *colors;
     if (self = [super init]) {
         self.backgroundColor = JobsBrownColor;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth; // 自动调整view的宽度，保证左边距和右边距不变
-    }return self;
+    };return self;
 }
 
 -(void)makeTimer_color{
@@ -71,6 +69,7 @@ Prop_strong()NSMutableArray *colors;
     if ([self superview]) [self removeFromSuperview];
 }
 
+#pragma mark —— progress
 -(void)setProgress:(CGFloat)progress{
     if (progress < 0) progress = 0;
     if (progress > 1) progress = 1;
@@ -96,25 +95,25 @@ Prop_strong()NSMutableArray *colors;
 -(CGFloat)increment{
     if (!_increment) {
         _increment = 0.1;
-    }return _increment;
+    };return _increment;
 }
 
 -(NSTimeInterval)color_timeInterval{
     if (!_color_timeInterval) {
         _color_timeInterval = 0.03;
-    }return _color_timeInterval;
+    };return _color_timeInterval;
 }
 
 -(NSTimeInterval)length_timeInterval{
     if (!_length_timeInterval) {
         _length_timeInterval = 1;
-    }return _length_timeInterval;
+    };return _length_timeInterval;
 }
 
 -(NSTimeInterval)length_timeSecIntervalSinceDate{
     if (!_length_timeSecIntervalSinceDate) {
         _length_timeSecIntervalSinceDate = 2;
-    }return _length_timeSecIntervalSinceDate;
+    };return _length_timeSecIntervalSinceDate;
 }
 
 -(JobsTimer *)timer_color{
@@ -150,7 +149,7 @@ Prop_strong()NSMutableArray *colors;
             timer.accumulatedElapsed       = 0;
             timer.lastStartDate            = nil;
         });
-    }return _timer_color;
+    };return _timer_color;
 }
 
 -(JobsTimer *)timer_length{
@@ -186,7 +185,7 @@ Prop_strong()NSMutableArray *colors;
             timer.accumulatedElapsed       = 0;
             timer.lastStartDate            = nil;
         });
-    }return _timer_length;
+    };return _timer_length;
 }
 
 -(NSMutableArray *)colors{
@@ -207,7 +206,7 @@ Prop_strong()NSMutableArray *colors;
                 }
             }
         });
-    }return _colors;
+    };return _colors;
 }
 
 -(CAGradientLayer *)gradLayer{
@@ -224,7 +223,7 @@ Prop_strong()NSMutableArray *colors;
                 data.addBy(self.colors);
             });[self.layer addSublayer:data];
         });
-    }return _gradLayer;
+    };return _gradLayer;
 }
 
 -(CALayer *)roadLayer{
@@ -236,7 +235,7 @@ Prop_strong()NSMutableArray *colors;
             data.backgroundColor = JobsLightGrayColor.CGColor;
             [self.layer addSublayer:data];
         });
-    }return _roadLayer;
+    };return _roadLayer;
 }
 
 -(CALayer *)fenceLayer{
@@ -251,31 +250,31 @@ Prop_strong()NSMutableArray *colors;
             data.backgroundColor = self.fenceLayerColor.CGColor;
             [self.gradLayer addSublayer:data];
         });
-    }return _fenceLayer;
+    };return _fenceLayer;
 }
 
 -(CGFloat)fenceLayer_x{
     if (!_fenceLayer_x) {
         _fenceLayer_x = self.width * 0.3;
-    }return _fenceLayer_x;
+    };return _fenceLayer_x;
 }
 
 -(CGFloat)fenceLayer_width{
     if (!_fenceLayer_width) {
         _fenceLayer_width = 5;
-    }return _fenceLayer_width;
+    };return _fenceLayer_width;
 }
 
 -(UIColor *)fenceLayerColor{
     if (!_fenceLayerColor) {
         _fenceLayerColor = JobsRandomColor;
-    }return _fenceLayerColor;
+    };return _fenceLayerColor;
 }
 
 -(UIColor *)progressColor{
     if (!_progressColor) {
         _progressColor = JobsRedColor;
-    }return _progressColor;
+    };return _progressColor;
 }
 
 @end

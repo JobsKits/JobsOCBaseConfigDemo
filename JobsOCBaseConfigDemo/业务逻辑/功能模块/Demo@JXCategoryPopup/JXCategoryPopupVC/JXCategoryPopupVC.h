@@ -1,6 +1,6 @@
 //
 //  JXCategoryPopupVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/29.
 //
@@ -9,6 +9,7 @@
 #import "BaseViewController.h"
 #import "JXCategoryPopupSubVC.h"
 #import "UIViewController+TFPopupView.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<JXCategoryView/JXCategoryView.h>)
 #import <JXCategoryView/JXCategoryView.h>

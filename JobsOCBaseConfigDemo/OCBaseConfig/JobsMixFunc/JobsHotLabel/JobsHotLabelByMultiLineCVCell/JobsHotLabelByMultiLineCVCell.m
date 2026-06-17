@@ -1,13 +1,11 @@
 //
 //  JobsHotLabelWithMultiLineCVCell.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/15.
 //
 
 #import "JobsHotLabelByMultiLineCVCell.h"
-
-#import "DefineProperty.h"
 
 @interface JobsHotLabelByMultiLineCVCell ()
 
@@ -21,7 +19,7 @@ Prop_strong()UILabel *textLab;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 -(UIViewModel *_Nullable)getViewModel{
@@ -81,7 +79,7 @@ Prop_strong()UILabel *textLab;
             @jobs_strongify(self)
             make.edges.equalTo(self.contentView);
         });
-    }return _textLab;
+    };return _textLab;
 }
 
 @end

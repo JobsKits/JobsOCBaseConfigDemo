@@ -140,7 +140,7 @@ Prop_strong()NSMutableArray <CasinoFlowDetailsModel *>*dataMutArr;//记录每一
         [_spreadsheetView registerClass:ZMJChartBarCell.class
              forCellWithReuseIdentifier:reuseIdentifier(ZMJChartBarCell)];
         
-    }return _spreadsheetView;
+    };return _spreadsheetView;
 }
 
 -(NSMutableArray<CasinoFlowDetailsModel *> *)dataMutArr{
@@ -197,7 +197,7 @@ Prop_strong()NSMutableArray <CasinoFlowDetailsModel *>*dataMutArr;//记录每一
             [_dataMutArr addObject:viewModel];
         }
         
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

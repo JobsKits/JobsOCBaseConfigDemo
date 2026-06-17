@@ -1,6 +1,6 @@
 //
 //  JobsString.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/9.
 //
@@ -9,7 +9,7 @@
 #define JobsString_h
 
 #import <UIKit/UIKit.h>
-#import <CommonCrypto/CommonDigest.h> /// 提供加密和哈希功能，例如MD5和SHA加密。
+#import <CommonCrypto/CommonDigest.h>
 #import "MacroDef_Func.h"
 
 #pragma mark —— Category

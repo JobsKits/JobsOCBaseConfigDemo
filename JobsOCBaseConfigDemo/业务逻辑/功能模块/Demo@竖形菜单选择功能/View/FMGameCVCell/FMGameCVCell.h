@@ -1,12 +1,13 @@
 //
 //  FMGameCVCell.h
-//  FM_Normal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/4/19.
 //
 
 #import "JobsBaseCollectionViewCell.h"
 #import "GoodsClassModel.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

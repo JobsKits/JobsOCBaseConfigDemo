@@ -1,6 +1,6 @@
 //
 //  JXCategoryTitleBackgroundView.m
-//  JXCategoryView
+//  JobsOCBaseConfigDemo
 //
 //  Created by jiaxin on 2019/8/16.
 //  Copyright © 2019 jiaxin. All rights reserved.
@@ -59,7 +59,7 @@ Prop_strong()NSMutableArray <JXCategoryTitleBackgroundCellModel *>*tempMutArray;
         for (int i = 0; i < self.titles.count; i++) {
             [_tempMutArray addObject:JXCategoryTitleBackgroundCellModel.new];
         }
-    }return _tempMutArray;
+    };return _tempMutArray;
 }
 
 @end

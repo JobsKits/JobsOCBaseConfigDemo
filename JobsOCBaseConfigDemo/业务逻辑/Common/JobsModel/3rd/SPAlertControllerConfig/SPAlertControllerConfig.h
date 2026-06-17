@@ -1,12 +1,12 @@
 //
 //  SPAlertControllerConfig.h
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <Foundation/Foundation.h>
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "SPAlertControllerConfig.h"
 
 #if __has_include(<SPAlertController/SPAlertController.h>)

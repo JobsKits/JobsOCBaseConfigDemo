@@ -1,13 +1,11 @@
 //
 //  UIButton+SDWebImage.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 9/19/24.
 //
 
 #import "UIButton+SDWebImage.h"
-
-#import "DefineProperty.h"
 
 @implementation UIButton (SDWebImage)
 #pragma mark —— 一些私有方法
@@ -48,7 +46,7 @@
             [self sd_setImageWithURL:self.makeSDWebImageModel.url
                             forState:UIControlStateNormal
                     placeholderImage:self.makeSDWebImageModel.placeholder];
-        }return self;
+        };return self;
 
     };
 }
@@ -80,7 +78,7 @@
             [self sd_setBackgroundImageWithURL:self.makeSDWebImageModel.url
                                       forState:data
                               placeholderImage:self.makeSDWebImageModel.placeholder];
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— 设置普通图片的方法

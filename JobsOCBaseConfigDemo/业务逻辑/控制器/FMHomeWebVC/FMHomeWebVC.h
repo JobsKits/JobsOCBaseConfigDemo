@@ -1,11 +1,12 @@
 //
 //  FMHomeWebVC.h
-//  FMOnlyH5
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 7/3/2025.
 //
 
 #import "BaseViewController.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /**

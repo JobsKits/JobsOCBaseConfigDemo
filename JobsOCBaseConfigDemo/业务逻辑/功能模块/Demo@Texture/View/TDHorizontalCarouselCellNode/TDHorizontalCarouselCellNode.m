@@ -22,7 +22,7 @@
                 arr.add(@(i));
             }
         });
-    }return self;
+    };return self;
 }
 
 -(ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
@@ -60,7 +60,7 @@
             node.leadingScreensForBatching = 1.5;
             node.inverted = NO;
         });
-    }return _collection;
+    };return _collection;
 }
 
 @end

@@ -1,6 +1,6 @@
 //
 //  TFPopupLoading.m
-//  TFPopupDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by zhutaofeng on 2019/5/13.
 //  Copyright © 2019 ztf. All rights reserved.
@@ -88,9 +88,10 @@ Prop_assign()CGRect inViewFrame;
         [self addSubview:self.indicatorView];
         
         [self addSubview:self.msgLabel];
-    }return self;
+    };return self;
 }
 
+#pragma mark —— msg
 -(void)setMsg:(NSString *)msg{
     _msg = [msg copy];
     self.msgLabel.text = msg;

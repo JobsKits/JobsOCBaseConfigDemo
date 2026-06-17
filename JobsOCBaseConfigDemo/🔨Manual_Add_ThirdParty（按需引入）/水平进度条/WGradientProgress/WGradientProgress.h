@@ -1,17 +1,16 @@
 //
 //  WGradientProgress.h
-//  WGradientProgressDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by zilin_weng on 15/7/19.
 //  Copyright (c) 2015年 Weng-Zilin. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
+#import "JobsDefineEnums.h"
 #import "WGradientProgressModel.h"
 #import "JobsTimer.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @interface WGradientProgress : UIView
 

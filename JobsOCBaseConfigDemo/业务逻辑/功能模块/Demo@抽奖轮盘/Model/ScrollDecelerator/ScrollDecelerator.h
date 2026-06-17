@@ -7,7 +7,7 @@
 
 #import <math.h>
 #import <Foundation/Foundation.h>
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

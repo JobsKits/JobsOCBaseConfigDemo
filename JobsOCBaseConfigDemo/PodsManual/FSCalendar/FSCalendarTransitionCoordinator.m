@@ -1,6 +1,6 @@
 //
 //  FSCalendarTransitionCoordinator.m
-//  FSCalendar
+//  JobsOCBaseConfigDemo
 //
 //  Created by Wenchao Ding on 3/13/16.
 //  Copyright © 2016 Wenchao Ding. All rights reserved.
@@ -42,7 +42,7 @@
         self.calendar = calendar;
         self.collectionView = self.calendar.collectionView;
         self.collectionViewLayout = self.calendar.collectionViewLayout;
-    }return self;
+    };return self;
 }
 
 #pragma mark - Target actions

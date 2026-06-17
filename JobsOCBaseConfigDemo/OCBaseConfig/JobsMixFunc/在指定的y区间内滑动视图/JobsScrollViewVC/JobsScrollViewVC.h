@@ -1,12 +1,13 @@
 //
 //  JobsScrollViewVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 9/20/23.
 //
 
 #import "BaseViewController.h"
 #import "JobsScrollYView.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

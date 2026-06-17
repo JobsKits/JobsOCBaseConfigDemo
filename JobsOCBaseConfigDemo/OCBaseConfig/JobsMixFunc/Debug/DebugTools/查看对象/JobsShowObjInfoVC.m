@@ -1,13 +1,11 @@
 //
 //  JobsShowObjInfoVC.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/3.
 //
 
 #import "JobsShowObjInfoVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsShowObjInfoVC ()
 /// Data
@@ -174,13 +172,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             self.view.addSubview(tableView);
             [self fullScreenConstraintTargetView:tableView topViewOffset:0];
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

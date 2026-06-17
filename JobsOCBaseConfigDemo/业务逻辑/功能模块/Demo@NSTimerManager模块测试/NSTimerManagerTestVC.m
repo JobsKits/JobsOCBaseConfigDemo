@@ -1,13 +1,11 @@
 //
 //  NSTimerManagerTestVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/24.
 //
 
 #import "NSTimerManagerTestVC.h"
-
-#import "DefineProperty.h"
 
 @interface NSTimerManagerTestVC ()
 /// UI
@@ -156,7 +154,7 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
             timer.accumulatedElapsed = 0;   // 已经流逝的时间（总 elapsed，单位秒）
             timer.lastStartDate      = nil; // 最近一次 start/resume 的时间点（支持 pause/resume）
         });
-    }return _timer;
+    };return _timer;
 }
 
 -(UILabel *)valueLab{
@@ -171,7 +169,7 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
                 make.center.equalTo(self.view);
             }];label.makeLabelByShowingType(UILabelShowingType_03);
         });
-    }return _valueLab;
+    };return _valueLab;
 }
 
 -(NSMutableArray <__kindof UIButton *>*)btnMutArr{
@@ -194,7 +192,7 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
                 data.add(btn);
             }
         });
-    }return _btnMutArr;
+    };return _btnMutArr;
 }
 
 -(NSMutableArray<NSString *> *)btnTitleMutArr{
@@ -205,7 +203,7 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
             data.add(@"继续".tr);
             data.add(@"结束".tr);
         });
-    }return _btnTitleMutArr;
+    };return _btnTitleMutArr;
 }
 
 @end

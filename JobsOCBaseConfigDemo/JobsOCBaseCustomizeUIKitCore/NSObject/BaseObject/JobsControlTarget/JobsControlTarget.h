@@ -7,7 +7,7 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "JobsBlock.h"
 
 typedef NS_ENUM(NSInteger, _JobsInvokePolicy) {

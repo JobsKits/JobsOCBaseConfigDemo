@@ -46,13 +46,13 @@ static dispatch_once_t JobsCustomTabBarConfigOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 -(CGFloat)tabBarHeight{
     if (!_tabBarHeight) {
         _tabBarHeight = JobsTabBarHeightByBottomSafeArea(nil);
-    }return _tabBarHeight;
+    };return _tabBarHeight;
 }
 
 -(NSMutableArray<__kindof NSNumber *> *)tabBarItemYOffsets{
@@ -64,7 +64,7 @@ static dispatch_once_t JobsCustomTabBarConfigOnceToken;
                 arr.add(@(0));
             }
         });
-    }return _tabBarItemYOffsets;
+    };return _tabBarItemYOffsets;
 }
 
 @end

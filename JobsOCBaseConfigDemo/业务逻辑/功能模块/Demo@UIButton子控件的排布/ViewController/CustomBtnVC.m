@@ -1,13 +1,11 @@
 //
 //  CustomBtnVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/7/4.
 //
 
 #import "CustomBtnVC.h"
-
-#import "DefineProperty.h"
 
 @interface CustomBtnVC ()
 
@@ -83,7 +81,7 @@ Prop_strong()UIButton *btn4;
         /// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
         _btn1.makeBtnTitleByShowingType(UILabelShowingType_03);
         _btn1.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeLeading,JobsWidth(8));
-    }return _btn1;
+    };return _btn1;
 }
 
 -(UIButton *)btn2{
@@ -109,7 +107,7 @@ Prop_strong()UIButton *btn4;
         _btn2.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTrailing,JobsWidth(8));
         /// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
         _btn2.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _btn2;
+    };return _btn2;
 }
 
 -(UIButton *)btn3{
@@ -135,7 +133,7 @@ Prop_strong()UIButton *btn4;
         /// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
         _btn3.makeBtnTitleByShowingType(UILabelShowingType_03);
         _btn3.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTop,JobsWidth(8));
-    }return _btn3;
+    };return _btn3;
 }
 
 -(UIButton *)btn4{
@@ -161,7 +159,7 @@ Prop_strong()UIButton *btn4;
         /// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
         _btn4.makeBtnTitleByShowingType(UILabelShowingType_03);
         _btn4.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeBottom,JobsWidth(8));
-    }return _btn4;
+    };return _btn4;
 }
 
 @end

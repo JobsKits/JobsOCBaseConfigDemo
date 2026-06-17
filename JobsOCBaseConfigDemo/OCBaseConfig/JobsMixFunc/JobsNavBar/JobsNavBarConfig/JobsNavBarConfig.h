@@ -1,6 +1,6 @@
 //
 //  JobsNavBarConfig.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/24/24.
 //
@@ -9,7 +9,7 @@
 #import "UIButtonModel.h"
 #import "UIViewModel.h"
 #import "JobsBlock.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 extern JobsNavBarConfig *static_navBarConfig;

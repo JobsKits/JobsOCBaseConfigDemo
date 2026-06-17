@@ -1,6 +1,6 @@
 //
 //  UIViewController+JPImageresizerView.m
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/12.
 //
@@ -16,8 +16,6 @@ static void JobsApplyJPImageresizerBlurAppearance(JPImageresizerConfigure *confi
         appearance.maskAlpha = 0.75;
     });
 }
-
-#import "DefineProperty.h"
 
 @implementation UIViewController (JPImageresizerView)
 #pragma mark —— Prop_strong()JPImageresizerConfigure *configure;
@@ -227,7 +225,7 @@ JobsKey(_configure)
                 break;
         }
         Jobs_setAssociatedRETAIN_NONATOMIC(_configure, Configure)
-    }return Configure;
+    };return Configure;
 }
 
 -(void)setConfigure:(JPImageresizerConfigure *)configure{

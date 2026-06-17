@@ -1,6 +1,6 @@
 //
 //  suspendBtn.h
-//  Search
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/8/13.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -11,12 +11,15 @@
 #import "UIView+Extras.h"
 #import "MacroDef_Cor.h"
 #import "JobsBlock.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsSuspendBtn : UIButton
+
+Prop_assign()BOOL isAllowDrag;/// 是否允许托拽手势
+Prop_assign()UIRectCorner layoutSubviewsRectCorner;
+Prop_assign()CGSize layoutSubviewsRectCornerSize;
 
 @end
 
@@ -60,7 +63,7 @@ NS_ASSUME_NONNULL_END
                                        JobsWidth(50));
          SuspendBtn.cornerCutToCircleWithCornerRadius(SuspendBtn.width / 2));
          Jobs_setAssociatedRETAIN_NONATOMIC(_suspendBtn, SuspendBtn)
-     }return SuspendBtn;
+     };return SuspendBtn;
  }
  
  -(void)setSuspendBtn:(JobsSuspendBtn *)suspendBtn{

@@ -1,13 +1,11 @@
 //
 //  JobsIMVC.m
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/10.
 //
 
 #import "JobsIMVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsIMVC ()
 /// UI
@@ -269,7 +267,7 @@ willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath {
                 UIView *remarkContentView = subView.subviews.firstObject;
                 [self setupRowActionView:remarkContentView];
             }
-        }return;
+        };return;
     }
     // 判断系统是否是 iOS11 及以上版本
     if (@available(iOS 11.0, *)) {
@@ -280,7 +278,7 @@ willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath {
                 UIView *remarkContentView = subView;
                 [self setupRowActionView:remarkContentView];
             }
-        }return;
+        };return;
     }
     // iOS11 以下的版本
     JobsIMChatInfoTBVCell *cell = [self.tableView cellForRowAtIndexPath:editingIndexPath];
@@ -378,7 +376,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                 make.bottom.equalTo(self.view).offset(-JobsBottomSafeAreaHeight());
             });
         _inputview.jobsRichViewByModel(nil);
-    }return _inputview;
+    };return _inputview;
 }
 /// BaseViewProtocol
 @synthesize tableView = _tableView;
@@ -440,7 +438,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
             tableView.mj_footer.hidden = NO;
             self.view.mjRefreshTargetView = tableView;
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(BaseButton *)shareBtn{
@@ -459,19 +457,19 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                 JobsLog(@"");
             })
             .bySize(CGSizeMake(JobsWidth(23), JobsWidth(23)));
-    }return _shareBtn;
+    };return _shareBtn;
 }
 
 -(UIColor *)bgColour{
     if (!_bgColour) {
         _bgColour = self.byPatternImage(JobsBuddleIMG(@"⚽️PicResource", @"Telegram",nil, @"1"));
-    }return _bgColour;
+    };return _bgColour;
 }
 
 -(NSMutableArray<JobsIMChatInfoModel *> *)chatInfoModelMutArr{
     if (!_chatInfoModelMutArr) {
         _chatInfoModelMutArr = NSMutableArray.array;
-    }return _chatInfoModelMutArr;
+    };return _chatInfoModelMutArr;
 }
 
 @end

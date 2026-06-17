@@ -1,6 +1,6 @@
 //
 //  UILabel+RichText.m
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/4.
 //
@@ -116,7 +116,7 @@
                     data.range = config.range;
                 }));
             }
-        }return attrString;
+        };return attrString;
     };
 }
 /// 字符串中划线

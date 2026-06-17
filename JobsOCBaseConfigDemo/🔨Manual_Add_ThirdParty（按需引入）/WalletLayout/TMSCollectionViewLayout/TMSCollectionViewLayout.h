@@ -1,6 +1,6 @@
 //
 //  TMSCollectionViewLayout.h
-//  TestTTT
+//  JobsOCBaseConfigDemo
 //
 //  Created by TmmmS on 2019/8/8.
 //  Copyright © 2019 TMS. All rights reserved.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
-#import "DefineProperty.h"
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineProperty.h"
+#import "JobsDefineConstString.h"
 #import "TMSCollectionViewLayoutDelegate.h"
 #import "NSString+ID.h"
 

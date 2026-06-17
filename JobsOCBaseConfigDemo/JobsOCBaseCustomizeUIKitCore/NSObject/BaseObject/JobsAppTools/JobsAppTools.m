@@ -7,8 +7,6 @@
 
 #import "JobsAppTools.h"
 
-#import "DefineProperty.h"
-
 @interface JobsAppTools ()
 
 Prop_strong()UIWindow *appDelegateWindow;
@@ -67,7 +65,7 @@ static dispatch_once_t JobsAppToolsOnceToken;
             data.rootViewController = RootViewController;
             [data makeKeyAndVisible];
         });AppDelegate.tabBarVC.ppBadge(YES);
-    }return _appDelegateWindow;
+    };return _appDelegateWindow;
 }
 
 //-(UIWindow *)sceneDelegateWindow{
@@ -77,7 +75,7 @@ static dispatch_once_t JobsAppToolsOnceToken;
 //        _sceneDelegateWindow.frame = sceneDelegate.windowScene.coordinateSpace.bounds;
 //        _sceneDelegateWindow.rootViewController = self.rootViewControllerBy(FMHomeVC.new);;
 //        [_sceneDelegateWindow makeKeyAndVisible];
-//    }return _sceneDelegateWindow;
+//    };return _sceneDelegateWindow;
 //}
 
 @end

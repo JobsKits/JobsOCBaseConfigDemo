@@ -1,13 +1,11 @@
 //
 //  JobsFiltrationView.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/25.
 //
 
 #import "JobsFiltrationView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsFiltrationView ()
 /// UI
@@ -36,19 +34,19 @@ static dispatch_once_t static_filtrationViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -126,7 +124,7 @@ static dispatch_once_t static_filtrationViewOnceToken;
         [self.addSubview(_hotLabel) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
-    }return _hotLabel;
+    };return _hotLabel;
 }
 
 @end

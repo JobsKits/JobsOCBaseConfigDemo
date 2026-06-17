@@ -1,6 +1,6 @@
 //
 //  HQCollectionViewFlowLayout.h
-//  HQCollectionViewDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Mr_Han on 2018/10/10.
 //  Copyright © 2018年 Mr_Han. All rights reserved.
@@ -9,8 +9,7 @@
 // 
 
 #import <UIKit/UIKit.h>
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// UICollectionView 实现类似于UITableView的悬停效果

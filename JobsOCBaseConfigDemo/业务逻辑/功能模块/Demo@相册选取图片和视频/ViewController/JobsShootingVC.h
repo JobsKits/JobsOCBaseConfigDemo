@@ -1,11 +1,12 @@
 //
 //  JobsShootingVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 9/26/23.
 //
 
 #import "BaseViewController.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

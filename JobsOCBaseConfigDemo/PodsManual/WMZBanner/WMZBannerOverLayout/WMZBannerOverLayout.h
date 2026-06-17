@@ -1,6 +1,6 @@
 //
 //  WMZBannerOverLayout.h
-//  WMZBanner
+//  JobsOCBaseConfigDemo
 //
 //  Created by wmz on 2019/12/18.
 //  Copyright © 2019 wmz. All rights reserved.

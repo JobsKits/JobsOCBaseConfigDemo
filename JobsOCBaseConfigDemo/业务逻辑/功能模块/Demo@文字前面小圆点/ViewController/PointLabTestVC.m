@@ -7,8 +7,6 @@
 
 #import "PointLabTestVC.h"
 
-#import "DefineProperty.h"
-
 @interface PointLabTestVC ()
 /// UI
 Prop_strong()UILabel *label2;
@@ -51,7 +49,7 @@ Prop_copy()NSString *dot;
                 make.center.equalTo(self.view);
             }];label.makeLabelByShowingType(UILabelShowingType_05);
         });
-    }return _label;
+    };return _label;
 }
 
 -(UILabel *)label2{
@@ -68,13 +66,13 @@ Prop_copy()NSString *dot;
                 make.top.equalTo(self.label.mas_bottom);
             }];label.makeLabelByShowingType(UILabelShowingType_05);
         });
-    }return _label2;
+    };return _label2;
 }
 
 -(NSString *)dot{
     if(!_dot){
         _dot = @"\u2022";// @"⚫";
-    }return _dot;
+    };return _dot;
 }
 
 -(NSMutableAttributedString *)attributedString{
@@ -114,7 +112,7 @@ Prop_copy()NSString *dot;
                 data1.range = NSMakeRange(0, data.length);
             }));
         });
-    }return _attributedString;
+    };return _attributedString;
 }
 
 -(NSMutableAttributedString *)attributedString2{
@@ -155,7 +153,7 @@ Prop_copy()NSString *dot;
                 data.firstLineHeadIndent = 0; // 第一行不缩进
             });data1.range = NSMakeRange(0, self->_attributedString2.length);
         }));
-    }return _attributedString2;
+    };return _attributedString2;
 }
 
 -(NSMutableArray<NSString *> *)items{
@@ -165,7 +163,7 @@ Prop_copy()NSString *dot;
             .add(@"In case you meet any problem in deposit, please contact our CS.")
             .add(@"Additional information can be found on our website.");
         });
-    }return _items;
+    };return _items;
 }
 
 @end

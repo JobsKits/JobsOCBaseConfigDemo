@@ -1,6 +1,6 @@
 //
 //  YYFPSLabel.m
-//  YYKitExample
+//  JobsOCBaseConfigDemo
 //
 //  Created by ibireme on 15/9/3.
 //  Copyright (c) 2015 ibireme. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  XLBubbleTransition.h
-//  XLBubbleTransitionTest
+//  JobsOCBaseConfigDemo
 //
 //  Created by MengXianLiang on 2017/4/11.
 //  Copyright © 2017年 MengXianLiang. All rights reserved.
@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger,XLBubbleTransitionType) {
     XLBubbleTransitionTypeHide,
 };
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @interface XLBubbleTransition : NSObject
 <

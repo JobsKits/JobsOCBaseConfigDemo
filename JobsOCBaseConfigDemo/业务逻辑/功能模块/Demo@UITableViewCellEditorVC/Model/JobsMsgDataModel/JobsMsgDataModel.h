@@ -1,15 +1,14 @@
 //
 //  JobsMsgDataModel.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/2.
 //
 
 #import "UIViewModel.h"
 #import "JobsBlock.h"
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
-
-#import "DefineProperty.h"
+#import "JobsDefineEnums.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

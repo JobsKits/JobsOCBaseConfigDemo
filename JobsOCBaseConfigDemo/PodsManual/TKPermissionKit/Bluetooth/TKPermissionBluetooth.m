@@ -1,6 +1,6 @@
 //
 //  TKPermissionBluetooth.m
-//  TKPermissionKitDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 2019/10/11.
 //  Copyright © 2019 mac. All rights reserved.
@@ -34,7 +34,7 @@ static TKPermissionBluetooth * _shared = nil;
 +(TKPermissionBluetooth *)shared{
     if (!_shared) {
         _shared = TKPermissionBluetooth.new;
-    }return _shared;
+    };return _shared;
 }
 /// 查询是否获取了蓝牙权限
 +(BOOL)checkAuth{
@@ -70,7 +70,7 @@ static TKPermissionBluetooth * _shared = nil;
         code = CBManager.authorization;
     } else {
         SuppressWdeprecatedDeclarationsWarning(code = CBPeripheralManager.authorizationStatus;);
-    }return code;
+    };return code;
 }
 
 -(void)returnBlock:(BOOL)isAuth{

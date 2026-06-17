@@ -24,7 +24,7 @@
 #import <UIKit/UIKit.h>
 #import "UIScrollView+FDFullscreenPopGesture.h"
 #import "NSObject+Extras.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "MacroDef_Sys.h"
 
 /// https://github.com/forkingdog/FDFullscreenPopGesture/issues/177

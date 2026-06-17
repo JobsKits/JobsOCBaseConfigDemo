@@ -1,6 +1,6 @@
 //
 //  JobsIMChatInfoTBVCell.h
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/10.
 //
@@ -13,8 +13,8 @@
 #import "UITableViewCell+Margin.h"
 #import "MGSwipeButtonModel.h"
 #import "JobsIMChatInfoModel.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<MGSwipeTableCell/MGSwipeTableCell.h>)
 #import <MGSwipeTableCell/MGSwipeTableCell.h>
 #else

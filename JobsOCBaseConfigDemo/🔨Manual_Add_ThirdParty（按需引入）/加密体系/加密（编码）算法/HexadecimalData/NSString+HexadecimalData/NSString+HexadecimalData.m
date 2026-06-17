@@ -1,6 +1,6 @@
 //
 //  NSString+HexadecimalData.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2024/4/26.
 //
@@ -35,7 +35,7 @@
         const unsigned char *bytes = data.bytes;
         for (int i = 0; i < data.length; ++i) {
             [hexString appendFormat:@"%02x", bytes[i]];
-        }return hexString;
+        };return hexString;
     };
 }
 ///【实例方法】普通的NSString对象 转换成 16进制字符串

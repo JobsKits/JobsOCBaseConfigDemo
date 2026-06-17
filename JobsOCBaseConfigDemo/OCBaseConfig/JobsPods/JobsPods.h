@@ -1,6 +1,6 @@
 //
 //  JobsPods.h
-//  My_BaseProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2019/9/26.
 //  Copyright © 2019 Corp. All rights reserved.
@@ -12,17 +12,17 @@
 /// 以下是 Debug 区段
 #if DEBUG
 
-#if __has_include(<FLEX/FLEX.h>)
-#import <FLEX/FLEX.h>
-#else
+//#if __has_include(<FLEX/FLEX.h>)
+//#import <FLEX/FLEX.h>
+//#else
 //#import "FLEX.h"
-#endif
+//#endif
 
-#if __has_include(<DoraemonManager/DoraemonManager.h>)
-#import <DoraemonKit/DoraemonManager.h>
-#else
+//#if __has_include(<DoraemonKit/DoraemonManager.h>)
+//#import <DoraemonKit/DoraemonManager.h>
+//#else
 //#import "DoraemonManager.h"
-#endif
+//#endif
 
 //#if __has_include(<FBRetainCycleDetector/FBRetainCycleDetector.h>)
 //#import <FBRetainCycleDetector/FBRetainCycleDetector.h>
@@ -147,17 +147,13 @@
 #if __has_include(<Reachability/Reachability.h>)
 #import <Reachability/Reachability.h>
 #else
-#import "Reachability.h"//检查联网情况
+#import "Reachability.h"
 #endif
 
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFNetworking.h>
-#elif __has_include("AFNetworking.h")
-#import "AFNetworking.h"
-#elif __has_include("AFNetworking-umbrella.h")
-#import "AFNetworking-umbrella.h"
 #else
-#error "AFNetworking header not found"
+#import "AFNetworking.h"
 #endif
 
 #if __has_include(<SDWebImage/SDWebImage.h>)

@@ -7,7 +7,7 @@
 
 #import "BaseViewController.h"
 #import "JobsTabBarCtrl.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "ViewController@1.h"
 #import "ViewController@2.h"
 #import "ViewController@3.h"

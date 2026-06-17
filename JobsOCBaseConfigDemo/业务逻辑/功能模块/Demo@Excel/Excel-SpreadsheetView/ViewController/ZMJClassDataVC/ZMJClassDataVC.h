@@ -1,6 +1,6 @@
 //
 //  ZMJClassDataVC.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/29/24.
 //
@@ -8,6 +8,7 @@
 #import "BaseViewController.h"
 #import "TextCell.h"
 #import "HeaderCell.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<ZMJGanttChart/ZMJGanttChart.h>)
 #import <ZMJGanttChart/ZMJGanttChart.h>

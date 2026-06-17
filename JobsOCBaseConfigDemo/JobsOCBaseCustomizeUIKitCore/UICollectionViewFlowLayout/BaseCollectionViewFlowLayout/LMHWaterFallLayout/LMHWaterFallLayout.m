@@ -1,6 +1,6 @@
 //
 //  LMHWaterFallLayout.m
-//  WateFallLayoutTest
+//  JobsOCBaseConfigDemo
 //
 //  Created by 刘梦桦 on 2017/5/18.
 //  Copyright © 2017年 lmh. All rights reserved.
@@ -15,8 +15,6 @@ static const CGFloat LMHDefaultColunmMargin = 10;
 static const CGFloat LMHDefaultRowMargin = 10;
 /// 内边距
 static const UIEdgeInsets LMHDefaultEdgeInsets = {10,10,10,10};
-
-#import "DefineProperty.h"
 
 @interface LMHWaterFallLayout()
 /// 存放所有的布局属性
@@ -153,13 +151,13 @@ Prop_assign()CGFloat contentHeight;
 - (NSMutableArray *)attrsArr{
     if (!_attrsArr) {
         _attrsArr = NSMutableArray.array;
-    }return _attrsArr;
+    };return _attrsArr;
 }
 
 - (NSMutableArray *)columnHeights{
     if (!_columnHeights) {
         _columnHeights = NSMutableArray.array;
-    }return _columnHeights;
+    };return _columnHeights;
 }
 
 @end

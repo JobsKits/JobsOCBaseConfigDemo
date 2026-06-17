@@ -1,6 +1,6 @@
 //
 //  FSCalendarExtensions.m
-//  FSCalendar
+//  JobsOCBaseConfigDemo
 //
 //  Created by dingwenchao on 10/8/16.
 //  Copyright © 2016 Wenchao Ding. All rights reserved.
@@ -8,6 +8,7 @@
 
 #import "FSCalendarExtensions.h"
 #import <objc/runtime.h>
+#import "MacroDef_Sys.h"
 
 @implementation UIView (FSCalendarExtensions)
 
@@ -16,6 +17,7 @@
     return CGRectGetWidth(self.frame);
 }
 
+#pragma mark —— fs_width
 - (void)setFs_width:(CGFloat)fs_width
 {
     self.frame = CGRectMake(self.fs_left, self.fs_top, fs_width, self.fs_height);
@@ -26,6 +28,7 @@
     return CGRectGetHeight(self.frame);
 }
 
+#pragma mark —— fs_height
 - (void)setFs_height:(CGFloat)fs_height
 {
     self.frame = CGRectMake(self.fs_left, self.fs_top, self.fs_width, fs_height);
@@ -36,6 +39,7 @@
     return CGRectGetMinY(self.frame);
 }
 
+#pragma mark —— fs_top
 - (void)setFs_top:(CGFloat)fs_top
 {
     self.frame = CGRectMake(self.fs_left, fs_top, self.fs_width, self.fs_height);
@@ -46,6 +50,7 @@
     return CGRectGetMaxY(self.frame);
 }
 
+#pragma mark —— fs_bottom
 - (void)setFs_bottom:(CGFloat)fs_bottom
 {
     self.fs_top = fs_bottom - self.fs_height;
@@ -56,6 +61,7 @@
     return CGRectGetMinX(self.frame);
 }
 
+#pragma mark —— fs_left
 - (void)setFs_left:(CGFloat)fs_left
 {
     self.frame = CGRectMake(fs_left, self.fs_top, self.fs_width, self.fs_height);
@@ -66,6 +72,7 @@
     return CGRectGetMaxX(self.frame);
 }
 
+#pragma mark —— fs_right
 - (void)setFs_right:(CGFloat)fs_right
 {
     self.fs_left = self.fs_right - self.fs_width;
@@ -81,6 +88,7 @@
     return CGRectGetWidth(self.frame);
 }
 
+#pragma mark —— fs_width
 - (void)setFs_width:(CGFloat)fs_width
 {
     self.frame = CGRectMake(self.fs_left, self.fs_top, fs_width, self.fs_height);
@@ -91,6 +99,7 @@
     return CGRectGetHeight(self.frame);
 }
 
+#pragma mark —— fs_height
 - (void)setFs_height:(CGFloat)fs_height
 {
     self.frame = CGRectMake(self.fs_left, self.fs_top, self.fs_width, fs_height);
@@ -101,6 +110,7 @@
     return CGRectGetMinY(self.frame);
 }
 
+#pragma mark —— fs_top
 - (void)setFs_top:(CGFloat)fs_top
 {
     self.frame = CGRectMake(self.fs_left, fs_top, self.fs_width, self.fs_height);
@@ -111,6 +121,7 @@
     return CGRectGetMaxY(self.frame);
 }
 
+#pragma mark —— fs_bottom
 - (void)setFs_bottom:(CGFloat)fs_bottom
 {
     self.fs_top = fs_bottom - self.fs_height;
@@ -121,6 +132,7 @@
     return CGRectGetMinX(self.frame);
 }
 
+#pragma mark —— fs_left
 - (void)setFs_left:(CGFloat)fs_left
 {
     self.frame = CGRectMake(fs_left, self.fs_top, self.fs_width, self.fs_height);
@@ -131,6 +143,7 @@
     return CGRectGetMaxX(self.frame);
 }
 
+#pragma mark —— fs_right
 - (void)setFs_right:(CGFloat)fs_right
 {
     self.fs_left = self.fs_right - self.fs_width;
@@ -216,12 +229,14 @@
     return days.length;
 }
 
+#pragma mark —— @property(readonly, nonatomic)NSDateComponents *fs_privateComponents;
+JobsKey(_fs_privateComponents)
 - (NSDateComponents *)fs_privateComponents
 {
-    NSDateComponents *components = objc_getAssociatedObject(self, _cmd);
+    NSDateComponents *components = Jobs_getAssociatedObject(_fs_privateComponents);
     if (!components) {
         components = [[NSDateComponents alloc] init];
-        objc_setAssociatedObject(self, _cmd, components, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        Jobs_setAssociatedRETAIN_NONATOMIC(_fs_privateComponents, components)
     }
     return components;
 }
@@ -230,6 +245,7 @@
 
 @implementation NSMapTable (FSCalendarExtensions)
 
+#pragma mark —— object
 - (void)setObject:(nullable id)obj forKeyedSubscript:(id<NSCopying>)key
 {
     if (!key) return;
@@ -250,6 +266,7 @@
 
 @implementation NSCache (FSCalendarExtensions)
 
+#pragma mark —— object
 - (void)setObject:(nullable id)obj forKeyedSubscript:(id<NSCopying>)key
 {
     if (!key) return;
@@ -441,5 +458,3 @@ if (!strcmp(returnType, @encode(_type))) { \
 }
 
 @end
-
-

@@ -1,14 +1,12 @@
 //
 //  ZFCustomControlView.m
-//  ZFPlayer_Example
+//  JobsOCBaseConfigDemo
 //
 //  Created by 紫枫 on 2019/6/5.
 //  Copyright © 2019 紫枫. All rights reserved.
 //
 
 #import "ZFCustomControlView.h"
-
-#import "DefineProperty.h"
 
 @interface ZFCustomControlView ()<ZFSliderViewDelegate>
 /// 底部工具栏
@@ -65,7 +63,7 @@ Prop_strong()UIImageView *coverImageView;
         
         [self resetControlView];
         self.clipsToBounds = YES;
-    }return self;
+    };return self;
 }
 
 - (void)makeSubViewsAction {
@@ -492,6 +490,7 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
     [self showControlViewWithAnimated:YES];
 }
 #pragma mark - setter
+#pragma mark —— player
 - (void)setPlayer:(ZFPlayerController *)player {
     _player = player;
 }
@@ -501,7 +500,7 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
         _topToolView = [[UIView alloc] init];
         UIImage *image = ZFPlayer_Image(@"ZFPlayer_top_shadow");
         _topToolView.layer.contents = (id)image.CGImage;
-    }return _topToolView;
+    };return _topToolView;
 }
 
 - (UILabel *)titleLabel {
@@ -510,7 +509,7 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
         _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.font = [UIFont systemFontOfSize:JobsWidth(15.0)
                                              weight:UIFontWeightRegular];
-    }return _titleLabel;
+    };return _titleLabel;
 }
 
 - (UIView *)bottomToolView {
@@ -518,7 +517,7 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
         _bottomToolView = [[UIView alloc] init];
         UIImage *image = ZFPlayer_Image(@"ZFPlayer_bottom_shadow");
         _bottomToolView.layer.contents = (id)image.CGImage;
-    }return _bottomToolView;
+    };return _bottomToolView;
 }
 
 - (UIButton *)playOrPauseBtn {
@@ -528,7 +527,7 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
                          forState:UIControlStateNormal];
         [_playOrPauseBtn setImage:ZFPlayer_Image(@"new_allPause_44x44_")
                          forState:UIControlStateSelected];
-    }return _playOrPauseBtn;
+    };return _playOrPauseBtn;
 }
 
 - (UILabel *)currentTimeLabel {
@@ -538,7 +537,7 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
         _currentTimeLabel.font = [UIFont systemFontOfSize:JobsWidth(14.0f)
                                                    weight:UIFontWeightRegular];
         _currentTimeLabel.textAlignment = NSTextAlignmentCenter;
-    }return _currentTimeLabel;
+    };return _currentTimeLabel;
 }
 
 - (ZFSliderView *)slider {
@@ -557,7 +556,7 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
         [_slider setThumbImage:ZFPlayer_Image(@"ZFPlayer_slider")
                       forState:UIControlStateNormal];
         _slider.sliderHeight = 2;
-    }return _slider;
+    };return _slider;
 }
 
 - (UILabel *)totalTimeLabel {
@@ -566,7 +565,7 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
         _totalTimeLabel.textColor = [UIColor whiteColor];
         _totalTimeLabel.font = [UIFont systemFontOfSize:JobsWidth(14.0f)];
         _totalTimeLabel.textAlignment = NSTextAlignmentCenter;
-    }return _totalTimeLabel;
+    };return _totalTimeLabel;
 }
 
 - (UIButton *)fullScreenBtn {
@@ -574,7 +573,7 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
         _fullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_fullScreenBtn setImage:ZFPlayer_Image(@"ZFPlayer_fullscreen")
                         forState:UIControlStateNormal];
-    }return _fullScreenBtn;
+    };return _fullScreenBtn;
 }
 
 - (UIImageView *)coverImageView {
@@ -582,7 +581,7 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
         _coverImageView = [[UIImageView alloc] init];
         _coverImageView.userInteractionEnabled = YES;
         _coverImageView.contentMode = UIViewContentModeScaleAspectFit;
-    }return _coverImageView;
+    };return _coverImageView;
 }
 
 - (ZFSliderView *)bottomPgrogress {
@@ -593,7 +592,7 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
         _bottomPgrogress.bufferTrackTintColor  = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.5];
         _bottomPgrogress.sliderHeight = 1;
         _bottomPgrogress.isHideSliderBlock = NO;
-    }return _bottomPgrogress;
+    };return _bottomPgrogress;
 }
 
 @end

@@ -1,12 +1,12 @@
 //
 //  GTCaptcha4ResultModel.h
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026/5/14.
 //
 
 #import <Foundation/Foundation.h>
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<GTCaptcha4/GTCaptcha4.h>)
 #import <GTCaptcha4/GTCaptcha4.h>

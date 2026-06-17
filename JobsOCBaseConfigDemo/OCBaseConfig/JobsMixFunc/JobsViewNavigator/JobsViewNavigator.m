@@ -7,8 +7,6 @@
 
 #import "JobsViewNavigator.h"
 
-#import "DefineProperty.h"
-
 @interface JobsViewNavigator ()
 
 Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
@@ -20,7 +18,7 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(JobsReturnViewNavigatorByViewAndAnimatedBlock _Nonnull)pushView{
@@ -49,7 +47,7 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
                              completion:nil];
         } else {
             if(transitionBlock) transitionBlock();
-        }return self;
+        };return self;
     };
 }
 
@@ -85,7 +83,7 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
         } else {
             if(transitionBlock) transitionBlock();
             if(completionBlock) completionBlock(YES);
-        }return self;
+        };return self;
     };
 }
 
@@ -119,7 +117,7 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
 -(NSMutableArray<__kindof UIView *> *)viewStack{
     if(!_viewStack){
         _viewStack = NSMutableArray.array;
-    }return _viewStack;
+    };return _viewStack;
 }
 
 @end

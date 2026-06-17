@@ -1,14 +1,12 @@
 //
 //  XXTools.m
-//  Feidegou
+//  JobsOCBaseConfigDemo
 //
 //  Created by Kite on 2019/11/29.
 //  Copyright © 2019 朝花夕拾. All rights reserved.
 //
 
 #import "XXTools.h"
-
-#import "DefineProperty.h"
 
 @interface XXTools()
 
@@ -68,7 +66,7 @@ Prop_strong()UILabel *lab2;
         _labView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             
         });
-    }return _labView;
+    };return _labView;
 }
 
 -(UILabel *)lab2{
@@ -76,7 +74,7 @@ Prop_strong()UILabel *lab2;
         _lab2 = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             
         });
-    }return _lab2;
+    };return _lab2;
 }
 
 @end

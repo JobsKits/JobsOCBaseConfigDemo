@@ -1,13 +1,13 @@
 //
 //  UITextModel.h
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <Foundation/Foundation.h>
 #import "BaseModel.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 #ifndef TextModelDataString
 #define TextModelDataString 主标题文字默认占位内容.tr

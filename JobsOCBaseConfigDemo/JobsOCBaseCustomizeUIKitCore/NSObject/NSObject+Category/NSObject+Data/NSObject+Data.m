@@ -1,6 +1,6 @@
 //
 //  NSObject+Data.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 9/16/24.
 //
@@ -68,7 +68,7 @@
         Q = [FileFolderHandleTool writeFileAtPath:localFileFullNameStr
                                           content:data
                                             error:error];
-    }return Q ? localFileFullNameStr : @"";
+    };return Q ? localFileFullNameStr : @"";
 }
 #pragma mark —— 关于万物数据绑定
 #pragma mark —— @property(nonatomic,strong,nullable)id __block data;/// 绑定的数据源，数据类型id

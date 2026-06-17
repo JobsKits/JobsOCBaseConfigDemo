@@ -1,13 +1,11 @@
 //
 //  BaiShaETProjBankAccMgmtCVCell.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/7/7.
 //
 
 #import "BaiShaETProjBankAccMgmtCVCell.h"
-
-#import "DefineProperty.h"
 
 @interface BaiShaETProjBankAccMgmtCVCell ()
 /// UI
@@ -23,7 +21,7 @@ Prop_strong()UILabel *detailLab;
 //        self.backgroundColor = JobsWhiteColor;
 //        self.contentView.backgroundColor = JobsRandomColor;
         self.cornerCutToCircleWithCornerRadius(JobsWidth(8));
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
@@ -74,7 +72,7 @@ Prop_strong()UILabel *detailLab;
             default:
                 JobsCellSelfCor(JobsWhiteColor);
                 break;
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— lazyLoad

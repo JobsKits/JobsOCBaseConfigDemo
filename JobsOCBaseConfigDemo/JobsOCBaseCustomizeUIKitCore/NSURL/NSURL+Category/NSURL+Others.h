@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JobsBlock.h"
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

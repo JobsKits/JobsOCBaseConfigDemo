@@ -1,6 +1,6 @@
 //
 //  JobsBaseCollectionViewCell.m
-//  UBallLive
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/18.
 //
@@ -23,7 +23,7 @@ UITextFieldProtocol_synthesize_part2
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 - (void)drawRect:(CGRect)rect {

@@ -1,8 +1,8 @@
 //
 //  JobsMakes.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
-//  Created by Admin on 12/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef JobsMakes_h
@@ -10,13 +10,55 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
-
 #import <UIKit/UIKit.h>
-#import <JavaScriptCore/JavaScriptCore.h>
 #import <MessageUI/MessageUI.h>
-#import "JobsBlock.h"
-#import "NSObject+AttributedStr.h"
+#import <JavaScriptCore/JavaScriptCore.h>
 #import "NSString+Others.h"
+#import "JobsBlock.h"
+#import "JobsDefines.h"
+#pragma mark —— 关于富文本
+#ifndef JobsAttributedString_h
+/// 创建不可变富文本
+NS_INLINE NSAttributedString *_Nonnull JobsAttributedString(NSString *_Nonnull data) {
+    if (!data) data = @"";
+    return [NSAttributedString.alloc initWithString:data];
+}
+
+NS_INLINE NSAttributedString *_Nonnull JobsAttributedStringByAttributes(NSString *_Nonnull data,
+                                                                        NSDictionary<NSAttributedStringKey, id> *_Nullable attrs){
+    if (!data) data = @"";
+    return [NSAttributedString.alloc initWithString:data attributes:attrs];
+}
+
+NS_INLINE NSAttributedString *_Nonnull JobsAttributedStringByAttributeString(NSAttributedString *_Nullable data){
+    if (!data) data = JobsAttributedString(@"");
+    return [NSAttributedString.alloc initWithAttributedString:data];
+}
+
+NS_INLINE NSAttributedString *_Nonnull JobsAttributedStringByTextAttachment(NSTextAttachment *_Nonnull data) {
+    if (!data) data = NSTextAttachment.alloc.init;
+    return [NSAttributedString attributedStringWithAttachment:data];
+}
+/// 创建可变富文本
+NS_INLINE NSMutableAttributedString *_Nonnull toMutAttributedString(NSAttributedString *_Nonnull data) {
+    if(!data) data = JobsAttributedString(@"");
+    return [NSMutableAttributedString.alloc initWithAttributedString:data];
+}
+
+NS_INLINE NSMutableAttributedString *_Nonnull JobsMutAttributedStringByAttributes(NSString *_Nonnull data,
+                                                                                  NSDictionary<NSAttributedStringKey, id> * _Nullable attrs){
+    return toMutAttributedString(JobsAttributedStringByAttributes(data,attrs));
+}
+
+NS_INLINE NSMutableAttributedString *_Nonnull JobsMutAttributedString(NSString *_Nonnull data) {
+    return toMutAttributedString(JobsAttributedString(data));
+}
+
+NS_INLINE NSMutableAttributedString *_Nonnull JobsMutAttributedStringByTextAttachment(NSTextAttachment *_Nonnull data) {
+    if (!data) data = NSTextAttachment.alloc.init;
+    return toMutAttributedString(JobsAttributedStringByTextAttachment(data));
+}
+#endif /* JobsAttributedString_h */
 
 #pragma mark —— 关于时间/日历
 NS_INLINE __kindof NSDateComponents *_Nonnull
@@ -42,7 +84,7 @@ jobsMakeBezierPath(jobsByBezierPathBlock _Nonnull block){
 #pragma mark —— 关于动画
 NS_INLINE __kindof CABasicAnimation *_Nonnull
 jobsMakeCABasicAnimationBy(NSString *_Nonnull data){
-    return data.basicAnimation;
+    return [CABasicAnimation animationWithKeyPath:data];
 }
 
 NS_INLINE __kindof CABasicAnimation *_Nonnull
@@ -329,7 +371,11 @@ jobsMakeImageView(jobsByImageViewBlock _Nonnull block){
 NS_INLINE __kindof UITextView *_Nonnull
 jobsMakeTextView(jobsByTextViewBlock _Nonnull block){
     UITextView *data = UITextView.alloc.init;
-    data.linkTextAttributes = NSObject.linkTextAttributes;
+    data.linkTextAttributes = @{
+        NSForegroundColorAttributeName: @"#FFCC00".cor,
+        NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+        NSUnderlineColorAttributeName: @"#FFCC00".cor,
+    };
     if (block) block(data);
     return data;
 }
@@ -351,13 +397,6 @@ jobsMakeCollectionView(jobsByCollectionViewBlock _Nonnull block){
 NS_INLINE __kindof UIWindow *_Nonnull
 jobsMakeWindow(jobsByWindowBlock _Nonnull block){
     UIWindow *data = UIWindow.alloc.init;
-    if (block) block(data);
-    return data;
-}
-
-NS_INLINE __kindof UIWindow *_Nonnull
-jobsMakeAppDelegateWindow(jobsByWindowBlock _Nonnull block){
-    UIWindow *data = JobsAppTools.sharedManager.makeAppDelegateWindow;
     if (block) block(data);
     return data;
 }
@@ -517,14 +556,16 @@ jobsMakePHImageRequestOptions(jobsByPHImageRequestOptionsBlock _Nonnull block){
 }
 
 NS_INLINE __kindof NSRunLoop *_Nonnull
-jobsMakeMainRunLoop(jobsByRunLoopBlock _Nonnull block) API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0)){
+jobsMakeMainRunLoop(jobsByRunLoopBlock _Nonnull block)
+API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0)){
     NSRunLoop *data = NSRunLoop.mainRunLoop;
     if (block) block(data);
     return data;
 }
 
 NS_INLINE __kindof NSRunLoop *_Nonnull
-jobsMakeCurrentRunLoop(jobsByRunLoopBlock _Nonnull block) NS_SWIFT_UNAVAILABLE_FROM_ASYNC("currentRunLoop cannot be used from async contexts."){
+jobsMakeCurrentRunLoop(jobsByRunLoopBlock _Nonnull block)
+NS_SWIFT_UNAVAILABLE_FROM_ASYNC("currentRunLoop cannot be used from async contexts."){
     NSRunLoop *data = NSRunLoop.currentRunLoop;
     if (block) block(data);
     return data;
@@ -641,13 +682,33 @@ jobsMakeLock(jobsByLockBlock _Nullable block){
     if (block) block(data);
     return data;
 }
-#pragma mark —— 关于 Texture 的创建
-#import <AsyncDisplayKit/AsyncDisplayKit.h>
-#import <AsyncDisplayKit/ASDisplayNode+Subclasses.h> // ⚠️ 必须引入子类化接口
-#import <AVFoundation/AVFoundation.h> // ASVideoNode 需要
-#import "TDDrawingNode.h"
 
-NS_INLINE __kindof ASDisplayNode * _Nonnull
+#if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
+#import <AsyncDisplayKit/AsyncDisplayKit.h>
+#else
+#import "AsyncDisplayKit.h"
+#endif
+
+#ifndef JOBS_TEXTURE_MAKES_DEFINED
+#define JOBS_TEXTURE_MAKES_DEFINED
+
+#if TARGET_OS_IOS && AS_USE_MAPKIT
+NS_INLINE __kindof ASMapNode *_Nonnull
+jobsMakeMapNode(jobsByMapNodeBlock _Nullable block) {
+    ASMapNode *node = ASMapNode.alloc.init;
+    if (block) block(node);
+    return node;
+}
+#endif
+
+NS_INLINE __kindof ASVideoNode *_Nonnull
+jobsMakeVideoNode(jobsByVideoNodeBlock _Nullable block) {
+    ASVideoNode *node = ASVideoNode.alloc.init;
+    if (block) block(node);
+    return node;
+}
+
+NS_INLINE __kindof ASDisplayNode *_Nonnull
 jobsMakeNode(Class _Nonnull nodeClass, jobsByDisplayNodeBlock _Nullable block) {
     NSCParameterAssert([nodeClass isSubclassOfClass:ASDisplayNode.class]);
     ASDisplayNode *node = [nodeClass new];
@@ -655,106 +716,84 @@ jobsMakeNode(Class _Nonnull nodeClass, jobsByDisplayNodeBlock _Nullable block) {
     return node;
 }
 
-NS_INLINE __kindof ASDisplayNode * _Nonnull
+NS_INLINE __kindof ASDisplayNode *_Nonnull
 jobsMakeDisplayNode(jobsByDisplayNodeBlock _Nullable block) {
     ASDisplayNode *node = ASDisplayNode.alloc.init;
     if (block) block(node);
     return node;
 }
 
-NS_INLINE __kindof ASTextNode * _Nonnull
+NS_INLINE __kindof ASTextNode *_Nonnull
 jobsMakeTextNode(jobsByTextNodeBlock _Nullable block) {
     ASTextNode *node = ASTextNode.alloc.init;
     if (block) block(node);
     return node;
 }
 
-NS_INLINE __kindof ASEditableTextNode * _Nonnull
+NS_INLINE __kindof ASEditableTextNode *_Nonnull
 jobsMakeEditableTextNode(jobsByEditableTextNodeBlock _Nullable block) {
     ASEditableTextNode *node = ASEditableTextNode.alloc.init;
     if (block) block(node);
     return node;
 }
 
-NS_INLINE __kindof ASImageNode * _Nonnull
+NS_INLINE __kindof ASImageNode *_Nonnull
 jobsMakeImageNode(jobsByImageNodeBlock _Nullable block) {
     ASImageNode *node = ASImageNode.alloc.init;
     if (block) block(node);
     return node;
 }
 
-NS_INLINE __kindof ASNetworkImageNode * _Nonnull
+NS_INLINE __kindof ASNetworkImageNode *_Nonnull
 jobsMakeNetworkImageNode(jobsByNetworkImageNodeBlock _Nullable block) {
     ASNetworkImageNode *node = ASNetworkImageNode.alloc.init;
     if (block) block(node);
     return node;
 }
 
-NS_INLINE __kindof ASMapNode * _Nonnull
-jobsMakeMapNode(jobsByMapNodeBlock _Nullable block) {
-    ASMapNode *node = ASMapNode.alloc.init;
-    if (block) block(node);
-    return node;
-}
-
-NS_INLINE __kindof ASVideoNode * _Nonnull
-jobsMakeVideoNode(jobsByVideoNodeBlock _Nullable block) {
-    ASVideoNode *node = ASVideoNode.alloc.init;
-    if (block) block(node);
-    return node;
-}
-
-NS_INLINE __kindof ASCollectionNode * _Nonnull
+NS_INLINE __kindof ASCollectionNode *_Nonnull
 jobsMakeCollectionNode(jobsByCollectionNodeBlock _Nullable block) {
-    // 默认用 FlowLayout；需要自定义可以在 block 里替换 layout
     ASCollectionNode *node = [ASCollectionNode.alloc initWithCollectionViewLayout:UICollectionViewFlowLayout.alloc.init];
     if (block) block(node);
     return node;
 }
 
-NS_INLINE __kindof ASTableNode * _Nonnull
+NS_INLINE __kindof ASTableNode *_Nonnull
 jobsMakeTableNode(jobsByTableNodeBlock _Nullable block) {
     ASTableNode *node = ASTableNode.alloc.init;
     if (block) block(node);
     return node;
 }
 
-NS_INLINE __kindof ASScrollNode * _Nonnull
+NS_INLINE __kindof ASScrollNode *_Nonnull
 jobsMakeScrollNode(jobsByScrollNodeBlock _Nullable block) {
     ASScrollNode *node = ASScrollNode.alloc.init;
     if (block) block(node);
     return node;
 }
 
-NS_INLINE __kindof ASCellNode * _Nonnull
+NS_INLINE __kindof ASCellNode *_Nonnull
 jobsMakeCellNode(jobsByCellNodeBlock _Nullable block) {
     ASCellNode *node = ASCellNode.alloc.init;
     if (block) block(node);
     return node;
 }
 
-NS_INLINE __kindof ASButtonNode * _Nonnull
+NS_INLINE __kindof ASButtonNode *_Nonnull
 jobsMakeButtonNode(jobsByButtonNodeBlock _Nullable block) {
     ASButtonNode *node = ASButtonNode.alloc.init;
     if (block) block(node);
     return node;
 }
 
-NS_INLINE __kindof TDDrawingNode * _Nonnull
-jobsMakeDrawingNode(jobsByDrawingNodeBlock _Nullable block) {
-    TDDrawingNode *node = TDDrawingNode.alloc.init;
-    if (block) block(node);
-    return node;
-}
-
-NS_INLINE __kindof ASStackLayoutSpec * _Nonnull
+NS_INLINE __kindof ASStackLayoutSpec *_Nonnull
 jobsMakeStackLayoutSpec(jobsByStackLayoutSpecBlock _Nullable block) {
     ASStackLayoutSpec *stackLayoutSpec = ASStackLayoutSpec.alloc.init;
     if (block) block(stackLayoutSpec);
     return stackLayoutSpec;
 }
 
-NS_INLINE __kindof ASStackLayoutSpec * _Nonnull
+NS_INLINE __kindof ASStackLayoutSpec *_Nonnull
 jobsMakeVerticalStackLayoutSpec(jobsByStackLayoutSpecBlock _Nullable block) {
     ASStackLayoutSpec *stackLayoutSpec = ASStackLayoutSpec.alloc.init;
     stackLayoutSpec.direction = ASStackLayoutDirectionVertical;
@@ -762,7 +801,7 @@ jobsMakeVerticalStackLayoutSpec(jobsByStackLayoutSpecBlock _Nullable block) {
     return stackLayoutSpec;
 }
 
-NS_INLINE __kindof ASStackLayoutSpec * _Nonnull
+NS_INLINE __kindof ASStackLayoutSpec *_Nonnull
 jobsMakeHorizontalStackLayoutSpec(jobsByStackLayoutSpecBlock _Nullable block) {
     ASStackLayoutSpec *stackLayoutSpec = ASStackLayoutSpec.alloc.init;
     stackLayoutSpec.direction = ASStackLayoutDirectionHorizontal;
@@ -770,6 +809,135 @@ jobsMakeHorizontalStackLayoutSpec(jobsByStackLayoutSpecBlock _Nullable block) {
     return stackLayoutSpec;
 }
 
+#endif /* JOBS_TEXTURE_MAKES_DEFINED */
+//#pragma mark —— 关于 Texture 的创建
+//#import <AVFoundation/AVFoundation.h> // ASVideoNode 需要
+//
+//#if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
+//#import <AsyncDisplayKit/AsyncDisplayKit.h>
+//#else
+//#import "AsyncDisplayKit.h"
+//#endif
+//
+//#if TARGET_OS_IOS && AS_USE_MAPKIT
+//NS_INLINE __kindof ASMapNode * _Nonnull
+//jobsMakeMapNode(jobsByMapNodeBlock _Nullable block) {
+//    ASMapNode *node = ASMapNode.alloc.init;
+//    if (block) block(node);
+//    return node;
+//}
+//#endif
+//
+//#if AS_USE_VIDEO
+//NS_INLINE __kindof ASVideoNode * _Nonnull
+//jobsMakeVideoNode(jobsByVideoNodeBlock _Nullable block) {
+//    ASVideoNode *node = ASVideoNode.alloc.init;
+//    if (block) block(node);
+//    return node;
+//}
+//#endif
+//
+//NS_INLINE __kindof ASDisplayNode * _Nonnull
+//jobsMakeNode(Class _Nonnull nodeClass, jobsByDisplayNodeBlock _Nullable block) {
+//    NSCParameterAssert([nodeClass isSubclassOfClass:ASDisplayNode.class]);
+//    ASDisplayNode *node = [nodeClass new];
+//    if (block) block(node);
+//    return node;
+//}
+//
+//NS_INLINE __kindof ASDisplayNode * _Nonnull
+//jobsMakeDisplayNode(jobsByDisplayNodeBlock _Nullable block) {
+//    ASDisplayNode *node = ASDisplayNode.alloc.init;
+//    if (block) block(node);
+//    return node;
+//}
+//
+//NS_INLINE __kindof ASTextNode * _Nonnull
+//jobsMakeTextNode(jobsByTextNodeBlock _Nullable block) {
+//    ASTextNode *node = ASTextNode.alloc.init;
+//    if (block) block(node);
+//    return node;
+//}
+//
+//NS_INLINE __kindof ASEditableTextNode * _Nonnull
+//jobsMakeEditableTextNode(jobsByEditableTextNodeBlock _Nullable block) {
+//    ASEditableTextNode *node = ASEditableTextNode.alloc.init;
+//    if (block) block(node);
+//    return node;
+//}
+//
+//NS_INLINE __kindof ASImageNode * _Nonnull
+//jobsMakeImageNode(jobsByImageNodeBlock _Nullable block) {
+//    ASImageNode *node = ASImageNode.alloc.init;
+//    if (block) block(node);
+//    return node;
+//}
+//
+//NS_INLINE __kindof ASNetworkImageNode * _Nonnull
+//jobsMakeNetworkImageNode(jobsByNetworkImageNodeBlock _Nullable block) {
+//    ASNetworkImageNode *node = ASNetworkImageNode.alloc.init;
+//    if (block) block(node);
+//    return node;
+//}
+//
+//NS_INLINE __kindof ASCollectionNode * _Nonnull
+//jobsMakeCollectionNode(jobsByCollectionNodeBlock _Nullable block) {
+//    // 默认用 FlowLayout；需要自定义可以在 block 里替换 layout
+//    ASCollectionNode *node = [ASCollectionNode.alloc initWithCollectionViewLayout:UICollectionViewFlowLayout.alloc.init];
+//    if (block) block(node);
+//    return node;
+//}
+//
+//NS_INLINE __kindof ASTableNode * _Nonnull
+//jobsMakeTableNode(jobsByTableNodeBlock _Nullable block) {
+//    ASTableNode *node = ASTableNode.alloc.init;
+//    if (block) block(node);
+//    return node;
+//}
+//
+//NS_INLINE __kindof ASScrollNode * _Nonnull
+//jobsMakeScrollNode(jobsByScrollNodeBlock _Nullable block) {
+//    ASScrollNode *node = ASScrollNode.alloc.init;
+//    if (block) block(node);
+//    return node;
+//}
+//
+//NS_INLINE __kindof ASCellNode * _Nonnull
+//jobsMakeCellNode(jobsByCellNodeBlock _Nullable block) {
+//    ASCellNode *node = ASCellNode.alloc.init;
+//    if (block) block(node);
+//    return node;
+//}
+//
+//NS_INLINE __kindof ASButtonNode * _Nonnull
+//jobsMakeButtonNode(jobsByButtonNodeBlock _Nullable block) {
+//    ASButtonNode *node = ASButtonNode.alloc.init;
+//    if (block) block(node);
+//    return node;
+//}
+//
+//NS_INLINE __kindof ASStackLayoutSpec * _Nonnull
+//jobsMakeStackLayoutSpec(jobsByStackLayoutSpecBlock _Nullable block) {
+//    ASStackLayoutSpec *stackLayoutSpec = ASStackLayoutSpec.alloc.init;
+//    if (block) block(stackLayoutSpec);
+//    return stackLayoutSpec;
+//}
+//
+//NS_INLINE __kindof ASStackLayoutSpec * _Nonnull
+//jobsMakeVerticalStackLayoutSpec(jobsByStackLayoutSpecBlock _Nullable block) {
+//    ASStackLayoutSpec *stackLayoutSpec = ASStackLayoutSpec.alloc.init;
+//    stackLayoutSpec.direction = ASStackLayoutDirectionVertical;
+//    if (block) block(stackLayoutSpec);
+//    return stackLayoutSpec;
+//}
+//
+//NS_INLINE __kindof ASStackLayoutSpec * _Nonnull
+//jobsMakeHorizontalStackLayoutSpec(jobsByStackLayoutSpecBlock _Nullable block) {
+//    ASStackLayoutSpec *stackLayoutSpec = ASStackLayoutSpec.alloc.init;
+//    stackLayoutSpec.direction = ASStackLayoutDirectionHorizontal;
+//    if (block) block(stackLayoutSpec);
+//    return stackLayoutSpec;
+//}
 #pragma clang diagnostic pop
 
 #endif /* JobsMakes_h */

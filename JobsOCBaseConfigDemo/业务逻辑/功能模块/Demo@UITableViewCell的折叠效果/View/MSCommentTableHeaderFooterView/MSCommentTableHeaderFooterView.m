@@ -1,6 +1,6 @@
 //
 //  MSCommentTableHeaderFooterView.m
-//  MataShop
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 10/2/23.
 //
@@ -17,7 +17,7 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 - (void)layoutSubviews {

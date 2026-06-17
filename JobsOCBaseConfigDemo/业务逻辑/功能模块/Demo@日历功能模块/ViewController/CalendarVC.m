@@ -7,8 +7,6 @@
 
 #import "CalendarVC.h"
 
-#import "DefineProperty.h"
-
 @interface CalendarVC ()
 /// UI
 Prop_strong()FSCalendar *calendar;
@@ -25,7 +23,7 @@ Prop_strong()FSCalendar *calendar;
 -(instancetype)init{
     if (self = [super init]) {
         JobsLog(@"");
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -202,7 +200,7 @@ atMonthPosition:(FSCalendarMonthPosition)monthPosition{
         }];
         [_calendar setNeedsLayout];
         [_calendar layoutIfNeeded];
-    }return _calendar;
+    };return _calendar;
 }
 @synthesize backBtnModel = _backBtnModel;
 -(UIButtonModel *)backBtnModel{
@@ -222,7 +220,7 @@ atMonthPosition:(FSCalendarMonthPosition)monthPosition{
             self.popToRootVCBy(YES);
             return nil;
         };
-    }return _backBtnModel;
+    };return _backBtnModel;
 }
 
 @end

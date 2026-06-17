@@ -1,14 +1,12 @@
 //
 //  UIView+SuspendView.m
-//  Search
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/8/13.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "UIView+SuspendView.h"
-
-#import "DefineProperty.h"
 
 @implementation UIView (SuspendView)
 #pragma mark —— @property(nonatomic,weak)UIViewController *vc;
@@ -18,7 +16,7 @@ JobsKey(_vc)
     UIViewController *VC = Jobs_getAssociatedObject(_vc);
     if (!VC) {
         JobsLog(@"VC 不能为空");
-    }return VC;
+    };return VC;
 }
 
 -(void)setVc:(UIViewController *)vc{
@@ -121,7 +119,7 @@ JobsKey(_panRcognize)
             return nil;
         }];
         Jobs_setAssociatedRETAIN_NONATOMIC(_panRcognize, self.panGR)
-    }return PanRcognize;
+    };return PanRcognize;
 }
 
 -(void)setPanRcognize:(UIPanGestureRecognizer *)panRcognize{

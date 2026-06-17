@@ -1,12 +1,12 @@
 //
 //  UIButton+JobsStepView.h
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/22.
 //
 
 #import <UIKit/UIKit.h>
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

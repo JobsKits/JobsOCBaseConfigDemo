@@ -1,13 +1,11 @@
 //
 //  PointLabView.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/15/24.
 //
 
 #import "PointLabBaseView.h"
-
-#import "DefineProperty.h"
 
 @interface PointLabBaseView ()
 /// UI
@@ -22,13 +20,13 @@ Prop_strong()UIView *pointView;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -42,7 +40,7 @@ Prop_strong()UIView *pointView;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -84,7 +82,7 @@ Prop_strong()UIView *pointView;
                 make.left.top.equalTo(self);
             }];
         });
-    }return _pointView;
+    };return _pointView;
 }
 @synthesize label = _label;
 -(UILabel *)label{
@@ -97,7 +95,7 @@ Prop_strong()UIView *pointView;
                 make.top.bottom.right.equalTo(self);
             }];
         });
-    }return _label;
+    };return _label;
 }
 
 @end

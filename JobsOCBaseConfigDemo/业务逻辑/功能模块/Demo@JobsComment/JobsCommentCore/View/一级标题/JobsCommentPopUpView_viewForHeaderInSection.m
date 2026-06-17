@@ -1,14 +1,12 @@
 //
 //  CommentPopUpNonHoveringHeaderView.m
-//  My_BaseProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/2.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "JobsCommentPopUpView_viewForHeaderInSection.h"
-
-#import "DefineProperty.h"
 
 @interface JobsCommentPopUpView_viewForHeaderInSection ()
 /// UI
@@ -24,7 +22,7 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{

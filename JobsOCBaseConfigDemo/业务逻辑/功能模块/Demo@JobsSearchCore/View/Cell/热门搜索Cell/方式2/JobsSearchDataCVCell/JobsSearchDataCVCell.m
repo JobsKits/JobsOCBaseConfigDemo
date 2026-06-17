@@ -1,13 +1,11 @@
 //
 //  DataCollectionViewCell.m
-//  JobsSearch
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/22.
 //
 
 #import "JobsSearchDataCVCell.h"
-
-#import "DefineProperty.h"
 
 @interface JobsSearchDataCVCell ()
 
@@ -25,7 +23,7 @@ Prop_strong()UIColor *serialNumLabBGCor;
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = JobsWhiteColor;
         self.contentView.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseCellProtocol
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -70,7 +68,7 @@ Prop_strong()UIColor *serialNumLabBGCor;
                 make.centerY.equalTo(self.contentView);
             }];label.cornerCutToCircleWithCornerRadius(3);
         });
-    }return _serialNumLab;
+    };return _serialNumLab;
 }
 
 -(UILabel *)contentLab{
@@ -85,7 +83,7 @@ Prop_strong()UIColor *serialNumLabBGCor;
                 make.left.equalTo(self.serialNumLab.mas_right).offset(5);
             }];
         });
-    }return _contentLab;
+    };return _contentLab;
 }
 
 @end

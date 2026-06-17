@@ -1,6 +1,6 @@
 //
 //  JobsCommentVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/10.
 //
@@ -8,6 +8,7 @@
 #import "BaseViewController.h"
 #import "JobsCommentCoreVC.h"
 #import "JobsPopUpVC.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

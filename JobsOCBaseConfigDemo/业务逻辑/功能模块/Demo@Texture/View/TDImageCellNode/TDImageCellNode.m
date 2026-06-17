@@ -32,7 +32,7 @@
             node.cornerRadius = 10;
             node.clipsToBounds = YES;
         });
-    }return self;
+    };return self;
 }
 
 -(ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {

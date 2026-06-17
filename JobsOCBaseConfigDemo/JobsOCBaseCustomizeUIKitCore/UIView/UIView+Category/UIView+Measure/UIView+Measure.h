@@ -1,6 +1,6 @@
 //
 //  UIView+Measure.h
-//  My_BaseProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/1.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -13,6 +13,7 @@
 
 @class UIViewModel;
 
+#ifndef JobsDefineFuncs_h
 NS_INLINE CGRect exchangeWidthAndHeight(CGRect frame){
     CGFloat width = frame.size.width;
     CGFloat height = frame.size.height;
@@ -24,8 +25,9 @@ NS_INLINE CGRect exchangeXAndY(CGRect frame){
     CGFloat y = frame.origin.y;
     return CGRectMake(y, x, frame.size.width, frame.size.height);
 }
+#endif /* JobsDefineFuncs_h */
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

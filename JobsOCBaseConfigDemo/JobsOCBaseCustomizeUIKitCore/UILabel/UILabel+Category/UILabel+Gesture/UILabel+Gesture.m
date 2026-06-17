@@ -1,6 +1,6 @@
 //
 //  UILabel+Gesture.m
-//  SelectorBlock
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/4/3.
 //

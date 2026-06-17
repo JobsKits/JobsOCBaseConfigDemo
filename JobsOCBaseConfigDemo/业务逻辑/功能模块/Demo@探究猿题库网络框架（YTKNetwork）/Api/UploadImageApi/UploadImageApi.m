@@ -1,14 +1,12 @@
 //
 //  UploadImageApi.m
-//  Solar
+//  JobsOCBaseConfigDemo
 //
 //  Created by tangqiao on 8/7/14.
 //  Copyright (c) 2014 fenbi. All rights reserved.
 //
 
 #import "UploadImageApi.h"
-
-#import "DefineProperty.h"
 
 @interface UploadImageApi ()
 
@@ -29,7 +27,7 @@ Prop_strong()UIImage *image;
 -(instancetype)initWithImage:(UIImage *)image {
     if (self = [super init]) {
         self.image = image;
-    }return self;
+    };return self;
 }
 /// 请求的完整URL：
 -(NSString *)requestUrl {

@@ -1,6 +1,6 @@
 //
 //  JobsSuspendLab.m
-//  Search
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/8/13.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -20,7 +20,7 @@
         self.text = JobsNonnullString(self.text, @"No Data".tr);
         self.internationalizationKEY = @"No Data";
         self.textAlignment = NSTextAlignmentCenter;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{

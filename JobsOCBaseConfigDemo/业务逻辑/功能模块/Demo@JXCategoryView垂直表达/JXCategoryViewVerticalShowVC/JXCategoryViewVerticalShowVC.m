@@ -1,13 +1,11 @@
 //
 //  JXCategoryViewVerticalShowVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/15.
 //
 
 #import "JXCategoryViewVerticalShowVC.h"
-
-#import "DefineProperty.h"
 
 @interface JXCategoryViewVerticalShowVC ()
 /// UI
@@ -181,7 +179,7 @@ ratio:(CGFloat)ratio {
 //                                         listContainerViewDefaultOffset);
         
        
-    }return _categoryView;
+    };return _categoryView;
 }
 
 -(JXCategoryIndicatorLineView *)lineView{
@@ -191,7 +189,7 @@ ratio:(CGFloat)ratio {
         _lineView.indicatorHeight = JobsWidth(4);
         _lineView.indicatorWidthIncrement = JobsWidth(10);
         _lineView.verticalMargin = 0;
-    }return _lineView;
+    };return _lineView;
 }
 /// 此属性决定依附于此的viewController
 -(JXCategoryListContainerView *)listContainerView{
@@ -215,7 +213,7 @@ ratio:(CGFloat)ratio {
         NSNumber *currentIndex = [self.listContainerView valueForKey:@"currentIndex"];
         JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %d",currentIndex.intValue);
         
-    }return _listContainerView;
+    };return _listContainerView;
 }
 
 -(NSMutableArray<NSString *> *)titleMutArr{
@@ -227,7 +225,7 @@ ratio:(CGFloat)ratio {
         _titleMutArr.add(@"排骨".tr);
         _titleMutArr.add(@"美女".tr);
         _titleMutArr.add(@"豪车".tr);
-    }return _titleMutArr;
+    };return _titleMutArr;
 }
 
 -(NSMutableArray<__kindof UIViewController *> *)childVCMutArr{
@@ -236,7 +234,7 @@ ratio:(CGFloat)ratio {
         for (NSString *str in self.titleMutArr) {
             _childVCMutArr.add(JXCategoryViewVerticalShowSubBaseVC.new);
         }
-    }return _childVCMutArr;
+    };return _childVCMutArr;
 }
 
 @end

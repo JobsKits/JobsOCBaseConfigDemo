@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>Podspec 依赖动态图</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --ink: #222;
+      --muted: #6b7280;
+      --panel: #ffffff;
+      --border: #ddd;
+      --nav: #111827;
+      --blue: #2563eb;
+      --blue-soft: rgba(37, 99, 235, .12);
+      --green: #059669;
+      --orange: #d97706;
+      --purple: #7c3aed;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    header { padding: 14px 18px; background: var(--nav); color: white; }
+    header h1 { margin: 0 0 8px; font-size: 20px; }
+    header .meta { opacity: .8; font-size: 13px; }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 12px 18px;
+      background: white;
+      border-bottom: 1px solid var(--border);
+    }
+
+    input, select, button { height: 32px; font-size: 14px; }
+    input { width: 260px; padding: 0 10px; }
+    button { padding: 0 12px; cursor: pointer; }
+
+    .view-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px;
+      border: 1px solid #d1d5db;
+      border-radius: 999px;
+      background: #f3f4f6;
+    }
+
+    .view-switch button {
+      height: 28px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: #374151;
+      font-weight: 700;
+    }
+
+    .view-switch button.active {
+      color: white;
+      background: #2563eb;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, .28);
+    }
+
+    .layout { display: grid; grid-template-columns: 1fr 320px; height: calc(100vh - 112px); }
+
+    #stage {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(45deg, #fafafa, #f0f3f7);
+      cursor: grab;
+    }
+
+    #stage:active { cursor: grabbing; }
+
+    #canvas { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+    svg { overflow: visible; }
+
+    .node { cursor: pointer; }
+    .node rect { fill: white; stroke: #5b6b84; stroke-width: 1.4; rx: 8; }
+    .node text { font-size: 12px; pointer-events: none; }
+    .node.focus rect { stroke-width: 3; stroke: #2563eb; filter: drop-shadow(0 0 8px rgba(37, 99, 235, .24)); }
+    .edge { stroke: #718096; stroke-width: 1.2; marker-end: url(#arrow); }
+
+    #stage3d {
+      position: absolute;
+      inset: 0;
+      display: none;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 25% 20%, rgba(37, 99, 235, .24), transparent 28%),
+        radial-gradient(circle at 78% 68%, rgba(124, 58, 237, .18), transparent 32%),
+        radial-gradient(circle at 50% 50%, rgba(5, 150, 105, .10), transparent 36%),
+        #07111f;
+    }
+
+    #canvas3d {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .three-hint {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      max-width: 520px;
+      padding: 10px 12px;
+      border: 1px solid rgba(148, 163, 184, .28);
+      border-radius: 14px;
+      color: rgba(226, 232, 240, .86);
+      background: rgba(15, 23, 42, .62);
+      backdrop-filter: blur(12px);
+      font-size: 12px;
+      line-height: 1.7;
+      pointer-events: none;
+    }
+
+    .three-stats {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      padding: 8px 10px;
+      border: 1px solid rgba(148, 163, 184, .28);
+      border-radius: 999px;
+      color: rgba(226, 232, 240, .88);
+      background: rgba(15, 23, 42, .62);
+      backdrop-filter: blur(12px);
+      font-size: 12px;
+      pointer-events: none;
+    }
+
+    aside { overflow: auto; background: white; border-left: 1px solid var(--border); padding: 14px; }
+    aside h2 { font-size: 16px; margin: 0 0 10px; }
+    aside h3 { font-size: 14px; margin: 18px 0 8px; }
+    aside ul { padding-left: 18px; }
+    .muted { color: var(--muted); font-size: 13px; }
+    .badge { display: inline-block; padding: 2px 8px; background: #edf2f7; border-radius: 999px; margin-right: 6px; font-size: 12px; }
+
+    .direction-sections > li { margin-bottom: 12px; }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; height: calc(100vh - 160px); }
+      aside { height: 280px; border-left: 0; border-top: 1px solid var(--border); }
+      input { width: min(260px, 100%); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Podspec 依赖动态图</h1>
+    <div class="meta" id="meta"></div>
+  </header>
+
+  <div class="toolbar">
+    <div class="view-switch" aria-label="视图切换">
+      <button id="view2d" class="active" type="button">2D 关系图</button>
+      <button id="view3d" type="button">3D 空间图</button>
+    </div>
+    <input id="search" placeholder="搜索 Pod / 依赖">
+    <select id="mode">
+      <option value="internal">只看仓库内 Pod 关联</option>
+      <option value="all">全部依赖</option>
+    </select>
+    <select id="depth">
+      <option value="1">点击节点后显示 1 层邻居</option>
+      <option value="2">点击节点后显示 2 层邻居</option>
+      <option value="3">点击节点后显示 3 层邻居</option>
+    </select>
+    <button id="fit">适配视图</button>
+    <button id="reset">重置</button>
+  </div>
+
+  <div class="layout">
+    <div id="stage">
+      <div id="canvas">
+        <svg id="svg" width="2000" height="1400">
+          <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L9,3 z" fill="#718096"></path>
+            </marker>
+          </defs>
+          <g id="edges"></g>
+          <g id="nodes"></g>
+        </svg>
+      </div>
+      <div id="stage3d">
+        <canvas id="canvas3d"></canvas>
+        <div class="three-stats" id="threeStats"></div>
+        <div class="three-hint">3D 模式：拖动旋转，滚轮缩放，点击节点查看上下游；默认保留原 2D 图，方便你对照查看。</div>
+      </div>
+    </div>
+    <aside id="detail"></aside>
+  </div>
+
+  <script>
+    const data = {"root":"/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigDemo","generatedAt":"2026-06-18 07:06:27","pods":[{"name":"BRPickerView","file":"JobsByPods/ManualByOCPods@Pods/BRPickerView/BRPickerView.podspec","deps":[]},{"name":"DeviceKitByObjc","file":"JobsByPods/ManualByOCPods@Pods/DeviceKitByObjc/DeviceKitByObjc.podspec","deps":[]},{"name":"Texture","file":"JobsByPods/ManualByOCPods@Pods/Texture/Texture.podspec","deps":[{"dep":"PINRemoteImage","raw_dep":"PINRemoteImage/iOS","requirement":"~> 3.0.0","line":52,"declared_in":"Texture","raw_declared_in":"Texture/PINRemoteImage"},{"dep":"IGListKit","raw_dep":"IGListKit","requirement":"~> 4.0","line":60,"declared_in":"Texture","raw_declared_in":"Texture/IGListKit"},{"dep":"IGListDiffKit","raw_dep":"IGListDiffKit","requirement":"~> 4.0","line":61,"declared_in":"Texture","raw_declared_in":"Texture/IGListKit"},{"dep":"Yoga","raw_dep":"Yoga","requirement":"~> 2.0","line":68,"declared_in":"Texture","raw_declared_in":"Texture/Yoga"}]}],"allEdges":[{"from":"Texture","to":"PINRemoteImage","to_base":"PINRemoteImage","to_pod":null,"to_external":"PINRemoteImage","requirement":"~> 3.0.0","declared_in":"Texture","line":52,"file":"JobsByPods/ManualByOCPods@Pods/Texture/Texture.podspec"},{"from":"Texture","to":"IGListKit","to_base":"IGListKit","to_pod":null,"to_external":"IGListKit","requirement":"~> 4.0","declared_in":"Texture","line":60,"file":"JobsByPods/ManualByOCPods@Pods/Texture/Texture.podspec"},{"from":"Texture","to":"IGListDiffKit","to_base":"IGListDiffKit","to_pod":null,"to_external":"IGListDiffKit","requirement":"~> 4.0","declared_in":"Texture","line":61,"file":"JobsByPods/ManualByOCPods@Pods/Texture/Texture.podspec"},{"from":"Texture","to":"Yoga","to_base":"Yoga","to_pod":null,"to_external":"Yoga","requirement":"~> 2.0","declared_in":"Texture","line":68,"file":"JobsByPods/ManualByOCPods@Pods/Texture/Texture.podspec"}],"internalEdges":[],"internalCycles":[],"ignoredInternalSubspecDeps":[{"dep":"BRPickerView","raw_dep":"BRPickerView/Core","requirement":"","line":140,"declared_in":"BRPickerView","raw_declared_in":"BRPickerView/Support","pod":"BRPickerView","file":"/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigDemo/JobsByPods/ManualByOCPods@Pods/BRPickerView/BRPickerView.podspec"},{"dep":"BRPickerView","raw_dep":"BRPickerView/Core","requirement":"","line":140,"declared_in":"BRPickerView","raw_declared_in":"BRPickerView/Support/BRModel","pod":"BRPickerView","file":"/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigDemo/JobsByPods/ManualByOCPods@Pods/BRPickerView/BRPickerView.podspec"},{"dep":"BRPickerView","raw_dep":"BRPickerView/Core","requirement":"","line":140,"declared_in":"BRPickerView","raw_declared_in":"BRPickerView/Support/BRModel/BRStringPickerViewModel","pod":"BRPickerView","file":"/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigDemo/JobsByPods/ManualByOCPods@Pods/BRPickerView/BRPickerView.podspec"},{"dep":"BRPickerView","raw_dep":"BRPickerView/Core","requirement":"","line":140,"declared_in":"BRPickerView","raw_declared_in":"BRPickerView/Support/BRModel/BRTextModel","pod":"BRPickerView","file":"/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigDemo/JobsByPods/ManualByOCPods@Pods/BRPickerView/BRPickerView.podspec"},{"dep":"BRPickerView","raw_dep":"BRPickerView/Core","requirement":"","line":140,"declared_in":"BRPickerView","raw_declared_in":"BRPickerView/Support/UIKit","pod":"BRPickerView","file":"/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigDemo/JobsByPods/ManualByOCPods@Pods/BRPickerView/BRPickerView.podspec"},{"dep":"BRPickerView","raw_dep":"BRPickerView/Core","requirement":"","line":140,"declared_in":"BRPickerView","raw_declared_in":"BRPickerView/Support/UIKit/NSArray","pod":"BRPickerView","file":"/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigDemo/JobsByPods/ManualByOCPods@Pods/BRPickerView/BRPickerView.podspec"},{"dep":"Texture","raw_dep":"Texture/Core","requirement":"","line":54,"declared_in":"Texture","raw_declared_in":"Texture/PINRemoteImage","pod":"Texture","file":"/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigDemo/JobsByPods/ManualByOCPods@Pods/Texture/Texture.podspec"},{"dep":"Texture","raw_dep":"Texture/Core","requirement":"","line":62,"declared_in":"Texture","raw_declared_in":"Texture/IGListKit","pod":"Texture","file":"/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigDemo/JobsByPods/ManualByOCPods@Pods/Texture/Texture.podspec"},{"dep":"Texture","raw_dep":"Texture/Core","requirement":"","line":69,"declared_in":"Texture","raw_declared_in":"Texture/Yoga","pod":"Texture","file":"/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigDemo/JobsByPods/ManualByOCPods@Pods/Texture/Texture.podspec"},{"dep":"Texture","raw_dep":"Texture/Core","requirement":"","line":77,"declared_in":"Texture","raw_declared_in":"Texture/TextNode2","pod":"Texture","file":"/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigDemo/JobsByPods/ManualByOCPods@Pods/Texture/Texture.podspec"},{"dep":"Texture","raw_dep":"Texture/Core","requirement":"","line":85,"declared_in":"Texture","raw_declared_in":"Texture/Video","pod":"Texture","file":"/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigDemo/JobsByPods/ManualByOCPods@Pods/Texture/Texture.podspec"},{"dep":"Texture","raw_dep":"Texture/Core","requirement":"","line":93,"declared_in":"Texture","raw_declared_in":"Texture/MapKit","pod":"Texture","file":"/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigDemo/JobsByPods/ManualByOCPods@Pods/Texture/Texture.podspec"},{"dep":"Texture","raw_dep":"Texture/Core","requirement":"","line":101,"declared_in":"Texture","raw_declared_in":"Texture/Photos","pod":"Texture","file":"/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigDemo/JobsByPods/ManualByOCPods@Pods/Texture/Texture.podspec"},{"dep":"Texture","raw_dep":"Texture/Core","requirement":"","line":109,"declared_in":"Texture","raw_declared_in":"Texture/AssetsLibrary","pod":"Texture","file":"/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigDemo/JobsByPods/ManualByOCPods@Pods/Texture/Texture.podspec"}]};
+    const state = {
+      view: '2d',
+      mode: 'internal',
+      search: '',
+      focus: null,
+      depth: 1,
+      scale: 1,
+      tx: 20,
+      ty: 20,
+      nodes: [],
+      edges: [],
+      rotateX: -0.46,
+      rotateY: 0.78,
+      zoom3d: 1,
+      nodes3d: [],
+      hit3d: []
+    };
+
+    const stage = document.getElementById('stage');
+    const canvas = document.getElementById('canvas');
+    const svg = document.getElementById('svg');
+    const edgesGroup = document.getElementById('edges');
+    const nodesGroup = document.getElementById('nodes');
+    const stage3d = document.getElementById('stage3d');
+    const canvas3d = document.getElementById('canvas3d');
+    const ctx3d = canvas3d.getContext('2d');
+    const threeStats = document.getElementById('threeStats');
+    const view2dButton = document.getElementById('view2d');
+    const view3dButton = document.getElementById('view3d');
+
+    document.getElementById('meta').textContent =
+      `分析目录：${data.root} ｜ 生成时间：${data.generatedAt} ｜ Pod 数：${data.pods.length}`;
+
+    function allEdges() {
+      return state.mode === 'internal' ? data.internalEdges : data.allEdges;
+    }
+
+    function localPodNames() {
+      return new Set(data.pods.map(p => p.name));
+    }
+
+    function nodeNames() {
+      const names = new Set(data.pods.map(p => p.name));
+      allEdges().forEach(e => {
+        names.add(e.from);
+        names.add(e.to);
+      });
+      return [...names].sort();
+    }
+
+    function collectVisibleNames() {
+      let names = new Set(nodeNames());
+      const q = state.search.trim().toLowerCase();
+
+      if (q) {
+        names = new Set([...names].filter(n => n.toLowerCase().includes(q)));
+        allEdges().forEach(e => {
+          if (e.from.toLowerCase().includes(q) || e.to.toLowerCase().includes(q)) {
+            names.add(e.from);
+            names.add(e.to);
+          }
+        });
+      }
+
+      if (state.focus) {
+        const visible = new Set([state.focus]);
+        let frontier = new Set([state.focus]);
+
+        for (let i = 0; i < state.depth; i++) {
+          const next = new Set();
+          allEdges().forEach(e => {
+            if (frontier.has(e.from)) {
+              next.add(e.to);
+              visible.add(e.to);
+            }
+            if (frontier.has(e.to)) {
+              next.add(e.from);
+              visible.add(e.from);
+            }
+          });
+          frontier = next;
+        }
+
+        names = visible;
+      }
+
+      return names;
+    }
+
+    function layout(names) {
+      const arr = [...names].sort();
+      const cols = Math.max(1, Math.ceil(Math.sqrt(arr.length)));
+      const w = 210;
+      const h = 90;
+
+      return arr.map((name, i) => ({
+        name,
+        x: (i % cols) * w + 60,
+        y: Math.floor(i / cols) * h + 60,
+        width: 160,
+        height: 38
+      }));
+    }
+
+    function applyTransform() {
+      canvas.style.transform = `translate(${state.tx}px, ${state.ty}px) scale(${state.scale})`;
+    }
+
+    function render() {
+      updateViewVisibility();
+
+      if (state.view === '3d') {
+        render3d();
+      } else {
+        render2d();
+      }
+
+      updateDetail();
+    }
+
+    function render2d() {
+      const visibleNames = collectVisibleNames();
+      state.nodes = layout(visibleNames);
+      const nodeMap = new Map(state.nodes.map(n => [n.name, n]));
+
+      state.edges = allEdges().filter(e => nodeMap.has(e.from) && nodeMap.has(e.to));
+
+      edgesGroup.innerHTML = '';
+      state.edges.forEach(e => {
+        const a = nodeMap.get(e.from);
+        const b = nodeMap.get(e.to);
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('class', 'edge');
+        line.setAttribute('x1', a.x + a.width);
+        line.setAttribute('y1', a.y + a.height / 2);
+        line.setAttribute('x2', b.x);
+        line.setAttribute('y2', b.y + b.height / 2);
+        edgesGroup.appendChild(line);
+      });
+
+      nodesGroup.innerHTML = '';
+      state.nodes.forEach(n => {
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('class', 'node' + (state.focus === n.name ? ' focus' : ''));
+        g.setAttribute('transform', `translate(${n.x}, ${n.y})`);
+
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('width', n.width);
+        rect.setAttribute('height', n.height);
+
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', 10);
+        text.setAttribute('y', 24);
+        text.textContent = n.name.length > 22 ? n.name.slice(0, 21) + '…' : n.name;
+
+        g.appendChild(rect);
+        g.appendChild(text);
+
+        g.addEventListener('click', event => {
+          event.stopPropagation();
+          state.focus = state.focus === n.name ? null : n.name;
+          render();
+        });
+
+        nodesGroup.appendChild(g);
+      });
+    }
+
+    function resize3dCanvas() {
+      const rect = stage3d.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      const width = Math.max(1, Math.floor(rect.width * dpr));
+      const height = Math.max(1, Math.floor(rect.height * dpr));
+
+      if (canvas3d.width !== width || canvas3d.height !== height) {
+        canvas3d.width = width;
+        canvas3d.height = height;
+        canvas3d.style.width = `${rect.width}px`;
+        canvas3d.style.height = `${rect.height}px`;
+      }
+
+      ctx3d.setTransform(dpr, 0, 0, dpr, 0, 0);
+      return rect;
+    }
+
+    function layout3d(names) {
+      const arr = [...names].sort();
+      const degrees = new Map();
+
+      allEdges().forEach(edge => {
+        degrees.set(edge.from, (degrees.get(edge.from) || 0) + 1);
+        degrees.set(edge.to, (degrees.get(edge.to) || 0) + 1);
+      });
+
+      const count = Math.max(1, arr.length);
+      const radius = Math.min(520, Math.max(190, 90 + Math.sqrt(count) * 42));
+      const golden = Math.PI * (3 - Math.sqrt(5));
+
+      return arr.map((name, index) => {
+        const y = count === 1 ? 0 : 1 - (index / (count - 1)) * 2;
+        const r = Math.sqrt(Math.max(0, 1 - y * y));
+        const theta = index * golden;
+        const degree = degrees.get(name) || 0;
+
+        return {
+          name,
+          x: Math.cos(theta) * r * radius,
+          y: y * radius * 0.88,
+          z: Math.sin(theta) * r * radius,
+          weight: degree,
+          radius: Math.min(18, 7 + Math.sqrt(degree + 1) * 2.4)
+        };
+      });
+    }
+
+    function rotatePoint(point) {
+      const cosY = Math.cos(state.rotateY);
+      const sinY = Math.sin(state.rotateY);
+      const cosX = Math.cos(state.rotateX);
+      const sinX = Math.sin(state.rotateX);
+
+      const x1 = point.x * cosY - point.z * sinY;
+      const z1 = point.x * sinY + point.z * cosY;
+      const y1 = point.y * cosX - z1 * sinX;
+      const z2 = point.y * sinX + z1 * cosX;
+
+      return { x: x1, y: y1, z: z2 };
+    }
+
+    function projectPoint(point, rect) {
+      const rotated = rotatePoint(point);
+      const camera = 820;
+      const depth = camera + rotated.z;
+      const perspective = camera / Math.max(120, depth);
+      const scale = perspective * state.zoom3d;
+
+      return {
+        name: point.name,
+        x: rect.width / 2 + rotated.x * scale,
+        y: rect.height / 2 + rotated.y * scale,
+        z: rotated.z,
+        radius: point.radius * Math.max(.55, Math.min(1.7, scale)),
+        weight: point.weight,
+        source: point
+      };
+    }
+
+    function nodeColor(name, alpha = 1) {
+      const localNames = localPodNames();
+      const isLocal = localNames.has(name);
+      const isFocused = state.focus === name;
+      const users = allEdges().filter(edge => edgeTargetsName(edge, name) && sourceOwner(edge) !== name).length;
+      const deps = allEdges().filter(edge => edge.from === name).length;
+
+      if (isFocused) return `rgba(250, 204, 21, ${alpha})`;
+      if (!isLocal) return `rgba(249, 115, 22, ${alpha})`;
+      if (users > deps) return `rgba(59, 130, 246, ${alpha})`;
+      if (deps > users) return `rgba(16, 185, 129, ${alpha})`;
+      return `rgba(168, 85, 247, ${alpha})`;
+    }
+
+    function drawGrid3d(rect) {
+      ctx3d.save();
+      ctx3d.strokeStyle = 'rgba(148, 163, 184, .12)';
+      ctx3d.lineWidth = 1;
+
+      for (let i = -6; i <= 6; i++) {
+        const a = projectPoint({ x: -420, y: 220, z: i * 70, name: '' }, rect);
+        const b = projectPoint({ x: 420, y: 220, z: i * 70, name: '' }, rect);
+        const c = projectPoint({ x: i * 70, y: 220, z: -420, name: '' }, rect);
+        const d = projectPoint({ x: i * 70, y: 220, z: 420, name: '' }, rect);
+
+        ctx3d.beginPath();
+        ctx3d.moveTo(a.x, a.y);
+        ctx3d.lineTo(b.x, b.y);
+        ctx3d.stroke();
+
+        ctx3d.beginPath();
+        ctx3d.moveTo(c.x, c.y);
+        ctx3d.lineTo(d.x, d.y);
+        ctx3d.stroke();
+      }
+
+      ctx3d.restore();
+    }
+
+    function render3d() {
+      const rect = resize3dCanvas();
+      ctx3d.clearRect(0, 0, rect.width, rect.height);
+
+      const visibleNames = collectVisibleNames();
+      state.nodes3d = layout3d(visibleNames);
+      const rawMap = new Map(state.nodes3d.map(n => [n.name, n]));
+      const projected = new Map(state.nodes3d.map(n => [n.name, projectPoint(n, rect)]));
+      const edges = allEdges().filter(e => rawMap.has(e.from) && rawMap.has(e.to));
+
+      state.hit3d = [];
+      threeStats.textContent = `3D 节点 ${state.nodes3d.length} ｜ 边 ${edges.length}`;
+
+      drawGrid3d(rect);
+
+      edges
+        .map(edge => ({ edge, a: projected.get(edge.from), b: projected.get(edge.to) }))
+        .sort((one, two) => ((one.a.z + one.b.z) - (two.a.z + two.b.z)))
+        .forEach(item => {
+          const { edge, a, b } = item;
+          const related = !state.focus || edge.from === state.focus || edgeTargetsName(edge, state.focus);
+          const alpha = related ? .58 : .16;
+          const grad = ctx3d.createLinearGradient(a.x, a.y, b.x, b.y);
+          grad.addColorStop(0, nodeColor(edge.from, alpha));
+          grad.addColorStop(1, nodeColor(edge.to, alpha * .72));
+
+          ctx3d.save();
+          ctx3d.strokeStyle = grad;
+          ctx3d.lineWidth = related ? 1.55 : .85;
+          ctx3d.beginPath();
+          ctx3d.moveTo(a.x, a.y);
+          ctx3d.lineTo(b.x, b.y);
+          ctx3d.stroke();
+
+          const angle = Math.atan2(b.y - a.y, b.x - a.x);
+          const arrowSize = 7;
+          ctx3d.fillStyle = nodeColor(edge.to, alpha);
+          ctx3d.beginPath();
+          ctx3d.moveTo(b.x, b.y);
+          ctx3d.lineTo(b.x - Math.cos(angle - .45) * arrowSize, b.y - Math.sin(angle - .45) * arrowSize);
+          ctx3d.lineTo(b.x - Math.cos(angle + .45) * arrowSize, b.y - Math.sin(angle + .45) * arrowSize);
+          ctx3d.closePath();
+          ctx3d.fill();
+          ctx3d.restore();
+        });
+
+      const projectedNodes = [...projected.values()].sort((a, b) => a.z - b.z);
+
+      projectedNodes.forEach(point => {
+        const related = !state.focus || point.name === state.focus ||
+          allEdges().some(edge =>
+            (edge.from === state.focus && edgeTargetsName(edge, point.name)) ||
+            (edgeTargetsName(edge, state.focus) && edge.from === point.name)
+          );
+        const glow = point.name === state.focus ? 26 : 12;
+        const radius = point.radius;
+
+        ctx3d.save();
+        ctx3d.globalAlpha = related ? 1 : .38;
+        ctx3d.shadowColor = nodeColor(point.name, .72);
+        ctx3d.shadowBlur = glow;
+        ctx3d.fillStyle = nodeColor(point.name, .92);
+        ctx3d.beginPath();
+        ctx3d.arc(point.x, point.y, radius, 0, Math.PI * 2);
+        ctx3d.fill();
+
+        ctx3d.shadowBlur = 0;
+        ctx3d.lineWidth = point.name === state.focus ? 3 : 1;
+        ctx3d.strokeStyle = point.name === state.focus ? 'rgba(254, 240, 138, .95)' : 'rgba(226, 232, 240, .72)';
+        ctx3d.stroke();
+
+        if (radius > 9 || point.name === state.focus || state.nodes3d.length < 60) {
+          ctx3d.font = `${point.name === state.focus ? 700 : 600} 12px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+          ctx3d.textBaseline = 'middle';
+          ctx3d.fillStyle = 'rgba(241, 245, 249, .94)';
+          ctx3d.shadowColor = 'rgba(0,0,0,.9)';
+          ctx3d.shadowBlur = 4;
+          const label = point.name.length > 22 ? point.name.slice(0, 21) + '…' : point.name;
+          ctx3d.fillText(label, point.x + radius + 7, point.y);
+        }
+
+        state.hit3d.push({
+          name: point.name,
+          x: point.x,
+          y: point.y,
+          radius: Math.max(12, radius + 7)
+        });
+
+        ctx3d.restore();
+      });
+    }
+
+    function updateViewVisibility() {
+      const is3d = state.view === '3d';
+
+      canvas.style.display = is3d ? 'none' : 'block';
+      stage3d.style.display = is3d ? 'block' : 'none';
+      view2dButton.classList.toggle('active', !is3d);
+      view3dButton.classList.toggle('active', is3d);
+    }
+
+    function edgeTargetsName(edge, name) {
+      return edge.to === name || edge.to_base === name || edge.to_pod === name || edge.to_external === name;
+    }
+
+    function sourceOwner(edge) {
+      return edge.from || '';
+    }
+
+    function updateDetail() {
+      const box = document.getElementById('detail');
+
+      if (!state.focus) {
+        const zero = data.pods.filter(p => !p.deps || p.deps.length === 0).map(p => p.name).sort();
+        box.innerHTML = `
+          <h2>总览</h2>
+          <p><span class="badge">Pod ${data.pods.length}</span><span class="badge">边 ${allEdges().length}</span><span class="badge">${state.view === '3d' ? '3D 空间图' : '2D 关系图'}</span></p>
+          <p class="muted">点击节点查看上下游依赖。3D 模式下可以拖动旋转、滚轮缩放。</p>
+          <h3>0 上游依赖 Pod</h3>
+          <ul>${zero.map(n => `<li>${n}</li>`).join('')}</ul>
+        `;
+        return;
+      }
+
+      const deps = [...new Set(allEdges().filter(e => e.from === state.focus).map(e => e.to))].sort();
+      const users = [...new Set(allEdges()
+        .filter(e => edgeTargetsName(e, state.focus) && sourceOwner(e) !== state.focus)
+        .map(e => e.from))].sort();
+
+      box.innerHTML = `
+        <h2>${state.focus}</h2>
+        <ul class="direction-sections">
+          <li>
+            <strong>上游依赖</strong>
+            <ul>${deps.length ? deps.map(n => `<li>${n}</li>`).join('') : '<li class="muted">无</li>'}</ul>
+          </li>
+          <li>
+            <strong>下游依赖</strong>
+            <ul>${users.length ? users.map(n => `<li>${n}</li>`).join('') : '<li class="muted">无</li>'}</ul>
+          </li>
+        </ul>
+      `;
+    }
+
+    function fitView() {
+      if (state.view === '3d') {
+        state.rotateX = -0.46;
+        state.rotateY = 0.78;
+        state.zoom3d = 1;
+        render3d();
+        return;
+      }
+
+      state.scale = 1;
+      state.tx = 20;
+      state.ty = 20;
+      applyTransform();
+    }
+
+    function resetAll() {
+      state.search = '';
+      state.focus = null;
+      state.depth = 1;
+      state.rotateX = -0.46;
+      state.rotateY = 0.78;
+      state.zoom3d = 1;
+      state.scale = 1;
+      state.tx = 20;
+      state.ty = 20;
+      document.getElementById('search').value = '';
+      document.getElementById('depth').value = '1';
+      render();
+      fitView();
+    }
+
+    function switchView(view) {
+      state.view = view;
+      render();
+      fitView();
+    }
+
+    view2dButton.addEventListener('click', () => switchView('2d'));
+    view3dButton.addEventListener('click', () => switchView('3d'));
+
+    document.getElementById('mode').addEventListener('change', e => {
+      state.mode = e.target.value;
+      state.focus = null;
+      render();
+      fitView();
+    });
+
+    document.getElementById('search').addEventListener('input', e => {
+      state.search = e.target.value;
+      state.focus = null;
+      render();
+      fitView();
+    });
+
+    document.getElementById('depth').addEventListener('change', e => {
+      state.depth = Number(e.target.value);
+      render();
+    });
+
+    document.getElementById('fit').addEventListener('click', fitView);
+    document.getElementById('reset').addEventListener('click', resetAll);
+
+    let dragging = false;
+    let moved = false;
+    let lastX = 0;
+    let lastY = 0;
+
+    stage.addEventListener('mousedown', e => {
+      dragging = true;
+      moved = false;
+      lastX = e.clientX;
+      lastY = e.clientY;
+    });
+
+    window.addEventListener('mousemove', e => {
+      if (!dragging) return;
+
+      const dx = e.clientX - lastX;
+      const dy = e.clientY - lastY;
+
+      if (Math.abs(dx) + Math.abs(dy) > 2) {
+        moved = true;
+      }
+
+      if (state.view === '3d') {
+        state.rotateY += dx * 0.008;
+        state.rotateX += dy * 0.008;
+        state.rotateX = Math.max(-1.35, Math.min(1.35, state.rotateX));
+        render3d();
+      } else {
+        state.tx += dx;
+        state.ty += dy;
+        applyTransform();
+      }
+
+      lastX = e.clientX;
+      lastY = e.clientY;
+    });
+
+    window.addEventListener('mouseup', () => dragging = false);
+
+    stage.addEventListener('click', e => {
+      if (state.view !== '3d' || moved) return;
+
+      const rect = canvas3d.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const hit = [...state.hit3d].reverse().find(item => {
+        const dx = item.x - x;
+        const dy = item.y - y;
+        return Math.sqrt(dx * dx + dy * dy) <= item.radius;
+      });
+
+      if (hit) {
+        state.focus = state.focus === hit.name ? null : hit.name;
+        render();
+      }
+    });
+
+    stage.addEventListener('wheel', e => {
+      e.preventDefault();
+
+      if (state.view === '3d') {
+        state.zoom3d *= e.deltaY > 0 ? .92 : 1.08;
+        state.zoom3d = Math.max(.35, Math.min(2.8, state.zoom3d));
+        render3d();
+        return;
+      }
+
+      const delta = e.deltaY > 0 ? 0.9 : 1.1;
+      state.scale = Math.max(0.2, Math.min(3, state.scale * delta));
+      applyTransform();
+    }, { passive: false });
+
+    window.addEventListener('resize', () => {
+      if (state.view === '3d') {
+        render3d();
+      }
+    });
+
+    render();
+    fitView();
+  </script>
+</body>
+</html>

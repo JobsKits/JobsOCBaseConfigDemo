@@ -1,13 +1,11 @@
 //
 //  JobsIMShowVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/13.
 //
 
 #import "JobsIMShowVC.h"
-
-#import "DefineProperty.h"
 
 @interface JobsIMShowVC ()
 
@@ -112,7 +110,7 @@ Prop_strong()JobsIMListView *listView;
                 make.top.equalTo(self.view.mas_top);
             }
         }];
-    }return _listView;
+    };return _listView;
 }
 
 -(BaseButton *)shareBtn{
@@ -131,7 +129,7 @@ Prop_strong()JobsIMListView *listView;
             });
         _shareBtn.width = JobsWidth(23);
         _shareBtn.height = JobsWidth(23);
-    }return _shareBtn;
+    };return _shareBtn;
 }
 
 @end

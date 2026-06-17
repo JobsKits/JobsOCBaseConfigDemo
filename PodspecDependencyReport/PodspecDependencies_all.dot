@@ -1,0 +1,15 @@
+digraph PodspecDependencies {
+  rankdir=LR;
+  node [shape=box, fontname="Helvetica"];
+  "BRPickerView";
+  "DeviceKitByObjc";
+  "IGListDiffKit";
+  "IGListKit";
+  "PINRemoteImage";
+  "Texture";
+  "Yoga";
+  "Texture" -> "IGListDiffKit";
+  "Texture" -> "IGListKit";
+  "Texture" -> "PINRemoteImage";
+  "Texture" -> "Yoga";
+}

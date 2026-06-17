@@ -1,15 +1,14 @@
 //
 //  JobsUserModel.h
-//  JobsModel
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <Foundation/Foundation.h>
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
-#import "DefineProperty.h"
+#import "JobsDefineEnums.h"
+#import "JobsDefineProperty.h"
 #import "BaseProtocol.h"
-#import "JobsObject.h"
 #import "BaseModel.h"
 #import "NSObject+Class.h"
 #import "NSCoder+Extra.h"

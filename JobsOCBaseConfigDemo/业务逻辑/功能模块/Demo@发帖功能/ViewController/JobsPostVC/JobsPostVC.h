@@ -1,6 +1,6 @@
 //
 //  JobsShootingVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 9/26/23.
 //
@@ -9,6 +9,7 @@
 #import "JobsPostDelView.h"
 #import "JobsTextView.h"
 #import "JobsUserModel.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<SZTextView/SZTextView.h>)
 #import <SZTextView/SZTextView.h>

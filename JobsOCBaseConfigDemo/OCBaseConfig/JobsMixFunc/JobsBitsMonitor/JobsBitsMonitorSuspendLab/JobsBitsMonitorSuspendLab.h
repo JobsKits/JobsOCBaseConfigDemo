@@ -1,6 +1,6 @@
 //
 //  JobsBitsMonitorSuspendLab.h
-//  JobsBitsMonitor
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/13.
 //
@@ -8,9 +8,10 @@
 #import "JobsBlock.h"
 #import "JobsSuspendLab.h"
 #import "JobsNetWorkTools.h"
-#import "NSObject+WHToast.h" /// 提示
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
+#import "NSObject+WHToast.h"
+#import "JobsDefineEnums.h"
 #import "UILabel+Extra.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<ZWPullMenuView/ZWPullMenuView.h>)
 #import <ZWPullMenuView/ZWPullMenuView.h>

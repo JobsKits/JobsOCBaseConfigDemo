@@ -1,13 +1,11 @@
 //
 //  JobsPageView.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/24.
 //
 
 #import "JobsPageView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsPageView ()
 /// Data
@@ -21,7 +19,7 @@ Prop_strong()NSArray <UIViewModel *>*dataArr;
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -94,7 +92,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                     make.edges.equalTo(self);
                 });
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 @end

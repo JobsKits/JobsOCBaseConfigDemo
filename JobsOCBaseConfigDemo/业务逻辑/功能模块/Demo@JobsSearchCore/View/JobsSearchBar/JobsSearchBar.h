@@ -1,6 +1,6 @@
 //
 //  JobsSearchBar.h
-//  JobsSearch
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/2.
 //
@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "JobsDoorInputViewProtocol.h"
 #import "BaseView.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

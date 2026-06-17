@@ -1,6 +1,6 @@
 //
 //  UIDevice+XMUtils.m
-//  AwesomeTips
+//  JobsOCBaseConfigDemo
 //
 //  Created by kangzubin on 2018/9/20.
 //  Copyright © 2018 KANGZUBIN. All rights reserved.
@@ -157,7 +157,7 @@
         {// Simulator
             if (string.isEqualToString(@"i386"))         return UIDevice.currentDevice.model.add(@" ").add(@"Simulator");
             if (string.isEqualToString(@"x86_64"))       return UIDevice.currentDevice.model.add(@" ").add(@"Simulator");
-        }return nil;
+        };return nil;
     };
 }
 ///  获取设备型号名称（可以区分iOS模拟器）
@@ -165,7 +165,7 @@
     NSString *platformStr = self.platform;
     if (!platformStr) {
         return UIDevice.currentDevice.model; // e.g. @"iPhone", @"iPod touch"
-    }return self.platformBy(platformStr);
+    };return self.platformBy(platformStr);
 }
 /// 获取当前设备标识符Identifier（不区分iOS模拟器：把IOS模拟器当真机对待）
 +(NSString * _Nullable)platformIDStr{
@@ -190,8 +190,8 @@
     if (self.isiPhone) {
         for (NSString *prefix in UIDevice.fullScreenPrefixes) {
             if (self.platformIDStr.hasPrefix(prefix)) return YES;
-        }return NO; // 其他型号默认为非全屏
-    }return NO;
+        };return NO; // 其他型号默认为非全屏
+    };return NO;
 }
 /// 判断当前是否是iOS模拟器
 +(BOOL)isSimulator{
@@ -203,7 +203,7 @@
     if (@available(iOS 11.0, *)) {
         CGFloat topInset = jobsGetMainWindow().safeAreaInsets.top;
         return topInset > 20.0;
-    }return NO;
+    };return NO;
 }
 /// 判断当前iOS机型
 +(NSString * _Nullable)machineName{
@@ -233,7 +233,7 @@
         NSDictionary *environment = NSProcessInfo.processInfo.environment;
         NSString *simulatorModel = environment[@"SIMULATOR_MODEL_IDENTIFIER"];
         return simulatorModel;
-    }return nil; /// 不在模拟器上运行，返回 nil 或其他合适的值
+    };return nil; /// 不在模拟器上运行，返回 nil 或其他合适的值
 }
 /**
  获取设备型号名称

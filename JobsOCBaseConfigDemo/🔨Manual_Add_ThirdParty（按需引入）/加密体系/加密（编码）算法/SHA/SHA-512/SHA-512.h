@@ -1,6 +1,6 @@
 //
 //  SHA-512.h
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/14.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -14,5 +14,5 @@ NS_INLINE NSString *SHA_512(NSString *string){
     NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA512_DIGEST_LENGTH * 2];
     for(int i = 0; i < CC_SHA512_DIGEST_LENGTH; i++){
         [output appendFormat:@"%02x", digest[i]];
-    }return output;
+    };return output;
 }

@@ -1,6 +1,6 @@
 //
 //  NSString+Check.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/30.
 //
@@ -29,7 +29,7 @@ NS_INLINE BOOL isNull(id _Nonnull string){
         NSString *str = [NSString stringWithFormat:@"%@",string];
         /// 去掉两端的空格
         return ![str stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet].length;
-    }return NO;
+    };return NO;
 }
 
 NS_INLINE BOOL isValue(id _Nonnull string){

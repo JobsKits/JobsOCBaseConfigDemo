@@ -1,6 +1,6 @@
 //
 //  NSObject+WHToast.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/2.
 //
@@ -44,3 +44,16 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+#pragma mark —— 弹出提示
+NS_INLINE void toastBy(NSString *_Nullable msg){
+    if(!msg || ![msg isKindOfClass:NSString.class]){
+        msg = @"数据错误".tr;
+    }NSObject.jobsToastMsg(msg);
+}
+
+NS_INLINE void toastErr(NSString *_Nullable msg){
+    if(!msg || ![msg isKindOfClass:NSString.class]){
+        msg = @"数据错误".tr;
+    }NSObject.jobsToastErrMsg(msg);
+}

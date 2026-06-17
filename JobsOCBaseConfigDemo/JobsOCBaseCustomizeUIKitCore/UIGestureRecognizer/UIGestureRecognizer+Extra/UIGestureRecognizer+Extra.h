@@ -1,6 +1,6 @@
 //
 //  UIGestureRecognizer+Extra.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 4/11/2024.
 //
@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "NSObject+Extras.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>

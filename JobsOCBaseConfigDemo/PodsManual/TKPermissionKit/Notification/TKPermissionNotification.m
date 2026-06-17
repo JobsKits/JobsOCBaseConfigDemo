@@ -1,6 +1,6 @@
 //
 //  TKPermissionNotification.m
-//  TKPermissionKitDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 2019/10/12.
 //  Copyright © 2019 mac. All rights reserved.

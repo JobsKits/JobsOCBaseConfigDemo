@@ -1,12 +1,13 @@
 //
 //  NotifiManager.h
-//  CoreTextLearning
+//  JobsOCBaseConfigDemo
 //
 //  Created by alan comb on 2021/4/10.
 //
 
 #import <Foundation/Foundation.h>
 #import "NotifiView.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

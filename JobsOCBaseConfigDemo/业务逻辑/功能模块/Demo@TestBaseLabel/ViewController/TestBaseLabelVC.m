@@ -1,13 +1,11 @@
 //
 //  TestBaseLabelVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/20.
 //
 
 #import "TestBaseLabelVC.h"
-
-#import "DefineProperty.h"
 
 @interface TestBaseLabelVC ()
 /// UI
@@ -129,7 +127,7 @@ Prop_strong()BaseLabel *baseLabel;
                 return @1;
             }];
         });
-    }return _baseLabel;
+    };return _baseLabel;
 }
 
 @end

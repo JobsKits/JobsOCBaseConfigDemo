@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorInputViewBaseStyle_1.h
-//  My_BaseProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/12/4.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -12,8 +12,7 @@
 #import "JobsAppDoorInputViewBaseStyle.h"
 #import "UIButton+Timer.h"
 #import "JobsMagicTextField.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,6 +1,6 @@
 //
 //  RACGestureRecognizerDelegate.h
-//  GestureRecognizerRACExt
+//  JobsOCBaseConfigDemo
 //
 //  Created by kaiinui on 2014/09/07.
 //  Copyright (c) 2014年 kaiinui. All rights reserved.

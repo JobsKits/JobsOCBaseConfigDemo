@@ -1,6 +1,6 @@
 //
 //  JobsTextView.h
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by alan comb on 2021/4/3.
 //
@@ -10,7 +10,8 @@
 #import "UITextView+Extend.h"
 #import "UITextView+Placeholder.h"
 #import "SZTextView+Extra.h"
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<SZTextView/SZTextView.h>)
 #import <SZTextView/SZTextView.h>

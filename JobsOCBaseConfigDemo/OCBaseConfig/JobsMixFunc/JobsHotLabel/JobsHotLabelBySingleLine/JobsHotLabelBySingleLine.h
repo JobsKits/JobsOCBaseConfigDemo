@@ -1,6 +1,6 @@
 //
 //  JobsHotLabelBySingleLine.h
-//  JobsSearch
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/4.
 //
@@ -11,8 +11,7 @@
 #import "UIViewModel.h"
 #import "CasinoCustomerContactModel.h"
 #import "UILabel+Extra.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /**
@@ -77,7 +76,7 @@ NS_ASSUME_NONNULL_END
          }];
          [self.view layoutIfNeeded];
           _hl.jobsRichViewByModel(self.hotLabelDataMutArr);
-     }return _hl;
+     };return _hl;
  }
 
  -(NSMutableArray<UIViewModel *> *)hotLabelDataMutArr{
@@ -144,7 +143,7 @@ NS_ASSUME_NONNULL_END
              [_hotLabelDataMutArr addObject:vm];
          }
          
-     }return _hotLabelDataMutArr;
+     };return _hotLabelDataMutArr;
  }
  
  

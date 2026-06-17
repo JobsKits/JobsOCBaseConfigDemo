@@ -1,14 +1,12 @@
 //
 //  UIViewController+Shake.m
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/8/21.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "UIViewController+Shake.h"
-
-#import "DefineProperty.h"
 
 @implementation UIViewController (Shake)
 #pragma mark —— 系统方法
@@ -115,7 +113,7 @@ JobsKey(_motionManager)
         MotionManager = CMMotionManager.new;
         MotionManager.accelerometerUpdateInterval = 0.5;//加速仪更新频率，以秒为单位
         Jobs_setAssociatedRETAIN_NONATOMIC(_motionManager, MotionManager)
-    }return MotionManager;
+    };return MotionManager;
 }
 
 -(void)setMotionManager:(CMMotionManager *)motionManager{

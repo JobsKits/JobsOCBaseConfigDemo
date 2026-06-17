@@ -1,12 +1,13 @@
 //
 //  UIScrollView+EmptyData.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 14/11/2024.
 //
 
 #import <UIKit/UIKit.h>
 #import "UIScrollViewProtocol.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

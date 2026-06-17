@@ -1,6 +1,6 @@
 //
 //  B_VC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/8.
 //
@@ -81,7 +81,7 @@
                 make.size.mas_equalTo(CGSizeMake(300, 300));
             }];
         });
-    }return _imageView;
+    };return _imageView;
 }
 
 @end

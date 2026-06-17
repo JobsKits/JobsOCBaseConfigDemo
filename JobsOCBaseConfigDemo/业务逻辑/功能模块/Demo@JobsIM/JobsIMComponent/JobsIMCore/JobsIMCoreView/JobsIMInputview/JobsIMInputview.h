@@ -1,6 +1,6 @@
 //
 //  JobsIMInputview.h
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/10.
 //
@@ -11,8 +11,7 @@
 #import "UIImage+Extras.h"
 #import "ZYTextField.h"
 #import "JobsAdNoticeView.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

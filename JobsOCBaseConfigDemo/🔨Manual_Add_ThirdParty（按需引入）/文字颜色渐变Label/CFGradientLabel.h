@@ -1,6 +1,6 @@
 //
 //  CFGradientLabel.h
-//  My_BaseProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/7/8.
 //  Copyright © 2020 Corp. All rights reserved.
@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

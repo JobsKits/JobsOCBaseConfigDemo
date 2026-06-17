@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsTimer.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 模拟时钟：表盘 + 1～12 数字 + 时针 / 分针 / 秒针

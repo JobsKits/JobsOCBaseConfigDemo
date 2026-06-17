@@ -1,0 +1,91 @@
+//
+//  NSObject+CallBackInfoByBlock+DSL.h
+//  JobsOCBaseConfigDemo
+//
+//  Created by Jobs on 2026年6月14日，星期日。
+//
+
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_CALLBACKINFOBYBLOCK_DSL_C8FDF1255D
+#define JOBS_HEADER_GUARD_NSOBJECT_CALLBACKINFOBYBLOCK_DSL_C8FDF1255D
+
+#import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsBlock/NSObject+CallBackInfoByBlock.h>)
+#import <JobsBlock/NSObject+CallBackInfoByBlock.h>
+#else
+#import "NSObject+CallBackInfoByBlock.h"
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface NSObject (CallBackInfoByBlockDSL)
+#pragma mark —— 无返回值回调
+-(JobsRetNSObjectByJobsByVoidBlock _Nonnull)byVoidBlock;
+-(JobsRetNSObjectByJobsByIDBlock _Nonnull)byObjBlock;
+-(JobsRetNSObjectByJobsByGestureRecognizerBlock _Nonnull)byGestureRecognizerBlock;
+-(JobsRetNSObjectByJobsBySELBlock _Nonnull)bySelBlock;
+-(JobsRetNSObjectByJobsByStrBlock _Nonnull)byStringBlock;
+-(JobsRetNSObjectByJobsByNSIntegerBlock _Nonnull)byIntegerBlock;
+-(JobsRetNSObjectByJobsByNSUIntegerBlock _Nonnull)byUIntegerBlock;
+-(JobsRetNSObjectByJobsByCGFloatBlock _Nonnull)byCGFloatBlock;
+-(JobsRetNSObjectByJobsByBOOLBlock _Nonnull)byBOOLBlock;
+-(JobsRetNSObjectByJobsByIntBlock _Nonnull)byIntBlock;
+-(JobsRetNSObjectByJobsByUnsignedIntBlock _Nonnull)byUnsignedIntBlock;
+-(JobsRetNSObjectByJobsByFloatBlock _Nonnull)byFloatBlock;
+-(JobsRetNSObjectByJobsByDoubleBlock _Nonnull)byDoubleBlock;
+-(JobsRetNSObjectByJobsByCharBlock _Nonnull)byCharBlock;
+-(JobsRetNSObjectByJobsByUnsignedCharBlock _Nonnull)byUnsignedCharBlock;
+-(JobsRetNSObjectByJobsByShortBlock _Nonnull)byShortBlock;
+-(JobsRetNSObjectByJobsByUnsignedShortBlock _Nonnull)byUnsignedShortBlock;
+-(JobsRetNSObjectByJobsByLongBlock _Nonnull)byLongBlock;
+-(JobsRetNSObjectByJobsByUnsignedLongBlock _Nonnull)byUnsignedLongBlock;
+-(JobsRetNSObjectByJobsByUnsignedLongLongBlock _Nonnull)byUnsignedLongLongBlock;
+-(JobsRetNSObjectByJobsByTwoIDBlock _Nonnull)bySelectorBlock;
+#pragma mark —— 有返回值回调
+-(JobsRetNSObjectByJobsRetIDByVoidBlock _Nonnull)byRetIDByVoidBlock;
+-(JobsRetNSObjectByJobsRetIDByGestureBlock _Nonnull)byRetIDByGestureRecognizerBlock;
+-(JobsRetNSObjectByJobsRetIDBySELBlock _Nonnull)byRetIDBySELBlock;
+-(JobsRetNSObjectByJobsRetIDByStrBlock _Nonnull)byRetIDByStringBlock;
+-(JobsRetNSObjectByJobsRetNSIntegerByIDBlock _Nonnull)byRetIntegerByIDBlock;
+-(JobsRetNSObjectByJobsRetNSUIntegerByIDBlock _Nonnull)byRetUIntegerByIDBlock;
+-(JobsRetNSObjectByJobsRetCGFloatByIDBlock _Nonnull)byRetCGFloatByIDBlock;
+-(JobsRetNSObjectByJobsRetBOOLByIDBlock _Nonnull)byRetBoolByIDBlock;
+-(JobsRetNSObjectByJobsRetIntByIDBlock _Nonnull)byRetIntByIDBlock;
+-(JobsRetNSObjectByJobsRetUnsignedIntByIDBlock _Nonnull)byRetUnsignedIntByIDBlock;
+-(JobsRetNSObjectByJobsRetFloatByIDBlock _Nonnull)byRetFloatByIDBlock;
+-(JobsRetNSObjectByJobsRetDoubleByIDBlock _Nonnull)byRetDoubleByIDBlock;
+-(JobsRetNSObjectByJobsRetCharByIDBlock _Nonnull)byRetCharByIDBlock;
+-(JobsRetNSObjectByJobsRetUnsignedCharByIDBlock _Nonnull)byRetUnsignedCharByIDBlock;
+-(JobsRetNSObjectByJobsRetShortByIDBlock _Nonnull)byRetShortByIDBlock;
+-(JobsRetNSObjectByJobsRetUnsignedShortByIDBlock _Nonnull)byRetUnsignedShortByIDBlock;
+-(JobsRetNSObjectByJobsRetLongByIDBlock _Nonnull)byRetLongByIDBlock;
+-(JobsRetNSObjectByJobsRetUnsignedLongByIDBlock _Nonnull)byRetUnsignedLongByIDBlock;
+-(JobsRetNSObjectByJobsRetUnsignedLongLongByIDBlock _Nonnull)byRetUnsignedLongLongByIDBlock;
+-(JobsRetNSObjectByJobsRetIDByIDBlock _Nonnull)byRetObjBlock;
+-(JobsRetNSObjectByJobsRetByNSIntegerBlock _Nonnull)byRetIntegerBlock;
+-(JobsRetNSObjectByJobsRetByNSUIntegerBlock _Nonnull)byRetUIntegerBlock;
+-(JobsRetNSObjectByJobsRetCGFloatByCGFloatBlock _Nonnull)byRetCGFloatBlock;
+-(JobsRetNSObjectByJobsRetBOOLByBOOLBlock _Nonnull)byRetBoolBlock;
+-(JobsRetNSObjectByJobsRetBOOLByNSUIntegerBlock _Nonnull)byRetBoolByUIntegerBlock;
+-(JobsRetNSObjectByJobsRetIntByIntBlock _Nonnull)byRetIntBlock;
+-(JobsRetNSObjectByJobsRetByUnsignedIntBlock _Nonnull)byRetUnsignedIntBlock;
+-(JobsRetNSObjectByJobsRetByFloatBlock _Nonnull)byRetFloatBlock;
+-(JobsRetNSObjectByJobsRetByDoubleBlock _Nonnull)byRetDoubleBlock;
+-(JobsRetNSObjectByJobsRetByCharBlock _Nonnull)byRetCharBlock;
+-(JobsRetNSObjectByJobsRetByUnsignedCharBlock _Nonnull)byRetUnsignedCharBlock;
+-(JobsRetNSObjectByJobsRetByShortBlock _Nonnull)byRetShortBlock;
+-(JobsRetNSObjectByJobsRetByUnsignedShortBlock _Nonnull)byRetUnsignedShortBlock;
+-(JobsRetNSObjectByJobsRetByLongBlock _Nonnull)byRetLongBlock;
+-(JobsRetNSObjectByJobsRetByUnsignedLongBlock _Nonnull)byRetUnsignedLongBlock;
+-(JobsRetNSObjectByJobsRetByUnsignedLongLongBlock _Nonnull)byRetUnsignedLongLongBlock;
+-(JobsRetNSObjectByJobsRetIDByTwoIDBlock _Nonnull)byRetIDBySelectorBlock;
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_CALLBACKINFOBYBLOCK_DSL_C8FDF1255D */

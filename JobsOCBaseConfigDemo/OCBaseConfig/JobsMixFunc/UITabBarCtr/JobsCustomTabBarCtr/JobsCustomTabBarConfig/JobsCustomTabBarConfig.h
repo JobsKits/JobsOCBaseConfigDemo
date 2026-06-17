@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "BaseProtocol.h"
 #import "BaseButtonProtocol.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 对整个TabBar的配置

@@ -1,14 +1,13 @@
 //
 //  DataManager.h
-//  ZBNetworkingDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Suzhibin on 2020/1/19.
 //  Copyright © 2020 Suzhibin. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

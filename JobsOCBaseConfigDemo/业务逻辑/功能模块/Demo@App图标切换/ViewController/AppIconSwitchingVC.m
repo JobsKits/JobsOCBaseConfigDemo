@@ -1,13 +1,11 @@
 //
 //  AppIconSwitchingVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 6/19/24.
 //
 
 #import "AppIconSwitchingVC.h"
-
-#import "DefineProperty.h"
 
 @interface AppIconSwitchingVC ()
 
@@ -128,7 +126,7 @@ Prop_strong()BaseButton *switchBtn;
             make.center.equalTo(self.view);
         }];
         _switchBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    }return _switchBtn;
+    };return _switchBtn;
 }
 
 @end

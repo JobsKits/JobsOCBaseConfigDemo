@@ -21,7 +21,7 @@
         if ([target respondsToSelector:sel]) {
             return [target methodSignatureForSelector:sel];
         }
-    }return [NSObject instanceMethodSignatureForSelector:@selector(init)];
+    };return [NSObject instanceMethodSignatureForSelector:@selector(init)];
 }
 
 -(void)forwardInvocation:(NSInvocation *)invocation {

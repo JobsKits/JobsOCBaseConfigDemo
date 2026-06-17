@@ -1,13 +1,12 @@
 //
 //  JobsSearchHoveringHeaderView.h
-//  JobsSearch
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/2.
 //
 
 #import "BaseTableViewHeaderFooterView.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,6 +1,6 @@
 //
 //  ProtocolKitVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/10.
 //
@@ -16,7 +16,7 @@
 - (instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 @end

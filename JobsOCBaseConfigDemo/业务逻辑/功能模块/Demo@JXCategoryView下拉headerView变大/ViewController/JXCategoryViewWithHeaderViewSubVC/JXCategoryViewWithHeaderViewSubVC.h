@@ -1,6 +1,6 @@
 //
 //  JXCategoryViewWithHeaderViewVC.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/10.
 //
@@ -13,7 +13,8 @@
 #import "BaiShaETProjVIPSubCVFooterView.h"
 #import "BaiShaETProjChoiceStadiumView.h"
 #import "BaseViewController.h"
-#import "JobsDefineAllStructHeader.h"          // 此文件用来存储记录全局的一些结构体
+#import "JobsDefineStructs.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

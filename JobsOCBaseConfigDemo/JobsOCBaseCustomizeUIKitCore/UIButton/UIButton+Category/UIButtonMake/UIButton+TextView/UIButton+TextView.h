@@ -1,6 +1,6 @@
 //
 //  UIButton+TextView.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 10/12/2024.
 //
@@ -8,11 +8,11 @@
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "BaseTextView.h"
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
 #import "NSObject+Extras.h"
 #import "JobsKeyValueModel.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>
 #else
@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_END
              self.titleTextView.frame = self.titleLabel.frame;
              self.titleTextView.attributedText = title;
              self.jobsResetBtnNormalAttributedTitle(nil);
-         }return self;
+         };return self;
      };
  }
  /// 用 UITextView 替换 UIButton.subtitleLabel
@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_END
              self.subtitleTextView.frame = self.subtitleLabel.frame;
              self.subtitleTextView.attributedText = title;
              self.jobsResetBtnNormalAttributedSubTitle(nil);
-         }return self;
+         };return self;
      };
  }
  */

@@ -1,13 +1,11 @@
 //
 //  UIScrollView+EmptyData.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 14/11/2024.
 //
 
 #import "UIScrollView+EmptyData.h"
-
-#import "DefineProperty.h"
 
 @implementation UIScrollView (EmptyData)
 

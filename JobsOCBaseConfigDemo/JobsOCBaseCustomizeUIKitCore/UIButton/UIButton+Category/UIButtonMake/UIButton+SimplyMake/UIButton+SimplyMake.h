@@ -1,6 +1,6 @@
 //
 //  UIButton+SimplyMake.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 9/9/24.
 //
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "JobsMakes.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "BaseProtocol.h"
 #import "UIButton+UI.h"
 #import "BaseButton.h"
@@ -126,7 +126,7 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeBaseButton(jobsByBtnBlock _Nonnull
              }).onLongPressGestureBy(^(id data){
              JobsLog(@"");
          }).bgNormalLoad();
-     }return _mailBtn;
+     };return _mailBtn;
  }
  
  -(UIButton *)valueBtn{
@@ -146,7 +146,7 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeBaseButton(jobsByBtnBlock _Nonnull
                           }).onLongPressGestureBy(^(id data){
                               JobsLog(@"");
                           });
-     }return _valueBtn;
+     };return _valueBtn;
  }
  
  -(UIButton *)usrNameBtn{
@@ -172,7 +172,7 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeBaseButton(jobsByBtnBlock _Nonnull
              make.height.mas_equalTo(JobsWidth(16));
          });
          _usrNameBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-     }return _usrNameBtn;
+     };return _usrNameBtn;
  }
  
  -(BaseButton *)applyNowBtn{
@@ -215,7 +215,7 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeBaseButton(jobsByBtnBlock _Nonnull
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
              });
-     }return _applyNowBtn;
+     };return _applyNowBtn;
  }
  
  -(BaseButton *)registerBtn{
@@ -235,7 +235,7 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeBaseButton(jobsByBtnBlock _Nonnull
              data.jobsWidth = 1;
              data.cornerRadiusValue = JobsWidth(8);
          })));
-     }return _registerBtn;
+     };return _registerBtn;
  }
  
  */

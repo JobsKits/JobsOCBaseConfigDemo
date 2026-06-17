@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/16.
 //
@@ -15,7 +15,7 @@ API_AVAILABLE(ios(13.0))
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability-new"
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @interface SceneDelegate : UIResponder <UIWindowSceneDelegate>
 

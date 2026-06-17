@@ -1,6 +1,6 @@
 //
 //  UILabel+Scroll.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 28/11/2024.
 //

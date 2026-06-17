@@ -1,14 +1,12 @@
 //
 //  UIView+BackgroundImage.m
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/1/22.
 //  Copyright © 2021 MonkeyKingVideo. All rights reserved.
 //
 
 #import "UIView+BackgroundImage.h"
-
-#import "DefineProperty.h"
 
 @implementation UIView (BackgroundImage)
 /**
@@ -50,7 +48,7 @@ JobsKey(_backgroundImageView)
             }imageView.layer.zPosition = -1;// 设置层级关系
             Jobs_setAssociatedRETAIN_NONATOMIC(_backgroundImageView, imageView)
         });
-    }return BackgroundImageView;
+    };return BackgroundImageView;
 }
 
 -(void)setBackgroundImageView:(UIImageView *)backgroundImageView{

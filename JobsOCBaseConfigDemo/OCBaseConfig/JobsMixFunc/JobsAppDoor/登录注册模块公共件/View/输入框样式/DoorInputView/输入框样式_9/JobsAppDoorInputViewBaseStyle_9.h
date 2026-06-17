@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorInputViewBaseStyle_9.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/11.
 //
@@ -12,8 +12,7 @@
 #import "JobsAppDoorInputViewBaseStyle.h"
 #import "UIButton+Timer.h"
 #import "JobsMagicTextField.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -64,7 +63,7 @@ NS_ASSUME_NONNULL_END
          _获取并输入手机验证码.layer.cornerRadius = JobsWidth(52 / 2);
          _获取并输入手机验证码.layer.borderColor = HEXCOLOR(0xEEE2C8).CGColor;
          _获取并输入手机验证码.jobsRichViewByModel(.配置验证码输入);
-     }return _获取并输入手机验证码;
+     };return _获取并输入手机验证码;
  }
  
  -(JobsAppDoorInputViewBaseStyleModel *)配置验证码输入{
@@ -80,7 +79,7 @@ NS_ASSUME_NONNULL_END
          _配置验证码输入.leftViewMode = UITextFieldViewModeAlways;
          _配置验证码输入.titleStrCor = _配置验证码输入.placeholderColor = HEXCOLOR_ALPHA(0xC4C4C4,1.f);
  //        配置_配置验证码输入码输入.fieldEditorOffset = JobsWidth(80);
-     }return _配置验证码输入;
+     };return _配置验证码输入;
  }
 
  

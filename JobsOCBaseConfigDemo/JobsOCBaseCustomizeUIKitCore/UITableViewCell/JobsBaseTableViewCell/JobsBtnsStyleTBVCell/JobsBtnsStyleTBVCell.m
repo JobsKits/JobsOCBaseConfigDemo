@@ -1,13 +1,11 @@
 //
 //  JobsBtnsStyleTBVCell.m
-//  MataShop
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 10/14/23.
 //
 
 #import "JobsBtnsStyleTBVCell.h"
-
-#import "DefineProperty.h"
 
 @interface JobsBtnsStyleTBVCell ()
 /// UI

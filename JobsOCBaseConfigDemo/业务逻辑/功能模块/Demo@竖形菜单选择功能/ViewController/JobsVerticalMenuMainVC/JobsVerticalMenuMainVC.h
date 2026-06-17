@@ -9,6 +9,7 @@
 #import "JobsVerticalMenuVC@0.h"
 #import "JobsVerticalMenuVC@1.h"
 #import "JobsVerticalMenuVC@2.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

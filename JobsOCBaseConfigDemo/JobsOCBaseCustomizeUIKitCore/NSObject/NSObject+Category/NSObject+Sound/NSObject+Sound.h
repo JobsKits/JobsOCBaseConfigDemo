@@ -1,6 +1,6 @@
 //
 //  NSObject+Sound.h
-//  Feidegou
+//  JobsOCBaseConfigDemo
 //
 //  Created by Kite on 2019/12/2.
 //  Copyright © 2019 朝花夕拾. All rights reserved.

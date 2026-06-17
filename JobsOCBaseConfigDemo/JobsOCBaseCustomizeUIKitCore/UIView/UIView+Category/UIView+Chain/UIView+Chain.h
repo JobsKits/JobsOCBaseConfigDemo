@@ -1,6 +1,6 @@
 //
 //  UIView+Chain.h
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/8/11.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -9,8 +9,7 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "NSObject+Swizzling.h"
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /**

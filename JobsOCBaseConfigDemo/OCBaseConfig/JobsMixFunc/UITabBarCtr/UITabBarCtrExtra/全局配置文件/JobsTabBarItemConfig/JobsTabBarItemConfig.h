@@ -1,12 +1,12 @@
 //
 //  TabBarControllerConfig.h
-//  TabbarItemLottie
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/16.
 //
 
 #import <UIKit/UIKit.h>
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 #ifndef LANDSCAPE_VALUE_H
 #define LANDSCAPE_VALUE_H

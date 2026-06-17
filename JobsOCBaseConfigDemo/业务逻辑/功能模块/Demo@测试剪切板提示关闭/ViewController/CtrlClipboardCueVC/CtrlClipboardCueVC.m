@@ -1,13 +1,11 @@
 //
 //  CtrlClipboardCueVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2024/4/26.
 //
 
 #import "CtrlClipboardCueVC.h"
-
-#import "DefineProperty.h"
 
 @interface CtrlClipboardCueVC ()
 /// UI
@@ -146,7 +144,7 @@ Prop_copy()NSString *textData2;/// 来自于剪切板存储的数据
                     [self becomeFirstResponder];
                     self->_textData2 = self.textData1;
                     self->_label.makeMenuCtrl(self->_textData2);
-                }return nil;
+                };return nil;
             }];
             [self.view.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
@@ -156,7 +154,7 @@ Prop_copy()NSString *textData2;/// 来自于剪切板存储的数据
             label.cornerCutToCircleWithCornerRadius(JobsWidth(8));
             label.makeLabelByShowingType(UILabelShowingType_03);
         });
-    }return _label;
+    };return _label;
 }
 @synthesize textView = _textView;
 -(BaseTextView *)textView{
@@ -180,13 +178,13 @@ Prop_copy()NSString *textData2;/// 来自于剪切板存储的数据
                 model.jobsWidth = .5f;
             }));
         });
-    }return _textView;
+    };return _textView;
 }
 
 -(NSString *)textData1{
     if(!_textData1){
         _textData1 = @"财神到，四季发财！！！！".tr;
-    }return _textData1;
+    };return _textData1;
 }
 
 @end

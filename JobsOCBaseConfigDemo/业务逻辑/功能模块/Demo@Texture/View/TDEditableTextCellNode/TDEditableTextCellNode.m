@@ -18,7 +18,7 @@
         self.automaticallyManagesSubnodes = YES;
         self.editable.scrollEnabled = YES;
         self.hint.placeholderEnabled = YES;
-    }return self;
+    };return self;
 }
 
 -(ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
@@ -51,7 +51,7 @@
             node.borderColor = UIColor.separatorColor.CGColor;
             node.delegate = self;
         });
-    }return _editable;
+    };return _editable;
 }
 
 -(ASTextNode *)hint{
@@ -63,7 +63,7 @@
                 NSForegroundColorAttributeName: UIColor.secondaryLabelColor
             }];
         });
-    }return _hint;
+    };return _hint;
 }
 
 @end

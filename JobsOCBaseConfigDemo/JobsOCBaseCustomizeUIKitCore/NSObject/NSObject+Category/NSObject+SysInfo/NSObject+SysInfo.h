@@ -1,13 +1,13 @@
 //
 //  NSObject+SysInfo.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Admin on 16/12/2024.
 //
 
 #import <Foundation/Foundation.h>
 #import "NSObject+Extras.h"
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 获取系统环境变量

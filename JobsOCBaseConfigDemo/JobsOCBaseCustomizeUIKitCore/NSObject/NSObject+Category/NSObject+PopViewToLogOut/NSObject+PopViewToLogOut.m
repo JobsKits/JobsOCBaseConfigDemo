@@ -1,13 +1,11 @@
 //
 //  NSObject+PopViewToLogOut.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/1.
 //
 
 #import "NSObject+PopViewToLogOut.h"
-
-#import "DefineProperty.h"
 
 @implementation NSObject (PopViewToLogOut)
 #pragma mark —— Prop_strong()UIViewModel *logOutPopupVM;
@@ -23,7 +21,7 @@ JobsKey(_logOutPopupVM)
             data.subTextModel.text = @"".tr;
             data.bgCor = JobsWhiteColor;
         });Jobs_setAssociatedRETAIN_NONATOMIC(_logOutPopupVM, LogOutPopupVM)
-    }return LogOutPopupVM;
+    };return LogOutPopupVM;
 }
 
 -(void)setLogOutPopupVM:(UIViewModel *)logOutPopupVM{
@@ -51,7 +49,7 @@ JobsKey(_logOutPopupView)
                                                    JobsPostNotification(退出登录成功, @(NO));
                                                }[LogOutPopupView tf_hide:nil];
                                            }))
-    }return LogOutPopupView;
+    };return LogOutPopupView;
 }
 
 -(void)setLogOutPopupView:(JobsBasePopupView *)logOutPopupView{

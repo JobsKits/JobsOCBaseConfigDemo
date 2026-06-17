@@ -1,6 +1,6 @@
 //
 //  MultipartMessagePart.h
-//  HttpServer
+//  JobsOCBaseConfigDemo
 //
 //  Created by Валерий Гаврилов on 29.03.12.
 //  Copyright (c) 2012 LLC "Online Publishing Partners" (onlinepp.ru). All rights reserved.

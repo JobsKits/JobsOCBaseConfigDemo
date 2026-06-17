@@ -1,13 +1,11 @@
 //
 //  NotifiView.m
-//  CoreTextLearning
+//  JobsOCBaseConfigDemo
 //
 //  Created by alan comb on 2021/4/10.
 //
 
 #import "NotifiView.h"
-
-#import "DefineProperty.h"
 
 @interface NotifiView()
 
@@ -25,7 +23,7 @@ Prop_copy()FinishBlock finishBlock;
         self.backgroundColor = [UIColor orangeColor];
         _state = NotifiViewStateInit;
         _offsetX = frame.origin.x;
-    }return self;
+    };return self;
 }
 
 - (void)layoutSubviews{
@@ -40,6 +38,7 @@ Prop_copy()FinishBlock finishBlock;
     }
 }
 
+#pragma mark —— data
 - (void)setData:(NSDictionary *)data{
     _data = data;
     _key = _data[kNotifiViewKey];
@@ -131,7 +130,7 @@ Prop_copy()FinishBlock finishBlock;
         _contentLabel.textColor = [UIColor whiteColor];
         _contentLabel.font = [UIFont systemFontOfSize:20];
         _contentLabel.textAlignment = NSTextAlignmentCenter;
-    }return _contentLabel;
+    };return _contentLabel;
 }
 
 @end

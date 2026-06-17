@@ -1,13 +1,11 @@
 //
 //  MyTableTableVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 6/22/24.
 //
 
 #import "MyTableTableVC.h"
-
-#import "DefineProperty.h"
 
 @interface MyTableTableVC ()
 /// UI
@@ -162,7 +160,7 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
                 }]);
             })];
         }];return configuration;
-    }return nil;
+    };return nil;
 }
 /**
  * 提供一个定制的 UITargetedPreview 对象，用于在高亮显示菜单项时使用。
@@ -321,7 +319,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     make.edges.equalTo(self.view);
                 });
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(BaiShaETProjChoiceStadiumTBVHeaderView *)tbvHeaderView{
@@ -332,13 +330,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             .byFont(UIFontWeightBoldSize(16))
             .byTextAlignment(NSTextAlignmentCenter)
             .bySize(BaiShaETProjChoiceStadiumTBVHeaderView.viewSizeByModel(nil));
-    }return _tbvHeaderView;
+    };return _tbvHeaderView;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = MyTableTableVC.createDataMutArr;
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 -(NSMutableArray<JobsBaseTableViewCell *> *)tbvCellMutArr{
@@ -353,7 +351,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 data.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
             }];
         });
-    }return _tbvCellMutArr;
+    };return _tbvCellMutArr;
 }
 
 @end

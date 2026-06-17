@@ -1,14 +1,12 @@
 //
 //  LoadMoreTBVCell.m
-//  commentList
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/7/14.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
 #import "JobsLoadMoreTBVCell.h"
-
-#import "DefineProperty.h"
 
 @interface JobsLoadMoreTBVCell ()
 
@@ -52,7 +50,7 @@ Prop_strong()UILabel *titleLab;
                 make.edges.equalTo(self.contentView);
             }];
         });
-    }return _titleLab;
+    };return _titleLab;
 }
  
 

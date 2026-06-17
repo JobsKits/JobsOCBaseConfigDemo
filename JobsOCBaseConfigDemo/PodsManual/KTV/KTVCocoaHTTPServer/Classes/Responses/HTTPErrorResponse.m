@@ -20,6 +20,7 @@
     return 0;
 }
 
+#pragma mark —— offset
 - (void)setOffset:(UInt64)offset {
     ;
 }

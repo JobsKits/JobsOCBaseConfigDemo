@@ -1,6 +1,6 @@
 //
 //  FSCalendarCalculator.m
-//  FSCalendar
+//  JobsOCBaseConfigDemo
 //
 //  Created by dingwenchao on 30/10/2016.
 //  Copyright © 2016 Wenchao Ding. All rights reserved.
@@ -31,8 +31,6 @@
 
 @implementation FSCalendarCalculator
 
-@dynamic gregorian,minimumDate,maximumDate;
-
 - (instancetype)initWithCalendar:(FSCalendar *)calendar
 {
     self = [super init];
@@ -45,7 +43,7 @@
         self.rowCounts = [NSMutableDictionary dictionary];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotifications:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-    }return self;
+    };return self;
 }
 
 - (void)dealloc

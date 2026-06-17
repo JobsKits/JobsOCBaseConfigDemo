@@ -1,6 +1,6 @@
 //
 //  JobsPullListTBVCell.h
-//  TabbarItemLottie
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/15.
 //

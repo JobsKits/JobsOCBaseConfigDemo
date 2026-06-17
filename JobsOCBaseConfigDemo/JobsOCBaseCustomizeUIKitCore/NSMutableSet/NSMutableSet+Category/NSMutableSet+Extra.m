@@ -1,6 +1,6 @@
 //
 //  NSMutableSet+Extra.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/6/24.
 //
@@ -18,7 +18,7 @@
             [self addObject:data];
         }else{
             JobsLog(@"集合被添加了一个空元素");
-        }return self;
+        };return self;
     };
 }
 

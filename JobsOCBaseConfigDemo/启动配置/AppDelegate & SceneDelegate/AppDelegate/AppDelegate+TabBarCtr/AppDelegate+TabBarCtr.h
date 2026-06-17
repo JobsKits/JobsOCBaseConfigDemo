@@ -1,11 +1,11 @@
 //
 //  AppDelegate+TabBarCtr.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/11.
 //
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "AppDelegate.h"
 #import "AppDelegate+Func.h"
 #import "NSObject+AppTools.h"

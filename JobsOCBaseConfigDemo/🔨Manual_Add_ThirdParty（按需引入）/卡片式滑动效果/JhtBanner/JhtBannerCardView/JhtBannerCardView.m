@@ -1,6 +1,6 @@
 //
 //  JhtBannerCardView.m
-//  JhtBannerScrollView
+//  JobsOCBaseConfigDemo
 //
 //  GitHub主页: https://github.com/jinht
 //  CSDN博客: http://blog.csdn.net/anticipate91
@@ -32,7 +32,7 @@
         /// 覆盖在mainImageView上的view（蒙板）
         self.coverView.alpha = 1;
         self.cornerCutToCircleWithCornerRadius(8.f);
-    }return self;
+    };return self;
 }
 #pragma mark —— LazyLoad
 - (UIImageView *)cardImageView {
@@ -47,7 +47,7 @@
             }];
             self->_cardLab = nil;//removeFromSuperview 和 alpha = 0 都没有办法达到nil的效果
         });
-    }return _cardImageView;
+    };return _cardImageView;
 }
 
 -(UILabel *)cardLab{
@@ -65,7 +65,7 @@
                 make.edges.equalTo(self);
             }];self->_cardImageView = nil;/// removeFromSuperview 和 alpha = 0 都没有办法达到nil的效果
         });
-    }return _cardLab;
+    };return _cardLab;
 }
 
 -(UIView *)coverView{
@@ -79,7 +79,7 @@
                 make.edges.equalTo(self);
             }];
         });
-    }return _coverView;
+    };return _coverView;
 }
 
 @end

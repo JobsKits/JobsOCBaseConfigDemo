@@ -1,6 +1,6 @@
 //
 //  NSObject+SPAlertController.h
-//  MonkeyKingVideo
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/9/12.
 //  Copyright © 2020 Jobs. All rights reserved.
@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "JobsBlock.h"
 #import "NSObject+Extras.h"
-#import "NSObject+WHToast.h"//提示
+#import "NSObject+WHToast.h"
 #import "JobsString.h"
-#import "JobsDefineAllEnumHeader.h"            // 此文件用来存储记录全局的一些枚举
+#import "JobsDefineEnums.h"
 #import "SPAlertControllerConfig.h"
 
 #if __has_include(<SPAlertController/SPAlertController.h>)
@@ -110,7 +110,7 @@ NS_ASSUME_NONNULL_END
                  
                 } completionBlock:nil];
          }];
-     }return _channelBtn;
+     };return _channelBtn;
  }
  
  

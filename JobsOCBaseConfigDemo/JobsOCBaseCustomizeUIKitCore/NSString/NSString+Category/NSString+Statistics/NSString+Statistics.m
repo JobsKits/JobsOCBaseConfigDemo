@@ -1,6 +1,6 @@
 //
 //  NSString+Statistics.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/30.
 //
@@ -86,8 +86,8 @@
                 data.jobsWidth = controlWidth;
                 data.jobsHeight = textHeight;
             });
-        }return nil;
-    }return nil;
+        };return nil;
+    };return nil;
 }
 /// 求字符串所占用的控件的宽度
 /// - Parameters:
@@ -128,8 +128,8 @@
                 data.jobsWidth = textWidth;
                 data.jobsHeight = controlHeight;
             });
-        }return nil;
-    }return nil;
+        };return nil;
+    };return nil;
 }
 /// 获取一行字符串的高度
 /// 这个方法仅计算文本本身的高度，不包括行间距等因素

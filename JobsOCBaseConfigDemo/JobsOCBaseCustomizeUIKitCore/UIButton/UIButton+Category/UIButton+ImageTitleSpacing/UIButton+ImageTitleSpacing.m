@@ -1,6 +1,6 @@
 //
 //  UIButton+ImageTitleSpacing.m
-//  Intelligent_Fire
+//  JobsOCBaseConfigDemo
 //
 //  Created by 高磊 on 2016/12/19.
 //  Copyright © 2016年 高磊. All rights reserved.
@@ -47,7 +47,7 @@
              _btnConfig.baseBackgroundColor = JobsWhiteColor;// 背景颜色
              _btnConfig.contentInsets = NSDirectionalEdgeInsetsMake(0, 0, 0, 0); // 内边距
          }
-     }return _btnConfig;
+     };return _btnConfig;
  }
 
  -(UIButton *)btn1{
@@ -71,7 +71,7 @@
          if(self.deviceSystemVersion.floatValue < 15.0){
              [_btn1 layoutButtonWithEdgeInsetsStyle:NSDirectionalRectEdgeLeading imagePadding:JobsWidth(8)];
          }
-     }return _btn1;
+     };return _btn1;
  }
  */
     }

@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorForgotCodeContentView.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/11/22.
 //
@@ -10,6 +10,7 @@
 #import "BaseViewProtocol.h"
 #import "JobsAppDoorConfig.h"
 #import "JobsHotLabelBySingleLine.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 忘记密码页

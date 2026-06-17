@@ -1,12 +1,12 @@
 //
 //  CasinoCustomerContactModel.h
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/10.
 //
 
 #import "BaseModel.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

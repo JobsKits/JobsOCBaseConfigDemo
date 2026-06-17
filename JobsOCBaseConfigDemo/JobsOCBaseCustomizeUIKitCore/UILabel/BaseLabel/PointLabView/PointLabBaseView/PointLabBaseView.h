@@ -1,12 +1,13 @@
 //
 //  PointLabView.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 8/15/24.
 //
 
 #import "BaseView.h"
 #import "JobsBlock.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 文本前面有个小圆点
@@ -56,7 +57,7 @@ NS_INLINE __kindof PointLabBaseView *_Nonnull jobsMakePointLabView(jobsByPointLa
              }];
              view.label.makeLabelByShowingType(UILabelShowingType_05);
          });
-     }return _tipsLab;
+     };return _tipsLab;
  }
  
  */

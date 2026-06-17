@@ -1,6 +1,6 @@
 //
 //  SocketRocketUtility.h
-//  SUN
+//  JobsOCBaseConfigDemo
 //
 //  Created by 孙俊 on 17/2/16.
 //  Copyright © 2017年 SUN. All rights reserved.
@@ -10,10 +10,10 @@
 #import "MacroDef_Notification.h"
 #import "JobsBlock.h"
 #import "NSString+Others.h"
-#import "DefineConstString.h" /// 常量字符串的定义
+#import "JobsDefineConstString.h"
 #import "JobsTimer.h"
 #import "BaseProtocol.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 #import "NSString+Conversion.h"
 
 #if __has_include(<SocketRocket/SocketRocket.h>)

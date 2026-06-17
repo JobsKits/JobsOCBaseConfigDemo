@@ -1,6 +1,6 @@
 //
 //  MGSwipeButtonModel.m
-//  JobsIM
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/11/13.
 //

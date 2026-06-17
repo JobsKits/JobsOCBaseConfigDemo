@@ -6,20 +6,18 @@
 //
 
 #import "UIButton+FillColor.h"
+#import "MacroDef_Sys.h"
 
 @implementation UIButton (FillColor)
-#pragma mark - Associated Object (titleName)
-static const void *kUIButtonTitleNameKey = &kUIButtonTitleNameKey;
+#pragma mark —— Prop_copy()NSString *titleName;
+JobsKey(_titleName)
 @dynamic titleName;
 - (void)setTitleName:(NSString *)titleName {
-    objc_setAssociatedObject(self,
-                             kUIButtonTitleNameKey,
-                             titleName,
-                             OBJC_ASSOCIATION_COPY_NONATOMIC);
+    Jobs_setAssociatedCOPY_NONATOMIC(_titleName, titleName)
 }
 
 - (NSString *)titleName {
-    return objc_getAssociatedObject(self, kUIButtonTitleNameKey);
+    return Jobs_getAssociatedObject(_titleName);
 }
 #pragma mark - Background Color For State
 - (void)by_setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state {

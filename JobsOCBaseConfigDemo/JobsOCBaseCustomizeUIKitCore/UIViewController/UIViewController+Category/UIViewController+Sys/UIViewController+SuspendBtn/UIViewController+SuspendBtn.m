@@ -1,13 +1,11 @@
 //
 //  UIViewController+SuspendBtn.m
-//  Casino
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/12/15.
 //
 
 #import "UIViewController+SuspendBtn.h"
-
-#import "DefineProperty.h"
 
 @implementation UIViewController (SuspendBtn)
 #pragma mark —— Prop_strong()JobsSuspendBtn *suspendBtn;
@@ -35,7 +33,7 @@ JobsKey(_suspendBtn)
         SuspendBtn.isAllowDrag = YES;/// 悬浮效果必须要的参数
         self.view.vc = weak_self;
         Jobs_setAssociatedRETAIN_NONATOMIC(_suspendBtn, SuspendBtn)
-    }return SuspendBtn;
+    };return SuspendBtn;
 }
 
 -(void)setSuspendBtn:(JobsSuspendBtn *)suspendBtn{

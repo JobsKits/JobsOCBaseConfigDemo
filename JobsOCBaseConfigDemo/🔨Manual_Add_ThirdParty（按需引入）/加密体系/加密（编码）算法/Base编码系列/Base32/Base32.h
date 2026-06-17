@@ -1,6 +1,6 @@
 //
 //  Base32.h
-//  Base32
+//  JobsOCBaseConfigDemo
 //
 //  Created by Matt Rubin on 1/25/15.
 //  Public Domain

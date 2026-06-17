@@ -20,7 +20,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_OFF; // | HTTP_LOG_FLAG_TRACE;
 		
 		offset = 0;
 		data = dataParam;
-	}return self;
+	};return self;
 }
 
 - (void)dealloc
@@ -45,6 +45,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_OFF; // | HTTP_LOG_FLAG_TRACE;
 	return offset;
 }
 
+#pragma mark —— offset
 - (void)setOffset:(UInt64)offsetParam
 {
 	HTTPLogTrace2(@"%@[%p]: setOffset:%lu", THIS_FILE, self, (unsigned long)offset);

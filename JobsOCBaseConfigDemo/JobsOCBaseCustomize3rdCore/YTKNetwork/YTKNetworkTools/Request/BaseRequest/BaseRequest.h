@@ -1,9 +1,15 @@
 //
 //  BaseRequest.h
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/7/10.
 //
+
+#import "JobsBlock.h"
+#import "YTKCustomBaseRequestProtocol.h"
+#import "JobsDefineConstString.h"
+#import "NSMutableDictionary+Extra.h"
+#import "YTKRequest+Extra.h"
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
@@ -13,19 +19,9 @@
 
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFNetworking.h>
-#elif __has_include("AFNetworking.h")
-#import "AFNetworking.h"
-#elif __has_include("AFNetworking-umbrella.h")
-#import "AFNetworking-umbrella.h"
 #else
-#error "AFNetworking header not found"
+#import "AFNetworking.h"
 #endif
-
-#import "YTKCustomBaseRequestProtocol.h"
-#import "YTKRequest+Extra.h"
-#import "DefineConstString.h" // 常量字符串的定义
-#import "JobsBlock.h"
-#import "NSMutableDictionary+Extra.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @class BaseRequest;   // 🔴 关键：先声明有这个类

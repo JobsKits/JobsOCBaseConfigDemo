@@ -1,13 +1,11 @@
 //
 //  TextCell.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/27/24.
 //
 
 #import "TextCell.h"
-
-#import "DefineProperty.h"
 
 @interface TextCell ()
 
@@ -21,16 +19,17 @@ Prop_strong()UIView *bgView;
     if (self = [super initWithFrame:frame]) {
         self.selectedBackgroundView = self.bgView;
         self.label.alpha = 1;
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
         self.selectedBackgroundView = self.bgView;
         self.label.alpha = 1;
-    }return self;
+    };return self;
 }
 
+#pragma mark —— frame
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     self.label.frame = CGRectInset(self.bounds, 4, 2);
@@ -41,7 +40,7 @@ Prop_strong()UIView *bgView;
         _bgView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view.backgroundColor = RGBA_COLOR(0, 0, 1, .2f);
         });
-    }return _bgView;
+    };return _bgView;
 }
 @synthesize label = _label;
 -(UILabel *)label{
@@ -54,7 +53,7 @@ Prop_strong()UIView *bgView;
             label.textAlignment = NSTextAlignmentCenter;
             self.contentView.addSubview(label);
         });
-    }return _label;
+    };return _label;
 }
 
 @end

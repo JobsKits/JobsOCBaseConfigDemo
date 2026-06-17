@@ -1,13 +1,11 @@
 //
 //  JobsTitleView01.m
-//  BaiShaEntertainmentProj
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/16.
 //
 
 #import "JobsTitleView01.h"
-
-#import "DefineProperty.h"
 
 @interface JobsTitleView01 ()
 /// UI
@@ -39,19 +37,19 @@ static dispatch_once_t static_titleView01OnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
 
-    }return self;
+    };return self;
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -94,7 +92,7 @@ static dispatch_once_t static_titleView01OnceToken;
                 make.center.equalTo(self);
             }];label.makeLabelByShowingType(UILabelShowingType_03);
         });
-    }return _titleLab;
+    };return _titleLab;
 }
 
 -(UILabel *)leftLab{
@@ -110,7 +108,7 @@ static dispatch_once_t static_titleView01OnceToken;
                 make.right.equalTo(self.titleLab.mas_left).offset(JobsWidth(-30));
             }];
         });
-    }return _leftLab;
+    };return _leftLab;
 }
 
 -(UILabel *)rightLab{
@@ -126,7 +124,7 @@ static dispatch_once_t static_titleView01OnceToken;
                 make.left.equalTo(self.titleLab.mas_right).offset(JobsWidth(30));
             }];
         });
-    }return _rightLab;
+    };return _rightLab;
 }
 
 @end

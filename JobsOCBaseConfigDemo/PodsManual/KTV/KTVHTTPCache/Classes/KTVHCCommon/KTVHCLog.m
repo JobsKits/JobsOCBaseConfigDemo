@@ -1,6 +1,6 @@
 //
 //  KTVHCLog.m
-//  KTVHTTPCache
+//  JobsOCBaseConfigDemo
 //
 //  Created by Single on 2017/8/17.
 //  Copyright © 2017年 Single. All rights reserved.
@@ -8,7 +8,6 @@
 
 #import "KTVHCLog.h"
 #import "KTVHCPathTool.h"
-
 #import <UIKit/UIKit.h>
 
 @interface KTVHCLog ()
@@ -38,7 +37,7 @@
         self.recordLogEnable = NO;
         self.lock = [[NSLock alloc] init];
         self.internalErrors = [NSMutableDictionary dictionary];
-    }return self;
+    };return self;
 }
 
 - (void)addRecordLog:(NSString *)log

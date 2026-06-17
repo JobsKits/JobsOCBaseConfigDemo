@@ -1,6 +1,6 @@
 //
 //  TableViewCell.m
-//  JobsSearch
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2020/10/22.
 //
@@ -42,7 +42,7 @@ BaseLayerProtocol_synthesize_part3
         if (model) {
             self.viewModels = (NSMutableArray *)model;
             self.collectionView.byShow(self);
-        }return self;
+        };return self;
     };
 }
 #pragma mark - UICollectionViewDataSource
@@ -141,7 +141,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
         [self.contentView.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView);
         }];
-    }return _collectionView;
+    };return _collectionView;
 }
 
 @end

@@ -1,6 +1,6 @@
 //
 //  FSCalendarCollectionView.m
-//  FSCalendar
+//  JobsOCBaseConfigDemo
 //
 //  Created by Wenchao Ding on 10/25/15.
 //  Copyright (c) 2015 Wenchao Ding. All rights reserved.
@@ -27,7 +27,7 @@
     self = [super initWithFrame:frame collectionViewLayout:layout];
     if (self) {
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -35,7 +35,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 - (void)commonInit
@@ -54,6 +54,7 @@
     }
 }
 
+#pragma mark —— contentInset
 - (void)setContentInset:(UIEdgeInsets)contentInset
 {
     [super setContentInset:UIEdgeInsetsZero];
@@ -62,6 +63,7 @@
     }
 }
 
+#pragma mark —— scrollsToTop
 - (void)setScrollsToTop:(BOOL)scrollsToTop
 {
     [super setScrollsToTop:NO];

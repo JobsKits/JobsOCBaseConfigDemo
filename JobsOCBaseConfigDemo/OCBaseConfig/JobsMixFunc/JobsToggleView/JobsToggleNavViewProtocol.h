@@ -1,13 +1,12 @@
 //
 //  JobsToggleNavViewProtocol.h
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 7/22/24.
 //
 
 #import <Foundation/Foundation.h>
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

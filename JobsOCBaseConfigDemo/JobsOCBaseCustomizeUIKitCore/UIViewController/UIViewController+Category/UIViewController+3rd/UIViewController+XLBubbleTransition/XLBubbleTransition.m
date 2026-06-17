@@ -1,14 +1,12 @@
 //
 //  XLBubbleTransition.m
-//  XLBubbleTransitionTest
+//  JobsOCBaseConfigDemo
 //
 //  Created by MengXianLiang on 2017/4/11.
 //  Copyright © 2017年 MengXianLiang. All rights reserved.
 //
 
 #import "XLBubbleTransition.h"
-
-#import "DefineProperty.h"
 
 @interface XLBubbleTransition ()
 /// 锚点
@@ -180,7 +178,7 @@ Prop_strong()CAShapeLayer *maskLayer;
         if (radius <= realRadius) {
             radius = realRadius;
         }
-    }return radius;
+    };return radius;
 }
 
 - (void)animationDidStop:(CAAnimation *)anim

@@ -1,6 +1,6 @@
 //
 //  LongPressToDeleteImageView.h
-//  ShengAi
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2018/12/4.
 //  Copyright © 2018 Jobs. All rights reserved.

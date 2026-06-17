@@ -7,8 +7,6 @@
 
 #import "SlideToUnlockView.h"
 
-#import "DefineProperty.h"
-
 @interface SlideToUnlockView ()
 
 Prop_assign()CGFloat thumbInset;
@@ -28,7 +26,7 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
 -(instancetype)init{
     if(self = [super init]){
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 -(void)commonInit{
@@ -49,6 +47,7 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
 }
 #pragma mark —— 一些公有方法
 /// State
+#pragma mark —— progress
 -(void)setProgress:(CGFloat)progress {
     CGFloat v = MIN(MAX(progress, 0.f), 1.f);
     if (fabs(_progress - v) < FLT_EPSILON) { return; }
@@ -106,7 +105,7 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
                 make.edges.equalTo(self);
             }];
         });
-    }return _trackView;
+    };return _trackView;
 }
 
 -(UILabel *)titleLabel{
@@ -123,7 +122,7 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
                 make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 16, 0, 16));
             }];
         });
-    }return _titleLabel;
+    };return _titleLabel;
 }
 
 -(UIView *)thumbView{
@@ -193,7 +192,7 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
                 self.thumbLeadingConstraint = make.leading.equalTo(self).offset(self.thumbInset);
             }];
         });
-    }return _thumbView;
+    };return _thumbView;
 }
 
 -(UIImageView *)arrow{
@@ -208,7 +207,7 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
                 make.center.equalTo(self.thumbView);
             }];
         });
-    }return _arrow;
+    };return _arrow;
 }
 
 @end

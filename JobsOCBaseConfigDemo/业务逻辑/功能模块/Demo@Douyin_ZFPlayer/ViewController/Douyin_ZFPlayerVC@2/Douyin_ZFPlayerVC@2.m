@@ -1,13 +1,11 @@
 //
 //  Douyin_ZFPlayerVC@2.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/8.
 //
 
 #import "Douyin_ZFPlayerVC@2.h"
-
-#import "DefineProperty.h"
 
 @interface Douyin_ZFPlayerVC_2 ()
 /// UI
@@ -29,7 +27,7 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
 -(instancetype)init{
     if (self = [super init]) {
 
-    }return self;
+    };return self;
 }
 
 -(void)loadView{
@@ -255,7 +253,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         _bitsMonitorSuspendLab.isAllowDrag = YES;/// 悬浮效果必须要的参数
         _bitsMonitorSuspendLab.frame = JobsBitsMonitorSuspendLab.viewFrameByModel(nil);
         self.view.addSubview(_bitsMonitorSuspendLab);
-    }return _bitsMonitorSuspendLab;
+    };return _bitsMonitorSuspendLab;
 }
 /// BaseViewProtocol
 @synthesize tableView = _tableView;
@@ -321,7 +319,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 }make.bottom.equalTo(self.view.mas_bottom);
             }];
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(ZFPlayerController *)player{
@@ -395,7 +393,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 self.tableView.reloadDatas();
             }[self playTheVideoAtIndexPath:indexPath];
         };
-    }return _player;
+    };return _player;
 }
 
 -(NSMutableArray <VideoModel_Core *>*)dataMutArr{
@@ -462,13 +460,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 data1.videoImg = @"视频封面.jpg";
             }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 @synthesize pageSize = _pageSize;
 -(NSNumber *)pageSize{
     if(!_pageSize){
         _pageSize = @(6);
-    }return _pageSize;
+    };return _pageSize;
 }
 
 -(ZFDouYinControlView *)controlView{
@@ -476,7 +474,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         _controlView = jobsMakeZFDouYinControlView(^(__kindof ZFDouYinControlView * _Nullable label) {
             
         });
-    }return _controlView;
+    };return _controlView;
 }
 
 -(ZFCustomControlView *)fullControlView{
@@ -484,7 +482,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         _fullControlView = jobsMakeZFCustomControlView(^(__kindof ZFCustomControlView * _Nullable label) {
             
         });
-    }return _fullControlView;
+    };return _fullControlView;
 }
 #pragma mark —— 暂时用不到的
 -(jobsByBOOLBlock _Nonnull)requestDataBy{

@@ -1,6 +1,6 @@
 //
 //  TBCityFontImageInfo.m
-//  iCoupon
+//  JobsOCBaseConfigDemo
 //
 //  Created by John Wong on 10/12/14.
 //  Copyright (c) 2014 Taodiandian. All rights reserved.
@@ -15,7 +15,7 @@
         self.text = text;
         self.size = size;
         self.color = color;
-    }return self;
+    };return self;
 }
 
 + (instancetype)iconInfoWithText:(NSString *)text size:(NSInteger)size color:(UIColor *)color {

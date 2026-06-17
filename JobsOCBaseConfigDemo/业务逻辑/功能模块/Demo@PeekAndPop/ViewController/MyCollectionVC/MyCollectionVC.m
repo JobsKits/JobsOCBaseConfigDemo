@@ -1,13 +1,11 @@
 //
 //  MyCollectionVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs Hi on 6/22/24.
 //
 
 #import "MyCollectionVC.h"
-
-#import "DefineProperty.h"
 
 @interface MyCollectionVC ()
 /// Data
@@ -130,7 +128,7 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
                 }]);
             })];
         }];return configuration;
-    }return nil;
+    };return nil;
 }
 /**
  * 提供一个定制的 UITargetedPreview 对象，用于在高亮显示菜单项时使用。
@@ -293,7 +291,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             make.top.equalTo(self.gk_navigationBar.mas_bottom);
             make.bottom.equalTo(self.view).offset(JobsBottomSafeAreaHeight() + JobsWidth(64));
         }];
-    }return _collectionView;
+    };return _collectionView;
 }
 
 -(NSMutableArray<__kindof UIViewModel *> *)dataMutArr{
@@ -328,7 +326,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 });
             }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 @end

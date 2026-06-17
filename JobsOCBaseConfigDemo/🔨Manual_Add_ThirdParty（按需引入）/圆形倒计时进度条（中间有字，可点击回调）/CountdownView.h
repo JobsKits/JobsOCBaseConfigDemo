@@ -1,14 +1,13 @@
 //
 //  CountdownView.h
-//  GuideViewDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by 天蓝 on 2016/12/2.
 //  Copyright © 2016年 PT. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @interface CountdownView : UIView
 

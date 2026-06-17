@@ -1,6 +1,6 @@
 //
 //  UIView+Refresh.h
-//  DouDong-II
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2021/1/17.
 //
@@ -14,8 +14,8 @@
 #import "UILabel+Extra.h"
 #import "LOTAnimationMJRefreshHeader.h"
 #import "MJRefreshConfigModel.h"
+#import "JobsDefineProperty.h"
 
-#import "DefineProperty.h"
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>
 #else

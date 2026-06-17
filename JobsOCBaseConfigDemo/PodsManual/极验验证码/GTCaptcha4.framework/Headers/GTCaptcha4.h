@@ -1,6 +1,6 @@
 //
 //  GTCaptcha4.h
-//  GTCaptcha4
+//  JobsOCBaseConfigDemo
 //
 //  Created by NikoXu on 2020/9/18.
 //  Copyright © 2020 geetest. All rights reserved.

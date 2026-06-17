@@ -1,14 +1,12 @@
 //
 //  JobsTopViewItem.m
-//  JobsExcelView
+//  JobsOCBaseConfigDemo
 //
 //  Created by mac on 17/6/16.
 //  Copyright © 2017年 Mephsito. All rights reserved.
 //  特别鸣谢 https://github.com/Mephsito23/iOS-Excel-
 
 #import "JobsTopViewItem.h"
-
-#import "DefineProperty.h"
 
 @interface JobsTopViewItem()
 /// UI
@@ -64,7 +62,7 @@ Prop_assign()CGSize size;
             [self.linePath stroke];
             UIGraphicsEndImageContext();
             self.lineLayer.hidden = NO;
-        }return self;
+        };return self;
     };
 }
 #pragma mark —— lazyLoad
@@ -79,7 +77,7 @@ Prop_assign()CGSize size;
                 make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, 0, 0, 0));
             }];
         });
-    }return _bgImageView;
+    };return _bgImageView;
 }
 
 -(UIBezierPath *)linePath{
@@ -87,7 +85,7 @@ Prop_assign()CGSize size;
         _linePath = jobsMakeBezierPath(^(__kindof UIBezierPath *_Nullable data) {
             data.moveTo(CGPointZero);// 起点
         });
-    }return _linePath;
+    };return _linePath;
 }
 
 -(CAShapeLayer *)lineLayer{
@@ -100,7 +98,7 @@ Prop_assign()CGSize size;
                                           .pathByBezierPath(self.linePath)
                                           .fillColorBy(JobsClearColor));
         });
-    }return _lineLayer;
+    };return _lineLayer;
 }
 
 @end

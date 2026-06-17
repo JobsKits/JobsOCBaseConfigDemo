@@ -1,6 +1,6 @@
 //
 //  JhtBannerView.m
-//  JhtBannerScrollView
+//  JobsOCBaseConfigDemo
 //
 //  GitHub主页: https://github.com/jinht
 //  CSDN博客: http://blog.csdn.net/anticipate91
@@ -10,8 +10,6 @@
 //
 
 #import "JhtBannerView.h"
-
-#import "DefineProperty.h"
 
 @interface JhtBannerView ()
 
@@ -26,13 +24,13 @@ Prop_copy()jobsByIDBlock clickBlock;
     if (self = [super initWithFrame:frame]) {
         // 添加banner view（整条view）
         [self addSubview:self.bannerView];
-    }return self;
+    };return self;
 }
 
 -(instancetype)init{
     if (self = [super init]) {
         
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -137,7 +135,7 @@ didScrollToCardViewWithIndex:(NSInteger)index {
                     }
                 }).load();
         }else cardView.cardLab.text = JobsNonnullString(self.dataArr[index], self.placeholderName);
-    }return cardView;
+    };return cardView;
 }
 #pragma mark - Getter
 - (JhtBannerScrollView *)bannerView {
@@ -154,9 +152,10 @@ didScrollToCardViewWithIndex:(NSInteger)index {
         _bannerView.topBottomMargin = 15 / 2.0 * WidthScale375;
         _bannerView.orientation = BV_Orientation_Horizontal;
         _bannerView.isOpenAutoScroll = YES;
-    }return _bannerView;
+    };return _bannerView;
 }
 #pragma mark - Setter
+#pragma mark —— dataArr
 -(void)setDataArr:(NSArray *)dataArr{
     _dataArr = dataArr;
     [_bannerView reloadData];

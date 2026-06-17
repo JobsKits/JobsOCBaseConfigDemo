@@ -1,6 +1,6 @@
 //
 //  NSFormatter+Extra.m
-//  FM
+//  JobsOCBaseConfigDemo
 //
 //  Created by User on 9/3/24.
 //
@@ -18,7 +18,7 @@
                 NSDateFormatter *dateFormatter = (NSDateFormatter *)self;
                 return [dateFormatter stringFromDate:date];
             }
-        }return @"";
+        };return @"";
     };
 }
 
@@ -32,7 +32,7 @@
                 NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:timeInterval];
                 return dateFormatter.date(date);
             }
-        }return nil;
+        };return nil;
     };
 }
 

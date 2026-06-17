@@ -16,15 +16,16 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.setup();
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
         self.setup();
-    }return self;
+    };return self;
 }
 
+#pragma mark —— frame
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     self.setup();

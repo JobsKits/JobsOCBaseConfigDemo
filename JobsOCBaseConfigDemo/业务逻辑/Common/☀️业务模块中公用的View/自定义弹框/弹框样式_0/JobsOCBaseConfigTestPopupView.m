@@ -1,13 +1,11 @@
 //
 //  JobsOCBaseConfigTestPopupView.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/12.
 //
 
 #import "JobsOCBaseConfigTestPopupView.h"
-
-#import "DefineProperty.h"
 
 @interface JobsOCBaseConfigTestPopupView ()
 /// UI
@@ -38,7 +36,7 @@ static dispatch_once_t static_testPopupViewOnceToken;
     if (self = [super init]) {
         self.backgroundColor = JobsWhiteColor;
         self.backgroundImageView.image = @"测试弹窗的背景图".img;
-    }return self;
+    };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -85,7 +83,7 @@ static dispatch_once_t static_testPopupViewOnceToken;
             make.size.mas_equalTo(_containerView.jobsSize);
             make.center.equalTo(self);
         }];
-    }return _containerView;
+    };return _containerView;
 }
 
 -(UIButton *)testPopupViewSureBtn{
@@ -108,7 +106,7 @@ static dispatch_once_t static_testPopupViewOnceToken;
             make.centerX.equalTo(self);
             make.size.mas_equalTo(CGSizeMake(JobsWidth(190), JobsWidth(40)));
         }];
-    }return _testPopupViewSureBtn;
+    };return _testPopupViewSureBtn;
 }
 
 @end

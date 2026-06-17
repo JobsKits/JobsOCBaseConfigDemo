@@ -1,6 +1,6 @@
 //
 //  LikeButton.m
-//  EmitterAnimation
+//  JobsOCBaseConfigDemo
 //
 //  Created by 刘庆贺 on 2019/3/13.
 //  Copyright © 2019 lmh. All rights reserved.
@@ -8,8 +8,6 @@
 
 #import "RBCLikeButton.h"
 #define leftTime 0.5
-
-#import "DefineProperty.h"
 
 @interface RBCLikeButton(){
     /// 记录初始"上升数字"label的Y值
@@ -29,7 +27,7 @@ Prop_assign()BOOL isNeedAnimation;/// 选中/取消时是否需要动画
 BaseButtonProtocol_synthesize
 -(instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-    }return self;
+    };return self;
 }
 
 +(instancetype)buttonWithConfiguration:(UIButtonConfiguration *)configuration
@@ -82,6 +80,7 @@ BaseButtonProtocol_synthesize
     }
 }
 /// 没有高亮状态
+#pragma mark —— highlighted
 -(void)setHighlighted:(BOOL)highlighted{}
 /// 选中状态
 -(void)setSelected:(BOOL)selected{
@@ -116,11 +115,13 @@ BaseButtonProtocol_synthesize
     }
 }
 /// 当点赞数改变时,就改变
+#pragma mark —— thumpNum
 -(void)setThumpNum:(NSInteger)thumpNum {
     _thumpNum = thumpNum;
     self.countLabel.text = self.sentenceListStandard(toStringByLong(thumpNum));
 }
 
+#pragma mark —— thumbWithSelected
 -(void)setThumbWithSelected:(BOOL)selected
                    thumbNum:(NSInteger)thumbNum
                   animation:(BOOL)animation {
@@ -313,7 +314,7 @@ BaseButtonProtocol_synthesize
                 }
             }self.addSubview(label);
         });
-    }return _countLabel;
+    };return _countLabel;
 }
 
 -(UILabel *)incLabel{
@@ -329,7 +330,7 @@ BaseButtonProtocol_synthesize
             label.numberOfLines = 1;
             self.addSubview(label);
         });
-    }return _incLabel;
+    };return _incLabel;
 }
 
 -(UIImageView *)backImageView{
@@ -343,7 +344,7 @@ BaseButtonProtocol_synthesize
                                             @"day_like_red");
             self.addSubview(imageView);
         });
-    }return _backImageView;
+    };return _backImageView;
 }
 /// 发射源
 -(CAEmitterLayer *)explosionLayer{
@@ -354,26 +355,26 @@ BaseButtonProtocol_synthesize
             self.layer.addSublayer(layer);
             /// 发射位置 - 粒子从哪里出现开始扩散
             /// layer.emitterSize = CGSizeMake(self.bounds.size.width + 3, self.bounds.size.height + 3);
-            layer.emitterShape = kCAEmitterLayerPoint;/// 发射源的形状
+            layer.emitterShape = kCAEmitterLayerPoint;// 发射源的形状
             layer.birthRate = 0;/// 每秒发射cell的数量
-            layer.emitterMode = kCAEmitterLayerVolume;/// 发射模式: 从发射体的哪个位置发出c粒子: 某个点,表面,边缘,体内(3D)
-            layer.renderMode = kCAEmitterLayerAdditive;/// 粒子的渲染模式
+            layer.emitterMode = kCAEmitterLayerVolume;// 发射模式: 从发射体的哪个位置发出c粒子: 某个点,表面,边缘,体内(3D)
+            layer.renderMode = kCAEmitterLayerAdditive;// 粒子的渲染模式
             /// 粒子
             layer.emitterCells = @[jobsMakeCAEmitterCell(^(__kindof CAEmitterCell * _Nullable cell) {
-                cell.alphaSpeed = -1.0;/// 透明度变化速度
-                cell.alphaRange = 0.5;/// 透明度变化范围
-                cell.lifetime = leftTime;/// 粒子存在时间
-                cell.lifetimeRange = 0.5;/// 粒子存在时间的范围
-                cell.birthRate = 15;/// 每个cell可以释放多少个粒子
-                cell.velocity = 75.f;/// 粒子扩散的速度
-                cell.velocityRange = 10.f;/// 粒子扩散的速度上下区间 +10 or -10
-                //最大 - M_PI_4/2  粒子发射方向
+                cell.alphaSpeed = -1.0;// 透明度变化速度
+                cell.alphaRange = 0.5;// 透明度变化范围
+                cell.lifetime = leftTime;// 粒子存在时间
+                cell.lifetimeRange = 0.5;// 粒子存在时间的范围
+                cell.birthRate = 15;// 每个cell可以释放多少个粒子
+                cell.velocity = 75.f;// 粒子扩散的速度
+                cell.velocityRange = 10.f;// 粒子扩散的速度上下区间 +10 or -10
+                /// 最大 - M_PI_4/2  粒子发射方向
                 cell.emissionLongitude = - M_PI_2;
                 cell.emissionRange = M_PI_2;
-                cell.scale = 0.08;/// 粒子形变大小
-                //explosionCell.scaleRange = 0.02;/// 形变范围
-                cell.contents = (id)[JobsBuddleIMG(@"bundle",@"RBCLikeButton",nil, @"spark_red") CGImage];/// 粒子内容
-                cell.color = HEXCOLOR(0xFE6262).CGColor;/// 粒子初始颜色
+                cell.scale = 0.08;// 粒子形变大小
+                /// explosionCell.scaleRange = 0.02;/// 形变范围
+                cell.contents = (id)[JobsBuddleIMG(@"bundle",@"RBCLikeButton",nil, @"spark_red") CGImage];// 粒子内容
+                cell.color = HEXCOLOR(0xFE6262).CGColor;// 粒子初始颜色
                 /// 粒子其他混合颜色
                 cell.redRange = 10;
                 cell.greenRange = 10;
@@ -384,7 +385,7 @@ BaseButtonProtocol_synthesize
                 cell.blueSpeed = 10;
             })];
         });
-    }return _explosionLayer;
+    };return _explosionLayer;
 }
 
 @end

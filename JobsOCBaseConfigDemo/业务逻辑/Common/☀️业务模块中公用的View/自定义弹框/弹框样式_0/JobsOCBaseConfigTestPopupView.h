@@ -1,6 +1,6 @@
 //
 //  JobsOCBaseConfigTestPopupView.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/5/12.
 //
@@ -12,6 +12,7 @@
 #import "UIViewModelOthersProtocol.h"
 #import "NSString+Check.h"
 #import "JobsLoadingImage.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 #warning 需要测试

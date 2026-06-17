@@ -10,7 +10,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseProtocol.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

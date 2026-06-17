@@ -42,7 +42,7 @@
             配置用户名输入框.animationColor = HEXCOLOR(0xF2CC78);
 
             _用户名输入框.jobsRichViewByModel(配置用户名输入框);
-        }return _用户名输入框;
+        };return _用户名输入框;
     }
 
 ```

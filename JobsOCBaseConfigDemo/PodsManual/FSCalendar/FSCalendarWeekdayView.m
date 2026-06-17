@@ -1,6 +1,6 @@
 //
 //  FSCalendarWeekdayView.m
-//  FSCalendar
+//  JobsOCBaseConfigDemo
 //
 //  Created by dingwenchao on 03/11/2016.
 //  Copyright © 2016 Wenchao Ding. All rights reserved.
@@ -28,7 +28,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder
@@ -36,7 +36,7 @@
     self = [super initWithCoder:coder];
     if (self) {
         [self commonInit];
-    }return self;
+    };return self;
 }
 
 - (void)commonInit
@@ -83,6 +83,7 @@
     free(widths);
 }
 
+#pragma mark —— calendar
 - (void)setCalendar:(FSCalendar *)calendar
 {
     _calendar = calendar;

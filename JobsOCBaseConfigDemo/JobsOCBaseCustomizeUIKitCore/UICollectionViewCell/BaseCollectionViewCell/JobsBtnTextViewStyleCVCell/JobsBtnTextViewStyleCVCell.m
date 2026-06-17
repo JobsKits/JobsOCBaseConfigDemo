@@ -1,6 +1,6 @@
 //
 //  JobsBtnTextViewStyleCVCell.m
-//  FMNormal
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2025/5/1.
 //
@@ -89,7 +89,7 @@ AppToolsProtocol_synthesize
                 self.textView.textColor = self.buttonModel.titleCor;
                 self.textView.font = self.buttonModel.titleFont;
             }if(!self.buttonModel.highlightImage) self.buttonModel.highlightImage = self.buttonModel.normalImage;
-        }return self;
+        };return self;
     };
 }
 /// 具体由子类进行复写【数据定高】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -157,7 +157,7 @@ AppToolsProtocol_synthesize
                                                   make.left.equalTo(self.contentView).offset(JobsWidth(13));
                                                   make.top.equalTo(self.contentView);
                                               });
-    }return _button;
+    };return _button;
 }
 /// 如果需要用其他的自定义的TextView，继承此类并重写-(JobsReturnCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy;
 -(__kindof BaseTextView *)textView{
@@ -172,7 +172,7 @@ AppToolsProtocol_synthesize
             textView.selectable = YES; /// 允许选择链接
             textView.linkTextAttributes = self.makeLinkTextAttributes;
         })).byAdd(self.masonryBlock);
-    }return _textView;
+    };return _textView;
 }
 
 -(__kindof SZTextView *)szTextView{
@@ -197,7 +197,7 @@ AppToolsProtocol_synthesize
 //                @jobs_strongify(self)
             }];
         })).byAdd(self.masonryBlock);
-    }return _textView;
+    };return _textView;
 }
 
 -(__kindof JobsTextView *)jobsTextView{
@@ -222,7 +222,7 @@ AppToolsProtocol_synthesize
 //                @jobs_strongify(self)
             }];
         })).byAdd(self.masonryBlock);
-    }return _jobsTextView;
+    };return _jobsTextView;
 }
 
 -(jobsByMASConstraintMakerBlock _Nullable)masonryBlock{

@@ -1,13 +1,13 @@
 //
 //  UIView+Masonry.h
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/1/18.
 //
 
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -85,7 +85,7 @@ NS_ASSUME_NONNULL_END
                                                    make.right.equalTo(self.textField_code);
                                                    make.size.mas_equalTo(CGSizeMake(JobsWidth(130), JobsWidth(15)));
                                                }).on();
-     }return _forgotten_code_btn;
+     };return _forgotten_code_btn;
  }
  
  */

@@ -1,6 +1,6 @@
 //
 //  ZLGestureLockView.h
-//  GestureLockDemo
+//  JobsOCBaseConfigDemo
 //
 //  Created by ZL on 2017/4/5.
 //  Copyright © 2017年 ZL. All rights reserved.
@@ -25,7 +25,7 @@ typedef NS_ENUM(NSUInteger, ResultKindType) {
 #define Screen_Width [UIScreen mainScreen].bounds.size.width
 #define Screen_Height [UIScreen mainScreen].bounds.size.height
 
-#import "DefineProperty.h"
+#import "JobsDefineProperty.h"
 
 @protocol ZLGestureLockDelegate <NSObject>
 

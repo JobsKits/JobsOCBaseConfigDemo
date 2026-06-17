@@ -1,6 +1,6 @@
 //
 //  TMSCollectionViewLayout.m
-//  TestTTT
+//  JobsOCBaseConfigDemo
 //
 //  Created by TmmmS on 2019/8/8.
 //  Copyright © 2019 TMS. All rights reserved.
@@ -10,8 +10,6 @@
 
 static CGFloat const itemH = 76; // cell高度
 static CGFloat const itemInnerInset = 10; // 被遮盖的cell头部留出的距离
-
-#import "DefineProperty.h"
 
 @interface TMSCollectionViewLayout ()
 
@@ -89,7 +87,7 @@ Prop_assign()BOOL isExpand;
     CGFloat safeAreaBottom = 0;
     if (@available(iOS 11.0, *)) {
         safeAreaBottom = self.collectionView.safeAreaInsets.bottom;
-    }return CGSizeMake(JobsMainScreen_WIDTH(), CGRectGetMaxY(attribute.frame) + 5 + safeAreaBottom);
+    };return CGSizeMake(JobsMainScreen_WIDTH(), CGRectGetMaxY(attribute.frame) + 5 + safeAreaBottom);
 }
 
 -(NSArray *)layoutAttributesForElementsInRect:(CGRect)rect{
@@ -121,7 +119,7 @@ Prop_assign()BOOL isExpand;
 -(NSMutableArray<UICollectionViewLayoutAttributes *> *)attrubutesArray{
     if (!_attrubutesArray) {
         _attrubutesArray = NSMutableArray.array;
-    }return _attrubutesArray;
+    };return _attrubutesArray;
 }
 
 @end

@@ -1,13 +1,11 @@
 //
 //  UITableViewCellEditorVC.m
-//  JobsOCBaseConfig
+//  JobsOCBaseConfigDemo
 //
 //  Created by Jobs on 2022/6/6.
 //
 
 #import "UITableViewCellEditorVC.h"
-
-#import "DefineProperty.h"
 
 @interface UITableViewCellEditorVC ()
 /// UI
@@ -230,7 +228,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-    }return _editBtn;
+    };return _editBtn;
 }
 /// BaseViewProtocol
 @synthesize tableView = _tableView;
@@ -259,7 +257,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     make.edges.equalTo(self.view);
                 });
         });
-    }return _tableView;
+    };return _tableView;
 }
 
 -(MsgEditBoardView *)msgEditBoardView{
@@ -289,7 +287,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 }else{}
             }
         }];
-    }return _msgEditBoardView;
+    };return _msgEditBoardView;
 }
 
 -(NSMutableArray<JobsMsgDataModel *> *)dataMutArr{
@@ -328,13 +326,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 viewModel.isRead = YES;
             }));
         });
-    }return _dataMutArr;
+    };return _dataMutArr;
 }
 
 -(NSMutableArray<JobsMsgDataModel *> *)selectedDataMutArr{
     if (!_selectedDataMutArr) {
         _selectedDataMutArr = NSMutableArray.array;
-    }return _selectedDataMutArr;
+    };return _selectedDataMutArr;
 }
 
 @end
