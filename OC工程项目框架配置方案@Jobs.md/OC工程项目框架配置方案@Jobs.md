@@ -154,7 +154,205 @@ _collectionView = jobsMakeCollectionView(^(__kindof UICollectionView * _Nullable
 | Swift Model DSL | `JobsModelDSL` | 配置 `JobsLocationModel`、`UIButtonModel`、`UITextModel` 等模型。 |
 | 列表 Block 化 | OC 已落地首批接口 | 当前已支持 `byTarget`、`byNumberOfRowsInSection`、`cellForRowAt`、`didSelectRowAt`、`byNumberOfItemsInSection`、`cellForItemAt`、`didSelectItemAt`。 |
 
-## 六、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a>
+## 六、快速 UI DSL 全配置 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a>
+
+### 6.1、书写约定
+
+- 所有 UI 配置优先使用 `JobsMake` + `JobsOCDSL` / `JobsModelDSL` 点语法链式写法。
+- 点语法以行为最小单位提行书写，方便复制后按行删除或注释。
+- 跟在某一行 DSL 后面的说明统一用两根双斜杠 `//`；单独成行的说明统一用三根双斜杠 `///`。
+- 颗粒度要细：标题、颜色、字体、图片、状态、事件、装配、约束分别独立成行，不合并表达。
+- 同一 DSL 同时存在单参数和二参数写法时，默认首选单参数写法；二参数写法只用于 `UIControlStateSelected`、`UIControlStateDisabled`、`UIControlStateHighlighted` 等非默认状态差异。
+- 调用顺序固定为：当前 UI 类型本层 DSL、父类公共 DSL、事件 DSL、`addOn` / `byAddTo` + [**Masonry**](https://github.com/SnapKit/Masonry) 约束。
+
+### 6.2、`UILabel`
+
+```objc
+_titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+    label
+        .byText(@"标题") // 设置文本
+        .byFont([UIFont boldSystemFontOfSize:16]) // 设置字体
+        .byTextCor(UIColor.labelColor) // 设置文字颜色
+        .byTextAlignment(NSTextAlignmentCenter) // 设置对齐方式
+        .byNumberOfLines(1) // 设置行数
+        .makeLabelByShowingType(UILabelShowingType_02) // 设置展示策略
+        .byBgColor(UIColor.clearColor) // 设置背景色
+        .byCornerRadius(JobsWidth(8)) // 设置圆角
+        .byClipsToBounds(YES) // 裁剪圆角
+        .addOn(self.contentView) // 加入父视图
+        .byAdd(^(MASConstraintMaker *make) { // 部署约束
+            make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(8, 12, 8, 12));
+        });
+});
+```
+
+### 6.3、`UIButton`
+
+```objc
+_submitBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+    button
+        .byTitle(@"确认") // 设置标题
+        .byTitleCor(UIColor.whiteColor) // 设置标题颜色
+        .byTitleFont([UIFont boldSystemFontOfSize:16]) // 设置标题字体
+        .byImage(JobsIMG(@"icon_submit")) // 设置图片
+        .byBgColor(UIColor.systemBlueColor) // 设置背景色
+        .byCornerRadius(JobsWidth(10)) // 设置圆角
+        .byClipsToBounds(YES) // 裁剪圆角
+        .addOn(self.view) // 加入父视图
+        .byAdd(^(MASConstraintMaker *make) { // 部署约束
+            make.left.right.equalTo(self.view).inset(JobsWidth(16));
+            make.height.mas_equalTo(JobsWidth(48));
+            make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-JobsWidth(16));
+        });
+    /// 点按事件单独绑定：该 API 返回 RACDisposable，不接在主链中间
+    button.jobsBtnClickEventByBlock(^id(id data) {
+        UIButton *sender = (UIButton *)data;
+        sender.selected = !sender.selected;
+        return sender;
+    });
+});
+```
+
+### 6.4、`UITextField`
+
+```objc
+_nameTextField = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
+    textField
+        .byText(@"") // 设置文本
+        .byFont([UIFont systemFontOfSize:15]) // 设置字体
+        .byTextCor(UIColor.labelColor) // 设置文字颜色
+        .byTextAlignment(NSTextAlignmentLeft) // 设置对齐方式
+        .byPlaceholder(@"请输入名称") // 设置占位文字
+        .byPlaceholderColor(UIColor.secondaryLabelColor) // 设置占位颜色
+        .byPlaceholderFont([UIFont systemFontOfSize:15]) // 设置占位字体
+        .byKeyboardType(UIKeyboardTypeDefault) // 设置键盘类型
+        .byReturnKeyType(UIReturnKeyDone) // 设置返回键
+        .byClearButtonMode(UITextFieldViewModeWhileEditing) // 设置清除按钮
+        .byDelegate(self) // 设置代理
+        .byBgColor(UIColor.secondarySystemBackgroundColor) // 设置背景色
+        .byCornerRadius(JobsWidth(8)) // 设置圆角
+        .byClipsToBounds(YES) // 裁剪圆角
+        .addOn(self.view) // 加入父视图
+        .byAdd(^(MASConstraintMaker *make) { // 部署约束
+            make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(12));
+            make.left.right.equalTo(self.view).inset(JobsWidth(16));
+            make.height.mas_equalTo(JobsWidth(44));
+        });
+});
+```
+
+### 6.5、`UITextView`
+
+```objc
+_remarkTextView = jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
+    textView
+        .byText(@"备注") // 设置文本
+        .byFont([UIFont systemFontOfSize:15]) // 设置字体
+        .byTextCor(UIColor.labelColor) // 设置文字颜色
+        .byTextAlignment(NSTextAlignmentLeft) // 设置对齐方式
+        .byEditable(YES) // 允许编辑
+        .bySelectable(YES) // 允许选择
+        .byDataDetectorTypes(UIDataDetectorTypeNone) // 设置数据识别
+        .byKeyboardType(UIKeyboardTypeDefault) // 设置键盘类型
+        .byDelegate(self) // 设置代理
+        .byBgColor(UIColor.secondarySystemBackgroundColor) // 设置背景色
+        .byCornerRadius(JobsWidth(8)) // 设置圆角
+        .byClipsToBounds(YES) // 裁剪圆角
+        .addOn(self.view) // 加入父视图
+        .byAdd(^(MASConstraintMaker *make) { // 部署约束
+            make.top.equalTo(self.nameTextField.mas_bottom).offset(JobsWidth(12));
+            make.left.right.equalTo(self.view).inset(JobsWidth(16));
+            make.height.mas_equalTo(JobsWidth(120));
+        });
+});
+```
+
+### 6.6、`UIImageView`
+
+```objc
+_avatarImgView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+    imageView
+        .byImage(JobsIMG(@"avatar_placeholder")) // 设置图片
+        .byHighlightedImage(JobsIMG(@"avatar_selected")) // 设置高亮图片
+        .byContentMode(UIViewContentModeScaleAspectFill) // 设置填充模式
+        .byUserInteractionEnabled(YES) // 开启交互
+        .byBgColor(UIColor.tertiarySystemBackgroundColor) // 设置背景色
+        .byCornerRadius(JobsWidth(32)) // 设置圆角
+        .byClipsToBounds(YES) // 裁剪圆角
+        .addOn(self.view) // 加入父视图
+        .byAdd(^(MASConstraintMaker *make) { // 部署约束
+            make.top.equalTo(self.remarkTextView.mas_bottom).offset(JobsWidth(12));
+            make.left.equalTo(self.view).offset(JobsWidth(16));
+            make.size.mas_equalTo(CGSizeMake(JobsWidth(64), JobsWidth(64)));
+        });
+});
+```
+
+### 6.7、`UITableView`
+
+```objc
+_tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
+    tableView
+        .byRowHeight(JobsWidth(56)) // 设置行高
+        .byEstimatedRowHeight(JobsWidth(56)) // 设置预估行高
+        .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine) // 设置分割线
+        .byKeyboardDismissMode(UIScrollViewKeyboardDismissModeOnDrag) // 拖拽收键盘
+        .byShowsVerticalScrollIndicator(YES) // 显示纵向滚动条
+        .byAlwaysBounceVertical(YES) // 允许纵向回弹
+        .byTarget(self) // 设置 Block 目标
+        .byNumberOfRowsInSection(^NSInteger(id  _Nonnull target, UITableView * _Nonnull tv, NSInteger section) { // 设置行数
+            return self.dataMutArr.count;
+        })
+        .cellForRowAt(^__kindof UITableViewCell * _Nonnull(id  _Nonnull target, UITableView * _Nonnull tv, NSIndexPath * _Nonnull indexPath) { // 设置 cell
+            UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+            if (!cell) cell = [UITableViewCell.alloc initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+            cell.textLabel.text = self.dataMutArr[indexPath.row];
+            return cell;
+        })
+        .didSelectRowAt(^(id  _Nonnull target, UITableView * _Nonnull tv, NSIndexPath * _Nonnull indexPath) { // 设置选中事件
+            [tv deselectRowAtIndexPath:indexPath animated:YES];
+        })
+        .byDelegate(self) // 设置代理
+        .byDataSource(self) // 设置数据源
+        .byBgColor(UIColor.systemBackgroundColor) // 设置背景色
+        .addOn(self.view) // 加入父视图
+        .byAdd(^(MASConstraintMaker *make) { // 部署约束
+            make.edges.equalTo(self.view);
+        });
+});
+```
+
+### 6.8、`UICollectionView`
+
+```objc
+_collectionView = jobsMakeCollectionView(^(__kindof UICollectionView * _Nullable collectionView) {
+    collectionView
+        .byCollectionViewLayout(self.flowLayout) // 设置布局对象
+        .byShowsVerticalScrollIndicator(NO) // 隐藏纵向滚动条
+        .byAlwaysBounceVertical(YES) // 允许纵向回弹
+        .byKeyboardDismissMode(UIScrollViewKeyboardDismissModeOnDrag) // 拖拽收键盘
+        .byTarget(self) // 设置 Block 目标
+        .byNumberOfItemsInSection(^NSInteger(id  _Nonnull target, UICollectionView * _Nonnull cv, NSInteger section) { // 设置 item 数
+            return self.dataMutArr.count;
+        })
+        .cellForItemAt(^__kindof UICollectionViewCell * _Nonnull(id  _Nonnull target, UICollectionView * _Nonnull cv, NSIndexPath * _Nonnull indexPath) { // 设置 cell
+            UICollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"UICollectionViewCell" forIndexPath:indexPath];
+            return cell;
+        })
+        .didSelectItemAt(^(id  _Nonnull target, UICollectionView * _Nonnull cv, NSIndexPath * _Nonnull indexPath) { // 设置选中事件
+            [cv deselectItemAtIndexPath:indexPath animated:YES];
+        })
+        .byDelegate(self) // 设置代理
+        .byDataSource(self) // 设置数据源
+        .byBgColor(UIColor.systemBackgroundColor) // 设置背景色
+        .addOn(self.view) // 加入父视图
+        .byAdd(^(MASConstraintMaker *make) { // 部署约束
+            make.edges.equalTo(self.view);
+        });
+});
+```
+
+## 七、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a>
 
 - 不要把业务 UI、历史网格算法、动画算法直接搬进公共 DSL。
 - 不要在公开头里为了 DSL 便利扩大 import；实现细节放 `.m`。

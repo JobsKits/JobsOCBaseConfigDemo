@@ -1,3 +1,4 @@
+# 外部脚本统一放在 Podfile 中安全调用；Podfile.deps 只维护 pod 依赖，不直接执行脚本。
 # 单元测试框架
 def testApp
 

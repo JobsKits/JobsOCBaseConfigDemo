@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIImageView (DSL)
 
 -(JobsRetImageViewByImageBlock _Nonnull)byImage;
+-(JobsRetImageViewByImageBlock _Nonnull)byHighlightedImage;
 
 @end
 
