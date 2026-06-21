@@ -154,10 +154,8 @@ TimerProtocol_synthesize_lock
     jobsByCGFloatBlock tickBlock = nil;
     JobsTimerBlock finishBlock = nil;
 
-    [self.stateLock lock];
     tickBlock = self.onTick;
     finishBlock = self.onFinish;
-    [self.stateLock unlock];
 
     if (tickBlock) tickBlock(self.time);
 
