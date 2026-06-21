@@ -98,7 +98,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         self.doorInputViewBaseStyleModel = doorInputViewBaseStyleModel ? : JobsAppDoorInputViewBaseStyleModel.new;
         self.titleLab.byAlpha(1);
 
-        self.textField.byAlpha(1);
+        self.zyTextField.byAlpha(1);
 
         [self configTextField];
     };
@@ -146,7 +146,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.right.equalTo(self);
-                    make.centerY.equalTo(self.textField);
+                    make.centerY.equalTo(self.zyTextField);
                 })
                 .makeLabelByShowingType(UILabelShowingType_03);
         });

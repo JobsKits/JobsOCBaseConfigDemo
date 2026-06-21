@@ -93,7 +93,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         self.doorInputViewBaseStyleModel = doorInputViewBaseStyleModel ? : JobsAppDoorInputViewBaseStyleModel.new;
         self.titleLab.byAlpha(1);
         self.securityModelBtn.byAlpha(1);
-        self.textField.byAlpha(1);
+        self.zyTextField.byAlpha(1);
         [self configTextField];
     };
 }
@@ -116,10 +116,10 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 if (self.objBlock) self.objBlock(x);
                 x.selected = !x.selected;
                 x.jobsResetBtnImage(self.doorInputViewBaseStyleModel.selectedSecurityBtnIMG ? : JobsRedColor.image);
-                self.textField.bySecureTextEntry(x.selected);
+                self.zyTextField.bySecureTextEntry(x.selected);
 
-                if (x.selected && !self.textField.isEditing) {
-                    self.textField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
+                if (x.selected && !self.zyTextField.isEditing) {
+                    self.zyTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
                 }
         }).onLongPressGestureBy(^(id data){
             JobsLog(@"");
@@ -171,7 +171,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 .setMasonryBy(^(MASConstraintMaker *_Nonnull make){
                     @jobs_strongify(self)
                     make.left.bottom.equalTo(self);
-                    make.top.equalTo(self.textField.mas_bottom);
+                    make.top.equalTo(self.zyTextField.mas_bottom);
                 }).on();
         });
     };return _titleLab;

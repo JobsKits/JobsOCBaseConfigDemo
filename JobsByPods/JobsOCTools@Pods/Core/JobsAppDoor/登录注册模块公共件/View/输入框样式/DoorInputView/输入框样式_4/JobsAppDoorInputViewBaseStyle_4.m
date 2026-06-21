@@ -43,7 +43,10 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 }
 #pragma mark —— 一些私有方法
 -(void)configTextField{
-    self.magicTextField.leftView = [UIImageView.alloc initWithImage:self.doorInputViewBaseStyleModel.leftViewIMG];
+    UIImageView *leftView = [UIImageView.alloc initWithImage:self.doorInputViewBaseStyleModel.leftViewIMG];
+    leftView.frame = CGRectMake(0, 0, JobsWidth(20), JobsWidth(20));
+    leftView.contentMode = UIViewContentModeScaleAspectFit;
+    self.magicTextField.leftView = leftView;
     self.magicTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
     self.magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
 

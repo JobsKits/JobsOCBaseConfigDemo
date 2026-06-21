@@ -37,7 +37,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 -(void)layoutSubviews{
     [super layoutSubviews];
     self.countDownBtn.width = self.countDownBtnWidth ? : JobsWidth(80);
-    self.textField.width = self.textFieldWidth ? : JobsWidth(180);
+    self.magicTextField.width = self.textFieldWidth ? : JobsWidth(180);
 }
 #pragma mark —— 一些私有方法
 -(jobsByVoidBlock _Nonnull)setting{
@@ -54,7 +54,10 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 }
 
 -(void)configTextField{
-    _magicTextField.leftView = UIImageView.initBy(self.doorInputViewBaseStyleModel.leftViewIMG);
+    UIImageView *leftView = UIImageView.initBy(self.doorInputViewBaseStyleModel.leftViewIMG);
+    leftView.frame = CGRectMake(0, 0, JobsWidth(20), JobsWidth(20));
+    leftView.contentMode = UIViewContentModeScaleAspectFit;
+    _magicTextField.leftView = leftView;
     _magicTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
     _magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
 
@@ -111,9 +114,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         @jobs_strongify(self)
         self.doorInputViewBaseStyleModel = doorInputViewBaseStyleModel;
         self.countDownBtn.byAlpha(1);
-
-        self.textField.byAlpha(1);
-
+        self.magicTextField.byAlpha(1);
         [self configTextField];
     };
 }

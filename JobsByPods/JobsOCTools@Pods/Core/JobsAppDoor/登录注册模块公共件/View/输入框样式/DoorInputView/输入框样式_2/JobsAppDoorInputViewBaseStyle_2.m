@@ -104,7 +104,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         self.doorInputViewBaseStyleModel = doorInputViewBaseStyleModel;
         self.imageCodeView.byAlpha(1);
 
-        self.textField.byAlpha(1);
+        self.magicTextField.byAlpha(1);
 
         [self configTextField];
     };

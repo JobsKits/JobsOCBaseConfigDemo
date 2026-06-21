@@ -24,7 +24,7 @@ foreground/background policy handling for Jobs projects.
     'UIKit'
   ]
 
-  JobsPodspecKitForJobsOCTimerManager.apply_standard_exclude_files(spec)
+  JobsPodspecKitForJobsOCTimerMgr.apply_standard_exclude_files(spec)
 
   spec.subspec 'Core' do |ss|
     ss.source_files        = 'Core/**/*.{h,m,mm}'
@@ -38,6 +38,6 @@ foreground/background policy handling for Jobs projects.
     ss.dependency 'JobsOCProtocols/Core'
   end
 
-  JobsPodspecKitForJobsOCTimerManager.apply_standard_xcconfig(spec)
+  JobsPodspecKitForJobsOCTimerMgr.apply_standard_xcconfig(spec)
 
 end

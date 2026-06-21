@@ -94,7 +94,9 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
                     JobsAppDoorInputViewBaseStyle_3 *lastObj = (JobsAppDoorInputViewBaseStyle_3 *)self.registerDoorInputViewBaseStyleMutArr[i - 1];
                     inputViewBaseStyle.top = lastObj.bottom + InputViewOffset;
                 }
-            }inputViewBaseStyle.layer.cornerRadius = ThingsHeight / 2;
+            }
+            inputViewBaseStyle.layer.cornerRadius = ThingsHeight / 2;
+            inputViewBaseStyle.layer.masksToBounds = YES;
         }
     };
 }
@@ -218,14 +220,14 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
                 确认密码.unSelectedSecurityBtnIMG =@"codeDecode".img;//开眼
                 确认密码.leftViewMode = UITextFieldViewModeAlways;
             }));
-            arr.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 推广码) {
-                推广码.leftViewIMG = @"推广码".img;
-                推广码.placeholder = @"手机验证码";
-                推广码.isShowDelBtn = YES;
-                推广码.isShowSecurityBtn = NO;
-                推广码.returnKeyType = UIReturnKeyDone;
-                推广码.keyboardAppearance = UIKeyboardAppearanceAlert;
-                推广码.leftViewMode = UITextFieldViewModeAlways;
+            arr.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 手机验证码) {
+                手机验证码.leftViewIMG = @"验证ICON".img;
+                手机验证码.placeholder = @"手机验证码";
+                手机验证码.isShowDelBtn = YES;
+                手机验证码.isShowSecurityBtn = NO;
+                手机验证码.returnKeyType = UIReturnKeyDone;
+                手机验证码.keyboardAppearance = UIKeyboardAppearanceAlert;
+                手机验证码.leftViewMode = UITextFieldViewModeAlways;
             }));
             arr.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 图形验证码) {
                 图形验证码.leftViewIMG = @"验证ICON".img;

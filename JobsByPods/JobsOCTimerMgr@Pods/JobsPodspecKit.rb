@@ -1,4 +1,4 @@
-module JobsPodspecKitForJobsOCTimerManager
+module JobsPodspecKitForJobsOCTimerMgr
   SUPPORT_SOURCE_EXTS = 'h,m,mm'.freeze
   SUPPORT_RESOURCE_EXTS = 'png,jpg,jpeg,webp,gif,wav,mp3,caf,json,plist,xib,storyboard,bundle,xcassets,strings,stringsdict,ttf,otf,mp4,aiff'.freeze
 

@@ -106,7 +106,7 @@ Prop_assign()CGSize chooseBtnSize;
 
         self.chooseBtn.byAlpha(1);
 
-        self.textField.byAlpha(1);
+        self.magicTextField.byAlpha(1);
 
         [self configTextField];
     };
@@ -143,7 +143,7 @@ Prop_assign()CGSize chooseBtnSize;
     if (!_jobsPageViewDataMutArr) {
         _jobsPageViewDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>* _Nullable arr) {
             arr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-                data.textModel.byText(@"請選擇區號".tr)
+                data.textModel.byText(@"请选择区号".tr)
                               .byTextCor(HEXCOLOR(0xC4C4C4));
                 data.byBgCor(JobsClearColor);
                 data.textModel.byFont(UIFontWeightRegularSize(16));
@@ -168,11 +168,10 @@ Prop_assign()CGSize chooseBtnSize;
     if (!_chooseBtn) {
         @jobs_weakify(self)
         _chooseBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsWhiteColor)
+            .bgColorBy(JobsClearColor)
             .jobsResetImagePlacement(NSDirectionalRectEdgeTrailing)
             .jobsResetImagePadding(JobsWidth(8))
             .jobsResetBtnImage(self.chooseBtnViewModel.image)
-            .jobsResetBtnBgImage(@"APPLY NOW".img)
             .jobsResetBtnTitleCor(self.chooseBtnViewModel.textModel.textCor)
             .jobsResetBtnTitleFont(self.chooseBtnViewModel.textModel.font)
             .jobsResetBtnTitle(self.chooseBtnViewModel.textModel.text)
@@ -209,7 +208,7 @@ Prop_assign()CGSize chooseBtnSize;
         @jobs_weakify(self)
         _chooseBtnViewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
             @jobs_strongify(self)
-            data.textModel.byText(@"請選擇區號".tr)
+            data.textModel.byText(@"请选择区号".tr)
                           .byTextCor(HEXCOLOR(0xC4C4C4))
                           .byTextLineSpacing(0)
                           .byFont(UIFontWeightRegularSize(14));

@@ -53,7 +53,10 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     self.magicTextField.disabledBackground = self.doorInputViewBaseStyleModel.disabledBackground;
     self.magicTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
 
-    self.magicTextField.leftView = [UIImageView.alloc initWithImage:self.doorInputViewBaseStyleModel.leftViewIMG];
+    UIImageView *leftView = [UIImageView.alloc initWithImage:self.doorInputViewBaseStyleModel.leftViewIMG];
+    leftView.frame = CGRectMake(0, 0, JobsWidth(20), JobsWidth(20));
+    leftView.contentMode = UIViewContentModeScaleAspectFit;
+    self.magicTextField.leftView = leftView;
     self.magicTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
     self.magicTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
 
@@ -106,7 +109,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     return ^(JobsAppDoorInputViewBaseStyleModel *_Nullable data) {
         @jobs_strongify(self)
         self.doorInputViewBaseStyleModel = data ? : JobsAppDoorInputViewBaseStyleModel.new;
-        self.textField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;/// ❎
+        self.magicTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;/// ❎
         [self configTextField];
     };
 }
@@ -141,10 +144,10 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         .onClickBy(^(UIButton *x){
             @jobs_strongify(self)
             x.selected = !x.selected;
-            self.textField.bySecureTextEntry(!x.selected);
+            self.magicTextField.bySecureTextEntry(!x.selected);
 
-            if (x.selected && !self.textField.isEditing) {
-                self.textField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
+            if (x.selected && !self.magicTextField.isEditing) {
+                self.magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
 
             }
         }).onLongPressGestureBy(^(id data){

@@ -68,8 +68,6 @@ typedef NS_ENUM(NSUInteger, JobsTimerBackgroundPolicy) {
 };
 #endif
 
-typedef void(^JobsTimerManagerBuildBlock)(JobsTimer *timer);
-
 @interface JobsTimerMgr : NSObject
 
 + (instancetype)shared;
@@ -85,14 +83,14 @@ typedef void(^JobsTimerManagerBuildBlock)(JobsTimer *timer);
                         timerType:(JobsTimerType)timerType
                            policy:(JobsTimerBackgroundPolicy)policy
                  startImmediately:(BOOL)startImmediately
-                            build:(JobsTimerManagerBuildBlock _Nullable)build
+                            build:(JobsTimerMgrBuildBlock _Nullable)build
                           handler:(jobsByVoidBlock _Nullable)handler;
 
 - (BOOL)upsertTimerWithIdentifiable:(id<JobsTimerIdentifiable>)identifier
                           timerType:(JobsTimerType)timerType
                              policy:(JobsTimerBackgroundPolicy)policy
                    startImmediately:(BOOL)startImmediately
-                              build:(JobsTimerManagerBuildBlock _Nullable)build
+                              build:(JobsTimerMgrBuildBlock _Nullable)build
                             handler:(jobsByVoidBlock _Nullable)handler;
 
 /// 注册回调：tick / finish（支持叠加多个）
@@ -122,4 +120,6 @@ typedef void(^JobsTimerManagerBuildBlock)(JobsTimer *timer);
 @end
 
 NS_ASSUME_NONNULL_END
+
+#import "JobsTimerMgr+DSL.h"
 #endif /* JOBS_HEADER_GUARD_JOBSTIMERMGR_159B1DF4D3 */

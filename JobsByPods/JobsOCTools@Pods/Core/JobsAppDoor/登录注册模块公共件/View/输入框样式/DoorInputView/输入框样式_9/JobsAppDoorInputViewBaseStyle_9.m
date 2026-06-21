@@ -37,7 +37,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     [super layoutSubviews];
     /// 因为是子控件，所以要防止约束使用中间过程值，避免代码冗余，这里固定写死
     self.countDownBtn.width = self.countDownBtnWidth ? : JobsWidth(80);
-    self.textField.width = self.textFieldWidth ? : JobsWidth(220);
+    self.zyTextField.width = self.textFieldWidth ? : JobsWidth(220);
 }
 #pragma mark —— 一些私有方法
 -(void)configTextField{
@@ -96,7 +96,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         self.doorInputViewBaseStyleModel = doorInputViewBaseStyleModel;
         self.countDownBtn.byAlpha(1);
 
-        self.textField.byAlpha(1);
+        self.zyTextField.byAlpha(1);
 
         [self configTextField];
     };

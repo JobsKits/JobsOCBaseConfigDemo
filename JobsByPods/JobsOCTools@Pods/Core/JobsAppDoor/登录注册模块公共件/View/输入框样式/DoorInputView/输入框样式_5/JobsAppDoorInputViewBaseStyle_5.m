@@ -123,13 +123,13 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                 case InputViewStyle_5_3:{
                     self.chooseBtn.byAlpha(1);
 
-                    self.textField.byAlpha(1);
+                    self.zyTextField.byAlpha(1);
 
                 }break;
                 default:
                     break;
             }
-            self.textField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;/// ❎
+            self.zyTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;/// ❎
             [self configTextField];
         }
     };
@@ -161,10 +161,10 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                     x.jobsResetBtnImage(self.doorInputViewBaseStyleModel.selectedSecurityBtnIMG ? : JobsRedColor.image);
                 }
 
-                self.textField.bySecureTextEntry(x.selected);
+                self.zyTextField.bySecureTextEntry(x.selected);
 
-                if (x.selected && !self.textField.isEditing) {
-                    self.textField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
+                if (x.selected && !self.zyTextField.isEditing) {
+                    self.zyTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
                 }
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
@@ -219,7 +219,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
                 make.right.equalTo(self).offset(-JobsWidth(16));
-                make.bottom.equalTo(self.textField);
+                make.bottom.equalTo(self.zyTextField);
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(25)));
             });
     };return _authCodeBtn;
@@ -322,7 +322,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
         @jobs_weakify(self)
         _chooseBtnViewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
             @jobs_strongify(self)
-            data.textModel.byText(@"請選擇區號".tr)
+            data.textModel.byText(@"请选择区号".tr)
                           .byTextCor(HEXCOLOR(0xC4C4C4))
                           .byTextLineSpacing(0)
                           .byFont(UIFontWeightRegularSize(14));

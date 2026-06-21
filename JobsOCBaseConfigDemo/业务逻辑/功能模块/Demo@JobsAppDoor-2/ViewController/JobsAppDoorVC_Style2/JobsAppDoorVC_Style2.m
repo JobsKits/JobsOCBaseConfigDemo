@@ -210,7 +210,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
                                      animations:^{
                         @jobs_strongify(self)
                         if (!self.registerCustomerServiceBtnY) {
-                            self.registerCustomerServiceBtnY = self.registerContentView.top + self.registerContentView.height + 20;
+                            self.registerCustomerServiceBtnY = self.registerContentView.top + self.registerContentView.height + JobsWidth(8);
                         }
                         self.customerServiceBtn.y = self.registerCustomerServiceBtnY;
                         
@@ -334,7 +334,9 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
                           @"客服".img,
                           NSDirectionalRectEdgeTop,
                           JobsWidth(5))
-            .bgColorBy(JobsWhiteColor)
+            .jobsResetBtnTitleCor(JobsWhiteColor)
+            .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
+            .bgColorBy(JobsClearColor)
             .cornerRadiusValueBy(_customerServiceBtn.height / 2)
             .onClickBy(^(UIButton *x){
                 toastBy(x.titleForNormalState);
@@ -345,11 +347,13 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
         _customerServiceBtn.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH() / 2.5, JobsMainScreen_WIDTH() / 9));
             make.centerX.equalTo(self.view);
-            make.top.mas_equalTo(self.loginContentView.top + self.loginContentView.height + 20);
+            make.top.mas_equalTo(self.loginContentView.top + self.loginContentView.height + JobsWidth(8));
         });
 
         [self.view layoutIfNeeded];
         self.loginCustomerServiceBtnY = _customerServiceBtn.y;
+        _customerServiceBtn.layer.cornerRadius = _customerServiceBtn.height / 2;
+        _customerServiceBtn.layer.masksToBounds = YES;
         _customerServiceBtn.jobsResetBtnLayerBorderCor(JobsWhiteColor);
         _customerServiceBtn.jobsResetBtnLayerBorderWidth(2);
     };return _customerServiceBtn;

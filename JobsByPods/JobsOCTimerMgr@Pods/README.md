@@ -47,7 +47,7 @@ JobsOCTimerMgr@Pods/
 ├── JobsOCTimerMgr.podspec  # Pod 描述文件
 ├── README.md  # 当前自述
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
-├── Core/  # 公开 API 与核心实现，2 个文件
+├── Core/  # 公开 API 与核心实现，6 个文件
 └── LICENSE  # 许可证文件
 ```
 
@@ -57,7 +57,8 @@ JobsOCTimerMgr@Pods/
 
 ## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 当前包含 2 个文件，其中源码 / 头文件 2 个；按 Jobs 规范，它是 `JobsOCTimerMgr` 对外公开 API 和核心实现的边界。
+- `Core` 当前包含 4 个文件，其中源码 / 头文件 4 个；按 Jobs 规范，它是 `JobsOCTimerMgr` 对外公开 API 和核心实现的边界。
+- `Core/JobsTimerMgr+DSL/` 维护 `JobsTimerMgr` 公开管理动作的链式入口；`_JobsTimerMgrEntry` 只保留在 `JobsTimerMgr.m` 内部，不进入公开头边界。
 - 当前目录没有 `Support` 文件夹；如后续补内部兼容代码，优先放入 `Support` 并让 podspec 动态映射。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
@@ -134,6 +135,7 @@ pod install --no-repo-update
 
 - `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
+- DSL 相关 Block 统一收口到 `JobsBlock`，不要在 `JobsTimerMgr+DSL.h` 里私自新增 typedef。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
 

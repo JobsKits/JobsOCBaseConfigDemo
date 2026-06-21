@@ -7,7 +7,7 @@
 
 #import "JobsTimerMgr.h"
 
-@interface _JobsTimerManagerEntry : NSObject
+@interface _JobsTimerMgrEntry : NSObject
 
 Prop_strong()JobsTimer<TimerProtocol> *timer;
 Prop_assign()JobsTimerBackgroundPolicy policy;
@@ -17,7 +17,18 @@ Prop_strong()NSMutableArray<JobsTimerBlock> *finishBlocks;
 
 @end
 
-@implementation _JobsTimerManagerEntry
+@interface _JobsTimerMgrEntry (DSL)
+
+-(JobsRetJobsTimerMgrEntryByJobsTimerBlock)byTimer;
+-(JobsRetJobsTimerMgrEntryByNSUIntegerBlock)byPolicy;
+-(JobsRetJobsTimerMgrEntryByNSUIntegerBlock)byPauseState;
+-(JobsRetJobsTimerMgrEntryByJobsByCGFloatBlockBlock)byTickBlock;
+-(JobsRetJobsTimerMgrEntryByJobsTimerBlockBlock)byFinishBlock;
+
+@end
+
+@implementation _JobsTimerMgrEntry
+
 - (instancetype)init {
     if (self = [super init]) {
         _pauseState = _JobsTimerPauseStateRunning;
@@ -42,6 +53,45 @@ Prop_strong()NSMutableArray<JobsTimerBlock> *finishBlocks;
 
 @end
 
+@implementation _JobsTimerMgrEntry (DSL)
+
+-(JobsRetJobsTimerMgrEntryByJobsTimerBlock)byTimer{
+    return ^__kindof _JobsTimerMgrEntry *_Nullable(JobsTimer<TimerProtocol> *_Nullable timer) {
+        self.timer = timer;
+        return self;
+    };
+}
+
+-(JobsRetJobsTimerMgrEntryByNSUIntegerBlock)byPolicy{
+    return ^__kindof _JobsTimerMgrEntry *_Nullable(NSUInteger data) {
+        self.policy = (JobsTimerBackgroundPolicy)data;
+        return self;
+    };
+}
+
+-(JobsRetJobsTimerMgrEntryByNSUIntegerBlock)byPauseState{
+    return ^__kindof _JobsTimerMgrEntry *_Nullable(NSUInteger data) {
+        self.pauseState = (_JobsTimerPauseState)data;
+        return self;
+    };
+}
+
+-(JobsRetJobsTimerMgrEntryByJobsByCGFloatBlockBlock)byTickBlock{
+    return ^__kindof _JobsTimerMgrEntry *_Nullable(jobsByCGFloatBlock _Nullable block) {
+        if (block) [self.tickBlocks addObject:[block copy]];
+        return self;
+    };
+}
+
+-(JobsRetJobsTimerMgrEntryByJobsTimerBlockBlock)byFinishBlock{
+    return ^__kindof _JobsTimerMgrEntry *_Nullable(JobsTimerBlock _Nullable block) {
+        if (block) [self.finishBlocks addObject:[block copy]];
+        return self;
+    };
+}
+
+@end
+
 static inline void jobs_runOnMainSyncIfNeeded(dispatch_block_t block) {
     if ([NSThread isMainThread]) { block(); return; }
     dispatch_sync(dispatch_get_main_queue(), block);
@@ -55,7 +105,7 @@ static inline void jobs_trySetBoolByKVC(id obj, NSString *key, BOOL value) {
 
 @interface JobsTimerMgr ()
 Prop()dispatch_queue_t isolationQueue;
-Prop_strong()NSMutableDictionary<NSString *, _JobsTimerManagerEntry *> *entries;
+Prop_strong()NSMutableDictionary<NSString *, _JobsTimerMgrEntry *> *entries;
 /// 通知 token：用 id（别用 id<NSObjectProtocol>，你工程里会报类型找不到）
 Prop_strong(nullable)id didEnterBGToken;
 Prop_strong(nullable)id willEnterFGToken;
@@ -88,7 +138,7 @@ Prop_strong(nullable)id willEnterFGToken;
                           timerType:(JobsTimerType)timerType
                              policy:(JobsTimerBackgroundPolicy)policy
                    startImmediately:(BOOL)startImmediately
-                              build:(JobsTimerManagerBuildBlock)build
+                              build:(JobsTimerMgrBuildBlock)build
                             handler:(jobsByVoidBlock)handler {
     return [self upsertTimerWithIdentifier:identifier.timerIdentifier
                                 timerType:timerType
@@ -102,12 +152,12 @@ Prop_strong(nullable)id willEnterFGToken;
                         timerType:(JobsTimerType)timerType
                            policy:(JobsTimerBackgroundPolicy)policy
                  startImmediately:(BOOL)startImmediately
-                            build:(JobsTimerManagerBuildBlock)build
+                            build:(JobsTimerMgrBuildBlock)build
                           handler:(jobsByVoidBlock)handler {
     if (identifier.length == 0) return NO;
     __block JobsTimer *oldTimer = nil;
     dispatch_sync(self.isolationQueue, ^{
-        _JobsTimerManagerEntry *old = self.entries[identifier];
+        _JobsTimerMgrEntry *old = self.entries[identifier];
         if (old) {
             oldTimer = old.timer;
             [self.entries removeObjectForKey:identifier];
@@ -134,18 +184,15 @@ Prop_strong(nullable)id willEnterFGToken;
     jobsByCGFloatBlock presetTick = timer.onTick;
     JobsTimerBlock presetFinish = timer.onFinish;
 
-    _JobsTimerManagerEntry *entry = [[_JobsTimerManagerEntry alloc] init];
-    entry.timer = timer;
-    entry.policy = policy;
-    entry.pauseState = _JobsTimerPauseStateRunning;
-
-    if (handler) {
-        [entry.tickBlocks addObject:^(__unused CGFloat time) {
+    _JobsTimerMgrEntry *entry = _JobsTimerMgrEntry.new
+        .byTimer(timer)
+        .byPolicy(policy)
+        .byPauseState(_JobsTimerPauseStateRunning)
+        .byTickBlock(handler ? ^(__unused CGFloat time) {
             handler();
-        }];
-    }
-    if (presetTick)   [entry.tickBlocks addObject:[presetTick copy]];
-    if (presetFinish) [entry.finishBlocks addObject:[presetFinish copy]];
+        } : nil)
+        .byTickBlock(presetTick)
+        .byFinishBlock(presetFinish);
     @jobs_weakify(self)
     NSString *idCopy = [identifier copy];
 
@@ -180,12 +227,11 @@ Prop_strong(nullable)id willEnterFGToken;
 
     __block BOOL ok = NO;
     dispatch_sync(self.isolationQueue, ^{
-        _JobsTimerManagerEntry *entry = self.entries[identifier];
+        _JobsTimerMgrEntry *entry = self.entries[identifier];
         if (!entry) return;
         [entry.tickBlocks addObject:[block copy]];
         ok = YES;
-    });
-    return ok;
+    });return ok;
 }
 
 - (BOOL)onFinishVoid:(NSString *)identifier block:(jobsByVoidBlock)block {
@@ -198,12 +244,11 @@ Prop_strong(nullable)id willEnterFGToken;
 
     __block BOOL ok = NO;
     dispatch_sync(self.isolationQueue, ^{
-        _JobsTimerManagerEntry *entry = self.entries[identifier];
+        _JobsTimerMgrEntry *entry = self.entries[identifier];
         if (!entry) return;
         [entry.finishBlocks addObject:[block copy]];
         ok = YES;
-    });
-    return ok;
+    });return ok;
 }
 
 #pragma mark —— Controls
@@ -212,7 +257,7 @@ Prop_strong(nullable)id willEnterFGToken;
     __block BOOL ok = NO;
 
     dispatch_sync(self.isolationQueue, ^{
-        _JobsTimerManagerEntry *entry = self.entries[identifier];
+        _JobsTimerMgrEntry *entry = self.entries[identifier];
         if (!entry) return;
         entry.pauseState = _JobsTimerPauseStateRunning;
         timer = entry.timer;
@@ -222,8 +267,7 @@ Prop_strong(nullable)id willEnterFGToken;
     if (!ok || !timer) return NO;
     jobs_runOnMainSyncIfNeeded(^{
         [timer start];
-    });
-    return YES;
+    });return YES;
 }
 
 - (BOOL)pause:(NSString *)identifier {
@@ -231,7 +275,7 @@ Prop_strong(nullable)id willEnterFGToken;
     __block BOOL ok = NO;
 
     dispatch_sync(self.isolationQueue, ^{
-        _JobsTimerManagerEntry *entry = self.entries[identifier];
+        _JobsTimerMgrEntry *entry = self.entries[identifier];
         if (!entry) return;
         entry.pauseState = _JobsTimerPauseStateManualPaused;
         timer = entry.timer;
@@ -241,8 +285,7 @@ Prop_strong(nullable)id willEnterFGToken;
     if (!ok || !timer) return NO;
     jobs_runOnMainSyncIfNeeded(^{
         [timer pause];
-    });
-    return YES;
+    });return YES;
 }
 
 - (BOOL)resume:(NSString *)identifier {
@@ -250,7 +293,7 @@ Prop_strong(nullable)id willEnterFGToken;
     __block BOOL ok = NO;
 
     dispatch_sync(self.isolationQueue, ^{
-        _JobsTimerManagerEntry *entry = self.entries[identifier];
+        _JobsTimerMgrEntry *entry = self.entries[identifier];
         if (!entry) return;
         entry.pauseState = _JobsTimerPauseStateRunning;
         timer = entry.timer;
@@ -260,8 +303,7 @@ Prop_strong(nullable)id willEnterFGToken;
     if (!ok || !timer) return NO;
     jobs_runOnMainSyncIfNeeded(^{
         [timer resume];
-    });
-    return YES;
+    });return YES;
 }
 
 - (BOOL)fireOnceAndRemove:(NSString *)identifier {
@@ -269,7 +311,7 @@ Prop_strong(nullable)id willEnterFGToken;
     __block BOOL ok = NO;
 
     dispatch_sync(self.isolationQueue, ^{
-        _JobsTimerManagerEntry *entry = self.entries[identifier];
+        _JobsTimerMgrEntry *entry = self.entries[identifier];
         if (!entry) return;
         timer = entry.timer;
         ok = YES;
@@ -283,9 +325,7 @@ Prop_strong(nullable)id willEnterFGToken;
 
     dispatch_sync(self.isolationQueue, ^{
         [self.entries removeObjectForKey:identifier];
-    });
-
-    return YES;
+    });return YES;
 }
 
 - (BOOL)stopAndRemove:(NSString *)identifier {
@@ -293,7 +333,7 @@ Prop_strong(nullable)id willEnterFGToken;
     __block BOOL ok = NO;
 
     dispatch_sync(self.isolationQueue, ^{
-        _JobsTimerManagerEntry *entry = self.entries[identifier];
+        _JobsTimerMgrEntry *entry = self.entries[identifier];
         if (!entry) return;
         timer = entry.timer;
         [self.entries removeObjectForKey:identifier];
@@ -311,7 +351,7 @@ Prop_strong(nullable)id willEnterFGToken;
     __block NSArray<JobsTimer *> *timers = nil;
     dispatch_sync(self.isolationQueue, ^{
         NSMutableArray<JobsTimer *> *tmp = [NSMutableArray arrayWithCapacity:self.entries.count];
-        [self.entries enumerateKeysAndObjectsUsingBlock:^(__unused NSString *key, _JobsTimerManagerEntry *obj, __unused BOOL *stop) {
+        [self.entries enumerateKeysAndObjectsUsingBlock:^(__unused NSString *key, _JobsTimerMgrEntry *obj, __unused BOOL *stop) {
             if (obj.timer) [tmp addObject:obj.timer];
         }];
         [self.entries removeAllObjects];
@@ -356,7 +396,7 @@ Prop_strong(nullable)id willEnterFGToken;
 - (void)invokeTickBlocksForIdentifier:(NSString *)identifier time:(CGFloat)time {
     __block NSArray<jobsByCGFloatBlock> *blocks = nil;
     dispatch_sync(self.isolationQueue, ^{
-        _JobsTimerManagerEntry *entry = self.entries[identifier];
+        _JobsTimerMgrEntry *entry = self.entries[identifier];
         blocks = entry ? [entry.tickBlocks copy] : @[];
     });
     for (jobsByCGFloatBlock b in blocks) {
@@ -367,7 +407,7 @@ Prop_strong(nullable)id willEnterFGToken;
 - (void)invokeFinishBlocksForIdentifier:(NSString *)identifier timer:(JobsTimer * _Nullable)timer {
     __block NSArray<JobsTimerBlock> *blocks = nil;
     dispatch_sync(self.isolationQueue, ^{
-        _JobsTimerManagerEntry *entry = self.entries[identifier];
+        _JobsTimerMgrEntry *entry = self.entries[identifier];
         blocks = entry ? [entry.finishBlocks copy] : @[];
     });
     for (JobsTimerBlock b in blocks) {
@@ -414,7 +454,7 @@ Prop_strong(nullable)id willEnterFGToken;
     dispatch_sync(self.isolationQueue, ^{
         NSArray<NSString *> *keys = [[self.entries allKeys] copy];
         for (NSString *tid in keys) {
-            _JobsTimerManagerEntry *entry = self.entries[tid];
+            _JobsTimerMgrEntry *entry = self.entries[tid];
             if (!entry) continue;
 
             switch (entry.policy) {
@@ -446,7 +486,7 @@ Prop_strong(nullable)id willEnterFGToken;
     dispatch_sync(self.isolationQueue, ^{
         NSArray<NSString *> *keys = [[self.entries allKeys] copy];
         for (NSString *tid in keys) {
-            _JobsTimerManagerEntry *entry = self.entries[tid];
+            _JobsTimerMgrEntry *entry = self.entries[tid];
             if (!entry) continue;
 
             if (entry.policy != JobsTimerBackgroundPolicyPauseAndResume) continue;
@@ -460,9 +500,9 @@ Prop_strong(nullable)id willEnterFGToken;
     for (JobsTimer *t in toResume) [t resume];
 }
 
--(NSMutableDictionary<NSString *,_JobsTimerManagerEntry *> *)entries{
+-(NSMutableDictionary<NSString *,_JobsTimerMgrEntry *> *)entries{
     if(!_entries){
-
+        _entries = NSMutableDictionary.dictionary;
     };return _entries;
 }
 

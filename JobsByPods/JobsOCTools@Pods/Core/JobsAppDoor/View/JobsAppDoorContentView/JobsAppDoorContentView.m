@@ -168,6 +168,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*inputViewMutArr;
             inputView.top = lastObj.bottom + InputViewOffset;
         }else{}
         inputView.layer.cornerRadius = ThingsHeight / 2;
+        inputView.layer.masksToBounds = YES;
         [self layoutIfNeeded];// 这句话不加，不刷新界面，placeHolder会出现异常
     }
 }
@@ -361,6 +362,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*inputViewMutArr;
         doorInputViewBaseStyle.sizer = CGSizeMake(self.width - self.toRegisterBtn.width - JobsWidth(40), ThingsHeight);
         doorInputViewBaseStyle.x = JobsWidth(20) + RegisterBtnWidth;
         doorInputViewBaseStyle.layer.cornerRadius = ThingsHeight / 2;
+        doorInputViewBaseStyle.layer.masksToBounds = YES;
     }
 }
 /// 公共方法

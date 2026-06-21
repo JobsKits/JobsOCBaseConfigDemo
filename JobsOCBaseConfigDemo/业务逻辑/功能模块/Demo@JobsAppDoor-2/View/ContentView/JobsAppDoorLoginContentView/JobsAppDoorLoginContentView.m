@@ -75,6 +75,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
             inputView.top = lastObj.bottom + InputViewOffset;
         }else{}
         inputView.layer.cornerRadius = ThingsHeight / 2;
+        inputView.layer.masksToBounds = YES;
         [self layoutIfNeeded];// 这句话不加，不刷新界面，placeHolder会出现异常
     }
 }

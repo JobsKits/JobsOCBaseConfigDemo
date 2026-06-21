@@ -331,7 +331,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                     }else{
                         [self 竖形按钮在右边];
                     }
-                    self.customerServiceBtn.top = self.jobsAppDoorContentView.top + self.jobsAppDoorContentView.height + JobsWidth(20);
+                    self.customerServiceBtn.top = self.jobsAppDoorContentView.top + self.jobsAppDoorContentView.height + JobsWidth(8);
                     self.customerServiceBtnY =  self.customerServiceBtn.y;
                 }
                 else if (btn.titleForNormalState.isEqualToString(Title6)){// Title6 @"Register".tr
@@ -388,7 +388,6 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
         }
         _customerServiceBtn = (UIButton *)btn
             .jobsResetBtnImage(@"客服".img)
-            .jobsResetBtnBgImage(@"APPLY NOW".img)
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
             .jobsResetBtnTitle(Title8)
@@ -398,7 +397,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             .onLongPressGestureBy(^ (id data) {
                 JobsLog(@"");
             })
-            .bgColorBy(JobsWhiteColor)
+            .bgColorBy(JobsClearColor)
             // 圆角依赖最终尺寸：等约束生效后再设
             .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
                 @jobs_strongify(self)
@@ -410,7 +409,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             .addOn(self.view)
             .byAdd(^ (MASConstraintMaker *make) {
                 @jobs_strongify(self)
-                make.top.equalTo(@(self.jobsAppDoorContentView.top + self.jobsAppDoorContentView.height + 20));
+                make.top.equalTo(@(self.jobsAppDoorContentView.top + self.jobsAppDoorContentView.height + JobsWidth(8)));
                 make.centerX.equalTo(@(JobsMainScreen_WIDTH() / 2.0));
                 make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH() / 3.0,
                                                  JobsMainScreen_WIDTH() / 9.0));

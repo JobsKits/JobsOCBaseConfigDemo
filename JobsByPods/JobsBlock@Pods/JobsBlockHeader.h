@@ -196,6 +196,8 @@
 @class JobsTextView;
 @class JobsTimeModel;
 @class JobsTimer;
+@class JobsTimerMgr;
+@class _JobsTimerMgrEntry;
 @class JobsToggleBaseView;
 @class JobsToggleNavView;
 @class JobsTransitionAnimator;

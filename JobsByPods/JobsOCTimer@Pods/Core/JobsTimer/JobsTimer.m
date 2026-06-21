@@ -336,11 +336,12 @@ JobsKey(_stop)
 
     [self.stateLock lock];
     BOOL shouldFire = (self.timerState == JobsTimerStateRunning && token == self.generation);
-    tickBlock = self.onTick;
-    finishBlock = self.onFinish;
     repeats = self.repeats;
     CGFloat currentTime = self.time; // 兼容旧语义：外部可能依赖 time 参数
     [self.stateLock unlock];
+
+    tickBlock = self.onTick;
+    finishBlock = self.onFinish;
 
     if (!shouldFire) return;
 
@@ -493,10 +494,11 @@ JobsKey(_stop)
     if (!alreadyStopped) {
         self.timerState = JobsTimerStateFinished;
         self.generation += 1;
-        finish = self.onFinish;
     }
     q = self.queue ?: dispatch_get_main_queue();
     [self.stateLock unlock];
+
+    finish = self.onFinish;
 
     if (alreadyStopped) return;
 
