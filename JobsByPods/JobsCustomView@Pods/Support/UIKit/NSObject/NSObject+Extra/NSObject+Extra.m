@@ -75,8 +75,7 @@
             if (comma.location == NSNotFound) { return nil; }
             NSString *b64 = [dataURL substringFromIndex:comma.location + 1];
             NSData *data = [NSData.alloc initWithBase64EncodedString:b64 options:NSDataBase64DecodingIgnoreUnknownCharacters];
-            if (!data) { return nil; }
-            return [UIImage imageWithData:data scale:UIScreen.mainScreen.scale];
+            if (!data) { return nil; };return [UIImage imageWithData:data scale:UIScreen.mainScreen.scale];
         }else return nil;
     };
 }

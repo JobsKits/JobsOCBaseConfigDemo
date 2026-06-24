@@ -2,7 +2,7 @@
 //  Demos.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2026/5/28.
+//  Created by Jobs on 2026年5月28日，星期四.
 //
 
 #ifndef Demos_h
@@ -54,7 +54,6 @@
 //#import "TextureDemoVC.h"
 #import "LocalNotificationsVC.h"
 #import "ExcelVC.h"
-#import "JobsViewNavigatorTestVC.h"
 #import "JobsViewPushDemoVC.h"
 #import "CompressStrVC.h"
 #import "AppIconSwitchingVC.h"

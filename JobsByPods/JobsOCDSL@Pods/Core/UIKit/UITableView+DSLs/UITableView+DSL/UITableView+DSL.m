@@ -169,8 +169,7 @@ static inline void jobs_installTableViewDelegateMux(UITableView *tableView){
             self.dataSource = (id<UITableViewDataSource>)mux;
         } else{
             self.dataSource = ds;
-        }
-        return self;
+        };return self;
     };
 }
 
@@ -184,8 +183,7 @@ static inline void jobs_installTableViewDelegateMux(UITableView *tableView){
             self.delegate = (id<UITableViewDelegate>)mux;
         } else{
             self.delegate = dg;
-        }
-        return self;
+        };return self;
     };
 }
 

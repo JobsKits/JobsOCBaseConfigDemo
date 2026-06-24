@@ -2,6 +2,9 @@
 //  PDFView+DSL.m
 //  JobsOCDSL
 //
+//  Created by Jobs on 2026年6月24日，星期三.
+//
+
 #import "PDFView+DSL.h"
 
 @implementation PDFView (JobsChain)
@@ -125,6 +128,55 @@
         @jobs_strongify(self)
         [self goToPreviousPage:nil];
         return self;
+    };
+}
+
+#if defined(PDFKIT_PLATFORM_OSX)
+-(JobsRetPDFViewByPDFAreaOfInterestBlock)bySetCursorForAreaOfInterest{
+    @jobs_weakify(self)
+    return ^__kindof PDFView *_Nullable(PDFAreaOfInterest data){
+        @jobs_strongify(self)
+        [self setCursorForAreaOfInterest:data];
+        return self;
+    };
+}
+#endif
+
+-(JobsRetPDFViewByPDFActionBlock)byPerformAction{
+    @jobs_weakify(self)
+    return ^__kindof PDFView *_Nullable(PDFAction *_Nullable data){
+        @jobs_strongify(self)
+        if (@available(iOS 11.0, *)) {
+            if (data) [self performAction:data];
+        };return self;
+    };
+}
+
+-(JobsRetPDFViewByVoidBlock)byClearSelection{
+    @jobs_weakify(self)
+    return ^__kindof PDFView *_Nullable(void){
+        @jobs_strongify(self)
+        [self clearSelection];
+        return self;
+    };
+}
+
+-(JobsRetPDFViewByVoidBlock)byLayoutDocumentView{
+    @jobs_weakify(self)
+    return ^__kindof PDFView *_Nullable(void){
+        @jobs_strongify(self)
+        [self layoutDocumentView];
+        return self;
+    };
+}
+
+-(JobsRetPDFViewByPDFPageBlock)byAnnotationsChangedOnPage{
+    @jobs_weakify(self)
+    return ^__kindof PDFView *_Nullable(PDFPage *_Nullable data){
+        @jobs_strongify(self)
+        if (@available(iOS 11.0, *)) {
+            if (data) [self annotationsChangedOnPage:data];
+        };return self;
     };
 }
 

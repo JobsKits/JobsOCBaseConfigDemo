@@ -70,7 +70,7 @@ Prop_strong() NSBundle *bundle;
         _videoGravity = AVLayerVideoGravityResizeAspectFill;
         _tapAction = [JobsOCSplashAction openURL:[NSURL URLWithString:@"https://www.baidu.com"]];
         _shakeAction = [JobsOCSplashAction openURL:[NSURL URLWithString:@"https://www.baidu.com"]];
-    }return self;
+    };return self;
 }
 
 -(id)copyWithZone:(NSZone *)zone {

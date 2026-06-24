@@ -23,16 +23,14 @@
 -(JobsRetURLRequestByURLSessionTaskBlock _Nullable)printURLSessionRequestMessage{
     return ^__kindof NSMutableURLRequest *_Nullable(__kindof NSURLSessionDataTask *_Nullable task) {
         if(!task){JobsLog(@"NSURLSessionDataTask *task 为空,请检查");return nil;
-}
-        return task.originalRequest.print();
+};return task.originalRequest.print();
     };
 }
 /// 打印URLRequest
 -(JobsRetMutableURLRequestByURLRequestBlock _Nullable)printRequestMessage{
     return ^__kindof NSMutableURLRequest *_Nullable(__kindof NSURLRequest *_Nullable data) {
         if (!data) {JobsLog(@"NSURLRequest *data 为空,请检查");return nil;
-}
-        return data.print();
+};return data.print();
     };
 }
 

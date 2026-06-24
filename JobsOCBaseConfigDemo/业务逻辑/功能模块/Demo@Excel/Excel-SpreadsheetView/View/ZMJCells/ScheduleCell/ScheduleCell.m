@@ -34,6 +34,7 @@
 
 - (void)setColor:(UIColor *)color {
     _color = color;
+    if (!self.backgroundView) self.backgroundView = UIView.new;
     self.backgroundView.byBgColor(color);
 }
 #pragma mark —— LazyLoad

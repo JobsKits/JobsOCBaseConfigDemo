@@ -229,7 +229,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             })
             .byBgColor(JobsClearColor)
             .bySize(CGSizeMake(JobsWidth(82), JobsWidth(32)));
-    }return _splashSwitchBtn;
+    };return _splashSwitchBtn;
 }
 
 -(BOOL)jobsOCSplashEnabled{
@@ -412,13 +412,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsVerticalMenuMainVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsViewNavigatorTestVC".tr)
-                     .bySubTitle(@"让 UIView 像 UINavigationController 一样支持 push 和 pop".tr)
-                     .byCls(JobsViewNavigatorTestVC.class);
-            })))
-            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"JobsViewPushDemoVC".tr)
-                     .bySubTitle(@"UIView 支持上下左右 Push、比例覆盖和原路交互退出".tr)
+                     .bySubTitle(@"让 UIView 像 UINavigationController 支持上下左右 Push/Pop、比例覆盖和原路交互退出".tr)
                      .byCls(JobsViewPushDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {

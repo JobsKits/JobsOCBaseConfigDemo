@@ -77,8 +77,7 @@
             }
         }
     }
-    //    }
-    return showCodeSting;
+    //    };return showCodeSting;
 }
 
 - (void)selectCodeIndex:(NSIndexPath *)indexPath {
@@ -136,8 +135,7 @@
     if (_indexArray.count > section) {
         NSArray *array = [_sortedNameDict objectForKey:[_indexArray objectAtIndex:section]];
         return array.count;
-    }
-    return 0;
+    };return 0;
     //    }
 }
 
@@ -151,8 +149,7 @@
                 label.byFont([UIFont systemFontOfSize:16.0 weight:UIFontWeightRegular]);
             })
             .bySelectionStyle(UITableViewCellSelectionStyleNone);
-    }
-    return cell
+    };return cell
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byText([self showCodeStringIndex:indexPath jieQue:YES]);
         });
@@ -178,8 +175,7 @@
     if (tableView == _tableView) {
         if (section == 0) {
             return 0;
-        }
-        return 30;
+        };return 30;
     } else {
         return 0;
     }

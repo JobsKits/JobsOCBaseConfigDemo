@@ -2,7 +2,7 @@
 //  JobsViewPushDemoVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2026/6/22.
+//  Created by Jobs on 2026年6月22日，星期一.
 //
 
 #import "JobsViewPushDemoVC.h"
@@ -89,7 +89,7 @@ Prop_strong()BaseButton *pushButton;
             make.left.right.equalTo(self.view).inset(JobsWidth(24));
             make.height.mas_equalTo(JobsWidth(36));
         });
-    }return _directionControl;
+    };return _directionControl;
 }
 
 -(UILabel *)ratioLabel{
@@ -104,7 +104,7 @@ Prop_strong()BaseButton *pushButton;
                     make.left.equalTo(self.view).offset(JobsWidth(24));
                 });
         });
-    }return _ratioLabel;
+    };return _ratioLabel;
 }
 
 -(UISlider *)ratioSlider{
@@ -118,7 +118,7 @@ Prop_strong()BaseButton *pushButton;
             make.top.equalTo(self.ratioLabel.mas_bottom).offset(JobsWidth(12));
             make.left.right.equalTo(self.view).inset(JobsWidth(24));
         });
-    }return _ratioSlider;
+    };return _ratioSlider;
 }
 
 -(BaseButton *)pushButton{
@@ -140,7 +140,7 @@ Prop_strong()BaseButton *pushButton;
                 make.left.right.equalTo(self.view).inset(JobsWidth(24));
                 make.height.mas_equalTo(JobsWidth(52));
             });
-    }return _pushButton;
+    };return _pushButton;
 }
 
 @end
@@ -152,7 +152,7 @@ Prop_strong()BaseButton *pushButton;
         self.byBgColor(UIColor.systemIndigoColor);
         self.titleLabel.byAlpha(1);
         self.closeButton.byAlpha(1);
-    }return self;
+    };return self;
 }
 
 -(instancetype)byCloseHandler:(jobsByVoidBlock)closeHandler{
@@ -172,7 +172,7 @@ Prop_strong()BaseButton *pushButton;
                     make.center.equalTo(self);
                 });
         });
-    }return _titleLabel;
+    };return _titleLabel;
 }
 
 -(BaseButton *)closeButton{
@@ -195,7 +195,7 @@ Prop_strong()BaseButton *pushButton;
                 make.centerX.equalTo(self);
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(44)));
             });
-    }return _closeButton;
+    };return _closeButton;
 }
 
 @end

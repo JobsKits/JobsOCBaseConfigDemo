@@ -386,8 +386,7 @@ PROP_STRONG_OBJECT_Default_TYPE(JobsSEL_IMP, screenEdgePanGR_SelImp, ScreenEdgeP
             self.userInteractionEnabled = YES;
             data.enabled = YES;
             self.addGesture(data);
-        }
-        return self;
+        };return self;
     };
 }
 

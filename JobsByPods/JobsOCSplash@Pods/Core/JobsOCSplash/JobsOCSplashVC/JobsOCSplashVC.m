@@ -32,7 +32,7 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
 -(instancetype)initWithConfiguration:(JobsOCSplashConfiguration *)configuration {
     if (self = [super initWithNibName:nil bundle:nil]) {
         _configuration = [configuration copy];
-    }return self;
+    };return self;
 }
 
 -(BOOL)canBecomeFirstResponder {
@@ -134,9 +134,9 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
                 })
                 .byBgColor(HEXCOLOR(0xAE8330))
                 .byHidden(!self.configuration.skipButtonVisible);
-//            btn.adjustsImageWhenHighlighted = NO;
+            btn.adjustsImageWhenHighlighted = NO;
         });
-    }return _countdownBtn;
+    };return _countdownBtn;
 }
 
 -(CGFloat)skipButtonDynamicWidth {

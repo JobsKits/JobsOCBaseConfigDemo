@@ -29,8 +29,7 @@ Prop_assign(readonly)CGFloat scaleY;
                         if (self.useSafeArea) {
                             UIEdgeInsets insets = win.safeAreaInsets;
                             return MAX(0, win.bounds.size.width - (insets.left + insets.right));
-                        }
-                        return win.bounds.size.width;
+                        };return win.bounds.size.width;
                     }
                 }
             }
@@ -40,8 +39,7 @@ Prop_assign(readonly)CGFloat scaleY;
     if (self.useSafeArea) {
         UIEdgeInsets insets = UIApplication.sharedApplication.keyWindow.safeAreaInsets;
         return MAX(0, size.width - (insets.left + insets.right));
-    }
-    return size.width;
+    };return size.width;
 }
 
 - (CGFloat)screenHeight {
@@ -53,8 +51,7 @@ Prop_assign(readonly)CGFloat scaleY;
                         if (self.useSafeArea) {
                             UIEdgeInsets insets = win.safeAreaInsets;
                             return MAX(0, win.bounds.size.height - (insets.top + insets.bottom));
-                        }
-                        return win.bounds.size.height;
+                        };return win.bounds.size.height;
                     }
                 }
             }
@@ -64,8 +61,7 @@ Prop_assign(readonly)CGFloat scaleY;
     if (self.useSafeArea) {
         UIEdgeInsets insets = UIApplication.sharedApplication.keyWindow.safeAreaInsets;
         return MAX(0, size.height - (insets.top + insets.bottom));
-    }
-    return size.height;
+    };return size.height;
 }
 
 - (CGFloat)scaleX {

@@ -276,6 +276,15 @@
     };
 }
 
+-(JobsRetBtnConfigByVoidBlock _Nonnull)bySetDefaultContentInsets{
+    @jobs_weakify(self)
+    return ^UIButtonConfiguration *_Nullable(void){
+        @jobs_strongify(self)
+        [self setDefaultContentInsets];
+        return self;
+    };
+}
+
 -(JobsRetBtnConfigByAutomaticallyUpdateForSelectionBlock _Nonnull)byAutomaticallyUpdateForSelection API_AVAILABLE(ios(16.0)){
     @jobs_weakify(self)
     return ^UIButtonConfiguration *_Nullable(BOOL data){

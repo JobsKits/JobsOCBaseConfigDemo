@@ -150,7 +150,7 @@ Prop_strong()BaseButton *sendBtn;
             JobsLog(@"输入的字符为 = %@",x);
             self.someChangeUIBy(x);
         }];
-    }return _inputTextField;
+    };return _inputTextField;
 }
 
 -(UIImageView *)imgView{

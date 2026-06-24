@@ -143,8 +143,7 @@ Prop_assign()CGFloat contentHeight;
 //            maxColumnHeight = columnHeight;
 //        }
 //
-//    }
-    return CGSizeMake(0, self.contentHeight + self.edgeInsets.bottom);
+//    };return CGSizeMake(0, self.contentHeight + self.edgeInsets.bottom);
 }
 #pragma mark —— lazyLoad
 -(NSMutableArray<UICollectionViewLayoutAttributes *> *)attrsArr{

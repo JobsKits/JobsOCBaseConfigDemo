@@ -158,8 +158,7 @@ Prop_strong()NSIndexPath *targetIndexPath;
             }
             break;
         }
-    }
-    return dragIndexPath;
+    };return dragIndexPath;
 }
 
 //获取目标IndexPath的方法
@@ -178,8 +177,7 @@ Prop_strong()NSIndexPath *targetIndexPath;
                 targetIndexPath = indexPath;
             }
         }
-    }
-    return targetIndexPath;
+    };return targetIndexPath;
 }
 
 #pragma mark ——
@@ -203,8 +201,7 @@ Prop_strong()NSIndexPath *targetIndexPath;
     }else{
         headerView.title = @"推荐频道";
         headerView.subTitle = @"".tr;
-    }
-    return headerView;
+    };return headerView;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath

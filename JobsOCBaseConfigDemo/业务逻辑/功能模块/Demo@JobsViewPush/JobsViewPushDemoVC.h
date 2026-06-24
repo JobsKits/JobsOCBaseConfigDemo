@@ -2,7 +2,7 @@
 //  JobsViewPushDemoVC.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2026/6/22.
+//  Created by Jobs on 2026年6月22日，星期一.
 //
 
 #import <UIKit/UIKit.h>

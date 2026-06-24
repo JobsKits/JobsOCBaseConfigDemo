@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetDateFormatterByDateFormatterStyleBlock _Nonnull)byTimeStyle;
 -(JobsRetDateFormatterByDateFormatterBehaviorBlock _Nonnull)byFormatterBehavior;
 -(JobsRetDateFormatterByBOOLBlock _Nonnull)byLenient;
+-(JobsRetDateFormatterByStrBlock _Nonnull)bySetLocalizedDateFormatFromTemplate API_AVAILABLE(ios(8.0), watchos(2.0), tvos(9.0));
 -(JobsRetStrByDateBlock _Nonnull)byStringFromDate;
 -(JobsRetDateByStrBlock _Nonnull)byDateFromString;
 

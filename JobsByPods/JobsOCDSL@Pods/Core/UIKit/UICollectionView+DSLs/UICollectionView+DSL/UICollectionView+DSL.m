@@ -185,8 +185,7 @@ static inline void jobs_installCollectionViewDelegateMux(UICollectionView *colle
             self.delegate = (id<UICollectionViewDelegate>)mux;
         } else{
             self.delegate = delegate;
-        }
-        return self;
+        };return self;
     };
 }
 
@@ -200,8 +199,7 @@ static inline void jobs_installCollectionViewDelegateMux(UICollectionView *colle
             self.dataSource = (id<UICollectionViewDataSource>)mux;
         } else{
             self.dataSource = dataSource;
-        }
-        return self;
+        };return self;
     };
 }
 

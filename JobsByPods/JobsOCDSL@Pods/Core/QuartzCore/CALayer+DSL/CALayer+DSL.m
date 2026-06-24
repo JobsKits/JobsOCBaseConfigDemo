@@ -71,6 +71,15 @@
     };
 }
 
+-(JobsRetCALayerByCGAffineTransformBlock _Nonnull)bySetAffineTransform{
+    @jobs_weakify(self)
+    return ^__kindof CALayer *_Nullable(CGAffineTransform data){
+        @jobs_strongify(self)
+        [self setAffineTransform:data];
+        return self;
+    };
+}
+
 -(JobsRetCALayerByCATransform3DBlock _Nonnull)bySublayerTransform{
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(CATransform3D data){
@@ -253,6 +262,36 @@
     };
 }
 
+-(JobsRetCALayerByCAToneMapModeBlock _Nonnull)byToneMapMode{
+    @jobs_weakify(self)
+    return ^__kindof CALayer *_Nullable(CAToneMapMode data){
+        @jobs_strongify(self)
+        if (@available(iOS 18.0, tvOS 18.0, visionOS 2.0, *)) {
+            self.toneMapMode = data;
+        };return self;
+    };
+}
+
+-(JobsRetCALayerByCADynamicRangeBlock _Nonnull)byPreferredDynamicRange{
+    @jobs_weakify(self)
+    return ^__kindof CALayer *_Nullable(CADynamicRange data){
+        @jobs_strongify(self)
+        if (@available(iOS 26.0, tvOS 26.0, visionOS 26.0, *)) {
+            self.preferredDynamicRange = data;
+        };return self;
+    };
+}
+
+-(JobsRetCALayerByCGFloatBlock _Nonnull)byContentsHeadroom{
+    @jobs_weakify(self)
+    return ^__kindof CALayer *_Nullable(CGFloat data){
+        @jobs_strongify(self)
+        if (@available(iOS 26.0, tvOS 26.0, visionOS 26.0, *)) {
+            self.contentsHeadroom = data;
+        };return self;
+    };
+}
+
 -(JobsRetCALayerByBOOLBlock _Nonnull)byOpaque{
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(BOOL data){
@@ -402,9 +441,8 @@
     return ^__kindof CALayer *_Nullable(CALayerCornerCurve data){
         @jobs_strongify(self)
         if (@available(iOS 13.0, *)){
-                    self.cornerCurve = data;
-                }
-        return self;
+            self.cornerCurve = data;
+        };return self;
     };
 }
 

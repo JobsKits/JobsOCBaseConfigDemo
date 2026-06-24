@@ -225,8 +225,7 @@
     ///         "accessToken":null,
     ///         "expireTime":0
     ///     }
-    /// }
-    return JobsURL(@"/api/user/auth/mobile-login");
+    /// };return JobsURL(@"/api/user/auth/mobile-login");
 }
 /// 手机号登录--手机号校验@GET
 -(URLManagerModel *)get_user_auth_mobile_loginCheckByMobile:(NSString *)mobile phoneCode:(NSString *)phoneCode{
@@ -433,8 +432,7 @@
     ///     "code":500,
     ///     "msg":"Your account has freeze",
     ///     "data":null
-    /// }
-    return JobsURL(@"/api/user/verCode/sendSms");
+    /// };return JobsURL(@"/api/user/verCode/sendSms");
 }
 /// 发送短信验证码@POST
 /// ❤️只能用于登录❤️

@@ -122,9 +122,12 @@ Prop_assign()NSUInteger thisIndex;
     @jobs_weakify(self)
     return ^(__kindof NSMutableArray <__kindof UIButtonModel *>*_Nullable arr){
         @jobs_strongify(self)
-        for (int i = 0; i < self.thisIndex + 1; i++) {
+        NSUInteger maxCount = MIN(self.thisIndex + 1, self.cellTitleMutArr.count);
+        if (!maxCount) return;
+        NSString *title = self.cellTitleMutArr[maxCount - 1];
+        for (int i = 0; i < maxCount; i++) {
             arr.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-                model.byBackgroundImage(self.cellTitleMutArr[self.thisIndex].add(已点击).img)
+                model.byBackgroundImage(title.add(已点击).img)
                      .byTitleCor(HEXCOLOR(0xC4C4C4))
                      .byTitleFont(UIFontWeightRegularSize(12))
                      .byBaseBackgroundColor(JobsRedColor)
@@ -153,8 +156,8 @@ Prop_assign()NSUInteger thisIndex;
         @jobs_strongify(self)
         self.thisIndex = index;
         self.getGoodsClassByPid(self.rightViewCurrentSelectModel.idField,index);
-        if (self.rightDataArray.count) self.rightViewCurrentSelectModel = self.rightDataArray.objectAt(index);
-        if (self.leftDataArray.count) self.leftViewCurrentSelectModel = self.leftDataArray.objectAt(index);
+        if (index < self.rightDataArray.count) self.rightViewCurrentSelectModel = self.rightDataArray.objectAt(index);
+        if (index < self.leftDataArray.count) self.leftViewCurrentSelectModel = self.leftDataArray.objectAt(index);
         [self.collectionView setContentOffset:CGPointMake(0, JobsWidth(-5)) animated:YES];
     };
 }
@@ -279,8 +282,8 @@ Prop_assign()NSUInteger thisIndex;
             model.name = @"随机".tr.add(JobsDash).add(toStringByInt(iFlag));
             model.textModel.text = @"1234";
             model.subTextModel.text = toStringByInt(iFlag).add(@"球桌球".tr);
-            model.bgImage = self.cellDataMutArr[iFlag].backgroundImage;
-            model.title = self.cellTitleMutArr[data1];
+            if (iFlag < self.cellDataMutArr.count) model.bgImage = self.cellDataMutArr[iFlag].backgroundImage;
+            if (data1 < self.cellTitleMutArr.count) model.title = self.cellTitleMutArr[data1];
             JobsLog(@"%@",model.bgImage);
             model.childrenList = jobsMakeMutArr(^(__kindof NSMutableArray <GoodsClassModel *>*_Nullable arr) {
                 @jobs_strongify(self)
@@ -423,7 +426,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
         _collectionView = UICollectionView
             .initByLayout(jobsMakeVerticalCollectionViewFlowLayout(^(UICollectionViewFlowLayout * _Nullable data) {}))
             .registerCollectionViewClass()
-//            .registerCollectionViewCellClass(ThreeClassCell.class,@"")
+            .registerCollectionViewCellClass(ThreeClassCell.class,@"")
 //            .registerCollectionElementKindSectionHeaderClass(UICollectionReusableView.class,@"")
 //            .registerCollectionElementKindSectionFooterClass(UICollectionReusableView.class,@"")
             .byAlwaysBounceVertical(YES);

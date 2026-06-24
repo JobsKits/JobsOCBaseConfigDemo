@@ -56,7 +56,7 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
         _allowsInteractiveDismiss = YES;
         _dismissOnBackgroundTap = YES;
         _backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.18];
-    }return self;
+    };return self;
 }
 
 -(id)copyWithZone:(NSZone *)zone{
@@ -112,7 +112,7 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
         _presentedView = presentedView;
         _configuration = configuration.copy;
         [self install];
-    }return self;
+    };return self;
 }
 
 -(void)presentWithCompletion:(JobsViewPushCompletionBlock)completion{
@@ -240,7 +240,7 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
             CGFloat width = CGRectGetWidth(bounds) * ratio;
             return CGRectMake(CGRectGetWidth(bounds) - width, 0, width, CGRectGetHeight(bounds));
         }
-    }return CGRectZero;
+    };return CGRectZero;
 }
 
 -(CGRect)hiddenFrameForVisibleFrame:(CGRect)visibleFrame{
@@ -258,7 +258,7 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
         case JobsViewPushDirectionRight:
             hiddenFrame.origin.x = CGRectGetMaxX(self.transitionView.bounds);
             break;
-    }return hiddenFrame;
+    };return hiddenFrame;
 }
 
 -(CGFloat)interactiveOffsetForTranslation:(CGPoint)translation{
@@ -271,7 +271,7 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
             return MIN(translation.x, 0);
         case JobsViewPushDirectionRight:
             return MAX(translation.x, 0);
-    }return 0;
+    };return 0;
 }
 
 -(CGFloat)interactiveVelocityForVelocity:(CGPoint)velocity{
@@ -284,7 +284,7 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
             return -velocity.x;
         case JobsViewPushDirectionRight:
             return velocity.x;
-    }return 0;
+    };return 0;
 }
 
 -(CGFloat)interactiveDistance{
@@ -295,7 +295,7 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
         case JobsViewPushDirectionLeft:
         case JobsViewPushDirectionRight:
             return MAX(self.presentedView.bounds.size.width, 1);
-    }return 1;
+    };return 1;
 }
 
 -(void)applyInteractiveOffset:(CGFloat)offset{

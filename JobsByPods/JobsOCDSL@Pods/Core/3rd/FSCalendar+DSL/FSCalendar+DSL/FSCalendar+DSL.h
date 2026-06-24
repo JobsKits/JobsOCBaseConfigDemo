@@ -257,6 +257,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSCalendar (JobsFSCalendarDSL)
 #pragma mark —— Methods
+-(JobsRetCalendarByNSUIntegerBlock _Nonnull)byMinimumDaysInFirstWeek;
 -(JobsRetDateByDateBlock _Nonnull)byFs_firstDayOfMonth;
 -(JobsRetDateByDateBlock _Nonnull)byFs_lastDayOfMonth;
 -(JobsRetDateByDateBlock _Nonnull)byFs_firstDayOfWeek;
@@ -268,11 +269,19 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSMapTable (JobsFSCalendarDSL)
 #pragma mark —— Methods
 -(JobsRetNSMapTableByObjectForKeyedSubscriptBlock _Nonnull)byObjectForKeyedSubscript;
+-(JobsRetNSMapTableByIDBlock _Nonnull)byRemoveObjectForKey;
+-(JobsRetNSMapTableByVoidBlock _Nonnull)byRemoveAllObjects;
 @end
 
 @interface NSCache (JobsFSCalendarDSL)
+#pragma mark —— Properties
+-(JobsRetNSCacheByNSUIntegerBlock _Nonnull)byTotalCostLimit;
+-(JobsRetNSCacheByNSUIntegerBlock _Nonnull)byCountLimit;
+-(JobsRetNSCacheByBOOLBlock _Nonnull)byEvictsObjectsWithDiscardedContent;
 #pragma mark —— Methods
 -(JobsRetNSCacheByObjectForKeyedSubscriptBlock _Nonnull)byObjectForKeyedSubscript;
+-(JobsRetNSCacheByIDBlock _Nonnull)byRemoveObjectForKey;
+-(JobsRetNSCacheByVoidBlock _Nonnull)byRemoveAllObjects;
 @end
 
 @interface NSObject (JobsFSCalendarDSL)

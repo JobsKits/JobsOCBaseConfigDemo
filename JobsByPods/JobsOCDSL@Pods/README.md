@@ -35,6 +35,7 @@ JobsOCDSL@Pods/
 │   │   ├── UIView+DSL/
 │   │   ├── UIControl+DSL/
 │   │   ├── UIProgressView+DSL/
+│   │   ├── UIButton+DSL/
 │   │   ├── UIBarButtonItem+DSL/
 │   │   ├── UIImpactFeedbackGenerator+DSL/
 │   │   ├── UIBackgroundConfiguration+DSL/
@@ -64,6 +65,7 @@ JobsOCDSL@Pods/
 - `CALayer+DSL` 除属性包装外，补齐 `addSublayer:`、`removeAnimationForKey:`、`drawInContext:`、`renderInContext:`、`containsPoint:` 等方法型 DSL。
 - `UIView+DSL` 补齐 `addSubview:`、`bringSubviewToFront:`、`sendSubviewToBack:`、`addGestureRecognizer:`、`removeGestureRecognizer:`、`addInteraction:`、`removeInteraction:`、`setNeedsDisplayInRect:`、`removeFromSuperview`、`layoutIfNeeded`、`sizeToFit` 等链式入口。
 - `UIBarButtonItem+DSL`、`UITableViewCell+DSL`、`UIImpactFeedbackGenerator+DSL` 覆盖各自当前类本层属性和 0 / 1 参数方法，不复制 `UIBarItem`、`UIView`、`UIFeedbackGenerator` 的父类能力。
+- `UIButton+DSL` 覆盖按钮本层 configuration、普通状态标题 / 图片 / 富文本、titleLabel / imageView 回调，以及 `adjustsImageWhenHighlighted` 等旧式按钮属性；父类交互状态仍走 `UIControl+DSL`。
 - `UIImageView+DSL` 覆盖当前类本层图片属性，`byImage(...)` 设置普通图片，`byHighlightedImage(...)` 设置高亮图片。
 - `FSCalendar+DSL` 对 `appearance`、`calendarHeaderView`、`swipeToChooseGesture` 这类子对象提供 block 配置入口，回调内部配置子对象后继续返回主 `FSCalendar`，方便调用方保持一个 `calendar` 中心链。
 

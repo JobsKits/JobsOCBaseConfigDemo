@@ -266,8 +266,7 @@
                 layer.cornerRadiusBy(self.param.wCustomImageRadio);
             });
         });
-    }
-    return tmpCell;
+    };return tmpCell;
 }
 
 - (void)setIconData:(UIImageView *)icon withData:(NSString *)data{
@@ -371,8 +370,7 @@
         if (cell == currentCell) {
             center = YES;
         }
-    }
-    return center;
+    };return center;
 }
 //滚动处理
 - (void)scrolToPath:(NSIndexPath*)path animated:(BOOL)animated{
@@ -636,15 +634,13 @@
         _myCollectionV.byBgColor([UIColor clearColor]);
 
         _myCollectionV.decelerationRate = _param.wDecelerationRate;
-    }
-    return _myCollectionV;
+    };return _myCollectionV;
 }
 
 - (WMZBannerControl *)bannerControl{
     if (!_bannerControl) {
         _bannerControl = [[WMZBannerControl alloc]initWithFrame:CGRectZero WithModel:_param];
-    }
-    return _bannerControl;
+    };return _bannerControl;
 }
 
 - (UIView *)line{

@@ -60,6 +60,7 @@ API_IOS15_TVOS15_UNAVAILABLE_WATCHOS
 -(JobsRetBtnConfigByImagePlacementBlock _Nonnull)byImagePlacement API_AVAILABLE(ios(16.0));
 -(JobsRetBtnConfigByCGFloatBlock _Nonnull)byImagePadding API_AVAILABLE(ios(16.0));
 -(JobsRetBtnConfigByCGFloatBlock _Nonnull)byTitlePadding API_AVAILABLE(ios(16.0));
+-(JobsRetBtnConfigByVoidBlock _Nonnull)bySetDefaultContentInsets API_AVAILABLE(ios(15.0), tvos(15.0)) API_UNAVAILABLE(watchos);
 -(JobsRetBtnConfigByAutomaticallyUpdateForSelectionBlock _Nonnull)byAutomaticallyUpdateForSelection API_AVAILABLE(ios(16.0));
 
 @end

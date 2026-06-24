@@ -601,8 +601,7 @@ AppToolsProtocol
          JobsLog(@"%@---%@---%@", arg1, arg2, arg3);
          if (block) {
              block(@"嗯！！");
-         }
-         return @"gaga";
+         };return @"gaga";
      }
  */
 #endif /* JOBS_HEADER_GUARD_NSOBJECT_EXTRA_9D07F63D88 */

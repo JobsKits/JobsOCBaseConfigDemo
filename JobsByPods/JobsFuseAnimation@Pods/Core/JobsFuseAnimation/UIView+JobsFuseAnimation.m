@@ -268,8 +268,7 @@ typedef NS_ENUM(NSUInteger, JobsFuseDisplayMode) {
             }];
             [ringLayer addAnimation:fadeAnimation forKey:@"jobs.fuse.outerRing.retreatFadeOut"];
             [CATransaction commit];
-        }
-        return;
+        };return;
     }
 
     NSTimeInterval startTS = [objc_getAssociatedObject(self, JobsFuseRingStartTSKey) doubleValue];

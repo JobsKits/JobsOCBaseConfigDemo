@@ -28,7 +28,7 @@
         _fadeOutDuration = 0.08;
         _inset = 1.0;
         _startsFromTop = YES;
-    }return self;
+    };return self;
 }
 
 -(id)copyWithZone:(NSZone *)zone {

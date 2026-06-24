@@ -95,7 +95,7 @@
                     make.edges.equalTo(self.contentView);
                 });
         });
-    }return _imgView;
+    };return _imgView;
 }
 
 @end

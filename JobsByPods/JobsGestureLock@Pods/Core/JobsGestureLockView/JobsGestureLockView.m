@@ -147,8 +147,7 @@ Prop_assign()BOOL finished;
     NSMutableString *pattern = [NSMutableString string];
     for (UIButton *button in self.selectedButtons) {
         [pattern appendFormat:@"%ld", (long)button.tag];
-    }
-    return pattern.copy;
+    };return pattern.copy;
 }
 
 - (void)restoreErrorButtonsIfNeeded {

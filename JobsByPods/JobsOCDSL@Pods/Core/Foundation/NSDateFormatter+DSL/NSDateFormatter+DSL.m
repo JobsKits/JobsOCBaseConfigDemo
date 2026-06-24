@@ -91,6 +91,16 @@
     };
 }
 
+-(JobsRetDateFormatterByStrBlock)bySetLocalizedDateFormatFromTemplate{
+    @jobs_weakify(self)
+    return ^__kindof NSDateFormatter *_Nullable(NSString *_Nullable data){
+        @jobs_strongify(self)
+        if (@available(iOS 8.0, tvOS 9.0, watchOS 2.0, *)) {
+            [self setLocalizedDateFormatFromTemplate:data];
+        };return self;
+    };
+}
+
 -(JobsRetStrByDateBlock)byStringFromDate{
     @jobs_weakify(self)
     return ^__kindof NSString *_Nullable(NSDate *_Nullable date){

@@ -34,8 +34,7 @@
     }
     if (!image) {
         image = [UIImage imageNamed:name];
-    }
-    return image;
+    };return image;
 }
 
 @end

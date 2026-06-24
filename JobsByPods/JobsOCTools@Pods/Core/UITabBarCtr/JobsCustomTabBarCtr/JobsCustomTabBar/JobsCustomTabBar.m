@@ -15,8 +15,7 @@ static JobsCustomTabBarConfig *JobsCustomTabBarAppConfig(void) {
             if ([value isKindOfClass:JobsCustomTabBarConfig.class]) return value;
         } @catch (__unused NSException *exception) {
         }
-    }
-    return JobsCustomTabBarConfig.sharedManager;
+    };return JobsCustomTabBarConfig.sharedManager;
 }
 
 @interface JobsCustomTabBar ()

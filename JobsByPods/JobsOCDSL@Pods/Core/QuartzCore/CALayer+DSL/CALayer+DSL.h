@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCALayerByCGPointBlock _Nonnull)byAnchorPoint;
 -(JobsRetCALayerByCGFloatBlock _Nonnull)byAnchorPointZ;
 -(JobsRetCALayerByCATransform3DBlock _Nonnull)byTransform;
+-(JobsRetCALayerByCGAffineTransformBlock _Nonnull)bySetAffineTransform;
 -(JobsRetCALayerByCATransform3DBlock _Nonnull)bySublayerTransform;
 
 #pragma mark —— Hierarchy
@@ -61,6 +62,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCALayerByCALayerContentsFilterBlock _Nonnull)byMinificationFilter;
 -(JobsRetCALayerByCALayerContentsFilterBlock _Nonnull)byMagnificationFilter;
 -(JobsRetCALayerByCGFloatBlock _Nonnull)byMinificationFilterBias;
+-(JobsRetCALayerByCAToneMapModeBlock _Nonnull)byToneMapMode API_AVAILABLE(ios(18.0), tvos(18.0), visionos(2.0)) API_UNAVAILABLE(watchos);
+-(JobsRetCALayerByCADynamicRangeBlock _Nonnull)byPreferredDynamicRange API_AVAILABLE(ios(26.0), tvos(26.0), visionos(26.0)) API_UNAVAILABLE(watchos);
+-(JobsRetCALayerByCGFloatBlock _Nonnull)byContentsHeadroom API_AVAILABLE(ios(26.0), tvos(26.0), visionos(26.0)) API_UNAVAILABLE(watchos);
 -(JobsRetCALayerByBOOLBlock _Nonnull)byOpaque;
 -(JobsRetCALayerByBOOLBlock _Nonnull)byNeedsDisplayOnBoundsChange;
 -(JobsRetCALayerByBOOLBlock _Nonnull)byDrawsAsynchronously;

@@ -37,6 +37,7 @@ API_IOS14_TVOS14_UNAVAILABLE_WATCHOS
 -(JobsRetBackgroundConfigByCGFloatBlock _Nonnull)byCornerRadius;
 -(JobsRetBackgroundConfigByInsetsBlock _Nonnull)byBackgroundInsets;
 -(JobsRetBackgroundConfigByRectEdgeBlock _Nonnull)byEdgesAddingLayoutMargins;
+-(JobsRetBackgroundConfigByRectEdgeBlock _Nonnull)byEdgesAddingLayoutMarginsToBackgroundInsets;
 #pragma mark —— 描边
 -(JobsRetBackgroundConfigByCorBlock _Nonnull)byStrokeColor;
 -(JobsRetBackgroundConfigByCorTransformerBlock _Nonnull)byStrokeColorTransformer;

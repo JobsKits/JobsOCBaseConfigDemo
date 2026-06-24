@@ -286,6 +286,26 @@
     };
 }
 
+-(JobsRetTextViewByWritingToolsBehaviorBlock _Nonnull)byWritingToolsBehavior{
+    @jobs_weakify(self)
+    return ^__kindof UITextView *_Nullable(UIWritingToolsBehavior data){
+        @jobs_strongify(self)
+        if (@available(iOS 18.0, visionOS 2.4, *)) {
+            self.writingToolsBehavior = data;
+        };return self;
+    };
+}
+
+-(JobsRetTextViewByWritingToolsResultOptionsBlock _Nonnull)byAllowedWritingToolsResultOptions{
+    @jobs_weakify(self)
+    return ^__kindof UITextView *_Nullable(UIWritingToolsResultOptions data){
+        @jobs_strongify(self)
+        if (@available(iOS 18.0, visionOS 2.4, *)) {
+            self.allowedWritingToolsResultOptions = data;
+        };return self;
+    };
+}
+
 #pragma mark —— Single-parameter methods
 -(JobsRetTextViewByNSRangeBlock _Nonnull)byScrollRangeToVisible{
     @jobs_weakify(self)

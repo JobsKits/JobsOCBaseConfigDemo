@@ -60,6 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetTextViewByBOOLBlock _Nonnull)byEnablesReturnKeyAutomatically;
 -(JobsRetTextViewByBOOLBlock _Nonnull)bySecureTextEntry;
 -(JobsRetTextViewByTextContentTypeBlock _Nonnull)byTextContentType API_AVAILABLE(ios(10.0));
+-(JobsRetTextViewByWritingToolsBehaviorBlock _Nonnull)byWritingToolsBehavior API_AVAILABLE(ios(18.0), visionos(2.4)) API_UNAVAILABLE(tvos, watchos);
+-(JobsRetTextViewByWritingToolsResultOptionsBlock _Nonnull)byAllowedWritingToolsResultOptions API_AVAILABLE(ios(18.0), visionos(2.4)) API_UNAVAILABLE(tvos, watchos);
 #pragma mark —— Single-parameter methods
 -(JobsRetTextViewByNSRangeBlock _Nonnull)byScrollRangeToVisible;
 #pragma mark —— 文本容器

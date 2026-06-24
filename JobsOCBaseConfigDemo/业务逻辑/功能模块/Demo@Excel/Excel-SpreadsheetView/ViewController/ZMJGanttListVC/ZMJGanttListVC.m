@@ -305,6 +305,62 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
         }
     };return 0;
 }
+
+- (NSInteger)chartFallbackOffset {
+    switch (self.displayMode) {
+        case ZMJDisplayMode_daily:
+            return 0;
+        case ZMJDisplayMode_weekly:
+            return 2;
+        case ZMJDisplayMode_monthly:
+            return 5;
+    };return 0;
+}
+
+- (ZMJCellRange *)chartCellRangeForTask:(ZMJTask *)task row:(NSInteger)row fallbackOffset:(NSInteger)fallbackOffset {
+    if (!task.startDate && !task.dueDate) {
+        return nil;
+    }
+
+    NSInteger fromColumn = 0;
+    NSInteger toColumn = 0;
+    if (task.startDate && task.dueDate) {
+        NSInteger startColumn = [self getDistanceLeftDate:self.startDate rightDate:task.startDate];
+        NSInteger dueColumn = [self getDistanceLeftDate:self.startDate rightDate:task.dueDate];
+        fromColumn = MIN(startColumn, dueColumn);
+        toColumn = MAX(startColumn, dueColumn);
+    } else if (task.startDate) {
+        fromColumn = [self getDistanceLeftDate:self.startDate rightDate:task.startDate];
+        toColumn = fromColumn + fallbackOffset;
+    } else {
+        toColumn = [self getDistanceLeftDate:self.startDate rightDate:task.dueDate];
+        fromColumn = getMinIndex(toColumn, fallbackOffset);
+    };return [ZMJCellRange cellRangeFrom:[Location locationWithRow:row column:fromColumn]
+                                     to:[Location locationWithRow:row column:toColumn]];
+}
+
+- (NSArray<ZMJCellRange *> *)chartCellRangesWithFallbackOffset:(NSInteger)fallbackOffset {
+    NSMutableArray<ZMJCellRange *> *cellRanges = NSMutableArray.array;
+    @jobs_weakify(self)
+    [self.tasks enumerateObjectsUsingBlock:^(ZMJTask * _Nonnull task,
+                                             NSUInteger index,
+                                             BOOL * _Nonnull stop) {
+        @jobs_strongify(self)
+        ZMJCellRange *cellRange = [self chartCellRangeForTask:task
+                                                          row:index + 2
+                                               fallbackOffset:fallbackOffset];
+        if (cellRange) {
+            cellRanges.add(cellRange);
+        }
+    }];return cellRanges.copy;
+}
+
+- (NSInteger)chartStartColumnForTask:(ZMJTask *)task {
+    ZMJCellRange *cellRange = [self chartCellRangeForTask:task
+                                                      row:0
+                                           fallbackOffset:self.chartFallbackOffset];
+    return cellRange ? cellRange.from.column : NSNotFound;
+}
 #pragma mark —— Generate ZMJCellRanges
 - (NSArray<ZMJCellRange *> *)yearCellRangesWithRow:(NSInteger)row {
     static NSMutableArray<ZMJCellRange *> *_yearCellRanges = nil;
@@ -441,54 +497,14 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
     switch (self.displayMode) {
         case ZMJDisplayMode_daily:{
             NSArray<ZMJCellRange *> *titleHeader = [self monthCellRangesWithRow:0];
-            @jobs_weakify(self)
-            NSArray<ZMJCellRange *> *charts = [self.tasks wbg_mapWithIndex:^id _Nullable(ZMJTask * _Nonnull task,
-                                                                                         NSUInteger index) {
-                @jobs_strongify(self)
-                ZMJCellRange *cellRange = nil;
-                if (task.startDate && task.dueDate) {
-                    cellRange = [ZMJCellRange cellRangeFrom:[Location locationWithRow:index + 2
-                                                                               column:[self getDistanceLeftDate:self.startDate rightDate:task.startDate]]
-                                                         to:[Location locationWithRow:index + 2
-                                                                               column:[self getDistanceLeftDate:self.startDate rightDate:task.dueDate]]];
-                } else {
-                    cellRange = [ZMJCellRange cellRangeFrom:[Location locationWithRow:index + 2
-                                                                               column:[self getDistanceLeftDate:self.startDate rightDate:task.startDate ?: task.dueDate]]
-                                                         to:[Location locationWithRow:index + 2
-                                                                               column:[self getDistanceLeftDate:self.startDate rightDate:task.startDate ?: task.dueDate]]];
-                };return cellRange;
-            }];
+            NSArray<ZMJCellRange *> *charts = [self chartCellRangesWithFallbackOffset:self.chartFallbackOffset];
             [result addObjectsFromArray:titleHeader];
             [result addObjectsFromArray:charts];
         }break;
         case ZMJDisplayMode_weekly:{
             NSArray<ZMJCellRange *> *titleHeader     = [self monthCellRangesWithRow:0];
             NSArray<ZMJCellRange *> *weekTitleHeader = [self weekCellRangesWithRow:1];
-            @jobs_weakify(self)
-            NSArray<ZMJCellRange *> *charts = [self.tasks wbg_mapWithIndex:^id _Nullable(ZMJTask * _Nonnull task,
-                                                                                         NSUInteger index) {
-                @jobs_strongify(self)
-                ZMJCellRange *cellRange = nil;
-                if (task.startDate && task.dueDate) {
-                    cellRange = [ZMJCellRange cellRangeFrom:[Location locationWithRow:index + 2
-                                                                               column:[self getDistanceLeftDate:self.startDate rightDate:task.startDate]]
-                                                         to:[Location locationWithRow:index + 2
-                                                                               column:[self getDistanceLeftDate:self.startDate rightDate:task.dueDate]]];
-                } else {
-                    if (task.startDate) { //startDate not nil
-                        cellRange = [ZMJCellRange cellRangeFrom:[Location locationWithRow:index + 2
-                                                                                   column:[self getDistanceLeftDate:self.startDate rightDate:task.startDate]]
-                                                             to:[Location locationWithRow:index + 2
-                                                                                   column:[self getDistanceLeftDate:self.startDate rightDate:task.startDate] + 2]];
-                    } else { //dueDate not nil
-                        NSInteger start = getMinIndex([self getDistanceLeftDate:self.startDate rightDate:task.dueDate], 2);
-                        cellRange = [ZMJCellRange cellRangeFrom:[Location locationWithRow:index + 2
-                                                                                   column:start]
-                                                             to:[Location locationWithRow:index + 2
-                                                                                   column:[self getDistanceLeftDate:self.startDate rightDate:task.dueDate]]];
-                    }
-                };return cellRange;
-            }];
+            NSArray<ZMJCellRange *> *charts = [self chartCellRangesWithFallbackOffset:self.chartFallbackOffset];
             [result addObjectsFromArray:titleHeader];
             [result addObjectsFromArray:weekTitleHeader];
             [result addObjectsFromArray:charts];
@@ -496,31 +512,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
         case ZMJDisplayMode_monthly:{
             NSArray<ZMJCellRange *> *titleHeader      = [self yearCellRangesWithRow:0];
             NSArray<ZMJCellRange *> *monthTitleHeader = [self monthCellRangesWithRow:1];
-            @jobs_weakify(self)
-            NSArray<ZMJCellRange *> *charts = [self.tasks wbg_mapWithIndex:^id _Nullable(ZMJTask * _Nonnull task,
-                                                                                         NSUInteger index) {
-                @jobs_strongify(self)
-                ZMJCellRange *cellRange = nil;
-                if (task.startDate && task.dueDate) {
-                    cellRange = [ZMJCellRange cellRangeFrom:[Location locationWithRow:index + 2
-                                                                               column:[self getDistanceLeftDate:self.startDate rightDate:task.startDate]]
-                                                         to:[Location locationWithRow:index + 2
-                                                                               column:[self getDistanceLeftDate:self.startDate rightDate:task.dueDate]]];
-                } else {
-                    if (task.startDate) { //startDate not nil
-                        cellRange = [ZMJCellRange cellRangeFrom:[Location locationWithRow:index + 2
-                                                                                   column:[self getDistanceLeftDate:self.startDate rightDate:task.startDate]]
-                                                             to:[Location locationWithRow:index + 2
-                                                                                   column:[self getDistanceLeftDate:self.startDate rightDate:task.startDate] + 5]];
-                    } else { //dueDate not nil
-                        NSInteger start = getMinIndex([self getDistanceLeftDate:self.startDate rightDate:task.dueDate], 5);
-                        cellRange = [ZMJCellRange cellRangeFrom:[Location locationWithRow:index + 2
-                                                                                   column:start]
-                                                             to:[Location locationWithRow:index + 2
-                                                                                   column:[self getDistanceLeftDate:self.startDate rightDate:task.dueDate]]];
-                    }
-                };return cellRange;
-            }];
+            NSArray<ZMJCellRange *> *charts = [self chartCellRangesWithFallbackOffset:self.chartFallbackOffset];
             [result addObjectsFromArray:titleHeader];
             [result addObjectsFromArray:monthTitleHeader];
             [result addObjectsFromArray:charts];
@@ -605,19 +597,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
     } else {
         ZMJChartBarCell *cell = (ZMJChartBarCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:ZMJChartBarCell.description forIndexPath:indexPath];
         ZMJTask *task = self.tasks[row - 2];
-        NSInteger start = [self getDistanceLeftDate:self.startDate rightDate:task.startDate ?: task.dueDate];
-        if (task.startDate == nil) {
-            switch (self.displayMode) {
-                case ZMJDisplayMode_daily:
-                    break;
-                case ZMJDisplayMode_weekly:{
-                    start = getMinIndex([self getDistanceLeftDate:self.startDate rightDate:task.dueDate], 2);
-                }break;
-                case ZMJDisplayMode_monthly:{
-                    start = getMinIndex([self getDistanceLeftDate:self.startDate rightDate:task.dueDate], 5);
-                }break;
-            }
-        }
+        NSInteger start = [self chartStartColumnForTask:task];
         if (start == column) {
             cell.label.byText(self.tasks[row - 2].taskName);
 
@@ -679,21 +659,9 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
     JobsLog(@"Selected: (row: %ld, column: %ld)", (long)indexPath.row, (long)indexPath.column);
     ZMJCell *cell = [spreadsheetView cellForItemAt:indexPath];
     if (![cell isKindOfClass:ZMJChartBarCell.class]) {[self.tipView dismissWithCompletion:nil]; return;
-}
-    ZMJTask *task = self.tasks[indexPath.row - 2];
-    NSInteger start = [self getDistanceLeftDate:self.startDate rightDate:task.startDate ?: task.dueDate];
-    if (task.startDate == nil) {
-        switch (self.displayMode) {
-            case ZMJDisplayMode_daily:
-                break;
-            case ZMJDisplayMode_weekly:{
-                start = getMinIndex([self getDistanceLeftDate:self.startDate rightDate:task.dueDate], 2);
-            }break;
-            case ZMJDisplayMode_monthly:{
-                start = getMinIndex([self getDistanceLeftDate:self.startDate rightDate:task.dueDate], 5);
-            }break;
-        }
     }
+    ZMJTask *task = self.tasks[indexPath.row - 2];
+    NSInteger start = [self chartStartColumnForTask:task];
     
     if (start != indexPath.column) {
         [self.tipView dismissWithCompletion:nil];

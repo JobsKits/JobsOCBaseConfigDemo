@@ -180,8 +180,7 @@ Prop_strong()NSMutableArray *imageArr;
 - (NSMutableArray *)imageArr{
     if (!_imageArr) {
         _imageArr = [NSMutableArray new];
-    }
-    return _imageArr;
+    };return _imageArr;
 }
 
 @end

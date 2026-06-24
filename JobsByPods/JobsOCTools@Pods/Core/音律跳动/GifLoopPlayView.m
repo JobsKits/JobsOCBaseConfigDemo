@@ -55,7 +55,7 @@ static dispatch_once_t dispatchOnce;
                 .byFrame(self.bounds)
                 .addOn(self);
         });
-    }return _imageView;
+    };return _imageView;
 }
 
 -(NSMutableArray<UIImage *> *)gifMutArr{

@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_CAEAGLLAYER_DSL_A6F3C2D1
 
 #import "CALayer+DSL.h"
+
 #if __has_include(<QuartzCore/CAEAGLLayer.h>)
 #import <QuartzCore/CAEAGLLayer.h>
 #endif

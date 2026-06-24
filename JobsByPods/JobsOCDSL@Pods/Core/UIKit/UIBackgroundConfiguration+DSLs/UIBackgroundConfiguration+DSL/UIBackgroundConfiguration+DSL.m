@@ -71,6 +71,10 @@
         return self;
     };
 }
+
+-(JobsRetBackgroundConfigByRectEdgeBlock _Nonnull)byEdgesAddingLayoutMarginsToBackgroundInsets{
+    return self.byEdgesAddingLayoutMargins;
+}
 #pragma mark —— 描边
 -(JobsRetBackgroundConfigByCorBlock _Nonnull)byStrokeColor{
     @jobs_weakify(self)

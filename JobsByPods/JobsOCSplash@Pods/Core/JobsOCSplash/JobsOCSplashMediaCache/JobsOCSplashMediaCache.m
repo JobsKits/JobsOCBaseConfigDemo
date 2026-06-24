@@ -31,7 +31,7 @@ Prop_strong() NSURL *directoryURL;
         NSURL *cachesURL = [_fileManager URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask].firstObject;
         _directoryURL = [cachesURL URLByAppendingPathComponent:@"JobsOCSplash" isDirectory:YES];
         [_fileManager createDirectoryAtURL:_directoryURL withIntermediateDirectories:YES attributes:nil error:nil];
-    }return self;
+    };return self;
 }
 
 -(nullable NSURL *)cachedFileURLForRemoteURL:(NSURL *)remoteURL {

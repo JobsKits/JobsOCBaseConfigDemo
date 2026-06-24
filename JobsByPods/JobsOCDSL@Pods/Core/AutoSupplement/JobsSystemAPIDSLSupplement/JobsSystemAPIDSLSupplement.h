@@ -98,18 +98,88 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface UICollectionView (JobsSystemAPIDSLSupplement)
+-(JobsRetCollectionViewByBOOLBlock _Nonnull)byPrefetchingEnabled;
+-(JobsRetCollectionViewByBOOLBlock _Nonnull)byDragInteractionEnabled API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos, watchos);
+-(JobsRetCollectionViewByReorderingCadenceBlock _Nonnull)byReorderingCadence API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos, watchos);
+-(JobsRetCollectionViewBySelfSizingInvalidationBlock _Nonnull)bySelfSizingInvalidation API_AVAILABLE(ios(16.0), tvos(16.0)) API_UNAVAILABLE(watchos);
+-(JobsRetCollectionViewByBOOLBlock _Nonnull)byAllowsSelection;
+-(JobsRetCollectionViewByBOOLBlock _Nonnull)byAllowsMultipleSelection;
+-(JobsRetCollectionViewByBOOLBlock _Nonnull)byRemembersLastFocusedIndexPath;
+-(JobsRetCollectionViewByBOOLBlock _Nonnull)bySelectionFollowsFocus API_AVAILABLE(ios(15.0), tvos(15.0)) API_UNAVAILABLE(watchos);
+-(JobsRetCollectionViewByBOOLBlock _Nonnull)byAllowsFocus API_AVAILABLE(ios(15.0), tvos(15.0)) API_UNAVAILABLE(watchos);
+-(JobsRetCollectionViewByBOOLBlock _Nonnull)byAllowsFocusDuringEditing API_AVAILABLE(ios(15.0), tvos(15.0)) API_UNAVAILABLE(watchos);
+-(JobsRetCollectionViewByBOOLBlock _Nonnull)byEditing API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos);
+-(JobsRetCollectionViewByBOOLBlock _Nonnull)byAllowsSelectionDuringEditing API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos);
+-(JobsRetCollectionViewByBOOLBlock _Nonnull)byAllowsMultipleSelectionDuringEditing API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos);
+-(JobsRetCollectionViewByVoidBlock _Nonnull)byReloadData;
+-(JobsRetCollectionViewByVoidBlock _Nonnull)byFinishInteractiveTransition API_AVAILABLE(ios(7.0)) API_UNAVAILABLE(tvos);
+-(JobsRetCollectionViewByVoidBlock _Nonnull)byCancelInteractiveTransition API_AVAILABLE(ios(7.0)) API_UNAVAILABLE(tvos);
+-(JobsRetCollectionViewByVoidBlock _Nonnull)byEndInteractiveMovement API_AVAILABLE(ios(9.0)) API_UNAVAILABLE(tvos);
+-(JobsRetCollectionViewByVoidBlock _Nonnull)byCancelInteractiveMovement API_AVAILABLE(ios(9.0)) API_UNAVAILABLE(tvos);
 -(JobsRetCollectionViewByIndexSetBlock _Nonnull)byReloadSections;
 -(JobsRetCollectionViewByIndexSetBlock _Nonnull)byInsertSections;
 -(JobsRetCollectionViewByIndexSetBlock _Nonnull)byDeleteSections;
 -(JobsRetCollectionViewByArrBlock _Nonnull)byReloadItemsAtIndexPaths;
 -(JobsRetCollectionViewByArrBlock _Nonnull)byInsertItemsAtIndexPaths;
 -(JobsRetCollectionViewByArrBlock _Nonnull)byDeleteItemsAtIndexPaths;
+-(JobsRetCollectionViewByArrBlock _Nonnull)byReconfigureItemsAtIndexPaths API_AVAILABLE(ios(15.0), tvos(15.0)) API_UNAVAILABLE(watchos);
+-(JobsRetCollectionViewByCGPointBlock _Nonnull)byUpdateInteractiveMovementTargetPosition API_AVAILABLE(ios(9.0)) API_UNAVAILABLE(tvos);
+@end
+
+@interface UIScrollView (JobsSystemAPIDSLSupplement)
+-(JobsRetScrollViewByPointBlock _Nonnull)byContentOffset;
+-(JobsRetScrollViewBySizeBlock _Nonnull)byContentSize;
+-(JobsRetScrollViewByUIEdgeInsetsBlock _Nonnull)byContentInset;
+-(JobsRetScrollViewByPointBlock _Nonnull)byContentAlignmentPoint API_AVAILABLE(ios(26.0)) API_UNAVAILABLE(tvos, watchos);
+-(JobsRetScrollViewByContentInsetAdjustmentBehaviorBlock _Nonnull)byContentInsetAdjustmentBehavior API_AVAILABLE(ios(11.0), tvos(11.0)) API_UNAVAILABLE(watchos);
+-(JobsRetScrollViewByBOOLBlock _Nonnull)byAutomaticallyAdjustsScrollIndicatorInsets API_AVAILABLE(ios(13.0), tvos(13.0)) API_UNAVAILABLE(watchos);
+-(JobsRetScrollViewByBOOLBlock _Nonnull)byDirectionalLockEnabled;
+-(JobsRetScrollViewByBOOLBlock _Nonnull)byBounces;
+-(JobsRetScrollViewByBOOLBlock _Nonnull)byAlwaysBounceVertical;
+-(JobsRetScrollViewByBOOLBlock _Nonnull)byAlwaysBounceHorizontal;
+-(JobsRetScrollViewByBOOLBlock _Nonnull)byPagingEnabled;
+-(JobsRetScrollViewByBOOLBlock _Nonnull)byScrollEnabled;
+-(JobsRetScrollViewByBOOLBlock _Nonnull)byTransfersHorizontalScrollingToParent API_AVAILABLE(ios(18.0)) API_UNAVAILABLE(tvos, watchos);
+-(JobsRetScrollViewByBOOLBlock _Nonnull)byTransfersVerticalScrollingToParent API_AVAILABLE(ios(18.0)) API_UNAVAILABLE(tvos, watchos);
+-(JobsRetScrollViewByBOOLBlock _Nonnull)byShowsVerticalScrollIndicator;
+-(JobsRetScrollViewByBOOLBlock _Nonnull)byShowsHorizontalScrollIndicator;
+-(JobsRetScrollViewByIndicatorStyleBlock _Nonnull)byIndicatorStyle;
+-(JobsRetScrollViewByUIEdgeInsetsBlock _Nonnull)byVerticalScrollIndicatorInsets API_AVAILABLE(ios(11.1), tvos(11.1)) API_UNAVAILABLE(watchos);
+-(JobsRetScrollViewByUIEdgeInsetsBlock _Nonnull)byHorizontalScrollIndicatorInsets API_AVAILABLE(ios(11.1), tvos(11.1)) API_UNAVAILABLE(watchos);
+-(JobsRetScrollViewByUIEdgeInsetsBlock _Nonnull)byScrollIndicatorInsets;
+-(JobsRetScrollViewByDecelerationRateBlock _Nonnull)byDecelerationRate;
+-(JobsRetScrollViewByNSIntegerBlock _Nonnull)byIndexDisplayMode API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos, watchos);
+-(JobsRetScrollViewByBOOLBlock _Nonnull)byDelaysContentTouches;
+-(JobsRetScrollViewByBOOLBlock _Nonnull)byCanCancelContentTouches;
+-(JobsRetScrollViewByCGFloatBlock _Nonnull)byMinimumZoomScale;
+-(JobsRetScrollViewByCGFloatBlock _Nonnull)byMaximumZoomScale;
+-(JobsRetScrollViewByCGFloatBlock _Nonnull)byZoomScale;
+-(JobsRetScrollViewByBOOLBlock _Nonnull)byBouncesZoom;
+-(JobsRetScrollViewByBOOLBlock _Nonnull)byScrollsToTop;
+-(JobsRetScrollViewByKeyboardDismissModeBlock _Nonnull)byKeyboardDismissMode API_AVAILABLE(ios(7.0)) API_UNAVAILABLE(tvos, watchos);
+-(JobsRetScrollViewByBOOLBlock _Nonnull)byAllowsKeyboardScrolling API_AVAILABLE(ios(17.0)) API_UNAVAILABLE(tvos, watchos);
+-(JobsRetScrollViewByVoidBlock _Nonnull)byFlashScrollIndicators;
+-(JobsRetScrollViewByVoidBlock _Nonnull)byStopScrollingAndZooming API_AVAILABLE(ios(18.0)) API_UNAVAILABLE(tvos, watchos);
+@end
+
+@interface UIImageView (JobsSystemAPIDSLSupplement)
+-(JobsRetImageViewBySymbolConfigurationBlock _Nonnull)byPreferredSymbolConfiguration API_AVAILABLE(ios(13.0), tvos(13.0)) API_UNAVAILABLE(watchos);
+-(JobsRetImageViewByImageDynamicRangeBlock _Nonnull)byPreferredImageDynamicRange API_AVAILABLE(ios(17.0), tvos(17.0)) API_UNAVAILABLE(watchos);
+-(JobsRetImageViewByVoidBlock _Nonnull)byStartAnimating;
+-(JobsRetImageViewByVoidBlock _Nonnull)byStopAnimating;
+-(JobsRetImageViewByVoidBlock _Nonnull)byRemoveAllSymbolEffects API_AVAILABLE(ios(17.0), tvos(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
+-(JobsRetImageViewBySymbolEffectBlock _Nonnull)byAddSymbolEffect API_AVAILABLE(ios(17.0), tvos(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
+-(JobsRetImageViewBySymbolEffectBlock _Nonnull)byRemoveSymbolEffectOfType API_AVAILABLE(ios(17.0), tvos(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
+-(JobsRetImageViewBySymbolEffectOptionsBlock _Nonnull)byRemoveAllSymbolEffectsWithOptions API_AVAILABLE(ios(17.0), tvos(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
 @end
 
 @interface UIPageControl (JobsSystemAPIDSLSupplement)
 -(JobsRetPageControlByNSIntegerBlock _Nonnull)byNumberOfPages;
 -(JobsRetPageControlByNSIntegerBlock _Nonnull)byCurrentPage;
 -(JobsRetPageControlByBOOLBlock _Nonnull)byHidesForSinglePage;
+-(JobsRetPageControlByBOOLBlock _Nonnull)byAllowsContinuousInteraction API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos);
+-(JobsRetPageControlByBOOLBlock _Nonnull)byDefersCurrentPageDisplay;
+-(JobsRetPageControlByVoidBlock _Nonnull)byUpdateCurrentPageDisplay;
 -(JobsRetPageControlByColorBlock _Nonnull)byPageIndicatorTintColor;
 -(JobsRetPageControlByColorBlock _Nonnull)byCurrentPageIndicatorTintColor;
 -(JobsRetPageControlByImageBlock _Nonnull)byPreferredIndicatorImage API_AVAILABLE(ios(14.0), tvos(14.0));
@@ -118,7 +188,16 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetPageControlByDirectionBlock _Nonnull)byDirection API_AVAILABLE(ios(16.0), tvos(16.0));
 @end
 
+@interface UITableView (JobsSystemAPIDSLSupplement)
+-(JobsRetTableViewByVoidBlock _Nonnull)byBeginUpdates;
+-(JobsRetTableViewByVoidBlock _Nonnull)byEndUpdates;
+-(JobsRetTableViewByVoidBlock _Nonnull)byReloadData;
+-(JobsRetTableViewByVoidBlock _Nonnull)byReloadSectionIndexTitles;
+-(JobsRetTableViewByArrBlock _Nonnull)byReconfigureRowsAtIndexPaths API_AVAILABLE(ios(15.0), tvos(15.0)) API_UNAVAILABLE(watchos);
+@end
+
 @interface UILabel (JobsSystemAPIDSLSupplement)
+-(JobsRetUILabelByVibrancyBlock _Nonnull)byPreferredVibrancy API_AVAILABLE(ios(17.0), tvos(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
 -(JobsRetUILabelByUIColorBlock _Nonnull)byTextColor;
 -(JobsRetUILabelByNSAttributedStringBlock _Nonnull)byAttributedText;
 -(JobsRetUILabelByUIColorBlock _Nonnull)byShadowColor;
@@ -132,6 +211,10 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetUILabelByNSIntegerBlock _Nonnull)byLineBreakMode;
 -(JobsRetUILabelByBOOLBlock _Nonnull)byAllowsDefaultTighteningForTruncation;
 -(JobsRetUILabelByCGFloatBlock _Nonnull)byPreferredMaxLayoutWidth;
+-(JobsRetUILabelByLineBreakStrategyBlock _Nonnull)byLineBreakStrategy API_AVAILABLE(ios(14.0), tvos(14.0), watchos(7.0));
+-(JobsRetUILabelByBOOLBlock _Nonnull)byShowsExpansionTextWhenTruncated API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos, watchos);
+-(JobsRetUILabelByCGFloatBlock _Nonnull)byMinimumFontSize API_DEPRECATED("", ios(2.0, 6.0)) API_UNAVAILABLE(tvos) API_UNAVAILABLE(visionos, watchos);
+-(JobsRetUILabelByBOOLBlock _Nonnull)byAdjustsLetterSpacingToFitWidth API_DEPRECATED("", ios(6.0, 7.0)) API_UNAVAILABLE(tvos) API_UNAVAILABLE(visionos, watchos);
 #if defined(__IPHONE_10_0)
 -(JobsRetUILabelByBOOLBlock _Nonnull)byAdjustsFontForContentSizeCategory;
 #endif
@@ -178,6 +261,17 @@ NS_ASSUME_NONNULL_BEGIN
 #if defined(__IPHONE_13_0)
 -(JobsRetTextViewByBOOLBlock _Nonnull)byUsesStandardTextScaling;
 #endif
+-(JobsRetTextViewByBOOLBlock _Nonnull)byFindInteractionEnabled API_AVAILABLE(ios(16.0)) API_UNAVAILABLE(watchos, tvos);
+-(JobsRetTextViewByBorderStyleBlock _Nonnull)byBorderStyle API_AVAILABLE(ios(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
+-(JobsRetTextViewByIDBlock _Nonnull)byInteractionState API_AVAILABLE(ios(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
+@end
+
+@interface UIPanGestureRecognizer (JobsSystemAPIDSLSupplement)
+-(JobsRetPanGestureRecognizerByUIScrollTypeMaskBlock _Nonnull)byAllowedScrollTypesMask API_AVAILABLE(ios(13.4)) API_UNAVAILABLE(tvos, watchos);
+@end
+
+@interface UITapGestureRecognizer (JobsSystemAPIDSLSupplement)
+-(JobsRetTapGestureRecognizerByUIEventButtonMaskBlock _Nonnull)byButtonMaskRequired API_AVAILABLE(ios(13.4)) API_UNAVAILABLE(tvos, watchos);
 @end
 
 @interface UIView (JobsSystemAPIDSLSupplement)

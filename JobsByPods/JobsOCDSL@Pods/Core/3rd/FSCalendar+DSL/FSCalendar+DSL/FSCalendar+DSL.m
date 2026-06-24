@@ -42,8 +42,7 @@
         @jobs_strongify(self)
         if ([self respondsToSelector:NSSelectorFromString(@"setTimeZone:")]) {
             [self setValue:data forKey:@"timeZone"];
-        }
-        return self;
+        };return self;
     };
 }
 
@@ -1502,6 +1501,15 @@
 
 @implementation NSCalendar (JobsFSCalendarDSL)
 #pragma mark —— Methods
+-(JobsRetCalendarByNSUIntegerBlock)byMinimumDaysInFirstWeek{
+    @jobs_weakify(self)
+    return ^__kindof NSCalendar *_Nullable(NSUInteger data){
+        @jobs_strongify(self)
+        self.minimumDaysInFirstWeek = data;
+        return self;
+    };
+}
+
 -(JobsRetDateByDateBlock)byFs_firstDayOfMonth{
     @jobs_weakify(self)
     return ^NSDate * _Nullable(NSDate * _Nullable data){
@@ -1562,15 +1570,78 @@
     };
 }
 
+-(JobsRetNSMapTableByIDBlock)byRemoveObjectForKey{
+    @jobs_weakify(self)
+    return ^__kindof NSMapTable *_Nullable(id<NSCopying> _Nullable data){
+        @jobs_strongify(self)
+        if (data) [self removeObjectForKey:data];
+        return self;
+    };
+}
+
+-(JobsRetNSMapTableByVoidBlock)byRemoveAllObjects{
+    @jobs_weakify(self)
+    return ^__kindof NSMapTable *_Nullable(void){
+        @jobs_strongify(self)
+        [self removeAllObjects];
+        return self;
+    };
+}
+
 @end
 
 @implementation NSCache (JobsFSCalendarDSL)
 #pragma mark —— Methods
+-(JobsRetNSCacheByNSUIntegerBlock)byTotalCostLimit{
+    @jobs_weakify(self)
+    return ^__kindof NSCache *_Nullable(NSUInteger data){
+        @jobs_strongify(self)
+        self.totalCostLimit = data;
+        return self;
+    };
+}
+
+-(JobsRetNSCacheByNSUIntegerBlock)byCountLimit{
+    @jobs_weakify(self)
+    return ^__kindof NSCache *_Nullable(NSUInteger data){
+        @jobs_strongify(self)
+        self.countLimit = data;
+        return self;
+    };
+}
+
+-(JobsRetNSCacheByBOOLBlock)byEvictsObjectsWithDiscardedContent{
+    @jobs_weakify(self)
+    return ^__kindof NSCache *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.evictsObjectsWithDiscardedContent = data;
+        return self;
+    };
+}
+
 -(JobsRetNSCacheByObjectForKeyedSubscriptBlock)byObjectForKeyedSubscript{
     @jobs_weakify(self)
     return ^id _Nullable(id<NSCopying> _Nullable data){
         @jobs_strongify(self)
         return [self objectForKeyedSubscript:data];
+    };
+}
+
+-(JobsRetNSCacheByIDBlock)byRemoveObjectForKey{
+    @jobs_weakify(self)
+    return ^__kindof NSCache *_Nullable(id<NSCopying> _Nullable data){
+        @jobs_strongify(self)
+        if (data) [self removeObjectForKey:data];
+        return self;
+    };
+}
+
+-(JobsRetNSCacheByVoidBlock)byRemoveAllObjects{
+    @jobs_weakify(self)
+    return ^__kindof NSCache *_Nullable(void){
+        @jobs_strongify(self)
+        [self removeAllObjects];
+        return self;
     };
 }
 
