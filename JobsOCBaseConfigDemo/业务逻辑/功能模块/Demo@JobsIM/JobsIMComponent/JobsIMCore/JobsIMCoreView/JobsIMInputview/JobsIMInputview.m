@@ -156,7 +156,7 @@ Prop_strong()BaseButton *sendBtn;
 -(UIImageView *)imgView{
     if (!_imgView) {
         _imgView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-            imageView.image = @"输入框无值".img;
+            imageView.byImage(@"输入框无值".img);
         });
     };return _imgView;
 }

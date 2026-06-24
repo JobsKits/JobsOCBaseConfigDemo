@@ -52,7 +52,7 @@ UIPictureAndBackGroundCorProtocol_synthesize
         @jobs_weakify(self)
         _bgImageView = self.addSubview(jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = self.viewModel.bgImage;
+            imageView.byImage(self.viewModel.bgImage);
         })).setMasonryBy(^(MASConstraintMaker *_Nonnull make){
             @jobs_strongify(self)
             make.edges.equalTo(self);

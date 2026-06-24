@@ -56,15 +56,10 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     self.magicTextField.leftView = UIImageView.initBy(self.doorInputViewBaseStyleModel.leftViewIMG);
     self.magicTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
     self.magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
-
     self.magicTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
-
     self.magicTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
-
     self.magicTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
-
     self.magicTextField.byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance);
-
     self.magicTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
     self.magicTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
     self.magicTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量
@@ -103,9 +98,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         @jobs_strongify(self)
         self.doorInputViewBaseStyleModel = doorInputViewBaseStyleModel;
         self.authCodeLab.byAlpha(1);
-
         self.magicTextField.byAlpha(1);
-
         [self configTextField];
     };
 }
@@ -125,20 +118,15 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 #pragma mark —— lazyLoad
 -(AuthCodeLab *)authCodeLab{
     if (!_authCodeLab) {
-        _authCodeLab = AuthCodeLab.new;
-        _authCodeLab.byTextAlignment(NSTextAlignmentCenter);
-
-        _authCodeLab.byText(@"ss");
-
-        _authCodeLab.byFont(JobsFontRegular(16));
-
-        _authCodeLab.byAlpha(0.7);
-
-        _authCodeLab.byTextCor(JobsWhiteColor);
-
-        _authCodeLab.byBgColor(JobsBlackColor);
-
-        _authCodeLab.addOn(self).byAdd(^(MASConstraintMaker *make) {
+        _authCodeLab = AuthCodeLab.new
+        .byTextAlignment(NSTextAlignmentCenter)
+        .byText(@"ss")
+        .byFont(JobsFontRegular(16))
+        .byTextCor(JobsWhiteColor)
+        .byBgColor(JobsBlackColor)
+        .byAlpha(0.7)
+        .addOn(self)
+        .byAdd(^(MASConstraintMaker *make) {
             make.top.bottom.equalTo(self);
             make.right.equalTo(self);
             make.width.mas_equalTo(80);
@@ -151,7 +139,13 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         @jobs_weakify(self)
         _magicTextField = jobsMakeMagicTextField(^(__kindof JobsMagicTextField * _Nullable textField) {
             @jobs_strongify(self)
-            textField.byDelegate(self);
+            textField
+                .byDelegate(self)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.top.bottom.equalTo(self);
+                    make.right.equalTo(self.authCodeLab.mas_left).offset(-JobsWidth(3));
+                });
 
             [textField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
                 @jobs_strongify(self)
@@ -161,10 +155,6 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 JobsLog(@"MMM = %@",x);
                 [self block:textField value:x];
             }];
-            textField.addOn(self).byAdd(^(MASConstraintMaker *make) {
-                make.left.top.bottom.equalTo(self);
-                make.right.equalTo(self.authCodeLab.mas_left).offset(-JobsWidth(3));
-            });
         });
     };return _magicTextField;
 }

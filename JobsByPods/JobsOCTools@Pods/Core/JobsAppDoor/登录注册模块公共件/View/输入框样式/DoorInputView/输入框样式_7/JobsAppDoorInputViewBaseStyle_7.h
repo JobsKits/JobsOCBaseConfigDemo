@@ -13,6 +13,12 @@
 #import <JobsOCTools/JobsAppDoorInputViewBaseStyle.h>
 #import <JobsOCTools/JobsOCTools.h>
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
@@ -67,7 +73,6 @@ NS_ASSUME_NONNULL_BEGIN
  * 如果以后需要强行禁用init或者new，那么:
  - (instancetype)init NS_UNAVAILABLE;
  - (instancetype)new NS_UNAVAILABLE;
- 
  */
 @end
 

@@ -48,11 +48,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 /**
- 
-     MJRefreshStateIdle,   //   普通闲置状态
-     MJRefreshStatePulling,   //   松开就可以进行刷新的状态
-     MJRefreshStateRefreshing,   //   正在刷新中的状态
-     MJRefreshStateWillRefresh,   //   即将刷新的状态
+
+     MJRefreshStateIdle,        //   普通闲置状态
+     MJRefreshStatePulling,     //   松开就可以进行刷新的状态
+     MJRefreshStateRefreshing,  //   正在刷新中的状态
+     MJRefreshStateWillRefresh, //   即将刷新的状态
      MJRefreshStateNoMoreData   //   所有数据加载完毕，没有更多的数据了
  */
 @interface MJRefreshConfigModel : NSObject

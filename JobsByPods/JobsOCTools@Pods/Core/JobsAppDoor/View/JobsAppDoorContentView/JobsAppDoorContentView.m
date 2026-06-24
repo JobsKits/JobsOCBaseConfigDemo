@@ -6,19 +6,18 @@
 //
 
 #import "JobsAppDoorContentView.h"
-
-// 可以发现：（animateWithDuration + Masonry，动画参数设置无效）
-// 用户名 和 密码 ，登录注册两个界面共用，只不过frame不一样
+/// 可以发现：（animateWithDuration + Masonry，动画参数设置无效）
+/// 用户名 和 密码 ，登录注册两个界面共用，只不过frame不一样
 @interface JobsAppDoorContentView (){
     JobsAppDoorInputViewBaseStyle_7 *inputView_7;
 }
 /// UI
-Prop_strong()UILabel *titleLab;/// 标题
-Prop_strong()UIButton *abandonLoginBtn;/// 返回首页按钮
-Prop_strong()UIButton *toRegisterBtn;/// 去注册
-Prop_strong()UIButton *sendBtn;/// 登录 & 注册按钮 （本页面请求可以不用jobsAppDoorContentViewBlock回调）
-Prop_strong()UIButton *storeCodeBtn;/// 记住密码
-Prop_strong()UIButton *findCodeBtn;/// 忘记密码
+Prop_strong()UILabel *titleLab;         // 标题
+Prop_strong()UIButton *abandonLoginBtn; // 返回首页按钮
+Prop_strong()UIButton *toRegisterBtn;   // 去注册
+Prop_strong()UIButton *sendBtn;         // 登录 & 注册按钮 （本页面请求可以不用jobsAppDoorContentViewBlock回调）
+Prop_strong()UIButton *storeCodeBtn;    // 记住密码
+Prop_strong()UIButton *findCodeBtn;     // 忘记密码
 /// Data
 Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyleModel *>*loginDoorInputViewBaseStyleModelMutArr;
 Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyleModel *>*registerDoorInputViewBaseStyleModelMutArr;

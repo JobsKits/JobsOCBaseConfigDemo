@@ -53,19 +53,14 @@ Prop_assign()CGSize chooseBtnSize;
 //    self.magicTextField.leftViewMode;
     self.magicTextField.leftViewOffsetX = self.doorInputViewBaseStyleModel.leftViewOffsetX ? :  JobsWidth(17);
     self.magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
-
     self.magicTextField.placeholderColor = self.doorInputViewBaseStyleModel.placeholderColor;
     self.magicTextField.placeholderFont = self.doorInputViewBaseStyleModel.placeholderFont;
     self.magicTextField.placeHolderAlignment = self.doorInputViewBaseStyleModel.placeHolderAlignment ? : NSTextAlignmentLeft;
     self.magicTextField.placeHolderOffset = self.doorInputViewBaseStyleModel.placeHolderOffset ? : JobsWidth(20);
     self.magicTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
-
     self.magicTextField.byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance);
-
     self.magicTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
-
     self.magicTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
-
     self.magicTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
     self.magicTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
     self.magicTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量
@@ -77,12 +72,9 @@ Prop_assign()CGSize chooseBtnSize;
 }
 
 -(void)block:(JobsMagicTextField *)textField value:(NSString *)value{
-    
     self.textFieldInputModel.resString = value;
     self.textFieldInputModel.PlaceHolder = self.doorInputViewBaseStyleModel.placeholder;
-
     textField.requestParams = self.textFieldInputModel;
-    
     if (self.objBlock) self.objBlock(textField);// 对外统一传出TF
 }
 #pragma mark —— UITextFieldDelegate
@@ -103,11 +95,8 @@ Prop_assign()CGSize chooseBtnSize;
         @jobs_strongify(self)
         self.doorInputViewBaseStyleModel = doorInputViewBaseStyleModel ? : JobsAppDoorInputViewBaseStyleModel.new;
         self.leftIMGV.byAlpha(1);
-
         self.chooseBtn.byAlpha(1);
-
         self.magicTextField.byAlpha(1);
-
         [self configTextField];
     };
 }
@@ -129,12 +118,14 @@ Prop_assign()CGSize chooseBtnSize;
         @jobs_weakify(self)
         _leftIMGV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = self.doorInputViewBaseStyleModel.leftViewIMG;
-            imageView.addOn(self).byAdd(^(MASConstraintMaker *make) {
-                make.left.equalTo(self).offset(JobsWidth(17));
-                make.centerY.equalTo(self);
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(12), JobsWidth(16)));
-            });
+            imageView
+                .byImage(self.doorInputViewBaseStyleModel.leftViewIMG)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self).offset(JobsWidth(17));
+                    make.centerY.equalTo(self);
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(12), JobsWidth(16)));
+                });
         });
     };return _leftIMGV;
 }
@@ -147,14 +138,14 @@ Prop_assign()CGSize chooseBtnSize;
                               .byTextCor(HEXCOLOR(0xC4C4C4));
                 data.byBgCor(JobsClearColor);
                 data.textModel.byFont(UIFontWeightRegularSize(16));
-            }));
-            arr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
+            }))
+            .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
                 data.textModel.byText(@"+87")
                               .byTextCor(HEXCOLOR(0xC4C4C4));
                 data.byBgCor(JobsClearColor);
                 data.textModel.byFont(UIFontWeightRegularSize(16));
-            }));
-            arr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
+            }))
+            .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
                 data.textModel.byText(@"+88")
                               .byTextCor(HEXCOLOR(0xC4C4C4));
                 data.byBgCor(JobsClearColor);
@@ -225,8 +216,14 @@ Prop_assign()CGSize chooseBtnSize;
         @jobs_weakify(self)
         _magicTextField = jobsMakeMagicTextField(^(__kindof JobsMagicTextField * _Nullable textField) {
             @jobs_strongify(self)
-            textField.byDelegate(self);
-
+            textField
+                .byDelegate(self)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.bottom.equalTo(self);
+                    make.right.equalTo(self).offset(-JobsWidth(17));
+                    make.left.equalTo(self.chooseBtn.mas_right).offset(JobsWidth(2));
+                });
             [textField jobsTextFieldEventFilterBlock:^BOOL(NSString * _Nullable data) {
                 @jobs_strongify(self)
                 return self.retBoolByIDBlock ? self.retBoolByIDBlock(data) : YES;
@@ -235,11 +232,6 @@ Prop_assign()CGSize chooseBtnSize;
                 JobsLog(@"输入的字符为 = %@",x);
                 [self block:self->_magicTextField value:x];
             }];
-            textField.addOn(self).byAdd(^(MASConstraintMaker *make) {
-                make.top.bottom.equalTo(self);
-                make.right.equalTo(self).offset(-JobsWidth(17));
-                make.left.equalTo(self.chooseBtn.mas_right).offset(JobsWidth(2));
-            });
         });
     };return _magicTextField;
 }

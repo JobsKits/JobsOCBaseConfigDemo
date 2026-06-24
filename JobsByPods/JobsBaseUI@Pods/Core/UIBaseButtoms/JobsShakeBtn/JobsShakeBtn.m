@@ -6,6 +6,7 @@
 //
 
 #import "JobsShakeBtn.h"
+#import <JobsMakes/JobsMakes.h>
 #import <JobsBaseUI/UIView+Measure.h>
 #import <JobsBaseUI/UIView+Extra.h>
 #import <JobsBaseUI/NSMutableArray+Extra.h>
@@ -97,14 +98,18 @@ Prop_strong()CAKeyframeAnimation *anim;
 #pragma mark —— lazyLoad
 - (UIImageView *)iconBtn {
     if (!_iconBtn) {
-        _iconBtn = [UIImageView.alloc initWithImage:@"del_Photo".img];
-        _iconBtn.userInteractionEnabled = YES;
-        _iconBtn.ableRespose = YES;
-        [_iconBtn addGestureRecognizer:self.iconBtnTap];
-        _iconBtn.addOn(self).byAdd(^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(20,20));
-            make.top.equalTo(self).offset(-20 / 2);
-            make.right.equalTo(self).offset(20 / 2);
+        _iconBtn = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byImage(@"del_Photo".img)
+                .byUserInteractionEnabled(YES)
+                .byAddGestureRecognizer(self.iconBtnTap)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(20,20));
+                    make.top.equalTo(self).offset(-20 / 2);
+                    make.right.equalTo(self).offset(20 / 2);
+                });
+            imageView.ableRespose = YES;
         });
     };return _iconBtn;
 }

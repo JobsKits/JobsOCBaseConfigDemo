@@ -47,6 +47,7 @@ digraph PodspecDependencies {
   "JobsDeviceInfo";
   "JobsDropDownListView";
   "JobsFiltrationView";
+  "JobsFuseAnimation";
   "JobsGestureLock";
   "JobsGetWindow";
   "JobsHotLabel";
@@ -68,6 +69,7 @@ digraph PodspecDependencies {
   "JobsOCProtocols";
   "JobsOCRuntimeKits";
   "JobsOCSnowflake";
+  "JobsOCSplash";
   "JobsOCTimer";
   "JobsOCTimerMgr";
   "JobsOCTools";
@@ -78,6 +80,7 @@ digraph PodspecDependencies {
   "JobsTimeUtils";
   "JobsUploadingProgressView";
   "JobsViewNavigator";
+  "JobsViewPush";
   "LMJDropdownMenu";
   "LMJDropdownMenuExtra";
   "MGSwipeTableCell";
@@ -597,6 +600,12 @@ digraph PodspecDependencies {
   "JobsOCRuntimeKits" -> "WHToastExtra";
   "JobsOCSnowflake" -> "JobsBlock";
   "JobsOCSnowflake" -> "JobsOCDefs";
+  "JobsOCSplash" -> "JobsBlock";
+  "JobsOCSplash" -> "JobsByOCPods";
+  "JobsOCSplash" -> "JobsMakes";
+  "JobsOCSplash" -> "JobsOCDSL";
+  "JobsOCSplash" -> "JobsOCDefs";
+  "JobsOCSplash" -> "JobsOCTimer";
   "JobsOCTimer" -> "JobsBlock";
   "JobsOCTimer" -> "JobsLanMgr";
   "JobsOCTimer" -> "JobsMakes";
@@ -696,6 +705,9 @@ digraph PodspecDependencies {
   "JobsViewNavigator" -> "JobsOCDSL";
   "JobsViewNavigator" -> "JobsOCDefs";
   "JobsViewNavigator" -> "Masonry";
+  "JobsViewPush" -> "JobsBlock";
+  "JobsViewPush" -> "JobsOCDSL";
+  "JobsViewPush" -> "JobsOCDefs";
   "LMJDropdownMenuExtra" -> "LMJDropdownMenu";
   "MGSwipeTableCellExtra" -> "JobsBlock";
   "MGSwipeTableCellExtra" -> "JobsOCDefs";

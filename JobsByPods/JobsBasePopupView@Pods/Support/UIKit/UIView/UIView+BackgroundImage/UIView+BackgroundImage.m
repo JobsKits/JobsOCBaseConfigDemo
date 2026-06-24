@@ -24,8 +24,9 @@ JobsKey(_backgroundImageView)
         @jobs_weakify(self)
         BackgroundImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.userInteractionEnabled = YES;
-            imageView.byContentMode(UIViewContentModeScaleToFill);
+            imageView
+                .byUserInteractionEnabled(YES)
+                .byContentMode(UIViewContentModeScaleToFill);
             self.byBgColor(JobsClearColor);
             if ([self isKindOfClass:UICollectionViewCell.class]) {
                 UICollectionViewCell *cell = (UICollectionViewCell *)self;
@@ -42,7 +43,7 @@ JobsKey(_backgroundImageView)
                 [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.edges.equalTo(self);
                 }];
-            }imageView.layer.zPosition = -1;// 设置层级关系
+            }imageView.layer.byZPosition(-1);// 设置层级关系
             Jobs_setAssociatedRETAIN_NONATOMIC(_backgroundImageView, imageView)
         });
     };return BackgroundImageView;

@@ -83,6 +83,12 @@
 #import "JobsNavBar.h"
 #endif
 
+#if __has_include(<JobsOCSplash/JobsOCSplash.h>)
+#import <JobsOCSplash/JobsOCSplash.h>
+#else
+#import "JobsOCSplash.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AppDelegate (Func)

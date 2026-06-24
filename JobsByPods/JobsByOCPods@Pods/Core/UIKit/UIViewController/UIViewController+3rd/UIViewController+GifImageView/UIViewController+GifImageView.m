@@ -17,10 +17,12 @@ JobsKey(_gifImageView)
         @jobs_weakify(self)
         GifImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = self.image;
-            imageView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.view);
-            });
+            imageView
+                .byImage(self.image)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.view);
+                });
 Jobs_setAssociatedRETAIN_NONATOMIC(_gifImageView, GifImageView)
         });
     };return GifImageView;

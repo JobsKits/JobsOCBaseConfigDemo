@@ -519,6 +519,9 @@ typedef __kindof UIBarButtonItem *_Nullable(^JobsRetBarButtonItemByCorBlock)(UIC
 /// UIImageView
 typedef __kindof UIImageView *_Nonnull(^JobsRetImageViewByImageBlock)(UIImage *_Nullable data);
 typedef __kindof UIImageView *_Nonnull(^JobsRetImageViewByURLBlock)(NSURL *_Nullable data);
+typedef __kindof UIImageView *_Nonnull(^JobsRetImageViewByArrBlock)(__kindof NSArray *_Nullable data);
+typedef __kindof UIImageView *_Nonnull(^JobsRetImageViewByNSTimeIntervalBlock)(NSTimeInterval data);
+typedef __kindof UIImageView *_Nonnull(^JobsRetImageViewByNSIntegerBlock)(NSInteger data);
 /// UIWindow
 typedef __kindof UIWindow *_Nullable(^JobsRetWindowByVoidBlock)(void);
 typedef __kindof UIWindow *_Nullable(^JobsRetWindowByFrameBlock)(CGRect frame);

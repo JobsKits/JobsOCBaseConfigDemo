@@ -362,9 +362,10 @@ Prop_strong() UILabel *resultLabel;
 - (UIImageView *)rotaryTable {
     if (!_rotaryTable) {
         _rotaryTable = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-            imageView.tag = 100;
-            imageView.image = @"bg_lamp_1".img;
-            imageView.byAlpha(0.0f);   // 初始不显示，外部用 alpha = 1 唤起
+            imageView
+                .byImage(@"bg_lamp_1".img)
+                .byTag(100)
+                .byAlpha(0.0f);   // 初始不显示，外部用 alpha = 1 唤起
         });
     };return _rotaryTable;
 }

@@ -146,10 +146,11 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
         @jobs_weakify(self)
         _launchImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.byFrame(self.view.bounds);
-            imageView.image = @"1242x2688".img;
-            imageView.byContentMode(UIViewContentModeScaleAspectFill);
-            self.view.addSubview(imageView);
+            imageView
+                .byImage(@"1242x2688".img)
+                .byContentMode(UIViewContentModeScaleAspectFill)
+                .byFrame(self.view.bounds)
+                .addOn(self.view);
         });
     };return _launchImageView;
 }

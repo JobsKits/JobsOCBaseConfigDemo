@@ -68,12 +68,9 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
 
 -(void)configTextField{
     self.zyTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
-
     self.zyTextField.background = self.doorInputViewBaseStyleModel.background;
     self.zyTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
-
     self.zyTextField.byTextCor(self.doorInputViewBaseStyleModel.ZYtextColor);
-
     self.zyTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
     self.zyTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
     self.zyTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量

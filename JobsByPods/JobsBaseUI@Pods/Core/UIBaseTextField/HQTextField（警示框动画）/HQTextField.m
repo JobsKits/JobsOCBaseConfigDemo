@@ -76,11 +76,12 @@ Prop_strong()CABasicAnimation *opacityAnimation;
 -(CABasicAnimation *)opacityAnimation{
     if (!_opacityAnimation) {
         _opacityAnimation = jobsMakeCABasicAnimationBy(@"opacity");
-        _opacityAnimation.fromValue = @(1.0);
-        _opacityAnimation.toValue = @(0.0f);
-        _opacityAnimation.repeatCount = 5;
-        _opacityAnimation.repeatDuration = 2;
-        _opacityAnimation.autoreverses = YES;
+        _opacityAnimation
+            .byFromValue(@(1.0))
+            .byToValue(@(0.0f))
+            .byRepeatCount(5)
+            .byRepeatDuration(2)
+            .byAutoreverses(YES);
     };return _opacityAnimation;
 }
 

@@ -599,9 +599,11 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
 
 - (UIImageView *)coverImageView {
     if (!_coverImageView) {
-        _coverImageView = [[UIImageView alloc] init];
-        _coverImageView.userInteractionEnabled = YES;
-        _coverImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _coverImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byUserInteractionEnabled(YES)
+                .byContentMode(UIViewContentModeScaleAspectFit);
+        });
     };return _coverImageView;
 }
 

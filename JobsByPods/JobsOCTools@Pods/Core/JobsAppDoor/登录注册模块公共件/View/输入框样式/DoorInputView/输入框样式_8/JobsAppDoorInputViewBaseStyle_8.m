@@ -134,27 +134,30 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 @synthesize zyTextField = _zyTextField;
 -(ZYTextField *)zyTextField{
     if (!_zyTextField) {
-        _zyTextField = ZYTextField.new;
-        _zyTextField.byDelegate(self);
+        _zyTextField = jobsMakeZYTextField(^(ZYTextField * _Nullable textField) {
+            textField
+                .byDelegate(self)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                });
 
-        @jobs_weakify(self)
-        [_zyTextField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
-            @jobs_strongify(self)
-            return self.retBoolByIDBlock ? self.retBoolByIDBlock(data) : YES;
-        } subscribeNextBlock:^(NSString *_Nullable x) {
-            @jobs_strongify(self)
-            JobsLog(@"输入的字符为 = %@",x);
-            self.securityModelBtn.jobsVisible = isValue(x) && self.doorInputViewBaseStyleModel.isShowSecurityBtn;/// 👁
-            if (x.isContainsSpecialSymbolsString(nil)) {
-                @"Do not enter special characters".tr.toast();
-            }else{
+            @jobs_weakify(self)
+            [_zyTextField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
+                @jobs_strongify(self)
+                return self.retBoolByIDBlock ? self.retBoolByIDBlock(data) : YES;
+            } subscribeNextBlock:^(NSString *_Nullable x) {
+                @jobs_strongify(self)
                 JobsLog(@"输入的字符为 = %@",x);
-                [self block:self->_zyTextField
-                      value:x];
-            }
-        }];
-        _zyTextField.addOn(self).byAdd(^(MASConstraintMaker *make) {
-            make.edges.equalTo(self);
+                self.securityModelBtn.jobsVisible = isValue(x) && self.doorInputViewBaseStyleModel.isShowSecurityBtn;/// 👁
+                if (x.isContainsSpecialSymbolsString(nil)) {
+                    @"Do not enter special characters".tr.toast();
+                }else{
+                    JobsLog(@"输入的字符为 = %@",x);
+                    [self block:self->_zyTextField
+                          value:x];
+                }
+            }];
         });
     };return _zyTextField;
 }

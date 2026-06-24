@@ -61,10 +61,12 @@ BaseLayerProtocol_synthesize_part3
         @jobs_weakify(self)
         _backgroudImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = self.viewModel.bgImage;
-            imageView.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.contentView);
-            });
+            imageView
+                .byImage(self.viewModel.bgImage)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.contentView);
+                });
         });
     };return _backgroudImageView;
 }

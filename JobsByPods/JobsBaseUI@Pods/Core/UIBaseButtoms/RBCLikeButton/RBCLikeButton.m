@@ -342,11 +342,12 @@ BaseButtonProtocol_synthesize
         @jobs_weakify(self)
         _backImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = JobsLoadBundleImage(@"bundle",
-                                                  @"RBCLikeButton",
-                                                  nil,
-                                                  @"day_like_red");
-            imageView.addOn(self);
+            imageView
+                .byImage(JobsLoadBundleImage(@"bundle",
+                                             @"RBCLikeButton",
+                                             nil,
+                                             @"day_like_red"))
+                .addOn(self);
         });
     };return _backImageView;
 }

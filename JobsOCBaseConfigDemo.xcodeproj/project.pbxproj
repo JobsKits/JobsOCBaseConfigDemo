@@ -23,6 +23,7 @@
 			membershipExceptions = (
 				"其他/iOS模拟器/iOS模拟器.md",
 				"其他/libs/Json文件/【MacOS】Mock.command",
+				"业务逻辑/功能模块/Demo@抽奖轮盘/ViewController/LuckyDiskDemoVC/LuckyDiskDemoVC.PNG",
 				"业务逻辑/功能模块/Demo@发帖功能/发帖.png",
 				"业务逻辑/功能模块/Demo@Flutter/README.md",
 				"业务逻辑/Common/App工具类/3rd/JhtBanner（卡片式滑动效果）/README.md",

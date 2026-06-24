@@ -333,11 +333,21 @@ JobsKey(_stop)
     jobsByCGFloatBlock tickBlock = nil;
     JobsTimerBlock finishBlock = nil;
     BOOL repeats = YES;
+    BOOL shouldFinish = NO;
 
     [self.stateLock lock];
     BOOL shouldFire = (self.timerState == JobsTimerStateRunning && token == self.generation);
     repeats = self.repeats;
     CGFloat currentTime = self.time; // 兼容旧语义：外部可能依赖 time 参数
+    if (shouldFire) {
+        if (self.timerStyle == TimerStyle_anticlockwise) {
+            currentTime = MAX(0, currentTime - self.timeInterval);
+            shouldFinish = currentTime <= 0;
+        } else {
+            currentTime += self.timeInterval;
+        }
+        self.time = currentTime;
+    }
     [self.stateLock unlock];
 
     tickBlock = self.onTick;
@@ -353,7 +363,7 @@ JobsKey(_stop)
         });
     }
 
-    if (!repeats) {
+    if (shouldFinish || !repeats) {
         // one-shot：触发一次后结束
         [self routeStopIfNeededFromCallback];
         if (finishBlock) {
@@ -383,6 +393,7 @@ JobsKey(_stop)
     // 旧版计时/倒计时字段保持初始化（不再驱动核心机制，只作为对外状态）
     self.accumulatedElapsed = 0;
     self.lastStartDate = NSDate.date;
+    self.time = self.startTime;
 
     self.timerState = JobsTimerStateRunning;
     self.autoPausedByAppState = NO;

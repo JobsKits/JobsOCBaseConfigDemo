@@ -67,11 +67,11 @@ static dispatch_once_t static_collectionHeaderFooterViewOnceToken;
         @jobs_weakify(self)
         _imageView = jobsMakeImageView(^(__kindof UIImageView *_Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = JobsLoadBundleImage(@"bundle",
-                                                  @"Others",
-                                                  nil,
-                                                  @"个人中心背景图");
             imageView
+                .byImage(JobsLoadBundleImage(@"bundle",
+                                             @"Others",
+                                             nil,
+                                             @"个人中心背景图"))
                 .byClipsToBounds(YES)
                 .byContentMode(UIViewContentModeScaleAspectFill)
                 .addOn(self);

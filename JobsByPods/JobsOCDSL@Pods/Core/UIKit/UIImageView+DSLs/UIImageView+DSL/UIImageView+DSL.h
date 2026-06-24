@@ -28,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(JobsRetImageViewByImageBlock _Nonnull)byImage;
 -(JobsRetImageViewByImageBlock _Nonnull)byHighlightedImage;
+-(JobsRetImageViewByArrBlock _Nonnull)byAnimationImages;
+-(JobsRetImageViewByNSTimeIntervalBlock _Nonnull)byAnimationDuration;
+-(JobsRetImageViewByNSIntegerBlock _Nonnull)byAnimationRepeatCount;
 
 @end
 

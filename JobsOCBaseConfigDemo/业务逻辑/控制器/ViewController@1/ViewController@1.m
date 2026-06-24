@@ -8,12 +8,18 @@
 #import "ViewController@1.h"
 
 BOOL ISLogin;
+static NSString *const JobsOCSplashEnabledUserDefaultsKey = @"com.BSports.JobsOCSplashEnabledUserDefaultsKey";
 @interface ViewController_1 ()
 /// UI
 Prop_strong()BaseButton *userHeadBtn;
+Prop_strong()UIButton *splashSwitchBtn;
 /// Data
 Prop_strong()NSMutableArray <__kindof UITableViewCell *>*tbvCellMutArr;
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
+
+-(BOOL)jobsOCSplashEnabled;
+-(void)setJobsOCSplashEnabled:(BOOL)jobsOCSplashEnabled;
+-(NSString *)splashSwitchTitle;
 
 @end
 
@@ -80,8 +86,8 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
         data.add(UIBarButtonItem.initBy(self.userHeadBtn));
     });
     self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
-//        @jobs_strongify(self)
-//        data.add(UIBarButtonItem.initBy(self.deleteBtn));
+        @jobs_strongify(self)
+        data.add(UIBarButtonItem.initBy(self.splashSwitchBtn));
     });
     self.makeNavByAlpha(1);
     self.navBar.backBtn.jobsVisible = NO;
@@ -187,11 +193,16 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
+                JobsUserModel *userInfo = self.readUserInfoByUserName(JobsUserModel.class,用户信息);
+                if (!userInfo) {
+                    userInfo = JobsUserModel.byData(@"UserData".readLocalFileWithName);
+                    if (userInfo) self.saveUserInfo(userInfo);
+                }
                 UIViewModel *viewModel = self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                     model.byTitle(@"用户信息展示(开发测试专用)".tr)
                         .bySubTitle(@"")
                         .byCls(JobsShowObjInfoVC.class)
-                        .byRequestParams(self.readUserInfo);
+                        .byRequestParams(userInfo);
                 }));
                 [self forceComingToPushVC:viewModel.cls.new
                             requestParams:viewModel]; // 测试专用
@@ -201,6 +212,39 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             })
             .bySize(CGSizeMake(JobsWidth(32), JobsWidth(32)));
     };return _userHeadBtn;
+}
+
+-(UIButton *)splashSwitchBtn{
+    if (!_splashSwitchBtn) {
+        @jobs_weakify(self)
+        _splashSwitchBtn = UIButton.jobsInit()
+            .byTitle([self splashSwitchTitle])
+            .byTitleCor(HEXCOLOR(0x3D4A58))
+            .byTitleFont(UIFontWeightRegularSize(13))
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                [self setJobsOCSplashEnabled:![self jobsOCSplashEnabled]];
+                x.byTitle([self splashSwitchTitle]);
+                ([self jobsOCSplashEnabled] ? @"下次打开开屏".tr : @"下次关闭开屏".tr).toast();
+            })
+            .byBgColor(JobsClearColor)
+            .bySize(CGSizeMake(JobsWidth(82), JobsWidth(32)));
+    }return _splashSwitchBtn;
+}
+
+-(BOOL)jobsOCSplashEnabled{
+    id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCSplashEnabledUserDefaultsKey];
+    return value ? [value boolValue] : YES;
+}
+
+-(void)setJobsOCSplashEnabled:(BOOL)jobsOCSplashEnabled{
+    [NSUserDefaults.standardUserDefaults setBool:jobsOCSplashEnabled
+                                          forKey:JobsOCSplashEnabledUserDefaultsKey];
+    [NSUserDefaults.standardUserDefaults synchronize];
+}
+
+-(NSString *)splashSwitchTitle{
+    return [self jobsOCSplashEnabled] ? @"开屏：开".tr : @"开屏：关".tr;
 }
 /// self.tableView.dataLink(self);不要写在Block里面，会引起循环调用。用它进行唤起
 /// BaseViewProtocol
@@ -371,6 +415,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 model.byTitle(@"JobsViewNavigatorTestVC".tr)
                      .bySubTitle(@"让 UIView 像 UINavigationController 一样支持 push 和 pop".tr)
                      .byCls(JobsViewNavigatorTestVC.class);
+            })))
+            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                model.byTitle(@"JobsViewPushDemoVC".tr)
+                     .bySubTitle(@"UIView 支持上下左右 Push、比例覆盖和原路交互退出".tr)
+                     .byCls(JobsViewPushDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"Excel".tr)

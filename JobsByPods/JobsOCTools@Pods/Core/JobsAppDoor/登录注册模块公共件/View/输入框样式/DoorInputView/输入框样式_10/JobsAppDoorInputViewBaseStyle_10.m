@@ -26,7 +26,6 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         self.thisViewSize = thisViewSize;
         self.titleStr_1 = @"請輸入金額".tr;
         self.titleStr_2 = @"全部金額".tr;
-        
     };return self;
 }
 
@@ -50,15 +49,10 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     self.zyTextField.leftView = UIImageView.initBy(self.doorInputViewBaseStyleModel.leftViewIMG);
     self.zyTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
     self.zyTextField.byPlaceholder(isNull(self.doorInputViewBaseStyleModel.placeholder) ? self.titleStr_1 : self.doorInputViewBaseStyleModel.placeholder);
-
     self.zyTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
-
     self.zyTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
-
     self.zyTextField.byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance);
-
     self.zyTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
-
     self.zyTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
     self.zyTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
     self.zyTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量
@@ -97,9 +91,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         self.userInteractionEnabled = YES;
         self.doorInputViewBaseStyleModel = doorInputViewBaseStyleModel ? : JobsAppDoorInputViewBaseStyleModel.new;
         self.titleLab.byAlpha(1);
-
         self.zyTextField.byAlpha(1);
-
         [self configTextField];
     };
 }
@@ -115,21 +107,22 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 @synthesize zyTextField = _zyTextField;
 -(ZYTextField *)zyTextField{
     if (!_zyTextField) {
-        _zyTextField = ZYTextField.new;
-        _zyTextField.byDelegate(self);
-
-        @jobs_weakify(self)
-        [_zyTextField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
-            @jobs_strongify(self)
-            return self.retBoolByIDBlock ? self.retBoolByIDBlock(data) : YES;
-        } subscribeNextBlock:^(id _Nullable x) {
-            @jobs_strongify(self)
-            [self block:self->_zyTextField value:x];
-        }];
-        _zyTextField.addOn(self).byAdd(^(MASConstraintMaker *make) {
-            make.left.equalTo(self);
-            make.top.bottom.equalTo(self);
-            make.size.mas_equalTo(inputSize_02());
+        _zyTextField = jobsMakeZYTextField(^(ZYTextField * _Nullable textField) {
+            textField
+                .byDelegate(self)
+                .addOn(self).byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self);
+                    make.top.bottom.equalTo(self);
+                    make.size.mas_equalTo(inputSize_02());
+                });
+            @jobs_weakify(self)
+            [_zyTextField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
+                @jobs_strongify(self)
+                return self.retBoolByIDBlock ? self.retBoolByIDBlock(data) : YES;
+            } subscribeNextBlock:^(id _Nullable x) {
+                @jobs_strongify(self)
+                [self block:self->_zyTextField value:x];
+            }];
         });
     };return _zyTextField;
 }

@@ -60,15 +60,10 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     _magicTextField.leftView = leftView;
     _magicTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
     _magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
-
     _magicTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
-
     _magicTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
-
     _magicTextField.byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance);
-
     _magicTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
-
     _magicTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
     _magicTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
     _magicTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量
@@ -163,7 +158,12 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         @jobs_weakify(self)
         _magicTextField = jobsMakeMagicTextField(^(__kindof JobsMagicTextField * _Nullable textField) {
             @jobs_strongify(self)
-            textField.byDelegate(self);
+            textField.byDelegate(self)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.left.bottom.equalTo(self);
+//                    make.right.equalTo(self.countDownBtn.mas_left);
+            });
 
             [textField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
                 @jobs_strongify(self)
@@ -173,10 +173,6 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 JobsLog(@"MMM = %@",x);
                 [self block:textField value:x];
             }];
-            textField.addOn(self).byAdd(^(MASConstraintMaker *make) {
-                make.top.left.bottom.equalTo(self);
-    //            make.right.equalTo(self.countDownBtn.mas_left);
-            });
         });
     };return _magicTextField;
 }

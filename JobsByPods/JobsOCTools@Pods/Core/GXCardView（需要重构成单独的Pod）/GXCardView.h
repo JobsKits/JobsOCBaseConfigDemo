@@ -16,17 +16,17 @@
 #import "JobsDefines.h"
 #endif
 
-typedef NS_ENUM(NSInteger,GXCardCellSwipeDirection) {
-    GXCardCellSwipeDirectionNone = 0,
-    GXCardCellSwipeDirectionLeft,
-    GXCardCellSwipeDirectionRight,
-};
-
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
 #endif
+
+typedef NS_ENUM(NSInteger,GXCardCellSwipeDirection) {
+    GXCardCellSwipeDirectionNone = 0,
+    GXCardCellSwipeDirectionLeft,
+    GXCardCellSwipeDirectionRight,
+};
 
 NS_ASSUME_NONNULL_BEGIN
 

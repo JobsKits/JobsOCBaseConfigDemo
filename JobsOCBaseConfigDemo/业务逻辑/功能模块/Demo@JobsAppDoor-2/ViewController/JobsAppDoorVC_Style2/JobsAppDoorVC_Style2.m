@@ -400,8 +400,9 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
 -(UIImageView *)bgImgV{
     if (!_bgImgV) {
         _bgImgV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-            imageView.image = @"AppDoorBgImage".img;
-            imageView.userInteractionEnabled = YES;
+            imageView
+                .byImage(@"AppDoorBgImage".img)
+                .byUserInteractionEnabled(YES);
         });
     };return _bgImgV;
 }

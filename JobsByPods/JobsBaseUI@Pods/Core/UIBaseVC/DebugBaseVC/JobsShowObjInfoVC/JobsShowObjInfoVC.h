@@ -13,6 +13,11 @@
 #import <JobsBaseUI/BaseViewController.h>
 #import <JobsBaseUI/JobsBaseTableViewCell.h>
 #import <JobsBaseUI/BaseTableView.h>
+#import <JobsBaseUI/UITableView+Extra.h>
+#import <JobsBaseUI/NSObject+Extra.h>
+#import <JobsBaseUI/NSString+Toast.h>
+#import <JobsBaseUI/UIViewController+MJRefresh.h>
+#import <JobsBaseUI/NSObject+Extra.h>
 
 #if __has_include(<JobsModelDSL/JobsModelDSL.h>)
 #import <JobsModelDSL/JobsModelDSL.h>

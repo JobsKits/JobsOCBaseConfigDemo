@@ -11,10 +11,10 @@
 
 @interface JobsAppDoorForgotCodeContentView ()
 /// UI
-Prop_strong()UILabel *titleLab;// 标题
-Prop_strong()BaseButton *backToLoginBtn;// 返回登录
+Prop_strong()UILabel *titleLab;                    // 标题
+Prop_strong()BaseButton *backToLoginBtn;           // 返回登录
 Prop_strong()BaseButton *contactCustomerServiceBtn;// 联系客服按钮
-Prop_strong()UILabel *subTitleLab;// 副标题
+Prop_strong()UILabel *subTitleLab;                 // 副标题
 Prop_strong()JobsHotLabelBySingleLine *hl;
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*hotLabelDataMutArr;
@@ -106,7 +106,8 @@ Prop_strong()NSMutableArray <UIViewModel *>*hotLabelDataMutArr;
                 JobsLog(@"");
             })
             .byAlpha(0.7f)
-            .addOn(self).byAdd(^(MASConstraintMaker *make) {
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.top.right.bottom.equalTo(self);
                 make.width.mas_equalTo(btnWidth);
             });
@@ -128,7 +129,8 @@ Prop_strong()NSMutableArray <UIViewModel *>*hotLabelDataMutArr;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
-            .addOn(self).byAdd(^(MASConstraintMaker *make) {
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(230), JobsWidth(50)));
                 make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(15));
                 make.centerX.equalTo(self.titleLab);

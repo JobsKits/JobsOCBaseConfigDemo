@@ -14,6 +14,12 @@
 #import <JobsOCTools/JobsAppDoorContentView.h>
 #import <JobsOCTools/JobsAppDoorConfig.h>
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 #pragma mark —— ZFPlayer 播放器相关
 //Core
 #if __has_include(<ZFPlayer/ZFPlayer.h>)

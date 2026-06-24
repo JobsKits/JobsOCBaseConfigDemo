@@ -213,11 +213,14 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
         @jobs_weakify(self)
         _arrow = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.tintColor = UIColor.systemBlueColor;
-            imageView.image = [UIImage systemImageNamed:@"chevron.right" withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:18 weight:UIImageSymbolWeightBold]];
-            imageView.addOn(self.thumbView).byAdd(^(MASConstraintMaker *make) {
-                make.center.equalTo(self.thumbView);
-            });
+            imageView
+                .byImage([UIImage systemImageNamed:@"chevron.right"
+                                 withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:18 weight:UIImageSymbolWeightBold]])
+                .byTintColor(UIColor.systemBlueColor)
+                .addOn(self.thumbView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.center.equalTo(self.thumbView);
+                });
 
         });
     };return _arrow;

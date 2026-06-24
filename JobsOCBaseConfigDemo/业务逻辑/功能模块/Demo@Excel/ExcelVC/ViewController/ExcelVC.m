@@ -222,12 +222,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byRegisterTableViewClass(@"")
                 .byMJRefreshHeader([MJRefreshNormalHeader headerWithRefreshingBlock:^{
                     @jobs_strongify(self)
-                    NSObject.feedbackGenerator(nil);/// 震动反馈
+                    NSObject.feedbackGenerator(nil);// 震动反馈
                     self->_tableView.endRefreshing(YES);
                 }].byMJRefreshHeaderConfigModel(self.mjHeaderDefaultConfig))
                 .byMJRefreshFooter([MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
                     @jobs_strongify(self)
-                    NSObject.feedbackGenerator(nil);/// 震动反馈
+                    NSObject.feedbackGenerator(nil);// 震动反馈
                     self->_tableView.endRefreshing(YES);
                 }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
                 .bySeparatorColor(HEXCOLOR(0xEEE2C8))
@@ -277,7 +277,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             @jobs_strongify(self)
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data1) {
                 @jobs_strongify(self)
-                data.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                data1.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                     model.byTitle(@"ZMJClassData".tr)
                          .bySubTitle(@"正常".tr)
                          .byCls(ZMJClassDataVC.class);
@@ -298,11 +298,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                          .byCls(ZMJGanttListVC.class);
                 })));
             }));
-            data.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsExcel".tr)
-                     .bySubTitle(@"JobsExcel".tr)
-                     .byCls(JobsExcelVC.class);
-            })));
+            data.add(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data1) {
+                @jobs_strongify(self)
+                data1.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                    model.byTitle(@"JobsExcel".tr)
+                         .bySubTitle(@"JobsExcel".tr)
+                         .byCls(JobsExcelVC.class);
+                })));
+            }));
         });
     };return _dataMutArr;
 }

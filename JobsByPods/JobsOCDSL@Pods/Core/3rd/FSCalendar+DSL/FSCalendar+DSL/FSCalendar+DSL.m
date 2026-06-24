@@ -40,7 +40,9 @@
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(NSTimeZone * _Nullable data){
         @jobs_strongify(self)
-        self.timeZone = data;
+        if ([self respondsToSelector:NSSelectorFromString(@"setTimeZone:")]) {
+            [self setValue:data forKey:@"timeZone"];
+        }
         return self;
     };
 }

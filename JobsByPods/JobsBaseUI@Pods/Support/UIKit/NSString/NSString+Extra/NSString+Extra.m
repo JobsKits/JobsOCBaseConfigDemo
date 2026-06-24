@@ -90,7 +90,7 @@
 #pragma mark —— 动画相关
 /// 创建CABasicAnimation
 -(CABasicAnimation *)basicAnimation{
-    return [CABasicAnimation animationWithKeyPath:self];
+    return jobsMakeCABasicAnimationBy(self);
 }
 /// 创建CAKeyframeAnimation（关键帧动画）
 -(CAKeyframeAnimation *)keyframeAnimation{
@@ -108,7 +108,7 @@
 }
 
 -(CABasicAnimation *)makeCABasicAnimationByBlock:(jobsByCABasicAnimationBlock _Nonnull)block{
-    CABasicAnimation *animation = self.basicAnimation;
+    CABasicAnimation *animation = jobsMakeCABasicAnimationBy(self);
     if(block) block(animation);
     return animation;
 }

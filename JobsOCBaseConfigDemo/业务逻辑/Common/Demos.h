@@ -55,6 +55,7 @@
 #import "LocalNotificationsVC.h"
 #import "ExcelVC.h"
 #import "JobsViewNavigatorTestVC.h"
+#import "JobsViewPushDemoVC.h"
 #import "CompressStrVC.h"
 #import "AppIconSwitchingVC.h"
 #import "PeekAndPopVC.h"

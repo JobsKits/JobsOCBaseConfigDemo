@@ -26,6 +26,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButton (DSL)
 
+/// 设置普通状态标题。
+-(JobsRetBtnByStringBlock _Nonnull)byTitle;
+/// 设置普通状态标题颜色。
+-(JobsRetBtnByCorBlock _Nonnull)byTitleCor;
+/// 设置标题字体。
+-(JobsRetBtnByFontBlock _Nonnull)byTitleFont;
 /// 回调 UIButton 原生 titleLabel，便于继续使用 UILabel+DSL。
 -(JobsRetBtnByLabelBlock _Nonnull)byTitleLabel;
 /// 回调 BaseButton 等子类可能持有的 subtitleLabel。不存在时回调 nil，不中断链式调用。

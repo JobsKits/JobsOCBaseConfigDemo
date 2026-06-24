@@ -39,10 +39,12 @@ static dispatch_once_t JobsAppDoorLogoContentViewDispatchOnce;
         @jobs_weakify(self)
         _mainImgV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = @"AppDoorLogo".img;
-            imageView.addOn(self).byAdd(^(MASConstraintMaker *make) {
-                make.edges.equalTo(self);
-            });
+            imageView
+                .byImage(@"AppDoorLogo".img)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                });
         });
     };return _mainImgV;
 }

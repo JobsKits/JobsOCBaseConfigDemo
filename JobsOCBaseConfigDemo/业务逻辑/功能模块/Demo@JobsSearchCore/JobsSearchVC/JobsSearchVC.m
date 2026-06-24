@@ -389,31 +389,30 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         /// 否则viewForHeaderInSection 和 tableHeaderView 之间会有一段距离
         _tableView = jobsMakeBaseTableViewByGrouped(^(__kindof BaseTableView * _Nullable tableView) {
             @jobs_strongify(self)
-            tableView.byDelegate(self)
+            tableView
+                .byDelegate(self)
                 .byDataSource(self)
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
-                .byShowsVerticalScrollIndicator(NO);
-            tableView.byBgColor(self.bgColour);
-            tableView.byTableHeaderView(self.jobsSearchBar);/// 这里接入的就是一个UIView的派生类
-            tableView.byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
-                /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
-            }));
+                .byTableHeaderView(self.jobsSearchBar)/// 这里接入的就是一个UIView的派生类
+                .byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+                    /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
+                }))
+                .byShowsVerticalScrollIndicator(NO)
+                .byBgColor(self.bgColour);
             tableView.ww_foldable = YES;//设置可折叠
             [tableView registerTableViewClass];
-
-            {
-                tableView.byMJRefreshHeader(self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
+            tableView
+                .byMJRefreshHeader(self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
                     NSObject.feedbackGenerator(nil);//震动反馈
                     tableView.endRefreshing(YES);
     //                self.endRefreshingWithNoMoreData(self->_tableView);
                     return nil;
-                }]));
-                tableView.byMJRefreshFooter(self.view.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
+                }]))
+                .byMJRefreshFooter(self.view.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
 //                    @jobs_strongify(self)
                     tableView.endRefreshing(YES);
                     return nil;
                 }]));
-            }
             [tableView actionObjBlock:^(id data) {
                 @jobs_strongify(self)
                 [self endDropDownListView];

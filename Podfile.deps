@@ -211,6 +211,7 @@ def byJobsDo
   pod 'JobsCryptography',             :path => './JobsByPods/JobsCryptography@Pods'
   pod 'JobsNetWorkTools',             :path => './JobsByPods/JobsNetWorkTools@Pods'
   pod 'JobsViewNavigator',            :path => './JobsByPods/JobsViewNavigator@Pods'
+  pod 'JobsViewPush',                 :path => './JobsByPods/JobsViewPush@Pods'
   pod 'BRPickerViewExtra',            :path => './JobsByPods/BRPickerViewExtra@Pods'
   pod 'JobsRichTextUtils',            :path => './JobsByPods/JobsRichTextUtils@Pods'
   pod 'JobsOCRuntimeKits',            :path => './JobsByPods/JobsOCRuntimeKits@Pods'
@@ -225,6 +226,8 @@ def byJobsDo
   pod 'SYSAlertControllerExtra',      :path => './JobsByPods/SYSAlertControllerExtra@Pods'
   pod 'JobsUploadingProgressView',    :path => './JobsByPods/JobsUploadingProgressView@Pods'
   pod 'JobsNavigationTransitionMgr',  :path => './JobsByPods/JobsNavigationTransitionMgr@Pods'
+  pod 'JobsFuseAnimation',            :path => './JobsByPods/JobsFuseAnimation@Pods'
+  pod 'JobsOCSplash',                 :path => './JobsByPods/JobsOCSplash@Pods'
 
   pod 'ZFPlayerExtra',                :path => './JobsByPods/ZFPlayerExtra@Pods'
   pod 'HTMLDocumentExtra',            :path => './JobsByPods/HTMLDocumentExtra@Pods'

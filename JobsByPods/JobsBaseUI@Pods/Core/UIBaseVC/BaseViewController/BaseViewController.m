@@ -124,10 +124,11 @@ BaseViewControllerProtocol_synthesize
         @jobs_weakify(self)
         _bgImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
+            imageView
+                .byImage(self.viewModel.bgImage)
+                .byUserInteractionEnabled(YES);
             imageView.resetOrigin(CGPointMake(self.view.x, self.view.y));
-            imageView.resetSize(CGSizeMake(JobsRealWidth(),JobsRealHeight()));
-            imageView.image = self.viewModel.bgImage;
-            imageView.userInteractionEnabled = YES;
+            imageView.resetSize(CGSizeMake(JobsRealWidth(), JobsRealHeight()));
     //        self.view = _bgImageView; // 如果用UIImageView来替换原本的View，有时候会出现一些错误
             [self.view insertSubview:imageView atIndex:0];
         });

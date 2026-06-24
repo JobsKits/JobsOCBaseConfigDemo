@@ -8,11 +8,12 @@
 
 ## 🔥 <font id=前言>前言</font>
 
-`codegraph_init.command` 用于在 `pod install` 收尾阶段按需完成 CodeGraph 初始化 / 同步，并调用 `codegraph_export_md.command` 导出深度 [**Markdown**](https://markdown.cn) / [**Mermaid**](https://mermaid.js.org) 项目关系图谱。
+`codegraph_init.command` 用于在 `pod install` 收尾阶段完成 CodeGraph 初始化 / 同步，并调用 `codegraph_export_md.command` 导出深度 [**Markdown**](https://markdown.cn) / [**Mermaid**](https://mermaid.js.org) 项目关系图谱。
 
-这版重点解决两个问题：
+这版重点解决三个问题：
 
-- 导出慢时不再像“卡住”，而是前台等待并定时打印心跳和最近日志。
+- `pod install` 进入 CodeGraph 阶段后只负责启动后台任务，不再等待索引和导出完成。
+- 后台流程内会定时记录导出心跳和最近日志，方便排查长时间任务。
 - 默认不再硬筛 `calls,extends,implements`，而是交给导出脚本根据数据库实际 `edge kind` 自动生成有内容的报告。
 
 ---
@@ -21,9 +22,9 @@
 
 ```mermaid
 flowchart TD
-  A[pod install 收尾阶段] --> B{是否执行 CodeGraph}
-  B -->|输入 n/no/skip| C[跳过]
-  B -->|直接回车| D[检查 Homebrew]
+  A[pod install 收尾阶段] --> B[启动 CodeGraph 后台任务]
+  B --> C[pod install 结束]
+  B --> D[检查 Homebrew]
   D --> E[检查 npm]
   E --> F[检查 CodeGraph]
   F --> G{是否存在 .codegraph/codegraph.db}
@@ -34,7 +35,7 @@ flowchart TD
   H --> K[深度 Markdown 导出]
   I --> K
   J --> K
-  K --> L[前台心跳 / 后台可选]
+  K --> L[后台记录心跳]
   L --> M[输出 .codegraph/codegraph.md]
 ```
 
@@ -55,29 +56,19 @@ flowchart TD
   pod install
   ```
 
-- 非交互式强制执行：
+- `pod install` 只会输出后台 PID 和日志路径，不会等待 CodeGraph 完成。重复执行时，如果上一个后台任务仍在运行，不会再启动第二个。
+
+- 查看后台进度：
 
   ```shell
-  CODEGRAPH_AUTO_INIT=1 pod install
-  ```
-
-- 后台导出，不阻塞 `pod install`：
-
-  ```shell
-  CODEGRAPH_EXPORT_ASYNC=1 pod install
-  ```
-
-- 查看后台导出进度：
-
-  ```shell
-  tail -f /tmp/codegraph_export_md.async.log
+  tail -f /tmp/codegraph_init.async.log
   ```
 
 ---
 
-## 三、等待与心跳 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 三、后台心跳 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-默认是前台等待，不设置超时，并每 `10s` 输出一次：
+CodeGraph 后台流程默认不设置超时，并每 `10s` 将心跳写入日志：
 
 ```text
 CodeGraph Markdown 深度导出仍在运行：30s；PID=xxx；日志=/tmp/codegraph_export_md.log
@@ -124,6 +115,7 @@ CodeGraph Markdown 深度导出仍在运行：30s；PID=xxx；日志=/tmp/codegr
 
 | 日志 | 说明 |
 | --- | --- |
+| `/tmp/codegraph_init.async.log` | `pod install` 启动的完整后台流程日志 |
 | `/tmp/codegraph_init.log` | 初始化 / 同步 / 调度日志 |
 | `/tmp/codegraph_export_md.log` | 前台导出日志 |
 | `/tmp/codegraph_export_md.async.log` | 后台导出日志 |

@@ -47,12 +47,13 @@ static dispatch_once_t dispatchOnce;
         @jobs_weakify(self)
         _imageView = jobsMakeImageView(^(__kindof UIImageView *_Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = self.pauseImage;
-            imageView.animationImages = (NSArray *)self.gifMutArr; // 动画图片数组
-            imageView.animationDuration = self.duration;
-            imageView.animationRepeatCount = 0; // 动画重复次数，无限循环
-            imageView.byFrame(self.bounds);
-            imageView.addOn(self);
+            imageView
+                .byImage(self.pauseImage)
+                .byAnimationImages((NSArray *)self.gifMutArr) // 动画图片数组
+                .byAnimationDuration(self.duration)
+                .byAnimationRepeatCount(0) // 动画重复次数，无限循环
+                .byFrame(self.bounds)
+                .addOn(self);
         });
     }return _imageView;
 }

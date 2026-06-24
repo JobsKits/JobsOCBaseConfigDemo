@@ -25,7 +25,6 @@ Prop_strong()CABasicAnimation *animation;
 -(void)drawRect:(CGRect)rect{
     [self.layer addSublayer:self.shapeLayer];
     self.label.byAlpha(1);
-
     self.addGesture([jobsMakeTapGesture(^(UITapGestureRecognizer * _Nullable gesture) {
         ///  这里写手势的配置
     }) gestureActionBy:^{
@@ -58,10 +57,10 @@ Prop_strong()CABasicAnimation *animation;
 }
 
 -(void)setTextColor:(UIColor *)textColor{
-    self.label.textColor = textColor ? : [UIColor colorWithRed:0.27f
-                                                         green:0.27f
-                                                          blue:0.27f
-                                                         alpha:1.00f];
+    self.label.byTextCor(textColor ? : [UIColor colorWithRed:0.27f
+                                                       green:0.27f
+                                                        blue:0.27f
+                                                       alpha:1.00f]);
 }
 #pragma mark —— lazyLoad
 -(CAShapeLayer *)shapeLayer{
@@ -91,12 +90,13 @@ Prop_strong()CABasicAnimation *animation;
 
 -(CABasicAnimation *)animation{
     if (!_animation) {
-        _animation = @"strokeStart".basicAnimation;
-        _animation.duration = self.time;
-        _animation.fromValue = @(0.f);
-        _animation.toValue = @(1.f);
-        _animation.removedOnCompletion = NO;
-        _animation.fillMode = kCAFillModeBoth;
+        _animation = jobsMakeCABasicAnimationBy(@"strokeStart");
+        _animation
+            .byFromValue(@(0.f))
+            .byToValue(@(1.f))
+            .byDuration(self.time)
+            .byRemovedOnCompletion(NO)
+            .byFillMode(kCAFillModeBoth);
     };return _animation;
 }
 @synthesize label = _label;

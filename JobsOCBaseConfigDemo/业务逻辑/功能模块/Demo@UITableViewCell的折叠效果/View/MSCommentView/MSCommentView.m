@@ -185,36 +185,35 @@ willDisplayHeaderView:(UIView *)view
     if (!_tableView) {
         @jobs_weakify(self)
         _tableView = jobsMakeBaseTableViewByGrouped(^(__kindof BaseTableView * _Nullable tableView) {
-            tableView.ww_foldable = YES;
-            tableView.dataLink(self);
-            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+            tableView
+                .dataLink(self)
+                .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .bySeparatorColor(HEXCOLOR(0xEEE2C8))
+                .byTableHeaderView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+                    /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
+                }))
+                .byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+                    /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
+                }))
                 .byShowsVerticalScrollIndicator(NO)
-                .byScrollEnabled(YES);
-            tableView.byBgColor(@"#FFFFFF".cor);
-            tableView.byTableHeaderView(jobsMakeView(^(__kindof UIView * _Nullable view) {
-                /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
-            }));
-            tableView.byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
-                /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
-            }));
+                .byScrollEnabled(YES)
+                .byMJRefreshHeader(self.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
+                    @jobs_strongify(self)
+                    NSObject.feedbackGenerator(nil);//震动反馈
+                    return nil;
+                }]))
+                .byMJRefreshFooter(self.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
+                    @jobs_strongify(self)
+                    tableView.endRefreshing(YES);
+                    return nil;
+                }]))
+                .byBgColor(@"#FFFFFF".cor);
+            tableView.ww_foldable = YES;
             tableView.registerHeaderFooterViewClass(MSCommentTableHeaderFooterView.class,@"");
             if(@available(iOS 11.0, *)) {
                 tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             }
-            
-            {
-                tableView.byMJRefreshHeader(self.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
-                    @jobs_strongify(self)
-                    NSObject.feedbackGenerator(nil);//震动反馈
-                    return nil;
-                }]));
-                tableView.byMJRefreshFooter(self.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
-                    @jobs_strongify(self)
-                    tableView.endRefreshing(YES);
-                    return nil;
-                }]));tableView.mj_footer.hidden = NO;
-            }
+            tableView.mj_footer.hidden = NO;
     //        {// 设置tabAnimated相关属性
     //            _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:JobsBaseTableViewCell.class
     //                                                                  cellHeight:JobsBaseTableViewCell.cellHeightByModel(nil)];
@@ -226,8 +225,8 @@ willDisplayHeaderView:(UIView *)view
     //        }
             tableView.addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
-                make.edges.equalTo(self);
-            });
+                    make.edges.equalTo(self);
+                });
         });
     };return _tableView;
 }

@@ -44,7 +44,6 @@
 #import <JobsOCTools/JobsCustomTabBarButton.h>
 #import <JobsOCTools/JobsCustomTabBarConfig.h>
 #import <JobsOCTools/JobsCustomTabBarVC.h>
-#import <JobsOCTools/JobsLaunchVC.h>
 #import <JobsOCTools/JobsMakeLocalNotification.h>
 #import <JobsOCTools/JobsNoticePopupView.h>
 #import <JobsOCTools/JobsPageTBVCell.h>

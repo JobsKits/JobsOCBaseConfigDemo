@@ -49,23 +49,20 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     }
     self.magicTextField.background = self.doorInputViewBaseStyleModel.background;
     self.magicTextField.byBgColor(self.doorInputViewBaseStyleModel.backgroundColor);
-
     self.magicTextField.disabledBackground = self.doorInputViewBaseStyleModel.disabledBackground;
     self.magicTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
 
-    UIImageView *leftView = [UIImageView.alloc initWithImage:self.doorInputViewBaseStyleModel.leftViewIMG];
-    leftView.frame = CGRectMake(0, 0, JobsWidth(20), JobsWidth(20));
-    leftView.contentMode = UIViewContentModeScaleAspectFit;
-    self.magicTextField.leftView = leftView;
+    self.magicTextField.leftView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+        imageView
+            .byImage(self.doorInputViewBaseStyleModel.leftViewIMG)
+            .byContentMode(UIViewContentModeScaleAspectFit)
+            .byFrame(CGRectMake(0, 0, JobsWidth(20), JobsWidth(20)));
+    });
     self.magicTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
     self.magicTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
-
     self.magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
-
     self.magicTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
-
     self.magicTextField.byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance);
-
     self.magicTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
     self.magicTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
     self.magicTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量
@@ -78,7 +75,6 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     self.magicTextField.moveDistance = self.doorInputViewBaseStyleModel.moveDistance ? : JobsWidth(35);
     self.magicTextField.placeHolderOffset = self.doorInputViewBaseStyleModel.placeHolderOffset ? : JobsWidth(20);
     self.magicTextField.fieldEditorOffset = self.doorInputViewBaseStyleModel.fieldEditorOffset ? : JobsWidth(50);
-    
     self.textFieldInputModel.PlaceHolder = self.magicTextField.placeholder;
 }
 

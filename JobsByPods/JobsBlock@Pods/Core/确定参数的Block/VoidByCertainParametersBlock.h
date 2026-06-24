@@ -18,11 +18,13 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
 typedef void(^jobsByVoidBlock)(void);
+typedef jobsByVoidBlock JobsViewPushCompletionBlock;
 typedef void(^jobsByIDBlock)(id _Nullable data);
 typedef void(^jobsBySELBlock)(SEL _Nullable data);
 typedef void(^jobsByClsBlock)(Class _Nonnull cls);
 #pragma mark —— 关于错误
 typedef void(^jobsByErrBlock)(NSError *_Nullable error);
+typedef void(^JobsOCSplashMediaCacheCompletion)(NSURL *_Nullable fileURL, NSError *_Nullable error);
 #pragma mark —— 关于 UIControl
 typedef void(^jobsByCtrlBlock)(__kindof UIControl *_Nullable ctrl);
 #pragma mark —— 关于CALayer
@@ -83,6 +85,9 @@ typedef void(^jobsByViewAndDataBlock)(Jobs_ByViewAndDataBlock_Arguments);
 typedef void(^jobsByView2Block)(Jobs_ByView2Block_Arguments);
 #pragma mark —— 关于 控制器
 typedef void(^jobsByVCBlock)(__kindof UIViewController *_Nullable viewCtrl);
+@class JobsOCSplashVC;
+typedef void(^JobsOCSplashActionBlock)(__kindof JobsOCSplashVC *_Nullable splashVC);
+typedef jobsByVCBlock JobsOCSplashSkipBlock;
 typedef void(^jobsByMenuCtrlBlock)(__kindof UIMenuController *_Nullable menuCtrl);
 typedef void(^jobsByMenuItemBlock)(__kindof UIMenuItem *_Nullable menuItem);
 typedef void(^jobsByImagePickerCtrlBlock)(__kindof UIImagePickerController *_Nullable imagePickerController);

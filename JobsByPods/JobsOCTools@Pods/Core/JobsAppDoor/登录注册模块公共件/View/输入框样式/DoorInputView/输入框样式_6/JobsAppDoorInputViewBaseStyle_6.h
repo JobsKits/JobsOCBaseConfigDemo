@@ -13,6 +13,12 @@
 #import <JobsOCTools/JobsAppDoorInputViewBaseStyle.h>
 #import <JobsOCTools/JobsOCTools.h>
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else

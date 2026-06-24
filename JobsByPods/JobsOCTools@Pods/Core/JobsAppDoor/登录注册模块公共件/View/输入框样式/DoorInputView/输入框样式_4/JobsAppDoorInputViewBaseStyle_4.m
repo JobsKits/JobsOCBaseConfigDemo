@@ -43,21 +43,18 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 }
 #pragma mark —— 一些私有方法
 -(void)configTextField{
-    UIImageView *leftView = [UIImageView.alloc initWithImage:self.doorInputViewBaseStyleModel.leftViewIMG];
-    leftView.frame = CGRectMake(0, 0, JobsWidth(20), JobsWidth(20));
-    leftView.contentMode = UIViewContentModeScaleAspectFit;
-    self.magicTextField.leftView = leftView;
+    self.magicTextField.leftView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+        imageView
+            .byImage(self.doorInputViewBaseStyleModel.leftViewIMG)
+            .byContentMode(UIViewContentModeScaleAspectFit)
+            .byFrame(CGRectMake(0, 0, JobsWidth(20), JobsWidth(20)));
+    });
     self.magicTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
     self.magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
-
     self.magicTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
-
     self.magicTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
-
     self.magicTextField.byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance);
-
     self.magicTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
-
     self.magicTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
     self.magicTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
     self.magicTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量
@@ -74,12 +71,9 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 
 -(void)block:(JobsMagicTextField *)textField
        value:(NSString *)value{
-    
     self.textFieldInputModel.resString = value;
     self.textFieldInputModel.PlaceHolder = self.doorInputViewBaseStyleModel.placeholder;
-
     textField.requestParams = self.textFieldInputModel;
-    
     if (self.objBlock) self.objBlock(textField);// 对外统一传出TF
 }
 #pragma mark —— UITextFieldDelegate
@@ -124,7 +118,6 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         _imageCodeView = ImageCodeView.new;
         _imageCodeView.font = JobsFontRegular(16);
         _imageCodeView.byAlpha(0.7);
-
         _imageCodeView.bgColor = JobsWhiteColor;
         _imageCodeView.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(JobsWidth(5));
@@ -141,7 +134,13 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         @jobs_weakify(self)
         _magicTextField = jobsMakeMagicTextField(^(__kindof JobsMagicTextField * _Nullable textField) {
             @jobs_strongify(self)
-            textField.byDelegate(self);
+            textField
+                .byDelegate(self)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.top.bottom.equalTo(self);
+                    make.right.equalTo(self.imageCodeView.mas_left);
+                });
 
             [textField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
                 @jobs_strongify(self)
@@ -151,10 +150,6 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 JobsLog(@"MMM = %@",x);
                 [self block:textField value:x];
             }];
-            textField.addOn(self).byAdd(^(MASConstraintMaker *make) {
-                make.left.top.bottom.equalTo(self);
-                make.right.equalTo(self.imageCodeView.mas_left);
-            });
         });
     };return _magicTextField;
 }

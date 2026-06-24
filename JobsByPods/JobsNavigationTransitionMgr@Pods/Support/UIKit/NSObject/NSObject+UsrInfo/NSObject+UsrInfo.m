@@ -27,7 +27,7 @@
 }
 /// 读取用户信息【用户信息】/【JobsUserModel】
 -(JobsUserModel <NSCoding>*_Nullable)readUserInfo{
-    return self.jobsReadUserInfo(用户信息);
+    return self.readUserInfoByUserName(JobsUserModel.class,用户信息);
 }
 /// 保存用户数据
 -(jobsByIDAndKeyBlock _Nonnull)jobsSaveUserInfo{

@@ -9,6 +9,33 @@
 
 @implementation UIButton (DSL)
 
+-(JobsRetBtnByStringBlock _Nonnull)byTitle{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(__kindof NSString *_Nullable data){
+        @jobs_strongify(self)
+        [self setTitle:data forState:UIControlStateNormal];
+        return self;
+    };
+}
+
+-(JobsRetBtnByCorBlock _Nonnull)byTitleCor{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(UIColor *_Nonnull cor){
+        @jobs_strongify(self)
+        [self setTitleColor:cor forState:UIControlStateNormal];
+        return self;
+    };
+}
+
+-(JobsRetBtnByFontBlock _Nonnull)byTitleFont{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(UIFont *_Nullable data){
+        @jobs_strongify(self)
+        self.titleLabel.font = data;
+        return self;
+    };
+}
+
 -(JobsRetBtnByLabelBlock _Nonnull)byTitleLabel{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(jobsByLabelBlock _Nullable block){
