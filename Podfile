@@ -52,7 +52,7 @@ def run_podspec_dependency_report_script
   Pod::UI.puts "[PodspecDependencyReport] ✅ 依赖关系报告已生成"
 end
 
-# ===== CodeGraph: pod install 完成后按需生成 CodeGraph 索引 =====
+# ===== CodeGraph: pod install 完成后在后台生成 CodeGraph 索引 =====
 def run_codegraph_init_script
   script_name = 'codegraph_init.command'
   script_path = scripts_by_pods_script_path(script_name)
@@ -68,10 +68,43 @@ def run_codegraph_init_script
     return
   end
 
-  Pod::UI.puts "[CodeGraph] pod install 已进入收尾阶段，准备按需生成 CodeGraph"
-  unless system(script_path, chdir: __dir__)
-    Pod::UI.puts "[CodeGraph] ⚠️ CodeGraph 脚本执行失败或被中断；pod install 主流程已完成" if defined?(Pod::UI)
+  async_log = '/tmp/codegraph_init.async.log'
+  pid_dir = File.join(__dir__, '.codegraph')
+  pid_path = File.join(pid_dir, 'codegraph_init.pid')
+  existing_pid = Integer(File.read(pid_path).strip, exception: false) if File.file?(pid_path)
+
+  if existing_pid
+    begin
+      Process.kill(0, existing_pid)
+      Pod::UI.puts "[CodeGraph] 后台同步已在运行，PID=#{existing_pid}；pod install 直接结束" if defined?(Pod::UI)
+      return
+    rescue Errno::ESRCH
+      # PID 文件可以留存，进程不存在时直接启动新任务。
+    rescue Errno::EPERM
+      Pod::UI.puts "[CodeGraph] 后台同步已在运行，PID=#{existing_pid}；pod install 直接结束" if defined?(Pod::UI)
+      return
+    end
   end
+
+  FileUtils.mkdir_p(pid_dir)
+  log_io = File.open(async_log, 'w')
+  pid = Process.spawn(
+    { 'CODEGRAPH_AUTO_INIT' => '1', 'CODEGRAPH_EXPORT_ASYNC' => '0' },
+    script_path,
+    chdir: __dir__,
+    in: File::NULL,
+    out: log_io,
+    err: log_io,
+    pgroup: true
+  )
+  Process.detach(pid)
+  File.write(pid_path, "#{pid}\n")
+  Pod::UI.puts "[CodeGraph] 后台同步已启动，PID=#{pid}，日志=#{async_log}" if defined?(Pod::UI)
+  Pod::UI.puts '[CodeGraph] pod install 主流程已完成，无需等待 CodeGraph' if defined?(Pod::UI)
+rescue => e
+  Pod::UI.puts "[CodeGraph] ⚠️ 后台任务启动失败，已跳过：#{e.message}" if defined?(Pod::UI)
+ensure
+  log_io&.close
 end
 
 def configure_podfile_text_reference(file_ref, name, path)
