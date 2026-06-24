@@ -364,8 +364,7 @@ Prop_assign()BOOL isReadyToPlay;
 - (ZFPlayerView *)view {
     if (!_view) {
         _view = [[ZFPlayerView alloc] init];
-    }
-    return _view;
+    };return _view;
 }
 
 - (float)rate {
@@ -379,8 +378,7 @@ Prop_assign()BOOL isReadyToPlay;
         [_options setPlayerOptionIntValue:1 forKey:@"enable-accurate-seek"];
         /// 解决http播放不了
         [_options setOptionIntValue:1 forKey:@"dns_cache_clear" ofCategory:kIJKFFOptionCategoryFormat];
-    }
-    return _options;
+    };return _options;
 }
 
 #pragma mark - setter

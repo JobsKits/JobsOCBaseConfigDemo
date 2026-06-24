@@ -1882,8 +1882,7 @@ enum GCDAsyncSocketConfig
 		{
 			NSString *msg = @"Attempting to connect without a delegate. Set a delegate first.";
 			*errPtr = [self badConfigError:msg];
-		}
-		return NO;
+		};return NO;
 	}
 	
 	if (delegateQueue == NULL) // Must have delegate queue set
@@ -1892,8 +1891,7 @@ enum GCDAsyncSocketConfig
 		{
 			NSString *msg = @"Attempting to connect without a delegate queue. Set a delegate queue first.";
 			*errPtr = [self badConfigError:msg];
-		}
-		return NO;
+		};return NO;
 	}
 	
 	if (![self isDisconnected]) // Must be disconnected
@@ -1902,8 +1900,7 @@ enum GCDAsyncSocketConfig
 		{
 			NSString *msg = @"Attempting to connect while connected or accepting connections. Disconnect first.";
 			*errPtr = [self badConfigError:msg];
-		}
-		return NO;
+		};return NO;
 	}
 	
 	BOOL isIPv4Disabled = (config & kIPv4Disabled) ? YES : NO;
@@ -1915,8 +1912,7 @@ enum GCDAsyncSocketConfig
 		{
 			NSString *msg = @"Both IPv4 and IPv6 have been disabled. Must enable at least one protocol first.";
 			*errPtr = [self badConfigError:msg];
-		}
-		return NO;
+		};return NO;
 	}
 	
 	if (interface)
@@ -1932,8 +1928,7 @@ enum GCDAsyncSocketConfig
 			{
 				NSString *msg = @"Unknown interface. Specify valid interface by name (e.g. \"en1\") or IP address.";
 				*errPtr = [self badParamError:msg];
-			}
-			return NO;
+			};return NO;
 		}
 		
 		if (isIPv4Disabled && (interface6 == nil))
@@ -1942,8 +1937,7 @@ enum GCDAsyncSocketConfig
 			{
 				NSString *msg = @"IPv4 has been disabled and specified interface doesn't support IPv6.";
 				*errPtr = [self badParamError:msg];
-			}
-			return NO;
+			};return NO;
 		}
 		
 		if (isIPv6Disabled && (interface4 == nil))
@@ -1952,8 +1946,7 @@ enum GCDAsyncSocketConfig
 			{
 				NSString *msg = @"IPv6 has been disabled and specified interface doesn't support IPv4.";
 				*errPtr = [self badParamError:msg];
-			}
-			return NO;
+			};return NO;
 		}
 		
 		connectInterface4 = interface4;
@@ -3253,8 +3246,7 @@ enum GCDAsyncSocketConfig
 	if (getpeername(socketFD, (struct sockaddr *)&sockaddr4, &sockaddr4len) < 0)
 	{
 		return nil;
-	}
-	return [self.class hostFromSockaddr4:&sockaddr4];
+	};return [self.class hostFromSockaddr4:&sockaddr4];
 }
 
 - (NSString *)connectedHostFromSocket6:(int)socketFD
@@ -3265,8 +3257,7 @@ enum GCDAsyncSocketConfig
 	if (getpeername(socketFD, (struct sockaddr *)&sockaddr6, &sockaddr6len) < 0)
 	{
 		return nil;
-	}
-	return [self.class hostFromSockaddr6:&sockaddr6];
+	};return [self.class hostFromSockaddr6:&sockaddr6];
 }
 
 - (uint16_t)connectedPortFromSocket4:(int)socketFD
@@ -3277,8 +3268,7 @@ enum GCDAsyncSocketConfig
 	if (getpeername(socketFD, (struct sockaddr *)&sockaddr4, &sockaddr4len) < 0)
 	{
 		return 0;
-	}
-	return [self.class portFromSockaddr4:&sockaddr4];
+	};return [self.class portFromSockaddr4:&sockaddr4];
 }
 
 - (uint16_t)connectedPortFromSocket6:(int)socketFD
@@ -3289,8 +3279,7 @@ enum GCDAsyncSocketConfig
 	if (getpeername(socketFD, (struct sockaddr *)&sockaddr6, &sockaddr6len) < 0)
 	{
 		return 0;
-	}
-	return [self.class portFromSockaddr6:&sockaddr6];
+	};return [self.class portFromSockaddr6:&sockaddr6];
 }
 
 - (NSString *)localHostFromSocket4:(int)socketFD
@@ -3301,8 +3290,7 @@ enum GCDAsyncSocketConfig
 	if (getsockname(socketFD, (struct sockaddr *)&sockaddr4, &sockaddr4len) < 0)
 	{
 		return nil;
-	}
-	return [self.class hostFromSockaddr4:&sockaddr4];
+	};return [self.class hostFromSockaddr4:&sockaddr4];
 }
 
 - (NSString *)localHostFromSocket6:(int)socketFD
@@ -3313,8 +3301,7 @@ enum GCDAsyncSocketConfig
 	if (getsockname(socketFD, (struct sockaddr *)&sockaddr6, &sockaddr6len) < 0)
 	{
 		return nil;
-	}
-	return [self.class hostFromSockaddr6:&sockaddr6];
+	};return [self.class hostFromSockaddr6:&sockaddr6];
 }
 
 - (uint16_t)localPortFromSocket4:(int)socketFD
@@ -3325,8 +3312,7 @@ enum GCDAsyncSocketConfig
 	if (getsockname(socketFD, (struct sockaddr *)&sockaddr4, &sockaddr4len) < 0)
 	{
 		return 0;
-	}
-	return [self.class portFromSockaddr4:&sockaddr4];
+	};return [self.class portFromSockaddr4:&sockaddr4];
 }
 
 - (uint16_t)localPortFromSocket6:(int)socketFD
@@ -3337,8 +3323,7 @@ enum GCDAsyncSocketConfig
 	if (getsockname(socketFD, (struct sockaddr *)&sockaddr6, &sockaddr6len) < 0)
 	{
 		return 0;
-	}
-	return [self.class portFromSockaddr6:&sockaddr6];
+	};return [self.class portFromSockaddr6:&sockaddr6];
 }
 
 - (NSData *)connectedAddress
@@ -4245,8 +4230,7 @@ enum GCDAsyncSocketConfig
 			{
 				[self suspendReadSource];
 			}
-		}
-		return;
+		};return;
 	}
 	
 	BOOL hasBytesAvailable = NO;
@@ -4325,8 +4309,7 @@ enum GCDAsyncSocketConfig
 			// available data in the socket's internal read buffer.
 			
 			[self resumeReadSource];
-		}
-		return;
+		};return;
 	}
 	
 	if (flags & kStartingReadTLS)
@@ -5335,8 +5318,7 @@ enum GCDAsyncSocketConfig
 			{
 				[self suspendWriteSource];
 			}
-		}
-		return;
+		};return;
 	}
 	
 	if (!(flags & kSocketCanAcceptBytes))
@@ -5351,8 +5333,7 @@ enum GCDAsyncSocketConfig
 			// available space in the socket's internal write buffer.
 			
 			[self resumeWriteSource];
-		}
-		return;
+		};return;
 	}
 	
 	if (flags & kStartingWriteTLS)

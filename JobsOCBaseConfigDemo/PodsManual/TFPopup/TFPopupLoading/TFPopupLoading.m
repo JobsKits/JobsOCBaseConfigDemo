@@ -113,8 +113,7 @@ Prop_assign()CGRect inViewFrame;
 -(UIActivityIndicatorView *)indicatorView{
     if (_indicatorView == nil) {
         _indicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    }
-    return _indicatorView;
+    };return _indicatorView;
 }
 
 -(UILabel *)msgLabel{
@@ -127,8 +126,7 @@ Prop_assign()CGRect inViewFrame;
         _msgLabel.numberOfLines = 0;
         _msgLabel.lineBreakMode = NSLineBreakByClipping;
         _msgLabel.clipsToBounds = YES;
-    }
-    return _msgLabel;
+    };return _msgLabel;
 }
 
 

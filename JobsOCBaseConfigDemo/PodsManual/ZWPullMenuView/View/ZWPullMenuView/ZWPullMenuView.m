@@ -308,15 +308,13 @@
         _mTable.layer.cornerRadius = 5;
         _mTable.backgroundColor = self.menuBgColor;
         _mTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-    }
-    return _mTable;
+    };return _mTable;
 }
 - (UIView *)contentView{
     if (!_contentView) {
         _contentView = [[UIView alloc] initWithFrame:CGRectZero];
         [_contentView addSubview:self.mTable];
-    }
-    return _contentView;
+    };return _contentView;
 }
 - (ZWPullMenuConfig *)zw_menuConfg {
     if (!_zw_menuConfg) {
@@ -325,8 +323,7 @@
         _zw_menuConfg.zw_menuImageWidth         = MenuImageWidth;
         _zw_menuConfg.zw_menuBorderMinMargin    = MenuBorderMinMargin;
         _zw_menuConfg.zw_menuTitleFontSize      = MenuTitleFontSize;
-    }
-    return _zw_menuConfg;
+    };return _zw_menuConfg;
 }
 #pragma mark —— menuArray
 -(void)setMenuArray:(NSArray<ZWPullMenuModel *> *)menuArray{

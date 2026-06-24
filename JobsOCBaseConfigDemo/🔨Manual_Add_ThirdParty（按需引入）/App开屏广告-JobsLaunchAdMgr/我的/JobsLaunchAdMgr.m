@@ -216,8 +216,7 @@ static dispatch_once_t JobsLaunchAdMgrOnceToken;
                         if (self.onLongPress) {
                             self.onLongPress();
                         }
-                    }
-                   return nil;
+                    };return nil;
                 }];
                 _adView.longPressGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
             }

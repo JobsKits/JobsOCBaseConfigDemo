@@ -46,8 +46,7 @@
             UIImage *img = self.imageByDataURL(raw);
             if (!img && isValue(self)) {
                 JobsLog(@"dataURL 解码失败：%@", self);
-            }
-            return img;
+            };return img;
         }
         // 3) Bundle 命名图片
         UIImage *named = [UIImage imageNamed:raw];
@@ -117,8 +116,7 @@
             if (comma.location == NSNotFound) { return nil; }
             NSString *b64 = [dataURL substringFromIndex:comma.location + 1];
             NSData *data = [NSData.alloc initWithBase64EncodedString:b64 options:NSDataBase64DecodingIgnoreUnknownCharacters];
-            if (!data) { return nil; }
-            return [UIImage imageWithData:data scale:UIScreen.mainScreen.scale];
+            if (!data) { return nil; };return [UIImage imageWithData:data scale:UIScreen.mainScreen.scale];
         }else return nil;
     };
 }

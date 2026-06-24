@@ -137,8 +137,7 @@
     [fileSources sortUsingComparator:^NSComparisonResult(KTVHCDataFileSource *obj1, KTVHCDataFileSource *obj2) {
         if (obj1.range.start < obj2.range.start) {
             return NSOrderedAscending;
-        }
-        return NSOrderedDescending;
+        };return NSOrderedDescending;
     }];
     long long offset = self.request.range.start;
     long long length = KTVHCRangeIsFull(self.request.range) ? KTVHCRangeGetLength(self.request.range) : (self.request.range.end - offset + 1);

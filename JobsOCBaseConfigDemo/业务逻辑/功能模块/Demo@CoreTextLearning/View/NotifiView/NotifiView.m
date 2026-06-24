@@ -52,8 +52,7 @@ Prop_copy()FinishBlock finishBlock;
         JobsLog(@"要更新的View的key与源key不同。更新失败!");
         if (finishBlock) {
             finishBlock(self.key);
-        }
-        return;
+        };return;
     }
     
     if (self.state == NotifiViewStateShowing) {
@@ -70,8 +69,7 @@ Prop_copy()FinishBlock finishBlock;
             };
         }else{
             if (finishBlock) finishBlock(self.key);
-        }
-        return;
+        };return;
     }
     
     //其它情况, 不能执行更新操作

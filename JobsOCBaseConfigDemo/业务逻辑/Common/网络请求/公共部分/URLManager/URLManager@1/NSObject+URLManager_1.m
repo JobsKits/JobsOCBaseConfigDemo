@@ -224,7 +224,7 @@
     ///         "accessToken":null,
     ///         "expireTime":0
     ///     }
-    /// }
+    /// };
     return JobsURL(@"/api/user/auth/mobile-login");
 }
 /// 手机号登录--手机号校验@GET
@@ -242,12 +242,11 @@
 }
 /// 手机号注册--验证码校验@GET
 -(URLManagerModel *)get_user_auth_mobile_registerCheckByCode:(NSString *)mobile smsCode:(NSString *)smsCode{
-    NSString *url = @"/api/user/auth/mobile-registerCheckByCode/{"
-        .add(mobile)
-        .add(@"/{")
-        .add(smsCode)
-        .add(@"}");
-    return JobsURL(url);
+    return JobsURL(@"/api/user/auth/mobile-registerCheckByCode/{"
+                   .add(mobile)
+                   .add(@"/{")
+                   .add(smsCode)
+                   .add(@"}"));
 }
 /// 手机号注册--手机校验@GET
 -(URLManagerModel *)get_user_auth_mobile_registerCheckByMobile:(NSString *)mobile phoneCode:(NSString *)phoneCode{

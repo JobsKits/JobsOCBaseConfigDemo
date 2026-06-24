@@ -121,8 +121,7 @@ NSString *const zb_downloadPath =@"AppDownload";
             [self successWithResponse:nil responseObject:obj request:request];
             return 0;
         }
-    }
-    return [self checkAgainRequest:request];
+    };return [self checkAgainRequest:request];
 }
 
 + (NSUInteger)checkAgainRequest:(ZBURLRequest *)request{
@@ -217,8 +216,7 @@ NSString *const zb_downloadPath =@"AppDownload";
     NSData *resumeData;
     if ([[ZBCacheManager sharedManager]cacheExistsForKey:request.url inPath:AppDownloadTempPath]) {
         resumeData=[[ZBCacheManager sharedManager]getCacheDataForKey:request.url inPath:AppDownloadTempPath];
-    }
-    return [[ZBRequestEngine defaultEngine] downloadWithRequest:request resumeData:resumeData savePath:[self AppDownloadPath] progress:^(NSProgress * _Nullable downloadProgress) {
+    };return [[ZBRequestEngine defaultEngine] downloadWithRequest:request resumeData:resumeData savePath:[self AppDownloadPath] progress:^(NSProgress * _Nullable downloadProgress) {
         if (request.delegate&&[request.delegate respondsToSelector:@selector(requestProgress:)]) {
             [request.delegate requestProgress:downloadProgress];
         }
@@ -250,8 +248,7 @@ NSString *const zb_downloadPath =@"AppDownload";
         [request setIdentifier:downloadTask.taskIdentifier];
     }else{
         [self printDownloadFailureRequest:request];
-    }
-    return request.identifier;
+    };return request.identifier;
 }
 
 #pragma mark - 取消请求
@@ -288,8 +285,7 @@ NSString *const zb_downloadPath =@"AppDownload";
     NSString *key=[NSString zb_stringEncoding:[NSString zb_urlString:request.url appendingParameters:newParameters]];
     if(key){
         [request setValue:key forKey:_cacheKey];
-    }
-    return key;
+    };return key;
 }
 
 + (void)storeObject:(NSObject *)object request:(ZBURLRequest *)request{

@@ -237,8 +237,7 @@ JobsKey(_fs_privateComponents)
     if (!components) {
         components = [[NSDateComponents alloc] init];
         Jobs_setAssociatedRETAIN_NONATOMIC(_fs_privateComponents, components)
-    }
-    return components;
+    };return components;
 }
 
 @end
@@ -453,8 +452,7 @@ if (!strcmp(returnType, @encode(_type))) { \
 #undef RETURN_BASIC_TYPES
             free(buffer);
         }
-    }
-    return returnValue;
+    };return returnValue;
 }
 
 @end

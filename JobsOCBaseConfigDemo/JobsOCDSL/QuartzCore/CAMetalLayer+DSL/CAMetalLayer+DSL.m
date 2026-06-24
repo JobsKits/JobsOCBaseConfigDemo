@@ -69,8 +69,7 @@
         @jobs_strongify(self)
         if (@available(iOS 13.0, *)){
             self.maximumDrawableCount = data;
-        }
-        return self;
+        };return self;
     };
 }
 

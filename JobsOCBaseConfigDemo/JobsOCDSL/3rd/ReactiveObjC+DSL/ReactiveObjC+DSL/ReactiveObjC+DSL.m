@@ -19,8 +19,7 @@
         SEL setter = NSSelectorFromString(@"setRacDisposable:");
         if ([self respondsToSelector:setter]) {
             ((void (*)(id, SEL, RACDisposable *))objc_msgSend)(self, setter, disposable);
-        }
-        return self;
+        };return self;
     };
 }
 @end

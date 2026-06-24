@@ -28,8 +28,7 @@
         if (newURL.absoluteString.length > 0) {
             URL = newURL;
         }
-    }
-    return [self md5:URL.absoluteString];
+    };return [self md5:URL.absoluteString];
 }
 
 - (NSString *)md5:(NSString *)URLString
@@ -40,8 +39,7 @@
     NSMutableString *outputString = [[NSMutableString alloc] initWithCapacity:CC_MD5_DIGEST_LENGTH *2];
     for (NSInteger count = 0; count < CC_MD5_DIGEST_LENGTH; count++) {
         [outputString appendFormat:@"%02x", outputBuffer[count]];
-    }
-    return outputString;
+    };return outputString;
 }
 
 - (NSString *)base64Encode:(NSString *)URLString
@@ -124,8 +122,7 @@
             }
             c++;
         }
-    }
-    return resultString;
+    };return resultString;
 }
 
 - (NSString *)URLDecode:(NSString *)URLString
@@ -160,8 +157,7 @@
             break;
         }
         [scanner setScanLocation:([scanner scanLocation] + 1)];
-    }
-    return parameters;
+    };return parameters;
 }
 
 @end

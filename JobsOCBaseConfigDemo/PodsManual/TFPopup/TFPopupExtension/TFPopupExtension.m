@@ -13,14 +13,12 @@
 -(NSMutableArray *)backgroundViewArray{
     if (_backgroundViewArray == nil) {
         _backgroundViewArray = [[NSMutableArray alloc]init];
-    }
-    return _backgroundViewArray;
+    };return _backgroundViewArray;
 }
 -(NSMutableArray *)backgroundViewFrameArray{
     if (_backgroundViewFrameArray == nil) {
         _backgroundViewFrameArray = [[NSMutableArray alloc]init];
-    }
-    return _backgroundViewFrameArray;
+    };return _backgroundViewFrameArray;
 }
 
 
@@ -70,8 +68,7 @@ static TFPopupPool *_popupPool = nil;
         if ([bridge.popupView.identifier isEqualToString:identifier]) {
             return bridge.popupView;
         }
-    }
-    return nil;
+    };return nil;
 }
 +(NSArray <UIView *>*)allPopup{
     return [[TFPopupPool shareInstance]allPopup];
@@ -82,14 +79,12 @@ static TFPopupPool *_popupPool = nil;
         if (bridge.popupView.superview != nil) {
             [newPool addObject:bridge.popupView];
         }
-    }
-    return newPool;
+    };return newPool;
 }
 -(NSMutableArray *)pool{
     if (!_pool) {
         _pool = [[NSMutableArray alloc]init];
-    }
-    return _pool;
+    };return _pool;
 }
 
 @end

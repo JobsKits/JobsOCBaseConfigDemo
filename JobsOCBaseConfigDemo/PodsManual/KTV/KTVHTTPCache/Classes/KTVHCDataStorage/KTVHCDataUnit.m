@@ -100,8 +100,7 @@
             result = NSOrderedAscending;
         } else if ((obj1.offset == obj2.offset) && (obj1.length > obj2.length)) {
             result = NSOrderedAscending;
-        }
-        return result;
+        };return result;
     }];
     KTVHCLogDataUnit(@"%p, Sort unitItems - End  \n%@", self, self.unitItemsInternal);
     [self unlock];

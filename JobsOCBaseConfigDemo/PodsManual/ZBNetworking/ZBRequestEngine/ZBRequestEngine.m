@@ -114,8 +114,7 @@ NSString *const _delegate =@"_delegate";
     if(dataTask){
         [request setTask:dataTask];
         [request setIdentifier:dataTask.taskIdentifier];
-    }
-    return request.identifier;
+    };return request.identifier;
 }
 
 #pragma mark - upload
@@ -153,8 +152,7 @@ NSString *const _delegate =@"_delegate";
     if(uploadTask){
         [request setTask:uploadTask];
         [request setIdentifier:uploadTask.taskIdentifier];
-    }
-    return request.identifier;
+    };return request.identifier;
 }
 
 #pragma mark - DownLoad
@@ -185,8 +183,7 @@ NSString *const _delegate =@"_delegate";
         [downloadTask resume];
         [request setTask:downloadTask];
         [request setIdentifier:downloadTask.taskIdentifier];
-    }
-    return request.identifier;
+    };return request.identifier;
 }
 
 - (NSURLSessionDownloadTask *)downloadWithUrlRequest:(NSURLRequest *)urlRequest progress:(void (^)(NSProgress *downloadProgress))downloadProgressBlock destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination completionHandler:(void (^)(NSURLResponse *response, NSURL *filePath, NSError *error))completionHandler{
@@ -451,8 +448,7 @@ NSString *const _delegate =@"_delegate";
         responseStr=@"Plist";
     }else {
         responseStr=@"Unknown response serializer type";
-    }
-    return responseStr;
+    };return responseStr;
 }
 
 #pragma mark - request 生命周期管理
@@ -480,66 +476,57 @@ NSString *const _delegate =@"_delegate";
 - (NSMutableDictionary<NSString *, id> *)baseParameters {
     if (!_baseParameters) {
         _baseParameters = [NSMutableDictionary dictionary];
-    }
-    return _baseParameters;
+    };return _baseParameters;
 }
 
 - (NSMutableDictionary<NSString *, NSString *> *)baseHeaders {
     if (!_baseHeaders) {
         _baseHeaders = [NSMutableDictionary dictionary];
-    }
-    return _baseHeaders;
+    };return _baseHeaders;
 }
 
 - (NSMutableArray *)baseFiltrationCacheKey {
     if (!_baseFiltrationCacheKey) {
         _baseFiltrationCacheKey = [NSMutableArray array];
-    }
-    return _baseFiltrationCacheKey;
+    };return _baseFiltrationCacheKey;
 }
 
 - (NSMutableArray *)responseContentTypes {
     if (!_responseContentTypes) {
         _responseContentTypes = [NSMutableArray array];
-    }
-    return _responseContentTypes;
+    };return _responseContentTypes;
 }
 
 - (AFHTTPRequestSerializer *)httpRequestSerializer {
     if (!_httpRequestSerializer) {
         _httpRequestSerializer = [AFHTTPRequestSerializer serializer];
         
-    }
-    return _httpRequestSerializer;
+    };return _httpRequestSerializer;
 }
 
 - (AFJSONRequestSerializer *)jsonRequestSerializer {
     if (!_jsonRequestSerializer) {
         _jsonRequestSerializer = [AFJSONRequestSerializer serializer];
         
-    }
-    return _jsonRequestSerializer;
+    };return _jsonRequestSerializer;
 }
 
 - (AFHTTPResponseSerializer *)httpResponseSerializer {
     if (!_httpResponseSerializer) {
         _httpResponseSerializer = [AFHTTPResponseSerializer serializer];
-    }
-    return _httpResponseSerializer;
+    };return _httpResponseSerializer;
 }
 
 - (AFXMLParserResponseSerializer *)xmlResponseSerializer {
     if (!_xmlResponseSerializer) {
         _xmlResponseSerializer = [AFXMLParserResponseSerializer serializer];
-    }
-    return _xmlResponseSerializer;
+    };return _xmlResponseSerializer;
 }
 
 - (AFPropertyListResponseSerializer *)plistResponseSerializer {
     if (!_plistResponseSerializer) {
         _plistResponseSerializer = [AFPropertyListResponseSerializer serializer];
-    }
-    return _plistResponseSerializer;
+    };return _plistResponseSerializer;
 }
 
 @end

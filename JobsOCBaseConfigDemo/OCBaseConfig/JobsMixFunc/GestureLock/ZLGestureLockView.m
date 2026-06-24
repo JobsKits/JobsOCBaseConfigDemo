@@ -199,8 +199,7 @@ Prop_assign()ResultKindType resultType;//学生端结果
     NSMutableString *result = NSMutableString.string;
     for (UIButton *btn in self.selectBtns) {
         [result appendFormat:@"%ld", btn.tag - 1];
-    }
-    return result;
+    };return result;
 }
 // 清除
 - (void)clearLockView {

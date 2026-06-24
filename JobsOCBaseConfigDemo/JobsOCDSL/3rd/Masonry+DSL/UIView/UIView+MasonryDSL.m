@@ -128,8 +128,7 @@
             if (constraint.firstViewAttribute.layoutAttribute == layoutAttribute) {
                 [constraint uninstall];
             }
-        }
-        return self;
+        };return self;
     };
 }
 /// 卸载当前view上的全部约束
@@ -139,8 +138,7 @@
         @jobs_strongify(self)
         for (MASViewConstraint *constraint in [MASViewConstraint installedConstraintsForView:self]) {
             [constraint uninstall];
-        }
-        return self;
+        };return self;
     };
 }
 #pragma mark —— Masonry约束动画

@@ -60,8 +60,7 @@
             filePath = currentFilePath;
         }
         number++;
-    }
-    return [self converToAbsoultePath:filePath];;
+    };return [self converToAbsoultePath:filePath];;
 }
 
 + (NSString *)basePath
@@ -83,16 +82,14 @@
 {
     if ([self isAbsolutePath:path]) {
         path = [path stringByReplacingOccurrencesOfString:[self basePath] withString:@"".tr];
-    }
-    return path;
+    };return path;
 }
 
 + (NSString *)converToAbsoultePath:(NSString *)path
 {
     if ([self isRelativePath:path]) {
         path = [[self basePath] stringByAppendingPathComponent:path];;
-    }
-    return path;
+    };return path;
 }
 
 + (void)createFileAtPath:(NSString *)path
@@ -132,8 +129,7 @@
     BOOL result = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory];
     if (result && !isDirectory) {
         result = [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
-    }
-    return error;
+    };return error;
 }
 
 + (NSError *)deleteDirectoryAtPath:(NSString *)path
@@ -147,8 +143,7 @@
     BOOL result = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory];
     if (result && isDirectory) {
         result = [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
-    }
-    return error;
+    };return error;
 }
 
 + (long long)sizeAtPath:(NSString *)path
@@ -162,8 +157,7 @@
     if (!error || attributes.count > 0) {
         NSNumber *size = [attributes objectForKey:NSFileSize];
         return size.longLongValue;
-    }
-    return 0;
+    };return 0;
 }
 
 @end

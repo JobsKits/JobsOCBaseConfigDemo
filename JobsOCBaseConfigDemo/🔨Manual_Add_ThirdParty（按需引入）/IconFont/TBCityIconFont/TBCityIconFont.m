@@ -29,8 +29,7 @@ static NSString *_fontName;
         [self registerFontWithURL: fontFileUrl];
         font = [UIFont fontWithName:[self fontName] size:size];
         NSAssert(font, @"UIFont object should not be nil, check if the font file is added to the application bundle and you're using the correct font name.");
-    }
-    return font;
+    };return font;
 }
 
 + (void)setFontName:(NSString *)fontName {

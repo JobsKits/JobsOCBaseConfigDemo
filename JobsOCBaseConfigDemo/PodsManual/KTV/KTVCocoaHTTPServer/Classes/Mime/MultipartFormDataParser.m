@@ -149,8 +149,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN;
 				else {
 					// there is no unhandled data now, wait for more chunks
 					[pendingData setData:[NSData data]];
-				}
-				return YES;
+				};return YES;
 			}
 		}
 		if( waitingForCRLF ) {
@@ -170,8 +169,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN;
 						// or save nothing if it wasnt 
 						[pendingData setData:[NSData data]];
 					}
-				}
-				return YES;
+				};return YES;
 			}
 			waitingForCRLF = NO;
 		}
@@ -190,8 +188,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN;
 			if( [delegate respondsToSelector:@selector(processEpilogueData:)] ) {
 				NSData* epilogueData = [NSData dataWithBytesNoCopy: (char*) workingData.bytes + offset length: workingData.length - offset freeWhenDone:NO];
 				[delegate processEpilogueData: epilogueData];
-			}
-			return YES;
+			};return YES;
 		}
 
 		if( nil == currentHeader ) {
@@ -212,8 +209,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN;
 						// save the current parse state; drop all handled data and save unhandled only.
 						pendingData = [[NSMutableData alloc] initWithBytes: (char*) workingData.bytes + offset length:workingData.length - offset];
 					}
-				}
-				return  YES;
+				};return  YES;
 			}
 			else {
 
@@ -254,8 +250,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN;
 				// wait for more data!
 				if( offset ) {
 					[pendingData setData:[NSData dataWithBytes:(char*) workingData.bytes + offset length:workingData.length - offset]];
-				}
-				return YES;
+				};return YES;
 			}
 			// decode the chunk and let the delegate use it (store in a file, for example)
 			NSData* decodedData = [MultipartFormDataParser decodedDataFromData:[NSData dataWithBytesNoCopy:(char*)workingData.bytes + offset length:workingData.length - offset - sizeToLeavePending freeWhenDone:NO] encoding:currentEncoding];
@@ -290,8 +285,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN;
 			checkForContentEnd = YES;
 			// setting the flag tells the parser to skip all the data till CRLF
 		}
-	}
-    return YES;
+	};return YES;
 }
 
 
@@ -359,8 +353,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN;
 				HTTPLogVerbose(@"MultipartFormDataParser: processed preamble");
 			}
 			pendingData = [NSMutableData dataWithBytes: data.bytes + data.length - boundaryLength length:boundaryLength];
-		}
-		return -1;
+		};return -1;
 	}
 	else {
 		if ( offset && [delegate respondsToSelector:@selector(processPreambleData:)] ) {
@@ -371,8 +364,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN;
 		// tells to skip CRLF after the boundary.
 		processedPreamble = YES;
 		waitingForCRLF = YES;
-	}
-	return offset;
+	};return offset;
 }
 
 
@@ -391,8 +383,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN;
 			return offset;
         }
         offset++;
-    }
-    return -1;
+    };return -1;
 }
 
 
@@ -412,8 +403,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN;
             return offset;
         }
 		offset++;
-    }
-    return -1;
+    };return -1;
 }
 
 
@@ -447,8 +437,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN;
 		if( bytes[1] == '=' )
 			return 1;
 		return 0;
-	}
-	return 0;
+	};return 0;
 }
 
 
@@ -521,8 +510,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN;
 #endif
 		
 		count++;
-	}
-	return result;
+	};return result;
 }
 
 

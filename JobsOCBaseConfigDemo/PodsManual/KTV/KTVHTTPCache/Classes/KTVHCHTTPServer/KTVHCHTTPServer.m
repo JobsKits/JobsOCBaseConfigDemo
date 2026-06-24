@@ -105,8 +105,7 @@
         KTVHCLogHTTPServer(@"%p, Start server success", self);
     } else {
         KTVHCLogHTTPServer(@"%p, Start server failed", self);
-    }
-    return ret;
+    };return ret;
 }
 
 - (void)stopInternal

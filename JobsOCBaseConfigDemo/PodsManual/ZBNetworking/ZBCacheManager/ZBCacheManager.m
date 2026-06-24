@@ -135,8 +135,7 @@ static const CGFloat unit = 1000.0;
     id isInMemoryCache =  [self.memoryCache objectForKey:key];
     if (isInMemoryCache) {
         return YES;
-    }
-    return [self diskCacheExistsForKey:key inPath:path];
+    };return [self diskCacheExistsForKey:key inPath:path];
 }
 
 - (BOOL)diskCacheExistsForKey:(NSString *)key{
@@ -163,8 +162,7 @@ static const CGFloat unit = 1000.0;
             dispatch_async(dispatch_get_main_queue(), ^{
                 isSuccess(NO);
             });
-        }
-        return;
+        };return;
     }
     [self.memoryCache setObject:content forKey:key ];
     
@@ -189,8 +187,7 @@ static const CGFloat unit = 1000.0;
     }else {
         JobsLog(@"文件类型:%@,沙盒存储失败。",NSStringFromClass([content class]));
         return NO;
-    }
-    return NO;
+    };return NO;
 }
 
 #pragma  mark - 获取存储数据
@@ -208,8 +205,7 @@ static const CGFloat unit = 1000.0;
         NSData *diskdata= [NSData dataWithContentsOfFile:filePath];
         if (diskdata) {
             [self.memoryCache setObject:diskdata forKey:key];
-        }
-       return diskdata;
+        };return diskdata;
     }
 }
 

@@ -548,8 +548,7 @@ AppToolsProtocol
      JobsLog(@"%@---%@---%@", arg1, arg2, arg3);
      if (block) {
          block(@"嗯！！");
-     }
-     return @"gaga";
+     };return @"gaga";
  }
  
  */

@@ -79,8 +79,7 @@
     NSInteger numberOfSections = self.calendar.collectionView.numberOfSections;
     if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
         return numberOfSections;
-    }
-    return numberOfSections + 2;
+    };return numberOfSections + 2;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -311,8 +310,7 @@
     UIView *hitView = [super hitTest:point withEvent:event];
     if (hitView == self) {
         return _calendar.collectionView ?: hitView;
-    }
-    return hitView;
+    };return hitView;
 }
 
 @end

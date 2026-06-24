@@ -55,8 +55,7 @@
 {
     if ([self.calendar respondsToSelector:selector]) {
         return self.calendar;
-    }
-    return [super forwardingTargetForSelector:selector];
+    };return [super forwardingTargetForSelector:selector];
 }
 
 #pragma mark - Public functions
@@ -67,8 +66,7 @@
         date = self.minimumDate;
     } else if ([self.gregorian compareDate:date toDate:self.maximumDate toUnitGranularity:NSCalendarUnitDay] == NSOrderedDescending) {
         date = self.maximumDate;
-    }
-    return date;
+    };return date;
 }
 
 - (NSDate *)dateForIndexPath:(NSIndexPath *)indexPath scope:(FSCalendarScope)scope
@@ -87,8 +85,7 @@
             NSDate *date = [self.gregorian dateByAddingUnit:NSCalendarUnitDay value:indexPath.item toDate:currentPage options:0];
             return date;
         }
-    }
-    return nil;
+    };return nil;
 }
 
 - (NSDate *)dateForIndexPath:(NSIndexPath *)indexPath
@@ -164,8 +161,7 @@
         NSDate *monthHead = [self.gregorian dateByAddingUnit:NSCalendarUnitDay value:-numberOfHeadPlaceholders toDate:month options:0];
         self.months[key] = month;
         self.monthHeads[key] = monthHead;
-    }
-    return month;
+    };return month;
 }
 
 - (NSDate *)monthHeadForSection:(NSInteger)section
@@ -178,8 +174,7 @@
         monthHead = [self.gregorian dateByAddingUnit:NSCalendarUnitDay value:-numberOfHeadPlaceholders toDate:month options:0];
         self.months[key] = month;
         self.monthHeads[key] = monthHead;
-    }
-    return monthHead;
+    };return monthHead;
 }
 
 - (NSDate *)weekForSection:(NSInteger)section
@@ -189,8 +184,7 @@
     if (!week) {
         week = [self.gregorian dateByAddingUnit:NSCalendarUnitWeekOfYear value:section toDate:[self.gregorian fs_firstDayOfWeek:self.minimumDate] options:0];
         self.weeks[key] = week;
-    }
-    return week;
+    };return week;
 }
 
 - (NSInteger)numberOfSections
@@ -227,8 +221,7 @@
         NSInteger numberOfRows = (headDayCount/7) + (headDayCount%7>0);
         rowCount = @(numberOfRows);
         self.rowCounts[month] = rowCount;
-    }
-    return rowCount.integerValue;
+    };return rowCount.integerValue;
 }
 
 - (NSInteger)numberOfRowsInSection:(NSInteger)section

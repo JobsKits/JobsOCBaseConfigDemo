@@ -36,8 +36,7 @@
     NSString *value = [self.headers objectForKey:key];
     if (!value) {
         value = [self.headers objectForKey:[key lowercaseString]];
-    }
-    return value;
+    };return value;
 }
 
 @end

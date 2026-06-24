@@ -75,9 +75,7 @@
                 showCodeSting = array[1];
             }
         }
-    }
-    //    }
-    return showCodeSting;
+    };return showCodeSting;
 }
 
 - (void)selectCodeIndex:(NSIndexPath *)indexPath {
@@ -100,7 +98,6 @@
     }
 //    JobsLog(@"选择国家: %@   代码: %@",originText,originText);
 }
-
 #pragma mark - UISearchResultsUpdating
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     if (_results.count > 0) {
@@ -135,8 +132,7 @@
     if (_indexArray.count > section) {
         NSArray *array = [_sortedNameDict objectForKey:[_indexArray objectAtIndex:section]];
         return array.count;
-    }
-    return 0;
+    };return 0;
     //    }
 }
 
@@ -173,8 +169,7 @@
     if (tableView == _tableView) {
         if (section == 0) {
             return 0;
-        }
-        return 30;
+        };return 30;
     } else {
         return 0;
     }

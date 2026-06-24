@@ -90,8 +90,7 @@ static CGFloat widthCallback(void* ref){
             CGRect imageBounds = CGRectOffset(boundsRun, colRect.origin.x, colRect.origin.y);
             return imageBounds;
         }
-    }
-    return CGRectZero;
+    };return CGRectZero;
 }
 
 @end

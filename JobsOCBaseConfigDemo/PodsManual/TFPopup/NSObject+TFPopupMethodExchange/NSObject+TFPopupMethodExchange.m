@@ -21,8 +21,7 @@
         method_exchangeImplementations(originMethod, toMethod);
     }else{
         class_replaceMethod(self, toSel, method_getImplementation(originMethod), method_getTypeEncoding(originMethod));
-    }
-    return YES;
+    };return YES;
 }
 
 +(BOOL)popup_classMethodExchange:(SEL)originSel toClass:(Class)toClass  toSel:(SEL)toSel{
@@ -38,8 +37,7 @@
         IMP originImp = method_getImplementation(originMethod);
         const char *originTypeEncoding = method_getTypeEncoding(originMethod);
         class_replaceMethod([self class],toSel,originImp,originTypeEncoding);
-    }
-    return YES;
+    };return YES;
 }
 
 @end

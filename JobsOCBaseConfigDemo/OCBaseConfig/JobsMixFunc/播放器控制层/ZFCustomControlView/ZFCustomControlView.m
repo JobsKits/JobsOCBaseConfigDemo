@@ -359,8 +359,7 @@ Prop_strong()UIImageView *coverImageView;
     if (self.player.isSmallFloatViewShow &&
         !self.player.isFullScreen && gestureType != ZFPlayerGestureTypeSingleTap) {
         return NO;
-    }
-    return [self shouldResponseGestureWithPoint:point
+    };return [self shouldResponseGestureWithPoint:point
                                 withGestureType:gestureType
                                           touch:touch];
 }

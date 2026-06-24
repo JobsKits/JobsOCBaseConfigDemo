@@ -253,8 +253,7 @@
         }
         tmpCell = cell;
         cell.contentView.layer.cornerRadius = self.param.wCustomImageRadio;
-    }
-    return tmpCell;
+    };return tmpCell;
 }
 
 #pragma mark —— iconData
@@ -359,8 +358,7 @@
         if (cell == currentCell) {
             center = YES;
         }
-    }
-    return center;
+    };return center;
 }
 //滚动处理
 - (void)scrolToPath:(NSIndexPath*)path animated:(BOOL)animated{
@@ -622,22 +620,19 @@
         _myCollectionV.showsHorizontalScrollIndicator = NO;
         _myCollectionV.backgroundColor = [UIColor clearColor];
         _myCollectionV.decelerationRate = _param.wDecelerationRate;
-    }
-    return _myCollectionV;
+    };return _myCollectionV;
 }
 
 - (WMZBannerControl *)bannerControl{
     if (!_bannerControl) {
         _bannerControl = [[WMZBannerControl alloc]initWithFrame:CGRectZero WithModel:_param];
-    }
-    return _bannerControl;
+    };return _bannerControl;
 }
 
 - (UIView *)line{
     if (!_line) {
         _line = [UIView new];
-    }
-    return _line;
+    };return _line;
 }
 
 - (void)dealloc{

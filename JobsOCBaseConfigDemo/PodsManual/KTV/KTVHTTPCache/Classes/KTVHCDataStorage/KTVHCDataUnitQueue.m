@@ -43,8 +43,7 @@
 {
     if (self.unitArray.count <= 0) {
         return nil;
-    }
-    return [self.unitArray copy];
+    };return [self.unitArray copy];
 }
 
 - (KTVHCDataUnit *)unitWithKey:(NSString *)key
@@ -58,8 +57,7 @@
             unit = obj;
             break;
         }
-    }
-    return unit;
+    };return unit;
 }
 
 - (void)putUnit:(KTVHCDataUnit *)unit

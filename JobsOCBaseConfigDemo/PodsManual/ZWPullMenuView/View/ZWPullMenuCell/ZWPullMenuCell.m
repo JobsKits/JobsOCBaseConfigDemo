@@ -93,14 +93,12 @@
 - (UIImageView *)menuImageView {
     if (!_menuImageView) {
         _menuImageView = [[UIImageView alloc] init];
-    }
-    return _menuImageView;
+    };return _menuImageView;
 }
 - (UILabel *)menuTitleLab {
     if (!_menuTitleLab) {
         _menuTitleLab = [[UILabel alloc] init];
-    }
-    return _menuTitleLab;
+    };return _menuTitleLab;
 }
 #pragma mark —— selected
 @dynamic selected;

@@ -92,8 +92,7 @@
 - (NSMutableArray<ZBUploadData *> *)uploadDatas {
     if (!_uploadDatas) {
         _uploadDatas = [[NSMutableArray alloc]init];
-    }
-    return _uploadDatas;
+    };return _uploadDatas;
 }
 
 @end

@@ -91,10 +91,8 @@
         if (shouldStart) {
             self.calendar.collectionView.panGestureRecognizer.enabled = NO;
             self.calendar.collectionView.panGestureRecognizer.enabled = YES;
-        }
-        return shouldStart;
-    }
-    return YES;
+        };return shouldStart;
+    };return YES;
     
 #pragma GCC diagnostic pop
     
@@ -309,8 +307,7 @@
             contentSize = [self.calendar sizeThatFits:self.calendar.frame.size scope:scope];
             break;
         }
-    }
-    return (CGRect){CGPointZero, contentSize};
+    };return (CGRect){CGPointZero, contentSize};
 }
 
 - (void)boundingRectWillChange:(CGRect)targetBounds animated:(BOOL)animated

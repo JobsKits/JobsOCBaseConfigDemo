@@ -395,8 +395,7 @@ Prop_strong() UILabel *resultLabel;         ///< 弹窗中奖结果文案（懒�
             view.layer.borderWidth = ScaleW(2);
             view.alpha = 0.0f; // 初始隐藏
         });
-    }
-    return _itemBorderView;
+    };return _itemBorderView;
 }
 
 - (UIButton *)startButton {
@@ -409,8 +408,7 @@ Prop_strong() UILabel *resultLabel;         ///< 弹窗中奖结果文案（懒�
     if (!_startLabel) {
         _startLabel = [[UILabel alloc] init];
         _startLabel.alpha = 0.0f;
-    }
-    return _startLabel;
+    };return _startLabel;
 }
 
 - (UIView *)lotteryResultBgView {
@@ -420,8 +418,7 @@ Prop_strong() UILabel *resultLabel;         ///< 弹窗中奖结果文案（懒�
         _lotteryResultBgView.backgroundColor = [UIColor clearColor];
         _lotteryResultBgView.alpha = 0.0f;
         [self.view addSubview:_lotteryResultBgView];
-    }
-    return _lotteryResultBgView;
+    };return _lotteryResultBgView;
 }
 
 - (UIView *)lotteryResultView {
@@ -469,8 +466,7 @@ Prop_strong() UILabel *resultLabel;         ///< 弹窗中奖结果文案（懒�
             self.resultLabel.textColor = RGB_COLOR(243, 246, 25);
             [_lotteryResultView addSubview:self.resultLabel];
         }
-    }
-    return _lotteryResultView;
+    };return _lotteryResultView;
 }
 
 @end

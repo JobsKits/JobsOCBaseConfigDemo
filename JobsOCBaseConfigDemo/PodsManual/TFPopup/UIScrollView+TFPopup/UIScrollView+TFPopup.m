@@ -52,8 +52,7 @@
     BOOL should = [self popup_gestureRecognizerShouldBegin:gestureRecognizer];
     if (self.faterPopupView) {
         self.faterPopupView.extension.currentDragScrollViewAllowScroll = should;
-    }
-    return should;
+    };return should;
 }
 
 +(void)popExchangeShouldRecognizeSimultaneouslyWithGestureRecognizer{
@@ -72,10 +71,8 @@
             self.faterPopupView.extension.currentDragScrollView = self;
         }else{
             self.faterPopupView.extension.currentDragScrollView = nil;
-        }
-        return YES;
-    }
-    return NO;
+        };return YES;
+    };return NO;
     
 }
 

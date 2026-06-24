@@ -49,8 +49,7 @@
         KTVHCLogHTTPResponse(@"%p, Read data did finished", self);
         [self.reader close];
         [self.connection responseDidAbort:self];
-    }
-    return data;
+    };return data;
 }
 
 - (BOOL)delayResponseHeaders

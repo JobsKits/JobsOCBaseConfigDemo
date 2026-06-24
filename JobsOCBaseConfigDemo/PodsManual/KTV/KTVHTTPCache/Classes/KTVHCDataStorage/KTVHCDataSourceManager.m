@@ -63,8 +63,7 @@
     [self.sources sortUsingComparator:^NSComparisonResult(id <KTVHCDataSource> obj1, id <KTVHCDataSource> obj2) {
         if (obj1.range.start < obj2.range.start) {
             return NSOrderedAscending;
-        }
-        return NSOrderedDescending;
+        };return NSOrderedDescending;
     }];
     KTVHCLogDataSourceManager(@"%p, Sort sources - End  \nSources : %@", self, self.sources);
     for (id <KTVHCDataSource> obj in self.sources) {

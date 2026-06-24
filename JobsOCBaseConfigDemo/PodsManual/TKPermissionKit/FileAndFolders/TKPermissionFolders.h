@@ -28,8 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
      BOOL success = [URL setResourceValue:[NSNumber numberWithBool: YES] forKey: NSURLIsExcludedFromBackupKey error: &error];
      if (!success) {
          JobsLog(@"Error excluding %@ from backup %@", [URL lastPathComponent], error);
-     }
-     return success;
+     };return success;
  }
 
  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

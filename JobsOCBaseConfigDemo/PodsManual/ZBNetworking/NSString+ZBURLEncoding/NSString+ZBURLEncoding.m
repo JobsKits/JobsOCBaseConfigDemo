@@ -28,8 +28,7 @@
             parametersString = [array componentsJoinedByString:@"&"];
         }else{
             parametersString =[NSString stringWithFormat:@"%@",parameters] ;
-        }
-        return [urlString stringByAppendingString:[NSString stringWithFormat:@"?%@",parametersString]];
+        };return [urlString stringByAppendingString:[NSString stringWithFormat:@"?%@",parametersString]];
     }
 }
 @end

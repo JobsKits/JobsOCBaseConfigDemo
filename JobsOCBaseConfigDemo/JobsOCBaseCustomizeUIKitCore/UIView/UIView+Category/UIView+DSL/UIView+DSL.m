@@ -246,8 +246,7 @@ JobsKey(_layoutSubviewsRectCornerSize)
         } else {
             self.hidden = !jobsVisible;
             self.alpha = jobsVisible;
-        }
-        return self;
+        };return self;
     };
 }
 

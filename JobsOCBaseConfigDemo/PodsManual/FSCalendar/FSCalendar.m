@@ -458,8 +458,7 @@ Prop_strong()FSCalendarAppearance *appearance;
         }
     } else {
         return CGSizeMake(size.width, self.fs_height);
-    }
-    return size;
+    };return size;
 }
 
 #pragma mark - <UICollectionViewDataSource>
@@ -483,8 +482,7 @@ Prop_strong()FSCalendarAppearance *appearance;
         case FSCalendarScopeWeek: {
             return 7;
         }
-    }
-    return 7;
+    };return 7;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -531,8 +529,7 @@ Prop_strong()FSCalendarAppearance *appearance;
             [stickyHeader setNeedsLayout];
             return stickyHeader;
         }
-    }
-    return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"placeholderHeader" forIndexPath:indexPath];
+    };return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"placeholderHeader" forIndexPath:indexPath];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingSupplementaryView:(UICollectionReusableView *)view forElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath
@@ -994,10 +991,8 @@ Prop_strong()FSCalendarAppearance *appearance;
             } else {
                 _preferredHeaderHeight = FSCalendarStandardHeaderHeight*MAX(1, FSCalendarDeviceIsIPad*1.5);
             }
-        }
-        return _preferredHeaderHeight;
-    }
-    return _headerHeight;
+        };return _preferredHeaderHeight;
+    };return _headerHeight;
 }
 
 - (CGFloat)preferredWeekdayHeight
@@ -1011,10 +1006,8 @@ Prop_strong()FSCalendarAppearance *appearance;
             } else {
                 _preferredWeekdayHeight = FSCalendarStandardWeekdayHeight*MAX(1, FSCalendarDeviceIsIPad*1.5);
             }
-        }
-        return _preferredWeekdayHeight;
-    }
-    return _weekdayHeight;
+        };return _preferredWeekdayHeight;
+    };return _weekdayHeight;
 }
 
 - (CGFloat)preferredRowHeight
@@ -1029,8 +1022,7 @@ Prop_strong()FSCalendarAppearance *appearance;
         } else {
             _preferredRowHeight = _rowHeight;
         }
-    }
-    return _preferredRowHeight;
+    };return _preferredRowHeight;
 }
 
 - (BOOL)floatingMode
@@ -1048,8 +1040,7 @@ Prop_strong()FSCalendarAppearance *appearance;
         panGesture.enabled = NO;
         [self.daysContainer addGestureRecognizer:panGesture];
         _scopeGesture = panGesture;
-    }
-    return _scopeGesture;
+    };return _scopeGesture;
 }
 
 - (UILongPressGestureRecognizer *)swipeToChooseGesture
@@ -1063,8 +1054,7 @@ Prop_strong()FSCalendarAppearance *appearance;
         [self.daysContainer addGestureRecognizer:pressGesture];
         [self.collectionView.panGestureRecognizer requireGestureRecognizerToFail:pressGesture];
         _swipeToChooseGesture = pressGesture;
-    }
-    return _swipeToChooseGesture;
+    };return _swipeToChooseGesture;
 }
 
 #pragma mark —— dataSource
@@ -1337,8 +1327,7 @@ Prop_strong()FSCalendarAppearance *appearance;
         }
         default:
             break;
-    }
-    return flag;
+    };return flag;
 }
 
 - (BOOL)isDateSelected:(NSDate *)date
@@ -1663,8 +1652,7 @@ Prop_strong()FSCalendarAppearance *appearance;
         [self.calculator reloadSections];
         
         return res;
-    }
-    return NO;
+    };return NO;
 }
 
 - (void)configureAppearance

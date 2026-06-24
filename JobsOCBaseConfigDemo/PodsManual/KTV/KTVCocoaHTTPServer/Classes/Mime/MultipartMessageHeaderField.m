@@ -181,8 +181,7 @@ int findChar(const char* str, NSUInteger length, char c) {
 		if( str[offset] == c )
 			return offset;
 		++ offset;
-	}
-	return -1;
+	};return -1;
 }
 
 NSString* extractParamValue(const char* bytes, NSUInteger length, NSStringEncoding encoding) {
@@ -203,7 +202,6 @@ NSString* extractParamValue(const char* bytes, NSUInteger length, NSStringEncodi
 		[value deleteCharactersInRange:range];
 		range.location ++;
 		range = [value rangeOfString:@"\\" options:NSLiteralSearch range: range];
-	}
-	return value;
+	};return value;
 }
 

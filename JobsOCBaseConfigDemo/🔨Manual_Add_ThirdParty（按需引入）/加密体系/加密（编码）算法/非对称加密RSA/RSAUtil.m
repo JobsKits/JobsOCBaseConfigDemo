@@ -19,8 +19,7 @@
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
     if(!data){
  return nil;
-    }
-    return base64_encode_data(data);
+    };return base64_encode_data(data);
  }
  */
 

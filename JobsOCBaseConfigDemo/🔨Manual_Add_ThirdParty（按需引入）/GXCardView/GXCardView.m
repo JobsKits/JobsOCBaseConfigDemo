@@ -253,8 +253,7 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
         _containerView = [[UIView alloc] initWithFrame:self.bounds];
         _containerView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         [self addSubview:_containerView];
-    }
-    return _containerView;
+    };return _containerView;
 }
 
 - (void)reloadData {
@@ -425,8 +424,7 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
         if (index < 0) {
             index = index + [self.dataSource numberOfCountInCardView:self];
         }
-    }
-    return index;
+    };return index;
 }
 
 /** 数据源索引转换为对应的显示索引 */
@@ -486,8 +484,7 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
     if (visibleIndex >= 0 && visibleIndex < self.visibleCells.count) {
         GXCardViewCell *cell = [self.visibleCells objectAtIndex:visibleIndex];
         return cell;
-    }
-    return nil;
+    };return nil;
 }
 
 /** 获取cell对应的index */
@@ -518,8 +515,7 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
     if(self.visibleCells.count == 0) { // 只有最后一张卡片的时候
         if ([self.delegate respondsToSelector:@selector(cardView:didRemoveLastCell:forRowAtIndex:)]) {
             [self.delegate cardView:self didRemoveLastCell:cell forRowAtIndex:cell.index];
-        }
-        return;
+        };return;
     }
     if (self.isRepeat) {
         NSInteger reCount = self.isRepeat ? (count + self.visibleCount - 1) : count;

@@ -395,8 +395,7 @@
             }
         }
         
-    }
-    return [NSArray arrayWithArray:layoutAttributes];
+    };return [NSArray arrayWithArray:layoutAttributes];
     
 }
 
@@ -439,8 +438,7 @@
         });
         attributes.frame = frame;
         self.itemAttributes[indexPath] = attributes;
-    }
-    return attributes;
+    };return attributes;
 }
 
 // Section headers
@@ -452,10 +450,8 @@
             attributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:indexPath];
             attributes.frame = CGRectMake(0, self.sectionTops[indexPath.section], self.collectionView.fs_width, self.headerReferenceSize.height);
             self.headerAttributes[indexPath] = attributes;
-        }
-        return attributes;
-    }
-    return nil;
+        };return attributes;
+    };return nil;
 }
 
 // Separators
@@ -495,10 +491,8 @@
             attributes.frame = CGRectMake(x, y, width, height);
             attributes.zIndex = NSIntegerMax;
             self.rowSeparatorAttributes[indexPath] = attributes;
-        }
-        return attributes;
-    }
-    return nil;
+        };return attributes;
+    };return nil;
 }
 
 - (BOOL)flipsHorizontallyInOppositeLayoutDirection

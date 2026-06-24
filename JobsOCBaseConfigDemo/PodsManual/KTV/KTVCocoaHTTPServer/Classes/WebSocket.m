@@ -631,8 +631,7 @@ NS_INLINE NSUInteger WS_PAYLOAD_LENGTH(UInt8 frame)
 	if (rsv || (3 <= opcode && opcode <= 7) || (0xB <= opcode && opcode <= 0xF))
 	{
 		return NO;
-	}
-	return YES;
+	};return YES;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

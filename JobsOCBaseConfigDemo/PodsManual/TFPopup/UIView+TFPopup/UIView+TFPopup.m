@@ -852,8 +852,7 @@ Prop_assign()NSInteger hideAnimationCount;
         }else{
             needDiscernDragStyle = YES;//设置了多方向,需要自动识别方向
         }
-    }
-    return needDiscernDragStyle;
+    };return needDiscernDragStyle;
 }
 
 
@@ -897,8 +896,7 @@ Prop_assign()NSInteger hideAnimationCount;
             caseSuccess = YES;
         }break;
         default:break;
-    }
-    return caseSuccess;
+    };return caseSuccess;
 }
 
 /*
@@ -1027,8 +1025,7 @@ Prop_assign()NSInteger hideAnimationCount;
     if (self.superview && self.extension.defaultBackgroundView) {
         percent = percent > kDefaultMinDragBackgroundAlpha ? percent : kDefaultMinDragBackgroundAlpha;
         self.extension.defaultBackgroundView.alpha = percent;
-    }
-    return YES;
+    };return YES;
 }
 
 
@@ -1052,8 +1049,7 @@ Prop_assign()NSInteger hideAnimationCount;
             max = self.extension.popupArea.width * 0.5;
         }break;
         default:break;
-    }
-    return max;
+    };return max;
 }
 
 //拖动-计算当前拖动位置和展示位置的中点距离
@@ -1229,8 +1225,7 @@ static inline void tf_popupDelay(NSTimeInterval interval,dispatch_block_t block)
             return !self.popupParam.disuseHidePopupAlphaAnimation;
         }break;
         default:break;
-    }
-    return YES;
+    };return YES;
 }
 - (CGFloat )tf_popupView:(UIView *)popup fromAlphaForState:(TFPopupState)state{
     switch (state) {
@@ -1241,8 +1236,7 @@ static inline void tf_popupDelay(NSTimeInterval interval,dispatch_block_t block)
             return 1;
         }break;
         default:break;
-    }
-    return NO;
+    };return NO;
 }
 - (CGFloat )tf_popupView:(UIView *)popup toAlphaForState:(TFPopupState)state{
     switch (state) {
@@ -1253,8 +1247,7 @@ static inline void tf_popupDelay(NSTimeInterval interval,dispatch_block_t block)
             return 0;
         }break;
         default:break;
-    }
-    return NO;
+    };return NO;
 }
 
 - (BOOL    )tf_popupView:(UIView *)popup animationWithFrameForState:(TFPopupState)state{
@@ -1266,64 +1259,54 @@ static inline void tf_popupDelay(NSTimeInterval interval,dispatch_block_t block)
             return !self.popupParam.disuseHidePopupFrameAnimation;
         }break;
         default:break;
-    }
-    return YES;
+    };return YES;
 }
 - (CGRect  )tf_popupView:(UIView *)popup fromFrameForState:(TFPopupState)state{
     switch (state) {
         case TFPopupStateShow:{
             if (CGRectEqualToRect(self.popupParam.popOriginFrame, CGRectZero) == NO) {
                 return self.popupParam.popOriginFrame;
-            }
-            return normalOriginFrame(self.popupParam);
+            };return normalOriginFrame(self.popupParam);
         }break;
         case TFPopupStateHide:{
             if (CGRectEqualToRect(self.popupParam.popTargetFrame, CGRectZero) == NO) {
                 return self.popupParam.popTargetFrame;
-            }
-            return normalTargetFrame(self.popupParam);
+            };return normalTargetFrame(self.popupParam);
         }break;
         default:break;
-    }
-    return CGRectZero;
+    };return CGRectZero;
 }
 - (CGRect  )tf_popupView:(UIView *)popup toFrameForState:(TFPopupState)state{
     switch (state) {
         case TFPopupStateShow:{
             if (CGRectEqualToRect(self.popupParam.popTargetFrame, CGRectZero) == NO) {
                 return self.popupParam.popTargetFrame;
-            }
-            return normalTargetFrame(self.popupParam);
+            };return normalTargetFrame(self.popupParam);
         }break;
         case TFPopupStateHide:{
             if (CGRectEqualToRect(self.popupParam.popOriginFrame, CGRectZero) == NO) {
                 return self.popupParam.popOriginFrame;
-            }
-            return normalOriginFrame(self.popupParam);
+            };return normalOriginFrame(self.popupParam);
         }break;
         default:break;
-    }
-    return CGRectZero;
+    };return CGRectZero;
 }
 - (NSTimeInterval)tf_popupView:(UIView *)popup animationDurationForState:(TFPopupState)state{
     if (self.popupParam.duration > 0) {
         return self.popupParam.duration;
-    }
-    return kDefaultAnimationDuration;
+    };return kDefaultAnimationDuration;
 }
 - (NSTimeInterval)tf_popupView:(UIView *)popup animationDelayForState:(TFPopupState)state{
     if (state == TFPopupStateShow) {
         return MAX(self.popupParam.showAnimationDelay, 0.0);
     }else if(state == TFPopupStateHide){
         return MAX(self.popupParam.hideAnimationDelay, 0.0);
-    }
-    return 0;
+    };return 0;
 }
 - (UIViewAnimationOptions)tf_popupView:(UIView *)popup animationOptionsForState:(TFPopupState)state{
     if (self.popupParam.animationOptions == 0) {
         return UIViewAnimationOptionCurveEaseOut;
-    }
-    return self.popupParam.animationOptions;
+    };return self.popupParam.animationOptions;
 }
 
 - (BOOL)tf_popupView:(UIView *)popup enableScrollViewGestureRecognizerWhenDrag:(UIScrollView *)scrollView{
@@ -1359,8 +1342,7 @@ static inline void tf_popupDelay(NSTimeInterval interval,dispatch_block_t block)
     [self showDefaultBackground];
     if (self.extension.delegateProcessBlock) {
         self.extension.delegateProcessBlock(weakself,DelegateProcessWillShow);
-    }
-    return YES;
+    };return YES;
 }
 
 - (void)tf_popupViewDidAddedToSuperview:(UIView *)popup{
@@ -1400,30 +1382,26 @@ static inline void tf_popupDelay(NSTimeInterval interval,dispatch_block_t block)
     [self hideDefaultBackground];
     if (self.extension.delegateProcessBlock) {
         self.extension.delegateProcessBlock(weakself,DelegateProcessWillHide);
-    }
-    return YES;
+    };return YES;
 }
 - (BOOL)tf_popupViewDidHide:(UIView *)popup{
     x_weakSelf;
     if (self.extension.delegateProcessBlock) {
         self.extension.delegateProcessBlock(weakself,DelegateProcessDidHide);
-    }
-    return YES;
+    };return YES;
 }
 - (BOOL)tf_popupViewHideAnimationDidFinish:(UIView *)popup{
     x_weakSelf;
     if (self.extension.delegateProcessBlock) {
         self.extension.delegateProcessBlock(weakself,DelegateProcessHideAnimationDidFinish);
-    }
-    return YES;
+    };return YES;
 }
 
 - (BOOL)tf_popupViewBackgroundDidTouch:(UIView *)popup{
     x_weakSelf;
     if (self.extension.delegateProcessBlock) {
         self.extension.delegateProcessBlock(weakself,DelegateProcessBackgroundDidTouch);
-    }
-    return YES;
+    };return YES;
 }
 
 #pragma mark -- 收尾函数
@@ -1560,8 +1538,7 @@ static inline TFPopupPrivateExtension *getRunCache(NSObject *obj){
     if (ext == nil) {
         ext = [[TFPopupPrivateExtension alloc]init];
         [_tfPopupRunCache setObject:ext forKey:addr];
-    }
-    return ext;
+    };return ext;
 }
 static inline void deleteRunCache(NSObject *obj){
     if (obj == nil) {
@@ -1692,8 +1669,7 @@ static inline CGRect bubbleTarget(CGPoint basePoint,
             y = (basePoint.y - h) + offset.y;
         }break;
         default:break;
-    }
-    return CGRectMake(x, y, w, h);
+    };return CGRectMake(x, y, w, h);
 }
 
 
@@ -1816,8 +1792,7 @@ static inline NSMutableArray<UIView*>*allSubViews(UIView *target,BOOL containTar
     }
     if (containTarget) {
         [allSubviews addObject:target];
-    }
-    return allSubviews;
+    };return allSubviews;
 }
 
 #pragma mark -- 属性绑定
@@ -1835,8 +1810,7 @@ tf_synthesize_category_property_retain(popupParam, setPopupParam);
     }else{
         self.extension = [[TFPopupExtension alloc]init];
         value = self.extension;
-    }
-    return value;;
+    };return value;;
 }
 #pragma mark —— extension
 JobsKey(_extension)
@@ -1855,8 +1829,7 @@ JobsKey(_extension)
 -(BOOL)openOberserBlock{
     if (self.delegate == self) {
         return YES;
-    }
-    return NO;
+    };return NO;
 }
 #pragma mark —— openOberserBlock
 @dynamic openOberserBlock;

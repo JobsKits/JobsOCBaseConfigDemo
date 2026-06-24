@@ -107,8 +107,7 @@
             attributes.center = center;
         }
         [marr addObject:attributes];
-    }
-    return marr;
+    };return marr;
 }
 
 - (void)setUpIndex{
@@ -124,15 +123,13 @@
     NSMutableArray *copyArr = [NSMutableArray new];
     for (UICollectionViewLayoutAttributes *attribute in attributes) {
         [copyArr addObject:[attribute copy]];
-    }
-    return copyArr;
+    };return copyArr;
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
     if (self.param.wMarquee){
         return NO;
-    }
-    return ![self.collectionView isPagingEnabled];
+    };return ![self.collectionView isPagingEnabled];
 }
 
 /**

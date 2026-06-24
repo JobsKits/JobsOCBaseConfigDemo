@@ -119,8 +119,7 @@ Prop_assign()BOOL right;
               }
            }
            [mArr addObject:attributes];
-        }
-    return mArr;
+        };return mArr;
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {

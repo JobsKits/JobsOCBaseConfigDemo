@@ -403,8 +403,7 @@
         @jobs_strongify(self)
         if (@available(iOS 13.0, *)){
                     self.cornerCurve = data;
-                }
-        return self;
+                };return self;
     };
 }
 

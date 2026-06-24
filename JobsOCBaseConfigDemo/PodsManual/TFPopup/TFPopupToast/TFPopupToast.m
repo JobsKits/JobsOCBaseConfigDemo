@@ -101,8 +101,7 @@ dissmissDuration:(NSTimeInterval)duration
         }
     }else{
         dur = 1.5;
-    }
-    return dur;
+    };return dur;
 }
 
 -(CGRect)toastFrame{
@@ -138,8 +137,7 @@ dissmissDuration:(NSTimeInterval)duration
         _msgLabel.numberOfLines = 0;
         _msgLabel.lineBreakMode = NSLineBreakByClipping;
         _msgLabel.clipsToBounds = NO;
-    }
-    return _msgLabel;
+    };return _msgLabel;
 }
 
 

@@ -255,8 +255,7 @@
     if (self.isSelected) {
         if (self.dateIsToday) {
             return dictionary[@(FSCalendarCellStateSelected|FSCalendarCellStateToday)] ?: dictionary[@(FSCalendarCellStateSelected)];
-        }
-        return dictionary[@(FSCalendarCellStateSelected)];
+        };return dictionary[@(FSCalendarCellStateSelected)];
     }
     if (self.dateIsToday && [[dictionary allKeys] containsObject:@(FSCalendarCellStateToday)]) {
         return dictionary[@(FSCalendarCellStateToday)];
@@ -266,8 +265,7 @@
     }
     if (self.weekend && [[dictionary allKeys] containsObject:@(FSCalendarCellStateWeekend)]) {
         return dictionary[@(FSCalendarCellStateWeekend)];
-    }
-    return dictionary[@(FSCalendarCellStateNormal)];
+    };return dictionary[@(FSCalendarCellStateNormal)];
 }
 
 #pragma mark - Properties
@@ -276,40 +274,35 @@
 {
     if (self.selected) {
         return self.preferredFillSelectionColor ?: [self colorForCurrentStateInDictionary:_appearance.backgroundColors];
-    }
-    return self.preferredFillDefaultColor ?: [self colorForCurrentStateInDictionary:_appearance.backgroundColors];
+    };return self.preferredFillDefaultColor ?: [self colorForCurrentStateInDictionary:_appearance.backgroundColors];
 }
 
 - (UIColor *)colorForTitleLabel
 {
     if (self.selected) {
         return self.preferredTitleSelectionColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
-    }
-    return self.preferredTitleDefaultColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
+    };return self.preferredTitleDefaultColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
 }
 
 - (UIColor *)colorForSubtitleLabel
 {
     if (self.selected) {
         return self.preferredSubtitleSelectionColor ?: [self colorForCurrentStateInDictionary:_appearance.subtitleColors];
-    }
-    return self.preferredSubtitleDefaultColor ?: [self colorForCurrentStateInDictionary:_appearance.subtitleColors];
+    };return self.preferredSubtitleDefaultColor ?: [self colorForCurrentStateInDictionary:_appearance.subtitleColors];
 }
 
 - (UIColor *)colorForCellBorder
 {
     if (self.selected) {
         return _preferredBorderSelectionColor ?: _appearance.borderSelectionColor;
-    }
-    return _preferredBorderDefaultColor ?: _appearance.borderDefaultColor;
+    };return _preferredBorderDefaultColor ?: _appearance.borderDefaultColor;
 }
 
 - (NSArray<UIColor *> *)colorsForEvents
 {
     if (self.selected) {
         return _preferredEventSelectionColors ?: @[_appearance.eventSelectionColor];
-    }
-    return _preferredEventDefaultColors ?: @[_appearance.eventDefaultColor];
+    };return _preferredEventDefaultColors ?: @[_appearance.eventDefaultColor];
 }
 
 - (CGFloat)borderRadius
