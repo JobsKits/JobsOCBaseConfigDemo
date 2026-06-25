@@ -132,7 +132,7 @@ BaseViewProtocol_synthesize
 //                @jobs_strongify(self)
             }];
         })).byAdd(self.masonryBlock);
-    };return _textView;
+    };return _szTextView;
 }
 
 -(__kindof JobsTextView *)jobsTextView{

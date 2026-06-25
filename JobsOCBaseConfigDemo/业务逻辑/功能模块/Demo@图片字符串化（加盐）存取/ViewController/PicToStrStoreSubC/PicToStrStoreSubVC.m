@@ -64,16 +64,11 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsWhiteColor);
-
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
-
     self.btn_1.byAlpha(1);
-
     self.btn_2.byAlpha(1);
-
     self.textView.byAlpha(1);
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -323,23 +318,23 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
         @jobs_weakify(self)
         _textView = jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
             @jobs_strongify(self)
-            textView.byText(@"暂无编码数据！！！".tr);
-            textView.byTextColor(HEXCOLOR(0xB0B0B0));
-            textView.byFont(UIFontSystemFontOfSize(14));
-            textView.byBgColor(JobsLightTextColor);
-            textView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-                model
-                    .byLayerCor(JobsLightGrayColor)
-                    .byJobsWidth(.5f);
-            }));
-            textView.addOn(self.view);
-            [textView mas_makeConstraints:^(MASConstraintMaker *make) {
-                @jobs_strongify(self)
-                make.left.equalTo(self.view).offset(JobsWidth(10));
-                make.right.equalTo(self.view).offset(JobsWidth(-10));
-                make.top.equalTo(self.btn_2.mas_bottom).offset(JobsWidth(10));
-                make.bottom.equalTo(self.view).offset(JobsWidth(-20));
-            }];
+            textView
+                .byText(@"暂无编码数据！！！".tr)
+                .byTextColor(HEXCOLOR(0xB0B0B0))
+                .byFont(UIFontSystemFontOfSize(14))
+                .byBgColor(JobsLightTextColor)
+                .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
+                    model
+                        .byLayerCor(JobsLightGrayColor)
+                        .byJobsWidth(.5f);
+                }))
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.view).offset(JobsWidth(10));
+                    make.right.equalTo(self.view).offset(JobsWidth(-10));
+                    make.top.equalTo(self.btn_2.mas_bottom).offset(JobsWidth(10));
+                    make.bottom.equalTo(self.view).offset(JobsWidth(-20));
+                });
         });
     };return _textView;
 }

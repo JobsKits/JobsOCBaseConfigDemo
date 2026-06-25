@@ -88,7 +88,8 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
 #pragma mark —— 一些私有化方法
 /// 移除掉这个下拉列表
 -(void)endDropDownListView{
-    _dropDownListView.dropDownListViewDisappear(nil);
+    jobsByCtrlBlock disappearBlock = _dropDownListView.dropDownListViewDisappear;
+    if (disappearBlock) disappearBlock(nil);
     _dropDownListView = nil;
 }
 #pragma mark —— lazyLoad

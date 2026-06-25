@@ -37,7 +37,7 @@ Prop_strong()MSCommentView *commentView;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byTextCor(HEXCOLOR(0x3D4A58));
         })
-        //    self.viewModel.textModel.text = @"消息详情页".tr;
+        // self.viewModel.textModel.text = @"消息详情页".tr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(data.attributedTitle.string);
             data.byFont(UIFontWeightRegularSize(16));
@@ -47,7 +47,7 @@ Prop_strong()MSCommentView *commentView;
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
         .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        // self.viewModel.bgImage = @"启动页SLOGAN".img;
         .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
         .byNavBgImage(@"导航栏左侧底图".img);
 }
@@ -55,12 +55,9 @@ Prop_strong()MSCommentView *commentView;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsWhiteColor);
-
     self.makeNavByAlpha(1);
     self.titleLab.byAlpha(1);
-
     self.commentView.byAlpha(1);
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{

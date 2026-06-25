@@ -14,6 +14,9 @@ Prop_strong()NSMutableArray <MSCommentModel *>*dataMutArr;
 @end
 
 @implementation MSCommentView
+/// BaseViewProtocol
+@synthesize tableView = _tableView;
+
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
@@ -62,8 +65,20 @@ static dispatch_once_t static_commentViewOnceToken;
     /// 内部指定圆切角
     [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
                                     cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    [self cleanTableViewDebugBackground];
 }
 #pragma mark —— 一些私有方法
+-(void)cleanTableViewDebugBackground{
+    if (!_tableView) return;
+    _tableView.backgroundColor = JobsWhiteColor;
+    _tableView.backgroundView.backgroundColor = JobsWhiteColor;
+    for (UIView *subview in _tableView.subviews) {
+        if (![subview isKindOfClass:UITableViewCell.class] &&
+            ![subview isKindOfClass:UITableViewHeaderFooterView.class]) {
+            subview.backgroundColor = JobsWhiteColor;
+        }
+    }
+}
 /// 设置headerView
 -(void)headerView:(UITableViewHeaderFooterView *)headerView
           section:(NSInteger)section{
@@ -179,8 +194,6 @@ willDisplayHeaderView:(UIView *)view
     [self headerView:commentTableHeaderFooterView section:section];
 }
 #pragma mark —— lazyLoad
-/// BaseViewProtocol
-@synthesize tableView = _tableView;
 -(BaseTableView *)tableView{
     if (!_tableView) {
         @jobs_weakify(self)
@@ -195,6 +208,9 @@ willDisplayHeaderView:(UIView *)view
                 .byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
                     /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 }))
+                .byBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+                    view.byBgColor(JobsWhiteColor);
+                }))
                 .byShowsVerticalScrollIndicator(NO)
                 .byScrollEnabled(YES)
                 .byMJRefreshHeader(self.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
@@ -208,6 +224,7 @@ willDisplayHeaderView:(UIView *)view
                     return nil;
                 }]))
                 .byBgColor(@"#FFFFFF".cor);
+            tableView.opaque = YES;
             tableView.ww_foldable = YES;
             tableView.registerHeaderFooterViewClass(MSCommentTableHeaderFooterView.class,@"");
             if(@available(iOS 11.0, *)) {

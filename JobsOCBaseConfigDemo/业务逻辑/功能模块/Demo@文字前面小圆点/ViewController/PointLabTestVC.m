@@ -27,13 +27,14 @@ Prop_copy()NSString *dot;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.makeNavByAlpha(1);
     self.label.byAlpha(1);
     self.label2.byAlpha(1);
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    self.invokeSysCamera();
-}
+//-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+//    self.invokeSysCamera();
+//}
 #pragma mark —— lazyLoad
 @synthesize label = _label;
 -(UILabel *)label{
@@ -43,14 +44,14 @@ Prop_copy()NSString *dot;
             @jobs_strongify(self)
             label
                 .byAttributedString(self.attributedString)
-            .byNumberOfLines(0)
-            .byBgColor(JobsRandomColor)
-            .addOn(self.view)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.width.mas_equalTo(200);
-                make.center.equalTo(self.view);
-            })
-            .makeLabelByShowingType(UILabelShowingType_05);
+                .byNumberOfLines(0)
+                .byBgColor(JobsRandomColor)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.width.mas_equalTo(200);
+                    make.center.equalTo(self.view);
+                })
+                .makeLabelByShowingType(UILabelShowingType_05);
         });
     };return _label;
 }
@@ -62,15 +63,15 @@ Prop_copy()NSString *dot;
             @jobs_strongify(self)
             label
                 .byAttributedString(self.attributedString2)
-            .byNumberOfLines(0)
-            .byBgColor(JobsRandomColor)
-            .addOn(self.view)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.width.mas_equalTo(200);
-                make.centerX.equalTo(self.view);
-                make.top.equalTo(self.label.mas_bottom);
-            })
-            .makeLabelByShowingType(UILabelShowingType_05);
+                .byNumberOfLines(0)
+                .byBgColor(JobsRandomColor)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.width.mas_equalTo(200);
+                    make.centerX.equalTo(self.view);
+                    make.top.equalTo(self.label.mas_bottom);
+                })
+                .makeLabelByShowingType(UILabelShowingType_05);
         });
     };return _label2;
 }
@@ -83,20 +84,21 @@ Prop_copy()NSString *dot;
 
 -(NSMutableAttributedString *)attributedString{
     if(!_attributedString){
-        _attributedString = jobsMakeMutableAttributedString(^(__kindof NSMutableAttributedString *_Nullable data) {
-            data.add(JobsAttributedString(self.dot
-                                          .add(@"我是中国人我是中国人我是中国人我是中国人我是中国人我是中国人")
-                                          .add(JobsNewline)));
-            data.add(JobsAttributedString(self.dot
-                                          .add(@"你是日本人你是日本人你是日本人你是日本人你是日本人你是日本人")
-                                          .add(JobsNewline)));
+        NSString *firstText = @"我是中国人我是中国人我是中国人我是中国人我是中国人我是中国人";
+        NSString *secondText = @"你是日本人你是日本人你是日本人你是日本人你是日本人你是日本人";
+        NSString *firstLine = [NSString stringWithFormat:@"%@%@%@", self.dot, firstText, JobsNewline];
+        NSString *secondLine = [NSString stringWithFormat:@"%@%@%@", self.dot, secondText, JobsNewline];
+        NSUInteger secondDotLocation = firstLine.length;
+        _attributedString = JobsMutAttributedString([NSString stringWithFormat:@"%@%@", firstLine, secondLine]);
+        NSUInteger attributedLength = _attributedString.length;
+        _attributedString
             /// 设置段落
-            data.addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-                data.value = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data1) {
-                    data1.headIndent = 10; // 设置文本的缩进，使其与圆点对齐
-                    data1.firstLineHeadIndent = 0; // 第一行不缩进
+            .addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable model) {
+                model.value = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
+                    data.headIndent = 10; // 设置文本的缩进，使其与圆点对齐
+                    data.firstLineHeadIndent = 0; // 第一行不缩进
                 });
-                data.byRange(NSMakeRange(0, self.attributedString.length));
+                model.byRange(NSMakeRange(0, attributedLength));
             }))
             /// 设置小圆点的颜色
             .addForegroundColorAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
@@ -105,18 +107,17 @@ Prop_copy()NSString *dot;
             }))
             .addForegroundColorAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
                 data1.byValue(JobsYellowColor)
-                     .byRange(NSMakeRange(@"我是中国人我是中国人我是中国人我是中国人我是中国人我是中国人".add(JobsNewline).length + 1, 1));// 第二个圆点
+                     .byRange(NSMakeRange(secondDotLocation, 1));// 第二个圆点
             }))
             /// 设置文本颜色
             .addForegroundColorAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
                 data1.byValue(@"#D0D0D0".cor)
-                     .byRange(NSMakeRange(1, data.length - 1));
+                     .byRange(NSMakeRange(1, attributedLength - 1));
             }))
             .addFontAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
                 data1.byValue(UIFontWeightRegularSize(JobsWidth(12)))
-                     .byRange(NSMakeRange(0, data.length));
+                     .byRange(NSMakeRange(0, attributedLength));
             }));
-        });
     };return _attributedString;
 }
 
@@ -139,14 +140,15 @@ Prop_copy()NSString *dot;
             _attributedString2.add(JobsAttributedString(JobsSpace));
             // 添加对应的文本
             NSMutableAttributedString *text = JobsMutAttributedString(item);
-            text.addFontAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-                data.byValue(UIFontWeightRegularSize(JobsWidth(12)))
-                    .byRange(NSMakeRange(0, text.length));
-            }));
-            text.addForegroundColorAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-                data.byValue(@"#D0D0D0".cor)
-                    .byRange(NSMakeRange(0, text.length));
-            }));
+            text
+                .addFontAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
+                    data.byValue(UIFontWeightRegularSize(JobsWidth(12)))
+                        .byRange(NSMakeRange(0, text.length));
+                }))
+                .addForegroundColorAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
+                    data.byValue(@"#D0D0D0".cor)
+                        .byRange(NSMakeRange(0, text.length));
+                }));
             _attributedString2.add(text);
             // 添加换行符
             _attributedString2.add(JobsAttributedString(JobsNewline));

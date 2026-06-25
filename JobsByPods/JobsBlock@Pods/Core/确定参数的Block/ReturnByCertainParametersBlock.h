@@ -652,6 +652,18 @@ typedef __kindof UITextField *_Nullable(^JobsRetTextFieldByCorBlock)(__kindof UI
 typedef __kindof UITextField *_Nullable(^JobsRetTextFieldByImageBlock)(__kindof UIImage *_Nullable image);
 typedef __kindof UITextField *_Nullable(^JobsRetTextFieldByViewBlock)(__kindof UIView *_Nullable view);
 typedef __kindof UITextField *_Nullable(^JobsRetTextFieldByNSDictionaryBlock)(NSDictionary<NSAttributedStringKey,id>*_Nonnulldata);
+#pragma mark —— 关于 UISearchBar
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByBOOLBlock)(BOOL data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByNSIntegerBlock)(NSInteger data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByDelegateBlock)(id<UISearchBarDelegate> _Nullable data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByStringBlock)(NSString *_Nullable data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByCorBlock)(UIColor *_Nullable data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByImageBlock)(UIImage *_Nullable data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByArrBlock)(NSArray<NSString *> *_Nullable data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByViewBlock)(__kindof UIView *_Nullable data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByOffsetBlock)(UIOffset data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByBarStyleBlock)(UIBarStyle data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarBySearchBarStyleBlock)(UISearchBarStyle data);
 #pragma mark —— 关于 Label
 typedef __kindof UILabel *_Nullable(^JobsRetLabelByVoidBlock)(void);
 typedef __kindof UILabel *_Nullable(^JobsRetLabelByNSIntegerBlock)(NSInteger data);
@@ -1200,6 +1212,8 @@ typedef __kindof UILabel *_Nullable(^JobsRetUILabelByNSIntegerBlock)(NSInteger d
 typedef __kindof UILabel *_Nullable(^JobsRetUILabelByCGSizeBlock)(CGSize data);
 typedef __kindof UILabel *_Nullable(^JobsRetUILabelByUIColorBlock)(UIColor *_Nullable data);
 typedef __kindof UILabel *_Nullable(^JobsRetUILabelByNSAttributedStringBlock)(NSAttributedString *_Nullable data);
+typedef __kindof UILabel *_Nullable(^JobsRetUILabelByBaselineAdjustmentBlock)(UIBaselineAdjustment data);
+typedef __kindof UILabel *_Nullable(^JobsRetUILabelByLineBreakModeBlock)(NSLineBreakMode data);
 typedef __kindof UILabel *_Nullable(^JobsRetUILabelByVibrancyBlock)(UILabelVibrancy data) API_AVAILABLE(ios(17.0), tvos(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
 typedef __kindof UILabel *_Nullable(^JobsRetUILabelByLineBreakStrategyBlock)(NSLineBreakStrategy data);
 /// UITextField

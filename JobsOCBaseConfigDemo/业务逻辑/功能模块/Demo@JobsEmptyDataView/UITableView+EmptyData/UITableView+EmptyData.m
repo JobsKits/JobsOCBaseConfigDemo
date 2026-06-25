@@ -7,20 +7,38 @@
 
 #import "UITableView+EmptyData.h"
 
+static const void *JobsTableViewEmptyDataReloadingKey = &JobsTableViewEmptyDataReloadingKey;
+
 @implementation UITableView (EmptyData)
 
-+(void)initialize{
++(void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        method_exchangeImplementations(class_getInstanceMethod(self, @selector(reloadData)),
-                                       class_getInstanceMethod(self, @selector(jobsReloadData)));
+        Method originalMethod = class_getInstanceMethod(UITableView.class, @selector(reloadData));
+        Method swizzledMethod = class_getInstanceMethod(UITableView.class, @selector(jobsReloadData));
+        if (originalMethod && swizzledMethod) {
+            method_exchangeImplementations(originalMethod, swizzledMethod);
+        }
     });
 }
 
 -(void)jobsReloadData{
+    if ([objc_getAssociatedObject(self, JobsTableViewEmptyDataReloadingKey) boolValue]) return;
+    objc_setAssociatedObject(self, JobsTableViewEmptyDataReloadingKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [self jobsReloadData]; // 调用原始的 reloadData（已经交换过）
-//    self.showEmptyLabelBy(self.textModelEmptyData)
-    self.showEmptyButtonBy(self.buttonModelEmptyData);
+    objc_setAssociatedObject(self, JobsTableViewEmptyDataReloadingKey, @NO, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    switch (self.jobsEmptyViewType) {
+        case JobsEmptyViewTypeLabel:{
+            self.showEmptyLabelBy(self.textModelEmptyData);
+        }break;
+        case JobsEmptyViewTypeButton:{
+            self.showEmptyButtonBy(self.buttonModelEmptyData);
+        }break;
+        case JobsEmptyViewTypeCustomView:{
+            self.showEmptyViewBy(self.emptyDataView);
+        }break;
+        default:break;
+    }
 }
 #pragma mark —— 一些私有方法
 -(BOOL)hasData{
@@ -93,6 +111,22 @@
                         });
                 });
             });
+        }
+    };
+}
+
+-(JobsRetViewByViewBlock _Nonnull)showEmptyViewBy{
+    @jobs_weakify(self)
+    return ^__kindof UIView *_Nullable(__kindof UIView *view){
+        @jobs_strongify(self)
+        if(self.hasData){
+            self.cleanSubviewBy(UIView.class);
+            return nil;
+        }else{
+            self.cleanSubviewBy(UIView.class);
+            view.byFrame(self.bounds);
+            self.addSubview(view);
+            return view;
         }
     };
 }

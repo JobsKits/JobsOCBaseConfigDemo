@@ -58,7 +58,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ViewController_1 : BaseViewController <UITableViewDelegate,UITableViewDataSource>
+@interface ViewController_1 : BaseViewController <UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 
 @end
 

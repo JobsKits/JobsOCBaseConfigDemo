@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <objc/runtime.h>
 
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
@@ -35,6 +36,18 @@
 #import <JobsMakes/JobsMakes.h>
 #else
 #import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsOCTimerMgr/JobsTimerMgr.h>)
+#import <JobsOCTimerMgr/JobsTimerMgr.h>
+#else
+#import "JobsTimerMgr.h"
+#endif
+
+#if __has_include(<JobsOCPatch/JobsOCPatch.h>)
+#import <JobsOCPatch/JobsOCPatch.h>
+#else
+#import "JobsOCPatch.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)

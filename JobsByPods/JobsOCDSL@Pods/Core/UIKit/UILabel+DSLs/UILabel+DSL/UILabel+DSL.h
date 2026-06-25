@@ -48,6 +48,18 @@ Prop_assign()JobsDirectionType transformLayerDirectionType;
 -(JobsRetLabelByCorBlock _Nonnull)byTextCor;
 -(JobsRetLabelByFontBlock _Nonnull)byFont;
 -(JobsRetLabelByTextAlignmentBlock _Nonnull)byTextAlignment;
+-(JobsRetUILabelByVibrancyBlock _Nonnull)byPreferredVibrancy API_AVAILABLE(ios(17.0), tvos(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
+-(JobsRetUILabelByLineBreakModeBlock _Nonnull)byLineBreakMode;
+-(JobsRetUILabelByUIColorBlock _Nonnull)byHighlightedTextColor;
+-(JobsRetUILabelByBOOLBlock _Nonnull)byHighlighted;
+-(JobsRetUILabelByBOOLBlock _Nonnull)byEnabled;
+-(JobsRetUILabelByBOOLBlock _Nonnull)byAdjustsFontSizeToFitWidth;
+-(JobsRetUILabelByBaselineAdjustmentBlock _Nonnull)byBaselineAdjustment;
+-(JobsRetUILabelByCGFloatBlock _Nonnull)byMinimumScaleFactor API_AVAILABLE(ios(6.0));
+-(JobsRetUILabelByBOOLBlock _Nonnull)byAllowsDefaultTighteningForTruncation API_AVAILABLE(ios(9.0));
+-(JobsRetUILabelByLineBreakStrategyBlock _Nonnull)byLineBreakStrategy API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos);
+-(JobsRetUILabelByCGFloatBlock _Nonnull)byPreferredMaxLayoutWidth API_AVAILABLE(ios(6.0));
+-(JobsRetUILabelByBOOLBlock _Nonnull)byShowsExpansionTextWhenTruncated API_AVAILABLE(macCatalyst(15.0)) API_UNAVAILABLE(watchos);
 
 -(JobsRetLabelByVoidBlock _Nonnull)labelAutoFontByWidth;
 

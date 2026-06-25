@@ -78,7 +78,7 @@ static dispatch_once_t static_textViewOnceToken;
             self.textModel = (UITextModel *)model;
             self.updateWordCount(0);
             self.countLabel.byAlpha(1);
-            self.textView.byAlpha(1);
+            self.szTextView.byAlpha(1);
         }
     };
 }
@@ -123,7 +123,7 @@ static dispatch_once_t static_textViewOnceToken;
                 x = x.substringToIndex(self.textModel.maxWordCount);
                 @"最多只能输入".tr.add(toStringByLong(self.textModel.maxWordCount).add(@"个字".tr)).toast();
             }
-            self.textView.text = x;
+            self.szTextView.text = x;
             self.textModel.curWordCount = x.length;
             self.updateWordCount(0);
             /// 向外回调目前的textView的字符串

@@ -57,8 +57,9 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
     self.jobsBackBlock = ^id _Nullable(id _Nullable data) {
         @jobs_strongify(self)
         JobsLog(@"退出页面的逻辑");
-         JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskPortrait;/// 设备处于竖屏（Portrait）模式。
-         JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationPortrait;/// 设备处于竖屏（Portrait）模式，即设备的顶部朝上
+        JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskPortrait;/// 设备处于竖屏（Portrait）模式。
+        JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationPortrait;/// 设备处于竖屏（Portrait）模式，即设备的顶部朝上
+        JobsAppTool.jobsDeviceOrientation = DeviceOrientationPortrait;
 //        self.currentDeviceOrientation = UIDeviceOrientationPortrait;/// 设备竖直放置，设备底部的 Home 键在底部（设备顶部朝上）
         [self hx_rotateToInterfaceOrientation: JobsAppTool.currentInterfaceOrientation];/// 设备处于竖屏（Portrait）模式，即设备的顶部朝上
         return nil;
@@ -145,8 +146,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 /// iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
 /// iPhone设备上，默认返回值是UIInterfaceOrientationMaskAll
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-//    return self.currentInterfaceOrientationMask;
-    return UIInterfaceOrientationMaskAll;
+    return JobsAppTool.currentInterfaceOrientationMask ? JobsAppTool.currentInterfaceOrientationMask : UIInterfaceOrientationMaskAll;
 }
 /// 设置进入界面默认支持的方向
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
@@ -314,10 +314,22 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     if (!_dataMutArr) {
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
+                NSString *title = @"检测当前屏幕方向".tr;
+                NSString *subTitle = @"";
+                data1
+                    .byTitle(title)
+                    .bySubTitle(subTitle)
+                    .byTitleCor(JobsRedColor)
+                    .bySubTitleCor(JobsRedColor);
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.byText(@"检测当前屏幕方向".tr)
+                    data2.byText(title)
                          .byTextCor(JobsRedColor)
                          .byTextAlignment(NSTextAlignmentCenter);
+                });
+                data1.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
+                    data2.bySubText(subTitle)
+                         .bySubTextCor(JobsRedColor)
+                         .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param){
                     @jobs_strongify(self)
@@ -331,84 +343,139 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 };
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
+                NSString *title = @"锁定横屏:".tr;
+                NSString *subTitle = @"设备可以处于任意横屏（Landscape）模式，包括左横屏和右横屏".tr;
+                data1
+                    .byTitle(title)
+                    .bySubTitle(subTitle)
+                    .byTitleCor(JobsRedColor)
+                    .bySubTitleCor(JobsRedColor);
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.byText(@"锁定横屏:\n设备可以处于任意横屏（Landscape）模式，包括左横屏和右横屏".tr)
+                    data2.byText(title)
                          .byTextCor(JobsRedColor)
                          .byTextAlignment(NSTextAlignmentCenter);
+                });
+                data1.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
+                    data2.bySubText(subTitle)
+                         .bySubTextCor(JobsRedColor)
+                         .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param){
                     @jobs_strongify(self)
                     JobsLog(@"锁定横屏:设备可以处于任意横屏模式，包括左横屏和右横屏");
-    //                self.currentInterfaceOrientationMask = UIInterfaceOrientationMaskLandscape;/// 设备可以处于任意横屏（Landscape）模式，包括左横屏和右横屏
-                     JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationLandscapeLeft | UIInterfaceOrientationLandscapeRight;/// 设备可以处于任意横屏（Landscape）模式，包括左横屏和右横屏
-    //                self.currentDeviceOrientation = UIDeviceOrientationUnknown;/// 设备方向未知或不确定
-                    [self hx_setNeedsUpdateOfSupportedInterfaceOrientations];
+                    JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskLandscape;/// 设备可以处于任意横屏（Landscape）模式，包括左横屏和右横屏
+                    JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationLandscapeLeft;
+                    JobsAppTool.jobsDeviceOrientation = DeviceOrientationLandscape;
+                    [self hx_rotateToInterfaceOrientation:JobsAppTool.currentInterfaceOrientation];
                     return nil;
                 };
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
+                NSString *title = @"解除锁定:".tr;
+                NSString *subTitle = @"设备可以处于所有方向，包括竖屏、左横屏、右横屏和倒竖屏".tr;
+                data
+                    .byTitle(title)
+                    .bySubTitle(subTitle)
+                    .byTitleCor(JobsRedColor)
+                    .bySubTitleCor(JobsRedColor);
                 data.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.byText(@"解除锁定:\n设备可以处于所有方向，包括竖屏、左横屏、右横屏和倒竖屏".tr)
+                    data2.byText(title)
                          .byTextCor(JobsRedColor)
                          .byTextAlignment(NSTextAlignmentCenter);
+                });
+                data.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
+                    data2.bySubText(subTitle)
+                         .bySubTextCor(JobsRedColor)
+                         .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data.jobsBlock = ^id(id param){
                     @jobs_strongify(self)
                     JobsLog(@"解除锁定:设备可以处于所有方向，包括竖屏、左横屏、右横屏和倒竖屏");
                     JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskAll;/// 设备可以处于所有方向，包括竖屏、左横屏、右横屏和倒竖屏
-                    JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationPortrait |
-                                                       UIInterfaceOrientationPortraitUpsideDown |
-                                                       UIInterfaceOrientationLandscapeLeft |
-                                                       UIInterfaceOrientationLandscapeRight;/// 设备可以处于所有方向，包括竖屏、左横屏、右横屏和倒竖屏
-    //                self.currentDeviceOrientation = UIDeviceOrientationUnknown;/// 设备方向未知或不确定
                     [self hx_setNeedsUpdateOfSupportedInterfaceOrientations];
                     return nil;
                 };
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
+                NSString *title = @"设备左横屏".tr;
+                NSString *subTitle = @"";
+                data1
+                    .byTitle(title)
+                    .bySubTitle(subTitle)
+                    .byTitleCor(JobsRedColor)
+                    .bySubTitleCor(JobsRedColor);
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.byText(@"设备左横屏".tr)
+                    data2.byText(title)
                          .byTextCor(JobsRedColor)
                          .byTextAlignment(NSTextAlignmentCenter);
+                });
+                data1.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
+                    data2.bySubText(subTitle)
+                         .bySubTextCor(JobsRedColor)
+                         .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param){
                     @jobs_strongify(self)
                     JobsLog(@"设备处于左横屏模式");
                     JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskLandscapeLeft;/// 设备处于左横屏（Landscape Left）模式
                     JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationLandscapeLeft;/// 设备处于左横屏（Landscape Left）模式
-    //                self.currentDeviceOrientation = UIDeviceOrientationUnknown;/// 设备方向未知或不确定
+                    JobsAppTool.jobsDeviceOrientation = DeviceOrientationLandscape;
                     [self hx_rotateToInterfaceOrientation:JobsAppTool.currentInterfaceOrientation];/// 设备处于竖屏（Portrait）模式，即设备的顶部朝上
                     return nil;
                 };
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
+                NSString *title = @"设备右横屏".tr;
+                NSString *subTitle = @"";
+                data1
+                    .byTitle(title)
+                    .bySubTitle(subTitle)
+                    .byTitleCor(JobsRedColor)
+                    .bySubTitleCor(JobsRedColor);
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.byText(@"设备右横屏".tr)
+                    data2.byText(title)
                          .byTextCor(JobsRedColor)
                          .byTextAlignment(NSTextAlignmentCenter);
+                });
+                data1.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
+                    data2.bySubText(subTitle)
+                         .bySubTextCor(JobsRedColor)
+                         .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param){
                     @jobs_strongify(self)
                     JobsLog(@"设备处于右横屏模式");
                     JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskLandscapeRight;/// 设备处于右横屏（Landscape Right）模式
                     JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationLandscapeRight;/// 设备处于右横屏（Landscape Right）模式
-    //                self.currentDeviceOrientation = UIDeviceOrientationUnknown;/// 设备方向未知或不确定
+                    JobsAppTool.jobsDeviceOrientation = DeviceOrientationLandscape;
                     [self hx_rotateToInterfaceOrientation:JobsAppTool.currentInterfaceOrientation];/// 设备处于竖屏（Portrait）模式，即设备的顶部朝上
                     return nil;
                 };
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
+                NSString *title = @"设备竖直向上".tr;
+                NSString *subTitle = @"Home 按钮在下方".tr;
+                data1
+                    .byTitle(title)
+                    .bySubTitle(subTitle)
+                    .byTitleCor(JobsRedColor)
+                    .bySubTitleCor(JobsRedColor);
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.byText(@"设备竖直向上\n Home 按钮在下方".tr)
+                    data2.byText(title)
                          .byTextCor(JobsRedColor)
                          .byTextAlignment(NSTextAlignmentCenter);
+                });
+                data1.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
+                    data2.bySubText(subTitle)
+                         .bySubTextCor(JobsRedColor)
+                         .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param) {
                     @jobs_strongify(self)
                     JobsLog(@"设备处于竖屏模式");
                     JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskPortrait;/// 设备处于竖屏（Portrait）模式。
                     JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationPortrait;/// 设备处于竖屏（Portrait）模式，即设备的顶部朝上
-    //                self.currentDeviceOrientation = UIDeviceOrientationPortrait;/// 设备竖直放置，设备底部的 Home 键在底部（设备顶部朝上）
+                    JobsAppTool.jobsDeviceOrientation = DeviceOrientationPortrait;
                     [self hx_rotateToInterfaceOrientation:JobsAppTool.currentInterfaceOrientation];/// 设备处于竖屏（Portrait）模式，即设备的顶部朝上
                     return nil;
                 };

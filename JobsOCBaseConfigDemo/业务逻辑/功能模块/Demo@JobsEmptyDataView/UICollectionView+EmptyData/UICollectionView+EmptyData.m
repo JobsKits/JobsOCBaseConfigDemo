@@ -7,19 +7,26 @@
 
 #import "UICollectionView+EmptyData.h"
 
+static const void *JobsCollectionViewEmptyDataReloadingKey = &JobsCollectionViewEmptyDataReloadingKey;
+
 @implementation UICollectionView (EmptyData)
 
-+(void)initialize{
++(void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        method_exchangeImplementations(class_getInstanceMethod(self, @selector(reloadData)),
-                                       class_getInstanceMethod(self, @selector(jobsReloadData)));
+        Method originalMethod = class_getInstanceMethod(UICollectionView.class, @selector(reloadData));
+        Method swizzledMethod = class_getInstanceMethod(UICollectionView.class, @selector(jobsReloadData));
+        if (originalMethod && swizzledMethod) {
+            method_exchangeImplementations(originalMethod, swizzledMethod);
+        }
     });
 }
 
 -(void)jobsReloadData{
-    // 调用原始 reloadData
+    if ([objc_getAssociatedObject(self, JobsCollectionViewEmptyDataReloadingKey) boolValue]) return;
+    objc_setAssociatedObject(self, JobsCollectionViewEmptyDataReloadingKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [self jobsReloadData];
+    objc_setAssociatedObject(self, JobsCollectionViewEmptyDataReloadingKey, @NO, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     switch (self.jobsEmptyViewType) {
         case JobsEmptyViewTypeLabel:{
             self.showEmptyLabelBy(self.textModelEmptyData);

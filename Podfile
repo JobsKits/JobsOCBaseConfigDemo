@@ -123,8 +123,7 @@ def patch_pods_project_podfile_references(installer)
   pods_project = installer.pods_project
   root_group = pods_project.main_group
   wanted_files = {
-    'Podfile' => '../Podfile',
-    'Podfile.deps' => '../Podfile.deps'
+    'Podfile' => '../Podfile'
   }
 
   wanted_files.each do |name, path|

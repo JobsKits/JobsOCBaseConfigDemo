@@ -50,6 +50,7 @@ typedef void(^jobsByScrollViewBlock)(__kindof UIScrollView *_Nullable scrollView
 typedef void(^jobsByBtnBlock)(__kindof UIButton *_Nullable btn);
 typedef void(^jobsByWindowBlock)(__kindof UIWindow *_Nullable window);
 typedef void(^jobsByLabelBlock)(__kindof UILabel *_Nullable label);
+typedef void(^jobsByUISearchBarBlock)(__kindof UISearchBar *_Nullable searchBar);
 typedef void(^jobsByNavigationBarAppearanceBlock)(__kindof UINavigationBarAppearance *_Nullable appearance);
 typedef void(^jobsByNavigationBarBlock)(__kindof UINavigationBar *_Nullable bar);
 typedef void(^jobsByRefreshCtrlBlock)(__kindof UIRefreshControl *_Nullable refreshCtrl);
@@ -101,6 +102,8 @@ typedef void(^jobsByMutableDictBlock)(__kindof NSMutableDictionary *_Nullable di
 #pragma mark —— 关于（富）文本
 typedef void(^jobsByTextAlignmentBlock)(NSTextAlignment alignment);
 typedef void(^jobsByStrBlock)(__kindof NSString *_Nullable string);
+typedef void(^jobsByOCCountryCodeBlock)(__kindof NSString *_Nullable countryName,
+                                      __kindof NSString *_Nullable code);
 typedef void(^jobsByAttributedStrBlock)(__kindof NSAttributedString *_Nullable aString);
 typedef void(^jobsByMutableParagraphStyleBlock)(NSMutableParagraphStyle *_Nullable style);
 typedef void(^jobsByTextAttachmentBlock)(NSTextAttachment *_Nullable attachment);

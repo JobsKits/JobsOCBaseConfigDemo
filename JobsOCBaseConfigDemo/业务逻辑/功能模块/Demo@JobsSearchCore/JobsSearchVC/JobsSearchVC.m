@@ -131,7 +131,8 @@ Prop_assign()HotSearchStyle hotSearchStyle;
 /// 移除掉这个下拉列表
 -(void)endDropDownListView{
 //    [self.view endEditing:YES];
-    _dropDownListView.dropDownListViewDisappear(nil);
+    jobsByCtrlBlock disappearBlock = _dropDownListView.dropDownListViewDisappear;
+    if (disappearBlock) disappearBlock(nil);
     _dropDownListView = nil;
 }
 /// 逐字搜索功能

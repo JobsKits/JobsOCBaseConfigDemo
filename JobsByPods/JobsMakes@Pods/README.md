@@ -44,7 +44,7 @@
 
 ## 三、UI 创建公约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 常用 UI 创建统一优先走 `jobsMakeLabel`、`jobsMakeButton`、`jobsMakeTextView`、`jobsMakeTextField`、`jobsMakeTableViewByPlain`、`jobsMakeCollectionView`。
+- 常用 UI 创建统一优先走 `jobsMakeLabel`、`jobsMakeButton`、`jobsMakeTextView`、`jobsMakeTextField`、`jobsMakeSearchBar`、`jobsMakeTableViewByPlain`、`jobsMakeCollectionView`。
 - Block 内部先写当前类 DSL，再写父类 DSL；`byAddTo` 放在靠后位置，保证“先加父视图，再布约束”。
 - 如果样式依赖真实 `frame`，例如圆角路径、渐变层、阴影路径、动画起点，放到 `byAddTo + layoutIfNeeded` 之后执行。
 

@@ -9,17 +9,64 @@
 
 BOOL ISLogin;
 static NSString *const JobsOCSplashEnabledUserDefaultsKey = @"com.BSports.JobsOCSplashEnabledUserDefaultsKey";
+static NSString *const JobsOCFunctionMenuCellReuseIdentifier = @"UITableViewCell";
+
+@interface JobsOCDemoSectionModel : NSObject
+
+Prop_copy()NSString *title;
+Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
+
++(instancetype)sectionWithTitle:(NSString *)title;
+
+@end
+
+@implementation JobsOCDemoSectionModel
+
++(instancetype)sectionWithTitle:(NSString *)title{
+    JobsOCDemoSectionModel *sectionModel = JobsOCDemoSectionModel.new;
+    sectionModel.title = title;
+    return sectionModel;
+}
+
+-(NSMutableArray<UIViewModel *> *)dataMutArr{
+    if (!_dataMutArr) {
+        _dataMutArr = NSMutableArray.array;
+    };return _dataMutArr;
+}
+
+@end
+
 @interface ViewController_1 ()
 /// UI
 Prop_strong()BaseButton *userHeadBtn;
 Prop_strong()UIButton *splashSwitchBtn;
+Prop_strong()UIButton *functionMenuBtn;
+Prop_strong()UITableView *functionMenuTableView;
+Prop_strong()UIView *demoSearchHeaderView;
+Prop_strong()UISearchBar *demoSearchBar;
 /// Data
 Prop_strong()NSMutableArray <__kindof UITableViewCell *>*tbvCellMutArr;
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
+Prop_strong()NSMutableArray <JobsOCDemoSectionModel *>*demoSectionMutArr;
+Prop_copy()NSString *demoSearchKeyword;
 
 -(BOOL)jobsOCSplashEnabled;
 -(void)setJobsOCSplashEnabled:(BOOL)jobsOCSplashEnabled;
 -(NSString *)splashSwitchTitle;
+-(NSArray <JobsOCDemoSectionModel *>*)visibleDemoSectionArr;
+-(UIViewModel *)viewModelAtIndexPath:(NSIndexPath *)indexPath;
+-(BOOL)viewModel:(UIViewModel *)viewModel containsKeyword:(NSString *)keyword;
+-(NSString *)sectionTitleForViewModel:(UIViewModel *)viewModel;
+-(JobsOCDemoSectionModel *)sectionModelInArr:(NSMutableArray <JobsOCDemoSectionModel *>*)data
+                                       title:(NSString *)title;
+-(NSArray <NSString *>*)functionMenuTitles;
+-(void)toggleFunctionMenu;
+-(void)showFunctionMenu:(BOOL)show;
+-(void)setSearchEnabled:(BOOL)enabled;
+-(BOOL)demoSearchActive;
+-(void)foldAllDemoSections;
+-(void)unfoldAllDemoSections;
+-(void)demoSectionHeaderTap:(UITapGestureRecognizer *)tap;
 
 @end
 
@@ -87,13 +134,15 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
     });
     self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
         @jobs_strongify(self)
-        data.add(UIBarButtonItem.initBy(self.splashSwitchBtn));
+        data.add(UIBarButtonItem.initBy(self.functionMenuBtn));
     });
     self.makeNavByAlpha(1);
     self.navBar.backBtn.jobsVisible = NO;
     self.navBar.titleLab.byText(self.viewModel.textModel.text);
     
     self.tableView.byShow(self);
+    [self foldAllDemoSections];
+    self.functionMenuTableView.byHidden(YES);
     self.suspendBtn.byAlpha(1);
 
     self.objBlock = ^(id data) {
@@ -110,6 +159,14 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
                                       atScrollPosition:UITableViewScrollPositionBottom
                                               animated:YES]; // 滚动到最后一行
             }else{
+                NSInteger s = self.tableView.numberOfSections;
+                if (s < 1) return;
+                NSInteger r = [self.tableView numberOfRowsInSection:0];
+                if (r < 1) {
+                    [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top)
+                                            animated:YES];
+                    return;
+                }
                 NSIndexPath *indexPath = jobsMakeIndexPathZero(); // 取第一行数据
                 [self.tableView scrollToRowAtIndexPath:indexPath
                                       atScrollPosition:UITableViewScrollPositionTop
@@ -128,7 +185,10 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
     if (_dataMutArr.count) {
         [self.dataMutArr removeAllObjects];
         _dataMutArr = nil;
+        _demoSectionMutArr = nil;
+        _tbvCellMutArr = nil;
     }
+    [self foldAllDemoSections];
     [self.tableView.mj_header beginRefreshing];
 //    UIDeviceOrientation f = UIDevice.currentDevice.orientation;
 //    UIInterfaceOrientation s = self.getInterfaceOrientation;
@@ -149,31 +209,98 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    if (tableView == _functionMenuTableView) return 1;
+    return self.visibleDemoSectionArr.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return JobsBaseTableViewCell.cellHeightByModel(self.dataMutArr[indexPath.row]) * 3;
+    if (tableView == _functionMenuTableView) return JobsWidth(44);
+    return JobsBaseTableViewCell.cellHeightByModel([self viewModelAtIndexPath:indexPath]) * 3;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForHeaderInSection:(NSInteger)section{
+    if (tableView == _functionMenuTableView) return CGFLOAT_MIN;
+    return MSCommentTableHeaderFooterView.heightForHeaderInSection(nil);
+}
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForFooterInSection:(NSInteger)section{
+    return CGFLOAT_MIN;
+}
+
+- (UIView *)tableView:(UITableView *)tableView
+viewForHeaderInSection:(NSInteger)section{
+    if (tableView == _functionMenuTableView) return UIView.new;
+    JobsOCDemoSectionModel *sectionModel = self.visibleDemoSectionArr[section];
+    BOOL folded = [tableView ww_isSectionFolded:section];
+    NSString *title = [NSString stringWithFormat:@"%@ %@ (%lu)",
+                       folded ? @"▶︎" : @"▼",
+                       sectionModel.title,
+                       (unsigned long)sectionModel.dataMutArr.count];
+    UIViewModel *headerModel = self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+        model.byTitle(title.tr)
+             .bySubTitle(@"");
+    }));
+    headerModel.byTextCor(HEXCOLOR(0x3D4A58))
+        .byFont(UIFontWeightRegularSize(15));
+    MSCommentTableHeaderFooterView *headerView = MSCommentTableHeaderFooterView.initByReuseIdentifier(tableView,@"")
+        .byStyle(JobsHeaderViewStyle)
+        .bySection(section)
+        .JobsRichViewByModel2(headerModel);
+    headerView
+        .byTag(section)
+        .byUserInteractionEnabled(YES);
+    headerView.contentView.byBgColor(RGBA_COLOR(255, 238, 221, 1));
+    for (UIGestureRecognizer *gesture in headerView.gestureRecognizers) {
+        [headerView removeGestureRecognizer:gesture];
+    }
+    headerView.byAddGestureRecognizer([[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                              action:@selector(demoSectionHeaderTap:)]);
+    return headerView;
 }
 
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.dataMutArr[indexPath.row].cls) {
-        self.comingToPushVCByRequestParams(self.dataMutArr[indexPath.row].cls.new,
-                                           self.dataMutArr[indexPath.row]);
+    if (tableView == _functionMenuTableView) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [self showFunctionMenu:NO];
+        if (indexPath.row == 0) {
+            [self setSearchEnabled:YES];
+        }else{
+            [self setJobsOCSplashEnabled:![self jobsOCSplashEnabled]];
+            [self.functionMenuTableView reloadData];
+            ([self jobsOCSplashEnabled] ? @"下次打开开屏".tr : @"下次关闭开屏".tr).toast();
+        };return;
+    }
+    UIViewModel *viewModel = [self viewModelAtIndexPath:indexPath];
+    if (viewModel.cls) {
+        self.comingToPushVCByRequestParams(viewModel.cls.new,
+                                           viewModel);
     }else @"尚未接入此功能".tr.toast();
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-    return self.dataMutArr.count;
+    if (tableView == _functionMenuTableView) return self.functionMenuTitles.count;
+    return self.visibleDemoSectionArr[section].dataMutArr.count;
 }
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    JobsBaseTableViewCell *cell = (JobsBaseTableViewCell *)self.tbvCellMutArr[indexPath.row];
-    cell.JobsRichViewByModel2(self.dataMutArr[indexPath.row]);
+    if (tableView == _functionMenuTableView) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:JobsOCFunctionMenuCellReuseIdentifier
+                                                                forIndexPath:indexPath];
+        return cell
+            .byTextLabel(^(__kindof UILabel * _Nullable label) {
+                label.byText(self.functionMenuTitles[indexPath.row])
+                    .byFont(UIFontWeightRegularSize(15));
+            })
+            .bySelectionStyle(UITableViewCellSelectionStyleDefault);
+    }
+    JobsBaseTableViewCell *cell = JobsBaseTableViewCell.cellStyleValue1ByTableView(tableView);
+    cell.JobsRichViewByModel2([self viewModelAtIndexPath:indexPath]);
     return cell;
 }
 
@@ -182,6 +309,25 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 forRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView hideSeparatorLineAtLast:indexPath
                                   cell:cell];
+}
+#pragma mark —— UISearchBarDelegate
+- (void)searchBar:(UISearchBar *)searchBar
+    textDidChange:(NSString *)searchText{
+    self.demoSearchKeyword = searchText;
+    if ([self demoSearchActive]) {
+        [self unfoldAllDemoSections];
+    }else{
+        [self foldAllDemoSections];
+    }
+    [self.tableView reloadData];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    [searchBar resignFirstResponder];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    [self setSearchEnabled:NO];
 }
 #pragma mark —— lazyLoad
 -(BaseButton *)userHeadBtn{
@@ -232,6 +378,22 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     };return _splashSwitchBtn;
 }
 
+-(UIButton *)functionMenuBtn{
+    if (!_functionMenuBtn) {
+        @jobs_weakify(self)
+        _functionMenuBtn = UIButton.jobsInit()
+            .byTitle(@"功能".tr)
+            .byTitleCor(HEXCOLOR(0x3D4A58))
+            .byTitleFont(UIFontWeightRegularSize(13))
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                [self toggleFunctionMenu];
+            })
+            .byBgColor(JobsClearColor)
+            .bySize(CGSizeMake(JobsWidth(58), JobsWidth(32)));
+    };return _functionMenuBtn;
+}
+
 -(BOOL)jobsOCSplashEnabled{
     id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCSplashEnabledUserDefaultsKey];
     return value ? [value boolValue] : YES;
@@ -246,6 +408,58 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(NSString *)splashSwitchTitle{
     return [self jobsOCSplashEnabled] ? @"开屏：开".tr : @"开屏：关".tr;
 }
+
+-(UITableView *)functionMenuTableView{
+    if (!_functionMenuTableView) {
+        _functionMenuTableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
+            [tableView registerClass:UITableViewCell.class
+               forCellReuseIdentifier:JobsOCFunctionMenuCellReuseIdentifier];
+            tableView
+                .byDelegate(self)
+                .byDataSource(self)
+                .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
+                .byScrollEnabled(NO)
+                .byCornerRadius(JobsWidth(8))
+                .byClipsToBounds(YES)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.navBar.mas_bottom).offset(JobsWidth(6));
+                    make.right.equalTo(self.view).offset(-JobsWidth(12));
+                    make.width.mas_equalTo(JobsWidth(160));
+                    make.height.mas_equalTo(JobsWidth(44) * self.functionMenuTitles.count);
+                });
+        });
+    };return _functionMenuTableView;
+}
+
+-(UIView *)demoSearchHeaderView{
+    if (!_demoSearchHeaderView) {
+        @jobs_weakify(self)
+        _demoSearchHeaderView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            @jobs_strongify(self)
+            view.byFrame(CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsWidth(56)))
+                .byBgColor(JobsClearColor);
+            self.demoSearchBar.byFrame(CGRectMake(JobsWidth(12),
+                                                  JobsWidth(6),
+                                                  JobsMainScreen_WIDTH() - JobsWidth(24),
+                                                  JobsWidth(44)))
+                .addOn(view);
+        });
+    };return _demoSearchHeaderView;
+}
+
+-(UISearchBar *)demoSearchBar{
+    if (!_demoSearchBar) {
+        _demoSearchBar = jobsMakeUISearchBar(^(__kindof UISearchBar *_Nullable searchBar) {
+            searchBar
+                .byPlaceholder(@"输入关键词搜索 Demo".tr)
+                .byDelegate(self)
+                .byShowsCancelButton(YES)
+                .bySearchBarStyle(UISearchBarStyleMinimal)
+                .byBackgroundImage(UIImage.new);
+        });
+    };return _demoSearchBar;
+}
 /// self.tableView.dataLink(self);不要写在Block里面，会引起循环调用。用它进行唤起
 /// BaseViewProtocol
 @synthesize tableView = _tableView;
@@ -259,9 +473,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .bySeparatorColor(HEXCOLOR(0xEEE2C8))
                 .registerHeaderFooterViewClass(MSCommentTableHeaderFooterView.class,nil)
                 .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
-                .byTableHeaderView(jobsMakeView(^(__kindof UIView * _Nullable view) {
-                    /// TODO
-                })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .byTableFooterView(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
                     label
                         .byText(@"- 没有更多的内容了 -".tr)
@@ -294,6 +505,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byShowsHorizontalScrollIndicator(NO)
                 .byScrollEnabled(YES)
                 .byBgColor(JobsClearColor);
+            tableView.ww_foldable = YES;
 
             if(@available(iOS 11.0, *)) {
                 tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -364,6 +576,188 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             }];
         });
     };return _tbvCellMutArr;
+}
+
+-(NSArray <JobsOCDemoSectionModel *>*)visibleDemoSectionArr{
+    NSString *keyword = [self.demoSearchKeyword stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+    if (!keyword.length) return self.demoSectionMutArr;
+    NSMutableArray <JobsOCDemoSectionModel *>*result = NSMutableArray.array;
+    for (JobsOCDemoSectionModel *sectionModel in self.demoSectionMutArr) {
+        JobsOCDemoSectionModel *filteredSectionModel = [JobsOCDemoSectionModel sectionWithTitle:sectionModel.title];
+        for (UIViewModel *viewModel in sectionModel.dataMutArr) {
+            if ([self viewModel:viewModel containsKeyword:keyword]) {
+                [filteredSectionModel.dataMutArr addObject:viewModel];
+            }
+        }
+        if (filteredSectionModel.dataMutArr.count) {
+            [result addObject:filteredSectionModel];
+        }
+    };return result;
+}
+
+-(UIViewModel *)viewModelAtIndexPath:(NSIndexPath *)indexPath{
+    return self.visibleDemoSectionArr[indexPath.section].dataMutArr[indexPath.row];
+}
+
+-(BOOL)viewModel:(UIViewModel *)viewModel containsKeyword:(NSString *)keyword{
+    NSString *title = viewModel.textModel.attributedTitle.string ?: viewModel.textModel.text ?: @"";
+    NSString *subTitle = viewModel.subTextModel.attributedTitle.string ?: viewModel.subTextModel.text ?: @"";
+    NSString *clsName = viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
+    return [title localizedCaseInsensitiveContainsString:keyword] ||
+           [subTitle localizedCaseInsensitiveContainsString:keyword] ||
+           [clsName localizedCaseInsensitiveContainsString:keyword];
+}
+
+-(NSString *)sectionTitleForViewModel:(UIViewModel *)viewModel{
+    NSString *title = viewModel.textModel.attributedTitle.string ?: viewModel.textModel.text ?: @"";
+    NSString *subTitle = viewModel.subTextModel.attributedTitle.string ?: viewModel.subTextModel.text ?: @"";
+    NSString *clsName = viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
+    NSString *key = [NSString stringWithFormat:@"%@ %@ %@",title,subTitle,clsName];
+    if ([key localizedCaseInsensitiveContainsString:@"FMDB"] ||
+        [key localizedCaseInsensitiveContainsString:@"Realm"] ||
+        [key localizedCaseInsensitiveContainsString:@"YTK"] ||
+        [key localizedCaseInsensitiveContainsString:@"CoreText"] ||
+        [key localizedCaseInsensitiveContainsString:@"Excel"] ||
+        [key localizedCaseInsensitiveContainsString:@"字符串"] ||
+        [key localizedCaseInsensitiveContainsString:@"OCDynamic"]) {
+        return @"数据、网络与文本".tr;
+    }
+    if ([key localizedCaseInsensitiveContainsString:@"ZFPlayer"] ||
+        [key localizedCaseInsensitiveContainsString:@"Douyin"] ||
+        [key localizedCaseInsensitiveContainsString:@"相册"] ||
+        [key localizedCaseInsensitiveContainsString:@"DynamicView"] ||
+        [key localizedCaseInsensitiveContainsString:@"Progress"] ||
+        [key localizedCaseInsensitiveContainsString:@"Widget"] ||
+        [key localizedCaseInsensitiveContainsString:@"AppIcon"] ||
+        [key localizedCaseInsensitiveContainsString:@"本地推送"] ||
+        [key localizedCaseInsensitiveContainsString:@"剪切板"] ||
+        [key localizedCaseInsensitiveContainsString:@"热更新"] ||
+        [key localizedCaseInsensitiveContainsString:@"多语言"] ||
+        [key localizedCaseInsensitiveContainsString:@"CountryCode"]) {
+        return @"系统能力与多媒体".tr;
+    }
+    if ([key localizedCaseInsensitiveContainsString:@"UITableView"] ||
+        [key localizedCaseInsensitiveContainsString:@"Cell"] ||
+        [key localizedCaseInsensitiveContainsString:@"Label"] ||
+        [key localizedCaseInsensitiveContainsString:@"Btn"] ||
+        [key localizedCaseInsensitiveContainsString:@"Button"] ||
+        [key localizedCaseInsensitiveContainsString:@"Custom"] ||
+        [key localizedCaseInsensitiveContainsString:@"JXCategory"] ||
+        [key localizedCaseInsensitiveContainsString:@"DropDown"] ||
+        [key localizedCaseInsensitiveContainsString:@"Search"] ||
+        [key localizedCaseInsensitiveContainsString:@"Comment"] ||
+        [key localizedCaseInsensitiveContainsString:@"Wallet"] ||
+        [key localizedCaseInsensitiveContainsString:@"Card"] ||
+        [key localizedCaseInsensitiveContainsString:@"Irregular"] ||
+        [key localizedCaseInsensitiveContainsString:@"Transparent"] ||
+        [key localizedCaseInsensitiveContainsString:@"Lottery"] ||
+        [key localizedCaseInsensitiveContainsString:@"Shadow"] ||
+        [key localizedCaseInsensitiveContainsString:@"Masonry"] ||
+        [key localizedCaseInsensitiveContainsString:@"PointLab"]) {
+        return @"UI 控件与动效".tr;
+    }
+    if ([key localizedCaseInsensitiveContainsString:@"Door"] ||
+        [key localizedCaseInsensitiveContainsString:@"Gesture"] ||
+        [key localizedCaseInsensitiveContainsString:@"Post"] ||
+        [key localizedCaseInsensitiveContainsString:@"IM"] ||
+        [key localizedCaseInsensitiveContainsString:@"Protocol"] ||
+        [key localizedCaseInsensitiveContainsString:@"CXB"] ||
+        [key localizedCaseInsensitiveContainsString:@"用户"]) {
+        return @"业务模块与页面".tr;
+    }
+    if ([key localizedCaseInsensitiveContainsString:@"TabBar"] ||
+        [key localizedCaseInsensitiveContainsString:@"Navigation"] ||
+        [key localizedCaseInsensitiveContainsString:@"Scroll"] ||
+        [key localizedCaseInsensitiveContainsString:@"VerticalMenu"] ||
+        [key localizedCaseInsensitiveContainsString:@"ViewPush"] ||
+        [key localizedCaseInsensitiveContainsString:@"Landscape"] ||
+        [key localizedCaseInsensitiveContainsString:@"Clock"] ||
+        [key localizedCaseInsensitiveContainsString:@"Timer"] ||
+        [key localizedCaseInsensitiveContainsString:@"Calendar"] ||
+        [key localizedCaseInsensitiveContainsString:@"滑动开锁"]) {
+        return @"基础功能与导航容器".tr;
+    };return @"其他".tr;
+}
+
+-(JobsOCDemoSectionModel *)sectionModelInArr:(NSMutableArray <JobsOCDemoSectionModel *>*)data
+                                       title:(NSString *)title{
+    for (JobsOCDemoSectionModel *sectionModel in data) {
+        if ([sectionModel.title isEqualToString:title]) return sectionModel;
+    }
+    JobsOCDemoSectionModel *sectionModel = [JobsOCDemoSectionModel sectionWithTitle:title];
+    [data addObject:sectionModel];
+    return sectionModel;
+}
+
+-(NSArray <NSString *>*)functionMenuTitles{
+    return @[@"搜索 Demo".tr,[self splashSwitchTitle]];
+}
+
+-(void)toggleFunctionMenu{
+    [self showFunctionMenu:self.functionMenuTableView.hidden];
+}
+
+-(void)showFunctionMenu:(BOOL)show{
+    self.functionMenuBtn.selected = show;
+    self.functionMenuTableView.byHidden(!show);
+    if (show) {
+        [self.functionMenuTableView reloadData];
+        [self.view bringSubviewToFront:self.functionMenuTableView];
+    }
+}
+
+-(void)setSearchEnabled:(BOOL)enabled{
+    self.tableView.tableHeaderView = enabled ? self.demoSearchHeaderView : nil;
+    if (enabled) {
+        [self.demoSearchBar becomeFirstResponder];
+    }else{
+        self.demoSearchKeyword = @"";
+        self.demoSearchBar.byText(@"");
+        [self.demoSearchBar resignFirstResponder];
+        [self foldAllDemoSections];
+        [self.tableView reloadData];
+    }
+}
+
+-(BOOL)demoSearchActive{
+    NSString *keyword = [self.demoSearchKeyword stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+    return keyword.length > 0;
+}
+
+-(void)foldAllDemoSections{
+    if ([self demoSearchActive]) return;
+    [self.visibleDemoSectionArr enumerateObjectsUsingBlock:^(JobsOCDemoSectionModel * _Nonnull obj,
+                                                             NSUInteger idx,
+                                                             BOOL * _Nonnull stop) {
+        [self.tableView ww_foldSection:idx
+                                  fold:YES];
+    }];
+}
+
+-(void)unfoldAllDemoSections{
+    [self.visibleDemoSectionArr enumerateObjectsUsingBlock:^(JobsOCDemoSectionModel * _Nonnull obj,
+                                                             NSUInteger idx,
+                                                             BOOL * _Nonnull stop) {
+        [self.tableView ww_foldSection:idx
+                                  fold:NO];
+    }];
+}
+
+-(void)demoSectionHeaderTap:(UITapGestureRecognizer *)tap{
+    NSInteger section = tap.view.tag;
+    [self.tableView ww_foldSection:section
+                              fold:![self.tableView ww_isSectionFolded:section]];
+}
+
+-(NSMutableArray<JobsOCDemoSectionModel *> *)demoSectionMutArr{
+    if (!_demoSectionMutArr) {
+        _demoSectionMutArr = NSMutableArray.array;
+        for (UIViewModel *viewModel in self.dataMutArr) {
+            NSString *sectionTitle = [self sectionTitleForViewModel:viewModel];
+            [[self sectionModelInArr:_demoSectionMutArr
+                                title:sectionTitle].dataMutArr addObject:viewModel];
+        }
+    };return _demoSectionMutArr;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
@@ -587,6 +981,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 model.byTitle(@"JobsDropDownListVC".tr)
                      .bySubTitle(@"👇🏻下拉列表".tr)
                      .byCls(JobsDropDownListVC.class);
+            })))
+            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                model.byTitle(@"JobsOCCountryCodeCtrl".tr)
+                     .bySubTitle(@"国家 / 地区代码选择".tr)
+                     .byCls(JobsOCCountryCodeCtrlDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"YTKNetworkStudyVC".tr)

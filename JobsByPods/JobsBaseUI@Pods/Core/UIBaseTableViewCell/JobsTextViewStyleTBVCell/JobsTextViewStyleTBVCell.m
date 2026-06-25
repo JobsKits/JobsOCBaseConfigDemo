@@ -137,7 +137,7 @@ BaseViewProtocol_synthesize
 //                @jobs_strongify(self)
             }];textView.addOn(self.contentView).byAdd(self.masonryBlock);
         });
-    };return _textView;
+    };return _szTextView;
 }
 
 -(__kindof JobsTextView *)jobsTextView{

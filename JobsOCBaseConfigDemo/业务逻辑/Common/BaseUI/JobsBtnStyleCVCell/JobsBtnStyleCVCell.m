@@ -63,13 +63,31 @@ AppToolsProtocol_synthesize
     }
     
     if(self.viewModel){
-        self.button.jobsResetBtnTitle(selected ? (self.viewModel.selectedTitle ? : self.viewModel.title) : self.viewModel.title);
-        self.button.jobsResetBtnTitleCor(selected ? (self.viewModel.selectedTitleCor ? : self.viewModel.titleCor) : self.viewModel.titleCor);
-        self.button.jobsResetBtnTitleFont(selected ? (self.viewModel.selectedTitleFont ? : self.viewModel.titleFont) : self.viewModel.titleFont);
+        NSString *normalTitle = isValue(self.viewModel.title) ? self.viewModel.title : self.viewModel.textModel.text;
+        NSString *selectedTitle = isValue(self.viewModel.selectedTitle) ? self.viewModel.selectedTitle : self.viewModel.textModel.selectedText;
+        selectedTitle = isValue(selectedTitle) ? selectedTitle : normalTitle;
+        UIColor *normalTitleCor = self.viewModel.titleCor ? : self.viewModel.textModel.textCor;
+        UIColor *selectedTitleCor = self.viewModel.selectedTitleCor ? : self.viewModel.textModel.selectedTextCor;
+        selectedTitleCor = selectedTitleCor ? : normalTitleCor;
+        UIFont *normalTitleFont = self.viewModel.titleFont ? : self.viewModel.textModel.font;
+        UIFont *selectedTitleFont = self.viewModel.selectedTitleFont ? : self.viewModel.textModel.selectedFont;
+        selectedTitleFont = selectedTitleFont ? : normalTitleFont;
+        self.button.jobsResetBtnTitle(selected ? selectedTitle : normalTitle);
+        self.button.jobsResetBtnTitleCor(selected ? selectedTitleCor : normalTitleCor);
+        self.button.jobsResetBtnTitleFont(selected ? selectedTitleFont : normalTitleFont);
         
-        self.button.jobsResetBtnSubTitle(selected ? (self.viewModel.selectedSubTitle ? : self.viewModel.subTitle) : self.viewModel.subTitle);
-        self.button.jobsResetBtnSubTitleCor(selected ? (self.viewModel.selectedTitleCor ? : self.viewModel.subTitleCor) : self.viewModel.subTitleCor);
-        self.button.jobsResetBtnSubTitleFont(selected ? (self.viewModel.selectedSubTitleFont ? : self.viewModel.subTitleFont) : self.viewModel.subTitleFont);
+        NSString *normalSubTitle = isValue(self.viewModel.subTitle) ? self.viewModel.subTitle : self.viewModel.subTextModel.subText;
+        NSString *selectedSubTitle = isValue(self.viewModel.selectedSubTitle) ? self.viewModel.selectedSubTitle : self.viewModel.subTextModel.selectedSubText;
+        selectedSubTitle = isValue(selectedSubTitle) ? selectedSubTitle : normalSubTitle;
+        UIColor *normalSubTitleCor = self.viewModel.subTitleCor ? : self.viewModel.subTextModel.subTextCor;
+        UIColor *selectedSubTitleCor = self.viewModel.selectedSubTitleCor ? : self.viewModel.subTextModel.selectedSubTextCor;
+        selectedSubTitleCor = selectedSubTitleCor ? : normalSubTitleCor;
+        UIFont *normalSubTitleFont = self.viewModel.subTitleFont ? : self.viewModel.subTextModel.subFont;
+        UIFont *selectedSubTitleFont = self.viewModel.selectedSubTitleFont ? : self.viewModel.subTextModel.selectedSubFont;
+        selectedSubTitleFont = selectedSubTitleFont ? : normalSubTitleFont;
+        self.button.jobsResetBtnSubTitle(selected ? selectedSubTitle : normalSubTitle);
+        self.button.jobsResetBtnSubTitleCor(selected ? selectedSubTitleCor : normalSubTitleCor);
+        self.button.jobsResetBtnSubTitleFont(selected ? selectedSubTitleFont : normalSubTitleFont);
         
         if(self.viewModel.attributedTitle || self.viewModel.selectedAttributedTitle){
             self.button.jobsResetAttributedTitle(selected ? (self.viewModel.selectedAttributedTitle ? : self.viewModel.attributedTitle): self.viewModel.attributedTitle);

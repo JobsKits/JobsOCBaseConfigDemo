@@ -27,7 +27,8 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
 @synthesize thisViewSize = _thisViewSize;
 -(void)dealloc{
     [_authCodeBtn stop];
-    dropDownListView.dropDownListViewDisappear(nil);
+    jobsByCtrlBlock disappearBlock = dropDownListView.dropDownListViewDisappear;
+    if (disappearBlock) disappearBlock(nil);
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{

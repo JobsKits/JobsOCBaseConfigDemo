@@ -45,7 +45,12 @@
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
-
+/// 空数据监控机理：
+/// 本分类在 `+load` 中把 `reloadData` 交换到 `jobsReloadData`。
+/// 外部每次调用 `reloadData` 时，先执行系统原始刷新，再遍历 `numberOfSections`
+/// 和 `numberOfItemsInSection:` 判断是否有真实数据。
+/// 没有数据时按 `jobsEmptyViewType` 显示文字、按钮或自定义空态；有数据时清理空态视图。
+/// 关联对象标记用于防止交换后的刷新流程递归进入。
 @interface UICollectionView (EmptyData)
 
 @end

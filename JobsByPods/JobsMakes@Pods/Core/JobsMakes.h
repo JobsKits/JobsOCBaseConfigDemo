@@ -438,6 +438,13 @@ jobsMakeLabel(jobsByLabelBlock _Nonnull block){
     return data;
 }
 
+NS_INLINE __kindof UISearchBar *_Nonnull
+jobsMakeUISearchBar(jobsByUISearchBarBlock _Nonnull block){
+    UISearchBar *data = UISearchBar.alloc.init;
+    if (block) block(data);
+    return data;
+}
+
 NS_INLINE __kindof UINavigationBarAppearance *_Nonnull
 jobsMakeNavigationBarAppearance(jobsByNavigationBarAppearanceBlock _Nonnull block){
     UINavigationBarAppearance *data = UINavigationBarAppearance.alloc.init;

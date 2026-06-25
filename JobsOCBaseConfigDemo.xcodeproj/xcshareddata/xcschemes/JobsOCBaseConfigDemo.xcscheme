@@ -6,6 +6,42 @@
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES"
       buildArchitectures = "Automatic">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "XBT Build Timer Start"
+               scriptText = "&quot;/Users/jobs/.xcode-build-timer/xbt-build-hook.sh&quot; start">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "C50913B22F85D89000F261DA"
+                     BuildableName = "JobsOCBaseConfigDemo.app"
+                     BlueprintName = "JobsOCBaseConfigDemo"
+                     ReferencedContainer = "container:JobsOCBaseConfigDemo.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
+      <PostActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "XBT Build Timer End"
+               scriptText = "&quot;/Users/jobs/.xcode-build-timer/xbt-build-hook.sh&quot; end">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "C50913B22F85D89000F261DA"
+                     BuildableName = "JobsOCBaseConfigDemo.app"
+                     BlueprintName = "JobsOCBaseConfigDemo"
+                     ReferencedContainer = "container:JobsOCBaseConfigDemo.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PostActions>
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
