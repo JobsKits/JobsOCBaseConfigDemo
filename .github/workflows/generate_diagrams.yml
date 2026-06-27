@@ -4,47 +4,56 @@ on:
   push:
     branches:
       - main
+      - byPods
+    paths-ignore:
+      - 'diagram-*.png'
   pull_request:
     branches:
       - main
-  workflow_dispatch: # 允许手动触发
+      - byPods
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # 对当前github仓库具有写的权限
+      contents: write
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.PAT }} # 计划稍后使用自己的 PAT `git push` 对不同的存储库执行操作
+      - name: Checkout repository
+        uses: actions/checkout@v7
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'  # 使用最新版本的 Node.js
-        
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y chromium-browser
-        npm install -g @mermaid-js/mermaid-cli
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
 
-    - name: Generate Diagrams
-      run: |
-        npx mmdc -i README.md -o diagram.png
-        ls -la # 列出当前目录中的文件
+      - name: Install Mermaid CLI
+        run: npm install --global @mermaid-js/mermaid-cli@11.15.0
 
-    - name: Show current directory structure
-      run: ls -R
-        
-    - name: Commit and push diagrams
-      if: success()
-      run: |
-        git config --global user.name 'github-actions'
-        git config --global user.email 'github-actions@github.com'
-        git add diagram-*.png
-        git commit -m 'Auto-Generate Mermaid diagrams'
-        git push https://${{ github.actor }}:${{ secrets.PAT }}@github.com/${{ github.repository }}.git HEAD:main
+      - name: Generate diagrams
+        run: |
+          mmdc --input README.md --output diagram.md --outputFormat png
+          rm diagram.md
+
+      - name: Commit and push diagrams
+        if: github.event_name != 'pull_request'
+        run: |
+          shopt -s nullglob
+          diagrams=(diagram-*.png)
+          if (( ${#diagrams[@]} == 0 )); then
+            echo "::error::No Mermaid diagrams were generated."
+            exit 1
+          fi
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "${diagrams[@]}"
+
+          if git diff --cached --quiet; then
+            echo "No diagram changes to commit."
+            exit 0
+          fi
+
+          git commit -m 'Auto-generate Mermaid diagrams'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
