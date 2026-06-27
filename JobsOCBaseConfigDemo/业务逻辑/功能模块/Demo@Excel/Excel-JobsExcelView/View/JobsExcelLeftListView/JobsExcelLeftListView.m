@@ -32,7 +32,7 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
     return ^(JobsExcelConfigureViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.excelConfigureData = model;
-        self.tableView.rowHeight = model.itemH;
+        self.tableView.byRowHeight(model.itemH);
         self.tableView.byShow(self);
     };
 }

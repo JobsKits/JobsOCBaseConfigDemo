@@ -26,12 +26,6 @@
 #import "JobsBaseUI.h"
 #endif
 
-#if __has_include(<JobsCryptography/JobsCryptography.h>)
-#import <JobsCryptography/JobsCryptography.h>
-#else
-#import "JobsCryptography.h"
-#endif
-
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else

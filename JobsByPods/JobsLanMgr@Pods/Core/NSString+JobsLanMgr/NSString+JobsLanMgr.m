@@ -14,4 +14,13 @@
     return [LanMgr localStringWithKey:self];
 }
 
+-(JobsRetBOOLByStrBlock _Nonnull)inStr{
+    @jobs_weakify(self)
+    return ^BOOL(__kindof NSString *_Nullable data){
+        @jobs_strongify(self)
+        if (!self || !data) return NO;
+        return [data localizedCaseInsensitiveContainsString:self];
+    };
+}
+
 @end

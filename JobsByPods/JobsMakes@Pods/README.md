@@ -85,6 +85,7 @@ JobsMakes@Pods/
 - `Support` 当前包含 2 个文件，其中源码 / 头文件 2 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
+- `JobsMakes.h` 提供 `jobsMakeMutData`、`jobsMakeMutSet`、`jobsMakeMutIndexSet`、`jobsMakeMutArr`、`jobsMakeMutDic`、`jobsMakeMutString` 等常用可变容器创建入口。
 
 ## 六、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

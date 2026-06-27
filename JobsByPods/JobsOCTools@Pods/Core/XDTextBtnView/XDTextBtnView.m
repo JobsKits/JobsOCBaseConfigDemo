@@ -174,7 +174,7 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
 
     }
     if (self.selectTextColor) {
-        [btn setTitleColor:self.selectTextColor forState:UIControlStateNormal];
+        btn.normalStateTitleColorBy(self.selectTextColor);
     }
 }
 
@@ -185,7 +185,7 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
 
     }
     if (self.textColor) {
-        [btn setTitleColor:self.textColor forState:UIControlStateNormal];
+        btn.normalStateTitleColorBy(self.textColor);
     }
 }
 

@@ -65,9 +65,7 @@ and linked content switching support.
 #import <JobsBaseUI/UITextView+Extra.h>
   PCH
 
-  # CocoaPods 的 source 只接受 :git、:hg、:http、:svn。
-  # 这是本地开发 Pod 时用于通过校验的占位写法；发布时请替换成真实 git 仓库地址。
-  spec.source           = { :git => 'https://example.local/JobsLinkageMenuView.git', :tag => spec.version.to_s }
+  spec.source           = { :path => '.' }
 
   spec.default_subspecs = 'Core'
   file_support_context = JobsPodspecKitForJobsLinkageMenuView.build_file_support_context(

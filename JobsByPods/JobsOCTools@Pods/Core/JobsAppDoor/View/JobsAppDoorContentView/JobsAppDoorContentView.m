@@ -195,16 +195,14 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*inputViewMutArr;
 
 -(void)initialSendBtn{
 //    self.sendBtn.backgroundColor = KSystemPinkColor.colorWithAlphaComponentBy(.3f);
-    
-    self.sendBtn.sizer = CGSizeMake(self.width - self.toRegisterBtn.width - JobsWidth(40), ThingsHeight);
-    [self.sendBtn setBackgroundImage:@"登录注册按钮背景图".img forState:UIControlStateNormal];
-    [self.sendBtn setBackgroundImage:@"登录注册按钮背景图".img forState:UIControlStateSelected];
-    [self.sendBtn setTitleColor:Cor5
-                       forState:UIControlStateNormal];
-    [self.sendBtn setTitle:Title7
-                  forState:UIControlStateNormal];
-    self.sendBtn.titleLabel.font = [UIFont systemFontOfSize:JobsWidth(16)
-                                                     weight:UIFontWeightRegular];
+    self.sendBtn
+        .normalStateBackgroundImageBy(@"登录注册按钮背景图".img)
+        .selectedStateBackgroundImageBy(@"登录注册按钮背景图".img)
+        .normalStateTitleColorBy(Cor5)
+        .normalStateTitleBy(Title7)
+        .jobsResetBtnTitleFont([UIFont systemFontOfSize:JobsWidth(16)
+                                                 weight:UIFontWeightRegular])
+        .bySize(CGSizeMake(self.width - self.toRegisterBtn.width - JobsWidth(40), ThingsHeight));
     [self.sendBtn.titleLabel sizeToFit];//必须先定Size，在依据Size刷新内部控件约束
     
     self.sendBtn.centerX = self.titleLab.centerX;

@@ -9,9 +9,12 @@
 
 @interface JobsSearchTBVCell ()
 
+Prop_strong()NSMutableArray <UIViewModel *>*viewModels;
+
 @end
 
 @implementation JobsSearchTBVCell
+@synthesize viewModels = _viewModels;
 /// UIViewModelProtocol
 UIViewModelProtocol_synthesize_part1
 UIViewModelProtocol_synthesize_part2
@@ -27,20 +30,21 @@ BaseLayerProtocol_synthesize_part3
 
 +(JobsRetCGFloatByIDBlock _Nonnull)cellHeightByModel{
     return ^CGFloat(id _Nullable data){
-        NSArray *arr = (NSArray *)data;
-        int rowNum = ceilf(arr.count / listNum);
+        NSArray *arr = [data isKindOfClass:NSArray.class] ? (NSArray *)data : @[];
+        int rowNum = ceilf((CGFloat)arr.count / listNum);
         return rowNum * JobsSearchShowHotwordsTBVCellHeight;
     };
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(JobsRetTableViewCellByIDBlock _Nonnull)jobsRichElementsTableViewCellBy{
     @jobs_weakify(self)
-    return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
+    return ^__kindof UITableViewCell *_Nullable(id _Nullable data) {
         @jobs_strongify(self)
         [self.collectionView removeFromSuperview];
         self->_collectionView = nil;
-        if (model) {
-            self.viewModels = (NSMutableArray *)model;
+        self.viewModels = NSMutableArray.array;
+        if ([data isKindOfClass:NSArray.class]) {
+            self.viewModels = ((NSArray *)data).mutableCopy;
             self.collectionView.byShow(self);
         };return self;
     };

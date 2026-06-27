@@ -398,9 +398,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
                 .byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
                     /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 }))
+                .byFoldable(YES)
                 .byShowsVerticalScrollIndicator(NO)
                 .byBgColor(self.bgColour);
-            tableView.ww_foldable = YES;//设置可折叠
             [tableView registerTableViewClass];
             tableView
                 .byMJRefreshHeader(self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {

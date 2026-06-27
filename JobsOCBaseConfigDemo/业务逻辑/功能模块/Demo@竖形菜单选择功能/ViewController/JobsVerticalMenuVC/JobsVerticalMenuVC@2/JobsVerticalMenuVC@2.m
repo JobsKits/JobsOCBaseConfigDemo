@@ -76,8 +76,8 @@ Prop_assign()NSUInteger thisIndex;
                                             if (self.objBlock) self.objBlock(x);
                                         }).onLongPressGestureBy(^(id data){
                                             JobsLog(@"");
-                                        })));
-        data.add(UIBarButtonItem.initBy(BaseButton.jobsInit()
+                                        })))
+        .add(UIBarButtonItem.initBy(BaseButton.jobsInit()
                                         .bgColorBy(JobsWhiteColor)
                                         .jobsResetBtnImage(@"人工客服".img)
                                         .onClickBy(^(UIButton *x){

@@ -7,14 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0914C5907BA49F2FC8811CC4 /* JobsOCBaseConfigDemoUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E591D6C4D0C6BBBD252B2 /* JobsOCBaseConfigDemoUITestsLaunchTests.m */; };
 		30238BC1D50902CA6D066A27 /* Pods_JobsOCBaseConfigDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BE608D790F4B9DDF11D6090 /* Pods_JobsOCBaseConfigDemo.framework */; };
+		BC1C719151A2A5E6269A5C16 /* JobsOCBaseConfigDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C920BD66667884C72A4E65C3 /* JobsOCBaseConfigDemoTests.m */; };
+		ED67DD17E96F487CDFFD4C46 /* JobsOCBaseConfigDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1367FE9E27F6821172EED101 /* JobsOCBaseConfigDemoUITests.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F3B8ED201A73F88DAE06E719 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C50913AB2F85D89000F261DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C50913B22F85D89000F261DA;
+			remoteInfo = JobsOCBaseConfigDemo;
+		};
+		F9B29787503DB56003F2575B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C50913AB2F85D89000F261DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C50913B22F85D89000F261DA;
+			remoteInfo = JobsOCBaseConfigDemo;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		0E7E591D6C4D0C6BBBD252B2 /* JobsOCBaseConfigDemoUITestsLaunchTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemoUITestsLaunchTests.m; sourceTree = "<group>"; };
+		1367FE9E27F6821172EED101 /* JobsOCBaseConfigDemoUITests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemoUITests.m; sourceTree = "<group>"; };
 		2D7A8B32FCA0BE8EE44C4355 /* Pods-JobsOCBaseConfigDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.release.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.release.xcconfig"; sourceTree = "<group>"; };
+		44DC6A848D569C29C2CB5EF0 /* JobsOCBaseConfigDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = JobsOCBaseConfigDemoUITests.xctest; path = .xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BE608D790F4B9DDF11D6090 /* Pods_JobsOCBaseConfigDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JobsOCBaseConfigDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		93E2A01E9486C0D38D8D2CA2 /* JobsOCBaseConfigDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = JobsOCBaseConfigDemoTests.xctest; path = .xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA46AFD101D1C8A58AEB979F /* JobsLinkageMenuViewDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsLinkageMenuViewDemoVC.m; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsLinkageMenuView/JobsLinkageMenuViewDemoVC.m"; sourceTree = "<group>"; };
+		ACC2478DA763882076BAE990 /* JobsLinkageMenuViewDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsLinkageMenuViewDemoVC.h; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsLinkageMenuView/JobsLinkageMenuViewDemoVC.h"; sourceTree = "<group>"; };
 		C29CFD27EB7AEA326BB2966F /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.debug.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		C50913B32F85D89000F261DA /* JobsOCBaseConfigDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JobsOCBaseConfigDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C920BD66667884C72A4E65C3 /* JobsOCBaseConfigDemoTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemoTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -48,11 +75,25 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B3CE61AE4480D9145184D050 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C50913B02F85D89000F261DA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				30238BC1D50902CA6D066A27 /* Pods_JobsOCBaseConfigDemo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C60F4661216B1BA37FE329B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +108,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BC633F53CA87B082B6A341B7 /* JobsOCBaseConfigDemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				1367FE9E27F6821172EED101 /* JobsOCBaseConfigDemoUITests.m */,
+				0E7E591D6C4D0C6BBBD252B2 /* JobsOCBaseConfigDemoUITestsLaunchTests.m */,
+			);
+			path = JobsOCBaseConfigDemoUITests;
+			sourceTree = "<group>";
+		};
 		C50913AA2F85D89000F261DA = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +124,10 @@
 				C50913B42F85D89000F261DA /* Products */,
 				EA4E9321151D073227FB210E /* Pods */,
 				93091DF3A4BAECE6B7AEAD38 /* Frameworks */,
+				DCF1DEF79146AB572BF5E570 /* JobsOCBaseConfigDemoTests */,
+				BC633F53CA87B082B6A341B7 /* JobsOCBaseConfigDemoUITests */,
+				ACC2478DA763882076BAE990 /* JobsLinkageMenuViewDemoVC.h */,
+				AA46AFD101D1C8A58AEB979F /* JobsLinkageMenuViewDemoVC.m */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,8 +135,18 @@
 			isa = PBXGroup;
 			children = (
 				C50913B32F85D89000F261DA /* JobsOCBaseConfigDemo.app */,
+				93E2A01E9486C0D38D8D2CA2 /* JobsOCBaseConfigDemoTests.xctest */,
+				44DC6A848D569C29C2CB5EF0 /* JobsOCBaseConfigDemoUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		DCF1DEF79146AB572BF5E570 /* JobsOCBaseConfigDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				C920BD66667884C72A4E65C3 /* JobsOCBaseConfigDemoTests.m */,
+			);
+			path = JobsOCBaseConfigDemoTests;
 			sourceTree = "<group>";
 		};
 		EA4E9321151D073227FB210E /* Pods */ = {
@@ -97,6 +161,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		69D04D0E6864327E0DEB658B /* JobsOCBaseConfigDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C6926E2D14AEDD9BD64C7731 /* Build configuration list for PBXNativeTarget "JobsOCBaseConfigDemoTests" */;
+			buildPhases = (
+				51E285F0FA23921602FE56B5 /* Sources */,
+				C60F4661216B1BA37FE329B7 /* Frameworks */,
+				FD4D768FA8471CF7F99BA321 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				29888E9E7DF0358E4FABFCF7 /* PBXTargetDependency */,
+			);
+			name = JobsOCBaseConfigDemoTests;
+			productName = JobsOCBaseConfigDemoTests;
+			productReference = 93E2A01E9486C0D38D8D2CA2 /* JobsOCBaseConfigDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		96FDD6C9F32A06334CFDC851 /* JobsOCBaseConfigDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9BDB07E99A4D9C41EFC05CE6 /* Build configuration list for PBXNativeTarget "JobsOCBaseConfigDemoUITests" */;
+			buildPhases = (
+				49F8F7C4D38ED6449CEC84B2 /* Sources */,
+				B3CE61AE4480D9145184D050 /* Frameworks */,
+				C3982212FDC661EE00A6748A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2BF4C76CD6870A0A8D87132D /* PBXTargetDependency */,
+			);
+			name = JobsOCBaseConfigDemoUITests;
+			productName = JobsOCBaseConfigDemoUITests;
+			productReference = 44DC6A848D569C29C2CB5EF0 /* JobsOCBaseConfigDemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		C50913B22F85D89000F261DA /* JobsOCBaseConfigDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C50913CB2F85D89100F261DA /* Build configuration list for PBXNativeTarget "JobsOCBaseConfigDemo" */;
@@ -153,12 +253,28 @@
 			projectRoot = "";
 			targets = (
 				C50913B22F85D89000F261DA /* JobsOCBaseConfigDemo */,
+				69D04D0E6864327E0DEB658B /* JobsOCBaseConfigDemoTests */,
+				96FDD6C9F32A06334CFDC851 /* JobsOCBaseConfigDemoUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C3982212FDC661EE00A6748A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C50913B12F85D89000F261DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD4D768FA8471CF7F99BA321 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -223,6 +339,23 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		49F8F7C4D38ED6449CEC84B2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED67DD17E96F487CDFFD4C46 /* JobsOCBaseConfigDemoUITests.m in Sources */,
+				0914C5907BA49F2FC8811CC4 /* JobsOCBaseConfigDemoUITestsLaunchTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		51E285F0FA23921602FE56B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC1C719151A2A5E6269A5C16 /* JobsOCBaseConfigDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C50913AF2F85D89000F261DA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -232,7 +365,98 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		29888E9E7DF0358E4FABFCF7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = JobsOCBaseConfigDemo;
+			target = C50913B22F85D89000F261DA /* JobsOCBaseConfigDemo */;
+			targetProxy = F9B29787503DB56003F2575B /* PBXContainerItemProxy */;
+		};
+		2BF4C76CD6870A0A8D87132D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = JobsOCBaseConfigDemo;
+			target = C50913B22F85D89000F261DA /* JobsOCBaseConfigDemo */;
+			targetProxy = F3B8ED201A73F88DAE06E719 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		075BD5FB8F427002A5A40EFF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jobs.JobsOCBaseConfigDemoUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JobsOCBaseConfigDemo;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		28CE8C85E509901AEE11E34D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jobs.JobsOCBaseConfigDemoTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JobsOCBaseConfigDemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/JobsOCBaseConfigDemo";
+			};
+			name = Debug;
+		};
+		A33C1EBA6EF457C95978577E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jobs.JobsOCBaseConfigDemoUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JobsOCBaseConfigDemo;
+			};
+			name = Debug;
+		};
+		C2E25CB94CCEF58C361E60F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jobs.JobsOCBaseConfigDemoTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JobsOCBaseConfigDemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/JobsOCBaseConfigDemo";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		C50913CC2F85D89100F261DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C29CFD27EB7AEA326BB2966F /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */;
@@ -421,6 +645,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9BDB07E99A4D9C41EFC05CE6 /* Build configuration list for PBXNativeTarget "JobsOCBaseConfigDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				075BD5FB8F427002A5A40EFF /* Release */,
+				A33C1EBA6EF457C95978577E /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C50913AE2F85D89000F261DA /* Build configuration list for PBXProject "JobsOCBaseConfigDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -435,6 +668,15 @@
 			buildConfigurations = (
 				C50913CC2F85D89100F261DA /* Debug */,
 				C50913CD2F85D89100F261DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C6926E2D14AEDD9BD64C7731 /* Build configuration list for PBXNativeTarget "JobsOCBaseConfigDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2E25CB94CCEF58C361E60F0 /* Release */,
+				28CE8C85E509901AEE11E34D /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

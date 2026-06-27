@@ -32,7 +32,7 @@ Prop_assign()CGPoint contentOffenset;
     return ^(JobsExcelConfigureViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.excelConfigureData = model;
-        self.tableView.rowHeight = self.excelConfigureData.itemH;
+        self.tableView.byRowHeight(self.excelConfigureData.itemH);
         self.tableView.byShow(self);
     };
 }

@@ -131,12 +131,12 @@ didHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
             tableView
-                .byMJRefreshHeader(self.mjRefreshGifHeader)
-                .byMJRefreshFooter(self.mjRefreshAutoGifFooter)
                 .byEstimatedRowHeight(0)
                 .byEstimatedSectionFooterHeight(0)
                 .byEstimatedSectionHeaderHeight(0)
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .byMJRefreshHeader(self.mjRefreshGifHeader)
+                .byMJRefreshFooter(self.mjRefreshAutoGifFooter)
                 .byPagingEnabled(YES)
                 .byShowsVerticalScrollIndicator(NO)
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)

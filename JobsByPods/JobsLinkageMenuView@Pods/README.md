@@ -16,7 +16,7 @@
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 > 这份自述用于记录 `JobsLinkageMenuView` 在 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的职责边界、目录结构、依赖关系和验证方式。
-补充描述：JobsLinkageMenuView is a local Objective-C UI component library providing a linkage menu view with configurable menu width, slider view, text styles, and linked content switching support.
+补充描述：`JobsLinkageMenuView` 提供左侧 `UIScrollView` 菜单与右侧 `UIView` 内容区联动能力，支持菜单宽度 / 内容宽度 / 比例宽度、统一高度 / 单项高度覆盖，以及菜单无内容时的点击回调。
 
 
 ## 一、Pod 定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -32,11 +32,15 @@
 | 许可证 | `MIT / LICENSE` |
 | 作者 | `Jobs / lg295060456@gmail.com` |
 | podspec | `JobsByPods/JobsLinkageMenuView@Pods/JobsLinkageMenuView.podspec` |
-| source | `{ :git => 'https://example.local/JobsLinkageMenuView.git', :tag => spec.version.to_s }` |
+| source | `{ :path => '.' }` |
 
 ## 二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 作为 Jobs 项目内的独立能力 Pod，向 App 或其它 Pod 提供 `JobsLinkageMenuView` 相关能力。
+- 作为 Jobs 项目内的独立能力 Pod，向 App 或其它 Pod 提供“左侧菜单联动右侧内容”的复用 UI 能力。
+- 菜单项通过 `UIButtonModel.normal_titles` 等数组配置，内容区通过 `UIButtonModel.data` 中的 `UIView` 数组配置。
+- 如果某个菜单没有对应内容区，组件不会兜底复用最后一个内容，而是触发 `noContentClickBlock`。
+- 宽度配置优先级：`MENU_WIDTH` 固定菜单宽度 > `CONTENT_WIDTH` 固定内容宽度 > `MENU_RATIO` 菜单比例 > 默认菜单宽度。
+- 高度配置优先级：`MENU_ITEM_HEIGHT_MAP` 单项覆盖 > `MENU_ITEM_HEIGHTS` 数组覆盖 > `DEFAULT_MENU_ITEM_HEIGHT` 统一高度 > 默认高度。
 - 当 `JobsLinkageMenuView` 的 `Core`、`Support`、资源、依赖或公开头文件发生变化时，同步更新本 README，避免后续排查只看源码不看边界。
 - 参与本地 Pods 拆分时，先确认能力归属，再决定放入当前 Pod、迁移到 `Support`，还是下沉为更基础的公共 Pod。
 
@@ -100,7 +104,7 @@ JobsLinkageMenuView@Pods/
 - `JobsDeviceInfo`
 - `JobsLanMgr`
 - `JobsMakes`
-- `JobsModel`
+- `JobsModelDSL`
 - `JobsOCDefs`
 - `JobsOCProtocols`
 - `JobsOCRuntimeKits`

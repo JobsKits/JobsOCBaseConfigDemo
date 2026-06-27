@@ -211,6 +211,7 @@ willDisplayHeaderView:(UIView *)view
                 .byBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
                     view.byBgColor(JobsWhiteColor);
                 }))
+                .byFoldable(YES)
                 .byShowsVerticalScrollIndicator(NO)
                 .byScrollEnabled(YES)
                 .byMJRefreshHeader(self.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
@@ -225,7 +226,6 @@ willDisplayHeaderView:(UIView *)view
                 }]))
                 .byBgColor(@"#FFFFFF".cor);
             tableView.opaque = YES;
-            tableView.ww_foldable = YES;
             tableView.registerHeaderFooterViewClass(MSCommentTableHeaderFooterView.class,@"");
             if(@available(iOS 11.0, *)) {
                 tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);

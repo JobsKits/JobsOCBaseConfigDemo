@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_END
                  [self.view addSubview:Switch];
                  Switch.selected = NO;// 读取系统记录
                  Switch.thumbTintColor = _switcher.selected ? self.cor : HEXCOLOR(0xB0B0B0);
-                 Switch.tintColor = JobsWhiteColor;
+                 Switch.byTintColor(JobsWhiteColor);
                  Switch.onTintColor = HEXCOLOR(0xFFFCF7);
                  Switch.byBgColor(JobsWhiteColor);
                  Switch.cornerCutToCircleWithCornerRadius(31 / 2);

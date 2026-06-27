@@ -643,6 +643,13 @@ jobsMakeMutSet(jobsByMutableSetBlock _Nonnull block){
     return data;
 }
 
+NS_INLINE __kindof NSMutableIndexSet *_Nonnull
+jobsMakeMutIndexSet(jobsByMutableIndexSetBlock _Nullable block){
+    NSMutableIndexSet *data = NSMutableIndexSet.indexSet;
+    if (block) block(data);
+    return data;
+}
+
 NS_INLINE __kindof NSArray *_Nonnull
 jobsMakeMutArr(jobsByMutArrBlock _Nonnull block){
     NSMutableArray *data = NSMutableArray.array;

@@ -40,7 +40,7 @@ Prop_strong()XLChannelBlock block;
     self.channelView = [[XLChannelView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     self.nav = [[UINavigationController alloc] initWithRootViewController:[UIViewController new]];
-    self.nav.navigationBar.tintColor = [UIColor blackColor];
+    self.nav.navigationBar.byTintColor(UIColor.blackColor);
     self.nav.topViewController.title = @"频道管理";
     self.nav.topViewController.view = self.channelView;
     self.nav.topViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backMethod)];

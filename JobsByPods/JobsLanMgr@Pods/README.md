@@ -75,6 +75,7 @@ JobsLanMgr@Pods/
 
 - `JobsLanMgr.h`
 - `Core/**/*.{h,m,mm}`
+- `NSString+JobsLanMgr` 暴露 `.tr` 国际化入口和 `inStr(...)` 本地化忽略大小写包含判断入口。
 
 ### 5.3、默认 subspec
 

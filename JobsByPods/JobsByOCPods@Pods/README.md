@@ -93,6 +93,10 @@ JobsByOCPods@Pods/
 
 - `JobsByOCPods/Support/JobsSEL_IMP`
 
+### 5.6、UITableView 折叠能力
+
+- `Core/UIKit/UITableView/UITableView+WWFoldableTableView` 暴露 `ww_foldable` 属性，并提供 `byFoldable(BOOL)` 链式入口，业务侧优先写成 `tableView.byFoldable(YES)` / `tableView.byFoldable(NO)`。
+
 ## 六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 推荐在 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 代码里使用保护性引用，优先走 [**CocoaPods**](https://cocoapods.org/) 生成的公共头映射：

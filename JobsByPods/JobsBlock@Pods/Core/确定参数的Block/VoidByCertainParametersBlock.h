@@ -97,6 +97,7 @@ typedef void(^jobsByArrBlock)(__kindof NSArray <NSObject *>*_Nullable data);
 typedef void(^jobsByMutArrBlock)(__kindof NSMutableArray <NSObject *>*_Nullable arr);
 typedef void(^jobsBySetBlock)(__kindof NSSet *_Nullable set);
 typedef void(^jobsByMutableSetBlock)(__kindof NSMutableSet <NSObject *>*_Nullable set);
+typedef void(^jobsByMutableIndexSetBlock)(__kindof NSMutableIndexSet *_Nullable indexSet);
 typedef void(^jobsByDicBlock)(__kindof NSDictionary *_Nullable dic);
 typedef void(^jobsByMutableDictBlock)(__kindof NSMutableDictionary *_Nullable dic);
 #pragma mark —— 关于（富）文本

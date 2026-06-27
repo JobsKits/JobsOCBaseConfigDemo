@@ -1,24 +1,16 @@
 //
-//  ViewController@1.h
+//  JobsLinkageMenuViewDemoVC.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2026年5月13日，星期三.
+//  Created by Jobs on 2026年6月27日，星期六.
 //
 
 #import <UIKit/UIKit.h>
-#import "Demos.h"
-#import "JobsOCRootFoldTableCell.h"
 
-#if __has_include(<JobsSuspend/JobsSuspend.h>)
-#import <JobsSuspend/JobsSuspend.h>
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
 #else
-#import "JobsSuspend.h"
-#endif
-
-#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
-#import <JobsLanMgr/JobsLanMgr.h>
-#else
-#import "JobsLanMgr.h"
+#import "Masonry.h"
 #endif
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
@@ -27,10 +19,22 @@
 #import "JobsBaseUI.h"
 #endif
 
-#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import <JobsByOCPods/JobsByOCPods.h>
+#if __has_include(<JobsLinkageMenuView/JobsLinkageMenuView.h>)
+#import <JobsLinkageMenuView/JobsLinkageMenuView.h>
 #else
-#import "JobsByOCPods.h"
+#import "JobsLinkageMenuView.h"
+#endif
+
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
+#else
+#import "JobsModel.h"
+#endif
+
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
@@ -59,7 +63,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ViewController_1 : BaseViewController <UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+@interface JobsLinkageMenuViewDemoVC : BaseViewController
 
 @end
 

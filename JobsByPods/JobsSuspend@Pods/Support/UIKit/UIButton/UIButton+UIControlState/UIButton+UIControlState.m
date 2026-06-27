@@ -305,6 +305,16 @@
         return self;
     };
 }
+
+-(JobsRetBtnByCorAndControlStateBlock _Nonnull)titleColorForStateBy{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(UIColor *_Nullable titleColor, UIControlState state) {
+        @jobs_strongify(self)
+        [self setTitleColor:titleColor
+                   forState:state];
+        return self;
+    };
+}
 #pragma mark —— UIButton.subtitleColor
 /// TODO
 #pragma mark —— UIButton.title
