@@ -28,12 +28,25 @@ jobs:
         with:
           node-version: '24'
 
+      - name: Setup Chrome
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v2.1.2
+
       - name: Install Mermaid CLI
-        run: npm install --global @mermaid-js/mermaid-cli@11.15.0
+        run: |
+          PUPPETEER_SKIP_DOWNLOAD=true npm install --global @mermaid-js/mermaid-cli@11.15.0 puppeteer@24.43.1
 
       - name: Generate diagrams
+        env:
+          CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
         run: |
-          mmdc --input README.md --output diagram.md --outputFormat png
+          cat > "${RUNNER_TEMP}/puppeteer-config.json" <<EOF
+          {
+            "executablePath": "${CHROME_PATH}",
+            "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+          }
+          EOF
+          mmdc --input README.md --output diagram.md --outputFormat png --puppeteerConfigFile "${RUNNER_TEMP}/puppeteer-config.json"
           rm diagram.md
 
       - name: Commit and push diagrams
