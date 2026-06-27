@@ -11,5 +11,6 @@
 #import "NSObject+DynamicInvoke.h"
 #import "NSObject+RunrtimeGet.h"
 #import "NSObject+Swizzling.h"
+#import "JobsOCPatch.h"
 
 #endif /* JobsOCRuntimeKits_h */

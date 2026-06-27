@@ -290,6 +290,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath{
                     data.normalImage = @"暂无数据".img;
                     data.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
                 }))
+                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
                 .byBgColor(JobsWhiteColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -303,11 +304,6 @@ forRowAtIndexPath:(NSIndexPath*)indexPath{
                     make.bottom.equalTo(self.view.mas_bottom).offset(AppDelegate.tabBarVC.tabBar.isHidden ? 0 : -JobsTabBarHeightByBottomSafeArea(AppDelegate.tabBarVC));
                 });
             self.view.mjRefreshTargetView = tableView;
-            if(@available(iOS 11.0, *)) {
-                tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            }else{
-                SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
-            }
         });
     };return _tableView;
 }

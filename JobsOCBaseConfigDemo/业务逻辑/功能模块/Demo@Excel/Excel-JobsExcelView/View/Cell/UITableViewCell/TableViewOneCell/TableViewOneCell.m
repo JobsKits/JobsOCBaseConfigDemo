@@ -28,8 +28,9 @@ Prop_assign()CGSize size;
         JobsBaseTableViewCell *cell = (JobsBaseTableViewCell *)tableView.tableViewCellClass(self.class,@"");
         if (!cell) {
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleValue1];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.backgroundColor = JobsWhiteColor;
+            cell
+                .bySelectionStyle(UITableViewCellSelectionStyleNone)
+                .byBgColor(JobsWhiteColor);
         };return cell;
     };
 }

@@ -56,6 +56,7 @@
 #import "UIMenuItem+DSL.h"
 #import "UIBarButtonItem+DSL.h"
 #import "UILabel+DSL.h"
+#import "UISearchBar+DSL.h"
 #import "UIImageView+DSL.h"
 #import "UITableViewCell+DSL.h"
 #import "UITableView+DSL.h"

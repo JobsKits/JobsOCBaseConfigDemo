@@ -217,8 +217,8 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     self.dataMutArr[indexPath.item].jobsBlock(nil);
     /**
      滚动到指定位置
-     _collectionView.contentOffset = CGPointMake(0,-100);
-     [_collectionView setContentOffset:CGPointMake(0, -200) animated:YES];// 只有在viewDidAppear周期 或者 手动触发才有效
+     _collectionView.byContentOffset(CGPointMake(0,-100));
+     _collectionView.setContentOffsetByYES(CGPointMake(0, -200));// 只有在viewDidAppear周期 或者 手动触发才有效
      */
 }
 /// 取消选中操作
@@ -273,19 +273,18 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     if (!_collectionView) {
         @jobs_weakify(self)
         _collectionView = BaseCollectionView.initByLayout(self.verticalLayout);
-        _collectionView.backgroundColor = JobsGreenColor;//RGB_SAMECOLOR(246);
         _collectionView.layoutSubviewsRectCorner = UIRectCornerTopLeft | UIRectCornerTopRight;
         _collectionView.layoutSubviewsRectCornerSize = CGSizeMake(JobsWidth(20), JobsWidth(20));
         _collectionView.dataLink(self);
-        
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.showsHorizontalScrollIndicator = NO;
-        
-        _collectionView.bounces = NO;///设置为NO，使得collectionView只能上拉，不能下拉
-        
-        _collectionView.contentInset = UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0);
-        //_collectionView.contentOffset = CGPointMake(0, -JobsWidth(250));//
-        [_collectionView setContentOffset:CGPointMake(0, -400) animated:YES];// 这句最快在 viewWillLayoutSubviews 有效
+
+        _collectionView
+            .byShowsVerticalScrollIndicator(NO)
+            .byShowsHorizontalScrollIndicator(NO)
+            .byBounces(NO)///设置为NO，使得collectionView只能上拉，不能下拉
+            .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
+            .byBgColor(JobsGreenColor);//RGB_SAMECOLOR(246);
+        //_collectionView.byContentOffset(CGPointMake(0, -JobsWidth(250)));//
+        _collectionView.setContentOffsetByYES(CGPointMake(0, -400));// 这句最快在 viewWillLayoutSubviews 有效
         
         _collectionView.registerCollectionViewClass();
         

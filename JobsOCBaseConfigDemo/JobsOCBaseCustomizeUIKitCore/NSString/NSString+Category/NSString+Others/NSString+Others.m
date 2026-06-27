@@ -117,6 +117,15 @@
 -(NSString *_Nullable)tr{
     return [JobsLanguageManager localStringWithKey:self];
 }
+
+-(JobsRetBOOLByStrBlock _Nonnull)inStr{
+    @jobs_weakify(self)
+    return ^BOOL(__kindof NSString *_Nullable data){
+        @jobs_strongify(self)
+        if (!self || !data) return NO;
+        return [data localizedCaseInsensitiveContainsString:self];
+    };
+}
 /// 输入单词的首字母大写（适用于拼接set方法）
 -(NSString *_Nonnull)capitalizeFirstLetter{
     if(self.length){

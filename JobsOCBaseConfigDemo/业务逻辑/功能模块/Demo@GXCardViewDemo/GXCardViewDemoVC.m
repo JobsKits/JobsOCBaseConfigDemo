@@ -82,7 +82,7 @@ Prop_assign()NSInteger cellCount;
 - (GXCardViewCell *)cardView:(GXCardView *)cardView
            cellForRowAtIndex:(NSInteger)index {
     GXCardItemDemoCell *cell = [cardView dequeueReusableCellWithIdentifier:@"GXCardViewCell"];
-    cell.backgroundColor = JobsYellowColor;
+    cell.byBgColor(JobsYellowColor);
     cell.numberLabel.text = [NSString stringWithFormat:@"%ld", (long)index];
     cell.leftLabel.hidden = YES;
     cell.rightLabel.hidden = YES;

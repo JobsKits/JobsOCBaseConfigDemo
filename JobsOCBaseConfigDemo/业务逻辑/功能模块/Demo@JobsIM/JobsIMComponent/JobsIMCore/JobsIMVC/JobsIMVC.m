@@ -386,6 +386,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
             tableView
+                .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .byMJRefreshHeader(self.lotAnimMJRefreshHeader.byRefreshConfigModel(jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable model) {
                     model.stateIdleTitle = @"下拉刷新数据".tr;
                     model.pullingTitle = @"下拉刷新数据".tr;
@@ -417,7 +418,6 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                     };
                 })))
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
-                .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .byShowsVerticalScrollIndicator(NO)
                 .byPagingEnabled(YES) // 这个属性为YES会使得Tableview一格一格的翻动
                 .byBgColor(self.bgColour);

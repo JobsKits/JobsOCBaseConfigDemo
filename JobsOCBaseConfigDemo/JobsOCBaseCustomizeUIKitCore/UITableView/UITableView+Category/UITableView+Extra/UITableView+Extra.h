@@ -126,13 +126,8 @@ NS_INLINE __kindof UITableView *_Nonnull jobsMakeTableViewByInsetGrouped(jobsByT
                  .byShowsVerticalScrollIndicator(NO)
                  .byShowsHorizontalScrollIndicator(NO)
                  .byScrollEnabled(YES)
+                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
                  .byBgColor(JobsClearColor);
-
-             if(@available(iOS 11.0, *)) {
-                 tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-             }else{
-                 SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
-             }
 
  //            {
  //                tableView.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {

@@ -48,10 +48,10 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
-    self.tableView.contentInset = UIEdgeInsetsMake(0,
+    self.tableView.byContentInset(UIEdgeInsetsMake(0,
                                                    0,
                                                    JobsDropDownListView.getWindowFrameByView(self).origin.y,
-                                                   0);
+                                                   0));
     /// 动画效果
     [self.tableView alphaAnimWithSortingType:(SortingType)self.direction
                               animationBlock:nil

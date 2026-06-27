@@ -27,9 +27,10 @@ UITextFieldProtocol_synthesize_part2
         JobsIMListTBVCell *cell = (JobsIMListTBVCell *)tableView.tableViewCellClass(JobsIMListTBVCell.class,@"");
         if (!cell) {
             cell = JobsIMListTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.contentView.backgroundColor = JobsWhiteColor;
-            cell.backgroundColor = JobsWhiteColor;
+            cell
+                .bySelectionStyle(UITableViewCellSelectionStyleNone)
+                .byBgColor(JobsWhiteColor);
+            cell.contentView.byBgColor(JobsWhiteColor);
         };return cell;
     };
 }

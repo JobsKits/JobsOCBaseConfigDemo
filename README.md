@@ -8285,7 +8285,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
 * **`UITableView`** 的可折叠效果。第三方分类实现，关注：[**@interface UITableView (WWFoldableTableView)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UITableView/UITableView+Category/UITableView+WWFoldableTableView)
 
   ```objective-c
-  _tableView.ww_foldable = YES;
+  _tableView.byFoldable(YES);
   ```
 
 * **`UITableView`**的无数据占位方案
@@ -12012,4 +12012,3 @@ cell.contentView.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _N
 * 侧滑菜单：`JXCategoryView`垂直表达
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>
-

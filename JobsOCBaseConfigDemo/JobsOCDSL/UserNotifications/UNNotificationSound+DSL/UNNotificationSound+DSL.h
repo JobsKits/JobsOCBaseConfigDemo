@@ -8,11 +8,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import <UIKit/UIKit.h>
 
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
 #import "JobsBlock.h"
-#endif
 
 NS_ASSUME_NONNULL_BEGIN
 @interface UNNotificationSound (JobsChain)

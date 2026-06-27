@@ -9,6 +9,7 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
+#import "JobsBlock.h"
 #import "MacroDef_Sys.h"
 #import "MacroDef_SysWarning.h"
 #import "JobsDefineProperty.h"
@@ -16,6 +17,8 @@
 @interface UITableView (WWFoldableTableView)
 /// 设为YES，让tableView具备折叠功能
 Prop_assign()BOOL ww_foldable;
+/// 链式设置 UITableView 折叠能力
+-(JobsRetTableViewByBOOLBlock _Nonnull)byFoldable;
 /// 返回某个section的折叠状态。YES - 折叠中
 -(BOOL)ww_isSectionFolded:(NSInteger)section;
 /// 设置指定section的折叠状态。
@@ -31,6 +34,6 @@ Prop_assign()BOOL ww_foldable;
 @end
 /**
  *  使用方法：
- *  _tableView.ww_foldable = YES;//设置可折叠
+ *  _tableView.byFoldable(YES);//设置可折叠
  *  点击UITableViewHeaderFooterView子类触发： [self.tableView ww_foldSection:section fold:![self.tableView ww_isSectionFolded:section]];//设置可折叠
  */

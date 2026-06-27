@@ -33,7 +33,7 @@ Prop_assign()CGPoint contentOffenset;
     return ^(JobsExcelConfigureViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.excelConfigureData = model;
-        self.tableView.rowHeight = self.excelConfigureData.itemH;
+        self.tableView.byRowHeight(self.excelConfigureData.itemH);
         self.tableView.byShow(self);
     };
 }
@@ -103,9 +103,10 @@ Prop_assign()CGPoint contentOffenset;
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
             tableView.dataLink(self);
-            tableView.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-            tableView.rowHeight = self.excelConfigureData.itemH;
-            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            tableView
+                .byRowHeight(self.excelConfigureData.itemH)
+                .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
             tableView.buttonModelEmptyData = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
                 data.title = @"No Datas".tr;
                 data.titleCor = JobsWhiteColor;

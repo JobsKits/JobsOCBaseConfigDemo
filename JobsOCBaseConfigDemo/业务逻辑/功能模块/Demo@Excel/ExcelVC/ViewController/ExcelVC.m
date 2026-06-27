@@ -229,6 +229,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byShowsVerticalScrollIndicator(NO)
                 .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
                 .byScrollEnabled(YES)
+                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
                 .byBgColor(JobsBlueColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -236,11 +237,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     make.left.right.bottom.equalTo(self.view);
                     [self make:make topOffset:10];
                 });
-            if(@available(iOS 11.0, *)) {
-                tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            }else{
-                SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
-            }
         });
     };return _tableView;
 }

@@ -17,6 +17,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
 typedef void(^jobsByVoidBlock)(void);
+typedef jobsByVoidBlock JobsViewPushCompletionBlock;
 typedef void(^jobsByIDBlock)(id _Nullable data);
 typedef void(^jobsBySELBlock)(SEL _Nullable data);
 typedef void(^jobsByClsBlock)(Class _Nonnull cls);
@@ -47,6 +48,7 @@ typedef void(^jobsByScrollViewBlock)(__kindof UIScrollView *_Nullable scrollView
 typedef void(^jobsByBtnBlock)(__kindof UIButton *_Nullable btn);
 typedef void(^jobsByWindowBlock)(__kindof UIWindow *_Nullable window);
 typedef void(^jobsByLabelBlock)(__kindof UILabel *_Nullable label);
+typedef void(^jobsByUISearchBarBlock)(__kindof UISearchBar *_Nullable searchBar);
 typedef void(^jobsByNavigationBarAppearanceBlock)(__kindof UINavigationBarAppearance *_Nullable appearance);
 typedef void(^jobsByNavigationBarBlock)(__kindof UINavigationBar *_Nullable bar);
 typedef void(^jobsByRefreshCtrlBlock)(__kindof UIRefreshControl *_Nullable refreshCtrl);
@@ -84,6 +86,8 @@ typedef void(^jobsByDicBlock)(__kindof NSDictionary *_Nullable dic);
 typedef void(^jobsByMutableDictBlock)(__kindof NSMutableDictionary *_Nullable dic);
 #pragma mark —— 关于（富）文本
 typedef void(^jobsByStrBlock)(__kindof NSString *_Nullable string);
+typedef void(^jobsByOCCountryCodeBlock)(__kindof NSString *_Nullable countryName,
+                                      __kindof NSString *_Nullable code);
 typedef void(^jobsByAttributedStrBlock)(__kindof NSAttributedString *_Nullable aString);
 typedef void(^jobsByMutableParagraphStyleBlock)(NSMutableParagraphStyle *_Nullable style);
 typedef void(^jobsByTextAttachmentBlock)(NSTextAttachment *_Nullable attachment);
@@ -199,5 +203,15 @@ typedef void(^jobsByColor_FloatBlock)(Jobs_ReturnButtonByColor_FloatBlock_Argume
 /// arg 事件默认传递的对象，比如`NSNotification`，`UIButton`
 typedef void(^jobsByTwoIDBlock) (Jobs_2_Arguments);/// weakSelf、arg
 typedef void(^JobsSelectorBlock1) (Jobs_3_Arguments);/// weakSelf、arg、data
+/// JobsBlock@Pods 返哺兼容名 BEGIN
+#pragma mark —— JobsBlock@Pods返哺兼容名
+typedef jobsByVCBlock JobsOCSplashSkipBlock;
+typedef JobsReturnMutableURLRequestByURLRequestBlock JobsRetMutableURLRequestByURLRequestBlock;
+typedef JobsReturnURLRequestByURLSessionTaskBlock JobsRetURLRequestByURLSessionTaskBlock;
+typedef jobsByBtnConfigBlock jobsByButtonConfigurationBlock;
+typedef void(^JobsOCSplashActionBlock)(__kindof JobsOCSplashVC *_Nullable splashVC);
+typedef void(^JobsOCSplashMediaCacheCompletion)(NSURL *_Nullable fileURL, NSError *_Nullable error);
+typedef void(^jobsByRACSignalBlock)(__kindof RACSignal *_Nullable signal);
+/// JobsBlock@Pods 返哺兼容名 END
 #pragma clang diagnostic pop
 #endif /* VoidByCertainParameters_h */

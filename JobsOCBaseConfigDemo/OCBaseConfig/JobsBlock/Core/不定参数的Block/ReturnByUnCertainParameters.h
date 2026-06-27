@@ -23,4 +23,16 @@ typedef CGSize(^JobsReturnCGSizeByDynArgsBlock)(NSInteger argCount,id _Nullable 
 typedef CGRect(^JobsReturnCGRectByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
 typedef CGPoint(^JobsReturnCGPointByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
 
+/// JobsBlock@Pods 返哺兼容名 BEGIN
+#pragma mark —— JobsBlock@Pods返哺兼容名
+typedef JobsReturnCGFloatByDynArgsBlock JobsRetCGFloatByDynArgsBlock;
+typedef JobsReturnCGPointByDynArgsBlock JobsRetCGPointByDynArgsBlock;
+typedef JobsReturnCGRectByDynArgsBlock JobsRetCGRectByDynArgsBlock;
+typedef JobsReturnCGSizeByDynArgsBlock JobsRetCGSizeByDynArgsBlock;
+typedef JobsReturnFloatByDynArgsBlock JobsRetFloatByDynArgsBlock;
+typedef JobsReturnIDByDynArgsBlock JobsRetIDByDynArgsBlock;
+typedef JobsReturnNSIntegerByDynArgsBlock JobsRetNSIntegerByDynArgsBlock;
+typedef JobsReturnNSNumberByDynArgsBlock JobsRetNSNumberByDynArgsBlock;
+typedef JobsReturnNSUIntegerByDynArgsBlock JobsRetNSUIntegerByDynArgsBlock;
+/// JobsBlock@Pods 返哺兼容名 END
 #endif /* ReturnByUnCertainParameters_h */

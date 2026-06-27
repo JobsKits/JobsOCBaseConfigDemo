@@ -23,8 +23,8 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
         JobsInfoTBVCell *cell = (JobsInfoTBVCell *)tableView.tableViewCellClass(JobsInfoTBVCell.class,@"");
         if (!cell) {
             cell = JobsInfoTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.contentView.backgroundColor = JobsCommentConfig.sharedManager.bgCor;
+            cell.bySelectionStyle(UITableViewCellSelectionStyleNone);
+            cell.contentView.byBgColor(JobsCommentConfig.sharedManager.bgCor);
         };return cell;
     };
 }

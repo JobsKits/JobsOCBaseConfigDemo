@@ -11,6 +11,12 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+#if __has_include(<FSCalendar/FSCalendarDynamicHeader.h>)
+#import <FSCalendar/FSCalendarDynamicHeader.h>
+#else
+#import "FSCalendarDynamicHeader.h"
+#endif
+
 #if __has_include(<FSCalendar/FSCalendar.h>)
 #import <FSCalendar/FSCalendar.h>
 #else
@@ -71,17 +77,9 @@
 #import "FSCalendarTransitionCoordinator.h"
 #endif
 
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
 #import "JobsBlock.h"
-#endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
 #import "JobsDefines.h"
-#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

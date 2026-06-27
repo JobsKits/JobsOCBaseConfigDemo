@@ -59,6 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByCorBlock _Nonnull)focusedStateTitleColorBy API_AVAILABLE(ios(9.0));
 -(JobsRetBtnByCorBlock _Nonnull)ApplicationStateTitleColorBy;
 -(JobsRetBtnByCorBlock _Nonnull)reservedStateTitleColorBy;
+-(JobsRetBtnByCorAndControlStateBlock _Nonnull)titleColorForStateBy;
 #pragma mark —— UIButton.subtitleColor
 /// TODO
 #pragma mark —— UIButton.title

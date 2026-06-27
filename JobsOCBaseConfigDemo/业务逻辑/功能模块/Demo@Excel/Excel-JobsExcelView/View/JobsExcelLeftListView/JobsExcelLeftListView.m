@@ -23,7 +23,7 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.tableView.alpha = 1;
+        self.tableView.byAlpha(1);
     };return self;
 }
 #pragma mark —— BaseViewProtocol
@@ -32,7 +32,7 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
     return ^(JobsExcelConfigureViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.excelConfigureData = model;
-        self.tableView.rowHeight = model.itemH;
+        self.tableView.byRowHeight(model.itemH);
         self.tableView.byShow(self);
     };
 }
@@ -105,11 +105,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byShowsVerticalScrollIndicator(NO)
                 .byShowsHorizontalScrollIndicator(NO)
                 .byScrollEnabled(YES)
+                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
                 .byBgColor(JobsClearColor);
-
-            if(@available(iOS 11.0, *)) {
-                tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            }
         }))
         .addOn(self)
         .byAdd(^(MASConstraintMaker *make) {

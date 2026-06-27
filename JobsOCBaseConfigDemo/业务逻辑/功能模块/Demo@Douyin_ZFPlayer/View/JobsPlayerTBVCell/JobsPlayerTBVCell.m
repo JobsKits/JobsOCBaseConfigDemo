@@ -45,8 +45,8 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
         JobsPlayerTBVCell *cell = (JobsPlayerTBVCell *)tableView.tableViewCellClass(JobsPlayerTBVCell.class,@"");
         if (!cell) {
             cell = JobsPlayerTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.contentView.backgroundColor = JobsRandomColor;
+            cell.bySelectionStyle(UITableViewCellSelectionStyleNone);
+            cell.contentView.byBgColor(JobsRandomColor);
         };return cell;
     };
 }

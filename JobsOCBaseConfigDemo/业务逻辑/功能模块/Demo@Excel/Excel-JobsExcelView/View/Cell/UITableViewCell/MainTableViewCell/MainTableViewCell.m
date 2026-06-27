@@ -25,9 +25,10 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
         if (!cell) {
             cell = [self initTableViewCell:self
                                  withStyle:UITableViewCellStyleValue1];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-            cell.collectionView.alpha = 1;
+            cell
+                .bySelectionStyle(UITableViewCellSelectionStyleNone)
+                .byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
+            cell.collectionView.byAlpha(1);
         };return cell;
     };
 }
@@ -47,7 +48,7 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
     @jobs_weakify(self)
     return ^(CGPoint contentOffset){
         @jobs_strongify(self)
-        self.collectionView.contentOffset = contentOffset;
+        self.collectionView.byContentOffset(contentOffset);
     };
 }
 #pragma mark —— UITableViewCellProtocol
@@ -86,7 +87,8 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
                            cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     MainTableViewCellItem *cell = [MainTableViewCellItem cellWithCollectionView:collectionView
                                                                    forIndexPath:indexPath];
-    cell.backgroundColor = cell.contentView.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
+    cell.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
+    cell.contentView.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
     @jobs_weakify(self)
     cell.jobsRichElementsCollectionViewCellBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable vm) {
         @jobs_strongify(self)
@@ -117,9 +119,10 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
             data.minimumInteritemSpacing = 0;
         })];
         _collectionView.dataLink(self);
-        _collectionView.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.showsHorizontalScrollIndicator = NO;
+        _collectionView
+            .byShowsVerticalScrollIndicator(NO)
+            .byShowsHorizontalScrollIndicator(NO)
+            .byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
         [self.contentView.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, 0, 0, 0));
         }];

@@ -36,7 +36,6 @@
 @implementation YTKChainRequest (DSL)
 #pragma mark —— Prop_strong()JobsYTKChainDelegateProxy *jobs_chainProxy;
 JobsKey(_jobs_chainProxy)
-@dynamic jobs_chainProxy;
 
 -(NSArray<YTKBaseRequest *> *)jobs_requests{
     return self.requestArray;

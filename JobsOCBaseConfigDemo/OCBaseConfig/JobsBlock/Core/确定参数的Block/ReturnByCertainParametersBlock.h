@@ -14,6 +14,8 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "JobsBlockDef.h"
 #import "JobsBlockHeader.h"
+#import "VoidByCertainParametersBlock.h"
+
 #ifndef ReturnByCertainParameters_h
 #define ReturnByCertainParameters_h
 #pragma clang diagnostic push
@@ -645,6 +647,18 @@ typedef __kindof UITextView *_Nullable(^JobsRetTextViewByEdgeInsetsBlock)(UIEdge
 typedef __kindof UITextView *_Nullable(^JobsRetTextViewByPointBlock)(CGPoint point);
 typedef __kindof UITextView *_Nullable(^JobsRetTextViewByAttributedTextBlock)(__kindof NSAttributedString *_Nullable attributedText);
 typedef __kindof UITextView *_Nullable(^JobsRetTextViewByDicBlock)(__kindof NSDictionary<NSAttributedStringKey,id> *_Nullable dic);
+#pragma mark —— 关于 UISearchBar
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByBOOLBlock)(BOOL data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByNSIntegerBlock)(NSInteger data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByDelegateBlock)(id<UISearchBarDelegate> _Nullable data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByStringBlock)(NSString *_Nullable data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByCorBlock)(UIColor *_Nullable data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByImageBlock)(UIImage *_Nullable data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByArrBlock)(NSArray<NSString *> *_Nullable data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByViewBlock)(__kindof UIView *_Nullable data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByOffsetBlock)(UIOffset data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarByBarStyleBlock)(UIBarStyle data);
+typedef __kindof UISearchBar *_Nullable(^JobsRetSearchBarBySearchBarStyleBlock)(UISearchBarStyle data);
 #pragma mark —— 关于 UITableView
 typedef __kindof UITableView *_Nullable(^JobsRetTableViewByBOOLBlock)(BOOL data);
 typedef __kindof UITableView *_Nullable(^JobsRetTableViewByNSIntegerBlock)(NSInteger data);
@@ -719,6 +733,7 @@ typedef __kindof UIButton *_Nullable(^JobsRetBtnByImageBlock)(UIImage *_Nullable
 typedef __kindof UIButton *_Nonnull(^JobsRetBtnByURLBlock)(NSURL *_Nullable data);
 typedef __kindof UIButton *_Nullable(^JobsRetBtnByFontBlock)(UIFont *_Nullable data);
 typedef __kindof UIButton *_Nullable(^JobsRetBtnByCorBlock)(UIColor *_Nonnull cor);
+typedef __kindof UIButton *_Nullable(^JobsRetBtnByCorAndControlStateBlock)(UIColor *_Nullable cor, UIControlState state);
 typedef __kindof UIButton *_Nullable(^JobsRetBtnByStringBlock)(__kindof NSString *_Nullable data);/// 主文字内容
 typedef __kindof UIButton *_Nullable(^JobsRetBtnByAttributedStringBlock)(NSAttributedString *_Nullable title);/// 富文本内容
 typedef __kindof UIButton *_Nullable(^JobsRetBtnByButtonModelBlock)(UIButtonModel *_Nullable buttonModel);
@@ -1305,5 +1320,75 @@ typedef NSMutableDictionary *_Nonnull(^JobsRetMutableDicByKey_ValueBlock)(Jobs_R
 typedef CGRect(^JobsRetFrameByCGFloatAndUIViewBlock)(Jobs_ReturnCGRectByCGFloatAndUIViewBlock_Arguments);
 typedef NSIndexPath *_Nonnull(^JobsReturnIndexPathByXYBlock)(Jobs_ReturnIDByCenterBlock_Arguments);
 typedef __kindof UIButtonModel *_Nullable(^JobsRetBtnModelByStrAndImagesBlock)(Jobs_ReturnButtonModelByStringAndImagesBlock_Arguments);
+/// JobsBlock@Pods 返哺兼容名 BEGIN
+#pragma mark —— JobsBlock@Pods返哺兼容名
+typedef JobsReturnDicByURLBlock JobsRetDicByURLBlock;
+typedef JobsReturnIndexPathByXYBlock JobsRetIndexPathByXYBlock;
+typedef __kindof RACSequence *_Nullable(^JobsRetRACSequenceByVoidBlock)(void);
+typedef __kindof UIButton *_Nullable(^JobsRetBtnByButtonConfigurationBlock)(UIButtonConfiguration *_Nullable data) API_AVAILABLE(ios(15.0), tvos(15.0)) API_UNAVAILABLE(watchos);
+typedef __kindof UIButton *_Nullable(^JobsRetBtnByCGSizeBlock)(CGSize data);
+typedef __kindof UIButton *_Nullable(^JobsRetBtnByConfigurationUpdateHandlerBlock)(UIButtonConfigurationUpdateHandler _Nullable data) API_AVAILABLE(ios(15.0), tvos(15.0)) API_UNAVAILABLE(watchos);
+typedef __kindof UIButton *_Nullable(^JobsRetBtnByContextMenuConfigurationElementOrderBlock)(UIContextMenuConfigurationElementOrder data) API_AVAILABLE(ios(16.0), tvos(17.0)) API_UNAVAILABLE(watchos);
+typedef __kindof UIButton *_Nullable(^JobsRetBtnByMenuBlock)(UIMenu *_Nullable data) API_AVAILABLE(ios(14.0), tvos(17.0)) API_UNAVAILABLE(watchos);
+typedef __kindof UIButton *_Nullable(^JobsRetBtnByPointerStyleProviderBlock)(UIButtonPointerStyleProvider _Nullable data) API_AVAILABLE(ios(13.4)) API_UNAVAILABLE(watchos, tvos);
+typedef __kindof UIButton *_Nullable(^JobsRetBtnByRoleBlock)(UIButtonRole data) API_AVAILABLE(ios(14.0)) API_UNAVAILABLE(watchos);
+typedef __kindof UIButton *_Nullable(^JobsRetBtnBySymbolConfigurationBlock)(UIImageSymbolConfiguration *_Nullable data) API_AVAILABLE(ios(13.0), tvos(13.0)) API_UNAVAILABLE(watchos);
+typedef __kindof UIButton *_Nullable(^JobsRetBtnByUIEdgeInsetsBlock)(UIEdgeInsets data);
+typedef UIButtonConfiguration *_Nullable(^JobsRetBtnConfigByVoidBlock)(void) API_IOS15_TVOS15_UNAVAILABLE_WATCHOS;
+typedef __kindof CALayer *_Nullable(^JobsRetCALayerByCADynamicRangeBlock)(CADynamicRange data) API_AVAILABLE(ios(26.0), tvos(26.0), visionos(26.0)) API_UNAVAILABLE(watchos);
+typedef __kindof CALayer *_Nullable(^JobsRetCALayerByCAToneMapModeBlock)(CAToneMapMode data) API_AVAILABLE(ios(18.0), tvos(18.0), visionos(2.0)) API_UNAVAILABLE(watchos);
+typedef __kindof CALayer *_Nullable(^JobsRetCALayerByCGAffineTransformBlock)(CGAffineTransform data);
+typedef __kindof NSCalendar *_Nullable(^JobsRetCalendarByNSUIntegerBlock)(NSUInteger data);
+typedef __kindof UICollectionView *_Nullable(^JobsRetCollectionViewByCGPointBlock)(CGPoint data);
+typedef __kindof UICollectionView *_Nullable(^JobsRetCollectionViewByReorderingCadenceBlock)(UICollectionViewReorderingCadence data) API_AVAILABLE(ios(11.0));
+typedef __kindof UICollectionView *_Nullable(^JobsRetCollectionViewBySelfSizingInvalidationBlock)(UICollectionViewSelfSizingInvalidation data) API_AVAILABLE(ios(16.0), tvos(16.0)) API_UNAVAILABLE(watchos);
+typedef __kindof UICollectionViewCell *_Nullable(^JobsRetCollectionViewCellByJobsByViewBlock)(jobsByViewBlock _Nullable block);
+typedef __kindof UIControl *_Nullable(^JobsRetControlByActionBlock)(UIAction *_Nullable data) API_AVAILABLE(ios(14.0));
+typedef __kindof UIGestureRecognizer *_Nullable(^JobsRetGestureRecognizerBySELBlock)(SEL _Nullable data);
+typedef id _Nullable(^JobsRetIDByIDAndIDBlock)(Jobs_2_Arguments);
+typedef id _Nullable(^JobsRetIDByIDIDNSUIntegerBlock)(Jobs_ID_ID_NSUInteger_Arguments);
+typedef id _Nullable(^JobsRetIDByNSErrorPointerBlock)(NSError *_Nullable *_Nullable errorPtr);
+typedef __kindof UIImageView *_Nonnull(^JobsRetImageViewByArrBlock)(__kindof NSArray *_Nullable data);
+typedef __kindof UIImageView *_Nonnull(^JobsRetImageViewByBOOLBlock)(BOOL data);
+typedef __kindof UIImageView *_Nonnull(^JobsRetImageViewByImageDynamicRangeBlock)(UIImageDynamicRange data) API_AVAILABLE(ios(17.0), tvos(17.0)) API_UNAVAILABLE(watchos);
+typedef __kindof UIImageView *_Nonnull(^JobsRetImageViewByNSIntegerBlock)(NSInteger data);
+typedef __kindof UIImageView *_Nonnull(^JobsRetImageViewByNSTimeIntervalBlock)(NSTimeInterval data);
+typedef __kindof UIImageView *_Nonnull(^JobsRetImageViewBySymbolConfigurationBlock)(UIImageSymbolConfiguration *_Nullable data) API_AVAILABLE(ios(13.0), tvos(13.0)) API_UNAVAILABLE(watchos);
+typedef __kindof UIImageView *_Nonnull(^JobsRetImageViewBySymbolEffectBlock)(NSSymbolEffect *_Nonnull data) API_AVAILABLE(ios(17.0), tvos(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
+typedef __kindof UIImageView *_Nonnull(^JobsRetImageViewBySymbolEffectOptionsBlock)(NSSymbolEffectOptions *_Nonnull data) API_AVAILABLE(ios(17.0), tvos(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
+typedef __kindof UIImageView *_Nonnull(^JobsRetImageViewByVoidBlock)(void);
+typedef __kindof NSCache *_Nullable(^JobsRetNSCacheByBOOLBlock)(BOOL data);
+typedef __kindof NSCache *_Nullable(^JobsRetNSCacheByIDBlock)(id<NSCopying> _Nullable data);
+typedef __kindof NSCache *_Nullable(^JobsRetNSCacheByNSUIntegerBlock)(NSUInteger data);
+typedef __kindof NSCache *_Nullable(^JobsRetNSCacheByVoidBlock)(void);
+typedef __kindof NSMapTable *_Nullable(^JobsRetNSMapTableByIDBlock)(id<NSCopying> _Nullable data);
+typedef __kindof NSMapTable *_Nullable(^JobsRetNSMapTableByVoidBlock)(void);
+typedef __kindof PDFView *_Nullable(^JobsRetPDFViewByPDFActionBlock)(PDFAction *_Nullable data) API_AVAILABLE(ios(11.0));
+typedef __kindof PDFView *_Nullable(^JobsRetPDFViewByPDFAreaOfInterestBlock)(PDFAreaOfInterest data);
+typedef __kindof UIPageControl *_Nullable(^JobsRetPageControlByVoidBlock)(void);
+typedef UIPanGestureRecognizer *_Nullable(^JobsRetPanGestureRecognizerByUIScrollTypeMaskBlock)(UIScrollTypeMask data) API_AVAILABLE(ios(13.4)) API_UNAVAILABLE(tvos, watchos);
+typedef __kindof RACSequence *_Nullable(^JobsRetRACSequenceByRACSchedulerBlock)(__kindof RACScheduler *_Nullable scheduler);
+typedef __kindof RACSequence *_Nullable(^JobsRetRACSequenceByRACSequenceProviderBlock)(JobsRetRACSequenceByVoidBlock _Nullable block);
+typedef __kindof RACSignal *_Nullable(^JobsRetRACSignalByRACSubjectBlock)(__kindof RACSubject *_Nullable subject);
+typedef __kindof RACSignal *_Nullable(^JobsRetRACSignalByRACSubscriberBlock)(id<RACSubscriber> _Nullable subscriber);
+typedef __kindof UIScrollView *_Nullable(^JobsRetScrollViewByContentInsetAdjustmentBehaviorBlock)(UIScrollViewContentInsetAdjustmentBehavior data) API_AVAILABLE(ios(11.0), tvos(11.0)) API_UNAVAILABLE(watchos);
+typedef __kindof UIScrollView *_Nullable(^JobsRetScrollViewByDecelerationRateBlock)(UIScrollViewDecelerationRate data);
+typedef __kindof UIScrollView *_Nullable(^JobsRetScrollViewByIndicatorStyleBlock)(UIScrollViewIndicatorStyle data);
+typedef __kindof UIScrollView *_Nullable(^JobsRetScrollViewByKeyboardDismissModeBlock)(UIScrollViewKeyboardDismissMode data);
+typedef __kindof UIScrollView *_Nullable(^JobsRetScrollViewByUIAxisBlock)(UIAxis data) API_AVAILABLE(visionos(26.0)) API_UNAVAILABLE(ios, watchos, tvos);
+typedef __kindof UITableView *_Nullable(^JobsRetTableViewByArrBlock)(NSArray<NSIndexPath *> *_Nonnull data);
+typedef __kindof UITableView *_Nullable(^JobsRetTableViewByVoidBlock)(void);
+typedef UITapGestureRecognizer *_Nullable(^JobsRetTapGestureRecognizerByUIEventButtonMaskBlock)(UIEventButtonMask data) API_AVAILABLE(ios(13.4)) API_UNAVAILABLE(tvos, watchos);
+typedef __kindof UITextView *_Nullable(^JobsRetTextViewByBorderStyleBlock)(UITextViewBorderStyle data) API_AVAILABLE(ios(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
+typedef __kindof UITextView *_Nullable(^JobsRetTextViewByIDBlock)(id _Nullable data);
+typedef __kindof UITextView *_Nullable(^JobsRetTextViewByWritingToolsBehaviorBlock)(UIWritingToolsBehavior data) API_AVAILABLE(ios(18.0), visionos(2.4)) API_UNAVAILABLE(tvos, watchos);
+typedef __kindof UITextView *_Nullable(^JobsRetTextViewByWritingToolsResultOptionsBlock)(UIWritingToolsResultOptions data) API_AVAILABLE(ios(18.0), visionos(2.4)) API_UNAVAILABLE(tvos, watchos);
+typedef __kindof UILabel *_Nullable(^JobsRetUILabelByBaselineAdjustmentBlock)(UIBaselineAdjustment data);
+typedef __kindof UILabel *_Nullable(^JobsRetUILabelByLineBreakModeBlock)(NSLineBreakMode data);
+typedef __kindof UILabel *_Nullable(^JobsRetUILabelByLineBreakStrategyBlock)(NSLineBreakStrategy data);
+typedef __kindof UILabel *_Nullable(^JobsRetUILabelByVibrancyBlock)(UILabelVibrancy data) API_AVAILABLE(ios(17.0), tvos(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
+typedef __kindof UIView *_Nullable(^JobsRetViewByGestureRecognizerActionBlock)(jobsByGestureRecognizerBlock _Nullable block);
+typedef __kindof UIView *_Nullable(^JobsRetViewByScreenEdgePanGestureBlock)(UIScreenEdgePanGestureRecognizer *_Nullable gesture);
+/// JobsBlock@Pods 返哺兼容名 END
 #pragma clang diagnostic pop
 #endif /* ReturnByCertainParameters_h */

@@ -26,8 +26,8 @@ Prop_strong()VideoModel_Core *core_data;
         JobsVideoTBVCell *cell = (JobsVideoTBVCell *)tableView.tableViewCellClass(JobsVideoTBVCell.class,@"");
         if (!cell) {
             cell = JobsVideoTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.contentView.backgroundColor = JobsRandomColor;
+            cell.bySelectionStyle(UITableViewCellSelectionStyleNone);
+            cell.contentView.byBgColor(JobsRandomColor);
         };return cell;
     };
 }

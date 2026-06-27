@@ -162,8 +162,8 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     JobsLog(@"%s", __FUNCTION__);
     /**
      滚动到指定位置
-     _collectionView.contentOffset = CGPointMake(0,-100);
-     [_collectionView setContentOffset:CGPointMake(0, -200) animated:YES];// 只有在viewDidAppear周期 或者 手动触发才有效
+     _collectionView.byContentOffset(CGPointMake(0,-100));
+     _collectionView.setContentOffsetByYES(CGPointMake(0, -200));// 只有在viewDidAppear周期 或者 手动触发才有效
      */
 }
 /// 取消选中操作
@@ -251,9 +251,10 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (!_collectionView) {
         _collectionView = UICollectionView.initByLayout(self.verticalLayout);
         _collectionView.dataLink(self);
-        _collectionView.backgroundColor = JobsWhiteColor;
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.scrollEnabled = NO;
+        _collectionView
+            .byShowsVerticalScrollIndicator(NO)
+            .byScrollEnabled(NO)
+            .byBgColor(JobsWhiteColor);
     
         _collectionView.registerCollectionViewClass();
         [self.bgView.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {

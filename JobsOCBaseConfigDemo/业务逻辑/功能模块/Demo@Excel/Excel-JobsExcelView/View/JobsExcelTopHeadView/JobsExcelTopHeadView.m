@@ -23,7 +23,7 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.collectionView.alpha = 1;
+        self.collectionView.byAlpha(1);
     };return self;
 }
 #pragma mark —— BaseViewProtocol
@@ -45,7 +45,7 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
                           cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     @jobs_weakify(self)
     JobsTopViewItem *cell = [JobsTopViewItem cellWithCollectionView:collectionView forIndexPath:indexPath];
-    cell.backgroundColor = self.excelConfigureData.cor3;
+    cell.byBgColor(self.excelConfigureData.cor3);
     cell.jobsRichElementsCollectionViewCellBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable vm) {
         @jobs_strongify(self)
         vm.data = self.excelConfigureData;
@@ -84,9 +84,10 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
             data.minimumInteritemSpacing = 0;
         })];
         _collectionView.dataLink(self);
-        _collectionView.backgroundColor = JobsClearColor;
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.showsHorizontalScrollIndicator = NO;
+        _collectionView
+            .byShowsVerticalScrollIndicator(NO)
+            .byShowsHorizontalScrollIndicator(NO)
+            .byBgColor(JobsClearColor);
         [self.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0, 0, 0));
         }];

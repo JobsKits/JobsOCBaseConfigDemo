@@ -161,7 +161,7 @@ heightForHeaderInSection:(NSInteger)section{
 - (void)tableView:(UITableView *)tableView
   willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath{
-    cell.alpha = self.isVisible;
+    cell.byAlpha(self.isVisible);
     [tableView hideSeparatorLineAtLast:indexPath cell:cell];
 }
 /// 这里涉及到复用机制，return出去的是UITableViewHeaderFooterView的派 生类

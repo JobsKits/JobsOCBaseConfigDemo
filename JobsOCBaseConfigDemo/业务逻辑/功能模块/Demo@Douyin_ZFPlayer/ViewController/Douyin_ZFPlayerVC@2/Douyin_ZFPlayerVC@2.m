@@ -262,21 +262,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         @jobs_weakify(self)
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
-            tableView.pagingEnabled = YES;
-            tableView.backgroundColor = JobsLightGrayColor;
+            tableView
+                .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .byEstimatedRowHeight(0)
+                .byEstimatedSectionFooterHeight(0)
+                .byEstimatedSectionHeaderHeight(0)
+                .byPagingEnabled(YES)
+                .byShowsVerticalScrollIndicator(NO)
+                .byScrollsToTop(NO)
+                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
+                .byBgColor(JobsLightGrayColor);
             tableView.dataLink(self);
-            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-            tableView.showsVerticalScrollIndicator = NO;
-            tableView.scrollsToTop = NO;
-            
-            if (@available(iOS 11.0, *)) {
-                tableView.estimatedRowHeight = 0;
-                tableView.estimatedSectionFooterHeight = 0;
-                tableView.estimatedSectionHeaderHeight = 0;
-                tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            } else {
-                SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
-            }
             
             {
                 tableView.mj_header = self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {

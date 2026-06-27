@@ -168,6 +168,7 @@
 @class JobsRightBtnsView;
 @class JobsSearchBar;
 @class JobsSEL_IMP;
+@class JobsOCSplashVC;
 @class JobsStepView;
 @class JobsTabBar;
 @class JobsTabBarCtrl;
@@ -177,6 +178,8 @@
 @class JobsTextView;
 @class JobsTimeModel;
 @class JobsTimer;
+@class JobsTimerManager;
+@class _JobsTimerManagerEntry;
 @class JobsToggleBaseView;
 @class JobsToggleNavView;
 @class JobsTransitionAnimator;

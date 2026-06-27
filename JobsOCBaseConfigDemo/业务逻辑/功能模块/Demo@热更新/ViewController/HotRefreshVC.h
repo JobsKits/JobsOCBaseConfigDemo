@@ -2,10 +2,17 @@
 //  HotRefreshVC.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by User on 6/30/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#import <UIKit/UIKit.h>
+#import <objc/runtime.h>
 #import "BaseViewController.h"
+#import "JobsOCDSL.h"
+#import "JobsMakes.h"
+#import "JobsTimerManager.h"
+#import "JobsOCPatch.h"
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

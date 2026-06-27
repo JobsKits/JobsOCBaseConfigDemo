@@ -56,7 +56,7 @@
     return ^(__kindof UINavigationBar *_Nullable navBar){
         if(!navBar) navBar = UINavigationBar.appearance;
         /// ① tintColor：影响返回箭头、barButtonItem 图标/文字的颜色
-        navBar.tintColor = UIColor.blackColor;
+        navBar.byTintColor(UIColor.blackColor);
         UIImage *bgImage = @"导航栏背景图".img;
         if (@available(iOS 13.0, *)) {
             jobsMakeNavigationBarAppearance(^(__kindof UINavigationBarAppearance * _Nullable appearance) {

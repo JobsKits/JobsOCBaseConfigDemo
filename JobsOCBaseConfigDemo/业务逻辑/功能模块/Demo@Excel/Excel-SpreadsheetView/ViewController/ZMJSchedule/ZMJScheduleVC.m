@@ -150,7 +150,7 @@ Prop_strong()UIColor *oddRowColor;  //奇数
         TimeCell *cell = (TimeCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(TimeCell.class)
                                                                                 forIndexPath:indexPath];
         cell.label.text      = self.hours[indexPath.row - 2];
-        cell.backgroundColor = indexPath.row % 2 == 0 ? self.evenRowColor : self.oddRowColor;
+        cell.byBgColor(indexPath.row % 2 == 0 ? self.evenRowColor : self.oddRowColor);
         return cell;
     } else if ((indexPath.column >= 1 && indexPath.column <= self.days.count + 1) &&
                (indexPath.row    >= 2 && indexPath.row <= self.hours.count + 2)){

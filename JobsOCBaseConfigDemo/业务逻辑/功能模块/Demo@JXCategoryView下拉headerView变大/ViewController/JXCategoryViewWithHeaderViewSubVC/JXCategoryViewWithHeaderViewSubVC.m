@@ -297,9 +297,9 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     if (!_collectionView) {
         _collectionView = UICollectionView.initByLayout(self.verticalLayout);
         _collectionView.dataLink(self);
-        _collectionView.backgroundColor = RGB_SAMECOLOR(246);
-        _collectionView.contentInset = UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight() + JobsTabBarHeight(nil), 0);
-        _collectionView.showsVerticalScrollIndicator = NO;
+        _collectionView.byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight() + JobsTabBarHeight(nil), 0))
+            .byShowsVerticalScrollIndicator(NO)
+            .byBgColor(RGB_SAMECOLOR(246));
         _collectionView.registerCollectionViewClass();
         [self.scrollView.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);

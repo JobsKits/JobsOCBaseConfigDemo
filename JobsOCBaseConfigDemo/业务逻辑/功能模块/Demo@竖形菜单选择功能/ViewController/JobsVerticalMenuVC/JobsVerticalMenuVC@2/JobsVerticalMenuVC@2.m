@@ -434,7 +434,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
 -(ThreeClassCell *)tempCell{
     if (!_tempCell){
         _tempCell = jobsMakeThreeClassCell(^(__kindof ThreeClassCell * _Nullable cell) {
-            cell.backgroundColor = JobsRedColor;
+            cell.byBgColor(JobsRedColor);
             cell.frame = CGRectMake(0,
                                     0,
                                     ThreeClassCell.cellSizeByModel(nil).width,

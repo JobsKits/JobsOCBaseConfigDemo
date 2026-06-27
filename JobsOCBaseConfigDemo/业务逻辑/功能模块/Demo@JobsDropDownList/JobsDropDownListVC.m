@@ -128,7 +128,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
         _switcher = UISwitch.new;
         _switcher.selected = NO;
         _switcher.thumbTintColor = _switcher.selected ? self.cor : HEXCOLOR(0xB0B0B0);
-        _switcher.tintColor = JobsWhiteColor;
+        _switcher.byTintColor(JobsWhiteColor);
         _switcher.onTintColor = HEXCOLOR(0xFFFCF7);
         _switcher.backgroundColor = JobsWhiteColor;
         _switcher.cornerCutToCircleWithCornerRadius(31 / 2);

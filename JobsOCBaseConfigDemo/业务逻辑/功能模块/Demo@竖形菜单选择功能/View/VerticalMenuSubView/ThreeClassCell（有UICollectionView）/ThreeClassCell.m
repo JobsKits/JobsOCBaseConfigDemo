@@ -119,15 +119,15 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
                                            0,
                                            self.frame.size.width - JobsWidth(17.52),
                                            self.frame.size.height);
-        _collectionView.scrollEnabled = NO;
-        _collectionView.backgroundColor = ThreeClassCellBgCor;
+        _collectionView.byScrollEnabled(NO)
+            .byBgColor(ThreeClassCellBgCor);
         _collectionView.layer.backgroundColor = ThreeClassCellBgCor.CGColor;
         _collectionView.layer.shadowColor = RGBA_COLOR(0, 0, 0, 0.08).CGColor;
         _collectionView.layer.shadowOffset = CGSizeZero;
         _collectionView.layer.shadowOpacity = 1;
         _collectionView.layer.shadowRadius = JobsWidth(5);
         _collectionView.layer.masksToBounds = NO;
-        _collectionView.contentInset = UIEdgeInsetsMake(JobsWidth(10), 0, 0, 0);
+        _collectionView.byContentInset(UIEdgeInsetsMake(JobsWidth(10), 0, 0, 0));
         _collectionView.registerCollectionViewCellClass(self.cellCls,@"");
         self.contentView.addSubview(_collectionView);
     };return _collectionView;

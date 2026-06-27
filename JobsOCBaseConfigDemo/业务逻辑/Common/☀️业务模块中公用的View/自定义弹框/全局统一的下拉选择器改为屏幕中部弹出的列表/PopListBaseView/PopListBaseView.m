@@ -138,10 +138,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byShowsVerticalScrollIndicator(NO)
                 .byShowsHorizontalScrollIndicator(NO)
                 .byScrollEnabled(YES)
+                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
                 .byBgColor(JobsClearColor);
-            if(@available(iOS 11.0, *)) {
-                tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            }
         })).setMasonryBy(^(MASConstraintMaker *_Nonnull make){
             @jobs_strongify(self)
             make.edges.equalTo(self);

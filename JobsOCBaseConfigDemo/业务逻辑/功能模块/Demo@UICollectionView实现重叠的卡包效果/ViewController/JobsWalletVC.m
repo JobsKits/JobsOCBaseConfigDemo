@@ -178,7 +178,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
         _collectionView = UICollectionView.initByLayout(self.tms_layout);
-        _collectionView.backgroundColor = JobsClearColor;
+        _collectionView.byBgColor(JobsClearColor);
         
         {
             _collectionView.registerCollectionViewClass();
@@ -191,9 +191,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
         }
 
         _collectionView.dataLink(self);
-        if (@available(iOS 11.0, *)) {
-            _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        }
+        _collectionView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
         self.view.addSubview(_collectionView);
         [self fullScreenConstraintTargetView:_collectionView topViewOffset:0];
     };return _collectionView;

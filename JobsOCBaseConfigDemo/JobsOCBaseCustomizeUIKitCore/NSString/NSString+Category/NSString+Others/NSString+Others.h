@@ -83,6 +83,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(UIColor *)namedCor;
 -(jobsByVoidBlock _Nonnull)toast;
 -(NSString *_Nullable)tr;
+/// 当前字符串是否被目标字符串以本地化、忽略大小写方式包含
+-(JobsRetBOOLByStrBlock _Nonnull)inStr;
 /// 输入单词的首字母大写（适用于拼接set方法）
 -(NSString *_Nonnull)capitalizeFirstLetter;
 /// 清除SDImage的图片缓存（用url为key）

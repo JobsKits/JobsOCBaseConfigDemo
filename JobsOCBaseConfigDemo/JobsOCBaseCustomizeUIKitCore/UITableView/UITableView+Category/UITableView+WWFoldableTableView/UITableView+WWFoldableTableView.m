@@ -47,6 +47,16 @@ JobsKey(_ww_foldable)
         [self setWw_foldState:nil];
     }
 }
+
+-(JobsRetTableViewByBOOLBlock _Nonnull)byFoldable{
+    @jobs_weakify(self)
+    return ^__kindof UITableView *_Nullable(BOOL data) {
+        @jobs_strongify(self)
+        self.ww_foldable = data;
+        return self;
+    };
+}
+
 JobsKey(_ww_foldState)
 - (NSMutableSet *)ww_foldState{
     return Jobs_getAssociatedObject(_ww_foldState);

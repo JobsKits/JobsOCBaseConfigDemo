@@ -62,4 +62,18 @@ typedef WMZBannerParam *_Nonnull(^JobsReturnWMZBannerParamByArrAndADTypeBlock)(_
 typedef UIViewModel *_Nullable(^jobsByGetDepositDiscountActivityRecordModelBlock)(__kindof GetDepositDiscountActivityRecordModel *_Nullable model);
 typedef FMAccModel *_Nullable(^JobsReturnAccModelByArrBlock)(__kindof NSArray *_Nullable arr);
 
+/// JobsBlock@Pods 返哺兼容名 BEGIN
+#pragma mark —— JobsBlock@Pods返哺兼容名
+typedef JobsReturnAccModelByArrBlock JobsRetAccModelByArrBlock;
+typedef JobsReturnExcelConfigureDataByMyBetOrderDetailModelBlock JobsRetExcelConfigureDataByMyBetOrderDetailModelBlock;
+typedef JobsReturnExcelConfigureDataByReportTradeModelBlock JobsRetExcelConfigureDataByReportTradeModelBlock;
+typedef JobsReturnGoodsClassModelByInt2Block JobsRetGoodsClassModelByInt2Block;
+typedef JobsReturnGoodsClassModelByIntBlock JobsRetGoodsClassModelByIntBlock;
+typedef JobsReturnGoodsClassModelByIntStringBlock JobsRetGoodsClassModelByIntStringBlock;
+typedef JobsReturnKYCBaseViewByStatusBlock JobsRetKYCBaseViewByStatusBlock;
+typedef JobsReturnScrollViewByStatusBlock JobsRetScrollViewByStatusBlock;
+typedef JobsReturnToggleBaseViewByArrBlock JobsRetToggleBaseViewByArrBlock;
+typedef JobsReturnWMZBannerParamByArrAndADTypeBlock JobsRetWMZBannerParamByArrAndADTypeBlock;
+typedef JobsReturnWMZBannerParamByArrBlock JobsRetWMZBannerParamByArrBlock;
+/// JobsBlock@Pods 返哺兼容名 END
 #endif /* JobsBizBlock_h */

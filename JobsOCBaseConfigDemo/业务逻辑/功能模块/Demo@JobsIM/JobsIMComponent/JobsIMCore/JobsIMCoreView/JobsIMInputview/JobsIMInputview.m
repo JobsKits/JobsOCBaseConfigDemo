@@ -92,7 +92,7 @@ Prop_strong()BaseButton *sendBtn;
             });
         _sendBtn.userInteractionEnabled = NO;
         _sendBtn.enabled = NO;
-        [_sendBtn setTitleColor:JobsWhiteColor forState:UIControlStateDisabled];
+        _sendBtn.disabledStateTitleColorBy(JobsWhiteColor);
         [self.addSubview(_sendBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(11);
             make.bottom.equalTo(self).offset(-11);

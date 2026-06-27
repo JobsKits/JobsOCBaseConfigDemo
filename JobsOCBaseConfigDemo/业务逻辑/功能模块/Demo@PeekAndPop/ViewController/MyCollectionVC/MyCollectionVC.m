@@ -283,8 +283,9 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     if (!_collectionView) {
         _collectionView = UICollectionView.initByLayout(self.verticalLayout);
         _collectionView.dataLink(self);
-        _collectionView.backgroundColor = HEXCOLOR(0xFCFBFB);
-        _collectionView.showsVerticalScrollIndicator = NO;
+        _collectionView
+            .byShowsVerticalScrollIndicator(NO)
+            .byBgColor(HEXCOLOR(0xFCFBFB));
         _collectionView.registerCollectionViewClass();
         [self.view.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);

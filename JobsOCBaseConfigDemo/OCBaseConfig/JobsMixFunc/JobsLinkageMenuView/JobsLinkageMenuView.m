@@ -1,39 +1,52 @@
 //
-//  LinkageMenuView.m
+//  JobsLinkageMenuView.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by 风间 on 2017/3/8.
-//  Copyright © 2017年 EmotionV. All rights reserved.
-//  github: https://github.com/EmotionV/LinkageMenu
+//  Created by Jobs on 2026年6月27日，星期六.
+//
 
 #import "JobsLinkageMenuView.h"
 
-#define FULLVIEW_FOR6 667  //iPhone6(s)高度
-#define NAVIGATION_HEIGHT 64  //navigationbar高度
-#define TABBAR_HEIGHT 49  //tabbar高度
+#define FULLVIEW_FOR6 667
+
+static id _Nullable JobsLinkageSafeObjectAtIndex(NSArray *_Nullable array, NSInteger index){
+    if (![array isKindOfClass:NSArray.class]) return nil;
+    if (index < 0 || index >= array.count) return nil;
+    id obj = array[index];
+    return obj == NSNull.null ? nil : obj;
+}
+
+@implementation JobsLinkageMenuViewConfig
+
+-(instancetype)init{
+    if (self = [super init]) {
+        _CLEAR_CONTENT_WHEN_MISSING = YES;
+    };return self;
+}
+
+@end
 
 @interface JobsLinkageMenuView()
-/// UI
+
 Prop_strong()UIScrollView *menuView;
 Prop_strong()UIView *bottomView;
 Prop_strong()UIView *lineView;
 Prop_strong()UIView *rightview;
 Prop_strong()NSMutableArray <__kindof UIButton *>*btnMutArr;
 Prop_strong()NSArray <__kindof UIView *>*viewArray;
-/// Data
-Prop_assign()NSInteger newChoseTag;  /// 选择的button tag
-Prop_assign()NSInteger choseTag;  /// 上次选择的button tag
-Prop_assign()CGFloat btnHeight;  /// button高度，适配不同屏幕
-Prop_assign()NSInteger DTScrollTag; /// 滚动tag
+Prop_assign()NSInteger newChoseTag;
+Prop_assign()NSInteger choseTag;
+Prop_assign()CGFloat btnHeight;
+Prop_assign()NSInteger DTScrollTag;
 Prop_assign()CGFloat blankHeight;
 Prop_assign()CGFloat half_blankHeight;
 Prop_strong()UIButtonModel *btnConfig;
 Prop_strong()JobsLinkageMenuViewConfig *linkageMenuViewConfig;
-Prop_assign()CGFloat MENU_WIDTH;/// 左侧菜单栏宽度，默认136
-Prop_assign()CGFloat BOTTOMVIEW_HEIGHT;/// 滑块高度
-Prop_assign()CGFloat BOTTOMVIEW_WIDTH;/// 滑块宽度
-Prop_assign()CGFloat LINEVIEW_WIDTH;/// 分割线宽度
-Prop_assign()CGFloat ANIMATION_TIME;/// 菜单栏滚动的时间
+Prop_assign()CGFloat MENU_WIDTH;
+Prop_assign()CGFloat BOTTOMVIEW_HEIGHT;
+Prop_assign()CGFloat BOTTOMVIEW_WIDTH;
+Prop_assign()CGFloat LINEVIEW_WIDTH;
+Prop_assign()CGFloat ANIMATION_TIME;
 
 @end
 
@@ -44,260 +57,321 @@ Prop_assign()CGFloat ANIMATION_TIME;/// 菜单栏滚动的时间
        linkageMenuViewConfig:(JobsLinkageMenuViewConfig *)linkageMenuViewConfig{
     if (self = [super init]) {
         self.frame = frame;
+        self.clipsToBounds = YES;
         self.btnConfig = btnConfig;
         self.viewArray = btnConfig.data;
-        if(KindOfClsFromStr(linkageMenuViewConfig, @"JobsLinkageMenuViewConfig")){
-            self.linkageMenuViewConfig = linkageMenuViewConfig;
-            self.MENU_WIDTH = self.linkageMenuViewConfig.MENU_WIDTH;
-            self.BOTTOMVIEW_HEIGHT = self.linkageMenuViewConfig.BOTTOMVIEW_HEIGHT;
-            self.BOTTOMVIEW_WIDTH = self.linkageMenuViewConfig.BOTTOMVIEW_WIDTH;
-            self.LINEVIEW_WIDTH = self.linkageMenuViewConfig.LINEVIEW_WIDTH;
-            self.ANIMATION_TIME = self.linkageMenuViewConfig.ANIMATION_TIME;
-        }
+        self.linkageMenuViewConfig = KindOfClsFromStr(linkageMenuViewConfig, @"JobsLinkageMenuViewConfig") ? linkageMenuViewConfig : JobsLinkageMenuViewConfig.new;
+        self.MENU_WIDTH = self.linkageMenuViewConfig.MENU_WIDTH;
+        self.BOTTOMVIEW_HEIGHT = self.linkageMenuViewConfig.BOTTOMVIEW_HEIGHT;
+        self.BOTTOMVIEW_WIDTH = self.linkageMenuViewConfig.BOTTOMVIEW_WIDTH;
+        self.LINEVIEW_WIDTH = self.linkageMenuViewConfig.LINEVIEW_WIDTH;
+        self.ANIMATION_TIME = self.linkageMenuViewConfig.ANIMATION_TIME;
     };return self;
 }
+
+-(void)layoutSubviews{
+    [super layoutSubviews];
+    [self updateLayoutFrames];
+}
+#pragma mark —— Public
+-(instancetype)byMenuClickBlock:(jobsByIDBlock)block{
+    self.menuClickBlock = block;
+    return self;
+}
+
+-(instancetype)byNoContentClickBlock:(jobsByIDBlock)block{
+    self.noContentClickBlock = block;
+    return self;
+}
+
+-(void)reloadData{
+    [self.btnMutArr makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.btnMutArr removeAllObjects];
+    [self.rightview.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    self.choseTag = 0;
+    [self buildMenuButtonsIfNeeded];
+    [self updateLayoutFrames];
+    if (self.btnMutArr.count) [self choseMenu:self.btnMutArr.firstObject];
+}
 #pragma mark —— BaseViewProtocol
-/// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
     @jobs_weakify(self)
     return ^(UIViewModel __kindof *_Nullable model) {
         @jobs_strongify(self)
-        if (JobsMainScreen_HEIGHT() < FULLVIEW_FOR6) {
-            self.btnHeight = 43;
-            self.DTScrollTag = 5;
-        }else if (JobsMainScreen_HEIGHT() == FULLVIEW_FOR6){
-            self.btnHeight = 44;
-            self.DTScrollTag = 6;
-        }else if (JobsMainScreen_HEIGHT() > FULLVIEW_FOR6){
-            self.btnHeight = 42.7;
-            self.DTScrollTag = 7;
-        }
-        
-        self.textSize = 14.0;
-
-        self.selectViewColor = JobsWhiteColor;
-        self.blankHeight = self.btnHeight - self.BOTTOMVIEW_HEIGHT;
-        self.half_blankHeight = (self.btnHeight - self.BOTTOMVIEW_HEIGHT) / 2.0;
-        self.choseTag = 1; //默认选中菜单栏第一个
-        
+        [self prepareDefaults];
         self.rightview.alpha = 1;
         self.menuView.alpha = 1;
         self.lineView.alpha = 1;
-        /// 默认显示
-        [self choseMenu:self.btnMutArr[0]];
+        [self reloadData];
     };
 }
 #pragma mark —— MenuButton Method
 -(void)choseMenu:(UIButton __kindof *)button{
-    JobsLog(@"%ld==%@",(long)button.tag,button.titleLabel.text);
-    int d = 0;
-    for (UIButton *btn in self.btnMutArr) {
-        btn.jobsResetBtnTitleCor(self.btnConfig.titleCor);
-        btn.jobsResetBtnImage(self.btnConfig.normal_images[d]);
-        btn.jobsResetBtnBgImage(nil);
-//        button.jobsResetBtnTitle(self.btnConfig.normal_titles[d]);
-//        btn.jobsResetBtnBgImage(self.btnConfig.normal_backgroundImages[d]);
-        d++;
-    }
-    
-    button.jobsResetBtnTitleCor(self.btnConfig.selectedTitleCor);
-    button.jobsResetBtnImage(nil);
-    button.jobsResetBtnBgImage(self.btnConfig.selected_backgroundImages[button.tag - 1]);
-    
+    if (!button) return;
+    NSInteger index = button.tag - 1;
+    UIView *contentView = [self contentViewAtIndex:index];
+    NSDictionary *payload = [self payloadAtIndex:index button:button contentView:contentView];
+    [self resetMenuButtons];
+    [self markSelectedButton:button];
     self.newChoseTag = button.tag;
     if (self.newChoseTag != self.choseTag) {
         @jobs_weakify(self)
-        [UIView animateWithDuration:0.3
+        [UIView animateWithDuration:self.ANIMATION_TIME
                               delay:0
              usingSpringWithDamping:0.8
               initialSpringVelocity:0
                             options:UIViewAnimationOptionAllowUserInteraction
                          animations:^{
             @jobs_strongify(self)
-            self.bottomView.frame = CGRectMake((self.MENU_WIDTH - self.BOTTOMVIEW_WIDTH) / 2.0,
-                                               button.frame.origin.y + self.half_blankHeight,
-                                               self.BOTTOMVIEW_WIDTH,
-                                               self.BOTTOMVIEW_HEIGHT);
+            self.bottomView.frame = [self bottomFrameForButton:button];
         } completion:nil];
-        
-        [self performSelector:selectorBlocks(^id _Nullable(id _Nullable weakSelf,
-                                                           id _Nullable arg) {
-            @jobs_strongify(self)
-            UIButton *button = (UIButton *)[self viewWithTag:self.newChoseTag];
-            button.jobsResetBtnTitleCor(self.selectTextColor);
-            self.choseTag = self.newChoseTag;
-            return nil;
-        }, MethodName(self), self)
-                   withObject:nil
-                   afterDelay:0.07];
-        
-        for (UIView *view in self.rightview.subviews) {
-            [view removeFromSuperview];
-        }
-
-        NSInteger viewtag;
-        if (button.tag >= _viewArray.count) {
-            viewtag = _viewArray.count - 1;
-        }else{
-            viewtag = button.tag - 1;
-        }
-        UIView *rigView = [_viewArray objectAtIndex:viewtag];
-        [self.rightview addSubview:rigView];
+        self.choseTag = self.newChoseTag;
     }
+    if (contentView) {
+        [self showContentView:contentView];
+    } else {
+        if (self.linkageMenuViewConfig.CLEAR_CONTENT_WHEN_MISSING) {
+            [self.rightview.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        }
+        if (self.noContentClickBlock) self.noContentClickBlock(payload);
+        if (self.linkageMenuViewConfig.noContentClickBlock) self.linkageMenuViewConfig.noContentClickBlock(payload);
+    }
+    if (self.menuClickBlock) self.menuClickBlock(payload);
+    if (self.linkageMenuViewConfig.menuClickBlock) self.linkageMenuViewConfig.menuClickBlock(payload);
+    if (self.objBlock) self.objBlock(button);
 }
 #pragma mark —— Setter Method
-#pragma mark —— textColor
 -(void)setTextColor:(UIColor *)textColor{
     _textColor = textColor;
-    for (int i = 2; i <= self.btnConfig.normal_titles.count; i++) {
-        UIButton *button = [self viewWithTag:i];
-        button.jobsResetBtnTitleCor(textColor);
+    for (UIButton *button in self.btnMutArr) {
+        if (button.tag != self.choseTag) button.jobsResetBtnTitleCor(textColor);
     }
 }
 
-#pragma mark —— textSize
 -(void)setTextSize:(CGFloat)textSize{
     _textSize = textSize;
-    for (int i = 1; i <= self.btnConfig.normal_titles.count; i++) {
-        UIButton *button = [self viewWithTag:i];
+    for (UIButton *button in self.btnMutArr) {
         button.titleLabel.font = [UIFont systemFontOfSize:textSize];
     }
 }
+#pragma mark —— Private
+-(void)prepareDefaults{
+    if (JobsMainScreen_HEIGHT() < FULLVIEW_FOR6) {
+        self.btnHeight = 43;
+        self.DTScrollTag = 5;
+    } else if (JobsMainScreen_HEIGHT() == FULLVIEW_FOR6) {
+        self.btnHeight = 44;
+        self.DTScrollTag = 6;
+    } else {
+        self.btnHeight = 42.7;
+        self.DTScrollTag = 7;
+    }
+    if (self.linkageMenuViewConfig.DEFAULT_MENU_ITEM_HEIGHT > 0) {
+        self.btnHeight = self.linkageMenuViewConfig.DEFAULT_MENU_ITEM_HEIGHT;
+    }
+    self.textSize = self.textSize > 0 ? self.textSize : 14.0;
+    self.selectViewColor = self.selectViewColor ? : JobsWhiteColor;
+    self.textColor = self.textColor ? : self.btnConfig.titleCor;
+    self.selectTextColor = self.selectTextColor ? : self.btnConfig.selectedTitleCor;
+    self.blankHeight = MAX(0, self.btnHeight - self.BOTTOMVIEW_HEIGHT);
+    self.half_blankHeight = self.blankHeight / 2.0;
+}
+
+-(void)buildMenuButtonsIfNeeded{
+    if (self.btnMutArr.count) return;
+    NSInteger count = self.btnConfig.normal_titles.count;
+    for (NSInteger i = 0; i < count; i++) {
+        @jobs_weakify(self)
+        BaseButton *menuButton = BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
+            @jobs_strongify(self)
+            data.normalImage = JobsLinkageSafeObjectAtIndex(self.btnConfig.normal_images, i);
+            data.title = JobsLinkageSafeObjectAtIndex(self.btnConfig.normal_titles, i);
+            data.titleFont = [UIFont systemFontOfSize:self.textSize];
+            data.titleCor = self.btnConfig.titleCor;
+            data.imagePadding = [self imagePaddingAtIndex:i];
+            data.titlePadding = JobsWidth(10);
+            data.imagePlacement = self.btnConfig.imagePlacement;
+            data.cornerRadiusValue = JobsWidth(8);
+        })).onClickBy(^(UIButton *x){
+            @jobs_strongify(self)
+            [self choseMenu:x];
+        }).onLongPressGestureBy(^(id data){
+            JobsLog(@"");
+        });
+        menuButton.imageViewFrameResetX = 0;
+        menuButton.tag = i + 1;
+        self.btnMutArr.add(menuButton);
+        [self.menuView addSubview:menuButton];
+    }
+}
+
+-(void)resetMenuButtons{
+    for (NSInteger i = 0; i < self.btnMutArr.count; i++) {
+        UIButton *btn = self.btnMutArr[i];
+        btn.jobsResetBtnTitleCor(self.btnConfig.titleCor);
+        btn.jobsResetBtnImage(JobsLinkageSafeObjectAtIndex(self.btnConfig.normal_images, i));
+        btn.jobsResetBtnBgImage(JobsLinkageSafeObjectAtIndex(self.btnConfig.normal_backgroundImages, i));
+    }
+}
+
+-(void)markSelectedButton:(UIButton *)button{
+    NSInteger index = button.tag - 1;
+    button.jobsResetBtnTitleCor(self.selectTextColor);
+    id selectedBgImage = JobsLinkageSafeObjectAtIndex(self.btnConfig.selected_backgroundImages, index);
+    button.jobsResetBtnImage(nil);
+    if (selectedBgImage) button.jobsResetBtnBgImage(selectedBgImage);
+}
+
+-(void)showContentView:(UIView *)contentView{
+    [self.rightview.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    contentView.frame = self.rightview.bounds;
+    contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.rightview addSubview:contentView];
+}
+
+-(UIView *)contentViewAtIndex:(NSInteger)index{
+    id obj = JobsLinkageSafeObjectAtIndex(self.viewArray, index);
+    return [obj isKindOfClass:UIView.class] ? obj : nil;
+}
+
+-(NSDictionary *)payloadAtIndex:(NSInteger)index
+                         button:(UIButton *)button
+                    contentView:(UIView *)contentView{
+    NSMutableDictionary *payload = NSMutableDictionary.dictionary;
+    payload[@"index"] = @(index);
+    if (button.currentTitle.length) payload[@"title"] = button.currentTitle;
+    if (button) payload[@"button"] = button;
+    if (contentView) payload[@"contentView"] = contentView;
+    return payload.copy;
+}
+
+-(CGFloat)imagePaddingAtIndex:(NSInteger)index{
+    NSNumber *padding = JobsLinkageSafeObjectAtIndex(self.btnConfig.imagePaddings, index);
+    return jobs3TO(self.btnConfig.imagePadding, padding.floatValue);
+}
+
+-(CGFloat)itemHeightAtIndex:(NSInteger)index{
+    NSNumber *mapHeight = self.linkageMenuViewConfig.MENU_ITEM_HEIGHT_MAP[@(index)];
+    if (mapHeight.floatValue > 0) return mapHeight.floatValue;
+    NSNumber *arrayHeight = JobsLinkageSafeObjectAtIndex(self.linkageMenuViewConfig.MENU_ITEM_HEIGHTS, index);
+    if (arrayHeight.floatValue > 0) return arrayHeight.floatValue;
+    if (self.linkageMenuViewConfig.DEFAULT_MENU_ITEM_HEIGHT > 0) return self.linkageMenuViewConfig.DEFAULT_MENU_ITEM_HEIGHT;
+    return self.btnHeight > 0 ? self.btnHeight : 44;
+}
+
+-(CGFloat)resolvedMenuWidth{
+    CGFloat boundsWidth = CGRectGetWidth(self.bounds);
+    CGFloat lineWidth = self.LINEVIEW_WIDTH;
+    if (self.linkageMenuViewConfig.MENU_WIDTH > 0) {
+        return MIN(self.linkageMenuViewConfig.MENU_WIDTH, MAX(0, boundsWidth - lineWidth));
+    }
+    if (self.linkageMenuViewConfig.CONTENT_WIDTH > 0 && boundsWidth > self.linkageMenuViewConfig.CONTENT_WIDTH + lineWidth) {
+        return boundsWidth - self.linkageMenuViewConfig.CONTENT_WIDTH - lineWidth;
+    }
+    if (self.linkageMenuViewConfig.MENU_RATIO > 0 && self.linkageMenuViewConfig.MENU_RATIO < 1) {
+        return floor(boundsWidth * self.linkageMenuViewConfig.MENU_RATIO);
+    };return self.MENU_WIDTH > 0 ? self.MENU_WIDTH : JobsWidth(136);
+}
+
+-(void)updateLayoutFrames{
+    CGFloat menuWidth = [self resolvedMenuWidth];
+    CGFloat lineWidth = self.LINEVIEW_WIDTH;
+    CGFloat height = CGRectGetHeight(self.bounds);
+    self.MENU_WIDTH = menuWidth;
+    self.menuView.frame = CGRectMake(0, 0, menuWidth, height);
+    self.lineView.frame = CGRectMake(menuWidth, 0, lineWidth, height);
+    self.rightview.frame = CGRectMake(menuWidth + lineWidth, 0, MAX(0, CGRectGetWidth(self.bounds) - menuWidth - lineWidth), height);
+    CGFloat y = self.half_blankHeight;
+    for (NSInteger i = 0; i < self.btnMutArr.count; i++) {
+        UIButton *button = self.btnMutArr[i];
+        CGFloat itemHeight = [self itemHeightAtIndex:i];
+        button.frame = CGRectMake(0, y, menuWidth, itemHeight);
+        if (button.tag == self.choseTag) self.bottomView.frame = [self bottomFrameForButton:button];
+        y += itemHeight;
+    }
+    self.menuView.contentSize = CGSizeMake(0, y + self.half_blankHeight + 5.0);
+    for (UIView *view in self.rightview.subviews) {
+        view.frame = self.rightview.bounds;
+    }
+}
+
+-(CGRect)bottomFrameForButton:(UIButton *)button{
+    CGFloat width = self.BOTTOMVIEW_WIDTH > 0 ? self.BOTTOMVIEW_WIDTH : self.MENU_WIDTH - JobsWidth(10);
+    return CGRectMake((self.MENU_WIDTH - width) / 2.0,
+                      button.frame.origin.y + (button.frame.size.height - self.BOTTOMVIEW_HEIGHT) / 2.0,
+                      width,
+                      self.BOTTOMVIEW_HEIGHT);
+}
 #pragma mark —— LazyLoad
-- (UIView *)lineView{
+-(UIView *)lineView{
     if (!_lineView) {
         _lineView = UIView.new;
-        _lineView.frame = CGRectMake(self.MENU_WIDTH,
-                                     0,
-                                     self.LINEVIEW_WIDTH,
-                                     self.frame.size.height);
         _lineView.backgroundColor = JobsClearColor;
         [self addSubview:_lineView];
     };return _lineView;
 }
 
-- (UIView *)rightview{
+-(UIView *)rightview{
     if (!_rightview) {
         _rightview = UIView.new;
-        if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
-            _rightview.frame = CGRectMake(self.MENU_WIDTH + self.LINEVIEW_WIDTH,
-                                          0,
-                                          JobsRealWidth(),
-                                          JobsRealHeight());
-        }else{
-            _rightview.frame = CGRectMake(self.MENU_WIDTH + self.LINEVIEW_WIDTH,
-                                          NAVIGATION_HEIGHT,
-                                          JobsRealWidth() - self.MENU_WIDTH + self.LINEVIEW_WIDTH,
-                                          JobsRealHeight());
-        }
-        
-        if (_viewArray.count < self.btnConfig.normal_titles.count) {
-            JobsLog(@"Please Add More Views");
-        }
-        for (int i = 0; i < _viewArray.count; i++) {
-            UIView *view = [_viewArray objectAtIndex:i];
-            view.frame = _rightview.bounds;
-        }
-        [_rightview addSubview:(UIView *)[_viewArray objectAtIndex:0]];
-        
+        _rightview.backgroundColor = JobsClearColor;
         [self addSubview:_rightview];
     };return _rightview;
 }
 
 -(UIView *)bottomView{
-    if(!_bottomView){
+    if (!_bottomView) {
         _bottomView = UIView.new;
-        _bottomView.frame = CGRectMake((self.MENU_WIDTH - self.BOTTOMVIEW_WIDTH) / 2.0,
-                                       self.blankHeight + 1.0,
-                                       self.BOTTOMVIEW_WIDTH ,
-                                       self.BOTTOMVIEW_HEIGHT);
-
+        _bottomView.backgroundColor = self.selectViewColor;
         _bottomView.layer.cornerRadius = self.BOTTOMVIEW_HEIGHT / 2.0;
-//        _bottomView.backgroundColor = _selectViewColor;
     };return _bottomView;
 }
 
-- (UIScrollView *)menuView{
+-(UIScrollView *)menuView{
     if (!_menuView) {
         _menuView = UIScrollView.new;
-        _menuView.frame = CGRectMake(0,
-                                     0,
-                                     self.MENU_WIDTH,
-                                     self.frame.size.height);
         _menuView.backgroundColor = JobsClearColor;
         _menuView.scrollsToTop = NO;
         _menuView.showsVerticalScrollIndicator = NO;
-        _menuView.contentSize = CGSizeMake(0, self.btnConfig.normal_titles.count * self.btnHeight + self.blankHeight + 5.0);
         [_menuView addSubview:self.bottomView];
-        for (int i = 1; i <= self.btnConfig.normal_titles.count; i++) {
-            @jobs_weakify(self)
-            BaseButton *menuButton = BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                data.normalImage = [self.btnConfig.normal_images objectAtIndex:(i - 1)];
-                data.title = [self.btnConfig.normal_titles objectAtIndex:(i - 1)];
-                data.titleFont = [UIFont systemFontOfSize:self.textSize];
-                data.titleCor = self.btnConfig.titleCor;
-                data.imagePadding = jobs3TO(self.btnConfig.imagePadding,[self.btnConfig.imagePaddings objectAtIndex:(i - 1)].floatValue);
-                data.titlePadding = JobsWidth(10);
-                data.imagePlacement = self.btnConfig.imagePlacement;
-                data.cornerRadiusValue = JobsWidth(8);
-            })).onClickBy(^(UIButton *x){
-                @jobs_strongify(self)
-                [self choseMenu:x];
-                if (self.objBlock) self.objBlock(x);
-            }).onLongPressGestureBy(^(id data){
-                JobsLog(@"");
-            });
-            menuButton.imageViewFrameResetX = 0;
-            
-            menuButton.tag = i;
-            menuButton.frame = CGRectMake(0,
-                                          self.btnHeight * (i - 1) + self.half_blankHeight,
-                                          self.MENU_WIDTH,
-                                          self.btnHeight);
-            self.btnMutArr.add(menuButton);
-            [_menuView addSubview:menuButton];
-        }[self addSubview:_menuView];
+        [self addSubview:_menuView];
     };return _menuView;
 }
 
 -(NSMutableArray<__kindof UIButton *> *)btnMutArr{
-    if(!_btnMutArr){
+    if (!_btnMutArr) {
         _btnMutArr = NSMutableArray.array;
     };return _btnMutArr;
 }
-/// 左侧菜单栏宽度（即，按钮的宽度），默认136
+
 -(CGFloat)MENU_WIDTH{
-    if(!_MENU_WIDTH){
+    if (!_MENU_WIDTH) {
         _MENU_WIDTH = JobsWidth(136);
     };return _MENU_WIDTH;
 }
-/// 滑块高度
+
 -(CGFloat)BOTTOMVIEW_HEIGHT{
-    if(!_BOTTOMVIEW_HEIGHT){
+    if (!_BOTTOMVIEW_HEIGHT) {
         _BOTTOMVIEW_HEIGHT = JobsWidth(25);
     };return _BOTTOMVIEW_HEIGHT;
 }
-/// 滑块宽度
+
 -(CGFloat)BOTTOMVIEW_WIDTH{
-    if(!_BOTTOMVIEW_WIDTH){
+    if (!_BOTTOMVIEW_WIDTH) {
         _BOTTOMVIEW_WIDTH = self.MENU_WIDTH - JobsWidth(10);
     };return _BOTTOMVIEW_WIDTH;
 }
-/// 分割线宽度
+
 -(CGFloat)LINEVIEW_WIDTH{
-    if(!_LINEVIEW_WIDTH){
+    if (!_LINEVIEW_WIDTH) {
         _LINEVIEW_WIDTH = JobsWidth(1.0f);
     };return _LINEVIEW_WIDTH;
 }
-/// 菜单栏滚动的时
+
 -(CGFloat)ANIMATION_TIME{
-    if(!_ANIMATION_TIME){
+    if (!_ANIMATION_TIME) {
         _ANIMATION_TIME = 0.2f;
     };return _ANIMATION_TIME;
 }
-
-@end
-
-@implementation JobsLinkageMenuViewConfig
 
 @end

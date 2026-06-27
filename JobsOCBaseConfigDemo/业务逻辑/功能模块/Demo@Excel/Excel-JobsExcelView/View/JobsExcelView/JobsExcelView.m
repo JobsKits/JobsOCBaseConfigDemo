@@ -129,7 +129,7 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
         _leftListView.racDisposable = [RACObserve(_leftListView.excelConfigureData, VerticalScrollValue)
             subscribeNext:^(NSValue *scrollValue) {
             @jobs_strongify(self)
-            self.contentView.tableView.contentOffset = scrollValue.CGPointValue;
+            self.contentView.tableView.byContentOffset(scrollValue.CGPointValue);
         }];
     };return _leftListView;
 }
@@ -168,11 +168,11 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
         _contentView.jobsRichViewByModel(self.excelConfigureDatas);
         [_contentView.excelConfigureData.verticalScrollSignal subscribeNext:^(NSValue *value) {
             @jobs_strongify(self)
-            self.leftListView.tableView.contentOffset = value.CGPointValue;
+            self.leftListView.tableView.byContentOffset(value.CGPointValue);
         }];
         [_contentView.excelConfigureData.horizontalScrollSignal subscribeNext:^(NSValue *value) {
             @jobs_strongify(self)
-            self.headView.collectionView.contentOffset = value.CGPointValue;
+            self.headView.collectionView.byContentOffset(value.CGPointValue);
         }];
     };return _contentView;
 }
@@ -186,5 +186,4 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
 }
 
 @end
-
 

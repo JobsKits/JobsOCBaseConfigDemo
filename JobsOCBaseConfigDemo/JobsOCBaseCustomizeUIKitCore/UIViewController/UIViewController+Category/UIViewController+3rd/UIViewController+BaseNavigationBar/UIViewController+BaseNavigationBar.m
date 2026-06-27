@@ -39,7 +39,7 @@ JobsKey(_navigationBar)
                 NSFontAttributeName:self.fontAttributeName
             };/// 设置导航上的title显示样式
             [navBar setBarTintColor:JobsRedColor];/// 一般的业务是全局设置，因为一个App里面只有一个主题
-            navBar.tintColor = JobsBlackColor;/// 系统的组件着色（返回按钮——箭头图标 和 上面的字）
+            navBar.byTintColor(JobsBlackColor);/// 系统的组件着色（返回按钮——箭头图标 和 上面的字）
             navBar.items = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
                 @jobs_strongify(self)
                 data.add(self.navItem);

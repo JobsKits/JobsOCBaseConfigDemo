@@ -184,23 +184,22 @@ willDisplayHeaderView:(UIView *)view
     if (!_tableView) {
         @jobs_weakify(self)
         _tableView = jobsMakeBaseTableViewByGrouped(^(__kindof BaseTableView * _Nullable tableView) {
-            tableView.ww_foldable = YES;
+            tableView.byFoldable(YES);
             tableView.dataLink(self);
-            tableView.backgroundColor = @"#FFFFFF".cor;
-            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-            tableView.separatorColor = HEXCOLOR(0xEEE2C8);
-            tableView.showsVerticalScrollIndicator = NO;
-            tableView.scrollEnabled = YES;
-            tableView.tableHeaderView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-                /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
-            });
-            tableView.tableFooterView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-                /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
-            });
+            tableView
+                .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .bySeparatorColor(HEXCOLOR(0xEEE2C8))
+                .byTableHeaderView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+                    /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
+                }))
+                .byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+                    /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
+                }))
+                .byShowsVerticalScrollIndicator(NO)
+                .byScrollEnabled(YES)
+                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
+                .byBgColor(@"#FFFFFF".cor);
             tableView.registerHeaderFooterViewClass(MSCommentTableHeaderFooterView.class,@"");
-            if(@available(iOS 11.0, *)) {
-                tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            }
             
             {
                 tableView.mj_header = self.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {

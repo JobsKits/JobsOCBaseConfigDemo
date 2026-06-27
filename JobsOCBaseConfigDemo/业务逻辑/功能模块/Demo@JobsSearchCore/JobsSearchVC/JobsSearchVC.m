@@ -378,16 +378,17 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         /// 否则viewForHeaderInSection 和 tableHeaderView 之间会有一段距离
         _tableView = jobsMakeBaseTableViewByGrouped(^(__kindof BaseTableView * _Nullable tableView) {
             @jobs_strongify(self)
-            tableView.backgroundColor = self.bgColour;
-            tableView.delegate = self;
-            tableView.dataSource = self;
-            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-            tableView.showsVerticalScrollIndicator = NO;
-            tableView.tableHeaderView = self.jobsSearchBar;/// 这里接入的就是一个UIView的派生类
-            tableView.tableFooterView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-                /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
-            });
-            tableView.ww_foldable = YES;//设置可折叠
+            tableView
+                .byDelegate(self)
+                .byDataSource(self)
+                .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .byTableHeaderView(self.jobsSearchBar)/// 这里接入的就是一个UIView的派生类
+                .byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+                    /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
+                }))
+                .byShowsVerticalScrollIndicator(NO)
+                .byBgColor(self.bgColour);
+            tableView.byFoldable(YES);//设置可折叠
             [tableView registerTableViewClass];
             
             {
@@ -407,12 +408,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
                 @jobs_strongify(self)
                 [self endDropDownListView];
             }];
-            
-            if(@available(iOS 11.0, *)) {
-                tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            }else{
-                SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
-            }
+            tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             [self.view.addSubview(tableView) mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.right.equalTo(self.view);
                 if (self.gk_navBarAlpha &&

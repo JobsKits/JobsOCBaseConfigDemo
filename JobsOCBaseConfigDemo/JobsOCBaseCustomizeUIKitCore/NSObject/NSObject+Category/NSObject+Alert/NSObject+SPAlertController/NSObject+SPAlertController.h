@@ -55,10 +55,10 @@ NS_ASSUME_NONNULL_END
 
  -(UIButton *)channelBtn{
      if (!_channelBtn) {
-         _channelBtn = UIButton.new;
-         [_channelBtn setTitle:@"渠道切换点我就行" forState:UIControlStateNormal];
-         [_channelBtn setTitleColor:JobsRedColor forState:UIControlStateNormal];
-         _channelBtn.backgroundColor = JobsYellowColor;
+         _channelBtn = UIButton.jobsInit()
+             .normalStateTitleBy(@"渠道切换点我就行")
+             .normalStateTitleColorBy(JobsRedColor)
+             .byBgColor(JobsYellowColor);
          @jobs_weakify(self)
          [[_channelBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIButton * _Nullable x) {
              @jobs_strongify(self)

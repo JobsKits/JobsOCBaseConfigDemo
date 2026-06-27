@@ -225,13 +225,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 }))
                 .byShowsVerticalScrollIndicator(NO)
                 .byScrollEnabled(YES)
+                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
                 .byBgColor(JobsClearColor);
-
-            if(@available(iOS 11.0, *)) {
-                tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            }else{
-                SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
-            }
         }))
         .addOn(self.view)
         .byAdd(^(MASConstraintMaker *make) {
