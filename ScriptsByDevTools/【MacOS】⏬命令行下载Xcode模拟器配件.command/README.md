@@ -68,7 +68,7 @@ flowchart TD
 
 ## 七、日志文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-当前脚本没有定义 `LOG_FILE`，不会主动写入 `/tmp/脚本名.log`；请保留终端输出用于排查。
+当前脚本没有定义 `LOG_FILE`，不会主动写入 `$TMPDIR/脚本名.log`；请保留终端输出用于排查。
 
 ## 八、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -81,7 +81,7 @@ flowchart TD
 
 ### 1. 提示 xcodebuild 找不到怎么办？
 
-先安装完整 Xcode，并确认 `xcode-select -p` 指向 `/Applications/Xcode.app/Contents/Developer`。
+先安装完整 Xcode，并确认 `xcode-select -p` 指向 `$APPLICATIONS_DIR/Xcode.app/Contents/Developer`。
 
 ### 2. 清理缓存会删项目吗？
 

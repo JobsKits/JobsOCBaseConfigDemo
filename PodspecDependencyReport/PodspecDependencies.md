@@ -5,7 +5,7 @@
 ## 🔥 <font id=前言>前言</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 此文件由脚本自动运行分析得出
-- 分析目录：`/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigDemo`
+- 分析目录：`./..`
 - 生成时间：`2026-06-27 21:37:51`
 - Podspec 数量：`3`
 - 0 下游依赖 Pod 数量：`2`

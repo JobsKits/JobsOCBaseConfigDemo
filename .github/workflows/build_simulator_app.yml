@@ -1,0 +1,95 @@
+name: Build Simulator App
+
+on:
+  push:
+    branches:
+      - main
+      - byPods
+  pull_request:
+    branches:
+      - main
+      - byPods
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-simulator-app:
+    runs-on: macos-15
+    timeout-minutes: 90
+    permissions:
+      contents: read
+
+    env:
+      WORKSPACE: JobsOCBaseConfigDemo.xcworkspace
+      SCHEME: JobsOCBaseConfigDemo
+      CONFIGURATION: Debug
+      SDK: iphonesimulator
+      DESTINATION: generic/platform=iOS Simulator
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Show build environment
+        run: |
+          sw_vers
+          xcodebuild -version
+          xcode-select -p
+          pod --version
+
+      - name: Install CocoaPods dependencies
+        run: |
+          pod install --no-repo-update || pod install --repo-update
+
+      - name: Build Simulator app
+        run: |
+          derived_data_path="${RUNNER_TEMP}/DerivedData"
+
+          xcodebuild \
+            -workspace "${WORKSPACE}" \
+            -scheme "${SCHEME}" \
+            -configuration "${CONFIGURATION}" \
+            -sdk "${SDK}" \
+            -destination "${DESTINATION}" \
+            -derivedDataPath "${derived_data_path}" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            ONLY_ACTIVE_ARCH=NO \
+            build
+
+      - name: Package Simulator app
+        id: package
+        run: |
+          derived_data_path="${RUNNER_TEMP}/DerivedData"
+          app_output_dir="${RUNNER_TEMP}/SimulatorApp"
+          products_dir="${derived_data_path}/Build/Products/${CONFIGURATION}-iphonesimulator"
+          app_path="$(find "${products_dir}" -maxdepth 1 -type d -name '*.app' -print -quit)"
+
+          if [[ -z "${app_path}" ]]; then
+            echo "::error::No .app product found in ${products_dir}"
+            find "${derived_data_path}/Build/Products" -type d -name '*.app' -print || true
+            exit 1
+          fi
+
+          mkdir -p "${app_output_dir}"
+          safe_ref="${GITHUB_REF_NAME//\//-}"
+          short_sha="${GITHUB_SHA:0:7}"
+          artifact_name="${SCHEME}-Simulator.app-${safe_ref}-${short_sha}"
+          artifact_zip="${app_output_dir}/${artifact_name}.zip"
+
+          ditto -c -k --keepParent "${app_path}" "${artifact_zip}"
+
+          echo "artifact_name=${artifact_name}" >> "${GITHUB_OUTPUT}"
+          echo "artifact_zip=${artifact_zip}" >> "${GITHUB_OUTPUT}"
+
+      - name: Upload Simulator app
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: ${{ steps.package.outputs.artifact_name }}
+          path: ${{ steps.package.outputs.artifact_zip }}
+          if-no-files-found: error
+          retention-days: 14

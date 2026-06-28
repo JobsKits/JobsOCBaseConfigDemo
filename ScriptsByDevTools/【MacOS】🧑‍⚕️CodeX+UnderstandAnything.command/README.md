@@ -65,7 +65,7 @@
   | 检查项 | 要求 | 说明 |
   | --- | --- | --- |
   | 系统 | MacOS | `.command` 脚本按 MacOS / `zsh` 环境设计。 |
-  | **Shell** | `zsh` | 脚本使用 `#!/bin/zsh`。 |
+  | **Shell** | `zsh` | 脚本使用 `# shell: zsh`。 |
   | 工程 | `.xcworkspace` 或 `.xcodeproj` | 用于判断 iOS 工程根目录。 |
   | [**Codex**](https://openai.com/codex) | 已安装并可运行 | 脚本会检查 `codex` 命令是否存在。 |
   | [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) | 可安装 / 可升级 | 未安装时脚本会尝试安装。 |
@@ -302,7 +302,7 @@
 - 脚本日志默认写入：
 
   ```text
-  /tmp/CodeX+UnderstandAnything.log
+  $TMPDIR/CodeX+UnderstandAnything.log
   ```
 
 - 如果脚本执行异常，请先查看终端输出，再查看日志文件。

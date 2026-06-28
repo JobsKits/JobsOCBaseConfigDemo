@@ -1,0 +1,110 @@
+name: Generate BaseProtocol Graph
+
+on:
+  push:
+    branches:
+      - main
+      - byPods
+    paths:
+      - JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/BaseProtocol/**/*.h
+      - .github/scripts/generate_objc_protocol_graph.rb
+      - .github/workflows/generate_oc_protocol_graph.yml
+  pull_request:
+    branches:
+      - main
+      - byPods
+    paths:
+      - JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/BaseProtocol/**/*.h
+      - .github/scripts/generate_objc_protocol_graph.rb
+      - .github/workflows/generate_oc_protocol_graph.yml
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  generate-protocol-graph:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    env:
+      PROTOCOL_SOURCE_DIR: JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/BaseProtocol
+      GRAPH_MMD_PATH: /tmp/BaseProtocol-ProtocolGraph.mmd
+      GRAPH_PNG_PATH: JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/BaseProtocol/BaseProtocol-ProtocolGraph.png
+      GRAPH_ARTIFACT_NAME: BaseProtocol-ProtocolGraph
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Setup Chrome
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v2.1.2
+        with:
+          chrome-version: stable
+          install-dependencies: true
+
+      - name: Install Mermaid CLI
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: "true"
+        run: npm install --global @mermaid-js/mermaid-cli@11.15.0
+
+      - name: Generate Mermaid source
+        run: ruby .github/scripts/generate_objc_protocol_graph.rb "${PROTOCOL_SOURCE_DIR}" "${GRAPH_MMD_PATH}"
+
+      - name: Render protocol graph image
+        env:
+          CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
+        run: |
+          puppeteer_config="${RUNNER_TEMP}/puppeteer-config.json"
+
+          cat > "${puppeteer_config}" <<JSON
+          {
+            "executablePath": "${CHROME_PATH}",
+            "args": [
+              "--no-sandbox",
+              "--disable-setuid-sandbox",
+              "--disable-dev-shm-usage"
+            ]
+          }
+          JSON
+
+          mmdc \
+            --input "${GRAPH_MMD_PATH}" \
+            --output "${GRAPH_PNG_PATH}" \
+            --puppeteerConfigFile "${puppeteer_config}" \
+            --backgroundColor white \
+            --scale 2
+
+      - name: Upload protocol graph artifact
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: ${{ env.GRAPH_ARTIFACT_NAME }}
+          path: |
+            ${{ env.GRAPH_PNG_PATH }}
+            ${{ env.GRAPH_MMD_PATH }}
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Commit protocol graph image
+        if: github.event_name != 'pull_request'
+        run: |
+          if [[ -z "$(git status --short -- "${GRAPH_PNG_PATH}")" ]]; then
+            echo "Protocol graph image is already up to date."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${GRAPH_PNG_PATH}"
+          git commit -m "Update BaseProtocol protocol graph"
+          git push

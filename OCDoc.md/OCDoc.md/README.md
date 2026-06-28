@@ -2173,10 +2173,10 @@ int main(int argc, const char * argv[]) {
 * Windows系统的动态库是DLL文件，Linux系统是so文件，macOS系统的动态库则使用dylib文件作为动态库
 * `dylib`是苹果操作系统一个重要组成部分，它是开源的。任何人可以通过苹果官网下载它的源码来阅读理解它的运作方式（下载地址：[Source Browser](https://link.zhihu.com/?target=http%3A//opensource.apple.com/tarballs/dyld)），了解系统加载动态库的细节。
 * `dylib`**本质上是一个Mach-O格式的文件**，它与普通的Mach-O执行文件几乎使用一样的结构，只是在文件类型上一个是**MH_DYLIB**，一个是**MH_EXECUTE**
-* 在系统的`/usr/lib`目录下，存放了大量供系统与应用程序调用的动态库文件
+* 在系统的`$SYSTEM_USR_DIR/lib`目录下，存放了大量供系统与应用程序调用的动态库文件
 * 动态库不能直接运行，而是需要通过系统的动态链接加载器进行加载到内存后执行
 * `dyld`加载时，为了优化程序启动，启用了共享缓存（shared cache）技术
-* 共享缓存是以文件形式存放在`/var/db/dyld/`目录下的，生成共享缓存的**update_dyld_shared_cache**程序位于是`/usr/bin/`目录下
+* 共享缓存是以文件形式存放在`$SYSTEM_VAR_DIR/db/dyld/`目录下的，生成共享缓存的**update_dyld_shared_cache**程序位于是`$SYSTEM_USR_DIR/bin/`目录下
 * **在没有依赖关系的情况下，动态库的加载顺序由`Link Binary With Libraries`中的顺序决定，当然我们可以通过`Link Binary With Libraries`来控制动态库的加载顺序。**
 
 ## `+load` 和 `+initialize` 的区别 <a href="#内存分布" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -2970,7 +2970,7 @@ int main(int argc, const char * argv[]) {
     如果你希望这三个子文件夹共享同一个Git仓库，而不是各自有独立的仓库，那么可以将它们合并为一个单一的Git仓库。将这三个子文件夹的内容复制到主项目目录下，然后使用一次性的 `git init` 进行初始化。
   
     ```bash
-    cd /path/to/main/project
+    cd <path-to>/main/project
     git init
     git add .
     git commit -m "Initial commit"

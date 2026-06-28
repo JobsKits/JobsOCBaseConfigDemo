@@ -69,7 +69,7 @@ flowchart TD
 
 ## 七、日志文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-当前脚本没有定义 `LOG_FILE`，不会主动写入 `/tmp/脚本名.log`；建议从终端执行并保留输出。
+当前脚本没有定义 `LOG_FILE`，不会主动写入 `$TMPDIR/脚本名.log`；建议从终端执行并保留输出。
 
 ## 八、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

@@ -62,26 +62,26 @@ Syntax OK
 ### 3.2、先 dry-run 预览
 
 ```shell
-ruby fix_local_m_import.rb "/path/to/your/project" --dry-run
+ruby fix_local_m_import.rb "<path-to>/your/project" --dry-run
 ```
 
 `--dry-run` 模式不会写文件，只会打印类似：
 
 ```text
-[dry-run] /path/to/your/project/Foo/Foo.m
+[dry-run] <path-to>/your/project/Foo/Foo.m
 changed_files=1, changed_imports=1
 ```
 
 ### 3.3、确认后正式修复
 
 ```shell
-ruby fix_local_m_import.rb "/path/to/your/project"
+ruby fix_local_m_import.rb "<path-to>/your/project"
 ```
 
 正式执行后，会把命中的文件直接写回磁盘，并打印类似：
 
 ```text
-[fixed] /path/to/your/project/Foo/Foo.m
+[fixed] <path-to>/your/project/Foo/Foo.m
 changed_files=1, changed_imports=1
 ```
 
@@ -103,7 +103,7 @@ root = ARGV[0] || Dir.pwd
 - 正式执行前，必须先跑一次：
 
   ```shell
-  ruby fix_local_m_import.rb "/path/to/your/project" --dry-run
+  ruby fix_local_m_import.rb "<path-to>/your/project" --dry-run
   ```
 
 - 正式执行前，建议确认 [**GitHub**](https://github.com) / Git 工作区是干净的，至少方便回滚：
@@ -192,7 +192,7 @@ git checkout -- path/to/file.m
 
   ```shell
   ruby -c fix_local_m_import.rb
-  ruby fix_local_m_import.rb "/path/to/your/project" --dry-run
+  ruby fix_local_m_import.rb "<path-to>/your/project" --dry-run
   ```
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

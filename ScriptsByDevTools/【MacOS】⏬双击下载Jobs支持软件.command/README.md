@@ -68,7 +68,7 @@ flowchart TD
 
 ## 七、日志文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-脚本会写入 `/tmp/【MacOS】⏬双击下载Jobs支持软件.log`。
+脚本会写入 `$TMPDIR/【MacOS】⏬双击下载Jobs支持软件.log`。
 
 ## 八、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

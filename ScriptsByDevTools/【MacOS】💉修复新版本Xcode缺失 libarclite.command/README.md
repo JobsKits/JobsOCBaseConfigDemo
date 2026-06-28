@@ -10,7 +10,7 @@
 
 `【MacOS】💉修复新版本Xcode缺失 libarclite.command` 是一个可双击运行的 macOS `.command` 脚本。
 
-它用于修复新版本 [**Xcode**](https://developer.apple.com/xcode) 缺失 `libarclite_*.a` 导致旧项目链接失败的问题：从 [**GitHub**](https://github.com) 仓库下载库文件，并复制到 `$(xcode-select -p)/Toolchains/XcodeDefault.xctoolchain/usr/lib/arc`。
+它用于修复新版本 [**Xcode**](https://developer.apple.com/xcode) 缺失 `libarclite_*.a` 导致旧项目链接失败的问题：从 [**GitHub**](https://github.com) 仓库下载库文件，并复制到 `$(xcode-select -p)/Toolchains/XcodeDefault.xctoolchain$SYSTEM_USR_DIR/lib/arc`。
 
 这份 `README.md` 用于在双击前把脚本用途、执行流程、风险点和排查方式说清楚。Jobs出品，必属精品，但危险动作也必须摊开讲明白。
 
@@ -69,7 +69,7 @@ flowchart TD
 2. 打印即将执行的说明和目标目录。
 3. 等待用户按回车继续。
 4. 检查 `git`。
-5. 清理并创建 `/tmp/xcode_sys_lib_fix`。
+5. 清理并创建 `$TMPDIR/xcode_sys_lib_fix`。
 6. 浅克隆 `Xcode_Sys_lib` 仓库。
 7. 查找 `libarclite_*.a`。
 8. 使用 `sudo mkdir -p` 创建 Xcode Toolchain 目标目录。
@@ -83,7 +83,7 @@ flowchart TD
 ## 八、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 会使用 `sudo` 修改 Xcode 安装目录，属于高风险系统级开发环境修改。
-- 会删除 `/tmp/xcode_sys_lib_fix` 临时目录。
+- 会删除 `$TMPDIR/xcode_sys_lib_fix` 临时目录。
 - 如果 Xcode 后续升级或重装，补丁可能失效，需要重新确认。
 - 脚本只要求回车继续，不要求输入 `YES`，执行前要自己确认风险。
 
@@ -95,7 +95,7 @@ flowchart TD
 
 ### 2. 复制到哪里？
 
-复制到 `$(xcode-select -p)/Toolchains/XcodeDefault.xctoolchain/usr/lib/arc`。
+复制到 `$(xcode-select -p)/Toolchains/XcodeDefault.xctoolchain$SYSTEM_USR_DIR/lib/arc`。
 
 ### 3. 失败先看哪里？
 

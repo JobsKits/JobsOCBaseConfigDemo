@@ -142,7 +142,7 @@
 * [**quicktype**](https://app.quicktype.io/)：从 **JSON** / **GraphQL** /其它数据格式 自动生成对应语言的类型定义➤[**Github@quicktype**](https://github.com/glideapps/quicktype?utm_source=chatgpt.com)
 
   * ```shell
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    $SYSTEM_BIN_DIR/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     ```
 
   * ```shell
@@ -383,8 +383,8 @@
     >
     > * 存放模拟器用到的 **挂载卷（Volumes）数据**。
     >
-    > - 用于模拟 **iOS 设备的磁盘结构**，包括 `/Volumes` 中的挂载点。
-    > - 一些 App 或系统组件可能会在模拟器中访问 `/Volumes` 路径（类似 macOS 磁盘挂载），就会挂载此目录中的数据。
+    > - 用于模拟 **iOS 设备的磁盘结构**，包括 `$SYSTEM_VOLUMES_DIR` 中的挂载点。
+    > - 一些 App 或系统组件可能会在模拟器中访问 `$SYSTEM_VOLUMES_DIR` 路径（类似 macOS 磁盘挂载），就会挂载此目录中的数据。
     >
     > 例如：模拟器运行中，如果用户或 App 尝试挂载外部磁盘，或创建虚拟磁盘（如` .dmg `文件），就可能映射到这个目录。
     >
@@ -439,10 +439,10 @@
 ```shell
 (lldb) target list
 Current targets:
-* target #0: /Users/user/Library/Developer/CoreSimulator/Devices/E17E7DE8-7ADA-42FD-A743-A1A3A6CB7E42/data/Containers/Bundle/Application/C590303C-50A7-4BB2-826F-8598E5F3A66C/JobsOCBaseConfigDemo.app/JobsOCBaseConfigDemo ( arch=x86_64-apple-ios-simulator, platform=ios-simulator, pid=89318, state=stopped )
+* target #0: $HOME/Developer/CoreSimulator/Devices/E17E7DE8-7ADA-42FD-A743-A1A3A6CB7E42/data/Containers/Bundle/Application/C590303C-50A7-4BB2-826F-8598E5F3A66C/JobsOCBaseConfigDemo.app/JobsOCBaseConfigDemo ( arch=x86_64-apple-ios-simulator, platform=ios-simulator, pid=89318, state=stopped )
 (lldb) target select 0
 Current targets:
-* target #0: /Users/user/Library/Developer/CoreSimulator/Devices/E17E7DE8-7ADA-42FD-A743-A1A3A6CB7E42/data/Containers/Bundle/Application/C590303C-50A7-4BB2-826F-8598E5F3A66C/JobsOCBaseConfigDemo.app/JobsOCBaseConfigDemo ( arch=x86_64-apple-ios-simulator, platform=ios-simulator, pid=89318, state=stopped )
+* target #0: $HOME/Developer/CoreSimulator/Devices/E17E7DE8-7ADA-42FD-A743-A1A3A6CB7E42/data/Containers/Bundle/Application/C590303C-50A7-4BB2-826F-8598E5F3A66C/JobsOCBaseConfigDemo.app/JobsOCBaseConfigDemo ( arch=x86_64-apple-ios-simulator, platform=ios-simulator, pid=89318, state=stopped )
 ```
 
 ### 7、<font color=red>**C**</font>ommand <font color=red>**L**</font>ine <font color=red>**T**</font>ools <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -464,21 +464,21 @@ Current targets:
 * 卸载
 
   ```shell
-  sudo rm -rf /Library/Developer/CommandLineTools
+  sudo rm -rf $SYSTEM_LIBRARY_DIR/Developer/CommandLineTools
   xcode-select --install
   ```
 
 * 切换
 
   ```shell
-  sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+  sudo xcode-select -s $APPLICATIONS_DIR/Xcode.app/Contents/Developer
   ```
 
 * 验证命令
 
   ```shell
   ➜  ~ xcode-select -p
-  /Applications/Xcode.app/Contents/Developer
+  $APPLICATIONS_DIR/Xcode.app/Contents/Developer
   ```
 
 * 查看<font color=red>**C**</font>ommand <font color=red>**L**</font>ine <font color=red>**T**</font>ools版本
