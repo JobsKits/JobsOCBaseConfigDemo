@@ -44,6 +44,16 @@ jobs:
         run: |
           pod install --no-repo-update || pod install --repo-update
 
+      - name: Skip Jobs local Xcode build timer hook in CI
+        run: |
+          sudo mkdir -p /Users/jobs/.xcode-build-timer
+          sudo tee /Users/jobs/.xcode-build-timer/xbt-build-hook.sh >/dev/null <<'SCRIPT'
+          #!/bin/sh
+          echo "CI packaging skips Jobs local Xcode build timer hook: $*"
+          exit 0
+          SCRIPT
+          sudo chmod +x /Users/jobs/.xcode-build-timer/xbt-build-hook.sh
+
       - name: Build Simulator app
         run: |
           derived_data_path="${RUNNER_TEMP}/DerivedData"
