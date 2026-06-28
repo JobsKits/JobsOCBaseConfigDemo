@@ -33,6 +33,28 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
+      - name: Select Xcode 26 SDK when available
+        run: |
+          selected_developer_dir=""
+
+          if [[ -n "${XCODE_26_DEVELOPER_DIR:-}" && -d "${XCODE_26_DEVELOPER_DIR}" ]]; then
+            selected_developer_dir="${XCODE_26_DEVELOPER_DIR}"
+          else
+            latest_xcode="$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort | tail -n 1 || true)"
+            if [[ -n "${latest_xcode}" ]]; then
+              selected_developer_dir="${latest_xcode}/Contents/Developer"
+            fi
+          fi
+
+          if [[ -n "${selected_developer_dir}" ]]; then
+            sudo xcode-select -s "${selected_developer_dir}"
+          else
+            echo "Xcode 26 is not available; using the runner default Xcode."
+          fi
+
+          xcodebuild -version
+          xcode-select -p
+
       - name: Show build environment
         run: |
           sw_vers
@@ -49,6 +71,7 @@ jobs:
           derived_data_path="${RUNNER_TEMP}/DerivedData"
 
           xcodebuild \
+            -quiet \
             -workspace "${WORKSPACE}" \
             -scheme "${SCHEME}" \
             -configuration "${CONFIGURATION}" \
