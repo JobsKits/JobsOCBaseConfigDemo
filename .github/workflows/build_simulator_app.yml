@@ -20,6 +20,7 @@ jobs:
     runs-on: macos-15
     timeout-minutes: 90
     permissions:
+      actions: write
       contents: read
 
     env:
@@ -100,14 +101,37 @@ jobs:
 
           mkdir -p "${app_output_dir}"
           safe_ref="${GITHUB_REF_NAME//\//-}"
-          short_sha="${GITHUB_SHA:0:7}"
-          artifact_name="${SCHEME}-Simulator.app-${safe_ref}-${short_sha}"
+          artifact_name="${SCHEME}-Latest-Simulator.app-${safe_ref}"
+          legacy_artifact_prefix="${SCHEME}-Simulator.app-${safe_ref}-"
           artifact_zip="${app_output_dir}/${artifact_name}.zip"
 
           ditto -c -k --keepParent "${app_path}" "${artifact_zip}"
 
           echo "artifact_name=${artifact_name}" >> "${GITHUB_OUTPUT}"
+          echo "legacy_artifact_prefix=${legacy_artifact_prefix}" >> "${GITHUB_OUTPUT}"
           echo "artifact_zip=${artifact_zip}" >> "${GITHUB_OUTPUT}"
+
+      - name: Delete previous Simulator app artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARTIFACT_NAME: ${{ steps.package.outputs.artifact_name }}
+          LEGACY_ARTIFACT_PREFIX: ${{ steps.package.outputs.legacy_artifact_prefix }}
+        run: |
+          artifact_ids="$(
+            gh api --paginate "repos/${GITHUB_REPOSITORY}/actions/artifacts" \
+              --jq '.artifacts[] | select(.expired == false and (.name == env.ARTIFACT_NAME or (.name | startswith(env.LEGACY_ARTIFACT_PREFIX)))) | .id'
+          )"
+
+          if [[ -z "${artifact_ids}" ]]; then
+            echo "No previous Simulator app artifacts found."
+            exit 0
+          fi
+
+          while IFS= read -r artifact_id; do
+            [[ -z "${artifact_id}" ]] && continue
+            echo "Deleting previous artifact id ${artifact_id}"
+            gh api --method DELETE "repos/${GITHUB_REPOSITORY}/actions/artifacts/${artifact_id}"
+          done <<< "${artifact_ids}"
 
       - name: Upload Simulator app
         uses: actions/upload-artifact@v7.0.1
