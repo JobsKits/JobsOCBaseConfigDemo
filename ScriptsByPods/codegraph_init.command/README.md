@@ -61,7 +61,7 @@ flowchart TD
 - 查看后台进度：
 
   ```shell
-  tail -f /tmp/codegraph_init.async.log
+  tail -f $TMPDIR/codegraph_init.async.log
   ```
 
 ---
@@ -71,7 +71,7 @@ flowchart TD
 CodeGraph 后台流程默认不设置超时，并每 `10s` 将心跳写入日志：
 
 ```text
-CodeGraph Markdown 深度导出仍在运行：30s；PID=xxx；日志=/tmp/codegraph_export_md.log
+CodeGraph Markdown 深度导出仍在运行：30s；PID=xxx；日志=$TMPDIR/codegraph_export_md.log
 ```
 
 可配置：
@@ -115,9 +115,9 @@ CodeGraph Markdown 深度导出仍在运行：30s；PID=xxx；日志=/tmp/codegr
 
 | 日志 | 说明 |
 | --- | --- |
-| `/tmp/codegraph_init.async.log` | `pod install` 启动的完整后台流程日志 |
-| `/tmp/codegraph_init.log` | 初始化 / 同步 / 调度日志 |
-| `/tmp/codegraph_export_md.log` | 前台导出日志 |
-| `/tmp/codegraph_export_md.async.log` | 后台导出日志 |
+| `$TMPDIR/codegraph_init.async.log` | `pod install` 启动的完整后台流程日志 |
+| `$TMPDIR/codegraph_init.log` | 初始化 / 同步 / 调度日志 |
+| `$TMPDIR/codegraph_export_md.log` | 前台导出日志 |
+| `$TMPDIR/codegraph_export_md.async.log` | 后台导出日志 |
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

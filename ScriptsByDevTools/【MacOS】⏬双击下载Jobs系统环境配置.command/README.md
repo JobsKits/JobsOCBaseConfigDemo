@@ -68,7 +68,7 @@ flowchart TD
 
 ## 七、日志文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-脚本会写入 `/tmp/【MacOS】⏬双击下载Jobs系统环境配置.log`。
+脚本会写入 `$TMPDIR/【MacOS】⏬双击下载Jobs系统环境配置.log`。
 
 ## 八、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -84,7 +84,7 @@ flowchart TD
 
 ### 2. 失败先看哪里？
 
-先看 `/tmp/【MacOS】⏬双击下载Jobs系统环境配置.log` 和终端中的 `git clone` 错误。
+先看 `$TMPDIR/【MacOS】⏬双击下载Jobs系统环境配置.log` 和终端中的 `git clone` 错误。
 ## 十、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 本次整理只读取脚本源码并生成 `README.md`，没有在 macOS 真机环境执行脚本。

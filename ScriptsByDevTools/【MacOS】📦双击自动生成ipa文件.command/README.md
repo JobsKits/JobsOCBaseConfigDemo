@@ -83,12 +83,12 @@ flowchart TD
 5. 通过 `xcodebuild -showBuildSettings` 定位 `.app` 输出路径。
 6. 使用 `xcodebuild ... -destination generic/platform=iOS build` 构建。
 7. 在临时目录创建 `Payload` 并复制 `.app`。
-8. 使用 `/usr/bin/zip` 生成 `.ipa`。
+8. 使用 `$SYSTEM_USR_DIR/bin/zip` 生成 `.ipa`。
 9. 打开输出目录。
 
 ## 七、日志文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-脚本会写入 `/tmp/【MacOS】📦双击自动生成ipa文件.command.log`。注意这里的日志名保留了 `.command` 后缀。
+脚本会写入 `$TMPDIR/【MacOS】📦双击自动生成ipa文件.command.log`。注意这里的日志名保留了 `.command` 后缀。
 
 ## 八、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -109,7 +109,7 @@ flowchart TD
 
 ### 3. 构建失败怎么查？
 
-脚本会打开 `/tmp/【MacOS】📦双击自动生成ipa文件.command.log`，先看里面的 `xcodebuild` 错误。
+脚本会打开 `$TMPDIR/【MacOS】📦双击自动生成ipa文件.command.log`，先看里面的 `xcodebuild` 错误。
 ## 十、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 本次整理只读取脚本源码并生成 `README.md`，没有在 macOS 真机环境执行脚本。

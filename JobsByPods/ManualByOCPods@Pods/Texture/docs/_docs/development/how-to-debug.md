@@ -100,7 +100,7 @@ Using a disassembler, in this case Hopper, we can look into the UIKit.framework 
 
 __Using Hopper to examine UIKit__
 
-As of XCode 10.x, the UIKit.framework file should be here: `/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 9.3.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/UIKit.framework`. You should choose the appropriate runtime.
+As of XCode 10.x, the UIKit.framework file should be here: `$SYSTEM_LIBRARY_DIR/Developer/CoreSimulator/Profiles/Runtimes/iOS 9.3.simruntime/Contents/Resources/RuntimeRoot$SYSTEM_DIR/Library/Frameworks/UIKit.framework`. You should choose the appropriate runtime.
 
 Select the `UIKit` binary. It takes sometime to load. Once it is done, we search for `_viewAnimationsForCurrentUpdate` function. We note that block invoke `_51...._block_invoke_2` is the closest to the crash. Once we load `_viewAnimationsForCurrentUpdate`, we get the assembly, which most people shouldn't spend the time trying to mentally decompile. Thankfully, Hopper has a mode called "Pseudo Code Mode" as a segment control at the top. Hopper will try to decompile as best as it can.
 

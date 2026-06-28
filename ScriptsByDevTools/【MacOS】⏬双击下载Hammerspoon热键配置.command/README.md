@@ -71,7 +71,7 @@ flowchart TD
 
 ## 七、日志文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-脚本会写入 `/tmp/【MacOS】⏬双击下载Hammerspoon热键配置.log`。
+脚本会写入 `$TMPDIR/【MacOS】⏬双击下载Hammerspoon热键配置.log`。
 
 ## 八、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -83,7 +83,7 @@ flowchart TD
 
 ### 1. 运行后看不到配置怎么办？
 
-先看终端输出和 `/tmp/【MacOS】⏬双击下载Hammerspoon热键配置.log`，再确认 `HotKey@Hammerspoon` 是否生成。
+先看终端输出和 `$TMPDIR/【MacOS】⏬双击下载Hammerspoon热键配置.log`，再确认 `HotKey@Hammerspoon` 是否生成。
 
 ### 2. 为什么 README 里写 SourceTree？
 

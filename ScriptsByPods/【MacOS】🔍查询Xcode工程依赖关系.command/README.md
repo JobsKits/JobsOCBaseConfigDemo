@@ -124,7 +124,7 @@ flowchart TD
 - 运行日志位置：
 
   ```text
-  /tmp/【MacOS】🔍查询Xcode工程依赖关系.log
+  $TMPDIR/【MacOS】🔍查询Xcode工程依赖关系.log
   ```
 
 ## 九、验证记录 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

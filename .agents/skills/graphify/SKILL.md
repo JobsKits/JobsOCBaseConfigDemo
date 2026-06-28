@@ -674,7 +674,7 @@ To configure in Claude Desktop, add to `claude_desktop_config.json`:
   "mcpServers": {
     "graphify": {
       "command": "python3",
-      "args": ["-m", "graphify.serve", "/absolute/path/to/graphify-out/graph.json"]
+      "args": ["-m", "graphify.serve", "/absolute<path-to>/graphify-out/graph.json"]
     }
   }
 }

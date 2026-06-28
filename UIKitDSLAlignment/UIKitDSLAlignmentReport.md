@@ -1,8 +1,8 @@
 # UIKit DSL 对齐报告
 
 - 生成时间：2026-06-25 19:20:00
-- OC 工程：`/Users/jobs/Documents/Github/JobsOCBaseConfigDemo@ByPods`
-- Swift 工程：`/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsSwiftBaseConfigDemo`
+- OC 工程：`./..`
+- Swift 工程：`../../JobsBaseConfig/JobsBaseConfig@JobsSwiftBaseConfigDemo`
 - 扫描口径：OC 主口径为 `JobsOCDSL@Pods/Core/UIKit` 和 `JobsOCDSL@Pods/Support/UIKit`；Swift 口径为 `JobsSwiftDSL@Pods/UIKit/iOS.SDK` 加 `JobsByUIKit@Pods/iOS.SDK` 中的链式 UIKit 扩展。
 - 类型口径：正式报告只统计 `UI*` 类型，避免 `DateFormatter`、`AttributeContainer`、`Array` 等系统/工具扩展干扰 UIKit 主线；完整原始矩阵另存。
 - 归一化口径：按 `类名 + DSL 语义名` 对齐；`by` 前缀、`is` 前缀、`Cor/Color`、`Bg/Background` 做轻量归一化。
@@ -21,7 +21,7 @@
 - UI 类型方法项：2679
 - 原始系统/工具方法项：3095
 - UI 矩阵：`UIKitDSLAlignment/UIKitDSLAlignmentMatrix.csv`
-- 原始矩阵：`UIKitDSLAlignment/SystemDSLAlignmentRawMatrix.csv`
+- 原始矩阵：`UIKitDSLAlignment$SYSTEM_DIRDSLAlignmentRawMatrix.csv`
 
 ## 第一批重点类型
 
