@@ -27,8 +27,26 @@ def scripts_by_pods_script_path(script_name)
   File.expand_path(File.join(__dir__, 'ScriptsByPods', script_name, script_name))
 end
 
+def jobs_pod_install_pure_mode?
+  %w[
+    JOBS_POD_INSTALL_PURE
+    JOBS_POD_INSTALL_SKIP_EXTERNAL_SCRIPTS
+  ].any? do |key|
+    %w[1 true yes y on].include?(ENV.fetch(key, '').to_s.strip.downcase)
+  end
+end
+
+def skip_optional_podfile_enhancement(label)
+  return false unless jobs_pod_install_pure_mode?
+
+  Pod::UI.puts "[#{label}] pure mode skip optional enhancement" if defined?(Pod::UI)
+  true
+end
+
 # ===== PodspecDependencyReport: pod install 后自动生成 Podspec 依赖分析报告 =====
 def run_podspec_dependency_report_script
+  return if skip_optional_podfile_enhancement('PodspecDependencyReport')
+
   script_name = '【MacOS】🔍查询Xcode工程依赖关系.command'
   script_path = scripts_by_pods_script_path(script_name)
 
@@ -54,6 +72,8 @@ end
 
 # ===== CodeGraph: pod install 完成后在后台生成 CodeGraph 索引 =====
 def run_codegraph_init_script
+  return if skip_optional_podfile_enhancement('CodeGraph')
+
   script_name = 'codegraph_init.command'
   script_path = scripts_by_pods_script_path(script_name)
 
@@ -401,6 +421,10 @@ post_install do |installer|
 end
 
 post_integrate do |installer|
-  patch_pods_project_podfile_references(installer)
+  if skip_optional_podfile_enhancement('PodfileRefs')
+    Pod::UI.puts '[PodfileRefs] pure mode keeps CocoaPods generated project references unchanged' if defined?(Pod::UI)
+  else
+    patch_pods_project_podfile_references(installer)
+  end
   run_codegraph_init_script
 end
