@@ -17,6 +17,7 @@ Prop_strong()BaseButton *userHeadBtn;
 Prop_strong()UIButton *splashSwitchBtn;
 Prop_strong()UIButton *functionMenuBtn;
 Prop_strong()UITableView *functionMenuTableView;
+Prop_strong()UITapGestureRecognizer *functionMenuDismissTapGesture;
 Prop_strong()UIView *demoSearchHeaderView;
 Prop_strong()UISearchBar *demoSearchBar;
 /// Data
@@ -119,6 +120,7 @@ Prop_copy()NSString *demoSearchKeyword;
     self.tableView.byShow(self);
     [self foldDemoSectionsWithFirstUnfolded];
     self.functionMenuTableView.byHidden(YES);
+    self.functionMenuDismissTapGesture.byEnabled(YES);
     self.suspendBtn.byAlpha(1);
 
     self.objBlock = ^(id data) {
@@ -211,6 +213,7 @@ heightForFooterInSection:(NSInteger)section{
 
 - (UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section{
+    if (tableView == _functionMenuTableView) return nil;
     return UIView.new;
 }
 
@@ -406,6 +409,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byEstimatedRowHeight(0)
                 .byEstimatedSectionHeaderHeight(0)
                 .byEstimatedSectionFooterHeight(0)
+                .bySectionHeaderTopPadding(0)
+                .byTableHeaderView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+                    view.byFrame(CGRectMake(0, 0, 0, CGFLOAT_MIN));
+                }))
+                .byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+                    view.byFrame(CGRectMake(0, 0, 0, CGFLOAT_MIN));
+                }))
                 .byScrollEnabled(NO)
                 .byContentInset(UIEdgeInsetsZero)
                 .byScrollIndicatorInsets(UIEdgeInsetsZero)
@@ -414,13 +424,32 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byClipsToBounds(YES)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.top.equalTo(self.navBar.mas_bottom).offset(JobsWidth(6));
+                    make.top.equalTo(self.navBar.mas_bottom);
                     make.right.equalTo(self.view).offset(-JobsWidth(12));
                     make.width.mas_equalTo(self.functionMenuTableWidth);
                     make.height.mas_equalTo(self.functionMenuTableHeight);
                 });
         });
     };return _functionMenuTableView;
+}
+
+-(UITapGestureRecognizer *)functionMenuDismissTapGesture{
+    if (!_functionMenuDismissTapGesture) {
+        @jobs_weakify(self)
+        _functionMenuDismissTapGesture = [jobsMakeTapGesture(^(UITapGestureRecognizer * _Nullable gesture) {
+            gesture.byCancelsTouchesInView(NO);
+        }) GestureActionBy:^(__kindof UIGestureRecognizer * _Nullable gesture) {
+            @jobs_strongify(self)
+            if (self.functionMenuTableView.hidden) return;
+            CGPoint point = [gesture locationInView:self.view];
+            CGRect functionMenuButtonFrame = [self.functionMenuBtn convertRect:self.functionMenuBtn.bounds
+                                                                        toView:self.view];
+            if (CGRectContainsPoint(self.functionMenuTableView.frame, point) ||
+                CGRectContainsPoint(functionMenuButtonFrame, point)) return;
+            [self showFunctionMenu:NO];
+        }];
+        self.view.addGesture(_functionMenuDismissTapGesture);
+    };return _functionMenuDismissTapGesture;
 }
 
 -(UIView *)demoSearchHeaderView{
@@ -804,6 +833,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 model.byTitle(@"JobsLinkageMenuViewDemoVC".tr)
                      .bySubTitle(@"首页联动切换子页面：左侧 UIScrollView 菜单联动右侧 UIView 内容".tr)
                      .byCls(JobsLinkageMenuViewDemoVC.class);
+            })))
+            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                model.byTitle(@"JobsOCRefresher".tr)
+                     .bySubTitle(@"横向 / 纵向刷新与加载更多".tr)
+                     .byCls(JobsOCRefresherDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"JobsViewPushDemoVC".tr)

@@ -44,8 +44,8 @@ and extension points for Lottie, GIF, frame images, and network images.
   spec.subspec 'Core' do |ss|
     JobsPodspecKitForJobsOCRefresher.add_dynamic_support_dependencies(ss, spec, support_context)
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
+    ss.source_files        = ['JobsOCRefresher.h', 'Core/**/*.{h,m,mm}']
+    ss.public_header_files = ['JobsOCRefresher.h', 'Core/**/*.h']
     ss.resources           = 'Core/**/*.{png,jpg,jpeg,webp,gif,wav,mp3,caf,json,plist,xib,storyboard,bundle,xcassets,strings,stringsdict}'
     ss.header_dir          = 'JobsOCRefresher'
   end

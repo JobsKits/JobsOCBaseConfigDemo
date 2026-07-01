@@ -35,6 +35,7 @@ Prop_assign(readwrite) JobsOCRefreshState state;
 Prop_strong() UIActivityIndicatorView *indicatorView;
 Prop_strong() UIImageView *imageView;
 Prop_strong() UILabel *statusLabel;
+Prop_strong() UILabel *timePrefixLabel;
 Prop_strong() UILabel *timeLabel;
 Prop_strong(nullable) NSDate *lastRefreshedAt;
 Prop_strong(nullable) NSArray<UIImage *> *frameImages;
@@ -69,6 +70,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
         [self addSubview:self.indicatorView];
         [self addSubview:self.imageView];
         [self addSubview:self.statusLabel];
+        [self addSubview:self.timePrefixLabel];
         [self addSubview:self.timeLabel];
         [self applyState:JobsOCRefreshStateIdle progress:0];
     };return self;
@@ -84,6 +86,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
 
 - (void)applyState:(JobsOCRefreshState)state progress:(CGFloat)progress {
     self.state = state;
+    self.timePrefixLabel.hidden = YES;
     self.timeLabel.hidden = YES;
     switch (state) {
         case JobsOCRefreshStateIdle:
@@ -124,6 +127,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
         case JobsOCRefreshStateRemoved:
             [self stopVisualAnimating];
             self.statusLabel.text = nil;
+            self.timePrefixLabel.text = nil;
             self.timeLabel.text = nil;
             break;
     }
@@ -135,41 +139,82 @@ Prop_strong(nullable) JobsTimer *frameTimer;
     CGFloat iconSide = 20;
     CGFloat spacing = 8;
     BOOL horizontal = JobsOCRefreshPositionIsHorizontal(self.position);
-    self.imageView.frame = CGRectMake((CGRectGetWidth(self.bounds) - iconSide) * 0.5,
-                                      8,
-	                                      iconSide,
-	                                      iconSide);
-	    self.indicatorView.frame = self.imageView.frame;
+    CGFloat boundsW = CGRectGetWidth(self.bounds);
+    CGFloat boundsH = CGRectGetHeight(self.bounds);
+    if (horizontal) {
+        BOOL visualVisible = self.indicatorView.isAnimating || !self.imageView.hidden;
 #if JOBS_OC_REFRESH_HAS_LOTTIE
-	    self.lottieView.frame = self.imageView.frame;
+        visualVisible = visualVisible || (self.lottieView && !self.lottieView.hidden);
 #endif
-	    if (horizontal) {
-        CGFloat textY = CGRectGetMaxY(self.imageView.frame) + spacing;
-        CGFloat textH = MAX(10, CGRectGetHeight(self.bounds) - textY - 8);
-        self.statusLabel.frame = CGRectMake(6, textY, CGRectGetWidth(self.bounds) - 12, textH);
-        self.timeLabel.frame = CGRectMake(CGRectGetMidX(self.bounds),
-                                          textY,
-                                          CGRectGetWidth(self.bounds) * 0.5 - 6,
-                                          textH);
+        BOOL showsTime = !self.timeLabel.hidden && self.timeLabel.text.length;
+        CGSize statusSize = [self.statusLabel sizeThatFits:CGSizeMake(boundsW, CGFLOAT_MAX)];
+        CGSize prefixSize = showsTime ? [self.timePrefixLabel sizeThatFits:CGSizeMake(boundsW, CGFLOAT_MAX)] : CGSizeZero;
+        CGSize timeSize = showsTime ? [self.timeLabel sizeThatFits:CGSizeMake(boundsW, CGFLOAT_MAX)] : CGSizeZero;
+        CGFloat statusColumnW = MIN(boundsW, MAX(iconSide, ceil(statusSize.width)));
+        CGFloat prefixColumnW = showsTime ? MAX(0, ceil(prefixSize.width)) : 0;
+        CGFloat timeColumnW = showsTime ? MAX(0, ceil(timeSize.width)) : 0;
+        CGFloat textGap = 0;
+        if (showsTime && statusColumnW + textGap + prefixColumnW + textGap + timeColumnW > boundsW) {
+            timeColumnW = MAX(0, boundsW - statusColumnW - textGap - prefixColumnW - textGap);
+        }
+        CGFloat totalW = statusColumnW + (showsTime ? textGap + prefixColumnW + textGap + timeColumnW : 0);
+        CGFloat startX = MAX(0, (boundsW - totalW) * 0.5);
+        CGFloat iconH = visualVisible ? iconSide : 0;
+        CGFloat statusH = MIN(MAX(0, ceil(statusSize.height)), MAX(0, boundsH - iconH));
+        CGFloat prefixH = showsTime ? MIN(MAX(0, ceil(prefixSize.height)), MAX(0, boundsH - iconH)) : 0;
+        CGFloat timeH = showsTime ? MIN(MAX(0, ceil(timeSize.height)), MAX(0, boundsH - iconH)) : 0;
+        CGFloat textH = MAX(statusH, MAX(prefixH, timeH));
+        CGFloat stackH = iconH + textH;
+        CGFloat startY = MAX(0, (boundsH - stackH) * 0.5);
+        CGFloat statusY = startY + iconH;
+        CGRect iconFrame = CGRectMake(startX + (statusColumnW - iconSide) * 0.5,
+                                      startY,
+                                      iconSide,
+                                      iconSide);
+        self.imageView.frame = iconFrame;
+        self.indicatorView.frame = iconFrame;
+#if JOBS_OC_REFRESH_HAS_LOTTIE
+        self.lottieView.frame = iconFrame;
+#endif
+        self.statusLabel.frame = CGRectMake(startX,
+                                            statusY,
+                                            statusColumnW,
+                                            statusH);
+        self.timePrefixLabel.frame = CGRectMake(CGRectGetMaxX(self.statusLabel.frame) + textGap,
+                                                statusY,
+                                                prefixColumnW,
+                                                prefixH);
+        self.timeLabel.frame = CGRectMake(CGRectGetMaxX(self.timePrefixLabel.frame) + textGap,
+                                          statusY,
+                                          timeColumnW,
+                                          timeH);
     } else {
-        CGSize statusSize = [self.statusLabel sizeThatFits:CGSizeMake(CGRectGetWidth(self.bounds) - iconSide - spacing - 24,
-                                                                      CGFLOAT_MAX)];
-        CGFloat totalW = iconSide + spacing + statusSize.width;
-        CGFloat startX = (CGRectGetWidth(self.bounds) - totalW) * 0.5;
-	        CGFloat centerY = CGRectGetHeight(self.bounds) * 0.5;
-	        self.imageView.frame = CGRectMake(startX, centerY - iconSide * 0.5, iconSide, iconSide);
-	        self.indicatorView.frame = self.imageView.frame;
+        self.timePrefixLabel.frame = CGRectZero;
+        BOOL showsTime = !self.timeLabel.hidden && self.timeLabel.text.length;
+        CGFloat textMaxW = MAX(0, boundsW - iconSide - spacing - 24);
+        CGSize statusSize = [self.statusLabel sizeThatFits:CGSizeMake(textMaxW, CGFLOAT_MAX)];
+        CGSize timeSize = showsTime ? [self.timeLabel sizeThatFits:CGSizeMake(textMaxW, CGFLOAT_MAX)] : CGSizeZero;
+        CGFloat textW = MIN(textMaxW, MAX(ceil(statusSize.width), ceil(timeSize.width)));
+        CGFloat statusH = ceil(statusSize.height);
+        CGFloat timeH = showsTime ? ceil(timeSize.height) : 0;
+        CGFloat textH = statusH + timeH;
+        CGFloat totalW = iconSide + spacing + textW;
+        CGFloat startX = (boundsW - totalW) * 0.5;
+        CGFloat centerY = boundsH * 0.5;
+        CGFloat textY = centerY - textH * 0.5;
+        self.imageView.frame = CGRectMake(startX, centerY - iconSide * 0.5, iconSide, iconSide);
+        self.indicatorView.frame = self.imageView.frame;
 #if JOBS_OC_REFRESH_HAS_LOTTIE
-	        self.lottieView.frame = self.imageView.frame;
+        self.lottieView.frame = self.imageView.frame;
 #endif
-	        self.statusLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + spacing,
-                                            centerY - statusSize.height * 0.5,
-                                            statusSize.width,
-                                            statusSize.height);
+        self.statusLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + spacing,
+                                            textY,
+                                            textW,
+                                            statusH);
         self.timeLabel.frame = CGRectMake(CGRectGetMinX(self.statusLabel.frame),
                                           CGRectGetMaxY(self.statusLabel.frame),
-                                          CGRectGetWidth(self.statusLabel.frame),
-                                          18);
+                                          textW,
+                                          timeH);
     }
 }
 
@@ -364,21 +409,53 @@ Prop_strong(nullable) JobsTimer *frameTimer;
 
 - (void)updateTimeIfNeeded {
     if (self.role != JobsOCRefreshRoleRefresh || !self.lastRefreshedAt) return;
+    BOOL horizontal = JobsOCRefreshPositionIsHorizontal(self.position);
     NSDateFormatter *formatter = NSDateFormatter.new;
-    formatter.dateFormat = @"HH:mm";
+    formatter.dateFormat = horizontal ? @"HH:mm:ss" : @"HH:mm";
+    NSString *timeText = [formatter stringFromDate:self.lastRefreshedAt];
+    NSString *displayText = [NSString stringWithFormat:@"%@%@",
+                             self.config.lastRefreshPrefix,
+                             timeText];
+    self.timePrefixLabel.hidden = !horizontal;
+    self.timePrefixLabel.text = horizontal ? [self displayText:[self textByRemovingTrailingColon:self.config.lastRefreshPrefix]] : nil;
     self.timeLabel.hidden = NO;
-    self.timeLabel.text = [self displayText:[NSString stringWithFormat:@"%@%@",
-                                             self.config.lastRefreshPrefix,
-                                             [formatter stringFromDate:self.lastRefreshedAt]]];
+    self.timeLabel.text = horizontal ? [self horizontalTimeText:timeText] : [self displayText:displayText];
+}
+
+- (NSString *)horizontalTimeText:(NSString *)timeText {
+    NSMutableArray<NSString *> *rows = NSMutableArray.array;
+    NSArray<NSString *> *timeParts = [timeText componentsSeparatedByString:@":"];
+    for (NSUInteger index = 0; index < timeParts.count; index++) {
+        NSString *part = timeParts[index];
+        if (part.length) [rows addObject:part];
+        if (index + 1 < timeParts.count) [rows addObject:@".."];
+    };return [rows componentsJoinedByString:@"\n"];
+}
+
+- (NSString *)textByRemovingTrailingColon:(NSString *)text {
+    NSString *value = text ?: @"";
+    NSCharacterSet *blankSet = NSCharacterSet.whitespaceAndNewlineCharacterSet;
+    while (value.length) {
+        unichar character = [value characterAtIndex:value.length - 1];
+        if (character == ':' || character == 0xFF1A || [blankSet characterIsMember:character]) {
+            value = [value substringToIndex:value.length - 1];
+        } else {
+            break;
+        }
+    };return value;
+}
+
+- (NSArray<NSString *> *)horizontalRowsFromText:(NSString *)text {
+    NSMutableArray<NSString *> *rows = NSMutableArray.array;
+    for (NSUInteger index = 0; index < text.length; index++) {
+        [rows addObject:[text substringWithRange:NSMakeRange(index, 1)]];
+    };return rows.copy;
 }
 
 - (NSString *)displayText:(NSString *)text {
     if (!JobsOCRefreshPositionIsHorizontal(self.position)) return text;
-    NSMutableString *result = NSMutableString.string;
-    for (NSUInteger index = 0; index < text.length; index++) {
-        [result appendString:[text substringWithRange:NSMakeRange(index, 1)]];
-        if (index + 1 < text.length) [result appendString:@"\n"];
-    };return result;
+    if (!text.length) return text;
+    return [[self horizontalRowsFromText:text] componentsJoinedByString:@"\n"];
 }
 
 - (UIActivityIndicatorView *)indicatorView {
@@ -414,19 +491,30 @@ Prop_strong(nullable) JobsTimer *frameTimer;
     };return _statusLabel;
 }
 
+- (UILabel *)timePrefixLabel {
+    if (!_timePrefixLabel) {
+        _timePrefixLabel = [self buildTimeInfoLabel];
+    };return _timePrefixLabel;
+}
+
 - (UILabel *)timeLabel {
     if (!_timeLabel) {
-        _timeLabel = UILabel.new;
-        _timeLabel.font = [UIFont systemFontOfSize:12];
-        if (@available(iOS 13.0, *)) {
-            _timeLabel.textColor = UIColor.secondaryLabelColor;
-        } else {
-            _timeLabel.textColor = UIColor.lightGrayColor;
-        }
-        _timeLabel.textAlignment = NSTextAlignmentCenter;
-        _timeLabel.numberOfLines = 0;
-        _timeLabel.hidden = YES;
+        _timeLabel = [self buildTimeInfoLabel];
     };return _timeLabel;
+}
+
+- (UILabel *)buildTimeInfoLabel {
+    UILabel *label = UILabel.new;
+    label.font = [UIFont systemFontOfSize:12];
+    if (@available(iOS 13.0, *)) {
+        label.textColor = UIColor.secondaryLabelColor;
+    } else {
+        label.textColor = UIColor.lightGrayColor;
+    }
+    label.textAlignment = NSTextAlignmentCenter;
+    label.numberOfLines = 0;
+    label.hidden = YES;
+    return label;
 }
 
 @end

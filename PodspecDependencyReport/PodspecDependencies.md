@@ -5,15 +5,15 @@
 ## 🔥 <font id=前言>前言</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 此文件由脚本自动运行分析得出
-- 分析目录：`./..`
-- 生成时间：`2026-06-27 21:37:55`
+- 分析目录：`/Users/jobs/Documents/Github/JobsOCBaseConfigDemo@ByPods`
+- 生成时间：`2026-06-30 22:00:58`
 - Podspec 数量：`96`
 - 0 下游依赖 Pod 数量：`14`
 - 全部依赖边数量：`697`
 - 仓库内 Pod 依赖边数量：`548`
 - Pod 间循环依赖数量：`0`
 - 已过滤同 Pod 内部 subspec 依赖数量：`969`
-- 外部依赖来源注释文件数量：`41`
+- 外部依赖来源注释文件数量：`65`
 - 已识别外部依赖来源链接数量：`78`
 - DSL 执行式解析 Podspec 数量：`96`
 - 静态兜底解析 Podspec 数量：`0`

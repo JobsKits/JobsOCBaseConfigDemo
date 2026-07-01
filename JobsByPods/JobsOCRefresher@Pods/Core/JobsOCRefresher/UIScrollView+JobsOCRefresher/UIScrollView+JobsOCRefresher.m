@@ -43,6 +43,7 @@ Prop_copy() JobsOCRefreshActionBlock action;
 Prop_weak() UIScrollView *scrollView;
 Prop_assign() BOOL observing;
 Prop_assign() BOOL enablesHaptics;
+Prop_assign() BOOL usesCustomHapticsSetting;
 Prop_assign() JobsOCRefreshHorizontalMode horizontalMode;
 Prop_copy(nullable) NSString *soundName;
 Prop_strong(nullable) JobsOCRefreshSlot *header;
@@ -55,6 +56,9 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
 - (void)setSlot:(JobsOCRefreshSlot *)slot position:(JobsOCRefreshPosition)position;
 - (void)tick;
 - (void)playFeedbackForPosition:(JobsOCRefreshPosition)position;
+- (void)playHapticFeedback;
+- (void)playSoundNamed:(NSString *)soundName;
+- (NSURL *)soundURLForName:(NSString *)soundName;
 
 @end
 
@@ -342,21 +346,53 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
 }
 
 - (void)playFeedbackForPosition:(JobsOCRefreshPosition)position {
-    if (self.enablesHaptics) {
-        if (@available(iOS 10.0, *)) {
-            UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
-            [generator prepare];
-            [generator impactOccurred];
-        }
+    JobsOCRefreshSlot *slot = [self slotForPosition:position];
+    JobsOCRefreshConfig *config = slot.component.config;
+    BOOL enablesHaptics = self.usesCustomHapticsSetting ? self.enablesHaptics : config.enablesHaptics;
+    if (enablesHaptics) {
+        [self playHapticFeedback];
     }
-    if (!self.soundName.length) return;
-    NSString *base = self.soundName.stringByDeletingPathExtension.length ? self.soundName.stringByDeletingPathExtension : self.soundName;
-    NSString *ext = self.soundName.pathExtension.length ? self.soundName.pathExtension : @"wav";
-    NSURL *url = [NSBundle.mainBundle URLForResource:base withExtension:ext];
+    NSString *soundName = config.soundName.length ? config.soundName : self.soundName;
+    if (soundName.length) [self playSoundNamed:soundName];
+}
+
+- (void)playHapticFeedback {
+    if (@available(iOS 10.0, *)) {
+        UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
+        [generator prepare];
+        [generator impactOccurred];
+    } else {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    }
+}
+
+- (void)playSoundNamed:(NSString *)soundName {
+    NSURL *url = [self soundURLForName:soundName];
     if (!url) return;
     SystemSoundID soundID = 0;
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &soundID);
-    AudioServicesPlaySystemSound(soundID);
+    OSStatus status = AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &soundID);
+    if (status != kAudioServicesNoError || !soundID) return;
+    if (@available(iOS 9.0, *)) {
+        AudioServicesPlaySystemSoundWithCompletion(soundID, ^{
+            AudioServicesDisposeSystemSoundID(soundID);
+        });
+    } else {
+        AudioServicesPlaySystemSound(soundID);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)),
+                       dispatch_get_main_queue(), ^{
+            AudioServicesDisposeSystemSoundID(soundID);
+        });
+    }
+}
+
+- (NSURL *)soundURLForName:(NSString *)soundName {
+    if (!soundName.length) return nil;
+    if ([NSFileManager.defaultManager fileExistsAtPath:soundName]) {
+        return [NSURL fileURLWithPath:soundName];
+    }
+    NSString *base = soundName.stringByDeletingPathExtension.length ? soundName.stringByDeletingPathExtension : soundName;
+    NSString *ext = soundName.pathExtension.length ? soundName.pathExtension : @"wav";
+    return [NSBundle.mainBundle URLForResource:base withExtension:ext];
 }
 
 @end
@@ -381,11 +417,12 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
 }
 
 - (__kindof UIScrollView *)jobs_enableRefreshHaptics:(BOOL)enable {
+    self.jobs_refreshProxy.usesCustomHapticsSetting = YES;
     self.jobs_refreshProxy.enablesHaptics = enable;
     return self;
 }
 
-- (__kindof UIScrollView *)jobs_setRefreshSound:(NSString *)soundName {
+- (__kindof UIScrollView *)jobs_setRefreshSound:(nullable NSString *)soundName {
     self.jobs_refreshProxy.soundName = soundName;
     return self;
 }

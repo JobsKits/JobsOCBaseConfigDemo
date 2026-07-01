@@ -18,7 +18,8 @@
   - `JobsOCRefreshHorizontalModeRefreshRightLoadLeft`：右拉刷新，左拉加载更多。
   - `JobsOCRefreshHorizontalModeLoadRightRefreshLeft`：右拉加载更多，左拉刷新。
 - 状态机覆盖 `idle`、`pulling`、`ready`、`refreshing`、`ending`、`failed`、`disabled`、`noMoreData`、`removed`。
-- 默认皮肤支持横向竖排文案、最近一次刷新时间、系统菊花、GIF、连续静态图、网络图片入口。
+- 默认皮肤支持横向竖排文案、最近一次刷新时间、系统菊花、GIF、连续静态图、网络图片入口；横向最近更新时间会拆成前缀列和时间列，时间按时 / 分 / 秒分行显示，分隔符用 `..` 横向呈现。
+- 默认配置开启刷新触发时的震动反馈，可用 `jobs_enableRefreshHaptics:NO` 显式关闭；声音反馈可通过 `soundName` 或 `jobs_setRefreshSound` 指定主 bundle 内音频资源。
 
 ## 二、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -30,10 +31,18 @@ JobsOCRefresher@Pods
 ├── README.md
 └── Core
     └── JobsOCRefresher
-        ├── JobsOCRefreshDefines.h/.m
-        ├── JobsOCRefreshConfig.h/.m
-        ├── JobsOCRefreshComponent.h/.m
-        └── UIScrollView+JobsOCRefresher.h/.m
+        ├── JobsOCRefreshDefines
+        │   ├── JobsOCRefreshDefines.h
+        │   └── JobsOCRefreshDefines.m
+        ├── JobsOCRefreshConfig
+        │   ├── JobsOCRefreshConfig.h
+        │   └── JobsOCRefreshConfig.m
+        ├── JobsOCRefreshComponent
+        │   ├── JobsOCRefreshComponent.h
+        │   └── JobsOCRefreshComponent.m
+        └── UIScrollView+JobsOCRefresher
+            ├── UIScrollView+JobsOCRefresher.h
+            └── UIScrollView+JobsOCRefresher.m
 ```
 
 ## 三、安装方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -90,8 +99,25 @@ JobsOCRefresher@Pods
 }];
 ```
 
+### 4.3、震动 / 声音反馈
+
+```objc
+JobsOCRefreshConfig *config = JobsOCRefreshConfig.defaultHeaderConfig;
+config.enablesHaptics = YES;
+config.soundName = @"refresh.wav";
+
+[tableView jobs_byRefreshHeaderWithConfig:config
+                                   action:^{
+    [tableView jobs_switchRefreshAt:JobsOCRefreshPositionHeader
+                             toState:JobsOCRefreshStateIdle];
+}];
+
+[[tableView jobs_enableRefreshHaptics:YES] jobs_setRefreshSound:@"refresh.wav"];
+```
+
 ## 五、公开能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
+- `JobsOCRefresher.h`：聚合头，随 `Core` 子规格一起进入 Public Headers，外部固定通过 `<JobsOCRefresher/JobsOCRefresher.h>` 引用。
 - `JobsOCRefreshDefines`：方向、位置、语义、横向模式、状态、动画类型。
 - `JobsOCRefreshConfig`：触发距离、组件长度、文案、声音、震动、动画资源配置。
 - `JobsOCRefreshComponent`：默认皮肤视图，可继续替换为自定义组件。
