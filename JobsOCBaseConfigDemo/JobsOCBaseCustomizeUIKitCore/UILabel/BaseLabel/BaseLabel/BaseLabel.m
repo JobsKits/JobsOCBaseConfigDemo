@@ -178,10 +178,10 @@ UILocationProtocol_synthesize
     newRect.origin.x += self.jobsOffsetY;
     if (isValue(self.text)) {
         [super drawTextInRect:UIEdgeInsetsInsetRect(newRect, self.edgeInsets)];
-        self.isVisible = YES;
+        self.jobsVisible = YES;
     } else {
         [super drawTextInRect:UIEdgeInsetsInsetRect(newRect, UIEdgeInsetsZero)];
-        self.isVisible = NO;
+        self.jobsVisible = NO;
     }
 }
 #pragma mark —— LazyLoad

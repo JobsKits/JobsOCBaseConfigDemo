@@ -104,7 +104,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(void)tableView:(UITableView *)tableView
  willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath{
-    cell.alpha = self.isVisible;
+    cell.alpha = self.viewModel.isVisible;
 }
 #pragma mark —— lazyLoad
 /// BaseViewProtocol
@@ -148,7 +148,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                             }
                         }
                     }
-                    self.isVisible = YES;
+                    self.viewModel.byIsVisible(YES);
                     if (self.dataMutArr.count) {
                         self->_tableView.endRefreshing(self.dataMutArr.count);
                     }else{

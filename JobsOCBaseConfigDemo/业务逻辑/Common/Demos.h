@@ -37,6 +37,7 @@
 #import "JXCategoryViewVerticalShowVC.h"
 #import "JobsVerticalMenuMainVC.h"
 #import "JobsLinkageMenuViewDemoVC.h"
+#import "JobsOCRefresherDemoVC.h"
 #import "TestBaseLabelVC.h"
 #import "RandomTestVC.h"
 #import "NSTimerManagerTestVC.h"

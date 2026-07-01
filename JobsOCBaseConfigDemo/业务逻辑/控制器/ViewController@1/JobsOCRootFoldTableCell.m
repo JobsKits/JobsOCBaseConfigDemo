@@ -33,8 +33,45 @@ Prop_copy()jobsByNSIntegerBlock selectBlock;
     return JobsWidth(8);
 }
 
++(UIFont *)titleFont{
+    return UIFontWeightMediumSize(16);
+}
+
++(UIFont *)subTitleFont{
+    return UIFontWeightRegularSize(12);
+}
+
++(CGFloat)headerTitleTop{
+    return JobsWidth(11);
+}
+
++(CGFloat)headerTitleGap{
+    return JobsWidth(5);
+}
+
++(CGFloat)headerTitleBottom{
+    return JobsWidth(10);
+}
+
++(CGFloat)headerSubTitleTop{
+    return self.headerTitleTop + self.titleHeight + self.headerTitleGap;
+}
+
++(CGFloat)titleHeight{
+    return ceil(self.titleFont.lineHeight);
+}
+
++(CGFloat)subTitleHeight{
+    return ceil(self.subTitleFont.lineHeight);
+}
+
 +(CGFloat)headerHeight{
-    return JobsWidth(56);
+    CGFloat textHeight = self.headerTitleTop +
+                         self.titleHeight +
+                         self.headerTitleGap +
+                         self.subTitleHeight +
+                         self.headerTitleBottom;
+    return MAX(JobsWidth(64), textHeight);
 }
 
 +(CGFloat)innerTop{
@@ -255,14 +292,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UILabel *)titleLab{
     if (!_titleLab) {
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.byFont(UIFontWeightMediumSize(16))
+            label.byFont(JobsOCRootFoldTableCell.titleFont)
                 .byNumberOfLines(1)
-                .byAdjustsFontSizeToFitWidth(YES)
+                .byLineBreakMode(NSLineBreakByTruncatingTail)
+                .byAdjustsFontSizeToFitWidth(NO)
+                .byMinimumScaleFactor(1)
                 .addOn(self.headerView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(self.headerView).offset(JobsWidth(16));
                     make.right.lessThanOrEqualTo(self.chevronView.mas_left).offset(-JobsWidth(10));
-                    make.top.equalTo(self.headerView).offset(JobsWidth(10));
+                    make.top.equalTo(self.headerView).offset(JobsOCRootFoldTableCell.headerTitleTop);
+                    make.height.mas_equalTo(JobsOCRootFoldTableCell.titleHeight);
                 });
         });
     };return _titleLab;
@@ -271,13 +311,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UILabel *)subTitleLab{
     if (!_subTitleLab) {
         _subTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.byFont(UIFontWeightRegularSize(12))
+            label.byFont(JobsOCRootFoldTableCell.subTitleFont)
                 .byNumberOfLines(1)
+                .byLineBreakMode(NSLineBreakByTruncatingTail)
+                .byAdjustsFontSizeToFitWidth(NO)
+                .byMinimumScaleFactor(1)
                 .addOn(self.headerView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(self.titleLab);
                     make.right.lessThanOrEqualTo(self.chevronView.mas_left).offset(-JobsWidth(10));
-                    make.bottom.equalTo(self.headerView).offset(-JobsWidth(9));
+                    make.top.equalTo(self.headerView).offset(JobsOCRootFoldTableCell.headerSubTitleTop);
+                    make.height.mas_equalTo(JobsOCRootFoldTableCell.subTitleHeight);
                 });
         });
     };return _subTitleLab;
