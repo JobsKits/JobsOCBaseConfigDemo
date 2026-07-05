@@ -22,6 +22,12 @@
 #import "JobsMakes.h"
 #endif
 
+#if __has_include(<ZFPlayerExtra/ZFPlayerExtra.h>)
+#import <ZFPlayerExtra/ZFPlayerExtra.h>
+#else
+#import "ZFPlayerExtra.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -45,6 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobsPlayerTBVCell : UITableViewCell<BaseCellProtocol>
 
 -(ZFPlayerController *)getPlayer;
+-(void)stopPlayer;
 
 @end
 

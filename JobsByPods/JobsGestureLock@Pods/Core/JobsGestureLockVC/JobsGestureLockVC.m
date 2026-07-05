@@ -10,12 +10,6 @@
 #import <JobsGestureLock/JobsGestureLockResource.h>
 #import <JobsGestureLock/JobsGestureLockStorage.h>
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 @interface JobsGestureLockVC ()
 
 Prop_assign()JobsGestureLockMode mode;
@@ -89,11 +83,9 @@ Prop_assign()NSInteger remainingRetryCount;
 
     self.statusLabel.frame = CGRectMake((width - 220.0) * 0.5, CGRectGetMaxY(self.indicatorView.frame) + 18.0, 220.0, 24.0);
 
-
     CGFloat lockSide = width;
     CGFloat lockY = CGRectGetHeight(self.view.bounds) - lockSide - 60.0 - buttonHeight - safeBottom;
     self.lockView.frame = CGRectMake(0.0, MAX(CGRectGetMaxY(self.statusLabel.frame) + 20.0, lockY), lockSide, lockSide);
-
 
     CGFloat bottomY = CGRectGetHeight(self.view.bounds) - safeBottom - 20.0 - buttonHeight;
     self.otherAccountButton.frame = CGRectMake(horizontalMargin, bottomY, buttonWidth, buttonHeight);

@@ -6,8 +6,6 @@
 //
 
 #import "UIDevice+XMUtils.h"
-#import <sys/sysctl.h>
-#import <sys/utsname.h>
 #import <JobsOCDefs/MacroDef_Strong@Weak.h>
 
 @implementation UIDevice (JobsOCDefsXMUtils)

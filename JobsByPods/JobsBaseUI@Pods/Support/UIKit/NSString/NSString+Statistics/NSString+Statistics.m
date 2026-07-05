@@ -65,9 +65,9 @@
             // 创建段落样式，设置行间距
             attributedText.addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
                 data.value = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data1) {
-                    data1.lineSpacing = lineSpacing;
-                    data1.alignment = NSTextAlignmentLeft; // 设置对齐方式为左对齐
-                    data1.lineBreakMode = NSLineBreakByWordWrapping; // 设置换行模式为单词换行
+                    data1.byLineSpacing(lineSpacing)
+                        .byAlignment(NSTextAlignmentLeft) // 设置对齐方式为左对齐
+                        .byLineBreakMode(NSLineBreakByWordWrapping); // 设置换行模式为单词换行
                 });
                 data.byRange(NSMakeRange(0, self.length));
             }));
@@ -108,7 +108,7 @@
             // 创建段落样式，设置行间距
             attributedText.addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
                 data.value = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data1) {
-                    data1.lineSpacing = lineSpacing;
+                    data1.byLineSpacing(lineSpacing);
                 });
                 data.byRange(NSMakeRange(0, self.length));
             }));

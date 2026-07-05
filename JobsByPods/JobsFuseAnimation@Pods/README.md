@@ -15,6 +15,7 @@
 - 外圈使用 `CAShapeLayer` 画在视图自身 `bounds` 内侧，`masksToBounds` 场景仍可见。
 - 增长阶段由 `CADisplayLink` 驱动，松手后按当前进度退潮到 0，再短暂淡出移除。
 - `JobsFuseOuterRingConfig` 提供链式配置入口。
+- `byFuseTapScale` 提供点击后先放大再回弹的按钮反馈动画。
 - 当前 Pod 不依赖 Jobs 其它本地 Pod，方便同时接入新旧 OC 项目。
 
 ## 二、接入示例 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

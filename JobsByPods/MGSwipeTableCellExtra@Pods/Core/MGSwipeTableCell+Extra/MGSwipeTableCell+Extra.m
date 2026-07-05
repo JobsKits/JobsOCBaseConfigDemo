@@ -9,4 +9,22 @@
 
 @implementation MGSwipeTableCell (Extra)
 
+-(JobsRetMGSwipeTableCellByDelegateBlock _Nonnull)byDelegate{
+    @jobs_weakify(self)
+    return ^__kindof MGSwipeTableCell *_Nonnull(id<MGSwipeTableCellDelegate> _Nullable delegate) {
+        @jobs_strongify(self)
+        self.delegate = delegate;
+        return self;
+    };
+}
+
+-(JobsRetMGSwipeTableCellByBOOLBlock _Nonnull)byAllowsMultipleSwipe{
+    @jobs_weakify(self)
+    return ^__kindof MGSwipeTableCell *_Nullable(BOOL data) {
+        @jobs_strongify(self)
+        self.allowsMultipleSwipe = data;
+        return self;
+    };
+}
+
 @end

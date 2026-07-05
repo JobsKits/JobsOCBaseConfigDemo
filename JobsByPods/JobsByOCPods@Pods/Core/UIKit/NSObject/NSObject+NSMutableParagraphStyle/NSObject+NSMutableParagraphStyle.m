@@ -11,19 +11,19 @@
 /// 居左对齐
 -(NSMutableParagraphStyle *)jobsParagraphStyleLeft{
     return jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-        data.alignment = NSTextAlignmentLeft;
+        data.byAlignment(NSTextAlignmentLeft);
     });
 }
 /// 居中对齐
 -(NSMutableParagraphStyle *)jobsParagraphStyleCenter{
     return jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-        data.alignment = NSTextAlignmentCenter;
+        data.byAlignment(NSTextAlignmentCenter);
     });
 }
 /// 居右对齐
 -(NSMutableParagraphStyle *)jobsParagraphStyleRight{
     return jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-        data.alignment = NSTextAlignmentRight;
+        data.byAlignment(NSTextAlignmentRight);
     });
 }
 /// 文本两端对齐（文本自动填充到文本框的两侧，可以在每行的开头和结尾添加额外的空格或调整字母间距，以实现两端对齐效果）
@@ -35,7 +35,7 @@
          这种效果在某些书籍、杂志和印刷品中可能会看到，但在移动应用程序和Web页面中相对较少使用
      */
     return jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-        data.alignment = NSTextAlignmentJustified;
+        data.byAlignment(NSTextAlignmentJustified);
     });
 }
 /// 主要用于支持多语言和本地化的应用，以确保文本对齐方式在不同语言环境下都是合适的。
@@ -45,7 +45,7 @@
      这意味着文本的对齐方式将根据文本的语言和用户的本地化设置来自动确定。
      */
     return jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-        data.alignment = NSTextAlignmentNatural;
+        data.byAlignment(NSTextAlignmentNatural);
     });
 }
 /// 通过NSTextAlignment映射NSParagraphStyle *

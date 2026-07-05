@@ -17,11 +17,11 @@
                                     usingBlock:^(NSNotification * _Nonnull notification) {
         @jobs_strongify(self)
 //        NSString *notificationName = notification.name;
-        if (objc_getAssociatedObject(self, _avPlayerManager)) {
+        if (Jobs_getAssociatedObject(_avPlayerManager)) {
             [self.avPlayerManager stop];
         }
-#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>)
-        if (objc_getAssociatedObject(self, _ijkPlayerManager)) {
+#if !TARGET_OS_SIMULATOR
+        if (Jobs_getAssociatedObject(_ijkPlayerManager)) {
             [self.ijkPlayerManager stop];
         }
 #endif
@@ -33,7 +33,7 @@ JobsKey(_playerCtr)
 -(ZFPlayerController *)playerCtr{
     ZFPlayerController *PlayerCtr = Jobs_getAssociatedObject(_playerCtr);
     if (!PlayerCtr) {
-        if (objc_getAssociatedObject(self, _avPlayerManager)) {
+        if (Jobs_getAssociatedObject(_avPlayerManager)) {
             @jobs_weakify(self)
             PlayerCtr = [ZFPlayerController.alloc initWithPlayerManager:self.avPlayerManager
                                                           containerView:self];
@@ -46,8 +46,8 @@ JobsKey(_playerCtr)
             }];
         }
         
-#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>)
-        if (objc_getAssociatedObject(self, _ijkPlayerManager)) {
+#if !TARGET_OS_SIMULATOR
+        if (Jobs_getAssociatedObject(_ijkPlayerManager)) {
             @jobs_weakify(self)
             PlayerCtr = [ZFPlayerController.alloc initWithPlayerManager:self.ijkPlayerManager
                                                           containerView:self];
@@ -74,11 +74,11 @@ JobsKey(_avPlayerManager)
     ZFAVPlayerManager *AVPlayerManager = Jobs_getAssociatedObject(_avPlayerManager);
     if (!AVPlayerManager) {
         AVPlayerManager = jobsMakeZFAVPlayerManager(^(__kindof ZFAVPlayerManager * _Nullable data) {
-            data.shouldAutoPlay = YES;
+            data.byShouldAutoPlay(YES);
     //        {
     //            NSString *str = @"https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/feature/iphone-x-feature-tpl-cc-us-20170912_1280x720h.mp4";//苹果官方给出的测试地址
-    //            data.assetURL = str.jobsUrl;
-    //            data.assetURL = @"iph_X.mp4".pathForResourceWithFullName.jobsUrl;
+    //            data.byAssetURL(str.jobsUrl);
+    //            data.byAssetURL(@"iph_X.mp4".pathForResourceWithFullName.jobsUrl);
     //        }
         });Jobs_setAssociatedRETAIN_NONATOMIC(_avPlayerManager, AVPlayerManager)
     };return AVPlayerManager;
@@ -88,7 +88,7 @@ JobsKey(_avPlayerManager)
     Jobs_setAssociatedRETAIN_NONATOMIC(_avPlayerManager, avPlayerManager)
 }
 #pragma mark —— @property(nonatomic,strong,nullable)ZFIJKPlayerManager *ijkPlayerManager;//ZFPlayer的作者告诉我：如果要兼容FLV流视频格式请用这个
-#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>)
+#if !TARGET_OS_SIMULATOR
 JobsKey(_ijkPlayerManager)
 @dynamic ijkPlayerManager;
 -(ZFIJKPlayerManager *)ijkPlayerManager{

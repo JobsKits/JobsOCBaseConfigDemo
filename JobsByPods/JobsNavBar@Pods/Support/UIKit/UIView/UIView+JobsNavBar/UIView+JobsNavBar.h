@@ -24,16 +24,22 @@
 #import "JobsBaseProtocolHeader.h"
 #endif
 
-#if __has_include(<JobsAppTools/JobsAppTools.h>)
-#import <JobsAppTools/JobsAppTools.h>
+#if __has_include(<JobsAppTools/JobsAppToolsHeader.h>)
+#import <JobsAppTools/JobsAppToolsHeader.h>
 #else
-#import "JobsAppTools.h"
+#import "JobsAppToolsHeader.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

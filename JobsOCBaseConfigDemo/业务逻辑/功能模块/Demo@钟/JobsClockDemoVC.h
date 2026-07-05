@@ -25,10 +25,10 @@
 #import "JobsLanMgr.h"
 #endif
 
-#if __has_include(<JobsClockView/JobsClockView.h>)
-#import <JobsClockView/JobsClockView.h>
+#if __has_include(<JobsClockView/JobsClockViewHeader.h>)
+#import <JobsClockView/JobsClockViewHeader.h>
 #else
-#import "JobsClockView.h"
+#import "JobsClockViewHeader.h"
 #endif
 
 

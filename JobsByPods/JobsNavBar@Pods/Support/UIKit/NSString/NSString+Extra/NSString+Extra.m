@@ -100,7 +100,7 @@
     if([nullableString isKindOfClass:NSString.class]){
         NSString *str = (NSString *)nullableString;
         /// 过滤特殊字符：空格
-        str = [str stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];// 有空格，去除空格
+        str = str.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);// 有空格，去除空格
         return str.length == 0 ? replaceString : str;
     }
 

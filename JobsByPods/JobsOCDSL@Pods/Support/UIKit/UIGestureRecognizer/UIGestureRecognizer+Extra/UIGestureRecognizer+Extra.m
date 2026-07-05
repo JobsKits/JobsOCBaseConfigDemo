@@ -7,31 +7,30 @@
 
 #import "UIGestureRecognizer+Extra.h"
 
-static const void *JobsOCDSLGestureTargetKey = &JobsOCDSLGestureTargetKey;
-static const void *JobsOCDSLGestureVoidBlockKey = &JobsOCDSLGestureVoidBlockKey;
-static const void *JobsOCDSLGestureRecognizerBlockKey = &JobsOCDSLGestureRecognizerBlockKey;
-
+JobsKey(JobsOCDSLGestureTargetKey)
+JobsKey(JobsOCDSLGestureVoidBlockKey)
+JobsKey(JobsOCDSLGestureRecognizerBlockKey)
 @implementation UIGestureRecognizer (Extra)
 
 -(__kindof UIGestureRecognizer *)gestureActionBy:(jobsByVoidBlock _Nonnull)block{
     self.target = self;
-    objc_setAssociatedObject(self, JobsOCDSLGestureVoidBlockKey, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    Jobs_setAssociatedCOPY_NONATOMIC(JobsOCDSLGestureVoidBlockKey, block)
     [self addTarget:self action:@selector(jobs_ocdsl_handleGestureAction:)];
     return self;
 }
 
 -(__kindof UIGestureRecognizer *)GestureActionBy:(jobsByGestureRecognizerBlock _Nonnull)block{
     self.target = self;
-    objc_setAssociatedObject(self, JobsOCDSLGestureRecognizerBlockKey, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    Jobs_setAssociatedCOPY_NONATOMIC(JobsOCDSLGestureRecognizerBlockKey, block)
     [self addTarget:self action:@selector(jobs_ocdsl_handleGestureAction:)];
     return self;
 }
 
 -(void)jobs_ocdsl_handleGestureAction:(__kindof UIGestureRecognizer *)gesture{
-    jobsByVoidBlock voidBlock = objc_getAssociatedObject(self, JobsOCDSLGestureVoidBlockKey);
+    jobsByVoidBlock voidBlock = Jobs_getAssociatedObject(JobsOCDSLGestureVoidBlockKey);
     if (voidBlock) voidBlock();
 
-    jobsByGestureRecognizerBlock gestureBlock = objc_getAssociatedObject(self, JobsOCDSLGestureRecognizerBlockKey);
+    jobsByGestureRecognizerBlock gestureBlock = Jobs_getAssociatedObject(JobsOCDSLGestureRecognizerBlockKey);
     if (gestureBlock) gestureBlock(gesture);
 }
 
@@ -55,14 +54,11 @@ static const void *JobsOCDSLGestureRecognizerBlockKey = &JobsOCDSLGestureRecogni
 
 @dynamic target;
 -(id)target{
-    return objc_getAssociatedObject(self, JobsOCDSLGestureTargetKey);
+    return Jobs_getAssociatedObject(JobsOCDSLGestureTargetKey);
 }
 
 -(void)setTarget:(id)target{
-    objc_setAssociatedObject(self,
-                             JobsOCDSLGestureTargetKey,
-                             target,
-                             OBJC_ASSOCIATION_ASSIGN);
+    Jobs_setAssociatedASSIGN(JobsOCDSLGestureTargetKey, target)
 }
 
 @end

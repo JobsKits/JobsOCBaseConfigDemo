@@ -14,10 +14,10 @@
 #import <_ctype.h> // 引入字符分类与大小写转换等 C 标准字符处理相关的内部定义
 #import <JobsAPIs/NSString+Replace.h>
 
-#if __has_include(<JobsStringUtils/JobsStringUtils.h>)
-#import <JobsStringUtils/JobsStringUtils.h>
+#if __has_include(<JobsStringUtils/JobsStringUtilsHeader.h>)
+#import <JobsStringUtils/JobsStringUtilsHeader.h>
 #else
-#import "JobsStringUtils.h"
+#import "JobsStringUtilsHeader.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

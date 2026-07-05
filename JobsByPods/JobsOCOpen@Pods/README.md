@@ -41,7 +41,7 @@ JobsOCOpen@Pods/
 ├── JobsPodspecKit.rb
 ├── LICENSE
 ├── README.md
-└── Core/
+├── Core/
     ├── JobsOCOpener.h
     ├── JobsOCOpener.m
     ├── JobsOCOpenConfiguration.h
@@ -52,12 +52,18 @@ JobsOCOpen@Pods/
     ├── NSObject+JobsOCOpen.m
     ├── NSString+JobsOCOpen.h
     └── NSString+JobsOCOpen.m
+└── Support/
+    └── UIKit/
+        └── NSString/
+            └── NSString+Sys/
+                ├── NSString+Sys.h
+                └── NSString+Sys.m
 ```
 
 ## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Core` 暴露配置对象、打开器、应用内 WebVC 和字符串便捷分类。
-- 当前没有 `Support` 目录；后续如果增加内部解析器、代理托管类或兼容实现，优先放入 `Support`，不要泄漏到公开头。
+- `Support` 当前包含 `NSString+Sys`，只为当前 Pod 内部提供 `byTrimmingCharactersInSet` 字符串裁剪 DSL，不回引 `JobsByOCPods`。
 - `JobsOCOpen.h` 是公开聚合入口，外部引用不应绕开入口头直接引内部文件。
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

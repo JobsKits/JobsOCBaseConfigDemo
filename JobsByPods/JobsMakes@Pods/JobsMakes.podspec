@@ -27,7 +27,6 @@ UIKit/Foundation categories, and common model base classes for Jobs projects.
   # 编译出来的模块名
   spec.module_name  = 'JobsMakes'
 
-  spec.default_subspecs = 'Core'
 
   JobsPodspecKitForJobsMakes.apply_standard_exclude_files(spec)
 
@@ -48,17 +47,21 @@ UIKit/Foundation categories, and common model base classes for Jobs projects.
 
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsOCKeyboardMgr'
 
   JobsPodspecKitForJobsMakes.apply_standard_xcconfig(spec)
 
   JobsPodspecKitForJobsMakes.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsMakes.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsMakes.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsMakes.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsMakes'
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.dependency 'JobsMakes/Support/UIKit'
-  end
+
 end

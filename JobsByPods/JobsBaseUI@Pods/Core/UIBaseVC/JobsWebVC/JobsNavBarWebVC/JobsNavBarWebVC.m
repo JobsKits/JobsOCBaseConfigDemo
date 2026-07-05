@@ -32,14 +32,14 @@ Prop_copy()NSString *URL;
 
 -(void)loadView{
     [super loadView];
-    
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
+    id<BaseProtocol> baseProtocolSelf = (id<BaseProtocol>)self;
+    if ([baseProtocolSelf.requestParams isKindOfClass:UIViewModel.class]) {
+        self.viewModel = (UIViewModel *)baseProtocolSelf.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
-    }else if ([self.requestParams isKindOfClass:NSString.class]){
-        self.URL = (NSString *)self.requestParams;
+    }else if ([baseProtocolSelf.requestParams isKindOfClass:NSString.class]){
+        self.URL = (NSString *)baseProtocolSelf.requestParams;
     }else{}
     
     self.setupNavigationBarHidden = YES;

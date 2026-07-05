@@ -18,6 +18,7 @@
 #import <GKCustomNavigationBarExtra/NSString+Check.h>
 #import <GKCustomNavigationBarExtra/UIButton+SimplyMake.h>
 #import <GKCustomNavigationBarExtra/UIImpactFeedbackGenerator+Extra.h>
+#import <GKCustomNavigationBarExtra/NSString+Sys.h>
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
@@ -43,10 +44,10 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsStringUtils/JobsStringUtils.h>)
-#import <JobsStringUtils/JobsStringUtils.h>
+#if __has_include(<JobsStringUtils/JobsStringUtilsHeader.h>)
+#import <JobsStringUtils/JobsStringUtilsHeader.h>
 #else
-#import "JobsStringUtils.h"
+#import "JobsStringUtilsHeader.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)

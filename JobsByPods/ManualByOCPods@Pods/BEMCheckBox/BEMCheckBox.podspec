@@ -14,8 +14,6 @@ BEMCheckBox is an open source checkbox UIControl for iOS, written in Objective-C
   spec.platform     = :ios, '9.0'
   spec.requires_arc = true
 
-  spec.default_subspecs = 'Core'
-
   spec.frameworks = [
     'QuartzCore',
     'Foundation',
@@ -92,17 +90,18 @@ BEMCheckBox is an open source checkbox UIControl for iOS, written in Objective-C
     '*.7z'
   ]
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files = 'Core/**/*.{h,m}'
-
-    ss.public_header_files = [
-      'Core/BEMCheckBox/BEMCheckBox.h',
-      'Core/BEMCheckBoxGroup/BEMCheckBoxGroup.h'
-    ]
-
-    ss.private_header_files = [
-      'Core/BEMAnimationManager/*.h',
-      'Core/BEMPathManager/*.h'
-    ]
-  end
+  spec.source_files = [
+    'BEMCheckBoxHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'BEMCheckBoxHeader.h',
+    'Core/BEMCheckBox/BEMCheckBox.h',
+    'Core/BEMCheckBoxGroup/BEMCheckBoxGroup.h'
+  ]
+  spec.private_header_files = [
+    'Core/BEMAnimationManager/*.h',
+    'Core/BEMPathManager/*.h'
+  ]
+  spec.header_dir = 'BEMCheckBox'
 end

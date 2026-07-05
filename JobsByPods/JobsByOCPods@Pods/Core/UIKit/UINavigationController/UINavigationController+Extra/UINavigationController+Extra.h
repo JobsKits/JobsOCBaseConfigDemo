@@ -10,10 +10,10 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<JobsNavigationTransitionMgr/JobsNavigationTransitionMgr.h>)
-#import <JobsNavigationTransitionMgr/JobsNavigationTransitionMgr.h>
+#if __has_include(<JobsNavigationTransitionMgr/JobsNavigationTransitionMgrHeader.h>)
+#import <JobsNavigationTransitionMgr/JobsNavigationTransitionMgrHeader.h>
 #else
-#import "JobsNavigationTransitionMgr.h"
+#import "JobsNavigationTransitionMgrHeader.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

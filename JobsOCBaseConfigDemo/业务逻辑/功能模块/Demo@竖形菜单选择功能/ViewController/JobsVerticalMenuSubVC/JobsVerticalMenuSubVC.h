@@ -31,9 +31,13 @@
 #import "JobsDefines.h"
 #endif
 
+#import "JobsVerticalMenuSubView.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsVerticalMenuSubVC : BaseViewController
+/// 对应左侧栏目下标
+Prop_assign()NSUInteger contentIndex;
 
 @end
 

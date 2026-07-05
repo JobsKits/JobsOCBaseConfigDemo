@@ -72,18 +72,21 @@ JobsBlock@Pods/
 - `JobsOCDSL` 新增系统类 DSL 时，所需 `JobsRet<Class>By<Type>Block` 统一先在 `ReturnByCertainParametersBlock.h` 查找；缺失时补在这里，避免 DSL 头文件私自定义 Block。
 - `JobsBlock.h` 暴露 `JobsRetUIViewModelByJobsByTextModelBlockBlock`、`JobsRetUIButtonModelByJobsByTextModelBlockBlock` 等嵌套 Model 配置返回类型，用于 `JobsModelDSL` 在大 Model 里回调配置子 Model 后继续返回自身。
 - `JobsBlock.h` / `ReturnByCertainParametersBlock.h` 暴露 `FSCalendar` 子对象配置相关 Block 类型，用于 `JobsOCDSL` 在 `appearance`、`calendarHeaderView`、`swipeToChooseGesture` 回调配置后继续返回主 `FSCalendar`。
+- `JobsBlock.h` / `ReturnByCertainParametersBlock.h` 统一承接 `JobsOCDSL` 第三方 DSL 所需 Block typedef，包括 `YTKNetwork`、`GKNavigationBar`、`ZFPlayer`、`Texture` 的链式配置返回类型。
 - `HXPhotoPickerObjC` 相关 DSL 需要的 `HXPhotoView`、`HXPhotoManager`、`HXPhotoConfiguration` Block 别名统一在 `JobsBlock.h` 暴露，协议 / 类向前声明集中放在 `JobsBlockHeader.h`。
 - `JobsOCTimerMgr` 相关 DSL 的 `JobsTimerMgr` 与内部 `_JobsTimerMgrEntry` 返回型 Block 统一由 `JobsBlock.h` 管理，相关类向前声明集中放在 `JobsBlockHeader.h`。
 - `VoidByCertainParametersBlock.h` 暴露常用数据容器配置 Block，包括 `jobsByMutableIndexSetBlock`，供 `JobsMakes` 创建可变索引集合时复用。
 - `JobsBlockHeader.h` 集中维护向前声明，避免 `@class` / `@protocol` 分散在业务头文件中。
+- `JobsBlockHeader.h` 对 `YTKNetwork`、`GKNavigationBar`、`ZFPlayer`、`Texture` 采用条件导入和能力宏；`JobsBlock.podspec` 不因此强制新增这些第三方依赖。
 
 ### 5.2、源码入口
 
 - `Core/**/*.{h,m,mm}`
 
-### 5.3、默认 subspec
+### 5.3、默认安装边界
 
-- `Core`
+- `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
+- `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
 ### 5.4、系统框架
 
@@ -115,7 +118,7 @@ JobsBlock@Pods/
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 当前目录扫描到资源类文件 0 个，`Resources` 目录文件 0 个。
+- 当前目录扫描到资源类文件 0 个，`Resource` 目录文件 0 个。
 - podspec 资源声明如下：
 
 - podspec 未显式声明 `resources`，如新增图片、xib、bundle、json、plist 等资源，需要同步补齐。
@@ -144,6 +147,7 @@ pod install --no-repo-update
 - `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
+- 第三方 DSL Block typedef 只在对应第三方头文件可见时启用；调用方应由 `JobsOCDSL` 这类上层 Pod 持有第三方依赖，不要反向要求 `JobsBlock` 兜底安装所有第三方 Pod。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -6,20 +6,20 @@
 //
 
 #import "JobsResponseModel+YTKNetwork.h"
-#import <objc/runtime.h>
 
 @implementation JobsResponseModel (YTKNetwork)
+JobsKey(_code)
+@dynamic code;
 
 -(HTTPResponseCode)code{
-    NSNumber *code = objc_getAssociatedObject(self, @selector(code));
+    NSNumber *code = Jobs_getAssociatedObject(_code);
     return (HTTPResponseCode)code.integerValue;
 }
 
 -(void)setCode:(HTTPResponseCode)code{
-    objc_setAssociatedObject(self, @selector(code), @(code), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(_code, @(code))
     @jobs_weakify(self)
-    [(id<YTKNetworkProtocols>)self jobsHandelHTTPResponseCode:code
-                                                  actionBlock:^(HTTPResponseCode data) {
+    [(id<YTKNetworkProtocols>)self jobsHandelHTTPResponseCode:code actionBlock:^(HTTPResponseCode data) {
         @jobs_strongify(self)
         if(data == HTTPResponseCodeNoOK) toastBy(self.msg);
     }];

@@ -28,19 +28,17 @@
 
     self.view.byBgColor(UIColor.lightGrayColor);
     self.setupAppearanceByNavigationBar(self.navigationController.navigationBar); // 1. 外观：背景图、底色、tintColor 等
-    [self setupNavigationTitle];
-                                                  // 2. 标题：普通 + 富文本
-    [self setupLeftBackItem];
-                                                     // 3. 左侧自定义返回键
-    [self setupRightItems];
-                                                       // 4. 右侧自定义按钮
+    [self setupNavigationTitle];                                                  // 2. 标题：普通 + 富文本
+    [self setupLeftBackItem];                                                     // 3. 左侧自定义返回键
+    [self setupRightItems];                                                       // 4. 右侧自定义按钮
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     [self.navigationController setNavigationBarHidden:NO animated:NO];
-    UINavigationBar.appearance.byHidden(NO);
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    if (navigationBar) navigationBar.byHidden(NO);
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -124,15 +122,12 @@
                      .byTargetString(@"合理".tr)
                      .byTextBgCor(JobsBrownColor);
                 data1.paragraphStyle = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data2) {
-                    data2.alignment = NSTextAlignmentJustified;
-                    data2.paragraphSpacing = 0;
-         // 段距，取值 float
-                    data2.paragraphSpacingBefore = 0;   // 段首空间，取值 float
-                    data2.firstLineHeadIndent = 0.0;    // 首行缩进，取值 float
-                    data2.headIndent = 0.0;
-             // 整体缩进(首行除外)，取值 float
-                    data2.lineSpacing = 0;
-              // 行距，取值 float
+                    data2.byAlignment(NSTextAlignmentJustified)
+                        .byParagraphSpacing(0) // 段距，取值 float
+                        .byParagraphSpacingBefore(0) // 段首空间，取值 float
+                        .byFirstLineHeadIndent(0.0) // 首行缩进，取值 float
+                        .byHeadIndent(0.0) // 整体缩进(首行除外)，取值 float
+                        .byLineSpacing(0); // 行距，取值 float
                 });
             }));
             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
@@ -162,23 +157,26 @@
 - (void)setupLeftBackItem {
     // 隐藏系统默认返回按钮（如果当前不是根控制器）
     self.navigationItem.hidesBackButton = YES;
+    @jobs_weakify(self)
     self.navigationItem.leftBarButtonItem =
     UIButton
         .jobsInit()
-        .bgColorBy(JobsGreenColor)
+        .bgColorBy(JobsClearColor)
         .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
         .jobsResetImagePadding(1)
         .jobsResetBtnImage(@"chevron.backward".sys_img)
         .jobsResetBtnTitle(@"返回")
-        .jobsResetBtnTitleCor(JobsWhiteColor)
+        .jobsResetBtnTitleCor(JobsBlackColor)
         .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
         .onClickBy(^(UIButton *x){
+            @jobs_strongify(self)
             NSLog(@"👉 点击了左侧『返回』按钮");
+            self.goBack(x);
         })
         .onLongPressGestureBy(^(id data){
             NSLog(@"👉 长按了左侧『返回』按钮");
         })
-        .bySize(CGSizeMake(30, 30))
+        .bySize(CGSizeMake(JobsWidth(62), JobsWidth(32)))
         .barBtnItem;
 //    UIImage *backImage = @"nav_back".img;
 //    if (!backImage) {
@@ -208,10 +206,11 @@
                                               action:nil]
                 .byRacCommand([RACCommand.alloc initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
                     NSLog(@"👉 点击了右侧『hi』按钮");
+                    toastBy(@"点击了右侧『hi』按钮".tr);
                     return [RACSignal empty];
                 }]))
         .add(UIButton.jobsInit()
-             .bgColorBy(JobsGreenColor)
+             .bgColorBy(JobsClearColor)
              .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
              .jobsResetImagePadding(1)
              .jobsResetBtnImage(@"bell".sys_img)
@@ -221,11 +220,12 @@
              .onClickBy(^(UIButton *x){
                  @jobs_strongify(self)
                  NSLog(@"👉 点击了右侧『铃铛』按钮");
+                 toastBy(@"点击了右侧『铃铛』按钮".tr);
              })
              .onLongPressGestureBy(^(id data){
                  NSLog(@"👉 长按了右侧『铃铛』按钮");
              })
-             .bySize(CGSizeMake(30, 30)).barBtnItem);
+             .bySize(CGSizeMake(JobsWidth(44), JobsWidth(32))).barBtnItem);
     });
 }
 #pragma mark —— （可选）状态栏样式

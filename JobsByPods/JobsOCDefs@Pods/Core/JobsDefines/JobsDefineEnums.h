@@ -14,6 +14,7 @@
 #import <JobsOCDefs/JobsDefineBizEnums.h>         // 业务相关
 #import <JobsOCDefs/JobsDefineCALayerEnums.h>     // CALayer
 #import <JobsOCDefs/JobsDefineSysEnums.h>         // 系统相关
+#import <JobsOCDefs/JobsDefineKeyboardEnums.h>    // 键盘相关
 #import <JobsOCDefs/JobsDefineDirectionEnums.h>   // 🧭方向相关
 #import <JobsOCDefs/JobsDefineOrderEnums.h>       // 订单相关
 #import <JobsOCDefs/JobsDefineUsrEnums.h>         // 用户相关（账户、KYC、会员）

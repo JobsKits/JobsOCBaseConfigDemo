@@ -21,36 +21,27 @@ It provides device type mapping, battery state, disk space and Apple Pencil supp
   spec.requires_arc     = true
 
   spec.source_files = [
-    'DeviceKitObjc.h'
+    'DeviceKitObjc.h',
+    'Core/**/*.{h,m,mm}'
   ]
 
   spec.public_header_files = [
-    'DeviceKitObjc.h'
+    'DeviceKitObjc.h',
+    'Core/**/*.h'
   ]
+  spec.header_dir = 'DeviceKit'
 
   spec.resource_bundles = {
     'DeviceKitResources' => [
-      'PrivacyInfo.xcprivacy'
+      'Resource/PrivacyInfo.xcprivacy'
     ]
   }
 
-  spec.default_subspecs = 'Core'
-
-  spec.subspec 'Core' do |ss|
-    ss.source_files = [
-      'Core/**/*.{h,m,mm}'
-    ]
-
-    ss.public_header_files = [
-      'Core/**/*.h'
-    ]
-
-    ss.ios.frameworks      = ['Foundation', 'UIKit']
-    ss.tvos.frameworks     = ['Foundation', 'UIKit']
-    ss.visionos.frameworks = ['Foundation', 'UIKit']
-    ss.watchos.frameworks  = ['Foundation']
-    ss.osx.frameworks      = ['Foundation']
-  end
+  spec.ios.frameworks      = ['Foundation', 'UIKit']
+  spec.tvos.frameworks     = ['Foundation', 'UIKit']
+  spec.visionos.frameworks = ['Foundation', 'UIKit']
+  spec.watchos.frameworks  = ['Foundation']
+  spec.osx.frameworks      = ['Foundation']
 
   spec.exclude_files = [
     # macOS

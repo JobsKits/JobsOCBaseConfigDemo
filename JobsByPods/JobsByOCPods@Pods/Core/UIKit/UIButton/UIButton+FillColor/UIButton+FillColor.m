@@ -9,17 +9,14 @@
 
 @implementation UIButton (FillColor)
 #pragma mark —— Associated Object (titleName)
-static const void *kUIButtonTitleNameKey = &kUIButtonTitleNameKey;
+JobsKey(kUIButtonTitleNameKey)
 @dynamic titleName;
 - (void)setTitleName:(NSString *)titleName {
-    objc_setAssociatedObject(self,
-                             kUIButtonTitleNameKey,
-                             titleName,
-                             OBJC_ASSOCIATION_COPY_NONATOMIC);
+    Jobs_setAssociatedCOPY_NONATOMIC(kUIButtonTitleNameKey, titleName)
 }
 
 - (NSString *)titleName {
-    return objc_getAssociatedObject(self, kUIButtonTitleNameKey);
+    return Jobs_getAssociatedObject(kUIButtonTitleNameKey);
 }
 #pragma mark —— Background Color For State
 - (void)by_setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state {

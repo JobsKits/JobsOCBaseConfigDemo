@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetValueByPointBlock _Nonnull)byScale;
 -(JobsRetValueByCGFloatBlock _Nonnull)byRotate;
 -(JobsRetValueByAffineTransformBlock _Nonnull)byConcat;
-@property(nonatomic, assign, readonly) CGAffineTransform byCGAffineTransformValue;
+Prop_assign(readonly)CGAffineTransform byCGAffineTransformValue;
 
 @end
 NS_ASSUME_NONNULL_END

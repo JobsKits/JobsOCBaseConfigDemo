@@ -43,7 +43,7 @@ JobsKey(_stopScrolling)
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        RACDisposable *disposable = objc_getAssociatedObject(self, @selector(stopScrolling));
+        RACDisposable *disposable = Jobs_getAssociatedObject(_stopScrolling);
         if (disposable) {
             [disposable dispose];
             Jobs_setAssociatedRETAIN_NONATOMIC(_stopScrolling, nil);
@@ -94,7 +94,6 @@ JobsKey(_stopScrolling)
             [scrollView setContentOffset:CGPointMake(offsetX, 0) animated:NO];
         }];
         /// 保存 disposable，以便手动停止
-        objc_setAssociatedObject(self, @selector(stopScrolling), disposable, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         Jobs_setAssociatedRETAIN_NONATOMIC(_stopScrolling, disposable);
         return disposable;
     };

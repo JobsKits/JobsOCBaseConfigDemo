@@ -7,7 +7,6 @@
 
 #import "TDMapCellNode.h"
 
-#if HAS_MAPKIT
 @interface TDMapCellNode ()
 
 @end
@@ -39,4 +38,3 @@
 }
 
 @end
-#endif

@@ -91,11 +91,11 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    /// self.tbvCell_cls没有值的时候等于调用 JobsDropDownListTBVCell.cellHeightByModel(nil)
-    NSNumber *d = [NSObject methodName:@"cellHeightByModel:"
-                             targetObj:self.tbvCell_cls ? self.tbvCell_cls.class : JobsDropDownListTBVCell.class
-                           paramarrays:nil];
-    return d.floatValue;
+    Class <UITableViewCellProtocol> cellCls = self.tbvCell_cls ? : JobsDropDownListTBVCell.class;
+    if ([cellCls respondsToSelector:@selector(cellHeightByModel)]) {
+        JobsRetCGFloatByIDBlock cellHeightBlock = [cellCls cellHeightByModel];
+        if (cellHeightBlock) return cellHeightBlock(self.dataMutArr[indexPath.row]);
+    };return JobsDropDownListTBVCell.cellHeightByModel(self.dataMutArr[indexPath.row]);
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -145,11 +145,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                         .makeLabelByShowingType(UILabelShowingType_03);
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .byShowsVerticalScrollIndicator(NO)
+                .byBgColor(JobsWhiteColor)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
                     make.edges.equalTo(self);
                 });
+            tableView.layer.cornerRadius = JobsWidth(14);
+            tableView.layer.masksToBounds = YES;
         });
     };return _tableView;
 }

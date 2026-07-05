@@ -9,6 +9,7 @@
 
 @interface PointLabTestVC ()
 /// UI
+Prop_strong()UIView *contentView;
 Prop_strong()UILabel *label2;
 /// Data
 Prop_strong()NSMutableAttributedString *attributedString;
@@ -25,9 +26,30 @@ Prop_copy()NSString *dot;
     JobsLog(@"%@",JobsLocalFunc);
 }
 
+-(void)loadView{
+    [super loadView];
+    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+        self.viewModel = (UIViewModel *)self.requestParams;
+        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+            self.pushOrPresent = self.viewModel.pushOrPresent;
+        }
+    }
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(@"文字前面小圆点".tr);
+            data.byFont(UIFontWeightRegularSize(18));
+        })
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1));
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
+    self.contentView.byAlpha(1);
     self.label.byAlpha(1);
     self.label2.byAlpha(1);
 }
@@ -36,6 +58,21 @@ Prop_copy()NSString *dot;
 //    self.invokeSysCamera();
 //}
 #pragma mark —— lazyLoad
+-(UIView *)contentView{
+    if(!_contentView){
+        @jobs_weakify(self)
+        _contentView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            @jobs_strongify(self)
+            view
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.center.equalTo(self.view);
+                    make.width.mas_equalTo(200);
+                });
+        });
+    };return _contentView;
+}
+
 @synthesize label = _label;
 -(UILabel *)label{
     if(!_label){
@@ -46,10 +83,9 @@ Prop_copy()NSString *dot;
                 .byAttributedString(self.attributedString)
                 .byNumberOfLines(0)
                 .byBgColor(JobsRandomColor)
-                .addOn(self.view)
+                .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.width.mas_equalTo(200);
-                    make.center.equalTo(self.view);
+                    make.top.left.right.equalTo(self.contentView);
                 })
                 .makeLabelByShowingType(UILabelShowingType_05);
         });
@@ -65,11 +101,10 @@ Prop_copy()NSString *dot;
                 .byAttributedString(self.attributedString2)
                 .byNumberOfLines(0)
                 .byBgColor(JobsRandomColor)
-                .addOn(self.view)
+                .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.width.mas_equalTo(200);
-                    make.centerX.equalTo(self.view);
                     make.top.equalTo(self.label.mas_bottom);
+                    make.left.right.bottom.equalTo(self.contentView);
                 })
                 .makeLabelByShowingType(UILabelShowingType_05);
         });
@@ -95,8 +130,8 @@ Prop_copy()NSString *dot;
             /// 设置段落
             .addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable model) {
                 model.value = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-                    data.headIndent = 10; // 设置文本的缩进，使其与圆点对齐
-                    data.firstLineHeadIndent = 0; // 第一行不缩进
+                    data.byHeadIndent(10) // 设置文本的缩进，使其与圆点对齐
+                        .byFirstLineHeadIndent(0); // 第一行不缩进
                 });
                 model.byRange(NSMakeRange(0, attributedLength));
             }))
@@ -156,8 +191,8 @@ Prop_copy()NSString *dot;
         _attributedString2.addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
             @jobs_strongify(self)
             data1.value = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-                data.headIndent = 10; // 设置文本的缩进，使其与圆点对齐
-                data.firstLineHeadIndent = 0; // 第一行不缩进
+                data.byHeadIndent(10) // 设置文本的缩进，使其与圆点对齐
+                    .byFirstLineHeadIndent(0); // 第一行不缩进
             });data1.range = NSMakeRange(0, self->_attributedString2.length);
         }));
     };return _attributedString2;

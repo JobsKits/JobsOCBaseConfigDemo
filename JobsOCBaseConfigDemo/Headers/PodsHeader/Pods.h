@@ -280,10 +280,10 @@
 #import "AYCheckManager.h"
 #endif
 
-#if __has_include(<BEMCheckBox/BEMCheckBox.h>)
-#import <BEMCheckBox/BEMCheckBox.h>
+#if __has_include(<BEMCheckBox/BEMCheckBoxHeader.h>)
+#import <BEMCheckBox/BEMCheckBoxHeader.h>
 #else
-#import "BEMCheckBox.h"
+#import "BEMCheckBoxHeader.h"
 #endif
 
 #if __has_include(<Shimmer/FBShimmering.h>)

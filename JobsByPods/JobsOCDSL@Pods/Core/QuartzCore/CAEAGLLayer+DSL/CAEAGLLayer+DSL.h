@@ -8,15 +8,11 @@
 #ifndef JOBS_HEADER_GUARD_CAEAGLLAYER_DSL_A6F3C2D1
 #define JOBS_HEADER_GUARD_CAEAGLLAYER_DSL_A6F3C2D1
 
-#import "CALayer+DSL.h"
-
-#if __has_include(<QuartzCore/CAEAGLLayer.h>)
 #import <QuartzCore/CAEAGLLayer.h>
-#endif
+#import "CALayer+DSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-#if __has_include(<QuartzCore/CAEAGLLayer.h>)
 @interface CAEAGLLayer (JobsChain)
 
 #pragma mark —— Geometry
@@ -38,7 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCAEAGLLayerByBOOLBlock _Nonnull)byPresentsWithTransaction;
 
 @end
-#endif /* __has_include(<QuartzCore/CAEAGLLayer.h>) */
 
 NS_ASSUME_NONNULL_END
 #endif /* JOBS_HEADER_GUARD_CAEAGLLAYER_DSL_A6F3C2D1 */

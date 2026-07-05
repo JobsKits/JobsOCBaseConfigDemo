@@ -45,6 +45,7 @@
 ```text
 JobsGetWindow@Pods/
 ├── JobsGetWindow.podspec  # Pod 描述文件
+├── JobsGetWindow.h  # 根聚合头文件
 ├── README.md  # 当前自述
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
 ├── Core/  # 公开 API 与核心实现，1 个文件
@@ -66,15 +67,18 @@ JobsGetWindow@Pods/
 
 ### 5.1、公开头文件
 
+- `JobsGetWindow.h`
 - `Core/**/*.h`
 
 ### 5.2、源码入口
 
+- `JobsGetWindow.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.3、默认 subspec
+### 5.3、默认安装边界
 
-- `Core`
+- `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
+- `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
 ### 5.4、系统框架
 
@@ -90,19 +94,19 @@ JobsGetWindow@Pods/
 推荐在 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 代码里使用保护性引用，优先走 [**CocoaPods**](https://cocoapods.org/) 生成的公共头映射：
 
 ```objc
-#if __has_include(<JobsGetWindow/window.h>)
-#import <JobsGetWindow/window.h>
+#if __has_include(<JobsGetWindow/JobsGetWindow.h>)
+#import <JobsGetWindow/JobsGetWindow.h>
 #else
-#import "window.h"
+#import "JobsGetWindow.h"
 #endif
 ```
 
 - 自建 Pod 对外优先引用公共入口头，不要绕开聚合头直接引用 `Support` 内部子头。
-- 如果 `window.h` 不是最终公开入口，请先修正 `JobsGetWindow.podspec` 的 `public_header_files` 和入口头设计，再修改调用方。
+- `JobsGetWindow.h` 是统一公开入口；调用方不绕开聚合头引用 `Core` 内部子头。
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 当前目录扫描到资源类文件 0 个，`Resources` 目录文件 0 个。
+- 当前目录扫描到资源类文件 0 个，`Resource` 目录文件 0 个。
 - podspec 资源声明如下：
 
 - podspec 未显式声明 `resources`，如新增图片、xib、bundle、json、plist 等资源，需要同步补齐。

@@ -16,46 +16,20 @@ JobsImageNumberView is a component for displaying numbers using images.
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = [
-    'Core',
-    'Resource'
+  spec.frameworks = [
+    'Foundation',
+    'UIKit'
   ]
-
-  spec.subspec 'Core' do |core|
-    core.frameworks = [
-      'Foundation',
-      'UIKit'
-    ]
-
-    core.source_files = [
-      'Core/**/*.{h,m,mm}'
-    ]
-
-    core.public_header_files = [
-      'Core/**/*.h'
-    ]
-
-    core.pod_target_xcconfig = {
-      'DEFINES_MODULE' => 'YES',
-      'HEADER_SEARCH_PATHS' => '$(inherited) "$(PODS_TARGET_SRCROOT)/**"',
-      'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
-    }
-
-    core.user_target_xcconfig = {
-      'HEADER_SEARCH_PATHS' => '$(inherited) "$(PODS_ROOT)/Headers/Public/JobsImageNumberView/**"',
-      'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
-    }
-  end
-
-  spec.subspec 'Resource' do |resource|
-    resource.resources = [
-      'Resource/**/*.xcassets'
-    ]
-
-    resource.preserve_paths = [
-      'Resource/**/*'
-    ]
-  end
+  spec.source_files = [
+    'JobsImageNumberViewHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsImageNumberViewHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsImageNumberView'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
 
   JobsPodspecKitForJobsImageNumberView.apply_standard_exclude_files(
     spec,
@@ -110,11 +84,6 @@ JobsImageNumberView is a component for displaying numbers using images.
     ]
   )
 
-  spec.frameworks = [
-    'Foundation',
-    'UIKit'
-  ]
-
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsBlock'
@@ -122,5 +91,7 @@ JobsImageNumberView is a component for displaying numbers using images.
   spec.dependency 'JobsBaseUI'
   spec.dependency 'JobsByOCPods'
   spec.dependency 'JobsOCProtocols'
+
+  JobsPodspecKitForJobsImageNumberView.apply_standard_xcconfig(spec)
 
 end

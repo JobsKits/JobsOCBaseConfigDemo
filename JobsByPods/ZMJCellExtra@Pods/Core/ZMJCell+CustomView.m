@@ -7,12 +7,6 @@
 
 #import "ZMJCell+CustomView.h"
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 @implementation ZMJCell (CustomView)
 #pragma mark —— Prop_strong()UIButton *btn;
 JobsKey(_btn)

@@ -24,15 +24,7 @@ and loading accessories on top of YTKNetwork.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
 
-  spec.source_files = [
-    'YTKNetworkExtra.h'
-  ]
-
-  spec.public_header_files = [
-    'YTKNetworkExtra.h'
-  ]
 
   spec.frameworks = [
     'Foundation',
@@ -42,39 +34,34 @@ and loading accessories on top of YTKNetwork.
   JobsPodspecKitForYTKNetworkExtra.apply_standard_exclude_files(spec)
   JobsPodspecKitForYTKNetworkExtra.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForYTKNetworkExtra.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'YTKNetworkExtra.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'YTKNetworkExtra.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'YTKNetworkExtra'
 
-    ss.source_files = [
-      'Core/**/*.{h,m,mm}'
-    ]
 
-    ss.public_header_files = [
-      'Core/**/*.h'
-    ]
+  spec.frameworks = [
+    'Foundation',
+    'UIKit'
+  ]
 
-    ss.header_dir = 'YTKNetworkExtra'
-
-    ss.frameworks = [
-      'Foundation',
-      'UIKit'
-    ]
-
-    ss.dependency 'JobsModelDSL'
-    ss.dependency 'JobsMakes'
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'YTKNetwork'
-    ss.dependency 'MJExtension'
-    ss.dependency 'AFNetworking'
-    ss.dependency 'WHToastExtra'
-    ss.dependency 'JobsTimeUtils'
-    ss.dependency 'JobsOCProtocols'
-    ss.dependency 'JobsStringUtils'
-    ss.dependency 'JobsLanMgr'
-    ss.dependency 'YTKNetworkExtra/Support'
-  end
+  spec.dependency 'JobsModelDSL'
+  spec.dependency 'JobsMakes'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'YTKNetwork'
+  spec.dependency 'MJExtension'
+  spec.dependency 'AFNetworking'
+  spec.dependency 'WHToastExtra'
+  spec.dependency 'JobsTimeUtils'
+  spec.dependency 'JobsOCProtocols'
+  spec.dependency 'JobsStringUtils'
+  spec.dependency 'JobsLanMgr'
 
   JobsPodspecKitForYTKNetworkExtra.apply_standard_xcconfig(spec)
 

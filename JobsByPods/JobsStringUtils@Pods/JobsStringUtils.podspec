@@ -17,7 +17,6 @@ JobsStringUtils provides NSString related utility methods.
   spec.source           = { :path => '.' }
   spec.module_name      = 'JobsStringUtils'
 
-  spec.default_subspecs = 'Core'
 
   JobsPodspecKitForJobsStringUtils.apply_standard_exclude_files(spec)
 
@@ -26,10 +25,16 @@ JobsStringUtils provides NSString related utility methods.
     'UIKit'
   ]
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-  end
+  spec.source_files = [
+    'JobsStringUtilsHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsStringUtilsHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsStringUtils'
+
 
   JobsPodspecKitForJobsStringUtils.apply_standard_xcconfig(
     spec,

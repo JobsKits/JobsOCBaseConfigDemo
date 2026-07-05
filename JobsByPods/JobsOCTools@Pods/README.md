@@ -48,8 +48,8 @@ JobsOCTools@Pods/
 ├── README.md  # 当前自述
 ├── JobsOCTools.h  # 根入口头文件
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
-├── Core/  # 公开 API 与核心实现，321 个文件
-├── Support/  # 内部支撑层，2 个文件
+├── Core/  # 公开 API 与核心实现，332 个文件
+├── Support/  # 内部支撑层，4 个文件
 └── LICENSE  # 许可证文件
 ```
 
@@ -59,8 +59,9 @@ JobsOCTools@Pods/
 
 ## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 当前包含 321 个文件，其中源码 / 头文件 186 个；按 Jobs 规范，它是 `JobsOCTools` 对外公开 API 和核心实现的边界。
-- `Support` 当前包含 2 个文件，其中源码 / 头文件 2 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
+- `Core` 当前包含 332 个文件，其中源码 / 头文件 180 个；按 Jobs 规范，它是 `JobsOCTools` 对外公开 API 和核心实现的边界。
+- `Support` 当前包含 4 个文件，其中源码 / 头文件 4 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
+- `Support/UIKit/NSString/NSString+Sys` 提供当前 Pod 内部使用的 `byTrimmingCharactersInSet` 字符串裁剪 DSL，不回引 `JobsByOCPods`。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
 
@@ -75,10 +76,12 @@ JobsOCTools@Pods/
 
 - `JobsOCTools.h`
 - `Core/**/*.{h,m,mm}`
+- `Core/在指定的y区间内滑动视图/JobsScrollYView` 的拖拽位移会写入 `jobsPoint`，实现层必须承接 `UILocationProtocol_synthesize`，避免运行时缺失 `setJobsPoint:`。
 
-### 5.3、默认 subspec
+### 5.3、默认安装边界
 
-- `Core`
+- `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
+- `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
 ### 5.4、系统框架
 
@@ -108,6 +111,7 @@ JobsOCTools@Pods/
 - `JobsCryptography`
 - `JobsStringUtils`
 - `JobsOCTimer`
+- `JobsCountdownBtn`
 - `JobsSuspend`
 - `JobsByOCPods`
 - `JobsAppTools`
@@ -135,6 +139,8 @@ JobsOCTools@Pods/
 - `JobsLoadingImage`
 - `JobsOCRuntimeKits`
 - `JobsLanMgr`
+- `JobsOCCountryCodeCtrl`
+- `JobsFuseAnimation`
 - `XYColorOC`
 
 ## 六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -154,7 +160,7 @@ JobsOCTools@Pods/
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 当前目录扫描到资源类文件 88 个，`Resources` 目录文件 0 个。
+- 当前目录扫描到资源类文件 88 个，`Resource` 目录文件 0 个。
 - podspec 资源声明如下：
 
 - podspec 未显式声明 `resources`，如新增图片、xib、bundle、json、plist 等资源，需要同步补齐。

@@ -34,7 +34,6 @@ JobsAppTools is a local Objective-C utility component library for Jobs projects.
   spec.source           = { :path => '.' }
   spec.module_name      = 'JobsAppTools'
 
-  spec.default_subspecs = 'Core'
 
   JobsPodspecKitForJobsAppTools.apply_standard_exclude_files(spec)
 
@@ -44,23 +43,24 @@ JobsAppTools is a local Objective-C utility component library for Jobs projects.
   ]
   JobsPodspecKitForJobsAppTools.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsAppTools.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsAppToolsHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsAppToolsHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsAppTools'
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources           = 'Core/**/*.{png,jpg,jpeg,gif,xib,nib,storyboard,xcassets}'
 
-    ss.dependency 'JobsAppTools/Support'
-    ss.dependency 'JobsModelDSL'
-    ss.dependency 'JobsOCDSL'
-    ss.dependency 'JobsMakes'
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsOCProtocols'
-    ss.dependency 'JobsLanMgr'
-  end
+  spec.dependency 'JobsModelDSL'
+  spec.dependency 'JobsOCDSL'
+  spec.dependency 'JobsMakes'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsOCProtocols'
+  spec.dependency 'JobsLanMgr'
 
   JobsPodspecKitForJobsAppTools.apply_standard_xcconfig(
     spec,

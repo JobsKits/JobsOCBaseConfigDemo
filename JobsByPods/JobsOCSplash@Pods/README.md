@@ -53,7 +53,7 @@ JobsOCSplashConfiguration *configuration = [JobsOCSplashConfiguration localImage
 
 - `JobsOCSplash.h`：公开聚合头。
 - `Core/JobsOCSplash`：配置、动作、展示控制器、缓存、GIF 解码、本地化。
-- `Resources/*.lproj`：跳过按钮文案。
+- `Resource/*.lproj`：跳过按钮文案。
 - `JobsPodspecKit.rb`：本地 podspec 基座。
 
 ## 五、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

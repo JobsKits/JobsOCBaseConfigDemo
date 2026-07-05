@@ -182,7 +182,7 @@ Prop_assign()CGFloat ANIMATION_TIME;
                 .byImagePadding([self imagePaddingAtIndex:i])
                 .byTitlePadding(JobsWidth(10))
                 .byImagePlacement(self.btnConfig.imagePlacement)
-                .byCornerRadiusValue(JobsWidth(8));
+                .byCornerRadiusValue(self.linkageMenuViewConfig.MENU_ITEM_CORNER_RADIUS);
         })).onClickBy(^(UIButton *x){
             @jobs_strongify(self)
             [self choseMenu:x];

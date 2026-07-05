@@ -31,16 +31,16 @@
 #endif
 
 /// 自定义视图
-#if __has_include(<JobsCustomView/JobsCustomView.h>)
-#import <JobsCustomView/JobsCustomView.h>
+#if __has_include(<JobsCustomView/JobsCustomViewHeader.h>)
+#import <JobsCustomView/JobsCustomViewHeader.h>
 #else
-#import "JobsCustomView.h"
+#import "JobsCustomViewHeader.h"
 #endif
 /// 过滤
-#if __has_include(<JobsFiltrationView/JobsFiltrationView.h>)
-#import <JobsFiltrationView/JobsFiltrationView.h>
+#if __has_include(<JobsFiltrationView/JobsFiltrationViewHeader.h>)
+#import <JobsFiltrationView/JobsFiltrationViewHeader.h>
 #else
-#import "JobsFiltrationView.h"
+#import "JobsFiltrationViewHeader.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

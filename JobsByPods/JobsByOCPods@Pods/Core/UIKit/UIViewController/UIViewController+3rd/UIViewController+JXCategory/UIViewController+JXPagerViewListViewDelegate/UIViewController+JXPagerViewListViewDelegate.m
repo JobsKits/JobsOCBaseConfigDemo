@@ -43,7 +43,6 @@ JobsKey(_scrollViewClass)
     Jobs_setAssociatedRETAIN_NONATOMIC(_scrollViewClass, scrollViewClass)
 }
 #pragma mark —— Prop_strong()UIScrollView *scrollView;
-@dynamic scrollView;
 /**
  1、Masonry约束必须以self.scrollView为锚点，不能以self.view。否则无法拖动
  _tableView.addOn(self.scrollView).byAdd(^(MASConstraintMaker *make) {
@@ -57,8 +56,10 @@ JobsKey(_scrollViewClass)
  self.scrollView.contentSize = CGSizeMake(JobsMainScreen_WIDTH(), 2*JobsMainScreen_HEIGHT());
  3、加在scrollView上的内容物的相关长度比如超出scrollView容器的相关长度。否则无法拖动
  */
+JobsKey(_scrollView)
+@dynamic scrollView;
 -(UIScrollView *)scrollView{
-    UIScrollView *ScrollView = objc_getAssociatedObject(self, _cmd);
+    UIScrollView *ScrollView = Jobs_getAssociatedObject(_scrollView);
     if (!ScrollView) {
         @jobs_weakify(self)
         ScrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
@@ -67,10 +68,7 @@ JobsKey(_scrollViewClass)
                 .byDelegate(self)
                 .addOn(self.view);
         });
-        objc_setAssociatedObject(self,
-                                 _cmd,
-                                 ScrollView,
-                                 OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        Jobs_setAssociatedRETAIN_NONATOMIC(_scrollView, ScrollView)
         ScrollView.byAdd(^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
         });
@@ -78,10 +76,7 @@ JobsKey(_scrollViewClass)
 }
 
 -(void)setScrollView:(UIScrollView *)scrollView{
-    objc_setAssociatedObject(self,
-                             _cmd,
-                             scrollView,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(_scrollView, scrollView)
 }
 #pragma mark —— Prop_copy()void(^scrollCallback)(UIScrollView *scrollView);
 JobsKey(_scrollCallback)

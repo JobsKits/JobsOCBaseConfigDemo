@@ -112,7 +112,7 @@ JobsKey(_mjRefreshNormalHeader)
 JobsKey(_mjRefreshStateHeader)
 @dynamic mjRefreshStateHeader;
 -(MJRefreshStateHeader *)mjRefreshStateHeader{
-    MJRefreshStateHeader *MjRefreshStateHeader = objc_getAssociatedObject(self, _cmd);
+    MJRefreshStateHeader *MjRefreshStateHeader = Jobs_getAssociatedObject(_mjRefreshStateHeader);
     if (!MjRefreshStateHeader) {
         MjRefreshStateHeader = self.view.MJRefreshStateHeaderBy(self.refreshConfigHeader);
         Jobs_setAssociatedRETAIN_NONATOMIC(_mjRefreshStateHeader, MjRefreshStateHeader)

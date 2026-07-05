@@ -20,7 +20,7 @@ static dispatch_once_t JobsFMDBMgrOnceToken;
 +(instancetype)sharedManager {
     dispatch_once(&JobsFMDBMgrOnceToken, ^{
         if(!JobsFMDBMgrInstance){
-            JobsFMDBMgrInstance = self.new;
+            JobsFMDBMgrInstance = [super allocWithZone:NULL].init;
         }
     });return JobsFMDBMgrInstance;
 }

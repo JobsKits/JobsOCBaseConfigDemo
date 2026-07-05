@@ -9,7 +9,12 @@
 
 @interface CalendarVC ()
 /// UI
-Prop_strong()FSCalendar *calendar;
+Prop_strong()JobsCalendar *calendar;
+Prop_strong()NSDateFormatter *calendarDayFormatter;
+Prop_strong()NSDateFormatter *calendarHolidayFormatter;
+Prop_strong()NSDictionary<NSString *, NSString *> *calendarHolidayDic;
+Prop_strong()NSDate *minimumCalendarDate;
+Prop_strong()NSDate *maximumCalendarDate;
 
 @end
 
@@ -62,7 +67,12 @@ Prop_strong()FSCalendar *calendar;
 -(void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    [self.calendar reloadData];
+    [self.calendar jobsReloadDataSafely];
+}
+
+-(void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    [self.calendar jobsInvalidateCalendarLayout];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -76,142 +86,144 @@ Prop_strong()FSCalendar *calendar;
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 }
-#pragma mark —— FSCalendarDataSource
--(nullable NSString *)calendar:(FSCalendar *)calendar
+#pragma mark —— JobsCalendarDataSource
+-(nullable NSString *)calendar:(JobsCalendar *)calendar
                   titleForDate:(NSDate *)date{
-    return [jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter){
-        dateFormatter.dateFormat = @"dd";
-    }) stringFromDate:date];
+    return [self.calendarDayFormatter stringFromDate:date];
 }
 
--(nullable NSString *)calendar:(FSCalendar *)calendar
+-(nullable NSString *)calendar:(JobsCalendar *)calendar
                subtitleForDate:(NSDate *)date{
     // 格式化日期，获取具体的日期字符串
-    NSString *dateString = [jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
-        dateFormatter.dateFormat = @"dd/MM";
-    }) stringFromDate:date];
-    // 节假日字典，key为日期，value为节日名称
-    NSDictionary<NSString *, NSString *> *holidays = @{
-        // 中国节假日
-        @"01/01": @"新年".tr,     // 元旦
-        @"22/01": @"春节".tr,     // 春节 (农历日期需特殊处理)
-        @"05/04": @"清明节".tr,   // 清明节
-        @"01/05": @"劳动节".tr,   // 劳动节
-        @"04/06": @"端午节".tr,   // 端午节 (农历日期需特殊处理)
-        @"01/10": @"国庆节".tr,   // 国庆节
-        @"13/09": @"中秋节".tr,   // 中秋节 (农历日期需特殊处理)
-        // 菲律宾节假日
-        @"25/12": @"圣诞节".tr,   // 圣诞节
-        @"30/11": @"博尼法西奥日".tr, // 博尼法西奥日
-        @"12/06": @"独立日".tr,   // 独立日
-        @"09/04": @"勇士日".tr,   // 勇士日
-        @"01/11": @"万灵节".tr,   // 万灵节
-        @"30/12": @"黎刹日".tr    // 黎刹日
-    };return holidays[dateString];// 根据日期字符串查找节假日名称
+    NSString *dateString = [self.calendarHolidayFormatter stringFromDate:date];
+    return self.calendarHolidayDic[dateString];// 根据日期字符串查找节假日名称
 }
 
-//-(nullable UIImage *)calendar:(FSCalendar *)calendar imageForDate:(NSDate *)date{
-//
-//}
-
--(NSDate *)minimumDateForCalendar:(FSCalendar *)calendar{
-    return [NSDate dateWithTimeIntervalSinceNow:-365*24*60*60]; // 一年前
+-(NSDate *)minimumDateForCalendar:(JobsCalendar *)calendar{
+    return self.minimumCalendarDate; // 一年前
 }
 
--(NSDate *)maximumDateForCalendar:(FSCalendar *)calendar{
+-(NSDate *)maximumDateForCalendar:(JobsCalendar *)calendar{
 //    return NSDate.date;
-    return [NSDate dateWithTimeIntervalSinceNow:365*24*60*60]; // 一年后
+    return self.maximumCalendarDate; // 一年后
 }
 
-//-(__kindof FSCalendarCell *)calendar:(FSCalendar *)calendar
-//                         cellForDate:(NSDate *)date
-//                     atMonthPosition:(FSCalendarMonthPosition)position{
-//
-//}
-
-//-(NSInteger)calendar:(FSCalendar *)calendar
-//numberOfEventsForDate:(NSDate *)date{
-//
-//}
-#pragma mark —— FSCalendarDelegate
-//-(BOOL)calendar:(FSCalendar *)calendar
-//shouldSelectDate:(NSDate *)date
-//atMonthPosition:(FSCalendarMonthPosition)monthPosition{
-//
-//}
+#pragma mark —— JobsCalendarDelegate
 /// 选中日期
--(void)calendar:(FSCalendar *)calendar
+-(void)calendar:(JobsCalendar *)calendar
   didSelectDate:(NSDate *)date
-atMonthPosition:(FSCalendarMonthPosition)monthPosition{
+atMonthPosition:(JobsCalendarMonthPosition)monthPosition{
     if(self.objBlock) self.objBlock(date);
 }
 
-//-(BOOL)calendar:(FSCalendar *)calendar
-//shouldDeselectDate:(NSDate *)date
-//atMonthPosition:(FSCalendarMonthPosition)monthPosition{
-//
-//}
-
--(void)calendar:(FSCalendar *)calendar
+-(void)calendar:(JobsCalendar *)calendar
 didDeselectDate:(NSDate *)date
-atMonthPosition:(FSCalendarMonthPosition)monthPosition{
+atMonthPosition:(JobsCalendarMonthPosition)monthPosition{
     if(self.objBlock) self.objBlock(date);
 }
 
--(void)calendar:(FSCalendar *)calendar
+-(void)calendar:(JobsCalendar *)calendar
 boundingRectWillChange:(CGRect)bounds
        animated:(BOOL)animated{
     [calendar mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@(bounds.size.height));
-        // Do other updates
-    }];[self.view layoutIfNeeded];
+    }];[calendar jobsInvalidateCalendarLayout];
+    [self.view layoutIfNeeded];
 }
 
--(void)calendar:(FSCalendar *)calendar
-willDisplayCell:(FSCalendarCell *)cell
+-(void)calendar:(JobsCalendar *)calendar
+willDisplayCell:(JobsCalendarDayCell *)cell
         forDate:(NSDate *)date
-atMonthPosition:(FSCalendarMonthPosition)monthPosition{
+atMonthPosition:(JobsCalendarMonthPosition)monthPosition{
     
 }
 
--(void)calendarCurrentPageDidChange:(FSCalendar *)calendar{
+-(void)calendarCurrentPageDidChange:(JobsCalendar *)calendar{
     
 }
 #pragma mark —— lazyLoad
--(FSCalendar *)calendar{
+-(JobsCalendar *)calendar{
     if(!_calendar){
         @jobs_weakify(self)
-        _calendar = jobsMakeFSCalendar(^(__kindof FSCalendar * _Nullable calendar) {
+        _calendar = jobsMakeJobsCalendar(^(__kindof JobsCalendar * _Nullable calendar) {
             @jobs_strongify(self)
+            calendar.dataSource = self;
+            calendar.delegate = self;
+            calendar.allowsMultipleSelection = YES;
+            calendar.swipeToChooseEnabled = YES;
+            calendar.jobsAutomaticallyInvalidateLayoutOnBoundsChange = YES;
+            calendar.jobsReloadDataAfterBoundsChange = YES;
+            calendar.appearance.headerMinimumDissolvedAlpha = 0;
+            calendar.appearance.headerDateFormat = @"yyyy"
+                .add(@"年".tr)
+                .add(@"MM")
+                .add(@"月".tr);
+            calendar.appearance.caseOptions = JobsCalendarCaseOptionsHeaderUsesUpperCase;
+            calendar.appearance.headerTitleFont = UIFontSystemFontOfSize(JobsWidth(20));
+            calendar.appearance.headerTitleColor = JobsBlackColor;
             calendar
-                .byDataSource(self)
-                .byDelegate(self)
-                .byAllowsMultipleSelection(YES)
-                .bySwipeToChooseGestureBlock(^(__kindof UILongPressGestureRecognizer * _Nullable data) {
-                    data.byEnabled(YES);
-                })
-                .byAppearanceBlock(^(__kindof FSCalendarAppearance * _Nullable data) {
-                    data
-                        .byHeaderMinimumDissolvedAlpha(1)
-                        .byHeaderDateFormat(@"yyyy"
-                                            .add(@"年".tr)
-                                            .add(@"MM")
-                                            .add(@"月".tr))
-                        .byCaseOptions(FSCalendarCaseOptionsHeaderUsesUpperCase)
-                        .byHeaderTitleFont(UIFontSystemFontOfSize(JobsWidth(20)))
-                        .byHeaderTitleColor(JobsBlackColor);
-                })
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.centerX.equalTo(self.view);
                     [self make:make topOffset:10];
-                    make.size.mas_equalTo(CGSizeMake(JobsWidth(450), JobsWidth(340)));
+                    make.left.equalTo(self.view).offset(JobsWidth(12));
+                    make.right.equalTo(self.view).offset(-JobsWidth(12));
+                    make.height.mas_equalTo(JobsWidth(340));
                 })
                 .bySetNeedsLayout()
                 .byLayoutIfNeeded()
                 .byBgColor(JobsLightGrayColor.colorWithAlphaComponentBy(.1f));
         });
     };return _calendar;
+}
+
+-(NSDateFormatter *)calendarDayFormatter{
+    if(!_calendarDayFormatter){
+        _calendarDayFormatter = jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter){
+            dateFormatter.dateFormat = @"dd";
+        });
+    };return _calendarDayFormatter;
+}
+
+-(NSDateFormatter *)calendarHolidayFormatter{
+    if(!_calendarHolidayFormatter){
+        _calendarHolidayFormatter = jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
+            dateFormatter.dateFormat = @"dd/MM";
+        });
+    };return _calendarHolidayFormatter;
+}
+
+-(NSDictionary<NSString *,NSString *> *)calendarHolidayDic{
+    if(!_calendarHolidayDic){
+        _calendarHolidayDic = @{
+            // 中国节假日
+            @"01/01": @"新年".tr,     // 元旦
+            @"22/01": @"春节".tr,     // 春节 (农历日期需特殊处理)
+            @"05/04": @"清明节".tr,   // 清明节
+            @"01/05": @"劳动节".tr,   // 劳动节
+            @"04/06": @"端午节".tr,   // 端午节 (农历日期需特殊处理)
+            @"01/10": @"国庆节".tr,   // 国庆节
+            @"13/09": @"中秋节".tr,   // 中秋节 (农历日期需特殊处理)
+            // 菲律宾节假日
+            @"25/12": @"圣诞节".tr,   // 圣诞节
+            @"30/11": @"博尼法西奥日".tr, // 博尼法西奥日
+            @"12/06": @"独立日".tr,   // 独立日
+            @"09/04": @"勇士日".tr,   // 勇士日
+            @"01/11": @"万灵节".tr,   // 万灵节
+            @"30/12": @"黎刹日".tr    // 黎刹日
+        };
+    };return _calendarHolidayDic;
+}
+
+-(NSDate *)minimumCalendarDate{
+    if(!_minimumCalendarDate){
+        _minimumCalendarDate = [NSCalendar.currentCalendar startOfDayForDate:[NSDate dateWithTimeIntervalSinceNow:-365*24*60*60]];
+    };return _minimumCalendarDate;
+}
+
+-(NSDate *)maximumCalendarDate{
+    if(!_maximumCalendarDate){
+        _maximumCalendarDate = [NSCalendar.currentCalendar startOfDayForDate:[NSDate dateWithTimeIntervalSinceNow:365*24*60*60]];
+    };return _maximumCalendarDate;
 }
 @synthesize backBtnModel = _backBtnModel;
 -(UIButtonModel *)backBtnModel{

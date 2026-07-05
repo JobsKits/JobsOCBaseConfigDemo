@@ -1,3 +1,5 @@
+require_relative 'JobsPodspecKit'
+
 Pod::Spec.new do |spec|
   spec.name             = 'ReachabilityExtra'
   spec.version          = '1.0.0'
@@ -10,26 +12,28 @@ Pod::Spec.new do |spec|
   spec.requires_arc     = true
   spec.module_name      = 'ReachabilityExtra'
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
-  spec.source_files        = 'ReachabilityExtra.h'
-  spec.public_header_files = 'ReachabilityExtra.h'
   spec.frameworks = ['Foundation']
   spec.dependency 'Reachability'
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-  end
+  spec.source_files = [
+    'ReachabilityExtra.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'ReachabilityExtra.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'ReachabilityExtra'
 
-  spec.pod_target_xcconfig = {
-    'DEFINES_MODULE' => 'YES',
-    'HEADER_SEARCH_PATHS' => '$(inherited) "$(PODS_TARGET_SRCROOT)/**"',
-    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
-  }
 
-  spec.user_target_xcconfig = {
-    'HEADER_SEARCH_PATHS' => '$(inherited) "$(PODS_ROOT)/Headers/Public/ReachabilityExtra/**"',
-    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
-    'OTHER_LDFLAGS' => '$(inherited) -ObjC'
-  }
+  JobsPodspecKitForReachabilityExtra.apply_standard_exclude_files(spec)
+  JobsPodspecKitForReachabilityExtra.apply_standard_xcconfig(
+    spec,
+    user_target_xcconfig: {
+      'HEADER_SEARCH_PATHS' => '$(inherited) "$(PODS_ROOT)/Headers/Public/ReachabilityExtra/**"',
+      'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
+      'OTHER_LDFLAGS' => '$(inherited) -ObjC'
+    }
+  )
+
 end

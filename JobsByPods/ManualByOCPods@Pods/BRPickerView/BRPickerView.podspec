@@ -18,35 +18,29 @@ Pod::Spec.new do |s|
   s.source       = { :git => 'https://github.com/agiapp/BRPickerView.git', :tag => s.version.to_s }
   s.requires_arc = true
 
-  # 默认安装 Core + Support，让 Pods 工程里能看到 Support 目录。
-  # 如果只想装核心源码，可以显式使用：pod 'BRPickerView/Core'
-  s.default_subspecs = ['Core', 'Support']
+  s.source_files = [
+    'BRPickerView.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  s.public_header_files = [
+    'BRPickerView.h',
+    'Core/**/*.h'
+  ]
+  s.header_dir = 'BRPickerView'
 
-  # 根伞头文件
-  s.source_files        = 'BRPickerView.h'
-  s.public_header_files = 'BRPickerView.h'
-
-  # iOS App 根目录不能复制名为 Resources 的文件夹，否则 CodeSign 会误判 bundle 结构。
   s.resources = [
-    'Resources/BRPickerView.bundle',
-    'Resources/PrivacyInfo.xcprivacy'
+    'Resource/BRPickerView.bundle',
+    'Resource/PrivacyInfo.xcprivacy'
   ]
 
   support_context = JobsPodspecKitForBRPickerView.build_support_context(
     podspec_dir: File.expand_path(File.dirname(__FILE__)),
     support_dir: 'Support',
-    support_dependencies: ["#{s.name}/Core"]
+    support_dependencies: []
   )
 
-  s.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m}'
-    ss.public_header_files = 'Core/**/*.h'
+  s.dependency 'JobsModelDSL'
 
-    ss.dependency 'JobsModelDSL'
-  end
-
-  # 动态把 Support 目录按真实目录结构生成为 subspec：
-  # BRPickerView/Support/UIKit/NSArray
   JobsPodspecKitForBRPickerView.add_support_subspec(s, support_context)
 
   JobsPodspecKitForBRPickerView.apply_standard_exclude_files(s)

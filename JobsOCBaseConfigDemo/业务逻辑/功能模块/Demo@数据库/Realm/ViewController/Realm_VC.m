@@ -7,7 +7,9 @@
 
 #import "Realm_VC.h"
 
-@interface Realm_VC ()
+@interface Realm_VC ()<UITableViewDelegate,UITableViewDataSource>
+/// Data
+Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
 @end
 
@@ -48,31 +50,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.byBgColor(JobsRandomColor);
     self.makeNavByAlpha(1);
+    self.tableView.byShow(self);
+    [self reloadRealmDemoData];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    /// 插入数据
-    [self insertUserWithName:@"Alice" age:25];
-    [self insertUserWithName:@"Bob" age:30];
-    /// 查询所有用户
-    NSArray *users = self.fetchAllUsers;
-    JobsLog(@"Users: %@", users);
-    /// 更新用户
-    if (users.count > 0) {
-        User_Realm *user = users[0];
-        [self updateUser:user newName:@"Alice Smith" newAge:26];
-    }
-    /// 删除用户
-    if (users.count > 1) {
-        User_Realm *user = users[1];
-        [self deleteUser:user];
-    }
-    /// 获取更新后的用户列表
-    users = [self fetchAllUsers];
-    JobsLog(@"Updated Users: %@", users);
 }
 
 -(void)viewWillLayoutSubviews{
@@ -95,6 +79,74 @@
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
+}
+#pragma mark —— UITableViewDelegate,UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return JobsWidth(56);
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section {
+    return self.dataMutArr.count;
+}
+
+- (__kindof UITableViewCell *)tableView:(UITableView *)tableView
+                  cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    JobsBaseTableViewCell *cell = ((id<UITableViewCellProtocol>)JobsBaseTableViewCell.cellStyleValue1ByTableView(tableView))
+        .byIndexPath(indexPath)
+        .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
+        .byAccessoryType(UITableViewCellAccessoryNone)
+        .byTextLabel(^(__kindof UILabel * _Nullable label) {
+            label.byNumberOfLines(1);
+        })
+        .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
+            label.byNumberOfLines(1);
+        });
+    return cell;
+}
+#pragma mark —— Demo 数据刷新
+-(void)reloadRealmDemoData{
+    NSArray <User_Realm *>*users = self.fetchAllUsers;
+    if (users.count == 0) {
+        /// 插入数据
+        [self insertUserWithName:@"Alice" age:25];
+        [self insertUserWithName:@"Bob" age:30];
+        users = self.fetchAllUsers;
+    }
+    /// 更新用户
+    if (users.count > 0) {
+        User_Realm *user = users.firstObject;
+        [self updateUser:user newName:@"Alice Smith" newAge:26];
+    }
+    /// 删除用户
+    if (users.count > 1) {
+        User_Realm *user = users[1];
+        [self deleteUser:user];
+    }
+    /// 获取更新后的用户列表
+    users = self.fetchAllUsers;
+    [self reloadDataMutArrByUsers:users];
+    [self.tableView reloadData];
+    JobsLog(@"Updated Users: %@", users);
+}
+
+-(void)reloadDataMutArrByUsers:(NSArray <User_Realm *>*_Nullable)users{
+    [self.dataMutArr removeAllObjects];
+    for (User_Realm *user in users) {
+        self.dataMutArr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
+            data.textModel.byText(user.name ? : @"-")
+                          .byTextCor(HEXCOLOR(0x3D4A58))
+                          .byFont(UIFontWeightRegularSize(16));
+            data.subTextModel.byText([NSString stringWithFormat:@"%@：%ld".tr,@"年龄".tr,(long)user.age])
+                              .byTextCor(HEXCOLOR(0x757575))
+                              .byFont(UIFontWeightRegularSize(14));
+        }));
+    }
 }
 #pragma mark —— Realm 的增删查改
 /// 插入数据
@@ -133,5 +185,32 @@
     }];
 }
 #pragma mark —— lazyLoad
+/// BaseViewProtocol
+@synthesize tableView = _tableView;
+-(BaseTableView *)tableView{
+    if (!_tableView) {
+        @jobs_weakify(self)
+        _tableView = jobsMakeBaseTableViewByPlain(^(__kindof BaseTableView * _Nullable tableView) {
+            @jobs_strongify(self)
+            tableView
+                .dataLink(self)
+                .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
+                .bySeparatorColor(HEXCOLOR(0xEEEEEE))
+                .byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+                    /// 占位，去掉空行分割线
+                }))
+                .byShowsVerticalScrollIndicator(NO)
+                .byBgColor(JobsWhiteColor);
+            self.view.addSubview(tableView);
+            [self fullScreenConstraintTargetView:tableView topViewOffset:0];
+        });
+    };return _tableView;
+}
+
+-(NSMutableArray<UIViewModel *> *)dataMutArr{
+    if (!_dataMutArr) {
+        _dataMutArr = NSMutableArray.array;
+    };return _dataMutArr;
+}
 
 @end

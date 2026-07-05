@@ -19,18 +19,15 @@ class/runtime inspection, ordered model value reading, and class membership chec
   spec.module_name      = 'JobsClass'
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
-
-  # 根目录公共入口头文件
-  # 磁盘真实路径：
-  # JobsClass.h
   spec.source_files = [
-    'JobsClass.h'
+    'JobsClass.h',
+    'Core/**/*.{h,m,mm}'
   ]
-
   spec.public_header_files = [
-    'JobsClass.h'
+    'JobsClass.h',
+    'Core/**/*.h'
   ]
+  spec.header_dir = 'JobsClass'
 
   JobsPodspecKitForJobsClass.apply_standard_exclude_files(
     spec,
@@ -90,38 +87,18 @@ class/runtime inspection, ordered model value reading, and class membership chec
     'Foundation'
   ]
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files = [
-      'Core/**/*.{h,m,mm}'
-    ]
-
-    ss.public_header_files = [
-      'Core/**/*.h'
-    ]
-
-    ss.resources = [
-      'Core/**/*.{bundle,xib,storyboard,xcassets,json,plist,png,jpg,jpeg,gif,webp,strings,stringsdict}'
-    ]
-
-    ss.dependency 'JobsClass/Support'
-    ss.dependency 'MJExtension'
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsOCDefs'
-  end
-
   spec.subspec 'Support' do |ss|
     ss.source_files = [
       'Support/**/*.{h,m,mm}'
     ]
-
-    ss.public_header_files = [
+    ss.private_header_files = [
       'Support/**/*.h'
     ]
-
-    ss.resources = [
-      'Support/**/*.{bundle,xib,storyboard,xcassets,json,plist,png,jpg,jpeg,gif,webp,strings,stringsdict}'
-    ]
   end
+
+  spec.dependency 'MJExtension'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDefs'
 
   JobsPodspecKitForJobsClass.apply_standard_xcconfig(
     spec,

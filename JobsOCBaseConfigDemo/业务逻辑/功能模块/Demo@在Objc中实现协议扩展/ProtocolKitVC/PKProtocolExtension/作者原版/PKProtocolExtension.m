@@ -5,9 +5,7 @@
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <Foundation/Foundation.h>
 #import "PKProtocolExtension.h"
-#import <pthread.h>
 
 typedef struct {
     Protocol *__unsafe_unretained protocol;

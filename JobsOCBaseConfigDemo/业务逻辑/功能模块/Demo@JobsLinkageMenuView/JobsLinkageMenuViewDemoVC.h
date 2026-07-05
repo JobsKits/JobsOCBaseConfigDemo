@@ -19,10 +19,10 @@
 #import "JobsBaseUI.h"
 #endif
 
-#if __has_include(<JobsLinkageMenuView/JobsLinkageMenuView.h>)
-#import <JobsLinkageMenuView/JobsLinkageMenuView.h>
+#if __has_include(<JobsLinkageMenuView/JobsLinkageMenuViewHeader.h>)
+#import <JobsLinkageMenuView/JobsLinkageMenuViewHeader.h>
 #else
-#import "JobsLinkageMenuView.h"
+#import "JobsLinkageMenuViewHeader.h"
 #endif
 
 #if __has_include(<JobsModel/JobsModel.h>)

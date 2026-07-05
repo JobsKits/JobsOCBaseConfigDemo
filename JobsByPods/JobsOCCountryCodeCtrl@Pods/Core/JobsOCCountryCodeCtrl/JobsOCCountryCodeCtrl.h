@@ -34,6 +34,24 @@
 #import "XYColorOC.h"
 #endif
 
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
+#else
+#import "JobsLanMgr.h"
+#endif
+
 @interface JobsOCCountryCodeCtrl : UIViewController
 <
 UITableViewDataSource
@@ -43,6 +61,17 @@ UITableViewDataSource
 
 Prop_weak()id<JobsOCCountryCodeCtrlDelegate> countryCodeDelegate;
 Prop_copy()jobsByOCCountryCodeBlock countryCodeBlock;
+
++(NSString *)jobs_countryFlagByCountryName:(NSString *)countryName;
++(NSString *)jobs_countryNameTextByCountryName:(NSString *)countryName;
++(NSString *)jobs_countryCodeTextByCountryName:(NSString *)countryName code:(NSString *)code;
++(NSAttributedString *)jobs_countryNameAttributedTextByCountryName:(NSString *)countryName
+                                                              font:(UIFont *)font
+                                                         textColor:(UIColor *)textColor;
++(NSAttributedString *)jobs_countryCodeAttributedTextByCountryName:(NSString *)countryName
+                                                              code:(NSString *)code
+                                                              font:(UIFont *)font
+                                                         textColor:(UIColor *)textColor;
 
 @end
 #endif /* JOBS_HEADER_GUARD_JOBSOC_COUNTRYCODECTRL_2F6A8C4B91 */

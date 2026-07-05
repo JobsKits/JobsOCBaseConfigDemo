@@ -21,9 +21,7 @@
     if (mainBundleURL) {
         NSBundle *bundle = [NSBundle bundleWithURL:mainBundleURL];
         if (bundle) return bundle;
-    }
-
-    return classBundle ?: NSBundle.mainBundle;
+    };return classBundle ?: NSBundle.mainBundle;
 }
 
 + (UIImage *)imageNamed:(NSString *)name {

@@ -16,6 +16,12 @@
 #import "YTKNetwork.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -24,18 +30,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef __kindof YTKBatchRequest *_Nullable(^JobsRetYTKBatchRequestByNSIntegerBlock)(NSInteger data);
-typedef __kindof YTKBatchRequest *_Nullable(^JobsRetYTKBatchRequestByDelegateBlock)(id<YTKBatchRequestDelegate> _Nullable data);
-typedef __kindof YTKBatchRequest *_Nullable(^JobsRetYTKBatchRequestByAccessoryBlock)(id<YTKRequestAccessory> _Nullable data);
-typedef __kindof YTKBatchRequest *_Nullable(^JobsRetYTKBatchRequestByAccessoriesBlock)(NSArray<id<YTKRequestAccessory>> *_Nullable data);
-typedef __kindof YTKBatchRequest *_Nullable(^JobsRetYTKBatchRequestBySuccessBlock)(void (^ _Nullable data)(YTKBatchRequest *batchRequest));
-typedef __kindof YTKBatchRequest *_Nullable(^JobsRetYTKBatchRequestByCompletionBlocks)(void (^ _Nullable success)(YTKBatchRequest *batchRequest), void (^ _Nullable failure)(YTKBatchRequest *batchRequest));
-
 @interface YTKBatchRequest (DSL)
 
-@property(nonatomic, strong, readonly) NSArray<YTKRequest *> *jobs_requests;
-@property(nonatomic, strong, readonly, nullable) YTKRequest *jobs_failedRequest;
-@property(nonatomic, assign, readonly) BOOL jobs_isFromCache;
+Prop_strong(readonly)NSArray<YTKRequest *> *jobs_requests;
+Prop_strong(readonly,nullable)YTKRequest *jobs_failedRequest;
+Prop_assign(readonly)BOOL jobs_isFromCache;
 
 -(JobsRetYTKBatchRequestByNSIntegerBlock _Nonnull)byTag;
 -(JobsRetYTKBatchRequestByDelegateBlock _Nonnull)byDelegate;

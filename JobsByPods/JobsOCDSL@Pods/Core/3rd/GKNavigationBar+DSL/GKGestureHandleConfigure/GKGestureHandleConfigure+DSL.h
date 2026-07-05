@@ -16,6 +16,12 @@
 #import "GKGestureHandleConfigure.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -23,13 +29,6 @@
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
-
-typedef __kindof GKGestureHandleConfigure *_Nullable(^JobsRetGKGestureConfigureByConfigureBlock)(void (^ _Nullable block)(GKGestureHandleConfigure *configure));
-typedef __kindof GKGestureHandleConfigure *_Nullable(^JobsRetGKGestureConfigureByCGFloatBlock)(CGFloat data);
-typedef __kindof GKGestureHandleConfigure *_Nullable(^JobsRetGKGestureConfigureByBOOLBlock)(BOOL data);
-typedef __kindof GKGestureHandleConfigure *_Nullable(^JobsRetGKGestureConfigureByArrayBlock)(NSArray *_Nullable data);
-typedef __kindof GKGestureHandleConfigure *_Nullable(^JobsRetGKGestureConfigureByCriticalBlock)(NSNumber *_Nullable push, NSNumber *_Nullable pop);
-typedef __kindof GKGestureHandleConfigure *_Nullable(^JobsRetGKGestureConfigureByScaleBlock)(NSNumber *_Nullable x, NSNumber *_Nullable y);
 
 @interface GKGestureHandleConfigure (DSL)
 

@@ -8,12 +8,6 @@
 #import "JobsGestureLockIndicator.h"
 #import <JobsGestureLock/JobsGestureLockConfiguration.h>
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 @interface JobsGestureLockIndicator ()
 
 Prop_strong()NSMutableArray<UIButton *> *nodeButtons;

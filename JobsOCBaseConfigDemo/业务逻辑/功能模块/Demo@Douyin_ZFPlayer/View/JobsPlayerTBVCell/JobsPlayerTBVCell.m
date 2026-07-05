@@ -21,6 +21,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
 @implementation JobsPlayerTBVCell
 @synthesize index = _index;
 -(void)dealloc {
+    [self stopPlayer];
     JobsLog(@"%@",JobsLocalFunc);
 }
 
@@ -31,13 +32,15 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
                  selectorBlock:^(id data,
                                  id data2) {
             @jobs_strongify(self)
-            [self.player.currentPlayerManager stop];
-            self.player = nil;
-            self.playerManager = nil;
-            [self.customPlayerControlView removeFromSuperview];
-            self.customPlayerControlView = nil;
+            [self stopPlayer];
         }];
     };return self;
+}
+
+-(void)prepareForReuse{
+    [super prepareForReuse];
+    [self stopPlayer];
+    self.videoModel_Core = nil;
 }
 
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
@@ -48,7 +51,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
             cell
                 .bySelectionStyle(UITableViewCellSelectionStyleNone)
                 .byContentView(^(__kindof UIView * _Nullable view) {
-                    view.byBgColor(JobsRandomColor);
+                    view.byBgColor(JobsBlackColor);
                 });
         };return cell;
     };
@@ -76,6 +79,16 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
 -(ZFPlayerController *)getPlayer{
     return self.player;
 }
+
+-(void)stopPlayer{
+    [_player.currentPlayerManager stop];
+    _player.playerDidToEnd = nil;
+    _player.controlView = nil;
+    _player = nil;
+    _playerManager = nil;
+    [_customPlayerControlView removeFromSuperview];
+    _customPlayerControlView = nil;
+}
 #pragma mark —— lazyLoad
 @synthesize label = _label;
 -(UILabel *)label{
@@ -100,9 +113,10 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
         @jobs_weakify(self)
         _playerManager = jobsMakeZFAVPlayerManager(^(__kindof ZFAVPlayerManager * _Nullable data) {
             @jobs_strongify(self)
-            data.shouldAutoPlay = YES;
             JobsLog(@"videoIdcUrl = %@",self.videoModel_Core.videoIdcUrl);
-            data.assetURL = self.videoModel_Core.videoIdcUrl.jobsUrl;
+            data
+                .byShouldAutoPlay(YES)
+                .byAssetURL(self.videoModel_Core.videoIdcUrl.jobsUrl);
         });
     };return _playerManager;
 }
@@ -135,7 +149,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
 //        ZFPlayer_DoorVC = _player;
         [_player setPlayerDidToEnd:^(id<ZFPlayerMediaPlayback> _Nonnull asset) {
             @jobs_strongify(self)
-            [self.playerManager replay];//设置循环播放
+            self.playerManager.byReplay;// 设置循环播放
         }];
     };return _player;
 }

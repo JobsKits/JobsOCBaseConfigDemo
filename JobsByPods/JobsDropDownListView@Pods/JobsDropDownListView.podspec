@@ -37,19 +37,19 @@ Pod::Spec.new do |spec|
   spec.dependency 'JobsOCRuntimeKits'
   spec.dependency 'JobsLanMgr'
 
-  spec.default_subspecs = [
-    'Core'
-  ]
 
   JobsPodspecKitForJobsDropDownListView.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    JobsPodspecKitForJobsDropDownListView.add_dynamic_support_dependencies(ss, spec, support_context)
-    ss.source_files = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources = 'Core/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp4,aiff}'
-    ss.dependency 'JobsDropDownListView/Support'
-  end
+  spec.source_files = [
+    'JobsDropDownListViewHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsDropDownListViewHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsDropDownListView'
+
 
   JobsPodspecKitForJobsDropDownListView.apply_standard_exclude_files(spec)
 

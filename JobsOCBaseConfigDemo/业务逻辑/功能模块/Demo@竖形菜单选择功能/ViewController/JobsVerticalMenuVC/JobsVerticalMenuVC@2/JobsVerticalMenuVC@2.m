@@ -12,6 +12,8 @@
 Prop_strong()BaseButton *editBtn;
 Prop_strong()ThreeClassCell *tempCell;
 Prop_strong()JobsSearchBar *searchView;
+Prop_strong()BaseButton *searchToggleBtn;
+Prop_strong()MASConstraint *searchViewWidthConstraint;
 Prop_strong()BaiShaETProjPopupView10 *popupView;
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*titleMutArr;
@@ -23,6 +25,7 @@ Prop_strong()UIViewModel *leftViewCurrentSelectModel;
 Prop_strong()NSMutableArray <UIButtonModel *>*cellDataMutArr;
 Prop_strong()NSMutableArray <NSString *>*cellTitleMutArr;
 Prop_assign()NSUInteger thisIndex;
+Prop_assign()BOOL searchMode;
 
 @end
 
@@ -62,33 +65,14 @@ Prop_assign()NSUInteger thisIndex;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    @jobs_weakify(self)
     self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
 //        @jobs_strongify(self)
 //        data.add(UIBarButtonItem.initBy(self.aboutBtn));
     });
-    self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
-        @jobs_strongify(self)
-        data.add(UIBarButtonItem.initBy(BaseButton.jobsInit()
-                                        .jobsResetBtnImage(@"消息".img)
-                                        .onClickBy(^(UIButton *x){
-                                            @jobs_strongify(self)
-                                            if (self.objBlock) self.objBlock(x);
-                                        }).onLongPressGestureBy(^(id data){
-                                            JobsLog(@"");
-                                        })))
-        .add(UIBarButtonItem.initBy(BaseButton.jobsInit()
-                                        .bgColorBy(JobsWhiteColor)
-                                        .jobsResetBtnImage(@"人工客服".img)
-                                        .onClickBy(^(UIButton *x){
-                                            @jobs_strongify(self)
-                                            if (self.objBlock) self.objBlock(x);
-                                        }).onLongPressGestureBy(^(id data){
-                                            JobsLog(@"");
-                                        })));
-    });
+    self.rightBarButtonItems = NSMutableArray.array;
     self.makeNavByAlpha(1);
-    self.searchView.byAlpha(1);
+    self.searchToggleBtn.byAlpha(1);
+    self.searchView.byAlpha(0);
     self.tableView.byShow(self);
     self.editBtn.byAlpha(1);
     self.collectionView.byShow(self);
@@ -130,7 +114,7 @@ Prop_assign()NSUInteger thisIndex;
                 model.byBackgroundImage(title.add(已点击).img)
                      .byTitleCor(HEXCOLOR(0xC4C4C4))
                      .byTitleFont(UIFontWeightRegularSize(12))
-                     .byBaseBackgroundColor(JobsRedColor)
+                     .byBaseBackgroundColor(HEXCOLOR(0xF2E6CD))
                      .byImagePadding(JobsWidth(5));
             }));
         }
@@ -337,11 +321,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     ThreeClassCell *cell = [ThreeClassCell cellWithCollectionView:collectionView forIndexPath:indexPath];
     self.rightViewCurrentSelectModel = self.rightDataArray.objectAt(indexPath.section);
     cell.getCollectionHeight((NSMutableArray <NSObject *>*)self.rightViewCurrentSelectModel.childrenList);
-    cell.jobsRichElementsTableViewCellBy(self.rightDataArray)
+    cell.jobsRichElementsCollectionViewCellBy((NSMutableArray <NSObject *>*)self.rightViewCurrentSelectModel.childrenList)
         .JobsBlock1(^(GoodsClassModel *model) {
         JobsLog(@"pid : %@", model.idField);
         JobsLog(@"选中id : %@", model.idField);
-    });return cell.reloadDatas();
+    });
+    cell.reloadDatas();return cell;
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(__kindof UICollectionView *)collectionView{
@@ -401,6 +386,45 @@ referenceSizeForFooterInSection:(NSInteger)section{
     return CGSizeMake(self.collectionView.width,
                       self.getCellHeight((NSMutableArray <NSObject *>*)[self.rightDataArray objectAtIndex:indexPath.section].childrenList));
 }
+
+-(CGFloat)expandedSearchWidth{
+    return JobsMainScreen_WIDTH() - JobsWidth(96) - JobsWidth(36) - JobsWidth(12) - JobsWidth(8);
+}
+
+-(void)refreshSearchToggleBtnByActive:(BOOL)active{
+    self.searchToggleBtn
+        .jobsResetBtnTitle(active ? @"×" : @"")
+        .jobsResetBtnImage(active ? nil : @"放大镜".img);
+}
+
+-(void)switchSearchModeByActive:(BOOL)active{
+    if (self.searchMode == active) return;
+    self.searchMode = active;
+    if (active) {
+        self.searchView.byHidden(NO);
+        [self refreshSearchToggleBtnByActive:YES];
+    } else {
+        [self.searchView.textField resignFirstResponder];
+        self.searchView.textField.byText(@"");
+    }
+    [self.searchViewWidthConstraint setOffset:active ? self.expandedSearchWidth : 0];
+    UIViewAnimationOptions options = active ? UIViewAnimationOptionCurveEaseOut : UIViewAnimationOptionCurveEaseIn;
+    [UIView animateWithDuration:active ? .24f : .18f
+                          delay:0
+                        options:options
+                     animations:^{
+        self.gk_navTitleBtn.byAlpha(active ? 0 : 1);
+        self.searchView.byAlpha(active ? 1 : 0);
+        [self.gk_navigationBar layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        if (active) {
+            [self.searchView.textField becomeFirstResponder];
+        } else {
+            self.searchView.byHidden(YES);
+            [self refreshSearchToggleBtnByActive:NO];
+        }
+    }];
+}
 #pragma mark —— lazyLoad
 /// BaseViewProtocol
 @synthesize tableView = _tableView;
@@ -432,7 +456,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
             .byAlwaysBounceVertical(YES);
         _collectionView.byFrame(CGRectMake(self.tableView.right,self.tableView.top,
                                            JobsMainScreen_WIDTH() - self.tableView.width,self.tableView.height + EditBtnHeight));
-        _collectionView.byBgColor(JobsRandomColor);
+        _collectionView.byBgColor(HEXCOLOR(0xF7F8FA));
         _collectionView.addOn(self.view);
     };return _collectionView;
 }
@@ -440,7 +464,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
 -(ThreeClassCell *)tempCell{
     if (!_tempCell){
         _tempCell = jobsMakeThreeClassCell(^(__kindof ThreeClassCell * _Nullable cell) {
-            cell.byBgColor(JobsRedColor);
+            cell.byBgColor(HEXCOLOR(0xF7F8FA));
 
             cell.frame = CGRectMake(0,
                                     0,
@@ -456,7 +480,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
         _searchView = jobsMakeSearchBar(^(__kindof JobsSearchBar * _Nullable searchBar) {
             @jobs_strongify(self)
             searchBar
-                .bySize(CGSizeMake(JobsMainScreen_WIDTH() / 3, JobsWidth(40)))
+                .bySize(CGSizeMake(0, JobsWidth(38)))
                 .JobsRichViewByModel2(nil)
                 .JobsBlock1(^(id  _Nullable data) {;
 
@@ -464,10 +488,14 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 .addOn(self.gk_navigationBar)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
-                    make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH() / 3, JobsWidth(40)));
-                    make.right.equalTo(self.gk_navigationBar).offset(JobsWidth(0));
+                    self.searchViewWidthConstraint = make.width.mas_equalTo(0);
+                    make.height.mas_equalTo(JobsWidth(38));
+                    make.right.equalTo(self.searchToggleBtn.mas_left).offset(JobsWidth(-8));
                     make.centerY.equalTo(self.gk_navigationBar);
                 });
+            searchBar.cancelBtnHidden = YES;
+            searchBar.textField.byPlaceholder(@"请输入搜索内容".tr);
+            searchBar.byHidden(YES);
 
 //            [searchBar actionNSIntegerBlock:^(UITextFieldFocusType data) {
 //                @jobs_strongify(self)
@@ -492,6 +520,32 @@ referenceSizeForFooterInSection:(NSInteger)section{
 //            }];
         });
     };return _searchView;
+}
+
+-(BaseButton *)searchToggleBtn{
+    if (!_searchToggleBtn) {
+        @jobs_weakify(self)
+        _searchToggleBtn = BaseButton.jobsInit()
+            .bgColorBy(JobsWhiteColor)
+            .jobsResetBtnTitleCor(HEXCOLOR(0xAE8330))
+            .jobsResetBtnTitleFont(UIFontWeightRegularSize(JobsWidth(22)))
+            .jobsResetBtnImage(@"放大镜".img)
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                [self switchSearchModeByActive:!self.searchMode];
+            })
+            .onLongPressGestureBy(^(id data){
+                JobsLog(@"");
+            })
+            .addOn(self.gk_navigationBar)
+            .byAdd(^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(36), JobsWidth(36)));
+                make.right.equalTo(self.gk_navigationBar).offset(JobsWidth(-12));
+                make.centerY.equalTo(self.gk_navigationBar);
+            })
+            .cornerCutToCircleWithCornerRadius(JobsWidth(18));
+    };return _searchToggleBtn;
 }
 
 -(BaseButton *)editBtn{

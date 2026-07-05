@@ -81,6 +81,8 @@
                         }));
                     } cancel:^(HXCustomCameraViewController *viewController) {
                         NSSLog(@"取消了");
+                        UIViewController *targetVC = viewController.navigationController ? : viewController;
+                        [targetVC dismissViewControllerAnimated:YES completion:nil];
                         if (failBlock) failBlock(jobsMakeHXPhotoPickerModel(^(__kindof HXPhotoPickerModel * _Nullable model) {
                             model.byCustomCameraVC(viewController);
                         }));

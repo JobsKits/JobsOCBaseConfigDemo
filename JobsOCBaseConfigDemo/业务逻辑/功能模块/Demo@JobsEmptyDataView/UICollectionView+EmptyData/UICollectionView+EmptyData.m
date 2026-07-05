@@ -7,8 +7,7 @@
 
 #import "UICollectionView+EmptyData.h"
 
-static const void *JobsCollectionViewEmptyDataReloadingKey = &JobsCollectionViewEmptyDataReloadingKey;
-
+JobsKey(JobsCollectionViewEmptyDataReloadingKey)
 @implementation UICollectionView (EmptyData)
 
 +(void)load{
@@ -23,10 +22,10 @@ static const void *JobsCollectionViewEmptyDataReloadingKey = &JobsCollectionView
 }
 
 -(void)jobsReloadData{
-    if ([objc_getAssociatedObject(self, JobsCollectionViewEmptyDataReloadingKey) boolValue]) return;
-    objc_setAssociatedObject(self, JobsCollectionViewEmptyDataReloadingKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if ([Jobs_getAssociatedObject(JobsCollectionViewEmptyDataReloadingKey) boolValue]) return;
+    Jobs_setAssociatedRETAIN_NONATOMIC(JobsCollectionViewEmptyDataReloadingKey, @YES)
     [self jobsReloadData];
-    objc_setAssociatedObject(self, JobsCollectionViewEmptyDataReloadingKey, @NO, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(JobsCollectionViewEmptyDataReloadingKey, @NO)
     switch (self.jobsEmptyViewType) {
         case JobsEmptyViewTypeLabel:{
             self.showEmptyLabelBy(self.textModelEmptyData);
@@ -58,13 +57,13 @@ static const void *JobsCollectionViewEmptyDataReloadingKey = &JobsCollectionView
         @jobs_strongify(self)
         if(self.hasData){
             self.cleanSubviewBy(UIView.class);
-            return nil;
+            return self;
         }else{
             self.cleanSubviewBy(UIView.class);
             view.byFrame(self.bounds);
 
             self.addSubview(view);
-            return view;
+            return self;
         }
     };
 }
@@ -75,9 +74,9 @@ static const void *JobsCollectionViewEmptyDataReloadingKey = &JobsCollectionView
         @jobs_strongify(self)
         if(self.hasData){
             self.cleanSubviewBy(UIView.class);
-            return nil;
+            return self;
         }else{
-            return jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
+            jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
                 @jobs_strongify(self)
                 view.byFrame(self.bounds);
 
@@ -96,6 +95,7 @@ static const void *JobsCollectionViewEmptyDataReloadingKey = &JobsCollectionView
                     make.width.equalTo(self);
                 }));
             });
+            return self;
         }
     };
 }
@@ -106,9 +106,9 @@ static const void *JobsCollectionViewEmptyDataReloadingKey = &JobsCollectionView
         @jobs_strongify(self)
         if(self.hasData){
             self.cleanSubviewBy(UIView.class);
-            return nil;
+            return self;
         }else{
-            return jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
+            jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
                 @jobs_strongify(self)
                 view.byFrame(self.bounds);
 
@@ -128,6 +128,7 @@ static const void *JobsCollectionViewEmptyDataReloadingKey = &JobsCollectionView
                         });
                 });
             });
+            return self;
         }
     };
 }

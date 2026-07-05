@@ -16,9 +16,15 @@ filtration and filter presentation support for Jobs projects.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
+  spec.source_files = [
+    'JobsFiltrationViewHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsFiltrationViewHeader.h',
+    'Core/**/*.h'
+  ]
   spec.header_dir       = 'JobsFiltrationView'
-  spec.default_subspecs = 'Core'
-
   spec.frameworks = [
     'Foundation',
     'UIKit'
@@ -46,21 +52,16 @@ filtration and filter presentation support for Jobs projects.
     ss.dependency 'JobsBaseUI'
   end
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources           = 'Core/**/*.{png,jpg,jpeg,gif,xib,nib,storyboard,xcassets}'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
 
-    ss.dependency 'JobsFiltrationView/Support'
-    ss.dependency 'Masonry'
-    ss.dependency 'XYColorOC'
-    ss.dependency 'JobsModelDSL'
-    ss.dependency 'JobsOCDSL'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsHotLabel'
-    ss.dependency 'JobsLanMgr'
-    ss.dependency 'JobsBaseUI'
-  end
+  spec.dependency 'Masonry'
+  spec.dependency 'XYColorOC'
+  spec.dependency 'JobsModelDSL'
+  spec.dependency 'JobsOCDSL'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsHotLabel'
+  spec.dependency 'JobsLanMgr'
+  spec.dependency 'JobsBaseUI'
 
   JobsPodspecKitForJobsFiltrationView.apply_standard_xcconfig(spec)
 

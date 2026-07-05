@@ -23,7 +23,6 @@ JobsOCCountryCodeCtrl provides an independent country-code selector controller, 
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
 
   spec.frameworks = [
     'Foundation',
@@ -32,20 +31,24 @@ JobsOCCountryCodeCtrl provides an independent country-code selector controller, 
 
   JobsPodspecKitForJobsOCCountryCodeCtrl.add_support_subspec(spec, support_context) if Dir.exist?(File.join(__dir__, 'Support'))
 
-  spec.subspec 'Core' do |ss|
-    JobsPodspecKitForJobsOCCountryCodeCtrl.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsOCCountryCodeCtrlHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsOCCountryCodeCtrlHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsOCCountryCodeCtrl'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources           = 'Core/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp4,aiff}'
 
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsByOCPods'
-    ss.dependency 'JobsOCDSL'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsLanMgr'
-    ss.dependency 'XYColorOC'
-  end
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsByOCPods'
+  spec.dependency 'JobsOCDSL'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsLanMgr'
+  spec.dependency 'XYColorOC'
 
   JobsPodspecKitForJobsOCCountryCodeCtrl.apply_standard_exclude_files(spec)
 

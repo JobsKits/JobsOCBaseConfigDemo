@@ -16,7 +16,6 @@ JobsUploadingProgressView provides an uploading progress view component.
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
 
   JobsPodspecKitForJobsUploadingProgressView.apply_standard_exclude_files(spec)
 
@@ -32,10 +31,16 @@ JobsUploadingProgressView provides an uploading progress view component.
   spec.dependency 'JobsByOCPods'
   spec.dependency 'JobsLanMgr'
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-  end
+  spec.source_files = [
+    'JobsUploadingProgressViewHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsUploadingProgressViewHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsUploadingProgressView'
+
 
   JobsPodspecKitForJobsUploadingProgressView.apply_standard_xcconfig(spec)
 

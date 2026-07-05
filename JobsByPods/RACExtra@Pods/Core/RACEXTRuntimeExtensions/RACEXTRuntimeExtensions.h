@@ -8,7 +8,15 @@
 #ifndef JOBS_HEADER_GUARD_RACEXTRUNTIMEEXTENSIONS_5FD8408C39
 #define JOBS_HEADER_GUARD_RACEXTRUNTIMEEXTENSIONS_5FD8408C39
 
+#import <objc/message.h>
 #import <objc/runtime.h>
+#import <ctype.h>
+#import <libkern/OSAtomic.h>
+#import <pthread.h>
+#import <stdio.h>
+#import <stdlib.h>
+#import <string.h>
+#import <Foundation/Foundation.h>
 
 /**
  * Describes the memory management policy of a property.

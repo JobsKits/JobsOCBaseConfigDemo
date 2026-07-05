@@ -831,6 +831,9 @@ typedef __kindof UIProgressView *_Nullable(^JobsRetProgressViewByColorBlock)(UIC
 typedef __kindof UIProgressView *_Nullable(^JobsRetProgressViewByImageBlock)(UIImage *_Nullable image);
 typedef __kindof UIProgressView *_Nullable(^JobsRetProgressViewByNSProgressBlock)(NSProgress *_Nullable progress);
 typedef __kindof UIProgressView *_Nullable(^JobsRetProgressViewByFloatAnimatedBlock)(Jobs_Progress_Animated_Arguments);
+#pragma mark —— 关于 UISlider
+typedef __kindof UISlider *_Nullable(^JobsRetSliderByFloatBlock)(float data);
+typedef __kindof UISlider *_Nullable(^JobsRetSliderByColorBlock)(UIColor *_Nullable color);
 #pragma mark —— 关于 控制器
 /// UIViewController
 typedef __kindof UIViewController *_Nullable(^JobsRetVCByVoidBlock)(void);
@@ -1141,6 +1144,15 @@ typedef __kindof ASButtonNode *_Nonnull(^JobsRetButtonNodeImageByConfigBlock)(Jo
 typedef __kindof ASButtonNode *_Nonnull(^JobsRetButtonNodeByOnLongPressWithTimeBlock)(Jobs_ButtonNode_LongPressTime_Arguments);
 typedef __kindof ASButtonNode *_Nonnull(^JobsRetButtonNodeByTitleConfigBlock)(Jobs_ButtonNode_Title_Font_Color_State_Arguments);
 /// ASStackLayoutSpec
+#if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
+typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByDirectionBlock)(ASStackLayoutDirection direction);
+typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByHorizontalAlignmentBlock)(ASHorizontalAlignment alignment);
+typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByVerticalAlignmentBlock)(ASVerticalAlignment alignment);
+typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByJustifyContentBlock)(ASStackLayoutJustifyContent justifyContent);
+typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByAlignItemsBlock)(ASStackLayoutAlignItems alignItems);
+typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByFlexWrapBlock)(ASStackLayoutFlexWrap flexWrap);
+typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByAlignContentBlock)(ASStackLayoutAlignContent alignContent);
+#endif
 typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecBySpacingBlock)(CGFloat spacing);
 typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByLineSpacingBlock)(CGFloat lineSpacing);
 typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByConcurrentBlock)(BOOL concurrent);

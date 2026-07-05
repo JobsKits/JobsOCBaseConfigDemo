@@ -11,10 +11,10 @@
 #import <UIKit/UIKit.h>
 #import <JobsByOCPods/NSString+Check.h>
 
-#if __has_include(<JobsStringUtils/JobsStringUtils.h>)
-#import <JobsStringUtils/JobsStringUtils.h>
+#if __has_include(<JobsStringUtils/JobsStringUtilsHeader.h>)
+#import <JobsStringUtils/JobsStringUtilsHeader.h>
 #else
-#import "JobsStringUtils.h"
+#import "JobsStringUtilsHeader.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

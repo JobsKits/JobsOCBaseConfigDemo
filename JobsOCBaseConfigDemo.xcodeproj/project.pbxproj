@@ -53,6 +53,7 @@
 				"业务逻辑/功能模块/Demo@抽奖轮盘/ViewController/LuckyDiskDemoVC/LuckyDiskDemoVC.PNG",
 				"业务逻辑/功能模块/Demo@发帖功能/发帖.png",
 				"业务逻辑/功能模块/Demo@Flutter/README.md",
+				"业务逻辑/Common/☀️业务模块中公用的View/自定义视图/维护/维护.png",
 				"业务逻辑/Common/App工具类/3rd/JhtBanner（卡片式滑动效果）/README.md",
 				"业务逻辑/Common/App工具类/3rd/WMZBanner/README.md",
 				"业务逻辑/Common/App工具类/UIKits+3rd/NSObject/NSObject+LiveChat/NSObject+LiveChat.m",
@@ -461,8 +462,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C29CFD27EB7AEA326BB2966F /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AlternateIcon1 AlternateIcon2 AlternateIcon3 AlternateIcon4 AlternateIcon5";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -496,8 +499,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2D7A8B32FCA0BE8EE44C4355 /* Pods-JobsOCBaseConfigDemo.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AlternateIcon1 AlternateIcon2 AlternateIcon3 AlternateIcon4 AlternateIcon5";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

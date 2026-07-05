@@ -73,8 +73,14 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 }
+
+-(CGFloat)irregularViewContentOffsetY{
+    CGFloat navBottom = CGRectGetMaxY(self.gk_navigationBar.frame);
+    return navBottom > 0 ? navBottom : JobsNavigationBarAndStatusBarHeight(nil);
+}
 /// 右斜边梯形
 -(void)view1{
+    CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
     btn.byBgColor([UIColor orangeColor]);
 
@@ -93,15 +99,16 @@
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(0.f, 120)));
     btn.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(20);
-        make.top.equalTo(self.view).offset(100);
+        make.top.equalTo(self.view).offset(100 + contentOffsetY);
         make.size.mas_offset(CGSizeMake(120, 50));
     });
 
 }
 /// 平行四边形
 -(void)view2{
+    CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
-    btn.byFrame(CGRectMake(120, 100, 120, 50));
+    btn.byFrame(CGRectMake(120, 100 + contentOffsetY, 120, 50));
 
     btn.byBgColor([UIColor greenColor]);
 
@@ -122,8 +129,9 @@
 }
 /// 左斜边梯形
 -(void)view3{
+    CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
-    btn.byFrame(CGRectMake(220, 100, 120, 50));
+    btn.byFrame(CGRectMake(220, 100 + contentOffsetY, 120, 50));
 
     btn.byBgColor([UIColor cyanColor]);
 
@@ -143,8 +151,9 @@
 }
 /// 六角形
 - (void)view4{
+    CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
-    btn.byFrame(CGRectMake(20, 200, 150, 150));
+    btn.byFrame(CGRectMake(20, 200 + contentOffsetY, 150, 150));
 
     btn.byBgColor([UIColor purpleColor]);
 
@@ -178,8 +187,9 @@
 }
 /// 对折形状
 -(void)view5{
+    CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
-    btn.byFrame(CGRectMake(200, 200, 150, 150));
+    btn.byFrame(CGRectMake(200, 200 + contentOffsetY, 150, 150));
 
     btn.byBgColor([UIColor brownColor]);
 
@@ -199,8 +209,9 @@
 }
 /// 箭头
 -(void)view6 {
+    CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
-    btn.byFrame(CGRectMake(20, 380, 330, 150));
+    btn.byFrame(CGRectMake(20, 380 + contentOffsetY, 330, 150));
 
     btn.byBgColor([UIColor magentaColor]);
 
@@ -223,4 +234,3 @@
 }
 
 @end
-

@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 #import <JobsOCTools/BaseContentView.h>
 #import <JobsOCTools/JobsAppDoorConfig.h>
+#import <JobsOCTools/JobsAppDoorInputViewHeader.h>
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>

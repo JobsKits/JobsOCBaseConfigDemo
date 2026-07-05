@@ -26,27 +26,23 @@ collection view cell support, and a unified umbrella header for Jobs projects.
     'UIKit'
   ]
 
-  spec.default_subspecs = 'Core'
+  spec.source_files        = [
+    'JobsHotLabel.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsHotLabel.h',
+    'Core/**/*.h'
+  ]
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = [
-      'JobsHotLabel.h',
-      'Core/**/*.{h,m,mm}'
-    ]
-    ss.public_header_files = [
-      'JobsHotLabel.h',
-      'Core/**/*.h'
-    ]
-
-    ss.dependency 'JobsMakes'
-    ss.dependency 'JobsModelDSL'
-    ss.dependency 'JobsOCDSL'
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsBaseUI'
-    ss.dependency 'JobsByOCPods'
-    ss.dependency 'JobsOCProtocols'
-  end
+  spec.dependency 'JobsMakes'
+  spec.dependency 'JobsModelDSL'
+  spec.dependency 'JobsOCDSL'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsBaseUI'
+  spec.dependency 'JobsByOCPods'
+  spec.dependency 'JobsOCProtocols'
 
   JobsPodspecKitForJobsHotLabel.apply_standard_xcconfig(spec)
 

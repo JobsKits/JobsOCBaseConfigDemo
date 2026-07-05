@@ -33,14 +33,12 @@ model-driven view rendering support.
   spec.source           = { :path => '.' }
 
   # Force public headers to be exposed as <JobsBasePopupView/Header.h>.
-  spec.header_dir       = 'JobsBasePopupView'
 
   spec.frameworks = [
     'Foundation',
     'UIKit'
   ]
 
-  spec.default_subspecs = 'Core'
   
   spec.dependency 'JobsModelDSL'
   spec.dependency 'JobsMakes'
@@ -57,16 +55,20 @@ model-driven view rendering support.
 
   JobsPodspecKitForJobsBasePopupView.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsBasePopupView.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsBasePopupViewHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsBasePopupViewHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsBasePopupView'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources           = 'Core/**/*.{png,jpg,jpeg,gif,xib,nib,storyboard,xcassets}'
-    ss.dependency 'Masonry'
 
-  end
+  spec.dependency 'Masonry'
+
 
   JobsPodspecKitForJobsBasePopupView.apply_standard_exclude_files(spec)
 

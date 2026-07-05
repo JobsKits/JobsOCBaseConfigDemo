@@ -66,13 +66,6 @@ Pod::Spec.new do |spec|
     end
   end
 
-  support_dependency_paths = folder_subspec_names.call('Support').flat_map do |subspec_name|
-    collect_leaf_subspec_paths.call(
-      "Support/#{subspec_name}",
-      "JobsOCRuntimeKits/Support/#{subspec_name}"
-    )
-  end
-
   add_support_dependencies = lambda do |ss|
     ss.dependency 'JobsBlock'
     ss.dependency 'JobsOCDefs'
@@ -110,15 +103,7 @@ for Jobs projects.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
 
-  spec.source_files = [
-    'JobsOCRuntimeKits.h'
-  ]
-
-  spec.public_header_files = [
-    'JobsOCRuntimeKits.h'
-  ]
 
   spec.frameworks = [
     'Foundation',
@@ -183,31 +168,29 @@ for Jobs projects.
   )
   JobsPodspecKitForJobsOCRuntimeKits.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsOCRuntimeKits.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsOCRuntimeKits.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsOCRuntimeKits.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsOCRuntimeKits'
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources           = 'Core/**/*.{png,jpg,jpeg,gif,xib,nib,storyboard,xcassets}'
 
-    support_dependency_paths.each do |subspec_path|
-      ss.dependency subspec_path
-    end
+  spec.dependency 'WHToastExtra'
+  spec.dependency 'JobsModelDSL'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsClass'
+  spec.dependency 'JobsMakes'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsTimeUtils'
+  spec.dependency 'JobsOCSnowflake'
+  spec.dependency 'JobsRandomUtils'
+  spec.dependency 'JobsOCProtocols'
+  spec.dependency 'JobsLanMgr'
 
-    ss.dependency 'WHToastExtra'
-    ss.dependency 'JobsModelDSL'
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsClass'
-    ss.dependency 'JobsMakes'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsTimeUtils'
-    ss.dependency 'JobsOCSnowflake'
-    ss.dependency 'JobsRandomUtils'
-    ss.dependency 'JobsOCProtocols'
-    ss.dependency 'JobsLanMgr'
-
-  end
 
   JobsPodspecKitForJobsOCRuntimeKits.apply_standard_xcconfig(spec)
 

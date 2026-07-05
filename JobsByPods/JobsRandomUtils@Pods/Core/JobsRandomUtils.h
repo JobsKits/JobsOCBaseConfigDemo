@@ -8,6 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_JOBSRANDOMUTILS_EA8423DA7C
 #define JOBS_HEADER_GUARD_JOBSRANDOMUTILS_EA8423DA7C
 
+#import <stdint.h>
+#import <stdlib.h>
 #import <UIKit/UIKit.h>
 
 /**

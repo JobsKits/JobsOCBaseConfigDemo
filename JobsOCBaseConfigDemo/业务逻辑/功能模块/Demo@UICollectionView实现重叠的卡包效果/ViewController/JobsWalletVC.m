@@ -43,23 +43,23 @@ Prop_strong()NSMutableArray <UIViewModel *>*sectionFooterDataSource;
         })
         //        self.viewModel.textModel.text = @"JobsWallet".tr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(16));
+            data.byText(@"银行卡".tr);
+            data.byFont(UIFontWeightSemiboldSize(17));
         })
     
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byBgCor(HEXCOLOR(0xF5F7FB))
         //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgCor(HEXCOLOR(0xFFF1E4))
         .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.byBgColor(JobsOrangeColor);
+    self.view.byBgColor(HEXCOLOR(0xF5F7FB));
 
     self.collectionView.byShow(self);
 }
@@ -95,9 +95,9 @@ Prop_strong()NSMutableArray <UIViewModel *>*sectionFooterDataSource;
 -(CGFloat)collectionView:(UICollectionView *)collectionView
 resuableHeaderViewHeightForIndexPath:(NSIndexPath *)indexPath {
 //    return indexPath.section == 0 ? 30 : 0;
-    if (indexPath.section == self.dataSourceMutArr.count - 1) {
-        return JobsWidth(45);
-    };return JobsWidth(30);
+    if (indexPath.section == 0) {
+        return JobsWidth(48);
+    };return JobsWidth(22);
 }
 
 -(CGFloat)collectionView:(UICollectionView *)collectionView
@@ -120,20 +120,27 @@ resuableFooterViewHeightForIndexPath:(NSIndexPath *)indexPath {
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == self.dataSourceMutArr.count - 1) {
         JobsBtnStyleCVCell *cell = [collectionView collectionViewCellClass:JobsBtnStyleCVCell.class forIndexPath:indexPath];
-        cell.jobsRichElementsCollectionViewCellBy(self.dataSourceMutArr[indexPath.section][indexPath.item]);
-        cell.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable data) {
-            data.byLayerCor(@"#6E5600".cor)
-                .byJobsWidth(JobsWidth(1))
-                .byCornerRadiusValue(JobsWidth(8));
-        }));return cell;
+        UIViewModel *viewModel = self.dataSourceMutArr[indexPath.section][indexPath.item];
+        viewModel.byItem(indexPath.item);
+        cell.jobsRichElementsCollectionViewCellBy(viewModel);
+        cell
+            .byBgColor(JobsClearColor)
+            .byClipsToBounds(NO)
+            .byLayer(^(CALayer *layer) {
+                layer
+                    .byMasksToBounds(NO)
+                    .byShadowColor(RGBA_COLOR(32, 58, 86, 0.10).CGColor)
+                    .byShadowOpacity(1)
+                    .byShadowOffset(CGSizeMake(0, JobsWidth(4)))
+                    .byShadowRadius(JobsWidth(10));
+            });
+        return cell;
     }else{
         BaiShaETProjBankAccMgmtCVCell *cell = [collectionView collectionViewCellClass:BaiShaETProjBankAccMgmtCVCell.class forIndexPath:indexPath];
-        cell.jobsRichElementsCollectionViewCellBy(self.dataSourceMutArr[indexPath.section][indexPath.item]);
-        cell.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable data) {
-            data.byLayerCor(@"#6E5600".cor)
-                .byJobsWidth(JobsWidth(1))
-                .byCornerRadiusValue(JobsWidth(8));
-        }));return cell;
+        UIViewModel *viewModel = self.dataSourceMutArr[indexPath.section][indexPath.item];
+        viewModel.byItem(indexPath.item);
+        cell.jobsRichElementsCollectionViewCellBy(viewModel);
+        return cell;
     }
 }
 
@@ -166,19 +173,23 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
                                  atIndexPath:(NSIndexPath *)indexPath{
     TMSWalletCollectionReusableView *reusableView = nil;
     reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:NSStringFromClass(TMSWalletCollectionReusableView.class) forIndexPath:indexPath];
-    if (kind == TMSCollectionViewSectionHeader) {
+    reusableView.byBgColor(HEXCOLOR(0xF5F7FB));
+    if ([kind isEqualToString:TMSCollectionViewSectionHeader]) {
         if(indexPath.section < self.sectionHeaderDataSource.count){
             UIViewModel *viewModel = self.sectionHeaderDataSource[indexPath.section];
-            viewModel.textModel.byText([NSString stringWithFormat:@"Section Header:%zd-%zd", indexPath.section, indexPath.item]);
             reusableView.jobsRichViewByModel(viewModel);
+            reusableView.label
+                .byFont(UIFontWeightSemiboldSize(16))
+                .byTextCor(HEXCOLOR(0x2F3A46))
+                .byHidden(!isValue(viewModel.textModel.text));
         }
     }
 
-    if (kind == TMSCollectionViewSectionFooter) {
+    if ([kind isEqualToString:TMSCollectionViewSectionFooter]) {
         if(indexPath.section < self.sectionFooterDataSource.count){
             UIViewModel *viewModel = self.sectionFooterDataSource[indexPath.section];
-            viewModel.textModel.byText([NSString stringWithFormat:@"Section Header:%zd-%zd", indexPath.section, indexPath.item]);
             reusableView.jobsRichViewByModel(viewModel);
+            reusableView.label.byHidden(YES);
         }
     };return reusableView;
 }
@@ -188,7 +199,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
         _collectionView = UICollectionView.initByLayout(self.tms_layout);
-        _collectionView.byBgColor(JobsClearColor);
+        _collectionView.byBgColor(HEXCOLOR(0xF5F7FB));
 
         
         {
@@ -260,9 +271,19 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
             }));
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>* _Nullable data1) {
                 data1.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data2) {
-                    data2.textModel.byText(@"＋添加新的銀行卡".tr)
-                                   .byFont(UIFontWeightRegularSize(16))
-                                   .byTextCor(HEXCOLOR(0x757575));
+                    data2
+                        .byBgCor(JobsWhiteColor)
+                        .byBgSelectedCor(HEXCOLOR(0xEEF4FF))
+                        .byLayerCornerRadius(JobsWidth(14))
+                        .byJobsEnabled(NO);
+                    data2.textModel
+                        .byText(@"＋ 添加新的银行卡".tr)
+                        .byFont(UIFontWeightSemiboldSize(16))
+                        .byTextCor(HEXCOLOR(0x3A4653));
+                    data2.subTextModel
+                        .bySubText(@"安全管理银行卡".tr)
+                        .bySubFont(UIFontWeightRegularSize(12))
+                        .bySubTextCor(HEXCOLOR(0x8A96A3));
                 }));
             }));
         });
@@ -273,7 +294,10 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (!_sectionHeaderDataSource) {
         _sectionHeaderDataSource = jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>* _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.byText(@"我是头部".tr);
+                data1.textModel.byText(@"我的银行卡".tr);
+            }))
+            .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
+                data1.textModel.byText(@"");
             }));
         });
     };return _sectionHeaderDataSource;
@@ -283,7 +307,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (!_sectionFooterDataSource) {
         _sectionFooterDataSource = jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>* _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.byText(@"我是尾部".tr);
+                data1.textModel.byText(@"");
             }));
         });
     };return _sectionFooterDataSource;

@@ -43,11 +43,7 @@
  *
  */
 
-#import <Foundation/Foundation.h>
 #import "NSData+CommonCrypto.h"
-#import <CommonCrypto/CommonDigest.h>  // 提供常见摘要算法接口，如 MD5、SHA1、SHA256 等。
-#import <CommonCrypto/CommonCryptor.h>
-#import <CommonCrypto/CommonHMAC.h>
 
 NSString * const kCommonCryptoErrorDomain = @"CommonCryptoErrorDomain";
 

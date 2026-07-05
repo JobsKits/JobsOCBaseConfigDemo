@@ -18,6 +18,7 @@
 #import <JobsBaseUI/UIImpactFeedbackGenerator+Extra.h>
 #import <JobsBaseUI/NSString+Check.h>
 #import <JobsBaseUI/UIButton+SimplyMake.h>
+#import <JobsBaseUI/NSString+Sys.h>
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
@@ -37,10 +38,10 @@
 #import "JobsModelDSL.h"
 #endif
 
-#if __has_include(<JobsNavBar/JobsNavBar.h>)
-#import <JobsNavBar/JobsNavBar.h>
+#if __has_include(<JobsNavBar/JobsNavBarHeader.h>)
+#import <JobsNavBar/JobsNavBarHeader.h>
 #else
-#import "JobsNavBar.h"
+#import "JobsNavBarHeader.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
@@ -49,10 +50,10 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsStringUtils/JobsStringUtils.h>)
-#import <JobsStringUtils/JobsStringUtils.h>
+#if __has_include(<JobsStringUtils/JobsStringUtilsHeader.h>)
+#import <JobsStringUtils/JobsStringUtilsHeader.h>
 #else
-#import "JobsStringUtils.h"
+#import "JobsStringUtilsHeader.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

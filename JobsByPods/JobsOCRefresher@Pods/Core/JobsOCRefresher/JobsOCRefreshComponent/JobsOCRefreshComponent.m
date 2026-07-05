@@ -6,28 +6,6 @@
 //
 
 #import "JobsOCRefreshComponent.h"
-#import <ImageIO/ImageIO.h>
-
-#if __has_include(<SDWebImage/SDWebImage.h>)
-#import <SDWebImage/SDWebImage.h>
-#endif
-
-#if __has_include(<lottie-ios/Lottie.h>)
-#import <lottie-ios/Lottie.h>
-#define JOBS_OC_REFRESH_HAS_LOTTIE 1
-#elif __has_include("Lottie.h")
-#import "Lottie.h"
-#define JOBS_OC_REFRESH_HAS_LOTTIE 1
-#else
-#define JOBS_OC_REFRESH_HAS_LOTTIE 0
-#endif
-
-#if __has_include(<JobsOCTimer/JobsTimer.h>)
-#import <JobsOCTimer/JobsTimer.h>
-#define JOBS_OC_REFRESH_HAS_TIMER 1
-#else
-#define JOBS_OC_REFRESH_HAS_TIMER 0
-#endif
 
 @interface JobsOCRefreshComponent ()
 
@@ -40,11 +18,11 @@ Prop_strong() UILabel *timeLabel;
 Prop_strong(nullable) NSDate *lastRefreshedAt;
 Prop_strong(nullable) NSArray<UIImage *> *frameImages;
 Prop_assign() NSUInteger frameImageIndex;
-#if JOBS_OC_REFRESH_HAS_LOTTIE
+#if defined(Lottie_h)
 Prop_strong(nullable) LOTAnimationView *lottieView;
 Prop_copy(nullable) NSString *currentLottieName;
 #endif
-#if JOBS_OC_REFRESH_HAS_TIMER
+#if defined(JOBS_HEADER_GUARD_JOBSTIMER_BCB1BF4076)
 Prop_strong(nullable) JobsTimer *frameTimer;
 #endif
 
@@ -143,7 +121,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
     CGFloat boundsH = CGRectGetHeight(self.bounds);
     if (horizontal) {
         BOOL visualVisible = self.indicatorView.isAnimating || !self.imageView.hidden;
-#if JOBS_OC_REFRESH_HAS_LOTTIE
+#if defined(Lottie_h)
         visualVisible = visualVisible || (self.lottieView && !self.lottieView.hidden);
 #endif
         BOOL showsTime = !self.timeLabel.hidden && self.timeLabel.text.length;
@@ -173,7 +151,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
                                       iconSide);
         self.imageView.frame = iconFrame;
         self.indicatorView.frame = iconFrame;
-#if JOBS_OC_REFRESH_HAS_LOTTIE
+#if defined(Lottie_h)
         self.lottieView.frame = iconFrame;
 #endif
         self.statusLabel.frame = CGRectMake(startX,
@@ -204,7 +182,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
         CGFloat textY = centerY - textH * 0.5;
         self.imageView.frame = CGRectMake(startX, centerY - iconSide * 0.5, iconSide, iconSide);
         self.indicatorView.frame = self.imageView.frame;
-#if JOBS_OC_REFRESH_HAS_LOTTIE
+#if defined(Lottie_h)
         self.lottieView.frame = self.imageView.frame;
 #endif
         self.statusLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + spacing,
@@ -266,7 +244,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
 }
 
 - (BOOL)applyFrameImages {
-#if !JOBS_OC_REFRESH_HAS_TIMER
+#if !defined(JOBS_HEADER_GUARD_JOBSTIMER_BCB1BF4076)
     return NO;
 #else
     NSMutableArray<UIImage *> *images = NSMutableArray.array;
@@ -313,7 +291,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
 }
 
 - (BOOL)applyLottie {
-#if !JOBS_OC_REFRESH_HAS_LOTTIE
+#if !defined(Lottie_h)
     return NO;
 #else
     if (!self.config.lottieName.length) return NO;
@@ -337,12 +315,10 @@ Prop_strong(nullable) JobsTimer *frameTimer;
     NSURL *url = [NSURL URLWithString:self.config.networkImageURLString];
     if (!url) return NO;
     self.imageView.hidden = NO;
-#if __has_include(<SDWebImage/SDWebImage.h>)
-    [self.imageView sd_setImageWithURL:url];
+    SEL selector = NSSelectorFromString(@"sd_setImageWithURL:");
+    if (![self.imageView respondsToSelector:selector]) return NO;
+    ((void (*)(id, SEL, NSURL *))objc_msgSend)(self.imageView, selector, url);
     return YES;
-#else
-    return NO;
-#endif
 }
 
 - (UIImage *)animatedGIFNamed:(NSString *)name {
@@ -376,7 +352,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
 }
 
 - (void)stopFrameTimer {
-#if JOBS_OC_REFRESH_HAS_TIMER
+#if defined(JOBS_HEADER_GUARD_JOBSTIMER_BCB1BF4076)
     [self.frameTimer stop];
     self.frameTimer = nil;
 #endif
@@ -384,7 +360,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
     self.frameImageIndex = 0;
 }
 
-#if JOBS_OC_REFRESH_HAS_LOTTIE
+#if defined(Lottie_h)
 - (LOTAnimationView *)buildLottieViewWithName:(NSString *)name {
     NSString *filePath = [NSFileManager.defaultManager fileExistsAtPath:name] ? name : nil;
     if (!filePath.length) {
@@ -401,7 +377,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
 #endif
 
 - (void)stopLottie {
-#if JOBS_OC_REFRESH_HAS_LOTTIE
+#if defined(Lottie_h)
     [self.lottieView stop];
     self.lottieView.hidden = YES;
 #endif

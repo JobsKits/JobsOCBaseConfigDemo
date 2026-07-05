@@ -21,6 +21,8 @@ nodes              nodes_fts_data     project_metadata
 ## 二、Schema
 
 ```sql
+CREATE UNIQUE INDEX idx_edges_identity
+          ON edges(source, target, kind, IFNULL(line, -1), IFNULL(col, -1))
 CREATE INDEX idx_edges_kind ON edges(kind)
 CREATE INDEX idx_edges_provenance ON edges(provenance)
 CREATE INDEX idx_edges_source_kind ON edges(source, kind)

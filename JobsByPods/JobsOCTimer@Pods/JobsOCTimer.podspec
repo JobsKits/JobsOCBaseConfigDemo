@@ -23,7 +23,6 @@ JobsOCTimer provides timer utilities and related helpers.
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
 
   JobsPodspecKitForJobsOCTimer.apply_standard_exclude_files(spec)
 
@@ -43,15 +42,16 @@ JobsOCTimer provides timer utilities and related helpers.
   spec.dependency 'WHToastExtra'
   JobsPodspecKitForJobsOCTimer.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsOCTimer.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsOCTimer.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsOCTimer.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsOCTimer'
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-
-    ss.dependency 'JobsOCTimer/Support/UIKit'
-  end
 
   JobsPodspecKitForJobsOCTimer.apply_standard_xcconfig(spec)
 

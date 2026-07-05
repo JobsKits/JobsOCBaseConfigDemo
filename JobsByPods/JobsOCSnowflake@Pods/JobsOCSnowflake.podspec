@@ -16,7 +16,6 @@ JobsOCSnowflake provides Snowflake ID generation utilities.
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
 
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'
@@ -28,10 +27,16 @@ JobsOCSnowflake provides Snowflake ID generation utilities.
     'UIKit'
   ]
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-  end
+  spec.source_files = [
+    'JobsOCSnowflakeHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsOCSnowflakeHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsOCSnowflake'
+
 
   JobsPodspecKitForJobsOCSnowflake.apply_standard_xcconfig(spec)
 

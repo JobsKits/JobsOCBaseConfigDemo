@@ -6,6 +6,7 @@
 //
 
 #import "JobsLoadingImage.h"
+#import <JobsLoadingImage/NSString+Sys.h>
 
 double JobsLoadingImageVersionNumber = 1.0;
 const unsigned char JobsLoadingImageVersionString[] = "1.0.0";
@@ -25,11 +26,9 @@ BOOL JobsObjectIsNull(id _Nullable obj) {
 
     if ([obj isKindOfClass:NSString.class]) {
         NSString *str = (NSString *)obj;
-        NSString *trimmed = [str stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+        NSString *trimmed = str.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
         return trimmed.length == 0;
-    }
-
-    return NO;
+    };return NO;
 }
 
 BOOL JobsObjectIsValue(id _Nullable obj) {
@@ -60,9 +59,7 @@ static NSArray<NSBundle *> *JobsCandidateBundles(void) {
         if (nestedBundle && ![bundles containsObject:nestedBundle]) {
             [bundles insertObject:nestedBundle atIndex:0];
         }
-    }
-
-    return bundles.copy;
+    };return bundles.copy;
 }
 
 static NSString * _Nullable JobsFindResourcePathInBundles(NSString * _Nullable resourceName,
@@ -79,9 +76,7 @@ static NSString * _Nullable JobsFindResourcePathInBundles(NSString * _Nullable r
         if (JobsObjectIsValue(path)) {
             return path;
         }
-    }
-
-    return nil;
+    };return nil;
 }
 
 NSString *JobsBundleResourcePath(NSString * _Nullable blueFolderName,
@@ -113,9 +108,7 @@ NSString *JobsBundleResourcePath(NSString * _Nullable blueFolderName,
 
     if (JobsObjectIsValue(bundleFolderName)) {
         filePath = [filePath stringByAppendingPathComponent:bundleFolderName];
-    }
-
-    return filePath ?: @"";
+    };return filePath ?: @"";
 }
 
 NSString *JobsBundleImagePath(NSString * _Nullable blueFolderName,
@@ -134,9 +127,7 @@ NSString *JobsBundleImagePath(NSString * _Nullable blueFolderName,
 
     if (![safeImageName containsString:@"."]) {
         safeImageName = [safeImageName stringByAppendingPathExtension:@"png"];
-    }
-
-    return [filePath stringByAppendingPathComponent:safeImageName];
+    };return [filePath stringByAppendingPathComponent:safeImageName];
 }
 
 UIImage * _Nullable JobsLoadBundleImage(NSString * _Nullable blueFolderName,

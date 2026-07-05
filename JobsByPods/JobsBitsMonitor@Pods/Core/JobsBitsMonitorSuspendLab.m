@@ -42,8 +42,8 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
                 NSString *downStr = JobsFormatSpeed(downloadBytesPerSec);
                 /// 公共段落样式：居中 + 行距 2
                 NSMutableParagraphStyle *ps = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data2) {
-                    data2.alignment   = NSTextAlignmentCenter;
-                    data2.lineSpacing = 2.0;
+                    data2.byAlignment(NSTextAlignmentCenter)
+                        .byLineSpacing(2.0);
                 });
                 /// ✅ 用你自己的富文本 DSL 来拼装
                 NSAttributedString *attr =

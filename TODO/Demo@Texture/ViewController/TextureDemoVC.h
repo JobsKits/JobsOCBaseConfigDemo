@@ -63,9 +63,7 @@ typedef NS_ENUM(NSInteger, TDDemoRowType) {
     TDDemoRowType_EditableText,
     TDDemoRowType_HCarousel,
     TDDemoRowType_Video,
-#if HAS_MAPKIT
     TDDemoRowType_Map,
-#endif
     TDDemoRowType_Draw
 };
 

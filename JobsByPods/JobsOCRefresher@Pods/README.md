@@ -127,7 +127,7 @@ config.soundName = @"refresh.wav";
 
 - 当前 Core 不依赖 `MJRefresh` / `XZMRefresh`，行为由本 Pod 自己维护。
 - `Lottie` 子规格会启用 `LOTAnimationView`，`lottieName` 支持资源名或本地 `.json` 文件路径；未接入子规格时自动回退系统菊花。
-- `FrameAnimation` 子规格挂载 `JobsOCTimer/Core` 和 `JobsOCTimerMgr/Core`，默认组件会使用 `JobsTimer` 按帧间隔驱动静态图轮播。
+- `FrameAnimation` 子规格挂载 `JobsOCTimer` 和 `JobsOCTimerMgr`，默认组件会使用 `JobsTimer` 按帧间隔驱动静态图轮播。
 - 修改 `podspec` 后建议执行 `pod install --no-repo-update`，并检查 `Pods/Pods.xcodeproj` 是否能正常展开 `Development Pods > JobsOCRefresher`。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

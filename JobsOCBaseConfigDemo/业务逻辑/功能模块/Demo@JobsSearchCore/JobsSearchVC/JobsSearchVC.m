@@ -16,6 +16,7 @@ Prop_strong()JobsDropDownListView *dropDownListView;
 Prop_strong()NSMutableArray <__kindof UIViewModel *>*sectionTitleMutArr;
 Prop_strong()NSMutableArray <__kindof UIViewModel *>*hotSearchMutArr;
 Prop_strong()NSMutableArray <__kindof UIViewModel *>*listViewData;
+Prop_strong()NSMutableArray <__kindof UIViewModel *>*searchResultMutArr;
 Prop_strong()UIColor *bgColour;
 Prop_copy()NSString *titleStr;//标题
 Prop_assign()CGRect tableViewRect;
@@ -136,21 +137,89 @@ Prop_assign()HotSearchStyle hotSearchStyle;
     _dropDownListView = nil;
 }
 /// 逐字搜索功能
-//-(void)searchByString:(NSString *)string{
-//    //每次都清数据
-//    [self.listViewData removeAllObjects];
-//    //在此可以网络请求
-//    //也可以对本地的一个数据库文件进行遍历
-//    NSDictionary *dic = @"假数据".readLocalFileWithName;
-//    NSArray *arr = dic[@"data"];
-//    for (NSString *str in arr) {
-//        if (self.isOpenLetterCase ? [str.lowercaseString containsString:string.lowercaseString] : [str containsString:string]) {
-//            UIViewModel *viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
-//            viewModel.textModel.text = str;
-//            [self.listViewData addObject:viewModel];
-//        }
-//    }
-//}
+-(void)searchByString:(NSString *)string{
+    NSString *keyword = [self searchTextBy:string];
+    [self.searchResultMutArr removeAllObjects];
+    if (!keyword.length) {
+        [self endDropDownListView];
+        return;
+    }
+
+    for (UIViewModel *viewModel in self.searchSourceMutArr) {
+        NSString *text = [self searchTextBy:viewModel];
+        if ([self searchText:text matchesKeyword:keyword]) {
+            self.searchResultMutArr.add(viewModel);
+        }
+    }
+    if (!self.searchResultMutArr.count) {
+        self.searchResultMutArr.add(self.makeViewModelBy(keyword));
+    }[self showSearchResultDropDownListView];
+}
+
+-(NSString *)searchTextBy:(id)data{
+    NSString *text = @"";
+    if ([data isKindOfClass:NSString.class]) {
+        text = (NSString *)data;
+    } else if ([data isKindOfClass:UIViewModel.class]) {
+        UIViewModel *viewModel = (UIViewModel *)data;
+        text = viewModel.textModel.text;
+    };return [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] ? : @"";
+}
+
+-(BOOL)searchText:(NSString *)text
+   matchesKeyword:(NSString *)keyword{
+    if (!text.length || !keyword.length) return NO;
+    return self.isOpenLetterCase ? [text.lowercaseString containsString:keyword.lowercaseString] : [text containsString:keyword];
+}
+
+-(NSMutableArray <UIViewModel *>*)searchSourceMutArr{
+    NSMutableArray <UIViewModel *>*data = NSMutableArray.array;
+    NSArray <NSArray <UIViewModel *>* >*sourceGroups = @[self.hotSearchMutArr,self.listViewData];
+    for (NSArray <UIViewModel *>*source in sourceGroups) {
+        for (UIViewModel *viewModel in source) {
+            if (![self filtrationData:viewModel
+                            atDataArr:data
+                       byPropertyName:@"text"]) {
+                data.add(viewModel);
+            }
+        }
+    };return data;
+}
+
+-(void)showSearchResultDropDownListView{
+    [self endDropDownListView];
+    if (!self.searchResultMutArr.count) return;
+    @jobs_weakify(self)
+    self.dropDownListView = [self motivateFromView:self.jobsSearchBar
+                     jobsDropDownListViewDirection:JobsDropDownListViewDirection_Down
+                                              data:self.searchResultMutArr
+                                motivateViewOffset:JobsWidth(5)
+                                       finishBlock:^(UIViewModel *data) {
+        @jobs_strongify(self)
+        NSString *text = [self searchTextBy:data];
+        self.jobsSearchBar.textField.byText(text);
+        [self saveHistoryByText:text];
+        [self endDropDownListView];
+    }];
+}
+
+-(void)saveHistoryByText:(NSString *)text{
+    NSString *historyText = [self searchTextBy:text];
+    if (!historyText.length) return;
+    UIViewModel *viewModel = self.makeViewModelBy(historyText);
+    if (![self filtrationData:viewModel
+                    atDataArr:self.listViewData
+               byPropertyName:@"text"]) {
+        self.listViewData.add(viewModel);
+        JobsSearchStorageData(historyText);
+        [self reloadSearchSectionData];
+    }
+}
+
+-(void)reloadSearchSectionData{
+    _sectionTitleMutArr = nil;
+    [self.tableView reloadData];
+}
 /// 数据过滤。对照数据一样返回YES，反之返回NO
 /// @param viewModel 准备取这个数据源对象里的某个属性值
 /// @param dataArr 需要进行对照检查的数据源数组
@@ -244,9 +313,11 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    [self.view endEditing:YES];
-    JobsSearchShowHistoryDataTBVCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    self.jobsSearchBar.textField.byText(cell.textLabel.text);
-
+    if (indexPath.section == 1 && indexPath.row < self.listViewData.count) {
+        NSString *text = [self searchTextBy:self.listViewData[indexPath.row]];
+        self.jobsSearchBar.textField.byText(text);
+        [self saveHistoryByText:text];
+    }[self endDropDownListView];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
@@ -277,7 +348,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                         .jobsRichElementsTableViewCellBy(self.hotSearchMutArr)
                             .JobsBlock1(^(JobsHotLabelByMultiLineCVCell *cell) {/// 点击的哪个btn？
                                 @jobs_strongify(self)
-                                self.jobsSearchBar.textField.byText(cell.getViewModel.textModel.text);
+                                NSString *text = [self searchTextBy:cell.getViewModel];
+                                self.jobsSearchBar.textField.byText(text);
+                                [self saveHistoryByText:text];
+                                [self endDropDownListView];
 
                             });
                 }break;
@@ -288,15 +362,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                         .jobsRichElementsTableViewCellBy(self.hotSearchMutArr)
                         .JobsBlock1(^(UIViewModel *data) {
                                 @jobs_strongify(self)
-                                self.jobsSearchBar.textField.byText(data.textModel.text);
-
-                                /// 点选了推荐，则映入输入框＋存入历史
-                                /// 防止相同的元素存入
-                                if (![self filtrationData:data
-                                                atDataArr:self.listViewData
-                                           byPropertyName:@"text"]) {
-                                    self.listViewData.add(data);
-                                }[self endDropDownListView];
+                                NSString *text = [self searchTextBy:data];
+                                self.jobsSearchBar.textField.byText(text);
+                                [self saveHistoryByText:text];
+                                [self endDropDownListView];
                             });
                 }break;
 
@@ -338,6 +407,7 @@ heightForHeaderInSection:(NSInteger)section{
     header.jobsRichViewByModel(self.sectionTitleMutArr[section]);
     if (section == 1) {
         header.delBtn.jobsVisible = YES;
+        header.delBtn.byAlpha(1);
         @jobs_weakify(self)
         [header actionObjBlock:^(id data) {
             @jobs_strongify(self)
@@ -346,19 +416,12 @@ heightForHeaderInSection:(NSInteger)section{
                                       fold:![self.tableView ww_isSectionFolded:section]];//设置可折叠
             /// 删除历史过往记录
             [self.listViewData removeAllObjects];
-
-//            NSUserDefaults.updateWithModel(jobsMakeUserDefaultModel(^(UserDefaultModel * _Nonnull data) {
-//                data.key = JobsSearchHistoryData;
-//                data.obj = self.historySearchMutArr;
-//            }));
-//
-//            if (self.historySearchMutArr.count == 0) {
-//                [self.sectionTitleMutArr removeAllObjects];
-//                self->_sectionTitleMutArr = nil;
-//            }
-//
-//            [self.tableView reloadData];
+            NSUserDefaults.deleteWithKey(StorageID);
+            [self reloadSearchSectionData];
         }];
+    } else {
+        header.delBtn.jobsVisible = NO;
+        header.delBtn.byAlpha(0);
     }
 
     self.scrollViewClass = BaseTableView.class;//这一属性决定UITableViewHeaderFooterView是否悬停
@@ -443,35 +506,21 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 -(JobsSearchBar *)jobsSearchBar{
     if (!_jobsSearchBar) {
-//        @jobs_weakify(self)
+        @jobs_weakify(self)
         _jobsSearchBar = jobsMakeSearchBar(^(__kindof JobsSearchBar * _Nullable searchBar) {
             searchBar.bySize(JobsSearchBar.viewSizeByModel(nil))
                 .JobsRichViewByModel2(nil)
                 .JobsBlock1(^(NSString *data) {
-//                    @jobs_strongify(self)
+                    @jobs_strongify(self)
+                    [self searchByString:data];
                 });
-
-//            [searchBar actionNSIntegerBlock:^(UITextFieldFocusType data) {
-//                @jobs_strongify(self)
-//                switch (data) {
-//                    case UITextFieldGetFocus:{/// 输入框获得焦点
-//                        if (self.listViewData.count) {
-//                            /// 必须先移除，否则反复添加无法正常移除
-//                            self.dropDownListView = [self motivateFromView:weak_self.jobsSearchBar
-//                                                                      data:self.listViewData
-//                                                        motivateViewOffset:JobsWidth(5)
-//                                                               finishBlock:^(UIViewModel *data) {
-//                                JobsLog(@"data = %@",data);
-//                            }];
-//                        }
-//                    }break;
-//                    case UITextFieldLoseFocus:{/// 输入框失去焦点
-//                        [self endDropDownListView];
-//                    }break;
-//                    default:
-//                        break;
-//                }
-//            }];
+            [searchBar actionStringBlock:^(NSString *data) {
+                @jobs_strongify(self)
+                NSString *text = [self searchTextBy:data];
+                self.jobsSearchBar.textField.byText(text);
+                [self saveHistoryByText:text];
+                [self endDropDownListView];
+            }];
         });
     };return _jobsSearchBar;
 }
@@ -535,8 +584,24 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 -(NSMutableArray<__kindof UIViewModel *> *)listViewData{
     if (!_listViewData) {
-        _listViewData = NSMutableArray.array;
+        @jobs_weakify(self)
+        _listViewData = jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>* _Nullable data) {
+            @jobs_strongify(self)
+            NSArray *storageData = JobsSearchReadData();
+            if ([storageData isKindOfClass:NSArray.class]) {
+                for (id obj in storageData) {
+                    NSString *text = [self searchTextBy:obj];
+                    if (text.length) data.add(self.makeViewModelBy(text));
+                }
+            }
+        });
     };return _listViewData;
+}
+
+-(NSMutableArray<__kindof UIViewModel *> *)searchResultMutArr{
+    if (!_searchResultMutArr) {
+        _searchResultMutArr = NSMutableArray.array;
+    };return _searchResultMutArr;
 }
 
 @end

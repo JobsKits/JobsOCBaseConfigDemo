@@ -19,10 +19,10 @@
 #import "JobsByOCPods.h"
 #endif
 
-#if __has_include(<JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrl.h>)
-#import <JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrl.h>
+#if __has_include(<JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>)
+#import <JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>
 #else
-#import "JobsOCCountryCodeCtrl.h"
+#import "JobsOCCountryCodeCtrlHeader.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)

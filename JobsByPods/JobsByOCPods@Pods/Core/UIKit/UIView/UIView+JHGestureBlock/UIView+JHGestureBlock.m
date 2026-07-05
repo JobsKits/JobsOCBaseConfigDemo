@@ -9,7 +9,7 @@
 
 @implementation UIView (JHGestureBlock)
 
-static const char *JHGestureBlockKey;
+JobsKey(JHGestureBlockKey)
 - (__kindof UIGestureRecognizer *)addGestureRecognizer:(JHGestureType)type block:(JHGestureBlock)block{
     if (block) {
         NSDictionary *dic = @{@"0":@"UITapGestureRecognizer",
@@ -23,10 +23,10 @@ static const char *JHGestureBlockKey;
         UIGestureRecognizer *gesture = [NSClassFromString(string).alloc initWithTarget:self action:@selector(gestureAction:)];
         [self addGestureRecognizer:gesture];
         
-        NSMutableDictionary *blockDic = objc_getAssociatedObject(self, JHGestureBlockKey);
+        NSMutableDictionary *blockDic = Jobs_getAssociatedObject(JHGestureBlockKey);
         if (!blockDic) {
             blockDic = @{}.mutableCopy;
-            objc_setAssociatedObject(self, JHGestureBlockKey, blockDic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            Jobs_setAssociatedRETAIN_NONATOMIC(JHGestureBlockKey, blockDic)
         }
         [blockDic setObject:block forKey:string];
     
@@ -35,7 +35,7 @@ static const char *JHGestureBlockKey;
 }
 
 - (void)gestureAction:(UIGestureRecognizer *)gesture{
-    NSMutableDictionary *blockDic = objc_getAssociatedObject(gesture.view, JHGestureBlockKey);
+    NSMutableDictionary *blockDic = Jobs_getAssociatedObjectByTarget(gesture.view, JHGestureBlockKey);
     JHGestureBlock block = blockDic[NSStringFromClass(gesture.class)];
     if (block) block(gesture.view, gesture);
 }

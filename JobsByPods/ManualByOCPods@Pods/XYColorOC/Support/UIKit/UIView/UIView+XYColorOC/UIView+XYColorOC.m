@@ -7,6 +7,7 @@
 
 #import "UIView+XYColorOC.h"
 #import "_XYColor_PrivateView.h"
+#import "UIView+PrivateView.h"
 
 @implementation UIView (XYColorOC)
 

@@ -12,6 +12,7 @@
 Prop_strong()RBCLikeButton *loveBtn;/// 点赞
 Prop_strong()BaseButton *commentBtn;/// 评论
 Prop_strong()BaseButton *shareBtn;/// 分享
+Prop_strong()JobsPresentationCtrl *commentPresentationController;
 /// Data
 Prop_strong()NSMutableArray <__kindof UIButton *>*masonryViewArr;
 Prop_assign()BOOL isSelected;
@@ -172,15 +173,20 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
                     x.tag = MKRightBtnViewBtnType_commentBtn;//写在block外部，此值异常
                     if (self.objBlock) self.objBlock(x);
                     
-                    JobsCommentCoreVC *jobsCommentCoreVC = JobsCommentCoreVC.new;
-                    JobsPresentationCtrl *presentationController NS_VALID_UNTIL_END_OF_SCOPE;
-                    presentationController = [JobsPresentationCtrl.alloc initWithPresentedViewController:jobsCommentCoreVC
-                                                                                presentingViewController:self.jobsGetCurrentViewController];
-                    jobsCommentCoreVC.presentUpHeight = JobsWidth(800);
-                    /// jobsCommentCoreVC.view.backgroundColor = JobsRedColor;
-                    jobsCommentCoreVC.transitioningDelegate = presentationController;
+                    UIViewController *presentingVC = self.jobsGetCurrentViewController;
+                    if (!presentingVC || presentingVC.presentedViewController) return;
                     
-                    [self forceComingToPushVC:jobsCommentCoreVC requestParams:@"".tr];
+                    JobsCommentCoreVC *jobsCommentCoreVC = JobsCommentCoreVC.new;
+                    CGFloat popUpHeight = JobsMainScreen_HEIGHT() / 2;
+                    jobsCommentCoreVC.popUpHeight = popUpHeight;
+                    jobsCommentCoreVC.preferredContentSize = CGSizeMake(JobsRealWidth(), popUpHeight);
+                    jobsCommentCoreVC.pushOrPresent = ComingStyle_PRESENT;
+                    self.commentPresentationController = [JobsPresentationCtrl.alloc initWithPresentedViewController:jobsCommentCoreVC
+                                                                                             presentingViewController:presentingVC];
+                    jobsCommentCoreVC.transitioningDelegate = self.commentPresentationController;
+                    [presentingVC presentViewController:jobsCommentCoreVC
+                                               animated:YES
+                                             completion:NULL];
                     [jobsCommentCoreVC actionObjBlock:^(id data) {
                         JobsLog(@"您点击了评论");
                     }];

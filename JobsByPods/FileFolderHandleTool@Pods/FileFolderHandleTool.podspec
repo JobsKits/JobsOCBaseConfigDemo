@@ -17,8 +17,6 @@ file and folder related operations in Jobs projects.
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
-  spec.header_dir       = 'FileFolderHandleTool'
 
   spec.frameworks = [
     'Foundation',
@@ -36,12 +34,15 @@ file and folder related operations in Jobs projects.
   spec.dependency 'JobsByOCPods'
   spec.dependency 'TXFileOperation'
 
-  spec.subspec 'Core' do |ss|
-    ss.header_mappings_dir = 'Core'
-    ss.source_files = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.header_dir = 'FileFolderHandleTool'
-  end
+  spec.source_files = [
+    'FileFolderHandleToolHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'FileFolderHandleToolHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'FileFolderHandleTool'
 
   JobsPodspecKitForFileFolderHandleTool.apply_standard_xcconfig(
     spec,

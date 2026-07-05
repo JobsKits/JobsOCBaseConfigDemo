@@ -14,8 +14,6 @@ ZWPullMenuView provides pull menu view components.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
 
-  spec.default_subspecs = 'Core'
-
   spec.exclude_files = [
     # macOS
     '**/.DS_Store',
@@ -93,10 +91,15 @@ ZWPullMenuView provides pull menu view components.
 
   spec.dependency 'JobsByOCPods'
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-  end
+  spec.source_files = [
+    'ZWPullMenuViewHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'ZWPullMenuViewHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'ZWPullMenuView'
 
   spec.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',

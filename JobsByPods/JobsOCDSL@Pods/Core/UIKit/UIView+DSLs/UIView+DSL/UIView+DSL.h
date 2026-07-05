@@ -8,6 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEW_DSL_556F4879E9
 #define JOBS_HEADER_GUARD_UIVIEW_DSL_556F4879E9
 
+#import <objc/message.h>
+#import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -20,6 +22,22 @@
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
+#endif
+
+#if __has_include("../../../Support/NSObject+Measure/NSObject+Measure.h")
+#import "../../../Support/NSObject+Measure/NSObject+Measure.h"
+#elif __has_include(<JobsOCDSL/NSObject+Measure.h>)
+#import <JobsOCDSL/NSObject+Measure.h>
+#else
+#import "NSObject+Measure.h"
+#endif
+
+#if __has_include("../../../Support/NSValue+Extra/NSValue+Extra.h")
+#import "../../../Support/NSValue+Extra/NSValue+Extra.h"
+#elif __has_include(<JobsOCDSL/NSValue+Extra.h>)
+#import <JobsOCDSL/NSValue+Extra.h>
+#else
+#import "NSValue+Extra.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

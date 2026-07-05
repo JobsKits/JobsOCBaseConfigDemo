@@ -16,37 +16,27 @@ JobsAPIs provides a small set of API request classes, including a base API reque
 register request, and image upload request, built on top of YTKNetwork.
   DESC
 
-  spec.homepage         = 'https://github.com/yourname/JobsAPIs'
+  spec.homepage         = 'https://example.local/JobsAPIs'
   spec.license          = { :type => 'MIT', :file => 'LICENSE' }
-  spec.author           = { 'Jobs' => 'jobs@example.com' }
-  spec.source           = { :git => 'https://github.com/yourname/JobsAPIs.git', :tag => spec.version.to_s }
+  spec.author           = { 'Jobs' => 'lg295060456@gmail.com' }
+  spec.source           = { :path => '.' }
 
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
 
-  spec.default_subspecs = 'Core'
 
-  spec.source_files = [
-    'JobsAPIs.h'
-  ]
-
-  spec.public_header_files = [
-    'JobsAPIs.h'
-  ]
   JobsPodspecKitForJobsAPIs.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsAPIs.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsAPIs.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsAPIs.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsAPIs'
 
-    ss.source_files = [
-      'Core/**/*.{h,m,mm}'
-    ]
-
-    ss.public_header_files = [
-      'Core/**/*.h'
-    ]
-  end
 
   JobsPodspecKitForJobsAPIs.apply_standard_exclude_files(spec)
 

@@ -13,6 +13,7 @@
 #import <UIKit/UIKit.h>
 #import <JobsBasePopupView/NSMutableArray+Extra.h>
 #import <JobsBasePopupView/NSString+Extra.h>
+#import <JobsBasePopupView/NSString+Sys.h>
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>

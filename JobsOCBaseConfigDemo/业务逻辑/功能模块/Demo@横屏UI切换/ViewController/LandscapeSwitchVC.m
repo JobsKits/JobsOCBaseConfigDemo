@@ -51,7 +51,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 - (void)viewDidLoad {
     [super viewDidLoad];
     @jobs_weakify(self)
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(HEXCOLOR(0xFCFBFB));
     self.makeNavByAlpha(1);
     self.collectionView.byShow(self);
     self.jobsBackBlock = ^id _Nullable(id _Nullable data) {
@@ -169,7 +169,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
     JobsBtnStyleCVCell *cell = [JobsBtnStyleCVCell cellWithCollectionView:collectionView forIndexPath:indexPath];
     return cell
         .jobsRichElementsCollectionViewCellBy(self.dataMutArr[indexPath.item])
-        .byContentViewBgCor(JobsRandomColor);
+        .byContentViewBgCor(JobsWhiteColor);
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView
@@ -236,13 +236,13 @@ didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
 referenceSizeForHeaderInSection:(NSInteger)section {
-    return JobsHeaderFooterView.collectionReusableViewSizeByModel(nil);
+    return CGSizeZero;
 }
 /// Footer 大小
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
 referenceSizeForFooterInSection:(NSInteger)section{
-    return JobsHeaderFooterView.collectionReusableViewSizeByModel(nil);
+    return CGSizeZero;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
@@ -287,7 +287,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             .byShowsVerticalScrollIndicator(NO)
             .byShowsHorizontalScrollIndicator(NO)
             .byBounces(NO)// 设置为 NO，使得 collectionView 只能上拉，不能下拉
-            .setContentOffsetByYES(CGPointMake(0, -400))// 这句最快在 viewWillLayoutSubviews 有效
+            .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
             .byMJ_header(self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id _Nullable data) {
                 @jobs_strongify(self)
                 NSObject.feedbackGenerator(nil);// 震动反馈
@@ -300,11 +300,12 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             }]));
         _collectionView.byLayoutSubviewsRectCorner(UIRectCornerTopLeft | UIRectCornerTopRight);
         _collectionView.byLayoutSubviewsRectCornerSize(CGSizeMake(JobsWidth(20), JobsWidth(20)));
-        _collectionView.byBgColor(JobsGreenColor);// RGB_SAMECOLOR(246)
+        _collectionView.byBgColor(HEXCOLOR(0xFCFBFB));// RGB_SAMECOLOR(246)
         _collectionView.addOn(self.view);
         [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             @jobs_strongify(self)
-            make.edges.equalTo(self.view);
+            [self make:make topOffset:0];
+            make.left.right.bottom.equalTo(self.view);
         }];
     };return _collectionView;
 }

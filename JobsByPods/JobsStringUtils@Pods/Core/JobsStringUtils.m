@@ -7,6 +7,14 @@
 
 #import "JobsStringUtils.h"
 
+static NSCharacterSet *JobsStringUtilsWhitespaceAndNewlineCharacterSet(void) {
+    return NSCharacterSet.whitespaceAndNewlineCharacterSet;
+}
+
+static NSString *JobsStringUtilsTrimmedWhitespaceAndNewline(NSString *string) {
+    return [string stringByTrimmingCharactersInSet:JobsStringUtilsWhitespaceAndNewlineCharacterSet()];
+}
+
 NSMutableString *JobsMutableString(NSString * _Nullable value) {
     return [NSMutableString stringWithString:value ?: @""];
 }
@@ -31,11 +39,11 @@ BOOL isNull(id _Nullable value) {
         if ([string isEqualToString:@"null"]) return YES;
         if ([string isEqualToString:@"<null>"]) return YES;
         if ([string isEqualToString:@""]) return YES;
-        return ![string stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet].length;
+        return !JobsStringUtilsTrimmedWhitespaceAndNewline(string).length;
     }
 
     NSString *string = [NSString stringWithFormat:@"%@", value];
-    return ![string stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet].length;
+    return !JobsStringUtilsTrimmedWhitespaceAndNewline(string).length;
 }
 
 BOOL isValue(id _Nullable value) {

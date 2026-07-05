@@ -114,7 +114,8 @@ didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(JobsMainScreen_WIDTH() / 2, JobsSearchShowHotwordsTBVCellHeight);
+    CGFloat width = floor(collectionView.bounds.size.width / listNum);
+    return CGSizeMake(width, JobsSearchShowHotwordsTBVCellHeight);
 }
 /// 每个item之间的间距 横（行）间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView

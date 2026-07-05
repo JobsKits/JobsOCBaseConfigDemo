@@ -43,7 +43,7 @@ static BOOL JobsOCSplashEnabled(void) {
 #endif
         self.makeJobsNavBarConfig();/// 全局配置 JobsNavBarConfig
         self.makeTABAnimatedConfig();/// 全局配置 TABAnimated
-        self.makeIQKeyboardManagerConfig();/// 全局配置键盘
+        self.makeJobsOCKeyboardMgrConfig();/// 全局配置键盘
         self.makeGKNavigationBarConfig();/// 自定义导航栏
         if (JobsOCSplashEnabled()) self.makeJobsLaunchAdConfig();/// 开屏广告
         self.makeReachabilityConfig();/// 网络环境监测
@@ -169,6 +169,12 @@ static BOOL JobsOCSplashEnabled(void) {
     };
 }
 #pragma mark —— 全局配置键盘
+-(jobsByVoidBlock _Nonnull)makeJobsOCKeyboardMgrConfig{
+    return ^(){
+        JobsOCKeyboardMgr.shared.start();
+    };
+}
+
 -(jobsByVoidBlock _Nonnull)makeIQKeyboardManagerConfig{
     return ^(){
         jobsMakeIQKeyboardManager(^(__kindof IQKeyboardManager * _Nullable manager) {

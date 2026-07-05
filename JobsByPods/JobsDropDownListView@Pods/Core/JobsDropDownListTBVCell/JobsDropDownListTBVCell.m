@@ -34,14 +34,14 @@ UITableViewCellProtocol_Synthesize
         self
             .bySelectionStyle(UITableViewCellSelectionStyleNone)// 取消点击效果 【不能在cellStyleValue1ByTableView里面写】
             .byContentView(^(__kindof UIView * _Nullable view) {
-                view.byBgColor(HEXCOLOR(0xFBF7E3));
+                view.byBgColor(JobsWhiteColor);
             })
             .bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
                 view
                     .byFrame(self.frame)// 这句不可省略
-                    .byBgColor(HEXCOLOR(0xE4B94B));
+                    .byBgColor(HEXCOLOR(0xFFE8B5));
             }))
-            .byBgColor(HEXCOLOR(0xFBF7E3));
+            .byBgColor(JobsWhiteColor);
     };return self;
 }
 
@@ -51,9 +51,15 @@ UITableViewCellProtocol_Synthesize
         @jobs_strongify(self)
         if (model) {
             self.viewModel = model;
-            self.textLabel.byText([NSString stringWithFormat:@"%@",model.textModel.text]);
+            self.textLabel
+                .byText([NSString stringWithFormat:@"%@",model.textModel.text])
+                .byFont(UIFontWeightMediumSize(14))
+                .byTextCor(HEXCOLOR(0x2F3645));
 
-            self.detailTextLabel.byText([NSString stringWithFormat:@"%@",model.subTextModel.text]);
+            self.detailTextLabel
+                .byText([NSString stringWithFormat:@"%@",model.subTextModel.text])
+                .byFont(UIFontWeightRegularSize(12))
+                .byTextCor(HEXCOLOR(0x8A93A1));
 
         };return self;
     };

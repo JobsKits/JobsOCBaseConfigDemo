@@ -6,10 +6,6 @@
 //
 
 #import "ReactiveObjC+DSL.h"
-#import <objc/message.h>
-
-#if __has_include(<ReactiveObjC/ReactiveObjC.h>) || __has_include("ReactiveObjC.h")
-
 
 #pragma mark —— NSObject.racDisposable
 @implementation NSObject (JobsRACDisposableChain)
@@ -980,5 +976,3 @@ JOBS_RAC_TUPLE_ID_PROP(byLast, last)
     return ^__kindof RACSequence *_Nullable(void){ @jobs_strongify(self) return self.rac_sequence; };
 }
 @end
-
-#endif

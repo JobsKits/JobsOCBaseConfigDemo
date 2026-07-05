@@ -1,3 +1,5 @@
+require_relative 'JobsPodspecKit'
+
 Pod::Spec.new do |spec|
   spec.name             = 'IQKeyboardManagerExtra'
   spec.version          = '1.0.0'
@@ -10,28 +12,30 @@ Pod::Spec.new do |spec|
   spec.requires_arc     = true
   spec.module_name      = 'IQKeyboardManagerExtra'
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
-  spec.source_files        = 'IQKeyboardManagerExtra.h'
-  spec.public_header_files = 'IQKeyboardManagerExtra.h'
   spec.frameworks = ['Foundation', 'UIKit']
   spec.dependency 'IQKeyboardManager'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-  end
+  spec.source_files = [
+    'IQKeyboardManagerExtra.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'IQKeyboardManagerExtra.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'IQKeyboardManagerExtra'
 
-  spec.pod_target_xcconfig = {
-    'DEFINES_MODULE' => 'YES',
-    'HEADER_SEARCH_PATHS' => '$(inherited) "$(PODS_TARGET_SRCROOT)/**"',
-    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
-  }
 
-  spec.user_target_xcconfig = {
-    'HEADER_SEARCH_PATHS' => '$(inherited) "$(PODS_ROOT)/Headers/Public/IQKeyboardManagerExtra/**"',
-    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
-    'OTHER_LDFLAGS' => '$(inherited) -ObjC'
-  }
+  JobsPodspecKitForIQKeyboardManagerExtra.apply_standard_exclude_files(spec)
+  JobsPodspecKitForIQKeyboardManagerExtra.apply_standard_xcconfig(
+    spec,
+    user_target_xcconfig: {
+      'HEADER_SEARCH_PATHS' => '$(inherited) "$(PODS_ROOT)/Headers/Public/IQKeyboardManagerExtra/**"',
+      'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
+      'OTHER_LDFLAGS' => '$(inherited) -ObjC'
+    }
+  )
+
 end

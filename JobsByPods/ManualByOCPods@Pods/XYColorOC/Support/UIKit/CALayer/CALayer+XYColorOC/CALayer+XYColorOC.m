@@ -7,6 +7,7 @@
 
 #import "CALayer+XYColorOC.h"
 #import "_XYColor_PrivateView.h"
+#import "UIView+PrivateView.h"
 
 @implementation CALayer (XYColorOC)
 

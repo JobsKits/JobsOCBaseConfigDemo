@@ -77,9 +77,10 @@ JobsBaseUI@Pods/
 - `JobsBaseUI.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.3、默认 subspec
+### 5.3、默认安装边界
 
-- `Core`
+- `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
+- `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
 ### 5.4、系统框架
 
@@ -138,7 +139,7 @@ JobsBaseUI@Pods/
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 当前目录扫描到资源类文件 17 个，`Resources` 目录文件 0 个。
+- 当前目录扫描到资源类文件 17 个，`Resource` 目录文件 0 个。
 - podspec 资源声明如下：
 
 - `Core/**/*.{png,jpg,jpeg,webp,gif,wav,mp3,caf,json,plist,xib,storyboard,bundle}`
@@ -167,6 +168,8 @@ pod install --no-repo-update
 - `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - `BaseLabel` 是 `UIView` 子类，可见性状态使用 `jobsVisible` / `byVisible`；`isVisible` 只属于 model 协议标记，不能直接发给视图对象。
+- `BaseLabel` / `BaseTextView` 的系统编辑菜单必须先交给 `super` 判断真实可执行动作；自定义菜单只放 Jobs 动态 selector，缺少对应实现的 `delete:` 这类动作落到 toast 兜底，不能用空字符串匹配或默认 `YES` 放出系统未知 action。
+- `JobsTextView` 内部承接 `SZTextView` 时，`textModel`、`text` 和 `placeholder` 必须兜底为空对象 / 空字符串，避免第三方 `SZTextView` 用 nil placeholder 创建 `NSAttributedString` 导致发帖页进入即崩溃。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
 

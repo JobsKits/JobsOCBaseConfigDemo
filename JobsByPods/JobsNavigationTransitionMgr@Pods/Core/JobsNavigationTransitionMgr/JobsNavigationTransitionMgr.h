@@ -8,6 +8,7 @@
 #ifndef JOBS_HEADER_GUARD_JOBSNAVIGATIONTRANSITIONMGR_DC5F7A97C2
 #define JOBS_HEADER_GUARD_JOBSNAVIGATIONTRANSITIONMGR_DC5F7A97C2
 
+#import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
@@ -16,10 +17,10 @@
 #import "JobsBaseProtocolHeader.h"
 #endif
 
-#if __has_include(<JobsAppTools/JobsAppTools.h>)
-#import <JobsAppTools/JobsAppTools.h>
+#if __has_include(<JobsAppTools/JobsAppToolsHeader.h>)
+#import <JobsAppTools/JobsAppToolsHeader.h>
 #else
-#import "JobsAppTools.h"
+#import "JobsAppToolsHeader.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)

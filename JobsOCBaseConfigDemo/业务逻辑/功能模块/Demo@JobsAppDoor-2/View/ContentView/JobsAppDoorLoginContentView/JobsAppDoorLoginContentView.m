@@ -49,12 +49,103 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
     [super drawRect:rect];
 }
 
+-(void)layoutSubviews{
+    [super layoutSubviews];
+    [self refreshLoginLayout];
+}
+
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
           withEvent:(UIEvent *)event{
     [self endEditing:YES];
 }
 #pragma mark —— 一些私有化方法
+-(CGFloat)loginSideRailWidth{
+    return btnWidth;
+}
+
+-(CGFloat)loginFormWidth{
+    return MAX(JobsWidth(180), self.width - self.loginSideRailWidth - JobsWidth(40));
+}
+
+-(CGFloat)loginFormCenterX{
+    return JobsWidth(20) + self.loginFormWidth / 2;
+}
+
+-(void)refreshLoginLayout{
+    if (self.width <= 0 || self.height <= 0) return;
+
+    CGFloat sideRailWidth = self.loginSideRailWidth;
+    CGFloat formWidth = self.loginFormWidth;
+    CGFloat formLeft = JobsWidth(20);
+    CGFloat formCenterX = self.loginFormCenterX;
+
+    self.toRegisterBtn.frame = CGRectMake(self.width - sideRailWidth, 0, sideRailWidth, self.height);
+
+    [self.titleLab sizeToFit];
+    self.titleLab.centerX = formCenterX;
+    self.titleLab.top = JobsWidth(20);
+
+    [self.loginDoorInputViewBaseStyleMutArr enumerateObjectsUsingBlock:^(JobsAppDoorInputViewBaseStyle * _Nonnull obj,
+                                                                         NSUInteger idx,
+                                                                         BOOL * _Nonnull stop) {
+        obj.sizer = CGSizeMake(formWidth, ThingsHeight);
+        obj.x = formLeft;
+        if (idx == 0) {
+            obj.top = self.titleLab.bottom + JobsWidth(20);
+        }else{
+            JobsAppDoorInputViewBaseStyle *lastObj = self.loginDoorInputViewBaseStyleMutArr[idx - 1];
+            obj.top = lastObj.bottom + InputViewOffset;
+        }
+        obj.layer.cornerRadius = ThingsHeight / 2;
+        obj.layer.masksToBounds = YES;
+        obj.byAlpha(1);
+    }];
+
+    self.sendBtn.frame = CGRectMake(formLeft,
+                                    self.height - JobsWidth(60) - ThingsHeight,
+                                    formWidth,
+                                    ThingsHeight);
+
+    [self.abandonLoginBtn.titleLabel sizeToFit];
+    self.abandonLoginBtn.sizer = CGSizeMake(MAX(JobsWidth(90), self.abandonLoginBtn.titleLabel.width + JobsWidth(20)),
+                                            JobsWidth(20));
+    self.abandonLoginBtn.centerX = formCenterX;
+    self.abandonLoginBtn.bottom = self.height - JobsWidth(28);
+
+    JobsAppDoorInputViewBaseStyle *lastInputView = self.loginDoorInputViewBaseStyleMutArr.lastObject;
+    if (lastInputView) {
+        self.storeCodeBtn.frame = CGRectMake(lastInputView.x + JobsWidth(17),
+                                             lastInputView.bottom + JobsWidth(22),
+                                             JobsWidth(112),
+                                             JobsWidth(28));
+        self.findCodeBtn.frame = CGRectMake(lastInputView.right - JobsWidth(118) - JobsWidth(17),
+                                            lastInputView.bottom + JobsWidth(22),
+                                            JobsWidth(118),
+                                            JobsWidth(28));
+    }
+
+    self.toRegisterBtn.byAlpha(.7f);
+    self.titleLab.byAlpha(1);
+    self.abandonLoginBtn.byAlpha(1);
+    self.sendBtn.byAlpha(1);
+    self.storeCodeBtn.byAlpha(1);
+    self.findCodeBtn.byAlpha(1);
+
+    [self bringSubviewToFront:self.toRegisterBtn];
+    [self bringSubviewToFront:self.titleLab];
+    [self.loginDoorInputViewBaseStyleMutArr enumerateObjectsUsingBlock:^(JobsAppDoorInputViewBaseStyle * _Nonnull obj,
+                                                                         NSUInteger idx,
+                                                                         BOOL * _Nonnull stop) {
+        [self bringSubviewToFront:obj];
+    }];
+    [self bringSubviewToFront:self.storeCodeBtn];
+    [self bringSubviewToFront:self.findCodeBtn];
+    [self bringSubviewToFront:self.sendBtn];
+    [self bringSubviewToFront:self.abandonLoginBtn];
+}
+
 -(void)makeInputView{
+    if (self.loginDoorInputViewBaseStyleMutArr.count) return;
     for (int i = 0; i < self.loginDoorInputViewBaseStyleModelMutArr.count; i++) {
         JobsAppDoorInputViewBaseStyle_3 *inputView = JobsAppDoorInputViewBaseStyle_3.new;
         [self.loginDoorInputViewBaseStyleMutArr addObject:inputView];
@@ -66,18 +157,9 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
         }];
 
         [self addSubview:inputView];
-        inputView.sizer = CGSizeMake(self.width - self.toRegisterBtn.width - JobsWidth(40), ThingsHeight);
-        inputView.x = JobsWidth(20);
-        if (i == 0) {
-            inputView.top = self.titleLab.bottom + JobsWidth(20);//20是偏移量
-        }else if(i == 1){
-            JobsAppDoorInputViewBaseStyle_3 *lastObj = (JobsAppDoorInputViewBaseStyle_3 *)self.loginDoorInputViewBaseStyleMutArr[i - 1];
-            inputView.top = lastObj.bottom + InputViewOffset;
-        }else{}
-        inputView.layer.cornerRadius = ThingsHeight / 2;
-        inputView.layer.masksToBounds = YES;
-        [self layoutIfNeeded];// 这句话不加，不刷新界面，placeHolder会出现异常
     }
+    [self refreshLoginLayout];
+    [self layoutIfNeeded];// 这句话不加，不刷新界面，placeHolder会出现异常
 }
 #pragma mark —— JobsDoorInputViewProtocol
 -(NSMutableArray<JobsAppDoorInputViewBaseStyle *> *)getAppDoorInputViewBaseStyle{
@@ -96,16 +178,17 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
         self.sendBtn.byAlpha(1);
         self.storeCodeBtn.byAlpha(1);
         self.findCodeBtn.byAlpha(1);
+        [self refreshLoginLayout];
     };
 }
 #pragma mark —— lazyLoad
 -(BaseButton *)toRegisterBtn{
     if (!_toRegisterBtn) {
         @jobs_weakify(self)
-        _toRegisterBtn = BaseButton.initByStyleTop(Title2,
+        _toRegisterBtn = BaseButton.initByStyleTop(Title12,
                                                    UIFontWeightMediumSize(13),
                                                    nil,
-                                                   @"用户名称".img,
+                                                   @"AppDoorBackLogin".img ? : @"Lock".img,
                                                    JobsWidth(8))
         .makeNewLineShows(YES)
         .onClickBy(^(UIButton *x){
@@ -117,12 +200,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
             JobsLog(@"");
         })
         .bgColorBy(JobsBlackColor)
-        .addOn(self)
-        .byAdd(^(MASConstraintMaker *make) {
-            @jobs_strongify(self)
-            make.top.right.bottom.equalTo(self);
-            make.width.mas_equalTo(btnWidth);
-        });
+        .addOn(self);
     };return _toRegisterBtn;
 }
 
@@ -158,12 +236,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
             })
             .bgColorBy(JobsBlackColor)
             .buttonAutoWidthByFont()
-            .addOn(self)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self.titleLab);
-                make.height.mas_equalTo(JobsWidth(15));
-                make.bottom.mas_equalTo(self).offset(-JobsWidth(30));
-            });
+            .addOn(self);
     };return _abandonLoginBtn;
 }
 
@@ -183,12 +256,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
-            .addOn(self)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(self.width - self.toRegisterBtn.width - JobsWidth(40), ThingsHeight));
-                make.centerX.equalTo(self.titleLab);
-                make.bottom.mas_equalTo(self).offset(-JobsWidth(60));
-            });
+            .addOn(self);
         _sendBtn.refresh();
     };return _sendBtn;
 }
@@ -213,15 +281,22 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
+            .makeBtnTitleByShowingType(UILabelShowingType_04)
+            .byTitleLabel(^(UILabel *label) {
+                label.byNumberOfLines(1);
+                label.lineBreakMode = NSLineBreakByTruncatingTail;
+                label.adjustsFontForContentSizeCategory = YES;
+                label.adjustsFontSizeToFitWidth = YES;
+                label.minimumScaleFactor = 0.75f;
+            })
             .bySelected(YES) // 默认记住密码
-            .buttonAutoWidthByFont()
             .addOn(self)
-            .byAdd(^(MASConstraintMaker *make) {
-                JobsAppDoorInputViewBaseStyle *inputView =
-                (JobsAppDoorInputViewBaseStyle *)self.loginDoorInputViewBaseStyleMutArr.lastObject;
-
-                make.left.equalTo(inputView).offset(JobsWidth(20));
-                make.top.equalTo(inputView.mas_bottom).offset(JobsWidth(25));
+            .byViewBlock(^(__kindof UIView *view) {
+                UIButton *button = (UIButton *)view;
+                button.enabled = YES;
+                button.userInteractionEnabled = YES;
+                button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+                button.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeLeading,JobsWidth(6));
             });
         self.byLayoutIfNeeded();
     };return _storeCodeBtn;
@@ -233,21 +308,26 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
         _findCodeBtn = BaseButton
             .initByStyle1(Title3,
                           UIFontWeightRegularSize(12),
-                          JobsBlueColor)
+                          Cor4)
+            .jobsResetBtnImage(@"AppDoorQuestion".img ? : @"codeDecode".img)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
-            .buttonAutoWidthByFont()
+            .makeBtnTitleByShowingType(UILabelShowingType_04)
+            .byTitleLabel(^(UILabel *label) {
+                label.byNumberOfLines(1);
+                label.adjustsFontForContentSizeCategory = YES;
+                label.adjustsFontSizeToFitWidth = YES;
+                label.minimumScaleFactor = 0.75f;
+            })
             .addOn(self)
-            .byAdd(^(MASConstraintMaker *make) {
-                JobsAppDoorInputViewBaseStyle *inputView =
-                (JobsAppDoorInputViewBaseStyle *)self.loginDoorInputViewBaseStyleMutArr.lastObject;
-
-                make.right.equalTo(inputView).offset(-JobsWidth(20));
-                make.top.equalTo(inputView.mas_bottom).offset(JobsWidth(20));
+            .byViewBlock(^(__kindof UIView *view) {
+                UIButton *button = (UIButton *)view;
+                button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+                button.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeLeading,JobsWidth(5));
             });
     };return _findCodeBtn;
 }
@@ -255,9 +335,10 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
 -(NSMutableArray<JobsAppDoorInputViewBaseStyleModel *> *)loginDoorInputViewBaseStyleModelMutArr{
     if (!_loginDoorInputViewBaseStyleModelMutArr) {
         _loginDoorInputViewBaseStyleModelMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            JobsAppDoorInputViewBaseStyleModel *用户名 = JobsAppDoorInputViewBaseStyleModel.new;
+            UIImage *userIcon = @"用户名称".img ? : @"用户名".img;
+            UIImage *lockIcon = @"Lock".img ? : @"codeDecode".img;
             data.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 用户名) {
-                用户名.leftViewIMG = @"用户名称".img;
+                用户名.leftViewIMG = userIcon;
                 用户名.placeholder = @"用户名";
                 用户名.isShowDelBtn = YES;
                 用户名.isShowSecurityBtn = NO;
@@ -266,7 +347,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
                 用户名.leftViewMode = UITextFieldViewModeAlways;
             }));
             data.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 密码) {
-                密码.leftViewIMG = @"Lock".img;
+                密码.leftViewIMG = lockIcon;
                 密码.placeholder = @"密码";
                 密码.isShowDelBtn = YES;
                 密码.isShowSecurityBtn = YES;
@@ -283,7 +364,7 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
 -(NSMutableArray<JobsAppDoorInputViewBaseStyle *> *)loginDoorInputViewBaseStyleMutArr{
     if (!_loginDoorInputViewBaseStyleMutArr) {
         _loginDoorInputViewBaseStyleMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            
+
         });
     };return _loginDoorInputViewBaseStyleMutArr;
 }

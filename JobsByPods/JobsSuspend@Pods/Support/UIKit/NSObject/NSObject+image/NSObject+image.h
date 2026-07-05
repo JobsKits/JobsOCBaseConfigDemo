@@ -11,6 +11,7 @@
 #pragma once
 
 #import <UIKit/UIKit.h>
+#import <JobsSuspend/NSString+Sys.h>
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>

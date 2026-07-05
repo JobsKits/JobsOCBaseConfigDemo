@@ -237,7 +237,7 @@ static dispatch_once_t static_countdownViewOnceToken;
 -(NSMutableParagraphStyle *)paragraphStyle{
     if (!_paragraphStyle) {
         _paragraphStyle = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-            data.alignment = NSTextAlignmentCenter;
+            data.byAlignment(NSTextAlignmentCenter);
         });
     };return _paragraphStyle;
 }

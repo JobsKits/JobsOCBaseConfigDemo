@@ -13,9 +13,20 @@
 #import "JobsByOCPods.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#import "GoodsClassModel.h"
+#import "ThreeClassCell.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsVerticalMenuSubView : BaseView
+/// 按左侧栏目下标刷新右侧内容
+-(jobsByNSUIntegerBlock _Nonnull)reloadContentByIndex;
 
 @end
 

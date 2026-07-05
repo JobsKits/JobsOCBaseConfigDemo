@@ -10,6 +10,7 @@
 @interface JobsAppDoorInputViewBaseStyle_3 ()
 /// UI
 Prop_strong()UIButton *securityModeBtn;
+Prop_strong()UIImageView *leftIMGV;
 /// Data
 Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 
@@ -52,13 +53,12 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     self.magicTextField.disabledBackground = self.doorInputViewBaseStyleModel.disabledBackground;
     self.magicTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
 
-    self.magicTextField.leftView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-        imageView
-            .byImage(self.doorInputViewBaseStyleModel.leftViewIMG)
-            .byContentMode(UIViewContentModeScaleAspectFit)
-            .byFrame(CGRectMake(0, 0, JobsWidth(20), JobsWidth(20)));
-    });
-    self.magicTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
+    UIImage *leftImage = self.doorInputViewBaseStyleModel.leftViewIMG;
+    CGFloat leftOffset = leftImage ? (self.doorInputViewBaseStyleModel.leftViewOffsetX ? : JobsWidth(17)) : 0;
+    CGFloat placeholderOffset = leftImage ? (self.doorInputViewBaseStyleModel.placeHolderOffset ? : JobsWidth(35)) : JobsWidth(12);
+    self.leftIMGV.byImage(leftImage).byAlpha(leftImage ? 1 : 0);
+    self.magicTextField.leftView = nil;
+    self.magicTextField.leftViewMode = UITextFieldViewModeNever;
     self.magicTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
     self.magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
     self.magicTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
@@ -66,14 +66,14 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     self.magicTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
     self.magicTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
     self.magicTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量
-    self.magicTextField.text_offset = self.doorInputViewBaseStyleModel.offset;
+    self.magicTextField.text_offset = leftImage ? (self.doorInputViewBaseStyleModel.offset ? : placeholderOffset) : JobsWidth(12);
     self.magicTextField.placeholderColor = self.doorInputViewBaseStyleModel.placeholderColor;
     self.magicTextField.placeholderFont = self.doorInputViewBaseStyleModel.placeholderFont;
-    self.magicTextField.leftViewOffsetX = self.doorInputViewBaseStyleModel.leftViewOffsetX ? : JobsWidth(17);
+    self.magicTextField.leftViewOffsetX = leftOffset;
     self.magicTextField.animationColor = self.doorInputViewBaseStyleModel.animationColor ? : Cor3;
     self.magicTextField.placeHolderAlignment = self.doorInputViewBaseStyleModel.placeHolderAlignment ? : NSTextAlignmentLeft;
     self.magicTextField.moveDistance = self.doorInputViewBaseStyleModel.moveDistance ? : JobsWidth(35);
-    self.magicTextField.placeHolderOffset = self.doorInputViewBaseStyleModel.placeHolderOffset ? : JobsWidth(20);
+    self.magicTextField.placeHolderOffset = placeholderOffset;
     self.magicTextField.fieldEditorOffset = self.doorInputViewBaseStyleModel.fieldEditorOffset ? : JobsWidth(50);
     self.textFieldInputModel.PlaceHolder = self.magicTextField.placeholder;
 }
@@ -131,6 +131,23 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     if (self.objBlock) self.objBlock(textField);// 对外统一传出TF
 }
 #pragma mark —— lazyLoad
+-(UIImageView *)leftIMGV{
+    if (!_leftIMGV) {
+        @jobs_weakify(self)
+        _leftIMGV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            @jobs_strongify(self)
+            imageView
+                .byContentMode(UIViewContentModeScaleAspectFit)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self).offset(JobsWidth(17));
+                    make.centerY.equalTo(self);
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(16), JobsWidth(16)));
+                });
+        });
+    };return _leftIMGV;
+}
+
 -(UIButton *)securityModeBtn{
     if (!_securityModeBtn) {
         @jobs_weakify(self)

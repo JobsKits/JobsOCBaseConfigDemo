@@ -21,6 +21,11 @@ Prop_strong()UITextModel *textModel;
 
 @implementation JobsTextView
 @synthesize textModel = _textModel;
+-(UITextModel *)textModel{
+    if (!_textModel) {
+        _textModel = UITextModel.new;
+    };return _textModel;
+}
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
@@ -130,10 +135,11 @@ static dispatch_once_t static_textViewOnceToken;
             if (self.objBlock) self.objBlock(x);
         }];
     }
-    _szTextView.text = self.textModel.text;
-    _szTextView.textColor = self.textModel.textCor;
-    _szTextView.placeholderTextColor = self.textModel.placeholderColor;
-    _szTextView.placeholder = self.textModel.placeholder;
+    UITextModel *textModel = self.textModel;
+    _szTextView.text = textModel.text ?: @"";
+    _szTextView.textColor = textModel.textCor;
+    if (textModel.placeholderColor) _szTextView.placeholderTextColor = textModel.placeholderColor;
+    _szTextView.placeholder = textModel.placeholder ?: @"";
     return _szTextView;
 }
 

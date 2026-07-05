@@ -19,7 +19,6 @@ so the same locker can optionally coordinate one-time execution semantics.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
 
   spec.frameworks = [
     'Foundation'
@@ -27,11 +26,17 @@ so the same locker can optionally coordinate one-time execution semantics.
 
   JobsPodspecKitForJobsLocker.apply_standard_exclude_files(spec)
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.dependency 'JobsOCDefs'
-  end
+  spec.source_files = [
+    'JobsLockerUmbrella.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsLockerUmbrella.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsLocker'
+
+  spec.dependency 'JobsOCDefs'
 
   JobsPodspecKitForJobsLocker.apply_standard_xcconfig(spec)
 

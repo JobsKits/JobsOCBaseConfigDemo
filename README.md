@@ -1839,12 +1839,15 @@ classDiagram
                       imageView.byImage(@"放大镜".img);
                   }))
                   .byTextCor(JobsPurpleColor)
-                  .byInputAccessoryView(JobsAdNoticeView
-                                        .BySize(JobsAdNoticeView.viewSizeByModel(nil))
-                                        .JobsRichViewByModel2(nil)
-                                        .JobsBlock1(^(id _Nullable data) {
-  
-                                        }))
+                  .byInputAccessoryView(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+                      label
+                          .byText(@"Jobs安全聊天，为您的聊天加密护航".tr)
+                          .byTextCor(JobsRedColor)
+                          .byTextAlignment(NSTextAlignmentCenter)
+                          .byFont(UIFontWeightRegularSize(JobsWidth(12)))
+                          .byBgColor(JobsCyanColor)
+                          .bySize(CGSizeMake(JobsMainScreen_WIDTH(), 30));
+                  }))
                   .byLeftViewMode(UITextFieldViewModeAlways)
                   .byKeyboardAppearance(UIKeyboardAppearanceAlert)
                   .byReturnKeyType(UIReturnKeySearch)
@@ -6296,12 +6299,12 @@ vc.navCtrl
   /// 默认文本段落样式
   -(NSMutableParagraphStyle *)defaultParagraphStyle{
       return jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-          data.alignment = NSTextAlignmentJustified;
-          data.paragraphSpacing = 0;/// 段距，取值 float
-          data.paragraphSpacingBefore = 0;/// 段首空间，取值 float
-          data.firstLineHeadIndent = 0.0;/// 首行缩进，取值 float
-          data.headIndent = 0.0;/// 整体缩进(首行除外)，取值 float
-          data.lineSpacing = 0;/// 行距，取值 float
+          data.byAlignment(NSTextAlignmentJustified)
+              .byParagraphSpacing(0) // 段距，取值 float
+              .byParagraphSpacingBefore(0) // 段首空间，取值 float
+              .byFirstLineHeadIndent(0.0) // 首行缩进，取值 float
+              .byHeadIndent(0.0) // 整体缩进(首行除外)，取值 float
+              .byLineSpacing(0); // 行距，取值 float
       });
   }
   ```
@@ -6360,8 +6363,8 @@ vc.navCtrl
                 /// 设置段落
                 data.addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
                     data.value = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data1) {
-                        data1.headIndent = 10; // 设置文本的缩进，使其与圆点对齐
-                        data1.firstLineHeadIndent = 0; // 第一行不缩进
+                        data1.byHeadIndent(10) // 设置文本的缩进，使其与圆点对齐
+                            .byFirstLineHeadIndent(0); // 第一行不缩进
                     });
                     data.range = NSMakeRange(0, self.attributedString.length);
                 }))
@@ -6436,8 +6439,8 @@ vc.navCtrl
             _attributedString2.addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
                 @jobs_strongify(self)
                 data1.value = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-                    data.headIndent = 10; // 设置文本的缩进，使其与圆点对齐
-                    data.firstLineHeadIndent = 0; // 第一行不缩进
+                    data.byHeadIndent(10) // 设置文本的缩进，使其与圆点对齐
+                        .byFirstLineHeadIndent(0); // 第一行不缩进
                 });data1.range = NSMakeRange(0, self->_attributedString2.length);
             }));
         }return _attributedString2;
@@ -11237,7 +11240,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
 
 ### 70、数据模型的封装调用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-#### 70.1、封装系统Api（关注[**`JobsMakes.h`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/JobsMakes.h)） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+#### 70.1、封装系统Api（关注[**`JobsMakes.h`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsByPods/JobsMakes@Pods/JobsMakes.h)） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 #### 70.2、封装自建Api（持续更新中...） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

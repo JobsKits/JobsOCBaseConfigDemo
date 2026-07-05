@@ -1,3 +1,5 @@
+require_relative 'JobsPodspecKit'
+
 Pod::Spec.new do |spec|
   spec.name             = 'RACExtra'
   spec.version          = '1.0.0'
@@ -10,25 +12,27 @@ Pod::Spec.new do |spec|
   spec.requires_arc     = true
   spec.module_name      = 'RACExtra'
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
-  spec.source_files        = 'RACExtra.h'
-  spec.public_header_files = 'RACExtra.h'
   spec.frameworks = ['Foundation']
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-  end
+  spec.source_files = [
+    'RACExtra.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'RACExtra.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'RACExtra'
 
-  spec.pod_target_xcconfig = {
-    'DEFINES_MODULE' => 'YES',
-    'HEADER_SEARCH_PATHS' => '$(inherited) "$(PODS_TARGET_SRCROOT)/**"',
-    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
-  }
 
-  spec.user_target_xcconfig = {
-    'HEADER_SEARCH_PATHS' => '$(inherited) "$(PODS_ROOT)/Headers/Public/RACExtra/**"',
-    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
-    'OTHER_LDFLAGS' => '$(inherited) -ObjC'
-  }
+  JobsPodspecKitForRACExtra.apply_standard_exclude_files(spec)
+  JobsPodspecKitForRACExtra.apply_standard_xcconfig(
+    spec,
+    user_target_xcconfig: {
+      'HEADER_SEARCH_PATHS' => '$(inherited) "$(PODS_ROOT)/Headers/Public/RACExtra/**"',
+      'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
+      'OTHER_LDFLAGS' => '$(inherited) -ObjC'
+    }
+  )
+
 end

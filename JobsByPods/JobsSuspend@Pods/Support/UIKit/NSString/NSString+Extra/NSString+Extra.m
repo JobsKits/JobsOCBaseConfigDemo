@@ -14,7 +14,7 @@
     NSString *fallback = replaceString.length ? replaceString : @"No Data";
     if (!nullableString || nullableString == NSNull.null) return fallback;
     if ([nullableString isKindOfClass:NSString.class]) {
-        NSString *str = [(NSString *)nullableString stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+        NSString *str = ((NSString *)nullableString).byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
         return str.length ? str : fallback;
     }
     if ([nullableString isKindOfClass:NSNumber.class]) {

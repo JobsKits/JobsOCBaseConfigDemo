@@ -30,16 +30,13 @@ static BOOL isHasBeenRemoved;
         }
     });
 }
-static const void *OrderedDictionaryKeys = (void *)@"OrderedDictionaryKeys";
+JobsKey(OrderedDictionaryKeys)
 -(NSMutableArray *)keys{
-    return objc_getAssociatedObject(self, OrderedDictionaryKeys);
+    return Jobs_getAssociatedObject(OrderedDictionaryKeys);
 }
 
 -(void)setKeys:(NSMutableArray *)keys {
-    objc_setAssociatedObject(self,
-                             OrderedDictionaryKeys,
-                             keys,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(OrderedDictionaryKeys, keys)
 }
 /// 添加键值对
 -(void)swizzled_setObject:(nonnull id)anObject

@@ -13,7 +13,7 @@
     return ^UIColor * _Nullable(NSString *_Nonnull hexCorString) {
         if (!hexCorString) return (UIColor *)nil;
         /// 去除收尾可能含有的空格字符串
-        hexCorString = [hexCorString stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+        hexCorString = hexCorString.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
         // 移除可能的 '#' 前缀
         if ([hexCorString hasPrefix:@"#"]) {
             hexCorString = [hexCorString substringFromIndex:1];

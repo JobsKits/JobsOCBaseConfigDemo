@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "JobsAdNoticeView.h"
+#import "JobsIMDefine.h"
 
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>

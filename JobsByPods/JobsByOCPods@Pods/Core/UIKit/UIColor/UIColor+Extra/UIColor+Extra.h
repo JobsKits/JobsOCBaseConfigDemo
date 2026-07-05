@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 #import <JobsByOCPods/NSMutableArray+Extra.h>
 #import <JobsByOCPods/NSString+Extra.h>
+#import <JobsByOCPods/NSString+Sys.h>
 
 #if __has_include(<XYColorOC/UIColor+XYColorOC.h>)
 #import <XYColorOC/UIColor+XYColorOC.h>

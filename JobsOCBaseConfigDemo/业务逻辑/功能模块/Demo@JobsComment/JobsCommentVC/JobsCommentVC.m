@@ -10,6 +10,7 @@
 @interface JobsCommentVC ()
 
 Prop_strong()UIButton *contactCustomerServiceBtn;// 联系客服按钮
+Prop_strong()JobsPresentationCtrl *presentationController;
 
 @end
 
@@ -68,20 +69,29 @@ Prop_strong()UIButton *contactCustomerServiceBtn;// 联系客服按钮
 }
 #pragma mark —— 一些私有方法
 -(void)makeJobsCommentCoreVC{    //触发
+    UIViewController *presentingVC = self.jobsGetCurrentViewController ? : self;
+    if (presentingVC.presentedViewController) return;
+
     JobsCommentCoreVC *jobsCommentCoreVC = JobsCommentCoreVC.new;
-//        @jobs_weakify(self)
+    CGFloat popUpHeight = JobsMainScreen_HEIGHT() / 2;
+    jobsCommentCoreVC.popUpHeight = popUpHeight;
+    jobsCommentCoreVC.pushOrPresent = ComingStyle_PRESENT;
     [jobsCommentCoreVC actionObjBlock:^(id data) {
-//            @jobs_strongify(self)
         JobsLog(@"您点击了关注");
     }];
-    self.comingToPresentVCByRequestParams(jobsCommentCoreVC,@"".tr);
+    self.presentationController = [JobsPresentationCtrl.alloc initWithPresentedViewController:jobsCommentCoreVC
+                                                                     presentingViewController:presentingVC];
+    jobsCommentCoreVC.transitioningDelegate = self.presentationController;
+    [presentingVC presentViewController:jobsCommentCoreVC
+                               animated:YES
+                             completion:NULL];
 }
 #pragma mark —— lazyLoad
 -(UIButton *)contactCustomerServiceBtn{
     if (!_contactCustomerServiceBtn) {
         @jobs_weakify(self)
         _contactCustomerServiceBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsWhiteColor)
+            .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
             .jobsResetBtnImage(@"zaixiankefu_en".img)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)

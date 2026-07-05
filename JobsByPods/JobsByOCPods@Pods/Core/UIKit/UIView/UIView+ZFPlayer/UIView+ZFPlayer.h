@@ -39,6 +39,7 @@
 #else
 #import "ZFIJKPlayerManager.h"
 #endif
+
 /// ControlView
 #if __has_include(<ZFPlayer/UIImageView+ZFCache.h>)
 #import <ZFPlayer/UIImageView+ZFCache.h>
@@ -132,7 +133,7 @@ Prop_strong(nullable)ZFPlayerController *playerCtr;
 Prop_strong(nullable)ZFAVPlayerManager *avPlayerManager;/// 默认不支持FLV流视频格式的
 Prop_strong(nullable)CustomZFPlayerControlView *customPlayerControlView;
 
-#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>)
+#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>) && (__has_include(<ZFPlayer/ZFIJKPlayerManager.h>) || __has_include("ZFIJKPlayerManager.h"))
 Prop_strong(nullable)ZFIJKPlayerManager *ijkPlayerManager;/// ZFPlayer的作者告诉我：如果要兼容FLV流视频格式请用这个
 #endif
 

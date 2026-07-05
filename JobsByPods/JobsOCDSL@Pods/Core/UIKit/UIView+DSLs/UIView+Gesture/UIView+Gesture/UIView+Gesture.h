@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIView (Gesture)<GestureProtocol>
 
 /// UIScreenEdgePanGestureRecognizer.edges
-@property(nonatomic, assign) UIRectEdge screenEdgePanGREdges;
+Prop_assign()UIRectEdge screenEdgePanGREdges;
 
 #pragma mark —— Gesture Config DSL
 /// UIPanGestureRecognizer.minimumNumberOfTouches

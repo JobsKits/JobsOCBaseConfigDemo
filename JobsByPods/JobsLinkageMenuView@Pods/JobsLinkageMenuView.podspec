@@ -67,7 +67,6 @@ and linked content switching support.
 
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
   file_support_context = JobsPodspecKitForJobsLinkageMenuView.build_file_support_context(
     podspec_dir: File.expand_path(File.dirname(__FILE__)),
     support_dir: 'Support',
@@ -127,15 +126,16 @@ and linked content switching support.
 
   JobsPodspecKitForJobsLinkageMenuView.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsLinkageMenuView.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsLinkageMenuViewHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsLinkageMenuViewHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsLinkageMenuView'
 
-    ss.source_files = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources = 'Core/**/*.{png,jpg,jpeg,webp,gif,wav,mp3,caf,json,plist,xib,storyboard,bundle,xcassets}'
-    JobsPodspecKitForJobsLinkageMenuView.add_file_support_dependencies(ss, spec, file_support_context)
-  end
 
   JobsPodspecKitForJobsLinkageMenuView.apply_standard_exclude_files(spec)
 

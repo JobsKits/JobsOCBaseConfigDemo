@@ -14,10 +14,10 @@
 #import <UIKit/UIKit.h>
 #import <JobsNavigationTransitionMgr/UIView+Extra.h>
 
-#if __has_include(<JobsViewNavigator/JobsViewNavigator.h>)
-#import <JobsViewNavigator/JobsViewNavigator.h>
+#if __has_include(<JobsViewNavigator/JobsViewNavigatorHeader.h>)
+#import <JobsViewNavigator/JobsViewNavigatorHeader.h>
 #else
-#import "JobsViewNavigator.h"
+#import "JobsViewNavigatorHeader.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)

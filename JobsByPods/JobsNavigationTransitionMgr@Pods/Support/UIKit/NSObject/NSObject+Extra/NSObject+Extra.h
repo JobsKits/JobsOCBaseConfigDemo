@@ -91,10 +91,10 @@
 #import "JobsTimeUtils.h"
 #endif
 
-#if __has_include(<JobsAppTools/JobsAppTools.h>)
-#import <JobsAppTools/JobsAppTools.h>
+#if __has_include(<JobsAppTools/JobsAppToolsHeader.h>)
+#import <JobsAppTools/JobsAppToolsHeader.h>
 #else
-#import "JobsAppTools.h"
+#import "JobsAppToolsHeader.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)

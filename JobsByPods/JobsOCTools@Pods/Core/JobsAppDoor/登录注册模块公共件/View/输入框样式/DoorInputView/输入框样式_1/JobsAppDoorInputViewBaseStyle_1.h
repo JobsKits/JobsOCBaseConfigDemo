@@ -54,6 +54,12 @@
 #import "JobsModelDSL.h"
 #endif
 
+#if __has_include(<JobsCountdownBtn/JobsCountdownBtn.h>)
+#import <JobsCountdownBtn/JobsCountdownBtn.h>
+#else
+#import "JobsCountdownBtn.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsAppDoorInputViewBaseStyle_1 : JobsAppDoorInputViewBaseStyle

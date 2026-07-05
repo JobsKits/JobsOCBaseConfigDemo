@@ -10,6 +10,8 @@
 
 #pragma once
 
+#import <sys/sysctl.h>
+#import <sys/utsname.h>
 #import <UIKit/UIKit.h>
 #import <JobsOCDefs/JobsDefineProperty.h>
 

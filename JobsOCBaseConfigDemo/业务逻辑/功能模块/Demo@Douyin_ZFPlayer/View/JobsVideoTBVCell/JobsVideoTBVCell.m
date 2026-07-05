@@ -28,9 +28,11 @@ Prop_strong()VideoModel_Core *core_data;
             cell = JobsVideoTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
             cell
                 .bySelectionStyle(UITableViewCellSelectionStyleNone)
+                .byAccessoryType(UITableViewCellAccessoryNone)
                 .byContentView(^(__kindof UIView * _Nullable view) {
-                    view.byBgColor(JobsRandomColor);
-                });
+                    view.byBgColor(JobsBlackColor);
+                })
+                .byBgColor(JobsBlackColor);
         };return cell;
     };
 }
@@ -109,6 +111,7 @@ Prop_strong()VideoModel_Core *core_data;
                 .byUserInteractionEnabled(YES)
                 .byTag(kPlayerViewTag)/// 不写这个光有声音没有图像
                 .byContentMode(UIViewContentModeScaleAspectFit)
+                .byBgColor(JobsBlackColor)
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.edges.equalTo(self.contentView);

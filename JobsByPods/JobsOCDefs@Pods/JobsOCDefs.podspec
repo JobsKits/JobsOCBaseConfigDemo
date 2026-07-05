@@ -22,10 +22,7 @@ JobsOCDefs provides shared macros, constants and base definitions.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
 
-  spec.source_files        = 'JobsDefines.h'
-  spec.public_header_files = 'JobsDefines.h'
 
   JobsPodspecKitForJobsOCDefs.apply_standard_exclude_files(spec)
 
@@ -42,15 +39,17 @@ JobsOCDefs provides shared macros, constants and base definitions.
 
   JobsPodspecKitForJobsOCDefs.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsOCDefs.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsDefines.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsDefines.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsOCDefs'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
 
-    ss.source_files        = ['JobsDefines.h', 'Core/**/*.{h,m,mm}']
-    ss.public_header_files = ['JobsDefines.h', 'Core/**/*.h']
-    ss.resources           = 'Core/**/*.{png,jpg,jpeg,gif,webp,xcassets,bundle,json,plist}'
-    ss.dependency 'JobsOCDefs/Support/UIKit'
-  end
 
   JobsPodspecKitForJobsOCDefs.apply_standard_xcconfig(spec)
 

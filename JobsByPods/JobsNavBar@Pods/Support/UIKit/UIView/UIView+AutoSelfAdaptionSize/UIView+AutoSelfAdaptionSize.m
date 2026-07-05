@@ -167,8 +167,8 @@
         /// 给可变的属性字符串 添加段落格式
         [attributedString addAttribute:NSParagraphStyleAttributeName
                                  value:jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-            data.lineSpacing = lineSpace;
-            data.baseWritingDirection = NSWritingDirectionLeftToRight;// 从左到右
+            data.byLineSpacing(lineSpace)
+                .byBaseWritingDirection(NSWritingDirectionLeftToRight); // 从左到右
         })
 
                                  range:NSMakeRange(0, label.text.length)];

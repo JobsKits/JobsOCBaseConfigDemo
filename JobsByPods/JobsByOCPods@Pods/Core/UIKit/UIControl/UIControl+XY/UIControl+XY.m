@@ -8,27 +8,24 @@
 #import "UIControl+XY.h"
 
 @implementation UIControl (XY)
+JobsKey(_uxy_acceptEventInterval)
+@dynamic uxy_acceptEventInterval;
 /// 时间间隔
 - (NSTimeInterval)uxy_acceptEventInterval{
-    return [objc_getAssociatedObject(self, _cmd) doubleValue];
+    return [Jobs_getAssociatedObject(_uxy_acceptEventInterval) doubleValue];
 }
 
 - (void)setUxy_acceptEventInterval:(NSTimeInterval)uxy_acceptEventInterval{
-    objc_setAssociatedObject(self,
-                             _cmd,
-                             @(uxy_acceptEventInterval),
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(_uxy_acceptEventInterval, @(uxy_acceptEventInterval))
 }
 /// 是否响应事件的标志位
+JobsKey(_uxy_ignoreEvent)
 -(BOOL)uxy_ignoreEvent{
-    return [objc_getAssociatedObject(self, _cmd) boolValue];
+    return [Jobs_getAssociatedObject(_uxy_ignoreEvent) boolValue];
 }
 
 -(void)setUxy_ignoreEvent:(BOOL)uxy_ignoreEvent{
-    objc_setAssociatedObject(self,
-                             _cmd,
-                             @(uxy_ignoreEvent),
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(_uxy_ignoreEvent, @(uxy_ignoreEvent))
 }
 
 +(void)load{
@@ -56,4 +53,3 @@
 }
 
 @end
-

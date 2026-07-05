@@ -11,7 +11,7 @@
 
 -(nullable UIImage *)img{
     if (![self isKindOfClass:NSString.class]) return nil;
-    NSString *name = [(NSString *)self stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+    NSString *name = ((NSString *)self).byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
     if (!name.length) return nil;
     UIImage *image = [UIImage imageNamed:name];
     if (image) return image;

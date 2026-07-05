@@ -12,10 +12,10 @@
 #import <UIKit/UIKit.h>
 #import <JobsOCTools/TLAnimationProtocol.h>
 
-#if __has_include(<JobsOCDefs/JobsDefineProperty.h>)
-#import <JobsOCDefs/JobsDefineProperty.h>
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
 #else
-#import "JobsDefineProperty.h"
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

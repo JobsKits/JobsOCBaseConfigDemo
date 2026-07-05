@@ -1,6 +1,14 @@
 require_relative 'JobsPodspecKit'
 
 Pod::Spec.new do |spec|
+  support_context = JobsPodspecKitForJobsLoadingImage.build_support_context(
+    podspec_dir: File.expand_path(File.dirname(__FILE__)),
+    support_dir: 'Support',
+    support_dependencies: [
+      'JobsBlock'
+    ]
+  )
+
   spec.name         = 'JobsLoadingImage'
   spec.version      = '0.0.1'
   spec.summary      = 'Bundle image loading helpers extracted into a standalone local pod.'
@@ -13,8 +21,6 @@ Pod::Spec.new do |spec|
   spec.platform     = :ios, '12.0'
   spec.requires_arc = true
   spec.module_name  = 'JobsLoadingImage'
-  spec.header_dir   = 'JobsLoadingImage'
-  spec.default_subspecs = 'Core'
 
   spec.frameworks = [
     'Foundation',
@@ -23,10 +29,18 @@ Pod::Spec.new do |spec|
 
   JobsPodspecKitForJobsLoadingImage.apply_standard_exclude_files(spec)
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-  end
+  spec.source_files = [
+    'JobsLoadingImageHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsLoadingImageHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsLoadingImage'
+
+
+  JobsPodspecKitForJobsLoadingImage.add_support_subspec(spec, support_context)
 
   JobsPodspecKitForJobsLoadingImage.apply_standard_xcconfig(spec)
 

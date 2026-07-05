@@ -19,14 +19,8 @@ JobsOCSplash displays local or remote images, GIFs and videos with skip, countdo
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
 
-  if File.exist?(File.join(__dir__, 'JobsOCSplash.h'))
-    spec.source_files = 'JobsOCSplash.h'
-    spec.public_header_files = 'JobsOCSplash.h'
-  end
 
-  spec.header_dir = 'JobsOCSplash'
   spec.frameworks = ['UIKit', 'AVFoundation', 'ImageIO']
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'
@@ -35,18 +29,21 @@ JobsOCSplash displays local or remote images, GIFs and videos with skip, countdo
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsOCTimer'
   spec.resource_bundles = {
-    'JobsOCSplashResources' => ['Resources/**/*']
+    'JobsOCSplashResources' => ['Resource/**/*']
   }
 
   JobsPodspecKitForJobsOCSplash.add_support_subspec(spec, support_context) if Dir.exist?(File.join(__dir__, 'Support'))
 
-  spec.subspec 'Core' do |ss|
-    JobsPodspecKitForJobsOCSplash.add_dynamic_support_dependencies(ss, spec, support_context)
-    ss.source_files = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources = 'Core/**/*.{png,jpg,jpeg,webp,gif,wav,mp3,caf,json,plist,xib,storyboard,bundle}'
-    ss.header_dir = 'JobsOCSplash'
-  end
+  spec.source_files = [
+    'JobsOCSplash.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsOCSplash.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsOCSplash'
+
 
   JobsPodspecKitForJobsOCSplash.apply_standard_exclude_files(spec)
   JobsPodspecKitForJobsOCSplash.apply_standard_xcconfig(spec)

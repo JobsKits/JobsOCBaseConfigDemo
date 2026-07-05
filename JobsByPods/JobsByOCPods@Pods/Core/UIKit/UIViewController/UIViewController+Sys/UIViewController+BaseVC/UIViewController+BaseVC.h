@@ -43,10 +43,10 @@
 #import "JobsBaseUI.h"
 #endif
 
-#if __has_include(<JobsNavBar/JobsNavBar.h>)
-#import <JobsNavBar/JobsNavBar.h>
+#if __has_include(<JobsNavBar/JobsNavBarHeader.h>)
+#import <JobsNavBar/JobsNavBarHeader.h>
 #else
-#import "JobsNavBar.h"
+#import "JobsNavBarHeader.h"
 #endif
 
 #if __has_include(<JobsDebug/JobsDebug.h>)
@@ -55,22 +55,22 @@
 #import "JobsDebug.h"
 #endif
 
-#if __has_include(<JobsAppTools/JobsAppTools.h>)
-#import <JobsAppTools/JobsAppTools.h>
+#if __has_include(<JobsAppTools/JobsAppToolsHeader.h>)
+#import <JobsAppTools/JobsAppToolsHeader.h>
 #else
-#import "JobsAppTools.h"
+#import "JobsAppToolsHeader.h"
 #endif
 
-#if __has_include(<JobsViewNavigator/JobsViewNavigator.h>)
-#import <JobsViewNavigator/JobsViewNavigator.h>
+#if __has_include(<JobsViewNavigator/JobsViewNavigatorHeader.h>)
+#import <JobsViewNavigator/JobsViewNavigatorHeader.h>
 #else
-#import "JobsViewNavigator.h"
+#import "JobsViewNavigatorHeader.h"
 #endif
 
-#if __has_include(<JobsLoadingImage/JobsLoadingImage.h>)
-#import <JobsLoadingImage/JobsLoadingImage.h>
+#if __has_include(<JobsLoadingImage/JobsLoadingImageHeader.h>)
+#import <JobsLoadingImage/JobsLoadingImageHeader.h>
 #else
-#import "JobsLoadingImage.h"
+#import "JobsLoadingImageHeader.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)

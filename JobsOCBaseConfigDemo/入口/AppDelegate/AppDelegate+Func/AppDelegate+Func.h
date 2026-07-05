@@ -53,6 +53,12 @@
 #import "JobsMakes.h"
 #endif
 
+#if __has_include(<JobsOCKeyboardMgr/JobsOCKeyboardMgr.h>)
+#import <JobsOCKeyboardMgr/JobsOCKeyboardMgr.h>
+#else
+#import "JobsOCKeyboardMgr.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -77,10 +83,10 @@
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsNavBar/JobsNavBar.h>)
-#import <JobsNavBar/JobsNavBar.h>
+#if __has_include(<JobsNavBar/JobsNavBarHeader.h>)
+#import <JobsNavBar/JobsNavBarHeader.h>
 #else
-#import "JobsNavBar.h"
+#import "JobsNavBarHeader.h"
 #endif
 
 #if __has_include(<JobsOCSplash/JobsOCSplash.h>)
@@ -111,6 +117,7 @@ UNUserNotificationCenterDelegate
 #pragma mark —— 全局配置 TABAnimated
 -(jobsByVoidBlock _Nonnull)makeTABAnimatedConfig;
 #pragma mark —— 全局配置键盘
+-(jobsByVoidBlock _Nonnull)makeJobsOCKeyboardMgrConfig;
 -(jobsByVoidBlock _Nonnull)makeIQKeyboardManagerConfig;
 #pragma mark —— 全局配置GKNavigationBar
 -(jobsByVoidBlock _Nonnull)makeGKNavigationBarConfig;

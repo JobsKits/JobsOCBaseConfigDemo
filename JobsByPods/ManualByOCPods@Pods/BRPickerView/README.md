@@ -50,7 +50,7 @@ BRPickerView/
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
 ├── Core/  # 公开 API 与核心实现，15 个文件
 ├── Support/  # 内部支撑层，2 个文件
-├── Resources/  # 资源目录，4 个文件
+├── Resource/  # 资源目录，4 个文件
 └── LICENSE  # 许可证文件
 ```
 
@@ -77,10 +77,10 @@ BRPickerView/
 - `BRPickerView.h`
 - `Core/**/*.{h,m}`
 
-### 5.3、默认 subspec
+### 5.3、默认安装边界
 
-- `Core`
-- `Support`
+- `Core` 通过 Pod 根级 `source_files` 直接映射，不再创建虚拟 `Core` subspec。
+- `Support` 由 `JobsPodspecKit.rb` 按真实磁盘目录动态映射。
 
 ### 5.4、系统框架
 
@@ -107,10 +107,11 @@ BRPickerView/
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 当前目录扫描到资源类文件 3 个，`Resources` 目录文件 4 个。
+- 当前目录扫描到资源类文件 4 个，统一位于 `Resource`。
 - podspec 资源声明如下：
 
-- `Resources`
+- `Resource/BRPickerView.bundle`
+- `Resource/PrivacyInfo.xcprivacy`
 
 ## 八、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

@@ -11,7 +11,7 @@
 
 Prop_assign()CGFloat maxX;
 
-@property (nonatomic, readwrite, assign) CGFloat maxY;
+Prop_assign(readwrite)CGFloat maxY;
 
 Prop_assign()NSInteger lastIndex;
 

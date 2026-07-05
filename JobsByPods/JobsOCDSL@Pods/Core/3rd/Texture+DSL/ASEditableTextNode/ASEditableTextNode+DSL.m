@@ -7,13 +7,12 @@
 
 #import "ASEditableTextNode+DSL.h"
 
-static const void *kJobsETNBeginTokenKey     = &kJobsETNBeginTokenKey;
-static const void *kJobsETNChangeTokenKey    = &kJobsETNChangeTokenKey;
-static const void *kJobsETNEndTokenKey       = &kJobsETNEndTokenKey;
-static const void *kJobsETNBeginBlockKey     = &kJobsETNBeginBlockKey;
-static const void *kJobsETNChangeBlockKey    = &kJobsETNChangeBlockKey;
-static const void *kJobsETNEndBlockKey       = &kJobsETNEndBlockKey;
-
+JobsKey(kJobsETNBeginTokenKey)
+JobsKey(kJobsETNChangeTokenKey)
+JobsKey(kJobsETNEndTokenKey)
+JobsKey(kJobsETNBeginBlockKey)
+JobsKey(kJobsETNChangeBlockKey)
+JobsKey(kJobsETNEndBlockKey)
 @implementation ASEditableTextNode (DSL)
 
 -(JobsRetEditableTextNodeByBoolBlock _Nonnull)byScrollEnabled{
@@ -165,18 +164,12 @@ static const void *kJobsETNEndBlockKey       = &kJobsETNEndBlockKey;
     @jobs_weakify(self)
     return ^ASEditableTextNode* (JobsEditableTextEventBlock handler){
         @jobs_strongify(self)
-        objc_setAssociatedObject(self,
-                                 kJobsETNBeginBlockKey,
-                                 handler,
-                                 OBJC_ASSOCIATION_COPY_NONATOMIC);
+        Jobs_setAssociatedCOPY_NONATOMIC(kJobsETNBeginBlockKey, handler)
 
-        id token = objc_getAssociatedObject(self, kJobsETNBeginTokenKey);
+        id token = Jobs_getAssociatedObject(kJobsETNBeginTokenKey);
         if (token){
             [NSNotificationCenter.defaultCenter removeObserver:token];
-            objc_setAssociatedObject(self,
-                                     kJobsETNBeginTokenKey,
-                                     nil,
-                                     OBJC_ASSOCIATION_ASSIGN);
+            Jobs_setAssociatedASSIGN(kJobsETNBeginTokenKey, nil)
         }
         UITextView *tv = self.textView; // 触发 view
         if (handler && tv){
@@ -185,13 +178,10 @@ static const void *kJobsETNEndBlockKey       = &kJobsETNEndBlockKey;
                            object:tv
                            queue:NSOperationQueue.mainQueue
                            usingBlock:^(__unused NSNotification * _Nonnull note){
-                JobsEditableTextEventBlock blk = objc_getAssociatedObject(self, kJobsETNBeginBlockKey);
+                JobsEditableTextEventBlock blk = Jobs_getAssociatedObject(kJobsETNBeginBlockKey);
                 if (blk) blk(self, tv);
             }];
-            objc_setAssociatedObject(self,
-                                     kJobsETNBeginTokenKey,
-                                     newToken,
-                                     OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            Jobs_setAssociatedRETAIN_NONATOMIC(kJobsETNBeginTokenKey, newToken)
         };return self;
     };
 }
@@ -200,18 +190,12 @@ static const void *kJobsETNEndBlockKey       = &kJobsETNEndBlockKey;
     @jobs_weakify(self)
     return ^ASEditableTextNode* (JobsEditableTextEventBlock handler){
         @jobs_strongify(self)
-        objc_setAssociatedObject(self,
-                                 kJobsETNChangeBlockKey,
-                                 handler,
-                                 OBJC_ASSOCIATION_COPY_NONATOMIC);
+        Jobs_setAssociatedCOPY_NONATOMIC(kJobsETNChangeBlockKey, handler)
 
-        id token = objc_getAssociatedObject(self, kJobsETNChangeTokenKey);
+        id token = Jobs_getAssociatedObject(kJobsETNChangeTokenKey);
         if (token){
             [[NSNotificationCenter defaultCenter] removeObserver:token];
-            objc_setAssociatedObject(self,
-                                     kJobsETNChangeTokenKey,
-                                     nil,
-                                     OBJC_ASSOCIATION_ASSIGN);
+            Jobs_setAssociatedASSIGN(kJobsETNChangeTokenKey, nil)
         }
         UITextView *tv = self.textView;
         if (handler && tv){
@@ -220,13 +204,10 @@ static const void *kJobsETNEndBlockKey       = &kJobsETNEndBlockKey;
                            object:tv
                            queue:NSOperationQueue.mainQueue
                            usingBlock:^(__unused NSNotification * _Nonnull note){
-                JobsEditableTextEventBlock blk = objc_getAssociatedObject(self, kJobsETNChangeBlockKey);
+                JobsEditableTextEventBlock blk = Jobs_getAssociatedObject(kJobsETNChangeBlockKey);
                 if (blk) blk(self, tv);
             }];
-            objc_setAssociatedObject(self,
-                                     kJobsETNChangeTokenKey,
-                                     newToken,
-                                     OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            Jobs_setAssociatedRETAIN_NONATOMIC(kJobsETNChangeTokenKey, newToken)
         };return self;
     };
 }
@@ -235,18 +216,12 @@ static const void *kJobsETNEndBlockKey       = &kJobsETNEndBlockKey;
     @jobs_weakify(self)
     return ^ASEditableTextNode* (JobsEditableTextEventBlock handler){
         @jobs_strongify(self)
-        objc_setAssociatedObject(self,
-                                 kJobsETNEndBlockKey,
-                                 handler,
-                                 OBJC_ASSOCIATION_COPY_NONATOMIC);
+        Jobs_setAssociatedCOPY_NONATOMIC(kJobsETNEndBlockKey, handler)
 
-        id token = objc_getAssociatedObject(self, kJobsETNEndTokenKey);
+        id token = Jobs_getAssociatedObject(kJobsETNEndTokenKey);
         if (token){
             [[NSNotificationCenter defaultCenter] removeObserver:token];
-            objc_setAssociatedObject(self,
-                                     kJobsETNEndTokenKey,
-                                     nil,
-                                     OBJC_ASSOCIATION_ASSIGN);
+            Jobs_setAssociatedASSIGN(kJobsETNEndTokenKey, nil)
         }
         UITextView *tv = self.textView;
         if (handler && tv){
@@ -255,13 +230,10 @@ static const void *kJobsETNEndBlockKey       = &kJobsETNEndBlockKey;
                            object:tv
                            queue:NSOperationQueue.mainQueue
                            usingBlock:^(__unused NSNotification * _Nonnull note){
-                JobsEditableTextEventBlock blk = objc_getAssociatedObject(self, kJobsETNEndBlockKey);
+                JobsEditableTextEventBlock blk = Jobs_getAssociatedObject(kJobsETNEndBlockKey);
                 if (blk) blk(self, tv);
             }];
-            objc_setAssociatedObject(self,
-                                     kJobsETNEndTokenKey,
-                                     newToken,
-                                     OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            Jobs_setAssociatedRETAIN_NONATOMIC(kJobsETNEndTokenKey, newToken)
         };return self;
     };
 }

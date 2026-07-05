@@ -9,7 +9,8 @@
 
 @interface JobsAppDoorInputViewBaseStyle_1 ()
 /// UI
-Prop_strong()UIButton <TimerProtocol>*countDownBtn;
+Prop_strong()JobsCountdownBtn *countDownBtn;
+Prop_strong()UIImageView *leftIMGV;
 /// Data
 Prop_copy()NSString *titleStr_1;
 Prop_copy()NSString *titleStr_2;
@@ -36,8 +37,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    self.countDownBtn.width = self.countDownBtnWidth ? : JobsWidth(80);
-    self.magicTextField.width = self.textFieldWidth ? : JobsWidth(180);
+    self.countDownBtn.width = self.countDownBtnWidth ? : JobsWidth(104);
 }
 #pragma mark —— 一些私有方法
 -(jobsByVoidBlock _Nonnull)setting{
@@ -54,11 +54,12 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 }
 
 -(void)configTextField{
-    UIImageView *leftView = UIImageView.initBy(self.doorInputViewBaseStyleModel.leftViewIMG);
-    leftView.frame = CGRectMake(0, 0, JobsWidth(20), JobsWidth(20));
-    leftView.contentMode = UIViewContentModeScaleAspectFit;
-    _magicTextField.leftView = leftView;
-    _magicTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
+    UIImage *leftImage = self.doorInputViewBaseStyleModel.leftViewIMG;
+    CGFloat leftOffset = leftImage ? (self.doorInputViewBaseStyleModel.leftViewOffsetX ? : JobsWidth(14)) : 0;
+    CGFloat placeholderOffset = leftImage ? (self.doorInputViewBaseStyleModel.placeHolderOffset ? : JobsWidth(39)) : JobsWidth(12);
+    self.leftIMGV.byImage(leftImage).byAlpha(leftImage ? 1 : 0);
+    _magicTextField.leftView = nil;
+    _magicTextField.leftViewMode = UITextFieldViewModeNever;
     _magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
     _magicTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
     _magicTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
@@ -70,10 +71,11 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     _magicTextField.requestParams = self.textFieldInputModel;
     _magicTextField.placeholderColor = self.doorInputViewBaseStyleModel.placeholderColor;
     _magicTextField.placeholderFont = self.doorInputViewBaseStyleModel.placeholderFont;
-    _magicTextField.leftViewOffsetX = self.doorInputViewBaseStyleModel.leftViewOffsetX ? :  JobsWidth(17);
+    _magicTextField.leftViewOffsetX = leftOffset;
+    _magicTextField.text_offset = leftImage ? (self.doorInputViewBaseStyleModel.offset ? : placeholderOffset) : JobsWidth(12);
     _magicTextField.animationColor = self.doorInputViewBaseStyleModel.animationColor ? : Cor3;
     _magicTextField.placeHolderAlignment = self.doorInputViewBaseStyleModel.placeHolderAlignment ? : NSTextAlignmentLeft;
-    _magicTextField.placeHolderOffset = self.doorInputViewBaseStyleModel.placeHolderOffset ? : JobsWidth(39);
+    _magicTextField.placeHolderOffset = placeholderOffset;
     _magicTextField.moveDistance = self.doorInputViewBaseStyleModel.moveDistance ? : JobsWidth(35);
     _magicTextField.fieldEditorOffset = self.doorInputViewBaseStyleModel.fieldEditorOffset ? : JobsWidth(50);
 }
@@ -103,6 +105,23 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     };
 }
 
+-(UIImageView *)leftIMGV{
+    if (!_leftIMGV) {
+        @jobs_weakify(self)
+        _leftIMGV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            @jobs_strongify(self)
+            imageView
+                .byContentMode(UIViewContentModeScaleAspectFit)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self).offset(JobsWidth(14));
+                    make.centerY.equalTo(self);
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(16), JobsWidth(16)));
+                });
+        });
+    };return _leftIMGV;
+}
+
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
     @jobs_weakify(self)
     return ^(JobsAppDoorInputViewBaseStyleModel *_Nullable doorInputViewBaseStyleModel) {
@@ -126,29 +145,30 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     return self.magicTextField.text;
 }
 #pragma mark —— lazyLoad
--(UIButton<TimerProtocol> *)countDownBtn{
+-(JobsCountdownBtn *)countDownBtn{
     if (!_countDownBtn) {
         @jobs_weakify(self)
-        _countDownBtn = (UIButton<TimerProtocol> *)UIButton.jobsInit()
-            .onClickBy(^(__kindof UIButton *x){
-                @jobs_strongify(self)
-                if (self.objBlock) self.objBlock(x);
-            }).onLongPressGestureBy(^(id data){
-                JobsLog(@"");
-            }).byOnTick(^(CGFloat time) {
-                // 每 tick 一次
-                NSLog(@"剩余: %.0f", time);
-            })
-            .byOnFinish(^ (JobsTimer * _Nullable timer) {
-                // 倒计时完成
-                NSLog(@"倒计时结束");
-            })
+        JobsCountdownBtn *countdownBtn = [JobsCountdownBtn verificationCodeButton];
+        [countdownBtn byJobsCountdownNormalTitle:Title9];
+        [countdownBtn byJobsCountdownDuration:60];
+        [countdownBtn byJobsCountdownClickBlock:^(id _Nullable data) {
+            @jobs_strongify(self)
+            if (self.objBlock) self.objBlock(data);
+        }];
+        _countDownBtn = (JobsCountdownBtn *)countdownBtn
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
-                make.right.equalTo(self).offset(-JobsWidth(120));
+                make.right.equalTo(self).offset(-JobsWidth(14));
                 make.top.equalTo(self).offset(JobsWidth(8));
                 make.bottom.equalTo(self).offset(-JobsWidth(8));
-                make.width.mas_equalTo(JobsWidth(80));
+                make.width.mas_equalTo(JobsWidth(104));
+            })
+            .byViewBlock(^(__kindof UIView *view) {
+                UIButton *button = (UIButton *)view;
+                button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+                button.titleLabel.adjustsFontSizeToFitWidth = YES;
+                button.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+                button.titleLabel.minimumScaleFactor = 0.7f;
             });
     };return _countDownBtn;
 }
@@ -162,7 +182,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.left.bottom.equalTo(self);
-//                    make.right.equalTo(self.countDownBtn.mas_left);
+                    make.right.equalTo(self.countDownBtn.mas_left).offset(-JobsWidth(8));
             });
 
             [textField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {

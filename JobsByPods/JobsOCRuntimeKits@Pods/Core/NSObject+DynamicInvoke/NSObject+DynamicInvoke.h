@@ -12,10 +12,10 @@
 #import <Foundation/Foundation.h>
 #import <JobsOCRuntimeKits/JobsSEL_IMP.h>
 
-#if __has_include(<JobsRandomUtils/JobsRandomUtils.h>)
-#import <JobsRandomUtils/JobsRandomUtils.h>
+#if __has_include(<JobsRandomUtils/JobsRandomUtilsHeader.h>)
+#import <JobsRandomUtils/JobsRandomUtilsHeader.h>
 #else
-#import "JobsRandomUtils.h"
+#import "JobsRandomUtilsHeader.h"
 #endif
 
 #if __has_include(<JobsTimeUtils/JobsTimeUtils.h>)

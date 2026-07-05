@@ -24,7 +24,6 @@ date range picker view with Jobs project styling and helper integrations.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
 
   spec.frameworks = [
     'Foundation',
@@ -34,47 +33,43 @@ date range picker view with Jobs project styling and helper integrations.
   JobsPodspecKitForJobsCustomView.apply_standard_exclude_files(spec)
   JobsPodspecKitForJobsCustomView.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsCustomView.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsCustomViewHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsCustomViewHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsCustomView'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
 
-    ss.source_files        = [
-      'Core/**/*.{h,m,mm}'
-    ]
-    ss.public_header_files = [
-      'Core/**/*.h'
-    ]
-    ss.resources           = [
-      'Core/**/*.{png,jpg,jpeg,gif,xib,nib,storyboard,xcassets}',
-      'JobsCustomView.png'
-    ]
 
-    ss.dependency 'Masonry'
-    ss.dependency 'Reachability'
-    ss.dependency 'TXFileOperation'
-    ss.dependency 'YTKNetworkExtra'
-    ss.dependency 'XYColorOC'
-    ss.dependency 'JobsBaseUI'
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsOCDSL'
-    ss.dependency 'JobsClass'
-    ss.dependency 'JobsLanMgr'
-    ss.dependency 'JobsMakes'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsOCProtocols'
-    ss.dependency 'JobsOCRuntimeKits'
-    ss.dependency 'JobsStringUtils'
-    ss.dependency 'MJExtension'
-    ss.dependency 'MJRefresh'
-    ss.dependency 'MJRefreshExtra'
-    ss.dependency 'ReactiveObjC'
-    ss.dependency 'TABAnimated'
-    ss.dependency 'XZMRefresh'
-    ss.dependency 'BRPickerView'
-    ss.dependency 'JobsModelDSL'
-    ss.dependency 'BRPickerViewExtra'
-    ss.dependency 'This'
-  end
+  spec.dependency 'Masonry'
+  spec.dependency 'Reachability'
+  spec.dependency 'TXFileOperation'
+  spec.dependency 'YTKNetworkExtra'
+  spec.dependency 'XYColorOC'
+  spec.dependency 'JobsBaseUI'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDSL'
+  spec.dependency 'JobsClass'
+  spec.dependency 'JobsLanMgr'
+  spec.dependency 'JobsMakes'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsOCProtocols'
+  spec.dependency 'JobsOCRuntimeKits'
+  spec.dependency 'JobsStringUtils'
+  spec.dependency 'MJExtension'
+  spec.dependency 'MJRefresh'
+  spec.dependency 'MJRefreshExtra'
+  spec.dependency 'ReactiveObjC'
+  spec.dependency 'TABAnimated'
+  spec.dependency 'XZMRefresh'
+  spec.dependency 'BRPickerView'
+  spec.dependency 'JobsModelDSL'
+  spec.dependency 'BRPickerViewExtra'
+  spec.dependency 'This'
 
   JobsPodspecKitForJobsCustomView.apply_standard_xcconfig(spec)
 

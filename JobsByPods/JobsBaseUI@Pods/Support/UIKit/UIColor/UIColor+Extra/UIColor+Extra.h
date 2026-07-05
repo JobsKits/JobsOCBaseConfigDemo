@@ -8,6 +8,7 @@
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
+#import <JobsBaseUI/NSString+Sys.h>
 #else
 #import "JobsOCDSL.h"
 #endif

@@ -33,21 +33,21 @@ UIKit categories, model helpers, and related resource files.
   spec.source           = { :path => '.' }
 
   # 根入口头文件
-  spec.source_files = 'JobsBaseUI.h'
-  spec.public_header_files = 'JobsBaseUI.h'
 
   # 按磁盘顶层目录在 Pods 工程里分组显示
-  spec.default_subspecs = 'Core'
   JobsPodspecKitForJobsBaseUI.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsBaseUI.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsBaseUI.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsBaseUI.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsBaseUI'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
 
-    ss.source_files = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources = 'Core/**/*.{png,jpg,jpeg,webp,gif,wav,mp3,caf,json,plist,xib,storyboard,bundle}'
-  end
 
   JobsPodspecKitForJobsBaseUI.apply_standard_exclude_files(spec)
 

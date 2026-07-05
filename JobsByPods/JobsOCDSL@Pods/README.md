@@ -69,6 +69,7 @@ JobsOCDSL@Pods/
 - `UIButton+DSL` 覆盖按钮本层 configuration、普通状态标题 / 图片 / 富文本、titleLabel / imageView 回调，以及 `adjustsImageWhenHighlighted` 等旧式按钮属性；父类交互状态仍走 `UIControl+DSL`。
 - `UISearchBar+DSL` 覆盖搜索栏本层可写属性，包括文本、占位符、代理、按钮显隐、样式、背景图片、scope 配置和输入附件视图；父类视图属性仍走 `UIView+DSL`。
 - `UIImageView+DSL` 覆盖当前类本层图片属性，`byImage(...)` 设置普通图片，`byHighlightedImage(...)` 设置高亮图片。
+- `NSMutableParagraphStyle+DSL` 覆盖段落样式常用字段，包括 `byAlignment(...)`、`byParagraphSpacing(...)`、`byParagraphSpacingBefore(...)`、`byFirstLineHeadIndent(...)`、`byHeadIndent(...)`、`byLineSpacing(...)`、`byLineBreakMode(...)`、`byBaseWritingDirection(...)`，供 `jobsMakeParagraphStyle` 闭包内保持点语法链式配置。
 - `FSCalendar+DSL` 对 `appearance`、`calendarHeaderView`、`swipeToChooseGesture` 这类子对象提供 block 配置入口，回调内部配置子对象后继续返回主 `FSCalendar`，方便调用方保持一个 `calendar` 中心链。
 
 ## 三、引用方式
@@ -84,7 +85,8 @@ JobsOCDSL@Pods/
 ## 四、依赖关系
 
 - `JobsBlock`：集中提供 OC Block 类型别名。
-- `JobsOCDefs`：提供基础宏、枚举和颜色等定义。
+- 第三方 DSL 的 Block typedef 统一落在 `JobsBlock`，`JobsOCDSL` 头文件只负责导入并使用，不再本地散落声明。
+- `JobsOCDefs`：提供基础宏、枚举、颜色和 `Prop_*` 属性声明宏；`JobsOCDSL` 内属性声明统一使用该宏族。
 - `JobsOCProtocols`：提供 DSL 协议边界。
 - `GKNavigationBar`：服务 OC 侧导航栏全局配置 DSL。
 - `Masonry`：服务 OC 侧约束链式 DSL。
@@ -122,6 +124,7 @@ JobsOCDSL@Pods/
 | `YTKNetwork+DSL` | `YTKBaseRequest+DSL`、`YTKBatchRequest+DSL`、`YTKChainRequest+DSL` | 请求配置、成功失败回调、启动停止、批量和链式请求，并补齐 `jobs_requests` 等语义访问。 |
 | `HXPhotoPicker+DSL` | `HXPhotoPickerObjC/HXPhotoView+DSL`、`HXPhotoManager+DSL`、`HXPhotoConfiguration+DSL` | 发帖图片 / 视频选择视图和配置对象链式化，调用方不再散落写 `manager.configuration.xxx = ...`。 |
 
+- `YTKNetwork`、`GKNavigationBar`、`ZFPlayer`、`Texture` 这些第三方 DSL 所需 Block 类型统一从 `JobsBlock` 取；新增同类 DSL 时先补 `JobsBlock`，再在 `JobsOCDSL` 分类里使用。
 - Swift 可以通过参数重载复用 `byBack(...)` 这类方法名；OC 侧不能只靠 Block 返回类型重载，所以图片别名使用 `byBack`，返回样式继续使用 `byBackStyle`，组合式配置使用 `byBackPreset`。
 
 ## 七、列表 Block 化

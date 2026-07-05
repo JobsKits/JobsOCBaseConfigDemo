@@ -43,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetMutableParagraphStyleByBOOLBlock _Nonnull)byAllowsDefaultTighteningForTruncation;
 -(JobsRetMutableParagraphStyleByBOOLBlock _Nonnull)byUsesDefaultHyphenation;
 #pragma mark —— Enums
+-(JobsRetMutableParagraphStyleByNSIntegerBlock _Nonnull)byAlignment;
 -(JobsRetMutableParagraphStyleByNSIntegerBlock _Nonnull)byLineBreakMode;
 -(JobsRetMutableParagraphStyleByNSIntegerBlock _Nonnull)byBaseWritingDirection;
 -(JobsRetMutableParagraphStyleByNSUIntegerBlock _Nonnull)byLineBreakStrategy;

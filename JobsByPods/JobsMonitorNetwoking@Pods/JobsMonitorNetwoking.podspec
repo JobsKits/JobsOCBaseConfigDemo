@@ -18,7 +18,6 @@ network traffic speed and displays it with JobsSuspendLab.
   spec.source                = { :path => '.' }
   spec.module_name           = 'JobsMonitorNetwoking'
   spec.static_framework      = true
-  spec.default_subspecs      = 'Core'
 
   spec.frameworks = [
     'Foundation',
@@ -27,16 +26,20 @@ network traffic speed and displays it with JobsSuspendLab.
 
   JobsPodspecKitForJobsMonitorNetwoking.apply_standard_exclude_files(spec)
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files          = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files   = 'Core/**/*.h'
-    ss.header_mappings_dir   = 'Core'
+  spec.source_files = [
+    'JobsMonitorNetwokingHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsMonitorNetwokingHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsMonitorNetwoking'
 
-    ss.dependency 'JobsSuspend'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsOCDSL'
-    ss.dependency 'JobsBlock'
-  end
+  spec.dependency 'JobsSuspend'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsOCDSL'
+  spec.dependency 'JobsBlock'
 
   JobsPodspecKitForJobsMonitorNetwoking.apply_standard_xcconfig(spec)
 

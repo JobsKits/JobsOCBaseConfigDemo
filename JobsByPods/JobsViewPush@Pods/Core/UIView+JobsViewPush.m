@@ -410,17 +410,13 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 
 @implementation UIView (JobsViewPushPrivate)
 
-static const void *JobsViewPushPresentationKey = &JobsViewPushPresentationKey;
-
+JobsKey(JobsViewPushPresentationKey)
 -(void)setJobsViewPushPresentation:(JobsViewPushPresentation *)jobsViewPushPresentation{
-    objc_setAssociatedObject(self,
-                             JobsViewPushPresentationKey,
-                             jobsViewPushPresentation,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(JobsViewPushPresentationKey, jobsViewPushPresentation)
 }
 
 -(JobsViewPushPresentation *)jobsViewPushPresentation{
-    return objc_getAssociatedObject(self, JobsViewPushPresentationKey);
+    return Jobs_getAssociatedObject(JobsViewPushPresentationKey);
 }
 
 @end

@@ -5,7 +5,24 @@
 //  Created by Jobs on 2026年6月25日，星期四.
 //
 
+#import <objc/message.h>
+#import <ImageIO/ImageIO.h>
+
 #import "JobsOCRefreshConfig.h"
+
+#if __has_include(<SDWebImage/SDWebImage.h>)
+#import <SDWebImage/SDWebImage.h>
+#endif
+
+#if __has_include(<lottie-ios/Lottie.h>)
+#import <lottie-ios/Lottie.h>
+#elif __has_include("Lottie.h")
+#import "Lottie.h"
+#endif
+
+#if __has_include(<JobsOCTimer/JobsTimer.h>)
+#import <JobsOCTimer/JobsTimer.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

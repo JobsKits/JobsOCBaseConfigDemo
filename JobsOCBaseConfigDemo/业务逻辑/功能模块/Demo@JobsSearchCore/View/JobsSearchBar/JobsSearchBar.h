@@ -56,6 +56,8 @@ NS_ASSUME_NONNULL_BEGIN
 JobsDoorInputViewProtocol
 ,UITextFieldDelegate
 >
+/// 外部已经有取消入口时隐藏内部取消按钮
+Prop_assign()BOOL cancelBtnHidden;
 
 @end
 

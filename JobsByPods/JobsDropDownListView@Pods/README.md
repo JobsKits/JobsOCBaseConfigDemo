@@ -43,6 +43,7 @@
 ```text
 JobsDropDownListView@Pods/
 ├── JobsDropDownListView.podspec  # Pod 描述文件
+├── JobsDropDownListViewHeader.h  # 根聚合头文件
 ├── README.md  # 当前自述
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
 ├── Core/  # 公开 API 与核心实现，4 个文件
@@ -65,15 +66,18 @@ JobsDropDownListView@Pods/
 
 ### 5.1、公开头文件
 
+- `JobsDropDownListViewHeader.h`
 - `Core/**/*.h`
 
 ### 5.2、源码入口
 
+- `JobsDropDownListViewHeader.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.3、默认 subspec
+### 5.3、默认安装边界
 
-- `Core`
+- `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
+- `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
 ### 5.4、系统框架
 
@@ -93,29 +97,28 @@ JobsDropDownListView@Pods/
 - `JobsOCProtocols`
 - `JobsOCRuntimeKits`
 - `JobsLanMgr`
-- `JobsDropDownListView/Support`
 
 ## 六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 推荐在 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 代码里使用保护性引用，优先走 [**CocoaPods**](https://cocoapods.org/) 生成的公共头映射：
 
 ```objc
-#if __has_include(<JobsDropDownListView/JobsDropDownListTBVCell.h>)
-#import <JobsDropDownListView/JobsDropDownListTBVCell.h>
+#if __has_include(<JobsDropDownListView/JobsDropDownListViewHeader.h>)
+#import <JobsDropDownListView/JobsDropDownListViewHeader.h>
 #else
-#import "JobsDropDownListTBVCell.h"
+#import "JobsDropDownListViewHeader.h"
 #endif
 ```
 
 - 自建 Pod 对外优先引用公共入口头，不要绕开聚合头直接引用 `Support` 内部子头。
-- 如果 `JobsDropDownListTBVCell.h` 不是最终公开入口，请先修正 `JobsDropDownListView.podspec` 的 `public_header_files` 和入口头设计，再修改调用方。
+- `JobsDropDownListViewHeader.h` 聚合公开 View 与 Cell；调用方不再绕开入口头引用内部子头。
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 当前目录扫描到资源类文件 0 个，`Resources` 目录文件 0 个。
+- 当前目录扫描到资源类文件 0 个，`Resource` 目录文件 0 个。
 - podspec 资源声明如下：
 
-- `Core/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp4,aiff}`
+- 当前 Pod 没有非代码资源；后续新增资源统一放入 `Resource`。
 
 ## 八、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -142,5 +145,10 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+## 十、近期维护记录 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+- 修正 `JobsDropDownListView` 在 `heightForRowAtIndexPath:` 中把 `cellHeightByModel` 误写成动态调用 `cellHeightByModel:` 的问题，避免 Demo 展开下拉列表时提示“方法不存在”。
+- 优化默认下拉列表展示：表格使用白底圆角，默认 Cell 使用更清晰的主 / 副标题文字样式和选中背景。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

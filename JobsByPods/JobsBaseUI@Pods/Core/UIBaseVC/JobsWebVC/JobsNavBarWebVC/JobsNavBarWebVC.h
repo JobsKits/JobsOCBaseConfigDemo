@@ -13,10 +13,10 @@
 #import <JobsBaseUI/UIView+Masonry.h>
 #import <JobsBaseUI/JobsBaseWebVC.h>
 
-#if __has_include(<JobsAppTools/NSObject+AppTools.h>)
-#import <JobsAppTools/NSObject+AppTools.h>
+#if __has_include(<JobsAppTools/JobsAppToolsHeader.h>)
+#import <JobsAppTools/JobsAppToolsHeader.h>
 #else
-#import "NSObject+AppTools.h"
+#import "JobsAppToolsHeader.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)

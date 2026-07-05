@@ -17,7 +17,6 @@ foreground/background policy handling for Jobs projects.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
 
   spec.frameworks = [
     'Foundation',
@@ -26,17 +25,22 @@ foreground/background policy handling for Jobs projects.
 
   JobsPodspecKitForJobsOCTimerMgr.apply_standard_exclude_files(spec)
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
+  spec.source_files = [
+    'JobsOCTimerMgr.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsOCTimerMgr.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsOCTimerMgr'
 
 
-    ss.dependency 'JobsMakes'
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsOCTimer/Core'
-    ss.dependency 'JobsOCProtocols/Core'
-  end
+  spec.dependency 'JobsMakes'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsOCTimer'
+  spec.dependency 'JobsOCProtocols'
 
   JobsPodspecKitForJobsOCTimerMgr.apply_standard_xcconfig(spec)
 

@@ -15,9 +15,6 @@ JobsCryptography is a lightweight Objective-C utility collection for AES, DES, R
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
-  spec.source_files        = 'JobsCryptography.h'
-  spec.public_header_files = 'JobsCryptography.h'
 
   spec.frameworks = [
     'Foundation',
@@ -27,15 +24,21 @@ JobsCryptography is a lightweight Objective-C utility collection for AES, DES, R
 
   JobsPodspecKitForJobsCryptography.apply_standard_exclude_files(spec)
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
+  spec.source_files = [
+    'JobsCryptography.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsCryptography.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsCryptography'
 
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsMakes'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsByOCPods'
-  end
+
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsMakes'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsByOCPods'
 
   JobsPodspecKitForJobsCryptography.apply_standard_xcconfig(spec)
 

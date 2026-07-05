@@ -7,8 +7,7 @@
 
 #import "UITableView+EmptyData.h"
 
-static const void *JobsTableViewEmptyDataReloadingKey = &JobsTableViewEmptyDataReloadingKey;
-
+JobsKey(JobsTableViewEmptyDataReloadingKey)
 @implementation UITableView (EmptyData)
 
 +(void)load{
@@ -23,10 +22,10 @@ static const void *JobsTableViewEmptyDataReloadingKey = &JobsTableViewEmptyDataR
 }
 
 -(void)jobsReloadData{
-    if ([objc_getAssociatedObject(self, JobsTableViewEmptyDataReloadingKey) boolValue]) return;
-    objc_setAssociatedObject(self, JobsTableViewEmptyDataReloadingKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if ([Jobs_getAssociatedObject(JobsTableViewEmptyDataReloadingKey) boolValue]) return;
+    Jobs_setAssociatedRETAIN_NONATOMIC(JobsTableViewEmptyDataReloadingKey, @YES)
     [self jobsReloadData]; // 调用原始的 reloadData（已经交换过）
-    objc_setAssociatedObject(self, JobsTableViewEmptyDataReloadingKey, @NO, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(JobsTableViewEmptyDataReloadingKey, @NO)
     switch (self.jobsEmptyViewType) {
         case JobsEmptyViewTypeLabel:{
             self.showEmptyLabelBy(self.textModelEmptyData);
@@ -58,9 +57,9 @@ static const void *JobsTableViewEmptyDataReloadingKey = &JobsTableViewEmptyDataR
         @jobs_strongify(self)
         if(self.hasData){
             self.cleanSubviewBy(BaseView.class);
-            return nil;
+            return self;
         }else{
-            return jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
+            jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
                 @jobs_strongify(self)
                 view.byFrame(self.bounds);
 
@@ -79,6 +78,7 @@ static const void *JobsTableViewEmptyDataReloadingKey = &JobsTableViewEmptyDataR
                     make.width.equalTo(self);
                 }));
             });
+            return self;
         }
     };
 }
@@ -89,9 +89,9 @@ static const void *JobsTableViewEmptyDataReloadingKey = &JobsTableViewEmptyDataR
         @jobs_strongify(self)
         if(self.hasData){
             self.cleanSubviewBy(BaseView.class);
-            return nil;
+            return self;
         }else{
-            return jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
+            jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
                 @jobs_strongify(self)
                 view.byFrame(self.bounds);
 
@@ -111,6 +111,7 @@ static const void *JobsTableViewEmptyDataReloadingKey = &JobsTableViewEmptyDataR
                         });
                 });
             });
+            return self;
         }
     };
 }
@@ -121,12 +122,12 @@ static const void *JobsTableViewEmptyDataReloadingKey = &JobsTableViewEmptyDataR
         @jobs_strongify(self)
         if(self.hasData){
             self.cleanSubviewBy(UIView.class);
-            return nil;
+            return self;
         }else{
             self.cleanSubviewBy(UIView.class);
             view.byFrame(self.bounds);
             self.addSubview(view);
-            return view;
+            return self;
         }
     };
 }

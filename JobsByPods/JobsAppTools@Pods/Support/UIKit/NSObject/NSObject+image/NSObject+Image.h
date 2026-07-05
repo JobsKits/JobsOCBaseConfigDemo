@@ -12,11 +12,12 @@
 
 #import <Foundation/Foundation.h>
 #import <JobsAppTools/NSString+Extra.h>
+#import <JobsAppTools/NSString+Sys.h>
 
-#if __has_include(<JobsStringUtils/JobsStringUtils.h>)
-#import <JobsStringUtils/JobsStringUtils.h>
+#if __has_include(<JobsStringUtils/JobsStringUtilsHeader.h>)
+#import <JobsStringUtils/JobsStringUtilsHeader.h>
 #else
-#import "JobsStringUtils.h"
+#import "JobsStringUtilsHeader.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

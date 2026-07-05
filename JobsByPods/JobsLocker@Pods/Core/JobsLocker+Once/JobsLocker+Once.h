@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 其他并发调用会等待首次执行完成，然后直接返回。
 - (void)executeOnce:(NS_NOESCAPE dispatch_block_t)block;
 /// 返回该 locker 实例是否已经执行过 once block。
-@property (nonatomic, assign, readonly) BOOL didExecuteOnce;
+Prop_assign(readonly)BOOL didExecuteOnce;
 /// 重置 once 状态。
 /// 注意：只有在你明确需要“重新允许执行一次”时才调用。
 - (void)resetOnceState;

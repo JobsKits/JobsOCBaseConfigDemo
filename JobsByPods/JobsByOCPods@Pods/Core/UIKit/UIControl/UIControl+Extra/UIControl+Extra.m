@@ -7,13 +7,13 @@
 
 #import "UIControl+Extra.h"
 /// 存储 & 绑定工具
-static const void *kJobsTargetsMapKey = &kJobsTargetsMapKey;
+JobsKey(kJobsTargetsMapKey)
 /// 控件级别的“事件 -> target”映射
 static inline NSMutableDictionary<NSNumber *, JobsControlTarget *> *jobs_targetsMap(UIControl *ctl, BOOL createIfMissing) {
-    NSMutableDictionary *map = objc_getAssociatedObject(ctl, kJobsTargetsMapKey);
+    NSMutableDictionary *map = Jobs_getAssociatedObjectByTarget(ctl, kJobsTargetsMapKey);
     if (!map && createIfMissing) {
         map = NSMutableDictionary.dictionary;
-        objc_setAssociatedObject(ctl, kJobsTargetsMapKey, map, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        Jobs_setAssociatedRETAIN_NONATOMICByTarget(ctl, kJobsTargetsMapKey, map)
     };return map;
 }
 /// 将位掩码拆成“单事件”数组（特殊处理 AllEvents：保持为一个整体）

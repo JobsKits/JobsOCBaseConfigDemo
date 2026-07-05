@@ -24,6 +24,8 @@ business block typedefs, parameterized block macro helpers, and centralized forw
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
 
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff}'
+
   spec.frameworks = [
     'Foundation',
     'UIKit',
@@ -44,12 +46,14 @@ business block typedefs, parameterized block macro helpers, and centralized forw
   JobsPodspecKitForJobsBlock.add_support_subspec(spec, support_context)
 
   spec.source_files = [
+    'JobsBlock.h',
     'JobsBlockDef.h',
     'JobsBlockHeader.h',
     'Core/**/*.{h,m,mm}'
   ]
 
   spec.public_header_files = [
+    'JobsBlock.h',
     'JobsBlockDef.h',
     'JobsBlockHeader.h',
     'Core/**/*.h'

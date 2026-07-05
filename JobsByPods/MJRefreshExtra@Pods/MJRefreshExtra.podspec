@@ -30,40 +30,41 @@ Pod::Spec.new do |spec|
     'UIKit'
   ]
 
-  spec.default_subspecs = 'Core'
 
-  spec.source_files        = 'MJRefreshExtra.h'
-  spec.public_header_files = 'MJRefreshExtra.h'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff}'
+
   JobsPodspecKitForMJRefreshExtra.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForMJRefreshExtra.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'MJRefreshExtra.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'MJRefreshExtra.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'MJRefreshExtra'
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
 
-    ss.dependency 'MJRefreshExtra/Support'
-    ss.dependency 'TABAnimated'
-    ss.dependency 'MJRefresh'
-    ss.dependency 'JobsModelDSL'
-    ss.dependency 'XYColorOC'
-    ss.dependency 'JobsMakes'
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsOCDSL'
-    ss.dependency 'lottie-ios', '~> 2.5.3'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'XZMRefresh'
-    ss.dependency 'WHToastExtra'
-    ss.dependency 'JobsDeviceInfo'
-    ss.dependency 'JobsOCProtocols'
-    ss.dependency 'JobsStringUtils'
-    ss.dependency 'JobsLoadingImage'
-    ss.dependency 'JobsRichTextUtils'
-    ss.dependency 'JobsOCRuntimeKits'
-    ss.dependency 'JobsLanMgr'
+  spec.dependency 'TABAnimated'
+  spec.dependency 'MJRefresh'
+  spec.dependency 'JobsModelDSL'
+  spec.dependency 'XYColorOC'
+  spec.dependency 'JobsMakes'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDSL'
+  spec.dependency 'lottie-ios', '~> 2.5.3'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'XZMRefresh'
+  spec.dependency 'WHToastExtra'
+  spec.dependency 'JobsDeviceInfo'
+  spec.dependency 'JobsOCProtocols'
+  spec.dependency 'JobsStringUtils'
+  spec.dependency 'JobsLoadingImage'
+  spec.dependency 'JobsRichTextUtils'
+  spec.dependency 'JobsOCRuntimeKits'
+  spec.dependency 'JobsLanMgr'
 
-  end
 
   JobsPodspecKitForMJRefreshExtra.apply_standard_exclude_files(spec)
 

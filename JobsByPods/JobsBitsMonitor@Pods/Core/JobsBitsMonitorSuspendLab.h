@@ -10,16 +10,16 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<ZWPullMenuView/ZWPullMenuView.h>)
-#import <ZWPullMenuView/ZWPullMenuView.h>
+#if __has_include(<ZWPullMenuView/ZWPullMenuViewHeader.h>)
+#import <ZWPullMenuView/ZWPullMenuViewHeader.h>
 #else
-#import "ZWPullMenuView.h"
+#import "ZWPullMenuViewHeader.h"
 #endif
 
-#if __has_include(<JobsNetWorkTools/JobsNetWorkTools.h>)
-#import <JobsNetWorkTools/JobsNetWorkTools.h>
+#if __has_include(<JobsNetWorkTools/JobsNetWorkToolsHeader.h>)
+#import <JobsNetWorkTools/JobsNetWorkToolsHeader.h>
 #else
-#import "JobsNetWorkTools.h"
+#import "JobsNetWorkToolsHeader.h"
 #endif
 
 #if __has_include(<JobsSuspend/JobsSuspend.h>)

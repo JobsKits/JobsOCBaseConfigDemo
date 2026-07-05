@@ -34,6 +34,7 @@ Prop_assign()CGFloat BOTTOMVIEW_WIDTH;              // 滑块宽度
 Prop_assign()CGFloat LINEVIEW_WIDTH;                // 分割线宽度
 Prop_assign()CGFloat ANIMATION_TIME;                // 菜单栏滚动的时间
 Prop_assign()CGFloat DEFAULT_MENU_ITEM_HEIGHT;      // 统一菜单子项高度
+Prop_assign()CGFloat MENU_ITEM_CORNER_RADIUS;       // 菜单子项圆角，0 为直角
 Prop_strong(nullable)NSArray<NSNumber *> *MENU_ITEM_HEIGHTS;             // 按数组下标单独配置高度
 Prop_strong(nullable)NSDictionary<NSNumber *, NSNumber *> *MENU_ITEM_HEIGHT_MAP; // 按菜单下标覆盖高度
 Prop_assign()BOOL CLEAR_CONTENT_WHEN_MISSING;       // 菜单无内容时是否清空右侧区域

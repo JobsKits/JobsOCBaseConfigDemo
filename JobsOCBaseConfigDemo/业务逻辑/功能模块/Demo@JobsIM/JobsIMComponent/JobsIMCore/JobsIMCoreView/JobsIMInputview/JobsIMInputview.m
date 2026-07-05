@@ -10,7 +10,7 @@
 @interface JobsIMInputview ()
 /// UI
 Prop_strong()UIImageView *imgView;
-Prop_strong()JobsAdNoticeView *adNoticeView;
+Prop_strong()UILabel *adNoticeLab;
 Prop_strong()BaseButton *sendBtn;
 /// Data
 
@@ -123,7 +123,7 @@ Prop_strong()BaseButton *sendBtn;
                 .byLeftViewMode(UITextFieldViewModeAlways)
                 .byKeyboardAppearance(UIKeyboardAppearanceAlert)
                 .byAutocorrectionType(UITextAutocorrectionTypeNo) // 自动纠错属性默认是 YES，会触发监听
-                .byInputAccessoryView(self.adNoticeView)
+                .byInputAccessoryView(self.adNoticeLab)
                 .byReturnKeyType(UIReturnKeySend)
                 .byBgColor(HEXCOLOR(0xF4F4F4))
                 .addOn(self)
@@ -161,12 +161,18 @@ Prop_strong()BaseButton *sendBtn;
     };return _imgView;
 }
 
--(JobsAdNoticeView *)adNoticeView{
-    if (!_adNoticeView) {
-        _adNoticeView = JobsAdNoticeView.new;
-        _adNoticeView.sizer = JobsAdNoticeView.viewSizeByModel(nil);
-        _adNoticeView.jobsRichViewByModel(nil);
-    };return _adNoticeView;
+-(UILabel *)adNoticeLab{
+    if (!_adNoticeLab) {
+        _adNoticeLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"Jobs安全聊天，为您的聊天加密护航".tr)
+                .byTextCor(JobsRedColor)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byFont(UIFontWeightRegularSize(JobsWidth(12)))
+                .byBgColor(JobsCyanColor)
+                .bySize(JobsIMInputviewAccessoryLabelSize());
+        });
+    };return _adNoticeLab;
 }
 
 @end

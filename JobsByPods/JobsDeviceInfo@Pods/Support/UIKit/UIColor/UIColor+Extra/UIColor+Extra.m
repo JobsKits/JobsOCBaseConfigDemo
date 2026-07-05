@@ -14,7 +14,7 @@
     return ^UIColor * _Nullable(NSString *_Nonnull hexCorString) {
         if (!hexCorString) return (UIColor *)nil;
         /// 去除收尾可能含有的空格字符串
-        hexCorString = [hexCorString stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+        hexCorString = hexCorString.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
         // 移除可能的 '#' 前缀
         if ([hexCorString hasPrefix:@"#"]) {
             hexCorString = [hexCorString substringFromIndex:1];
@@ -58,7 +58,7 @@
 /// 十六进制字符串 + 透明度 => UIColor *
 +(UIColor *)colorWithHexString:(NSString *)color alpha:(CGFloat)alpha{
     // 删除字符串中的空格
-    NSString *cString = [color stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet].uppercaseString;
+    NSString *cString = color.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet).uppercaseString;
     // String should be 6 or 8 characters
     if ([cString length] < 6){
         return UIColor.clearColor;

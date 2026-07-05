@@ -14,6 +14,7 @@
 #import <GKCustomNavigationBarExtra/NSMutableArray+Extra.h>
 #import <GKCustomNavigationBarExtra/NSString+Extra.h>
 #import <MJRefreshExtra/MJRefreshExtra.h>
+#import <GKCustomNavigationBarExtra/NSString+Sys.h>
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>

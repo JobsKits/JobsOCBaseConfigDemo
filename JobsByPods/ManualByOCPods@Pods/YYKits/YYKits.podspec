@@ -18,8 +18,6 @@ and YYWeakProxy for convenient integration through CocoaPods.
   spec.static_framework = true
   spec.module_name      = 'YYKits'
 
-  spec.default_subspecs = 'Core'
-
   spec.exclude_files = [
     # macOS
     '**/.DS_Store',
@@ -96,17 +94,15 @@ and YYWeakProxy for convenient integration through CocoaPods.
     'QuartzCore'
   ]
 
-  spec.subspec 'Core' do |ss|
-    ss.subspec 'YYFPSLabel' do |sss|
-      sss.source_files        = 'Core/YYFPSLabel/YYFPSLabel.{h,m}'
-      sss.public_header_files = 'Core/YYFPSLabel/YYFPSLabel.h'
-    end
-
-    ss.subspec 'YYWeakProxy' do |sss|
-      sss.source_files        = 'Core/YYWeakProxy/YYWeakProxy.{h,m}'
-      sss.public_header_files = 'Core/YYWeakProxy/YYWeakProxy.h'
-    end
-  end
+  spec.source_files = [
+    'YYKits.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'YYKits.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'YYKits'
 
   spec.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',

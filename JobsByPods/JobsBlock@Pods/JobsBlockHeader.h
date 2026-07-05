@@ -115,6 +115,8 @@
 @class GDFadeView;
 @class GetDepositDiscountActivityRecordModel;
 @class GKCustomNavigationBar;
+@class GKGestureHandleConfigure;
+@class GKNavigationBarConfigure;
 @class GKPhoto;
 @class GKPhotoBrowser;
 @class GoodsClassModel;
@@ -181,6 +183,9 @@
 @class JobsNavigationTransitionMgr;
 @class JobsNetworkSource;
 @class JobsNetworkTrafficMonitor;
+@class JobsOCKeyboardConfig;
+@class JobsOCKeyboardMgr;
+@class JobsOCKeyboardResult;
 @class JobsParagraphStyleModel;
 @class JobsResponseModel;
 @class JobsRichTextConfig;
@@ -309,6 +314,7 @@
 @class YTKChainRequest;
 @class YTKNetworkConfig;
 @class YTKRequest;
+@class ZFPlayerController;
 @class ZFAVPlayerManager;
 @class ZFCustomControlView;
 @class ZFDouYinControlView;
@@ -333,6 +339,12 @@
 @protocol TimerProtocol;
 @protocol UIGestureRecognizerDelegate;
 @protocol UIViewModelOthersProtocol;
+@protocol YTKBatchRequestDelegate;
+@protocol YTKChainRequestDelegate;
+@protocol YTKRequestAccessory;
+@protocol YTKRequestDelegate;
+@protocol ZFPlayerMediaControl;
+@protocol ZFPlayerMediaPlayback;
 /// https://github.com/agiapp/BRPickerView
 #ifndef BR_TEXT_PICKER_MODE_DEFINED
 #define BR_TEXT_PICKER_MODE_DEFINED
@@ -354,5 +366,35 @@ typedef struct {
     CGFloat leadingBufferScreenfuls;
     CGFloat trailingBufferScreenfuls;
 } ASRangeTuningParameters;
+#endif
+/// https://github.com/yuantiku/YTKNetwork
+#if __has_include(<YTKNetwork/YTKNetwork.h>)
+#import <YTKNetwork/YTKNetwork.h>
+#elif __has_include("YTKNetwork.h")
+#import "YTKNetwork.h"
+#endif
+/// https://github.com/QuintGao/GKNavigationBar
+#if __has_include(<GKNavigationBar/GKNavigationBar.h>)
+#import <GKNavigationBar/GKNavigationBar.h>
+#elif __has_include("GKNavigationBar.h")
+#import "GKNavigationBar.h"
+#endif
+
+#if __has_include(<GKNavigationBar/GKGestureHandleConfigure.h>)
+#import <GKNavigationBar/GKGestureHandleConfigure.h>
+#elif __has_include("GKGestureHandleConfigure.h")
+#import "GKGestureHandleConfigure.h"
+#endif
+/// https://github.com/renzifeng/ZFPlayer
+#if __has_include(<ZFPlayer/ZFPlayer.h>)
+#import <ZFPlayer/ZFPlayer.h>
+#elif __has_include("ZFPlayer.h")
+#import "ZFPlayer.h"
+#endif
+
+#if __has_include(<ZFPlayer/ZFAVPlayerManager.h>)
+#import <ZFPlayer/ZFAVPlayerManager.h>
+#elif __has_include("ZFAVPlayerManager.h")
+#import "ZFAVPlayerManager.h"
 #endif
 #endif /* JobsBlockHeader_h */

@@ -23,10 +23,10 @@
 #import "JobsBaseProtocolHeader.h"
 #endif
 
-#if __has_include(<JobsBasePopupView/JobsBasePopupView.h>)
-#import <JobsBasePopupView/JobsBasePopupView.h>
+#if __has_include(<JobsBasePopupView/JobsBasePopupViewHeader.h>)
+#import <JobsBasePopupView/JobsBasePopupViewHeader.h>
 #else
-#import "JobsBasePopupView.h"
+#import "JobsBasePopupViewHeader.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)

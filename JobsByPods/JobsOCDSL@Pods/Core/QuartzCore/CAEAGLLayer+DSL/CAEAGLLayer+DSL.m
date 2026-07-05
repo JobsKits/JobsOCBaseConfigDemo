@@ -7,7 +7,6 @@
 
 #import "CAEAGLLayer+DSL.h"
 
-#if __has_include(<QuartzCore/CAEAGLLayer.h>)
 @implementation CAEAGLLayer (JobsChain)
 #pragma mark —— Inherited CALayer DSL
 #pragma mark —— Geometry
@@ -37,4 +36,3 @@
 }
 
 @end
-#endif /* __has_include(<QuartzCore/CAEAGLLayer.h>) */

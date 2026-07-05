@@ -23,14 +23,6 @@ JobsTimeUtils contains Objective-C time and date helper categories used across J
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
-
-  if File.exist?(File.join(__dir__, 'JobsTimeUtils.h'))
-    spec.source_files = 'JobsTimeUtils.h'
-    spec.public_header_files = 'JobsTimeUtils.h'
-  end
-
-  spec.header_dir = 'JobsTimeUtils'
 
   spec.frameworks = [
     'Foundation'
@@ -45,15 +37,16 @@ JobsTimeUtils contains Objective-C time and date helper categories used across J
   spec.dependency 'WHToastExtra'
   JobsPodspecKitForJobsTimeUtils.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsTimeUtils.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsTimeUtils.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsTimeUtils.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsTimeUtils'
 
-    ss.source_files = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources = 'Core/**/*.{png,jpg,jpeg,webp,gif,wav,mp3,caf,json,plist,xib,storyboard,bundle}'
-    ss.header_dir = 'JobsTimeUtils'
-  end
 
   JobsPodspecKitForJobsTimeUtils.apply_standard_exclude_files(spec)
 

@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <os/lock.h> // 提供系统级高性能锁，如 os_unfair_lock，适合轻量级同步场景。
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 #ifndef JobsLockerTypeDefine
@@ -31,7 +37,7 @@ typedef NS_ENUM(NSUInteger, JobsLockerType) {
 
 @interface JobsLocker : NSObject
 
-@property (nonatomic, assign, readonly) JobsLockerType type;
+Prop_assign(readonly)JobsLockerType type;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;

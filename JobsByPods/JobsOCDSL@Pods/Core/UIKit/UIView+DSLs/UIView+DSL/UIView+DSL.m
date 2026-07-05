@@ -7,28 +7,8 @@
 
 #import "UIView+DSL.h"
 
-#import <objc/message.h>
-#import <objc/runtime.h>
-
-#if __has_include("../../../Support/NSObject+Measure/NSObject+Measure.h")
-#import "../../../Support/NSObject+Measure/NSObject+Measure.h"
-#elif __has_include(<JobsOCDSL/NSObject+Measure.h>)
-#import <JobsOCDSL/NSObject+Measure.h>
-#else
-#import "NSObject+Measure.h"
-#endif
-
-#if __has_include("../../../Support/NSValue+Extra/NSValue+Extra.h")
-#import "../../../Support/NSValue+Extra/NSValue+Extra.h"
-#elif __has_include(<JobsOCDSL/NSValue+Extra.h>)
-#import <JobsOCDSL/NSValue+Extra.h>
-#else
-#import "NSValue+Extra.h"
-#endif
-
-static void *JobsUIViewLayoutSubviewsRectCornerKey = &JobsUIViewLayoutSubviewsRectCornerKey;
-static void *JobsUIViewLayoutSubviewsRectCornerSizeKey = &JobsUIViewLayoutSubviewsRectCornerSizeKey;
-
+JobsKey(JobsUIViewLayoutSubviewsRectCornerKey)
+JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
 @implementation UIView (DSL)
 #pragma mark —— Geometry
 -(JobsRetViewByFrameBlock _Nonnull)byFrame{
@@ -141,27 +121,21 @@ static void *JobsUIViewLayoutSubviewsRectCornerSizeKey = &JobsUIViewLayoutSubvie
 }
 
 -(UIRectCorner)layoutSubviewsRectCorner{
-    NSNumber *number = objc_getAssociatedObject(self, JobsUIViewLayoutSubviewsRectCornerKey);
+    NSNumber *number = Jobs_getAssociatedObject(JobsUIViewLayoutSubviewsRectCornerKey);
     return number ? (UIRectCorner)number.unsignedIntegerValue : 0;
 }
 
 -(void)setLayoutSubviewsRectCorner:(UIRectCorner)layoutSubviewsRectCorner{
-    objc_setAssociatedObject(self,
-                             JobsUIViewLayoutSubviewsRectCornerKey,
-                             @(layoutSubviewsRectCorner),
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(JobsUIViewLayoutSubviewsRectCornerKey, @(layoutSubviewsRectCorner))
 }
 
 -(CGSize)layoutSubviewsRectCornerSize{
-    NSValue *value = objc_getAssociatedObject(self, JobsUIViewLayoutSubviewsRectCornerSizeKey);
+    NSValue *value = Jobs_getAssociatedObject(JobsUIViewLayoutSubviewsRectCornerSizeKey);
     return value ? value.CGSizeValue : CGSizeZero;
 }
 
 -(void)setLayoutSubviewsRectCornerSize:(CGSize)layoutSubviewsRectCornerSize{
-    objc_setAssociatedObject(self,
-                             JobsUIViewLayoutSubviewsRectCornerSizeKey,
-                             [NSValue valueWithCGSize:layoutSubviewsRectCornerSize],
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(JobsUIViewLayoutSubviewsRectCornerSizeKey, [NSValue valueWithCGSize:layoutSubviewsRectCornerSize])
 }
 
 -(JobsRetViewByUIRectCornerBlock _Nonnull)byLayoutSubviewsRectCorner{
@@ -599,7 +573,6 @@ static void *JobsUIViewLayoutSubviewsRectCornerSizeKey = &JobsUIViewLayoutSubvie
         return self;
     };
 }
-
 
 #pragma mark —— UIView+Measure migrated geometry / layout DSL
 #pragma mark —— 初始化方法封装

@@ -9,9 +9,9 @@
 
 @interface JobsYTKChainDelegateProxy : NSObject <YTKChainRequestDelegate>
 
-@property(nonatomic, weak, nullable) id<YTKChainRequestDelegate> realDelegate;
-@property(nonatomic, copy, nullable) JobsYTKChainSuccessBlock successBlock;
-@property(nonatomic, copy, nullable) JobsYTKChainFailureBlock failureBlock;
+Prop_weak(nullable)id<YTKChainRequestDelegate> realDelegate;
+Prop_copy(nullable)JobsYTKChainSuccessBlock successBlock;
+Prop_copy(nullable)JobsYTKChainFailureBlock failureBlock;
 
 @end
 
@@ -35,17 +35,16 @@
 
 @implementation YTKChainRequest (DSL)
 
-static char JobsYTKChainDelegateProxyKey;
-
+JobsKey(JobsYTKChainDelegateProxyKey)
 -(NSArray<YTKBaseRequest *> *)jobs_requests{
     return self.requestArray;
 }
 
 -(JobsYTKChainDelegateProxy *)jobs_chainProxy{
-    JobsYTKChainDelegateProxy *proxy = objc_getAssociatedObject(self, &JobsYTKChainDelegateProxyKey);
+    JobsYTKChainDelegateProxy *proxy = Jobs_getAssociatedObject(JobsYTKChainDelegateProxyKey);
     if (!proxy){
         proxy = JobsYTKChainDelegateProxy.new;
-        objc_setAssociatedObject(self, &JobsYTKChainDelegateProxyKey, proxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        Jobs_setAssociatedRETAIN_NONATOMIC(JobsYTKChainDelegateProxyKey, proxy)
     }
     self.delegate = proxy;
     return proxy;

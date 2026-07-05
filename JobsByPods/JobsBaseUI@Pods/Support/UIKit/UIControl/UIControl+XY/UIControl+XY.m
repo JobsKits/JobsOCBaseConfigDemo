@@ -8,16 +8,15 @@
 #import "UIControl+XY.h"
 
 @implementation UIControl (XY)
+JobsKey(_uxy_acceptEventInterval)
+@dynamic uxy_acceptEventInterval;
 /// 时间间隔
 - (NSTimeInterval)uxy_acceptEventInterval{
-    return [objc_getAssociatedObject(self, _cmd) doubleValue];
+    return [Jobs_getAssociatedObject(_uxy_acceptEventInterval) doubleValue];
 }
 
 - (void)setUxy_acceptEventInterval:(NSTimeInterval)uxy_acceptEventInterval{
-    objc_setAssociatedObject(self,
-                             _cmd,
-                             @(uxy_acceptEventInterval),
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(_uxy_acceptEventInterval, @(uxy_acceptEventInterval))
 }
 
 @end

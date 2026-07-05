@@ -236,19 +236,27 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
                 data1.byAppLanguage(AppLanguageBySys)
-                     .byText(@"跟随系统".tr);
+                     .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                         textModel.byText(@"跟随系统".tr);
+                     });
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.byAppLanguage(AppLanguageBySys)
-                     .byText(@"中文".tr);
+                data1.byAppLanguage(AppLanguageChineseSimplified)
+                     .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                         textModel.byText(@"中文".tr);
+                     });
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.byAppLanguage(AppLanguageBySys)
-                     .byText(@"英文".tr);
+                data1.byAppLanguage(AppLanguageEnglish)
+                     .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                         textModel.byText(@"英文".tr);
+                     });
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.byAppLanguage(AppLanguageBySys)
-                     .byText(@"他加禄语".tr);
+                data1.byAppLanguage(AppLanguageTagalog)
+                     .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                         textModel.byText(@"他加禄语".tr);
+                     });
             }));
         });
     };return _dataMutArr;

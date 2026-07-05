@@ -10,12 +10,14 @@
 @interface Douyin_ZFPlayerVC_1 ()
 
 Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
+-(void)stopVisiblePlayers;
 
 @end
 
 @implementation Douyin_ZFPlayerVC_1
 
 - (void)dealloc {
+    [self stopVisiblePlayers];
     JobsLog(@"%@",JobsLocalFunc);
 }
 #pragma mark —— Lifecycle
@@ -56,7 +58,7 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
 -(void)viewDidLoad{
     [super viewDidLoad];
 
-    self.view.byBgColor(JobsYellowColor);
+    self.view.byBgColor(JobsBlackColor);
 
     self.makeNavByAlpha(1);
     
@@ -78,12 +80,21 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [self stopVisiblePlayers];
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
 }
 #pragma mark —— 一些私有方法
+-(void)stopVisiblePlayers{
+    for (__kindof UITableViewCell *cell in _tableView.visibleCells) {
+        if ([cell isKindOfClass:JobsPlayerTBVCell.class]) {
+            [(JobsPlayerTBVCell *)cell stopPlayer];
+        }
+    }
+}
+
 /// 真实的网络请求
 -(void)requestData:(BOOL)isLoadMore{
     JobsNetworkingPrepare
@@ -297,7 +308,7 @@ forRowAtIndexPath:(NSIndexPath*)indexPath{
                         .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0));
                 }))
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsBlackColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)

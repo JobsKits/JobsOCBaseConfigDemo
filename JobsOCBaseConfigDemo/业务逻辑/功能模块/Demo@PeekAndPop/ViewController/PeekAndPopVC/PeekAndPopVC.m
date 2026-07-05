@@ -9,8 +9,6 @@
 
 @interface PeekAndPopVC ()
 
-Prop_strong()BaseButton *switchBtn;
-
 @end
 
 @implementation PeekAndPopVC
@@ -54,8 +52,6 @@ Prop_strong()BaseButton *switchBtn;
     self.view.byBgColor(JobsRandomColor);
 
     self.makeNavByAlpha(1);
-    self.switchBtn.byAlpha(1);
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -83,39 +79,6 @@ Prop_strong()BaseButton *switchBtn;
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-}
-
--(void)touchesBegan:(NSSet<UITouch *> *)touches
-          withEvent:(UIEvent *)event{
-    self.comingToPushVC(MyTableTableVC.new);
-}
-#pragma mark —— 一些私有方法
-
-#pragma mark —— lazyLoad
--(BaseButton *)switchBtn{
-    if(!_switchBtn){
-        @jobs_weakify(self)
-        _switchBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsWhiteColor)
-            .jobsResetBtnTitleCor(JobsWhiteColor)
-            .jobsResetBtnTitleFont(UIFontWeightBoldSize(18))
-            .jobsResetBtnTitle(@"点击".tr)
-            .jobsResetBtnSubTitle(@"跳转Collection控制器".tr)
-            .jobsResetTitlePadding(JobsWidth(10))
-            .onClickBy(^(UIButton *x){
-                @jobs_strongify(self)
-                if (self.objBlock) self.objBlock(x);
-                self.comingToPushVC(MyCollectionVC.new);
-            }).onLongPressGestureBy(^(id data){
-                JobsLog(@"");
-            })
-            .makeBtnTitleByShowingType(UILabelShowingType_03)
-            .addOn(self.view)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(80), JobsWidth(100)));
-                make.center.equalTo(self.view);
-            });
-    };return _switchBtn;
 }
 
 @end

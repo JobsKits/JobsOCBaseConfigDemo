@@ -8,13 +8,13 @@
 #ifndef JOBS_HEADER_GUARD_REACTIVEOBJC_DSL_6D7A2B07E9
 #define JOBS_HEADER_GUARD_REACTIVEOBJC_DSL_6D7A2B07E9
 
+#import <objc/message.h>
+
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #elif __has_include("ReactiveObjC.h")
 #import "ReactiveObjC.h"
 #endif
-
-#if __has_include(<ReactiveObjC/ReactiveObjC.h>) || __has_include("ReactiveObjC.h")
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
@@ -244,5 +244,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
-#endif /* ReactiveObjC available */
 #endif /* JOBS_HEADER_GUARD_REACTIVEOBJC_DSL_6D7A2B07E9 */

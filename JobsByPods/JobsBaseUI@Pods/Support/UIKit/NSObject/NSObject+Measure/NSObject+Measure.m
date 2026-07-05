@@ -6,12 +6,6 @@
 //
 
 #import "NSObject+Measure.h"
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 @implementation NSObject (Measure)
 UILocationProtocol_dynamic   // 方位
 UIMarkProtocol_dynamic_part2 // 标记📌

@@ -21,7 +21,6 @@
 #import <JobsOCTools/GXCardView.h>
 #import <JobsOCTools/HAHandleDemoView.h>
 #import <JobsOCTools/ImageCodeView.h>
-#import <JobsOCTools/JobsAdNoticeView.h>
 #import <JobsOCTools/JobsAppDoorConfig.h>
 #import <JobsOCTools/JobsAppDoorContentView.h>
 #import <JobsOCTools/JobsAppDoorForgotCodeContentView.h>

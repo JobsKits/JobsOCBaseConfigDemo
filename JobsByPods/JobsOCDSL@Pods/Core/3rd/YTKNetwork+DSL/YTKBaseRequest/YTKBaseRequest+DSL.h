@@ -16,6 +16,12 @@
 #import "YTKNetwork.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -23,17 +29,6 @@
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
-
-typedef __kindof YTKBaseRequest *_Nullable(^JobsRetYTKBaseRequestByNSIntegerBlock)(NSInteger data);
-typedef __kindof YTKBaseRequest *_Nullable(^JobsRetYTKBaseRequestByDictionaryBlock)(NSDictionary *_Nullable data);
-typedef __kindof YTKBaseRequest *_Nullable(^JobsRetYTKBaseRequestByDelegateBlock)(id<YTKRequestDelegate> _Nullable data);
-typedef __kindof YTKBaseRequest *_Nullable(^JobsRetYTKBaseRequestByPriorityBlock)(YTKRequestPriority data);
-typedef __kindof YTKBaseRequest *_Nullable(^JobsRetYTKBaseRequestByStringBlock)(NSString *_Nullable data);
-typedef __kindof YTKBaseRequest *_Nullable(^JobsRetYTKBaseRequestByProgressBlock)(AFURLSessionTaskProgressBlock _Nullable data);
-typedef __kindof YTKBaseRequest *_Nullable(^JobsRetYTKBaseRequestByConstructingBlock)(AFConstructingBlock _Nullable data);
-typedef __kindof YTKBaseRequest *_Nullable(^JobsRetYTKBaseRequestByCompletionBlock)(YTKRequestCompletionBlock _Nullable data);
-typedef __kindof YTKBaseRequest *_Nullable(^JobsRetYTKBaseRequestByCompletionBlocks)(YTKRequestCompletionBlock _Nullable success, YTKRequestCompletionBlock _Nullable failure);
-typedef __kindof YTKBaseRequest *_Nullable(^JobsRetYTKBaseRequestByAccessoryBlock)(id<YTKRequestAccessory> _Nullable data);
 
 @interface YTKBaseRequest (DSL)
 

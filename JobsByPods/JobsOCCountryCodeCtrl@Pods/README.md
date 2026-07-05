@@ -43,23 +43,27 @@
 ```text
 JobsOCCountryCodeCtrl@Pods/
 ├── JobsOCCountryCodeCtrl.podspec
+├── JobsOCCountryCodeCtrlHeader.h  # 根聚合头文件
 ├── JobsPodspecKit.rb
 ├── README.md
 ├── LICENSE
-└── Core/
+├── Core/
+│   └── JobsOCCountryCodeCtrl/
+│       ├── JobsOCCountryCodeCtrl.h
+│       ├── JobsOCCountryCodeCtrl.m
+│       ├── JobsOCCountryCodeCtrlDelegate.h
+│       └── JobsOCCountryCodeCtrl.md
+└── Resource/
     └── JobsOCCountryCodeCtrl/
-        ├── JobsOCCountryCodeCtrl.h
-        ├── JobsOCCountryCodeCtrl.m
-        ├── JobsOCCountryCodeCtrlDelegate.h
-        ├── JobsOCCountryCodeCtrl.md
-        └── JobsOCCountryCodeCtrl@plist/
-            ├── sortedNameCH.plist
-            └── sortedNameEN.plist
+        ├── JobsOCCountryCodeCtrlTaiwanBlueSkyWhiteSun.png
+        ├── sortedNameCH.plist
+        └── sortedNameEN.plist
 ```
 
 ## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 放 `JobsOCCountryCodeCtrl` 的公开头、协议、实现和国家代码 plist 资源。
+- `Core` 放 `JobsOCCountryCodeCtrl` 的公开头、协议和实现。
+- `Resource` 放国家代码 plist 与中国台湾旗帜 PNG，统一由 podspec 作为资源收录。
 - 当前没有 `Support` 内部支撑文件；后续若补兼容分类或内部工具，优先放入 `Support`，不要扩大公开头依赖。
 - `JobsOCCountryCodeCtrl.h` 是核心类公开头，调用方优先引用它，不直接依赖内部目录结构。
 
@@ -67,17 +71,18 @@ JobsOCCountryCodeCtrl@Pods/
 
 ### 5.1、公开头文件
 
-- `JobsOCCountryCodeCtrl.h`
+- `JobsOCCountryCodeCtrlHeader.h`
 - `Core/**/*.h`
 
 ### 5.2、源码入口
 
-- `JobsOCCountryCodeCtrl.h`
+- `JobsOCCountryCodeCtrlHeader.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.3、默认 subspec
+### 5.3、默认安装边界
 
-- `Core`
+- `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
+- `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
 ### 5.4、系统框架
 
@@ -96,21 +101,26 @@ JobsOCCountryCodeCtrl@Pods/
 ## 六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
-#if __has_include(<JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrl.h>)
-#import <JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrl.h>
+#if __has_include(<JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>)
+#import <JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>
 #else
-#import "JobsOCCountryCodeCtrl.h"
+#import "JobsOCCountryCodeCtrlHeader.h"
 #endif
 ```
 
 选择结果可以通过 `JobsOCCountryCodeCtrlDelegate` 或 `countryCodeBlock` 回传。
 
+回填普通字符串文案时可使用 `+[JobsOCCountryCodeCtrl jobs_countryCodeTextByCountryName:code:]`，非中国台湾地区格式为 `旗子 国家 / 地区名 +区号`。
+需要在 UI 内展示中国台湾青天白日旗图片时，使用 `+[JobsOCCountryCodeCtrl jobs_countryCodeAttributedTextByCountryName:code:font:textColor:]` 或 `+[JobsOCCountryCodeCtrl jobs_countryNameAttributedTextByCountryName:font:textColor:]`。
+
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `sortedNameCH.plist`：中文国家 / 地区代码数据。
 - `sortedNameEN.plist`：英文国家 / 地区代码数据。
-- podspec 通过 `ss.resources` 收录 `Core/**/*.plist`，控制器读取时兼容 main bundle 与 CocoaPods bundle。
+- `JobsOCCountryCodeCtrlTaiwanBlueSkyWhiteSun.png`：中国台湾展示用青天白日旗 PNG。
+- podspec 通过 `spec.resources` 收录 `Resource/**/*`，控制器读取时兼容 main bundle 与 CocoaPods bundle。
 - 控制器通过 `JobsLanMgr` 选择 `sortedNameEN` 或 `sortedNameCH`。
+- 旗子优先通过国家 / 地区名映射到 ISO 3166-1 Alpha-2 后生成 emoji；`中国台湾` / `台湾` / `Taiwan` 固定走内置 PNG 富文本附件，不再使用 `TW` emoji。
 
 ## 八、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

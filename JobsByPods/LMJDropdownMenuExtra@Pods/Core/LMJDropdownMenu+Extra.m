@@ -6,7 +6,6 @@
 //
 
 #import "LMJDropdownMenu+Extra.h"
-#import <objc/runtime.h>
 
 @implementation LMJDropdownMenu (Extra)
 

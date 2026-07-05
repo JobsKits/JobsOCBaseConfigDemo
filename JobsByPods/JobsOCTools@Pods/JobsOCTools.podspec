@@ -17,10 +17,10 @@ Pod::Spec.new do |spec|
     animation resources, and other reusable iOS toolspec.
   DESC
 
-  spec.homepage     = 'https://github.com/Jobs/JobsOCTools'
+  spec.homepage     = 'https://example.local/JobsOCTools'
   spec.license      = { :type => 'MIT', :file => 'LICENSE' }
-  spec.author       = { 'Jobs' => 'jobs@example.com' }
-  spec.source       = { :git => 'https://github.com/Jobs/JobsOCToolspec.git', :tag => spec.version.to_s }
+  spec.author       = { 'Jobs' => 'lg295060456@gmail.com' }
+  spec.source       = { :path => '.' }
 
   spec.platform     = :ios, '12.0'
   spec.requires_arc = true
@@ -36,36 +36,27 @@ Pod::Spec.new do |spec|
   spec.module_name      = 'JobsOCTools'
 
   # 根目录头文件单独放在顶层，避免把 Core/Support 子目录提升到 Pods 工程根分组。
-  spec.source_files = 'JobsOCTools.h'
-  spec.public_header_files = 'JobsOCTools.h'
 
   # 默认安装 Core；Core 会显式依赖 Support。
-  spec.default_subspecs = 'Core'
 
   # Support 按磁盘目录继续拆 subspec，避免 CocoaPods 在 Pods 工程里把中间目录压平。
   # 目标展示结构：Support/UIKit/UIViewController/UIViewController+Lottie
   JobsPodspecKitForJobsOCTools.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |core|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsOCTools.add_dynamic_support_dependencies(core, spec, support_context)
-
-    core.source_files = [
-      'Core/**/*.{h,m,mm}'
+  spec.source_files = [
+    'JobsOCTools.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsOCTools.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsOCTools'
+  spec.resource_bundles = {
+    'JobsOCToolsCore' => [
+      'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
     ]
-
-    core.public_header_files = [
-      'Core/**/*.h'
-    ]
-
-    core.resource_bundles = {
-      'JobsOCToolsCore' => [
-        'Core/**/*.{bundle,png,jpg,jpeg,gif,webp,svg,pdf,json,plist,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff}'
-      ]
-    }
-
-    core.dependency 'JobsOCTools/Support'
-  end
+  }
 
   spec.frameworks = [
     'UIKit',
@@ -95,7 +86,9 @@ Pod::Spec.new do |spec|
   spec.dependency 'JobsCryptography'
   spec.dependency 'JobsStringUtils'
   spec.dependency 'JobsOCTimer'
+  spec.dependency 'JobsCountdownBtn'
   spec.dependency 'JobsSuspend'
+  spec.dependency 'JobsOCKeyboardMgr'
   spec.dependency 'JobsByOCPods'
   spec.dependency 'JobsAppTools'
   spec.dependency 'TFPopupExtra'
@@ -122,6 +115,8 @@ Pod::Spec.new do |spec|
   spec.dependency 'JobsLoadingImage'
   spec.dependency 'JobsOCRuntimeKits'
   spec.dependency 'JobsLanMgr'
+  spec.dependency 'JobsOCCountryCodeCtrl'
+  spec.dependency 'JobsFuseAnimation'
   spec.dependency 'XYColorOC'
 
   JobsPodspecKitForJobsOCTools.apply_standard_exclude_files(

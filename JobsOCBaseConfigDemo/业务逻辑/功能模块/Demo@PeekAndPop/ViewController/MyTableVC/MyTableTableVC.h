@@ -55,8 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MyTableTableVC : BaseViewController
 <
-UIContextMenuInteractionDelegate
-,UITableViewDelegate
+UITableViewDelegate
 ,UITableViewDataSource
 >
 

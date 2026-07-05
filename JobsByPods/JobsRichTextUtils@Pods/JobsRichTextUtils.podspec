@@ -23,11 +23,6 @@ JobsRichTextUtils contains Objective-C rich text helper categories and attribute
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
-
-  spec.source_files = 'JobsRichTextUtils.h'
-  spec.public_header_files = 'JobsRichTextUtils.h'
-  spec.header_dir = 'JobsRichTextUtils'
 
   spec.frameworks = [
     'Foundation',
@@ -47,15 +42,16 @@ JobsRichTextUtils contains Objective-C rich text helper categories and attribute
   spec.dependency 'JobsLanMgr'
   JobsPodspecKitForJobsRichTextUtils.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsRichTextUtils.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsRichTextUtils.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsRichTextUtils.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsRichTextUtils'
 
-    ss.source_files = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources = 'Core/**/*.{png,jpg,jpeg,webp,gif,wav,mp3,caf,json,plist,xib,storyboard,bundle}'
-    ss.header_dir = 'JobsRichTextUtils'
-  end
 
   JobsPodspecKitForJobsRichTextUtils.apply_standard_exclude_files(spec)
 

@@ -7,9 +7,9 @@
 
 #import "ASButtonNode+DSL.h"
 
-static const void *kJobsButtonTapBlockKey      = &kJobsButtonTapBlockKey;
-static const void *kJobsButtonLongPressBlockKey= &kJobsButtonLongPressBlockKey;
-static const void *kJobsButtonLongPressGRKey   = &kJobsButtonLongPressGRKey;
+JobsKey(kJobsButtonTapBlockKey)
+JobsKey(kJobsButtonLongPressBlockKey)
+JobsKey(kJobsButtonLongPressGRKey)
 @implementation ASButtonNode (DSL)
 
 -(JobsRetButtonNodeByTitleConfigBlock _Nonnull)byTitle{
@@ -79,7 +79,7 @@ static const void *kJobsButtonLongPressGRKey   = &kJobsButtonLongPressGRKey;
     return ^__kindof ASButtonNode *_Nonnull(jobsByButtonNodeBlock _Nullable handler){
         @jobs_strongify(self)
         // 存 Handler
-        objc_setAssociatedObject(self, kJobsButtonTapBlockKey, handler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+        Jobs_setAssociatedCOPY_NONATOMIC(kJobsButtonTapBlockKey, handler)
         // 先移除后绑定，避免重复
         [self removeTarget:self action:@selector(_jobs_handleTap:) forControlEvents:ASControlNodeEventTouchUpInside];
         [self addTarget:self action:@selector(_jobs_handleTap:) forControlEvents:ASControlNodeEventTouchUpInside];
@@ -88,7 +88,7 @@ static const void *kJobsButtonLongPressGRKey   = &kJobsButtonLongPressGRKey;
 }
 
 -(void)_jobs_handleTap:(__unused ASButtonNode *)sender{
-    jobsByButtonNodeBlock block = objc_getAssociatedObject(self, kJobsButtonTapBlockKey);
+    jobsByButtonNodeBlock block = Jobs_getAssociatedObject(kJobsButtonTapBlockKey);
     if (block) block(self);
 }
 /// 长按封装（默认 & 自定义）
@@ -107,12 +107,12 @@ static const void *kJobsButtonLongPressGRKey   = &kJobsButtonLongPressGRKey;
              jobsByButtonNodeLongPressBlock _Nullable handler){
         @jobs_strongify(self)
         // 存 Handler
-        objc_setAssociatedObject(self, kJobsButtonLongPressBlockKey, handler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+        Jobs_setAssociatedCOPY_NONATOMIC(kJobsButtonLongPressBlockKey, handler)
         // 取/建 GR（只加一次）
-        UILongPressGestureRecognizer *gr = objc_getAssociatedObject(self, kJobsButtonLongPressGRKey);
+        UILongPressGestureRecognizer *gr = Jobs_getAssociatedObject(kJobsButtonLongPressGRKey);
         if (!gr){
             gr = [UILongPressGestureRecognizer.alloc initWithTarget:self action:@selector(_jobs_handleLongPress:)];
-            objc_setAssociatedObject(self, kJobsButtonLongPressGRKey, gr, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            Jobs_setAssociatedRETAIN_NONATOMIC(kJobsButtonLongPressGRKey, gr)
             // ⚠️ 需要 view，直接访问会触发 loadView：在 DSL 场景可接受
             [self.view addGestureRecognizer:gr];
         }
@@ -125,7 +125,7 @@ static const void *kJobsButtonLongPressGRKey   = &kJobsButtonLongPressGRKey;
 
 -(void)_jobs_handleLongPress:(UILongPressGestureRecognizer *)gr{
     if (gr.state != UIGestureRecognizerStateBegan) return;
-    jobsByButtonNodeLongPressBlock block = objc_getAssociatedObject(self, kJobsButtonLongPressBlockKey);
+    jobsByButtonNodeLongPressBlock block = Jobs_getAssociatedObject(kJobsButtonLongPressBlockKey);
     if (block) block(self, gr);
 }
 

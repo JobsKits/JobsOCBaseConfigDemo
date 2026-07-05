@@ -31,10 +31,7 @@ pan gesture handling.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
 
-  spec.source           = {
-    :git => 'https://example.local/JobsNavigationTransitionMgr.git',
-    :tag => spec.version.to_s
-  }
+  spec.source           = { :path => '.' }
 
   spec.frameworks = [
     'AdSupport',
@@ -50,7 +47,6 @@ pan gesture handling.
     'WebKit'
   ]
 
-  spec.default_subspecs = 'Core'
 
   # Third-party / external pods
   spec.dependency 'FDFullscreenPopGesture'
@@ -92,23 +88,17 @@ pan gesture handling.
 
   JobsPodspecKitForJobsNavigationTransitionMgr.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |core|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsNavigationTransitionMgr.add_dynamic_support_dependencies(core, spec, support_context)
+  spec.source_files = [
+    'JobsNavigationTransitionMgrHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsNavigationTransitionMgrHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsNavigationTransitionMgr'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
 
-    core.source_files = [
-      'Core/**/*.{h,m,mm}'
-    ]
-
-    core.public_header_files = [
-      'Core/**/*.h'
-    ]
-
-    core.resources = [
-      'Core/**/*.{bundle,png,jpg,jpeg,gif,webp,svg,pdf,json,plist,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav}'
-    ]
-
-  end
 
   JobsPodspecKitForJobsNavigationTransitionMgr.apply_standard_exclude_files(spec)
 

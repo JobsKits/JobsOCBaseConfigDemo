@@ -16,7 +16,7 @@
 }
 
 +(UIColor *)colorWithHexString:(NSString *)color alpha:(CGFloat)alpha{
-    NSString *hexString = [[color stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] uppercaseString];
+    NSString *hexString = color.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet).uppercaseString;
     if ([hexString hasPrefix:@"#"]) hexString = [hexString substringFromIndex:1];
     if ([hexString hasPrefix:@"0X"]) hexString = [hexString substringFromIndex:2];
     if (hexString.length != 6) return UIColor.clearColor;

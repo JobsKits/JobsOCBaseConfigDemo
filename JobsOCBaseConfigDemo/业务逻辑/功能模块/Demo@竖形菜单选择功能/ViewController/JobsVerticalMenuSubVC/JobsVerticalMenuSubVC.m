@@ -8,6 +8,9 @@
 #import "JobsVerticalMenuSubVC.h"
 
 @interface JobsVerticalMenuSubVC ()
+/// UI
+Prop_strong()JobsVerticalMenuSubView *contentView;
+Prop_assign()BOOL didReloadContentAfterLayout;
 
 @end
 
@@ -24,7 +27,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(HEXCOLOR(0xF7F8FA));
+    self.contentView.byAlpha(1);
+    self.contentView.reloadContentByIndex(self.contentIndex);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -37,6 +42,24 @@
 
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
+    if (!self.didReloadContentAfterLayout) {
+        self.didReloadContentAfterLayout = YES;
+        self.contentView.reloadContentByIndex(self.contentIndex);
+    }
+}
+
+#pragma mark —— lazyLoad
+-(JobsVerticalMenuSubView *)contentView{
+    if (!_contentView) {
+        @jobs_weakify(self)
+        _contentView = JobsVerticalMenuSubView.alloc.init
+            .JobsRichViewByModel2(nil)
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.edges.equalTo(self.view);
+            });
+    };return _contentView;
 }
 
 -(void)viewDidAppear:(BOOL)animated{

@@ -8,6 +8,7 @@
 #ifndef JOBS_HEADER_GUARD_LMJDROPDOWNMENU_EXTRA_DBF4420828
 #define JOBS_HEADER_GUARD_LMJDROPDOWNMENU_EXTRA_DBF4420828
 
+#import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 
 #if __has_include(<LMJDropdownMenu/LMJDropdownMenu.h>)

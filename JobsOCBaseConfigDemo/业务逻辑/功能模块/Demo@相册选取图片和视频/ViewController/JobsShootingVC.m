@@ -37,23 +37,18 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byTextCor(HEXCOLOR(0x1F2937));
             data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(16));
+            data.byFont(UIFontWeightSemiboldSize(17));
         })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        //        self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        .byBgCor(HEXCOLOR(0xF6F8FC))
+        .byNavBgCor(JobsWhiteColor);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.view.byBgColor(JobsWhiteColor);
+    self.view.byBgColor(HEXCOLOR(0xF6F8FC));
     self.makeNavByAlpha(1);
     self.cameraBtn.byAlpha(1);
     self.photoAlbumBtn.byAlpha(1);
@@ -70,30 +65,34 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
     if(!_cameraBtn){
         @jobs_weakify(self)
         _cameraBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsWhiteColor)
+            .bgColorBy(JobsClearColor)
             .jobsResetBtnTitleCor(JobsWhiteColor)
-            .jobsResetBtnBgCor(JobsGreenColor)
-            .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
+            .jobsResetBtnBgCor(HEXCOLOR(0x2563EB))
+            .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(JobsWidth(15)))
             .jobsResetBtnTitle(@"调取系统相机".tr)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 JobsLog(@"");
                 /// 调取系统相机
-                [self hx_invokeSysCameraSuccessBlock:^(HXPhotoPickerModel *data) {
+                self.objBlock = ^(id data) {
                     @jobs_strongify(self)
-                    self.imageView.image = data.photoModel.previewPhoto;
-                } failBlock:^(HXPhotoPickerModel *data) {
-                    @jobs_strongify(self)
-                }];
+                    if ([data isKindOfClass:UIImage.class]) {
+                        self.imageView.image = (UIImage *)data;
+                    }
+                };
+                self.invokeSysCamera();
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
             .makeBtnTitleByShowingType(UILabelShowingType_03)
+            .byCornerRadius(JobsWidth(24))
+            .byClipsToBounds(YES)
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
-                make.height.mas_equalTo(JobsWidth(50));
-                make.left.equalTo(self.view).offset(JobsWidth(20));
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(100));
+                make.height.mas_equalTo(JobsWidth(48));
+                make.left.equalTo(self.view).offset(JobsWidth(24));
+                make.right.equalTo(self.view.mas_centerX).offset(JobsWidth(-7));
+                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(42));
             });
     };return _cameraBtn;
 }
@@ -102,11 +101,11 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
     if(!_photoAlbumBtn){
         @jobs_weakify(self)
         _photoAlbumBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsWhiteColor)
-            .jobsResetBtnTitleCor(JobsWhiteColor)
-            .jobsResetBtnBgCor(JobsBlueColor)
-            .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-            .jobsResetBtnTitle(@"调取系统相机".tr)
+            .bgColorBy(JobsClearColor)
+            .jobsResetBtnTitleCor(HEXCOLOR(0x1D4ED8))
+            .jobsResetBtnBgCor(JobsWhiteColor)
+            .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(JobsWidth(15)))
+            .jobsResetBtnTitle(@"调取系统相册".tr)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 JobsLog(@"");
@@ -128,11 +127,16 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
                 JobsLog(@"");
             })
             .makeBtnTitleByShowingType(UILabelShowingType_03)
+            .jobsResetBtnLayerBorderCor(HEXCOLOR(0xBFDBFE))
+            .jobsResetBtnLayerBorderWidth(JobsWidth(1))
+            .byCornerRadius(JobsWidth(24))
+            .byClipsToBounds(YES)
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
-                make.height.mas_equalTo(JobsWidth(50));
-                make.right.equalTo(self.view).offset(JobsWidth(-20));
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(100));
+                make.height.mas_equalTo(JobsWidth(48));
+                make.left.equalTo(self.view.mas_centerX).offset(JobsWidth(7));
+                make.right.equalTo(self.view).offset(JobsWidth(-24));
+                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(42));
             });
     };return _photoAlbumBtn;
 }
@@ -144,11 +148,16 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             @jobs_strongify(self)
             imageView
                 .byImage(@"选择资源➕".img)
+                .byContentMode(UIViewContentModeScaleAspectFit)
+                .byBgColor(HEXCOLOR(0xEEF4FF))
+                .byCornerRadius(JobsWidth(24))
+                .byClipsToBounds(YES)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.size.mas_equalTo(CGSizeMake(JobsWidth(200), JobsWidth(200)));
-                    make.centerX.equalTo(self.view);
-                    make.top.equalTo(self.photoAlbumBtn.mas_bottom).offset(JobsWidth(50));
+                    make.left.equalTo(self.view).offset(JobsWidth(24));
+                    make.right.equalTo(self.view).offset(JobsWidth(-24));
+                    make.top.equalTo(self.cameraBtn.mas_bottom).offset(JobsWidth(32));
+                    make.height.equalTo(imageView.mas_width).multipliedBy(0.86);
                 });
         });
     };return _imageView;

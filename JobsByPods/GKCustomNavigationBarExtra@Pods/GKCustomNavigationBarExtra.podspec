@@ -20,10 +20,7 @@ Pod::Spec.new do |spec|
   spec.requires_arc          = true
   spec.module_name           = 'GKCustomNavigationBarExtra'
   spec.source                = { :path => '.' }
-  spec.default_subspecs      = 'Core'
 
-  spec.source_files          = 'GKCustomNavigationBarExtra.h'
-  spec.public_header_files   = 'GKCustomNavigationBarExtra.h'
 
   spec.frameworks = [
     'AudioToolbox',
@@ -58,12 +55,16 @@ Pod::Spec.new do |spec|
 
   JobsPodspecKitForGKCustomNavigationBarExtra.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    JobsPodspecKitForGKCustomNavigationBarExtra.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'GKCustomNavigationBarExtra.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'GKCustomNavigationBarExtra.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'GKCustomNavigationBarExtra'
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-  end
 
   JobsPodspecKitForGKCustomNavigationBarExtra.apply_standard_xcconfig(
     spec,

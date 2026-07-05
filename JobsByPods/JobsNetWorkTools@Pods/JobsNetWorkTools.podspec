@@ -20,32 +20,32 @@ speed updates.
 
   JobsPodspecKitForJobsNetWorkTools.apply_standard_exclude_files(spec)
 
-  spec.default_subspecs = 'Core'
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files = [
-      'Core/**/*.{h,m,mm}'
-    ]
+  spec.source_files = [
+    'JobsNetWorkToolsHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsNetWorkToolsHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsNetWorkTools'
 
-    ss.public_header_files = [
-      'Core/**/*.h'
-    ]
 
-    ss.frameworks = [
-      'Foundation',
-      'UIKit'
-    ]
+  spec.frameworks = [
+    'Foundation',
+    'UIKit'
+  ]
 
-    ss.libraries = [
-      'z'
-    ]
+  spec.libraries = [
+    'z'
+  ]
 
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsModelDSL'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsOCTimer'
-    ss.dependency 'JobsOCProtocols'
-  end
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsModelDSL'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsOCTimer'
+  spec.dependency 'JobsOCProtocols'
 
   JobsPodspecKitForJobsNetWorkTools.apply_standard_xcconfig(spec)
 

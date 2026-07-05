@@ -16,10 +16,10 @@
 #import <JobsOCDefs/JobsDefineEnums.h> // 此文件用来存储记录全局的一些枚举
 #import <JobsOCDefs/JobsDefineStructs.h> // 此文件用来存储记录全局的一些结构体
 
-#if __has_include(<JobsGetWindow/window.h>)
-#import <JobsGetWindow/window.h>
+#if __has_include(<JobsGetWindow/JobsGetWindow.h>)
+#import <JobsGetWindow/JobsGetWindow.h>
 #else
-#import "window.h"
+#import "JobsGetWindow.h"
 #endif
 
 /// 资料来源：
@@ -216,9 +216,7 @@ NS_INLINE iPhScrPxType iPhScrPx(void) {
 
     if ([platform isEqualToString:@"iPhone18,2"]) {  // iPhone 17 Pro Max
         return iPhScrPxType_17ProMax;
-    }
-
-    return iPhScrPxType_None;
+    };return iPhScrPxType_None;
 }
 /// 判断当前设备是否是全面屏
 NS_INLINE BOOL isFullScreen(void){

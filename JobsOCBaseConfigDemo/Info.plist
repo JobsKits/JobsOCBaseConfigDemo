@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>需要访问相机以录制视频。</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>需要访问麦克风以录制视频声音。</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>需要访问相册以保存录制视频。</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>需要添加视频到相册。</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

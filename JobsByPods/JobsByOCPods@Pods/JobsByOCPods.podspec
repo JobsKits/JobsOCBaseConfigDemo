@@ -66,7 +66,7 @@ Pod::Spec.new do |spec|
   spec.license      = { :type => 'MIT', :file => 'LICENSE' }
   spec.author       = { 'Jobs' => 'lg295060456@gmail.com' }
 
-  spec.source       = { :git => "file://#{__dir__}", :tag => spec.version.to_s }
+  spec.source       = { :path => '.' }
 
   spec.platform     = :ios, '12.0'
   spec.requires_arc = true
@@ -83,15 +83,18 @@ Pod::Spec.new do |spec|
 
   spec.source_files = [
     'JobsByOCPods.h',
-    'Support/播放器控制层/ZFCustomControlView/ZFCustomControlView.h'
+    'Support/播放器控制层/ZFCustomControlView/ZFCustomControlView.h',
+    'Core/**/*.{h,m,mm}'
   ]
 
   spec.public_header_files = [
     'JobsByOCPods.h',
-    'Support/播放器控制层/ZFCustomControlView/ZFCustomControlView.h'
+    'Support/播放器控制层/ZFCustomControlView/ZFCustomControlView.h',
+    'Core/**/*.h'
   ]
+  spec.header_dir = 'JobsByOCPods'
 
-  spec.default_subspecs = 'Core'
+  spec.resources = glob_pattern.call('Resource', true, resource_file_extensions) if glob_exists.call(glob_pattern.call('Resource', true, resource_file_extensions))
 
   JobsPodspecKitForJobsByOCPods.apply_standard_exclude_files(spec)
 
@@ -156,7 +159,7 @@ Pod::Spec.new do |spec|
     'JobsLanMgr',
     'JobsDropDownListView',
     'JobsNavigationTransitionMgr',
-    'WHToastExtra/Core',
+    'WHToastExtra',
     'ZFPlayerExtra',
     'YTKNetworkExtra',
     'BRPickerViewExtra',
@@ -164,10 +167,6 @@ Pod::Spec.new do |spec|
   ]
 
   add_common_dependencies = lambda do |ss|
-    if support_subspec_names.include?('JobsSEL_IMP')
-      ss.dependency 'JobsByOCPods/Support/JobsSEL_IMP'
-    end
-
     common_dependencies.each do |dependency|
       if dependency.is_a?(Array)
         ss.dependency dependency[0], dependency[1]
@@ -177,21 +176,7 @@ Pod::Spec.new do |spec|
     end
   end
   JobsPodspecKitForJobsByOCPods.add_support_subspec(spec, support_context)
-
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsByOCPods.add_dynamic_support_dependencies(ss, spec, support_context)
-    add_common_dependencies.call(ss)
-
-    configure_files.call(ss, 'Core', false)
-
-    core_subspec_names.each do |subspec_name|
-      ss.subspec subspec_name do |sss|
-        configure_files.call(sss, "Core/#{subspec_name}", true)
-        add_common_dependencies.call(sss)
-      end
-    end
-  end
+  add_common_dependencies.call(spec)
 
   JobsPodspecKitForJobsByOCPods.apply_standard_exclude_files(spec)
 

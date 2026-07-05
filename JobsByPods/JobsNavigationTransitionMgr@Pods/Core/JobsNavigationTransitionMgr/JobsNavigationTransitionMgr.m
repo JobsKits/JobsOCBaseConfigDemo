@@ -6,7 +6,6 @@
 //
 
 #import "JobsNavigationTransitionMgr.h"
-#import <objc/runtime.h>
 #import <JobsNavigationTransitionMgr/UIView+Extra.h>
 #import <JobsNavigationTransitionMgr/UIViewController+Extra.h>
 #import <JobsNavigationTransitionMgr/UIGestureRecognizer+Extra.h>
@@ -24,6 +23,7 @@ Prop_assign()ComingStyle comingStyle;
 static JobsTransitionDirection _storedDirection;
 static JobsNavigationTransitionMgr *static_navigationTransitionMgr = nil;
 static dispatch_once_t static_navigationTransitionManagerOnceToken;
+JobsKey(_navigationTransitionMgr)
 /// 单例化和销毁
 +(void)destroySingleton{
     static_navigationTransitionManagerOnceToken = 0;
@@ -53,10 +53,7 @@ forNavigationController:(UINavigationController *)navCtrlVC{
         manager.direction = direction;
     });
     /// 关联对象，防止被释放
-    objc_setAssociatedObject(viewController,
-                             _cmd,
-                             manager,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMICByTarget(viewController, _navigationTransitionMgr, manager)
     /// 禁用系统的 pop 手势
     viewController.clzPopGesture();
     /// 设置导航控制器代理

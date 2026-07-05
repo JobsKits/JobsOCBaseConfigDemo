@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+Extra.h"
-#import <objc/message.h>
 
 @implementation NSObject (Extra)
 /// NSBundle
@@ -68,7 +67,7 @@
 -(nullable UIImage *)img{
     if([self isKindOfClass:NSString.class]){
         NSString *SELF = (NSString *)self;
-        NSString *raw = [SELF stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+        NSString *raw = SELF.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
         if (!isValue(raw)) { return nil; }
         // 1) 拒绝网络：同步接口不触网
         if (SELF.isContainsUrl) { return nil; }

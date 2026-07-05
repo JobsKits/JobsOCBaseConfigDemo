@@ -162,6 +162,10 @@ Prop_copy()jobsByNSIntegerBlock selectBlock;
     return viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
 }
 
+-(NSAttributedString *)subAttributedTextByViewModel:(UIViewModel *)viewModel{
+    return viewModel.subTextModel.attributedTitle;
+}
+
 -(void)configureWithSectionModel:(JobsOCDemoSectionModel *)sectionModel
                         expanded:(BOOL)expanded
                      selectBlock:(jobsByNSIntegerBlock _Nullable)selectBlock{
@@ -227,10 +231,17 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                                       reuseIdentifier:JobsOCRootFoldInnerCellReuseIdentifier];
     }
     UIViewModel *viewModel = self.items[indexPath.row];
+    NSAttributedString *subAttributedText = [self subAttributedTextByViewModel:viewModel];
     cell.textLabel.text = [self textByViewModel:viewModel];
     cell.textLabel.font = UIFontWeightRegularSize(15);
-    cell.detailTextLabel.text = [self subTextByViewModel:viewModel];
     cell.detailTextLabel.font = UIFontWeightRegularSize(11);
+    if (subAttributedText.length) {
+        cell.detailTextLabel.text = nil;
+        cell.detailTextLabel.attributedText = subAttributedText;
+    }else{
+        cell.detailTextLabel.attributedText = nil;
+        cell.detailTextLabel.text = [self subTextByViewModel:viewModel];
+    }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.backgroundColor = JobsClearColor;

@@ -28,11 +28,7 @@ including NSString, NSBundle, NSObject categories, and other support classes.
   # Root umbrella header: keep it on the root spec so Xcode/Pods exposes it
   # at Pods/Headers/Public/JobsLanMgr/JobsLanMgr.h, instead of burying it
   # inside only the Core subspec file glob.
-  spec.source_files        = 'JobsLanMgr.h'
-  spec.public_header_files = 'JobsLanMgr.h'
-  spec.header_dir          = 'JobsLanMgr'
 
-  spec.default_subspecs = 'Core'
 
   JobsPodspecKitForJobsLanMgr.apply_standard_exclude_files(
     spec,
@@ -92,21 +88,21 @@ including NSString, NSBundle, NSObject categories, and other support classes.
   ]
   JobsPodspecKitForJobsLanMgr.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsLanMgr.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsLanMgr.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsLanMgr.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsLanMgr'
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.header_dir          = 'JobsLanMgr'
 
-    ss.dependency 'JobsLanMgr/Support'
-
-    ss.dependency 'SDWebImage'
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsStringUtils'
-  end
+  spec.dependency 'SDWebImage'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsStringUtils'
 
 
   JobsPodspecKitForJobsLanMgr.apply_standard_xcconfig(

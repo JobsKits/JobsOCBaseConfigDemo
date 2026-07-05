@@ -7,17 +7,17 @@
 
 #import "UICollectionView+DSL.h"
 
-static void *JobsCollectionViewBlocksProxyKey = &JobsCollectionViewBlocksProxyKey;
-static void *JobsCollectionViewDataSourceMuxKey = &JobsCollectionViewDataSourceMuxKey;
-static void *JobsCollectionViewDelegateMuxKey = &JobsCollectionViewDelegateMuxKey;
+JobsKey(JobsCollectionViewBlocksProxyKey)
+JobsKey(JobsCollectionViewDataSourceMuxKey)
+JobsKey(JobsCollectionViewDelegateMuxKey)
 
 @interface JobsCollectionViewBlocksProxy : NSObject <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (nonatomic, weak, nullable) id target;
-@property (nonatomic, copy, nullable) jobsCollectionViewNumberOfSectionsBlock numberOfSectionsBlock;
-@property (nonatomic, copy, nullable) jobsCollectionViewNumberOfItemsInSectionBlock numberOfItemsInSectionBlock;
-@property (nonatomic, copy, nullable) jobsCollectionViewCellForItemAtBlock cellForItemAtBlock;
-@property (nonatomic, copy, nullable) jobsCollectionViewDidSelectItemAtBlock didSelectItemAtBlock;
+Prop_weak(nullable)id target;
+Prop_copy(nullable)jobsCollectionViewNumberOfSectionsBlock numberOfSectionsBlock;
+Prop_copy(nullable)jobsCollectionViewNumberOfItemsInSectionBlock numberOfItemsInSectionBlock;
+Prop_copy(nullable)jobsCollectionViewCellForItemAtBlock cellForItemAtBlock;
+Prop_copy(nullable)jobsCollectionViewDidSelectItemAtBlock didSelectItemAtBlock;
 
 @end
 
@@ -49,8 +49,8 @@ static void *JobsCollectionViewDelegateMuxKey = &JobsCollectionViewDelegateMuxKe
 
 @interface JobsCollectionViewDataSourceMux : NSObject <UICollectionViewDataSource>
 
-@property (nonatomic, weak, nullable) NSObject<UICollectionViewDataSource> *primary;
-@property (nonatomic, weak, nullable) NSObject<UICollectionViewDataSource> *secondary;
+Prop_weak(nullable)NSObject<UICollectionViewDataSource> *primary;
+Prop_weak(nullable)NSObject<UICollectionViewDataSource> *secondary;
 
 @end
 
@@ -80,8 +80,8 @@ static void *JobsCollectionViewDelegateMuxKey = &JobsCollectionViewDelegateMuxKe
 
 @interface JobsCollectionViewDelegateMux : NSObject <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic, weak, nullable) NSObject<UICollectionViewDelegate> *primary;
-@property (nonatomic, weak, nullable) NSObject<UICollectionViewDelegate> *secondary;
+Prop_weak(nullable)NSObject<UICollectionViewDelegate> *primary;
+Prop_weak(nullable)NSObject<UICollectionViewDelegate> *secondary;
 
 @end
 
@@ -110,26 +110,26 @@ static void *JobsCollectionViewDelegateMuxKey = &JobsCollectionViewDelegateMuxKe
 @end
 
 static inline JobsCollectionViewBlocksProxy *jobs_collectionViewBlocksProxy(UICollectionView *collectionView, BOOL createIfNeeded){
-    JobsCollectionViewBlocksProxy *proxy = objc_getAssociatedObject(collectionView, JobsCollectionViewBlocksProxyKey);
+    JobsCollectionViewBlocksProxy *proxy = Jobs_getAssociatedObjectByTarget(collectionView, JobsCollectionViewBlocksProxyKey);
     if (!proxy && createIfNeeded){
         proxy = JobsCollectionViewBlocksProxy.alloc.init;
-        objc_setAssociatedObject(collectionView, JobsCollectionViewBlocksProxyKey, proxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        Jobs_setAssociatedRETAIN_NONATOMICByTarget(collectionView, JobsCollectionViewBlocksProxyKey, proxy)
     };return proxy;
 }
 
 static inline JobsCollectionViewDataSourceMux *jobs_collectionViewDataSourceMux(UICollectionView *collectionView, BOOL createIfNeeded){
-    JobsCollectionViewDataSourceMux *mux = objc_getAssociatedObject(collectionView, JobsCollectionViewDataSourceMuxKey);
+    JobsCollectionViewDataSourceMux *mux = Jobs_getAssociatedObjectByTarget(collectionView, JobsCollectionViewDataSourceMuxKey);
     if (!mux && createIfNeeded){
         mux = JobsCollectionViewDataSourceMux.alloc.init;
-        objc_setAssociatedObject(collectionView, JobsCollectionViewDataSourceMuxKey, mux, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        Jobs_setAssociatedRETAIN_NONATOMICByTarget(collectionView, JobsCollectionViewDataSourceMuxKey, mux)
     };return mux;
 }
 
 static inline JobsCollectionViewDelegateMux *jobs_collectionViewDelegateMux(UICollectionView *collectionView, BOOL createIfNeeded){
-    JobsCollectionViewDelegateMux *mux = objc_getAssociatedObject(collectionView, JobsCollectionViewDelegateMuxKey);
+    JobsCollectionViewDelegateMux *mux = Jobs_getAssociatedObjectByTarget(collectionView, JobsCollectionViewDelegateMuxKey);
     if (!mux && createIfNeeded){
         mux = JobsCollectionViewDelegateMux.alloc.init;
-        objc_setAssociatedObject(collectionView, JobsCollectionViewDelegateMuxKey, mux, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        Jobs_setAssociatedRETAIN_NONATOMICByTarget(collectionView, JobsCollectionViewDelegateMuxKey, mux)
     };return mux;
 }
 

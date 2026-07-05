@@ -8,10 +8,10 @@
 #import <UIKit/UIKit.h>
 #import <EventKit/EventKit.h> // 用来读取，修改和创建日历上的事件
 
-#if __has_include(<FSCalendar/FSCalendar.h>)
-#import <FSCalendar/FSCalendar.h>
+#if __has_include(<JobsCalendar/JobsCalendarHeader.h>)
+#import <JobsCalendar/JobsCalendarHeader.h>
 #else
-#import "FSCalendar.h"
+#import "JobsCalendarHeader.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
@@ -66,9 +66,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CalendarVC : BaseViewController
 <
-FSCalendarDataSource
-,FSCalendarDelegate
-,FSCalendarDelegateAppearance
+JobsCalendarDataSource
+,JobsCalendarDelegate
+,JobsCalendarDelegateAppearance
 >
 
 @end

@@ -15,7 +15,6 @@ with dial, number labels, hour hand, minute hand and second hand support.
 
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
-  spec.default_subspecs = 'Core'
 
   # 本地 pod
   spec.source           = { :path => '.' }
@@ -28,15 +27,21 @@ with dial, number labels, hour hand, minute hand and second hand support.
     'QuartzCore'
   ]
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
+  spec.source_files = [
+    'JobsClockViewHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsClockViewHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsClockView'
 
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsOCDSL'
-    ss.dependency 'JobsOCTimer'
-    ss.dependency 'JobsOCProtocols'
-  end
+
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDSL'
+  spec.dependency 'JobsOCTimer'
+  spec.dependency 'JobsOCProtocols'
 
   JobsPodspecKitForJobsClockView.apply_standard_xcconfig(spec)
 

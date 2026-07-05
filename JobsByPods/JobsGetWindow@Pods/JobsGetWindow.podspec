@@ -18,7 +18,6 @@ JobsGetWindow is a lightweight Objective-C header-only library for retrieving th
   # 本地 pod
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
 
   JobsPodspecKitForJobsGetWindow.apply_standard_exclude_files(spec)
 
@@ -30,8 +29,14 @@ JobsGetWindow is a lightweight Objective-C header-only library for retrieving th
   JobsPodspecKitForJobsGetWindow.apply_standard_xcconfig(spec)
 
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-  end
+  spec.source_files = [
+    'JobsGetWindow.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsGetWindow.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsGetWindow'
+
 end

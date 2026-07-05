@@ -80,7 +80,7 @@ Prop_strong()NSMutableArray <GoodsClassModel *>*dataArray; // 总共有多少个
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section{
-    return 0;//self.dataArray.count;
+    return self.dataArray.count;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView

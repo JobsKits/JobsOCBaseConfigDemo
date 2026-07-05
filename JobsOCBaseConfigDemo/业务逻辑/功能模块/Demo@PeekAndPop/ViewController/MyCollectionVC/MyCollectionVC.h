@@ -56,7 +56,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MyCollectionVC : BaseViewController
 <
-UIContextMenuInteractionDelegate,
 UICollectionViewDelegate,
 UICollectionViewDataSource
 >

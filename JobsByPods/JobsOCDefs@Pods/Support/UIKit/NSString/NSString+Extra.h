@@ -14,10 +14,10 @@
 #import <JobsOCDefs/MacroDef_Strong@Weak.h>
 #import <JobsOCDefs/JobsDefineConstString.h>
 
-#if __has_include(<JobsStringUtils/JobsStringUtils.h>)
-#import <JobsStringUtils/JobsStringUtils.h>
+#if __has_include(<JobsStringUtils/JobsStringUtilsHeader.h>)
+#import <JobsStringUtils/JobsStringUtilsHeader.h>
 #else
-#import "JobsStringUtils.h"
+#import "JobsStringUtilsHeader.h"
 #endif
 
 typedef BOOL(^JobsRetBOOLByIDBlock)(id _Nullable data);

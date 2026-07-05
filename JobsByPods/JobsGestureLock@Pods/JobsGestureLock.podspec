@@ -17,7 +17,6 @@ and an optional ready-to-use view controller for create/validate flows.
   spec.platform            = :ios, '12.0'
   spec.requires_arc        = true
   spec.source              = { :path => '.' }
-  spec.default_subspecs    = 'Core'
 
   spec.frameworks = [
     'Foundation',
@@ -25,18 +24,23 @@ and an optional ready-to-use view controller for create/validate flows.
   ]
 
   spec.module_name         = 'JobsGestureLock'
-  spec.header_dir          = 'JobsGestureLock'
 
   JobsPodspecKitForJobsGestureLock.apply_standard_exclude_files(spec)
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources           = 'Core/Resources/**/*'
+  spec.source_files = [
+    'JobsGestureLock.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsGestureLock.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsGestureLock'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
 
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsOCDSL'
-  end
+
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsOCDSL'
 
   JobsPodspecKitForJobsGestureLock.apply_standard_xcconfig(spec)
 

@@ -8,14 +8,11 @@
 #ifndef JOBS_HEADER_GUARD_CAMETALLAYER_DSL_A6F3C2D1
 #define JOBS_HEADER_GUARD_CAMETALLAYER_DSL_A6F3C2D1
 
-#import "CALayer+DSL.h"
-#if __has_include(<QuartzCore/CAMetalLayer.h>)
 #import <QuartzCore/CAMetalLayer.h>
-#endif
+#import "CALayer+DSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-#if __has_include(<QuartzCore/CAMetalLayer.h>)
 @interface CAMetalLayer (JobsChain)
 
 #pragma mark —— Geometry
@@ -42,7 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCAMetalLayerByCGColorSpaceRefBlock _Nonnull)byColorspace;
 
 @end
-#endif /* __has_include(<QuartzCore/CAMetalLayer.h>) */
 
 NS_ASSUME_NONNULL_END
 #endif /* JOBS_HEADER_GUARD_CAMETALLAYER_DSL_A6F3C2D1 */

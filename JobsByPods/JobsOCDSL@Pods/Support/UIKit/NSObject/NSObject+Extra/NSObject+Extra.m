@@ -7,22 +7,18 @@
 
 #import "NSObject+Extra.h"
 
-static const void *JobsOCDSLNSObjectWeakTargetKey = &JobsOCDSLNSObjectWeakTargetKey;
-
+JobsKey(JobsOCDSLNSObjectWeakTargetKey)
 @implementation NSObject (Extra)
 
 @dynamic weak_target;
 
 -(id)weak_target{
-    id target = objc_getAssociatedObject(self, JobsOCDSLNSObjectWeakTargetKey);
+    id target = Jobs_getAssociatedObject(JobsOCDSLNSObjectWeakTargetKey);
     return target ?: self;
 }
 
 -(void)setWeak_target:(id)weak_target{
-    objc_setAssociatedObject(self,
-                             JobsOCDSLNSObjectWeakTargetKey,
-                             weak_target,
-                             OBJC_ASSOCIATION_ASSIGN);
+    Jobs_setAssociatedASSIGN(JobsOCDSLNSObjectWeakTargetKey, weak_target)
 }
 
 @end

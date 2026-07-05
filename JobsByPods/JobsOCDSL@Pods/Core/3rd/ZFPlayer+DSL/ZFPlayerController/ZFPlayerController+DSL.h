@@ -16,6 +16,12 @@
 #import "ZFPlayer.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -23,28 +29,6 @@
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
-
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByViewBlock)(__kindof UIView *_Nullable data);
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByManagerBlock)(id<ZFPlayerMediaPlayback> _Nullable data);
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByControlViewBlock)(__kindof UIView<ZFPlayerMediaControl> *_Nullable data);
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByURLBlock)(NSURL *_Nullable data);
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByURLsBlock)(NSArray<NSURL *> *_Nullable data);
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByNSIntegerBlock)(NSInteger data);
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByFloatBlock)(float data);
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByCGFloatBlock)(CGFloat data);
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByBOOLBlock)(BOOL data);
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByTimeCompletionBlock)(NSTimeInterval time, void (^ _Nullable completion)(BOOL finished));
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByOrientationBlock)(UIInterfaceOrientation orientation, BOOL animated);
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByFullScreenBlock)(BOOL fullScreen, BOOL animated);
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByDisableGestureBlock)(ZFPlayerDisableGestureTypes data);
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByDisablePanBlock)(ZFPlayerDisablePanMovingDirection data);
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByPlaybackStateBlock)(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, ZFPlayerPlaybackState playState));
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByLoadStateBlock)(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, ZFPlayerLoadState loadState));
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByPlayTimeBlock)(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, NSTimeInterval currentTime, NSTimeInterval duration));
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByMediaURLBlock)(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, NSURL *assetURL));
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByMediaBlock)(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset));
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByMediaErrorBlock)(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, id error));
-typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByOrientationChangeBlock)(void (^ _Nullable data)(ZFPlayerController *player, BOOL isFullScreen));
 
 @interface ZFPlayerController (DSL)
 

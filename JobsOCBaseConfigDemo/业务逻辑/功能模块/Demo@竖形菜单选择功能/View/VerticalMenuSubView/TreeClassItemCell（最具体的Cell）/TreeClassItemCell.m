@@ -82,7 +82,7 @@ UILocationProtocol_synthesize
     if (self.dataModel.bgImage) {
         _logoImgView.byImage(self.dataModel.bgImage).byBgColor(JobsClearColor);
     } else {
-        _logoImgView.byImage(nil).byBgColor(JobsRandomCor(.5f));
+        _logoImgView.byImage(nil).byBgColor(HEXCOLOR(0xF2E6CD));
     };return _logoImgView;
 }
 

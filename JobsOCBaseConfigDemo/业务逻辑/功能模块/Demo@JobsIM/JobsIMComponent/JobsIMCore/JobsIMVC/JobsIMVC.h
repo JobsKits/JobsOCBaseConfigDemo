@@ -18,10 +18,10 @@
 #import "MGSwipeTableCell.h"
 #endif
 
-#if __has_include(<JobsLoadingImage/JobsLoadingImage.h>)
-#import <JobsLoadingImage/JobsLoadingImage.h>
+#if __has_include(<JobsLoadingImage/JobsLoadingImageHeader.h>)
+#import <JobsLoadingImage/JobsLoadingImageHeader.h>
 #else
-#import "JobsLoadingImage.h"
+#import "JobsLoadingImageHeader.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)

@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<lottie-ios/Lottie.h>)
+#import <lottie-ios/Lottie.h>
+#else
+#import "Lottie.h"
+#endif
+
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else

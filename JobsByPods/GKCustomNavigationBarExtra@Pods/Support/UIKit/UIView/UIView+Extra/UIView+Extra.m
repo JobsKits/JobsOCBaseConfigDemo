@@ -225,15 +225,14 @@
     };
 }
 #pragma mark —— Prop_assign()BOOL ableRespose
+JobsKey(_ableRespose)
+@dynamic ableRespose;
 - (void)setAbleRespose:(BOOL)ableRespose {
-    objc_setAssociatedObject(self,
-                             _cmd,
-                             @(ableRespose),
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMIC(_ableRespose, @(ableRespose))
 }
 
 -(BOOL)ableRespose {
-    return objc_getAssociatedObject(self, _cmd) != nil ? [objc_getAssociatedObject(self, _cmd) boolValue] : NO;
+    return Jobs_getAssociatedObject(_ableRespose) != nil ? [Jobs_getAssociatedObject(_ableRespose) boolValue] : NO;
 }
 /// 设置控件是否可见，对影响可视化的hidden 和 alpha属性进行操作
 /// 需要特别注意的是：这个地方的jobsVisible不能属性化，否则在某些情况下会出现异常（只会走子类方法不会走分类方法）

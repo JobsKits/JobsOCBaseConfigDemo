@@ -34,21 +34,18 @@ Prop_assign()_JobsOnceStatus status;
 
 @implementation JobsLocker (Once)
 
-static const void *JobsLockerOnceStateKey = &JobsLockerOnceStateKey;
-
+JobsKey(JobsLockerOnceStateKey)
 - (_JobsOnceState *)jobs_onceState {
-    _JobsOnceState *state = objc_getAssociatedObject(self, JobsLockerOnceStateKey);
+    _JobsOnceState *state = Jobs_getAssociatedObject(JobsLockerOnceStateKey);
     if (state) return state;
 
     @synchronized (self) {
-        state = objc_getAssociatedObject(self, JobsLockerOnceStateKey);
+        state = Jobs_getAssociatedObject(JobsLockerOnceStateKey);
         if (!state) {
             state = [[_JobsOnceState alloc] init];
-            objc_setAssociatedObject(self, JobsLockerOnceStateKey, state, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            Jobs_setAssociatedRETAIN_NONATOMIC(JobsLockerOnceStateKey, state)
         }
-    }
-
-    return state;
+    };return state;
 }
 
 - (void)executeOnce:(NS_NOESCAPE dispatch_block_t)block {

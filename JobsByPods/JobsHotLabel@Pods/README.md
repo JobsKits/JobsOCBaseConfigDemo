@@ -33,6 +33,7 @@
 | 作者 | `Jobs / lg295060456@gmail.com` |
 | podspec | `JobsByPods/JobsHotLabel@Pods/JobsHotLabel.podspec` |
 | source | `{ :path => '.' }` |
+| Development Pods 展示 | `JobsHotLabel.h` 位于 Pod 根入口，源码只展示一层真实 `Core/` |
 
 ## 二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -52,7 +53,7 @@ JobsHotLabel@Pods/
 └── LICENSE  # 许可证文件
 ```
 
-- `JobsHotLabel.podspec` 是当前 Pod 的 [**CocoaPods**](https://cocoapods.org/) 描述入口。
+- `JobsHotLabel.podspec` 是当前 Pod 的 [**CocoaPods**](https://cocoapods.org/) 描述入口，源码在根级声明，避免 `Core` subspec 再包真实 `Core/` 导致 Xcode 展示 `Core/Core`。
 - `README.md` 是当前文件，负责说明用途、边界、依赖、资源和风险。
 - 若目录中存在 `JobsPodspecKit.rb`，说明该 Pod 使用 Jobs 本地 podspec 基座动态映射 `Support`。
 
@@ -61,6 +62,7 @@ JobsHotLabel@Pods/
 - `Core` 当前包含 9 个文件，其中源码 / 头文件 9 个；按 Jobs 规范，它是 `JobsHotLabel` 对外公开 API 和核心实现的边界。
 - 当前目录没有 `Support` 文件夹；如后续补内部兼容代码，优先放入 `Support` 并让 podspec 动态映射。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
+- `Core` 是真实磁盘目录，不再额外创建同名 `Core` subspec；如果 Xcode 左侧出现 `Core/Core`，优先检查磁盘是否误套目录，其次检查 podspec 是否用虚拟 `Core` 分组包住了真实 `Core/`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -75,9 +77,10 @@ JobsHotLabel@Pods/
 - `JobsHotLabel.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.3、默认 subspec
+### 5.3、默认安装边界
 
-- `Core`
+- `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
+- `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
 ### 5.4、系统框架
 
@@ -87,7 +90,8 @@ JobsHotLabel@Pods/
 ### 5.5、Pod 依赖
 
 - `JobsMakes`
-- `JobsModel`
+- `JobsModelDSL`
+- `JobsOCDSL`
 - `JobsBlock`
 - `JobsOCDefs`
 - `JobsBaseUI`
@@ -111,7 +115,7 @@ JobsHotLabel@Pods/
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 当前目录扫描到资源类文件 0 个，`Resources` 目录文件 0 个。
+- 当前目录扫描到资源类文件 0 个，`Resource` 目录文件 0 个。
 - podspec 资源声明如下：
 
 - podspec 未显式声明 `resources`，如新增图片、xib、bundle、json、plist 等资源，需要同步补齐。

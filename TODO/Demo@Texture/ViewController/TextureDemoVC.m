@@ -67,10 +67,8 @@ Prop_assign() BOOL hasMore;
             case TDDemoRowType_Video:
                 return [[TDVideoCellNode alloc] initWithURL:@"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4".jobsUrl
                                                       title:@"ASVideoNode：离屏解码、可见时准备，避免滚动卡顿。"];
-#if HAS_MAPKIT
             case TDDemoRowType_Map:
                 return [[TDMapCellNode alloc] init];
-#endif
             case TDDemoRowType_Draw:
                 return [[TDDrawCellNode alloc] init];
         };return [[ASCellNode alloc] init];
@@ -116,9 +114,7 @@ willBeginBatchFetchWithContext:(ASBatchContext *)context {
             .add(@(TDDemoRowType_HCarousel))
             .add(@(TDDemoRowType_Video))
             .add(@(TDDemoRowType_Draw));
-#if HAS_MAPKIT
     [arr insertObject:@(TDDemoRowType_Map) atIndex:7];
-#endif
         });
     };return _rows;
 }

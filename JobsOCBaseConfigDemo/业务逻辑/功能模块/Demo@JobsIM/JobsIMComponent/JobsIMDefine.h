@@ -8,6 +8,8 @@
 #ifndef JobsIMDefine_h
 #define JobsIMDefine_h
 
+#import <CoreGraphics/CoreGraphics.h>
+
 #define isAllowSysEdit NO// 编译期就要优先进去，所以不能用属性
 
 #ifndef INFO_LOCATION_ENUM_DEFINED
@@ -39,6 +41,14 @@ typedef NS_ENUM(NSInteger, JobsIMChatMessageType) {
 
 NS_INLINE CGFloat JobsIMInputviewHeight(void){
     return 60;
+}
+
+NS_INLINE CGFloat JobsIMInputviewAccessoryLabelHeight(void){
+    return 30;
+}
+
+NS_INLINE CGSize JobsIMInputviewAccessoryLabelSize(void){
+    return CGSizeMake(JobsMainScreen_WIDTH(), JobsIMInputviewAccessoryLabelHeight());
 }
 
 NS_INLINE CGFloat JobsIMChatInfoTimeLabWidth(void){

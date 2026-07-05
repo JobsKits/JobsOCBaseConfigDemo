@@ -27,7 +27,7 @@ support_set_direct_files = lambda do |subspec, relative_dir|
   has_resources = support_glob_has_matches.call(resource_glob)
 
   subspec.source_files = source_glob if has_source_files
-  subspec.public_header_files = header_glob if has_header_files
+  subspec.private_header_files = header_glob if has_header_files
   subspec.resources = resource_glob if has_resources
   subspec.preserve_paths = relative_dir unless has_source_files || has_header_files || has_resources
 end
@@ -96,19 +96,17 @@ end
   spec.ios.deployment_target = '8.0'
   spec.requires_arc     = true
   spec.frameworks       = 'UIKit'
-  spec.default_subspecs = 'Core'
-
   spec.source_files = [
-    'XYColorOC.h'
+    'XYColorOC.h',
+    'Core/**/*.{h,m,mm}'
   ]
 
   spec.public_header_files = [
-    'XYColorOC.h'
-  ]
-
-  spec.private_header_files = [
+    'XYColorOC.h',
     'Core/**/*.h'
   ]
+  spec.header_dir = 'XYColorOC'
+  spec.preserve_paths = 'Resource/Info.plist'
 
   spec.exclude_files = [
     # macOS
@@ -183,19 +181,13 @@ end
     support_add_real_directory_subspecs.call(ss, support_dir)
   end
   
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    support_subspec_paths.each do |support_subspec_path|
-      ss.dependency "#{spec.name}/#{support_subspec_path}"
-    end
-
-    ss.source_files = [
-      'XYColorOC.h',
-      'Core/**/*.{h,m,mm}'
-    ]
-    ss.public_header_files = [
-      'XYColorOC.h',
-      'Core/**/*.h'
-    ]
-  end
+  spec.pod_target_xcconfig = {
+    'DEFINES_MODULE' => 'YES',
+    'HEADER_SEARCH_PATHS' => '$(inherited) "$(PODS_TARGET_SRCROOT)/**"',
+    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
+  }
+  spec.user_target_xcconfig = {
+    'HEADER_SEARCH_PATHS' => '$(inherited) "$(PODS_ROOT)/Headers/Public/XYColorOC/**"',
+    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
+  }
 end

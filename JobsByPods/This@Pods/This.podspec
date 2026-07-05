@@ -15,7 +15,6 @@ This provides the base This object used by Jobs Objective-C projects.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
 
   spec.frameworks = [
     'Foundation',
@@ -78,10 +77,16 @@ This provides the base This object used by Jobs Objective-C projects.
     ]
   )
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-  end
+  spec.source_files = [
+    'ThisHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'ThisHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'This'
+
 
   JobsPodspecKitForThis.apply_standard_xcconfig(spec)
 

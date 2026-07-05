@@ -71,7 +71,8 @@
     CGFloat PADDING = 20;
     CGFloat WIDTH = 200;
     CGFloat HEIGHT = 50;
-    CGFloat TOP = 100;
+    CGFloat NAV_BOTTOM = MAX(CGRectGetMaxY(self.gk_navigationBar.frame), JobsNavigationBarAndStatusBarHeight(nil));
+    CGFloat TOP = MAX(100, NAV_BOTTOM + PADDING);
     CGFloat X = 30;
     NotifiView* nView = [[NotifiView alloc] initWithFrame:CGRectMake(X,
                                                                      TOP + (HEIGHT + PADDING) * index,
@@ -85,6 +86,8 @@
 }
 
 -(void)makeIt{
+    [self.view layoutIfNeeded];
+
     //设置notifiViews
     NSMutableArray* notifiViews = NSMutableArray.array;
     for (int i = 0; i < 4; i++) {

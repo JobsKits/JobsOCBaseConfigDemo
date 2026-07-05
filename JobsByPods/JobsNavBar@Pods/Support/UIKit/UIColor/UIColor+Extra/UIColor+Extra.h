@@ -13,6 +13,7 @@
 #import <UIKit/UIKit.h>
 #import <JobsNavBar/NSMutableArray+Extra.h>
 #import <JobsNavBar/NSString+Extra.h>
+#import <JobsNavBar/NSString+Sys.h>
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>

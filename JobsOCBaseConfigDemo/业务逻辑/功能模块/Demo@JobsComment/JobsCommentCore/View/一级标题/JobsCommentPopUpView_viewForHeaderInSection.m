@@ -44,14 +44,12 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
     @jobs_weakify(self)
     return ^(id _Nullable model) {
         @jobs_strongify(self)
-        self.byBgColor(JobsClearColor);
+        self.byBgColor(JobsWhiteColor);
 
         if ([model isKindOfClass:JobsFirstCommentModel.class]) {
             self.firstCommentModel = model;
             self.userInfoBtn.byAlpha(1);
-
             self.likeBtn.byAlpha(1);
-
         }
     };
 }
@@ -60,11 +58,11 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
     if(!_userInfoBtn){
         @jobs_weakify(self)
         _userInfoBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsWhiteColor)
+            .bgColorBy(JobsClearColor)
             .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
-            .jobsResetImagePadding(1)
-            .jobsResetBtnTitleCor(@"#EA2918".cor)
-            .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
+            .jobsResetImagePadding(JobsWidth(8))
+            .jobsResetBtnTitleCor(JobsCommentConfig.sharedManager.titleCor)
+            .jobsResetBtnTitleFont(JobsCommentConfig.sharedManager.titleFont)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 x.selected = !x.selected;
@@ -74,11 +72,12 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
             })
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
-                make.left.equalTo(self).offset(JobsWidth(0));
+                make.left.equalTo(self).offset(JobsWidth(14));
+                make.right.equalTo(self).offset(-JobsWidth(68));
                 make.top.bottom.equalTo(self);
             });
         /// 很重要，自定义设置UIBotton.imageView
-        _userInfoBtn.imageViewFrame = CGRectMake(JobsWidth(15), 0, JobsWidth(45), JobsWidth(45));
+        _userInfoBtn.imageViewFrame = CGRectMake(0, JobsWidth(16), JobsWidth(40), JobsWidth(40));
         _userInfoBtn.textLabelFrameOffsetX = JobsWidth(0);
         _userInfoBtn.subTextLabelFrameOffsetX = JobsWidth(0);
 
@@ -106,10 +105,10 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
     _userInfoBtn
         .jobsUpdateButtonConfigurationBy(^(UIButtonConfiguration *config) {
             config
-                .byAttributedTitle([NSMutableAttributedString.alloc initWithString:self.firstCommentModel.nickname
+                .byAttributedTitle([NSMutableAttributedString.alloc initWithString:self.firstCommentModel.nickname ? : @""
                                                                         attributes:@{NSFontAttributeName: JobsCommentConfig.sharedManager.titleFont,
                                                                   NSForegroundColorAttributeName: JobsCommentConfig.sharedManager.titleCor}])
-                .byAttributedSubtitle([NSMutableAttributedString.alloc initWithString:self.firstCommentModel.content
+                .byAttributedSubtitle([NSMutableAttributedString.alloc initWithString:self.firstCommentModel.content ? : @""
                                                                            attributes:@{NSFontAttributeName: JobsCommentConfig.sharedManager.subTitleFont,
                                                                      NSForegroundColorAttributeName: JobsCommentConfig.sharedManager.subTitleCor}]);
         })
@@ -121,10 +120,10 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
     if(!_likeBtn){
         @jobs_weakify(self)
         _likeBtn = RBCLikeButton.jobsInit()
-            .bgColorBy(JobsWhiteColor)
+            .bgColorBy(JobsClearColor)
             .jobsResetBtnImage(_likeBtn.selected ? JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like"))
             .jobsResetBtnTitleCor(_likeBtn.selected ? JobsRedColor : JobsGrayColor)
-            .jobsResetBtnTitleFont(UIFontWeightRegularSize(4))
+            .jobsResetBtnTitleFont(UIFontWeightRegularSize(12))
             .jobsResetBtnTitle((toStringByNSInteger(_likeBtn.thumpNum)))
             .onClickBy(^(RBCLikeButton *x){
                 @jobs_strongify(self)
@@ -146,8 +145,8 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
             })
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
-                make.height.mas_equalTo(JobsWidth(55 / 2));
-                make.right.equalTo(self).offset(-JobsWidth(13));
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(46), JobsWidth(44)));
+                make.right.equalTo(self).offset(-JobsWidth(14));
                 make.centerY.equalTo(self);
             });
         _likeBtn.thumpNum = 0;
@@ -155,7 +154,11 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
     }
     _likeBtn.bySelected(self.firstCommentModel.isPraise);
     _likeBtn.thumpNum = self.firstCommentModel.praiseNum;
-    _likeBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
+    _likeBtn
+        .jobsResetBtnTitle(toStringByNSInteger(_likeBtn.thumpNum))
+        .jobsResetBtnTitleCor(_likeBtn.selected ? JobsRedColor : HEXCOLOR(0x94A3B8))
+        .jobsResetBtnImage(_likeBtn.selected ? JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like"))
+        .makeBtnTitleByShowingType(UILabelShowingType_03);
     return _likeBtn;
 }
 

@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 #import "AppDelegate+TabBarCtr.h"
-#import "AppLanguageVC.h"
 #import "FMTermsOfUseView.h"
 #import "JobsAppDoorVC.h"
 #import "JobsNetworkingHeader.h"

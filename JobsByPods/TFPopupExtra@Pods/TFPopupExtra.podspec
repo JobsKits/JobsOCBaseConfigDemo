@@ -23,15 +23,7 @@ methods for popup views, toast presentation, filtration views, and custom views.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
 
-  spec.source_files = [
-    'TFPopupExtra.h'
-  ]
-
-  spec.public_header_files = [
-    'TFPopupExtra.h'
-  ]
 
   spec.frameworks = [
     'Foundation',
@@ -42,24 +34,27 @@ methods for popup views, toast presentation, filtration views, and custom views.
   JobsPodspecKitForTFPopupExtra.apply_standard_exclude_files(spec)
   JobsPodspecKitForTFPopupExtra.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForTFPopupExtra.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'TFPopupExtra.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'TFPopupExtra.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'TFPopupExtra'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources           = 'Core/**/*.{png,jpg,jpeg,gif,xib,nib,storyboard,xcassets}'
 
-    ss.dependency 'TFPopup'
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsModelDSL'
-    ss.dependency 'JobsOCDSL'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsByOCPods'
-    ss.dependency 'JobsCustomView'
-    ss.dependency 'JobsFiltrationView'
+  spec.dependency 'TFPopup'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsModelDSL'
+  spec.dependency 'JobsOCDSL'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsByOCPods'
+  spec.dependency 'JobsCustomView'
+  spec.dependency 'JobsFiltrationView'
 
-  end
 
   JobsPodspecKitForTFPopupExtra.apply_standard_xcconfig(spec)
 

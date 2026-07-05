@@ -11,6 +11,9 @@
 #import <Foundation/Foundation.h>
 #import <TargetConditionals.h>
 #import <ZFPlayerExtra/ZFDouYinControlView.h>
+#import <ZFPlayerExtra/ZFDouYinControlView+DSL.h>
+#import <ZFPlayerExtra/ZFAVPlayerManager+ZFPlayerExtraDSL.h>
+#import <ZFPlayerExtra/ZFIJKPlayerManager+ZFPlayerExtraDSL.h>
 
 #if __has_include(<ZFPlayer/ZFPlayer.h>)
 #import <ZFPlayer/ZFPlayer.h>
@@ -24,10 +27,10 @@
 #import "ZFAVPlayerManager.h"
 #endif
 
-#if !TARGET_OS_SIMULATOR && __has_include(<ZFPlayer/ZFIJKPlayerManager.h>)
+#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>) && __has_include(<ZFPlayer/ZFIJKPlayerManager.h>)
 #import <ZFPlayer/ZFIJKPlayerManager.h>
 #else
-#if !TARGET_OS_SIMULATOR
+#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>)
 #import <ZFPlayerExtra/ZFIJKPlayerManager.h>
 #endif
 #endif
@@ -60,7 +63,7 @@ NS_INLINE __kindof ZFAVPlayerManager *_Nonnull jobsMakeZFAVPlayerManager(jobsByZ
 }
 #endif
 
-#if !TARGET_OS_SIMULATOR && __has_include(<ZFPlayer/ZFIJKPlayerManager.h>)
+#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>) && __has_include(<ZFPlayer/ZFIJKPlayerManager.h>)
 NS_INLINE __kindof ZFIJKPlayerManager *_Nonnull jobsMakeZFIJKPlayerManager(jobsByZFIJKPlayerManagerBlock _Nonnull block){
     ZFIJKPlayerManager *data = ZFIJKPlayerManager.alloc.init;
     if (block) block(data);

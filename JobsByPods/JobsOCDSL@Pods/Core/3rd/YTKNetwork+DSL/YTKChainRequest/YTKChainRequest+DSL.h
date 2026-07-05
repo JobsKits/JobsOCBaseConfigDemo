@@ -17,6 +17,12 @@
 #import "YTKNetwork.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -25,21 +31,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^JobsYTKChainSuccessBlock)(__kindof YTKChainRequest *_Nonnull chainRequest);
-typedef void(^JobsYTKChainFailureBlock)(__kindof YTKChainRequest *_Nonnull chainRequest, __kindof YTKBaseRequest *_Nonnull failedRequest);
-
-typedef __kindof YTKChainRequest *_Nullable(^JobsRetYTKChainRequestByDelegateBlock)(id<YTKChainRequestDelegate> _Nullable data);
-typedef __kindof YTKChainRequest *_Nullable(^JobsRetYTKChainRequestByAccessoryBlock)(id<YTKRequestAccessory> _Nullable data);
-typedef __kindof YTKChainRequest *_Nullable(^JobsRetYTKChainRequestByAccessoriesBlock)(NSArray<id<YTKRequestAccessory>> *_Nullable data);
-typedef __kindof YTKChainRequest *_Nullable(^JobsRetYTKChainRequestByRequestCallbackBlock)(__kindof YTKBaseRequest *_Nonnull request, YTKChainCallback _Nullable callback);
-typedef __kindof YTKChainRequest *_Nullable(^JobsRetYTKChainRequestByRequestsBlock)(NSArray<__kindof YTKBaseRequest *> *_Nullable data);
-typedef __kindof YTKChainRequest *_Nullable(^JobsRetYTKChainRequestBySuccessBlock)(JobsYTKChainSuccessBlock _Nullable data);
-typedef __kindof YTKChainRequest *_Nullable(^JobsRetYTKChainRequestByFailureBlock)(JobsYTKChainFailureBlock _Nullable data);
-typedef __kindof YTKChainRequest *_Nullable(^JobsRetYTKChainRequestByCompletionBlocks)(JobsYTKChainSuccessBlock _Nullable success, JobsYTKChainFailureBlock _Nullable failure);
-
 @interface YTKChainRequest (DSL)
 
-@property(nonatomic, strong, readonly) NSArray<YTKBaseRequest *> *jobs_requests;
+Prop_strong(readonly)NSArray<YTKBaseRequest *> *jobs_requests;
 
 -(JobsRetYTKChainRequestByDelegateBlock _Nonnull)byDelegate;
 -(JobsRetYTKChainRequestByAccessoryBlock _Nonnull)byAddAccessory;

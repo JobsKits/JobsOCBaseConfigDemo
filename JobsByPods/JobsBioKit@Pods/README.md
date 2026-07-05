@@ -65,15 +65,16 @@ JobsBioKit@Pods/
 
 ### 5.1、公开头文件
 
-- `JobsBioKit/Core/**/*.h`
+- `Core/**/*.h`
 
 ### 5.2、源码入口
 
-- `JobsBioKit/Core/**/*.{h,m,mm}`
+- `Core/**/*.{h,m,mm}`
 
-### 5.3、默认 subspec
+### 5.3、默认安装边界
 
-- `Core`
+- `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
+- `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
 ### 5.4、系统框架
 
@@ -101,10 +102,10 @@ JobsBioKit@Pods/
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 当前目录扫描到资源类文件 0 个，`Resources` 目录文件 0 个。
+- 当前目录扫描到资源类文件 0 个，`Resource` 目录文件 0 个。
 - podspec 资源声明如下：
 
-- `JobsBioKit/Core/**/*.{png,jpg,jpeg,gif,xib,nib,storyboard,xcassets,json,bundle}`
+- `Core/**/*.{png,jpg,jpeg,gif,xib,nib,storyboard,xcassets,json,bundle}`
 
 ## 八、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

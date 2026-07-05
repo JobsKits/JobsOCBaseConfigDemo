@@ -13,6 +13,7 @@
 #import <UIKit/UIKit.h>
 #import <JobsRichTextUtils/NSMutableArray+Extra.h>
 #import <JobsRichTextUtils/NSString+Extra.h>
+#import <JobsRichTextUtils/NSString+Sys.h>
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>

@@ -12,11 +12,12 @@
 #import <JobsByOCPods/NSString+URL.h>
 #import <JobsByOCPods/UIImage+YBGIF.h>
 #import <JobsByOCPods/NSString+Check.h>
+#import <JobsByOCPods/NSString+Sys.h>
 
-#if __has_include(<JobsStringUtils/JobsStringUtils.h>)
-#import <JobsStringUtils/JobsStringUtils.h>
+#if __has_include(<JobsStringUtils/JobsStringUtilsHeader.h>)
+#import <JobsStringUtils/JobsStringUtilsHeader.h>
 #else
-#import "JobsStringUtils.h"
+#import "JobsStringUtilsHeader.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

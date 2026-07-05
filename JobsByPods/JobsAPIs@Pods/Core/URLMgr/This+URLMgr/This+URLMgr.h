@@ -11,10 +11,10 @@
 #import <Foundation/Foundation.h>
 #import <JobsAPIs/URLMgr.h>
 
-#if __has_include(<This/This.h>)
-#import <This/This.h>
+#if __has_include(<This/ThisHeader.h>)
+#import <This/ThisHeader.h>
 #else
-#import "This.h"
+#import "ThisHeader.h"
 #endif
 
 #if __has_include(<JobsModelDSL/JobsModelDSL.h>)

@@ -11,6 +11,7 @@
 #pragma once
 
 #import <UIKit/UIKit.h>
+#import <JobsMakes/NSString+Sys.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>

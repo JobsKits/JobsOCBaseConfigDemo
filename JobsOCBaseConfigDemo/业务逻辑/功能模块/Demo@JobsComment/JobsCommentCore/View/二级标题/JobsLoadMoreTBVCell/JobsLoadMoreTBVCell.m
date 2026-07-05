@@ -18,6 +18,12 @@ Prop_strong()UILabel *titleLab;
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsLoadMoreTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsLoadMoreTBVCell);
+        cell
+            .bySelectionStyle(UITableViewCellSelectionStyleNone)
+            .byContentView(^(__kindof UIView * _Nullable view) {
+                view.byBgColor(JobsWhiteColor);
+            });
+        cell.byBgColor(JobsClearColor);
         return cell;
     };
 }
@@ -45,7 +51,9 @@ Prop_strong()UILabel *titleLab;
             label
                 .byText(@"点击加载更多".tr.add(@"..."))
                 .byTextAlignment(NSTextAlignmentCenter)
-                .byBgColor(JobsSystemYellowColor)
+                .byTextCor(HEXCOLOR(0x64748B))
+                .byFont(UIFontWeightRegularSize(13))
+                .byBgColor(JobsWhiteColor)
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);

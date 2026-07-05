@@ -45,6 +45,7 @@
 ```text
 BEMCheckBox/
 ├── BEMCheckBox.podspec  # Pod 描述文件
+├── BEMCheckBoxHeader.h  # 根聚合头文件
 ├── README.md  # 当前自述
 ├── Core/  # 公开 API 与核心实现，8 个文件
 └── LICENSE  # 许可证文件
@@ -65,16 +66,18 @@ BEMCheckBox/
 
 ### 5.1、公开头文件
 
+- `BEMCheckBoxHeader.h`
 - `Core/BEMCheckBox/BEMCheckBox.h`
 - `Core/BEMCheckBoxGroup/BEMCheckBoxGroup.h`
 
 ### 5.2、源码入口
 
-- `Core/**/*.{h,m}`
+- `BEMCheckBoxHeader.h`
+- `Core/**/*.{h,m,mm}`
 
-### 5.3、默认 subspec
+### 5.3、默认安装边界
 
-- `Core`
+- `Core` 通过 Pod 根级 `source_files` 直接映射，不再创建虚拟 `Core` subspec。
 
 ### 5.4、系统框架
 
@@ -91,19 +94,19 @@ BEMCheckBox/
 推荐在 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 代码里使用保护性引用，优先走 [**CocoaPods**](https://cocoapods.org/) 生成的公共头映射：
 
 ```objc
-#if __has_include(<BEMCheckBox/BEMCheckBox.h>)
-#import <BEMCheckBox/BEMCheckBox.h>
+#if __has_include(<BEMCheckBox/BEMCheckBoxHeader.h>)
+#import <BEMCheckBox/BEMCheckBoxHeader.h>
 #else
-#import "BEMCheckBox.h"
+#import "BEMCheckBoxHeader.h"
 #endif
 ```
 
 - 自建 Pod 对外优先引用公共入口头，不要绕开聚合头直接引用 `Support` 内部子头。
-- 如果 `BEMCheckBox.h` 不是最终公开入口，请先修正 `BEMCheckBox.podspec` 的 `public_header_files` 和入口头设计，再修改调用方。
+- `BEMCheckBoxHeader.h` 是聚合入口；`Core/BEMCheckBox/BEMCheckBox.h` 保留上游主类声明，避免同名 public header 冲突。
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 当前目录扫描到资源类文件 0 个，`Resources` 目录文件 0 个。
+- 当前目录扫描到资源类文件 0 个，`Resource` 目录文件 0 个。
 - podspec 资源声明如下：
 
 - podspec 未显式声明 `resources`，如新增图片、xib、bundle、json、plist 等资源，需要同步补齐。

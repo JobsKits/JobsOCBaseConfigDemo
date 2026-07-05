@@ -27,6 +27,7 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
                 .byContentView(^(__kindof UIView * _Nullable view) {
                     view.byBgColor(JobsCommentConfig.sharedManager.bgCor);
                 });
+            cell.byBgColor(JobsClearColor);
         };return cell;
     };
 }
@@ -46,7 +47,6 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
             self.likeBtn.byAlpha(1);
 
             self.textLabel.byText(self.childCommentModel.nickname);
-
             self.detailTextLabel.byText(self.childCommentModel.content);
 
             self.imageView
@@ -69,34 +69,34 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
 #pragma mark —— 复写系统父类方法
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.imageView.sizer = JobsCommentConfig.sharedManager.headerImageViewSize;//subTitleOffset
+    CGFloat avatarWH = JobsCommentConfig.sharedManager.headerImageViewSize.width;
+    CGFloat left = JobsCommentConfig.sharedManager.secondLevelCommentOffset + JobsWidth(14);
+    CGFloat top = JobsWidth(14);
+    CGFloat textX = left + avatarWH + JobsWidth(10);
+    CGFloat likeW = JobsWidth(46);
+    CGFloat textW = self.contentView.width - textX - likeW - JobsWidth(22);
+    self.imageView.frame = CGRectMake(left, top, avatarWH, avatarWH);
     self.imageView.cornerCutToCircleWithCornerRadius(self.imageView.height / 2);
-    self.textLabel.byFont(JobsCommentConfig.sharedManager.titleFont);
-
-    self.detailTextLabel.byFont(JobsCommentConfig.sharedManager.subTitleFont);
-
-    self.textLabel.byTextCor(JobsCommentConfig.sharedManager.titleCor);
-
-    self.detailTextLabel.byTextCor(JobsCommentConfig.sharedManager.subTitleCor);
-
-    /// 因为二级评论和一级评论的控件之间存在一定的offset(向右偏)，故这里进行重写约束
-    self.imageView.resetOriginX(JobsWidth(50));
-    self.imageView.resetOriginY(JobsWidth(0));
-    
-    self.textLabel.resetOriginX(JobsWidth(110));
-    self.textLabel.resetOriginY(JobsWidth(0));
-    
-    self.detailTextLabel.resetOriginX(JobsWidth(110));
+    self.textLabel
+        .byFont(JobsCommentConfig.sharedManager.titleFont)
+        .byTextCor(JobsCommentConfig.sharedManager.titleCor)
+        .byNumberOfLines(1);
+    self.detailTextLabel
+        .byFont(JobsCommentConfig.sharedManager.subTitleFont)
+        .byTextCor(JobsCommentConfig.sharedManager.subTitleCor)
+        .byNumberOfLines(2);
+    self.textLabel.frame = CGRectMake(textX, JobsWidth(12), textW, JobsWidth(18));
+    self.detailTextLabel.frame = CGRectMake(textX, CGRectGetMaxY(self.textLabel.frame) + JobsWidth(4), textW, JobsWidth(36));
 }
 #pragma mark —— lazyLoad
 -(RBCLikeButton *)likeBtn{
     if(!_likeBtn){
         @jobs_weakify(self)
         _likeBtn = RBCLikeButton.jobsInit()
-            .bgColorBy(JobsWhiteColor)
+            .bgColorBy(JobsClearColor)
             .jobsResetBtnImage(_likeBtn.selected ? JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like"))
             .jobsResetBtnTitleCor(_likeBtn.selected ? JobsRedColor : JobsGrayColor)
-            .jobsResetBtnTitleFont(UIFontWeightRegularSize(4))
+            .jobsResetBtnTitleFont(UIFontWeightRegularSize(12))
             .jobsResetBtnTitle((toStringByNSInteger(_likeBtn.thumpNum)))
             .onClickBy(^(RBCLikeButton *x){
                 @jobs_strongify(self)
@@ -118,8 +118,8 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
             })
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {
-                make.height.mas_equalTo(JobsWidth(55 / 2));
-                make.right.equalTo(self.contentView).offset(-JobsWidth(13));
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(46), JobsWidth(44)));
+                make.right.equalTo(self.contentView).offset(-JobsWidth(14));
                 make.centerY.equalTo(self.contentView);
             });
         _likeBtn.thumpNum = 0;
@@ -128,7 +128,7 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
     _likeBtn.thumpNum = self.childCommentModel.praiseNum;
     _likeBtn
         .jobsResetBtnTitle(toStringByNSInteger(_likeBtn.thumpNum))
-        .jobsResetBtnTitleCor(_likeBtn.selected ? JobsRedColor : JobsGrayColor)
+        .jobsResetBtnTitleCor(_likeBtn.selected ? JobsRedColor : HEXCOLOR(0x94A3B8))
         .jobsResetBtnImage(_likeBtn.selected ? JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like"))
         .makeBtnTitleByShowingType(UILabelShowingType_03);
     return _likeBtn;

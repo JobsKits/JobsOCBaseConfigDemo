@@ -30,10 +30,6 @@ JobsSuspend provides suspend button, label and view components.
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
-
-  spec.source_files        = 'JobsSuspend.h'
-  spec.public_header_files = 'JobsSuspend.h'
 
   JobsPodspecKitForJobsSuspend.apply_standard_exclude_files(spec)
 
@@ -43,27 +39,31 @@ JobsSuspend provides suspend button, label and view components.
   ]
   JobsPodspecKitForJobsSuspend.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsSuspend.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsSuspend.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsSuspend.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsSuspend'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
 
-    ss.dependency 'ReactiveObjC'
-    ss.dependency 'XYColorOC'
-    ss.dependency 'JobsModelDSL'
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsOCDSL'
-    ss.dependency 'JobsLanMgr'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsBaseUI'
-    ss.dependency 'JobsDeviceInfo'
-    ss.dependency 'JobsLoadingImage'
-    ss.dependency 'JobsOCRuntimeKits'
-    ss.dependency 'JobsRichTextUtils'
 
-    ss.source_files = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources = 'Core/**/*.{png,jpg,jpeg,gif,webp,pdf,xcassets,bundle}'
-  end
+  spec.dependency 'ReactiveObjC'
+  spec.dependency 'XYColorOC'
+  spec.dependency 'JobsModelDSL'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDSL'
+  spec.dependency 'JobsLanMgr'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsBaseUI'
+  spec.dependency 'JobsDeviceInfo'
+  spec.dependency 'JobsLoadingImage'
+  spec.dependency 'JobsOCRuntimeKits'
+  spec.dependency 'JobsRichTextUtils'
+
 
   JobsPodspecKitForJobsSuspend.apply_standard_xcconfig(spec)
 

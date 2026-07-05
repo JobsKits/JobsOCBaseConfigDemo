@@ -17,12 +17,18 @@
 #import "JobsBaseProtocolHeader.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Extra)<BaseProtocol>
 
 /// 手势迁移所需的弱目标对象。未显式设置时，默认返回 self。
-@property(nonatomic, weak, nullable) id weak_target;
+Prop_weak(nullable)id weak_target;
 
 @end
 

@@ -10,6 +10,7 @@
 
 #pragma once
 
+#import <objc/message.h>
 #import <UIKit/UIKit.h>
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)

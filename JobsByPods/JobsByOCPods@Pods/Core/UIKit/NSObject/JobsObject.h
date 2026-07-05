@@ -50,10 +50,10 @@
 /// 获取图片
 #import <JobsByOCPods/NSObject+image.h>
 /// 定时器
-#if __has_include(<JobsOCTimer/JobsTimer.h>)
-#import <JobsOCTimer/JobsTimer.h>
+#if __has_include(<JobsOCTimer/JobsOCTimer.h>)
+#import <JobsOCTimer/JobsOCTimer.h>
 #else
-#import "JobsTimer.h"
+#import "JobsOCTimer.h"
 #endif
 /// 弹窗
 #if __has_include(<WHToastExtra/WHToastExtra.h>)
@@ -62,10 +62,10 @@
 #import "WHToastExtra.h"
 #endif
 /// 取随机
-#if __has_include(<JobsRandomUtils/JobsRandomUtils.h>)
-#import <JobsRandomUtils/JobsRandomUtils.h>
+#if __has_include(<JobsRandomUtils/JobsRandomUtilsHeader.h>)
+#import <JobsRandomUtils/JobsRandomUtilsHeader.h>
 #else
-#import "JobsRandomUtils.h"
+#import "JobsRandomUtilsHeader.h"
 #endif
 
 #if __has_include(<BRPickerViewExtra/BRPickerViewExtra.h>)

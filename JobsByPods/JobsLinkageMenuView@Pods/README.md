@@ -41,6 +41,7 @@
 - 如果某个菜单没有对应内容区，组件不会兜底复用最后一个内容，而是触发 `noContentClickBlock`。
 - 宽度配置优先级：`MENU_WIDTH` 固定菜单宽度 > `CONTENT_WIDTH` 固定内容宽度 > `MENU_RATIO` 菜单比例 > 默认菜单宽度。
 - 高度配置优先级：`MENU_ITEM_HEIGHT_MAP` 单项覆盖 > `MENU_ITEM_HEIGHTS` 数组覆盖 > `DEFAULT_MENU_ITEM_HEIGHT` 统一高度 > 默认高度。
+- 菜单项圆角由 `MENU_ITEM_CORNER_RADIUS` 控制，设置为 `0` 时显示直角。
 - 当 `JobsLinkageMenuView` 的 `Core`、`Support`、资源、依赖或公开头文件发生变化时，同步更新本 README，避免后续排查只看源码不看边界。
 - 参与本地 Pods 拆分时，先确认能力归属，再决定放入当前 Pod、迁移到 `Support`，还是下沉为更基础的公共 Pod。
 
@@ -49,6 +50,7 @@
 ```text
 JobsLinkageMenuView@Pods/
 ├── JobsLinkageMenuView.podspec  # Pod 描述文件
+├── JobsLinkageMenuViewHeader.h  # 根聚合头文件
 ├── README.md  # 当前自述
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
 ├── Core/  # 公开 API 与核心实现，4 个文件
@@ -71,15 +73,18 @@ JobsLinkageMenuView@Pods/
 
 ### 5.1、公开头文件
 
+- `JobsLinkageMenuViewHeader.h`
 - `Core/**/*.h`
 
 ### 5.2、源码入口
 
+- `JobsLinkageMenuViewHeader.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.3、默认 subspec
+### 5.3、默认安装边界
 
-- `Core`
+- `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
+- `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
 ### 5.4、系统框架
 
@@ -118,19 +123,19 @@ JobsLinkageMenuView@Pods/
 推荐在 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 代码里使用保护性引用，优先走 [**CocoaPods**](https://cocoapods.org/) 生成的公共头映射：
 
 ```objc
-#if __has_include(<JobsLinkageMenuView/JobsLinkageMenuView.h>)
-#import <JobsLinkageMenuView/JobsLinkageMenuView.h>
+#if __has_include(<JobsLinkageMenuView/JobsLinkageMenuViewHeader.h>)
+#import <JobsLinkageMenuView/JobsLinkageMenuViewHeader.h>
 #else
-#import "JobsLinkageMenuView.h"
+#import "JobsLinkageMenuViewHeader.h"
 #endif
 ```
 
 - 自建 Pod 对外优先引用公共入口头，不要绕开聚合头直接引用 `Support` 内部子头。
-- 如果 `JobsLinkageMenuView.h` 不是最终公开入口，请先修正 `JobsLinkageMenuView.podspec` 的 `public_header_files` 和入口头设计，再修改调用方。
+- `JobsLinkageMenuViewHeader.h` 是统一公开入口；调用方不绕开聚合头引用 `Core` 内部子头。
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 当前目录扫描到资源类文件 0 个，`Resources` 目录文件 0 个。
+- 当前目录扫描到资源类文件 0 个，`Resource` 目录文件 0 个。
 - podspec 资源声明如下：
 
 - `Core/**/*.{png,jpg,jpeg,webp,gif,wav,mp3,caf,json,plist,xib,storyboard,bundle,xcassets}`

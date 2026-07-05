@@ -98,10 +98,10 @@
 #import "WHToastExtra.h"
 #endif
 
-#if __has_include(<JobsAppTools/JobsAppTools.h>)
-#import <JobsAppTools/JobsAppTools.h>
+#if __has_include(<JobsAppTools/JobsAppToolsHeader.h>)
+#import <JobsAppTools/JobsAppToolsHeader.h>
 #else
-#import "JobsAppTools.h"
+#import "JobsAppToolsHeader.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
@@ -110,10 +110,10 @@
 #import "JobsLanMgr.h"
 #endif
 
-#if __has_include(<JobsDropDownListView/JobsDropDownListView.h>)
-#import <JobsDropDownListView/JobsDropDownListView.h>
+#if __has_include(<JobsDropDownListView/JobsDropDownListViewHeader.h>)
+#import <JobsDropDownListView/JobsDropDownListViewHeader.h>
 #else
-#import "JobsDropDownListView.h"
+#import "JobsDropDownListViewHeader.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)

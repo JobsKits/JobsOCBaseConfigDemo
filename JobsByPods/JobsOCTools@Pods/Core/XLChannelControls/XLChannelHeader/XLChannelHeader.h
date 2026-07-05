@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
@@ -18,9 +24,9 @@
 
 @interface XLChannelHeader : UICollectionReusableView
 
-@property (copy,nonatomic) NSString *title;
+Prop_copy()NSString *title;
 
-@property (copy,nonatomic) NSString *subTitle;
+Prop_copy()NSString *subTitle;
 
 @end
 #endif /* JOBS_HEADER_GUARD_XLCHANNELHEADER_FB34EC7301 */

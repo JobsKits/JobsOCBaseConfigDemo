@@ -16,13 +16,25 @@ Prop_strong()UILabel *describeLabel;
 Prop_strong()UIBezierPath *outsidePath;
 Prop_strong()UIBezierPath *insidePath;
 Prop_strong()CAShapeLayer *insideLayer;
+Prop_assign()CGFloat currentProgress;
+
+-(void)_updateProgress:(CGFloat)progress animated:(BOOL)animated;
+-(void)_updateProgressWithTouch:(UITouch *)touch;
+-(CGFloat)_progressWithTouchPoint:(CGPoint)point;
+-(CGFloat)_safeProgress:(CGFloat)progress;
 
 @end
 
 @implementation PHCycleView
 
+static CGFloat const PHCycleViewMinProgress = 0.0f;
+static CGFloat const PHCycleViewMaxProgress = 100.0f;
+static CGFloat const PHCycleViewStrokeStart = M_PI / 12.0;
+
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
+        self.multipleTouchEnabled = NO;
+        self.userInteractionEnabled = YES;
         [self drawProgress];
     };return self;
 }
@@ -63,14 +75,62 @@ Prop_strong()CAShapeLayer *insideLayer;
 }
 //外界调用
 -(void)updateProgress:(CGFloat)progress{
-    [CATransaction begin];
-    [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
-    [CATransaction setAnimationDuration:0.5];
-    self.progressLayer.strokeEnd =  (progress + 13) / 100.0;
-    [CATransaction commit];
-    self.progressLabel.byText([NSString stringWithFormat:@"%.0f",progress]);
-
+    [self _updateProgress:progress animated:YES];
 }
+
+-(void)_updateProgress:(CGFloat)progress animated:(BOOL)animated{
+    CGFloat safeProgress = [self _safeProgress:progress];
+    CGFloat strokeEnd = PHCycleViewStrokeStart + safeProgress / PHCycleViewMaxProgress * (1 - PHCycleViewStrokeStart);
+    self.currentProgress = safeProgress;
+    [CATransaction begin];
+    if (animated) {
+        [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
+        [CATransaction setAnimationDuration:0.5];
+    }else{
+        [CATransaction setDisableActions:YES];
+    }
+    self.progressLayer.strokeEnd = strokeEnd;
+    [CATransaction commit];
+    self.progressLabel.byText([NSString stringWithFormat:@"%.0f",safeProgress]);
+}
+
+-(void)_updateProgressWithTouch:(UITouch *)touch{
+    if (!touch) return;
+    [self _updateProgress:[self _progressWithTouchPoint:[touch locationInView:self]]
+                 animated:NO];
+}
+
+-(CGFloat)_progressWithTouchPoint:(CGPoint)point{
+    CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    CGFloat deltaX = point.x - center.x;
+    CGFloat deltaY = point.y - center.y;
+    if (hypot(deltaX, deltaY) <= 1.0f) return self.currentProgress;
+    CGFloat fraction = (atan2(deltaY, deltaX) + M_PI_2) / (M_PI * 2.0);
+    if (fraction < 0) fraction += 1.0f;
+    if (fraction < PHCycleViewStrokeStart) {
+        fraction = fraction <= PHCycleViewStrokeStart * 0.5f ? 1.0f : PHCycleViewStrokeStart;
+    };return (fraction - PHCycleViewStrokeStart) / (1 - PHCycleViewStrokeStart) * PHCycleViewMaxProgress;
+}
+
+-(CGFloat)_safeProgress:(CGFloat)progress{
+    return MAX(PHCycleViewMinProgress, MIN(PHCycleViewMaxProgress, progress));
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesBegan:touches withEvent:event];
+    [self _updateProgressWithTouch:touches.anyObject];
+}
+
+-(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesMoved:touches withEvent:event];
+    [self _updateProgressWithTouch:touches.anyObject];
+}
+
+-(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesEnded:touches withEvent:event];
+    [self _updateProgressWithTouch:touches.anyObject];
+}
+
 //外界调用
 -(void)setLinePreAngle:(CGFloat)preAngle
               lineSize:(CGSize)size
@@ -181,7 +241,7 @@ Prop_strong()CAShapeLayer *insideLayer;
                 .byStrokeColor(RGBA_COLOR(0, 0, 255, .3f).CGColor)
                 .byFillColor(JobsClearColor.CGColor)
                 .byPath(self.outsidePath.CGPath)
-                .byStrokeStart(M_PI / 12)
+                .byStrokeStart(PHCycleViewStrokeStart)
                 .byStrokeEnd(1)
                 .addOn(self.layer);
         });
@@ -197,7 +257,7 @@ Prop_strong()CAShapeLayer *insideLayer;
                 .byFillColor(JobsClearColor.CGColor)
                 .byLineWidth(3)
                 .byPath(self.outsidePath.CGPath)
-                .byStrokeStart(M_PI / 12)
+                .byStrokeStart(PHCycleViewStrokeStart)
                 .addOn(self.layer);
         });
     };return _progressLayer;

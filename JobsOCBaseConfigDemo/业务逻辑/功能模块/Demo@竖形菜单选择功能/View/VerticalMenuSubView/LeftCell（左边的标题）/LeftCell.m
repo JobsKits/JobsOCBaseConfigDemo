@@ -52,6 +52,7 @@ UITextFieldProtocol_synthesize_part2
               reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]){
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     };return self;
 }
 
@@ -74,26 +75,30 @@ UITextFieldProtocol_synthesize_part2
     [super setSelected:selected
               animated:animated];
     if (selected){
-        self.contentView.byBgColor(ThreeClassCellBgCor);
-        self.flagView.byBgColor(JobsWhiteColor);
-        self.titleLabel.byTextCor(HEXCOLOR(0xAE8330)).byFont(UIFontWeightBoldSize(14));
+        self.contentView.byBgColor(HEXCOLOR(0xFFF7EA));
+        self.flagView.byBgColor(HEXCOLOR(0xAE8330));
+        self.titleLabel.byTextCor(HEXCOLOR(0x3D4A58)).byFont(UIFontWeightBoldSize(14));
     }else{
-        self.contentView.byBgColor(HEXCOLOR(0xFCFBFB));
-        self.flagView.byBgColor(HEXCOLOR(0xFCFBFB));
-        self.titleLabel.byTextCor(HEXCOLOR(0xB0B0B0)).byFont(UIFontWeightRegularSize(14));
+        self.contentView.byBgColor(HEXCOLOR(0xFFFFFF));
+        self.flagView.byBgColor(HEXCOLOR(0xFFFFFF));
+        self.titleLabel.byTextCor(HEXCOLOR(0x8C96A3)).byFont(UIFontWeightRegularSize(14));
     }
 }
 
 - (void)setHighlighted:(BOOL)highlighted
               animated:(BOOL)animated{
     if (highlighted){
-        self.contentView.byBgColor(ThreeClassCellBgCor);
-        self.flagView.byBgColor(JobsWhiteColor);
-        self.titleLabel.byTextCor(HEXCOLOR(0xB0B0B0)).byFont(UIFontWeightBoldSize(14));
+        self.contentView.byBgColor(HEXCOLOR(0xFFF7EA));
+        self.flagView.byBgColor(HEXCOLOR(0xAE8330));
+        self.titleLabel.byTextCor(HEXCOLOR(0x3D4A58)).byFont(UIFontWeightBoldSize(14));
+    }else if (self.selected){
+        self.contentView.byBgColor(HEXCOLOR(0xFFF7EA));
+        self.flagView.byBgColor(HEXCOLOR(0xAE8330));
+        self.titleLabel.byTextCor(HEXCOLOR(0x3D4A58)).byFont(UIFontWeightBoldSize(14));
     }else{
-        self.contentView.byBgColor(HEXCOLOR(0xFCFBFB));
-        self.flagView.byBgColor(HEXCOLOR(0xFCFBFB));
-        self.titleLabel.byTextCor(HEXCOLOR(0xB0B0B0)).byFont(UIFontWeightRegularSize(14));
+        self.contentView.byBgColor(HEXCOLOR(0xFFFFFF));
+        self.flagView.byBgColor(HEXCOLOR(0xFFFFFF));
+        self.titleLabel.byTextCor(HEXCOLOR(0x8C96A3)).byFont(UIFontWeightRegularSize(14));
     }
 }
 #pragma mark —— lazyLoad
@@ -103,12 +108,13 @@ UITextFieldProtocol_synthesize_part2
         _titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byTextCor(HEXCOLOR(0xB0B0B0))
+                .byTextCor(HEXCOLOR(0x8C96A3))
                 .byFont(bayonRegular(JobsWidth(14)))
                 .byTextAlignment(NSTextAlignmentCenter)
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {
                 make.left.equalTo(self.contentView).offset(JobsWidth(5));
+                make.right.equalTo(self.contentView).offset(JobsWidth(-5));
                 make.centerY.equalTo(self.contentView);
             })
             .makeLabelByShowingType(UILabelShowingType_03);
@@ -127,7 +133,7 @@ UITextFieldProtocol_synthesize_part2
                                     0,
                                     3,
                                     LeftCell_Height))
-                .byBgColor(HEXCOLOR(0xFCFBFB))
+                .byBgColor(HEXCOLOR(0xFFFFFF))
                 .addOn(self.contentView);
         });
     };return _flagView;

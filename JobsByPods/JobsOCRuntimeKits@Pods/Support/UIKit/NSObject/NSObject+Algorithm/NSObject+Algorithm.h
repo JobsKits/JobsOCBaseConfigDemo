@@ -21,10 +21,10 @@
 #import "JobsTimeUtils.h"
 #endif
 
-#if __has_include(<JobsOCSnowflake/JobsOCSnowflake.h>)
-#import <JobsOCSnowflake/JobsOCSnowflake.h>
+#if __has_include(<JobsOCSnowflake/JobsOCSnowflakeHeader.h>)
+#import <JobsOCSnowflake/JobsOCSnowflakeHeader.h>
 #else
-#import "JobsOCSnowflake.h"
+#import "JobsOCSnowflakeHeader.h"
 #endif
 
 #if __has_include(<JobsClass/JobsClass.h>)

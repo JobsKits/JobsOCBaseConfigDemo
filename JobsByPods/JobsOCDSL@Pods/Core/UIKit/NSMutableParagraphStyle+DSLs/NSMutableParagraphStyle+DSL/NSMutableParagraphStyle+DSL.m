@@ -129,6 +129,15 @@
     };
 }
 #pragma mark —— Enums
+-(JobsRetMutableParagraphStyleByNSIntegerBlock _Nonnull)byAlignment{
+    @jobs_weakify(self)
+    return ^__kindof NSMutableParagraphStyle * (NSTextAlignment alignment){
+        @jobs_strongify(self)
+        self.alignment = alignment;
+        return self;
+    };
+}
+
 -(JobsRetMutableParagraphStyleByNSIntegerBlock _Nonnull)byLineBreakMode{
     @jobs_weakify(self)
     return ^__kindof NSMutableParagraphStyle * (NSLineBreakMode mode){

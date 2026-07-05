@@ -8,6 +8,7 @@
 #ifndef JOBS_HEADER_GUARD_UIMENUITEM_DSL_8C63D2A14E
 #define JOBS_HEADER_GUARD_UIMENUITEM_DSL_8C63D2A14E
 
+#import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

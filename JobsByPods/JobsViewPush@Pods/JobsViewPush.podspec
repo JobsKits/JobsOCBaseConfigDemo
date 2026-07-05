@@ -15,11 +15,7 @@ system-like timing, interactive dismissal and background-tap dismissal.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
 
-  spec.source_files        = 'JobsViewPush.h'
-  spec.public_header_files = 'JobsViewPush.h'
-  spec.header_dir          = 'JobsViewPush'
 
   spec.frameworks = [
     'UIKit'
@@ -28,11 +24,16 @@ system-like timing, interactive dismissal and background-tap dismissal.
   spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsOCDSL'
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.header_dir          = 'JobsViewPush'
-  end
+  spec.source_files = [
+    'JobsViewPush.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsViewPush.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsViewPush'
+
 
   JobsPodspecKitForJobsViewPush.apply_standard_exclude_files(spec)
   JobsPodspecKitForJobsViewPush.apply_standard_xcconfig(spec)

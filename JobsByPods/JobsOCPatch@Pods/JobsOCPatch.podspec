@@ -23,14 +23,6 @@ JobsOCPatch provides a small Objective-C runtime patch manager that can temporar
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
-
-  if File.exist?(File.join(__dir__, 'JobsOCPatch.h'))
-    spec.source_files = 'JobsOCPatch.h'
-    spec.public_header_files = 'JobsOCPatch.h'
-  end
-
-  spec.header_dir = 'JobsOCPatch'
 
   spec.frameworks = [
     'Foundation'
@@ -40,13 +32,16 @@ JobsOCPatch provides a small Objective-C runtime patch manager that can temporar
 
   JobsPodspecKitForJobsOCPatch.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    JobsPodspecKitForJobsOCPatch.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsOCPatch.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsOCPatch.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsOCPatch'
 
-    ss.source_files = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.header_dir = 'JobsOCPatch'
-  end
 
   JobsPodspecKitForJobsOCPatch.apply_standard_exclude_files(spec)
 

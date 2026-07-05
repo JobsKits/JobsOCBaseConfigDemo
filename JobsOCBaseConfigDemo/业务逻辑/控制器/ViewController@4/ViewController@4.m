@@ -7,7 +7,11 @@
 
 #import "ViewController@4.h"
 
+static NSString * const JobsSignatureSloganLottieName = @"JobsSignatureSlogan";
+
 @interface ViewController_4 ()
+
+Prop_strong()LOTAnimationView *signatureSloganLottieView;
 
 @end
 
@@ -59,11 +63,14 @@
     [super viewDidLoad];
     self.view.byBgColor(JobsBlueColor);
     self.makeNavByAlpha(1);
+    self.signatureSloganLottieView.animationProgress = 0;
+    [self.signatureSloganLottieView play];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+    self.signatureSloganLottieView.animationProgress = 0;
+    [self.signatureSloganLottieView play];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -72,7 +79,31 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [self.signatureSloganLottieView stop];
 }
 #pragma mark —— lazyLoad
+-(LOTAnimationView *)signatureSloganLottieView{
+    if (!_signatureSloganLottieView) {
+        NSString *filePath = [NSBundle.mainBundle pathForResource:JobsSignatureSloganLottieName
+                                                           ofType:@"json"];
+        if (!filePath.length) {
+            filePath = [NSBundle.mainBundle pathForResource:JobsSignatureSloganLottieName
+                                                     ofType:@"json"
+                                                inDirectory:@"其他/libs/Lottie资源"];
+        }
+        _signatureSloganLottieView = filePath.length ? [LOTAnimationView animationWithFilePath:filePath] : [LOTAnimationView animationNamed:JobsSignatureSloganLottieName];
+        _signatureSloganLottieView.loopAnimation = YES;
+        _signatureSloganLottieView.userInteractionEnabled = NO;
+        _signatureSloganLottieView
+            .byContentMode(UIViewContentModeScaleAspectFit)
+            .byBgColor(JobsClearColor)
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.centerX.equalTo(self.view);
+                make.centerY.equalTo(self.view).offset(-JobsWidth(56));
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(360), JobsWidth(190)));
+            });
+    };return _signatureSloganLottieView;
+}
 
 @end

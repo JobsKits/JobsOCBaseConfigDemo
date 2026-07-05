@@ -56,22 +56,22 @@
 #define Cor4 HEXCOLOR(0xE1CD62)
 #define Cor5 HEXCOLOR(0x502600)
 
-#define ThingsHeight JobsWidth(50) /// 边角半圆形控件的高度
-#define RegisterBtnWidth JobsWidth(64) /// 竖形按钮的宽度
-#define InputViewOffset JobsWidth(20) /// 输入框承接控件之间的上下间距
+#define ThingsHeight JobsWidth(50)     // 边角半圆形控件的高度
+#define RegisterBtnWidth JobsWidth(64) // 竖形按钮的宽度
+#define InputViewOffset JobsWidth(20)  // 输入框承接控件之间的上下间距
 
 #define Title1 @"返回登录".tr.addNewlines
 #define Title2 @"新用户注册".tr.addNewlines
 #define Title3 @"忘记密码".tr
 #define Title4 @"返回首页".tr
-#define Title5 @"保存用户名".tr
+#define Title5 @"记住我".tr
 #define Title6 @"注册".tr
 #define Title7 @"登录".tr
 #define Title8 @"人工客服".tr
 #define Title9 @"获取验证码".tr
-#define Title10 @"人工客服".tr
-#define Title11 @"您也可以通过以下方式联系客服".tr
-#define Title12 @"以后".tr
+#define Title10 @"您也可以通过以下方式联系客服".tr
+#define Title11 @"以后".tr
+#define Title12 @"返回注册".tr.addNewlines
 /**
  
      1、账号密码长度提示为默认固定存在。

@@ -2,6 +2,14 @@ require_relative 'JobsPodspecKit'
 
 Pod::Spec.new do |spec|
 
+  support_context = JobsPodspecKitForJobsOCOpen.build_support_context(
+    podspec_dir: File.expand_path(File.dirname(__FILE__)),
+    support_dir: 'Support',
+    support_dependencies: [
+      'JobsBlock'
+    ]
+  )
+
   spec.name             = 'JobsOCOpen'
   spec.version          = '1.0.0'
   spec.summary          = 'Objective-C URL opening component for Jobs projects.'
@@ -17,14 +25,6 @@ JobsOCOpen ports JobsSwiftOpen to Objective-C and provides in-app web opening, e
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
-
-  if File.exist?(File.join(__dir__, 'JobsOCOpen.h'))
-    spec.source_files = 'JobsOCOpen.h'
-    spec.public_header_files = 'JobsOCOpen.h'
-  end
-
-  spec.header_dir = 'JobsOCOpen'
 
   spec.frameworks = [
     'Foundation',
@@ -39,12 +39,18 @@ JobsOCOpen ports JobsSwiftOpen to Objective-C and provides in-app web opening, e
   spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsStringUtils'
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources = 'Core/**/*.{png,jpg,jpeg,webp,gif,wav,mp3,caf,json,plist,xib,storyboard,bundle}'
-    ss.header_dir = 'JobsOCOpen'
-  end
+  spec.source_files = [
+    'JobsOCOpen.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsOCOpen.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsOCOpen'
+
+
+  JobsPodspecKitForJobsOCOpen.add_support_subspec(spec, support_context)
 
   JobsPodspecKitForJobsOCOpen.apply_standard_exclude_files(spec)
 

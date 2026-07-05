@@ -11,6 +11,7 @@
 
 -(instancetype)init{
     if (self = [super init]) {
+        _MENU_ITEM_CORNER_RADIUS = JobsWidth(8);
         _CLEAR_CONTENT_WHEN_MISSING = YES;
     };return self;
 }

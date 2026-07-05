@@ -6,7 +6,6 @@
 //
 
 #import "UIViewController+BackBtn.h"
-#import <objc/message.h>
 
 @implementation UIViewController (BackBtn)
 /// GKNavigationBar 返回按钮点击方法

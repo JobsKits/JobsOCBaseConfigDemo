@@ -7,15 +7,6 @@
 
 #import "RACEXTRuntimeExtensions.h"
 
-#import <ctype.h>
-#import <Foundation/Foundation.h>
-#import <libkern/OSAtomic.h>
-#import <objc/message.h>
-#import <pthread.h>
-#import <stdio.h>
-#import <stdlib.h>
-#import <string.h>
-
 rac_propertyAttributes *rac_copyPropertyAttributes (objc_property_t property) {
     const char * const attrString = property_getAttributes(property);
     if (!attrString) {
@@ -206,9 +197,7 @@ rac_propertyAttributes *rac_copyPropertyAttributes (objc_property_t property) {
         setterName[setterLength] = '\0';
 
         attributes->setter = sel_registerName(setterName);
-    }
-
-    return attributes;
+    };return attributes;
 
 errorOut:
     free(attributes);

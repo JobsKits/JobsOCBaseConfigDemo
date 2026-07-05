@@ -143,7 +143,8 @@ def patch_pods_project_podfile_references(installer)
   pods_project = installer.pods_project
   root_group = pods_project.main_group
   wanted_files = {
-    'Podfile' => '../Podfile'
+    'Podfile' => '../Podfile',
+    'Podfile.deps' => '../Podfile.deps'
   }
 
   wanted_files.each do |name, path|
@@ -314,6 +315,58 @@ def patch_xcframework_shell_script_invocations(installer)
   end
 end
 
+def patch_cocoapods_app_icon_resource_scripts
+  target_support_dir = File.join(__dir__, 'Pods', 'Target Support Files')
+  return unless Dir.exist?(target_support_dir)
+
+  actool_block = <<~'SH'.rstrip
+    if [[ -n "${WRAPPER_EXTENSION}" ]] && [ "`xcrun --find actool`" ] && [ -n "${XCASSET_FILES:-}" ]
+    then
+      # Find all other xcassets (this unfortunately includes those of path pods and other targets).
+      OTHER_XCASSETS=$(find -L "$PWD" -iname "*.xcassets" -type d)
+      while read line; do
+        if [[ $line != "${PODS_ROOT}*" ]]; then
+          XCASSET_FILES+=("$line")
+        fi
+      done <<<"$OTHER_XCASSETS"
+      printf "%s\0" "${XCASSET_FILES[@]}" | xargs -0 xcrun actool --output-format human-readable-text --notices --warnings --platform "${PLATFORM_NAME}" --minimum-deployment-target "${!DEPLOYMENT_TARGET_SETTING_NAME}" ${TARGET_DEVICE_ARGS} --compress-pngs --compile "${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
+    fi
+  SH
+  actool_block_pattern = /
+    ^if\ \[\[\ -n\ "\$\{WRAPPER_EXTENSION\}"\ \]\]\ &&\ \[\ "`xcrun\ --find\ actool`"\ \]\ &&\ \[\ -n\ "\$\{XCASSET_FILES:-\}"\ \]\n
+    then\n
+    .*?
+    ^fi$
+  /mx
+
+  Dir.glob(File.join(target_support_dir, '**', '*-resources.sh')).each do |script_path|
+    text = File.read(script_path)
+    next unless text.include?('xcrun actool')
+    next unless text.include?('--app-icon "${ASSETCATALOG_COMPILER_APPICON_NAME}"')
+
+    app_icon_block_pattern = /
+      \s*APP_ICON_RESOURCE_ARGS=\(\)\n
+      .*?
+      \s*if\ \[\ -z\ \$\{ASSETCATALOG_COMPILER_APPICON_NAME\+x\}\ \];\ then\n
+      .*?
+      \s*fi
+    /mx
+    fallback_block_pattern = /
+      \s*if\ \[\ -z\ \$\{ASSETCATALOG_COMPILER_APPICON_NAME\+x\}\ \];\ then\n
+      .*?
+      \s*fi
+    /mx
+    new_text = text.sub(actool_block_pattern) { actool_block }
+    new_text = new_text.sub(app_icon_block_pattern) { "\n#{actool_block}" } if new_text == text
+    new_text = new_text.sub(fallback_block_pattern) { "\n#{actool_block}" } if new_text == text
+    next if new_text == text
+
+    FileUtils.chmod('u+w', script_path) rescue nil
+    File.write(script_path, new_text)
+    Pod::UI.puts "[AppIconAssets] patched #{script_path}" if defined?(Pod::UI)
+  end
+end
+
 def jobs_config_xcconfig_path(installer)
   installer.aggregate_targets.each do |aggregate_target|
     project = aggregate_target.user_project
@@ -414,6 +467,7 @@ post_install do |installer|
   patch_reactiveobjc_metamacros_header(installer)
   patch_cocoapods_realpath_on_error_scripts
   patch_xcframework_shell_script_invocations(installer)
+  patch_cocoapods_app_icon_resource_scripts
 
   pods_project.save
 

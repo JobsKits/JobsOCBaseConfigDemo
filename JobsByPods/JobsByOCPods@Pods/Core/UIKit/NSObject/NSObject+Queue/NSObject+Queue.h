@@ -12,10 +12,10 @@
 #import <JobsByOCPods/NSMutableArray+Extra.h>
 #import <JobsByOCPods/NSString+Toast.h>
 
-#if __has_include(<JobsOCTimer/JobsTimer.h>)
-#import <JobsOCTimer/JobsTimer.h>
+#if __has_include(<JobsOCTimer/JobsOCTimer.h>)
+#import <JobsOCTimer/JobsOCTimer.h>
 #else
-#import "JobsTimer.h"
+#import "JobsOCTimer.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

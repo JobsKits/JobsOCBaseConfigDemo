@@ -38,10 +38,10 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsOCTimerMgr/JobsTimerMgr.h>)
-#import <JobsOCTimerMgr/JobsTimerMgr.h>
+#if __has_include(<JobsOCTimerMgr/JobsOCTimerMgr.h>)
+#import <JobsOCTimerMgr/JobsOCTimerMgr.h>
 #else
-#import "JobsTimerMgr.h"
+#import "JobsOCTimerMgr.h"
 #endif
 
 #if __has_include(<JobsOCPatch/JobsOCPatch.h>)

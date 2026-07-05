@@ -33,6 +33,7 @@ Prop_strong()UIColor *serialNumLabBGCor;
         @jobs_strongify(self)
         self.serialStr = toStringByLong(self.indexPath.row + 1);
         self.viewModel = model;
+        self.contentStr = model.textModel.text;
         switch (self.indexPath.row) {
             case 0:{
                 self.serialNumLabBGCor = RGB_COLOR(245, 58, 50);
@@ -47,8 +48,13 @@ Prop_strong()UIColor *serialNumLabBGCor;
                 self.serialNumLabBGCor = RGB_COLOR(232, 232, 232);
             }break;
         }
-        self.serialNumLab.byAlpha(1);
-        self.contentLab.byAlpha(1);
+        self.serialNumLab
+            .byText(self.serialStr)
+            .byBgColor(self.serialNumLabBGCor)
+            .byAlpha(1);
+        self.contentLab
+            .byText(self.contentStr)
+            .byAlpha(1);
         return self;
     };
 }
@@ -81,7 +87,7 @@ Prop_strong()UIColor *serialNumLabBGCor;
         _contentLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(self.viewModel.textModel.text)
+                .byText(self.contentStr)
                 .byTextCor(JobsLightGrayColor)
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {

@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
@@ -78,7 +84,7 @@ Prop_weak()id <XDTextBtnViewDelegate> delegate;
 /**
  * 总高度(第一行无上marginY 最后一行无下marginY)
  */
-@property (nonatomic, readonly, assign) CGFloat maxY;
+Prop_assign(readonly)CGFloat maxY;
 
 @end
 

@@ -66,7 +66,7 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(JobsBlackColor);
 
     self.makeNavByAlpha(1);
     self.tableView.byShow(self);
@@ -144,8 +144,9 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
         [self.player playTheIndexPath:indexPath assetURL:URL];
     }
 
-    [self.controlView resetControlView];
-    [self.controlView showCoverViewWithUrl:data.thumbnail_url];
+    self.controlView
+        .byResetControlView
+        .byShowCoverViewWithUrl(data.thumbnail_url);
     [self.fullControlView showTitle:@"custom landscape controlView".tr
                      coverURLString:data.thumbnail_url /// data.videoImg
                      fullScreenMode:ZFFullScreenModeLandscape];
@@ -229,7 +230,7 @@ numberOfRowsInSection:(NSInteger)section {
                  cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     self.indexPath = indexPath;
     return JobsVideoTBVCell.cellStyleValue1ByTableView(tableView)
-        .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
+        .byAccessoryType(UITableViewCellAccessoryNone)
         .byIndexPath(indexPath)
         .byIndex(indexPath.row)
         .byDelegate(self)
@@ -273,7 +274,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
             tableView.byPagingEnabled(YES)
-                .byBgColor(JobsLightGrayColor);
+                .byBgColor(JobsBlackColor);
             tableView.dataLink(self);
             tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .byShowsVerticalScrollIndicator(NO)

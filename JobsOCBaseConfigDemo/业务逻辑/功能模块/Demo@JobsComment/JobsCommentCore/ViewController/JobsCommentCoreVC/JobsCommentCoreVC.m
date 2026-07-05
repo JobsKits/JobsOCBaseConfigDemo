@@ -13,6 +13,15 @@ Prop_strong()JobsCommentTitleHeaderView *titleHeaderView;
 /// Data
 Prop_strong()JobsCommentModel *mjModel;
 Prop_strong()JobsCommentModel *yyModel;
+Prop_assign()CGFloat jobsPanBeginPopUpHeight;
+
+-(void)loadLocalCommentData;
+-(void)jobs_setupTitlePanGesture;
+-(CGFloat)jobs_minPopUpHeight;
+-(CGFloat)jobs_maxPopUpHeight;
+-(CGFloat)jobs_limitedPopUpHeight:(CGFloat)height;
+-(void)jobs_updateCommentPopUpHeight:(CGFloat)height;
+-(void)jobs_settleCommentPopUpHeightWithVelocity:(CGFloat)velocityY;
 
 @end
 
@@ -40,7 +49,7 @@ Prop_strong()JobsCommentModel *yyModel;
 -(void)viewDidLoad{
     [super viewDidLoad];
     
-    self.view.byBgColor(JobsOrangeColor);
+    self.view.byBgColor(HEXCOLOR(0xF6F7FB));
 
 //    @jobs_weakify(self)
 //    self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
@@ -57,13 +66,14 @@ Prop_strong()JobsCommentModel *yyModel;
     self.gk_navigationBar.jobsVisible = YES;
     
     self.titleHeaderView.byAlpha(1);
+    [self jobs_setupTitlePanGesture];
 
     self.tableView.byShow(self);
+    [self loadLocalCommentData];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.tableView.mj_header beginRefreshing];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -80,13 +90,13 @@ Prop_strong()JobsCommentModel *yyModel;
 }
 #pragma mark —— 一些公有方法
 -(void)setMJModel:(JobsCommentModel *)mjModel{
-    self.mjModel = mjModel;
-    self.tableView.endRefreshing(self.mjModel.listDataArr.count);
+    _mjModel = mjModel;
+    self.tableView.endRefreshing(_mjModel.listDataArr.count);
 }
 
 -(void)setYYModel:(JobsCommentModel *)yyModel{
-    self.yyModel = yyModel;
-    self.tableView.endRefreshing(self.mjModel.listDataArr.count);
+    _yyModel = yyModel;
+    self.tableView.endRefreshing(_yyModel.listDataArr.count);
 }
 
 -(JobsCommentTitleHeaderView *)getJobsCommentTitleHeaderView{
@@ -97,12 +107,72 @@ Prop_strong()JobsCommentModel *yyModel;
     return self.tableView;
 }
 #pragma mark —— 一些私有方法
+-(void)jobs_setupTitlePanGesture{
+    self.titleHeaderView.byUserInteractionEnabled(YES);
+    self.titleHeaderView.weak_target = self;
+    @jobs_weakify(self)
+    self.titleHeaderView.panGR_SelImp.selector = [self jobsSelectorBlock:^id _Nullable(id _Nullable target,
+                                                                                       UIPanGestureRecognizer *_Nullable sender) {
+        @jobs_strongify(self)
+        CGPoint translation = [sender translationInView:self.view.superview ? : self.view];
+        CGFloat velocityY = [sender velocityInView:self.view.superview ? : self.view].y;
+        if (sender.state == UIGestureRecognizerStateBegan) {
+            self.jobsPanBeginPopUpHeight = self.popUpHeight;
+        }
+        if (sender.state == UIGestureRecognizerStateChanged) {
+            [self jobs_updateCommentPopUpHeight:self.jobsPanBeginPopUpHeight - translation.y];
+        }
+        if (sender.state == UIGestureRecognizerStateEnded ||
+            sender.state == UIGestureRecognizerStateCancelled ||
+            sender.state == UIGestureRecognizerStateFailed) {
+            [self jobs_settleCommentPopUpHeightWithVelocity:velocityY];
+        };return nil;
+    }];
+    self.titleHeaderView.panGR.enabled = YES;
+    self.titleHeaderView.panGR.cancelsTouchesInView = NO;
+}
+
+-(CGFloat)jobs_minPopUpHeight{
+    return JobsMainScreen_HEIGHT() / 2;
+}
+
+-(CGFloat)jobs_maxPopUpHeight{
+    return JobsMainScreen_HEIGHT();
+}
+
+-(CGFloat)jobs_limitedPopUpHeight:(CGFloat)height{
+    return MIN(MAX(height, self.jobs_minPopUpHeight), self.jobs_maxPopUpHeight);
+}
+
+-(void)jobs_updateCommentPopUpHeight:(CGFloat)height{
+    self.popUpHeight = [self jobs_limitedPopUpHeight:height];
+    [self.presentationController.containerView setNeedsLayout];
+    [self.presentationController.containerView layoutIfNeeded];
+}
+
+-(void)jobs_settleCommentPopUpHeightWithVelocity:(CGFloat)velocityY{
+    CGFloat middleHeight = (self.jobs_minPopUpHeight + self.jobs_maxPopUpHeight) / 2;
+    CGFloat targetHeight = (velocityY < -300 || (velocityY <= 300 && self.popUpHeight >= middleHeight)) ? self.jobs_maxPopUpHeight : self.jobs_minPopUpHeight;
+    [UIView animateWithDuration:0.28
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+        [self jobs_updateCommentPopUpHeight:targetHeight];
+    } completion:NULL];
+}
+
 -(void)一级标题点击事件{
     @"一级标题点击事件".tr.toast();
 }
 
 -(void)二级标题点击事件{
     @"二级标题点击事件".tr.toast();
+}
+#pragma mark —— Data
+-(void)loadLocalCommentData{
+    NSDictionary *dic = @"CommentData".readLocalFileWithName;
+    self.mjModel = [JobsCommentModel mj_objectWithKeyValues:dic[@"data"]];
+    JobsLog(@"self.mjModel = %@",self.mjModel);
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource ——————————
 -(CGFloat)tableView:(UITableView *)tableView
@@ -111,13 +181,15 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 -(CGFloat)tableView:(UITableView *)tableView
-heightForFooterInSectionByModel:(NSInteger)section{
-    return 0.0f;
+heightForFooterInSection:(NSInteger)section{
+    return JobsWidth(8);
 }
 
 -(nullable __kindof UIView *)tableView:(UITableView *)tableView
                 viewForFooterInSection:(NSInteger)section{
-    return nil;
+    return jobsMakeView(^(__kindof UIView * _Nullable view) {
+        view.byBgColor(HEXCOLOR(0xF6F7FB));
+    });
 }
 
 -(void)tableView:(UITableView *)tableView
@@ -232,12 +304,8 @@ heightForHeaderInSection:(NSInteger)section{///  👌
                          .byNoMoreDataTitle(@"下拉刷新数据".tr);
                     model.loadBlock = ^id _Nullable(id _Nullable data) {
                         @jobs_strongify(self)
-                        /// 装载本地假数据
-                        NSDictionary *dic = @"CommentData".readLocalFileWithName;
-                        self.mjModel = [JobsCommentModel mj_objectWithKeyValues:dic[@"data"]];
+                        [self loadLocalCommentData];
                     //    self.yyModel = [MKCommentModel yy_modelWithDictionary:dic[@"data"]];
-                        JobsLog(@"self.mjModel = %@",self.mjModel);
-                        self.tableView.endRefreshing(self.mjModel.listDataArr.count);
                         // 特别说明：pagingEnabled = YES 在此会影响Cell的偏移量，原作者希望我们在这里临时关闭一下，刷新完成以后再打开
                         self.tableView.pagingEnabled = NO;
                         self.tableView.mj_footer.state = MJRefreshStateIdle;
@@ -261,16 +329,16 @@ heightForHeaderInSection:(NSInteger)section{///  👌
                 })))
                 .byShowsVerticalScrollIndicator(NO)
                 .byShowsHorizontalScrollIndicator(NO)
-                .byContentInset(UIEdgeInsetsMake(0, 0, self.popUpHeight, 0))
-                .byBgColor(HEXCOLOR(0x242A37))
+                .byContentInset(UIEdgeInsetsMake(JobsWidth(8), 0, JobsBottomSafeAreaHeight(), 0))
+                .byBgColor(HEXCOLOR(0xF6F7FB))
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
                     make.top.equalTo(self.titleHeaderView.mas_bottom);
                     make.bottom.left.right.equalTo(self.view);
                 });
-            tableView.mj_footer.byHidden(NO);
-            tableView.mj_footer.byBgColor(JobsRedColor);
+            tableView.mj_footer.byHidden(YES);
+            tableView.mj_footer.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
             self.view.mjRefreshTargetView = tableView;
         });
     };return _tableView;

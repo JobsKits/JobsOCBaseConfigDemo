@@ -17,13 +17,16 @@ JobsRandomUtils provides random number related utility methods.
   spec.source           = { :path => '.' }
   spec.module_name      = 'JobsRandomUtils'
 
-  spec.header_mappings_dir = 'Core'
-  spec.default_subspecs = 'Core'
+  spec.source_files = [
+    'JobsRandomUtilsHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsRandomUtilsHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsRandomUtils'
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-  end
 
   JobsPodspecKitForJobsRandomUtils.apply_standard_exclude_files(spec)
 

@@ -16,6 +16,12 @@
 #import "ZFAVPlayerManager.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -23,9 +29,6 @@
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
-
-typedef __kindof ZFAVPlayerManager *_Nullable(^JobsRetZFAVPlayerManagerByTimeIntervalBlock)(NSTimeInterval data);
-typedef __kindof ZFAVPlayerManager *_Nullable(^JobsRetZFAVPlayerManagerByDictionaryBlock)(NSDictionary *_Nullable data);
 
 @interface ZFAVPlayerManager (DSL)
 

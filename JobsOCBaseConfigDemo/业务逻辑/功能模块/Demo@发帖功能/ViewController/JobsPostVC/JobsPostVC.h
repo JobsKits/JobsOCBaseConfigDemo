@@ -26,10 +26,10 @@
 #import "JobsLanMgr.h"
 #endif
 
-#if __has_include(<FileFolderHandleTool/FileFolderHandleTool.h>)
-#import <FileFolderHandleTool/FileFolderHandleTool.h>
+#if __has_include(<FileFolderHandleTool/FileFolderHandleToolHeader.h>)
+#import <FileFolderHandleTool/FileFolderHandleToolHeader.h>
 #else
-#import "FileFolderHandleTool.h"
+#import "FileFolderHandleToolHeader.h"
 #endif
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)

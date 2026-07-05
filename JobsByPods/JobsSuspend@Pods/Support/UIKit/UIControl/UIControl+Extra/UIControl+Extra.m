@@ -8,13 +8,12 @@
 #import "UIControl+Extra.h"
 #import <JobsSuspend/JobsControlTarget.h>
 
-static const void *kJobsTargetsMapKey = &kJobsTargetsMapKey;
-
+JobsKey(kJobsTargetsMapKey)
 static inline NSMutableDictionary<NSNumber *, JobsControlTarget *> *jobs_targetsMap(UIControl *ctl, BOOL createIfMissing) {
-    NSMutableDictionary *map = objc_getAssociatedObject(ctl, kJobsTargetsMapKey);
+    NSMutableDictionary *map = Jobs_getAssociatedObjectByTarget(ctl, kJobsTargetsMapKey);
     if (!map && createIfMissing) {
         map = NSMutableDictionary.dictionary;
-        objc_setAssociatedObject(ctl, kJobsTargetsMapKey, map, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        Jobs_setAssociatedRETAIN_NONATOMICByTarget(ctl, kJobsTargetsMapKey, map)
     };return map;
 }
 

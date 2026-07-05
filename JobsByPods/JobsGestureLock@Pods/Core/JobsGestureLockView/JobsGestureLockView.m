@@ -7,19 +7,13 @@
 
 #import "JobsGestureLockView.h"
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 @interface JobsGestureLockView ()
 
 Prop_strong()NSMutableArray<UIButton *> *selectedButtons;
 Prop_strong()NSMutableArray<UIButton *> *errorButtons;
 Prop_assign()CGPoint currentPoint;
 Prop_assign()BOOL finished;
-@property (nonatomic, assign, readwrite) JobsGestureLockValidationResult validationResult;
+Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
 
 @end
 

@@ -12,6 +12,18 @@
 "英文" = "Ingles";
 "他加禄语" = "Tagalog";
 "6.59" = "6.59.png";
+/// 设置
+"返回" = "Bumalik";
+"设置" = "Mga Setting";
+"应用语言" = "Wika ng App";
+"开屏：开" = "Splash: Bukas";
+"开屏：关" = "Splash: Sarado";
+"返回：回顶部并刷新" = "Bumalik: itaas at i-refresh";
+"返回：保持原样" = "Bumalik: panatilihin";
+"下次打开开屏" = "Ipapakita ang splash sa susunod na bukas";
+"下次关闭开屏" = "Isasara ang splash sa susunod na bukas";
+"返回主列表：回顶部并刷新" = "Listahan: itaas at i-refresh";
+"返回主列表：保持原样" = "Listahan: panatilihin";
 /// 权限设置
 "App需要您的同意，才能访问您的面容识别功能，用于安全验证" = "Kailangan ng App ang iyong pahintulot upang ma-access ang iyong face recognition para sa seguridad na pagpapatunay";
 "添加曲目到您的音乐库" = "Magdagdag ng mga kanta sa iyong music library";
@@ -47,10 +59,13 @@
 "暂无数据" = "Walang data";
 /// 登陆/注册/忘记密码
 "返\n回\n登\n录" = "Bum\nal\nik\nsa\nPag-\nlo\ngin";
+"返\n回\n注\n册" = "Bum\nal\nik\nsa\nPag-\nre\nhis\ntro";
 "新\n用\n户\n注\n册" = "Mag-re\nhis\ntro ng\nBag\nong\nGu\nmit";
 "忘记密码" = "Nakalimutan ang password";
 "返回首页" = "Bumalik sa Home Page";
+"返回注册" = "Bumalik sa pagpaparehistro";
 "保存用户名" = "I-save ang username";
+"记住我" = "Tandaan ako";
 "注册" = "Magparehistro";
 "登录" = "Mag-login";
 "获取验证码" = "Kumuha ng verification code";

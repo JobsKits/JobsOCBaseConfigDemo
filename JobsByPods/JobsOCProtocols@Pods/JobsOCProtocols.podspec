@@ -16,10 +16,8 @@ JobsOCProtocols provides shared protocol definitions.
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
 
-  spec.source_files        = 'JobsBaseProtocolHeader.h'
-  spec.public_header_files = 'JobsBaseProtocolHeader.h'
 
-  spec.default_subspecs = 'Core'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff}'
 
   JobsPodspecKitForJobsOCProtocols.apply_standard_exclude_files(spec)
 
@@ -36,15 +34,20 @@ JobsOCProtocols provides shared protocol definitions.
   spec.dependency 'ReactiveObjC'
   spec.dependency 'YTKNetwork'
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.header_dir          = 'JobsOCProtocols'
-  end
+  spec.source_files = [
+    'JobsBaseProtocolHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsBaseProtocolHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsOCProtocols'
 
-  JobsPodspecKitForJobsOCProtocols.apply_standard_pod_target_xcconfig(
+
+  JobsPodspecKitForJobsOCProtocols.apply_standard_xcconfig(
     spec,
-    {
+    pod_target_xcconfig: {
       'PRODUCT_MODULE_NAME' => 'JobsOCProtocols',
       'DEFINES_MODULE' => 'YES',
       'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'

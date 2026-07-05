@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_NSOBJECT_DEVICEID_4354B1AD1B
 
 #import <Foundation/Foundation.h>
+#import <Security/Security.h>
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>

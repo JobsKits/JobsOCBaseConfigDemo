@@ -60,6 +60,8 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
 @interface FSCalendar ()<UICollectionViewDataSource,UICollectionViewDelegate,FSCalendarCollectionViewInternalDelegate,UIGestureRecognizerDelegate>
 {
     NSMutableArray  *_selectedDates;
+    BOOL _usesSystemToday;
+    BOOL _todayExplicitlyNil;
 }
 
 Prop_strong()NSCalendar *gregorian;
@@ -178,8 +180,11 @@ Prop_strong()FSCalendarAppearance *appearance;
 }
 @synthesize today = _today;
 -(NSDate *)today{
+    if (_todayExplicitlyNil) {
+        return nil;
+    }
     if(!_today){
-        _today = [self.gregorian startOfDayForDate:NSDate.date];
+        [self updateToday];
     };return _today;
 }
 @synthesize currentPage = _currentPage;
@@ -204,7 +209,7 @@ Prop_strong()FSCalendarAppearance *appearance;
 -(NSArray<NSDate *> *)selectedDates{
     if(!_selectedDates){
         _selectedDates = NSMutableArray.array;
-    };return _selectedDates;
+    };return [NSArray arrayWithArray:_selectedDates];
 }
 
 -(NSMapTable *)visibleSectionHeaders{
@@ -299,6 +304,8 @@ Prop_strong()FSCalendarAppearance *appearance;
 
 - (void)initialize
 {
+    _usesSystemToday = YES;
+    _selectedDates = NSMutableArray.array;
     _firstWeekday = 1;
     [self invalidateDateTools];
 
@@ -376,7 +383,7 @@ Prop_strong()FSCalendarAppearance *appearance;
 
 - (void)setTimeZone:(NSTimeZone *)tz
 {
-    _timeZone = tz;
+    _timeZone = tz ?: NSTimeZone.defaultTimeZone;
     [self invalidateDateTools];
 }
 
@@ -799,13 +806,17 @@ Prop_strong()FSCalendarAppearance *appearance;
 {
     if (!today) {
         _today = nil;
+        _usesSystemToday = NO;
+        _todayExplicitlyNil = YES;
     } else {
         FSCalendarAssertDateInBounds(today,self.gregorian,self.minimumDate,self.maximumDate);
-        [self updateToday];
+        _today = [self.gregorian startOfDayForDate:today];
+        _usesSystemToday = NO;
+        _todayExplicitlyNil = NO;
     }
     if (self.hasValidateVisibleLayout) {
         [self.visibleCells makeObjectsPerformSelector:@selector(setDateIsToday:) withObject:nil];
-        if (today) [[_collectionView cellForItemAtIndexPath:[self.calculator indexPathForDate:today]] setValue:@YES forKey:@"dateIsToday"];
+        if (_today) [[_collectionView cellForItemAtIndexPath:[self.calculator indexPathForDate:_today]] setValue:@YES forKey:@"dateIsToday"];
         [self.visibleCells makeObjectsPerformSelector:@selector(configureAppearance)];
     }
 }
@@ -1372,6 +1383,10 @@ Prop_strong()FSCalendarAppearance *appearance;
 
 - (void)updateToday
 {
+    if (!_usesSystemToday) {
+        if (_today) _today = [self.gregorian startOfDayForDate:_today];
+        return;
+    }
     NSDateComponents *dateComponents = [self.gregorian components:(NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay) fromDate:[NSDate date]];
     dateComponents.hour = 0;
     dateComponents.minute = 0;
@@ -1698,4 +1713,3 @@ Prop_strong()FSCalendarAppearance *appearance;
 }
 
 @end
-

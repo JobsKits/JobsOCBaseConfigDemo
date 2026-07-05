@@ -11,6 +11,12 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 typedef NS_ENUM(NSUInteger, JHGestureType) {
     JHGestureType_Tap,      // 点击
     JHGestureType_LongPress,// 长按

@@ -391,7 +391,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
             @jobs_strongify(self)
             textView
                 .byBgColor(JobsWhiteColor)
-                .JobsRichViewByModel2(self.viewModel.textModel)
+                .JobsRichViewByModel2(self.postTextModel)
                 .JobsBlock1(^(id  _Nullable data) {
                     @jobs_strongify(self)
                     NSString *x = (NSString *)data;
@@ -445,6 +445,9 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
                     .byPhotoMaxNum(9)
                     .bySelectTogether(NO);
             });
+            manager.viewWillAppear = ^(UIViewController *viewController) {
+                [viewController.navigationController setNavigationBarHidden:NO animated:NO];
+            };
         });
     };return _photoManager;
 }

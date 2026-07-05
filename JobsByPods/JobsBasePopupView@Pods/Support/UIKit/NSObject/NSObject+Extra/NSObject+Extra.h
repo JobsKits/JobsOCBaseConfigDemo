@@ -10,12 +10,14 @@
 
 #pragma once
 
+#import <objc/message.h>
 #import <objc/runtime.h>
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h> // 用于调用系统级音频能力。
 #import <JobsBasePopupView/UIColor+Extra.h>
 #import <JobsBasePopupView/NSString+Extra.h>
 #import <JobsBasePopupView/UIImpactFeedbackGenerator+Extra.h>
+#import <JobsBasePopupView/NSString+Sys.h>
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
@@ -47,10 +49,10 @@
 #import "JobsOCDSL.h"
 #endif
 
-#if __has_include(<JobsStringUtils/JobsStringUtils.h>)
-#import <JobsStringUtils/JobsStringUtils.h>
+#if __has_include(<JobsStringUtils/JobsStringUtilsHeader.h>)
+#import <JobsStringUtils/JobsStringUtilsHeader.h>
 #else
-#import "JobsStringUtils.h"
+#import "JobsStringUtilsHeader.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

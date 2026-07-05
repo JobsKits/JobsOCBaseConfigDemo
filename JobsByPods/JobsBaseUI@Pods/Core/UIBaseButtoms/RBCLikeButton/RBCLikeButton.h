@@ -29,16 +29,16 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsLoadingImage/JobsLoadingImage.h>)
-#import <JobsLoadingImage/JobsLoadingImage.h>
+#if __has_include(<JobsLoadingImage/JobsLoadingImageHeader.h>)
+#import <JobsLoadingImage/JobsLoadingImageHeader.h>
 #else
-#import "JobsLoadingImage.h"
+#import "JobsLoadingImageHeader.h"
 #endif
 
-#if __has_include(<JobsStringUtils/JobsStringUtils.h>)
-#import <JobsStringUtils/JobsStringUtils.h>
+#if __has_include(<JobsStringUtils/JobsStringUtilsHeader.h>)
+#import <JobsStringUtils/JobsStringUtilsHeader.h>
 #else
-#import "JobsStringUtils.h"
+#import "JobsStringUtilsHeader.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)

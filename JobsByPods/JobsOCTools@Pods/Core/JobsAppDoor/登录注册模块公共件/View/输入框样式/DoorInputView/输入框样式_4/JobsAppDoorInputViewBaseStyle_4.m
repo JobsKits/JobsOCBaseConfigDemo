@@ -10,6 +10,7 @@
 @interface JobsAppDoorInputViewBaseStyle_4 ()
 /// UI
 Prop_strong()ImageCodeView *imageCodeView;
+Prop_strong()UIImageView *leftIMGV;
 /// Data
 Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 
@@ -43,13 +44,12 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 }
 #pragma mark —— 一些私有方法
 -(void)configTextField{
-    self.magicTextField.leftView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-        imageView
-            .byImage(self.doorInputViewBaseStyleModel.leftViewIMG)
-            .byContentMode(UIViewContentModeScaleAspectFit)
-            .byFrame(CGRectMake(0, 0, JobsWidth(20), JobsWidth(20)));
-    });
-    self.magicTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
+    UIImage *leftImage = self.doorInputViewBaseStyleModel.leftViewIMG;
+    CGFloat leftOffset = leftImage ? (self.doorInputViewBaseStyleModel.leftViewOffsetX ? : JobsWidth(17)) : 0;
+    CGFloat placeholderOffset = leftImage ? (self.doorInputViewBaseStyleModel.placeHolderOffset ? : JobsWidth(35)) : JobsWidth(12);
+    self.leftIMGV.byImage(leftImage).byAlpha(leftImage ? 1 : 0);
+    self.magicTextField.leftView = nil;
+    self.magicTextField.leftViewMode = UITextFieldViewModeNever;
     self.magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
     self.magicTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
     self.magicTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
@@ -61,11 +61,12 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     self.magicTextField.placeholderColor = self.doorInputViewBaseStyleModel.placeholderColor;
     self.magicTextField.placeholderFont = self.doorInputViewBaseStyleModel.placeholderFont;
     self.magicTextField.requestParams = self.textFieldInputModel;
-    self.magicTextField.leftViewOffsetX = self.doorInputViewBaseStyleModel.leftViewOffsetX ? : JobsWidth(17);
+    self.magicTextField.leftViewOffsetX = leftOffset;
+    self.magicTextField.text_offset = leftImage ? (self.doorInputViewBaseStyleModel.offset ? : placeholderOffset) : JobsWidth(12);
     self.magicTextField.animationColor = self.doorInputViewBaseStyleModel.animationColor ? : Cor3;
     self.magicTextField.moveDistance = self.doorInputViewBaseStyleModel.moveDistance ? : JobsWidth(35);
     self.magicTextField.placeHolderAlignment = self.doorInputViewBaseStyleModel.placeHolderAlignment ? : NSTextAlignmentLeft;
-    self.magicTextField.placeHolderOffset = self.doorInputViewBaseStyleModel.placeHolderOffset ? : JobsWidth(20);
+    self.magicTextField.placeHolderOffset = placeholderOffset;
     self.magicTextField.fieldEditorOffset = self.doorInputViewBaseStyleModel.fieldEditorOffset ? : JobsWidth(50);
 }
 
@@ -86,6 +87,23 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     return ^CGSize(id _Nullable data){
         return CGSizeMake(JobsWidth(345), JobsWidth(30));
     };
+}
+
+-(UIImageView *)leftIMGV{
+    if (!_leftIMGV) {
+        @jobs_weakify(self)
+        _leftIMGV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            @jobs_strongify(self)
+            imageView
+                .byContentMode(UIViewContentModeScaleAspectFit)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self).offset(JobsWidth(17));
+                    make.centerY.equalTo(self);
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(16), JobsWidth(16)));
+                });
+        });
+    };return _leftIMGV;
 }
 
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{

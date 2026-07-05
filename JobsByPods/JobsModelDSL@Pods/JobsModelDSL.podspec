@@ -20,10 +20,6 @@ Pod::Spec.new do |spec|
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
-  spec.source_files        = 'JobsModelDSL.h'
-  spec.public_header_files = 'JobsModelDSL.h'
-  spec.header_dir          = 'JobsModelDSL'
 
   spec.frameworks = [
     'Foundation',
@@ -40,13 +36,16 @@ Pod::Spec.new do |spec|
 
   JobsPodspecKitForJobsModelDSL.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    JobsPodspecKitForJobsModelDSL.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsModelDSL.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsModelDSL.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsModelDSL'
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.header_dir          = 'JobsModelDSL'
-  end
 
   JobsPodspecKitForJobsModelDSL.apply_standard_exclude_files(spec)
   JobsPodspecKitForJobsModelDSL.apply_standard_xcconfig(spec)

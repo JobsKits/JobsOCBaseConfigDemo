@@ -36,9 +36,14 @@
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(id _Nullable model) {
         @jobs_strongify(self)
-        self.textLabel.byText(model);
-
-        return self;
+        if ([model isKindOfClass:UIViewModel.class]) {
+            UIViewModel *viewModel = (UIViewModel *)model;
+            self.textLabel.byText(viewModel.textModel.text);
+        } else if ([model isKindOfClass:NSString.class]) {
+            self.textLabel.byText(model);
+        } else {
+            self.textLabel.byText(@"");
+        };return self;
     };
 }
 

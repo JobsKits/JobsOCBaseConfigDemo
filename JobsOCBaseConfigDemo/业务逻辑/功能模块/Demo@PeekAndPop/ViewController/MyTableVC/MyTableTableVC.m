@@ -76,11 +76,6 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    // 添加 UIContextMenuInteraction 到每个表格单元格
-    for (UITableViewCell *cell in self.tableView.visibleCells) {
-        UIContextMenuInteraction *interaction = [UIContextMenuInteraction.alloc initWithDelegate:self];
-        [cell addInteraction:interaction];
-    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -124,135 +119,33 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
         }));
     });return dataMutArr;
 }
-#pragma mark —— UIContextMenuInteractionDelegate
-/**
- * 当长按触发上下文菜单交互时调用此方法。
- * 返回一个 UIContextMenuConfiguration 对象，用于配置菜单的内容和行为。
- *
- * @param interaction 触发该方法的 UIContextMenuInteraction 对象。
- * @param location 触发上下文菜单的位置。
- * @return 一个 UIContextMenuConfiguration 对象，用于配置菜单内容和行为。
- */
-- (nullable UIContextMenuConfiguration *)contextMenuInteraction:(UIContextMenuInteraction *)interaction
-                                 configurationForMenuAtLocation:(CGPoint)location {
-    // 获取点击位置在表视图中的索引路径
-    CGPoint locationInTableView = [self.tableView convertPoint:location fromView:interaction.view];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:locationInTableView];
-    // 确保索引路径有效
-    if (indexPath) {
-        // 确定触发菜单的单元格
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        // 配置预览视图控制器
-        UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:indexPath
-                                                                                          previewProvider:^UIViewController * _Nullable{
-            // 创建并配置预览视图控制器
-            PreviewVC *previewVC = PreviewVC.new;
-            previewVC.previewText = [NSString stringWithFormat:@"Preview for row %ld", (long)indexPath.row];
-            return previewVC;
-        } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> *suggestedActions) {
-            /// 创建菜单项并返回菜单
-            return [UIMenu menuWithTitle:@"".tr children:jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
-                arr.add([UIAction actionWithTitle:@"Action 1".tr
-                                            image:nil
-                                       identifier:nil
-                                          handler:^(__kindof UIAction * _Nonnull action) {
-                    JobsLog(@"Action 1 selected for row %ld", (long)indexPath.row);
-                }])
-                .add([UIAction actionWithTitle:@"Action 2".tr
-                                            image:nil
-                                       identifier:nil
-                                          handler:^(__kindof UIAction * _Nonnull action) {
-                    JobsLog(@"Action 2 selected for row %ld", (long)indexPath.row);
-                }]);
-            })];
-        }];return configuration;
-    };return nil;
-}
-/**
- * 提供一个定制的 UITargetedPreview 对象，用于在高亮显示菜单项时使用。
- *
- * @param interaction 触发该方法的 UIContextMenuInteraction 对象。
- * @param configuration 当前菜单配置。
- * @param identifier 被高亮显示的菜单项的标识符。
- * @return 一个定制的 UITargetedPreview 对象，或 nil 表示使用默认行为。
- */
-//- (nullable UITargetedPreview *)contextMenuInteraction:(UIContextMenuInteraction *)interaction
-//                                         configuration:(UIContextMenuConfiguration *)configuration
-//                 highlightPreviewForItemWithIdentifier:(id<NSCopying>)identifier {
-//    // 提供高亮显示时的预览
-//}
-/**
- * 提供一个定制的 UITargetedPreview 对象，用于在菜单项消失时使用。
- *
- * @param interaction 触发该方法的 UIContextMenuInteraction 对象。
- * @param configuration 当前菜单配置。
- * @param identifier 被消失的菜单项的标识符。
- * @return 一个定制的 UITargetedPreview 对象，或 nil 表示使用默认行为。
- */
-//- (nullable UITargetedPreview *)contextMenuInteraction:(UIContextMenuInteraction *)interaction
-//                                         configuration:(UIContextMenuConfiguration *)configuration
-//                 dismissalPreviewForItemWithIdentifier:(id<NSCopying>)identifier {
-//    // 提供消失时的预览
-//}
-/**
- * 当用户选择一个菜单项并触发预览操作时调用此方法。
- *
- * @param interaction 触发该方法的 UIContextMenuInteraction 对象。
- * @param configuration 当前菜单配置。
- * @param animator 一个动画器对象，用于自定义预览动画。
- */
-- (void)contextMenuInteraction:(UIContextMenuInteraction *)interaction
-willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration
-                      animator:(id<UIContextMenuInteractionCommitAnimating>)animator {
-    // 处理预览操作
-}
-/**
- * 当上下文菜单将要显示时调用此方法。
- *
- * @param interaction 触发该方法的 UIContextMenuInteraction 对象。
- * @param configuration 当前菜单配置。
- * @param animator 一个动画器对象，用于自定义显示动画。
- */
-- (void)contextMenuInteraction:(UIContextMenuInteraction *)interaction
-willDisplayMenuForConfiguration:(UIContextMenuConfiguration *)configuration
-                      animator:(nullable id<UIContextMenuInteractionAnimating>)animator {
-    // 处理菜单显示
-}
-/**
- * 当上下文菜单将要结束时调用此方法。
- *
- * @param interaction 触发该方法的 UIContextMenuInteraction 对象。
- * @param configuration 当前菜单配置。
- * @param animator 一个动画器对象，用于自定义结束动画。
- */
-- (void)contextMenuInteraction:(UIContextMenuInteraction *)interaction
-       willEndForConfiguration:(UIContextMenuConfiguration *)configuration
-                      animator:(nullable id<UIContextMenuInteractionAnimating>)animator {
-    // 处理菜单结束
-}
-/**
- * 提供一个定制的 UITargetedPreview 对象，用于在高亮显示菜单时使用。
- *
- * @param interaction 触发该方法的 UIContextMenuInteraction 对象。
- * @param configuration 当前菜单配置。
- * @return 一个定制的 UITargetedPreview 对象，或 nil 表示使用默认行为。
- */
-//- (nullable UITargetedPreview *)contextMenuInteraction:(UIContextMenuInteraction *)interaction
-//           previewForHighlightingMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
-//    // 提供菜单高亮显示时的预览
-//}
-/**
- * 提供一个定制的 UITargetedPreview 对象，用于在菜单消失时使用。
- *
- * @param interaction 触发该方法的 UIContextMenuInteraction 对象。
- * @param configuration 当前菜单配置。
- * @return 一个定制的 UITargetedPreview 对象，或 nil 表示使用默认行为。
- */
-//- (nullable UITargetedPreview *)contextMenuInteraction:(UIContextMenuInteraction *)interaction
-//             previewForDismissingMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
-//    // 提供菜单消失时的预览
-//}
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
+- (nullable UIContextMenuConfiguration *)tableView:(UITableView *)tableView
+          contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath
+                                             point:(CGPoint)point {
+    if (indexPath.row >= self.dataMutArr.count) return nil;
+    return [UIContextMenuConfiguration configurationWithIdentifier:indexPath
+                                                   previewProvider:^UIViewController * _Nullable{
+        PreviewVC *previewVC = PreviewVC.new;
+        previewVC.previewText = [NSString stringWithFormat:@"Preview for row %ld", (long)indexPath.row];
+        return previewVC;
+    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> *suggestedActions) {
+        UIAction *action1 = [UIAction actionWithTitle:@"Action 1".tr
+                                                image:nil
+                                           identifier:nil
+                                              handler:^(__kindof UIAction * _Nonnull action) {
+            JobsLog(@"Action 1 selected for row %ld", (long)indexPath.row);
+        }];
+        UIAction *action2 = [UIAction actionWithTitle:@"Action 2".tr
+                                                image:nil
+                                           identifier:nil
+                                              handler:^(__kindof UIAction * _Nonnull action) {
+            JobsLog(@"Action 2 selected for row %ld", (long)indexPath.row);
+        }];
+        return [UIMenu menuWithTitle:@"".tr children:@[action1, action2]];
+    }];
+}
+
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     

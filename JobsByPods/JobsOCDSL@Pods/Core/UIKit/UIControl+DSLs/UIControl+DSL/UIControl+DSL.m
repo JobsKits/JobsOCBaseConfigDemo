@@ -37,10 +37,7 @@ static void JobsAddClosureAction(UIControl *control,
     if (!control || !handler) return;
     _JobsClosureWrapper *wrapper = [_JobsClosureWrapper.alloc initWithHandler:handler];
     NSString *key = [NSString stringWithFormat:@"[[jobs_event_%lu]]",(unsigned long)events];
-    objc_setAssociatedObject(control,
-                             (__bridge const void *)(key),
-                             wrapper,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey(control, (__bridge const void *)(key), wrapper)
     [control addTarget:wrapper
                 action:@selector(invoke:)
       forControlEvents:events];

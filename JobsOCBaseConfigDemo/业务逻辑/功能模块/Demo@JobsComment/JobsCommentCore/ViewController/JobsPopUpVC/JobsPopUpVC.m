@@ -9,9 +9,13 @@
 
 @interface JobsPopUpVC ()
 
+-(void)jobs_updatePreferredContentSize;
+
 @end
 
 @implementation JobsPopUpVC
+
+@synthesize popUpHeight = _popUpHeight;
 
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
@@ -30,16 +34,15 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.view.byBgColor(JobsRedColor);
-
     self.isHiddenNavigationBar = YES;//禁用系统的导航栏
+    [self jobs_updatePreferredContentSize];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     UITabBar *tabBar = self.getTabBar;
     if (tabBar) tabBar.byHidden(YES);
-
-    self.view.mj_y = self.popUpHeight;// 只能用present方式退出界面，否则无效
+    [self jobs_updatePreferredContentSize];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -49,10 +52,19 @@
 
 }
 #pragma mark —— lazyLoad
+-(void)setPopUpHeight:(CGFloat)popUpHeight{
+    _popUpHeight = popUpHeight;
+    [self jobs_updatePreferredContentSize];
+}
+
 -(CGFloat)popUpHeight{
-    if (_popUpHeight == 0) {
-        _popUpHeight = 200;//默认弹出高度300
+    if (_popUpHeight <= 0) {
+        _popUpHeight = JobsMainScreen_HEIGHT() / 2;//默认弹出高度
     };return _popUpHeight;
+}
+#pragma mark —— Private
+-(void)jobs_updatePreferredContentSize{
+    self.preferredContentSize = CGSizeMake(JobsRealWidth(), self.popUpHeight);
 }
 
 @end

@@ -24,10 +24,16 @@ and extension points for Lottie, GIF, frame images, and network images.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
+  spec.default_subspecs = :none
 
-  spec.source_files        = 'JobsOCRefresher.h'
-  spec.public_header_files = 'JobsOCRefresher.h'
+  spec.source_files = [
+    'JobsOCRefresher.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsOCRefresher.h',
+    'Core/**/*.h'
+  ]
   spec.header_dir          = 'JobsOCRefresher'
 
   spec.frameworks = [
@@ -41,29 +47,17 @@ and extension points for Lottie, GIF, frame images, and network images.
 
   JobsPodspecKitForJobsOCRefresher.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    JobsPodspecKitForJobsOCRefresher.add_dynamic_support_dependencies(ss, spec, support_context)
-
-    ss.source_files        = ['JobsOCRefresher.h', 'Core/**/*.{h,m,mm}']
-    ss.public_header_files = ['JobsOCRefresher.h', 'Core/**/*.h']
-    ss.resources           = 'Core/**/*.{png,jpg,jpeg,webp,gif,wav,mp3,caf,json,plist,xib,storyboard,bundle,xcassets,strings,stringsdict}'
-    ss.header_dir          = 'JobsOCRefresher'
-  end
-
   spec.subspec 'Lottie' do |ss|
-    ss.dependency 'JobsOCRefresher/Core'
     ss.dependency 'lottie-ios', '~> 2.5.3'
   end
 
   spec.subspec 'SDWebImage' do |ss|
-    ss.dependency 'JobsOCRefresher/Core'
     ss.dependency 'SDWebImage'
   end
 
   spec.subspec 'FrameAnimation' do |ss|
-    ss.dependency 'JobsOCRefresher/Core'
-    ss.dependency 'JobsOCTimer/Core'
-    ss.dependency 'JobsOCTimerMgr/Core'
+    ss.dependency 'JobsOCTimer'
+    ss.dependency 'JobsOCTimerMgr'
   end
 
   JobsPodspecKitForJobsOCRefresher.apply_standard_exclude_files(spec)

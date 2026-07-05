@@ -8,12 +8,16 @@
 #import "JobsScrollYView.h"
 
 @interface JobsScrollYView ()
+<
+UILocationProtocol
+>
 
 Prop_assign()CGPoint initialTouchPoint;
 
 @end
 
 @implementation JobsScrollYView
+UILocationProtocol_synthesize
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{

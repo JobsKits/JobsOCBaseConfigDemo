@@ -33,10 +33,7 @@ BRAddressPickerView have been replaced by BRTextPickerView-based APIs.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
 
-  spec.source_files = 'BRPickerViewExtra.h'
-  spec.public_header_files = 'BRPickerViewExtra.h'
 
   spec.frameworks = [
     'Foundation',
@@ -46,22 +43,24 @@ BRAddressPickerView have been replaced by BRTextPickerView-based APIs.
   JobsPodspecKitForBRPickerViewExtra.apply_standard_exclude_files(spec)
   JobsPodspecKitForBRPickerViewExtra.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForBRPickerViewExtra.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'BRPickerViewExtra.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'BRPickerViewExtra.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'BRPickerViewExtra'
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources           = 'Core/**/*.{png,jpg,jpeg,gif,xib,nib,storyboard,xcassets,json,plist}'
 
-    ss.dependency 'XYColorOC'
-    ss.dependency 'BRPickerView'
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsModelDSL'
-    ss.dependency 'JobsMakes'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsLanMgr'
-  end
+  spec.dependency 'XYColorOC'
+  spec.dependency 'BRPickerView'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsModelDSL'
+  spec.dependency 'JobsMakes'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsLanMgr'
 
   JobsPodspecKitForBRPickerViewExtra.apply_standard_xcconfig(spec)
 

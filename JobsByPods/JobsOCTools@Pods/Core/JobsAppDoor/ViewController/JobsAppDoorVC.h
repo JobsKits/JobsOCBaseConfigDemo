@@ -113,6 +113,12 @@
 #endif
 
 #pragma mark —— By Jobs
+#if __has_include(<ZFPlayerExtra/ZFPlayerExtra.h>)
+#import <ZFPlayerExtra/ZFPlayerExtra.h>
+#else
+#import "ZFPlayerExtra.h"
+#endif
+
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else
@@ -159,6 +165,18 @@
 #import <JobsModelDSL/JobsModelDSL.h>
 #else
 #import "JobsModelDSL.h"
+#endif
+
+#if __has_include(<JobsFuseAnimation/JobsFuseAnimation.h>)
+#import <JobsFuseAnimation/JobsFuseAnimation.h>
+#else
+#import "JobsFuseAnimation.h"
+#endif
+
+#if __has_include(<JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>)
+#import <JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>
+#else
+#import "JobsOCCountryCodeCtrlHeader.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

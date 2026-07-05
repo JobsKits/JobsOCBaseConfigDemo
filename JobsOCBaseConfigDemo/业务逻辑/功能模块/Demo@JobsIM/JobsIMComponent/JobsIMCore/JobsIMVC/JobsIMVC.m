@@ -82,7 +82,7 @@ Prop_strong()JobsIMChatInfoModel *chatInfoModel;
     [super viewDidLayoutSubviews];
     if (self.inputview.inputTextField.TFRiseHeight) {
         CGFloat H = self.inputview.inputTextField.TFRiseHeight;
-        CGFloat h = JobsAdNoticeView.viewSizeByModel(nil).height;
+        CGFloat h = JobsIMInputviewAccessoryLabelHeight();
         self.inputview.mj_y = self.inputview.inputAccessoryView ? (H - h) : H;
     }
 }

@@ -60,6 +60,7 @@ typedef void(^jobsByNavigationItemBlock)(__kindof UINavigationItem *_Nullable na
 typedef void(^jobsByWKWebViewBlock)(__kindof WKWebView *_Nullable webView);
 typedef void(^jobsByJSContextBlock)(__kindof JSContext *_Nullable context);
 typedef void(^jobsByProgressViewBlock)(__kindof UIProgressView *_Nullable progressView);
+typedef void(^jobsBySliderBlock)(__kindof UISlider *_Nullable slider);
 typedef void(^jobsBySwitchBlock)(__kindof UISwitch *_Nullable Switch);
 typedef void(^jobsByTableViewBlock)(__kindof UITableView *_Nullable tableView);
 typedef void(^jobsByTableViewCellBlock)(__kindof UITableViewCell *_Nullable tableView);

@@ -24,11 +24,8 @@ description support and debug utilities for development and testing.
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
 
   # 根目录公共头（关键点：不要放进 Core / Support）
-  spec.source_files        = 'JobsDebug.h'
-  spec.public_header_files = 'JobsDebug.h'
 
   JobsPodspecKitForJobsDebug.apply_standard_exclude_files(spec)
 
@@ -44,19 +41,20 @@ description support and debug utilities for development and testing.
   spec.dependency 'JobsLanMgr'
   JobsPodspecKitForJobsDebug.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsDebug.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsDebug.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsDebug.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsDebug'
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources           = 'Core/**/*.{png,jpg,jpeg,gif,xib,nib,storyboard,xcassets}'
-    ss.dependency 'JobsDebug/Support/UIKit'
-  end
 
-  JobsPodspecKitForJobsDebug.apply_standard_pod_target_xcconfig(
+  JobsPodspecKitForJobsDebug.apply_standard_xcconfig(
     spec,
-    {
+    pod_target_xcconfig: {
       'DEFINES_MODULE' => 'YES',
       'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
     }

@@ -48,6 +48,7 @@
 #import "UICollectionViewFlowLayout+DSL.h"
 #import "UIControl+DSL.h"
 #import "UIProgressView+DSL.h"
+#import "UISlider+DSL.h"
 #import "UIBackgroundConfiguration+DSL.h"
 #import "UIButtonConfiguration+DSL.h"
 #import "UIButton+DSL.h"

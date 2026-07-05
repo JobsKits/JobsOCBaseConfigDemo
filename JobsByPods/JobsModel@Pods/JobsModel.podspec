@@ -24,9 +24,6 @@ other business models used across Jobs projects.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.source_files        = 'JobsModel.h'
-  spec.public_header_files = 'JobsModel.h'
-  spec.default_subspecs = 'Core'
 
   JobsPodspecKitForJobsModel.apply_standard_exclude_files(spec)
 
@@ -39,36 +36,39 @@ other business models used across Jobs projects.
   ]
   JobsPodspecKitForJobsModel.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsModel.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsModel.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsModel.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsModel'
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.pod_target_xcconfig = {
-      'HEADER_SEARCH_PATHS' => '$(inherited) "$(PODS_ROOT)/HXPhotoPickerObjC/HXPhotoPicker/**"'
-    }
 
-    ss.dependency 'JobsModel/Support/UIKit'
+  spec.pod_target_xcconfig = {
+    'HEADER_SEARCH_PATHS' => '$(inherited) "$(PODS_ROOT)/HXPhotoPickerObjC/HXPhotoPicker/**"'
+  }
 
-    ss.dependency 'GTCaptcha4'
-    ss.dependency 'HXPhotoPickerObjC'
-    ss.dependency 'Masonry'
-    ss.dependency 'MJExtension'
-    ss.dependency 'XYColorOC'
-    ss.dependency 'ReactiveObjC'
-    ss.dependency 'SDWebImage'
-    ss.dependency 'SPAlertController'
 
-    ss.dependency 'JobsMakes'
-    ss.dependency 'JobsClass'
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsOCProtocols'
-    ss.dependency 'JobsStringUtils'
-    ss.dependency 'JobsLoadingImage'
-    ss.dependency 'JobsLanMgr'
-  end
+  spec.dependency 'GTCaptcha4'
+  spec.dependency 'HXPhotoPickerObjC'
+  spec.dependency 'Masonry'
+  spec.dependency 'MJExtension'
+  spec.dependency 'XYColorOC'
+  spec.dependency 'ReactiveObjC'
+  spec.dependency 'SDWebImage'
+  spec.dependency 'SPAlertController'
+
+  spec.dependency 'JobsMakes'
+  spec.dependency 'JobsClass'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsOCProtocols'
+  spec.dependency 'JobsStringUtils'
+  spec.dependency 'JobsLoadingImage'
+  spec.dependency 'JobsLanMgr'
 
   JobsPodspecKitForJobsModel.apply_standard_xcconfig(spec)
 

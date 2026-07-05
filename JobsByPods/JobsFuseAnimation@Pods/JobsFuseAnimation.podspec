@@ -19,25 +19,23 @@ JobsFuseAnimation provides chainable Objective-C UIView animations for long-pres
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
 
-  if File.exist?(File.join(__dir__, 'JobsFuseAnimation.h'))
-    spec.source_files = 'JobsFuseAnimation.h'
-    spec.public_header_files = 'JobsFuseAnimation.h'
-  end
 
-  spec.header_dir = 'JobsFuseAnimation'
   spec.frameworks = ['UIKit', 'QuartzCore', 'AudioToolbox']
+  spec.dependency 'JobsOCDefs'
 
   JobsPodspecKitForJobsFuseAnimation.add_support_subspec(spec, support_context) if Dir.exist?(File.join(__dir__, 'Support'))
 
-  spec.subspec 'Core' do |ss|
-    JobsPodspecKitForJobsFuseAnimation.add_dynamic_support_dependencies(ss, spec, support_context)
-    ss.source_files = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources = 'Core/**/*.{png,jpg,jpeg,webp,gif,wav,mp3,caf,json,plist,xib,storyboard,bundle}'
-    ss.header_dir = 'JobsFuseAnimation'
-  end
+  spec.source_files = [
+    'JobsFuseAnimation.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsFuseAnimation.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsFuseAnimation'
+
 
   JobsPodspecKitForJobsFuseAnimation.apply_standard_exclude_files(spec)
   JobsPodspecKitForJobsFuseAnimation.apply_standard_xcconfig(spec)

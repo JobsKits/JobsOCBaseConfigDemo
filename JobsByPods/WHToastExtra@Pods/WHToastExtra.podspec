@@ -25,18 +25,11 @@ including toast display helpers and local image path helpers.
   spec.static_framework = false
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
 
   # 根目录公共入口头文件
   # 磁盘真实路径：
   # WHToastExtra.h
-  spec.source_files = [
-    'WHToastExtra.h'
-  ]
 
-  spec.public_header_files = [
-    'WHToastExtra.h'
-  ]
 
   JobsPodspecKitForWHToastExtra.apply_standard_exclude_files(
     spec,
@@ -115,24 +108,17 @@ including toast display helpers and local image path helpers.
 
   JobsPodspecKitForWHToastExtra.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForWHToastExtra.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'WHToastExtra.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'WHToastExtra.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'WHToastExtra'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
 
-    ss.source_files = [
-      'Core/**/*.{h,m,mm}'
-    ]
-
-    ss.public_header_files = [
-      'Core/**/*.h'
-    ]
-
-    ss.resources = [
-      'Core/**/*.{bundle,xib,storyboard,xcassets,json,plist,png,jpg,jpeg,gif,webp,strings,stringsdict}'
-    ]
-
-    ss.dependency 'WHToastExtra/Support/UIKit'
-  end
 
   JobsPodspecKitForWHToastExtra.apply_standard_xcconfig(
     spec,

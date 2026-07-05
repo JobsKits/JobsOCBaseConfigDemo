@@ -16,8 +16,6 @@ menu view presentation and interaction support for Jobs projects.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
-
   spec.frameworks = [
     'Foundation',
     'UIKit'
@@ -27,23 +25,25 @@ menu view presentation and interaction support for Jobs projects.
 
   spec.subspec 'Support' do |ss|
     ss.source_files        = 'Support/**/*.{h,m,mm}'
-    ss.public_header_files = 'Support/**/*.h'
+    ss.private_header_files = 'Support/**/*.h'
   end
 
-  spec.subspec 'Core' do |ss|
-    ss.dependency 'JobsMenuView/Support'
+  spec.source_files = [
+    'JobsMenuViewHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsMenuViewHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsMenuView'
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsMakes'
-    ss.dependency 'JobsOCDSL'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsByOCPods'
-    ss.dependency 'JobsLinkageMenuView'
-
-  end
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsMakes'
+  spec.dependency 'JobsOCDSL'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsByOCPods'
+  spec.dependency 'JobsLinkageMenuView'
 
   JobsPodspecKitForJobsMenuView.apply_standard_xcconfig(spec)
 

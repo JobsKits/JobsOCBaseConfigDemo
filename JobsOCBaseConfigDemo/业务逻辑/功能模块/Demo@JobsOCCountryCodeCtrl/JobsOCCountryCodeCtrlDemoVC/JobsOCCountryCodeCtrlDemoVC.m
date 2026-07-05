@@ -81,7 +81,10 @@ Prop_strong()BaseButton *selectBtn;
                 JobsOCCountryCodeCtrl *vc = JobsOCCountryCodeCtrl.new;
                 vc.countryCodeBlock = ^(__kindof NSString *countryName, __kindof NSString *code) {
                     @jobs_strongify(self)
-                    self.countryCodeTextField.byText([NSString stringWithFormat:@"%@ +%@",countryName,code]);
+                    self.countryCodeTextField.byAttributedText([JobsOCCountryCodeCtrl jobs_countryCodeAttributedTextByCountryName:countryName
+                                                                                                                              code:code
+                                                                                                                              font:self.countryCodeTextField.font
+                                                                                                                         textColor:self.countryCodeTextField.textColor]);
                 };
                 [self forceComingToPushVC:vc
                             requestParams:nil];

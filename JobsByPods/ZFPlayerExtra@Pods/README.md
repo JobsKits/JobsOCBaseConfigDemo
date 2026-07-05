@@ -45,7 +45,7 @@ ZFPlayerExtra@Pods/
 ├── ZFPlayerExtra.podspec  # Pod 描述文件
 ├── README.md  # 当前自述
 ├── ZFPlayerExtra.h  # 根入口头文件
-├── Core/  # 公开 API 与核心实现，5 个文件
+├── Core/  # 公开 API 与核心实现，含 ZFAV / ZFIJK / DouYin DSL 分类
 └── LICENSE  # 许可证文件
 ```
 
@@ -55,7 +55,7 @@ ZFPlayerExtra@Pods/
 
 ## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 当前包含 5 个文件，其中源码 / 头文件 4 个；按 Jobs 规范，它是 `ZFPlayerExtra` 对外公开 API 和核心实现的边界。
+- `Core` 当前包含 10 个源码 / 头文件；按 Jobs 规范，它是 `ZFPlayerExtra` 对外公开 API 和核心实现的边界。
 - 当前目录没有 `Support` 文件夹；如后续补内部兼容代码，优先放入 `Support` 并让 podspec 动态映射。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
@@ -65,16 +65,29 @@ ZFPlayerExtra@Pods/
 ### 5.1、公开头文件
 
 - `ZFPlayerExtra.h`
-- `Core/ZFDouYinControlView/ZFDouYinControlView.h`
+- `Core/ZFDouYinControlView/ZFDouYinControlView/ZFDouYinControlView.h`
+- `Core/ZFDouYinControlView/ZFDouYinControlView+DSL/ZFDouYinControlView+DSL.h`
+- `Core/ZFAVPlayerManager/ZFAVPlayerManager+ZFPlayerExtraDSL/ZFAVPlayerManager+ZFPlayerExtraDSL.h`
+- `Core/ZFIJKPlayerManager/ZFIJKPlayerManager+ZFPlayerExtraDSL/ZFIJKPlayerManager+ZFPlayerExtraDSL.h`
+
+`Core/ZFPlayerExtra/ZFPlayerExtra.h` 只作为 private header 参与内部编译，避免和根入口头 `ZFPlayerExtra.h` 同名抢占 framework public `Headers`。
 
 ### 5.2、源码入口
 
 - `ZFPlayerExtra.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.3、默认 subspec
+### 5.2.1、DSL 补充能力
 
-- `Core`
+- `ZFAVPlayerManager+ZFPlayerExtraDSL`：补齐 `assetURL`、`view`、`shouldAutoPlay`、音量 / 静音 / 速率 / seek / scaling / presentationSize、播放动作、缩略图回调和播放状态回调链式入口。
+- `ZFIJKPlayerManager+ZFPlayerExtraDSL`：在非模拟器且 `IJKMediaFramework` 可用时，按同一标准补齐 IJK manager 的链式入口。
+- `ZFDouYinControlView+DSL`：补齐 `player`、`resetControlView`、`showCoverViewWithUrl:` 的链式入口。
+- `ZFAVPlayerManager` 已由 `JobsOCDSL` 提供的 `byTimeRefreshInterval`、`byRequestHeader` 不在本 Pod 重复实现，避免同一类同名 category 抢实现。
+
+### 5.3、默认安装边界
+
+- `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
+- `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
 ### 5.4、系统框架
 
@@ -89,6 +102,7 @@ ZFPlayerExtra@Pods/
 - `ZFPlayer/ijkplayer`
 - `JobsBlock`
 - `JobsOCDefs`
+- `JobsOCDSL`
 
 ## 六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -107,7 +121,7 @@ ZFPlayerExtra@Pods/
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 当前目录扫描到资源类文件 0 个，`Resources` 目录文件 0 个。
+- 当前目录扫描到资源类文件 0 个，`Resource` 目录文件 0 个。
 - podspec 资源声明如下：
 
 - podspec 未显式声明 `resources`，如新增图片、xib、bundle、json、plist 等资源，需要同步补齐。

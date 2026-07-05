@@ -16,15 +16,6 @@ bits monitor related functionality for Jobs projects.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
-
-  if File.exist?(File.join(__dir__, 'JobsBitsMonitor.h'))
-    spec.source_files = 'JobsBitsMonitor.h'
-    spec.public_header_files = 'JobsBitsMonitor.h'
-  end
-
-  spec.header_dir = 'JobsBitsMonitor'
-
   spec.frameworks = [
     'Foundation',
     'UIKit'
@@ -32,25 +23,25 @@ bits monitor related functionality for Jobs projects.
 
   JobsPodspecKitForJobsBitsMonitor.apply_standard_exclude_files(spec)
 
-  spec.subspec 'Core' do |ss|
-    ss.source_files = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
+  spec.source_files = [
+    'JobsBitsMonitor.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsBitsMonitor.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsBitsMonitor'
 
-    ss.dependency 'JobsLanMgr'
-    ss.dependency 'JobsNetWorkTools'
-    ss.dependency 'ZWPullMenuView'
-    ss.dependency 'JobsByOCPods'
-    ss.dependency 'JobsSuspend'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsModelDSL'
-    ss.dependency 'JobsOCDSL'
-  end
-
-  spec.subspec 'NetWorkToolsSupport' do |ss|
-    ss.source_files = 'NetWorkToolsSupport/**/*.{h,m,mm}'
-    ss.dependency 'JobsBitsMonitor/Core'
-  end
+  spec.dependency 'JobsLanMgr'
+  spec.dependency 'JobsNetWorkTools'
+  spec.dependency 'ZWPullMenuView'
+  spec.dependency 'JobsByOCPods'
+  spec.dependency 'JobsSuspend'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsModelDSL'
+  spec.dependency 'JobsOCDSL'
 
   JobsPodspecKitForJobsBitsMonitor.apply_standard_xcconfig(spec)
 

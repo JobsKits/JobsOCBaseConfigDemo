@@ -25,14 +25,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByDirectionBlock)(ASStackLayoutDirection direction);
-typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByHorizontalAlignmentBlock)(ASHorizontalAlignment alignment);
-typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByVerticalAlignmentBlock)(ASVerticalAlignment alignment);
-typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByJustifyContentBlock)(ASStackLayoutJustifyContent justifyContent);
-typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByAlignItemsBlock)(ASStackLayoutAlignItems alignItems);
-typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByFlexWrapBlock)(ASStackLayoutFlexWrap flexWrap);
-typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByAlignContentBlock)(ASStackLayoutAlignContent alignContent);
-
 @interface ASStackLayoutSpec (DSL)
 
 #pragma mark —— 方向 / 间距

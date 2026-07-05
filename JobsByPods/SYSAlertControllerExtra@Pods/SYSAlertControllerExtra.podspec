@@ -24,15 +24,7 @@ presentation helpers for Jobs projects.
   spec.platform         = :ios, '12.0'
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
-  spec.default_subspecs = 'Core'
 
-  spec.source_files = [
-    'SYSAlertControllerExtra.h'
-  ]
-
-  spec.public_header_files = [
-    'SYSAlertControllerExtra.h'
-  ]
 
   spec.frameworks = [
     'Foundation',
@@ -42,25 +34,27 @@ presentation helpers for Jobs projects.
   JobsPodspecKitForSYSAlertControllerExtra.apply_standard_exclude_files(spec)
   JobsPodspecKitForSYSAlertControllerExtra.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForSYSAlertControllerExtra.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'SYSAlertControllerExtra.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'SYSAlertControllerExtra.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'SYSAlertControllerExtra'
 
-    ss.source_files        = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-    ss.resources           = 'Core/**/*.{png,jpg,jpeg,gif,xib,nib,storyboard,xcassets}'
 
-    ss.dependency 'WHToast'
-    ss.dependency 'WHToastExtra'
-    ss.dependency 'ReactiveObjC'
-    ss.dependency 'JobsModelDSL'
-    ss.dependency 'JobsOCDSL'
-    ss.dependency 'JobsBlock'
-    ss.dependency 'JobsOCDefs'
-    ss.dependency 'JobsOCRuntimeKits'
-    ss.dependency 'JobsLanMgr'
+  spec.dependency 'WHToast'
+  spec.dependency 'WHToastExtra'
+  spec.dependency 'ReactiveObjC'
+  spec.dependency 'JobsModelDSL'
+  spec.dependency 'JobsOCDSL'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsOCRuntimeKits'
+  spec.dependency 'JobsLanMgr'
 
-  end
 
   JobsPodspecKitForSYSAlertControllerExtra.apply_standard_xcconfig(spec)
 

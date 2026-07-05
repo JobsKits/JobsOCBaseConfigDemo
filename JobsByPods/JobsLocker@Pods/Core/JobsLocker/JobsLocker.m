@@ -13,9 +13,9 @@
     dispatch_semaphore_t _semaphore;
 }
 
-@property (nonatomic, strong, nullable) NSLock *normalLock;
-@property (nonatomic, strong, nullable) NSRecursiveLock *recursiveLockInternal;
-@property (nonatomic, assign, readwrite) JobsLockerType type;
+Prop_strong(nullable)NSLock *normalLock;
+Prop_strong(nullable)NSRecursiveLock *recursiveLockInternal;
+Prop_assign(readwrite)JobsLockerType type;
 
 @end
 

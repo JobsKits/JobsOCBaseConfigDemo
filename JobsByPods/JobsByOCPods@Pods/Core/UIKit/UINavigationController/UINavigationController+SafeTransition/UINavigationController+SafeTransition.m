@@ -35,16 +35,15 @@
                       @selector(safePopToViewController:animated:));
 }
 #pragma mark —— setter & getter
+JobsKey(_viewTransitionInProgress)
+@dynamic viewTransitionInProgress;
 - (void)setViewTransitionInProgress:(BOOL)property {
     NSNumber *number = [NSNumber numberWithBool:property];
-    objc_setAssociatedObject(self,
-                             @selector(viewTransitionInProgress),
-                             number,
-                             OBJC_ASSOCIATION_RETAIN);
+    Jobs_setAssociatedRETAIN(_viewTransitionInProgress, number)
 }
 
 - (BOOL)viewTransitionInProgress {
-    NSNumber *number = objc_getAssociatedObject(self, @selector(viewTransitionInProgress));
+    NSNumber *number = Jobs_getAssociatedObject(_viewTransitionInProgress);
     return number.boolValue;
 }
 #pragma mark —— Intercept Pop, Push, PopToRootVC

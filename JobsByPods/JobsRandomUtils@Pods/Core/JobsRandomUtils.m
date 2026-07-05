@@ -5,8 +5,6 @@
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <stdint.h>
-#import <stdlib.h>
 #import "JobsRandomUtils.h"
 
 static uint32_t JobsRandomUpperBoundFromAbsoluteInt(int value, BOOL containBorderValue) {

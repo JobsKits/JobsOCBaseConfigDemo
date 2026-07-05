@@ -6,6 +6,7 @@
 //
 
 #import <objc/runtime.h>
+#import <pthread.h>
 #import <Foundation/Foundation.h>
 
 // For a magic reserved keyword color, use @defs(your_protocol_name)
@@ -29,4 +30,3 @@
 #define _pk_get_container_class_imp_concat($a, $b, $c) $a ## $b ## _ ## $c
 
 void _pk_extension_load(Protocol *protocol, Class containerClass);
-

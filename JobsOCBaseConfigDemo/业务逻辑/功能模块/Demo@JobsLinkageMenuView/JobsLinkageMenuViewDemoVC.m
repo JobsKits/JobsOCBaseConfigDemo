@@ -143,6 +143,7 @@ Prop_strong()NSArray<NSString *> *menuTitles;
     JobsLinkageMenuViewConfig *config = JobsLinkageMenuViewConfig.new;
     config.DEFAULT_MENU_ITEM_HEIGHT = JobsWidth(78);
     config.MENU_ITEM_HEIGHT_MAP = @{@4: @(JobsWidth(96))};
+    config.MENU_ITEM_CORNER_RADIUS = 0;
     config.BOTTOMVIEW_WIDTH = JobsWidth(4);
     config.BOTTOMVIEW_HEIGHT = JobsWidth(56);
     config.LINEVIEW_WIDTH = 1;
@@ -183,7 +184,8 @@ Prop_strong()NSArray<NSString *> *menuTitles;
 
 -(UIButtonModel *)buttonModel{
     NSArray<UIImage *> *normalImages = [self imageArrayWithColor:UIColor.grayColor];
-    NSArray<UIImage *> *selectedBackgrounds = [self imageArrayWithColor:[UIColor colorWithRed:1 green:0.55 blue:0 alpha:0.18]];
+    NSArray<UIImage *> *normalBackgrounds = [self imageArrayWithColor:[UIColor colorWithWhite:0.96 alpha:1]];
+    NSArray<UIImage *> *selectedBackgrounds = [self imageArrayWithColor:[UIColor colorWithRed:1 green:0.94 blue:0.84 alpha:1]];
     NSMutableArray<UIView *> *contents = NSMutableArray.array;
     for (NSInteger i = 0; i < self.menuTitles.count - 1; i++) {
         [contents addObject:[[JobsLinkageMenuDemoContentView alloc] initWithSectionTitle:@"活动"
@@ -191,6 +193,7 @@ Prop_strong()NSArray<NSString *> *menuTitles;
     };return jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
         data.byNormal_titles(self.menuTitles)
             .byNormal_images(normalImages)
+            .byNormal_backgroundImages(normalBackgrounds)
             .bySelected_backgroundImages(selectedBackgrounds)
             .byImagePaddings(@[@4, @4, @4, @4, @4, @4, @4, @4])
             .byTitleCor(UIColor.grayColor)

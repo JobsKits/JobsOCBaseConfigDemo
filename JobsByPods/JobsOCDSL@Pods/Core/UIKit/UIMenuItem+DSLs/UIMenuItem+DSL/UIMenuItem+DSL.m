@@ -6,14 +6,12 @@
 //
 
 #import "UIMenuItem+DSL.h"
-#import <objc/runtime.h>
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
-static const void *JobsUIMenuItemActionBlockKey = &JobsUIMenuItemActionBlockKey;
-static const void *JobsUIMenuItemActionSelectorNameKey = &JobsUIMenuItemActionSelectorNameKey;
-
+JobsKey(JobsUIMenuItemActionBlockKey)
+JobsKey(JobsUIMenuItemActionSelectorNameKey)
 static NSMapTable<NSString *, UIMenuItem *> *JobsUIMenuItemActionWeakMap(void){
     static NSMapTable<NSString *, UIMenuItem *> *map;
     static dispatch_once_t onceToken;
@@ -30,18 +28,15 @@ static void JobsUIMenuItemBlockActionIMP(id responder, SEL selector, id sender){
         menuItem = [JobsUIMenuItemActionWeakMap() objectForKey:selectorName];
     }
 
-    jobsByMenuItemBlock block = objc_getAssociatedObject(menuItem, JobsUIMenuItemActionBlockKey);
+    jobsByMenuItemBlock block = Jobs_getAssociatedObjectByTarget(menuItem, JobsUIMenuItemActionBlockKey);
     if (block) block(menuItem);
 }
 
 static SEL JobsUIMenuItemEnsureActionSelector(UIMenuItem *menuItem){
-    NSString *selectorName = objc_getAssociatedObject(menuItem, JobsUIMenuItemActionSelectorNameKey);
+    NSString *selectorName = Jobs_getAssociatedObjectByTarget(menuItem, JobsUIMenuItemActionSelectorNameKey);
     if (!selectorName.length) {
         selectorName = [NSString stringWithFormat:@"jobs_uimenuItemAction_%p:", menuItem];
-        objc_setAssociatedObject(menuItem,
-                                 JobsUIMenuItemActionSelectorNameKey,
-                                 selectorName,
-                                 OBJC_ASSOCIATION_COPY_NONATOMIC);
+        Jobs_setAssociatedCOPY_NONATOMICByTarget(menuItem, JobsUIMenuItemActionSelectorNameKey, selectorName)
     }
 
     SEL selector = NSSelectorFromString(selectorName);
@@ -108,10 +103,7 @@ BOOL JobsUIMenuItemCanPerformAction(SEL action){
     @jobs_weakify(self)
     return ^__kindof UIMenuItem *_Nullable(jobsByMenuItemBlock _Nullable block){
         @jobs_strongify(self)
-        objc_setAssociatedObject(self,
-                                 JobsUIMenuItemActionBlockKey,
-                                 block,
-                                 OBJC_ASSOCIATION_COPY_NONATOMIC);
+        Jobs_setAssociatedCOPY_NONATOMIC(JobsUIMenuItemActionBlockKey, block)
         self.action = JobsUIMenuItemEnsureActionSelector(self);
         return self;
     };

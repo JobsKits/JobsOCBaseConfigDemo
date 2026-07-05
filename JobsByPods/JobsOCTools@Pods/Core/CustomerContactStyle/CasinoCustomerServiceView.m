@@ -93,7 +93,7 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(Title10.tr)
+                .byText(Title8.tr)
                 .byTextCor(HEXCOLOR(0x502600))
                 .byFont([UIFont systemFontOfSize:JobsWidth(20)
                                            weight:UIFontWeightRegular])
@@ -162,7 +162,7 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
         _subTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(Title11.tr)
+                .byText(Title10.tr)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(0)
                 .byTextCor(HEXCOLOR(0x502600))

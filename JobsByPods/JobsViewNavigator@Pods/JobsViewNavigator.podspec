@@ -24,7 +24,6 @@ navigation stack, supporting push, pop and pop-to-root transitions with optional
   spec.requires_arc     = true
   spec.source           = { :path => '.' }
 
-  spec.default_subspecs = 'Core'
 
   spec.frameworks = [
     'Foundation',
@@ -40,13 +39,16 @@ navigation stack, supporting push, pop and pop-to-root transitions with optional
   spec.dependency 'JobsOCDefs'
   JobsPodspecKitForJobsViewNavigator.add_support_subspec(spec, support_context)
 
-  spec.subspec 'Core' do |ss|
-    # Dynamic Support dependencies
-    JobsPodspecKitForJobsViewNavigator.add_dynamic_support_dependencies(ss, spec, support_context)
+  spec.source_files = [
+    'JobsViewNavigatorHeader.h',
+    'Core/**/*.{h,m,mm}'
+  ]
+  spec.public_header_files = [
+    'JobsViewNavigatorHeader.h',
+    'Core/**/*.h'
+  ]
+  spec.header_dir = 'JobsViewNavigator'
 
-    ss.source_files = 'Core/**/*.{h,m,mm}'
-    ss.public_header_files = 'Core/**/*.h'
-  end
 
   JobsPodspecKitForJobsViewNavigator.apply_standard_xcconfig(spec)
 

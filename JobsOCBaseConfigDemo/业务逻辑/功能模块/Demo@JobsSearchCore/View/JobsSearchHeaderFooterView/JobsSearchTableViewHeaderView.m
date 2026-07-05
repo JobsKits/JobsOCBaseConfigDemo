@@ -34,7 +34,7 @@ Prop_strong()UIButton *delBtn;
         if ([model isKindOfClass:UIViewModel.class]) {
             self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
             self.titleLab.byText(self.viewModel.textModel.text);
-            self.delBtn.byAlpha(1);
+            self.delBtn.byAlpha(0);
         }
     };
 }

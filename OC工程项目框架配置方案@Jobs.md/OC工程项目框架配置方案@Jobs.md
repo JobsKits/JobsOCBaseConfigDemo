@@ -14,7 +14,7 @@ OC 侧核心思想是：`JobsMake` 创建对象，`JobsOCDSL` / `JobsModelDSL` �
 
 ## 一、基础原则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a>
 
-- UI 创建优先使用 `JobsMakes@Pods/Core/JobsMakes.h` 里的 `jobsMakeXXX`。
+- UI 创建优先使用 `JobsMakes@Pods/JobsMakes.h` 里的 `jobsMakeXXX`。
 - `JobsMake` 只负责对象创建和 Block 入口，不负责堆业务配置。
 - Block 内部优先使用 `JobsOCDSL` / `JobsModelDSL` 点语法链式赋值。
 - 链式调用先写当前类本层能力，再写父类公共能力。
