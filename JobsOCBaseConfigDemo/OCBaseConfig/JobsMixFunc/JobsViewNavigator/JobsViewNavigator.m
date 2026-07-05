@@ -1,11 +1,13 @@
 //
 //  JobsViewNavigator.m
-//  JobsOCBaseConfigDemo
+//  JobsViewNavigator
 //
-//  Created by User on 8/3/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsViewNavigator.h"
+#import "UIView+Extra.h"
+#import "NSMutableArray+Extra.h"
 
 @interface JobsViewNavigator ()
 
@@ -21,7 +23,7 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
     };return self;
 }
 
--(JobsReturnViewNavigatorByViewAndAnimatedBlock _Nonnull)pushView{
+-(JobsRetViewNavigatorByViewAndAnimatedBlock _Nonnull)pushView{
     @jobs_weakify(self)
     return ^JobsViewNavigator *_Nonnull(UIView __kindof * _Nullable nextView,BOOL animated) {
         @jobs_strongify(self)
@@ -32,11 +34,13 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
         
         CGRect offScreenRight = CGRectOffset(self.bounds,
                                              self.bounds.size.width, 0);
-        nextView.frame = offScreenRight;
+        nextView.byFrame(offScreenRight);
+
         
         jobsByVoidBlock transitionBlock = ^{
             @jobs_strongify(self)
-            nextView.frame = self.bounds;
+            nextView.byFrame(self.bounds);
+
             currentTopView.frame = CGRectOffset(self.bounds,
                                                 -self.bounds.size.width, 0);
         };
@@ -51,7 +55,7 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
     };
 }
 
--(JobsReturnViewNavigatorByBOOLBlock _Nonnull)popViewAnimated{
+-(JobsRetViewNavigatorByBOOLBlock _Nonnull)popViewAnimated{
     @jobs_weakify(self)
     return ^JobsViewNavigator *_Nonnull(BOOL animated) {
         @jobs_strongify(self)
@@ -63,8 +67,10 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
 
         jobsByVoidBlock transitionBlock = ^{
             @jobs_strongify(self)
-            topView.frame = CGRectOffset(self.bounds, self.bounds.size.width, 0);
-            previousView.frame = self.bounds;
+            topView.byFrame(CGRectOffset(self.bounds, self.bounds.size.width, 0));
+
+            previousView.byFrame(self.bounds);
+
         };
         
         jobsByBOOLBlock completionBlock = ^(BOOL finished) {
@@ -87,7 +93,7 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
     };
 }
 
--(JobsReturnViewNavigatorByBOOLBlock _Nonnull)popToRootViewAnimated{
+-(JobsRetViewNavigatorByBOOLBlock _Nonnull)popToRootViewAnimated{
     @jobs_weakify(self)
     return ^JobsViewNavigator *_Nonnull(BOOL animated) {
         @jobs_strongify(self)
@@ -102,7 +108,8 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
         UIView *rootView = self.viewStack.firstObject;
         jobsByVoidBlock transitionBlock = ^{
             @jobs_strongify(self)
-            rootView.frame = self.bounds;
+            rootView.byFrame(self.bounds);
+
         };
         
         if (animated) {

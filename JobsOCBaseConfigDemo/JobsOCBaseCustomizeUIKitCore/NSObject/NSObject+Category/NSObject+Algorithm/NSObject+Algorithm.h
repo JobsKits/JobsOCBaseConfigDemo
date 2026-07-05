@@ -1,12 +1,35 @@
 //
 //  NSObject+Algorithm.h
-//  JobsOCBaseConfigDemo
+//  JobsOCRuntimeKits
 //
-//  Created by Admin on 29/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_ALGORITHM_2E12CAB720
+#define JOBS_HEADER_GUARD_NSOBJECT_ALGORITHM_2E12CAB720
+
+#pragma once
+
 #import <Foundation/Foundation.h>
+#import "NSString+Extra.h"
+#import "NSObject+Extra.h"
+#import "NSMutableSet+Extra.h"
+
+#import "JobsTimeUtils.h"
+
+#import "JobsOCSnowflakeHeader.h"
+
+#import "JobsClass.h"
+
+#import "JobsMakes.h"
+
+#import "JobsModelDSL.h"
+
+#import "JobsLanMgr.h"
+
 #import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 算法相关
@@ -64,3 +87,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_ALGORITHM_2E12CAB720 */

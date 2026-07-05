@@ -1,39 +1,27 @@
 //
 //  JobsNetWorkTools.h
-//  JobsOCBaseConfigDemo
+//  JobsNetWorkTools
 //
-//  Created by Jobs on 2025/11/19.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_JOBSNETWORKTOOLS_A5554FC4D0
+#define JOBS_HEADER_GUARD_JOBSNETWORKTOOLS_A5554FC4D0
 
 #import <Foundation/Foundation.h>
-#import <ifaddrs.h>
-#import <net/if.h>
-#import <net/if_var.h>
-#import "JobsBlock.h"
-#import "JobsDefineProperty.h"
-#import "JobsTimer.h"
-#import "BaseProtocol.h"
-#import "JobsDefineEnums.h"
-#import "JobsDefineStructs.h"
-#import "JobsNetworkSource.h"
-#import "JobsBitsMonitorSuspendLab.h"
-/// 网络数据来源
-#ifndef JOBS_NETWORK_SOURCE_TYPE_DEFINED
-#define JOBS_NETWORK_SOURCE_TYPE_DEFINED
-typedef NS_ENUM(NSUInteger, JobsNetworkSourceType) {
-    JobsNetworkSourceTypeUnknown = 0,
-    JobsNetworkSourceTypeWiFi,
-    JobsNetworkSourceTypeCellular
-};
-#endif /* JOBS_NETWORK_SOURCE_TYPE_DEFINED */
+#import <ifaddrs.h>               // 提供网络接口地址遍历能力，可获取设备各网络接口的 IP 地址等信息。
+#import <net/if.h>                // 定义网络接口相关常量、结构体和操作接口。
+#import <net/if_var.h>            // 引入网络接口内部状态、统计信息及相关内核结构定义
 
-#ifndef JOBS_NETWORK_BYTES_DEFINED
-#define JOBS_NETWORK_BYTES_DEFINED
-typedef struct {
-    uint64_t download;   // 下行总字节
-    uint64_t upload;     // 上行总字节
-} JobsNetworkBytes;
-#endif /* JOBS_NETWORK_BYTES_DEFINED */
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsModelDSL.h"
+
+#import "JobsOCTimer.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 static inline JobsNetworkBytes JobsNetworkBytesMake(uint64_t download, uint64_t upload) {
     JobsNetworkBytes b;
@@ -70,7 +58,7 @@ static JobsNetworkBytes JobsCurrentNetworkBytes(void) {
     return result;
 }
 
-@interface JobsNetworkTrafficMonitor : NSObject
+@interface JobsNetworkTrafficMonitor : NSObject <BaseProtocol,TimerProtocol>
 /// 可销毁单例
 +(instancetype _Nonnull)shared;
 +(void)destroyShared;
@@ -82,3 +70,6 @@ static JobsNetworkBytes JobsCurrentNetworkBytes(void) {
 -(jobsByVoidBlock _Nonnull)byStop;
 
 @end
+
+
+#endif /* JOBS_HEADER_GUARD_JOBSNETWORKTOOLS_A5554FC4D0 */

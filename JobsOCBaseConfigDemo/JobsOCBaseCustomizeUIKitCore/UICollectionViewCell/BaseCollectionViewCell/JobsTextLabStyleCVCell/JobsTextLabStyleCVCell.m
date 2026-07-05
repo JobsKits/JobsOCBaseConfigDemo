@@ -1,11 +1,14 @@
 //
 //  JobsTextLabStyleCVCell.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2025/4/28.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsTextLabStyleCVCell.h"
+#import "CALayer+Extra.h"
+#import "UIView+Extra.h"
+#import "UICollectionView+JobsRegisterClass.h"
 
 @interface JobsTextLabStyleCVCell ()
 
@@ -24,18 +27,24 @@ BaseLayerProtocol_synthesize_part3
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     JobsTextLabStyleCVCell *cell = JobsRegisterDequeueCollectionViewCell(JobsTextLabStyleCVCell);
-    cell.contentView.layer
-        .cornerRadiusBy(JobsWidth(8))
-        .borderWidthBy(JobsWidth(1))
-        .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
-        .masksToBoundsBy(YES);
-    cell.layer
-        .cornerRadiusBy(JobsWidth(8))
-        .borderWidthBy(JobsWidth(1))
-        .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
-        .masksToBoundsBy(YES);
-    cell.indexPath = indexPath;
-    return cell;
+    return (JobsTextLabStyleCVCell *)cell
+        .byContentView(^(__kindof UIView * _Nullable view) {
+            view.byLayer(^(CALayer * _Nullable layer) {
+                layer
+                    .cornerRadiusBy(JobsWidth(8))
+                    .borderWidthBy(JobsWidth(1))
+                    .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
+                    .masksToBoundsBy(YES);
+            });
+        })
+        .byIndexPath(indexPath)
+        .byLayer(^(CALayer * _Nullable layer) {
+            layer
+                .cornerRadiusBy(JobsWidth(8))
+                .borderWidthBy(JobsWidth(1))
+                .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
+                .masksToBoundsBy(YES);
+        });
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(JobsRetCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy{
@@ -43,7 +52,8 @@ BaseLayerProtocol_synthesize_part3
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel __kindof *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.label.alpha = 1;
+        self.label.byAlpha(1);
+
         return self;
     };
 }
@@ -61,24 +71,29 @@ BaseLayerProtocol_synthesize_part3
 #pragma mark —— lazyLoad
 @synthesize label = _label;
 -(UILabel *)label{
-    if(!_label){
+    if (!_label) {
         @jobs_weakify(self)
-        _label = self.contentView.addSubview(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
+        _label = jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
             @jobs_strongify(self)
-            /// 富文本的优先级大于普通文本
-            if(self.viewModel.attributedTitle){
-                label.attributedText = self.viewModel.attributedTitle;
-            }else{
-                label.text = self.viewModel.text;
-                label.numberOfLines = 0;
-                label.lineBreakMode = NSLineBreakByWordWrapping;
-                label.textAlignment = self.viewModel.textAlignment;
-                label.textColor = self.viewModel.textCor;
-                label.font = self.viewModel.font;
-            }
-        })).byAdd(^(MASConstraintMaker *make) {
-            @jobs_strongify(self)
-            make.edges.equalTo(self.contentView);
+            label
+                .byLabelBlock(^(__kindof UILabel * _Nullable data) {
+                    /// 富文本的优先级大于普通文本
+                    if (self.viewModel.attributedTitle) {
+                        data.byAttributedString(self.viewModel.attributedTitle);
+                    } else {
+                        data
+                            .byText(self.viewModel.text)
+                            .byNumberOfLines(0)
+                            .byLineBreakMode(NSLineBreakByWordWrapping)
+                            .byTextAlignment(self.viewModel.textAlignment)
+                            .byTextCor(self.viewModel.textCor)
+                            .byFont(self.viewModel.font);
+                    }
+                })
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.contentView);
+                });
         });
     };return _label;
 }

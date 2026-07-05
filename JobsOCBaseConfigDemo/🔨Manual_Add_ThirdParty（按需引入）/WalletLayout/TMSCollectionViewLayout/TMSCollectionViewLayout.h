@@ -1,17 +1,20 @@
 //
 //  TMSCollectionViewLayout.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by TmmmS on 2019/8/8.
-//  Copyright © 2019 TMS. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_TMSCOLLECTIONVIEWLAYOUT_62880519C2
+#define JOBS_HEADER_GUARD_TMSCOLLECTIONVIEWLAYOUT_62880519C2
+
 #import <UIKit/UIKit.h>
+
+#import "JobsBaseProtocolHeader.h"
+
 #import "JobsBlock.h"
-#import "JobsDefineProperty.h"
-#import "JobsDefineConstString.h"
-#import "TMSCollectionViewLayoutDelegate.h"
-#import "NSString+ID.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,3 +35,4 @@ NS_INLINE __kindof TMSCollectionViewLayout *_Nonnull jobsMakeTMSCollectionViewLa
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_TMSCOLLECTIONVIEWLAYOUT_62880519C2 */

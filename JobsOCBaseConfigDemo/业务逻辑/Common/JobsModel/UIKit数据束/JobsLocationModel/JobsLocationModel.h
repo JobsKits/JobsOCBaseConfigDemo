@@ -1,13 +1,21 @@
 //
 //  JobsLocationModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JobsLocationModel_h
+#define JobsLocationModel_h
+
 #import <Foundation/Foundation.h>
 #import "BaseModel.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -105,3 +113,5 @@ NS_INLINE NSRange jobsMakeRangeByLocationModelBlock(jobsByLocationModelBlock _No
     if (block) block(data);
     return NSMakeRange(data.location, data.length);
 }
+
+#endif /* JobsLocationModel_h */

@@ -1,8 +1,8 @@
 //
 //  UIButton+Timer.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/3/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIButton+Timer.h"
@@ -10,7 +10,6 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 #pragma clang diagnostic ignored "-Wunguarded-availability"
-
 @implementation UIButton (Timer)
 BaseButtonProtocol_dynamic_part2
 TimerProtocol_dynamic
@@ -35,12 +34,18 @@ JobsKey(_timer)
             @jobs_strongify(self)
             // 初始化 JobsTimer：核心配置从 UIButton 当前属性读取
             t
-                .byTimerType(self.timerType)                       // 默认用 NSTimer 驱动
-                .byTimerStyle(self.timerStyle)                     // 正计时 / 倒计时 模式
-                .byTimeInterval(self.timeInterval)                 // 跳动步长（频率）
-                .byTimeSecIntervalSinceDate(0)                     // 首跳延迟（如需可开放成属性）
-                .byQueue(dispatch_get_main_queue())                // 主线程队列，方便更新 UI
-                .byStartTime(self.startTime)                       // 总时长（倒计时时使用）
+                .byTimerType(self.timerType)
+                       // 默认用 NSTimer 驱动
+                .byTimerStyle(self.timerStyle)
+                     // 正计时 / 倒计时 模式
+                .byTimeInterval(self.timeInterval)
+                 // 跳动步长（频率）
+                .byTimeSecIntervalSinceDate(0)
+                     // 首跳延迟（如需可开放成属性）
+                .byQueue(dispatch_get_main_queue())
+                // 主线程队列，方便更新 UI
+                .byStartTime(self.startTime)
+                       // 总时长（倒计时时使用）
                 .byOnTick(^(CGFloat time){
                     @jobs_strongify(self)
                     if (self.onTick) self.onTick(time);
@@ -87,9 +92,9 @@ JobsKey(_timer)
     return ^(UIButtonModel *_Nullable data){
         @jobs_strongify(self)
         self.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable model) {
-            model.layerCor = data.layerBorderCor;
-            model.jobsWidth = data.layerBorderWidth;
-            model.cornerRadiusValue = data.layerCornerRadius;
+            model.byLayerCor(data.layerBorderCor)
+                 .byJobsWidth(data.layerBorderWidth)
+                 .byCornerRadiusValue(data.layerCornerRadius);
         }));
     };
 }
@@ -183,7 +188,7 @@ JobsKey(_isCanBeClickWhenTimerCycle)
 }
 #pragma mark —— Prop_assign()ShowTimeType showTimeType;
 JobsKey(_showTimeType)
-@dynamic showTimeType;
+//@dynamic showTimeType;
 -(ShowTimeType)showTimeType{
     return [Jobs_getAssociatedObject(_showTimeType) unsignedIntegerValue];
 }

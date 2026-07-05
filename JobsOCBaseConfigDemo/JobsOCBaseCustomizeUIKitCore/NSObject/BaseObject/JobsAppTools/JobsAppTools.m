@@ -1,11 +1,12 @@
 //
 //  JobsAppTools.m
-//  JobsOCBaseConfigDemo
+//  JobsAppTools
 //
-//  Created by Jobs Hi on 2024/7/11.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsAppTools.h"
+#import "NSObject+AppTools.h"
 
 @interface JobsAppTools ()
 
@@ -40,42 +41,25 @@ static dispatch_once_t JobsAppToolsOnceToken;
 -(instancetype)mutableCopyWithZone:(NSZone *)zone{
     return self;
 }
-#pragma mark —— 一些公共方法
--(UIWindow *)makeAppDelegateWindow{
-    return self.appDelegateWindow;
+/// 根据 x 和 y 的绝对值判断主方向
+-(JobsRetStrByCGPointBlock _Nonnull)directionByTranslation{
+    return ^__kindof NSString *_Nullable(CGPoint translation){
+        if (fabs(translation.x) > fabs(translation.y)) {
+            return translation.x > 0 ? @"右滑" : @"左滑";// 水平方向
+        } else {
+            return translation.y > 0 ? @"下滑" : @"上滑";// 垂直方向
+        }
+    };
 }
 
--(UIWindow *)makeSceneDelegateWindow{
-    return self.sceneDelegateWindow;
+-(JobsRetNSIntegerByPointBlock _Nonnull)directionByPoint{
+    return ^JobsDirectionType(CGPoint translation){
+        if (fabs(translation.x) > fabs(translation.y)) {
+            return translation.x > 0 ? JobsDirectionRight : JobsDirectionLeft;// 水平方向
+        } else {
+            return translation.y > 0 ? JobsDirectionDown : JobsDirectionUp;// 垂直方向
+        }
+    };
 }
-
--(void)appDelegateWindowBlock:(jobsByWindowBlock _Nullable)appDelegateWindowBlock
-     sceneDelegateWindowBlock:(jobsByWindowBlock _Nullable)sceneDelegateWindowBlock{
-    if (appDelegateWindowBlock) appDelegateWindowBlock(self.appDelegateWindow);
-    if (sceneDelegateWindowBlock) sceneDelegateWindowBlock(self.sceneDelegateWindow);
-}
-#pragma mark —— lazyLoad
-/// 在使用sceneDelegate的情况下，仅仅为了iOS 13 版本向下兼容而存在
--(UIWindow *)appDelegateWindow{
-    if(!_appDelegateWindow){
-        @jobs_weakify(self)
-        _appDelegateWindow = jobsMakeWindow(^(__kindof UIWindow * _Nullable data) {
-            @jobs_strongify(self)
-            data.frame = UIScreen.mainScreen.bounds;
-            data.rootViewController = RootViewController;
-            [data makeKeyAndVisible];
-        });AppDelegate.tabBarVC.ppBadge(YES);
-    };return _appDelegateWindow;
-}
-
-//-(UIWindow *)sceneDelegateWindow{
-//    if(!_sceneDelegateWindow){
-//        SceneDelegate *sceneDelegate = (SceneDelegate *)getSysSceneDelegate();
-//        _sceneDelegateWindow = UIWindow.initByScene(sceneDelegate.windowScene);
-//        _sceneDelegateWindow.frame = sceneDelegate.windowScene.coordinateSpace.bounds;
-//        _sceneDelegateWindow.rootViewController = self.rootViewControllerBy(FMHomeVC.new);;
-//        [_sceneDelegateWindow makeKeyAndVisible];
-//    };return _sceneDelegateWindow;
-//}
 
 @end

@@ -1,14 +1,19 @@
 //
 //  UIControl+XY.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2017/7/17.
-//  Copyright © 2017年 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UICONTROL_XY_6A30585738
+#define JOBS_HEADER_GUARD_UICONTROL_XY_6A30585738
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 资料来源：http://www.jianshu.com/p/a830d0a57378
@@ -19,3 +24,4 @@ Prop_assign()NSTimeInterval uxy_acceptEventInterval;//可以用这个给重复�
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UICONTROL_XY_6A30585738 */

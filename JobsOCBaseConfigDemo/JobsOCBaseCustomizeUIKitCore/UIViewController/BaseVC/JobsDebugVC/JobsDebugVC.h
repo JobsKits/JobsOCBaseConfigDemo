@@ -1,16 +1,25 @@
 //
 //  JobsDebugVC.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by User on 9/9/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <UIKit/UIKit.h>
+
+#import "JobsLanMgr.h"
+
+#import "JobsModelDSL.h"
+
 #import "JobsBlock.h"
-#import "UIViewModel.h"
+
+#import "JobsDefines.h"
 
 #ifndef VC_LIFE_CYCLE_ENUM_DEFINED
 #define VC_LIFE_CYCLE_ENUM_DEFINED
+
+#import "WHToastExtra.h"
+
 typedef NS_ENUM(NSUInteger, UIViewControllerLifeCycle) {
     VCLifeCycle_loadView = 0,
     VCLifeCycle_viewDidLoad,

@@ -1,9 +1,8 @@
 //
 //  TransitionController.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by wsk on 16/8/22.
-//  Copyright © 2016年 cyd. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "TransitionController.h"
@@ -12,7 +11,7 @@
 
 Prop_weak()id<UIViewControllerContextTransitioning> transitionContext;
 Prop_strong(readonly)UIPanGestureRecognizer *gestureRecognizer;
-Prop(readwrite)CGPoint initialTranslationInContainerView;
+Prop_assign(readwrite)CGPoint initialTranslationInContainerView;
 
 @end
 

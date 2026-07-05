@@ -1,6 +1,6 @@
 //
 //  JobsBlockDef.h
-//  JobsOCBaseConfigDemo
+//  JobsBlock
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -350,24 +350,6 @@
     jobsByMASConstraintMakerBlock _Nullable block
 #endif /* Jobs_ReturnViewByViewAndMasonryConstraintsBlocks_Arguments */
 
-#ifndef Jobs_ID_NSErrorPointer_Arguments
-#define Jobs_ID_NSErrorPointer_Arguments \
-    id _Nullable value, \
-    NSError *_Nullable *_Nullable errorPtr
-#endif /* Jobs_ID_NSErrorPointer_Arguments */
-
-#ifndef Jobs_PageControl_Image_Page_Arguments
-#define Jobs_PageControl_Image_Page_Arguments \
-    UIImage *_Nullable image, \
-    NSInteger page
-#endif /* Jobs_PageControl_Image_Page_Arguments */
-
-#ifndef Jobs_ID_BOOLPointer_Arguments
-#define Jobs_ID_BOOLPointer_Arguments \
-    id _Nullable value, \
-    BOOL *_Nullable stop
-#endif /* Jobs_ID_BOOLPointer_Arguments */
-
 #ifndef Jobs_ReturnGoodsClassModelByInt2Block_Arguments
 #define Jobs_ReturnGoodsClassModelByInt2Block_Arguments \
     NSUInteger data1, \
@@ -404,8 +386,6 @@
     id _Nullable data
 #endif /* Jobs_ByViewAndDataBlock_Arguments */
 
-
-/// JobsBlock@Pods 返哺参数宏 BEGIN
 #ifndef Jobs_LuckyWheelSegment_LPGestureRecognizer_Arguments
 #define Jobs_LuckyWheelSegment_LPGestureRecognizer_Arguments \
     LuckyWheelSegment *_Nullable segment, \
@@ -523,6 +503,12 @@
     UITextView *_Nullable tv
 #endif /* Jobs_EditableTextEvent_Arguments */
 
+#ifndef Jobs_ID_NSErrorPointer_Arguments
+#define Jobs_ID_NSErrorPointer_Arguments \
+    id _Nullable value, \
+    NSError *_Nullable *_Nullable errorPtr
+#endif /* Jobs_ID_NSErrorPointer_Arguments */
+
 #ifndef Jobs_ID_ID_NSUInteger_Arguments
 #define Jobs_ID_ID_NSUInteger_Arguments \
     id _Nullable data, \
@@ -608,6 +594,12 @@
     CGFloat y
 #endif /* Jobs_Center_Arguments */
 
+#ifndef Jobs_PageControl_Image_Page_Arguments
+#define Jobs_PageControl_Image_Page_Arguments \
+    UIImage *_Nullable image, \
+    NSInteger page
+#endif /* Jobs_PageControl_Image_Page_Arguments */
+
 #ifndef Jobs_Progress_Animated_Arguments
 #define Jobs_Progress_Animated_Arguments \
     float progress, \
@@ -686,7 +678,12 @@
     char mode, \
     NSInteger type
 #endif /* Jobs_CollectionNode_SetTuningForMode_Arguments */
-/// JobsBlock@Pods 返哺参数宏 END
+
+#ifndef Jobs_ID_BOOLPointer_Arguments
+#define Jobs_ID_BOOLPointer_Arguments \
+    id _Nullable value, \
+    BOOL *_Nullable stop
+#endif /* Jobs_ID_BOOLPointer_Arguments */
 
 #ifndef API_IOS14_TVOS14_UNAVAILABLE_WATCHOS
 #define API_IOS14_TVOS14_UNAVAILABLE_WATCHOS \

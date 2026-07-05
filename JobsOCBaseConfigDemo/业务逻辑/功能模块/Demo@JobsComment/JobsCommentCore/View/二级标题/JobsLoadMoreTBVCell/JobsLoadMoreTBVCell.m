@@ -1,9 +1,8 @@
 //
-//  LoadMoreTBVCell.m
+//  JobsLoadMoreTBVCell.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/7/14.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsLoadMoreTBVCell.h"
@@ -16,9 +15,15 @@ Prop_strong()UILabel *titleLab;
 
 @implementation JobsLoadMoreTBVCell
 #pragma mark —— BaseCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsLoadMoreTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsLoadMoreTBVCell);
+        cell
+            .bySelectionStyle(UITableViewCellSelectionStyleNone)
+            .byContentView(^(__kindof UIView * _Nullable view) {
+                view.byBgColor(JobsWhiteColor);
+            });
+        cell.byBgColor(JobsClearColor);
         return cell;
     };
 }
@@ -33,7 +38,7 @@ Prop_strong()UILabel *titleLab;
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(id _Nullable model) {
         @jobs_strongify(self)
-        self.titleLab.alpha = 1;
+        self.titleLab.byAlpha(1);
         return self;
     };
 }
@@ -43,12 +48,16 @@ Prop_strong()UILabel *titleLab;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = @"点击加载更多".tr.add(@"...");
-            label.textAlignment = NSTextAlignmentCenter;
-            label.backgroundColor = JobsSystemYellowColor;
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
+            label
+                .byText(@"点击加载更多".tr.add(@"..."))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byTextCor(HEXCOLOR(0x64748B))
+                .byFont(UIFontWeightRegularSize(13))
+                .byBgColor(JobsWhiteColor)
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);
-            }];
+            });
         });
     };return _titleLab;
 }

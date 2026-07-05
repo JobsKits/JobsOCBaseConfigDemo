@@ -1,16 +1,15 @@
 //
 //  UNNotificationRequest+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Admin on 26/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UNNotificationRequest+Extra.h"
-#import "UNNotificationRequestModel.h"
 
 @implementation UNNotificationRequest (Extra)
 
-+(JobsReturnUNNotificationRequestByModelBlock)initBy{
++(JobsRetUNNotificationRequestByModelBlock)initBy{
     return ^__kindof UNNotificationRequest *_Nullable(UNNotificationRequestModel *_Nullable data){
         return [UNNotificationRequest requestWithIdentifier:data.identifier
                                                     content:data.content

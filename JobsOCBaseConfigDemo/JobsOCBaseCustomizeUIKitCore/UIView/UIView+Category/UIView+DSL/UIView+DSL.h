@@ -1,6 +1,6 @@
 //
 //  UIView+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -8,9 +8,29 @@
 #ifndef JOBS_HEADER_GUARD_UIVIEW_DSL_556F4879E9
 #define JOBS_HEADER_GUARD_UIVIEW_DSL_556F4879E9
 
+#import <objc/message.h>
+#import <objc/runtime.h>
 #import <UIKit/UIKit.h>
+
 #import "JobsBlock.h"
+
 #import "JobsDefines.h"
+
+#if __has_include("../../../Support/NSObject+Measure/NSObject+Measure.h")
+#import "../../../Support/NSObject+Measure/NSObject+Measure.h"
+#elif __has_include("NSObject+Measure.h")
+#import "NSObject+Measure.h"
+#else
+#import "NSObject+Measure.h"
+#endif
+
+#if __has_include("../../../Support/NSValue+Extra/NSValue+Extra.h")
+#import "../../../Support/NSValue+Extra/NSValue+Extra.h"
+#elif __has_include("NSValue+Extra.h")
+#import "NSValue+Extra.h"
+#else
+#import "NSValue+Extra.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

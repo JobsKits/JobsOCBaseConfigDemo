@@ -1,14 +1,14 @@
 //
 //  HexadecimalData.h
-//  JobsOCBaseConfigDemo
+//  JobsCryptography
 //
-//  Created by Jobs on 2024/4/26.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef HexadecimalData_h
 #define HexadecimalData_h
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "NSString+HexadecimalData.h"
 #import "NSData+HexadecimalData.h"
 #import "UIImage+HexadecimalData.h"

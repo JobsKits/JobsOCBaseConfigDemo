@@ -1,8 +1,8 @@
 //
 //  NSDictionary+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsNavigationTransitionMgr
 //
-//  Created by User on 9/21/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSDictionary+Extra.h"
@@ -15,7 +15,7 @@
     };
 }
 /// 对系统方法 initWithContentsOfURL 的二次封装
-+(JobsReturnDicByURLBlock _Nonnull)initByContentsOfURL{
++(JobsRetDicByURLBlock _Nonnull)initByContentsOfURL{
     return ^__kindof NSDictionary *_Nullable(NSURL *_Nullable filePath){
         return [NSDictionary.alloc initWithContentsOfURL:filePath];
     };
@@ -49,5 +49,4 @@
 }
 
 @end
-
 

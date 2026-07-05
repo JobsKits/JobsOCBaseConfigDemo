@@ -1,12 +1,27 @@
 //
 //  UIButton+UIButtonConfiguration.h
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Admin on 10/12/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UIBUTTON_UIBUTTONCONFIGURATION_3021647E5C
+#define JOBS_HEADER_GUARD_UIBUTTON_UIBUTTONCONFIGURATION_3021647E5C
+
+#pragma once
+
 #import <UIKit/UIKit.h>
+#import "UIButton+UI.h"
+#import "NSMutableArray+Extra.h"
+#import "NSMutableDictionary+Extra.h"
+
+#import "JobsMakes.h"
+
+#import "JobsOCDSL.h"
+
 #import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 UIKIT_EXTERN API_AVAILABLE(ios(15.0), tvos(15.0)) API_UNAVAILABLE(watchos) NS_SWIFT_UI_ACTOR
@@ -16,7 +31,7 @@ UIKIT_EXTERN API_AVAILABLE(ios(15.0), tvos(15.0)) API_UNAVAILABLE(watchos) NS_SW
 -(void)jobsSetBtnTitleFont:(UIFont *_Nullable)titleFont btnTitleCor:(UIColor *_Nullable)titleCor;
 
 -(void)jobsSetBtnSubTitleFont:(UIFont *_Nullable)subTitleFont btnSubTitleCor:(UIColor *_Nullable)subTitleCor;
-/// 重设UIButtonConfiguration并使之生效  JobsReturnButtonConfigurationByButtonConfigurationBlock
+/// 重设UIButtonConfiguration并使之生效  JobsRetButtonConfigurationByButtonConfigurationBlock
 -(__kindof UIButton *)jobsUpdateButtonConfiguration:(jobsByBtnConfigBlock _Nullable)configurationBlock;
 /// 点语法入口：UIButtonConfiguration 作为回调参数，外层仍返回 UIButton，便于继续按钮链式调用
 -(JobsRetBtnByBtnConfigBlock _Nonnull)jobsUpdateButtonConfigurationBy API_IOS15_TVOS15_UNAVAILABLE_WATCHOS;
@@ -73,3 +88,4 @@ UIKIT_EXTERN API_AVAILABLE(ios(15.0), tvos(15.0)) API_UNAVAILABLE(watchos) NS_SW
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIBUTTON_UIBUTTONCONFIGURATION_3021647E5C */

@@ -1,8 +1,8 @@
 //
 //  JobsClockView.m
-//  JobsOCBaseConfigDemo
+//  JobsClockView
 //
-//  Created by Jobs on 11/29/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsClockView.h"
@@ -33,14 +33,15 @@ Prop_strong() JobsTimer *timer;
 
 -(instancetype)init{
     if(self = [super init]){
-        self.backgroundColor = UIColor.clearColor;
+        self.byBgColor(UIColor.clearColor);
+
         [self setupDialLayers];
         [self setupNumberLabels];
         [self setupHandLayers];
     };return self;
 }
 
-#pragma mark - Setup
+#pragma mark —— Setup
 
 - (void)setupDialLayers {
     self.dialLayer = [CAShapeLayer layer];
@@ -76,16 +77,18 @@ Prop_strong() JobsTimer *timer;
 - (void)setupNumberLabels {
     NSMutableArray<UILabel *> *arr = NSMutableArray.array;
     for (NSInteger i = 1; i <= 12; i++) {
-        UILabel *label = UILabel.new;
-        label.text = [NSString stringWithFormat:@"%ld", (long)i];
-        label.font = [UIFont systemFontOfSize:12 weight:UIFontWeightMedium];
-        if (@available(iOS 13.0, *)) {
-            label.textColor = [UIColor labelColor];
-        } else {
-            label.textColor = [UIColor blackColor];
-        }
-        label.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:label];
+        UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            UIColor *textCor = UIColor.blackColor;
+            if (@available(iOS 13.0, *)) {
+                textCor = UIColor.labelColor;
+            }
+            label
+                .byText([NSString stringWithFormat:@"%ld", (long)i])
+                .byFont([UIFont systemFontOfSize:12 weight:UIFontWeightMedium])
+                .byTextCor(textCor)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .addOn(self);
+        });
         [arr addObject:label];
     }
     self.numberLabels = arr.copy;
@@ -94,24 +97,28 @@ Prop_strong() JobsTimer *timer;
 - (void)setupHandLayers {
     self.hourHand = [CALayer layer];
     self.hourHand.backgroundColor = [UIColor blackColor].CGColor;
+
     self.hourHand.cornerRadius = 3.0;
     [self.layer addSublayer:self.hourHand];
 
     self.minuteHand = [CALayer layer];
     if (@available(iOS 13.0, *)) {
         self.minuteHand.backgroundColor = [UIColor darkGrayColor].CGColor;
+
     } else {
         self.minuteHand.backgroundColor = [UIColor darkGrayColor].CGColor;
+
     }
     self.minuteHand.cornerRadius = 2.0;
     [self.layer addSublayer:self.minuteHand];
 
     self.secondHand = [CALayer layer];
     self.secondHand.backgroundColor = [UIColor redColor].CGColor;
+
     self.secondHand.cornerRadius = 1.0;
     [self.layer addSublayer:self.secondHand];
 }
-#pragma mark - Layout
+#pragma mark —— Layout
 - (void)layoutSubviews {
     [super layoutSubviews];
 
@@ -138,6 +145,7 @@ Prop_strong() JobsTimer *timer;
                                    radius * 2.0);
     UIBezierPath *circlePath = [UIBezierPath bezierPathWithOvalInRect:circleRect];
     self.dialLayer.frame = self.bounds;
+
     self.dialLayer.path  = circlePath.CGPath;
     // 12 个整点刻度
     UIBezierPath *tickPath = UIBezierPath.bezierPath;
@@ -153,6 +161,7 @@ Prop_strong() JobsTimer *timer;
         [tickPath addLineToPoint:outer];
     }
     self.tickLayer.frame = self.bounds;
+
     self.tickLayer.path  = tickPath.CGPath;
 
     // 中心小圆点
@@ -163,6 +172,7 @@ Prop_strong() JobsTimer *timer;
                                 dotRadius * 2.0);
     UIBezierPath *dotPath = [UIBezierPath bezierPathWithOvalInRect:dotRect];
     self.centerDotLayer.frame = self.bounds;
+
     self.centerDotLayer.path  = dotPath.CGPath;
 
     // 1～12 数字布局
@@ -180,14 +190,14 @@ Prop_strong() JobsTimer *timer;
         if ([label respondsToSelector:@selector(intrinsicContentSize)]) {
             labelSize = label.intrinsicContentSize;
         } else {
-            [label sizeToFit];
+            label.bySizeToFit();
             labelSize = label.bounds.size;
         }
 
-        label.frame = CGRectMake(labelCenter.x - labelSize.width / 2.0,
+        label.byFrame(CGRectMake(labelCenter.x - labelSize.width / 2.0,
                                  labelCenter.y - labelSize.height / 2.0,
                                  labelSize.width,
-                                 labelSize.height);
+                                 labelSize.height));
     }];
 }
 /// 布局三根指针
@@ -227,14 +237,17 @@ Prop_strong() JobsTimer *timer;
         // 先对齐当前时间
         [self updateHandsAnimated:NO];
         @jobs_weakify(self)
-        self.timer = jobsMakeTimer(^(JobsTimer * _Nonnull timer) {
+
+        self.timer = jobsMakeTimer(^(JobsTimer<TimerProtocol> * _Nullable timer) {
             @jobs_strongify(self)
             timer.byTimerType(timerType)
-            .byTimeInterval(1.0)                 // 每秒 tick 一次
+            .byTimeInterval(1.0)
+                 // 每秒 tick 一次
             .byTimeSecIntervalSinceDate(0)       // 立即开始
             .byQueue(dispatch_get_main_queue())  // UI 更新必须主线程
             .byTimerState(JobsTimerStateIdle)
-            .byStartTime(0)                      // 非倒计时模式
+            .byStartTime(0)
+                      // 非倒计时模式
             .byTime(0)
             .byOnTick(^(CGFloat time) {
                 @jobs_strongify(self)
@@ -258,7 +271,7 @@ Prop_strong() JobsTimer *timer;
         self.timer = nil;
     }
 }
-#pragma mark - Private: 指针角度更新
+#pragma mark —— Private: 指针角度更新
 - (void)updateHandsAnimated:(BOOL)animated {
     NSDate *now = NSDate.date;
     NSCalendar *calendar = NSCalendar.currentCalendar;

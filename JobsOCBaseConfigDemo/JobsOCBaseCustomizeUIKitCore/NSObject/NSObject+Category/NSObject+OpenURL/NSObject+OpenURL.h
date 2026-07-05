@@ -1,20 +1,33 @@
 //
 //  NSObject+OpenURL.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/10/11.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_OPENURL_6C82E8331F
+#define JOBS_HEADER_GUARD_NSOBJECT_OPENURL_6C82E8331F
+
+#import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import <MessageUI/MessageUI.h>
-#import "MacroDef_String.h"
-#import "JobsBlock.h"
-#import "MacroDef_SysWarning.h"
+#import <MessageUI/MessageUI.h> // 发短信、发邮件
+#import "NSObject+Extra.h"
 #import "NSString+Check.h"
-#import "NSObject+WHToast.h"
-#import "NSObject+Extras.h"
-#import "NSString+Others.h"
-#import "JobsDefineProperty.h"
+#import "NSString+Toast.h"
+#import "NSString+Replace.h"
+#import "NSString+URL.h"
+#import "NSMutableArray+Extra.h"
+#import "NSURL+Extra.h"
+
+#import "JobsMakes.h"
+
+#import "JobsLanMgr.h"
+
+#import "WHToastExtra.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -70,3 +83,4 @@ failCompletionHandlerBlock:(jobsByVoidBlock _Nullable)failCompletionHandlerBlock
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_OPENURL_6C82E8331F */

@@ -1,28 +1,28 @@
 //
-//  _JobsControlTarget.h
-//  JobsOCBaseConfigDemo
+//  JobsControlTarget.h
+//  JobsSuspend
 //
-//  Created by Mac on 11/5/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_JOBSCONTROLTARGET_4D7FDBFBB9
+#define JOBS_HEADER_GUARD_JOBSCONTROLTARGET_4D7FDBFBB9
+
+#pragma once
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "JobsDefineProperty.h"
+
 #import "JobsBlock.h"
 
-typedef NS_ENUM(NSInteger, _JobsInvokePolicy) {
-    _JobsInvokePolicyNone = 0,      // 普通：直接执行
-    _JobsInvokePolicyThrottle,      // 节流：间隔内只执行一次（leading）
-    _JobsInvokePolicyDebounce,      // 防抖：静默期后执行（trailing）
-    _JobsInvokePolicyOnce,          // 一次性：触发后解绑
-};
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 内部 Target 容器
 @interface JobsControlTarget : NSObject
 
 Prop_copy(nullable)jobsByCtrlBlock block;
-Prop_assign()_JobsInvokePolicy policy;
+Prop_assign()JobsInvokePolicy policy;
 Prop_assign()NSTimeInterval interval;   // for throttle/debounce
 Prop_assign()NSTimeInterval lastFire;   // for throttle
 Prop_assign()uint64_t debounceGen;      // for debounce
@@ -40,3 +40,4 @@ NS_INLINE __kindof JobsControlTarget *_Nonnull jobsMakeControlTarget(jobsByContr
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_JOBSCONTROLTARGET_4D7FDBFBB9 */

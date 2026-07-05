@@ -1,11 +1,8 @@
 //
 //  AESCipher.m
-//  JobsOCBaseConfigDemo
+//  JobsCryptography
 //
-//  Created by Welkin Xie on 8/13/16.
-//  Copyright © 2016 WelkinXie. All rights reserved.
-//
-//  https://github.com/WelkinXie/AESCipher-iOS
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "AESCipher.h"

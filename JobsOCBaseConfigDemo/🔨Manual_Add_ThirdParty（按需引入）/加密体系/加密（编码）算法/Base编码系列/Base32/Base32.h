@@ -1,16 +1,14 @@
 //
 //  Base32.h
-//  JobsOCBaseConfigDemo
+//  JobsCryptography
 //
-//  Created by Matt Rubin on 1/25/15.
-//  Public Domain
+//  Created by Jobs on 2026年5月13日，星期三.
 //
-// https://github.com/ekscrypto/Base32
 
 #ifndef Base32_h
 #define Base32_h
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 //! Project version number for Base32.
 FOUNDATION_EXPORT double Base32VersionNumber;

@@ -1,12 +1,13 @@
 //
 //  NSObject+BRPickerView.m
-//  JobsOCBaseConfigDemo
+//  BRPickerViewExtra
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //  Updated for latest BRPickerView on 2026年5月29日，星期五.
 //
 
 #import "NSObject+BRPickerView.h"
+#import "NSMutableArray+Extra.h"
 
 @implementation NSObject (BRPickerView)
 #pragma mark —— 一些公有方法
@@ -20,17 +21,17 @@
     });
 }
 
-- (BRPickerViewExtraReturnTextPickerViewByPickerModeBlock)makeTextPickerView {
+- (BRPickerViewExtraRetTextPickerViewByPickerModeBlock)makeTextPickerView {
     return ^BRTextPickerView *_Nonnull(BRTextPickerMode mode) {
         return BRTextPickerView.initBy(mode);
     };
 }
 
-- (BRPickerViewExtraReturnTextPickerViewByPickerModeBlock)makeStringPickerView {
+- (BRPickerViewExtraRetTextPickerViewByPickerModeBlock)makeStringPickerView {
     return self.makeTextPickerView;
 }
 
-- (BRPickerViewExtraReturnTextPickerViewByPickerStyleBlock)makeAddressPickerView {
+- (BRPickerViewExtraRetTextPickerViewByPickerStyleBlock)makeAddressPickerView {
     @jobs_weakify(self)
     return ^BRTextPickerView *_Nonnull(BRPickerStyle *_Nullable style) {
         @jobs_strongify(self)
@@ -50,7 +51,7 @@
     };
 }
 
-- (BRPickerViewExtraReturnDatePickerViewByPickerStyleBlock)makeDatePickerView {
+- (BRPickerViewExtraRetDatePickerViewByPickerStyleBlock)makeDatePickerView {
     @jobs_weakify(self)
     return ^BRDatePickerView *_Nonnull(BRPickerStyle *_Nullable customStyle) {
         @jobs_strongify(self)
@@ -69,6 +70,20 @@
             datePickerView.isAutoSelect = YES;
             datePickerView.pickerStyle = customStyle;
         });
+    };
+}
+
+#pragma mark —— 一些私有方法
+- (BRPickerViewExtraTextPickerModelBlock)changeBy {
+    @jobs_weakify(self)
+    return ^(__kindof BRStringPickerViewModel *_Nullable model) {
+        @jobs_strongify(self)
+        if (model.dataSourceArr.count > 2) {
+            NSMutableArray *temp = model.dataSourceArr.mutableCopy;
+            [temp removeObjectAtIndex:0];
+            self.textPickerView.dataSourceArr = temp;
+            self.textPickerView.title = model.dataSourceArr[0];
+        }
     };
 }
 

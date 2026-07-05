@@ -1,8 +1,8 @@
 //
 //  UIButton+UIButtonConfiguration.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Admin on 10/12/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIButton+UIButtonConfiguration.h"
@@ -32,7 +32,7 @@
     self.jobsResetSubtitleTextAttributesTransformer([self jobsSetConfigTextAttributesTransformerByTitleFont:subTitleFont
                                                                                                 btnTitleCor:subTitleCor]);
 }
-/// 重设UIButtonConfiguration并使之生效  JobsReturnButtonConfigurationByButtonConfigurationBlock
+/// 重设UIButtonConfiguration并使之生效  JobsRetButtonConfigurationByButtonConfigurationBlock
 -(__kindof UIButton *)jobsUpdateButtonConfiguration:(jobsByBtnConfigBlock _Nullable)configurationBlock {
     if (@available(iOS 16.0, *)) {
         UIButtonConfiguration *config = nil;
@@ -210,6 +210,7 @@
             UIBackgroundConfiguration *bgConfig = config.background.copy;
             config.baseBackgroundColor = data;
             bgConfig.backgroundColor = data;
+
             config.background = bgConfig;
         }];
     };

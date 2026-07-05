@@ -1,8 +1,8 @@
 //
 //  JobsMakeLocalNotification.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by admin on 5/26/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsMakeLocalNotification.h"
@@ -14,24 +14,27 @@
 @implementation JobsMakeLocalNotification
 
 - (void)triggerLocalNotification:(JobsLocalNotificationModel *)localNotificationModel{
-    UNUserNotificationCenter *center = UNUserNotificationCenter.currentNotificationCenter;
-    UNMutableNotificationContent *content = UNMutableNotificationContent.new;
-    content.title = localNotificationModel.title;
-    content.body = localNotificationModel.body;
-    content.sound = localNotificationModel.sound;
-    UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:localNotificationModel.triggerWithTimeInterval
-                                                                                                    repeats:localNotificationModel.repeats];
-    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:localNotificationModel.identifier
-                                                                          content:content
-                                                                          trigger:trigger];
-    [center addNotificationRequest:request
-             withCompletionHandler:^(NSError * _Nullable error) {
-        if (error) {
-            JobsLog(@"Error adding notification: %@", error);
-        } else {
-            JobsLog(@"Notification scheduled.");
-        }
-    }];
+    jobsMakeUNUserNotificationCenter(^(__kindof UNUserNotificationCenter * _Nullable center) {
+        UNMutableNotificationContent *content = jobsMakeUNMutableNotificationContent(^(__kindof UNMutableNotificationContent * _Nullable content) {
+            content.title = localNotificationModel.title;
+            content.body = localNotificationModel.body;
+            content.sound = localNotificationModel.sound;
+        });
+
+        UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:localNotificationModel.triggerWithTimeInterval
+                                                                                                        repeats:localNotificationModel.repeats];
+        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:localNotificationModel.identifier
+                                                                              content:content
+                                                                              trigger:trigger];
+        [center addNotificationRequest:request
+                 withCompletionHandler:^(NSError * _Nullable error) {
+            if (error) {
+                JobsLog(@"Error adding notification: %@", error);
+            } else {
+                JobsLog(@"Notification scheduled.");
+            }
+        }];
+    });
 }
 
 @end

@@ -1,12 +1,16 @@
 //
 //  JobsTuple.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs Hi on 9/21/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_JOBSTUPLE_C2BFCFE0A9
+#define JOBS_HEADER_GUARD_JOBSTUPLE_C2BFCFE0A9
+
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 用Objective-C仿写Swift中的元祖
@@ -23,13 +27,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 /**
- 使用示例:
  
- // 创建元组
- JobsTuple *myTuple = [JobsTuple.alloc initWithValues:@"Hello", @42, @3.14, @"World", nil];
- // 访问元组的值
- myTuple.jobsTupleValueArr;
- 
- 这样做的意义：
- 当我们一个方法需要返回多组不同类型的值，我们可以建立一个Model，但是Model会固定这些值的个数和类型，所以用此类来解决问题
+     使用示例:
+
+     // 创建元组
+     JobsTuple *myTuple = [JobsTuple.alloc initWithValues:@"Hello", @42, @3.14, @"World", nil];
+     // 访问元组的值
+     myTuple.jobsTupleValueArr;
+
+     这样做的意义：
+     当我们一个方法需要返回多组不同类型的值，我们可以建立一个Model，但是Model会固定这些值的个数和类型，所以用此类来解决问题
  */
+#endif /* JOBS_HEADER_GUARD_JOBSTUPLE_C2BFCFE0A9 */

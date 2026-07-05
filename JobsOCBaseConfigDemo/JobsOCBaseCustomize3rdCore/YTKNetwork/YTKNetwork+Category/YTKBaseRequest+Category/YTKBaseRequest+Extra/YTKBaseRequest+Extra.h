@@ -1,19 +1,29 @@
 //
 //  YTKBaseRequest+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Admin on 28/10/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "JobsBlock.h"
-#import "JobsDefineProperty.h"
-#import "YTKCustomBaseRequestProtocol.h"
+#ifndef JOBS_HEADER_GUARD_YTKBASEREQUEST_EXTRA_9885F1E727
+#define JOBS_HEADER_GUARD_YTKBASEREQUEST_EXTRA_9885F1E727
+
+#import <objc/runtime.h>
+#import <Foundation/Foundation.h>
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
 #else
 #import "YTKNetwork.h"
 #endif
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsModelDSL.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,7 +32,15 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_strong()JobsResponseModel *responseModel;
 
 -(NSMutableURLRequest *)jobsMakeRequestByBlock:(jobsByMutableURLRequestBlock _Nullable)block;
++(JobsRetYTKBaseRequestByIDBlock _Nonnull)ByURLParameters;
+-(JobsRetYTKBaseRequestByIDBlock _Nonnull)byURLParameters;
++(JobsRetYTKBaseRequestByIDBlock _Nonnull)ByBodyParameters;
+-(JobsRetYTKRequestByDictionaryBlock _Nonnull)byBodyParameters;
++(JobsRetYTKBaseRequestByIDBlock _Nonnull)ByHeaderParameters;
+-(JobsRetYTKRequestByDictionaryBlock _Nonnull)byHeaderParameters;
+-(JobsRetYTKBaseRequestByVoidBlock _Nonnull)handleErr;
 
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_YTKBASEREQUEST_EXTRA_9885F1E727 */

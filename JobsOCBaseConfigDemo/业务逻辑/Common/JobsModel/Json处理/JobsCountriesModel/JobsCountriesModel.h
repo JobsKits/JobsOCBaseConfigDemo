@@ -1,12 +1,18 @@
 //
 //  JobsCountriesModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JobsCountriesModel_h
+#define JobsCountriesModel_h
+
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,3 +34,5 @@ Prop_copy()NSString *germen;
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif /* JobsCountriesModel_h */

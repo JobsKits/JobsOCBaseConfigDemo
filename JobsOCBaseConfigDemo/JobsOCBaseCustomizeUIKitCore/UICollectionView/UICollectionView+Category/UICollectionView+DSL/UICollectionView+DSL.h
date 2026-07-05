@@ -1,6 +1,6 @@
 //
 //  UICollectionView+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -11,13 +11,10 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 
-#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
-#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
-#else
 #import "JobsBaseProtocolHeader.h"
-#endif
 
 #import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

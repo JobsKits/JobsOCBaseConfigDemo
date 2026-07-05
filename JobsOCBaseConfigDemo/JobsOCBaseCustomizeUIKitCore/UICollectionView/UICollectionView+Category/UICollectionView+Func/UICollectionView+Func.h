@@ -1,12 +1,14 @@
 //
 //  UICollectionView+Func.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2022/6/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UICOLLECTIONVIEW_FUNC_0F30EF789B
+#define JOBS_HEADER_GUARD_UICOLLECTIONVIEW_FUNC_0F30EF789B
+
 #import <UIKit/UIKit.h>
-#import "BaseCollectionViewProtocol.h"
 #import "UICollectionViewCell+BaseViewProtocol.h"
 
 #if __has_include(<MJRefresh/MJRefresh.h>)
@@ -15,6 +17,12 @@
 #import "MJRefresh.h"
 #endif
 
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UICollectionView (Func)<BaseCollectionViewProtocol>
@@ -22,3 +30,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UICOLLECTIONVIEW_FUNC_0F30EF789B */

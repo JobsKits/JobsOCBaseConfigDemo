@@ -1,19 +1,24 @@
 //
 //  MasonryModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef MasonryModel_h
+#define MasonryModel_h
+
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
-#import "MasonryModel.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -44,3 +49,5 @@ NS_INLINE __kindof MasonryModel *_Nonnull jobsMakeMasonryModel(jobsByMasonryMode
     if (block) block(data);
     return data;
 }
+
+#endif /* MasonryModel_h */

@@ -1,14 +1,14 @@
 //
 //  NSMutableSet+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by User on 8/6/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSMutableSet+Extra.h"
 
 @implementation NSMutableSet (Extra)
-/// 阻止向可变集合添加空元素 JobsReturnIDByIDBlock
+/// 阻止向可变集合添加空元素 JobsRetIDByIDBlock
 -(JobsRetMutableSetByIDBlock _Nonnull)add{
     @jobs_weakify(self)
     return ^NSMutableSet *(id _Nullable data) {

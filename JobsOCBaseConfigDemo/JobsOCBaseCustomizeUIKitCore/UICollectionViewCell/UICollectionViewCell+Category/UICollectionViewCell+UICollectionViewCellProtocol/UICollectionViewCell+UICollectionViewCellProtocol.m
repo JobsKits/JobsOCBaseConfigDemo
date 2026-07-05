@@ -1,8 +1,8 @@
 //
 //  UICollectionViewCell+UICollectionViewCellProtocol.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/3/11.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UICollectionViewCell+UICollectionViewCellProtocol.h"
@@ -46,11 +46,20 @@
     };
 }
 
+-(JobsRetCollectionViewCellByJobsByViewBlock _Nonnull)byContentView{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionViewCell *_Nullable(jobsByViewBlock _Nullable block){
+        @jobs_strongify(self)
+        if (block) block(self.contentView);
+        return self;
+    };
+}
+
 -(JobsRetCollectionViewCellByCorBlock _Nonnull)byContentViewBgCor{
     @jobs_weakify(self)
     return ^__kindof UICollectionViewCell *_Nullable(UIColor *_Nonnull cor){
         @jobs_strongify(self)
-        self.contentView.backgroundColor = cor;
+        self.contentView.byBgColor(cor);
         return self;
     };
 }
@@ -145,12 +154,12 @@
             layer.strokeColor = bottomLineCor.CGColor;
             layer.path = jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable linePath) {
                 linePath.moveTo(jobsMakeCGPointByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
-                    model.jobsX = bounds.origin.x;
-                    model.jobsY = bounds.size.height;
+                    model.byJobsX(bounds.origin.x)
+                         .byJobsY(bounds.size.height);
                 })); /// 起点
                 linePath.add(jobsMakeCGPointByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
-                    model.jobsX = bounds.origin.x + bounds.size.width;
-                    model.jobsY = bounds.size.height;
+                    model.byJobsX(bounds.origin.x + bounds.size.width)
+                         .byJobsY(bounds.size.height);
                 })); /// 其他点
             }).CGPath;
         }) atIndex:1];
@@ -175,10 +184,10 @@
             layer.borderWidth = borderWidth;
             layer.path = jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable linePath) {
                 linePath.moveTo(jobsMakeCGPointByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
-                    model.jobsX = bounds.origin.x;
+                    model.byJobsX(bounds.origin.x);
                 }));/// 起点
                 linePath.add(jobsMakeCGPointByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
-                    model.jobsX = bounds.origin.x + bounds.size.width;
+                    model.byJobsX(bounds.origin.x + bounds.size.width);
                 }));/// 其他点
             }).CGPath;
         }) atIndex:1];

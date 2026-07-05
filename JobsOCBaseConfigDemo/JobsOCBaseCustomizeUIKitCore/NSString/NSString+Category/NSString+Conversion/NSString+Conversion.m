@@ -1,12 +1,11 @@
 //
 //  NSString+Conversion.m
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Jobs on 2021/11/30.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSString+Conversion.h"
-#import "NSObject+WHToast.h"
 
 @implementation NSString (Conversion)
 #pragma mark —— 转化
@@ -46,11 +45,11 @@
     NSString *path = self.add(@".json").pathForResourceWithFullName;
     if(isValue(path)){
         // 将文件数据化
-        NSData *data = self.initByContentsOfFile(path);
+        NSData *data = [NSData dataWithContentsOfFile:path];
         // 对数据进行JSON格式化并返回字典形式
         return self.JSONkNilOptions(data);
     }else{
-        NSObject.jobsToastMsg(@"本地没有找到此Json文件，请检查".tr);
+        toastBy(@"本地没有找到此Json文件，请检查".tr);
         return nil;
     }
 }

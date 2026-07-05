@@ -1,6 +1,6 @@
 //
 //  UIBackgroundConfiguration+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月8日，星期一.
 //
@@ -70,6 +70,10 @@
         self.edgesAddingLayoutMarginsToBackgroundInsets = edges;
         return self;
     };
+}
+
+-(JobsRetBackgroundConfigByRectEdgeBlock _Nonnull)byEdgesAddingLayoutMarginsToBackgroundInsets{
+    return self.byEdgesAddingLayoutMargins;
 }
 #pragma mark —— 描边
 -(JobsRetBackgroundConfigByCorBlock _Nonnull)byStrokeColor{

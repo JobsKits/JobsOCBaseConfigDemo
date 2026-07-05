@@ -1,8 +1,8 @@
 //
 //  UIViewController+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsNavigationTransitionMgr
 //
-//  Created by Jobs on 2025/4/18.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIViewController+Extra.h"
@@ -12,7 +12,7 @@
 -(void)make:(MASConstraintMaker *)make topOffset:(CGFloat)topOffset{
 //    JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape
     if(self.navBar && !self.setupNavigationBarHidden) {
-        make.top.equalTo(self.navBar.mas_bottom).offset(topOffset);
+        make.top.equalTo(((UIView *)self.navBar).mas_bottom).offset(topOffset);
     }else if (self.gk_navigationBar && !self.gk_statusBarHidden && !self.setupNavigationBarHidden){
         make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(topOffset);
     }else{

@@ -1,30 +1,16 @@
 //
 //  ASButtonNode+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "ASButtonNode+DSL.h"
 
-@interface ASButtonNode (DSL)
-
-Prop_copy()jobsByButtonNodeBlock jobsButtonTapBlock;
-Prop_copy()jobsByButtonNodeLongPressBlock jobsButtonLongPressBlock;
-Prop_strong()UILongPressGestureRecognizer *jobsButtonLongPressGR;
-
-@end
-
+JobsKey(kJobsButtonTapBlockKey)
+JobsKey(kJobsButtonLongPressBlockKey)
+JobsKey(kJobsButtonLongPressGRKey)
 @implementation ASButtonNode (DSL)
-#pragma mark —— Prop_copy()jobsByButtonNodeBlock jobsButtonTapBlock;
-JobsKey(_jobsButtonTapBlock)
-@dynamic jobsButtonTapBlock;
-#pragma mark —— Prop_copy()jobsByButtonNodeLongPressBlock jobsButtonLongPressBlock;
-JobsKey(_jobsButtonLongPressBlock)
-@dynamic jobsButtonLongPressBlock;
-#pragma mark —— Prop_strong()UILongPressGestureRecognizer *jobsButtonLongPressGR;
-JobsKey(_jobsButtonLongPressGR)
-@dynamic jobsButtonLongPressGR;
 
 -(JobsRetButtonNodeByTitleConfigBlock _Nonnull)byTitle{
     @jobs_weakify(self)
@@ -93,7 +79,7 @@ JobsKey(_jobsButtonLongPressGR)
     return ^__kindof ASButtonNode *_Nonnull(jobsByButtonNodeBlock _Nullable handler){
         @jobs_strongify(self)
         // 存 Handler
-        Jobs_setAssociatedCOPY_NONATOMIC(_jobsButtonTapBlock, handler)
+        Jobs_setAssociatedCOPY_NONATOMIC(kJobsButtonTapBlockKey, handler)
         // 先移除后绑定，避免重复
         [self removeTarget:self action:@selector(_jobs_handleTap:) forControlEvents:ASControlNodeEventTouchUpInside];
         [self addTarget:self action:@selector(_jobs_handleTap:) forControlEvents:ASControlNodeEventTouchUpInside];
@@ -102,7 +88,7 @@ JobsKey(_jobsButtonLongPressGR)
 }
 
 -(void)_jobs_handleTap:(__unused ASButtonNode *)sender{
-    jobsByButtonNodeBlock block = Jobs_getAssociatedObject(_jobsButtonTapBlock);
+    jobsByButtonNodeBlock block = Jobs_getAssociatedObject(kJobsButtonTapBlockKey);
     if (block) block(self);
 }
 /// 长按封装（默认 & 自定义）
@@ -121,12 +107,12 @@ JobsKey(_jobsButtonLongPressGR)
              jobsByButtonNodeLongPressBlock _Nullable handler){
         @jobs_strongify(self)
         // 存 Handler
-        Jobs_setAssociatedCOPY_NONATOMIC(_jobsButtonLongPressBlock, handler)
+        Jobs_setAssociatedCOPY_NONATOMIC(kJobsButtonLongPressBlockKey, handler)
         // 取/建 GR（只加一次）
-        UILongPressGestureRecognizer *gr = Jobs_getAssociatedObject(_jobsButtonLongPressGR);
+        UILongPressGestureRecognizer *gr = Jobs_getAssociatedObject(kJobsButtonLongPressGRKey);
         if (!gr){
             gr = [UILongPressGestureRecognizer.alloc initWithTarget:self action:@selector(_jobs_handleLongPress:)];
-            Jobs_setAssociatedRETAIN_NONATOMIC(_jobsButtonLongPressGR, gr)
+            Jobs_setAssociatedRETAIN_NONATOMIC(kJobsButtonLongPressGRKey, gr)
             // ⚠️ 需要 view，直接访问会触发 loadView：在 DSL 场景可接受
             [self.view addGestureRecognizer:gr];
         }
@@ -139,7 +125,7 @@ JobsKey(_jobsButtonLongPressGR)
 
 -(void)_jobs_handleLongPress:(UILongPressGestureRecognizer *)gr{
     if (gr.state != UIGestureRecognizerStateBegan) return;
-    jobsByButtonNodeLongPressBlock block = Jobs_getAssociatedObject(_jobsButtonLongPressBlock);
+    jobsByButtonNodeLongPressBlock block = Jobs_getAssociatedObject(kJobsButtonLongPressBlockKey);
     if (block) block(self, gr);
 }
 

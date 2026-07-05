@@ -1,37 +1,24 @@
 //
 //  UIView+Refresh.h
-//  JobsOCBaseConfigDemo
+//  JobsCustomView
 //
-//  Created by Jobs on 2021/1/17.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UIVIEW_REFRESH_4653F1A4EF
+#define JOBS_HEADER_GUARD_UIVIEW_REFRESH_4653F1A4EF
+
+#pragma once
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
-#import "NSObject+Extras.h"
-#import "NSObject+DynamicInvoke.h"
-#import "MJRefresh+Extra.h"
-#import "UILabel+Extra.h"
-#import "LOTAnimationMJRefreshHeader.h"
-#import "MJRefreshConfigModel.h"
-#import "JobsDefineProperty.h"
+#import "JobsOCDSL.h"
+#import "NSObject+Extra.h"
 
-#if __has_include(<ReactiveObjC/RACmetamacros.h>)
-#import <ReactiveObjC/RACmetamacros.h>
+#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
+#import <ReactiveObjC/ReactiveObjC.h>
 #else
-#import "RACmetamacros.h"
-#endif
-
-#if __has_include(<ReactiveObjC/RACEXTScope.h>)
-#import <ReactiveObjC/RACEXTScope.h>
-#else
-#import "RACEXTScope.h"
-#endif
-
-#if __has_include(<ReactiveObjC/RACEXTKeyPathCoding.h>)
-#import <ReactiveObjC/RACEXTKeyPathCoding.h>
-#else
-#import "RACEXTKeyPathCoding.h"
+#import "ReactiveObjC.h"
 #endif
 
 #if __has_include(<MJRefresh/MJRefresh.h>)
@@ -52,11 +39,13 @@
 #import "XZMRefresh.h"
 #endif
 
-//#if __has_include(<ReactiveObjC/RACEXTRuntimeExtensions.h>)
-//#import <ReactiveObjC/RACEXTRuntimeExtensions.h>
-//#else
-//#import "RACEXTRuntimeExtensions.h"
-//#endif
+#import "MJRefreshExtra.h"
+
+#import "JobsOCRuntimeKits.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// https://github.com/CoderMJLee/MJRefresh/issues/1495
@@ -87,21 +76,21 @@ Prop_strong()MJRefreshFooter *mjRefreshFooter;
 -(jobsByVoidBlock _Nonnull)refresh;
 #pragma mark —— 创建不同类型的MJHeader 和 MJFootor
 /// Header
--(JobsReturnLOTAnimationMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)LOTAnimationMJRefreshHeaderBy;
--(JobsReturnMJRefreshNormalHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshNormalHeaderBy;
--(JobsReturnMJRefreshStateHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshStateHeaderBy;
--(JobsReturnMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshHeaderBy;
--(JobsReturnMJRefreshGifHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshGifHeaderBy;
+-(JobsRetLOTAnimationMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)LOTAnimationMJRefreshHeaderBy;
+-(JobsRetMJRefreshNormalHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshNormalHeaderBy;
+-(JobsRetMJRefreshStateHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshStateHeaderBy;
+-(JobsRetMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshHeaderBy;
+-(JobsRetMJRefreshGifHeaderByRefreshConfigModelBlock _Nonnull)MJRefreshGifHeaderBy;
 /// Footer
--(JobsReturnMJRefreshAutoGifFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoGifFooterBy;
--(JobsReturnMJRefreshBackNormalFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackNormalFooterBy;
--(JobsReturnMJRefreshAutoNormalFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoNormalFooterBy;
--(JobsReturnMJRefreshAutoStateFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoStateFooterBy;
--(JobsReturnMJRefreshAutoFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoFooterBy;
--(JobsReturnMJRefreshBackGifFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackGifFooterBy;
--(JobsReturnMJRefreshBackStateFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackStateFooterBy;
--(JobsReturnMJRefreshBackFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackFooterBy;
--(JobsReturnMJRefreshFooterByRefreshConfigModelBlock _Nonnull)MJRefreshFooterBy;
+-(JobsRetMJRefreshAutoGifFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoGifFooterBy;
+-(JobsRetMJRefreshBackNormalFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackNormalFooterBy;
+-(JobsRetMJRefreshAutoNormalFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoNormalFooterBy;
+-(JobsRetMJRefreshAutoStateFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoStateFooterBy;
+-(JobsRetMJRefreshAutoFooterByRefreshConfigModelBlock _Nonnull)MJRefreshAutoFooterBy;
+-(JobsRetMJRefreshBackGifFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackGifFooterBy;
+-(JobsRetMJRefreshBackStateFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackStateFooterBy;
+-(JobsRetMJRefreshBackFooterByRefreshConfigModelBlock _Nonnull)MJRefreshBackFooterBy;
+-(JobsRetMJRefreshFooterByRefreshConfigModelBlock _Nonnull)MJRefreshFooterBy;
 #pragma mark —— 关于 XZMRefresh 的二次封装
 -(jobsByVoidBlock _Nonnull)XZM_beginRefreshingNormalHeader;
 -(jobsByVoidBlock _Nonnull)XZM_endRefreshingNormalHeader;
@@ -132,3 +121,4 @@ Prop_strong()MJRefreshFooter *mjRefreshFooter;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIVIEW_REFRESH_4653F1A4EF */

@@ -1,12 +1,20 @@
 //
 //  UIButton+UIControlState.h
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Admin on 10/12/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UIBUTTON_UICONTROLSTATE_F97071BB1B
+#define JOBS_HEADER_GUARD_UIBUTTON_UICONTROLSTATE_F97071BB1B
+
+#pragma once
+
 #import <UIKit/UIKit.h>
+
 #import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -103,3 +111,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIBUTTON_UICONTROLSTATE_F97071BB1B */

@@ -1,13 +1,12 @@
 //
 //  JobsNumber.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/28.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef JobsNumber_h
 #define JobsNumber_h
 
-#import "NSNumber+Extra.h"
 
 #endif /* JobsNumber_h */

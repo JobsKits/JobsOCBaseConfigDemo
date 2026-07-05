@@ -1,18 +1,20 @@
 //
 //  UIViewController+XLBubbleTransition.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by MengXianLiang on 2017/4/1.
-//  Copyright © 2017年 MengXianLiang. All rights reserved.
-//  GitHub ：https://github.com/mengxianliang/XLBubbleTransition
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_XLBUBBLETRANSITION_496AF3DA62
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_XLBUBBLETRANSITION_496AF3DA62
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "XLBubbleTransition.h"
 
-@class XLBubbleTransition;
-#import "JobsDefineProperty.h"
+#import "JobsDefines.h"
 
+@class XLBubbleTransition;
 @interface UIViewController (XLBubbleTransition)
 <
 UINavigationControllerDelegate
@@ -25,3 +27,4 @@ Prop_retain()XLBubbleTransition *xl_presentTranstion;
 Prop_retain()XLBubbleTransition *xl_dismissTranstion;
 
 @end
+#endif /* JOBS_HEADER_GUARD_UIVIEWCONTROLLER_XLBUBBLETRANSITION_496AF3DA62 */

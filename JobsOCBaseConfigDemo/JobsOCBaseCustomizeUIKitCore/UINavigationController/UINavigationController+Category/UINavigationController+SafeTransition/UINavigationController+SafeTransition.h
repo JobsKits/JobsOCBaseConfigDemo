@@ -1,17 +1,20 @@
 //
 //  UINavigationController+SafeTransition.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Billie on 2020/3/8.
-//  Copyright © 2020 FirefoxGames. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-/* 解决Can't add self as subview 的崩溃 */
+#ifndef JOBS_HEADER_GUARD_UINAVIGATIONCONTROLLER_SAFETRANSITION_8072586AFE
+#define JOBS_HEADER_GUARD_UINAVIGATIONCONTROLLER_SAFETRANSITION_8072586AFE
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "NSObject+Swizzling.h"
-#import "JobsDefineProperty.h"
+#import "NSArray+Extra.h"
+
+#import "JobsOCRuntimeKits.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,3 +27,4 @@ Prop_assign()BOOL viewTransitionInProgress;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UINAVIGATIONCONTROLLER_SAFETRANSITION_8072586AFE */

@@ -1,12 +1,18 @@
 //
 //  JobsScrollYView.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs Hi on 9/19/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseView.h"
-#import "JobsDefineProperty.h"
+#ifndef JOBS_HEADER_GUARD_JOBSSCROLLYVIEW_768014F09F
+#define JOBS_HEADER_GUARD_JOBSSCROLLYVIEW_768014F09F
+
+#import <UIKit/UIKit.h>
+
+#import "JobsBaseUI.h"
+
+#import "JobsDefines.h"
 
 /// 锚点1（最低点）
 #define 初始位置 JobsMainScreen_HEIGHT() / 2
@@ -20,3 +26,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSSCROLLYVIEW_768014F09F */

@@ -1,50 +1,65 @@
 //
 //  UIGestureRecognizer+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Admin on 4/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIGestureRecognizer+Extra.h"
 
+JobsKey(JobsOCDSLGestureTargetKey)
+JobsKey(JobsOCDSLGestureVoidBlockKey)
+JobsKey(JobsOCDSLGestureRecognizerBlockKey)
+
 @implementation UIGestureRecognizer (Extra)
 
 -(__kindof UIGestureRecognizer *)gestureActionBy:(jobsByVoidBlock _Nonnull)block{
-    [self.rac_gestureSignal subscribeNext:^(__kindof UIGestureRecognizer * _Nullable gesture) {
-        if(block) block();
-    }];return self;
+    self.target = self;
+    Jobs_setAssociatedCOPY_NONATOMIC(JobsOCDSLGestureVoidBlockKey, block)
+    [self addTarget:self action:@selector(jobs_ocdsl_handleGestureAction:)];
+    return self;
 }
 
 -(__kindof UIGestureRecognizer *)GestureActionBy:(jobsByGestureRecognizerBlock _Nonnull)block{
-    [self.rac_gestureSignal subscribeNext:^(__kindof UIGestureRecognizer * _Nullable gesture) {
-        if(block) block(gesture);
-    }];return self;
+    self.target = self;
+    Jobs_setAssociatedCOPY_NONATOMIC(JobsOCDSLGestureRecognizerBlockKey, block)
+    [self addTarget:self action:@selector(jobs_ocdsl_handleGestureAction:)];
+    return self;
 }
 
--(jobsBySELBlock _Nonnull)removeAction{
-    @jobs_weakify(self)
-    return ^(SEL _Nullable data){
-        @jobs_strongify(self)
+-(void)jobs_ocdsl_handleGestureAction:(__kindof UIGestureRecognizer *)gesture{
+    jobsByVoidBlock voidBlock = Jobs_getAssociatedObject(JobsOCDSLGestureVoidBlockKey);
+    if (voidBlock) voidBlock();
+    
+    jobsByGestureRecognizerBlock gestureBlock = Jobs_getAssociatedObject(JobsOCDSLGestureRecognizerBlockKey);
+    if (gestureBlock) gestureBlock(gesture);
+}
+
+-(JobsRetGestureRecognizerBySELBlock _Nonnull)removeAction{
+    __weak typeof(self) weakSelf = self;
+    return ^__kindof UIGestureRecognizer *_Nullable(SEL _Nullable data){
+        __strong typeof(weakSelf) self = weakSelf;
         if(data) [self removeTarget:self.target action:data];
+        return self;
     };
 }
 
--(jobsBySELBlock _Nonnull)addAction{
-    @jobs_weakify(self)
-    return ^(SEL _Nullable data){
-        @jobs_strongify(self)
+-(JobsRetGestureRecognizerBySELBlock _Nonnull)addAction{
+    __weak typeof(self) weakSelf = self;
+    return ^__kindof UIGestureRecognizer *_Nullable(SEL _Nullable data){
+        __strong typeof(weakSelf) self = weakSelf;
         if(data) [self addTarget:self.target action:data];
+        return self;
     };
 }
-#pragma mark —— Prop_strong(nullable)id target;
-JobsKey(_target)
+
 @dynamic target;
 -(id)target{
-    return Jobs_getAssociatedObject(_target);
+    return Jobs_getAssociatedObject(JobsOCDSLGestureTargetKey);
 }
 
 -(void)setTarget:(id)target{
-    Jobs_setAssociatedRETAIN_NONATOMIC(_target, target);
+    Jobs_setAssociatedASSIGN(JobsOCDSLGestureTargetKey, target)
 }
 
 @end

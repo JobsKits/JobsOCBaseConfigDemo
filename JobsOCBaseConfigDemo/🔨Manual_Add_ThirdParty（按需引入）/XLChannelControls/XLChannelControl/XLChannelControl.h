@@ -1,20 +1,24 @@
 //
 //  XLChannelControl.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by MengXianLiang on 2017/3/3.
-//  Copyright © 2017年 MengXianLiang. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_XLCHANNELCONTROL_32ABD92E58
+#define JOBS_HEADER_GUARD_XLCHANNELCONTROL_32ABD92E58
 
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
-#import "JobsBlock.h"
 
+typedef void(^XLChannelBlock)(NSArray *enabledTitles,NSArray *disabledTitles);
+
+#import "JobsOCDSL.h"
 
 @interface XLChannelControl : NSObject
 
-+ (XLChannelControl*)shareControl;
++ (XLChannelControl *)shareControl;
 
 - (void)showChannelViewWithEnabledTitles:(NSArray*)enabledTitles disabledTitles:(NSArray*)disabledTitles finish:(XLChannelBlock)block;
 
 @end
+#endif /* JOBS_HEADER_GUARD_XLCHANNELCONTROL_32ABD92E58 */

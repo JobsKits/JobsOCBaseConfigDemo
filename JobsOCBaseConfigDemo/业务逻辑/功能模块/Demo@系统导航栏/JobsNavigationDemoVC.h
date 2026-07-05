@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
+#import "NSObject+MyAppTools.h"
 #import "UIBarButtonItem+Extra.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)

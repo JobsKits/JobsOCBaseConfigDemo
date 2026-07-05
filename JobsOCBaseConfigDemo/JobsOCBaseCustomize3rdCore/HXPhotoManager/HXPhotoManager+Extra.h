@@ -1,18 +1,24 @@
 //
 //  HXPhotoManager+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Admin on 7/12/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_HXPHOTOMANAGER_EXTRA_CA7B072693
+#define JOBS_HEADER_GUARD_HXPHOTOMANAGER_EXTRA_CA7B072693
 
 #import <Foundation/Foundation.h>
-#import "JobsBlock.h"
 
-#if __has_include(<HXPhotoPicker/HXPhotoPicker.h>)
-#import <HXPhotoPicker/HXPhotoPicker.h>
+#if __has_include(<HXPhotoPickerObjC/HXPhotoPicker.h>)
+#import <HXPhotoPickerObjC/HXPhotoPicker.h>
 #else
 #import "HXPhotoPicker.h"
 #endif
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 @class HXPhotoConfiguration;
 
@@ -20,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HXPhotoManager (Extra)
 
-+(JobsReturnHXPhotoManagerByNSUIntegerBlock _Nonnull)initByType;
++(JobsRetHXPhotoManagerByNSUIntegerBlock _Nonnull)initByType;
 /// 只显示图片
 +(HXPhotoManager *)initByTypePhoto;
 /// 只显示视频
@@ -55,3 +61,4 @@ NS_INLINE __kindof HXPhotoManager *_Nonnull jobsMakeHXPhotoManagerBySelectedType
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_HXPHOTOMANAGER_EXTRA_CA7B072693 */

@@ -260,7 +260,7 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
                 buttonModel.backgroundImage = DefaultIndex == 0 ? @"TabBarItem选中的背景色".img :@"TabBarItem选中的背景色（透明）".img;
             })).onClickBy(^(__kindof UIButton *x){
                 x.selected = !x.selected;
-                JobsAppTool.loginWork = FMLoginWork_MyFav;
+                MyAppTools.sharedManager.loginWork = FMLoginWork_MyFav;
                 @jobs_strongify(self)
 //                 [self isLogin:^{
 //                     @jobs_strongify(self)
@@ -286,7 +286,7 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
                 buttonModel.backgroundImage = DefaultIndex == 1 ? @"TabBarItem选中的背景色".img  :@"TabBarItem选中的背景色（透明）".img;
             })).onClickBy(^(__kindof UIButton *x){
                 x.selected = !x.selected;
-                JobsAppTool.loginWork = FMLoginWork_MyBank;
+                MyAppTools.sharedManager.loginWork = FMLoginWork_MyBank;
                 @jobs_weakify(self)
 //                 [self isLogin:^{
 //                     @jobs_strongify(self)
@@ -334,7 +334,7 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
                 buttonModel.backgroundImage = DefaultIndex == 3 ? @"TabBarItem选中的背景色".img :@"TabBarItem选中的背景色（透明）".img;
             })).onClickBy(^(__kindof UIButton *x){
                 @jobs_strongify(self)
-                JobsAppTool.loginWork = FMLoginWork_Default;
+                MyAppTools.sharedManager.loginWork = FMLoginWork_Default;
                 x.selected = !x.selected;
                 [AppDelegate button:x index:3];
                 if (self.objBlock) self.objBlock(x);

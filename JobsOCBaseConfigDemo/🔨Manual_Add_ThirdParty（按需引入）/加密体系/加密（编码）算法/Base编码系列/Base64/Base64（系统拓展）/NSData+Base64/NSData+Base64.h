@@ -1,12 +1,17 @@
 //
-//  NSData+Base64.m
-//  JobsOCBaseConfigDemo
+//  NSData+Base64.h
+//  JobsCryptography
 //
-//  Created by Gurpartap Singh on 06/05/12.
-//  Copyright (c) 2012 Gurpartap Singh. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSDATA_BASE64_78B736316C
+#define JOBS_HEADER_GUARD_NSDATA_BASE64_78B736316C
+
 #import <Foundation/Foundation.h>
+
+#import "JobsByOCPods.h"
+
 #import "JobsBlock.h"
 
 @interface NSData (Base64)
@@ -22,3 +27,4 @@
 -(JobsRetDataByStrBlock _Nonnull)dataByBase64String;
 
 @end
+#endif /* JOBS_HEADER_GUARD_NSDATA_BASE64_78B736316C */

@@ -7,42 +7,20 @@
 
 #import <Foundation/Foundation.h>
 #import "JobsBlock.h"
+#import "JobsLanguageManager.h"
 #import "JobsDefineConstString.h"
 #import "JobsDefineEnums.h"
 #import "JobsDefineConstString.h"
 #import "NSObject+Extras.h"
 #import "NSString+Check.h"
 #import "FileNameModel.h"
+#import "JobsStringUtils.h"
 
 #if __has_include(<SDWebImage/SDWebImage.h>)
 #import <SDWebImage/SDWebImage.h>
 #else
 #import "SDWebImage.h"
 #endif
-
-NS_INLINE NSMutableString *_Nonnull JobsMutableString(NSString * _Nonnull str){
-    if(!str) str = @"";
-    return [NSMutableString stringWithString:str];
-}
-
-NS_INLINE NSString *_Nonnull StringWithUTF8String(const char *_Nonnull data){
-    return [NSString stringWithUTF8String:data];
-}
-
-NS_INLINE NSURL * _Nullable JobsUrl(NSString *_Nonnull string) {
-    if(!isValue(string)) return nil;  // 如果字符串无效，返回 nil
-    return [NSURL URLWithString:string];
-}
-
-NS_INLINE NSURL * _Nullable JobsFileUrl(NSString *_Nonnull string) {
-    if(!isValue(string)) return nil;
-    return [NSURL fileURLWithPath:string];
-}
-
-NS_INLINE BOOL JobsCanOpenUrl(NSString *_Nonnull string) {
-    if(!isValue(string)) return NO;
-    return [UIApplication.sharedApplication canOpenURL:JobsUrl(string)];
-}
 
 NS_ASSUME_NONNULL_BEGIN
 

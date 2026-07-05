@@ -21,6 +21,8 @@
 -(jobsByScrollViewBlock _Nonnull)mianTableViewCellScrollerDid;
 @end
 
+typedef MainTableViewCell *_Nonnull(^JobsRetMainTableViewCellByDelegateBlock)(NSObject<MianTableViewCellDelegate> *_Nullable delegate);
+typedef JobsRetMainTableViewCellByDelegateBlock JobsReturnMainTableViewCellByDelegateBlock;
 
 @interface MainTableViewCell : JobsBaseTableViewCell
 <
@@ -36,5 +38,4 @@ Prop_weak()NSObject <MianTableViewCellDelegate> *delegate;
 -(JobsReturnMainTableViewCellByDelegateBlock _Nonnull)byDelegate;
 
 @end
-
 

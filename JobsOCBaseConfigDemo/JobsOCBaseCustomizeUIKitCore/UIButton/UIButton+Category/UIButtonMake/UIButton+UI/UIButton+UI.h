@@ -1,27 +1,29 @@
 //
 //  UIButton+UI.h
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Jobs on 2021/11/29.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UIBUTTON_UI_91353F756B
+#define JOBS_HEADER_GUARD_UIBUTTON_UI_91353F756B
+
+#pragma once
+
+#import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
-#import "JobsMakes.h"
-#import "MacroDef_Strong@Weak.h"
-#import "MacroDef_Cor.h"
-#import "BaseProtocol.h"
-#import "BaseButtonProtocol.h"
-#import "JobsSEL_IMP.h"
-#import "NSObject+DynamicInvoke.h"
-#import "NSObject+NSMutableParagraphStyle.h"
-#import "UIView+Extras.h"
-#import "UIView+Gesture.h"
+#import "NSString+Sys.h"
+#import "UIButton+TextView.h"
+#import "UIButton+SimplyMake.h"
+#import "UIButton+UIControlState.h"
 #import "UIButton+ImageTitleSpacing.h"
 #import "UIButton+UIButtonConfiguration.h"
-#import "UIButton+TextView.h"
-#import "UIButton+UIControlState.h"
+#import "UITextView+Extra.h"
+#import "UIView+Extra.h"
+#import "UIBackgroundConfiguration+Extra.h"
 #import "UIButtonConfiguration+Extra.h"
+#import "UIGestureRecognizer+Extra.h"
+#import "NSObject+NSMutableParagraphStyle.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
@@ -29,11 +31,33 @@
 #import "ReactiveObjC.h"
 #endif
 
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsOCDSL.h"
+
+#import "JobsDeviceInfo.h"
+
+#import "JobsRichTextUtils.h"
+
+#import "JobsOCRuntimeKits.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsMakes.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
 NS_ASSUME_NONNULL_BEGIN
-/**
- NSLineBreakByWordWrapping：这是默认的换行模式，会在单词边界换行。适用于希望保留单词完整性的场合。例如，如果单词太长而无法放入当前行，那么该单词将移动到下一行。
- NSLineBreakByCharWrapping：在字符边界处换行，而不是单词边界。适用于需要最大限度地利用行宽的场合，即使这意味着单词会被拆分。
- */
+/// NSLineBreakByWordWrapping：这是默认的换行模式，会在单词边界换行。适用于希望保留单词完整性的场合。例如，如果单词太长而无法放入当前行，那么该单词将移动到下一行。
+/// NSLineBreakByCharWrapping：在字符边界处换行，而不是单词边界。适用于需要最大限度地利用行宽的场合，即使这意味着单词会被拆分。
 #warning 富文本兼容一切
 /// ⚠️当font描绘的文字,或者文字大于UIButton的frame,UIButton的Title将不会显现⚠️
 #pragma clang diagnostic push
@@ -51,9 +75,9 @@ NS_ASSUME_NONNULL_BEGIN
 ///   - subTextAlignment:也对应新Api里面的subTitle的对齐方式
 ///   - normalImage: 正常情况下的image
 ///   - highlightImage: 高亮情况下的image
-///   - attributedTitle: 主标题的富文本（优先级高于普通文本）。设置富文本，请关注：#import "NSObject+RichText.h"
-///   - selectedAttributedTitle:（只限于老Api，新Api里面没有）UIControlStateSelected状态下的标题富文本。设置富文本，请关注：#import "NSObject+RichText.h"
-///   - attributedSubtitle:（新Api才有的）副标题的富文本（优先级高于普通文本）。设置富文本，请关注：#import "NSObject+RichText.h"
+///   - attributedTitle: 主标题的富文本（优先级高于普通文本）。设置富文本，请关注 JobsRichTextUtils
+///   - selectedAttributedTitle:（只限于老Api，新Api里面没有）UIControlStateSelected状态下的标题富文本。设置富文本，请关注：JobsRichTextUtils
+///   - attributedSubtitle:（新Api才有的）副标题的富文本（优先级高于普通文本）。设置富文本，请关注：JobsRichTextUtils
 ///   - title: 主标题
 ///   - subTitle:（新Api才有的）副标题
 ///   - titleFont: 主标题字体
@@ -126,7 +150,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCorByConfigTextAttributesTransformerBlock _Nonnull)getTitleColorByTransformer;
 /// RAC 点击事件2次封装
 -(RACDisposable *)jobsBtnClickEventBlock:(JobsRetIDByIDBlock _Nullable)subscribeNextBlock;
--(JobsReturnRACDisposableByReturnIDByIDBlocks _Nonnull)jobsBtnClickEventByBlock;
+-(JobsRetRACDisposableByRetIDByIDBlocks _Nonnull)jobsBtnClickEventByBlock;
 /// 设置按钮的长按手势
 -(void)jobsBtnLongPressGestureEventBlock:(JobsRetIDByIDBlock _Nullable)longPressGestureEventBlock;
 -(jobsByRetIDByIDBlocks _Nonnull)jobsBtnLongPressGestureEventByBlock;
@@ -170,7 +194,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByCorBlock _Nonnull)jobsResetBtnBgCor;
 #pragma mark —— 一些通用修改.Layer
 ///【合并】统一设置按钮Layer的线宽+颜色+圆切角
--(JobsReturnViewByLocationModelBlock _Nonnull)jobsResetBtnLayerBy;
+-(JobsRetViewByLocationModelBlock _Nonnull)jobsResetBtnLayerBy;
 ///【兼容】重设Btn的圆切角
 -(JobsRetBtnByCGFloatBlock _Nonnull)jobsResetBtnCornerRadiusValue;
 ///【兼容】重设Btn的描边线段的颜色
@@ -208,102 +232,103 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic pop
 NS_ASSUME_NONNULL_END
 /**
- UIControlContentHorizontalAlignment 是一个枚举类型，用于定义控件中内容（例如文字或图像）在水平方向上的对齐方式。
- 这个枚举通常用于控制UIButton等UI控件中内容的水平对齐方式。
 
- 以下是UIControlContentHorizontalAlignment枚举的常见值和它们的含义：
- UIControlContentHorizontalAlignmentLeft：内容水平左对齐。
- UIControlContentHorizontalAlignmentCenter：内容水平居中对齐。
- UIControlContentHorizontalAlignmentRight：内容水平右对齐。
- UIControlContentHorizontalAlignmentFill：内容水平填充整个控件的宽度，通常用于将内容拉伸以填满整个控件。
+     UIControlContentHorizontalAlignment 是一个枚举类型，用于定义控件中内容（例如文字或图像）在水平方向上的对齐方式。
+     这个枚举通常用于控制UIButton等UI控件中内容的水平对齐方式。
 
- 这些对齐方式可用于控制按钮内部文本和图像在按钮内的水平位置。
- 例如，你可以将按钮的内容水平居中对齐，以确保文本或图像在按钮的中心位置。
- 
- 调用示例：
- UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
- // 设置内容水平居中对齐
- button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+     以下是UIControlContentHorizontalAlignment枚举的常见值和它们的含义：
+     UIControlContentHorizontalAlignmentLeft：内容水平左对齐。
+     UIControlContentHorizontalAlignmentCenter：内容水平居中对齐。
+     UIControlContentHorizontalAlignmentRight：内容水平右对齐。
+     UIControlContentHorizontalAlignmentFill：内容水平填充整个控件的宽度，通常用于将内容拉伸以填满整个控件。
+
+     这些对齐方式可用于控制按钮内部文本和图像在按钮内的水平位置。
+     例如，你可以将按钮的内容水平居中对齐，以确保文本或图像在按钮的中心位置。
+
+     调用示例：
+     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+     // 设置内容水平居中对齐
+     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
  */
 
 /**
  
- BaseButton.jobsInit()
-     .bgColorBy(JobsWhiteColor)
-     .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
-     .jobsResetImagePadding(1)
-     .jobsResetBtnImage(@"APPLY NOW".img))
-     .jobsResetBtnBgImage(@"APPLY NOW".img)
-     .jobsResetBtnTitleCor(JobsWhiteColor)
-     .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-     .jobsResetBtnTitle(@"APPLY NOW".tr)
-     .onClickBy(^(UIButton *x){
-         JobsLog(@"");
-     }).onLongPressGestureBy(^(id data){
-         JobsLog(@"");
-     });
- 
- _headBtn = BaseButton.jobsInit()
-    .imageURL(@"".jobsUrl)
-    .placeholderImage(@"用户默认头像".img))
-    .options(SDWebImageRefreshCached)/// 强制刷新缓存
-    .completed(^(UIImage * _Nullable image,
-                 NSError * _Nullable error,
-                 SDImageCacheType cacheType,
-                 NSURL * _Nullable imageURL) {
-        if (error) {
-            JobsLog(@"图片加载失败: %@-%@", error,imageURL);
-        } else {
-            JobsLog(@"图片加载成功");
-        }
-    }).onClickBy(^(UIButton *x){
-        @jobs_strongify(self)
-        if (self.objBlock) self.objBlock(x);
-    }).onLongPressGestureBy(^(id data){
-    JobsLog(@"");
- }).bgNormalLoad();
- 
- -(BaseButton *)applyNowBtn{
-     if(!_applyNowBtn){
-         @jobs_weakify(self)
-         _applyNowBtn = BaseButton.initByAttributedString(self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
-                 @jobs_strongify(self)
-                 data1.font = UIFontWeightRegularSize(14);
-                 data1.textCor = @"#666666".cor;
-                 data1.targetString = self.richTextMutArr[0];
-                 data1.paragraphStyle = self.jobsParagraphStyleCenter;
-             }));
-             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
-                 @jobs_strongify(self)
-                 data1.font = UIFontWeightRegularSize(14);
-                 data1.textCor = @"#BA9B77".cor;
-                 data1.targetString = self.richTextMutArr[1];
-                 data1.paragraphStyle = self.jobsParagraphStyleCenter;
-             }));
-             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
-                 @jobs_strongify(self)
-                 data1.font = UIFontWeightRegularSize(14);
-                 data1.textCor = @"#666666".cor;
-                 data1.targetString = self.richTextMutArr[2];
-                 data1.paragraphStyle = self.jobsParagraphStyleCenter;
-             }));
-         }))).bgColorBy(JobsWhiteColor)
-             .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
-             .jobsResetImagePadding(1)
-             .jobsResetBtnImage(@"APPLY NOW".img))
-             .jobsResetBtnBgImage(@"APPLY NOW".img))
-             .jobsResetBtnTitleCor(JobsWhiteColor)
-             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-             .jobsResetBtnTitle(@"APPLY NOW".tr)
-             .onClickBy(^(UIButton *x){
-                 @jobs_strongify(self)
-                 x.selected = !x.selected;
-                 if (self.objBlock) self.objBlock(x);
-             }).onLongPressGestureBy(^(id data){
-                 JobsLog(@"");
-             });
-     };return _applyNowBtn;
- }
- 
+     BaseButton.jobsInit()
+         .bgColorBy(JobsWhiteColor)
+         .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
+         .jobsResetImagePadding(1)
+         .jobsResetBtnImage(@"APPLY NOW".img))
+         .jobsResetBtnBgImage(@"APPLY NOW".img)
+         .jobsResetBtnTitleCor(JobsWhiteColor)
+         .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
+         .jobsResetBtnTitle(@"APPLY NOW".tr)
+         .onClickBy(^(UIButton *x){
+             JobsLog(@"");
+         }).onLongPressGestureBy(^(id data){
+             JobsLog(@"");
+         });
+     
+     _headBtn = BaseButton.jobsInit()
+        .imageURL(@"".jobsUrl)
+        .placeholderImage(@"用户默认头像".img))
+        .options(SDWebImageRefreshCached)/// 强制刷新缓存
+        .completed(^(UIImage * _Nullable image,
+                     NSError * _Nullable error,
+                     SDImageCacheType cacheType,
+                     NSURL * _Nullable imageURL) {
+            if (error) {
+                JobsLog(@"图片加载失败: %@-%@", error,imageURL);
+            } else {
+                JobsLog(@"图片加载成功");
+            }
+        }).onClickBy(^(UIButton *x){
+            @jobs_strongify(self)
+            if (self.objBlock) self.objBlock(x);
+        }).onLongPressGestureBy(^(id data){
+        JobsLog(@"");
+     }).bgNormalLoad();
+     
+     -(BaseButton *)applyNowBtn{
+         if(!_applyNowBtn){
+             @jobs_weakify(self)
+             _applyNowBtn = BaseButton.initByAttributedString(self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
+                 data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
+                     @jobs_strongify(self)
+                     data1.byFont(UIFontWeightRegularSize(14))
+                          .byTextCor(@"#666666".cor)
+                          .byTargetString(self.richTextMutArr[0])
+                          .byParagraphStyle(self.jobsParagraphStyleCenter);
+                 }));
+                 data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
+                     @jobs_strongify(self)
+                     data1.byFont(UIFontWeightRegularSize(14))
+                          .byTextCor(@"#BA9B77".cor)
+                          .byTargetString(self.richTextMutArr[1])
+                          .byParagraphStyle(self.jobsParagraphStyleCenter);
+                 }));
+                 data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
+                     @jobs_strongify(self)
+                     data1.byFont(UIFontWeightRegularSize(14))
+                          .byTextCor(@"#666666".cor)
+                          .byTargetString(self.richTextMutArr[2])
+                          .byParagraphStyle(self.jobsParagraphStyleCenter);
+                 }));
+             }))).bgColorBy(JobsWhiteColor)
+                 .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
+                 .jobsResetImagePadding(1)
+                 .jobsResetBtnImage(@"APPLY NOW".img))
+                 .jobsResetBtnBgImage(@"APPLY NOW".img))
+                 .jobsResetBtnTitleCor(JobsWhiteColor)
+                 .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
+                 .jobsResetBtnTitle(@"APPLY NOW".tr)
+                 .onClickBy(^(UIButton *x){
+                     @jobs_strongify(self)
+                     x.selected = !x.selected;
+                     if (self.objBlock) self.objBlock(x);
+                 }).onLongPressGestureBy(^(id data){
+                     JobsLog(@"");
+                 });
+         };return _applyNowBtn;
+     }
  */
+#endif /* JOBS_HEADER_GUARD_UIBUTTON_UI_91353F756B */

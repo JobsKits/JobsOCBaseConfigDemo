@@ -1,6 +1,6 @@
 //
 //  UIView+Gesture.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Migrated from JobsByOCPods on 2026年6月10日，星期三.
 //
@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIView (Gesture)<GestureProtocol>
 
 /// UIScreenEdgePanGestureRecognizer.edges
-@property(nonatomic, assign) UIRectEdge screenEdgePanGREdges;
+Prop_assign()UIRectEdge screenEdgePanGREdges;
 
 #pragma mark —— Gesture Config DSL
 /// UIPanGestureRecognizer.minimumNumberOfTouches

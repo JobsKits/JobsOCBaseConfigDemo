@@ -1,8 +1,8 @@
 //
 //  NSURLRequest+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by User on 9/12/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSURLRequest+Extra.h"
@@ -19,7 +19,12 @@
     @jobs_weakify(self)
     return ^NSMutableURLRequest *_Nullable(){
         @jobs_strongify(self)
-        JobsPrintURLRequest(self);
+        NSString *bodyString = self.HTTPBody.length ? [NSString.alloc initWithData:self.HTTPBody encoding:NSUTF8StringEncoding] : nil;
+        JobsLog(@"请求URL:%@\n", self.URL);
+        JobsLog(@"请求方式:%@\n", self.HTTPMethod);
+        JobsLog(@"请求头信息:%@\n", self.allHTTPHeaderFields);
+        JobsLog(@"请求正文信息:%@\n", bodyString);
+        JobsLog(@"请求响应时间:%@\n", NSDate.date);
         return self.mutableCopy;
     };
 }

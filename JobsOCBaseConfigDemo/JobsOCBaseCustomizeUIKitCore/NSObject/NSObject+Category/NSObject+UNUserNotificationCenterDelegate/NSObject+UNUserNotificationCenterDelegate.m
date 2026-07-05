@@ -1,12 +1,11 @@
 //
 //  NSObject+UNUserNotificationCenterDelegate.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+UNUserNotificationCenterDelegate.h"
-#import "UNNotificationRequestModel.h"
 
 @implementation NSObject (UNUserNotificationCenterDelegate)
 #pragma mark —— 一些私有方法
@@ -34,14 +33,14 @@
         } else if (response.actionIdentifier.isEqualToString(@"comment")){
             NSString *text = ((UNTextInputNotificationResponse *)response).userText;
             if (isValue(text)) {
-                MainWindow.rootViewController.comingToPresentVC(self.makeAlertControllerByAlertModel(jobsMakeAlertModel(^(JobsAlertModel * _Nullable data) {
-                    data.alertControllerTitle = @"Comment".tr;
+                jobsGetMainWindow().rootViewController.comingToPresentVC(self.makeAlertControllerByAlertModel(jobsMakeAlertModel(^(JobsAlertModel * _Nullable data) {
+                    data.byAlertControllerTitle(@"Comment".tr);
                     data.message = @"You just said".tr
                         .add(@":")
                         .add(text.tr);
-                    data.preferredStyle = UIAlertControllerStyleAlert;
-                    data.alertActionTitle = @"OK".tr;
-                    data.alertActionStyle = UIAlertActionStyleDefault;
+                    data.byPreferredStyle(UIAlertControllerStyleAlert)
+                        .byAlertActionTitle(@"OK".tr)
+                        .byAlertActionStyle(UIAlertActionStyleDefault);
                     data.alertActionBlock = ^(__kindof UIAlertAction * _Nullable action) {
                         JobsLog(@"OK");
                     };
@@ -62,7 +61,7 @@
         NSDateComponents *components = [calendar componentsInTimeZone:NSTimeZone.localTimeZone
                                                              fromDate:date];
         UNNotificationRequest.initBy(jobsMakeUNNotificationRequestModel(^(UNNotificationRequestModel * _Nullable data) {
-            data.identifier = @"calendar";
+            data.byIdentifier(@"calendar");
             data.content = jobsMakeUNMutableNotificationContent(^(__kindof UNMutableNotificationContent * _Nullable content) {
                 content.title = @"Calendar Reminder".tr;
                 content.body = @"github.com/pro648";

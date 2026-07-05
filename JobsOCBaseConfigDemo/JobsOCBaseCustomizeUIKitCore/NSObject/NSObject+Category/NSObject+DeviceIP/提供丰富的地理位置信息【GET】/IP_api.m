@@ -1,8 +1,8 @@
 //
 //  IP_api.m
-//  JobsOCBaseConfigDemo
+//  JobsDeviceInfo
 //
-//  Created by Admin on 23/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "IP_api.h"
@@ -11,7 +11,7 @@
 /// 请求的完整URL：提供丰富的地理位置信息@GET
 /// http://ip-api.com/json/
 -(NSString *)requestUrl{
-    return @"http://ip-api.com/json/".add(self.urlParameters);
+    return [@"http://ip-api.com/json/" stringByAppendingString:self.urlParameters ?: @""];
 }
 /// 请求方式
 -(YTKRequestMethod)requestMethod {

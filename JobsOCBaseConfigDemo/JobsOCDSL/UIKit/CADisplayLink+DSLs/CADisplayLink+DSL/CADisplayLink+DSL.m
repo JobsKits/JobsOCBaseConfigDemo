@@ -1,6 +1,6 @@
 //
 //  CADisplayLink+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 #import "CADisplayLink+DSL.h"
 
@@ -10,6 +10,15 @@
     return ^__kindof CADisplayLink *_Nullable(BOOL data){
         @jobs_strongify(self)
         self.paused = data;
+        return self;
+    };
+}
+
+-(JobsRetCADisplayLinkByNSIntegerBlock)byFrameInterval{
+    @jobs_weakify(self)
+    return ^__kindof CADisplayLink *_Nullable(NSInteger data){
+        @jobs_strongify(self)
+        SuppressWdeprecatedDeclarationsWarning(self.frameInterval = data);
         return self;
     };
 }

@@ -1,20 +1,15 @@
 //
 //  BaseUploadFileRequest.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Admin on 5/12/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_BASEUPLOADFILEREQUEST_89A107DA63
+#define JOBS_HEADER_GUARD_BASEUPLOADFILEREQUEST_89A107DA63
+
+#import <Foundation/Foundation.h>
 #import "BaseRequest.h"
-#import "JobsFileModel.h"
-#import "JobsDefineProperty.h"
-#import "JobsBlock.h"
-
-#if __has_include(<YTKNetwork/YTKNetwork.h>)
-#import <YTKNetwork/YTKNetwork.h>
-#else
-#import "YTKNetwork.h"
-#endif
 
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFNetworking.h>
@@ -22,12 +17,27 @@
 #import "AFNetworking.h"
 #endif
 
+#if __has_include(<YTKNetwork/YTKNetwork.h>)
+#import <YTKNetwork/YTKNetwork.h>
+#else
+#import "YTKNetwork.h"
+#endif
+
+#import "JobsStringUtilsHeader.h"
+
+#import "JobsModelDSL.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BaseUploadFileRequest : BaseRequest
 
--(JobsReturnRequestByFileModelBlock _Nonnull)initBy;
+-(JobsRetRequestByFileModelBlock _Nonnull)initBy;
 
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_BASEUPLOADFILEREQUEST_89A107DA63 */

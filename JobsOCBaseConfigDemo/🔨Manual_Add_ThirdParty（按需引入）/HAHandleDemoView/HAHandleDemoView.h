@@ -1,21 +1,25 @@
 //
-//  handleDemoView.h
-//  JobsOCBaseConfigDemo
+//  HAHandleDemoView.h
+//  JobsOCTools
 //
-//  Created by ZengYong on 16/4/8.
-//  Copyright © 2016年 maipu. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_HAHANDLEDEMOVIEW_B190D1474D
+#define JOBS_HEADER_GUARD_HAHANDLEDEMOVIEW_B190D1474D
 
 #import <UIKit/UIKit.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
 
 @protocol HAHandleDemoViewDelegate <NSObject>
-
 @optional
 -(void)animationCompleted;
 -(void)animationCancel;
 
 @end
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,3 +33,4 @@ Prop_weak()id<HAHandleDemoViewDelegate> delegate;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_HAHANDLEDEMOVIEW_B190D1474D */

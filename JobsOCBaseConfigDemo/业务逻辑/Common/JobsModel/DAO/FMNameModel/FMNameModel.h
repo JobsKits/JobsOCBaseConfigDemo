@@ -1,12 +1,18 @@
 //
 //  FMNameModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef FMNameModel_h
+#define FMNameModel_h
+
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +23,7 @@ Prop_strong()__kindof UITextField *middleNameTF;
 Prop_strong()__kindof UITextField *lastNameTF;
 Prop_strong()__kindof UITextField *idTypeTF;
 Prop_strong()__kindof UITextField *idNumberTF;
+
 Prop_copy()NSString *firstName;
 Prop_copy()NSString *middleName;
 Prop_copy()NSString *lastName;
@@ -32,3 +39,5 @@ NS_INLINE __kindof FMNameModel *_Nonnull jobsMakeNameModel(jobsByNameModelBlock 
     if (block) block(data);
     return data;
 }
+
+#endif /* FMNameModel_h */

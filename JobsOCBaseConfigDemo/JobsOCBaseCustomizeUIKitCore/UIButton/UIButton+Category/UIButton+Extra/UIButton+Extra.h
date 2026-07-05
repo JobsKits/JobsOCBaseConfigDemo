@@ -1,14 +1,25 @@
 //
 //  UIButton+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2022/1/18.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UIBUTTON_EXTRA_A29F7FE6D1
+#define JOBS_HEADER_GUARD_UIBUTTON_EXTRA_A29F7FE6D1
+
+#import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "UIView+Measure.h"
+#import "UIButton+UI.h"
+#import "UILabel+Measure.h"
+#import "UIView+AutoSelfAdaptionSize.h"
+#import "UIView+Masonry.h"
+
 #import "JobsBlock.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,3 +33,4 @@ Prop_assign()CGFloat imageTitleSpace;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIBUTTON_EXTRA_A29F7FE6D1 */

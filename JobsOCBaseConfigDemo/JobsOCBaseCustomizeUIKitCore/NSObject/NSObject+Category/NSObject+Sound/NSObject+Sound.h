@@ -1,16 +1,23 @@
 //
 //  NSObject+Sound.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Kite on 2019/12/2.
-//  Copyright © 2019 朝花夕拾. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <Foundation/Foundation.h>
-#import <AudioToolbox/AudioToolbox.h>
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_SOUND_F67E818D44
+#define JOBS_HEADER_GUARD_NSOBJECT_SOUND_F67E818D44
+
+#import <UIKit/UIKit.h>
+#import <AudioToolbox/AudioToolbox.h> // 用于调用系统级音频能力。
 #import "UIControl+XY.h"
-#import "NSString+Others.h"
-#import "FileNameModel.h"
+#import "NSString+Path.h"
+#import "NSString+URL.h"
+#import "NSString+Extra.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,3 +32,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_SOUND_F67E818D44 */

@@ -1,16 +1,37 @@
 //
 //  JobsAppDoorForgotCodeContentView.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2021/11/22.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "NSObject+AppTools.h"
+#ifndef JOBS_HEADER_GUARD_JOBSAPPDOORFORGOTCODECONTENTVIEW_ABB1B0B936
+#define JOBS_HEADER_GUARD_JOBSAPPDOORFORGOTCODECONTENTVIEW_ABB1B0B936
+
+#import <UIKit/UIKit.h>
 #import "BaseContentView.h"
-#import "BaseViewProtocol.h"
 #import "JobsAppDoorConfig.h"
-#import "JobsHotLabelBySingleLine.h"
-#import "JobsDefineProperty.h"
+#import "JobsAppDoorInputViewHeader.h"
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsHotLabel.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsMakes.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 忘记密码页
@@ -22,3 +43,4 @@ BaseViewProtocol
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSAPPDOORFORGOTCODECONTENTVIEW_ABB1B0B936 */

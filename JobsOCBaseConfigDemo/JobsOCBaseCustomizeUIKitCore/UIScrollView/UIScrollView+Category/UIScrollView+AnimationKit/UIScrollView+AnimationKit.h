@@ -1,14 +1,25 @@
 //
 //  UIScrollView+AnimationKit.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2022/7/2.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UISCROLLVIEW_ANIMATIONKIT_4FD494E275
+#define JOBS_HEADER_GUARD_UISCROLLVIEW_ANIMATIONKIT_4FD494E275
 
 #import <UIKit/UIKit.h>
 #import "UIScrollView+UIScrollViewProtocol.h"
 #import "NSMutableArray+Extra.h"
-#import "JobsDefineEnums.h"
+#import "NSArray+Extra.h"
+#import "NSString+CAAnimation.h"
+#import "NSValue+Extra.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -58,3 +69,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UISCROLLVIEW_ANIMATIONKIT_4FD494E275 */

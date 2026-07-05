@@ -1,12 +1,25 @@
 //
 //  NSAttributedString+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsRichTextUtils
 //
-//  Created by Jobs on 2024/4/26.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSATTRIBUTEDSTRING_EXTRA_638AC33625
+#define JOBS_HEADER_GUARD_NSATTRIBUTEDSTRING_EXTRA_638AC33625
+
 #import <Foundation/Foundation.h>
+#import "NSMutableAttributedString+Extra.h"
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
 #import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// NSAttributedString 用于设置段落样式，包括行间距、段间距、对齐方式等
@@ -27,3 +40,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSATTRIBUTEDSTRING_EXTRA_638AC33625 */

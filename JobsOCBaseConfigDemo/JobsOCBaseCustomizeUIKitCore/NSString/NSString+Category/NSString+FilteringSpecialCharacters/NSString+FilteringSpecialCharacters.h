@@ -1,14 +1,20 @@
 //
 //  NSString+FilteringSpecialCharacters.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/11/30.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSSTRING_FILTERINGSPECIALCHARACTERS_D4739973B3
+#define JOBS_HEADER_GUARD_NSSTRING_FILTERINGSPECIALCHARACTERS_D4739973B3
+
 #import <Foundation/Foundation.h>
+#import "NSMutableArray+Extra.h"
+#import "NSString+Replace.h"
+
 #import "JobsBlock.h"
-#import "JobsDefineConstString.h"
-#import "NSString+Others.h"
+
+#import "JobsDefines.h"
 
 /// 参考文献：https://www.jianshu.com/p/de17fd495935
 NS_ASSUME_NONNULL_BEGIN
@@ -24,3 +30,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSSTRING_FILTERINGSPECIALCHARACTERS_D4739973B3 */

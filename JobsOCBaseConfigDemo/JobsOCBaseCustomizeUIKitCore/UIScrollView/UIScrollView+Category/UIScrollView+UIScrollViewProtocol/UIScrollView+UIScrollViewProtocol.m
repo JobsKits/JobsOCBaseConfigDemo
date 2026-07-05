@@ -1,8 +1,8 @@
 //
 //  UIScrollView+UIScrollViewProtocol.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/22.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIScrollView+UIScrollViewProtocol.h"
@@ -15,16 +15,15 @@
  XZMRefreshNormalFooter : XZMRefreshFooter : XZMBaseRefreshView : UIView
  XZMRefreshGifFooter : XZMRefreshNormalFooter : XZMRefreshFooter : XZMBaseRefreshView : UIView
  */
-
 @implementation UIScrollView (UIScrollViewProtocol)
 /// 在 UIScrollViewDelegate协议方法 -(void)scrollViewDidScroll:(UIScrollView *)scrollView里进行调用
 -(ScrollDirection)scrolldirectionWhenScrollViewDidScroll{
     return self.judgementScrollDirectionByPoint(self.contentOffset);
 }
 /// 如果使用：dispatch_async + dispatch_get_main_queue()进行主线程上的调用，会执行2次刷新的协议方法
--(JobsRetViewByVoidBlock _Nonnull)reloadDatas{
+-(JobsRetScrollViewByVoidBlock _Nonnull)reloadDatas{
     @jobs_weakify(self)
-    return ^__kindof UIView *_Nullable(){
+    return ^__kindof UIScrollView *_Nullable(){
         @jobs_strongify(self)
         if(self){
             if (self.isKindOfClass(UICollectionView.class)) {
@@ -65,7 +64,7 @@
         };return cell;
     };
 }
-/// 对系统方法 - (void)setContentOffset:(CGPoint)contentOffset animated:(BOOL)animated; 的二次封装
+/// 对系统方法 - (void)setContentOffset:(CGPoint)contentOffset animated:(BOOL)animated;  的二次封装
 -(JobsRetScrollViewByPointBlock _Nonnull)setContentOffsetByYES{
     @jobs_weakify(self)
     return ^__kindof UIScrollView *_Nullable(CGPoint data){
@@ -74,7 +73,7 @@
         return self;
     };
 }
-/// 对系统方法 - (void)setContentOffset:(CGPoint)contentOffset animated:(BOOL)animated; 的二次封装
+/// 对系统方法 - (void)setContentOffset:(CGPoint)contentOffset animated:(BOOL)animated;  的二次封装
 -(JobsRetScrollViewByPointBlock _Nonnull)setContentOffsetByNO{
     @jobs_weakify(self)
     return ^__kindof UIScrollView *_Nullable(CGPoint data){

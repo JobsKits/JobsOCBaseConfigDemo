@@ -1,6 +1,6 @@
 //
 //  YTKChainRequest+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月4日，星期四.
 //
@@ -10,7 +10,6 @@
 
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
-#import "JobsBlock.h"
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
@@ -18,15 +17,15 @@
 #import "YTKNetwork.h"
 #endif
 
+#import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-
-
 @interface YTKChainRequest (DSL)
 
-@property(nonatomic, strong, readonly) NSArray<YTKBaseRequest *> *jobs_requests;
+Prop_strong(readonly)NSArray<YTKBaseRequest *> *jobs_requests;
 
 -(JobsRetYTKChainRequestByDelegateBlock _Nonnull)byDelegate;
 -(JobsRetYTKChainRequestByAccessoryBlock _Nonnull)byAddAccessory;

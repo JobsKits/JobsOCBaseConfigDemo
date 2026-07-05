@@ -1,11 +1,12 @@
 //
 //  BaseRequest.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Jobs on 2022/7/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "BaseRequest.h"
+#import "NSMutableDictionary+Extra.h"
 
 @interface BaseRequest ()
 
@@ -46,7 +47,7 @@ YTKCustomBaseRequestProtocol_synthesize
     @jobs_weakify(self)
     return ^__kindof YTKBaseRequest *_Nonnull(NSDictionary *_Nonnull data){
         @jobs_strongify(self)
-        if(data) self.parameters = data.mutableDic();
+        if(data) self.parameters = data.mutableCopy;
         return self;
     };
 }
@@ -76,7 +77,7 @@ YTKCustomBaseRequestProtocol_synthesize
 #pragma mark —— 一些私有方法
 -(instancetype _Nullable)initByBodyParameters:(NSDictionary *_Nonnull)bodyParameters{
     if (self = [super init]) {
-        if(bodyParameters) self.parameters = bodyParameters.mutableDic();
+        if(bodyParameters) self.parameters = bodyParameters.mutableCopy;
     };return self;
 }
 
@@ -112,8 +113,19 @@ YTKCustomBaseRequestProtocol_synthesize
             [headers setValue:APP_JSON
                        forKey:ContentType];
             /// 设置 Authorization
-            if(self.doorModel) [headers setValue:self.doorModel.token
-                                          forKey:Authorization];
+            id doorModel = nil;
+            @try {
+                doorModel = [self valueForKey:@"doorModel"];
+            } @catch (__unused NSException *exception) {}
+            NSString *token = nil;
+            if (doorModel) {
+                @try {
+                    token = [doorModel valueForKey:@"token"];
+                } @catch (__unused NSException *exception) {}
+            }
+            if (token.length > 0) {
+                [headers setValue:token forKey:Authorization];
+            }
             /// 请求的语言环境
     //        switch (self.currentLanguageType) {
     //            case HTTPRequestHeaderLanguageEn:{
@@ -132,7 +144,7 @@ YTKCustomBaseRequestProtocol_synthesize
 //-(NSString *_Nonnull)userId{
 //    return [[self.responseJSONObject objectForKey:@"userId"] stringValue] ? : @"".tr;
 //}
-#pragma mark ——  复写 YTKBaseRequest 方法
+#pragma mark —— 复写 YTKBaseRequest 方法
 /// 设置自定义的 HTTP Header
 -(NSMutableDictionary *)requestHeaderFieldValueDictionary{
     return self.customHTTPHeader;
@@ -176,7 +188,7 @@ YTKCustomBaseRequestProtocol_synthesize
 -(NSMutableDictionary *)parameters{
     if(!_parameters){
         _parameters = jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable data) {
-            
+
         });
     };return _parameters;
 }

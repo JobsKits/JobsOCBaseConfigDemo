@@ -1,11 +1,11 @@
 //
 //  JobsDefineConstString.m
-//  JobsOCBaseConfigDemo
+//  JobsOCDefs
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "JobsDefineConstString.h"
+#import "JobsDefineConstString.h" // 常量字符串的定义
 ///
 NSRange const NSRangeZero = (NSRange){0, 0};// 使用结构体直接赋值
 /// SDK内部类
@@ -88,36 +88,36 @@ NSString *const APP_JSON = @"application/json";
 NSString *const ContentType = @"Content-Type";
 NSString *const Authorization = @"Authorization";
 /// 网络数据处理后的标志位
-NSString *const HTTPServiceErrorDomain = @"HTTPServiceErrorDomain";/// The Http request error domain
-NSString *const HTTPServiceErrorResponseCodeKey = @"HTTPServiceErrorResponseCodeKey";/// 请求成功，但statusCode != 0
-NSString *const HTTPServiceErrorRequestURLKey = @"HTTPServiceErrorRequestURLKey";/// 请求地址错误
-NSString *const HTTPServiceErrorHTTPStatusCodeKey = @"HTTPServiceErrorHTTPStatusCodeKey";/// 请求错误的code码key: 请求成功了，但code码是错误提示的code,比如参数错误
-NSString *const HTTPServiceErrorDescriptionKey = @"HTTPServiceErrorDescriptionKey";/// 请求错误，详细描述key
-NSString *const HTTPServiceErrorMessagesKey = @"HTTPServiceErrorMessagesKey";/// 服务端错误提示，信息key
+NSString *const HTTPServiceErrorDomain = @"HTTPServiceErrorDomain";                       // The Http request error domain
+NSString *const HTTPServiceErrorResponseCodeKey = @"HTTPServiceErrorResponseCodeKey";     // 请求成功，但statusCode != 0
+NSString *const HTTPServiceErrorRequestURLKey = @"HTTPServiceErrorRequestURLKey";         // 请求地址错误
+NSString *const HTTPServiceErrorHTTPStatusCodeKey = @"HTTPServiceErrorHTTPStatusCodeKey"; // 请求错误的code码key: 请求成功了，但code码是错误提示的code,比如参数错误
+NSString *const HTTPServiceErrorDescriptionKey = @"HTTPServiceErrorDescriptionKey";       // 请求错误，详细描述key
+NSString *const HTTPServiceErrorMessagesKey = @"HTTPServiceErrorMessagesKey";             // 服务端错误提示，信息key
 /// 特殊字符串
-NSString *const 回车符号转义字符 = @"\r";       /// 回车符号转义字符
-NSString *const 零宽转义字符 = @"\u200B";      /// 零宽转义字符
-NSString *const JobsSeparation = @"/";       /// 分隔符
-NSString *const JobsNewline = @"\n";         /// 换行符
-NSString *const JobsTab = @"\t";             /// 制表符
-NSString *const JobsSpace = @" ";            /// 空格
-NSString *const JobsEmpty = @"";             /// 空字符串
-NSString *const JobsComma = @",";            /// 逗号
-NSString *const JobsDot = @".";              /// 句号
-NSString *const JobsPoint = @"·";            /// 点
-NSString *const JobsColon = @":";            /// 冒号
-NSString *const JobsSemicolon = @";";        /// 分号
-NSString *const JobsDash = @"-";             /// 连字符
-NSString *const JobsUnderscore = @"_";       /// 下划线
-NSString *const JobsAsterisk = @"*";         /// 星号
-NSString *const JobsEqual = @"=";            /// 等于
-NSString *const JobsPercent = @"%";          /// 百分号
+NSString *const 回车符号转义字符 = @"\r";  // 回车符号转义字符
+NSString *const 零宽转义字符 = @"\u200B"; // 零宽转义字符
+NSString *const JobsSeparation = @"/";  // 分隔符
+NSString *const JobsNewline = @"\n";    // 换行符
+NSString *const JobsTab = @"\t";        // 制表符
+NSString *const JobsSpace = @" ";       // 空格
+NSString *const JobsEmpty = @"";        // 空字符串
+NSString *const JobsComma = @",";       // 逗号
+NSString *const JobsDot = @".";         // 句号
+NSString *const JobsPoint = @"·";       // 点
+NSString *const JobsColon = @":";       // 冒号
+NSString *const JobsSemicolon = @";";   // 分号
+NSString *const JobsDash = @"-";        // 连字符
+NSString *const JobsUnderscore = @"_";  // 下划线
+NSString *const JobsAsterisk = @"*";    // 星号
+NSString *const JobsEqual = @"=";       // 等于
+NSString *const JobsPercent = @"%";     // 百分号
 /// 业务功能相关
-NSString *const 网络状态监控 = @"网络状态监控";/// 网络状态监控
-NSString *const 退到后台停止播放ZFPlayer = @"退到后台停止播放ZFPlayer";/// 退到后台停止播放ZFPlayer
-NSString *const 语言切换 = @"语言切换";/// 语言切换
-NSString *const 登录成功 = @"登录成功";/// 登录成功
-NSString *const 退出登录成功 = @"退出登录成功";/// 退出登录成功
+NSString *const 网络状态监控 = @"网络状态监控";                        // 网络状态监控
+NSString *const 退到后台停止播放ZFPlayer = @"退到后台停止播放ZFPlayer"; // 退到后台停止播放ZFPlayer
+NSString *const 语言切换 = @"语言切换";                              // 语言切换
+NSString *const 登录成功 = @"登录成功";                              // 登录成功
+NSString *const 退出登录成功 = @"退出登录成功";                        // 退出登录成功
 NSString *const 用户信息 = @"用户信息";
 NSString *const 用户名数组 = @"用户名数组";
 NSString *const FM个人中心Tab切换 = @"FM个人中心Tab切换";

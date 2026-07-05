@@ -1,3 +1,13 @@
+//
+//  RACmetamacros.h
+//  JobsBy3rdExtras
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_RACMETAMACROS_933691013B
+#define JOBS_HEADER_GUARD_RACMETAMACROS_933691013B
+
 /**
  * Macros for metaprogramming
  * ExtendedC
@@ -659,3 +669,4 @@ metamacro_if_eq(0, 1)(true)(false)
 #define metamacro_drop18(...) metamacro_drop17(metamacro_tail(__VA_ARGS__))
 #define metamacro_drop19(...) metamacro_drop18(metamacro_tail(__VA_ARGS__))
 #define metamacro_drop20(...) metamacro_drop19(metamacro_tail(__VA_ARGS__))
+#endif /* JOBS_HEADER_GUARD_RACMETAMACROS_933691013B */

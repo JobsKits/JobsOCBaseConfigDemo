@@ -1,15 +1,15 @@
 //
 //  SRWebSocket+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Admin on 21/12/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "SRWebSocket+Extra.h"
 
 @implementation SRWebSocket (Extra)
 
-+(JobsReturnSRWebSocketByNSURLRequestBlock _Nonnull)initByURLRequest{
++(JobsRetSRWebSocketByNSURLRequestBlock _Nonnull)initByURLRequest{
     return ^SRWebSocket *_Nonnull(NSURLRequest *_Nullable webSocket){
         return [SRWebSocket.alloc initWithURLRequest:webSocket];
     };

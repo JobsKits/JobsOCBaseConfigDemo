@@ -1,11 +1,13 @@
 //
 //  JobsDropDownListTBVCell.m
-//  JobsOCBaseConfigDemo
+//  JobsDropDownListView
 //
-//  Created by Jobs on 2021/12/28.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsDropDownListTBVCell.h"
+#import "UIView+Extra.h"
+#import "UITableView+RegisterClass.h"
 
 @interface JobsDropDownListTBVCell ()
 
@@ -15,7 +17,7 @@
 /// UITableViewCellProtocol
 UITableViewCellProtocol_Synthesize
 #pragma mark —— UITableViewCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsDropDownListTBVCell *cell = (JobsDropDownListTBVCell *)tableView.tableViewCellClass(JobsDropDownListTBVCell.class,@"");
         if (!cell) {
@@ -29,10 +31,17 @@ UITableViewCellProtocol_Synthesize
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
         self.jobsRichElementsTableViewCellBy(nil);
-        self.selectionStyle = UITableViewCellSelectionStyleNone;// 取消点击效果 【不能在cellStyleValue1WithTableView里面写】
-        self.backgroundColor = self.contentView.backgroundColor = HEXCOLOR(0xFBF7E3);
-        self.selectedBackgroundView = [UIView.alloc initWithFrame:self.frame];// 这句不可省略
-        self.selectedBackgroundView.backgroundColor = HEXCOLOR(0xE4B94B);
+        self
+            .bySelectionStyle(UITableViewCellSelectionStyleNone)// 取消点击效果 【不能在cellStyleValue1ByTableView里面写】
+            .byContentView(^(__kindof UIView * _Nullable view) {
+                view.byBgColor(JobsWhiteColor);
+            })
+            .bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+                view
+                    .byFrame(self.frame)// 这句不可省略
+                    .byBgColor(HEXCOLOR(0xFFE8B5));
+            }))
+            .byBgColor(JobsWhiteColor);
     };return self;
 }
 
@@ -42,8 +51,16 @@ UITableViewCellProtocol_Synthesize
         @jobs_strongify(self)
         if (model) {
             self.viewModel = model;
-            self.textLabel.text = [NSString stringWithFormat:@"%@",model.textModel.text];
-            self.detailTextLabel.text = [NSString stringWithFormat:@"%@",model.subTextModel.text];
+            self.textLabel
+                .byText([NSString stringWithFormat:@"%@",model.textModel.text])
+                .byFont(UIFontWeightMediumSize(14))
+                .byTextCor(HEXCOLOR(0x2F3645));
+
+            self.detailTextLabel
+                .byText([NSString stringWithFormat:@"%@",model.subTextModel.text])
+                .byFont(UIFontWeightRegularSize(12))
+                .byTextCor(HEXCOLOR(0x8A93A1));
+
         };return self;
     };
 }
@@ -51,11 +68,13 @@ UITableViewCellProtocol_Synthesize
 +(JobsRetCGFloatByIDBlock _Nonnull)cellHeightByModel{
     return ^CGFloat(UIViewModel *_Nullable model){
         UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.textModel.font = UIFontWeightRegularSize(14);
-            data.jobsWidth = JobsMainScreen_WIDTH() - JobsWidth(200);
-            data.textModel.text = data.subTextModel.text;
-            data.textModel.textLineSpacing = 0;
-        });return UIView.heightByData(model ? : vm) + JobsWidth(20);
+            data.textModel.byFont(UIFontWeightRegularSize(14));
+            data.byJobsWidth(JobsMainScreen_WIDTH() - JobsWidth(200));
+            data.textModel.byText(data.subTextModel.text)
+                          .byTextLineSpacing(0);
+        });return jobsMakeView(^(__kindof UIView * _Nullable view) {
+            /// 仅用于高度测量
+        }).heightByData(model ? : vm) + JobsWidth(20);
     };
 }
 

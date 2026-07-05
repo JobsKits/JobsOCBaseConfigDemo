@@ -2,7 +2,7 @@
 //  JobsFMDBMgr.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs Hi on 2024/7/6.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsFMDBMgr.h"
@@ -20,7 +20,7 @@ static dispatch_once_t JobsFMDBMgrOnceToken;
 +(instancetype)sharedManager {
     dispatch_once(&JobsFMDBMgrOnceToken, ^{
         if(!JobsFMDBMgrInstance){
-            JobsFMDBMgrInstance = self.new;
+            JobsFMDBMgrInstance = [super allocWithZone:NULL].init;
         }
     });return JobsFMDBMgrInstance;
 }

@@ -1,8 +1,8 @@
 //
 //  NSNotificationCenter+JobsBlock.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs Hi on 9/24/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSNotificationCenter+JobsBlock.h"
@@ -22,7 +22,6 @@
     };
 }
 #pragma mark —— Prop_copy()jobsByNotificationBlock jobsNotificationBlock;
-#pragma mark —— jobsNotificationBlock
 JobsKey(_jobsNotificationBlock)
 @dynamic jobsNotificationBlock;
 -(jobsByNotificationBlock _Nonnull)jobsNotificationBlock{

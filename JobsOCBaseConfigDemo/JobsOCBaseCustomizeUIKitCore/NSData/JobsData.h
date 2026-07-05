@@ -1,13 +1,13 @@
 //
 //  JobsData.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by admin on 6/5/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef JobsData_h
 #define JobsData_h
 
-#import "NSData+Other.h"
+#import "NSData+Extra.h"
 
 #endif /* JobsData_h */

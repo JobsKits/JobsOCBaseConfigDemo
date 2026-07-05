@@ -2,14 +2,12 @@
 //  PeekAndPopVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs Hi on 6/22/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "PeekAndPopVC.h"
 
 @interface PeekAndPopVC ()
-
-Prop_strong()BaseButton *switchBtn;
 
 @end
 
@@ -30,25 +28,30 @@ Prop_strong()BaseButton *switchBtn;
         }
     }
 
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(18);
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.bgImage = @"新首页的底图".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(18));
+        })
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byBgImage(@"新首页的底图".img)
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     self.makeNavByAlpha(1);
-    self.switchBtn.alpha = 1;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -78,40 +81,4 @@ Prop_strong()BaseButton *switchBtn;
     [super viewDidDisappear:animated];
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches
-          withEvent:(UIEvent *)event{
-    self.comingToPushVC(MyTableTableVC.new);
-}
-#pragma mark —— 一些私有方法
-
-#pragma mark —— lazyLoad
--(BaseButton *)switchBtn{
-    if(!_switchBtn){
-        @jobs_weakify(self)
-        _switchBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsWhiteColor)
-            .jobsResetBtnTitleCor(JobsWhiteColor)
-            .jobsResetBtnTitleFont(UIFontWeightBoldSize(18))
-            .jobsResetBtnTitle(@"点击".tr)
-            .jobsResetBtnSubTitle(@"跳转Collection控制器".tr)
-            .jobsResetTitlePadding(JobsWidth(10))
-            .onClickBy(^(UIButton *x){
-                @jobs_strongify(self)
-                if (self.objBlock) self.objBlock(x);
-                self.comingToPushVC(MyCollectionVC.new);
-            }).onLongPressGestureBy(^(id data){
-                JobsLog(@"");
-            });
-        [self.view addSubview:_switchBtn];
-        [_switchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(80), JobsWidth(100)));
-            make.center.equalTo(self.view);
-        }];
-        _switchBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    };return _switchBtn;
-}
-
 @end
-
-
-

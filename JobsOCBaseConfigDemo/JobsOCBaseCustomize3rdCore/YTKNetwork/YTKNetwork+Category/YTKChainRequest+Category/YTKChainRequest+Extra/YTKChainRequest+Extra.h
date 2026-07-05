@@ -1,17 +1,24 @@
 //
 //  YTKChainRequest+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Admin on 31/10/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "JobsBlock.h"
+#ifndef JOBS_HEADER_GUARD_YTKCHAINREQUEST_EXTRA_9150A4C912
+#define JOBS_HEADER_GUARD_YTKCHAINREQUEST_EXTRA_9150A4C912
+
+#import <Foundation/Foundation.h>
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
 #else
 #import "YTKNetwork.h"
 #endif
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,3 +35,4 @@ NS_INLINE __kindof YTKChainRequest *_Nonnull jobsMakeYTKChainRequest(jobsByYTKCh
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_YTKCHAINREQUEST_EXTRA_9150A4C912 */

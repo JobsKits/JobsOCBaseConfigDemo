@@ -1,9 +1,8 @@
 //
 //  XLChannelControl.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by MengXianLiang on 2017/3/3.
-//  Copyright © 2017年 MengXianLiang. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "XLChannelControl.h"
@@ -12,7 +11,9 @@
 @interface XLChannelControl ()
 
 Prop_strong()UINavigationController *nav;
+
 Prop_strong()XLChannelView *channelView;
+
 Prop_strong()XLChannelBlock block;
 
 @end
@@ -39,7 +40,7 @@ Prop_strong()XLChannelBlock block;
     self.channelView = [[XLChannelView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     self.nav = [[UINavigationController alloc] initWithRootViewController:[UIViewController new]];
-    self.nav.navigationBar.tintColor = [UIColor blackColor];
+    self.nav.navigationBar.byTintColor(UIColor.blackColor);
     self.nav.topViewController.title = @"频道管理";
     self.nav.topViewController.view = self.channelView;
     self.nav.topViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backMethod)];
@@ -49,7 +50,8 @@ Prop_strong()XLChannelBlock block;
     [UIView animateWithDuration:0.3 animations:^{
         CGRect frame = self.nav.view.frame;
         frame.origin.y = - self.nav.view.bounds.size.height;
-        self.nav.view.frame = frame;
+        self.nav.view.byFrame(frame);
+
     }completion:^(BOOL finished) {
         [self.nav.view removeFromSuperview];
     }];
@@ -64,12 +66,16 @@ Prop_strong()XLChannelBlock block;
 
     CGRect frame = self.nav.view.frame;
     frame.origin.y = - self.nav.view.bounds.size.height;
-    self.nav.view.frame = frame;
-    self.nav.view.alpha = 0;
+    self.nav.view.byFrame(frame);
+
+    self.nav.view.byAlpha(0);
+
     [[UIApplication sharedApplication].keyWindow addSubview:self.nav.view];
     [UIView animateWithDuration:0.3 animations:^{
-        self.nav.view.alpha = 1;
-        self.nav.view.frame = [UIScreen mainScreen].bounds;
+        self.nav.view.byAlpha(1);
+
+        self.nav.view.byFrame([UIScreen mainScreen].bounds);
+
     }];
 }
 

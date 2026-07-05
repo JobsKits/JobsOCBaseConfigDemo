@@ -1,6 +1,6 @@
 //
 //  CasinoGetiOSNewestVersionModel+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsModelDSL
 //
 //  Created by Jobs on 2026年6月4日，星期四.
 //
@@ -8,19 +8,9 @@
 #ifndef JOBS_HEADER_GUARD_CASINOGETIOSNEWESTVERSIONMODEL_DSL_1318C01F3DD9E1D6
 #define JOBS_HEADER_GUARD_CASINOGETIOSNEWESTVERSIONMODEL_DSL_1318C01F3DD9E1D6
 
-#import "CasinoGetiOSNewestVersionModel.h"
-
-#if __has_include(<JobsModel/JobsModel.h>)
-#import <JobsModel/JobsModel.h>
-#else
 #import "JobsModel.h"
-#endif
 
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
 #import "JobsBlock.h"
-#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

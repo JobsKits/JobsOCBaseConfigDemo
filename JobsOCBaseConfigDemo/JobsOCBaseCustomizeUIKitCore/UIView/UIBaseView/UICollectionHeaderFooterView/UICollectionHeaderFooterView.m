@@ -1,11 +1,13 @@
 //
 //  UICollectionHeaderFooterView.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2022/6/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UICollectionHeaderFooterView.h"
+#import "UIView+Extra.h"
+#import "UIView+Measure.h"
 
 @interface UICollectionHeaderFooterView ()
 
@@ -54,8 +56,8 @@ static dispatch_once_t static_collectionHeaderFooterViewOnceToken;
         CGRect frame = self.imageViewFrame;
         frame.size.height -= contentOffsetY;
         frame.origin.y = contentOffsetY;
-        
-        self.imageView.frame = frame;
+        self.imageView.byFrame(frame);
+
     }
 }
 #pragma mark —— lazyLoad
@@ -63,25 +65,26 @@ static dispatch_once_t static_collectionHeaderFooterViewOnceToken;
 -(UIImageView *)imageView{
     if (!_imageView) {
         @jobs_weakify(self)
-        _imageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+        _imageView = jobsMakeImageView(^(__kindof UIImageView *_Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = JobsBuddleIMG(@"bundle",
-                                            @"Others",
-                                            nil,
-                                            @"个人中心背景图");
-            imageView.clipsToBounds = YES;
-            imageView.contentMode = UIViewContentModeScaleAspectFill;
-            self.addSubview(imageView);
+            imageView
+                .byImage(JobsLoadBundleImage(@"bundle",
+                                             @"Others",
+                                             nil,
+                                             @"个人中心背景图"))
+                .byClipsToBounds(YES)
+                .byContentMode(UIViewContentModeScaleAspectFill)
+                .addOn(self);
             if (self.isZoom) {
-                imageView.frame = CGRectMake(0,
-                                              0,
-                                              self.width,
-                                              self.height);
+                imageView.byFrame(CGRectMake(0,
+                                             0,
+                                             self.width,
+                                             self.height));
                 self.imageViewFrame = imageView.frame;
             }else{
-                [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                imageView.byAdd(^(MASConstraintMaker *make) {
                     make.edges.equalTo(self);
-                }];
+                });
             }
         });
     };return _imageView;

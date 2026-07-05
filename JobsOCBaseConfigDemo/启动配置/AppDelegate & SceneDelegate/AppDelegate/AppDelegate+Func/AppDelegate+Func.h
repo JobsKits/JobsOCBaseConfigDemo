@@ -2,25 +2,27 @@
 //  AppDelegate+Func.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/10/11.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "AppDelegate.h"
-
 //#import "SceneDelegate.h"
-#import "MacroDef_Func.h"
 #import "NSObject+UserInfo.h"
-#import "JobsBlock.h"
-#import "JobsNavBarConfig.h"
-#import "NSObject+UNUserNotificationCenterDelegate.h"
-
 @import CocoaLumberjack;
+#if DEBUG
+//#if __has_include(<DoraemonManager/DoraemonManager.h>)
+//#import <DoraemonKit/DoraemonManager.h>
+//#else
+//#import "DoraemonManager.h"
+//#endif
+#endif
 /// 检查联网情况
 #if __has_include(<Reachability/Reachability.h>)
 #import <Reachability/Reachability.h>
 #else
 #import "Reachability.h"
 #endif
+#import "NSString+Reachability.h"
 
 #if __has_include(<GKNavigationBar/GKNavigationBar.h>)
 #import <GKNavigationBar/GKNavigationBar.h>
@@ -40,17 +42,23 @@
 #import "TABAnimated.h"
 #endif
 
-#import "JobsWelcomeVC.h"
+#import "JobsByOCPods.h"
 
-#if DEBUG
+#import "JobsMakes.h"
 
-//#if __has_include(<DoraemonManager/DoraemonManager.h>)
-//#import <DoraemonKit/DoraemonManager.h>
-//#else
-//#import "DoraemonManager.h"
-//#endif
+#import "JobsOCKeyboardMgr.h"
 
-#endif
+#import "JobsBlock.h"
+
+#import "JobsOCTools.h"
+
+#import "JobsOCDSL.h"
+
+#import "JobsDefines.h"
+
+#import "JobsNavBarHeader.h"
+
+#import "JobsOCSplash.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -74,6 +82,7 @@ UNUserNotificationCenterDelegate
 #pragma mark —— 全局配置 TABAnimated
 -(jobsByVoidBlock _Nonnull)makeTABAnimatedConfig;
 #pragma mark —— 全局配置键盘
+-(jobsByVoidBlock _Nonnull)makeJobsOCKeyboardMgrConfig;
 -(jobsByVoidBlock _Nonnull)makeIQKeyboardManagerConfig;
 #pragma mark —— 全局配置GKNavigationBar
 -(jobsByVoidBlock _Nonnull)makeGKNavigationBarConfig;

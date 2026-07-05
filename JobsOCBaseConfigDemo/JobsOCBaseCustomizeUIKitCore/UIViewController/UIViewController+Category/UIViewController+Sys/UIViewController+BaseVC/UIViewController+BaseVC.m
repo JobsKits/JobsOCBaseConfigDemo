@@ -1,8 +1,8 @@
 //
 //  UIViewController+BaseVC.m
-//  JobsOCBaseConfigDemo
+//  JobsNavigationTransitionMgr
 //
-//  Created by Jobs on 2020/10/12.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIViewController+BaseVC.h"
@@ -14,7 +14,8 @@
     return ^(UIView *_Nullable superview,
              UIView *_Nullable view) {
         @jobs_strongify(self)
-        self.view.navigator.frame = view.bounds;
+        self.view.navigator.byFrame(view.bounds);
+
         view.navigator = superview.navigator;
         superview.addSubview(self.view.navigator);
     };
@@ -23,8 +24,8 @@
 -(void)showUserInfo{
     if (JobsDebug) {
         UIViewModel *viewModel = [self configViewModelWithTitle:@"用户信息展示(开发测试专用)".tr subTitle:nil];
-        viewModel.cls = JobsShowObjInfoVC.class;
-        viewModel.requestParams = self.readUserInfo;
+        viewModel.byCls(JobsShowObjInfoVC.class)
+                 .byRequestParams(self.readUserInfo);
         [self forceComingToPushVC:viewModel.cls.new
                     requestParams:viewModel];// 测试专用
     }

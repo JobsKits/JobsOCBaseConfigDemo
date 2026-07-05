@@ -1,9 +1,8 @@
 //
-//  XLChannelHeaderView.m
-//  JobsOCBaseConfigDemo
+//  XLChannelHeader.m
+//  JobsOCTools
 //
-//  Created by MengXianLiang on 2017/3/3.
-//  Copyright © 2017年 MengXianLiang. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "XLChannelHeader.h"
@@ -11,6 +10,7 @@
 @interface XLChannelHeader ()
 
 Prop_strong()UILabel *titleLabel;
+
 Prop_strong()UILabel *subtitleLabel;
 
 @end
@@ -31,28 +31,32 @@ Prop_strong()UILabel *subtitleLabel;
     CGFloat labelWidth = (self.bounds.size.width - 2*marginX)/2.0f;
     
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(marginX, 0, labelWidth, self.bounds.size.height)];
-    self.titleLabel.textColor = [UIColor blackColor];
+    self.titleLabel.byTextCor([UIColor blackColor]);
+
     [self addSubview:self.titleLabel];
     
     self.subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth + marginX, 0, labelWidth, self.bounds.size.height)];
-    self.subtitleLabel.textColor = [UIColor lightGrayColor];
-    self.subtitleLabel.textAlignment = NSTextAlignmentRight;
-    self.subtitleLabel.font = [UIFont systemFontOfSize:15.0f weight:UIFontWeightRegular];
+    self.subtitleLabel.byTextCor([UIColor lightGrayColor]);
+
+    self.subtitleLabel.byTextAlignment(NSTextAlignmentRight);
+
+    self.subtitleLabel.byFont([UIFont systemFontOfSize:15.0f weight:UIFontWeightRegular]);
+
     [self addSubview:self.subtitleLabel];
 }
 
-#pragma mark —— title
 -(void)setTitle:(NSString *)title
 {
     _title = title;
-    self.titleLabel.text = title;
+    self.titleLabel.byText(title);
+
 }
 
-#pragma mark —— subTitle
 -(void)setSubTitle:(NSString *)subTitle
 {
     _subTitle = subTitle;
-    self.subtitleLabel.text = subTitle;
+    self.subtitleLabel.byText(subTitle);
+
 }
 
 @end

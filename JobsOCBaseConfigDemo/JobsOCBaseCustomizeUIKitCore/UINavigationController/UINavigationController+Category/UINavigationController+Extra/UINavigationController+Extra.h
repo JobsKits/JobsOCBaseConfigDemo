@@ -1,13 +1,20 @@
 //
 //  UINavigationController+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2022/1/4.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UINAVIGATIONCONTROLLER_EXTRA_2F8E870138
+#define JOBS_HEADER_GUARD_UINAVIGATIONCONTROLLER_EXTRA_2F8E870138
+
 #import <UIKit/UIKit.h>
+
+#import "JobsNavigationTransitionMgrHeader.h"
+
 #import "JobsBlock.h"
-#import "JobsNavigationTransitionMgr.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,3 +27,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UINAVIGATIONCONTROLLER_EXTRA_2F8E870138 */

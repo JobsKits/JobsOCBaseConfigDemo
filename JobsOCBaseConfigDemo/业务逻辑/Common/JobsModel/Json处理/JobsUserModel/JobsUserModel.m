@@ -1,13 +1,13 @@
 //
 //  JobsUserModel.m
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsUserModel.h"
-#import "NSObject+Extras.h"
-#import "NSString+Others.h"
+#import "NSObject+Extra.h"
+#import "NSString+Extra.h"
 #import "NSMutableSet+Extra.h"
 
 @implementation JobsUserModel
@@ -140,7 +140,6 @@ static dispatch_once_t static_userModelOnceToken;
     return YES;
 }
 #pragma mark —— 自动补全
-#pragma mark —— expireTime
 -(void)setExpireTime:(NSString *)expireTime{
     _expireTime = expireTime;
     if(_expireTime) self.tokenExpireTime = _expireTime.chinaTime(nil);

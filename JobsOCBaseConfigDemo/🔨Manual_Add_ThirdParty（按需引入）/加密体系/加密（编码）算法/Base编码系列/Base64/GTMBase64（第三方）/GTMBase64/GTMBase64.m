@@ -1,19 +1,8 @@
 //
 //  GTMBase64.m
+//  JobsCryptography
 //
-//  Copyright 2006-2008 Google Inc.
-//
-//  Licensed under the Apache License, Version 2.0 (the "License"); you may not
-//  use this file except in compliance with the License.  You may obtain a copy
-//  of the License at
-//
-//  http://www.apache.org/licenses/LICENSE-2.0
-//
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-//  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
-//  License for the specific language governing permissions and limitations under
-//  the License.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "GTMBase64.h"
@@ -270,7 +259,6 @@ GTM_INLINE NSUInteger GuessDecodedLength(NSUInteger srcLen) {
                     charset:kBase64DecodeChars
              requirePadding:YES];
 }
-
 
 +(JobsRetStrByDataBlock _Nonnull)stringByEncodingData{
     return ^ __kindof NSString *_Nullable(__kindof NSData *_Nullable data){

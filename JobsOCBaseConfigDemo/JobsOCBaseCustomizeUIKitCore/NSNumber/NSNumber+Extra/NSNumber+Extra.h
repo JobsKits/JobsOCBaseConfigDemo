@@ -1,13 +1,22 @@
 //
 //  NSNumber+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Jobs on 2021/12/28.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSNUMBER_EXTRA_3825F80BCE
+#define JOBS_HEADER_GUARD_NSNUMBER_EXTRA_3825F80BCE
+
+#pragma once
+
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsStringUtilsHeader.h"
+
 #import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -40,3 +49,4 @@ Prop(readonly)NSString *stringValueOrEmpty;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSNUMBER_EXTRA_3825F80BCE */

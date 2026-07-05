@@ -1,14 +1,20 @@
 //
-//  CollectionView.h
-//  JobsOCBaseConfigDemo
+//  BaseCollectionView.h
+//  JobsBaseUI
 //
-//  Created by Jobs on 2020/10/31.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_BASECOLLECTIONVIEW_7866F0156C
+#define JOBS_HEADER_GUARD_BASECOLLECTIONVIEW_7866F0156C
+
 #import <UIKit/UIKit.h>
+
+#import "JobsBaseProtocolHeader.h"
+
 #import "JobsBlock.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /**
@@ -17,10 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
     2、监听reloadData的方法： 因为reloadData刷新UI是在主线程上，那么就在主线程上等待。直接在reloadData后获取主线程操作等待；
  */
 @interface BaseCollectionView : UICollectionView
-
-Prop_assign()UIRectCorner layoutSubviewsRectCorner;
-Prop_assign()CGSize layoutSubviewsRectCornerSize;
+<
+BaseViewProtocol
+>
 
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_BASECOLLECTIONVIEW_7866F0156C */

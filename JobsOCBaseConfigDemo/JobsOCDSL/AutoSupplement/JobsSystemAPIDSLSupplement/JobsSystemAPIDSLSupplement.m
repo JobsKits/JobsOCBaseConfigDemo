@@ -1,6 +1,6 @@
 //
 //  JobsSystemAPIDSLSupplement.m
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 
 #import "JobsSystemAPIDSLSupplement.h"
@@ -400,6 +400,179 @@
 @end
 
 @implementation UICollectionView (JobsSystemAPIDSLSupplement)
+-(JobsRetCollectionViewByBOOLBlock)byPrefetchingEnabled{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.prefetchingEnabled = data;
+        return self;
+    };
+}
+
+-(JobsRetCollectionViewByBOOLBlock)byDragInteractionEnabled{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        if (@available(iOS 11.0, *)) {
+            self.dragInteractionEnabled = data;
+        };return self;
+    };
+}
+
+-(JobsRetCollectionViewByReorderingCadenceBlock)byReorderingCadence{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(UICollectionViewReorderingCadence data){
+        @jobs_strongify(self)
+        if (@available(iOS 11.0, *)) {
+            self.reorderingCadence = data;
+        };return self;
+    };
+}
+
+-(JobsRetCollectionViewBySelfSizingInvalidationBlock)bySelfSizingInvalidation{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(UICollectionViewSelfSizingInvalidation data){
+        @jobs_strongify(self)
+        if (@available(iOS 16.0, tvOS 16.0, *)) {
+            self.selfSizingInvalidation = data;
+        };return self;
+    };
+}
+
+-(JobsRetCollectionViewByBOOLBlock)byAllowsSelection{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.allowsSelection = data;
+        return self;
+    };
+}
+
+-(JobsRetCollectionViewByBOOLBlock)byAllowsMultipleSelection{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.allowsMultipleSelection = data;
+        return self;
+    };
+}
+
+-(JobsRetCollectionViewByBOOLBlock)byRemembersLastFocusedIndexPath{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.remembersLastFocusedIndexPath = data;
+        return self;
+    };
+}
+
+-(JobsRetCollectionViewByBOOLBlock)bySelectionFollowsFocus{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        if (@available(iOS 15.0, tvOS 15.0, *)) {
+            self.selectionFollowsFocus = data;
+        };return self;
+    };
+}
+
+-(JobsRetCollectionViewByBOOLBlock)byAllowsFocus{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        if (@available(iOS 15.0, tvOS 15.0, *)) {
+            self.allowsFocus = data;
+        };return self;
+    };
+}
+
+-(JobsRetCollectionViewByBOOLBlock)byAllowsFocusDuringEditing{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        if (@available(iOS 15.0, tvOS 15.0, *)) {
+            self.allowsFocusDuringEditing = data;
+        };return self;
+    };
+}
+
+-(JobsRetCollectionViewByBOOLBlock)byEditing{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        if (@available(iOS 14.0, tvOS 14.0, *)) {
+            self.editing = data;
+        };return self;
+    };
+}
+
+-(JobsRetCollectionViewByBOOLBlock)byAllowsSelectionDuringEditing{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        if (@available(iOS 14.0, tvOS 14.0, *)) {
+            self.allowsSelectionDuringEditing = data;
+        };return self;
+    };
+}
+
+-(JobsRetCollectionViewByBOOLBlock)byAllowsMultipleSelectionDuringEditing{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        if (@available(iOS 14.0, tvOS 14.0, *)) {
+            self.allowsMultipleSelectionDuringEditing = data;
+        };return self;
+    };
+}
+
+-(JobsRetCollectionViewByVoidBlock)byReloadData{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(void){
+        @jobs_strongify(self)
+        [self reloadData];
+        return self;
+    };
+}
+
+-(JobsRetCollectionViewByVoidBlock)byFinishInteractiveTransition{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(void){
+        @jobs_strongify(self)
+        [self finishInteractiveTransition];
+        return self;
+    };
+}
+
+-(JobsRetCollectionViewByVoidBlock)byCancelInteractiveTransition{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(void){
+        @jobs_strongify(self)
+        [self cancelInteractiveTransition];
+        return self;
+    };
+}
+
+-(JobsRetCollectionViewByVoidBlock)byEndInteractiveMovement{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(void){
+        @jobs_strongify(self)
+        if (@available(iOS 9.0, *)) {
+            [self endInteractiveMovement];
+        };return self;
+    };
+}
+
+-(JobsRetCollectionViewByVoidBlock)byCancelInteractiveMovement{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(void){
+        @jobs_strongify(self)
+        if (@available(iOS 9.0, *)) {
+            [self cancelInteractiveMovement];
+        };return self;
+    };
+}
+
 -(JobsRetCollectionViewByIndexSetBlock)byReloadSections{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(NSIndexSet *_Nonnull data){
@@ -454,6 +627,418 @@
     };
 }
 
+-(JobsRetCollectionViewByArrBlock)byReconfigureItemsAtIndexPaths{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(NSArray<NSIndexPath *> *_Nonnull data){
+        @jobs_strongify(self)
+        if (@available(iOS 15.0, tvOS 15.0, *)) {
+            [self reconfigureItemsAtIndexPaths:data];
+        };return self;
+    };
+}
+
+-(JobsRetCollectionViewByCGPointBlock)byUpdateInteractiveMovementTargetPosition{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionView *_Nullable(CGPoint data){
+        @jobs_strongify(self)
+        if (@available(iOS 9.0, *)) {
+            [self updateInteractiveMovementTargetPosition:data];
+        };return self;
+    };
+}
+
+@end
+
+@implementation UIScrollView (JobsSystemAPIDSLSupplement)
+-(JobsRetScrollViewByPointBlock)byContentOffset{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(CGPoint data){
+        @jobs_strongify(self)
+        self.contentOffset = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewBySizeBlock)byContentSize{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(CGSize data){
+        @jobs_strongify(self)
+        self.contentSize = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByUIEdgeInsetsBlock)byContentInset{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(UIEdgeInsets data){
+        @jobs_strongify(self)
+        self.contentInset = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByPointBlock)byContentAlignmentPoint{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(CGPoint data){
+        @jobs_strongify(self)
+        if (@available(iOS 26.0, *)) {
+            self.contentAlignmentPoint = data;
+        };return self;
+    };
+}
+
+-(JobsRetScrollViewByContentInsetAdjustmentBehaviorBlock)byContentInsetAdjustmentBehavior{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(UIScrollViewContentInsetAdjustmentBehavior data){
+        @jobs_strongify(self)
+        if (@available(iOS 11.0, tvOS 11.0, *)) {
+            self.contentInsetAdjustmentBehavior = data;
+        };return self;
+    };
+}
+
+-(JobsRetScrollViewByBOOLBlock)byAutomaticallyAdjustsScrollIndicatorInsets{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        if (@available(iOS 13.0, tvOS 13.0, *)) {
+            self.automaticallyAdjustsScrollIndicatorInsets = data;
+        };return self;
+    };
+}
+
+-(JobsRetScrollViewByBOOLBlock)byDirectionalLockEnabled{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.directionalLockEnabled = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByBOOLBlock)byBounces{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.bounces = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByBOOLBlock)byAlwaysBounceVertical{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.alwaysBounceVertical = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByBOOLBlock)byAlwaysBounceHorizontal{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.alwaysBounceHorizontal = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByBOOLBlock)byPagingEnabled{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.pagingEnabled = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByBOOLBlock)byScrollEnabled{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.scrollEnabled = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByBOOLBlock)byTransfersHorizontalScrollingToParent{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        if (@available(iOS 18.0, *)) {
+            self.transfersHorizontalScrollingToParent = data;
+        };return self;
+    };
+}
+
+-(JobsRetScrollViewByBOOLBlock)byTransfersVerticalScrollingToParent{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        if (@available(iOS 18.0, *)) {
+            self.transfersVerticalScrollingToParent = data;
+        };return self;
+    };
+}
+
+-(JobsRetScrollViewByBOOLBlock)byShowsVerticalScrollIndicator{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.showsVerticalScrollIndicator = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByBOOLBlock)byShowsHorizontalScrollIndicator{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.showsHorizontalScrollIndicator = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByIndicatorStyleBlock)byIndicatorStyle{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(UIScrollViewIndicatorStyle data){
+        @jobs_strongify(self)
+        self.indicatorStyle = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByUIEdgeInsetsBlock)byVerticalScrollIndicatorInsets{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(UIEdgeInsets data){
+        @jobs_strongify(self)
+        if (@available(iOS 11.1, tvOS 11.1, *)) {
+            self.verticalScrollIndicatorInsets = data;
+        };return self;
+    };
+}
+
+-(JobsRetScrollViewByUIEdgeInsetsBlock)byHorizontalScrollIndicatorInsets{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(UIEdgeInsets data){
+        @jobs_strongify(self)
+        if (@available(iOS 11.1, tvOS 11.1, *)) {
+            self.horizontalScrollIndicatorInsets = data;
+        };return self;
+    };
+}
+
+-(JobsRetScrollViewByUIEdgeInsetsBlock)byScrollIndicatorInsets{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(UIEdgeInsets data){
+        @jobs_strongify(self)
+        self.scrollIndicatorInsets = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByDecelerationRateBlock)byDecelerationRate{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(UIScrollViewDecelerationRate data){
+        @jobs_strongify(self)
+        self.decelerationRate = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByNSIntegerBlock)byIndexDisplayMode{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(UIScrollViewIndexDisplayMode data){
+        @jobs_strongify(self)
+        if (@available(iOS 11.0, *)) {
+            self.indexDisplayMode = data;
+        };return self;
+    };
+}
+
+-(JobsRetScrollViewByBOOLBlock)byDelaysContentTouches{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.delaysContentTouches = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByBOOLBlock)byCanCancelContentTouches{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.canCancelContentTouches = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByCGFloatBlock)byMinimumZoomScale{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(CGFloat data){
+        @jobs_strongify(self)
+        self.minimumZoomScale = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByCGFloatBlock)byMaximumZoomScale{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(CGFloat data){
+        @jobs_strongify(self)
+        self.maximumZoomScale = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByCGFloatBlock)byZoomScale{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(CGFloat data){
+        @jobs_strongify(self)
+        self.zoomScale = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByBOOLBlock)byBouncesZoom{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.bouncesZoom = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByBOOLBlock)byScrollsToTop{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.scrollsToTop = data;
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByKeyboardDismissModeBlock)byKeyboardDismissMode{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(UIScrollViewKeyboardDismissMode data){
+        @jobs_strongify(self)
+        if (@available(iOS 7.0, *)) {
+            self.keyboardDismissMode = data;
+        };return self;
+    };
+}
+
+-(JobsRetScrollViewByBOOLBlock)byAllowsKeyboardScrolling{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        if (@available(iOS 17.0, *)) {
+            self.allowsKeyboardScrolling = data;
+        };return self;
+    };
+}
+
+-(JobsRetScrollViewByVoidBlock)byFlashScrollIndicators{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(void){
+        @jobs_strongify(self)
+        [self flashScrollIndicators];
+        return self;
+    };
+}
+
+-(JobsRetScrollViewByVoidBlock)byStopScrollingAndZooming{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView *_Nullable(void){
+        @jobs_strongify(self)
+        if (@available(iOS 18.0, *)) {
+            [self stopScrollingAndZooming];
+        };return self;
+    };
+}
+
+@end
+
+@implementation UIImageView (JobsSystemAPIDSLSupplement)
+-(JobsRetImageViewBySymbolConfigurationBlock)byPreferredSymbolConfiguration{
+    @jobs_weakify(self)
+    return ^__kindof UIImageView *_Nonnull(UIImageSymbolConfiguration *_Nullable data){
+        @jobs_strongify(self)
+        if (@available(iOS 13.0, tvOS 13.0, *)) {
+            self.preferredSymbolConfiguration = data;
+        };return self;
+    };
+}
+
+-(JobsRetImageViewByImageDynamicRangeBlock)byPreferredImageDynamicRange{
+    @jobs_weakify(self)
+    return ^__kindof UIImageView *_Nonnull(UIImageDynamicRange data){
+        @jobs_strongify(self)
+        if (@available(iOS 17.0, tvOS 17.0, *)) {
+            self.preferredImageDynamicRange = data;
+        };return self;
+    };
+}
+
+-(JobsRetImageViewByVoidBlock)byStartAnimating{
+    @jobs_weakify(self)
+    return ^__kindof UIImageView *_Nonnull(void){
+        @jobs_strongify(self)
+        [self startAnimating];
+        return self;
+    };
+}
+
+-(JobsRetImageViewByVoidBlock)byStopAnimating{
+    @jobs_weakify(self)
+    return ^__kindof UIImageView *_Nonnull(void){
+        @jobs_strongify(self)
+        [self stopAnimating];
+        return self;
+    };
+}
+
+-(JobsRetImageViewByVoidBlock)byRemoveAllSymbolEffects{
+    @jobs_weakify(self)
+    return ^__kindof UIImageView *_Nonnull(void){
+        @jobs_strongify(self)
+        if (@available(iOS 17.0, tvOS 17.0, visionOS 1.0, *)) {
+            [self removeAllSymbolEffects];
+        };return self;
+    };
+}
+
+-(JobsRetImageViewBySymbolEffectBlock)byAddSymbolEffect{
+    @jobs_weakify(self)
+    return ^__kindof UIImageView *_Nonnull(NSSymbolEffect *_Nonnull data){
+        @jobs_strongify(self)
+        if (@available(iOS 17.0, tvOS 17.0, visionOS 1.0, *)) {
+            [self addSymbolEffect:data];
+        };return self;
+    };
+}
+
+-(JobsRetImageViewBySymbolEffectBlock)byRemoveSymbolEffectOfType{
+    @jobs_weakify(self)
+    return ^__kindof UIImageView *_Nonnull(NSSymbolEffect *_Nonnull data){
+        @jobs_strongify(self)
+        if (@available(iOS 17.0, tvOS 17.0, visionOS 1.0, *)) {
+            [self removeSymbolEffectOfType:data];
+        };return self;
+    };
+}
+
+-(JobsRetImageViewBySymbolEffectOptionsBlock)byRemoveAllSymbolEffectsWithOptions{
+    @jobs_weakify(self)
+    return ^__kindof UIImageView *_Nonnull(NSSymbolEffectOptions *_Nonnull data){
+        @jobs_strongify(self)
+        if (@available(iOS 17.0, tvOS 17.0, visionOS 1.0, *)) {
+            [self removeAllSymbolEffectsWithOptions:data];
+        };return self;
+    };
+}
+
 @end
 
 @implementation UIPageControl (JobsSystemAPIDSLSupplement)
@@ -480,6 +1065,34 @@
     return ^__kindof UIPageControl *_Nullable(BOOL data){
         @jobs_strongify(self)
         self.hidesForSinglePage = data;
+        return self;
+    };
+}
+
+-(JobsRetPageControlByBOOLBlock)byAllowsContinuousInteraction{
+    @jobs_weakify(self)
+    return ^__kindof UIPageControl *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        if (@available(iOS 14.0, tvOS 14.0, *)) {
+            self.allowsContinuousInteraction = data;
+        };return self;
+    };
+}
+
+-(JobsRetPageControlByBOOLBlock)byDefersCurrentPageDisplay{
+    @jobs_weakify(self)
+    return ^__kindof UIPageControl *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.defersCurrentPageDisplay = data;
+        return self;
+    };
+}
+
+-(JobsRetPageControlByVoidBlock)byUpdateCurrentPageDisplay{
+    @jobs_weakify(self)
+    return ^__kindof UIPageControl *_Nullable(void){
+        @jobs_strongify(self)
+        [self updateCurrentPageDisplay];
         return self;
     };
 }
@@ -544,7 +1157,66 @@
 
 @end
 
+@implementation UITableView (JobsSystemAPIDSLSupplement)
+-(JobsRetTableViewByVoidBlock)byBeginUpdates{
+    @jobs_weakify(self)
+    return ^__kindof UITableView *_Nullable(void){
+        @jobs_strongify(self)
+        [self beginUpdates];
+        return self;
+    };
+}
+
+-(JobsRetTableViewByVoidBlock)byEndUpdates{
+    @jobs_weakify(self)
+    return ^__kindof UITableView *_Nullable(void){
+        @jobs_strongify(self)
+        [self endUpdates];
+        return self;
+    };
+}
+
+-(JobsRetTableViewByVoidBlock)byReloadData{
+    @jobs_weakify(self)
+    return ^__kindof UITableView *_Nullable(void){
+        @jobs_strongify(self)
+        [self reloadData];
+        return self;
+    };
+}
+
+-(JobsRetTableViewByVoidBlock)byReloadSectionIndexTitles{
+    @jobs_weakify(self)
+    return ^__kindof UITableView *_Nullable(void){
+        @jobs_strongify(self)
+        [self reloadSectionIndexTitles];
+        return self;
+    };
+}
+
+-(JobsRetTableViewByArrBlock)byReconfigureRowsAtIndexPaths{
+    @jobs_weakify(self)
+    return ^__kindof UITableView *_Nullable(NSArray<NSIndexPath *> *_Nonnull data){
+        @jobs_strongify(self)
+        if (@available(iOS 15.0, tvOS 15.0, *)) {
+            [self reconfigureRowsAtIndexPaths:data];
+        };return self;
+    };
+}
+
+@end
+
 @implementation UILabel (JobsSystemAPIDSLSupplement)
+-(JobsRetUILabelByVibrancyBlock)byPreferredVibrancy{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(UILabelVibrancy data){
+        @jobs_strongify(self)
+        if (@available(iOS 17.0, tvOS 17.0, visionOS 1.0, *)) {
+            self.preferredVibrancy = data;
+        };return self;
+    };
+}
+
 -(JobsRetUILabelByUIColorBlock)byTextColor{
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(UIColor *_Nullable data){
@@ -658,6 +1330,44 @@
     return ^__kindof UILabel *_Nullable(CGFloat data){
         @jobs_strongify(self)
         self.preferredMaxLayoutWidth = data;
+        return self;
+    };
+}
+
+-(JobsRetUILabelByLineBreakStrategyBlock)byLineBreakStrategy{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(NSLineBreakStrategy data){
+        @jobs_strongify(self)
+        if (@available(iOS 14.0, tvOS 14.0, watchOS 7.0, *)) {
+            self.lineBreakStrategy = data;
+        };return self;
+    };
+}
+
+-(JobsRetUILabelByBOOLBlock)byShowsExpansionTextWhenTruncated{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        if (@available(iOS 13.0, *)) {
+            self.showsExpansionTextWhenTruncated = data;
+        };return self;
+    };
+}
+
+-(JobsRetUILabelByCGFloatBlock)byMinimumFontSize{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(CGFloat data){
+        @jobs_strongify(self)
+        SuppressWdeprecatedDeclarationsWarning(self.minimumFontSize = data;);
+        return self;
+    };
+}
+
+-(JobsRetUILabelByBOOLBlock)byAdjustsLetterSpacingToFitWidth{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        SuppressWdeprecatedDeclarationsWarning(self.adjustsLetterSpacingToFitWidth = data;);
         return self;
     };
 }
@@ -852,6 +1562,63 @@
 }
 
 #endif
+
+-(JobsRetTextViewByBOOLBlock)byFindInteractionEnabled{
+    @jobs_weakify(self)
+    return ^__kindof UITextView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        if (@available(iOS 16.0, *)) {
+            self.findInteractionEnabled = data;
+        };return self;
+    };
+}
+
+-(JobsRetTextViewByBorderStyleBlock)byBorderStyle{
+    @jobs_weakify(self)
+    return ^__kindof UITextView *_Nullable(UITextViewBorderStyle data){
+        @jobs_strongify(self)
+        if (@available(iOS 17.0, visionOS 1.0, *)) {
+            self.borderStyle = data;
+        };return self;
+    };
+}
+
+-(JobsRetTextViewByIDBlock)byInteractionState{
+    @jobs_weakify(self)
+    return ^__kindof UITextView *_Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        if (@available(iOS 17.0, visionOS 1.0, *)) {
+            self.interactionState = data;
+        };return self;
+    };
+}
+
+@end
+
+@implementation UIPanGestureRecognizer (JobsSystemAPIDSLSupplement)
+-(JobsRetPanGestureRecognizerByUIScrollTypeMaskBlock)byAllowedScrollTypesMask{
+    @jobs_weakify(self)
+    return ^UIPanGestureRecognizer *_Nullable(UIScrollTypeMask data){
+        @jobs_strongify(self)
+        if (@available(iOS 13.4, *)) {
+            self.allowedScrollTypesMask = data;
+        };return self;
+    };
+}
+
+@end
+
+@implementation UITapGestureRecognizer (JobsSystemAPIDSLSupplement)
+-(JobsRetTapGestureRecognizerByUIEventButtonMaskBlock)byButtonMaskRequired{
+    @jobs_weakify(self)
+    return ^UITapGestureRecognizer *_Nullable(UIEventButtonMask data){
+        @jobs_strongify(self)
+        if (@available(iOS 13.4, *)) {
+            self.buttonMaskRequired = data;
+        };return self;
+    };
+}
+
 @end
 
 @implementation UIView (JobsSystemAPIDSLSupplement)

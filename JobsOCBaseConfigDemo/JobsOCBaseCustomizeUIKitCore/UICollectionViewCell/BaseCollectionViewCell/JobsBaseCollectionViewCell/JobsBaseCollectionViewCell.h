@@ -1,16 +1,18 @@
 //
 //  JobsBaseCollectionViewCell.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2020/10/18.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_JOBSBASECOLLECTIONVIEWCELL_25ADAE6E6D
+#define JOBS_HEADER_GUARD_JOBSBASECOLLECTIONVIEWCELL_25ADAE6E6D
+
 #import <UIKit/UIKit.h>
-#import "MacroDef_Func.h"
-#import "UIView+Extras.h"
-#import "AppToolsProtocol.h"
-#import "UICollectionViewCellProtocol.h"
-#import "UICollectionViewCell+ShakeAnimation.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,3 +25,4 @@ AppToolsProtocol
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSBASECOLLECTIONVIEWCELL_25ADAE6E6D */

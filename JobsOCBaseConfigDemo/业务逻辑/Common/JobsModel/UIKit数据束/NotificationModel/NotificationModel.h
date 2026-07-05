@@ -1,13 +1,19 @@
 //
 //  NotificationModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef NotificationModel_h
+#define NotificationModel_h
+
 #import <Foundation/Foundation.h>
 #import "BaseModel.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,3 +32,5 @@ NS_INLINE __kindof NotificationModel *_Nonnull jobsMakeNotificationModel(jobsByN
     if (block) block(data);
     return data;
 }
+
+#endif /* NotificationModel_h */

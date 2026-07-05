@@ -1,19 +1,24 @@
 //
 //  SPAlertControllerConfig.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef SPAlertControllerConfig_h
+#define SPAlertControllerConfig_h
+
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
-#import "SPAlertControllerConfig.h"
 
 #if __has_include(<SPAlertController/SPAlertController.h>)
 #import <SPAlertController/SPAlertController.h>
 #else
 #import "SPAlertController.h"
 #endif
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,3 +50,5 @@ NS_INLINE __kindof SPAlertControllerConfig *_Nonnull jobsMakeSPAlertControllerCo
     if (block) block(data);
     return data;
 }
+
+#endif /* SPAlertControllerConfig_h */

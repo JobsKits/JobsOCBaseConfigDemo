@@ -1,8 +1,8 @@
 //
 //  BaseUploadFileRequest.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Admin on 5/12/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "BaseUploadFileRequest.h"
@@ -15,7 +15,7 @@ Prop_strong()JobsFileModel *fileModel;
 
 @implementation BaseUploadFileRequest
 
--(JobsReturnRequestByFileModelBlock _Nonnull)initBy{
+-(JobsRetRequestByFileModelBlock _Nonnull)initBy{
     @jobs_weakify(self)
     return ^__kindof BaseUploadFileRequest *_Nullable(__kindof JobsFileModel *_Nullable model){
         @jobs_strongify(self)

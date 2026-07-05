@@ -1,12 +1,25 @@
 //
 //  CasinoCustomerContactModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
-//  Created by Jobs on 2021/12/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef CasinoCustomerContactModel_h
+#define CasinoCustomerContactModel_h
+
+#import <Foundation/Foundation.h>
 #import "BaseModel.h"
-#import "JobsDefineProperty.h"
+
+#if __has_include(<MJExtension/MJExtension.h>)
+#import <MJExtension/MJExtension.h>
+#else
+#import "MJExtension.h"
+#endif
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -118,3 +131,5 @@ NS_ASSUME_NONNULL_END
 //        updateTime = "2021-12-13 19:44:32";
 //    };
 //}
+
+#endif /* CasinoCustomerContactModel_h */

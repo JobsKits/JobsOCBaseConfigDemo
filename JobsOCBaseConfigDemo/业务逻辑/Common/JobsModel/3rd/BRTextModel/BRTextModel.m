@@ -1,6 +1,6 @@
 //
 //  BRTextModel.m
-//  JobsOCBaseConfigDemo
+//  BRPickerViewDemo
 //
 //  Created by renbo on 2019/10/2.
 //  Copyright © 2019 irenb. All rights reserved.
@@ -57,13 +57,11 @@
 }
 
 
-#pragma mark —— value
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     
 }
 
 // value为nil，key不为nil的时候会调用
-#pragma mark —— nilValueForKey
 - (void)setNilValueForKey:(NSString *)key {
     
 }

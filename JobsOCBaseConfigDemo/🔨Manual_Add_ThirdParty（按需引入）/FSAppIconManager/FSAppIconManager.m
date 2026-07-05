@@ -1,16 +1,15 @@
 //
 //  FSAppIconManager.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by zhangpeng on 2018/7/10.
-//  Copyright © 2018年 zhangpeng. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "FSAppIconManager.h"
 
 @implementation FSAppIconManager
 
-+ (NSString *)getCurrentAppIconName {
++(NSString *)getCurrentAppIconName{
     if (@available(iOS 10.3, *)) {
         return (UIApplication.sharedApplication.alternateIconName.length == 0) ? @"".tr : UIApplication. sharedApplication.alternateIconName;
     } else {
@@ -19,7 +18,7 @@
     }
 }
 
-+ (BOOL)canChangeAppIcon {
++(BOOL)canChangeAppIcon{
     if (@available(iOS 10.3, *)) {
         return UIApplication.sharedApplication.supportsAlternateIcons;
     } else {
@@ -28,8 +27,8 @@
     }
 }
 
-+ (void)changeAppIconWithIconName:(NSString *)iconName
-                completionHandler:(void (^)(NSError * _Nullable))completionHandler {
++(void)changeAppIconWithIconName:(NSString *)iconName
+               completionHandler:(void (^)(NSError * _Nullable))completionHandler {
     if (@available(iOS 10.3, *)) {
         [UIApplication.sharedApplication setAlternateIconName:iconName
                                             completionHandler:^(NSError * _Nullable error) {

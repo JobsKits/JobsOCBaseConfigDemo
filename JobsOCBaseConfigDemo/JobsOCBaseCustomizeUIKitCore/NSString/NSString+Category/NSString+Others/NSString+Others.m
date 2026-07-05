@@ -115,7 +115,7 @@
 }
 /// 国际化
 -(NSString *_Nullable)tr{
-    return [JobsLanguageManager localStringWithKey:self];
+    return JobsLanguageManager.localStringByKey(self);
 }
 
 -(JobsRetBOOLByStrBlock _Nonnull)inStr{

@@ -1,16 +1,11 @@
 //
 //  JobsCollectionReusableView.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef JobsCollectionReusableView_h
 #define JobsCollectionReusableView_h
-
-#pragma mark —— Category
-// TODO
-#pragma mark —— Base
-#import "BaseCollectionReusableView.h"
 
 #endif /* JobsCollectionReusableView_h */

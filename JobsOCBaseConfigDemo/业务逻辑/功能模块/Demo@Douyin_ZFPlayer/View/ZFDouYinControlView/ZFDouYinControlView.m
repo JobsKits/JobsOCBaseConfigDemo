@@ -1,9 +1,8 @@
 //
 //  ZFDouYinControlView.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by 任子丰 on 2018/6/4.
-//  Copyright © 2018年 紫枫. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "ZFDouYinControlView.h"
@@ -38,6 +37,7 @@ Prop_strong()ZFSliderView *sliderView;
     min_w = 100;
     min_h = 100;
     self.playBtn.frame = CGRectMake(min_x, min_y, min_w, min_h);
+
     self.playBtn.center = self.center;
     
     min_x = 0;
@@ -45,10 +45,12 @@ Prop_strong()ZFSliderView *sliderView;
     min_w = min_view_w;
     min_h = 1;
     self.sliderView.frame = CGRectMake(min_x, min_y, min_w, min_h);
+
 }
 
 - (void)resetControlView {
     self.playBtn.hidden = YES;
+
     self.sliderView.value = 0;
     self.sliderView.bufferValue = 0;
 }
@@ -74,22 +76,23 @@ Prop_strong()ZFSliderView *sliderView;
     if (self.player.currentPlayerManager.isPlaying) {
         [self.player.currentPlayerManager pause];
         self.playBtn.hidden = NO;
+
         self.playBtn.transform = CGAffineTransformMakeScale(1.5f, 1.5f);
-        @jobs_weakify(self)
+        __weak typeof(self) weakSelf = self;
         [UIView animateWithDuration:0.2f
                               delay:0
                             options:UIViewAnimationOptionCurveEaseIn
                          animations:^{
-            @jobs_strongify(self)
-            self.playBtn.transform = CGAffineTransformIdentity;
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            strongSelf.playBtn.transform = CGAffineTransformIdentity;
         } completion:nil];
     } else {
         [self.player.currentPlayerManager play];
         self.playBtn.hidden = YES;
+
     }
 }
 
-#pragma mark —— player
 - (void)setPlayer:(ZFPlayerController *)player {
     _player = player;
 }
@@ -101,10 +104,12 @@ Prop_strong()ZFSliderView *sliderView;
 #pragma mark —— lazyLoad
 - (UIButton *)playBtn {
     if (!_playBtn) {
-        _playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _playBtn.userInteractionEnabled = NO;
-        [_playBtn setImage:[UIImage imageNamed:@"icon_play_pause"]
-                  forState:UIControlStateNormal];
+        _playBtn = (UIButton *)UIButton.alloc.init
+            .byViewBlock(^(__kindof UIView *view) {
+                [(UIButton *)view setImage:[UIImage imageNamed:@"icon_play_pause"]
+                                  forState:UIControlStateNormal];
+            })
+            .byUserInteractionEnabled(NO);
     };return _playBtn;
 }
 

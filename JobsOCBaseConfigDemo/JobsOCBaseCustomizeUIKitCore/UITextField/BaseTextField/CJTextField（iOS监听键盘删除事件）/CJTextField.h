@@ -1,16 +1,20 @@
 //
 //  CJTextField.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Kite on 2019/11/24.
-//  Copyright © 2019 朝花夕拾. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_CJTEXTFIELD_373C1B2DE0
+#define JOBS_HEADER_GUARD_CJTEXTFIELD_373C1B2DE0
+
 #import <UIKit/UIKit.h>
+
+#import "JobsDeviceInfo.h"
+
 #import "JobsBlock.h"
-#import "UITextField+Extend.h"
-#import "NSObject+CurrentDevice.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// iOS监听键盘删除事件
@@ -34,3 +38,4 @@ NS_INLINE __kindof CJTextField *_Nonnull jobsMakeCJTextField(jobsByCJTextField _
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_CJTEXTFIELD_373C1B2DE0 */

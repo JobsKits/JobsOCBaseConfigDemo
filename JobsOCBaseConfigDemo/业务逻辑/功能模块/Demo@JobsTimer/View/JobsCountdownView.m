@@ -2,7 +2,7 @@
 //  JobsCountdownView.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/27.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsCountdownView.h"
@@ -46,7 +46,8 @@ static dispatch_once_t static_countdownViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+
     };return self;
 }
 
@@ -66,7 +67,8 @@ static dispatch_once_t static_countdownViewOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -74,7 +76,7 @@ static dispatch_once_t static_countdownViewOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         MakeDataNull
         [self.timer start];
         self.titleLab.byVisible(YES);
@@ -92,7 +94,8 @@ static dispatch_once_t static_countdownViewOnceToken;
     self.minutesStr = nil;
     self.secondStr = nil;
     self.richTextConfigMutArr = nil;
-    self.countdownTimeLab.attributedText = nil;
+    self.countdownTimeLab.byAttributedString(nil);
+
 }
 #pragma mark —— lazyLoad
 @synthesize timer = _timer;
@@ -102,11 +105,16 @@ static dispatch_once_t static_countdownViewOnceToken;
         _timer = jobsMakeTimer(^(JobsTimer * _Nullable timer) {
             timer
             /// 必须配置的项
-                .byTimerType(JobsTimerTypeNSTimer)           // 计时器核心选择
-                .byTimerStyle(TimerStyle_clockwise)          // 正计时模式
-                .byTimeInterval(1)                           // 跳动步长（频率间距）
-                .byStartTime(30 * 60)                        // ✅ 总时长
-                .byTimeSecIntervalSinceDate(3)               // dispatch_after 延迟（这里等价 0）
+                .byTimerType(JobsTimerTypeNSTimer)
+           // 计时器核心选择
+                .byTimerStyle(TimerStyle_clockwise)
+          // 正计时模式
+                .byTimeInterval(1)
+                           // 跳动步长（频率间距）
+                .byStartTime(30 * 60)
+                        // ✅ 总时长
+                .byTimeSecIntervalSinceDate(3)
+               // dispatch_after 延迟（这里等价 0）
                 .byQueue(dispatch_get_main_queue())
                 .byOnTick(^(CGFloat time){
                     @jobs_strongify(self)
@@ -122,7 +130,8 @@ static dispatch_once_t static_countdownViewOnceToken;
                     NSArray *strArr2 = [strArr1[1] componentsSeparatedByString:@"秒".tr];
                     self.secondStr = strArr2[0];
 
-                    self.countdownTimeLab.attributedText = [self richTextWithDataConfigMutArr:self.richTextConfigMutArr paragraphStyle:self.paragraphStyle];
+                    self.countdownTimeLab.byAttributedString([self richTextWithDataConfigMutArr:self.richTextConfigMutArr paragraphStyle:self.paragraphStyle]);
+
                     if (self.objBlock) self.objBlock(@(time));
                 })
                 .byOnFinish(^(__kindof JobsTimer * _Nullable t){
@@ -140,12 +149,12 @@ static dispatch_once_t static_countdownViewOnceToken;
 -(JobsTimeModel *)formatTime{
     if (!_formatTime) {
         _formatTime = jobsMakeTimeModel(^(__kindof JobsTimeModel * _Nullable data) {
-            data.year = @"".tr;
-            data.month = @"".tr;
-            data.day = @"".tr;
-            data.hour = @"".tr;
-            data.minute = @"分".tr;
-            data.second = @"秒".tr;
+            data.byYear(@"".tr)
+                .byMonth(@"".tr)
+                .byDay(@"".tr)
+                .byHour(@"".tr)
+                .byMinute(@"分".tr)
+                .bySecond(@"秒".tr);
         });
     };return _formatTime;
 }
@@ -155,12 +164,17 @@ static dispatch_once_t static_countdownViewOnceToken;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"支付時間還有".tr).byFont(UIFontWeightRegularSize(14)).byTextCor(HEXCOLOR(0x757575));
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self);
-                make.top.equalTo(self).offset(JobsWidth(28));
-                make.height.mas_equalTo(JobsWidth(14));
-            }];label.makeLabelByShowingType(UILabelShowingType_03);
+            label
+                .byText(@"支付時間還有".tr)
+                .byFont(UIFontWeightRegularSize(14))
+                .byTextCor(HEXCOLOR(0x757575))
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self);
+                    make.top.equalTo(self).offset(JobsWidth(28));
+                    make.height.mas_equalTo(JobsWidth(14));
+                })
+                .makeLabelByShowingType(UILabelShowingType_03);
         });
     };return _titleLab;
 }
@@ -171,14 +185,16 @@ static dispatch_once_t static_countdownViewOnceToken;
         _countdownTimeLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byAttributedString([self richTextWithDataConfigMutArr:self.richTextConfigMutArr paragraphStyle:self.paragraphStyle])
-                .byTextAlignment(NSTextAlignmentCenter);
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self);
-                make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(16));
-                make.height.mas_equalTo(JobsWidth(60));
-                make.width.mas_equalTo(JobsCountdownView.viewSizeByModel(nil).width);
-            }];
+                .byAttributedString([self richTextWithDataConfigMutArr:self.richTextConfigMutArr
+                                                        paragraphStyle:self.paragraphStyle])
+                .byTextAlignment(NSTextAlignmentCenter)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self);
+                    make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(16));
+                    make.height.mas_equalTo(JobsWidth(60));
+                    make.width.mas_equalTo(JobsCountdownView.viewSizeByModel(nil).width);
+                });
         });
     };return _countdownTimeLab;
 }
@@ -188,40 +204,40 @@ static dispatch_once_t static_countdownViewOnceToken;
     @jobs_weakify(self)
     _richTextConfigMutArr.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
         @jobs_strongify(self)
-        data.font = UIFontWeightBoldSize(48);
-        data.textCor = HEXCOLOR(0xAE8330);
-        data.targetString = self.minutesStr;
+        data.byFont(UIFontWeightBoldSize(48))
+            .byTextCor(HEXCOLOR(0xAE8330))
+            .byTargetString(self.minutesStr);
     }))
     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
-        data.font = UIFontWeightRegularSize(12);
-        data.textCor = HEXCOLOR(0x757575);
-        data.targetString = @"分".tr;
+        data.byFont(UIFontWeightRegularSize(12))
+            .byTextCor(HEXCOLOR(0x757575))
+            .byTargetString(@"分".tr);
     }))
     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
-        data.font = UIFontWeightBoldSize(48);
-        data.textCor = HEXCOLOR(0xAE8330);
-        data.targetString = self.secondStr;
+        data.byFont(UIFontWeightBoldSize(48))
+            .byTextCor(HEXCOLOR(0xAE8330))
+            .byTargetString(self.secondStr);
     }))
     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
-        data.font = UIFontWeightRegularSize(12);
-        data.textCor = HEXCOLOR(0x757575);
-        data.targetString = @"秒".tr;
+        data.byFont(UIFontWeightRegularSize(12))
+            .byTextCor(HEXCOLOR(0x757575))
+            .byTargetString(@"秒".tr);
     }));return _richTextConfigMutArr;
 }
 
 -(NSMutableArray<NSString *> *)richTextMutArr{
     JobsMutableArray(_richTextMutArr);
-    _richTextMutArr.add(self.minutesStr)
-    .add(@"分".tr)
-    .add(self.secondStr)
-    .add(@"秒".tr);
-    return _richTextMutArr;
+    return _richTextMutArr
+        .add(self.minutesStr)
+        .add(@"分".tr)
+        .add(self.secondStr)
+        .add(@"秒".tr);
 }
 
 -(NSMutableParagraphStyle *)paragraphStyle{
     if (!_paragraphStyle) {
         _paragraphStyle = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-            data.alignment = NSTextAlignmentCenter;
+            data.byAlignment(NSTextAlignmentCenter);
         });
     };return _paragraphStyle;
 }

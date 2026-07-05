@@ -1,8 +1,8 @@
 //
 //  JobsMenuSubView@1.m
-//  JobsOCBaseConfigDemo
+//  JobsMenuView
 //
-//  Created by Jobs Hi on 2024/7/17.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsMenuSubView@1.h"
@@ -41,7 +41,8 @@
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -49,7 +50,8 @@
     @jobs_weakify(self)
     return ^(id _Nullable data) {
         @jobs_strongify(self)
-        self.backgroundColor = JobsRandomColor;
+        self.byBgColor(JobsRandomColor);
+
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】

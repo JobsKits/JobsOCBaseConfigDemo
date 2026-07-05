@@ -78,7 +78,7 @@
     };
 }
 
--(JobsRetTextViewByCor _Nonnull)byTextCor{
+-(JobsRetTextViewByCorBlock _Nonnull)byTextCor{
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(__kindof UIColor *_Nullable cor){
         @jobs_strongify(self)

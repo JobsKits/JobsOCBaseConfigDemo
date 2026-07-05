@@ -1,26 +1,31 @@
 //
 //  NSObject+YTKNetwork.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by User on 9/18/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+YTKNetwork.h"
-#import "NSObject+WHToast.h"
+#import "GetImageApi.h"
+#import "GetUserInfoApi.h"
+#import "GetCustomerContactApi.h"
+#import "RegisterApi.h"
+#import "JobsNetworkingHeader.h"
+#import "YTKNetworkExtra.h"
+#import "JobsMakes.h"
+#import "JobsFileModel.h"
 
 @implementation NSObject (YTKNetwork)
 #pragma mark —— 示例代码
 /// 普通的单个请求
 -(void)loadCacheData:(jobsByResponseModelBlock _Nullable)successBlock{
-    // self.tipsByApi(self);
     @jobs_weakify(self)
     [GetCustomerContactApi.new
-        .byURLParameters(nil)    // 添加URL参数
-        .byBodyParameters(nil)   // 添加Body参数
-        .byHeaderParameters(nil) // 添加Header参数
+        .byURLParameters(nil)
+        .byBodyParameters(nil)
+        .byHeaderParameters(nil)
         .handleErr()
      startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        /// 以下是我们需要的值
         JobsResponseModel *responseModel = JobsResponseModel.byData(request.responseObject);
         if(responseModel.code == HTTPResponseCodeSuccess){
             if(successBlock) successBlock(responseModel);
@@ -46,13 +51,7 @@
         GetImageApi *b = (GetImageApi *)requests[1];
         GetImageApi *c = (GetImageApi *)requests[2];
         GetUserInfoApi *user = (GetUserInfoApi *)requests[3];
-        ///deal with requests result ...
         JobsLog(@"%@, %@, %@, %@", a, b, c, user);
-        /// 以下是我们需要的值
-//        a.responseObject;
-//        b.responseObject;
-//        c.responseObject;
-//        user.responseObject;
     } failure:^(YTKBatchRequest *batchRequest) {
         @jobs_strongify(self)
         self.jobsHandelFailure(batchRequest.failedRequest);
@@ -70,7 +69,6 @@
                     callback:^(YTKChainRequest *chainRequest,
                                YTKBaseRequest *baseRequest) {
             RegisterApi *result = (RegisterApi *)baseRequest;
-            /// 在链式请求中，下一个请求的参数来源于上一个请求的结果
             [chainRequest addRequest:GetUserInfoApi.new
              .byURLParameters(nil)
              .byBodyParameters(jobsMakeMutDic(^(__kindof NSMutableDictionary *_Nullable data) {
@@ -79,9 +77,91 @@
         }];
         chainReq.delegate = self;
         if(successBlock) successBlock(chainReq);
-        [chainReq start];// start to send request
+        [chainReq start];
     });
 }
+#pragma mark —— YTKChainRequestDelegate
+-(void)chainRequestFinished:(YTKChainRequest *)chainRequest{
+    JobsLog(@"all requests are done");
+    [self request:chainRequest.requestArray.lastObject
+     successBlock:^(JobsResponseModel *_Nullable responseModel){
+        JobsLog(@"");
+    }];
+}
+
+-(void)chainRequestFailed:(YTKChainRequest *)chainRequest
+        failedBaseRequest:(YTKBaseRequest *)request{
+    JobsResponseModel *responseModel = JobsResponseModel.byData(request.responseObject);
+    self.jobsHandelNoSuccess(request);
+    JobsLog(@"请求失败:%@",responseModel);
+}
+#pragma mark —— 查询广告列表-支持游客：APP首页右下3Banner【GET】
+-(void)getAds:(jobsByResponseModelBlock _Nullable)successBlock{
+    @jobs_weakify(self)
+    [FM_promotion_advertise_api.new
+        .byURLParameters(nil)
+        .byBodyParameters(nil)
+        .byHeaderParameters(nil)
+        .handleErr() startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+        @jobs_strongify(self)
+        [self request:request successBlock:successBlock];
+    } failure:^(YTKBaseRequest *request) {
+        @jobs_strongify(self)
+        if(self) self.jobsHandelFailure(request);
+    }];
+}
+#pragma mark —— 用户登出【POST】
+-(void)fm_logout:(jobsByResponseModelBlock _Nullable)successBlock{
+    @jobs_weakify(self)
+    [FM_user_logout_api.new
+        .byURLParameters(nil)
+        .byBodyParameters(nil)
+        .byHeaderParameters(nil)
+        .handleErr() startWithCompletionBlockWithSuccess:^(YTKBaseRequest <YTKCustomBaseRequestProtocol>*request) {
+        @jobs_strongify(self)
+        [self request:request successBlock:successBlock];
+    } failure:^(YTKBaseRequest *request) {
+        @jobs_strongify(self)
+        if(self) self.jobsHandelFailure(request);
+    }];
+}
+#pragma mark —— 存款优惠活动信息【POST】
+-(void)depositDiscountActivityRecordByURLParameters:(NSString *_Nullable)urlParameters
+                                       successBlock:(jobsByYTKChainRequestBlock _Nullable)successBlock{
+    FM_GetKYCInfo_api *api = FM_GetKYCInfo_api.new;
+    api.byURLParameters(urlParameters);
+    api.byBodyParameters(nil);
+    api.byHeaderParameters(nil);
+    YTKChainRequest *chainReq = YTKChainRequest.new;
+    [chainReq addRequest:api
+                callback:^(YTKChainRequest *chainRequest,
+                           YTKBaseRequest *baseRequest) {
+        FM_GetKYCInfo_api *result = (FM_GetKYCInfo_api *)baseRequest;
+        [chainRequest addRequest:FM_getDepositDiscountActivityRecord_api.new.byURLParameters(@"?kyc=".add(result.kyc)).byBodyParameters(nil)
+                        callback:nil];
+    }];
+    chainReq.delegate = self;
+    if(successBlock) successBlock(chainReq);
+    [chainReq start];
+}
+/// 上传KYC的图片@POST
+-(void)uploadKYCImage:(NSData *)image
+         successBlock:(jobsByResponseModelBlock _Nullable)successBlock{
+    @jobs_weakify(self)
+    [FM_kyc_image_upload_api.new
+        .initBy(jobsMakeFileModel(^(__kindof JobsFileModel * _Nullable model) {
+            model.byFile(image);
+        })).handleErr() startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+            @jobs_strongify(self)
+            JobsResponseModel *responseModel = JobsMapResponseModelBy(request);
+            JobsLog(@"");
+            if(successBlock) successBlock(responseModel);
+        } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+            @jobs_strongify(self)
+            JobsLog(@"%@",request.error);
+    }];
+}
+
 #pragma mark —— 一些公有设置
 /// successData传nil：对总数据源进行标准格式解析后对外返回 JobsResponseModel
 /// successData传JobsSolveData(AModel)：对总数据源进行标准格式解析以后，再进行一层关于AModel的解析后对外返回
@@ -119,55 +199,59 @@
         /// 服务器异常
         case HTTPResponseCodeServeError:{
             JobsLog(@"服务器异常");
-            NSObject.jobsToastMsg(@"服务器异常".tr);
+            toastBy(@"服务器异常".tr);
         }break;
         /// 令牌不能为空
         case HTTPResponseCodeNoToken:{
-            self.toLogin();
+//            self.toLogin();
+            JobsLog(@"令牌不能为空");
+            toastBy(@"令牌不能为空".tr);
         }break;
         /// 登录失败：账密错误
         case HTTPResponseCodeLoginFailed:{
             JobsLog(@"登录失败：账密错误");
-            NSObject.jobsToastMsg(@"登录失败：账密错误".tr);
+            toastBy(@"登录失败：账密错误".tr);
         }break;
         /// 授权失败
         case HTTPResponseCodeAuthorizationFailure:{
             JobsLog(@"授权失败");
-            NSObject.jobsToastMsg(@"授权失败".tr);
+            toastBy(@"授权失败".tr);
         }break;
         /// 限定时间内超过请求次数
         case HTTPResponseCodeLeakTime:{
             JobsLog(@"限定时间内超过请求次数");
-            NSObject.jobsToastMsg(@"限定时间内超过请求次数".tr);
+            toastBy(@"限定时间内超过请求次数".tr);
         }break;
         /// 风险操作
         case HTTPResponseCodeRiskOperation:{
             JobsLog(@"风险操作");
-            NSObject.jobsToastMsg(@"风险操作".tr);
+            toastBy(@"风险操作".tr);
         }break;
         /// 未设置交易密码
         case HTTPResponseCodeNoSettingTransactionPassword:{
             JobsLog(@"未设置交易密码");
-            NSObject.jobsToastMsg(@"未设置交易密码".tr);
+            toastBy(@"未设置交易密码".tr);
         }break;
         /// 账号已在其他设备登录
         case HTTPResponseCodeOffline:{
             JobsLog(@"账号已在其他设备登录");
-            NSObject.jobsToastMsg(@"账号已在其他设备登录".tr);
+            toastBy(@"账号已在其他设备登录".tr);
         }break;
         /// Token 过期：登录已过期，请重新登录
         case HTTPResponseCodeTokenExpire:{
             JobsLog(@"Token 过期");
-            self.tokenExpire();
+//            self.tokenExpire();
+            JobsLog(@"Token 过期");
+            toastBy(@"Token 过期".tr);
         }break;
         /// 手机号码不存在
         case HTTPResponseCodePhoneNumberNotExist:{
             JobsLog(@"手机号码不存在");
-            NSObject.jobsToastMsg(@"手机号码不存在".tr);
+            toastBy(@"手机号码不存在".tr);
         }break;
         case HTTPResponseCodeAccountLocked:{
             JobsLog(@"账户被锁");
-            NSObject.jobsToastMsg(@"账户被锁，请联系系统管理员".tr);
+            toastBy(@"账户被锁，请联系系统管理员".tr);
         }break;
         /// 服务器返500可能会有很多其他的业务场景定义
         case HTTPResponseCodeNoOK:{
@@ -200,108 +284,6 @@
         /// 打印请求体
         self.printURLSessionRequestMessage(request.requestTask);
     };
-}
-/// Tips封装
--(jobsByIDBlock _Nonnull)tipsByApi{
-    @jobs_weakify(self)
-    return ^(JobsBaseApi *_Nullable api){
-        @jobs_strongify(self)
-        api.animatingText = @"正在加载".tr;
-        if([self isKindOfClass:UIView.class]){
-            UIView *view = (UIView *)self;
-            api.animatingView = view;
-        }
-        if([self isKindOfClass:UIViewController.class]){
-            UIViewController *vc = (UIViewController *)self;
-            api.animatingView = vc.view;
-        }
-    };
-}
-#pragma mark —— YTKChainRequestDelegate
--(void)chainRequestFinished:(YTKChainRequest *)chainRequest{
-    JobsLog(@"all requests are done");
-//    chainRequest.requestArray;
-//    chainRequest.requestAccessories;
-    [self request:chainRequest.requestArray.lastObject
-     successBlock:^(JobsResponseModel *_Nullable responseModel){
-        JobsLog(@"");
-    }];
-}
-
--(void)chainRequestFailed:(YTKChainRequest *)chainRequest
-        failedBaseRequest:(YTKBaseRequest *)request{
-    JobsResponseModel *responseModel = JobsResponseModel.byData(request.responseObject);
-    self.jobsHandelNoSuccess(request);
-    JobsLog(@"请求失败");
-}
-#pragma mark —— 查询广告列表-支持游客：APP首页右下3Banner【GET】
--(void)getAds:(jobsByResponseModelBlock _Nullable)successBlock{
-    // self.tipsByApi(self);
-    @jobs_weakify(self)
-    [FM_promotion_advertise_api.new
-        .byURLParameters(nil)
-        .byBodyParameters(nil)
-        .byHeaderParameters(nil)
-        .handleErr() startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        @jobs_strongify(self)
-        [self request:request successBlock:successBlock];
-    } failure:^(YTKBaseRequest *request) {
-        @jobs_strongify(self)
-        if(self) self.jobsHandelFailure(request);
-    }];
-}
-#pragma mark —— 用户登出【POST】
--(void)fm_logout:(jobsByResponseModelBlock _Nullable)successBlock{
-    // self.tipsByApi(self);
-    @jobs_weakify(self)
-    [FM_user_logout_api.new
-        .byURLParameters(nil)
-        .byBodyParameters(nil)
-        .byHeaderParameters(nil)
-        .handleErr() startWithCompletionBlockWithSuccess:^(YTKBaseRequest <YTKCustomBaseRequestProtocol>*request) {
-        @jobs_strongify(self)
-        [self request:request successBlock:successBlock];
-    } failure:^(YTKBaseRequest *request) {
-        @jobs_strongify(self)
-        if(self) self.jobsHandelFailure(request);
-    }];
-}
-#pragma mark —— 存款优惠活动信息【POST】
--(void)depositDiscountActivityRecordByURLParameters:(NSString *_Nullable)urlParameters
-                                       successBlock:(jobsByYTKChainRequestBlock _Nullable)successBlock{
-    FM_GetKYCInfo_api *api = FM_GetKYCInfo_api.new;
-    api.byURLParameters(urlParameters);/// 添加URL参数
-    api.byBodyParameters(nil); /// 添加Body参数
-    api.byHeaderParameters(nil); /// 添加Header参数
-    YTKChainRequest *chainReq = YTKChainRequest.new;
-    [chainReq addRequest:api
-                callback:^(YTKChainRequest *chainRequest,
-                           YTKBaseRequest *baseRequest) {
-        FM_GetKYCInfo_api *result = (FM_GetKYCInfo_api *)baseRequest;
-        /// 在链式请求中，下一个请求的参数来源于上一个请求的结果
-        [chainRequest addRequest:FM_getDepositDiscountActivityRecord_api.new.byURLParameters(@"?kyc=".add(result.kyc)).byBodyParameters(nil)
-                        callback:nil];
-    }];
-    chainReq.delegate = self;
-    if(successBlock) successBlock(chainReq);
-    [chainReq start];// start to send request
-}
-/// 上传KYC的图片@POST
--(void)uploadKYCImage:(NSData *)image
-         successBlock:(jobsByResponseModelBlock _Nullable)successBlock{
-    @jobs_weakify(self)
-    [FM_kyc_image_upload_api.new
-        .initBy(jobsMakeFileModel(^(__kindof JobsFileModel * _Nullable model) {
-            model.file = image;
-        })).handleErr() startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
-            @jobs_strongify(self)
-            JobsResponseModel *responseModel = JobsMapResponseModelBy(request);
-            JobsLog(@"");
-            if(successBlock) successBlock(responseModel);
-        } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
-            @jobs_strongify(self)
-            JobsLog(@"");
-    }];
 }
 
 @end

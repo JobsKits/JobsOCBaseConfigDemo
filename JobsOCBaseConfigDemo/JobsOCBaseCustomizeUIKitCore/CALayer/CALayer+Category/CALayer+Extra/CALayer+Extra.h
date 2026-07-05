@@ -1,14 +1,20 @@
 //
 //  CALayer+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2025/5/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <QuartzCore/QuartzCore.h>
-#import "NSString+Others.h"
+#ifndef JOBS_HEADER_GUARD_CALAYER_EXTRA_3676344BCE
+#define JOBS_HEADER_GUARD_CALAYER_EXTRA_3676344BCE
+
+#import <QuartzCore/QuartzCore.h> // 提供 Core Animation 和 CALayer 能力，用于动画、图层和视觉渲染。
+#import "NSString+CAAnimation.h"
+#import "NSString+Replace.h"
+
 #import "JobsBlock.h"
-#import "CALayerDef.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -60,3 +66,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_CALAYER_EXTRA_3676344BCE */

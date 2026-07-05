@@ -1,20 +1,20 @@
 //
 //  Base64.h
-//  JobsOCBaseConfigDemo
+//  JobsCryptography
 //
-//  Created by Jobs on 2024/4/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef Base64_h
 #define Base64_h
 
-#import <Foundation/Foundation.h>
-#import "CommonCrypto/CommonDigest.h"
+#import <UIKit/UIKit.h>
+#import <CommonCrypto/CommonDigest.h>  // 提供常见摘要算法接口，如 MD5、SHA1、SHA256 等。
 #import "NSString+Base64.h"
 #import "UIImage+Base64.h"
 #import "NSData+Base64.h"
 
-// GTMBase64（第三方）
+/// GTMBase64（第三方）
 #import "GTMDefines.h"
 #import "GTMBase64.h"
 

@@ -1,6 +1,6 @@
 //
 //  UILabel+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月4日，星期四.
 //
@@ -162,6 +162,114 @@
     return ^__kindof UILabel *_Nullable(NSTextAlignment textAlignment){
         @jobs_strongify(self)
         self.textAlignment = textAlignment;
+        return self;
+    };
+}
+
+-(JobsRetUILabelByVibrancyBlock _Nonnull)byPreferredVibrancy API_AVAILABLE(ios(17.0), tvos(17.0), visionos(1.0)) API_UNAVAILABLE(watchos){
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(UILabelVibrancy data){
+        @jobs_strongify(self)
+        self.preferredVibrancy = data;
+        return self;
+    };
+}
+
+-(JobsRetUILabelByLineBreakModeBlock _Nonnull)byLineBreakMode{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(NSLineBreakMode data){
+        @jobs_strongify(self)
+        self.lineBreakMode = data;
+        return self;
+    };
+}
+
+-(JobsRetUILabelByUIColorBlock _Nonnull)byHighlightedTextColor{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(UIColor *_Nullable data){
+        @jobs_strongify(self)
+        self.highlightedTextColor = data;
+        return self;
+    };
+}
+
+-(JobsRetUILabelByBOOLBlock _Nonnull)byHighlighted{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.highlighted = data;
+        return self;
+    };
+}
+
+-(JobsRetUILabelByBOOLBlock _Nonnull)byEnabled{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.enabled = data;
+        return self;
+    };
+}
+
+-(JobsRetUILabelByBOOLBlock _Nonnull)byAdjustsFontSizeToFitWidth{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.adjustsFontSizeToFitWidth = data;
+        return self;
+    };
+}
+
+-(JobsRetUILabelByBaselineAdjustmentBlock _Nonnull)byBaselineAdjustment{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(UIBaselineAdjustment data){
+        @jobs_strongify(self)
+        self.baselineAdjustment = data;
+        return self;
+    };
+}
+
+-(JobsRetUILabelByCGFloatBlock _Nonnull)byMinimumScaleFactor API_AVAILABLE(ios(6.0)){
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(CGFloat data){
+        @jobs_strongify(self)
+        self.minimumScaleFactor = data;
+        return self;
+    };
+}
+
+-(JobsRetUILabelByBOOLBlock _Nonnull)byAllowsDefaultTighteningForTruncation API_AVAILABLE(ios(9.0)){
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.allowsDefaultTighteningForTruncation = data;
+        return self;
+    };
+}
+
+-(JobsRetUILabelByLineBreakStrategyBlock _Nonnull)byLineBreakStrategy API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos){
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(NSLineBreakStrategy data){
+        @jobs_strongify(self)
+        self.lineBreakStrategy = data;
+        return self;
+    };
+}
+
+-(JobsRetUILabelByCGFloatBlock _Nonnull)byPreferredMaxLayoutWidth API_AVAILABLE(ios(6.0)){
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(CGFloat data){
+        @jobs_strongify(self)
+        self.preferredMaxLayoutWidth = data;
+        return self;
+    };
+}
+
+-(JobsRetUILabelByBOOLBlock _Nonnull)byShowsExpansionTextWhenTruncated API_AVAILABLE(macCatalyst(15.0)) API_UNAVAILABLE(watchos){
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.showsExpansionTextWhenTruncated = data;
         return self;
     };
 }

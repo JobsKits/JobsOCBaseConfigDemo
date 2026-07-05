@@ -1,22 +1,28 @@
 //
 //  NSObject+DynamicInvoke.h
-//  JobsOCBaseConfigDemo
+//  JobsOCRuntimeKits
 //
-//  Created by Jobs on 2021/12/28.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_DYNAMICINVOKE_1BAF0B3955
+#define JOBS_HEADER_GUARD_NSOBJECT_DYNAMICINVOKE_1BAF0B3955
+
+#import <objc/runtime.h>
 #import <Foundation/Foundation.h>
 #import "JobsSEL_IMP.h"
+
+#import "JobsRandomUtilsHeader.h"
+
+#import "JobsTimeUtils.h"
+
+#import "JobsLanMgr.h"
+
+#import "WHToastExtra.h"
+
 #import "JobsBlock.h"
-#import "NSObject+Random.h"
-#import "NSObject+Time.h"
-#import "NSValue+Extra.h"
 
-#ifndef MethodName
-#define MethodName(obj) NSStringFromClass([obj class]).add(@"_").add(NSStringFromSelector(_cmd))
-#endif /* MethodName */
-
-#import "JobsDefineProperty.h"
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -66,3 +72,4 @@ SEL _Nullable selectorBlocks(JobsRetIDByTwoIDBlock _Nullable block,
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_DYNAMICINVOKE_1BAF0B3955 */

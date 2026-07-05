@@ -1,11 +1,13 @@
 //
 //  NSObject+WHToast.m
-//  JobsOCBaseConfigDemo
+//  WHToastExtra
 //
-//  Created by Jobs on 2021/12/2.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+WHToast.h"
+#import "NSString+Path.h"
+#import "NSObject+Image.h"
 
 @implementation NSObject (WHToast)
 #pragma mark —— 仅文字，展示在屏幕中间

@@ -1,6 +1,6 @@
 //
 //  GKGestureHandleConfigure+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月5日，星期五.
 //
@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_GKGESTUREHANDLECONFIGURE_DSL_2C5E6A3F91
 
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
 
 #if __has_include(<GKNavigationBar/GKGestureHandleConfigure.h>)
 #import <GKNavigationBar/GKGestureHandleConfigure.h>
@@ -17,10 +16,11 @@
 #import "GKGestureHandleConfigure.h"
 #endif
 
+#import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
 
 @interface GKGestureHandleConfigure (DSL)
 

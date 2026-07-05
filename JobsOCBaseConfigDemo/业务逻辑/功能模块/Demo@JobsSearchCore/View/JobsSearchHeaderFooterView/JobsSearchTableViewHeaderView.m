@@ -1,8 +1,8 @@
 //
-//  JobsSearchHoveringHeaderView.m
+//  JobsSearchTableViewHeaderView.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/10/2.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsSearchTableViewHeaderView.h"
@@ -18,7 +18,7 @@ Prop_strong()UIButton *delBtn;
 
 -(instancetype)initWithReuseIdentifier:(nullable NSString *)reuseIdentifier{
     if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
-        self.contentView.backgroundColor = JobsWhiteColor;
+        self.contentView.byBgColor(JobsWhiteColor);
     };return self;
 }
 
@@ -32,9 +32,9 @@ Prop_strong()UIButton *delBtn;
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         if ([model isKindOfClass:UIViewModel.class]) {
-            self.viewModel = model ? : UIViewModel.new;
-            self.titleLab.text = self.viewModel.textModel.text;
-            self.delBtn.alpha = 1;
+            self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+            self.titleLab.byText(self.viewModel.textModel.text);
+            self.delBtn.byAlpha(0);
         }
     };
 }
@@ -50,35 +50,35 @@ Prop_strong()UIButton *delBtn;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.textColor = self.viewModel.textModel.textCor;
-            label.backgroundColor = self.viewModel.bgCor;
-            label.font = self.viewModel.textModel.font;
-            label.textAlignment = NSTextAlignmentLeft;
-            self.contentView.addSubview(label);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.right.bottom.equalTo(self.contentView);
-                make.left.equalTo(self.contentView).offset(JobsWidth(10));
-            }];
+            label
+                .byTextCor(self.viewModel.textModel.textCor)
+                .byFont(self.viewModel.textModel.font)
+                .byTextAlignment(NSTextAlignmentLeft)
+                .byBgColor(self.viewModel.bgCor)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.right.bottom.equalTo(self.contentView);
+                    make.left.equalTo(self.contentView).offset(JobsWidth(10));
+                });
         });
     };return _titleLab;
 }
 
 -(UIButton *)delBtn{
     if (!_delBtn) {
-        _delBtn = UIButton.new;
-        _delBtn.jobsResetBtnImage(@"垃圾箱".img);
         @jobs_weakify(self)
-        [_delBtn jobsBtnClickEventBlock:^id(UIButton *x) {
-            @jobs_strongify(self)
-            if(self.objBlock)self.objBlock(x);
-            return nil;
-        }];
-        [self.contentView addSubview:_delBtn];
-        [_delBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(25), JobsWidth(25)));
-            make.right.equalTo(self.contentView).offset(-JobsWidth(10));
-            make.centerY.equalTo(self.contentView);
-        }];
+        _delBtn = UIButton.jobsInit()
+            .jobsResetBtnImage(@"垃圾箱".img)
+            .onClickBy(^(UIButton *x) {
+                @jobs_strongify(self)
+                if(self.objBlock)self.objBlock(x);
+            })
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(25), JobsWidth(25)));
+                make.right.equalTo(self.contentView).offset(-JobsWidth(10));
+                make.centerY.equalTo(self.contentView);
+            });
     };return _delBtn;
 }
 

@@ -1,8 +1,8 @@
 //
-//  _JobsControlTarget.m
-//  JobsOCBaseConfigDemo
+//  JobsControlTarget.m
+//  JobsBaseUI
 //
-//  Created by Mac on 11/5/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsControlTarget.h"
@@ -28,11 +28,11 @@ static inline NSTimeInterval _jobs_now(void) {
     }
 
     switch (self.policy) {
-        case _JobsInvokePolicyNone: {
+        case JobsInvokePolicyNone: {
             if (self.block) self.block(sender);
         } break;
 
-        case _JobsInvokePolicyOnce: {
+        case JobsInvokePolicyOnce: {
             if (!self.block) return;
             jobsByCtrlBlock blk = [self.block copy];
             // 触发后解绑自身
@@ -41,7 +41,7 @@ static inline NSTimeInterval _jobs_now(void) {
             if (blk) blk(sender);
         } break;
 
-        case _JobsInvokePolicyThrottle: {
+        case JobsInvokePolicyThrottle: {
             NSTimeInterval now = _jobs_now();
             if (now - self.lastFire >= MAX(self.interval, 0)) {
                 self.lastFire = now;
@@ -49,7 +49,7 @@ static inline NSTimeInterval _jobs_now(void) {
             }
         } break;
 
-        case _JobsInvokePolicyDebounce: {
+        case JobsInvokePolicyDebounce: {
             self.debounceGen += 1;
             uint64_t currentGen = self.debounceGen;
             NSTimeInterval delay = MAX(self.interval, 0);

@@ -1,6 +1,6 @@
 //
 //  UICollectionViewCellProtocol.h
-//  JobsOCBaseConfigDemo
+//  JobsOCProtocols
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -9,11 +9,23 @@
 #define JOBS_HEADER_GUARD_UICOLLECTIONVIEWCELLPROTOCOL_C5D1E719D0
 
 #import <UIKit/UIKit.h>
+
 #import "BaseCellProtocol.h"
+
 #import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+@interface UICollectionViewCell (JobsUICollectionViewCellProtocolDSL)
+
+-(JobsRetCollectionViewCellByIndexPathBlock _Nonnull)byIndexPath;
+-(JobsRetCollectionViewCellByJobsByViewBlock _Nonnull)byContentView;
+-(JobsRetCollectionViewCellByCorBlock _Nonnull)byContentViewBgCor;
+-(JobsRetCollectionViewCellByDelegateBlock _Nonnull)byDelegate;
+
+@end
 
 @protocol UICollectionViewCellProtocol <BaseCellProtocol>
 @optional
@@ -21,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(instancetype)cellWithCollectionView:(UICollectionView *_Nonnull)collectionView
                          forIndexPath:(NSIndexPath *_Nonnull)indexPath;
 -(JobsRetCollectionViewCellByIndexPathBlock _Nonnull)byIndexPath;
+-(JobsRetCollectionViewCellByJobsByViewBlock _Nonnull)byContentView;
 -(JobsRetCollectionViewCellByCorBlock _Nonnull)byContentViewBgCor;
 -(JobsRetCollectionViewCellByDelegateBlock _Nonnull)byDelegate;
 #pragma mark —— 获取

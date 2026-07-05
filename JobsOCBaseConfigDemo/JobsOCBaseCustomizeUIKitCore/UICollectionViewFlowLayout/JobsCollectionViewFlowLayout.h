@@ -1,20 +1,15 @@
 //
 //  JobsCollectionViewFlowLayout.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#import <UIKit/UIKit.h>
 
 #ifndef JobsCollectionViewFlowLayout_h
 #define JobsCollectionViewFlowLayout_h
 
-#pragma mark —— Category
 #import "UICollectionViewFlowLayout+Extra.h"
-
-#pragma mark —— Base
-#import "LMHWaterFallLayout.h"
-#import "KFZShopCatoryFlowLayput.h"
-#import "HQCollectionViewFlowLayout.h"
-#import "XZMLayout.h"
 
 #endif /* JobsCollectionViewFlowLayout_h */

@@ -1,13 +1,11 @@
 //
 //  NSMutableDictionary+Ordered.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Locke on 2017/3/17.
-//  Copyright © 2017年 lainkai. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSMutableDictionary+Ordered.h"
-#import "MacroDef_Sys.h"
 
 static BOOL isHasBeenRemoved;
 /**
@@ -32,15 +30,13 @@ static BOOL isHasBeenRemoved;
         }
     });
 }
-#pragma mark —— Prop_copy(readonly, nullable)NSMutableArray *keys;
-JobsKey(_keys)
-@dynamic keys;
+JobsKey(OrderedDictionaryKeys)
 -(NSMutableArray *)keys{
-    return Jobs_getAssociatedObject(_keys);
+    return Jobs_getAssociatedObject(OrderedDictionaryKeys);
 }
 
 -(void)setKeys:(NSMutableArray *)keys {
-    Jobs_setAssociatedRETAIN_NONATOMIC(_keys, keys)
+    Jobs_setAssociatedRETAIN_NONATOMIC(OrderedDictionaryKeys, keys)
 }
 /// 添加键值对
 -(void)swizzled_setObject:(nonnull id)anObject

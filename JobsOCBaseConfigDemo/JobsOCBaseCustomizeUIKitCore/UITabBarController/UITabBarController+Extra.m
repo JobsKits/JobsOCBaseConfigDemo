@@ -1,11 +1,13 @@
 //
 //  UITabBarController+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2025/5/31.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UITabBarController+Extra.h"
+
+#import "UIView+Measure.h"
 
 @implementation UITabBarController (Extra)
 /// 如果要改变 UITabBarController.viewControllers里面的子控制器的view的frame，会涉及到UITabBarController的自我调整
@@ -25,7 +27,7 @@
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        self.resetSubVCViewHeightBy(-AppDelegate.jobsCustomTabBarVC.customTabBar.height);
+        self.resetSubVCViewHeightBy(-50);// AppDelegate.jobsCustomTabBarVC.customTabBar.height
     };
 }
 

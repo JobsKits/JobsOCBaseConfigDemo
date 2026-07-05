@@ -1,8 +1,8 @@
 //
 //  UICollectionView+JobsRegisterClass.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/10/31.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UICollectionView+JobsRegisterClass.h"
@@ -26,12 +26,8 @@
         self.registerCollectionViewCellClass(UICollectionViewCell.class,@"");
         self.registerCollectionViewCellClass(BaseCollectionViewCell.class,@"");
         self.registerCollectionViewCellClass(JobsBaseCollectionViewCell.class,@"");
-        self.registerCollectionViewCellClass(JobsHotLabelByMultiLineCVCell.class,@"");
-        self.registerCollectionViewCellClass(JobsSearchDataCVCell.class,@"");
-        self.registerCollectionViewCellClass(JobsBtnStyleCVCell.class,@"");
         self.registerCollectionViewCellClass(JobsImageViewStyleCVCell.class,@"");
         self.registerCollectionViewCellClass(JobsTextFieldStyleCVCell.class,@"");
-        self.registerCollectionViewCellClass(ThreeClassCell.class,@"");
         return self;
     };
 }

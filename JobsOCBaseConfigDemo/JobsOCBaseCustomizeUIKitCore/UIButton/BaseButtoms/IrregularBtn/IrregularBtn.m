@@ -1,9 +1,8 @@
 //
-//  Irregular_Btn.m
-//  JobsOCBaseConfigDemo
+//  IrregularBtn.m
+//  JobsBaseUI
 //
-//  Created by LuoKI on 2018/4/23.
-//  Copyright © 2018年 LuoLi. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "IrregularBtn.h"
@@ -27,7 +26,7 @@ static dispatch_once_t irregularBtnDispatchOnce;
 - (void)drawRect:(CGRect)rect{
     [super drawRect:rect];
     dispatch_once(&irregularBtnDispatchOnce, ^{
-        self.shapLayer.hidden = NO;
+        self.shapLayer.byHidden(NO);
     });
 }
 // 点击的覆盖方法，点击时判断点是否在path内，YES则响应，NO则不响应
@@ -43,9 +42,11 @@ static dispatch_once_t irregularBtnDispatchOnce;
 #pragma mark —— lazyLoad
 -(CAShapeLayer *)shapLayer{
     if (!_shapLayer) {
-        _shapLayer = CAShapeLayer.layer;
-        _shapLayer.path = self.path.CGPath;
-        self.layer.mask = _shapLayer;
+        @jobs_weakify(self)
+        self.layer.byMask(_shapLayer = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
+            @jobs_strongify(self)
+            layer.byPath(self.path.CGPath);
+        }));
     };return _shapLayer;
 }
 

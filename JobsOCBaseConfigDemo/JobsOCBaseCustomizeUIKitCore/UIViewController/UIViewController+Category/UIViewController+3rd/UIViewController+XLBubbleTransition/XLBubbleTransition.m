@@ -1,16 +1,14 @@
 //
 //  XLBubbleTransition.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by MengXianLiang on 2017/4/11.
-//  Copyright © 2017年 MengXianLiang. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "XLBubbleTransition.h"
 
 @interface XLBubbleTransition ()
-/// 锚点
-Prop_assign()CGRect anchorRect;
+
 Prop_strong()id<UIViewControllerContextTransitioning> transitionContext;
 Prop_strong()CAShapeLayer *maskLayer;
 

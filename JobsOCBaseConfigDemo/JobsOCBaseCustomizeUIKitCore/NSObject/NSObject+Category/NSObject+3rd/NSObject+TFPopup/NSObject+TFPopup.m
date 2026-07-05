@@ -1,8 +1,8 @@
 //
 //  NSObject+TFPopup.m
-//  JobsOCBaseConfigDemo
+//  TFPopupExtra
 //
-//  Created by Jobs on 2021/12/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+TFPopup.h"
@@ -27,7 +27,7 @@
 #pragma mark —— 弹出提示框
 -(jobsByStrBlock _Nonnull)toastMsg{
     return ^(NSString *_Nullable msg) {
-        [TFPopupToast tf_show:MainWindow
+        [TFPopupToast tf_show:jobsGetMainWindow()
                           msg:msg
                 animationType:TFAnimationTypeScale];
     };
@@ -51,7 +51,7 @@
                             offset:CGPointZero
                         popupParam:self.popupParameter];
             }else{
-                [data tf_showNormal:MainWindow
+                [data tf_showNormal:jobsGetMainWindow()
                            animated:YES];
             }
         }];
@@ -64,7 +64,7 @@
     [self checkByView:data action:^{
         @jobs_strongify(self)
         if (popupParameter) {
-            [data tf_showNormal:MainWindow popupParam:popupParameter];
+            [data tf_showNormal:jobsGetMainWindow() popupParam:popupParameter];
         }else{
             self.popupShowScaleWithView(data);
         }
@@ -78,15 +78,9 @@
         @jobs_strongify(self)
         [self checkByView:data action:^{
             TFPopupParam *popupParameter = makeSlidePopupParameterByViewHeight(data.sizer.height);
-            if(AppDelegate.tabBarVC){
-                [data tf_showSlide:AppDelegate.tabBarVC.view
-                         direction:popupParameter.bubbleDirection
-                        popupParam:popupParameter];
-            }else{
-                [data tf_showSlide:MainWindow
-                         direction:popupParameter.bubbleDirection
-                        popupParam:popupParameter];
-            }
+            [data tf_showSlide:jobsGetMainWindow()
+                     direction:popupParameter.bubbleDirection
+                    popupParam:popupParameter];
         }];
     };
 }
@@ -95,15 +89,9 @@
                popupParameter:(TFPopupParam *_Nullable)popupParameter{
     if(!popupParameter) popupParameter = makeSlidePopupParameterByViewHeight(data.height);
     [self checkByView:data action:^{
-        if(AppDelegate.tabBarVC){
-            [data tf_showSlide:AppDelegate.tabBarVC.view
-                     direction:popupParameter.bubbleDirection
-                    popupParam:popupParameter];
-        }else{
-            [data tf_showSlide:MainWindow
-                     direction:popupParameter.bubbleDirection
-                    popupParam:popupParameter];
-        }
+        [data tf_showSlide:jobsGetMainWindow()
+                 direction:popupParameter.bubbleDirection
+                popupParam:popupParameter];
     }];
 }
 #pragma mark —— PopView.Core(私有方法)
@@ -112,10 +100,10 @@
     return ^(UIView *_Nonnull data) {
         @jobs_strongify(self)
         self.popupParameter.dragEnable = YES;
-        self.popupParameter.disuseBackgroundTouchHide = YES;/// 禁止点击背景消失弹框
+        self.popupParameter.disuseBackgroundTouchHide = YES;// 禁止点击背景消失弹框
         [self checkByView:data action:^{
             @jobs_strongify(self)
-            [data tf_showSlide:MainWindow
+            [data tf_showSlide:jobsGetMainWindow()
                      direction:PopupDirectionContainerCenter
                     popupParam:self.popupParameter];
         }];
@@ -128,10 +116,11 @@
         @jobs_strongify(self)
         self.popupParameter.dragEnable = YES;
         self.popupParameter.backgroundColor = JobsBlackColor.colorWithAlphaComponentBy(.3f);
-        self.popupParameter.disuseBackgroundTouchHide = NO;/// 允许点击背景消失弹框
+
+        self.popupParameter.disuseBackgroundTouchHide = NO;// 允许点击背景消失弹框
         [self checkByView:data action:^{
             @jobs_strongify(self)
-            [data tf_showSlide:MainWindow
+            [data tf_showSlide:jobsGetMainWindow()
                      direction:PopupDirectionContainerCenter
                     popupParam:self.popupParameter];
         }];
@@ -144,10 +133,11 @@
         @jobs_strongify(self)
         self.popupParameter.dragEnable = YES;
         self.popupParameter.backgroundColor = JobsBlackColor.colorWithAlphaComponentBy(.3f);
+
         self.popupParameter.disuseBackgroundTouchHide = NO;/// 允许点击背景消失弹框
         [self checkByView:data action:^{
             @jobs_strongify(self)
-            [data tf_showSlide:MainWindow
+            [data tf_showSlide:jobsGetMainWindow()
                      direction:PopupDirectionBottom
                     popupParam:self.popupParameter];
         }];
@@ -160,7 +150,7 @@
         @jobs_strongify(self)
         [self checkByView:data action:^{
             @jobs_strongify(self)
-            [data tf_showSlide:MainWindow
+            [data tf_showSlide:jobsGetMainWindow()
                      direction:PopupDirectionContainerCenter
                     popupParam:self.tipsParameter];
         }];
@@ -257,7 +247,7 @@ JobsKey(_popupParameter)
 JobsKey(_tipsParameter)
 @dynamic tipsParameter;
 -(TFPopupParam *)tipsParameter{
-    TFPopupParam *TipsParameter = Jobs_getAssociatedObject(_tipsParameter);
+    TFPopupParam *TipsParameter = Jobs_getAssociatedObject(_popupParameter);
     if (!TipsParameter) {
         TipsParameter = makeNormalTipsParameter();
         Jobs_setAssociatedRETAIN_NONATOMIC(_tipsParameter, TipsParameter)

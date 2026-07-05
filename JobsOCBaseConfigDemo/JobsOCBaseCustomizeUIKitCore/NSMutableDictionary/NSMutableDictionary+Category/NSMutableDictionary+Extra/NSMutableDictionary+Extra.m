@@ -1,8 +1,8 @@
 //
 //  NSMutableDictionary+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by User on 8/16/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSMutableDictionary+Extra.h"
@@ -27,7 +27,7 @@
     };
 }
 
--(JobsReturnMutableDicByKeyValueModelBlock _Nonnull)saveDataBy{
+-(JobsRetMutableDicByKeyValueModelBlock _Nonnull)saveDataBy{
     @jobs_weakify(self)
     return ^NSMutableDictionary *_Nonnull(JobsKeyValueModel *_Nullable model){
         @jobs_strongify(self)

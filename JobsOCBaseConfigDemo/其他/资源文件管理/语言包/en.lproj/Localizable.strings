@@ -12,6 +12,18 @@
 "英文" = "English";
 "他加禄语" = "Tagalog";
 "6.59" = "6.59.png";
+/// 设置
+"返回" = "Back";
+"设置" = "Settings";
+"应用语言" = "App Language";
+"开屏：开" = "Splash: On";
+"开屏：关" = "Splash: Off";
+"返回：回顶部并刷新" = "Return: Top & Refresh";
+"返回：保持原样" = "Return: Keep Position";
+"下次打开开屏" = "Splash will show next launch";
+"下次关闭开屏" = "Splash will be off next launch";
+"返回主列表：回顶部并刷新" = "Demo list: top & refresh";
+"返回主列表：保持原样" = "Demo list: keep position";
 /// 权限设置
 "App需要您的同意，才能访问您的面容识别功能，用于安全验证" = "NSFaceIDUsageDescription";
 "添加曲目到您的音乐库" = "NSAppleMusicUsageDescription";
@@ -47,10 +59,13 @@
 "会员中心" = "MemberCenter";
 /// 登陆/注册/忘记密码
 "返\n回\n登\n录" = "B\na\nc\nk\nT\no\nL\no\ng\ni\nn";
+"返\n回\n注\n册" = "B\na\nc\nk\nT\no\nR\ne\ng\ni\ns\nt\ne\nr";
 "新\n用\n户\n注\n册" = "L\no\ng\i\nn";
 "忘记密码" = "Forgot code";
 "返回首页" = "Back to HomePage";
+"返回注册" = "Back to Register";
 "保存用户名" = "Save the user name";
+"记住我" = "Remember me";
 "注册" = "Register";
 "登录" = "Login";
 "人工客服" = "Online Customer service";

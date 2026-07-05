@@ -1,13 +1,19 @@
 //
 //  UIScrollView+EmptyData.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Admin on 14/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UISCROLLVIEW_EMPTYDATA_6964B4DAE3
+#define JOBS_HEADER_GUARD_UISCROLLVIEW_EMPTYDATA_6964B4DAE3
+
+#import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "UIScrollViewProtocol.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,3 +22,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UISCROLLVIEW_EMPTYDATA_6964B4DAE3 */

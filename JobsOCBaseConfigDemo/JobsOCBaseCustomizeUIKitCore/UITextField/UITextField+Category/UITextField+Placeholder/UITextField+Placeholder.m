@@ -1,8 +1,8 @@
 //
 //  UITextField+Placeholder.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/20.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UITextField+Placeholder.h"
@@ -19,8 +19,7 @@ UITextModelProtocol_dynamic
     if (isNull(self.placeholder)) self.placeholder = JobsSpace;
     Ivar ivar = class_getInstanceVariable(UITextField.class, "_placeholderLabel");
     UILabel *placeholderLabel = object_getIvar(self, ivar);
-    placeholderLabel.numberOfLines = 0;/// 默认折行处理
-    return placeholderLabel;
+    return placeholderLabel.byNumberOfLines(0);// 默认折行处理
 }
 #pragma mark —— Prop_strong()UIColor *placeholderColor;
 JobsKey(_placeholderColor)
@@ -28,13 +27,13 @@ JobsKey(_placeholderColor)
     UIColor *PlaceholderColor = Jobs_getAssociatedObject(_placeholderColor);
     if (!PlaceholderColor) {
         PlaceholderColor = self.textColor;
-        self.placeholderLabel.textColor = PlaceholderColor;
+        self.placeholderLabel.byTextCor(PlaceholderColor);
         Jobs_setAssociatedRETAIN_NONATOMIC(_placeholderColor, PlaceholderColor)
     };return PlaceholderColor;
 }
 
 -(void)setPlaceholderColor:(UIColor *)placeholderColor{
-    self.placeholderLabel.textColor = placeholderColor;
+    self.placeholderLabel.byTextCor(placeholderColor);
     Jobs_setAssociatedRETAIN_NONATOMIC(_placeholderColor, placeholderColor)
 }
 #pragma mark —— Prop_strong()UIFont *placeholderFont;
@@ -43,13 +42,13 @@ JobsKey(_placeholderFont)
     UIFont *PlaceholderFont = Jobs_getAssociatedObject(_placeholderFont);
     if (!PlaceholderFont) {
         PlaceholderFont = self.font;
-        self.placeholderLabel.font = PlaceholderFont;
+        self.placeholderLabel.byFont(PlaceholderFont);
         Jobs_setAssociatedRETAIN_NONATOMIC(_placeholderFont, PlaceholderFont)
     };return PlaceholderFont;
 }
 
 -(void)setPlaceholderFont:(UIFont *)placeholderFont{
-    self.placeholderLabel.font = placeholderFont;
+    self.placeholderLabel.byFont(placeholderFont);
     Jobs_setAssociatedRETAIN_NONATOMIC(_placeholderFont, placeholderFont)
 }
 #pragma mark —— Prop_strong()NSMutableArray <JobsRichTextConfig *>*titleAttributedDataMutArr;
@@ -61,13 +60,13 @@ JobsKey(_titleAttributedDataMutArr)
         TitleAttributedDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray *_Nullable data) {
             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig *_Nullable config) {
                 @jobs_strongify(self)
-                config.targetString = self.placeholder;
-                config.font = UIFontWeightRegularSize(10);
-                config.textCor = JobsBlueColor;
+                config.byTargetString(self.placeholder)
+                      .byFont(UIFontWeightRegularSize(10))
+                      .byTextCor(JobsBlueColor);
 //                config.underlineStyle;
 //                config.paragraphStyle;
 //                config.urlStr;
-                config.range = NSMakeRange(0, self.placeholder.length);
+                config.byRange(NSMakeRange(0, self.placeholder.length));
             }));
         });Jobs_setAssociatedRETAIN_NONATOMIC(_titleAttributedDataMutArr, TitleAttributedDataMutArr)
     };return TitleAttributedDataMutArr;

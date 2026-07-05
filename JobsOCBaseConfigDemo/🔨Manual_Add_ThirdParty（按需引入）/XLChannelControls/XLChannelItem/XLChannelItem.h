@@ -1,13 +1,22 @@
 //
 //  XLChannelItem.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by MengXianLiang on 2017/3/3.
-//  Copyright © 2017年 MengXianLiang. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_XLCHANNELITEM_DD22BCE148
+#define JOBS_HEADER_GUARD_XLCHANNELITEM_DD22BCE148
+
 #import <UIKit/UIKit.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsMakes.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 @interface XLChannelItem : UICollectionViewCell
 /// 标题
@@ -18,3 +27,4 @@ Prop_assign()BOOL isMoving;
 Prop_assign()BOOL isFixed;
 
 @end
+#endif /* JOBS_HEADER_GUARD_XLCHANNELITEM_DD22BCE148 */

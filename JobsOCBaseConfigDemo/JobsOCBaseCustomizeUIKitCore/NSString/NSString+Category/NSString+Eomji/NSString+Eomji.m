@@ -1,8 +1,8 @@
 //
 //  NSString+Eomji.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/11/30.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSString+Eomji.h"
@@ -38,7 +38,7 @@
     NSString *modifiedString = [regex stringByReplacingMatchesInString:self
                                                                options:0
                                                                  range:NSMakeRange(0, self.length)
-                                                          withTemplate:@"".tr];
+                                                          withTemplate:@""];
     return modifiedString;
 }
 

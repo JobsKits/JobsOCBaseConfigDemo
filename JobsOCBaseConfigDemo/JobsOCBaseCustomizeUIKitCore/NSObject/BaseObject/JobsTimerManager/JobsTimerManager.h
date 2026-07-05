@@ -5,6 +5,9 @@
 //  Created by Jobs on 2025/12/13.
 //
 
+#ifndef JOBS_HEADER_GUARD_JOBSTIMERMANAGER_61B77B1B2B
+#define JOBS_HEADER_GUARD_JOBSTIMERMANAGER_61B77B1B2B
+
 #import <UIKit/UIKit.h>
 #import "JobsDefineProperty.h"
 #import "JobsTimer.h"
@@ -12,23 +15,37 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#ifndef JOBS_TIMER_MANAGER_BUILD_BLOCK_DEFINED
+#define JOBS_TIMER_MANAGER_BUILD_BLOCK_DEFINED
+typedef JobsTimerMgrBuildBlock JobsTimerManagerBuildBlock;
+#endif /* JOBS_TIMER_MANAGER_BUILD_BLOCK_DEFINED */
+
+#ifndef JOBS_TIMER_PAUSE_STATE_DEFINED
+#define JOBS_TIMER_PAUSE_STATE_DEFINED
 typedef NS_ENUM(NSUInteger, _JobsTimerPauseState) {
     _JobsTimerPauseStateRunning = 0,
     _JobsTimerPauseStateManualPaused,
     _JobsTimerPauseStateAutoPaused
 };
+#endif /* JOBS_TIMER_PAUSE_STATE_DEFINED */
 
 /// Swift 侧：JobsTimerIdentifiable.timerIdentifier
+#ifndef JOBS_TIMER_IDENTIFIABLE_DEFINED
+#define JOBS_TIMER_IDENTIFIABLE_DEFINED
 @protocol JobsTimerIdentifiable <NSObject>
 Prop_copy(readonly)NSString *timerIdentifier;
 @end
+#endif /* JOBS_TIMER_IDENTIFIABLE_DEFINED */
 
 /// Swift 侧：JobsTimerBackgroundPolicy
+#ifndef JOBS_TIMER_BACKGROUND_POLICY_DEFINED
+#define JOBS_TIMER_BACKGROUND_POLICY_DEFINED
 typedef NS_ENUM(NSUInteger, JobsTimerBackgroundPolicy) {
     JobsTimerBackgroundPolicyIgnore = 0,        // 不处理
     JobsTimerBackgroundPolicyPauseAndResume,    // 后台自动 pause，前台自动 resume（只恢复“自动暂停”的）
     JobsTimerBackgroundPolicyCancel             // 进后台直接 stop + remove
 };
+#endif /* JOBS_TIMER_BACKGROUND_POLICY_DEFINED */
 
 @interface JobsTimerManager : NSObject
 
@@ -82,3 +99,4 @@ typedef NS_ENUM(NSUInteger, JobsTimerBackgroundPolicy) {
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSTIMERMANAGER_61B77B1B2B */

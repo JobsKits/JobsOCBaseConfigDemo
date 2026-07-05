@@ -2,7 +2,7 @@
 //  JobsCommentConfig.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/11/17.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsCommentConfig.h"
@@ -36,7 +36,7 @@ static dispatch_once_t static_jobsCommentConfigOnceToken;
 }
 #pragma mark —— Lazyload
 -(CGSize)headerImageViewSize{
-    return CGSizeMake(JobsWidth(50), JobsWidth(50));
+    return CGSizeMake(JobsWidth(36), JobsWidth(36));
 }
 
 -(UIFont *)titleFont{
@@ -48,11 +48,11 @@ static dispatch_once_t static_jobsCommentConfigOnceToken;
 }
 
 -(UIColor *)titleCor{
-    return RGBA_COLOR(131, 145, 175, 1);
+    return HEXCOLOR(0x64748B);
 }
 
 -(UIColor *)subTitleCor{
-    return JobsBlackColor;
+    return HEXCOLOR(0x111827);
 }
 
 -(UIColor *)bgCor{
@@ -60,11 +60,11 @@ static dispatch_once_t static_jobsCommentConfigOnceToken;
 }
 
 -(CGFloat)cellHeight{
-    return JobsWidth(55);
+    return JobsWidth(72);
 }
 
 -(CGFloat)secondLevelCommentOffset{
-    return JobsWidth(50);
+    return JobsWidth(46);
 }
 
 @end

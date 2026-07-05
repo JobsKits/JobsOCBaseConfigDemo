@@ -1,8 +1,8 @@
 //
 //  JobsWelcomeVC.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2021/12/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsWelcomeVC.h"
@@ -30,23 +30,29 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = @"".tr;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(@"".tr);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
     
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-//        self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        // self.viewModel.navBgImage = @"导航栏左侧底图".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsYellowColor;
+    self.view.byBgColor(JobsYellowColor);
+
     self.scrollView.jobsVisible = YES;
     self.pageControl.jobsVisible = YES;
 
@@ -68,9 +74,13 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
 
 - (void)loadPhoto{
     for (NSUInteger i = 0; i < self.dataMutArr.count; i++) {
-        UIImageView * imageView = UIImageView.new;
-        imageView.frame = CGRectMake(JobsMainScreen_WIDTH() * i, 0, JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT());
-        //用SDWebImage下载图片
+        UIImageView *imageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byFrame(CGRectMake(JobsMainScreen_WIDTH() * i, 0, JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT()))
+                .addOn(self.scrollView);
+        });
+
+        /// 用SDWebImage下载图片
         NSString *imageName = @"".tr;
         if (i < 10) {
             imageName = [NSString stringWithFormat:@"启动页_0%lu",(unsigned long)i];
@@ -78,7 +88,6 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
             imageName = [NSString stringWithFormat:@"启动页_%ld",i];
         }
         [imageView sd_setImageWithURL:[NSURL URLWithString:self.dataMutArr[i]] placeholderImage:imageName.img];
-        [self.scrollView addSubview:imageView];
     }
 }
 #pragma mark —— UIScrollViewDelegate
@@ -101,40 +110,49 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
 #pragma mark —— lazyLoad
 -(UIPageControl *)pageControl{
     if (!_pageControl) {
-        _pageControl = UIPageControl.new;
-        _pageControl.numberOfPages = 3;
-        _pageControl.currentPage = 0;
-        _pageControl.currentPageIndicatorTintColor = JobsRedColor;
-        _pageControl.pageIndicatorTintColor = JobsWhiteColor;
-        [self.view addSubview:_pageControl];
-        [_pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.offset(0);
-            make.bottom.offset(-JobsWidth(60));
-        }];
+        _pageControl = jobsMakePageControl(^(UIPageControl * _Nullable pageControl) {
+            pageControl
+                .byNumberOfPages(3)
+                .byCurrentPage(0)
+                .byCurrentPageIndicatorTintColor(JobsRedColor)
+                .byPageIndicatorTintColor(JobsWhiteColor)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerX.offset(0);
+                    make.bottom.offset(-JobsWidth(60));
+                });
+        });
     };return _pageControl;
 }
 /// BaseViewProtocol
 @synthesize scrollView = _scrollView;
 -(UIScrollView *)scrollView{
     if (!_scrollView) {
-        _scrollView = [UIScrollView.alloc initWithFrame:UIScreen.mainScreen.bounds];
-        _scrollView.delegate = self;
-        _scrollView.contentOffset = CGPointMake(0, 0);
-        _scrollView.contentSize = CGSizeMake(JobsMainScreen_WIDTH() * 4, JobsMainScreen_HEIGHT());
-        _scrollView.bounces = NO;
-        _scrollView.pagingEnabled = YES;
-        _scrollView.showsHorizontalScrollIndicator = NO;
-        _scrollView.showsVerticalScrollIndicator = NO;
-        [self.view addSubview:_scrollView];
+        @jobs_weakify(self)
+        _scrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
+            @jobs_strongify(self)
+            scrollView
+                .byDelegate(self)
+                .byContentOffset(CGPointMake(0, 0))
+                .byContentSize(CGSizeMake(JobsMainScreen_WIDTH() * 4, JobsMainScreen_HEIGHT()))
+                .byBounces(NO)
+                .byPagingEnabled(YES)
+                .byShowsHorizontalScrollIndicator(NO)
+                .byShowsVerticalScrollIndicator(NO)
+                .byFrame(UIScreen.mainScreen.bounds)
+                .addOn(self.view);
+        });
     };return _scrollView;
 }
 
 -(NSMutableArray<NSString *> *)dataMutArr{
     if (!_dataMutArr) {
-        _dataMutArr = NSMutableArray.array;
-        [_dataMutArr addObject:@"https://b-ssl.duitang.com/uploads/item/201503/25/20150325184145_SBu3J.jpeg"];
-        [_dataMutArr addObject:@"https://b-ssl.duitang.com/uploads/item/201503/25/20150325184145_SBu3J.jpeg"];
-        [_dataMutArr addObject:@"https://b-ssl.duitang.com/uploads/item/201503/25/20150325184145_SBu3J.jpeg"];
+        _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
+            arr
+                .add(@"https://b-ssl.duitang.com/uploads/item/201503/25/20150325184145_SBu3J.jpeg")
+                .add(@"https://b-ssl.duitang.com/uploads/item/201503/25/20150325184145_SBu3J.jpeg")
+                .add(@"https://b-ssl.duitang.com/uploads/item/201503/25/20150325184145_SBu3J.jpeg");
+        });
     };return _dataMutArr;
 }
 

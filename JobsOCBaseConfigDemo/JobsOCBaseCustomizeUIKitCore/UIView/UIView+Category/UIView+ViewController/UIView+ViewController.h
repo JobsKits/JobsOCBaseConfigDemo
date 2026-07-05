@@ -1,9 +1,12 @@
 //
 //  UIView+ViewController.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by xxx on 2020/12/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UIVIEW_VIEWCONTROLLER_05C519727F
+#define JOBS_HEADER_GUARD_UIVIEW_VIEWCONTROLLER_05C519727F
 
 #import <UIKit/UIKit.h>
 
@@ -16,3 +19,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIVIEW_VIEWCONTROLLER_05C519727F */

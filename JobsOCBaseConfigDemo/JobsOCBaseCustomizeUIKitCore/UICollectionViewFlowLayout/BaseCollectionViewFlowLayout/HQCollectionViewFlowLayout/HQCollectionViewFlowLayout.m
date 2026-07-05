@@ -1,12 +1,9 @@
 //
 //  HQCollectionViewFlowLayout.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Mr_Han on 2018/10/10.
-//  Copyright © 2018年 Mr_Han. All rights reserved.
-//  CSDN <https://blog.csdn.net/u010960265>
-//  GitHub <https://github.com/HanQiGod>
-// 
+//  Created by Jobs on 2026年5月13日，星期三.
+//
 
 #import "HQCollectionViewFlowLayout.h"
 
@@ -81,6 +78,7 @@
                 //然后模拟出在当前分区中的唯一一个cell，cell在header的下面，高度为0，还与header隔着可能存在的sectionInset的top
                 CGFloat y = CGRectGetMaxY(attributes.frame)+self.sectionInset.top;
                 firstItemAttributes.frame = CGRectMake(0, y, 0, 0);
+
                 //因为只有一个cell，所以最后一个cell等于第一个cell
                 lastItemAttributes = firstItemAttributes;
             }
@@ -104,6 +102,7 @@
             rect.origin.y = MIN(maxY,headerMissingY);
             //给header的结构信息的frame重新赋值
             attributes.frame = rect;
+
             
             //如果按照正常情况下,header离开屏幕被系统回收，而header的层次关系又与cell相等，如果不去理会，会出现cell在header上面的情况
             //通过打印可以知道cell的层次关系zIndex数值为0，我们可以将header的zIndex设置成1，如果不放心，也可以将它设置成非常大，这里随便填了个7

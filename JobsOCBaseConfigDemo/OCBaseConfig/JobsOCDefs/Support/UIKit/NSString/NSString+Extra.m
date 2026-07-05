@@ -1,6 +1,6 @@
 //
 //  NSString+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTimer
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -8,24 +8,22 @@
 #import "NSString+Extra.h"
 
 @implementation NSString (Extra)
-
--(JobsRetBOOLByIDBlock _Nonnull)isEqualToString{
-    @jobs_weakify(self)
-    return ^BOOL(NSString *data){
-        @jobs_strongify(self)
-        if ([data isKindOfClass:NSString.class]) {
-            return [self isEqualToString:data];
-        };return NO;
-    };
-}
 /// OC字符串拼接
 -(JobsRetStrByStrBlock _Nonnull)add{
     @jobs_weakify(self)
     return ^NSMutableString *_Nullable(NSString *_Nonnull str) {
         @jobs_strongify(self)
         if(!str) str = JobsEmpty;
-        // 系统的stringByAppendingString方法在参数为nil的时候会崩溃
-        return JobsMutableString([self stringByAppendingString:str]); // 原始字符串不会改变，输出一个新的字符串
+        /// 系统的stringByAppendingString方法在参数为nil的时候会崩溃
+        return JobsMutableString([self stringByAppendingString:str]);// 原始字符串不会改变，输出一个新的字符串
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)toast{
+    @jobs_weakify(self)
+    return ^(){
+        @jobs_strongify(self)
+        NSObject.jobsToastMsg(self.tr);
     };
 }
 

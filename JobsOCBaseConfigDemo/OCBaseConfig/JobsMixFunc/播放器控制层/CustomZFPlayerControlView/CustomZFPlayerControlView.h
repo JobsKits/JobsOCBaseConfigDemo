@@ -1,14 +1,16 @@
 //
 //  CustomZFPlayerControlView.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/9/4.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_CUSTOMZFPLAYERCONTROLVIEW_CE4AC669E2
+#define JOBS_HEADER_GUARD_CUSTOMZFPLAYERCONTROLVIEW_CE4AC669E2
+
+#pragma once
+
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
-#import "JobsDefineProperty.h"
 
 #pragma mark —— ZFPlayer 播放器相关
 //Core
@@ -101,6 +103,10 @@
 #else
 #import "ZFVolumeBrightnessView.h"
 #endif
+#pragma mark —— Created By Jobs
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 ///播放器的控制层
@@ -117,3 +123,4 @@ NS_INLINE __kindof CustomZFPlayerControlView *_Nonnull jobsMakeCustomZFPlayerCon
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_CUSTOMZFPLAYERCONTROLVIEW_CE4AC669E2 */

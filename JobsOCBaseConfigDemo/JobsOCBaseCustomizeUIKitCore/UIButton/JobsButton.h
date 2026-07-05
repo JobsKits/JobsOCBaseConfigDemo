@@ -1,17 +1,16 @@
 //
 //  JobsButton.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#import <UIKit/UIKit.h>
 
 #ifndef JobsButton_h
 #define JobsButton_h
-
-#pragma mark —— Category
 /// 计时按钮
 #import "UIButton+Timer.h"
-
 /// 高度自定义的按钮
 #import "UIButton+ImageTitleSpacing.h"
 /// 一些UI代码的封装
@@ -27,17 +26,6 @@
 #import "UIButton+Extra.h"
 ///
 #import "UIButton+TextView.h"
-
-#pragma mark —— Base
-/// 不规则多边形按钮
-#import "IrregularBtn.h"
-/// 高仿抖音点赞动画
-#import "RBCLikeButton.h"
-/// 按键音按钮
-#import "SoundBtn.h"
-/// 高仿iOS长按删除+抖动
-#import "JobsShakeBtn.h"
-/// BaseButton
-#import "BaseButton.h"
+#import "UIButton+UIButtonConfiguration.h"
 
 #endif /* JobsButton_h */

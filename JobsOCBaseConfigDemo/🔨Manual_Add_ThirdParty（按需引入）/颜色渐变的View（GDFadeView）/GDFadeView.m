@@ -1,9 +1,8 @@
 //
 //  GDFadeView.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by xiaoyu on 15/11/13.
-//  Copyright © 2015年 guoda. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "GDFadeView.h"
@@ -34,11 +33,12 @@ Prop_strong()CAGradientLayer *cagradientLayer;
     [super drawRect:rect];
 }
 
-#pragma mark —— frame
 -(void)setFrame:(CGRect)frame{
     [super setFrame:frame];
-    self.backLabel.alpha = 1;
-    self.frontLabel.alpha = 1;
+    self.backLabel.byAlpha(1);
+
+    self.frontLabel.byAlpha(1);
+
     self.createMask();
 }
 #pragma mark —— 一些私有方法
@@ -46,7 +46,8 @@ Prop_strong()CAGradientLayer *cagradientLayer;
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        self.cagradientLayer.frame = self.bounds;
+        self.cagradientLayer.byFrame(self.bounds);
+
         self.cagradientLayer.colors = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
             data.add((id)JobsClearColor.CGColor)
                 .add((id)JobsRedColor.CGColor)
@@ -68,50 +69,47 @@ Prop_strong()CAGradientLayer *cagradientLayer;
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(NSTimeInterval duration){
         @jobs_strongify(self)
-        [self.frontLabel.layer.mask addAnimation:jobsMakeCABasicAnimation(^(__kindof CABasicAnimation * _Nullable animation) {
-            @jobs_strongify(self)
-            animation.keyPath = @"transform.translation.x";
-            animation.fromValue = @(0);
-            animation.toValue = @(self.bounds.size.width + self.bounds.size.width / 2.0);
-            animation.duration = duration;
-            animation.repeatCount = MAXFLOAT;//LONG_MAX
-            animation.removedOnCompletion = NO;
-            animation.fillMode = kCAFillModeForwards;
-        }) forKey:nil];return self.frontLabel;
+        return self.frontLabel.byLayer(^(CALayer *layer) {
+            layer.mask.byAddAnimation(jobsMakeCABasicAnimation(^(__kindof CABasicAnimation * _Nullable animation) {
+                @jobs_strongify(self)
+                animation.keyPath = @"transform.translation.x";
+                animation.fromValue = @(0);
+                animation.toValue = @(self.bounds.size.width + self.bounds.size.width / 2.0);
+                animation.duration = duration;
+                animation.repeatCount = MAXFLOAT;
+                animation.removedOnCompletion = NO;
+                animation.fillMode = kCAFillModeForwards;
+            }), nil);
+        });
     };
 }
 #pragma mark —— Set方法
-#pragma mark —— backColor
 -(void)setBackColor:(UIColor *)backColor{
     _backColor = backColor;
-    _backLabel.textColor = backColor;
+    _backLabel.byTextCor(backColor);
 }
 
-#pragma mark —— foreColor
 -(void)setForeColor:(UIColor *)foreColor{
     _foreColor = foreColor;
-    _frontLabel.textColor = foreColor;
+    _frontLabel.byTextCor(foreColor);
 }
 
-#pragma mark —— font
 -(void)setFont:(UIFont *)font{
     _font = font;
-    _backLabel.font = font;
-    _frontLabel.font = font;
+    _backLabel.byFont(font);
+    _frontLabel.byFont(font);
 }
 
-#pragma mark —— alignment
 -(void)setAlignment:(NSTextAlignment)alignment{
     _alignment = alignment;
-    _backLabel.textAlignment = alignment;
-    _frontLabel.textAlignment = alignment;
+    _backLabel.byTextAlignment(alignment);
+    _frontLabel.byTextAlignment(alignment);
 }
 
-#pragma mark —— text
 -(void)setText:(NSString *)text{
     _text = text;
-    _backLabel.text = text;
-    _frontLabel.text = text;
+    _backLabel.byText(text);
+    _frontLabel.byText(text);
 }
 #pragma mark —— lazyLoad
 -(UILabel *)backLabel{
@@ -119,8 +117,9 @@ Prop_strong()CAGradientLayer *cagradientLayer;
         @jobs_weakify(self)
         _backLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.frame = self.bounds;
-            self.addSubview(label);
+            label
+                .byFrame(self.bounds)
+                .addOn(self);
         });
     };return _backLabel;
 }
@@ -130,8 +129,9 @@ Prop_strong()CAGradientLayer *cagradientLayer;
         @jobs_weakify(self)
         _frontLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.frame = self.bounds;
-            self.addSubview(label);
+            label
+                .byFrame(self.bounds)
+                .addOn(self);
         });
     };return _frontLabel;
 }

@@ -1,20 +1,17 @@
 //
 //  JobsImage.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#import <ImageIO/ImageIO.h> // 提供图像编解码能力，支持多种图片格式的读取、写入和元数据处理。
+#import <UIKit/UIKit.h>
 
 #ifndef JobsImage_h
 #define JobsImage_h
-
-#import <ImageIO/ImageIO.h>
-#import "JobsLoadingImage.h"
-
-#pragma mark —— Base
-// TODO
 #pragma mark —— Category
-#import "UIImage+Extras.h"
+#import "UIImage+Extra.h"
 #import "UIImage+Overlay.h"
 #import "UIImage+SYS.h"
 #import "UIImage+Tailor.h"

@@ -2,7 +2,7 @@
 //  JobsVerticalMenuVC@0.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by User on 8/31/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsVerticalMenuVC@0.h"
@@ -11,11 +11,14 @@
 /// UI
 Prop_strong()BaseButton *editBtn;
 Prop_strong()JobsSearchBar *searchView;
+Prop_strong()BaseButton *searchToggleBtn;
+Prop_strong()MASConstraint *searchViewWidthConstraint;
 /// Data
 Prop_strong()NSMutableArray <__kindof UIView *>*rightViewArray; /// 右侧的视图数组
 Prop_strong()NSMutableArray <__kindof UIViewModel *>*titleMutArr;
 Prop_strong()NSMutableArray <__kindof UIViewModel *>*leftDataArray; /// 左边的数据源
 Prop_strong()UIViewModel *leftViewCurrentSelectModel;
+Prop_assign()BOOL searchMode;
 
 @end
 
@@ -34,54 +37,38 @@ Prop_strong()UIViewModel *leftViewCurrentSelectModel;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
     self.makeSubViews();
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    @jobs_weakify(self)
     self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
 //        @jobs_strongify(self)
 //        data.add(UIBarButtonItem.initBy(self.aboutBtn));
     });
-    self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
-        @jobs_strongify(self)
-        data.add(UIBarButtonItem.initBy(BaseButton.jobsInit()
-                                        .jobsResetBtnImage(@"消息".img)
-                                        .onClickBy(^(UIButton *x){
-                                            @jobs_strongify(self)
-                                            if (self.objBlock) self.objBlock(x);
-                                        }).onLongPressGestureBy(^(id data){
-                                            JobsLog(@"");
-                                        })));
-        data.add(UIBarButtonItem.initBy(BaseButton.jobsInit()
-                                        .bgColorBy(JobsWhiteColor)
-                                        .jobsResetBtnImage(@"人工客服".img)
-                                        .onClickBy(^(UIButton *x){
-                                            @jobs_strongify(self)
-                                            if (self.objBlock) self.objBlock(x);
-                                        }).onLongPressGestureBy(^(id data){
-                                            JobsLog(@"");
-                                        })));
-    });
+    self.rightBarButtonItems = NSMutableArray.array;
     self.makeNavByAlpha(1);
-    
-    self.searchView.alpha = 1;
+    self.searchToggleBtn.byAlpha(1);
+    self.searchView.byAlpha(0);
     self.tableView.byShow(self);
-    self.editBtn.alpha = 1;
+    self.editBtn.byAlpha(1);
     self.refreshLeftView();
-
     self.displayView(self.rightViewArray[0]);
 }
 
@@ -114,14 +101,14 @@ Prop_strong()UIViewModel *leftViewCurrentSelectModel;
             @jobs_strongify(self)
             for (int i = 0; i < self.titleMutArr.count; i++) {
                 JobsVerticalMenuSubView *subView = JobsVerticalMenuSubView.new;
-                subView.backgroundColor = JobsRandomColor;
+                subView.byBgColor(HEXCOLOR(0xF7F8FA));
                 data.add(subView);
             }
         });
     };
 }
 
-//-(JobsReturnViewByClassBlock _Nonnull)makeSubViews{
+//-(JobsRetViewByClassBlock _Nonnull)makeSubViews{
 //    return ^UIView *_Nullable(Class _Nonnull cls){
 //        UIView *view = cls.new;
 //        view.frame = CGRectMake(MenuWidth,
@@ -145,10 +132,16 @@ Prop_strong()UIViewModel *leftViewCurrentSelectModel;
         }
         /// 添加新的视图
         subview.frame = CGRectMake(self.tableView.frame.size.width,
-                                   0,
+                                   self.tableView.top,
                                    self.view.frame.size.width - self.tableView.frame.size.width,
-                                   self.view.frame.size.height);
+                                   self.view.frame.size.height - self.tableView.top);
         [self.view addSubview:subview];
+        if ([subview isKindOfClass:JobsVerticalMenuSubView.class]) {
+            NSUInteger index = [self.rightViewArray indexOfObject:subview];
+            if (index != NSNotFound) {
+                ((JobsVerticalMenuSubView *)subview).reloadContentByIndex(index);
+            }
+        }
     };
 }
 
@@ -183,10 +176,10 @@ Prop_strong()UIViewModel *leftViewCurrentSelectModel;
 - (__kindof UITableViewCell *)tableView:(__kindof UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     @jobs_weakify(self)
-    return LeftCell.cellStyleDefaultWithTableView(tableView)
+    return LeftCell.cellStyleDefaultByTableView(tableView)
         .JobsRichViewByModel2(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
         @jobs_strongify(self)
-        data.textModel.text = self.titleMutArr[indexPath.row].textModel.text;
+        data.textModel.byText(self.titleMutArr[indexPath.row].textModel.text);
     }));
 }
 
@@ -199,6 +192,45 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.displayView(self.rightViewArray[indexPath.row]);
 }
+
+-(CGFloat)expandedSearchWidth{
+    return JobsMainScreen_WIDTH() - JobsWidth(96) - JobsWidth(36) - JobsWidth(12) - JobsWidth(8);
+}
+
+-(void)refreshSearchToggleBtnByActive:(BOOL)active{
+    self.searchToggleBtn
+        .jobsResetBtnTitle(active ? @"×" : @"")
+        .jobsResetBtnImage(active ? nil : @"放大镜".img);
+}
+
+-(void)switchSearchModeByActive:(BOOL)active{
+    if (self.searchMode == active) return;
+    self.searchMode = active;
+    if (active) {
+        self.searchView.byHidden(NO);
+        [self refreshSearchToggleBtnByActive:YES];
+    } else {
+        [self.searchView.textField resignFirstResponder];
+        self.searchView.textField.byText(@"");
+    }
+    [self.searchViewWidthConstraint setOffset:active ? self.expandedSearchWidth : 0];
+    UIViewAnimationOptions options = active ? UIViewAnimationOptionCurveEaseOut : UIViewAnimationOptionCurveEaseIn;
+    [UIView animateWithDuration:active ? .24f : .18f
+                          delay:0
+                        options:options
+                     animations:^{
+        self.gk_navTitleBtn.byAlpha(active ? 0 : 1);
+        self.searchView.byAlpha(active ? 1 : 0);
+        [self.gk_navigationBar layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        if (active) {
+            [self.searchView.textField becomeFirstResponder];
+        } else {
+            self.searchView.byHidden(YES);
+            [self refreshSearchToggleBtnByActive:NO];
+        }
+    }];
+}
 #pragma mark —— lazyLoad
 /// BaseViewProtocol
 @synthesize tableView = _tableView;
@@ -209,15 +241,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             @jobs_strongify(self)
             tableView
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
-                .byShowsVerticalScrollIndicator(NO)
-                .byBgColor(HEXCOLOR(0xFCFBFB))
-                .byFrame(jobsMakeCGRectByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
-                    @jobs_strongify(self)
-                    data.jobsX = 0;
-                    data.jobsY = JobsTopSafeAreaHeight() + JobsStatusBarHeight() + self.gk_navigationBar.mj_h;
-                    data.jobsWidth = TableViewWidth;
-                    data.jobsHeight = JobsMainScreen_HEIGHT() - JobsTopSafeAreaHeight() - JobsStatusBarHeight() - JobsTabBarHeight(AppDelegate.tabBarVC) - EditBtnHeight;
-                }));
+                .byShowsVerticalScrollIndicator(NO);
+            tableView.byBgColor(HEXCOLOR(0xFCFBFB));
+            tableView.byFrame(jobsMakeCGRectByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
+                @jobs_strongify(self)
+                data.byJobsX(0)
+                    .byJobsY(JobsTopSafeAreaHeight() + JobsStatusBarHeight() + self.gk_navigationBar.mj_h)
+                    .byJobsWidth(TableViewWidth)
+                    .byJobsHeight(JobsMainScreen_HEIGHT() - JobsTopSafeAreaHeight() - JobsStatusBarHeight() - JobsTabBarHeight(AppDelegate.tabBarVC) - EditBtnHeight);
+            }));
         }));
     };return _tableView;
 }
@@ -226,18 +258,22 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!_searchView) {
         @jobs_weakify(self)
         _searchView = JobsSearchBar
-            .BySize(CGSizeMake(JobsMainScreen_WIDTH() / 3, JobsWidth(40)))
+            .BySize(CGSizeMake(0, JobsWidth(38)))
             .JobsRichViewByModel2(nil)
-            .JobsBlock1(^(id  _Nullable data) {
+            .JobsBlock1(^(id  _Nullable data) {;
                 
-            })
-            .addOn(self.gk_navigationBar)
+            });
+        _searchView.cancelBtnHidden = YES;
+        _searchView.textField.byPlaceholder(@"请输入搜索内容".tr);
+        _searchView.addOn(self.gk_navigationBar)
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
-                make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH() / 3, JobsWidth(40)));
-                make.right.equalTo(self.gk_navigationBar).offset(JobsWidth(0));
+                self.searchViewWidthConstraint = make.width.mas_equalTo(0);
+                make.height.mas_equalTo(JobsWidth(38));
+                make.right.equalTo(self.searchToggleBtn.mas_left).offset(JobsWidth(-8));
                 make.centerY.equalTo(self.gk_navigationBar);
             });
+        _searchView.byHidden(YES);
         
 //        [_jobsSearchBar actionNSIntegerBlock:^(UITextFieldFocusType data) {
 //            @jobs_strongify(self)
@@ -261,6 +297,32 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //            }
 //        }];
     };return _searchView;
+}
+
+-(BaseButton *)searchToggleBtn{
+    if (!_searchToggleBtn) {
+        @jobs_weakify(self)
+        _searchToggleBtn = BaseButton.jobsInit()
+            .bgColorBy(JobsWhiteColor)
+            .jobsResetBtnTitleCor(HEXCOLOR(0xAE8330))
+            .jobsResetBtnTitleFont(UIFontWeightRegularSize(JobsWidth(22)))
+            .jobsResetBtnImage(@"放大镜".img)
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                [self switchSearchModeByActive:!self.searchMode];
+            })
+            .onLongPressGestureBy(^(id data){
+                JobsLog(@"");
+            })
+            .addOn(self.gk_navigationBar)
+            .byAdd(^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(36), JobsWidth(36)));
+                make.right.equalTo(self.gk_navigationBar).offset(JobsWidth(-12));
+                make.centerY.equalTo(self.gk_navigationBar);
+            })
+            .cornerCutToCircleWithCornerRadius(JobsWidth(18));
+    };return _searchToggleBtn;
 }
 
 - (BaseButton *)editBtn{
@@ -297,22 +359,22 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         /// 最初默认的数据
         _titleMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"收藏".tr;
+                data1.textModel.byText(@"收藏".tr);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"真人".tr;
+                data1.textModel.byText(@"真人".tr);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"体育".tr;
+                data1.textModel.byText(@"体育".tr);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"电子".tr;
+                data1.textModel.byText(@"电子".tr);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"棋牌".tr;
+                data1.textModel.byText(@"棋牌".tr);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.text = @"彩票".tr;
+                data1.textModel.byText(@"彩票".tr);
             }));
         });
     };return _titleMutArr;
@@ -326,7 +388,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (__kindof UIViewModel *)leftViewCurrentSelectModel {
     if (!_leftViewCurrentSelectModel) {
-        _leftViewCurrentSelectModel = UIViewModel.new;
+        _leftViewCurrentSelectModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
     };return _leftViewCurrentSelectModel;
 }
 

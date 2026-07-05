@@ -1,6 +1,6 @@
 //
 //  YTKBatchRequest+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月4日，星期四.
 //
@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_YTKBATCHREQUEST_DSL_E21A9C3484
 
 #import <Foundation/Foundation.h>
-#import "JobsBlock.h"
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
@@ -17,16 +16,17 @@
 #import "YTKNetwork.h"
 #endif
 
+#import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-
 @interface YTKBatchRequest (DSL)
 
-@property(nonatomic, strong, readonly) NSArray<YTKRequest *> *jobs_requests;
-@property(nonatomic, strong, readonly, nullable) YTKRequest *jobs_failedRequest;
-@property(nonatomic, assign, readonly) BOOL jobs_isFromCache;
+Prop_strong(readonly)NSArray<YTKRequest *> *jobs_requests;
+Prop_strong(readonly,nullable)YTKRequest *jobs_failedRequest;
+Prop_assign(readonly)BOOL jobs_isFromCache;
 
 -(JobsRetYTKBatchRequestByNSIntegerBlock _Nonnull)byTag;
 -(JobsRetYTKBatchRequestByDelegateBlock _Nonnull)byDelegate;

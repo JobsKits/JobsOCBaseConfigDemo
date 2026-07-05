@@ -1,25 +1,16 @@
 //
 //  UIControl+XY.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2017/7/17.
-//  Copyright © 2017年 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIControl+XY.h"
 
-@interface UIControl (XY)
-
-Prop_assign()NSTimeInterval uxy_acceptEventInterval;
-Prop_assign()BOOL uxy_ignoreEvent;
-
-@end
-
 @implementation UIControl (XY)
-/// 时间间隔
-#pragma mark —— uxy_acceptEventInterval
 JobsKey(_uxy_acceptEventInterval)
 @dynamic uxy_acceptEventInterval;
+/// 时间间隔
 - (NSTimeInterval)uxy_acceptEventInterval{
     return [Jobs_getAssociatedObject(_uxy_acceptEventInterval) doubleValue];
 }
@@ -28,9 +19,7 @@ JobsKey(_uxy_acceptEventInterval)
     Jobs_setAssociatedRETAIN_NONATOMIC(_uxy_acceptEventInterval, @(uxy_acceptEventInterval))
 }
 /// 是否响应事件的标志位
-#pragma mark —— uxy_ignoreEvent
 JobsKey(_uxy_ignoreEvent)
-@dynamic uxy_ignoreEvent;
 -(BOOL)uxy_ignoreEvent{
     return [Jobs_getAssociatedObject(_uxy_ignoreEvent) boolValue];
 }

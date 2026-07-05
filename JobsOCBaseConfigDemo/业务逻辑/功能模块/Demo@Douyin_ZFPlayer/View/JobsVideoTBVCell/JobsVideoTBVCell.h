@@ -17,6 +17,9 @@
 NS_ASSUME_NONNULL_BEGIN
 @class JobsVideoTBVCell;
 
+typedef JobsVideoTBVCell *_Nonnull(^JobsRetVideoTBVCellByDelegateBlock)(id<UIViewModelOthersProtocol> _Nullable delegate);
+typedef JobsRetVideoTBVCellByDelegateBlock JobsReturnVideoTBVCellByDelegateBlock;
+
 @interface JobsVideoTBVCell : UITableViewCell
 <
 BaseCellProtocol,

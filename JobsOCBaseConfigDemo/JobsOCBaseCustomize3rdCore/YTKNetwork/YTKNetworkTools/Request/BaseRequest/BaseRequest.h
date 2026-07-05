@@ -1,21 +1,15 @@
 //
 //  BaseRequest.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Jobs on 2022/7/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "JobsBlock.h"
-#import "YTKCustomBaseRequestProtocol.h"
-#import "JobsDefineConstString.h"
-#import "NSMutableDictionary+Extra.h"
-#import "YTKRequest+Extra.h"
+#ifndef JOBS_HEADER_GUARD_BASEREQUEST_494610730B
+#define JOBS_HEADER_GUARD_BASEREQUEST_494610730B
 
-#if __has_include(<YTKNetwork/YTKNetwork.h>)
-#import <YTKNetwork/YTKNetwork.h>
-#else
-#import "YTKNetwork.h"
-#endif
+#import <Foundation/Foundation.h>
+#import "YTKBaseRequest+Extra.h"
 
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFNetworking.h>
@@ -23,21 +17,34 @@
 #import "AFNetworking.h"
 #endif
 
+#if __has_include(<YTKNetwork/YTKNetwork.h>)
+#import <YTKNetwork/YTKNetwork.h>
+#else
+#import "YTKNetwork.h"
+#endif
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsMakes.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
 NS_ASSUME_NONNULL_BEGIN
-@class BaseRequest;   // 🔴 关键：先声明有这个类
+@class BaseRequest;
 /// 用于普通数据的交互
 @interface BaseRequest <__covariant T:BaseRequest *> : YTKRequest <YTKCustomBaseRequestProtocol>
 
 +(JobsRetYTKRequestByDictionaryBlock _Nonnull)initByBodyParameters; // 直接调用，后面不能拼byURLParameters
 +(JobsRetYTKRequestByDictionaryBlock _Nonnull)initByURLParameters;  // 直接调用，后面不能拼byBodyParameters
-/// 添加URL参数
--(T (^)(id _Nullable))byURLParameters;
-/// 添加Body参数
--(T (^)(NSDictionary * _Nullable))byBodyParameters;
-/// 添加Header参数
--(T (^)(NSDictionary * _Nullable))byHeaderParameters;
--(T (^)(void))handleErr;
+
+-(JobsRetYTKRequestByDictionaryBlock _Nonnull)byHeaderParameters;
+-(JobsRetYTKRequestByDictionaryBlock _Nonnull)byBodyParameters;
+-(JobsRetYTKBaseRequestByIDBlock _Nonnull)byURLParameters;
+-(JobsRetYTKBaseRequestByVoidBlock _Nonnull)handleErr;
 
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_BASEREQUEST_494610730B */

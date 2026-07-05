@@ -1,9 +1,12 @@
 //
 //  Reachability+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Admin on 25/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_REACHABILITY_EXTRA_6471724AE8
+#define JOBS_HEADER_GUARD_REACHABILITY_EXTRA_6471724AE8
 
 #import <Foundation/Foundation.h>
 
@@ -20,3 +23,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_REACHABILITY_EXTRA_6471724AE8 */

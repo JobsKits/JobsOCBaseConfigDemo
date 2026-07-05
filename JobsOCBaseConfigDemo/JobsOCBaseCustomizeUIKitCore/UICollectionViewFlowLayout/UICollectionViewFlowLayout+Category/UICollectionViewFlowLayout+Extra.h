@@ -1,11 +1,20 @@
 //
 //  UICollectionViewFlowLayout+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by User on 9/16/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UICOLLECTIONVIEWFLOWLAYOUT_EXTRA_F7593A00B5
+#define JOBS_HEADER_GUARD_UICOLLECTIONVIEWFLOWLAYOUT_EXTRA_F7593A00B5
+
 #import <UIKit/UIKit.h>
+
+#import "JobsMakes.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_INLINE UICollectionViewFlowLayout *_Nonnull jobsMakeCollectionViewFlowLayout(jobsByCollectionViewFlowLayoutBlock _Nonnull block){
     UICollectionViewFlowLayout *data = UICollectionViewFlowLayout.alloc.init;
@@ -34,3 +43,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UICOLLECTIONVIEWFLOWLAYOUT_EXTRA_F7593A00B5 */

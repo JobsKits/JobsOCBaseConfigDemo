@@ -1,8 +1,8 @@
 //
 //  UILabel+Gesture.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/4/3.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UILabel+Gesture.h"
@@ -15,7 +15,6 @@
     self.numberOfTouchesRequired = 1;
     self.numberOfTapsRequired = 1;/// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
     self.minimumPressDuration = 0.1;
-    self.numberOfTouchesRequired = 1;
     self.allowableMovement = 1;
     self.userInteractionEnabled = YES;
     self.weak_target = self;
@@ -40,7 +39,7 @@
     NSError *error = nil;
     NSDataDetector *detector = [NSDataDetector.alloc initWithTypes:NSTextCheckingTypeLink error:&error];
     if (error) {
-        @"出现错误".tr.toast();
+        JobsLog(@"%@", @"出现错误".tr);
         return;
     }
     //通过检测字符串最后几位是否是.com .cn...来进行判定
@@ -50,13 +49,11 @@
     //判断有没有链接
     if(checkArr.count > 0) {
         if (checkArr.count > 1) { //网址多于1个时让用户选择跳哪个链接
-            @"多于1个链接".tr.toast();
+            JobsLog(@"%@", @"多于1个链接".tr);
         }else {//一个链接直接打开
-            @"只有1个链接".tr.toast();
+            JobsLog(@"%@", @"只有1个链接".tr);
         }
-    }else @"没有链接".tr.toast();
+    }else JobsLog(@"%@", @"没有链接".tr);
 }
 
 @end
-
-

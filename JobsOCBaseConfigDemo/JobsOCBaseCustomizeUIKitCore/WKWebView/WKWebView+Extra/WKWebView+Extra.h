@@ -1,15 +1,19 @@
 //
 //  WKWebView+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Admin on 8/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#import <objc/runtime.h>
 #import <WebKit/WebKit.h>
-#import "JobsBlock.h"
-#import "BaseProtocol.h"
 #import "WKWebViewConfiguration+Extra.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+#ifndef JOBS_MAKE_WK_WEB_VIEW_BY_CONFIG
+#define JOBS_MAKE_WK_WEB_VIEW_BY_CONFIG
 
 NS_INLINE __kindof WKWebView *_Nonnull jobsMakeWKWebViewByConfig(jobsByWKWebViewBlock _Nonnull block){
     WKWebView *data = WKWebView.initBy(jobsMakeWKWebViewConfiguration(^(WKWebViewConfiguration * _Nullable config) {
@@ -40,3 +47,4 @@ NS_INLINE __kindof WKWebView *_Nonnull jobsMakeWKWebViewByConfig(jobsByWKWebView
     if (block) block(data);
     return data;
 }
+#endif

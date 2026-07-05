@@ -1,6 +1,6 @@
 //
 //  FSCalendar+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Auto-generated from FSCalendar public headers on 2026年6月10日，星期三。
 //
@@ -13,68 +13,19 @@
 
 #if __has_include(<FSCalendar/FSCalendarDynamicHeader.h>)
 #import <FSCalendar/FSCalendarDynamicHeader.h>
-#else
-#import "FSCalendarDynamicHeader.h"
-#endif
-
-#if __has_include(<FSCalendar/FSCalendar.h>)
+#elif __has_include(<FSCalendar/FSCalendar.h>)
 #import <FSCalendar/FSCalendar.h>
-#else
-#import "FSCalendar.h"
-#endif
-
-#if __has_include(<FSCalendar/FSCalendarCell.h>)
 #import <FSCalendar/FSCalendarCell.h>
-#else
-#import "FSCalendarCell.h"
-#endif
-
-#if __has_include(<FSCalendar/FSCalendarHeaderView.h>)
 #import <FSCalendar/FSCalendarHeaderView.h>
-#else
-#import "FSCalendarHeaderView.h"
-#endif
-
-#if __has_include(<FSCalendar/FSCalendarStickyHeader.h>)
 #import <FSCalendar/FSCalendarStickyHeader.h>
-#else
-#import "FSCalendarStickyHeader.h"
-#endif
-
-#if __has_include(<FSCalendar/FSCalendarCollectionView.h>)
 #import <FSCalendar/FSCalendarCollectionView.h>
-#else
-#import "FSCalendarCollectionView.h"
-#endif
-
-#if __has_include(<FSCalendar/FSCalendarCollectionViewLayout.h>)
 #import <FSCalendar/FSCalendarCollectionViewLayout.h>
-#else
-#import "FSCalendarCollectionViewLayout.h"
-#endif
-
-#if __has_include(<FSCalendar/FSCalendarCalculator.h>)
 #import <FSCalendar/FSCalendarCalculator.h>
-#else
-#import "FSCalendarCalculator.h"
-#endif
-
-#if __has_include(<FSCalendar/FSCalendarDelegationProxy.h>)
 #import <FSCalendar/FSCalendarDelegationProxy.h>
-#else
-#import "FSCalendarDelegationProxy.h"
 #endif
 
 #if __has_include(<FSCalendar/FSCalendarExtensions.h>)
 #import <FSCalendar/FSCalendarExtensions.h>
-#else
-#import "FSCalendarExtensions.h"
-#endif
-
-#if __has_include(<FSCalendar/FSCalendarTransitionCoordinator.h>)
-#import <FSCalendar/FSCalendarTransitionCoordinator.h>
-#else
-#import "FSCalendarTransitionCoordinator.h"
 #endif
 
 #import "JobsBlock.h"
@@ -298,6 +249,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSCalendar (JobsFSCalendarDSL)
 #pragma mark —— Methods
+-(JobsRetCalendarByNSUIntegerBlock _Nonnull)byMinimumDaysInFirstWeek;
 -(JobsRetDateByDateBlock _Nonnull)byFs_firstDayOfMonth;
 -(JobsRetDateByDateBlock _Nonnull)byFs_lastDayOfMonth;
 -(JobsRetDateByDateBlock _Nonnull)byFs_firstDayOfWeek;
@@ -309,11 +261,19 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSMapTable (JobsFSCalendarDSL)
 #pragma mark —— Methods
 -(JobsRetNSMapTableByObjectForKeyedSubscriptBlock _Nonnull)byObjectForKeyedSubscript;
+-(JobsRetNSMapTableByIDBlock _Nonnull)byRemoveObjectForKey;
+-(JobsRetNSMapTableByVoidBlock _Nonnull)byRemoveAllObjects;
 @end
 
 @interface NSCache (JobsFSCalendarDSL)
+#pragma mark —— Properties
+-(JobsRetNSCacheByNSUIntegerBlock _Nonnull)byTotalCostLimit;
+-(JobsRetNSCacheByNSUIntegerBlock _Nonnull)byCountLimit;
+-(JobsRetNSCacheByBOOLBlock _Nonnull)byEvictsObjectsWithDiscardedContent;
 #pragma mark —— Methods
 -(JobsRetNSCacheByObjectForKeyedSubscriptBlock _Nonnull)byObjectForKeyedSubscript;
+-(JobsRetNSCacheByIDBlock _Nonnull)byRemoveObjectForKey;
+-(JobsRetNSCacheByVoidBlock _Nonnull)byRemoveAllObjects;
 @end
 
 @interface NSObject (JobsFSCalendarDSL)

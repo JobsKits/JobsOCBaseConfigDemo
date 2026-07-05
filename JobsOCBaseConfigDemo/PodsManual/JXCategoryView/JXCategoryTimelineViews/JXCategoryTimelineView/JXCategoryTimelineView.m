@@ -1,9 +1,8 @@
 //
 //  JXCategoryTimelineView.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by jiaxin on 2019/7/23.
-//  Copyright © 2019 jiaxin. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JXCategoryTimelineView.h"
@@ -17,10 +16,10 @@
     self.titleFont = [UIFont systemFontOfSize:JobsWidth(10) weight:UIFontWeightRegular];
     _timeTitleSelectedFont = [UIFont boldSystemFontOfSize:JobsWidth(15)];
     self.titleSelectedFont = [UIFont systemFontOfSize:JobsWidth(10) weight:UIFontWeightRegular];
-    _timeTitleNormalColor = JobsLightGrayColor;
-    self.titleColor = JobsLightGrayColor;
-    _timeTitleSelectedColor = JobsWhiteColor;
-    self.titleSelectedColor = JobsWhiteColor;
+    _timeTitleNormalColor = UIColor.lightGrayColor;
+    self.titleColor = UIColor.lightGrayColor;
+    _timeTitleSelectedColor = UIColor.whiteColor;
+    self.titleSelectedColor = UIColor.whiteColor;
 }
 //返回自定义的cell class
 -(Class)preferredCellClass{

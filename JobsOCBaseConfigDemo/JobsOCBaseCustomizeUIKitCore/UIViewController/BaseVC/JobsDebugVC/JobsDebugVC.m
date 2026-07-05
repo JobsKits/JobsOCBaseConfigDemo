@@ -1,11 +1,12 @@
 //
 //  JobsDebugVC.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by User on 9/9/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsDebugVC.h"
+#import "NSString+Extra.h"
 
 @interface JobsDebugVC ()
 
@@ -71,9 +72,10 @@
     @jobs_weakify(self)
     return ^(NSString *_Nullable lifeCycle) {
         @jobs_strongify(self)
-        UIViewModel *viewModel = UIViewModel.new;
-        viewModel.data = nil;
-        viewModel.requestParams = lifeCycle;
+        UIViewModel *viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
+            data.byData(nil)
+                .byRequestParams(lifeCycle);
+        });
         if(self.objBlock) self.objBlock(viewModel);
     };
 }

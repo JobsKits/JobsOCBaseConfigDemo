@@ -24,7 +24,7 @@ struct XLMatrix {
 typedef struct XLPoint XLPoint;
 typedef struct XLMatrix XLMatrix;
 
-XLPoint XLPointMake(CGFloat x, CGFloat y, CGFloat z) {
+static XLPoint XLPointMake(CGFloat x, CGFloat y, CGFloat z) {
     XLPoint point;
     point.x = x;
     point.y = y;

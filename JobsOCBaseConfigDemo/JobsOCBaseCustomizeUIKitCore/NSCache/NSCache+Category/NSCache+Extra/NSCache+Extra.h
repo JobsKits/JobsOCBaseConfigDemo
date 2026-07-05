@@ -1,9 +1,12 @@
 //
 //  NSCache+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_NSCACHE_EXTRA_4838186F7C
+#define JOBS_HEADER_GUARD_NSCACHE_EXTRA_4838186F7C
 
 #import <Foundation/Foundation.h>
 #import "NSString+Path.h"
@@ -23,3 +26,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSCACHE_EXTRA_4838186F7C */

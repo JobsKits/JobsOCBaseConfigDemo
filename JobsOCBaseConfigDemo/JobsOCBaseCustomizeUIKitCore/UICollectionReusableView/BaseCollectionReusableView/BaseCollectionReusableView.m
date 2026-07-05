@@ -1,11 +1,12 @@
 //
-//  CollectionReusableView.m
-//  JobsOCBaseConfigDemo
+//  BaseCollectionReusableView.m
+//  JobsBaseUI
 //
-//  Created by Jobs on 2020/10/12.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "BaseCollectionReusableView.h"
+#import "UIView+Extra.h"
 
 @interface BaseCollectionReusableView ()
 
@@ -51,7 +52,7 @@ UIPictureAndBackGroundCorProtocol_synthesize
         @jobs_weakify(self)
         _bgImageView = self.addSubview(jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = self.viewModel.bgImage;
+            imageView.byImage(self.viewModel.bgImage);
         })).setMasonryBy(^(MASConstraintMaker *_Nonnull make){
             @jobs_strongify(self)
             make.edges.equalTo(self);

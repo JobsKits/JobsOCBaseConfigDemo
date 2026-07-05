@@ -1,14 +1,26 @@
 //
 //  UIView+Navigator.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by User on 8/3/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UIVIEW_NAVIGATOR_0FF340781B
+#define JOBS_HEADER_GUARD_UIVIEW_NAVIGATOR_0FF340781B
+
+#import <objc/runtime.h>
 #import <UIKit/UIKit.h>
+#import "UIView+Extra.h"
+
+#import "JobsOCDSL.h"
+
+#import "JobsViewNavigatorHeader.h"
+
+#import "JobsMakes.h"
+
 #import "JobsBlock.h"
-#import "JobsViewNavigator.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -43,8 +55,8 @@ NS_ASSUME_NONNULL_END
      self.pushBy(NO);
      self.pushTo(self.subView.JobsRichViewByModel2(jobsMakeTextModel(^(__kindof UITextModel * _Nullable data) {
          @jobs_strongify(self)
-         data.text = self.datas[0].tabName;
-         data.subText = self.datas[0].content;
+         data.byText(self.datas[0].tabName)
+             .bySubText(self.datas[0].content);
      })).JobsBlock1(^(id _Nullable data){
          @jobs_strongify(self)
          NSNumber *d = data;
@@ -53,3 +65,4 @@ NS_ASSUME_NONNULL_END
  }];
  
  */
+#endif /* JOBS_HEADER_GUARD_UIVIEW_NAVIGATOR_0FF340781B */

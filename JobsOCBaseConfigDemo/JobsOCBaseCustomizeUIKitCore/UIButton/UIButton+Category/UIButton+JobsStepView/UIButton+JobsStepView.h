@@ -1,12 +1,19 @@
 //
 //  UIButton+JobsStepView.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2025/5/22.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UIBUTTON_JOBSSTEPVIEW_D1AD540CDC
+#define JOBS_HEADER_GUARD_UIBUTTON_JOBSSTEPVIEW_D1AD540CDC
+
+#import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,3 +25,4 @@ Prop_strong()__kindof UILabel *rightLab;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIBUTTON_JOBSSTEPVIEW_D1AD540CDC */

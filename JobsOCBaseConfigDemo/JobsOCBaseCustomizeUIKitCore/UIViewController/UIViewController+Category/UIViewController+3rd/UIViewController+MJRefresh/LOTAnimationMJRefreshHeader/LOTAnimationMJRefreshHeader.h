@@ -1,16 +1,17 @@
 //
-//  UBLCustomGifHeader.h
-//  JobsOCBaseConfigDemo
+//  LOTAnimationMJRefreshHeader.h
+//  JobsBaseUI
 //
-//  Created by John on 2020/11/14.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_LOTANIMATIONMJREFRESHHEADER_15356351F1
+#define JOBS_HEADER_GUARD_LOTANIMATIONMJREFRESHHEADER_15356351F1
+
+#pragma once
+
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
-#import "UIView+Measure.h"
-#import "MJRefreshConfigModel.h"
-#import "MJRefresh+Extra.h"
-#import "JobsDefineProperty.h"
+#import "JobsOCDSL.h"
 
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>
@@ -42,13 +43,20 @@
 #import "Lottie.h"
 #endif
 
+#import "JobsModelDSL.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /// 下拉刷新Lottie动画
 @interface LOTAnimationMJRefreshHeader : MJRefreshGifHeader
 
--(JobsReturnLOTAnimationMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)byRefreshConfigModel;
--(JobsReturnLOTAnimationMJRefreshHeaderBySizeBlock _Nonnull)bySize;
+-(JobsRetLOTAnimationMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)byRefreshConfigModel;
+-(JobsRetLOTAnimationMJRefreshHeaderBySizeBlock _Nonnull)bySize;
 
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_LOTANIMATIONMJREFRESHHEADER_15356351F1 */

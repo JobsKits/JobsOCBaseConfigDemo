@@ -1,16 +1,21 @@
 //
-//  CommentPopUpNonHoveringHeaderView.h
+//  JobsCommentPopUpView_viewForHeaderInSection.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/10/2.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseView.h"
-#import "RBCLikeButton.h"
-#import "UIImage+YBGIF.h"
+#import <UIKit/UIKit.h>
 #import "JobsCommentConfig.h"
-#import "JobsDefineProperty.h"
+#import "JobsCommentModel.h"
+
+#import "JobsLoadingImageHeader.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

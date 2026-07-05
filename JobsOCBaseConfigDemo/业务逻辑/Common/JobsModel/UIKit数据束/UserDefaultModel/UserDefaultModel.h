@@ -1,13 +1,19 @@
 //
 //  UserDefaultModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef UserDefaultModel_h
+#define UserDefaultModel_h
+
 #import <Foundation/Foundation.h>
 #import "BaseModel.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,3 +38,5 @@ NS_INLINE __kindof UserDefaultModel *_Nonnull jobsMakeUserDefaultModel(jobsByUse
     if (block) block(data);
     return data;
 }
+
+#endif /* UserDefaultModel_h */

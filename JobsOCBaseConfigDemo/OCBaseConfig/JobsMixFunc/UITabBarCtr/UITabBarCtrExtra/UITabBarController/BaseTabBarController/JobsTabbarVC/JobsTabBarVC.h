@@ -1,37 +1,25 @@
 //
-//  JobsTabbarVC.h
-//  JobsOCBaseConfigDemo
+//  JobsTabBarVC.h
+//  JobsOCTools
 //
-//  Created by 叶晓倩 on 2017/9/29.
-//  Copyright © 2017年 xa. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <QuartzCore/QuartzCore.h>
+#ifndef JOBS_HEADER_GUARD_JOBSTABBARVC_5B51D625DE
+#define JOBS_HEADER_GUARD_JOBSTABBARVC_5B51D625DE
+
+#import <QuartzCore/QuartzCore.h> // 提供 Core Animation 和 CALayer 能力，用于动画、图层和视觉渲染。
 #import <UIKit/UIKit.h>
-#import "BaseProtocol.h"
-#import "JobsBlock.h"
-#import "JobsDefineProperty.h"
-#import "MacroDef_Func.h"
-#import "JobsLoadingImage.h"
-#import "NSObject+Sound.h"
-#import "NSObject+Extras.h"
-#import "UIView+Gesture.h"
-#import "UIView+Measure.h"
-#import "UIButton+UI.h"
-#import "NSObject+CallBackInfoByBlock.h"
-#import "JobsTabBarItem.h"
-#import "JobsTabBar.h"
 #import "UITabBar+Ex.h"
 #import "TLTabBarAnimation.h"
 #import "UITabBar+TLAnimation.h"
 #import "UITabBarItem+TLAnimation.h"
-#import "UIViewController+Lottie.h"
-#import "BaseNavigationVC.h"
 #import "TransitionController.h"
 #import "TransitionAnimation.h"
 #import "JobsPullListAutoSizeView.h"
 #import "JobsTabBarItemConfig.h"
-#import "JobsSuspendBtn.h"
+#import "JobsTabBarItem.h"
+#import "JobsTabBar.h"
 
 #if __has_include(<lottie-ios/Lottie.h>)
 #import <lottie-ios/Lottie.h>
@@ -45,12 +33,29 @@
 #import "PPBadgeView.h"
 #endif
 
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsMakes.h"
+
+#import "JobsSuspend.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
 /*
  * 1、如果用系统的 UITabBarController —— UITabBar 当关联VC ＞ 6 个的时候，最后一个会变成more按钮，其余的VC会在more按钮里面形成一个TableView来进行展现
  * 2、如果希望下方是可以滑动的效果，只能用UIView系列来实现，这里推崇第三方工具库 pod 'JXCategoryView'  # https://github.com/pujiaxin33/JXCategoryView A powerful and easy to use category view (segmentedcontrol, segmentview, pagingview, pagerview, pagecontrol) (腾讯新闻、今日头条、QQ音乐、网易云音乐、京东、爱奇艺、腾讯视频、淘宝、天猫、简书、微博等所有主流App分类切换滚动视图)
  */
-
 /// 此类仅仅对系统给出的 UITabBarController —— UITabBar做最大程度上的增加功能，并且解耦
+#import "JobsOCDSL.h"
+
 @interface JobsTabBarVC : UITabBarController
 <
 UITabBarControllerDelegate,
@@ -94,3 +99,4 @@ NS_INLINE __kindof JobsTabBarVC *_Nonnull jobsMakeNormalTabBarVC(jobsByTabBarVCB
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_JOBSTABBARVC_5B51D625DE */

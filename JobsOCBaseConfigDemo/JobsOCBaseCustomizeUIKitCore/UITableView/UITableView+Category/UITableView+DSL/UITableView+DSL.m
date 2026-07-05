@@ -1,24 +1,23 @@
 //
 //  UITableView+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UITableView+DSL.h"
-#import <objc/runtime.h>
 
-JobsKey(_jobsTableViewBlocksProxy)
-JobsKey(_jobsTableViewDataSourceMux)
-JobsKey(_jobsTableViewDelegateMux)
+JobsKey(JobsTableViewBlocksProxyKey)
+JobsKey(JobsTableViewDataSourceMuxKey)
+JobsKey(JobsTableViewDelegateMuxKey)
 
 @interface JobsTableViewBlocksProxy : NSObject <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, weak, nullable) id target;
-@property (nonatomic, copy, nullable) jobsTableViewNumberOfSectionsBlock numberOfSectionsBlock;
-@property (nonatomic, copy, nullable) jobsTableViewNumberOfRowsInSectionBlock numberOfRowsInSectionBlock;
-@property (nonatomic, copy, nullable) jobsTableViewCellForRowAtBlock cellForRowAtBlock;
-@property (nonatomic, copy, nullable) jobsTableViewDidSelectRowAtBlock didSelectRowAtBlock;
+Prop_weak(nullable)id target;
+Prop_copy(nullable)jobsTableViewNumberOfSectionsBlock numberOfSectionsBlock;
+Prop_copy(nullable)jobsTableViewNumberOfRowsInSectionBlock numberOfRowsInSectionBlock;
+Prop_copy(nullable)jobsTableViewCellForRowAtBlock cellForRowAtBlock;
+Prop_copy(nullable)jobsTableViewDidSelectRowAtBlock didSelectRowAtBlock;
 
 @end
 
@@ -50,8 +49,8 @@ JobsKey(_jobsTableViewDelegateMux)
 
 @interface JobsTableViewDataSourceMux : NSObject <UITableViewDataSource>
 
-@property (nonatomic, weak, nullable) NSObject<UITableViewDataSource> *primary;
-@property (nonatomic, weak, nullable) NSObject<UITableViewDataSource> *secondary;
+Prop_weak(nullable)NSObject<UITableViewDataSource> *primary;
+Prop_weak(nullable)NSObject<UITableViewDataSource> *secondary;
 
 @end
 
@@ -81,8 +80,8 @@ JobsKey(_jobsTableViewDelegateMux)
 
 @interface JobsTableViewDelegateMux : NSObject <UITableViewDelegate, UIScrollViewDelegate>
 
-@property (nonatomic, weak, nullable) NSObject<UITableViewDelegate> *primary;
-@property (nonatomic, weak, nullable) NSObject<UITableViewDelegate> *secondary;
+Prop_weak(nullable)NSObject<UITableViewDelegate> *primary;
+Prop_weak(nullable)NSObject<UITableViewDelegate> *secondary;
 
 @end
 
@@ -111,26 +110,26 @@ JobsKey(_jobsTableViewDelegateMux)
 @end
 
 static inline JobsTableViewBlocksProxy *jobs_tableViewBlocksProxy(UITableView *tableView, BOOL createIfNeeded){
-    JobsTableViewBlocksProxy *proxy = Jobs_getAssociatedObjectByTargetRawKey(tableView, &_jobsTableViewBlocksProxy);
+    JobsTableViewBlocksProxy *proxy = Jobs_getAssociatedObjectByTarget(tableView, JobsTableViewBlocksProxyKey);
     if (!proxy && createIfNeeded){
         proxy = JobsTableViewBlocksProxy.alloc.init;
-        Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey(tableView, &_jobsTableViewBlocksProxy, proxy)
+        Jobs_setAssociatedRETAIN_NONATOMICByTarget(tableView, JobsTableViewBlocksProxyKey, proxy)
     };return proxy;
 }
 
 static inline JobsTableViewDataSourceMux *jobs_tableViewDataSourceMux(UITableView *tableView, BOOL createIfNeeded){
-    JobsTableViewDataSourceMux *mux = Jobs_getAssociatedObjectByTargetRawKey(tableView, &_jobsTableViewDataSourceMux);
+    JobsTableViewDataSourceMux *mux = Jobs_getAssociatedObjectByTarget(tableView, JobsTableViewDataSourceMuxKey);
     if (!mux && createIfNeeded){
         mux = JobsTableViewDataSourceMux.alloc.init;
-        Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey(tableView, &_jobsTableViewDataSourceMux, mux)
+        Jobs_setAssociatedRETAIN_NONATOMICByTarget(tableView, JobsTableViewDataSourceMuxKey, mux)
     };return mux;
 }
 
 static inline JobsTableViewDelegateMux *jobs_tableViewDelegateMux(UITableView *tableView, BOOL createIfNeeded){
-    JobsTableViewDelegateMux *mux = Jobs_getAssociatedObjectByTargetRawKey(tableView, &_jobsTableViewDelegateMux);
+    JobsTableViewDelegateMux *mux = Jobs_getAssociatedObjectByTarget(tableView, JobsTableViewDelegateMuxKey);
     if (!mux && createIfNeeded){
         mux = JobsTableViewDelegateMux.alloc.init;
-        Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey(tableView, &_jobsTableViewDelegateMux, mux)
+        Jobs_setAssociatedRETAIN_NONATOMICByTarget(tableView, JobsTableViewDelegateMuxKey, mux)
     };return mux;
 }
 

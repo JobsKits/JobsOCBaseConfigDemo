@@ -1,8 +1,8 @@
 //
 //  UICollectionView+Func.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2022/6/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UICollectionView+Func.h"
@@ -25,7 +25,7 @@
     };
 }
 
--(JobsReturnCollectionViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader{
+-(JobsRetCollectionViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(__kindof MJRefreshHeader * _Nullable header){
         @jobs_strongify(self)
@@ -35,7 +35,7 @@
     };
 }
 
--(JobsReturnCollectionViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter{
+-(JobsRetCollectionViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(__kindof MJRefreshFooter * _Nullable header){
         @jobs_strongify(self)
@@ -49,8 +49,8 @@
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(id _Nonnull target) {
         @jobs_strongify(self)
-        self.byDelegate(target);
-        self.byDataSource(target);
+        self.byDelegate(target)
+            .byDataSource(target);
         return self;
     };
 }

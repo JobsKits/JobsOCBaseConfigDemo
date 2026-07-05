@@ -1,16 +1,21 @@
 //
 //  JobsShakeBtn.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by hello on 2019/7/4.
-//  Copyright © 2019 Corp. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsShakeBtn.h"
+#import "JobsMakes.h"
+#import "UIView+Measure.h"
+#import "UIView+Extra.h"
+#import "NSMutableArray+Extra.h"
+#import "UIButton+UI.h"
+#import "NSObject+Extra.h"
 
 @interface JobsShakeBtn ()
 /// UI
-Prop_strong()UIView *coverView;/// 遮盖，在抖动时出现
+Prop_strong()UIView *coverView; // 遮盖，在抖动时出现
 Prop_strong()UITapGestureRecognizer *iconBtnTap;
 Prop_strong()CAKeyframeAnimation *anim;
 
@@ -32,7 +37,7 @@ Prop_strong()CAKeyframeAnimation *anim;
 
     self.titleLabel.x = 0;
     self.titleLabel.width = self.width;
-    if (self.mj_w >= self.height) {
+    if (self.width >= self.height) {
         self.titleLabel.height = 20;
         self.titleLabel.y = self.height - self.titleLabel.height;
     } else {
@@ -40,7 +45,7 @@ Prop_strong()CAKeyframeAnimation *anim;
         self.titleLabel.height = self.height - self.titleLabel.y;
     }
 
-    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.byTextAlignment(NSTextAlignmentCenter);
     [self bringSubviewToFront:_iconBtn];
 }
 #pragma mark —— BaseViewProtocol
@@ -49,9 +54,9 @@ Prop_strong()CAKeyframeAnimation *anim;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.jobsResetBtnImage(JobsBuddleIMG(@"bundle",@"Others",nil,@"加号.png"));
+        self.jobsResetBtnImage(JobsLoadBundleImage(@"bundle",@"Others",nil,@"加号.png"));
         [self addLongPressGestureRecognizer];
-        self.iconBtn.hidden = YES;
+        self.iconBtn.byHidden(YES);
     };
 }
 #pragma mark —— 一些私有方法
@@ -60,7 +65,6 @@ Prop_strong()CAKeyframeAnimation *anim;
     self.numberOfTouchesRequired = 1;
     self.numberOfTapsRequired = 1;/// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
     self.minimumPressDuration = 0.1;
-    self.numberOfTouchesRequired = 1;
     self.allowableMovement = 1;
     self.userInteractionEnabled = YES;
     self.weak_target = self;
@@ -68,25 +72,23 @@ Prop_strong()CAKeyframeAnimation *anim;
     self.longPressGR_SelImp.selector = [self jobsSelectorBlock:^id _Nullable(id _Nullable target,
                                                                              UITapGestureRecognizer *_Nullable arg) {
         @jobs_strongify(self)
-        if (![self.imageView.image isEqual:JobsBuddleIMG(nil,@"Others",nil,@"加号.png")]) {
+        if (![self.imageView.image isEqual:JobsLoadBundleImage(nil,@"Others",nil,@"加号.png")]) {
             if (self.shaking) return nil;
             self.shaking = YES;
         };return nil;
     }];self.longPressGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
 }
 /// 是否执行动画
-#pragma mark —— shaking
-@dynamic shaking;
 - (void)setShaking:(BOOL)shaking {
     if (shaking) {
         [self.layer addAnimation:self.anim
                           forKey:@"shake"];
-        self.coverView.hidden = NO;
-        self.iconBtn.hidden = NO;
+        self.coverView.byHidden(NO);
+        self.iconBtn.byHidden(NO);
     } else {
         [self.layer removeAllAnimations];
-        self.coverView.hidden = YES;
-        self.iconBtn.hidden = YES;
+        self.coverView.byHidden(YES);
+        self.iconBtn.byHidden(YES);
     }
 }
 /// 点击右上角按钮
@@ -96,16 +98,19 @@ Prop_strong()CAKeyframeAnimation *anim;
 #pragma mark —— lazyLoad
 - (UIImageView *)iconBtn {
     if (!_iconBtn) {
-        _iconBtn = [UIImageView.alloc initWithImage:@"del_Photo".img];
-        _iconBtn.userInteractionEnabled = YES;
-        _iconBtn.ableRespose = YES;
-        [_iconBtn addGestureRecognizer:self.iconBtnTap];
-        [self addSubview:_iconBtn];
-        [_iconBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(20,20));
-            make.top.equalTo(self).offset(-20 / 2);
-            make.right.equalTo(self).offset(20 / 2);
-        }];
+        _iconBtn = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byImage(@"del_Photo".img)
+                .byUserInteractionEnabled(YES)
+                .byAddGestureRecognizer(self.iconBtnTap)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(20,20));
+                    make.top.equalTo(self).offset(-20 / 2);
+                    make.right.equalTo(self).offset(20 / 2);
+                });
+            imageView.ableRespose = YES;
+        });
     };return _iconBtn;
 }
 /// 抖动动画
@@ -130,15 +135,17 @@ Prop_strong()CAKeyframeAnimation *anim;
 
 - (UIView *)coverView {
     if (!_coverView) {
-        _coverView = UIView.new;
-        _coverView.backgroundColor = JobsClearColor;
-        _coverView.hidden = YES;
-        
+        _coverView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(JobsClearColor)
+                .byHidden(YES)
+                .addOn(self)
+                .byFrame(self.bounds);
+        });
         {
             _coverView.numberOfTouchesRequired = 1;
             _coverView.numberOfTapsRequired = 1;/// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
             _coverView.minimumPressDuration = 0.1;
-            _coverView.numberOfTouchesRequired = 1;
             _coverView.allowableMovement = 1;
             _coverView.userInteractionEnabled = YES;
             _coverView.weak_target = self;
@@ -151,9 +158,6 @@ Prop_strong()CAKeyframeAnimation *anim;
             }];
             _coverView.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
         }
-        
-        [self addSubview:_coverView];
-        _coverView.frame = self.bounds;
     };return _coverView;
 }
 

@@ -1,11 +1,14 @@
 //
 //  JXCategoryNumberView+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Jobs on 2025/5/29.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "JobsBlock.h"
+
+#import "JobsOCDSL.h"
+#ifndef JOBS_HEADER_GUARD_JXCATEGORYNUMBERVIEW_EXTRA_74B711E4BE
+#define JOBS_HEADER_GUARD_JXCATEGORYNUMBERVIEW_EXTRA_74B711E4BE
 
 #if __has_include(<JXCategoryView/JXCategoryView.h>)
 #import <JXCategoryView/JXCategoryView.h>
@@ -13,13 +16,17 @@
 #import "JXCategoryView.h"
 #endif
 
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JXCategoryNumberView (Extra)
 
--(JobsReturnCategoryNumberViewByNumbersBlock _Nonnull)byCounts;
--(JobsReturnCategoryNumberViewByCGPointBlock _Nonnull)byNumberLabelOffset;
--(JobsReturnCategoryNumberViewByReturnStringByIntegerBlocks _Nonnull)byNumberStringFormatterBlock;
+-(JobsRetCategoryNumberViewByNumbersBlock _Nonnull)byCounts;
+-(JobsRetCategoryNumberViewByCGPointBlock _Nonnull)byNumberLabelOffset;
+-(JobsRetCategoryNumberViewByRetStringByIntegerBlocks _Nonnull)byNumberStringFormatterBlock;
 
 @end
 
@@ -83,3 +90,4 @@ NS_ASSUME_NONNULL_END
  }
  
  */
+#endif /* JOBS_HEADER_GUARD_JXCATEGORYNUMBERVIEW_EXTRA_74B711E4BE */

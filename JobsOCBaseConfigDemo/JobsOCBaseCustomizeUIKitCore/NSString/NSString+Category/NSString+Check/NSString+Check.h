@@ -1,44 +1,24 @@
 //
 //  NSString+Check.h
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Jobs on 2021/11/30.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_NSSTRING_CHECK_3D819C47DC
+#define JOBS_HEADER_GUARD_NSSTRING_CHECK_3D819C47DC
+
+#pragma once
 
 #import <Foundation/Foundation.h>
-#import <_ctype.h>
-#import "MacroDef_Func.h"
-#import "NSString+Check.h"
+#import <_ctype.h> // 引入字符分类与大小写转换等 C 标准字符处理相关的内部定义
+#import "NSString+Replace.h"
+
+#import "JobsStringUtilsHeader.h"
+
 #import "JobsBlock.h"
 
-/// 要判nil和NULL，必须用类方法或者内联函数，在实例方法里面nil和NULL会被包装为空串
-NS_INLINE BOOL isNull(id _Nonnull string){
-    if(string == nil) return YES;
-    if(string == NULL) return YES;
-    if((NSNull *)string == NSNull.null) return YES;
-    if([string isKindOfClass:NSNull.class]) return YES;
-    if([string isKindOfClass:NSString.class]){
-        NSString *str = (NSString *)string;
-        if([str isEqualToString:@"(null)"]) return YES;
-        if([str isEqualToString:@"null"]) return YES;
-        if([str isEqualToString:@"<null>"]) return YES;
-        if([str isEqualToString:@""]) return YES;
-        /// 去掉两端的空格
-        return ![str stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet].length;
-    }else{
-        NSString *str = [NSString stringWithFormat:@"%@",string];
-        /// 去掉两端的空格
-        return ![str stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet].length;
-    };return NO;
-}
-
-NS_INLINE BOOL isValue(id _Nonnull string){
-    return !isNull(string);
-}
-
-NS_INLINE NSString *_Nonnull Guard(NSString *_Nullable data){
-    return isValue(data) ? data : @"";
-}
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -105,3 +85,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSSTRING_CHECK_3D819C47DC */

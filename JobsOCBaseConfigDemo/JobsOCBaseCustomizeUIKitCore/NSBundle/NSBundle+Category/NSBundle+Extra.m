@@ -1,8 +1,8 @@
 //
 //  NSBundle+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsLanMgr
 //
-//  Created by User on 9/1/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSBundle+Extra.h"
@@ -34,10 +34,9 @@
 }
 
 -(JobsRetIDByStrBlock _Nonnull)objectForInfoDictionaryKey{
-    @jobs_weakify(self)
+    NSBundle *bundle = self;
     return ^id _Nullable(NSString *_Nullable data){
-        @jobs_strongify(self)
-        return [self objectForInfoDictionaryKey:data];
+        return [bundle objectForInfoDictionaryKey:data];
     };
 }
 

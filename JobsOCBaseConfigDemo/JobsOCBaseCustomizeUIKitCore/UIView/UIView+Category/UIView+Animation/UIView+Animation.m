@@ -1,9 +1,8 @@
 //
 //  UIView+Animation.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/9/3.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIView+Animation.h"
@@ -76,21 +75,24 @@
         CAKeyframeAnimation *popAnimation = @"transform".keyframeAnimation;
         popAnimation.duration = 1;
         popAnimation.values = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add([NSValue valueWithCATransform3D:CATransform3DMakeScale(0.01f,0.01f,1.0f)])
-            .add([NSValue valueWithCATransform3D:CATransform3DMakeScale(1.1f,1.1f,1.0f)])
-            .add([NSValue valueWithCATransform3D:CATransform3DIdentity]);
+            data
+                .add([NSValue valueWithCATransform3D:CATransform3DMakeScale(0.01f,0.01f,1.0f)])
+                .add([NSValue valueWithCATransform3D:CATransform3DMakeScale(1.1f,1.1f,1.0f)])
+                .add([NSValue valueWithCATransform3D:CATransform3DIdentity]);
         });
         popAnimation.keyTimes = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add(@0.0f)
-            .add(@0.5f)
-            .add(@0.75f)
-            .add(@1.0f);
+            data
+                .add(@0.0f)
+                .add(@0.5f)
+                .add(@0.75f)
+                .add(@1.0f);
         });
 
         popAnimation.timingFunctions = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction)
-            .add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction)
-            .add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction);
+            data
+                .add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction)
+                .add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction)
+                .add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction);
         });
         [self.layer addAnimation:popAnimation forKey:nil];
         return self;
@@ -146,14 +148,15 @@
 /// 逐渐显示
 -(void)graduallyShowWithAnimationBlock:(jobsByIDBlock _Nullable)animationBlock
                        completionBlock:(jobsByIDBlock _Nullable)completionBlock{
-    self.alpha = 0.0;
+    self.byAlpha(0.0);
     @jobs_weakify(self)
     [UIView animateWithDuration:0.3
                           delay:0.05
                         options:0
                      animations:^{
         @jobs_strongify(self)
-        self.alpha = 1.0;
+        self.byAlpha(1.0);
+
         if (animationBlock) animationBlock(@(1));
     } completion:^(BOOL finished) {
         if (completionBlock) completionBlock(@(1));
@@ -168,7 +171,7 @@
                         options:0
                      animations:^{
         @jobs_strongify(self)
-        self.alpha = 0.0;
+        self.byAlpha(0.0);
         if (animationBlock) animationBlock(@(1));
     } completion:^(BOOL finished) {
         if (completionBlock) completionBlock(@(1));
@@ -181,22 +184,24 @@
     CGFloat currentTx = self.transform.ty;
     animation.duration = duration;
     animation.values = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-        data.add(@(currentTx))
-        .add(@(currentTx + height))
-        .add(@(currentTx - height / 3 * 2))
-        .add(@(currentTx + height / 3 * 2))
-        .add(@(currentTx - height / 3))
-        .add(@(currentTx + height / 3))
-        .add(@(currentTx));
+        data
+            .add(@(currentTx))
+            .add(@(currentTx + height))
+            .add(@(currentTx - height / 3 * 2))
+            .add(@(currentTx + height / 3 * 2))
+            .add(@(currentTx - height / 3))
+            .add(@(currentTx + height / 3))
+            .add(@(currentTx));
     });
     animation.keyTimes = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-        data.add(@(0))
-        .add(@(0.225))
-        .add(@(0.425))
-        .add(@(0.6))
-        .add(@(0.75))
-        .add(@(0.875))
-        .add(@(1));
+        data
+            .add(@(0))
+            .add(@(0.225))
+            .add(@(0.425))
+            .add(@(0.6))
+            .add(@(0.75))
+            .add(@(0.875))
+            .add(@(1));
     });
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [self.layer addAnimation:animation forKey:@"kViewShakerAnimationKey"];
@@ -252,7 +257,7 @@ JobsKey(_delayTime)
 -(void)setDelayTime:(CGFloat)delayTime{
     Jobs_setAssociatedRETAIN_NONATOMIC(_delayTime, @(delayTime))
 }
-#pragma mark —— Prop_assign()BOOL isStopRotateAnimation;//默认值为NO（一直旋转）
+#pragma mark —— Prop_assign()BOOL isStopRotateAnimation;// 默认值为NO（一直旋转）
 JobsKey(_isStopRotateAnimation)
 @dynamic isStopRotateAnimation;
 -(BOOL)isStopRotateAnimation{

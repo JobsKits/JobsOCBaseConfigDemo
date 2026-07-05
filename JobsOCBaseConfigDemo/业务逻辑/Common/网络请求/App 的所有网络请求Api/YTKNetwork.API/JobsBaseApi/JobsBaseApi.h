@@ -1,13 +1,18 @@
 //
 //  JobsBaseApi.h
-//  JobsOCBaseConfigDemo
+//  JobsAPIs
 //
-//  Created by User on 9/12/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_JOBSBASEAPI_EF05F493DD
+#define JOBS_HEADER_GUARD_JOBSBASEAPI_EF05F493DD
+
 #import <Foundation/Foundation.h>
-#import "YTKNetworkToolsHeader.h"
-#import "NSString+Conversion.h"
+
+#import "YTKNetworkExtra.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// JobsBaseApi >> BaseRequest >> YTKRequest >> YTKBaseRequest >> NSObject
@@ -16,3 +21,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSBASEAPI_EF05F493DD */

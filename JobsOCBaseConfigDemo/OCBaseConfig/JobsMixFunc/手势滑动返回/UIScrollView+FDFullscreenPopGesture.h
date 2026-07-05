@@ -1,10 +1,12 @@
 //
 //  UIScrollView+FDFullscreenPopGesture.h
-//  JobsOCBaseConfigDemo
+//  FDFullscreenPopGesture
 //
-//  Created by Jobs on 2020/10/6.
-//  Copyright © 2020 forkingdog. All rights reserved.
-//  https://github.com/forkingdog/FDFullscreenPopGesture/issues/177
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_UISCROLLVIEW_FDFULLSCREENPOPGESTURE_0EEC650902
+#define JOBS_HEADER_GUARD_UISCROLLVIEW_FDFULLSCREENPOPGESTURE_0EEC650902
 
 #import <UIKit/UIKit.h>
 
@@ -15,3 +17,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UISCROLLVIEW_FDFULLSCREENPOPGESTURE_0EEC650902 */

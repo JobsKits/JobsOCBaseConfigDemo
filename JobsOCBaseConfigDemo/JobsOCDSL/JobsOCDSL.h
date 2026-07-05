@@ -1,6 +1,6 @@
 //
 //  JobsOCDSL.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月1日，星期一.
 //
@@ -48,6 +48,7 @@
 #import "UICollectionViewFlowLayout+DSL.h"
 #import "UIControl+DSL.h"
 #import "UIProgressView+DSL.h"
+#import "UISlider+DSL.h"
 #import "UIBackgroundConfiguration+DSL.h"
 #import "UIButtonConfiguration+DSL.h"
 #import "UIButton+DSL.h"
@@ -66,27 +67,53 @@
 #import "UITextField+DSL.h"
 #import "UITextView+DSL.h"
 #import "JobsSystemAPIDSLSupplement.h"
+#if __has_include(<FSCalendar/FSCalendar.h>)
 #import "FSCalendar+DSL.h"
+#endif
+
+#if __has_include(<SDWebImage/SDWebImage.h>)
 #import "UIButton+SDWebImage.h"
 #import "UIImageView+SDWebImage.h"
+#endif
+
+#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import "ReactiveObjC+DSL.h"
+#endif
+
+#if __has_include(<HXPhotoPickerObjC/HXPhotoPicker.h>)
 #import "HXPhotoView+DSL.h"
 #import "HXPhotoManager+DSL.h"
 #import "HXPhotoConfiguration+DSL.h"
+#endif
+
+#if __has_include(<GKNavigationBar/GKNavigationBar.h>)
 #import "GKNavigationBarConfigure+DSL.h"
 #import "GKGestureHandleConfigure+DSL.h"
+#endif
+
+#if __has_include(<Masonry/Masonry.h>)
 #import "UIView+MasonryDSL.h"
 #import "UIViewController+MasonryDSL.h"
+#endif
+
+#if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import "YTKBaseRequest+DSL.h"
 #import "YTKBatchRequest+DSL.h"
 #import "YTKChainRequest+DSL.h"
+#endif
+
+#if __has_include(<ZFPlayer/ZFPlayer.h>)
 #import "ZFPlayerController+DSL.h"
 #import "ZFAVPlayerManager+DSL.h"
+#endif
+
+#if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
 #import "ASDisplayNode+DSL.h"
 #import "ASButtonNode+DSL.h"
 #import "ASCollectionNode+DSL.h"
 #import "ASEditableTextNode+DSL.h"
 #import "ASNetworkImageNode+DSL.h"
 #import "ASStackLayoutSpec+DSL.h"
+#endif
 
 #endif /* JobsOCDSL_h */

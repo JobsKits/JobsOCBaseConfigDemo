@@ -1,17 +1,24 @@
 //
 //  UICollectionViewCell+UICollectionViewCellProtocol.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/3/11.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UICOLLECTIONVIEWCELL_UICOLLECTIONVIEWCELLPROTOCOL_AADB681CDC
+#define JOBS_HEADER_GUARD_UICOLLECTIONVIEWCELL_UICOLLECTIONVIEWCELLPROTOCOL_AADB681CDC
+
 #import <UIKit/UIKit.h>
-#import "MacroDef_Func.h"
-#import "JobsMakes.h"
-#import "UIBezierPath+Extras.h"
-#import "JobsDefineEnums.h"
-#import "UICollectionViewCellProtocol.h"
+#import "UIBezierPath+Extra.h"
 #import "CALayer+Extra.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsMakes.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /**
@@ -28,6 +35,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface UICollectionViewCell (UICollectionViewCellProtocol)<UICollectionViewCellProtocol>
 
+-(JobsRetCollectionViewCellByIndexPathBlock _Nonnull)byIndexPath;
+-(JobsRetCollectionViewCellByJobsByViewBlock _Nonnull)byContentView;
+-(JobsRetCollectionViewCellByCorBlock _Nonnull)byContentViewBgCor;
+-(JobsRetCollectionViewCellByDelegateBlock _Nonnull)byDelegate;
+
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UICOLLECTIONVIEWCELL_UICOLLECTIONVIEWCELLPROTOCOL_AADB681CDC */

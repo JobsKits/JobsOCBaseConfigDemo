@@ -1,26 +1,29 @@
 //
 //  JobsNavigationTransitionMgr.m
-//  JobsOCBaseConfigDemo
+//  JobsNavigationTransitionMgr
 //
-//  Created by Jobs on 2025/5/4.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsNavigationTransitionMgr.h"
-#import "MacroDef_Sys.h"
+#import "UIView+Extra.h"
+#import "UIViewController+Extra.h"
+#import "UIGestureRecognizer+Extra.h"
 
 @interface JobsNavigationTransitionMgr ()
 
 Prop_weak()UIViewController *viewController;
-Prop_assign()JobsDirection direction;
+Prop_assign()JobsTransitionDirection direction;
 Prop_strong()UIPercentDrivenInteractiveTransition *interactiveTransition;
 Prop_assign()ComingStyle comingStyle;
 
 @end
 
 @implementation JobsNavigationTransitionMgr
-static JobsDirection _storedDirection;
+static JobsTransitionDirection _storedDirection;
 static JobsNavigationTransitionMgr *static_navigationTransitionMgr = nil;
 static dispatch_once_t static_navigationTransitionManagerOnceToken;
+JobsKey(_navigationTransitionMgr)
 /// 单例化和销毁
 +(void)destroySingleton{
     static_navigationTransitionManagerOnceToken = 0;
@@ -37,20 +40,20 @@ static dispatch_once_t static_navigationTransitionManagerOnceToken;
     return self.comingStyle == ComingStyle_PUSH;
 }
 #pragma mark —— 一些公共方法
-+(void)setDirection:(JobsDirection)direction
++(void)setDirection:(JobsTransitionDirection)direction
 forNavigationController:(UINavigationController *)navCtrlVC{
     _storedDirection = direction;
     navCtrlVC.delegate = self.sharedManager;
 }
 /// 自定义 push/pop 控制器的手势方向
 +(void)attachToViewController:(UIViewController *)viewController
-           animationDirection:(JobsDirection)direction {
+           animationDirection:(JobsTransitionDirection)direction {
     JobsNavigationTransitionMgr *manager = jobsMakeNavigationTransitionMgr(^(__kindof JobsNavigationTransitionMgr * _Nullable manager) {
         manager.viewController = viewController;
         manager.direction = direction;
     });
     /// 关联对象，防止被释放
-    Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey(viewController, _cmd, manager)
+    Jobs_setAssociatedRETAIN_NONATOMICByTarget(viewController, _navigationTransitionMgr, manager)
     /// 禁用系统的 pop 手势
     viewController.clzPopGesture();
     /// 设置导航控制器代理
@@ -62,7 +65,7 @@ forNavigationController:(UINavigationController *)navCtrlVC{
         CGPoint translation = [gesture translationInView:gesture.view];
         CGFloat progress = translation.x / gesture.view.bounds.size.width;
         /// 右往左滑动手势
-        if (direction == JobsDirectionLeft && translation.x < 0) progress = -progress; /// 转为正值
+        if (direction == JobsTransitionDirectionLeft && translation.x < 0) progress = -progress; /// 转为正值
         if(self.directionByPoint(translation) == direction){
             switch (gesture.state) {
                 case UIGestureRecognizerStateBegan:
@@ -133,19 +136,19 @@ forNavigationController:(UINavigationController *)navCtrlVC{
     CGFloat h = screenBounds.size.height;
 
     switch (self.direction) {
-        case JobsDirectionLeft:
+        case JobsTransitionDirectionLeft:
             toStartFrame = self.isPush ? CGRectOffset(screenBounds, -w, 0) : screenBounds;
             fromEndFrame = self.isPush ? screenBounds : CGRectOffset(screenBounds, -w, 0);
             break;
-        case JobsDirectionRight:
+        case JobsTransitionDirectionRight:
             toStartFrame = self.isPush ? CGRectOffset(screenBounds, w, 0) : screenBounds;
             fromEndFrame = self.isPush ? screenBounds : CGRectOffset(screenBounds, w, 0);
             break;
-        case JobsDirectionUp:
+        case JobsTransitionDirectionTop:
             toStartFrame = self.isPush ? CGRectOffset(screenBounds, 0, -h) : screenBounds;
             fromEndFrame = self.isPush ? screenBounds : CGRectOffset(screenBounds, 0, -h);
             break;
-        case JobsDirectionDown:
+        case JobsTransitionDirectionBottom:
             toStartFrame = self.isPush ? CGRectOffset(screenBounds, 0, h) : screenBounds;
             fromEndFrame = self.isPush ? screenBounds : CGRectOffset(screenBounds, 0, h);
             break;
@@ -153,18 +156,23 @@ forNavigationController:(UINavigationController *)navCtrlVC{
 
     if (self.isPush) {
         containerView.addSubview(toVC.view);
-        toVC.view.frame = toStartFrame;
+        toVC.view.byFrame(toStartFrame);
+
     } else {
         [containerView insertSubview:toVC.view belowSubview:fromVC.view];
-        toVC.view.frame = screenBounds;
+        toVC.view.byFrame(screenBounds);
+
     }
 
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
         if (self.isPush) {
-            toVC.view.frame = screenBounds;
-            fromVC.view.frame = screenBounds;
+            toVC.view.byFrame(screenBounds);
+
+            fromVC.view.byFrame(screenBounds);
+
         } else {
-            fromVC.view.frame = fromEndFrame;
+            fromVC.view.byFrame(fromEndFrame);
+
         }
     } completion:^(BOOL finished) {
         /// 一定要调用 [transitionContext completeTransition:]，否则系统会认为转场未完成，界面卡住

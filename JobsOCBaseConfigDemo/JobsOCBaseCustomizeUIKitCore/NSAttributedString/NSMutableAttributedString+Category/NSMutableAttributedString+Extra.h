@@ -1,14 +1,23 @@
 //
 //  NSMutableAttributedString+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsRichTextUtils
 //
-//  Created by Jobs on 2024/4/26.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreText/CoreText.h>
+#ifndef JOBS_HEADER_GUARD_NSMUTABLEATTRIBUTEDSTRING_EXTRA_BC41689F86
+#define JOBS_HEADER_GUARD_NSMUTABLEATTRIBUTEDSTRING_EXTRA_BC41689F86
+
+#import <CoreText/CoreText.h> // 提供底层文本排版与渲染能力，适合富文本、复杂排版和精细文本控制场景。
+#import <UIKit/UIKit.h>
+
+#import "JobsModelDSL.h"
+
+#import "JobsMakes.h"
+
 #import "JobsBlock.h"
-#import "JobsModel.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// NSMutableAttributedString 用于设置段落样式，包括行间距、段间距、对齐方式等
@@ -20,26 +29,25 @@ NS_ASSUME_NONNULL_BEGIN
 /// OC富文本字符串拼接
 -(JobsRetAttributedStringByAttributedStringBlock _Nonnull)add;
 /// 段落
--(JobsReturnMutAttributedStringByParagraphStyleModelBlock _Nonnull)addAttributeNameByParagraphStyleModel;
+-(JobsRetMutAttributedStringByParagraphStyleModelBlock _Nonnull)addAttributeNameByParagraphStyleModel;
 /// 颜色
--(JobsReturnMutAttributedStringByParagraphStyleModelBlock _Nonnull)addForegroundColorAttributeNameByParagraphStyleModel;
+-(JobsRetMutAttributedStringByParagraphStyleModelBlock _Nonnull)addForegroundColorAttributeNameByParagraphStyleModel;
 /// 字体
--(JobsReturnMutAttributedStringByParagraphStyleModelBlock _Nonnull)addFontAttributeNameByParagraphStyleModel;
+-(JobsRetMutAttributedStringByParagraphStyleModelBlock _Nonnull)addFontAttributeNameByParagraphStyleModel;
 /// 设置下划线
--(JobsReturnMutAttributedStringByParagraphStyleModelBlock _Nonnull)addUnderlineStyleAttributeNameByParagraphStyleModel;
+-(JobsRetMutAttributedStringByParagraphStyleModelBlock _Nonnull)addUnderlineStyleAttributeNameByParagraphStyleModel;
 /// 设置下划线的颜色
--(JobsReturnMutAttributedStringByParagraphStyleModelBlock _Nonnull)addUnderlineColorAttributeNameByParagraphStyleModel;
+-(JobsRetMutAttributedStringByParagraphStyleModelBlock _Nonnull)addUnderlineColorAttributeNameByParagraphStyleModel;
 /// 超链接
--(JobsReturnMutAttributedStringByParagraphStyleModelBlock _Nonnull)addLinkAttributeNameByParagraphStyleModel;
+-(JobsRetMutAttributedStringByParagraphStyleModelBlock _Nonnull)addLinkAttributeNameByParagraphStyleModel;
 /// 设置富文本的字符间距
--(JobsReturnMutAttributedStringByParagraphStyleModelBlock _Nonnull)addkCTKernAttributeNameByParagraphStyleModel;
+-(JobsRetMutAttributedStringByParagraphStyleModelBlock _Nonnull)addkCTKernAttributeNameByParagraphStyleModel;
 
 @end
 
 NS_ASSUME_NONNULL_END
 /**
  
-#import <CoreText/CoreText.h>
  
  kCTFontAttributeName    设置字体 (CTFontRef)
  kCTForegroundColorAttributeName    设置字体颜色 (CGColorRef)
@@ -86,3 +94,4 @@ NS_ASSUME_NONNULL_END
  CFRelease(framesetter);
 
  */
+#endif /* JOBS_HEADER_GUARD_NSMUTABLEATTRIBUTEDSTRING_EXTRA_BC41689F86 */

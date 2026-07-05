@@ -1,9 +1,8 @@
 //
-//  handleDemoView.m
-//  JobsOCBaseConfigDemo
+//  HAHandleDemoView.m
+//  JobsOCTools
 //
-//  Created by ZengYong on 16/4/8.
-//  Copyright © 2016年 maipu. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "HAHandleDemoView.h"
@@ -29,9 +28,11 @@ Prop_strong()NSTimer *shrinkTimer;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.bgView = [[UIView alloc]initWithFrame:CGRectMake((CGRectGetWidth(frame)-CGRectGetHeight(frame))*0.5, 0, CGRectGetHeight(frame), CGRectGetHeight(frame))];
-        self.bgView.backgroundColor = [UIColor grayColor];
+        self.bgView.byBgColor([UIColor grayColor]);
+
         self.bgView.layer.cornerRadius = CGRectGetHeight(frame) / 2;
-        self.bgView.hidden = YES;
+        self.bgView.byHidden(YES);
+
 //        self.handleDemoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame))];
         
 //        [self.handleDemoBtn setBackgroundColor:[UIColor blackColor]];
@@ -44,7 +45,8 @@ Prop_strong()NSTimer *shrinkTimer;
 // 点击放大
 - (void)handleBtnTouchDownAction{
     currentMaxSide = [self calculateMaxSide];
-    self.bgView.hidden = NO;
+    self.bgView.byHidden(NO);
+
     self.enlangerTimer = [NSTimer scheduledTimerWithTimeInterval:enlangerDuration target:self selector:@selector(handleEnlargerAction) userInfo:nil repeats:YES];
 }
 // 点击放大
@@ -75,7 +77,8 @@ Prop_strong()NSTimer *shrinkTimer;
     if (currentScale <= 0) {
         [self.shrinkTimer invalidate];
 //        self.handleDemoBtn.userInteractionEnabled = YES;
-        self.bgView.hidden = YES;
+        self.bgView.byHidden(YES);
+
         self.bgView.transform = CGAffineTransformIdentity;
         if (self.delegate && [self.delegate respondsToSelector:@selector(animationCancel)]) {
             [self.delegate animationCancel];

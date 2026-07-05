@@ -1,13 +1,22 @@
 //
-//  WGradientProgressLab.h
-//  JobsOCBaseConfigDemo
+//  WGradientProgressView.h
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/9/9.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_WGRADIENTPROGRESSVIEW_59226093F6
+#define JOBS_HEADER_GUARD_WGRADIENTPROGRESSVIEW_59226093F6
+
 #import <UIKit/UIKit.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsMakes.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 进度条上方的指示标签，可以作为动态跟随，也可以作为固定在栅栏的上方
@@ -15,9 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_copy()NSString *titleStr;
 Prop_strong()UIImage *img;
+
 Prop_strong()UIFont *titleFont;
 Prop_strong()UIColor *titleColor;
 
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_WGRADIENTPROGRESSVIEW_59226093F6 */

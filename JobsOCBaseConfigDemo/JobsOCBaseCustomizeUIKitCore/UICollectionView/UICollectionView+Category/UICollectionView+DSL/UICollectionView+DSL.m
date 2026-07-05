@@ -1,23 +1,23 @@
 //
 //  UICollectionView+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UICollectionView+DSL.h"
 
-JobsKey(_jobsCollectionViewBlocksProxy)
-JobsKey(_jobsCollectionViewDataSourceMux)
-JobsKey(_jobsCollectionViewDelegateMux)
+JobsKey(JobsCollectionViewBlocksProxyKey)
+JobsKey(JobsCollectionViewDataSourceMuxKey)
+JobsKey(JobsCollectionViewDelegateMuxKey)
 
 @interface JobsCollectionViewBlocksProxy : NSObject <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (nonatomic, weak, nullable) id target;
-@property (nonatomic, copy, nullable) jobsCollectionViewNumberOfSectionsBlock numberOfSectionsBlock;
-@property (nonatomic, copy, nullable) jobsCollectionViewNumberOfItemsInSectionBlock numberOfItemsInSectionBlock;
-@property (nonatomic, copy, nullable) jobsCollectionViewCellForItemAtBlock cellForItemAtBlock;
-@property (nonatomic, copy, nullable) jobsCollectionViewDidSelectItemAtBlock didSelectItemAtBlock;
+Prop_weak(nullable)id target;
+Prop_copy(nullable)jobsCollectionViewNumberOfSectionsBlock numberOfSectionsBlock;
+Prop_copy(nullable)jobsCollectionViewNumberOfItemsInSectionBlock numberOfItemsInSectionBlock;
+Prop_copy(nullable)jobsCollectionViewCellForItemAtBlock cellForItemAtBlock;
+Prop_copy(nullable)jobsCollectionViewDidSelectItemAtBlock didSelectItemAtBlock;
 
 @end
 
@@ -49,8 +49,8 @@ JobsKey(_jobsCollectionViewDelegateMux)
 
 @interface JobsCollectionViewDataSourceMux : NSObject <UICollectionViewDataSource>
 
-@property (nonatomic, weak, nullable) NSObject<UICollectionViewDataSource> *primary;
-@property (nonatomic, weak, nullable) NSObject<UICollectionViewDataSource> *secondary;
+Prop_weak(nullable)NSObject<UICollectionViewDataSource> *primary;
+Prop_weak(nullable)NSObject<UICollectionViewDataSource> *secondary;
 
 @end
 
@@ -80,8 +80,8 @@ JobsKey(_jobsCollectionViewDelegateMux)
 
 @interface JobsCollectionViewDelegateMux : NSObject <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic, weak, nullable) NSObject<UICollectionViewDelegate> *primary;
-@property (nonatomic, weak, nullable) NSObject<UICollectionViewDelegate> *secondary;
+Prop_weak(nullable)NSObject<UICollectionViewDelegate> *primary;
+Prop_weak(nullable)NSObject<UICollectionViewDelegate> *secondary;
 
 @end
 
@@ -110,26 +110,26 @@ JobsKey(_jobsCollectionViewDelegateMux)
 @end
 
 static inline JobsCollectionViewBlocksProxy *jobs_collectionViewBlocksProxy(UICollectionView *collectionView, BOOL createIfNeeded){
-    JobsCollectionViewBlocksProxy *proxy = Jobs_getAssociatedObjectByTargetRawKey(collectionView, &_jobsCollectionViewBlocksProxy);
+    JobsCollectionViewBlocksProxy *proxy = Jobs_getAssociatedObjectByTarget(collectionView, JobsCollectionViewBlocksProxyKey);
     if (!proxy && createIfNeeded){
         proxy = JobsCollectionViewBlocksProxy.alloc.init;
-        Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey(collectionView, &_jobsCollectionViewBlocksProxy, proxy)
+        Jobs_setAssociatedRETAIN_NONATOMICByTarget(collectionView, JobsCollectionViewBlocksProxyKey, proxy)
     };return proxy;
 }
 
 static inline JobsCollectionViewDataSourceMux *jobs_collectionViewDataSourceMux(UICollectionView *collectionView, BOOL createIfNeeded){
-    JobsCollectionViewDataSourceMux *mux = Jobs_getAssociatedObjectByTargetRawKey(collectionView, &_jobsCollectionViewDataSourceMux);
+    JobsCollectionViewDataSourceMux *mux = Jobs_getAssociatedObjectByTarget(collectionView, JobsCollectionViewDataSourceMuxKey);
     if (!mux && createIfNeeded){
         mux = JobsCollectionViewDataSourceMux.alloc.init;
-        Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey(collectionView, &_jobsCollectionViewDataSourceMux, mux)
+        Jobs_setAssociatedRETAIN_NONATOMICByTarget(collectionView, JobsCollectionViewDataSourceMuxKey, mux)
     };return mux;
 }
 
 static inline JobsCollectionViewDelegateMux *jobs_collectionViewDelegateMux(UICollectionView *collectionView, BOOL createIfNeeded){
-    JobsCollectionViewDelegateMux *mux = Jobs_getAssociatedObjectByTargetRawKey(collectionView, &_jobsCollectionViewDelegateMux);
+    JobsCollectionViewDelegateMux *mux = Jobs_getAssociatedObjectByTarget(collectionView, JobsCollectionViewDelegateMuxKey);
     if (!mux && createIfNeeded){
         mux = JobsCollectionViewDelegateMux.alloc.init;
-        Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey(collectionView, &_jobsCollectionViewDelegateMux, mux)
+        Jobs_setAssociatedRETAIN_NONATOMICByTarget(collectionView, JobsCollectionViewDelegateMuxKey, mux)
     };return mux;
 }
 

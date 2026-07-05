@@ -7,7 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import "JobsDefines.h"\n
+#import "JobsDefines.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsOCPatchModel : NSObject

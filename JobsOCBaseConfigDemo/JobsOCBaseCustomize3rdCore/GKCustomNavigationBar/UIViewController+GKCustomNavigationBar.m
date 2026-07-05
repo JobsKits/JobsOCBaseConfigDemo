@@ -1,15 +1,16 @@
 //
 //  UIViewController+GKCustomNavigationBar.m
-//  JobsOCBaseConfigDemo
+//  JobsNavigationTransitionMgr
 //
-//  Created by Jobs on 2025/5/5.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIViewController+GKCustomNavigationBar.h"
+#import "UIButton+SimplyMake.h"
 
 @implementation UIViewController (GKCustomNavigationBar)
 #pragma mark —— 一些公有方法
--(JobsReturnGKNavBarByButtonModelBlock _Nonnull)gk_navTitleBtnBy{
+-(JobsRetGKNavBarByButtonModelBlock _Nonnull)gk_navTitleBtnBy{
     @jobs_weakify(self)
     return ^__kindof GKCustomNavigationBar *_Nullable(__kindof UIButtonModel *_Nullable model){
         @jobs_strongify(self)

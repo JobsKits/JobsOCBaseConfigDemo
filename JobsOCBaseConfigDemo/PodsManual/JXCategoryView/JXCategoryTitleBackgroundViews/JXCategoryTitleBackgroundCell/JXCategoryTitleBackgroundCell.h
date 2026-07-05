@@ -1,12 +1,18 @@
 //
 //  JXCategoryTitleBackgroundCell.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by jiaxin on 2019/8/16.
-//  Copyright © 2019 jiaxin. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_JXCATEGORYTITLEBACKGROUNDCELL_BDCF1331A0
+#define JOBS_HEADER_GUARD_JXCATEGORYTITLEBACKGROUNDCELL_BDCF1331A0
+
+#if __has_include(<JXCategoryView/JXCategoryTitleCell.h>)
+#import <JXCategoryView/JXCategoryTitleCell.h>
+#else
 #import "JXCategoryTitleCell.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,3 +21,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JXCATEGORYTITLEBACKGROUNDCELL_BDCF1331A0 */

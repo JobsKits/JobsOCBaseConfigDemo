@@ -16,7 +16,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#ifndef JOBS_BRSTRINGPICKERVIEW_DECLARED
+#if !defined(BRStringPickerView) && !defined(JOBS_BRSTRINGPICKERVIEW_DECLARED)
 #define JOBS_BRSTRINGPICKERVIEW_DECLARED
 /// Use 'BRTextPickerView' instead.
 @interface BRStringPickerView : BRTextPickerView

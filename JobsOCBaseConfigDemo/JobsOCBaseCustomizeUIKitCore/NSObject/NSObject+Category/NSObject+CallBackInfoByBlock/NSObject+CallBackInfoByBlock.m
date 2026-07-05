@@ -1,8 +1,8 @@
 //
 //  NSObject+CallBackInfoByBlock.m
-//  JobsOCBaseConfigDemo
+//  JobsBlock
 //
-//  Created by Jobs on 2021/2/26.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+CallBackInfoByBlock.h"
@@ -11,7 +11,7 @@
 /// 这是因为 nil 对象并不会执行任何方法实现，分类中的方法也不会被调用。
 @implementation NSObject (CallBackInfoByBlock)
 #pragma mark —— UIView
--(JobsReturnViewByIDBlocks _Nullable)JobsBlock1{
+-(JobsRetViewByIDBlocks _Nullable)JobsBlock1{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(jobsByIDBlock _Nullable data){
         @jobs_strongify(self)
@@ -20,7 +20,7 @@
     };
 }
 
--(JobsReturnIDByRetIDVoidBlocks _Nullable)JobsBlock2{
+-(JobsRetIDByRetIDVoidBlocks _Nullable)JobsBlock2{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(JobsRetIDByVoidBlock _Nullable data){
         @jobs_strongify(self)
@@ -29,7 +29,7 @@
     };
 }
 
--(JobsReturnIDByRetIDByIDBlocks _Nullable)JobsBlock3{
+-(JobsRetIDByRetIDByIDBlocks _Nullable)JobsBlock3{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(JobsRetIDByIDBlock _Nullable data){
         @jobs_strongify(self)
@@ -38,7 +38,7 @@
     };
 }
 #pragma mark —— UIViewController
--(JobsReturnVCByIDBlocks _Nullable)JobsBlock4{
+-(JobsRetVCByIDBlocks _Nullable)JobsBlock4{
     @jobs_weakify(self)
     return ^__kindof UIViewController *_Nullable(jobsByIDBlock _Nullable data){
         @jobs_strongify(self)
@@ -47,7 +47,7 @@
     };
 }
 
--(JobsReturnVCByRetIDByVoidBlocks _Nullable)JobsBlock5{
+-(JobsRetVCByRetIDByVoidBlocks _Nullable)JobsBlock5{
     @jobs_weakify(self)
     return ^__kindof UIViewController *_Nullable(JobsRetIDByVoidBlock _Nullable data){
         @jobs_strongify(self)
@@ -56,7 +56,7 @@
     };
 }
 
--(JobsReturnVCByRetIDByIDBlocks _Nullable)JobsBlock6{
+-(JobsRetVCByRetIDByIDBlocks _Nullable)JobsBlock6{
     @jobs_weakify(self)
     return ^__kindof UIViewController *_Nullable(JobsRetIDByIDBlock _Nullable data){
         @jobs_strongify(self)

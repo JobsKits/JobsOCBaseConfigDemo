@@ -1,15 +1,21 @@
 //
-//  CollectionReusableView.h
-//  JobsOCBaseConfigDemo
+//  BaseCollectionReusableView.h
+//  JobsBaseUI
 //
-//  Created by Jobs on 2020/10/12.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_BASECOLLECTIONREUSABLEVIEW_F067AB0C92
+#define JOBS_HEADER_GUARD_BASECOLLECTIONREUSABLEVIEW_F067AB0C92
+
 #import <UIKit/UIKit.h>
-#import "BaseViewProtocol.h"
-#import "BaseProtocol.h"
-#import "JobsBlock.h"
-#import "MacroDef_Func.h"
+#import "UIView+Extra.h"
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
 
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>
@@ -35,15 +41,28 @@
 //#import "RACEXTRuntimeExtensions.h"
 //#endif
 
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsModelDSL.h"
+
+#import "JobsMakes.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /// 更多自定义，移步 JobsHeaderFooterView
 @interface BaseCollectionReusableView : UICollectionReusableView
 <
-BaseViewProtocol
-,BaseProtocol
+BaseViewProtocol,
+BaseProtocol,
+UITextFieldProtocol,
+UIPictureAndBackGroundCorProtocol,
+AppToolsProtocol
 >
 
 @end
 
 NS_ASSUME_NONNULL_END
-
+#endif /* JOBS_HEADER_GUARD_BASECOLLECTIONREUSABLEVIEW_F067AB0C92 */

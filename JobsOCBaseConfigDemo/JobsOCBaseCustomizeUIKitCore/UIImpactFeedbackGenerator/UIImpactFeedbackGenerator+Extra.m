@@ -1,8 +1,8 @@
 //
 //  UIImpactFeedbackGenerator+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Admin on 17/12/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIImpactFeedbackGenerator+Extra.h"
@@ -26,7 +26,8 @@
             return [UIImpactFeedbackGenerator feedbackGeneratorWithStyle:UIImpactFeedbackStyleLight forView:view];
         } else
 #endif
-        {return UIImpactFeedbackGenerator.initByLightStyle;}
+        {return UIImpactFeedbackGenerator.initByLightStyle;
+}
     };
 }
 
@@ -41,7 +42,8 @@
             return [UIImpactFeedbackGenerator feedbackGeneratorWithStyle:UIImpactFeedbackStyleMedium forView:view];
         } else 
 #endif
-        {return UIImpactFeedbackGenerator.initByMediumStyle;}
+        {return UIImpactFeedbackGenerator.initByMediumStyle;
+}
     };
 }
 
@@ -56,7 +58,8 @@
             return [UIImpactFeedbackGenerator feedbackGeneratorWithStyle:UIImpactFeedbackStyleHeavy forView:view];
         } else 
 #endif
-        {return UIImpactFeedbackGenerator.initByHeavyStyle;}
+        {return UIImpactFeedbackGenerator.initByHeavyStyle;
+}
     };
 }
 
@@ -71,7 +74,8 @@
             return [UIImpactFeedbackGenerator feedbackGeneratorWithStyle:UIImpactFeedbackStyleSoft forView:view];
         } else
 #endif
-        {return UIImpactFeedbackGenerator.initBySoftStyle;}
+        {return UIImpactFeedbackGenerator.initBySoftStyle;
+}
     };
 }
 
@@ -86,7 +90,8 @@
             return [UIImpactFeedbackGenerator feedbackGeneratorWithStyle:UIImpactFeedbackStyleRigid forView:view];
         } else 
 #endif
-        {return UIImpactFeedbackGenerator.initByRigidStyle;}
+        {return UIImpactFeedbackGenerator.initByRigidStyle;
+}
     };
 }
 

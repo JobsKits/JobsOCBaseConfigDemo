@@ -1,6 +1,6 @@
 //
 //  BaseCollectionViewProtocol.h
-//  JobsOCBaseConfigDemo
+//  JobsOCProtocols
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -9,8 +9,11 @@
 #define JOBS_HEADER_GUARD_BASECOLLECTIONVIEWPROTOCOL_F46762E89E
 
 #import <UIKit/UIKit.h>
+
 #import "UIScrollViewProtocol.h"
+
 #import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -18,15 +21,15 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol BaseCollectionViewProtocol <UIScrollViewProtocol>
 @optional
 #pragma mark —— RegistrationTracking
-Prop_strong()__kindof NSMutableSet <__kindof NSString *>*registeredIdentifiers;// 自定义标志位
+Prop_strong()__kindof NSMutableSet <__kindof NSString *>*registeredIdentifiers;/// 自定义标志位
 // 检查某个 reuseIdentifier 是否已注册
 -(JobsRetBOOLByStrBlock _Nonnull)isRegisteredForReuseIdentifier;
 #pragma mark —— Func
 +(JobsRetCollectionViewByLayoutBlock _Nonnull)initByLayout;
 /// 对系统方法 cellForItemAtIndexPath 的二次封装
 -(JobsRetCollectionViewCellByIndexPathBlock _Nonnull)cellBy;
--(JobsReturnCollectionViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader;
--(JobsReturnCollectionViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter;
+-(JobsRetCollectionViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader;
+-(JobsRetCollectionViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter;
 -(JobsRetCollectionViewByIDBlock _Nonnull)dataLink; // 用于显示 UICollectionView
 -(JobsRetCollectionViewByIDBlock _Nonnull)byShow;
 -(JobsRetCollectionViewByDelegateBlock _Nonnull)byDelegate;

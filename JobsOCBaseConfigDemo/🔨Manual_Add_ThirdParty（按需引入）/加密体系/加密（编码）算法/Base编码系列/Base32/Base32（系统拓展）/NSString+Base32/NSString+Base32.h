@@ -1,14 +1,19 @@
 //
 //  NSString+Base32.h
-//  JobsOCBaseConfig
-//  see http://www.ietf.org/rfc/rfc4648.txt for more details
+//  JobsCryptography
 //
-//  Created by Jobs on 2024/4/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <Foundation/Foundation.h>
+#ifndef JOBS_HEADER_GUARD_NSSTRING_BASE32_0511E68E17
+#define JOBS_HEADER_GUARD_NSSTRING_BASE32_0511E68E17
+
+#import <UIKit/UIKit.h>
 #import "MF_Base32Codec.h"
 #import "NSData+Base32.h"
+
+#import "JobsByOCPods.h"
+
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -37,3 +42,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSSTRING_BASE32_0511E68E17 */

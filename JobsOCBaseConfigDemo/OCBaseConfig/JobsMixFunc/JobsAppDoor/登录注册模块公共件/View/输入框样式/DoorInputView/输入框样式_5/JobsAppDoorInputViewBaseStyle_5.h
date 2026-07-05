@@ -1,23 +1,42 @@
 //
 //  JobsAppDoorInputViewBaseStyle_5.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/12/17.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseViewProtocol.h"
-#import "JobsDoorInputViewProtocol.h"
+#import <UIKit/UIKit.h>
+#import "JobsAppDoorConfig.h"
 #import "JobsAppDoorInputViewBaseStyle.h"
-#import "ZYTextField.h"
-#import "JobsDefineProperty.h"
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
+#import "JobsOCDSL.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsMakes.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef enum : NSUInteger {
+#ifndef InputViewStyle_5_h
+#define InputViewStyle_5_h
+typedef NS_ENUM(NSUInteger, InputViewStyle_5) {
     InputViewStyle_5_1 = 0,
     InputViewStyle_5_2,
     InputViewStyle_5_3
-} InputViewStyle_5;
+};
+#endif /* InputViewStyle_5_h */
 
 @interface JobsAppDoorInputViewBaseStyle_5 : JobsAppDoorInputViewBaseStyle
 
@@ -31,48 +50,45 @@ Prop_assign()InputViewStyle_5 style_5;
  * 如果以后需要强行禁用init或者new，那么:
  - (instancetype)init NS_UNAVAILABLE;
  - (instancetype)new NS_UNAVAILABLE;
- 
  */
 @end
 
 NS_ASSUME_NONNULL_END
 /**
  
- -(JobsAppDoorInputViewBaseStyle_5 *)inputView{
-     if (!_inputView) {
-         _inputView = [JobsAppDoorInputViewBaseStyle_5.alloc initWithSize:[BaiShaETProjAddVirtualCurrencyAddressInputTBVCell cellSizeByModel:nil]];
-         if (self.indexPath.row == 4) {
-             _inputView.style_5 = InputViewStyle_5_1;
-         }else if(self.indexPath.row == 3){
-             _inputView.style_5 = InputViewStyle_5_3;
-         }else{
-             _inputView.style_5 = InputViewStyle_5_2;
-         }
-         
-         [self.contentView addSubview:_inputView];
-         [_inputView mas_makeConstraints:^(MASConstraintMaker *make) {
-             make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, JobsWidth(16), 0, JobsWidth(-16)));
-         }];
-         _inputView.jobsRichViewByModel(self.inputViewStyleModel);
-         @jobs_weakify(self)
-         [_inputView actionObjBlock:^(id data) {
-             @jobs_strongify(self)
-         }];
-     };return _inputView;
- }
+     -(JobsAppDoorInputViewBaseStyle_5 *)inputView{
+         if (!_inputView) {
+             _inputView = [JobsAppDoorInputViewBaseStyle_5.alloc initWithSize:[BaiShaETProjAddVirtualCurrencyAddressInputTBVCell cellSizeByModel:nil]];
+             if (self.indexPath.row == 4) {
+                 _inputView.style_5 = InputViewStyle_5_1;
+             }else if(self.indexPath.row == 3){
+                 _inputView.style_5 = InputViewStyle_5_3;
+             }else{
+                 _inputView.style_5 = InputViewStyle_5_2;
+             }
 
- -(JobsAppDoorInputViewBaseStyleModel *)inputViewStyleModel{
-     if (!_inputViewStyleModel) {
-         _inputViewStyleModel = JobsAppDoorInputViewBaseStyleModel.new;
-         _inputViewStyleModel.placeHolderStr = self.viewModel.subTextModel.text;
-         _inputViewStyleModel.titleLabStr = self.viewModel.textModel.text;
-         _inputViewStyleModel.placeHolderAlignment = NSTextAlignmentLeft;
-         _inputViewStyleModel.leftViewOffsetX = 0.1;
-         _inputViewStyleModel.offset = 0.1;
-         _inputViewStyleModel.titleStrCor = self.viewModel.textModel.textCor;
-         _inputViewStyleModel.ZYtextColor = self.viewModel.subTextModel.textCor ? : JobsLightGrayColor;
-     };return _inputViewStyleModel;
- }
+             _inputView.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
+                 make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, JobsWidth(16), 0, JobsWidth(-16)));
+             });
 
- 
+             _inputView.jobsRichViewByModel(self.inputViewStyleModel);
+             @jobs_weakify(self)
+             [_inputView actionObjBlock:^(id data) {
+                 @jobs_strongify(self)
+             }];
+         };return _inputView;
+     }
+
+     -(JobsAppDoorInputViewBaseStyleModel *)inputViewStyleModel{
+         if (!_inputViewStyleModel) {
+             _inputViewStyleModel = JobsAppDoorInputViewBaseStyleModel.new;
+             _inputViewStyleModel.placeHolderStr = self.viewModel.subTextModel.text;
+             _inputViewStyleModel.titleLabStr = self.viewModel.textModel.text;
+             _inputViewStyleModel.placeHolderAlignment = NSTextAlignmentLeft;
+             _inputViewStyleModel.leftViewOffsetX = 0.1;
+             _inputViewStyleModel.offset = 0.1;
+             _inputViewStyleModel.titleStrCor = self.viewModel.textModel.textCor;
+             _inputViewStyleModel.ZYtextColor = self.viewModel.subTextModel.textCor ? : JobsLightGrayColor;
+         };return _inputViewStyleModel;
+     }
  */

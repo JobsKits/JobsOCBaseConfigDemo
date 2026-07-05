@@ -1,14 +1,15 @@
 //
 //  ZFCustomControlView.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by 紫枫 on 2019/6/5.
-//  Copyright © 2019 紫枫. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "ZFCustomControlView.h"
+#import "JobsMakes.h"
+#import "JobsOCDSL.h"
 
-@interface ZFCustomControlView ()<ZFSliderViewDelegate>
+@interface ZFCustomControlView ()
 /// 底部工具栏
 Prop_strong()UIView *bottomToolView;
 /// 顶部工具栏
@@ -25,9 +26,13 @@ Prop_strong()ZFSliderView *slider;
 Prop_strong()UILabel *totalTimeLabel;
 /// 全屏按钮
 Prop_strong()UIButton *fullScreenBtn;
+
 Prop_assign()BOOL isShow;
+
 Prop_assign()BOOL controlViewAppeared;
+
 Prop_strong()dispatch_block_t afterBlock;
+
 Prop_assign()NSTimeInterval sumTime;
 /// 底部播放进度
 Prop_strong()ZFSliderView *bottomPgrogress;
@@ -74,7 +79,7 @@ Prop_strong()UIImageView *coverImageView;
                            action:@selector(fullScreenButtonClickAction:)
                  forControlEvents:UIControlEventTouchUpInside];
 }
-#pragma mark - ZFSliderViewDelegate
+#pragma mark —— ZFSliderViewDelegate
 - (void)sliderTouchBegan:(float)value {
     self.slider.isdragging = YES;
 }
@@ -120,7 +125,7 @@ Prop_strong()UIImageView *coverImageView;
         self.slider.value = 0;
     }
 }
-#pragma mark - action
+#pragma mark —— action
 - (void)playPauseButtonClickAction:(UIButton *)sender {
     [self playOrPause];
 }
@@ -137,7 +142,7 @@ Prop_strong()UIImageView *coverImageView;
 - (void)playBtnSelectedState:(BOOL)selected {
     self.playOrPauseBtn.selected = selected;
 }
-#pragma mark - 添加子控件约束
+#pragma mark —— 添加子控件约束
 - (void)layoutSubviews {
     [super layoutSubviews];
     
@@ -226,7 +231,7 @@ Prop_strong()UIImageView *coverImageView;
         self.playOrPauseBtn.alpha = 1;
     }
 }
-#pragma mark - private
+#pragma mark —— private
 /** 重置ControlView */
 - (void)resetControlView {
     self.bottomToolView.alpha        = 1;
@@ -349,7 +354,7 @@ Prop_strong()UIImageView *coverImageView;
         self.slider.sliderBtn.transform = CGAffineTransformIdentity;
     }];
 }
-#pragma mark - ZFPlayerControlViewDelegate
+#pragma mark —— ZFPlayerControlViewDelegate
 /// 手势筛选，返回NO不响应该手势
 - (BOOL)gestureTriggerCondition:(ZFPlayerGestureControl *)gestureControl
                     gestureType:(ZFPlayerGestureType)gestureType
@@ -488,54 +493,66 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
              lockedScreen:(BOOL)locked {
     [self showControlViewWithAnimated:YES];
 }
-#pragma mark - setter
-#pragma mark —— player
+#pragma mark —— setter
 - (void)setPlayer:(ZFPlayerController *)player {
     _player = player;
 }
-#pragma mark - getter
+#pragma mark —— getter
 - (UIView *)topToolView {
     if (!_topToolView) {
-        _topToolView = [[UIView alloc] init];
         UIImage *image = ZFPlayer_Image(@"ZFPlayer_top_shadow");
-        _topToolView.layer.contents = (id)image.CGImage;
+        _topToolView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byLayer(^(CALayer *layer) {
+                layer.byContents((id)image.CGImage);
+            });
+        });
     };return _topToolView;
 }
 
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] init];
-        _titleLabel.textColor = [UIColor whiteColor];
-        _titleLabel.font = [UIFont systemFontOfSize:JobsWidth(15.0)
-                                             weight:UIFontWeightRegular];
+        _titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byTextCor([UIColor whiteColor])
+                .byFont([UIFont systemFontOfSize:JobsWidth(15.0)
+                                          weight:UIFontWeightRegular]);
+        });
     };return _titleLabel;
 }
 
 - (UIView *)bottomToolView {
     if (!_bottomToolView) {
-        _bottomToolView = [[UIView alloc] init];
         UIImage *image = ZFPlayer_Image(@"ZFPlayer_bottom_shadow");
-        _bottomToolView.layer.contents = (id)image.CGImage;
+        _bottomToolView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byLayer(^(CALayer *layer) {
+                layer.byContents((id)image.CGImage);
+            });
+        });
     };return _bottomToolView;
 }
 
 - (UIButton *)playOrPauseBtn {
     if (!_playOrPauseBtn) {
-        _playOrPauseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_playOrPauseBtn setImage:ZFPlayer_Image(@"new_allPlay_44x44_")
+        _playOrPauseBtn = UIButton.alloc.init
+            .byViewBlock(^(__kindof UIView *view) {
+                UIButton *button = (UIButton *)view;
+                [button setImage:ZFPlayer_Image(@"new_allPlay_44x44_")
                          forState:UIControlStateNormal];
-        [_playOrPauseBtn setImage:ZFPlayer_Image(@"new_allPause_44x44_")
+                [button setImage:ZFPlayer_Image(@"new_allPause_44x44_")
                          forState:UIControlStateSelected];
+            });
     };return _playOrPauseBtn;
 }
 
 - (UILabel *)currentTimeLabel {
     if (!_currentTimeLabel) {
-        _currentTimeLabel = [[UILabel alloc] init];
-        _currentTimeLabel.textColor = [UIColor whiteColor];
-        _currentTimeLabel.font = [UIFont systemFontOfSize:JobsWidth(14.0f)
-                                                   weight:UIFontWeightRegular];
-        _currentTimeLabel.textAlignment = NSTextAlignmentCenter;
+        _currentTimeLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byTextCor([UIColor whiteColor])
+                .byFont([UIFont systemFontOfSize:JobsWidth(14.0f)
+                                          weight:UIFontWeightRegular])
+                .byTextAlignment(NSTextAlignmentCenter);
+        });
     };return _currentTimeLabel;
 }
 
@@ -560,26 +577,32 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
 
 - (UILabel *)totalTimeLabel {
     if (!_totalTimeLabel) {
-        _totalTimeLabel = [[UILabel alloc] init];
-        _totalTimeLabel.textColor = [UIColor whiteColor];
-        _totalTimeLabel.font = [UIFont systemFontOfSize:JobsWidth(14.0f)];
-        _totalTimeLabel.textAlignment = NSTextAlignmentCenter;
+        _totalTimeLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byTextCor([UIColor whiteColor])
+                .byFont([UIFont systemFontOfSize:JobsWidth(14.0f)])
+                .byTextAlignment(NSTextAlignmentCenter);
+        });
     };return _totalTimeLabel;
 }
 
 - (UIButton *)fullScreenBtn {
     if (!_fullScreenBtn) {
-        _fullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_fullScreenBtn setImage:ZFPlayer_Image(@"ZFPlayer_fullscreen")
-                        forState:UIControlStateNormal];
+        _fullScreenBtn = UIButton.alloc.init
+            .byViewBlock(^(__kindof UIView *view) {
+                [(UIButton *)view setImage:ZFPlayer_Image(@"ZFPlayer_fullscreen")
+                                  forState:UIControlStateNormal];
+            });
     };return _fullScreenBtn;
 }
 
 - (UIImageView *)coverImageView {
     if (!_coverImageView) {
-        _coverImageView = [[UIImageView alloc] init];
-        _coverImageView.userInteractionEnabled = YES;
-        _coverImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _coverImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byUserInteractionEnabled(YES)
+                .byContentMode(UIViewContentModeScaleAspectFit);
+        });
     };return _coverImageView;
 }
 

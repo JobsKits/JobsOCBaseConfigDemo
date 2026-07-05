@@ -1,11 +1,16 @@
 //
 //  JobsNavBarConfig.m
-//  JobsOCBaseConfigDemo
+//  JobsNavBar
 //
-//  Created by User on 7/24/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsNavBarConfig.h"
+#import "NSString+Sys.h"
+#import "UIColor+Extra.h"
+#import "NSObject+Extra.h"
+#import "BaseButton.h"
+
 JobsNavBarConfig *static_navBarConfig = nil;
 static dispatch_once_t static_navBarConfigOnceToken;
 @implementation JobsNavBarConfig
@@ -34,16 +39,16 @@ UIPictureAndBackGroundCorProtocol_synthesize
 -(UIButtonModel *)backBtnModel{
     if(!_backBtnModel){
         @jobs_weakify(self)
-        _backBtnModel = self.makeBackBtnModel;
-        _backBtnModel.longPressGestureEventBlock = ^id (__kindof UIButton *x) {
-            JobsLog(@"按钮的长按事件触发");
-            return nil;
-        };
-        _backBtnModel.clickEventBlock = ^id(BaseButton *x){
-            @jobs_strongify(self)
-            if (self.objBlock) self.objBlock(x);
-            return nil;
-        };
+        _backBtnModel = self.makeBackBtnModel
+            .byLongPressGestureEventBlock(^id (__kindof UIButton *x) {
+                JobsLog(@"按钮的长按事件触发");
+                return nil;
+            })
+            .byClickEventBlock(^id(BaseButton *x){
+                @jobs_strongify(self)
+                if (self.objBlock) self.objBlock(x);
+                return nil;
+            });
     };return _backBtnModel;
 }
 /// 在具体的子类去实现，以覆盖父类的方法实现
@@ -51,21 +56,20 @@ UIPictureAndBackGroundCorProtocol_synthesize
     if(!_closeBtnModel){
         @jobs_weakify(self)
         _closeBtnModel = jobsMakeButtonModel(^(__kindof UIButtonModel *_Nullable data) {
-            data.backgroundImage = @"关闭".img;
-            data.highlightBackgroundImage = @"关闭".img;
-            data.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-            data.titleCor = JobsClearColor;
-            data.selectedTitleCor = JobsClearColor;
-            data.roundingCorners = UIRectCornerAllCorners;
-            data.longPressGestureEventBlock = ^id(__kindof UIButton *x) {
+            data.byBackgroundImage(@"关闭".img)
+                .byHighlightBackgroundImage(@"关闭".img)
+                .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
+                .byTitleCor(JobsClearColor)
+                .bySelectedTitleCor(JobsClearColor)
+                .byRoundingCorners(UIRectCornerAllCorners);
+            data.byLongPressGestureEventBlock(^id(__kindof UIButton *x) {
                 JobsLog(@"按钮的长按事件触发");
                 return nil;
-            };
-            data.clickEventBlock = ^id(BaseButton *x){
+            }).byClickEventBlock(^id(BaseButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
                 return nil;
-            };
+            });
         });
     };return _closeBtnModel;
 }

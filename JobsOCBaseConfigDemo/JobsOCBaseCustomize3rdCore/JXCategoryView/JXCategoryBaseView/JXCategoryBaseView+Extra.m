@@ -1,15 +1,15 @@
 //
 //  JXCategoryBaseView+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Jobs on 2025/5/29.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JXCategoryBaseView+Extra.h"
 
 @implementation JXCategoryBaseView (Extra)
 
--(JobsReturnCategoryBaseViewByDelegateBlock _Nonnull)byDelegate{
+-(JobsRetCategoryBaseViewByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof JXCategoryBaseView *_Nullable(id<JXCategoryViewDelegate> _Nullable delegate){
         @jobs_strongify(self)
@@ -18,7 +18,7 @@
     };
 }
 
--(JobsReturnCategoryBaseViewByCGFloatBlock _Nonnull)byCellSpacing{
+-(JobsRetCategoryBaseViewByCGFloatBlock _Nonnull)byCellSpacing{
     @jobs_weakify(self)
     return ^__kindof JXCategoryBaseView *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -27,7 +27,7 @@
     };
 }
 
--(JobsReturnCategoryBaseViewByViewBlock _Nonnull)byContentScrollView{
+-(JobsRetCategoryBaseViewByViewBlock _Nonnull)byContentScrollView{
     @jobs_weakify(self)
     return ^__kindof JXCategoryBaseView *_Nullable(__kindof UIView *_Nullable view){
         @jobs_strongify(self)
@@ -36,7 +36,7 @@
     };
 }
 
--(JobsReturnCategoryTitleViewByNSIntegerBlock _Nonnull)byDefaultSelectedIndex{
+-(JobsRetCategoryTitleViewByNSIntegerBlock _Nonnull)byDefaultSelectedIndex{
     @jobs_weakify(self)
     return ^__kindof JXCategoryBaseView *_Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -45,7 +45,7 @@
     };
 }
 
--(JobsReturnCategoryBaseViewByListContainerBlock _Nonnull)byListContainer{
+-(JobsRetCategoryBaseViewByListContainerBlock _Nonnull)byListContainer{
     @jobs_weakify(self)
     return ^__kindof JXCategoryBaseView *_Nullable(id<JXCategoryViewListContainer> _Nullable listContainer){
         @jobs_strongify(self)
@@ -54,7 +54,7 @@
     };
 }
 
--(JobsReturnCategoryBaseViewByVoidBlock _Nonnull)reloadDatasWithoutListContainer{
+-(JobsRetCategoryBaseViewByVoidBlock _Nonnull)reloadDatasWithoutListContainer{
     @jobs_weakify(self)
     return ^__kindof JXCategoryBaseView *_Nullable(){
         @jobs_strongify(self)

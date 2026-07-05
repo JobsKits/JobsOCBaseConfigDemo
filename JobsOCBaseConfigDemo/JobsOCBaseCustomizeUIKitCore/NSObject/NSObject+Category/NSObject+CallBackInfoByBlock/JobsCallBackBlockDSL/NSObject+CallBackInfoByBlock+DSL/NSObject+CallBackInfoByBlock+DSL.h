@@ -10,17 +10,9 @@
 
 #import <Foundation/Foundation.h>
 
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
 #import "JobsBlock.h"
-#endif
 
-#if __has_include(<JobsBlock/NSObject+CallBackInfoByBlock.h>)
-#import <JobsBlock/NSObject+CallBackInfoByBlock.h>
-#else
 #import "NSObject+CallBackInfoByBlock.h"
-#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

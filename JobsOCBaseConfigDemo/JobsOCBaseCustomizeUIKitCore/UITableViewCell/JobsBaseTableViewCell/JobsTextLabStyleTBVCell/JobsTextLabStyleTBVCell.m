@@ -1,11 +1,13 @@
 //
 //  JobsTextLabStyleTBVCell.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by User on 8/11/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsTextLabStyleTBVCell.h"
+#import "UITableView+RegisterClass.h"
+#import "UIView+Extra.h"
 
 @interface JobsTextLabStyleTBVCell ()
 
@@ -22,7 +24,7 @@ BaseLayerProtocol_synthesize_part3
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsTextLabStyleTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsTextLabStyleTBVCell);
         return cell;
@@ -34,7 +36,8 @@ BaseLayerProtocol_synthesize_part3
     return ^__kindof UITableViewCell *_Nullable(UIViewModel __kindof *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.label.alpha = 1;
+        self.label.byAlpha(1);
+
         return self;
     };
 }
@@ -52,24 +55,29 @@ BaseLayerProtocol_synthesize_part3
 #pragma mark —— lazyLoad
 @synthesize label = _label;
 -(UILabel *)label{
-    if(!_label){
+    if (!_label) {
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
             @jobs_strongify(self)
-            /// 富文本的优先级大于普通文本
-            if(self.viewModel.attributedTitle){
-                label.attributedText = self.viewModel.attributedTitle;
-            }else{
-                label.text = self.viewModel.text;
-                label.numberOfLines = 0;
-                label.lineBreakMode = NSLineBreakByWordWrapping;
-                label.textAlignment = self.viewModel.textAlignment;
-                label.textColor = self.viewModel.textCor;
-                label.font = self.viewModel.font;
-            }
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.contentView);
-            }];
+            label
+                .byLabelBlock(^(__kindof UILabel * _Nullable data) {
+                    /// 富文本的优先级大于普通文本
+                    if (self.viewModel.attributedTitle) {
+                        data.byAttributedString(self.viewModel.attributedTitle);
+                    } else {
+                        data
+                            .byText(self.viewModel.text)
+                            .byNumberOfLines(0)
+                            .byLineBreakMode(NSLineBreakByWordWrapping)
+                            .byTextAlignment(self.viewModel.textAlignment)
+                            .byTextCor(self.viewModel.textCor)
+                            .byFont(self.viewModel.font);
+                    }
+                })
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.contentView);
+                });
         });
     };return _label;
 }

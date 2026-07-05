@@ -1,22 +1,29 @@
 //
 //  UNNotificationRequest+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Admin on 26/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <UserNotifications/UserNotifications.h>
+#ifndef JOBS_HEADER_GUARD_UNNOTIFICATIONREQUEST_EXTRA_693480784E
+#define JOBS_HEADER_GUARD_UNNOTIFICATIONREQUEST_EXTRA_693480784E
+
+#import <UserNotifications/UserNotifications.h> // 提供本地通知和远程通知处理能力，是现代通知框架的统一入口。
+
+#import "JobsModelDSL.h"
+
 #import "JobsBlock.h"
 
-@class UNNotificationRequestModel;
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UNNotificationRequest (Extra)
 
-+(JobsReturnUNNotificationRequestByModelBlock)initBy;
++(JobsRetUNNotificationRequestByModelBlock)initBy;
 -(jobsByErrBlocks _Nonnull)notificationRequestCompletionHandlerBy;
 
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UNNOTIFICATIONREQUEST_EXTRA_693480784E */

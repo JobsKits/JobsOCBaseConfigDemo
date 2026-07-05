@@ -1,19 +1,23 @@
 //
 //  JobsScrollYView.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs Hi on 9/19/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsScrollYView.h"
 
 @interface JobsScrollYView ()
+<
+UILocationProtocol
+>
 
 Prop_assign()CGPoint initialTouchPoint;
 
 @end
 
 @implementation JobsScrollYView
+UILocationProtocol_synthesize
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{

@@ -1,12 +1,15 @@
 //
 //  JobsBaseTableViewCell.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2021/1/20.
-//  Copyright © 2021 MonkeyKingVideo. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsBaseTableViewCell.h"
+#import "UIView+Measure.h"
+#import "NSString+Statistics.h"
+#import "UITableViewCell+Margin.h"
+#import "UITableView+RegisterClass.h"
 
 @interface JobsBaseTableViewCell ()
 /// Data
@@ -27,7 +30,7 @@ AppToolsProtocol_synthesize
 #pragma mark —— UITableViewCellProtocol
 /// 4种UITableViewCell系统样式类型
 /// UITableViewCellStyleDefault ：左边有一个显示图片的imageView和一个标题textLabel。
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         @jobs_strongify(self)
@@ -39,7 +42,7 @@ AppToolsProtocol_synthesize
     };
 }
 /// UITableViewCellStyleValue1 ：左边显示图片的imageView和一个主标题textLabel，右边一个副标题detailTextLabel。
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         @jobs_strongify(self)
@@ -51,7 +54,7 @@ AppToolsProtocol_synthesize
     };
 }
 /// UITableViewCellStyleValue2 ：左边一个主标题textLabel字体偏小，右边一个副标题detailTextLabel。
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2ByTableView{
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         @jobs_strongify(self)
@@ -63,7 +66,7 @@ AppToolsProtocol_synthesize
     };
 }
 /// UITableViewCellStyleSubtitle ：左边还是一个显示图片的imageView，不同的是上边有一个主标题textLabel和一个副标题detailTextLabel。主标题字体大且加黑，副标题字体小在主标题下边。
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleByTableView{
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         @jobs_strongify(self)
@@ -79,16 +82,19 @@ AppToolsProtocol_synthesize
               reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;// 取消点击效果 【不能在cellStyleValue1WithTableView里面写】
-        /// 适配iOS 13夜间模式/深色外观(Dark Mode)
-        self.backgroundColor = JobsWhiteColor;
-        self.detailTextLabel.textColor = JobsBrownColor;
-        self.textLabel.textColor = JobsBlackColor;
+        self
+            .bySelectionStyle(UITableViewCellSelectionStyleNone)// 取消点击效果 【不能在cellStyleValue1ByTableView里面写】
+            .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
+                label.byTextCor(JobsBrownColor);
+            })
+            .byTextLabel(^(__kindof UILabel * _Nullable label) {
+                label.byTextCor(JobsBlackColor);
+            })
+            .byBgColor(JobsWhiteColor);
     };return self;
 }
 /// UITableViewCell 的横向和纵向的缩进
-/// 在具体的子类，去覆盖#pragma mark —— frame
-/// -(void)setFrame:(CGRect)frame 方法
+/// 在具体的子类，去覆盖-(void)setFrame:(CGRect)frame方法
 /// - Parameters:
 ///   - frame: 最原始的Cell的Frame
 ///   - offsetX: X轴的偏移量
@@ -104,8 +110,7 @@ AppToolsProtocol_synthesize
         self.isSetTBVCellOffset = !self.isSetTBVCellOffset;
     }[super setFrame:frame];
 }
-// 在具体的子类，去覆盖#pragma mark —— frame
-// -(void)setFrame:(CGRect)frame 方法
+// 在具体的子类，去覆盖-(void)setFrame:(CGRect)frame方法
 //-(void)setFrame:(CGRect)frame{
 //    [self jobsResetTableViewCellFrame:frame
 //                          cellOffsetX:self.offsetXForEach
@@ -117,11 +122,14 @@ AppToolsProtocol_synthesize
     [super setSelected:selected animated:animated];
 }
 /// CXB 所言 全局只有在cellForRowAtIndexPath里面才能设置真正的selected值。而didSelectRowAtIndexPath不行
-#pragma mark —— selected
 -(void)setSelected:(BOOL)selected{
     [super setSelected:selected];
     JobsLog(@"%d",self.selected);
 }
+//@synthesize selected = _selected;
+//-(void)setSelected:(BOOL)selected{
+//    selected = _selected;
+//}
 
 -(void)setEditing:(BOOL)editing
          animated:(BOOL)animated{
@@ -139,9 +147,7 @@ AppToolsProtocol_synthesize
     self.modifySysChildViewFrame2();
 }
 /**
- 1、#pragma mark —— frame
-不要用 dynamic 方式处理 frame;
--(void)setFrame:(CGRect)frame 此方法仅限于具体的 UITableViewCell子类使用
+ 1、-(void)setFrame:(CGRect)frame 此方法仅限于具体的 UITableViewCell子类使用
  2、如果在 JobsBaseTableViewCell 实现此方法，那么一单相关子类集成 JobsBaseTableViewCell 则会对-(void)setFrame:(CGRect)frame进行反复调用，因为[super setFrame:frame];
  3、禁止分类去调用，否则引起异常
  */
@@ -178,32 +184,41 @@ AppToolsProtocol_synthesize
     return ^__kindof UITableViewCell *_Nullable(id model) {
         @jobs_strongify(self)
         /**
-         将某个字符串进行限定字符个数，二次包装以后对外输出。【截取完了以后添加替换字符】
-         -(NSString *)omitByReplaceStr:(NSString *_Nullable)replaceStr
-                       replaceStrLenth:(NSInteger)replaceStrLenth
-                         lineBreakMode:(NSLineBreakMode)lineBreakMode
-                                 limit:(NSInteger)limit;
+
+             将某个字符串进行限定字符个数，二次包装以后对外输出。【截取完了以后添加替换字符】
+             -(NSString *)omitByReplaceStr:(NSString *_Nullable)replaceStr
+                           replaceStrLenth:(NSInteger)replaceStrLenth
+                             lineBreakMode:(NSLineBreakMode)lineBreakMode
+                                     limit:(NSInteger)limit;
          */
         if (model) {
             if([model isKindOfClass:UIViewModel.class]){
                 self.viewModel = model;
                 if(self.textLabel){
                     if (self.viewModel.textModel.attributedTitle) {
-                        self.textLabel.attributedText = self.viewModel.textModel.attributedTitle;
+                        self.textLabel.byAttributedString(self.viewModel.textModel.attributedTitle);
+
                     }else{
-                        self.textLabel.text = self.viewModel.textModel.text;
-                        self.textLabel.textColor = self.viewModel.textModel.textCor;
-                        self.textLabel.font = self.viewModel.textModel.font;
+                        self.textLabel.byText(self.viewModel.textModel.text);
+
+                        self.textLabel.byTextCor(self.viewModel.textModel.textCor);
+
+                        self.textLabel.byFont(self.viewModel.textModel.font);
+
                     }self.textLabel.numberOfLines = 0;
                 }
                 
                 if(self.detailTextLabel){
                     if (self.viewModel.subTextModel.attributedTitle) {
-                        self.detailTextLabel.attributedText = self.viewModel.subTextModel.attributedTitle;
+                        self.detailTextLabel.byAttributedString(self.viewModel.subTextModel.attributedTitle);
+
                     }else{
-                        self.detailTextLabel.text = self.viewModel.subTextModel.text;
-                        self.detailTextLabel.textColor = self.viewModel.subTextModel.textCor;
-                        self.detailTextLabel.font = self.viewModel.subTextModel.font;
+                        self.detailTextLabel.byText(self.viewModel.subTextModel.text);
+
+                        self.detailTextLabel.byTextCor(self.viewModel.subTextModel.textCor);
+
+                        self.detailTextLabel.byFont(self.viewModel.subTextModel.font);
+
                         self.detailTextLabel.width = UITableViewCellSubTitleWidth;
                         self.detailTextLabel.makeLabelByShowingType(UILabelShowingType_05);
                     }self.detailTextLabel.numberOfLines = 0;
@@ -213,21 +228,29 @@ AppToolsProtocol_synthesize
                 self.buttonModel = model;
                 if(self.textLabel){
                     if (self.buttonModel.attributedTitle) {
-                        self.textLabel.attributedText = self.buttonModel.attributedTitle;
+                        self.textLabel.byAttributedString(self.buttonModel.attributedTitle);
+
                     }else{
-                        self.textLabel.text = self.buttonModel.title;
-                        self.textLabel.textColor = self.buttonModel.titleCor;
-                        self.textLabel.font = self.buttonModel.titleFont;
+                        self.textLabel.byText(self.buttonModel.title);
+
+                        self.textLabel.byTextCor(self.buttonModel.titleCor);
+
+                        self.textLabel.byFont(self.buttonModel.titleFont);
+
                     }self.textLabel.numberOfLines = 0;
                 }
                 
                 if(self.detailTextLabel){
                     if (self.viewModel.subTextModel.attributedTitle) {
-                        self.detailTextLabel.attributedText = self.buttonModel.attributedTitle;
+                        self.detailTextLabel.byAttributedString(self.buttonModel.attributedTitle);
+
                     }else{
-                        self.detailTextLabel.text = self.buttonModel.subTitle;
-                        self.detailTextLabel.textColor = self.buttonModel.subTitleCor;
-                        self.detailTextLabel.font = self.buttonModel.subTitleFont;
+                        self.detailTextLabel.byText(self.buttonModel.subTitle);
+
+                        self.detailTextLabel.byTextCor(self.buttonModel.subTitleCor);
+
+                        self.detailTextLabel.byFont(self.buttonModel.subTitleFont);
+
                         self.detailTextLabel.width = UITableViewCellSubTitleWidth;
                         self.detailTextLabel.makeLabelByShowingType(UILabelShowingType_05);
                     }self.detailTextLabel.numberOfLines = 0;
@@ -245,26 +268,26 @@ AppToolsProtocol_synthesize
             UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel *_Nullable data) {
                 if(model.textModel.attributedTitle.string.length){
                     title = model.textModel.attributedTitle.string;
-                    data.textModel.font = model.textModel.attributedTitle.attributedStringFont() ? : UIFontWeightRegularSize(14);
-                    data.textModel.textLineSpacing = model.textModel.attributedTitle.attributedStringParagraphStyle().lineSpacing;
+                    data.textModel.byFont(model.textModel.attributedTitle.attributedStringFont() ? : UIFontWeightRegularSize(14))
+                                  .byTextLineSpacing(model.textModel.attributedTitle.attributedStringParagraphStyle().lineSpacing);
                 }else{
                     title = model.textModel.text;
-                    data.textModel.font = model.textModel.font ? : UIFontWeightRegularSize(14);
-                    data.textModel.textLineSpacing = model.textModel.textLineSpacing;
+                    data.textModel.byFont(model.textModel.font ? : UIFontWeightRegularSize(14))
+                                  .byTextLineSpacing(model.textModel.textLineSpacing);
                 }
                 
                 if(model.subTextModel.attributedTitle.string.length){
                     subtitle = model.subTextModel.attributedTitle.string;
-                    data.textModel.font = model.subTextModel.attributedTitle.attributedStringFont() ? : UIFontWeightRegularSize(14);
-                    data.textModel.textLineSpacing = model.subTextModel.attributedTitle.attributedStringParagraphStyle().lineSpacing;
+                    data.textModel.byFont(model.subTextModel.attributedTitle.attributedStringFont() ? : UIFontWeightRegularSize(14))
+                                  .byTextLineSpacing(model.subTextModel.attributedTitle.attributedStringParagraphStyle().lineSpacing);
                 }else{
                     subtitle = model.subTextModel.text;
-                    data.textModel.font = model.subTextModel.font ? : UIFontWeightRegularSize(14);
-                    data.textModel.textLineSpacing = model.subTextModel.textLineSpacing;
+                    data.textModel.byFont(model.subTextModel.font ? : UIFontWeightRegularSize(14))
+                                  .byTextLineSpacing(model.subTextModel.textLineSpacing);
                 }
                 /// 主标题和副标题进行比较，以最长文本为标准执行
-                data.textModel.text = title.length >= subtitle.length ? title : subtitle;
-                data.jobsWidth = UITableViewCellTitleWidth;
+                data.textModel.byText(title.length >= subtitle.length ? title : subtitle);
+                data.byJobsWidth(UITableViewCellTitleWidth);
             });
             return [vm.textModel.text jobsTextHeightWithFont:vm.textModel.font
                                                   lineHeight:vm.textModel.textLineSpacing

@@ -1,8 +1,8 @@
 //
 //  UITextView+IndicateWordLimit.m
-//  JobsOCBaseConfigDemo
+//  JobsCustomView
 //
-//  Created by Jobs on 2021/2/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UITextView+IndicateWordLimit.h"
@@ -17,15 +17,18 @@ JobsKey(_indicateWordLimitLab)
         @jobs_weakify(self)
         IndicateWordLimitLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.textColor = RGB_COLOR(132, 134, 140);
-            label.textAlignment = NSTextAlignmentCenter;
-            label.font = UIFontWeightMediumSize(10);
-            label.text = [NSString stringWithFormat:@"   %ld / %ld   ",self.currentWordNum,self.wordLimitNum];
-            label.makeLabelByShowingType(UILabelShowingType_03);
-            self.addSubview(label);
-            label.right = self.width - self.offsetX;
-            label.bottom = self.height - self.offsetY;
-            Jobs_setAssociatedRETAIN_NONATOMIC(_indicateWordLimitLab, label)
+            label
+                .byTextCor(RGB_COLOR(132, 134, 140))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byFont(UIFontWeightMediumSize(10))
+                .byText([NSString stringWithFormat:@"   %ld / %ld   ",self.currentWordNum,self.wordLimitNum])
+                .makeLabelByShowingType(UILabelShowingType_03)
+                .byLabelBlock(^(__kindof UILabel * _Nullable data) {
+                    Jobs_setAssociatedRETAIN_NONATOMIC(_indicateWordLimitLab, data)
+                })
+                .addOn(self)
+                .byRight(self.width - self.offsetX)
+                .byBottom(self.height - self.offsetY);
         });
     };return IndicateWordLimitLab;
 }
@@ -41,7 +44,8 @@ JobsKey(_currentWordNum)
 }
 
 -(void)setCurrentWordNum:(NSInteger)currentWordNum{
-    self.indicateWordLimitLab.text = [NSString stringWithFormat:@"   %ld / %ld   ",currentWordNum,self.wordLimitNum];
+    self.indicateWordLimitLab.byText([NSString stringWithFormat:@"   %ld / %ld   ",currentWordNum,self.wordLimitNum]);
+
     self.indicateWordLimitLab.makeLabelByShowingType(UILabelShowingType_03);
     Jobs_setAssociatedRETAIN_NONATOMIC(_currentWordNum, @(currentWordNum))
 }

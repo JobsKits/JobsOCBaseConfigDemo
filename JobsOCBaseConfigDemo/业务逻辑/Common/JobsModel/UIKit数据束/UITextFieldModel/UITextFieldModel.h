@@ -1,13 +1,23 @@
 //
 //  UITextFieldModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef UITextFieldModel_h
+#define UITextFieldModel_h
+
 #import <Foundation/Foundation.h>
 #import "BaseModel.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsMakes.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,3 +32,5 @@ NS_INLINE __kindof UITextFieldModel *_Nonnull jobsMakeTextFieldModel(jobsByTextF
     if (block) block(data);
     return data;
 }
+
+#endif /* UITextFieldModel_h */

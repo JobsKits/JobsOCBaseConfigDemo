@@ -1,8 +1,8 @@
 //
 //  NSMutableAttributedString+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsRichTextUtils
 //
-//  Created by Jobs on 2024/4/26.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSMutableAttributedString+Extra.h"
@@ -31,7 +31,7 @@
     };
 }
 /// 段落
--(JobsReturnMutAttributedStringByParagraphStyleModelBlock _Nonnull)addAttributeNameByParagraphStyleModel{
+-(JobsRetMutAttributedStringByParagraphStyleModelBlock _Nonnull)addAttributeNameByParagraphStyleModel{
     @jobs_weakify(self)
     return ^__kindof NSMutableAttributedString *_Nullable(__kindof JobsParagraphStyleModel *_Nullable data){
         @jobs_strongify(self)
@@ -49,7 +49,7 @@
     };
 }
 /// 颜色
--(JobsReturnMutAttributedStringByParagraphStyleModelBlock _Nonnull)addForegroundColorAttributeNameByParagraphStyleModel{
+-(JobsRetMutAttributedStringByParagraphStyleModelBlock _Nonnull)addForegroundColorAttributeNameByParagraphStyleModel{
     @jobs_weakify(self)
     return ^__kindof NSMutableAttributedString *_Nullable(__kindof JobsParagraphStyleModel *_Nullable data){
         @jobs_strongify(self)
@@ -65,7 +65,7 @@
     };
 }
 /// 字体
--(JobsReturnMutAttributedStringByParagraphStyleModelBlock _Nonnull)addFontAttributeNameByParagraphStyleModel{
+-(JobsRetMutAttributedStringByParagraphStyleModelBlock _Nonnull)addFontAttributeNameByParagraphStyleModel{
     @jobs_weakify(self)
     return ^__kindof NSMutableAttributedString *_Nullable(__kindof JobsParagraphStyleModel *_Nullable data){
         @jobs_strongify(self)
@@ -81,7 +81,7 @@
     };
 }
 /// 设置下划线
--(JobsReturnMutAttributedStringByParagraphStyleModelBlock _Nonnull)addUnderlineStyleAttributeNameByParagraphStyleModel{
+-(JobsRetMutAttributedStringByParagraphStyleModelBlock _Nonnull)addUnderlineStyleAttributeNameByParagraphStyleModel{
     @jobs_weakify(self)
     return ^__kindof NSMutableAttributedString *_Nullable(__kindof JobsParagraphStyleModel *_Nullable data){
         @jobs_strongify(self)
@@ -98,7 +98,7 @@
     };
 }
 /// 设置下划线的颜色
--(JobsReturnMutAttributedStringByParagraphStyleModelBlock _Nonnull)addUnderlineColorAttributeNameByParagraphStyleModel{
+-(JobsRetMutAttributedStringByParagraphStyleModelBlock _Nonnull)addUnderlineColorAttributeNameByParagraphStyleModel{
     @jobs_weakify(self)
     return ^__kindof NSMutableAttributedString *_Nullable(__kindof JobsParagraphStyleModel *_Nullable data){
         @jobs_strongify(self)
@@ -115,7 +115,7 @@
     };
 }
 /// 超链接
--(JobsReturnMutAttributedStringByParagraphStyleModelBlock _Nonnull)addLinkAttributeNameByParagraphStyleModel{
+-(JobsRetMutAttributedStringByParagraphStyleModelBlock _Nonnull)addLinkAttributeNameByParagraphStyleModel{
     @jobs_weakify(self)
     return ^__kindof NSMutableAttributedString *_Nullable(__kindof JobsParagraphStyleModel *_Nullable data){
         @jobs_strongify(self)
@@ -131,7 +131,7 @@
     };
 }
 /// 设置富文本的字符间距
--(JobsReturnMutAttributedStringByParagraphStyleModelBlock _Nonnull)addkCTKernAttributeNameByParagraphStyleModel{
+-(JobsRetMutAttributedStringByParagraphStyleModelBlock _Nonnull)addkCTKernAttributeNameByParagraphStyleModel{
     @jobs_weakify(self)
     return ^__kindof NSMutableAttributedString *_Nullable(__kindof JobsParagraphStyleModel *_Nullable data){
         @jobs_strongify(self)

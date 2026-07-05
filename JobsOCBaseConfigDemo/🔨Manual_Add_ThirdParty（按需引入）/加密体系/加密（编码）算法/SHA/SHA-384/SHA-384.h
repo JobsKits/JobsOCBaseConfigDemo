@@ -1,10 +1,12 @@
 //
 //  SHA-384.h
-//  JobsOCBaseConfigDemo
+//  JobsCryptography
 //
-//  Created by Jobs on 2020/9/14.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_SHA_384_4125BEFFB4
+#define JOBS_HEADER_GUARD_SHA_384_4125BEFFB4
 
 NS_INLINE NSString *SHA_384(NSString *string){
     const char *cstr = [string cStringUsingEncoding:NSUTF8StringEncoding];
@@ -16,3 +18,4 @@ NS_INLINE NSString *SHA_384(NSString *string){
         [output appendFormat:@"%02x", digest[i]];
     };return output;
 }
+#endif /* JOBS_HEADER_GUARD_SHA_384_4125BEFFB4 */

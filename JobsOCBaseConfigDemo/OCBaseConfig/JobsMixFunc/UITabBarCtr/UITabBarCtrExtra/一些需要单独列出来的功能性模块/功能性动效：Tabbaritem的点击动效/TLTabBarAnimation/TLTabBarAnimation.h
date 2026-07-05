@@ -1,13 +1,15 @@
 //
 //  TLTabBarAnimation.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Copyright © 2019 故乡的云. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
-//  动画是从https://github.com/Ramotion/animated-tab-bar项目转换而来
 
+#ifndef JOBS_HEADER_GUARD_TLTABBARANIMATION_18F2AC4B13
+#define JOBS_HEADER_GUARD_TLTABBARANIMATION_18F2AC4B13
 
 #import "TLAnimationProtocol.h"
+
 #import "JobsDefineProperty.h"
 
 #define  kDuration  0.5f
@@ -16,6 +18,8 @@
 #define  kAnimationKeyPathKeyFrame @"contents"
 #define  kAnimationKeyPathPositionY @"position.y"
 #define  kAnimationKeyPathOpacity @"opacity"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /** 弹性动画 */
@@ -57,3 +61,4 @@ Prop_assign()BOOL disableDeselectAnimation;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_TLTABBARANIMATION_18F2AC4B13 */

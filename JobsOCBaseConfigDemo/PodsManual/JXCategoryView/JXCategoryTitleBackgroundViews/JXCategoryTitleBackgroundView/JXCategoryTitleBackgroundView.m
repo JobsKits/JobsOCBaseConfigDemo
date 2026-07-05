@@ -1,9 +1,8 @@
 //
 //  JXCategoryTitleBackgroundView.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by jiaxin on 2019/8/16.
-//  Copyright © 2019 jiaxin. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JXCategoryTitleBackgroundView.h"
@@ -20,10 +19,16 @@ Prop_strong()NSMutableArray <JXCategoryTitleBackgroundCellModel *>*tempMutArray;
     [super initializeData];
 
     self.cellWidthIncrement = 20;
-    self.normalBackgroundColor = RGB_COLOR(237, 236, 242);
-    self.normalBorderColor = JobsClearColor;
-    self.selectedBackgroundColor = [RGB_COLOR(255, 232, 236) colorWithAlphaComponent:0.3];
-    self.selectedBorderColor = JobsClearColor;
+    self.normalBackgroundColor = [UIColor colorWithRed:237.0 / 255.0
+                                                 green:236.0 / 255.0
+                                                  blue:242.0 / 255.0
+                                                 alpha:1.0];
+    self.normalBorderColor = UIColor.clearColor;
+    self.selectedBackgroundColor = [[UIColor colorWithRed:255.0 / 255.0
+                                                     green:232.0 / 255.0
+                                                      blue:236.0 / 255.0
+                                                     alpha:1.0] colorWithAlphaComponent:0.3];
+    self.selectedBorderColor = UIColor.clearColor;
     self.borderLineWidth = 1;
     self.backgroundCornerRadius = 13;
     self.backgroundWidth = JXCategoryViewAutomaticDimension;

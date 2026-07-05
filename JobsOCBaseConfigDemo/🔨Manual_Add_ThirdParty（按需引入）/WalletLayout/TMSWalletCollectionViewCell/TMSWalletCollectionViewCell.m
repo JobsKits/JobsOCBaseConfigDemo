@@ -1,12 +1,13 @@
 //
 //  TMSWalletCollectionViewCell.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by TmmmS on 2019/8/8.
-//  Copyright © 2019 TMS. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "TMSWalletCollectionViewCell.h"
+#import "UICollectionView+JobsRegisterClass.h"
+#import "UIView+Extra.h"
 
 @interface TMSWalletCollectionViewCell ()
 /// UI
@@ -15,12 +16,12 @@ Prop_strong()UILabel *titleLabel;
 @end
 
 @implementation TMSWalletCollectionViewCell
-/// AppToolsProtocol
-@synthesize viewModel = _viewModel;
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self == [super initWithFrame:frame]) {
-        self.backgroundColor = JobsWhiteColor;
-        self.contentView.backgroundColor = JobsRandomColor;
+        self.byBgColor(JobsWhiteColor);
+
+        self.contentView.byBgColor(JobsRandomColor);
+
         self.layer.cornerRadius = 20;
         self.layer.masksToBounds = YES;
     };return self;
@@ -37,8 +38,8 @@ Prop_strong()UILabel *titleLabel;
     @jobs_weakify(self)
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
-        self.titleLabel.alpha = 1;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+        self.titleLabel.byAlpha(1);
         return self;
     };
 }
@@ -48,17 +49,18 @@ Prop_strong()UILabel *titleLabel;
         @jobs_weakify(self)
         _titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.font = UIFontWeightRegularSize(15);
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.contentView).offset(10);
-                make.top.equalTo(self.contentView).offset(20);
-            }];
+            label
+                .byFont(UIFontWeightRegularSize(15))
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.contentView).offset(10);
+                    make.top.equalTo(self.contentView).offset(20);
+                });
         });
-    }_titleLabel.text = [NSString stringWithFormat:@"indexPath:%zd--%zd selected:%@",
-                         self.indexPath.section,
-                         self.indexPath.row,
-                         self.viewModel.jobsSelected ? @"YES" : @"NO"];
-    return _titleLabel;
+    };return _titleLabel.byText([NSString stringWithFormat:@"indexPath:%zd--%zd selected:%@",
+                               self.indexPath.section,
+                               self.indexPath.row,
+                               self.viewModel.jobsSelected ? @"YES" : @"NO"]);
 }
 
 @end

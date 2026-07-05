@@ -2,7 +2,7 @@
 //  LeftCell.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "LeftCell.h"
@@ -24,7 +24,7 @@ UITextFieldProtocol_synthesize_part2
 @synthesize viewModel = _viewModel;
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^(UITableView * _Nonnull tableView) {
         LeftCell *cell = JobsRegisterDequeueTableViewDefaultCell(LeftCell);
         return cell;
@@ -35,10 +35,9 @@ UITextFieldProtocol_synthesize_part2
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
-
-        self.titleLabel.alpha = 1;
-        self.flagView.alpha = 1;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+        self.titleLabel.byAlpha(1);
+        self.flagView.byAlpha(1);
         return self;
     };
 }
@@ -53,6 +52,7 @@ UITextFieldProtocol_synthesize_part2
               reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]){
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     };return self;
 }
 
@@ -61,7 +61,6 @@ UITextFieldProtocol_synthesize_part2
     self.printValue();
     /// 取内部类UITableViewCellEditControl,对编辑状态的Cell的点击按钮进行替换成自定义的
     self.customCellEditStateImage();
-    
     self.modifySysChildViewFrame1();
     // 或者
     self.modifySysChildViewFrame2();
@@ -71,39 +70,35 @@ UITextFieldProtocol_synthesize_part2
     }
 }
 
-#pragma mark —— selected
-@dynamic selected;
 - (void)setSelected:(BOOL)selected
            animated:(BOOL)animated{
     [super setSelected:selected
               animated:animated];
     if (selected){
-        self.contentView.backgroundColor = ThreeClassCellBgCor;
-        self.flagView.backgroundColor = JobsWhiteColor;
-        self.titleLabel.textColor = HEXCOLOR(0xAE8330);
-        self.titleLabel.font = UIFontWeightBoldSize(14);
+        self.contentView.byBgColor(HEXCOLOR(0xFFF7EA));
+        self.flagView.byBgColor(HEXCOLOR(0xAE8330));
+        self.titleLabel.byTextCor(HEXCOLOR(0x3D4A58)).byFont(UIFontWeightBoldSize(14));
     }else{
-        self.contentView.backgroundColor = HEXCOLOR(0xFCFBFB);
-        self.flagView.backgroundColor = HEXCOLOR(0xFCFBFB);
-        self.titleLabel.textColor = HEXCOLOR(0xB0B0B0);
-        self.titleLabel.font = UIFontWeightRegularSize(14);
+        self.contentView.byBgColor(HEXCOLOR(0xFFFFFF));
+        self.flagView.byBgColor(HEXCOLOR(0xFFFFFF));
+        self.titleLabel.byTextCor(HEXCOLOR(0x8C96A3)).byFont(UIFontWeightRegularSize(14));
     }
 }
 
-#pragma mark —— highlighted
-@dynamic highlighted;
 - (void)setHighlighted:(BOOL)highlighted
               animated:(BOOL)animated{
     if (highlighted){
-        self.contentView.backgroundColor = ThreeClassCellBgCor;
-        self.flagView.backgroundColor = JobsWhiteColor;
-        self.titleLabel.textColor = HEXCOLOR(0xB0B0B0);
-        self.titleLabel.font = UIFontWeightBoldSize(14);
+        self.contentView.byBgColor(HEXCOLOR(0xFFF7EA));
+        self.flagView.byBgColor(HEXCOLOR(0xAE8330));
+        self.titleLabel.byTextCor(HEXCOLOR(0x3D4A58)).byFont(UIFontWeightBoldSize(14));
+    }else if (self.selected){
+        self.contentView.byBgColor(HEXCOLOR(0xFFF7EA));
+        self.flagView.byBgColor(HEXCOLOR(0xAE8330));
+        self.titleLabel.byTextCor(HEXCOLOR(0x3D4A58)).byFont(UIFontWeightBoldSize(14));
     }else{
-        self.contentView.backgroundColor = HEXCOLOR(0xFCFBFB);
-        self.flagView.backgroundColor = HEXCOLOR(0xFCFBFB);
-        self.titleLabel.textColor = HEXCOLOR(0xB0B0B0);
-        self.titleLabel.font = UIFontWeightRegularSize(14);
+        self.contentView.byBgColor(HEXCOLOR(0xFFFFFF));
+        self.flagView.byBgColor(HEXCOLOR(0xFFFFFF));
+        self.titleLabel.byTextCor(HEXCOLOR(0x8C96A3)).byFont(UIFontWeightRegularSize(14));
     }
 }
 #pragma mark —— lazyLoad
@@ -112,15 +107,19 @@ UITextFieldProtocol_synthesize_part2
         @jobs_weakify(self)
         _titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.textColor = HEXCOLOR(0xB0B0B0);
-            label.font = bayonRegular(JobsWidth(14));
-            label.textAlignment = NSTextAlignmentCenter;
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
+            label
+                .byTextCor(HEXCOLOR(0x8C96A3))
+                .byFont(bayonRegular(JobsWidth(14)))
+                .byTextAlignment(NSTextAlignmentCenter)
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.left.equalTo(self.contentView).offset(JobsWidth(5));
+                make.right.equalTo(self.contentView).offset(JobsWidth(-5));
                 make.centerY.equalTo(self.contentView);
-            }];label.makeLabelByShowingType(UILabelShowingType_03);
+            })
+            .makeLabelByShowingType(UILabelShowingType_03);
         });
-    }_titleLabel.text = self.viewModel.textModel.text;
+    }_titleLabel.byText(self.viewModel.textModel.text);
     return _titleLabel;
 }
 
@@ -129,12 +128,13 @@ UITextFieldProtocol_synthesize_part2
         @jobs_weakify(self)
         _flagView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            view.frame = CGRectMake(0,
+            view
+                .byFrame(CGRectMake(0,
                                     0,
                                     3,
-                                    LeftCell_Height);
-            view.backgroundColor = HEXCOLOR(0xFCFBFB);
-            self.contentView.addSubview(view);
+                                    LeftCell_Height))
+                .byBgColor(HEXCOLOR(0xFFFFFF))
+                .addOn(self.contentView);
         });
     };return _flagView;
 }

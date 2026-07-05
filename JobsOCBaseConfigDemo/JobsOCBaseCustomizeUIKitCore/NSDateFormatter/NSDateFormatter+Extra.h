@@ -1,12 +1,18 @@
 //
 //  NSDateFormatter+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Admin on 5/12/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef NSDateFormatter_Extra_h
+#define NSDateFormatter_Extra_h
+
 #import <Foundation/Foundation.h>
+
 #import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,3 +31,5 @@ NS_ASSUME_NONNULL_END
 //    if (block) block(data);
 //    return data;
 //}
+
+#endif /* NSDateFormatter_Extra_h */

@@ -1,12 +1,19 @@
 //
 //  LZTabBarItem.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs Hi on 2024/7/14.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <UIKit/UIKit.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsMakes.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,6 +35,7 @@ Prop_copy()NSString *title;
 Prop_strong()UIColor *titleColor;
 Prop_assign()LZTabBarItemType type;
 Prop_assign()id <LZTabBarItemDelegate> delegate;
+
 @end
 
 @protocol LZTabBarItemDelegate <NSObject>

@@ -1,11 +1,12 @@
 //
-//  EXTScope.h
-//  JobsOCBaseConfigDemo
+//  RACEXTScope.h
+//  JobsBy3rdExtras
 //
-//  Created by Justin Spahr-Summers on 2011-05-04.
-//  Copyright (C) 2012 Justin Spahr-Summers.
-//  Released under the MIT license.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_RACEXTSCOPE_43369C1422
+#define JOBS_HEADER_GUARD_RACEXTSCOPE_43369C1422
 
 #import "RACmetamacros.h"
 
@@ -116,3 +117,4 @@ NS_INLINE void rac_executeCleanupBlock (__strong rac_cleanupBlock_t *block) {
 #else
 #define rac_keywordify try {} @catch (...) {}
 #endif
+#endif /* JOBS_HEADER_GUARD_RACEXTSCOPE_43369C1422 */

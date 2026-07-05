@@ -1,13 +1,18 @@
 //
 //  FileNameModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef FileNameModel_h
+#define FileNameModel_h
+
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
+
 #import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,8 +26,10 @@ Prop_copy()NSString *type;
 NS_ASSUME_NONNULL_END
 
 NS_INLINE __kindof FileNameModel *_Nonnull
-jobsMakeFileNameModel(void(^_Nonnull block)(__kindof FileNameModel *_Nullable model)){
+jobsMakeFileNameModel(jobsByFileNameModelBlock _Nonnull block){
     FileNameModel *data = FileNameModel.alloc.init;
     if (block) block(data);
     return data;
 }
+
+#endif /* FileNameModel_h */

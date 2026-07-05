@@ -1,8 +1,8 @@
 //
 //  LZTabBarItem.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs Hi on 2024/7/14.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "LZTabBarItem.h"
@@ -77,27 +77,25 @@ Prop_strong()UILabel *titleLabel;
 //    }
 }
 
-#pragma mark —— tag
 -(void)setTag:(NSInteger)tag {
     [super setTag:tag + defaultTag];
 }
 
-#pragma mark —— icon
 - (void)setIcon:(NSString *)icon {
     _icon = icon;
     self.iconImageView.image = [UIImage imageNamed:icon];
 }
 
-#pragma mark —— title
 - (void)setTitle:(NSString *)title {
     _title = title;
-    self.titleLabel.text = title;
+    self.titleLabel.byText(title);
+
 }
 
-#pragma mark —— titleColor
 - (void)setTitleColor:(UIColor *)titleColor {
     _titleColor = titleColor;
-    self.titleLabel.textColor = titleColor;
+    self.titleLabel.byTextCor(titleColor);
+
 }
 #pragma mark —— lazyLoad
 - (UIImageView *)iconImageView {
@@ -105,7 +103,8 @@ Prop_strong()UILabel *titleLabel;
         @jobs_weakify(self)
         _iconImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.contentMode = UIViewContentModeScaleAspectFit;
+            imageView.byContentMode(UIViewContentModeScaleAspectFit);
+
             self.addSubview(imageView);
         });
     };return _iconImageView;
@@ -116,13 +115,15 @@ Prop_strong()UILabel *titleLabel;
         @jobs_weakify(self)
         _titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.textAlignment = NSTextAlignmentCenter;
-            label.font = [UIFont systemFontOfSize:10];
-            label.numberOfLines = 0;
-            label.textColor = JobsGrayColor;
-            self.addSubview(label);
+            label
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byFont([UIFont systemFontOfSize:10])
+                .byNumberOfLines(0)
+                .byTextCor(JobsGrayColor)
+            .addOn(self);
         });
     };return _titleLabel;
 }
 
 @end
+

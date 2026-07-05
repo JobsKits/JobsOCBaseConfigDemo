@@ -1,14 +1,25 @@
 //
 //  JobsCustomTabBar.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by User on 7/13/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_JOBSCUSTOMTABBAR_D8DA3441E2
+#define JOBS_HEADER_GUARD_JOBSCUSTOMTABBAR_D8DA3441E2
+
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
 #import "JobsCustomTabBarConfig.h"
-#import "BaseView.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,3 +37,4 @@ NS_INLINE __kindof JobsCustomTabBar *_Nonnull jobsMakeCustomTabBar(jobsByCustomT
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_JOBSCUSTOMTABBAR_D8DA3441E2 */

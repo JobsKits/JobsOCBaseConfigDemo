@@ -1,8 +1,8 @@
 //
-//  NoticePopupView.m
-//  JobsOCBaseConfigDemo
+//  JobsNoticePopupView.m
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/10/26.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsNoticePopupView.h"
@@ -27,36 +27,31 @@
     @jobs_weakify(self)
     return ^(id _Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         MakeDataNull
-        self.imageView.alpha = 1;
+        self.imageView.byAlpha(1);
+
     };
 }
 @synthesize imageView = _imageView;
 -(UIImageView *)imageView{
     if (!_imageView) {
         @jobs_weakify(self)
-        _imageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+        _imageView = jobsMakeImageView(^(__kindof UIImageView *_Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = @"登录弹窗".img;
+            imageView
+                .byImage(@"登录弹窗".img)
+                .byNumberOfTouchesRequired(1)
+                .byNumberOfTapsRequired(1) /// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
+                .byMinimumPressDuration(0.1)
+                .byAllowableMovement(1)
+                .addTapGR(^(__kindof UITapGestureRecognizer *_Nullable gesture) {;
 
-            {
-                imageView.numberOfTouchesRequired = 1;
-                imageView.numberOfTapsRequired = 1;/// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
-                imageView.minimumPressDuration = 0.1;
-                imageView.numberOfTouchesRequired = 1;
-                imageView.allowableMovement = 1;
-                imageView.userInteractionEnabled = YES;
-                imageView.weak_target = self;
-                imageView.tapGR_SelImp.selector = [self jobsSelectorBlock:^id _Nullable(id _Nullable target,
-                                                                                        UITapGestureRecognizer *_Nullable arg) {
-                    return nil;
-                }];
-                imageView.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
-            }
-            [self.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self);
-            }];
+                })
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                });
         });
     };return _imageView;
 }

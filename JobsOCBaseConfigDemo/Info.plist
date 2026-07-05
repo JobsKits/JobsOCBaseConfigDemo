@@ -2,45 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleLocalizations</key>
-	<array>
-		<string>en</string>
-		<string>zh-Hans</string>
-		<string>fil-PH</string>
-	</array>
-	<key>LSHasLocalizedDisplayName</key>
-	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>livechatinc.com</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSExceptionMinimumTLSVersion</key>
-				<string>TLSv1.2</string>
-				<key>NSExceptionRequiresForwardSecrecy</key>
-				<false/>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-			</dict>
-		</dict>
-	</dict>
-	<key>NSNetworkLogsEnabled</key>
-	<true/>
-	<key>NSPersistentStoreTypeKey</key>
-	<string>SQLite</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Bayon.ttf</string>
-	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>需要访问相机以录制视频。</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>需要访问麦克风以录制视频声音。</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>需要访问相册以保存录制视频。</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>需要添加视频到相册。</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
-		<true/>
+		<false/>
 		<key>UISceneConfigurations</key>
 		<dict>
 			<key>UIWindowSceneSessionRoleApplication</key>
@@ -54,11 +27,5 @@
 			</array>
 		</dict>
 	</dict>
-	<key>UIApplicationSupportsShakeToEdit</key>
-	<true/>
-	<key>UIRequiresPersistentWiFi</key>
-	<true/>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
 </dict>
 </plist>

@@ -1,11 +1,20 @@
 //
 //  JobsImageViewStyleCVCell.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs Hi on 9/23/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_JOBSIMAGEVIEWSTYLECVCELL_189161F4C0
+#define JOBS_HEADER_GUARD_JOBSIMAGEVIEWSTYLECVCELL_189161F4C0
+
+#import <UIKit/UIKit.h>
+#import "UIView+Extra.h"
 #import "JobsBaseCollectionViewCell.h"
+
+#import "JobsMakes.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 只在BaseCollectionViewCell完整的盖一个ImageView
@@ -17,3 +26,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSIMAGEVIEWSTYLECVCELL_189161F4C0 */

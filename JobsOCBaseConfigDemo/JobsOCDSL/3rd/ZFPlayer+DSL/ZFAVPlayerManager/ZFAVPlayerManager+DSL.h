@@ -1,6 +1,6 @@
 //
 //  ZFAVPlayerManager+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月4日，星期四.
 //
@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_ZFAVPLAYERMANAGER_DSL_EB61DDA93B
 
 #import <Foundation/Foundation.h>
-#import "JobsBlock.h"
 
 #if __has_include(<ZFPlayer/ZFAVPlayerManager.h>)
 #import <ZFPlayer/ZFAVPlayerManager.h>
@@ -17,10 +16,11 @@
 #import "ZFAVPlayerManager.h"
 #endif
 
+#import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
 
 @interface ZFAVPlayerManager (DSL)
 

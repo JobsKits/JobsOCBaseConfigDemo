@@ -1,8 +1,8 @@
 //
 //  XZMLayout.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by 谢忠敏 on 15/12/17.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "XZMLayout.h"
@@ -33,9 +33,10 @@
     self.sectionInset = UIEdgeInsetsMake(0, inset, 0, inset);
 }
 /**
- UICollectionViewLayoutAttributes *attrs;
- 1.一个cell对应一个UICollectionViewLayoutAttributes对象
- 2.UICollectionViewLayoutAttributes对象决定了cell的frame
+
+     UICollectionViewLayoutAttributes *attrs;
+     1.一个cell对应一个UICollectionViewLayoutAttributes对象
+     2.UICollectionViewLayoutAttributes对象决定了cell的frame
  */
 /// 这个方法的返回值是一个数组（数组里面存放着rect范围内所有元素的布局属性）
 /// 这个方法的返回值决定了rect范围内所有元素的排布（frame）

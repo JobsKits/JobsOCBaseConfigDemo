@@ -1,12 +1,18 @@
 //
 //  NSTimeZone+Extra.h
-//  JobsOCBaseConfigDemo
+//  FM
 //
 //  Created by Admin on 5/12/2024.
 //
 
+#ifndef NSTimeZone_Extra_h
+#define NSTimeZone_Extra_h
+
 #import <Foundation/Foundation.h>
+
 #import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,3 +29,5 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif /* NSTimeZone_Extra_h */

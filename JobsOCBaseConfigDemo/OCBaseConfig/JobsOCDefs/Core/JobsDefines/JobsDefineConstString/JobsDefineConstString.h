@@ -1,6 +1,6 @@
 //
 //  JobsDefineConstString.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDefs
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -100,22 +100,35 @@ FOUNDATION_EXTERN NSString *_Nonnull const HTTPServiceErrorDescriptionKey;/// �
 FOUNDATION_EXTERN NSString *_Nonnull const HTTPServiceErrorMessagesKey;/// 服务端错误提示，信息key
 /// 特殊字符串
 FOUNDATION_EXTERN NSString *_Nonnull const 回车符号转义字符;       /// 回车符号转义字符
-FOUNDATION_EXTERN NSString *_Nonnull const 零宽转义字符;          /// 零宽转义字符
+FOUNDATION_EXTERN NSString *_Nonnull const 零宽转义字符;
+          /// 零宽转义字符
 FOUNDATION_EXTERN NSString *_Nonnull const JobsSeparation;      /// 分隔符
-FOUNDATION_EXTERN NSString *_Nonnull const JobsNewline;         /// 换行符
-FOUNDATION_EXTERN NSString *_Nonnull const JobsTab;             /// 制表符
-FOUNDATION_EXTERN NSString *_Nonnull const JobsSpace;           /// 空格
-FOUNDATION_EXTERN NSString *_Nonnull const JobsEmpty;           /// 空字符串
-FOUNDATION_EXTERN NSString *_Nonnull const JobsComma;           /// 逗号
-FOUNDATION_EXTERN NSString *_Nonnull const JobsDot;             /// 句号
-FOUNDATION_EXTERN NSString *_Nonnull const JobsPoint;           /// 点
-FOUNDATION_EXTERN NSString *_Nonnull const JobsColon;           /// 冒号
+FOUNDATION_EXTERN NSString *_Nonnull const JobsNewline;
+         /// 换行符
+FOUNDATION_EXTERN NSString *_Nonnull const JobsTab;
+             /// 制表符
+FOUNDATION_EXTERN NSString *_Nonnull const JobsSpace;
+           /// 空格
+FOUNDATION_EXTERN NSString *_Nonnull const JobsEmpty;
+           /// 空字符串
+FOUNDATION_EXTERN NSString *_Nonnull const JobsComma;
+           /// 逗号
+FOUNDATION_EXTERN NSString *_Nonnull const JobsDot;
+             /// 句号
+FOUNDATION_EXTERN NSString *_Nonnull const JobsPoint;
+           /// 点
+FOUNDATION_EXTERN NSString *_Nonnull const JobsColon;
+           /// 冒号
 FOUNDATION_EXTERN NSString *_Nonnull const JobsSemicolon;       /// 分号
-FOUNDATION_EXTERN NSString *_Nonnull const JobsDash;            /// 连字符
+FOUNDATION_EXTERN NSString *_Nonnull const JobsDash;
+            /// 连字符
 FOUNDATION_EXTERN NSString *_Nonnull const JobsUnderscore;      /// 下划线
-FOUNDATION_EXTERN NSString *_Nonnull const JobsAsterisk;        /// 星号
-FOUNDATION_EXTERN NSString *_Nonnull const JobsEqual;           /// 等于
-FOUNDATION_EXTERN NSString *_Nonnull const JobsPercent;         /// 百分号
+FOUNDATION_EXTERN NSString *_Nonnull const JobsAsterisk;
+        /// 星号
+FOUNDATION_EXTERN NSString *_Nonnull const JobsEqual;
+           /// 等于
+FOUNDATION_EXTERN NSString *_Nonnull const JobsPercent;
+         /// 百分号
 /// 业务功能相关
 FOUNDATION_EXTERN NSString *_Nonnull const 网络状态监控;/// 网络状态监控
 FOUNDATION_EXTERN NSString *_Nonnull const 退到后台停止播放ZFPlayer;/// 退到后台停止播放ZFPlayer

@@ -1,16 +1,24 @@
 //
 //  JobsTimer.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTimer
 //
-//  Created by Jobs on 2025/11/19.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <QuartzCore/QuartzCore.h>
+#ifndef JOBS_HEADER_GUARD_JOBSTIMER_BCB1BF4076
+#define JOBS_HEADER_GUARD_JOBSTIMER_BCB1BF4076
+
+#import <objc/runtime.h>
+#import <QuartzCore/QuartzCore.h> // 提供 Core Animation 和 CALayer 能力，用于动画、图层和视觉渲染。
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
+
 #import "TimerProtocol.h"
-#import "JobsDefineProperty.h"
-#import "JobsDefineConstString.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 统一的 OC 版计时器实现：基于 TimerProtocol，只额外提供进度语义
@@ -43,3 +51,4 @@ jobsMakeTimer(JobsTimerBlock _Nonnull block){
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_JOBSTIMER_BCB1BF4076 */

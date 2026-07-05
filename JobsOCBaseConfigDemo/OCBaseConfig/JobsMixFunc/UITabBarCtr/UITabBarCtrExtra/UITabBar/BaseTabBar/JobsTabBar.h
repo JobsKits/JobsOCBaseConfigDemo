@@ -1,17 +1,19 @@
 //
 //  JobsTabBar.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by mac on 2017/5/19.
-//  Copyright © 2017年 flowyears. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <UIKit/UIKit.h>
+
+#import "JobsByOCPods.h"
+
+#import "JobsLoadingImageHeader.h"
+
 #import "JobsBlock.h"
-#import "JobsDefineProperty.h"
-#import "JobsLoadingImage.h"
-#import "UIView+Measure.h"
-#import "NSMutableArray+Extra.h"
+
+#import "JobsDefines.h"
 
 #ifndef ALIGNMENT_TYPE_ENUM_DEFINED
 #define ALIGNMENT_TYPE_ENUM_DEFINED
@@ -23,6 +25,8 @@ typedef NS_ENUM(NSInteger, AlignmentType) {
 };
 #endif /* ALIGNMENT_TYPE_ENUM_DEFINED */
 /// 超过 6 个 系统会变成更多，过不了审核
+#import "JobsOCDSL.h"
+
 @interface JobsTabBar : UITabBar
 
 Prop_assign()AlignmentType alignmentType;

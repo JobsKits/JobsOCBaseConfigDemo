@@ -1,9 +1,8 @@
 //
 //  TLTabBarAnimation.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by 故乡的云 on 2019/7/19.
-//  Copyright © 2019 故乡的云. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "TLTabBarAnimation.h"
@@ -158,7 +157,6 @@ void playFireworksAnimation(UIView *view,
     playSelectLabelAnimation(textLabel);
 }
 
-
 - (void)playDeselectAnimationWhitTabBarButton:(UIView *)button
                               buttonImageView:(UIImageView *)imageView
                               buttonTextLabel:(UILabel *)textLabel{
@@ -195,7 +193,8 @@ void playSelectLabelAnimation(UILabel *textLabel) {
                                                              @[@1.0,@0.0],
                                                              kDuration);
     [textLabel.layer addAnimation:opacityAnimation forKey:nil];
-    textLabel.alpha = 0;
+    textLabel.byAlpha(0);
+
 }
 
 void playDeselectLabelAnimation(UILabel *textLabel) {
@@ -208,7 +207,8 @@ void playDeselectLabelAnimation(UILabel *textLabel) {
                                                              @[@0.0, @1.0],
                                                              kDuration);
     [textLabel.layer addAnimation:opacityAnimation forKey:nil];
-    textLabel.alpha = 1;
+    textLabel.byAlpha(1);
+
 }
 
 @end

@@ -1,12 +1,13 @@
 //
 //  SoundBtn.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2017/6/6.
-//  Copyright © 2017年 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "SoundBtn.h"
+#import "NSObject+Extra.h"
+#import "UIControl+XY.h"
 
 @interface SoundBtn ()
 

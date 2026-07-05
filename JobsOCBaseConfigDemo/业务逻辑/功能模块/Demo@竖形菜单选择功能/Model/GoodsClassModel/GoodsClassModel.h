@@ -6,17 +6,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JobsBlock.h"
-#import "AppToolsProtocol.h"
-#import "BaseModel.h"
-#import "BaseButtonProtocol.h"
-#import "JobsDefineProperty.h"
 
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>
 #else
 #import "MJExtension.h"
 #endif
+
+#import "JobsBaseProtocolHeader.h"
+#import "JobsByOCPods.h"
+#import "JobsBlock.h"
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

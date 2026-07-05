@@ -1,12 +1,18 @@
 //
 //  JobsParagraphStyleModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JobsParagraphStyleModel_h
+#define JobsParagraphStyleModel_h
+
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,3 +30,5 @@ NS_INLINE __kindof JobsParagraphStyleModel *_Nonnull jobsMakeParagraphStyleModel
     if (block) block(data);
     return data;
 }
+
+#endif /* JobsParagraphStyleModel_h */

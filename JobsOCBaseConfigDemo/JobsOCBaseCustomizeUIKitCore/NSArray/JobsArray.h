@@ -1,8 +1,8 @@
 //
 //  JobsArray.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef JobsArray_h
@@ -16,6 +16,6 @@
 // TODO
 #pragma mark —— Category
 //#import "NSArray+Safety.h"
-#import "NSArray+Tools.h"
+#import "NSArray+Extra.h"
 
 #endif /* JobsArray_h */

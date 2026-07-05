@@ -2,7 +2,7 @@
 //  TreeClassItemCell.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "TreeClassItemCell.h"
@@ -32,7 +32,7 @@ UILocationProtocol_synthesize
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]){
         self.jobsRect = frame;
-        self.backgroundColor = self.contentView.backgroundColor = ThreeClassCellBgCor;
+        self.byBgColor(self.contentView.backgroundColor = ThreeClassCellBgCor);
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -41,9 +41,9 @@ UILocationProtocol_synthesize
     return ^__kindof UICollectionViewCell *_Nullable(GoodsClassModel *_Nullable model) {
         @jobs_strongify(self)
         self.dataModel = model;
-        self.logoImgView.alpha = 1;
-        self.nameLabel.alpha = 1;
-        self.btn.alpha = 1;
+        self.logoImgView.byAlpha(1);
+        self.nameLabel.byAlpha(1);
+        self.btn.byAlpha(1);
         return self;
     };
 }
@@ -66,21 +66,23 @@ UILocationProtocol_synthesize
         @jobs_weakify(self)
         _logoImgView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.contentMode = UIViewContentModeScaleAspectFill;
-            imageView.clipsToBounds = YES;
-            imageView.cornerCutToCircleWithCornerRadius(JobsWidth(8));
-            [self.contentView.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(self.imageWidth, self.imageWidth));
-                make.centerX.equalTo(self.contentView);
-                make.top.equalTo(self.contentView);
-            }];
+            imageView
+                .byContentMode(UIViewContentModeScaleAspectFill)
+                .byClipsToBounds(YES)
+                .byCornerRadius(JobsWidth(8))
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(self.imageWidth, self.imageWidth));
+                    make.centerX.equalTo(self.contentView);
+                    make.top.equalTo(self.contentView);
+                });
         });
     }
-    
-    if(self.dataModel.bgImage){
-        _logoImgView.image = self.dataModel.bgImage;
-    }else{
-        _logoImgView.backgroundColor = JobsRandomCor(.5f);
+
+    if (self.dataModel.bgImage) {
+        _logoImgView.byImage(self.dataModel.bgImage).byBgColor(JobsClearColor);
+    } else {
+        _logoImgView.byImage(nil).byBgColor(HEXCOLOR(0xF2E6CD));
     };return _logoImgView;
 }
 
@@ -89,16 +91,18 @@ UILocationProtocol_synthesize
         @jobs_weakify(self)
         _nameLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byTextAlignment(NSTextAlignmentCenter)
-            .byFont(UIFontWeightRegularSize(12))
-            .byTextCor(JobsBlackColor);
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self.contentView);
-                make.top.equalTo(self.logoImgView.mas_bottom).offset(JobsWidth(5));
-                make.height.mas_equalTo(JobsWidth(10));
-            }];
+            label
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byFont(UIFontWeightRegularSize(12))
+                .byTextCor(JobsBlackColor)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self.contentView);
+                    make.top.equalTo(self.logoImgView.mas_bottom).offset(JobsWidth(5));
+                    make.height.mas_equalTo(JobsWidth(10));
+                });
         });
-    }_nameLabel.text = self.dataModel.textModel.text;
+    }_nameLabel.byText(self.dataModel.textModel.text);
     return _nameLabel;
 }
 
@@ -108,12 +112,12 @@ UILocationProtocol_synthesize
         _btn = BaseButton.jobsInit()
             .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
             .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
-            .jobsResetImagePadding(self.dataModel.imagePadding)/// JobsWidth(5)
+            .jobsResetImagePadding(self.dataModel.imagePadding)// JobsWidth(5)
             .jobsResetBtnImage(self.dataModel.normalImage)
             .jobsResetBtnBgImage(self.dataModel.backgroundImage)
             .jobsResetBtnBgCor(self.dataModel.baseBackgroundColor)
-            .jobsResetBtnTitleCor(self.dataModel.titleCor)/// HEXCOLOR(0xC4C4C4)
-            .jobsResetBtnTitleFont(self.dataModel.titleFont)/// UIFontWeightRegularSize(12)
+            .jobsResetBtnTitleCor(self.dataModel.titleCor)// HEXCOLOR(0xC4C4C4)
+            .jobsResetBtnTitleFont(self.dataModel.titleFont)// UIFontWeightRegularSize(12)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 x.selected = !x.selected;
@@ -124,16 +128,18 @@ UILocationProtocol_synthesize
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(JobsWidth(12));
+                make.centerX.equalTo(self.contentView);
+                make.bottom.equalTo(self.contentView).offset(JobsWidth(-5));
             });
-        [self.contentView.addSubview(_btn) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(JobsWidth(12));
-            make.centerX.equalTo(self.contentView);
-            make.bottom.equalTo(self.contentView).offset(JobsWidth(-5));
-        }];
     }
-    _btn.jobsResetBtnTitle(self.dataModel.title);
-    _btn.makeBtnTitleByShowingType(UILabelShowingType_03);
-    _btn.selected = self.dataModel.jobsSelected;
+    _btn
+        .jobsResetBtnTitle(self.dataModel.title)
+        .makeBtnTitleByShowingType(UILabelShowingType_03)
+        .bySelected(self.dataModel.jobsSelected);
     return _btn;
 }
 

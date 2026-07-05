@@ -1,8 +1,8 @@
 //
 //  FMDatabase+Manager.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Jobs on 2021/12/1.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "FMDatabase+Manager.h"
@@ -11,8 +11,13 @@
 /// 依据路径创建数据库
 -(FMDatabase *)createDataBaseWithPath:(NSString *_Nullable)dbPath{
     // 数据库访问路径
-    if (isNull(dbPath)) dbPath = NSString.documentsDir.addPathComponent(@"test.db");
-    JobsLog(@"!!!dbPath = %@",dbPath);
+    if (dbPath.length == 0) {
+        NSString *documentsDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                     NSUserDomainMask,
+                                                                     YES).firstObject;
+        dbPath = [documentsDir stringByAppendingPathComponent:@"test.db"];
+    }
+    NSLog(@"!!!dbPath = %@",dbPath);
     // 创建对应路径下数据库
     return [FMDatabase databaseWithPath:dbPath];
 }
@@ -70,12 +75,12 @@
             
             NSDate *end = NSDate.date;
             NSTimeInterval time = [end timeIntervalSinceDate:begin];
-            JobsLog(@"事务耗时 = %f",time);
+            NSLog(@"事务耗时 = %f",time);
             
             return rollBack = NO;
         }
     }else{
-        JobsLog(@"打开数据库失败");
+        NSLog(@"打开数据库失败");
         return NO;
     }
 }

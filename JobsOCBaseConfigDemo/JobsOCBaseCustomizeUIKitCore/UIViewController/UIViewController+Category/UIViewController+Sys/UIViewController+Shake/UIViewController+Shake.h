@@ -1,19 +1,21 @@
 //
 //  UIViewController+Shake.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/8/21.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_SHAKE_11CF9EFA5A
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_SHAKE_11CF9EFA5A
+
 #import <objc/runtime.h>
-#import <QuartzCore/QuartzCore.h>
+#import <QuartzCore/QuartzCore.h>     // 提供 Core Animation 和 CALayer 能力，用于动画、图层和视觉渲染。
 #import <UIKit/UIKit.h>
-#import <AudioToolbox/AudioToolbox.h>
-#import <CoreMotion/CoreMotion.h>
-#import "JobsBlock.h"
+#import <AudioToolbox/AudioToolbox.h> // 用于调用系统级音频能力。
+#import <CoreMotion/CoreMotion.h>     // 用于访问设备运动传感器数据：加速度计、陀螺仪、磁力计、设备姿态、计步器等。
 #import "NSObject+Shake.h"
-#import "JobsDefineProperty.h"
+#import "NSString+Check.h"
+#import "NSNotificationCenter+JobsBlock.h"
 
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>
@@ -32,6 +34,10 @@
 #else
 #import "RACEXTKeyPathCoding.h"
 #endif
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 //#if __has_include(<ReactiveObjC/RACEXTRuntimeExtensions.h>)
 //#import <ReactiveObjC/RACEXTRuntimeExtensions.h>
@@ -58,3 +64,4 @@ Prop_strong()CMMotionManager *motionManager;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIVIEWCONTROLLER_SHAKE_11CF9EFA5A */

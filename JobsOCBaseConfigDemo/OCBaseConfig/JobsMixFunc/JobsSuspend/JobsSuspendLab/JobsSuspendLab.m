@@ -1,12 +1,16 @@
 //
 //  JobsSuspendLab.m
-//  JobsOCBaseConfigDemo
+//  JobsSuspend
 //
-//  Created by Jobs on 2020/8/13.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsSuspendLab.h"
+#import "NSObject+Extra.h"
+#import "NSString+Extra.h"
+#import "UIView+Extra.h"
+#import "UIView+Measure.h"
+#import "JobsLanMgr.h"
 
 @interface JobsSuspendLab ()
 
@@ -16,7 +20,8 @@
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = self.backgroundColor ? :JobsBlackColor;
+        self.byBgColor(self.backgroundColor ? :JobsBlackColor);
+
         self.text = JobsNonnullString(self.text, @"No Data".tr);
         self.internationalizationKEY = @"No Data";
         self.textAlignment = NSTextAlignmentCenter;

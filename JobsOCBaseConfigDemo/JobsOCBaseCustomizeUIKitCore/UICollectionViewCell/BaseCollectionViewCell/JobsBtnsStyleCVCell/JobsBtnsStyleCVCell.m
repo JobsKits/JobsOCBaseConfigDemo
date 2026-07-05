@@ -1,11 +1,18 @@
 //
 //  JobsBtnsStyleCVCell.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by User on 8/18/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsBtnsStyleCVCell.h"
+#import "BaseButton.h"
+#import "CALayer+Extra.h"
+#import "UICollectionView+JobsRegisterClass.h"
+#import "UIButton+SimplyMake.h"
+#import "UIButton+Extra.h"
+#import "UIButton+UI.h"
+#import "UIView+Extra.h"
 
 @interface JobsBtnsStyleCVCell ()
 /// UI
@@ -31,18 +38,24 @@ BaseLayerProtocol_synthesize_part3
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     JobsBtnsStyleCVCell *cell = JobsRegisterDequeueCollectionViewCell(JobsBtnsStyleCVCell);
-    cell.contentView.layer
-        .cornerRadiusBy(JobsWidth(8))
-        .borderWidthBy(JobsWidth(1))
-        .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
-        .masksToBoundsBy(YES);
-    cell.layer
-        .cornerRadiusBy(JobsWidth(8))
-        .borderWidthBy(JobsWidth(1))
-        .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
-        .masksToBoundsBy(YES);
-    cell.indexPath = indexPath;
-    return cell;
+    return (JobsBtnsStyleCVCell *)cell
+        .byContentView(^(__kindof UIView * _Nullable view) {
+            view.byLayer(^(CALayer * _Nullable layer) {
+                layer
+                    .cornerRadiusBy(JobsWidth(8))
+                    .borderWidthBy(JobsWidth(1))
+                    .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
+                    .masksToBoundsBy(YES);
+            });
+        })
+        .byIndexPath(indexPath)
+        .byLayer(^(CALayer * _Nullable layer) {
+            layer
+                .cornerRadiusBy(JobsWidth(8))
+                .borderWidthBy(JobsWidth(1))
+                .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
+                .masksToBoundsBy(YES);
+        });
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(JobsRetCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy{
@@ -53,8 +66,10 @@ BaseLayerProtocol_synthesize_part3
         self.leftBtnVM = self.viewModel.data;
         self.rightBtnVM = self.viewModel.requestParams;
         
-        self.leftBtn.alpha = 1;
-        self.rightBtn.alpha = 1;
+        self.leftBtn.byAlpha(1);
+
+        self.rightBtn.byAlpha(1);
+
         return self;
     };
 }
@@ -73,20 +88,21 @@ BaseLayerProtocol_synthesize_part3
 -(BaseButton *)leftBtn{
     if(!_leftBtn){
         @jobs_weakify(self)
-        _leftBtn = self.contentView.addSubview(BaseButton
-                                               .jobsInit()
-                                               .onClickBy(^(UIButton *x){
-                                                   @jobs_strongify(self)
-                                                   if (self.objBlock) self.objBlock(x);
-                                               }).onLongPressGestureBy(^(id data){
-                                                   JobsLog(@"");
-                                               })).byAdd(^(MASConstraintMaker *make) {
-                                                   @jobs_strongify(self)
-                                                   make.centerY.equalTo(self.contentView);
-                                                   make.left.equalTo(self.contentView).offset(self.leftBtnVM.jobsOffsetX);
-                                                   make.height.mas_equalTo(self.leftBtnVM.jobsWidth);
-                                               });
-        _leftBtn.tag = 1;
+        _leftBtn = BaseButton.jobsInit()
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                if (self.objBlock) self.objBlock(x);
+            }).onLongPressGestureBy(^(id data){
+                JobsLog(@"");
+            })
+            .byTag(1)
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.centerY.equalTo(self.contentView);
+                make.left.equalTo(self.contentView).offset(self.leftBtnVM.jobsOffsetX);
+                make.height.mas_equalTo(self.leftBtnVM.jobsWidth);
+            });
     }
     
     _leftBtn.data = self.leftBtnVM;
@@ -126,20 +142,21 @@ BaseLayerProtocol_synthesize_part3
 -(BaseButton *)rightBtn{
     if(!_rightBtn){
         @jobs_weakify(self)
-        _rightBtn = self.contentView.addSubview(BaseButton
-                                                .jobsInit()
-                                                .onClickBy(^(UIButton *x){
-                                                    @jobs_strongify(self)
-                                                    if (self.objBlock) self.objBlock(x);
-                                            }).onLongPressGestureBy(^(id data){
-                                                JobsLog(@"");
-                                            })).byAdd(^(MASConstraintMaker *make) {
-                                                @jobs_strongify(self)
-                                                make.centerY.equalTo(self.contentView);
-                                                make.right.equalTo(self.contentView).offset(-self.rightBtnVM.jobsOffsetX);
-                                                make.height.mas_equalTo(self.rightBtnVM.jobsHeight);
-                                            });
-        _rightBtn.tag = 2;
+        _rightBtn = BaseButton.jobsInit()
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                if (self.objBlock) self.objBlock(x);
+            }).onLongPressGestureBy(^(id data){
+                JobsLog(@"");
+            })
+            .byTag(2)
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.centerY.equalTo(self.contentView);
+                make.right.equalTo(self.contentView).offset(-self.rightBtnVM.jobsOffsetX);
+                make.height.mas_equalTo(self.rightBtnVM.jobsHeight);
+            });
     }
     
     _rightBtn.data = self.rightBtnVM;

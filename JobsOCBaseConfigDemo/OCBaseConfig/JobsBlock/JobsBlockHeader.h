@@ -1,6 +1,6 @@
 //
 //  JobsBlockHeader.h
-//  JobsOCBaseConfigDemo
+//  JobsBlock
 //
 //  Created by Jobs on 2026年6月8日，星期一.
 //
@@ -64,6 +64,7 @@
 @class CAValueFunction;
 @class CFGradientLabel;
 @class CJTextField;
+@protocol CJTextFieldDeleteDelegate;
 @class CustomZFPlayerControlView;
 @class FileFolderHandleModel;
 @class FileNameModel;
@@ -91,29 +92,49 @@
 @class FMTypeModel;
 @class FMWithDrawModel;
 @class FSCalendar;
+@class FSCalendarAppearance;
+@class FSCalendarCell;
+@class FSCalendarEventIndicator;
+@class FSCalendarBlankCell;
+@class FSCalendarCollectionView;
+@class FSCalendarCollectionViewLayout;
+@class FSCalendarCalculator;
+@class FSCalendarDelegationProxy;
+@class FSCalendarHeaderView;
+@class FSCalendarHeaderCell;
+@class FSCalendarHeaderLayout;
+@class FSCalendarHeaderTouchDeliver;
+@class FSCalendarStickyHeader;
+@class FSCalendarTransitionCoordinator;
+@class FSCalendarTransitionAttributes;
+@class FSCalendarWeekdayView;
+@protocol FSCalendarDelegate;
+@protocol FSCalendarDataSource;
+@protocol FSCalendarCollectionViewInternalDelegate;
+
 @class GDFadeView;
 @class GetDepositDiscountActivityRecordModel;
 @class GKCustomNavigationBar;
+@class GKGestureHandleConfigure;
+@class GKNavigationBarConfigure;
 @class GKPhoto;
 @class GKPhotoBrowser;
 @class GoodsClassModel;
-@class ZFPlayerController;
-@class MainTableViewCell;
-@class JobsVideoTBVCell;
-@class GKNavigationBarConfigure;
-@class GKGestureHandleConfigure;
 @class GTC4Error;
 @class GTCaptcha4Model;
 @class GTCaptcha4ResultModel;
 @class GTCaptcha4Session;
 @class HQTextField;
 @class HTMLDocument;
+@class HXCollectionView;
 @class HXCustomCameraViewController;
 @class HXPhotoConfiguration;
 @class HXPhotoManager;
 @class HXPhotoModel;
 @class HXPhotoPickerModel;
 @class HXPhotoView;
+@protocol HXPhotoViewCellCustomProtocol;
+@protocol HXPhotoViewDelegate;
 @class IncomeSourceModel;
 @class IPApiModel;
 @class IpifyModel;
@@ -162,13 +183,15 @@
 @class JobsNavigationTransitionMgr;
 @class JobsNetworkSource;
 @class JobsNetworkTrafficMonitor;
+@class JobsOCKeyboardConfig;
+@class JobsOCKeyboardMgr;
+@class JobsOCKeyboardResult;
 @class JobsParagraphStyleModel;
 @class JobsResponseModel;
 @class JobsRichTextConfig;
 @class JobsRightBtnsView;
 @class JobsSearchBar;
 @class JobsSEL_IMP;
-@class JobsOCSplashVC;
 @class JobsStepView;
 @class JobsTabBar;
 @class JobsTabBarCtrl;
@@ -178,8 +201,8 @@
 @class JobsTextView;
 @class JobsTimeModel;
 @class JobsTimer;
-@class JobsTimerManager;
-@class _JobsTimerManagerEntry;
+@class JobsTimerMgr;
+@class _JobsTimerMgrEntry;
 @class JobsToggleBaseView;
 @class JobsToggleNavView;
 @class JobsTransitionAnimator;
@@ -227,7 +250,6 @@
 @class MSCommentDetailModel;
 @class MSCommentModel;
 @class NotificationModel;
-@class NotifiView;
 @class NSCalendar;
 @class NSDate;
 @class NSDateFormatter;
@@ -242,6 +264,10 @@
 @class PointLabBaseView;
 @class PopListBaseView;
 @class RACCommand;
+@class RACCompoundDisposable;
+@class RACReplaySubject;
+@class RACScopedDisposable;
+@class RACStream;
 @class RACDisposable;
 @class RACModel;
 @class RACMulticastConnection;
@@ -288,6 +314,7 @@
 @class YTKChainRequest;
 @class YTKNetworkConfig;
 @class YTKRequest;
+@class ZFPlayerController;
 @class ZFAVPlayerManager;
 @class ZFCustomControlView;
 @class ZFDouYinControlView;
@@ -299,7 +326,6 @@
 @protocol ASCollectionViewLayoutInspecting;
 @protocol ASLayoutElement;
 @protocol ASNetworkImageNodeDelegate;
-@protocol BaseViewProtocol;
 @protocol CAAnimationDelegate;
 @protocol JXCategoryIndicatorProtocol;
 @protocol JXCategoryViewDelegate;
@@ -309,44 +335,66 @@
 @protocol MGSwipeTableCellDelegate;
 @protocol MJRefreshProtocol;
 @protocol PDFViewDelegate;
+@protocol RACSubscriber;
 @protocol TimerProtocol;
 @protocol UIGestureRecognizerDelegate;
 @protocol UIViewModelOthersProtocol;
-@protocol YTKRequestDelegate;
-@protocol YTKRequestAccessory;
-@protocol YTKChainRequestDelegate;
 @protocol YTKBatchRequestDelegate;
-@protocol ZFPlayerMediaPlayback;
+@protocol YTKChainRequestDelegate;
+@protocol YTKRequestAccessory;
+@protocol YTKRequestDelegate;
 @protocol ZFPlayerMediaControl;
-@protocol MianTableViewCellDelegate;
-#pragma mark —— DSL synced forward declarations
-@protocol CJTextFieldDeleteDelegate;
-@class FSCalendarAppearance;
-@class FSCalendarCell;
-@class FSCalendarEventIndicator;
-@class FSCalendarBlankCell;
-@class FSCalendarCollectionView;
-@class FSCalendarCollectionViewLayout;
-@class FSCalendarCalculator;
-@class FSCalendarDelegationProxy;
-@class FSCalendarHeaderView;
-@class FSCalendarHeaderCell;
-@class FSCalendarHeaderLayout;
-@class FSCalendarHeaderTouchDeliver;
-@class FSCalendarStickyHeader;
-@class FSCalendarTransitionCoordinator;
-@class FSCalendarTransitionAttributes;
-@class FSCalendarWeekdayView;
-@protocol FSCalendarDelegate;
-@protocol FSCalendarDataSource;
-@protocol FSCalendarCollectionViewInternalDelegate;
-@class HXCollectionView;
-@protocol HXPhotoViewCellCustomProtocol;
-@protocol HXPhotoViewDelegate;
-@class RACCompoundDisposable;
-@class RACReplaySubject;
-@class RACScopedDisposable;
-@class RACStream;
-@protocol RACSubscriber;
+@protocol ZFPlayerMediaPlayback;
+/// https://github.com/agiapp/BRPickerView
+#ifndef BR_TEXT_PICKER_MODE_DEFINED
+#define BR_TEXT_PICKER_MODE_DEFINED
+/// 文本选择器类型
+typedef NS_ENUM(NSInteger, BRTextPickerMode) {
+    /** 单列选择器 */
+    BRTextPickerComponentSingle,
+    /** 多列选择器 */
+    BRTextPickerComponentMulti,
+    /** 多列联动选择器 */
+    BRTextPickerComponentCascade
+};
+#endif
+/// https://github.com/texturegroup/texture
+#if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
+#import <AsyncDisplayKit/AsyncDisplayKit.h>
+#else
+typedef struct {
+    CGFloat leadingBufferScreenfuls;
+    CGFloat trailingBufferScreenfuls;
+} ASRangeTuningParameters;
+#endif
+/// https://github.com/yuantiku/YTKNetwork
+#if __has_include(<YTKNetwork/YTKNetwork.h>)
+#import <YTKNetwork/YTKNetwork.h>
+#elif __has_include("YTKNetwork.h")
+#import "YTKNetwork.h"
+#endif
+/// https://github.com/QuintGao/GKNavigationBar
+#if __has_include(<GKNavigationBar/GKNavigationBar.h>)
+#import <GKNavigationBar/GKNavigationBar.h>
+#elif __has_include("GKNavigationBar.h")
+#import "GKNavigationBar.h"
+#endif
 
+#if __has_include(<GKNavigationBar/GKGestureHandleConfigure.h>)
+#import <GKNavigationBar/GKGestureHandleConfigure.h>
+#elif __has_include("GKGestureHandleConfigure.h")
+#import "GKGestureHandleConfigure.h"
+#endif
+/// https://github.com/renzifeng/ZFPlayer
+#if __has_include(<ZFPlayer/ZFPlayer.h>)
+#import <ZFPlayer/ZFPlayer.h>
+#elif __has_include("ZFPlayer.h")
+#import "ZFPlayer.h"
+#endif
+
+#if __has_include(<ZFPlayer/ZFAVPlayerManager.h>)
+#import <ZFPlayer/ZFAVPlayerManager.h>
+#elif __has_include("ZFAVPlayerManager.h")
+#import "ZFAVPlayerManager.h"
+#endif
 #endif /* JobsBlockHeader_h */

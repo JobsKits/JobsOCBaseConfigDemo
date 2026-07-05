@@ -1,12 +1,14 @@
 //
 //  JobsMagicTextField.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2020/12/6.
-//  Copyright © 2020 bihongbo. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsMagicTextField.h"
+#import "UIView+Extra.h"
+#import "UIView+Measure.h"
+#import "NSObject+Notification.h"
 
 @interface JobsMagicTextField ()
 
@@ -55,7 +57,8 @@ Prop_strong()UILabel *placeholderAnimationLbl;
                          animations:^{
             @jobs_strongify(self)
             self.placeholderAnimationLbl.jobsVisible = YES;
-            self.placeholderAnimationLbl.frame = targetFrame;
+            self.placeholderAnimationLbl.byFrame(targetFrame);
+
             if (self.attributedPlaceholder && !self.placeholder) {
                 self.placeholderAnimationLbl.attributedText = self.attributedPlaceholder;
             }else{
@@ -85,7 +88,8 @@ Prop_strong()UILabel *placeholderAnimationLbl;
                          animations:^{
             @jobs_strongify(self)
             self.placeholderAnimationLbl.jobsVisible = NO;
-            self.placeholderAnimationLbl.frame = targetFrame;
+            self.placeholderAnimationLbl.byFrame(targetFrame);
+
             if (self.attributedPlaceholder && !self.placeholder) {
                 self.placeholderAnimationLbl.attributedText = self.attributedPlaceholder;
             }else{
@@ -112,20 +116,24 @@ Prop_strong()UILabel *placeholderAnimationLbl;
         @jobs_weakify(self)
         _placeholderAnimationLbl = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.jobsVisible = YES;
-            label.frame = CGRectMake(self.placeHolderOffset + self.leftViewOffsetX,
-                                     self.y,
-                                     self.width,
-                                     self.height);
-            label.backgroundColor = JobsClearColor;
-            label.textAlignment = self.textAlignment;///❤️
-            if (self.attributedPlaceholder && !self.placeholder) {
-                label.attributedText = self.attributedPlaceholder;
-            }else{
-                label.text = self.placeholder;
-                label.font = self.font;
-            }
-            self.addSubview(label);
+            label
+                .byLabelBlock(^(__kindof UILabel * _Nullable data) {
+                    if (self.attributedPlaceholder && !self.placeholder) {
+                        data.byAttributedString(self.attributedPlaceholder);
+                    } else {
+                        data
+                            .byText(self.placeholder)
+                            .byFont(self.font);
+                    }
+                })
+                .byTextAlignment(self.textAlignment)
+                .byJobsVisible(YES)
+                .byFrame(CGRectMake(self.placeHolderOffset + self.leftViewOffsetX,
+                                    self.y,
+                                    self.width,
+                                    self.height))
+                .byBgColor(JobsClearColor)
+                .addOn(self);
         });
     };return _placeholderAnimationLbl;
 }

@@ -1,20 +1,32 @@
 //
 //  ZFDouYinControlView.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by 任子丰 on 2018/6/4.
-//  Copyright © 2018年 紫枫. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_ZFDOUYINCONTROLVIEW_CA2F565BE2
+#define JOBS_HEADER_GUARD_ZFDOUYINCONTROLVIEW_CA2F565BE2
+
 #import <UIKit/UIKit.h>
-#import "ZFLoadingView.h"
 #import <ZFPlayer/ZFPlayerMediaControl.h>
 #import <ZFPlayer/UIView+ZFFrame.h>
 #import <ZFPlayer/UIImageView+ZFCache.h>
 #import <ZFPlayer/ZFUtilities.h>
 #import <ZFPlayer/ZFSliderView.h>
 #import <ZFPlayer/ZFPlayerController.h>
-#import "JobsDefineProperty.h"
+
+#if __has_include(<ZFPlayer/ZFLoadingView.h>)
+#import <ZFPlayer/ZFLoadingView.h>
+#else
+#import "ZFLoadingView.h"
+#endif
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 @interface ZFDouYinControlView : UIView <ZFPlayerMediaControl>
 
@@ -22,3 +34,4 @@
 -(void)showCoverViewWithUrl:(NSString *)coverUrl;
 
 @end
+#endif /* JOBS_HEADER_GUARD_ZFDOUYINCONTROLVIEW_CA2F565BE2 */

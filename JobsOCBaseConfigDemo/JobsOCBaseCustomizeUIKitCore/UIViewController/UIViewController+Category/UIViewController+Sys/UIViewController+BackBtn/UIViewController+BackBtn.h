@@ -1,20 +1,22 @@
 //
 //  UIViewController+BackBtn.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/10/12.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BACKBTN_D0EE395176
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BACKBTN_D0EE395176
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "JobsLoadingImage.h"
-#import "MacroDef_Cor.h"
-#import "MacroDef_App.h"
-#import "MacroDef_String.h"
-#import "BaseViewControllerProtocol.h"
 #import "UIButton+ImageTitleSpacing.h"
+#import "UIButton+SimplyMake.h"
 #import "UIButton+UI.h"
-#import "JobsDefineProperty.h"
+#import "BaseButton.h"
+#import "NSObject+image.h"
+#import "NSObject+Extra.h"
+#import "UIBarButtonItem+Extra.h"
 
 #if __has_include(<GKNavigationBar/GKNavigationBar.h>)
 #import <GKNavigationBar/GKNavigationBar.h>
@@ -27,6 +29,16 @@
 #else
 #import "ReactiveObjC.h"
 #endif
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsLoadingImageHeader.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -42,3 +54,4 @@ Prop_strong()UIBarButtonItem *backBtnCategoryItem;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BACKBTN_D0EE395176 */

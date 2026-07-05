@@ -1,16 +1,16 @@
 //
 //  JXCategoryTitleBackgroundCell.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by jiaxin on 2019/8/16.
-//  Copyright © 2019 jiaxin. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JXCategoryTitleBackgroundCell.h"
 #import "JXCategoryTitleBackgroundCellModel.h"
 
 @interface JXCategoryTitleBackgroundCell()
-@property (nonatomic, strong) CALayer *bgLayer;
+Prop_strong()CALayer *bgLayer;
+
 @end
 
 @implementation JXCategoryTitleBackgroundCell

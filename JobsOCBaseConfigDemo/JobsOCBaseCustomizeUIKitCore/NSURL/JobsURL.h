@@ -1,13 +1,13 @@
 //
 //  JobsURL.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs Hi on 2024/7/6.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef JobsURL_h
 #define JobsURL_h
 
-#import "NSURL+Others.h"
+#import "NSURL+Extra.h"
 
 #endif /* JobsURL_h */

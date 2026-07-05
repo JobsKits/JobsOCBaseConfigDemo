@@ -1,8 +1,8 @@
 //
 //  UIViewController+Lottie.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/11/29.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIViewController+Lottie.h"
@@ -14,8 +14,10 @@
     if (isValue(lottieImage)) {
 //        self.view.backgroundColor = JobsLightGrayColor;
         LOTAnimationView *lottieView = [LOTAnimationView animationNamed:lottieImage];
-        lottieView.frame = UIScreen.mainScreen.bounds;
-        lottieView.contentMode = UIViewContentModeScaleAspectFit;
+        lottieView.byFrame(UIScreen.mainScreen.bounds);
+
+        lottieView.byContentMode(UIViewContentModeScaleAspectFit);
+
         lottieView.loopAnimation = YES;
         lottieView.tag = 100;
         [self.view addSubview:lottieView];

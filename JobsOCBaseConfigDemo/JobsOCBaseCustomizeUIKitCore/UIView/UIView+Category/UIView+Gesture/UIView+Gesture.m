@@ -23,7 +23,7 @@
     @jobs_weakify(self)
     return ^__kindof UIGestureRecognizer *_Nullable(void *_Nullable key){
         @jobs_strongify(self)
-        return Jobs_getAssociatedObjectByRawKey(key);
+        return Jobs_getAssociatedObjectByTargetRawKey(self, key);
     };
 }
 #pragma mark —— 一些公有方法

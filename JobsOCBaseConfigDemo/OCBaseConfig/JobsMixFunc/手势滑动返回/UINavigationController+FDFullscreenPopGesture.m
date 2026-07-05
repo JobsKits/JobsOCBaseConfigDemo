@@ -1,28 +1,13 @@
-// The MIT License (MIT)
 //
-// Copyright (c) 2015-2016 forkingdog ( https://github.com/forkingdog )
+//  UINavigationController+FDFullscreenPopGesture.m
+//  FDFullscreenPopGesture
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Created by Jobs on 2026年5月13日，星期三.
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
 
 #import "UINavigationController+FDFullscreenPopGesture.h"
-#import "JobsBlock.h"
-
+#import "NSObject+Extra.h"
+#import "UIViewController+BaseNavigationBar.h"
 
 @interface _FDFullscreenPopGestureRecognizerDelegate : NSObject<UIGestureRecognizerDelegate>
 
@@ -53,14 +38,7 @@ Prop_weak()UINavigationController *navigationController;
 
 @end
 
-@interface UINavigationController (FDFullscreenPopGesture)
-
-Prop_strong()_FDFullscreenPopGestureRecognizerDelegate *fd_popGestureRecognizerDelegate;
-Prop_assign()BOOL fd_viewControllerBasedNavigationBarAppearanceEnabled;
-Prop_strong(readonly)UIPanGestureRecognizer *fd_fullscreenPopGestureRecognizer;
-
-@end
-
+typedef void (^_FDViewControllerWillAppearInjectBlock)(UIViewController *viewController, BOOL animated);
 @interface UIViewController (FDFullscreenPopGesturePrivate)
 
 Prop_copy()_FDViewControllerWillAppearInjectBlock fd_willAppearInjectBlock;
@@ -93,7 +71,6 @@ Prop_copy()_FDViewControllerWillAppearInjectBlock fd_willAppearInjectBlock;
     [self fd_viewWillDisappear:animated];
 }
 
-#pragma mark —— fd_willAppearInjectBlock
 JobsKey(_fd_willAppearInjectBlock)
 @dynamic fd_willAppearInjectBlock;
 - (_FDViewControllerWillAppearInjectBlock)fd_willAppearInjectBlock{
@@ -159,11 +136,11 @@ JobsKey(_fd_willAppearInjectBlock)
 
 - (void)fd_setupViewControllerBasedNavigationBarAppearanceIfNeeded:(UIViewController *)appearingViewController{
     if (!self.fd_viewControllerBasedNavigationBarAppearanceEnabled) return;
-    @jobs_weakify(self)
+    __weak typeof(self) weakSelf = self;
     _FDViewControllerWillAppearInjectBlock block = ^(UIViewController *viewController,
                                                      BOOL animated) {
-        @jobs_strongify(self)
-        [self setNavigationBarHidden:viewController.isHiddenNavigationBar animated:animated];
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf setNavigationBarHidden:viewController.isHiddenNavigationBar animated:animated];
     };
     // Setup will appear inject block to appearing view controller.
     // Setup disappearing view controller as well, because not every view controller is added into
@@ -175,9 +152,7 @@ JobsKey(_fd_willAppearInjectBlock)
     }
 }
 
-#pragma mark —— Prop_strong()_FDFullscreenPopGestureRecognizerDelegate *fd_popGestureRecognizerDelegate;
 JobsKey(_fd_popGestureRecognizerDelegate)
-@dynamic fd_popGestureRecognizerDelegate;
 - (_FDFullscreenPopGestureRecognizerDelegate *)fd_popGestureRecognizerDelegate{
     _FDFullscreenPopGestureRecognizerDelegate *delegate = Jobs_getAssociatedObject(_fd_popGestureRecognizerDelegate);
     if (!delegate) {
@@ -187,9 +162,7 @@ JobsKey(_fd_popGestureRecognizerDelegate)
     };return delegate;
 }
 
-#pragma mark —— fd_viewControllerBasedNavigationBarAppearanceEnabled
 JobsKey(_fd_viewControllerBasedNavigationBarAppearanceEnabled)
-@dynamic fd_viewControllerBasedNavigationBarAppearanceEnabled;
 - (BOOL)fd_viewControllerBasedNavigationBarAppearanceEnabled{
     NSNumber *number = Jobs_getAssociatedObject(_fd_viewControllerBasedNavigationBarAppearanceEnabled);
     if (number) return number.boolValue;
@@ -197,7 +170,8 @@ JobsKey(_fd_viewControllerBasedNavigationBarAppearanceEnabled)
     return YES;
 }
 
-- (void)setFd_viewControllerBasedNavigationBarAppearanceEnabled:(BOOL)enabled{    Jobs_setAssociatedRETAIN_NONATOMIC(_fd_viewControllerBasedNavigationBarAppearanceEnabled, @(enabled))
+- (void)setFd_viewControllerBasedNavigationBarAppearanceEnabled:(BOOL)enabled{
+    Jobs_setAssociatedRETAIN_NONATOMIC(_fd_viewControllerBasedNavigationBarAppearanceEnabled, @(enabled))
 }
 
 PROP_STRONG_OBJECT_LAZY(UIPanGestureRecognizer,

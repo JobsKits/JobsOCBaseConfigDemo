@@ -1,20 +1,23 @@
 //
 //  BaseModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
-
-#pragma once
+#ifndef BaseModel_h
+#define BaseModel_h
 
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
 
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>
 #else
 #import "MJExtension.h"
 #endif
+
+#import "JobsClass.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -81,3 +84,5 @@ NS_ASSUME_NONNULL_END
      具体代码为：[DDMyVipModel mj_objectWithKeyValues:Data];
 
  **/
+
+#endif /* BaseModel_h */

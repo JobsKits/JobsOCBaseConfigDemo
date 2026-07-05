@@ -1,11 +1,13 @@
 //
 //  BaseViewController.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2020/12/1.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "BaseViewController.h"
+#import "UIView+Refresh.h"
+#import "UIView+Measure.h"
 
 @interface BaseViewController ()
 
@@ -39,9 +41,11 @@ BaseViewControllerProtocol_synthesize
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (@available(iOS 13.0, *)) {
-        self.view.backgroundColor = JobsSystemBackgroundColor;
+        self.view.byBgColor(JobsSystemBackgroundColor);
+
     } else {
-        self.view.backgroundColor = JobsWhiteColor;
+        self.view.byBgColor(JobsWhiteColor);
+
     }
     self.ViewDidLoad = YES;
     /// 在loadView或者之前的生命周期中定义背景图片或者底色
@@ -88,22 +92,26 @@ BaseViewControllerProtocol_synthesize
         @jobs_strongify(self)
         /// 底图没有 + 底色没有
         if(!self.viewModel.bgImage && !self.viewModel.bgCor){
-            self.view.backgroundColor = HEXCOLOR(0xFCFBFB);
+            self.view.byBgColor(HEXCOLOR(0xFCFBFB));
+
             return;
         }
         /// 底图有 + 底色没有
         if(self.viewModel.bgImage && !self.viewModel.bgCor){
-            self.bgImageView.alpha = 1;
+            self.bgImageView.byAlpha(1);
+
             return;
         }
         /// 底图没有 + 底色有
         if(!self.viewModel.bgImage && self.viewModel.bgCor){
-            self.view.backgroundColor = self.viewModel.bgCor;
+            self.view.byBgColor(self.viewModel.bgCor);
+
             return;
         }
         /// 底图有 + 底色有 = 优先使用底图数据
         if(self.viewModel.bgImage && self.viewModel.bgCor){
-            self.bgImageView.alpha = 1;
+            self.bgImageView.byAlpha(1);
+
             return;
         }
     };
@@ -116,10 +124,11 @@ BaseViewControllerProtocol_synthesize
         @jobs_weakify(self)
         _bgImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
+            imageView
+                .byImage(self.viewModel.bgImage)
+                .byUserInteractionEnabled(YES);
             imageView.resetOrigin(CGPointMake(self.view.x, self.view.y));
-            imageView.resetSize(CGSizeMake(JobsRealWidth(),JobsRealHeight()));
-            imageView.image = self.viewModel.bgImage;
-            imageView.userInteractionEnabled = YES;
+            imageView.resetSize(CGSizeMake(JobsRealWidth(), JobsRealHeight()));
     //        self.view = _bgImageView; // 如果用UIImageView来替换原本的View，有时候会出现一些错误
             [self.view insertSubview:imageView atIndex:0];
         });

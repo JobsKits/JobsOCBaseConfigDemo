@@ -2,25 +2,42 @@
 //  UITableView+EmptyData.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Admin on 14/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UITableView+EmptyData.h"
 
+JobsKey(JobsTableViewEmptyDataReloadingKey)
 @implementation UITableView (EmptyData)
 
-+(void)initialize{
++(void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        method_exchangeImplementations(class_getInstanceMethod(self, @selector(reloadData)),
-                                       class_getInstanceMethod(self, @selector(jobsReloadData)));
+        Method originalMethod = class_getInstanceMethod(UITableView.class, @selector(reloadData));
+        Method swizzledMethod = class_getInstanceMethod(UITableView.class, @selector(jobsReloadData));
+        if (originalMethod && swizzledMethod) {
+            method_exchangeImplementations(originalMethod, swizzledMethod);
+        }
     });
 }
 
 -(void)jobsReloadData{
+    if ([Jobs_getAssociatedObject(JobsTableViewEmptyDataReloadingKey) boolValue]) return;
+    Jobs_setAssociatedRETAIN_NONATOMIC(JobsTableViewEmptyDataReloadingKey, @YES)
     [self jobsReloadData]; // 调用原始的 reloadData（已经交换过）
-//    self.showEmptyLabelBy(self.textModelEmptyData)
-    self.showEmptyButtonBy(self.buttonModelEmptyData);
+    Jobs_setAssociatedRETAIN_NONATOMIC(JobsTableViewEmptyDataReloadingKey, @NO)
+    switch (self.jobsEmptyViewType) {
+        case JobsEmptyViewTypeLabel:{
+            self.showEmptyLabelBy(self.textModelEmptyData);
+        }break;
+        case JobsEmptyViewTypeButton:{
+            self.showEmptyButtonBy(self.buttonModelEmptyData);
+        }break;
+        case JobsEmptyViewTypeCustomView:{
+            self.showEmptyViewBy(self.emptyDataView);
+        }break;
+        default:break;
+    }
 }
 #pragma mark —— 一些私有方法
 -(BOOL)hasData{
@@ -34,25 +51,26 @@
     };return hasData;
 }
 
--(JobsReturnViewByButtonModelBlock _Nonnull)showEmptyButtonBy{
+-(JobsRetViewByButtonModelBlock _Nonnull)showEmptyButtonBy{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(UIButtonModel *model){
         @jobs_strongify(self)
         if(self.hasData){
             self.cleanSubviewBy(BaseView.class);
-            return nil;
+            return self;
         }else{
-            return jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
+            jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
                 @jobs_strongify(self)
-                view.frame = self.bounds;
+                view.byFrame(self.bounds);
+
                 view.cleanSubviewBy(BaseView.class);
                 self.addSubview(view)
                     .addSubview(UIButton.initByButtonModel(model ? : jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                        data.title = @"No Datas".tr;
-                        data.titleCor = JobsWhiteColor;
-                        data.titleFont = bayonRegular(JobsWidth(30));
-                        data.normalImage = @"暂无数据".img;
-                        data.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
+                        data.byTitle(@"No Datas".tr)
+                            .byTitleCor(JobsWhiteColor)
+                            .byTitleFont(bayonRegular(JobsWidth(30)))
+                            .byNormalImage(@"暂无数据".img)
+                            .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0));
                 })).setMasonryBy(^(MASConstraintMaker *make){
                     @jobs_strongify(self)
                     make.centerX.equalTo(self).offset(model.jobsOffsetX);
@@ -60,35 +78,56 @@
                     make.width.equalTo(self);
                 }));
             });
+            return self;
         }
     };
 }
 
--(JobsReturnViewByTextModelBlock _Nonnull)showEmptyLabelBy{
+-(JobsRetViewByTextModelBlock _Nonnull)showEmptyLabelBy{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(UITextModel *model){
         @jobs_strongify(self)
         if(self.hasData){
             self.cleanSubviewBy(BaseView.class);
-            return nil;
+            return self;
         }else{
-            return jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
+            jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
                 @jobs_strongify(self)
-                view.frame = self.bounds;
+                view.byFrame(self.bounds);
+
                 view.cleanSubviewBy(BaseView.class);
                 self.addSubview(view);
-                view.addSubview(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
-                    label.textAlignment = model.textAlignment ? : NSTextAlignmentCenter;
-                    label.textColor = model.textCor ? : JobsRedColor;
-                    label.text = isValue(model.text) ? model.text : @"No Datas".tr;
-                    label.makeLabelByShowingType(UILabelShowingType_05);
-                    label.setMasonryBy(^(MASConstraintMaker *make){
-                        @jobs_strongify(self)
-                        make.center.equalTo(self);
-                        make.width.equalTo(self);
-                    });
-                }));
+                jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
+                    label
+                        .byTextAlignment(model.textAlignment ? : NSTextAlignmentCenter)
+                        .byTextCor(model.textCor ? : JobsRedColor)
+                        .byText(isValue(model.text) ? model.text : @"No Datas".tr)
+                        .makeLabelByShowingType(UILabelShowingType_05)
+                        .addOn(view)
+                        .byAdd(^(MASConstraintMaker *make){
+                            @jobs_strongify(self)
+                            make.center.equalTo(self);
+                            make.width.equalTo(self);
+                        });
+                });
             });
+            return self;
+        }
+    };
+}
+
+-(JobsRetViewByViewBlock _Nonnull)showEmptyViewBy{
+    @jobs_weakify(self)
+    return ^__kindof UIView *_Nullable(__kindof UIView *view){
+        @jobs_strongify(self)
+        if(self.hasData){
+            self.cleanSubviewBy(UIView.class);
+            return self;
+        }else{
+            self.cleanSubviewBy(UIView.class);
+            view.byFrame(self.bounds);
+            self.addSubview(view);
+            return self;
         }
     };
 }

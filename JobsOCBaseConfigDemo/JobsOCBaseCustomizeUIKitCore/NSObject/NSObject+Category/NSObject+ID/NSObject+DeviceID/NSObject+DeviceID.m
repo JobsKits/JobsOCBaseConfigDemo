@@ -1,11 +1,53 @@
 //
 //  NSObject+DeviceID.m
-//  JobsOCBaseConfigDemo
+//  JobsDeviceInfo
 //
-//  Created by Jobs on 2021/12/2.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+DeviceID.h"
+#import "NSObject+Extra.h"
+
+static NSMutableDictionary *JobsDeviceIDKeychainQuery(NSString *service) {
+    NSMutableDictionary *query = NSMutableDictionary.dictionary;
+    query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+    query[(__bridge id)kSecAttrService] = service;
+    query[(__bridge id)kSecAttrAccount] = service;
+    query[(__bridge id)kSecAttrAccessible] = (__bridge id)kSecAttrAccessibleAfterFirstUnlock;
+    return query;
+}
+
+static NSString *JobsDeviceIDKeychainLoad(NSString *service) {
+    NSMutableDictionary *query = JobsDeviceIDKeychainQuery(service);
+    query[(__bridge id)kSecReturnData] = @YES;
+    query[(__bridge id)kSecMatchLimit] = (__bridge id)kSecMatchLimitOne;
+
+    CFTypeRef result = NULL;
+    OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
+    if (status != errSecSuccess || !result) return nil;
+
+    NSData *data = (__bridge_transfer NSData *)result;
+    NSString *string = [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
+    if (string) return string;
+
+    NSError *error = nil;
+    id object = [NSKeyedUnarchiver unarchivedObjectOfClass:NSString.class
+                                                  fromData:data
+                                                     error:&error];
+    return [object isKindOfClass:NSString.class] ? object : nil;
+}
+
+static BOOL JobsDeviceIDKeychainSave(NSString *service, NSString *data) {
+    NSMutableDictionary *query = JobsDeviceIDKeychainQuery(service);
+    SecItemDelete((__bridge CFDictionaryRef)query);
+
+    query[(__bridge id)kSecValueData] = [data dataUsingEncoding:NSUTF8StringEncoding];
+    return SecItemAdd((__bridge CFDictionaryRef)query, NULL) == errSecSuccess;
+}
+
+static void JobsDeviceIDKeychainRemove(NSString *service) {
+    SecItemDelete((__bridge CFDictionaryRef)JobsDeviceIDKeychainQuery(service));
+}
 
 @implementation NSObject (DeviceID)
 /**
@@ -14,15 +56,15 @@
  但是刷机或重装系统后uuid还是会改变。
  */
 -(void)deleteDeviceID{
-    JobsKeychainHelper.remove(设备ID);
+    JobsDeviceIDKeychainRemove(设备ID);
 }
 
 -(NSString *)deviceID{
     /// 读取keychain的缓存
-    NSString *deviceID = JobsKeychainHelper.load(设备ID);
-    if (isNull(deviceID)) {
+    NSString *deviceID = JobsDeviceIDKeychainLoad(设备ID);
+    if (deviceID.length == 0) {
         deviceID = UIDevice.currentDevice.identifierForVendor.UUIDString;
-        [JobsKeychainHelper save:设备ID data:deviceID];
+        JobsDeviceIDKeychainSave(设备ID, deviceID);
     };return deviceID;
 }
 

@@ -2,7 +2,7 @@
 //  Douyin_ZFPlayerVC@1.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/1/8.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "Douyin_ZFPlayerVC@1.h"
@@ -10,15 +10,17 @@
 @interface Douyin_ZFPlayerVC_1 ()
 
 Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
+-(void)stopVisiblePlayers;
 
 @end
 
 @implementation Douyin_ZFPlayerVC_1
 
 - (void)dealloc {
+    [self stopVisiblePlayers];
     JobsLog(@"%@",JobsLocalFunc);
 }
-#pragma mark - Lifecycle
+#pragma mark —— Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
         self.index = 0;
@@ -34,24 +36,30 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
     
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 -(void)viewDidLoad{
     [super viewDidLoad];
 
-    self.view.backgroundColor = JobsYellowColor;
+    self.view.byBgColor(JobsBlackColor);
+
     self.makeNavByAlpha(1);
     
     self.tableView.byShow(self);
@@ -72,12 +80,21 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [self stopVisiblePlayers];
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
 }
 #pragma mark —— 一些私有方法
+-(void)stopVisiblePlayers{
+    for (__kindof UITableViewCell *cell in _tableView.visibleCells) {
+        if ([cell isKindOfClass:JobsPlayerTBVCell.class]) {
+            [(JobsPlayerTBVCell *)cell stopPlayer];
+        }
+    }
+}
+
 /// 真实的网络请求
 -(void)requestData:(BOOL)isLoadMore{
     JobsNetworkingPrepare
@@ -162,7 +179,8 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
         if (self.tableView.contentOffset.y - self.tableView.contentSize.height < 80 &&
             self.tableView.contentSize.height > 80) {
             //上拉加载方法
-            self.tableView.mj_footer.hidden = NO;
+            self.tableView.mj_footer.byHidden(NO);
+
 //            [self.tableView.mj_footer endRefreshingWithNoMoreData]; MJRefreshStateNoMoreData
             self.tableView.mj_footer.state = MJRefreshStateNoMoreData;
             [self.tableView.mj_footer endRefreshing];
@@ -181,7 +199,7 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
         }
     }];
 }
-#pragma mark —————————— UITableViewDelegate,UITableViewDataSource ——————————
+#pragma mark —— UITableViewDelegate,UITableViewDataSource ——————————
 -(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return JobsPlayerTBVCell.cellHeightByModel(nil);
@@ -197,14 +215,14 @@ numberOfRowsInSection:(NSInteger)section{
 
 -(__kindof UITableViewCell *)tableView:(UITableView *)tableView
                  cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    JobsPlayerTBVCell *cell = JobsPlayerTBVCell.cellStyleValue1WithTableView(tableView);
+    JobsPlayerTBVCell *cell = JobsPlayerTBVCell.cellStyleValue1ByTableView(tableView);
     cell.index = indexPath.row;
     self.index = indexPath.row;
     @jobs_weakify(self)
     cell.jobsRichElementsTableViewCellBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
         @jobs_strongify(self)
-        viewModel.row = indexPath.row;
-        viewModel.data = self.dataMutArr[indexPath.row];
+        viewModel.byRow(indexPath.row)
+                 .byData(self.dataMutArr[indexPath.row]);
     })).JobsBlock1(^(JobsTuple *data) {
         @jobs_strongify(self)
         NSNumber *direction = data.jobsTupleValueArr[0];
@@ -257,7 +275,6 @@ forRowAtIndexPath:(NSIndexPath*)indexPath{
         @jobs_weakify(self)
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
-
             tableView
                 .byMJRefreshHeader([MJRefreshNormalHeader headerWithRefreshingBlock:^{
                     @jobs_strongify(self)
@@ -283,15 +300,15 @@ forRowAtIndexPath:(NSIndexPath*)indexPath{
                 .byPagingEnabled(YES)
                 .byShowsVerticalScrollIndicator(NO)
                 .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                    data.title = @"暂无数据".tr;
-                    data.subTitle = @"骚等片刻".tr;
-                    data.titleCor = JobsWhiteColor;
-                    data.titleFont = bayonRegular(JobsWidth(30));
-                    data.normalImage = @"暂无数据".img;
-                    data.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
+                    data.byTitle(@"暂无数据".tr)
+                        .bySubTitle(@"骚等片刻".tr)
+                        .byTitleCor(JobsWhiteColor)
+                        .byTitleFont(bayonRegular(JobsWidth(30)))
+                        .byNormalImage(@"暂无数据".img)
+                        .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0));
                 }))
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsBlackColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)

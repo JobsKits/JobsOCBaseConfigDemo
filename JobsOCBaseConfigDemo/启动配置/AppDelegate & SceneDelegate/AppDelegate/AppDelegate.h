@@ -11,7 +11,6 @@
 #import "JobsTabBarVC.h"
 #import "JobsCustomTabBarConfig.h"
 #import "LZTabBarController.h"
-#import "Other.h"
 
 @import UserNotifications;/// 配置本地通知
 

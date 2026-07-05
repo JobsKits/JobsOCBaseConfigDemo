@@ -11,10 +11,6 @@
 #import "NSMutableAttributedString+Extra.h"
 #import "NSAttributedString+Extra.h"
 
-#ifndef AttributedString
-#define AttributedString NSMutableAttributedString.alloc
-#endif /* AttributedString */
-
 #ifndef JobsMakes_h
 #pragma mark —— 创建不可变富文本
 NS_INLINE NSAttributedString *_Nonnull JobsAttributedString(NSString *_Nonnull data) {

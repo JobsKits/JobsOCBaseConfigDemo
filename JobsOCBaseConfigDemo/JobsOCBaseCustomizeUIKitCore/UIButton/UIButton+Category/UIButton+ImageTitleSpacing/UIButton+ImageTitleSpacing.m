@@ -1,9 +1,8 @@
 //
 //  UIButton+ImageTitleSpacing.m
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by 高磊 on 2016/12/19.
-//  Copyright © 2016年 高磊. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIButton+ImageTitleSpacing.h"
@@ -12,67 +11,73 @@
 
 -(__kindof UIButton *)layoutButtonWithEdgeInsetsStyle:(NSDirectionalRectEdge)style
                                          imagePadding:(CGFloat)imagePadding{
-    if (self.deviceSystemVersion.floatValue >= 15.0) {
+    if (UIDevice.currentDevice.systemVersion.floatValue >= 15.0) {
 /**
- 利用 UIButtonConfiguration 来解决问题，示例：
- -(UIButtonConfiguration *)btnConfig{
-     if(!_btnConfig){
-         _btnConfig = UIButtonConfiguration.filledButtonConfiguration;
-         {// 图片
-             _btnConfig.image =@"入职Mata".img; // 替换为你的图像名称
-             _btnConfig.imagePlacement = NSDirectionalRectEdgeLeading;// 这里将图像放置在标题的前面
-             _btnConfig.imagePadding = 10;// 设置图像与标题之间的间距
-         }
-         
-         {// 一般的文字
-             _btnConfig.title = @"入职Mata".tr;
-             _btnConfig.subtitle = @"".tr;
-             _btnConfig.baseForegroundColor = JobsBlackColor;// 前景颜色（= 文字颜色）
-         }
-         
-         {// 富文本
-             // 设置按钮标题的文本属性
-             _btnConfig.titleTextAttributesTransformer = ^NSDictionary<NSAttributedStringKey, id> *(NSDictionary<NSAttributedStringKey, id> *textAttributes) {
-                 NSMutableDictionary<NSAttributedStringKey, id> *newTextAttributes = textAttributes.mutableCopy;
-                 [newTextAttributes addEntriesFromDictionary:@{
-                     NSFontAttributeName:UIFontWeightRegularSize(14), // 替换为你想要的字体和大小
-                     NSForegroundColorAttributeName: JobsBlackColor // 替换为你想要的文本颜色
-                 }];
-                 return newTextAttributes.copy;
-             };
-             _btnConfig.attributedTitle = [NSAttributedString.alloc initWithString:@"入职Mata".tr attributes:@{NSForegroundColorAttributeName:JobsBlackColor}];
-         }
-         
-         {// 其他
-             _btnConfig.baseBackgroundColor = JobsWhiteColor;// 背景颜色
-             _btnConfig.contentInsets = NSDirectionalEdgeInsetsMake(0, 0, 0, 0); // 内边距
-         }
-     };return _btnConfig;
- }
 
- -(UIButton *)btn1{
-     if(!_btn1){
-         if(self.deviceSystemVersion.floatValue >= 15.0){
-             _btn1 = [UIButton buttonWithConfiguration:self.btnConfig primaryAction:nil];
-         }else{
-             _btn1 = UIButton.new;
-             _btn1.jobsResetBtnImage = @"入职Mata".img;
-             _btn1.titleFont = UIFontWeightRegularSize(14);
-             _btn1.jobsResetBtnTitle = @"入职Mata".tr;
-             _btn1.jobsResetBtnTitleCor = JobsBlackColor;
-         }
-         // 添加按钮到视图中
-         [self addSubview:_btn1];
-         [_btn1 mas_makeConstraints:^(MASConstraintMaker *make) {
-             make.size.mas_equalTo(CGSizeMake(JobsWidth(85), JobsWidth(16)));
-             make.centerY.equalTo(self);
-             make.left.equalTo(self).offset(JobsWidth(6));
-         }];
-         if(self.deviceSystemVersion.floatValue < 15.0){
-             [_btn1 layoutButtonWithEdgeInsetsStyle:NSDirectionalRectEdgeLeading imagePadding:JobsWidth(8)];
-         }
-     };return _btn1;
- }
+     利用 UIButtonConfiguration 来解决问题，示例：
+     -(UIButtonConfiguration *)btnConfig{
+         if(!_btnConfig){
+             _btnConfig = UIButtonConfiguration.filledButtonConfiguration;
+             {// 图片
+                 _btnConfig.image =@"入职Mata".img; // 替换为你的图像名称
+                 _btnConfig.imagePlacement = NSDirectionalRectEdgeLeading;// 这里将图像放置在标题的前面
+                 _btnConfig.imagePadding = 10;// 设置图像与标题之间的间距
+             }
+
+             {// 一般的文字
+                 _btnConfig.title = @"入职Mata".tr;
+                 _btnConfig.subtitle = @"".tr;
+                 _btnConfig.baseForegroundColor = JobsBlackColor;// 前景颜色（= 文字颜色）
+             }
+
+             {// 富文本
+                 // 设置按钮标题的文本属性
+                 _btnConfig.titleTextAttributesTransformer = ^NSDictionary<NSAttributedStringKey, id> *(NSDictionary<NSAttributedStringKey, id> *textAttributes) {
+                     NSMutableDictionary<NSAttributedStringKey, id> *newTextAttributes = textAttributes.mutableCopy;
+                     [newTextAttributes addEntriesFromDictionary:@{
+                         NSFontAttributeName:UIFontWeightRegularSize(14), // 替换为你想要的字体和大小
+                         NSForegroundColorAttributeName: JobsBlackColor // 替换为你想要的文本颜色
+                     }];
+                     return newTextAttributes.copy;
+                 };
+                 _btnConfig.attributedTitle = [NSAttributedString.alloc initWithString:@"入职Mata".tr attributes:@{NSForegroundColorAttributeName:JobsBlackColor}];
+             }
+
+             {// 其他
+                 _btnConfig.baseBackgroundColor = JobsWhiteColor;// 背景颜色
+                 _btnConfig.contentInsets = NSDirectionalEdgeInsetsMake(0, 0, 0, 0); // 内边距
+             }
+         };return _btnConfig;
+     }
+
+     -(UIButton *)btn1{
+         if(!_btn1){
+             if(self.deviceSystemVersion.floatValue >= 15.0){
+                 _btn1 = (UIButton *)[UIButton buttonWithConfiguration:self.btnConfig primaryAction:nil]
+                     .addOn(self)
+                     .byAdd(^(MASConstraintMaker *make) {
+                         make.size.mas_equalTo(CGSizeMake(JobsWidth(85), JobsWidth(16)));
+                         make.centerY.equalTo(self);
+                         make.left.equalTo(self).offset(JobsWidth(6));
+                     });
+             }else{
+                 _btn1 = UIButton.jobsInit()
+                     .jobsResetBtnImage(@"入职Mata".img)
+                     .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
+                     .jobsResetBtnTitle(@"入职Mata".tr)
+                     .jobsResetBtnTitleCor(JobsBlackColor)
+                     .byViewBlock(^(__kindof UIView *view) {
+                         [(UIButton *)view layoutButtonWithEdgeInsetsStyle:NSDirectionalRectEdgeLeading imagePadding:JobsWidth(8)];
+                     })
+                     .addOn(self)
+                     .byAdd(^(MASConstraintMaker *make) {
+                         make.size.mas_equalTo(CGSizeMake(JobsWidth(85), JobsWidth(16)));
+                         make.centerY.equalTo(self);
+                         make.left.equalTo(self).offset(JobsWidth(6));
+                     });
+             }
+         };return _btn1;
+     }
  */
     }
     SuppressWdeprecatedDeclarationsWarning(
@@ -90,8 +95,8 @@
                                            CGFloat labelHeight = 0.0;
                                            
                                            /// 由于iOS8中titleLabel的size为0
-                                           labelWidth = self.systemVersion.floatValue >= 8.0 ? self.titleLabel.intrinsicContentSize.width : self.titleLabel.width;
-                                           labelHeight = self.systemVersion.floatValue >= 8.0 ? self.titleLabel.intrinsicContentSize.height : self.titleLabel.height;
+                                           labelWidth = UIDevice.currentDevice.systemVersion.floatValue >= 8.0 ? self.titleLabel.intrinsicContentSize.width : self.titleLabel.width;
+                                           labelHeight = UIDevice.currentDevice.systemVersion.floatValue >= 8.0 ? self.titleLabel.intrinsicContentSize.height : self.titleLabel.height;
              
                                            // 2、 声明全局的imageEdgeInsets和labelEdgeInsets
                                            UIEdgeInsets imageEdgeInsets = UIEdgeInsetsZero;

@@ -1,29 +1,23 @@
 //
 //  UICollectionView+JobsRegisterClass.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/10/31.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UICOLLECTIONVIEW_JOBSREGISTERCLASS_A6F978CC2F
+#define JOBS_HEADER_GUARD_UICOLLECTIONVIEW_JOBSREGISTERCLASS_A6F978CC2F
+
 #import <UIKit/UIKit.h>
-#import "BaseCollectionViewProtocol.h"
-#import "JobsHeaderFooterView.h"
-#import "TMSWalletCollectionReusableView.h"
-#import "JobsBaseCollectionViewCell.h"
-#import "BaseCollectionViewCell.h"
-#import "JobsSearchDataCVCell.h"
-#import "JobsHotLabelByMultiLineCVCell.h"
-#import "JobsBtnStyleCVCell.h"
-#import "JobsTextFieldStyleCVCell.h"
-#import "JobsImageViewStyleCVCell.h"
-#import "BaiShaETProjVIPSubCVFooterView.h"
-#import "BaiShaETProjOrderDetailsCVCell.h"
-#import "BaiShaETProjVIPSubCVCell_01.h"
-#import "BaiShaETProjVIPSubCVCell_02.h"
-#import "BaiShaETProjVIPSubCVCell_03.h"
-#import "BaiShaETProjVIPSubCVCell_04.h"
-#import "BaiShaETProjVIPSubCVCell_05.h"
-#import "BaiShaETProjBankAccMgmtCVCell.h"
+#import "NSString+Extra.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -44,3 +38,4 @@ NS_ASSUME_NONNULL_END
     cell; \
 })
 #endif /* JobsRegisterDequeueCollectionViewCell */
+#endif /* JOBS_HEADER_GUARD_UICOLLECTIONVIEW_JOBSREGISTERCLASS_A6F978CC2F */

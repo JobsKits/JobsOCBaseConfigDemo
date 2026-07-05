@@ -1,15 +1,15 @@
 //
 //  HTMLDocument+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Admin on 19/12/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "HTMLDocument+Extra.h"
 
 @implementation HTMLDocument (Extra)
 
-+(JobsReturnHTMLDocumentByStringBlock _Nonnull)initBy{
++(JobsRetHTMLDocumentByStringBlock _Nonnull)initBy{
     return ^HTMLDocument *_Nullable(__kindof NSString *_Nullable string){
         return [HTMLDocument documentWithString:string];
     };
@@ -19,7 +19,7 @@
     return ^ __kindof NSString *_Nullable(__kindof NSString *_Nullable htmlString){
         NSError *error = nil;
         // 使用 NSAttributedString 从 HTML 中创建富文本
-        NSData *data = htmlString.UTF8Encoding;
+        NSData *data = [htmlString dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *options = @{
             NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
             NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)};

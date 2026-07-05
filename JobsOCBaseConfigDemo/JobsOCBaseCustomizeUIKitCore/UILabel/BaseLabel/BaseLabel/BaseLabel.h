@@ -1,28 +1,34 @@
 //
-//  AutoScrollLabel.h
-//  JobsOCBaseConfigDemo
+//  BaseLabel.h
+//  JobsBaseUI
 //
-//  Created by Jobs on 2022/1/18.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_BASELABEL_60E101AA2D
+#define JOBS_HEADER_GUARD_BASELABEL_60E101AA2D
 
 #import <UIKit/UIKit.h>
+#import "JobsOCDSL.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsMakes.h"
+
 #import "JobsBlock.h"
-#import "UILocationProtocol.h"
-#import "UIView+Extras.h"
-#import "UILabel+Extra.h"
-#import "NSString+Others.h"
-#import "NSString+Check.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
-/**
- 1、自定义UILabel 实现显示偏移量和内边距
- 2、自定义UILabel 实现添加长按手势和点击手势
- https://www.jianshu.com/p/541ef795a1f2
- */
+///  1、自定义UILabel 实现显示偏移量和内边距
+///  2、自定义UILabel 实现添加长按手势和点击手势
+///  https://www.jianshu.com/p/541ef795a1f2
 @interface BaseLabel : UILabel
 <
 UILocationProtocol,
+GestureProtocol,
 UIGestureRecognizerDelegate,
 UIEditMenuInteractionDelegate
 >
@@ -44,3 +50,4 @@ NS_INLINE __kindof BaseLabel *_Nonnull jobsMakeBaseLabel(jobsByBaseLabelBlock _N
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_BASELABEL_60E101AA2D */

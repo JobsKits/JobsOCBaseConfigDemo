@@ -1,15 +1,20 @@
 //
 //  UIView+ZFPlayer.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/11/3.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UIVIEW_ZFPLAYER_FF3C3818B8
+#define JOBS_HEADER_GUARD_UIVIEW_ZFPLAYER_FF3C3818B8
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
-#import "JobsDefineConstString.h"
-#import "JobsDefineProperty.h"
+#import <TargetConditionals.h>
+#import "CustomZFPlayerControlView.h"// 播放器控制层
+#import "NSString+Path.h"
+
+#import "ZFPlayerExtra.h"
 
 #pragma mark —— ZFPlayer 播放器相关
 /// Core
@@ -30,6 +35,7 @@
 #else
 #import "ZFIJKPlayerManager.h"
 #endif
+
 /// ControlView
 #if __has_include(<ZFPlayer/UIImageView+ZFCache.h>)
 #import <ZFPlayer/UIImageView+ZFCache.h>
@@ -103,7 +109,9 @@
 #import "ZFVolumeBrightnessView.h"
 #endif
 
-#import "CustomZFPlayerControlView.h"
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -113,7 +121,7 @@ Prop_strong(nullable)ZFPlayerController *playerCtr;
 Prop_strong(nullable)ZFAVPlayerManager *avPlayerManager;/// 默认不支持FLV流视频格式的
 Prop_strong(nullable)CustomZFPlayerControlView *customPlayerControlView;
 
-#if __has_include(<IJKMediaFramework/IJKMediaFramework.h>)
+#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>) && (__has_include(<ZFPlayer/ZFIJKPlayerManager.h>) || __has_include("ZFIJKPlayerManager.h"))
 Prop_strong(nullable)ZFIJKPlayerManager *ijkPlayerManager;/// ZFPlayer的作者告诉我：如果要兼容FLV流视频格式请用这个
 #endif
 
@@ -122,16 +130,18 @@ Prop_strong(nullable)ZFIJKPlayerManager *ijkPlayerManager;/// ZFPlayer的作者�
 @end
 
 NS_ASSUME_NONNULL_END
+/**
+ 用法
 
-/** 用法
- self.playerManager.assetURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"iph_X" ofType:@"mp4"]];
- @jobs_weakify(self)
- [self.customPlayerControlView actionCustomZFPlayerControlViewBlock:^(NSString *data, NSNumber *data2) {
-     @jobs_strongify(self)
-     if ([data isEqualToString:@"gestureSingleTapped:"]) {
-         if (self.livingVideoViewBlock) {
-             self.livingVideoViewBlock(data);
+     self.playerManager.assetURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"iph_X" ofType:@"mp4"]];
+     @jobs_weakify(self)
+     [self.customPlayerControlView actionCustomZFPlayerControlViewBlock:^(NSString *data, NSNumber *data2) {
+         @jobs_strongify(self)
+         if ([data isEqualToString:@"gestureSingleTapped:"]) {
+             if (self.livingVideoViewBlock) {
+                 self.livingVideoViewBlock(data);
+             }
          }
-     }
- }];
+     }];
  */
+#endif /* JOBS_HEADER_GUARD_UIVIEW_ZFPLAYER_FF3C3818B8 */

@@ -1,21 +1,32 @@
 //
 //  JobsShakeBtn.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by hello on 2019/7/4.
-//  Copyright © 2019 Corp. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_JOBSSHAKEBTN_FA305CA67E
+#define JOBS_HEADER_GUARD_JOBSSHAKEBTN_FA305CA67E
 
 #import <UIKit/UIKit.h>
-#import "MacroDef_Cor.h"
-#import "UIView+Chain.h"
-#import "UIView+Gesture.h"
-#import "UIButton+UI.h"
-#import "JobsLoadingImage.h"
-#import "NSObject+CallBackInfoByBlock.h"
 
-/// hidden 的 权限优先级 > alpha
-#import "JobsDefineProperty.h"
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsOCRuntimeKits.h"
+
+#import "JobsLoadingImageHeader.h"
+
+#import "JobsOCDSL.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 高仿iOS长按删除+抖动
@@ -27,3 +38,4 @@ Prop_strong()UIImageView *iconBtn;// 右上角的按钮
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSSHAKEBTN_FA305CA67E */

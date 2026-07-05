@@ -1,8 +1,8 @@
 //
 //  BaseContentView.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/12/7.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "BaseContentView.h"
@@ -10,6 +10,8 @@
 @interface BaseContentView ()
 
 Prop_assign()CGRect initialContentViewRect;// 登录框 初始frame值
+
+-(void)cacheInitialContentViewRectIfNeeded;
 
 @end
 
@@ -21,9 +23,21 @@ Prop_assign()CGRect initialContentViewRect;// 登录框 初始frame值
     };return self;
 }
 
+-(void)setFrame:(CGRect)frame{
+    [super setFrame:frame];
+    [self cacheInitialContentViewRectIfNeeded];
+}
+
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
-    self.initialContentViewRect = self.frame;
+    [self cacheInitialContentViewRectIfNeeded];
+}
+
+-(void)cacheInitialContentViewRectIfNeeded{
+    if (CGRectIsEmpty(self.initialContentViewRect) &&
+        !CGRectIsEmpty(self.frame)) {
+        self.initialContentViewRect = self.frame;
+    }
 }
 /*
  *    使用弹簧的描述时间曲线来执行动画 ,当dampingRatio == 1 时,动画会平稳的减速到最终的模型值,而不会震荡.
@@ -35,6 +49,7 @@ Prop_assign()CGRect initialContentViewRect;// 登录框 初始frame值
  *    velocity 速度
  */
 -(void)showContentViewWithOffsetY:(CGFloat)offsetY{
+    [self cacheInitialContentViewRectIfNeeded];
     @jobs_weakify(self)
     [UIView animateWithDuration:2
                           delay:0.1
@@ -51,6 +66,7 @@ Prop_assign()CGRect initialContentViewRect;// 登录框 初始frame值
 }
 
 -(void)removeContentViewWithOffsetY:(CGFloat)offsetY{
+    [self cacheInitialContentViewRectIfNeeded];
     @jobs_weakify(self)
     [UIView animateWithDuration:2
                           delay:0.1

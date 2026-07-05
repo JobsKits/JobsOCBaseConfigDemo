@@ -1,8 +1,8 @@
 //
 //  LMJDropdownMenu+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Jobs on 2022/1/11.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "LMJDropdownMenu+Extra.h"
@@ -10,15 +10,19 @@
 @implementation LMJDropdownMenu (Extra)
 
 -(__kindof UIButton *)great{
-    return [self object:self
-                getIvar:[self classGetInstanceVariableWithClass:LMJDropdownMenu.class
-                                           instanceVariableName:@"mainBtn"]];
+    Ivar ivar = class_getInstanceVariable(LMJDropdownMenu.class, "mainBtn");
+    return ivar ? object_getIvar(self, ivar) : nil;
 }
 
 -(void)greatAtEmpty{
     UIButton *btn = self.great;
-    btn.jobsResetBtnImage(@"空白图".img);
-    btn.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTrailing,JobsWidth(5));
+    [btn setImage:[UIImage imageNamed:@"空白图"] forState:UIControlStateNormal];
+    if (@available(iOS 15.0, *)) {
+        UIButtonConfiguration *config = btn.configuration ?: UIButtonConfiguration.plainButtonConfiguration;
+        config.imagePlacement = NSDirectionalRectEdgeTrailing;
+        config.imagePadding = 5.0;
+        btn.configuration = config;
+    }
 }
 
 @end

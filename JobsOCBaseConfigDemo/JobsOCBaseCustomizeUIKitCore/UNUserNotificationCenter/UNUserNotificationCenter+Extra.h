@@ -1,12 +1,14 @@
 //
 //  UNUserNotificationCenter+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Admin on 25/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
-/// 用于处理通知（包括本地通知和远程推送通知）的功能。
-/// 它引入了一套现代化的 API，用来替代较早的 UILocalNotification 和旧的远程推送通知机制。
-#import <UserNotifications/UserNotifications.h>
+
+#ifndef JOBS_HEADER_GUARD_UNUSERNOTIFICATIONCENTER_EXTRA_9B8722548B
+#define JOBS_HEADER_GUARD_UNUSERNOTIFICATIONCENTER_EXTRA_9B8722548B
+
+#import <UserNotifications/UserNotifications.h> 
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,3 +17,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UNUSERNOTIFICATIONCENTER_EXTRA_9B8722548B */

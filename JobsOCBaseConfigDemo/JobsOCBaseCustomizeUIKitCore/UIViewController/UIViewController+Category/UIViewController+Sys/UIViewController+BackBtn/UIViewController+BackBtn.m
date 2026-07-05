@@ -1,8 +1,8 @@
 //
 //  UIViewController+BackBtn.m
-//  JobsOCBaseConfigDemo
+//  JobsNavigationTransitionMgr
 //
-//  Created by Jobs on 2020/10/12.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIViewController+BackBtn.h"
@@ -28,7 +28,7 @@ JobsKey(_backBtnCategory)
             .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
             .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
             .jobsResetImagePadding(1)
-            .jobsResetBtnImage(self.viewModel.backBtnIMG ? : JobsBuddleIMG(nil,@"Frameworks/GKNavigationBar.framework/GKNavigationBar",nil,self.gk_backStyle == GKNavigationBarBackStyleBlack ? @"btn_back_black" : @"btn_back_white"))
+            .jobsResetBtnImage(self.viewModel.backBtnIMG ? : JobsLoadBundleImage(nil,@"Frameworks/GKNavigationBar.framework/GKNavigationBar",nil,self.gk_backStyle == GKNavigationBarBackStyleBlack ? @"btn_back_black" : @"btn_back_white"))
             .jobsResetBtnBgImage(@"APPLY NOW".img)
             .jobsResetBtnTitleCor(self.viewModel.backBtnTitleModel.textCor ? : JobsBlackColor)
             .jobsResetBtnTitleFont(self.viewModel.backBtnTitleModel.font)

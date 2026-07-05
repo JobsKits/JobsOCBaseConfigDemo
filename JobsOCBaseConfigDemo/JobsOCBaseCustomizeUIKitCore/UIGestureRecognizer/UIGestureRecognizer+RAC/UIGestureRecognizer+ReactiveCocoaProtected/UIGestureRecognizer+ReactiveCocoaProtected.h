@@ -1,21 +1,25 @@
 //
 //  UIGestureRecognizer+ReactiveCocoaProtected.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by kaiinui on 2014/09/07.
-//  Copyright (c) 2014年 kaiinui. All rights reserved.
-//  特别鸣谢：https://github.com/kaiinui/UIGestureRecognizer-RACExtension
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_UIGESTURERECOGNIZER_REACTIVECOCOAPROTECTED_B02119B4EA
+#define JOBS_HEADER_GUARD_UIGESTURERECOGNIZER_REACTIVECOCOAPROTECTED_B02119B4EA
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "MacroDef_Sys.h"
-#import "JobsDefineProperty.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
 #import "ReactiveObjC.h"
 #endif
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 @class RACSubject;
 @class RACGestureRecognizerActionHandler;
@@ -27,3 +31,4 @@ Prop_strong()RACGestureRecognizerActionHandler *rac_gestureHandler;
 Prop_strong()RACSubject *rac_subject;
 
 @end
+#endif /* JOBS_HEADER_GUARD_UIGESTURERECOGNIZER_REACTIVECOCOAPROTECTED_B02119B4EA */

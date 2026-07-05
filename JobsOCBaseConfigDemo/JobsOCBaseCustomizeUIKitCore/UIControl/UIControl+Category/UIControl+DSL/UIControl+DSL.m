@@ -1,12 +1,11 @@
 //
 //  UIControl+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIControl+DSL.h"
-#import "MacroDef_Sys.h"
 /// 内部闭包包装器
 @interface _JobsClosureWrapper : NSObject
 
@@ -19,7 +18,7 @@ Prop_copy()jobsByCtrlBlock handler;
 @implementation _JobsClosureWrapper
 
 -(instancetype)initWithHandler:(jobsByCtrlBlock)handler{
-    if (self = [super init]){
+    if ( self = [super init]){
         _handler = [handler copy];
     };return self;
 }
@@ -177,6 +176,21 @@ static void JobsAddClosureAction(UIControl *control,
     };
 }
 
+-(JobsRetControlByActionBlock)bySendAction API_AVAILABLE(ios(14.0)){
+    @jobs_weakify(self)
+    return ^__kindof UIControl * _Nullable (UIAction *action){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (@available(iOS 14.0, *)){
+            if (action) [self sendAction:action];
+        };return self;
+    };
+}
+
+-(JobsRetControlByEventsBlock)bySendActionsForControlEvents{
+    return self.bySendActions;
+}
+
 -(JobsRetControlByActionEventsBlock)byAddAction API_AVAILABLE(ios(14.0)){
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIAction *action,
@@ -257,6 +271,10 @@ static void JobsAddClosureAction(UIControl *control,
             self.contextMenuInteractionEnabled = value;
         };return self;
     };
+}
+
+-(JobsRetControlByBOOLBlock)byContextMenuInteractionEnabled API_AVAILABLE(ios(14.0)){
+    return self.byContextMenuEnabled;
 }
 
 -(JobsRetControlByStringBlock)byToolTip API_AVAILABLE(ios(15.0)){

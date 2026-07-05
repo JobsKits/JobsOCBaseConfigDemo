@@ -1,29 +1,17 @@
 //
-//  NSObject+Network.h
-//  JobsOCBaseConfigDemo
+//  NSObject+YTKNetwork.h
+//  JobsBy3rdExtras
 //
-//  Created by User on 9/18/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <Foundation/Foundation.h>
-#import "JobsBlock.h"
-#import "JobsDefineConstString.h"
-#import "MacroDef_Func.h"
-#import "JobsDefineEnums.h"
-#import "URLManager.h"
-#import "NSObject+Data.h"
-#import "NSObject+Extras.h"
-#import "NSURLRequest+Extra.h"
-#import "YTKRequest+Extra.h"
-#import "YTKNetworkToolsHeader.h"
-#import "GetImageApi.h"
-#import "GetUserInfoApi.h"
-#import "RegisterApi.h"
-#import "UploadImageApi.h"
-#import "GetCustomerContactApi.h"
-#import "JobsNetworkingHeader.h"
-#import "JobsModel.h"
+#import "JobsResponseModel+YTKNetwork.h"
 #import "YTKBaseRequest+Extra.h"
+#import "NSData+Extra.h"
+#import "NSMutableDictionary+Extra.h"
+#import "NSObject+Data.h"
+#import "NSObject+Extra.h"
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
@@ -31,55 +19,51 @@
 #import "YTKNetwork.h"
 #endif
 
-#if __has_include(<AFNetworking/AFURLRequestSerialization.h>)
-#import <AFNetworking/AFURLRequestSerialization.h>
-#else
-#import "AFURLRequestSerialization.h"
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsModelDSL.h"
+
+#import "JobsTimeUtils.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+#ifndef JOBS_PRINT_URL_REQUEST_INLINE
+#define JOBS_PRINT_URL_REQUEST_INLINE
+
+NS_INLINE void JobsPrintURLRequest(NSURLRequest *_Nullable request) {
+#ifndef DEBUG
+    return;
 #endif
 
-#if __has_include(<MJExtension/MJExtension.h>)
-#import <MJExtension/MJExtension.h>
-#else
-#import "MJExtension.h"
-#endif
+    if (!request) return;
 
+    JobsLog(@"请求URL:%@\n", request.URL);
+    JobsLog(@"请求方式:%@\n", request.HTTPMethod);
+    JobsLog(@"请求头信息:%@\n", request.allHTTPHeaderFields);
+    JobsLog(@"请求正文信息:%@\n", request.HTTPBody.stringByUTF8Encoding);
+    JobsLog(@"请求响应时间:%@\n", request.currentTimestampString(nil));
+
+    JobsLog(@"\n请求URL:%@\n请求方式:%@\n请求头信息:%@\n请求正文信息:%@\n请求响应时间:%@\n",
+            request.URL,
+            request.HTTPMethod,
+            request.allHTTPHeaderFields,
+            request.HTTPBody.stringByUTF8Encoding,
+            request.currentTimestampString(nil));
+}
+#endif /* JOBS_PRINT_URL_REQUEST_INLINE */
 /// 后端接口返回数据按照标准格式（msg、code、data）进行解析，取出有用字段（data）
 NS_INLINE JobsResponseModel *_Nullable JobsMapResponseModelBy(YTKBaseRequest *_Nonnull request){
     JobsPrintURLRequest(request.originalRequest);
     return JobsResponseModel.byData(request.responseObject);
 }
 
-#ifndef JobsResponseData
-#define JobsResponseData JobsMapResponseModelBy(request).data
-#endif /*JobsResponseData*/
-
-#ifndef JobsSolveData
-#define JobsSolveData(DATA) DATA.byData(JobsResponseData)
-#endif /*JobsSolveData*/
-
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSObject (YTKNetwork)<YTKChainRequestDelegate>
-#pragma mark —— 一些公有设置
-/// successData传nil：对总数据源进行标准格式解析后对外返回 JobsResponseModel
-/// successData传JobsSolveData(AModel)：对总数据源进行标准格式解析以后，再进行一层关于AModel的解析后对外返回
--(void)request:(YTKBaseRequest *)request                               // 总数据源
-   successData:(id _Nullable)successData                               // 本层对success的解析数据
-   actionBlock:(jobsByResponseModelBlock _Nullable)actionBlock         // 本层对success的解析回调
-  successBlock:(jobsByResponseModelBlock _Nullable)successBlock        // 外层对success的解析回调
-     failBlock:(jobsByVoidBlock _Nullable)failBlock;                   // 失败解析回调
-
--(void)request:(YTKBaseRequest *)request
-  successBlock:(jobsByResponseModelBlock _Nullable)successBlock;
-///【请求已经成功，但是服务器抛异常】处理非HTTPResponseCodeSuccess 的 HTTPResponseCode
--(void)jobsHandelHTTPResponseCode:(HTTPResponseCode)responseCode
-                      actionBlock:(jobsByNSIntegerBlock _Nullable)actionBlock;
-///【请求失败】请求失败的处理
--(JobsRetYTKBaseRequestByYTKBaseRequestBlock _Nonnull)jobsHandelFailure;
-/// 仅仅打印请求体：request.requestTask
--(jobsByYTKBaseRequestBlock _Nonnull)jobsHandelNoSuccess;
-/// Tips封装
--(jobsByIDBlock _Nonnull)tipsByApi;
+@interface NSObject (YTKNetwork)<YTKNetworkProtocols,YTKChainRequestDelegate>
 #pragma mark —— 示例代码
 /// 普通的单个请求
 -(void)loadCacheData:(jobsByResponseModelBlock _Nullable)successBlock;
@@ -97,6 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 上传KYC的图片@POST
 -(void)uploadKYCImage:(NSData *)image
          successBlock:(jobsByResponseModelBlock _Nullable)successBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

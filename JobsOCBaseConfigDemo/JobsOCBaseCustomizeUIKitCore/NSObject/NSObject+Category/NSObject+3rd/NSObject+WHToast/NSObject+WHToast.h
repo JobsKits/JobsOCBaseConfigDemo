@@ -1,14 +1,14 @@
 //
 //  NSObject+WHToast.h
-//  JobsOCBaseConfigDemo
+//  WHToastExtra
 //
-//  Created by Jobs on 2021/12/2.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_WHTOAST_A8B4616A59
+#define JOBS_HEADER_GUARD_NSOBJECT_WHTOAST_A8B4616A59
+
 #import <Foundation/Foundation.h>
-#import "JobsBlock.h"
-#import "NSString+Others.h"
-#import "NSObject+Image.h"
 
 #if __has_include(<WHToast/WHToast.h>)
 #import <WHToast/WHToast.h>
@@ -22,8 +22,14 @@
 #import "SDWebImage.h"
 #endif
 
-NS_ASSUME_NONNULL_BEGIN
+#import "JobsLanMgr.h"
 
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+NS_ASSUME_NONNULL_BEGIN
+/// 提示
 @interface NSObject (WHToast)
 #pragma mark —— 仅文字，展示在屏幕中间
 +(jobsByStrBlock _Nonnull)jobsToastMsg;
@@ -44,7 +50,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
-
 #pragma mark —— 弹出提示
 NS_INLINE void toastBy(NSString *_Nullable msg){
     if(!msg || ![msg isKindOfClass:NSString.class]){
@@ -57,3 +62,4 @@ NS_INLINE void toastErr(NSString *_Nullable msg){
         msg = @"数据错误".tr;
     }NSObject.jobsToastErrMsg(msg);
 }
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_WHTOAST_A8B4616A59 */

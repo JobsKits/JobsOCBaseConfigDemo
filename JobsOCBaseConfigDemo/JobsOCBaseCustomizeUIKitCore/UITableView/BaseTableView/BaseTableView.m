@@ -1,9 +1,8 @@
 //
-//  BaseTableViewer.m
-//  JobsOCBaseConfigDemo
+//  BaseTableView.m
+//  JobsBaseUI
 //
-//  Created by Kite on 2019/10/31.
-//  Copyright © 2019 朝花夕拾. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "BaseTableView.h"

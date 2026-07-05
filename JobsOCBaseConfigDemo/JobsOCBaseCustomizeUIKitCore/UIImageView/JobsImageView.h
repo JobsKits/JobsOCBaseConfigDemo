@@ -1,17 +1,15 @@
 //
 //  JobsImageView.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#import <UIKit/UIKit.h>
 
 #ifndef JobsImageView_h
 #define JobsImageView_h
 
-#pragma mark —— Base
-#import "BaseImageView.h"
-
-#pragma mark —— Category
 #import "UIImageView+GIF.h"
 #import "UIImageView+SDWebImage.h"
 #import "UIImageView+Extra.h"

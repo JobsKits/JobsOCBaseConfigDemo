@@ -1,12 +1,20 @@
 //
 //  NSBundle+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsLanMgr
 //
-//  Created by User on 9/1/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSBUNDLE_EXTRA_F398291EE3
+#define JOBS_HEADER_GUARD_NSBUNDLE_EXTRA_F398291EE3
+
+#pragma once
+
 #import <Foundation/Foundation.h>
+
 #import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,3 +30,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSBUNDLE_EXTRA_F398291EE3 */

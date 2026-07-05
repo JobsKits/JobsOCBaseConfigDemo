@@ -1,9 +1,8 @@
 //
-//  LogoContentView.m
-//  JobsOCBaseConfigDemo
+//  JobsAppDoorLogoContentView.m
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/9/3.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsAppDoorLogoContentView.h"
@@ -16,7 +15,7 @@ Prop_strong()UIImageView *mainImgV;
 
 static dispatch_once_t JobsAppDoorLogoContentViewDispatchOnce;
 @implementation JobsAppDoorLogoContentView
-#pragma mark - Lifecycle
+#pragma mark —— Lifecycle
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
 }
@@ -30,7 +29,8 @@ static dispatch_once_t JobsAppDoorLogoContentViewDispatchOnce;
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
     dispatch_once(&JobsAppDoorLogoContentViewDispatchOnce, ^{
-        self.mainImgV.alpha = 1;
+        self.mainImgV.byAlpha(1);
+
     });
 }
 #pragma mark —— lazyLoad
@@ -39,10 +39,12 @@ static dispatch_once_t JobsAppDoorLogoContentViewDispatchOnce;
         @jobs_weakify(self)
         _mainImgV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = @"AppDoorLogo".img;
-            [self.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self);
-            }];
+            imageView
+                .byImage(@"AppDoorLogo".img)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                });
         });
     };return _mainImgV;
 }

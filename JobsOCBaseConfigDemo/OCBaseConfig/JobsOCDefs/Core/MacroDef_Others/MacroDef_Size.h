@@ -1,6 +1,6 @@
 //
 //  MacroDef_Size.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDefs
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -13,9 +13,11 @@
 #import "MacroDef_Func.h"
 #import "MacroDef_SysWarning.h"
 #import "MacroDef_AppDeviceScreenSize.h"
-#import "JobsDefineEnums.h"
-#import "JobsDefineStructs.h"
-#import "window.h"
+#import "JobsDefineEnums.h" // 此文件用来存储记录全局的一些枚举
+#import "JobsDefineStructs.h" // 此文件用来存储记录全局的一些结构体
+
+#import "JobsGetWindow.h"
+
 /// 资料来源：
 /// https://tommygirl.cn/2022/09/15/iPhone_dev_size/
 /// https://chatgpt.com/
@@ -210,9 +212,7 @@ NS_INLINE iPhScrPxType iPhScrPx(void) {
 
     if ([platform isEqualToString:@"iPhone18,2"]) {  // iPhone 17 Pro Max
         return iPhScrPxType_17ProMax;
-    }
-
-    return iPhScrPxType_None;
+    };return iPhScrPxType_None;
 }
 /// 判断当前设备是否是全面屏
 NS_INLINE BOOL isFullScreen(void){
@@ -278,7 +278,7 @@ NS_INLINE BOOL isFullScreen(void){
      * iPhone 16 Pro Max                  (62, 0, 34, 0)
      * -----------------------------------------------------------------
  */
-#pragma mark ——Tabbar 作图大小
+#pragma mark —— Tabbar 作图大小
 /**
  *
 
@@ -343,7 +343,7 @@ NS_INLINE CGFloat JobsDeviceRealHeight(void){
 NS_INLINE CGFloat JobsDeviceRealWidth(void){
     return MIN(JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT());
 }
-#pragma mark ——【全局比例尺】
+#pragma mark —— 【全局比例尺】
 /// 基准设计尺寸
 #ifndef JobsDesignWidth
 #define JobsDesignWidth 375.0
@@ -535,7 +535,7 @@ NS_INLINE CGFloat JobsTabBarHeight(UITabBarController * _Nullable tabBarControll
 NS_INLINE CGFloat JobsTabBarHeightByBottomSafeArea(UITabBarController * _Nullable tabBarController){
     return JobsTabBarHeight(tabBarController) + JobsBottomSafeAreaHeight();
 }
-#pragma mark ——  除开 tabBarController 和 navigationController 的内容可用区域的大小
+#pragma mark —— 除开 tabBarController 和 navigationController 的内容可用区域的大小
 NS_INLINE CGFloat JobsContentAreaHeight(UITabBarController * _Nullable tabBarController,
                                             UINavigationController * _Nullable navigationController){
     CGFloat tabBarHeightByBottomSafeArea = JobsTabBarHeightByBottomSafeArea(tabBarController);

@@ -1,14 +1,21 @@
 //
 //  JobsTimeModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
-
-#pragma once
+#ifndef JobsTimeModel_h
+#define JobsTimeModel_h
 
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsMakes.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 为了防止溢出，基本上时间戳传给后台或者后台返回给我们的都是字符串类型的。
@@ -99,3 +106,5 @@ NS_INLINE __kindof JobsTimeModel *_Nonnull jobsMakeTimeModel(jobsByTimeModelBloc
     if (block) block(data);
     return data;
 }
+
+#endif /* JobsTimeModel_h */

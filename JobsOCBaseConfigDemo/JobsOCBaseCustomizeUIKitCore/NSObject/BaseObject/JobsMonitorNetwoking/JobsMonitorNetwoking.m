@@ -1,9 +1,8 @@
 //
-//  MonitorNetwoking.m
-//  JobsOCBaseConfigDemo
+//  JobsMonitorNetwoking.m
+//  JobsMonitorNetwoking
 //
-//  Created by Jobs on 2020/8/13.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsMonitorNetwoking.h"
@@ -47,7 +46,8 @@ static JobsMonitorNetwoking *monitorNetwoking = nil;
     //格式化一下
     NSString*rateStr = [self formatNetWork:rate];
     JobsLog(@"当前网速%@",rateStr);
-    _rateLabel.text = rateStr;
+    _rateLabel.byText(rateStr);
+
 //    JobsLog(@"hehe:%lld",hehe/1024/1024);
 }
 

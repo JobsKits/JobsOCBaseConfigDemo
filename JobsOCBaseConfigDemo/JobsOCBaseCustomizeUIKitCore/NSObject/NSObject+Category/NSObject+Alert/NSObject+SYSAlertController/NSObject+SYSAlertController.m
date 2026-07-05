@@ -1,12 +1,12 @@
 //
 //  NSObject+SYSAlertController.m
-//  JobsOCBaseConfigDemo
+//  SYSAlertControllerExtra
 //
-//  Created by Jobs on 2020/9/12.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+SYSAlertController.h"
+#import "NSString+Extra.h"
 
 @implementation NSObject (SYSAlertController)
 /// 屏幕正中央的Alert
@@ -16,7 +16,7 @@
 +(void)showSYSAlertViewConfig:(nonnull SYSAlertControllerConfig *)config
                  alertVCBlock:(nullable jobsByIDBlock)alertVCBlock
               completionBlock:(nullable jobsByVoidBlock)completionBlock{
-//    @weakify(config)
+//    @jobs_weakify(config)
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:config.title
                                                                              message:config.message
                                                                       preferredStyle:UIAlertControllerStyleAlert];
@@ -68,7 +68,7 @@
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
     
     if (config.alertBtnActionArr.count == config.btnTitleArr.count) {
-//        @weakify(config)
+//        @jobs_weakify(config)
         for (int i = 0; i < config.alertBtnActionArr.count; i++) {
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:config.btnTitleArr[i]
                                                                style:config.isSeparateStyle ? (i == config.alertBtnActionArr.count - 1 ? UIAlertActionStyleCancel : UIAlertActionStyleDefault) : UIAlertActionStyleDefault
@@ -116,15 +116,18 @@
     @jobs_weakify(self)
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         @jobs_strongify(self)
-        textField.placeholder = @"username".tr;
+        textField.byPlaceholder(@"username".tr);
+
         [textField addTarget:self
                       action:@selector(alertUserAccountInfoDidChange:targetVC:)
             forControlEvents:UIControlEventEditingChanged];
     }];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         @jobs_strongify(self)
-        textField.placeholder = @"password".tr;
-        textField.secureTextEntry = YES;
+        textField.byPlaceholder(@"password".tr);
+
+        textField.bySecureTextEntry(YES);
+
         [textField addTarget:self
                       action:@selector(alertUserAccountInfoDidChange:targetVC:)
             forControlEvents:UIControlEventEditingChanged];

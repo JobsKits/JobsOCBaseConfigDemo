@@ -1,13 +1,19 @@
 //
 //  RSAUtil.h
-//  JobsOCBaseConfigDemo
+//  JobsCryptography
 //
-//  Created by 雷传营 on 16/1/10.
-//  Copyright © 2016年 leichuanying. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <Security/Security.h>
+#ifndef JOBS_HEADER_GUARD_RSAUTIL_E9655262D3
+#define JOBS_HEADER_GUARD_RSAUTIL_E9655262D3
+
+#import <Security/Security.h> // 该框架提供了与应用程序的安全性相关的功能（加密、密钥管理、证书和身份验证）
 #import <UIKit/UIKit.h>
+
+#import "JobsByOCPods.h"
+
+#import "JobsDefines.h"
 
 @interface RSAUtil : NSObject
 
@@ -28,3 +34,4 @@
 + (NSData *)decryptData:(NSData *)data privateKey:(NSString *)privKey;
 
 @end
+#endif /* JOBS_HEADER_GUARD_RSAUTIL_E9655262D3 */

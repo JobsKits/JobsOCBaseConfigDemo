@@ -1,11 +1,13 @@
 //
 //  JobsWebViewController.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Admin on 18/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsWebViewController.h"
+#import "NSNotificationCenter+JobsBlock.h"
+#import "UIView+Extra.h"
 
 @interface JobsWebViewController ()
 
@@ -20,7 +22,8 @@
         UIViewController <BaseViewControllerProtocol>*vc = (UIViewController *)self.class.new;
         vc.webView = webView;
         vc.view.addSubview(webView);
-        webView.frame = vc.view.bounds;
+        webView.byFrame(vc.view.bounds);
+
         return vc;
     };
 }
@@ -32,8 +35,9 @@
 
 -(void)loadView{
     [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
+    id<BaseProtocol> baseProtocolSelf = (id<BaseProtocol>)self;
+    if ([baseProtocolSelf.requestParams isKindOfClass:UIViewModel.class]) {
+        self.viewModel = (UIViewModel *)baseProtocolSelf.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }

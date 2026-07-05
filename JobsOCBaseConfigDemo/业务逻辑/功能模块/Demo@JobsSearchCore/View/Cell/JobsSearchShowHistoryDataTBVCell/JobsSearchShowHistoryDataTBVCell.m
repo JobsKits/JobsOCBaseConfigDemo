@@ -2,7 +2,7 @@
 //  JobsSearchShowHistoryDataTBVCell.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/10/2.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsSearchShowHistoryDataTBVCell.h"
@@ -13,12 +13,15 @@
 
 @implementation JobsSearchShowHistoryDataTBVCell
 #pragma mark —— BaseCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsSearchShowHistoryDataTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsSearchShowHistoryDataTBVCell);
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 //        cell.contentView.backgroundColor = JobsRandomColor;
-        cell.imageView.image = @"时钟".img;
+        cell
+            .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
+            .byCellImageView(^(__kindof UIImageView * _Nullable imageView) {
+                imageView.byImage(@"时钟".img);
+            });
         return cell;
     };
 }
@@ -33,8 +36,14 @@
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(id _Nullable model) {
         @jobs_strongify(self)
-        self.textLabel.text = model;
-        return self;
+        if ([model isKindOfClass:UIViewModel.class]) {
+            UIViewModel *viewModel = (UIViewModel *)model;
+            self.textLabel.byText(viewModel.textModel.text);
+        } else if ([model isKindOfClass:NSString.class]) {
+            self.textLabel.byText(model);
+        } else {
+            self.textLabel.byText(@"");
+        };return self;
     };
 }
 

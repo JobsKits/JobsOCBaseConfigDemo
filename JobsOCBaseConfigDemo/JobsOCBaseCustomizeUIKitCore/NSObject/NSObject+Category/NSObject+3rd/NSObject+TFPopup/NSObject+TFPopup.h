@@ -1,14 +1,15 @@
 //
 //  NSObject+TFPopup.h
-//  JobsOCBaseConfigDemo
+//  TFPopupExtra
 //
-//  Created by Jobs on 2021/12/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <Foundation/Foundation.h>
-#import "AppDelegate+TabBarCtr.h"
-#import "MacroDef_SDK.h"
-#import "JobsDefineProperty.h"
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_TFPOPUP_927BF968CA
+#define JOBS_HEADER_GUARD_NSOBJECT_TFPOPUP_927BF968CA
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 
 #if __has_include(<TFPopup/TFPopup.h>)
 #import <TFPopup/TFPopup.h>
@@ -16,13 +17,35 @@
 #import "TFPopup.h"
 #endif
 
-#define ShowView(View) if(self) self.show_view(View);
-#define ShowView2(View) if(self) self.show_view2(View);
-#define ShowTips(View) if(self) self.show_tips(View);
+#import "JobsByOCPods.h"
 
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+#ifndef ShowView
+#define ShowView(View) if(self) self.show_view(View);
+#endif /* ShowView */
+
+#ifndef ShowView2
+#define ShowView2(View) if(self) self.show_view2(View);
+#endif /* ShowView2 */
+
+#ifndef ShowTips
+#define ShowTips(View) if(self) self.show_tips(View);
+#endif /* ShowTips */
+
+#ifndef ShowViewByModel
 #define ShowViewByModel(View,Data) if(self) self.showViewByModel(View,Data);
+#endif /* ShowViewByModel */
+
+#ifndef ShowViewByModel2
 #define ShowViewByModel2(View,Data) if(self) self.showViewByModel2(View,Data);
+#endif /* ShowViewByModel2 */
+
+#ifndef ShowTipsByModel
 #define ShowTipsByModel(View,Data) if(self) self.showTipsByModel(View,Data);
+#endif /* ShowTipsByModel */
 
 #pragma mark —— 创建数据源
 NS_INLINE TFPopupParam * _Nonnull TFPopupBaseParam(void){
@@ -110,16 +133,18 @@ Prop_strong(nullable)TFPopupParam *tipsParameter;
 
 NS_ASSUME_NONNULL_END
 /**
- @jobs_strongify(self)
- if (self.objBlock) self.objBlock(x);
- [self tf_hide:^{
+ 
      @jobs_strongify(self)
-     ShowTips(AccBindSuccessTipView
-              .BySize(AccBindSuccessTipView.viewSizeByModel(nil))
-              .JobsRichViewByModel2(nil))
-              .JobsBlock1(^(UIButton *data) {
-                  @jobs_strongify(self)
+     if (self.objBlock) self.objBlock(x);
+     [self tf_hide:^{
+         @jobs_strongify(self)
+         ShowTips(AccBindSuccessTipView
+                  .BySize(AccBindSuccessTipView.viewSizeByModel(nil))
+                  .JobsRichViewByModel2(nil))
+                  .JobsBlock1(^(UIButton *data) {
+                      @jobs_strongify(self)
 
-              });
- }];
+                  });
+     }];
  */
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_TFPOPUP_927BF968CA */

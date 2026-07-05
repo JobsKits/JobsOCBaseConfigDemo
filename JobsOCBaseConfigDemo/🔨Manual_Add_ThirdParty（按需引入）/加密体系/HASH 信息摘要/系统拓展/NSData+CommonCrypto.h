@@ -1,3 +1,13 @@
+//
+//  NSData+CommonCrypto.h
+//  JobsCryptography
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_NSDATA_COMMONCRYPTO_A600056EC9
+#define JOBS_HEADER_GUARD_NSDATA_COMMONCRYPTO_A600056EC9
+
 /*
  *  NSData+CommonCrypto.h
  *  AQToolkit
@@ -36,8 +46,8 @@
  *
  */
 
-#import <Foundation/NSData.h>
-#import <Foundation/NSError.h>
+#import <Foundation/Foundation.h>
+#import <CommonCrypto/CommonDigest.h>  // 提供常见摘要算法接口，如 MD5、SHA1、SHA256 等。
 #import <CommonCrypto/CommonCryptor.h>
 #import <CommonCrypto/CommonHMAC.h>
 
@@ -110,3 +120,4 @@ extern NSString * const kCommonCryptoErrorDomain;
 - (NSData *) HMACWithAlgorithm: (CCHmacAlgorithm) algorithm key: (id) key;
 
 @end
+#endif /* JOBS_HEADER_GUARD_NSDATA_COMMONCRYPTO_A600056EC9 */

@@ -1,11 +1,14 @@
 //
 //  JobsNavSettingVC.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by User on 9/9/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsNavSettingVC.h"
+#import "UIViewController+BaseNavigationBar.h"
+#import "UIView+Extra.h"
+#import "JobsNavBarConfig.h"
 
 @interface JobsNavSettingVC ()
 
@@ -116,12 +119,15 @@
     return ^(CGFloat data){
         @jobs_strongify(self)
         /// JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape
-        self.setGKNav(nil);
-        self.setGKNavBackBtn(nil);
+        id<AppToolsProtocol> appToolsSelf = (id<AppToolsProtocol>)self;
+        appToolsSelf.setGKNav(nil);
+        appToolsSelf.setGKNavBackBtn(nil);
         if(self.leftBarButtonItems.count) self.gk_navLeftBarButtonItems = self.leftBarButtonItems;
         if(self.rightBarButtonItems.count) self.gk_navRightBarButtonItems = self.rightBarButtonItems;
-        self.gk_navigationBar.hidden = !data;
-        self.gk_navigationBar.alpha = data;
+        self.gk_navigationBar.byHidden(!data);
+
+        self.gk_navigationBar.byAlpha(data);
+
     };
 }
 
@@ -129,9 +135,9 @@
     @jobs_weakify(self)
     return ^(CGFloat data){
         @jobs_strongify(self)
-        self.makeNavBarConfig(nil,nil);
-        self.navBar.hidden = !data;
-        self.navBar.alpha = data;
+        ((id<AppToolsProtocol>)self).makeNavBarConfig(nil,nil);
+        ((UIView *)self.navBar).hidden = !data;
+        ((UIView *)self.navBar).alpha = data;
     };
 }
 
@@ -152,12 +158,13 @@
     @jobs_weakify(self)
     return ^(__kindof JobsNavBarConfig *_Nullable config){
         @jobs_strongify(self)
-        self.setGKNav(config.viewModel);/// 配置GKNavigationBar（不包括返回键的设定）
-        self.setGKNavBackBtnBy(config.backBtn);/// 配置GKNavigationBar的返回按钮
-        self.setGKNavTitleBtnBy(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-            model.backgroundImage = config.viewModel.titleImage;
-            model.jobsSize = CGSizeMake(JobsWidth(150), JobsWidth(30));
-            model.baseBackgroundColor = JobsClearColor;
+        id<AppToolsProtocol> appToolsSelf = (id<AppToolsProtocol>)self;
+        appToolsSelf.setGKNav(config.viewModel);/// 配置GKNavigationBar（不包括返回键的设定）
+        appToolsSelf.setGKNavBackBtnBy(config.backBtn);/// 配置GKNavigationBar的返回按钮
+        appToolsSelf.setGKNavTitleBtnBy(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
+            model.byBackgroundImage(config.viewModel.titleImage)
+                 .byJobsSize(CGSizeMake(JobsWidth(150), JobsWidth(30)))
+                 .byBaseBackgroundColor(JobsClearColor);
         }));
         if(self.leftBarButtonItems.count) self.gk_navLeftBarButtonItems = self.leftBarButtonItems;
         if(self.rightBarButtonItems.count) self.gk_navRightBarButtonItems = self.rightBarButtonItems;

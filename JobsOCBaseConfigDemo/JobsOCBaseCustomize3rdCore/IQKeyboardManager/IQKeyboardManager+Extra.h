@@ -1,9 +1,12 @@
 //
 //  IQKeyboardManager+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Admin on 25/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_IQKEYBOARDMANAGER_EXTRA_1802BF839B
+#define JOBS_HEADER_GUARD_IQKEYBOARDMANAGER_EXTRA_1802BF839B
 
 #import <Foundation/Foundation.h>
 
@@ -12,6 +15,10 @@
 #else
 #import "IQKeyboardManager.h"
 #endif
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,3 +33,4 @@ NS_INLINE __kindof IQKeyboardManager *_Nonnull jobsMakeIQKeyboardManager(jobsByI
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_IQKEYBOARDMANAGER_EXTRA_1802BF839B */

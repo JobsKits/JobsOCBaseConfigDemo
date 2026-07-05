@@ -1,12 +1,18 @@
 //
 //  JobsFileModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JobsFileModel_h
+#define JobsFileModel_h
+
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,3 +31,5 @@ NS_INLINE __kindof JobsFileModel *_Nonnull jobsMakeFileModel(jobsByFileModelBloc
     if (block) block(data);
     return data;
 }
+
+#endif /* JobsFileModel_h */

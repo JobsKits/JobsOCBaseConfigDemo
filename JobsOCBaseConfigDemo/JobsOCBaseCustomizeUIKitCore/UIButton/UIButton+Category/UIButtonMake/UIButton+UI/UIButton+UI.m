@@ -1,15 +1,13 @@
 //
 //  UIButton+UI.m
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Jobs on 2021/11/29.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIButton+UI.h"
-/**
- NSLineBreakByWordWrapping：这是默认的换行模式，会在单词边界换行。适用于希望保留单词完整性的场合。例如，如果单词太长而无法放入当前行，那么该单词将移动到下一行。
- NSLineBreakByCharWrapping：在字符边界处换行，而不是单词边界。适用于需要最大限度地利用行宽的场合，即使这意味着单词会被拆分。
- */
+/// NSLineBreakByWordWrapping：这是默认的换行模式，会在单词边界换行。适用于希望保留单词完整性的场合。例如，如果单词太长而无法放入当前行，那么该单词将移动到下一行。
+/// NSLineBreakByCharWrapping：在字符边界处换行，而不是单词边界。适用于需要最大限度地利用行宽的场合，即使这意味着单词会被拆分。
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
 @implementation UIButton (UI)
@@ -25,9 +23,9 @@
 ///   - subTextAlignment:也对应新Api里面的subTitle的对齐方式
 ///   - normalImage: 正常情况下的image
 ///   - highlightImage: 高亮情况下的image
-///   - attributedTitle: 主标题的富文本（优先级高于普通文本）。设置富文本，请关注：#import "NSObject+RichText.h"
-///   - selectedAttributedTitle:（只限于老Api，新Api里面没有）UIControlStateSelected状态下的标题富文本。设置富文本，请关注：#import "NSObject+RichText.h"
-///   - attributedSubtitle:（新Api才有的）副标题的富文本（优先级高于普通文本）。设置富文本，请关注：#import "NSObject+RichText.h"
+///   - attributedTitle: 主标题的富文本（优先级高于普通文本）。设置富文本，请关注：JobsRichTextUtils
+///   - selectedAttributedTitle:（只限于老Api，新Api里面没有）UIControlStateSelected状态下的标题富文本。设置富文本，请关注：JobsRichTextUtils
+///   - attributedSubtitle:（新Api才有的）副标题的富文本（优先级高于普通文本）。设置富文本，请关注：JobsRichTextUtils
 ///   - title: 主标题
 ///   - subTitle:（新Api才有的）副标题
 ///   - titleFont: 主标题字体
@@ -96,9 +94,9 @@
         UIButton *btn = self.class.initBySysType;
         self.titleFont = titleFont;
         self.subTitleFont = subTitleFont;
-        if(self.deviceSystemVersion.floatValue < 15.0) btn.layerByBorderCor(layerBorderCor).layerByBorderWidth(borderWidth);/// 描边
+        if(self.deviceSystemVersion.floatValue < 15.0) btn.layerByBorderCor(layerBorderCor).layerByBorderWidth(borderWidth);// 描边
         if(roundingCorners == UIRectCornerAllCorners && jobsZeroSizeValue(roundingCornersRadii)){
-            btn.cornerCutToCircleWithCornerRadius(cornerRadiusValue);/// 圆切角（四个角全部按照统一的标准切）
+            btn.cornerCutToCircleWithCornerRadius(cornerRadiusValue);// 圆切角（四个角全部按照统一的标准切）
         }else{
             [btn appointCornerCutToCircleByRoundingCorners:roundingCorners cornerRadii:roundingCornersRadii];/// 圆切角（指定某个角按照统一的标准Size切）
         }
@@ -115,11 +113,16 @@
             @jobs_strongify(self)
             config.byImage(self.isHighlighted ? highlightBackgroundImage : backgroundImage)
                 .byEdgesAddingLayoutMarginsToBackgroundInsets(imagePlacement) // ✅ 新增的链式
-                .byBackgroundInsets(contentInsets)                            // 内边距
-                .byBackgroundColor(baseBackgroundColor)                       // 背景颜色
-                .byCornerRadius(cornerRadiusValue)                            // 圆切角
-                .byStrokeColor(layerBorderCor)                                // 描边颜色
-                .byStrokeWidth(borderWidth);                                  // 描边线宽
+                .byBackgroundInsets(contentInsets)
+                            // 内边距
+                .byBackgroundColor(baseBackgroundColor)
+                       // 背景颜色
+                .byCornerRadius(cornerRadiusValue)
+                            // 圆切角
+                .byStrokeColor(layerBorderCor)
+                                // 描边颜色
+                .byStrokeWidth(borderWidth);
+                                  // 描边线宽
             /// ❤️要设置UIButton.imageView的宽\高\尺寸\坐标，请参阅 BaseButtonProtocol❤️
         });
         if(btnConfiguration){
@@ -127,12 +130,13 @@
             // JobsLog(@"%@",btn.configuration);
             // JobsLog(@"");
             /**
-             UIAction *action = [UIAction actionWithTitle:@"按钮点击操作"  image:nil
-                                                        identifier:nil
-                                                        handler:^(__kindof UIAction * _Nonnull action) {
-                                                            JobsLog(@"按钮被点击了！");
-                                                            // 在这里执行按钮点击时的操作
-             }];
+             
+                 UIAction *action = [UIAction actionWithTitle:@"按钮点击操作"  image:nil
+                                                            identifier:nil
+                                                            handler:^(__kindof UIAction * _Nonnull action) {
+                                                                JobsLog(@"按钮被点击了！");
+                                                                // 在这里执行按钮点击时的操作
+                 }];
              */
             return [self.class buttonWithConfiguration:btnConfiguration primaryAction:primaryAction];
         }else{
@@ -142,15 +146,20 @@
                 config.byTitle(title)
                     .bySubtitle(subTitle)
                     .byTitlePadding(titlePadding)
-                    .byBaseForegroundColor(titleCor)                                  /// 文本颜色
-                    .byTitleAlignment(buttonConfigTitleAlignment)                      /// 文本的对齐方式
-                    .byTitleLineBreakMode(titleLineBreakMode)                          /// 主标题的提行方式
-                    .bySubtitleLineBreakMode(subtitleLineBreakMode)                    /// 副标题的提行方式
+                    .byBaseForegroundColor(titleCor)
+                                   /// 文本颜色
+                    .byTitleAlignment(buttonConfigTitleAlignment)
+                      /// 文本的对齐方式
+                    .byTitleLineBreakMode(titleLineBreakMode)
+                          /// 主标题的提行方式
+                    .bySubtitleLineBreakMode(subtitleLineBreakMode)
+                    /// 副标题的提行方式
                     .byTitleTextAttributesTransformer([self jobsSetConfigTextAttributesTransformerByTitleFont:titleFont btnTitleCor:titleCor])
                     .bySubtitleTextAttributesTransformer([self jobsSetConfigTextAttributesTransformerByTitleFont:subTitleFont btnTitleCor:subTitleCor])
                     /// 前景图片
                     .byImage(self.isHighlighted ? highlightImage : normalImage)
-                    .byImagePadding(imagePadding)                                      /// 设置图像与标题之间的间距
+                    .byImagePadding(imagePadding)
+                                      /// 设置图像与标题之间的间距
                     .byImagePlacement(imagePlacement)
                     /// 富文本（优先级高于普通文本）
                     /// 这个方法，同时设置了普通文本和富文本，其实是走富文本的创建路线。富文本4要素：文字信息、文字颜色、段落、字体
@@ -169,8 +178,10 @@
                         if (subTitleFont) [data setObject:subTitleFont forKey:NSFontAttributeName];
                         [data setObject:self.jobsparagraphStyleByTextAlignment(subTextAlignment) forKey:NSParagraphStyleAttributeName];
                     })))
-                    .byContentInsets(contentInsets)                                    /// 内边距
-                    .byBaseBackgroundColor(baseBackgroundColor)                        /// 背景颜色
+                    .byContentInsets(contentInsets)
+                                    /// 内边距
+                    .byBaseBackgroundColor(baseBackgroundColor)
+                        /// 背景颜色
                     .byBackground(background);
             }) primaryAction:primaryAction];
             /// 按钮的点击事件
@@ -221,7 +232,7 @@
     return self.jobsBtnClickEventByBlock(subscribeNextBlock);
 }
 
--(JobsReturnRACDisposableByReturnIDByIDBlocks _Nonnull)jobsBtnClickEventByBlock{
+-(JobsRetRACDisposableByRetIDByIDBlocks _Nonnull)jobsBtnClickEventByBlock{
     @jobs_weakify(self)
     return ^RACDisposable *_Nonnull(JobsRetIDByIDBlock _Nullable block){
         @jobs_strongify(self)
@@ -308,7 +319,8 @@
     @jobs_weakify(self)
     return ^(BOOL breakLine) {
         @jobs_strongify(self)
-        self.titleLabel.numberOfLines = !breakLine;
+        self.titleLabel.byNumberOfLines(!breakLine);
+
         return self;
     };
 }
@@ -438,7 +450,7 @@
 }
 #pragma mark —— 一些通用修改.Layer
 ///【合并】统一设置按钮Layer的线宽+颜色+圆切角
--(JobsReturnViewByLocationModelBlock _Nonnull)jobsResetBtnLayerBy{
+-(JobsRetViewByLocationModelBlock _Nonnull)jobsResetBtnLayerBy{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(__kindof JobsLocationModel *_Nullable data){
         @jobs_strongify(self)
@@ -525,8 +537,8 @@
         @jobs_strongify(self)
         if(title){
             self.jobsResetBtnNormalAttributedTitle(title.changeTextColorBy(JobsClearColor).removeHyperlinks);
-            self.titleTextView.byFrame(self.titleLabel.frame);
-            self.titleTextView.byAttributedText(title);
+            self.titleTextView.frame = self.titleLabel.frame;
+            self.titleTextView.attributedText = title;
             self.jobsResetBtnNormalAttributedTitle(nil);
         };return self;
     };
@@ -539,8 +551,8 @@
         if(title){
             self.jobsResetBtnNormalAttributedSubTitle(title.changeTextColorBy(JobsClearColor));
             if (@available(iOS 15.0, *)) {
-                self.subtitleTextView.byFrame(self.subtitleLabel.frame);
-                self.subtitleTextView.byAttributedText(title);
+                self.subtitleTextView.frame = self.subtitleLabel.frame;
+                self.subtitleTextView.attributedText = title;
             }self.jobsResetBtnNormalAttributedSubTitle(nil);
         };return self;
     };
@@ -574,7 +586,7 @@
 }
 ///【兼容】获取按钮富文本字符串内容
 -(NSString *_Nullable)titleForConfigurationAttributedText{
-    return self.titleForConfigurationAttributed.text;
+    return self.titleForConfigurationAttributed.string;
 }
 ///【兼容】获取按钮富文本内容（更通用）
 -(NSAttributedString *_Nullable)titleForConfigurationAttributed{

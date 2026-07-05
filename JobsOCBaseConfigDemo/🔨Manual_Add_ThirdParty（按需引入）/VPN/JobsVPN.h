@@ -1,13 +1,21 @@
 //
 //  JobsVPN.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Admin on 20/12/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_JOBSVPN_97DFC0FE27
+#define JOBS_HEADER_GUARD_JOBSVPN_97DFC0FE27
 
 #import <Foundation/Foundation.h>
 #import <NetworkExtension/NetworkExtension.h>
+
+#import "JobsMakes.h"
+
 #import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -42,3 +50,4 @@ NS_ASSUME_NONNULL_END
  </array>
  
  */
+#endif /* JOBS_HEADER_GUARD_JOBSVPN_97DFC0FE27 */

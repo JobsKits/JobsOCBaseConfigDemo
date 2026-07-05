@@ -1,8 +1,8 @@
 //
 //  NSString+Check.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2021/11/30.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSString+Check.h"
@@ -11,7 +11,7 @@
 #pragma mark —— 字符串的 比较 & 判断
 /// 如果字符串为null 那么不走isEqualToString，无法比较都是空的情况
 +(BOOL)isEqualStrA:(NSString *)stringA strB:(NSString *)stringB{
-    if (isNull(stringA) && isNull(stringB)) {/// 双方都是null
+    if (isNull(stringA) && isNull(stringB)) {// 双方都是null
         return YES;
     }else return stringA.isEqualToString(stringB);
 }

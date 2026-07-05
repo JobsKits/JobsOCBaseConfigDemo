@@ -1,15 +1,15 @@
 //
 //  YTKBatchRequest+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Admin on 29/10/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "YTKBatchRequest+Extra.h"
 
 @implementation YTKBatchRequest (Extra)
 
-+(JobsReturnBatchRequestByArrBlock _Nonnull)initByRequestArray{
++(JobsRetBatchRequestByArrBlock _Nonnull)initByRequestArray{
     return ^__kindof YTKBatchRequest *_Nullable(__kindof NSArray <YTKRequest *>*_Nullable data){
         return [YTKBatchRequest.alloc initWithRequestArray:data];
     };

@@ -1,13 +1,11 @@
 //
 //  UINavigationController+SafeTransition.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Billie on 2020/3/8.
-//  Copyright © 2020 FirefoxGames. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UINavigationController+SafeTransition.h"
-#import "MacroDef_Sys.h"
 
 @interface UINavigationController ()
 
@@ -36,7 +34,7 @@
                       self.class,
                       @selector(safePopToViewController:animated:));
 }
-#pragma mark —— Prop_assign()BOOL viewTransitionInProgress;
+#pragma mark —— setter & getter
 JobsKey(_viewTransitionInProgress)
 @dynamic viewTransitionInProgress;
 - (void)setViewTransitionInProgress:(BOOL)property {
@@ -48,7 +46,7 @@ JobsKey(_viewTransitionInProgress)
     NSNumber *number = Jobs_getAssociatedObject(_viewTransitionInProgress);
     return number.boolValue;
 }
-#pragma mark - Intercept Pop, Push, PopToRootVC
+#pragma mark —— Intercept Pop, Push, PopToRootVC
 - (NSArray *)safePopToRootViewControllerAnimated:(BOOL)animated {
     if (self.viewTransitionInProgress) return nil;
     if (animated) self.viewTransitionInProgress = YES;

@@ -1,15 +1,15 @@
 //
 //  HXPhotoManager+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Admin on 7/12/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "HXPhotoManager+Extra.h"
 
 @implementation HXPhotoManager (Extra)
 
-+(JobsReturnHXPhotoManagerByNSUIntegerBlock _Nonnull)initByType{
++(JobsRetHXPhotoManagerByNSUIntegerBlock _Nonnull)initByType{
     return ^__kindof HXPhotoManager *_Nonnull(HXPhotoManagerSelectedType type){
         return [HXPhotoManager.alloc initWithType:type];
     };

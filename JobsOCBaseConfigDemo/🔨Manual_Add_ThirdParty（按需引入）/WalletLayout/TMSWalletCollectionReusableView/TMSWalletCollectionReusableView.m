@@ -1,12 +1,12 @@
 //
 //  TMSWalletCollectionReusableView.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by TmmmS on 2019/8/8.
-//  Copyright © 2019 TMS. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "TMSWalletCollectionReusableView.h"
+#import "UIView+Extra.h"
 
 @interface TMSWalletCollectionReusableView ()
 
@@ -17,8 +17,8 @@
 @synthesize viewModel = _viewModel;
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self == [super initWithFrame:frame]) {
-        self.backgroundColor = JobsBlueColor;
-        
+        self.byBgColor(JobsBlueColor);
+
     };return self;
 }
 #pragma mark —— BaseViewProtocol
@@ -27,8 +27,9 @@
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
-        self.label.alpha = 1;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+        self.label.byAlpha(1);
+
     };
 }
 #pragma mark —— lazyLoad
@@ -38,7 +39,8 @@
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byFont(UIFontWeightRegularSize(14))
+            label
+                .byFont(UIFontWeightRegularSize(14))
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
@@ -46,8 +48,7 @@
                     make.centerY.equalTo(self);
                 });
         });
-    }_label.byText(self.viewModel.textModel.text);
-    return _label;
+    };return _label.byText(self.viewModel.textModel.text);
 }
 
 @end

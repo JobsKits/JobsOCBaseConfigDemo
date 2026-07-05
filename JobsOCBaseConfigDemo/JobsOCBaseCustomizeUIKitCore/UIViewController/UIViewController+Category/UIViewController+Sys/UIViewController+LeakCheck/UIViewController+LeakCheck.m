@@ -1,8 +1,8 @@
 //
 //  UIViewController+LeakCheck.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2025/5/27.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIViewController+LeakCheck.h"
@@ -74,7 +74,7 @@
 -(void)my_viewDidDisappear:(BOOL)animated{
     [self my_viewDidDisappear:animated];
     // 排除系统类
-    if (!NSStringFromClass([self class]).hasPrefix(@"UI")) {
+    if (![NSStringFromClass([self class]) hasPrefix:@"UI"]) {
         BOOL shouldAdd = NO;
         if (self.presentingViewController && self.presentingViewController.presentedViewController == self) {
             shouldAdd = YES;

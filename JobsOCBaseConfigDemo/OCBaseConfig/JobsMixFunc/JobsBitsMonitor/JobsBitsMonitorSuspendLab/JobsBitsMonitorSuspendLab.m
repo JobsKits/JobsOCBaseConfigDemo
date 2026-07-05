@@ -1,8 +1,8 @@
 //
 //  JobsBitsMonitorSuspendLab.m
-//  JobsOCBaseConfigDemo
+//  JobsBitsMonitor
 //
-//  Created by Jobs on 2020/12/13.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsBitsMonitorSuspendLab.h"
@@ -40,60 +40,60 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
                                                           uint64_t downloadBytesPerSec){
                 NSString *upStr   = JobsFormatSpeed(uploadBytesPerSec);
                 NSString *downStr = JobsFormatSpeed(downloadBytesPerSec);
-                // 公共段落样式：居中 + 行距 2
+                /// 公共段落样式：居中 + 行距 2
                 NSMutableParagraphStyle *ps = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data2) {
-                    data2.alignment   = NSTextAlignmentCenter;
-                    data2.lineSpacing = 2.0;
+                    data2.byAlignment(NSTextAlignmentCenter)
+                        .byLineSpacing(2.0);
                 });
-                // ✅ 用你自己的富文本 DSL 来拼装
+                /// ✅ 用你自己的富文本 DSL 来拼装
                 NSAttributedString *attr =
                 self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray<JobsRichTextConfig *> * _Nullable data) {
-                    // "源: "
+                    /// "源: "
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.font          = [UIFont systemFontOfSize:10 weight:UIFontWeightMedium];
-                        cfg.textCor       = UIColor.secondaryLabelColor;
-                        cfg.targetString  = @"源: ";
-                        cfg.paragraphStyle = ps;
+                        cfg.byFont([UIFont systemFontOfSize:10 weight:UIFontWeightMedium])
+                           .byTextCor(UIColor.secondaryLabelColor)
+                           .byTargetString(@"源: ")
+                           .byParagraphStyle(ps);
                     }));
-                    // 源名称
+                    /// 源名称
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.font          = [UIFont systemFontOfSize:11 weight:UIFontWeightSemibold];
-                        cfg.textCor       = UIColor.whiteColor;
-                        cfg.targetString  = source.displayName;
-                        cfg.paragraphStyle = ps;
+                        cfg.byFont([UIFont systemFontOfSize:11 weight:UIFontWeightSemibold])
+                           .byTextCor(UIColor.whiteColor)
+                           .byTargetString(source.displayName)
+                           .byParagraphStyle(ps);
                     }));
-                    // 换行
+                    /// 换行
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.targetString  = JobsNewline;
-                        cfg.paragraphStyle = ps;
+                        cfg.byTargetString(JobsNewline)
+                           .byParagraphStyle(ps);
                     }));
-                    // 上行 "⬆︎ "
+                    /// 上行 "⬆︎ "
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.font          = [UIFont systemFontOfSize:11];
-                        cfg.textCor       = UIColor.systemGreenColor;
-                        cfg.targetString  = @"⬆︎ ";
-                        cfg.paragraphStyle = ps;
+                        cfg.byFont([UIFont systemFontOfSize:11])
+                           .byTextCor(UIColor.systemGreenColor)
+                           .byTargetString(@"⬆︎ ")
+                           .byParagraphStyle(ps);
                     }));
-                    // 上行数值（带两个空格）
+                    /// 上行数值（带两个空格）
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.font          = [UIFont monospacedDigitSystemFontOfSize:11 weight:UIFontWeightMedium];
-                        cfg.textCor       = UIColor.whiteColor;
-                        cfg.targetString  = upStr.add(@"  ");
-                        cfg.paragraphStyle = ps;
+                        cfg.byFont([UIFont monospacedDigitSystemFontOfSize:11 weight:UIFontWeightMedium])
+                           .byTextCor(UIColor.whiteColor)
+                           .byTargetString(upStr.add(@"  "))
+                           .byParagraphStyle(ps);
                     }));
-                    // 下行 "⬇︎ "
+                    /// 下行 "⬇︎ "
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.font          = [UIFont systemFontOfSize:11];
-                        cfg.textCor       = UIColor.systemRedColor;
-                        cfg.targetString  = @"⬇︎ ";
-                        cfg.paragraphStyle = ps;
+                        cfg.byFont([UIFont systemFontOfSize:11])
+                           .byTextCor(UIColor.systemRedColor)
+                           .byTargetString(@"⬇︎ ")
+                           .byParagraphStyle(ps);
                     }));
-                    // 下行数值
+                    /// 下行数值
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.font          = [UIFont monospacedDigitSystemFontOfSize:11 weight:UIFontWeightMedium];
-                        cfg.textCor       = UIColor.whiteColor;
-                        cfg.targetString  = downStr;
-                        cfg.paragraphStyle = ps;
+                        cfg.byFont([UIFont monospacedDigitSystemFontOfSize:11 weight:UIFontWeightMedium])
+                           .byTextCor(UIColor.whiteColor)
+                           .byTargetString(downStr)
+                           .byParagraphStyle(ps);
                     }));
                 }));
                 @jobs_weakify(self)
@@ -108,7 +108,6 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
             self.numberOfTouchesRequired = 1;
             self.numberOfTapsRequired = 1;/// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
             self.minimumPressDuration = 0.1;
-            self.numberOfTouchesRequired = 1;
             self.allowableMovement = 1;
             self.userInteractionEnabled = YES;
             @jobs_weakify(self)
@@ -132,13 +131,14 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
 }
 
 -(void)commonInit_JobsBitsMonitorSuspendLab{
-    // 👉 基础外观，尽量跟你 Swift 悬浮 Lab 的感觉一致
+    /// 👉 基础外观
     self.numberOfLines   = 0;
     self.textAlignment   = NSTextAlignmentCenter;
     self.layer.cornerRadius  = 8.0;
     self.layer.masksToBounds = YES;
-    self.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
-    // 默认字体 & 颜色
+    self.byBgColor([UIColor.blackColor colorWithAlphaComponent:0.7]);
+
+    /// 默认字体 & 颜色
     self.textColor = UIColor.whiteColor;
     self.font      = [UIFont monospacedDigitSystemFontOfSize:11 weight:UIFontWeightMedium];
 }
@@ -149,7 +149,7 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
         @jobs_strongify(self)
         self.attributedText = nil;
         self.text           = text;
-        // 普通文本可以稍微简单一点
+        /// 普通文本可以稍微简单一点
         self.font      = [UIFont systemFontOfSize:11 weight:UIFontWeightRegular];
         self.textColor = UIColor.whiteColor;
         return self;
@@ -162,7 +162,7 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
         @jobs_strongify(self)
         self.text         = nil;
         self.attributedText = attributedString;
-        // 字体、颜色都由外部富文本控制，这里不再动它
+        /// 字体、颜色都由外部富文本控制，这里不再动它
         return self;
     };
 }

@@ -1,18 +1,15 @@
 //
 //  UIImage+TBCityIconFont.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by John Wong on 10/12/14.
-//  Copyright (c) 2014 Taodiandian. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIImage+TBCityIconFont.h"
-#import "TBCityIconFont.h"
-#import <CoreText/CoreText.h>
 
 @implementation UIImage (TBCityIconFont)
 
-+ (UIImage *)iconWithInfo:(TBCityIconInfo *)info {
++(UIImage *)iconWithInfo:(TBCityIconInfo *)info {
     CGFloat size = info.size;
     CGFloat scale = [UIScreen mainScreen].scale;
     CGFloat realSize = size * scale;

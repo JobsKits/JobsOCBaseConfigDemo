@@ -1,12 +1,18 @@
 //
 //  JSValue+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Admin on 23/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <JavaScriptCore/JavaScriptCore.h>
+#ifndef JOBS_HEADER_GUARD_JSVALUE_EXTRA_5BF7B4DA56
+#define JOBS_HEADER_GUARD_JSVALUE_EXTRA_5BF7B4DA56
+
+#import <JavaScriptCore/JavaScriptCore.h> // 提供 Objective-C / Swift 与 JavaScript 交互能力，可执行脚本并进行对象桥接。
+
 #import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,3 +23,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JSVALUE_EXTRA_5BF7B4DA56 */

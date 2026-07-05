@@ -1,12 +1,13 @@
 //
 //  TMSCollectionViewLayout.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by TmmmS on 2019/8/8.
-//  Copyright © 2019 TMS. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "TMSCollectionViewLayout.h"
+#import "NSString+ID.h"
+#import "UICollectionViewLayoutAttributes+Extra.h"
 
 static CGFloat const itemH = 76; // cell高度
 static CGFloat const itemInnerInset = 10; // 被遮盖的cell头部留出的距离
@@ -58,6 +59,7 @@ Prop_assign()BOOL isExpand;
     CGFloat expandH = (self.isExpand && self.clickIndexPath && self.clickIndexPath.section == indexPath.section && self.clickIndexPath.item + 1 == indexPath.item) ? -10 : offfsetY;
     frame.origin = CGPointMake(self.padding, CGRectGetMaxY(lastAttributes.frame) - expandH);
     attribute.frame = frame;
+
     return attribute;
 }
 
@@ -79,6 +81,7 @@ Prop_assign()BOOL isExpand;
     }
     frame.origin = CGPointMake(0, CGRectGetMaxY(lastAttributes.frame));
     attributes.frame = frame;
+
     return attributes;
 }
 

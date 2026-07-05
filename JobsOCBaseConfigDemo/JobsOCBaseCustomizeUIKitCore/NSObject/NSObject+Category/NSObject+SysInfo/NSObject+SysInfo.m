@@ -1,16 +1,17 @@
 //
 //  NSObject+SysInfo.m
-//  JobsOCBaseConfigDemo
+//  JobsDeviceInfo
 //
-//  Created by Admin on 16/12/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+SysInfo.h"
+#import "NSObject+Extra.h"
 
 @implementation NSObject (SysInfo)
 /// 应用程序的发布版本号
 +(NSString *_Nullable)version{
-    return self.mainBundle.infoDictionary.objectForKey(应用程序的发布版本号);
+    return [self.mainBundle.infoDictionary objectForKey:应用程序的发布版本号];
 }
 
 -(NSString *_Nullable)version{
@@ -18,7 +19,7 @@
 }
 /// 应用程序编译构建的版本号
 +(NSString *_Nullable)build{
-    return self.mainBundle.infoDictionary.objectForKey(APP编译构建的版本号);
+    return [self.mainBundle.infoDictionary objectForKey:APP编译构建的版本号];
 }
 
 -(NSString *_Nullable)build{
@@ -26,7 +27,7 @@
 }
 /// 应用程序的名字
 +(NSString *_Nullable)appName{
-    return self.mainBundle.objectForInfoDictionaryKey(APP的名字);
+    return [self.mainBundle objectForInfoDictionaryKey:APP的名字];
 }
 
 -(NSString *_Nullable)appName{
@@ -42,7 +43,7 @@
 }
 /// 通常返回用户偏好的语言，可能包括用户自定义的语言排序
 +(NSString *_Nullable)userPreferredLanguages{
-    return NSLocale.preferredLanguages.objectAt(0);
+    return NSLocale.preferredLanguages.firstObject;
 }
 
 -(NSString *_Nullable)userPreferredLanguages{
@@ -106,7 +107,7 @@
 }
 /// 是否是iPod
 +(BOOL)iPod{
-    return self.currentDevice.model.rangeOfString(@"iPod").length;
+    return [self.currentDevice.model rangeOfString:@"iPod"].length;
 }
 
 -(BOOL)iPod{

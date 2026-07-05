@@ -1,11 +1,13 @@
 //
 //  JobsImageStyleTBVCell.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by User on 8/11/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsImageStyleTBVCell.h"
+#import "UITableView+RegisterClass.h"
+#import "UIView+Extra.h"
 
 @interface JobsImageStyleTBVCell ()
 /// UI
@@ -25,7 +27,7 @@ BaseLayerProtocol_synthesize_part3
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsImageStyleTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsImageStyleTBVCell);
         return cell;
@@ -37,7 +39,8 @@ BaseLayerProtocol_synthesize_part3
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.backgroudImageView.alpha = 1;
+        self.backgroudImageView.byAlpha(1);
+
         return self;
     };
 }
@@ -58,10 +61,12 @@ BaseLayerProtocol_synthesize_part3
         @jobs_weakify(self)
         _backgroudImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = self.viewModel.bgImage;
-            [self.contentView.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.contentView);
-            }];
+            imageView
+                .byImage(self.viewModel.bgImage)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.contentView);
+                });
         });
     };return _backgroudImageView;
 }

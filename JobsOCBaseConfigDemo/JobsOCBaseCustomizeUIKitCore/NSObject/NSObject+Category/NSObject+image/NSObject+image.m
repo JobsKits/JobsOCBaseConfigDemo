@@ -1,8 +1,8 @@
 //
 //  NSObject+image.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Mac on 10/31/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+image.h"
@@ -22,7 +22,7 @@
 -(nullable UIImage *)sys_img{
     if([self isKindOfClass:NSString.class]){
         NSString *SELF = (NSString *)self;
-        NSString *raw = [SELF stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+        NSString *raw = SELF.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
         if (!isValue(raw)) { return nil; }
         /// 拒绝网络：同步接口不触网
         if (SELF.isContainsUrl) { return nil; }
@@ -37,7 +37,7 @@
 -(nullable UIImage *)img{
     if([self isKindOfClass:NSString.class]){
         NSString *SELF = (NSString *)self;
-        NSString *raw = [SELF stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+        NSString *raw = SELF.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
         if (!isValue(raw)) { return nil; }
         // 1) 拒绝网络：同步接口不触网
         if (SELF.isContainsUrl) { return nil; }

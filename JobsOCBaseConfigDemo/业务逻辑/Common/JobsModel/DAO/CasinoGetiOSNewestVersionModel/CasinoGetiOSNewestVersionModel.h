@@ -1,12 +1,18 @@
 //
 //  CasinoGetiOSNewestVersionModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef CasinoGetiOSNewestVersionModel_h
+#define CasinoGetiOSNewestVersionModel_h
+
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -44,3 +50,5 @@ NS_ASSUME_NONNULL_END
          versionNumber = "1.0.1";
      }
  */
+
+#endif /* CasinoGetiOSNewestVersionModel_h */

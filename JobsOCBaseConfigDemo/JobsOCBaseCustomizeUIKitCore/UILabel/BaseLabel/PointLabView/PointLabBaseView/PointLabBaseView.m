@@ -1,11 +1,14 @@
 //
-//  PointLabView.m
-//  JobsOCBaseConfigDemo
+//  PointLabBaseView.m
+//  JobsBaseUI
 //
-//  Created by User on 8/15/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "PointLabBaseView.h"
+#import "NSString+Sys.h"
+#import "UIView+Extra.h"
+#import "UIView+Refresh.h"
 
 @interface PointLabBaseView ()
 /// UI
@@ -19,7 +22,8 @@ Prop_strong()UIView *pointView;
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+
     };return self;
 }
 
@@ -39,7 +43,8 @@ Prop_strong()UIView *pointView;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -47,8 +52,10 @@ Prop_strong()UIView *pointView;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.pointView.alpha = 1;
-        self.label.alpha = 1;
+        self.pointView.byAlpha(1);
+
+        self.label.byAlpha(1);
+
     };
 }
 #pragma mark —— 一些公有方法
@@ -77,23 +84,27 @@ Prop_strong()UIView *pointView;
         @jobs_weakify(self)
         _pointView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            [self.addSubview(view) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(8), JobsWidth(8)));
-                make.left.top.equalTo(self);
-            }];
+            view
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(8), JobsWidth(8)));
+                    make.left.top.equalTo(self);
+                });
         });
     };return _pointView;
 }
 @synthesize label = _label;
 -(UILabel *)label{
-    if(!_label){
+    if (!_label) {
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.pointView.mas_right);
-                make.top.bottom.right.equalTo(self);
-            }];
+            label
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.pointView.mas_right);
+                    make.top.bottom.right.equalTo(self);
+                });
         });
     };return _label;
 }

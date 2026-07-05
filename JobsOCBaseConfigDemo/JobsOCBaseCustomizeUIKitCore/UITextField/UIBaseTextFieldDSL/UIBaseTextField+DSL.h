@@ -10,47 +10,19 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<JobsBaseUI/CJTextField.h>)
-#import <JobsBaseUI/CJTextField.h>
-#else
 #import "CJTextField.h"
-#endif
 
-#if __has_include(<JobsBaseUI/HQTextField.h>)
-#import <JobsBaseUI/HQTextField.h>
-#else
 #import "HQTextField.h"
-#endif
 
-#if __has_include(<JobsBaseUI/ZYTextField.h>)
-#import <JobsBaseUI/ZYTextField.h>
-#else
 #import "ZYTextField.h"
-#endif
 
-#if __has_include(<JobsBaseUI/JobsMagicTextField.h>)
-#import <JobsBaseUI/JobsMagicTextField.h>
-#else
 #import "JobsMagicTextField.h"
-#endif
 
-#if __has_include(<JobsBaseUI/JobsTextField.h>)
-#import <JobsBaseUI/JobsTextField.h>
-#else
 #import "JobsTextField.h"
-#endif
 
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
 #import "JobsBlock.h"
-#endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
 #import "JobsDefines.h"
-#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,13 +1,16 @@
 //
 //  TLAnimationProtocol.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by 故乡的云 on 2019/7/19.
-//  Copyright © 2019 故乡的云. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_TLANIMATIONPROTOCOL_E2E13554C4
+#define JOBS_HEADER_GUARD_TLANIMATIONPROTOCOL_E2E13554C4
+
 #import <UIKit/UIKit.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,3 +48,4 @@ Prop_assign(getter=isToRight)BOOL toRight;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_TLANIMATIONPROTOCOL_E2E13554C4 */

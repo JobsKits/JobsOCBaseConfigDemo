@@ -1,8 +1,8 @@
 //
 //  UIWindow+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2022/1/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIWindow+Extra.h"
@@ -20,29 +20,23 @@
         return [UIWindow.alloc initWithFrame:UIScreen.mainScreen.bounds];
     };
 }
-
--(void)touchesBegan:(NSSet<UITouch *> *)touches
-          withEvent:(UIEvent *)event{
-    if (self.objBlock) self.objBlock(self);
-}
-/// 横屏模式下的Window（宽高互换）
--(__kindof UIWindow *)landscape{
-    if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
-        self.frame = self.landscapeWindowFrame();
-    };return self;
-}
 /// 横屏模式下Window的宽高互换
 -(JobsRetFrameByVoidBlock _Nonnull)landscapeWindowFrame{
     return ^CGRect(){
         @jobs_weakify(self)
         return jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
             @jobs_strongify(self)
-            data.jobsX = self.x;
-            data.jobsY = self.y;
-            data.jobsWidth = MAX(self.height,self.width);
-            data.jobsHeight = MIN(self.height,self.width);
+            data.byJobsX(self.x)
+                .byJobsY(self.y)
+                .byJobsWidth(MAX(self.height,self.width))
+                .byJobsHeight(MIN(self.height,self.width));
         });
     };
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches
+          withEvent:(UIEvent *)event{
+    if (self.objBlock) self.objBlock(self);
 }
 
 @end

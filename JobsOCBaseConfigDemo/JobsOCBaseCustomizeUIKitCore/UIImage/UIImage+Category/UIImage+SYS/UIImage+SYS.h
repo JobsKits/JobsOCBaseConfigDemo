@@ -1,15 +1,20 @@
 //
 //  UIImage+SYS.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/8/23.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UIIMAGE_SYS_C230671663
+#define JOBS_HEADER_GUARD_UIIMAGE_SYS_C230671663
 
 #import <objc/message.h>
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
 #import "JobsString.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,3 +35,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIIMAGE_SYS_C230671663 */

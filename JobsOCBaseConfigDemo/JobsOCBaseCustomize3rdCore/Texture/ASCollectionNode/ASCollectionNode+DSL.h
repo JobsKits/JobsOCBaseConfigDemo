@@ -1,6 +1,6 @@
 //
 //  ASCollectionNode+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -9,14 +9,11 @@
 #define JOBS_HEADER_GUARD_ASCOLLECTIONNODE_DSL_859CD03C8D
 
 #import <objc/runtime.h>
-#import "JobsBlock.h"
-#import "JobsDefines.h"
-
-#if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
-#else
-#import "AsyncDisplayKit.h"
-#endif
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

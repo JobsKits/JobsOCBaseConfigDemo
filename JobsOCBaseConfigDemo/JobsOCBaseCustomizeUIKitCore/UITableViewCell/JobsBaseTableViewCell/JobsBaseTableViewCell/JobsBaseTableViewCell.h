@@ -1,28 +1,27 @@
 //
 //  JobsBaseTableViewCell.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2021/1/20.
-//  Copyright © 2021 MonkeyKingVideo. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_JOBSBASETABLEVIEWCELL_ADC74C78C6
+#define JOBS_HEADER_GUARD_JOBSBASETABLEVIEWCELL_ADC74C78C6
+
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
-#import "BaseCellProtocol.h"
-#import "UITableViewCellProtocol.h"
-#import "UIViewModelProtocol.h"
-#import "AppToolsProtocol.h"
-#import "MacroDef_Func.h"
-#import "UIViewModel.h"
-#import "UIView+Measure.h"
-#import "UITableViewCell+Margin.h"
-#import "JobsDefineProperty.h"
+#import "JobsOCDSL.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
 #import "XYColorOC.h"
 #endif
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 #define UITableViewCellTitleWidth JobsMainScreen_WIDTH() * 2 / 3
 #define UITableViewCellSubTitleWidth JobsMainScreen_WIDTH() / 3
@@ -39,3 +38,4 @@ AppToolsProtocol
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSBASETABLEVIEWCELL_ADC74C78C6 */

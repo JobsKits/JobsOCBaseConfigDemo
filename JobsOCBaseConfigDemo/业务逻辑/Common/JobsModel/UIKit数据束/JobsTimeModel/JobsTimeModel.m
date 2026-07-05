@@ -1,14 +1,14 @@
 //
 //  JobsTimeModel.m
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsTimeModel.h"
 #import "NSDate+Extra.h"
-#import "NSString+Others.h"
-#import "NSObject+Extras.h"
+#import "NSString+Extra.h"
+#import "NSObject+Extra.h"
 #import "NSTimeZone+Extra.h"
 /*
  *  为了防止溢出，基本上时间戳传给后台或者后台返回给我们的都是字符串类型的。

@@ -8,6 +8,7 @@
 #import "JobsBlock.h"
 #import "BaseView.h"
 #import "JobsBtnStyleTBVCell.h"
+#import "NSMutableArray+Extra.h"
 #import "ThreeClassCell.h"
 #import "FMGameCVCell.h"
 #import "JobsDefineProperty.h"

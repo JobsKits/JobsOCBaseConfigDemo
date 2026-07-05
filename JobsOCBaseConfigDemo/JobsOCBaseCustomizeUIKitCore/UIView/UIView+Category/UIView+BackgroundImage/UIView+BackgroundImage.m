@@ -1,9 +1,8 @@
 //
 //  UIView+BackgroundImage.m
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Jobs on 2021/1/22.
-//  Copyright © 2021 MonkeyKingVideo. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIView+BackgroundImage.h"
@@ -25,27 +24,26 @@ JobsKey(_backgroundImageView)
         @jobs_weakify(self)
         BackgroundImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.userInteractionEnabled = YES;
-            imageView.contentMode = UIViewContentModeScaleToFill;
-            self.backgroundColor = JobsClearColor;
+            imageView
+                .byUserInteractionEnabled(YES)
+                .byContentMode(UIViewContentModeScaleToFill);
+            self.byBgColor(JobsClearColor);
             if ([self isKindOfClass:UICollectionViewCell.class]) {
                 UICollectionViewCell *cell = (UICollectionViewCell *)self;
-                cell.contentView.addSubview(imageView);
-                [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                imageView.addOn(cell.contentView).byAdd(^(MASConstraintMaker *make) {
                     make.edges.equalTo(cell.contentView);
-                }];
+                });
             }else if ([self isKindOfClass:UITableViewCell.class]){
                 UITableViewCell *cell = (UITableViewCell *)self;
-                cell.contentView.addSubview(imageView);
-                [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                imageView.addOn(cell.contentView).byAdd(^(MASConstraintMaker *make) {
                     make.edges.equalTo(cell.contentView);
-                }];
+                });
             }else{
                 self.addSubview(BackgroundImageView);
                 [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.edges.equalTo(self);
                 }];
-            }imageView.layer.zPosition = -1;// 设置层级关系
+            }imageView.layer.byZPosition(-1);// 设置层级关系
             Jobs_setAssociatedRETAIN_NONATOMIC(_backgroundImageView, imageView)
         });
     };return BackgroundImageView;

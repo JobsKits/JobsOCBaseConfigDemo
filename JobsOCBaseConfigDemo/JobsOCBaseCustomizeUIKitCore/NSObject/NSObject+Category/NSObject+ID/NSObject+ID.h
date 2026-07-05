@@ -1,17 +1,17 @@
 //
 //  NSObject+ID.h
-//  JobsOCBaseConfigDemo
+//  JobsDeviceInfo
 //
-//  Created by Jobs on 2021/12/3.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-/// iOS设备唯一标识符
 #ifndef NSObject_ID_h
 #define NSObject_ID_h
 
 #import "NSObject+DeviceID.h"
-#import "NSObject+UUID.h"
-#import "NSObject+IDFV.h"
 #import "NSObject+IDFA.h"
+#import "NSObject+IDFV.h"
+#import "NSObject+UDID.h"
+#import "NSObject+UUID.h"
 
 #endif /* NSObject_ID_h */

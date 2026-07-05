@@ -1,11 +1,18 @@
 //
 //  NSLocale+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by User on 9/1/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSLOCALE_EXTRA_336543BCD1
+#define JOBS_HEADER_GUARD_NSLOCALE_EXTRA_336543BCD1
+
 #import <Foundation/Foundation.h>
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 /// 获取系统的首选语言代码
 NS_INLINE NSString *_Nullable currentLanguage(void){
@@ -59,8 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 备用引号的结束符号，例如英文的备用引号是 @"\u2019"。
 -(NSString *)alternateQuotationEndDelimiter;
 
-
-
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSLOCALE_EXTRA_336543BCD1 */

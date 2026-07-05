@@ -1,6 +1,8 @@
 //
-// Created by Chenyu Lan on 10/30/14.
-// Copyright (c) 2014 Fenbi. All rights reserved.
+//  YTKBaseRequest+AnimatingAccessory.m
+//  JobsBy3rdExtras
+//
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "YTKBaseRequest+AnimatingAccessory.h"
@@ -19,8 +21,6 @@
     return self.animatingRequestAccessory.animatingView;
 }
 
-#pragma mark —— animatingView
-@dynamic animatingView;
 -(void)setAnimatingView:(UIView *)animatingView{
     if (self.animatingRequestAccessory) {
         self.animatingRequestAccessory.animatingView = animatingView;
@@ -33,8 +33,6 @@
     return self.animatingRequestAccessory.animatingText;
 }
 
-#pragma mark —— animatingText
-@dynamic animatingText;
 -(void)setAnimatingText:(NSString *)animatingText{
     if (self.animatingRequestAccessory) {
         self.animatingRequestAccessory.animatingText = animatingText;

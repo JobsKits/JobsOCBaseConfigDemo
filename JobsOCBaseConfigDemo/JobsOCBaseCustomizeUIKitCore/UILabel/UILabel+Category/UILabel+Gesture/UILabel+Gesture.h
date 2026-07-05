@@ -1,12 +1,14 @@
 //
 //  UILabel+Gesture.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/4/3.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UILABEL_GESTURE_A652C744E8
+#define JOBS_HEADER_GUARD_UILABEL_GESTURE_A652C744E8
+
 #import <UIKit/UIKit.h>
-#import "UIView+Gesture.h"
 
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>
@@ -32,6 +34,14 @@
 //#import "RACEXTRuntimeExtensions.h"
 //#endif
 
+#import "JobsOCRuntimeKits.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsOCDSL.h"
+
+#import "JobsDefines.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UILabel (Gesture)
@@ -41,3 +51,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UILABEL_GESTURE_A652C744E8 */

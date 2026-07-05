@@ -6,12 +6,9 @@
 //
 
 #import "UIScrollView+JobsOCRefresher.h"
-#import <objc/runtime.h>
-#import <AudioToolbox/AudioToolbox.h>
 
-static void *JobsOCRefreshKVOContext = &JobsOCRefreshKVOContext;
-static char JobsOCRefreshProxyKey;
-
+JobsKey(JobsOCRefreshKVOContext)
+JobsKey(JobsOCRefreshProxyKey)
 @interface JobsOCRefreshSlot : NSObject
 
 Prop_assign() JobsOCRefreshPosition position;
@@ -173,7 +170,7 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
         self.component.state == JobsOCRefreshStateRefreshing ||
         self.component.state == JobsOCRefreshStateDisabled ||
         self.component.state == JobsOCRefreshStateNoMoreData) return;
-    [(JobsOCRefreshProxy *)objc_getAssociatedObject(scrollView, &JobsOCRefreshProxyKey) playFeedbackForPosition:self.position];
+    [(JobsOCRefreshProxy *)Jobs_getAssociatedObjectByTarget(scrollView, JobsOCRefreshProxyKey) playFeedbackForPosition:self.position];
     [self.component applyState:JobsOCRefreshStateRefreshing progress:1];
     CGFloat length = self.component.refreshLength;
     UIEdgeInsets oldAdjusted = scrollView.adjustedContentInset;
@@ -400,10 +397,10 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
 @implementation UIScrollView (JobsOCRefresher)
 
 - (JobsOCRefreshProxy *)jobs_refreshProxy {
-    JobsOCRefreshProxy *proxy = objc_getAssociatedObject(self, &JobsOCRefreshProxyKey);
+    JobsOCRefreshProxy *proxy = Jobs_getAssociatedObject(JobsOCRefreshProxyKey);
     if (!proxy) {
         proxy = [[JobsOCRefreshProxy alloc] initWithScrollView:self];
-        objc_setAssociatedObject(self, &JobsOCRefreshProxyKey, proxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        Jobs_setAssociatedRETAIN_NONATOMIC(JobsOCRefreshProxyKey, proxy)
     };return proxy;
 }
 

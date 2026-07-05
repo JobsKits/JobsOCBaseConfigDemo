@@ -2,20 +2,32 @@
 //  JobsSearchVC.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/10/2.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseViewController.h"
-#import "UIViewController+BaseNavigationBar.h"
 #import "JobsSearchConfig.h"
 #import "JobsSearchBar.h"
-#import "JobsSearchTableViewHeaderView.h"
-#import "JobsSearchShowHistoryDataTBVCell.h"
-#import "JobsSearchShowHotwordsTBVCell.h"
-#import "UITableView+WWFoldableTableView.h"
 #import "JobsSearchTBVCell.h"
-#import "JobsDefineProperty.h"
+#import "JobsSearchTableViewHeaderView.h"
+#import "JobsSearchShowHistoryDataTBVCell.h" // 搜索历史
+#import "JobsSearchShowHotwordsTBVCell.h"    // 热门搜索
+
+#import "JobsLoadingImageHeader.h"
+
+#import "JobsMakes.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

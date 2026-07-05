@@ -1,12 +1,26 @@
 //
 //  JobsUploadingProgressView.h
-//  JobsOCBaseConfigDemo
+//  JobsUploadingProgressView
 //
-//  Created by xxx on 2021/1/12.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseView.h"
-#import "JobsDefineProperty.h"
+#ifndef JOBS_HEADER_GUARD_JOBSUPLOADINGPROGRESSVIEW_FCCCA7F94C
+#define JOBS_HEADER_GUARD_JOBSUPLOADINGPROGRESSVIEW_FCCCA7F94C
+
+#import <UIKit/UIKit.h>
+
+#import "JobsLanMgr.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsMakes.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,3 +39,4 @@ Prop_assign()CGFloat radius; // 圆半径
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSUPLOADINGPROGRESSVIEW_FCCCA7F94C */

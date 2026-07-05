@@ -7,6 +7,7 @@
 
 #import "JobsBaseTableViewCell.h"
 #import "JobsDefineProperty.h"
+#import "MSCommentModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

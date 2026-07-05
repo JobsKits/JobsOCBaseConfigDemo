@@ -1,16 +1,14 @@
 //
 //  NSObject+Measure.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2020/8/18.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+Measure.h"
-
 @implementation NSObject (Measure)
-UILocationProtocol_dynamic /// 方位
-UIMarkProtocol_dynamic_part2 /// 标记📌
+UILocationProtocol_dynamic   // 方位
+UIMarkProtocol_dynamic_part2 // 标记📌
 @dynamic cornerRadiusValue;
 /// 已知父控件和子控件的宽度或者高度，当父控件为X轴或者Y轴中心的时候，子控件的X 和 Y 是多少？
 /// @param subview 子控件的宽 或者 高
@@ -71,11 +69,12 @@ isEqualToSize2:(CGSize)size2{
                               title:(NSString *)title
                                font:(UIFont *)font{
     return ceil(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label.frame = CGRectMake(0, 0, width, 0);
-        label.text = title;
-        label.font = font;
-        label.numberOfLines = 0;
-        [label sizeToFit];
+        label
+            .byText(title)
+            .byFont(font)
+            .byNumberOfLines(0)
+            .bySizeToFit()
+            .byFrame(CGRectMake(0, 0, width, 0));
     }).frame.size.height);
 }
 /// UILabe单行文本的宽度：根据字体计算单行文本的宽度
@@ -89,11 +88,12 @@ isEqualToSize2:(CGSize)size2{
                              title:(NSString *)title
                               font:(UIFont *)font{
     UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label.frame = CGRectMake(0, 0, width, 0);
-        label.text = title;
-        label.font = font;
-        label.numberOfLines = 0;
-        [label sizeToFit];
+        label
+            .byText(title)
+            .byFont(font)
+            .byNumberOfLines(0)
+            .bySizeToFit()
+            .byFrame(CGRectMake(0, 0, width, 0));
     });
     CGFloat height = label.frame.size.height;
     /// 先用UILabel的 sizeToFit 计算出最佳大小，然后用高度/lineHeight就是行数，lineHeight为UIFont的属性

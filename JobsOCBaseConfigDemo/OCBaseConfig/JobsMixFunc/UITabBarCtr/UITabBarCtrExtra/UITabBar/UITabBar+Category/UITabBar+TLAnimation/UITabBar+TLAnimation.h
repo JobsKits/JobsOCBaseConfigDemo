@@ -1,18 +1,21 @@
 //
 //  UITabBar+TLAnimation.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by 故乡的云 on 2019/7/19.
-//  Copyright © 2019 故乡的云. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
-//  如果是深度自定义 TabBarItem 请自行修改UITabBar+TLAnimation.m中的方法进行适配
+
+#ifndef JOBS_HEADER_GUARD_UITABBAR_TLANIMATION_BAF6F98016
+#define JOBS_HEADER_GUARD_UITABBAR_TLANIMATION_BAF6F98016
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "TLAnimationProtocol.h"
 #import "UITabBarItem+TLAnimation.h"
-#import "NSObject+Swizzling.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsOCRuntimeKits.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -36,3 +39,4 @@ NS_ASSUME_NONNULL_END
  * 如需要监听TabBarItem的点击事件，可在UITabBarController的子类(UITabBar实例的默认代理)中实现UITabBar的代理方法
  * `- tabBar: didSelectItem:`
  */
+#endif /* JOBS_HEADER_GUARD_UITABBAR_TLANIMATION_BAF6F98016 */

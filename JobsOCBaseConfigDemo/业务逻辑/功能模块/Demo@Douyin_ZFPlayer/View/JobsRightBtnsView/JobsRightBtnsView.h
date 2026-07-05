@@ -10,6 +10,8 @@
 #import "UIButton+UI.h"
 #import "RBCLikeButton.h"
 #import "JobsShareView.h"
+#import "JobsCommentCoreVC.h"
+#import "JobsPresentationCtrl.h"
 #import "JobsDefineProperty.h"
 
 #ifndef MK_RIGHT_BTN_VIEW_BTN_TYPE_ENUM_DEFINED

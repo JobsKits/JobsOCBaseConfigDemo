@@ -1,11 +1,12 @@
 //
 //  LOTAnimationMJRefreshFooter.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2021/1/8.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "LOTAnimationMJRefreshFooter.h"
+#import "UIView+Measure.h"
 
 static const CGFloat OffsetBetweenStateLabelAndAnimationView = 5;//StateLabel 和 AnimationView 之间的间距
 
@@ -19,14 +20,16 @@ Prop_strong()LOTAnimationView *animationView;
 
 - (void)prepare{
     [super prepare];
-    self.animationView.alpha = 1;
-    self.gifView.alpha = 0;//屏蔽掉父类的gifView控件，否则将会有Gif图和Lottie动画一起出现
+    self.animationView.byAlpha(1);
+
+    self.gifView.byAlpha(0);//屏蔽掉父类的gifView控件，否则将会有Gif图和Lottie动画一起出现
     @jobs_weakify(self)
     self.endRefreshingCompletionBlock = ^{
         @jobs_strongify(self)
         [self updateStateLabelText];
     };
-    self.stateLabel.font = UIFontWeightRegularSize(14);
+    self.stateLabel.byFont(UIFontWeightRegularSize(14));
+
     [self updateStateLabelText];
 }
 // 执行重新给子视图布局的时候
@@ -90,7 +93,7 @@ Prop_strong()LOTAnimationView *animationView;
 #pragma mark —— lazyLoad
 - (LOTAnimationView *)animationView{
     if (!_animationView) {
-        NSString *filePaths = JobsPathForBuddleIMG(nil,
+        NSString *filePaths = JobsBundleImagePath(nil,
                                                    @"JsonRes",
                                                    nil,
                                                    @"下拉刷新.json");

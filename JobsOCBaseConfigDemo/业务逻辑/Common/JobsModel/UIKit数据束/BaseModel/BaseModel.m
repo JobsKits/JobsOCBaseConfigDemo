@@ -1,12 +1,12 @@
 //
 //  BaseModel.m
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "BaseModel.h"
-#import "NSString+Others.h"
+#import "NSString+Extra.h"
 
 @implementation BaseModel
 /**

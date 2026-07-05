@@ -1,18 +1,19 @@
 //
 //  UITableView+WWFoldableTableView.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  https://github.com/Tidusww/WWFoldableTableView
-//  Created by Tidus on 17/1/6.
-//  Copyright © 2017年 Tidus. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UITABLEVIEW_WWFOLDABLETABLEVIEW_0801BA88C8
+#define JOBS_HEADER_GUARD_UITABLEVIEW_WWFOLDABLETABLEVIEW_0801BA88C8
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
+
 #import "JobsBlock.h"
-#import "MacroDef_Sys.h"
-#import "MacroDef_SysWarning.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
 
 @interface UITableView (WWFoldableTableView)
 /// 设为YES，让tableView具备折叠功能
@@ -37,3 +38,4 @@ Prop_assign()BOOL ww_foldable;
  *  _tableView.byFoldable(YES);//设置可折叠
  *  点击UITableViewHeaderFooterView子类触发： [self.tableView ww_foldSection:section fold:![self.tableView ww_isSectionFolded:section]];//设置可折叠
  */
+#endif /* JOBS_HEADER_GUARD_UITABLEVIEW_WWFOLDABLETABLEVIEW_0801BA88C8 */

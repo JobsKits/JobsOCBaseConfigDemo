@@ -1,9 +1,8 @@
 //
 //  GXCardView.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Gin on 2018/7/31.
-//  Copyright © 2018年 gin. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "GXCardView.h"
@@ -18,7 +17,6 @@ static CGFloat const GX_SpringWithDamping  = 0.5f;
 static CGFloat const GX_SpringVelocity     = 0.8f;
 
 @class GXCardViewCell;
-
 @protocol GXCardViewCellDelagate <NSObject>
 @optional
 - (void)cardViewCellDidRemoveFromSuperView:(GXCardViewCell *)cell withDirection:(GXCardCellSwipeDirection)direction;
@@ -187,7 +185,8 @@ Prop_weak()id<GXCardViewCellDelagate> cell_delegate;
 // 向右边移除动画
 - (void)removeFromSuperviewRight {
     __block UIView *snapshotView = [self snapshotViewAfterScreenUpdates:NO];
-    snapshotView.frame = self.frame;
+    snapshotView.byFrame(self.frame);
+
     [self.superview.superview addSubview:snapshotView];
     [self didCellRemoveFromSuperviewWithDirection:GXCardCellSwipeDirectionRight];
     
@@ -250,9 +249,12 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
 
 - (UIView *)containerView {
     if (!_containerView) {
-        _containerView = [[UIView alloc] initWithFrame:self.bounds];
-        _containerView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        [self addSubview:_containerView];
+        _containerView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(self.bounds)
+                .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
+                .addOn(self);
+        });
     };return _containerView;
 }
 
@@ -334,7 +336,8 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
     NSInteger showCount = self.visibleCount - 1;
     CGFloat width = self.frame.size.width;
     CGFloat height = self.frame.size.height - (showCount * self.interitemSpacing);
-    cell.frame = CGRectMake(0, 0, width, height);
+    cell.byFrame(CGRectMake(0, 0, width, height));
+
     [self.containerView insertSubview:cell atIndex:0];
     [self.containerView layoutIfNeeded];
     self.currentIndex = index;
@@ -360,7 +363,8 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
     NSInteger showCount = self.visibleCount;
     CGFloat width = self.frame.size.width;
     CGFloat height = self.frame.size.height - (showCount * self.interitemSpacing);
-    cell.frame = CGRectMake(0, 0, width, height);
+    cell.byFrame(CGRectMake(0, 0, width, height));
+
     [self.containerView insertSubview:cell atIndex:0];
     [self.containerView layoutIfNeeded];
     self.currentIndex = index;
@@ -499,7 +503,7 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
     [topcell removeFromSuperviewSwipe:direction];
 }
 
-#pragma mark - GXCardViewCellDelagate
+#pragma mark —— GXCardViewCellDelagate
 
 - (void)cardViewCellDidRemoveFromSuperView:(GXCardViewCell *)cell withDirection:(GXCardCellSwipeDirection)direction {
     // 当cell被移除时重新刷新视图
@@ -555,5 +559,3 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
 }
 
 @end
-
-

@@ -1,16 +1,15 @@
 //
 //  NSObject+Data.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by User on 9/16/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_DATA_7EC1717EDE
+#define JOBS_HEADER_GUARD_NSOBJECT_DATA_7EC1717EDE
+
 #import <objc/runtime.h>
-#import <Foundation/Foundation.h>
-#import "UIViewModelOthersProtocol.h"
-#import "NSObject+CallBackInfoByBlock.h"
-#import "JobsBlock.h"
-#import "FileFolderHandleTool.h"
+#import <UIKit/UIKit.h>
 
 #if __has_include(<TXFileOperation/TXFileOperation.h>)
 #import <TXFileOperation/TXFileOperation.h>
@@ -23,6 +22,12 @@
 #else
 #import "MJExtension.h"
 #endif
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -56,3 +61,4 @@ UITableViewDelegate
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_DATA_7EC1717EDE */

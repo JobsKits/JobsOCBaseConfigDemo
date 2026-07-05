@@ -1,6 +1,6 @@
 //
 //  UITableViewCell+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月11日，星期四.
 //
@@ -13,7 +13,7 @@
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(jobsByLabelBlock _Nullable block){
         @jobs_strongify(self)
-        if (block) block(self.textLabel);
+        if (block && self.textLabel) block(self.textLabel);
         return self;
     };
 }
@@ -22,7 +22,7 @@
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(jobsByLabelBlock _Nullable block){
         @jobs_strongify(self)
-        if (block) block(self.detailTextLabel);
+        if (block && self.detailTextLabel) block(self.detailTextLabel);
         return self;
     };
 }

@@ -1,8 +1,8 @@
 //
 //  UITableViewCell+Margin.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2020/11/13.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UITableViewCell+Margin.h"
@@ -10,16 +10,15 @@
 @implementation UITableViewCell (Margin)
 UILocationProtocol_dynamic
 // 在具体的子类去实现,分类调用异常
-//#pragma mark —— frame
--(void)setFrame:(CGRect)frame{
+//-(void)setFrame:(CGRect)frame{
 //    JobsLog(@"self.offsetXForEach = %f",self.offsetXForEach);
 //    JobsLog(@"self.offsetYForEach = %f",self.offsetYForEach);
 //    frame.origin.x += self.offsetXForEach;
 //    frame.origin.y += self.offsetYForEach;
 //    frame.size.height -= self.offsetYForEach * 2;
 //    frame.size.width -= self.offsetXForEach * 2;
-    [super setFrame:frame];
-}
+//    [super setFrame:frame];
+//}
 /// 值打印
 -(jobsByVoidBlock _Nonnull)printValue{
     @jobs_weakify(self)
@@ -61,13 +60,15 @@ UILocationProtocol_dynamic
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        self.contentView.frame = self.bounds;
+        self.contentView.byFrame(self.bounds);
+
         
         {///【组 1】 UITableViewCell单独自定义设置系统自带控件的Frame 【形成Frame后直接return，避免被其他中间过程修改】❤️与组2、3属性互斥❤️
             if (!jobsZeroRectValue(self.textLabelFrame)) self.textLabel.frame = self.textLabelFrame;
             
             if (!jobsZeroRectValue(self.detailTextLabelFrame) && self.detailTextLabel) {
-                self.detailTextLabel.frame = self.detailTextLabelFrame;
+                self.detailTextLabel.byFrame(self.detailTextLabelFrame);
+
             }
 
             if (!jobsZeroRectValue(self.imageViewFrame)) self.imageView.frame = self.imageViewFrame;
@@ -137,30 +138,30 @@ UILocationProtocol_dynamic
             {
                 self.textLabel.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
                     @jobs_strongify(self)
-                    data.offsetXForEach = self.textLabelFrameOffsetX;
-                    data.offsetYForEach = self.textLabelFrameOffsetY;
-                    data.offsetWidth = self.textLabelFrameOffsetWidth;
-                    data.offsetHeight = self.textLabelFrameOffsetHeight;
+                    data.byOffsetXForEach(self.textLabelFrameOffsetX)
+                        .byOffsetYForEach(self.textLabelFrameOffsetY)
+                        .byOffsetWidth(self.textLabelFrameOffsetWidth)
+                        .byOffsetHeight(self.textLabelFrameOffsetHeight);
                 }));
             }
             
             if (self.detailTextLabel) {
                 self.detailTextLabel.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
                     @jobs_strongify(self)
-                    data.offsetXForEach = self.detailTextLabelOffsetX;
-                    data.offsetYForEach = self.detailTextLabelOffsetY;
-                    data.offsetWidth = self.detailTextLabelOffsetWidth;
-                    data.offsetHeight = self.detailTextLabelOffsetHeight;
+                    data.byOffsetXForEach(self.detailTextLabelOffsetX)
+                        .byOffsetYForEach(self.detailTextLabelOffsetY)
+                        .byOffsetWidth(self.detailTextLabelOffsetWidth)
+                        .byOffsetHeight(self.detailTextLabelOffsetHeight);
                 }));
             }
             
             if(self.imageView){
                 self.imageView.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
                     @jobs_strongify(self)
-                    data.offsetXForEach = self.imageViewFrameOffsetX;
-                    data.offsetYForEach = self.imageViewFrameOffsetY;
-                    data.offsetWidth = self.imageViewFrameOffsetWidth;
-                    data.offsetHeight = self.imageViewFrameOffsetHeight;
+                    data.byOffsetXForEach(self.imageViewFrameOffsetX)
+                        .byOffsetYForEach(self.imageViewFrameOffsetY)
+                        .byOffsetWidth(self.imageViewFrameOffsetWidth)
+                        .byOffsetHeight(self.imageViewFrameOffsetHeight);
                 }));
             }
         }
@@ -171,7 +172,8 @@ UILocationProtocol_dynamic
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        self.contentView.frame = self.bounds;
+        self.contentView.byFrame(self.bounds);
+
         self.textLabelFrameOffsetX = JobsWidth(0);// 等价于用这个 self.textLabel.resetOriginXByOffset(JobsWidth(0));
         self.textLabelFrameOffsetY = JobsWidth(0);// 等价于用这个 self.textLabel.resetOriginYByOffset(JobsWidth(0));
         self.textLabelFrameOffsetWidth = JobsWidth(0);// 等价于用这个 self.textLabel.resetWidthByOffset(JobsWidth(0));

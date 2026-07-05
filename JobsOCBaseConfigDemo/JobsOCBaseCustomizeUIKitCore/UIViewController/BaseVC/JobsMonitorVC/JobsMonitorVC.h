@@ -1,13 +1,19 @@
 //
 //  JobsMonitorVC.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by User on 9/9/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_JOBSMONITORVC_7957808C05
+#define JOBS_HEADER_GUARD_JOBSMONITORVC_7957808C05
+
+#import <UIKit/UIKit.h>
 #import "JobsBaseDataSettingVC.h"
+
 #import "JobsBlock.h"
-#import "NSObject+Extras.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,3 +25,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSMONITORVC_7957808C05 */

@@ -1,13 +1,21 @@
 //
-//  ImageNumberView.h
-//  JobsOCBaseConfigDemo
+//  JobsImageNumberView.h
+//  JobsImageNumberView
 //
-//  Created by Jobs on 2021/11/29.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseView.h"
+#ifndef JOBS_HEADER_GUARD_JOBSIMAGENUMBERVIEW_FE5D1FFA33
+#define JOBS_HEADER_GUARD_JOBSIMAGENUMBERVIEW_FE5D1FFA33
+
+#import <UIKit/UIKit.h>
 #import "JobsImageNumberViewCVCell.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsOCDSL.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,16 +32,16 @@ NS_ASSUME_NONNULL_END
 
 /**
  
- 【137 宽度包含5个数组一个小数点，一个数字差不多22.5宽】
- 
- // Data
- Prop_strong()NSMutableArray <UIImage *>*dataMutArr;
- 
- // Data -> View
- UIViewModel *viewModel = UIViewModel.new;
- viewModel.text = @"123.99";
- self.dataMutArr = [self translateToArr:viewModel.text.floatValue
-                      saveBitAfterPoint:2];
- self.imageNumberView.jobsRichViewByModel(self.dataMutArr);
- 
+     【137 宽度包含5个数组一个小数点，一个数字差不多22.5宽】
+
+     // Data
+     Prop_strong()NSMutableArray <UIImage *>*dataMutArr;
+
+     // Data -> View
+     UIViewModel *viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+     viewModel.byText(@"123.99");
+     self.dataMutArr = [self translateToArr:viewModel.text.floatValue
+                          saveBitAfterPoint:2];
+     self.imageNumberView.jobsRichViewByModel(self.dataMutArr);
  */
+#endif /* JOBS_HEADER_GUARD_JOBSIMAGENUMBERVIEW_FE5D1FFA33 */

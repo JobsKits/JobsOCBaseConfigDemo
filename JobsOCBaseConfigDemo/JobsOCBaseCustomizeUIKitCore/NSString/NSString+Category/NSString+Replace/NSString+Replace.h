@@ -1,23 +1,55 @@
 //
 //  NSString+Replace.h
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Jobs on 2021/11/30.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_NSSTRING_REPLACE_30FFBEDFFC
+#define JOBS_HEADER_GUARD_NSSTRING_REPLACE_30FFBEDFFC
+
+#pragma once
 
 #import <Foundation/Foundation.h>
-#import "MacroDef_SysWarning.h"
-#import "JobsDefineConstString.h"
-#import "JobsBlock.h"
 #import "NSNumber+Extra.h"
-#import "NSString+Others.h"
 #import "NSString+Check.h"
+#import "NSString+Sys.h"
+#import "NSString+Conversion.h"
 
-#define JobsNonnullString(nullableStr,replaceStr) [NSString nullableString:nullableStr replaceString:replaceStr]
+#import "JobsRichTextUtils.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsStringUtilsHeader.h"
+
+#import "JobsMakes.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Replace)
+#pragma mark —— 字符串加工
+/// 输入单词的首字母大写（适用于拼接set方法）
+-(NSString *_Nonnull)capitalizeFirstLetter;
+/// 截取并返回一个字符串里面冒号前的值，并返回。如果没有冒号，则返回自身
+-(NSString *)substringBeforeColon;
+/// OC字符串拼接
+-(JobsRetStrByStrBlock _Nonnull)add;
+/// OC 普通字符串+富文本
+-(JobsRetAttributedStringByAttributedStringBlock _Nonnull)addByAttributedString;
+/// 获取到最后一个字符
+-(NSString *_Nonnull)getLastChars;
+/// 获取到最后一个非空格字符
+-(NSString *_Nonnull)getLastValuedChars;
+/// 用入参进行分隔字符串对外输出数组
+-(JobsRetArrByStrBlock _Nonnull)makeArrBy;
+/// 截取字符串方法封装：从本字符串到endString
+-(JobsRetStrByStrBlock _Nonnull)subStringTo;
+/// 组装set方法名：set+首字母大写+：
+-(JobsRetStrByVoidBlock _Nonnull)capitalizeFirstLetterAndPrefixSet;
 #pragma mark —— 字符串替换
 -(JobsRetStrByStrBlock _Nullable)replace;
 ///  有时候我们加载的URL中可能会出现中文,需要我们手动进行转码,但是同时又要保证URL中的特殊字符保持不变,那么我们就可以使用下面的方法
@@ -60,10 +92,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString *_Nonnull)encryptedChineseTele;
 /// OC字符串去除最后一个字符
 -(NSString *_Nonnull)removeLastChars;
-/// 图片URL路径补齐
--(NSString *_Nullable)imageURLPlus;
-/// 一般的URL路径补齐
--(NSString *_Nullable)normalURLPlus;
 /// 去除OC字符串中的空格
 -(NSString *)pureString;
 /// 去除OC字符串中的小数点
@@ -92,3 +120,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSSTRING_REPLACE_30FFBEDFFC */

@@ -1,21 +1,25 @@
 //
 //  WGradientProgress.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by zilin_weng on 15/7/19.
-//  Copyright (c) 2015年 Weng-Zilin. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "WGradientProgress.h"
 
 @interface WGradientProgress ()
 /// UI
-Prop_strong()CALayer *roadLayer;                 // 跑道 即将运行的轨迹
-Prop_strong()CALayer *fenceLayer;                // 栅栏
-Prop_strong()CAGradientLayer *gradLayer;         // 通过改变layer的宽度来实现进度 运动员
+Prop_strong()CALayer *roadLayer;
+                 // 跑道 即将运行的轨迹
+Prop_strong()CALayer *fenceLayer;
+                // 栅栏
+Prop_strong()CAGradientLayer *gradLayer;
+         // 通过改变layer的宽度来实现进度 运动员
 /// Data
-Prop_strong()JobsTimer *timer_color;             // 主管线条颜色的翻滚
-Prop_strong()JobsTimer *timer_length;            // 主管线条长度的递增
+Prop_strong()JobsTimer *timer_color;
+             // 主管线条颜色的翻滚
+Prop_strong()JobsTimer *timer_length;
+            // 主管线条长度的递增
 Prop_strong()NSMutableArray *colors;
 
 @end
@@ -24,7 +28,8 @@ Prop_strong()NSMutableArray *colors;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsBrownColor;
+        self.byBgColor(JobsBrownColor);
+
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth; // 自动调整view的宽度，保证左边距和右边距不变
     };return self;
 }
@@ -39,7 +44,8 @@ Prop_strong()NSMutableArray *colors;
 
 -(void)showOnParent{
     if (self.isShowRoad) self.roadLayer.hidden = NO;
-    self.gradLayer.hidden = NO;
+    self.gradLayer.byHidden(NO);
+
     if (self.isShowFence) self.fenceLayer.hidden = NO;
 }
 /// 开始
@@ -61,7 +67,8 @@ Prop_strong()NSMutableArray *colors;
     [self.timer_color stop];
     [self.timer_length stop];
     /// UI归位
-    self.gradLayer.frame = CGRectZero;
+    self.gradLayer.byFrame(CGRectZero);
+
 }
 
 -(void)hide{
@@ -69,7 +76,6 @@ Prop_strong()NSMutableArray *colors;
     if ([self superview]) [self removeFromSuperview];
 }
 
-#pragma mark —— progress
 -(void)setProgress:(CGFloat)progress{
     if (progress < 0) progress = 0;
     if (progress > 1) progress = 1;
@@ -77,7 +83,7 @@ Prop_strong()NSMutableArray *colors;
     self.gradLayer.frame = CGRectMake(0,
                                       0,
                                       progress * self.width,
-                                      self.mj_h);
+                                      self.height);
 }
 
 -(void)timerFunc{
@@ -198,10 +204,10 @@ Prop_strong()NSMutableArray *colors;
                     data.add((id)self.progressColor.CGColor);
                 }else{
                     data.add((id)jobsMakeCor2(^(JobsCorModel * _Nullable data1) {
-                        data1.hue = 1.0 * deg / 360.0;
-                        data1.saturation = 1.f;
-                        data1.brightness = 1.f;
-                        data1.alpha = 1.f;
+                        data1.byHue(1.0 * deg / 360.0)
+                             .bySaturation(1.f)
+                             .byBrightness(1.f)
+                             .byAlpha(1.f);
                     }).CGColor);
                 }
             }
@@ -214,7 +220,8 @@ Prop_strong()NSMutableArray *colors;
         @jobs_weakify(self)
         _gradLayer = jobsMakeCAGradientLayer(^(__kindof CAGradientLayer * _Nullable data) {
             @jobs_strongify(self)
-            data.frame = CGRectZero;
+            data.byFrame(CGRectZero);
+
             data.borderWidth = 1;
             data.startPoint = CGPointZero;
             data.endPoint = CGPointMake(1, 1);
@@ -231,8 +238,10 @@ Prop_strong()NSMutableArray *colors;
         @jobs_weakify(self)
         _roadLayer = jobsMakeCALayer(^(__kindof CALayer * _Nullable data) {
             @jobs_strongify(self)
-            data.frame = self.bounds;
-            data.backgroundColor = JobsLightGrayColor.CGColor;
+            data.byFrame(self.bounds);
+
+            data.byBgColor(JobsLightGrayColor.CGColor);
+
             [self.layer addSublayer:data];
         });
     };return _roadLayer;
@@ -246,8 +255,9 @@ Prop_strong()NSMutableArray *colors;
             data.frame = CGRectMake(self.fenceLayer_x,
                                     0,
                                     self.fenceLayer_width,
-                                    self.mj_h);
-            data.backgroundColor = self.fenceLayerColor.CGColor;
+                                    self.height);
+            data.byBgColor(self.fenceLayerColor.CGColor);
+
             [self.gradLayer addSublayer:data];
         });
     };return _fenceLayer;

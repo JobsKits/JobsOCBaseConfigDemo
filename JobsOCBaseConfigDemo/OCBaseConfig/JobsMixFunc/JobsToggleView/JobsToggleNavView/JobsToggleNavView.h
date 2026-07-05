@@ -1,22 +1,25 @@
 //
-//  RPTaggedNavView.h
-//  JobsOCBaseConfigDemo
+//  JobsToggleNavView.h
+//  JobsOCTools
 //
-//  Created by Tao on 2018/8/8.
-//  Copyright © 2018年 Tao. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_JOBSTOGGLENAVVIEW_43A40F066A
+#define JOBS_HEADER_GUARD_JOBSTOGGLENAVVIEW_43A40F066A
+
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
-#import "BaseView.h"
-#import "JobsMakes.h"
-#import "BaseButton.h"
-#import "UIButton+UI.h"
-#import "UIView+Extras.h"
-#import "UIView+Measure.h"
-#import "UIButtonModel.h"
 #import "JobsToggleNavViewProtocol.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsModelDSL.h"
+
+#import "JobsBlock.h"
+
+#import "JobsOCDSL.h"
 
 @interface JobsToggleNavView : BaseView<JobsToggleNavViewProtocol>
 /// UI
@@ -31,3 +34,4 @@ NS_INLINE __kindof JobsToggleNavView *_Nonnull jobsMakeToggleNavView(jobsByToggl
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_JOBSTOGGLENAVVIEW_43A40F066A */

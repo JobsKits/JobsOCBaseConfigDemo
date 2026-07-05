@@ -1,12 +1,14 @@
 //
 //  UIImageView+GIF.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by JieLee on 15/3/17.
-//  Copyright (c) 2015年 PUPBOSS. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <ImageIO/ImageIO.h>
+#ifndef JOBS_HEADER_GUARD_UIIMAGEVIEW_GIF_E7B5D56465
+#define JOBS_HEADER_GUARD_UIIMAGEVIEW_GIF_E7B5D56465
+
+#import <ImageIO/ImageIO.h> // 提供图像编解码能力，支持多种图片格式的读取、写入和元数据处理。
 #import <UIKit/UIKit.h>
 
 @interface UIImageView (GIF)
@@ -22,3 +24,4 @@
                                 frame:(CGRect)frame;
 
 @end
+#endif /* JOBS_HEADER_GUARD_UIIMAGEVIEW_GIF_E7B5D56465 */

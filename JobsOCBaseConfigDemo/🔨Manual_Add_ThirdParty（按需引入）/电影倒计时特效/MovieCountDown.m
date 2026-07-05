@@ -1,9 +1,8 @@
 //
-//  movieCountDown.m
-//  JobsOCBaseConfigDemo
+//  MovieCountDown.m
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/9/2.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "MovieCountDown.h"
@@ -35,19 +34,23 @@ Prop_strong()UIView *aphView;
 
 -(void)getCuntDown:(NSInteger)second{
     self.countDown.text = toStringByLong(second);
-    self.countDown.alpha = 1;
-    self.aphView.alpha = 0;
+    self.countDown.byAlpha(1);
+
+    self.aphView.byAlpha(0);
+
     @jobs_weakify(self)
     [UIView animateWithDuration:0.8
                      animations:^{
         @jobs_strongify(self)
-        self.countDown.alpha = 0.8;//透明度
-        self.aphView.alpha = 0.1;
+        self.countDown.byAlpha(0.8);//透明度
+        self.aphView.byAlpha(0.1);
+
         self.countDown.transform = CGAffineTransformMakeScale(1.5, 1.5);//放大值
         self.aphView.transform = CGAffineTransformMakeScale(10, 10);//放大值
     } completion:^(BOOL finished) {
         @jobs_strongify(self)
-        self.aphView.alpha = self.countDown.alpha =  0;
+        self.aphView.byAlpha(self.countDown.alpha =  0);
+
         self.countDown.transform = self.aphView.transform = CGAffineTransformIdentity;//回复原大小
     }];
 }
@@ -57,13 +60,14 @@ Prop_strong()UIView *aphView;
         @jobs_weakify(self)
         _countDown = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.textColor = self.countDownTextColor;
-            label.font = [UIFont boldSystemFontOfSize:100];
-            label.textAlignment = 1;
-            label.x = (JobsMainScreen_WIDTH() - 100) / 2;
-            label.y = (JobsMainScreen_HEIGHT() - 100) / 2;
-            label.width = self->_countDown.height = 100;
-            [self.effectView addSubview:label];
+            label
+                .byTextCor(self.countDownTextColor)
+                .byFont([UIFont boldSystemFontOfSize:100])
+                .byTextAlignment(1)
+                .byX((JobsMainScreen_WIDTH() - 100) / 2)
+                .byY((JobsMainScreen_HEIGHT() - 100) / 2)
+                .bySize(CGSizeMake(100, 100))
+                .addOn(self.effectView);
         });
     };return _countDown;
 }
@@ -73,16 +77,18 @@ Prop_strong()UIView *aphView;
         @jobs_weakify(self)
         _aphView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            view.backgroundColor = self.aphViewBackgroundColor;
-            view.frame = jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
-                data.jobsWidth = data.jobsHeight = JobsWidth(100);
-            });
-            view.centerX = self->_countDown.centerX;
-            view.centerY = self->_countDown.centerY;
-            view.alpha = 0;
-            view.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-                data.cornerRadiusValue = 50.f;
-            }));[self.effectView addSubview:view];
+            view
+                .byBgColor(self.aphViewBackgroundColor)
+                .byFrame(jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
+                    data.jobsWidth = data.jobsHeight = JobsWidth(100);
+                }))
+                .byCenterX(self->_countDown.centerX)
+                .byCenterY(self->_countDown.centerY)
+                .byAlpha(0)
+                .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
+                    data.byCornerRadiusValue(50.f);
+                }))
+                .addOn(self.effectView);
         });
     };return _aphView;
 }

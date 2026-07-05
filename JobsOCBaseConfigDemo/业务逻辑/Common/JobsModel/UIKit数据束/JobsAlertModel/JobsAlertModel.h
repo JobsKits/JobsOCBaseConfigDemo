@@ -1,13 +1,19 @@
 //
 //  JobsAlertModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JobsAlertModel_h
+#define JobsAlertModel_h
+
 #import <UIKit/UIKit.h>
 #import "BaseModel.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,3 +40,5 @@ NS_INLINE __kindof JobsAlertModel *_Nonnull jobsMakeAlertModel(jobsByAlertModelB
     if (block) block(data);
     return data;
 }
+
+#endif /* JobsAlertModel_h */

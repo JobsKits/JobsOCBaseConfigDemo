@@ -1,15 +1,15 @@
 //
 //  JXCategoryIndicatorView+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Jobs on 2025/5/29.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JXCategoryIndicatorView+Extra.h"
 
 @implementation JXCategoryIndicatorView (Extra)
 
--(JobsReturnCategoryIndicatorViewByViewsBlock _Nonnull)byIndicators{
+-(JobsRetCategoryIndicatorViewByViewsBlock _Nonnull)byIndicators{
     @jobs_weakify(self)
     return ^__kindof JXCategoryBaseView *_Nullable(__kindof NSArray <__kindof UIView <JXCategoryIndicatorProtocol>*>* _Nullable arr){
         @jobs_strongify(self)

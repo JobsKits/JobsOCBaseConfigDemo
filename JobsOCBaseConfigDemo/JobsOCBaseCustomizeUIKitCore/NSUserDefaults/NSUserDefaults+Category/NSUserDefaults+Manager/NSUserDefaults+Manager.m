@@ -1,11 +1,12 @@
 //
 //  NSUserDefaults+Manager.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/1.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSUserDefaults+Manager.h"
+#import "UserDefaultModel.h"
 
 @implementation NSUserDefaults (Manager)
 /// CRUD（create, read, update, delete）
@@ -14,7 +15,7 @@
     return ^(UserDefaultModel *_Nonnull userDefaultModel) {
         if (isValue(userDefaultModel.key)) {
             if (userDefaultModel.obj && ![userDefaultModel.obj isKindOfClass:NSNull.class]) {
-                // 步骤1: 将NSObject对象归档为二进制数据
+                // 步骤1@将NSObject对象归档为二进制数据
                 NSError *error = nil;
                 NSData *archivedData = [NSKeyedArchiver archivedDataWithRootObject:userDefaultModel.obj
                                                              requiringSecureCoding:YES
@@ -22,7 +23,7 @@
                 if (error) {
                     JobsLog(@"归档失败: %@", error.localizedDescription);
                 } else {
-                    // 步骤2: 将归档数据存储到NSUserDefaults
+                    // 步骤2@将归档数据存储到NSUserDefaults
                     JobsSetUserDefaultKeyWithObject(userDefaultModel.key, archivedData);
                     JobsUserDefaultSynchronize;
                     JobsLog(@"%@",NSString.userDefaultsDir);

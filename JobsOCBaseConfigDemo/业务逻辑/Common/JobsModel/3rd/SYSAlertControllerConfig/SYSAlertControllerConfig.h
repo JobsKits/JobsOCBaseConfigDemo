@@ -1,14 +1,15 @@
 //
 //  SYSAlertControllerConfig.h
-//  JobsOCBaseConfigDemo
+//  SYSAlertControllerExtra
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
-
-#pragma once
+#ifndef SYSAlertControllerConfig_h
+#define SYSAlertControllerConfig_h
 
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -67,3 +68,4 @@ NS_ASSUME_NONNULL_END
      }
  **/
 
+#endif /* SYSAlertControllerConfig_h */

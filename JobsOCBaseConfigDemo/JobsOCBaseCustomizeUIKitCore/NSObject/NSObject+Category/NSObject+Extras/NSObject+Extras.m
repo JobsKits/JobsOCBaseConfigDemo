@@ -333,7 +333,7 @@ UITextFieldProtocol_dynamic
 -(JobsRetStrByDateBlock _Nonnull)toReadableDayTimeByDate{
     return ^__kindof NSString *_Nullable(NSDate *_Nullable date){
         return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
-            dateFormatter.timeZone = self.timeZone(TimeZoneTypeCSTChina);
+            dateFormatter.timeZone = timeZone(TimeZoneTypeCSTChina);
             dateFormatter.dateFormat = @"yyyy-MM-dd"; /// 格式化为日期字符串
         }).stringByDate(date);
     };
@@ -342,7 +342,7 @@ UITextFieldProtocol_dynamic
 -(JobsRetStrByDateBlock _Nonnull)toReadableTimeByDate{
     return ^__kindof NSString *_Nullable(NSDate *_Nullable date){
         return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
-            dateFormatter.timeZone = self.timeZone(TimeZoneTypeCSTChina);
+            dateFormatter.timeZone = timeZone(TimeZoneTypeCSTChina);
             dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss"; /// 格式化为日期字符串
         }).stringByDate(date);
     };
@@ -352,7 +352,7 @@ UITextFieldProtocol_dynamic
     return ^__kindof NSString *_Nullable(JobsTimeModel *_Nullable dateModel){
         if(dateModel.date){
             return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
-                dateFormatter.timeZone = self.timeZone(TimeZoneTypeCSTChina);
+                dateFormatter.timeZone = timeZone(TimeZoneTypeCSTChina);
                 dateFormatter.dateFormat = @"yyyy-MM-dd"; /// 格式化为日期字符串
             }).stringByDate(dateModel.date);
         }else return dateModel.dateFormatter.stringByDate(NSDate.initDateBy(dateModel.timeInterval));
@@ -1190,10 +1190,10 @@ UITextFieldProtocol_dynamic
 -(JobsRetDicByStringBlock _Nonnull)readLocalPlistWithFileName{
     /// fileName Plist文件名
     return ^__kindof NSDictionary *_Nullable(NSString * _Nullable fileName) {
-        NSString *filePath = JobsPathForResource(nil,
-                                                 fileName,
-                                                 nil,
-                                                 @"plist");
+        NSString *filePath = JobsBundleResourcePath(nil,
+                                                    fileName,
+                                                    nil,
+                                                    @"plist");
         if (FileFolderHandleTool.isExistsAtPath(filePath)) {
             return NSDictionary.initByContentsOfFile(filePath);
         };return (NSDictionary *)nil;

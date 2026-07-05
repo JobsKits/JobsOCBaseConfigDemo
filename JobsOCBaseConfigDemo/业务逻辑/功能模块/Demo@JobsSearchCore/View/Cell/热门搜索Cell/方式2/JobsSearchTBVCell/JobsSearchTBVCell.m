@@ -1,8 +1,8 @@
 //
-//  TableViewCell.m
+//  JobsSearchTBVCell.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/10/22.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsSearchTBVCell.h"
@@ -21,7 +21,7 @@ UIViewModelProtocol_synthesize_part2
 /// BaseLayerProtocol
 BaseLayerProtocol_synthesize_part3
 #pragma mark —— BaseCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsSearchTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsSearchTBVCell);
         return cell;
@@ -49,7 +49,7 @@ BaseLayerProtocol_synthesize_part3
         };return self;
     };
 }
-#pragma mark - UICollectionViewDataSource
+#pragma mark —— UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
@@ -114,7 +114,8 @@ didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(JobsMainScreen_WIDTH() / 2, JobsSearchShowHotwordsTBVCellHeight);
+    CGFloat width = floor(collectionView.bounds.size.width / listNum);
+    return CGSizeMake(width, JobsSearchShowHotwordsTBVCellHeight);
 }
 /// 每个item之间的间距 横（行）间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView
@@ -139,12 +140,15 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
 @synthesize collectionView = _collectionView;
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
-        _collectionView = UICollectionView.initByLayout(self.verticalLayout);
-        _collectionView.dataLink(self);
-        _collectionView.registerCollectionViewClass();
-        [self.contentView.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
+        @jobs_weakify(self)
+        _collectionView = UICollectionView.initByLayout(self.verticalLayout)
+        .registerCollectionViewClass()
+        .dataLink(self)
+        .addOn(self.contentView)
+        .byOn(^(MASConstraintMaker *make) {
+            @jobs_strongify(self)
             make.edges.equalTo(self.contentView);
-        }];
+        });
     };return _collectionView;
 }
 

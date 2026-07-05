@@ -1,6 +1,6 @@
 //
 //  UIViewModel.m
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -9,14 +9,7 @@
 #import "UITextModel.h"
 #import "UIButtonModel.h"
 #import "JobsLocationModel.h"
-#import "NSObject+Extras.h"
-#import "NSString+Others.h"
-
-#if __has_include(<XYColorOC/XYColorOC.h>)
-#import <XYColorOC/XYColorOC.h>
-#else
-#import "XYColorOC.h"
-#endif
+#import "NSObject+Extra.h"
 
 @implementation UIViewModel
 /// UIViewModelOthersProtocol

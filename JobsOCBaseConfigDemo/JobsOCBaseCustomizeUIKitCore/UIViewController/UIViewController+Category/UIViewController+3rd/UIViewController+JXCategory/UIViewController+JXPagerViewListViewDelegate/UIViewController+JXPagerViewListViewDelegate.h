@@ -1,13 +1,17 @@
 //
-//  UIViewController+JXPagingViewListViewDelegate.h
-//  JobsOCBaseConfigDemo
+//  UIViewController+JXPagerViewListViewDelegate.h
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/10/26.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_JXPAGERVIEWLISTVIEWDELEGATE_75CB49663B
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_JXPAGERVIEWLISTVIEWDELEGATE_75CB49663B
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsOCDSL.h"
 
 #if __has_include(<JXPagingView/JXPagerView.h>)
 #import <JXPagingView/JXPagerView.h>
@@ -20,6 +24,10 @@
 #else
 #import "Masonry.h"
 #endif
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -58,13 +66,13 @@ NS_ASSUME_NONNULL_END
                  _listContainerView = [JXCategoryListContainerView.alloc initWithType:JXCategoryListContainerType_CollectionView
                                                                              delegate:self];
                  _listContainerView.defaultSelectedIndex = 1;// 默认从第二个开始显示
-                 [self.view addSubview:_listContainerView];
-                 [_listContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
+                 _listContainerView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
          //            make.edges.equalTo(self.view);
                      make.top.equalTo(self.topLineLab.mas_bottom).offset(listContainerViewDefaultOffset);
                      make.left.right.bottom.equalTo(self.view);
 
-                 }];
+                 });
+
                  [self.view layoutIfNeeded];
          //        /// ❤️在需要的地方写❤️
          //        NSNumber *currentIndex = [self.listContainerView valueForKey:@"currentIndex"];
@@ -95,3 +103,4 @@ NS_ASSUME_NONNULL_END
     7.4、或者直接导入类：#import "UIViewController+JXPagerViewListViewDelegate.h"
  
  */
+#endif /* JOBS_HEADER_GUARD_UIVIEWCONTROLLER_JXPAGERVIEWLISTVIEWDELEGATE_75CB49663B */

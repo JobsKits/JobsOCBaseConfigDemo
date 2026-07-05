@@ -1,13 +1,19 @@
 //
 //  PhilippinesModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef PhilippinesModel_h
+#define PhilippinesModel_h
+
 #import <Foundation/Foundation.h>
 #import "IncomeSourceModel.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,3 +25,5 @@ Prop_copy()NSString *state_name;
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif /* PhilippinesModel_h */

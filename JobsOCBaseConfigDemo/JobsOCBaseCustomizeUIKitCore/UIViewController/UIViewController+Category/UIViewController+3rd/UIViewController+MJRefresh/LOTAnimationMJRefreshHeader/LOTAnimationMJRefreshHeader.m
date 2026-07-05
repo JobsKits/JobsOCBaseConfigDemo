@@ -1,11 +1,13 @@
 //
-//  UBLCustomGifHeader.m
-//  JobsOCBaseConfigDemo
+//  LOTAnimationMJRefreshHeader.m
+//  JobsBaseUI
 //
-//  Created by John on 2020/11/14.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "LOTAnimationMJRefreshHeader.h"
+#import "UIView+Extra.h"
+#import "UIView+Measure.h"
 
 static const CGFloat OffsetBetweenStateLabelAndAnimationView = 5;/// StateLabel 和 AnimationView 之间的间距
 
@@ -22,8 +24,9 @@ Prop_assign()CGSize lOTAnimationViewSize;
 #pragma mark —— MJRefreshComponent
 - (void)prepare{
     [super prepare];
-    self.animationView.alpha = 1;
-    self.gifView.alpha = 0;/// 屏蔽掉父类的gifView控件，否则将会有Gif图和Lottie动画一起出现
+    self.animationView.byAlpha(1);
+
+    self.gifView.byAlpha(0);/// 屏蔽掉父类的gifView控件，否则将会有Gif图和Lottie动画一起出现
     @jobs_weakify(self)
     self.endRefreshingCompletionBlock = ^{
         @jobs_strongify(self)
@@ -36,7 +39,8 @@ Prop_assign()CGSize lOTAnimationViewSize;
 - (void)placeSubviews{
     [super placeSubviews];
     // 隐藏更新时间文字
-    self.lastUpdatedTimeLabel.hidden = YES;
+    self.lastUpdatedTimeLabel.byHidden(YES);
+
     self.stateLabel.mj_w = self.stateLabel.mj_textWidth;
     self.stateLabel.center = CGPointMake(self.mj_w / 2.0 + 15, self.mj_h / 2.0 + 0.0);
     self.animationView.mj_x = self.stateLabel.mj_x - OffsetBetweenStateLabelAndAnimationView - self.animationView.mj_w;
@@ -79,7 +83,7 @@ Prop_assign()CGSize lOTAnimationViewSize;
     if (self.objBlock) self.objBlock(@(RefreshingType_EndRefreshing));
 }
 #pragma mark —— 一些公有方法
--(JobsReturnLOTAnimationMJRefreshHeaderBySizeBlock _Nonnull)bySize{
+-(JobsRetLOTAnimationMJRefreshHeaderBySizeBlock _Nonnull)bySize{
     @jobs_weakify(self)
     return ^LOTAnimationMJRefreshHeader *_Nonnull(CGSize size){
         @jobs_strongify(self)
@@ -89,7 +93,7 @@ Prop_assign()CGSize lOTAnimationViewSize;
     };
 }
 
--(JobsReturnLOTAnimationMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)byRefreshConfigModel{
+-(JobsRetLOTAnimationMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)byRefreshConfigModel{
     @jobs_weakify(self)
     return ^LOTAnimationMJRefreshHeader *_Nonnull(MJRefreshConfigModel *_Nonnull model){
         @jobs_strongify(self)
@@ -115,11 +119,11 @@ Prop_assign()CGSize lOTAnimationViewSize;
 #pragma mark —— lazyLoad
 - (LOTAnimationView *)animationView{
     if (!_animationView) {
-//        NSString *filePaths = JobsPathForBuddleIMG(nil,
+//        NSString *filePaths = JobsBundleImagePath(nil,
 //                                                   @"JsonRes",
 //                                                   nil,
 //                                                   @"下拉刷新.json");
-        NSString *filePaths = JobsPathForBuddleIMG(nil,
+        NSString *filePaths = JobsBundleImagePath(nil,
                                                    @"JsonRes",
                                                    nil,
                                                    @"下拉刷新1.json");

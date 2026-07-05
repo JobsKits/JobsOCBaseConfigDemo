@@ -1,13 +1,19 @@
 //
 //  JobsCorModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JobsCorModel_h
+#define JobsCorModel_h
+
 #import <Foundation/Foundation.h>
 #import "BaseModel.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,9 +23,11 @@ Prop_assign()CGFloat red;
 Prop_assign()CGFloat green;
 Prop_assign()CGFloat blue;
 Prop_assign()CGFloat alpha;
+
 Prop_assign()CGFloat hue;
 Prop_assign()CGFloat saturation;
 Prop_assign()CGFloat brightness;
+
 Prop_copy()NSString *corStr; // 十六进制字符串
 
 @end
@@ -49,3 +57,5 @@ NS_INLINE __kindof UIColor *_Nonnull jobsMakeCor2(jobsByCorModelBlock _Nonnull b
                       brightness:data.brightness
                            alpha:data.alpha];
 }
+
+#endif /* JobsCorModel_h */

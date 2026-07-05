@@ -1,21 +1,11 @@
 //
-//  EXTRuntimeExtensions.m
-//  JobsOCBaseConfigDemo
+//  RACEXTRuntimeExtensions.m
+//  JobsBy3rdExtras
 //
-//  Created by Justin Spahr-Summers on 2011-03-05.
-//  Copyright (C) 2012 Justin Spahr-Summers.
-//  Released under the MIT license.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "RACEXTRuntimeExtensions.h"
-#import <ctype.h>
-#import <Foundation/Foundation.h>
-#import <libkern/OSAtomic.h>
-#import <objc/message.h>
-#import <pthread.h>
-#import <stdio.h>
-#import <stdlib.h>
-#import <string.h>
 
 rac_propertyAttributes *rac_copyPropertyAttributes (objc_property_t property) {
     const char * const attrString = property_getAttributes(property);
@@ -207,9 +197,7 @@ rac_propertyAttributes *rac_copyPropertyAttributes (objc_property_t property) {
         setterName[setterLength] = '\0';
 
         attributes->setter = sel_registerName(setterName);
-    }
-
-    return attributes;
+    };return attributes;
 
 errorOut:
     free(attributes);

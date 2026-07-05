@@ -1,12 +1,14 @@
 //
 //  MJRefreshConfigModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef MJRefreshConfigModel_h
+#define MJRefreshConfigModel_h
+
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
@@ -14,13 +16,23 @@
 #import "XYColorOC.h"
 #endif
 
+#import "JobsLoadingImageHeader.h"
+
+#import "JobsMakes.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /**
- 
-     MJRefreshStateIdle,   //   普通闲置状态
-     MJRefreshStatePulling,   //   松开就可以进行刷新的状态
-     MJRefreshStateRefreshing,   //   正在刷新中的状态
-     MJRefreshStateWillRefresh,   //   即将刷新的状态
+
+     MJRefreshStateIdle,        //   普通闲置状态
+     MJRefreshStatePulling,     //   松开就可以进行刷新的状态
+     MJRefreshStateRefreshing,  //   正在刷新中的状态
+     MJRefreshStateWillRefresh, //   即将刷新的状态
      MJRefreshStateNoMoreData   //   所有数据加载完毕，没有更多的数据了
  */
 @interface MJRefreshConfigModel : NSObject
@@ -54,7 +66,7 @@ Prop_copy()JobsRetIDByIDBlock loadBlock;
 Prop_assign(getter=isAutomaticallyChangeAlpha)BOOL automaticallyChangeAlpha;/// 根据拖拽比例自动切换透明度
 Prop_assign()BOOL isShake;/// 是否需要震动反馈？默认不需要
 
--(JobsReturnMJRefreshConfigModelByReturnIDByIDBlocks _Nonnull)byLoadBlock;
+-(JobsRetMJRefreshConfigModelByRetIDByIDBlocks _Nonnull)byLoadBlock;
 
 @end
 
@@ -65,3 +77,5 @@ NS_INLINE __kindof MJRefreshConfigModel *_Nonnull jobsMakeRefreshConfigModel(job
     if (block) block(model);
     return model;
 }
+
+#endif /* MJRefreshConfigModel_h */

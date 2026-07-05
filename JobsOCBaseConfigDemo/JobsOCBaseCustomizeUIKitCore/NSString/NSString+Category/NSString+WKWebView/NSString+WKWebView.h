@@ -1,15 +1,28 @@
 //
-//  NSStirng+WKWebView.h
-//  JobsOCBaseConfigDemo
+//  NSString+WKWebView.h
+//  JobsByOCPods
 //
-//  Created by Admin on 8/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_NSSTRING_WKWEBVIEW_264ABEA923
+#define JOBS_HEADER_GUARD_NSSTRING_WKWEBVIEW_264ABEA923
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
-#import <JavaScriptCore/JavaScriptCore.h>
-#import "JobsBlock.h"
+#import <JavaScriptCore/JavaScriptCore.h> // 提供 Objective-C / Swift 与 JavaScript 交互能力，可执行脚本并进行对象桥接。
 #import "NSObject+HTML.h"
+#import "NSString+Check.h"
+#import "NSString+URL.h"
+#import "WKWebView+Extra.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsMakes.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -35,3 +48,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSSTRING_WKWEBVIEW_264ABEA923 */

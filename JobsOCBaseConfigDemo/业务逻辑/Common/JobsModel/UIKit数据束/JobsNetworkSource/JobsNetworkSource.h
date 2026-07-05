@@ -1,12 +1,20 @@
 //
 //  JobsNetworkSource.h
-//  JobsOCBaseConfigDemo
+//  JobsNetWorkTools
 //
 //  Created by Jobs on 2026/5/23.
 //
 
+#ifndef JobsNetworkSource_h
+#define JobsNetworkSource_h
+
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,3 +33,5 @@ jobsMakeNetworkSource(jobsByNetworkSourceBlock _Nonnull block){
     if (block) block(data);
     return data;
 }
+
+#endif /* JobsNetworkSource_h */

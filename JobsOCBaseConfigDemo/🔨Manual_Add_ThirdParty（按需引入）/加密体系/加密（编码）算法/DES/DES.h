@@ -1,15 +1,17 @@
 //
 //  DES.h
-//  JobsOCBaseConfigDemo
+//  JobsCryptography
 //
-//  Created by Jobs on 2020/9/14.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_DES_757A32D9E5
+#define JOBS_HEADER_GUARD_DES_757A32D9E5
 
 #import <Foundation/Foundation.h>
 #import <CommonCrypto/CommonCrypto.h>
 
-//DES 加密
+/// DES 加密
 NS_INLINE NSData *_Nullable encryptUseDES(NSData *_Nonnull plainText,
                                           Byte *_Nonnull key){
     NSData *textData = plainText;
@@ -34,7 +36,7 @@ NS_INLINE NSData *_Nullable encryptUseDES(NSData *_Nonnull plainText,
         return data;
     };return nil;
 }
-//DES 解密
+/// DES 解密
 NS_INLINE NSData *_Nullable decrypUseDES(NSData *_Nonnull plainText,
                                          Byte *_Nonnull key){
     NSData *cipherdata = plainText;
@@ -58,3 +60,4 @@ NS_INLINE NSData *_Nullable decrypUseDES(NSData *_Nonnull plainText,
         return plaindata;
     };return nil;
 }
+#endif /* JOBS_HEADER_GUARD_DES_757A32D9E5 */

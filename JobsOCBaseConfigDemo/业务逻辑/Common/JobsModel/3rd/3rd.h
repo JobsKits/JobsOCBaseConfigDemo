@@ -1,6 +1,6 @@
 //
 //  3rd.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -9,15 +9,15 @@
 #define _3rd_h
 
 #import "RACModel.h"
+#import "BRTextModel.h"
 #import "MasonryModel.h"
 #import "SDWebImageModel.h"
 #import "GTCaptcha4Model.h"
 #import "HXPhotoPickerModel.h"
 #import "MJRefreshConfigModel.h"
 #import "GTCaptcha4ResultModel.h"
+#import "BRStringPickerViewModel.h"
 #import "SPAlertControllerConfig.h"
 #import "SYSAlertControllerConfig.h"
-#import "BRStringPickerViewModel.h"
-#import "BRTextModel.h"
 
 #endif /* _3rd_h */

@@ -1,11 +1,12 @@
 //
 //  NSObject+DeviceIP.m
-//  JobsOCBaseConfigDemo
+//  JobsDeviceInfo
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+DeviceIP.h"
+#import <MJExtension/MJExtension.h>
 
 @implementation NSObject (DeviceIP)
 /// 获取ip地址
@@ -19,8 +20,8 @@
         temp_address = ifaddress;
         while(temp_address) {
             if(temp_address->ifa_addr->sa_family == AF_INET) {
-                if([StringWithUTF8String(temp_address->ifa_name) isEqualToString:@"en0"]) {
-                    address = StringWithUTF8String(inet_ntoa(((struct sockaddr_in *)temp_address->ifa_addr)->sin_addr));
+                if([[NSString stringWithUTF8String:temp_address->ifa_name] isEqualToString:@"en0"]) {
+                    address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_address->ifa_addr)->sin_addr)];
                 }
             }temp_address = temp_address->ifa_next;
         }
@@ -64,14 +65,16 @@
         "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
         "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
         "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
-        NSRegularExpression *regex = NSRegularExpression.byString(urlRegEx);
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:urlRegEx
+                                                                               options:0
+                                                                                 error:nil];
         if (regex) {
             NSTextCheckingResult *firstMatch = [regex firstMatchInString:ipAddress
                                                                  options:0
                                                                    range:NSMakeRange(0, ipAddress.length)];
             if (firstMatch) {
-                NSRange resultRange = firstMatch.rangeAtIndex(0);
-                NSString *result = ipAddress.substringWithRange(resultRange);
+                NSRange resultRange = [firstMatch rangeAtIndex:0];
+                NSString *result = [ipAddress substringWithRange:resultRange];
                 JobsLog(@"%@",result);
                 return YES;
             }
@@ -98,7 +101,7 @@
             /// 判断地址类型是否为 IPv4 或 IPv6
             if(addr && (addr->sin_family == AF_INET || addr->sin_family == AF_INET6)) {
                 /// 获取接口名称
-                NSString *name = StringWithUTF8String(interface->ifa_name);
+                NSString *name = [NSString stringWithUTF8String:interface->ifa_name];
                 NSString *type; // 用于标识 IP 地址类型
                 /// 如果是 IPv4 地址
                 if(addr->sin_family == AF_INET) {
@@ -116,7 +119,7 @@
                 /// 如果 IP 地址类型存在，则将接口名称和地址存入字典
                 if(type) {
                     NSString *key = [NSString stringWithFormat:@"%@/%@", name, type];
-                    addresses[key] = StringWithUTF8String(addrBuf);
+                    addresses[key] = [NSString stringWithUTF8String:addrBuf];
                 }
             }
         }freeifaddrs(interfaces); // 释放分配的内存
@@ -131,12 +134,10 @@
         .byURLParameters(nil)
         .byBodyParameters(nil)
         .byHeaderParameters(nil)
-        .handleErr()
      startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        if(successBlock) successBlock(IpifyModel.byData(request.responseObject));
+        if(successBlock) successBlock([IpifyModel mj_objectWithKeyValues:request.responseObject]);
     } failure:^(YTKBaseRequest *request) {
-        @jobs_strongify(self)
-        if(self) self.jobsHandelFailure(request);
+        JobsLog(@"%@", request.error);
     }];
 }
 #pragma mark —— 提供丰富的地理位置信息【GET】
@@ -148,12 +149,10 @@
         .byURLParameters(nil)
         .byBodyParameters(nil)
         .byHeaderParameters(nil)
-        .handleErr()
      startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        if(successBlock) successBlock(IPApiModel.byData(request.responseObject));
+        if(successBlock) successBlock([IPApiModel mj_objectWithKeyValues:request.responseObject]);
     } failure:^(YTKBaseRequest *request) {
-        @jobs_strongify(self)
-        if(self) self.jobsHandelFailure(request);
+        JobsLog(@"%@", request.error);
     }];
 }
 #pragma mark —— 提供详细的 IP 信息【GET】
@@ -165,12 +164,10 @@
         .byURLParameters(nil)
         .byBodyParameters(nil)
         .byHeaderParameters(nil)
-        .handleErr()
      startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        if(successBlock) successBlock(IpinfoModel.byData(request.responseObject));
+        if(successBlock) successBlock([IpinfoModel mj_objectWithKeyValues:request.responseObject]);
     } failure:^(YTKBaseRequest *request) {
-        @jobs_strongify(self)
-        if(self) self.jobsHandelFailure(request);
+        JobsLog(@"%@", request.error);
     }];
 }
 #pragma mark —— 提供免费和付费选项的地理位置和 IP 查询服务【GET】
@@ -183,13 +180,11 @@
         .byURLParameters(key)
         .byBodyParameters(nil)
         .byHeaderParameters(nil)
-        .handleErr()
      startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
 //        @jobs_strongify(self)
-        if(successBlock) successBlock(IpinfoModel.byData(request.responseObject));
+        if(successBlock) successBlock([IpinfoModel mj_objectWithKeyValues:request.responseObject]);
     } failure:^(YTKBaseRequest *request) {
-        @jobs_strongify(self)
-        if(self) self.jobsHandelFailure(request);
+        JobsLog(@"%@", request.error);
     }];
 }
 

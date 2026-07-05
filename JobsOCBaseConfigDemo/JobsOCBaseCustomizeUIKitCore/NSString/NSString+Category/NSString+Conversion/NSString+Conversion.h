@@ -1,71 +1,31 @@
 //
 //  NSString+Conversion.h
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Jobs on 2021/11/30.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_NSSTRING_CONVERSION_BAB81BAB84
+#define JOBS_HEADER_GUARD_NSSTRING_CONVERSION_BAB81BAB84
+
+#pragma once
 
 #import <Foundation/Foundation.h>
+#import "NSString+URL.h"
 #import "NSString+Check.h"
-#import "NSString+Others.h"
-#import "NSData+Other.h"
+#import "NSString+Path.h"
+#import "NSString+Extra.h"
+#import "NSString+Replace.h"
+#import "NSData+Extra.h"
+#import "NSKeyedArchiver+Extra.h"
+#import "NSMutableArray+Extra.h"
+#import "NSObject+Extra.h"
+
+#import "JobsLanMgr.h"
+
 #import "JobsBlock.h"
-#import "MacroDef_Func.h"
-#import "JobsDefineConstString.h"
 
-#define FORMAT_STRING(fmt, val) [NSString stringWithFormat:(fmt), (val)]
-
-NS_INLINE NSString *_Nonnull toStringByID(id _Nullable i){
-    return FORMAT_STRING(@"%@", i);
-}
-
-NS_INLINE NSString *_Nonnull toStringByInt(int i){
-    return FORMAT_STRING(@"%d", i);
-}
-/// 保留？位小数点有效值
-NS_INLINE NSString *_Nonnull toStringByFloatDecimalPlaces(float i, NSUInteger decimalPlaces){
-    return [NSString stringWithFormat:[NSString stringWithFormat:@"%%.%luf", (unsigned long)decimalPlaces], i];
-}
-
-NS_INLINE NSString *_Nonnull toStringByFloat(float i){
-    return FORMAT_STRING(@"%f", i);
-}
-
-NS_INLINE NSString *_Nonnull toStringByDouble(double i){
-    return FORMAT_STRING(@"%f", i);
-}
-
-NS_INLINE NSString *_Nonnull toStringByShort(short i){
-    return FORMAT_STRING(@"%c", i);
-}
-
-NS_INLINE NSString *_Nonnull toStringByUnsignedShort(unsigned short i){
-    return FORMAT_STRING(@"%c", i);
-}
-
-NS_INLINE NSString *_Nonnull toStringByNSInteger(NSInteger i){
-    return FORMAT_STRING(@"%ld", (long)i);
-}
-
-NS_INLINE NSString *_Nonnull toStringByNSUInteger(NSUInteger i){
-    return FORMAT_STRING(@"%lu", (unsigned long)i);
-}
-
-NS_INLINE NSString *_Nonnull toStringByLong(long i){
-    return FORMAT_STRING(@"%ld", i);
-}
-
-NS_INLINE NSString *_Nonnull toStringByLongLong(long long i){
-    return FORMAT_STRING(@"%lld", i);
-}
-
-NS_INLINE NSString *_Nonnull toStringByChar(char i){
-    return FORMAT_STRING(@"%c", i);
-}
-
-NS_INLINE NSString *_Nonnull toStringByUnsignedChar(unsigned char i){
-    return FORMAT_STRING(@"%c", i);
-}
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -112,3 +72,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSSTRING_CONVERSION_BAB81BAB84 */

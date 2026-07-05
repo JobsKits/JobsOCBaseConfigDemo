@@ -1,20 +1,29 @@
 //
 //  NSFormatter+Extra.h
-//  JobsOCBaseConfigDemo
+//  AFNetworking
 //
-//  Created by User on 9/3/24.
+//  Created by Jobs on 2026/5/15.
 //
 
+#ifndef NSFormatter_Extra_h
+#define NSFormatter_Extra_h
+
 #import <Foundation/Foundation.h>
+
+#import "JobsClass.h"
+
 #import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSFormatter (Extra)
+@interface NSFormatter (JobsModelExtra)
 
 -(JobsRetStrByDateBlock _Nonnull)date;
--(JobsRetStrByTimeIntervalBlock _Nonnull)time;
 
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif /* NSFormatter_Extra_h */

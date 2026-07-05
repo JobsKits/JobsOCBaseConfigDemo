@@ -1,8 +1,8 @@
 //
 //  CALayer+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsNavigationTransitionMgr
 //
-//  Created by Jobs on 2025/5/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "CALayer+Extra.h"

@@ -22,7 +22,7 @@
 #import "TestLabelVC.h"
 #import "JobsTimerVC.h"
 #import "JobsDropDownListVC.h"
-#import "JobsOCCountryCodeCtrlDemoVC.h"
+#import "JobsOCCountryCodeCtrlHeader.h"
 #import "YTKNetworkStudyVC.h"
 #import "CoreTextLearningVC.h"
 #import "JXCategoryPopupVC.h"
@@ -60,11 +60,10 @@
 #import "JobsViewPushDemoVC.h"
 #import "CompressStrVC.h"
 #import "AppIconSwitchingVC.h"
-#import "PeekAndPopVC.h"
+#import "MyTableTableVC.h"
 #import "LandscapeSwitchVC.h"
 #import "WidgetVC.h"
 #import "HotRefreshVC.h"
-#import "AppLanguageVC.h"                  // 国际化
 #import "FMDB_VC.h"
 #import "Realm_VC.h"
 #import "LotteryVC.h"
@@ -76,5 +75,8 @@
 #import "SlideToUnlockDemoVC.h"
 #import "JobsClockDemoVC.h"
 #import "JobsTabBarCtrlDemoVC.h"
+#import "JobsOCKeyboardMgrDemoVC.h"
+
+#import "JobsOCVideoRecorder.h"
 
 #endif /* Demos_h */

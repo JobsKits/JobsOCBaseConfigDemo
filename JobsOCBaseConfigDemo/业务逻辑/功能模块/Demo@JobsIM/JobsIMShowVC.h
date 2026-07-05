@@ -2,13 +2,27 @@
 //  JobsIMShowVC.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/1/13.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseViewController.h"
+#import <UIKit/UIKit.h>
 #import "JobsIMComponent.h"
-#import "NSObject+Time.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsLoadingImageHeader.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsMakes.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

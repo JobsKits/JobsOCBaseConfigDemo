@@ -1,9 +1,8 @@
 //
 //  UIView+Chain.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/8/11.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIView+Chain.h"
@@ -36,13 +35,12 @@
     }
 }
 #pragma mark —— Prop_assign()BOOL ableRespose
+JobsKey(_ableRespose)
+@dynamic ableRespose;
 - (void)setAbleRespose:(BOOL)ableRespose {
     Jobs_setAssociatedRETAIN_NONATOMIC(_ableRespose, @(ableRespose))
 }
  
-#pragma mark —— ableRespose
-JobsKey(_ableRespose)
-@dynamic ableRespose;
 - (BOOL)ableRespose {
     return Jobs_getAssociatedObject(_ableRespose) != nil ? [Jobs_getAssociatedObject(_ableRespose) boolValue] : NO;
 }

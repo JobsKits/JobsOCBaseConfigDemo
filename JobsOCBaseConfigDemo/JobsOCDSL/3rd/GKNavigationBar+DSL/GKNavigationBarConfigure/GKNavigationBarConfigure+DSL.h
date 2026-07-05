@@ -1,6 +1,6 @@
 //
 //  GKNavigationBarConfigure+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月4日，星期四.
 //
@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_GKNAVIGATIONBARCONFIGURE_DSL_A7D2E03F19
 
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
 
 #if __has_include(<GKNavigationBar/GKNavigationBar.h>)
 #import <GKNavigationBar/GKNavigationBar.h>
@@ -17,10 +16,11 @@
 #import "GKNavigationBar.h"
 #endif
 
+#import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
 
 @interface GKNavigationBarConfigure (DSL)
 

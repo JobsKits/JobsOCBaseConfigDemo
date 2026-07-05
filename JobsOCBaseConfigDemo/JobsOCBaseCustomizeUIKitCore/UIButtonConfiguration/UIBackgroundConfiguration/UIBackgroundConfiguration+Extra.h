@@ -1,13 +1,20 @@
 //
 //  UIBackgroundConfiguration+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Mac on 10/9/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UIBACKGROUNDCONFIGURATION_EXTRA_9412CAF1BB
+#define JOBS_HEADER_GUARD_UIBACKGROUNDCONFIGURATION_EXTRA_9412CAF1BB
+
+#pragma once
+
 #import <UIKit/UIKit.h>
+
 #import "JobsBlock.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 API_AVAILABLE(ios(14.0))
@@ -47,3 +54,4 @@ Prop_copy(readonly,nonnull)JobsRetBackgroundConfigByCGFloatBlock byShadowOpacity
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIBACKGROUNDCONFIGURATION_EXTRA_9412CAF1BB */

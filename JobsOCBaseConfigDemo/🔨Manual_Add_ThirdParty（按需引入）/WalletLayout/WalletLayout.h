@@ -1,16 +1,17 @@
 //
 //  WalletLayout.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2022/7/6.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef WalletLayout_h
 #define WalletLayout_h
 
-#import "TMSCollectionViewLayoutDelegate.h"
 #import "TMSCollectionViewLayout.h"
-#import "TMSWalletCollectionReusableView.h"
 #import "TMSWalletCollectionViewCell.h"
+#import "TMSWalletCollectionReusableView.h"
+
+#import "JobsBaseProtocolHeader.h"
 
 #endif /* WalletLayout_h */

@@ -1,23 +1,36 @@
 //
 //  JobsBitsMonitorSuspendLab.h
-//  JobsOCBaseConfigDemo
+//  JobsBitsMonitor
 //
-//  Created by Jobs on 2020/12/13.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_JOBSBITSMONITORSUSPENDLAB_FEE414A65E
+#define JOBS_HEADER_GUARD_JOBSBITSMONITORSUSPENDLAB_FEE414A65E
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<ZWPullMenuView/ZWPullMenuViewHeader.h>)
+#import <ZWPullMenuView/ZWPullMenuViewHeader.h>
+#else
+#import "ZWPullMenuViewHeader.h"
+#endif
+
+#import "JobsNetWorkToolsHeader.h"
+
+#import "JobsSuspend.h"
+
+#import "JobsModelDSL.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsLanMgr.h"
 
 #import "JobsBlock.h"
-#import "JobsSuspendLab.h"
-#import "JobsNetWorkTools.h"
-#import "NSObject+WHToast.h"
-#import "JobsDefineEnums.h"
-#import "UILabel+Extra.h"
-#import "JobsDefineProperty.h"
 
-#if __has_include(<ZWPullMenuView/ZWPullMenuView.h>)
-#import <ZWPullMenuView/ZWPullMenuView.h>
-#else
-#import "ZWPullMenuView.h"
-#endif
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 显示风格：普通字符串 / 富文本
@@ -38,3 +51,4 @@ typedef NS_ENUM(NSUInteger, JobsBitsMonitorDisplayStyle) {
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSBITSMONITORSUSPENDLAB_FEE414A65E */

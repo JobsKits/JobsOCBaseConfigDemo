@@ -1,13 +1,11 @@
 //
 //  XLSphereView.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by 袁小龙 on 16/4/4.
-//  Copyright © 2016年 xiaolong. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "XLSphereView.h"
-#import "XLMatrix.h"
 
 @interface XLSphereView(){
     NSMutableArray *tags;
@@ -32,8 +30,7 @@
     };return self;
 }
 
-#pragma mark - initial set
-#pragma mark —— items
+#pragma mark —— initial set
 - (void)setItems:(NSArray *)items{
     tags = [NSMutableArray arrayWithArray:items];
     coordinate = [NSMutableArray array];
@@ -67,7 +64,7 @@
     normalDirection = XLPointMake(a, b, 0);
     [self timerStart];
 }
-#pragma mark - set frame of point
+#pragma mark —— set frame of point
 - (void)updateFrameOfPoint:(NSInteger)index 
                  direction:(XLPoint)direction
                   andAngle:(CGFloat)angle{
@@ -80,7 +77,6 @@
     [self setTagOfPoint:rPoint andIndex:index];
 }
 
-#pragma mark —— tagOfPoint
 - (void)setTagOfPoint:(XLPoint)point
              andIndex:(NSInteger)index{
     UIView *view = [tags objectAtIndex:index];
@@ -88,10 +84,11 @@
     CGFloat transform = (point.z + 2) / 3;
     view.transform = CGAffineTransformScale(CGAffineTransformIdentity, transform, transform);
     view.layer.zPosition = transform;
-    view.alpha = transform;
+    view.byAlpha(transform);
+
     view.userInteractionEnabled = point.z >= 0;
 }
-#pragma mark - autoTurnRotation
+#pragma mark —— autoTurnRotation
 - (void)timerStart{
     timer = [CADisplayLink displayLinkWithTarget:self selector:@selector(autoTurnRotation)];
     [timer addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
@@ -107,7 +104,7 @@
         [self updateFrameOfPoint:i direction:normalDirection andAngle:0.002];
     }
 }
-#pragma mark - inertia
+#pragma mark —— inertia
 - (void)inertiaStart{
     [self timerStop];
     inertia = [CADisplayLink displayLinkWithTarget:self selector:@selector(inertiaStep)];
@@ -131,7 +128,7 @@
         }
     }
 }
-#pragma mark - gesture selector
+#pragma mark —— gesture selector
 - (void)handlePanGesture:(UIPanGestureRecognizer *)gesture{
     if (gesture.state == UIGestureRecognizerStateBegan) {
         last = [gesture locationInView:self];

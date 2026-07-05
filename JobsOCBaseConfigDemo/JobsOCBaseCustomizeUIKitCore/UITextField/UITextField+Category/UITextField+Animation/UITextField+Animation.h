@@ -1,12 +1,17 @@
 //
 //  UITextField+Animation.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/20.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UITEXTFIELD_ANIMATION_BA35906C95
+#define JOBS_HEADER_GUARD_UITEXTFIELD_ANIMATION_BA35906C95
 
 #import <UIKit/UIKit.h>
 #import "NSString+Check.h"
+
+#import "JobsStringUtilsHeader.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,3 +27,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UITEXTFIELD_ANIMATION_BA35906C95 */

@@ -1,20 +1,19 @@
 //
 //  UIControl+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsSuspend
 //
-//  Created by Jobs on 2022/6/26.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIControl+Extra.h"
-#import "MacroDef_Sys.h"
-/// 存储 & 绑定工具
-JobsKey(_jobsTargetsMap)
+
+JobsKey(kJobsTargetsMapKey)
 /// 控件级别的“事件 -> target”映射
-static inline NSMutableDictionary<NSNumber *, JobsControlTarget *> *_jobs_targetsMap(UIControl *ctl, BOOL createIfMissing) {
-    NSMutableDictionary *map = Jobs_getAssociatedObjectByTargetRawKey(ctl, &_jobsTargetsMap);
+static inline NSMutableDictionary<NSNumber *, JobsControlTarget *> *jobs_targetsMap(UIControl *ctl, BOOL createIfMissing) {
+    NSMutableDictionary *map = Jobs_getAssociatedObjectByTarget(ctl, kJobsTargetsMapKey);
     if (!map && createIfMissing) {
         map = NSMutableDictionary.dictionary;
-        Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey(ctl, &_jobsTargetsMap, map)
+        Jobs_setAssociatedRETAIN_NONATOMICByTarget(ctl, kJobsTargetsMapKey, map)
     };return map;
 }
 /// 将位掩码拆成“单事件”数组（特殊处理 AllEvents：保持为一个整体）
@@ -30,26 +29,27 @@ static inline NSArray<NSNumber *> *jobs_splitEvents(UIControlEvents events) {
     };return arr;
 }
 /// 绑定（先移除旧 target，再绑定新 target）
-static inline JobsControlTarget *
-_jobs_bind(UIControl *ctl, UIControlEvents singleEvent,
-           _JobsInvokePolicy policy, NSTimeInterval interval, jobsByCtrlBlock block) {
-    NSMutableDictionary *map = _jobs_targetsMap(ctl, YES);
+static inline JobsControlTarget *_jobs_bind(UIControl *ctl,
+                                            UIControlEvents singleEvent,
+                                            JobsInvokePolicy policy,
+                                            NSTimeInterval interval,
+                                            jobsByCtrlBlock block) {
+    NSMutableDictionary *map = jobs_targetsMap(ctl, YES);
     JobsControlTarget *old = map[@(singleEvent)];
     if (old) {
         [ctl removeTarget:old action:@selector(invoke:) forControlEvents:singleEvent];
         [map removeObjectForKey:@(singleEvent)];
     }
 
-    JobsControlTarget *t = jobsMakeControlTarget(^(JobsControlTarget * _Nullable t) {
-        t.block = [block copy];
-        t.policy = policy;
-        t.interval = interval;
-        t.lastFire = 0;
-        t.debounceGen = 0;
-        t.boundControl = ctl;
-        t.event = singleEvent;
+    JobsControlTarget *t = jobsMakeControlTarget(^(JobsControlTarget * _Nullable target) {
+        target.block = [block copy];
+        target.policy = policy;
+        target.interval = interval;
+        target.lastFire = 0;
+        target.debounceGen = 0;
+        target.boundControl = ctl;
+        target.event = singleEvent;
     });
-
     [ctl addTarget:t action:@selector(invoke:) forControlEvents:singleEvent];
     map[@(singleEvent)] = t;
     return t;
@@ -60,7 +60,7 @@ _jobs_bind(UIControl *ctl, UIControlEvents singleEvent,
 -(instancetype)jobs_on:(UIControlEvents)events
                  block:(jobsByCtrlBlock _Nonnull)block{
     for (NSNumber *n in jobs_splitEvents(events)) {
-        _jobs_bind(self, n.unsignedIntegerValue, _JobsInvokePolicyNone, 0, block);
+        _jobs_bind(self, n.unsignedIntegerValue, JobsInvokePolicyNone, 0, block);
     };return self;
 }
 /// 节流：间隔 seconds 内只执行一次（适合重复点击/拖动频繁场景）
@@ -68,7 +68,7 @@ _jobs_bind(UIControl *ctl, UIControlEvents singleEvent,
               throttle:(NSTimeInterval)seconds
                  block:(jobsByCtrlBlock _Nonnull)block{
     for (NSNumber *n in jobs_splitEvents(events)) {
-        _jobs_bind(self, n.unsignedIntegerValue, _JobsInvokePolicyThrottle, seconds, block);
+        _jobs_bind(self, n.unsignedIntegerValue, JobsInvokePolicyThrottle, seconds, block);
     };return self;
 }
 /// 防抖：停止触发后等待 seconds 再执行（适合搜索框等输入联想）
@@ -76,14 +76,14 @@ _jobs_bind(UIControl *ctl, UIControlEvents singleEvent,
               debounce:(NSTimeInterval)seconds
                  block:(jobsByCtrlBlock _Nonnull)block{
     for (NSNumber *n in jobs_splitEvents(events)) {
-        _jobs_bind(self, n.unsignedIntegerValue, _JobsInvokePolicyDebounce, seconds, block);
+        _jobs_bind(self, n.unsignedIntegerValue, JobsInvokePolicyDebounce, seconds, block);
     };return self;
 }
 /// 只执行一次：触发后即自动解绑
 -(instancetype)jobs_once:(UIControlEvents)events
                    block:(jobsByCtrlBlock _Nonnull)block{
     for (NSNumber *n in jobs_splitEvents(events)) {
-        _jobs_bind(self, n.unsignedIntegerValue, _JobsInvokePolicyOnce, 0, block);
+        _jobs_bind(self, n.unsignedIntegerValue, JobsInvokePolicyOnce, 0, block);
     };return self;
 }
 /// 便捷：点击（.touchUpInside）
@@ -100,7 +100,7 @@ _jobs_bind(UIControl *ctl, UIControlEvents singleEvent,
 }
 /// 移除指定事件的回调（支持复合事件位掩码）
 -(void)jobs_removeHandlersFor:(UIControlEvents)events{
-    NSMutableDictionary *map = _jobs_targetsMap(self, NO);
+    NSMutableDictionary *map = jobs_targetsMap(self, NO);
     if (!map) return;
     // AllEvents：直接针对该键移除
     if (events == UIControlEventAllEvents) {
@@ -122,7 +122,7 @@ _jobs_bind(UIControl *ctl, UIControlEvents singleEvent,
 }
 /// 移除全部回调
 -(void)jobs_removeAllHandlers{
-    NSMutableDictionary *map = _jobs_targetsMap(self, NO);
+    NSMutableDictionary *map = jobs_targetsMap(self, NO);
     if (!map) return;
     [map enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, JobsControlTarget *obj, BOOL *stop) {
         [self removeTarget:obj action:@selector(invoke:) forControlEvents:key.unsignedIntegerValue];

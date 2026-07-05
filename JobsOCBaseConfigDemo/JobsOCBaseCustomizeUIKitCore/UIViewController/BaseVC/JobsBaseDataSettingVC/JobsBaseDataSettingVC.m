@@ -1,11 +1,15 @@
 //
 //  JobsBaseDataSettingVC.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by User on 9/9/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsBaseDataSettingVC.h"
+#import "NSObject+Extra.h"
+#import "UIViewController+BaseNavigationBar.h"
+#import "UIViewController+BackBtn.h"
+#import "BaseButton.h"
 
 @interface JobsBaseDataSettingVC ()
 
@@ -27,21 +31,22 @@
     self.isHiddenNavigationBar = YES;
     self.setupNavigationBarHidden = YES;
     self.currentPage = @(1);
-    self.modalInPresentation = NO; /// 禁用下拉手势dismiss画面需要将此属性设置为YES
+    self.modalInPresentation = NO; // 禁用下拉手势dismiss画面需要将此属性设置为YES
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     /**
-     NOTE:
-     View controllers presented with custom presentation controllers
-     do not assume control of the status bar appearance by default
-     (their -preferredStatusBarStyle and -prefersStatusBarHidden
-     methods are not called).  You can override this behavior by
-     setting the value of the presented view controller's
-     modalPresentationCapturesStatusBarAppearance property to YES.
-     
-     self.modalPresentationCapturesStatusBarAppearance = YES;
+
+         NOTE:
+         View controllers presented with custom presentation controllers
+         do not assume control of the status bar appearance by default
+         (their -preferredStatusBarStyle and -prefersStatusBarHidden
+         methods are not called).  You can override this behavior by
+         setting the value of the presented view controller's
+         modalPresentationCapturesStatusBarAppearance property to YES.
+
+         self.modalPresentationCapturesStatusBarAppearance = YES;
      */
     [self updatePreferredContentSizeWithTraitCollection:self.traitCollection];
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
@@ -94,27 +99,28 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     return YES;
 }
 #pragma mark —— BaseViewControllerProtocol
--(JobsReturnNavBarConfigByButtonModelBlock _Nonnull)makeNavBarConfig{
-    return ^JobsNavBarConfig *_Nullable(UIButtonModel *_Nullable backBtnModel,
-                                        UIButtonModel *_Nullable closeBtnModel) {
-        @jobs_weakify(self)
-        return Jobs3TO(static_navBarConfig, jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable data) {
-            @jobs_strongify(self)
-            /// 对中间标题的配置
-            data.bgCor = self.viewModel.navBgCor;
-            data.bgImage = self.viewModel.navBgImage;
-            data.attributedTitle = Jobs3TO(self.viewModel.attributedTitle, self.viewModel.textModel.attributedTitle);
-            data.title = Jobs3TO(self.viewModel.text, self.viewModel.textModel.text);
-            data.font = Jobs3TO(self.viewModel.font, self.viewModel.textModel.font);
-            data.titleCor = self.viewModel.textModel.textCor;
-            /// 对（左边）返回键的配置
-            data.backBtnModel = Jobs3TO(backBtnModel, self.backBtnModel);
-            /// 对（右边）关闭键的配置
-            data.closeBtnModel = Jobs3TO(closeBtnModel, self.closeBtnModel);
-            self.navBarConfig = data;
-        }));
-    };
-}
+#warning 以下写在具体的子类
+//-(JobsRetNavBarConfigByButtonModelBlock _Nonnull)makeNavBarConfig{
+//    return ^JobsNavBarConfig *_Nullable(UIButtonModel *_Nullable backBtnModel,
+//                                        UIButtonModel *_Nullable closeBtnModel) {
+//        @jobs_weakify(self)
+//        return Jobs3TO(static_navBarConfig, jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable data) {
+//            @jobs_strongify(self)
+//            /// 对中间标题的配置
+//            data.bgCor = self.viewModel.navBgCor;
+//            data.bgImage = self.viewModel.navBgImage;
+//            data.attributedTitle = Jobs3TO(self.viewModel.attributedTitle, self.viewModel.textModel.attributedTitle);
+//            data.title = Jobs3TO(self.viewModel.text, self.viewModel.textModel.text);
+//            data.font = Jobs3TO(self.viewModel.font, self.viewModel.textModel.font);
+//            data.titleCor = self.viewModel.textModel.textCor;
+//            /// 对（左边）返回键的配置
+//            data.backBtnModel = Jobs3TO(backBtnModel, self.backBtnModel);
+//            /// 对（右边）关闭键的配置
+//            data.closeBtnModel = Jobs3TO(closeBtnModel, self.closeBtnModel);
+//            self.navBarConfig = data;
+//        }));
+//    };
+//}
 #pragma mark —— lazyLoad
 /// BaseViewControllerProtocol
 @synthesize vcs = _vcs;
@@ -125,49 +131,52 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         });
     };return _vcs;
 }
+#pragma mark —— Prop_strong()UIViewModel *viewModel;
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 -(UIViewModel *)viewModel{
     if (!_viewModel) {
         _viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.textModel.textCor = HEXCOLOR(0x3D4A58);
-            data.textModel.font = UIFontWeightRegularSize(16);
+            data.textModel.byTextCor(HEXCOLOR(0x3D4A58))
+                          .byFont(UIFontWeightRegularSize(16));
         });
     };return _viewModel;
 }
+#pragma mark —— Prop_strong()UIButtonModel *closeBtnModel;
 /// 在具体的子类去实现，以覆盖父类的方法实现
 /// AppToolsProtocol
 @synthesize closeBtnModel = _closeBtnModel;
 -(UIButtonModel *)closeBtnModel{
     if(!_closeBtnModel){
         _closeBtnModel = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-            data.backgroundImage = @"联系我们".img;
-//            data.highlightBackgroundImage = @"联系我们".img;
-//            data.jobsResetBtnImage = @"联系我们".img;
-//            data.highlightImage = @"联系我们".img;
-//            data.imagePadding = JobsWidth(5);
-            data.roundingCorners = UIRectCornerAllCorners;
-            data.baseBackgroundColor = JobsClearColor;
+            data.byBackgroundImage(@"联系我们".img);
+            //            data.highlightBackgroundImage = @"联系我们".img;
+            //            data.jobsResetBtnImage = @"联系我们".img;
+            //            data.highlightImage = @"联系我们".img;
+            //            data.imagePadding = JobsWidth(5);
+            data.byRoundingCorners(UIRectCornerAllCorners)
+                .byBaseBackgroundColor(JobsClearColor);
         });
     };return _closeBtnModel;
-}
+} 
+#pragma mark —— Prop_strong()UIButtonModel *backBtnModel;
 /// 在具体的子类去实现，以覆盖父类的方法实现
 /// AppToolsProtocol
 @synthesize backBtnModel = _backBtnModel;
 -(UIButtonModel *)backBtnModel{
     if(!_backBtnModel){
         @jobs_weakify(self)
-        _backBtnModel = self.makeBackBtnModel;
-        _backBtnModel.longPressGestureEventBlock = ^id(__kindof UIButton *x) {
-            JobsLog(@"按钮的长按事件触发");
-            return nil;
-        };
-        _backBtnModel.clickEventBlock = ^id(BaseButton *x){
-            @jobs_strongify(self)
-            if (self.objBlock) self.objBlock(x);
-            self.backBtnClickEvent(x);
-            return nil;
-        };
+        _backBtnModel = self.makeBackBtnModel
+            .byLongPressGestureEventBlock(^id(__kindof UIButton *x) {
+                JobsLog(@"按钮的长按事件触发");
+                return nil;
+            })
+            .byClickEventBlock(^id(BaseButton *x){
+                @jobs_strongify(self)
+                if (self.objBlock) self.objBlock(x);
+                self.backBtnClickEvent(x);
+                return nil;
+            });
     };return _backBtnModel;
 }
 

@@ -2,10 +2,22 @@
 //  JobsVerticalMenuMainVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by User on 8/31/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsVerticalMenuMainVC.h"
+
+static CGFloat JobsVerticalMenuMainCellOffsetX(void) {
+    return JobsWidth(16);
+}
+
+static UIColor *JobsVerticalMenuMainBgCor(void) {
+    return HEXCOLOR(0xF7F3EA);
+}
+
+static UIColor *JobsVerticalMenuMainCardBorderCor(void) {
+    return HEXCOLOR(0xE8DDCC);
+}
 
 @interface JobsVerticalMenuMainVC ()
 /// Data
@@ -30,22 +42,26 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = @"JobsVerticalMenuMainVC".tr;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(18);
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.bgImage = @"新首页的底图".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);/// self.gk_navBackgroundColor 和 self.view.backgroundColor
-//    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(@"竖形菜单".tr);
+            data.byFont(UIFontWeightSemiboldSize(18));
+        })
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
+        .byBgCor(JobsVerticalMenuMainBgCor())
+        .byNavBgCor(HEXCOLOR(0xFFF0DF));/// self.gk_navBackgroundColor 和 self.view.backgroundColor
+        //    self.viewModel.navBgImage = @"导航栏左侧底图".img;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsVerticalMenuMainBgCor());
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
     self.tableView.byShow(self);
@@ -82,6 +98,34 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
 }
+#pragma mark —— private
+-(JobsBaseTableViewCell *)jobs_makeMenuCell{
+    JobsBaseTableViewCell *cell = JobsBaseTableViewCell.cellStyleValue1ByTableView(self.tableView);
+    cell.offsetXForEach = JobsVerticalMenuMainCellOffsetX();
+    cell.offsetYForEach = JobsWidth(0);
+    return cell;
+}
+
+-(UIViewModel *)jobs_menuModelByDecorationModel:(JobsDecorationModel *)model{
+    UIViewModel *viewModel = self.makeDatas(model);
+    NSString *subTitle = isNull(model.subTitle) ? @"点击查看".tr : model.subTitle.tr;
+    viewModel
+        .byBgCor(JobsWhiteColor)
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byAttributedTitle(nil)
+                .byText(model.title.tr)
+                .byFont(UIFontWeightMediumSize(15))
+                .byTextCor(HEXCOLOR(0x263648));
+        })
+        .bySubTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byAttributedTitle(nil)
+                .byText(subTitle)
+                .byFont(UIFontWeightMediumSize(13))
+                .byTextCor(HEXCOLOR(0xB0782B));
+        });
+    return viewModel;
+}
+
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (void)tableView:(UITableView *)tableView
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
@@ -108,7 +152,7 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return JobsWidth(44);
+    return JobsWidth(58);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -124,60 +168,72 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForHeaderInSection:(NSInteger)section{
-    return JobsWidth(10);
+    return section == 0 ? JobsWidth(40) : JobsWidth(34);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
-heightForFooterInSectionByModel:(NSInteger)section{
-    return JobsWidth(10);
+heightForFooterInSection:(NSInteger)section{
+    return section == self.dataMutArr.count - 1 ? JobsWidth(18) : JobsWidth(12);
 }
-/// 这里涉及到复用机制，return出去的是UITableViewHeaderFooterView的派生类
-/// tableView.registerHeaderFooterViewClass(BaseTableViewHeaderFooterView.class,@"");
+
 - (UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section{
-    if (self.viewModel.usesTableViewHeaderView) {
-        @jobs_weakify(self)
-        /// 什么不配置就是悬浮
-        /// JobsHeaderFooterViewStyleNone 还是悬浮
-        /// JobsHeaderViewStyle 不是悬浮
-        return BaseTableViewHeaderFooterView.initByReuseIdentifier(tableView,@"")
-            .byStyle(JobsHeaderViewStyle)/// 悬浮开关
-            .bySection(section)/// 悬浮配置
-            .JobsRichViewByModel2(nil)
-            .JobsBlock1(^(id _Nullable data) {
-                
-            });
-    };return nil;
+    NSString *title = section == 0 ? @"推荐架构".tr : @"兼容架构".tr;
+    return jobsMakeView(^(__kindof UIView * _Nullable view) {
+        view.byBgColor(JobsVerticalMenuMainBgCor());
+        jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(title)
+                .byFont(UIFontWeightSemiboldSize(13))
+                .byTextCor(HEXCOLOR(0x8A6A3E))
+                .byTextAlignment(NSTextAlignmentLeft)
+                .byNumberOfLines(1)
+                .byBgColor(UIColor.clearColor)
+                .addOn(view);
+            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(view).offset(JobsVerticalMenuMainCellOffsetX() + JobsWidth(2));
+                make.right.equalTo(view).offset(-JobsVerticalMenuMainCellOffsetX());
+                make.bottom.equalTo(view).offset(-JobsWidth(6));
+            }];
+        });
+    });
 }
-/// 这里涉及到复用机制，return出去的是UITableViewHeaderFooterView的派生类
-/// tableView.registerHeaderFooterViewClass(BaseTableViewHeaderFooterView.class,@"");
 - (nullable __kindof UIView *)tableView:(UITableView *)tableView
                  viewForFooterInSection:(NSInteger)section{
-    if(self.viewModel.usesTableViewFooterView){
-        @jobs_weakify(self)
-        /// 什么不配置就是悬浮
-        /// JobsHeaderFooterViewStyleNone 还是悬浮
-        /// JobsHeaderViewStyle 不是悬浮
-        BaseTableViewHeaderFooterView *tbvFooterView = BaseTableViewHeaderFooterView.initByReuseIdentifier(tableView,@"")
-            .byStyle(JobsHeaderViewStyle)/// 悬浮开关
-            .bySection(section)/// 悬浮配置
-            .JobsRichViewByModel2(nil)
-            .JobsBlock1(^(id _Nullable data) {
-                
-            });
-        tbvFooterView.byBgColor(HEXCOLOR(0xEAEBED));
-        tbvFooterView.backgroundView.byBgColor(HEXCOLOR(0xEAEBED));
-        /// tbvFooterView.backgroundColor 和  tbvFooterView.contentView.backgroundColor 均是无效操作❌
-        /// 只有 tbvFooterView.backgroundView.backgroundColor 是有效操作✅
-        tbvFooterView.contentView.byBgColor(HEXCOLOR(0xEAEBED));
-        return tbvFooterView;
-    };return nil;
+    return jobsMakeView(^(__kindof UIView * _Nullable view) {
+        view.byBgColor(JobsVerticalMenuMainBgCor());
+    });
 }
 
 - (void)tableView:(UITableView *)tableView
   willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView hideSeparatorLineAtLast:indexPath cell:cell];
+    cell.offsetXForEach = JobsVerticalMenuMainCellOffsetX();
+    cell.offsetYForEach = JobsWidth(0);
+    cell
+        .byContentView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(JobsWhiteColor);
+        })
+        .byTextLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byTextCor(HEXCOLOR(0x263648))
+                .byFont(UIFontWeightMediumSize(15))
+                .byNumberOfLines(1)
+                .byLineBreakMode(NSLineBreakByTruncatingTail);
+        })
+        .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byTextCor(HEXCOLOR(0xB0782B))
+                .byFont(UIFontWeightMediumSize(13))
+                .byTextAlignment(NSTextAlignmentRight)
+                .byNumberOfLines(1)
+                .byLineBreakMode(NSLineBreakByTruncatingTail);
+        })
+        .bySelectionStyle(UITableViewCellSelectionStyleDefault)
+        .bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(HEXCOLOR(0xFFF4E5));
+        }))
+        .byBgColor(UIColor.clearColor);
     cell.img = @"向右的箭头（大）".img;
 //    @jobs_weakify(self)
     [cell customAccessoryView:^(id data) {
@@ -186,13 +242,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         JobsLog(@"MMM - %ld",cell.index);
     }];
     cell.accessoryView.resetWidth(10);
-    /// 以 section 为单位，仅对每个 section 的最后一行 cell 做圆角处理（cell 之间没有分割线）
-    [cell roundedCornerLastCellByTableView:tableView
-                                 indexPath:indexPath
-                               layerConfig:jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-        model.roundingCornersRadii = CGSizeMake(JobsWidth(10.0), JobsWidth(10.0));
-        model.borderWidth = 1;
-        model.layerBorderCor = JobsGrayColor;
+    [cell roundedCornerFirstAndLastCellByTableView:tableView
+                                         indexPath:indexPath
+                                       layerConfig:jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
+        model.byRoundingCornersRadii(CGSizeMake(JobsWidth(12.0), JobsWidth(12.0)))
+             .byBorderWidth(0.6)
+             .byLayerBorderCor(JobsVerticalMenuMainCardBorderCor());
     })];
 }
 #pragma mark —— lazyLoad
@@ -204,6 +259,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
             tableView
+                .byRegisterTableViewClass(nil)
+                .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .bySeparatorColor(UIColor.clearColor)
+                .bySeparatorInset(UIEdgeInsetsMake(0, JobsVerticalMenuMainCellOffsetX(), 0, JobsVerticalMenuMainCellOffsetX()));
+            tableView
                 .byMJRefreshHeader([MJRefreshNormalHeader headerWithRefreshingBlock:^{
                     @jobs_strongify(self)
                     NSObject.feedbackGenerator(nil);/// 震动反馈
@@ -214,20 +274,21 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     NSObject.feedbackGenerator(nil);/// 震动反馈
                     self->_tableView.endRefreshing(YES);
                 }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
-                .byRegisterTableViewClass(nil)
-                .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
-                .bySeparatorColor(HEXCOLOR(0xEEE2C8))
                 .byShowsVerticalScrollIndicator(NO)
                 .byScrollEnabled(YES)
-                .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
-                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
-                .byBgColor(JobsBlueColor)
-                .addOn(self.view)
-                    .byAdd(^(MASConstraintMaker *make) {
-                        @jobs_strongify(self)
-                        make.left.right.bottom.equalTo(self.view);
-                        [self make:make topOffset:10];
-                    });
+                .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight() + JobsWidth(18), 0));
+            tableView.byBgColor(JobsVerticalMenuMainBgCor());
+            tableView.addOn(self.view);
+            [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.left.right.bottom.equalTo(self.view);
+                [self make:make topOffset:0];
+            }];
+            if(@available(iOS 11.0, *)) {
+                tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
+            }else{
+                SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
+            }
         });
     };return _tableView;
 }
@@ -239,14 +300,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             @jobs_strongify(self)
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UITableViewCell *>* _Nullable data1) {
                 @jobs_strongify(self)
-                data1.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView))
-                .add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView))
-                .add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView))
-                .add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
+                data1.add([self jobs_makeMenuCell])
+                .add([self jobs_makeMenuCell]);
             }));
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UITableViewCell *>*_Nullable data1) {
                 @jobs_strongify(self)
-                data1.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
+                data1.add([self jobs_makeMenuCell]);
             }));
         });
     };return _tbvSectionRowCellMutArr;
@@ -258,24 +317,24 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data1) {
                 @jobs_strongify(self)
-                data1.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.title = @"右边的架构是UIViewController".tr;
-                    model.subTitle = @"正常".tr;
-                    model.cls = JobsVerticalMenuVC_1.class;
-                })))
-                .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.title = @"右边的架构是UICollectionView".tr;
-                    model.subTitle = @"正常".tr;
-                    model.cls = JobsVerticalMenuVC_2.class;
-                })));
+                data1.add([self jobs_menuModelByDecorationModel:jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                    model.byTitle(@"UIViewController 架构".tr)
+                         .bySubTitle(@"推荐".tr)
+                         .byCls(JobsVerticalMenuVC_1.class);
+                })])
+                .add([self jobs_menuModelByDecorationModel:jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                    model.byTitle(@"UICollectionView 架构".tr)
+                         .bySubTitle(@"灵活".tr)
+                         .byCls(JobsVerticalMenuVC_2.class);
+                })]);
             }));
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data1) {
                 @jobs_strongify(self)
-                data1.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.title = @"右边的架构是JobsVerticalMenuVC_0".tr;
-                    model.subTitle = @"JobsVerticalMenuVC_0".tr;
-                    model.cls = JobsVerticalMenuVC_0.class;
-                })));
+                data1.add([self jobs_menuModelByDecorationModel:jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                    model.byTitle(@"JobsVerticalMenuVC_0".tr)
+                         .bySubTitle(@"兼容".tr)
+                         .byCls(JobsVerticalMenuVC_0.class);
+                })]);
             }));
         });
     };return _dataMutArr;

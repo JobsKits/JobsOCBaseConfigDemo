@@ -1,42 +1,19 @@
 //
 //  ASEditableTextNode+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "ASEditableTextNode+DSL.h"
 
-@interface ASEditableTextNode (DSL)
-
-Prop_strong()id jobsETNBeginToken;
-Prop_strong()id jobsETNChangeToken;
-Prop_strong()id jobsETNEndToken;
-Prop_copy()JobsEditableTextEventBlock jobsETNBeginBlock;
-Prop_copy()JobsEditableTextEventBlock jobsETNChangeBlock;
-Prop_copy()JobsEditableTextEventBlock jobsETNEndBlock;
-
-@end
-
+JobsKey(kJobsETNBeginTokenKey)
+JobsKey(kJobsETNChangeTokenKey)
+JobsKey(kJobsETNEndTokenKey)
+JobsKey(kJobsETNBeginBlockKey)
+JobsKey(kJobsETNChangeBlockKey)
+JobsKey(kJobsETNEndBlockKey)
 @implementation ASEditableTextNode (DSL)
-#pragma mark —— Prop_strong()id jobsETNBeginToken;
-JobsKey(_jobsETNBeginToken)
-@dynamic jobsETNBeginToken;
-#pragma mark —— Prop_strong()id jobsETNChangeToken;
-JobsKey(_jobsETNChangeToken)
-@dynamic jobsETNChangeToken;
-#pragma mark —— Prop_strong()id jobsETNEndToken;
-JobsKey(_jobsETNEndToken)
-@dynamic jobsETNEndToken;
-#pragma mark —— Prop_copy()JobsEditableTextEventBlock jobsETNBeginBlock;
-JobsKey(_jobsETNBeginBlock)
-@dynamic jobsETNBeginBlock;
-#pragma mark —— Prop_copy()JobsEditableTextEventBlock jobsETNChangeBlock;
-JobsKey(_jobsETNChangeBlock)
-@dynamic jobsETNChangeBlock;
-#pragma mark —— Prop_copy()JobsEditableTextEventBlock jobsETNEndBlock;
-JobsKey(_jobsETNEndBlock)
-@dynamic jobsETNEndBlock;
 
 -(JobsRetEditableTextNodeByBoolBlock _Nonnull)byScrollEnabled{
     @jobs_weakify(self)
@@ -187,12 +164,12 @@ JobsKey(_jobsETNEndBlock)
     @jobs_weakify(self)
     return ^ASEditableTextNode* (JobsEditableTextEventBlock handler){
         @jobs_strongify(self)
-        Jobs_setAssociatedCOPY_NONATOMIC(_jobsETNBeginBlock, handler)
+        Jobs_setAssociatedCOPY_NONATOMIC(kJobsETNBeginBlockKey, handler)
 
-        id token = Jobs_getAssociatedObject(_jobsETNBeginToken);
+        id token = Jobs_getAssociatedObject(kJobsETNBeginTokenKey);
         if (token){
             [NSNotificationCenter.defaultCenter removeObserver:token];
-            Jobs_setAssociatedASSIGN(_jobsETNBeginToken, nil)
+            Jobs_setAssociatedASSIGN(kJobsETNBeginTokenKey, nil)
         }
         UITextView *tv = self.textView; // 触发 view
         if (handler && tv){
@@ -201,10 +178,10 @@ JobsKey(_jobsETNEndBlock)
                            object:tv
                            queue:NSOperationQueue.mainQueue
                            usingBlock:^(__unused NSNotification * _Nonnull note){
-                JobsEditableTextEventBlock blk = Jobs_getAssociatedObject(_jobsETNBeginBlock);
+                JobsEditableTextEventBlock blk = Jobs_getAssociatedObject(kJobsETNBeginBlockKey);
                 if (blk) blk(self, tv);
             }];
-            Jobs_setAssociatedRETAIN_NONATOMIC(_jobsETNBeginToken, newToken)
+            Jobs_setAssociatedRETAIN_NONATOMIC(kJobsETNBeginTokenKey, newToken)
         };return self;
     };
 }
@@ -213,12 +190,12 @@ JobsKey(_jobsETNEndBlock)
     @jobs_weakify(self)
     return ^ASEditableTextNode* (JobsEditableTextEventBlock handler){
         @jobs_strongify(self)
-        Jobs_setAssociatedCOPY_NONATOMIC(_jobsETNChangeBlock, handler)
+        Jobs_setAssociatedCOPY_NONATOMIC(kJobsETNChangeBlockKey, handler)
 
-        id token = Jobs_getAssociatedObject(_jobsETNChangeToken);
+        id token = Jobs_getAssociatedObject(kJobsETNChangeTokenKey);
         if (token){
             [[NSNotificationCenter defaultCenter] removeObserver:token];
-            Jobs_setAssociatedASSIGN(_jobsETNChangeToken, nil)
+            Jobs_setAssociatedASSIGN(kJobsETNChangeTokenKey, nil)
         }
         UITextView *tv = self.textView;
         if (handler && tv){
@@ -227,10 +204,10 @@ JobsKey(_jobsETNEndBlock)
                            object:tv
                            queue:NSOperationQueue.mainQueue
                            usingBlock:^(__unused NSNotification * _Nonnull note){
-                JobsEditableTextEventBlock blk = Jobs_getAssociatedObject(_jobsETNChangeBlock);
+                JobsEditableTextEventBlock blk = Jobs_getAssociatedObject(kJobsETNChangeBlockKey);
                 if (blk) blk(self, tv);
             }];
-            Jobs_setAssociatedRETAIN_NONATOMIC(_jobsETNChangeToken, newToken)
+            Jobs_setAssociatedRETAIN_NONATOMIC(kJobsETNChangeTokenKey, newToken)
         };return self;
     };
 }
@@ -239,12 +216,12 @@ JobsKey(_jobsETNEndBlock)
     @jobs_weakify(self)
     return ^ASEditableTextNode* (JobsEditableTextEventBlock handler){
         @jobs_strongify(self)
-        Jobs_setAssociatedCOPY_NONATOMIC(_jobsETNEndBlock, handler)
+        Jobs_setAssociatedCOPY_NONATOMIC(kJobsETNEndBlockKey, handler)
 
-        id token = Jobs_getAssociatedObject(_jobsETNEndToken);
+        id token = Jobs_getAssociatedObject(kJobsETNEndTokenKey);
         if (token){
             [[NSNotificationCenter defaultCenter] removeObserver:token];
-            Jobs_setAssociatedASSIGN(_jobsETNEndToken, nil)
+            Jobs_setAssociatedASSIGN(kJobsETNEndTokenKey, nil)
         }
         UITextView *tv = self.textView;
         if (handler && tv){
@@ -253,10 +230,10 @@ JobsKey(_jobsETNEndBlock)
                            object:tv
                            queue:NSOperationQueue.mainQueue
                            usingBlock:^(__unused NSNotification * _Nonnull note){
-                JobsEditableTextEventBlock blk = Jobs_getAssociatedObject(_jobsETNEndBlock);
+                JobsEditableTextEventBlock blk = Jobs_getAssociatedObject(kJobsETNEndBlockKey);
                 if (blk) blk(self, tv);
             }];
-            Jobs_setAssociatedRETAIN_NONATOMIC(_jobsETNEndToken, newToken)
+            Jobs_setAssociatedRETAIN_NONATOMIC(kJobsETNEndTokenKey, newToken)
         };return self;
     };
 }

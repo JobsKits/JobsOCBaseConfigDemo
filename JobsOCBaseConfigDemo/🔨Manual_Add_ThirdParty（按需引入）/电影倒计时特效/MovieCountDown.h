@@ -1,14 +1,22 @@
 //
-//  movieCountDown.h
-//  JobsOCBaseConfigDemo
+//  MovieCountDown.h
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/9/2.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <Foundation/Foundation.h>
-#import "BaseProtocol.h"
-#import "JobsDefineProperty.h"
+#ifndef JOBS_HEADER_GUARD_MOVIECOUNTDOWN_F66A01BB78
+#define JOBS_HEADER_GUARD_MOVIECOUNTDOWN_F66A01BB78
+
+#import <UIKit/UIKit.h>
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsMakes.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,3 +32,4 @@ Prop_assign()CGFloat countDownTime;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_MOVIECOUNTDOWN_F66A01BB78 */

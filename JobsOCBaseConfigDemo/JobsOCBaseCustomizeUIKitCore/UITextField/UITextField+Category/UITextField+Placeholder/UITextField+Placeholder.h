@@ -1,15 +1,24 @@
 //
 //  UITextField+Placeholder.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/20.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UITEXTFIELD_PLACEHOLDER_80A378BFEB
+#define JOBS_HEADER_GUARD_UITEXTFIELD_PLACEHOLDER_80A378BFEB
+
+#import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "UITextModelProtocol.h"
-#import "AppToolsProtocol.h"
 #import "NSMutableArray+Extra.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsRichTextUtils.h"
+
+#import "JobsOCDSL.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 修改UITextField.Placeholder
@@ -20,3 +29,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UITEXTFIELD_PLACEHOLDER_80A378BFEB */

@@ -1,31 +1,18 @@
-// The MIT License (MIT)
 //
-// Copyright (c) 2015-2016 forkingdog ( https://github.com/forkingdog )
+//  UINavigationController+FDFullscreenPopGesture.h
+//  FDFullscreenPopGesture
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Created by Jobs on 2026年5月13日，星期三.
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
+
+#ifndef JOBS_HEADER_GUARD_UINAVIGATIONCONTROLLER_FDFULLSCREENPOPGESTURE_0E81449114
+#define JOBS_HEADER_GUARD_UINAVIGATIONCONTROLLER_FDFULLSCREENPOPGESTURE_0E81449114
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "UIScrollView+FDFullscreenPopGesture.h"
-#import "NSObject+Extras.h"
-#import "JobsDefineProperty.h"
-#import "MacroDef_Sys.h"
+
+#import "JobsDefines.h"
 
 /// https://github.com/forkingdog/FDFullscreenPopGesture/issues/177
 /// "UINavigation+FDFullscreenPopGesture" extends UINavigationController's swipe-
@@ -57,3 +44,4 @@ Prop_assign()BOOL fd_interactivePopDisabled;
 Prop_assign()CGFloat fd_interactivePopMaxAllowedInitialDistanceToLeftEdge;
 
 @end
+#endif /* JOBS_HEADER_GUARD_UINAVIGATIONCONTROLLER_FDFULLSCREENPOPGESTURE_0E81449114 */

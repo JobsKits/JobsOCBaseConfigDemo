@@ -1,11 +1,13 @@
 //
 //  JobsMonitorVC.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by User on 9/9/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsMonitorVC.h"
+#import "NSObject+Extra.h"
+#import "NSObject+Notification.h"
 
 @interface JobsMonitorVC ()
 

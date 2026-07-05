@@ -1,13 +1,16 @@
 //
 //  NSObject+SysInfo.h
-//  JobsOCBaseConfigDemo
+//  JobsDeviceInfo
 //
-//  Created by Admin on 16/12/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_SYSINFO_974E9D7AB9
+#define JOBS_HEADER_GUARD_NSOBJECT_SYSINFO_974E9D7AB9
+
 #import <Foundation/Foundation.h>
-#import "NSObject+Extras.h"
-#import "JobsDefineConstString.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 获取系统环境变量
@@ -61,3 +64,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_SYSINFO_974E9D7AB9 */

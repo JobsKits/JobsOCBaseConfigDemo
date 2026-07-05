@@ -1,26 +1,31 @@
 //
 //  FSAppIconManager.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by zhangpeng on 2018/7/10.
-//  Copyright © 2018年 zhangpeng. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_FSAPPICONMANAGER_0CD2031E8A
+#define JOBS_HEADER_GUARD_FSAPPICONMANAGER_0CD2031E8A
+
 #import <Foundation/Foundation.h>
-#import "AppDelegate.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsLanMgr.h"
 
 @interface FSAppIconManager : NSObject
 /**
- Returns the name of the icon currently in use.
 
- * If ``, the primary application icon is being used. Or the current system version is not supported.
- @return IconName
+     Returns the name of the icon currently in use.
+     * If ``, the primary application icon is being used. Or the current system version is not supported.
+     @return IconName
  */
 + (NSString *_Nullable)getCurrentAppIconName;
 /**
- Check whether the current device supports changing icon
 
- @return result, YES or NO
+     Check whether the current device supports changing icon
+     @return result, YES or NO
  */
 + (BOOL)canChangeAppIcon;
 /**
@@ -34,18 +39,18 @@
                 completionHandler:(nullable void (^)(NSError *_Nullable error))completionHandler NS_EXTENSION_UNAVAILABLE("Extensions may not have alternate icons");
 
 @end
+/**
 
-/* 用法
- 
- - (IBAction)changeAppIcon:(id)sender {
-     BOOL canChangeAppIcon = [FSAppIconManager canChangeAppIcon];
-     JobsLog(@"canChangeAppIcon value: %@", canChangeAppIcon?@"YES":@"NO");
-     if (!canChangeAppIcon) {
-         return;
+     - (IBAction)changeAppIcon:(id)sender {
+         BOOL canChangeAppIcon = [FSAppIconManager canChangeAppIcon];
+         JobsLog(@"canChangeAppIcon value: %@", canChangeAppIcon?@"YES":@"NO");
+         if (!canChangeAppIcon) {
+             return;
+         }
+         [FSAppIconManager changeAppIconWithIconName:@"male" completionHandler:^(NSError * _Nullable error) {
+             JobsLog(@"error: %@", error);
+         }];
      }
-     [FSAppIconManager changeAppIconWithIconName:@"male" completionHandler:^(NSError * _Nullable error) {
-         JobsLog(@"error: %@", error);
-     }];
- }
 
  */
+#endif /* JOBS_HEADER_GUARD_FSAPPICONMANAGER_0CD2031E8A */

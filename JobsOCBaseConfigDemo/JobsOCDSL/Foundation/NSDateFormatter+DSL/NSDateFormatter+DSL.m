@@ -1,6 +1,6 @@
 //
 //  NSDateFormatter+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 #import "NSDateFormatter+DSL.h"
 
@@ -88,6 +88,16 @@
         @jobs_strongify(self)
         self.lenient = data;
         return self;
+    };
+}
+
+-(JobsRetDateFormatterByStrBlock)bySetLocalizedDateFormatFromTemplate{
+    @jobs_weakify(self)
+    return ^__kindof NSDateFormatter *_Nullable(NSString *_Nullable data){
+        @jobs_strongify(self)
+        if (@available(iOS 8.0, tvOS 9.0, watchOS 2.0, *)) {
+            [self setLocalizedDateFormatFromTemplate:data];
+        };return self;
     };
 }
 

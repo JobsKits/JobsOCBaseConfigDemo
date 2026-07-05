@@ -1,16 +1,25 @@
 //
 //  NSObject+ChangeAppicon.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/14.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_CHANGEAPPICON_4BAC838A67
+#define JOBS_HEADER_GUARD_NSOBJECT_CHANGEAPPICON_4BAC838A67
+
 #import <Foundation/Foundation.h>
-#import "MacroDef_Func.h"
-#import "NSObject+WHToast.h"
+#import "NSMutableArray+Extra.h"
+
+#import "WHToastExtra.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /**
+
     参考资料：https://github.com/maybeisyi/ChangeAppIconDemo
     https://www.jianshu.com/p/69313970d0e7
  */
@@ -23,3 +32,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_CHANGEAPPICON_4BAC838A67 */

@@ -1,13 +1,12 @@
 //
 //  CAMetalLayer+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月8日，星期一.
 //
 
 #import "CAMetalLayer+DSL.h"
 
-#if __has_include(<QuartzCore/CAMetalLayer.h>)
 @implementation CAMetalLayer (JobsChain)
 #pragma mark —— Inherited CALayer DSL
 #pragma mark —— Geometry
@@ -83,4 +82,3 @@
 }
 
 @end
-#endif /* __has_include(<QuartzCore/CAMetalLayer.h>) */

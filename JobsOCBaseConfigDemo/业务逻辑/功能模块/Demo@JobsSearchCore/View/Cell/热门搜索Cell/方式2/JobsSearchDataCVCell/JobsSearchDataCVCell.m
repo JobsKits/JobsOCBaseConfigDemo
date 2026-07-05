@@ -1,8 +1,8 @@
 //
-//  DataCollectionViewCell.m
+//  JobsSearchDataCVCell.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/10/22.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsSearchDataCVCell.h"
@@ -21,8 +21,8 @@ Prop_strong()UIColor *serialNumLabBGCor;
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = JobsWhiteColor;
-        self.contentView.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+        self.contentView.byBgColor(JobsWhiteColor);
     };return self;
 }
 #pragma mark —— BaseCellProtocol
@@ -33,6 +33,7 @@ Prop_strong()UIColor *serialNumLabBGCor;
         @jobs_strongify(self)
         self.serialStr = toStringByLong(self.indexPath.row + 1);
         self.viewModel = model;
+        self.contentStr = model.textModel.text;
         switch (self.indexPath.row) {
             case 0:{
                 self.serialNumLabBGCor = RGB_COLOR(245, 58, 50);
@@ -47,8 +48,13 @@ Prop_strong()UIColor *serialNumLabBGCor;
                 self.serialNumLabBGCor = RGB_COLOR(232, 232, 232);
             }break;
         }
-        self.serialNumLab.alpha = 1;
-        self.contentLab.alpha = 1;
+        self.serialNumLab
+            .byText(self.serialStr)
+            .byBgColor(self.serialNumLabBGCor)
+            .byAlpha(1);
+        self.contentLab
+            .byText(self.contentStr)
+            .byAlpha(1);
         return self;
     };
 }
@@ -58,15 +64,19 @@ Prop_strong()UIColor *serialNumLabBGCor;
         @jobs_weakify(self)
         _serialNumLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = self.serialStr;
-            label.textAlignment = NSTextAlignmentCenter;
-            label.textColor = JobsWhiteColor;
-            label.backgroundColor = self.serialNumLabBGCor;
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(20, 20));
-                make.left.equalTo(self.contentView).offset(10);
-                make.centerY.equalTo(self.contentView);
-            }];label.cornerCutToCircleWithCornerRadius(3);
+            label
+                .byText(self.serialStr)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byTextCor(JobsWhiteColor)
+                .byBgColor(self.serialNumLabBGCor)
+                .byCornerRadius(3)
+                .byClipsToBounds(YES)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(20, 20));
+                    make.left.equalTo(self.contentView).offset(10);
+                    make.centerY.equalTo(self.contentView);
+                });
         });
     };return _serialNumLab;
 }
@@ -76,12 +86,14 @@ Prop_strong()UIColor *serialNumLabBGCor;
         @jobs_weakify(self)
         _contentLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = self.viewModel.textModel.text;
-            label.textColor = JobsLightGrayColor;
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
+            label
+                .byText(self.contentStr)
+                .byTextCor(JobsLightGrayColor)
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self.serialNumLab);
                 make.left.equalTo(self.serialNumLab.mas_right).offset(5);
-            }];
+            });
         });
     };return _contentLab;
 }

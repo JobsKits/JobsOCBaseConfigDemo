@@ -1,7 +1,12 @@
 //
-// Created by Chenyu Lan on 8/27/14.
-// Copyright (c) 2014 Fenbi. All rights reserved.
+//  YTKUrlArgumentsFilter.h
+//  JobsBy3rdExtras
 //
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_YTKURLARGUMENTSFILTER_0C3F89949E
+#define JOBS_HEADER_GUARD_YTKURLARGUMENTSFILTER_0C3F89949E
 
 #import <Foundation/Foundation.h>
 
@@ -28,6 +33,8 @@
 
 +(YTKUrlArgumentsFilter *)filterWithArguments:(NSDictionary *)arguments;
 
--(NSString *)filterUrl:(NSString *)originUrl withRequest:(YTKBaseRequest *)request;
+-(NSString *)filterUrl:(NSString *)originUrl
+           withRequest:(YTKBaseRequest *)request;
 
 @end
+#endif /* JOBS_HEADER_GUARD_YTKURLARGUMENTSFILTER_0C3F89949E */

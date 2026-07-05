@@ -1,15 +1,18 @@
 //
 //  UITabBarItem+TLAnimation.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by 故乡的云 on 2019/7/19.
-//  Copyright © 2019 故乡的云. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UITABBARITEM_TLANIMATION_3C61B8C262
+#define JOBS_HEADER_GUARD_UITABBARITEM_TLANIMATION_3C61B8C262
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "TLAnimationProtocol.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,3 +25,4 @@ Prop_strong()id <TLAnimationProtocol>animation;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UITABBARITEM_TLANIMATION_3C61B8C262 */

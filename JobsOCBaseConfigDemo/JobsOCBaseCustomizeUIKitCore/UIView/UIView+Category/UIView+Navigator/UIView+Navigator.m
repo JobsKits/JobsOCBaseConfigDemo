@@ -1,8 +1,8 @@
 //
 //  UIView+Navigator.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by User on 8/3/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIView+Navigator.h"
@@ -49,7 +49,8 @@
     @jobs_weakify(self)
     return ^(UIView __kindof * _Nullable superview) {
         @jobs_strongify(self)
-        superview.navigator.frame = superview.bounds;
+        superview.navigator.byFrame(superview.bounds);
+
         self.navigator = superview.navigator;
     };
 }
@@ -67,7 +68,8 @@
     @jobs_weakify(self)
     return ^(UIView __kindof * _Nullable pushview) {
         @jobs_strongify(self)
-        self.navigator.frame = self.bounds;
+        self.navigator.byFrame(self.bounds);
+
         pushview.navigator = self.navigator;
     };
 }
@@ -87,7 +89,8 @@
     return ^(UIView *_Nullable superview,
              UIView *_Nullable view) {
         @jobs_strongify(self)
-        self.navigator.frame = view.bounds;
+        self.navigator.byFrame(view.bounds);
+
         view.navigator = superview.navigator;
     };
 }

@@ -1,13 +1,22 @@
 //
 //  XXTools.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Kite on 2019/11/29.
-//  Copyright © 2019 朝花夕拾. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
+#ifndef JOBS_HEADER_GUARD_XXTOOLS_09C64B7EB1
+#define JOBS_HEADER_GUARD_XXTOOLS_09C64B7EB1
+
+#import <UIKit/UIKit.h>
+
+#import "JobsMakes.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,3 +35,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_XXTOOLS_09C64B7EB1 */

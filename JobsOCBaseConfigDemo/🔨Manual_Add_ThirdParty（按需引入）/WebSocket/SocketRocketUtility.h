@@ -1,20 +1,14 @@
 //
 //  SocketRocketUtility.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by 孙俊 on 17/2/16.
-//  Copyright © 2017年 SUN. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_SOCKETROCKETUTILITY_9BFDFF3F9E
+#define JOBS_HEADER_GUARD_SOCKETROCKETUTILITY_9BFDFF3F9E
+
 #import <Foundation/Foundation.h>
-#import "MacroDef_Notification.h"
-#import "JobsBlock.h"
-#import "NSString+Others.h"
-#import "JobsDefineConstString.h"
-#import "JobsTimer.h"
-#import "BaseProtocol.h"
-#import "JobsDefineProperty.h"
-#import "NSString+Conversion.h"
 
 #if __has_include(<SocketRocket/SocketRocket.h>)
 #import <SocketRocket/SocketRocket.h>
@@ -27,6 +21,14 @@
 #else
 #import "ReactiveObjC.h"
 #endif
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsOCTimer.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 @interface SocketRocketUtility : NSObject<SRWebSocketDelegate,BaseProtocol>
 /// 获取连接状态
@@ -41,3 +43,4 @@ Prop_assign(readonly)SRReadyState socketReadyState;
 -(jobsByIDBlock _Nonnull)sendData;
 
 @end
+#endif /* JOBS_HEADER_GUARD_SOCKETROCKETUTILITY_9BFDFF3F9E */

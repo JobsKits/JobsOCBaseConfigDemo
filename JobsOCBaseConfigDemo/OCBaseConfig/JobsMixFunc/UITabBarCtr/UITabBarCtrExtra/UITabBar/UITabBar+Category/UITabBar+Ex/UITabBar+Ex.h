@@ -1,16 +1,15 @@
 //
 //  UITabBar+Ex.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by 叶晓倩 on 2017/9/29.
-//  Copyright © 2017年 xa. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UITABBAR_EX_E2F70A4057
+#define JOBS_HEADER_GUARD_UITABBAR_EX_E2F70A4057
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "MacroDef_Strong@Weak.h"
-#import "UIView+Measure.h"
-#import "JobsBlock.h"
 
 #if __has_include(<lottie-ios/Lottie.h>)
 #import <lottie-ios/Lottie.h>
@@ -18,8 +17,22 @@
 #import "Lottie.h"
 #endif
 
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
 #define LOTAnimationViewWidth 33
 #define LOTAnimationViewHeight 33
+
+#import "JobsOCDSL.h"
+
+#import "JobsStringUtilsHeader.h"
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
 
 @interface UITabBar (Ex)
 /// 移除系统的 UITabBarButton
@@ -29,3 +42,4 @@
 -(jobsByVoidBlock _Nonnull)stopAnimationAllLottieView;
 
 @end
+#endif /* JOBS_HEADER_GUARD_UITABBAR_EX_E2F70A4057 */

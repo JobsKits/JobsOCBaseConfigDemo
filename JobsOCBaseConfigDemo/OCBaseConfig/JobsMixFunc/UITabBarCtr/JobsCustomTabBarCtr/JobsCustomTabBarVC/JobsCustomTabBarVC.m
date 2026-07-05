@@ -1,11 +1,49 @@
 //
 //  JobsCustomTabBarVC.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by User on 7/13/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsCustomTabBarVC.h"
+
+static NSArray<__kindof UIViewController *> *JobsCustomTabBarVCViewControllers(void) {
+    Class appDelegateClass = NSClassFromString(@"AppDelegate");
+    if (!appDelegateClass) return @[];
+    @try {
+        id value = [appDelegateClass valueForKey:@"viewCtrlMutArr"];
+        return [value isKindOfClass:NSArray.class] ? value : @[];
+    } @catch (__unused NSException *exception) {
+        return @[];
+    }
+}
+
+static NSArray<__kindof UIButton *> *JobsCustomTabBarVCButtons(void) {
+    Class appDelegateClass = NSClassFromString(@"AppDelegate");
+    if (!appDelegateClass) return @[];
+    @try {
+        id value = [appDelegateClass valueForKey:@"tabBarItemMutArr"];
+        return [value isKindOfClass:NSArray.class] ? value : @[];
+    } @catch (__unused NSException *exception) {
+        return @[];
+    }
+}
+
+static void JobsCustomTabBarVCBackTo(NSUInteger index) {
+    Class appDelegateClass = NSClassFromString(@"AppDelegate");
+    NSArray<__kindof UIButton *> *buttons = JobsCustomTabBarVCButtons();
+    SEL selector = @selector(button:index:);
+    if (!appDelegateClass || index >= buttons.count || ![appDelegateClass respondsToSelector:selector]) return;
+    __kindof UIButton *button = buttons[index];
+    NSMethodSignature *signature = [appDelegateClass methodSignatureForSelector:selector];
+    if (!signature) return;
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+    invocation.target = appDelegateClass;
+    invocation.selector = selector;
+    [invocation setArgument:&button atIndex:2];
+    [invocation setArgument:&index atIndex:3];
+    [invocation invoke];
+}
 
 @interface JobsCustomTabBarVC ()
 
@@ -48,22 +86,24 @@ static dispatch_once_t JobsCustomTabBarVCOnceToken;
 
 -(void)loadView{
     [super loadView];
-    self.viewControllers = AppDelegate.viewCtrlMutArr;
+    self.viewControllers = JobsCustomTabBarVCViewControllers();
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tabBar.hidden = YES;
+    self.tabBar.byHidden(YES);
+
     self.delegate = self;
 //    self.view.byBgColor(JobsGreenColor);
-    self.customTabBar.alpha = 1;
+    self.customTabBar.byAlpha(1);
+
     extern NSUInteger DefaultIndex;
     self.selectedIndex = DefaultIndex;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.backTo(self.selectedIndex);
+    JobsCustomTabBarVCBackTo(self.selectedIndex);
 }
 
 -(void)viewWillLayoutSubviews{
@@ -104,7 +144,11 @@ didSelectViewController:(UIViewController *)viewController{
 #pragma mark —— LazyLoad
 -(JobsCustomTabBar *)customTabBar{
     if(!_customTabBar){
-        _customTabBar = NSObject.makeCustomTabBarBy(self.view);
+        _customTabBar = jobsMakeCustomTabBar(^(__kindof JobsCustomTabBar * _Nullable customTabBar) {
+            customTabBar.byBgColor(JobsClearColor);
+
+            customTabBar.configMasonryBy(self.view);
+        });
     };return _customTabBar;
 }
 

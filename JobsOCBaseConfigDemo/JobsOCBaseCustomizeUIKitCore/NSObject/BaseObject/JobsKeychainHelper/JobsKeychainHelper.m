@@ -1,12 +1,13 @@
 //
 //  JobsKeychainHelper.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Qixin on 14/12/18.
-//  Copyright (c) 2014年 Qixin. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsKeychainHelper.h"
+#import "NSKeyedArchiver+Extra.h"
+#import "NSMutableDictionary+Extra.h"
 
 @implementation JobsKeychainHelper
 #pragma mark —— 🔑钥匙串存储：

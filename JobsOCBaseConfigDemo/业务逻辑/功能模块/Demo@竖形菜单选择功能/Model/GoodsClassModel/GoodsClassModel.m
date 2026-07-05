@@ -8,6 +8,7 @@
 #import "GoodsClassModel.h"
 
 @implementation GoodsClassModel
+TimerProtocol_synthesize_lock
 AppToolsProtocol_synthesize
 UIPictureAndBackGroundCorProtocol_synthesize
 BaseButtonProtocol_synthesize

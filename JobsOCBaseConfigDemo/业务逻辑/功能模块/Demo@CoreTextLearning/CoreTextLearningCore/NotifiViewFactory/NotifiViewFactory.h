@@ -10,6 +10,8 @@
 #import "JobsDefineProperty.h"
 #import "JobsBlock.h"
 
+typedef void(^FetchNotifiViewBlock)(NotifiView *_Nullable view);
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NotifiViewFactory : NSObject

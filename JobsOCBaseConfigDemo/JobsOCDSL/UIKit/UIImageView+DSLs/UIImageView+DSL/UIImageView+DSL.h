@@ -1,6 +1,6 @@
 //
 //  UIImageView+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月10日，星期三。
 //
@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(JobsRetImageViewByImageBlock _Nonnull)byImage;
 -(JobsRetImageViewByImageBlock _Nonnull)byHighlightedImage;
+-(JobsRetImageViewByArrBlock _Nonnull)byAnimationImages;
+-(JobsRetImageViewByNSTimeIntervalBlock _Nonnull)byAnimationDuration;
+-(JobsRetImageViewByNSIntegerBlock _Nonnull)byAnimationRepeatCount;
 
 @end
 

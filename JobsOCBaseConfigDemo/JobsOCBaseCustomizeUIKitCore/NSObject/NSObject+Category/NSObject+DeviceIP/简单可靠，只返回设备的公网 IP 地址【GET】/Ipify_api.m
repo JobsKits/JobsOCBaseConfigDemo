@@ -1,8 +1,8 @@
 //
 //  Ipify_api.m
-//  JobsOCBaseConfigDemo
+//  JobsDeviceInfo
 //
-//  Created by Admin on 23/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "Ipify_api.h"
@@ -11,7 +11,7 @@
 /// 请求的完整URL：简单可靠，只返回设备的公网IP地址@GET
 /// https://api.ipify.org?format=json
 -(NSString *)requestUrl{
-    return @"https://api.ipify.org?format=json".add(self.urlParameters);// YOUR_API_KEY
+    return [@"https://api.ipify.org?format=json" stringByAppendingString:self.urlParameters ?: @""];// YOUR_API_KEY
 }
 /// 请求方式
 -(YTKRequestMethod)requestMethod {
@@ -23,5 +23,3 @@
 @implementation IpifyModel
 
 @end
-
-

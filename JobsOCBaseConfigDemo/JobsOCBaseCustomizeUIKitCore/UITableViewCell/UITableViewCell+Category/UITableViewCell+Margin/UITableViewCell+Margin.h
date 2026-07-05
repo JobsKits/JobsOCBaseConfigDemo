@@ -1,18 +1,26 @@
 //
 //  UITableViewCell+Margin.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/11/13.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UITABLEVIEWCELL_MARGIN_72DB84A1BE
+#define JOBS_HEADER_GUARD_UITABLEVIEWCELL_MARGIN_72DB84A1BE
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
+#import "NSObject+image.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsMakes.h"
+
 #import "JobsBlock.h"
-#import "MacroDef_Sys.h"
-#import "BaseCellProtocol.h"
-#import "UIViewModelProtocol.h"
-#import "UITableViewCellProtocol.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 重设边距
@@ -35,3 +43,4 @@ UITableViewCellProtocol
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UITABLEVIEWCELL_MARGIN_72DB84A1BE */

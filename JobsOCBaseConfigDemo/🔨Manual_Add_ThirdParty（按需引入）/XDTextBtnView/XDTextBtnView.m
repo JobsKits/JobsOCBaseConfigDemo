@@ -1,9 +1,8 @@
 //
 //  XDTextBtnView.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by XD on 2019/6/10.
-//  Copyright © 2019 XDTextBtnView. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "XDTextBtnView.h"
@@ -11,8 +10,11 @@
 @interface XDTextBtnView ()
 
 Prop_assign()CGFloat maxX;
+
 Prop_assign(readwrite)CGFloat maxY;
+
 Prop_assign()NSInteger lastIndex;
+
 Prop_strong()NSMutableArray <NSString *> *selectArr;
 
 @end
@@ -41,32 +43,26 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
     };return self;
 }
 
-#pragma mark —— borderWidth
 - (void)setBorderWidth:(CGFloat)borderWidth
 {
     _borderWidth = borderWidth;
 }
 
-#pragma mark —— btnHeight
 - (void)setBtnHeight:(CGFloat)btnHeight
 {
     _btnHeight = btnHeight;
 }
 
-#pragma mark —— marginX
 - (void)setMarginX:(CGFloat)marginX
 {
     _marginX = marginX;
 }
 
-#pragma mark —— textArr
 - (void)setTextArr:(NSArray<NSString *> *)textArr
 {
     _textArr = textArr;
     
     for (int i = 0; i < textArr.count; i ++) {
-        
-        UIButton *btn = [UIButton buttonWithType:0];
         
         NSString *text = textArr[i];
         
@@ -81,32 +77,31 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
             btnX = self.marginX;
             btnY = btnY + self.marginY + self.btnHeight;
         }
-        
-        btn.frame = CGRectMake(btnX, btnY, btnWidth, self.btnHeight);
-        
-        [btn setTitle:text forState:UIControlStateNormal];
-        
-        if (self.borderWidth > 0 && self.borderColor) {
-            btn.layer.borderWidth = self.borderWidth;
-            btn.layer.borderColor = self.borderColor.CGColor;
-        }
-        
-        if (self.cornerRadius > 0) {
-            btn.layer.cornerRadius = self.cornerRadius;
-        }
-        
-        [self unSelectBtn:btn];
-        
-        btn.titleLabel.font = [UIFont systemFontOfSize:self.textFontSize];
-        
-        [self addSubview:btn];
+        UIButton *btn = (UIButton *)UIButton.jobsInit()
+            .jobsResetBtnTitle(text)
+            .byTitleLabel(^(UILabel *label) {
+                label.byFont([UIFont systemFontOfSize:self.textFontSize]);
+            })
+            .byAddTarget(self, @selector(btnAction:), UIControlEventTouchUpInside)
+            .byTag(kXDTextBtnViewBtnTagPlus + i)
+            .byLayer(^(CALayer *layer) {
+                if (self.borderWidth > 0 && self.borderColor) {
+                    layer
+                        .byBorderWidth(self.borderWidth)
+                        .byBorderColor(self.borderColor.CGColor);
+                }
+                if (self.cornerRadius > 0) {
+                    layer.byCornerRadius(self.cornerRadius);
+                }
+            })
+            .byViewBlock(^(__kindof UIView *view) {
+                [self unSelectBtn:(UIButton *)view];
+            })
+            .byFrame(CGRectMake(btnX, btnY, btnWidth, self.btnHeight))
+            .addOn(self);
         
         self.maxX = CGRectGetMaxX(btn.frame);
         self.maxY = CGRectGetMinY(btn.frame);
-        
-        btn.tag = kXDTextBtnViewBtnTagPlus + i;
-        
-        [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     if (textArr.count > 0) {
@@ -115,7 +110,6 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
 
 }
 
-#pragma mark —— defultIndexArr
 - (void)setDefultIndexArr:(NSArray<NSString *> *)defultIndexArr
 {
     _defultIndexArr = defultIndexArr;
@@ -176,20 +170,22 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
 - (void)selectBtn:(UIButton *)btn
 {
     if (self.selectBackgroundColor) {
-        btn.backgroundColor = self.selectBackgroundColor;
+        btn.byBgColor(self.selectBackgroundColor);
+
     }
     if (self.selectTextColor) {
-        [btn setTitleColor:self.selectTextColor forState:UIControlStateNormal];
+        btn.normalStateTitleColorBy(self.selectTextColor);
     }
 }
 
 - (void)unSelectBtn:(UIButton *)btn
 {
     if (self.backgroundColor) {
-        btn.backgroundColor = self.backgroundColor;
+        btn.byBgColor(self.backgroundColor);
+
     }
     if (self.textColor) {
-        [btn setTitleColor:self.textColor forState:UIControlStateNormal];
+        btn.normalStateTitleColorBy(self.textColor);
     }
 }
 

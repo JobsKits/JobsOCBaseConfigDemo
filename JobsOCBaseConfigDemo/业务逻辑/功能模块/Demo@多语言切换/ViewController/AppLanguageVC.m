@@ -1,8 +1,8 @@
 //
-//  AppInternationalizationVC.m
+//  AppLanguageVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2021/11/19.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "AppLanguageVC.h"
@@ -28,19 +28,23 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = @"App国际化之应用内部切换语言".tr;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
-    
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(@"App国际化之应用内部切换语言".tr);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
+
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
     @jobs_weakify(self)
     [self addNotificationName:语言切换
                         block:^(id _Nullable weakSelf,
@@ -53,7 +57,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
         }
         JobsLog(@"通知传递过来的 = %@",notification.object);
     }];
-    
+
     self.jobsBackBlock = ^id _Nullable(id _Nullable data) {
         JobsLog(@"退出页面的逻辑");
         return nil;
@@ -98,12 +102,11 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
         [SDImageCache.sharedImageCache clearDiskOnCompletion:nil];
         return jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             imageView.image = @"6.59".tr.img;
-            headerFooterView.addSubview(imageView);
-            [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            imageView.addOn(headerFooterView).byAdd(^(MASConstraintMaker *make) {
                 make.center.equalTo(headerFooterView);
                 make.size.mas_equalTo(CGSizeMake(BaseTableViewHeaderFooterView.heightForHeaderInSection(nil),
                                                  BaseTableViewHeaderFooterView.heightForHeaderInSection(nil)));
-            }];
+            });
         });
     };
 }
@@ -144,12 +147,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return UITableViewCell.cellStyleValue1WithTableView(tableView)
-        .byAccessoryType(self.dataMutArr[indexPath.row].appLanguage == JobsLanguageManager.language ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone)
+    return UITableViewCell.cellStyleValue1ByTableView(tableView)
+        .byAccessoryType(self.dataMutArr[indexPath.row].appLanguage == LanMgr.language ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone)
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
-            .JobsBlock1(^(id _Nullable data) {
-             
+            .JobsBlock1(^(id _Nullable data) {;
+
             });
 }
 
@@ -161,7 +164,7 @@ heightForHeaderInSection:(NSInteger)section{
 - (void)tableView:(UITableView *)tableView
   willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath{
-    cell.byAlpha(self.isVisible);
+    cell.byAlpha(self.viewModel.isVisible);
     [tableView hideSeparatorLineAtLast:indexPath cell:cell];
 }
 /// 这里涉及到复用机制，return出去的是UITableViewHeaderFooterView的派 生类
@@ -172,9 +175,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     headerView.section = section;
     /// headerView.backgroundColor 和  headerView.contentView.backgroundColor 均是无效操作❌
     /// 只有 headerView.backgroundView.backgroundColor 是有效操作✅
-    headerView.backgroundView.backgroundColor = JobsCyanColor;
+    headerView.backgroundView.byBgColor(JobsCyanColor);
     self.makeViewOnTableViewHeaderFooterView(headerView).alpha = 1;
-    headerView.jobsRichViewByModel(UIViewModel.new);
+    headerView.jobsRichViewByModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
 //        @jobs_weakify(self)
     [headerView actionObjBlock:^(id data) {
 //            @jobs_strongify(self)
@@ -189,40 +192,41 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
             /// 普通的MJRefreshHeader（触发事件）@二选一
-            tableView.byMJRefreshHeader([MJRefreshNormalHeader headerWithRefreshingBlock:^{
-                @jobs_strongify(self)
-                NSObject.feedbackGenerator(nil); // 震动反馈
-                // 刷新本界面
-                if (self.dataMutArr.count) {
-                    [self.dataMutArr remove];
-                    self->_dataMutArr = nil;
-                }
-                self.isVisible = YES;
-                if (self.dataMutArr.count) {
-                    self->_tableView.endRefreshing(self.dataMutArr);
-                }else{
-                    self->_tableView.endRefreshingWithNoMoreData(self.dataMutArr);
-                }
-                /// 在reloadData后做的操作，因为reloadData刷新UI是在主线程上，那么就在主线程上等待
-                @jobs_weakify(self)
-                dispatch_async(dispatch_get_main_queue(), ^(){
+            tableView
+                .byMJRefreshHeader([MJRefreshNormalHeader headerWithRefreshingBlock:^{
                     @jobs_strongify(self)
-                    [self.tableView alphaAnimWithSortingType:(SortingType)SortingType_Positive
-                                              animationBlock:nil
-                                             completionBlock:nil];
+                    NSObject.feedbackGenerator(nil); // 震动反馈
+                    // 刷新本界面
+                    if (self.dataMutArr.count) {
+                        [self.dataMutArr remove];
+                        self->_dataMutArr = nil;
+                    }
+                    self.viewModel.byIsVisible(YES);
+                    if (self.dataMutArr.count) {
+                        self->_tableView.endRefreshing(self.dataMutArr);
+                    }else{
+                        self->_tableView.endRefreshingWithNoMoreData(self.dataMutArr);
+                    }
+                    /// 在reloadData后做的操作，因为reloadData刷新UI是在主线程上，那么就在主线程上等待
+                    @jobs_weakify(self)
+                    dispatch_async(dispatch_get_main_queue(), ^(){
+                        @jobs_strongify(self)
+                        [self.tableView alphaAnimWithSortingType:(SortingType)SortingType_Positive
+                                                  animationBlock:nil
+                                                 completionBlock:nil];
+                    });
+                }].byMJRefreshHeaderConfigModel(self.mjHeaderDefaultConfig))
+                .byMJRefreshFooter([MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+                    @jobs_strongify(self)
+                    NSObject.feedbackGenerator(nil); // 震动反馈
+                    self->_tableView.endRefreshing(YES);
+                }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    @jobs_strongify(self)
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom);
+                    make.left.right.bottom.equalTo(self.view);
                 });
-            }].byMJRefreshHeaderConfigModel(self.mjHeaderDefaultConfig))
-            .byMJRefreshFooter([MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-                @jobs_strongify(self)
-                NSObject.feedbackGenerator(nil); // 震动反馈
-                self->_tableView.endRefreshing(YES);
-            }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
-            .addOn(self.view)
-            .byAdd(^(MASConstraintMaker *make) {
-                @jobs_strongify(self)
-                make.top.equalTo(self.gk_navigationBar.mas_bottom);
-                make.left.right.bottom.equalTo(self.view);
-            });
         });
     };return _tableView;
 }
@@ -231,20 +235,28 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_dataMutArr) {
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.appLanguage = AppLanguageBySys;
-                data1.text = @"跟随系统".tr;
+                data1.byAppLanguage(AppLanguageBySys)
+                     .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                         textModel.byText(@"跟随系统".tr);
+                     });
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.appLanguage = AppLanguageBySys;
-                data1.text = @"中文".tr;
+                data1.byAppLanguage(AppLanguageChineseSimplified)
+                     .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                         textModel.byText(@"中文".tr);
+                     });
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.appLanguage = AppLanguageBySys;
-                data1.text = @"英文".tr;
+                data1.byAppLanguage(AppLanguageEnglish)
+                     .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                         textModel.byText(@"英文".tr);
+                     });
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.appLanguage = AppLanguageBySys;
-                data1.text = @"他加禄语".tr;
+                data1.byAppLanguage(AppLanguageTagalog)
+                     .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                         textModel.byText(@"他加禄语".tr);
+                     });
             }));
         });
     };return _dataMutArr;

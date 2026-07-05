@@ -1,20 +1,27 @@
 //
 //  JobsAppDoorContentView.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/12/3.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_JOBSAPPDOORCONTENTVIEW_5F125A14FE
+#define JOBS_HEADER_GUARD_JOBSAPPDOORCONTENTVIEW_5F125A14FE
+
 #import <UIKit/UIKit.h>
-#import "BaseContentView.h"
-#import "UIView+Extras.h"
-#import "UIView+AutoSelfAdaptionSize.h"
-#import "JobsAppDoorInputViewHeader.h"
-#import "JobsAppDoorConfig.h"
-#import "JobsAppDoorModel.h"
-#import "JobsAppDoorInputViewBaseStyleModel.h"
-#import "JobsDefineProperty.h"
+#import "JobsOCTools.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsMakes.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,3 +40,4 @@ Prop_strong()JobsAppDoorModel *appDoorModel;/// 网络请求的传入参数
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSAPPDOORCONTENTVIEW_5F125A14FE */

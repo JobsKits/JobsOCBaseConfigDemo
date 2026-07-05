@@ -1,6 +1,6 @@
 //
 //  JobsBizBlock.h
-//  JobsOCBaseConfigDemo
+//  JobsBlock
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "JobsBlockDef.h"
 #import "JobsBlockHeader.h"
+
 #import "JobsDefines.h"
 
 #ifndef JobsBizBlock_h
@@ -49,31 +50,19 @@ typedef void(^jobsByFMAccModelBlock)(__kindof FMAccModel *_Nullable model);
 typedef void(^jobsByVMArrBlock)(__kindof NSMutableArray<__kindof UIViewModel *> * _Nullable models);
 typedef void(^jobsByPhilippinesModelsBlocks)(jobsByVMArrBlock _Nullable completionBlock);
 typedef void(^jobsByFileNameModelBlock)(__kindof FileNameModel *_Nullable model);
-typedef JobsToggleBaseView *_Nonnull(^JobsReturnToggleBaseViewByArrBlock)(__kindof NSArray *_Nullable arr);
-typedef __kindof KYCBaseView *_Nullable(^JobsReturnKYCBaseViewByStatusBlock)(VerificationStatus status);
-typedef __kindof UIScrollView *_Nullable(^JobsReturnScrollViewByStatusBlock)(VerificationStatus status);
-typedef __kindof GoodsClassModel *_Nullable(^JobsReturnGoodsClassModelByIntBlock)(int data);
-typedef __kindof GoodsClassModel *_Nullable(^JobsReturnGoodsClassModelByInt2Block)(Jobs_ReturnGoodsClassModelByInt2Block_Arguments);
-typedef __kindof GoodsClassModel *_Nullable(^JobsReturnGoodsClassModelByIntStringBlock)(Jobs_ReturnGoodsClassModelByIntStringBlock_Arguments);
-typedef JobsExcelConfigureViewModel *_Nullable(^JobsReturnExcelConfigureDataByMyBetOrderDetailModelBlock)(__kindof FMMyBetOrderDetailModel *_Nullable model);
-typedef JobsExcelConfigureViewModel *_Nullable(^JobsReturnExcelConfigureDataByReportTradeModelBlock)(__kindof FMReportTradeModel *_Nullable model);
-typedef WMZBannerParam *_Nonnull(^JobsReturnWMZBannerParamByArrBlock)(__kindof NSArray <FMBannerAdsModel *>*_Nullable models);
-typedef WMZBannerParam *_Nonnull(^JobsReturnWMZBannerParamByArrAndADTypeBlock)(__kindof NSArray <FMBannerAdsModel *>*_Nullable models,FMAdsType ADType);
-typedef UIViewModel *_Nullable(^jobsByGetDepositDiscountActivityRecordModelBlock)(__kindof GetDepositDiscountActivityRecordModel *_Nullable model);
-typedef FMAccModel *_Nullable(^JobsReturnAccModelByArrBlock)(__kindof NSArray *_Nullable arr);
 
-/// JobsBlock@Pods 返哺兼容名 BEGIN
-#pragma mark —— JobsBlock@Pods返哺兼容名
-typedef JobsReturnAccModelByArrBlock JobsRetAccModelByArrBlock;
-typedef JobsReturnExcelConfigureDataByMyBetOrderDetailModelBlock JobsRetExcelConfigureDataByMyBetOrderDetailModelBlock;
-typedef JobsReturnExcelConfigureDataByReportTradeModelBlock JobsRetExcelConfigureDataByReportTradeModelBlock;
-typedef JobsReturnGoodsClassModelByInt2Block JobsRetGoodsClassModelByInt2Block;
-typedef JobsReturnGoodsClassModelByIntBlock JobsRetGoodsClassModelByIntBlock;
-typedef JobsReturnGoodsClassModelByIntStringBlock JobsRetGoodsClassModelByIntStringBlock;
-typedef JobsReturnKYCBaseViewByStatusBlock JobsRetKYCBaseViewByStatusBlock;
-typedef JobsReturnScrollViewByStatusBlock JobsRetScrollViewByStatusBlock;
-typedef JobsReturnToggleBaseViewByArrBlock JobsRetToggleBaseViewByArrBlock;
-typedef JobsReturnWMZBannerParamByArrAndADTypeBlock JobsRetWMZBannerParamByArrAndADTypeBlock;
-typedef JobsReturnWMZBannerParamByArrBlock JobsRetWMZBannerParamByArrBlock;
-/// JobsBlock@Pods 返哺兼容名 END
+typedef JobsToggleBaseView *_Nonnull(^JobsRetToggleBaseViewByArrBlock)(__kindof NSArray *_Nullable arr);
+
+typedef __kindof KYCBaseView *_Nullable(^JobsRetKYCBaseViewByStatusBlock)(VerificationStatus status);
+typedef __kindof UIScrollView *_Nullable(^JobsRetScrollViewByStatusBlock)(VerificationStatus status);
+typedef __kindof GoodsClassModel *_Nullable(^JobsRetGoodsClassModelByIntBlock)(int data);
+typedef __kindof GoodsClassModel *_Nullable(^JobsRetGoodsClassModelByInt2Block)(Jobs_ReturnGoodsClassModelByInt2Block_Arguments);
+typedef __kindof GoodsClassModel *_Nullable(^JobsRetGoodsClassModelByIntStringBlock)(Jobs_ReturnGoodsClassModelByIntStringBlock_Arguments);
+
+typedef JobsExcelConfigureViewModel *_Nullable(^JobsRetExcelConfigureDataByMyBetOrderDetailModelBlock)(__kindof FMMyBetOrderDetailModel *_Nullable model);
+typedef JobsExcelConfigureViewModel *_Nullable(^JobsRetExcelConfigureDataByReportTradeModelBlock)(__kindof FMReportTradeModel *_Nullable model);
+typedef WMZBannerParam *_Nonnull(^JobsRetWMZBannerParamByArrBlock)(__kindof NSArray <FMBannerAdsModel *>*_Nullable models);
+typedef WMZBannerParam *_Nonnull(^JobsRetWMZBannerParamByArrAndADTypeBlock)(Jobs_WMZBannerParam_Arr_ADType_Arguments);
+typedef FMAccModel *_Nullable(^JobsRetAccModelByArrBlock)(__kindof NSArray *_Nullable arr);
+
 #endif /* JobsBizBlock_h */

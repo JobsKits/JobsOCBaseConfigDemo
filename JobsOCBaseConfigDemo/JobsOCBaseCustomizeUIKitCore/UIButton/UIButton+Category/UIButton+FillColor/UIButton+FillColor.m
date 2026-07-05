@@ -1,25 +1,24 @@
 //
 //  UIButton+FillColor.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 5/2/26.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIButton+FillColor.h"
-#import "MacroDef_Sys.h"
 
 @implementation UIButton (FillColor)
-#pragma mark —— Prop_copy()NSString *titleName;
-JobsKey(_titleName)
+#pragma mark —— Associated Object (titleName)
+JobsKey(kUIButtonTitleNameKey)
 @dynamic titleName;
 - (void)setTitleName:(NSString *)titleName {
-    Jobs_setAssociatedCOPY_NONATOMIC(_titleName, titleName)
+    Jobs_setAssociatedCOPY_NONATOMIC(kUIButtonTitleNameKey, titleName)
 }
 
 - (NSString *)titleName {
-    return Jobs_getAssociatedObject(_titleName);
+    return Jobs_getAssociatedObject(kUIButtonTitleNameKey);
 }
-#pragma mark - Background Color For State
+#pragma mark —— Background Color For State
 - (void)by_setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state {
     UIImage *img = [UIButton by_imageWithColor:backgroundColor];
     [self setBackgroundImage:img forState:state];

@@ -1,11 +1,12 @@
 //
-//  EXTKeyPathCoding.h
-//  JobsOCBaseConfigDemo
+//  RACEXTKeyPathCoding.h
+//  JobsBy3rdExtras
 //
-//  Created by Justin Spahr-Summers on 19.06.12.
-//  Copyright (C) 2012 Justin Spahr-Summers.
-//  Released under the MIT license.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_RACEXTKEYPATHCODING_3998D1932D
+#define JOBS_HEADER_GUARD_RACEXTKEYPATHCODING_3998D1932D
 
 #import <Foundation/Foundation.h>
 #import "RACmetamacros.h"
@@ -65,4 +66,4 @@ NSString *lowercaseStringPath = @keypath(NSString.new, lowercaseString);
 #define collectionKeypath3(PATH, COLLECTION_OBJECT, COLLECTION_PATH) ([[NSString stringWithFormat:@"%s.%s",keypath(PATH), keypath(COLLECTION_OBJECT, COLLECTION_PATH)] UTF8String])
 
 #define collectionKeypath4(OBJ, PATH, COLLECTION_OBJECT, COLLECTION_PATH) ([[NSString stringWithFormat:@"%s.%s",keypath(OBJ, PATH), keypath(COLLECTION_OBJECT, COLLECTION_PATH)] UTF8String])
-
+#endif /* JOBS_HEADER_GUARD_RACEXTKEYPATHCODING_3998D1932D */

@@ -1,14 +1,23 @@
 //
 //  NSObject+UserNotifications.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_USERNOTIFICATIONS_DB966D423B
+#define JOBS_HEADER_GUARD_NSOBJECT_USERNOTIFICATIONS_DB966D423B
+
 #import <Foundation/Foundation.h>
-#import <UserNotifications/UserNotifications.h>
-#import <UniformTypeIdentifiers/UTCoreTypes.h>
+#import <UserNotifications/UserNotifications.h> // 提供本地通知和远程通知处理能力，是现代通知框架的统一入口。
+#import <UniformTypeIdentifiers/UTCoreTypes.h>  // 用于识别文件/数据类型（例如：图片、视频、文本、PDF、URL 等系统标准类型）常用于文件选择、分享、拖拽、剪贴板、文档导入导出等场景
 #import "NSObject+UNUserNotificationCenterDelegate.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -43,3 +52,4 @@ NS_ASSUME_NONNULL_END
 /**
  调用方式：[self notificationCenter:nil addNotificationRequest:nil withIdentifier:nil];
  */
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_USERNOTIFICATIONS_DB966D423B */

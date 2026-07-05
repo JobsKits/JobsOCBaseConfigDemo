@@ -1,19 +1,24 @@
 //
-//  JobsAppDoor.h
-//  JobsOCBaseConfigDemo
+//  JobsAppDoorVC.h
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/12/3.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "NSObject+CurrentDevice.h"
-#import "BaseViewController.h"
-#import "JobsAppDoorContentView.h"
-#import "CustomZFPlayerControlView.h"
+#ifndef JOBS_HEADER_GUARD_JOBSAPPDOORVC_EB363B5645
+#define JOBS_HEADER_GUARD_JOBSAPPDOORVC_EB363B5645
+
+#import <UIKit/UIKit.h>
+#import "JobsAppDoorForgotCodeContentView.h"// 忘记密码
 #import "JobsAppDoorLogoContentView.h"
+#import "JobsAppDoorContentView.h"
 #import "JobsAppDoorConfig.h"
-#import "JobsAppDoorForgotCodeContentView.h"
-#import "JobsDefineProperty.h"
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
 
 #pragma mark —— ZFPlayer 播放器相关
 //Core
@@ -107,7 +112,28 @@
 #import "ZFVolumeBrightnessView.h"
 #endif
 
-#import "CustomZFPlayerControlView.h"
+#pragma mark —— By Jobs
+#import "ZFPlayerExtra.h"
+
+#import "JobsMakes.h"
+
+#import "JobsDeviceInfo.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
+
+#import "JobsModelDSL.h"
+
+#import "JobsFuseAnimation.h"
+
+#import "JobsOCCountryCodeCtrlHeader.h"
 
 NS_ASSUME_NONNULL_BEGIN
 #pragma mark —— 高仿蜜柚
@@ -118,3 +144,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSAPPDOORVC_EB363B5645 */

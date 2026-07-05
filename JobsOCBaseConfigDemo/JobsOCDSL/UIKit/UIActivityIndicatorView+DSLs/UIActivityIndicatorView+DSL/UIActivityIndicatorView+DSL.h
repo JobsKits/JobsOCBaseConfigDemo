@@ -1,14 +1,12 @@
 //
 //  UIActivityIndicatorView+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 #ifndef JOBS_HEADER_GUARD_UIACTIVITYINDICATORVIEW_DSL
 #define JOBS_HEADER_GUARD_UIACTIVITYINDICATORVIEW_DSL
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -10,11 +10,7 @@
 #import "JobsMakes.h"
 #import "JobsOCDSL.h"
 
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
 #import "JobsBlock.h"
-#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

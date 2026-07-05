@@ -1,12 +1,12 @@
 //
 //  UIView+SuspendView.m
-//  JobsOCBaseConfigDemo
+//  JobsSuspend
 //
-//  Created by Jobs on 2020/8/13.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIView+SuspendView.h"
+#import "UIView+Measure.h"
 
 @implementation UIView (SuspendView)
 #pragma mark —— @property(nonatomic,weak)UIViewController *vc;

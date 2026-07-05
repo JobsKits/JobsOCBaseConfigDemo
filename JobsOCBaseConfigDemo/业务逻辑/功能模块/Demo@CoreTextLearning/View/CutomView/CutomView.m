@@ -2,11 +2,10 @@
 //  CutomView.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by alan comb on 2021/4/2.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "CutomView.h"
-#import <CoreText/CoreText.h>
 
 static CGFloat ascentCallback(void* ref){
     return [(NSNumber*)[(__bridge NSDictionary*)ref valueForKey:@"height"] floatValue];

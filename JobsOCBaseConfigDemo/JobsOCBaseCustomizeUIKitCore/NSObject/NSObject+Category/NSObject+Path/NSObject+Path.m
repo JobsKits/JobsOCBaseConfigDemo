@@ -1,8 +1,8 @@
 //
 //  NSObject+Path.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Admin on 3/12/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+Path.h"
@@ -52,7 +52,7 @@
 }
 /// 获取沙盒中Libarary/Preferences的目录路径：
 -(NSString *_Nonnull)preferencesDir{
-    return NSString.libraryDir.addPathComponent(@"Preferences");
+    return self.libraryDir.addPathComponent(@"Preferences");
 }
 /// 获取沙盒中tmp的目录路径：供系统使用，程序员不要使用，因为随时会被销毁
 -(NSString *_Nonnull)tmpDir{

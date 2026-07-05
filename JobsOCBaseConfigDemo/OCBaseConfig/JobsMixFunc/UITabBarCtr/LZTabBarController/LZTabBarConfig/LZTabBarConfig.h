@@ -1,13 +1,18 @@
 //
 //  LZTabBarConfig.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs Hi on 2024/7/14.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_LZTABBARCONFIG_65E9C95039
+#define JOBS_HEADER_GUARD_LZTABBARCONFIG_65E9C95039
+
 #import <UIKit/UIKit.h>
+
 #import "JobsBlock.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -36,3 +41,4 @@ NS_INLINE __kindof LZTabBarConfig *_Nonnull jobsMakeLZTabBarConfig(jobsByLZTabBa
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_LZTABBARCONFIG_65E9C95039 */

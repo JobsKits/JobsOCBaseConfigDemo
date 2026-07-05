@@ -1,8 +1,8 @@
 //
 //  UITableView+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/4/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UITableView+Extra.h"
@@ -13,8 +13,8 @@
     @jobs_weakify(self)
     return ^__kindof UITableView *(id _Nonnull target) {
         @jobs_strongify(self)
-        self.byDelegate(target);
-        self.byDataSource(target);
+        self.byDelegate(target)
+            .byDataSource(target);
         return self;
     };
 }
@@ -149,7 +149,7 @@
     };
 }
 
--(JobsReturnTableViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader{
+-(JobsRetTableViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader{
     @jobs_weakify(self)
     return ^__kindof UITableView *_Nullable(__kindof MJRefreshHeader * _Nullable header){
         @jobs_strongify(self)
@@ -159,7 +159,7 @@
     };
 }
 
--(JobsReturnTableViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter{
+-(JobsRetTableViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter{
     @jobs_weakify(self)
     return ^__kindof UITableView *_Nullable(__kindof MJRefreshFooter * _Nullable header){
         @jobs_strongify(self)

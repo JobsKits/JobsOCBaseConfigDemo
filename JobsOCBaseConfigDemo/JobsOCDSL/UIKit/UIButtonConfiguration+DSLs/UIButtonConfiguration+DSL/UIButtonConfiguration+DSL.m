@@ -1,6 +1,6 @@
 //
 //  UIButtonConfiguration+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月9日，星期二.
 //
@@ -272,6 +272,15 @@
     return ^UIButtonConfiguration *_Nullable(CGFloat data){
         @jobs_strongify(self)
         self.titlePadding = data;
+        return self;
+    };
+}
+
+-(JobsRetBtnConfigByVoidBlock _Nonnull)bySetDefaultContentInsets{
+    @jobs_weakify(self)
+    return ^UIButtonConfiguration *_Nullable(void){
+        @jobs_strongify(self)
+        [self setDefaultContentInsets];
         return self;
     };
 }

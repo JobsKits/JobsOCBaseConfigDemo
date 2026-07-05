@@ -92,6 +92,17 @@
         };return self;
     };
 }
+
+-(JobsRetLabelByVoidBlock _Nonnull)labelAutoWidthByFont{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(void) {
+        @jobs_strongify(self)
+        CGFloat height = self.height;
+        [self sizeToFit];
+        if (height) self.height = height;
+        return self;
+    };
+}
 #pragma mark —— 系统方法链式语法封装
 -(JobsRetLabelByAttributedStringBlock _Nonnull)byAttributedString{
     @jobs_weakify(self)

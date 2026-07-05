@@ -1,6 +1,6 @@
 //
 //  YTKBaseRequest+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月4日，星期四.
 //
@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_YTKBASEREQUEST_DSL_B8E53EF6AA
 
 #import <Foundation/Foundation.h>
-#import "JobsBlock.h"
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
@@ -17,10 +16,11 @@
 #import "YTKNetwork.h"
 #endif
 
+#import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
 
 @interface YTKBaseRequest (DSL)
 

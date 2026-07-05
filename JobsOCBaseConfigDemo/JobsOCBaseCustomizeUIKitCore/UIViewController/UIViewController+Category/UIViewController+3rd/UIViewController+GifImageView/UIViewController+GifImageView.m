@@ -1,8 +1,8 @@
 //
 //  UIViewController+GifImageView.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/10/12.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIViewController+GifImageView.h"
@@ -17,11 +17,13 @@ JobsKey(_gifImageView)
         @jobs_weakify(self)
         GifImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = self.image;
-            [self.view addSubview:imageView];
-            [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.view);
-            }];Jobs_setAssociatedRETAIN_NONATOMIC(_gifImageView, GifImageView)
+            imageView
+                .byImage(self.image)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.view);
+                });
+Jobs_setAssociatedRETAIN_NONATOMIC(_gifImageView, GifImageView)
         });
     };return GifImageView;
 }

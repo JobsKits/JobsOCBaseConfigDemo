@@ -1,14 +1,15 @@
 //
 //  UIViewController+JPImageresizerView.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/10/12.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_JPIMAGERESIZERVIEW_8984F53BA6
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_JPIMAGERESIZERVIEW_8984F53BA6
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
-#import "JobsDefineProperty.h"
 
 #if __has_include(<JPImageresizerView/JPImageresizerView.h>)
 #import <JPImageresizerView/JPImageresizerView.h>
@@ -16,35 +17,9 @@
 #import "JPImageresizerView.h"
 #endif
 
-#ifndef JPIMAGERESIZER_CONFIGURE_TYPE_ENUM
-#define JPIMAGERESIZER_CONFIGURE_TYPE_ENUM
-typedef enum : NSInteger {
-    /// 默认配置裁剪图片/GIF（UIImage）
-    JPImageresizerConfigureType_1 = 0,
-    /// 默认配置裁剪图片/GIF（NSData）
-    JPImageresizerConfigureType_2,
-    /// 默认配置裁剪视频（NSURL）
-    JPImageresizerConfigureType_3,
-    /// 默认配置裁剪视频（AVURLAsset）
-    JPImageresizerConfigureType_4,
-    /// 浅色毛玻璃配置裁剪图片/GIF（UIImage）
-    JPImageresizerConfigureType_5,
-    /// 浅色毛玻璃配置裁剪图片/GIF（NSData）
-    JPImageresizerConfigureType_6,
-    /// 浅色毛玻璃配置裁剪视频（NSURL）
-    JPImageresizerConfigureType_7,
-    /// 浅色毛玻璃配置裁剪视频（AVURLAsset）
-    JPImageresizerConfigureType_8,
-    /// 深色毛玻璃配置裁剪图片/GIF（UIImage）
-    JPImageresizerConfigureType_9,
-    /// 深色毛玻璃配置裁剪图片/GIF（NSData）
-    JPImageresizerConfigureType_10,
-    /// 深色毛玻璃配置裁剪视频（NSURL）
-    JPImageresizerConfigureType_11,
-    /// 深色毛玻璃配置裁剪视频（AVURLAsset）
-    JPImageresizerConfigureType_12
-} JPImageresizerConfigureType;
-#endif /* JPIMAGERESIZER_CONFIGURE_TYPE_ENUM */
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -120,3 +95,4 @@ NS_ASSUME_NONNULL_END
 //        [self netWorking_MKUserInfoUploadImagePOST:finalImage];
 //    }];
 //}
+#endif /* JOBS_HEADER_GUARD_UIVIEWCONTROLLER_JPIMAGERESIZERVIEW_8984F53BA6 */

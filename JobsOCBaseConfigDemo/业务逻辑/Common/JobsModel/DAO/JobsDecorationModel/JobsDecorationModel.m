@@ -1,6 +1,6 @@
 //
 //  JobsDecorationModel.m
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -21,7 +21,7 @@
     };return _subTitle;
 }
 
--(JobsReturnDecorationModelByClsBlock _Nonnull)byCls{
+-(JobsRetDecorationModelByClsBlock _Nonnull)byCls{
     @jobs_weakify(self)
     return ^__kindof JobsDecorationModel * (Class _Nullable cls) {
         @jobs_strongify(self)
@@ -31,7 +31,7 @@
     };
 }
 
--(JobsReturnDecorationModelByStringBlock _Nonnull)byTitle{
+-(JobsRetDecorationModelByStringBlock _Nonnull)byTitle{
     @jobs_weakify(self)
     return ^__kindof JobsDecorationModel * (NSString * _Nullable title) {
         @jobs_strongify(self)
@@ -41,7 +41,7 @@
     };
 }
 
--(JobsReturnDecorationModelByStringBlock _Nonnull)bySubTitle{
+-(JobsRetDecorationModelByStringBlock _Nonnull)bySubTitle{
     @jobs_weakify(self)
     return ^__kindof JobsDecorationModel * (NSString * _Nullable subTitle) {
         @jobs_strongify(self)
@@ -51,7 +51,7 @@
     };
 }
 
--(JobsReturnDecorationModelByIDBlock _Nonnull)byRequestParams{
+-(JobsRetDecorationModelByIDBlock _Nonnull)byRequestParams{
     @jobs_weakify(self)
     return ^__kindof JobsDecorationModel * (id _Nullable requestParams) {
         @jobs_strongify(self)

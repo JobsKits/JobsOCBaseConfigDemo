@@ -99,10 +99,9 @@ Prop_copy()jobsByNSIntegerBlock selectBlock;
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
         self.items = @[];
-        self
-            .bySelectionStyle(UITableViewCellSelectionStyleNone)
-            .byBgColor(JobsClearColor);
-        self.contentView.byBgColor(JobsClearColor);
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.backgroundColor = JobsClearColor;
+        self.contentView.backgroundColor = JobsClearColor;
         [self setupSubviews];
         [self updateColors];
         [self setExpanded:NO
@@ -135,14 +134,14 @@ Prop_copy()jobsByNSIntegerBlock selectBlock;
 
 -(void)updateColors{
     if (@available(iOS 13.0, *)) {
-        self.cardView.byBgColor(UIColor.secondarySystemBackgroundColor);
-        self.titleLab.byTextCor(UIColor.labelColor);
-        self.subTitleLab.byTextCor(UIColor.secondaryLabelColor);
+        self.cardView.backgroundColor = UIColor.secondarySystemBackgroundColor;
+        self.titleLab.textColor = UIColor.labelColor;
+        self.subTitleLab.textColor = UIColor.secondaryLabelColor;
         self.chevronView.byTintColor(UIColor.secondaryLabelColor);
     }else{
-        self.cardView.byBgColor(RGBA_COLOR(255, 238, 221, 1));
-        self.titleLab.byTextCor(HEXCOLOR(0x3D4A58));
-        self.subTitleLab.byTextCor(HEXCOLOR(0x8A93A1));
+        self.cardView.backgroundColor = RGBA_COLOR(255, 238, 221, 1);
+        self.titleLab.textColor = HEXCOLOR(0x3D4A58);
+        self.subTitleLab.textColor = HEXCOLOR(0x8A93A1);
         self.chevronView.byTintColor(HEXCOLOR(0x8A93A1));
     }
 }
@@ -161,6 +160,10 @@ Prop_copy()jobsByNSIntegerBlock selectBlock;
     NSString *subText = viewModel.subTextModel.attributedTitle.string ?: viewModel.subTextModel.text ?: @"";
     if (subText.length) return subText;
     return viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
+}
+
+-(NSAttributedString *)subAttributedTextByViewModel:(UIViewModel *)viewModel{
+    return viewModel.subTextModel.attributedTitle;
 }
 
 -(void)configureWithSectionModel:(JobsOCDemoSectionModel *)sectionModel
@@ -188,14 +191,14 @@ Prop_copy()jobsByNSIntegerBlock selectBlock;
                              expanded ? @"已展开".tr : @"点击展开".tr];
     CGFloat targetHeight = expanded ? self.items.count * JobsOCRootFoldTableCell.innerRowHeight : 0;
     [_innerTableHeightConstraint setOffset:targetHeight];
-    if (expanded) self.detailClipView.byHidden(NO);
+    if (expanded) self.detailClipView.hidden = NO;
     void (^changes)(void) = ^{
-        self.detailClipView.byAlpha(expanded ? 1 : 0);
+        self.detailClipView.alpha = expanded ? 1 : 0;
         self.chevronView.transform = expanded ? CGAffineTransformMakeRotation(M_PI_2) : CGAffineTransformIdentity;
         [self.contentView layoutIfNeeded];
     };
     void (^completion)(BOOL) = ^(BOOL finished) {
-        if (!expanded) self.detailClipView.byHidden(YES);
+        if (!expanded) self.detailClipView.hidden = YES;
     };
     if (animated) {
         [UIView animateWithDuration:0.28
@@ -228,15 +231,21 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                                       reuseIdentifier:JobsOCRootFoldInnerCellReuseIdentifier];
     }
     UIViewModel *viewModel = self.items[indexPath.row];
+    NSAttributedString *subAttributedText = [self subAttributedTextByViewModel:viewModel];
     cell.textLabel.text = [self textByViewModel:viewModel];
-    cell.textLabel.byFont(UIFontWeightRegularSize(15));
-    cell.detailTextLabel.text = [self subTextByViewModel:viewModel];
-    cell.detailTextLabel.byFont(UIFontWeightRegularSize(11));
+    cell.textLabel.font = UIFontWeightRegularSize(15);
+    cell.detailTextLabel.font = UIFontWeightRegularSize(11);
+    if (subAttributedText.length) {
+        cell.detailTextLabel.text = nil;
+        cell.detailTextLabel.attributedText = subAttributedText;
+    }else{
+        cell.detailTextLabel.attributedText = nil;
+        cell.detailTextLabel.text = [self subTextByViewModel:viewModel];
+    }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell
-        .bySelectionStyle(UITableViewCellSelectionStyleDefault)
-        .byBgColor(JobsClearColor);
-    cell.contentView.byBgColor(JobsClearColor);
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    cell.backgroundColor = JobsClearColor;
+    cell.contentView.backgroundColor = JobsClearColor;
     return cell;
 }
 

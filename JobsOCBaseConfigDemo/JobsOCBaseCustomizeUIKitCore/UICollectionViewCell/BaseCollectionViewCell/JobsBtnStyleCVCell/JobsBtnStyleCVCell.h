@@ -16,6 +16,7 @@
 #import "UIViewModelProtocol.h"
 #import "NSObject+CallBackInfoByBlock.h"
 #import "UIViewModelOthersProtocol.h"
+#import "NSString+WKWebView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 只在BaseCollectionViewCell完整的盖一个Button

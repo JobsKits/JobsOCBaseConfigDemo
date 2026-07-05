@@ -1,14 +1,14 @@
 //
 //  XLChannelView.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by MengXianLiang on 2017/3/3.
-//  Copyright © 2017年 MengXianLiang. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "XLChannelView.h"
 #import "XLChannelItem.h"
 #import "XLChannelHeader.h"
+#import "JobsString.h"
 
 //菜单列数
 static NSInteger ColumnNumber = 4;
@@ -19,8 +19,11 @@ static CGFloat CellMarginY = 10.0f;
 @interface XLChannelView ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 Prop_strong()UICollectionView *collectionView;
+
 Prop_strong()XLChannelItem *dragingItem;
+
 Prop_strong()NSIndexPath *dragingIndexPath;
+
 Prop_strong()NSIndexPath *targetIndexPath;
 
 @end
@@ -34,7 +37,8 @@ Prop_strong()NSIndexPath *targetIndexPath;
 }
 
 -(void)buildUI{
-    self.backgroundColor = [UIColor whiteColor];
+    self.byBgColor([UIColor whiteColor]);
+
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     CGFloat cellWidth = (self.bounds.size.width - (ColumnNumber + 1) * CellMarginX)/ColumnNumber;
@@ -46,7 +50,8 @@ Prop_strong()NSIndexPath *targetIndexPath;
     
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
     self.collectionView.showsHorizontalScrollIndicator = false;
-    self.collectionView.backgroundColor = [UIColor clearColor];
+    self.collectionView.byBgColor([UIColor clearColor]);
+
     [self.collectionView registerClass:[XLChannelItem class] forCellWithReuseIdentifier:@"XLChannelItem"];
     [self.collectionView registerClass:[XLChannelHeader class]
         forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"XLChannelHeader"];
@@ -59,11 +64,12 @@ Prop_strong()NSIndexPath *targetIndexPath;
     [self.collectionView addGestureRecognizer:longPress];
     
     self.dragingItem = [[XLChannelItem alloc] initWithFrame:CGRectMake(0, 0, cellWidth, cellWidth/2.0f)];
-    self.dragingItem.hidden = true;
+    self.dragingItem.byHidden(true);
+
     [self.collectionView addSubview:self.dragingItem];
 }
 
-#pragma mark -
+#pragma mark ——
 #pragma mark LongPressMethod
 -(void)longPressMethod:(UILongPressGestureRecognizer*)gesture{
     CGPoint point = [gesture locationInView:self.collectionView];
@@ -85,20 +91,24 @@ Prop_strong()NSIndexPath *targetIndexPath;
 //拖拽开始 找到被拖拽的item
 -(void)dragBegin:(CGPoint)point{
     self.dragingIndexPath = [self getDragingIndexPathWithPoint:point];
-    if (!self.dragingIndexPath) {return;}
+    if (!self.dragingIndexPath) {return;
+}
     [self.collectionView bringSubviewToFront:self.dragingItem];
     XLChannelItem *item = (XLChannelItem*)[self.collectionView cellForItemAtIndexPath:self.dragingIndexPath];
     item.isMoving = true;
     //更新被拖拽的item
-    self.dragingItem.hidden = false;
-    self.dragingItem.frame = item.frame;
+    self.dragingItem.byHidden(false);
+
+    self.dragingItem.byFrame(item.frame);
+
     self.dragingItem.title = item.title;
     [self.dragingItem setTransform:CGAffineTransformMakeScale(1.1, 1.1)];
 }
 
 //正在被拖拽、、、
 -(void)dragChanged:(CGPoint)point{
-    if (!self.dragingIndexPath) {return;}
+    if (!self.dragingIndexPath) {return;
+}
     self.dragingItem.center = point;
     self.targetIndexPath = [self getTargetIndexPathWithPoint:point];
     //交换位置 如果没有找到self.targetIndexPath则不交换位置
@@ -113,29 +123,34 @@ Prop_strong()NSIndexPath *targetIndexPath;
 
 //拖拽结束
 -(void)dragEnd{
-    if (!self.dragingIndexPath) {return;}
+    if (!self.dragingIndexPath) {return;
+}
     CGRect endFrame = [self.collectionView cellForItemAtIndexPath:self.dragingIndexPath].frame;
     [self.dragingItem setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
     [UIView animateWithDuration:0.3 animations:^{
-        self.dragingItem.frame = endFrame;
+        self.dragingItem.byFrame(endFrame);
+
     }completion:^(BOOL finished) {
-        self.dragingItem.hidden = true;
+        self.dragingItem.byHidden(true);
+
         XLChannelItem *item = (XLChannelItem*)[self.collectionView cellForItemAtIndexPath:self.dragingIndexPath];
         item.isMoving = false;
     }];
 }
 
-#pragma mark -
+#pragma mark ——
 #pragma mark 辅助方法
 
 //获取被拖动IndexPath的方法
 -(NSIndexPath*)getDragingIndexPathWithPoint:(CGPoint)point{
     NSIndexPath* dragIndexPath = nil;
     //最后剩一个怎不可以排序
-    if ([self.collectionView numberOfItemsInSection:0] == 1) {return dragIndexPath;}
+    if ([self.collectionView numberOfItemsInSection:0] == 1) {return dragIndexPath;
+}
     for (NSIndexPath *indexPath in self.collectionView.indexPathsForVisibleItems) {
         //下半部分不需要排序
-        if (indexPath.section > 0) {continue;}
+        if (indexPath.section > 0) {continue;
+}
         //在上半部分中找出相对应的Item
         if (CGRectContainsPoint([self.collectionView cellForItemAtIndexPath:indexPath].frame, point)) {
             if (indexPath.row != 0) {
@@ -151,9 +166,11 @@ Prop_strong()NSIndexPath *targetIndexPath;
     NSIndexPath *targetIndexPath = nil;
     for (NSIndexPath *indexPath in self.collectionView.indexPathsForVisibleItems) {
         //如果是自己不需要排序
-        if ([indexPath isEqual:self.dragingIndexPath]) {continue;}
+        if ([indexPath isEqual:self.dragingIndexPath]) {continue;
+}
         //第二组不需要排序
-        if (indexPath.section > 0) {continue;}
+        if (indexPath.section > 0) {continue;
+}
         //在第一组中找出将被替换位置的Item
         if (CGRectContainsPoint([self.collectionView cellForItemAtIndexPath:indexPath].frame, point)) {
             if (indexPath.row != 0) {
@@ -163,7 +180,7 @@ Prop_strong()NSIndexPath *targetIndexPath;
     };return targetIndexPath;
 }
 
-#pragma mark -
+#pragma mark ——
 #pragma mark CollectionViewDelegate&DataSource
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -187,7 +204,6 @@ Prop_strong()NSIndexPath *targetIndexPath;
     };return headerView;
 }
 
-
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString* cellId = @"XLChannelItem";
@@ -201,9 +217,11 @@ Prop_strong()NSIndexPath *targetIndexPath;
 {
     if (indexPath.section == 0) {
         //只剩一个的时候不可删除
-        if ([self.collectionView numberOfItemsInSection:0] == 1) {return;}
+        if ([self.collectionView numberOfItemsInSection:0] == 1) {return;
+}
         //第一个不可删除
-        if (indexPath.row  == 0) {return;}
+        if (indexPath.row  == 0) {return;
+}
         id obj = [self.enabledTitles objectAtIndex:indexPath.row];
         [self.enabledTitles removeObject:obj];
         [self.disabledTitles insertObject:obj atIndex:0];
@@ -216,7 +234,7 @@ Prop_strong()NSIndexPath *targetIndexPath;
     }
 }
 
-#pragma mark -
+#pragma mark ——
 #pragma mark 刷新方法
 //拖拽排序后需要重新排序数据源
 -(void)rearrangeInUseTitles

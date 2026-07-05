@@ -1,9 +1,8 @@
 //
 //  LZTabBarController.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Artron_LQQ on 2016/12/12.
-//  Copyright © 2016年 Artup. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "LZTabBarController.h"
@@ -72,10 +71,12 @@ Prop_strong()LZTabBarConfig *config;
         [UIView animateWithDuration:0.2
                          animations:^{
             @jobs_strongify(self)
-            self.customTabBar.alpha = 0;
+            self.customTabBar.byAlpha(0);
+
         }];
     } else {
-        self.customTabBar.alpha = 0;
+        self.customTabBar.byAlpha(0);
+
     }
 }
 
@@ -84,10 +85,12 @@ Prop_strong()LZTabBarConfig *config;
         @jobs_weakify(self)
         [UIView animateWithDuration:0.2 animations:^{
             @jobs_strongify(self)
-            self.customTabBar.alpha = 1.0;
+            self.customTabBar.byAlpha(1.0);
+
         }];
     } else {
-        self.customTabBar.alpha = 1.0;
+        self.customTabBar.byAlpha(1.0);
+
     }
 }
 
@@ -117,7 +120,8 @@ Prop_strong()LZTabBarConfig *config;
         type = LZTabBarItemTypeDefault;
     }
     /// 隐藏掉系统的tabBar
-    self.tabBar.hidden = YES;
+    self.tabBar.byHidden(YES);
+
     self.customTabBar.items = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
         @jobs_strongify(self)
         for (int i = 0; i < self.config.viewControllers.count; i++) {

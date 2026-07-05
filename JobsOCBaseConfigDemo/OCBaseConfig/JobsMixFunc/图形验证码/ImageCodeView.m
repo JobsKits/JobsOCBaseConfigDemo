@@ -1,9 +1,8 @@
 //
 //  ImageCodeView.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Mac-Qke on 2019/7/9.
-//  Copyright © 2019 Mac-Qke. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "ImageCodeView.h"
@@ -33,7 +32,8 @@ Prop_copy()jobsByIDBlock imageCodeViewBlock;
 }
 ///设置默认参数
 -(void)setupUI{
-    self.backgroundColor = self.bgColor;
+    self.byBgColor(self.bgColor);
+
     self.addGesture([jobsMakeLongPressGesture(^(UILongPressGestureRecognizer * _Nullable gesture) {
         /// 这里写手势的配置
     }) gestureActionBy:^{
@@ -91,16 +91,15 @@ Prop_copy()jobsByIDBlock imageCodeViewBlock;
     _imageCodeViewBlock = imageCodeViewBlock;
 }
 
-#pragma mark —— CodeStr
 -(void)setCodeStr:(NSString *)CodeStr{
     _CodeStr = CodeStr;
     [self setNeedsDisplay];
 }
 
-#pragma mark —— bgColor
 -(void)setBgColor:(UIColor *)bgColor{
     _bgColor = bgColor;
-    self.backgroundColor = _bgColor;
+    self.byBgColor(_bgColor);
+
 }
 #pragma mark —— lazyLoad
 @synthesize CodeStr = _CodeStr;
@@ -113,8 +112,7 @@ Prop_copy()jobsByIDBlock imageCodeViewBlock;
 -(__kindof NSArray <NSString *>*)CodeArr{
     if (!_CodeArr) {
         _CodeArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
-            arr.add(@"0").add(@"1").add(@"2").add(@"3").add(@"4").add(@"5")
-                .add(@"6").add(@"7").add(@"8").add(@"9")
+            arr.add(@"0").add(@"1").add(@"2").add(@"3").add(@"4").add(@"5").add(@"6").add(@"7").add(@"8").add(@"9")
                 .add(@"A").add(@"B").add(@"C").add(@"D").add(@"E").add(@"F")
                 .add(@"G").add(@"H").add(@"I").add(@"J").add(@"K").add(@"L")
                 .add(@"M").add(@"N").add(@"O").add(@"P").add(@"Q").add(@"R")

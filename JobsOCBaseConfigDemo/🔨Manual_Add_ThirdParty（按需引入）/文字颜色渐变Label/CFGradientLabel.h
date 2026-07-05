@@ -1,14 +1,18 @@
 //
 //  CFGradientLabel.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/7/8.
-//  Copyright © 2020 Corp. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_CFGRADIENTLABEL_691BCFECFD
+#define JOBS_HEADER_GUARD_CFGRADIENTLABEL_691BCFECFD
+
 #import <UIKit/UIKit.h>
+
 #import "JobsBlock.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,15 +29,14 @@ NS_INLINE __kindof CFGradientLabel *_Nonnull jobsMakeCFGradientLabel(jobsByCFGra
     if (block) block(data);
     return data;
 }
-
 /*
- * 使用示例
+     使用示例
 
- jobsMakeCFGradientLabel(^(__kindof CFGradientLabel * _Nullable label) {
-     label.colors = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
-         arr.add((id)HEXCOLOR(0xF78361).CGColor)
-             .add((id)HEXCOLOR(0xF54B64).CGColor);
+     jobsMakeCFGradientLabel(^(__kindof CFGradientLabel * _Nullable label) {
+         label.colors = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
+             arr.add((id)HEXCOLOR(0xF78361).CGColor)
+                 .add((id)HEXCOLOR(0xF54B64).CGColor);
+         });
      });
- });
-
 */
+#endif /* JOBS_HEADER_GUARD_CFGRADIENTLABEL_691BCFECFD */

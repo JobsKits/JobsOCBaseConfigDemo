@@ -1,6 +1,6 @@
 //
 //  UITableViewCellProtocol.h
-//  JobsOCBaseConfigDemo
+//  JobsOCProtocols
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -9,8 +9,11 @@
 #define JOBS_HEADER_GUARD_UITABLEVIEWCELLPROTOCOL_D527D165A4
 
 #import <UIKit/UIKit.h>
+
 #import "BaseCellProtocol.h"
+
 #import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -57,12 +60,16 @@ Prop_assign()CGFloat imageViewFrameOffsetHeight;/// 负值缩小，正值放大
 /// 资料来源：https://www.jianshu.com/p/62ac18f8cf69
 /// 具体子类实现
 /// UITableViewCellStyleDefault ：左边有一个显示图片的imageView和一个标题textLabel。
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView;
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView;
 /// UITableViewCellStyleValue1 = 左边：imageView＋textLabel；右边：detailTextLabel
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView;
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView;
 /// UITableViewCellStyleValue2 = 左边：textLabel字体偏小；右边：detailTextLabel。imageView可选（显示在最左边）
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2ByTableView;
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2WithTableView;
 /// UITableViewCellStyleSubtitle = 左边：textLabel字体偏小；右边：detailTextLabel。imageView可选（显示在最左边）
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleByTableView;
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleWithTableView;
 #pragma mark —— 设置UITableViewCell
 -(JobsRetTableViewCellByImageBlock _Nonnull)byImageViewData;
@@ -70,6 +77,7 @@ Prop_assign()CGFloat imageViewFrameOffsetHeight;/// 负值缩小，正值放大
 -(JobsRetTableViewCellByCorBlock _Nonnull)byDetailTextLabelCor;
 -(JobsRetTableViewCellByFontBlock _Nonnull)byTextLabelFont;
 -(JobsRetTableViewCellByFontBlock _Nonnull)byDetailTextLabellFont;
+-(JobsRetTableViewCellBySelectionStyleBlock _Nonnull)bySelectionStyle;
 -(JobsRetTableViewCellByAccessoryTypeBlock _Nonnull)byAccessoryType;
 -(JobsRetTableViewCellByIndexPathBlock _Nonnull)byIndexPath;
 -(JobsRetTableViewCellByIndexBlock _Nonnull)byIndex;

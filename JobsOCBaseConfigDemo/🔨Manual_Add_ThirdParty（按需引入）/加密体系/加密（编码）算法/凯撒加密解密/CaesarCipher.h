@@ -1,12 +1,16 @@
 //
 //  CaesarCipher.h
-//  JobsOCBaseConfigDemo
+//  JobsCryptography
 //
-//  Created by Jobs on 2020/9/14.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_CAESARCIPHER_609E436E8D
+#define JOBS_HEADER_GUARD_CAESARCIPHER_609E436E8D
+
 #import <Foundation/Foundation.h>
+
+#import "JobsLanMgr.h"
 
 /// 凯撒加密
 NS_INLINE NSString *caesardDecode(NSString *string){
@@ -40,3 +44,4 @@ NS_INLINE NSString *caesarEncrypt(NSString *encodeStr){
     return decodeStr;
 }
 
+#endif /* JOBS_HEADER_GUARD_CAESARCIPHER_609E436E8D */

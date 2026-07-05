@@ -1,19 +1,32 @@
 //
 //  SlideToUnlockView.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 11/29/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_SLIDETOUNLOCKVIEW_13A574E09E
+#define JOBS_HEADER_GUARD_SLIDETOUNLOCKVIEW_13A574E09E
+
 #import <UIKit/UIKit.h>
-#import "JobsDefineProperty.h"
-#import "JobsBlock.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#import "JobsMakes.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -35,3 +48,4 @@ jobsMakeSlideToUnlockView(jobsBySlideToUnlockViewBlock _Nonnull block){
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_SLIDETOUNLOCKVIEW_13A574E09E */

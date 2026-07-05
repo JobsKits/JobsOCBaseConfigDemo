@@ -1,11 +1,19 @@
 //
 //  NSString+Eomji.h
-//  JobsOCBaseConfigDemo
+//  JobsCustomView
 //
-//  Created by Jobs on 2021/11/30.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <Foundation/Foundation.h>
+#ifndef JOBS_HEADER_GUARD_NSSTRING_EOMJI_B161990141
+#define JOBS_HEADER_GUARD_NSSTRING_EOMJI_B161990141
+
+#import <UIKit/UIKit.h>
+#import "NSString+Conversion.h"
+
+#import "JobsStringUtilsHeader.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,3 +40,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSSTRING_EOMJI_B161990141 */

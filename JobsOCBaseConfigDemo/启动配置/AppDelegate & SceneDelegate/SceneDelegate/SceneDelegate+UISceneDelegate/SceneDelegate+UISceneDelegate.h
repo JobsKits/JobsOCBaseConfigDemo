@@ -2,14 +2,20 @@
 //  SceneDelegate+UISceneDelegate.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2021/12/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "SceneDelegate.h"
-#import "MacroDef_Func.h"
 #import "AppDelegate.h"
 #import "AppDelegate+Func.h"
 #import "AppDelegate+TabBarCtr.h"
+#import "MyAppTools.h"
+
+#import "JobsOCDSL.h"
+
+#import "JobsAppToolsHeader.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

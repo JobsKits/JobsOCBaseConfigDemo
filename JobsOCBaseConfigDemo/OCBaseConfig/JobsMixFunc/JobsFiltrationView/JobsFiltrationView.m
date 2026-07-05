@@ -1,11 +1,13 @@
 //
 //  JobsFiltrationView.m
-//  JobsOCBaseConfigDemo
+//  JobsFiltrationView
 //
-//  Created by Jobs on 2022/5/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsFiltrationView.h"
+#import "NSMutableArray+Extra.h"
+#import "UIView+Extra.h"
 
 @interface JobsFiltrationView ()
 /// UI
@@ -33,19 +35,22 @@ static dispatch_once_t static_filtrationViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+
     };return self;
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+
     };return self;
 }
 
@@ -64,7 +69,8 @@ static dispatch_once_t static_filtrationViewOnceToken;
         @jobs_strongify(self)
         self.viewModel = model;
         MakeDataNull
-        self.hotLabel.alpha = 1;
+        self.hotLabel.byAlpha(1);
+
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -79,13 +85,13 @@ static dispatch_once_t static_filtrationViewOnceToken;
         _hotLabel = JobsHotLabelByMultiLine.JobsRichViewByModel(jobsMakeViewModel(^(JobsHotLabelWithMultiLineModel * _Nullable data) {
             data.bgCor = HEXCOLOR(0xFDFCF9);
             data.footerViewModel = jobsMakeViewModel(^(JobsHeaderFooterViewModel * _Nullable data) {
-                data.useFooterView = NO;
-                data.textModel.text = @"查看详情".tr;
-                data.textModel.textAlignment = NSTextAlignmentLeft;
-                data.textModel.textCor = HEXCOLOR(0x3D4A58);
-                data.textModel.font = UIFontWeightBoldSize(14);
-                data.bgCor = HEXCOLOR(0xFDFCF9);
-                data.jobsSize = CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(20));
+                data.byUseFooterView(NO);
+                data.textModel.byText(@"查看详情".tr)
+                              .byTextAlignment(NSTextAlignmentLeft)
+                              .byTextCor(HEXCOLOR(0x3D4A58))
+                              .byFont(UIFontWeightBoldSize(14));
+                data.byBgCor(HEXCOLOR(0xFDFCF9))
+                    .byJobsSize(CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(20)));
             });
             data.viewModels = jobsMakeMutArr(^(__kindof NSMutableArray<NSString *> * _Nullable data) {
                 for (NSString *str in jobsMakeMutArr(^(__kindof NSMutableArray<NSString *> * _Nullable arr) {
@@ -99,34 +105,32 @@ static dispatch_once_t static_filtrationViewOnceToken;
                     .add(@"其他".tr);
                 })) {
                     data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable vm) {
-                        vm.textModel.text = str;
-                        vm.textModel.font = UIFontWeightRegularSize(12);
-                        vm.textModel.textCor = HEXCOLOR(0x757575);
-                        vm.bgCor = HEXCOLOR(0xF3F3F3);
-                        vm.jobsSize = CGSizeMake(JobsWidth(80), JobsWidth(30));
+                        vm.textModel.byText(str)
+                                    .byFont(UIFontWeightRegularSize(12))
+                                    .byTextCor(HEXCOLOR(0x757575));
+                        vm.byBgCor(HEXCOLOR(0xF3F3F3))
+                          .byJobsSize(CGSizeMake(JobsWidth(80), JobsWidth(30)));
                     }));
                 }
             });
             data.headerViewModel = jobsMakeViewModel(^(JobsHeaderFooterViewModel * _Nullable data) {
-                data.useHeaderView = YES;
-                data.textModel.text = @"交易类型".tr;
-                data.textModel.textCor = HEXCOLOR(0x3D4A58);
-                data.textModel.font = UIFontWeightBoldSize(14);
-                data.textModel.textAlignment = NSTextAlignmentLeft;
-                data.bgCor = HEXCOLOR(0xFDFCF9);
-                data.jobsSize = CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(20));
+                data.byUseHeaderView(YES);
+                data.textModel.byText(@"交易类型".tr)
+                              .byTextCor(HEXCOLOR(0x3D4A58))
+                              .byFont(UIFontWeightBoldSize(14))
+                              .byTextAlignment(NSTextAlignmentLeft);
+                data.byBgCor(HEXCOLOR(0xFDFCF9))
+                    .byJobsSize(CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(20)));
             });
         }))
-        .JobsBlock1(^(id _Nullable data) {
+        .JobsBlock1(^(id _Nullable data) {;
             
         });
 
-        [self.addSubview(_hotLabel) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _hotLabel.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
-        }];
+        });
     };return _hotLabel;
 }
 
 @end
-
-

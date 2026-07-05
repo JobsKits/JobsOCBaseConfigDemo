@@ -1,6 +1,6 @@
 //
 //  JobsDefineSysEnums.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDefs
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -55,7 +55,10 @@ typedef NS_ENUM(NSInteger, JobsDirectionType) {
     JobsDirectionDown,      // 文字方向朝下
     JobsDirectionRight      // 文字方向朝右
 };
+#ifndef JobsDirection_h
+#define JobsDirection_h
 typedef JobsDirectionType JobsDirection;
+#endif /* JobsDirection_h */
 #endif /* JobsDirectionType_h */
 /// 系统相关@Label的表现方式
 #ifndef JobsLabelDef_h
@@ -144,12 +147,6 @@ typedef NS_ENUM(NSUInteger, iPhScrPxType) {
     iPhScrPxType_17Pro,            // 屏幕分辨率(px) = 1206 × 2622
     iPhScrPxType_17ProMax          // 屏幕分辨率(px) = 1320 × 2868
 };
-#ifndef iPhScrPxType_6_6S_7_8_SE2
-#define iPhScrPxType_6_6S_7_8_SE2 iPhScrPxType_6_6S_7_8_SE2_SE3
-#endif
-#ifndef iPhScrPxType_Xr_11
-#define iPhScrPxType_Xr_11 iPhScrPxType_XR_11
-#endif
 #endif /* iPhScrPxType_h */
 /// 系统相关@文件类型
 #ifndef FILE_TYPE_ENUM_DEFINED

@@ -1,13 +1,11 @@
 //
 //  TBCityIconFont.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by John Wong on 10/12/14.
-//  Copyright (c) 2014 Taodiandian. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "TBCityIconFont.h"
-#import <CoreText/CoreText.h>
 
 @implementation TBCityIconFont
 
@@ -36,7 +34,6 @@ static NSString *_fontName;
     _fontName = fontName;
     
 }
-
 
 + (NSString *)fontName {
     return _fontName ? : @"iconfont";

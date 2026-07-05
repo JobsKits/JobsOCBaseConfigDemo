@@ -35,10 +35,12 @@ typedef BRTextPickerMode BRStringPickerMode;
 
 NS_ASSUME_NONNULL_BEGIN
 
+#ifndef BRStringPickerView
 @interface BRStringPickerView (Extra)
 
 +(JobsReturnBRStringPickerViewByPickerModeBlock _Nonnull)initBy;
 
 @end
+#endif
 
 NS_ASSUME_NONNULL_END

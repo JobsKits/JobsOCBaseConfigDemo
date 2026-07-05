@@ -1,17 +1,23 @@
 //
 //  JobsKeychainHelper.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Qixin on 14/12/18.
-//  Copyright (c) 2014年 Qixin. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <Security/Security.h>
+#ifndef JOBS_HEADER_GUARD_JOBSKEYCHAINHELPER_31B5174A44
+#define JOBS_HEADER_GUARD_JOBSKEYCHAINHELPER_31B5174A44
+
+#import <Security/Security.h> // 该框架提供了与应用程序的安全性相关的功能（加密、密钥管理、证书和身份验证）
 #import <UIKit/UIKit.h>
+
+#import "JobsStringUtilsHeader.h"
+
+#import "JobsMakes.h"
+
 #import "JobsBlock.h"
-#import "MacroDef_SysWarning.h"
-#import "MacroDef_Sys.h"
-#import "NSMutableDictionary+Extra.h"
+
+#import "JobsDefines.h"
 
 /// 钥匙串（Keychain） 支持存储的类型不仅限于字符串，可以存储任意类型的二进制数据（NSData）
 /// 因此只要你的数据可以序列化为 NSData，理论上就可以存储在钥匙串中。
@@ -38,3 +44,4 @@
 +(JobsRetBOOLByStrBlock _Nonnull)deleteAccountInfoByService;
 
 @end
+#endif /* JOBS_HEADER_GUARD_JOBSKEYCHAINHELPER_31B5174A44 */

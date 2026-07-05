@@ -1,8 +1,8 @@
 //
 //  JobsCollectionViewCell.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef JobsCollectionViewCell_h
@@ -12,16 +12,5 @@
 #import "UICollectionViewCell+ShakeAnimation.h"
 #import "UICollectionViewCell+UICollectionViewCellProtocol.h"
 #import "UICollectionViewCell+BaseViewProtocol.h"
-
-#pragma mark —— Base
-#import "BaseCollectionViewCell.h"
-#import "JobsBaseCollectionViewCell.h"
-#import "JobsBtnStyleCVCell.h"
-#import "JobsBtnsStyleCVCell.h"
-#import "JobsImageViewStyleCVCell.h"
-#import "JobsTextFieldStyleCVCell.h"
-#import "JobsTextViewStyleCVCell.h"
-#import "JobsTextLabStyleCVCell.h"
-#import "JobsBtnTextViewStyleCVCell.h"
 
 #endif /* JobsCollectionViewCell_h */

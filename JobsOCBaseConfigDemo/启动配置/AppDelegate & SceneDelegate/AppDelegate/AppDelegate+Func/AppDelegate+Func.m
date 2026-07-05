@@ -2,10 +2,17 @@
 //  AppDelegate+Func.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/10/11.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "AppDelegate+Func.h"
+
+static NSString *const JobsOCSplashEnabledUserDefaultsKey = @"com.BSports.JobsOCSplashEnabledUserDefaultsKey";
+
+static BOOL JobsOCSplashEnabled(void) {
+    id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCSplashEnabledUserDefaultsKey];
+    return value ? [value boolValue] : YES;
+}
 
 @implementation AppDelegate (Func)
 #pragma mark —— 启动调用功能
@@ -36,9 +43,9 @@
 #endif
         self.makeJobsNavBarConfig();/// 全局配置 JobsNavBarConfig
         self.makeTABAnimatedConfig();/// 全局配置 TABAnimated
-        self.makeIQKeyboardManagerConfig();/// 全局配置键盘
+        self.makeJobsOCKeyboardMgrConfig();/// 全局配置键盘
         self.makeGKNavigationBarConfig();/// 自定义导航栏
-//        self.makeJobsLaunchAdConfig();/// 开屏广告
+        if (JobsOCSplashEnabled()) self.makeJobsLaunchAdConfig();/// 开屏广告
         self.makeReachabilityConfig();/// 网络环境监测
         self.YTKNetworkConfig();/// YTK网络框架的配置
         self.KTVHTTP();/// KTVHTTPCache
@@ -47,69 +54,30 @@
 #pragma mark —— 开屏广告
 -(jobsByVoidBlock _Nonnull)makeJobsLaunchAdConfig{
     return ^() {
-        // 配置并展示开屏广告
-//        {
-//            JobsLaunchAdMgr *adManager = [JobsLaunchAdMgr sharedManager];
-//                adManager.adURL = [NSURL URLWithString:@"https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/feature/iphone-x-feature-tpl-cc-us-20170912_1280x720h.mp4"]; // Replace with your ad URL
-//                adManager.imageDisplayDuration = 5.0; // Duration to display the image
-//                adManager.adMode = JobsLaunchAdModeNormal; // Choose the ad mode
-//                adManager.buttonTitle = @"Skip";
-//                adManager.buttonFrame = CGRectMake([UIScreen mainScreen].bounds.size.width - 60, 20, 50, 30);
-//
-//                // Set up callbacks if needed
-//                adManager.singleTapCallback = ^{
-//                    // Handle single tap
-//                    JobsLog(@"Ad single tapped");
-//                };
-//
-//                adManager.doubleTapCallback = ^{
-//                    // Handle double tap
-//                    JobsLog(@"Ad double tapped");
-//                };
-//
-//                adManager.shakeCallback = ^{
-//                    // Handle shake gesture
-//                    JobsLog(@"Device shaken");
-//                };
-//
-//                // Show the ad
-//                [adManager showAd];
-//        }
-//        {
-//            JobsLaunchAdMgr *adManager = JobsLaunchAdMgr.sharedManager;
-//            adManager.buttonTitle = @"跳过广告".tr;
-//            adManager.buttonModel = SkipButtonModeCountdown;
-//            adManager.countdownDuration = 5;
-//            adManager.redirectURL = @"https://www.google.com";
-//            adManager.onSingleTap = ^{
-//                JobsLog(@"用户单击了广告");
-//            };
-//            adManager.onDoubleTap = ^{
-//                JobsLog(@"用户双击了广告");
-//            };
-//            adManager.onLongPress = ^{
-//                JobsLog(@"用户长按了广告");
-//            };
-//            adManager.onShake = ^{
-//                JobsLog(@"用户摇晃了设备");
-//            };
-//            
-//            // 本地图片资源示例
-////            NSString *localImagePath = @"1242x2688.png".pathForResourceWithFullName;
-////            [adManager showAdWithLocalResource:localImagePath isVideo:NO];
-//            
-//            // 本地视频资源示例
-//    //         NSString *localVideoPath = @"welcome_video.mp4".pathForResourceWithFullName
-//    //         [adManager showAdWithLocalResource:localVideoPath isVideo:YES];
-//            
-//            // URL图片资源示例
-//    //         [adManager showAdWithURLResource:@"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80_%D0%9F%D1%83%D1%82%D0%B8%D0%BD_%2808-03-2024%29_%28cropped%29.jpg/220px-%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80_%D0%9F%D1%83%D1%82%D0%B8%D0%BD_%2808-03-2024%29_%28cropped%29.jpg" isVideo:NO shouldPreload:YES];
-//            
-//            // URL视频资源示例
-//             [adManager showAdWithURLResource:@"https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/feature/iphone-x-feature-tpl-cc-us-20170912_1280x720h.mp4"
-//                                      isVideo:YES
-//                                shouldPreload:YES];
-//        }
+        __block NSInteger retryCount = 0;
+        __block jobsByVoidBlock showSplash = nil;
+        showSplash = ^{
+            UIWindow *window = jobsGetMainWindow();
+            UIViewController *hostViewController = window.rootViewController;
+            if (!hostViewController) {
+                if (retryCount++ < 10) {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
+                                   dispatch_get_main_queue(),
+                                   showSplash);
+                };return;
+            }
+
+            JobsOCSplashConfiguration *configuration = [JobsOCSplashConfiguration localImage:@"1242x2688.png"];
+            configuration
+                .byCountdownSeconds(@8)
+                .bySkipButtonVisible(YES)
+                .byTapAction(JobsOCSplashAction.none)
+                .byShakeAction(JobsOCSplashAction.none);
+            [JobsOCSplashPresenter showOver:hostViewController
+                              configuration:configuration];
+            showSplash = nil;
+        };
+        dispatch_async(dispatch_get_main_queue(), showSplash);
     };
 }
 #pragma mark —— YTKNetworkConfig
@@ -154,8 +122,8 @@
     return ^(){
         @jobs_strongify(self)
         self.saveUserInfo(jobsMakeUserModel(^(__kindof JobsUserModel<NSCoding> * _Nullable userModel) {
-            userModel.token = @"12345";
-            userModel.uid = @"54321";
+            userModel.byToken(@"12345")
+                     .byUid(@"54321");
         }));
 //        JobsUserModel *f = self.readUserInfo;
 //        JobsLog(@"");
@@ -201,6 +169,12 @@
     };
 }
 #pragma mark —— 全局配置键盘
+-(jobsByVoidBlock _Nonnull)makeJobsOCKeyboardMgrConfig{
+    return ^(){
+        JobsOCKeyboardMgr.shared.start();
+    };
+}
+
 -(jobsByVoidBlock _Nonnull)makeIQKeyboardManagerConfig{
     return ^(){
         jobsMakeIQKeyboardManager(^(__kindof IQKeyboardManager * _Nullable manager) {
@@ -220,7 +194,7 @@
     return ^(){
         [GKConfigure setupCustomConfigure:^(GKNavigationBarConfigure * _Nonnull configure) {
             // 导航栏背景色
-            configure.backgroundColor = JobsClearColor;
+            configure.byBackgroundColor(JobsClearColor);
             // 导航栏标题颜色
             configure.titleColor = HEXCOLOR(0x3D4A58);
             // 导航栏标题字体

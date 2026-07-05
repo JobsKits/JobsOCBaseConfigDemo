@@ -1,6 +1,6 @@
 //
 //  MacroDef_Sys.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDefs
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -60,13 +60,13 @@
 #ifndef Jobs_getAssociatedObject
 #define Jobs_getAssociatedObject(key) objc_getAssociatedObject(self, &key)
 #endif /* Jobs_getAssociatedObject */
-/// Get by raw key pointer
-#ifndef Jobs_getAssociatedObjectByRawKey
-#define Jobs_getAssociatedObjectByRawKey(key) objc_getAssociatedObject(self, key)
-#endif /* Jobs_getAssociatedObjectByRawKey */
-/// Get by target and raw key pointer
+/// Get by target
+#ifndef Jobs_getAssociatedObjectByTarget
+#define Jobs_getAssociatedObjectByTarget(Target, key) objc_getAssociatedObject((Target), &(key))
+#endif /* Jobs_getAssociatedObjectByTarget */
+/// Get by target raw key
 #ifndef Jobs_getAssociatedObjectByTargetRawKey
-#define Jobs_getAssociatedObjectByTargetRawKey(target, key) objc_getAssociatedObject((target), (key))
+#define Jobs_getAssociatedObjectByTargetRawKey(Target, key) objc_getAssociatedObject((Target), (key))
 #endif /* Jobs_getAssociatedObjectByTargetRawKey */
 /// Set
 #ifndef Jobs_setAssociatedASSIGN /// 封装成对象（NSNumber *）进行存储
@@ -76,6 +76,20 @@
                              (Object), \
                              OBJC_ASSOCIATION_ASSIGN);
 #endif /* Jobs_setAssociatedASSIGN */
+#ifndef Jobs_setAssociatedASSIGNByTarget /// 封装成对象（NSNumber *）进行存储
+#define Jobs_setAssociatedASSIGNByTarget(Target, key, Object) \
+    objc_setAssociatedObject((Target), \
+                             &(key), \
+                             (Object), \
+                             OBJC_ASSOCIATION_ASSIGN);
+#endif /* Jobs_setAssociatedASSIGNByTarget */
+#ifndef Jobs_setAssociatedASSIGNByTargetRawKey /// 封装成对象（NSNumber *）进行存储
+#define Jobs_setAssociatedASSIGNByTargetRawKey(Target, key, Object) \
+    objc_setAssociatedObject((Target), \
+                             (key), \
+                             (Object), \
+                             OBJC_ASSOCIATION_ASSIGN);
+#endif /* Jobs_setAssociatedASSIGNByTargetRawKey */
 #ifndef Jobs_setAssociatedRETAIN_NONATOMIC /// 适用于被 strong 和 retain 修饰的属性
 #define Jobs_setAssociatedRETAIN_NONATOMIC(key, Object) \
     objc_setAssociatedObject(self, \
@@ -83,6 +97,20 @@
                              (Object), \
                              OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 #endif /* Jobs_setAssociatedRETAIN_NONATOMIC */
+#ifndef Jobs_setAssociatedRETAIN_NONATOMICByTarget /// 适用于被 strong 和 retain 修饰的属性
+#define Jobs_setAssociatedRETAIN_NONATOMICByTarget(Target, key, Object) \
+    objc_setAssociatedObject((Target), \
+                             &(key), \
+                             (Object), \
+                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+#endif /* Jobs_setAssociatedRETAIN_NONATOMICByTarget */
+#ifndef Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey /// 适用于被 strong 和 retain 修饰的属性
+#define Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey(Target, key, Object) \
+    objc_setAssociatedObject((Target), \
+                             (key), \
+                             (Object), \
+                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+#endif /* Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey */
 #ifndef Jobs_setAssociatedRETAIN /// 适用于被 strong 和 retain 修饰的属性
 #define Jobs_setAssociatedRETAIN(key, Object) \
     objc_setAssociatedObject(self, \
@@ -90,6 +118,20 @@
                              (Object), \
                              OBJC_ASSOCIATION_RETAIN);
 #endif /* Jobs_setAssociatedRETAIN */
+#ifndef Jobs_setAssociatedRETAINByTarget /// 适用于被 strong 和 retain 修饰的属性
+#define Jobs_setAssociatedRETAINByTarget(Target, key, Object) \
+    objc_setAssociatedObject((Target), \
+                             &(key), \
+                             (Object), \
+                             OBJC_ASSOCIATION_RETAIN);
+#endif /* Jobs_setAssociatedRETAINByTarget */
+#ifndef Jobs_setAssociatedRETAINByTargetRawKey /// 适用于被 strong 和 retain 修饰的属性
+#define Jobs_setAssociatedRETAINByTargetRawKey(Target, key, Object) \
+    objc_setAssociatedObject((Target), \
+                             (key), \
+                             (Object), \
+                             OBJC_ASSOCIATION_RETAIN);
+#endif /* Jobs_setAssociatedRETAINByTargetRawKey */
 #ifndef Jobs_setAssociatedCOPY_NONATOMIC
 #define Jobs_setAssociatedCOPY_NONATOMIC(key, Object) \
     objc_setAssociatedObject(self, \
@@ -97,6 +139,20 @@
                              (Object), \
                              OBJC_ASSOCIATION_COPY_NONATOMIC);
 #endif /* Jobs_setAssociatedCOPY_NONATOMIC */
+#ifndef Jobs_setAssociatedCOPY_NONATOMICByTarget
+#define Jobs_setAssociatedCOPY_NONATOMICByTarget(Target, key, Object) \
+    objc_setAssociatedObject((Target), \
+                             &(key), \
+                             (Object), \
+                             OBJC_ASSOCIATION_COPY_NONATOMIC);
+#endif /* Jobs_setAssociatedCOPY_NONATOMICByTarget */
+#ifndef Jobs_setAssociatedCOPY_NONATOMICByTargetRawKey
+#define Jobs_setAssociatedCOPY_NONATOMICByTargetRawKey(Target, key, Object) \
+    objc_setAssociatedObject((Target), \
+                             (key), \
+                             (Object), \
+                             OBJC_ASSOCIATION_COPY_NONATOMIC);
+#endif /* Jobs_setAssociatedCOPY_NONATOMICByTargetRawKey */
 #ifndef Jobs_setAssociatedCOPY
 #define Jobs_setAssociatedCOPY(key, Object) \
     objc_setAssociatedObject(self, \
@@ -104,38 +160,16 @@
                              (Object), \
                              OBJC_ASSOCIATION_COPY);
 #endif /* Jobs_setAssociatedCOPY */
-/// Set by target and raw key pointer
-#ifndef Jobs_setAssociatedASSIGNByTargetRawKey /// 封装成对象（NSNumber *）进行存储
-#define Jobs_setAssociatedASSIGNByTargetRawKey(target, key, Object) \
-    objc_setAssociatedObject((target), \
-                             (key), \
+#ifndef Jobs_setAssociatedCOPYByTarget
+#define Jobs_setAssociatedCOPYByTarget(Target, key, Object) \
+    objc_setAssociatedObject((Target), \
+                             &(key), \
                              (Object), \
-                             OBJC_ASSOCIATION_ASSIGN);
-#endif /* Jobs_setAssociatedASSIGNByTargetRawKey */
-#ifndef Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey /// 适用于被 strong 和 retain 修饰的属性
-#define Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey(target, key, Object) \
-    objc_setAssociatedObject((target), \
-                             (key), \
-                             (Object), \
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-#endif /* Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey */
-#ifndef Jobs_setAssociatedRETAINByTargetRawKey /// 适用于被 strong 和 retain 修饰的属性
-#define Jobs_setAssociatedRETAINByTargetRawKey(target, key, Object) \
-    objc_setAssociatedObject((target), \
-                             (key), \
-                             (Object), \
-                             OBJC_ASSOCIATION_RETAIN);
-#endif /* Jobs_setAssociatedRETAINByTargetRawKey */
-#ifndef Jobs_setAssociatedCOPY_NONATOMICByTargetRawKey
-#define Jobs_setAssociatedCOPY_NONATOMICByTargetRawKey(target, key, Object) \
-    objc_setAssociatedObject((target), \
-                             (key), \
-                             (Object), \
-                             OBJC_ASSOCIATION_COPY_NONATOMIC);
-#endif /* Jobs_setAssociatedCOPY_NONATOMICByTargetRawKey */
+                             OBJC_ASSOCIATION_COPY);
+#endif /* Jobs_setAssociatedCOPYByTarget */
 #ifndef Jobs_setAssociatedCOPYByTargetRawKey
-#define Jobs_setAssociatedCOPYByTargetRawKey(target, key, Object) \
-    objc_setAssociatedObject((target), \
+#define Jobs_setAssociatedCOPYByTargetRawKey(Target, key, Object) \
+    objc_setAssociatedObject((Target), \
                              (key), \
                              (Object), \
                              OBJC_ASSOCIATION_COPY);
@@ -517,7 +551,7 @@ static void * _##varName = &_##varName; \
 -(void)set##VarName:(CGPoint)varName{ \
     objc_setAssociatedObject(self, \
                              &_##varName,\
-                             NSValue.byPoint(varName), \
+                             [NSValue valueWithCGPoint:varName], \
                              OBJC_ASSOCIATION_RETAIN_NONATOMIC); \
 }
 #endif /* PROP_CGPOINT */
@@ -532,7 +566,7 @@ static void * _##varName = &_##varName; \
 -(void)set##VarName:(CGSize)varName{ \
     objc_setAssociatedObject(self, \
                              &_##varName,\
-                             NSValue.bySize(varName), \
+                             [NSValue valueWithCGSize:varName], \
                              OBJC_ASSOCIATION_RETAIN_NONATOMIC); \
 }
 #endif /* PROP_CGSIZE */
@@ -547,7 +581,7 @@ static void * _##varName = &_##varName; \
 - (void)set##VarName:(CGRect)varName{ \
     objc_setAssociatedObject(self, \
                              &_##varName,\
-                             NSValue.byRect(varName), \
+                             [NSValue valueWithCGRect:varName], \
                              OBJC_ASSOCIATION_RETAIN_NONATOMIC); \
 }
 #endif /* PROP_CGRECT */

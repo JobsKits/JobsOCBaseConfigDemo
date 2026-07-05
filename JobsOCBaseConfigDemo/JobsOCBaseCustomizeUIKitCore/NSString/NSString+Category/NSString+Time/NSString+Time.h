@@ -1,26 +1,28 @@
 //
 //  NSString+Time.h
-//  JobsOCBaseConfigDemo
+//  JobsTimeUtils
 //
-//  Created by User on 9/3/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSSTRING_TIME_A4B077740A
+#define JOBS_HEADER_GUARD_NSSTRING_TIME_A4B077740A
+
 #import <Foundation/Foundation.h>
-#import "NSString+Check.h"
+
+#import "JobsStringUtilsHeader.h"
+
+#import "JobsMakes.h"
+
+#import "WHToastExtra.h"
+
 #import "JobsBlock.h"
-#import "JobsTimeModel.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_INLINE NSString *JobsFormattedString(NSString *format, ...) {
-    va_list args;
-    va_start(args, format);
-    NSString *formattedString = [NSString.alloc initWithFormat:format arguments:args];
-    va_end(args);
-    return formattedString;
-}
-
-@interface NSString (Time)
+@interface NSString (JobsTimeUtilsTime)
 /// 当前时间戳较之当前时间是否已过期【过期返回YES】
 -(JobsRetBOOLByVoidBlock _Nonnull)isExpired;
 -(JobsRetStrByStrBlock _Nonnull)chinaTime;
@@ -34,7 +36,10 @@ NS_INLINE NSString *JobsFormattedString(NSString *format, ...) {
 -(NSString *)timeStampByTimeFormatter:(NSString *_Nullable)timeFormatter
                          timeZoneType:(TimeZoneType)timeZoneType
                         intervalStyle:(IntervalStyle)intervalStyle;
+/// OC字符串转NSDate
+-(JobsRetDateByDateFormatterBlock _Nonnull)dataByDateFormatter;
 
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSSTRING_TIME_A4B077740A */

@@ -1,9 +1,8 @@
 //
 //  CountdownView.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by 天蓝 on 2016/12/2.
-//  Copyright © 2016年 PT. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "CountdownView.h"
@@ -25,8 +24,7 @@ Prop_strong()CABasicAnimation *animation;
 
 -(void)drawRect:(CGRect)rect{
     [self.layer addSublayer:self.shapeLayer];
-    self.label.alpha = 1;
-    
+    self.label.byAlpha(1);
     self.addGesture([jobsMakeTapGesture(^(UITapGestureRecognizer * _Nullable gesture) {
         ///  这里写手势的配置
     }) gestureActionBy:^{
@@ -43,30 +41,26 @@ Prop_strong()CABasicAnimation *animation;
     });
 }
 
-#pragma mark —— time
 -(void)setTime:(NSInteger)time{
     if (time) {
         _time = time;
     }else _time = 3;
 }
 #pragma mark —— SET 方法
-#pragma mark —— str
 -(void)setStr:(NSString *)str{
-    self.label.text = str ? : @"跳过".tr;
-    [self.label sizeToFit];/// 刷新视图，否则label.frame为0
+    self.label.byText(str ? : @"跳过".tr);
+    [self.label sizeToFit];// 刷新视图，否则label.frame为0
 }
 
-#pragma mark —— font
 -(void)setFont:(UIFont *)font{
-    self.label.font = font ? : UIFontWeightRegularSize(JobsWidth(12));
+    self.label.byFont(font ? : UIFontWeightRegularSize(JobsWidth(12)));
 }
 
-#pragma mark —— textColor
 -(void)setTextColor:(UIColor *)textColor{
-    self.label.textColor = textColor ? : [UIColor colorWithRed:0.27f
-                                                         green:0.27f
-                                                          blue:0.27f
-                                                         alpha:1.00f];
+    self.label.byTextCor(textColor ? : [UIColor colorWithRed:0.27f
+                                                       green:0.27f
+                                                        blue:0.27f
+                                                       alpha:1.00f]);
 }
 #pragma mark —— lazyLoad
 -(CAShapeLayer *)shapeLayer{
@@ -76,10 +70,10 @@ Prop_strong()CABasicAnimation *animation;
             @jobs_strongify(self)
             data.fillColor = JobsClearColor.CGColor;
             data.strokeColor = jobsMakeCor(^(__kindof JobsCorModel * _Nullable data) {
-                data.red = 0.02f;
-                data.green = 0.69f;
-                data.blue = 1.00f;
-                data.alpha = 1.00f;
+                data.byRed(0.02f)
+                    .byGreen(0.69f)
+                    .byBlue(1.00f)
+                    .byAlpha(1.00f);
             }).CGColor;
             data.lineWidth = 1.0f;
             CGFloat w = CGRectGetWidth(self.frame);
@@ -96,12 +90,13 @@ Prop_strong()CABasicAnimation *animation;
 
 -(CABasicAnimation *)animation{
     if (!_animation) {
-        _animation = @"strokeStart".basicAnimation;
-        _animation.duration = self.time;
-        _animation.fromValue = @(0.f);
-        _animation.toValue = @(1.f);
-        _animation.removedOnCompletion = NO;
-        _animation.fillMode = kCAFillModeBoth;
+        _animation = jobsMakeCABasicAnimationBy(@"strokeStart");
+        _animation
+            .byFromValue(@(0.f))
+            .byToValue(@(1.f))
+            .byDuration(self.time)
+            .byRemovedOnCompletion(NO)
+            .byFillMode(kCAFillModeBoth);
     };return _animation;
 }
 @synthesize label = _label;
@@ -110,13 +105,15 @@ Prop_strong()CABasicAnimation *animation;
         @jobs_weakify(self)
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = self.str;
-            label.font = self.font;
-            label.textAlignment = NSTextAlignmentCenter;
-            label.textColor = self.textColor;
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self);
-            }];
+            label
+                .byText(self.str)
+                .byFont(self.font)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byTextCor(self.textColor)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                });
         });
     };return _label;
 }

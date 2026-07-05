@@ -1,6 +1,6 @@
 //
 //  UIMenuController+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月11日，星期四.
 //
@@ -54,6 +54,15 @@
     };
 }
 #pragma mark —— Methods
+-(JobsRetMenuControllerByBOOLBlock _Nonnull)bySetMenuVisible{
+    @jobs_weakify(self)
+    return ^__kindof UIMenuController *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        SuppressWdeprecatedDeclarationsWarning([self setMenuVisible:data]);
+        return self;
+    };
+}
+
 -(JobsRetMenuControllerByVoidBlock _Nonnull)byUpdate{
     @jobs_weakify(self)
     return ^__kindof UIMenuController *_Nullable(void){

@@ -1,27 +1,51 @@
 //
 //  BaseButton.h
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Jobs on 2021/6/1.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_BASEBUTTON_0F1DAAB0C1
+#define JOBS_HEADER_GUARD_BASEBUTTON_0F1DAAB0C1
+
+#pragma once
+
 #import <UIKit/UIKit.h>
+#import "UIButton+SimplyMake.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsOCDSL.h"
+
+#import "JobsMakes.h"
+
 #import "JobsBlock.h"
-#import "BaseButtonProtocol.h"
-#import "UIButton+UI.h"
-#import "UIView+Extras.h"
-#import "UILabel+Extra.h"
-#import "UIMarkProtocol.h"
-#import "UIView+Measure.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 此类的意义：可以重新定义相关子控件的Frame
 @interface BaseButton : UIButton
 <
-BaseButtonProtocol
-,UIMarkProtocol
+BaseProtocol,
+RACProtocol,
+UIViewModelProtocol,
+BaseViewProtocol,
+GestureProtocol,
+BaseButtonProtocol,
+UIMarkProtocol
 >
 
 @end
 
 NS_ASSUME_NONNULL_END
+
+#ifndef JOBS_MAKE_BASE_BUTTON_INLINE
+#define JOBS_MAKE_BASE_BUTTON_INLINE
+NS_INLINE __kindof UIButton *_Nonnull jobsMakeBaseButton(jobsByBtnBlock _Nonnull block) {
+    BaseButton *data = BaseButton.new;
+    if (block) block(data);
+    return data;
+}
+#endif /* JOBS_MAKE_BASE_BUTTON_INLINE */
+#endif /* JOBS_HEADER_GUARD_BASEBUTTON_0F1DAAB0C1 */

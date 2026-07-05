@@ -1,6 +1,6 @@
 //
 //  ZFPlayerController+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月4日，星期四.
 //
@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_ZFPLAYERCONTROLLER_DSL_44F11BFC9D
 
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
 
 #if __has_include(<ZFPlayer/ZFPlayer.h>)
 #import <ZFPlayer/ZFPlayer.h>
@@ -17,10 +16,11 @@
 #import "ZFPlayer.h"
 #endif
 
+#import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
 
 @interface ZFPlayerController (DSL)
 

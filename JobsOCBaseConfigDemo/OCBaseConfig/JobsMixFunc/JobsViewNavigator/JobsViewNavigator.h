@@ -1,21 +1,30 @@
 //
 //  JobsViewNavigator.h
-//  JobsOCBaseConfigDemo
+//  JobsViewNavigator
 //
-//  Created by User on 8/3/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_JOBSVIEWNAVIGATOR_37C12A6C3D
+#define JOBS_HEADER_GUARD_JOBSVIEWNAVIGATOR_37C12A6C3D
+
 #import <UIKit/UIKit.h>
+
+#import "JobsMakes.h"
+
 #import "JobsBlock.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsViewNavigator : UIView
 
--(JobsReturnViewNavigatorByViewAndAnimatedBlock _Nonnull)pushView;
--(JobsReturnViewNavigatorByBOOLBlock _Nonnull)popViewAnimated;
--(JobsReturnViewNavigatorByBOOLBlock _Nonnull)popToRootViewAnimated;
+-(JobsRetViewNavigatorByViewAndAnimatedBlock _Nonnull)pushView;
+-(JobsRetViewNavigatorByBOOLBlock _Nonnull)popViewAnimated;
+-(JobsRetViewNavigatorByBOOLBlock _Nonnull)popToRootViewAnimated;
 
 @end
 
@@ -26,3 +35,4 @@ NS_INLINE __kindof JobsViewNavigator *_Nonnull jobsMakeViewNavigator(jobsByViewN
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_JOBSVIEWNAVIGATOR_37C12A6C3D */

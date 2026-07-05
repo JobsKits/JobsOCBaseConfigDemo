@@ -1,6 +1,6 @@
 //
 //  ReactiveObjC+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月11日，星期四.
 //
@@ -8,9 +8,11 @@
 #ifndef JOBS_HEADER_GUARD_REACTIVEOBJC_DSL_6D7A2B07E9
 #define JOBS_HEADER_GUARD_REACTIVEOBJC_DSL_6D7A2B07E9
 
+#import <objc/message.h>
+
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
-#else
+#elif __has_include("ReactiveObjC.h")
 #import "ReactiveObjC.h"
 #endif
 

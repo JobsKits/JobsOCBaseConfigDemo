@@ -2,7 +2,7 @@
 //  JobsIMInputview.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/11/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsIMInputview.h"
@@ -10,7 +10,7 @@
 @interface JobsIMInputview ()
 /// UI
 Prop_strong()UIImageView *imgView;
-Prop_strong()JobsAdNoticeView *adNoticeView;
+Prop_strong()UILabel *adNoticeLab;
 Prop_strong()BaseButton *sendBtn;
 /// Data
 
@@ -20,7 +20,8 @@ Prop_strong()BaseButton *sendBtn;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+
     };return self;
 }
 
@@ -33,8 +34,10 @@ Prop_strong()BaseButton *sendBtn;
     @jobs_weakify(self)
     return ^(id _Nullable model) {
         @jobs_strongify(self)
-        self.sendBtn.alpha = 1;
-        self.inputTextField.alpha = 1;
+        self.sendBtn.byAlpha(1);
+
+        self.inputTextField.byAlpha(1);
+
     };
 }
 /// 一些变化的UI
@@ -85,56 +88,64 @@ Prop_strong()BaseButton *sendBtn;
                     self.playSoundEffect(@"Sound.wav");
                     if (self.objBlock) self.objBlock(self.inputTextField);
                 }
-                self.inputTextField.text = @"".tr;
+                self.inputTextField.byText(@"".tr);
+
                 x.enabled = NO;
-            }).onLongPressGestureBy(^(id data){
+            })
+            .onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .disabledStateTitleColorBy(JobsWhiteColor)
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.top.equalTo(self).offset(11);
+                make.bottom.equalTo(self).offset(-11);
+                make.right.equalTo(self).offset(-10);
+                make.width.mas_equalTo(50);
             });
         _sendBtn.userInteractionEnabled = NO;
         _sendBtn.enabled = NO;
-        _sendBtn.disabledStateTitleColorBy(JobsWhiteColor);
-        [self.addSubview(_sendBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self).offset(11);
-            make.bottom.equalTo(self).offset(-11);
-            make.right.equalTo(self).offset(-10);
-            make.width.mas_equalTo(50);
-        }];
     };return _sendBtn;
 }
 
 -(ZYTextField *)inputTextField{
     if (!_inputTextField) {
         @jobs_weakify(self)
-        _inputTextField = jobsMakeZYTextField(^(ZYTextField * _Nullable textField) {
+        _inputTextField = jobsMakeZYTextField(^(ZYTextField *_Nullable textField) {
             @jobs_strongify(self)
-            textField.placeHolderAlignment = NSTextAlignmentCenter;
-            textField.placeholder = @"在此输入需要发送的信息".tr;
-            textField.delegate = self;
-            textField.leftView = self.imgView;
-            textField.leftViewOffsetX = 20;
-            textField.font = UIFontWeightMediumSize(12);
-            textField.leftViewMode = UITextFieldViewModeAlways;
-            textField.backgroundColor = HEXCOLOR(0xF4F4F4);
-            textField.keyboardAppearance = UIKeyboardAppearanceAlert;
-            textField.autocorrectionType = UITextAutocorrectionTypeNo;//自动纠错属性默认是yes，就会触发那个监听
-            textField.inputAccessoryView = self.adNoticeView;
-            textField.returnKeyType = UIReturnKeySend;
-            [self addSubview:textField];
-            [textField mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.bottom.equalTo(self.sendBtn);
-                make.right.equalTo(self.sendBtn.mas_left).offset(-10);
-                make.left.equalTo(self).offset(10);
-            }];self.refresh();
-            textField.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-                @jobs_strongify(self)
-                model.jobsWidth = .5f;
-                model.layerCor = JobsWhiteColor;
-                model.cornerRadiusValue = self->_inputTextField.mj_h / 2;
+            textField
+                .byPlaceHolderAlignment(NSTextAlignmentCenter)
+                .byPlaceholder(@"在此输入需要发送的信息".tr)
+                .byDelegate(self)
+                .byLeftView(self.imgView)
+                .byLeftViewOffsetX(20)
+                .byFont(UIFontWeightMediumSize(12))
+                .byLeftViewMode(UITextFieldViewModeAlways)
+                .byKeyboardAppearance(UIKeyboardAppearanceAlert)
+                .byAutocorrectionType(UITextAutocorrectionTypeNo) // 自动纠错属性默认是 YES，会触发监听
+                .byInputAccessoryView(self.adNoticeLab)
+                .byReturnKeyType(UIReturnKeySend)
+                .byBgColor(HEXCOLOR(0xF4F4F4))
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.bottom.equalTo(self.sendBtn);
+                    make.right.equalTo(self.sendBtn.mas_left).offset(-10);
+                    make.left.equalTo(self).offset(10);
+                });
+
+            self.refresh();
+
+            textField.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable model) {
+                model
+                    .byJobsWidth(.5f)
+                    .byLayerCor(JobsWhiteColor)
+                    .byCornerRadiusValue(textField.mj_h / 2);
             }));
         });
-        [[_inputTextField.rac_textSignal filter:^BOOL(NSString * _Nullable value) {
+
+        [[_inputTextField.rac_textSignal filter:^BOOL(NSString *_Nullable value) {
             return YES;
-        }] subscribeNext:^(NSString * _Nullable x) {
+        }] subscribeNext:^(NSString *_Nullable x) {
             @jobs_strongify(self)
             JobsLog(@"输入的字符为 = %@",x);
             self.someChangeUIBy(x);
@@ -145,17 +156,23 @@ Prop_strong()BaseButton *sendBtn;
 -(UIImageView *)imgView{
     if (!_imgView) {
         _imgView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-            imageView.image = @"输入框无值".img;
+            imageView.byImage(@"输入框无值".img);
         });
     };return _imgView;
 }
 
--(JobsAdNoticeView *)adNoticeView{
-    if (!_adNoticeView) {
-        _adNoticeView = JobsAdNoticeView.new;
-        _adNoticeView.sizer = JobsAdNoticeView.viewSizeByModel(nil);
-        _adNoticeView.jobsRichViewByModel(nil);
-    };return _adNoticeView;
+-(UILabel *)adNoticeLab{
+    if (!_adNoticeLab) {
+        _adNoticeLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"Jobs安全聊天，为您的聊天加密护航".tr)
+                .byTextCor(JobsRedColor)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byFont(UIFontWeightRegularSize(JobsWidth(12)))
+                .byBgColor(JobsCyanColor)
+                .bySize(JobsIMInputviewAccessoryLabelSize());
+        });
+    };return _adNoticeLab;
 }
 
 @end

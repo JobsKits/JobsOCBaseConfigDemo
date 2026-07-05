@@ -1,20 +1,28 @@
 //
 //  NSUserDefaults+Manager.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/1.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef NSUserDefaults_Manager_h
+#define NSUserDefaults_Manager_h
+
 #import <Foundation/Foundation.h>
-#import "UserDefaultModel.h"
-#import "JobsUserDefaultDefine.h"
-#import "JobsBlock.h"
+#import "NSObject+Path.h"
+#import "NSString+Path.h"
 
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>
 #else
 #import "MJExtension.h"
 #endif
+
+@class UserDefaultModel;
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,3 +38,5 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif /* NSUserDefaults_Manager_h */

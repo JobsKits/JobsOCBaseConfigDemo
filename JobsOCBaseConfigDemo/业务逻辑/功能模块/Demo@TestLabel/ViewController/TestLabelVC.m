@@ -317,8 +317,9 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
         _btn5 = BaseButton.jobsInit();
         _btn5.backgroundColor = JobsBrownColor;
         _btn5.jobsResetBtnTitle(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr);
-        _btn5.titleLabel.numberOfLines = 0;
-        _btn5.labelAutoWidthByFont();
+        _btn5.byTitleLabel(^(UILabel *label) {
+            label.byNumberOfLines(0);
+        }).bySizeToFit();
         [self.scrollView.addSubview(_btn5) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(100, 20));
             make.top.equalTo(self.btn4.mas_bottom).offset(20);
@@ -332,8 +333,9 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
         _btn6 = BaseButton.jobsInit();
         _btn6.backgroundColor = JobsBrownColor;
         _btn6.jobsResetBtnTitle(@"编译器自动管理内存地址，\n让程序员更加专注于\nAPP的业务。".tr);
-        _btn6.titleLabel.numberOfLines = 0;
-        _btn6.labelAutoWidthByFont();
+        _btn6.byTitleLabel(^(UILabel *label) {
+            label.byNumberOfLines(0);
+        }).bySizeToFit();
         [self.scrollView.addSubview(_btn6) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH(), 20));
             make.top.equalTo(self.btn5.mas_bottom).offset(20);
@@ -353,7 +355,7 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
          3、富文本以后的btn的frame要做出调整，btn是从中心向四周发散开的，这也就是下文的k位置为什么是40而不是20的原因
          4、定宽 > 富文本文字的真正所需宽度 => 富文本文字的真正所需宽度
          */
-        _btn7.labelAutoWidthByFont();
+        _btn7.bySizeToFit();
         [self.scrollView.addSubview(_btn7) mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH(), 20));
             make.top.equalTo(self.btn6.mas_bottom).offset(40);//K

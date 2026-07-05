@@ -1,11 +1,19 @@
 //
 //  NSString+Base16.h
-//  JobsOCBaseConfigDemo
+//  JobsCryptography
 //
-//  Created by Jobs on 2024/4/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <Foundation/Foundation.h>
+#ifndef JOBS_HEADER_GUARD_NSSTRING_BASE16_FAC1F71F8C
+#define JOBS_HEADER_GUARD_NSSTRING_BASE16_FAC1F71F8C
+
+#import <UIKit/UIKit.h>
+
+#import "JobsByOCPods.h"
+
+#import "JobsMakes.h"
+
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -34,3 +42,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSSTRING_BASE16_FAC1F71F8C */

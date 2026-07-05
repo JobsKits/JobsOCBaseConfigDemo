@@ -1,11 +1,14 @@
 //
 //  JXCategoryTitleView+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Jobs on 2025/5/29.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "JobsBlock.h"
+
+#import "JobsOCDSL.h"
+#ifndef JOBS_HEADER_GUARD_JXCATEGORYTITLEVIEW_EXTRA_98C0DBB2A4
+#define JOBS_HEADER_GUARD_JXCATEGORYTITLEVIEW_EXTRA_98C0DBB2A4
 
 #if __has_include(<JXCategoryView/JXCategoryView.h>)
 #import <JXCategoryView/JXCategoryView.h>
@@ -13,16 +16,20 @@
 #import "JXCategoryView.h"
 #endif
 
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JXCategoryTitleView (Extra)
 
--(JobsReturnCategoryTitleViewByCorBlock _Nonnull)byTitleSelectedColor;
--(JobsReturnCategoryTitleViewByCorBlock _Nonnull)byTitleColor;
--(JobsReturnCategoryTitleViewByFontBlock _Nonnull)byTitleFont;
--(JobsReturnCategoryTitleViewByFontBlock _Nonnull)byTitleSelectedFont;
--(JobsReturnCategoryTitleViewByStringsBlock _Nonnull)byTitles;
--(JobsReturnCategoryTitleViewByBOOLBlock _Nonnull)byTitleColorGradientEnabled;
+-(JobsRetCategoryTitleViewByCorBlock _Nonnull)byTitleSelectedColor;
+-(JobsRetCategoryTitleViewByCorBlock _Nonnull)byTitleColor;
+-(JobsRetCategoryTitleViewByFontBlock _Nonnull)byTitleFont;
+-(JobsRetCategoryTitleViewByFontBlock _Nonnull)byTitleSelectedFont;
+-(JobsRetCategoryTitleViewByStringsBlock _Nonnull)byTitles;
+-(JobsRetCategoryTitleViewByBOOLBlock _Nonnull)byTitleColorGradientEnabled;
 
 @end
 
@@ -71,3 +78,4 @@ NS_ASSUME_NONNULL_END
  }
  
  */
+#endif /* JOBS_HEADER_GUARD_JXCATEGORYTITLEVIEW_EXTRA_98C0DBB2A4 */

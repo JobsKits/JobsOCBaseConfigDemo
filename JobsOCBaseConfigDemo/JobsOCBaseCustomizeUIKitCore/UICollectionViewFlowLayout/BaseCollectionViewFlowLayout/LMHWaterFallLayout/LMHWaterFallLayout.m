@@ -1,9 +1,8 @@
 //
 //  LMHWaterFallLayout.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by 刘梦桦 on 2017/5/18.
-//  Copyright © 2017年 lmh. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "LMHWaterFallLayout.h"
@@ -18,9 +17,9 @@ static const UIEdgeInsets LMHDefaultEdgeInsets = {10,10,10,10};
 
 @interface LMHWaterFallLayout()
 /// 存放所有的布局属性
-Prop_strong()NSMutableArray *attrsArr;
+Prop_strong()NSMutableArray <UICollectionViewLayoutAttributes *>*attrsArr;
 /// 存放所有列的当前高度
-Prop_strong()NSMutableArray *columnHeights;
+Prop_strong()NSMutableArray <NSNumber *>*columnHeights;
 /// 内容的高度
 Prop_assign()CGFloat contentHeight;
 
@@ -125,7 +124,7 @@ Prop_assign()CGFloat contentHeight;
     CGFloat maxColumnHeight = [self.columnHeights[destColumn] doubleValue];
     if (self.contentHeight < maxColumnHeight) {
         self.contentHeight = maxColumnHeight;
-    } return attrs;
+    };return attrs;
 }
 /// 决定cell的高度
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect{
@@ -148,13 +147,13 @@ Prop_assign()CGFloat contentHeight;
     return CGSizeMake(0, self.contentHeight + self.edgeInsets.bottom);
 }
 #pragma mark —— lazyLoad
-- (NSMutableArray *)attrsArr{
+-(NSMutableArray<UICollectionViewLayoutAttributes *> *)attrsArr{
     if (!_attrsArr) {
         _attrsArr = NSMutableArray.array;
     };return _attrsArr;
 }
 
-- (NSMutableArray *)columnHeights{
+-(NSMutableArray<NSNumber *> *)columnHeights{
     if (!_columnHeights) {
         _columnHeights = NSMutableArray.array;
     };return _columnHeights;

@@ -1,11 +1,16 @@
 //
 //  JobsTBVHeaderFooterView.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2022/6/30.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsTBVHeaderFooterView.h"
+#import "BaseButton.h"
+#import "UIButton+SimplyMake.h"
+#import "UIButton+Extra.h"
+#import "UIButton+UI.h"
+#import "UIView+Extra.h"
 
 @interface JobsTBVHeaderFooterView ()
 /// UI
@@ -15,8 +20,6 @@ Prop_strong()BaseButton *subTitleBtn;
 @end
 
 @implementation JobsTBVHeaderFooterView
-/// AppToolsProtocol
-@synthesize viewModel = _viewModel;
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
@@ -28,10 +31,10 @@ Prop_strong()BaseButton *subTitleBtn;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
-        self.titleLab.alpha = 1;
-        self.subTitleBtn.alpha = 1;
-        self.contentView.backgroundColor = self.viewModel.bgCor;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+        self.titleLab.byAlpha(1);
+        self.subTitleBtn.byAlpha(1);
+        self.contentView.byBgColor(self.viewModel.bgCor);
     };
 }
 /// 具体由子类进行复写【数据定高】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -54,52 +57,55 @@ Prop_strong()BaseButton *subTitleBtn;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self).offset(self.viewModel.textModel.offsetXForEach);
-                make.top.bottom.equalTo(self);
-            }];
+            label
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self).offset(self.viewModel.textModel.offsetXForEach);
+                    make.top.bottom.equalTo(self);
+                });
         });
     }
-    
+
     if (self.viewModel.textModel.attributedTitle) {
-        _titleLab.attributedText = self.viewModel.textModel.attributedTitle;
-    }else{
-        _titleLab.text = self.viewModel.textModel.text;
-        _titleLab.font = self.viewModel.textModel.font;
-        _titleLab.textColor = self.viewModel.textModel.textCor;
-        _titleLab.textAlignment = self.viewModel.textModel.textAlignment;
-        _titleLab.makeLabelByShowingType(self.viewModel.textModel.labelShowingType);/// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
+        _titleLab.byAttributedString(self.viewModel.textModel.attributedTitle);
+    } else {
+        _titleLab
+            .byText(self.viewModel.textModel.text)
+            .byFont(self.viewModel.textModel.font)
+            .byTextCor(self.viewModel.textModel.textCor)
+            .byTextAlignment(self.viewModel.textModel.textAlignment)
+            .makeLabelByShowingType(self.viewModel.textModel.labelShowingType);// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
     };return _titleLab;
 }
 
 -(BaseButton *)subTitleBtn{
     if (!_subTitleBtn) {
-        _subTitleBtn = BaseButton.jobsInit();
-        [self.addSubview(_subTitleBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self).offset(self.viewModel.subTextModel.offsetXForEach);
-            make.top.bottom.equalTo(self);
-        }];
+        @jobs_weakify(self)
+        _subTitleBtn = BaseButton.jobsInit()
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.right.equalTo(self).offset(self.viewModel.subTextModel.offsetXForEach);
+                make.top.bottom.equalTo(self);
+            });
     }
-    
-    _subTitleBtn.jobsResetBtnImage(self.viewModel.image);
-    _subTitleBtn.jobsResetBtnBgImage(self.viewModel.bgImage);
-    _subTitleBtn.jobsResetBtnTitle(self.viewModel.subTextModel.text);
-    _subTitleBtn.jobsResetBtnTitleCor(self.viewModel.subTextModel.textCor);
-    _subTitleBtn.jobsResetBtnNormalAttributedTitle(self.viewModel.subTextModel.attributedTitle);
-    
-    _subTitleBtn.selectedStateImageBy(self.viewModel.selectedImage_);
-    _subTitleBtn.selectedStateBackgroundImageBy(self.viewModel.bgSelectedImage);
-    _subTitleBtn.selectedStateTitleBy(self.viewModel.subTextModel.text);
-    _subTitleBtn.selectedStateTitleColorBy(self.viewModel.subTextModel.textCor);
-    _subTitleBtn.selectedAttributedTitleBy(self.viewModel.subTextModel.attributedTitle);
-    
-    _subTitleBtn.jobsResetBtnTitleFont(self.viewModel.subTextModel.font);
-    _subTitleBtn.titleAlignment = self.viewModel.subTextModel.textAlignment;
-    _subTitleBtn.lineBreakMode = self.viewModel.subTextModel.lineBreakMode;
-    
-    _subTitleBtn.makeBtnTitleByShowingType(self.viewModel.labelShowingType);
-    
-    _subTitleBtn.jobsResetImagePlacement_Padding(self.viewModel.buttonEdgeInsetsStyle,self.viewModel.imageTitleSpace);
+
+    _subTitleBtn
+        .jobsResetBtnImage(self.viewModel.image)
+        .jobsResetBtnBgImage(self.viewModel.bgImage)
+        .jobsResetBtnTitle(self.viewModel.subTextModel.text)
+        .jobsResetBtnTitleCor(self.viewModel.subTextModel.textCor)
+        .jobsResetBtnNormalAttributedTitle(self.viewModel.subTextModel.attributedTitle)
+        .selectedStateImageBy(self.viewModel.selectedImage_)
+        .selectedStateBackgroundImageBy(self.viewModel.bgSelectedImage)
+        .selectedStateTitleBy(self.viewModel.subTextModel.text)
+        .selectedStateTitleColorBy(self.viewModel.subTextModel.textCor)
+        .selectedAttributedTitleBy(self.viewModel.subTextModel.attributedTitle)
+        .jobsResetBtnTitleFont(self.viewModel.subTextModel.font)
+        .makeBtnTitleByShowingType(self.viewModel.labelShowingType)
+        .jobsResetImagePlacement_Padding(self.viewModel.buttonEdgeInsetsStyle,self.viewModel.imageTitleSpace)
+        .byTitleAlignment(self.viewModel.subTextModel.textAlignment)
+        .byLineBreakMode(self.viewModel.subTextModel.lineBreakMode);
     return _subTitleBtn;
 }
 

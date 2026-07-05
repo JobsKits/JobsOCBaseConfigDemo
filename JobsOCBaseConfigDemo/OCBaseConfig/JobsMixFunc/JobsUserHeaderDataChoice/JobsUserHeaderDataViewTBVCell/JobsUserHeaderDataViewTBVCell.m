@@ -1,8 +1,8 @@
 //
 //  JobsUserHeaderDataViewTBVCell.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2022/5/19.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsUserHeaderDataViewTBVCell.h"
@@ -18,15 +18,16 @@ Prop_strong()UILabel *titleLab;
 @synthesize viewModel = _viewModel;
 #pragma mark —— UITableViewCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsUserHeaderDataViewTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsUserHeaderDataViewTBVCell);
-        cell.backgroundColor = HEXCOLOR(0xFFFFFF);
+        cell.byBgColor(HEXCOLOR(0xFFFFFF));
+
         return cell;
     };
 }
 /// 左边：imageView＋textLabel；右边：detailTextLabel。
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsUserHeaderDataViewTBVCell *cell = (JobsUserHeaderDataViewTBVCell *)tableView.tableViewCellClass(JobsUserHeaderDataViewTBVCell.class,@"");
         if (!cell) {
@@ -35,7 +36,7 @@ Prop_strong()UILabel *titleLab;
     };
 }
 /// 左边：textLabel字体偏小；右边：detailTextLabel。imageView可选（显示在最左边）
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsUserHeaderDataViewTBVCell *cell = (JobsUserHeaderDataViewTBVCell *)tableView.tableViewCellClass(JobsUserHeaderDataViewTBVCell.class,@"");
         if (!cell) {
@@ -44,7 +45,7 @@ Prop_strong()UILabel *titleLab;
     };
 }
 /// 左边：imageView；左上：textLabel；左下：detailTextLabel。主标题字体大且加黑，副标题字体小在主标题下边。
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsUserHeaderDataViewTBVCell *cell = (JobsUserHeaderDataViewTBVCell *)tableView.tableViewCellClass(JobsUserHeaderDataViewTBVCell.class,@"");
         if (!cell) {
@@ -58,7 +59,8 @@ Prop_strong()UILabel *titleLab;
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.titleLab.alpha = 1;
+        self.titleLab.byAlpha(1);
+
         return self;
     };
 }
@@ -78,14 +80,17 @@ Prop_strong()UILabel *titleLab;
         @jobs_weakify(self)
         _titleLab = self.contentView.addSubview(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(isNull(self.viewModel.textModel.text) ? @"请设置标题".tr : self.viewModel.textModel.text)
+            label
+                .byText(isNull(self.viewModel.textModel.text) ? @"请设置标题".tr : self.viewModel.textModel.text)
                 .byTextCor(self.viewModel.textModel.textCor)
                 .byFont(self.viewModel.textModel.font)
                 .byTextAlignment(NSTextAlignmentCenter);
-        })).setMasonryBy(^(MASConstraintMaker *_Nonnull make){
+        }))
+        .setMasonryBy(^(MASConstraintMaker *_Nonnull make){
             @jobs_strongify(self)
             make.edges.equalTo(self.contentView);
-        }).on();
+        })
+        .on();
     };return _titleLab;
 }
 

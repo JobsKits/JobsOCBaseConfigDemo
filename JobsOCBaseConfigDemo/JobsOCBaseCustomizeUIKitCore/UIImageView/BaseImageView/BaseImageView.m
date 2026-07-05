@@ -1,12 +1,12 @@
 //
 //  BaseImageView.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by 杨科军 on 2021/2/19.
-//  Copyright © 2021 杨科军. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "BaseImageView.h"
+#import "UIView+Extra.h"
 
 @interface BaseImageView ()
 
@@ -35,11 +35,12 @@ BaseViewProtocol_synthesize
     [super drawRect:rect];
 }
 /**
- 1. 刷新完成后触发 layoutsubview
- UICollectionView 在 reloaddata 后, 会触发 layoutsubview , 可以继承父类的 superview 方法, 在其中处理需要在刷新完数据后做的操作, 如播放短视频.
+ 
+     1. 刷新完成后触发 layoutsubview
+     UICollectionView 在 reloaddata 后, 会触发 layoutsubview , 可以继承父类的 superview 方法, 在其中处理需要在刷新完数据后做的操作, 如播放短视频.
 
- 2. 使用layoutIfNeeded方法，强制重绘
- 在 UICollectionView 调用 reloaddata 方法后, 强制调用其 layoutIfNeeded 方法, 接着调用刷新完后的操作.
+     2. 使用layoutIfNeeded方法，强制重绘
+     在 UICollectionView 调用 reloaddata 方法后, 强制调用其 layoutIfNeeded 方法, 接着调用刷新完后的操作.
  */
 -(void)layoutSubviews{
     [super layoutSubviews];

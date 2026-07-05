@@ -1,9 +1,8 @@
 //
 //  JobsAppDoorInputViewBaseStyle_8.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/12/4.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsAppDoorInputViewBaseStyle_8.h"
@@ -27,10 +26,11 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsClearColor;
+        self.byBgColor(JobsClearColor);
+
         self.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.jobsWidth = 1;
-            data.layerCor = Cor3;
+            data.byJobsWidth(1)
+                .byLayerCor(Cor3);
         }));
     };return self;
 }
@@ -41,19 +41,20 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 #pragma mark —— 一些私有方法
 -(void)configTextField{
     if (isValue(self.doorInputViewBaseStyleModel.inputStr)) {
-        self.zyTextField.text = self.doorInputViewBaseStyleModel.inputStr;
+        self.zyTextField.byText(self.doorInputViewBaseStyleModel.inputStr);
+
     }
-    self.zyTextField.keyboardType = self.doorInputViewBaseStyleModel.keyboardType;
+    self.zyTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
     self.zyTextField.background = self.doorInputViewBaseStyleModel.background;
-    self.zyTextField.backgroundColor = self.doorInputViewBaseStyleModel.backgroundColor;
+    self.zyTextField.byBgColor(self.doorInputViewBaseStyleModel.backgroundColor);
     self.zyTextField.disabledBackground = self.doorInputViewBaseStyleModel.disabledBackground;
     self.zyTextField.leftView = [UIImageView.alloc initWithImage:self.doorInputViewBaseStyleModel.leftViewIMG];
     self.zyTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
     self.zyTextField.background = self.doorInputViewBaseStyleModel.background;
-    self.zyTextField.textColor = self.doorInputViewBaseStyleModel.titleStrCor;
-    self.zyTextField.placeholder = self.doorInputViewBaseStyleModel.placeholder;
-    self.zyTextField.returnKeyType = self.doorInputViewBaseStyleModel.returnKeyType;
-    self.zyTextField.keyboardAppearance = self.doorInputViewBaseStyleModel.keyboardAppearance;
+    self.zyTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
+    self.zyTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
+    self.zyTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
+    self.zyTextField.byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance);
     self.zyTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
     self.zyTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
     self.zyTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量
@@ -68,12 +69,9 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 
 -(void)block:(ZYTextField *)textField
        value:(NSString *)value{
-    
     self.textFieldInputModel.resString = value;
     self.textFieldInputModel.PlaceHolder = self.doorInputViewBaseStyleModel.placeholder;
-
     textField.requestParams = self.textFieldInputModel;
-    
     if (self.objBlock) self.objBlock(textField);
 }
 #pragma mark —— UITextFieldDelegate
@@ -93,9 +91,9 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     return ^(JobsAppDoorInputViewBaseStyleModel *_Nullable doorInputViewBaseStyleModel) {
         @jobs_strongify(self)
         self.doorInputViewBaseStyleModel = doorInputViewBaseStyleModel ? : JobsAppDoorInputViewBaseStyleModel.new;
-        self.titleLab.alpha = 1;
-        self.securityModelBtn.alpha = 1;
-        self.textField.alpha = 1;
+        self.titleLab.byAlpha(1);
+        self.securityModelBtn.byAlpha(1);
+        self.zyTextField.byAlpha(1);
         [self configTextField];
     };
 }
@@ -118,44 +116,49 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 if (self.objBlock) self.objBlock(x);
                 x.selected = !x.selected;
                 x.jobsResetBtnImage(self.doorInputViewBaseStyleModel.selectedSecurityBtnIMG ? : JobsRedColor.image);
-                self.textField.secureTextEntry = x.selected;
-                if (x.selected && !self.textField.isEditing) {
-                    self.textField.placeholder = self.doorInputViewBaseStyleModel.placeholder;
+                self.zyTextField.bySecureTextEntry(x.selected);
+
+                if (x.selected && !self.zyTextField.isEditing) {
+                    self.zyTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
                 }
         }).onLongPressGestureBy(^(id data){
             JobsLog(@"");
         });
-        [self.addSubview(_securityModelBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _securityModelBtn.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.top.right.equalTo(self);
             make.width.mas_equalTo(40);
             make.bottom.equalTo(self.titleLab.mas_top);
-        }];
+        });
     };return _securityModelBtn;
 }
 @synthesize zyTextField = _zyTextField;
 -(ZYTextField *)zyTextField{
     if (!_zyTextField) {
-        _zyTextField = ZYTextField.new;
-        _zyTextField.delegate = self;
-        @jobs_weakify(self)
-        [_zyTextField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
-            @jobs_strongify(self)
-            return self.retBoolByIDBlock ? self.retBoolByIDBlock(data) : YES;
-        } subscribeNextBlock:^(NSString *_Nullable x) {
-            @jobs_strongify(self)
-            JobsLog(@"输入的字符为 = %@",x);
-            self.securityModelBtn.jobsVisible = isValue(x) && self.doorInputViewBaseStyleModel.isShowSecurityBtn;/// 👁
-            if (x.isContainsSpecialSymbolsString(nil)) {
-                @"Do not enter special characters".tr.toast();
-            }else{
+        _zyTextField = jobsMakeZYTextField(^(ZYTextField * _Nullable textField) {
+            textField
+                .byDelegate(self)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                });
+
+            @jobs_weakify(self)
+            [_zyTextField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
+                @jobs_strongify(self)
+                return self.retBoolByIDBlock ? self.retBoolByIDBlock(data) : YES;
+            } subscribeNextBlock:^(NSString *_Nullable x) {
+                @jobs_strongify(self)
                 JobsLog(@"输入的字符为 = %@",x);
-                [self block:self->_zyTextField
-                      value:x];
-            }
-        }];
-        [self.addSubview(_zyTextField) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self);
-        }];
+                self.securityModelBtn.jobsVisible = isValue(x) && self.doorInputViewBaseStyleModel.isShowSecurityBtn;/// 👁
+                if (x.isContainsSpecialSymbolsString(nil)) {
+                    @"Do not enter special characters".tr.toast();
+                }else{
+                    JobsLog(@"输入的字符为 = %@",x);
+                    [self block:self->_zyTextField
+                          value:x];
+                }
+            }];
+        });
     };return _zyTextField;
 }
 
@@ -164,13 +167,14 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byFont(UIFontWeightRegularSize(JobsWidth(11)))
+            label
+                .byFont(UIFontWeightRegularSize(JobsWidth(11)))
                 .byText(self.doorInputViewBaseStyleModel.textModel.text)
                 .byTextCor(self.doorInputViewBaseStyleModel.textModel.textCor)
                 .setMasonryBy(^(MASConstraintMaker *_Nonnull make){
                     @jobs_strongify(self)
                     make.left.bottom.equalTo(self);
-                    make.top.equalTo(self.textField.mas_bottom);
+                    make.top.equalTo(self.zyTextField.mas_bottom);
                 }).on();
         });
     };return _titleLab;

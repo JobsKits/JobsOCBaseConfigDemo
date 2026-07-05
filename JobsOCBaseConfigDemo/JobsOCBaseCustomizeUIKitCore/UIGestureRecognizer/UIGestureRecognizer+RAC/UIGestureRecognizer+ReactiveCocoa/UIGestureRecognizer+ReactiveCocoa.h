@@ -1,10 +1,12 @@
 //
 //  UIGestureRecognizer+ReactiveCocoa.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by kaiinui on 2014/09/07.
-//  Copyright (c) 2014年 kaiinui. All rights reserved.
-//  特别鸣谢：https://github.com/kaiinui/UIGestureRecognizer-RACExtension
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_UIGESTURERECOGNIZER_REACTIVECOCOA_3D8FB27E61
+#define JOBS_HEADER_GUARD_UIGESTURERECOGNIZER_REACTIVECOCOA_3D8FB27E61
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
@@ -25,3 +27,4 @@
 -(RACSignal *)rac_signal;
 
 @end
+#endif /* JOBS_HEADER_GUARD_UIGESTURERECOGNIZER_REACTIVECOCOA_3D8FB27E61 */

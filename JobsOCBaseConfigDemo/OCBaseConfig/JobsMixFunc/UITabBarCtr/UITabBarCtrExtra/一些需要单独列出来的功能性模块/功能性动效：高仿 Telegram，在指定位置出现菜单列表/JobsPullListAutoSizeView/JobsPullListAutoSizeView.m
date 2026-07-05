@@ -1,8 +1,8 @@
 //
 //  JobsPullListAutoSizeView.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/10/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsPullListAutoSizeView.h"
@@ -24,10 +24,10 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
 + (instancetype)initWithTargetView:(UIView *__nonnull)targetView
                         dataMutArr:(NSArray <UIViewModel *>*__nonnull)dataMutArr{
-    /// 先检查MainWindow里面是否存在本类，如果存在即释放 保证只创建一次
+    /// 先检查jobsGetMainWindow()里面是否存在本类，如果存在即释放 保证只创建一次
     JobsPullListAutoSizeView *(^checkMainWindowExistSelf)(void) = ^(void){
         JobsPullListAutoSizeView *jobsPullListAutoSizeView = nil;
-        for (UIView *subview in MainWindow.subviews) {
+        for (UIView *subview in jobsGetMainWindow().subviews) {
             if ([subview isKindOfClass:JobsPullListAutoSizeView.class]) {
                 jobsPullListAutoSizeView = (JobsPullListAutoSizeView *)subview;
             }
@@ -53,11 +53,14 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 }
 
 -(void)makeUI{
-    self.backgroundColor = JobsGrayColor;
-    self.alpha = 0.7;
-    [MainWindow addSubview:self];
-    self.frame = MainWindow.frame;
-    [MainWindow bringSubviewToFront:self];
+    self.byBgColor(JobsGrayColor);
+
+    self.byAlpha(0.7);
+
+    [jobsGetMainWindow() addSubview:self];
+    self.byFrame(jobsGetMainWindow().frame);
+
+    [jobsGetMainWindow() bringSubviewToFront:self];
     self.tableView.byShow(self);
 }
 
@@ -65,7 +68,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
           withEvent:(UIEvent *)event{
     [self removeFromSuperview];//释放
 }
-#pragma mark —————————— UITableViewDelegate,UITableViewDataSource ——————————
+#pragma mark —— UITableViewDelegate,UITableViewDataSource ——————————
 -(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return self.listTbVCellHeight;
@@ -83,13 +86,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(__kindof UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return JobsPullListTBVCell.cellStyleDefaultWithTableView(tableView)
+    return JobsPullListTBVCell.cellStyleDefaultByTableView(tableView)
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byIndexPath(indexPath)
         .byContentViewBgCor(self.bgColorListTBV)
         .byContentViewBgCor(self.bgColorListTBV)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
-        .JobsBlock1(^(id _Nullable data) {
+        .JobsBlock1(^(id _Nullable data) {;
              
         })
         .byBgColor(self.bgColorListTBV);;
@@ -102,7 +105,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_weakify(self)
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
-            CGRect d = [self.targetView convertRect:self.targetView.bounds toView:MainWindow];
+            CGRect d = [self.targetView convertRect:self.targetView.bounds toView:jobsGetMainWindow()];
             CGFloat tableviewHeight = self.listTbVCellHeight * self.dataMutArr.count;
             CGFloat tableviewY = d.origin.y - tableviewHeight - self.listTbVOffset;
             tableView

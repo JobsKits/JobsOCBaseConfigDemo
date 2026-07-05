@@ -1,9 +1,8 @@
 //
 //  XLChannelItem.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by MengXianLiang on 2017/3/3.
-//  Copyright © 2017年 MengXianLiang. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "XLChannelItem.h"
@@ -26,15 +25,18 @@ Prop_strong()CAShapeLayer *borderLayer;
 -(void)initUI{
     self.userInteractionEnabled = true;
     self.layer.cornerRadius = 5.0f;
-    self.backgroundColor = [self backgroundColor];
+    self.byBgColor([self backgroundColor]);
+
     
-    self.textLabel = [UILabel new];
-    self.textLabel.frame = self.bounds;
-    self.textLabel.textAlignment = NSTextAlignmentCenter;
-    self.textLabel.textColor = [self textColor];
-    self.textLabel.adjustsFontSizeToFitWidth = true;
-    self.textLabel.userInteractionEnabled = true;
-    [self addSubview:self.textLabel];
+    self.textLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+        label
+            .byTextAlignment(NSTextAlignmentCenter)
+            .byTextCor([self textColor])
+            .labelAutoFontByWidth()
+            .byFrame(self.bounds)
+            .byUserInteractionEnabled(YES)
+            .addOn(self);
+    });
     
     [self addBorderLayer];
 }
@@ -52,12 +54,14 @@ Prop_strong()CAShapeLayer *borderLayer;
     self.borderLayer.fillColor = JobsClearColor.CGColor;
     self.borderLayer.strokeColor = [self backgroundColor].CGColor;
     [self.layer addSublayer:self.borderLayer];
-    self.borderLayer.hidden = true;
+    self.borderLayer.byHidden(true);
+
 }
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    self.textLabel.frame = self.bounds;
+    self.textLabel.byFrame(self.bounds);
+
 }
 
 -(UIColor*)backgroundColor{
@@ -72,31 +76,35 @@ Prop_strong()CAShapeLayer *borderLayer;
     return [UIColor colorWithRed:200/255.0f green:200/255.0f blue:200/255.0f alpha:1];
 }
 
-#pragma mark —— title
 -(void)setTitle:(NSString *)title{
     _title = title;
-    self.textLabel.text = title;
+    self.textLabel.byText(title);
+
 }
 
-#pragma mark —— isMoving
 -(void)setIsMoving:(BOOL)isMoving{
     _isMoving = isMoving;
     if (_isMoving) {
-        self.backgroundColor = [UIColor clearColor];
-        self.borderLayer.hidden = false;
+        self.byBgColor([UIColor clearColor]);
+
+        self.borderLayer.byHidden(false);
+
     }else{
-        self.backgroundColor = [self backgroundColor];
-        self.borderLayer.hidden = true;
+        self.byBgColor([self backgroundColor]);
+
+        self.borderLayer.byHidden(true);
+
     }
 }
 
-#pragma mark —— isFixed
 -(void)setIsFixed:(BOOL)isFixed{
     _isFixed = isFixed;
     if (isFixed) {
-        self.textLabel.textColor = [self lightTextColor];
+        self.textLabel.byTextCor([self lightTextColor]);
+
     }else{
-        self.textLabel.textColor = [self textColor];
+        self.textLabel.byTextCor([self textColor]);
+
     }
 }
 

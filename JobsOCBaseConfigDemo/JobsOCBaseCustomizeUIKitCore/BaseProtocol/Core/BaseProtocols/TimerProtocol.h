@@ -1,6 +1,6 @@
 //
 //  TimerProtocol.h
-//  JobsOCBaseConfigDemo
+//  JobsOCProtocols
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -9,7 +9,9 @@
 #define JOBS_HEADER_GUARD_TIMERPROTOCOL_C8782F4DE8
 
 #import <Foundation/Foundation.h>
+
 #import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -26,7 +28,8 @@ Prop_assign()NSTimeInterval timeSecIntervalSinceDate;
 /// 跳动步长（频率间距）
 Prop_assign()NSTimeInterval timeInterval;
 /// 是否重复？
-Prop_assign()BOOL repeats;                     // for NSTimer
+Prop_assign()BOOL repeats;
+                     // for NSTimer
 Prop_strong(nullable)NSInvocation *invocation; // for NSTimer
 Prop_assign()NSRunLoopMode runLoopMode;
 Prop_strong(nullable)id userInfo;
@@ -44,7 +47,8 @@ Prop_assign()NSTimeInterval accumulatedElapsed;
 /// 最近一次 start/resume 的时间点（支持 pause/resume）
 Prop_strong(nullable)NSDate *lastStartDate;
 #pragma mark —— 定时器类型
-Prop_retain(nullable)NSTimer *nsTimer;           // NSTimer
+Prop_retain(nullable)NSTimer *nsTimer;
+           // NSTimer
 Prop_retain(nullable)dispatch_source_t gcdTimer; // GCD 定时器使用的队列（若为 nil，则默认 global queue）
 Prop_retain(nullable)CADisplayLink *displayLink; // CADisplayLink
 /// 如果用于：UI刷新（高频需求）👉 dispatch_get_main_queue();

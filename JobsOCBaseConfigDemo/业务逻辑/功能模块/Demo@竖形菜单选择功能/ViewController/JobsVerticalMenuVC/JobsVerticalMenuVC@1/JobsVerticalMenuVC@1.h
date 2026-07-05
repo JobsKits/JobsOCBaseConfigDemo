@@ -13,6 +13,7 @@
 #import "JobsSearchBar.h"
 #import "BaiShaETProjPopupView10.h"
 #import "JobsVerticalMenuSubVC.h"
+#import "AppDelegate+TabBarCtr.h"
 #import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -1,9 +1,12 @@
 //
 //  JXCategoryBaseView+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Jobs on 2025/5/29.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_JXCATEGORYBASEVIEW_EXTRA_8CBB208D74
+#define JOBS_HEADER_GUARD_JXCATEGORYBASEVIEW_EXTRA_8CBB208D74
 
 #if __has_include(<JXCategoryView/JXCategoryView.h>)
 #import <JXCategoryView/JXCategoryView.h>
@@ -11,17 +14,20 @@
 #import "JXCategoryView.h"
 #endif
 
+#import "JobsBlock.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JXCategoryBaseView (Extra)
 
--(JobsReturnCategoryBaseViewByDelegateBlock _Nonnull)byDelegate;
--(JobsReturnCategoryBaseViewByCGFloatBlock _Nonnull)byCellSpacing;
--(JobsReturnCategoryBaseViewByViewBlock _Nonnull)byContentScrollView;
--(JobsReturnCategoryTitleViewByNSIntegerBlock _Nonnull)byDefaultSelectedIndex;
--(JobsReturnCategoryBaseViewByListContainerBlock _Nonnull)byListContainer;
--(JobsReturnCategoryBaseViewByVoidBlock _Nonnull)reloadDatasWithoutListContainer;
+-(JobsRetCategoryBaseViewByDelegateBlock _Nonnull)byDelegate;
+-(JobsRetCategoryBaseViewByCGFloatBlock _Nonnull)byCellSpacing;
+-(JobsRetCategoryBaseViewByViewBlock _Nonnull)byContentScrollView;
+-(JobsRetCategoryTitleViewByNSIntegerBlock _Nonnull)byDefaultSelectedIndex;
+-(JobsRetCategoryBaseViewByListContainerBlock _Nonnull)byListContainer;
+-(JobsRetCategoryBaseViewByVoidBlock _Nonnull)reloadDatasWithoutListContainer;
 
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JXCATEGORYBASEVIEW_EXTRA_8CBB208D74 */

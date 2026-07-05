@@ -1,12 +1,17 @@
 //
 //  NSURLSessionDataTask+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Admin on 28/10/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_NSURLSESSIONDATATASK_EXTRA_1D9950D2A3
+#define JOBS_HEADER_GUARD_NSURLSESSIONDATATASK_EXTRA_1D9950D2A3
 
 #import <Foundation/Foundation.h>
 #import "NSURLRequest+Extra.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,3 +22,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSURLSESSIONDATATASK_EXTRA_1D9950D2A3 */

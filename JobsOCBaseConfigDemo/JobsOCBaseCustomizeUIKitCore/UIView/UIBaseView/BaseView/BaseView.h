@@ -1,22 +1,26 @@
 //
 //  BaseView.h
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Jobs on 2021/2/5.
-//  Copyright © 2021 MonkeyKingVideo. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_BASEVIEW_698B004E00
+#define JOBS_HEADER_GUARD_BASEVIEW_698B004E00
+
+#pragma once
 
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
-#import "JobsDefineProperty.h"
-#import "BaseProtocol.h"
-#import "BaseViewProtocol.h"
-#import "UIViewModelProtocol.h"
-#import "AppToolsProtocol.h"
-#import "MacroDef_Notification.h"
-#import "JobsNavBar.h"
 
-//#import "NSObject+AppTools.h"
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsModelDSL.h"
+
+#import "JobsAppToolsHeader.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,9 +32,6 @@ BaseViewProtocol,
 AppToolsProtocol
 >
 
-Prop(nullable)JobsNavBarConfig *navBarConfig;
-Prop(nullable)JobsNavBar *navBar;
-
 @end
 
 NS_ASSUME_NONNULL_END
@@ -40,3 +41,4 @@ NS_INLINE __kindof UIView *_Nonnull jobsMakeBaseView(jobsByBaseViewBlock _Nonnul
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_BASEVIEW_698B004E00 */

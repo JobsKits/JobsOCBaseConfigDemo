@@ -1,21 +1,29 @@
 //
 //  NSObject+JobsDeployCellConfig.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2022/6/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <Foundation/Foundation.h>
-#import "JobsBlock.h"
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_JOBSDEPLOYCELLCONFIG_6CD675EFB2
+#define JOBS_HEADER_GUARD_NSOBJECT_JOBSDEPLOYCELLCONFIG_6CD675EFB2
+
+#import <UIKit/UIKit.h>
 #import "JobsDeployDataForCellHeader.h"
-#import "UICollectionViewCellProtocol.h"
-#import "UITableViewCellProtocol.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// UITableView
 #ifndef ReturnJobsBaseTableViewCell
 #define ReturnJobsBaseTableViewCell \
-    return JobsBaseTableViewCell.cellStyleDefaultWithTableView(tableView);
+    return JobsBaseTableViewCell.cellStyleDefaultByTableView(tableView);
 #endif
 /// UICollectionView
 #ifndef ReturnRichJobsBaseCollectionViewCell
@@ -86,7 +94,7 @@ NS_ASSUME_NONNULL_BEGIN
                                        cellBlock3:(JobsRetUIEdgeInsetsByVoidBlock _Nullable)cellBlock3
                                        cellBlock4:(JobsRetUIEdgeInsetsByVoidBlock _Nullable)cellBlock4;
 
-
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_JOBSDEPLOYCELLCONFIG_6CD675EFB2 */

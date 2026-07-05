@@ -2,7 +2,7 @@
 //  JobsIMVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/11/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsIMVC.h"
@@ -38,14 +38,20 @@ Prop_strong()JobsIMChatInfoModel *chatInfoModel;
         self.chatInfoModel = (JobsIMChatInfoModel *)self.viewModel.data;
         self.chatInfoModelMutArr.add(self.chatInfoModel);
         
-        self.viewModel.textModel.text = self.chatInfoModel.userNameStr;
-        self.viewModel.backBtnTitleModel.text = @"聊天列表".tr;
+        self.viewModel
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(self.chatInfoModel.userNameStr);
+            })
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"聊天列表".tr);
+            });
     }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsWhiteColor;
+    self.view.byBgColor(JobsWhiteColor);
+
     {
         @jobs_weakify(self)
         self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
@@ -76,7 +82,7 @@ Prop_strong()JobsIMChatInfoModel *chatInfoModel;
     [super viewDidLayoutSubviews];
     if (self.inputview.inputTextField.TFRiseHeight) {
         CGFloat H = self.inputview.inputTextField.TFRiseHeight;
-        CGFloat h = JobsAdNoticeView.viewSizeByModel(nil).height;
+        CGFloat h = JobsIMInputviewAccessoryLabelHeight();
         self.inputview.mj_y = self.inputview.inputAccessoryView ? (H - h) : H;
     }
 }
@@ -122,7 +128,7 @@ Prop_strong()JobsIMChatInfoModel *chatInfoModel;
 }
 
 -(void)keyboardDidChangeFrameNotification:(NSNotification *)notification{}
-#pragma mark —————————— UITableViewDelegate,UITableViewDataSource ——————————
+#pragma mark —— UITableViewDelegate,UITableViewDataSource ——————————
 -(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return JobsIMChatInfoTBVCell.cellHeightByModel(self.chatInfoModelMutArr[indexPath.row]);
@@ -140,12 +146,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    JobsIMChatInfoTBVCell *cell = JobsIMChatInfoTBVCell.cellStyleValue1WithTableView(tableView)
+    JobsIMChatInfoTBVCell *cell = JobsIMChatInfoTBVCell.cellStyleValue1ByTableView(tableView)
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byIndexPath(indexPath)
         .byDelegate(self)
         .jobsRichElementsTableViewCellBy(self.chatInfoModelMutArr[indexPath.row])
-            .JobsBlock1(^(id _Nullable data) {
+            .JobsBlock1(^(id _Nullable data) {;
              
             });
     return cell.byShowChatUserName(YES).byAllowsMultipleSwipe(YES);;
@@ -167,9 +173,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             }];
         }];
         //设置图片，但是设置不了原图，都是被默认为白色了，字体也是
-        UIImage *image = [JobsBuddleIMG(@"⚽️PicResource", @"Others", nil, @"分享") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        UIImage *image = [JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"分享") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         [deleteRowAction setImage:image];
-        deleteRowAction.backgroundColor = [UIColor redColor];
+        deleteRowAction.byBgColor([UIColor redColor]);
+
 
         UIContextualAction *editRowAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
                                                                                     title:@"编辑"
@@ -182,8 +189,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
               
             }];
         }];
-        editRowAction.image = JobsBuddleIMG(@"⚽️PicResource", @"Others", nil, @"删除");
-        editRowAction.backgroundColor = [UIColor blueColor];
+        editRowAction.image = JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"删除");
+        editRowAction.byBgColor([UIColor blueColor]);
+
         UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteRowAction,editRowAction]];
         //设置全屏滑动时不自定响应事件
         config.performsFirstActionWithFullSwipe = false;
@@ -202,17 +210,19 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
                                                                                               __kindof UIView * _Nonnull sourceView,
                                                                                               void (^ _Nonnull completionHandler)(BOOL)) {
         }];
-        UIImage *image = [JobsBuddleIMG(@"⚽️PicResource", @"Others", nil, @"分享")  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        UIImage *image = [JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"分享")  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         [deleteRowAction setImage:image];
-        deleteRowAction.backgroundColor = [UIColor redColor];
+        deleteRowAction.byBgColor([UIColor redColor]);
+
         UIContextualAction *editRowAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
                                                                                     title:@"编辑"
                                                                                   handler:^(UIContextualAction * _Nonnull action,
                                                                                             __kindof UIView * _Nonnull sourceView,
                                                                                             void (^ _Nonnull completionHandler)(BOOL)) {
         }];
-        editRowAction.image = JobsBuddleIMG(@"⚽️PicResource", @"Others", nil, @"删除");
-        editRowAction.backgroundColor = [UIColor blueColor];
+        editRowAction.image = JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"删除");
+        editRowAction.byBgColor([UIColor blueColor]);
+
 
         UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteRowAction,editRowAction]];
         config.performsFirstActionWithFullSwipe = false;
@@ -242,7 +252,8 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
                          animated:YES];
         }];
         // 修改背景颜色
-        action.backgroundColor = HEXCOLOR(0xEB1163);
+        action.byBgColor(HEXCOLOR(0xEB1163));
+
         return @[action];
     }
 }
@@ -299,12 +310,14 @@ willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     CGRect frame = rowActionView.frame;
     frame.origin.y += 7;
     frame.size.height -= 13;
-    rowActionView.frame = frame;
+    rowActionView.byFrame(frame);
+
     // 拿到按钮,设置图片
     UIButton *button = rowActionView.subviews.firstObject;
-    button.backgroundColor = JobsRedColor;
+    button.byBgColor(JobsRedColor);
+
     [button jobsResetBtnTitle:@"删除"];
-    [button jobsResetBtnImage:JobsBuddleIMG(@"⚽️PicResource", @"Others", nil, @"删除")];
+    [button jobsResetBtnImage:JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"删除")];
 }
 #endif
 
@@ -354,7 +367,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                             .add(toStringByNSInteger(timeModel.currentMin))
                             .add(@":")
                             .add(toStringByNSInteger(timeModel.currentSec));
-                        data.userIconIMG = JobsBuddleIMG(@"bundle", @"头像", nil, @"头像_1"); // 我自己的头像
+                        data.userIconIMG = JobsLoadBundleImage(@"bundle", @"头像", nil, @"头像_1"); // 我自己的头像
                         data.identification = @"我是我自己";
                         data.userNameStr = @"Jobs";
                     }));self.tableView.reloadDatas();
@@ -388,11 +401,11 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
             tableView
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .byMJRefreshHeader(self.lotAnimMJRefreshHeader.byRefreshConfigModel(jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable model) {
-                    model.stateIdleTitle = @"下拉刷新数据".tr;
-                    model.pullingTitle = @"下拉刷新数据".tr;
-                    model.refreshingTitle = @"正在刷新数据".tr;
-                    model.willRefreshTitle = @"刷新数据中".tr;
-                    model.noMoreDataTitle = @"下拉刷新数据".tr;
+                    model.byStateIdleTitle(@"下拉刷新数据".tr)
+                         .byPullingTitle(@"下拉刷新数据".tr)
+                         .byRefreshingTitle(@"正在刷新数据".tr)
+                         .byWillRefreshTitle(@"刷新数据中".tr)
+                         .byNoMoreDataTitle(@"下拉刷新数据".tr);
                     model.loadBlock = ^id _Nullable(id _Nullable data) {
                         @jobs_strongify(self)
                         self.tableView.endRefreshing(self.chatInfoModelMutArr.count);
@@ -400,18 +413,18 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                     };
                 })))
                 .byMJRefreshFooter(self.view.MJRefreshAutoGifFooterBy(jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
-                    data.stateIdleTitle = @"".tr;
-                    data.pullingTitle = @"".tr;
-                    data.refreshingTitle = @"".tr;
-                    data.willRefreshTitle = @"".tr;
-                    data.noMoreDataTitle = @"".tr;
+                    data.byStateIdleTitle(@"".tr)
+                        .byPullingTitle(@"".tr)
+                        .byRefreshingTitle(@"".tr)
+                        .byWillRefreshTitle(@"".tr)
+                        .byNoMoreDataTitle(@"".tr);
                     data.loadBlock = ^id _Nullable(id  _Nullable data) {
                         @jobs_strongify(self)
                         JobsLog(@"上拉加载更多");
                         /// 特别说明：pagingEnabled = YES 在此会影响Cell的偏移量，原作者希望我们在这里临时关闭一下，刷新完成以后再打开
                         self.tableView.pagingEnabled = NO;
                         self.tableView.mj_footer.state = MJRefreshStateIdle;
-                        self.tableView.mj_footer.hidden = YES;
+                        self.tableView.mj_footer.byHidden(YES);
                         self.tableView.pagingEnabled = YES;
                         self->_tableView.endRefreshingWithNoMoreData(self.chatInfoModelMutArr.count);
                         return nil;
@@ -421,7 +434,6 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                 .byShowsVerticalScrollIndicator(NO)
                 .byPagingEnabled(YES) // 这个属性为YES会使得Tableview一格一格的翻动
                 .byBgColor(self.bgColour);
-
             [self.view insertSubview:tableView belowSubview:self.inputview];
             [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
                 if (self.gk_navBarAlpha && !self.gk_navigationBar.hidden) {//显示
@@ -433,9 +445,8 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                 make.bottom.equalTo(self.inputview.mas_top);
             }];
             self.view.refresh();
-
-            tableView.mj_footer.backgroundColor = JobsRedColor;
-            tableView.mj_footer.hidden = NO;
+            tableView.mj_footer.byBgColor(JobsRedColor);
+            tableView.mj_footer.byHidden(NO);
             self.view.mjRefreshTargetView = tableView;
         });
     };return _tableView;
@@ -447,7 +458,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
         _shareBtn = BaseButton.jobsInit()
             .bgColorBy(JobsWhiteColor)
             .jobsResetBtnCornerRadiusValue(JobsWidth(23 / 2))
-            .jobsResetBtnImage(JobsBuddleIMG(@"⚽️PicResource", @"Others", nil, @"分享"))
+            .jobsResetBtnImage(JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"分享"))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
@@ -462,7 +473,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
 
 -(UIColor *)bgColour{
     if (!_bgColour) {
-        _bgColour = self.byPatternImage(JobsBuddleIMG(@"⚽️PicResource", @"Telegram",nil, @"1"));
+        _bgColour = self.byPatternImage(JobsLoadBundleImage(@"⚽️PicResource", @"Telegram",nil, @"1"));
     };return _bgColour;
 }
 

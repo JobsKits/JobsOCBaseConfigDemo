@@ -1,23 +1,25 @@
 //
 //  LZTabBarController.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Artron_LQQ on 2016/12/12.
-//  Copyright © 2016年 Artup. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-/*
- 底部tabBar自定义的tabBarController
- 只需调用给出的类方法, 配置相关参数即可创建tabBarController实例对象
- */
+#ifndef JOBS_HEADER_GUARD_LZTABBARCONTROLLER_51B5F2F465
+#define JOBS_HEADER_GUARD_LZTABBARCONTROLLER_51B5F2F465
 
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
-#import "LZTabBarConfig.h"
 #import "LZTabBar.h"
-#import "MacroDef_Size.h"
-#import "JobsDefineProperty.h"
+#import "LZTabBarConfig.h"
 
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+typedef LZTabBarConfig *_Nullable(^tabBarBlock)(LZTabBarConfig * _Nonnull config);
+/// 底部tabBar自定义的tabBarController
+/// 只需调用给出的类方法, 配置相关参数即可创建tabBarController实例对象
+#import "JobsOCDSL.h"
 
 @interface LZTabBarController : UITabBarController<LZTabBarDelegate>
 /// 是否可用自动旋转屏幕
@@ -35,6 +37,4 @@ Prop_assign()BOOL isAutoRotation;
 
 @end
 
-
-
-
+#endif /* JOBS_HEADER_GUARD_LZTABBARCONTROLLER_51B5F2F465 */

@@ -1,6 +1,6 @@
 //
 //  ReturnByUnCertainParameters.h
-//  JobsOCBaseConfigDemo
+//  JobsBlock
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -11,28 +11,16 @@
 #define ReturnByUnCertainParameters_h
 /// 第一个参数写：有多少个实际参数
 /// 返回对象
-typedef id _Nullable(^JobsReturnIDByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
-typedef NSNumber *_Nullable(^JobsReturnNSNumberByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
+typedef id _Nullable(^JobsRetIDByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
+typedef NSNumber *_Nullable(^JobsRetNSNumberByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
 /// 返回基本数据类型
-typedef NSInteger(^JobsReturnNSIntegerByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
-typedef NSUInteger(^JobsReturnNSUIntegerByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
-typedef float(^JobsReturnFloatByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
-typedef CGFloat(^JobsReturnCGFloatByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
+typedef NSInteger(^JobsRetNSIntegerByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
+typedef NSUInteger(^JobsRetNSUIntegerByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
+typedef float(^JobsRetFloatByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
+typedef CGFloat(^JobsRetCGFloatByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
 /// 返回结构体
-typedef CGSize(^JobsReturnCGSizeByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
-typedef CGRect(^JobsReturnCGRectByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
-typedef CGPoint(^JobsReturnCGPointByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
+typedef CGSize(^JobsRetCGSizeByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
+typedef CGRect(^JobsRetCGRectByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
+typedef CGPoint(^JobsRetCGPointByDynArgsBlock)(NSInteger argCount,id _Nullable firstArg,...);
 
-/// JobsBlock@Pods 返哺兼容名 BEGIN
-#pragma mark —— JobsBlock@Pods返哺兼容名
-typedef JobsReturnCGFloatByDynArgsBlock JobsRetCGFloatByDynArgsBlock;
-typedef JobsReturnCGPointByDynArgsBlock JobsRetCGPointByDynArgsBlock;
-typedef JobsReturnCGRectByDynArgsBlock JobsRetCGRectByDynArgsBlock;
-typedef JobsReturnCGSizeByDynArgsBlock JobsRetCGSizeByDynArgsBlock;
-typedef JobsReturnFloatByDynArgsBlock JobsRetFloatByDynArgsBlock;
-typedef JobsReturnIDByDynArgsBlock JobsRetIDByDynArgsBlock;
-typedef JobsReturnNSIntegerByDynArgsBlock JobsRetNSIntegerByDynArgsBlock;
-typedef JobsReturnNSNumberByDynArgsBlock JobsRetNSNumberByDynArgsBlock;
-typedef JobsReturnNSUIntegerByDynArgsBlock JobsRetNSUIntegerByDynArgsBlock;
-/// JobsBlock@Pods 返哺兼容名 END
 #endif /* ReturnByUnCertainParameters_h */

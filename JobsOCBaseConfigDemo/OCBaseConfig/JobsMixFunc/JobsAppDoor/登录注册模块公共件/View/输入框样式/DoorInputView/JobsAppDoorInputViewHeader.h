@@ -1,14 +1,20 @@
 //
 //  JobsAppDoorInputViewHeader.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2022/5/12.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#import <UIKit/UIKit.h>
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsDefines.h"
 
 #ifndef JobsAppDoorInputViewHeader_h
 #define JobsAppDoorInputViewHeader_h
-
-#import "JobsDoorInputViewProtocol.h"
 
 NS_INLINE CGSize inputSize(void){
     return CGSizeMake(JobsWidth(343), JobsWidth(52));

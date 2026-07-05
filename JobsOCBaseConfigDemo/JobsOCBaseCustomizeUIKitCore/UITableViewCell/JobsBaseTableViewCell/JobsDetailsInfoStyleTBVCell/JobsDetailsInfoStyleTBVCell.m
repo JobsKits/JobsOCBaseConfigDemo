@@ -1,11 +1,13 @@
 //
 //  JobsDetailsInfoStyleTBVCell.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2025/5/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsDetailsInfoStyleTBVCell.h"
+#import "UITableView+RegisterClass.h"
+#import "UIView+Extra.h"
 
 @interface JobsDetailsInfoStyleTBVCell ()
 
@@ -20,7 +22,7 @@ Prop_strong()UIImageView *detailsInfoImageView;
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         JobsDetailsInfoStyleTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsDetailsInfoStyleTBVCell);
         return cell;
@@ -60,7 +62,8 @@ Prop_strong()UIImageView *detailsInfoImageView;
         @jobs_weakify(self)
         _detailsInfoImageView = self.contentView
             .addSubview(jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-                imageView.backgroundColor = JobsClearColor;
+                imageView.byBgColor(JobsClearColor);
+
             })).byAdd(^(MASConstraintMaker *_Nonnull make){
                 @jobs_strongify(self)
                 make.centerY.equalTo(self.contentView);

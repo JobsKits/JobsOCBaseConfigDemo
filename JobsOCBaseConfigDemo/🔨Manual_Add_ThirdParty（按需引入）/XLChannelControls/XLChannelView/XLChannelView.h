@@ -1,13 +1,20 @@
 //
 //  XLChannelView.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by MengXianLiang on 2017/3/3.
-//  Copyright © 2017年 MengXianLiang. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_XLCHANNELVIEW_8343C61D57
+#define JOBS_HEADER_GUARD_XLCHANNELVIEW_8343C61D57
+
 #import <UIKit/UIKit.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 @interface XLChannelView : UIView
 
@@ -17,3 +24,4 @@ Prop_strong()NSMutableArray *disabledTitles;
 -(void)reloadData;
 
 @end
+#endif /* JOBS_HEADER_GUARD_XLCHANNELVIEW_8343C61D57 */

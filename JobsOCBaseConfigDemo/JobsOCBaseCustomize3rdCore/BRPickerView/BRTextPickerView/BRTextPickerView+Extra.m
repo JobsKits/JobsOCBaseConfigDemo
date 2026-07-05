@@ -1,17 +1,18 @@
 //
 //  BRTextPickerView+Extra.m
-//  JobsOCBaseConfigDemo
+//  BRPickerViewExtra
 //
-//  Created by Jobs on 11/19/25.
+//  Created by Jobs on 2026年5月13日，星期三.
+//  Updated for latest BRPickerView on 2026年5月29日，星期五.
 //
 
 #import "BRTextPickerView+Extra.h"
 
 @implementation BRTextPickerView (Extra)
 
-+(JobsReturnBRTextPickerViewByPickerModeBlock _Nonnull)initBy{
-    return ^BRTextPickerView *_Nonnull(BRTextPickerMode mode){
-        return [BRTextPickerView.alloc initWithPickerMode:mode];
++(BRPickerViewExtraRetTextPickerViewByPickerModeBlock)initBy {
+    return ^BRTextPickerView *_Nonnull(BRTextPickerMode mode) {
+        return [[BRTextPickerView alloc] initWithPickerMode:mode];
     };
 }
 

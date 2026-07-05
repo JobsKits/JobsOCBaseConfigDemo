@@ -2,12 +2,38 @@
 //  PicToStrStoreSubVC.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2024/4/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseViewController.h"
-#import "Cryptography.h"
-#import "JobsDefineProperty.h"
+#import <UIKit/UIKit.h>
+#import "NSObject+HXPhotoPicker.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsLoadingImageHeader.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsMakes.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+#import "UIImage+HexadecimalData.h"
+#import "NSString+HexadecimalData.h"
+#import "UIImage+Base16.h"
+#import "NSString+Base16.h"
+#import "UIImage+Base32.h"
+#import "NSString+Base32.h"
+#import "UIImage+Base64.h"
+#import "NSString+Base64.h"
+#import "UIImage+Base85.h"
+#import "NSString+Base85.h"
+#import "UIImage+MIME.h"
+#import "NSString+MIME.h"
 
 #ifndef PIC_TO_STR_STYLE_ENUM_DEFINED
 #define PIC_TO_STR_STYLE_ENUM_DEFINED
@@ -20,6 +46,8 @@ typedef NS_ENUM(NSInteger, PicToStrStyle) {
     PicToStrStyle_MIME,/// 图片 转 MIME
 };
 #endif /* PIC_TO_STR_STYLE_ENUM_DEFINED */
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

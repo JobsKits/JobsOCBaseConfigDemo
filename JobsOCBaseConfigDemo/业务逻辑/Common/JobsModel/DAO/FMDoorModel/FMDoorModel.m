@@ -1,13 +1,13 @@
 //
 //  FMDoorModel.m
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "FMDoorModel.h"
 #import "NSCoder+Extra.h"
-#import "NSObject+Extras.h"
+#import "NSObject+Extra.h"
 
 @implementation FMDoorModel
 #pragma mark —— NSCoding
@@ -184,7 +184,6 @@
     return [super mj_replacedKeyFromPropertyName].mutableCopy;
 }
 
-#pragma mark —— expireTime
 -(void)setExpireTime:(NSString *)expireTime{
     _expireTime = expireTime;
     if(_expireTime) self.tokenExpireTime = _expireTime.chinaTime(nil);

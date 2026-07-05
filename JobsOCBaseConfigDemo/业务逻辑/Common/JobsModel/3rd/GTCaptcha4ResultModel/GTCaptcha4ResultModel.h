@@ -1,18 +1,22 @@
 //
 //  GTCaptcha4ResultModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026/5/14.
 //
 
+#ifndef GTCaptcha4ResultModel_h
+#define GTCaptcha4ResultModel_h
+
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
 
 #if __has_include(<GTCaptcha4/GTCaptcha4.h>)
 #import <GTCaptcha4/GTCaptcha4.h>
 #else
 #import "GTCaptcha4.h"
 #endif
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,3 +37,5 @@ Prop_copy()NSString *captchaId;
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif /* GTCaptcha4ResultModel_h */

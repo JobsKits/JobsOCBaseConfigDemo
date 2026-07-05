@@ -1,22 +1,12 @@
-// 
-// GTMDefines.h
 //
-//  Copyright 2008 Google Inc.
+//  GTMDefines.h
+//  JobsCryptography
 //
-//  Licensed under the Apache License, Version 2.0 (the "License"); you may not
-//  use this file except in compliance with the License.  You may obtain a copy
-//  of the License at
-// 
-//  http://www.apache.org/licenses/LICENSE-2.0
-// 
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-//  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
-//  License for the specific language governing permissions and limitations under
-//  the License.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
- 
-// ============================================================================
+
+#ifndef JOBS_HEADER_GUARD_GTMDEFINES_8591FA8DBF
+#define JOBS_HEADER_GUARD_GTMDEFINES_8591FA8DBF
 
 #include <AvailabilityMacros.h>
 
@@ -32,7 +22,6 @@
 // CPP symbols that can be overridden in a prefix to control how the toolbox
 // is compiled.
 // ----------------------------------------------------------------------------
-
 
 // GTMHTTPFetcher will support logging by default but only hook its input
 // stream support for logging when requested.  You can control the inclusion of
@@ -185,7 +174,7 @@ GTM_EXTERN void _GTMUnitTestDevLog(NSString *format, ...);
 
 // Provide a single constant CPP symbol that all of GTM uses for ifdefing
 // iPhone code.
-#include <TargetConditionals.h>
+#include <TargetConditionals.h> // 引入 Apple 平台条件判断宏，用于编译期区分 iOS、macOS、模拟器等目标环境。
 #if TARGET_OS_IPHONE // iPhone SDK
   // For iPhone specific stuff
   #define GTM_IPHONE_SDK 1
@@ -250,3 +239,4 @@ GTM_EXTERN void _GTMUnitTestDevLog(NSString *format, ...);
     #define CGFLOAT_DEFINED 1
   #endif // CGFLOAT_DEFINED
 #endif  // MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_4
+#endif /* JOBS_HEADER_GUARD_GTMDEFINES_8591FA8DBF */

@@ -1,8 +1,8 @@
 //
 //  JobsNetWorkTools.m
-//  JobsOCBaseConfigDemo
+//  JobsNetWorkTools
 //
-//  Created by Jobs on 2025/11/19.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsNetWorkTools.h"
@@ -111,8 +111,9 @@ static JobsNetworkTrafficMonitor *_sharedInstance = nil;
                 uint64_t downloadBps = (uint64_t)((double)deltaDown / self.timeInterval);
                 uint64_t uploadBps   = (uint64_t)((double)deltaUp   / self.timeInterval);
                 if (self.onUpdate) self.onUpdate(jobsMakeNetworkSource(^(__kindof JobsNetworkSource * _Nullable source) {
-                    source.type        = JobsNetworkSourceTypeWiFi;  // TODO: 根据实际网络类型改
-                    source.displayName = @"Wi-Fi";                   // 或 @"蜂窝数据" 等
+                    source.byType(JobsNetworkSourceTypeWiFi)  // TODO: 根据实际网络类型改
+                          .byDisplayName(@"Wi-Fi");
+                   // 或 @"蜂窝数据" 等
                 }), uploadBps, downloadBps);
             })
             .byOnFinish(^(JobsTimer *_Nullable timer){

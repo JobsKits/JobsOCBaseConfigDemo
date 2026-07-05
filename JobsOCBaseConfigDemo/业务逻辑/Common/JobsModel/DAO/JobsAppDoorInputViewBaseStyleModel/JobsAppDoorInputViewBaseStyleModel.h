@@ -1,19 +1,25 @@
 //
 //  JobsAppDoorInputViewBaseStyleModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JobsAppDoorInputViewBaseStyleModel_h
+#define JobsAppDoorInputViewBaseStyleModel_h
+
 #import <UIKit/UIKit.h>
 #import "UIViewModel.h"
-#import "JobsDefineProperty.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
 #import "XYColorOC.h"
 #endif
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @interface JobsAppDoorInputViewBaseStyleModel : UIViewModel
@@ -78,3 +84,5 @@ NS_INLINE __kindof JobsAppDoorInputViewBaseStyleModel *_Nonnull jobsMakeAppDoorI
     if (block) block(data);
     return data;
 }
+
+#endif /* JobsAppDoorInputViewBaseStyleModel_h */

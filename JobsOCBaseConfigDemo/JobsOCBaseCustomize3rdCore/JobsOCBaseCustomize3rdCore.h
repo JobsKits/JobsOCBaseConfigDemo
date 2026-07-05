@@ -95,8 +95,7 @@
 #import "AFSecurityPolicy+Extra.h"
 #import "IQKeyboardManager+Extra.h"
 #import "Reachability+Extra.h"
-#import "BRStringPickerView+Extra.h"
-#import "BRTextPickerView+Extra.h"
+#import "BRPickerViewExtra.h"
 #import "HXPhotoManager+Extra.h"
 #import "HXPhotoView+Extra.h"
 #import "SZTextView+Extra.h"
@@ -117,8 +116,11 @@
 
 #endif /* JobsOCBaseCustomize3rdCore_h */
 
+#ifndef JOBS_MAKE_YTKNETWORKCONFIG
+#define JOBS_MAKE_YTKNETWORKCONFIG
 NS_INLINE __kindof YTKNetworkConfig *_Nonnull jobsMakeYTKNetworkConfig(jobsByYTKNetworkConfigBlock _Nonnull block){
     YTKNetworkConfig *data = YTKNetworkConfig.sharedConfig;
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_MAKE_YTKNETWORKCONFIG */

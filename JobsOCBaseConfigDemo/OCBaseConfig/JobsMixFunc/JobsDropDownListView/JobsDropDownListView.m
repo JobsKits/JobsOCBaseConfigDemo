@@ -1,11 +1,14 @@
 //
 //  JobsDropDownListView.m
-//  JobsOCBaseConfigDemo
+//  JobsDropDownListView
 //
-//  Created by Jobs on 2021/12/21.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsDropDownListView.h"
+#import "UIScrollView+AnimationKit.h"
+#import "UIScrollView+UIScrollViewProtocol.h"
+#import "UITableView+Extra.h"
 
 @interface JobsDropDownListView (){
     CGFloat CellHeight;
@@ -27,14 +30,16 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 -(instancetype)init{
     if (self = [super init]) {
         self.tableView.byShow(self);
-        self.backgroundColor = JobsClearColor;
+        self.byBgColor(JobsClearColor);
+
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.tableView.byShow(self);
-        self.backgroundColor = JobsClearColor;
+        self.byBgColor(JobsClearColor);
+
     };return self;
 }
 
@@ -42,16 +47,18 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
     if (self = [super init]) {
         self.tbvCell_cls = tableViewClass;
         self.tableView.byShow(self);
-        self.backgroundColor = JobsClearColor;
+        self.byBgColor(JobsClearColor);
+
     };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
-    self.tableView.byContentInset(UIEdgeInsetsMake(0,
+    CGRect currentFrame = [self convertRect:self.bounds toView:jobsGetMainWindow()];
+    self.tableView.contentInset = UIEdgeInsetsMake(0,
                                                    0,
-                                                   JobsDropDownListView.getWindowFrameByView(self).origin.y,
-                                                   0));
+                                                   currentFrame.origin.y,
+                                                   0);
     /// 动画效果
     [self.tableView alphaAnimWithSortingType:(SortingType)self.direction
                               animationBlock:nil
@@ -84,11 +91,11 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    /// self.tbvCell_cls没有值的时候等于调用 JobsDropDownListTBVCell.cellHeightByModel(nil)
-    NSNumber *d = [NSObject methodName:@"cellHeightByModel:"
-                             targetObj:self.tbvCell_cls ? self.tbvCell_cls.class : JobsDropDownListTBVCell.class
-                           paramarrays:nil];
-    return d.floatValue;
+    Class <UITableViewCellProtocol> cellCls = self.tbvCell_cls ? : JobsDropDownListTBVCell.class;
+    if ([cellCls respondsToSelector:@selector(cellHeightByModel)]) {
+        JobsRetCGFloatByIDBlock cellHeightBlock = [cellCls cellHeightByModel];
+        if (cellHeightBlock) return cellHeightBlock(self.dataMutArr[indexPath.row]);
+    };return JobsDropDownListTBVCell.cellHeightByModel(self.dataMutArr[indexPath.row]);
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -103,12 +110,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return (JobsBaseTableViewCell *)self.tbvCellMutArr[indexPath.row]
-        .byIndexPath(indexPath)
+    id<UITableViewCellProtocol> cell = (id<UITableViewCellProtocol>)self.tbvCellMutArr[indexPath.row];
+    id<BaseCellProtocol> richCell = (id<BaseCellProtocol>)cell.byIndexPath(indexPath);
+    return richCell
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
-            .JobsBlock1(^(id _Nullable data) {
-             
-            });
+        .JobsBlock1(^(id _Nullable data) {
+
+        });//BaseCellProtocol
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -129,18 +137,22 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     /// TODO
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .byTableFooterView(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
-                    label.byText(@"- 没有更多的内容了 -".tr)
+                    label
+                        .byText(@"- 没有更多的内容了 -".tr)
                         .byFont(UIFontWeightRegularSize(12))
                         .byTextAlignment(NSTextAlignmentCenter)
                         .byTextCor(HEXCOLOR(0xB0B0B0))
                         .makeLabelByShowingType(UILabelShowingType_03);
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .byShowsVerticalScrollIndicator(NO)
+                .byBgColor(JobsWhiteColor)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
                     make.edges.equalTo(self);
                 });
+            tableView.layer.cornerRadius = JobsWidth(14);
+            tableView.layer.masksToBounds = YES;
         });
     };return _tableView;
 }

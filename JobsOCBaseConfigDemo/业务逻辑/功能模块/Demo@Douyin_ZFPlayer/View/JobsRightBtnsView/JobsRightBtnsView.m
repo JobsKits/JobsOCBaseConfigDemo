@@ -2,8 +2,7 @@
 //  JobsRightBtnsView.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/9/19.
-//  Copyright © 2020 MonkeyKingVideo. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsRightBtnsView.h"
@@ -13,6 +12,7 @@
 Prop_strong()RBCLikeButton *loveBtn;/// 点赞
 Prop_strong()BaseButton *commentBtn;/// 评论
 Prop_strong()BaseButton *shareBtn;/// 分享
+Prop_strong()JobsPresentationCtrl *commentPresentationController;
 /// Data
 Prop_strong()NSMutableArray <__kindof UIButton *>*masonryViewArr;
 Prop_assign()BOOL isSelected;
@@ -85,9 +85,12 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.loveBtn.alpha = 1;
-        self.commentBtn.alpha = 1;
-        self.shareBtn.alpha = 1;
+        self.loveBtn.byAlpha(1);
+
+        self.commentBtn.byAlpha(1);
+
+        self.shareBtn.byAlpha(1);
+
         [self 子视图垂直等间距排列];
     };
 }
@@ -101,9 +104,9 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
     /// 实现masonry垂直方向固定控件高度方法
     self.masonryViewArr.installByMasonryModel2(jobsMakeMasonryModel(^(__kindof MasonryModel * _Nullable data) {
         data.axisType = MASAxisTypeVertical;
-        data.fixedItemLength = JobsRightBtnsView.viewSizeByModel(nil).width;
-        data.leadSpacing = JobsWidth(0);
-        data.tailSpacing = JobsWidth(0);
+        data.byFixedItemLength(JobsRightBtnsView.viewSizeByModel(nil).width)
+            .byLeadSpacing(JobsWidth(0))
+            .byTailSpacing(JobsWidth(0));
     })).installByMasonryBlock(^(MASConstraintMaker *_Nonnull make){/// 设置array的水平方向的约束
         make.centerX.equalTo(self);
         make.width.mas_equalTo(JobsRightBtnsView.viewSizeByModel(nil).width);
@@ -112,11 +115,10 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
     @jobs_weakify(self)
     self.loveBtn.richButtonByModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
         @jobs_strongify(self)
-        data.jobsRect = self.loveBtn.frame;
+        data.byJobsRect(self.loveBtn.frame);
     }));
 }
 #pragma mark —— Set方法
-#pragma mark —— isSelected
 -(void)setIsSelected:(BOOL)isSelected{
     _isSelected = isSelected;
     self.loveBtn.selected = _isSelected;
@@ -171,24 +173,29 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
                     x.tag = MKRightBtnViewBtnType_commentBtn;//写在block外部，此值异常
                     if (self.objBlock) self.objBlock(x);
                     
-                    JobsCommentCoreVC *jobsCommentCoreVC = JobsCommentCoreVC.new;
-                    JobsPresentationCtrl *presentationController NS_VALID_UNTIL_END_OF_SCOPE;
-                    presentationController = [JobsPresentationCtrl.alloc initWithPresentedViewController:jobsCommentCoreVC
-                                                                                presentingViewController:self.jobsGetCurrentViewController];
-                    jobsCommentCoreVC.presentUpHeight = JobsWidth(800);
-                    /// jobsCommentCoreVC.view.backgroundColor = JobsRedColor;
-                    jobsCommentCoreVC.transitioningDelegate = presentationController;
+                    UIViewController *presentingVC = self.jobsGetCurrentViewController;
+                    if (!presentingVC || presentingVC.presentedViewController) return;
                     
-                    [self forceComingToPushVC:jobsCommentCoreVC requestParams:@"".tr];
+                    JobsCommentCoreVC *jobsCommentCoreVC = JobsCommentCoreVC.new;
+                    CGFloat popUpHeight = JobsMainScreen_HEIGHT() / 2;
+                    jobsCommentCoreVC.popUpHeight = popUpHeight;
+                    jobsCommentCoreVC.preferredContentSize = CGSizeMake(JobsRealWidth(), popUpHeight);
+                    jobsCommentCoreVC.pushOrPresent = ComingStyle_PRESENT;
+                    self.commentPresentationController = [JobsPresentationCtrl.alloc initWithPresentedViewController:jobsCommentCoreVC
+                                                                                             presentingViewController:presentingVC];
+                    jobsCommentCoreVC.transitioningDelegate = self.commentPresentationController;
+                    [presentingVC presentViewController:jobsCommentCoreVC
+                                               animated:YES
+                                             completion:NULL];
                     [jobsCommentCoreVC actionObjBlock:^(id data) {
                         JobsLog(@"您点击了评论");
                     }];
                 }];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
-            });
-        [self addSubview:_commentBtn];
-        [self layoutIfNeeded];
+            })
+            .addOn(self);
+        self.byLayoutIfNeeded();
     };return _commentBtn;
 }
 
@@ -215,8 +222,8 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
                 }];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
-            });
-        [self addSubview:_shareBtn];
+            })
+            .addOn(self);
         [self layoutIfNeeded];
     };return _shareBtn;
 }

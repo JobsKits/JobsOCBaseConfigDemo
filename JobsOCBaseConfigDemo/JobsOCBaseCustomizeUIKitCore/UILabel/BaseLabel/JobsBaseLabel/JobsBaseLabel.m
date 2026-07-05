@@ -1,11 +1,13 @@
 //
 //  JobsBaseLabel.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2022/6/20.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsBaseLabel.h"
+#import "NSObject+Extra.h"
+#import "UIView+Extra.h"
 
 @interface JobsBaseLabel ()
 /// UI
@@ -17,8 +19,6 @@ Prop_assign()CGRect thisFrame;
 @end
 
 @implementation JobsBaseLabel
-/// AppToolsProtocol
-@synthesize viewModel = _viewModel;
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
@@ -36,7 +36,8 @@ static dispatch_once_t static_baseLabelOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsClearColor;
+        self.byBgColor(JobsClearColor);
+
     };return self;
 }
 
@@ -64,7 +65,8 @@ static dispatch_once_t static_baseLabelOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -72,10 +74,12 @@ static dispatch_once_t static_baseLabelOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         MakeDataNull
-        self.bgImageView.alpha = 1;
-        self.label.alpha = 1;
+        self.bgImageView.byAlpha(1);
+
+        self.label.byAlpha(1);
+
     };
 }
 #pragma mark —— lazyLoad
@@ -84,9 +88,9 @@ static dispatch_once_t static_baseLabelOnceToken;
         @jobs_weakify(self)
         _bgImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            [self.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            imageView.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
-            }];
+            });
         });
     };return _bgImageView;
 }
@@ -96,9 +100,9 @@ static dispatch_once_t static_baseLabelOnceToken;
         @jobs_weakify(self)
         _label = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
             @jobs_strongify(self)
-            [self.bgImageView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
+            label.addOn(self.bgImageView).byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
-            }];
+            });
             
             [label actionRetIDByGestureRecognizerBlock:^id(UIGestureRecognizer *data) {
                 JobsLog(@"JobsBaseLabel的Tap手势");

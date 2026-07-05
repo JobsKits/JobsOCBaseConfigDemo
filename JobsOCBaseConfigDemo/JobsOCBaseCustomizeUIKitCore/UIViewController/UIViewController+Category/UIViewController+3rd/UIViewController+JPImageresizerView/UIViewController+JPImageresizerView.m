@@ -1,8 +1,8 @@
 //
 //  UIViewController+JPImageresizerView.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/10/12.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIViewController+JPImageresizerView.h"
@@ -88,7 +88,7 @@ JobsKey(_configure)
                     if (self.fixCompleteBlock) self.fixCompleteBlock(@1);
                 }];
             } break;
-            case JPImageresizerConfigureType_5:{//浅色毛玻璃配置裁剪图片/GIF（UIImage）
+            case JPImageresizerConfigureType_5:{/// 浅色毛玻璃配置裁剪图片/GIF（UIImage）
                 Configure = [JPImageresizerConfigure defaultConfigureWithImage:self.JPImageresizerView_img
                                                                           make:^(JPImageresizerConfigure *configure) {
                     JobsApplyJPImageresizerBlurAppearance(configure, UIBlurEffectStyleLight);
@@ -96,7 +96,7 @@ JobsKey(_configure)
                     if (self.makeBlock) self.makeBlock(@1);
                 }];
             } break;
-            case JPImageresizerConfigureType_6:{//浅色毛玻璃配置裁剪图片/GIF（NSData）
+            case JPImageresizerConfigureType_6:{/// 浅色毛玻璃配置裁剪图片/GIF（NSData）
                 Configure = [JPImageresizerConfigure defaultConfigureWithImageData:self.JPImageresizerView_data
                                                                               make:^(JPImageresizerConfigure *configure) {
                     JobsApplyJPImageresizerBlurAppearance(configure, UIBlurEffectStyleLight);
@@ -104,14 +104,14 @@ JobsKey(_configure)
                     if (self.makeBlock) self.makeBlock(@1);
                 }];
             } break;
-            case JPImageresizerConfigureType_7:{//浅色毛玻璃配置裁剪视频（NSURL）
+            case JPImageresizerConfigureType_7:{/// 浅色毛玻璃配置裁剪视频（NSURL）
                 Configure = [JPImageresizerConfigure defaultConfigureWithVideoURL:self.JPImageresizerView_url
                                                                              make:^(JPImageresizerConfigure *configure) {
                     JobsApplyJPImageresizerBlurAppearance(configure, UIBlurEffectStyleLight);
                     @jobs_strongify(self)
                     if (self.makeBlock) self.makeBlock(@1);
                 }
-                                                                    fixErrorBlock:^(NSURL *cacheURL, 
+                                                                    fixErrorBlock:^(NSURL *cacheURL,
                                                                                     JPImageresizerErrorReason reason) {
                     @jobs_strongify(self)
                     if (self.fixErrorBlock) self.fixErrorBlock(@1);
@@ -177,7 +177,7 @@ JobsKey(_configure)
                     @jobs_strongify(self)
                     if (self.makeBlock) self.makeBlock(@1);
                 }
-                                                                    fixErrorBlock:^(NSURL *cacheURL, 
+                                                                    fixErrorBlock:^(NSURL *cacheURL,
                                                                                     JPImageresizerErrorReason reason) {
                     @jobs_strongify(self)
                     if (self.fixErrorBlock) self.fixErrorBlock(@1);
@@ -202,7 +202,7 @@ JobsKey(_configure)
                     @jobs_strongify(self)
                     if (self.makeBlock) self.makeBlock(@1);
                 }
-                                                                      fixErrorBlock:^(NSURL *cacheURL, 
+                                                                      fixErrorBlock:^(NSURL *cacheURL,
                                                                                       JPImageresizerErrorReason reason) {
                     @jobs_strongify(self)
                     if (self.fixErrorBlock) self.fixErrorBlock(@1);
@@ -272,7 +272,7 @@ JobsKey(_JPImageresizerView_data)
 -(void)setJPImageresizerView_data:(NSData *)JPImageresizerView_data{
     Jobs_setAssociatedRETAIN_NONATOMIC(_JPImageresizerView_data, JPImageresizerView_data)
 }
-#pragma mark ——Prop_strong()UIImage *JPImageresizerView_img; BaseVC_JPImageresizerView_JPImageresizerView_img
+#pragma mark —— Prop_strong()UIImage *JPImageresizerView_img; BaseVC_JPImageresizerView_JPImageresizerView_img
 JobsKey(_JPImageresizerView_img)
 @dynamic JPImageresizerView_img;
 -(UIImage *)JPImageresizerView_img{

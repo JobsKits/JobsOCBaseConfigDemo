@@ -7,6 +7,7 @@
 
 #import "BRStringPickerView+Extra.h"
 
+#ifndef BRStringPickerView
 @implementation BRStringPickerView (Extra)
 
 +(JobsReturnBRStringPickerViewByPickerModeBlock _Nonnull)initBy{
@@ -16,3 +17,4 @@
 }
 
 @end
+#endif

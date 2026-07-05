@@ -9,6 +9,8 @@
 #import "LuckyDiskDemoVC.h"
 #import "LuckyWheelDemoVC.h"
 #import "JobsDefineProperty.h"
+#import "MSCommentTableHeaderFooterView.h"
+#import "NSObject+MyAppTools.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

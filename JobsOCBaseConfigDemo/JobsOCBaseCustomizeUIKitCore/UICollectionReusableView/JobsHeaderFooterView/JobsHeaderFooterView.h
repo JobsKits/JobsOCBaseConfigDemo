@@ -1,17 +1,28 @@
 //
 //  JobsHeaderFooterView.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2022/5/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_JOBSHEADERFOOTERVIEW_D33F7FC47F
+#define JOBS_HEADER_GUARD_JOBSHEADERFOOTERVIEW_D33F7FC47F
+
+#import <UIKit/UIKit.h>
 #import "BaseCollectionReusableView.h"
 #import "BaseButton.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsOCDSL.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 最左边一个主标题（UIButton） + 最右边有一个副标题（UIButton）
-@interface JobsHeaderFooterView : BaseCollectionReusableView
+@interface JobsHeaderFooterView : BaseCollectionReusableView<AppToolsProtocol>
 
 -(BaseButton *)getTitleBtn;
 -(BaseButton *)getSubTitleBtn;
@@ -19,3 +30,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSHEADERFOOTERVIEW_D33F7FC47F */

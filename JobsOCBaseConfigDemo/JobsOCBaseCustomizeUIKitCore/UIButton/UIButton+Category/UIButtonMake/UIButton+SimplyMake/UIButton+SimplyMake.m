@@ -1,8 +1,8 @@
 //
 //  UIButton+SimplyMake.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by User on 9/9/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIButton+SimplyMake.h"
@@ -93,7 +93,7 @@
     return ^__kindof UIButton *_Nullable(NSString *_Nonnull title){
         @jobs_strongify(self)
         return self.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel *_Nullable data) {
-            data.title = title;
+            data.byTitle(title);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -103,7 +103,7 @@
     return ^__kindof UIButton *_Nullable(NSAttributedString *_Nonnull title){
         @jobs_strongify(self)
         return self.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-            data.attributedTitle = title;
+            data.byAttributedTitle(title);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -113,7 +113,7 @@
     return ^__kindof UIButton *_Nullable(UIImage *_Nonnull image){
         @jobs_strongify(self)
         return self.initByViewModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.image = image;
+            data.byImage(image);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -123,7 +123,7 @@
     return ^__kindof UIButton *_Nullable(UIImage *_Nonnull image){
         @jobs_strongify(self)
         return self.initByViewModel(jobsMakeViewModel(^(__kindof UIViewModel *_Nullable data) {
-            data.backgroundImage = image;
+            data.byBackgroundImage(image);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -135,8 +135,8 @@
                                          NSString *_Nonnull subTitle){
         @jobs_strongify(self)
         return self.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel *_Nullable data) {
-            data.title = title;
-            data.subTitle = subTitle;
+            data.byTitle(title)
+                .bySubTitle(subTitle);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -147,8 +147,8 @@
                                          NSAttributedString *_Nonnull subTitle){
         @jobs_strongify(self)
         return self.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-            data.attributedTitle = title;
-            data.attributedSubTitle = subTitle;
+            data.byAttributedTitle(title)
+                .byAttributedSubTitle(subTitle);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -160,8 +160,8 @@
                                          UIFont *_Nullable font){
         @jobs_strongify(self)
         return self.initByViewModel(jobsMakeViewModel(^(__kindof UIViewModel *_Nullable data) {
-            data.title = title;
-            data.titleFont = font;
+            data.byTitle(title)
+                .byTitleFont(font);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -173,9 +173,9 @@
                                          UIColor *_Nullable titleCor){
         @jobs_strongify(self)
         return self.initByViewModel(jobsMakeViewModel(^(__kindof UIViewModel *_Nullable data) {
-            data.title = title;
-            data.titleFont = font;
-            data.titleCor = titleCor;
+            data.byTitle(title)
+                .byTitleFont(font)
+                .byTitleCor(titleCor);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -190,12 +190,12 @@
                                          CGFloat x){
         @jobs_strongify(self)
         return self.initByViewModel(jobsMakeViewModel(^(__kindof UIViewModel *_Nullable data) {
-            data.image = image;
-            data.title = title;
-            data.titleFont = font;
-            data.titleCor = titleCor;
-            data.imagePlacement = imagePlacement;
-            data.imagePadding = x;
+            data.byImage(image)
+                .byTitle(title)
+                .byTitleFont(font)
+                .byTitleCor(titleCor)
+                .byImagePlacement(imagePlacement)
+                .byImagePadding(x);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -208,10 +208,10 @@
                                          UIImage *_Nonnull backgroundImage){
         @jobs_strongify(self)
         return self.initByViewModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.title = title;
-            data.titleFont = font;
-            data.titleCor = titleCor;
-            data.backgroundImage = backgroundImage;
+            data.byTitle(title)
+                .byTitleFont(font)
+                .byTitleCor(titleCor)
+                .byBackgroundImage(backgroundImage);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -226,12 +226,12 @@
                                          NSDirectionalRectEdge imagePlacement){
         @jobs_strongify(self)
         return self.initByViewModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.image = image;
-            data.title = title;
-            data.titleFont = font;
-            data.titleCor = titleCor;
-            data.backgroundImage = backgroundImage;
-            data.imagePlacement = imagePlacement;
+            data.byImage(image)
+                .byTitle(title)
+                .byTitleFont(font)
+                .byTitleCor(titleCor)
+                .byBackgroundImage(backgroundImage)
+                .byImagePlacement(imagePlacement);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -246,12 +246,12 @@
                                          CGFloat x){/// 图文距离
         @jobs_strongify(self)
         return self.initByViewModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.image = image;
-            data.title = title;
-            data.titleFont = font;
-            data.titleCor = titleCor;
-            data.imagePlacement = directionalRectEdge;
-            data.imagePadding = x;
+            data.byImage(image)
+                .byTitle(title)
+                .byTitleFont(font)
+                .byTitleCor(titleCor)
+                .byImagePlacement(directionalRectEdge)
+                .byImagePadding(x);
         })).bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0));
     };
 }
@@ -313,11 +313,11 @@
     };
 }
 /// 依靠UIViewModel进行创建
-+(JobsReturnButtonByViewModelBlock _Nonnull)initByViewModel API_AVAILABLE(ios(16.0)){
++(JobsRetButtonByViewModelBlock _Nonnull)initByViewModel API_AVAILABLE(ios(16.0)){
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UIViewModel *_Nullable data){
         @jobs_strongify(self)
-        if(!data) data = UIViewModel.new;
+        if(!data) data = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         return [self.alloc jobsInitBtnByConfiguration:data.buttonConfiguration
                                            background:data.backgroundConfiguration
                            buttonConfigTitleAlignment:data.buttonConfigurationTitleAlignment//UIButtonConfigurationTitleAlignmentAutomatic
@@ -357,11 +357,11 @@
     };
 }
 /// 依靠UIButtonModel进行创建
-+(JobsReturnButtonByButtonModelBlock _Nonnull)initByButtonModel API_AVAILABLE(ios(16.0)){
++(JobsRetButtonByButtonModelBlock _Nonnull)initByButtonModel API_AVAILABLE(ios(16.0)){
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UIButtonModel *_Nullable data){
         @jobs_strongify(self)
-        if(!data) data = UIButtonModel.new;
+        if(!data) data = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {});
         return [self.alloc jobsInitBtnByConfiguration:data.buttonConfiguration
                                            background:data.backgroundConfiguration
                            buttonConfigTitleAlignment:data.buttonConfigurationTitleAlignment
@@ -401,7 +401,7 @@
     };
 }
 /// 依靠UITextModel进行创建
-+(JobsReturnButtonByTextModelBlock _Nonnull)initByTextModel API_AVAILABLE(ios(15.0)){
++(JobsRetButtonByTextModelBlock _Nonnull)initByTextModel API_AVAILABLE(ios(15.0)){
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UITextModel *_Nullable data){
         @jobs_strongify(self)
@@ -446,7 +446,7 @@
 }
 #pragma mark —— 一些公有方法
 /// 点击方法@普通
--(JobsReturnButtonByClickBlocks _Nonnull)onClickBy{
+-(JobsRetButtonByClickBlocks _Nonnull)onClickBy{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(jobsByBtnBlock block) {
         @jobs_strongify(self)
@@ -455,7 +455,7 @@
     };
 }
 /// 点击方法@叠加
--(JobsReturnButtonByClickBlocks _Nonnull)onClickAppendBy{
+-(JobsRetButtonByClickBlocks _Nonnull)onClickAppendBy{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(jobsByBtnBlock block) {
         @jobs_strongify(self)
@@ -472,7 +472,7 @@
     };
 }
 /// 长按方法@普通
--(JobsReturnButtonByClickBlocks _Nonnull)onLongPressGestureBy{
+-(JobsRetButtonByClickBlocks _Nonnull)onLongPressGestureBy{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(jobsByBtnBlock block) {
         @jobs_strongify(self)
@@ -481,7 +481,7 @@
     };
 }
 /// 长按方法@叠加
--(JobsReturnButtonByClickBlocks _Nonnull)onLongPressGestureAppendBy{
+-(JobsRetButtonByClickBlocks _Nonnull)onLongPressGestureAppendBy{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(jobsByBtnBlock block) {
         @jobs_strongify(self)
@@ -516,7 +516,7 @@
     };
 }
 #pragma mark —— 依据数据源进行按钮的统一重设
--(JobsReturnButtonByViewModelAndBOOLBlock _Nonnull)resetByViewModel{
+-(JobsRetButtonByViewModelAndBOOLBlock _Nonnull)resetByViewModel{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(__kindof UIViewModel *_Nonnull viewModel,BOOL selected){
         @jobs_strongify(self)
@@ -545,7 +545,7 @@
     };
 }
 
--(JobsReturnButtonByButtonModelAndBOOLBlock _Nonnull)resetByButtonModel{
+-(JobsRetButtonByButtonModelAndBOOLBlock _Nonnull)resetByButtonModel{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(__kindof UIButtonModel *_Nonnull buttonModel,BOOL selected){
         @jobs_strongify(self)
@@ -593,7 +593,7 @@ JobsKey(_longPressGestureBlock)
 -(void)setLongPressGestureBlock:(jobsByBtnBlock _Nullable)longPressGestureBlock{
     Jobs_setAssociatedRETAIN_NONATOMIC(_longPressGestureBlock, longPressGestureBlock);
 }
-#pragma mark —— Prop_strong()UIViewModel *viewModel;
+#pragma mark —— Prop_strong(nullable)id modelData;
 JobsKey(_modelData)
 @dynamic modelData;
 -(id)modelData{

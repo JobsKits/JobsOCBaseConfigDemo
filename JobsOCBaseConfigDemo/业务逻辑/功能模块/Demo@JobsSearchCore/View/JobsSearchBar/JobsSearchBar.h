@@ -2,13 +2,24 @@
 //  JobsSearchBar.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/10/2.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <UIKit/UIKit.h>
-#import "JobsDoorInputViewProtocol.h"
-#import "BaseView.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsMakes.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 JobsDoorInputViewProtocol
 ,UITextFieldDelegate
 >
+/// 外部已经有取消入口时隐藏内部取消按钮
+Prop_assign()BOOL cancelBtnHidden;
 
 @end
 

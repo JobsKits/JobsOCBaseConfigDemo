@@ -14,6 +14,7 @@
 #import "MGSwipeButtonModel.h"
 #import "JobsIMChatInfoModel.h"
 #import "JobsDefineProperty.h"
+#import "NSString+Menu.h"
 
 #if __has_include(<MGSwipeTableCell/MGSwipeTableCell.h>)
 #import <MGSwipeTableCell/MGSwipeTableCell.h>

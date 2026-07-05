@@ -1,13 +1,33 @@
 //
 //  DebugLogDescription.m
-//  JobsOCBaseConfigDemo
+//  JobsDebug
 //
-//  Created by Jobs on 2021/3/30.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "DebugLogDescription.h"
 
 #ifdef DEBUG
+/// 同一个类的方法交换
+void JobsDebugMethodSwizzle(Class _Nonnull c,
+                            SEL _Nonnull _orig,
+                            SEL _Nonnull _new) {
+    Method origMethod = class_getInstanceMethod(c, _orig);
+    Method newMethod = class_getInstanceMethod(c, _new);
+    if (!origMethod || !newMethod) return;
+    if (class_addMethod(c,
+                        _orig,
+                        method_getImplementation(newMethod),
+                        method_getTypeEncoding(newMethod))) {
+        class_replaceMethod(c,
+                            _new,
+                            method_getImplementation(origMethod),
+                            method_getTypeEncoding(origMethod));
+    } else {
+        method_exchangeImplementations(origMethod, newMethod);
+    }
+}
+
 #pragma mark —— 打印model的内部属性内容
 @implementation NSObject (DebugDescription)
 
@@ -98,15 +118,15 @@
     //方法交换
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        MethodSwizzle(self.class,
-                      @selector(descriptionWithLocale:),
-                      @selector(printlog_descriptionWithLocale:));
-        MethodSwizzle(self.class,
-                      @selector(descriptionWithLocale:indent:),
-                      @selector(printlog_descriptionWithLocale:indent:));
-        MethodSwizzle(self.class,
-                      @selector(debugDescription),
-                      @selector(printlog_debugDescription));
+        JobsDebugMethodSwizzle(self.class,
+                               @selector(descriptionWithLocale:),
+                               @selector(printlog_descriptionWithLocale:));
+        JobsDebugMethodSwizzle(self.class,
+                               @selector(descriptionWithLocale:indent:),
+                               @selector(printlog_descriptionWithLocale:indent:));
+        JobsDebugMethodSwizzle(self.class,
+                               @selector(debugDescription),
+                               @selector(printlog_debugDescription));
     });
 }
 
@@ -117,15 +137,15 @@
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        MethodSwizzle(self.class,
-                      @selector(descriptionWithLocale:),
-                      @selector(printlog_descriptionWithLocale:));
-        MethodSwizzle(self.class,
-                      @selector(descriptionWithLocale:indent:),
-                      @selector(printlog_descriptionWithLocale:indent:));
-        MethodSwizzle(self.class,
-                      @selector(debugDescription),
-                      @selector(printlog_debugDescription));
+        JobsDebugMethodSwizzle(self.class,
+                               @selector(descriptionWithLocale:),
+                               @selector(printlog_descriptionWithLocale:));
+        JobsDebugMethodSwizzle(self.class,
+                               @selector(descriptionWithLocale:indent:),
+                               @selector(printlog_descriptionWithLocale:indent:));
+        JobsDebugMethodSwizzle(self.class,
+                               @selector(debugDescription),
+                               @selector(printlog_debugDescription));
     });
 }
 //用此方法交换系统的 descriptionWithLocale: 方法。该方法在代码打印的时候调用。

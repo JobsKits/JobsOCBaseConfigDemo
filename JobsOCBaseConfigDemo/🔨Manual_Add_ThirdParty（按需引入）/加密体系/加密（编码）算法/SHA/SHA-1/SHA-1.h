@@ -1,15 +1,18 @@
 //
-//  SHA1.h
-//  JobsOCBaseConfigDemo
+//  SHA-1.h
+//  JobsCryptography
 //
-//  Created by Jobs on 2020/9/14.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_SHA_1_3DC9DEBCC5
+#define JOBS_HEADER_GUARD_SHA_1_3DC9DEBCC5
+
 #import <Foundation/Foundation.h>
-#import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonDigest.h>  // 提供常见摘要算法接口，如 MD5、SHA1、SHA256 等。
 #import "GTMBase64.h"
-#import "NSString+Conversion.h"
+
+#import "JobsByOCPods.h"
 
 /// SHA1 加密
 /// @param string 被加密的字符串
@@ -47,5 +50,4 @@ NS_INLINE NSString *sha_1(NSString *string,
         return nil;
     }
 }
-
-
+#endif /* JOBS_HEADER_GUARD_SHA_1_3DC9DEBCC5 */

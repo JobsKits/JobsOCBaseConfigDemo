@@ -1,18 +1,25 @@
 //
 //  JobsAppDoorInputViewBaseStyle_9.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2022/5/11.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseViewProtocol.h"
-#import "TimerProtocol.h"
-#import "JobsDoorInputViewProtocol.h"
-#import "JobsAppDoorInputViewBaseStyleModel.h"
-#import "JobsAppDoorInputViewBaseStyle.h"
-#import "UIButton+Timer.h"
-#import "JobsMagicTextField.h"
-#import "JobsDefineProperty.h"
+#ifndef JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_9_39DC96EEC4
+#define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_9_39DC96EEC4
+
+#import <UIKit/UIKit.h>
+#import "JobsOCTools.h"
+
+#import "JobsOCDSL.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,56 +38,54 @@ Prop_assign()CGFloat textFieldWidth;
  * 如果以后需要强行禁用init或者new，那么:
  - (instancetype)init NS_UNAVAILABLE;
  - (instancetype)new NS_UNAVAILABLE;
- 
  */
 @end
 
 NS_ASSUME_NONNULL_END
-
 /**
- 调用示例：
- -(JobsAppDoorInputViewBaseStyle_9 *)获取并输入手机验证码{
-     if (!_获取并输入手机验证码) {
-         _获取并输入手机验证码 = [JobsAppDoorInputViewBaseStyle_9.alloc initWithSize:inputSize()];
-         _获取并输入手机验证码.countDownBtnWidth = JobsWidth(80);
-         _获取并输入手机验证码.textFieldWidth = JobsWidth(220);
-         @jobs_weakify(self)
-         [_获取并输入手机验证码 actionObjBlock:^(JobsAppDoorInputViewTFModel *data) {
-             @jobs_strongify(self)
- //            if ([data isKindOfClass:JobsAppDoorInputViewTFModel.class]) {
- //                JobsAppDoorInputViewTFModel *model = (JobsAppDoorInputViewTFModel *)data;
- //                self.newsWithdrawPassword = model.resString;
- //            }
-         }];
-         
-         [self.view addSubview:_获取并输入手机验证码];
-         [_获取并输入手机验证码 mas_makeConstraints:^(MASConstraintMaker *make) {
-             make.centerX.equalTo(self.view);
-             make.size.mas_equalTo(_获取并输入手机验证码.thisViewSize);
-             make.top.equalTo(self.选择区号并输入手机号.mas_bottom).offset(JobsWidth(32));
-         }];
-         
-         _获取并输入手机验证码.layer.cornerRadius = JobsWidth(52 / 2);
-         _获取并输入手机验证码.layer.borderColor = HEXCOLOR(0xEEE2C8).CGColor;
-         _获取并输入手机验证码.jobsRichViewByModel(.配置验证码输入);
-     };return _获取并输入手机验证码;
- }
- 
- -(JobsAppDoorInputViewBaseStyleModel *)配置验证码输入{
-     if (!_配置验证码输入) {
-         _配置验证码输入 = JobsAppDoorInputViewBaseStyleModel.new;
-         _配置验证码输入.leftViewIMG = @"安全".img;
-         _配置验证码输入.placeHolderStr = @"請輸入驗證碼".tr;
-         _配置验证码输入.placeholderFont = UIFontWeightRegularSize(JobsWidth(16));
-         _配置验证码输入.isShowDelBtn = YES;
-         _配置验证码输入.isShowSecurityBtn = NO;
-         _配置验证码输入.returnKeyType = UIReturnKeyDone;
-         _配置验证码输入.keyboardAppearance = UIKeyboardAppearanceAlert;
-         _配置验证码输入.leftViewMode = UITextFieldViewModeAlways;
-         _配置验证码输入.titleStrCor = _配置验证码输入.placeholderColor = HEXCOLOR_ALPHA(0xC4C4C4,1.f);
- //        配置_配置验证码输入码输入.fieldEditorOffset = JobsWidth(80);
-     };return _配置验证码输入;
- }
 
- 
+     调用示例：
+     -(JobsAppDoorInputViewBaseStyle_9 *)获取并输入手机验证码{
+         if (!_获取并输入手机验证码) {
+             _获取并输入手机验证码 = [JobsAppDoorInputViewBaseStyle_9.alloc initWithSize:inputSize()];
+             _获取并输入手机验证码.countDownBtnWidth = JobsWidth(80);
+             _获取并输入手机验证码.textFieldWidth = JobsWidth(220);
+             @jobs_weakify(self)
+             [_获取并输入手机验证码 actionObjBlock:^(JobsAppDoorInputViewTFModel *data) {
+                 @jobs_strongify(self)
+     //            if ([data isKindOfClass:JobsAppDoorInputViewTFModel.class]) {
+     //                JobsAppDoorInputViewTFModel *model = (JobsAppDoorInputViewTFModel *)data;
+     //                self.newsWithdrawPassword = model.resString;
+     //            }
+             }];
+
+             _获取并输入手机验证码.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
+                 make.centerX.equalTo(self.view);
+                 make.size.mas_equalTo(_获取并输入手机验证码.thisViewSize);
+                 make.top.equalTo(self.选择区号并输入手机号.mas_bottom).offset(JobsWidth(32));
+             });
+
+
+             _获取并输入手机验证码.layer.cornerRadius = JobsWidth(52 / 2);
+             _获取并输入手机验证码.layer.borderColor = HEXCOLOR(0xEEE2C8).CGColor;
+             _获取并输入手机验证码.jobsRichViewByModel(.配置验证码输入);
+         };return _获取并输入手机验证码;
+     }
+
+     -(JobsAppDoorInputViewBaseStyleModel *)配置验证码输入{
+         if (!_配置验证码输入) {
+             _配置验证码输入 = JobsAppDoorInputViewBaseStyleModel.new;
+             _配置验证码输入.leftViewIMG = @"安全".img;
+             _配置验证码输入.placeHolderStr = @"請輸入驗證碼".tr;
+             _配置验证码输入.placeholderFont = UIFontWeightRegularSize(JobsWidth(16));
+             _配置验证码输入.isShowDelBtn = YES;
+             _配置验证码输入.isShowSecurityBtn = NO;
+             _配置验证码输入.returnKeyType = UIReturnKeyDone;
+             _配置验证码输入.keyboardAppearance = UIKeyboardAppearanceAlert;
+             _配置验证码输入.leftViewMode = UITextFieldViewModeAlways;
+             _配置验证码输入.titleStrCor = _配置验证码输入.placeholderColor = HEXCOLOR_ALPHA(0xC4C4C4,1.f);
+     //        配置_配置验证码输入码输入.fieldEditorOffset = JobsWidth(80);
+         };return _配置验证码输入;
+     }
  */
+#endif /* JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_9_39DC96EEC4 */

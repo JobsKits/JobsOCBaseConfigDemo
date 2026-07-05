@@ -1,9 +1,12 @@
 //
 //  BaseTableViewCell.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2025/5/29.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_BASETABLEVIEWCELL_F219BE1A1A
+#define JOBS_HEADER_GUARD_BASETABLEVIEWCELL_F219BE1A1A
 
 #import <UIKit/UIKit.h>
 
@@ -14,3 +17,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_BASETABLEVIEWCELL_F219BE1A1A */

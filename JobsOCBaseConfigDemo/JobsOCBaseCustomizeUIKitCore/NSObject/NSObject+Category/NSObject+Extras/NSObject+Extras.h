@@ -33,7 +33,11 @@
 #import "JobsModel.h"
 #import "JobsDropDownListView.h"
 #import "JobsNavigationTransitionMgr.h"
+#import "UIViewController+BaseVC.h"
+#import "JobsDefineFuncs.h"
 #import "JobsDefineProperty.h"
+#import "JobsLoadingImage.h"
+#import "UIWindow+JobsAppTools.h"
 
 #if __has_include(<WHToast/WHToast.h>)
 #import <WHToast/WHToast.h>

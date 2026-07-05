@@ -1,18 +1,18 @@
 //
 //  MJRefreshConfigModel.m
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "MJRefreshConfigModel.h"
-#import "NSString+Others.h"
+#import "NSString+Extra.h"
 #import "NSMutableArray+Extra.h"
-#import "JobsLoadingImage.h"
+#import "JobsLanMgr.h"
 
 @implementation MJRefreshConfigModel
 
--(JobsReturnMJRefreshConfigModelByReturnIDByIDBlocks _Nonnull)byLoadBlock{
+-(JobsRetMJRefreshConfigModelByRetIDByIDBlocks _Nonnull)byLoadBlock{
     @jobs_weakify(self)
     return ^MJRefreshConfigModel *_Nullable(JobsRetIDByIDBlock block){
         @jobs_strongify(self)
@@ -97,7 +97,7 @@
 -(NSMutableArray<UIImage *> *)stateIdlePicsMutArr{
     if (!_stateIdlePicsMutArr) {
         _stateIdlePicsMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add(JobsBuddleIMG(@"bundle",
+            data.add(JobsLoadBundleImage(@"bundle",
                                    @"刷新",
                                    nil,
                                    @"header.png"));
@@ -108,7 +108,7 @@
 -(NSMutableArray<UIImage *> *)pullingPicsMutArr{
     if (!_pullingPicsMutArr) {
         _pullingPicsMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add(JobsBuddleIMG(@"bundle",
+            data.add(JobsLoadBundleImage(@"bundle",
                                    @"刷新",
                                    nil,
                                    @"Indeterminate Spinner - Small.png"));
@@ -122,7 +122,7 @@
             for (int i = 1; i <= 55; i++) {
                 NSString *str = @"gif_header_".add(toStringByInt(i));
                 str = str.add(@".png");
-                data.add(JobsBuddleIMG(@"bundle",
+                data.add(JobsLoadBundleImage(@"bundle",
                                        @"刷新",
                                        @"刷新图片 166 * 166 @3x 100 * 100 @2x",
                                        str));
@@ -137,7 +137,7 @@
             for (int i = 1; i <= 55; i++) {
                 NSString *str = @"gif_header_".add(toStringByInt(i));
                 str = str.add(@".png");
-                data.add(JobsBuddleIMG(@"bundle",
+                data.add(JobsLoadBundleImage(@"bundle",
                                        @"刷新",
                                        @"刷新图片 166 * 166 @3x 100 * 100 @2x",
                                        str));
@@ -152,7 +152,7 @@
             for (int i = 1; i <= 55; i++) {
                 NSString *str = @"gif_header_".add(toStringByInt(i));
                 str = str.add(@".png");
-                data.add(JobsBuddleIMG(@"bundle",
+                data.add(JobsLoadBundleImage(@"bundle",
                                        @"刷新",
                                        @"刷新图片 166 * 166 @3x 100 * 100 @2x",
                                        str));
@@ -163,7 +163,7 @@
 /// Lottie配置
 -(NSString *)jsonLottiefilePaths{
     if (!_jsonLottiefilePaths) {
-        _jsonLottiefilePaths = JobsPathForBuddleIMG(nil,
+        _jsonLottiefilePaths = JobsBundleImagePath(nil,
                                                     @"JsonRes",
                                                     nil,
                                                     @"下拉刷新.json");

@@ -1,6 +1,6 @@
 //
 //  UIControl+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -10,7 +10,9 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
+
 #import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -29,12 +31,15 @@ Prop_copy(readonly)JobsRetControlByVerticalAlignBlock byContentVerticalAlignment
 Prop_copy(readonly)JobsRetControlByTargetActionEventsBlock byAddTarget;
 Prop_copy(readonly)JobsRetControlByTargetActionEventsBlock byRemoveTarget;
 Prop_copy(readonly)JobsRetControlByEventsBlock bySendActions;
+Prop_copy(readonly)JobsRetControlByActionBlock bySendAction API_AVAILABLE(ios(14.0));
+Prop_copy(readonly)JobsRetControlByEventsBlock bySendActionsForControlEvents;
 Prop_copy(readonly)JobsRetControlByActionEventsBlock byAddAction API_AVAILABLE(ios(14.0));
 Prop_copy(readonly)JobsRetControlByActionEventsBlock byRemoveAction API_AVAILABLE(ios(14.0));
 Prop_copy(readonly)JobsRetControlByIdentifierEventsBlock byRemoveActionByIdentifier API_AVAILABLE(ios(14.0));
 Prop_copy(readonly)JobsRetControlByEventsIdentifierActionHandlerBlock byOnAction API_AVAILABLE(ios(14.0));
 Prop_copy(readonly)JobsRetControlByBOOLBlock byShowsMenuAsPrimaryAction API_AVAILABLE(ios(14.0));
 Prop_copy(readonly)JobsRetControlByBOOLBlock byContextMenuEnabled API_AVAILABLE(ios(14.0));
+Prop_copy(readonly)JobsRetControlByBOOLBlock byContextMenuInteractionEnabled API_AVAILABLE(ios(14.0));
 Prop_copy(readonly)JobsRetControlByStringBlock byToolTip API_AVAILABLE(ios(15.0));
 Prop_copy(readonly)JobsRetControlByBOOLBlock bySymbolAnimationEnabled API_AVAILABLE(ios(17.0));
 

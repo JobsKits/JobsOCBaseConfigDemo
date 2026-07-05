@@ -1,9 +1,8 @@
 //
 //  UITabBar+Ex.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by 叶晓倩 on 2017/9/29.
-//  Copyright © 2017年 xa. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UITabBar+Ex.h"
@@ -25,9 +24,11 @@
         lottieView = [LOTAnimationView animationNamed:lottieName];
         [self addSubview:lottieView];
         lottieView.userInteractionEnabled = NO;
-        lottieView.contentMode = UIViewContentModeScaleAspectFit;
+        lottieView.byContentMode(UIViewContentModeScaleAspectFit);
+
         lottieView.tag = 888 + index;
-        lottieView.backgroundColor = JobsYellowColor;
+        lottieView.byBgColor(JobsYellowColor);
+
     };return lottieView;
 }
 

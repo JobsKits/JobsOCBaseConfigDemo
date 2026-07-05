@@ -1,21 +1,19 @@
 //
 //  JobsTableView.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#import <UIKit/UIKit.h>
 
 #ifndef JobsTableView_h
 #define JobsTableView_h
-
-#pragma mark —— Base
-#import "BaseTableView.h"
-
 #pragma mark —— Category
 // UITableView 折叠功能
 #import "UITableView+WWFoldableTableView.h"
 #import "UITableView+RegisterClass.h"
 #import "UITableView+Extra.h"
-#import "UITableView+DSL.h"
+#import "JobsOCDSL.h"
 
 #endif /* JobsTableView_h */

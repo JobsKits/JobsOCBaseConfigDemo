@@ -1,8 +1,8 @@
 //
 //  JobsHotLabelBySingleLine.m
-//  JobsOCBaseConfigDemo
+//  JobsHotLabel
 //
-//  Created by Jobs on 2020/10/4.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsHotLabelBySingleLine.h"
@@ -23,13 +23,15 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = HEXCOLOR(0xFFFFFF);
+        self.byBgColor(HEXCOLOR(0xFFFFFF));
+
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = HEXCOLOR(0xFFFFFF);
+        self.byBgColor(HEXCOLOR(0xFFFFFF));
+
     };return self;
 }
 /// 必须有frame的前提下才会进行绘制
@@ -93,17 +95,18 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
     };
 }
 /**
- 配置按钮
- 如果在外层进行自定义化调用，那么他的调用时机要早于:
- <BaseViewProtocol>
- -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
-     @jobs_weakify(self)
-     return ^(NSMutableArray <UIViewModel *>*_Nullable model) {
-         @jobs_strongify(self)
-     };
- }
+
+     配置按钮
+     如果在外层进行自定义化调用，那么他的调用时机要早于:
+     <BaseViewProtocol>
+     -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
+         @jobs_weakify(self)
+         return ^(NSMutableArray <UIViewModel *>*_Nullable model) {
+             @jobs_strongify(self)
+         };
+     }
  */
--(JobsReturnButtonByViewModelBlock _Nonnull)configBtnBy{
+-(JobsRetButtonByViewModelBlock _Nonnull)configBtnBy{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UIViewModel *_Nullable vm){
         return jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
@@ -138,9 +141,9 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
             highestNum = @(MAX(highestNum.floatValue, num.floatValue));
         }
         
-        [btn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        btn.byRemake(^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(self.elementDefaultSize.width, highestNum.floatValue));
-        }];
+        });
     }
 }
 
@@ -152,25 +155,24 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
 #pragma mark —— lazyLoad
 /**
  
- typedef NS_ENUM(NSInteger, UIStackViewDistribution) {
-     UIStackViewDistributionFill = 0,//充满，当只有一个控件时可以使用
-     UIStackViewDistributionFillEqually,//平分充满，每个控件占据相同尺寸排列充满❤️
-     UIStackViewDistributionFillProportionally,//会优先按照约束的尺寸进行排列，如果没有充满，会拉伸最后一个排列的控件充满
-     UIStackViewDistributionEqualSpacing,//等间距排列
-     UIStackViewDistributionEqualCentering,//中心距离相等
- } NS_ENUM_AVAILABLE_IOS(9_0);
- 
- typedef NS_ENUM(NSInteger, UIStackViewAlignment) {
-    UIStackViewAlignmentFill,//子视图填充StackView
-    UIStackViewAlignmentLeading,//子视图左对齐（axis为垂直方向而言）
-    UIStackViewAlignmentTop = UIStackViewAlignmentLeading,//子视图顶部对齐（axis为水平方向而言）
-    UIStackViewAlignmentFirstBaseline, // 按照第一个子视图的文字的第一行对齐，同时保证高度最大的子视图底部对齐（只在axis为水平方向有效）
-    UIStackViewAlignmentCenter,//子视图居中对齐
-    UIStackViewAlignmentTrailing,//子视图右对齐(axis为垂直方向而言）
-    UIStackViewAlignmentBottom = UIStackViewAlignmentTrailing,//子视图底部对齐（axis为水平方向而言）
-    UIStackViewAlignmentLastBaseline, // 按照最后一个子视图的文字的最后一行对齐，同时保证高度最大的子视图顶部对齐（只在axis为水平方向有效）
- } NS_ENUM_AVAILABLE_IOS(9_0);
- 
+     typedef NS_ENUM(NSInteger, UIStackViewDistribution) {
+         UIStackViewDistributionFill = 0,//充满，当只有一个控件时可以使用
+         UIStackViewDistributionFillEqually,//平分充满，每个控件占据相同尺寸排列充满❤️
+         UIStackViewDistributionFillProportionally,//会优先按照约束的尺寸进行排列，如果没有充满，会拉伸最后一个排列的控件充满
+         UIStackViewDistributionEqualSpacing,//等间距排列
+         UIStackViewDistributionEqualCentering,//中心距离相等
+     } NS_ENUM_AVAILABLE_IOS(9_0);
+
+     typedef NS_ENUM(NSInteger, UIStackViewAlignment) {
+        UIStackViewAlignmentFill,//子视图填充StackView
+        UIStackViewAlignmentLeading,//子视图左对齐（axis为垂直方向而言）
+        UIStackViewAlignmentTop = UIStackViewAlignmentLeading,//子视图顶部对齐（axis为水平方向而言）
+        UIStackViewAlignmentFirstBaseline, // 按照第一个子视图的文字的第一行对齐，同时保证高度最大的子视图底部对齐（只在axis为水平方向有效）
+        UIStackViewAlignmentCenter,//子视图居中对齐
+        UIStackViewAlignmentTrailing,//子视图右对齐(axis为垂直方向而言）
+        UIStackViewAlignmentBottom = UIStackViewAlignmentTrailing,//子视图底部对齐（axis为水平方向而言）
+        UIStackViewAlignmentLastBaseline, // 按照最后一个子视图的文字的最后一行对齐，同时保证高度最大的子视图顶部对齐（只在axis为水平方向有效）
+     } NS_ENUM_AVAILABLE_IOS(9_0);
  */
 /// 放在滚动视图上，可以滚动的UIStackView
 @synthesize stackView = _stackView;
@@ -183,7 +185,7 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
             stackView.distribution = UIStackViewDistributionEqualSpacing;
             stackView.alignment = UIStackViewAlignmentCenter;
             /// 注意这里设置的约束，最后一个宽度的约束很关键
-            [self.scrollView.addSubview(stackView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            stackView.addOn(self.scrollView).byAdd(^(MASConstraintMaker *make) {
                 make.height.equalTo(self);
                 make.centerY.equalTo(self.scrollView);
                 if (self.scrollView.contentSize.width > self.scrollView.width) {
@@ -196,7 +198,7 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
                     }else make.width.mas_equalTo(self->btnSize.width);
                     make.centerX.equalTo(self.scrollView);
                 }
-            }];
+            });
         });
     };return _stackView;
 }
@@ -206,15 +208,16 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
 -(UIScrollView *)scrollView{
     if (!_scrollView) {
         @jobs_weakify(self)
-        _scrollView = self.addSubview(jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
+        _scrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView.delegate = self;
-            scrollView.frame = self.bounds;
-    //        scrollView.backgroundColor = JobsWhiteColor;
-            scrollView.contentSize = CGSizeMake(self->width, self->btnSize.height);
-            scrollView.showsVerticalScrollIndicator = NO;
-            scrollView.showsHorizontalScrollIndicator = NO;
-        }));
+            scrollView
+                .byDelegate(self)
+                .byContentSize(CGSizeMake(self->width, self->btnSize.height))
+                .byShowsVerticalScrollIndicator(NO)
+                .byShowsHorizontalScrollIndicator(NO)
+                .byFrame(self.bounds)
+                .addOn(self);
+        });
     };return _scrollView;
 }
 

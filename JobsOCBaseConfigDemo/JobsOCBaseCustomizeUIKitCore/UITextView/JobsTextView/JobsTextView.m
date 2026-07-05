@@ -1,11 +1,15 @@
 //
 //  JobsTextView.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by alan comb on 2021/4/3.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsTextView.h"
+#import "NSObject+Notification.h"
+#import "NSString+Sys.h"
+#import "NSString+Toast.h"
+#import "SZTextView+Extra.h"
 
 @interface JobsTextView()
 /// UI
@@ -17,6 +21,11 @@ Prop_strong()UITextModel *textModel;
 
 @implementation JobsTextView
 @synthesize textModel = _textModel;
+-(UITextModel *)textModel{
+    if (!_textModel) {
+        _textModel = UITextModel.new;
+    };return _textModel;
+}
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
@@ -34,7 +43,8 @@ static dispatch_once_t static_textViewOnceToken;
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+
     };return self;
 }
 
@@ -72,8 +82,8 @@ static dispatch_once_t static_textViewOnceToken;
         if([model isKindOfClass:UITextModel.class]){
             self.textModel = (UITextModel *)model;
             self.updateWordCount(0);
-            self.countLabel.alpha = 1;
-            self.textView.alpha = 1;
+            self.countLabel.byAlpha(1);
+            self.szTextView.byAlpha(1);
         }
     };
 }
@@ -87,10 +97,11 @@ static dispatch_once_t static_textViewOnceToken;
     return ^(NSInteger count){
         @jobs_strongify(self)
         if(count) self.textModel.curWordCount = count;
-        self.countLabel.text = toStringByNSInteger(self.textModel.curWordCount)
-            .add(JobsSeparation)
-            .add(toStringByNSInteger(self.textModel.maxWordCount));
-        self.countLabel.makeLabelByShowingType(UILabelShowingType_03);
+        self.countLabel
+            .byText(toStringByNSInteger(self.textModel.curWordCount)
+                    .add(JobsSeparation)
+                    .add(toStringByNSInteger(self.textModel.maxWordCount)))
+            .makeLabelByShowingType(UILabelShowingType_03);
     };
 }
 #pragma mark —— lazyLoad
@@ -102,12 +113,12 @@ static dispatch_once_t static_textViewOnceToken;
             @jobs_strongify(self)
             textView.byBgColor(JobsClearColor);
             textView.editable = YES;
-            [self.addSubview(textView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            textView.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(self).offset(JobsWidth(5));
                 make.left.equalTo(self).offset(JobsWidth(10));
                 make.right.equalTo(self).offset(JobsWidth(-10));
                 make.bottom.equalTo(self.countLabel.mas_top);
-            }];
+            });
         });
         /// 这里的x是整个textView目前的所有字符串的值
         [_szTextView jobsTextViewSubscribeNextBlock:^(NSString * _Nullable x) {
@@ -117,17 +128,18 @@ static dispatch_once_t static_textViewOnceToken;
                 x = x.substringToIndex(self.textModel.maxWordCount);
                 @"最多只能输入".tr.add(toStringByLong(self.textModel.maxWordCount).add(@"个字".tr)).toast();
             }
-            self.textView.text = x;
+            self.szTextView.text = x;
             self.textModel.curWordCount = x.length;
             self.updateWordCount(0);
             /// 向外回调目前的textView的字符串
             if (self.objBlock) self.objBlock(x);
         }];
     }
-    _szTextView.text = self.textModel.text;
-    _szTextView.textColor = self.textModel.textCor;
-    _szTextView.placeholderTextColor = self.textModel.placeholderColor;
-    _szTextView.placeholder = self.textModel.placeholder;
+    UITextModel *textModel = self.textModel;
+    _szTextView.text = textModel.text ?: @"";
+    _szTextView.textColor = textModel.textCor;
+    if (textModel.placeholderColor) _szTextView.placeholderTextColor = textModel.placeholderColor;
+    _szTextView.placeholder = textModel.placeholder ?: @"";
     return _szTextView;
 }
 
@@ -136,14 +148,16 @@ static dispatch_once_t static_textViewOnceToken;
         @jobs_weakify(self)
         _countLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byTextCor(JobsWhiteColor)
+            label
+                .byTextCor(JobsWhiteColor)
                 .byFont(UIFontWeightBoldSize(12))
-                .byTextAlignment(NSTextAlignmentCenter);
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
+                .byTextAlignment(NSTextAlignmentCenter)
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.height.mas_equalTo(JobsWidth(17));
                 make.bottom.mas_equalTo(-JobsWidth(8));
                 make.right.equalTo(self).offset(-JobsWidth(5));
-            }];
+            });
         });
     };return _countLabel;
 }

@@ -1,27 +1,17 @@
 //
 //  UIButton+Timer.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/3/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
-#import "BaseProtocol.h"
-#import "BaseButtonProtocol.h"
-#import "TimerProtocol.h"
-#import "MacroDef_Func.h"
-#import "JobsAttributedString.h"
-#import "JobsDefineEnums.h"
-#import "NSObject+Time.h"
-#import "NSObject+RichText.h"
 #import "NSObject+NSMutableParagraphStyle.h"
-#import "NSObject+Extras.h"
-#import "NSString+Others.h"
+#import "NSObject+Extra.h"
 #import "NSMutableArray+Extra.h"
-#import "JobsTimer.h"
 #import "UIButton+UI.h"
-#import "JobsDefineProperty.h"
+#import "UIButton+UIButtonConfiguration.h"
+#import "UIView+Extra.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
@@ -35,10 +25,30 @@
 #import "Masonry.h"
 #endif
 
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsRichTextUtils.h"
+
+#import "JobsTimeUtils.h"
+
+#import "JobsRichTextUtils.h"
+
+#import "JobsOCTimer.h"
+
+#import "JobsMakes.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
+
 NS_ASSUME_NONNULL_BEGIN
 ///（时间）文本@显示类型
 #ifndef CEQUENCE_FOR_SHOW_TITLE_RUNING_STR_TYPE_DEFINED
 #define CEQUENCE_FOR_SHOW_TITLE_RUNING_STR_TYPE_DEFINED
+
+#import <objc/runtime.h>
 typedef NS_ENUM(NSUInteger, CequenceForShowTitleRuningStrType) {
     CequenceForShowTitleRuningStrType_front = 0, // TitleRuningStr 在前 | 首在前
     CequenceForShowTitleRuningStrType_tail       // TitleRuningStr 在后 | 首在后
@@ -48,10 +58,12 @@ typedef NS_ENUM(NSUInteger, CequenceForShowTitleRuningStrType) {
 @interface UIButton (Timer)<BaseProtocol,BaseButtonProtocol,TimerProtocol>
 /// ❤️如果配置了富文本，则优先显示富文本属性
 #pragma mark —— 一些通用的设置
-Prop_assign()ShowTimeType showTimeType;                                             // 时间@显示风格
+Prop_assign()ShowTimeType showTimeType;
+                                             // 时间@显示风格
 Prop_assign()CequenceForShowTitleRuningStrType cequenceForShowTitleRuningStrType;   //（时间）文本@显示类型
 Prop_assign()UILabelShowingType labelShowingType;
-Prop_assign()CGFloat widthCompensationValue;                                        // 因为有圆角的时候需要有补偿值否则UI很难看
+Prop_assign()CGFloat widthCompensationValue;
+                                        // 因为有圆角的时候需要有补偿值否则UI很难看
 /// 计时器运行期间，按钮是否允许点击
 Prop_assign()BOOL isCanBeClickWhenTimerCycle;
 

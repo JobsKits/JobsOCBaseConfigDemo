@@ -1,12 +1,27 @@
 //
 //  JobsTextViewStyleCVCell.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2025/4/28.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_JOBSTEXTVIEWSTYLECVCELL_112AF3D58E
+#define JOBS_HEADER_GUARD_JOBSTEXTVIEWSTYLECVCELL_112AF3D58E
+
+#import <UIKit/UIKit.h>
+#import "UIView+Extra.h"
 #import "JobsBaseCollectionViewCell.h"
-#import "UITextField+Extend.h"
+#import "JobsTextView.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsRichTextUtils.h"
+
+#import "JobsMakes.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,3 +30,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSTEXTVIEWSTYLECVCELL_112AF3D58E */

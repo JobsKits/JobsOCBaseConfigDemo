@@ -1,12 +1,11 @@
 //
 //  UILabel+Scroll.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Admin on 28/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UILabel+Scroll.h"
-#import "MacroDef_Sys.h"
 
 @implementation UILabel (Scroll)
 #pragma mark ——
@@ -56,7 +55,7 @@ JobsKey(_stopScrolling)
     };
 }
 /// 开始滚动动画，返回一个 RACDisposable 以便手动停止
--(JobsReturnRACDisposableByTimeIntervalBlock _Nonnull)startScrollingIfNeededWithInterval{
+-(JobsRetRACDisposableByTimeIntervalBlock _Nonnull)startScrollingIfNeededWithInterval{
     @jobs_weakify(self)
     return ^RACDisposable *_Nonnull(NSTimeInterval data){
         @jobs_strongify(self)
@@ -65,23 +64,25 @@ JobsKey(_stopScrolling)
         /// 如果文字宽度小于 UILabel 宽度，则无需滚动
         if (textWidth <= self.bounds.size.width) return nil;
         /// 添加子视图容器
-        UIScrollView *scrollView = self.addSubview(jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
+        UIScrollView *scrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
-            scrollView.frame = self.bounds;
-            scrollView.showsHorizontalScrollIndicator = NO;
-            scrollView.scrollEnabled = NO;
-            /// 创建文字Label
-            scrollView.addSubview(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            scrollView
+                .byShowsHorizontalScrollIndicator(NO)
+                .byScrollEnabled(NO)
+                .byContentSize(CGSizeMake(textWidth, self.bounds.size.height))// 设置ScrollView内容大小
+                .byFrame(self.bounds)
+                .addOn(self);
+            jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
                 @jobs_strongify(self)
-                label.frame = CGRectMake(0, 0, textWidth, self.bounds.size.height);
-                label.text = self.text;
-                label.font = self.font;
-                label.textColor = self.textColor;
-                label.textAlignment = NSTextAlignmentLeft;
-            }));
-            /// 设置ScrollView内容大小
-            scrollView.contentSize = CGSizeMake(textWidth, self.bounds.size.height);
-        }));
+                label
+                    .byText(self.text)
+                    .byFont(self.font)
+                    .byTextCor(self.textColor)
+                    .byTextAlignment(NSTextAlignmentLeft)
+                    .byFrame(CGRectMake(0, 0, textWidth, self.bounds.size.height))
+                    .addOn(scrollView);
+            });
+        });
         /// 定时器实现滚动动画
         RACDisposable *disposable = [[RACSignal interval:data
                                              onScheduler:RACScheduler.mainThreadScheduler]

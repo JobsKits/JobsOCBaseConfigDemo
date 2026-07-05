@@ -1,9 +1,12 @@
 //
 //  NSObject+CurrentDevice.h
-//  JobsOCBaseConfigDemo
+//  JobsDeviceInfo
 //
-//  Created by Jobs on 2021/12/20.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_CURRENTDEVICE_685C06291D
+#define JOBS_HEADER_GUARD_NSOBJECT_CURRENTDEVICE_685C06291D
 
 #import <Foundation/Foundation.h>
 #import "NSObject+ID.h"
@@ -51,3 +54,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_CURRENTDEVICE_685C06291D */

@@ -1,14 +1,22 @@
 //
 //  GDFadeView.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by xiaoyu on 15/11/13.
-//  Copyright © 2015年 guoda. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_GDFADEVIEW_921E4BCDB3
+#define JOBS_HEADER_GUARD_GDFADEVIEW_921E4BCDB3
+
 #import <UIKit/UIKit.h>
+
+#import "JobsMakes.h"
+
 #import "JobsBlock.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 @interface GDFadeView : UIView
 
@@ -27,3 +35,4 @@ NS_INLINE __kindof GDFadeView *_Nonnull jobsMakeGDFadeView(jobsByGDFadeViewBlock
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_GDFADEVIEW_921E4BCDB3 */

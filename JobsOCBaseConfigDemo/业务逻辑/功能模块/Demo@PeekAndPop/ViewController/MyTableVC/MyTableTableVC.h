@@ -2,20 +2,32 @@
 //  MyTableTableVC.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs Hi on 6/22/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseViewController.h"
+#import <UIKit/UIKit.h>
 #import "PreviewVC.h"
 #import "BaiShaETProjChoiceStadiumView.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsMakes.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MyTableTableVC : BaseViewController
 <
-UIContextMenuInteractionDelegate
-,UITableViewDelegate
+UITableViewDelegate
 ,UITableViewDataSource
 >
 

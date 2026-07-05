@@ -1,12 +1,20 @@
 //
-//  AnimationLabel.h
-//  JobsOCBaseConfigDemo
+//  JobsAnimationLabel.h
+//  JobsBaseUI
 //
-//  Created by Jobs on 2022/6/13.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_JOBSANIMATIONLABEL_D61CD3D838
+#define JOBS_HEADER_GUARD_JOBSANIMATIONLABEL_D61CD3D838
+
 #import <UIKit/UIKit.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsOCDSL.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,9 +41,11 @@ NS_ASSUME_NONNULL_END
  -(JobsAnimationLabel *)animationLab{
      if (!_animationLab) {
          _animationLab = JobsAnimationLabel.new;
-         _animationLab.textColor = JobsBlackColor;
+         _animationLab.byTextCor(JobsBlackColor);
+
          
-         _animationLab.text = @"12";
+         _animationLab.byText(@"12");
+
          _animationLab.value = 12;
          _animationLab.lastValue = 120;
          
@@ -43,17 +53,19 @@ NS_ASSUME_NONNULL_END
                                        endValue:_animationLab.lastValue
                                        duration:1.0
                                        complete:^(UILabel *label, CGFloat value) {
-             label.text = [NSString stringWithFormat:@"%f", value];
+             label.byText([NSString stringWithFormat:@"%f", value]);
+
              label.value = value;
              label.lastValue = (label.value * 3);
          }];
          
-         [self addSubview:_animationLab];
-         [_animationLab mas_makeConstraints:^(MASConstraintMaker *make) {
+         _animationLab.addOn(self).byAdd(^(MASConstraintMaker *make) {
              make.bottom.equalTo(self.progressView);
              make.left.equalTo(self.progressView);
-         }];
+         });
+
      };return _animationLab;
  }
 
  */
+#endif /* JOBS_HEADER_GUARD_JOBSANIMATIONLABEL_D61CD3D838 */

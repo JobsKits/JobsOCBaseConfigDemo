@@ -1,12 +1,12 @@
 //
 //  JobsAppDoorModel.m
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsAppDoorModel.h"
-#import "NSObject+UserInfo.h"
+#import "NSObject+UsrInfo.h"
 
 @implementation JobsAppDoorModel
 

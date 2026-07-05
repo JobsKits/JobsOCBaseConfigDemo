@@ -7,64 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JobsRandomUtils.h"
 
 NS_ASSUME_NONNULL_BEGIN
-/// ❤️获取一个随机整数范围在【0、borderValue）： 包括0、不包括borderValue❤️
-NS_INLINE int baseRandomNOContainBorderValue(int borderValue){
-    if (borderValue > 0) {
-        return arc4random() % borderValue;
-    }else if(borderValue < 0){
-        return -(arc4random() % -borderValue);
-    }else return 0;
-}
-/// ❤️获取一个随机整数范围在【0、borderValue】： 包括0、包括borderValue❤️
-NS_INLINE int baseRandomContainBorderValue(int borderValue){
-    if (borderValue > 0) {
-        return arc4random() % (borderValue + 1);
-    }else if (borderValue < 0){
-        return -(arc4random() % (-borderValue + 1));
-    }else return 0;
-}
-/// ❤️获取一个随机整数范围在【offsetValue、borderValue）： 包括offsetValue、不包括borderValue❤️
-NS_INLINE int baseRandomOffsetValueWithNoContainborderValue(int offsetValue,int borderValue){
-    if (offsetValue <= borderValue) {
-        return offsetValue + baseRandomNOContainBorderValue(borderValue - offsetValue);
-    }else return borderValue + baseRandomNOContainBorderValue(offsetValue - borderValue);
-}
-/// ❤️获取一个随机整数范围在【offsetValue、borderValue】： 包括offsetValue、包括borderValue❤️
-NS_INLINE int baseRandomOffsetValueWithContainborderValue(int offsetValue,int borderValue){
-    if (offsetValue <= borderValue) {
-        return offsetValue + baseRandomContainBorderValue(borderValue - offsetValue);
-    }else return borderValue + baseRandomContainBorderValue(offsetValue - borderValue);
-}
-/// ❤️获取一个随机整数，范围在【from、to】：包括from，包括to❤️
-NS_INLINE int getRandomNumber(int from,int to){
-    if (from <= to) {
-        return (int)(from + (arc4random() % to - from + 1));
-    }else return (int)(to + (arc4random() % from - to + 1));
-}
-/// ❤️用rand()随机生成在[x,y]内的整数。rand()%a的结果最大为a-1❤️
-NS_INLINE int randomXY(int x,int y){
-    if (x <= y) {
-        return x + rand() % (y - x + 1);
-    }else return y + rand() % (x - y + 1);
-}
-/// 示例：获取一个随机整数范围在【0、100）： 包括0、不包括100
-NS_INLINE int random0_100(void){
-    return baseRandomNOContainBorderValue(100);
-}
-/// 示例：获取一个随机整数范围在【0、100】： 包括0、包括100
-NS_INLINE int random0__100(void){
-    return baseRandomContainBorderValue(100);
-}
-/// 示例：获取一个随机数范围在：【100、200），包括100，不包括200
-NS_INLINE int random100_200(void){
-    return baseRandomOffsetValueWithNoContainborderValue(100, 200);
-}
-/// 示例：获取一个随机数范围在：【100、200】，包括100，包括200
-NS_INLINE int random100__200(void){
-    return baseRandomOffsetValueWithContainborderValue(100, 200);
-}
 
 @interface NSObject (Random)
 

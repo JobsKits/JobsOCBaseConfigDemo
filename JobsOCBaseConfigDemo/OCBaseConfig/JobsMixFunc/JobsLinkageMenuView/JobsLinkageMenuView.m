@@ -1,11 +1,12 @@
 //
 //  JobsLinkageMenuView.m
-//  JobsOCBaseConfigDemo
+//  JobsLinkageMenuView
 //
 //  Created by Jobs on 2026年6月27日，星期六.
 //
 
 #import "JobsLinkageMenuView.h"
+#import "UIButton+UI.h"
 
 #define FULLVIEW_FOR6 667
 
@@ -15,16 +16,6 @@ static id _Nullable JobsLinkageSafeObjectAtIndex(NSArray *_Nullable array, NSInt
     id obj = array[index];
     return obj == NSNull.null ? nil : obj;
 }
-
-@implementation JobsLinkageMenuViewConfig
-
--(instancetype)init{
-    if (self = [super init]) {
-        _CLEAR_CONTENT_WHEN_MISSING = YES;
-    };return self;
-}
-
-@end
 
 @interface JobsLinkageMenuView()
 
@@ -56,7 +47,7 @@ Prop_assign()CGFloat ANIMATION_TIME;
                    btnConfig:(UIButtonModel *)btnConfig
        linkageMenuViewConfig:(JobsLinkageMenuViewConfig *)linkageMenuViewConfig{
     if (self = [super init]) {
-        self.frame = frame;
+        self.byFrame(frame);
         self.clipsToBounds = YES;
         self.btnConfig = btnConfig;
         self.viewArray = btnConfig.data;
@@ -99,9 +90,9 @@ Prop_assign()CGFloat ANIMATION_TIME;
     return ^(UIViewModel __kindof *_Nullable model) {
         @jobs_strongify(self)
         [self prepareDefaults];
-        self.rightview.alpha = 1;
-        self.menuView.alpha = 1;
-        self.lineView.alpha = 1;
+        self.rightview.byAlpha(1);
+        self.menuView.byAlpha(1);
+        self.lineView.byAlpha(1);
         [self reloadData];
     };
 }
@@ -151,7 +142,7 @@ Prop_assign()CGFloat ANIMATION_TIME;
 -(void)setTextSize:(CGFloat)textSize{
     _textSize = textSize;
     for (UIButton *button in self.btnMutArr) {
-        button.titleLabel.font = [UIFont systemFontOfSize:textSize];
+        button.titleLabel.byFont([UIFont systemFontOfSize:textSize]);
     }
 }
 #pragma mark —— Private
@@ -184,14 +175,14 @@ Prop_assign()CGFloat ANIMATION_TIME;
         @jobs_weakify(self)
         BaseButton *menuButton = BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
             @jobs_strongify(self)
-            data.normalImage = JobsLinkageSafeObjectAtIndex(self.btnConfig.normal_images, i);
-            data.title = JobsLinkageSafeObjectAtIndex(self.btnConfig.normal_titles, i);
-            data.titleFont = [UIFont systemFontOfSize:self.textSize];
-            data.titleCor = self.btnConfig.titleCor;
-            data.imagePadding = [self imagePaddingAtIndex:i];
-            data.titlePadding = JobsWidth(10);
-            data.imagePlacement = self.btnConfig.imagePlacement;
-            data.cornerRadiusValue = JobsWidth(8);
+            data.byNormalImage(JobsLinkageSafeObjectAtIndex(self.btnConfig.normal_images, i))
+                .byTitle(JobsLinkageSafeObjectAtIndex(self.btnConfig.normal_titles, i))
+                .byTitleFont([UIFont systemFontOfSize:self.textSize])
+                .byTitleCor(self.btnConfig.titleCor)
+                .byImagePadding([self imagePaddingAtIndex:i])
+                .byTitlePadding(JobsWidth(10))
+                .byImagePlacement(self.btnConfig.imagePlacement)
+                .byCornerRadiusValue(self.linkageMenuViewConfig.MENU_ITEM_CORNER_RADIUS);
         })).onClickBy(^(UIButton *x){
             @jobs_strongify(self)
             [self choseMenu:x];
@@ -305,36 +296,41 @@ Prop_assign()CGFloat ANIMATION_TIME;
 #pragma mark —— LazyLoad
 -(UIView *)lineView{
     if (!_lineView) {
-        _lineView = UIView.new;
-        _lineView.backgroundColor = JobsClearColor;
-        [self addSubview:_lineView];
+        _lineView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(JobsClearColor).addOn(self);
+        });
     };return _lineView;
 }
 
 -(UIView *)rightview{
     if (!_rightview) {
-        _rightview = UIView.new;
-        _rightview.backgroundColor = JobsClearColor;
-        [self addSubview:_rightview];
+        _rightview = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(JobsClearColor).addOn(self);
+        });
     };return _rightview;
 }
 
 -(UIView *)bottomView{
     if (!_bottomView) {
-        _bottomView = UIView.new;
-        _bottomView.backgroundColor = self.selectViewColor;
-        _bottomView.layer.cornerRadius = self.BOTTOMVIEW_HEIGHT / 2.0;
+        _bottomView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(self.selectViewColor)
+                .byLayer(^(CALayer *layer) {
+                    layer.byCornerRadius(self.BOTTOMVIEW_HEIGHT / 2.0);
+                });
+        });
     };return _bottomView;
 }
 
 -(UIScrollView *)menuView{
     if (!_menuView) {
-        _menuView = UIScrollView.new;
-        _menuView.backgroundColor = JobsClearColor;
-        _menuView.scrollsToTop = NO;
-        _menuView.showsVerticalScrollIndicator = NO;
-        [_menuView addSubview:self.bottomView];
-        [self addSubview:_menuView];
+        _menuView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
+            scrollView
+                .byScrollsToTop(NO)
+                .byShowsVerticalScrollIndicator(NO)
+                .byBgColor(JobsClearColor)
+                .addOn(self);
+        });
+        self.bottomView.addOn(_menuView);
     };return _menuView;
 }
 

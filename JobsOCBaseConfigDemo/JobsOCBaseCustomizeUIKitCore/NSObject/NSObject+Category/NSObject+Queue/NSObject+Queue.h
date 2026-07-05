@@ -1,26 +1,22 @@
 //
 //  NSObject+Queue.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTimer
 //
-//  Created by Jobs on 2021/3/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_QUEUE_A0501DE36B
+#define JOBS_HEADER_GUARD_NSOBJECT_QUEUE_A0501DE36B
+
+#pragma once
 
 #import <Foundation/Foundation.h>
-#import "JobsBlock.h"
-#import "NSString+Others.h"
+#import "NSString+Extra.h"
+#import "NSString+Toast.h"
 
-/// 永远异步丢到主线程（GCD）
-#ifndef JobsMainQueue
-#define JobsMainQueue(block) \
-    dispatch_async(dispatch_get_main_queue(), block)
-#endif
-/// 永远丢到主线程（NSOperationQueue）
-#ifndef JobsMainOperationQueue
-#define JobsMainOperationQueue(block)                          \
-    do {                                                       \
-        [NSOperationQueue.mainQueue addOperationWithBlock:block]; \
-    } while (0)
-#endif
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 // https://www.jianshu.com/p/564b5da57ea1
@@ -33,3 +29,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_QUEUE_A0501DE36B */

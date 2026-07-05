@@ -2,7 +2,7 @@
 //  Douyin_ZFPlayerVC@2.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/1/8.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "Douyin_ZFPlayerVC@2.h"
@@ -38,20 +38,25 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.bgCor = JobsClearColor;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.font = UIFontWeightRegularSize(18);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byBgCor(JobsClearColor)
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byFont(UIFontWeightRegularSize(18));
+            data.byText(data.attributedTitle.string);
+        })
     
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    // self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    /// 全局只需要写一次。在AppDelegate里面进行配置
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        // self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
+        /// 全局只需要写一次。在AppDelegate里面进行配置
     NSError *error = nil;
     [KTVHTTPCache proxyStart:&error];
     if(error){
@@ -61,7 +66,8 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsBlackColor);
+
     self.makeNavByAlpha(1);
     self.tableView.byShow(self);
     self.bitsMonitorSuspendLab.byVisible(YES);
@@ -138,8 +144,9 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
         [self.player playTheIndexPath:indexPath assetURL:URL];
     }
 
-    [self.controlView resetControlView];
-    [self.controlView showCoverViewWithUrl:data.thumbnail_url];
+    self.controlView
+        .byResetControlView
+        .byShowCoverViewWithUrl(data.thumbnail_url);
     [self.fullControlView showTitle:@"custom landscape controlView".tr
                      coverURLString:data.thumbnail_url /// data.videoImg
                      fullScreenMode:ZFFullScreenModeLandscape];
@@ -208,7 +215,7 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [scrollView zf_scrollViewWillBeginDragging];
 }
-#pragma mark —————————— UITableViewDelegate,UITableViewDataSource ——————————
+#pragma mark —— UITableViewDelegate,UITableViewDataSource ——————————
 -(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return JobsVideoTBVCell.cellHeightByModel(tableView);
@@ -222,13 +229,13 @@ numberOfRowsInSection:(NSInteger)section {
 -(__kindof UITableViewCell *)tableView:(UITableView *)tableView
                  cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     self.indexPath = indexPath;
-    return JobsVideoTBVCell.cellStyleValue1WithTableView(tableView)
-        .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
+    return JobsVideoTBVCell.cellStyleValue1ByTableView(tableView)
+        .byAccessoryType(UITableViewCellAccessoryNone)
         .byIndexPath(indexPath)
         .byIndex(indexPath.row)
         .byDelegate(self)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
-            .JobsBlock1(^(id _Nullable data) {
+            .JobsBlock1(^(id _Nullable data) {;
              
             });
 }
@@ -246,12 +253,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!_bitsMonitorSuspendLab) {
         @jobs_weakify(self)
         _bitsMonitorSuspendLab = [JobsBitsMonitorSuspendLab.alloc initBy:JobsBitsMonitorDisplayStyleRichText];
-        _bitsMonitorSuspendLab.font = UIFontWeightBoldSize(10);
-        _bitsMonitorSuspendLab.backgroundColor = JobsLightGrayColor;
-        _bitsMonitorSuspendLab.textColor = JobsRedColor;
+        _bitsMonitorSuspendLab.byFont(UIFontWeightBoldSize(10));
+
+        _bitsMonitorSuspendLab.byBgColor(JobsLightGrayColor);
+
+        _bitsMonitorSuspendLab.byTextCor(JobsRedColor);
+
         _bitsMonitorSuspendLab.vc = weak_self;
         _bitsMonitorSuspendLab.isAllowDrag = YES;/// 悬浮效果必须要的参数
-        _bitsMonitorSuspendLab.frame = JobsBitsMonitorSuspendLab.viewFrameByModel(nil);
+        _bitsMonitorSuspendLab.byFrame(JobsBitsMonitorSuspendLab.viewFrameByModel(nil));
+
         self.view.addSubview(_bitsMonitorSuspendLab);
     };return _bitsMonitorSuspendLab;
 }
@@ -262,20 +273,24 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         @jobs_weakify(self)
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
-            tableView
-                .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
-                .byEstimatedRowHeight(0)
-                .byEstimatedSectionFooterHeight(0)
-                .byEstimatedSectionHeaderHeight(0)
-                .byPagingEnabled(YES)
-                .byShowsVerticalScrollIndicator(NO)
-                .byScrollsToTop(NO)
-                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
-                .byBgColor(JobsLightGrayColor);
+            tableView.byPagingEnabled(YES)
+                .byBgColor(JobsBlackColor);
             tableView.dataLink(self);
+            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .byShowsVerticalScrollIndicator(NO)
+                .byScrollsToTop(NO);
+            
+            if (@available(iOS 11.0, *)) {
+                tableView.byEstimatedRowHeight(0)
+                    .byEstimatedSectionFooterHeight(0)
+                    .byEstimatedSectionHeaderHeight(0)
+                    .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
+            } else {
+                SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
+            }
             
             {
-                tableView.mj_header = self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
+                tableView.byMJRefreshHeader(self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
                     @jobs_strongify(self )
                     JobsLog(@"下拉刷新");
                     self.currentPage = @(1);
@@ -283,8 +298,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 //    [self requestData:NO];
                 //    [self playVideo];
                     return nil;
-                }]);
-                tableView.mj_footer = self.view.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
+                }]));
+                tableView.byMJRefreshFooter(self.view.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
                     JobsLog(@"上拉加载更多");
                     self.currentPage = @(self.currentPage.integerValue + 1);
                     [self requestData];
@@ -292,7 +307,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 //    [self requestData:YES];
                 //    [self playVideo];
                     return nil;
-                }]);tableView.mj_footer.hidden = NO;
+                }]));tableView.mj_footer.hidden = NO;
             }
 
     //        {// 设置tabAnimated相关属性
@@ -305,15 +320,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //            [tableView tab_startAnimation];   // 开启动画
     //        }
             
-            self.view.addSubview(tableView);
-            [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            tableView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                 make.left.right.equalTo(self.view);
                 if (self.gk_navBarAlpha && !self.gk_navigationBar.hidden) {//显示
                     make.top.equalTo(self.gk_navigationBar.mas_bottom);
                 }else{
                     make.top.equalTo(self.view.mas_top);
                 }make.bottom.equalTo(self.view.mas_bottom);
-            }];
+            });
         });
     };return _tableView;
 }
@@ -475,9 +489,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 -(ZFCustomControlView *)fullControlView{
     if (!_fullControlView) {
-        _fullControlView = jobsMakeZFCustomControlView(^(__kindof ZFCustomControlView * _Nullable label) {
-            
-        });
+        _fullControlView = ZFCustomControlView.new;
     };return _fullControlView;
 }
 #pragma mark —— 暂时用不到的

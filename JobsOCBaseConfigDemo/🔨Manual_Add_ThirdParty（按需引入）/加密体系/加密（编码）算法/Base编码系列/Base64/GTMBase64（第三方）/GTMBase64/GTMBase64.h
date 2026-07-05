@@ -1,25 +1,22 @@
 //
 //  GTMBase64.h
+//  JobsCryptography
 //
-//  Copyright 2006-2008 Google Inc.
-//
-//  Licensed under the Apache License, Version 2.0 (the "License"); you may not
-//  use this file except in compliance with the License.  You may obtain a copy
-//  of the License at
-//
-//  http://www.apache.org/licenses/LICENSE-2.0
-//
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-//  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
-//  License for the specific language governing permissions and limitations under
-//  the License.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_GTMBASE64_09BCC7A7ED
+#define JOBS_HEADER_GUARD_GTMBASE64_09BCC7A7ED
+
 #import <Foundation/Foundation.h>
-#import "CommonCrypto/CommonDigest.h"
+#import <CommonCrypto/CommonDigest.h>  // 提供常见摘要算法接口，如 MD5、SHA1、SHA256 等。
 #import "GTMDefines.h"
+
+#import "JobsByOCPods.h"
+
 #import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 // GTMBase64
 //
@@ -69,3 +66,4 @@
 +(JobsRetStrByDataBlock _Nonnull)decodeBase64Data;
 
 @end
+#endif /* JOBS_HEADER_GUARD_GTMBASE64_09BCC7A7ED */

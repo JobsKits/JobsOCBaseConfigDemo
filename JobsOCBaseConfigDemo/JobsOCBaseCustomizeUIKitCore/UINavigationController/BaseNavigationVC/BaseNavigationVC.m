@@ -1,12 +1,13 @@
 //
-//  NavigationViewController.m
-//  JobsOCBaseConfigDemo
+//  BaseNavigationVC.m
+//  JobsBaseUI
 //
-//  Created by Jobs on 2018/10/29.
-//  Copyright © 2018年 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "BaseNavigationVC.h"
+#import "NSObject+Extra.h"
+#import "UIViewController+BaseNavigationBar.h"
 
 @interface BaseNavigationVC ()
 
@@ -103,7 +104,7 @@ Prop_strong()NSShadow *shadow;
 - (void)navigationController:(UINavigationController *)navigationController
       willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated{
-    self.navigationBar.hidden = self.isHiddenNavigationBar;// 全局隐藏系统的导航栏，这一句是手势返回的时候，再次隐藏
+    self.navigationBar.byHidden(self.isHiddenNavigationBar);// 全局隐藏系统的导航栏，这一句是手势返回的时候，再次隐藏
 }
 
 - (void)navigationController:(UINavigationController *)navigationController

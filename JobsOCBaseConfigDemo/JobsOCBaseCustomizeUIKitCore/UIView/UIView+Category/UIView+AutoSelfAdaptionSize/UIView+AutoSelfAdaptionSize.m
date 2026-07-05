@@ -1,8 +1,8 @@
 //
 //  UIView+AutoSelfAdaptionSize.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/3.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIView+AutoSelfAdaptionSize.h"
@@ -10,48 +10,49 @@
 @implementation UIView (AutoSelfAdaptionSize)
 #pragma mark —— UILabel
 /// 确定Label的字体大小，使其宽度自适应
--(jobsByVoidBlock _Nonnull)labelAutoWidthByFont{
+-(JobsRetViewByVoidBlock _Nonnull)bySizeToFit{
     @jobs_weakify(self)
-    return ^() {
+    return ^__kindof UIView *_Nullable() {
         @jobs_strongify(self)
         [self sizeToFit];// 必须有text，然后根据text来进行约束计算和布局
+        return self;
     };
 }
 /// 确定Label的宽度，使字体大小自适应
--(jobsByVoidBlock _Nonnull)labelAutoFontByWidth{
+-(JobsRetViewByVoidBlock _Nonnull)labelAutoFontByWidth{
     @jobs_weakify(self)
-    return ^() {
+    return ^__kindof UIView *_Nullable() {
         @jobs_strongify(self)
         if ([self isKindOfClass:UILabel.class]) {
             UILabel *label = (UILabel *)self;
             label.adjustsFontSizeToFitWidth = YES;// 必须有text，然后根据text来进行约束计算和布局
-        }
+        };return self;
     };
 }
 #pragma mark —— UIButton
 /// 确定Button的字体大小，使其宽度自适应
--(jobsByVoidBlock _Nonnull)buttonAutoWidthByFont{
+-(JobsRetViewByVoidBlock _Nonnull)buttonAutoWidthByFont{
     @jobs_weakify(self)
-    return ^() {
+    return ^__kindof UIView *_Nullable() {
         @jobs_strongify(self)
         if ([self isKindOfClass:UIButton.class]) {
             UIButton *btn = (UIButton *)self;
             /// 必须有text，然后根据text来进行约束计算和布局
             [btn.titleLabel sizeToFit];
             [btn sizeToFit];
-        }
+        };return self;
     };
 }
 /// 确定Button的宽度，使字体大小自适应
--(jobsByVoidBlock _Nonnull)buttonAutoFontByWidth{
+-(JobsRetViewByVoidBlock _Nonnull)buttonAutoFontByWidth{
     @jobs_weakify(self)
-    return ^() {
+    return ^__kindof UIView *_Nullable() {
         @jobs_strongify(self)
         if ([self isKindOfClass:UIButton.class]) {
             UIButton *btn = (UIButton *)self;
             [btn.titleLabel sizeToFit];
             btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-        }
+        };return self;
     };
 }
 /// 自适应宽度
@@ -91,7 +92,7 @@
     CGRect frame = CGRectZero;
     if ([self isKindOfClass:UILabel.class]) {
         UILabel *label = (UILabel *)self;
-        label.numberOfLines = 0;//无限行
+        label.byNumberOfLines(0);// 无限行
         CGRect rect = [label.text boundingRectWithSize:CGSizeMake(maxWidth,MAXFLOAT)
                                                options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
                                             attributes:@{NSFontAttributeName:label.font}
@@ -105,7 +106,7 @@
     
     if ([self isKindOfClass:UIButton.class]) {
         UIButton *button = (UIButton *)self;
-        button.titleLabel.numberOfLines = 0;//无限行
+        button.titleLabel.byNumberOfLines(0);// 无限行
         CGRect rect = [button.titleLabel.text boundingRectWithSize:CGSizeMake(200,MAXFLOAT)
                                                            options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
                                                         attributes:@{NSFontAttributeName:button.titleLabel.font}
@@ -129,10 +130,10 @@
         NSMutableAttributedString *attributedString = toMutAttributedString(label.attributedText);
         //调整间距
         attributedString.addkCTKernAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-            data.value = @(textSpace);
-            data.range = NSMakeRange(0, attributedString.length);
+            data.byValue(@(textSpace))
+                .byRange(NSMakeRange(0, attributedString.length));
         }));
-        label.attributedText = attributedString;
+        label.byAttributedString(attributedString);
         //计算自适应高度
         CGRect rect = [label.text boundingRectWithSize:CGSizeMake(MAXFLOAT, maxHight)
                                                options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
@@ -154,24 +155,26 @@
     CGRect frame = CGRectZero;
     if ([self isKindOfClass:UILabel.class]) {
         UILabel *label = (UILabel *)self;
-        label.numberOfLines = 0;//无限行
-        // 字间距
-        NSMutableAttributedString *attributedString = [AttributedString initWithString:label.text
-                                                                            attributes:@{NSKernAttributeName:@(textSpace),
-                                                                                         NSFontAttributeName:label.font}];
-        // 行间距
-        // 给可变的属性字符串 添加段落格式
+        label.byNumberOfLines(0);// 无限行
+        /// 字间距
+        NSMutableAttributedString *attributedString = [NSMutableAttributedString.alloc initWithString:label.text
+                                                                                           attributes:@{
+            NSKernAttributeName:@(textSpace),
+            NSFontAttributeName:label.font}
+        ];
+        /// 行间距
+        /// 给可变的属性字符串 添加段落格式
         [attributedString addAttribute:NSParagraphStyleAttributeName
                                  value:jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-            data.lineSpacing = lineSpace;
-            data.baseWritingDirection = NSWritingDirectionLeftToRight;// 从左到右
+            data.byLineSpacing(lineSpace)
+                .byBaseWritingDirection(NSWritingDirectionLeftToRight); // 从左到右
         })
 
                                  range:NSMakeRange(0, label.text.length)];
-        label.attributedText = attributedString;
-        //设置文本偏移量
-       // [attributedString addAttribute:NSBaselineOffsetAttributeName value:@(1) range:NSMakeRange(0, label.text.length)];
-        //计算自适应高度
+        label.byAttributedString(attributedString);
+        /// 设置文本偏移量
+//        [attributedString addAttribute:NSBaselineOffsetAttributeName value:@(1) range:NSMakeRange(0, label.text.length)];
+        /// 计算自适应高度
         CGRect rect = [label.attributedText boundingRectWithSize:CGSizeMake(maxWidth,MAXFLOAT)
                                                options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
                                                context:nil];

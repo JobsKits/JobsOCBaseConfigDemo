@@ -1,16 +1,14 @@
 //
 //  UITableView+WWFoldableTableView.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  https://github.com/Tidusww/WWFoldableTableView
-//  Created by Tidus on 17/1/6.
-//  Copyright © 2017年 Tidus. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UITableView+WWFoldableTableView.h"
 
 @implementation UITableView (WWFoldableTableView)
-#pragma mark - init
+#pragma mark —— init
 + (void)load{
     SuppressWundeclaredSelectorWarning(
 //                                       [self ww_swizzInstanceMethod:@selector(_numberOfSections)

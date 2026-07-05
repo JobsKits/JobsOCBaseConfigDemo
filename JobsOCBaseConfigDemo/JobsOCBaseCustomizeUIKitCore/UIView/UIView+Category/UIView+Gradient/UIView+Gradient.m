@@ -1,9 +1,8 @@
 //
 //  UIView+Gradient.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/9/4.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIView+Gradient.h"
@@ -16,7 +15,8 @@
        endColor:(UIColor *)endColor{
     //初始化CAGradientlayer对象，使它的大小为UIView的大小
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.frame = view.bounds;
+    gradientLayer.byFrame(view.bounds);
+
     
     //将CAGradientlayer对象添加在我们要设置背景色的视图的layer层
 //    [view.layer addSublayer:gradientLayer];

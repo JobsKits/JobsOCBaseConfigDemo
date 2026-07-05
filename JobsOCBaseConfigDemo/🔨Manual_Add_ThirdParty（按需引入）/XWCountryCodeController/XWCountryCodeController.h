@@ -10,6 +10,8 @@
 #import "JobsDefineProperty.h"
 #import "JobsBlock.h"
 
+typedef jobsByOCCountryCodeBlock returnCountryCode;
+
 @protocol XWCountryCodeControllerDelegate <NSObject>
 @optional
 /**

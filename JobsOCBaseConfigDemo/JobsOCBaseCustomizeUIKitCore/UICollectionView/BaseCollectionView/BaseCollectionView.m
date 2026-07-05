@@ -1,12 +1,12 @@
 //
-//  CollectionView.m
-//  JobsOCBaseConfigDemo
+//  BaseCollectionView.m
+//  JobsBaseUI
 //
-//  Created by Jobs on 2020/10/31.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "BaseCollectionView.h"
+#import "UIView+Extra.h"
 
 @interface BaseCollectionView ()
 

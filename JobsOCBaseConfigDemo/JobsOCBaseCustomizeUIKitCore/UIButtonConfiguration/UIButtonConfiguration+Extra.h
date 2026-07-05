@@ -1,13 +1,20 @@
 //
 //  UIButtonConfiguration+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Mac on 10/9/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UIBUTTONCONFIGURATION_EXTRA_B8ABC5119D
+#define JOBS_HEADER_GUARD_UIBUTTONCONFIGURATION_EXTRA_B8ABC5119D
+
+#pragma once
+
 #import <UIKit/UIKit.h>
+
 #import "JobsBlock.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -61,9 +68,9 @@ Prop_copy(readonly,nonnull) JobsRetBtnConfigByContentInsetsBlock byContentInsets
 /// 图片位置
 Prop_copy(readonly,nonnull) JobsRetBtnConfigByImagePlacementBlock byImagePlacement API_AVAILABLE(ios(16.0));
 /// 图文间距
-Prop_copy(readonly,nonnull) JobsRetBtnConfigByImagePaddingBlock byImagePadding API_AVAILABLE(ios(16.0));
+Prop_copy(readonly,nonnull) JobsRetBtnConfigByCGFloatBlock byImagePadding API_AVAILABLE(ios(16.0));
 /// 标题与副标题间距
-Prop_copy(readonly,nonnull) JobsRetBtnConfigByTitlePaddingBlock byTitlePadding API_AVAILABLE(ios(16.0));
+Prop_copy(readonly,nonnull) JobsRetBtnConfigByCGFloatBlock byTitlePadding API_AVAILABLE(ios(16.0));
 /// 标题/副标题对齐
 Prop_copy(readonly,nonnull) JobsRetBtnConfigByTitleAlignmentBlock byTitleAlignment API_AVAILABLE(ios(16.0));
 /// 是否自动跟随 selected 更新样式
@@ -72,3 +79,4 @@ Prop_copy(readonly,nonnull) JobsRetBtnConfigByAutomaticallyUpdateForSelectionBlo
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIBUTTONCONFIGURATION_EXTRA_B8ABC5119D */

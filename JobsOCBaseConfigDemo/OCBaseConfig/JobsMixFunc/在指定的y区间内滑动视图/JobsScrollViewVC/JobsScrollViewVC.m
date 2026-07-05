@@ -1,8 +1,8 @@
 //
 //  JobsScrollViewVC.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs Hi on 9/20/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsScrollViewVC.h"
@@ -18,27 +18,33 @@ Prop_strong()JobsScrollYView *scrollYView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.jobsView.alpha = 1;
-    self.scrollYView.alpha = 1;
+    self.jobsView.byAlpha(1);
+
+    self.scrollYView.byAlpha(1);
+
 }
 #pragma mark —— lazyLoad
 -(UIView *)jobsView{
     if(!_jobsView){
-        _jobsView = UIView.new;
-        _jobsView.backgroundColor = JobsRandomColor;
-        [self.view addSubview:_jobsView];
-        [_jobsView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view);
-            make.height.mas_equalTo(初始位置 - 终点位置);
-            make.top.mas_equalTo(终点位置);
-        }];
+        _jobsView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(JobsRandomColor)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.view);
+                    make.height.mas_equalTo(初始位置 - 终点位置);
+                    make.top.mas_equalTo(终点位置);
+                });
+        });
+
     };return _jobsView;
 }
 
 -(JobsScrollYView *)scrollYView{
     if(!_scrollYView){
         _scrollYView = JobsScrollYView.new;
-        _scrollYView.backgroundColor = JobsGreenColor;
+        _scrollYView.byBgColor(JobsGreenColor);
+
         [self.view addSubview:_scrollYView];
         
         [self.view layoutIfNeeded];

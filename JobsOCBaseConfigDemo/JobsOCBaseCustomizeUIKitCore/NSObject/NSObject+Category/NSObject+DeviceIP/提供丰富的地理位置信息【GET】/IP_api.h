@@ -1,17 +1,33 @@
 //
 //  IP_api.h
-//  JobsOCBaseConfigDemo
+//  JobsDeviceInfo
 //
-//  Created by Admin on 23/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "JobsBaseApi.h"
-#import "JobsDefineProperty.h"
+#ifndef JOBS_HEADER_GUARD_IP_API_322D6A993E
+#define JOBS_HEADER_GUARD_IP_API_322D6A993E
+
+#import <Foundation/Foundation.h>
+
+#if __has_include(<YTKNetwork/YTKNetwork.h>)
+#import <YTKNetwork/YTKNetwork.h>
+#else
+#import "YTKNetwork.h"
+#endif
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "YTKNetworkExtra.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 提供丰富的地理位置信息@GET
 /// http://ip-api.com/json/
-@interface IP_api : JobsBaseApi
+@interface IP_api : BaseRequest
 
 @end
 
@@ -35,3 +51,4 @@ Prop_copy()NSString *query;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_IP_API_322D6A993E */

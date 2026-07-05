@@ -1,8 +1,8 @@
 //
 //  JobsPullListTBVCell.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/10/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsPullListTBVCell.h"
@@ -13,7 +13,7 @@
 
 @implementation JobsPullListTBVCell
 
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsPullListTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsPullListTBVCell);
         return cell;
@@ -24,7 +24,8 @@
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.textLabel.text = model.textModel.text;
+        self.textLabel.byText(model.textModel.text);
+
         self.imageView.image = model.image;
         return self;
     };

@@ -1,14 +1,26 @@
 //
 //  JXCategoryTimelineView.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by jiaxin on 2019/7/23.
-//  Copyright © 2019 jiaxin. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "JXCategoryTitleView.h"
+#ifndef JOBS_HEADER_GUARD_JXCATEGORYTIMELINEVIEW_8D3E67F2C5
+#define JOBS_HEADER_GUARD_JXCATEGORYTIMELINEVIEW_8D3E67F2C5
+
+#import <UIKit/UIKit.h>
 #import "JXCategoryTimelineCell.h"
 #import "JXCategoryTimelineCellModel.h"
+
+#if __has_include(<JXCategoryView/JXCategoryTitleView.h>)
+#import <JXCategoryView/JXCategoryTitleView.h>
+#else
+#import "JXCategoryTitleView.h"
+#endif
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,3 +35,4 @@ Prop_strong()UIFont *timeTitleSelectedFont;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JXCATEGORYTIMELINEVIEW_8D3E67F2C5 */

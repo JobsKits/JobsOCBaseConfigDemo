@@ -1,23 +1,39 @@
 //
 //  JobsTextView.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by alan comb on 2021/4/3.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_JOBSTEXTVIEW_88A198A561
+#define JOBS_HEADER_GUARD_JOBSTEXTVIEW_88A198A561
+
+#import <UIKit/UIKit.h>
+#import "BaseView.h"
+#import "UIView+Extra.h"
+#import "UITextView+Extend.h"
+
+#import "JobsOCDSL.h"
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
+#import "JobsLanMgr.h"
+
+#import "JobsMakes.h"
 
 #import "JobsBlock.h"
-#import "BaseView.h"
-#import "UITextView+Extend.h"
-#import "UITextView+Placeholder.h"
-#import "SZTextView+Extra.h"
-#import "JobsDefineConstString.h"
-#import "JobsDefineProperty.h"
 
-#if __has_include(<SZTextView/SZTextView.h>)
-#import <SZTextView/SZTextView.h>
-#else
-#import "SZTextView.h"
-#endif
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -35,3 +51,4 @@ NS_INLINE __kindof JobsTextView *_Nonnull makeJobsTextView(jobsByJobsTextViewBlo
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_JOBSTEXTVIEW_88A198A561 */

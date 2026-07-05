@@ -1,15 +1,12 @@
 //
 //  JobsBarButtonItem.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by User on 9/3/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef JobsBarButtonItem_h
 #define JobsBarButtonItem_h
-
-#pragma mark —— Base
-// TODO
 #pragma mark —— Category
 #import "UIBarButtonItem+Extra.h"
 

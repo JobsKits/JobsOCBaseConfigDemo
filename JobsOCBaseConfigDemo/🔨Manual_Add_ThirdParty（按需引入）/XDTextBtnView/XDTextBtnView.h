@@ -1,13 +1,18 @@
 //
 //  XDTextBtnView.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by XD on 2019/6/10.
-//  Copyright © 2019 XDTextBtnView. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_XDTEXTBTNVIEW_AC99FEC061
+#define JOBS_HEADER_GUARD_XDTEXTBTNVIEW_AC99FEC061
+
 #import <UIKit/UIKit.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,13 +34,21 @@ NS_ASSUME_NONNULL_BEGIN
  *  如果多选 XDTextBtnViewSelectIndexes:
  */
 Prop_assign()BOOL isSingle;
+
 Prop_assign()CGFloat textFontSize;
+
 Prop_strong()UIColor *textColor;
+
 Prop_strong()UIColor *selectTextColor;
+
 Prop_strong()UIColor *backgroundColor;
+
 Prop_strong()UIColor *selectBackgroundColor;
+
 Prop_assign()CGFloat cornerRadius;
+
 Prop_assign()CGFloat borderWidth;
+
 Prop_strong()UIColor *borderColor;
 
 //按钮文字到按钮左右边的间距
@@ -43,7 +56,9 @@ Prop_assign()CGFloat marginX;
 
 //按钮的间距
 Prop_assign()CGFloat btnMarginX;
+
 Prop_assign()CGFloat marginY;
+
 Prop_assign()CGFloat btnHeight;
 
 /**
@@ -55,6 +70,7 @@ Prop_strong()NSArray <NSString *> *textArr;
  *  需要设置完数据后设置默认数据
  */
 Prop_strong()NSArray <NSString *> *defultIndexArr;
+
 Prop_weak()id <XDTextBtnViewDelegate> delegate;
 
 /**
@@ -65,3 +81,4 @@ Prop_assign(readonly)CGFloat maxY;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_XDTEXTBTNVIEW_AC99FEC061 */

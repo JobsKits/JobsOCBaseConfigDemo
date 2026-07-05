@@ -11,6 +11,8 @@
 #import "JobsSearchBar.h"
 #import "BaiShaETProjPopupView10.h"
 #import "GoodsClassModel.h"
+#import "AppDelegate+TabBarCtr.h"
+#import "NSMutableArray+Extra.h"
 #import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN

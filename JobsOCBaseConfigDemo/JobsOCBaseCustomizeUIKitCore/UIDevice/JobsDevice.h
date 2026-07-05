@@ -1,8 +1,8 @@
 //
 //  JobsDevice.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef JobsDevice_h
@@ -10,6 +10,7 @@
 
 #pragma mark —— Category
 #import "UIDevice+XMUtils.h"
+#import "NSObject+Extra.h"
 
 #pragma mark —— Base
 /// 获取手机UUID

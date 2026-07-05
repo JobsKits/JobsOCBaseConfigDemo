@@ -1,17 +1,28 @@
 //
 //  BaseCollectionViewCell.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by User on 8/3/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_BASECOLLECTIONVIEWCELL_ACF4E93175
+#define JOBS_HEADER_GUARD_BASECOLLECTIONVIEWCELL_ACF4E93175
+
 #import <UIKit/UIKit.h>
-#import "UICollectionViewCellProtocol.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BaseCollectionViewCell : UICollectionViewCell<UICollectionViewCellProtocol>
+@interface BaseCollectionViewCell : UICollectionViewCell
+<
+UICollectionViewCellProtocol,
+AppToolsProtocol
+>
 
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_BASECOLLECTIONVIEWCELL_ACF4E93175 */

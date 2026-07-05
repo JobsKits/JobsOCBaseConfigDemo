@@ -1,6 +1,6 @@
 //
 //  BaseTableViewProtocol.h
-//  JobsOCBaseConfigDemo
+//  JobsOCProtocols
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -9,9 +9,13 @@
 #define JOBS_HEADER_GUARD_BASETABLEVIEWPROTOCOL_B4B8CFCC8E
 
 #import <UIKit/UIKit.h>
+
 #import "UIScrollViewProtocol.h"
+
 #import "UITableViewCellProtocol.h"
+
 #import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -42,8 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark —— UITableViewCell
 /// 对系统方法 cellForRowAtIndexPath 的二次封装
 -(JobsRetTableViewCellByIndexPathBlock _Nonnull)cellBy;
--(JobsReturnTableViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader;
--(JobsReturnTableViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter;
+-(JobsRetTableViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader;
+-(JobsRetTableViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter;
 /// 对系统方法 numberOfRowsInSection 的二次封装
 -(JobsRetByNSIntegerBlock _Nonnull)rowsInSection;
 -(__kindof UITableViewCell *)didSelectRowAtIndexPath:(NSIndexPath *)indexPath

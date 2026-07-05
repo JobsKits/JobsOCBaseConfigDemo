@@ -8,17 +8,9 @@
 #ifndef JOBS_HEADER_GUARD_MJREFRESHCONFIGMODEL_DSL_32C8B31DD0E2ACBB
 #define JOBS_HEADER_GUARD_MJREFRESHCONFIGMODEL_DSL_32C8B31DD0E2ACBB
 
-#if __has_include(<JobsModel/JobsModel.h>)
-#import <JobsModel/JobsModel.h>
-#else
 #import "JobsModel.h"
-#endif
 
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
 #import "JobsBlock.h"
-#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

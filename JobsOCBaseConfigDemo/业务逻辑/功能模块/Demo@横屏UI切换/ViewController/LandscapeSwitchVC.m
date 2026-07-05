@@ -2,7 +2,7 @@
 //  LandscapeSwitchVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by User on 6/29/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "LandscapeSwitchVC.h"
@@ -29,31 +29,37 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(18);
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(18));
+        })
     
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.bgImage = @"新首页的底图".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byBgImage(@"新首页的底图".img)
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     @jobs_weakify(self)
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(HEXCOLOR(0xFCFBFB));
     self.makeNavByAlpha(1);
     self.collectionView.byShow(self);
     self.jobsBackBlock = ^id _Nullable(id _Nullable data) {
         @jobs_strongify(self)
         JobsLog(@"退出页面的逻辑");
-         JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskPortrait;/// 设备处于竖屏（Portrait）模式。
-         JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationPortrait;/// 设备处于竖屏（Portrait）模式，即设备的顶部朝上
+        JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskPortrait;/// 设备处于竖屏（Portrait）模式。
+        JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationPortrait;/// 设备处于竖屏（Portrait）模式，即设备的顶部朝上
+        JobsAppTool.jobsDeviceOrientation = DeviceOrientationPortrait;
 //        self.currentDeviceOrientation = UIDeviceOrientationPortrait;/// 设备竖直放置，设备底部的 Home 键在底部（设备顶部朝上）
         [self hx_rotateToInterfaceOrientation: JobsAppTool.currentInterfaceOrientation];/// 设备处于竖屏（Portrait）模式，即设备的顶部朝上
         return nil;
@@ -140,8 +146,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 /// iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
 /// iPhone设备上，默认返回值是UIInterfaceOrientationMaskAll
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-//    return self.currentInterfaceOrientationMask;
-    return UIInterfaceOrientationMaskAll;
+    return JobsAppTool.currentInterfaceOrientationMask ? JobsAppTool.currentInterfaceOrientationMask : UIInterfaceOrientationMaskAll;
 }
 /// 设置进入界面默认支持的方向
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
@@ -162,9 +167,9 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
                                    cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     JobsBtnStyleCVCell *cell = [JobsBtnStyleCVCell cellWithCollectionView:collectionView forIndexPath:indexPath];
-    cell.jobsRichElementsCollectionViewCellBy(self.dataMutArr[indexPath.item]);
-    cell.contentView.backgroundColor = JobsRandomColor;
-    return cell;
+    return cell
+        .jobsRichElementsCollectionViewCellBy(self.dataMutArr[indexPath.item])
+        .byContentViewBgCor(JobsWhiteColor);
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView
@@ -217,8 +222,8 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     self.dataMutArr[indexPath.item].jobsBlock(nil);
     /**
      滚动到指定位置
-     _collectionView.byContentOffset(CGPointMake(0,-100));
-     _collectionView.setContentOffsetByYES(CGPointMake(0, -200));// 只有在viewDidAppear周期 或者 手动触发才有效
+     _collectionView.contentOffset = CGPointMake(0,-100);
+     [_collectionView setContentOffset:CGPointMake(0, -200) animated:YES];// 只有在viewDidAppear周期 或者 手动触发才有效
      */
 }
 /// 取消选中操作
@@ -231,13 +236,13 @@ didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
 referenceSizeForHeaderInSection:(NSInteger)section {
-    return JobsHeaderFooterView.collectionReusableViewSizeByModel(nil);
+    return CGSizeZero;
 }
 /// Footer 大小
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
 referenceSizeForFooterInSection:(NSInteger)section{
-    return JobsHeaderFooterView.collectionReusableViewSizeByModel(nil);
+    return CGSizeZero;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
@@ -272,50 +277,35 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
 -(BaseCollectionView *)collectionView{
     if (!_collectionView) {
         @jobs_weakify(self)
-        _collectionView = BaseCollectionView.initByLayout(self.verticalLayout);
-        _collectionView.layoutSubviewsRectCorner = UIRectCornerTopLeft | UIRectCornerTopRight;
-        _collectionView.layoutSubviewsRectCornerSize = CGSizeMake(JobsWidth(20), JobsWidth(20));
-        _collectionView.dataLink(self);
-
-        _collectionView
+        _collectionView = BaseCollectionView.initByLayout(self.verticalLayout)
+            .registerCollectionViewCellClass(JobsBtnStyleCVCell.class, @"")
+            .registerCollectionViewCellClass(TMSWalletCollectionViewCell.class, @"")
+            .registerCollectionElementKindSectionHeaderClass(TMSWalletCollectionReusableView.class, @"")
+            .registerCollectionElementKindSectionFooterClass(TMSWalletCollectionReusableView.class, @"")
+            .dataLink(self)
+            .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
             .byShowsVerticalScrollIndicator(NO)
             .byShowsHorizontalScrollIndicator(NO)
-            .byBounces(NO)///设置为NO，使得collectionView只能上拉，不能下拉
-            .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
-            .byBgColor(JobsGreenColor);//RGB_SAMECOLOR(246);
-        //_collectionView.byContentOffset(CGPointMake(0, -JobsWidth(250)));//
-        _collectionView.setContentOffsetByYES(CGPointMake(0, -400));// 这句最快在 viewWillLayoutSubviews 有效
-        
-        _collectionView.registerCollectionViewClass();
-        
-        _collectionView.registerCollectionViewCellClass(TMSWalletCollectionViewCell.class,@"");
-        _collectionView.registerCollectionElementKindSectionHeaderClass(TMSWalletCollectionReusableView.class,@"");
-        _collectionView.registerCollectionElementKindSectionFooterClass(TMSWalletCollectionReusableView.class,@"");
-        
-        {
-            _collectionView.mj_header = self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
+            .byBounces(NO)// 设置为 NO，使得 collectionView 只能上拉，不能下拉
+            .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
+            .byMJ_header(self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id _Nullable data) {
                 @jobs_strongify(self)
-                NSObject.feedbackGenerator(nil);//震动反馈
+                NSObject.feedbackGenerator(nil);// 震动反馈
                 return nil;
-            }]);
-            _collectionView.mj_footer = self.view.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
+            }]))
+            .byMJ_footer(self.view.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id _Nullable data) {
                 @jobs_strongify(self)
                 self->_collectionView.endRefreshing(self.dataMutArr.count);
                 return nil;
-            }]);
-        }
-        
-//        {
-//            _collectionView.tabAnimated = [TABCollectionAnimated animatedWithCellClass:HomeCVCell.class
-//                                                                              cellSize:HomeCVCell.cellSizeByModel(nil)];
-//            _collectionView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeBinAnimation;
-//            _collectionView.tabAnimated.canLoadAgain = YES;
-//            _collectionView.tabAnimated.animatedBackViewCornerRadius = JobsWidth(8);
-////            _collectionView.tabAnimated.animatedBackgroundColor = JobsRedColor;
-//            [_collectionView tab_startAnimation];   // 开启动画
-//        }
-        [self.view.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.view);
+            }]));
+        _collectionView.byLayoutSubviewsRectCorner(UIRectCornerTopLeft | UIRectCornerTopRight);
+        _collectionView.byLayoutSubviewsRectCornerSize(CGSizeMake(JobsWidth(20), JobsWidth(20)));
+        _collectionView.byBgColor(HEXCOLOR(0xFCFBFB));// RGB_SAMECOLOR(246)
+        _collectionView.addOn(self.view);
+        [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            @jobs_strongify(self)
+            [self make:make topOffset:0];
+            make.left.right.bottom.equalTo(self.view);
         }];
     };return _collectionView;
 }
@@ -325,10 +315,22 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     if (!_dataMutArr) {
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
+                NSString *title = @"检测当前屏幕方向".tr;
+                NSString *subTitle = @"";
+                data1
+                    .byTitle(title)
+                    .bySubTitle(subTitle)
+                    .byTitleCor(JobsRedColor)
+                    .bySubTitleCor(JobsRedColor);
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.text = @"检测当前屏幕方向".tr;
-                    data2.textCor = JobsRedColor;
-                    data2.textAlignment = NSTextAlignmentCenter;
+                    data2.byText(title)
+                         .byTextCor(JobsRedColor)
+                         .byTextAlignment(NSTextAlignmentCenter);
+                });
+                data1.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
+                    data2.bySubText(subTitle)
+                         .bySubTextCor(JobsRedColor)
+                         .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param){
                     @jobs_strongify(self)
@@ -342,84 +344,139 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 };
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
+                NSString *title = @"锁定横屏:".tr;
+                NSString *subTitle = @"设备可以处于任意横屏（Landscape）模式，包括左横屏和右横屏".tr;
+                data1
+                    .byTitle(title)
+                    .bySubTitle(subTitle)
+                    .byTitleCor(JobsRedColor)
+                    .bySubTitleCor(JobsRedColor);
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.text = @"锁定横屏:\n设备可以处于任意横屏（Landscape）模式，包括左横屏和右横屏".tr;
-                    data2.textCor = JobsRedColor;
-                    data2.textAlignment = NSTextAlignmentCenter;
+                    data2.byText(title)
+                         .byTextCor(JobsRedColor)
+                         .byTextAlignment(NSTextAlignmentCenter);
+                });
+                data1.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
+                    data2.bySubText(subTitle)
+                         .bySubTextCor(JobsRedColor)
+                         .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param){
                     @jobs_strongify(self)
                     JobsLog(@"锁定横屏:设备可以处于任意横屏模式，包括左横屏和右横屏");
-    //                self.currentInterfaceOrientationMask = UIInterfaceOrientationMaskLandscape;/// 设备可以处于任意横屏（Landscape）模式，包括左横屏和右横屏
-                     JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationLandscapeLeft | UIInterfaceOrientationLandscapeRight;/// 设备可以处于任意横屏（Landscape）模式，包括左横屏和右横屏
-    //                self.currentDeviceOrientation = UIDeviceOrientationUnknown;/// 设备方向未知或不确定
-                    [self hx_setNeedsUpdateOfSupportedInterfaceOrientations];
+                    JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskLandscape;/// 设备可以处于任意横屏（Landscape）模式，包括左横屏和右横屏
+                    JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationLandscapeLeft;
+                    JobsAppTool.jobsDeviceOrientation = DeviceOrientationLandscape;
+                    [self hx_rotateToInterfaceOrientation:JobsAppTool.currentInterfaceOrientation];
                     return nil;
                 };
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
+                NSString *title = @"解除锁定:".tr;
+                NSString *subTitle = @"设备可以处于所有方向，包括竖屏、左横屏、右横屏和倒竖屏".tr;
+                data
+                    .byTitle(title)
+                    .bySubTitle(subTitle)
+                    .byTitleCor(JobsRedColor)
+                    .bySubTitleCor(JobsRedColor);
                 data.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.text = @"解除锁定:\n设备可以处于所有方向，包括竖屏、左横屏、右横屏和倒竖屏".tr;
-                    data2.textCor = JobsRedColor;
-                    data2.textAlignment = NSTextAlignmentCenter;
+                    data2.byText(title)
+                         .byTextCor(JobsRedColor)
+                         .byTextAlignment(NSTextAlignmentCenter);
+                });
+                data.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
+                    data2.bySubText(subTitle)
+                         .bySubTextCor(JobsRedColor)
+                         .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data.jobsBlock = ^id(id param){
                     @jobs_strongify(self)
                     JobsLog(@"解除锁定:设备可以处于所有方向，包括竖屏、左横屏、右横屏和倒竖屏");
                     JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskAll;/// 设备可以处于所有方向，包括竖屏、左横屏、右横屏和倒竖屏
-                    JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationPortrait |
-                                                       UIInterfaceOrientationPortraitUpsideDown |
-                                                       UIInterfaceOrientationLandscapeLeft |
-                                                       UIInterfaceOrientationLandscapeRight;/// 设备可以处于所有方向，包括竖屏、左横屏、右横屏和倒竖屏
-    //                self.currentDeviceOrientation = UIDeviceOrientationUnknown;/// 设备方向未知或不确定
                     [self hx_setNeedsUpdateOfSupportedInterfaceOrientations];
                     return nil;
                 };
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
+                NSString *title = @"设备左横屏".tr;
+                NSString *subTitle = @"";
+                data1
+                    .byTitle(title)
+                    .bySubTitle(subTitle)
+                    .byTitleCor(JobsRedColor)
+                    .bySubTitleCor(JobsRedColor);
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.text = @"设备左横屏".tr;
-                    data2.textCor = JobsRedColor;
-                    data2.textAlignment = NSTextAlignmentCenter;
+                    data2.byText(title)
+                         .byTextCor(JobsRedColor)
+                         .byTextAlignment(NSTextAlignmentCenter);
+                });
+                data1.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
+                    data2.bySubText(subTitle)
+                         .bySubTextCor(JobsRedColor)
+                         .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param){
                     @jobs_strongify(self)
                     JobsLog(@"设备处于左横屏模式");
                     JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskLandscapeLeft;/// 设备处于左横屏（Landscape Left）模式
                     JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationLandscapeLeft;/// 设备处于左横屏（Landscape Left）模式
-    //                self.currentDeviceOrientation = UIDeviceOrientationUnknown;/// 设备方向未知或不确定
+                    JobsAppTool.jobsDeviceOrientation = DeviceOrientationLandscape;
                     [self hx_rotateToInterfaceOrientation:JobsAppTool.currentInterfaceOrientation];/// 设备处于竖屏（Portrait）模式，即设备的顶部朝上
                     return nil;
                 };
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
+                NSString *title = @"设备右横屏".tr;
+                NSString *subTitle = @"";
+                data1
+                    .byTitle(title)
+                    .bySubTitle(subTitle)
+                    .byTitleCor(JobsRedColor)
+                    .bySubTitleCor(JobsRedColor);
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.text = @"设备右横屏".tr;
-                    data2.textCor = JobsRedColor;
-                    data2.textAlignment = NSTextAlignmentCenter;
+                    data2.byText(title)
+                         .byTextCor(JobsRedColor)
+                         .byTextAlignment(NSTextAlignmentCenter);
+                });
+                data1.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
+                    data2.bySubText(subTitle)
+                         .bySubTextCor(JobsRedColor)
+                         .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param){
                     @jobs_strongify(self)
                     JobsLog(@"设备处于右横屏模式");
                     JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskLandscapeRight;/// 设备处于右横屏（Landscape Right）模式
                     JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationLandscapeRight;/// 设备处于右横屏（Landscape Right）模式
-    //                self.currentDeviceOrientation = UIDeviceOrientationUnknown;/// 设备方向未知或不确定
+                    JobsAppTool.jobsDeviceOrientation = DeviceOrientationLandscape;
                     [self hx_rotateToInterfaceOrientation:JobsAppTool.currentInterfaceOrientation];/// 设备处于竖屏（Portrait）模式，即设备的顶部朝上
                     return nil;
                 };
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
+                NSString *title = @"设备竖直向上".tr;
+                NSString *subTitle = @"Home 按钮在下方".tr;
+                data1
+                    .byTitle(title)
+                    .bySubTitle(subTitle)
+                    .byTitleCor(JobsRedColor)
+                    .bySubTitleCor(JobsRedColor);
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-                    data2.text = @"设备竖直向上\n Home 按钮在下方".tr;
-                    data2.textCor = JobsRedColor;
-                    data2.textAlignment = NSTextAlignmentCenter;
+                    data2.byText(title)
+                         .byTextCor(JobsRedColor)
+                         .byTextAlignment(NSTextAlignmentCenter);
+                });
+                data1.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
+                    data2.bySubText(subTitle)
+                         .bySubTextCor(JobsRedColor)
+                         .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param) {
                     @jobs_strongify(self)
                     JobsLog(@"设备处于竖屏模式");
                     JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskPortrait;/// 设备处于竖屏（Portrait）模式。
                     JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationPortrait;/// 设备处于竖屏（Portrait）模式，即设备的顶部朝上
-    //                self.currentDeviceOrientation = UIDeviceOrientationPortrait;/// 设备竖直放置，设备底部的 Home 键在底部（设备顶部朝上）
+                    JobsAppTool.jobsDeviceOrientation = DeviceOrientationPortrait;
                     [self hx_rotateToInterfaceOrientation:JobsAppTool.currentInterfaceOrientation];/// 设备处于竖屏（Portrait）模式，即设备的顶部朝上
                     return nil;
                 };

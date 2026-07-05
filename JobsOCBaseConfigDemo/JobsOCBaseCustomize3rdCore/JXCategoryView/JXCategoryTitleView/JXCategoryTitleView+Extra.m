@@ -1,15 +1,15 @@
 //
 //  JXCategoryTitleView+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Jobs on 2025/5/29.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JXCategoryTitleView+Extra.h"
 
 @implementation JXCategoryTitleView (Extra)
 
--(JobsReturnCategoryTitleViewByCorBlock _Nonnull)byTitleSelectedColor{
+-(JobsRetCategoryTitleViewByCorBlock _Nonnull)byTitleSelectedColor{
     @jobs_weakify(self)
     return ^__kindof JXCategoryTitleView *_Nullable(__kindof UIColor *_Nullable cor){
         @jobs_strongify(self)
@@ -18,7 +18,7 @@
     };
 }
 
--(JobsReturnCategoryTitleViewByCorBlock _Nonnull)byTitleColor{
+-(JobsRetCategoryTitleViewByCorBlock _Nonnull)byTitleColor{
     @jobs_weakify(self)
     return ^__kindof JXCategoryTitleView *_Nullable(__kindof UIColor *_Nullable cor){
         @jobs_strongify(self)
@@ -27,8 +27,7 @@
     };
 }
 
-
--(JobsReturnCategoryTitleViewByFontBlock _Nonnull)byTitleFont{
+-(JobsRetCategoryTitleViewByFontBlock _Nonnull)byTitleFont{
     @jobs_weakify(self)
     return ^__kindof JXCategoryTitleView *_Nullable(UIFont *_Nullable font){
         @jobs_strongify(self)
@@ -37,7 +36,7 @@
     };
 }
 
--(JobsReturnCategoryTitleViewByFontBlock _Nonnull)byTitleSelectedFont{
+-(JobsRetCategoryTitleViewByFontBlock _Nonnull)byTitleSelectedFont{
     @jobs_weakify(self)
     return ^__kindof JXCategoryTitleView *_Nullable(UIFont *_Nullable font){
         @jobs_strongify(self)
@@ -46,7 +45,7 @@
     };
 }
 
--(JobsReturnCategoryTitleViewByStringsBlock _Nonnull)byTitles{
+-(JobsRetCategoryTitleViewByStringsBlock _Nonnull)byTitles{
     @jobs_weakify(self)
     return ^__kindof JXCategoryTitleView *_Nullable(__kindof NSArray <__kindof NSString *>* _Nullable strings){
         @jobs_strongify(self)
@@ -55,7 +54,7 @@
     };
 }
 
--(JobsReturnCategoryTitleViewByBOOLBlock _Nonnull)byTitleColorGradientEnabled{
+-(JobsRetCategoryTitleViewByBOOLBlock _Nonnull)byTitleColorGradientEnabled{
     @jobs_weakify(self)
     return ^__kindof JXCategoryTitleView *_Nullable(BOOL data){
         @jobs_strongify(self)

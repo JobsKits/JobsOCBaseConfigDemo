@@ -1,15 +1,18 @@
 //
 //  BaseNavigationBar.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2020/10/21.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_BASENAVIGATIONBAR_301033E8D3
+#define JOBS_HEADER_GUARD_BASENAVIGATIONBAR_301033E8D3
+
 #import <UIKit/UIKit.h>
+
 #import "JobsBlock.h"
-#import "MacroDef_Func.h"
-#import "JobsDefineConstString.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,3 +29,4 @@ NS_INLINE __kindof BaseNavigationBar *_Nonnull jobsMakeBaseNavigationBar(jobsByB
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_BASENAVIGATIONBAR_301033E8D3 */

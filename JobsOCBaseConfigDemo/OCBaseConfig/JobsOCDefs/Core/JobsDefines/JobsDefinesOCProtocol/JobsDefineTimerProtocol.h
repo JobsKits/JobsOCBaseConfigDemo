@@ -1,6 +1,6 @@
 //
 //  JobsDefineTimerProtocol.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDefs
 //
 //  Created by Jobs on 2026/5/17.
 //
@@ -53,6 +53,7 @@
 @dynamic invocation; \
 @dynamic runLoopMode; \
 @dynamic userInfo; \
+@dynamic showTimeType; \
 @dynamic countdownTimerProgress; \
 @dynamic timerStyle; \
 @dynamic timerType; \

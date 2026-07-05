@@ -1,15 +1,17 @@
 //
-//  Header.h
-//  JobsOCBaseConfigDemo
+//  SHA-256.h
+//  JobsCryptography
 //
-//  Created by Jobs on 2020/9/14.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_SHA_256_25AF918EDC
+#define JOBS_HEADER_GUARD_SHA_256_25AF918EDC
 
 #import <Foundation/Foundation.h>
-#import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonDigest.h>  // 提供常见摘要算法接口，如 MD5、SHA1、SHA256 等。
 
-//亲测，可以适配iOS13并且兼容之前系统
+/// 亲测，可以适配iOS13并且兼容之前系统
 NS_INLINE NSString *SHA_256(NSString *string){
     const char *s = [string cStringUsingEncoding:NSUTF8StringEncoding];
 
@@ -26,3 +28,4 @@ NS_INLINE NSString *SHA_256(NSString *string){
     ntohl(hashBytes[6]), ntohl(hashBytes[7])];
     return hash;
 }
+#endif /* JOBS_HEADER_GUARD_SHA_256_25AF918EDC */

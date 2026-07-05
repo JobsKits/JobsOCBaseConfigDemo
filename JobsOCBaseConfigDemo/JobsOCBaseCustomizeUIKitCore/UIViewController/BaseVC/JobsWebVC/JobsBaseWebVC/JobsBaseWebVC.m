@@ -1,11 +1,16 @@
 //
-//  JobsWebVC.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseWebVC.m
+//  JobsBaseUI
 //
-//  Created by Jobs on 2025/5/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsBaseWebVC.h"
+#import "WKWebView+Extra.h"
+#import "NSString+Sys.h"
+#import "NSObject+Extra.h"
+#import "NSURL+Extra.h"
+#import "UIActivityIndicatorView+Extra.h"
 
 @interface JobsBaseWebVC ()
 
@@ -26,8 +31,9 @@
 
 -(void)loadView{
     [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
+    id<BaseProtocol> baseProtocolSelf = (id<BaseProtocol>)self;
+    if ([baseProtocolSelf.requestParams isKindOfClass:UIViewModel.class]) {
+        self.viewModel = (UIViewModel *)baseProtocolSelf.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
@@ -36,24 +42,30 @@
     self.setupNavigationBarHidden = YES;
     
     {
-        self.viewModel.backBtnTitleModel.text = @"".tr;
-        self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-        self.viewModel.textModel.text = @"".tr;
-        self.viewModel.textModel.font = UIFontWeightRegularSize(JobsWidth(18));
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"".tr);
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byTextCor(HEXCOLOR(0x3D4A58));
+                data.byText(@"".tr);
+                data.byFont(UIFontWeightRegularSize(JobsWidth(18)));
+            })
         
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-//        self.viewModel.navBgImage = @"导航栏左侧底图".img;
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+                //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1));
+            //        self.viewModel.navBgImage = @"导航栏左侧底图".img;
     }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = @"#FF0000".cor;
+    self.view.byBgColor(@"#FF0000".cor);
+
     self.makeNavByConfig(self.makeNav0ByTitle(self.viewModel.textModel.text));
 }
 
@@ -98,8 +110,8 @@
 - (void)userContentController:(WKUserContentController *)userContentController
       didReceiveScriptMessage:(WKScriptMessage *)message {
     if(self.objBlock) self.objBlock(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-        data.userContentCtrl = userContentController;
-        data.scriptMsg = message;
+        data.byUserContentCtrl(userContentController)
+            .byScriptMsg(message);
     }));
 }
 #pragma mark —— WKNavigationDelegate

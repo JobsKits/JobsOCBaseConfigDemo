@@ -1,12 +1,14 @@
 //
 //  AFSecurityPolicy+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Admin on 25/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_AFSECURITYPOLICY_EXTRA_7EC76A31CF
+#define JOBS_HEADER_GUARD_AFSECURITYPOLICY_EXTRA_7EC76A31CF
+
 #import <Foundation/Foundation.h>
-#import "JobsBlock.h"
 
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFNetworking.h>
@@ -14,11 +16,15 @@
 #import "AFNetworking.h"
 #endif
 
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AFSecurityPolicy (Extra)
 
-+(JobsReturnAFSecurityPolicyByAFSSLPinningModeBlock _Nonnull)initBy;
++(JobsRetAFSecurityPolicyByAFSSLPinningModeBlock _Nonnull)initBy;
 +(AFSecurityPolicy *_Nonnull)initByModeNone;
 +(AFSecurityPolicy *_Nonnull)initByModePublicKey;
 +(AFSecurityPolicy *_Nonnull)initByModeCertificate;
@@ -26,3 +32,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_AFSECURITYPOLICY_EXTRA_7EC76A31CF */

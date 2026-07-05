@@ -1,13 +1,18 @@
 //
 //  UICollectionViewCell+BaseViewProtocol.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2025/5/3.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UICOLLECTIONVIEWCELL_BASEVIEWPROTOCOL_20995AE671
+#define JOBS_HEADER_GUARD_UICOLLECTIONVIEWCELL_BASEVIEWPROTOCOL_20995AE671
+
 #import <UIKit/UIKit.h>
-#import "BaseViewProtocol.h"
+
 #import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,3 +24,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UICOLLECTIONVIEWCELL_BASEVIEWPROTOCOL_20995AE671 */

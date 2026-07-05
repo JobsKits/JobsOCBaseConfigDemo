@@ -1,14 +1,17 @@
 //
 //  GXCardItemDemoCell.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Gin on 2018/8/3.
-//  Copyright © 2018年 gin. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_GXCARDITEMDEMOCELL_6E5E085779
+#define JOBS_HEADER_GUARD_GXCARDITEMDEMOCELL_6E5E085779
 
 #import <UIKit/UIKit.h>
 #import "GXCardView.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
 
 @interface GXCardItemDemoCell : GXCardViewCell
 
@@ -17,3 +20,4 @@ Prop_weak()IBOutlet UILabel *leftLabel;
 Prop_weak()IBOutlet UILabel *rightLabel;
 
 @end
+#endif /* JOBS_HEADER_GUARD_GXCARDITEMDEMOCELL_6E5E085779 */

@@ -1,14 +1,16 @@
 //
 //  NSString+Time.m
-//  JobsOCBaseConfigDemo
+//  JobsTimeUtils
 //
-//  Created by User on 9/3/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSString+Time.h"
-#import "NSObject+WHToast.h"
+#import "NSDate+Extra.h"
+#import "NSFormatter+Extra.h"
+#import "NSDateFormatter+Extra.h"
 
-@implementation NSString (Time)
+@implementation NSString (JobsTimeUtilsTime)
 /// 格式化为中国时间
 -(JobsRetStrByStrBlock _Nonnull)chinaTime{
     @jobs_weakify(self)
@@ -32,7 +34,7 @@
             sec = self.doubleValue / 1000.0;/// 毫秒级时间戳（13位）
         }else{
             JobsLog(@"不是正确的时间戳，请检查");
-            NSObject.jobsToastMsg(@"不是正确的时间戳，请检查".tr);
+            toastBy(@"不是正确的时间戳，请检查".tr);
             return nil;
         };return jobsMakeDateFormatter(^(__kindof NSDateFormatter *_Nullable dateFormatter) {
             dateFormatter.dateFormat = timeFormat;
@@ -49,14 +51,14 @@
                         intervalStyle:(IntervalStyle)intervalStyle{
     @jobs_weakify(self)
     NSDate *date = nil;
-    if (intervalStyle == intervalBySec) {/// 秒级时间戳（10位）
+    if (intervalStyle == intervalBySec) {// 秒级时间戳（10位）
         date = NSDate.initDateBy(self.doubleValue);
-    }else if(intervalStyle == intervalByMilliSec){/// 毫秒级时间戳（13位）
+    }else if(intervalStyle == intervalByMilliSec){// 毫秒级时间戳（13位）
         date = NSDate.initDateBy(self.doubleValue / 1000.0);
     };return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable data) {
         @jobs_strongify(self)
         data.dateFormat = isNull(timeFormatter) ? @"yyyy-MM-dd HH:mm:ss" : timeFormatter;
-        data.timeZone = self.timeZone(timeZoneType);
+        data.timeZone = timeZone(timeZoneType);
     }).date(date);
 }
 /// 当前时间戳较之当前时间是否已过期【过期返回YES】
@@ -66,7 +68,7 @@
         @jobs_strongify(self)
 #ifdef DEBUG
         JobsLog(@"当前时间为:%@, Token过期时间为:%@", NSDate.date, self.chinaTime(nil));
-        NSObject.jobsToastMsg(JobsFormattedString(@"Token过期时间为:%@", self.chinaTime(nil)));
+        toastBy(JobsFormattedString(@"Token过期时间为:%@", self.chinaTime(nil)));
 #endif
         /// 将时间戳字符串转换为 double 类型的时间戳
         double timeStamp = self.doubleValue;
@@ -80,6 +82,14 @@
         NSComparisonResult result = [NSDate.date compare:dateFromTimeStamp];
         /// 如果当前时间晚于时间戳所代表的时间，返回 YES
         return (result == NSOrderedDescending);
+    };
+}
+/// OC字符串转NSDate
+-(JobsRetDateByDateFormatterBlock _Nonnull)dataByDateFormatter{
+    @jobs_weakify(self)
+    return ^NSDate *_Nullable(NSDateFormatter *_Nullable data){
+        @jobs_strongify(self)
+        return [data dateFromString:self];
     };
 }
 

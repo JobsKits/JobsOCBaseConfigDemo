@@ -1,17 +1,33 @@
 //
 //  Ipinfo_api.h
-//  JobsOCBaseConfigDemo
+//  JobsDeviceInfo
 //
-//  Created by Admin on 23/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "JobsBaseApi.h"
-#import "JobsDefineProperty.h"
+#ifndef JOBS_HEADER_GUARD_IPINFO_API_9FB76AB229
+#define JOBS_HEADER_GUARD_IPINFO_API_9FB76AB229
+
+#import <Foundation/Foundation.h>
+
+#if __has_include(<YTKNetwork/YTKNetwork.h>)
+#import <YTKNetwork/YTKNetwork.h>
+#else
+#import "YTKNetwork.h"
+#endif
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "YTKNetworkExtra.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 提供详细的IP信息@GET
 /// https://ipinfo.io/json
-@interface Ipinfo_api : JobsBaseApi
+@interface Ipinfo_api : BaseRequest
 
 @end
 
@@ -31,3 +47,4 @@ Prop_copy()NSString *readme;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_IPINFO_API_9FB76AB229 */

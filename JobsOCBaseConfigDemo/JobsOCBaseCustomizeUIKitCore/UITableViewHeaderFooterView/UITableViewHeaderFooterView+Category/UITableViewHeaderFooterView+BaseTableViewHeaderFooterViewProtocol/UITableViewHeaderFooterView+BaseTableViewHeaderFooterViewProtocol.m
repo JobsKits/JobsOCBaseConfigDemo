@@ -1,8 +1,8 @@
 //
 //  UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/11/19.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol.h"
@@ -51,7 +51,7 @@
         @jobs_strongify(self)
         if (model.isKindOfClass(UIViewModel.class)) {
             /// self.contentView.backgroundColor = JobsCyanColor; 这样设置无效
-            self.backgroundView.backgroundColor = JobsCyanColor;
+            self.backgroundView.byBgColor(JobsCyanColor);
         }
     };
 }

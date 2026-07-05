@@ -1,11 +1,12 @@
 //
 //  JXCategoryIndicatorView+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Jobs on 2025/5/29.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "JobsBlock.h"
+#ifndef JOBS_HEADER_GUARD_JXCATEGORYINDICATORVIEW_EXTRA_45157AE632
+#define JOBS_HEADER_GUARD_JXCATEGORYINDICATORVIEW_EXTRA_45157AE632
 
 #if __has_include(<JXCategoryView/JXCategoryView.h>)
 #import <JXCategoryView/JXCategoryView.h>
@@ -13,12 +14,17 @@
 #import "JXCategoryView.h"
 #endif
 
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JXCategoryIndicatorView (Extra)
 
--(JobsReturnCategoryIndicatorViewByViewsBlock _Nonnull)byIndicators;
+-(JobsRetCategoryIndicatorViewByViewsBlock _Nonnull)byIndicators;
 
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JXCATEGORYINDICATORVIEW_EXTRA_45157AE632 */

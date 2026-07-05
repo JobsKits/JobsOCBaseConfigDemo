@@ -1,13 +1,22 @@
 //
 //  UIButtonModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef UIButtonModel_h
+#define UIButtonModel_h
+
 #import <UIKit/UIKit.h>
 #import "BaseModel.h"
-#import "JobsDefineProperty.h"
+#import "NSString+Statistics.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,10 +33,12 @@ Prop_copy(nullable)NSArray <NSString *>*normal_titles;// title
 Prop_copy(nullable)NSArray <UIFont *>*normal_titleFonts;// titleFont
 Prop_copy(nullable)NSArray <UIColor *>*normal_titleCors;// titleCor
 Prop_copy(nullable)NSArray <NSAttributedString *>*normal_attributedTitles;// attributedTitle
+
 Prop_copy(nullable)NSArray <NSString *>*normal_subTitles;// subTitle
 Prop_copy(nullable)NSArray <UIFont *>*normal_subTitleFonts;// subTitleFont
 Prop_copy(nullable)NSArray <UIColor *>*normal_subTitleCors;// subTitleCor
 Prop_copy(nullable)NSArray <NSAttributedString *>*normal_attributedSubtitles;// attributedSubtitle
+
 Prop_copy(nullable)NSArray <UIColor *>*normal_baseBackgroundColors;// baseBackgroundColor
 Prop_copy(nullable)NSArray <UIImage *>*normal_backgroundImages;// backgroundImage
 Prop_copy(nullable)NSArray <UIImage *>*normal_images;// jobsResetBtnImage
@@ -37,10 +48,12 @@ Prop_copy(nullable)NSArray <NSString *>*selected_titles;// selectedTitle
 Prop_copy(nullable)NSArray <UIFont *>*selected_titleFonts;// selectedTitleFont
 Prop_copy(nullable)NSArray <UIColor *>*selected_titleCors;// selectedTitleCor
 Prop_copy(nullable)NSArray <NSAttributedString *>*selected_attributedTitles;// selectedAttributedSubTitle
+
 Prop_copy(nullable)NSArray <NSString *>*selected_subTitles;// selectedSubTitle
 Prop_copy(nullable)NSArray <UIFont *>*selected_subTitleFonts;// selectedSubTitleFont
 Prop_copy(nullable)NSArray <UIColor *>*selected_subTitleCors;// selectedSubTitleCor
 Prop_copy(nullable)NSArray <NSAttributedString *>*selected_attributedSubtitles;// normal_attributedSubtitles
+
 Prop_copy(nullable)NSArray <UIColor *>*selected_baseBackgroundColors;// selectedBaseBackgroundColor
 Prop_copy(nullable)NSArray <UIImage *>*selected_backgroundImages;// highlightBackgroundImage
 Prop_copy(nullable)NSArray <UIImage *>*selected_Images;// highlightImage
@@ -59,7 +72,7 @@ Prop_copy(nullable)jobsByMASConstraintMakerBlock masonryBlock;
 Prop_strong(nullable)id data;
 Prop_strong(nullable)__kindof UIView *view;
 #pragma mark —— 保留(测试)字段
-Prop_copy(nullable)JobsReturnRACDisposableByReturnIDByIDBlocks jobsReturnedTestBlock;
+Prop_copy(nullable)JobsRetRACDisposableByRetIDByIDBlocks jobsReturnedTestBlock;
 Prop_copy(nullable)jobsByVoidBlock jobsTestBlock;
 
 @end
@@ -71,3 +84,5 @@ NS_INLINE __kindof UIButtonModel *_Nonnull jobsMakeButtonModel(jobsByButtonModel
     if (block) block(data);
     return data;
 }
+
+#endif /* UIButtonModel_h */

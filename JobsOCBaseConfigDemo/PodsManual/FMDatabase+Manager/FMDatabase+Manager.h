@@ -1,18 +1,26 @@
 //
 //  FMDatabase+Manager.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Jobs on 2021/12/1.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "JobsLoadingImage.h"
-#import "FileFolderHandleTool.h"
+#ifndef JOBS_HEADER_GUARD_FMDATABASE_MANAGER_681BA9F5D0
+#define JOBS_HEADER_GUARD_FMDATABASE_MANAGER_681BA9F5D0
+
+#import <Foundation/Foundation.h>
 
 #if __has_include(<FMDB/FMDB.h>)
 #import <FMDB/FMDB.h>
 #else
 #import "FMDB.h"
 #endif
+
+#import "JobsOCRuntimeKits.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -41,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)handleMultiThreadedProtectionDB:(NSString *_Nullable)dbPath
                                 doWith:(jobsByIDBlock)doWithBlock;
 
-
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_FMDATABASE_MANAGER_681BA9F5D0 */

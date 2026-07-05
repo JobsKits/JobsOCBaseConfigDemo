@@ -1,20 +1,23 @@
 //
 //  NSObject+Time.h
-//  JobsOCBaseConfigDemo
+//  JobsTimeUtils
 //
-//  Created by Kite on 2019/12/9.
-//  Copyright © 2019 朝花夕拾. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_TIME_C9EBE8CD65
+#define JOBS_HEADER_GUARD_NSOBJECT_TIME_C9EBE8CD65
+
 #import <Foundation/Foundation.h>
+#import "NSString+Time.h"
+
+#import "JobsMakes.h"
+
+#import "JobsModelDSL.h"
+
 #import "JobsBlock.h"
-#import "MacroDef_SysWarning.h"
-#import "NSObject+Time.h"
-#import "NSUserDefaults+Manager.h"
-#import "NSString+Conversion.h"
-#import "NSMutableArray+Extra.h"
-#import "JobsTimeModel.h"
-#import "JobsDefineConstString.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -55,30 +58,12 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark —— 时间格式转换
 /// 字符串转时间格式
 -(JobsRetDateFormatterByStrBlock _Nonnull)dateFormatterBy;
-/// 接受一个秒数，对这个秒数进行解析出：时、分、秒，存入JobsTimeModel，外层再对这个JobsTimeModel进行取值，对数据进行拼装
--(JobsReturnTimeModelByIntegerBlock _Nonnull)HHMMSS;
-/// 将某个（NSDate *）时间 转换格式
-/// @param date 一个指定的时间，若未指定则为当前时间
-/// @param timeFormatStr 时间格式 缺省值 @"MMM dd,yyyy HH:mm tt"
--(JobsTimeModel *)timeFormatterWithDate:(NSDate *_Nullable)date
-                          timeFormatStr:(NSString *_Nullable)timeFormatStr;
 /// NSDate * ---> NSString *   (NSDate*)时间 转 (NSString*)时间戳（毫秒级）
 /// @param date 不传值则为当前时间
 -(NSString *)dateConversionTimeStamp:(NSDate *_Nullable)date
                        intervalStyle:(IntervalStyle)intervalStyle;
 /// NSTimeInterval ---> NSString *
 -(JobsRetStrByTimeIntervalBlock _Nonnull)timeIntervalByInterval;
-/// NSString * ---> NSString *   格式转换为   小时：分钟：秒
-/// @param totalTime 传入 秒
--(NSString *)getHHMMSSFromStr:(NSString *_Nonnull)totalTime
-                   formatTime:(JobsTimeModel *_Nullable)formatTime;
-/// NSString * ---> NSString * 格式转换为  分钟：秒
-/// @param totalTime 传入 秒
--(NSString *)getMMSSFromStr:(NSString *_Nonnull)totalTime
-                 formatTime:(JobsTimeModel *_Nullable)formatTime;
-/// 要完全支持所有时区，可以参考完整的 IANA 时区数据库 来添加所有可能的时区。
-/// 由于时区信息和名称可能会根据地区变化和政策更新，因此在实际项目中应根据需求动态获取时区数据，或者使用系统 API 自动处理时区。
--(JobsReturnTimeZoneByTypeBlock _Nonnull)timeZone;
 /// NSDate * ---> NSTimeInterval
 -(JobsRetTimeIntervalByDateBlock _Nonnull)timeIntervalByDate;
 /// NSString * ---> NSTimeInterval
@@ -91,12 +76,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSDate *)strByDate:(NSString *_Nonnull)dateStr
        timeFormatter:(NSString *_Nullable)timeFormatter;
 #pragma mark —— 功能性的
-/// 各个具体时间的拆解
--(JobsTimeModel *)makeSpecificTime;
-/// 获得当前时间
--(JobsTimeModel *)currentTime;
-/// 获得今天的时间：年/月/日
--(JobsReturnTimeModelByStringBlock _Nonnull)getToday;
 /// 可以获得两个日期之间的时间间隔
 /// @param startTime （给定） 开始时间【字符串格式】
 /// @param endTime （可以不用给定）结束时间【字符串格式】
@@ -123,14 +102,15 @@ NS_ASSUME_NONNULL_BEGIN
                                              toEndTime:(NSString *)endTime
                                        byDateFormatter:(NSDateFormatter *)dateFormatter;
 /**
- 在当前日期时间加上 某个时间段(传负数即返回当前时间之前x月x日的时间)
- @param year 当前时间若干年后 （传负数为当前时间若干年前）
- @param month 当前时间若干月后  （传0即与当前时间一样）
- @param day 当前时间若干天后
- @param hour 当前时间若干小时后
- @param minute 当前时间若干分钟后
- @param second 当前时间若干秒后
- 参考资料：https://blog.csdn.net/autom_lishun/article/details/79094241
+ 
+     在当前日期时间加上 某个时间段(传负数即返回当前时间之前x月x日的时间)
+     @param year 当前时间若干年后 （传负数为当前时间若干年前）
+     @param month 当前时间若干月后  （传0即与当前时间一样）
+     @param day 当前时间若干天后
+     @param hour 当前时间若干小时后
+     @param minute 当前时间若干分钟后
+     @param second 当前时间若干秒后
+     参考资料：https://blog.csdn.net/autom_lishun/article/details/79094241
  */
 -(NSArray <NSString *>*)dateStringAfterlocalDateForYear:(NSInteger)year
                                                   month:(NSInteger)month
@@ -139,38 +119,59 @@ NS_ASSUME_NONNULL_BEGIN
                                                  minute:(NSInteger)minute
                                                  second:(NSInteger)second
                                           timeFormatter:(NSString *_Nullable)timeFormatter;
-/// 判断是否当日第一次启动App
--(BOOL)isFirstLaunchApp;
 /// 判断某个时间是否为  今天（系统时区）
 /// 对比格式：yyyy-MM-dd
 -(JobsRetBOOLByDateBlock _Nonnull)isToday;
 /// 将NSTimeInterval类型的时间戳翻译成人类能看懂的文字
 -(JobsRetStrByTimeIntervalBlock _Nonnull)toReadableTimeBy;
+/// 接受一个秒数，对这个秒数进行解析出：时、分、秒，存入JobsTimeModel，外层再对这个JobsTimeModel进行取值，对数据进行拼装
+-(JobsRetTimeModelByIntegerBlock _Nonnull)HHMMSS;
+/// 获得今天的时间：年/月/日
+-(JobsRetTimeModelByStringBlock _Nonnull)getToday;
+/// 各个具体时间的拆解
+-(JobsTimeModel *)makeSpecificTime;
+/// 获得当前时间
+-(JobsTimeModel *)currentTime;
+/// 将某个（NSDate *）时间 转换格式
+/// @param date 一个指定的时间，若未指定则为当前时间
+/// @param timeFormatStr 时间格式 缺省值 @"MMM dd,yyyy HH:mm tt"
+-(JobsTimeModel *)timeFormatterWithDate:(NSDate *_Nullable)date
+                          timeFormatStr:(NSString *_Nullable)timeFormatStr;
+/// NSString * ---> NSString *   格式转换为   小时：分钟：秒
+/// @param totalTime 传入 秒
+-(NSString *)getHHMMSSFromStr:(NSString *_Nonnull)totalTime
+                   formatTime:(JobsTimeModel *_Nullable)formatTime;
+/// NSString * ---> NSString * 格式转换为  分钟：秒
+/// @param totalTime 传入 秒
+-(NSString *)getMMSSFromStr:(NSString *_Nonnull)totalTime
+                 formatTime:(JobsTimeModel *_Nullable)formatTime;
 
 @end
 
 NS_ASSUME_NONNULL_END
 /**
- 时间为2024-12-05 15:30:00（北京时间，UTC+8）。
- 秒级时间戳：1701761400
- 毫秒级别时间戳：1701761400000
- 其对应的 NSTimeInterval timeInterval : 1701761400.0
- 
- 无论是秒级还是毫秒级时间戳，经过必要的处理后，最终的 NSTimeInterval 都是相同的
- 
- ❤️字符串时间戳转化为可读❤️
- @"1701761400000".readableTimeByFormatter(@"yyyy-MM-dd");
- @"1701761400".readableTimeByFormatter(@"yyyy-MM-dd");
- ❤️NSDate 类型的时间转化为可读❤️
- NSDate.date.toReadableTime(jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
-               data.dateFormat = @"yyyy"
-                   .add(@"-")
-                   .add(@"MM");
-           }));
 
- NSDate.date.toReadableTimeBy(@"yyyy".add(@"-").add(@"MM"));
- ❤️NSTimeInterval 类型的时间转化为可读❤️
- self.toReadableTimeBy(timeInterval);
- 或者:
- self.dateByTimeInterval(111).toReadableTime(nil);
+     时间为2024-12-05 15:30:00（北京时间，UTC+8）。
+     秒级时间戳：1701761400
+     毫秒级别时间戳：1701761400000
+     其对应的 NSTimeInterval timeInterval : 1701761400.0
+
+     无论是秒级还是毫秒级时间戳，经过必要的处理后，最终的 NSTimeInterval 都是相同的
+
+     ❤️字符串时间戳转化为可读❤️
+     @"1701761400000".readableTimeByFormatter(@"yyyy-MM-dd");
+     @"1701761400".readableTimeByFormatter(@"yyyy-MM-dd");
+     ❤️NSDate 类型的时间转化为可读❤️
+     NSDate.date.toReadableTime(jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
+                   data.dateFormat = @"yyyy"
+                       .add(@"-")
+                       .add(@"MM");
+               }));
+
+     NSDate.date.toReadableTimeBy(@"yyyy".add(@"-").add(@"MM"));
+     ❤️NSTimeInterval 类型的时间转化为可读❤️
+     self.toReadableTimeBy(timeInterval);
+     或者:
+     self.dateByTimeInterval(111).toReadableTime(nil);
  */
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_TIME_C9EBE8CD65 */

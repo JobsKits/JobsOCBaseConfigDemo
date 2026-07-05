@@ -1,6 +1,6 @@
 //
 //  JobsMakes.h
-//  JobsOCBaseConfigDemo
+//  JobsMakes
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -12,12 +12,23 @@
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
-#import <JavaScriptCore/JavaScriptCore.h>
-#import "NSString+Others.h"
+#import <JavaScriptCore/JavaScriptCore.h> // 提供 Objective-C / Swift 与 JavaScript 交互能力，可执行脚本并进行对象桥接。
+
+#if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
+#import <AsyncDisplayKit/AsyncDisplayKit.h>
+#else
+#import "AsyncDisplayKit.h"
+#endif
+
+#import "NSString+Extra.h"
+
 #import "JobsBlock.h"
+
 #import "JobsDefines.h"
+
+#import "JobsOCKeyboardMgr.h"
+
 #pragma mark —— 关于富文本
-#ifndef JobsAttributedString_h
 /// 创建不可变富文本
 NS_INLINE NSAttributedString *_Nonnull JobsAttributedString(NSString *_Nonnull data) {
     if (!data) data = @"";
@@ -58,7 +69,6 @@ NS_INLINE NSMutableAttributedString *_Nonnull JobsMutAttributedStringByTextAttac
     if (!data) data = NSTextAttachment.alloc.init;
     return toMutAttributedString(JobsAttributedStringByTextAttachment(data));
 }
-#endif /* JobsAttributedString_h */
 
 #pragma mark —— 关于时间/日历
 NS_INLINE __kindof NSDateComponents *_Nonnull
@@ -71,6 +81,13 @@ jobsMakeDateComponents(jobsByDateComponentsBlock _Nonnull block){
 NS_INLINE __kindof NSDateFormatter *_Nonnull
 jobsMakeDateFormatter(jobsByDateFormatterBlock _Nonnull block){
     NSDateFormatter *data = NSDateFormatter.alloc.init;
+    if (block) block(data);
+    return data;
+}
+#pragma mark —— 关于键盘遮挡管理
+NS_INLINE __kindof JobsOCKeyboardConfig *_Nonnull
+jobsMakeOCKeyboardConfig(jobsByOCKeyboardConfigBlock _Nonnull block){
+    JobsOCKeyboardConfig *data = JobsOCKeyboardConfig.new;
     if (block) block(data);
     return data;
 }
@@ -429,6 +446,13 @@ jobsMakeLabel(jobsByLabelBlock _Nonnull block){
     return data;
 }
 
+NS_INLINE __kindof UISlider *_Nonnull
+jobsMakeSlider(jobsBySliderBlock _Nonnull block){
+    UISlider *data = UISlider.alloc.init;
+    if (block) block(data);
+    return data;
+}
+
 NS_INLINE __kindof UISearchBar *_Nonnull
 jobsMakeUISearchBar(jobsByUISearchBarBlock _Nonnull block){
     UISearchBar *data = UISearchBar.alloc.init;
@@ -634,6 +658,13 @@ jobsMakeMutSet(jobsByMutableSetBlock _Nonnull block){
     return data;
 }
 
+NS_INLINE __kindof NSMutableIndexSet *_Nonnull
+jobsMakeMutIndexSet(jobsByMutableIndexSetBlock _Nullable block){
+    NSMutableIndexSet *data = NSMutableIndexSet.indexSet;
+    if (block) block(data);
+    return data;
+}
+
 NS_INLINE __kindof NSArray *_Nonnull
 jobsMakeMutArr(jobsByMutArrBlock _Nonnull block){
     NSMutableArray *data = NSMutableArray.array;
@@ -689,16 +720,7 @@ jobsMakeLock(jobsByLockBlock _Nullable block){
     if (block) block(data);
     return data;
 }
-
-#if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
-#import <AsyncDisplayKit/AsyncDisplayKit.h>
-#else
-#import "AsyncDisplayKit.h"
-#endif
-
-#ifndef JOBS_TEXTURE_MAKES_DEFINED
-#define JOBS_TEXTURE_MAKES_DEFINED
-
+#pragma mark —— 关于 Texture 的创建
 #if TARGET_OS_IOS && AS_USE_MAPKIT
 NS_INLINE __kindof ASMapNode *_Nonnull
 jobsMakeMapNode(jobsByMapNodeBlock _Nullable block) {
@@ -708,12 +730,14 @@ jobsMakeMapNode(jobsByMapNodeBlock _Nullable block) {
 }
 #endif
 
+#if AS_USE_VIDEO
 NS_INLINE __kindof ASVideoNode *_Nonnull
 jobsMakeVideoNode(jobsByVideoNodeBlock _Nullable block) {
     ASVideoNode *node = ASVideoNode.alloc.init;
     if (block) block(node);
     return node;
 }
+#endif
 
 NS_INLINE __kindof ASDisplayNode *_Nonnull
 jobsMakeNode(Class _Nonnull nodeClass, jobsByDisplayNodeBlock _Nullable block) {
@@ -815,8 +839,6 @@ jobsMakeHorizontalStackLayoutSpec(jobsByStackLayoutSpecBlock _Nullable block) {
     if (block) block(stackLayoutSpec);
     return stackLayoutSpec;
 }
-
-#endif /* JOBS_TEXTURE_MAKES_DEFINED */
 //#pragma mark —— 关于 Texture 的创建
 //#import <AVFoundation/AVFoundation.h> // ASVideoNode 需要
 //

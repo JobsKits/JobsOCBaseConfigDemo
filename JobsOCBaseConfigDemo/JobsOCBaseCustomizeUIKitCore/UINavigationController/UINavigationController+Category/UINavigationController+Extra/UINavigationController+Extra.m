@@ -1,8 +1,8 @@
 //
 //  UINavigationController+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsNavigationTransitionMgr
 //
-//  Created by Jobs on 2022/1/4.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UINavigationController+Extra.h"
@@ -27,9 +27,9 @@
 
 -(jobsByNSIntegerBlock _Nonnull)navDirectionBy{
     @jobs_weakify(self)
-    return ^(JobsDirection data){
+    return ^(NSInteger data){
         @jobs_strongify(self)
-        [JobsNavigationTransitionMgr setDirection:data forNavigationController:self];
+        [JobsNavigationTransitionMgr setDirection:(JobsDirectionType)data forNavigationController:self];
     };
 }
 

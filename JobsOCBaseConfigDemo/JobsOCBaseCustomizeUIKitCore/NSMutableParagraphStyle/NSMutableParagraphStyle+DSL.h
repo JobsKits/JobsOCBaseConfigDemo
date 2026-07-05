@@ -1,6 +1,6 @@
 //
 //  NSMutableParagraphStyle+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -9,7 +9,9 @@
 #define JOBS_HEADER_GUARD_NSMUTABLEPARAGRAPHSTYLE_DSL_E50E3A16C0
 
 #import <UIKit/UIKit.h>
+
 #import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -33,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetMutableParagraphStyleByBOOLBlock _Nonnull)byAllowsDefaultTighteningForTruncation;
 -(JobsRetMutableParagraphStyleByBOOLBlock _Nonnull)byUsesDefaultHyphenation;
 #pragma mark —— Enums
+-(JobsRetMutableParagraphStyleByNSIntegerBlock _Nonnull)byAlignment;
 -(JobsRetMutableParagraphStyleByNSIntegerBlock _Nonnull)byLineBreakMode;
 -(JobsRetMutableParagraphStyleByNSIntegerBlock _Nonnull)byBaseWritingDirection;
 -(JobsRetMutableParagraphStyleByNSUIntegerBlock _Nonnull)byLineBreakStrategy;

@@ -1,20 +1,18 @@
 //
 //  JobsCollectionView.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#import <UIKit/UIKit.h>
 
 #ifndef JobsCollectionView_h
 #define JobsCollectionView_h
 
-#pragma mark —— Base
-#import "BaseCollectionView.h"
-
-#pragma mark —— Category
 #import "UICollectionView+JobsRegisterClass.h"
 #import "UICollectionView+RegistrationTracking.h"
 #import "UICollectionView+Func.h"
-#import "UICollectionView+DSL.h"
+#import "JobsOCDSL.h"
 
 #endif /* JobsCollectionView_h */

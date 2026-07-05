@@ -1,8 +1,8 @@
 //
 //  NSObject+Algorithm.m
-//  JobsOCBaseConfigDemo
+//  JobsNavigationTransitionMgr
 //
-//  Created by Admin on 29/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+Algorithm.h"
@@ -58,9 +58,9 @@
 }
 /// 雪花算法
 -(NSNumber *_Nonnull)makeSnowflake{
-    JobsSnowflake *snowflake = [JobsSnowflake.alloc initWithPublishMillisecond:self.currentUnixTimeStampInMilliseconds
-                                                                         IDCID:1
-                                                                     machineID:1];
+    JobsOCSnowflake *snowflake = [JobsOCSnowflake.alloc initWithPublishMillisecond:self.currentUnixTimeStampInMilliseconds
+                                                                             IDCID:1
+                                                                         machineID:1];
     NSNumber *snowflakeID = snowflake.nextID;
     if (snowflakeID){
         JobsLog(@"Generated Snowflake ID: %@", snowflakeID);
@@ -178,11 +178,13 @@
 /// 随机生成验证码字符串
 -(JobsRetStrByArrAndNSIntegerBlock _Nonnull)randomCodeBy{
     return ^ __kindof NSString *_Nullable(__kindof NSArray <NSString *>*_Nullable data,NSInteger index){
+        if (data.count < 1 || index <= 0) return @"";
         return jobsMakeMutString(^(__kindof NSMutableString * _Nullable tmpStr) {
-            NSInteger d = data.count >= (index + 1) ? index : data.count;
-            for (int i = 0; i < d; i++) {
-//                NSInteger index = arc4random() % (data.count - 1);
-                tmpStr.add(data[d]);
+            NSInteger length = MIN(index, (NSInteger)data.count);
+            for (NSInteger i = 0; i < length; i++) {
+                NSUInteger randomIndex = arc4random_uniform((u_int32_t)data.count);
+                NSString *piece = data[randomIndex];
+                if (piece.length > 0) [tmpStr appendString:piece];
             }
         });
     };

@@ -1,8 +1,8 @@
 //
 //  Ipdata_api.m
-//  JobsOCBaseConfigDemo
+//  JobsDeviceInfo
 //
-//  Created by Admin on 23/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "Ipdata_api.h"
@@ -11,7 +11,7 @@
 /// 请求的完整URL：提供详细的IP信息@GET
 /// https://api.ipdata.co/?api-key=YOUR_API_KEY
 -(NSString *)requestUrl{
-    return @"https://api.ipdata.co/?api-key=".add(self.urlParameters);// YOUR_API_KEY
+    return [@"https://api.ipdata.co/?api-key=" stringByAppendingString:self.urlParameters ?: @""];// YOUR_API_KEY
 }
 /// 请求方式
 -(YTKRequestMethod)requestMethod {

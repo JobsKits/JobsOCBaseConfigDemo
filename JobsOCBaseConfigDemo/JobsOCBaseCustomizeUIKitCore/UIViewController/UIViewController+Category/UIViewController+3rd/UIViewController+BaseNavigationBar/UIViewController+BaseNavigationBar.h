@@ -1,18 +1,17 @@
 //
 //  UIViewController+BaseNavigationBar.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/10/21.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BASENAVIGATIONBAR_36F70D6040
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BASENAVIGATIONBAR_36F70D6040
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "BaseNavigationBar.h"
-#import "MacroDef_Cor.h"
-#import "MacroDef_Size.h"
-#import "JobsLoadingImage.h"
 #import "UIViewController+BaseVC.h"
-#import "JobsDefineProperty.h"
+#import "NSMutableArray+Extra.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -25,6 +24,13 @@
 #else
 #import "GKNavigationBar.h"
 #endif
+
+#import "JobsMakes.h"
+#import "JobsBaseUI.h"
+#import "JobsLoadingImageHeader.h"
+#import "JobsBlock.h"
+#import "JobsDefines.h"
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 // 自定义 BaseNavigationBar
@@ -56,3 +62,4 @@ NS_ASSUME_NONNULL_END
  * 1、如果要在viewDidLoad实现隐藏系统的导航栏，则调用UIViewController基类的父类方法self.setupNavigationBarHidden = YES;
  * 2、如果要在viewWillAppear实现隐藏系统的导航栏，则调用UIViewController分类的方法self.isHiddenNavigationBar = YES;//禁用系统的导航栏
  */
+#endif /* JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BASENAVIGATIONBAR_36F70D6040 */

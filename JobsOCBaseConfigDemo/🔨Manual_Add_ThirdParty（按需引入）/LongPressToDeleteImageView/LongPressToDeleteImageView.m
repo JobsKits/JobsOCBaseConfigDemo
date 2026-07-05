@@ -1,9 +1,8 @@
 //
 //  LongPressToDeleteImageView.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2018/12/4.
-//  Copyright © 2018 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "LongPressToDeleteImageView.h"
@@ -33,7 +32,8 @@
         anim.repeatCount = MAXFLOAT;
         anim.duration = 0.2;
         [self.layer addAnimation:anim forKey:nil];
-        self.hidden = NO;
+        self.byHidden(NO);
+
     }
 }
 //// 恢复抖动

@@ -1,6 +1,8 @@
 //
-// Created by Chenyu Lan on 8/27/14.
-// Copyright (c) 2014 Fenbi. All rights reserved.
+//  YTKUrlArgumentsFilter.m
+//  JobsBy3rdExtras
+//
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "YTKUrlArgumentsFilter.h"
@@ -44,7 +46,7 @@
         components = [NSURLComponents componentsWithString:dummyUrl];
     }
 
-    NSString *queryString = components.query ?: @"".tr;
+    NSString *queryString = components.query ?: @"";
     NSString *newQueryString = [queryString stringByAppendingFormat:queryString.length > 0 ? @"&%@" : @"%@", paraUrlString];
 
     components.query = newQueryString;

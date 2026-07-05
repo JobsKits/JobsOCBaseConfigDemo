@@ -1,11 +1,19 @@
 //
 //  JobsBtnTextViewStyleTBVCell.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2025/4/28.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsBtnTextViewStyleTBVCell.h"
+#import "UITextView+Extra.h"
+#import "NSString+Sys.h"
+#import "NSObject+Extra.h"
+#import "SZTextView+Extra.h"
+#import "UIButton+SimplyMake.h"
+#import "UIButton+UI.h"
+#import "UITableView+RegisterClass.h"
+#import "UIView+Extra.h"
 
 @interface JobsBtnTextViewStyleTBVCell ()
 
@@ -26,7 +34,7 @@ AppToolsProtocol_synthesize
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         JobsBtnTextViewStyleTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsBtnTextViewStyleTBVCell);
         return cell;
@@ -161,14 +169,14 @@ AppToolsProtocol_synthesize
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        [self.contentView.addSubview(_button) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _button.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(JobsWidth(20), JobsWidth(20)));
             make.left.equalTo(self.contentView).offset(JobsWidth(13));
             make.top.equalTo(self.contentView);
-        }];
+        });
     };return _button;
 }
-/// 如果需要用其他的自定义的TextView，继承此类并重写-(JobsReturnTableViewCellByIDBlock _Nonnull)jobsRichElementsTableViewCellBy;
+/// 如果需要用其他的自定义的TextView，继承此类并重写-(JobsRetTableViewCellByIDBlock _Nonnull)jobsRichElementsTableViewCellBy;
 -(__kindof BaseTextView *)textView{
     if (!_textView) {
         @jobs_weakify(self)
@@ -181,7 +189,7 @@ AppToolsProtocol_synthesize
             textView.editable = NO; /// 禁止编辑。必须 editable = NO 才能点击链接跳转
             textView.selectable = YES; /// 允许选择链接
             textView.linkTextAttributes = self.makeLinkTextAttributes;
-            [self.contentView.addSubview(textView) mas_makeConstraints:self.masonryBlock];
+            textView.addOn(self.contentView).byAdd(self.masonryBlock);
         });
     };return _textView;
 }
@@ -193,7 +201,8 @@ AppToolsProtocol_synthesize
             @jobs_strongify(self)
             textView.delegate = self;
             textView.textColor = JobsBlackColor;
-            textView.backgroundColor = @"#F9F9F9".cor;
+            textView.byBgColor(@"#F9F9F9".cor);
+
             textView.returnKeyType = UIReturnKeyDefault;
             textView.keyboardAppearance = UIKeyboardAppearanceDefault;
             textView.keyboardType = UIKeyboardTypeNumberPad;
@@ -206,9 +215,9 @@ AppToolsProtocol_synthesize
                 return YES;
             } subscribeNextBlock:^(id _Nullable x) {
 //                @jobs_strongify(self)
-            }];[self.contentView.addSubview(textView) mas_makeConstraints:self.masonryBlock];
+            }];textView.addOn(self.contentView).byAdd(self.masonryBlock);
         });
-    };return _textView;
+    };return _szTextView;
 }
 
 -(__kindof JobsTextView *)jobsTextView{
@@ -232,7 +241,7 @@ AppToolsProtocol_synthesize
                 return YES;
             } subscribeNextBlock:^(id _Nullable x) {
 //                @jobs_strongify(self)
-            }];[self.contentView.addSubview(textView) mas_makeConstraints:self.masonryBlock];
+            }];textView.addOn(self.contentView).byAdd(self.masonryBlock);
         });
     };return _jobsTextView;
 }

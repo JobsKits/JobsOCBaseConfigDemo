@@ -1,15 +1,21 @@
 //
 //  UIView+Chain.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/8/11.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UIVIEW_CHAIN_8F207088CF
+#define JOBS_HEADER_GUARD_UIVIEW_CHAIN_8F207088CF
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "NSObject+Swizzling.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsOCRuntimeKits.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /**
@@ -24,4 +30,4 @@ Prop_assign()BOOL ableRespose;
 
 NS_ASSUME_NONNULL_END
 
-
+#endif /* JOBS_HEADER_GUARD_UIVIEW_CHAIN_8F207088CF */

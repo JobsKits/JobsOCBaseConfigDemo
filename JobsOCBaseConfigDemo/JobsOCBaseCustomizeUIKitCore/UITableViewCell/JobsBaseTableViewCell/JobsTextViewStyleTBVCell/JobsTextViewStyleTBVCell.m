@@ -1,11 +1,16 @@
 //
 //  JobsTextViewStyleTBVCell.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2025/4/28.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsTextViewStyleTBVCell.h"
+#import "NSString+Sys.h"
+#import "NSObject+Extra.h"
+#import "SZTextView+Extra.h"
+#import "UITableView+RegisterClass.h"
+#import "UIView+Extra.h"
 
 @interface JobsTextViewStyleTBVCell ()
 
@@ -24,7 +29,7 @@ BaseViewProtocol_synthesize
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsTextViewStyleTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsTextViewStyleTBVCell);
         return cell;
@@ -36,7 +41,8 @@ BaseViewProtocol_synthesize
     return ^__kindof UITableViewCell *_Nullable(UIViewModel __kindof *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.textView.alpha = 1;
+        self.textView.byAlpha(1);
+
         return self;
     };
 }
@@ -85,7 +91,7 @@ BaseViewProtocol_synthesize
 //-(BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange API_DEPRECATED_WITH_REPLACEMENT("textView:shouldInteractWithURL:inRange:interaction:", ios(7.0, 10.0)) API_UNAVAILABLE(visionos);
 //-(BOOL)textView:(UITextView *)textView shouldInteractWithTextAttachment:(NSTextAttachment *)textAttachment inRange:(NSRange)characterRange API_DEPRECATED_WITH_REPLACEMENT("textView:shouldInteractWithTextAttachment:inRange:interaction:", ios(7.0, 10.0)) API_UNAVAILABLE(visionos);
 #pragma mark —— lazyLoad
-/// 如果需要用其他的自定义的TextView，继承此类并重写-(JobsReturnTableViewCellByIDBlock _Nonnull)jobsRichElementsTableViewCellBy;
+/// 如果需要用其他的自定义的TextView，继承此类并重写-(JobsRetTableViewCellByIDBlock _Nonnull)jobsRichElementsTableViewCellBy;
 -(__kindof UITextView *)textView{
     if (!_textView) {
         @jobs_weakify(self)
@@ -103,7 +109,7 @@ BaseViewProtocol_synthesize
                 textView.textAlignment = self.viewModel.textAlignment;
                 textView.textColor = self.viewModel.textCor;
                 textView.font = self.viewModel.font;
-            }[self.contentView.addSubview(textView) mas_makeConstraints:self.masonryBlock];
+            }textView.addOn(self.contentView).byAdd(self.masonryBlock);
         });
     };return _textView;
 }
@@ -115,7 +121,8 @@ BaseViewProtocol_synthesize
             @jobs_strongify(self)
             textView.delegate = self;
             textView.textColor = JobsBlackColor;
-            textView.backgroundColor = @"#F9F9F9".cor;
+            textView.byBgColor(@"#F9F9F9".cor);
+
             textView.returnKeyType = UIReturnKeyDefault;
             textView.keyboardAppearance = UIKeyboardAppearanceDefault;
             textView.keyboardType = UIKeyboardTypeNumberPad;
@@ -128,9 +135,9 @@ BaseViewProtocol_synthesize
                 return YES;
             } subscribeNextBlock:^(id _Nullable x) {
 //                @jobs_strongify(self)
-            }];[self.contentView.addSubview(textView) mas_makeConstraints:self.masonryBlock];
+            }];textView.addOn(self.contentView).byAdd(self.masonryBlock);
         });
-    };return _textView;
+    };return _szTextView;
 }
 
 -(__kindof JobsTextView *)jobsTextView{
@@ -140,7 +147,8 @@ BaseViewProtocol_synthesize
             @jobs_strongify(self)
             textView.szTextView.delegate = self;
             textView.szTextView.textColor = JobsBlackColor;
-            textView.backgroundColor = @"#F9F9F9".cor;
+            textView.byBgColor(@"#F9F9F9".cor);
+
             textView.returnKeyType_ = UIReturnKeyDefault;
             textView.keyboardAppearance_ = UIKeyboardAppearanceDefault;
             textView.keyboardType_ = UIKeyboardTypeNumberPad;
@@ -153,7 +161,7 @@ BaseViewProtocol_synthesize
                 return YES;
             } subscribeNextBlock:^(id _Nullable x) {
 //                @jobs_strongify(self)
-            }];[self.contentView.addSubview(textView) mas_makeConstraints:self.masonryBlock];
+            }];textView.addOn(self.contentView).byAdd(self.masonryBlock);
         });
     };return _jobsTextView;
 }

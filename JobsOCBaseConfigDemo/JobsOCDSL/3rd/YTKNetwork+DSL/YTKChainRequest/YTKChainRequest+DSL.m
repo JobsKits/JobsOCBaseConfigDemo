@@ -1,6 +1,6 @@
 //
 //  YTKChainRequest+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月4日，星期四.
 //
@@ -9,9 +9,9 @@
 
 @interface JobsYTKChainDelegateProxy : NSObject <YTKChainRequestDelegate>
 
-@property(nonatomic, weak, nullable) id<YTKChainRequestDelegate> realDelegate;
-@property(nonatomic, copy, nullable) JobsYTKChainSuccessBlock successBlock;
-@property(nonatomic, copy, nullable) JobsYTKChainFailureBlock failureBlock;
+Prop_weak(nullable)id<YTKChainRequestDelegate> realDelegate;
+Prop_copy(nullable)JobsYTKChainSuccessBlock successBlock;
+Prop_copy(nullable)JobsYTKChainFailureBlock failureBlock;
 
 @end
 
@@ -34,18 +34,17 @@
 @end
 
 @implementation YTKChainRequest (DSL)
-#pragma mark —— Prop_strong()JobsYTKChainDelegateProxy *jobs_chainProxy;
-JobsKey(_jobs_chainProxy)
 
+JobsKey(JobsYTKChainDelegateProxyKey)
 -(NSArray<YTKBaseRequest *> *)jobs_requests{
     return self.requestArray;
 }
 
 -(JobsYTKChainDelegateProxy *)jobs_chainProxy{
-    JobsYTKChainDelegateProxy *proxy = Jobs_getAssociatedObject(_jobs_chainProxy);
+    JobsYTKChainDelegateProxy *proxy = Jobs_getAssociatedObject(JobsYTKChainDelegateProxyKey);
     if (!proxy){
         proxy = JobsYTKChainDelegateProxy.new;
-        Jobs_setAssociatedRETAIN_NONATOMIC(_jobs_chainProxy, proxy)
+        Jobs_setAssociatedRETAIN_NONATOMIC(JobsYTKChainDelegateProxyKey, proxy)
     }
     self.delegate = proxy;
     return proxy;

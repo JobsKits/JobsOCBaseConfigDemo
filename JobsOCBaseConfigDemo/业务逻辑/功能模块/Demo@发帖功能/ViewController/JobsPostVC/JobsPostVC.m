@@ -1,8 +1,8 @@
 //
-//  JobsShootingVC.m
+//  JobsPostVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs Hi on 9/26/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsPostVC.h"
@@ -43,27 +43,31 @@ Prop_strong()UITextModel *postTextModel;
 
 -(void)loadView{
     [super loadView];
-    
+
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
-    
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//        self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    
+
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
+
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //        self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
     {
         JobsPostDelViewHeight = JobsPostDelView.viewSizeByModel(nil).height;
         self.historyPhotoDataArr = [self.photoManager getLocalModelsInFileWithAddData:YES];
@@ -76,7 +80,8 @@ Prop_strong()UITextModel *postTextModel;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsWhiteColor;
+    self.view.byBgColor(JobsWhiteColor);
+
 
     @jobs_weakify(self)
     self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
@@ -88,11 +93,15 @@ Prop_strong()UITextModel *postTextModel;
         data.add(UIBarButtonItem.initBy(self.releaseBtn));
     });
     self.makeNavByAlpha(1);
-    
-    self.jobsTextView.alpha = 1;
-    self.tipsLab.alpha = 1;
-    self.postPhotoView.alpha = 1;
-    self.postDelView.alpha = 1;
+
+    self.jobsTextView.byAlpha(1);
+
+    self.tipsLab.byAlpha(1);
+
+    self.postPhotoView.byAlpha(1);
+
+    self.postDelView.byAlpha(1);
+
     [self releaseBtnState:self.historyPhotoDataArr inputDataString:self.inputDataHistoryString];
     self.fd_interactivePopDisabled = YES;
 }
@@ -138,25 +147,25 @@ Prop_strong()UITextModel *postTextModel;
 /// 帖子视频上传 POST
 -(jobsByVoidBlock _Nonnull)networking_postuploadVideoPOST{
     return ^(){
-        
+
     };
 }
 /// 帖子图片上传 POST
 -(jobsByVoidBlock _Nonnull)networking_postUploadImagePOST{
     return ^(){
-        
+
     };
 }
 /// 发帖 POST
 -(jobsByVoidBlock _Nonnull)networking_postAddPostPOST{
     return ^(){
-        
+
     };
 }
 /// 发帖权限检测
 -(jobsByVoidBlock _Nonnull)networking_checkHadRoleGET{
     return ^(){
-        
+
     };
 }
 
@@ -195,9 +204,9 @@ Prop_strong()UITextModel *postTextModel;
     [NSObject showSPAlertControllerConfig:jobsMakeSPAlertControllerConfig(^(__kindof SPAlertControllerConfig * _Nullable config) {
         @jobs_strongify(self)
         config.SPAlertControllerInitType = NSObject_SPAlertControllerInitType_2;
-        config.title = @"提示".tr;
-        config.message = @"是否将当前内容保存为草稿？".tr;
-        config.preferredStyle = SPAlertControllerStyleAlert;
+        config.byTitle(@"提示".tr)
+              .byMessage(@"是否将当前内容保存为草稿？".tr)
+              .byPreferredStyle(SPAlertControllerStyleAlert);
         config.animationType = SPAlertAnimationTypeDefault;
         config.alertActionTitleArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>* _Nullable data) {
             data.add(@"不保存".tr);
@@ -211,27 +220,27 @@ Prop_strong()UITextModel *postTextModel;
             data.add(@"不保留文字".tr);
             data.add(@"保留文字".tr);
         });
-        config.targetVC = self;
-        config.funcInWhere = self;
-        config.animated = YES;
+        config.byTargetVC(self)
+              .byFuncInWhere(self)
+              .byAnimated(YES);
     })
                            alertVCBlock:^(SPAlertController *data,
                                           NSMutableArray <SPAlertAction *>*data2) {
-        
+
         data.titleColor = JobsBlackColor;
         data.messageColor = JobsBlackColor;
         data.titleFont = UIFontWeightSemiboldSize(16);
         data.messageFont = UIFontWeightMediumSize(14);
-        
+
         SPAlertAction *action1 = (SPAlertAction *)data2[0];
         SPAlertAction *action2 = (SPAlertAction *)data2[1];
-        
+
         action1.titleColor = JobsLightGrayColor;
         action1.titleFont = UIFontWeightSemiboldSize(16);
 
         action2.titleColor = JobsBlackColor;
         action2.titleFont = UIFontWeightSemiboldSize(16);
-        
+
     } completionBlock:nil];
 }
 /// 返回按钮点击方法 【覆写父类方法】 // 清空草稿   [self.photoManager deleteLocalModelsInFile];
@@ -270,11 +279,11 @@ Prop_strong()UITextModel *postTextModel;
          original:(BOOL)isOriginal{
     self.photosDataArr = photos;
     self.videosDataArr = videos;
-    @weakify(self)
+    @jobs_weakify(self)
     if (self.videosDataArr.count) {
         [FileFolderHandleTool getVideoFromPHAsset:self.videosDataArr.lastObject.asset
                                          complete:^(FileFolderHandleModel *data) {
-            @strongify(self)
+            @jobs_strongify(self)
             self.videosData = data.data;
         }];
     }else if(self.photosDataArr.count){
@@ -282,7 +291,7 @@ Prop_strong()UITextModel *postTextModel;
         [self.photosDataArr hx_requestImageWithOriginal:NO
                                              completion:^(NSArray<UIImage *> * _Nullable imageArray,
                                                           NSArray<HXPhotoModel *> * _Nullable errorArray) {
-            @strongify(self)
+            @jobs_strongify(self)
             self.photosImageMutArr = NSMutableArray.initBy(imageArray);
         }];
     }else{}
@@ -315,10 +324,10 @@ currentDeleteModel:(HXPhotoModel *)model
 - (void)photoView:(HXPhotoView *)photoView
 gestureRecognizerBegan:(UILongPressGestureRecognizer *)longPgr
         indexPath:(NSIndexPath *)indexPath{
-    @weakify(self)
+    @jobs_weakify(self)
     [UIView animateWithDuration:0.25f
                      animations:^{
-        @strongify(self)
+        @jobs_strongify(self)
         self.postDelView.y = JobsMainScreen_HEIGHT() - self->JobsPostDelViewHeight;
     }];
 }
@@ -368,10 +377,10 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
             .onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
-            .byEnabled(NO);
-        _releaseBtn.width = JobsWidth(38);
-        _releaseBtn.height = JobsWidth(23);
-        self.view.addSubview(_releaseBtn);
+            .byEnabled(NO)
+            .byWidth(JobsWidth(38))
+            .byHeight(JobsWidth(23))
+            .addOn(self.view);
     };return _releaseBtn;
 }
 @synthesize jobsTextView = _jobsTextView;
@@ -380,57 +389,65 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         @jobs_weakify(self)
         _jobsTextView = makeJobsTextView(^(__kindof JobsTextView * _Nullable textView) {
             @jobs_strongify(self)
-            textView.backgroundColor = JobsWhiteColor;
-            textView.JobsRichViewByModel2(self.viewModel.textModel)
+            textView
+                .byBgColor(JobsWhiteColor)
+                .JobsRichViewByModel2(self.postTextModel)
                 .JobsBlock1(^(id  _Nullable data) {
                     @jobs_strongify(self)
                     NSString *x = (NSString *)data;
                     self.inputDataString = x;
                     [self releaseBtnState:self.photoManager.afterSelectedArray
                           inputDataString:self.inputDataString];
-            });
-            [self.view.addSubview(textView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
-                make.left.equalTo(self.view).offset(JobsWidth(0));
-                make.right.equalTo(self.view).offset(JobsWidth(-0));
-                make.height.mas_equalTo(JobsWidth(101));
-            }];
+                })
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
+                    make.left.equalTo(self.view).offset(JobsWidth(0));
+                    make.right.equalTo(self.view).offset(JobsWidth(-0));
+                    make.height.mas_equalTo(JobsWidth(101));
+                });
         });
     };return _jobsTextView;
 }
 
 -(HXPhotoView *)postPhotoView{
     if (!_postPhotoView) {
-        _postPhotoView = HXPhotoView.initBy(self.photoManager);
-        _postPhotoView.spacing = 20.f;
-        _postPhotoView.delegate = self;
-        _postPhotoView.deleteCellShowAlert = NO;
-        _postPhotoView.outerCamera = YES;
-        _postPhotoView.previewShowDeleteButton = YES;
-        [self.view.addSubview(_postPhotoView) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _postPhotoView = HXPhotoView.initBy(self.photoManager)
+            .bySpacing(20.f)
+            .byDelegate(self)
+            .byDeleteCellShowAlert(NO)
+            .byOuterCamera(YES)
+            .byPreviewShowDeleteButton(YES);
+        _postPhotoView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.left.equalTo(self.view).offset(JobsWidth(10));
             make.top.equalTo(self.tipsLab.mas_bottom).offset(JobsWidth(20));
             make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH() - JobsWidth(10) * 2, JobsWidth(600)));
-        }];
+        });
     };return _postPhotoView;
 }
 
 -(HXPhotoManager *)photoManager {
     if (!_photoManager) {
         _photoManager = jobsMakeHXPhotoManagerBySelectedTypePhotoAndVideo(^(__kindof HXPhotoManager * _Nullable manager) {
-            manager.configuration.localFileName = jobsCurrentAppName();// 设置保存的文件名称
-            manager.configuration.type = HXConfigurationTypeWXChat;
-            manager.configuration.showOriginalBytes = YES;
-            manager.configuration.showOriginalBytesLoading = YES;
-            manager.configuration.videoMaximumSelectDuration = -1;
-            manager.configuration.limitVideoSize = 100 * 1024 * 1024;
-            manager.configuration.selectVideoLimitSize = YES;
-            manager.configuration.selectVideoBeyondTheLimitTimeAutoEdit = NO;
-            manager.configuration.specialModeNeedHideVideoSelectBtn = NO;
-            manager.configuration.videoMaxNum = 1;
-            manager.configuration.maxNum = 9;
-            manager.configuration.photoMaxNum = 9;
-            manager.configuration.selectTogether = NO;
+            manager.byConfiguration(^(__kindof HXPhotoConfiguration * _Nullable config) {
+                config
+                    .byLocalFileName(jobsCurrentAppName())// 设置保存的文件名称
+                    .byType(HXConfigurationTypeWXChat)
+                    .byShowOriginalBytes(YES)
+                    .byShowOriginalBytesLoading(YES)
+                    .byVideoMaximumSelectDuration(-1)
+                    .byLimitVideoSize(100 * 1024 * 1024)
+                    .bySelectVideoLimitSize(YES)
+                    .bySelectVideoBeyondTheLimitTimeAutoEdit(NO)
+                    .bySpecialModeNeedHideVideoSelectBtn(NO)
+                    .byVideoMaxNum(1)
+                    .byMaxNum(9)
+                    .byPhotoMaxNum(9)
+                    .bySelectTogether(NO);
+            });
+            manager.viewWillAppear = ^(UIViewController *viewController) {
+                [viewController.navigationController setNavigationBarHidden:NO animated:NO];
+            };
         });
     };return _photoManager;
 }
@@ -439,7 +456,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
     if (!_postDelView) {
         _postDelView = JobsPostDelView.new;
         self.view.addSubview(_postDelView);
-        _postDelView.frame = JobsPostDelView.viewFrameByModel(nil);
+        _postDelView.byFrame(JobsPostDelView.viewFrameByModel(nil));
         _postDelView.jobsRichViewByModel(nil);
     };return _postDelView;
 }
@@ -455,11 +472,13 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
                 .byNumberOfLines(0)
                 .byText(@"1、内容不允许出现纯数字，英文字母；".tr
                         .add(JobsNewline)
-                        .add(@"2、图片/视频(图片最多9张/仅上传一段视频，大小不超100M)。".tr));
-            [self.view.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.view).offset(JobsWidth(14));
-                make.top.equalTo(self.jobsTextView.mas_bottom).offset(JobsWidth(11));
-            }];label.makeLabelByShowingType(UILabelShowingType_03);
+                        .add(@"2、图片/视频(图片最多9张/仅上传一段视频，大小不超100M)。".tr))
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.view).offset(JobsWidth(14));
+                    make.top.equalTo(self.jobsTextView.mas_bottom).offset(JobsWidth(11));
+                })
+            .makeLabelByShowingType(UILabelShowingType_03);
         });
     };return _tipsLab;
 }
@@ -469,12 +488,12 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         @jobs_weakify(self)
         _postTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data) {
             @jobs_strongify(self)
-            data.text = self.inputDataHistoryString;
-            data.textCor = JobsBlackColor;
-            data.placeholder = @"撩骚内容，写在这里哦~".tr;
-            data.placeholderColor = RGB_SAMECOLOR(173);
-            data.font = UIFontWeightRegularSize(14);
-            data.maxWordCount = 10;
+            data.byText(self.inputDataHistoryString)
+                .byTextCor(JobsBlackColor)
+                .byPlaceholder(@"撩骚内容，写在这里哦~".tr)
+                .byPlaceholderColor(RGB_SAMECOLOR(173))
+                .byFont(UIFontWeightRegularSize(14))
+                .byMaxWordCount(10);
         });
     };return _postTextModel;
 }
@@ -488,7 +507,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
 -(NSMutableArray<UIImage *> *)photosImageMutArr{
     if (!_photosImageMutArr) {
         _photosImageMutArr = jobsMakeMutArr(^(NSMutableArray <UIImage *>* _Nullable data) {
-            
+
         });
     };return _photosImageMutArr;
 }

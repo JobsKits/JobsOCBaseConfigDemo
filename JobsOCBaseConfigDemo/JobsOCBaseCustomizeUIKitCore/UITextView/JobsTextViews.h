@@ -1,21 +1,16 @@
 //
 //  JobsTextViews.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#import <UIKit/UIKit.h>
 
 #ifndef JobsTextViews_h
 #define JobsTextViews_h
 
-#pragma mark —— Base
-// TODO
-#pragma mark —— Category
-#import "UITextView+Extend.h"
+#import "UITextView+Extra.h"
 #import "UITextView+IndicateWordLimit.h"
-
-#pragma mark —— Base
-#import "BaseTextView.h"
-#import "JobsTextView.h"
 
 #endif /* JobsTextViews_h */

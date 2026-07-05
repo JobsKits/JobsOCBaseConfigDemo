@@ -1,12 +1,19 @@
 //
 //  UITableView+RegisterClass.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2022/1/26.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UITABLEVIEW_REGISTERCLASS_01EBCC4705
+#define JOBS_HEADER_GUARD_UITABLEVIEW_REGISTERCLASS_01EBCC4705
+
 #import <UIKit/UIKit.h>
-#import "BaseTableViewProtocol.h"
+#import "NSString+Replace.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,14 +22,14 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
-/// 用于 +(JobsReturnTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView；内部
+/// 用于 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView；内部
 #ifndef JobsRegisterDequeueTableViewCell
 #define JobsRegisterDequeueTableViewCell(CellClass,CellStyle) \
 ({ \
     CellClass *cell = (CellClass *)tableView.tableViewCellClass(CellClass.class,@""); \
     if (!cell) { \
         cell = (CellClass *)CellClass.initTableViewCellWithStyle(CellStyle); \
-        cell.selectionStyle = UITableViewCellSelectionStyleNone; \
+        ((id<UITableViewCellProtocol>)cell).bySelectionStyle(UITableViewCellSelectionStyleNone); \
     } \
     cell; \
 })
@@ -43,3 +50,4 @@ NS_ASSUME_NONNULL_END
 #ifndef JobsRegisterDequeueTableViewSubtitleCell
 #define JobsRegisterDequeueTableViewSubtitleCell(CellClass) JobsRegisterDequeueTableViewCell(CellClass,UITableViewCellStyleSubtitle);
 #endif /* JobsRegisterDequeueTableViewSubtitleCell */
+#endif /* JOBS_HEADER_GUARD_UITABLEVIEW_REGISTERCLASS_01EBCC4705 */

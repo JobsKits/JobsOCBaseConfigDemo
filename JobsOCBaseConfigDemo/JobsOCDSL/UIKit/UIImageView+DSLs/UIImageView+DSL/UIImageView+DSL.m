@@ -1,6 +1,6 @@
 //
 //  UIImageView+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月10日，星期三。
 //
@@ -23,6 +23,33 @@
     return ^__kindof UIImageView *_Nonnull(UIImage *_Nullable image){
         @jobs_strongify(self)
         self.highlightedImage = image;
+        return self;
+    };
+}
+
+-(JobsRetImageViewByArrBlock _Nonnull)byAnimationImages{
+    @jobs_weakify(self)
+    return ^__kindof UIImageView *_Nonnull(__kindof NSArray *_Nullable data){
+        @jobs_strongify(self)
+        self.animationImages = data;
+        return self;
+    };
+}
+
+-(JobsRetImageViewByNSTimeIntervalBlock _Nonnull)byAnimationDuration{
+    @jobs_weakify(self)
+    return ^__kindof UIImageView *_Nonnull(NSTimeInterval data){
+        @jobs_strongify(self)
+        self.animationDuration = data;
+        return self;
+    };
+}
+
+-(JobsRetImageViewByNSIntegerBlock _Nonnull)byAnimationRepeatCount{
+    @jobs_weakify(self)
+    return ^__kindof UIImageView *_Nonnull(NSInteger data){
+        @jobs_strongify(self)
+        self.animationRepeatCount = data;
         return self;
     };
 }

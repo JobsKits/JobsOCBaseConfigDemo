@@ -1,8 +1,8 @@
 //
 //  JobsTabBarCtrl.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2025/10/16.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsTabBarCtrl.h"
@@ -45,9 +45,11 @@ Prop_assign(readwrite)BOOL builtOnce;
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (@available(iOS 13.0, *)) {
-        self.view.backgroundColor = [UIColor systemBackgroundColor];
+        self.view.byBgColor([UIColor systemBackgroundColor]);
+
     } else {
-        self.view.backgroundColor = [UIColor whiteColor];
+        self.view.byBgColor([UIColor whiteColor]);
+
     }
     [self.view addSubview:self.contentScrollView];
     [self.tabBar addSubview:self.bgImageView];
@@ -61,7 +63,8 @@ Prop_assign(readwrite)BOOL builtOnce;
 
     self.tabBar.frame = CGRectMake(0,CGRectGetHeight(self.view.bounds) - barH - self.barBottomOffset,
                                    CGRectGetWidth(self.view.bounds),barH);
-    self.bgImageView.frame = self.tabBar.bounds;
+    self.bgImageView.byFrame(self.tabBar.bounds);
+
     self.contentScrollView.frame = CGRectMake(0,0,
                                               CGRectGetWidth(self.view.bounds),CGRectGetHeight(self.view.bounds) - barH - self.barBottomOffset);
     // 布局按钮
@@ -84,45 +87,41 @@ Prop_assign(readwrite)BOOL builtOnce;
 
     for (NSInteger i = 0; i < pageCount; i++) {
         UIViewController *vc = self.childViewControllers[i];
-        vc.view.frame = CGRectMake((CGFloat)i * pageW, 0, pageW, pageH);
+        vc.view.byFrame(CGRectMake((CGFloat)i * pageW, 0, pageW, pageH));
+
     }
     self.contentScrollView.contentSize = CGSizeMake(pageW * pageCount, pageH);
 
     self.syncContentOffsetAnimated(NO);
 }
 #pragma mark —— Property override
-#pragma mark —— swipeEnabled
 - (void)setSwipeEnabled:(BOOL)swipeEnabled {
     _swipeEnabled = swipeEnabled;
     self.contentScrollView.scrollEnabled = swipeEnabled;
 }
 
-#pragma mark —— horizontalOnly
 - (void)setHorizontalOnly:(BOOL)horizontalOnly {
     _horizontalOnly = horizontalOnly;
     self.contentScrollView.alwaysBounceVertical = !horizontalOnly;
     self.contentScrollView.directionalLockEnabled = horizontalOnly;
 }
 
-#pragma mark —— barBackgroundColor
 - (void)setBarBackgroundColor:(UIColor *)barBackgroundColor {
     _barBackgroundColor = barBackgroundColor;
-    self.tabBar.backgroundColor = barBackgroundColor;
+    self.tabBar.byBgColor(barBackgroundColor);
+
 }
 
-#pragma mark —— barBackgroundImage
 - (void)setBarBackgroundImage:(UIImage *)barBackgroundImage {
     _barBackgroundImage = barBackgroundImage;
     self.bgImageView.image = barBackgroundImage;
 }
 
-#pragma mark —— customBarHeight
 - (void)setCustomBarHeight:(NSNumber *)customBarHeight {
     _customBarHeight = customBarHeight;
     [self.view setNeedsLayout];
 }
 
-#pragma mark —— barBottomOffset
 - (void)setBarBottomOffset:(CGFloat)barBottomOffset {
     _barBottomOffset = barBottomOffset;
     [self.view setNeedsLayout];
@@ -178,7 +177,8 @@ Prop_assign(readwrite)BOOL builtOnce;
     /// 应用 frame
     for (NSInteger i = 0; i < total; i++) {
         UIButton *btn = self.buttons[i];
-        btn.frame = frames[i].CGRectValue;
+        btn.byFrame(frames[i].CGRectValue);
+
     }
     /// contentSize
     CGFloat widthSum;
@@ -252,7 +252,6 @@ Prop_assign(readwrite)BOOL builtOnce;
     };
 }
 #pragma mark —— 一些公共方法
-#pragma mark —— dataSourceByButtons
 - (void)setDataSourceByButtons:(NSArray<UIButton *> *)buttons
                    controllers:(NSArray<UIViewController *> *)controllers {
     /// 1. 清理旧的按钮
@@ -287,9 +286,9 @@ Prop_assign(readwrite)BOOL builtOnce;
                 toastBy(@"请配置子控制器");
                 return;
             }[self selectIndex:index animated:YES];
-        })
-        .byTag(idx)
-        .addOn(self.tabBar);
+        });
+        b.tag = idx;
+        [self.tabBar addSubview:b];
     }];
     /// 5. 添加子控制器（只取 min(buttons, controllers)）
     NSInteger pageCount = MIN(self.buttons.count, self.controllers.count);

@@ -1,15 +1,16 @@
 //
 //  LOTAnimationMJRefreshFooter.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2021/1/8.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_LOTANIMATIONMJREFRESHFOOTER_52FC0D0F1D
+#define JOBS_HEADER_GUARD_LOTANIMATIONMJREFRESHFOOTER_52FC0D0F1D
+
+#pragma once
+
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
-#import "MJRefreshConfigModel.h"
-#import "UIView+Measure.h"
-#import "JobsDefineProperty.h"
 
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>
@@ -41,14 +42,21 @@
 #import "Lottie.h"
 #endif
 
+#import "JobsModelDSL.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
 //#if __has_include(<ReactiveObjC/RACEXTRuntimeExtensions.h>)
 //#import <ReactiveObjC/RACEXTRuntimeExtensions.h>
 //#else
 //#import "RACEXTRuntimeExtensions.h"
 //#endif
 
-NS_ASSUME_NONNULL_BEGIN
+#import "JobsOCDSL.h"
 
+NS_ASSUME_NONNULL_BEGIN
 /// 上拉加载Lottie动画
 @interface LOTAnimationMJRefreshFooter : MJRefreshAutoGifFooter
 
@@ -58,3 +66,4 @@ Prop_assign()CGSize lOTAnimationViewSize;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_LOTANIMATIONMJREFRESHFOOTER_52FC0D0F1D */

@@ -1,13 +1,24 @@
 //
-//  PointLabView.h
-//  JobsOCBaseConfigDemo
+//  PointLabBaseView.h
+//  JobsBaseUI
 //
-//  Created by User on 8/15/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_POINTLABBASEVIEW_870F83CE08
+#define JOBS_HEADER_GUARD_POINTLABBASEVIEW_870F83CE08
+
+#import <UIKit/UIKit.h>
 #import "BaseView.h"
+#import "UIView+Extra.h"
+
+#import "JobsOCDSL.h"
+
+#import "JobsMakes.h"
+
 #import "JobsBlock.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 文本前面有个小圆点
@@ -29,35 +40,44 @@ NS_INLINE __kindof PointLabBaseView *_Nonnull jobsMakePointLabView(jobsByPointLa
     return data;
 }
 /**
- -(void)layoutSubviews{
-     [super layoutSubviews];
-     self.tipsLab.updatePointViewPositionWithOffsetY(10);
-     self.tipsLab updateLabelPositionWithOffsetX(20);
- }
- 
- -(PointLabView *)tipsLab{
-     if(!_tipsLab){
-         @jobs_weakify(self)
-         _tipsLab = jobsMakePointLabView(^(__kindof PointLabBaseView * _Nullable view) {
-             @jobs_strongify(self)
-             view.pointView.backgroundColor = @"#D0D0D0".cor;
-             view.pointView.cornerCutToCircleWithCornerRadius(JobsWidth(4));
-             view.label.text = @"Your deposit will be successfully credited to your wallet once the transaction completed.".tr;
-             view.label.textColor = @"#D0D0D0".cor;
-             view.label.font = UIFontWeightRegularSize(JobsWidth(12));
-             view.label.textAlignment = NSTextAlignmentLeft;
-             view.label.numberOfLines = 0;
-             view.label.lineBreakMode = NSLineBreakByWordWrapping;
-             view.label.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-             view.backgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
-             [self.addSubview(_tipsLab) mas_makeConstraints:^(MASConstraintMaker *make) {
-                 make.centerX.equalTo(self);
-                 make.top.equalTo(self.tableView.mas_bottom).offset(JobsWidth(0));
-                 make.width.mas_equalTo(JobsWidth(256));
-             }];
-             view.label.makeLabelByShowingType(UILabelShowingType_05);
-         });
-     };return _tipsLab;
- }
- 
+
+     -(void)layoutSubviews{
+         [super layoutSubviews];
+         self.tipsLab.updatePointViewPositionWithOffsetY(10);
+         self.tipsLab updateLabelPositionWithOffsetX(20);
+     }
+
+     -(PointLabView *)tipsLab{
+         if(!_tipsLab){
+             @jobs_weakify(self)
+             _tipsLab = jobsMakePointLabView(^(__kindof PointLabBaseView * _Nullable view) {
+                 @jobs_strongify(self)
+                 view.pointView.byBgColor(@"#D0D0D0".cor);
+
+                 view.pointView.cornerCutToCircleWithCornerRadius(JobsWidth(4));
+                 view.label.byText(@"Your deposit will be successfully credited to your wallet once the transaction completed.".tr);
+
+                 view.label.byTextCor(@"#D0D0D0".cor);
+
+                 view.label.byFont(UIFontWeightRegularSize(JobsWidth(12)));
+
+                 view.label.byTextAlignment(NSTextAlignmentLeft);
+
+                 view.label.byNumberOfLines(0);
+
+                 view.label.lineBreakMode = NSLineBreakByWordWrapping;
+                 view.label.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
+
+                 view.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
+
+                 _tipsLab.addOn(self).byAdd(^(MASConstraintMaker *make) {
+                     make.centerX.equalTo(self);
+                     make.top.equalTo(self.tableView.mas_bottom).offset(JobsWidth(0));
+                     make.width.mas_equalTo(JobsWidth(256));
+                 });
+                 view.label.makeLabelByShowingType(UILabelShowingType_05);
+             });
+         };return _tipsLab;
+     }
  */
+#endif /* JOBS_HEADER_GUARD_POINTLABBASEVIEW_870F83CE08 */

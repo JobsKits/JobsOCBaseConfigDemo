@@ -2,14 +2,19 @@
 //  CalendarVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Admin on 20/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "CalendarVC.h"
 
 @interface CalendarVC ()
 /// UI
-Prop_strong()FSCalendar *calendar;
+Prop_strong()JobsCalendar *calendar;
+Prop_strong()NSDateFormatter *calendarDayFormatter;
+Prop_strong()NSDateFormatter *calendarHolidayFormatter;
+Prop_strong()NSDictionary<NSString *, NSString *> *calendarHolidayDic;
+Prop_strong()NSDate *minimumCalendarDate;
+Prop_strong()NSDate *maximumCalendarDate;
 
 @end
 
@@ -36,18 +41,23 @@ Prop_strong()FSCalendar *calendar;
     }
     self.setupNavigationBarHidden = YES;
     {
-        self.viewModel.backBtnTitleModel.text = @"返回".tr;
-        self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-        self.viewModel.textModel.text = @"日历功能".tr;
-        self.viewModel.textModel.font = UIFontWeightRegularSize(16);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".tr);
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byTextCor(HEXCOLOR(0x3D4A58));
+                data.byText(@"日历功能".tr);
+                data.byFont(UIFontWeightRegularSize(16));
+            })
         
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-        self.viewModel.navBgImage = @"导航栏左侧底图".img;
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
     }
     /// 装填用户信息数据
     /// json生成器 ： https://www.site24x7.com/zhcn/tools/json-generator.html
@@ -57,7 +67,12 @@ Prop_strong()FSCalendar *calendar;
 -(void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    [self.calendar reloadData];
+    [self.calendar jobsReloadDataSafely];
+}
+
+-(void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    [self.calendar jobsInvalidateCalendarLayout];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -71,155 +86,163 @@ Prop_strong()FSCalendar *calendar;
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 }
-#pragma mark —— FSCalendarDataSource
--(nullable NSString *)calendar:(FSCalendar *)calendar
+#pragma mark —— JobsCalendarDataSource
+-(nullable NSString *)calendar:(JobsCalendar *)calendar
                   titleForDate:(NSDate *)date{
-    return [jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter){
-        dateFormatter.dateFormat = @"dd";
-    }) stringFromDate:date];
+    return [self.calendarDayFormatter stringFromDate:date];
 }
 
--(nullable NSString *)calendar:(FSCalendar *)calendar
+-(nullable NSString *)calendar:(JobsCalendar *)calendar
                subtitleForDate:(NSDate *)date{
     // 格式化日期，获取具体的日期字符串
-    NSString *dateString = [jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
-        dateFormatter.dateFormat = @"dd/MM";
-    }) stringFromDate:date];
-    // 节假日字典，key为日期，value为节日名称
-    NSDictionary<NSString *, NSString *> *holidays = @{
-        // 中国节假日
-        @"01/01": @"新年".tr,     // 元旦
-        @"22/01": @"春节".tr,     // 春节 (农历日期需特殊处理)
-        @"05/04": @"清明节".tr,   // 清明节
-        @"01/05": @"劳动节".tr,   // 劳动节
-        @"04/06": @"端午节".tr,   // 端午节 (农历日期需特殊处理)
-        @"01/10": @"国庆节".tr,   // 国庆节
-        @"13/09": @"中秋节".tr,   // 中秋节 (农历日期需特殊处理)
-        // 菲律宾节假日
-        @"25/12": @"圣诞节".tr,   // 圣诞节
-        @"30/11": @"博尼法西奥日".tr, // 博尼法西奥日
-        @"12/06": @"独立日".tr,   // 独立日
-        @"09/04": @"勇士日".tr,   // 勇士日
-        @"01/11": @"万灵节".tr,   // 万灵节
-        @"30/12": @"黎刹日".tr    // 黎刹日
-    };return holidays[dateString];// 根据日期字符串查找节假日名称
+    NSString *dateString = [self.calendarHolidayFormatter stringFromDate:date];
+    return self.calendarHolidayDic[dateString];// 根据日期字符串查找节假日名称
 }
 
-//-(nullable UIImage *)calendar:(FSCalendar *)calendar imageForDate:(NSDate *)date{
-//
-//}
-
--(NSDate *)minimumDateForCalendar:(FSCalendar *)calendar{
-    return [NSDate dateWithTimeIntervalSinceNow:-365*24*60*60]; // 一年前
+-(NSDate *)minimumDateForCalendar:(JobsCalendar *)calendar{
+    return self.minimumCalendarDate; // 一年前
 }
 
--(NSDate *)maximumDateForCalendar:(FSCalendar *)calendar{
+-(NSDate *)maximumDateForCalendar:(JobsCalendar *)calendar{
 //    return NSDate.date;
-    return [NSDate dateWithTimeIntervalSinceNow:365*24*60*60]; // 一年后
+    return self.maximumCalendarDate; // 一年后
 }
 
-//-(__kindof FSCalendarCell *)calendar:(FSCalendar *)calendar
-//                         cellForDate:(NSDate *)date
-//                     atMonthPosition:(FSCalendarMonthPosition)position{
-//
-//}
-
-//-(NSInteger)calendar:(FSCalendar *)calendar
-//numberOfEventsForDate:(NSDate *)date{
-//
-//}
-#pragma mark —— FSCalendarDelegate
-//-(BOOL)calendar:(FSCalendar *)calendar
-//shouldSelectDate:(NSDate *)date
-//atMonthPosition:(FSCalendarMonthPosition)monthPosition{
-//
-//}
+#pragma mark —— JobsCalendarDelegate
 /// 选中日期
--(void)calendar:(FSCalendar *)calendar
+-(void)calendar:(JobsCalendar *)calendar
   didSelectDate:(NSDate *)date
-atMonthPosition:(FSCalendarMonthPosition)monthPosition{
+atMonthPosition:(JobsCalendarMonthPosition)monthPosition{
     if(self.objBlock) self.objBlock(date);
 }
 
-//-(BOOL)calendar:(FSCalendar *)calendar
-//shouldDeselectDate:(NSDate *)date
-//atMonthPosition:(FSCalendarMonthPosition)monthPosition{
-//
-//}
-
--(void)calendar:(FSCalendar *)calendar
+-(void)calendar:(JobsCalendar *)calendar
 didDeselectDate:(NSDate *)date
-atMonthPosition:(FSCalendarMonthPosition)monthPosition{
+atMonthPosition:(JobsCalendarMonthPosition)monthPosition{
     if(self.objBlock) self.objBlock(date);
 }
 
--(void)calendar:(FSCalendar *)calendar
+-(void)calendar:(JobsCalendar *)calendar
 boundingRectWillChange:(CGRect)bounds
        animated:(BOOL)animated{
     [calendar mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@(bounds.size.height));
-        // Do other updates
-    }];[self.view layoutIfNeeded];
+    }];[calendar jobsInvalidateCalendarLayout];
+    [self.view layoutIfNeeded];
 }
 
--(void)calendar:(FSCalendar *)calendar
-willDisplayCell:(FSCalendarCell *)cell
+-(void)calendar:(JobsCalendar *)calendar
+willDisplayCell:(JobsCalendarDayCell *)cell
         forDate:(NSDate *)date
-atMonthPosition:(FSCalendarMonthPosition)monthPosition{
+atMonthPosition:(JobsCalendarMonthPosition)monthPosition{
     
 }
 
--(void)calendarCurrentPageDidChange:(FSCalendar *)calendar{
+-(void)calendarCurrentPageDidChange:(JobsCalendar *)calendar{
     
 }
 #pragma mark —— lazyLoad
--(FSCalendar *)calendar{
+-(JobsCalendar *)calendar{
     if(!_calendar){
-        _calendar = [FSCalendar.alloc initWithFrame:CGRectZero];
-//        _calendar.calendarHeaderView.backgroundColor = JobsRedColor;
-//        _calendar.calendarWeekdayView.backgroundColor = JobsYellowColor;
-        _calendar.dataSource = self;
-        _calendar.delegate = self;
-        _calendar.calendarHeaderView.backgroundColor = JobsLightGrayColor.colorWithAlphaComponentBy(.1f);
-        _calendar.appearance.headerMinimumDissolvedAlpha = 1;
-        _calendar.appearance.headerDateFormat = @"yyyy"
-            .add(@"年".tr)
-            .add(@"MM")
-            .add(@"月".tr);
-        _calendar.appearance.caseOptions = FSCalendarCaseOptionsHeaderUsesUpperCase;
-        _calendar.appearance.headerTitleFont = UIFontSystemFontOfSize(JobsWidth(20));
-        _calendar.appearance.headerTitleColor = JobsBlackColor;
-        _calendar.swipeToChooseGesture.enabled = YES;
-        _calendar.allowsMultipleSelection = YES;
-        
-        [self.view addSubview:_calendar];
-        [_calendar mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.view);
-            [self make:make topOffset:10];
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(450), JobsWidth(340)));
-        }];
-        [_calendar setNeedsLayout];
-        [_calendar layoutIfNeeded];
+        @jobs_weakify(self)
+        _calendar = jobsMakeJobsCalendar(^(__kindof JobsCalendar * _Nullable calendar) {
+            @jobs_strongify(self)
+            calendar.dataSource = self;
+            calendar.delegate = self;
+            calendar.allowsMultipleSelection = YES;
+            calendar.swipeToChooseEnabled = YES;
+            calendar.jobsAutomaticallyInvalidateLayoutOnBoundsChange = YES;
+            calendar.jobsReloadDataAfterBoundsChange = YES;
+            calendar.appearance.headerMinimumDissolvedAlpha = 0;
+            calendar.appearance.headerDateFormat = @"yyyy"
+                .add(@"年".tr)
+                .add(@"MM")
+                .add(@"月".tr);
+            calendar.appearance.caseOptions = JobsCalendarCaseOptionsHeaderUsesUpperCase;
+            calendar.appearance.headerTitleFont = UIFontSystemFontOfSize(JobsWidth(20));
+            calendar.appearance.headerTitleColor = JobsBlackColor;
+            calendar
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    [self make:make topOffset:10];
+                    make.left.equalTo(self.view).offset(JobsWidth(12));
+                    make.right.equalTo(self.view).offset(-JobsWidth(12));
+                    make.height.mas_equalTo(JobsWidth(340));
+                })
+                .bySetNeedsLayout()
+                .byLayoutIfNeeded()
+                .byBgColor(JobsLightGrayColor.colorWithAlphaComponentBy(.1f));
+        });
     };return _calendar;
+}
+
+-(NSDateFormatter *)calendarDayFormatter{
+    if(!_calendarDayFormatter){
+        _calendarDayFormatter = jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter){
+            dateFormatter.dateFormat = @"dd";
+        });
+    };return _calendarDayFormatter;
+}
+
+-(NSDateFormatter *)calendarHolidayFormatter{
+    if(!_calendarHolidayFormatter){
+        _calendarHolidayFormatter = jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
+            dateFormatter.dateFormat = @"dd/MM";
+        });
+    };return _calendarHolidayFormatter;
+}
+
+-(NSDictionary<NSString *,NSString *> *)calendarHolidayDic{
+    if(!_calendarHolidayDic){
+        _calendarHolidayDic = @{
+            // 中国节假日
+            @"01/01": @"新年".tr,     // 元旦
+            @"22/01": @"春节".tr,     // 春节 (农历日期需特殊处理)
+            @"05/04": @"清明节".tr,   // 清明节
+            @"01/05": @"劳动节".tr,   // 劳动节
+            @"04/06": @"端午节".tr,   // 端午节 (农历日期需特殊处理)
+            @"01/10": @"国庆节".tr,   // 国庆节
+            @"13/09": @"中秋节".tr,   // 中秋节 (农历日期需特殊处理)
+            // 菲律宾节假日
+            @"25/12": @"圣诞节".tr,   // 圣诞节
+            @"30/11": @"博尼法西奥日".tr, // 博尼法西奥日
+            @"12/06": @"独立日".tr,   // 独立日
+            @"09/04": @"勇士日".tr,   // 勇士日
+            @"01/11": @"万灵节".tr,   // 万灵节
+            @"30/12": @"黎刹日".tr    // 黎刹日
+        };
+    };return _calendarHolidayDic;
+}
+
+-(NSDate *)minimumCalendarDate{
+    if(!_minimumCalendarDate){
+        _minimumCalendarDate = [NSCalendar.currentCalendar startOfDayForDate:[NSDate dateWithTimeIntervalSinceNow:-365*24*60*60]];
+    };return _minimumCalendarDate;
+}
+
+-(NSDate *)maximumCalendarDate{
+    if(!_maximumCalendarDate){
+        _maximumCalendarDate = [NSCalendar.currentCalendar startOfDayForDate:[NSDate dateWithTimeIntervalSinceNow:365*24*60*60]];
+    };return _maximumCalendarDate;
 }
 @synthesize backBtnModel = _backBtnModel;
 -(UIButtonModel *)backBtnModel{
     if(!_backBtnModel){
         @jobs_weakify(self)
-        _backBtnModel = self.makeBackBtnModel;
-        _backBtnModel.titleFont = bayonRegular(JobsWidth(18));
-        _backBtnModel.titleCor = JobsRedColor;
-        _backBtnModel.selectedTitleCor = JobsWhiteColor;
-        _backBtnModel.longPressGestureEventBlock = ^id(__kindof UIButton *x) {
-            JobsLog(@"按钮的长按事件触发");
-            return nil;
-        };
-        _backBtnModel.clickEventBlock = ^id(BaseButton *x){
-            @jobs_strongify(self)
-            self.jobsBackBtnClickEvent(x);
-            self.popToRootVCBy(YES);
-            return nil;
-        };
+        _backBtnModel = self.makeBackBtnModel
+            .byTitleFont(bayonRegular(JobsWidth(18)))
+            .byTitleCor(JobsRedColor)
+            .bySelectedTitleCor(JobsWhiteColor)
+            .byLongPressGestureEventBlock(^id(__kindof UIButton *x) {
+                JobsLog(@"按钮的长按事件触发");
+                return nil;
+            })
+            .byClickEventBlock(^id(BaseButton *x){
+                @jobs_strongify(self)
+                self.jobsBackBtnClickEvent(x);
+                self.popToRootVCBy(YES);
+                return nil;
+            });
     };return _backBtnModel;
 }
 

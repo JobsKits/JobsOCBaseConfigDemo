@@ -1,18 +1,37 @@
 //
 //  UIButton+SimplyMake.h
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by User on 9/9/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UIBUTTON_SIMPLYMAKE_59620CFD26
+#define JOBS_HEADER_GUARD_UIBUTTON_SIMPLYMAKE_59620CFD26
+
+#pragma once
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
-#import "JobsMakes.h"
-#import "JobsDefineProperty.h"
-#import "BaseProtocol.h"
 #import "UIButton+UI.h"
-#import "BaseButton.h"
+#import "UIColor+Extra.h"
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsMakes.h"
+
+#import "JobsOCDSL.h"
+
+#import "JobsModelDSL.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 对按钮创建方法的二次封装
@@ -67,175 +86,174 @@ Prop_copy(nullable)jobsByBtnBlock longPressGestureBlock;
 #pragma mark —— 依靠数据束进行创建
 +(JobsRetBtnByVoidBlock _Nonnull)jobsInit;
 /// 依靠UIViewModel进行创建
-+(JobsReturnButtonByViewModelBlock _Nonnull)initByViewModel API_AVAILABLE(ios(16.0));
++(JobsRetButtonByViewModelBlock _Nonnull)initByViewModel API_AVAILABLE(ios(16.0));
 /// 依靠UIButtonModel进行创建
-+(JobsReturnButtonByButtonModelBlock _Nonnull)initByButtonModel API_AVAILABLE(ios(16.0));
++(JobsRetButtonByButtonModelBlock _Nonnull)initByButtonModel API_AVAILABLE(ios(16.0));
 /// 依靠UITextModel进行创建
-+(JobsReturnButtonByTextModelBlock _Nonnull)initByTextModel API_AVAILABLE(ios(15.0));
++(JobsRetButtonByTextModelBlock _Nonnull)initByTextModel API_AVAILABLE(ios(15.0));
 #pragma mark —— 一些公有方法
 /// 点击方法@普通
--(JobsReturnButtonByClickBlocks _Nonnull)onClickBy;
+-(JobsRetButtonByClickBlocks _Nonnull)onClickBy;
 /// 点击方法@叠加
--(JobsReturnButtonByClickBlocks _Nonnull)onClickAppendBy;
+-(JobsRetButtonByClickBlocks _Nonnull)onClickAppendBy;
 /// 长按方法@普通
--(JobsReturnButtonByClickBlocks _Nonnull)onLongPressGestureBy;
+-(JobsRetButtonByClickBlocks _Nonnull)onLongPressGestureBy;
 /// 长按方法@叠加
--(JobsReturnButtonByClickBlocks _Nonnull)onLongPressGestureAppendBy;
+-(JobsRetButtonByClickBlocks _Nonnull)onLongPressGestureAppendBy;
 -(JobsRetBtnByCorBlock _Nonnull)bgColorBy;
 -(JobsRetBtnByCGFloatBlock _Nonnull)cornerRadiusValueBy;
 #pragma mark —— 依据数据源进行按钮的统一重设
--(JobsReturnButtonByViewModelAndBOOLBlock _Nonnull)resetByViewModel;
--(JobsReturnButtonByButtonModelAndBOOLBlock _Nonnull)resetByButtonModel;
+-(JobsRetButtonByViewModelAndBOOLBlock _Nonnull)resetByViewModel;
+-(JobsRetButtonByButtonModelAndBOOLBlock _Nonnull)resetByButtonModel;
 
 @end
 
 NS_ASSUME_NONNULL_END
 #pragma mark —— UIButton
+#ifndef JobsUIButtonSimplyMakeJobsMakeButtonGuard
+#define JobsUIButtonSimplyMakeJobsMakeButtonGuard
 NS_INLINE __kindof UIButton *_Nonnull jobsMakeButton(jobsByBtnBlock _Nonnull block) {
     UIButton *data = UIButton.jobsInit();
     if (block) block(data);
     return data;
 }
-
-NS_INLINE __kindof UIButton *_Nonnull jobsMakeBaseButton(jobsByBtnBlock _Nonnull block) {
-    BaseButton *data = BaseButton.jobsInit();
-    if (block) block(data);
-    return data;
-}
+#endif /* JobsUIButtonSimplyMakeJobsMakeButtonGuard */
 /**
- 
- -(UIButton *)mailBtn{
-     if(!_mailBtn){
-         @jobs_weakify(self)
-         _mailBtn = BaseButton.jobsInit()
-             .imageURL(@"".jobsUrl)
-             .placeholderImage(@"用户默认头像".img)
-             .options(SDWebImageRefreshCached)/// 强制刷新缓存
-             .completed(^(UIImage * _Nullable image,
-                          NSError * _Nullable error,
-                          SDImageCacheType cacheType,
-                          NSURL * _Nullable imageURL) {
-                 if (error) {
-                     JobsLog(@"图片加载失败: %@-%@", error,imageURL);
-                 } else {
-                     JobsLog(@"图片加载成功");
-                 }
-             }).onClickBy(^(UIButton *x){
-                 @jobs_strongify(self)
-                 if (self.objBlock) self.objBlock(x);
-             }).onLongPressGestureBy(^(id data){
-             JobsLog(@"");
-         }).bgNormalLoad();
-     };return _mailBtn;
- }
- 
- -(UIButton *)valueBtn{
-     if(!_valueBtn){
-         @jobs_weakify(self)
-         _valueBtn = BaseButton.jobsInit()
-                          .bgColorBy(JobsWhiteColor)
-                          .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
-                          .jobsResetImagePadding(1)
-                          .jobsResetBtnImage(@"APPLY NOW".img)
-                          .jobsResetBtnBgImage(@"APPLY NOW".img)
-                          .jobsResetBtnTitleCor(JobsWhiteColor)
-                          .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-                          .jobsResetBtnTitle(@"APPLY NOW".tr)
-                          .onClickBy(^(UIButton *x){
-                              JobsLog(@"");
-                          }).onLongPressGestureBy(^(id data){
-                              JobsLog(@"");
-                          });
-     };return _valueBtn;
- }
- 
- -(UIButton *)usrNameBtn{
-     if(!_usrNameBtn){
-         @jobs_weakify(self)
-         _usrNameBtn = self.byAdd(UIButton.jobsInit()
-                                       .bgColorBy(JobsWhiteColor)
-                                       .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
-                                       .jobsResetImagePadding(1)
-                                       .jobsResetBtnImage(@"APPLY NOW".img)
-                                       .jobsResetBtnBgImage(@"APPLY NOW".img)
-                                       .jobsResetBtnTitleCor(JobsWhiteColor)
-                                       .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-                                       .jobsResetBtnTitle(@"APPLY NOW".tr)
-                                       .onClickBy(^(UIButton *x){
-                                           JobsLog(@"");
-                                       }).onLongPressGestureBy(^(id data){
-                                           JobsLog(@"");
-                                       }),^(MASConstraintMaker *_Nonnull make){
-             @jobs_strongify(self)
-             make.top.equalTo(self.headIMGV);
-             make.left.equalTo(self.headIMGV.mas_right).offset(JobsWidth(10));
-             make.height.mas_equalTo(JobsWidth(16));
-         });
-         _usrNameBtn.makeBtnTitleByShowingType(UILabelShowingType_03);
-     };return _usrNameBtn;
- }
- 
- -(BaseButton *)applyNowBtn{
-     if(!_applyNowBtn){
-         @jobs_weakify(self)
-         _applyNowBtn = BaseButton.initByAttributedString(self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof JobsRichTextConfig *>* _Nullable data) {
-             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
-                 @jobs_strongify(self)
-                 data1.font = UIFontWeightRegularSize(14);
-                 data1.textCor = @"#666666".cor;
-                 data1.targetString = self.richTextMutArr[0];
-                 data1.paragraphStyle = self.jobsParagraphStyleCenter;
+
+     -(UIButton *)mailBtn{
+         if(!_mailBtn){
+             @jobs_weakify(self)
+             _mailBtn = BaseButton.jobsInit()
+                 .imageURL(@"".jobsUrl)
+                 .placeholderImage(@"用户默认头像".img)
+                 .options(SDWebImageRefreshCached)/// 强制刷新缓存
+                 .completed(^(UIImage * _Nullable image,
+                              NSError * _Nullable error,
+                              SDImageCacheType cacheType,
+                              NSURL * _Nullable imageURL) {
+                     if (error) {
+                         JobsLog(@"图片加载失败: %@-%@", error,imageURL);
+                     } else {
+                         JobsLog(@"图片加载成功");
+                     }
+                 }).onClickBy(^(UIButton *x){
+                     @jobs_strongify(self)
+                     if (self.objBlock) self.objBlock(x);
+                 }).onLongPressGestureBy(^(id data){
+                 JobsLog(@"");
+             }).bgNormalLoad();
+         };return _mailBtn;
+     }
+
+     -(UIButton *)valueBtn{
+         if(!_valueBtn){
+             @jobs_weakify(self)
+             _valueBtn = BaseButton.jobsInit()
+                              .bgColorBy(JobsWhiteColor)
+                              .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
+                              .jobsResetImagePadding(1)
+                              .jobsResetBtnImage(@"APPLY NOW".img)
+                              .jobsResetBtnBgImage(@"APPLY NOW".img)
+                              .jobsResetBtnTitleCor(JobsWhiteColor)
+                              .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
+                              .jobsResetBtnTitle(@"APPLY NOW".tr)
+                              .onClickBy(^(UIButton *x){
+                                  JobsLog(@"");
+                              }).onLongPressGestureBy(^(id data){
+                                  JobsLog(@"");
+                              });
+         };return _valueBtn;
+     }
+
+     -(UIButton *)usrNameBtn{
+         if(!_usrNameBtn){
+             @jobs_weakify(self)
+             _usrNameBtn = UIButton.jobsInit()
+                 .bgColorBy(JobsWhiteColor)
+                 .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
+                 .jobsResetImagePadding(1)
+                 .jobsResetBtnImage(@"APPLY NOW".img)
+                 .jobsResetBtnBgImage(@"APPLY NOW".img)
+                 .jobsResetBtnTitleCor(JobsWhiteColor)
+                 .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
+                 .jobsResetBtnTitle(@"APPLY NOW".tr)
+                 .onClickBy(^(UIButton *x){
+                     JobsLog(@"");
+                 }).onLongPressGestureBy(^(id data){
+                     JobsLog(@"");
+                 })
+                 .makeBtnTitleByShowingType(UILabelShowingType_03)
+                 .addOn(self)
+                 .byAdd(^(MASConstraintMaker *make) {
+                     @jobs_strongify(self)
+                     make.top.equalTo(self.headIMGV);
+                     make.left.equalTo(self.headIMGV.mas_right).offset(JobsWidth(10));
+                     make.height.mas_equalTo(JobsWidth(16));
+                 });
+         };return _usrNameBtn;
+     }
+
+     -(BaseButton *)applyNowBtn{
+         if(!_applyNowBtn){
+             @jobs_weakify(self)
+             _applyNowBtn = BaseButton.initByAttributedString(self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof JobsRichTextConfig *>* _Nullable data) {
+                 data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
+                     @jobs_strongify(self)
+                     data1.byFont(UIFontWeightRegularSize(14))
+                          .byTextCor(@"#666666".cor)
+                          .byTargetString(self.richTextMutArr[0])
+                          .byParagraphStyle(self.jobsParagraphStyleCenter);
+                 }))
+                 .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
+                     @jobs_strongify(self)
+                     data1.byFont(UIFontWeightRegularSize(14))
+                          .byTextCor(@"#BA9B77".cor)
+                          .byTargetString(self.richTextMutArr[1])
+                          .byParagraphStyle(self.jobsParagraphStyleCenter);
+                 }))
+                 .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
+                     @jobs_strongify(self)
+                     data1.byFont(UIFontWeightRegularSize(14))
+                          .byTextCor(@"#666666".cor)
+                          .byTargetString(self.richTextMutArr[2])
+                          .byParagraphStyle(self.jobsParagraphStyleCenter);
+                 }));
+             }))).bgColorBy(JobsWhiteColor)
+                 .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
+                 .jobsResetImagePadding(1)
+                 .jobsResetBtnImage(@"APPLY NOW".img)
+                 .jobsResetBtnBgImage(@"APPLY NOW".img))
+                 .jobsResetBtnTitleCor(JobsWhiteColor)
+                 .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
+                 .jobsResetBtnTitle(@"APPLY NOW".tr)
+                 .onClickBy(^(UIButton *x){
+                     @jobs_strongify(self)
+                     x.selected = !x.selected;
+                     if (self.objBlock) self.objBlock(x);
+                 }).onLongPressGestureBy(^(id data){
+                     JobsLog(@"");
+                 });
+         };return _applyNowBtn;
+     }
+
+     -(BaseButton *)registerBtn{
+         if(!_registerBtn){
+             _registerBtn = BaseButton.initByTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable data) {
+                 data.byText(@"REGISTER".tr)
+                     .byTextCor(@"#C90000".cor)
+                     .byFont(bayonRegular(JobsWidth(15)));
              }))
-             .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
-                 @jobs_strongify(self)
-                 data1.font = UIFontWeightRegularSize(14);
-                 data1.textCor = @"#BA9B77".cor;
-                 data1.targetString = self.richTextMutArr[1];
-                 data1.paragraphStyle = self.jobsParagraphStyleCenter;
-             }))
-             .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
-                 @jobs_strongify(self)
-                 data1.font = UIFontWeightRegularSize(14);
-                 data1.textCor = @"#666666".cor;
-                 data1.targetString = self.richTextMutArr[2];
-                 data1.paragraphStyle = self.jobsParagraphStyleCenter;
-             }));
-         }))).bgColorBy(JobsWhiteColor)
-             .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
-             .jobsResetImagePadding(1)
-             .jobsResetBtnImage(@"APPLY NOW".img)
-             .jobsResetBtnBgImage(@"APPLY NOW".img))
-             .jobsResetBtnTitleCor(JobsWhiteColor)
-             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-             .jobsResetBtnTitle(@"APPLY NOW".tr)
+             .bgColorBy(JobsWhiteColor)
              .onClickBy(^(UIButton *x){
-                 @jobs_strongify(self)
-                 x.selected = !x.selected;
-                 if (self.objBlock) self.objBlock(x);
+                 JobsLog(@"");
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
-             });
-     };return _applyNowBtn;
- }
- 
- -(BaseButton *)registerBtn{
-     if(!_registerBtn){
-         _registerBtn = BaseButton.initByTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable data) {
-             data.text = @"REGISTER".tr;
-             data.textCor = @"#C90000".cor;
-             data.font = bayonRegular(JobsWidth(15));
-         }))
-         .bgColorBy(JobsWhiteColor)
-         .onClickBy(^(UIButton *x){
-             JobsLog(@"");
-         }).onLongPressGestureBy(^(id data){
-             JobsLog(@"");
-         }).setLayerBy((jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-             data.layerCor = @"#C90000".cor;
-             data.jobsWidth = 1;
-             data.cornerRadiusValue = JobsWidth(8);
-         })));
-     };return _registerBtn;
- }
- 
+             }).setLayerBy((jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
+                 data.byLayerCor(@"#C90000".cor)
+                     .byJobsWidth(1)
+                     .byCornerRadiusValue(JobsWidth(8));
+             })));
+         };return _registerBtn;
+     }
  */
+#endif /* JOBS_HEADER_GUARD_UIBUTTON_SIMPLYMAKE_59620CFD26 */

@@ -1,14 +1,17 @@
 //
 //  MD5.h
-//  JobsOCBaseConfigDemo
+//  JobsCryptography
 //
-//  Created by Jobs on 2020/9/14.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_MD5_8F7B970A8B
+#define JOBS_HEADER_GUARD_MD5_8F7B970A8B
 
 #import <Foundation/Foundation.h>
 #import <CommonCrypto/CommonHMAC.h>
-#import "NSString+Check.h"
+
+#import "JobsByOCPods.h"
 
 /// MD5  信息摘要
 /// @param salt  MD5 加盐
@@ -109,3 +112,4 @@ NS_INLINE NSString *hMacMD5String(NSString *string,
     } return nil;
 }
 
+#endif /* JOBS_HEADER_GUARD_MD5_8F7B970A8B */

@@ -1,9 +1,8 @@
 //
-//  WGradientProgressLab.m
-//  JobsOCBaseConfigDemo
+//  WGradientProgressView.m
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/9/9.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "WGradientProgressView.h"
@@ -39,16 +38,16 @@ static dispatch_once_t dispatchOnce;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = self.titleStr;
-            label.textColor = self.titleColor;
-            label.font = self.titleFont;
-            [label sizeToFit];
-            if (self.img) {
-                [self.imgV addSubview:label];
-            }else self.addSubview(label);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.center.equalTo(self);
-            }];
+            UIView *containerView = self.img ? self.imgV : self;
+            label
+                .byText(self.titleStr)
+                .byTextCor(self.titleColor)
+                .byFont(self.titleFont)
+            .bySizeToFit()
+            .addOn(containerView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.center.equalTo(containerView);
+            });
         });
     };return _titleLab;
 }
@@ -58,11 +57,12 @@ static dispatch_once_t dispatchOnce;
         @jobs_weakify(self)
         _imgV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.image = self.img;
-            self.addSubview(imageView);
-            [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self);
-            }];
+            imageView
+                .byImage(self.img)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                });
         });
     };return _imgV;
 }
@@ -79,10 +79,9 @@ static dispatch_once_t dispatchOnce;
     };return _titleColor;
 }
 
-#pragma mark —— titleStr
 -(void)setTitleStr:(NSString *)titleStr{
     _titleStr = titleStr;
-    _titleLab.text = _titleStr;
+    _titleLab.byText(_titleStr);
 //    [self.titleLab sizeToFit];
 }
 

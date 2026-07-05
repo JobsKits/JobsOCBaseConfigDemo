@@ -1,15 +1,24 @@
 //
 //  UIImage+YBGIF.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/7/1.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <ImageIO/ImageIO.h>
+#ifndef JOBS_HEADER_GUARD_UIIMAGE_YBGIF_17DB6BBDC6
+#define JOBS_HEADER_GUARD_UIIMAGE_YBGIF_17DB6BBDC6
+
+#import <ImageIO/ImageIO.h> // 提供图像编解码能力，支持多种图片格式的读取、写入和元数据处理。
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
 #import "NSMutableArray+Extra.h"
+#import "NSString+Path.h"
+#import "NSObject+image.h"
+#import "NSString+Replace.h"
+#import "UIImage+Extra.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,3 +34,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIIMAGE_YBGIF_17DB6BBDC6 */

@@ -1,8 +1,8 @@
 //
 //  NSObject+PopViewToLogOut.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2022/1/1.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+PopViewToLogOut.h"
@@ -15,11 +15,11 @@ JobsKey(_logOutPopupVM)
     UIViewModel *LogOutPopupVM = Jobs_getAssociatedObject(_logOutPopupVM);
     if (!LogOutPopupVM) {
         LogOutPopupVM = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.textModel.text = @"Confirm to exit ?".tr;
-            data.textModel.font = UIFontWeightRegularSize(14);
-            data.textModel.textAlignment = NSTextAlignmentCenter;
-            data.subTextModel.text = @"".tr;
-            data.bgCor = JobsWhiteColor;
+            data.textModel.byText(@"Confirm to exit ?".tr)
+                          .byFont(UIFontWeightRegularSize(14))
+                          .byTextAlignment(NSTextAlignmentCenter);
+            data.subTextModel.byText(@"".tr);
+            data.byBgCor(JobsWhiteColor);
         });Jobs_setAssociatedRETAIN_NONATOMIC(_logOutPopupVM, LogOutPopupVM)
     };return LogOutPopupVM;
 }

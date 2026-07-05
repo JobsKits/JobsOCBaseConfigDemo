@@ -1,22 +1,14 @@
 //
 //  UIDevice+XMUtils.m
-//  JobsOCBaseConfigDemo
+//  JobsOCDefs
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIDevice+XMUtils.h"
-#import <sys/sysctl.h>
-#import <sys/utsname.h>
 #import "MacroDef_Strong@Weak.h"
 
-#if __has_include(<GKNavigationBar/GKNavigationBar.h>)
-#import <GKNavigationBar/GKNavigationBar.h>
-#else
-#import "GKNavigationBar.h"
-#endif
-
-@implementation UIDevice (XMUtils)
+@implementation UIDevice (JobsOCDefsXMUtils)
 /**
 
      获取硬件平台名称，叫 device model 或者 machine name

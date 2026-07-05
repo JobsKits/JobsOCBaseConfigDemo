@@ -1,8 +1,8 @@
 //
-//  ImageNumberViewCVCell.m
-//  JobsOCBaseConfigDemo
+//  JobsImageNumberViewCVCell.m
+//  JobsImageNumberView
 //
-//  Created by Jobs on 2021/11/29.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsImageNumberViewCVCell.h"
@@ -27,7 +27,8 @@ Prop_strong()UIImageView *textIMGV;
     @jobs_weakify(self)
     return ^__kindof UICollectionViewCell *_Nullable(id _Nullable model) {
         @jobs_strongify(self)
-        self.backgroundColor = self.contentView.backgroundColor = JobsClearColor;
+        self.byBgColor(self.contentView.backgroundColor = JobsClearColor);
+
         self.textIMGV.image = model;
         return self;
     };
@@ -46,9 +47,9 @@ Prop_strong()UIImageView *textIMGV;
         @jobs_weakify(self)
         _textIMGV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            [self.contentView.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
+            imageView.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);
-            }];
+            });
         });
     };return _textIMGV;
 }

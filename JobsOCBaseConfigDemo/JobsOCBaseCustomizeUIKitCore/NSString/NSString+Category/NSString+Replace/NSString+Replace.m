@@ -1,13 +1,88 @@
 //
 //  NSString+Replace.m
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Jobs on 2021/11/30.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSString+Replace.h"
 
 @implementation NSString (Replace)
+#pragma mark —— 字符串加工
+/// 输入单词的首字母大写（适用于拼接set方法）
+-(NSString *_Nonnull)capitalizeFirstLetter{
+    if(self.length){
+        return self.substringToIndex(1).uppercaseString
+            .add(self.substringFromIndex(1));
+    }else return self;
+}
+/// 截取并返回一个字符串里面冒号前的值，并返回。如果没有冒号，则返回自身
+-(NSString *)substringBeforeColon{
+    NSRange range = self.rangeOfString(@":");
+    if (range.location != NSNotFound) {
+        return self.substringToIndex(range.location);
+    } else return self; // 如果没有找到冒号，则返回原始字符串
+}
+/// OC字符串拼接
+-(JobsRetStrByStrBlock _Nonnull)add{
+    @jobs_weakify(self)
+    return ^NSMutableString *_Nullable(NSString *_Nonnull str) {
+        @jobs_strongify(self)
+        if(!str) str = JobsEmpty;
+        // 系统的stringByAppendingString方法在参数为nil的时候会崩溃
+        return JobsMutableString([self stringByAppendingString:str]); // 原始字符串不会改变，输出一个新的字符串
+    };
+}
+/// OC 普通字符串+富文本
+-(JobsRetAttributedStringByAttributedStringBlock _Nonnull)addByAttributedString{
+    @jobs_weakify(self)
+    return ^__kindof NSAttributedString *_Nullable(__kindof NSAttributedString *_Nonnull aString) {
+        @jobs_strongify(self)
+        return NSMutableAttributedString.initByString(self).add(aString);
+    };
+}
+/// 获取到最后一个字符
+-(NSString *_Nonnull)getLastChars{
+    return self.substringFromIndex(self.length - 1);
+}
+/// 获取到最后一个非空格字符
+-(NSString *_Nonnull)getLastValuedChars{
+    return self.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet).getLastChars;
+}
+/// 用入参进行分隔字符串对外输出数组
+-(JobsRetArrByStrBlock _Nonnull)makeArrBy{
+    @jobs_weakify(self)
+    return ^ __kindof NSArray <NSString *>*_Nullable(NSString *_Nullable data){
+        @jobs_strongify(self)
+        return [self componentsSeparatedByString:data];
+    };
+}
+/// 截取字符串方法封装：从本字符串到endString
+-(JobsRetStrByStrBlock _Nonnull)subStringTo{
+    @jobs_weakify(self)
+    return ^__kindof NSString *_Nullable(NSString *_Nullable endString){
+        @jobs_strongify(self)
+        NSRange startRange = self.range;
+        NSRange endRange = self.rangeOfString(endString);
+        NSRange range = jobsMakeRangeByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
+            data.byLocation(startRange.location + startRange.length)
+                .byLength(endRange.location - startRange.location - startRange.length);
+        });return [self substringWithRange:range];
+    };
+}
+/// 组装set方法名：set+首字母大写+：
+-(JobsRetStrByVoidBlock _Nonnull)capitalizeFirstLetterAndPrefixSet{
+    return ^__kindof NSString *_Nullable(){
+        if (!self.length) return self; // 如果字符串为空，直接返回
+        /// 获取字符串的首字母并大写
+        NSString *capitalizedFirstLetter = self.substringToIndex(1).uppercaseString;
+        NSString *restOfString = self.substringFromIndex(1);
+        /// 拼接大写的首字母和其余部分
+        NSString *capitalizedString = capitalizedFirstLetter.add(restOfString);
+        /// 在前面加上 "set"
+        return @"set".add(capitalizedString).pureString;
+    };
+}
 #pragma mark —— 字符串替换
 -(JobsRetStrByStrBlock _Nullable)replace{
     @jobs_weakify(self)
@@ -106,12 +181,11 @@
     
     if (isNull(replaceString)) replaceString = @"No Data".tr;
     if (isNull(nullableString)) nullableString = replaceString;
-    
     /// 只有NSNumber 和 NSString 这两种情况
     if([nullableString isKindOfClass:NSString.class]){
         NSString *str = (NSString *)nullableString;
         /// 过滤特殊字符：空格
-        str = [str stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];//有空格，去除空格
+        str = str.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);// 有空格，去除空格
         return str.length == 0 ? replaceString : str;
     }
     
@@ -184,20 +258,6 @@
 /// OC字符串去除最后一个字符
 -(NSString *_Nonnull)removeLastChars{
     return [self substringToIndex:self.length - 1];
-}
-/// 图片URL路径补齐
--(NSString *_Nullable)imageURLPlus{
-    if(!This.BaseUrl_Image || !This.BaseUrl) return self;
-    if(!self.containsString(HTTP) && isValue(self)){
-        return (isValue(This.BaseUrl_Image) ? This.BaseUrl_Image : This.BaseUrl).add(self);
-    }else return self;
-}
-/// 一般的URL路径补齐
--(NSString *_Nullable)normalURLPlus{
-    if(!This.BaseUrl_Image) return self;
-    if(!self.containsString(HTTP) && isValue(self)){
-        return This.BaseUrl_Image.add(self);
-    }else return self;
 }
 /// 去除OC字符串中的空格
 -(NSString *)pureString{

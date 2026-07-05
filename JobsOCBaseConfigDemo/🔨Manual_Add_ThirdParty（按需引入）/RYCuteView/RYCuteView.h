@@ -1,16 +1,24 @@
 //
-//  shapeView.h
-//  JobsOCBaseConfigDemo
+//  RYCuteView.h
+//  JobsOCTools
 //
-//  Created by billionsfinance-resory on 15/11/2.
-//  Copyright © 2015年 Resory. All rights reserved.
-//  https://www.jianshu.com/p/21db20189c40
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_RYCUTEVIEW_64113C70E0
+#define JOBS_HEADER_GUARD_RYCUTEVIEW_64113C70E0
 
 #import <UIKit/UIKit.h>
-#import "UIBezierPath+Extras.h"
-#import "UIView+Extras.h"
-#import "JobsTimer.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsMakes.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsOCTimer.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 用UIBezierPath实现果冻效果
@@ -21,3 +29,4 @@ Prop_assign()CGFloat MIN_HEIGHT;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_RYCUTEVIEW_64113C70E0 */

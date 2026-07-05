@@ -1,9 +1,8 @@
 //
 //  XXTools.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Kite on 2019/11/29.
-//  Copyright © 2019 朝花夕拾. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "XXTools.h"
@@ -33,7 +32,8 @@ Prop_strong()UILabel *lab2;
                                     -width/2,
                                     width,
                                     width);
-    self.labView.backgroundColor = JobsYellowColor;
+    self.labView.byBgColor(JobsYellowColor);
+
     self.labView.clipsToBounds = YES;
     self.labView.layer.cornerRadius = cornerRadius;
     self.labView.transform = CGAffineTransformMakeRotation(-M_PI_4);
@@ -51,7 +51,7 @@ Prop_strong()UILabel *lab2;
     } else {
         self.lab2.font = [UIFont systemFontOfSize:10 weight:UIFontWeightRegular];
     }
-    self.lab2.backgroundColor = JobsClearColor;//lab2 不要颜色
+    self.lab2.byBgColor(JobsClearColor);//lab2 不要颜色
     self.lab2.transform = CGAffineTransformMakeRotation(-M_PI_4);
     [superView addSubview:self.lab2];
     return jobsMakeMutArr(^(NSMutableArray * _Nullable data) {

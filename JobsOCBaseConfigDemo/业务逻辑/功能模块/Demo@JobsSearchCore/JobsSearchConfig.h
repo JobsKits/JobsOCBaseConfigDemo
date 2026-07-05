@@ -8,6 +8,8 @@
 #ifndef JobsSearchConfig_h
 #define JobsSearchConfig_h
 
+#import "NSMutableArray+Extra.h"
+
 #ifndef JobsSearchShowHotwordsTBVCellHeight ///???
 #define JobsSearchShowHotwordsTBVCellHeight JobsWidth(40)//行高
 #endif

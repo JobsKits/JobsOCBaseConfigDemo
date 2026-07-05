@@ -37,6 +37,8 @@ Prop_assign()JobsDirection transformLayerDirectionType;
 -(JobsRetLabelByNSIntegerBlock _Nonnull)byNumberOfLines;
 /// 设置UILabel的显示样式 【在Masonry以后拿到了frame】
 -(JobsRetLabelByNSUIntegerBlock _Nonnull)makeLabelByShowingType;
+/// 确定Label的宽度，使其按字体和文本自适应
+-(JobsRetLabelByVoidBlock _Nonnull)labelAutoWidthByFont;
 #pragma mark —— 系统方法链式语法封装
 -(JobsRetLabelByAttributedStringBlock _Nonnull)byAttributedString;
 -(JobsRetLabelByCorBlock _Nonnull)byBgColor;

@@ -1,15 +1,17 @@
 //
 //  AESCipher.h
-//  JobsOCBaseConfigDemo
+//  JobsCryptography
 //
-//  Created by Welkin Xie on 8/13/16.
-//  Copyright © 2016 WelkinXie. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
-//  https://github.com/WelkinXie/AESCipher-iOS
-//
+
+#ifndef JOBS_HEADER_GUARD_AESCIPHER_756C1FDB5F
+#define JOBS_HEADER_GUARD_AESCIPHER_756C1FDB5F
 
 #import <Foundation/Foundation.h>
 #import <CommonCrypto/CommonCryptor.h>
+
+#import "JobsByOCPods.h"
 
 NSString * aesEncryptString(NSString *content,
                             NSString *key);
@@ -17,3 +19,4 @@ NSString * aesEncryptString(NSString *content,
 NSString * aesDecryptString(NSString *content,
                             NSString *key);
 
+#endif /* JOBS_HEADER_GUARD_AESCIPHER_756C1FDB5F */

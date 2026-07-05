@@ -1,6 +1,6 @@
 //
 //  UIScrollView+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -9,7 +9,7 @@
 #define JOBS_HEADER_GUARD_UISCROLLVIEW_DSL_04B660F25B
 
 #import <UIKit/UIKit.h>
-#import <TargetConditionals.h>
+#import <TargetConditionals.h> // 引入 Apple 平台条件判断宏，用于编译期区分 iOS、macOS、模拟器等目标环境。
 
 #if __has_include(<MJRefresh/MJRefresh.h>)
 #import <MJRefresh/MJRefresh.h>
@@ -17,13 +17,10 @@
 #import "MJRefresh.h"
 #endif
 
-#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
-#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
-#else
 #import "JobsBaseProtocolHeader.h"
-#endif
 
 #import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

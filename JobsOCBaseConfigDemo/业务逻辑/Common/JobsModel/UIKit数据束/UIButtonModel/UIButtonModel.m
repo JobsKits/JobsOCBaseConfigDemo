@@ -1,12 +1,12 @@
 //
 //  UIButtonModel.m
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIButtonModel.h"
-#import "NSString+Others.h"
+#import "NSString+Extra.h"
 
 @implementation UIButtonModel
 /// UIViewModelProtocol
@@ -61,7 +61,7 @@ UITextModelProtocol_synthesize_part2
     };return _roundingCorners;
 }
 
--(JobsReturnRACDisposableByReturnIDByIDBlocks _Nullable)jobsReturnedTestBlock{
+-(JobsRetRACDisposableByRetIDByIDBlocks _Nullable)jobsReturnedTestBlock{
     if(!_jobsReturnedTestBlock){
         _jobsReturnedTestBlock = ^RACDisposable *_Nonnull(JobsRetIDByIDBlock _Nullable data) {
             JobsLog(@"JobsTestBlock");

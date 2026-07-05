@@ -1,8 +1,8 @@
 //
 //  NSString+Path.m
-//  JobsOCBaseConfigDemo
+//  JobsCustomView
 //
-//  Created by Jobs on 2021/12/1.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSString+Path.h"
@@ -29,8 +29,7 @@
     NSString *name = self.stringByDeletingPathExtension;
     NSString *extension = self.pathExtension;
     // 使用 NSBundle 获取文件路径
-    NSString *filePath = [NSBundle.mainBundle pathForResource:name ofType:extension];
-    return filePath;
+    return [NSBundle.mainBundle pathForResource:name ofType:extension];
 }
 
 -(NSString *)pathForResourceWithName{
@@ -38,8 +37,7 @@
     NSString *name = self.stringByDeletingPathExtension;
 //    NSString *extension = self.pathExtension;
     // 使用 NSBundle 获取文件路径
-    NSString *filePath = [NSBundle.mainBundle pathForResource:name ofType:nil];
-    return filePath;
+    return [NSBundle.mainBundle pathForResource:name ofType:nil];
 }
 /// OC字符串路径拼接
 -(JobsRetStrByStrBlock _Nonnull)addPathComponent{
@@ -48,23 +46,21 @@
         @jobs_strongify(self)
         if(!str) str = @"";
         // 系统的stringByAppendingString方法在参数为nil的时候会崩溃
-        return JobsMutableString([self stringByAppendingPathComponent:str]);/// 自动处理（加上"/"）
+        return JobsMutableString([self stringByAppendingPathComponent:str]); // 自动处理（加上"/"）
     };
 }
 /// 完整的文件名提取普通文件名和文件后缀名
--(JobsReturnFileNameModelByFileFullNameStringBlock _Nonnull)byFileFullName{
-    return ^FileNameModel *_Nonnull(NSString *_Nullable fileFullName){
-        FileNameModel *fileNameModel = FileNameModel.new;
-        /// 使用"."分割文件名，获取文件名和文件类型
-        NSArray<NSString *> *components = [fileFullName componentsSeparatedByString:@"."];
-        if (components.count != 2) {
-            JobsLog(@"文件名格式错误: %@", fileFullName);
-            return fileNameModel;
-        }
-        
-        fileNameModel.name = components[0];
-        fileNameModel.type = components[1];
-        return fileNameModel;
+-(JobsRetFileNameModelByStrBlock _Nonnull)byFileFullName{
+    return ^FileNameModel *_Nonnull(NSString *_Nullable fileFullName) {
+        return jobsMakeFileNameModel(^(FileNameModel * _Nonnull model) {
+            NSArray<NSString *> *components = [fileFullName componentsSeparatedByString:@"."];
+            if (components.count != 2) {
+                JobsLog(@"文件名格式错误: %@", fileFullName);
+                return;
+            }
+            model.byName(components[0])
+                 .byType(components[1]);
+        });
     };
 }
 

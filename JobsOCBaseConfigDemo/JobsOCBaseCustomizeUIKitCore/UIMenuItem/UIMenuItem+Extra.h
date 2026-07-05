@@ -1,9 +1,12 @@
 //
 //  UIMenuItem+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Admin on 26/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UIMENUITEM_EXTRA_1BFE345E53
+#define JOBS_HEADER_GUARD_UIMENUITEM_EXTRA_1BFE345E53
 
 #import <UIKit/UIKit.h>
 
@@ -14,3 +17,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIMENUITEM_EXTRA_1BFE345E53 */

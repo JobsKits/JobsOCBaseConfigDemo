@@ -1,11 +1,17 @@
 //
 //  JobsTextViewStyleCVCell.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2025/4/28.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsTextViewStyleCVCell.h"
+#import "CALayer+Extra.h"
+#import "UICollectionView+JobsRegisterClass.h"
+#import "SZTextView+Extra.h"
+#import "UITextField+Extra.h"
+#import "NSString+Sys.h"
+#import "NSObject+Extra.h"
 
 @interface JobsTextViewStyleCVCell ()
 
@@ -34,18 +40,24 @@ BaseViewProtocol_synthesize
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     JobsTextViewStyleCVCell *cell = JobsRegisterDequeueCollectionViewCell(JobsTextViewStyleCVCell);
-    cell.contentView.layer
-        .cornerRadiusBy(JobsWidth(8))
-        .borderWidthBy(JobsWidth(1))
-        .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
-        .masksToBoundsBy(YES);
-    cell.layer
-        .cornerRadiusBy(JobsWidth(8))
-        .borderWidthBy(JobsWidth(1))
-        .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
-        .masksToBoundsBy(YES);
-    cell.indexPath = indexPath;
-    return cell;
+    return (JobsTextViewStyleCVCell *)cell
+        .byContentView(^(__kindof UIView * _Nullable view) {
+            view.byLayer(^(CALayer * _Nullable layer) {
+                layer
+                    .cornerRadiusBy(JobsWidth(8))
+                    .borderWidthBy(JobsWidth(1))
+                    .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
+                    .masksToBoundsBy(YES);
+            });
+        })
+        .byIndexPath(indexPath)
+        .byLayer(^(CALayer * _Nullable layer) {
+            layer
+                .cornerRadiusBy(JobsWidth(8))
+                .borderWidthBy(JobsWidth(1))
+                .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
+                .masksToBoundsBy(YES);
+        });
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(JobsRetCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy{
@@ -53,7 +65,8 @@ BaseViewProtocol_synthesize
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.textField.alpha = 1;
+        self.textField.byAlpha(1);
+
         return self;
     };
 }
@@ -70,7 +83,7 @@ BaseViewProtocol_synthesize
 #pragma mark —— 一些私有方法
 /// TODO
 #pragma mark —— lazyLoad
-/// 如果需要用其他的自定义的TextView，继承此类并重写-(JobsReturnCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy;
+/// 如果需要用其他的自定义的TextView，继承此类并重写-(JobsRetCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy;
 -(__kindof UITextView *)textView{
     if (!_textView) {
         @jobs_weakify(self)
@@ -102,7 +115,8 @@ BaseViewProtocol_synthesize
             @jobs_strongify(self)
             textView.delegate = self;
             textView.textColor = JobsBlackColor;
-            textView.backgroundColor = @"#F9F9F9".cor;
+            textView.byBgColor(@"#F9F9F9".cor);
+
             textView.returnKeyType = UIReturnKeyDefault;
             textView.keyboardAppearance = UIKeyboardAppearanceDefault;
             textView.keyboardType = UIKeyboardTypeNumberPad;
@@ -118,7 +132,7 @@ BaseViewProtocol_synthesize
 //                @jobs_strongify(self)
             }];
         })).byAdd(self.masonryBlock);
-    };return _textView;
+    };return _szTextView;
 }
 
 -(__kindof JobsTextView *)jobsTextView{
@@ -128,7 +142,8 @@ BaseViewProtocol_synthesize
             @jobs_strongify(self)
             textView.szTextView.delegate = self;
             textView.szTextView.textColor = JobsBlackColor;
-            textView.backgroundColor = @"#F9F9F9".cor;
+            textView.byBgColor(@"#F9F9F9".cor);
+
             textView.returnKeyType_ = UIReturnKeyDefault;
             textView.keyboardAppearance_ = UIKeyboardAppearanceDefault;
             textView.keyboardType_ = UIKeyboardTypeNumberPad;

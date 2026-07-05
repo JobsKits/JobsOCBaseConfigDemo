@@ -1,6 +1,6 @@
 //
 //  NSObject+CallBackInfoByBlock.h
-//  JobsOCBaseConfigDemo
+//  JobsBlock
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -14,11 +14,12 @@
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "JobsBlockDef.h"
-#import "JobsBizBlock.h"
+#import "JobsBizBlock.h" // 关于业务（不与JobsOCBaseConfigDemo同步）
 #import "ReturnByCertainParametersBlock.h"
 #import "VoidByCertainParametersBlock.h"
 #import "ReturnByUnCertainParameters.h"
 #import "VoidByUnCertainParameters.h"
+
 #import "JobsDefines.h"
 /**
  
@@ -158,19 +159,19 @@ Prop_copy(nullable)JobsRetByUnsignedLongLongBlock retUnsignedLongLongBlock;/// �
 Prop_copy(nullable)JobsRetIDByTwoIDBlock retIDBySelectorBlock;
 -(void)actionRetIDBySelectorBlock:(JobsRetIDByTwoIDBlock _Nullable)retIDBySelectorBlock;
 /// UIView
--(JobsReturnViewByIDBlocks _Nullable)JobsBlock1;
--(JobsReturnIDByRetIDVoidBlocks _Nullable)JobsBlock2;
--(JobsReturnIDByRetIDByIDBlocks _Nullable)JobsBlock3;
+-(JobsRetViewByIDBlocks _Nullable)JobsBlock1;
+-(JobsRetIDByRetIDVoidBlocks _Nullable)JobsBlock2;
+-(JobsRetIDByRetIDByIDBlocks _Nullable)JobsBlock3;
 /// UIViewController
--(JobsReturnVCByIDBlocks _Nullable)JobsBlock4;
--(JobsReturnVCByRetIDByVoidBlocks _Nullable)JobsBlock5;
--(JobsReturnVCByRetIDByIDBlocks _Nullable)JobsBlock6;
+-(JobsRetVCByIDBlocks _Nullable)JobsBlock4;
+-(JobsRetVCByRetIDByVoidBlocks _Nullable)JobsBlock5;
+-(JobsRetVCByRetIDByIDBlocks _Nullable)JobsBlock6;
 #pragma mark —— 多入参Block
 //Prop_copy(nullable)jobsDynArgsBlock dynArgsBlock;
-//Prop_copy(nullable)JobsReturnIDByDynArgsBlock retIDByDynArgsBlock;
-//Prop_copy(nullable)JobsReturnCGSizeByDynArgsBlock retCGSizeByDynArgsBlock;
-//Prop_copy(nullable)JobsReturnCGRectByDynArgsBlock retCGRectByDynArgsBlock;
-//Prop_copy(nullable)JobsReturnCGPointByDynArgsBlock retCGPointByDynArgsBlock;
+//Prop_copy(nullable)JobsRetIDByDynArgsBlock retIDByDynArgsBlock;
+//Prop_copy(nullable)JobsRetCGSizeByDynArgsBlock retCGSizeByDynArgsBlock;
+//Prop_copy(nullable)JobsRetCGRectByDynArgsBlock retCGRectByDynArgsBlock;
+//Prop_copy(nullable)JobsRetCGPointByDynArgsBlock retCGPointByDynArgsBlock;
 
 @end
 

@@ -7,7 +7,7 @@
 
 #import "BRStringPickerView.h"
 
-#ifndef JOBS_BRSTRINGPICKERVIEW_IMPLEMENTED
+#if !defined(BRStringPickerView) && !defined(JOBS_BRSTRINGPICKERVIEW_IMPLEMENTED)
 #define JOBS_BRSTRINGPICKERVIEW_IMPLEMENTED
 @implementation BRStringPickerView
 

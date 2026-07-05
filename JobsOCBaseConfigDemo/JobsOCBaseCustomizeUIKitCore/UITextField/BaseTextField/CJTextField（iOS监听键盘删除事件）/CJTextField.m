@@ -1,12 +1,12 @@
 //
 //  CJTextField.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Kite on 2019/11/24.
-//  Copyright © 2019 朝花夕拾. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "CJTextField.h"
+#import "UITextField+Extra.h"
 
 @implementation CJTextField
 

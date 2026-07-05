@@ -1,11 +1,14 @@
 //
 //  JXCategoryImageView+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Jobs on 2025/5/29.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "JobsBlock.h"
+
+#import "JobsOCDSL.h"
+#ifndef JOBS_HEADER_GUARD_JXCATEGORYIMAGEVIEW_EXTRA_73B12DC65C
+#define JOBS_HEADER_GUARD_JXCATEGORYIMAGEVIEW_EXTRA_73B12DC65C
 
 #if __has_include(<JXCategoryView/JXCategoryView.h>)
 #import <JXCategoryView/JXCategoryView.h>
@@ -13,18 +16,22 @@
 #import "JXCategoryView.h"
 #endif
 
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JXCategoryImageView (Extra)
 
--(JobsReturnCategoryImageViewByStringsBlock _Nonnull)byImageNames;
--(JobsReturnCategoryImageViewByStringsBlock _Nonnull)bySelectedImageNames;
--(JobsReturnCategoryImageViewByStringsBlock _Nonnull)byImageInfoArray;
--(JobsReturnCategoryImageViewByStringsBlock _Nonnull)bySelectedImageInfoArray;
--(JobsReturnCategoryImageViewBySizeBlock _Nonnull)byImageSize;
--(JobsReturnCategoryImageViewByCGFloatBlock _Nonnull)byImageCornerRadius;
--(JobsReturnCategoryImageViewByBOOLBlock _Nonnull)byImageZoomEnabled;
--(JobsReturnCategoryImageViewByNSIntegerBlock _Nonnull)byImageZoomScale;
+-(JobsRetCategoryImageViewByStringsBlock _Nonnull)byImageNames;
+-(JobsRetCategoryImageViewByStringsBlock _Nonnull)bySelectedImageNames;
+-(JobsRetCategoryImageViewByStringsBlock _Nonnull)byImageInfoArray;
+-(JobsRetCategoryImageViewByStringsBlock _Nonnull)bySelectedImageInfoArray;
+-(JobsRetCategoryImageViewBySizeBlock _Nonnull)byImageSize;
+-(JobsRetCategoryImageViewByCGFloatBlock _Nonnull)byImageCornerRadius;
+-(JobsRetCategoryImageViewByBOOLBlock _Nonnull)byImageZoomEnabled;
+-(JobsRetCategoryImageViewByNSIntegerBlock _Nonnull)byImageZoomScale;
 
 @end
 
@@ -103,3 +110,4 @@ NS_ASSUME_NONNULL_END
  }
  
  */
+#endif /* JOBS_HEADER_GUARD_JXCATEGORYIMAGEVIEW_EXTRA_73B12DC65C */

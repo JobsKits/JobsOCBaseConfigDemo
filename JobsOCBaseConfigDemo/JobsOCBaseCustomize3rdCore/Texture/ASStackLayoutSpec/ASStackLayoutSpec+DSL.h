@@ -1,6 +1,6 @@
 //
 //  ASStackLayoutSpec+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -9,17 +9,13 @@
 #define JOBS_HEADER_GUARD_ASSTACKLAYOUTSPEC_DSL_256998E5FB
 
 #import <Foundation/Foundation.h>
+#import <AsyncDisplayKit/AsyncDisplayKit.h>
+
 #import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
-#if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
-#import <AsyncDisplayKit/AsyncDisplayKit.h>
-#else
-#import "AsyncDisplayKit.h"
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
-
 
 @interface ASStackLayoutSpec (DSL)
 

@@ -1,17 +1,18 @@
 //
 //  UIView+Animation.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/9/3.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UIVIEW_ANIMATION_86173D3DD8
+#define JOBS_HEADER_GUARD_UIVIEW_ANIMATION_86173D3DD8
+
 #import <objc/runtime.h>
-#import <QuartzCore/QuartzCore.h>
+#import <QuartzCore/QuartzCore.h> // 提供 Core Animation 和 CALayer 能力，用于动画、图层和视觉渲染。
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
-#import "NSString+Others.h"
-#import "JobsDefineProperty.h"
+#import "NSMutableArray+Extra.h"
+#import "NSString+CAAnimation.h"
 
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>
@@ -37,6 +38,14 @@
 //#import "RACEXTRuntimeExtensions.h"
 //#endif
 
+#import "JobsMakes.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (Animation)
@@ -45,7 +54,7 @@ Prop_assign()CGFloat rotateChangeAngle;
 Prop_assign()CGFloat currentAngle;
 Prop_assign()CGFloat durationTime;
 Prop_assign()CGFloat delayTime;
-Prop_assign()BOOL isStopRotateAnimation;/// 默认值为NO（一直旋转）
+Prop_assign()BOOL isStopRotateAnimation;// 默认值为NO（一直旋转）
 Prop_strong()CAKeyframeAnimation *shakeAnim;
 #pragma mark —— 一些功能方法
 -(JobsRetViewByBOOLBlock _Nonnull)抖动动画;
@@ -70,3 +79,4 @@ Prop_strong()CAKeyframeAnimation *shakeAnim;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIVIEW_ANIMATION_86173D3DD8 */

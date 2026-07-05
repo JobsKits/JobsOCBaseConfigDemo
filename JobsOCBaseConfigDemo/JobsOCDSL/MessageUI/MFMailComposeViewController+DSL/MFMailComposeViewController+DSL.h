@@ -1,14 +1,12 @@
 //
 //  MFMailComposeViewController+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 #ifndef JOBS_HEADER_GUARD_MFMAILCOMPOSEVIEWCONTROLLER_DSL
 #define JOBS_HEADER_GUARD_MFMAILCOMPOSEVIEWCONTROLLER_DSL
 
 #import <MessageUI/MessageUI.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

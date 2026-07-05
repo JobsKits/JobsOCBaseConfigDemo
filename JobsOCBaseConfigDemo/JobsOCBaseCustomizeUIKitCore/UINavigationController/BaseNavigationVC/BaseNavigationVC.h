@@ -1,15 +1,22 @@
 //
-//  NavigationViewController.h
-//  JobsOCBaseConfigDemo
+//  BaseNavigationVC.h
+//  JobsBaseUI
 //
-//  Created by Jobs on 2018/10/29.
-//  Copyright © 2018年 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_BASENAVIGATIONVC_BEF5824A1A
+#define JOBS_HEADER_GUARD_BASENAVIGATIONVC_BEF5824A1A
+
 #import <UIKit/UIKit.h>
+
+#import "JobsMakes.h"
+
 #import "JobsBlock.h"
-#import "MacroDef_Cor.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,3 +25,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_BASENAVIGATIONVC_BEF5824A1A */

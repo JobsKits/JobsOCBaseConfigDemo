@@ -1,15 +1,13 @@
 //
 //  JobsValue.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by User on 9/28/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef JobsValue_h
 #define JobsValue_h
 
-#pragma mark —— Base
-// TODO
 #pragma mark —— Category
 #import "NSValue+Extra.h"
 

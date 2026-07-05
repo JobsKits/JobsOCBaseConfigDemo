@@ -1,24 +1,35 @@
 //
 //  NSObject+Measure.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2020/8/18.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_MEASURE_91611C713D
+#define JOBS_HEADER_GUARD_NSOBJECT_MEASURE_91611C713D
+
+#pragma once
+
 #import <UIKit/UIKit.h>
-#import "UIViewModelProtocol.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsMakes.h"
+
+#import "JobsBlock.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Measure)
 <
-UIViewModelOthersProtocol /// UIViewModelOthersProtocol_synthesize、UIViewModelOthersProtocol_dynamic
-,UIPictureAndBackGroundCorProtocol /// UIPictureAndBackGroundCorProtocol_synthesize、UIPictureAndBackGroundCorProtocol_dynamic
-,UILocationProtocol /// UILocationProtocol_synthesize、UILocationProtocol_dynamic
-,UIMarkProtocol /// UIMarkProtocol_synthesize、UIMarkProtocol_dynamic
-,UITextModelProtocol /// UITextModelProtocol_synthesize、UITextModelProtocol_dynamic
-,BaseLayerProtocol /// BaseLayerProtocol_synthesize、BaseLayerProtocol_dynamic
+UIViewModelOthersProtocol           // UIViewModelOthersProtocol_synthesize、UIViewModelOthersProtocol_dynamic
+,UIPictureAndBackGroundCorProtocol  // UIPictureAndBackGroundCorProtocol_synthesize、UIPictureAndBackGroundCorProtocol_dynamic
+,UILocationProtocol                 // UILocationProtocol_synthesize、UILocationProtocol_dynamic
+,UIMarkProtocol                     // UIMarkProtocol_synthesize、UIMarkProtocol_dynamic
+,UITextModelProtocol                // UITextModelProtocol_synthesize、UITextModelProtocol_dynamic
+,BaseLayerProtocol                  // BaseLayerProtocol_synthesize、BaseLayerProtocol_dynamic
 >
 /// 已知父控件和子控件的宽度或者高度，当父控件为X轴或者Y轴中心的时候，子控件的X 和 Y 是多少？
 /// @param subview 子控件的宽 或者 高
@@ -60,3 +71,4 @@ isEqualToSize2:(CGSize)size2;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_MEASURE_91611C713D */

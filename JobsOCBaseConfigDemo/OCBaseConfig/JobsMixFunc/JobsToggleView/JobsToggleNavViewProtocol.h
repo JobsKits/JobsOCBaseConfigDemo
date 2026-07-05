@@ -1,12 +1,16 @@
 //
 //  JobsToggleNavViewProtocol.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by User on 7/22/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
+#ifndef JOBS_HEADER_GUARD_JOBSTOGGLENAVVIEWPROTOCOL_0B262DEEB1
+#define JOBS_HEADER_GUARD_JOBSTOGGLENAVVIEWPROTOCOL_0B262DEEB1
+
+#import <UIKit/UIKit.h>
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -51,3 +55,4 @@ NS_ASSUME_NONNULL_END
 @dynamic buttonModel;\
 
 #endif
+#endif /* JOBS_HEADER_GUARD_JOBSTOGGLENAVVIEWPROTOCOL_0B262DEEB1 */

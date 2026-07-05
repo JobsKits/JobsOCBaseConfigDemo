@@ -109,14 +109,22 @@ Prop_strong()BaseButton *pushButton;
 
 -(UISlider *)ratioSlider{
     if (!_ratioSlider) {
-        _ratioSlider = UISlider.new;
-        _ratioSlider.minimumValue = 0.25;
-        _ratioSlider.maximumValue = 1;
-        _ratioSlider.value = 0.65;
-        [_ratioSlider addTarget:self action:@selector(ratioChanged:) forControlEvents:UIControlEventValueChanged];
-        _ratioSlider.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
-            make.top.equalTo(self.ratioLabel.mas_bottom).offset(JobsWidth(12));
-            make.left.right.equalTo(self.view).inset(JobsWidth(24));
+        @jobs_weakify(self)
+        _ratioSlider = jobsMakeSlider(^(__kindof UISlider * _Nullable slider) {
+            @jobs_strongify(self)
+            slider
+                .byMinimumValue(0.25f)
+                .byMaximumValue(1)
+                .byValue(0.65f)
+                .onJobsChange(^(__kindof UIControl * _Nullable ctrl) {
+                    @jobs_strongify(self)
+                    [self ratioChanged:(UISlider *)ctrl];
+                })
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.ratioLabel.mas_bottom).offset(JobsWidth(12));
+                    make.left.right.equalTo(self.view).inset(JobsWidth(24));
+                });
         });
     };return _ratioSlider;
 }

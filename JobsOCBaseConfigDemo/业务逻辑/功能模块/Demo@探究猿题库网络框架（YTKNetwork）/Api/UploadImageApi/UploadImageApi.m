@@ -1,12 +1,13 @@
 //
 //  UploadImageApi.m
-//  JobsOCBaseConfigDemo
+//  JobsAPIs
 //
-//  Created by tangqiao on 8/7/14.
-//  Copyright (c) 2014 fenbi. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UploadImageApi.h"
+#import "NSString+Extra.h"
+#import "NSMutableDictionary+Extra.h"
 
 @interface UploadImageApi ()
 

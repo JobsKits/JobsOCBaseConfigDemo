@@ -1,11 +1,13 @@
 //
 //  JobsHeaderFooterView.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2022/5/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsHeaderFooterView.h"
+#import "UIButton+Extra.h"
+#import "UIButton+SimplyMake.h"
 
 @interface JobsHeaderFooterView ()
 /// UI
@@ -76,7 +78,8 @@ Prop_strong()UIViewModel *subTitleModel;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
-            .byAddTo(self, ^(MASConstraintMaker *make) {
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.left.equalTo(self).offset(self.viewModel.textModel.offsetXForEach);
                 make.top.bottom.equalTo(self);
             });
@@ -104,7 +107,7 @@ Prop_strong()UIViewModel *subTitleModel;
     if(self.titleModel.textModel.attributedTitle){
         _titleBtn.jobsResetAttributedTitle(self.titleModel.textModel.attributedTitle);
     }
-
+    
     if(self.titleModel.subTextModel.attributedTitle){
         _titleBtn.jobsResetAttributedSubtitle(self.titleModel.subTextModel.attributedTitle);
     };return _titleBtn;
@@ -129,7 +132,8 @@ Prop_strong()UIViewModel *subTitleModel;
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
-            .byAddTo(self, ^(MASConstraintMaker *make) {
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.right.equalTo(self).offset(self.viewModel.subTextModel.offsetXForEach);
                 make.top.bottom.equalTo(self);
         });
@@ -156,7 +160,7 @@ Prop_strong()UIViewModel *subTitleModel;
     if(self.subTitleModel.textModel.attributedTitle){
         _subTitleBtn.jobsResetAttributedTitle(self.subTitleModel.textModel.attributedTitle);
     }
-
+    
     if(self.subTitleModel.subTextModel.attributedTitle){
         _subTitleBtn.jobsResetAttributedSubtitle(self.subTitleModel.subTextModel.attributedTitle);
     };return _subTitleBtn;

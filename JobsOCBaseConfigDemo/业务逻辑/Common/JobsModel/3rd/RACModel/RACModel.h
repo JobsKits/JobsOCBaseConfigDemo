@@ -1,18 +1,26 @@
 //
 //  RACModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef RACModel_h
+#define RACModel_h
+
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
 #import "ReactiveObjC.h"
 #endif
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 在 ReactiveObjC 中，RACDisposable 是用来管理订阅生命周期的，但 RACDisposable 本身不能提供对信号的直接访问
@@ -27,3 +35,5 @@ NS_INLINE __kindof RACModel *_Nonnull jobsMakeRACModel(jobsByRACModelBlock _Nonn
     if (block) block(data);
     return data;
 }
+
+#endif /* RACModel_h */

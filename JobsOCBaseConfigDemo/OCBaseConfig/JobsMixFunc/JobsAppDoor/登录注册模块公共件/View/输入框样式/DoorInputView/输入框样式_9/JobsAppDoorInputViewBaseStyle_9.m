@@ -1,8 +1,8 @@
 //
 //  JobsAppDoorInputViewBaseStyle_9.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2022/5/11.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsAppDoorInputViewBaseStyle_9.h"
@@ -27,8 +27,8 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         self.titleStr_1 = @"点击".tr;
         self.titleStr_2 = @"发送验证码".tr;
         self.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.layerCor = JobsWhiteColor;
-            data.cornerRadiusValue = 1;
+            data.byLayerCor(JobsWhiteColor)
+                .byCornerRadiusValue(1);
         }));
     };return self;
 }
@@ -37,17 +37,22 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     [super layoutSubviews];
     /// 因为是子控件，所以要防止约束使用中间过程值，避免代码冗余，这里固定写死
     self.countDownBtn.width = self.countDownBtnWidth ? : JobsWidth(80);
-    self.textField.width = self.textFieldWidth ? : JobsWidth(220);
+    self.zyTextField.width = self.textFieldWidth ? : JobsWidth(220);
 }
 #pragma mark —— 一些私有方法
 -(void)configTextField{
     self.zyTextField.leftView = UIImageView.initBy(self.doorInputViewBaseStyleModel.leftViewIMG);
     self.zyTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
-    self.zyTextField.placeholder = self.doorInputViewBaseStyleModel.placeholder;
-    self.zyTextField.keyboardType = self.doorInputViewBaseStyleModel.keyboardType;
-    self.zyTextField.returnKeyType = self.doorInputViewBaseStyleModel.returnKeyType;
-    self.zyTextField.keyboardAppearance = self.doorInputViewBaseStyleModel.keyboardAppearance;
-    self.zyTextField.textColor = self.doorInputViewBaseStyleModel.titleStrCor;
+    self.zyTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
+
+    self.zyTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
+
+    self.zyTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
+
+    self.zyTextField.byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance);
+
+    self.zyTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
+
     self.zyTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
     self.zyTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
     self.zyTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量
@@ -89,8 +94,10 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     return ^(JobsAppDoorInputViewBaseStyleModel *_Nullable doorInputViewBaseStyleModel) {
         @jobs_strongify(self)
         self.doorInputViewBaseStyleModel = doorInputViewBaseStyleModel;
-        self.countDownBtn.alpha = 1;
-        self.textField.alpha = 1;
+        self.countDownBtn.byAlpha(1);
+
+        self.zyTextField.byAlpha(1);
+
         [self configTextField];
     };
 }
@@ -108,31 +115,33 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         @jobs_weakify(self)
         _countDownBtn = (UIButton<TimerProtocol> *)UIButton.jobsInit()
             .onClickBy(^(__kindof UIButton *x){
-            @jobs_strongify(self)
-            if (self.objBlock) self.objBlock(x);
-        }).onLongPressGestureBy(^(id data){
-            JobsLog(@"");
-        }).byOnTick(^(CGFloat time) {
-            // 每 tick 一次
-            NSLog(@"剩余: %.0f", time);
-        })
-        .byOnFinish(^ (JobsTimer * _Nullable timer) {
-            // 倒计时完成
-            NSLog(@"倒计时结束");
-        });
-        [self.addSubview(_countDownBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self).offset(-JobsWidth(120));
-            make.top.equalTo(self).offset(JobsWidth(8));
-            make.bottom.equalTo(self).offset(-JobsWidth(8));
-            make.width.mas_equalTo(self.countDownBtnWidth);
-        }];
+                @jobs_strongify(self)
+                if (self.objBlock) self.objBlock(x);
+            }).onLongPressGestureBy(^(id data){
+                JobsLog(@"");
+            }).byOnTick(^(CGFloat time) {
+                // 每 tick 一次
+                NSLog(@"剩余: %.0f", time);
+            })
+            .byOnFinish(^ (JobsTimer * _Nullable timer) {
+                // 倒计时完成
+                NSLog(@"倒计时结束");
+            })
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.right.equalTo(self).offset(-JobsWidth(120));
+                make.top.equalTo(self).offset(JobsWidth(8));
+                make.bottom.equalTo(self).offset(-JobsWidth(8));
+                make.width.mas_equalTo(self.countDownBtnWidth);
+            });
     };return _countDownBtn;
 }
 @synthesize zyTextField = _zyTextField;
 -(ZYTextField *)zyTextField{
     if (!_zyTextField) {
         _zyTextField = ZYTextField.new;
-        _zyTextField.delegate = self;
+        _zyTextField.byDelegate(self);
+
         @jobs_weakify(self)
         [_zyTextField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
             @jobs_strongify(self)
@@ -142,10 +151,10 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             JobsLog(@"MMM = %@",x);
             [self block:self->_zyTextField value:x];
         }];
-        [self.addSubview(_zyTextField) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _zyTextField.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.top.left.bottom.equalTo(self);
 //            make.right.equalTo(self.countDownBtn.mas_left);
-        }];
+        });
     };return _zyTextField;
 }
 

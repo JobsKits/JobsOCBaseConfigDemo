@@ -14,8 +14,8 @@ willConnectToSession:(UISceneSession *)session
       options:(UISceneConnectionOptions *)connectionOptions {
     self.windowScene = (UIWindowScene *)scene;
     @jobs_weakify(self)
-    [JobsAppTools.sharedManager appDelegateWindowBlock:nil
-                              sceneDelegateWindowBlock:^(id _Nullable data) {
+    [MyAppTools.sharedManager appDelegateWindowBlock:nil
+                            sceneDelegateWindowBlock:^(id _Nullable data) {
         @jobs_strongify(self);
         UIWindowScene *ws = (UIWindowScene *)scene;
         // 窗口兜底

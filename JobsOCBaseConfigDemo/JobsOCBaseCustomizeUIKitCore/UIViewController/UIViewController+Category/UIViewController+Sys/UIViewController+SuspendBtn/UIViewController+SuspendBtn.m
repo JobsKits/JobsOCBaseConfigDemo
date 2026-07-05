@@ -1,11 +1,14 @@
 //
 //  UIViewController+SuspendBtn.m
-//  JobsOCBaseConfigDemo
+//  JobsSuspend
 //
-//  Created by Jobs on 2021/12/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIViewController+SuspendBtn.h"
+#import "UIButton+UI.h"
+#import "UIButton+SimplyMake.h"
+#import "NSObject+image.h"
 
 @implementation UIViewController (SuspendBtn)
 #pragma mark —— Prop_strong()JobsSuspendBtn *suspendBtn;

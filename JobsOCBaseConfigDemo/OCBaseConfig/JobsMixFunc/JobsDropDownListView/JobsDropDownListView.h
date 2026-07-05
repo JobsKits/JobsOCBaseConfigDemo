@@ -1,16 +1,31 @@
 //
 //  JobsDropDownListView.h
-//  JobsOCBaseConfigDemo
+//  JobsDropDownListView
 //
-//  Created by Jobs on 2021/12/21.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseView.h"
-#import "JobsBlock.h"
-#import "UITableViewCellProtocol.h"
-#import "JobsDefineEnums.h"
+#ifndef JOBS_HEADER_GUARD_JOBSDROPDOWNLISTVIEW_52EDD9121F
+#define JOBS_HEADER_GUARD_JOBSDROPDOWNLISTVIEW_52EDD9121F
+
+#import <UIKit/UIKit.h>
 #import "JobsDropDownListTBVCell.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsOCRuntimeKits.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsOCDSL.h"
+
+#import "JobsMakes.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,43 +42,43 @@ Prop_assign()JobsDropDownListViewDirection direction;
 @end
 
 NS_ASSUME_NONNULL_END
-
 /**
- 【用法与用量】
- -(BaseButton *)btn{
- if(!_btn){
-     @jobs_weakify(self)
-     _btn = BaseButton
-         .initByStyle1(@"点击按钮弹出下拉列表".tr,UIFontWeightRegularSize(12),JobsWhiteColor)
-         .bgColorBy(JobsWhiteColor)
-         .cornerRadiusValueBy(JobsWidth(8))
-         .onClickBy(^(UIButton *x){
-             if (self.objBlock) self.objBlock(x);
-             JobsLog(@"AAA = %@",self.dropDownListView);
-             x.selected = !x.selected;
-             if (x.selected) {
-                 /// ❤️只能让它执行一次❤️
-                 self.dropDownListView = [self motivateFromView:x
-                                  jobsDropDownListViewDirection:self.dropDownListViewDirection
-                                                           data:self.listViewData
-                                             motivateViewOffset:JobsWidth(5)
-                                                    finishBlock:^(UIViewModel *data) {
-                     JobsLog(@"data = %@",data);
-                 }];
-             }else{
-                 [self endDropDownListView];
-             }
-         }).onLongPressGestureBy(^(id data){
-             JobsLog(@"按钮的长按事件触发");
+
+     【用法与用量】
+     -(BaseButton *)btn{
+     if(!_btn){
+         @jobs_weakify(self)
+         _btn = BaseButton
+             .initByStyle1(@"点击按钮弹出下拉列表".tr,UIFontWeightRegularSize(12),JobsWhiteColor)
+             .bgColorBy(JobsWhiteColor)
+             .cornerRadiusValueBy(JobsWidth(8))
+             .onClickBy(^(UIButton *x){
+                 if (self.objBlock) self.objBlock(x);
+                 JobsLog(@"AAA = %@",self.dropDownListView);
+                 x.selected = !x.selected;
+                 if (x.selected) {
+                     /// ❤️只能让它执行一次❤️
+                     self.dropDownListView = [self motivateFromView:x
+                                      jobsDropDownListViewDirection:self.dropDownListViewDirection
+                                                               data:self.listViewData
+                                                 motivateViewOffset:JobsWidth(5)
+                                                        finishBlock:^(UIViewModel *data) {
+                         JobsLog(@"data = %@",data);
+                     }];
+                 }else{
+                     [self endDropDownListView];
+                 }
+             }).onLongPressGestureBy(^(id data){
+                 JobsLog(@"按钮的长按事件触发");
+             });
+         _btn.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
+             make.center.equalTo(self.view);
+    //            make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(25)));
+             make.height.mas_equalTo(JobsWidth(30));
          });
-     [self.view addSubview:_btn];
-     [_btn mas_makeConstraints:^(MASConstraintMaker *make) {
-         make.center.equalTo(self.view);
-//            make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(25)));
-         make.height.mas_equalTo(JobsWidth(30));
-     }];
-     _btn.makeBtnTitleByShowingType(UILabelShowingType_03);
- };return _btn;
-}
- 
+
+         _btn.makeBtnTitleByShowingType(UILabelShowingType_03);
+     };return _btn;
+    }
  */
+#endif /* JOBS_HEADER_GUARD_JOBSDROPDOWNLISTVIEW_52EDD9121F */

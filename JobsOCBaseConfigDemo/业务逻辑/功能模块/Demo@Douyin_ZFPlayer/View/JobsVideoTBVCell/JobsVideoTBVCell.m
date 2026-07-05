@@ -1,8 +1,8 @@
 //
-//  ZFDouYinCell.m
+//  JobsVideoTBVCell.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/9/28.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsVideoTBVCell.h"
@@ -21,18 +21,23 @@ Prop_strong()VideoModel_Core *core_data;
 @synthesize index = _index;
 @synthesize label = _label;
 #pragma mark —— UITableViewCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^__kindof UITableViewCell *_Nullable(UITableView * _Nonnull tableView) {
         JobsVideoTBVCell *cell = (JobsVideoTBVCell *)tableView.tableViewCellClass(JobsVideoTBVCell.class,@"");
         if (!cell) {
             cell = JobsVideoTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
-            cell.bySelectionStyle(UITableViewCellSelectionStyleNone);
-            cell.contentView.byBgColor(JobsRandomColor);
+            cell
+                .bySelectionStyle(UITableViewCellSelectionStyleNone)
+                .byAccessoryType(UITableViewCellAccessoryNone)
+                .byContentView(^(__kindof UIView * _Nullable view) {
+                    view.byBgColor(JobsBlackColor);
+                })
+                .byBgColor(JobsBlackColor);
         };return cell;
     };
 }
 
--(JobsReturnVideoTBVCellByDelegateBlock _Nonnull)byDelegate{
+-(JobsRetVideoTBVCellByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^JobsVideoTBVCell *_Nonnull(id<UIViewModelOthersProtocol> delegate){
         @jobs_strongify(self)
@@ -56,8 +61,10 @@ Prop_strong()VideoModel_Core *core_data;
         @jobs_strongify(self)
         if ([model isKindOfClass:VideoModel_Core.class]) {
             self.data = (VideoModel_Core *)model;
-            self.label.text = [NSString stringWithFormat:@"%ld",(long)self.index];
-            self.rotation.alpha = 1;
+            self.label.byText([NSString stringWithFormat:@"%ld",(long)self.index]);
+
+            self.rotation.byAlpha(1);
+
             self.coverImageView
                     .imageURL(self.core_data.videoImg.jobsUrl)
                     .placeholderImage(@"视频封面".img)
@@ -72,9 +79,12 @@ Prop_strong()VideoModel_Core *core_data;
                             JobsLog(@"图片加载成功");
                         }
                     }).load();
-            self.rbView.alpha = 1;
-            self.textLabel.text = self.core_data.videoTitle;
-            self.textLabel.textColor = JobsRedColor;
+            self.rbView.byAlpha(1);
+
+            self.textLabel.byText(self.core_data.videoTitle);
+
+            self.textLabel.byTextCor(JobsRedColor);
+
 //            self.rotation.hidden;// 宽大于高 = 横屏视频，才支持旋转
         };return self;
     };
@@ -83,9 +93,11 @@ Prop_strong()VideoModel_Core *core_data;
 -(__kindof UILabel *)label{
     if(!_label){
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
+            label
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
                 make.left.top.equalTo(self.contentView);
-            }];
+            });
         });
     };return _label;
 }
@@ -95,12 +107,15 @@ Prop_strong()VideoModel_Core *core_data;
         @jobs_weakify(self)
         _coverImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            imageView.userInteractionEnabled = YES;
-            imageView.tag = kPlayerViewTag;//不写这个光有声音没有图像
-            imageView.contentMode = UIViewContentModeScaleAspectFit;
-            [self.contentView.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.contentView);
-            }];
+            imageView
+                .byUserInteractionEnabled(YES)
+                .byTag(kPlayerViewTag)/// 不写这个光有声音没有图像
+                .byContentMode(UIViewContentModeScaleAspectFit)
+                .byBgColor(JobsBlackColor)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.contentView);
+                });
         });
     };return _coverImageView;
 }
@@ -114,11 +129,11 @@ Prop_strong()VideoModel_Core *core_data;
             [view actionObjBlock:^(id data) {
                 
             }];
-            [self.contentView.addSubview(view) mas_makeConstraints:^(MASConstraintMaker *make) {
+            view.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
                 make.right.equalTo(self.contentView);
                 make.bottom.equalTo(self.contentView).offset(JobsWidth(-150));
                 make.size.mas_equalTo(JobsRightBtnsView.viewSizeByModel(nil));
-            }];
+            });
         });
     };return _rbView;
 }
@@ -133,12 +148,13 @@ Prop_strong()VideoModel_Core *core_data;
                 if ([self.delegate respondsToSelector:@selector(zf_douyinRotation)]) [self.delegate zf_douyinRotation];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(50), JobsWidth(50)));
+                make.centerY.equalTo(self.contentView);
+                make.left.equalTo(self.contentView);
             });
-        [self.contentView.addSubview(_rotation) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(50), JobsWidth(50)));
-            make.centerY.equalTo(self.contentView);
-            make.left.equalTo(self.contentView);
-        }];
     };return _rotation;
 }
 

@@ -1,11 +1,16 @@
 //
 //  JobsTextFieldStyleCVCell.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs Hi on 10/13/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsTextFieldStyleCVCell.h"
+#import "CALayer+Extra.h"
+#import "NSString+Sys.h"
+#import "NSObject+Extra.h"
+#import "UICollectionView+JobsRegisterClass.h"
+#import "UITextField+Extra.h"
 
 @interface JobsTextFieldStyleCVCell ()
 
@@ -27,18 +32,24 @@
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     JobsTextFieldStyleCVCell *cell = JobsRegisterDequeueCollectionViewCell(JobsTextFieldStyleCVCell);
-    cell.contentView.layer
-        .cornerRadiusBy(JobsWidth(8))
-        .borderWidthBy(JobsWidth(1))
-        .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
-        .masksToBoundsBy(YES);
-    cell.layer
-        .cornerRadiusBy(JobsWidth(8))
-        .borderWidthBy(JobsWidth(1))
-        .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
-        .masksToBoundsBy(YES);
-    cell.indexPath = indexPath;
-    return cell;
+    return (JobsTextFieldStyleCVCell *)cell
+        .byContentView(^(__kindof UIView * _Nullable view) {
+            view.byLayer(^(CALayer * _Nullable layer) {
+                layer
+                    .cornerRadiusBy(JobsWidth(8))
+                    .borderWidthBy(JobsWidth(1))
+                    .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
+                    .masksToBoundsBy(YES);
+            });
+        })
+        .byIndexPath(indexPath)
+        .byLayer(^(CALayer * _Nullable layer) {
+            layer
+                .cornerRadiusBy(JobsWidth(8))
+                .borderWidthBy(JobsWidth(1))
+                .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
+                .masksToBoundsBy(YES);
+        });
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(JobsRetCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy{
@@ -46,7 +57,8 @@
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.textField.alpha = 1;
+        self.textField.byAlpha(1);
+
         return self;
     };
 }
@@ -78,14 +90,22 @@
         @jobs_weakify(self)
         _textField = self.contentView.addSubview(jobsMakeZYTextField(^(ZYTextField * _Nullable textField) {
             @jobs_strongify(self)
-            textField.delegate = self;
-            textField.textColor = JobsBlackColor;
-            textField.backgroundColor = @"#F9F9F9".cor;
-            textField.returnKeyType = UIReturnKeyDefault;
-            textField.keyboardAppearance = UIKeyboardAppearanceDefault;
-            textField.keyboardType = UIKeyboardTypeNumberPad;
-            textField.placeholder = @"请输入充值金额".tr;
-            textField.font = UIFontWeightMediumSize(18);
+            textField.byDelegate(self);
+
+            textField.byTextCor(JobsBlackColor);
+
+            textField.byBgColor(@"#F9F9F9".cor);
+
+            textField.byReturnKeyType(UIReturnKeyDefault);
+
+            textField.byKeyboardAppearance(UIKeyboardAppearanceDefault);
+
+            textField.byKeyboardType(UIKeyboardTypeNumberPad);
+
+            textField.byPlaceholder(@"请输入充值金额".tr);
+
+            textField.byFont(UIFontWeightMediumSize(18));
+
             textField.placeholderFont = textField.font;
             textField.placeholderColor = @"#AAAAAA".cor;
             [textField jobsTextFieldEventFilterBlock:^BOOL(id data) {

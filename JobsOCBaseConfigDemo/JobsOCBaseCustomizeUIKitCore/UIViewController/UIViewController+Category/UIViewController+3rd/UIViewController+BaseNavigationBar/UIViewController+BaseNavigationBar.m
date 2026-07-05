@@ -1,8 +1,8 @@
 //
 //  UIViewController+BaseNavigationBar.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/10/21.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIViewController+BaseNavigationBar.h"
@@ -31,7 +31,7 @@ JobsKey(_navigationBar)
         NavBar = jobsMakeBaseNavigationBar(^(__kindof BaseNavigationBar * _Nullable navBar) {
             @jobs_strongify(self)
             /// 优先级:背景图 > 背景色
-            navBar.backgroundColor = self.bgCor;
+            navBar.byBgColor(self.bgCor);
             [navBar setBackgroundImage:self.bgImage forBarMetrics:UIBarMetricsDefault];/// 仅仅是 navigationBar 背景
             navBar.titleTextAttributes = @{
                 NSForegroundColorAttributeName:self.foregroundColorAttributeNameCor,
@@ -45,11 +45,11 @@ JobsKey(_navigationBar)
                 data.add(self.navItem);
             });
             navBar.translucent = self.isBarTranslucent;
-            navBar.hidden = self.isHiddenNavigationBar;
-            [self.view.addSubview(navBar) mas_makeConstraints:^(MASConstraintMaker *make) {
+            navBar.byHidden(self.isHiddenNavigationBar);
+            navBar.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                 make.left.right.top.equalTo(self.view);
                 make.height.mas_offset(self.jobsNavigationBarHeight);
-            }];
+            });
         });Jobs_setAssociatedRETAIN_NONATOMIC(_navigationBar, NavBar)
     };return NavBar;
 }
@@ -65,7 +65,7 @@ JobsKey(_leftBarButtonItem_back)
     if (!LeftBarButtonItem_back) {
         if(self.navigationController.viewControllers.count > 1){
             NSString *imageName = self.gk_backStyle == GKNavigationBarBackStyleBlack ? @"btn_back_black" : @"btn_back_white";
-            UIImage *backImage = JobsBuddleIMG(nil,
+            UIImage *backImage = JobsLoadBundleImage(nil,
                                                @"Frameworks/GKNavigationBar.framework/GKNavigationBar",
                                                nil,
                                                imageName);

@@ -1,15 +1,13 @@
 //
 //  CGAffineTransform+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 #ifndef JOBS_HEADER_GUARD_CGAFFINETRANSFORM_DSL
 #define JOBS_HEADER_GUARD_CGAFFINETRANSFORM_DSL
 
 #import <UIKit/UIKit.h>
 #import <string.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -24,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetValueByPointBlock _Nonnull)byScale;
 -(JobsRetValueByCGFloatBlock _Nonnull)byRotate;
 -(JobsRetValueByAffineTransformBlock _Nonnull)byConcat;
-@property(nonatomic, assign, readonly) CGAffineTransform byCGAffineTransformValue;
+Prop_assign(readonly)CGAffineTransform byCGAffineTransformValue;
 
 @end
 NS_ASSUME_NONNULL_END

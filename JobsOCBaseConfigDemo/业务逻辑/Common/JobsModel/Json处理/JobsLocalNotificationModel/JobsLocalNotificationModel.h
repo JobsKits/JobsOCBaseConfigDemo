@@ -1,12 +1,18 @@
 //
 //  JobsLocalNotificationModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JobsLocalNotificationModel_h
+#define JobsLocalNotificationModel_h
+
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,3 +28,5 @@ Prop_assign()BOOL repeats;
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif /* JobsLocalNotificationModel_h */

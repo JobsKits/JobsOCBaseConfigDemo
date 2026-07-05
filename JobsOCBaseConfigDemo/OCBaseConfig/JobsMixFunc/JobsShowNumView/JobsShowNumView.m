@@ -1,8 +1,8 @@
 //
 //  JobsShowNumView.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2022/5/13.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsShowNumView.h"
@@ -35,7 +35,8 @@ static dispatch_once_t static_showNumViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsClearColor;
+        self.byBgColor(JobsClearColor);
+
 //        self.backgroundImageView.image = @"弹框样式_03背景图".img;
     };return self;
 }
@@ -64,9 +65,9 @@ static dispatch_once_t static_showNumViewOnceToken;
         CGSize btnSize = CGSizeMake(JobsWidth(60), JobsWidth(60));
         
         self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.jobsLeft = 0;
-            data.jobsRight = 0;
-            data.offsetXForEach = (self.thisViewSize.width - model.jobsLeft - model.jobsRight - btnSize.width * temp.count) / (temp.count - 1);
+            data.byJobsLeft(0)
+                .byJobsRight(0)
+                .byOffsetXForEach((self.thisViewSize.width - model.jobsLeft - model.jobsRight - btnSize.width * temp.count) / (temp.count - 1));
         });
         MakeDataNull
         
@@ -83,7 +84,7 @@ static dispatch_once_t static_showNumViewOnceToken;
                 if (self.objBlock) self.objBlock(x);
             });
 
-            [self.addSubview(btn) mas_makeConstraints:^(MASConstraintMaker *make) {
+            btn.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(btnSize);
                 make.centerY.equalTo(self);
                 if (self.btnMutArr.count) {
@@ -92,7 +93,7 @@ static dispatch_once_t static_showNumViewOnceToken;
                 }else{
                     make.left.equalTo(self).offset(model.jobsLeft);
                 }
-            }];
+            });
             
             self.btnMutArr.add(btn);
         }

@@ -1,8 +1,8 @@
 //
 //  NSObject+Notification.m
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Jobs on 2021/12/7.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+Notification.h"
@@ -58,9 +58,9 @@
               withSelector:(SEL _Nonnull)selector{
     if (isNull(notificationName)) return;
     JobsAddNotification(self,
-                    @selector(selector),
-                    notificationName,
-                    nil);
+                        @selector(selector),
+                        notificationName,
+                        nil);
 }
 ///【监听所有通知】用 Block
 -(void)monitorNotification:(NSString *_Nonnull)notificationName
@@ -85,8 +85,7 @@
 ///【发通知】设置App语言环境
 -(jobsByNSIntegerBlock _Nonnull)appLanguageAtAppLanguageBy{
     return ^(AppLanguage appLanguage){
-        [JobsLanguageManager setLanguage:appLanguage];
-        /// 发通知，通知需要更改的地方进行修改
+        [LanMgr setLanguage:appLanguage];
         JobsPostNotificationOnMainThread(语言切换,@(appLanguage),nil);
     };
 }

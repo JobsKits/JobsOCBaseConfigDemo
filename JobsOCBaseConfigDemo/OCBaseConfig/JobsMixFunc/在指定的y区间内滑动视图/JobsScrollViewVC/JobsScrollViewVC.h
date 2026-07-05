@@ -1,13 +1,21 @@
 //
 //  JobsScrollViewVC.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs Hi on 9/20/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseViewController.h"
+#ifndef JOBS_HEADER_GUARD_JOBSSCROLLVIEWVC_E3D0FD65B9
+#define JOBS_HEADER_GUARD_JOBSSCROLLVIEWVC_E3D0FD65B9
+
+#import <UIKit/UIKit.h>
 #import "JobsScrollYView.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,3 +24,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSSCROLLVIEWVC_E3D0FD65B9 */

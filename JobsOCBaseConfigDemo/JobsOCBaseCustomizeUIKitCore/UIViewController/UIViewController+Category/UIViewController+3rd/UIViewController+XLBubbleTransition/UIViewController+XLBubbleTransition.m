@@ -1,9 +1,8 @@
 //
 //  UIViewController+XLBubbleTransition.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by MengXianLiang on 2017/4/1.
-//  Copyright © 2017年 MengXianLiang. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIViewController+XLBubbleTransition.h"
@@ -31,7 +30,6 @@
 }
 
 #pragma mark —— @property(nonatomic,retain) XLBubbleTransition *xl_pushTranstion;
-#pragma mark —— xl_pushTranstion
 JobsKey(_xl_pushTranstion)
 @dynamic xl_pushTranstion;
 - (XLBubbleTransition *)xl_pushTranstion {
@@ -48,7 +46,6 @@ JobsKey(_xl_pushTranstion)
     Jobs_setAssociatedRETAIN_NONATOMIC(_xl_pushTranstion, xl_pushTranstion)
 }
 #pragma mark —— @property(nonatomic,retain)XLBubbleTransition *xl_popTranstion;
-#pragma mark —— xl_popTranstion
 JobsKey(_xl_popTranstion)
 @dynamic xl_popTranstion;
 - (XLBubbleTransition *)xl_popTranstion{
@@ -65,7 +62,6 @@ JobsKey(_xl_popTranstion)
     Jobs_setAssociatedRETAIN_NONATOMIC(_xl_popTranstion, xl_popTranstion)
 }
 #pragma mark —— @property(nonatomic,retain)XLBubbleTransition *xl_presentTranstion;
-#pragma mark —— xl_presentTranstion
 JobsKey(_xl_presentTranstion)
 @dynamic xl_presentTranstion;
 - (XLBubbleTransition *)xl_presentTranstion {
@@ -82,7 +78,6 @@ JobsKey(_xl_presentTranstion)
     Jobs_setAssociatedRETAIN_NONATOMIC(_xl_presentTranstion, xl_presentTranstion)
 }
 #pragma mark —— @property(nonatomic,retain)XLBubbleTransition *xl_dismissTranstion;
-#pragma mark —— xl_dismissTranstion
 JobsKey(_xl_dismissTranstion)
 @dynamic xl_dismissTranstion;
 - (XLBubbleTransition *)xl_dismissTranstion {

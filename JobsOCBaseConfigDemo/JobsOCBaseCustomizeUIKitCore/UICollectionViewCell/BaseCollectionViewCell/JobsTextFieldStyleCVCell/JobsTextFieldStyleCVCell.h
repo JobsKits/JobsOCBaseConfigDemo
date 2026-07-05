@@ -1,12 +1,23 @@
 //
 //  JobsTextFieldStyleCVCell.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs Hi on 10/13/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "JobsBaseCollectionViewCell.h"
+#ifndef JOBS_HEADER_GUARD_JOBSTEXTFIELDSTYLECVCELL_ADE3665A5E
+#define JOBS_HEADER_GUARD_JOBSTEXTFIELDSTYLECVCELL_ADE3665A5E
+
+#import <UIKit/UIKit.h>
+#import "UIView+Extra.h"
 #import "ZYTextField.h"
+#import "JobsBaseCollectionViewCell.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 只在BaseCollectionViewCell完整的盖一个TextField
@@ -17,3 +28,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSTEXTFIELDSTYLECVCELL_ADE3665A5E */

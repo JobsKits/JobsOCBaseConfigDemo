@@ -1,12 +1,18 @@
 //
 //  UIImageView+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Admin on 4/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UIIMAGEVIEW_EXTRA_BFFF61E28D
+#define JOBS_HEADER_GUARD_UIIMAGEVIEW_EXTRA_BFFF61E28D
+
 #import <UIKit/UIKit.h>
+
 #import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,3 +24,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIIMAGEVIEW_EXTRA_BFFF61E28D */

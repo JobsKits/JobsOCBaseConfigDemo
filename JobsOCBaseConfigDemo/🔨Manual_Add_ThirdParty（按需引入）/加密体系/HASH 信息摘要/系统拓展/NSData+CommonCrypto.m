@@ -1,3 +1,10 @@
+//
+//  NSData+CommonCrypto.m
+//  JobsCryptography
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
 /*
  *  NSData+CommonCrypto.m
  *  AQToolkit
@@ -36,11 +43,7 @@
  *
  */
 
-#import <Foundation/Foundation.h>
 #import "NSData+CommonCrypto.h"
-#import <CommonCrypto/CommonDigest.h>
-#import <CommonCrypto/CommonCryptor.h>
-#import <CommonCrypto/CommonHMAC.h>
 
 NSString * const kCommonCryptoErrorDomain = @"CommonCryptoErrorDomain";
 
@@ -97,7 +100,7 @@ NSString * const kCommonCryptoErrorDomain = @"CommonCryptoErrorDomain";
 
 @end
 
-#pragma mark -
+#pragma mark ——
 @implementation NSData (CommonDigest)
 - (NSData *) MD2Sum{
 	unsigned char hash[CC_MD2_DIGEST_LENGTH];

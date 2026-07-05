@@ -1,18 +1,39 @@
 //
 //  JobsAppDoorInputViewBaseStyle_10.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2022/5/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseViewProtocol.h"
-#import "JobsDoorInputViewProtocol.h"
-#import "NSString+Check.h"
-#import "MacroDef_String.h"
-#import "JobsAppDoorInputViewBaseStyleModel.h"
+#ifndef JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_10_010EC3A340
+#define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_10_010EC3A340
+
+#import <UIKit/UIKit.h>
+#import "JobsAppDoorConfig.h"
+#import "JobsAppDoorInputViewHeader.h"
 #import "JobsAppDoorInputViewBaseStyle.h"
-#import "ZYTextField.h"
-#import "JobsDefineProperty.h"
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
+#import "JobsOCDSL.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsMakes.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsDefines.h"
+
+#import "JobsModelDSL.h"
+
+#import "JobsBaseUI.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,67 +54,73 @@ NS_ASSUME_NONNULL_BEGIN
 NS_ASSUME_NONNULL_END
 /**
  
- -(JobsAppDoorInputViewBaseStyle_10 *)inputView{
-     if (!_inputView) {
-         _inputView = [JobsAppDoorInputViewBaseStyle_10.alloc initWithSize:inputViewSize];
-         @jobs_weakify(self)
-         [_inputView actionObjBlock:^(id data) {
-             @jobs_strongify(self)
-             JobsLog(@"%@",data);
-             if ([data isKindOfClass:UITextField.class]) {
-                 UITextField *textField = (UITextField *)data;
-                 if ([textField.requestParams isKindOfClass:JobsAppDoorInputViewTFModel.class]) {
-                     JobsAppDoorInputViewTFModel *inputViewTFModel = textField.requestParams;
-                     ///【单次最高取款额度 和 今日可用提款额度 的最小值】同 【输入值】进行比较
-                     self->OK = inputViewTFModel.resString.floatValue > MIN(self.viewModel.withdrawalsLines.floatValue, self.viewModel.withdrawalsLinesPerTime.floatValue);
-                     
-                     JobsBaseTableViewCell *cell00 = [self.tableView cellForRowAtIndexPath:[self myIndexPath:(JobsIndexPath){0,0}]];
-                     if (self->OK) {
-                         cell00.textLabel.text = @"输入金额已超过可取款金额".tr;
-                         cell00.detailTextLabel.text = @"".tr;
-                         self.tbvCellTipsLab.text = @"".tr;
-                     }else{
-                         cell00.textLabel.text = self.dataMutArr[0].textModel.text;
-                         cell00.detailTextLabel.text = self.viewModel.amount;
-                         self.tbvCellTipsLab.text = @"USDT".tr;
-                     }
-                 }
-             }else if ([data isKindOfClass:JobsAppDoorInputViewTFModel.class]){
-                 
-             }else{
-                 
-             }
-         }];
-         [self.contentView addSubview:_inputView];
-         [_inputView mas_makeConstraints:^(MASConstraintMaker *make) {
-             make.left.equalTo(self.contentView).offset(JobsWidth(16));
-             make.size.mas_equalTo(inputViewSize);
-             make.top.equalTo(self).offset(JobsWidth(3));
-         }];
-         _inputView.jobsRichViewByModel(配置金额输入框);
-         [self layoutIfNeeded];
-         [_inputView setBorderWithColor:HEXCOLOR(0xEAEBED)
-                            borderWidth:JobsWidth(1)
-                             borderType:UIBorderSideTypeBottom];
-     };return _inputView;
- }
+     -(JobsAppDoorInputViewBaseStyle_10 *)inputView{
+         if (!_inputView) {
+             _inputView = [JobsAppDoorInputViewBaseStyle_10.alloc initWithSize:inputViewSize];
+             @jobs_weakify(self)
+             [_inputView actionObjBlock:^(id data) {
+                 @jobs_strongify(self)
+                 JobsLog(@"%@",data);
+                 if ([data isKindOfClass:UITextField.class]) {
+                     UITextField *textField = (UITextField *)data;
+                     if ([textField.requestParams isKindOfClass:JobsAppDoorInputViewTFModel.class]) {
+                         JobsAppDoorInputViewTFModel *inputViewTFModel = textField.requestParams;
+                         ///【单次最高取款额度 和 今日可用提款额度 的最小值】同 【输入值】进行比较
+                         self->OK = inputViewTFModel.resString.floatValue > MIN(self.viewModel.withdrawalsLines.floatValue, self.viewModel.withdrawalsLinesPerTime.floatValue);
+                         
+                         JobsBaseTableViewCell *cell00 = [self.tableView cellForRowAtIndexPath:[self myIndexPath:(JobsIndexPath){0,0}]];
+                         if (self->OK) {
+                             cell00.textLabel.byText(@"输入金额已超过可取款金额".tr);
 
- -(JobsAppDoorInputViewBaseStyleModel *)配置金额输入框{
-     if (!_配置金额输入框) {
-         _配置金额输入框 = JobsAppDoorInputViewBaseStyleModel.new;
- //        _配置金额输入框.leftViewIMG = @"安全".img;
-         _配置金额输入框.textModel.text = @"最大金额".tr;
-         _配置金额输入框.placeHolderStr = @"請輸入取款金額".tr;
-         _配置金额输入框.placeholderFont = UIFontWeightRegularSize(14);
-         _配置金额输入框.isShowDelBtn = YES;
-         _配置金额输入框.isShowSecurityBtn = NO;
-         _配置金额输入框.returnKeyType = UIReturnKeyDone;
-         _配置金额输入框.keyboardAppearance = UIKeyboardAppearanceAlert;
-         _配置金额输入框.leftViewMode = UITextFieldViewModeAlways;
-         _配置金额输入框.titleStrCor = _配置金额输入框.placeholderColor = HEXCOLOR_ALPHA(0xC4C4C4,1.f);
-         _配置金额输入框.keyboardType = UIKeyboardTypeNumberPad;
- //        _配置金额输入框.fieldEditorOffset = JobsWidth(80);
-     };return _配置金额输入框;
- }
- 
+                             cell00.detailTextLabel.byText(@"".tr);
+
+                             self.tbvCellTipsLab.byText(@"".tr);
+
+                         }else{
+                             cell00.textLabel.byText(self.dataMutArr[0].textModel.text);
+
+                             cell00.detailTextLabel.byText(self.viewModel.amount);
+
+                             self.tbvCellTipsLab.byText(@"USDT".tr);
+
+                         }
+                     }
+                 }else if ([data isKindOfClass:JobsAppDoorInputViewTFModel.class]){
+                     
+                 }else{
+                     
+                 }
+             }];
+             _inputView.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
+                 make.left.equalTo(self.contentView).offset(JobsWidth(16));
+                 make.size.mas_equalTo(inputViewSize);
+                 make.top.equalTo(self).offset(JobsWidth(3));
+             });
+
+             _inputView.jobsRichViewByModel(配置金额输入框);
+             [self layoutIfNeeded];
+             [_inputView setBorderWithColor:HEXCOLOR(0xEAEBED)
+                                borderWidth:JobsWidth(1)
+                                 borderType:UIBorderSideTypeBottom];
+         };return _inputView;
+     }
+
+     -(JobsAppDoorInputViewBaseStyleModel *)配置金额输入框{
+         if (!_配置金额输入框) {
+             _配置金额输入框 = JobsAppDoorInputViewBaseStyleModel.new;
+     //        _配置金额输入框.leftViewIMG = @"安全".img;
+             _配置金额输入框.textModel.text = @"最大金额".tr;
+             _配置金额输入框.placeHolderStr = @"請輸入取款金額".tr;
+             _配置金额输入框.placeholderFont = UIFontWeightRegularSize(14);
+             _配置金额输入框.isShowDelBtn = YES;
+             _配置金额输入框.isShowSecurityBtn = NO;
+             _配置金额输入框.returnKeyType = UIReturnKeyDone;
+             _配置金额输入框.keyboardAppearance = UIKeyboardAppearanceAlert;
+             _配置金额输入框.leftViewMode = UITextFieldViewModeAlways;
+             _配置金额输入框.titleStrCor = _配置金额输入框.placeholderColor = HEXCOLOR_ALPHA(0xC4C4C4,1.f);
+             _配置金额输入框.keyboardType = UIKeyboardTypeNumberPad;
+     //        _配置金额输入框.fieldEditorOffset = JobsWidth(80);
+         };return _配置金额输入框;
+     }
  */
+#endif /* JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_10_010EC3A340 */

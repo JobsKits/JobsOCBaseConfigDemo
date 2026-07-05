@@ -1,14 +1,19 @@
 //
 //  NSNotificationKeyboardModel.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef NSNotificationKeyboardModel_h
+#define NSNotificationKeyboardModel_h
+
 #import <Foundation/Foundation.h>
-#import "BaseModel.h"
 #import "NotificationModel.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,3 +32,5 @@ NS_INLINE __kindof NSNotificationKeyboardModel *_Nonnull jobsMakeNotificationKey
     if (block) block(data);
     return data;
 }
+
+#endif /* NSNotificationKeyboardModel_h */

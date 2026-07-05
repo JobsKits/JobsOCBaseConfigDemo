@@ -1,6 +1,6 @@
 //
 //  PDFView+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 #ifndef JOBS_HEADER_GUARD_PDFVIEW_DSL
 #define JOBS_HEADER_GUARD_PDFVIEW_DSL
@@ -12,6 +12,7 @@
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
 @interface PDFView (JobsChain)
 
 +(JobsRetPDFViewByVoidBlock _Nonnull)byPDFView;
@@ -28,6 +29,13 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetPDFViewByVoidBlock _Nonnull)byGoToLastPage;
 -(JobsRetPDFViewByVoidBlock _Nonnull)byGoToNextPage;
 -(JobsRetPDFViewByVoidBlock _Nonnull)byGoToPreviousPage;
+#if defined(PDFKIT_PLATFORM_OSX)
+-(JobsRetPDFViewByPDFAreaOfInterestBlock _Nonnull)bySetCursorForAreaOfInterest;
+#endif
+-(JobsRetPDFViewByPDFActionBlock _Nonnull)byPerformAction API_AVAILABLE(ios(11.0));
+-(JobsRetPDFViewByVoidBlock _Nonnull)byClearSelection;
+-(JobsRetPDFViewByVoidBlock _Nonnull)byLayoutDocumentView;
+-(JobsRetPDFViewByPDFPageBlock _Nonnull)byAnnotationsChangedOnPage API_AVAILABLE(ios(11.0));
 
 @end
 NS_ASSUME_NONNULL_END

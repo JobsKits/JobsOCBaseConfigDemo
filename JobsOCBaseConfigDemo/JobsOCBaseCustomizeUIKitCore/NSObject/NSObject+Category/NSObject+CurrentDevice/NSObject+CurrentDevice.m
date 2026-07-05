@@ -1,11 +1,12 @@
 //
 //  NSObject+CurrentDevice.m
-//  JobsOCBaseConfigDemo
+//  JobsDeviceInfo
 //
-//  Created by Jobs on 2021/12/20.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+CurrentDevice.h"
+#import "NSObject+Extra.h"
 
 @implementation NSObject (CurrentDevice)
 /// App发布的版本号

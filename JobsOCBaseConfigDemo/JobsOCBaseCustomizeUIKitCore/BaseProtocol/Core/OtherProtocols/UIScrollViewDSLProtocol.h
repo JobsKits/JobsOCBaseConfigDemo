@@ -1,6 +1,6 @@
 //
 //  UIScrollViewDSLProtocol.h
-//  JobsOCBaseConfigDemo
+//  JobsOCProtocols
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -9,7 +9,9 @@
 #define JOBS_HEADER_GUARD_UISCROLLVIEWDSLPROTOCOL_AE92BC2B00
 
 #import <Foundation/Foundation.h>
+
 #import "JobsBlock.h"
+
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -25,11 +27,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetScrollViewByBOOLBlock _Nonnull)byScrollEnabled;
 -(JobsRetScrollViewByBOOLBlock _Nonnull)byBounces;
 -(JobsRetScrollViewByUIEdgeInsetsBlock _Nonnull)byContentInset;
--(JobsReturnScrollViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader;
--(JobsReturnScrollViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter;
+-(JobsRetScrollViewByMJRefreshHeaderBlock _Nonnull)byMJRefreshHeader;
+-(JobsRetScrollViewByMJRefreshFooterBlock _Nonnull)byMJRefreshFooter;
 /// mj_header / mj_footer 属性别名
--(JobsReturnScrollViewByMJRefreshHeaderBlock _Nonnull)byMJ_header;
--(JobsReturnScrollViewByMJRefreshFooterBlock _Nonnull)byMJ_footer;
+-(JobsRetScrollViewByMJRefreshHeaderBlock _Nonnull)byMJ_header;
+-(JobsRetScrollViewByMJRefreshFooterBlock _Nonnull)byMJ_footer;
 /// Content
 -(JobsRetScrollViewByPointBlock _Nonnull)byContentOffset;
 /// 对系统方法 -setContentOffset:animated: 的二次封装，animated 固定为 YES / NO

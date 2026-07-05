@@ -1,16 +1,16 @@
 //
 //  JobsColor.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#import <UIKit/UIKit.h>
 
 #ifndef JobsColor_h
 #define JobsColor_h
 
-#pragma mark —— Base
-
 #pragma mark —— Category
-#import "UIColor+Other.h"
+#import "UIColor+Extra.h"
 
 #endif /* JobsColor_h */

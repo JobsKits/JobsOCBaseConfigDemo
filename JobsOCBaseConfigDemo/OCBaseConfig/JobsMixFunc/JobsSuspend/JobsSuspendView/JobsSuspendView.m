@@ -1,12 +1,14 @@
 //
 //  JobsSuspendView.m
-//  JobsOCBaseConfigDemo
+//  JobsSuspend
 //
-//  Created by Jobs on 2020/8/13.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsSuspendView.h"
+#import "NSObject+Extra.h"
+#import "NSString+Extra.h"
+#import "UIView+Extra.h"
 
 @interface JobsSuspendView ()
 
@@ -16,7 +18,8 @@
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = self.backgroundColor ? :JobsBlackColor;
+        self.byBgColor(self.backgroundColor ? :JobsBlackColor);
+
         self.cornerCutToCircleWithCornerRadius(8);
     };return self;
 }

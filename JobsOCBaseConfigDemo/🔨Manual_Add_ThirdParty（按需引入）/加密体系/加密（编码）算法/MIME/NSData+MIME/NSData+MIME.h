@@ -1,11 +1,17 @@
 //
 //  NSData+MIME.h
-//  JobsOCBaseConfigDemo
+//  JobsCryptography
 //
-//  Created by Jobs on 2024/4/26.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSDATA_MIME_A5F36B55E3
+#define JOBS_HEADER_GUARD_NSDATA_MIME_A5F36B55E3
+
 #import <Foundation/Foundation.h>
+
+#import "JobsByOCPods.h"
+
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -24,3 +30,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSDATA_MIME_A5F36B55E3 */

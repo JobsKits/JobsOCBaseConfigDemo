@@ -1,16 +1,22 @@
 //
-//  EXTRuntimeExtensions.h
-//  JobsOCBaseConfigDemo
+//  RACEXTRuntimeExtensions.h
+//  JobsBy3rdExtras
 //
-//  Created by Justin Spahr-Summers on 2011-03-05.
-//  Copyright (C) 2012 Justin Spahr-Summers.
-//  Released under the MIT license.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#ifndef RACEXTRUNTIMEEXTENSIONS_H
-#define RACEXTRUNTIMEEXTENSIONS_H
+#ifndef JOBS_HEADER_GUARD_RACEXTRUNTIMEEXTENSIONS_5FD8408C39
+#define JOBS_HEADER_GUARD_RACEXTRUNTIMEEXTENSIONS_5FD8408C39
 
+#import <objc/message.h>
 #import <objc/runtime.h>
+#import <ctype.h>
+#import <libkern/OSAtomic.h>
+#import <pthread.h>
+#import <stdio.h>
+#import <stdlib.h>
+#import <string.h>
+#import <Foundation/Foundation.h>
 
 /**
  * Describes the memory management policy of a property.
@@ -31,7 +37,6 @@ typedef enum {
      */
     rac_propertyMemoryManagementPolicyCopy
 } rac_propertyMemoryManagementPolicy;
-
 /**
  * Describes the attributes and type information of a property.
  */
@@ -107,7 +112,6 @@ typedef struct {
      */
     char type[];
 } rac_propertyAttributes;
-
 /**
  * Finds the instance method named \a aSelector on \a aClass and returns it, or
  * returns \c NULL if no such instance method exists. Unlike \c
@@ -123,5 +127,4 @@ Method rac_getImmediateInstanceMethod (Class aClass, SEL aSelector);
  * obtaining information from \a property.
  */
 rac_propertyAttributes *rac_copyPropertyAttributes (objc_property_t property);
-
-#endif /* RACEXTRUNTIMEEXTENSIONS_H */
+#endif /* JOBS_HEADER_GUARD_RACEXTRUNTIMEEXTENSIONS_5FD8408C39 */

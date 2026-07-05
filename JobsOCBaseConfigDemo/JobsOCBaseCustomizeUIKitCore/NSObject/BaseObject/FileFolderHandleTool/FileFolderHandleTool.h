@@ -1,26 +1,32 @@
 //
 //  FileFolderHandleTool.h
-//  JobsOCBaseConfigDemo
+//  FileFolderHandleTool
 //
-//  Created by Jobs on 2020/7/27.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_FILEFOLDERHANDLETOOL_A07C3EF512
+#define JOBS_HEADER_GUARD_FILEFOLDERHANDLETOOL_A07C3EF512
+
 #import <UIKit/UIKit.h>
-#import <Photos/Photos.h>
-#import "JobsDefineEnums.h"
-#import "JobsDefineConstString.h"
-#import "JobsBlock.h"
-#import "UIImage+Extras.h"
-#import "JobsString.h"
-#import "JobsTimeModel.h"
-#import "FileFolderHandleModel.h"
+#import <Photos/Photos.h> // 提供系统相册访问能力，可读取和管理照片、视频等媒体资源。
+#import <AVFoundation/AVFoundation.h>
 
 #if __has_include(<TXFileOperation/TXFileOperation.h>)
 #import <TXFileOperation/TXFileOperation.h>
 #else
 #import "TXFileOperation.h"
 #endif
+
+#import "JobsByOCPods.h"
+
+#import "JobsModelDSL.h"
+
+#import "JobsMakes.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark —— 禁止App系统文件夹document同步
 /// 因为它会同步。苹果要求：可重复产生的数据不得进行同步,什么叫做可重复数据？这里最好禁止，否则会影响上架，被拒！
 +(jobsByVoidBlock _Nonnull)banSysDocSynchronization;
-#pragma mark - 创建Library/Caches下的文件夹📂路径 还未真正创建
+#pragma mark —— 创建Library/Caches下的文件夹📂路径 还未真正创建
 /// 以当前时间戳生成缓存路径 Library/Caches：存放缓存文件，iTunes不会备份此目录，此目录下文件不会在应用退出删除。一般存放体积比较大，不是特别重要的资源。
 /// @param folderNameEx 中间层自定义的文件夹
 /// @param fileNameEx 文件后缀名
@@ -223,3 +229,4 @@ didFinishSavingWithError:(NSError *)error
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_FILEFOLDERHANDLETOOL_A07C3EF512 */

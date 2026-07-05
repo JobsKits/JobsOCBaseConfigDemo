@@ -1,16 +1,14 @@
 //
 //  RYCuteView.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by billionsfinance-resory on 15/11/2.
-//  Updated by Jobs on 2025/11/21
-//  https://www.jianshu.com/p/21db20189c40
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "RYCuteView.h"
+
 /// 默认最小高度
 static const CGFloat kDefaultMinHeight = 64.f;
-
 @interface RYCuteView ()
 /// 手势移动时相对高度
 Prop_assign() CGFloat mHeight;
@@ -30,7 +28,7 @@ Prop_strong() JobsTimer *displayTimer;
 @end
 
 @implementation RYCuteView
-#pragma mark - Life Cycle
+#pragma mark —— Life Cycle
 - (void)dealloc {
     JobsLog(@"%s", __FUNCTION__);
     // 保险起见，销毁前停掉定时器
@@ -55,12 +53,14 @@ Prop_strong() JobsTimer *displayTimer;
         [self commonInit];
     };return self;
 }
-#pragma mark - Common Init
+#pragma mark —— Common Init
 - (void)commonInit {
     self.userInteractionEnabled = YES;
     self.MIN_HEIGHT  = kDefaultMinHeight;   // 默认图形最小高度
-    self.mHeight     = 100.f;              // 手势移动时相对高度
-    self.isAnimating = NO;                 // 初始无动效
+    self.mHeight     = 100.f;
+              // 手势移动时相对高度
+    self.isAnimating = NO;
+                 // 初始无动效
 
     @jobs_weakify(self)
     // curveX / curveY 任一变化，都重绘 shapeLayer.path
@@ -89,12 +89,14 @@ Prop_strong() JobsTimer *displayTimer;
     // 触发 lazy getter，确保图层和红点都挂上去
     self.shapeLayer.opacity = 1.0;
     self.curveX = JobsMainScreen_WIDTH() / 2.0;   // r5 初始 x
-    self.curveY = self.MIN_HEIGHT;                // r5 初始 y
-    self.curveView.alpha = 1.0;
+    self.curveY = self.MIN_HEIGHT;
+                // r5 初始 y
+    self.curveView.byAlpha(1.0);
+
 
     [self configAction];
 }
-#pragma mark - 手势 & 动效
+#pragma mark —— 手势 & 动效
 - (void)configAction {
     @jobs_weakify(self)
     // 手势：内部仍然用你的 DSL
@@ -156,7 +158,7 @@ Prop_strong() JobsTimer *displayTimer;
         }
     }]);
 }
-#pragma mark - Lazy Load
+#pragma mark —— Lazy Load
 - (CAShapeLayer *)shapeLayer {
     if (!_shapeLayer) {
         @jobs_weakify(self)
@@ -175,9 +177,10 @@ Prop_strong() JobsTimer *displayTimer;
         _curveView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
             if (!self) return;
-            view.backgroundColor = JobsRedColor;
-            view.frame = CGRectMake(self.curveX, self.curveY, 3, 3);
-            [self addSubview:view];
+            view
+                .byBgColor(JobsRedColor)
+                .byFrame(CGRectMake(self.curveX, self.curveY, 3, 3))
+                .addOn(self);
         });
     };return _curveView;
 }

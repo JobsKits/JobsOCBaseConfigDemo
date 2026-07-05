@@ -1,8 +1,8 @@
 //
 //  UIView+BackgroundLabel.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/6.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIView+BackgroundLabel.h"
@@ -17,13 +17,17 @@ JobsKey(_backgroundLabel)
         @jobs_weakify(self)
         BackgroundLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.userInteractionEnabled = YES;
-            self.addSubview(label);
-            self.sendSubviewToBack(label);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self);
-            }];Jobs_setAssociatedRETAIN_NONATOMIC(_backgroundLabel, label)
+            label
+                .byUserInteractionEnabled(YES)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                })
+                .byViewBlock(^(__kindof UIView * _Nullable data) {
+                    if (data) self.sendSubviewToBack(data);
+                });
         });
+        Jobs_setAssociatedRETAIN_NONATOMIC(_backgroundLabel, BackgroundLabel);
     };return BackgroundLabel;
 }
 

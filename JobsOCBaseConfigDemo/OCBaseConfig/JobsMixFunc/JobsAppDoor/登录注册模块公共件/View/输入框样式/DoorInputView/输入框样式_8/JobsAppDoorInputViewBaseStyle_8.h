@@ -1,17 +1,37 @@
 //
 //  JobsAppDoorInputViewBaseStyle_8.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/12/4.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseViewProtocol.h"
-#import "JobsDoorInputViewProtocol.h"
-#import "JobsAppDoorInputViewBaseStyleModel.h"
+#ifndef JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_8_FA17C60162
+#define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_8_FA17C60162
+
+#import <UIKit/UIKit.h>
+#import "JobsAppDoorConfig.h"
 #import "JobsAppDoorInputViewBaseStyle.h"
-#import "ZYTextField.h"
-#import "JobsDefineProperty.h"
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
+
+#import "JobsOCDSL.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsMakes.h"
+
+#import "JobsDefines.h"
+
+#import "JobsModelDSL.h"
+
+#import "JobsBaseUI.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,51 +45,52 @@ NS_ASSUME_NONNULL_BEGIN
  * 如果以后需要强行禁用init或者new，那么:
  - (instancetype)init NS_UNAVAILABLE;
  - (instancetype)new NS_UNAVAILABLE;
- 
  */
 @end
 
 NS_ASSUME_NONNULL_END
 /**
- 调用示例：
- -(JobsAppDoorInputViewBaseStyle_8 *)inputView{
-     if (!_inputView) {
-         _inputView = [JobsAppDoorInputViewBaseStyle_8.alloc initWithSize:self.inputViewSize];
-         _inputView.backgroundColor = HEXCOLOR(0xFFFCF7);
-         @jobs_weakify(self)
-         [_inputView actionObjBlock:^(UITextField *data) {
- //            JobsAppDoorInputViewTFModel *textFieldInputModel = (JobsAppDoorInputViewTFModel *)data.requestParams;
-             @jobs_strongify(self)
-         }];
-         
-         _inputView.jobsRichViewByModel(self.inputViewDataModel;)
-         [self addSubview:_inputView];
-         [_inputView mas_makeConstraints:^(MASConstraintMaker *make) {
-             make.size.mas_equalTo(self.inputViewSize);
-             make.left.equalTo(self);
-             make.bottom.equalTo(self.mas_bottom);
-         }];
-         [self layoutIfNeeded];
-         _inputView.cornerCutToCircleWithCornerRadius(JobsWidth(self.inputViewSize.height / 2));
-     };return _inputView;
- }
 
- -(JobsAppDoorInputViewBaseStyleModel *)inputViewDataModel{
-     if (!_inputViewDataModel) {
-         _inputViewDataModel = JobsAppDoorInputViewBaseStyleModel.new;
-         _inputViewDataModel.leftViewIMG = @"搜索".img;
-         _inputViewDataModel.textModel.text = @"".tr;
-         _inputViewDataModel.placeHolderStr = @"搜索".tr;
-         _inputViewDataModel.isShowDelBtn = YES;
-         _inputViewDataModel.isShowSecurityBtn = NO;
-         _inputViewDataModel.returnKeyType = UIReturnKeyDone;
-         _inputViewDataModel.keyboardAppearance = UIKeyboardAppearanceAlert;
-         _inputViewDataModel.leftViewMode = UITextFieldViewModeAlways;
-         _inputViewDataModel.placeholderColor = HEXCOLOR(0x6D655D);
-         _inputViewDataModel.titleStrCor = HEXCOLOR(0x6D655D);
-         _inputViewDataModel.placeHolderOffset = JobsWidth(35);
-         _inputViewDataModel.textModel.textCor = HEXCOLOR(0xFFE8D1);
-     };return _inputViewDataModel;
- }
- 
+     调用示例：
+     -(JobsAppDoorInputViewBaseStyle_8 *)inputView{
+         if (!_inputView) {
+             _inputView = [JobsAppDoorInputViewBaseStyle_8.alloc initWithSize:self.inputViewSize];
+             _inputView.byBgColor(HEXCOLOR(0xFFFCF7));
+
+             @jobs_weakify(self)
+             [_inputView actionObjBlock:^(UITextField *data) {
+     //            JobsAppDoorInputViewTFModel *textFieldInputModel = (JobsAppDoorInputViewTFModel *)data.requestParams;
+                 @jobs_strongify(self)
+             }];
+
+             _inputView.jobsRichViewByModel(self.inputViewDataModel;)
+             _inputView.addOn(self).byAdd(^(MASConstraintMaker *make) {
+                 make.size.mas_equalTo(self.inputViewSize);
+                 make.left.equalTo(self);
+                 make.bottom.equalTo(self.mas_bottom);
+             });
+
+             [self layoutIfNeeded];
+             _inputView.cornerCutToCircleWithCornerRadius(JobsWidth(self.inputViewSize.height / 2));
+         };return _inputView;
+     }
+
+     -(JobsAppDoorInputViewBaseStyleModel *)inputViewDataModel{
+         if (!_inputViewDataModel) {
+             _inputViewDataModel = JobsAppDoorInputViewBaseStyleModel.new;
+             _inputViewDataModel.leftViewIMG = @"搜索".img;
+             _inputViewDataModel.textModel.text = @"".tr;
+             _inputViewDataModel.placeHolderStr = @"搜索".tr;
+             _inputViewDataModel.isShowDelBtn = YES;
+             _inputViewDataModel.isShowSecurityBtn = NO;
+             _inputViewDataModel.returnKeyType = UIReturnKeyDone;
+             _inputViewDataModel.keyboardAppearance = UIKeyboardAppearanceAlert;
+             _inputViewDataModel.leftViewMode = UITextFieldViewModeAlways;
+             _inputViewDataModel.placeholderColor = HEXCOLOR(0x6D655D);
+             _inputViewDataModel.titleStrCor = HEXCOLOR(0x6D655D);
+             _inputViewDataModel.placeHolderOffset = JobsWidth(35);
+             _inputViewDataModel.textModel.textCor = HEXCOLOR(0xFFE8D1);
+         };return _inputViewDataModel;
+     }
  */
+#endif /* JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_8_FA17C60162 */

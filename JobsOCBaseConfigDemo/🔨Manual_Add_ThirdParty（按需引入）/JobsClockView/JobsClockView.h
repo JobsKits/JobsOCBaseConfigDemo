@@ -1,13 +1,24 @@
 //
 //  JobsClockView.h
-//  JobsOCBaseConfigDemo
+//  JobsClockView
 //
-//  Created by Jobs on 11/29/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_JOBSCLOCKVIEW_7C266B2841
+#define JOBS_HEADER_GUARD_JOBSCLOCKVIEW_7C266B2841
+
 #import <UIKit/UIKit.h>
-#import "JobsTimer.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsOCTimer.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// 模拟时钟：表盘 + 1～12 数字 + 时针 / 分针 / 秒针
@@ -22,3 +33,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSCLOCKVIEW_7C266B2841 */

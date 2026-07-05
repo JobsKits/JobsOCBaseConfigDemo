@@ -1,13 +1,11 @@
 //
 //  YTKAnimatingRequestAccessory.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Chenyu Lan on 10/30/14.
-//  Copyright (c) 2014 Fenbi. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "YTKAnimatingRequestAccessory.h"
-//#import "YTKAlertUtils.h"
 
 @implementation YTKAnimatingRequestAccessory
 

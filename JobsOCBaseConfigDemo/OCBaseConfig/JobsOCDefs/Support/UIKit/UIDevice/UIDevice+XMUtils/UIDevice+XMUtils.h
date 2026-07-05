@@ -1,6 +1,6 @@
 //
 //  UIDevice+XMUtils.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDefs
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -10,13 +10,22 @@
 
 #pragma once
 
+#import <sys/sysctl.h>
+#import <sys/utsname.h>
 #import <UIKit/UIKit.h>
 #import "JobsDefineProperty.h"
-#import "JobsBlock.h"
+
+#if __has_include(<GKNavigationBar/GKNavigationBar.h>)
+#import <GKNavigationBar/GKNavigationBar.h>
+#else
+#import "GKNavigationBar.h"
+#endif
+
+typedef __kindof NSString *_Nullable(^JobsRetStrByStrBlock)(__kindof NSString *_Nullable data);
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIDevice (XMUtils)
+@interface UIDevice (JobsOCDefsXMUtils)
 
 Prop_assign(readonly)NSString *machineModel;
 /**

@@ -1,6 +1,6 @@
 //
 //  ASButtonNode+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -10,14 +10,17 @@
 
 #import <objc/runtime.h>
 #import <Foundation/Foundation.h>
-#import "JobsBlock.h"
-#import "JobsDefines.h"
-
-#if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
+
+#if __has_include(<AsyncDisplayKit/ASButtonNode.h>)
+#import <AsyncDisplayKit/ASButtonNode.h>
 #else
-#import "AsyncDisplayKit.h"
+#import "ASButtonNode.h"
 #endif
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// ASButtonNode 链式 DSL（节选：标题/图片/边距/圆角/事件）

@@ -1,12 +1,15 @@
 //
 //  BRTextPickerView+Extra.h
-//  JobsOCBaseConfigDemo
+//  BRPickerViewExtra
 //
-//  Created by Jobs on 11/19/25.
+//  Created by Jobs on 2026年5月13日，星期三.
+//  Updated for latest BRPickerView on 2026年5月29日，星期五.
 //
 
+#ifndef JOBS_HEADER_GUARD_BRTEXTPICKERVIEW_EXTRA_E3DB663CED
+#define JOBS_HEADER_GUARD_BRTEXTPICKERVIEW_EXTRA_E3DB663CED
+
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
 
 #if __has_include(<BRPickerView/BRPickerView.h>)
 #import <BRPickerView/BRPickerView.h>
@@ -14,12 +17,17 @@
 #import "BRPickerView.h"
 #endif
 
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BRTextPickerView (Extra)
-
-+(JobsReturnBRTextPickerViewByPickerModeBlock _Nonnull)initBy;
+/// 链式初始化：BRTextPickerView.initBy(BRTextPickerComponentSingle)
++(BRPickerViewExtraRetTextPickerViewByPickerModeBlock)initBy;
 
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_BRTEXTPICKERVIEW_EXTRA_E3DB663CED */

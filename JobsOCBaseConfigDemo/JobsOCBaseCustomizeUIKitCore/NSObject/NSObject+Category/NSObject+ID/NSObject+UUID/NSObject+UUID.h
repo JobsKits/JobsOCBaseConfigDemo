@@ -1,11 +1,16 @@
 //
 //  NSObject+UUID.h
-//  JobsOCBaseConfigDemo
+//  JobsDeviceInfo
 //
-//  Created by Jobs on 2021/12/2.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_UUID_013D0F4A01
+#define JOBS_HEADER_GUARD_NSOBJECT_UUID_013D0F4A01
+
 #import <Foundation/Foundation.h>
+
+#import "JobsLanMgr.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,3 +21,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_UUID_013D0F4A01 */

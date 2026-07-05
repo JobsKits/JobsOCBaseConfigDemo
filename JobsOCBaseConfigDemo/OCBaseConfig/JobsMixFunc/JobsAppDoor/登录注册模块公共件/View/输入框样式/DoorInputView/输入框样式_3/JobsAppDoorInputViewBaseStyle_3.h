@@ -1,17 +1,34 @@
 //
 //  JobsAppDoorInputViewBaseStyle_3.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/12/4.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseViewProtocol.h"
-#import "JobsDoorInputViewProtocol.h"
-#import "JobsAppDoorInputViewBaseStyleModel.h"
+#ifndef JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_3_42510BFE2E
+#define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_3_42510BFE2E
+
+#import <UIKit/UIKit.h>
+#import "JobsAppDoorConfig.h"
 #import "JobsAppDoorInputViewBaseStyle.h"
-#import "JobsMagicTextField.h"
-#import "JobsDefineProperty.h"
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
+#import "JobsOCDSL.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsDefines.h"
+
+#import "JobsModelDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,53 +49,53 @@ NS_ASSUME_NONNULL_BEGIN
 NS_ASSUME_NONNULL_END
 /**
  
- -(JobsAppDoorInputViewBaseStyle_3 *)用户名输入框{
-     if (!_用户名输入框) {
-         _用户名输入框 = JobsAppDoorInputViewBaseStyle_3.new;
-         @jobs_weakify(self)
-         [_用户名输入框 actionObjBlock:^(JobsAppDoorInputViewTFModel *data) {
-             @jobs_strongify(self)
- //            if ([data isKindOfClass:JobsAppDoorInputViewTFModel.class]) {
- //                JobsAppDoorInputViewTFModel *model = (JobsAppDoorInputViewTFModel *)data;
- //                self.confirmWithdrawPassword = model.resString;
- //            }
-         }];
-         
-         [self.view addSubview:_用户名输入框];
-         [_用户名输入框 mas_makeConstraints:^(MASConstraintMaker *make) {
-             make.centerX.equalTo(self.view);
-             make.size.mas_equalTo(inputSize());
-             make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(85));
-         }];
-         
-         _用户名输入框.layer.cornerRadius = inputSize().height / 2;
-         _用户名输入框.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-             data.jobsWidth = 1;
-             data.layerCor = HEXCOLOR(0xEEE2C8) ;
-         }));
-         _用户名输入框.jobsRichViewByModel(配置用户名输入框);
-     };return _用户名输入框;
- }
+     -(JobsAppDoorInputViewBaseStyle_3 *)用户名输入框{
+         if (!_用户名输入框) {
+             _用户名输入框 = JobsAppDoorInputViewBaseStyle_3.new;
+             @jobs_weakify(self)
+             [_用户名输入框 actionObjBlock:^(JobsAppDoorInputViewTFModel *data) {
+                 @jobs_strongify(self)
+     //            if ([data isKindOfClass:JobsAppDoorInputViewTFModel.class]) {
+     //                JobsAppDoorInputViewTFModel *model = (JobsAppDoorInputViewTFModel *)data;
+     //                self.confirmWithdrawPassword = model.resString;
+     //            }
+             }];
 
- -(JobsAppDoorInputViewBaseStyleModel *)配置用户名输入框{
-     if (!_配置用户名输入框) {
-         _配置用户名输入框 = JobsAppDoorInputViewBaseStyleModel.new;
-         _配置用户名输入框.leftViewIMG = @"用户名".img;
-         _配置用户名输入框.placeHolderStr = @"请输入您的用户名".tr;
-         _配置用户名输入框.placeholderFont = [UIFont systemFontOfSize:JobsWidth(16) weight:UIFontWeightRegular];
-         _配置用户名输入框.placeholderColor = HEXCOLOR(0xC4C4C4);
-         _配置用户名输入框.placeHolderOffset = JobsWidth(35);
-         _配置用户名输入框.leftViewOffsetX = JobsWidth(10);
-         _配置用户名输入框.isShowDelBtn = YES;
-         _配置用户名输入框.isShowSecurityBtn = NO;
-         _配置用户名输入框.returnKeyType = UIReturnKeyDone;
-         _配置用户名输入框.keyboardAppearance = UIKeyboardAppearanceAlert;
-         _配置用户名输入框.leftViewMode = UITextFieldViewModeAlways;
-         _配置用户名输入框.moveDistance = JobsWidth(40);
-         _配置用户名输入框.titleStrCor = _配置用户名输入框.placeholderColor = HEXCOLOR(0x524740);
-         _配置用户名输入框.background = @"设置弹出框输入框背景图".img;
-         _配置用户名输入框.animationColor = HEXCOLOR(0xF2CC78);
-     };return _配置用户名输入框;
- }
- 
+             _用户名输入框.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
+                 make.centerX.equalTo(self.view);
+                 make.size.mas_equalTo(inputSize());
+                 make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(85));
+             });
+
+
+             _用户名输入框.layer.cornerRadius = inputSize().height / 2;
+             _用户名输入框.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
+                 data.byJobsWidth(1)
+                     .byLayerCor(HEXCOLOR(0xEEE2C8));
+             }));
+             _用户名输入框.jobsRichViewByModel(配置用户名输入框);
+         };return _用户名输入框;
+     }
+
+     -(JobsAppDoorInputViewBaseStyleModel *)配置用户名输入框{
+         if (!_配置用户名输入框) {
+             _配置用户名输入框 = JobsAppDoorInputViewBaseStyleModel.new;
+             _配置用户名输入框.leftViewIMG = @"用户名".img;
+             _配置用户名输入框.placeHolderStr = @"请输入您的用户名".tr;
+             _配置用户名输入框.placeholderFont = [UIFont systemFontOfSize:JobsWidth(16) weight:UIFontWeightRegular];
+             _配置用户名输入框.placeholderColor = HEXCOLOR(0xC4C4C4);
+             _配置用户名输入框.placeHolderOffset = JobsWidth(35);
+             _配置用户名输入框.leftViewOffsetX = JobsWidth(10);
+             _配置用户名输入框.isShowDelBtn = YES;
+             _配置用户名输入框.isShowSecurityBtn = NO;
+             _配置用户名输入框.returnKeyType = UIReturnKeyDone;
+             _配置用户名输入框.keyboardAppearance = UIKeyboardAppearanceAlert;
+             _配置用户名输入框.leftViewMode = UITextFieldViewModeAlways;
+             _配置用户名输入框.moveDistance = JobsWidth(40);
+             _配置用户名输入框.titleStrCor = _配置用户名输入框.placeholderColor = HEXCOLOR(0x524740);
+             _配置用户名输入框.background = @"设置弹出框输入框背景图".img;
+             _配置用户名输入框.animationColor = HEXCOLOR(0xF2CC78);
+         };return _配置用户名输入框;
+     }
  */
+#endif /* JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_3_42510BFE2E */

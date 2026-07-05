@@ -1,19 +1,28 @@
 //
 //  JobsTabBarCtrl.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2025/10/16.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_JOBSTABBARCTRL_2B638ACF19
+#define JOBS_HEADER_GUARD_JOBSTABBARCTRL_2B638ACF19
 
 #import <UIKit/UIKit.h>
-#import "BaseViewController.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsMakes.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsBaseUI.h"
+
 #import "JobsBlock.h"
-#import "UIViewController+Extra.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-@class JobsTabBarCtrl;
 
 @interface JobsTabBarCtrl : BaseViewController <UIScrollViewDelegate>
 /// 是否允许内容区域左右滑动
@@ -63,7 +72,7 @@ Prop_copy(nullable)jobsByArrBlock onButtonsLayouted;
 
 @end
 
-#pragma mark - 链式配置（和 Swift 版保持风格）
+#pragma mark —— 链式配置（和 Swift 版保持风格）
 @interface JobsTabBarCtrl (Chainable)
 
 -(JobsRetTabBarCtrlByBOOLBlock _Nonnull)bySwipeEnabled;
@@ -94,3 +103,4 @@ jobsMakeTabBarCtrl(jobsByJobsTabBarCtrlBlock _Nonnull block){
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_JOBSTABBARCTRL_2B638ACF19 */

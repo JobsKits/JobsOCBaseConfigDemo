@@ -1,11 +1,14 @@
 //
 //  JobsBasePopupView.m
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Jobs on 2021/12/11.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsBasePopupView.h"
+#import "BaseButton.h"
+#import "UIButton+SimplyMake.h"
+#import "UIView+BackgroundImage.h"
 
 @interface JobsBasePopupView ()
 /// UI
@@ -40,16 +43,15 @@ Prop_strong()BaseButton *btn2;
             if (self.viewModel.bgImage) {
                 self.backgroundImageView.image = self.viewModel.bgImage;
             }else{
-                self.backgroundColor = self.viewModel.bgCor;
+                self.byBgColor(self.viewModel.bgCor);
             }
             
-            self.titleLab.text = self.viewModel.textModel.text;
-            self.subTitleLab.text = self.viewModel.subTextModel.text;
-            self.btn1.alpha = 1;
-            self.btn2.alpha = 1;
-            
-            self.titleLab.labelAutoWidthByFont();
-            self.subTitleLab.labelAutoWidthByFont();
+            self.titleLab.byText(self.viewModel.textModel.text);
+            self.subTitleLab.byText(self.viewModel.subTextModel.text);
+            self.btn1.byAlpha(1);
+            self.btn2.byAlpha(1);
+            self.titleLab.bySizeToFit();
+            self.subTitleLab.bySizeToFit();
         }
     };
 }
@@ -65,13 +67,15 @@ Prop_strong()BaseButton *btn2;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.font = self.viewModel.textModel.font;
-            label.textColor = self.viewModel.textModel.textCor;
-            label.textAlignment = self.viewModel.textModel.textAlignment;
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self);
-                make.top.equalTo(self).offset(JobsWidth(50));
-            }];
+            label
+                .byFont(self.viewModel.textModel.font)
+                .byTextCor(self.viewModel.textModel.textCor)
+                .byTextAlignment(self.viewModel.textModel.textAlignment)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self);
+                    make.top.equalTo(self).offset(JobsWidth(50));
+                });
         });
     };return _titleLab;
 }
@@ -81,13 +85,15 @@ Prop_strong()BaseButton *btn2;
         @jobs_weakify(self)
         _subTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.font = self.viewModel.subTextModel.font;
-            label.textColor = self.viewModel.subTextModel.textCor;
-            label.textAlignment = self.viewModel.subTextModel.textAlignment;
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self);
-                make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(5));
-            }];
+            label
+                .byFont(self.viewModel.subTextModel.font)
+                .byTextCor(self.viewModel.subTextModel.textCor)
+                .byTextAlignment(self.viewModel.subTextModel.textAlignment)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self);
+                    make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(5));
+                });
         });
     };return _subTitleLab;
 }
@@ -102,16 +108,17 @@ Prop_strong()BaseButton *btn2;
                           @"弹窗取消按钮背景图".img,
                           NSDirectionalRectEdgeNone)
             .onClickBy(^(UIButton *x){
-                if(self.objBlock) self.objBlock(x);
+                if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .byTag(666)
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(110), JobsWidth(44)));
+                make.left.equalTo(self).offset(JobsWidth(20));
+                make.bottom.equalTo(self).offset(-JobsWidth(25));
             });
-        _btn1.tag = 666;
-        [self.addSubview(_btn1) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(110), JobsWidth(44)));
-            make.left.equalTo(self).offset(JobsWidth(20));
-            make.bottom.equalTo(self).offset(-JobsWidth(25));
-        }];
     };return _btn1;
 }
 
@@ -127,17 +134,17 @@ Prop_strong()BaseButton *btn2;
                           NSDirectionalRectEdgeNone)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                if(self.objBlock) self.objBlock(x);
+                if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .byTag(999)
+            .addOn(self)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(110), JobsWidth(44)));
+                make.right.equalTo(self).offset(JobsWidth(-20));
+                make.bottom.equalTo(self).offset(-JobsWidth(25));
             });
-        _btn2.tag = 999;
-        [self.addSubview(_btn2) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(110), JobsWidth(44)));
-            make.right.equalTo(self).offset(JobsWidth(-20));
-            make.bottom.equalTo(self).offset(-JobsWidth(25));
-        }];
     };return _btn2;
 }
-
 @end

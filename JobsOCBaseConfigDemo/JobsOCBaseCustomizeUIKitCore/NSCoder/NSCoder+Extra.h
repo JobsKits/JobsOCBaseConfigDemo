@@ -1,11 +1,17 @@
 //
 //  NSCoder+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsModel
 //
-//  Created by Admin on 9/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+#ifndef NSCoder_Extra_h
+#define NSCoder_Extra_h
 
 #import <Foundation/Foundation.h>
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,3 +38,5 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif /* NSCoder_Extra_h */

@@ -1,17 +1,15 @@
 //
 //  KFZShopCatoryFlowLayput.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2020/10/30.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "KFZShopCatoryFlowLayput.h"
+#import "UIView+Extra.h"
 
-/**
-    自定义section背景view 注意继承于UICollectionReusableView
-    有点内部类的味道，你品、你细品
- */
-
+/// 自定义section背景view 注意继承于UICollectionReusableView
+/// 有点内部类的味道，你品、你细品
 @interface KFZShopCatorySectionWhiteBgView : UICollectionReusableView
 
 @end
@@ -26,6 +24,7 @@
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes{
     [super applyLayoutAttributes:layoutAttributes];
     self.backgroundColor = JobsWhiteColor;
+
     //加阴影立体效果
     [UIView makeTargetShadowview:self
                        superView:nil
@@ -41,9 +40,9 @@
 
 @end
 
-//下面是自定义的layout
+/// 下面是自定义的layout
 @interface KFZShopCatoryFlowLayput  ()
-//存放新的layouttAttributes
+/// 存放新的layouttAttributes
 Prop_strong()NSMutableArray<UICollectionViewLayoutAttributes *> *decorationViewAttrs;
 
 @end
@@ -112,6 +111,7 @@ Prop_strong()NSMutableArray<UICollectionViewLayoutAttributes *> *decorationViewA
                                                                                                                          withIndexPath:[NSIndexPath indexPathForRow:0
                                                                                                                                                           inSection:section]];
                     attr.frame = sectionFrame;
+
                     attr.zIndex = -1;
                     [self.decorationViewAttrs addObject:attr];
                 }else{

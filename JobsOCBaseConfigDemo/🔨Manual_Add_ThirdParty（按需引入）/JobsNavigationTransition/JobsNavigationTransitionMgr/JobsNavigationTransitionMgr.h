@@ -1,15 +1,27 @@
 //
 //  JobsNavigationTransitionMgr.h
-//  JobsOCBaseConfigDemo
+//  JobsNavigationTransitionMgr
 //
-//  Created by Jobs on 2025/5/4.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import <Foundation/Foundation.h>
-#import "UIViewController+Extra.h"
-#import "JobsDefineEnums.h"
-#import "BaseProtocol.h"
-#import "JobsDefineProperty.h"
+#ifndef JOBS_HEADER_GUARD_JOBSNAVIGATIONTRANSITIONMGR_DC5F7A97C2
+#define JOBS_HEADER_GUARD_JOBSNAVIGATIONTRANSITIONMGR_DC5F7A97C2
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsAppToolsHeader.h"
+
+#import "JobsMakes.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,14 +30,15 @@ NS_ASSUME_NONNULL_BEGIN
 UINavigationControllerDelegate
 ,UIGestureRecognizerDelegate
 ,UIViewControllerAnimatedTransitioning
+,AppToolsProtocol
 ,BaseProtocol
 >
 
-+(void)setDirection:(JobsDirection)direction
++(void)setDirection:(JobsTransitionDirection)direction
 forNavigationController:(UINavigationController *)navCtrlVC;
 /// 自定义 push/pop 控制器的手势方向
 +(void)attachToViewController:(UIViewController *)viewController
-           animationDirection:(JobsDirection)direction;
+           animationDirection:(JobsTransitionDirection)direction;
 
 @end
 
@@ -36,3 +49,4 @@ NS_INLINE __kindof JobsNavigationTransitionMgr *_Nonnull jobsMakeNavigationTrans
     if (block) block(data);
     return data;
 }
+#endif /* JOBS_HEADER_GUARD_JOBSNAVIGATIONTRANSITIONMGR_DC5F7A97C2 */

@@ -1,11 +1,12 @@
 //
 //  BaseButton.m
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Jobs on 2021/6/1.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "BaseButton.h"
+#import "UIButton+UI.h"
 
 @interface BaseButton ()
 
@@ -24,6 +25,8 @@ BaseButtonProtocol_synthesize
 @synthesize imageViewFrame = _imageViewFrame;
 /// BaseViewProtocol
 @synthesize isAllowDrag = _isAllowDrag;
+/// GestureProtocol
+GestureProtocol_synthesize
 #pragma mark —— Sys
 -(instancetype)init{
     if (self = [super init]) {
@@ -44,33 +47,29 @@ BaseButtonProtocol_synthesize
 
 - (void)drawRect:(CGRect)rect{
     [super drawRect:rect];
-    self.panRcognize.enabled = self.isAllowDrag;// 悬浮按钮的关键代码
+    self.panGR.enabled = self.isAllowDrag;// 悬浮按钮的关键代码
 }
 /// 【形成Frame后直接return，避免被其他中间过程修改】
 -(void)layoutSubviews{
     [super layoutSubviews];
 //    [self printValue];
     [self resetSubViews];
-    
     for (UIView *subview in self.subviews) {
         if ([subview isKindOfClass:NSClassFromString(UISystemBackgroundView)]) {
-            subview.frame = self.bounds;
+            subview.byFrame(self.bounds);
         }
     }
 }
 
-#pragma mark —— frame
 -(void)setFrame:(CGRect)frame{
     [super setFrame:frame];
 }
 //@synthesize highlighted = _highlighted;
-//#pragma mark —— highlighted
--(void)setHighlighted:(BOOL)highlighted{
+//-(void)setHighlighted:(BOOL)highlighted{
 //    _highlighted = highlighted;
 //    self.jobsResetImage(highlighted ? self.highlightImage : self.normalImage);
 //    self.jobsResetBtnBgImage(highlighted ? self.highlightBackgroundImage : self.backgroundImage);
 //}
-}
 /// 判断触摸点是否在 UITextView 内
 /// 当 UIButton.enabled = NO时，此方法不响应
 -(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
@@ -95,15 +94,15 @@ BaseButtonProtocol_synthesize
     @jobs_weakify(self)
     {/// 【组 1】UIButton 单独自定义设置系统自带控件的Frame ❤️与组2、3属性互斥❤️
         if (!jobsZeroRectValue(self.textLabelFrame)) {
-            self.titleLabel.frame = self.textLabelFrame;
+            self.titleLabel.byFrame(self.textLabelFrame);
         }
         if (!jobsZeroRectValue(self.subTextLabelFrame)) {
             if (@available(iOS 15.0, *)) {
-                self.subtitleLabel.frame = self.subTextLabelFrame;
+                self.subtitleLabel.byFrame(self.subTextLabelFrame);
             }
         }
         if (!jobsZeroRectValue(self.imageViewFrame)) {
-            self.imageView.frame = self.imageViewFrame;
+            self.imageView.byFrame(self.imageViewFrame);
         }
     }
     
@@ -215,17 +214,17 @@ BaseButtonProtocol_synthesize
     {/// UIButton 单独自定义设置系统自带控件的偏移量 ❤️与其他组属性不互斥❤️
         self.titleLabel.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
             @jobs_strongify(self)
-            viewModel.offsetXForEach = self.textLabelFrameOffsetX;
-            viewModel.offsetYForEach = self.textLabelFrameOffsetY;
-            viewModel.offsetWidth = self.textLabelFrameOffsetWidth;
-            viewModel.offsetHeight = self.textLabelFrameOffsetHeight;
+            viewModel.byOffsetXForEach(self.textLabelFrameOffsetX)
+                     .byOffsetYForEach(self.textLabelFrameOffsetY)
+                     .byOffsetWidth(self.textLabelFrameOffsetWidth)
+                     .byOffsetHeight(self.textLabelFrameOffsetHeight);
         }));
         self.imageView.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
             @jobs_strongify(self)
-            viewModel.offsetXForEach = self.imageViewFrameOffsetX;
-            viewModel.offsetYForEach = self.imageViewFrameOffsetY;
-            viewModel.offsetWidth = self.imageViewFrameOffsetWidth;
-            viewModel.offsetHeight = self.imageViewFrameOffsetHeight;
+            viewModel.byOffsetXForEach(self.imageViewFrameOffsetX)
+                     .byOffsetYForEach(self.imageViewFrameOffsetY)
+                     .byOffsetWidth(self.imageViewFrameOffsetWidth)
+                     .byOffsetHeight(self.imageViewFrameOffsetHeight);
         }));
     }
 }
@@ -293,7 +292,6 @@ BaseButtonProtocol_synthesize
     };
 }
 @synthesize selected = _selected;
-#pragma mark —— selected
 -(void)setSelected:(BOOL)selected{
     [super setSelected:selected];
     _selected = selected;

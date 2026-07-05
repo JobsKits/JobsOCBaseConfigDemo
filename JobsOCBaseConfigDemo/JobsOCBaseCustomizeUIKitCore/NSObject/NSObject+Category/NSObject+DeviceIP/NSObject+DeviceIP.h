@@ -1,20 +1,21 @@
 //
 //  NSObject+DeviceIP.h
-//  JobsOCBaseConfigDemo
+//  JobsDeviceInfo
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_DEVICEIP_2BD0B78AE1
+#define JOBS_HEADER_GUARD_NSOBJECT_DEVICEIP_2BD0B78AE1
+
 #import <Foundation/Foundation.h>
-#import <ifaddrs.h>
-#import <arpa/inet.h>
-#import <net/if.h>
-#import "JobsBlock.h"
-#import "JobsNetworkingHeader.h"
-#import "Ipify_api.h"
-#import "IP_api.h"
-#import "Ipinfo_api.h"
-#import "Ipdata_api.h"
+#import <ifaddrs.h>                    // 提供网络接口的相关信息
+#import <arpa/inet.h>                  // 提供 IP 地址和网络字节序相关的工具函数
+#import <net/if.h>                     // 定义网络接口的标志和常量
+#import "Ipify_api.h"   // 简单可靠，只返回设备的公网 IP 地址【GET】
+#import "IP_api.h"      // 提供丰富的地理位置信息【GET】
+#import "Ipinfo_api.h"  // 提供详细的 IP 信息【GET】
+#import "Ipdata_api.h"  // 提供免费和付费选项的地理位置和 IP 查询服务【GET】
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
@@ -33,6 +34,10 @@
 #else
 #import "MJExtension.h"
 #endif
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 #ifndef IOS_CELLULAR
 #define IOS_CELLULAR    @"pdp_ip0"
@@ -82,3 +87,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_DEVICEIP_2BD0B78AE1 */

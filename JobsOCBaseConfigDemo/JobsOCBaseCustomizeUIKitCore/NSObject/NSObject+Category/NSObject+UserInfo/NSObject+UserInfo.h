@@ -13,6 +13,8 @@
 #import "NSMutableSet+Extra.h"
 #import "NSMutableArray+Extra.h"
 #import "NSObject+Extras.h"
+#import "NSObject+AppTools.h"
+#import "NSObject+Model.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

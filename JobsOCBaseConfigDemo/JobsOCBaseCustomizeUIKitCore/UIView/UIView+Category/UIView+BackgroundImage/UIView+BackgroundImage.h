@@ -1,20 +1,38 @@
 //
 //  UIView+BackgroundImage.h
-//  JobsOCBaseConfigDemo
+//  JobsBasePopupView
 //
-//  Created by Jobs on 2021/1/22.
-//  Copyright © 2021 MonkeyKingVideo. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UIVIEW_BACKGROUNDIMAGE_44F789D452
+#define JOBS_HEADER_GUARD_UIVIEW_BACKGROUNDIMAGE_44F789D452
+
+#pragma once
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "JobsDefineProperty.h"
+#import "UIView+Extra.h"
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#import "JobsOCDSL.h"
+
+#import "JobsMakes.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,3 +43,4 @@ Prop_strong()UIImageView *backgroundImageView;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIVIEW_BACKGROUNDIMAGE_44F789D452 */

@@ -1,8 +1,8 @@
 //
 //  UIBackgroundConfiguration+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsSuspend
 //
-//  Created by Mac on 10/9/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIBackgroundConfiguration+Extra.h"

@@ -1,6 +1,6 @@
 //
 //  YTKNetworkProtocols.h
-//  JobsOCBaseConfigDemo
+//  YTKNetworkExtra
 //
 //  Created by Jobs on 2026/5/16.
 //
@@ -9,15 +9,18 @@
 #define JOBS_HEADER_GUARD_YTKNETWORKPROTOCOLS_30DEE14285
 
 #import <Foundation/Foundation.h>
+
 #import "YTKCustomBaseRequestProtocol.h"
-#import "JobsDefines.h"
-#import "JobsBlock.h"
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
 #else
 #import "YTKNetwork.h"
 #endif
+
+#import "JobsDefines.h"
+
+#import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,7 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
    successData:(id _Nullable)successData                               // 本层对success的解析数据
    actionBlock:(jobsByResponseModelBlock _Nullable)actionBlock         // 本层对success的解析回调
   successBlock:(jobsByResponseModelBlock _Nullable)successBlock        // 外层对success的解析回调
-     failBlock:(jobsByVoidBlock _Nullable)failBlock;                   // 失败解析回调
+     failBlock:(jobsByVoidBlock _Nullable)failBlock;
+                   // 失败解析回调
 
 -(void)request:(YTKBaseRequest <YTKCustomBaseRequestProtocol>*)request
   successBlock:(jobsByResponseModelBlock _Nullable)successBlock;

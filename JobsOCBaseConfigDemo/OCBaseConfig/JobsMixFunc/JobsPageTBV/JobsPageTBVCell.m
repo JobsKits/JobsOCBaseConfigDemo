@@ -1,8 +1,8 @@
 //
 //  JobsPageTBVCell.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2021/11/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsPageTBVCell.h"
@@ -15,14 +15,18 @@ Prop_strong()UILabel *textLab;
 
 @implementation JobsPageTBVCell
 #pragma mark —— UITableViewCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsPageTBVCell *cell = (JobsPageTBVCell *)tableView.tableViewCellClass(JobsPageTBVCell.class,@"");
         if (!cell) {
             cell = JobsPageTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
     //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.backgroundColor = cell.contentView.backgroundColor = JobsClearColor;
+            cell
+                .bySelectionStyle(UITableViewCellSelectionStyleNone)
+                .byContentView(^(__kindof UIView * _Nullable view) {
+                    view.byBgColor(JobsClearColor);
+                })
+                .byBgColor(JobsClearColor);
         };return cell;
     };
 }
@@ -32,10 +36,10 @@ Prop_strong()UILabel *textLab;
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         if (model) {
-            self.textLab.textColor = model.textModel.textCor;
-            self.textLab.text = model.textModel.text;
-            self.textLab.font = model.textModel.font;
-            self.textLab.backgroundColor = model.bgCor;
+            self.textLab.byTextCor(model.textModel.textCor);
+            self.textLab.byText(model.textModel.text);
+            self.textLab.byFont(model.textModel.font);
+            self.textLab.byBgColor(model.bgCor);
         //    self.imageView.image = (UIImage *)model[@"image"];
         };return self;
     };
@@ -52,9 +56,11 @@ Prop_strong()UILabel *textLab;
         @jobs_weakify(self)
         _textLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.contentView);
-            }];
+            label
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.contentView);
+                });
         });
     };return _textLab;
 }

@@ -1,8 +1,8 @@
 //
-//  TabBarItem.m
-//  JobsOCBaseConfigDemo
+//  JobsTabBarItem.m
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/10/14.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsTabBarItem.h"
@@ -15,7 +15,7 @@ Prop_strong()JobsTabBarItemConfig *tabBarControllerConfig;
 
 @implementation JobsTabBarItem
 
-+(JobsReturnTabBarItemByConfigBlock _Nonnull)initByConfig{
++(JobsRetTabBarItemByConfigBlock _Nonnull)initByConfig{
     return ^__kindof UITabBarItem *_Nullable(__kindof JobsTabBarItemConfig *_Nullable data){
         return [self.class.alloc initWithConfig:data];
     };

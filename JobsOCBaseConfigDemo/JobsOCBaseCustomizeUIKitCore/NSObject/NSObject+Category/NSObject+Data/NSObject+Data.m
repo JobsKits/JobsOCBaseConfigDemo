@@ -1,8 +1,8 @@
 //
 //  NSObject+Data.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by User on 9/16/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+Data.h"
@@ -38,40 +38,8 @@
         return nil;
     };
 }
-#pragma mark —— 关于数据存储
-///【对FileFolderHandleTool的二次封装】 存数据，储存成功返回地址
-/// @param data 被储存的数据
-/// @param documentsChildDir 在documents旗下的子文件夹名，也可以不用子文件夹进行管理
-/// @param fileFullname 对应写入的文件带后缀的全民
-/// @param error 错误抛出
-+(NSString *_Nullable)saveData:(id _Nonnull)data
-         withDocumentsChildDir:(NSString *_Nullable)documentsChildDir
-                  fileFullname:(NSString *_Nonnull)fileFullname
-                         error:(NSError *__autoreleasing *)error{
-    /// 文件夹路径
-    if (isNull(documentsChildDir)) {
-        documentsChildDir = @"".tr;
-    }
-    NSString *folderPath = NSString.documentsDir.add(@"/").add(documentsChildDir);
-    /// 创建文件夹
-    [FileFolderHandleTool createFoldByFolderUrl:folderPath error:error];
-    /// 文件全名带后缀路径
-    NSString *localFileFullNameStr = folderPath.add(@"/").add(fileFullname);
-    /// 在此文件夹下创建空白文件
-    BOOL k = [FileFolderHandleTool createFileWithFolderAtPath:localFileFullNameStr
-                                                 contentsData:nil
-                                                    overwrite:YES
-                                                        error:error];
-    BOOL Q = NO;
-    if (k) {
-        /// 写文件。
-        Q = [FileFolderHandleTool writeFileAtPath:localFileFullNameStr
-                                          content:data
-                                            error:error];
-    };return Q ? localFileFullNameStr : @"";
-}
 #pragma mark —— 关于万物数据绑定
-#pragma mark —— @property(nonatomic,strong,nullable)id __block data;/// 绑定的数据源，数据类型id
+#pragma mark —— @property(nonatomic,strong,nullable)id __block data;// 绑定的数据源，数据类型id
 JobsKey(_data)
 @dynamic data;
 -(id)data{
@@ -81,7 +49,7 @@ JobsKey(_data)
 -(void)setData:(id)data{
     Jobs_setAssociatedRETAIN_NONATOMIC(_data, data)
 }
-#pragma mark —— UIViewModelOthersProtocol.requestParams /// 绑定的数据源，数据类型id
+#pragma mark —— UIViewModelOthersProtocol.requestParams // 绑定的数据源，数据类型id
 JobsKey(_requestParams)
 @dynamic requestParams;
 -(id)requestParams{

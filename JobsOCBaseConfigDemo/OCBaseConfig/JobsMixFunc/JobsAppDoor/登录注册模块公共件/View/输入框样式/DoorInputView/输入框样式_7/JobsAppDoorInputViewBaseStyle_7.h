@@ -1,16 +1,37 @@
 //
 //  JobsAppDoorInputViewBaseStyle_7.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2021/11/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseViewProtocol.h"
-#import "JobsDoorInputViewProtocol.h"
-#import "JobsAppDoorInputViewBaseStyleModel.h"
+#ifndef JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_7_D1F2310759
+#define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_7_D1F2310759
+
+#import <UIKit/UIKit.h>
+#import "JobsAppDoorConfig.h"
 #import "JobsAppDoorInputViewBaseStyle.h"
-#import "JobsMagicTextField.h"
-#import "JobsDefineProperty.h"
+#import "JobsOCTools.h"
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
+#import "JobsOCDSL.h"
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "JobsLanMgr.h"
+
+#import "JobsMakes.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsDefines.h"
+
+#import "JobsModelDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,56 +45,55 @@ NS_ASSUME_NONNULL_BEGIN
  * 如果以后需要强行禁用init或者new，那么:
  - (instancetype)init NS_UNAVAILABLE;
  - (instancetype)new NS_UNAVAILABLE;
- 
  */
 @end
 
 NS_ASSUME_NONNULL_END
 /**
- 调用示例：
- -(JobsAppDoorInputViewBaseStyle_7 *)选择区号并输入手机号{
-     if (!_选择区号并输入手机号) {
-         _选择区号并输入手机号 = JobsAppDoorInputViewBaseStyle_7.new;
-         [self.view addSubview:_选择区号并输入手机号];
-         @jobs_weakify(self)
-         [_选择区号并输入手机号 actionObjBlock:^(JobsAppDoorInputViewTFModel *data) {
-             @jobs_strongify(self)
- //            if ([data isKindOfClass:JobsAppDoorInputViewTFModel.class]) {
- //                JobsAppDoorInputViewTFModel *model = (JobsAppDoorInputViewTFModel *)data;
- //                self.newsWithdrawPassword = model.resString;
- //            }
-         }];
-         
-         [self.view addSubview:_选择区号并输入手机号];
-         [_选择区号并输入手机号 mas_makeConstraints:^(MASConstraintMaker *make) {
-             make.centerX.equalTo(self.view);
-             make.size.mas_equalTo(inputSize());
-             make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(72));
-         }];
-         
-         _选择区号并输入手机号.layer.cornerRadius = JobsWidth(52 / 2);
-         _选择区号并输入手机号.layer.borderColor = HEXCOLOR(0xEEE2C8).CGColor;
-         _选择区号并输入手机号.jobsRichViewByModel(self.配置选择区号并输入手机号);
-     };return _选择区号并输入手机号;
- }
- 
- -(JobsAppDoorInputViewBaseStyleModel *)配置选择区号并输入手机号{
-     if (!_配置选择区号并输入手机号) {
-         _配置选择区号并输入手机号 = JobsAppDoorInputViewBaseStyleModel.new;
-         _配置选择区号并输入手机号.leftViewIMG = @"小手机图标".img;
-         _配置选择区号并输入手机号.placeHolderStr = @"请输入您的手机号".tr;
- //        配置选择区号并输入手机号.placeholderColor = HEXCOLOR(0xC4C4C4);
-         _配置选择区号并输入手机号.placeholderFont = UIFontWeightRegularSize(JobsWidth(16));
-         _配置选择区号并输入手机号.isShowDelBtn = YES;
-         _配置选择区号并输入手机号.isShowSecurityBtn = NO;
-         _配置选择区号并输入手机号.returnKeyType = UIReturnKeyDone;
-         _配置选择区号并输入手机号.keyboardAppearance = UIKeyboardAppearanceAlert;
-         _配置选择区号并输入手机号.leftViewMode = UITextFieldViewModeAlways;
-         _配置选择区号并输入手机号.moveDistance = JobsWidth(60);
-         _配置选择区号并输入手机号.titleStrCor = _配置选择区号并输入手机号.placeholderColor = HEXCOLOR_ALPHA(0xC4C4C4,1.f);
- //        配置选择区号并输入手机号.background = @"设置弹出框输入框背景图".img;
-     };return _配置选择区号并输入手机号;
- }
 
- 
+     调用示例：
+     -(JobsAppDoorInputViewBaseStyle_7 *)选择区号并输入手机号{
+         if (!_选择区号并输入手机号) {
+             _选择区号并输入手机号 = JobsAppDoorInputViewBaseStyle_7.new;
+             [self.view addSubview:_选择区号并输入手机号];
+             @jobs_weakify(self)
+             [_选择区号并输入手机号 actionObjBlock:^(JobsAppDoorInputViewTFModel *data) {
+                 @jobs_strongify(self)
+     //            if ([data isKindOfClass:JobsAppDoorInputViewTFModel.class]) {
+     //                JobsAppDoorInputViewTFModel *model = (JobsAppDoorInputViewTFModel *)data;
+     //                self.newsWithdrawPassword = model.resString;
+     //            }
+             }];
+
+             _选择区号并输入手机号.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
+                 make.centerX.equalTo(self.view);
+                 make.size.mas_equalTo(inputSize());
+                 make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(72));
+             });
+
+
+             _选择区号并输入手机号.layer.cornerRadius = JobsWidth(52 / 2);
+             _选择区号并输入手机号.layer.borderColor = HEXCOLOR(0xEEE2C8).CGColor;
+             _选择区号并输入手机号.jobsRichViewByModel(self.配置选择区号并输入手机号);
+         };return _选择区号并输入手机号;
+     }
+
+     -(JobsAppDoorInputViewBaseStyleModel *)配置选择区号并输入手机号{
+         if (!_配置选择区号并输入手机号) {
+             _配置选择区号并输入手机号 = JobsAppDoorInputViewBaseStyleModel.new;
+             _配置选择区号并输入手机号.leftViewIMG = @"小手机图标".img;
+             _配置选择区号并输入手机号.placeHolderStr = @"请输入您的手机号".tr;
+     //        配置选择区号并输入手机号.placeholderColor = HEXCOLOR(0xC4C4C4);
+             _配置选择区号并输入手机号.placeholderFont = UIFontWeightRegularSize(JobsWidth(16));
+             _配置选择区号并输入手机号.isShowDelBtn = YES;
+             _配置选择区号并输入手机号.isShowSecurityBtn = NO;
+             _配置选择区号并输入手机号.returnKeyType = UIReturnKeyDone;
+             _配置选择区号并输入手机号.keyboardAppearance = UIKeyboardAppearanceAlert;
+             _配置选择区号并输入手机号.leftViewMode = UITextFieldViewModeAlways;
+             _配置选择区号并输入手机号.moveDistance = JobsWidth(60);
+             _配置选择区号并输入手机号.titleStrCor = _配置选择区号并输入手机号.placeholderColor = HEXCOLOR_ALPHA(0xC4C4C4,1.f);
+     //        配置选择区号并输入手机号.background = @"设置弹出框输入框背景图".img;
+         };return _配置选择区号并输入手机号;
+     }
  */
+#endif /* JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_7_D1F2310759 */

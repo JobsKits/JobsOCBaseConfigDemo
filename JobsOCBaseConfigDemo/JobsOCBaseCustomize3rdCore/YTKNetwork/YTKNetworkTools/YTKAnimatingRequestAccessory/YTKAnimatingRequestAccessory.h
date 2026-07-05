@@ -1,19 +1,26 @@
 //
 //  YTKAnimatingRequestAccessory.h
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Chenyu Lan on 10/30/14.
-//  Copyright (c) 2014 Fenbi. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_YTKANIMATINGREQUESTACCESSORY_2008E8B2F2
+#define JOBS_HEADER_GUARD_YTKANIMATINGREQUESTACCESSORY_2008E8B2F2
 
 #import <UIKit/UIKit.h>
-#import "JobsDefineProperty.h"
 
-#if __has_include(<YTKNetwork/YTKBaseRequest.h>)
-#import <YTKNetwork/YTKBaseRequest.h>
+//#import "YTKAlertUtils.h"
+
+#if __has_include(<YTKNetwork/YTKNetwork.h>)
+#import <YTKNetwork/YTKNetwork.h>
 #else
-#import "YTKBaseRequest.h"
+#import "YTKNetwork.h"
 #endif
+
+#import "JobsDefines.h"
+
+#import "JobsBlock.h"
 
 @interface YTKAnimatingRequestAccessory : NSObject <YTKRequestAccessory>
 
@@ -27,3 +34,4 @@ Prop_copy()NSString *animatingText;
 +(id)accessoryWithAnimatingView:(UIView *)animatingView animatingText:(NSString *)animatingText;
 
 @end
+#endif /* JOBS_HEADER_GUARD_YTKANIMATINGREQUESTACCESSORY_2008E8B2F2 */

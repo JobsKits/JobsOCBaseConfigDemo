@@ -34,6 +34,8 @@ typedef NS_ENUM(NSInteger, NotifiViewState) {
 #import "JobsDefineProperty.h"
 #import "JobsBlock.h"
 
+typedef void(^FinishBlock)(NSString* _Nullable key);
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NotifiView : UIView

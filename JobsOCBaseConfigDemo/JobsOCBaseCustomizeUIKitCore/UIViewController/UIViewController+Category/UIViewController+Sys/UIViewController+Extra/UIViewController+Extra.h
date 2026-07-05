@@ -1,17 +1,38 @@
 //
 //  UIViewController+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2025/4/18.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_EXTRA_82D052E8CF
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_EXTRA_82D052E8CF
+
 #import <UIKit/UIKit.h>
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
+#if __has_include(<GKNavigationBar/GKNavigationBar.h>)
+#import <GKNavigationBar/GKNavigationBar.h>
+#else
+#import "GKNavigationBar.h"
+#endif
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "FDFullscreenPopGesture.h"
+
 #import "JobsBlock.h"
-#import "UINavigationController+FDFullscreenPopGesture.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIViewController (Extra)
+@interface UIViewController (Extra)<BaseViewControllerProtocol>
 
 -(void)make:(MASConstraintMaker *)make topOffset:(CGFloat)topOffset;
 
@@ -26,3 +47,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIVIEWCONTROLLER_EXTRA_82D052E8CF */

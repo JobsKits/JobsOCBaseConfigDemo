@@ -1,17 +1,13 @@
 //
 //  JobsNavigationController.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef JobsNavigationController_h
 #define JobsNavigationController_h
 
-#pragma mark —— Base
-#import "BaseNavigationVC.h"
-
-#pragma mark —— Category
 #import "UINavigationController+SafeTransition.h"
 #import "UINavigationController+Extra.h"
 

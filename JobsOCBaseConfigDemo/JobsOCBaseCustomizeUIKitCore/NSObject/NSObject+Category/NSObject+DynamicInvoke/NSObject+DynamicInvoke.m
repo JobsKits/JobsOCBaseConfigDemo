@@ -1,12 +1,14 @@
 //
 //  NSObject+DynamicInvoke.m
-//  JobsOCBaseConfigDemo
+//  JobsOCRuntimeKits
 //
-//  Created by Jobs on 2021/12/28.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "NSObject+DynamicInvoke.h"
-#import "MacroDef_Sys.h"
+#import "NSValue+Extra.h"
+#import "NSObject+Algorithm.h"
+#import "NSString+Extra.h"
 
 @implementation NSObject (DynamicInvoke)
 #pragma mark —— 参数 和 相关调用
@@ -183,11 +185,16 @@ SEL _Nullable selectorBlocks(JobsRetIDByTwoIDBlock _Nullable block,
         toastErr(@"方法不存在,请检查参数".tr);
         return NULL;
     }
+    if (!target) {
+        toastErr(@"执行目标不存在,请检查参数".tr);
+        return NULL;
+    }
     NSString *selName = @"selector"
         .add(@"_")
         .add(toStringByID(target.makeSnowflake))
         .add(@"_")
         .add(selectorName);
+    if (![selName hasSuffix:@":"]) selName = selName.add(@":");
     JobsLog(@"selName = %@", selName);
     SEL sel = NSSelectorFromString(selName);
     /// 检查缓存
@@ -197,10 +204,9 @@ SEL _Nullable selectorBlocks(JobsRetIDByTwoIDBlock _Nullable block,
         methodCache = NSMutableDictionary.dictionary;
     });
     
-    NSValue *cachedSelValue = methodCache[selName];
-    if (cachedSelValue) {
-        return cachedSelValue.pointerValue;
-    }
+    NSString *cacheKey = NSStringFromClass(target.class)
+        .add(@"_")
+        .add(selName);
     /**
      方法签名由方法名称和一个参数列表（方法的参数的顺序和类型）组成
      注意：方法签名不包括方法的返回类型。不包括返回值和访问修饰符
@@ -209,15 +215,30 @@ SEL _Nullable selectorBlocks(JobsRetIDByTwoIDBlock _Nullable block,
      第三个参数是所添加方法的函数实现的指针IMP
      第四个参数是所添加方法的签名
      */
-    /// 检查目标类是否已有该方法
-    if (class_getInstanceMethod([target class], sel)) {
-        JobsLog(@"方法曾经已经被成功添加，再次添加会崩溃");
-        return sel;
-    } else {
-        /// 动态添加方法
-        if (class_addMethod([target class], sel, (IMP)selectorImp, "v@:@@")) {
+    @synchronized (methodCache) {
+        NSValue *cachedSelValue = methodCache[cacheKey];
+        if (cachedSelValue) {
+            SEL cachedSel = cachedSelValue.pointerValue;
+            if (class_getInstanceMethod(target.class, cachedSel)) {
+                Jobs_setAssociatedCOPY_NONATOMICByTargetRawKey(target, cachedSel, block)
+                return cachedSel;
+            }
+            [methodCache removeObjectForKey:cacheKey];
+        }
+        /// 检查目标类是否已有该方法
+        if (class_getInstanceMethod(target.class, sel)) {
             Jobs_setAssociatedCOPY_NONATOMICByTargetRawKey(target, sel, block)
-            methodCache[selName] = NSValue.byPointer(sel);
+            methodCache[cacheKey] = NSValue.byPointer(sel);
+            JobsLog(@"方法曾经已经被成功添加，再次添加会崩溃");
+            return sel;
+        }
+        /// 动态添加方法
+        if (class_addMethod(target.class, sel, (IMP)selectorImp, "v@:@")) {
+            Jobs_setAssociatedCOPY_NONATOMICByTargetRawKey(target, sel, block)
+            methodCache[cacheKey] = NSValue.byPointer(sel);
+        } else if (class_getInstanceMethod(target.class, sel)) {
+            Jobs_setAssociatedCOPY_NONATOMICByTargetRawKey(target, sel, block)
+            methodCache[cacheKey] = NSValue.byPointer(sel);
         } else {
             [NSException raise:@"添加方法失败".tr
                         format:@"%@ selectorBlock error", target];

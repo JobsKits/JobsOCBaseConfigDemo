@@ -1,11 +1,13 @@
 //
 //  JobsStatusBarSetttingVC.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by User on 9/9/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsStatusBarSetttingVC.h"
+#import "NSArray+Extra.h"
+#import "NSObject+Extra.h"
 
 @interface JobsStatusBarSetttingVC ()
 
@@ -55,28 +57,29 @@ BaseViewControllerProtocol_synthesize
     [super viewDidDisappear:animated];
 }
 /**
- iOS 状态栏颜色的修改
- 【全局修改】
-  1、在Info.plist里面加入如下键值对：
-     1.1、View controller-based status bar appearance : NO
-     1.2、Status bar style : Light Content
 
-  2、UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;// iOS 13 后方法被标注废弃
+     iOS 状态栏颜色的修改
+     【全局修改】
+      1、在Info.plist里面加入如下键值对：
+         1.1、View controller-based status bar appearance : NO
+         1.2、Status bar style : Light Content
 
-  1.2 和 2 任意选一个即可
+      2、UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;// iOS 13 后方法被标注废弃
 
- 【局部修改】
-  1、在Info.plist里面加入如下键值对：
-  View controller-based status bar appearance ： YES //全局是NO、局部是YES
-  2、@ interface BaseNavigationVC : UINavigationController
-     2.1、在 BaseNavigationVC.m里面写入：
-     - (UIViewController *)childViewControllerForStatusBarStyle {
-             return self.topViewController;
-     }
-     2.2、在具体的需要修改的VC.m里面写入：
-     -(UIStatusBarStyle)preferredStatusBarStyle{
-         return UIStatusBarStyleLightContent;
-     }
+      1.2 和 2 任意选一个即可
+
+     【局部修改】
+      1、在Info.plist里面加入如下键值对：
+      View controller-based status bar appearance ： YES //全局是NO、局部是YES
+      2、@ interface BaseNavigationVC : UINavigationController
+         2.1、在 BaseNavigationVC.m里面写入：
+         - (UIViewController *)childViewControllerForStatusBarStyle {
+                 return self.topViewController;
+         }
+         2.2、在具体的需要修改的VC.m里面写入：
+         -(UIStatusBarStyle)preferredStatusBarStyle{
+             return UIStatusBarStyleLightContent;
+         }
  */
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
@@ -88,11 +91,12 @@ BaseViewControllerProtocol_synthesize
     return ^(UIColor *_Nullable cor) {
         @jobs_strongify(self)
         if (@available(iOS 13.0, *)) {
-            if (!MainWindow.subviews.containsObject(self.statusBar)) {
+            if (!jobsGetMainWindow().subviews.containsObject(self.statusBar)) {
                 [self.statusBar removeFromSuperview];
             }
             if(!cor) cor = JobsWhiteColor;
-            self.statusBar.backgroundColor = cor;
+            self.statusBar.byBgColor(cor);
+
         } else {
             self.changeStatusBarCor(JobsClearColor);
         }
@@ -118,14 +122,17 @@ BaseViewControllerProtocol_synthesize
     return ^(UIColor *_Nullable data){
         UIView *statusBar = [UIApplication.sharedApplication.valueForKey(@"statusBarWindow") valueForKey:@"statusBar"];
         if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
-            statusBar.backgroundColor = data;
+            statusBar.byBgColor(data);
+
         }[self setNeedsStatusBarAppearanceUpdate];// 手动触发 preferredStatusBarStyle 更新状态栏颜色
     };
 }
 #pragma mark —— lazyLoad
 -(UIView *)statusBar{
     if (!_statusBar) {
-        _statusBar = [UIView.alloc initWithFrame:jobsGetMainWindowWithSize().windowScene.statusBarManager.statusBarFrame];
+        _statusBar = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byFrame(jobsGetMainWindowWithSize().windowScene.statusBarManager.statusBarFrame);
+        });
     };return _statusBar;
 }
 

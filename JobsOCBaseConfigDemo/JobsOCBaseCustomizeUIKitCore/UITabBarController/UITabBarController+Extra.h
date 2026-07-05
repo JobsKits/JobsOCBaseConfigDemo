@@ -1,15 +1,18 @@
 //
 //  UITabBarController+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2025/5/31.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_UITABBARCONTROLLER_EXTRA_FA118238DD
+#define JOBS_HEADER_GUARD_UITABBARCONTROLLER_EXTRA_FA118238DD
+
 #import <UIKit/UIKit.h>
-#import "AppDelegate+TabBarCtr.h"
-#import "JobsCustomTabBar.h"
+
 #import "JobsBlock.h"
-#import "UIView+Measure.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,3 +24,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UITABBARCONTROLLER_EXTRA_FA118238DD */

@@ -1,11 +1,47 @@
 //
 //  JobsUserHeaderDataView.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2022/5/19.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsUserHeaderDataView.h"
+
+static void JobsUserHeaderDataViewSetAssociatedObject(id target, SEL setter, id value) {
+    if (![target respondsToSelector:setter]) return;
+    NSMethodSignature *signature = [target methodSignatureForSelector:setter];
+    if (!signature) return;
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+    invocation.target = target;
+    invocation.selector = setter;
+    [invocation setArgument:&value atIndex:2];
+    [invocation invoke];
+}
+
+static void JobsUserHeaderDataViewInvokePhotoAlbum(id target,
+                                                   jobsByIDBlock _Nullable successBlock,
+                                                   jobsByIDBlock _Nullable failBlock) {
+    SEL selector = @selector(hx_invokeSysPhotoAlbumSuccessBlock:failBlock:);
+    if (![target respondsToSelector:selector]) return;
+    NSMethodSignature *signature = [target methodSignatureForSelector:selector];
+    if (!signature) return;
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+    invocation.target = target;
+    invocation.selector = selector;
+    [invocation setArgument:&successBlock atIndex:2];
+    [invocation setArgument:&failBlock atIndex:3];
+    [invocation invoke];
+}
+
+static void JobsUserHeaderDataViewInvokeCamera(id target) {
+    SEL selector = @selector(invokeSysCamera);
+    if (![target respondsToSelector:selector]) return;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    jobsByVoidBlock cameraBlock = [target performSelector:selector];
+#pragma clang diagnostic pop
+    if (cameraBlock) cameraBlock();
+}
 
 @interface JobsUserHeaderDataView ()
 /// Data
@@ -33,7 +69,8 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+
 //        [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
 //                                            cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
     };return self;
@@ -48,7 +85,8 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+
 //        [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
 //                                            cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
     };return self;
@@ -65,26 +103,26 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
 -(__kindof JobsUserHeaderDataView *)makeImageByBlock:(jobsByIDBlock _Nullable)block
                                          finishBlock:(jobsByVoidBlock)finishBlock{
     @jobs_weakify(self)
-    self.popupParameter = nil;
+    JobsUserHeaderDataViewSetAssociatedObject(self, @selector(setPopupParameter:), nil);
     self.bySize(JobsUserHeaderDataView.viewSizeByModel(nil))
         .JobsRichViewByModel2(nil)
         .JobsBlock1(^(JobsUserHeaderDataViewTBVCell *cell) {
             @jobs_strongify(self)
             if (cell.getTitleValue.isEqualToString(拍照.tr)) {
-                self.invokeSysCamera();/// 完全意义上的调用系统的相机拍照功能
+                JobsUserHeaderDataViewInvokeCamera(self);/// 完全意义上的调用系统的相机拍照功能
             }else if (cell.getTitleValue.isEqualToString(从相册中选取.tr)){
-                [self hx_invokeSysPhotoAlbumSuccessBlock:^(HXPhotoPickerModel *data) {
+                JobsUserHeaderDataViewInvokePhotoAlbum(self, ^(HXPhotoPickerModel *data) {
                     @jobs_strongify(self)
-                    self.photoManager = data.photoManager;
+                    JobsUserHeaderDataViewSetAssociatedObject(self, @selector(setPhotoManager:), data.photoManager);
                     [data.photoList hx_requestImageWithOriginal:NO
                                                      completion:^(NSArray<UIImage *>*_Nullable imageArray,
                                                                   NSArray<HXPhotoModel *>*_Nullable errorArray) {
                         @jobs_strongify(self)
                         if(block) block(NSMutableArray.initBy(imageArray).lastObject);/// 永远值显示最后选择的图
                     }];
-                } failBlock:^(HXPhotoPickerModel *data) {
+                }, ^(HXPhotoPickerModel *data) {
     //                @jobs_strongify(self)
-                }];
+                });
             }else if (cell.getTitleValue.isEqualToString(取消.tr)){
 //                    @jobs_strongify(self)
             }else{}
@@ -101,12 +139,12 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
     });
 }
 
-+(JobsReturnViewModelByStringBlock _Nonnull)makeViewModelBy{
++(JobsRetViewModelByStringBlock _Nonnull)makeViewModelBy{
     return ^ __kindof UIViewModel *_Nullable(NSString *_Nullable data){
         return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.text = data;
-            viewModel.textModel.font = UIFontWeightRegularSize(JobsWidth(18));
-            viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
+            viewModel.textModel.byText(data)
+                               .byFont(UIFontWeightRegularSize(JobsWidth(18)))
+                               .byTextCor(HEXCOLOR(0x3D4A58));
         });
     };
 }
@@ -116,7 +154,7 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : UIViewModel.new;
+        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
     //    self.viewModel.usesTableViewHeaderView = YES;// 这个属性在外面设置
         MakeDataNull
         self.tableView.byShow(self);
@@ -125,7 +163,7 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 +(JobsRetCGSizeByIDBlock _Nonnull)viewSizeByModel{
     return ^CGSize(UIViewModel *_Nullable data){
-        data = data ? : UIViewModel.new;
+        data = data ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
     //    model.usesTableViewHeaderView = YES;// 这个属性在外面设置
         return CGSizeMake(JobsMainScreen_WIDTH(),
                           (data.usesTableViewHeaderView ? JobsUserHeaderDataViewForHeaderInSection.viewHeightByModel(nil) : 0 ) +
@@ -156,11 +194,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return JobsUserHeaderDataViewTBVCell.cellStyleValue2WithTableView(tableView)
+    return JobsUserHeaderDataViewTBVCell.cellStyleValue2ByTableView(tableView)
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
-            .JobsBlock1(^(id _Nullable data) {
+            .JobsBlock1(^(id _Nullable data) {;
              
             });
 }
@@ -189,7 +227,7 @@ viewForHeaderInSection:(NSInteger)section{
             .byStyle(JobsHeaderViewStyle)/// 悬浮开关
             .bySection(section)/// 悬浮配置
             .JobsRichViewByModel2(nil)
-            .JobsBlock1(^(id _Nullable data) {
+            .JobsBlock1(^(id _Nullable data) {;
                 
             });
     };return nil;
@@ -206,22 +244,22 @@ viewForHeaderInSection:(NSInteger)section{
             tableView.registerHeaderFooterViewClass(JobsUserHeaderDataViewForHeaderInSection.class,@"")
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
                 .bySeparatorColor(HEXCOLOR(0xEEE2C8))
-                .registerHeaderFooterViewClass(MSCommentTableHeaderFooterView.class,nil)
                 .byTableHeaderView(jobsMakeView(^(__kindof UIView * _Nullable view) {
                     /// TODO
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .byTableFooterView(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
-                    label.byText(@"- 没有更多的内容了 -".tr)
+                    label
+                        .byText(@"- 没有更多的内容了 -".tr)
                         .byFont(UIFontWeightRegularSize(12))
                         .byTextAlignment(NSTextAlignmentCenter)
                         .byTextCor(HEXCOLOR(0xB0B0B0))
                         .makeLabelByShowingType(UILabelShowingType_03);
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                    data.title = @"NO MESSAGES FOUND".tr;
-                    data.titleCor = JobsWhiteColor;
-                    data.titleFont = bayonRegular(JobsWidth(30));
-                    data.normalImage = @"小狮子".img;
+                    data.byTitle(@"NO MESSAGES FOUND".tr)
+                        .byTitleCor(JobsWhiteColor)
+                        .byTitleFont(bayonRegular(JobsWidth(30)))
+                        .byNormalImage(@"小狮子".img);
                 }))
                 /// 普通的MJRefreshHeader（触发事件）
                 .byMJRefreshHeader([MJRefreshNormalHeader headerWithRefreshingBlock:^{

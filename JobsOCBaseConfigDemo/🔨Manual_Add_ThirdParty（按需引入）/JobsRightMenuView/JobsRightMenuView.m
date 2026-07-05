@@ -1,8 +1,8 @@
 //
-//  FMHomeRightMenuView.m
-//  JobsOCBaseConfigDemo
+//  JobsRightMenuView.m
+//  JobsOCTools
 //
-//  Created by Admin on 10/4/2025.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsRightMenuView.h"
@@ -61,9 +61,12 @@ Prop_copy()NSArray <__kindof UIButton*>*datas;
         if([model.data isKindOfClass:NSArray.class]){
             self.datas = (NSArray *)model.data;
         }
-        self.suspendBtn.alpha = 1;
-        self.stackImageView.alpha = 1;
-        self.stackView.alpha = 1;
+        self.suspendBtn.byAlpha(1);
+
+        self.stackImageView.byAlpha(1);
+
+        self.stackView.byAlpha(1);
+
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -130,7 +133,8 @@ Prop_copy()NSArray <__kindof UIButton*>*datas;
         @jobs_weakify(self)
         _stackView = self.addSubview(jobsMakeStackView(^(__kindof UIStackView * _Nullable stackView) {
             @jobs_strongify(self)
-            stackView.backgroundColor = JobsClearColor;
+            stackView.byBgColor(JobsClearColor);
+
             stackView.axis = UILayoutConstraintAxisVertical; // 垂直排列
             stackView.spacing = 0; // 每个按钮之间的间距
             stackView.distribution = UIStackViewDistributionFillEqually; // 平均分配高度

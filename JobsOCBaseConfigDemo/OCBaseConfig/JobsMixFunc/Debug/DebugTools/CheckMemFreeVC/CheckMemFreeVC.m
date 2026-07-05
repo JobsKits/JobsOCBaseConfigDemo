@@ -1,11 +1,12 @@
 //
 //  CheckMemFreeVC.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2021/3/5.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "CheckMemFreeVC.h"
+#import "NSString+Toast.h"
 
 @interface CheckMemFreeVC ()
 
@@ -25,7 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     @"检查者进栈".tr.toast();
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
+
     JobsLog(@"%@",JobsLocalFunc);
 }
 

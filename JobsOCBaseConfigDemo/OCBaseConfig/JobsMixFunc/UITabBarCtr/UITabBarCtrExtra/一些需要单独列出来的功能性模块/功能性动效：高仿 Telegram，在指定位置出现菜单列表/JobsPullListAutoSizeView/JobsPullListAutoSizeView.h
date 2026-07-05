@@ -1,16 +1,25 @@
 //
 //  JobsPullListAutoSizeView.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Jobs on 2020/10/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_JOBSPULLLISTAUTOSIZEVIEW_1A9C50AD77
+#define JOBS_HEADER_GUARD_JOBSPULLLISTAUTOSIZEVIEW_1A9C50AD77
+
 #import <UIKit/UIKit.h>
-#import "UIViewModel.h"
-#import "BaseView.h"
 #import "JobsPullListTBVCell.h"
-#import "UIView+Extras.h"
-#import "JobsDefineProperty.h"
+
+#import "JobsModelDSL.h"
+
+#import "JobsByOCPods.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,3 +40,4 @@ Prop_strong()UIColor *bgColorListTBV;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_JOBSPULLLISTAUTOSIZEVIEW_1A9C50AD77 */

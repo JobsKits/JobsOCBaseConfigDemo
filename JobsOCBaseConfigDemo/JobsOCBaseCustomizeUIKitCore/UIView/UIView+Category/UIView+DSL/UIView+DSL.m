@@ -1,16 +1,14 @@
 //
 //  UIView+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIView+DSL.h"
-#import <objc/message.h>
-#import <objc/runtime.h>
-#import "NSObject+Measure.h"
-#import "NSValue+Extra.h"
 
+JobsKey(JobsUIViewLayoutSubviewsRectCornerKey)
+JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
 @implementation UIView (DSL)
 #pragma mark —— Geometry
 -(JobsRetViewByFrameBlock _Nonnull)byFrame{
@@ -122,28 +120,22 @@
     };
 }
 
-#pragma mark —— Prop_assign()UIRectCorner layoutSubviewsRectCorner;
-JobsKey(_layoutSubviewsRectCorner)
-@dynamic layoutSubviewsRectCorner;
 -(UIRectCorner)layoutSubviewsRectCorner{
-    NSNumber *number = Jobs_getAssociatedObject(_layoutSubviewsRectCorner);
+    NSNumber *number = Jobs_getAssociatedObject(JobsUIViewLayoutSubviewsRectCornerKey);
     return number ? (UIRectCorner)number.unsignedIntegerValue : 0;
 }
 
 -(void)setLayoutSubviewsRectCorner:(UIRectCorner)layoutSubviewsRectCorner{
-    Jobs_setAssociatedRETAIN_NONATOMIC(_layoutSubviewsRectCorner, @(layoutSubviewsRectCorner))
+    Jobs_setAssociatedRETAIN_NONATOMIC(JobsUIViewLayoutSubviewsRectCornerKey, @(layoutSubviewsRectCorner))
 }
 
-#pragma mark —— Prop_assign()CGSize layoutSubviewsRectCornerSize;
-JobsKey(_layoutSubviewsRectCornerSize)
-@dynamic layoutSubviewsRectCornerSize;
 -(CGSize)layoutSubviewsRectCornerSize{
-    NSValue *value = Jobs_getAssociatedObject(_layoutSubviewsRectCornerSize);
+    NSValue *value = Jobs_getAssociatedObject(JobsUIViewLayoutSubviewsRectCornerSizeKey);
     return value ? value.CGSizeValue : CGSizeZero;
 }
 
 -(void)setLayoutSubviewsRectCornerSize:(CGSize)layoutSubviewsRectCornerSize{
-    Jobs_setAssociatedRETAIN_NONATOMIC(_layoutSubviewsRectCornerSize, [NSValue valueWithCGSize:layoutSubviewsRectCornerSize])
+    Jobs_setAssociatedRETAIN_NONATOMIC(JobsUIViewLayoutSubviewsRectCornerSizeKey, [NSValue valueWithCGSize:layoutSubviewsRectCornerSize])
 }
 
 -(JobsRetViewByUIRectCornerBlock _Nonnull)byLayoutSubviewsRectCorner{
@@ -581,7 +573,6 @@ JobsKey(_layoutSubviewsRectCornerSize)
         return self;
     };
 }
-
 
 #pragma mark —— UIView+Measure migrated geometry / layout DSL
 #pragma mark —— 初始化方法封装

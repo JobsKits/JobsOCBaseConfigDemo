@@ -1,12 +1,13 @@
 //
 //  UIAlertAction+Extra.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Admin on 25/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <UIKit/UIKit.h>
-#import "JobsAlertModel.h"
+
+#import "JobsModelDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,8 +17,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
+#ifndef JOBS_MAKE_ALERT_ACTION_BY_HELPER
+#define JOBS_MAKE_ALERT_ACTION_BY_HELPER
+
 NS_INLINE __kindof UIAlertAction *_Nonnull JobsMakeAlertActionBy(JobsAlertModel *_Nonnull model){
     return [UIAlertAction actionWithTitle:model.alertActionTitle
                                     style:model.alertActionStyle
                                   handler:model.alertActionBlock];
 }
+
+#endif

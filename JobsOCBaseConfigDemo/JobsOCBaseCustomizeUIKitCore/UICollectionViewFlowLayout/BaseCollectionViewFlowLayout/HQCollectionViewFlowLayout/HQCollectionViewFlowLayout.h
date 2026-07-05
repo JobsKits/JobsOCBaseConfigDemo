@@ -1,15 +1,18 @@
 //
 //  HQCollectionViewFlowLayout.h
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Mr_Han on 2018/10/10.
-//  Copyright © 2018年 Mr_Han. All rights reserved.
-//  CSDN <https://blog.csdn.net/u010960265>
-//  GitHub <https://github.com/HanQiGod>
-// 
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_HQCOLLECTIONVIEWFLOWLAYOUT_4F2CA45D6B
+#define JOBS_HEADER_GUARD_HQCOLLECTIONVIEWFLOWLAYOUT_4F2CA45D6B
 
 #import <UIKit/UIKit.h>
-#import "JobsDefineProperty.h"
+
+#import "JobsBlock.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// UICollectionView 实现类似于UITableView的悬停效果
@@ -20,3 +23,4 @@ Prop_assign()CGFloat naviHeight;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_HQCOLLECTIONVIEWFLOWLAYOUT_4F2CA45D6B */

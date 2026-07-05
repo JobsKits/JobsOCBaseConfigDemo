@@ -2,7 +2,7 @@
 //  TestIrregularViewTestVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/1/8.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "TestIrregularViewTestVC.h"
@@ -28,23 +28,29 @@
         }
     }
     
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
     
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsYellowColor;
+    self.view.byBgColor(JobsYellowColor);
+
     
     self.makeNavByAlpha(1);
     
@@ -67,40 +73,52 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 }
+
+-(CGFloat)irregularViewContentOffsetY{
+    CGFloat navBottom = CGRectGetMaxY(self.gk_navigationBar.frame);
+    return navBottom > 0 ? navBottom : JobsNavigationBarAndStatusBarHeight(nil);
+}
 /// 右斜边梯形
 -(void)view1{
+    CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
-    btn.backgroundColor = [UIColor orangeColor];
+    btn.byBgColor([UIColor orangeColor]);
+
     [btn setTitle:@"按钮" forState:UIControlStateNormal];
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
         int B = (arc4random() % 256) ;
-        x.backgroundColor = RGB_COLOR(R, G, B);
+        x.byBgColor(RGB_COLOR(R, G, B));
+
     }];
     /// 添加路径关键点array
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(0.f, 0.f)));
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(120, 0.f)));
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(120 *3/4, 50)));
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(0.f, 120)));
-    [self.view addSubview:btn];
-    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+    btn.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(20);
-        make.top.equalTo(self.view).offset(100);
+        make.top.equalTo(self.view).offset(100 + contentOffsetY);
         make.size.mas_offset(CGSizeMake(120, 50));
-    }];
+    });
+
 }
 /// 平行四边形
 -(void)view2{
+    CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(120, 100, 120, 50);
-    btn.backgroundColor = [UIColor greenColor];
+    btn.byFrame(CGRectMake(120, 100 + contentOffsetY, 120, 50));
+
+    btn.byBgColor([UIColor greenColor]);
+
     [btn setTitle:@"按钮" forState:UIControlStateNormal];
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
         int B = (arc4random() % 256) ;
-        x.backgroundColor = RGB_COLOR(R, G, B);
+        x.byBgColor(RGB_COLOR(R, G, B));
+
     }];
     /// 添加路径关键点array
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(0.f, 50.f)));
@@ -111,15 +129,19 @@
 }
 /// 左斜边梯形
 -(void)view3{
+    CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(220, 100, 120, 50);
-    btn.backgroundColor = [UIColor cyanColor];
+    btn.byFrame(CGRectMake(220, 100 + contentOffsetY, 120, 50));
+
+    btn.byBgColor([UIColor cyanColor]);
+
     [btn setTitle:@"按钮" forState:UIControlStateNormal];
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
         int B = (arc4random() % 256) ;
-        x.backgroundColor = RGB_COLOR(R, G, B);
+        x.byBgColor(RGB_COLOR(R, G, B));
+
     }];[self.view addSubview:btn];
     /// 添加路径关键点array
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(120 / 4, 50.f)));
@@ -129,15 +151,19 @@
 }
 /// 六角形
 - (void)view4{
+    CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(20, 200, 150, 150);
-    btn.backgroundColor = [UIColor purpleColor];
+    btn.byFrame(CGRectMake(20, 200 + contentOffsetY, 150, 150));
+
+    btn.byBgColor([UIColor purpleColor]);
+
     [btn setTitle:@"按钮" forState:UIControlStateNormal];
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
         int B = (arc4random() % 256) ;
-        x.backgroundColor = RGB_COLOR(R, G, B);
+        x.byBgColor(RGB_COLOR(R, G, B));
+
     }];[self.view addSubview:btn];
     /// 添加路径关键点array
     float viewWidth = btn.frame.size.width;
@@ -161,15 +187,19 @@
 }
 /// 对折形状
 -(void)view5{
+    CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(200, 200, 150, 150);
-    btn.backgroundColor = [UIColor brownColor];
+    btn.byFrame(CGRectMake(200, 200 + contentOffsetY, 150, 150));
+
+    btn.byBgColor([UIColor brownColor]);
+
     [btn setTitle:@"按钮" forState:UIControlStateNormal];
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
         int B = (arc4random() % 256) ;
-        x.backgroundColor = RGB_COLOR(R, G, B);
+        x.byBgColor(RGB_COLOR(R, G, B));
+
     }];[self.view addSubview:btn];
     /// 添加路径关键点array
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(0.f, 0.f)));
@@ -179,15 +209,19 @@
 }
 /// 箭头
 -(void)view6 {
+    CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(20, 380, 330, 150);
-    btn.backgroundColor = [UIColor magentaColor];
+    btn.byFrame(CGRectMake(20, 380 + contentOffsetY, 330, 150));
+
+    btn.byBgColor([UIColor magentaColor]);
+
     [btn setTitle:@"按钮" forState:UIControlStateNormal];
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
         int B = (arc4random() % 256) ;
-        x.backgroundColor = RGB_COLOR(R, G, B);
+        x.byBgColor(RGB_COLOR(R, G, B));
+
     }];[self.view addSubview:btn];
     /// 添加路径关键点array
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(0, 150)));
@@ -200,4 +234,3 @@
 }
 
 @end
-

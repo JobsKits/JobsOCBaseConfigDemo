@@ -1,12 +1,24 @@
 //
 //  JobsTabBar.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by mac on 2017/5/19.
-//  Copyright © 2017年 flowyears. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsTabBar.h"
+#import "JobsTabBarItemConfig.h"
+#import "UITabBar+Ex.h"
+
+static NSArray<__kindof JobsTabBarItemConfig *> *JobsTabBarItemConfigs(void) {
+    Class appDelegateClass = NSClassFromString(@"AppDelegate");
+    if (!appDelegateClass) return @[];
+    @try {
+        id value = [appDelegateClass valueForKey:@"tabBarItemConfigMutArr"];
+        return [value isKindOfClass:NSArray.class] ? value : @[];
+    } @catch (__unused NSException *exception) {
+        return @[];
+    }
+}
 
 @interface JobsTabBar ()
 
@@ -36,7 +48,8 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
             UIImageView *imageView = nil; /// TabBar的图片
             if ([subview isKindOfClass:UILabel.class]) {
                 label = (UILabel *)subview;
-                label.backgroundColor = JobsRedColor;
+                label.byBgColor(JobsRedColor);
+
                 [label sizeToFit];
             }
             if ([subview isKindOfClass:UIImageView.class]) {
@@ -44,7 +57,9 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
             }
             [self layoutIfNeeded];
             if (label && imageView) {
-                JobsTabBarItemConfig *tabBarControllerConfig = AppDelegate.tabBarItemConfigMutArr[self.tabBarButtons.count - 1];
+                NSArray<__kindof JobsTabBarItemConfig *> *tabBarItemConfigs = JobsTabBarItemConfigs();
+                if (self.tabBarButtons.count > tabBarItemConfigs.count) continue;
+                JobsTabBarItemConfig *tabBarControllerConfig = tabBarItemConfigs[self.tabBarButtons.count - 1];
                 [self alignLabel:label
                        imageView:imageView
                     tabBarButton:subview
@@ -54,8 +69,10 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
     }
 
     CGFloat s = 0.f;
-    for (int t = 0; t < AppDelegate.tabBarItemConfigMutArr.count ; t++) {
-        JobsTabBarItemConfig *tabBarControllerConfig = AppDelegate.tabBarItemConfigMutArr[t];
+    NSArray<__kindof JobsTabBarItemConfig *> *tabBarItemConfigs = JobsTabBarItemConfigs();
+    for (int t = 0; t < tabBarItemConfigs.count ; t++) {
+        if (t >= self.tabBarButtons.count) break;
+        JobsTabBarItemConfig *tabBarControllerConfig = tabBarItemConfigs[t];
         LOTAnimationView *lOTAnimationView = nil;
         if(self.lOTAnimationViews.count){
             lOTAnimationView = self.lOTAnimationViews[t];
@@ -73,7 +90,8 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
         if(tabBarControllerConfig.tabBarItemWidth){
             tabBarButton.resetWidth(tabBarControllerConfig.tabBarItemWidth);
         }
-        lOTAnimationView.frame = tabBarButton.frame;
+        lOTAnimationView.byFrame(tabBarButton.frame);
+
     }
 }
 ///【覆写父类方法】自定义 TabBar 的高度
@@ -113,7 +131,8 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
             }
             
             if (self.viewModel.bgCor) {
-                self.backgroundColor = self.viewModel.bgCor;
+                self.byBgColor(self.viewModel.bgCor);
+
             }
         }
     };
@@ -150,7 +169,8 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
                                      centerY - labelHeight / 2.0,
                                      labelWidth,
                                      labelHeight);
-            label.textAlignment = NSTextAlignmentLeft;
+            label.byTextAlignment(NSTextAlignmentLeft);
+
             break;
         }
         case ImageRightTitleLeft: {
@@ -164,7 +184,8 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
                                          (totalHeight - imageHeight) / 2.0,
                                          imageWidth,
                                          imageHeight);
-            label.textAlignment = NSTextAlignmentRight;
+            label.byTextAlignment(NSTextAlignmentRight);
+
             break;
         }
         case ImageTopTitleBottom: {
@@ -185,7 +206,8 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
 //            label.jobsLogFrame(@"打印的时候额外添加的标识字符.Frame");
 //            label.jobsLogPoint(@"打印的时候额外添加的标识字符.Point");
 //            label.jobsLogSize(@"打印的时候额外添加的标识字符.Size");
-            label.textAlignment = NSTextAlignmentCenter;
+            label.byTextAlignment(NSTextAlignmentCenter);
+
             break;
         }
         case ImageBottomTitleTop: {
@@ -199,7 +221,8 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
                                          CGRectGetMaxY(label.frame) + spacing,
                                          imageWidth,
                                          imageHeight);
-            label.textAlignment = NSTextAlignmentCenter;
+            label.byTextAlignment(NSTextAlignmentCenter);
+
             break;
         }
     }
@@ -227,7 +250,9 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
             for (int t = 0;
                  t < self.tabBarButtons.count;
                  t++) {
-                JobsTabBarItemConfig *config = (JobsTabBarItemConfig *)AppDelegate.tabBarItemConfigMutArr[t];
+                NSArray<__kindof JobsTabBarItemConfig *> *tabBarItemConfigs = JobsTabBarItemConfigs();
+                if (t >= tabBarItemConfigs.count) break;
+                JobsTabBarItemConfig *config = (JobsTabBarItemConfig *)tabBarItemConfigs[t];
     //            -config.humpOffsetY / 2
                 /// 根据config.lottieName 方法-config.lottieName:offsetY:lottieName:内部做了判空处理
                 LOTAnimationView *lotAnimationView = [self addLottieImage:t lottieName:config.lottieName];
@@ -242,7 +267,7 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
 @synthesize viewModel = _viewModel;
 -(UIViewModel *)viewModel{
     if(!_viewModel){
-        _viewModel = UIViewModel.new;
+        _viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
     };return _viewModel;
 }
 

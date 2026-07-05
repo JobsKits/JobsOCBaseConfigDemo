@@ -1,11 +1,12 @@
 //
 //  JobsBaseApi.m
-//  JobsOCBaseConfigDemo
+//  JobsAPIs
 //
-//  Created by User on 9/12/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsBaseApi.h"
+#import "NSObject+Extra.h"
 
 @implementation JobsBaseApi
 #pragma mark —— 覆写 YTKBaseRequest 方法
@@ -21,11 +22,11 @@
         request.HTTPMethod = httpMethod(self.requestMethod);
         /// 请求的（Body）参数
         if(self.requestMethod != YTKRequestMethodGET){
-            request.HTTPBody = self.dataByJSONObject(self.parameters);//body 数据
-        }self.printRequestMessage(request);/// 打印URLRequest
+            request.HTTPBody = self.dataByJSONObject(self.parameters);// body 数据
+        }self.printRequestMessage(request);// 打印URLRequest
     }];
 }
-#pragma mark ——（本类）父类实现的
+#pragma mark —— （本类）父类实现的
 /// Body 参数
 -(id _Nullable)requestArgument{
     return self.parameters;

@@ -1,48 +1,63 @@
 //
 //  UIViewController+BaseVC.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2020/10/12.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BASEVC_03DF8B67C3
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BASEVC_03DF8B67C3
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "UIViewModelProtocol.h"
-#import "BaseViewControllerProtocol.h"
+#import "NSObject+Extra.h"
+#import "NSObject+image.h"
+#import "NSObject+UsrInfo.h"
+#import "UIBarButtonItem+Extra.h"
+#import "UINavigationController+Extra.h"
+#import "UIView+Extra.h"
+#import "UIView+Navigator.h"
+#import "UIViewController+BackBtn.h"
+
+#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
+#import <ReactiveObjC/ReactiveObjC.h>
+#else
+#import "ReactiveObjC.h"
+#endif
+
+#import "JobsBaseProtocolHeader.h"
+
+#import "GKCustomNavigationBarExtra.h"
+
+#import "JobsBaseUI.h"
+
+#import "JobsNavBarHeader.h"
+
+#import "JobsDebug.h"
+
+#import "JobsAppToolsHeader.h"
+
+#import "JobsViewNavigatorHeader.h"
+
+#import "JobsLoadingImageHeader.h"
+
+#import "JobsLanMgr.h"
+
 #import "JobsBlock.h"
-#import "MacroDef_Func.h"
-#import "JobsLoadingImage.h"
-#import "NSObject+Extras.h"
-#import "UIViewModel.h"
-#import "AppToolsProtocol.h"
-#import "NSObject+UserInfo.h"
-#import "JobsViewNavigator.h"
-#import "NSObject+Extras.h"
-#import "UIViewController+GKCustomNavigationBar.h"
-#import "JobsDefineProperty.h"
 
-#if __has_include(<ReactiveObjC/RACmetamacros.h>)
-#import <ReactiveObjC/RACmetamacros.h>
-#else
-#import "RACmetamacros.h"
-#endif
+#import "JobsDefines.h"
 
-#if __has_include(<ReactiveObjC/RACEXTScope.h>)
-#import <ReactiveObjC/RACEXTScope.h>
-#else
-#import "RACEXTScope.h"
-#endif
-
-#if __has_include(<ReactiveObjC/RACEXTKeyPathCoding.h>)
-#import <ReactiveObjC/RACEXTKeyPathCoding.h>
-#else
-#import "RACEXTKeyPathCoding.h"
-#endif
+/// 用导航控制器进行包装
+NS_INLINE __kindof UINavigationController * _Nullable JobsByOCPodsNavCtrl(UIViewController __kindof * _Nonnull viewController){
+    return viewController.navigationController ? viewController : [UINavigationController.alloc initWithRootViewController:viewController];
+}
 
 /// 用导航控制器进行包装
 NS_INLINE __kindof UINavigationController * _Nullable JobsNavCtrl(UIViewController __kindof * _Nonnull viewController){
-    return viewController.navigationController ? viewController : [UINavigationController.alloc initWithRootViewController:viewController];
+    return JobsByOCPodsNavCtrl(viewController);
 }
+#import "JobsOCDSL.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (BaseVC)
@@ -76,3 +91,4 @@ BaseViewControllerProtocol
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BASEVC_03DF8B67C3 */

@@ -11,6 +11,7 @@
 #import "JobsString.h"
 #import "MacroDef_Font.h"
 #import "JobsDefineProperty.h"
+#import "NSString+Eomji.h"
 #import "UITextView+IndicateWordLimit.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
@@ -36,7 +37,7 @@ Prop_copy()NSString *resStr;
 -(JobsRetTextViewByNSUIntegerBlock _Nonnull)byDataDetectorTypes;
 -(JobsRetTextViewByDelegateBlock _Nonnull)byDelegate;
 -(JobsRetTextViewByStringBlock _Nonnull)byText;
--(JobsRetTextViewByCor _Nonnull)byTextCor;
+-(JobsRetTextViewByCorBlock _Nonnull)byTextCor;
 -(JobsRetTextViewByFontBlock _Nonnull)byFont;
 -(JobsRetTextViewByBOOLBlock _Nonnull)byUserInteractionEnabled;
 -(JobsRetTextViewByBOOLBlock _Nonnull)byEditable;

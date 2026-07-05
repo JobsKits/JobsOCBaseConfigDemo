@@ -1,15 +1,15 @@
 //
 //  AFSecurityPolicy+Extra.m
-//  JobsOCBaseConfigDemo
+//  JobsBy3rdExtras
 //
-//  Created by Admin on 25/11/2024.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "AFSecurityPolicy+Extra.h"
 
 @implementation AFSecurityPolicy (Extra)
 
-+(JobsReturnAFSecurityPolicyByAFSSLPinningModeBlock _Nonnull)initBy{
++(JobsRetAFSecurityPolicyByAFSSLPinningModeBlock _Nonnull)initBy{
     return ^AFSecurityPolicy *_Nonnull(AFSSLPinningMode data){
         return [AFSecurityPolicy policyWithPinningMode:data];
     };

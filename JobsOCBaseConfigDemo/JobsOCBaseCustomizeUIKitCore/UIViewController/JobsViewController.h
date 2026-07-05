@@ -1,24 +1,14 @@
 //
 //  JobsViewController.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#import <UIKit/UIKit.h>
 
 #ifndef JobsViewController_h
 #define JobsViewController_h
-
-#pragma mark —— Base
-#import "JobsDebugVC.h"
-#import "JobsBaseDataSettingVC.h"
-#import "JobsStatusBarSetttingVC.h"
-#import "JobsMonitorVC.h"
-#import "JobsNavSettingVC.h"
-#import "JobsTabBarSettingVC.h"
-#import "BaseViewController.h"
-#import "JobsBaseWebVC.h"
-#import "JobsNavBarWebVC.h"
-
 #pragma mark —— Category
 // UIViewController+JXCategory
 #import "UIViewController+JXCategoryListContentViewDelegate.h"
@@ -27,10 +17,9 @@
 #import "UIViewController+XLBubbleTransition.h"
 #import "XLBubbleTransition.h"
 // UIViewController+MJRefresh
+#import "JobsBaseUI.h"
+
 #import "UIViewController+MJRefresh.h"
-#import "MJRefreshConfigModel.h"
-#import "LOTAnimationMJRefreshFooter.h"
-#import "LOTAnimationMJRefreshHeader.h"
 // UIViewController+Others
 #import "UIViewController+SafeTransition.h"
 #import "UIViewController+JPImageresizerView.h"
@@ -41,9 +30,7 @@
 #import "UIViewController+GifImageView.h"
 #import "UIViewController+BaseNavigationBar.h"
 #import "UIViewController+Lottie.h"
-#import "UIViewController+SuspendBtn.h"
-#import "UIViewController+TFPopupView.h"
 #import "UIViewController+Extra.h"
-#import "UIViewController+Masonry.h"
+#import "UIViewController+MasonryDSL.h"
 
 #endif /* JobsViewController_h */

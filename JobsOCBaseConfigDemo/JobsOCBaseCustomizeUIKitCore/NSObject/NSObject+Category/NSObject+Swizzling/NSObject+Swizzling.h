@@ -1,25 +1,26 @@
 //
 //  NSObject+Swizzling.h
-//  JobsOCBaseConfigDemo
+//  JobsOCRuntimeKits
 //
-//  Created by Locke on 2017/3/17.
-//  Copyright © 2017年 lainkai. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_NSOBJECT_SWIZZLING_9AFB64F218
+#define JOBS_HEADER_GUARD_NSOBJECT_SWIZZLING_9AFB64F218
 
 #import <objc/runtime.h>
 #import <Foundation/Foundation.h>
 
-/**
- 参考资料：https://juejin.cn/post/6869670856705081358
- */
+/// 参考资料：https://juejin.cn/post/6869670856705081358
 @interface NSObject (Swizzling)
 /**
- Method Swizzling
- Class class = NSClassFromString(@"__NSDictionaryM");//✅
- Class class = objc_getClass("__NSDictionaryM");//✅
- Class class = object_getClass(@"__NSDictionaryM");//❌ Returns the class of an object.
-Example:
- [objc_getClass("__NSDictionaryM") swizzlingMethod:@selector(setObject:forKey:) swizzledSelector:@selector(swizzled_setObject:forKey:)];
+ 
+     Method Swizzling
+     Class class = NSClassFromString(@"__NSDictionaryM");//✅
+     Class class = objc_getClass("__NSDictionaryM");//✅
+     Class class = object_getClass(@"__NSDictionaryM");//❌ Returns the class of an object.
+    Example:
+     [objc_getClass("__NSDictionaryM") swizzlingMethod:@selector(setObject:forKey:) swizzledSelector:@selector(swizzled_setObject:forKey:)];
  */
 -(void)swizzlingInstanceMethod:(SEL _Nonnull)originalSelector
               swizzledSelector:(SEL _Nonnull)swizzledSelector;
@@ -39,3 +40,4 @@ void objc_setAssociatedObject_weak(id _Nonnull object,
                               const void * _Nonnull key,
                               id _Nullable value,
                               objc_AssociationPolicy associationPolicy);
+#endif /* JOBS_HEADER_GUARD_NSOBJECT_SWIZZLING_9AFB64F218 */

@@ -1,14 +1,15 @@
 //
 //  UIView+Gesture.m
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "UIView+Gesture.h"
+
 #import "JobsString.h"
-#import "UIView+Extras.h"
-#import "NSObject+Extras.h"
+#import "UIView+Extra.h"
+#import "NSObject+Extra.h"
 #import "UIGestureRecognizer+Extra.h"
 
 #warning —— 本类不实现UIGestureRecognizerDelegate的原因说明:覆盖了 UISCrollView 里面对应的方法
@@ -26,7 +27,7 @@
     @jobs_weakify(self)
     return ^__kindof UIGestureRecognizer *_Nullable(void *_Nullable key){
         @jobs_strongify(self)
-        return Jobs_getAssociatedObjectByRawKey(key);
+        return Jobs_getAssociatedObjectByTargetRawKey(self, key);
     };
 }
 #pragma mark —— 一些公有方法

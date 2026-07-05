@@ -1,11 +1,18 @@
 //
 //  JobsBtnTextViewStyleCVCell.m
-//  JobsOCBaseConfigDemo
+//  JobsBaseUI
 //
-//  Created by Jobs on 2025/5/1.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsBtnTextViewStyleCVCell.h"
+#import "CALayer+Extra.h"
+#import "UICollectionView+JobsRegisterClass.h"
+#import "NSString+Sys.h"
+#import "NSObject+Extra.h"
+#import "SZTextView+Extra.h"
+#import "UIButton+SimplyMake.h"
+#import "UIButton+UI.h"
 
 @interface JobsBtnTextViewStyleCVCell ()
 
@@ -28,18 +35,24 @@ AppToolsProtocol_synthesize
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     JobsBtnTextViewStyleCVCell *cell = JobsRegisterDequeueCollectionViewCell(JobsBtnTextViewStyleCVCell);
-    cell.contentView.layer
-        .cornerRadiusBy(JobsWidth(8))
-        .borderWidthBy(JobsWidth(1))
-        .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
-        .masksToBoundsBy(YES);
-    cell.layer
-        .cornerRadiusBy(JobsWidth(8))
-        .borderWidthBy(JobsWidth(1))
-        .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
-        .masksToBoundsBy(YES);
-    cell.indexPath = indexPath;
-    return cell;
+    return (JobsBtnTextViewStyleCVCell *)cell
+        .byContentView(^(__kindof UIView * _Nullable view) {
+            view.byLayer(^(CALayer * _Nullable layer) {
+                layer
+                    .cornerRadiusBy(JobsWidth(8))
+                    .borderWidthBy(JobsWidth(1))
+                    .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
+                    .masksToBoundsBy(YES);
+            });
+        })
+        .byIndexPath(indexPath)
+        .byLayer(^(CALayer * _Nullable layer) {
+            layer
+                .cornerRadiusBy(JobsWidth(8))
+                .borderWidthBy(JobsWidth(1))
+                .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
+                .masksToBoundsBy(YES);
+        });
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(JobsRetCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy{
@@ -159,7 +172,7 @@ AppToolsProtocol_synthesize
                                               });
     };return _button;
 }
-/// 如果需要用其他的自定义的TextView，继承此类并重写-(JobsReturnCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy;
+/// 如果需要用其他的自定义的TextView，继承此类并重写-(JobsRetCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy;
 -(__kindof BaseTextView *)textView{
     if (!_textView) {
         @jobs_weakify(self)
@@ -182,7 +195,8 @@ AppToolsProtocol_synthesize
             @jobs_strongify(self)
             textView.delegate = self;
             textView.textColor = JobsBlackColor;
-            textView.backgroundColor = @"#F9F9F9".cor;
+            textView.byBgColor(@"#F9F9F9".cor);
+
             textView.returnKeyType = UIReturnKeyDefault;
             textView.keyboardAppearance = UIKeyboardAppearanceDefault;
             textView.keyboardType = UIKeyboardTypeNumberPad;
@@ -197,7 +211,7 @@ AppToolsProtocol_synthesize
 //                @jobs_strongify(self)
             }];
         })).byAdd(self.masonryBlock);
-    };return _textView;
+    };return _szTextView;
 }
 
 -(__kindof JobsTextView *)jobsTextView{
@@ -207,7 +221,8 @@ AppToolsProtocol_synthesize
             @jobs_strongify(self)
             textView.szTextView.delegate = self;
             textView.szTextView.textColor = JobsBlackColor;
-            textView.backgroundColor = @"#F9F9F9".cor;
+            textView.byBgColor(@"#F9F9F9".cor);
+
             textView.returnKeyType_ = UIReturnKeyDefault;
             textView.keyboardAppearance_ = UIKeyboardAppearanceDefault;
             textView.keyboardType_ = UIKeyboardTypeNumberPad;

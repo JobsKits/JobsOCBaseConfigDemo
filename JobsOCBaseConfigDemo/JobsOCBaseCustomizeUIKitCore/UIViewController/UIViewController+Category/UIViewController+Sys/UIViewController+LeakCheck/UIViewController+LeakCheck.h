@@ -1,15 +1,19 @@
 //
 //  UIViewController+LeakCheck.h
-//  JobsOCBaseConfigDemo
+//  JobsByOCPods
 //
-//  Created by Jobs on 2025/5/27.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_LEAKCHECK_692034DC92
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_LEAKCHECK_692034DC92
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "NSObject+Time.h"
 #import "NSPointerArray+Extra.h"
 #import "NSMutableSet+Extra.h"
+
+#import "JobsTimeUtils.h"
 
 /// 参考资料来源：https://github.com/fengzhiyinxiang/UIViewControllerLeakCheck
 NS_ASSUME_NONNULL_BEGIN
@@ -19,3 +23,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UIVIEWCONTROLLER_LEAKCHECK_692034DC92 */

@@ -1,20 +1,24 @@
 //
 //  GXCardView.h
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Gin on 2018/7/31.
-//  Copyright © 2018年 gin. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#ifndef JOBS_HEADER_GUARD_GXCARDVIEW_950355D3B0
+#define JOBS_HEADER_GUARD_GXCARDVIEW_950355D3B0
+
 #import <UIKit/UIKit.h>
+
+#import "JobsDefines.h"
+
+#import "JobsOCDSL.h"
 
 typedef NS_ENUM(NSInteger,GXCardCellSwipeDirection) {
     GXCardCellSwipeDirectionNone = 0,
     GXCardCellSwipeDirectionLeft,
     GXCardCellSwipeDirectionRight,
 };
-
-#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -54,9 +58,9 @@ Prop_copy()NSString *reuseIdentifier;
 @interface GXCardView : UIView
 
 /** 当前可视cells */
-Prop(readonly)NSArray<__kindof GXCardViewCell *> *visibleCells;
+Prop_strong(readonly)NSArray<__kindof GXCardViewCell *> *visibleCells;
 /** 当前显示最上层索引 */
-Prop(readonly)NSInteger currentFirstIndex;
+Prop_assign(readonly)NSInteger currentFirstIndex;
 /** 数据源 */
 Prop_weak()id<GXCardViewDataSource> dataSource;
 /** 代理 */
@@ -98,3 +102,4 @@ Prop_assign()BOOL isRepeat;
 @end
 
 NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_GXCARDVIEW_950355D3B0 */

@@ -1,9 +1,8 @@
 //
 //  LZTabBar.m
-//  JobsOCBaseConfigDemo
+//  JobsOCTools
 //
-//  Created by Artron_LQQ on 2016/12/12.
-//  Copyright © 2016年 Artup. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "LZTabBar.h"
@@ -25,9 +24,11 @@ Prop_strong()UIView *topLine;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.effectView.frame = self.bounds;
+    self.effectView.byFrame(self.bounds);
+
     [self setupItems];
-    self.topLine.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), 0.6);
+    self.topLine.byFrame(CGRectMake(0, 0, CGRectGetWidth(self.frame), 0.6));
+
 }
 
 - (void)setupItems {
@@ -35,7 +36,8 @@ Prop_strong()UIView *topLine;
     CGFloat height = CGRectGetHeight(self.frame);
     for (int i = 0; i < self.items.count; i++) {
         LZTabBarItem *item = [self.items objectAtIndex:i];
-        item.frame = CGRectMake(i*width, 0, width, height);
+        item.byFrame(CGRectMake(i*width, 0, width, height));
+
         [self addSubview:item];
         item.delegate = self;
     }
@@ -52,9 +54,11 @@ Prop_strong()UIView *topLine;
 
 - (UIView *)topLine {
     if (!_topLine) {
-        _topLine = UIView.new;
-        _topLine.backgroundColor = JobsGrayColor;
-        [self addSubview:_topLine];
+        _topLine = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(JobsGrayColor)
+                .addOn(self);
+        });
     };return _topLine;
 }
 
@@ -62,7 +66,8 @@ Prop_strong()UIView *topLine;
     if (!_effectView) {
         UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
         _effectView = [UIVisualEffectView.alloc initWithEffect:effect];
-        _effectView.alpha = 1.0;
+        _effectView.byAlpha(1.0);
+
         [self addSubview:_effectView];
     };return _effectView;
 }
