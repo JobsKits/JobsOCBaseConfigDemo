@@ -7,6 +7,20 @@
 
 #import "GXCardViewDemoVC.h"
 
+static NSBundle *GXCardViewDemoResourceBundle(void) {
+    NSArray<NSBundle *> *sourceBundles = @[
+        [NSBundle bundleForClass:GXCardItemDemoCell.class] ?: NSBundle.mainBundle,
+        NSBundle.mainBundle
+    ];
+    for (NSBundle *sourceBundle in sourceBundles) {
+        NSURL *bundleURL = [sourceBundle URLForResource:@"JobsOCToolsCore" withExtension:@"bundle"];
+        NSBundle *resourceBundle = bundleURL ? [NSBundle bundleWithURL:bundleURL] : nil;
+        if (resourceBundle) return resourceBundle;
+    }
+    NSBundle *classBundle = [NSBundle bundleForClass:GXCardItemDemoCell.class];
+    return classBundle ?: NSBundle.mainBundle;
+}
+
 @interface GXCardViewDemoVC ()
 /// UI
 //@property(nonatomic,weak)IBOutlet GXCardView *cardView;
@@ -165,7 +179,9 @@ didRemoveLastCell:(GXCardViewCell *)cell
         _cardView.maxAngle = 15.0;
         _cardView.maxRemoveDistance = 100.0;
     //    _cardView.isRepeat = YES; // 新加入
-        [_cardView registerNib:[UINib nibWithNibName:NSStringFromClass(GXCardItemDemoCell.class) bundle:nil] forCellReuseIdentifier:@"GXCardViewCell"];
+        [_cardView registerNib:[UINib nibWithNibName:NSStringFromClass(GXCardItemDemoCell.class)
+                                             bundle:GXCardViewDemoResourceBundle()]
+         forCellReuseIdentifier:@"GXCardViewCell"];
         
         _cardView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);

@@ -25,6 +25,12 @@
 #import "JobsLanMgr.h"
 #endif
 
+#if __has_include(<JobsRandomUtils/JobsRandomUtilsHeader.h>)
+#import <JobsRandomUtils/JobsRandomUtilsHeader.h>
+#else
+#import "JobsRandomUtilsHeader.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else

@@ -81,7 +81,7 @@
   * [x] [**聊天功能：`JobsIM`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsIM)<br>
   * [x] [**发帖功能：`JobsPostVC`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@发帖功能) （相册获取资源+存/取未完成字符串）<br>
   * [x] [**评论功能：`JobsComment`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsComment)<br>
-  * [x] [**搜索功能：`JobsSearch`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsSearchCore)<br>
+  * [x] [**搜索功能：`JobsOCSearcher`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsOCSearcherCore)<br>
   * [x] [**时间管理：`JobsTimerVC`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsTimer)<br>
   * [x] [**悬浮模块：`JobsSuspend`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsSuspend)<br>
   * [x] [**下载流量监控：`JobsBitsMonitor`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsBitsMonitor)<br>

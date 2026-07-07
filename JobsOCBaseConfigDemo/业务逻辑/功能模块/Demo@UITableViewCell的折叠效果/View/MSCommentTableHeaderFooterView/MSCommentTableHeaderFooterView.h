@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSCommentModel.h"
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
@@ -40,6 +41,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MSCommentTableHeaderFooterView : UITableViewHeaderFooterView
+
+-(void)jobsRichViewByCommentModel:(MSCommentModel *)commentModel
+                           folded:(BOOL)folded;
 
 @end
 

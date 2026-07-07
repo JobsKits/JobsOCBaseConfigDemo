@@ -30,7 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobsMsgDataModel : UIViewModel
 
 Prop_assign()JobsMsgType msgStyle;
-Prop_copy()NSString *time;
+/// 消息展示时间文案，避免和 TimerProtocol.time 冲突
+Prop_copy()NSString *timeText;
 Prop_assign()BOOL isDraw;// 是否已经被领取？
 Prop_assign()BOOL isRead;// 已读
 

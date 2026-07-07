@@ -14,10 +14,10 @@ Prop_strong()JXCategoryIndicatorLineView *lineView;/// 跟随的指示器
 Prop_strong()JXCategoryListContainerView *listContainerView;/// 此属性决定依附于此的viewController
 Prop_strong()BaseButton *filterBtn;
 Prop_strong()BaseButton *customBtn;
-Prop_weak()UIView *popUpFiltrationView;
-Prop_weak()UIView *popUpCustomView;
-Prop_weak()NSNumber *currentIndex;
-Prop_weak()JXCategoryPopupSubVC *vc;
+Prop_strong()UIView *popUpFiltrationView;
+Prop_strong()UIView *popUpCustomView;
+Prop_assign()NSInteger currentIndex;
+Prop_strong()JXCategoryPopupSubVC *vc;
 /// Data
 Prop_strong()NSMutableArray <NSString *>*titleMutArr;
 Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
@@ -47,6 +47,7 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.byBgColor(HEXCOLOR(0xF7E7D2));
     self.makeNavByAlpha(1);
     
     self.categoryView.byAlpha(1);
@@ -71,6 +72,26 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
+}
+#pragma mark —— 一些私有方法
+-(NSInteger)jobsCurrentListIndex{
+    if (!self.childVCMutArr.count) return 0;
+    NSInteger index = self.categoryView.selectedIndex;
+    id value = [self.listContainerView valueForKey:@"currentIndex"];
+    if ([value respondsToSelector:@selector(integerValue)]) {
+        index = [value integerValue];
+    }
+    if (index < 0 || (NSUInteger)index >= self.childVCMutArr.count) {
+        index = MIN(MAX(index, 0), (NSInteger)self.childVCMutArr.count - 1);
+    };return index;
+}
+
+-(JXCategoryPopupSubVC *)jobsCurrentPopupSubVC{
+    if (!self.childVCMutArr.count) return nil;
+    self.currentIndex = [self jobsCurrentListIndex];
+    UIViewController *vc = self.childVCMutArr[(NSUInteger)self.currentIndex];
+    if (![vc isKindOfClass:JXCategoryPopupSubVC.class]) return nil;
+    return (JXCategoryPopupSubVC *)vc;
 }
 #pragma mark JXCategoryTitleViewDataSource
 //// 如果将JXCategoryTitleView嵌套进UITableView的cell，每次重用的时候，JXCategoryTitleView进行reloadData时，会重新计算所有的title宽度。所以该应用场景，需要UITableView的cellModel缓存titles的文字宽度，再通过该代理方法返回给JXCategoryTitleView。
@@ -101,6 +122,7 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
  */
 - (id<JXCategoryListContentViewDelegate>)listContainerView:(JXCategoryListContainerView *)listContainerView
 initListForIndex:(NSInteger)index{
+    if (index < 0 || (NSUInteger)index >= self.childVCMutArr.count) return nil;
     return self.childVCMutArr[index];
 }
 #pragma mark JXCategoryViewDelegate
@@ -134,23 +156,23 @@ ratio:(CGFloat)ratio {
 /// 在 tf_hide 之后执行
 - (BOOL)tf_popupViewWillHide:(UIView *)popup{
     if (self.filterBtn.selected) {
-        [self.filterBtn changeAction: 0];
-        self.filterBtn.selected = !self.filterBtn.selected;
+        self.filterBtn.selected = NO;
+        [self.filterBtn changeAction:NO];
     };return YES;
 }
 
 - (BOOL)tf_popupViewWillShow:(UIView *)popup{
-    [self.popUpFiltrationView showDefaultBackground];
+    [popup showDefaultBackground];
     return YES;
 }
 #pragma mark —— LazyLoad
 -(JXCategoryTitleView *)categoryView{
     if (!_categoryView) {
         _categoryView = JXCategoryTitleView.new;
-        _categoryView.byBgColor(JobsClearColor);
+        _categoryView.byBgColor(RGBA_COLOR(255, 238, 221, 0.98));
 
-        _categoryView.titleSelectedColor = JobsRandomColor;
-        _categoryView.titleColor = JobsRandomColor;
+        _categoryView.titleSelectedColor = HEXCOLOR(0xAE8330);
+        _categoryView.titleColor = HEXCOLOR(0x8D765C);
         _categoryView.titleFont = [UIFont systemFontOfSize:18 weight:UIFontWeightRegular];
         _categoryView.titleSelectedFont = [UIFont systemFontOfSize:28 weight:UIFontWeightRegular];
         _categoryView.delegate = self;
@@ -175,7 +197,7 @@ ratio:(CGFloat)ratio {
 -(JXCategoryIndicatorLineView *)lineView{
     if (!_lineView) {
         _lineView = JXCategoryIndicatorLineView.new;
-        _lineView.indicatorColor = JobsWhiteColor;
+        _lineView.indicatorColor = HEXCOLOR(0xAE8330);
         _lineView.indicatorHeight = JobsWidth(4);
         _lineView.indicatorWidthIncrement = JobsWidth(10);
         _lineView.verticalMargin = 0;
@@ -194,8 +216,7 @@ ratio:(CGFloat)ratio {
 
         [self.view layoutIfNeeded];
         /// ❤️在需要的地方写❤️
-        NSNumber *currentIndex = self.listContainerView.valueForKey(@"currentIndex");
-        JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %d",currentIndex.intValue);
+        JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %ld",(long)[self jobsCurrentListIndex]);
     };return _listContainerView;
 }
 
@@ -218,7 +239,9 @@ ratio:(CGFloat)ratio {
         _childVCMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewController *>*_Nullable data) {
             @jobs_strongify(self)
             for (NSString *str in self.titleMutArr) {
-                data.add(JXCategoryPopupSubVC.new);
+                JXCategoryPopupSubVC *vc = JXCategoryPopupSubVC.new;
+                vc.pageTitle = str;
+                data.add(vc);
             }
         });
     };return _childVCMutArr;
@@ -228,7 +251,7 @@ ratio:(CGFloat)ratio {
     if (!_filterBtn) {
         @jobs_weakify(self)
         _filterBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsWhiteColor)
+            .bgColorBy(RGBA_COLOR(255, 255, 255, 0.92))
             .jobsResetImagePlacement(NSDirectionalRectEdgeTrailing)
             .jobsResetImagePadding(JobsWidth(6))
             .jobsResetBtnImage(@"筛选箭头（向下）".img)
@@ -241,16 +264,23 @@ ratio:(CGFloat)ratio {
                 x.selected = !x.selected;
                 @"篩選".tr.toast();
                 [x changeAction:x.selected];
-                self.currentIndex = self.listContainerView.valueForKey(@"currentIndex");
-                JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %d",self.currentIndex.intValue);
-                self.vc = (JXCategoryPopupSubVC *)self.childVCMutArr[self.currentIndex.intValue];
+                self.vc = [self jobsCurrentPopupSubVC];
+                JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %ld",(long)self.currentIndex);
+                if (!self.vc) {
+                    x.selected = NO;
+                    [x changeAction:NO];
+                    return;
+                }
                 self.vc.hidePopupView(self.popUpCustomView);
                 if (x.selected) {
                     self.customBtn.selected = NO;
-                    self.popUpFiltrationView = self.vc.popUpFiltrationView;
+                    self.customBtn.jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58));
+                    self.popUpFiltrationView = self.vc.filtrationView;
                     self.popUpFiltrationView.popupDelegate = self;
+                    [self.vc popUpFiltrationView];
                 }else{
                     self.vc.hidePopupView(self.popUpFiltrationView);
+                    self.popUpFiltrationView = nil;
                 }
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
@@ -268,7 +298,7 @@ ratio:(CGFloat)ratio {
     if (!_customBtn) {
         @jobs_weakify(self)
         _customBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsWhiteColor)
+            .bgColorBy(RGBA_COLOR(255, 255, 255, 0.92))
             .jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58))
             .jobsResetBtnTitleFont(fontName(@"NotoSans-Bold", 12))
             .jobsResetBtnTitle(@"自定义".tr)
@@ -278,18 +308,23 @@ ratio:(CGFloat)ratio {
                 x.selected = !x.selected;
                 x.jobsResetBtnTitleCor(x.selected ? HEXCOLOR(0xAE8330) : HEXCOLOR(0x3D4A58));
                 @"自定义".tr.toast();
-                self.currentIndex = self.listContainerView.valueForKey(@"currentIndex");
-                JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %d",self.currentIndex.intValue);
-                self.vc = (JXCategoryPopupSubVC *)self.childVCMutArr[self.currentIndex.intValue];
-                self.popUpFiltrationView = self.vc.popUpFiltrationView;
+                self.vc = [self jobsCurrentPopupSubVC];
+                JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %ld",(long)self.currentIndex);
+                if (!self.vc) {
+                    x.selected = NO;
+                    x.jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58));
+                    return;
+                }
+                self.popUpFiltrationView = self.vc.filtrationView;
                 self.vc.hidePopupView(self.popUpFiltrationView);
-                [self.filterBtn changeAction:self.filterBtn.selected];
                 if (x.selected) {
                     self.filterBtn.selected = NO;
+                    [self.filterBtn changeAction:NO];
                     self.popUpCustomView = self.vc.popUpCustomView;
     //                self.popUpCustomView.popupDelegate = self;
                 }else{
                     self.vc.hidePopupView(self.popUpCustomView);
+                    self.popUpCustomView = nil;
                 }
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");

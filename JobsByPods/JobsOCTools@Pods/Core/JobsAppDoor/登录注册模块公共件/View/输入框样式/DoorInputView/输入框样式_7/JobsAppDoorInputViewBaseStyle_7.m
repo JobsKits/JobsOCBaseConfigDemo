@@ -145,13 +145,14 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
             .byAdd(^(MASConstraintMaker *make) {
                 make.left.equalTo(self.leftIMGV.mas_right).offset(JobsWidth(12));
                 make.centerY.equalTo(self);
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(74), JobsWidth(20)));
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(62), JobsWidth(20)));
             })
             .byViewBlock(^(__kindof UIView *view) {
                 UIButton *button = (UIButton *)view;
-                button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-                button.titleLabel.adjustsFontSizeToFitWidth = YES;
-                button.titleLabel.minimumScaleFactor = 0.72f;
+                button.byContentHorizontalAlignment(UIControlContentHorizontalAlignmentLeft);
+                button.titleLabel
+                    .byAdjustsFontSizeToFitWidth(YES)
+                    .byMinimumScaleFactor(0.72f);
             });
     };return _chooseBtn;
 }
@@ -182,7 +183,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.bottom.equalTo(self);
                     make.right.equalTo(self).offset(-JobsWidth(12));
-                    make.left.equalTo(self.chooseBtn.mas_right).offset(JobsWidth(4));
+                    make.left.equalTo(self.chooseBtn.mas_right);
                 });
             [textField jobsTextFieldEventFilterBlock:^BOOL(NSString * _Nullable data) {
                 @jobs_strongify(self)

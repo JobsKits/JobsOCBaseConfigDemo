@@ -12,9 +12,11 @@
 Prop_strong()JobsDropDownListView *dropDownListView;
 Prop_strong()UIView *panelView;
 Prop_strong()UILabel *titleLab;
-Prop_strong()UILabel *statusLab;
+Prop_strong()UIView *selectedInfoView;
+Prop_strong()UILabel *selectedTitleLab;
+Prop_strong()UILabel *selectedSubTitleLab;
 Prop_strong()BaseButton *btn;
-Prop_strong()UISwitch *switcher;
+Prop_strong()BaseButton *directionBtn;
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*listViewData;
 Prop_strong()UIColor *cor;
@@ -62,11 +64,13 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
     [super viewDidLoad];
     self.view.byBgColor(HEXCOLOR(0xF6F1E8));
 
+    [self setupRightItems];
     self.makeNavByAlpha(1);
     self.panelView.byAlpha(1);
     self.titleLab.byAlpha(1);
-    self.statusLab.byAlpha(1);
-    self.switcher.byAlpha(1);
+    self.selectedInfoView.byAlpha(1);
+    self.selectedTitleLab.byAlpha(1);
+    self.selectedSubTitleLab.byAlpha(1);
     self.btn.byAlpha(1);
     [self refreshDirectionUIWithOpened:NO];
 }
@@ -103,11 +107,17 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
 -(void)refreshDirectionUIWithOpened:(BOOL)opened{
     BOOL up = self.dropDownListViewDirection == JobsDropDownListViewDirection_UP;
     UIColor *mainCor = up ? self.cor : HEXCOLOR(0x2F3645);
-    UIColor *descCor = up ? HEXCOLOR(0xA06A18) : HEXCOLOR(0x596273);
-    if (_statusLab) {
-        _statusLab
-            .byText(up ? @"当前：上拉列表".tr : @"当前：下拉列表".tr)
-            .byTextCor(descCor);
+    if (_titleLab) {
+        _titleLab
+            .byText(up ? @"上拉列表".tr : @"下拉列表".tr)
+            .byTextCor(up ? HEXCOLOR(0xA06A18) : HEXCOLOR(0x2F3645));
+    }
+    if (_directionBtn) {
+        _directionBtn
+            .jobsResetBtnTitle(up ? @"下拉".tr : @"上拉".tr)
+            .jobsResetBtnTitleCor(up ? HEXCOLOR(0xA06A18) : HEXCOLOR(0x2F3645))
+            .jobsResetBtnBgCor(JobsClearColor)
+            .jobsResetBtnLayerBorderWidth(0);
     }
     if (_btn) {
         _btn
@@ -115,13 +125,30 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnBgCor(opened ? HEXCOLOR(0xC96E42) : mainCor)
             .jobsResetBtnLayerBorderWidth(0);
+        [_btn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.panelView);
+            make.centerY.equalTo(self.panelView).offset(JobsWidth(82));
+            make.width.mas_equalTo(JobsWidth(240));
+            make.height.mas_equalTo(JobsWidth(46));
+        }];
     }
-    if (_switcher) {
-        _switcher.on = up;
-        _switcher.selected = up;
-        _switcher.thumbTintColor = up ? self.cor : HEXCOLOR(0xD7DDE5);
-        _switcher.onTintColor = HEXCOLOR(0xFFE8B5);
-    }
+}
+
+-(void)setupRightItems{
+    self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+        data.add(self.directionBtn.bySize(CGSizeMake(JobsWidth(58), JobsWidth(32))).barBtnItem);
+    });
+}
+
+-(void)updateSelectedInfoWithModel:(UIViewModel *)data{
+    NSString *title = data.textModel.text.length ? data.textModel.text : @"未选择".tr;
+    NSString *subTitle = data.subTextModel.text.length ? data.subTextModel.text : @"请选择列表内容".tr;
+    _selectedTitleLab
+        .byText([NSString stringWithFormat:@"%@%@",@"点选：".tr,title])
+        .byTextCor(HEXCOLOR(0x2F3645));
+    _selectedSubTitleLab
+        .byText(subTitle)
+        .byTextCor(HEXCOLOR(0x8993A3));
 }
 #pragma mark —— lazyLoad
 -(UIView *)panelView{
@@ -130,14 +157,14 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
             view.byBgColor(RGBA_COLOR(255, 255, 255, 0.94));
             view.layer.cornerRadius = JobsWidth(22);
             view.layer.shadowColor = HEXCOLOR(0x8E7B5B).CGColor;
-            view.layer.shadowOpacity = 0.18f;
-            view.layer.shadowRadius = JobsWidth(18);
-            view.layer.shadowOffset = CGSizeMake(0, JobsWidth(10));
+            view.layer.shadowOpacity = 0.14f;
+            view.layer.shadowRadius = JobsWidth(22);
+            view.layer.shadowOffset = CGSizeMake(0, JobsWidth(12));
             view.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                 make.center.equalTo(self.view);
                 make.left.equalTo(self.view).offset(JobsWidth(34));
                 make.right.equalTo(self.view).offset(JobsWidth(-34));
-                make.height.mas_equalTo(JobsWidth(220));
+                make.height.mas_equalTo(JobsWidth(390));
             });
         });
     };return _panelView;
@@ -147,7 +174,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
     if (!_titleLab) {
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"Jobs DropDown".tr)
+                .byText(@"下拉列表".tr)
                 .byFont(UIFontWeightSemiboldSize(22))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byTextCor(HEXCOLOR(0x2F3645))
@@ -163,24 +190,62 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
     };return _titleLab;
 }
 
--(UILabel *)statusLab{
-    if (!_statusLab) {
-        _statusLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+-(UIView *)selectedInfoView{
+    if (!_selectedInfoView) {
+        _selectedInfoView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(HEXCOLOR(0xF7F8FA));
+            view.layer.cornerRadius = JobsWidth(16);
+            view.layer.borderWidth = 0;
+            view.addOn(self.panelView).byAdd(^(MASConstraintMaker *make) {
+                make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(26));
+                make.left.equalTo(self.panelView).offset(JobsWidth(40));
+                make.right.equalTo(self.panelView).offset(JobsWidth(-40));
+                make.height.mas_equalTo(JobsWidth(64));
+            });
+        });
+    };return _selectedInfoView;
+}
+
+-(UILabel *)selectedTitleLab{
+    if (!_selectedTitleLab) {
+        _selectedTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"当前：下拉列表".tr)
-                .byFont(UIFontWeightRegularSize(14))
-                .byTextAlignment(NSTextAlignmentCenter)
-                .byTextCor(HEXCOLOR(0x596273))
+                .byText(@"点选：未选择".tr)
+                .byFont(UIFontWeightSemiboldSize(14))
+                .byTextAlignment(NSTextAlignmentLeft)
+                .byNumberOfLines(1)
+                .byTextCor(HEXCOLOR(0x2F3645))
                 .byBgColor(JobsClearColor)
-                .addOn(self.panelView)
+                .addOn(self.selectedInfoView)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(8));
-                    make.left.equalTo(self.panelView).offset(JobsWidth(18));
-                    make.right.equalTo(self.panelView).offset(JobsWidth(-18));
-                    make.height.mas_equalTo(JobsWidth(24));
+                    make.top.equalTo(self.selectedInfoView).offset(JobsWidth(8));
+                    make.left.equalTo(self.selectedInfoView).offset(JobsWidth(16));
+                    make.right.equalTo(self.selectedInfoView).offset(JobsWidth(-16));
+                    make.height.mas_equalTo(JobsWidth(22));
                 });
         });
-    };return _statusLab;
+    };return _selectedTitleLab;
+}
+
+-(UILabel *)selectedSubTitleLab{
+    if (!_selectedSubTitleLab) {
+        _selectedSubTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"请选择列表内容".tr)
+                .byFont(UIFontWeightRegularSize(12))
+                .byTextAlignment(NSTextAlignmentLeft)
+                .byNumberOfLines(1)
+                .byTextCor(HEXCOLOR(0x8993A3))
+                .byBgColor(JobsClearColor)
+                .addOn(self.selectedInfoView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.selectedTitleLab.mas_bottom).offset(JobsWidth(2));
+                    make.left.equalTo(self.selectedTitleLab);
+                    make.right.equalTo(self.selectedTitleLab);
+                    make.height.mas_equalTo(JobsWidth(20));
+                });
+        });
+    };return _selectedSubTitleLab;
 }
 
 -(BaseButton *)btn{
@@ -199,13 +264,14 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
                 x.selected = !x.selected;
                 if (x.selected) {
                     /// ❤️只能让它执行一次❤️
-                    self.dropDownListView = [self motivateFromView:x
-                                     jobsDropDownListViewDirection:self.dropDownListViewDirection
-                                                              data:self.listViewData
-                                                motivateViewOffset:JobsWidth(5)
-                                                       finishBlock:^(UIViewModel *data) {
+                    self.dropDownListView = [self jobsMotivateDropDownListFromView:x
+                                                                          direction:self.dropDownListViewDirection
+                                                                               data:self.listViewData
+                                                                 motivateViewOffset:JobsWidth(5)
+                                                                        finishBlock:^(UIViewModel *data) {
                         JobsLog(@"data = %@",data);
-                        [self refreshDirectionUIWithOpened:NO];
+                        [self updateSelectedInfoWithModel:data];
+                        [self endDropDownListView];
                     }];
                     [self refreshDirectionUIWithOpened:YES];
                 }else{
@@ -217,56 +283,33 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
             .makeBtnTitleByShowingType(UILabelShowingType_03)
             .addOn(self.panelView)
             .byAdd(^(MASConstraintMaker *make) {
-                make.top.equalTo(self.switcher.mas_bottom).offset(JobsWidth(22));
                 make.centerX.equalTo(self.panelView);
-                make.width.mas_equalTo(JobsWidth(220));
-                make.height.mas_equalTo(JobsWidth(44));
+                make.centerY.equalTo(self.panelView).offset(JobsWidth(82));
+                make.width.mas_equalTo(JobsWidth(240));
+                make.height.mas_equalTo(JobsWidth(46));
             });
     };return _btn;
 }
 
--(UISwitch *)switcher{
-    if (!_switcher) {
-        _switcher = UISwitch.new;
-        _switcher.on = NO;
-        _switcher.selected = NO;
-        _switcher.thumbTintColor = _switcher.selected ? self.cor : HEXCOLOR(0xB0B0B0);
-        _switcher.byTintColor(HEXCOLOR(0xE2E8F0));
-        _switcher.onTintColor = HEXCOLOR(0xFFE8B5);
-        _switcher.byBgColor(JobsWhiteColor);
-
-        _switcher.cornerCutToCircleWithCornerRadius(31 / 2);
-        _switcher.addOn(self.panelView).byAdd(^(MASConstraintMaker *make) {
-            make.top.equalTo(self.statusLab.mas_bottom).offset(JobsWidth(16));
-            make.centerX.equalTo(self.panelView);
-        });
-
-        _switcher.selected ? _switcher.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.byLayerCor(self.cor)
-                .byJobsWidth(1);
-        })) : _switcher.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.byLayerCor(HEXCOLOR(0xB0B0B0))
-                .byJobsWidth(1);
-        }));
+-(BaseButton *)directionBtn{
+    if (!_directionBtn) {
         @jobs_weakify(self)
-        [_switcher jobsSwitchClickEventBlock:^(UISwitch *x) {
-            @jobs_strongify(self)
-            BOOL up = x.on;
-            x.selected = up;
-            self.dropDownListViewDirection = up ? JobsDropDownListViewDirection_UP : JobsDropDownListViewDirection_Down;
-            [self endDropDownListView];
-            x.thumbTintColor = up ? self.cor : HEXCOLOR(0xB0B0B0);
-            up ? x.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
+        _directionBtn = BaseButton
+            .initByStyle1(@"上拉".tr,
+                          UIFontWeightMediumSize(14),
+                          HEXCOLOR(0x2F3645))
+            .bgColorBy(JobsClearColor)
+            .cornerRadiusValueBy(0)
+            .jobsResetBtnLayerBorderWidth(0)
+            .onClickBy(^(UIButton *x) {
                 @jobs_strongify(self)
-                data.byLayerCor(self.cor)
-                    .byJobsWidth(1);
-            })) : x.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-                data.byLayerCor(HEXCOLOR(0xB0B0B0))
-                    .byJobsWidth(1);
-            }));
-            toastBy(up ? @"已切换为上拉列表".tr:@"已切换为下拉列表".tr);
-        }];
-    };return _switcher;
+                BOOL up = self.dropDownListViewDirection != JobsDropDownListViewDirection_UP;
+                self.dropDownListViewDirection = up ? JobsDropDownListViewDirection_UP : JobsDropDownListViewDirection_Down;
+                [self endDropDownListView];
+//                toastBy(up ? @"已切换为上拉列表".tr : @"已切换为下拉列表".tr);
+            })
+            .makeBtnTitleByShowingType(UILabelShowingType_03);
+    };return _directionBtn;
 }
 
 -(UIColor *)cor{
@@ -287,8 +330,14 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
         _listViewData = jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>*_Nullable data) {
             NSArray <NSString *>*titles = @[@"基础配置".tr, @"本地 Pods".tr, @"交互动效".tr];
             NSArray <NSString *>*subTitles = @[@"浅色面板".tr, @"Core 修正".tr, @"上下拉切换".tr];
+            NSArray <NSString *>*imageNames = @[@"slider.horizontal.3", @"shippingbox", @"arrow.up.arrow.down"];
             for (NSInteger i = 0; i < titles.count; i++) {
                 data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
+                    UIImage *image = nil;
+                    if (@available(iOS 13.0, *)) {
+                        image = [imageNames[i].sys_img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+                    }
+                    data1.byImage(image);
                     data1.textModel.byText(titles[i]);
                     data1.subTextModel.byText(subTitles[i]);
                 }));

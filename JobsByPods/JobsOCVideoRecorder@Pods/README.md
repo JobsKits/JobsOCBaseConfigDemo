@@ -16,7 +16,7 @@
 - 需要右上角滤镜入口，支持原片、黑白、高反差、怀旧、鲜明、胶片、褪色等内置滤镜。
 - 需要长按按钮录制，并在录制结束后先预览再决定保存或取消。
 - 需要保存到 App 自定义相册。
-- 需要在 iOS 模拟器调试时直接使用 Mac 摄像头，并隐藏前后摄切换入口。
+- 需要把典型的视频采集、编码、预览和保存能力作为独立本地 Pod 复用。
 
 ## 二、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -44,7 +44,7 @@ JobsOCVideoRecorder@Pods
 | 模块 | 职责 |
 | --- | --- |
 | `JobsOCVideoRecorderVC` | 页面状态机、权限、按钮交互、回放、保存和取消 |
-| `JobsOCVideoRecorderCaptureManager` | 摄像头和麦克风采集、前后摄切换、模拟器 Mac 摄像头兜底、全屏预览 |
+| `JobsOCVideoRecorderCaptureManager` | iPhone 摄像头和麦克风采集、前后摄切换、全屏预览 |
 | `JobsOCVideoRecorderAssetWriter` | `AVAssetWriter` 写入音视频，并在写入前调用滤镜处理口 |
 | `JobsOCVideoRecorderCIFilterProcessor` | 内置 CoreImage 滤镜处理器，用于录制产物滤镜 |
 | `JobsOCVideoRecorderRecordButton` | 长按录制按钮、白色外圈、红色内圆、进度动画和上方录制秒数显示 |
@@ -96,8 +96,8 @@ JobsOCVideoRecorderVC *vc = [JobsOCVideoRecorderVC.alloc initWithConfig:config];
 ## 七、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Info.plist` 必须配置相机、麦克风、相册权限文案。
-- iOS 模拟器下优先使用 `systemPreferredCamera`，再枚举 `External` / `ContinuityCamera` / `BuiltInWideAngleCamera` 视频设备，并逐个尝试加入 `AVCaptureSession`，用来承接 Mac 摄像头；加入视频输入前必须先 `lockForConfiguration`，避免 Fig capture device 因未取得独占配置权抛出异常；该环境不展示摄像头切换按钮。
-- 如果模拟器仍黑屏，需要在 Simulator 的相机菜单中选择当前 Mac 摄像头，并确认 macOS 已允许 Simulator / Xcode 访问摄像头。
+- 摄像头录制只支持 iPhone 真机。iOS 模拟器不会尝试桥接 Mac 摄像头，进入后会提示使用真机。
+- 视频输入加入会话时通过 `lockForConfiguration` 保护设备配置，加入完成后立即释放。
 - 录制页会在进入时隐藏宿主系统导航栏 / GK 导航栏，离开页面时恢复，避免和页面自绘返回按钮重复。
 - 自定义相册需要相册读写权限，不能只依赖 add-only 权限。
 - 视频方向按开始录制时的设备方向固化到当前文件，中途旋转不做 track 重建。

@@ -34,4 +34,10 @@ Prop_assign()BOOL useFooterView;
 
 NS_ASSUME_NONNULL_END
 
+NS_INLINE __kindof JobsHeaderFooterViewModel *_Nonnull jobsMakeHeaderFooterViewModel(jobsByHeaderFooterViewModelBlock _Nonnull block){
+    JobsHeaderFooterViewModel *data = JobsHeaderFooterViewModel.alloc.init;
+    if (block) block(data);
+    return data;
+}
+
 #endif /* JobsHeaderFooterViewModel_h */

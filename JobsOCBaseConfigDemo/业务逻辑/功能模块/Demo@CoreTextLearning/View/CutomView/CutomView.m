@@ -50,7 +50,7 @@ static CGFloat widthCallback(void* ref){
     CTFrameRef frame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, lenght), path, NULL);////工厂根据绘制区域及富文本（可选范围，多次设置）设置frame
     CTFrameDraw(frame, context);//工厂根据绘制区域及富文本（可选范围，多次设置）设置frame
     
-    UIImage* image = [UIImage imageNamed:@"predict_list_header_bg"];
+    UIImage* image = @"predict_list_header_bg".img;
     CGRect imgFrame = [self calculateImageRectWithFrame:frame];
     CGContextDrawImage(context, imgFrame, image.CGImage);
     CFRelease(frame);

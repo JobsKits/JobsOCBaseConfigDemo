@@ -13,6 +13,8 @@ Prop_strong()RBCLikeButton *likeBtn;
 /// Data
 Prop_strong()JobsChildCommentModel *childCommentModel;
 
+-(UIImage *_Nullable)jobs_commentAvatarPlaceholderImageByID:(NSString *_Nullable)avatarID;
+
 @end
 
 @implementation JobsInfoTBVCell
@@ -49,9 +51,11 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
             self.textLabel.byText(self.childCommentModel.nickname);
             self.detailTextLabel.byText(self.childCommentModel.content);
 
+            UIImage *placeholderImage = [self jobs_commentAvatarPlaceholderImageByID:self.childCommentModel.ID ? : self.childCommentModel.userId];
+            self.imageView.image = placeholderImage;
             self.imageView
                 .imageURL(self.childCommentModel.headImg.imageURLPlus.jobsUrl)
-                .placeholderImage(@"动态头像 尺寸126".gif_img ? : @"用户默认头像".img)
+                .placeholderImage(placeholderImage)
                 .options(self.makeSDWebImageOptions)
                 .completed(^(UIImage * _Nullable image,
                              NSError * _Nullable error,
@@ -76,6 +80,9 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
     CGFloat likeW = JobsWidth(46);
     CGFloat textW = self.contentView.width - textX - likeW - JobsWidth(22);
     self.imageView.frame = CGRectMake(left, top, avatarWH, avatarWH);
+    self.imageView
+        .byContentMode(UIViewContentModeScaleAspectFill)
+        .byClipsToBounds(YES);
     self.imageView.cornerCutToCircleWithCornerRadius(self.imageView.height / 2);
     self.textLabel
         .byFont(JobsCommentConfig.sharedManager.titleFont)
@@ -89,6 +96,12 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
     self.detailTextLabel.frame = CGRectMake(textX, CGRectGetMaxY(self.textLabel.frame) + JobsWidth(4), textW, JobsWidth(36));
 }
 #pragma mark —— lazyLoad
+-(UIImage *_Nullable)jobs_commentAvatarPlaceholderImageByID:(NSString *_Nullable)avatarID{
+    NSString *seed = avatarID.length ? avatarID : @"jobs-comment-placeholder";
+    NSInteger imageIndex = seed.hash % 4 + 1;
+    return JobsLoadBundleImage(@"bundle", @"头像", nil, [NSString stringWithFormat:@"头像_%ld",(long)imageIndex]) ? : @"用户默认头像".img;
+}
+
 -(RBCLikeButton *)likeBtn{
     if(!_likeBtn){
         @jobs_weakify(self)

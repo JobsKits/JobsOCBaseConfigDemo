@@ -225,10 +225,11 @@ Prop_strong()NSArray <NSDictionary <NSString *, NSString *>*>*iconOptions;
     iconView.frame = CGRectMake((contentWidth - iconWidth) / 2, JobsWidth(12), iconWidth, iconWidth);
     titleLab.frame = CGRectMake(JobsWidth(6), CGRectGetMaxY(iconView.frame) + JobsWidth(8), contentWidth - JobsWidth(12), JobsWidth(20));
     checkLab.frame = CGRectMake(contentWidth - JobsWidth(28), JobsWidth(8), JobsWidth(20), JobsWidth(20));
-    UIImage *iconImage = [UIImage imageNamed:option[JobsAppIconImageKey]];
+    NSString *iconImageName = option[JobsAppIconImageKey];
+    UIImage *iconImage = iconImageName.img;
     if (!iconImage) {
         if (@available(iOS 13.0, *)) {
-            iconImage = [UIImage systemImageNamed:@"app.fill"];
+            iconImage = @"app.fill".sys_img;
         }
     }
     iconView.image = iconImage;

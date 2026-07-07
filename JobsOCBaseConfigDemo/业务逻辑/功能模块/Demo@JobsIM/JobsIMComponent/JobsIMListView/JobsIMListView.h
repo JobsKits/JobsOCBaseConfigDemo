@@ -59,6 +59,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// JobsIM 用户列表。
+/// 当前列表继续使用静态演示数据驱动 UI；每个 `JobsIMListDataModel` 已补 peerID、transportKind、onlineState 等协议字段。
 @interface JobsIMListView : BaseView
 <
 UITableViewDelegate

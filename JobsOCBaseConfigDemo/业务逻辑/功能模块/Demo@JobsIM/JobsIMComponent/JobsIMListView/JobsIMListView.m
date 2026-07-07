@@ -143,25 +143,41 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
     if (!_jobsIMListMutArr) {
         _jobsIMListMutArr = jobsMakeMutArr(^(__kindof NSMutableArray<JobsIMListDataModel *> * _Nullable arr) {
             arr.add(jobsMakeIMListDataModel(^(__kindof JobsIMListDataModel * _Nullable model) {
+                model.userID = @"jobsim_peer_mahuateng";
+                model.peerID = @"lan_peer_mahuateng";
                 model.usernameStr = @"马化腾";
                 model.contentStr = @"晚上西藏饭店3楼喜马拉雅厅不见不散，到了电话";
                 model.timeStr = @"22:54";
                 model.userHeaderIMG = UIImage.animatedGIFByName(@"动态头像_1 尺寸126");
+                model.transportKind = JobsIMTransportKindLANBonjourNetwork;
+                model.peerOnlineState = JobsIMPeerOnlineStateOnlineForeground;
             })).add(jobsMakeIMListDataModel(^(__kindof JobsIMListDataModel * _Nullable model) {
+                model.userID = @"jobsim_peer_mayun";
+                model.peerID = @"nearby_peer_mayun";
                 model.usernameStr = @"马云";
                 model.contentStr = @"刘总请再给我一次机会";
                 model.timeStr = @"05:34";
                 model.userHeaderIMG = UIImage.animatedGIFByName(@"动态头像_2 尺寸126");
+                model.transportKind = JobsIMTransportKindNearbyMultipeer;
+                model.peerOnlineState = JobsIMPeerOnlineStateOnlineForeground;
             })).add(jobsMakeIMListDataModel(^(__kindof JobsIMListDataModel * _Nullable model) {
+                model.userID = @"jobsim_peer_lijiacheng";
+                model.peerID = @"lan_peer_lijiacheng";
                 model.usernameStr = @"李嘉诚";
                 model.contentStr = @"小刘我很看好你，什么时候有空过来坐坐";
                 model.timeStr = @"02:14";
                 model.userHeaderIMG = UIImage.animatedGIFByName(@"动态头像_1 尺寸126");
+                model.transportKind = JobsIMTransportKindLANBonjourNetwork;
+                model.peerOnlineState = JobsIMPeerOnlineStateBackgroundMaybeOffline;
             })).add(jobsMakeIMListDataModel(^(__kindof JobsIMListDataModel * _Nullable model) {
+                model.userID = @"jobsim_peer_nio_wang";
+                model.peerID = @"nearby_peer_nio_wang";
                 model.usernameStr = @"蔚来卡地亚花园城营销小王";
                 model.contentStr = @"刘总给你留了一套独栋，什么时候有空过来办手续";
                 model.timeStr = @"20:34";
                 model.userHeaderIMG = UIImage.animatedGIFByName(@"动态头像_1\2 尺寸126");;
+                model.transportKind = JobsIMTransportKindNearbyMultipeer;
+                model.peerOnlineState = JobsIMPeerOnlineStateOffline;
             }));
         });
     };return _jobsIMListMutArr;

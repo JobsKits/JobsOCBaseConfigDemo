@@ -18,6 +18,7 @@ Prop_copy()NSString *usernameStr;
 Prop_copy()NSString *contentStr;
 Prop_copy()NSString *timeStr;
 Prop_strong()UIImage *userHeaderIMG;
+Prop_copy()NSString *userHeaderURLStr;
 
 @end
 
@@ -75,18 +76,28 @@ UITextFieldProtocol_synthesize_part2
             self.usernameStr = listDataModel.usernameStr;
             self.contentStr = listDataModel.contentStr;
             self.userHeaderIMG = listDataModel.userHeaderIMG;
+            self.userHeaderURLStr = listDataModel.userHeaderURLStr;
             self.timeStr = listDataModel.timeStr;
         }else{
             self.usernameStr = @"数据异常".tr;
             self.contentStr = @"数据异常".tr;
             self.userHeaderIMG = nil;
+            self.userHeaderURLStr = @"https://picsum.photos/126";
             self.timeStr = @"数据异常".tr;
         }
         
         self.textLabel.byText(self.usernameStr);
         self.detailTextLabel.byText(self.contentStr);
         self.detailTextLabel.byTextCor(JobsLightGrayColor);
-        self.imageView.image = self.userHeaderIMG;
+        if (self.userHeaderIMG) {
+            self.imageView.image = self.userHeaderIMG;
+        }else{
+            self.imageView
+                .imageURL(self.userHeaderURLStr.jobsUrl)
+                .placeholderImage(nil)
+                .options(self.makeSDWebImageOptions)
+                .load();
+        }
         self.timeLab.byAlpha(1);
 
         return self;

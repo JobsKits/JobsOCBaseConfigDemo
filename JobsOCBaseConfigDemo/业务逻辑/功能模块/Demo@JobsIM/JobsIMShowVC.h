@@ -58,6 +58,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// JobsIM 入口页。
+/// 当前页继续使用现有用户列表 UI 和本地演示数据；协议层通过 `JobsIMDefine.h` 中的 packet / transport / delivery state 描述。
+/// V1 定位为局域网 + 近场无服务器 IM Demo，不承诺公网、后台可靠收消息、离线消息或 APNs 推送。
 @interface JobsIMShowVC : BaseViewController
 
 @end

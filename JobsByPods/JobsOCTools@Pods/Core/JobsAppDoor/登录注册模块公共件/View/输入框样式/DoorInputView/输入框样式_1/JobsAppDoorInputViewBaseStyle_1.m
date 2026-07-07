@@ -37,7 +37,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    self.countDownBtn.width = self.countDownBtnWidth ? : JobsWidth(104);
+    self.countDownBtn.byWidth(self.countDownBtnWidth ? : JobsWidth(104));
 }
 #pragma mark —— 一些私有方法
 -(jobsByVoidBlock _Nonnull)setting{
@@ -77,7 +77,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     _magicTextField.placeHolderAlignment = self.doorInputViewBaseStyleModel.placeHolderAlignment ? : NSTextAlignmentLeft;
     _magicTextField.placeHolderOffset = placeholderOffset;
     _magicTextField.moveDistance = self.doorInputViewBaseStyleModel.moveDistance ? : JobsWidth(35);
-    _magicTextField.fieldEditorOffset = self.doorInputViewBaseStyleModel.fieldEditorOffset ? : JobsWidth(50);
+    _magicTextField.fieldEditorOffset = self.doorInputViewBaseStyleModel.fieldEditorOffset ? : JobsWidth(4);
 }
 
 -(void)block:(JobsMagicTextField *)textField
@@ -165,10 +165,11 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             })
             .byViewBlock(^(__kindof UIView *view) {
                 UIButton *button = (UIButton *)view;
-                button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-                button.titleLabel.adjustsFontSizeToFitWidth = YES;
-                button.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-                button.titleLabel.minimumScaleFactor = 0.7f;
+                button.byContentHorizontalAlignment(UIControlContentHorizontalAlignmentRight);
+                button.titleLabel
+                    .byAdjustsFontSizeToFitWidth(YES)
+                    .byLineBreakMode(NSLineBreakByTruncatingTail)
+                    .byMinimumScaleFactor(0.7f);
             });
     };return _countDownBtn;
 }

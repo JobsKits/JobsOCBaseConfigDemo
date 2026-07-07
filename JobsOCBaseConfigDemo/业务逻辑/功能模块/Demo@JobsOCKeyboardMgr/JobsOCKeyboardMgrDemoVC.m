@@ -22,7 +22,7 @@ Prop_strong()UIView *accessoryBar;
 @implementation JobsOCKeyboardMgrDemoVC
 
 - (void)dealloc{
-    JobsOCKeyboardMgr.shared.byConfig(nil);
+    [JobsOCKeyboardMgr.shared clearConfigByOwner:self];
     JobsLog(@"%@",JobsLocalFunc);
 }
 
@@ -55,19 +55,27 @@ Prop_strong()UIView *accessoryBar;
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    JobsOCKeyboardMgr.shared.byConfig(nil);
+    [JobsOCKeyboardMgr.shared clearConfigByOwner:self];
 }
 #pragma mark —— Config
 -(void)jobs_configKeyboardMgr{
     @jobs_weakify(self)
     JobsOCKeyboardMgr.shared.byConfig(jobsMakeOCKeyboardConfig(^(__kindof JobsOCKeyboardConfig * _Nullable data) {
         @jobs_strongify(self)
-        data.byTargetView(self.cardView)
+        data.byOwner(self)
+            .byTargetView(self.cardView)
             .byContainerView(self.view)
+            .byInputFields(self.jobs_inputFields)
             .byExtraSpacing(JobsWidth(18))
             .byTopSpacing(JobsWidth(16))
+            .byShouldFlowByReturnKey(YES)
+            .byShouldResignOnTouchOutside(YES)
             .byAccessoryPolicy(JobsOCKeyboardAccessoryPolicyAuto);
     }));
+}
+
+-(NSArray <UITextField *>*)jobs_inputFields{
+    return @[self.accountTF,self.passwordTF,self.accessoryTF];
 }
 
 -(UITextField *)jobs_textFieldByPlaceholder:(NSString *)placeholder
@@ -158,18 +166,21 @@ Prop_strong()UIView *accessoryBar;
 -(UITextField *)accountTF{
     if (!_accountTF) {
         _accountTF = [self jobs_textFieldByPlaceholder:@"User" secure:NO];
+        _accountTF.returnKeyType = UIReturnKeyNext;
     };return _accountTF;
 }
 
 -(UITextField *)passwordTF{
     if (!_passwordTF) {
         _passwordTF = [self jobs_textFieldByPlaceholder:@"Password" secure:YES];
+        _passwordTF.returnKeyType = UIReturnKeyNext;
     };return _passwordTF;
 }
 
 -(UITextField *)accessoryTF{
     if (!_accessoryTF) {
         _accessoryTF = [self jobs_textFieldByPlaceholder:@"Code" secure:NO];
+        _accessoryTF.returnKeyType = UIReturnKeyDone;
         _accessoryTF.inputAccessoryView = self.accessoryBar;
     };return _accessoryTF;
 }

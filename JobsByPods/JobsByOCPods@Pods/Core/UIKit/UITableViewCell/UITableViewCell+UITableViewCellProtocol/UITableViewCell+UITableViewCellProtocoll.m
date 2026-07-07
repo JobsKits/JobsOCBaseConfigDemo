@@ -111,7 +111,7 @@ UITableViewCellProtocol_dynamic
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        if (model.isKindOfClass(UIViewModel.class)) {
+        if ([model isKindOfClass:UIViewModel.class]) {
             self.textLabel
                 .byTextCor(model.textModel.textCor)
                 .byFont(model.textModel.font)

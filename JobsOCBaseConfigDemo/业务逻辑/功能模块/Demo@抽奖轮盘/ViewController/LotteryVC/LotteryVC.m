@@ -41,15 +41,14 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byBgImage(@"新首页的底图".img)
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1));/// self.gk_navBackgroundColor 和 self.view.backgroundColor
+        .byBgCor(HEXCOLOR(0xFFF7EA))
+        .byNavBgCor(HEXCOLOR(0xFFF1E2));/// self.gk_navBackgroundColor 和 self.view.backgroundColor
         //    self.viewModel.navBgImage = @"导航栏左侧底图".img;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(HEXCOLOR(0xFFF7EA));
 
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
@@ -96,9 +95,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.dataMutArr[indexPath.row].cls) {
-        self.comingToPushVCByRequestParams(self.dataMutArr[indexPath.row].cls.new,
-                                           self.dataMutArr[indexPath.row]);
+    if (self.dataMutArr[indexPath.section].cls) {
+        self.comingToPushVCByRequestParams(self.dataMutArr[indexPath.section].cls.new,
+                                           self.dataMutArr[indexPath.section]);
     }else @"尚未接入此功能".tr.toast();
 }
 /// 编辑模式下，点击取消左边已选中的cell的按钮
@@ -108,25 +107,25 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return self.dataMutArr.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return JobsWidth(44);
+    return JobsWidth(64);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-    return self.dataMutArr.count;
+    return 1;
 }
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return self.tbvSectionRowCellMutArr[indexPath.row]
+    return self.tbvSectionRowCellMutArr[indexPath.section]
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byIndexPath(indexPath)
-        .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
+        .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.section])
             .JobsBlock1(^(id _Nullable data) {;
              
             });
@@ -134,12 +133,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForHeaderInSection:(NSInteger)section{
-    return JobsWidth(10);
+    return section ? JobsWidth(6) : JobsWidth(18);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForFooterInSectionByModel:(NSInteger)section{
-    return JobsWidth(10);
+    return JobsWidth(0.01);
 }
 /// 这里涉及到复用机制，return出去的是UITableViewHeaderFooterView的派生类
 /// tableView.registerHeaderFooterViewClass(BaseTableViewHeaderFooterView.class,@"");
@@ -188,7 +187,17 @@ viewForHeaderInSection:(NSInteger)section{
   willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView hideSeparatorLineAtLast:indexPath cell:cell];
-    cell.img = @"向右的箭头（大）".img;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.backgroundColor = JobsClearColor;
+    cell.contentView.byBgColor(JobsWhiteColor);
+    cell.contentView.layer.cornerRadius = JobsWidth(14);
+    cell.contentView.layer.masksToBounds = YES;
+    cell.contentView.layer.borderWidth = JobsWidth(0.5);
+    cell.contentView.layer.borderColor = HEXCOLOR(0xF0DEC2).CGColor;
+    cell.textLabel.numberOfLines = 1;
+    cell.detailTextLabel.numberOfLines = 1;
+    cell.img = @"向右的箭头（小）".img;
+    cell.arrows_size = CGSizeMake(JobsWidth(8), JobsWidth(18.3));
 //    @jobs_weakify(self)
     [cell customAccessoryView:^(id data) {
 //        @jobs_strongify(self)
@@ -213,10 +222,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_weakify(self)
         _tableView = self.view.addSubview(jobsMakeTableViewByGrouped(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
-            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
-                .bySeparatorColor(HEXCOLOR(0xEEE2C8))
+            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .bySeparatorColor(JobsClearColor)
                 .registerHeaderFooterViewClass(MSCommentTableHeaderFooterView.class,nil)
-                .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
+                .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight() + JobsWidth(12), 0))
                 .byTableHeaderView(jobsMakeView(^(__kindof UIView * _Nullable view) {
                     /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 }))
@@ -232,6 +241,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byShowsVerticalScrollIndicator(NO)
                 .byScrollEnabled(YES)
                 .byBgColor(JobsClearColor);
+            tableView.clipsToBounds = NO;
 
             if(@available(iOS 11.0, *)) {
                 tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
@@ -242,7 +252,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         .addOn(self.view)
         .byAdd(^(MASConstraintMaker *make) {
             @jobs_strongify(self)
-            make.left.right.bottom.equalTo(self.view);
+            make.left.equalTo(self.view).offset(JobsWidth(24));
+            make.right.equalTo(self.view).offset(-JobsWidth(24));
+            make.bottom.equalTo(self.view);
             [self make:make topOffset:10];
         });
     };return _tableView;
@@ -262,18 +274,49 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(NSMutableArray<__kindof UIViewModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+            UIViewModel *squareModel = self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"方形转盘抽奖".tr)
-                     .bySubTitle(@"中间有抽奖按钮".tr)
+                     .bySubTitle(@"九宫格灯光高亮抽奖".tr)
                      .byCls(LuckyDiskDemoVC.class);
-            })))
-            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+            }));
+            squareModel
+                .byImage(@"square.grid.3x3.fill".sys_img)
+                .byBgCor(JobsWhiteColor);
+            squareModel.textModel.byAttributedTitle([self lotteryAttributedString:@"方形转盘抽奖".tr
+                                                                              font:UIFontWeightMediumSize(JobsWidth(16))
+                                                                             color:HEXCOLOR(0x2F3A47)]);
+            squareModel.subTextModel.byAttributedTitle([self lotteryAttributedString:@"九宫格灯光高亮抽奖".tr
+                                                                                 font:UIFontWeightRegularSize(JobsWidth(13))
+                                                                                color:HEXCOLOR(0x9A6A2E)]);
+            data.add(squareModel);
+
+            UIViewModel *wheelModel = self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"圆形抽奖轮盘".tr)
-                     .bySubTitle(@"中间有抽奖按钮".tr)
+                     .bySubTitle(@"惯性旋转和指针命中".tr)
                      .byCls(LuckyWheelDemoVC.class);
-            })));
+            }));
+            wheelModel
+                .byImage(@"circle.grid.2x2.fill".sys_img)
+                .byBgCor(JobsWhiteColor);
+            wheelModel.textModel.byAttributedTitle([self lotteryAttributedString:@"圆形抽奖轮盘".tr
+                                                                             font:UIFontWeightMediumSize(JobsWidth(16))
+                                                                            color:HEXCOLOR(0x2F3A47)]);
+            wheelModel.subTextModel.byAttributedTitle([self lotteryAttributedString:@"惯性旋转和指针命中".tr
+                                                                                font:UIFontWeightRegularSize(JobsWidth(13))
+                                                                               color:HEXCOLOR(0x9A6A2E)]);
+            data.add(wheelModel);
         });
     };return _dataMutArr;
+}
+
+-(NSAttributedString *)lotteryAttributedString:(NSString *)text
+                                          font:(UIFont *)font
+                                         color:(UIColor *)color{
+    return [NSAttributedString.alloc initWithString:text ?: @""
+                                         attributes:@{
+        NSFontAttributeName: font ?: UIFontWeightRegularSize(JobsWidth(14)),
+        NSForegroundColorAttributeName: color ?: HEXCOLOR(0x2F3A47)
+    }];
 }
 
 @end

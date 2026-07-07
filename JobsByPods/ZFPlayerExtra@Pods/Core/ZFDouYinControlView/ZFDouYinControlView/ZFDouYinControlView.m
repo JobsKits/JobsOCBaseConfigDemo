@@ -99,14 +99,14 @@ Prop_strong()ZFSliderView *sliderView;
 
 -(void)showCoverViewWithUrl:(NSString *)coverUrl{
     [self.player.currentPlayerManager.view.coverImageView setImageWithURLString:coverUrl
-                                                                    placeholder:[UIImage imageNamed:@"img_video_loading"]];
+                                                                    placeholder:@"img_video_loading".img];
 }
 #pragma mark —— lazyLoad
 - (UIButton *)playBtn {
     if (!_playBtn) {
         _playBtn = (UIButton *)UIButton.alloc.init
             .byViewBlock(^(__kindof UIView *view) {
-                [(UIButton *)view setImage:[UIImage imageNamed:@"icon_play_pause"]
+                [(UIButton *)view setImage:@"icon_play_pause".img
                                   forState:UIControlStateNormal];
             })
             .byUserInteractionEnabled(NO);

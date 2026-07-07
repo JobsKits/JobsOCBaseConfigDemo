@@ -6,6 +6,7 @@
 //
 
 #import <objc/runtime.h>
+#import <TargetConditionals.h>
 #import <UIKit/UIKit.h>
 
 #if __has_include(<TKPermissionKit/TKPermissionKit.h>)

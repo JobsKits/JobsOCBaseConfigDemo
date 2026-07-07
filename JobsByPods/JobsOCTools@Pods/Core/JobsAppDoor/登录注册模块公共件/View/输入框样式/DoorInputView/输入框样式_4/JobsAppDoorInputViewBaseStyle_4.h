@@ -11,7 +11,6 @@
 #import <UIKit/UIKit.h>
 #import <JobsOCTools/JobsAppDoorConfig.h>
 #import <JobsOCTools/JobsAppDoorInputViewBaseStyle.h>
-#import <JobsOCTools/ImageCodeView.h>
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -47,6 +46,12 @@
 #import <JobsModelDSL/JobsModelDSL.h>
 #else
 #import "JobsModelDSL.h"
+#endif
+
+#if __has_include(<JobsGraphicCaptcha/JobsGraphicCaptchaHeader.h>)
+#import <JobsGraphicCaptcha/JobsGraphicCaptchaHeader.h>
+#else
+#import "JobsGraphicCaptchaHeader.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

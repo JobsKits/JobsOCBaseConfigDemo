@@ -529,9 +529,16 @@ static NSMutableArray <__kindof UINavigationController *>*_navCtrMutArr = nil;
 }
 /// 刷新 TabBarTitle
 -(void)refreshTabBarTitle{
-    for (JobsTabBarItemConfig *config in AppDelegate.tabBarItemConfigMutArr) {
-        NSInteger index = [AppDelegate.tabBarItemConfigMutArr indexOfObject:config];
-        config.vc.tabBarItem.title = AppDelegate.tabBarItemTitleMutArr[index];
+    AppDelegate.tabBarItemTitleMutArr = nil;
+    NSArray <NSString *>*titleArr = AppDelegate.tabBarItemTitleMutArr;
+    for (NSUInteger index = 0; index < AppDelegate.tabBarItemConfigMutArr.count; index++) {
+        if (index >= titleArr.count) break;
+        NSString *title = titleArr[index];
+        JobsTabBarItemConfig *config = AppDelegate.tabBarItemConfigMutArr[index];
+        config.vc.tabBarItem.title = title;
+        if (index < AppDelegate.tabBarItemMutArr.count) {
+            AppDelegate.tabBarItemMutArr[index].jobsResetBtnTitle(title);
+        }
     }
 }
 

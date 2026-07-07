@@ -41,6 +41,7 @@ Prop_assign(readonly, getter=isStarted) BOOL started;
 -(JobsRetJobsOCKeyboardMgrByVoidBlock _Nonnull)stop;
 -(JobsRetJobsOCKeyboardMgrByVoidBlock _Nonnull)restore;
 -(JobsRetJobsOCKeyboardMgrByConfigBlock _Nonnull)byConfig;
+-(void)clearConfigByOwner:(id _Nullable)owner;
 
 @end
 

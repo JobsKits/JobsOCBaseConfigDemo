@@ -26,12 +26,12 @@ Prop_strong()NSMutableArray *imageArr;
         self.currentPageIndicatorTintColor = param.wBannerControlSelectColor;
         self.pageIndicatorTintColor = param.wBannerControlColor;
         if (param.wBannerControlImage) {
-            self.inactiveImage = [UIImage imageNamed:param.wBannerControlImage];
+            self.inactiveImage = param.wBannerControlImage.img;
             self.inactiveImageSize = param.wBannerControlImageSize;
             self.pageIndicatorTintColor = [UIColor clearColor];
         }
         if (param.wBannerControlSelectImage) {
-            self.currentImage = [UIImage imageNamed:param.wBannerControlSelectImage];
+            self.currentImage = param.wBannerControlSelectImage.img;
             self.currentImageSize = param.wBannerControlSelectImageSize;
             self.currentPageIndicatorTintColor = [UIColor clearColor];
         }

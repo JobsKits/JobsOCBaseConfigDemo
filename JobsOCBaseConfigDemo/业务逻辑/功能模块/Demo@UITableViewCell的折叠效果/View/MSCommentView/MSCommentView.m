@@ -70,25 +70,20 @@ static dispatch_once_t static_commentViewOnceToken;
 #pragma mark —— 一些私有方法
 -(void)cleanTableViewDebugBackground{
     if (!_tableView) return;
-    _tableView.backgroundColor = JobsWhiteColor;
-    _tableView.backgroundView.backgroundColor = JobsWhiteColor;
+    _tableView.backgroundColor = HEXCOLOR(0xF5F7FB);
+    _tableView.backgroundView.backgroundColor = HEXCOLOR(0xF5F7FB);
     for (UIView *subview in _tableView.subviews) {
         if (![subview isKindOfClass:UITableViewCell.class] &&
             ![subview isKindOfClass:UITableViewHeaderFooterView.class]) {
-            subview.backgroundColor = JobsWhiteColor;
+            subview.backgroundColor = HEXCOLOR(0xF5F7FB);
         }
     }
 }
 /// 设置headerView
--(void)headerView:(UITableViewHeaderFooterView *)headerView
+-(void)headerView:(MSCommentTableHeaderFooterView *)headerView
           section:(NSInteger)section{
-    @jobs_weakify(self)
-    headerView.jobsRichViewByModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-        @jobs_strongify(self)
-        viewModel.textModel.byText(self.dataMutArr[section].sectionTitle)
-                           .byFont(UIFontWeightBoldSize(16))
-                           .byTextCor(@"#333333".cor);
-    }));
+    [headerView jobsRichViewByCommentModel:self.dataMutArr[section]
+                                    folded:[self.tableView ww_isSectionFolded:section]];
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -179,7 +174,10 @@ viewForHeaderInSection:(NSInteger)section{
                                                                              UITapGestureRecognizer *_Nullable arg) {
             MSCommentTableHeaderFooterView *header = (MSCommentTableHeaderFooterView *)arg.view;
             NSInteger section = header.tag;
-            [tableView ww_foldSection:section fold:![tableView ww_isSectionFolded:section]];
+            BOOL folded = ![tableView ww_isSectionFolded:section];
+            [tableView ww_foldSection:section fold:folded];
+            [header jobsRichViewByCommentModel:self.dataMutArr[section]
+                                        folded:folded];
             return nil;
         }];
         headerView.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
@@ -209,7 +207,7 @@ willDisplayHeaderView:(UIView *)view
                     /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 }))
                 .byBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
-                    view.byBgColor(JobsWhiteColor);
+                    view.byBgColor(HEXCOLOR(0xF5F7FB));
                 }))
                 .byFoldable(YES)
                 .byShowsVerticalScrollIndicator(NO)
@@ -217,14 +215,17 @@ willDisplayHeaderView:(UIView *)view
                 .byMJRefreshHeader(self.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
                     @jobs_strongify(self)
                     NSObject.feedbackGenerator(nil);//震动反馈
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        self.tableView.endRefreshing(YES);
+                    });
                     return nil;
                 }]))
                 .byMJRefreshFooter(self.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
                     @jobs_strongify(self)
-                    tableView.endRefreshing(YES);
+                    self.tableView.endRefreshing(YES);
                     return nil;
                 }]))
-                .byBgColor(@"#FFFFFF".cor);
+                .byBgColor(HEXCOLOR(0xF5F7FB));
             tableView.opaque = YES;
             tableView.registerHeaderFooterViewClass(MSCommentTableHeaderFooterView.class,@"");
             if(@available(iOS 11.0, *)) {
@@ -252,62 +253,47 @@ willDisplayHeaderView:(UIView *)view
     if(!_dataMutArr){
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeMSCommentModel(^(MSCommentModel * _Nullable commentModel) {
-                commentModel.sectionTitle = @"张山的歌".tr;
+                commentModel.sectionTitle = @"分组 1：默认展开".tr;
+                commentModel.sectionSubTitle = @"点击标题收起整组 cell，保留 header 可恢复".tr;
                 commentModel.commentDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <MSCommentDetailModel *>*_Nullable data2) {
                     data2.add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"张山的歌".tr
-                            .add(@",")
-                            .add(@"第1条评论".tr);
+                        model.rowTitle = @"第 1 行：这是会被折叠隐藏的 UITableViewCell，点击上方橙色分组标题即可收起。".tr;
                     }))
                     .add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"张山的歌".tr
-                            .add(@",")
-                            .add(@"第2条评论".tr);
+                        model.rowTitle = @"第 2 行：收起后本行不再占位，只保留 section header 用来重新展开。".tr;
                     }))
                     .add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"张山的歌".tr
-                            .add(@",")
-                            .add(@"第3条评论".tr);
+                        model.rowTitle = @"第 3 行：展开状态下可以看到完整 cell 列表，状态文案显示“展开中”。".tr;
                     }));
                 });;
             }))
             .add(jobsMakeMSCommentModel(^(MSCommentModel * _Nullable commentModel) {
-                commentModel.sectionTitle = @"赵四的歌".tr;
+                commentModel.sectionTitle = @"分组 2：反复切换".tr;
+                commentModel.sectionSubTitle = @"对比展开 / 收起后的高度、数量和状态变化".tr;
                 commentModel.commentDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <MSCommentDetailModel *>*_Nullable data2) {
                     data2.add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"赵四的歌".tr
-                            .add(@",")
-                            .add(@"第1条评论".tr);
+                        model.rowTitle = @"第 1 行：这个分组用于对比展开和收起后的视觉差异。".tr;
                     }))
                     .add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"赵四的歌".tr
-                            .add(@",")
-                            .add(@"第2条评论".tr);
+                        model.rowTitle = @"第 2 行：header 右侧的状态会在“展开中”和“已收起”之间切换。".tr;
                     }))
                     .add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"赵四的歌".tr
-                            .add(@",")
-                            .add(@"第3条评论".tr);
+                        model.rowTitle = @"第 3 行：加号和减号用于提示下一步可执行的展开或收起动作。".tr;
                     }));
                 });;
             }))
             .add(jobsMakeMSCommentModel(^(MSCommentModel * _Nullable commentModel) {
-                commentModel.sectionTitle = @"王五的歌".tr;
+                commentModel.sectionTitle = @"分组 3：复用状态".tr;
+                commentModel.sectionSubTitle = @"滚动复用时重新绑定标题、数量和折叠状态".tr;
                 commentModel.commentDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <MSCommentDetailModel *>*_Nullable data2) {
                     data2.add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"王五的歌".tr
-                            .add(@",")
-                            .add(@"第1条评论".tr);
+                        model.rowTitle = @"第 1 行：第三组用于验证 UITableViewHeaderFooterView 复用后的状态回填。".tr;
                     }))
                     .add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"王五的歌".tr
-                            .add(@",")
-                            .add(@"第2条评论".tr);
+                        model.rowTitle = @"第 2 行：header 复用时会按当前 section 重设标题、副标题和数量。".tr;
                     }))
                     .add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"王五的歌".tr
-                            .add(@",")
-                            .add(@"第3条评论".tr);
+                        model.rowTitle = @"第 3 行：这个页面现在重点展示 UITableViewCell 的分组折叠效果。".tr;
                     }));
                 });;
             }));

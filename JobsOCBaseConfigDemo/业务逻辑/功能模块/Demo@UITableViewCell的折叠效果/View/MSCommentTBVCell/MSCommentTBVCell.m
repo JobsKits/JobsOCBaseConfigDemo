@@ -30,6 +30,8 @@ BaseLayerProtocol_synthesize_part3
         MSCommentTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(MSCommentTBVCell);
         cell.offsetXForEach = JobsWidth(7);
         cell.offsetYForEach = JobsWidth(3);
+        cell.byBgColor(JobsClearColor);
+        cell.contentView.byBgColor(HEXCOLOR(0xFFFFFF));
         cell.cornerCutToCircleWithCornerRadius(JobsWidth(8));
         return cell;
     };
@@ -41,8 +43,9 @@ BaseLayerProtocol_synthesize_part3
         @jobs_strongify(self)
         if([model isKindOfClass:MSCommentDetailModel.class]){
             self.commentDetailModel = model;
-            self.titleLab.byAlpha(1);
-
+            self.titleLab
+                .byText(model.rowTitle)
+                .byAlpha(1);
         };return self;
     };
 }
@@ -51,9 +54,9 @@ BaseLayerProtocol_synthesize_part3
     @jobs_weakify(self)
     return ^CGFloat(MSCommentDetailModel *_Nullable data){
         @jobs_strongify(self)
-        return 3 * [self jobsGetLabelHeightByWidth:JobsWidth(355)
-                                             title:data.rowTitle
-                                              font:UIFontWeightRegularSize(14)];
+        return [self jobsGetLabelHeightByWidth:JobsWidth(305)
+                                         title:data.rowTitle
+                                          font:UIFontWeightRegularSize(14)] + JobsWidth(34);
     };
 }
 // 在具体的子类去实现,分类调用异常
@@ -73,16 +76,17 @@ BaseLayerProtocol_synthesize_part3
         _titleLab = jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
             @jobs_strongify(self)
             label
-                .byTextCor(@"#666666".cor)
+                .byTextCor(HEXCOLOR(0x374151))
                 .byFont(UIFontWeightRegularSize(14))
-                .byBgColor(@"#F7F7F7".cor)
+                .byNumberOfLines(0)
+                .byBgColor(HEXCOLOR(0xFFFFFF))
                 .byCornerRadius(JobsWidth(8))
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.edges.equalTo(self.contentView).with.insets(UIEdgeInsetsMake(JobsWidth(5),
-                                                                                      JobsWidth(25),
+                                                                                      JobsWidth(18),
                                                                                       JobsWidth(5),
-                                                                                      JobsWidth(25)));
+                                                                                      JobsWidth(18)));
                 });
         });
     };return _titleLab;

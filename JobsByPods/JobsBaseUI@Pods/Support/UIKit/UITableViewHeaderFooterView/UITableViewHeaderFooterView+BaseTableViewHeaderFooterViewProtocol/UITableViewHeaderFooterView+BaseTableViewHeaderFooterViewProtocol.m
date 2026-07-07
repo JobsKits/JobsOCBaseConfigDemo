@@ -49,7 +49,7 @@
     @jobs_weakify(self)
     return ^(__kindof UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        if (model.isKindOfClass(UIViewModel.class)) {
+        if ([model isKindOfClass:UIViewModel.class]) {
             /// self.contentView.backgroundColor = JobsCyanColor; 这样设置无效
             self.backgroundView.byBgColor(JobsCyanColor);
 

@@ -11,7 +11,6 @@
 /// UI
 Prop_strong()NSMutableArray <UIButton *>*btnMutArr;
 Prop_strong()JobsCountdownView *countdownView;
-Prop_strong()UIButton *countdownBtn;   // 倒计时按钮
 /// Data
 Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
 
@@ -56,13 +55,12 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.byBgColor(JobsMagentaColor);
+    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
 
     self.makeNavByAlpha(1);
     
     [self test_masonry_horizontal_fixSpace];
     self.countdownView.byVisible(YES);
-    self.countdownBtn.byVisible(YES);
     @jobs_weakify(self)
     /// 开始
     ((UIButton *)self.btnMutArr[0]).onClickBy(^(UIButton *data) {
@@ -99,7 +97,6 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.countdownView.timer stop];
-    self.countdownBtn.timerDestroy();
 }
 #pragma mark —— 一些私有方法
 -(void)test_masonry_horizontal_fixSpace {
@@ -204,41 +201,4 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
         });
     };return _countdownView;
 }
-/// ★ 倒计时按钮，使用 UIButton+JobsTimer 的封装
-/// 内含定时器
--(UIButton *)countdownBtn{
-    if (!_countdownBtn) {
-        @jobs_weakify(self)
-        _countdownBtn = UIButton.jobsInit()
-            .jobsResetBtnBgCor(HEXCOLOR(0xAE8330))
-            .jobsResetBtnTitle(@"获取验证码".tr)
-            .jobsResetBtnTitleCor(JobsWhiteColor)
-            .jobsResetBtnTitleFont(UIFontWeightRegularSize(24))
-            .byTimerStyle(TimerStyle_anticlockwise)
-            .byStartTime(8)
-            .byTimeInterval(1)
-            .byClickWhenTimerCycle(YES)
-            .byOnTick(^(CGFloat time){
-                @jobs_strongify(self)
-                self.countdownBtn.jobsResetBtnTitle([NSString stringWithFormat:@"%d",(int)ceil(time)].add(JobsSpace).add(@"秒"));
-            })
-            .byOnFinish(^(JobsTimer *_Nullable timer){
-                @jobs_strongify(self)
-                self.countdownBtn.jobsResetBtnTitle(@"获取验证码".tr);
-            })
-            .onClickBy(^(UIButton *x){
-                x.startTimer();
-            })
-            .jobsResetBtnCornerRadiusValue(JobsWidth(18))
-            .addOn(self.view)
-            .byAdd(^(MASConstraintMaker *make) {
-                @jobs_strongify(self)
-                make.centerX.equalTo(self.view);
-                make.top.equalTo(self.countdownView.mas_bottom).offset(JobsWidth(12));
-                make.height.mas_equalTo(JobsWidth(80));
-                make.width.mas_equalTo(JobsWidth(180));
-            });
-    };return _countdownBtn;
-}
-
 @end

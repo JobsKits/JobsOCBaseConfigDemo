@@ -55,7 +55,7 @@ Prop_strong() UILabel *resultLabel;
     /// 背景图
     UIImageView *bgImageView =
     [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT() )];
-    bgImageView.image = [UIImage imageNamed:@"LuckDraw_bg"];
+    bgImageView.image = @"LuckDraw_bg".img;
     [scrollView addSubview:bgImageView];
     /// 顶部灯光转盘背景（懒加载 + alpha 唤起）
     [scrollView addSubview:self.rotaryTable];
@@ -94,7 +94,7 @@ Prop_strong() UILabel *resultLabel;
                                                       0,
                                                       ScaleW(78),
                                                       ScaleW(80))];
-        img.image = [UIImage imageNamed:itemImgArray[i]];
+        img.image = ((NSString *)itemImgArray[i]).img;
         [itemView addSubview:img];
 
         UILabel *label =
@@ -115,7 +115,7 @@ Prop_strong() UILabel *resultLabel;
                                                       ScaleW(84),
                                                       ScaleW(78),
                                                       ScaleW(80))];
-        img.image = [UIImage imageNamed:itemImgArray[i + 4]];
+        img.image = ((NSString *)itemImgArray[i + 4]).img;
         [itemView addSubview:img];
 
         UILabel *label =
@@ -136,7 +136,7 @@ Prop_strong() UILabel *resultLabel;
                                                       ScaleW(168),
                                                       ScaleW(78),
                                                       ScaleW(80))];
-        img.image = [UIImage imageNamed:itemImgArray[i + 6]];
+        img.image = ((NSString *)itemImgArray[i + 6]).img;
         [itemView addSubview:img];
 
         UILabel *label =
@@ -223,10 +223,10 @@ Prop_strong() UILabel *resultLabel;
 - (void)itemBorderTimerEvent {
     if (self.rotaryTable.tag == 100) {
         self.rotaryTable.tag = 101;
-        self.rotaryTable.image = [UIImage imageNamed:@"bg_lamp_2"];
+        self.rotaryTable.image = @"bg_lamp_2".img;
     } else if (self.rotaryTable.tag == 101) {
         self.rotaryTable.tag = 100;
-        self.rotaryTable.image = [UIImage imageNamed:@"bg_lamp_1"];
+        self.rotaryTable.image = @"bg_lamp_1".img;
     }
 }
 #pragma mark —— 快速移动动画
@@ -428,7 +428,7 @@ Prop_strong() UILabel *resultLabel;
                                                    0,
                                                    ScaleW(35),
                                                    ScaleW(35))];
-        [close setImage:[UIImage imageNamed:@"pop_video_close"]
+        [close setImage:@"pop_video_close".img
                 forState:UIControlStateNormal];
         [close addTarget:self
                  action:@selector(closeButtonEvent:)
@@ -440,7 +440,7 @@ Prop_strong() UILabel *resultLabel;
                                                       ScaleW(45),
                                                       ScaleW(325),
                                                       ScaleW(341))];
-        imageView.image = [UIImage imageNamed:@"bg_video"];
+        imageView.image = @"bg_video".img;
         [_lotteryResultView addSubview:imageView];
         // 中奖结果文案（懒加载）
         if (!self.resultLabel) {

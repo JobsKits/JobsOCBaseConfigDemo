@@ -74,7 +74,7 @@ static dispatch_once_t static_hotLabelWithMultiLineOnceToken;
                                         maxSize:CGSizeZero];
             width += size.width + hotLabOffsetX;
             height = size.height;
-            if (width >= JobsSearchShowHotwordsTBVCellWidth) {
+            if (width >= JobsHotLabelByMultiLineMaxWidth) {
                 width = hotLabLeft + hotLabRight;
                 row += 1;
             }

@@ -72,11 +72,12 @@
 }
 #pragma mark —— 一些私有方法
 -(void)addArc{
+    CGFloat arcTop = self.jobsNavigationBarHeight + 20;
     jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
         layer
             .byPath(UIBezierPath
                     .byBezierPathWithRect(UIScreen.mainScreen.bounds)
-                    .byAppendPath(UIBezierPath.byBezierPathWithOvalInRect(CGRectMake(100, 100, 200, 200)))// 中间镂空的矩形框
+                    .byAppendPath(UIBezierPath.byBezierPathWithOvalInRect(CGRectMake(100, arcTop, 200, 200)))// 中间镂空的矩形框
                     .byUsesEvenOddFillRule(YES).CGPath)
             .byFillRule(kCAFillRuleEvenOdd)
             .byFillColor(JobsWhiteColor.CGColor)

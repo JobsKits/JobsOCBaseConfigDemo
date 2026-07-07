@@ -25,7 +25,7 @@
 | ---- | ---- |
 | Pod 名称 | `JobsBlock` |
 | Pod 类型 | 自建本地 Pod |
-| 版本 | `1.0.1` |
+| 版本 | `1.0.4` |
 | 平台 | `ios 12.0` |
 | 摘要 | Objective-C block type definitions for Jobs projects. |
 | 首页 | [https://example.local/JobsBlock](https://example.local/JobsBlock) |
@@ -75,7 +75,9 @@ JobsBlock@Pods/
 - `JobsBlock.h` / `ReturnByCertainParametersBlock.h` 统一承接 `JobsOCDSL` 第三方 DSL 所需 Block typedef，包括 `YTKNetwork`、`GKNavigationBar`、`ZFPlayer`、`Texture` 的链式配置返回类型。
 - `HXPhotoPickerObjC` 相关 DSL 需要的 `HXPhotoView`、`HXPhotoManager`、`HXPhotoConfiguration` Block 别名统一在 `JobsBlock.h` 暴露，协议 / 类向前声明集中放在 `JobsBlockHeader.h`。
 - `JobsOCTimerMgr` 相关 DSL 的 `JobsTimerMgr` 与内部 `_JobsTimerMgrEntry` 返回型 Block 统一由 `JobsBlock.h` 管理，相关类向前声明集中放在 `JobsBlockHeader.h`。
+- `JobsPresentTransitionMgr` 的配置回调使用 `jobsByPresentTransitionManagerBlock`，由 `JobsBlock.h` 统一暴露，类向前声明集中放在 `JobsBlockHeader.h`。
 - `VoidByCertainParametersBlock.h` 暴露常用数据容器配置 Block，包括 `jobsByMutableIndexSetBlock`，供 `JobsMakes` 创建可变索引集合时复用。
+- `VoidByCertainParametersBlock.h` 统一承接 `JobsOCRefresher` 的 `JobsOCRefreshActionBlock` 别名和 `jobsByOCRefreshConfigBlock` 配置回调，避免业务 Pod 内散落同签名 Block。
 - `JobsBlockHeader.h` 集中维护向前声明，避免 `@class` / `@protocol` 分散在业务头文件中。
 - `JobsBlockHeader.h` 对 `YTKNetwork`、`GKNavigationBar`、`ZFPlayer`、`Texture` 采用条件导入和能力宏；`JobsBlock.podspec` 不因此强制新增这些第三方依赖。
 

@@ -8,6 +8,7 @@
 #ifndef JOBS_HEADER_GUARD_UILABEL_DSL_8E4C0C6C8B
 #define JOBS_HEADER_GUARD_UILABEL_DSL_8E4C0C6C8B
 
+#import <CoreText/CoreText.h>
 #import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIKit.h>
 
@@ -54,6 +55,7 @@ Prop_assign()JobsDirectionType transformLayerDirectionType;
 -(JobsRetUILabelByBOOLBlock _Nonnull)byHighlighted;
 -(JobsRetUILabelByBOOLBlock _Nonnull)byEnabled;
 -(JobsRetUILabelByBOOLBlock _Nonnull)byAdjustsFontSizeToFitWidth;
+-(JobsRetUILabelByBOOLBlock _Nonnull)byAdjustsFontForContentSizeCategory;
 -(JobsRetUILabelByBaselineAdjustmentBlock _Nonnull)byBaselineAdjustment;
 -(JobsRetUILabelByCGFloatBlock _Nonnull)byMinimumScaleFactor API_AVAILABLE(ios(6.0));
 -(JobsRetUILabelByBOOLBlock _Nonnull)byAllowsDefaultTighteningForTruncation API_AVAILABLE(ios(9.0));

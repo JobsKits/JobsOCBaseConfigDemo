@@ -9,8 +9,8 @@ Pod::Spec.new do |spec|
 
   spec.name             = 'JobsDropDownListView'
   spec.version          = '1.0.0'
-  spec.summary          = 'JobsDropDownListView'
-  spec.description      = 'JobsDropDownListView'
+  spec.summary          = 'Anchor-based dropdown list view for Jobs projects.'
+  spec.description      = 'JobsDropDownListView provides up/down anchored dropdown lists driven by JobsModel UIViewModel data bundles.'
   spec.homepage         = 'https://example.local/JobsDropDownListView'
   spec.license          = { :type => 'MIT', :file => 'LICENSE' }
   spec.author           = { 'Jobs' => 'lg295060456@gmail.com' }
@@ -25,6 +25,7 @@ Pod::Spec.new do |spec|
     'UIKit'
   ]
 
+  spec.dependency 'JobsModel'
   spec.dependency 'JobsModelDSL'
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsClass'

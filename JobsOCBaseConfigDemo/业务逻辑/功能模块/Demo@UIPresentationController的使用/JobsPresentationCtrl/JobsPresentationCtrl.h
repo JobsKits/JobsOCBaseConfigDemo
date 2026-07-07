@@ -28,7 +28,8 @@
 @interface JobsPresentationCtrl : UIPresentationController 
 <
 UIViewControllerTransitioningDelegate,
-UIViewControllerAnimatedTransitioning
+UIViewControllerAnimatedTransitioning,
+UIGestureRecognizerDelegate
 >
 
 @end

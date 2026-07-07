@@ -75,7 +75,7 @@ JobsLanMgr@Pods/
 
 - `JobsLanMgr.h`
 - `Core/**/*.{h,m,mm}`
-- `NSString+JobsLanMgr` 暴露 `.tr` 国际化入口和 `inStr(...)` 本地化忽略大小写包含判断入口。
+- `NSString+JobsLanMgr` 暴露 `.tr` 国际化入口和 `inStr(...)` 本地化忽略大小写包含判断入口；`.tr` 统一通过 `LanMgr.bundle` 取值，保证用户在 App 内切换语言后，全 App 后续文案刷新都基于当前 App 语言，而不是继续跟随系统语言。
 
 ### 5.3、默认安装边界
 

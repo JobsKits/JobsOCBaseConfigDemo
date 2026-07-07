@@ -85,6 +85,11 @@ Prop_strong()JobsIMListView *listView;
 -(UIViewModel *)makeData:(JobsIMListDataModel *)data{
     
     JobsIMChatInfoModel *chatInfoModel = JobsIMChatInfoModel.new;
+    chatInfoModel.messageID = data.lastMessageID ?: NSUUID.UUID.UUIDString;
+    chatInfoModel.conversationID = data.peerID;
+    chatInfoModel.fromUserID = data.userID;
+    chatInfoModel.toUserID = JobsIMLocalDemoUserID();
+    chatInfoModel.userID = data.userID;
     chatInfoModel.chatTextStr = data.contentStr;
     chatInfoModel.userNameStr = data.usernameStr;
     {
@@ -92,7 +97,21 @@ Prop_strong()JobsIMListView *listView;
         chatInfoModel.chatTextTimeStr = [NSString stringWithFormat:@"%ld:%ld:%ld",timeModel.currentHour,timeModel.currentMin,timeModel.currentSec];
     }
     chatInfoModel.userIconIMG = data.userHeaderIMG;
-    chatInfoModel.identification = @"我是服务器";
+    chatInfoModel.userIconURLStr = data.userHeaderURLStr;
+    chatInfoModel.identification = JobsIMStringFromTransportKind(data.transportKind);
+    chatInfoModel.messageType = JobsIMChatMessageType_Text;
+    chatInfoModel.chatInfoDirection = JobsIMChatInfoDirection_Send;
+    chatInfoModel.packetType = JobsIMPacketTypeText;
+    chatInfoModel.deliveryState = JobsIMDeliveryStateReceived;
+    chatInfoModel.transportKind = data.transportKind;
+    chatInfoModel.rawPacket = JobsIMPacketMake(JobsIMPacketTypeText,
+                                               chatInfoModel.messageID,
+                                               chatInfoModel.fromUserID,
+                                               chatInfoModel.toUserID,
+                                               @{
+                                                   @"text": chatInfoModel.chatTextStr ?: @"",
+                                                   @"transport": JobsIMStringFromTransportKind(data.transportKind)
+                                               });
     
     return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
         data.byData(chatInfoModel);
@@ -126,7 +145,9 @@ Prop_strong()JobsIMListView *listView;
         _shareBtn = BaseButton.jobsInit()
             .bgColorBy(JobsWhiteColor)
             .jobsResetBtnCornerRadiusValue(JobsWidth(23 / 2))
-            .jobsResetBtnImage(JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"分享"))
+            .jobsResetBtnTitle(@"+")
+            .jobsResetBtnTitleCor(HEXCOLOR(0xD4B58D))
+            .jobsResetBtnTitleFont(UIFontWeightRegularSize(JobsWidth(24)))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);

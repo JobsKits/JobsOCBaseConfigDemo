@@ -30,6 +30,7 @@ Pod::Spec.new do |spec|
   spec.frameworks = [
     'Foundation',
     'UIKit',
+    'CoreText',
     'QuartzCore',
     'Metal',
     'MessageUI',

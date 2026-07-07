@@ -7,7 +7,6 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsPresentedVC.h"
-#import "JobsPresentationCtrl.h"
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
@@ -27,10 +26,22 @@
 #import "JobsByOCPods.h"
 #endif
 
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsPresentTransitionMgr/JobsPresentTransitionMgrHeader.h>)
+#import <JobsPresentTransitionMgr/JobsPresentTransitionMgrHeader.h>
+#else
+#import "JobsPresentTransitionMgrHeader.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)

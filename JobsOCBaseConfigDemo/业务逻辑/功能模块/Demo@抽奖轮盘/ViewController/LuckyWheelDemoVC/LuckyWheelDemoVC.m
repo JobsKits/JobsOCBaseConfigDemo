@@ -9,8 +9,17 @@
 
 @interface LuckyWheelDemoVC ()
 
+Prop_strong()CAGradientLayer *backgroundGradientLayer;
+Prop_strong()UIView *stageView;
+Prop_strong()UILabel *stageTitleLab;
+Prop_strong()UILabel *stageSubTitleLab;
 Prop_strong()LuckyWheelView *wheelView;
+Prop_strong()UIButton *spinToggleBtn;
 Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
+
+- (UIImage *)luckyWheelResultToastImage;
+- (void)showLuckyWheelResultToastBySegment:(LuckyWheelSegment *)segment;
+- (void)updateSpinToggleBtnBySpinning:(BOOL)spinning;
 
 @end
 
@@ -41,67 +50,189 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byBgImage(@"新首页的底图".img)
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1));/// self.gk_navBackgroundColor 和 self.view.backgroundColor
+        .byBgCor(HEXCOLOR(0xFFF7EA))
+        .byNavBgCor(HEXCOLOR(0xFFF1E2));/// self.gk_navBackgroundColor 和 self.view.backgroundColor
         //    self.viewModel.navBgImage = @"导航栏左侧底图".img;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsRedCor(1));
+    self.view.byBgColor(HEXCOLOR(0xFFF7EA));
+    self.backgroundGradientLayer.hidden = NO;
+    self.stageView.byVisible(YES);
+    self.stageTitleLab.byVisible(YES);
+    self.stageSubTitleLab.byVisible(YES);
 
     @jobs_weakify(self)
     self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
         @jobs_strongify(self)
-        data.add(UIBarButtonItem.initBy(BaseButton.jobsInit()
-                                        .jobsResetBtnTitle(@"停止".tr)
-                                        .jobsResetBtnTitleCor(JobsBlueCor(0.7))
-                                        .onClickBy(^(UIButton *x){
-                                            @jobs_strongify(self)
-                                            [self.wheelView stopSpin];
-                                        }).onLongPressGestureBy(^(id data){
-                                            JobsLog(@"");
-                                        })
-                                        .bySize(CGSizeMake(JobsWidth(24), JobsWidth(24)))));
+        data.add(UIBarButtonItem.initBy(self.spinToggleBtn));
     });
     self.makeNavByAlpha(1);
     self.wheelView.byVisible(YES);
+    [self updateSpinToggleBtnBySpinning:self.wheelView.isSpinning];
+}
+
+-(void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    self.backgroundGradientLayer.frame = self.view.bounds;
+    self.stageView.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.stageView.bounds
+                                                                 cornerRadius:JobsWidth(24)].CGPath;
+}
+
+-(void)updateSpinToggleBtnBySpinning:(BOOL)spinning{
+    self.spinToggleBtn.selected = spinning;
+    self.spinToggleBtn.jobsResetBtnTitle(spinning ? @"停止".tr : @"开始抽奖".tr);
+}
+
+- (void)showLuckyWheelResultToastBySegment:(LuckyWheelSegment *)segment {
+    NSString *result = (segment.text ?: @"未知奖项").tr;
+    [WHToast showImage:self.luckyWheelResultToastImage
+               message:[NSString stringWithFormat:@"%@\n%@", @"抽奖结果：".tr, result]
+              duration:1.5
+         finishHandler:nil];
+}
+
+- (UIImage *)luckyWheelResultToastImage {
+    CGSize size = CGSizeMake(JobsWidth(44), JobsWidth(44));
+    UIGraphicsImageRendererFormat *format = UIGraphicsImageRendererFormat.defaultFormat;
+    format.opaque = NO;
+    UIGraphicsImageRenderer *renderer = [UIGraphicsImageRenderer.alloc initWithSize:size
+                                                                             format:format];
+    return [renderer imageWithActions:^(__unused UIGraphicsImageRendererContext * _Nonnull rendererContext) {
+        NSString *emoji = @"🎉";
+        UIFont *font = [UIFont systemFontOfSize:size.width * 0.78];
+        NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
+        paragraphStyle.alignment = NSTextAlignmentCenter;
+        NSDictionary<NSAttributedStringKey, id> *attributes = @{
+            NSFontAttributeName: font,
+            NSParagraphStyleAttributeName: paragraphStyle
+        };
+        CGSize emojiSize = [emoji sizeWithAttributes:attributes];
+        CGRect rect = CGRectMake((size.width - emojiSize.width) / 2.0,
+                                 (size.height - emojiSize.height) / 2.0,
+                                 emojiSize.width,
+                                 emojiSize.height);
+        [emoji drawInRect:rect
+           withAttributes:attributes];
+    }];
 }
 #pragma mark —— Lazyload
 -(NSMutableArray<LuckyWheelSegment *> *)segments{
     if(!_segments){
         _segments = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
             arr.add([LuckyWheelSegment.alloc initWithText:@"一等奖".tr
-                                                 textFont:[UIFont systemFontOfSize:12 weight:UIFontWeightMedium]
-                                                textColor:JobsBlackColor
+                                                 textFont:UIFontWeightSemiboldSize(JobsWidth(13))
+                                                textColor:HEXCOLOR(0x314255)
                                            attributedText:nil
-                                          backgroundColor:JobsRandomCor(1)
-                                         placeholderImage:@"globe".sys_img
+                                          backgroundColor:HEXCOLOR(0xBFE5F2)
+                                         placeholderImage:@"gift.fill".sys_img
                                            imageURLString:@"https://picsum.photos/30"])
             .add([LuckyWheelSegment.alloc initWithText:@"二等奖".tr
-                                              textFont:[UIFont systemFontOfSize:12 weight:UIFontWeightMedium]
-                                             textColor:JobsBlackColor
+                                              textFont:UIFontWeightSemiboldSize(JobsWidth(13))
+                                             textColor:HEXCOLOR(0x314255)
                                         attributedText:nil
-                                       backgroundColor:JobsRandomCor(1)
-                                      placeholderImage:@"plus".sys_img
+                                       backgroundColor:HEXCOLOR(0xFFE2A9)
+                                      placeholderImage:@"sparkles".sys_img
                                         imageURLString:@"https://picsum.photos/30"])
             .add([LuckyWheelSegment.alloc initWithText:@"三等奖".tr
-                                              textFont:[UIFont systemFontOfSize:12 weight:UIFontWeightMedium]
-                                             textColor:JobsBlackColor
+                                              textFont:UIFontWeightSemiboldSize(JobsWidth(13))
+                                             textColor:HEXCOLOR(0x314255)
                                         attributedText:nil
-                                       backgroundColor:JobsRandomCor(1)
-                                      placeholderImage:@"message".sys_img
+                                       backgroundColor:HEXCOLOR(0xCDEBDC)
+                                      placeholderImage:@"seal.fill".sys_img
                                         imageURLString:@"https://picsum.photos/30"])
             .add([LuckyWheelSegment.alloc initWithText:@"谢谢参与".tr
-                                              textFont:[UIFont systemFontOfSize:12 weight:UIFontWeightMedium]
-                                             textColor:JobsBlackColor
+                                              textFont:UIFontWeightSemiboldSize(JobsWidth(13))
+                                             textColor:HEXCOLOR(0x314255)
                                         attributedText:nil
-                                       backgroundColor:JobsRandomCor(1)
-                                      placeholderImage:@"tray".sys_img
+                                       backgroundColor:HEXCOLOR(0xF7C5D6)
+                                      placeholderImage:@"hand.thumbsup.fill".sys_img
                                         imageURLString:@"https://picsum.photos/30"]);
         });
     };return _segments;
+}
+
+-(CAGradientLayer *)backgroundGradientLayer{
+    if(!_backgroundGradientLayer){
+        _backgroundGradientLayer = CAGradientLayer.layer;
+        _backgroundGradientLayer.colors = @[
+            (__bridge id)HEXCOLOR(0xFFF4E5).CGColor,
+            (__bridge id)HEXCOLOR(0xF9E7C8).CGColor,
+            (__bridge id)HEXCOLOR(0xFFE8D6).CGColor
+        ];
+        _backgroundGradientLayer.locations = @[@0, @0.48, @1];
+        _backgroundGradientLayer.startPoint = CGPointMake(0.2, 0);
+        _backgroundGradientLayer.endPoint = CGPointMake(0.9, 1);
+        [self.view.layer insertSublayer:_backgroundGradientLayer atIndex:0];
+    };return _backgroundGradientLayer;
+}
+
+-(UIView *)stageView{
+    if(!_stageView){
+        @jobs_weakify(self)
+        _stageView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor([JobsWhiteColor colorWithAlphaComponent:0.88])
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    @jobs_strongify(self)
+                    make.left.equalTo(self.view).offset(JobsWidth(22));
+                    make.right.equalTo(self.view).offset(-JobsWidth(22));
+                    [self make:make topOffset:JobsWidth(22)];
+                    make.bottom.equalTo(self.view).offset(-(JobsBottomSafeAreaHeight() + JobsWidth(28)));
+                });
+            view.layer.cornerRadius = JobsWidth(24);
+            view.layer.borderWidth = JobsWidth(1);
+            view.layer.borderColor = [HEXCOLOR(0xFFFFFF) colorWithAlphaComponent:0.8].CGColor;
+            view.layer.shadowColor = HEXCOLOR(0xB47722).CGColor;
+            view.layer.shadowOpacity = 0.16;
+            view.layer.shadowOffset = CGSizeMake(0, JobsWidth(12));
+            view.layer.shadowRadius = JobsWidth(24);
+        });
+    };return _stageView;
+}
+
+-(UILabel *)stageTitleLab{
+    if(!_stageTitleLab){
+        @jobs_weakify(self)
+        _stageTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"LUCKY WHEEL".tr)
+                .byFont(UIFontWeightSemiboldSize(JobsWidth(15)))
+                .byTextCor(HEXCOLOR(0xC37A19))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .addOn(self.stageView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    @jobs_strongify(self)
+                    make.top.equalTo(self.stageView).offset(JobsWidth(24));
+                    make.left.equalTo(self.stageView).offset(JobsWidth(24));
+                    make.right.equalTo(self.stageView).offset(-JobsWidth(24));
+                    make.height.mas_equalTo(JobsWidth(22));
+                });
+        });
+    };return _stageTitleLab;
+}
+
+-(UILabel *)stageSubTitleLab{
+    if(!_stageSubTitleLab){
+        @jobs_weakify(self)
+        _stageSubTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"转动今日手气".tr)
+                .byFont(UIFontWeightRegularSize(JobsWidth(13)))
+                .byTextCor(HEXCOLOR(0x6B7280))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .addOn(self.stageView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    @jobs_strongify(self)
+                    make.top.equalTo(self.stageTitleLab.mas_bottom).offset(JobsWidth(4));
+                    make.left.equalTo(self.stageView).offset(JobsWidth(24));
+                    make.right.equalTo(self.stageView).offset(-JobsWidth(24));
+                    make.height.mas_equalTo(JobsWidth(20));
+                });
+        });
+    };return _stageSubTitleLab;
 }
 
 -(LuckyWheelView *)wheelView{
@@ -116,22 +247,50 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
                 .byCustomInitialVelocity(@25)
                 .byPanRotationEnabled(YES)
                 .bySegmentTap(^(LuckyWheelSegment * _Nonnull segment) {
-                    [NSString stringWithFormat:@"🍀 短按 / 停止命中：%@", segment.text ?: @""].toast();
+                    @jobs_strongify(self)
+                    [self showLuckyWheelResultToastBySegment:segment];
                 })
                 .bySegmentLongPress(^(LuckyWheelSegment * _Nonnull segment,
                                       UILongPressGestureRecognizer * _Nonnull gr) {
                  if (gr.state == UIGestureRecognizerStateBegan) {
-                     [NSString stringWithFormat:@"👆 长按开始：%@", segment.text ?: @""].toast();
+                     [NSString stringWithFormat:@"长按奖项：%@", segment.text ?: @""].toast();
                  }
-             }).byBgColor(JobsRandomCor(.7));
+             }).byBgColor(JobsClearColor);
+            [wheel onSpinningStateChanged:^(BOOL spinning) {
+                @jobs_strongify(self)
+                [self updateSpinToggleBtnBySpinning:spinning];
+            }];
         })
-        .addOn(self.view)
+        .addOn(self.stageView)
         .byAdd(^(MASConstraintMaker *make) {
             @jobs_strongify(self)
-            make.center.equalTo(self.view);
-            make.size.mas_equalTo(CGSizeMake(300.0, 300.0));
+            make.centerX.equalTo(self.stageView);
+            make.centerY.equalTo(self.stageView).offset(JobsWidth(28));
+            make.size.mas_equalTo(CGSizeMake(JobsWidth(320), JobsWidth(320)));
         });
     };return _wheelView;
+}
+
+-(UIButton *)spinToggleBtn{
+    if(!_spinToggleBtn){
+        @jobs_weakify(self)
+        _spinToggleBtn = BaseButton.jobsInit()
+            .jobsResetBtnTitle(@"开始抽奖".tr)
+            .selectedStateTitleBy(@"停止".tr)
+            .jobsResetBtnTitleCor(HEXCOLOR(0x5F3B12))
+            .selectedStateTitleColorBy(HEXCOLOR(0x5F3B12))
+            .jobsResetBtnTitleFont(UIFontWeightMediumSize(JobsWidth(15)))
+            .bgColorBy(HEXCOLOR(0xFFFDF8))
+            .jobsResetBtnCornerRadiusValue(JobsWidth(18))
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                [self.wheelView toggleSpin];
+                [self updateSpinToggleBtnBySpinning:self.wheelView.isSpinning];
+            }).onLongPressGestureBy(^(id data){
+                JobsLog(@"");
+            })
+            .bySize(CGSizeMake(JobsWidth(78), JobsWidth(36)));
+    };return _spinToggleBtn;
 }
 
 @end

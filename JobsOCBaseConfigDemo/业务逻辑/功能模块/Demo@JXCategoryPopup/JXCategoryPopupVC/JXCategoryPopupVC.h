@@ -56,6 +56,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<TFPopupExtra/TFPopupExtra.h>)
+#import <TFPopupExtra/TFPopupExtra.h>
+#else
+#import "TFPopupExtra.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JXCategoryPopupVC : BaseViewController

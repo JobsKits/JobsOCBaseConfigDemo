@@ -68,6 +68,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// JobsIM 聊天页。
+/// UI 仍沿用现有聊天气泡、输入框和 tableView 数据源；消息模型额外携带 JobsIM 协议包字段。
+/// 当前实现保留“本地传输占位回包”，后续可把发送入口接到 Bonjour / Network.framework 或 MultipeerConnectivity。
 @interface JobsIMVC : BaseViewController
 <
 UITableViewDelegate

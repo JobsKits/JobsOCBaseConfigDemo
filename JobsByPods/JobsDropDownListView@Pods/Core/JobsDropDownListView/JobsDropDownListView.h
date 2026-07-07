@@ -47,6 +47,18 @@
 #import "JobsBaseUI.h"
 #endif
 
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
+#else
+#import "JobsModel.h"
+#endif
+
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -69,6 +81,8 @@ UITableViewDelegate
 
 Prop_assign()JobsDropDownListViewDirection direction;
 
+-(JobsDropDownListView *_Nonnull)jobsReloadDataWithModels:(NSArray <__kindof UIViewModel *>*_Nullable)models;
+-(jobsByIDBlock _Nonnull)jobsRichViewByModel;
 -(jobsByCtrlBlock _Nonnull)dropDownListViewDisappear;
 -(instancetype)initWithTableViewClass:(Class <UITableViewCellProtocol>_Nonnull)tableViewClass;// 要链接自定义的cell用这个初始化方法
 @end

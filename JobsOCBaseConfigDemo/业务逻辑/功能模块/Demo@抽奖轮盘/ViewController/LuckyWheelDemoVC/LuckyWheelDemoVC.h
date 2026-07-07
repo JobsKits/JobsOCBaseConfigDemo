@@ -49,6 +49,12 @@
 #import "JobsByOCPods.h"
 #endif
 
+#if __has_include(<WHToastExtra/WHToastExtra.h>)
+#import <WHToastExtra/WHToastExtra.h>
+#else
+#import "WHToastExtra.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else

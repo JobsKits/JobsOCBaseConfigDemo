@@ -15,6 +15,15 @@
 /// UI
 Prop_strong()UIView *dimmingView;
 Prop_strong()UIView *presentationWrappingView;
+@property(nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
+@property(nonatomic, assign) CGRect panStartFrame;
+@property(nonatomic, assign) CGRect interactiveFrame;
+@property(nonatomic, assign) BOOL hasInteractiveFrame;
+
+-(void)jobs_handlePanGesture:(UIPanGestureRecognizer *)panGestureRecognizer;
+-(CGRect)jobs_frameByTop:(CGFloat)top;
+-(CGFloat)jobs_defaultPresentedMinY;
+-(UIScrollView *_Nullable)jobs_hitScrollViewByGesture:(UIGestureRecognizer *)gestureRecognizer;
 
 @end
 
@@ -68,6 +77,10 @@ Prop_strong()UIView *presentationWrappingView;
                 });
         });
         self.presentationWrappingView = presentationWrapperView;
+        self.panGestureRecognizer = [UIPanGestureRecognizer.alloc initWithTarget:self
+                                                                          action:@selector(jobs_handlePanGesture:)];
+        self.panGestureRecognizer.delegate = self;
+        [presentationWrapperView addGestureRecognizer:self.panGestureRecognizer];
         
         // presentationRoundedCornerView is CORNER_RADIUS points taller than the
         // height of the presented view controller's view.  This is because
@@ -223,6 +236,7 @@ Prop_strong()UIView *presentationWrappingView;
 
 - (CGRect)frameOfPresentedViewInContainerView{
     CGRect containerViewBounds = self.containerView.bounds;
+    if (self.hasInteractiveFrame) return self.interactiveFrame;
     CGSize presentedViewContentSize = [self sizeForChildContentContainer:self.presentedViewController
                                                  withParentContainerSize:containerViewBounds.size];
     // The presented view extends presentedViewContentSize.height points from
@@ -244,6 +258,81 @@ Prop_strong()UIView *presentationWrappingView;
 
     self.presentationWrappingView.byFrame(self.frameOfPresentedViewInContainerView);
 
+}
+#pragma mark —— Gesture
+-(void)jobs_handlePanGesture:(UIPanGestureRecognizer *)panGestureRecognizer{
+    if (!self.presentationWrappingView || !self.containerView) return;
+    switch (panGestureRecognizer.state) {
+        case UIGestureRecognizerStateBegan:
+            self.panStartFrame = self.presentationWrappingView.frame;
+            self.interactiveFrame = self.panStartFrame;
+            self.hasInteractiveFrame = YES;
+            break;
+        case UIGestureRecognizerStateChanged: {
+            CGFloat top = self.panStartFrame.origin.y + [panGestureRecognizer translationInView:self.containerView].y;
+            self.interactiveFrame = [self jobs_frameByTop:top];
+            self.presentationWrappingView.byFrame(self.interactiveFrame);
+        } break;
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed: {
+            CGFloat velocityY = [panGestureRecognizer velocityInView:self.containerView].y;
+            if (CGRectGetMinY(self.presentationWrappingView.frame) > self.jobs_defaultPresentedMinY) {
+                [self.presentingViewController dismissViewControllerAnimated:YES
+                                                                  completion:NULL];
+            }else{
+                self.interactiveFrame = self.presentationWrappingView.frame;
+                [UIView animateWithDuration:0.28
+                                      delay:0
+                     usingSpringWithDamping:0.88
+                      initialSpringVelocity:fabs(velocityY) / 1000.f
+                                    options:UIViewAnimationOptionCurveEaseOut
+                                 animations:^{
+                    self.presentationWrappingView.byFrame(self.interactiveFrame);
+                } completion:NULL];
+            }
+        } break;
+        default:
+            break;
+    }
+}
+
+-(CGRect)jobs_frameByTop:(CGFloat)top{
+    CGRect containerViewBounds = self.containerView.bounds;
+    CGFloat clampedTop = MIN(MAX(0, top), CGRectGetHeight(containerViewBounds));
+    CGRect frame = containerViewBounds;
+    frame.origin.y = clampedTop;
+    frame.size.height = CGRectGetHeight(containerViewBounds) - clampedTop;
+    return frame;
+}
+
+-(CGFloat)jobs_defaultPresentedMinY{
+    CGRect containerViewBounds = self.containerView.bounds;
+    CGSize presentedViewContentSize = [self sizeForChildContentContainer:self.presentedViewController
+                                                 withParentContainerSize:containerViewBounds.size];
+    return CGRectGetMaxY(containerViewBounds) - presentedViewContentSize.height;
+}
+
+-(UIScrollView *)jobs_hitScrollViewByGesture:(UIGestureRecognizer *)gestureRecognizer{
+    CGPoint point = [gestureRecognizer locationInView:self.presentationWrappingView];
+    UIView *hitView = [self.presentationWrappingView hitTest:point
+                                                   withEvent:nil];
+    while (hitView) {
+        if ([hitView isKindOfClass:UIScrollView.class]) return (UIScrollView *)hitView;
+        hitView = hitView.superview;
+    };return nil;
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    if (gestureRecognizer != self.panGestureRecognizer) return YES;
+    UIPanGestureRecognizer *panGestureRecognizer = (UIPanGestureRecognizer *)gestureRecognizer;
+    CGPoint velocity = [panGestureRecognizer velocityInView:self.containerView];
+    if (fabs(velocity.y) <= fabs(velocity.x)) return NO;
+    UIScrollView *scrollView = [self jobs_hitScrollViewByGesture:gestureRecognizer];
+    CGFloat scrollTop = -scrollView.contentInset.top;
+    if (velocity.y > 0 && scrollView && scrollView.contentOffset.y > scrollTop + 0.5) return NO;
+    if (velocity.y < 0 && CGRectGetMinY(self.presentationWrappingView.frame) <= 0) return NO;
+    return YES;
 }
 #pragma mark —— UIViewControllerAnimatedTransitioning
 -(NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext{
@@ -317,7 +406,12 @@ Prop_strong()UIView *presentationWrappingView;
     
     NSTimeInterval transitionDuration = [self transitionDuration:transitionContext];
     
-    [UIView animateWithDuration:transitionDuration animations:^{
+    [UIView animateWithDuration:transitionDuration
+                          delay:0
+         usingSpringWithDamping:0.88
+          initialSpringVelocity:0.8
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
         if (isPresenting) toView.frame = toViewFinalFrame;
         else fromView.frame = fromViewFinalFrame;
         

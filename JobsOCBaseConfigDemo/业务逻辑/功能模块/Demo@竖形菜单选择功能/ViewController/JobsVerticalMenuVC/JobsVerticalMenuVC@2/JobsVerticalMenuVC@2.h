@@ -10,7 +10,7 @@
 #import "ThreeClassCell.h"
 #import "BaiShaETProjPopupView10.h"
 #import "GoodsClassModel.h"
-#import "JobsSearchBar.h"
+#import "JobsOCSearcherBar.h"
 #import "JobsVerticalMenuDefineHeader.h"
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)

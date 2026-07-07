@@ -87,6 +87,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'JobsStringUtils'
   spec.dependency 'JobsOCTimer'
   spec.dependency 'JobsCountdownBtn'
+  spec.dependency 'JobsGraphicCaptcha'
   spec.dependency 'JobsSuspend'
   spec.dependency 'JobsOCKeyboardMgr'
   spec.dependency 'JobsByOCPods'

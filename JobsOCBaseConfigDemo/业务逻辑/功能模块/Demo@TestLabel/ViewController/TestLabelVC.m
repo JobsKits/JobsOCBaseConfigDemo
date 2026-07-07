@@ -6,37 +6,31 @@
 //
 
 #import "TestLabelVC.h"
+#import "TestLabelDetailVC.h"
+#import "TestLabelDemoModel.h"
 
-@interface TestLabelVC ()
-/// UILabel
-Prop_strong()BaseLabel *lab1;///【UILabelShowingType_01】 一行显示。定宽、定字体。多余部分用…表示（省略号的位置由NSLineBreakMode控制）
-Prop_strong()BaseLabel *lab2;///【UILabelShowingType_02】 一行显示普通文本。定宽、定字体。多余部分scrollerView ❤️集成@implementation UILabel (AutoScroll)❤️
-Prop_strong()BaseLabel *lab3;///【UILabelShowingType_03】 一行显示普通文本。定字体，不定宽。宽度自适应
-Prop_strong()BaseLabel *lab4;///【UILabelShowingType_04】 一行显示普通文本。缩小字体方式全展示
-Prop_strong()BaseLabel *lab5;///【UILabelShowingType_05】 多行显示普通文本，自动提行。定宽、定字体
-Prop_strong()BaseLabel *lab6;///【UILabelShowingType_05】 多行显示普通文本，手动\n提行。定宽、定字体
-Prop_strong()BaseLabel *lab7;///【UILabelShowingType_05】 多行显示富文本，手动\n提行。定宽、定字体
-/// UIButton
-Prop_strong()BaseButton *btn1;///【UILabelShowingType_01】 一行显示普通文本。定宽、定字体。多余部分用…表示（省略号的位置由NSLineBreakMode控制）
-Prop_strong()BaseButton *btn2;///【UILabelShowingType_02】 一行显示普通文本。定宽、定字体。多余部分scrollerView ❤️集成@implementation UILabel (AutoScroll)❤️
-Prop_strong()BaseButton *btn3;///【UILabelShowingType_03】 一行显示普通文本。定字体，不定宽。宽度自适应
-Prop_strong()BaseButton *btn4;///【UILabelShowingType_04】 一行显示普通文本。缩小字体方式全展示
-Prop_strong()BaseButton *btn5;///【UILabelShowingType_05】 多行显示普通文本，自动提行。定宽、定字体
-Prop_strong()BaseButton *btn6;///【UILabelShowingType_05】 多行显示普通文本，手动\n提行。定宽、定字体
-Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文本，手动\n提行。定宽、定字体
+static NSString * const TestLabelListCellReuseIdentifier = @"TestLabelListCellReuseIdentifier";
+
+@interface TestLabelVC ()<UITableViewDelegate,UITableViewDataSource>
+
+Prop_strong()UITableView *tableView;
+Prop_copy()NSArray <NSArray <TestLabelDemoModel *>*>*dataArr;
+Prop_copy()NSArray <NSString *>*sectionTitleArr;
 
 @end
 
 @implementation TestLabelVC
 
+@synthesize tableView = _tableView;
+@synthesize dataArr = _dataArr;
+@synthesize sectionTitleArr = _sectionTitleArr;
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
-//    JobsRemoveNotification(self);
 }
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -49,351 +43,266 @@ Prop_strong()BaseButton *btn7;///【UILabelShowingType_05】 多行显示富文�
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(data.attributedTitle.string);
+            data.byText(@"Label 表现列表".tr);
             data.byFont(UIFontWeightRegularSize(16));
         })
-    
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
         .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
         .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
         .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsYellowColor);
-
+    self.view.byBgColor(RGBA_COLOR(255, 238, 221, 1));
     self.makeNavByAlpha(1);
-    
-    self.scrollView.byAlpha(1);
-
-    
-    self.lab1.makeLabelByShowingType(UILabelShowingType_01);
-    self.lab2.makeLabelByShowingType(UILabelShowingType_02);
-    self.lab3.makeLabelByShowingType(UILabelShowingType_03);
-    self.lab4.makeLabelByShowingType(UILabelShowingType_04);
-    self.lab5.makeLabelByShowingType(UILabelShowingType_05);
-    self.lab6.makeLabelByShowingType(UILabelShowingType_05);
-    self.lab7.makeLabelByShowingType(UILabelShowingType_05);
-    
-    self.btn1.makeBtnTitleByShowingType(UILabelShowingType_01);
-    self.btn2.makeBtnTitleByShowingType(UILabelShowingType_02);
-    self.btn3.makeBtnTitleByShowingType(UILabelShowingType_03);
-    self.btn4.makeBtnTitleByShowingType(UILabelShowingType_04);
-    self.btn5.makeBtnTitleByShowingType(UILabelShowingType_05);
-    self.btn6.makeBtnTitleByShowingType(UILabelShowingType_05);
-    self.btn7.makeBtnTitleByShowingType(UILabelShowingType_05);
+    self.tableView.byAlpha(1);
+}
+#pragma mark —— UITableViewDelegate,UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.dataArr.count;
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
+    return [self dataArrBySection:section].count;
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return JobsWidth(74);
 }
 
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+- (__kindof UITableViewCell *)tableView:(UITableView *)tableView
+                  cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TestLabelListCellReuseIdentifier];
+    if (!cell) {
+        cell = [UITableViewCell.alloc initWithStyle:UITableViewCellStyleSubtitle
+                                    reuseIdentifier:TestLabelListCellReuseIdentifier];
+        cell.backgroundColor = JobsWhiteColor;
+    }
+    TestLabelDemoModel *model = [self dataArrBySection:indexPath.section][indexPath.row];
+    return cell
+        .byTextLabel(^(__kindof UILabel * _Nullable label) {
+            label.byText(model.title)
+                .byFont(UIFontWeightMediumSize(JobsWidth(15)))
+                .byTextCor(HEXCOLOR(0x2F3A47))
+                .byNumberOfLines(1);
+        })
+        .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
+            label.byText(model.subTitle)
+                .byFont(UIFontWeightRegularSize(JobsWidth(12)))
+                .byTextCor(HEXCOLOR(0x6E7783))
+                .byNumberOfLines(2);
+        })
+        .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
+        .bySelectionStyle(UITableViewCellSelectionStyleDefault);
 }
-#pragma mark —— lazyLoad
-/// BaseViewProtocol
-@synthesize scrollView = _scrollView;
--(UIScrollView *)scrollView{
-    if (!_scrollView) {
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    TestLabelDemoModel *model = [self dataArrBySection:indexPath.section][indexPath.row];
+    [self forceComingToPushVC:TestLabelDetailVC.new
+                requestParams:model];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForHeaderInSection:(NSInteger)section{
+    return JobsWidth(34);
+}
+
+- (NSString *)tableView:(UITableView *)tableView
+titleForHeaderInSection:(NSInteger)section{
+    if (section >= self.sectionTitleArr.count) return @"";
+    return self.sectionTitleArr[section];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForFooterInSection:(NSInteger)section{
+    return CGFLOAT_MIN;
+}
+#pragma mark —— Data
+-(NSArray<TestLabelDemoModel *> *)dataArrBySection:(NSInteger)section{
+    if (section >= self.dataArr.count) return @[];
+    return self.dataArr[section];
+}
+
+-(TestLabelDemoModel *)demoModelWithTitle:(NSString *)title
+                                 subTitle:(NSString *)subTitle
+                           detailSubTitle:(NSString *)detailSubTitle
+                              showingType:(UILabelShowingType)showingType
+                              controlType:(TestLabelDemoControlType)controlType
+                                 richText:(BOOL)richText
+                            manualNewline:(BOOL)manualNewline{
+    TestLabelDemoModel *model = [TestLabelDemoModel modelWithTitle:title
+                                                          subTitle:subTitle
+                                                       showingType:showingType
+                                                       controlType:controlType
+                                                          richText:richText
+                                                     manualNewline:manualNewline];
+    NSString *controlTitle = controlType == TestLabelDemoControlTypeButtonTitle ? @"UIButton.titleLabel".tr : @"BaseLabel".tr;
+    model.detailTitle = controlTitle.add(JobsNewline).add(title);
+    model.detailSubTitle = detailSubTitle;
+    return model;
+}
+
+-(TestLabelDemoModel *)scrollLabelDemoModel{
+    TestLabelDemoModel *model = [self demoModelWithTitle:@"超长文本滚动".tr
+                                                subTitle:@"超出后滚动".tr
+                                          detailSubTitle:@"UILabel 分类能力".tr.add(JobsNewline).add(@"文本宽度超过 Label 后，startScrollingIfNeededWithInterval 自动横向滚动".tr)
+                                             showingType:UILabelShowingType_01
+                                             controlType:TestLabelDemoControlTypeLabel
+                                                richText:NO
+                                           manualNewline:NO];
+    model.scrollLabelDemo = YES;
+    return model;
+}
+#pragma mark —— LazyLoad
+-(UITableView *)tableView{
+    if (!_tableView) {
         @jobs_weakify(self)
-        _scrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
+        _tableView = jobsMakeTableViewByInsetGrouped(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
-            scrollView
-                .byContentSize(CGSizeMake(JobsMainScreen_WIDTH(), 2 * JobsMainScreen_HEIGHT()))
+            tableView
+                .byDataSource(self)
+                .byDelegate(self)
+                .byRowHeight(JobsWidth(74))
+                .byEstimatedRowHeight(JobsWidth(74))
+                .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
+                .byTableFooterView(UIView.new)
+                .byShowsVerticalScrollIndicator(NO)
+                .byBgColor(JobsClearColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.gk_navigationBar.mas_bottom);
                     make.left.right.bottom.equalTo(self.view);
                 });
+            if (@available(iOS 11.0, *)) {
+                tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
+            }else{
+                SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
+            }
         });
-    };return _scrollView;
+    };return _tableView;
 }
-#pragma mark —— 富文本
-@synthesize attributedTitle = _attributedTitle;
--(NSAttributedString *)attributedTitle{
-    if (!_attributedTitle) {
-        @jobs_weakify(self)
-        _attributedTitle = self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray <JobsRichTextConfig *>*_Nullable data) {
-            data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
-                @jobs_strongify(self)
-                data1.byFont(UIFontWeightRegularSize(JobsWidth(12)))
-                     .byTextCor(JobsBlueColor)
-                     .byTargetString(@"编译器自动管理内存地址".tr.add(JobsNewline))
-                     .byTextBgCor(JobsBrownColor)
-                     .byParagraphStyle(self.defaultParagraphStyle);
-            }))
-            .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
-                data1.byFont(UIFontWeightSemiboldSize(JobsWidth(13)))
-                     .byTextCor(JobsWhiteColor)
-                     .byTargetString(@"让程序员更加专注于".tr.add(JobsNewline))
-                     .byTextBgCor(JobsBrownColor)
-                     .byParagraphStyle(self.defaultParagraphStyle);
-            }))
-            .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
-                @jobs_strongify(self)
-                data1.byFont(UIFontWeightUltraLightSize(JobsWidth(14)))
-                     .byTextCor(JobsGreenColor)
-                     .byTargetString(@"APP的业务。".tr)
-                     .byTextBgCor(JobsBrownColor)
-                     .byParagraphStyle(self.defaultParagraphStyle);
-            }));
-        }));
-    };return _attributedTitle;
+
+-(NSArray<NSArray<TestLabelDemoModel *> *> *)dataArr{
+    if (!_dataArr) {
+        _dataArr = @[
+            @[
+                [self demoModelWithTitle:@"固定宽高省略".tr
+                                 subTitle:@"超出省略".tr
+                           detailSubTitle:@"定宽定高定字体".tr.add(JobsNewline).add(@"超出内容以省略号收口".tr)
+                              showingType:UILabelShowingType_01
+                              controlType:TestLabelDemoControlTypeLabel
+                                 richText:NO
+                            manualNewline:NO],
+                [self demoModelWithTitle:@"AutoScroll 单行滚动".tr
+                                 subTitle:@"横向滚动".tr
+                           detailSubTitle:@"定宽定高".tr.add(JobsNewline).add(@"超出内容由 AutoScroll 横向滚动展示".tr)
+                              showingType:UILabelShowingType_02
+                              controlType:TestLabelDemoControlTypeLabel
+                                 richText:NO
+                            manualNewline:NO],
+                self.scrollLabelDemoModel,
+                [self demoModelWithTitle:@"宽度自适应".tr
+                                 subTitle:@"定高不定宽".tr
+                           detailSubTitle:@"定高不定宽".tr.add(JobsNewline).add(@"按文字真实宽度撑开".tr)
+                              showingType:UILabelShowingType_03
+                              controlType:TestLabelDemoControlTypeLabel
+                                 richText:NO
+                            manualNewline:NO],
+                [self demoModelWithTitle:@"缩小字号全展示".tr
+                                 subTitle:@"自动缩小字号".tr
+                           detailSubTitle:@"定宽定高".tr.add(JobsNewline).add(@"通过缩小字号尽量展示完整内容".tr)
+                              showingType:UILabelShowingType_04
+                              controlType:TestLabelDemoControlTypeLabel
+                                 richText:NO
+                            manualNewline:NO],
+                [self demoModelWithTitle:@"普通文本自动换行".tr
+                                 subTitle:@"自动换行".tr
+                           detailSubTitle:@"定宽不定高".tr.add(JobsNewline).add(@"普通文本按宽度自动换行".tr)
+                              showingType:UILabelShowingType_05
+                              controlType:TestLabelDemoControlTypeLabel
+                                 richText:NO
+                            manualNewline:NO],
+                [self demoModelWithTitle:@"普通文本手动换行".tr
+                                 subTitle:@"手动换行符".tr
+                           detailSubTitle:@"文本内置换行符".tr.add(JobsNewline).add(@"固定宽度下展示多行".tr)
+                              showingType:UILabelShowingType_05
+                              controlType:TestLabelDemoControlTypeLabel
+                                 richText:NO
+                            manualNewline:YES],
+                [self demoModelWithTitle:@"富文本手动换行".tr
+                                 subTitle:@"富文本分段".tr
+                           detailSubTitle:@"富文本分段配置字体、颜色和背景".tr.add(JobsNewline).add(@"按换行符展示多行".tr)
+                              showingType:UILabelShowingType_05
+                              controlType:TestLabelDemoControlTypeLabel
+                                 richText:YES
+                            manualNewline:YES]
+            ],
+            @[
+                [self demoModelWithTitle:@"固定宽高省略".tr
+                                 subTitle:@"超出省略".tr
+                           detailSubTitle:@"按钮标题定宽定高".tr.add(JobsNewline).add(@"超出内容按 Label 规则省略".tr)
+                              showingType:UILabelShowingType_01
+                              controlType:TestLabelDemoControlTypeButtonTitle
+                                 richText:NO
+                            manualNewline:NO],
+                [self demoModelWithTitle:@"AutoScroll 单行滚动".tr
+                                 subTitle:@"横向滚动".tr
+                           detailSubTitle:@"按钮标题区域固定".tr.add(JobsNewline).add(@"超出内容横向滚动展示".tr)
+                              showingType:UILabelShowingType_02
+                              controlType:TestLabelDemoControlTypeButtonTitle
+                                 richText:NO
+                            manualNewline:NO],
+                [self demoModelWithTitle:@"宽度自适应".tr
+                                 subTitle:@"按内容撑开".tr
+                           detailSubTitle:@"按钮标题按内容宽度自适应".tr.add(JobsNewline).add(@"保持单行显示".tr)
+                              showingType:UILabelShowingType_03
+                              controlType:TestLabelDemoControlTypeButtonTitle
+                                 richText:NO
+                            manualNewline:NO],
+                [self demoModelWithTitle:@"缩小字号全展示".tr
+                                 subTitle:@"自动缩小字号".tr
+                           detailSubTitle:@"按钮标题固定宽高".tr.add(JobsNewline).add(@"通过缩小字号尽量展示完整内容".tr)
+                              showingType:UILabelShowingType_04
+                              controlType:TestLabelDemoControlTypeButtonTitle
+                                 richText:NO
+                            manualNewline:NO],
+                [self demoModelWithTitle:@"普通文本自动换行".tr
+                                 subTitle:@"自动换行".tr
+                           detailSubTitle:@"按钮 titleLabel 开启多行".tr.add(JobsNewline).add(@"普通文本按宽度自动换行".tr)
+                              showingType:UILabelShowingType_05
+                              controlType:TestLabelDemoControlTypeButtonTitle
+                                 richText:NO
+                            manualNewline:NO],
+                [self demoModelWithTitle:@"普通文本手动换行".tr
+                                 subTitle:@"手动换行符".tr
+                           detailSubTitle:@"按钮标题内置换行符".tr.add(JobsNewline).add(@"固定宽度下展示多行".tr)
+                              showingType:UILabelShowingType_05
+                              controlType:TestLabelDemoControlTypeButtonTitle
+                                 richText:NO
+                            manualNewline:YES],
+                [self demoModelWithTitle:@"富文本手动换行".tr
+                                 subTitle:@"富文本分段".tr
+                           detailSubTitle:@"按钮富文本标题分段配置样式".tr.add(JobsNewline).add(@"按换行符展示多行".tr)
+                              showingType:UILabelShowingType_05
+                              controlType:TestLabelDemoControlTypeButtonTitle
+                                 richText:YES
+                            manualNewline:YES]
+            ]
+        ];
+    };return _dataArr;
 }
-#pragma mark —— BaseLabel
-/// 一行显示普通文本。定宽、定高、定字体。多余部分用…表示（省略号的位置由NSLineBreakMode控制）
--(BaseLabel *)lab1{
-    if (!_lab1) {
-        @jobs_weakify(self)
-        _lab1 = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
-            @jobs_strongify(self)
-            label
-                .byText(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr)
-                .byBgColor(JobsRedColor)
-                .addOn(self.scrollView)
-                .byAdd(^(MASConstraintMaker *make) {
-                    make.size.mas_equalTo(CGSizeMake(100, 20));
-                    make.top.equalTo(self.scrollView).offset(20);
-                    make.centerX.equalTo(self.scrollView);
-                });
-        });
-    };return _lab1;
-}
-/// 一行显示普通文本。定宽、定高、定字体。多余部分scrollerView ❤️集成@implementation UILabel (AutoScroll)❤️
--(BaseLabel *)lab2{
-    if (!_lab2) {
-        @jobs_weakify(self)
-        _lab2 = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
-            @jobs_strongify(self)
-            label
-                .byText(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr)
-                .byBgColor(JobsRedColor)
-                .addOn(self.scrollView)
-                .byAdd(^(MASConstraintMaker *make) {
-                    make.size.mas_equalTo(CGSizeMake(100, 20));
-                    make.top.equalTo(self.lab1.mas_bottom).offset(20);
-                    make.centerX.equalTo(self.scrollView);
-                });
-        });
-    };return _lab2;
-}
-/// 一行显示普通文本。不定宽、定高、定字体。宽度自适应
--(BaseLabel *)lab3{
-    if (!_lab3) {
-        @jobs_weakify(self)
-        _lab3 = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
-            @jobs_strongify(self)
-            label
-                .byText(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr)
-                .byBgColor(JobsRedColor)
-                .addOn(self.scrollView)
-                .byAdd(^(MASConstraintMaker *make) {
-                    make.height.mas_equalTo(20);
-                    make.top.equalTo(self.lab2.mas_bottom).offset(20);
-                    make.centerX.equalTo(self.scrollView);
-                });
-        });
-    };return _lab3;
-}
-/// 一行显示普通文本。定宽、定高。缩小字体方式全展示
--(BaseLabel *)lab4{
-    if (!_lab4) {
-        @jobs_weakify(self)
-        _lab4 = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
-            @jobs_strongify(self)
-            label
-                .byText(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr)
-                .byBgColor(JobsRedColor)
-                .addOn(self.scrollView)
-                .byAdd(^(MASConstraintMaker *make) {
-                    make.size.mas_equalTo(CGSizeMake(100, 20));
-                    make.top.equalTo(self.lab3.mas_bottom).offset(20);
-                    make.centerX.equalTo(self.scrollView);
-                });
-        });
-    };return _lab4;
-}
-/// 多行显示普通文本。定宽、不定高、定字体
--(BaseLabel *)lab5{
-    if (!_lab5) {
-        @jobs_weakify(self)
-        _lab5 = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
-            @jobs_strongify(self)
-            label
-                .byText(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr)
-                .byBgColor(JobsRedColor)
-                .addOn(self.scrollView)
-                .byAdd(^(MASConstraintMaker *make) {
-                    make.width.mas_equalTo(100);
-                    make.top.equalTo(self.lab4.mas_bottom).offset(20);
-                    make.centerX.equalTo(self.scrollView);
-                });
-        });
-    };return _lab5;
-}
-/// 多行显示普通文本，手动\n提行。定宽（宽要足够长，否则就面临自动提行）、定字体
--(BaseLabel *)lab6{
-    if (!_lab6) {
-        @jobs_weakify(self)
-        _lab6 = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
-            @jobs_strongify(self)
-            label
-                .byText(@"编译器自动管理内存地址".tr
-                         .add(JobsComma.add(JobsNewline))
-                         .add(@"让程序员更加专注于".tr)
-                         .add(JobsNewline)
-                         .add(@"APP的业务".tr)
-                         .add(JobsDot))
-                .byBgColor(JobsRedColor)
-                .addOn(self.scrollView)
-                .byAdd(^(MASConstraintMaker *make) {
-                    make.width.mas_equalTo(JobsMainScreen_WIDTH());
-                    make.top.equalTo(self.lab5.mas_bottom).offset(20);
-                    make.centerX.equalTo(self.scrollView);
-                });
-        });
-    };return _lab6;
-}
-/// 多行显示富文本，手动\n提行。定宽（宽要足够长，否则就面临自动提行）、定字体
--(BaseLabel *)lab7{
-    if (!_lab7) {
-        @jobs_weakify(self)
-        _lab7 = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
-            @jobs_strongify(self)
-            label
-                .byAttributedString(self.attributedTitle)
-                .byBgColor(JobsRedColor)
-                .addOn(self.scrollView)
-                .byAdd(^(MASConstraintMaker *make) {
-                    make.width.mas_equalTo(JobsMainScreen_WIDTH());
-                    make.top.equalTo(self.lab6.mas_bottom).offset(20);
-                    make.centerX.equalTo(self.scrollView);
-                });
-        });
-    };return _lab7;
-}
-#pragma mark —— BaseButton
-/// 一行显示普通文本。定宽、定高、定字体。多余部分用…表示（省略号的位置由NSLineBreakMode控制）
--(BaseButton *)btn1{
-    if (!_btn1) {
-        _btn1 = BaseButton.jobsInit()
-            .jobsResetBtnTitle(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr)
-            .byBgColor(JobsBrownColor)
-            .addOn(self.scrollView)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(100, 20));
-                make.top.equalTo(self.lab7.mas_bottom).offset(20);
-                make.centerX.equalTo(self.scrollView);
-            });
-    };return _btn1;
-}
-/// 一行显示普通文本。定宽、定高、定字体。多余部分scrollerView ❤️集成@implementation UILabel (AutoScroll)❤️
--(BaseButton *)btn2{
-    if (!_btn2) {
-        _btn2 = BaseButton.jobsInit()
-            .jobsResetBtnTitle(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr)
-            .byBgColor(JobsBrownColor)
-            .addOn(self.scrollView)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(100, 20));
-                make.top.equalTo(self.btn1.mas_bottom).offset(20);
-                make.centerX.equalTo(self.scrollView);
-            });
-    };return _btn2;
-}
-/// 一行显示普通文本。不定宽、定高、定字体。宽度自适应
--(BaseButton *)btn3{
-    if (!_btn3) {
-        _btn3 = BaseButton.jobsInit()
-            .jobsResetBtnTitle(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr)
-            .byBgColor(JobsBrownColor)
-            .addOn(self.scrollView)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(100, 20));
-                make.top.equalTo(self.btn2.mas_bottom).offset(20);
-                make.centerX.equalTo(self.scrollView);
-            });
-    };return _btn3;
-}
-/// 一行显示普通文本。定宽、定高。缩小字体方式全展示
--(BaseButton *)btn4{
-    if (!_btn4) {
-        _btn4 = BaseButton.jobsInit()
-            .jobsResetBtnTitle(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr)
-            .byBgColor(JobsBrownColor)
-            .addOn(self.scrollView)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(100, 20));
-                make.top.equalTo(self.btn3.mas_bottom).offset(20);
-                make.centerX.equalTo(self.scrollView);
-            });
-    };return _btn4;
-}
-/// 多行显示普通文本。定宽、不定高、定字体
--(BaseButton *)btn5{
-    if (!_btn5) {
-        _btn5 = BaseButton.jobsInit()
-            .jobsResetBtnTitle(@"编译器自动管理内存地址，让程序员更加专注于APP的业务。".tr)
-            .byTitleLabel(^(UILabel *label) {
-                label.byNumberOfLines(0);
-            })
-            .bySizeToFit()
-            .byBgColor(JobsBrownColor)
-            .addOn(self.scrollView)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(100, 20));
-                make.top.equalTo(self.btn4.mas_bottom).offset(20);
-                make.centerX.equalTo(self.scrollView);
-            });
-    };return _btn5;
-}
-/// 多行显示普通文本，手动\n提行。定宽（宽要足够长，否则就面临自动提行）、定字体
--(BaseButton *)btn6{
-    if (!_btn6) {
-        _btn6 = BaseButton.jobsInit()
-            .jobsResetBtnTitle(@"编译器自动管理内存地址，\n让程序员更加专注于\nAPP的业务。".tr)
-            .byTitleLabel(^(UILabel *label) {
-                label.byNumberOfLines(0);
-            })
-            .bySizeToFit()
-            .byBgColor(JobsBrownColor)
-            .addOn(self.scrollView)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH(), 20));
-                make.top.equalTo(self.btn5.mas_bottom).offset(20);
-                make.centerX.equalTo(self.scrollView);
-            });
-    };return _btn6;
-}
-/// 多行显示普通文本，手动\n提行。定宽（宽要足够长，否则就面临自动提行）、定字体
--(BaseButton *)btn7{
-    if (!_btn7) {
-        _btn7 = BaseButton.jobsInit()
-            .jobsResetBtnNormalAttributedTitle(self.attributedTitle)
-        /**
-         【特别说明】
-         1、_btn7.backgroundColor = JobsBrownColor;// 如果使用富文本，那么背景颜色这个属性无效
-         2、_btn7.titleLabel.numberOfLines = 0;//写不写都一样
-         3、富文本以后的btn的frame要做出调整，btn是从中心向四周发散开的，这也就是下文的k位置为什么是40而不是20的原因
-         4、定宽 > 富文本文字的真正所需宽度 => 富文本文字的真正所需宽度
-         */
-            .bySizeToFit()
-            .addOn(self.scrollView)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH(), 20));
-                make.top.equalTo(self.btn6.mas_bottom).offset(40);//K
-                make.centerX.equalTo(self.scrollView);
-            });
-    };return _btn7;
+
+-(NSArray<NSString *> *)sectionTitleArr{
+    if (!_sectionTitleArr) {
+        _sectionTitleArr = @[
+            @"BaseLabel".tr,
+            @"UIButton.titleLabel".tr
+        ];
+    };return _sectionTitleArr;
 }
 
 @end

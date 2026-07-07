@@ -35,6 +35,12 @@
 #import "IQKeyboardManager.h"
 #endif
 
+#if __has_include(<KTVHTTPCache/KTVHTTPCache.h>)
+#import <KTVHTTPCache/KTVHTTPCache.h>
+#else
+#import "KTVHTTPCache.h"
+#endif
+
 #if __has_include(<TABAnimated/TABAnimated.h>)
 #import <TABAnimated/TABAnimated.h>
 #else

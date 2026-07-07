@@ -67,6 +67,7 @@ JobsOCDSL@Pods/
 - `UIView+DSL` 补齐 `addSubview:`、`bringSubviewToFront:`、`sendSubviewToBack:`、`addGestureRecognizer:`、`removeGestureRecognizer:`、`addInteraction:`、`removeInteraction:`、`setNeedsDisplayInRect:`、`removeFromSuperview`、`layoutIfNeeded`、`sizeToFit` 等链式入口。
 - `UIBarButtonItem+DSL`、`UITableViewCell+DSL`、`UIImpactFeedbackGenerator+DSL` 覆盖各自当前类本层属性和 0 / 1 参数方法，不复制 `UIBarItem`、`UIView`、`UIFeedbackGenerator` 的父类能力。
 - `UIButton+DSL` 覆盖按钮本层 configuration、普通状态标题 / 图片 / 富文本、titleLabel / imageView 回调，以及 `adjustsImageWhenHighlighted` 等旧式按钮属性；父类交互状态仍走 `UIControl+DSL`。
+- `UILabel+DSL` 的 `transformLayer(...)` 会在真实 bounds 下用 CoreText 生成文字字形路径，并挂到 `shapeLayer`，原 label 文本色置透明；文本适配同时覆盖 `byLineBreakMode(...)`、`byAdjustsFontSizeToFitWidth(...)`、`byAdjustsFontForContentSizeCategory(...)`、`byMinimumScaleFactor(...)`。
 - `UISearchBar+DSL` 覆盖搜索栏本层可写属性，包括文本、占位符、代理、按钮显隐、样式、背景图片、scope 配置和输入附件视图；父类视图属性仍走 `UIView+DSL`。
 - `UIImageView+DSL` 覆盖当前类本层图片属性，`byImage(...)` 设置普通图片，`byHighlightedImage(...)` 设置高亮图片。
 - `NSMutableParagraphStyle+DSL` 覆盖段落样式常用字段，包括 `byAlignment(...)`、`byParagraphSpacing(...)`、`byParagraphSpacingBefore(...)`、`byFirstLineHeadIndent(...)`、`byHeadIndent(...)`、`byLineSpacing(...)`、`byLineBreakMode(...)`、`byBaseWritingDirection(...)`，供 `jobsMakeParagraphStyle` 闭包内保持点语法链式配置。
@@ -88,6 +89,7 @@ JobsOCDSL@Pods/
 - 第三方 DSL 的 Block typedef 统一落在 `JobsBlock`，`JobsOCDSL` 头文件只负责导入并使用，不再本地散落声明。
 - `JobsOCDefs`：提供基础宏、枚举、颜色和 `Prop_*` 属性声明宏；`JobsOCDSL` 内属性声明统一使用该宏族。
 - `JobsOCProtocols`：提供 DSL 协议边界。
+- `CoreText`：服务 `UILabel+DSL` 文字字形路径生成。
 - `GKNavigationBar`：服务 OC 侧导航栏全局配置 DSL。
 - `Masonry`：服务 OC 侧约束链式 DSL。
 - `Texture`：服务当前已迁入的 Texture DSL 分类。

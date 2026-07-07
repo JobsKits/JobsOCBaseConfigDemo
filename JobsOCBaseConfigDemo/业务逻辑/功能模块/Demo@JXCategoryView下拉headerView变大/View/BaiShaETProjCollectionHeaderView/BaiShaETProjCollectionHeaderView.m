@@ -134,11 +134,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)userHeaderBtn{
     if (!_userHeaderBtn) {
         @jobs_weakify(self)
+        UIImage *avatarImage = @"默认头像".img;
         _userHeaderBtn = UIButton.jobsInit()
         .jobsResetBtnTitle(self.readUserInfo.userName
                                          .add(JobsSpace)
                                          .add(@"VIP".tr.add(JobsSpace).add(@"0")))
-        .jobsResetBtnImage(@"默认头像".img)
+        .jobsResetBtnImage(avatarImage)
         .jobsResetBtnTitleCor(HEXCOLOR(0xAE8330))
         .jobsResetBtnTitleFont(UIFontWeightBoldSize(16))
         .makeBtnTitleByShowingType(UILabelShowingType_05)
@@ -146,10 +147,11 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
             model.byJobsWidth(1.f)
                  .byLayerCor(HEXCOLOR(0xEEE2C8))
-                 .byCornerRadiusValue(@"默认头像".img.jobsHeight / 2);
+                 .byCornerRadiusValue(avatarImage.size.height / 2);
         }))
         .addOn(self)
         .byAdd(^(MASConstraintMaker *make) {
+            @jobs_strongify(self)
             make.centerX.equalTo(self);
             make.top.equalTo(self).offset(JobsWidth(43));
         });
@@ -160,7 +162,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIProgressView *)progressView{
     if (!_progressView) {
         @jobs_weakify(self)
-        jobsMakeProgressView(^(__kindof UIProgressView * _Nullable progressView) {
+        _progressView = jobsMakeProgressView(^(__kindof UIProgressView * _Nullable progressView) {
             @jobs_strongify(self)
             [progressView
                 .byProgressTintColor(HEXCOLOR(0xAE8330))

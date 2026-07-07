@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<lottie-ios/Lottie.h>)
+#import <lottie-ios/Lottie.h>
+#else
+#import "Lottie.h"
+#endif
+
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
@@ -40,6 +46,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JXCategoryPopupSubVC : BaseViewController
+
+Prop_copy()NSString *pageTitle;
 
 @end
 

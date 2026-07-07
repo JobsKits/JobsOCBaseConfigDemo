@@ -32,8 +32,8 @@
 #define hotLabOffsetY JobsWidth(3)
 #endif
 
-#ifndef JobsSearchShowHotwordsTBVCellWidth
-#define JobsSearchShowHotwordsTBVCellWidth JobsMainScreen_WIDTH()
+#ifndef JobsHotLabelByMultiLineMaxWidth
+#define JobsHotLabelByMultiLineMaxWidth JobsMainScreen_WIDTH()
 #endif
 
 #endif /* JobsHotLabelConfig_h */

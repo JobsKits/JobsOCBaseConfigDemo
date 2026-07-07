@@ -81,6 +81,7 @@ JobsBaseUI@Pods/
 
 - `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
 - `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
+- `TMSCollectionViewLayout` 提供 UICollectionView 卡包式重叠布局，公开 `itemHeight`、`overlapRatio` 和 `expandedItemSpacing`，默认收起时相邻 Cell 盖住 50%，调用 `didClickWithIndexPath:isExpand:` 可展开或收起被点击的 Cell。
 
 ### 5.4、系统框架
 
@@ -170,6 +171,8 @@ pod install --no-repo-update
 - `BaseLabel` 是 `UIView` 子类，可见性状态使用 `jobsVisible` / `byVisible`；`isVisible` 只属于 model 协议标记，不能直接发给视图对象。
 - `BaseLabel` / `BaseTextView` 的系统编辑菜单必须先交给 `super` 判断真实可执行动作；自定义菜单只放 Jobs 动态 selector，缺少对应实现的 `delete:` 这类动作落到 toast 兜底，不能用空字符串匹配或默认 `YES` 放出系统未知 action。
 - `JobsTextView` 内部承接 `SZTextView` 时，`textModel`、`text` 和 `placeholder` 必须兜底为空对象 / 空字符串，避免第三方 `SZTextView` 用 nil placeholder 创建 `NSAttributedString` 导致发帖页进入即崩溃。
+- `JobsHeaderFooterView` 的数据驱动入口要同时兼容单个 `UIViewModel` 和 `NSArray<UIViewModel *>`；`JobsHotLabelByMultiLine` 这类 supplementary view 会直接传 `JobsHeaderFooterViewModel`，不能无条件当数组调用 `count`。
+- `UITableViewHeaderFooterView` 的数据驱动入口允许上层传空模型占位，类型判断必须使用 `[model isKindOfClass:...]` 这类系统消息写法；不要写 `model.isKindOfClass(...)`，避免空模型返回 nil block 后被调用导致 `EXC_BAD_ACCESS`。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
 

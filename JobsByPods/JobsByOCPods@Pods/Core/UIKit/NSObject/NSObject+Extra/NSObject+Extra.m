@@ -909,53 +909,11 @@ UITextFieldProtocol_dynamic
                                               data:(NSMutableArray <UIViewModel *>* _Nullable)data
                                 motivateViewOffset:(CGFloat)motivateViewOffset
                                        finishBlock:(jobsByIDBlock _Nullable)finishBlock{
-    JobsDropDownListView *dropDownListView = JobsDropDownListView.new;
-    dropDownListView.direction = jobsDropDownListViewDirection;
-    [dropDownListView actionObjBlock:^(id data) {
-        if ([motivateFromView isKindOfClass:UIButton.class]) {
-            UIButton *btn = (UIButton *)motivateFromView;
-            btn.selected = !btn.selected;
-        }
-        if (finishBlock) finishBlock(data);
-        dropDownListView.dropDownListViewDisappear(nil);
-    }];// dropDownListView.backgroundColor = JobsRedColor;
-    CGRect f = self.getWindowFrameByView(motivateFromView);
-    if (!data) {
-        data = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                viewModel.textModel.byFont(UIFontWeightRegularSize(14));
-                viewModel.byJobsWidth(f.size.width);
-                viewModel.textModel.byText(@"111111111".tr);
-                viewModel.subTextModel.byText(@"eeeeeeeee".tr);
-                viewModel.textModel.byTextLineSpacing(0);
-            }));
-            data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                viewModel.textModel.byFont(UIFontWeightRegularSize(14));
-                viewModel.byJobsWidth(f.size.width);
-                viewModel.textModel.byText(@"222222222".tr);
-                viewModel.subTextModel.byText(@"wwwwwwwww".tr);
-                viewModel.textModel.byTextLineSpacing(0);
-            }));
-            data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                viewModel.textModel.byFont(UIFontWeightRegularSize(14));
-                viewModel.byJobsWidth(f.size.width);
-                viewModel.textModel.byText(@"333333333");
-                viewModel.subTextModel.byText(@"sssssssss");
-                viewModel.textModel.byTextLineSpacing(0);
-            }));
-        });
-    }
-    dropDownListView.jobsRichViewByModel(data);
-    
-    dropDownListView.frame = jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data1) {
-        data1.byJobsX(f.origin.x);
-        data1.jobsY = jobsDropDownListViewDirection ? (f.origin.y - motivateViewOffset - data.count * JobsDropDownListTBVCell.cellHeightByModel(nil))
-        : (f.origin.y + f.size.height + motivateViewOffset);
-        data1.byJobsWidth(f.size.width)
-             .byJobsHeight(data.count * JobsDropDownListTBVCell.cellHeightByModel(nil));
-    });
-    [jobsGetMainWindow() addSubview:dropDownListView];
-    return dropDownListView;
+    return [self jobsMotivateDropDownListFromView:motivateFromView
+                                        direction:jobsDropDownListViewDirection
+                                             data:data
+                               motivateViewOffset:motivateViewOffset
+                                      finishBlock:finishBlock];
 }
 /// iOS 获取任意控件在屏幕中的坐标
 -(JobsRetFrameByViewBlock _Nonnull)getWindowFrameByView{
@@ -1497,9 +1455,7 @@ UITextFieldProtocol_dynamic
          
      }else if (data.notificationName.isEqualToString(@"UIKeyboardDidChangeFrameNotification")){
          JobsLog(@"");
-     }else{}
-     
-     return nil;
+     }else{};return nil;
  }];
  */
 /// 加入键盘通知的监听者

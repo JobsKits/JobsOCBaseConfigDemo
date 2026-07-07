@@ -58,8 +58,9 @@ Prop_assign()CGRect initialContentViewRect;// 登录框 初始frame值
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
         @jobs_strongify(self)
-        self.centerX = JobsMainScreen_WIDTH() / 2;
-        self.centerY -= offsetY;
+        self
+            .byCenterX(JobsMainScreen_WIDTH() / 2)
+            .byCenterY(self.centerY - offsetY);
     } completion:^(BOOL finished) {
         
     }];
@@ -75,8 +76,9 @@ Prop_assign()CGRect initialContentViewRect;// 登录框 初始frame值
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
         @jobs_strongify(self)
-        self.x = -(self.width + self.x);
-        self.y = self.initialContentViewRect.origin.y;
+        self
+            .byX(-(self.width + self.x))
+            .byY(self.initialContentViewRect.origin.y);
     } completion:^(BOOL finished) {
         
     }];

@@ -145,6 +145,7 @@ pod install --no-repo-update
 
 - `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
+- `JobsFiltrationView` 内部热标签必须使用 `JobsHotLabelWithMultiLineModel` 承接 `headerViewModel`、`footerViewModel` 和 `viewModels`；不要用 `jobsMakeViewModel` 生成普通 `UIViewModel` 后再写这些扩展属性，否则点击筛选创建过滤视图时会触发 `setFooterViewModel:` unrecognized selector。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
 

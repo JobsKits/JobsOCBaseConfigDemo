@@ -57,11 +57,6 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
         .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
         .byNavBgImage(@"导航栏左侧底图".img);
         /// 全局只需要写一次。在AppDelegate里面进行配置
-    NSError *error = nil;
-    [KTVHTTPCache proxyStart:&error];
-    if(error){
-        JobsLog(@"error = %@",error.description)
-    }
 }
 
 -(void)viewDidLoad {

@@ -118,14 +118,15 @@ config.soundName = @"refresh.wav";
 ## 五、公开能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsOCRefresher.h`：聚合头，随 `Core` 子规格一起进入 Public Headers，外部固定通过 `<JobsOCRefresher/JobsOCRefresher.h>` 引用。
-- `JobsOCRefreshDefines`：方向、位置、语义、横向模式、状态、动画类型。
-- `JobsOCRefreshConfig`：触发距离、组件长度、文案、声音、震动、动画资源配置。
-- `JobsOCRefreshComponent`：默认皮肤视图，可继续替换为自定义组件。
+- `JobsOCRefreshDefines`：方向、位置、语义、横向模式、状态、动画类型；刷新回调类型由 `JobsBlock` 统一承接。
+- `JobsOCRefreshConfig`：触发距离、组件长度、文案、声音、震动、动画资源配置；默认文案走 `JobsLanMgr` 的 `.tr` 国际化入口，并提供 `jobsMakeOCRefreshConfig` 进行 Make 风格创建。
+- `JobsOCRefreshComponent`：默认皮肤视图，可继续替换为自定义组件；内部 UI 创建优先走 `JobsMakes` 和 `JobsOCDSL` 链式写法。
 - `UIScrollView+JobsOCRefresher`：挂载、切换状态、移除刷新组件。
 
 ## 六、风险边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 当前 Core 不依赖 `MJRefresh` / `XZMRefresh`，行为由本 Pod 自己维护。
+- 当前 Core 直接依赖 `JobsBlock`、`JobsLanMgr`、`JobsMakes`、`JobsOCDSL` 和 `JobsOCDefs`；修改回调类型、默认文案或 UI 创建链时要同步检查这些依赖边界。
 - `Lottie` 子规格会启用 `LOTAnimationView`，`lottieName` 支持资源名或本地 `.json` 文件路径；未接入子规格时自动回退系统菊花。
 - `FrameAnimation` 子规格挂载 `JobsOCTimer` 和 `JobsOCTimerMgr`，默认组件会使用 `JobsTimer` 按帧间隔驱动静态图轮播。
 - 修改 `podspec` 后建议执行 `pod install --no-repo-update`，并检查 `Pods/Pods.xcodeproj` 是否能正常展开 `Development Pods > JobsOCRefresher`。

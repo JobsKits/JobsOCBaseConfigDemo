@@ -17,12 +17,14 @@ Prop_strong()BaseButton *sendBtn;// 注册按钮
 /// Data
 Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyleModel *>*registerDoorInputViewBaseStyleModelMutArr;
 Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputViewBaseStyleMutArr;
+Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
 
 @end
 
 @implementation JobsAppDoorRegisterContentView
 
 - (void)dealloc {
+    [self.sendBtnEnableDisposable dispose];
     JobsLog(@"%@",JobsLocalFunc);
 }
 #pragma mark —— Lifecycle
@@ -98,45 +100,59 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
     CGFloat formWidth = self.registerFormWidth;
     CGFloat formCenterX = self.registerFormCenterX;
 
-    self.backToLoginBtn.frame = CGRectMake(0, 0, sideRailWidth, self.height);
+    self.backToLoginBtn
+        .byFrame(CGRectMake(0,
+                            0,
+                            sideRailWidth,
+                            self.height));
 
-    [self.titleLab sizeToFit];
-    self.titleLab.centerX = formCenterX;
-    self.titleLab.top = JobsWidth(20);
+    self.titleLab
+        .bySizeToFit()
+        .byCenterX(formCenterX)
+        .byTop(JobsWidth(20));
 
     [self.registerDoorInputViewBaseStyleMutArr enumerateObjectsUsingBlock:^(JobsAppDoorInputViewBaseStyle * _Nonnull obj,
                                                                             NSUInteger idx,
                                                                             BOOL * _Nonnull stop) {
-        obj.sizer = CGSizeMake(formWidth, ThingsHeight);
-        obj.x = formLeft;
+        obj
+            .bySize(CGSizeMake(formWidth, ThingsHeight))
+            .byX(formLeft);
         if (idx == 0) {
-            obj.top = self.titleLab.bottom + JobsWidth(20);
+            obj.byTop(self.titleLab.bottom + JobsWidth(20));
         }else{
             JobsAppDoorInputViewBaseStyle *lastObj = self.registerDoorInputViewBaseStyleMutArr[idx - 1];
-            obj.top = lastObj.bottom + InputViewOffset;
+            obj.byTop(lastObj.bottom + InputViewOffset);
         }
-        obj.layer.cornerRadius = ThingsHeight / 2;
-        obj.layer.masksToBounds = YES;
-        obj.byAlpha(1);
+        obj
+            .byAlpha(1)
+            .byCornerRadius(ThingsHeight / 2)
+            .byLayer(^(CALayer *layer) {
+                layer.byMasksToBounds(YES);
+            });
     }];
 
-    self.sendBtn.frame = CGRectMake(formLeft,
-                                    self.height - JobsWidth(20) - ThingsHeight,
-                                    formWidth,
-                                    ThingsHeight);
+    self.sendBtn
+        .byFrame(CGRectMake(formLeft,
+                            self.height - JobsWidth(20) - ThingsHeight,
+                            formWidth,
+                            ThingsHeight));
 
-    self.backToLoginBtn.byAlpha(.7f);
-    self.titleLab.byAlpha(1);
-    self.sendBtn.byAlpha(1);
+    self.backToLoginBtn
+        .byAlpha(.7f);
+    self.titleLab
+        .byAlpha(1);
+    self.sendBtn
+        .byAlpha(1);
 
-    [self bringSubviewToFront:self.backToLoginBtn];
-    [self bringSubviewToFront:self.titleLab];
+    self
+        .byBringSubviewToFront(self.backToLoginBtn)
+        .byBringSubviewToFront(self.titleLab);
     [self.registerDoorInputViewBaseStyleMutArr enumerateObjectsUsingBlock:^(JobsAppDoorInputViewBaseStyle * _Nonnull obj,
                                                                             NSUInteger idx,
                                                                             BOOL * _Nonnull stop) {
-        [self bringSubviewToFront:obj];
+        self.byBringSubviewToFront(obj);
     }];
-    [self bringSubviewToFront:self.sendBtn];
+    self.byBringSubviewToFront(self.sendBtn);
 }
 
 -(jobsByVoidBlock _Nonnull)makeInputView{
@@ -157,11 +173,99 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
             }
             if (!inputViewBaseStyle) continue;
             inputViewBaseStyle.jobsRichViewByModel(self.registerDoorInputViewBaseStyleModelMutArr[i]);//进数据
-            [self addSubview:inputViewBaseStyle];
+            inputViewBaseStyle.addOn(self);
         }
+        [self jobs_bindSendBtnEnableSignalByInputViews:self.registerDoorInputViewBaseStyleMutArr];
         [self refreshRegisterLayout];
         [self layoutIfNeeded];
     };
+}
+
+-(BOOL)jobs_textIsNotEmpty:(NSString *_Nullable)text{
+    if (![text isKindOfClass:NSString.class]) return NO;
+    return [text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet].length > 0;
+}
+
+-(UITextField *_Nullable)jobs_textFieldByInputView:(JobsAppDoorInputViewBaseStyle *)inputView{
+    if (!inputView) return nil;
+    UITextField *textField = nil;
+    if ([inputView respondsToSelector:@selector(textField)]) {
+        textField = ((id<JobsDoorInputViewProtocol>)inputView).textField;
+    }
+    SEL getTextFieldSEL = NSSelectorFromString(@"getTextField");
+    if (!textField && [inputView respondsToSelector:getTextFieldSEL]) {
+        IMP imp = [inputView methodForSelector:getTextFieldSEL];
+        UITextField *(*func)(id, SEL) = (void *)imp;
+        textField = func(inputView, getTextFieldSEL);
+    };return textField;
+}
+
+-(NSString *)jobs_textByInputView:(JobsAppDoorInputViewBaseStyle *)inputView{
+    if (!inputView) return @"";
+    NSString *text = nil;
+    if ([inputView respondsToSelector:@selector(textFieldValue)]) {
+        text = ((id<JobsDoorInputViewProtocol>)inputView).textFieldValue;
+    }
+    if (![text isKindOfClass:NSString.class]) {
+        text = [self jobs_textFieldByInputView:inputView].text;
+    };return text ? : @"";
+}
+
+-(BOOL)jobs_inputViewsHaveText:(NSArray<JobsAppDoorInputViewBaseStyle *> *)inputViews{
+    if (!inputViews.count) return NO;
+    for (JobsAppDoorInputViewBaseStyle *inputView in inputViews) {
+        if (![self jobs_textIsNotEmpty:[self jobs_textByInputView:inputView]]) return NO;
+    };return YES;
+}
+
+-(void)jobs_refreshSendBtnEnabled:(BOOL)enabled{
+    self.sendBtn
+        .jobsResetBtnBgCor(JobsSystemPinkColor.colorWithAlphaComponentBy(enabled ? 0.85f : 0.35f))
+        .jobsResetBtnCornerRadiusValue(ThingsHeight / 2)
+        .byEnabled(enabled)
+        .byUserInteractionEnabled(enabled)
+        .byAlpha(enabled ? 1.0f : 0.45f)
+        .byLayer(^(CALayer *layer) {
+            layer
+                .byCornerRadius(ThingsHeight / 2)
+                .byMasksToBounds(YES);
+        });
+}
+
+-(RACDisposable *_Nullable)jobs_subscribeTextChangeByInputView:(JobsAppDoorInputViewBaseStyle *)inputView
+                                                         block:(jobsByIDBlock _Nullable)block{
+    UITextField *textField = [self jobs_textFieldByInputView:inputView];
+    if (!textField) return nil;
+    return [textField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
+        return YES;
+    } subscribeNextBlock:^(id _Nullable x) {
+        if (block) block([x isKindOfClass:NSString.class] ? x : (textField.text ? : @""));
+    }];
+}
+
+-(void)jobs_bindSendBtnEnableSignalByInputViews:(NSArray<JobsAppDoorInputViewBaseStyle *> *)inputViews{
+    [self.sendBtnEnableDisposable dispose];
+    self.sendBtnEnableDisposable = nil;
+    RACCompoundDisposable *compoundDisposable = RACCompoundDisposable.byCompoundDisposable();
+    NSInteger listenedCount = 0;
+    @jobs_weakify(self)
+    for (JobsAppDoorInputViewBaseStyle *inputView in inputViews) {
+        RACDisposable *disposable = [self jobs_subscribeTextChangeByInputView:inputView
+                                                                        block:^(id _Nullable data) {
+            @jobs_strongify(self)
+            [self jobs_refreshSendBtnEnabled:[self jobs_inputViewsHaveText:inputViews]];
+        }];
+        if (disposable) {
+            listenedCount += 1;
+            compoundDisposable.byAddDisposable(disposable);
+        }
+    }
+    if (!listenedCount) {
+        [self jobs_refreshSendBtnEnabled:NO];
+        return;
+    }
+    self.sendBtnEnableDisposable = compoundDisposable;
+    [self jobs_refreshSendBtnEnabled:[self jobs_inputViewsHaveText:inputViews]];
 }
 
 -(JobsRetAppDoorInputViewBaseStyleByClassBlock _Nonnull)dk{
@@ -190,7 +294,8 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
             .jobsResetBtnTitleFont(UIFontWeightMediumSize(13))
             .jobsResetBtnTitle(Title1)
             .byTitleLabel(^(UILabel *label) {
-                label.byNumberOfLines(0);
+                label
+                    .byNumberOfLines(0);
             })
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
@@ -249,53 +354,61 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputV
             UIImage *lockIcon = @"Lock".img ? : @"codeDecode".img;
             UIImage *verifyIcon = @"AppDoorVerifyCode".img ? : @"验证ICON".img ? : lockIcon;
             arr.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 用户名) {
-                用户名.leftViewIMG = userIcon;
-                用户名.placeholder = @"用户名";
-                用户名.isShowDelBtn = YES;
-                用户名.isShowSecurityBtn = NO;
-                用户名.returnKeyType = UIReturnKeyDone;
-                用户名.keyboardAppearance = UIKeyboardAppearanceAlert;
-                用户名.leftViewMode = UITextFieldViewModeAlways;
+                用户名
+                    .byLeftViewIMG(userIcon)
+                    .byPlaceholder(@"用户名")
+                    .byIsShowDelBtn(YES)
+                    .byIsShowSecurityBtn(NO)
+                    .byReturnKeyType(UIReturnKeyDone)
+                    .byKeyboardAppearance(UIKeyboardAppearanceAlert)
+                    .byLeftViewMode(UITextFieldViewModeAlways);
             }));
             arr.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 密码) {
-                密码.leftViewIMG = lockIcon;
-                密码.placeholder = @"密码";
-                密码.isShowDelBtn = YES;
-                密码.isShowSecurityBtn = YES;
-                密码.returnKeyType = UIReturnKeyDone;
-                密码.keyboardAppearance = UIKeyboardAppearanceAlert;
-                密码.selectedSecurityBtnIMG = @"codeEncode".img;//闭眼
-                密码.unSelectedSecurityBtnIMG = @"codeDecode".img;//开眼
-                密码.leftViewMode = UITextFieldViewModeAlways;
+                密码
+                    .byLeftViewIMG(lockIcon)
+                    .byPlaceholder(@"密码")
+                    .byIsShowDelBtn(YES)
+                    .byIsShowSecurityBtn(YES)
+                    .byReturnKeyType(UIReturnKeyDone)
+                    .byKeyboardAppearance(UIKeyboardAppearanceAlert)
+                    .bySelectedSecurityBtnIMG(@"codeEncode".img)// 闭眼
+                    .byUnSelectedSecurityBtnIMG(@"codeDecode".img)// 开眼
+                    .byLeftViewMode(UITextFieldViewModeAlways);
             }));
             arr.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 确认密码) {
-                确认密码.leftViewIMG = lockIcon;
-                确认密码.placeholder = @"确认密码";
-                确认密码.isShowDelBtn = YES;
-                确认密码.isShowSecurityBtn = YES;
-                确认密码.returnKeyType = UIReturnKeyDone;
-                确认密码.keyboardAppearance = UIKeyboardAppearanceAlert;
-                确认密码.selectedSecurityBtnIMG = @"codeEncode".img;//闭眼
-                确认密码.unSelectedSecurityBtnIMG =@"codeDecode".img;//开眼
-                确认密码.leftViewMode = UITextFieldViewModeAlways;
+                确认密码
+                    .byLeftViewIMG(lockIcon)
+                    .byPlaceholder(@"确认密码")
+                    .byIsShowDelBtn(YES)
+                    .byIsShowSecurityBtn(YES)
+                    .byReturnKeyType(UIReturnKeyDone)
+                    .byKeyboardAppearance(UIKeyboardAppearanceAlert)
+                    .bySelectedSecurityBtnIMG(@"codeEncode".img)// 闭眼
+                    .byUnSelectedSecurityBtnIMG(@"codeDecode".img)// 开眼
+                    .byLeftViewMode(UITextFieldViewModeAlways);
             }));
             arr.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 手机验证码) {
-                手机验证码.leftViewIMG = verifyIcon;
-                手机验证码.placeholder = @"手机验证码";
-                手机验证码.isShowDelBtn = YES;
-                手机验证码.isShowSecurityBtn = NO;
-                手机验证码.returnKeyType = UIReturnKeyDone;
-                手机验证码.keyboardAppearance = UIKeyboardAppearanceAlert;
-                手机验证码.leftViewMode = UITextFieldViewModeAlways;
+                手机验证码
+                    .byLeftViewIMG(verifyIcon)
+                    .byPlaceholder(@"手机验证码")
+                    .byIsShowDelBtn(YES)
+                    .byIsShowSecurityBtn(NO)
+                    .byKeyboardType(UIKeyboardTypeNumberPad)
+                    .byFieldEditorOffset(JobsWidth(4))
+                    .byReturnKeyType(UIReturnKeyDone)
+                    .byKeyboardAppearance(UIKeyboardAppearanceAlert)
+                    .byLeftViewMode(UITextFieldViewModeAlways);
             }));
             arr.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 图形验证码) {
-                图形验证码.leftViewIMG = verifyIcon;
-                图形验证码.placeholder = @"图形验证码";
-                图形验证码.isShowDelBtn = YES;
-                图形验证码.isShowSecurityBtn = NO;
-                图形验证码.returnKeyType = UIReturnKeyDone;
-                图形验证码.keyboardAppearance = UIKeyboardAppearanceAlert;
-                图形验证码.leftViewMode = UITextFieldViewModeAlways;
+                图形验证码
+                    .byLeftViewIMG(verifyIcon)
+                    .byPlaceholder(@"图形验证码")
+                    .byIsShowDelBtn(YES)
+                    .byIsShowSecurityBtn(NO)
+                    .byFieldEditorOffset(JobsWidth(4))
+                    .byReturnKeyType(UIReturnKeyDone)
+                    .byKeyboardAppearance(UIKeyboardAppearanceAlert)
+                    .byLeftViewMode(UITextFieldViewModeAlways);
             }));
         });
     };return _registerDoorInputViewBaseStyleModelMutArr;

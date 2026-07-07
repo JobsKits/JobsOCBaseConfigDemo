@@ -222,7 +222,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             tableView.addOn(self.view);
             [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
-                make.edges.equalTo(self.view);
+                make.left.right.bottom.equalTo(self.view);
+                make.top.equalTo(self.gk_navigationBar.mas_bottom);
             }];
         });
     };return _tableView;

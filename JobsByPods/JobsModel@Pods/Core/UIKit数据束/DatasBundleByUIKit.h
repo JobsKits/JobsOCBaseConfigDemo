@@ -28,5 +28,6 @@
 #import <JobsModel/JobsHeaderFooterViewModel.h>
 #import <JobsModel/FileFolderHandleModel.h>
 #import <JobsModel/JobsNetworkSource.h>
+#import <JobsModel/JobsWalletCardModel.h>
 
 #endif /* DatasBundleByUIKit_h */

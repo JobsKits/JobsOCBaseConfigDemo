@@ -76,9 +76,10 @@ typedef void(^jobsBySDWebImageModelBlock)(__kindof SDWebImageModel *_Nullable mo
 typedef void(^jobsByURLManagerModelBlock)(__kindof URLManagerModel *_Nullable model);
 typedef void(^jobsByViewModelAndBOOLBlock)(Jobs_ViewModelAndBOOLBlock_Arguments);
 typedef void(^jobsByViewModelBlock)(__kindof UIViewModel *_Nullable model);
+typedef void(^jobsByHeaderFooterViewModelBlock)(__kindof JobsHeaderFooterViewModel *_Nullable model);
 typedef void(^jobsByArrWithViewModelBlock)(__kindof NSArray <__kindof UIViewModel *>*_Nullable models);
 typedef void(^jobsByBaseTableViewBlock)(__kindof BaseTableView *_Nullable tableView);
-typedef void(^jobsBySearchBarBlock)(__kindof JobsSearchBar *_Nullable searchBar);
+typedef void(^jobsByOCSearcherBarBlock)(__kindof JobsOCSearcherBar *_Nullable searchBar);
 typedef void(^jobsByAppDoorModelBlock)(__kindof JobsAppDoorModel *_Nullable model);
 typedef void(^jobsByUNNotificationRequestModelBlock)(UNNotificationRequestModel *_Nullable model);
 typedef void(^jobsByAlertModelBlock)(JobsAlertModel *_Nullable model);
@@ -146,6 +147,7 @@ typedef void(^jobsByCustomTabBarBlock)(__kindof JobsCustomTabBar *_Nullable cust
 typedef void(^jobsByIQKeyboardManagerBlock)(__kindof IQKeyboardManager *_Nullable manager);
 typedef void(^JobsByCJTextFieldBlock)(CJTextField *_Nullable data);
 typedef void(^jobsByNavigationTransitionManagerBlock)(__kindof JobsNavigationTransitionMgr *_Nullable manager);
+typedef void(^jobsByPresentTransitionManagerBlock)(__kindof JobsPresentTransitionMgr *_Nullable manager);
 typedef void(^JobsTimerBlock)(JobsTimer<TimerProtocol> *_Nullable timer);
 typedef void(^JobsTimerMgrBuildBlock)(JobsTimer *_Nullable timer);
 typedef void(^jobsByCGFloatBlocks)(jobsByCGFloatBlock _Nullable timer);
@@ -343,6 +345,7 @@ typedef JobsNavBarConfig *_Nullable(^JobsRetNavBarConfigByStringAndActionBlock)(
 typedef JobsNavBarConfig *_Nullable(^JobsRetNavBarConfigByStringsAndActionBlock)(Jobs_NavBarConfig_Titles_Action_Arguments);
 typedef JobsNavBarConfig *_Nullable(^JobsRetNavBarConfigByButtonModelBlock)(Jobs_NavBarConfig_BackBtnModel_CloseBtnModel_Arguments);
 /// JobsOCKeyboardConfig
+typedef __kindof JobsOCKeyboardConfig *_Nullable(^JobsRetJobsOCKeyboardConfigByIDBlock)(id _Nullable data);
 typedef __kindof JobsOCKeyboardConfig *_Nullable(^JobsRetJobsOCKeyboardConfigByViewBlock)(__kindof UIView *_Nullable data);
 typedef __kindof JobsOCKeyboardConfig *_Nullable(^JobsRetJobsOCKeyboardConfigByArrBlock)(__kindof NSArray <__kindof UIView *>*_Nullable data);
 typedef __kindof JobsOCKeyboardConfig *_Nullable(^JobsRetJobsOCKeyboardConfigByCGFloatBlock)(CGFloat data);

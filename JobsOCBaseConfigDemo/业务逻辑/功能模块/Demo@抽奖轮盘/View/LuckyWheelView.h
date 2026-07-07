@@ -62,6 +62,10 @@ Prop_assign()NSTimeInterval spinDuration;
 Prop_strong(nullable)NSNumber *customInitialVelocity;
 /// 是否允许手势拖动旋转（默认 YES）
 Prop_assign()BOOL panRotationEnabled;
+/// 是否正在自动旋转
+Prop_assign(readonly, getter=isSpinning)BOOL spinning;
+/// 自动旋转状态变化
+Prop_copy(nullable)jobsByBOOLBlock spinningStateChangedHandler;
 /// 点按事件
 Prop_copy(nullable)jobsByLuckyWheelSegmentBlock segmentTapHandler;
 /// 长按事件
@@ -70,11 +74,14 @@ Prop_copy(nullable)jobsByLuckyWheelSegmentAndLPGesturerBlock segmentLongPressHan
 - (void)startSpinWithScrollLikeDeceleration;
 /// 指定初始角速度启动减速旋转
 - (void)startSpinWithScrollLikeDecelerationWithInitialVelocity:(CGFloat)initialVelocity;
+/// 开始 / 停止切换
+- (void)toggleSpin;
 /// 停止旋转
 - (void)stopSpin;
 /// （可选）非 DSL 版本，直接配置
 - (instancetype)onSegmentTap:(jobsByLuckyWheelSegmentBlock)handler;
 - (instancetype)onSegmentLongPress:(jobsByLuckyWheelSegmentAndLPGesturerBlock)handler;
+- (instancetype)onSpinningStateChanged:(jobsByBOOLBlock)handler;
 #pragma mark —— DSL
 /// DSL@设置指针方向
 - (JobsRetLuckyWheelViewByPointerDirectionBlock _Nonnull)byPointerDirection;

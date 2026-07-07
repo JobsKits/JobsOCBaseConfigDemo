@@ -11,6 +11,7 @@
 
 Prop_strong()UIView *plateView;
 Prop_strong()UIButton *centerButton;
+Prop_strong()CAShapeLayer *pointerLayer;
 /// 真正画扇形的图层
 Prop_strong()NSMutableArray<CAShapeLayer *> *sliceLayers;
 /// 当前盘面角度（rad）
@@ -32,10 +33,16 @@ Prop_assign()CGFloat angularVelocityFromPan;
 Prop_assign()CGFloat decelerationRate;
 /// 认为“停下”的角速度阈值（rad/s）
 Prop_assign()CGFloat stopThreshold;
+/// 是否正在自动旋转
+Prop_assign(readwrite, getter=isSpinning)BOOL spinning;
 /// 回调
 Prop_copy(nullable)void (^segmentTapHandlerInternal)(LuckyWheelSegment *segment);
 Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *segment,
                                                            UILongPressGestureRecognizer *gr);
+
+- (void)updateCenterButtonBySpinning:(BOOL)spinning;
+- (void)updateSpinningState:(BOOL)spinning;
+- (void)notifyCurrentSegmentIfNeeded;
 
 @end
 
@@ -63,9 +70,15 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     return self;
 }
 
+- (instancetype)onSpinningStateChanged:(jobsByBOOLBlock)handler {
+    self.spinningStateChangedHandler = handler;
+    return self;
+}
+
 - (void)commonInit {
     self.byBgColor([UIColor clearColor]);
     self.clipsToBounds = NO;
+    self.layer.masksToBounds = NO;
     _pointerDirection     = JobsDirectionUp;
     _panRotationEnabled   = YES;
     _decelerationRate     = UIScrollViewDecelerationRateNormal;
@@ -73,6 +86,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     self.plateView.byVisible(YES);
     /// 中心按钮
     self.centerButton.byVisible(YES);
+    [self updateCenterButtonBySpinning:NO];
     /// 手势
     self.addGesture(self.tapRecognizer);
     self.addGesture(self.panGesture);
@@ -115,12 +129,51 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     _panRotationEnabled = panRotationEnabled;
     self.panGesture.enabled = panRotationEnabled;
 }
+
+- (void)setSegmentTapHandler:(jobsByLuckyWheelSegmentBlock)segmentTapHandler {
+    _segmentTapHandler = [segmentTapHandler copy];
+    self.segmentTapHandlerInternal = _segmentTapHandler;
+}
+
+- (void)setSegmentLongPressHandler:(jobsByLuckyWheelSegmentAndLPGesturerBlock)segmentLongPressHandler {
+    _segmentLongPressHandler = [segmentLongPressHandler copy];
+    self.segmentLongPressHandlerInternal = _segmentLongPressHandler;
+}
 #pragma mark —— Layout / Draw
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.plateView.byFrame(self.bounds);
+    CGFloat radius = MIN(self.bounds.size.width, self.bounds.size.height) / 2.0;
+    self.plateView.layer.cornerRadius = radius;
+    self.plateView.layer.masksToBounds = YES;
+    self.layer.shadowColor = HEXCOLOR(0x8B5E1D).CGColor;
+    self.layer.shadowOpacity = 0.22;
+    self.layer.shadowOffset = CGSizeMake(0, JobsWidth(14));
+    self.layer.shadowRadius = JobsWidth(22);
+    self.layer.shadowPath = [UIBezierPath bezierPathWithOvalInRect:self.bounds].CGPath;
     [self rebuildSlices];
+    [self updatePointerLayer];
     [self bringSubviewToFront:self.centerButton];
+}
+
+- (void)updatePointerLayer {
+    if (CGRectIsEmpty(self.bounds)) return;
+    CGFloat centerX = CGRectGetMidX(self.bounds);
+    CGFloat top = JobsWidth(8);
+    UIBezierPath *path = UIBezierPath.bezierPath;
+    [path moveToPoint:CGPointMake(centerX - JobsWidth(13), top)];
+    [path addLineToPoint:CGPointMake(centerX + JobsWidth(13), top)];
+    [path addLineToPoint:CGPointMake(centerX, top + JobsWidth(28))];
+    [path closePath];
+    self.pointerLayer.path = path.CGPath;
+    self.pointerLayer.fillColor = HEXCOLOR(0xFF9F1C).CGColor;
+    self.pointerLayer.strokeColor = JobsWhiteColor.CGColor;
+    self.pointerLayer.lineWidth = JobsWidth(2);
+    self.pointerLayer.shadowColor = HEXCOLOR(0x7A4A10).CGColor;
+    self.pointerLayer.shadowOpacity = 0.22;
+    self.pointerLayer.shadowOffset = CGSizeMake(0, JobsWidth(3));
+    self.pointerLayer.shadowRadius = JobsWidth(5);
+    if (!self.pointerLayer.superlayer) [self.layer addSublayer:self.pointerLayer];
 }
 
 - (void)rebuildSlices {
@@ -143,7 +196,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 
     CGRect bounds = self.plateView.bounds;
     CGPoint center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
-    CGFloat radius = MIN(bounds.size.width, bounds.size.height) / 2.0;
+    CGFloat radius = MIN(bounds.size.width, bounds.size.height) / 2.0 - JobsWidth(8);
 
     NSInteger count = self.segments.count;
     CGFloat twoPi = (CGFloat)(M_PI * 2.0);
@@ -168,6 +221,8 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
         layer.path = path.CGPath;
         UIColor *fillColor = segment.backgroundColor ?: [UIColor clearColor];
         layer.fillColor = fillColor.CGColor;
+        layer.strokeColor = [JobsWhiteColor colorWithAlphaComponent:0.25].CGColor;
+        layer.lineWidth = JobsWidth(0.5);
 
         [self.plateView.layer addSublayer:layer];
         [self.sliceLayers addObject:layer];
@@ -213,30 +268,56 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                                               center.y + sin(midAngle) * imageRadius);
             CGFloat imageSize = radius * 0.22;
             [self.plateView addSubview:jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-                imageView.image = segment.placeholderImage;
+                imageView.image = [segment.placeholderImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+                imageView.tintColor = HEXCOLOR(0x9A6A2E);
+                imageView.byBgColor([JobsWhiteColor colorWithAlphaComponent:0.48]);
                 imageView.byContentMode(UIViewContentModeScaleAspectFill);
                 imageView.clipsToBounds = YES;
                 imageView.bounds = CGRectMake(0, 0, imageSize, imageSize);
                 imageView.center = imageCenter;
                 imageView.layer.cornerRadius = imageSize / 2.0;
+                imageView.layer.borderWidth = JobsWidth(1);
+                imageView.layer.borderColor = [JobsWhiteColor colorWithAlphaComponent:0.72].CGColor;
                 // 如果希望支持网络图，可以在这里用你项目里的图片加载库：
                 // [imageView <xxx_setImageWithURL:[NSURL URLWithString:segment.imageURLString] placeholderImage:segment.placeholderImage>];
             })];
         }
     }
-    // 中心标记小圆点（方便调试）
-    CGFloat dotRadius = 3.0;
-    UIBezierPath *dotPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(center.x - dotRadius,
-                                                                              center.y - dotRadius,
-                                                                              dotRadius * 2.0,
-                                                                              dotRadius * 2.0)];
-    CAShapeLayer *dotLayer = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
-        layer.path = dotPath.CGPath;
-        layer.fillColor = JobsWhiteColor.CGColor;
-    });
 
-    [self.plateView.layer addSublayer:dotLayer];
-    [self.sliceLayers addObject:dotLayer];
+    for (NSInteger index = 0; index < count; index++) {
+        CGFloat angle = (CGFloat)(-M_PI_2) + (CGFloat)index * anglePerSlice;
+        UIBezierPath *linePath = UIBezierPath.bezierPath;
+        [linePath moveToPoint:center];
+        [linePath addLineToPoint:CGPointMake(center.x + cos(angle) * radius,
+                                             center.y + sin(angle) * radius)];
+        CAShapeLayer *lineLayer = CAShapeLayer.layer;
+        lineLayer.path = linePath.CGPath;
+        lineLayer.fillColor = JobsClearColor.CGColor;
+        lineLayer.strokeColor = [JobsWhiteColor colorWithAlphaComponent:0.68].CGColor;
+        lineLayer.lineWidth = JobsWidth(1.2);
+        [self.plateView.layer addSublayer:lineLayer];
+        [self.sliceLayers addObject:lineLayer];
+    }
+
+    CGRect ringRect = CGRectMake(center.x - radius,
+                                 center.y - radius,
+                                 radius * 2.0,
+                                 radius * 2.0);
+    CAShapeLayer *outerRingLayer = CAShapeLayer.layer;
+    outerRingLayer.path = [UIBezierPath bezierPathWithOvalInRect:ringRect].CGPath;
+    outerRingLayer.fillColor = JobsClearColor.CGColor;
+    outerRingLayer.strokeColor = JobsWhiteColor.CGColor;
+    outerRingLayer.lineWidth = JobsWidth(8);
+    [self.plateView.layer addSublayer:outerRingLayer];
+    [self.sliceLayers addObject:outerRingLayer];
+
+    CAShapeLayer *innerRingLayer = CAShapeLayer.layer;
+    innerRingLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectInset(ringRect, JobsWidth(6), JobsWidth(6))].CGPath;
+    innerRingLayer.fillColor = JobsClearColor.CGColor;
+    innerRingLayer.strokeColor = [HEXCOLOR(0xE8B86B) colorWithAlphaComponent:0.72].CGColor;
+    innerRingLayer.lineWidth = JobsWidth(1.2);
+    [self.plateView.layer addSublayer:innerRingLayer];
+    [self.sliceLayers addObject:innerRingLayer];
 }
 
 - (NSAttributedString *)attributedStringForSegment:(LuckyWheelSegment *)segment {
@@ -255,7 +336,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 }
 
 - (void)startSpinWithScrollLikeDecelerationWithInitialVelocity:(CGFloat)initialVelocity {
-    if (self.displayLink) return; // 已经在自动旋转中
+    if (self.isSpinning || self.displayLink) return; // 已经在自动旋转中
     CGFloat v0 = 0;
     if (!isnan(initialVelocity)) {
         v0 = initialVelocity;
@@ -264,9 +345,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     } else {
         v0 = self.velocityForTargetDuration(self.spinDuration);
     }
-    // 开始旋转时统一锁死按钮
-    self.centerButton.selected = YES;
-    self.centerButton.userInteractionEnabled = NO;
+    [self updateCenterButtonBySpinning:YES];
     self.decelerator = [ScrollDecelerator.alloc initWithVelocity:v0 decelerationRate:self.decelerationRate];
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(handleDisplayLink:)];
     if (@available(iOS 10.0, *)) {
@@ -274,6 +353,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     }
     [self.displayLink addToRunLoop:NSRunLoop.mainRunLoop
                            forMode:NSRunLoopCommonModes];
+    [self updateSpinningState:YES];
 }
 
 -(JobsRetCGFloatByDoubleBlock _Nonnull)velocityForTargetDuration{
@@ -308,13 +388,16 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 
     if (self.decelerator.isStoppedByThreshold(self.stopThreshold)) {
         [self stopSpin];
-        NSInteger idx = self.currentSegmentIndexForDirection(self.pointerDirection);
-        if (idx >= 0 && idx < (NSInteger)self.segments.count) {
-            LuckyWheelSegment *segment = self.segments[idx];
-            if (self.segmentTapHandlerInternal) {
-                self.segmentTapHandlerInternal(segment);
-            }
-        }
+        [self notifyCurrentSegmentIfNeeded];
+    }
+}
+
+- (void)toggleSpin {
+    if (self.isSpinning || self.displayLink) {
+        [self stopSpin];
+        [self notifyCurrentSegmentIfNeeded];
+    } else {
+        [self startSpinWithScrollLikeDeceleration];
     }
 }
 
@@ -323,8 +406,33 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     self.displayLink = nil;
     self.decelerator = nil;
 
-    self.centerButton.selected = NO;
+    [self updateCenterButtonBySpinning:NO];
+    [self updateSpinningState:NO];
+}
+
+- (void)updateCenterButtonBySpinning:(BOOL)spinning {
+    self.centerButton.selected = spinning;
     self.centerButton.userInteractionEnabled = YES;
+    self.centerButton.jobsResetBtnTitle(spinning ? @"停止\n抽奖".tr : @"开始\n抽奖".tr);
+    self.centerButton.backgroundColor = spinning ? HEXCOLOR(0xC97812) : HEXCOLOR(0xFF9F1C);
+}
+
+- (void)updateSpinningState:(BOOL)spinning {
+    [self updateCenterButtonBySpinning:spinning];
+    if (self.spinning == spinning) return;
+    self.spinning = spinning;
+    if (self.spinningStateChangedHandler) {
+        self.spinningStateChangedHandler(spinning);
+    }
+}
+
+- (void)notifyCurrentSegmentIfNeeded {
+    NSInteger idx = self.currentSegmentIndexForDirection(self.pointerDirection);
+    if (idx >= 0 && idx < (NSInteger)self.segments.count) {
+        LuckyWheelSegment *segment = self.segments[idx];
+        jobsByLuckyWheelSegmentBlock handler = self.segmentTapHandlerInternal ? : self.segmentTapHandler;
+        if (handler) handler(segment);
+    }
 }
 #pragma mark —— Segment 命中计算
 -(JobsRetNSIntegerByPointBlock _Nonnull)segmentIndexForPoint{
@@ -527,18 +635,19 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     if(!_centerButton){
         @jobs_weakify(self)
         _centerButton = UIButton.jobsInit()
-            .bgColorBy(JobsGreenColor)
+            .bgColorBy(HEXCOLOR(0xFF9F1C))
             .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
-            .jobsResetBtnCornerRadiusValue(30)
+            .jobsResetBtnCornerRadiusValue(JobsWidth(36))
             .makeNewLineShows(2)
             .jobsResetImagePadding(1)
             .jobsResetBtnTitleCor(JobsWhiteColor)
+            .selectedStateTitleColorBy(JobsWhiteColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(16)))
-            .jobsResetBtnTitle(@"点我\n抽奖".tr)
+            .jobsResetBtnTitle(@"开始\n抽奖".tr)
+            .selectedStateTitleBy(@"停止\n抽奖".tr)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                // 统一走减速旋转逻辑
-                [self startSpinWithScrollLikeDeceleration];
+                [self toggleSpin];
                 // 如果你有通用弹跳 & 震动封装，可以在这里调用
                 // [sender jobs_playTapBounceWithHaptic:JobsHapticLight];
             })
@@ -553,19 +662,33 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
                 make.center.equalTo(self);
-                make.width.mas_equalTo(60.0);
-                make.height.mas_equalTo(60.0);
+                make.width.mas_equalTo(JobsWidth(72));
+                make.height.mas_equalTo(JobsWidth(72));
             });
+        _centerButton.layer.borderWidth = JobsWidth(4);
+        _centerButton.layer.borderColor = JobsWhiteColor.CGColor;
+        _centerButton.layer.shadowColor = HEXCOLOR(0x8B5E1D).CGColor;
+        _centerButton.layer.shadowOpacity = 0.22;
+        _centerButton.layer.shadowOffset = CGSizeMake(0, JobsWidth(5));
+        _centerButton.layer.shadowRadius = JobsWidth(8);
     };return _centerButton;
+}
+
+-(CAShapeLayer *)pointerLayer{
+    if(!_pointerLayer){
+        _pointerLayer = CAShapeLayer.layer;
+    };return _pointerLayer;
 }
 
 -(UIPanGestureRecognizer *)panGesture{
     if(!_panGesture){
         @jobs_weakify(self)
-        _panGesture = jobsMakePanGesture(^(__kindof UIPanGestureRecognizer * _Nullable gesture) {
+        _panGesture = [jobsMakePanGesture(^(__kindof UIPanGestureRecognizer * _Nullable gesture) {
+            gesture.cancelsTouchesInView = YES;
+        }) GestureActionBy:^(__kindof UIGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
             if (!self.panRotationEnabled) return;
-            if (self.displayLink) return;
+            if (![gesture isKindOfClass:UIPanGestureRecognizer.class]) return;
 
             CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
             CGPoint location = [gesture locationInView:self];
@@ -573,6 +696,12 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
             if (gesture.state == UIGestureRecognizerStateBegan &&
                 CGRectContainsPoint(self.centerButton.frame, location)) {
                 // 从按钮区域开始的拖动忽略
+                return;
+            }
+
+            if (gesture.state == UIGestureRecognizerStateBegan && self.displayLink) {
+                [self stopSpin];
+            } else if (self.displayLink) {
                 return;
             }
 
@@ -621,7 +750,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                 default:
                     break;
             }
-        });
+        }];
     };return _panGesture;
 }
 

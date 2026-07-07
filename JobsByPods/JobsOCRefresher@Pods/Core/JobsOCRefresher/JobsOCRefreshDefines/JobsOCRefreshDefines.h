@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #ifndef JobsOCRefreshDefines_h
 #define JobsOCRefreshDefines_h
 
@@ -53,8 +59,6 @@ typedef NS_ENUM(NSUInteger, JobsOCRefreshAnimationType) {
     JobsOCRefreshAnimationTypeFrameImages,
     JobsOCRefreshAnimationTypeNetworkImage
 };
-
-typedef void(^JobsOCRefreshActionBlock)(void);
 
 FOUNDATION_EXPORT JobsOCRefreshAxis JobsOCRefreshAxisForPosition(JobsOCRefreshPosition position);
 FOUNDATION_EXPORT JobsOCRefreshRole JobsOCRefreshRoleForPosition(JobsOCRefreshHorizontalMode mode,

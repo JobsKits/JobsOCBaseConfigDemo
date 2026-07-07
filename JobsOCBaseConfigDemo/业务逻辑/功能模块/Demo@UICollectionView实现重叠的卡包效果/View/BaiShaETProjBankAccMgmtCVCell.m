@@ -46,7 +46,7 @@ Prop_strong()UILabel *detailLab;
 -(void)layoutSubviews{
     [super layoutSubviews];
     CGFloat cornerRadius = JobsWidth(16);
-    self.contentView.byFrame(UIEdgeInsetsInsetRect(self.bounds, UIEdgeInsetsMake(JobsWidth(2), JobsWidth(4), JobsWidth(12), JobsWidth(4))));
+    self.contentView.byFrame(UIEdgeInsetsInsetRect(self.bounds, UIEdgeInsetsMake(JobsWidth(2), JobsWidth(4), JobsWidth(2), JobsWidth(4))));
     self.contentView.layer
         .byCornerRadius(cornerRadius)
         .byBorderWidth(JobsWidth(1))
@@ -72,6 +72,10 @@ Prop_strong()UILabel *detailLab;
         self.titleLab.byText(self.viewModel.textModel.text);
         self.detailLab.byText(self.viewModel.subTextModel.text);
         self.byBgColor(JobsClearColor);
+        CGRect gradientRect = self.bounds;
+        if (CGRectIsEmpty(gradientRect)) {
+            gradientRect = CGRectMake(0, 0, JobsMainScreen_WIDTH() - JobsWidth(30), JobsWidth(96));
+        }
         switch (self.viewModel.item % 4) {
             case 0:
                 self.contentView.byBgColor([UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
@@ -81,7 +85,7 @@ Prop_strong()UILabel *detailLab;
                                             startPoint:CGPointZero
                                               endPoint:CGPointMake(1, 1)
                                                 opaque:NO
-                                        targetViewRect:CGRectMake(0, 0, JobsWidth(343), JobsWidth(76))]);
+                                        targetViewRect:gradientRect]);
                 break;
             case 1:
                 self.contentView.byBgColor([UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
@@ -91,7 +95,7 @@ Prop_strong()UILabel *detailLab;
                                             startPoint:CGPointZero
                                               endPoint:CGPointMake(1, 1)
                                                 opaque:NO
-                                        targetViewRect:CGRectMake(0, 0, JobsWidth(343), JobsWidth(76))]);
+                                        targetViewRect:gradientRect]);
                 break;
             case 2:
                 self.contentView.byBgColor([UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
@@ -101,7 +105,7 @@ Prop_strong()UILabel *detailLab;
                                             startPoint:CGPointZero
                                               endPoint:CGPointMake(1, 1)
                                                 opaque:NO
-                                        targetViewRect:CGRectMake(0, 0, JobsWidth(343), JobsWidth(76))]);
+                                        targetViewRect:gradientRect]);
                 break;
             default:
                 self.contentView.byBgColor([UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
@@ -111,7 +115,7 @@ Prop_strong()UILabel *detailLab;
                                             startPoint:CGPointZero
                                               endPoint:CGPointMake(1, 1)
                                                 opaque:NO
-                                        targetViewRect:CGRectMake(0, 0, JobsWidth(343), JobsWidth(76))]);
+                                        targetViewRect:gradientRect]);
                 break;
         };return self;
     };
@@ -124,13 +128,13 @@ Prop_strong()UILabel *detailLab;
             @jobs_strongify(self)
             view
                 .byBgColor(RGBA_COLOR(255, 255, 255, 0.82))
-                .byCornerRadius(JobsWidth(22))
+                .byCornerRadius(JobsWidth(26))
                 .byClipsToBounds(YES)
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.left.equalTo(self.contentView).offset(JobsWidth(18));
+                    make.left.equalTo(self.contentView).offset(JobsWidth(20));
                     make.centerY.equalTo(self.contentView);
-                    make.size.mas_equalTo(CGSizeMake(JobsWidth(44), JobsWidth(44)));
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(52), JobsWidth(52)));
                 });
         });
     };return _logoContainerView;
@@ -147,7 +151,7 @@ Prop_strong()UILabel *detailLab;
                 .byClipsToBounds(YES)
                 .addOn(self.logoContainerView)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.edges.equalTo(self.logoContainerView).insets(UIEdgeInsetsMake(JobsWidth(6), JobsWidth(6), JobsWidth(6), JobsWidth(6)));
+                    make.edges.equalTo(self.logoContainerView).insets(UIEdgeInsetsMake(JobsWidth(7), JobsWidth(7), JobsWidth(7), JobsWidth(7)));
                 });
         });
     };return _logoView;
@@ -160,7 +164,7 @@ Prop_strong()UILabel *detailLab;
             @jobs_strongify(self)
             label
                 .byText(self.viewModel.textModel.text)
-                .byFont(UIFontWeightSemiboldSize(16))
+                .byFont(UIFontWeightSemiboldSize(17))
                 .byTextCor(HEXCOLOR(0x2F3A46))
                 .byNumberOfLines(1)
                 .byLineBreakMode(NSLineBreakByTruncatingTail)
@@ -184,7 +188,7 @@ Prop_strong()UILabel *detailLab;
             @jobs_strongify(self)
             label
                 .byText(self.viewModel.subTextModel.text)
-                .byFont(UIFontWeightBoldSize(18))
+                .byFont(UIFontWeightBoldSize(20))
                 .byTextCor(HEXCOLOR(0x2F3A46))
                 .byTextAlignment(NSTextAlignmentRight)
                 .byNumberOfLines(1)

@@ -24,6 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsIMChatInfoModel : NSObject
 
+/// JobsIM 聊天页沿用现有 UI 数据结构；以下协议字段用于描述消息包、会话和投递状态。
+Prop_copy(nullable)NSString *messageID;
+Prop_copy(nullable)NSString *conversationID;
+Prop_copy(nullable)NSString *fromUserID;
+Prop_copy(nullable)NSString *toUserID;
 Prop_copy(nullable)NSString *userID;/// 发出该聊天的用户ID
 Prop_copy(nullable)NSString *userNameStr;/// 发出该聊天的用户名
 Prop_strong(nullable)UIImage *userIconIMG;/// 发出该聊天的用户头像
@@ -34,6 +39,10 @@ Prop_copy(nullable)NSString *chatTextStr;/// 发出该聊天的文本信息
 Prop_copy(nullable)NSString *identification;/// 该聊天对应的数据库坐标ID
 Prop_assign()JobsIMChatMessageType messageType;/// 消息类型:1、文本, 2、礼物, 3、表情
 Prop_assign()JobsIMChatInfoDirection chatInfoDirection;/// 消息的发送方向
+Prop_assign()JobsIMPacketType packetType;
+Prop_assign()JobsIMDeliveryState deliveryState;
+Prop_assign()JobsIMTransportKind transportKind;
+Prop_strong(nullable)NSDictionary *rawPacket;
 
 @end
 

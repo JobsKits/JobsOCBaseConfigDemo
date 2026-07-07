@@ -85,9 +85,13 @@ UITextFieldProtocol_synthesize_part2
         @jobs_strongify(self)
         if ([model isKindOfClass:JobsIMChatInfoModel.class]) {
             JobsIMChatInfoModel *chatInfoModel = (JobsIMChatInfoModel *)model;
-            if (chatInfoModel.identification.isEqualToString(@"我是服务器".tr)) {/// 对方发的消息
+            if (chatInfoModel.chatInfoDirection == JobsIMChatInfoDirection_Send) {/// 对方发的消息
                 self.infoLocation = InfoLocation_Left;
-            }else if (chatInfoModel.identification.isEqualToString(@"我是我自己".tr)){/// 自己发的消息
+            }else if (chatInfoModel.chatInfoDirection == JobsIMChatInfoDirection_Receive){/// 自己发的消息
+                self.infoLocation = InfoLocation_Right;
+            }else if (chatInfoModel.identification.isEqualToString(@"我是服务器".tr)) {/// 兼容历史静态数据
+                self.infoLocation = InfoLocation_Left;
+            }else if (chatInfoModel.identification.isEqualToString(@"我是我自己".tr)){/// 兼容历史静态数据
                 self.infoLocation = InfoLocation_Right;
             }else{
                 self.infoLocation = InfoLocation_Unknown;

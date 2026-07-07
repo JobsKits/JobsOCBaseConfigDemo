@@ -35,6 +35,12 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_weak()id<TMSCollectionViewLayoutDelegate> layout_delegate;
 /// 左右边距
 Prop_assign()CGFloat padding;
+/// Cell 高度
+Prop_assign()CGFloat itemHeight;
+/// 收起时相邻 Cell 被盖住的比例，默认 0.5
+Prop_assign()CGFloat overlapRatio;
+/// 展开时相邻 Cell 的正常间距
+Prop_assign()CGFloat expandedItemSpacing;
 /// 点击item
 -(void)didClickWithIndexPath:(NSIndexPath *)clickIndexPath isExpand:(BOOL)isExpand;
 

@@ -6,12 +6,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "JobsTabBarCtrl.h"
 #import "ViewController@1.h"
 #import "ViewController@2.h"
 #import "ViewController@3.h"
 #import "ViewController@4.h"
 #import "ViewController@5.h"
+
+#if __has_include(<JobsTabBarCtrl/JobsTabBarCtrlHeader.h>)
+#import <JobsTabBarCtrl/JobsTabBarCtrlHeader.h>
+#else
+#import "JobsTabBarCtrlHeader.h"
+#endif
 
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>

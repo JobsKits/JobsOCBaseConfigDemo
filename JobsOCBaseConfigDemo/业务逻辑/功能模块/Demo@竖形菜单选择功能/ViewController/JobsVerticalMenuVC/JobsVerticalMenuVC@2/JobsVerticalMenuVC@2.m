@@ -11,7 +11,7 @@
 /// UI
 Prop_strong()BaseButton *editBtn;
 Prop_strong()ThreeClassCell *tempCell;
-Prop_strong()JobsSearchBar *searchView;
+Prop_strong()JobsOCSearcherBar *searchView;
 Prop_strong()BaseButton *searchToggleBtn;
 Prop_strong()MASConstraint *searchViewWidthConstraint;
 Prop_strong()BaiShaETProjPopupView10 *popupView;
@@ -474,10 +474,10 @@ referenceSizeForFooterInSection:(NSInteger)section{
     };return _tempCell;
 }
 
--(JobsSearchBar *)searchView{
+-(JobsOCSearcherBar *)searchView{
     if (!_searchView) {
         @jobs_weakify(self)
-        _searchView = jobsMakeSearchBar(^(__kindof JobsSearchBar * _Nullable searchBar) {
+        _searchView = jobsMakeOCSearcherBar(^(__kindof JobsOCSearcherBar * _Nullable searchBar) {
             @jobs_strongify(self)
             searchBar
                 .bySize(CGSizeMake(0, JobsWidth(38)))

@@ -8,6 +8,7 @@
 #ifndef JobsOCVideoRecorderVC_h
 #define JobsOCVideoRecorderVC_h
 
+#import <TargetConditionals.h>
 #import <UIKit/UIKit.h>
 #import <JobsOCVideoRecorder/JobsOCVideoRecorderConfig.h>
 #import <JobsOCVideoRecorder/JobsOCVideoRecorderCIFilterProcessor.h>

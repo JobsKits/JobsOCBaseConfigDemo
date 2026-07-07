@@ -7,14 +7,22 @@
 
 #import "JobsWalletVC.h"
 
+static NSString *const JobsWalletModeCellReuseIdentifier = @"JobsWalletModeCellReuseIdentifier";
+static NSInteger const JobsWalletModeCardViewTag = 81001;
+static NSInteger const JobsWalletModeTitleLabelTag = 81002;
+static NSInteger const JobsWalletModeSubTitleLabelTag = 81003;
+static NSInteger const JobsWalletModeChevronViewTag = 81004;
+
 @interface JobsWalletVC ()
-/// Data
-Prop_strong()TMSCollectionViewLayout *tms_layout;
-Prop_strong()NSMutableArray <NSMutableArray <UIViewModel *>*>*dataSourceMutArr; // Cell的数据源
-Prop_strong()NSMutableArray <UIViewModel *>*sectionHeaderDataSource;
-            // sectionHeader的数据源
-Prop_strong()NSMutableArray <UIViewModel *>*sectionFooterDataSource;
-            // sectionFooter的数据源
+
+Prop_strong()UITableView *modeTableView;
+Prop_strong()JobsWalletCardView *walletCardView;
+Prop_copy()NSArray<UIViewModel *> *modeDataSource;
+Prop_copy()NSArray<JobsWalletCardModel *> *cardModels;
+Prop_strong()BaseButton *walletExpandBtn;
+Prop_assign()BOOL showsModeList;
+Prop_assign()BOOL walletCardsExpanded;
+Prop_assign()JobsWalletCardExpandStyle walletStyle;
 
 @end
 
@@ -27,7 +35,11 @@ Prop_strong()NSMutableArray <UIViewModel *>*sectionFooterDataSource;
 
 -(void)loadView{
     [super loadView];
-
+    self.walletStyle = JobsWalletCardExpandStyleOnlySelected;
+    self.showsModeList = ![self.requestParams isKindOfClass:NSNumber.class];
+    if ([self.requestParams isKindOfClass:NSNumber.class]) {
+        self.walletStyle = [(NSNumber *)self.requestParams integerValue];
+    }
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -41,17 +53,11 @@ Prop_strong()NSMutableArray <UIViewModel *>*sectionFooterDataSource;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byTextCor(HEXCOLOR(0x3D4A58));
         })
-        //        self.viewModel.textModel.text = @"JobsWallet".tr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"银行卡".tr);
+            data.byText(self.showsModeList ? @"银行卡".tr : [self titleByWalletStyle:self.walletStyle]);
             data.byFont(UIFontWeightSemiboldSize(17));
         })
-    
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
         .byBgCor(HEXCOLOR(0xF5F7FB))
-        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
         .byNavBgCor(HEXCOLOR(0xFFF1E4))
         .byNavBgImage(@"导航栏左侧底图".img);
 }
@@ -60,257 +66,369 @@ Prop_strong()NSMutableArray <UIViewModel *>*sectionFooterDataSource;
     [super viewDidLoad];
     self.makeNavByAlpha(1);
     self.view.byBgColor(HEXCOLOR(0xF5F7FB));
-
-    self.collectionView.byShow(self);
+    if (self.showsModeList) {
+        self.modeTableView.alpha = 1;
+    } else {
+        [self setupRightItems];
+        self.walletCardView.alpha = 1;
+    }
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+#pragma mark —— UITableViewDelegate,UITableViewDataSource
+
+-(NSInteger)tableView:(UITableView *)tableView
+numberOfRowsInSection:(NSInteger)section{
+    return self.modeDataSource.count;
 }
 
--(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    JobsLog(@"");
+-(CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return JobsWidth(104);
 }
 
--(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    JobsLog(@"");
+-(UITableViewCell *)tableView:(UITableView *)tableView
+        cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:JobsWalletModeCellReuseIdentifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                      reuseIdentifier:JobsWalletModeCellReuseIdentifier];
+    }
+    if (![cell.contentView viewWithTag:JobsWalletModeCardViewTag]) {
+        [self setupModeCell:cell];
+    }
+    if (indexPath.row < self.modeDataSource.count) {
+        UIViewModel *viewModel = self.modeDataSource[indexPath.row];
+        [self configureModeCell:cell
+                       byModel:viewModel];
+    };return cell;
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+-(void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row >= self.modeDataSource.count) return;
+    UIViewModel *viewModel = self.modeDataSource[indexPath.row];
+    JobsWalletVC *vc = JobsWalletVC.new;
+    vc.requestParams = viewModel.requestParams;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-}
-
--(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-}
 #pragma mark —— 一些私有方法
 
-#pragma mark —— UICollectionViewDelegate,UICollectionViewDataSource
--(CGFloat)collectionView:(UICollectionView *)collectionView
-resuableHeaderViewHeightForIndexPath:(NSIndexPath *)indexPath {
-//    return indexPath.section == 0 ? 30 : 0;
-    if (indexPath.section == 0) {
-        return JobsWidth(48);
-    };return JobsWidth(22);
+-(NSString *)titleByWalletStyle:(JobsWalletCardExpandStyle)style{
+    switch (style) {
+        case JobsWalletCardExpandStyleKeepOpened:
+            return @"独立展开".tr;
+        case JobsWalletCardExpandStyleOnlySelected:
+        default:
+            return @"单选展开".tr;
+    }
 }
 
--(CGFloat)collectionView:(UICollectionView *)collectionView
-resuableFooterViewHeightForIndexPath:(NSIndexPath *)indexPath {
-//    return 30;
-    return 0;
+-(JobsWalletCardModel *)cardModelWithBankName:(NSString *)bankName
+                                   cardNumber:(NSString *)cardNumber
+                                     iconName:(NSString *)iconName
+                              backgroundColor:(UIColor *)backgroundColor
+                                          cvc:(NSString *_Nullable)cvc
+                               expirationDate:(NSString *_Nullable)expirationDate{
+    JobsWalletCardModel *model = JobsWalletCardModel.new;
+    model.bankName = bankName.tr;
+    model.cardNumber = cardNumber.tr;
+    model.bankIcon = iconName.img;
+    model.backgroundColor = backgroundColor;
+    model.cvc = cvc;
+    model.expirationDate = expirationDate;
+    return model;
 }
 
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return self.dataSourceMutArr.count;
+-(void)setupRightItems{
+    self.rightBarButtonItems = jobsMakeMutArr(^(__kindof NSMutableArray<UIBarButtonItem *> * _Nullable data) {
+        data.add(self.walletExpandBtn.bySize(CGSizeMake(JobsWidth(58), JobsWidth(32))).barBtnItem);
+    });
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView
-     numberOfItemsInSection:(NSInteger)section{
-    NSArray *sectionArray = self.dataSourceMutArr[section];
-    return sectionArray.count;
+-(void)toggleWalletCardsExpanded{
+    self.walletCardsExpanded = !self.walletCardsExpanded;
+    if (self.walletCardsExpanded) {
+        [self.walletCardView expandAllCards];
+    } else {
+        [self.walletCardView collapseAllCards];
+    }
+    [self refreshWalletExpandBtnTitle];
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                  cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == self.dataSourceMutArr.count - 1) {
-        JobsBtnStyleCVCell *cell = [collectionView collectionViewCellClass:JobsBtnStyleCVCell.class forIndexPath:indexPath];
-        UIViewModel *viewModel = self.dataSourceMutArr[indexPath.section][indexPath.item];
-        viewModel.byItem(indexPath.item);
-        cell.jobsRichElementsCollectionViewCellBy(viewModel);
-        cell
-            .byBgColor(JobsClearColor)
+-(void)refreshWalletExpandBtnTitle{
+    _walletExpandBtn.jobsResetBtnTitle(self.walletCardsExpanded ? @"收起".tr : @"展开".tr);
+}
+
+-(void)setupModeCell:(UITableViewCell *)cell{
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.backgroundColor = JobsClearColor;
+    cell.contentView.backgroundColor = JobsClearColor;
+    cell.contentView.layer.cornerRadius = 0;
+    cell.contentView.layer.masksToBounds = NO;
+    UIView *cardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+        view.tag = JobsWalletModeCardViewTag;
+        view.byBgColor(JobsWhiteColor)
+            .byCornerRadius(JobsWidth(18))
             .byClipsToBounds(NO)
-            .byLayer(^(CALayer *layer) {
-                layer
-                    .byMasksToBounds(NO)
-                    .byShadowColor(RGBA_COLOR(32, 58, 86, 0.10).CGColor)
-                    .byShadowOpacity(1)
-                    .byShadowOffset(CGSizeMake(0, JobsWidth(4)))
-                    .byShadowRadius(JobsWidth(10));
+            .addOn(cell.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.top.equalTo(cell.contentView).offset(JobsWidth(8));
+                make.bottom.equalTo(cell.contentView).offset(-JobsWidth(8));
+                make.left.equalTo(cell.contentView).offset(JobsWidth(24));
+                make.right.equalTo(cell.contentView).offset(-JobsWidth(24));
             });
-        return cell;
-    }else{
-        BaiShaETProjBankAccMgmtCVCell *cell = [collectionView collectionViewCellClass:BaiShaETProjBankAccMgmtCVCell.class forIndexPath:indexPath];
-        UIViewModel *viewModel = self.dataSourceMutArr[indexPath.section][indexPath.item];
-        viewModel.byItem(indexPath.item);
-        cell.jobsRichElementsCollectionViewCellBy(viewModel);
-        return cell;
-    }
+        view.layer.shadowColor = RGBA_COLOR(36, 54, 77, 0.08).CGColor;
+        view.layer.shadowOpacity = 1;
+        view.layer.shadowOffset = CGSizeMake(0, JobsWidth(4));
+        view.layer.shadowRadius = JobsWidth(10);
+    });
+    UIImageView *chevronView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+        imageView.tag = JobsWalletModeChevronViewTag;
+        imageView.byImage([@"chevron.right".sys_img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate])
+            .byTintColor(HEXCOLOR(0xC2C9D2))
+            .byContentMode(UIViewContentModeScaleAspectFit)
+            .addOn(cardView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.right.equalTo(cardView).offset(-JobsWidth(18));
+                make.centerY.equalTo(cardView);
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(16), JobsWidth(16)));
+            });
+    });
+    jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+        label.tag = JobsWalletModeTitleLabelTag;
+        label.byFont(UIFontWeightSemiboldSize(16))
+            .byTextCor(HEXCOLOR(0x2F3A46))
+            .byNumberOfLines(1)
+            .byLineBreakMode(NSLineBreakByTruncatingTail)
+            .addOn(cardView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.left.equalTo(cardView).offset(JobsWidth(24));
+                make.right.lessThanOrEqualTo(chevronView.mas_left).offset(-JobsWidth(14));
+                make.top.equalTo(cardView).offset(JobsWidth(22));
+            });
+    });
+    jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+        label.tag = JobsWalletModeSubTitleLabelTag;
+        label.byFont(UIFontWeightRegularSize(12))
+            .byTextCor(HEXCOLOR(0x8A96A3))
+            .byNumberOfLines(2)
+            .byLineBreakMode(NSLineBreakByTruncatingTail)
+            .addOn(cardView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.left.equalTo(cardView).offset(JobsWidth(24));
+                make.right.lessThanOrEqualTo(chevronView.mas_left).offset(-JobsWidth(14));
+                make.top.equalTo(cardView).offset(JobsWidth(48));
+            });
+    });
 }
 
-- (void)collectionView:(UICollectionView *)collectionView
-didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self.dataSourceMutArr enumerateObjectsUsingBlock:^(NSArray<UIViewModel *> *sectionArray,
-                                                        NSUInteger section,
-                                                        BOOL * _Nonnull stopSection) {
-        [sectionArray enumerateObjectsUsingBlock:^(UIViewModel *model,
-                                                   NSUInteger item,
-                                                   BOOL * _Nonnull stopItem) {
-            // 只要不是当前点击的那个 indexPath，全部置为未选中
-            if (section != indexPath.section || item != indexPath.item) {
-                model.byJobsSelected(NO);
-                return;
-            }
-            // 命中当前点击的 cell（section 和 item 都相等）
-            model.byJobsSelected(!model.jobsSelected);
-
-            BOOL isLastItemInSection = (item == sectionArray.count - 1);
-            BOOL shouldExpand = !isLastItemInSection && model.jobsSelected;
-
-            [self.tms_layout didClickWithIndexPath:indexPath isExpand:shouldExpand];
-        }];
-    }]; [collectionView reloadData];
+-(void)configureModeCell:(UITableViewCell *)cell
+                 byModel:(UIViewModel *)viewModel{
+    UIView *cardView = [cell.contentView viewWithTag:JobsWalletModeCardViewTag];
+    UILabel *titleLabel = (UILabel *)[cardView viewWithTag:JobsWalletModeTitleLabelTag];
+    UILabel *subTitleLabel = (UILabel *)[cardView viewWithTag:JobsWalletModeSubTitleLabelTag];
+    titleLabel.byText(viewModel.textModel.text);
+    subTitleLabel.byText(viewModel.subTextModel.text);
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
-           viewForSupplementaryElementOfKind:(NSString *)kind
-                                 atIndexPath:(NSIndexPath *)indexPath{
-    TMSWalletCollectionReusableView *reusableView = nil;
-    reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:NSStringFromClass(TMSWalletCollectionReusableView.class) forIndexPath:indexPath];
-    reusableView.byBgColor(HEXCOLOR(0xF5F7FB));
-    if ([kind isEqualToString:TMSCollectionViewSectionHeader]) {
-        if(indexPath.section < self.sectionHeaderDataSource.count){
-            UIViewModel *viewModel = self.sectionHeaderDataSource[indexPath.section];
-            reusableView.jobsRichViewByModel(viewModel);
-            reusableView.label
-                .byFont(UIFontWeightSemiboldSize(16))
-                .byTextCor(HEXCOLOR(0x2F3A46))
-                .byHidden(!isValue(viewModel.textModel.text));
+-(UIImage *)modeHeaderImage{
+    UIImage *bundleImage = @"BaiShaETProjBankAccMgmtCVCell".img;
+    if (bundleImage) return bundleImage;
+    CGSize imageSize = CGSizeMake(344, 92);
+    UIGraphicsImageRendererFormat *format = UIGraphicsImageRendererFormat.defaultFormat;
+    format.scale = UIScreen.mainScreen.scale;
+    format.opaque = NO;
+    UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:imageSize
+                                                                               format:format];
+    UIImage *image = [renderer imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
+        CGRect cardRect = CGRectMake(0, 0, imageSize.width, imageSize.height);
+        UIBezierPath *cardPath = [UIBezierPath bezierPathWithRoundedRect:cardRect
+                                                            cornerRadius:18];
+        CGContextRef context = rendererContext.CGContext;
+        CGContextSaveGState(context);
+        [cardPath addClip];
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        NSArray *colors = @[
+            (__bridge id)HEXCOLOR(0xFFF2D9).CGColor,
+            (__bridge id)HEXCOLOR(0xDDEFFF).CGColor
+        ];
+        CGFloat locations[] = {0, 1};
+        CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)colors, locations);
+        if (gradient) {
+            CGContextDrawLinearGradient(context,
+                                        gradient,
+                                        CGPointMake(0, 0),
+                                        CGPointMake(imageSize.width, imageSize.height),
+                                        0);
+            CGGradientRelease(gradient);
         }
-    }
-
-    if ([kind isEqualToString:TMSCollectionViewSectionFooter]) {
-        if(indexPath.section < self.sectionFooterDataSource.count){
-            UIViewModel *viewModel = self.sectionFooterDataSource[indexPath.section];
-            reusableView.jobsRichViewByModel(viewModel);
-            reusableView.label.byHidden(YES);
-        }
-    };return reusableView;
+        CGColorSpaceRelease(colorSpace);
+        CGContextRestoreGState(context);
+        [RGBA_COLOR(255, 255, 255, 0.32) setFill];
+        [[UIBezierPath bezierPathWithOvalInRect:CGRectMake(imageSize.width - 92, -32, 128, 128)] fill];
+        [[UIBezierPath bezierPathWithOvalInRect:CGRectMake(imageSize.width - 162, 48, 78, 78)] fill];
+        CGRect logoRect = CGRectMake(22, 20, 52, 52);
+        [RGBA_COLOR(255, 255, 255, 0.86) setFill];
+        [[UIBezierPath bezierPathWithOvalInRect:logoRect] fill];
+        UIImage *logoImage = @"上海银行".img ?: @"BANK_已点击".img;
+        [logoImage drawInRect:CGRectInset(logoRect, 8, 8)];
+        NSDictionary *titleAttributes = @{
+            NSFontAttributeName: UIFontWeightSemiboldSize(17),
+            NSForegroundColorAttributeName: HEXCOLOR(0x2F3A46)
+        };
+        [@"上海银行".tr drawInRect:CGRectMake(88, 25, 132, 24)
+                    withAttributes:titleAttributes];
+        NSMutableParagraphStyle *rightStyle = NSMutableParagraphStyle.new;
+        rightStyle.alignment = NSTextAlignmentRight;
+        NSDictionary *numberAttributes = @{
+            NSFontAttributeName: UIFontWeightBoldSize(17),
+            NSForegroundColorAttributeName: HEXCOLOR(0x2F3A46),
+            NSParagraphStyleAttributeName: rightStyle
+        };
+        [@"**** 7895" drawInRect:CGRectMake(220, 28, 96, 24)
+                  withAttributes:numberAttributes];
+    }];return image;
 }
+
+-(UIView *)modeTableHeaderView{
+    CGFloat headerWidth = JobsMainScreen_WIDTH();
+    CGFloat headerHeight = JobsWidth(132);
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, headerWidth, headerHeight)];
+    headerView.backgroundColor = JobsClearColor;
+    jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+        imageView.byImage(self.modeHeaderImage)
+            .byContentMode(UIViewContentModeScaleAspectFit)
+            .byClipsToBounds(YES)
+            .byCornerRadius(JobsWidth(18))
+            .addOn(headerView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.left.equalTo(headerView).offset(JobsWidth(24));
+                make.right.equalTo(headerView).offset(-JobsWidth(24));
+                make.top.equalTo(headerView).offset(JobsWidth(18));
+                make.height.mas_equalTo(JobsWidth(92));
+            });
+    });return headerView;
+}
+
 #pragma mark —— lazyLoad
-/// BaseViewProtocol
-@synthesize collectionView = _collectionView;
-- (UICollectionView *)collectionView {
-    if (!_collectionView) {
-        _collectionView = UICollectionView.initByLayout(self.tms_layout);
-        _collectionView.byBgColor(HEXCOLOR(0xF5F7FB));
 
-        
-        {
-            _collectionView.registerCollectionElementKindSectionHeaderClass_(TMSWalletCollectionReusableView.class,TMSCollectionViewSectionHeader);
-            _collectionView.registerCollectionElementKindSectionHeaderClass_(TMSWalletCollectionReusableView.class,TMSCollectionViewSectionFooter);
-
-            _collectionView.registerCollectionViewCellClass(JobsBtnStyleCVCell.class,@"");
-            _collectionView.registerCollectionViewCellClass(TMSWalletCollectionViewCell.class,@"");
-            _collectionView.registerCollectionViewCellClass(BaiShaETProjBankAccMgmtCVCell.class,@"");
-        }
-
-        _collectionView.dataLink(self);
-        _collectionView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
-        self.view.addSubview(_collectionView);
-        [self fullScreenConstraintTargetView:_collectionView topViewOffset:0];
-    };return _collectionView;
+-(UITableView *)modeTableView{
+    if (!_modeTableView) {
+        _modeTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _modeTableView.delegate = self;
+        _modeTableView.dataSource = self;
+        _modeTableView.backgroundColor = JobsClearColor;
+        _modeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _modeTableView.showsVerticalScrollIndicator = NO;
+        _modeTableView.contentInset = UIEdgeInsetsMake(JobsWidth(2), 0, JobsWidth(20), 0);
+        _modeTableView.rowHeight = JobsWidth(104);
+        _modeTableView.tableHeaderView = self.modeTableHeaderView;
+        _modeTableView.tableFooterView = UIView.new;
+        [self.view addSubview:_modeTableView];
+        [_modeTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(self.view);
+            make.top.equalTo(self.gk_navigationBar.mas_bottom);
+        }];
+    };return _modeTableView;
 }
 
--(TMSCollectionViewLayout *)tms_layout{
-    if (!_tms_layout) {
+-(JobsWalletCardView *)walletCardView{
+    if (!_walletCardView) {
+        _walletCardView = [[JobsWalletCardView alloc] initWithFrame:CGRectZero
+                                                        expandStyle:self.walletStyle
+                                                         cardModels:self.cardModels];
+        [self.view addSubview:_walletCardView];
+        [_walletCardView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(self.view);
+            make.top.equalTo(self.gk_navigationBar.mas_bottom);
+        }];
+    };return _walletCardView;
+}
+
+-(BaseButton *)walletExpandBtn{
+    if (!_walletExpandBtn) {
         @jobs_weakify(self)
-        _tms_layout = jobsMakeTMSCollectionViewLayout(^(__kindof TMSCollectionViewLayout * _Nullable layout) {
-            @jobs_strongify(self)
-            layout.padding = JobsWidth(15);
-            layout.layout_delegate = self;
-        });
-    };return _tms_layout;
+        _walletExpandBtn = BaseButton
+            .initByStyle1(@"展开".tr,
+                          UIFontWeightMediumSize(14),
+                          HEXCOLOR(0x2F3A46))
+            .bgColorBy(JobsClearColor)
+            .cornerRadiusValueBy(0)
+            .jobsResetBtnLayerBorderWidth(0)
+            .onClickBy(^(UIButton *x) {
+                @jobs_strongify(self)
+                [self toggleWalletCardsExpanded];
+            })
+            .makeBtnTitleByShowingType(UILabelShowingType_03);
+    };return _walletExpandBtn;
 }
 
--(NSMutableArray<NSMutableArray<UIViewModel *> *> *)dataSourceMutArr{
-    if (!_dataSourceMutArr) {
-        _dataSourceMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSMutableArray<UIViewModel *>*>* _Nullable data) {
-            data.add(jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>* _Nullable data1) {
-                data1.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data2) {
-                    data2.textModel.byText(@"上海银行".tr);
-                    data2.subTextModel.byText(@"**** 7895".tr);
-                    data2.byImage(@"第一银行".img);
-                }))
-                .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data2) {
-                    data2.textModel.byText(@"国泰世华".tr);
-                    data2.subTextModel.byText(@"**** 2345".tr);
-                    data2.byImage(@"国泰世华".img);
-                }))
-                .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data2) {
-                    data2.textModel.byText(@"台湾银行".tr);
-                    data2.subTextModel.byText(@"**** 7654".tr);
-                    data2.byImage(@"台湾银行".img);
-                }))
-                .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data2) {
-                    data2.textModel.byText(@"嘉华银行".tr);
-                    data2.subTextModel.byText(@"**** 2345".tr);
-                    data2.byImage(@"嘉华银行".img);
-                }))
-                .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data2) {
-                    data2.textModel.byText(@"包头银行".tr);
-                    data2.subTextModel.byText(@"**** 7654".tr);
-                    data2.byImage(@"包头银行".img);
-                }))
-                .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data2) {
-                    data2.textModel.byText(@"成都银行".tr);
-                    data2.subTextModel.byText(@"**** 2345".tr);
-                    data2.byImage(@"成都银行".img);
-                }))
-                .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data2) {
-                    data2.textModel.byText(@"南充商业银行".tr);
-                    data2.subTextModel.byText(@"**** 7654".tr);
-                    data2.byImage(@"南充商业银行".img);
-                }));
-            }));
-            data.add(jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>* _Nullable data1) {
-                data1.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data2) {
-                    data2
-                        .byBgCor(JobsWhiteColor)
-                        .byBgSelectedCor(HEXCOLOR(0xEEF4FF))
-                        .byLayerCornerRadius(JobsWidth(14))
-                        .byJobsEnabled(NO);
-                    data2.textModel
-                        .byText(@"＋ 添加新的银行卡".tr)
-                        .byFont(UIFontWeightSemiboldSize(16))
-                        .byTextCor(HEXCOLOR(0x3A4653));
-                    data2.subTextModel
-                        .bySubText(@"安全管理银行卡".tr)
-                        .bySubFont(UIFontWeightRegularSize(12))
-                        .bySubTextCor(HEXCOLOR(0x8A96A3));
-                }));
-            }));
-        });
-    };return _dataSourceMutArr;
+-(NSArray<UIViewModel *> *)modeDataSource{
+    if (!_modeDataSource) {
+        _modeDataSource = @[
+            jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
+                data.textModel.byText(@"单选展开".tr);
+                data.subTextModel.byText(@"只显示当下点选的卡片，其他卡片自动收回。".tr);
+                data.requestParams = @(JobsWalletCardExpandStyleOnlySelected);
+            }),
+            jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
+                data.textModel.byText(@"独立展开".tr);
+                data.subTextModel.byText(@"每张卡片独立开合，只要不再次关闭就保持展开。".tr);
+                data.requestParams = @(JobsWalletCardExpandStyleKeepOpened);
+            })
+        ];
+    };return _modeDataSource;
 }
 
--(NSMutableArray<UIViewModel *> *)sectionHeaderDataSource{
-    if (!_sectionHeaderDataSource) {
-        _sectionHeaderDataSource = jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>* _Nullable data) {
-            data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.byText(@"我的银行卡".tr);
-            }))
-            .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.byText(@"");
-            }));
-        });
-    };return _sectionHeaderDataSource;
-}
-
--(NSMutableArray<UIViewModel *> *)sectionFooterDataSource{
-    if (!_sectionFooterDataSource) {
-        _sectionFooterDataSource = jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>* _Nullable data) {
-            data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.byText(@"");
-            }));
-        });
-    };return _sectionFooterDataSource;
+-(NSArray<JobsWalletCardModel *> *)cardModels{
+    if (!_cardModels) {
+        _cardModels = @[
+            [self cardModelWithBankName:@"上海银行"
+                             cardNumber:@"**** 7895"
+                               iconName:@"上海银行"
+                        backgroundColor:HEXCOLOR(0xBFE2FF)
+                                    cvc:@"238"
+                         expirationDate:@"08/29"],
+            [self cardModelWithBankName:@"国泰世华"
+                             cardNumber:@"**** 2345"
+                               iconName:@"国泰世华"
+                        backgroundColor:HEXCOLOR(0xCFEFDF)
+                                    cvc:nil
+                         expirationDate:@"11/28"],
+            [self cardModelWithBankName:@"台湾银行"
+                             cardNumber:@"**** 7654"
+                               iconName:@"台湾银行"
+                        backgroundColor:HEXCOLOR(0xFFE2A8)
+                                    cvc:@"510"
+                         expirationDate:nil],
+            [self cardModelWithBankName:@"嘉华银行"
+                             cardNumber:@"**** 2345"
+                               iconName:@"嘉华银行"
+                        backgroundColor:HEXCOLOR(0xDCD5FF)
+                                    cvc:nil
+                         expirationDate:@"02/30"],
+            [self cardModelWithBankName:@"包头银行"
+                             cardNumber:@"**** 7654"
+                               iconName:@"包头银行"
+                        backgroundColor:HEXCOLOR(0xFBD0DA)
+                                    cvc:nil
+                         expirationDate:@"05/31"],
+            [self cardModelWithBankName:@"成都银行"
+                             cardNumber:@"**** 2345"
+                               iconName:@"成都银行"
+                        backgroundColor:HEXCOLOR(0xD6F1F5)
+                                    cvc:@"792"
+                         expirationDate:@"09/29"],
+            [self cardModelWithBankName:@"南充商业银行"
+                             cardNumber:@"**** 7654"
+                               iconName:@"南充商业银行"
+                        backgroundColor:HEXCOLOR(0xE4E9F6)
+                                    cvc:nil
+                         expirationDate:@"12/30"]
+        ];
+    };return _cardModels;
 }
 
 @end

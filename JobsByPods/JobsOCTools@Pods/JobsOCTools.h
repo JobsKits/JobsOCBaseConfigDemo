@@ -56,7 +56,6 @@
 #import <JobsOCTools/JobsShowNumView.h>
 #import <JobsOCTools/JobsStepView.h>
 #import <JobsOCTools/JobsTabBar.h>
-#import <JobsOCTools/JobsTabBarCtrl.h>
 #import <JobsOCTools/JobsTabBarCtrlConstruction.h>
 #import <JobsOCTools/JobsTabBarItem.h>
 #import <JobsOCTools/JobsTabBarItemConfig.h>

@@ -25,7 +25,7 @@
 | Pod 类型 | 自建本地 Pod |
 | 版本 | `1.0.0` |
 | 平台 | `ios 12.0` |
-| 摘要 | JobsDropDownListView |
+| 摘要 | Anchor-based dropdown list view for Jobs projects. |
 | 首页 | [https://example.local/JobsDropDownListView](https://example.local/JobsDropDownListView) |
 | 许可证 | `MIT / LICENSE` |
 | 作者 | `Jobs / lg295060456@gmail.com` |
@@ -34,7 +34,8 @@
 
 ## 二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 作为 Jobs 项目内的独立能力 Pod，向 App 或其它 Pod 提供 `JobsDropDownListView` 相关能力。
+- 作为 Jobs 项目内的独立能力 Pod，向 App 或其它 Pod 提供锚点弹出的上拉 / 下拉列表能力。
+- 列表数据统一使用 `UIViewModel` 数据束承接：`image` 负责左侧图标，`textModel` 负责主标题，`subTextModel` 负责副标题。
 - 当 `JobsDropDownListView` 的 `Core`、`Support`、资源、依赖或公开头文件发生变化时，同步更新本 README，避免后续排查只看源码不看边界。
 - 参与本地 Pods 拆分时，先确认能力归属，再决定放入当前 Pod、迁移到 `Support`，还是下沉为更基础的公共 Pod。
 
@@ -46,7 +47,7 @@ JobsDropDownListView@Pods/
 ├── JobsDropDownListViewHeader.h  # 根聚合头文件
 ├── README.md  # 当前自述
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
-├── Core/  # 公开 API 与核心实现，4 个文件
+├── Core/  # 公开 API 与核心实现，6 个文件
 ├── Support/  # 内部支撑层，34 个文件
 └── LICENSE  # 许可证文件
 ```
@@ -57,7 +58,7 @@ JobsDropDownListView@Pods/
 
 ## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 当前包含 4 个文件，其中源码 / 头文件 4 个；按 Jobs 规范，它是 `JobsDropDownListView` 对外公开 API 和核心实现的边界。
+- `Core` 当前包含 6 个文件，其中源码 / 头文件 6 个；按 Jobs 规范，它是 `JobsDropDownListView` 对外公开 API 和核心实现的边界。
 - `Support` 当前包含 34 个文件，其中源码 / 头文件 34 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
@@ -68,6 +69,7 @@ JobsDropDownListView@Pods/
 
 - `JobsDropDownListViewHeader.h`
 - `Core/**/*.h`
+- `Core/NSObject+JobsDropDownListView/NSObject+JobsDropDownListView.h` 提供锚点弹出入口。
 
 ### 5.2、源码入口
 
@@ -88,9 +90,11 @@ JobsDropDownListView@Pods/
 ### 5.5、Pod 依赖
 
 - `JobsModel`
+- `JobsModelDSL`
 - `JobsMakes`
 - `JobsClass`
 - `JobsBlock`
+- `JobsOCDSL`
 - `MJRefresh`
 - `JobsBaseUI`
 - `JobsOCDefs`
@@ -111,7 +115,31 @@ JobsDropDownListView@Pods/
 ```
 
 - 自建 Pod 对外优先引用公共入口头，不要绕开聚合头直接引用 `Support` 内部子头。
-- `JobsDropDownListViewHeader.h` 聚合公开 View 与 Cell；调用方不再绕开入口头引用内部子头。
+- `JobsDropDownListViewHeader.h` 聚合公开 View、Cell 与 `NSObject+JobsDropDownListView`；调用方不再绕开入口头引用内部子头。
+
+示例数据使用 `UIViewModel`：
+
+```objc
+NSMutableArray <UIViewModel *>*models = jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>*_Nullable data) {
+    data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable model) {
+        model.byImage(@"icon".img);
+        model.textModel.byText(@"基础配置".tr);
+        model.subTextModel.byText(@"浅色面板".tr);
+    }));
+});
+```
+
+锚点弹出入口：
+
+```objc
+self.dropDownListView = [self jobsMotivateDropDownListFromView:self.btn
+                                                     direction:JobsDropDownListViewDirection_Down
+                                                          data:models
+                                            motivateViewOffset:JobsWidth(5)
+                                                   finishBlock:^(UIViewModel *data) {
+    JobsLog(@"data = %@", data);
+}];
+```
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -148,6 +176,11 @@ pod install --no-repo-update
 
 ## 十、近期维护记录 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
+- 2026-07-06：将锚点弹出入口下沉到 `JobsDropDownListView` Pod，新增 `NSObject+JobsDropDownListView`，支持向上 / 向下展开与 `UIViewModel` 数据束驱动。
+- 2026-07-06：默认 Cell 改为图标 + 主标题 + 副标题 + 箭头结构，左图读取 `UIViewModel.image`，无图时自动收起图标空间。
+- 2026-07-06：podspec 显式补充 `JobsModel` 依赖，`JobsByOCPods` 旧入口改为桥接调用当前 Pod 入口。
+- 2026-07-05：修正默认 Cell 右侧副标题与箭头的垂直中心线，改为自定义箭头并在 `layoutSubviews` 中统一对齐主标题、副标题和箭头。
+- 2026-07-05：优化默认弹出列表 UI，表格改为浅色圆角浮层、无硬分割线，默认 Cell 增加行高、留白、浅底圆角和柔和箭头色。
 - 修正 `JobsDropDownListView` 在 `heightForRowAtIndexPath:` 中把 `cellHeightByModel` 误写成动态调用 `cellHeightByModel:` 的问题，避免 Demo 展开下拉列表时提示“方法不存在”。
 - 优化默认下拉列表展示：表格使用白底圆角，默认 Cell 使用更清晰的主 / 副标题文字样式和选中背景。
 

@@ -83,7 +83,7 @@ Prop_strong()UILabel *titleLabel;
 
 - (void)setIcon:(NSString *)icon {
     _icon = icon;
-    self.iconImageView.image = [UIImage imageNamed:icon];
+    self.iconImageView.image = icon.img;
 }
 
 - (void)setTitle:(NSString *)title {
@@ -126,4 +126,3 @@ Prop_strong()UILabel *titleLabel;
 }
 
 @end
-

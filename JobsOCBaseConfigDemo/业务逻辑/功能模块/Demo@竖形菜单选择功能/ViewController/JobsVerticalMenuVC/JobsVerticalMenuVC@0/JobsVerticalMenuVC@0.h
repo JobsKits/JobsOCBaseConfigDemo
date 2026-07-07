@@ -10,7 +10,7 @@
 #import "ThreeClassCell.h"
 #import "GoodsClassModel.h"
 #import "BaiShaETProjPopupView10.h"
-#import "JobsSearchBar.h"
+#import "JobsOCSearcherBar.h"
 #import "JobsVerticalMenuSubView.h" // 新的自定义UIView类
 #import "JobsVerticalMenuDefineHeader.h"
 

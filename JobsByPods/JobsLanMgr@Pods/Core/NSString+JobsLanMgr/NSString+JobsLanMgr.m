@@ -11,7 +11,7 @@
 @implementation NSString (JobsLanMgr)
 /// 国际化
 -(NSString *_Nullable)tr{
-    return [LanMgr localStringWithKey:self];
+    return LanMgr.localStringByKey(self);
 }
 
 -(JobsRetBOOLByStrBlock _Nonnull)inStr{

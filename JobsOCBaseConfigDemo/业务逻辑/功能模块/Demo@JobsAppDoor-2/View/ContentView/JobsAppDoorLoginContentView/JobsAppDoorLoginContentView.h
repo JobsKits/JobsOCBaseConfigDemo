@@ -49,6 +49,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /// 登录页
 @interface JobsAppDoorLoginContentView : BaseContentView

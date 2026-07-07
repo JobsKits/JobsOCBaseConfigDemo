@@ -7,12 +7,14 @@
 
 #import <JobsOCKeyboardMgr/JobsOCKeyboardMgr.h>
 
-@interface JobsOCKeyboardMgr ()
+@interface JobsOCKeyboardMgr ()<UIGestureRecognizerDelegate>
 
 Prop_strong(nullable, readwrite) __kindof JobsOCKeyboardConfig *currentConfig;
 Prop_strong(nullable, readwrite) __kindof JobsOCKeyboardResult *latestResult;
 Prop_assign(readwrite, getter=isStarted) BOOL started;
 Prop_strong() NSMapTable <UIView *, NSValue *>*baseTransformMap;
+Prop_strong(nullable) UITapGestureRecognizer *endEditingTapGR;
+Prop_weak(nullable) __kindof UIView *endEditingTapHostView;
 Prop_assign(readwrite) CGRect latestKeyboardFrameInScreen;
 Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
 
@@ -80,6 +82,10 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
         return self;
     };
 }
+
+-(void)clearConfigByOwner:(id _Nullable)owner{
+    if (!owner || self.currentConfig.owner == owner) [self jobs_updateConfig:nil];
+}
 #pragma mark —— Lifecycle
 -(void)jobs_startListening{
     if (self.started) return;
@@ -101,6 +107,8 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
 -(void)jobs_stopListening{
     if (!self.started) return;
     self.started = NO;
+    [self jobs_teardownInputFlowForConfig:self.currentConfig];
+    [self jobs_teardownEndEditingTapGesture];
     [NSNotificationCenter.defaultCenter removeObserver:self
                                                   name:UIKeyboardWillChangeFrameNotification
                                                 object:nil];
@@ -113,9 +121,12 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
 }
 
 -(void)jobs_updateConfig:(__kindof JobsOCKeyboardConfig *)config{
-    if (self.currentConfig && self.currentConfig != config) {
-        if ([self jobs_shouldRestoreConfig:self.currentConfig beforeConfig:config]) {
-            [self jobs_restoreConfig:self.currentConfig
+    JobsOCKeyboardConfig *oldConfig = self.currentConfig;
+    if (oldConfig && oldConfig != config) {
+        [self jobs_teardownInputFlowForConfig:oldConfig];
+        [self jobs_teardownEndEditingTapGesture];
+        if ([self jobs_shouldRestoreConfig:oldConfig beforeConfig:config]) {
+            [self jobs_restoreConfig:oldConfig
                             duration:self.latestResult.animationDuration
                              options:self.latestResult.animationOptions];
         }
@@ -123,15 +134,18 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
     self.currentConfig = config;
     [self jobs_refreshTriggerViewForConfig:config preferredView:nil];
     [self jobs_captureBaseTransformsForConfig:config];
+    [self jobs_setupInputFlowForConfig:config];
+    [self jobs_setupEndEditingTapGestureForConfig:config];
     [self jobs_reapplyLatestKeyboardForConfig:config];
 }
 #pragma mark —— Keyboard
 -(void)jobs_keyboardWillChangeFrame:(NSNotification *)notification{
+    NSDictionary *userInfo = notification.userInfo ?: @{};
+    NSValue *keyboardFrameValue = userInfo[UIKeyboardFrameEndUserInfoKey];
+    self.latestKeyboardUserInfo = userInfo;
+    self.latestKeyboardFrameInScreen = keyboardFrameValue ? keyboardFrameValue.CGRectValue : CGRectNull;
     JobsOCKeyboardConfig *config = self.currentConfig;
     if (!config.isValid) return;
-    NSDictionary *userInfo = notification.userInfo ?: @{};
-    self.latestKeyboardUserInfo = userInfo;
-    self.latestKeyboardFrameInScreen = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     [self jobs_refreshTriggerViewForConfig:config preferredView:nil];
     JobsOCKeyboardResult *result = [JobsOCKeyboardCalculator resultByConfig:config notification:notification];
     [self jobs_consumeResult:result config:config];
@@ -171,19 +185,20 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
                           preferredView:(__kindof UIView *)preferredView{
     if (!config.isValid) return;
     UIView *targetView = config.targetView;
+    UIView *triggerScopeView = config.triggerScopeView ?: targetView;
     UIView *triggerView = nil;
-    if ([self jobs_view:preferredView belongsToTargetView:targetView]) {
+    if ([self jobs_view:preferredView belongsToTargetView:triggerScopeView]) {
         triggerView = preferredView;
     }
     if (!triggerView) {
         UIView *currentTriggerView = config.triggerView;
-        if ([self jobs_view:currentTriggerView belongsToTargetView:targetView] &&
+        if ([self jobs_view:currentTriggerView belongsToTargetView:triggerScopeView] &&
             currentTriggerView.isFirstResponder) {
             triggerView = currentTriggerView;
         }
     }
-    if (!triggerView) triggerView = [self jobs_firstResponderInView:targetView];
-    config.triggerView = [self jobs_view:triggerView belongsToTargetView:targetView] ? triggerView : nil;
+    if (!triggerView) triggerView = [self jobs_firstResponderInView:triggerScopeView];
+    config.triggerView = [self jobs_view:triggerView belongsToTargetView:triggerScopeView] ? triggerView : nil;
 }
 
 -(BOOL)jobs_config:(__kindof JobsOCKeyboardConfig *)left
@@ -221,6 +236,100 @@ sharesMovingViewsWithConfig:(__kindof JobsOCKeyboardConfig *)right{
         [self jobs_applyResult:result config:config];
     }
 }
+#pragma mark —— InputFlow
+-(void)jobs_setupInputFlowForConfig:(__kindof JobsOCKeyboardConfig *)config{
+    if (!config.shouldFlowByReturnKey) return;
+    NSArray <__kindof UITextField *>*inputFields = config.inputFields;
+    for (UITextField *textField in inputFields) {
+        [textField removeTarget:self
+                          action:@selector(jobs_inputFieldDidEndOnExit:)
+                forControlEvents:UIControlEventEditingDidEndOnExit];
+        [textField addTarget:self
+                      action:@selector(jobs_inputFieldDidEndOnExit:)
+            forControlEvents:UIControlEventEditingDidEndOnExit];
+    }
+}
+
+-(void)jobs_teardownInputFlowForConfig:(__kindof JobsOCKeyboardConfig *)config{
+    for (UITextField *textField in config.inputFields) {
+        [textField removeTarget:self
+                          action:@selector(jobs_inputFieldDidEndOnExit:)
+                forControlEvents:UIControlEventEditingDidEndOnExit];
+    }
+}
+
+-(UITextField *)jobs_nextInputFieldAfterTextField:(__kindof UITextField *)textField
+                                           config:(__kindof JobsOCKeyboardConfig *)config{
+    NSArray <__kindof UITextField *>*inputFields = config.inputFields;
+    NSUInteger index = [inputFields indexOfObject:textField];
+    if (index == NSNotFound) return nil;
+    for (NSUInteger i = index + 1; i < inputFields.count; i++) {
+        UITextField *nextTextField = inputFields[i];
+        if (nextTextField.enabled &&
+            nextTextField.userInteractionEnabled &&
+            !nextTextField.hidden &&
+            nextTextField.alpha > 0.01f) {
+            return nextTextField;
+        }
+    };return nil;
+}
+
+-(void)jobs_inputFieldDidEndOnExit:(__kindof UITextField *)textField{
+    JobsOCKeyboardConfig *config = self.currentConfig;
+    if (!config.shouldFlowByReturnKey) return;
+    UITextField *nextTextField = [self jobs_nextInputFieldAfterTextField:textField config:config];
+    if (nextTextField) {
+        [nextTextField becomeFirstResponder];
+    }else{
+        [textField resignFirstResponder];
+    }
+}
+
+-(UIView *)jobs_endEditingHostViewByConfig:(__kindof JobsOCKeyboardConfig *)config{
+    if (config.containerView) return config.containerView;
+    if (config.targetView) return config.targetView;
+    return nil;
+}
+
+-(void)jobs_setupEndEditingTapGestureForConfig:(__kindof JobsOCKeyboardConfig *)config{
+    [self jobs_teardownEndEditingTapGesture];
+    if (!config.shouldResignOnTouchOutside) return;
+    UIView *hostView = [self jobs_endEditingHostViewByConfig:config];
+    if (!hostView) return;
+    UITapGestureRecognizer *tapGR = [UITapGestureRecognizer.alloc initWithTarget:self
+                                                                           action:@selector(jobs_endEditingByTapGesture:)];
+    tapGR.cancelsTouchesInView = NO;
+    tapGR.delegate = self;
+    [hostView addGestureRecognizer:tapGR];
+    self.endEditingTapGR = tapGR;
+    self.endEditingTapHostView = hostView;
+}
+
+-(void)jobs_teardownEndEditingTapGesture{
+    if (self.endEditingTapGR && self.endEditingTapHostView) {
+        [self.endEditingTapHostView removeGestureRecognizer:self.endEditingTapGR];
+    }
+    self.endEditingTapGR = nil;
+    self.endEditingTapHostView = nil;
+}
+
+-(void)jobs_endEditingByTapGesture:(UITapGestureRecognizer *)tapGR{
+    UIView *hostView = self.endEditingTapHostView;
+    if (!hostView) hostView = self.currentConfig.containerView;
+    if (!hostView) hostView = self.currentConfig.targetView;
+    [hostView endEditing:YES];
+}
+#pragma mark —— UIGestureRecognizerDelegate
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+      shouldReceiveTouch:(UITouch *)touch{
+    JobsOCKeyboardConfig *config = self.currentConfig;
+    if (!config.shouldResignOnTouchOutside) return NO;
+    if ([touch.view isKindOfClass:UIControl.class]) return NO;
+    for (UITextField *textField in config.inputFields) {
+        if ([touch.view isDescendantOfView:textField]) return NO;
+    };return YES;
+}
+#pragma mark —— Transform
 
 -(__kindof UIView *)jobs_containerViewByConfig:(__kindof JobsOCKeyboardConfig *)config{
     if (config.containerView) return config.containerView;
@@ -279,6 +388,7 @@ horizontallyIntersectsRect:result.obstructionFrameInContainer]) {
     CGFloat offsetY = result.offsetY;
     NSTimeInterval duration = result.animationDuration > 0 ? result.animationDuration : 0.25f;
     UIViewAnimationOptions options = result.animationOptions;
+    BOOL shouldClearBaseTransform = !result.keyboardVisible || !result.shouldAdjust;
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration
                           delay:0
@@ -288,7 +398,13 @@ horizontallyIntersectsRect:result.obstructionFrameInContainer]) {
         for (__kindof UIView *view in [self jobs_viewsByConfig:config]) {
             [self jobs_applyOffset:offsetY toView:view];
         }
-    } completion:nil];
+    } completion:^(BOOL finished) {
+        __strong typeof(weakSelf) self = weakSelf;
+        if (!shouldClearBaseTransform) return;
+        for (__kindof UIView *view in [self jobs_viewsByConfig:config]) {
+            [self.baseTransformMap removeObjectForKey:view];
+        }
+    }];
 }
 
 -(void)jobs_restoreConfig:(__kindof JobsOCKeyboardConfig *)config
@@ -306,7 +422,12 @@ horizontallyIntersectsRect:result.obstructionFrameInContainer]) {
         for (__kindof UIView *view in [self jobs_viewsByConfig:config]) {
             [self jobs_applyOffset:0 toView:view];
         }
-    } completion:nil];
+    } completion:^(BOOL finished) {
+        __strong typeof(weakSelf) self = weakSelf;
+        for (__kindof UIView *view in [self jobs_viewsByConfig:config]) {
+            [self.baseTransformMap removeObjectForKey:view];
+        }
+    }];
 }
 
 -(void)jobs_applyOffset:(CGFloat)offsetY

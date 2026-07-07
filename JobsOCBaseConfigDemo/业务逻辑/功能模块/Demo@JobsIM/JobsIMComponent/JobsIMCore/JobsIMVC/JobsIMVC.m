@@ -41,6 +41,7 @@ Prop_strong()JobsIMChatInfoModel *chatInfoModel;
         self.viewModel
             .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
                 data.byText(self.chatInfoModel.userNameStr);
+                data.byFont(UIFontWeightSemiboldSize(JobsWidth(20)));
             })
             .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
                 data.byText(@"聊天列表".tr);
@@ -87,18 +88,38 @@ Prop_strong()JobsIMChatInfoModel *chatInfoModel;
     }
 }
 #pragma mark —— 一些私有方法
--(void)simulateServer{
+-(void)simulateLocalTransportEcho{
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         UIViewModel *viewModel = (UIViewModel *)self.requestParams;
         if ([viewModel.data isKindOfClass:JobsIMChatInfoModel.class]) {
             JobsIMChatInfoModel *requestParamsChatInfoModel = (JobsIMChatInfoModel *)viewModel.data;
             self.chatInfoModelMutArr.add(jobsMakeIMChatInfoModel(^(JobsIMChatInfoModel * _Nullable chatInfoModel) {
+                chatInfoModel.messageID = NSUUID.UUID.UUIDString;
+                chatInfoModel.conversationID = requestParamsChatInfoModel.conversationID;
+                chatInfoModel.fromUserID = requestParamsChatInfoModel.fromUserID;
+                chatInfoModel.toUserID = JobsIMLocalDemoUserID();
+                chatInfoModel.userID = requestParamsChatInfoModel.userID;
                 chatInfoModel.chatTextStr = @"有内鬼，取消交易";
                 JobsTimeModel *timeModel = self.makeSpecificTime;
                 chatInfoModel.chatTextTimeStr = [NSString stringWithFormat:@"%ld:%ld:%ld",timeModel.currentHour,timeModel.currentMin,timeModel.currentSec];
                 chatInfoModel.userIconIMG = requestParamsChatInfoModel.userIconIMG;
-                chatInfoModel.identification = @"我是服务器";
+                chatInfoModel.userIconURLStr = requestParamsChatInfoModel.userIconURLStr;
+                chatInfoModel.identification = JobsIMStringFromTransportKind(requestParamsChatInfoModel.transportKind);
                 chatInfoModel.userNameStr = requestParamsChatInfoModel.userNameStr;
+                chatInfoModel.messageType = JobsIMChatMessageType_Text;
+                chatInfoModel.chatInfoDirection = JobsIMChatInfoDirection_Send;
+                chatInfoModel.packetType = JobsIMPacketTypeText;
+                chatInfoModel.deliveryState = JobsIMDeliveryStateReceived;
+                chatInfoModel.transportKind = requestParamsChatInfoModel.transportKind;
+                chatInfoModel.rawPacket = JobsIMPacketMake(JobsIMPacketTypeText,
+                                                           chatInfoModel.messageID,
+                                                           chatInfoModel.fromUserID,
+                                                           chatInfoModel.toUserID,
+                                                           @{
+                                                               @"text": chatInfoModel.chatTextStr ?: @"",
+                                                               @"transport": JobsIMStringFromTransportKind(chatInfoModel.transportKind),
+                                                               @"demo": @"local_transport_echo"
+                                                           });
             }));self.tableView.reloadDatas();
         }
     }
@@ -147,7 +168,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     JobsIMChatInfoTBVCell *cell = JobsIMChatInfoTBVCell.cellStyleValue1ByTableView(tableView)
-        .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
+        .byAccessoryType(UITableViewCellAccessoryNone)
         .byIndexPath(indexPath)
         .byDelegate(self)
         .jobsRichElementsTableViewCellBy(self.chatInfoModelMutArr[indexPath.row])
@@ -361,6 +382,11 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                 {/// 装填我方数据并刷新UI
                     JobsTimeModel *timeModel = self.makeSpecificTime;
                     self.chatInfoModelMutArr.add(jobsMakeIMChatInfoModel(^(JobsIMChatInfoModel * _Nullable data) {
+                        data.messageID = NSUUID.UUID.UUIDString;
+                        data.conversationID = self.chatInfoModel.conversationID;
+                        data.fromUserID = JobsIMLocalDemoUserID();
+                        data.toUserID = self.chatInfoModel.fromUserID;
+                        data.userID = JobsIMLocalDemoUserID();
                         data.chatTextStr = tf.text;
                         data.chatTextTimeStr = toStringByNSInteger(timeModel.currentHour)
                             .add(@":")
@@ -368,15 +394,29 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                             .add(@":")
                             .add(toStringByNSInteger(timeModel.currentSec));
                         data.userIconIMG = JobsLoadBundleImage(@"bundle", @"头像", nil, @"头像_1"); // 我自己的头像
-                        data.identification = @"我是我自己";
-                        data.userNameStr = @"Jobs";
+                        data.userIconURLStr = @"https://picsum.photos/126";
+                        data.identification = JobsIMStringFromTransportKind(self.chatInfoModel.transportKind);
+                        data.userNameStr = JobsIMLocalDemoUserName();
+                        data.messageType = JobsIMChatMessageType_Text;
+                        data.chatInfoDirection = JobsIMChatInfoDirection_Receive;
+                        data.packetType = JobsIMPacketTypeText;
+                        data.deliveryState = JobsIMDeliveryStateSent;
+                        data.transportKind = self.chatInfoModel.transportKind;
+                        data.rawPacket = JobsIMPacketMake(JobsIMPacketTypeText,
+                                                          data.messageID,
+                                                          data.fromUserID,
+                                                          data.toUserID,
+                                                          @{
+                                                              @"text": data.chatTextStr ?: @"",
+                                                              @"transport": JobsIMStringFromTransportKind(data.transportKind)
+                                                          });
                     }));self.tableView.reloadDatas();
                 }
-                /// 模拟服务器请求对方数据
+                /// 本地传输占位：后续这里接 Bonjour / Network.framework 或 MultipeerConnectivity
                 @jobs_weakify(self)
                 [self delayByMainQueue:1 block:^{
                     @jobs_strongify(self)
-                    [self simulateServer];
+                    [self simulateLocalTransportEcho];
                 }];
             }else{}
         }];
@@ -458,7 +498,9 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
         _shareBtn = BaseButton.jobsInit()
             .bgColorBy(JobsWhiteColor)
             .jobsResetBtnCornerRadiusValue(JobsWidth(23 / 2))
-            .jobsResetBtnImage(JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"分享"))
+            .jobsResetBtnTitle(@"+")
+            .jobsResetBtnTitleCor(HEXCOLOR(0xD4B58D))
+            .jobsResetBtnTitleFont(UIFontWeightRegularSize(JobsWidth(24)))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);

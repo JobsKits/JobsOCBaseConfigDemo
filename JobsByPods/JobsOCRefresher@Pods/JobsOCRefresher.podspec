@@ -43,6 +43,10 @@ and extension points for Lottie, GIF, frame images, and network images.
     'UIKit'
   ]
 
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsLanMgr'
+  spec.dependency 'JobsMakes'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsOCDefs'
 
   JobsPodspecKitForJobsOCRefresher.add_support_subspec(spec, support_context)

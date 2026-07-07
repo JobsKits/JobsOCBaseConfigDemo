@@ -14,6 +14,8 @@ Prop_strong()MSCommentView *commentView;
 
 @end
 
+static NSString *const JobsUITBVCellFoldTitle = @"UITableViewCell 折叠效果";
+
 @implementation UITBVCellFoldVC
 
 -(void)dealloc{
@@ -39,7 +41,7 @@ Prop_strong()MSCommentView *commentView;
         })
         // self.viewModel.textModel.text = @"消息详情页".tr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(data.attributedTitle.string);
+            data.byText(JobsUITBVCellFoldTitle.tr);
             data.byFont(UIFontWeightRegularSize(16));
         })
     
@@ -54,7 +56,7 @@ Prop_strong()MSCommentView *commentView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsWhiteColor);
+    self.view.byBgColor(HEXCOLOR(0xF5F7FB));
     self.makeNavByAlpha(1);
     self.titleLab.byAlpha(1);
     self.commentView.byAlpha(1);
@@ -90,14 +92,15 @@ Prop_strong()MSCommentView *commentView;
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(@"评论".tr)
-                .byTextCor(@"#333333".cor)
-                .byFont(UIFontWeightBoldSize(18))
+                .byText(JobsUITBVCellFoldTitle.tr)
+                .byTextCor(HEXCOLOR(0x111827))
+                .byFont(UIFontWeightBoldSize(22))
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(self.view).offset(JobsWidth(15));
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(25));
-                    make.height.mas_equalTo(JobsWidth(20));
+                    make.right.equalTo(self.view).offset(-JobsWidth(15));
+                    make.height.mas_equalTo(JobsWidth(28));
                 })
                 .makeLabelByShowingType(UILabelShowingType_03);
         });
@@ -109,8 +112,10 @@ Prop_strong()MSCommentView *commentView;
         _commentView = MSCommentView.new;
         _commentView.jobsRichViewByModel(nil);
         _commentView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
-            make.top.equalTo(self.titleLab.mas_bottom);
-            make.left.right.bottom.equalTo(self.view);
+            make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(12));
+            make.left.equalTo(self.view).offset(JobsWidth(12));
+            make.right.equalTo(self.view).offset(-JobsWidth(12));
+            make.bottom.equalTo(self.view).offset(-JobsWidth(12));
         });
     };return _commentView;
 }

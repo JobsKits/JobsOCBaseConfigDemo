@@ -134,7 +134,7 @@ void playFireworksAnimation(UIView *view,
     [imageView.layer addAnimation:bounceAnimation forKey:nil];
     
     if(_isPlayFireworksAnimation) {
-        UIImage *img = [UIImage imageNamed:@"yanhua"];
+        UIImage *img = @"yanhua".img;
         playFireworksAnimation(imageView, img, 0.08, 0.03);
     }
 }
@@ -242,7 +242,7 @@ void playDeselectLabelAnimation(UILabel *textLabel) {
     if (self.images.count > 0) {
         playFrameAnimation(imageView, self.images);
         if(_isPlayFireworksAnimation) {
-            UIImage *img = [UIImage imageNamed:@"yanhua"];
+            UIImage *img = @"yanhua".img;
             playFireworksAnimation(imageView,
                                    img,
                                    0.08,

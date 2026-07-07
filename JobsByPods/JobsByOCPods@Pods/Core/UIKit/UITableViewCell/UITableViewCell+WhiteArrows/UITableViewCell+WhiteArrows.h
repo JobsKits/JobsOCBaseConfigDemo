@@ -53,8 +53,8 @@ NS_ASSUME_NONNULL_END
         @jobs_weakify(self)
         [cell customAccessoryView:^(id data) {
             @jobs_strongify(self)
-            JobsSearchShowHistoryDataTBVCell *cell = (JobsSearchShowHistoryDataTBVCell *)data;
-            JobsLog(@"MMM - %ld",cell.index);
+            UITableViewCell *cell = (UITableViewCell *)data;
+            JobsLog(@"MMM - %@",cell);
         }];
     }
 */
