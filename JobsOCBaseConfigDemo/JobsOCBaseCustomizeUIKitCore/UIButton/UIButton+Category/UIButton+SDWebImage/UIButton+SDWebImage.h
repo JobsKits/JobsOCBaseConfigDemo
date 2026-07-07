@@ -29,9 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_copy(readonly,nonnull)JobsRetBtnByURLBlock imageURL;
 Prop_copy(readonly,nonnull)JobsRetBtnByImageBlock placeholderImage;
-Prop_copy(readonly,nonnull)JobsReturnButtonBySDWebImageOptionsBlocks options;
-Prop_copy(readonly,nonnull)JobsReturnButtonBySDExternalCompletionBlocks completed;
-Prop_copy(readonly,nonnull)JobsReturnButtonBySDImageLoaderProgressBlocks progress;
+Prop_copy(readonly,nonnull)JobsRetButBySDWebImageOptionsBlocks options;
+Prop_copy(readonly,nonnull)JobsRetButBySDExternalCompletionBlocks completed;
+Prop_copy(readonly,nonnull)JobsRetButBySDImageLoaderProgressBlocks progress;
 #pragma mark —— 设置普通图片的方法
 /// 如果用此方法进行图片赋值，则：jobsResetBtnImage失灵。必须还是用此方法，方可进行图片修改
 Prop_copy(readonly,nonnull)JobsRetBtnByVoidBlock normalLoad;

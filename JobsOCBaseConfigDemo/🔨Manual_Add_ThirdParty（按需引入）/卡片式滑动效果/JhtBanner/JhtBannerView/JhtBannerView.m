@@ -65,7 +65,7 @@ Prop_copy()jobsByIDBlock clickBlock;
 }
 #pragma mark —— JhtBannerViewDelegate
 /** 当前显示cardView的Size */
--(JobsReturnCGSizeByJhtBannerScrollView _Nonnull)sizeForCurrentCardViewInBannerView{
+-(JobsRetCGSizeByJhtBannerScrollViewBlock _Nonnull)sizeForCurrentCardViewInBannerView{
     @jobs_weakify(self)
     return ^CGSize(JhtBannerScrollView *_Nullable bannerView){
         @jobs_strongify(self)
@@ -89,7 +89,7 @@ didScrollToCardViewWithIndex:(NSInteger)index {
 }
 #pragma mark —— JhtBannerViewDataSource
 /// 显示cardView的个数
--(JobsReturnNSIntegerByJhtBannerScrollView _Nonnull)numberOfCardViewInBannerView{
+-(JobsRetNSIntegerByJhtBannerScrollViewBlock _Nonnull)numberOfCardViewInBannerView{
     @jobs_weakify(self)
     return ^NSInteger(JhtBannerScrollView *_Nullable view){
         @jobs_strongify(self)

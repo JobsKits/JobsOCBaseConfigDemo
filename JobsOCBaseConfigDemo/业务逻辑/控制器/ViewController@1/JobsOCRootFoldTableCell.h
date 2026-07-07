@@ -10,7 +10,11 @@
 #import "JobsMakes.h"
 #import "JobsOCDSL.h"
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
 #import "JobsBlock.h"
+#else
+#import "JobsBlock.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,10 +27,15 @@ UITableViewDelegate
 >
 
 +(CGFloat)collapsedHeight;
++(CGFloat)innerRowHeight;
 +(CGFloat)expandedHeightByItemCount:(NSUInteger)itemCount;
 -(void)configureWithSectionModel:(JobsOCDemoSectionModel *)sectionModel
                         expanded:(BOOL)expanded
-                     selectBlock:(jobsByNSIntegerBlock _Nullable)selectBlock;
+                     selectBlock:(jobsByNSIntegerBlock _Nullable)selectBlock
+                         pinBlock:(jobsByNSIntegerBlock _Nullable)pinBlock;
+-(void)configurePinnedWithSectionModel:(JobsOCDemoSectionModel *)sectionModel
+                           selectBlock:(jobsByNSIntegerBlock _Nullable)selectBlock
+                            unpinBlock:(jobsByNSIntegerBlock _Nullable)unpinBlock;
 -(void)setExpanded:(BOOL)expanded
           animated:(BOOL)animated;
 

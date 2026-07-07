@@ -389,9 +389,9 @@ NS_INLINE __kindof UITextView *_Nonnull
 jobsMakeTextView(jobsByTextViewBlock _Nonnull block){
     UITextView *data = UITextView.alloc.init;
     data.linkTextAttributes = @{
-        NSForegroundColorAttributeName: @"#FFCC00".cor,
+        NSForegroundColorAttributeName: [UIColor colorWithRed:1 green:0.8 blue:0 alpha:1],
         NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-        NSUnderlineColorAttributeName: @"#FFCC00".cor,
+        NSUnderlineColorAttributeName: [UIColor colorWithRed:1 green:0.8 blue:0 alpha:1],
     };
     if (block) block(data);
     return data;

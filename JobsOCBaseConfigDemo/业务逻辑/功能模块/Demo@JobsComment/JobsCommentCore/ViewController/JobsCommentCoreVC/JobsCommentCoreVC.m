@@ -14,14 +14,16 @@ Prop_strong()JobsCommentTitleHeaderView *titleHeaderView;
 Prop_strong()JobsCommentModel *mjModel;
 Prop_strong()JobsCommentModel *yyModel;
 Prop_assign()CGFloat jobsPanBeginPopUpHeight;
+Prop_assign()CGFloat jobsDefaultPopUpHeight;
 
 -(void)loadLocalCommentData;
 -(void)jobs_setupTitlePanGesture;
--(CGFloat)jobs_minPopUpHeight;
+-(CGFloat)jobs_defaultPopUpHeight;
+-(CGFloat)jobs_minimumTrackingPopUpHeight;
 -(CGFloat)jobs_maxPopUpHeight;
 -(CGFloat)jobs_limitedPopUpHeight:(CGFloat)height;
 -(void)jobs_updateCommentPopUpHeight:(CGFloat)height;
--(void)jobs_settleCommentPopUpHeightWithVelocity:(CGFloat)velocityY;
+-(void)jobs_finishCommentPopUpPanWithVelocity:(CGFloat)velocityY;
 
 @end
 
@@ -66,6 +68,7 @@ Prop_assign()CGFloat jobsPanBeginPopUpHeight;
     self.gk_navigationBar.jobsVisible = YES;
     
     self.titleHeaderView.byAlpha(1);
+    self.jobsDefaultPopUpHeight = self.popUpHeight;
     [self jobs_setupTitlePanGesture];
 
     self.tableView.byShow(self);
@@ -125,15 +128,21 @@ Prop_assign()CGFloat jobsPanBeginPopUpHeight;
         if (sender.state == UIGestureRecognizerStateEnded ||
             sender.state == UIGestureRecognizerStateCancelled ||
             sender.state == UIGestureRecognizerStateFailed) {
-            [self jobs_settleCommentPopUpHeightWithVelocity:velocityY];
+            [self jobs_finishCommentPopUpPanWithVelocity:velocityY];
         };return nil;
     }];
     self.titleHeaderView.panGR.enabled = YES;
     self.titleHeaderView.panGR.cancelsTouchesInView = NO;
 }
 
--(CGFloat)jobs_minPopUpHeight{
-    return JobsMainScreen_HEIGHT() / 2;
+-(CGFloat)jobs_defaultPopUpHeight{
+    if (_jobsDefaultPopUpHeight <= 0) {
+        _jobsDefaultPopUpHeight = self.popUpHeight;
+    };return _jobsDefaultPopUpHeight;
+}
+
+-(CGFloat)jobs_minimumTrackingPopUpHeight{
+    return 1.f;
 }
 
 -(CGFloat)jobs_maxPopUpHeight{
@@ -141,7 +150,7 @@ Prop_assign()CGFloat jobsPanBeginPopUpHeight;
 }
 
 -(CGFloat)jobs_limitedPopUpHeight:(CGFloat)height{
-    return MIN(MAX(height, self.jobs_minPopUpHeight), self.jobs_maxPopUpHeight);
+    return MIN(MAX(height, self.jobs_minimumTrackingPopUpHeight), self.jobs_maxPopUpHeight);
 }
 
 -(void)jobs_updateCommentPopUpHeight:(CGFloat)height{
@@ -150,15 +159,23 @@ Prop_assign()CGFloat jobsPanBeginPopUpHeight;
     [self.presentationController.containerView layoutIfNeeded];
 }
 
--(void)jobs_settleCommentPopUpHeightWithVelocity:(CGFloat)velocityY{
-    CGFloat middleHeight = (self.jobs_minPopUpHeight + self.jobs_maxPopUpHeight) / 2;
-    CGFloat targetHeight = (velocityY < -300 || (velocityY <= 300 && self.popUpHeight >= middleHeight)) ? self.jobs_maxPopUpHeight : self.jobs_minPopUpHeight;
-    [UIView animateWithDuration:0.28
+-(void)jobs_finishCommentPopUpPanWithVelocity:(CGFloat)velocityY{
+    if (self.popUpHeight >= self.jobs_defaultPopUpHeight) return;
+    UIView *presentedView = self.presentationController.presentedView ? : self.view;
+    CGFloat distance = CGRectGetHeight(presentedView.bounds) + JobsBottomSafeAreaHeight();
+    CGFloat initialVelocity = MAX(velocityY / MAX(distance, 1.f), 0.1f);
+    [UIView animateWithDuration:0.42
                           delay:0
-                        options:UIViewAnimationOptionCurveEaseOut
+         usingSpringWithDamping:0.82
+          initialSpringVelocity:initialVelocity
+                        options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-        [self jobs_updateCommentPopUpHeight:targetHeight];
-    } completion:NULL];
+        presentedView.transform = CGAffineTransformMakeTranslation(0, distance);
+        presentedView.alpha = 0.02;
+    } completion:^(BOOL finished) {
+        [self dismissViewControllerAnimated:NO
+                                 completion:nil];
+    }];
 }
 
 -(void)一级标题点击事件{
@@ -182,14 +199,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(CGFloat)tableView:(UITableView *)tableView
 heightForFooterInSection:(NSInteger)section{
-    return JobsWidth(8);
+    return CGFLOAT_MIN;
 }
 
 -(nullable __kindof UIView *)tableView:(UITableView *)tableView
                 viewForFooterInSection:(NSInteger)section{
-    return jobsMakeView(^(__kindof UIView * _Nullable view) {
-        view.byBgColor(HEXCOLOR(0xF6F7FB));
-    });
+    return nil;
 }
 
 -(void)tableView:(UITableView *)tableView
@@ -280,12 +295,13 @@ heightForHeaderInSection:(NSInteger)section{///  👌
 -(UITableView *)tableView{
     if (!_tableView) {
         @jobs_weakify(self)
-        /// UITableViewStyleGrouped 取消悬停效果
-        _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
+        /// UITableViewStyleGrouped 取消 sectionHeader 悬停效果
+        _tableView = jobsMakeTableViewByGrouped(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
             tableView
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .bySeparatorColor(JobsWhiteColor)
+                .byEstimatedRowHeight(0)
                 .byEstimatedSectionHeaderHeight(0)
                 .byEstimatedSectionFooterHeight(0)
                 .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {

@@ -29,18 +29,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// 电话号码：09970000001
 /// 密码：Jobs29506045^
 /// 用户名：dev023
--(JobsReturnDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_uat_signUP_data1;
+-(JobsRetDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_uat_signUP_data1;
 /// 电话号码：09970000002
 /// 密码：Jobs29506045^
 /// 用户名：JobsGo
--(JobsReturnDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_uat_signUP_data2;
+-(JobsRetDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_uat_signUP_data2;
 #pragma mark —— 发送验证码
 /// 电话号码：09970000001
 /// 用户名：dev023
--(JobsReturnDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_uat_smsCode_data1;
+-(JobsRetDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_uat_smsCode_data1;
 /// 电话号码：09970000002
 /// 用户名：JobsGo
--(JobsReturnDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_uat_smsCode_data2;
+-(JobsRetDoorModelByGTCaptcha4ModelBlock _Nonnull)mock_uat_smsCode_data2;
 #pragma mark —— 忘记密码
 
 @end

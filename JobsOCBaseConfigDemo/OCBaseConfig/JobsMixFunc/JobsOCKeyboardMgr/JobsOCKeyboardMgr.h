@@ -10,9 +10,17 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
 #import "JobsBlock.h"
+#else
+#import "JobsBlock.h"
+#endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import "JobsDefines.h"
+#else
+#import "JobsDefines.h"
+#endif
 
 #import "JobsOCKeyboardConfig.h"
 #import "JobsOCKeyboardResult.h"
@@ -33,6 +41,7 @@ Prop_assign(readonly, getter=isStarted) BOOL started;
 -(JobsRetJobsOCKeyboardMgrByVoidBlock _Nonnull)stop;
 -(JobsRetJobsOCKeyboardMgrByVoidBlock _Nonnull)restore;
 -(JobsRetJobsOCKeyboardMgrByConfigBlock _Nonnull)byConfig;
+-(void)clearConfigByOwner:(id _Nullable)owner;
 
 @end
 

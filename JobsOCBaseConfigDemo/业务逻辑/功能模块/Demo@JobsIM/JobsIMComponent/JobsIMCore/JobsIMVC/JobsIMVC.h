@@ -18,24 +18,59 @@
 #import "MGSwipeTableCell.h"
 #endif
 
+#if __has_include(<JobsLoadingImage/JobsLoadingImageHeader.h>)
 #import "JobsLoadingImageHeader.h"
+#else
+#import "JobsLoadingImageHeader.h"
+#endif
 
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import "JobsLanMgr.h"
+#else
+#import "JobsLanMgr.h"
+#endif
 
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import "JobsBaseUI.h"
+#else
+#import "JobsBaseUI.h"
+#endif
 
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import "JobsByOCPods.h"
+#else
+#import "JobsByOCPods.h"
+#endif
 
+#if __has_include(<JobsMakes/JobsMakes.h>)
 #import "JobsMakes.h"
+#else
+#import "JobsMakes.h"
+#endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
 #import "JobsBlock.h"
+#else
+#import "JobsBlock.h"
+#endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import "JobsDefines.h"
+#else
+#import "JobsDefines.h"
+#endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import "JobsOCDSL.h"
+#else
+#import "JobsOCDSL.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// JobsIM 聊天页。
+/// UI 仍沿用现有聊天气泡、输入框和 tableView 数据源；消息模型额外携带 JobsIM 协议包字段。
+/// 当前实现保留“本地传输占位回包”，后续可把发送入口接到 Bonjour / Network.framework 或 MultipeerConnectivity。
 @interface JobsIMVC : BaseViewController
 <
 UITableViewDelegate

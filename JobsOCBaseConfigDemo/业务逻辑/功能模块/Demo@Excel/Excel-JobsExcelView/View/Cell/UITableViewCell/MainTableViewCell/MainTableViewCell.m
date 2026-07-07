@@ -52,7 +52,7 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
     };
 }
 #pragma mark —— UITableViewCellProtocol
--(JobsReturnMainTableViewCellByDelegateBlock _Nonnull)byDelegate{
+-(JobsRetMainTableViewCellByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^MainTableViewCell *_Nonnull(NSObject<MianTableViewCellDelegate> *delegate){
         @jobs_strongify(self)

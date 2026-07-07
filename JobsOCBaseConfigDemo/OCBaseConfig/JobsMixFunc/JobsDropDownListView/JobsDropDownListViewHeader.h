@@ -10,5 +10,6 @@
 
 #import "JobsDropDownListTBVCell.h"
 #import "JobsDropDownListView.h"
+#import "NSObject+JobsDropDownListView.h"
 
 #endif /* JobsDropDownListViewHeader_h */

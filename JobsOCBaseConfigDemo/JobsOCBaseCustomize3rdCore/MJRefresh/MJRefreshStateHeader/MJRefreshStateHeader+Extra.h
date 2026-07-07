@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MJRefreshStateHeader (Extra)
 
--(JobsReturnMJRefreshStateHeaderByRefreshConfigModelBlock _Nonnull)byMJRefreshHeaderConfigModel;
+-(JobsRetMJRefreshStateHeaderByRefreshConfigModelBlock _Nonnull)byMJRefreshHeaderConfigModel;
 
 @end
 

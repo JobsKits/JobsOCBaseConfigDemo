@@ -2,22 +2,38 @@
 //  JobsMsgDataModel.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/2.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "UIViewModel.h"
+#import <Foundation/Foundation.h>
+
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import "JobsModelDSL.h"
+#else
+#import "JobsModelDSL.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
 #import "JobsBlock.h"
-#import "JobsDefineEnums.h"
-#import "JobsDefineProperty.h"
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import "JobsDefines.h"
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsMsgDataModel : UIViewModel
 
 Prop_assign()JobsMsgType msgStyle;
-Prop_copy()NSString *time;
-Prop_assign()BOOL isDraw;/// 是否已经被领取？
-Prop_assign()BOOL isRead;/// 已读
+/// 消息展示时间文案，避免和 TimerProtocol.time 冲突
+Prop_copy()NSString *timeText;
+Prop_assign()BOOL isDraw;// 是否已经被领取？
+Prop_assign()BOOL isRead;// 已读
 
 @end
 

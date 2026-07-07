@@ -2,11 +2,26 @@
 //  MSCommentModel.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs Hi on 10/2/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "BaseModel.h"
-#import "JobsDefineProperty.h"
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import "JobsByOCPods.h"
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import "JobsBlock.h"
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import "JobsDefines.h"
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,6 +34,7 @@ Prop_copy()NSString *rowTitle;
 @interface MSCommentModel : BaseModel
 
 Prop_copy()NSString *sectionTitle;
+Prop_copy()NSString *sectionSubTitle;
 Prop_strong()NSMutableArray <MSCommentDetailModel *>*commentDataMutArr;
 
 @end

@@ -24,7 +24,7 @@
         return self;
     };
 }
-#pragma mark —— Prop_copy(readonly,nonnull)JobsReturnImageViewByURLBlock imageURL;
+#pragma mark —— Prop_copy(readonly,nonnull)JobsRetImageViewByURLBlock imageURL;
 JobsKey(_imageURL)
 @dynamic imageURL;
 -(JobsRetImageViewByURLBlock _Nonnull)imageURL {
@@ -33,7 +33,7 @@ JobsKey(_imageURL)
         return self;
     };
 }
-#pragma mark —— Prop_copy(readonly,nonnull)JobsReturnImageViewByImageBlock placeholderImage;
+#pragma mark —— Prop_copy(readonly,nonnull)JobsRetImageViewByImageBlock placeholderImage;
 JobsKey(_placeholderImage)
 @dynamic placeholderImage;
 -(JobsRetImageViewByImageBlock _Nonnull)placeholderImage {
@@ -42,19 +42,19 @@ JobsKey(_placeholderImage)
         return self;
     };
 }
-#pragma mark —— Prop_copy(readonly,nonnull)JobsReturnImageViewBySDWebImageOptionsBlocks options;
+#pragma mark —— Prop_copy(readonly,nonnull)JobsRetImageViewBySDWebImageOptionsBlocks options;
 JobsKey(_options)
 @dynamic options;
--(JobsReturnImageViewBySDWebImageOptionsBlocks _Nonnull)options{
+-(JobsRetImageViewBySDWebImageOptionsBlocks _Nonnull)options{
     return ^__kindof UIImageView *_Nullable(SDWebImageOptions options) {
         Jobs_setAssociatedRETAIN_NONATOMIC(_options, @(options));
         return self;
     };
 }
-#pragma mark —— Prop_copy(readonly,nonnull)JobsReturnImageViewBySDExternalCompletionBlocks completed;
+#pragma mark —— Prop_copy(readonly,nonnull)JobsRetImageViewBySDExternalCompletionBlocks completed;
 JobsKey(_completed)
 @dynamic completed;
-- (JobsReturnImageViewBySDExternalCompletionBlocks _Nonnull)completed {
+- (JobsRetImageViewBySDExternalCompletionBlocks _Nonnull)completed {
     return ^__kindof UIImageView *_Nullable(SDExternalCompletionBlock completion) {
         Jobs_setAssociatedCOPY_NONATOMIC(_completed,completion);
         return self;

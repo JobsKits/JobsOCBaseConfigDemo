@@ -2,7 +2,7 @@
 //  JobsIMListView.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/11/17.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsIMListView.h"
@@ -37,7 +37,7 @@ Prop_strong()NSMutableArray <JobsIMListDataModel *>*jobsIMListMutArr;
 }
 #pragma mark —— 一些私有方法
 
-#pragma mark —————————— UITableViewDelegate,UITableViewDataSource ——————————
+#pragma mark —— UITableViewDelegate,UITableViewDataSource ——————————
 -(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return JobsIMListTBVCell.cellHeightByModel(nil);
@@ -55,12 +55,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    JobsIMListTBVCell *cell = JobsIMListTBVCell.cellStyleValue1WithTableView(tableView)
+    JobsIMListTBVCell *cell = JobsIMListTBVCell.cellStyleValue1ByTableView(tableView)
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byIndexPath(indexPath)
         .byDelegate(self)
         .jobsRichElementsTableViewCellBy(self.jobsIMListMutArr[indexPath.row])
-        .JobsBlock1(^(id _Nullable data) {
+        .JobsBlock1(^(id _Nullable data) {;
              
         });
     return cell.byAllowsMultipleSwipe(YES);
@@ -92,11 +92,11 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
             @jobs_strongify(self)
             tableView
                 .byMJRefreshHeader(self.lotAnimMJRefreshHeader.byRefreshConfigModel(jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable model) {
-                    model.stateIdleTitle = @"下拉刷新数据".tr;
-                    model.pullingTitle = @"下拉刷新数据".tr;
-                    model.refreshingTitle = @"正在刷新数据".tr;
-                    model.willRefreshTitle = @"刷新数据中".tr;
-                    model.noMoreDataTitle = @"下拉刷新数据".tr;
+                    model.byStateIdleTitle(@"下拉刷新数据".tr)
+                         .byPullingTitle(@"下拉刷新数据".tr)
+                         .byRefreshingTitle(@"正在刷新数据".tr)
+                         .byWillRefreshTitle(@"刷新数据中".tr)
+                         .byNoMoreDataTitle(@"下拉刷新数据".tr);
                     model.loadBlock = ^id _Nullable(id  _Nullable data) {
                         @jobs_strongify(self)
                         JobsLog(@"下拉刷新");
@@ -105,19 +105,20 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                     };
                 })))
                 .byMJRefreshFooter(self.MJRefreshAutoGifFooterBy(jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
-                    data.stateIdleTitle = @"".tr;
-                    data.pullingTitle = @"".tr;
-                    data.refreshingTitle = @"".tr;
-                    data.willRefreshTitle = @"".tr;
-                    data.noMoreDataTitle = @"".tr;
+                    data.byStateIdleTitle(@"".tr)
+                        .byPullingTitle(@"".tr)
+                        .byRefreshingTitle(@"".tr)
+                        .byWillRefreshTitle(@"".tr)
+                        .byNoMoreDataTitle(@"".tr);
                     data.loadBlock = ^id _Nullable(id  _Nullable data) {
                         @jobs_strongify(self)
                         JobsLog(@"上拉加载更多");
                         // 特别说明：pagingEnabled = YES 在此会影响Cell的偏移量，原作者希望我们在这里临时关闭一下，刷新完成以后再打开
-                        tableView.pagingEnabled = NO;
+                        tableView.byPagingEnabled(NO);
                         tableView.mj_footer.state = MJRefreshStateIdle;
-                        tableView.mj_footer.hidden = YES;
-                        tableView.pagingEnabled = YES;
+                        tableView.mj_footer.byHidden(YES);
+
+                        tableView.byPagingEnabled(YES);
                         tableView.endRefreshing(self.jobsIMListMutArr.count);
                         return nil;
                     };
@@ -125,15 +126,15 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .byPagingEnabled(YES) // 这个属性为YES会使得Tableview一格一格的翻动
                 .byShowsVerticalScrollIndicator(NO)
-                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
-                .byBgColor(self.bgColour)
-                .addOn(self)
-                .byAdd(^(MASConstraintMaker *make) {
-                    @jobs_strongify(self)
-                    make.edges.equalTo(self);
-                });
-            tableView.mj_footer.backgroundColor = JobsRedColor;
-            tableView.mj_footer.hidden = NO;
+                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
+            tableView.byBgColor(self.bgColour);
+            tableView.addOn(self);
+            [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.edges.equalTo(self);
+            }];
+            tableView.mj_footer.byBgColor(JobsRedColor);
+            tableView.mj_footer.byHidden(NO);
         });
     };return _tableView;
 }
@@ -142,25 +143,41 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
     if (!_jobsIMListMutArr) {
         _jobsIMListMutArr = jobsMakeMutArr(^(__kindof NSMutableArray<JobsIMListDataModel *> * _Nullable arr) {
             arr.add(jobsMakeIMListDataModel(^(__kindof JobsIMListDataModel * _Nullable model) {
+                model.userID = @"jobsim_peer_mahuateng";
+                model.peerID = @"lan_peer_mahuateng";
                 model.usernameStr = @"马化腾";
                 model.contentStr = @"晚上西藏饭店3楼喜马拉雅厅不见不散，到了电话";
                 model.timeStr = @"22:54";
                 model.userHeaderIMG = UIImage.animatedGIFByName(@"动态头像_1 尺寸126");
+                model.transportKind = JobsIMTransportKindLANBonjourNetwork;
+                model.peerOnlineState = JobsIMPeerOnlineStateOnlineForeground;
             })).add(jobsMakeIMListDataModel(^(__kindof JobsIMListDataModel * _Nullable model) {
+                model.userID = @"jobsim_peer_mayun";
+                model.peerID = @"nearby_peer_mayun";
                 model.usernameStr = @"马云";
                 model.contentStr = @"刘总请再给我一次机会";
                 model.timeStr = @"05:34";
                 model.userHeaderIMG = UIImage.animatedGIFByName(@"动态头像_2 尺寸126");
+                model.transportKind = JobsIMTransportKindNearbyMultipeer;
+                model.peerOnlineState = JobsIMPeerOnlineStateOnlineForeground;
             })).add(jobsMakeIMListDataModel(^(__kindof JobsIMListDataModel * _Nullable model) {
+                model.userID = @"jobsim_peer_lijiacheng";
+                model.peerID = @"lan_peer_lijiacheng";
                 model.usernameStr = @"李嘉诚";
                 model.contentStr = @"小刘我很看好你，什么时候有空过来坐坐";
                 model.timeStr = @"02:14";
                 model.userHeaderIMG = UIImage.animatedGIFByName(@"动态头像_1 尺寸126");
+                model.transportKind = JobsIMTransportKindLANBonjourNetwork;
+                model.peerOnlineState = JobsIMPeerOnlineStateBackgroundMaybeOffline;
             })).add(jobsMakeIMListDataModel(^(__kindof JobsIMListDataModel * _Nullable model) {
+                model.userID = @"jobsim_peer_nio_wang";
+                model.peerID = @"nearby_peer_nio_wang";
                 model.usernameStr = @"蔚来卡地亚花园城营销小王";
                 model.contentStr = @"刘总给你留了一套独栋，什么时候有空过来办手续";
                 model.timeStr = @"20:34";
                 model.userHeaderIMG = UIImage.animatedGIFByName(@"动态头像_1\2 尺寸126");;
+                model.transportKind = JobsIMTransportKindNearbyMultipeer;
+                model.peerOnlineState = JobsIMPeerOnlineStateOffline;
             }));
         });
     };return _jobsIMListMutArr;

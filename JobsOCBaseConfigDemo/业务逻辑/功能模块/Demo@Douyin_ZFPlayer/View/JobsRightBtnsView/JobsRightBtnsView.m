@@ -9,7 +9,7 @@
 
 @interface JobsRightBtnsView ()
 /// UI
-Prop_strong()RBCLikeButton *loveBtn;/// 点赞
+Prop_strong()BaseButton *loveBtn;/// 点赞
 Prop_strong()BaseButton *commentBtn;/// 评论
 Prop_strong()BaseButton *shareBtn;/// 分享
 Prop_strong()JobsPresentationCtrl *commentPresentationController;
@@ -112,28 +112,23 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
         make.width.mas_equalTo(JobsRightBtnsView.viewSizeByModel(nil).width);
     });
     [self layoutIfNeeded];
-    @jobs_weakify(self)
-    self.loveBtn.richButtonByModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-        @jobs_strongify(self)
-        data.byJobsRect(self.loveBtn.frame);
-    }));
 }
 #pragma mark —— Set方法
 -(void)setIsSelected:(BOOL)isSelected{
     _isSelected = isSelected;
     self.loveBtn.selected = _isSelected;
-    self.loveBtn.jobsResetBtnTitle(self.viewModel.textModel.text.replace(@"点赞".tr));
-    self.loveBtn.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTop,JobsWidth(5));
+    self.loveBtn.jobsResetBtnTitle(@"");
+    self.loveBtn.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTop,0);
 }
 #pragma mark —— lazyLoad
--(RBCLikeButton *)loveBtn{
+-(BaseButton *)loveBtn{
     if(!_loveBtn){
         @jobs_weakify(self)
-        _loveBtn = RBCLikeButton.initByStyleTop(self.viewModel ? self.viewModel.textModel.text.replace(@"点赞".tr):@"点赞".tr,
-                                                UIFontWeightRegularSize(12),
-                                                @"#EA2918".cor,
-                                                @"视频未点赞".img,
-                                                JobsWidth(5))
+        _loveBtn = BaseButton.initByStyleTop(@"",
+                                             UIFontWeightRegularSize(12),
+                                             JobsClearColor,
+                                             @"视频未点赞".img,
+                                             0)
             .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
             .onClickBy(^(UIButton *x){
                 JobsLog(@"我是点赞");
@@ -158,11 +153,11 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
 -(BaseButton *)commentBtn{
     if(!_commentBtn){
         @jobs_weakify(self)
-        _commentBtn = BaseButton.initByStyleTop(self.viewModel ? self.viewModel.textModel.text.replace(@"评论".tr) : @"评论".tr,
+        _commentBtn = BaseButton.initByStyleTop(@"",
                                                 UIFontWeightRegularSize(12),
-                                                @"#EA2918".cor,
+                                                JobsClearColor,
                                                 @"视频评论".img,
-                                                JobsWidth(5))
+                                                0)
             .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
             .onClickBy(^(UIButton *x){
                 JobsLog(@"我是评论");
@@ -202,11 +197,11 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
 -(BaseButton *)shareBtn{
     if(!_shareBtn){
         @jobs_weakify(self)
-        _shareBtn = RBCLikeButton.initByStyleTop(self.viewModel ? self.viewModel.textModel.text.replace(@"分享".tr): @"分享".tr,
-                                                 UIFontWeightRegularSize(12),
-                                                 @"#EA2918".cor,
-                                                 @"分享".img,
-                                                 JobsWidth(5))
+        _shareBtn = BaseButton.initByStyleTop(@"",
+                                              UIFontWeightRegularSize(12),
+                                              JobsClearColor,
+                                              @"分享".img,
+                                              0)
             .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
             .onClickBy(^(UIButton *x){
                 JobsLog(@"我是分享");

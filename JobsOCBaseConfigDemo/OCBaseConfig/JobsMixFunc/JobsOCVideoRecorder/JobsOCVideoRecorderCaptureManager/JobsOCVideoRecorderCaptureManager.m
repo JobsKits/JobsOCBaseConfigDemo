@@ -31,38 +31,46 @@ Prop_assign() BOOL mirrorFrontPreview;
 #if TARGET_OS_SIMULATOR
     return NO;
 #else
-    return YES;
+    AVCaptureDeviceDiscoverySession *frontSession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:@[
+        AVCaptureDeviceTypeBuiltInWideAngleCamera
+    ]
+                                                                                                               mediaType:AVMediaTypeVideo
+                                                                                                                position:AVCaptureDevicePositionFront];
+    AVCaptureDeviceDiscoverySession *backSession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:@[
+        AVCaptureDeviceTypeBuiltInWideAngleCamera
+    ]
+                                                                                                              mediaType:AVMediaTypeVideo
+                                                                                                               position:AVCaptureDevicePositionBack];
+    return frontSession.devices.count && backSession.devices.count;
 #endif
 }
 
 -(instancetype)initWithPosition:(AVCaptureDevicePosition)position
              mirrorFrontPreview:(BOOL)mirrorFrontPreview{
     if (self = [super init]) {
-#if TARGET_OS_SIMULATOR
         _currentPosition = position == AVCaptureDevicePositionUnspecified ? AVCaptureDevicePositionFront : position;
-#else
-        _currentPosition = position == AVCaptureDevicePositionUnspecified ? AVCaptureDevicePositionFront : position;
-#endif
         _mirrorFrontPreview = mirrorFrontPreview;
         _sessionQueue = dispatch_queue_create("com.jobs.oc.video.recorder.session", DISPATCH_QUEUE_SERIAL);
         _sampleBufferQueue = dispatch_queue_create("com.jobs.oc.video.recorder.sampleBuffer", DISPATCH_QUEUE_SERIAL);
         _session = AVCaptureSession.new;
-#if TARGET_OS_SIMULATOR
-        _session.sessionPreset = [_session canSetSessionPreset:AVCaptureSessionPresetInputPriority] ? AVCaptureSessionPresetInputPriority : AVCaptureSessionPresetHigh;
-#else
-        _session.sessionPreset = AVCaptureSessionPresetHigh;
-#endif
+        if ([_session canSetSessionPreset:AVCaptureSessionPresetHigh]) {
+            _session.sessionPreset = AVCaptureSessionPresetHigh;
+        }
         _previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
         _previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     };return self;
 }
 
 -(void)startRunning{
+#if TARGET_OS_SIMULATOR
+    [self notifyError:[self errorWithCode:-10 description:[self cameraUnavailableDescription]]];
+#else
     dispatch_async(self.sessionQueue, ^{
         if (!self.videoInput && ![self configureSessionWithPosition:self.currentPosition]) return;
         if (!self.session.isRunning) [self.session startRunning];
         if (!self.session.isRunning) [self notifyError:[self errorWithCode:-12 description:[self cameraUnavailableDescription]]];
     });
+#endif
 }
 
 -(void)stopRunning{
@@ -114,7 +122,6 @@ Prop_assign() BOOL mirrorFrontPreview;
     }
     NSError *videoError = nil;
     AVCaptureDeviceInput *newVideoInput = nil;
-    AVCaptureDevice *selectedVideoDevice = nil;
     for (AVCaptureDevice *videoDevice in videoDevices) {
         NSError *inputError = nil;
         AVCaptureDeviceInput *candidateInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:&inputError];
@@ -124,7 +131,6 @@ Prop_assign() BOOL mirrorFrontPreview;
         }
         if ([self.session canAddInput:candidateInput]) {
             newVideoInput = candidateInput;
-            selectedVideoDevice = videoDevice;
             break;
         }
         videoError = [self errorWithCode:-13 description:@"已找到摄像头，但无法加入采集会话"];
@@ -133,11 +139,7 @@ Prop_assign() BOOL mirrorFrontPreview;
         NSError *addVideoError = nil;
         if ([self addVideoInput:newVideoInput error:&addVideoError]) {
             self.videoInput = newVideoInput;
-#if TARGET_OS_SIMULATOR
-            self.currentPosition = selectedVideoDevice.position == AVCaptureDevicePositionUnspecified ? AVCaptureDevicePositionFront : selectedVideoDevice.position;
-#else
             self.currentPosition = position;
-#endif
         }else{
             videoError = addVideoError ?: videoError;
             if (oldVideoInput && [self.session canAddInput:oldVideoInput]) {
@@ -231,66 +233,17 @@ Prop_assign() BOOL mirrorFrontPreview;
 }
 
 -(NSArray<AVCaptureDevice *> *)camerasWithPosition:(AVCaptureDevicePosition)position{
-#if TARGET_OS_SIMULATOR
-    return [self simulatorVideoDevicesWithPosition:position];
-#else
     AVCaptureDeviceDiscoverySession *discoverySession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:@[
         AVCaptureDeviceTypeBuiltInWideAngleCamera
     ]
                                                                                                               mediaType:AVMediaTypeVideo
                                                                                                                position:position];
     return discoverySession.devices;
-#endif
 }
-
-#if TARGET_OS_SIMULATOR
--(NSArray<AVCaptureDevice *> *)simulatorVideoDevicesWithPosition:(AVCaptureDevicePosition)position{
-    NSMutableArray<AVCaptureDevice *> *videoDevices = NSMutableArray.array;
-    NSMutableSet<NSString *> *deviceUniqueIDs = NSMutableSet.set;
-    void (^addDevice)(AVCaptureDevice *) = ^(AVCaptureDevice *device) {
-        if (![self isUsableVideoDevice:device]) return;
-        NSString *uniqueID = device.uniqueID.length ? device.uniqueID : device.localizedName;
-        if (!uniqueID.length) uniqueID = [NSString stringWithFormat:@"%p", device];
-        if ([deviceUniqueIDs containsObject:uniqueID]) return;
-        [deviceUniqueIDs addObject:uniqueID];
-        [videoDevices addObject:device];
-    };
-    if (@available(iOS 17.0, *)) {
-        addDevice(AVCaptureDevice.systemPreferredCamera);
-    }
-    NSMutableArray<AVCaptureDeviceType> *deviceTypes = NSMutableArray.array;
-    if (@available(iOS 17.0, *)) {
-        [deviceTypes addObject:AVCaptureDeviceTypeExternal];
-        [deviceTypes addObject:AVCaptureDeviceTypeContinuityCamera];
-    }
-    [deviceTypes addObject:AVCaptureDeviceTypeBuiltInWideAngleCamera];
-    NSMutableArray<NSNumber *> *positions = NSMutableArray.array;
-    void (^addPosition)(AVCaptureDevicePosition) = ^(AVCaptureDevicePosition value) {
-        if (![positions containsObject:@(value)]) [positions addObject:@(value)];
-    };
-    addPosition(position);
-    addPosition(AVCaptureDevicePositionFront);
-    addPosition(AVCaptureDevicePositionUnspecified);
-    for (NSNumber *positionValue in positions) {
-        AVCaptureDeviceDiscoverySession *discoverySession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:deviceTypes
-                                                                                                                    mediaType:AVMediaTypeVideo
-                                                                                                                     position:positionValue.integerValue];
-        for (AVCaptureDevice *device in discoverySession.devices) {
-            addDevice(device);
-        }
-    }
-    addDevice([AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo]);
-    return videoDevices;
-}
-
--(BOOL)isUsableVideoDevice:(AVCaptureDevice *)device{
-    return device && [device hasMediaType:AVMediaTypeVideo];
-}
-#endif
 
 -(NSString *)cameraUnavailableDescription{
 #if TARGET_OS_SIMULATOR
-    return @"模拟器没有拿到 Mac 摄像头，请在 Simulator 的相机菜单选择 Mac 摄像头，并检查 macOS 相机权限";
+    return @"iOS 模拟器不支持摄像头录制，请使用真机";
 #else
     return @"摄像头不可用";
 #endif

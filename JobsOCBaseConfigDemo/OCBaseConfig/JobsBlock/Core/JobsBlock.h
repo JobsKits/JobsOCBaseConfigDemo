@@ -27,7 +27,11 @@ typedef __kindof UIViewController *_Nullable(^JobsRetVCByRetIDByIDBlocks)(JobsRe
 
 #import "NSObject+CallBackInfoByBlock.h"
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import "JobsDefines.h"
+#else
+#import "JobsDefines.h"
+#endif
 /**
      Block 的三种类型
      在 Objective-C 中，block 有三种存储类型：
@@ -72,9 +76,10 @@ typedef void(^jobsBySDWebImageModelBlock)(__kindof SDWebImageModel *_Nullable mo
 typedef void(^jobsByURLManagerModelBlock)(__kindof URLManagerModel *_Nullable model);
 typedef void(^jobsByViewModelAndBOOLBlock)(Jobs_ViewModelAndBOOLBlock_Arguments);
 typedef void(^jobsByViewModelBlock)(__kindof UIViewModel *_Nullable model);
+typedef void(^jobsByHeaderFooterViewModelBlock)(__kindof JobsHeaderFooterViewModel *_Nullable model);
 typedef void(^jobsByArrWithViewModelBlock)(__kindof NSArray <__kindof UIViewModel *>*_Nullable models);
 typedef void(^jobsByBaseTableViewBlock)(__kindof BaseTableView *_Nullable tableView);
-typedef void(^jobsBySearchBarBlock)(__kindof JobsSearchBar *_Nullable searchBar);
+typedef void(^jobsByOCSearcherBarBlock)(__kindof JobsOCSearcherBar *_Nullable searchBar);
 typedef void(^jobsByAppDoorModelBlock)(__kindof JobsAppDoorModel *_Nullable model);
 typedef void(^jobsByUNNotificationRequestModelBlock)(UNNotificationRequestModel *_Nullable model);
 typedef void(^jobsByAlertModelBlock)(JobsAlertModel *_Nullable model);
@@ -142,6 +147,7 @@ typedef void(^jobsByCustomTabBarBlock)(__kindof JobsCustomTabBar *_Nullable cust
 typedef void(^jobsByIQKeyboardManagerBlock)(__kindof IQKeyboardManager *_Nullable manager);
 typedef void(^JobsByCJTextFieldBlock)(CJTextField *_Nullable data);
 typedef void(^jobsByNavigationTransitionManagerBlock)(__kindof JobsNavigationTransitionMgr *_Nullable manager);
+typedef void(^jobsByPresentTransitionManagerBlock)(__kindof JobsPresentTransitionMgr *_Nullable manager);
 typedef void(^JobsTimerBlock)(JobsTimer<TimerProtocol> *_Nullable timer);
 typedef void(^JobsTimerMgrBuildBlock)(JobsTimer *_Nullable timer);
 typedef void(^jobsByCGFloatBlocks)(jobsByCGFloatBlock _Nullable timer);
@@ -339,6 +345,7 @@ typedef JobsNavBarConfig *_Nullable(^JobsRetNavBarConfigByStringAndActionBlock)(
 typedef JobsNavBarConfig *_Nullable(^JobsRetNavBarConfigByStringsAndActionBlock)(Jobs_NavBarConfig_Titles_Action_Arguments);
 typedef JobsNavBarConfig *_Nullable(^JobsRetNavBarConfigByButtonModelBlock)(Jobs_NavBarConfig_BackBtnModel_CloseBtnModel_Arguments);
 /// JobsOCKeyboardConfig
+typedef __kindof JobsOCKeyboardConfig *_Nullable(^JobsRetJobsOCKeyboardConfigByIDBlock)(id _Nullable data);
 typedef __kindof JobsOCKeyboardConfig *_Nullable(^JobsRetJobsOCKeyboardConfigByViewBlock)(__kindof UIView *_Nullable data);
 typedef __kindof JobsOCKeyboardConfig *_Nullable(^JobsRetJobsOCKeyboardConfigByArrBlock)(__kindof NSArray <__kindof UIView *>*_Nullable data);
 typedef __kindof JobsOCKeyboardConfig *_Nullable(^JobsRetJobsOCKeyboardConfigByCGFloatBlock)(CGFloat data);
@@ -1756,53 +1763,6 @@ typedef __kindof UNNotificationRequestModel *_Nullable(^JobsRetUNNotificationReq
 typedef __kindof UNNotificationRequestModel *_Nullable(^JobsRetUNNotificationRequestModelByUNNotificationTriggerPointerBlock)(UNNotificationTrigger *_Nullable data);
 /// URLManagerModel
 typedef __kindof URLManagerModel *_Nullable(^JobsRetURLManagerModelByStrBlock)(NSString *_Nullable data);
-#pragma mark —— 旧 JobsReturn Block 兼容别名
-typedef JobsRetAlertControllerByAlertModelBlock JobsReturnAlertControllerByAlertModelBlock;
-typedef JobsRetAlertCrtlByStringBlock JobsReturnAlertControllerByStringBlock;
-typedef JobsRetArrByMasonryBlocks JobsReturnArrByMasonryBlocks;
-typedef JobsRetArrByMasonryModelBlock JobsReturnArrByMasonryModelBlock;
-typedef JobsRetBOOLByIDBlock JobsReturnBOOLByIDBlock;
-typedef JobsRetBRStringPickerViewByPickerModeBlock JobsReturnBRStringPickerViewByPickerModeBlock;
-typedef JobsRetBtnByImageBlock JobsReturnButtonByImageBlock;
-typedef JobsRetBtnByURLBlock JobsReturnButtonByURLBlock;
-typedef JobsRetButBySDExternalCompletionBlocks JobsReturnButtonBySDExternalCompletionBlocks;
-typedef JobsRetButBySDImageLoaderProgressBlocks JobsReturnButtonBySDImageLoaderProgressBlocks;
-typedef JobsRetButBySDWebImageOptionsBlocks JobsReturnButtonBySDWebImageOptionsBlocks;
-typedef JobsRetButtonByButtonModelBlock JobsReturnButtonByButtonModelBlock;
-typedef JobsRetButtonByViewModelBlock JobsReturnButtonByViewModelBlock;
-typedef JobsRetButtonModelByString JobsReturnButtonModelByString;
-typedef JobsRetCGSizeByJhtBannerScrollViewBlock JobsReturnCGSizeByJhtBannerScrollView;
-typedef JobsRetCorModelByVoidBlock JobsReturnCorModelByVoidBlock;
-typedef JobsRetDoorModelByGTCaptcha4ModelBlock JobsReturnDoorModelByGTCaptcha4ModelBlock;
-typedef JobsRetGestureByGesture JobsReturnGestureByGesture;
-typedef JobsRetGoodsClassModelByInt2Block JobsReturnGoodsClassModelByInt2Block;
-typedef JobsRetGoodsClassModelByIntBlock JobsReturnGoodsClassModelByIntBlock;
-typedef JobsRetGoodsClassModelByIntStringBlock JobsReturnGoodsClassModelByIntStringBlock;
-typedef JobsRetIDByComponentTypeAndUIViewBlock JobsReturnIDByComponentTypeAndUIViewBlock;
-typedef JobsRetImageViewByImageBlock JobsReturnImageViewByImageBlock;
-typedef JobsRetImageViewBySDExternalCompletionBlocks JobsReturnImageViewBySDExternalCompletionBlocks;
-typedef JobsRetImageViewBySDWebImageOptionsBlocks JobsReturnImageViewBySDWebImageOptionsBlocks;
-typedef JobsRetImageViewByURLBlock JobsReturnImageViewByURLBlock;
-typedef JobsRetIndexPathByXYBlock JobsReturnIndexPathByXYBlock;
-typedef JobsRetJhtBannerCardViewByFrameBlock JobsReturnJhtBannerCardViewByFrame;
-typedef JobsRetJhtBannerScrollViewByFrameBlock JobsReturnJhtBannerScrollViewByFrame;
-typedef JobsRetMGSwipeTableCellByBOOLBlock JobsReturnMGSwipeTableCellByBOOLBlock;
-typedef JobsRetMGSwipeTableCellByDelegateBlock JobsReturnMGSwipeTableCellByDelegateBlock;
-typedef JobsRetMJRefreshAutoStateFooterByRefreshConfigModelBlock JobsReturnMJRefreshAutoStateFooterByRefreshConfigModelBlock;
-typedef JobsRetMJRefreshBackStateFooterByRefreshConfigModelBlock JobsReturnMJRefreshBackStateFooterByRefreshConfigModelBlock;
-typedef JobsRetMJRefreshStateHeaderByRefreshConfigModelBlock JobsReturnMJRefreshStateHeaderByRefreshConfigModelBlock;
-typedef JobsRetMJRefreshViewByStringBlock JobsReturnMJRefreshViewByStringBlock;
-typedef JobsRetMutableURLRequestByURLRequestBlock JobsReturnMutableURLRequestByURLRequestBlock;
-typedef JobsRetNSIntegerByJhtBannerScrollViewBlock JobsReturnNSIntegerByJhtBannerScrollView;
-typedef JobsRetStringByTimeModelBlock JobsReturnStringByTimeModelBlock;
-typedef JobsRetURLManagerModelByStrBlock JobsReturnURLManagerModelByStringBlock;
-typedef JobsRetURLRequestByURLSessionTaskBlock JobsReturnURLRequestByURLSessionTaskBlock;
-typedef JobsRetVCByMasonryConstraintsBlocks JobsReturnVCByMasonryConstraintsBlocks;
-typedef JobsRetViewByButtonModelBlock JobsReturnViewByButtonModelBlock;
-typedef JobsRetViewByLocationModelBlock JobsReturnViewByLocationModelBlock;
-typedef JobsRetViewByTextModelBlock JobsReturnViewByTextModelBlock;
-typedef JobsRetViewByViewAndMasonryConstraintsBlocks JobsReturnViewByViewAndMasonryConstraintsBlocks;
-typedef JobsRetWMZBannerViewByBannerParamBlock JobsReturnWMZBannerViewByBannerParamBlock;
 #endif /* JobsBlock_h */
 /*
     不定参数Block【 使用示例】

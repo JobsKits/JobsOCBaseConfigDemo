@@ -37,7 +37,7 @@
     };
 }
 #pragma mark —— 一些私有方法
--(JobsReturnAlertControllerByStringBlock _Nonnull)makeAlertControllerBy{
+-(JobsRetAlertCrtlByStringBlock _Nonnull)makeAlertControllerBy{
     @jobs_weakify(self)
     return ^__kindof UIAlertController *_Nullable(NSString *_Nullable string){
         UIAlertController *alertVC = JobsMakeAlertControllerBy(jobsMakeAlertModel(^(JobsAlertModel * _Nullable data) {

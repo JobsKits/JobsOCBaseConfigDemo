@@ -19,6 +19,7 @@
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
 typedef void(^jobsByVoidBlock)(void);
 typedef jobsByVoidBlock JobsViewPushCompletionBlock;
+typedef jobsByVoidBlock JobsOCRefreshActionBlock;
 typedef void(^jobsByIDBlock)(id _Nullable data);
 typedef void(^jobsBySELBlock)(SEL _Nullable data);
 typedef void(^jobsByClsBlock)(Class _Nonnull cls);
@@ -163,6 +164,8 @@ typedef void(^jobsByDateComponentsBlock)(NSDateComponents *_Nullable dateCompone
 typedef void(^jobsByTimerBlock)(NSTimer *_Nullable timer);
 typedef void(^jobsByDateFormatterBlock)(__kindof NSDateFormatter *_Nullable dateFormatter);
 typedef void(^jobsByNotificationResponseBlock)(UNNotificationResponse *_Nullable response);
+#pragma mark —— 关于 Jobs 配置对象
+typedef void(^jobsByOCRefreshConfigBlock)(__kindof JobsOCRefreshConfig *_Nullable config);
 #pragma mark —— 关于Texture
 typedef void(^jobsByButtonNodeBlock)(__kindof ASButtonNode *_Nullable node);
 typedef void(^jobsByButtonNodeLongPressBlock)(Jobs_ButtonNode_LongPress_Arguments);

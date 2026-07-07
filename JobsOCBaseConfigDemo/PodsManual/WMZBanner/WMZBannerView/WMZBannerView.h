@@ -30,7 +30,7 @@ UICollectionViewDelegate
 - (instancetype)initConfigureWithModel:(WMZBannerParam *)param withView:(UIView*)parentView;
 /// 调用方法
 - (instancetype)initConfigureWithModel:(WMZBannerParam *)param;
-+(JobsReturnWMZBannerViewByBannerParamBlock _Nonnull)initBy;
++(JobsRetWMZBannerViewByBannerParamBlock _Nonnull)initBy;
 /// 更新UI
 - (void)updateUI;
 /// 手动调用滚动

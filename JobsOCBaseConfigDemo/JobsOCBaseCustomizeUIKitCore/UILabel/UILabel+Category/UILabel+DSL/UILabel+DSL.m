@@ -7,6 +7,90 @@
 
 #import "UILabel+DSL.h"
 
+static NSString *JobsOCDSLLabelLayerText(UILabel *label){
+    if (label.attributedText.string.length) return label.attributedText.string;
+    return label.text ?: @"";
+}
+
+static UIBezierPath *JobsOCDSLLabelLayerPath(UILabel *label, JobsDirectionType directionType){
+    NSString *text = JobsOCDSLLabelLayerText(label);
+    if (!text.length) return nil;
+    UIFont *font = label.font ?: [UIFont systemFontOfSize:UIFont.systemFontSize];
+    CTFontRef ctFont = CTFontCreateWithName((__bridge CFStringRef)font.fontName,
+                                            font.pointSize,
+                                            NULL);
+    if (!ctFont) return nil;
+    NSDictionary *attributes = @{(__bridge id)kCTFontAttributeName: (__bridge id)ctFont};
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:text
+                                                                           attributes:attributes];
+    CTLineRef line = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)attributedString);
+    CFRelease(ctFont);
+    if (!line) return nil;
+    CGMutablePathRef glyphPath = CGPathCreateMutable();
+    CFArrayRef runs = CTLineGetGlyphRuns(line);
+    if (!runs) {
+        CGPathRelease(glyphPath);
+        CFRelease(line);
+        return nil;
+    }
+    for (CFIndex iRun = 0, iRunMax = CFArrayGetCount(runs); iRun < iRunMax; iRun++) {
+        CTRunRef run = (CTRunRef)CFArrayGetValueAtIndex(runs, iRun);
+        CTFontRef runFont = CFDictionaryGetValue(CTRunGetAttributes(run), kCTFontAttributeName);
+        for (CFIndex iGlyph = 0, iGlyphMax = CTRunGetGlyphCount(run); iGlyph < iGlyphMax; iGlyph++) {
+            CFRange glyphRange = CFRangeMake(iGlyph, 1);
+            CGGlyph glyph;
+            CGPoint position;
+            CTRunGetGlyphs(run, glyphRange, &glyph);
+            CTRunGetPositions(run, glyphRange, &position);
+            CGPathRef glyphItemPath = CTFontCreatePathForGlyph(runFont, glyph, NULL);
+            if (glyphItemPath) {
+                CGAffineTransform positionTransform = CGAffineTransformMakeTranslation(position.x, position.y);
+                CGPathAddPath(glyphPath, &positionTransform, glyphItemPath);
+                CGPathRelease(glyphItemPath);
+            }
+        }
+    }
+    if (CGPathIsEmpty(glyphPath)) {
+        CGPathRelease(glyphPath);
+        CFRelease(line);
+        return nil;
+    }
+    UIBezierPath *path = [UIBezierPath bezierPathWithCGPath:glyphPath];
+    CGRect boundingBox = CGPathGetPathBoundingBox(glyphPath);
+    CGPathRelease(glyphPath);
+    CFRelease(line);
+    [path applyTransform:CGAffineTransformMakeScale(1.0, -1.0)];
+    [path applyTransform:CGAffineTransformMakeTranslation(0.0, boundingBox.size.height)];
+    [path applyTransform:CGAffineTransformMakeRotation(M_PI * directionType * 0.5)];
+    CGRect pathBounds = CGPathGetPathBoundingBox(path.CGPath);
+    if (!CGRectIsEmpty(pathBounds)) {
+        [path applyTransform:CGAffineTransformMakeTranslation(-CGRectGetMinX(pathBounds),
+                                                              -CGRectGetMinY(pathBounds))];
+    };return path;
+}
+
+static BOOL JobsOCDSLRefreshLabelShapeLayer(UILabel *label,
+                                            UIColor *displayColor,
+                                            JobsDirectionType directionType){
+    UIBezierPath *path = JobsOCDSLLabelLayerPath(label, directionType);
+    if (!path) return NO;
+    CGRect pathBounds = CGPathGetPathBoundingBox(path.CGPath);
+    CAShapeLayer *shapeLayer = label.shapeLayer;
+    shapeLayer.bounds = CGRectMake(0,
+                                   0,
+                                   CGRectGetWidth(pathBounds),
+                                   CGRectGetHeight(pathBounds));
+    shapeLayer.position = CGPointMake(CGRectGetMidX(label.bounds),
+                                      CGRectGetMidY(label.bounds));
+    shapeLayer.contentsScale = UIScreen.mainScreen.scale;
+    shapeLayer.path = path.CGPath;
+    shapeLayer.strokeColor = displayColor.CGColor;
+    shapeLayer.fillColor = displayColor.CGColor;
+    shapeLayer.lineWidth = 0.5f;
+    shapeLayer.lineJoin = kCALineJoinBevel;
+    return YES;
+}
+
 @implementation UILabel (DSL)
 
 -(__kindof NSMutableAttributedString *)makeAttributedStringBySelfText{
@@ -23,9 +107,13 @@
     return ^__kindof UILabel *_Nullable(NSInteger directionType){
         @jobs_strongify(self)
         self.transformLayerDirectionType = (JobsDirectionType)directionType;
-        if (!self.shapeLayer.superlayer) [self.layer addSublayer:self.shapeLayer];
-        self.textColor = UIColor.clearColor;
-        return self;
+        UIColor *displayColor = self.textColor ?: UIColor.clearColor;
+        [self.superview layoutIfNeeded];
+        [self layoutIfNeeded];
+        if (JobsOCDSLRefreshLabelShapeLayer(self, displayColor, self.transformLayerDirectionType)) {
+            if (!self.shapeLayer.superlayer) [self.layer addSublayer:self.shapeLayer];
+            self.textColor = UIColor.clearColor;
+        };return self;
     };
 }
 
@@ -216,6 +304,15 @@
     return ^__kindof UILabel *_Nullable(BOOL data){
         @jobs_strongify(self)
         self.adjustsFontSizeToFitWidth = data;
+        return self;
+    };
+}
+
+-(JobsRetUILabelByBOOLBlock _Nonnull)byAdjustsFontForContentSizeCategory{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.adjustsFontForContentSizeCategory = data;
         return self;
     };
 }

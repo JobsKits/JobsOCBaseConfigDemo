@@ -34,7 +34,7 @@ Prop_strong()UIScrollView *insideScrollView;
     JobsRemoveNotification(self);
 }
 
-+(JobsReturnJhtBannerScrollViewByFrame _Nonnull)initByFrame{
++(JobsRetJhtBannerScrollViewByFrameBlock _Nonnull)initByFrame{
     return ^JhtBannerScrollView *_Nullable(CGRect frame){
         return [JhtBannerScrollView.alloc initWithFrame:frame];
     };

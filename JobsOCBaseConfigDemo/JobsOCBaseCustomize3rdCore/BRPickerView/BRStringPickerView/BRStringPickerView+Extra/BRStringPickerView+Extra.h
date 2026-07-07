@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 #ifndef BRStringPickerView
 @interface BRStringPickerView (Extra)
 
-+(JobsReturnBRStringPickerViewByPickerModeBlock _Nonnull)initBy;
++(JobsRetBRStringPickerViewByPickerModeBlock _Nonnull)initBy;
 
 @end
 #endif

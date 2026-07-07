@@ -11,9 +11,17 @@
 #import <Foundation/Foundation.h>
 #import "UIViewModel.h"
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
 #import "JobsBlock.h"
+#else
+#import "JobsBlock.h"
+#endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import "JobsDefines.h"
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,5 +33,11 @@ Prop_assign()BOOL useFooterView;
 @end
 
 NS_ASSUME_NONNULL_END
+
+NS_INLINE __kindof JobsHeaderFooterViewModel *_Nonnull jobsMakeHeaderFooterViewModel(jobsByHeaderFooterViewModelBlock _Nonnull block){
+    JobsHeaderFooterViewModel *data = JobsHeaderFooterViewModel.alloc.init;
+    if (block) block(data);
+    return data;
+}
 
 #endif /* JobsHeaderFooterViewModel_h */

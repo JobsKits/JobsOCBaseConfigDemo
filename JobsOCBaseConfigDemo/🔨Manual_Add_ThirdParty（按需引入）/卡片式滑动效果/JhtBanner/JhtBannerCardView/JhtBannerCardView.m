@@ -17,7 +17,7 @@
 
 @implementation JhtBannerCardView
 ///
-+(JobsReturnJhtBannerCardViewByFrame _Nonnull)initByFrame{
++(JobsRetJhtBannerCardViewByFrameBlock _Nonnull)initByFrame{
     return ^JhtBannerCardView *_Nullable(CGRect frame){
         return [JhtBannerCardView.alloc initWithFrame:frame];
     };

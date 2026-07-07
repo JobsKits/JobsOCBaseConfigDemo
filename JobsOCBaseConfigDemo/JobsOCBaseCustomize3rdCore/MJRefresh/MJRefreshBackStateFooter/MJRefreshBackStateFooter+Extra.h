@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MJRefreshBackStateFooter (Extra)
 
--(JobsReturnMJRefreshBackStateFooterByRefreshConfigModelBlock _Nonnull)byMJRefreshFooterConfigModel;
+-(JobsRetMJRefreshBackStateFooterByRefreshConfigModelBlock _Nonnull)byMJRefreshFooterConfigModel;
 
 @end
 

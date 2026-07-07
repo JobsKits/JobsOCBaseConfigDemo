@@ -78,7 +78,15 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
     self.filterBtn.alpha = 1;
     self.recordBtn.alpha = 1;
     self.recordDurationLabel.byAlpha(0);
+#if TARGET_OS_SIMULATOR
+    self.filterBtn.enabled = NO;
+    self.filterBtn.alpha = 0.35;
+    self.recordBtn.userInteractionEnabled = NO;
+    self.recordBtn.alpha = 0.35;
+    @"iOS 模拟器不支持摄像头录制，请使用真机".toast();
+#else
     [self requestPermissions];
+#endif
 }
 
 -(void)viewDidLayoutSubviews{

@@ -43,10 +43,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// 如果字符串为null 那么不走isEqualToString，无法比较都是空的情况
 +(BOOL)isEqualStrA:(NSString *)stringA strB:(NSString *)stringB;
 
--(JobsReturnBOOLByIDBlock _Nonnull)isEqualToString;
--(JobsReturnBOOLByIDBlock _Nonnull)containsString;
--(JobsReturnBOOLByIDBlock _Nonnull)hasPrefix;
--(JobsReturnBOOLByIDBlock _Nonnull)hasSuffix;
+-(JobsRetBOOLByIDBlock _Nonnull)isEqualToString;
+-(JobsRetBOOLByIDBlock _Nonnull)containsString;
+-(JobsRetBOOLByIDBlock _Nonnull)hasPrefix;
+-(JobsRetBOOLByIDBlock _Nonnull)hasSuffix;
 /// 判断字符串对象是否为狭义范围内的空格
 -(BOOL)isNotBlank;
 /// 判断是否是广义范围内的空格(space、\t、\r、\n)

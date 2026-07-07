@@ -11,7 +11,6 @@
 #import <UIKit/UIKit.h>
 #import "JobsAppDoorConfig.h"
 #import "JobsAppDoorInputViewBaseStyle.h"
-#import "ImageCodeView.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -19,15 +18,41 @@
 #import "Masonry.h"
 #endif
 
+#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import "JobsBaseProtocolHeader.h"
+#else
+#import "JobsBaseProtocolHeader.h"
+#endif
 
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import "JobsByOCPods.h"
+#else
+#import "JobsByOCPods.h"
+#endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import "JobsDefines.h"
+#else
+#import "JobsDefines.h"
+#endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import "JobsOCDSL.h"
+#else
+#import "JobsOCDSL.h"
+#endif
 
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
 #import "JobsModelDSL.h"
+#else
+#import "JobsModelDSL.h"
+#endif
+
+#if __has_include(<JobsGraphicCaptcha/JobsGraphicCaptchaHeader.h>)
+#import "JobsGraphicCaptchaHeader.h"
+#else
+#import "JobsGraphicCaptchaHeader.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

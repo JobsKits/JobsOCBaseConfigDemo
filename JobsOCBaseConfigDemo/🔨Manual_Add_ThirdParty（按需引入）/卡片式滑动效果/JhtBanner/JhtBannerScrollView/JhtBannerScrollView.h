@@ -52,7 +52,7 @@ Prop_strong(nullable)UIPageControl *pageControl;
 Prop_assign(nullable)id<JhtBannerScrollViewDataSource> dataSource;
 Prop_assign(nullable)id<JhtBannerScrollViewDelegate> delegate;
 
-+(JobsReturnJhtBannerScrollViewByFrame _Nonnull)initByFrame;
++(JobsRetJhtBannerScrollViewByFrameBlock _Nonnull)initByFrame;
 /// 刷新视图
 -(void)reloadData;
 /// 获取可重复使用的卡片View（cardView）

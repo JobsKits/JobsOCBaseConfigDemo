@@ -22,7 +22,6 @@
 @end
 
 typedef MainTableViewCell *_Nonnull(^JobsRetMainTableViewCellByDelegateBlock)(NSObject<MianTableViewCellDelegate> *_Nullable delegate);
-typedef JobsRetMainTableViewCellByDelegateBlock JobsReturnMainTableViewCellByDelegateBlock;
 
 @interface MainTableViewCell : JobsBaseTableViewCell
 <
@@ -35,7 +34,6 @@ UICollectionViewDelegateFlowLayout
 Prop_weak()NSObject <MianTableViewCellDelegate> *delegate;
 
 -(jobsByPointBlock _Nonnull)scrollerItemBy;
--(JobsReturnMainTableViewCellByDelegateBlock _Nonnull)byDelegate;
+-(JobsRetMainTableViewCellByDelegateBlock _Nonnull)byDelegate;
 
 @end
-

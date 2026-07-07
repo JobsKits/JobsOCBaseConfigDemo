@@ -183,14 +183,16 @@
 @class JobsNavigationTransitionMgr;
 @class JobsNetworkSource;
 @class JobsNetworkTrafficMonitor;
+@class JobsOCRefreshConfig;
 @class JobsOCKeyboardConfig;
 @class JobsOCKeyboardMgr;
 @class JobsOCKeyboardResult;
 @class JobsParagraphStyleModel;
+@class JobsPresentTransitionMgr;
 @class JobsResponseModel;
 @class JobsRichTextConfig;
 @class JobsRightBtnsView;
-@class JobsSearchBar;
+@class JobsOCSearcherBar;
 @class JobsSEL_IMP;
 @class JobsStepView;
 @class JobsTabBar;

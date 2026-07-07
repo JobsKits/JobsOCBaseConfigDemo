@@ -2,12 +2,24 @@
 //  JobsIMListDataModel.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/11/17.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsIMListDataModel.h"
 
 @implementation JobsIMListDataModel
+
+-(NSString *)userID{
+    if (!_userID) {
+        _userID = @"jobsim_peer_unknown";
+    };return _userID;
+}
+
+-(NSString *)peerID{
+    if (!_peerID) {
+        _peerID = self.userID;
+    };return _peerID;
+}
 
 -(NSString *)usernameStr{
     if (!_usernameStr) {
@@ -27,10 +39,22 @@
     };return _timeStr;
 }
 
--(UIImage *)userHeaderIMG{
-    if (!_userHeaderIMG) {
-        _userHeaderIMG = UIImage.animatedGIFByName(@"动态头像 尺寸126");
-    };return _userHeaderIMG;
+-(NSString *)userHeaderURLStr{
+    if (!_userHeaderURLStr) {
+        _userHeaderURLStr = @"https://picsum.photos/126";
+    };return _userHeaderURLStr;
+}
+
+-(JobsIMTransportKind)transportKind{
+    if (_transportKind == JobsIMTransportKindUnknown) {
+        _transportKind = JobsIMTransportKindLANBonjourNetwork;
+    };return _transportKind;
+}
+
+-(JobsIMPeerOnlineState)peerOnlineState{
+    if (_peerOnlineState == JobsIMPeerOnlineStateUnknown) {
+        _peerOnlineState = JobsIMPeerOnlineStateOnlineForeground;
+    };return _peerOnlineState;
 }
 
 @end

@@ -59,7 +59,8 @@
 +(__kindof JobsOCKeyboardResult *)resultByConfig:(__kindof JobsOCKeyboardConfig *)config
                                   notification:(NSNotification *)notification{
     NSDictionary *userInfo = notification.userInfo ?: @{};
-    CGRect keyboardEndFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSValue *keyboardFrameValue = userInfo[UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardEndFrame = keyboardFrameValue ? keyboardFrameValue.CGRectValue : CGRectNull;
     return [self resultByConfig:config
           keyboardFrameInScreen:keyboardEndFrame
                        userInfo:userInfo];

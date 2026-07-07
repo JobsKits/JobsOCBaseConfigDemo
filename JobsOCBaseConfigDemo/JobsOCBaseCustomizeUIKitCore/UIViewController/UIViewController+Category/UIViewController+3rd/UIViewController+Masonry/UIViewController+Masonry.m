@@ -17,7 +17,7 @@
     };
 }
 /// 实现 masonryBlock 链式方法
--(JobsReturnVCByMasonryConstraintsBlocks _Nonnull)setMasonryBy{
+-(JobsRetVCByMasonryConstraintsBlocks _Nonnull)setMasonryBy{
     @jobs_weakify(self)
     return ^__kindof UIViewController *_Nullable(jobsByMASConstraintMakerBlock _Nullable block){
         @jobs_strongify(self)
@@ -67,7 +67,7 @@
     };
 }
 #pragma mark —— 添加约束并执行
--(JobsReturnViewByViewAndMasonryConstraintsBlocks _Nonnull)byAdd{
+-(JobsRetViewByViewAndMasonryConstraintsBlocks _Nonnull)byAdd{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(__kindof UIView * _Nonnull subview,jobsByMASConstraintMakerBlock _Nullable block){
         @jobs_strongify(self)
@@ -76,7 +76,7 @@
     };
 }
 
--(JobsReturnViewByViewAndMasonryConstraintsBlocks _Nonnull)byUpgrade{
+-(JobsRetViewByViewAndMasonryConstraintsBlocks _Nonnull)byUpgrade{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(__kindof UIView * _Nonnull subview,jobsByMASConstraintMakerBlock _Nullable block){
         @jobs_strongify(self)
@@ -85,7 +85,7 @@
     };
 }
 
--(JobsReturnViewByViewAndMasonryConstraintsBlocks _Nonnull)byRemake{
+-(JobsRetViewByViewAndMasonryConstraintsBlocks _Nonnull)byRemake{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(__kindof UIView * _Nonnull subview,jobsByMASConstraintMakerBlock _Nullable block){
         @jobs_strongify(self)

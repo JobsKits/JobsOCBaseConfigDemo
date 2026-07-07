@@ -19,18 +19,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// 修改C2C充提黑名单状态@PUT
 -(URLManagerModel *)put_fund_c2c_dw_blackList_change_status;
 /// 删除C2C充提黑名单@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_c2c_dw_blackList_deleteByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_c2c_dw_blackList_deleteByID;
 /// 查询C2C充提黑名单列表@GET
 -(URLManagerModel *)get_fund_c2c_dw_blackList_list;
 #pragma mark —— C2C-存取款占比
 /// 新增C2C存取款占比配置@POST
 -(URLManagerModel *)post_fund_c2c_dwRatio_add;
 /// 删除C2C存取款占比配置@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_fund_c2c_dwRatio_deleteBy;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_fund_c2c_dwRatio_deleteBy;
 /// 修改C2C存取款占比配置@PUT
 -(URLManagerModel *)put_fund_c2c_dwRatio_edit;
 /// 获取C2C存取款占比配置详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_c2c_dwRatio_getInfoByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_c2c_dwRatio_getInfoByID;
 /// 查询C2C存取款占比配置列表@GET
 -(URLManagerModel *)get_fund_c2c_dwRatio_list;
 #pragma mark —— C2C-提款搁置列表
@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 新增C2C提现拆单规则配置@POST
 -(URLManagerModel *)post_fund_c2c_split_rule_add;
 /// 删除C2C提现拆单规则配置@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_fund_c2c_split_rule_deleteByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_fund_c2c_split_rule_deleteByID;
 /// 修改C2C提现拆单规则配置@PUT
 -(URLManagerModel *)put_fund_c2c_split_switch_status;
 /// 查询C2C提现拆单规则配置列表@GET
@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 帮助中心-查询问题分类@POST
 -(URLManagerModel *)post_config_help_center_classify_lists;
 /// 帮助中心-删除@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)config_help_center_deleteByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)config_help_center_deleteByID;
 /// 帮助中心-查询@POST
 -(URLManagerModel *)post_config_help_center_list;
 /// 帮助中心-新增@POST
@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(URLManagerModel *)post_config_help_center_update;
 #pragma mark —— PH_AGT-配置中心_帮助中心(分类)
 /// 帮助中心分类问题-删除@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_config_help_center_classify_deleteByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_config_help_center_classify_deleteByID;
 /// 帮助中心分类问题-查询@POST
 -(URLManagerModel *)post_config_help_center_classify_list;
 /// 帮助中心分类问题-新增@POST
@@ -103,14 +103,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// 新增代理标签关系@POST
 -(URLManagerModel *)post_configs_tags_ref_add;
 /// 删除代理标签关系@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_configs_tags_ref_deleteByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_configs_tags_ref_deleteByID;
 /// 获取代理标签信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_configs_tags_ref_getAgentTagRefListByAgentId;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_configs_tags_ref_getAgentTagRefListByAgentId;
 /// 获取代理所有标签信息@GET
 -(URLManagerModel *)get_configs_tags_ref_getAllTagList;
 #pragma mark —— PH_AGT-配置中心_标签配置
 /// 删除标签@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_configs_tags_deleteByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_configs_tags_deleteByID;
 /// 查询标签用户数列表@POST
 -(URLManagerModel *)post_configs_tags_getTagAgentList;
 /// 查询标签列表@POST
@@ -130,7 +130,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(URLManagerModel *)post_configs_contact_saveOrUpdate;
 #pragma mark —— PH_AGT-门店设备所有相关接口
 /// 删除门店设备@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_store_device_info_deleteByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_store_device_info_deleteByID;
 /// 查询门店设备列表@POST
 -(URLManagerModel *)post_store_device_info_getStoreDeviceInfoList;
 /// 新增门店设备@POST
@@ -141,7 +141,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 查询ip所属区域名称@POST
 -(URLManagerModel *)post_ip_region_getRegion;
 /// 删除门店@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_store_info_deleteByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_store_info_deleteByID;
 /// 查询门店列表@POST
 -(URLManagerModel *)post_store_info_getStoreIfoByStoreId;
 /// 查询门店列表@POST
@@ -193,7 +193,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 查询VIP返水配置列表@GET
 -(URLManagerModel *)get_vipRebate_list;
 /// 查询VIP返水配置子项@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_vipRebate_queryConfigItem;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_vipRebate_queryConfigItem;
 /// 查询VIP返水配置列表--对外提供的接口@POST
 -(URLManagerModel *)post_vipRebate_rebateList;
 /// 修改VIP返水配置@PUT
@@ -249,9 +249,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(URLManagerModel *)get_oms_report_user_heartBeatSaveLogin;
 #pragma mark —— 专家信息接口
 /// 删除专家信息@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_expert_info_deleteByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_expert_info_deleteByID;
 /// 获取专家信息详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_expert_info_getInfoByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_expert_info_getInfoByID;
 /// 查询专家信息列表@GET
 -(URLManagerModel *)get_expert_info_list;
 /// 新增专家信息@POST
@@ -259,9 +259,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 修改专家信息@PUT
 -(URLManagerModel *)put_expert_info_update;
 /// 删除专家爆料方案信息@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_expert_plan_deleteByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_expert_plan_deleteByID;
 /// 获取专家爆料方案信息详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_expert_plan_getInfoByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_expert_plan_getInfoByID;
 /// 查询专家爆料方案信息列表@GET
 -(URLManagerModel *)get_expert_plan_list;
 /// 新增专家爆料方案信息@POST
@@ -288,16 +288,16 @@ NS_ASSUME_NONNULL_BEGIN
 -(URLManagerModel *)put_user_profile_updatePwd;
 #pragma mark —— 中心钱包
 /// 一键回收@POST
--(JobsReturnURLManagerModelByStringBlock _Nonnull)post_fund_wallet_collectWalletByUserName;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)post_fund_wallet_collectWalletByUserName;
 /// 获取会员与转账场馆余额@POST
--(JobsReturnURLManagerModelByStringBlock _Nonnull)post_fund_wallet_getMemberWallet;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)post_fund_wallet_getMemberWallet;
 /// 转入@POST
 -(URLManagerModel *)post_fund_wallet_transferIn;
 #pragma mark —— 主播动态接口
 /// 删除主播动态@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_presenter_dynamics_deleteByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_presenter_dynamics_deleteByID;
 /// 获取主播动态详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_presenter_dynamics_getInfo;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_presenter_dynamics_getInfo;
 /// 查询主播动态列表@GET
 -(URLManagerModel *)get_presenter_dynamics_list;
 /// 新增主播动态@POST
@@ -306,11 +306,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(URLManagerModel *)put_presenter_dynamics_update;
 #pragma mark —— 主播管理接口
 /// 删除超管信息@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_managerdelete;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_managerdelete;
 /// 导出超管信息列表@POST
 -(URLManagerModel *)post_manager_export;
 /// 获取超管详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_manager_getInfoByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_manager_getInfoByID;
 /// 查询超管信息列表@GET
 -(URLManagerModel *)get_manager_list;
 /// 新增超管信息@POST
@@ -318,11 +318,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 修改超管信息@PUT
 -(URLManagerModel *)put_manager_update;
 /// 删除主播信息@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_presenter_delete;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_presenter_delete;
 /// 导出主播信息列表@POST
 -(URLManagerModel *)post_presenter_export;
 /// 获取主播详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_presenter_getInfoByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_presenter_getInfoByID;
 /// 查询主播信息列表@GET
 -(URLManagerModel *)get_presenter_list;
 /// 新增主播信息@POST
@@ -333,7 +333,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 银行管理 禁用或者开启【 0、禁用】【1、开启】@PUT
 -(URLManagerModel *)put_agent_config_bank_ban;
 /// 银行管理-删除@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_agent_config_bank_deleteByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_agent_config_bank_deleteByID;
 /// 银行管理-查询@POST
 -(URLManagerModel *)post_agent_config_bank_list;
 /// 银行管理-新增@POST
@@ -341,7 +341,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 银行管理-编辑@PUT
 -(URLManagerModel *)put_agent_config_bank_update;
 /// 帮助中心分类问题-删除@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_agent_config_classify_deleteByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_agent_config_classify_deleteByID;
 /// 帮助中心分类问题-查询@POST
 -(URLManagerModel *)post_agent_config_classify_list;
 /// 帮助中心分类问题-新增@POST
@@ -349,7 +349,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 帮助中心分类问题-编辑@PUT
 -(URLManagerModel *)put_agent_config_classify_update;
 /// 佣金配置-删除@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_agent_config_commission_deleteByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_agent_config_commission_deleteByID;
 /// 佣金配置-新增初始化@POST
 -(URLManagerModel *)post_agent_config_commission_init;
 /// 佣金配置-查询@GET
@@ -385,7 +385,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 帮助中心-查询问题分类@POST
 -(URLManagerModel *)post_agent_config_help_classify_list;
 /// 帮助中心-删除@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_agent_config_help_deleteByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_agent_config_help_deleteByID;
 /// 帮助中心-查询@POST
 -(URLManagerModel *)post_agent_config_help_list;
 /// 帮助中心-新增@POST
@@ -395,7 +395,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 出款通道-禁用或者开启@PUT
 -(URLManagerModel *)put_agent_config_outward_ban;
 /// 出款通道-删除@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_agent_config_outward_deleteByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_agent_config_outward_deleteByID;
 /// 出款通道-查询@POST
 -(URLManagerModel *)post_agent_config_outward_list;
 /// 出款通道-新增@POST
@@ -424,7 +424,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 佣金一审审核通过或拒绝@POST
 -(URLManagerModel *)post_agent_commissionRecordAudit_firstPassOrRejection;
 /// 查询佣金方案详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_commissionRecordAudit_getCommissionRebateDetailInfoByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_commissionRecordAudit_getCommissionRebateDetailInfoByID;
 /// 查询佣金审核列表@POST
 -(URLManagerModel *)post_agent_commissionRecordAudit_getCommissionRecordAuditList;
 /// 查询佣金场馆费列表@POST
@@ -432,7 +432,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 查询公司输赢调整列表@GET
 -(URLManagerModel *)get_agent_commissionRecordAudit_getCompanyProfitAndLossAdjustRecordList;
 /// 查询佣金审核详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_commissionRecordAudit_getDetailInfoByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_commissionRecordAudit_getDetailInfoByID;
 /// 查询下级代理佣金记录列表@POST
 -(URLManagerModel *)post_agent_commissionRecordAudit_getSubProxyCommissionDetailList;
 /// 佣金二审审核通过或拒绝@POST
@@ -454,17 +454,17 @@ NS_ASSUME_NONNULL_BEGIN
 -(URLManagerModel *)post_agent_agentInfoAdjustAudit_getAgentInfoAdjustAuditList;
 #pragma mark —— 代理公告配置接口
 /// 删除代理公告@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_agent_notice_config_deleteByIDList;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_agent_notice_config_deleteByIDList;
 /// 获取代理详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_notice_config_getAgentNoticeDetailByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_notice_config_getAgentNoticeDetailByID;
 /// 获取公告未读条数@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_notice_config_getAgentNoticeUnreadByAgentName;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_notice_config_getAgentNoticeUnreadByAgentName;
 /// 查询代理公告列表@POST
 -(URLManagerModel *)post_agent_notice_config_getNoticeList;
 /// 新增代理公告@POST
 -(URLManagerModel *)post_agent_notice_config_save;
 /// 公告发送@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_notice_config_sendNoticeByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_notice_config_sendNoticeByID;
 /// 修改代理公告@PUT
 -(URLManagerModel *)put_agent_notice_config_update;
 #pragma mark —— 代理备注接口
@@ -476,7 +476,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 提现审核通过或拒绝或搁置@POST
 -(URLManagerModel *)post_agent_withdrawalAudit_auditPassOrRejectionOrShunt;
 /// 获取提款审核详细信息@POST
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_withdrawalAudit_getWithdrawalAuditDetail;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_withdrawalAudit_getWithdrawalAuditDetail;
 /// 查询提款审核列表@POST
 -(URLManagerModel *)post_agent_withdrawalAudit_getWithdrawalAuditList;
 #pragma mark —— 代理新增审核接口
@@ -485,7 +485,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 查询代理新增审核列表@POST
 -(URLManagerModel *)post_agent_agentAddAudit_getAgentAddAuditList;
 /// 查询代理新增审核详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_agentAddAudit_getDetailInfo;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_agentAddAudit_getDetailInfo;
 #pragma mark —— 代理新增接口
 /// 新增代理(运营后台)@POST
 -(URLManagerModel *)post_agent_agentAdd_add;
@@ -520,7 +520,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 查询代理取款记录@POST
 -(URLManagerModel *)post_agent_withdrawalRecord_getWithdrawalRecord;
 /// 获取提款记录详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_withdrawalRecord_getWithdrawalRecordDetail;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_withdrawalRecord_getWithdrawalRecordDetail;
 /// 获取代理提现订单信息@GET
 -(URLManagerModel *)get_agent_withdrawalRecord_getWithdrawalRecordDetailByOrderNo;
 /// 查询提款记录列表@POST
@@ -541,13 +541,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// 修改代理信息@POST
 -(URLManagerModel *)post_agent_agentDetail_agentUpdateStatus;
 /// 修改代理信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_agentDetail_clearAgentPaymentPassword;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_agentDetail_clearAgentPaymentPassword;
 /// 获取代理详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_agentDetail_getAgentDetail;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_agentDetail_getAgentDetail;
 /// 获取代理详细信息根据代理账号@GET
 -(URLManagerModel *)get_agent_agentDetail_getAgentDetailByAgentUserName;
 /// 获取代理财务信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_agentDetail_getAgentFinanceInfo;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_agentDetail_getAgentFinanceInfo;
 /// 查询代理登录列表@POST
 -(URLManagerModel *)post_agent_agentDetail_getAgentLoginList;
 /// 获取代理团队信息@POST
@@ -579,7 +579,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 代理转代一审审核通过或拒绝@POST
 -(URLManagerModel *)post_agent_agentTransformAudit_firstPassOrRejection;
 /// 查询代理转代审核详情@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_agentTransformAudit_getAgentTransformAuditDetail;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_agentTransformAudit_getAgentTransformAuditDetail;
 /// 查询代理转代审核列表@POST
 -(URLManagerModel *)post_agent_agentTransformAudit_getAgentTransformAuditList;
 /// 获取当前会员的代理信息@POST
@@ -629,7 +629,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 同存款ip查询@GET
 -(URLManagerModel *)get_member_user_queryOrderByOrderIp;
 /// 重置会员短信次数@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_member_user_restVerifyCodeByMemberId;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_member_user_restVerifyCodeByMemberId;
 /// queryLoginUserByIp@GET
 -(URLManagerModel *)get_member_user_sameIp;
 /// 修改详情会员标签集合@POST
@@ -646,7 +646,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 会员二审核状态修改@PUT
 -(URLManagerModel *)put_member_backendlog_editStateSecond;
 /// 获取会员后台操作记录详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_member_backendlog_getInfoByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_member_backendlog_getInfoByID;
 /// 查询会员账号修改审核列表一审@GET
 -(URLManagerModel *)get_member_backendlog_list;
 /// 查询会员账号修改审核列表结果单@GET
@@ -674,15 +674,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// 查询会员备注列表@PUT
 -(URLManagerModel *)put_label_edit;
 /// 获取会员标签详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_label_getInfoByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_label_getInfoByID;
 /// 查询会员标签列表@GET
 -(URLManagerModel *)get_label_list;
 /// 获取标签选择框列表@GET
 -(URLManagerModel *)get_label_member_optionSelect;
 /// 获取会员关联的标签列表@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_label_memberByMemberId;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_label_memberByMemberId;
 /// 删除会员标签@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_label_removeByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_label_removeByID;
 /// 查询标签的所有会员@POST
 -(URLManagerModel *)post_label_selectMemberByLabelId;
 /// 标签启用禁用@POST
@@ -697,7 +697,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 批量解禁@POST
 -(URLManagerModel *)post_member_banLog_batchUntie;
 /// 获取会员禁言记录详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_member_banLog_getInfo;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_member_banLog_getInfo;
 /// 查询会员禁言记录列表@POST
 -(URLManagerModel *)post_member_banLog_list;
 /// 查询某个会员禁言记录列表@POST
@@ -709,9 +709,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(URLManagerModel *)get_member_titlelog_list;
 #pragma mark —— 会员管理-会员详情基本信息-财务信息
 /// 查询会员个人充提信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_memberReport_depositAndWithdraw;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_memberReport_depositAndWithdraw;
 /// 查询会员个人提现流水信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_memberReport_withdrawBetRequest;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_memberReport_withdrawBetRequest;
 #pragma mark —— 会员虚拟货币账号接口
 /// 新增会员虚拟货币账号@POST
 -(URLManagerModel *)post_member_cryptocy_add;
@@ -753,7 +753,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 查询会员限制记录日志列表@GET
 -(URLManagerModel *)get_member_blocklog_list;
 /// 查询会员限制记录日志列表@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_member_blocklog_updateStatusByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_member_blocklog_updateStatusByID;
 /// 批量解除会员限制@POST
 -(URLManagerModel *)post_member_blocklog_updateStatusBatch;
 #pragma mark —— 佣金档位接口
@@ -765,7 +765,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 修改参数配置@PUT
 -(URLManagerModel *)put_config;
 /// 根据参数键名查询参数值@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_config_configKeyByConfigKey;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_config_configKeyByConfigKey;
 /// 导出参数配置@POST
 -(URLManagerModel *)post_config_export;
 /// 获取参数配置分页列表@GET
@@ -775,9 +775,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 刷新参数缓存@DELETE
 -(URLManagerModel *)delete_config_refreshCache;
 /// 删除参数配置@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_configByConfigIds;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_configByConfigIds;
 /// 根据参数编号获取详细信息
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_configByConfigId;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_configByConfigId;
 /// add@POST
 -(URLManagerModel *)post_notice;
 /// edit@PUT
@@ -785,9 +785,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// list@GET
 -(URLManagerModel *)put_notice_list;
 /// remove@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_noticeByNoticeIds;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_noticeByNoticeIds;
 /// getInfo@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_noticeByNoticeIds;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_noticeByNoticeIds;
 #pragma mark —— 国家-区号-编码-语言信息接口
 /// 新增（国家-区号-编码-语言）信息@POST
 -(URLManagerModel *)post_countrycode_add;
@@ -796,7 +796,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 修改（国家-区号-编码-语言）信息@PUT
 -(URLManagerModel *)put_countrycode_edit;
 /// 根据ID获取(国家-区号-编码-语言)信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_countrycode_getInfo;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_countrycode_getInfo;
 /// 查询（国家-区号-编码-语言）列表@GET
 -(URLManagerModel *)get_countrycode_list;
 #pragma mark —— 国家编码服务接口
@@ -833,11 +833,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 获得字典数据的分页列表@GET
 -(URLManagerModel *)get_dict_data_list;
 /// 根据字典类型查询字典数据信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_dict_data_typeByDictType;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_dict_data_typeByDictType;
 /// 删除字典数据@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_dict_dataByDictCodes;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_dict_dataByDictCodes;
 /// 查询字典数据详细@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_dict_dataByDictCode;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_dict_dataByDictCode;
 #pragma mark —— 字典类型管理接口
 /// 创建字典类型@POST
 -(URLManagerModel *)post_dict_type;
@@ -852,14 +852,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// 刷新字典缓存@DELETE
 -(URLManagerModel *)delete_dict_type_refreshCache;
 /// 删除字典类型@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_dict_typeByDictCode;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_dict_typeByDictCode;
 /// 查询字典类型详细@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_dict_typeByDictCode;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_dict_typeByDictCode;
 #pragma mark —— 封面标签信息接口
 /// 删除封面标签信息@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_front_cover_tag_deleteByIDs;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_front_cover_tag_deleteByIDs;
 /// 获取封面标签信息详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_front_cover_tag_getInfoByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_front_cover_tag_getInfoByID;
 /// 查询封面标签信息列表@GET
 -(URLManagerModel *)get_front_cover_tag_list;
 /// 新增封面标签信息@GET
@@ -878,9 +878,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 获取平台的所有岗位@GET
 -(URLManagerModel *)get_post_optionselect;
 /// 删除岗位@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_postByPostIds;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_postByPostIds;
 /// 根据岗位编号获取详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_postByPostIds;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_postByPostIds;
 #pragma mark —— 平台管理接口
 ///新增平台@POST
 -(URLManagerModel *)post_tenant_add;
@@ -889,7 +889,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 修改平台@PUT
 -(URLManagerModel *)put_tenant_edit;
 /// 获取平台详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_tenant_getInfoByID;
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_tenant_getInfoByID;
 /// 查询平台列表@GET
 -(URLManagerModel *)get_tenant_list;
 #pragma mark —— 廣告管理接口

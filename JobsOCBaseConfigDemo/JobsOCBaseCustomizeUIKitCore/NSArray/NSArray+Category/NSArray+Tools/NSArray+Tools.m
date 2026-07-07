@@ -97,7 +97,7 @@
     };
 }
 
--(JobsReturnArrByMasonryBlocks _Nonnull)installByMasonryBlock{
+-(JobsRetArrByMasonryBlocks _Nonnull)installByMasonryBlock{
     @jobs_weakify(self)
     return ^__kindof NSArray *_Nullable(jobsByMASConstraintMakerBlock _Nonnull data){
         @jobs_strongify(self)
@@ -107,7 +107,7 @@
 }
 #pragma mark —— Masonry 均匀分布的布局方式封装
 /// 在指定的轴方向上，按照固定的间距分布多个视图。每个视图之间的间距是固定的，而不是视图本身的尺寸固定。
--(JobsReturnArrByMasonryModelBlock _Nonnull)installByMasonryModel1{
+-(JobsRetArrByMasonryModelBlock _Nonnull)installByMasonryModel1{
     @jobs_weakify(self)
     return ^__kindof NSArray *_Nullable(__kindof MasonryModel *_Nullable data){
         @jobs_strongify(self)
@@ -134,7 +134,7 @@
     };
 }
 /// 将一组视图沿某个方向（水平或垂直）等间距分布，视图的宽度（或高度）是固定的，且视图与容器的两端没有间隔。
--(JobsReturnArrByMasonryModelBlock _Nonnull)installByMasonryModel2{
+-(JobsRetArrByMasonryModelBlock _Nonnull)installByMasonryModel2{
     @jobs_weakify(self)
     return ^__kindof NSArray *_Nullable(__kindof MasonryModel *_Nullable data){
         @jobs_strongify(self)

@@ -19,8 +19,12 @@ Prop_strong()UILabel *subTitleLab;
 Prop_strong()UIImageView *chevronView;
 Prop_strong()UIView *detailClipView;
 Prop_strong()UITableView *innerTableView;
+Prop_strong()UILongPressGestureRecognizer *innerCellLongPressGesture;
 Prop_strong()NSArray <UIViewModel *>*items;
 Prop_copy()jobsByNSIntegerBlock selectBlock;
+Prop_copy()jobsByNSIntegerBlock pinBlock;
+Prop_assign()NSInteger pinAccessoryIndex;
+Prop_assign()BOOL pinnedSectionStyle;
 
 @end
 
@@ -99,6 +103,7 @@ Prop_copy()jobsByNSIntegerBlock selectBlock;
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
         self.items = @[];
+        self.pinAccessoryIndex = NSNotFound;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = JobsClearColor;
         self.contentView.backgroundColor = JobsClearColor;
@@ -113,6 +118,10 @@ Prop_copy()jobsByNSIntegerBlock selectBlock;
     [super prepareForReuse];
     self.items = @[];
     self.selectBlock = nil;
+    self.pinBlock = nil;
+    self.pinAccessoryIndex = NSNotFound;
+    self.pinnedSectionStyle = NO;
+    self.chevronView.byHidden(NO);
     [self setExpanded:NO
              animated:NO];
 }
@@ -148,7 +157,7 @@ Prop_copy()jobsByNSIntegerBlock selectBlock;
 
 -(UIImage *)chevronImage{
     if (@available(iOS 13.0, *)) {
-        return [[UIImage systemImageNamed:@"chevron.right"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        return [@"chevron.right".sys_img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     };return nil;
 }
 
@@ -166,29 +175,124 @@ Prop_copy()jobsByNSIntegerBlock selectBlock;
     return viewModel.subTextModel.attributedTitle;
 }
 
+-(UIImage *)pinImage{
+    if (@available(iOS 13.0, *)) {
+        return [@"pin.fill".sys_img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    };return nil;
+}
+
+-(UIImage *)unpinImage{
+    if (@available(iOS 13.0, *)) {
+        return [@"minus.circle.fill".sys_img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    };return nil;
+}
+
+-(UIImage *)redAccessoryImageByImage:(UIImage *)image
+                           tintColor:(UIColor *)tintColor{
+    if (@available(iOS 13.0, *)) {
+        return [image imageWithTintColor:tintColor
+                           renderingMode:UIImageRenderingModeAlwaysOriginal];
+    };return image;
+}
+
+-(NSString *)subTitleTextByExpanded:(BOOL)expanded{
+    NSString *stateText = self.pinnedSectionStyle ? @"已置顶".tr : (expanded ? @"已展开".tr : @"点击展开".tr);
+    return [NSString stringWithFormat:@"%lu 个 Demo · %@",
+            (unsigned long)self.items.count,
+            stateText];
+}
+
+-(UIButton *)pinAccessoryButtonByIndex:(NSInteger)index{
+    UIColor *tintColor = JobsRedColor;
+    UIImage *accessoryImage = [self redAccessoryImageByImage:self.pinnedSectionStyle ? self.unpinImage : self.pinImage
+                                                  tintColor:tintColor];
+    @jobs_weakify(self)
+    UIButton *button = UIButton.jobsInit()
+        .jobsResetBtnImage(accessoryImage)
+        .byImageEdgeInsets(UIEdgeInsetsMake(JobsWidth(8), JobsWidth(8), JobsWidth(8), JobsWidth(8)))
+        .onClickBy(^(UIButton *x) {
+            @jobs_strongify(self)
+            self.pinAccessoryIndex = NSNotFound;
+            if (self.pinBlock) self.pinBlock(x.tag);
+        })
+        .byTintColor(tintColor)
+        .byBgColor(JobsClearColor)
+        .bySize(CGSizeMake(JobsWidth(40), JobsWidth(40)));
+    [button setImage:accessoryImage
+            forState:UIControlStateNormal];
+    [button setImage:accessoryImage
+            forState:UIControlStateHighlighted];
+    [button setImage:accessoryImage
+            forState:UIControlStateSelected];
+    if (@available(iOS 16.0, *)) {
+        button.jobsResetTitleBaseForegroundColor(tintColor);
+        button.jobsResetImageColorTransformer(^UIColor *_Nullable(UIColor *_Nullable color) {
+            return tintColor;
+        });
+        button.jobsResetImage(accessoryImage);
+    }
+    button.tintColor = tintColor;
+    button.imageView.tintColor = tintColor;
+    button.adjustsImageWhenHighlighted = NO;
+    button.tag = index;
+    button.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    return button;
+}
+
+-(void)handleInnerCellLongPress:(UILongPressGestureRecognizer *)gesture{
+    if (gesture.state != UIGestureRecognizerStateBegan) return;
+    CGPoint point = [gesture locationInView:self.innerTableView];
+    NSIndexPath *indexPath = [self.innerTableView indexPathForRowAtPoint:point];
+    if (!indexPath ||
+        indexPath.row < 0 ||
+        indexPath.row >= (NSInteger)self.items.count) return;
+    self.pinAccessoryIndex = indexPath.row;
+    NSObject.feedbackGenerator(nil);
+    [self.innerTableView reloadData];
+}
+
 -(void)configureWithSectionModel:(JobsOCDemoSectionModel *)sectionModel
                         expanded:(BOOL)expanded
-                     selectBlock:(jobsByNSIntegerBlock _Nullable)selectBlock{
+                     selectBlock:(jobsByNSIntegerBlock _Nullable)selectBlock
+                         pinBlock:(jobsByNSIntegerBlock _Nullable)pinBlock{
+    self.pinnedSectionStyle = NO;
     self.items = sectionModel.dataMutArr.copy ?: @[];
     self.selectBlock = selectBlock;
+    self.pinBlock = pinBlock;
+    self.pinAccessoryIndex = NSNotFound;
     self.titleLab.text = [NSString stringWithFormat:@"%@  (%lu)",
                           sectionModel.title,
                           (unsigned long)self.items.count];
-    self.subTitleLab.text = [NSString stringWithFormat:@"%lu 个 Demo · %@",
-                             (unsigned long)self.items.count,
-                             expanded ? @"已展开".tr : @"点击展开".tr];
     self.chevronView.image = self.chevronImage;
+    self.chevronView.byHidden(NO);
     [self.innerTableView reloadData];
     [self setExpanded:expanded
              animated:NO];
 }
 
+-(void)configurePinnedWithSectionModel:(JobsOCDemoSectionModel *)sectionModel
+                           selectBlock:(jobsByNSIntegerBlock _Nullable)selectBlock
+                            unpinBlock:(jobsByNSIntegerBlock _Nullable)unpinBlock{
+    self.pinnedSectionStyle = YES;
+    self.items = sectionModel.dataMutArr.copy ?: @[];
+    self.selectBlock = selectBlock;
+    self.pinBlock = unpinBlock;
+    self.pinAccessoryIndex = NSNotFound;
+    self.titleLab.text = [NSString stringWithFormat:@"%@  (%lu)",
+                          sectionModel.title,
+                          (unsigned long)self.items.count];
+    self.chevronView.image = nil;
+    self.chevronView.byHidden(YES);
+    [self.innerTableView reloadData];
+    [self setExpanded:YES
+             animated:NO];
+}
+
 -(void)setExpanded:(BOOL)expanded
           animated:(BOOL)animated{
+    if (self.pinnedSectionStyle) expanded = YES;
     _expanded = expanded;
-    self.subTitleLab.text = [NSString stringWithFormat:@"%lu 个 Demo · %@",
-                             (unsigned long)self.items.count,
-                             expanded ? @"已展开".tr : @"点击展开".tr];
+    self.subTitleLab.text = [self subTitleTextByExpanded:expanded];
     CGFloat targetHeight = expanded ? self.items.count * JobsOCRootFoldTableCell.innerRowHeight : 0;
     [_innerTableHeightConstraint setOffset:targetHeight];
     if (expanded) self.detailClipView.hidden = NO;
@@ -235,6 +339,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     cell.textLabel.text = [self textByViewModel:viewModel];
     cell.textLabel.font = UIFontWeightRegularSize(15);
     cell.detailTextLabel.font = UIFontWeightRegularSize(11);
+    cell.accessoryView = nil;
     if (subAttributedText.length) {
         cell.detailTextLabel.text = nil;
         cell.detailTextLabel.attributedText = subAttributedText;
@@ -242,7 +347,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         cell.detailTextLabel.attributedText = nil;
         cell.detailTextLabel.text = [self subTextByViewModel:viewModel];
     }
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    if (self.pinAccessoryIndex == indexPath.row) {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.accessoryView = [self pinAccessoryButtonByIndex:indexPath.row];
+    }else{
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.backgroundColor = JobsClearColor;
     cell.contentView.backgroundColor = JobsClearColor;
@@ -349,6 +459,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     };return _detailClipView;
 }
 
+-(UILongPressGestureRecognizer *)innerCellLongPressGesture{
+    if (!_innerCellLongPressGesture) {
+        _innerCellLongPressGesture = [UILongPressGestureRecognizer.alloc initWithTarget:self
+                                                                                action:@selector(handleInnerCellLongPress:)];
+        _innerCellLongPressGesture.minimumPressDuration = 0.45;
+        _innerCellLongPressGesture.cancelsTouchesInView = NO;
+    };return _innerCellLongPressGesture;
+}
+
 -(UITableView *)innerTableView{
     if (!_innerTableView) {
         _innerTableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
@@ -370,6 +489,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                     _innerTableHeightConstraint = make.height.mas_equalTo(0);
                     make.bottom.lessThanOrEqualTo(self.detailClipView).offset(-JobsOCRootFoldTableCell.innerBottom);
                 });
+            [tableView addGestureRecognizer:self.innerCellLongPressGesture];
         });
     };return _innerTableView;
 }

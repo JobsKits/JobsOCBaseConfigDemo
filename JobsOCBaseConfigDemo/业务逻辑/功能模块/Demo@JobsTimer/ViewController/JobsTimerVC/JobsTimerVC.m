@@ -2,7 +2,7 @@
 //  JobsTimerVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/1/20.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsTimerVC.h"
@@ -11,7 +11,6 @@
 /// UI
 Prop_strong()NSMutableArray <UIButton *>*btnMutArr;
 Prop_strong()JobsCountdownView *countdownView;
-Prop_strong()UIButton *countdownBtn;   // 倒计时按钮
 /// Data
 Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
 
@@ -34,55 +33,56 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
     
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = JobsMagentaColor;
+    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
+
     self.makeNavByAlpha(1);
     
     [self test_masonry_horizontal_fixSpace];
     self.countdownView.byVisible(YES);
-    self.countdownBtn.byVisible(YES);
     @jobs_weakify(self)
     /// 开始
-    [self.btnMutArr[0] jobsBtnClickEventBlock:^id(UIButton *data) {
+    ((UIButton *)self.btnMutArr[0]).onClickBy(^(UIButton *data) {
         @jobs_strongify(self)
         [self.countdownView.timer start];
-        return nil;
-    }];
+    });
     /// 暂停
-    [self.btnMutArr[1] jobsBtnClickEventBlock:^id(UIButton *data) {
+    ((UIButton *)self.btnMutArr[1]).onClickBy(^(UIButton *data) {
         @jobs_strongify(self)
         [self.countdownView.timer pause];
-        return nil;
-    }];
+    });
     /// 继续
-    [self.btnMutArr[2] jobsBtnClickEventBlock:^id(UIButton *data) {
+    ((UIButton *)self.btnMutArr[2]).onClickBy(^(UIButton *data) {
         @jobs_strongify(self)
         [self.countdownView.timer resume];
-        return nil;
-    }];
+    });
     /// 结束
-    [self.btnMutArr[3] jobsBtnClickEventBlock:^id(UIButton *data) {
+    ((UIButton *)self.btnMutArr[3]).onClickBy(^(UIButton *data) {
         @jobs_strongify(self)
         [self.countdownView.timer stop];
         [self.countdownView refreshData];
-        return nil;
-    }];
+    });
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -97,7 +97,6 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.countdownView.timer stop];
-    self.countdownBtn.timerDestroy();
 }
 #pragma mark —— 一些私有方法
 -(void)test_masonry_horizontal_fixSpace {
@@ -133,19 +132,23 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
 
     // 开始按钮：只有在非运行、非暂停（Idle / Finished / Canceled）时可点
     startBtn.userInteractionEnabled = isStop;
-    startBtn.alpha = startBtn.userInteractionEnabled ? 1.0 : 0.5;
+    startBtn.byAlpha(startBtn.userInteractionEnabled ? 1.0 : 0.5);
+
 
     // 暂停按钮：只有 Running 时可点
     pauseBtn.userInteractionEnabled = isRunning;
-    pauseBtn.alpha = pauseBtn.userInteractionEnabled ? 1.0 : 0.5;
+    pauseBtn.byAlpha(pauseBtn.userInteractionEnabled ? 1.0 : 0.5);
+
 
     // 继续按钮：只有 Paused 时可点
     resumeBtn.userInteractionEnabled = isPaused;
-    resumeBtn.alpha = resumeBtn.userInteractionEnabled ? 1.0 : 0.5;
+    resumeBtn.byAlpha(resumeBtn.userInteractionEnabled ? 1.0 : 0.5);
+
 
     // 结束按钮：Running / Paused 都可点
     stopBtn.userInteractionEnabled = (isRunning || isPaused);
-    stopBtn.alpha = stopBtn.userInteractionEnabled ? 1.0 : 0.5;
+    stopBtn.byAlpha(stopBtn.userInteractionEnabled ? 1.0 : 0.5);
+
 }
 #pragma mark —— lazyLoad
 -(NSMutableArray<__kindof UIButton *>*)btnMutArr{
@@ -192,52 +195,10 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
     if (!_countdownView) {
         _countdownView = JobsCountdownView.new;
         _countdownView.jobsRichViewByModel(nil);// 启动定时器
-        [self.view.addSubview(_countdownView) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _countdownView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.center.equalTo(self.view);
             make.size.mas_equalTo(JobsCountdownView.viewSizeByModel(nil));
-        }];
+        });
     };return _countdownView;
 }
-/// ★ 倒计时按钮，使用 UIButton+JobsTimer 的封装
-/// 内含定时器
--(UIButton *)countdownBtn{
-    if (!_countdownBtn) {
-        @jobs_weakify(self)
-        _countdownBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {//
-            @jobs_strongify(self)
-            self.view.addSubview
-            (
-             /// 基础 UI
-             btn.jobsResetBtnBgCor(HEXCOLOR(0xAE8330))
-                .jobsResetBtnTitle(@"获取验证码".tr)
-                .jobsResetBtnTitleCor(JobsWhiteColor)
-                .jobsResetBtnTitleFont(UIFontWeightRegularSize(24))
-                /// Timer 配置（UIButton+Timer 提供的属性）
-                .byTimerStyle(TimerStyle_anticlockwise)  // 倒计时模式
-                .byStartTime(8)                          // 总时长 8 秒
-                .byTimeInterval(1)
-                .byClickWhenTimerCycle(YES)               // 计时器运行期间：禁止点击
-                .byOnTick(^(CGFloat time){
-                    btn.jobsResetBtnTitle([NSString stringWithFormat:@"%d",(int)ceil(time)].add(JobsSpace).add(@"秒"));
-                })
-                .byOnFinish(^(JobsTimer *_Nullable timer){
-                    btn.jobsResetBtnTitle(@"获取验证码".tr);
-                })
-                /// 点击开始倒计时
-                .onClickBy(^(UIButton *x){
-                    x.startTimer();
-                })
-                .jobsResetBtnCornerRadiusValue(JobsWidth(18))
-             )
-            .byAdd(^(MASConstraintMaker *make) {
-                @jobs_strongify(self)
-                make.centerX.equalTo(self.view);
-                make.top.equalTo(self.countdownView.mas_bottom).offset(JobsWidth(12));
-                make.height.mas_equalTo(JobsWidth(80));
-                make.width.mas_equalTo(JobsWidth(180));
-            });
-        });
-    };return _countdownBtn;
-}
-
 @end

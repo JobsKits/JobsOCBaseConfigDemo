@@ -31,6 +31,10 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
     if (self = [super init]) {
         self.tableView.byShow(self);
         self.byBgColor(JobsClearColor);
+        self.layer.shadowColor = HEXCOLOR(0x5B6472).CGColor;
+        self.layer.shadowOpacity = 0.16f;
+        self.layer.shadowRadius = JobsWidth(12);
+        self.layer.shadowOffset = CGSizeMake(0, JobsWidth(8));
 
     };return self;
 }
@@ -39,6 +43,10 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
     if (self = [super initWithFrame:frame]) {
         self.tableView.byShow(self);
         self.byBgColor(JobsClearColor);
+        self.layer.shadowColor = HEXCOLOR(0x5B6472).CGColor;
+        self.layer.shadowOpacity = 0.16f;
+        self.layer.shadowRadius = JobsWidth(12);
+        self.layer.shadowOffset = CGSizeMake(0, JobsWidth(8));
 
     };return self;
 }
@@ -48,6 +56,10 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
         self.tbvCell_cls = tableViewClass;
         self.tableView.byShow(self);
         self.byBgColor(JobsClearColor);
+        self.layer.shadowColor = HEXCOLOR(0x5B6472).CGColor;
+        self.layer.shadowOpacity = 0.16f;
+        self.layer.shadowRadius = JobsWidth(12);
+        self.layer.shadowOffset = CGSizeMake(0, JobsWidth(8));
 
     };return self;
 }
@@ -76,13 +88,20 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
     @jobs_weakify(self)
-    return ^(NSMutableArray <__kindof UIViewModel *>*_Nullable model) {
+    return ^(NSArray <__kindof UIViewModel *>*_Nullable model) {
         @jobs_strongify(self)
         if ([model isKindOfClass:NSArray.class]) {
-            self.dataMutArr = model;
-            self.tableView.byShow(self);
+            [self jobsReloadDataWithModels:model];
         }
     };
+}
+
+-(JobsDropDownListView *_Nonnull)jobsReloadDataWithModels:(NSArray <__kindof UIViewModel *>*_Nullable)models{
+    self.dataMutArr = models ? models.mutableCopy : NSMutableArray.array;
+    self.tbvCellMutArr = nil;
+    self.tableView.byShow(self);
+    [self.tableView reloadData];
+    return self;
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -131,27 +150,24 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_tableView) {
         @jobs_weakify(self)
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
-            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
-                .bySeparatorColor(HEXCOLOR(0xEEEEEE))
+            tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .bySeparatorColor(JobsClearColor)
                 .byTableHeaderView(jobsMakeView(^(__kindof UIView * _Nullable view) {
-                    /// TODO
+                    view.byBgColor(JobsClearColor);
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
-                .byTableFooterView(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
-                    label
-                        .byText(@"- 没有更多的内容了 -".tr)
-                        .byFont(UIFontWeightRegularSize(12))
-                        .byTextAlignment(NSTextAlignmentCenter)
-                        .byTextCor(HEXCOLOR(0xB0B0B0))
-                        .makeLabelByShowingType(UILabelShowingType_03);
+                .byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+                    view.byBgColor(JobsClearColor);
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .byShowsVerticalScrollIndicator(NO)
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(HEXCOLOR(0xFBFCFE))
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
                     make.edges.equalTo(self);
                 });
-            tableView.layer.cornerRadius = JobsWidth(14);
+            tableView.layer.cornerRadius = JobsWidth(16);
+            tableView.layer.borderWidth = JobsWidth(1);
+            tableView.layer.borderColor = HEXCOLOR(0xEDF1F5).CGColor;
             tableView.layer.masksToBounds = YES;
         });
     };return _tableView;
@@ -163,14 +179,19 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tbvCellMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             @jobs_strongify(self)
             NSInteger dataMutArrCount = self.dataMutArr.count;
-            do {
+            for (NSInteger i = 0; i < dataMutArrCount; i++) {
                 UITableViewCell *tableViewCell = [self.tableView tableViewCellClass:self.tbvCell_cls ? : JobsDropDownListTBVCell.class
                                                        tableViewCellStyleValue1Salt:@""];
                 data.add(tableViewCell);
-                dataMutArrCount -= 1;
-            } while (dataMutArrCount);
+            }
         });
     };return _tbvCellMutArr;
+}
+
+-(NSMutableArray<__kindof UIViewModel *> *)dataMutArr{
+    if (!_dataMutArr) {
+        _dataMutArr = NSMutableArray.array;
+    };return _dataMutArr;
 }
 
 @end

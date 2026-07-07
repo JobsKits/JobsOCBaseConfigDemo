@@ -93,7 +93,7 @@ Prop_assign()NSUInteger thisIndex;
     };
 }
 
--(JobsReturnButtonModelByString _Nonnull)makeLeftCellDataByUnSelect{
+-(JobsRetButtonModelByString _Nonnull)makeLeftCellDataByUnSelect{
 //    @jobs_weakify(self)
     return ^__kindof UIButtonModel *_Nullable(__kindof NSString *_Nullable data){
 //        @jobs_strongify(self)
@@ -184,7 +184,7 @@ Prop_assign()NSUInteger thisIndex;
     };
 }
 /// 暂时没用到
--(JobsReturnGoodsClassModelByIntBlock _Nonnull)createOneModel{
+-(JobsRetGoodsClassModelByIntBlock _Nonnull)createOneModel{
 //    @jobs_weakify(self)
     return ^__kindof GoodsClassModel *_Nullable(int iflag){
         return jobsMakeGoodsClassModel(^(GoodsClassModel * _Nullable model) {
@@ -197,7 +197,7 @@ Prop_assign()NSUInteger thisIndex;
     };
 }
 
--(JobsReturnGoodsClassModelByInt2Block _Nonnull)createTwoModel{
+-(JobsRetGoodsClassModelByInt2Block _Nonnull)createTwoModel{
     @jobs_weakify(self)
     return ^__kindof GoodsClassModel *_Nullable(NSUInteger data1,int iFlag){
         return jobsMakeGoodsClassModel(^(GoodsClassModel * _Nullable model) {
@@ -225,7 +225,7 @@ Prop_assign()NSUInteger thisIndex;
     };
 }
 
--(JobsReturnGoodsClassModelByIntStringBlock _Nonnull)createThreeModel{
+-(JobsRetGoodsClassModelByIntStringBlock _Nonnull)createThreeModel{
     return ^__kindof GoodsClassModel *_Nullable(int iflag,NSString *_Nullable string){
         return jobsMakeGoodsClassModel(^(GoodsClassModel * _Nullable model) {
             model.idField = toStringByInt(iflag);

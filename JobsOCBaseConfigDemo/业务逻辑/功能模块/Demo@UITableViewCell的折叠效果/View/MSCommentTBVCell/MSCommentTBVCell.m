@@ -2,7 +2,7 @@
 //  MSCommentTBVCell.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs Hi on 10/2/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "MSCommentTBVCell.h"
@@ -25,11 +25,13 @@ UIViewModelProtocol_synthesize_part2
 BaseLayerProtocol_synthesize_part3
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^(UITableView * _Nonnull tableView) {
         MSCommentTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(MSCommentTBVCell);
         cell.offsetXForEach = JobsWidth(7);
         cell.offsetYForEach = JobsWidth(3);
+        cell.byBgColor(JobsClearColor);
+        cell.contentView.byBgColor(HEXCOLOR(0xFFFFFF));
         cell.cornerCutToCircleWithCornerRadius(JobsWidth(8));
         return cell;
     };
@@ -41,7 +43,9 @@ BaseLayerProtocol_synthesize_part3
         @jobs_strongify(self)
         if([model isKindOfClass:MSCommentDetailModel.class]){
             self.commentDetailModel = model;
-            self.titleLab.alpha = 1;
+            self.titleLab
+                .byText(model.rowTitle)
+                .byAlpha(1);
         };return self;
     };
 }
@@ -50,13 +54,12 @@ BaseLayerProtocol_synthesize_part3
     @jobs_weakify(self)
     return ^CGFloat(MSCommentDetailModel *_Nullable data){
         @jobs_strongify(self)
-        return 3 * [self jobsGetLabelHeightByWidth:JobsWidth(355)
-                                             title:data.rowTitle
-                                              font:UIFontWeightRegularSize(14)];
+        return [self jobsGetLabelHeightByWidth:JobsWidth(305)
+                                         title:data.rowTitle
+                                          font:UIFontWeightRegularSize(14)] + JobsWidth(34);
     };
 }
 // 在具体的子类去实现,分类调用异常
-#pragma mark —— frame
 -(void)setFrame:(CGRect)frame{
     JobsLog(@"self.offsetXForEach = %f",self.offsetXForEach);
     JobsLog(@"self.offsetYForEach = %f",self.offsetYForEach);
@@ -68,19 +71,23 @@ BaseLayerProtocol_synthesize_part3
 }
 #pragma mark —— lazyLoad
 -(UILabel *)titleLab{
-    if(!_titleLab){
+    if (!_titleLab) {
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
             @jobs_strongify(self)
-            label.textColor = @"#666666".cor;
-            label.backgroundColor = @"#F7F7F7".cor;
-            label.font = UIFontWeightRegularSize(14);
-            [self.contentView.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.contentView).with.insets(UIEdgeInsetsMake(JobsWidth(5),
-                                                                                  JobsWidth(25),
-                                                                                  JobsWidth(5),
-                                                                                  JobsWidth(25)));
-            }];label.cornerCutToCircleWithCornerRadius(JobsWidth(8));
+            label
+                .byTextCor(HEXCOLOR(0x374151))
+                .byFont(UIFontWeightRegularSize(14))
+                .byNumberOfLines(0)
+                .byBgColor(HEXCOLOR(0xFFFFFF))
+                .byCornerRadius(JobsWidth(8))
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.contentView).with.insets(UIEdgeInsetsMake(JobsWidth(5),
+                                                                                      JobsWidth(18),
+                                                                                      JobsWidth(5),
+                                                                                      JobsWidth(18)));
+                });
         });
     };return _titleLab;
 }

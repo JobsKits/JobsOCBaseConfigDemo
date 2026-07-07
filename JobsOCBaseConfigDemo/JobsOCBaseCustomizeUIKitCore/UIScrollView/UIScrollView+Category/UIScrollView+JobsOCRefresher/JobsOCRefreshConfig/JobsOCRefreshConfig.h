@@ -7,7 +7,23 @@
 
 #import "JobsOCRefreshDefines.h"
 
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import "JobsLanMgr.h"
+#else
+#import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import "JobsBlock.h"
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import "JobsDefines.h"
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -44,5 +60,12 @@ Prop_copy(nullable) NSArray<NSString *> *frameImageNames;
 - (NSString *)refreshingTextForRole:(JobsOCRefreshRole)role;
 
 @end
+
+NS_INLINE __kindof JobsOCRefreshConfig *_Nonnull
+jobsMakeOCRefreshConfig(jobsByOCRefreshConfigBlock _Nullable block) {
+    JobsOCRefreshConfig *config = JobsOCRefreshConfig.alloc.init;
+    if (block) block(config);
+    return config;
+}
 
 NS_ASSUME_NONNULL_END

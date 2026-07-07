@@ -28,8 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_copy(readonly,nonnull)JobsRetViewByVoidBlock load;
 Prop_copy(readonly,nonnull)JobsRetImageViewByURLBlock imageURL;
 Prop_copy(readonly,nonnull)JobsRetImageViewByImageBlock placeholderImage;
-Prop_copy(readonly,nonnull)JobsReturnImageViewBySDWebImageOptionsBlocks options;
-Prop_copy(readonly,nonnull)JobsReturnImageViewBySDExternalCompletionBlocks completed;
+Prop_copy(readonly,nonnull)JobsRetImageViewBySDWebImageOptionsBlocks options;
+Prop_copy(readonly,nonnull)JobsRetImageViewBySDExternalCompletionBlocks completed;
 
 @end
 

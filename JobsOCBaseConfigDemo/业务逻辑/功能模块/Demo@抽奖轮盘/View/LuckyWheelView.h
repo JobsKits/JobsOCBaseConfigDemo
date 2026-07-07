@@ -2,15 +2,12 @@
 //  LuckyWheelView.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 12/5/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <UIKit/UIKit.h>
 #import "LuckyWheelSegment.h"
 #import "ScrollDecelerator.h"
-#import "JobsDefineProperty.h"
-#import "JobsBlock.h"
-#import "JobsDefineEnums.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -18,11 +15,41 @@
 #import "Masonry.h"
 #endif
 
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import "JobsLanMgr.h"
+#else
+#import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import "JobsOCDSL.h"
+#else
+#import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import "JobsMakes.h"
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import "JobsBlock.h"
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import "JobsDefines.h"
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LuckyWheelView : UIView
 /// “指针”方向（默认正上方）
-Prop_assign()JobsDirection pointerDirection;
+Prop_assign()JobsDirectionType pointerDirection;
 /// 完整 Segment 模型（推荐使用）
 Prop_strong()NSArray<LuckyWheelSegment *> *segments;
 /// 仅背景色（向下兼容）：设置 colors 会自动生成 segments
@@ -35,6 +62,10 @@ Prop_assign()NSTimeInterval spinDuration;
 Prop_strong(nullable)NSNumber *customInitialVelocity;
 /// 是否允许手势拖动旋转（默认 YES）
 Prop_assign()BOOL panRotationEnabled;
+/// 是否正在自动旋转
+Prop_assign(readonly, getter=isSpinning)BOOL spinning;
+/// 自动旋转状态变化
+Prop_copy(nullable)jobsByBOOLBlock spinningStateChangedHandler;
 /// 点按事件
 Prop_copy(nullable)jobsByLuckyWheelSegmentBlock segmentTapHandler;
 /// 长按事件
@@ -43,11 +74,14 @@ Prop_copy(nullable)jobsByLuckyWheelSegmentAndLPGesturerBlock segmentLongPressHan
 - (void)startSpinWithScrollLikeDeceleration;
 /// 指定初始角速度启动减速旋转
 - (void)startSpinWithScrollLikeDecelerationWithInitialVelocity:(CGFloat)initialVelocity;
+/// 开始 / 停止切换
+- (void)toggleSpin;
 /// 停止旋转
 - (void)stopSpin;
 /// （可选）非 DSL 版本，直接配置
 - (instancetype)onSegmentTap:(jobsByLuckyWheelSegmentBlock)handler;
 - (instancetype)onSegmentLongPress:(jobsByLuckyWheelSegmentAndLPGesturerBlock)handler;
+- (instancetype)onSpinningStateChanged:(jobsByBOOLBlock)handler;
 #pragma mark —— DSL
 /// DSL@设置指针方向
 - (JobsRetLuckyWheelViewByPointerDirectionBlock _Nonnull)byPointerDirection;
@@ -70,6 +104,7 @@ Prop_copy(nullable)jobsByLuckyWheelSegmentAndLPGesturerBlock segmentLongPressHan
 @end
 
 NS_ASSUME_NONNULL_END
+
 NS_INLINE __kindof LuckyWheelView *_Nonnull
 jobsMakeLuckyWheelView(jobsByLuckyWheelViewBlock _Nonnull block){
     LuckyWheelView *data = LuckyWheelView.alloc.init;

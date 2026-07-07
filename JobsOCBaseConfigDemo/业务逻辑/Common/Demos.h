@@ -17,12 +17,13 @@
 #import "Douyin_ZFPlayerVC@2.h"
 #import "JobsAppDoorVC_Style2.h"
 #import "JobsCommentVC.h"
+#import "JobsOCCommentDemoVC.h"
 #import "JobsIMShowVC.h"
-#import "JobsSearchVC.h"
+#import "JobsOCSearcherDemoVC.h"
 #import "TestLabelVC.h"
-#import "JobsTimerVC.h"
+#import "JobsTimerDemoListVC.h"
 #import "JobsDropDownListVC.h"
-#import "JobsOCCountryCodeCtrlHeader.h"
+
 #import "YTKNetworkStudyVC.h"
 #import "CoreTextLearningVC.h"
 #import "JXCategoryPopupVC.h"
@@ -40,7 +41,6 @@
 #import "JobsOCRefresherDemoVC.h"
 #import "TestBaseLabelVC.h"
 #import "RandomTestVC.h"
-#import "NSTimerManagerTestVC.h"
 #import "CustomTableViewCellVC.h"
 #import "CustomBtnVC.h"
 #import "GXCardViewDemoVC.h"
@@ -69,14 +69,24 @@
 #import "LotteryVC.h"
 #import "PointLabTestVC.h"
 #import "CalendarVC.h"                     // 日历功能
-#import "JobsScrollLabelVC.h"              // 当文本超出的时候，滚动展现文字的Label
 #import "NSProxyDemoVC.h"
 #import "JobsNavigationDemoVC.h"
 #import "SlideToUnlockDemoVC.h"
 #import "JobsClockDemoVC.h"
 #import "JobsTabBarCtrlDemoVC.h"
 #import "JobsOCKeyboardMgrDemoVC.h"
+#import "JobsGraphicCaptchaDemoVC.h"
 
+#if __has_include(<JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>)
+#import "JobsOCCountryCodeCtrlHeader.h"
+#else
+#import "JobsOCCountryCodeCtrlHeader.h"
+#endif
+
+#if __has_include(<JobsOCVideoRecorder/JobsOCVideoRecorder.h>)
 #import "JobsOCVideoRecorder.h"
+#else
+#import "JobsOCVideoRecorder.h"
+#endif
 
 #endif /* Demos_h */

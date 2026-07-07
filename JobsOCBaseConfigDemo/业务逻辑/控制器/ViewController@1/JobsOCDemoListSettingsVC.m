@@ -13,7 +13,8 @@ static NSString *const JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey = @"co
 
 typedef NS_ENUM(NSInteger, JobsOCDemoListSettingItem) {
     JobsOCDemoListSettingItemSplash = 0,
-    JobsOCDemoListSettingItemReturnBehavior
+    JobsOCDemoListSettingItemReturnToTopAndRefresh,
+    JobsOCDemoListSettingItemReturnKeepPosition
 };
 
 typedef NS_ENUM(NSInteger, JobsOCDemoListSettingSection) {
@@ -30,7 +31,6 @@ Prop_strong()UITableView *tableView;
 -(BOOL)demoListReturnToTopAndRefreshEnabled;
 -(void)setDemoListReturnToTopAndRefreshEnabled:(BOOL)enabled;
 -(NSString *)splashSwitchTitle;
--(NSString *)demoListReturnBehaviorTitle;
 -(NSArray <NSString *>*)generalSettingTitleArr;
 -(NSArray <NSString *>*)languageTitleArr;
 -(AppLanguage)appLanguageByRow:(NSInteger)row;
@@ -121,9 +121,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == JobsOCDemoListSettingItemSplash) {
         [self setJobsOCSplashEnabled:![self jobsOCSplashEnabled]];
         ([self jobsOCSplashEnabled] ? @"下次打开开屏".tr : @"下次关闭开屏".tr).toast();
+    }else if (indexPath.row == JobsOCDemoListSettingItemReturnToTopAndRefresh){
+        [self setDemoListReturnToTopAndRefreshEnabled:YES];
+        @"返回主列表：回顶部并刷新".tr.toast();
     }else{
-        [self setDemoListReturnToTopAndRefreshEnabled:![self demoListReturnToTopAndRefreshEnabled]];
-        ([self demoListReturnToTopAndRefreshEnabled] ? @"返回主列表：回顶部并刷新".tr : @"返回主列表：保持原样".tr).toast();
+        [self setDemoListReturnToTopAndRefreshEnabled:NO];
+        @"返回主列表：保持原样".tr.toast();
     }
     [self.tableView reloadData];
 }
@@ -182,9 +185,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"设置".tr);
-            data.byFont(UIFontWeightRegularSize(18));
-            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(@"设置".tr)
+                .byFont(UIFontWeightRegularSize(18))
+                .byTextCor(HEXCOLOR(0x3D4A58));
         })
         .byBgCor(RGBA_COLOR(255, 238, 221, 1))
         .byNavBgCor(RGBA_COLOR(255, 238, 221, 1));
@@ -194,14 +197,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     return [self jobsOCSplashEnabled] ? @"开屏：开".tr : @"开屏：关".tr;
 }
 
--(NSString *)demoListReturnBehaviorTitle{
-    return [self demoListReturnToTopAndRefreshEnabled] ? @"返回：回顶部并刷新".tr : @"返回：保持原样".tr;
-}
-
 -(NSArray<NSString *> *)generalSettingTitleArr{
     return @[
         [self splashSwitchTitle],
-        [self demoListReturnBehaviorTitle]
+        @"返回：回顶部并刷新".tr,
+        @"返回：保持原样".tr
     ];
 }
 
@@ -233,8 +233,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 -(UITableViewCellAccessoryType)accessoryTypeByIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == JobsOCDemoListSettingSectionGeneral) return UITableViewCellAccessoryDisclosureIndicator;
-    return [self appLanguageByRow:indexPath.row] == LanMgr.language ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    if (indexPath.section == JobsOCDemoListSettingSectionGeneral) {
+        if (indexPath.row == JobsOCDemoListSettingItemSplash) return UITableViewCellAccessoryDisclosureIndicator;
+        BOOL returnToTopAndRefreshEnabled = [self demoListReturnToTopAndRefreshEnabled];
+        if (indexPath.row == JobsOCDemoListSettingItemReturnToTopAndRefresh) {
+            return returnToTopAndRefreshEnabled ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+        };return returnToTopAndRefreshEnabled ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
+    };return [self appLanguageByRow:indexPath.row] == LanMgr.language ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 }
 
 @end

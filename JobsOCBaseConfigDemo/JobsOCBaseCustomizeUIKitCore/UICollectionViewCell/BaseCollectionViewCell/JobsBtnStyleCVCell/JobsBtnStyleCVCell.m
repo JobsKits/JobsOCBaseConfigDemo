@@ -111,7 +111,7 @@ AppToolsProtocol_synthesize
 }
 #pragma mark —— 一些私有方法
 /// 数据源UIViewModel设置UIButton
--(JobsReturnButtonByViewModelBlock _Nonnull)setBtnByViewModel{
+-(JobsRetButtonByViewModelBlock _Nonnull)setBtnByViewModel{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(__kindof UIViewModel *_Nullable viewModel){
         @jobs_strongify(self)
@@ -151,7 +151,7 @@ AppToolsProtocol_synthesize
     };
 }
 /// 数据源UIButtonModel设置UIButton
--(JobsReturnButtonByButtonModelBlock _Nonnull)setBtnByButtonModel{
+-(JobsRetButtonByButtonModelBlock _Nonnull)setBtnByButtonModel{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(__kindof UIButtonModel *_Nullable buttonModel){
         @jobs_strongify(self)

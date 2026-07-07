@@ -2,7 +2,7 @@
 //  JobsIMShowVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/1/13.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsIMShowVC.h"
@@ -31,23 +31,29 @@ Prop_strong()JobsIMListView *listView;
         }
     }
     
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
     
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsYellowColor;
+    self.view.byBgColor(JobsYellowColor);
+
     {
         @jobs_weakify(self)
         self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
@@ -60,7 +66,8 @@ Prop_strong()JobsIMListView *listView;
         });
         self.makeNavByAlpha(1);
     }
-    self.listView.alpha = 1;
+    self.listView.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -78,6 +85,11 @@ Prop_strong()JobsIMListView *listView;
 -(UIViewModel *)makeData:(JobsIMListDataModel *)data{
     
     JobsIMChatInfoModel *chatInfoModel = JobsIMChatInfoModel.new;
+    chatInfoModel.messageID = data.lastMessageID ?: NSUUID.UUID.UUIDString;
+    chatInfoModel.conversationID = data.peerID;
+    chatInfoModel.fromUserID = data.userID;
+    chatInfoModel.toUserID = JobsIMLocalDemoUserID();
+    chatInfoModel.userID = data.userID;
     chatInfoModel.chatTextStr = data.contentStr;
     chatInfoModel.userNameStr = data.usernameStr;
     {
@@ -85,11 +97,25 @@ Prop_strong()JobsIMListView *listView;
         chatInfoModel.chatTextTimeStr = [NSString stringWithFormat:@"%ld:%ld:%ld",timeModel.currentHour,timeModel.currentMin,timeModel.currentSec];
     }
     chatInfoModel.userIconIMG = data.userHeaderIMG;
-    chatInfoModel.identification = @"我是服务器";
+    chatInfoModel.userIconURLStr = data.userHeaderURLStr;
+    chatInfoModel.identification = JobsIMStringFromTransportKind(data.transportKind);
+    chatInfoModel.messageType = JobsIMChatMessageType_Text;
+    chatInfoModel.chatInfoDirection = JobsIMChatInfoDirection_Send;
+    chatInfoModel.packetType = JobsIMPacketTypeText;
+    chatInfoModel.deliveryState = JobsIMDeliveryStateReceived;
+    chatInfoModel.transportKind = data.transportKind;
+    chatInfoModel.rawPacket = JobsIMPacketMake(JobsIMPacketTypeText,
+                                               chatInfoModel.messageID,
+                                               chatInfoModel.fromUserID,
+                                               chatInfoModel.toUserID,
+                                               @{
+                                                   @"text": chatInfoModel.chatTextStr ?: @"",
+                                                   @"transport": JobsIMStringFromTransportKind(data.transportKind)
+                                               });
     
-    UIViewModel *viewModel = UIViewModel.new;
-    viewModel.data = chatInfoModel;
-    return viewModel;
+    return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
+        data.byData(chatInfoModel);
+    });
 }
 #pragma mark —— lazyLoad
 -(JobsIMListView *)listView{
@@ -101,15 +127,15 @@ Prop_strong()JobsIMListView *listView;
             @jobs_strongify(self)
             self.comingToPushVCByRequestParams(JobsIMVC.new,[self makeData:data]);
         }];
-        [self.view addSubview:_listView];
-        [_listView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _listView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             if (self.gk_navBarAlpha && !self.gk_navigationBar.hidden) {//显示
                 make.top.equalTo(self.gk_navigationBar.mas_bottom);
             }else{
                 make.top.equalTo(self.view.mas_top);
             }
-        }];
+        });
+
     };return _listView;
 }
 
@@ -119,7 +145,9 @@ Prop_strong()JobsIMListView *listView;
         _shareBtn = BaseButton.jobsInit()
             .bgColorBy(JobsWhiteColor)
             .jobsResetBtnCornerRadiusValue(JobsWidth(23 / 2))
-            .jobsResetBtnImage(JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"分享"))
+            .jobsResetBtnTitle(@"+")
+            .jobsResetBtnTitleCor(HEXCOLOR(0xD4B58D))
+            .jobsResetBtnTitleFont(UIFontWeightRegularSize(JobsWidth(24)))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);

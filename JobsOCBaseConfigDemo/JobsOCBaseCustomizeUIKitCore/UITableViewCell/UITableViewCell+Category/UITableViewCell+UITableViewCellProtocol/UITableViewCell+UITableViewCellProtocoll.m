@@ -37,10 +37,6 @@ UITableViewCellProtocol_dynamic
         };return cell;
     };
 }
-
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
-    return self.cellStyleDefaultByTableView;
-}
 /// UITableViewCellStyleValue1 = 左边：imageView＋textLabel；右边：detailTextLabel
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     @jobs_weakify(self)
@@ -52,10 +48,6 @@ UITableViewCellProtocol_dynamic
             cell.settingForTableViewCell();
         };return cell;
     };
-}
-
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
-    return self.cellStyleValue1ByTableView;
 }
 /// UITableViewCellStyleValue2 = 左边：textLabel字体偏小；右边：detailTextLabel。imageView可选（显示在最左边）
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2ByTableView{
@@ -69,10 +61,6 @@ UITableViewCellProtocol_dynamic
         };return cell;
     };
 }
-
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2WithTableView{
-    return self.cellStyleValue2ByTableView;
-}
 /// UITableViewCellStyleSubtitle = 左边：textLabel字体偏小；右边：detailTextLabel。imageView可选（显示在最左边）
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleByTableView{
     @jobs_weakify(self)
@@ -84,10 +72,6 @@ UITableViewCellProtocol_dynamic
             cell.settingForTableViewCell();
         };return cell;
     };
-}
-
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleWithTableView{
-    return self.cellStyleSubtitleByTableView;
 }
 /// UITableViewCell的一些默认样式设置
 -(jobsByVoidBlock _Nonnull)settingForTableViewCell{
@@ -127,7 +111,7 @@ UITableViewCellProtocol_dynamic
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        if (model.isKindOfClass(UIViewModel.class)) {
+        if ([model isKindOfClass:UIViewModel.class]) {
             self.textLabel
                 .byTextCor(model.textModel.textCor)
                 .byFont(model.textModel.font)

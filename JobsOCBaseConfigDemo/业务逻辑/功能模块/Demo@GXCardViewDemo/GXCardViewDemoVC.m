@@ -2,10 +2,24 @@
 //  GXCardViewDemoVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/7/6.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "GXCardViewDemoVC.h"
+
+static NSBundle *GXCardViewDemoResourceBundle(void) {
+    NSArray<NSBundle *> *sourceBundles = @[
+        [NSBundle bundleForClass:GXCardItemDemoCell.class] ?: NSBundle.mainBundle,
+        NSBundle.mainBundle
+    ];
+    for (NSBundle *sourceBundle in sourceBundles) {
+        NSURL *bundleURL = [sourceBundle URLForResource:@"JobsOCToolsCore" withExtension:@"bundle"];
+        NSBundle *resourceBundle = bundleURL ? [NSBundle bundleWithURL:bundleURL] : nil;
+        if (resourceBundle) return resourceBundle;
+    }
+    NSBundle *classBundle = [NSBundle bundleForClass:GXCardItemDemoCell.class];
+    return classBundle ?: NSBundle.mainBundle;
+}
 
 @interface GXCardViewDemoVC ()
 /// UI
@@ -30,26 +44,34 @@ Prop_assign()NSInteger cellCount;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-//        self.viewModel.textModel.text = @"GXCardViewDemo".tr;
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    self.cellCount = 10;
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+        })
+        //        self.viewModel.textModel.text = @"GXCardViewDemo".tr;
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);    self.cellCount = 10;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.backgroundColor = JobsRedColor;
-    self.cardView.alpha = 1;
+    self.view.byBgColor(JobsRedColor);
+
+    self.cardView.byAlpha(1);
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -83,9 +105,13 @@ Prop_assign()NSInteger cellCount;
            cellForRowAtIndex:(NSInteger)index {
     GXCardItemDemoCell *cell = [cardView dequeueReusableCellWithIdentifier:@"GXCardViewCell"];
     cell.byBgColor(JobsYellowColor);
-    cell.numberLabel.text = [NSString stringWithFormat:@"%ld", (long)index];
-    cell.leftLabel.hidden = YES;
-    cell.rightLabel.hidden = YES;
+
+    cell.numberLabel.byText([NSString stringWithFormat:@"%ld", (long)index]);
+
+    cell.leftLabel.byHidden(YES);
+
+    cell.rightLabel.byHidden(YES);
+
     cell.layer.cornerRadius = 12.0;
     return cell;
 }
@@ -125,8 +151,10 @@ didRemoveLastCell:(GXCardViewCell *)cell
        direction:(GXCardCellSwipeDirection)direction {
     GXCardItemDemoCell *dcell = (GXCardItemDemoCell*)cell;
     
-    dcell.leftLabel.hidden = !(direction == GXCardCellSwipeDirectionRight);
-    dcell.rightLabel.hidden = !(direction == GXCardCellSwipeDirectionLeft);
+    dcell.leftLabel.byHidden(!(direction == GXCardCellSwipeDirectionRight));
+
+    dcell.rightLabel.byHidden(!(direction == GXCardCellSwipeDirectionLeft));
+
 
     JobsLog(@"move point = %@,  direction = %ld", NSStringFromCGPoint(point), direction);
 }
@@ -151,12 +179,14 @@ didRemoveLastCell:(GXCardViewCell *)cell
         _cardView.maxAngle = 15.0;
         _cardView.maxRemoveDistance = 100.0;
     //    _cardView.isRepeat = YES; // 新加入
-        [_cardView registerNib:[UINib nibWithNibName:NSStringFromClass(GXCardItemDemoCell.class) bundle:nil] forCellReuseIdentifier:@"GXCardViewCell"];
+        [_cardView registerNib:[UINib nibWithNibName:NSStringFromClass(GXCardItemDemoCell.class)
+                                             bundle:GXCardViewDemoResourceBundle()]
+         forCellReuseIdentifier:@"GXCardViewCell"];
         
-        [self.view addSubview:_cardView];
-        [_cardView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _cardView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
-        }];
+        });
+
     };return _cardView;
 }
 

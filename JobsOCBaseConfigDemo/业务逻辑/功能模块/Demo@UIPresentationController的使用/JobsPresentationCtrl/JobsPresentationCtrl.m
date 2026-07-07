@@ -1,3 +1,10 @@
+//
+//  JobsPresentationCtrl.m
+//  JobsOCBaseConfigDemo
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
 #import "JobsPresentationCtrl.h"
 
 //! The corner radius applied to the view containing the presented view
@@ -8,6 +15,15 @@
 /// UI
 Prop_strong()UIView *dimmingView;
 Prop_strong()UIView *presentationWrappingView;
+@property(nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
+@property(nonatomic, assign) CGRect panStartFrame;
+@property(nonatomic, assign) CGRect interactiveFrame;
+@property(nonatomic, assign) BOOL hasInteractiveFrame;
+
+-(void)jobs_handlePanGesture:(UIPanGestureRecognizer *)panGestureRecognizer;
+-(CGRect)jobs_frameByTop:(CGFloat)top;
+-(CGFloat)jobs_defaultPresentedMinY;
+-(UIScrollView *_Nullable)jobs_hitScrollViewByGesture:(UIGestureRecognizer *)gestureRecognizer;
 
 @end
 
@@ -50,12 +66,21 @@ Prop_strong()UIView *presentationWrappingView;
     //
     // SEE ALSO: The note in AAPLCustomPresentationSecondViewController.m.
     {
-        UIView *presentationWrapperView = UIView.new;
-        presentationWrapperView.frame = self.frameOfPresentedViewInContainerView;
-        presentationWrapperView.layer.shadowOpacity = 0.44f;
-        presentationWrapperView.layer.shadowRadius = 13.f;
-        presentationWrapperView.layer.shadowOffset = CGSizeMake(0, -6.f);
+        UIView *presentationWrapperView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(self.frameOfPresentedViewInContainerView)
+                .byLayer(^(CALayer *layer) {
+                    layer
+                        .byShadowOpacity(0.44f)
+                        .byShadowRadius(13.f)
+                        .byShadowOffset(CGSizeMake(0, -6.f));
+                });
+        });
         self.presentationWrappingView = presentationWrapperView;
+        self.panGestureRecognizer = [UIPanGestureRecognizer.alloc initWithTarget:self
+                                                                          action:@selector(jobs_handlePanGesture:)];
+        self.panGestureRecognizer.delegate = self;
+        [presentationWrapperView addGestureRecognizer:self.panGestureRecognizer];
         
         // presentationRoundedCornerView is CORNER_RADIUS points taller than the
         // height of the presented view controller's view.  This is because
@@ -63,41 +88,51 @@ Prop_strong()UIView *presentationWrappingView;
         // effect calls for only the top two corners to be rounded we size
         // the view such that the bottom CORNER_RADIUS points lie below
         // the bottom edge of the screen.
-        UIView *presentationRoundedCornerView = UIView.new;
-        presentationRoundedCornerView.frame = UIEdgeInsetsInsetRect(presentationWrapperView.bounds, UIEdgeInsetsMake(0, 0, -CORNER_RADIUS, 0));
-        presentationRoundedCornerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        presentationRoundedCornerView.layer.cornerRadius = CORNER_RADIUS;
-        presentationRoundedCornerView.layer.masksToBounds = YES;
+        UIView *presentationRoundedCornerView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(UIEdgeInsetsInsetRect(presentationWrapperView.bounds, UIEdgeInsetsMake(0, 0, -CORNER_RADIUS, 0)))
+                .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
+                .byLayer(^(CALayer *layer) {
+                    layer
+                        .byCornerRadius(CORNER_RADIUS)
+                        .byMasksToBounds(YES);
+                });
+        });
         
         // To undo the extra height added to presentationRoundedCornerView,
         // presentedViewControllerWrapperView is inset by CORNER_RADIUS points.
         // This also matches the size of presentedViewControllerWrapperView's
         // bounds to the size of -frameOfPresentedViewInContainerView.
-        UIView *presentedViewControllerWrapperView = UIView.new;
-        presentedViewControllerWrapperView.frame = UIEdgeInsetsInsetRect(presentationRoundedCornerView.bounds, UIEdgeInsetsMake(0, 0, CORNER_RADIUS, 0));
-        presentedViewControllerWrapperView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        UIView *presentedViewControllerWrapperView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(UIEdgeInsetsInsetRect(presentationRoundedCornerView.bounds, UIEdgeInsetsMake(0, 0, CORNER_RADIUS, 0)))
+                .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+        });
         
         // Add presentedViewControllerView -> presentedViewControllerWrapperView.
-        presentedViewControllerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        presentedViewControllerView.frame = presentedViewControllerWrapperView.bounds;
-        [presentedViewControllerWrapperView addSubview:presentedViewControllerView];
+        presentedViewControllerView
+            .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
+            .byFrame(presentedViewControllerWrapperView.bounds)
+            .addOn(presentedViewControllerWrapperView);
         
         // Add presentedViewControllerWrapperView -> presentationRoundedCornerView.
-        [presentationRoundedCornerView addSubview:presentedViewControllerWrapperView];
+        presentedViewControllerWrapperView.addOn(presentationRoundedCornerView);
         
         // Add presentationRoundedCornerView -> presentationWrapperView.
-        [presentationWrapperView addSubview:presentationRoundedCornerView];
+        presentationRoundedCornerView.addOn(presentationWrapperView);
     }
     
     // Add a dimming view behind presentationWrapperView.  self.presentedView
     // is added later (by the animator) so any views added here will be
     // appear behind the -presentedView.
     {
-        UIView *dimmingView = UIView.new;
-        dimmingView.frame = self.containerView.bounds;
-        dimmingView.backgroundColor = JobsBlackColor;
-        dimmingView.opaque = NO;
-        dimmingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        UIView *dimmingView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(self.containerView.bounds)
+                .byBgColor(JobsBlackColor)
+                .byOpaque(NO)
+                .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+        });
         
         dimmingView.weak_target = self;
         dimmingView.tapGR_SelImp.selector = [self jobsSelectorBlock:^id _Nullable(id _Nullable target,
@@ -108,17 +143,19 @@ Prop_strong()UIView *presentationWrappingView;
         dimmingView.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
         
         self.dimmingView = dimmingView;
-        [self.containerView addSubview:dimmingView];
+        dimmingView.addOn(self.containerView);
         
         // Get the transition coordinator for the presentation so we can
         // fade in the dimmingView alongside the presentation animation.
         id<UIViewControllerTransitionCoordinator> transitionCoordinator = self.presentingViewController.transitionCoordinator;
         
-        self.dimmingView.alpha = 0.f;
+        self.dimmingView.byAlpha(0.f);
+
         @jobs_weakify(self)
         [transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
             @jobs_strongify(self)
-            self.dimmingView.alpha = 0.5f;
+            self.dimmingView.byAlpha(0.5f);
+
         } completion:NULL];
     }
 }
@@ -145,7 +182,8 @@ Prop_strong()UIView *presentationWrappingView;
     @jobs_weakify(self)
     [transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         @jobs_strongify(self)
-        self.dimmingView.alpha = 0.f;
+        self.dimmingView.byAlpha(0.f);
+
     } completion:NULL];
 }
 
@@ -198,6 +236,7 @@ Prop_strong()UIView *presentationWrappingView;
 
 - (CGRect)frameOfPresentedViewInContainerView{
     CGRect containerViewBounds = self.containerView.bounds;
+    if (self.hasInteractiveFrame) return self.interactiveFrame;
     CGSize presentedViewContentSize = [self sizeForChildContentContainer:self.presentedViewController
                                                  withParentContainerSize:containerViewBounds.size];
     // The presented view extends presentedViewContentSize.height points from
@@ -215,8 +254,85 @@ Prop_strong()UIView *presentationWrappingView;
  */
 - (void)containerViewWillLayoutSubviews{
     [super containerViewWillLayoutSubviews];
-    self.dimmingView.frame = self.containerView.bounds;
-    self.presentationWrappingView.frame = self.frameOfPresentedViewInContainerView;
+    self.dimmingView.byFrame(self.containerView.bounds);
+
+    self.presentationWrappingView.byFrame(self.frameOfPresentedViewInContainerView);
+
+}
+#pragma mark —— Gesture
+-(void)jobs_handlePanGesture:(UIPanGestureRecognizer *)panGestureRecognizer{
+    if (!self.presentationWrappingView || !self.containerView) return;
+    switch (panGestureRecognizer.state) {
+        case UIGestureRecognizerStateBegan:
+            self.panStartFrame = self.presentationWrappingView.frame;
+            self.interactiveFrame = self.panStartFrame;
+            self.hasInteractiveFrame = YES;
+            break;
+        case UIGestureRecognizerStateChanged: {
+            CGFloat top = self.panStartFrame.origin.y + [panGestureRecognizer translationInView:self.containerView].y;
+            self.interactiveFrame = [self jobs_frameByTop:top];
+            self.presentationWrappingView.byFrame(self.interactiveFrame);
+        } break;
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed: {
+            CGFloat velocityY = [panGestureRecognizer velocityInView:self.containerView].y;
+            if (CGRectGetMinY(self.presentationWrappingView.frame) > self.jobs_defaultPresentedMinY) {
+                [self.presentingViewController dismissViewControllerAnimated:YES
+                                                                  completion:NULL];
+            }else{
+                self.interactiveFrame = self.presentationWrappingView.frame;
+                [UIView animateWithDuration:0.28
+                                      delay:0
+                     usingSpringWithDamping:0.88
+                      initialSpringVelocity:fabs(velocityY) / 1000.f
+                                    options:UIViewAnimationOptionCurveEaseOut
+                                 animations:^{
+                    self.presentationWrappingView.byFrame(self.interactiveFrame);
+                } completion:NULL];
+            }
+        } break;
+        default:
+            break;
+    }
+}
+
+-(CGRect)jobs_frameByTop:(CGFloat)top{
+    CGRect containerViewBounds = self.containerView.bounds;
+    CGFloat clampedTop = MIN(MAX(0, top), CGRectGetHeight(containerViewBounds));
+    CGRect frame = containerViewBounds;
+    frame.origin.y = clampedTop;
+    frame.size.height = CGRectGetHeight(containerViewBounds) - clampedTop;
+    return frame;
+}
+
+-(CGFloat)jobs_defaultPresentedMinY{
+    CGRect containerViewBounds = self.containerView.bounds;
+    CGSize presentedViewContentSize = [self sizeForChildContentContainer:self.presentedViewController
+                                                 withParentContainerSize:containerViewBounds.size];
+    return CGRectGetMaxY(containerViewBounds) - presentedViewContentSize.height;
+}
+
+-(UIScrollView *)jobs_hitScrollViewByGesture:(UIGestureRecognizer *)gestureRecognizer{
+    CGPoint point = [gestureRecognizer locationInView:self.presentationWrappingView];
+    UIView *hitView = [self.presentationWrappingView hitTest:point
+                                                   withEvent:nil];
+    while (hitView) {
+        if ([hitView isKindOfClass:UIScrollView.class]) return (UIScrollView *)hitView;
+        hitView = hitView.superview;
+    };return nil;
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    if (gestureRecognizer != self.panGestureRecognizer) return YES;
+    UIPanGestureRecognizer *panGestureRecognizer = (UIPanGestureRecognizer *)gestureRecognizer;
+    CGPoint velocity = [panGestureRecognizer velocityInView:self.containerView];
+    if (fabs(velocity.y) <= fabs(velocity.x)) return NO;
+    UIScrollView *scrollView = [self jobs_hitScrollViewByGesture:gestureRecognizer];
+    CGFloat scrollTop = -scrollView.contentInset.top;
+    if (velocity.y > 0 && scrollView && scrollView.contentOffset.y > scrollTop + 0.5) return NO;
+    if (velocity.y < 0 && CGRectGetMinY(self.presentationWrappingView.frame) <= 0) return NO;
+    return YES;
 }
 #pragma mark —— UIViewControllerAnimatedTransitioning
 -(NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext{
@@ -278,7 +394,8 @@ Prop_strong()UIView *presentationWrappingView;
     if (isPresenting) {
         toViewInitialFrame.origin = CGPointMake(CGRectGetMinX(containerView.bounds), CGRectGetMaxY(containerView.bounds));
         toViewInitialFrame.size = toViewFinalFrame.size;
-        toView.frame = toViewInitialFrame;
+        toView.byFrame(toViewInitialFrame);
+
     } else {
         // Because our presentation wraps the presented view controller's view
         // in an intermediate view hierarchy, it is more accurate to rely
@@ -289,7 +406,12 @@ Prop_strong()UIView *presentationWrappingView;
     
     NSTimeInterval transitionDuration = [self transitionDuration:transitionContext];
     
-    [UIView animateWithDuration:transitionDuration animations:^{
+    [UIView animateWithDuration:transitionDuration
+                          delay:0
+         usingSpringWithDamping:0.88
+          initialSpringVelocity:0.8
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
         if (isPresenting) toView.frame = toViewFinalFrame;
         else fromView.frame = fromViewFinalFrame;
         

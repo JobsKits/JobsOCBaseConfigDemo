@@ -1,8 +1,8 @@
 //
 //  JobsHotLabelConfig.h
-//  JobsOCBaseConfigDemo
+//  JobsHotLabel
 //
-//  Created by Jobs on 2022/1/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef JobsHotLabelConfig_h
@@ -32,8 +32,8 @@
 #define hotLabOffsetY JobsWidth(3)
 #endif
 
-#ifndef JobsSearchShowHotwordsTBVCellWidth
-#define JobsSearchShowHotwordsTBVCellWidth JobsMainScreen_WIDTH()
+#ifndef JobsHotLabelByMultiLineMaxWidth
+#define JobsHotLabelByMultiLineMaxWidth JobsMainScreen_WIDTH()
 #endif
 
 #endif /* JobsHotLabelConfig_h */

@@ -70,7 +70,7 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
         _role = role;
         _trigger = config.triggerDistance > 0 ? config.triggerDistance : 60;
         _component = [[JobsOCRefreshComponent alloc] initWithPosition:position role:role config:config];
-        _component.hidden = !config.showsInfo;
+        _component.byHidden(!config.showsInfo);
         _action = action;
     };return self;
 }
@@ -78,13 +78,13 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
 - (void)attachToScrollView:(UIScrollView *)scrollView {
     self.scrollView = scrollView;
     if (self.component.superview != scrollView) {
-        [scrollView addSubview:self.component];
+        self.component.addOn(scrollView);
     }
     [self layoutInScrollView:scrollView];
 }
 
 - (void)detach {
-    [self.component removeFromSuperview];
+    self.component.byRemove();
     [self.component applyState:JobsOCRefreshStateRemoved progress:0];
 }
 
@@ -103,21 +103,21 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
     CGSize boundsSize = scrollView.bounds.size;
     switch (self.position) {
         case JobsOCRefreshPositionHeader:
-            self.component.frame = CGRectMake(0, -length - baseInset.top, boundsSize.width, length);
+            self.component.byFrame(CGRectMake(0, -length - baseInset.top, boundsSize.width, length));
             break;
         case JobsOCRefreshPositionFooter: {
             CGFloat contentH = MAX(scrollView.contentSize.height,
                                    boundsSize.height - scrollView.adjustedContentInset.top - scrollView.adjustedContentInset.bottom);
-            self.component.frame = CGRectMake(0, contentH + baseInset.bottom, boundsSize.width, length);
+            self.component.byFrame(CGRectMake(0, contentH + baseInset.bottom, boundsSize.width, length));
             break;
         }
         case JobsOCRefreshPositionLeft:
-            self.component.frame = CGRectMake(-length - baseInset.left, 0, length, boundsSize.height);
+            self.component.byFrame(CGRectMake(-length - baseInset.left, 0, length, boundsSize.height));
             break;
         case JobsOCRefreshPositionRight: {
             CGFloat contentW = MAX(scrollView.contentSize.width,
                                    boundsSize.width - scrollView.adjustedContentInset.left - scrollView.adjustedContentInset.right);
-            self.component.frame = CGRectMake(contentW + baseInset.right, 0, length, boundsSize.height);
+            self.component.byFrame(CGRectMake(contentW + baseInset.right, 0, length, boundsSize.height));
             break;
         }
     }
@@ -357,7 +357,7 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
     if (@available(iOS 10.0, *)) {
         UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
         [generator prepare];
-        [generator impactOccurred];
+        generator.byImpactOccurred();
     } else {
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }

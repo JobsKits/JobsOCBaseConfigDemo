@@ -92,8 +92,8 @@ Prop_strong()UITextModel *textModelEmptyData;
 Prop_strong()UIButtonModel *buttonModelEmptyData;
 Prop_strong()__kindof UIView *emptyDataView;
 -(JobsRetViewByViewBlock _Nonnull)showEmptyViewBy;
--(JobsReturnViewByButtonModelBlock _Nonnull)showEmptyButtonBy;
--(JobsReturnViewByTextModelBlock _Nonnull)showEmptyLabelBy;
+-(JobsRetViewByButtonModelBlock _Nonnull)showEmptyButtonBy;
+-(JobsRetViewByTextModelBlock _Nonnull)showEmptyLabelBy;
 -(JobsRetScrollViewByButtonModelBlock _Nonnull)emptyDataByButtonModel;
 
 @end

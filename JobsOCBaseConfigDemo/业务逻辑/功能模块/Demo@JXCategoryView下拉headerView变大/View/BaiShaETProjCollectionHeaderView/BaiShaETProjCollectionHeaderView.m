@@ -2,7 +2,7 @@
 //  BaiShaETProjCollectionHeaderView.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "BaiShaETProjCollectionHeaderView.h"
@@ -17,6 +17,7 @@ Prop_strong()JobsAnimationLabel *animationLab;
 /// Data
 Prop_strong()NSMutableArray <NSString *>*richTextMutArr;
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
+
 Prop_strong()NSMutableArray <NSMutableArray <NSString *>*>*richTextMutArr2;
 Prop_strong()NSMutableArray <NSMutableArray <JobsRichTextConfig *>*>*richTextConfigMutArr2;
 
@@ -44,7 +45,8 @@ static dispatch_once_t static_collectionHeaderViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
+
     };return self;
 }
 
@@ -73,7 +75,8 @@ static dispatch_once_t static_collectionHeaderViewOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsRedColor;
+        self.byBgColor(JobsRedColor);
+
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -114,7 +117,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return JobsBaseTableViewCell.cellStyleValue1WithTableView(tableView)
+    return JobsBaseTableViewCell.cellStyleValue1ByTableView(tableView)
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byIndexPath(indexPath)
         .byContentViewBgCor(HEXCOLOR(0xFFFCF7))
@@ -131,34 +134,35 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)userHeaderBtn{
     if (!_userHeaderBtn) {
         @jobs_weakify(self)
+        UIImage *avatarImage = @"默认头像".img;
         _userHeaderBtn = UIButton.jobsInit()
         .jobsResetBtnTitle(self.readUserInfo.userName
                                          .add(JobsSpace)
                                          .add(@"VIP".tr.add(JobsSpace).add(@"0")))
-        .jobsResetBtnImage(@"默认头像".img)
+        .jobsResetBtnImage(avatarImage)
         .jobsResetBtnTitleCor(HEXCOLOR(0xAE8330))
-        .jobsResetBtnTitleFont(UIFontWeightBoldSize(16));
-        JobsLog(@"%@",_userHeaderBtn.titleForNormalState);
-        [self.addSubview(_userHeaderBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
+        .jobsResetBtnTitleFont(UIFontWeightBoldSize(16))
+        .makeBtnTitleByShowingType(UILabelShowingType_05)
+        .jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTop, JobsWidth(12))
+        .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
+            model.byJobsWidth(1.f)
+                 .byLayerCor(HEXCOLOR(0xEEE2C8))
+                 .byCornerRadiusValue(avatarImage.size.height / 2);
+        }))
+        .addOn(self)
+        .byAdd(^(MASConstraintMaker *make) {
+            @jobs_strongify(self)
             make.centerX.equalTo(self);
             make.top.equalTo(self).offset(JobsWidth(43));
-        }];
-        _userHeaderBtn.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-            @jobs_strongify(self)
-            model.jobsWidth = 1.f;
-            model.layerCor = HEXCOLOR(0xEEE2C8);
-            model.cornerRadiusValue = self->_userHeaderBtn.imageView.image.jobsHeight / 2;
-        }));
-        _userHeaderBtn.imageTitleSpace = JobsWidth(12);
-        _userHeaderBtn.makeBtnTitleByShowingType(UILabelShowingType_05);
-        _userHeaderBtn.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTop,_userHeaderBtn.imageTitleSpace);
+        });
+        JobsLog(@"%@",_userHeaderBtn.titleForNormalState);
     };return _userHeaderBtn;
 }
 
 -(UIProgressView *)progressView{
     if (!_progressView) {
         @jobs_weakify(self)
-        jobsMakeProgressView(^(__kindof UIProgressView * _Nullable progressView) {
+        _progressView = jobsMakeProgressView(^(__kindof UIProgressView * _Nullable progressView) {
             @jobs_strongify(self)
             [progressView
                 .byProgressTintColor(HEXCOLOR(0xAE8330))
@@ -192,21 +196,21 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             label.attributedText = [self richTextWithDataConfigMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
                 data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                     @jobs_strongify(self)
-                    data1.font = UIFontWeightRegularSize(12);
-                    data1.textCor = HEXCOLOR(0x3D4A58);
-                    data1.targetString = self.richTextMutArr[0];
+                    data1.byFont(UIFontWeightRegularSize(12))
+                         .byTextCor(HEXCOLOR(0x3D4A58))
+                         .byTargetString(self.richTextMutArr[0]);
                 }))
                 .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                     @jobs_strongify(self)
-                    data1.font = UIFontWeightBoldSize(18);
-                    data1.textCor = HEXCOLOR(0x3D4A58);
-                    data1.targetString = self.richTextMutArr[1];
+                    data1.byFont(UIFontWeightBoldSize(18))
+                         .byTextCor(HEXCOLOR(0x3D4A58))
+                         .byTargetString(self.richTextMutArr[1]);
                 }))
                 .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                     @jobs_strongify(self)
-                    data1.font = UIFontWeightRegularSize(12);
-                    data1.textCor = HEXCOLOR(0x3D4A58);
-                    data1.targetString = self.richTextMutArr[2];
+                    data1.byFont(UIFontWeightRegularSize(12))
+                         .byTextCor(HEXCOLOR(0x3D4A58))
+                         .byTargetString(self.richTextMutArr[2]);
                 }));
             })paragraphStyle:nil];
             
@@ -227,18 +231,19 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_weakify(self)
         _leftLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"Lv".tr.add(@" ").add(@"0"))
+            label
+                .byText(@"Lv".tr.add(@" ").add(@"0"))
             .byTextCor(HEXCOLOR(0x757575))
             .byFont(UIFontWeightRegularSize(12))
             .byTextAlignment(NSTextAlignmentCenter)
+            .makeLabelByShowingType(UILabelShowingType_03)
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
                 make.left.equalTo(self.animationLab);
                 make.top.equalTo(self.animationLab.mas_bottom).offset(JobsWidth(22));
                 make.height.mas_equalTo(JobsWidth(12));
-            })
-            .makeLabelByShowingType(UILabelShowingType_03);
+            });
         });
     };return _leftLab;
 }
@@ -253,14 +258,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byTextCor(HEXCOLOR(0x757575))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightRegularSize(12))
+                .makeLabelByShowingType(UILabelShowingType_03)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
                     make.right.equalTo(self).offset(JobsWidth(-16));
                     make.top.equalTo(self.animationLab.mas_bottom).offset(JobsWidth(22));
                     make.height.mas_equalTo(JobsWidth(12));
-                })
-                .makeLabelByShowingType(UILabelShowingType_03);
+                });
         });
     };return _rightLab;
 }
@@ -304,13 +309,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
                 @jobs_strongify(self)
-                data1.textModel.text = @"當前存款".tr;
+                data1.textModel.byText(@"當前存款".tr);
                 data1.subTextModel.attributedTitle = [self richTextWithDataConfigMutArr:self.richTextConfigMutArr2[0]
                                                                         paragraphStyle:nil];
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
                 @jobs_strongify(self)
-                data1.textModel.text = @"當前流水".tr;
+                data1.textModel.byText(@"當前流水".tr);
                 data1.subTextModel.attributedTitle = [self richTextWithDataConfigMutArr:self.richTextConfigMutArr2[1]
                                                                         paragraphStyle:nil];
             }));
@@ -336,32 +341,34 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_weakify(self)
         _richTextConfigMutArr2 = jobsMakeMutArr(^(__kindof NSMutableArray <JobsRichTextConfig *>*_Nullable data) {
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data1) {
-                data1.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data2) {
-                    @jobs_strongify(self)
-                    data2.font = UIFontWeightRegularSize(12);
-                    data2.textCor = HEXCOLOR(0x3D4A58);
-                    data2.targetString = self.richTextMutArr2[0][0];
-                }))
-                .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data2) {
-                    @jobs_strongify(self)
-                    data2.font = UIFontWeightBoldSize(12);
-                    data2.textCor = HEXCOLOR(0x3D4A58);
-                    data2.targetString = self.richTextMutArr2[0][1];
-                }));
+                data1
+                    .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data2) {
+                        @jobs_strongify(self)
+                        data2.byFont(UIFontWeightRegularSize(12))
+                             .byTextCor(HEXCOLOR(0x3D4A58))
+                             .byTargetString(self.richTextMutArr2[0][0]);
+                    }))
+                    .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data2) {
+                        @jobs_strongify(self)
+                        data2.byFont(UIFontWeightBoldSize(12))
+                             .byTextCor(HEXCOLOR(0x3D4A58))
+                             .byTargetString(self.richTextMutArr2[0][1]);
+                    }));
             }));
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray <JobsRichTextConfig *>*_Nullable data1) {
-                data1.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data2) {
-                    @jobs_strongify(self)
-                    data2.font = UIFontWeightRegularSize(12);
-                    data2.textCor = HEXCOLOR(0x3D4A58);
-                    data2.targetString = self.richTextMutArr2[1][0];
-                }))
-                .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data2) {
-                    @jobs_strongify(self)
-                    data2.font = UIFontWeightBoldSize(12);
-                    data2.textCor = HEXCOLOR(0x3D4A58);
-                    data2.targetString = self.richTextMutArr2[1][1];
-                }));
+                data1
+                    .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data2) {
+                        @jobs_strongify(self)
+                        data2.byFont(UIFontWeightRegularSize(12))
+                             .byTextCor(HEXCOLOR(0x3D4A58))
+                             .byTargetString(self.richTextMutArr2[1][0]);
+                    }))
+                    .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data2) {
+                        @jobs_strongify(self)
+                        data2.byFont(UIFontWeightBoldSize(12))
+                             .byTextCor(HEXCOLOR(0x3D4A58))
+                             .byTargetString(self.richTextMutArr2[1][1]);
+                    }));
             }));
         });
     };return _richTextConfigMutArr2;

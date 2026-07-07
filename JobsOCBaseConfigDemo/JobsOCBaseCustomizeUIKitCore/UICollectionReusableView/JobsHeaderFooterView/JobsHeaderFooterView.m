@@ -35,19 +35,26 @@ Prop_strong()UIViewModel *subTitleModel;
 /// 由具体的子类进行覆写
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
     @jobs_weakify(self)
-    return ^(NSMutableArray <UIViewModel *>*_Nullable model) {
+    return ^(id _Nullable model) {
         @jobs_strongify(self)
-        if(model.count){
-            self.titleModel = model[0];
-        }
-        
-        if(model.count >= 2){
-            self.subTitleModel = model[1];
-        }
-        
-        if(self.titleModel) self.titleBtn.alpha = 1;
-        if(self.subTitleModel) self.subTitleBtn.alpha = 1;
+        self.titleModel = nil;
+        self.subTitleModel = nil;
+        if ([model isKindOfClass:NSArray.class]) {
+            NSArray<UIViewModel *> *viewModels = (NSArray<UIViewModel *> *)model;
+            if (viewModels.count) {
+                self.titleModel = viewModels[0];
+            }
 
+            if (viewModels.count >= 2) {
+                self.subTitleModel = viewModels[1];
+            }
+        } else if ([model isKindOfClass:UIViewModel.class]) {
+            self.titleModel = model;
+        }
+
+        self.viewModel = self.titleModel;
+        if (self.titleModel || _titleBtn) self.titleBtn.alpha = self.titleModel ? 1 : 0;
+        if (self.subTitleModel || _subTitleBtn) self.subTitleBtn.alpha = self.subTitleModel ? 1 : 0;
     };
 }
 #pragma mark —— 一些公共方法

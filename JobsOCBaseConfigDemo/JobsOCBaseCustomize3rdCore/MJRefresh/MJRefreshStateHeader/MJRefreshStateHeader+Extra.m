@@ -9,7 +9,7 @@
 
 @implementation MJRefreshStateHeader (Extra)
 
--(JobsReturnMJRefreshStateHeaderByRefreshConfigModelBlock _Nonnull)byMJRefreshHeaderConfigModel{
+-(JobsRetMJRefreshStateHeaderByRefreshConfigModelBlock _Nonnull)byMJRefreshHeaderConfigModel{
     @jobs_weakify(self)
     return ^__kindof MJRefreshStateHeader *_Nullable(MJRefreshConfigModel *_Nullable config){
         @jobs_strongify(self)

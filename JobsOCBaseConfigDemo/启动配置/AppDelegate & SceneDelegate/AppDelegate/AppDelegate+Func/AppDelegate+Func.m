@@ -103,9 +103,10 @@ static BOOL JobsOCSplashEnabled(void) {
 #pragma mark —— KTVHTTPCache
 -(jobsByVoidBlock _Nonnull)KTVHTTP{
     return ^(){
+        if ([KTVHTTPCache proxyIsRunning]) return;
         NSError *error = nil;
-        [KTVHTTPCache proxyStart:&error];
-        if(error) JobsLog(@"error = %@",error.description)
+        BOOL isProxyStarted = [KTVHTTPCache proxyStart:&error];
+        if(!isProxyStarted) JobsLog(@"KTVHTTPCache proxyStart failed: %@", error ? error.description : @"unknown error")
     };
 }
 #pragma mark —— 欢迎引导页面

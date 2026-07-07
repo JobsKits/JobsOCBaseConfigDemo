@@ -214,8 +214,7 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
         _arrow = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
             imageView
-                .byImage([UIImage systemImageNamed:@"chevron.right"
-                                 withConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:18 weight:UIImageSymbolWeightBold]])
+                .byImage([@"chevron.right".sys_img imageWithConfiguration:[UIImageSymbolConfiguration configurationWithPointSize:18 weight:UIImageSymbolWeightBold]])
                 .byTintColor(UIColor.systemBlueColor)
                 .addOn(self.thumbView)
                 .byAdd(^(MASConstraintMaker *make) {

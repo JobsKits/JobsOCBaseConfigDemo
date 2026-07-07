@@ -225,7 +225,7 @@
     };
 }
 /// 将一个确定的UIColor子类，翻译成十六进制格式的字符串值并对外输出
--(JobsReturnCorModelByVoidBlock)hexadecimalCorStrBy{
+-(JobsRetCorModelByVoidBlock)hexadecimalCorStrBy{
     @jobs_weakify(self)
     return ^JobsCorModel *_Nullable(void) {
         @jobs_strongify(self)

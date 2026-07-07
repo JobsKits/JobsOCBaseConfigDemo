@@ -59,7 +59,7 @@
     };return self;
 }
 
-+(JobsReturnWMZBannerViewByBannerParamBlock _Nonnull)initBy{
++(JobsRetWMZBannerViewByBannerParamBlock _Nonnull)initBy{
     return ^WMZBannerView *_Nonnull(WMZBannerParam *_Nonnull bannerParam){
         return [WMZBannerView.alloc initConfigureWithModel:bannerParam];
     };

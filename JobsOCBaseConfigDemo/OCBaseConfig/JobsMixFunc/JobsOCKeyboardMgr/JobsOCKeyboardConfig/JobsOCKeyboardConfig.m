@@ -10,6 +10,7 @@
 @interface JobsOCKeyboardConfig ()
 
 Prop_strong(readwrite) NSHashTable <__kindof UIView *>*followViewHashTable;
+Prop_strong(readwrite) NSPointerArray *inputFieldPointerArray;
 
 @end
 
@@ -18,10 +19,13 @@ Prop_strong(readwrite) NSHashTable <__kindof UIView *>*followViewHashTable;
 -(instancetype)init{
     if (self = [super init]) {
         _followViewHashTable = NSHashTable.weakObjectsHashTable;
+        _inputFieldPointerArray = NSPointerArray.weakObjectsPointerArray;
         _extraSpacing = 8.0f;
         _topSpacing = 12.0f;
         _maxLiftDistance = 0.0f;
         _shouldCheckHorizontalOverlap = YES;
+        _shouldResignOnTouchOutside = NO;
+        _shouldFlowByReturnKey = NO;
         _applyMode = JobsOCKeyboardApplyModeTransform;
         _accessoryPolicy = JobsOCKeyboardAccessoryPolicyAuto;
     };return self;
@@ -35,13 +39,40 @@ Prop_strong(readwrite) NSHashTable <__kindof UIView *>*followViewHashTable;
     return self.followViewHashTable.allObjects;
 }
 
+-(NSArray <__kindof UITextField *>*)inputFields{
+    [self.inputFieldPointerArray compact];
+    NSMutableArray <__kindof UITextField *>*textFields = NSMutableArray.array;
+    for (NSUInteger i = 0; i < self.inputFieldPointerArray.count; i++) {
+        UITextField *textField = (__bridge UITextField *)([self.inputFieldPointerArray pointerAtIndex:i]);
+        if (textField) [textFields addObject:textField];
+    };return textFields;
+}
+
 -(void)resetFollowViews:(NSArray<__kindof UIView *> *)data{
     [self.followViewHashTable removeAllObjects];
     for (__kindof UIView *view in data) {
         if (view) [self.followViewHashTable addObject:view];
     }
 }
+
+-(void)resetInputFields:(NSArray <__kindof UITextField *>*)data{
+    self.inputFieldPointerArray = NSPointerArray.weakObjectsPointerArray;
+    for (__kindof UITextField *textField in data) {
+        if ([textField isKindOfClass:UITextField.class]) {
+            [self.inputFieldPointerArray addPointer:(__bridge void *)textField];
+        }
+    }
+}
 #pragma mark —— DSL
+-(JobsRetJobsOCKeyboardConfigByIDBlock)byOwner{
+    __weak typeof(self) weakSelf = self;
+    return ^__kindof JobsOCKeyboardConfig *_Nullable(id _Nullable data) {
+        __strong typeof(weakSelf) self = weakSelf;
+        self.owner = data;
+        return self;
+    };
+}
+
 -(JobsRetJobsOCKeyboardConfigByViewBlock)byTargetView{
     __weak typeof(self) weakSelf = self;
     return ^__kindof JobsOCKeyboardConfig *_Nullable(__kindof UIView *_Nullable data) {
@@ -56,6 +87,15 @@ Prop_strong(readwrite) NSHashTable <__kindof UIView *>*followViewHashTable;
     return ^__kindof JobsOCKeyboardConfig *_Nullable(__kindof UIView *_Nullable data) {
         __strong typeof(weakSelf) self = weakSelf;
         self.triggerView = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsOCKeyboardConfigByViewBlock)byTriggerScopeView{
+    __weak typeof(self) weakSelf = self;
+    return ^__kindof JobsOCKeyboardConfig *_Nullable(__kindof UIView *_Nullable data) {
+        __strong typeof(weakSelf) self = weakSelf;
+        self.triggerScopeView = data;
         return self;
     };
 }
@@ -83,6 +123,15 @@ Prop_strong(readwrite) NSHashTable <__kindof UIView *>*followViewHashTable;
     return ^__kindof JobsOCKeyboardConfig *_Nullable(__kindof NSArray<__kindof UIView *> *_Nullable data) {
         __strong typeof(weakSelf) self = weakSelf;
         [self resetFollowViews:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsOCKeyboardConfigByArrBlock)byInputFields{
+    __weak typeof(self) weakSelf = self;
+    return ^__kindof JobsOCKeyboardConfig *_Nullable(__kindof NSArray<__kindof UIView *> *_Nullable data) {
+        __strong typeof(weakSelf) self = weakSelf;
+        [self resetInputFields:(NSArray <__kindof UITextField *>*)data];
         return self;
     };
 }
@@ -128,6 +177,24 @@ Prop_strong(readwrite) NSHashTable <__kindof UIView *>*followViewHashTable;
     return ^__kindof JobsOCKeyboardConfig *_Nullable(BOOL data) {
         __strong typeof(weakSelf) self = weakSelf;
         self.shouldCheckHorizontalOverlap = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsOCKeyboardConfigByBOOLBlock)byShouldResignOnTouchOutside{
+    __weak typeof(self) weakSelf = self;
+    return ^__kindof JobsOCKeyboardConfig *_Nullable(BOOL data) {
+        __strong typeof(weakSelf) self = weakSelf;
+        self.shouldResignOnTouchOutside = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsOCKeyboardConfigByBOOLBlock)byShouldFlowByReturnKey{
+    __weak typeof(self) weakSelf = self;
+    return ^__kindof JobsOCKeyboardConfig *_Nullable(BOOL data) {
+        __strong typeof(weakSelf) self = weakSelf;
+        self.shouldFlowByReturnKey = data;
         return self;
     };
 }

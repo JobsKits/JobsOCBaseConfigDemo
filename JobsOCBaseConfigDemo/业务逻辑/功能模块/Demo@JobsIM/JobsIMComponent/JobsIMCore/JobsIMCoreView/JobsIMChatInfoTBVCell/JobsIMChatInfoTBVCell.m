@@ -2,7 +2,7 @@
 //  JobsIMChatInfoTBVCell.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/11/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsIMChatInfoTBVCell.h"
@@ -39,8 +39,10 @@ UITextFieldProtocol_synthesize_part2
                     reuseIdentifier:reuseIdentifier]) {
         self.longPG.enabled = YES;
         self.swipeBackgroundColor = JobsClearColor;
-        self.selectedBackgroundView = UIView.new;
-        self.selectedBackgroundView.backgroundColor = JobsYellowColor.colorWithAlphaComponentBy(.3f);
+        self.bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(JobsYellowColor.colorWithAlphaComponentBy(.3f));
+        }));
+
         self.leftSwipeSettings.transition = MGSwipeTransitionBorder;
         self.rightSwipeSettings.transition = MGSwipeTransitionDrag;
         self.leftExpansion.buttonIndex = 0;
@@ -52,7 +54,7 @@ UITextFieldProtocol_synthesize_part2
     };return self;
 }
 #pragma mark —— BaseCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsIMChatInfoTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsIMChatInfoTBVCell);
         return cell;
@@ -83,9 +85,13 @@ UITextFieldProtocol_synthesize_part2
         @jobs_strongify(self)
         if ([model isKindOfClass:JobsIMChatInfoModel.class]) {
             JobsIMChatInfoModel *chatInfoModel = (JobsIMChatInfoModel *)model;
-            if (chatInfoModel.identification.isEqualToString(@"我是服务器".tr)) {/// 对方发的消息
+            if (chatInfoModel.chatInfoDirection == JobsIMChatInfoDirection_Send) {/// 对方发的消息
                 self.infoLocation = InfoLocation_Left;
-            }else if (chatInfoModel.identification.isEqualToString(@"我是我自己".tr)){/// 自己发的消息
+            }else if (chatInfoModel.chatInfoDirection == JobsIMChatInfoDirection_Receive){/// 自己发的消息
+                self.infoLocation = InfoLocation_Right;
+            }else if (chatInfoModel.identification.isEqualToString(@"我是服务器".tr)) {/// 兼容历史静态数据
+                self.infoLocation = InfoLocation_Left;
+            }else if (chatInfoModel.identification.isEqualToString(@"我是我自己".tr)){/// 兼容历史静态数据
                 self.infoLocation = InfoLocation_Right;
             }else{
                 self.infoLocation = InfoLocation_Unknown;
@@ -128,15 +134,19 @@ UITextFieldProtocol_synthesize_part2
                             JobsLog(@"图片加载成功");
                         }
                     }).load();
-            self.chatUserNameLab.alpha = self.isShowChatUserName;
-            self.chatBubbleIMGV.alpha = 1;
-            self.chatContentLab.alpha = 1;
-            self.timeLab.alpha= 1;
+            self.chatUserNameLab.byAlpha(self.isShowChatUserName);
+
+            self.chatBubbleIMGV.byAlpha(1);
+
+            self.chatContentLab.byAlpha(1);
+
+            self.timeLab.byAlpha(1);
+
         };return self;
     };
 }
 #pragma mark —— UITableViewCellProtocol
--(JobsReturnMGSwipeTableCellByDelegateBlock _Nonnull)byDelegate{
+-(JobsRetMGSwipeTableCellByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^JobsIMChatInfoTBVCell *_Nonnull(id<MGSwipeTableCellDelegate> delegate){
         @jobs_strongify(self)
@@ -162,7 +172,7 @@ UITextFieldProtocol_synthesize_part2
     });;
 }
 
--(JobsReturnMGSwipeTableCellByBOOLBlock _Nonnull)byAllowsMultipleSwipe{
+-(JobsRetMGSwipeTableCellByBOOLBlock _Nonnull)byAllowsMultipleSwipe{
     @jobs_weakify(self)
     return ^__kindof MGSwipeTableCell *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -171,7 +181,7 @@ UITextFieldProtocol_synthesize_part2
     };
 }
 
--(JobsReturnMGSwipeTableCellByBOOLBlock _Nonnull)byShowChatUserName{
+-(JobsRetMGSwipeTableCellByBOOLBlock _Nonnull)byShowChatUserName{
     @jobs_weakify(self)
     return ^__kindof MGSwipeTableCell *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -196,18 +206,11 @@ UITextFieldProtocol_synthesize_part2
         }
     });;
 }
-
--(void)menuTopBtnPressed:(id)sender{
-    JobsLog(@"123");
-}
-
--(void)menuDelBtnPressed:(id)sender{
-    JobsLog(@"456");
-}
-
+/// 我只支持“删除”和“置顶”这两个菜单事件。
+/// 其他菜单，比如 copy、paste、select，全都不要显示。
 -(BOOL)canPerformAction:(SEL)action
              withSender:(id)sender{
-    return action == @selector(menuDelBtnPressed:) || action == @selector(menuTopBtnPressed:);
+    return JobsUIMenuItemCanPerformAction(action);
 }
 
 -(BOOL)canBecomeFirstResponder{
@@ -219,20 +222,23 @@ UITextFieldProtocol_synthesize_part2
         @jobs_weakify(self)
         _iconIMGV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            [self.contentView.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(JobsIMChatInfoTBVDefaultCellHeight() - 5, JobsIMChatInfoTBVDefaultCellHeight() - 5));
-                make.top.equalTo(self.contentView).offset(5);
-                switch (self.infoLocation) {
-                    case InfoLocation_Left:{
-                        make.left.equalTo(self.contentView).offset(10);
-                    }break;
-                    case InfoLocation_Right:{
-                        make.right.equalTo(self.contentView).offset(-10);
-                    }break;
-                    default:
-                        break;
-                }
-            }];
+            imageView
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(JobsIMChatInfoTBVDefaultCellHeight() - 5,
+                                                     JobsIMChatInfoTBVDefaultCellHeight() - 5));
+                    make.top.equalTo(self.contentView).offset(5);
+                    switch (self.infoLocation) {
+                        case InfoLocation_Left:{
+                            make.left.equalTo(self.contentView).offset(10);
+                        }break;
+                        case InfoLocation_Right:{
+                            make.right.equalTo(self.contentView).offset(-10);
+                        }break;
+                        default:
+                            break;
+                    }
+                });
         });
     };return _iconIMGV;
 }
@@ -249,7 +255,6 @@ UITextFieldProtocol_synthesize_part2
                     make.top.equalTo(self.iconIMGV.mas_centerY);
                     make.bottom.equalTo(self.contentView).offset(-5);
                     make.width.mas_equalTo(self.contentWidth);
-
                     switch (self.infoLocation) {
                         case InfoLocation_Left:{
                             make.left.equalTo(self.iconIMGV.mas_right).offset(5);
@@ -271,10 +276,12 @@ UITextFieldProtocol_synthesize_part2
         @jobs_weakify(self)
         _chatUserNameLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byTextCor(JobsBlackColor)
+            label
+                .byTextCor(JobsBlackColor)
             .byFont(UIFontWeightRegularSize(JobsWidth(10)))
             .byTextAlignment(NSTextAlignmentCenter)
             .byText(self.senderUserNameStr)
+            .makeLabelByShowingType(UILabelShowingType_03)
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
@@ -290,8 +297,7 @@ UITextFieldProtocol_synthesize_part2
                     default:
                         break;
                 }
-            })
-            .makeLabelByShowingType(UILabelShowingType_03);
+            });
         });
     };return _chatUserNameLab;
 }
@@ -326,6 +332,7 @@ UITextFieldProtocol_synthesize_part2
                 .byText(self.senderChatTextTimeStr)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightRegularSize(JobsWidth(10)))
+                .makeLabelByShowingType(UILabelShowingType_03)
                 .byBgColor(JobsLightGrayColor)
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -340,10 +347,9 @@ UITextFieldProtocol_synthesize_part2
                             make.right.equalTo(self.chatBubbleIMGV.mas_left).offset(-5);
                         }break;
                         default:
-                            break;
+                        break;
                     }
                 })
-                .makeLabelByShowingType(UILabelShowingType_03)
                 .cornerCutToCircleWithCornerRadius(20 / 2);
         });
     };return _timeLab;
@@ -352,8 +358,9 @@ UITextFieldProtocol_synthesize_part2
 -(NSMutableArray<UIImage *> *)chatBubbleMutArr{
     if (!_chatBubbleMutArr) {
         _chatBubbleMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <UIImage *>* _Nullable arr) {
-            arr.add(@"左气泡".img)
-            .add(@"右气泡".img);
+            arr
+                .add(@"左气泡".img)
+                .add(@"右气泡".img);
         });
     };return _chatBubbleMutArr;
 }
@@ -367,32 +374,46 @@ UITextFieldProtocol_synthesize_part2
             @jobs_strongify(self)
             if (gesture.state == UIGestureRecognizerStateBegan) {
                 JobsIMChatInfoTBVCell *cell = (JobsIMChatInfoTBVCell *)gesture.view;
-                //这里把cell做为第一响应(cell默认是无法成为responder,需要重写canBecomeFirstResponder方法)
+                // 这里把 cell 做为第一响应
+                // cell 默认无法成为 responder，需要重写 canBecomeFirstResponder
                 [cell becomeFirstResponder];
 #pragma clang diagnostic push
-#pragma clang diagnostic ignored"-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
                 jobsMakeMenuController(^(__kindof UIMenuController * _Nullable menuController) {
                     @jobs_strongify(self)
-                    menuController.arrowDirection = UIMenuControllerArrowDefault;/// 控制箭头方向
-                    menuController.menuItems = self.menuItemMutArr;/// 自定义事件
+                    menuController
+                        .byArrowDirection(UIMenuControllerArrowDefault)
+                        .byMenuItems(self.menuItemMutArr);
                     if (@available(iOS 13.0, *)) {
                         [menuController showMenuFromView:self rect:cell.chatBubbleIMGV.frame];
-                    }else{
-                        [menuController setTargetRect:cell.frame inView:self];
-                        [menuController setMenuVisible:YES animated:YES];
+                    } else {
+                        menuController.byMenuVisible(YES);
+                        // 如果必须保留 animated:YES，则这里不要 DSL 化：
+                        // [menuController setMenuVisible:YES animated:YES];
                     }
                 });
 #pragma clang diagnostic pop
             }
-        }];self.addGesture(_longPG);
+        }];
+        self.addGesture(_longPG);
     };return _longPG;
 }
 
 -(NSMutableArray<UIMenuItem *> *)menuItemMutArr{
     if (!_menuItemMutArr) {
+        @jobs_weakify(self)
         _menuItemMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <UIMenuItem *>* _Nullable arr) {
-            arr.add(@"置顶".tr.initMenuItemBy(@selector(menuTopBtnPressed:)))
-            .add(@"删除".tr.initMenuItemBy(@selector(menuDelBtnPressed:)));
+            arr
+                .add(UIMenuItem.byTitle(@"置顶".tr)
+                     .byActionBlock(^(__kindof UIMenuItem * _Nullable menuItem) {
+                         @jobs_strongify(self)
+                         JobsLog(@"置顶");
+                     }))
+                .add(UIMenuItem.byTitle(@"删除".tr)
+                     .byActionBlock(^(__kindof UIMenuItem * _Nullable menuItem) {
+                         @jobs_strongify(self)
+                         JobsLog(@"删除");
+                     }));
         });
     };return _menuItemMutArr;
 }

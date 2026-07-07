@@ -9,7 +9,7 @@
 
 @implementation MJRefreshBackStateFooter (Extra)
 
--(JobsReturnMJRefreshBackStateFooterByRefreshConfigModelBlock _Nonnull)byMJRefreshFooterConfigModel{
+-(JobsRetMJRefreshBackStateFooterByRefreshConfigModelBlock _Nonnull)byMJRefreshFooterConfigModel{
     @jobs_weakify(self)
     return ^__kindof MJRefreshBackStateFooter *_Nullable(MJRefreshConfigModel *_Nullable config){
         @jobs_strongify(self)

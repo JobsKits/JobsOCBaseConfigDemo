@@ -20,7 +20,7 @@
     return JobsURL(url);
 }
 /// 删除C2C充提黑名单@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_c2c_dw_blackList_deleteByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_c2c_dw_blackList_deleteByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ids){
         NSString *url = @"/fund/c2c/dw/blackList/delete/{".add(ids).add(@"}");
         return JobsURL(url);
@@ -38,7 +38,7 @@
     return JobsURL(url);
 }
 /// 删除C2C存取款占比配置@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_fund_c2c_dwRatio_deleteBy{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_fund_c2c_dwRatio_deleteBy{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ids){
         NSString *url = @"/fund/c2c/dwRatio/delete/{".add(ids).add(@"}");
         return JobsURL(url);
@@ -50,7 +50,7 @@
     return JobsURL(url);
 }
 /// 获取C2C存取款占比配置详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_c2c_dwRatio_getInfoByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_c2c_dwRatio_getInfoByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/fund/c2c/dwRatio/getInfo/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -101,7 +101,7 @@
     return JobsURL(url);
 }
 /// 删除C2C提现拆单规则配置@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_fund_c2c_split_rule_deleteByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_fund_c2c_split_rule_deleteByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/fund/c2c/split/rule/delete/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -162,7 +162,7 @@
     return JobsURL(url);
 }
 /// 帮助中心-删除@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)config_help_center_deleteByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)config_help_center_deleteByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/config/help/center/delete/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -185,7 +185,7 @@
 }
 #pragma mark —— PH_AGT-配置中心_帮助中心(分类)
 /// 帮助中心分类问题-删除@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_config_help_center_classify_deleteByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_config_help_center_classify_deleteByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/config/help/center/classify/delete/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -224,14 +224,14 @@
     return JobsURL(url);
 }
 /// 删除代理标签关系@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_configs_tags_ref_deleteByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_configs_tags_ref_deleteByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/configs/tags/ref/delete/{".add(ID).add(@"}");
         return JobsURL(url);
     };
 }
 /// 获取代理标签信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_configs_tags_ref_getAgentTagRefListByAgentId{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_configs_tags_ref_getAgentTagRefListByAgentId{
     return ^URLManagerModel *_Nullable(NSString *_Nullable agentId){
         NSString *url = @"/configs/tags/ref/getAgentTagRefList/{".add(agentId).add(@"}");
         return JobsURL(url);
@@ -244,7 +244,7 @@
 }
 #pragma mark —— PH_AGT-配置中心_标签配置
 /// 删除标签@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_configs_tags_deleteByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_configs_tags_deleteByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/configs/tags/delete/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -293,7 +293,7 @@
 }
 #pragma mark —— PH_AGT-门店设备所有相关接口
 /// 删除门店设备@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_store_device_info_deleteByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_store_device_info_deleteByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/store/device/info/delete/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -321,7 +321,7 @@
     return JobsURL(url);
 }
 /// 删除门店@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_store_info_deleteByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_store_info_deleteByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/store/info/delete/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -443,7 +443,7 @@
     return JobsURL(url);
 }
 /// 查询VIP返水配置子项@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_vipRebate_queryConfigItem{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_vipRebate_queryConfigItem{
     return ^URLManagerModel *_Nullable(NSString *_Nullable lobbyCode){
         NSString *url = @"/vipRebate/queryConfigItem/{".add(lobbyCode).add(@"}");
         return JobsURL(url);
@@ -579,14 +579,14 @@
 }
 #pragma mark —— 专家信息接口
 /// 删除专家信息@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_expert_info_deleteByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_expert_info_deleteByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/expert/info/delete/{".add(ID).add(@"}");
         return JobsURL(url);
     };
 }
 /// 获取专家信息详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_expert_info_getInfoByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_expert_info_getInfoByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/expert/info/getInfo/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -608,14 +608,14 @@
     return JobsURL(url);
 }
 /// 删除专家爆料方案信息@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_expert_plan_deleteByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_expert_plan_deleteByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/expert/plan/delete/{".add(ID).add(@"}");
         return JobsURL(url);
     };
 }
 /// 获取专家爆料方案信息详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_expert_plan_getInfoByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_expert_plan_getInfoByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/expert/plan/getInfo/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -680,14 +680,14 @@
 }
 #pragma mark —— 中心钱包
 /// 一键回收@POST
--(JobsReturnURLManagerModelByStringBlock _Nonnull)post_fund_wallet_collectWalletByUserName{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)post_fund_wallet_collectWalletByUserName{
     return ^URLManagerModel *_Nullable(NSString *_Nullable userName){
         NSString *url = @"/fund/wallet/collectWallet/{".add(userName).add(@"}");
         return JobsURL(url);
     };
 }
 /// 获取会员与转账场馆余额@POST
--(JobsReturnURLManagerModelByStringBlock _Nonnull)post_fund_wallet_getMemberWallet{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)post_fund_wallet_getMemberWallet{
     return ^URLManagerModel *_Nullable(NSString *_Nullable userName){
         NSString *url = @"/fund/wallet/getMemberWallet/{".add(userName).add(@"}");
         return JobsURL(url);
@@ -700,14 +700,14 @@
 }
 #pragma mark —— 主播动态接口
 /// 删除主播动态@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_presenter_dynamics_deleteByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_presenter_dynamics_deleteByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ids){
         NSString *url = @"/presenter/dynamics/delete/{".add(ids).add(@"}");
         return JobsURL(url);
     };
 }
 /// 获取主播动态详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_presenter_dynamics_getInfo{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_presenter_dynamics_getInfo{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ids){
         NSString *url = @"/presenter/dynamics/getInfo/{".add(ids).add(@"}");
         return JobsURL(url);
@@ -730,7 +730,7 @@
 }
 #pragma mark —— 主播管理接口
 /// 删除超管信息@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_managerdelete{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_managerdelete{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ids){
         NSString *url = @"/manager/delete/{".add(ids).add(@"}");
         return JobsURL(url);
@@ -742,7 +742,7 @@
     return JobsURL(url);
 }
 /// 获取超管详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_manager_getInfoByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_manager_getInfoByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/manager/getInfo/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -764,7 +764,7 @@
     return JobsURL(url);
 }
 /// 删除主播信息@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_presenter_delete{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_presenter_delete{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/presenter/delete/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -776,7 +776,7 @@
     return JobsURL(url);
 }
 /// 获取主播详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_presenter_getInfoByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_presenter_getInfoByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/presenter/getInfo/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -804,7 +804,7 @@
     return JobsURL(url);
 }
 /// 银行管理-删除@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_agent_config_bank_deleteByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_agent_config_bank_deleteByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/agent/config/bank/delete/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -826,7 +826,7 @@
     return JobsURL(url);
 }
 /// 帮助中心分类问题-删除@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_agent_config_classify_deleteByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_agent_config_classify_deleteByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/agent/config/classify/delete/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -848,7 +848,7 @@
     return JobsURL(url);
 }
 /// 佣金配置-删除@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_agent_config_commission_deleteByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_agent_config_commission_deleteByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/agent/config/commission/delete/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -940,7 +940,7 @@
     return JobsURL(url);
 }
 /// 帮助中心-删除@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_agent_config_help_deleteByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_agent_config_help_deleteByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/agent/config/help/delete/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -967,7 +967,7 @@
     return JobsURL(url);
 }
 /// 出款通道-删除@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_agent_config_outward_deleteByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_agent_config_outward_deleteByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/agent/config/outward/delete/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -1037,7 +1037,7 @@
     return JobsURL(url);
 }
 /// 查询佣金方案详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_commissionRecordAudit_getCommissionRebateDetailInfoByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_commissionRecordAudit_getCommissionRebateDetailInfoByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/agent/commissionRecordAudit/getCommissionRebateDetailInfo/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -1059,7 +1059,7 @@
     return JobsURL(url);
 }
 /// 查询佣金审核详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_commissionRecordAudit_getDetailInfoByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_commissionRecordAudit_getDetailInfoByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/agent/commissionRecordAudit/getDetailInfo/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -1110,21 +1110,21 @@
 }
 #pragma mark —— 代理公告配置接口
 /// 删除代理公告@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_agent_notice_config_deleteByIDList{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_agent_notice_config_deleteByIDList{
     return ^URLManagerModel *_Nullable(NSString *_Nullable idList){
         NSString *url = @"/agent/notice/config/delete/{".add(idList).add(@"}");
         return JobsURL(url);
     };
 }
 /// 获取代理详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_notice_config_getAgentNoticeDetailByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_notice_config_getAgentNoticeDetailByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/agent/notice/config/getAgentNoticeDetail/{".add(ID).add(@"}");
         return JobsURL(url);
     };
 }
 /// 获取公告未读条数@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_notice_config_getAgentNoticeUnreadByAgentName{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_notice_config_getAgentNoticeUnreadByAgentName{
     return ^URLManagerModel *_Nullable(NSString *_Nullable agentName){
         NSString *url = @"/agent/notice/config/getAgentNoticeUnread/{".add(agentName).add(@"}");
         return JobsURL(url);
@@ -1141,7 +1141,7 @@
     return JobsURL(url);
 }
 /// 公告发送@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_notice_config_sendNoticeByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_notice_config_sendNoticeByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/agent/notice/config/sendNotice/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -1170,7 +1170,7 @@
     return JobsURL(url);
 }
 /// 获取提款审核详细信息@POST
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_withdrawalAudit_getWithdrawalAuditDetail{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_withdrawalAudit_getWithdrawalAuditDetail{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/agent/withdrawalAudit/getWithdrawalAuditDetail/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -1193,7 +1193,7 @@
     return JobsURL(url);
 }
 /// 查询代理新增审核详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_agentAddAudit_getDetailInfo{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_agentAddAudit_getDetailInfo{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/agent/agentAddAudit/getDetailInfo/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -1278,7 +1278,7 @@
     return JobsURL(url);
 }
 /// 获取提款记录详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_withdrawalRecord_getWithdrawalRecordDetail{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_withdrawalRecord_getWithdrawalRecordDetail{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/agent/withdrawalRecord/getWithdrawalRecordDetail/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -1331,14 +1331,14 @@
     return JobsURL(url);
 }
 /// 修改代理信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_agentDetail_clearAgentPaymentPassword{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_agentDetail_clearAgentPaymentPassword{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/agent/agentDetail/clearAgentPaymentPassword/{".add(ID).add(@"}");
         return JobsURL(url);
     };
 }
 /// 获取代理详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_agentDetail_getAgentDetail{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_agentDetail_getAgentDetail{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/agent/agentDetail/getAgentDetail/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -1350,7 +1350,7 @@
     return JobsURL(url);
 }
 /// 获取代理财务信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_agentDetail_getAgentFinanceInfo{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_agentDetail_getAgentFinanceInfo{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/agent/agentDetail/getAgentFinanceInfo/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -1426,7 +1426,7 @@
     return JobsURL(url);
 }
 /// 查询代理转代审核详情@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_agent_agentTransformAudit_getAgentTransformAuditDetail{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_agent_agentTransformAudit_getAgentTransformAuditDetail{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/agent/agentTransformAudit/getAgentTransformAuditDetail/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -1550,7 +1550,7 @@
     return JobsURL(url);
 }
 /// 重置会员短信次数@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_member_user_restVerifyCodeByMemberId{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_member_user_restVerifyCodeByMemberId{
     return ^URLManagerModel *_Nullable(NSString *_Nullable memberId){
         NSString *url = @"/member/user/restVerifyCode/{".add(memberId).add(@"}");
         return JobsURL(url);
@@ -1593,7 +1593,7 @@
     return JobsURL(url);
 }
 /// 获取会员后台操作记录详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_member_backendlog_getInfoByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_member_backendlog_getInfoByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/member/backendlog/getInfo/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -1659,7 +1659,7 @@
     return JobsURL(url);
 }
 /// 获取会员标签详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_label_getInfoByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_label_getInfoByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/label/getInfo/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -1676,14 +1676,14 @@
     return JobsURL(url);
 }
 /// 获取会员关联的标签列表@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_label_memberByMemberId{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_label_memberByMemberId{
     return ^URLManagerModel *_Nullable(NSString *_Nullable memberId){
         NSString *url = @"/label/member/{".add(memberId).add(@"}");
         return JobsURL(url);
     };
 }
 /// 删除会员标签@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_label_removeByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_label_removeByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/label/remove/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -1718,7 +1718,7 @@
     return JobsURL(url);
 }
 /// 获取会员禁言记录详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_member_banLog_getInfo{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_member_banLog_getInfo{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/member/banLog/getInfo/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -1747,14 +1747,14 @@
 }
 #pragma mark —— 会员管理-会员详情基本信息-财务信息
 /// 查询会员个人充提信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_memberReport_depositAndWithdraw{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_memberReport_depositAndWithdraw{
     return ^URLManagerModel *_Nullable(NSString *_Nullable memberId){
         NSString *url = @"/fund/memberReport/depositAndWithdraw/{".add(memberId).add(@"}");
         return JobsURL(url);
     };
 }
 /// 查询会员个人提现流水信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_fund_memberReport_withdrawBetRequest{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_fund_memberReport_withdrawBetRequest{
     return ^URLManagerModel *_Nullable(NSString *_Nullable memberId){
         NSString *url = @"/fund/memberReport/withdrawBetRequest/{".add(memberId).add(@"}");
         return JobsURL(url);
@@ -1852,7 +1852,7 @@
     return JobsURL(url);
 }
 /// 查询会员限制记录日志列表@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_member_blocklog_updateStatusByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_member_blocklog_updateStatusByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/member/blocklog/updateStatus/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -1881,7 +1881,7 @@
     return JobsURL(url);
 }
 /// 根据参数键名查询参数值@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_config_configKeyByConfigKey{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_config_configKeyByConfigKey{
     return ^URLManagerModel *_Nullable(NSString *_Nullable configKey){
         NSString *url = @"/config/configKey/{".add(configKey).add(@"}");
         return JobsURL(url);
@@ -1908,14 +1908,14 @@
     return JobsURL(url);
 }
 /// 删除参数配置@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_configByConfigIds{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_configByConfigIds{
     return ^URLManagerModel *_Nullable(NSString *_Nullable configIds){
         NSString *url = @"/config/{".add(configIds).add(@"}");
         return JobsURL(url);
     };
 }
 /// 根据参数编号获取详细信息
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_configByConfigId{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_configByConfigId{
     return ^URLManagerModel *_Nullable(NSString *_Nullable configId){
         NSString *url = @"/config/{".add(configId).add(@"}");
         return JobsURL(url);
@@ -1937,14 +1937,14 @@
     return JobsURL(url);
 }
 /// remove@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_noticeByNoticeIds{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_noticeByNoticeIds{
     return ^URLManagerModel *_Nullable(NSString *_Nullable noticeIds){
         NSString *url = @"/notice/{".add(noticeIds).add(@"}");
         return JobsURL(url);
     };
 }
 /// getInfo@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_noticeByNoticeIds{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_noticeByNoticeIds{
     return ^URLManagerModel *_Nullable(NSString *_Nullable noticeIds){
         NSString *url = @"/notice/{".add(noticeIds).add(@"}");
         return JobsURL(url);
@@ -1967,7 +1967,7 @@
     return JobsURL(url);
 }
 /// 根据ID获取(国家-区号-编码-语言)信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_countrycode_getInfo{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_countrycode_getInfo{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/countrycode/getInfo/{".add(ID).add(@"}");
         return JobsURL(url);
@@ -2054,21 +2054,21 @@
     return JobsURL(url);
 }
 /// 根据字典类型查询字典数据信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_dict_data_typeByDictType{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_dict_data_typeByDictType{
     return ^URLManagerModel *_Nullable(NSString *_Nullable dictType){
         NSString *url = @"/dict/data/type/{".add(dictType).add(@"}");
         return JobsURL(url);
     };
 }
 /// 删除字典数据@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_dict_dataByDictCodes{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_dict_dataByDictCodes{
     return ^URLManagerModel *_Nullable(NSString *_Nullable dictCodes){
         NSString *url = @"/dict/data/{".add(dictCodes).add(@"}");
         return JobsURL(url);
     };
 }
 /// 查询字典数据详细@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_dict_dataByDictCode{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_dict_dataByDictCode{
     return ^URLManagerModel *_Nullable(NSString *_Nullable dictCode){
         NSString *url = @"/dict/data/{".add(dictCode).add(@"}");
         return JobsURL(url);
@@ -2106,14 +2106,14 @@
     return JobsURL(url);
 }
 /// 删除字典类型@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_dict_typeByDictCode{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_dict_typeByDictCode{
     return ^URLManagerModel *_Nullable(NSString *_Nullable dictCode){
         NSString *url = @"/dict/type/{".add(dictCode).add(@"}");
         return JobsURL(url);
     };
 }
 /// 查询字典类型详细@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_dict_typeByDictCode{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_dict_typeByDictCode{
     return ^URLManagerModel *_Nullable(NSString *_Nullable dictCode){
         NSString *url = @"/dict/type/{".add(dictCode).add(@"}");
         return JobsURL(url);
@@ -2121,14 +2121,14 @@
 }
 #pragma mark —— 封面标签信息接口
 /// 删除封面标签信息@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_front_cover_tag_deleteByIDs{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_front_cover_tag_deleteByIDs{
     return ^URLManagerModel *_Nullable(NSString *_Nullable IDs){
         NSString *url = @"/front/cover/tag/delete/{".add(IDs).add(@"}");
         return JobsURL(url);
     };
 }
 /// 获取封面标签信息详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_front_cover_tag_getInfoByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_front_cover_tag_getInfoByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable IDs){
         NSString *url = @"/front/cover/tag/getInfo/{".add(IDs).add(@"}");
         return JobsURL(url);
@@ -2176,14 +2176,14 @@
     return JobsURL(url);
 }
 /// 删除岗位@DELETE
--(JobsReturnURLManagerModelByStringBlock _Nonnull)delete_postByPostIds{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)delete_postByPostIds{
     return ^URLManagerModel *_Nullable(NSString *_Nullable postIds){
         NSString *url = @"/post/{".add(postIds).add(@"}");
         return JobsURL(url);
     };
 }
 /// 根据岗位编号获取详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_postByPostIds{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_postByPostIds{
     return ^URLManagerModel *_Nullable(NSString *_Nullable postId){
         NSString *url = @"/post/{".add(postId).add(@"}");
         return JobsURL(url);
@@ -2206,7 +2206,7 @@
     return JobsURL(url);
 }
 /// 获取平台详细信息@GET
--(JobsReturnURLManagerModelByStringBlock _Nonnull)get_tenant_getInfoByID{
+-(JobsRetURLManagerModelByStrBlock _Nonnull)get_tenant_getInfoByID{
     return ^URLManagerModel *_Nullable(NSString *_Nullable ID){
         NSString *url = @"/tenant/getInfo/{".add(ID).add(@"}");
         return JobsURL(url);

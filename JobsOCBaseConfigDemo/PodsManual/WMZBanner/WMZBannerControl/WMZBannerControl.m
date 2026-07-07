@@ -2,19 +2,21 @@
 //  WMZBannerControl.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by wmz on 2019/9/6.
-//  Copyright © 2019 wmz. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "WMZBannerControl.h"
+
 #define bannerPointSize CGSizeMake(8,8)
-@interface WMZBannerControl()
-{
+
+@interface WMZBannerControl(){
     NSInteger _numberOfPages;
     NSInteger _currentPage;
 }
 Prop_strong()NSMutableArray *imageArr;
+
 @end
+
 @implementation WMZBannerControl
 
 - (instancetype)initWithFrame:(CGRect)frame WithModel:(WMZBannerParam *)param{
@@ -24,12 +26,12 @@ Prop_strong()NSMutableArray *imageArr;
         self.currentPageIndicatorTintColor = param.wBannerControlSelectColor;
         self.pageIndicatorTintColor = param.wBannerControlColor;
         if (param.wBannerControlImage) {
-            self.inactiveImage = [UIImage imageNamed:param.wBannerControlImage];
+            self.inactiveImage = param.wBannerControlImage.img;
             self.inactiveImageSize = param.wBannerControlImageSize;
             self.pageIndicatorTintColor = [UIColor clearColor];
         }
         if (param.wBannerControlSelectImage) {
-            self.currentImage = [UIImage imageNamed:param.wBannerControlSelectImage];
+            self.currentImage = param.wBannerControlSelectImage.img;
             self.currentImageSize = param.wBannerControlSelectImageSize;
             self.currentPageIndicatorTintColor = [UIColor clearColor];
         }
@@ -39,39 +41,41 @@ Prop_strong()NSMutableArray *imageArr;
     };return self;
 }
 
-#pragma mark —— currentPage
-@dynamic currentPage;
 - (void)setCurrentPage:(NSInteger)currentPage{
     _currentPage = currentPage;
     [self updateDots];
 }
 
-#pragma mark —— numberOfPages
-@dynamic numberOfPages;
 - (void)setNumberOfPages:(NSInteger)numberOfPages{
     _numberOfPages = numberOfPages;
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];\
     UIView *tempView = nil;
     for (int i = 0; i<numberOfPages; i++) {
-        UIView *bgView = [UIView new];
-        
-        bgView.frame = CGRectMake(tempView?(CGRectGetMaxX(tempView.frame)+self.param.wBannerControlSelectMargin):self.param.wBannerControlSelectMargin, 0,self.frame.size.width/numberOfPages , self.frame.size.height);
-        [self addSubview:bgView];
-        UIImageView *imageView = [UIImageView new];
-        imageView.tag = 111;
-        [bgView addSubview:imageView];
-        
-        UIView  *pointView = [UIImageView new];
-        [bgView addSubview:pointView];
-        pointView.tag = 222;
-        pointView.frame = CGRectMake((bgView.frame.size.width - bannerPointSize.width)/2, (bgView.frame.size.height - bannerPointSize.height)/2, bannerPointSize.width, bannerPointSize.height);
-        pointView.layer.backgroundColor = self.param.wBannerControlColor.CGColor;
-        pointView.layer.cornerRadius = pointView.frame.size.height/2;
+        UIView *bgView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(CGRectMake(tempView?(CGRectGetMaxX(tempView.frame)+self.param.wBannerControlSelectMargin):self.param.wBannerControlSelectMargin, 0,self.frame.size.width/numberOfPages , self.frame.size.height))
+                .addOn(self);
+        });
+        jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byTag(111)
+                .addOn(bgView);
+        });
+        jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byTag(222)
+                .byFrame(CGRectMake((bgView.frame.size.width - bannerPointSize.width)/2, (bgView.frame.size.height - bannerPointSize.height)/2, bannerPointSize.width, bannerPointSize.height))
+                .addOn(bgView)
+                .byLayer(^(CALayer * _Nullable layer) {
+                    layer
+                        .byBgColor(self.param.wBannerControlColor.CGColor)
+                        .cornerRadiusBy(imageView.frame.size.height / 2);
+                });
+        });
         
         tempView = bgView;
     }
 }
-
 
 - (void)updateDots{
     for (int i = 0; i < [self.subviews count]; i++) {
@@ -79,26 +83,34 @@ Prop_strong()NSMutableArray *imageArr;
         UIImageView *dot = [bgView viewWithTag:111];
         UIView *pointView = [bgView viewWithTag:222];
         if (i == self.currentPage){
-           pointView.layer.backgroundColor = self.param.wBannerControlSelectColor.CGColor;
-           pointView.hidden = self.currentImage?YES:NO;
-           dot.hidden = self.currentImage?NO:YES;
+           pointView.layer.byBgColor(self.param.wBannerControlSelectColor.CGColor);
+
+           pointView.byHidden(self.currentImage?YES:NO);
+
+           dot.byHidden(self.currentImage?NO:YES);
+
            if (self.currentImage) {
                dot.image = self.currentImage;
                CGRect rect = dot.frame;
                rect.size = self.currentImageSize;
-               dot.frame = rect;
+               dot.byFrame(rect);
+
                dot.layer.masksToBounds = YES;
                dot.layer.cornerRadius =  self.param.wBannerControlImageRadius?:self. self.currentImageSize.height/2;
            }
         }else{
-            pointView.layer.backgroundColor = self.param.wBannerControlColor.CGColor;
-            pointView.hidden = self.inactiveImage?YES:NO;
-            dot.hidden = self.currentImage?NO:YES;
+            pointView.layer.byBgColor(self.param.wBannerControlColor.CGColor);
+
+            pointView.byHidden(self.inactiveImage?YES:NO);
+
+            dot.byHidden(self.currentImage?NO:YES);
+
             if (self.inactiveImage) {
                 dot.image = self.inactiveImage;
                 CGRect rect = dot.frame;
                 rect.size = self.inactiveImageSize;
-                dot.frame = rect;
+                dot.byFrame(rect);
+
                 dot.layer.masksToBounds = YES;
                 dot.layer.cornerRadius = self.param.wBannerControlImageRadius?:self. self.inactiveImageSize.height/2;
             }
@@ -106,8 +118,6 @@ Prop_strong()NSMutableArray *imageArr;
     }
     [self layoutSubviews];
 }
-
-
 
 - (void)layoutSubviews
 {
@@ -130,7 +140,8 @@ Prop_strong()NSMutableArray *imageArr;
                 CGRect rect = self.frame;
                 rect.size.width = CGRectGetMaxX(dot.frame);
                 rect.origin.x = (self.param.wFrame.size.width - rect.size.width)/2;
-                self.frame = rect;
+                self.byFrame(rect);
+
             }
         }
     }
@@ -145,18 +156,21 @@ Prop_strong()NSMutableArray *imageArr;
             CGRect rect = self.frame;
             rect.size.width = CGRectGetMaxX(dot.frame);
             rect.origin.x = (self.param.wFrame.size.width - rect.size.width)/2;
-            self.frame = rect;
+            self.byFrame(rect);
+
         }
     }
     if (self.param.wBannerControlPosition == BannerControlLeft) {
           CGRect rect = self.frame;
           rect.origin.x = 30;
-          self.frame = rect;
+          self.byFrame(rect);
+
       }
       if (self.param.wBannerControlPosition == BannerControlRight) {
           CGRect rect = self.frame;
           rect.origin.x = self.superview.frame.size.width - rect.size.width  - 30;
-          self.frame = rect;
+          self.byFrame(rect);
+
       }
       if (self.param.wCustomControl) {
           self.param.wCustomControl(self);

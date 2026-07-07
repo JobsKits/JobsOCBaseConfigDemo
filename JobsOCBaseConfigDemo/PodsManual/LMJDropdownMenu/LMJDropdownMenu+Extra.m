@@ -7,6 +7,12 @@
 
 #import "LMJDropdownMenu+Extra.h"
 
+@interface NSObject (JobsImageAccessor)
+
+@property(nonatomic, strong, readonly, nullable) UIImage *img;
+
+@end
+
 @implementation LMJDropdownMenu (Extra)
 
 -(__kindof UIButton *)great{
@@ -16,7 +22,7 @@
 
 -(void)greatAtEmpty{
     UIButton *btn = self.great;
-    [btn setImage:[UIImage imageNamed:@"空白图"] forState:UIControlStateNormal];
+    [btn setImage:@"空白图".img forState:UIControlStateNormal];
     if (@available(iOS 15.0, *)) {
         UIButtonConfiguration *config = btn.configuration ?: UIButtonConfiguration.plainButtonConfiguration;
         config.imagePlacement = NSDirectionalRectEdgeTrailing;

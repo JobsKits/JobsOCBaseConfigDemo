@@ -10,15 +10,21 @@
 @interface CompressStrVC ()
 
 Prop_strong()UIView *contentCardView;
+Prop_strong()UIScrollView *contentScrollView;
 Prop_strong()UILabel *titleLab;
+Prop_strong()UILabel *algorithmTitleLab;
+Prop_strong()UILabel *algorithmValueLab;
 Prop_strong()UILabel *sourceTitleLab;
-Prop_strong()UILabel *sourceValueLab;
-Prop_strong()UILabel *compressedTitleLab;
-Prop_strong()UILabel *compressedValueLab;
+Prop_strong()UITextView *sourceTextView;
+Prop_strong()UILabel *compressedInfoTitleLab;
+Prop_strong()UILabel *compressedInfoValueLab;
+Prop_strong()UILabel *compressedStringTitleLab;
+Prop_strong()UILabel *compressedStringValueLab;
 Prop_strong()UILabel *resultTitleLab;
 Prop_strong()UILabel *resultValueLab;
 Prop_strong()UIButton *refreshBtn;
 Prop_copy()NSString *demoText;
+Prop_copy()NSString *compressedBase64Str;
 
 @end
 
@@ -93,40 +99,91 @@ Prop_copy()NSString *demoText;
 }
 #pragma mark —— UI
 -(void)buildDemoUI{
+    (void)self.contentScrollView;
     (void)self.contentCardView;
     (void)self.titleLab;
+    (void)self.algorithmTitleLab;
+    (void)self.algorithmValueLab;
     (void)self.sourceTitleLab;
-    (void)self.sourceValueLab;
-    (void)self.compressedTitleLab;
-    (void)self.compressedValueLab;
+    (void)self.sourceTextView;
+    (void)self.compressedInfoTitleLab;
+    (void)self.compressedInfoValueLab;
+    (void)self.compressedStringTitleLab;
+    (void)self.compressedStringValueLab;
     (void)self.resultTitleLab;
     (void)self.resultValueLab;
     (void)self.refreshBtn;
 }
 
 -(void)refreshCompressResult{
-    NSData *data = self.demoText.compress;
+    NSString *sourceText = self.inputTextForCompress;
+    NSData *sourceData = sourceText.UTF8Encoding;
+    NSData *data = sourceText.compress;
     NSString *base64Str = [data base64EncodedStringWithOptions:0] ? : @"";
     NSString *decompressStr = data.decompressToStr ? : @"";
-    self.sourceValueLab.byText(self.demoText);
-    self.compressedValueLab.byText([NSString stringWithFormat:@"NSData 长度：%lu bytes\nBase64：%@",
-                                    (unsigned long)data.length,
-                                    base64Str]);
+    CGFloat ratio = sourceData.length ? ((CGFloat)data.length / (CGFloat)sourceData.length) * 100.0 : 0;
+    self.compressedBase64Str = base64Str;
+    self.compressedInfoValueLab.byText([NSString stringWithFormat:@"原始 UTF8 NSData 长度：%lu bytes\n压缩后 NSData 长度：%lu bytes\nBase64 字符数：%lu\n压缩率：%.2f%%",
+                                        (unsigned long)sourceData.length,
+                                        (unsigned long)data.length,
+                                        (unsigned long)base64Str.length,
+                                        ratio]);
+    self.compressedStringValueLab.byText(base64Str);
     self.resultValueLab.byText(decompressStr);
     JobsLog(@"压缩后的数据: %@",data);
     JobsLog(@"解压后的字符串: %@",decompressStr);
 }
+
+-(NSString *)inputTextForCompress{
+    NSString *inputText = self.sourceTextView.text ? : @"";
+    NSString *trimText = [inputText stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+    if (!trimText.length) {
+        self.sourceTextView.byText(self.demoText);
+        return self.demoText;
+    };return inputText;
+}
+
+-(NSString *)compressAlgorithmText{
+    return @"压缩：NSString -> UTF8 NSData -> NSKeyedArchiver archivedDataWithRootObject:requiringSecureCoding:NO:error: -> Base64 字符串"
+           @"\n解压：NSData -> NSKeyedUnarchiver unarchivedObjectOfClass:NSData -> UTF8 NSString";
+}
+
+-(void)copyCompressedStringByLongPress:(UILongPressGestureRecognizer *)gesture{
+    if (gesture.state != UIGestureRecognizerStateBegan) return;
+    if (!self.compressedBase64Str.length) return;
+    self.compressedBase64Str.pasteboard();
+}
 #pragma mark —— lazyLoad
+-(UIScrollView *)contentScrollView{
+    if (!_contentScrollView) {
+        _contentScrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
+            scrollView
+                .byShowsVerticalScrollIndicator(NO)
+                .byAlwaysBounceVertical(YES)
+                .byBgColor(JobsClearColor)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom);
+                    make.left.right.bottom.equalTo(self.view);
+                });
+        });
+        if (@available(iOS 11.0, *)) {
+            _contentScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
+    };return _contentScrollView;
+}
+
 -(UIView *)contentCardView{
     if (!_contentCardView) {
         _contentCardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view
                 .byBgColor(JobsWhiteColor)
-                .addOn(self.view)
+                .addOn(self.contentScrollView)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(24));
-                    make.left.equalTo(self.view).offset(JobsWidth(20));
-                    make.right.equalTo(self.view).offset(JobsWidth(-20));
+                    make.top.equalTo(self.contentScrollView).offset(JobsWidth(24));
+                    make.left.equalTo(self.contentScrollView).offset(JobsWidth(20));
+                    make.width.equalTo(self.view).offset(JobsWidth(-40));
+                    make.bottom.equalTo(self.contentScrollView).offset(JobsWidth(-24));
                 });
         });
         _contentCardView.layer
@@ -156,40 +213,93 @@ Prop_copy()NSString *demoText;
     };return _titleLab;
 }
 
+-(UILabel *)algorithmTitleLab{
+    if (!_algorithmTitleLab) {
+        _algorithmTitleLab = [self sectionTitleLabByText:@"压缩算法".tr
+                                                     top:self.titleLab.mas_bottom
+                                                  offset:JobsWidth(22)];
+    };return _algorithmTitleLab;
+}
+
+-(UILabel *)algorithmValueLab{
+    if (!_algorithmValueLab) {
+        _algorithmValueLab = [self sectionValueLabByTop:self.algorithmTitleLab.mas_bottom
+                                                offset:JobsWidth(8)];
+        _algorithmValueLab.byText(self.compressAlgorithmText);
+    };return _algorithmValueLab;
+}
+
 -(UILabel *)sourceTitleLab{
     if (!_sourceTitleLab) {
         _sourceTitleLab = [self sectionTitleLabByText:@"原始字符串".tr
-                                                 top:self.titleLab.mas_bottom
+                                                 top:self.algorithmValueLab.mas_bottom
                                               offset:JobsWidth(22)];
     };return _sourceTitleLab;
 }
 
--(UILabel *)sourceValueLab{
-    if (!_sourceValueLab) {
-        _sourceValueLab = [self sectionValueLabByTop:self.sourceTitleLab.mas_bottom
-                                              offset:JobsWidth(8)];
-    };return _sourceValueLab;
+-(UITextView *)sourceTextView{
+    if (!_sourceTextView) {
+        _sourceTextView = jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
+            textView
+                .byText(self.demoText)
+                .byTextCor(HEXCOLOR(0x1E2A36))
+                .byFont(UIFontWeightRegularSize(13))
+                .byTextContainerInset(UIEdgeInsetsMake(JobsWidth(8), JobsWidth(10), JobsWidth(8), JobsWidth(10)))
+                .byLineFragmentPadding(0)
+                .byBgColor(HEXCOLOR(0xF3F6FA))
+                .addOn(self.contentCardView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.sourceTitleLab.mas_bottom).offset(JobsWidth(8));
+                    make.left.right.equalTo(self.titleLab);
+                    make.height.mas_equalTo(JobsWidth(88));
+                });
+        });
+        _sourceTextView.layer.byCornerRadius(JobsWidth(8));
+        _sourceTextView.layer.masksToBounds = YES;
+    };return _sourceTextView;
 }
 
--(UILabel *)compressedTitleLab{
-    if (!_compressedTitleLab) {
-        _compressedTitleLab = [self sectionTitleLabByText:@"压缩后".tr
-                                                     top:self.sourceValueLab.mas_bottom
-                                                  offset:JobsWidth(18)];
-    };return _compressedTitleLab;
+-(UILabel *)compressedInfoTitleLab{
+    if (!_compressedInfoTitleLab) {
+        _compressedInfoTitleLab = [self sectionTitleLabByText:@"压缩信息".tr
+                                                         top:self.sourceTextView.mas_bottom
+                                                      offset:JobsWidth(18)];
+    };return _compressedInfoTitleLab;
 }
 
--(UILabel *)compressedValueLab{
-    if (!_compressedValueLab) {
-        _compressedValueLab = [self sectionValueLabByTop:self.compressedTitleLab.mas_bottom
-                                                  offset:JobsWidth(8)];
-    };return _compressedValueLab;
+-(UILabel *)compressedInfoValueLab{
+    if (!_compressedInfoValueLab) {
+        _compressedInfoValueLab = [self sectionValueLabByTop:self.compressedInfoTitleLab.mas_bottom
+                                                      offset:JobsWidth(8)];
+    };return _compressedInfoValueLab;
+}
+
+-(UILabel *)compressedStringTitleLab{
+    if (!_compressedStringTitleLab) {
+        _compressedStringTitleLab = [self sectionTitleLabByText:@"压缩字符串（Base64，长按复制）".tr
+                                                           top:self.compressedInfoValueLab.mas_bottom
+                                                        offset:JobsWidth(18)];
+    };return _compressedStringTitleLab;
+}
+
+-(UILabel *)compressedStringValueLab{
+    if (!_compressedStringValueLab) {
+        @jobs_weakify(self)
+        _compressedStringValueLab = [self sectionValueLabByTop:self.compressedStringTitleLab.mas_bottom
+                                                        offset:JobsWidth(8)];
+        _compressedStringValueLab
+            .byUserInteractionEnabled(YES)
+            .addLongPressGR(^(__kindof UILongPressGestureRecognizer * _Nullable data) {
+                @jobs_strongify(self)
+                [self copyCompressedStringByLongPress:data];
+            });
+    };return _compressedStringValueLab;
 }
 
 -(UILabel *)resultTitleLab{
     if (!_resultTitleLab) {
         _resultTitleLab = [self sectionTitleLabByText:@"解压后".tr
-                                                 top:self.compressedValueLab.mas_bottom
+                                                 top:self.compressedStringValueLab.mas_bottom
                                               offset:JobsWidth(18)];
     };return _resultTitleLab;
 }
@@ -211,6 +321,7 @@ Prop_copy()NSString *demoText;
                 .byTitleCor(JobsWhiteColor)
                 .onClickBy(^(UIButton *x) {
                     @jobs_strongify(self)
+                    [self.view endEditing:YES];
                     [self refreshCompressResult];
                 })
                 .byBgColor(HEXCOLOR(0x1E2A36))

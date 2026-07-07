@@ -9,8 +9,9 @@
 #import "NSString+ID.h"
 #import "UICollectionViewLayoutAttributes+Extra.h"
 
-static CGFloat const itemH = 76; // cell高度
-static CGFloat const itemInnerInset = 10; // 被遮盖的cell头部留出的距离
+static CGFloat const TMSCollectionViewLayoutDefaultItemHeight = 76; // cell高度
+static CGFloat const TMSCollectionViewLayoutDefaultOverlapRatio = 0.5; // 默认盖住50%
+static CGFloat const TMSCollectionViewLayoutDefaultExpandedItemSpacing = 10; // 展开后的正常间距
 
 @interface TMSCollectionViewLayout ()
 
@@ -24,6 +25,14 @@ Prop_assign()BOOL isExpand;
 
 @implementation TMSCollectionViewLayout
 #pragma mark —— 覆写 UICollectionViewLayout 父类方法
+-(instancetype)init{
+    if ((self = [super init])) {
+        _itemHeight = TMSCollectionViewLayoutDefaultItemHeight;
+        _overlapRatio = TMSCollectionViewLayoutDefaultOverlapRatio;
+        _expandedItemSpacing = TMSCollectionViewLayoutDefaultExpandedItemSpacing;
+    };return self;
+}
+
 -(void)prepareLayout {
     [super prepareLayout];
     [self.attrubutesArray removeAllObjects];
@@ -54,10 +63,16 @@ Prop_assign()BOOL isExpand;
     UICollectionViewLayoutAttributes *lastAttributes = self.attrubutesArray.lastObject;
     attribute.zIndex = indexPath.item * 2;
     CGRect frame;
-    frame.size = CGSizeMake(JobsMainScreen_WIDTH() - 2 * self.padding, itemH);
-    CGFloat offfsetY = indexPath.item == 0 ? 0 : itemInnerInset;
-    CGFloat expandH = (self.isExpand && self.clickIndexPath && self.clickIndexPath.section == indexPath.section && self.clickIndexPath.item + 1 == indexPath.item) ? -10 : offfsetY;
-    frame.origin = CGPointMake(self.padding, CGRectGetMaxY(lastAttributes.frame) - expandH);
+    frame.size = CGSizeMake(JobsMainScreen_WIDTH() - 2 * self.padding, self.itemHeight);
+    BOOL isExpandClickedCell = self.isExpand &&
+                               self.clickIndexPath &&
+                               self.clickIndexPath.section == indexPath.section &&
+                               self.clickIndexPath.item + 1 == indexPath.item;
+    CGFloat itemOffsetY = 0;
+    if (indexPath.item > 0) {
+        itemOffsetY = isExpandClickedCell ? self.expandedItemSpacing : -self.itemHeight * self.overlapRatio;
+    }
+    frame.origin = CGPointMake(self.padding, CGRectGetMaxY(lastAttributes.frame) + itemOffsetY);
     attribute.frame = frame;
 
     return attribute;
@@ -106,11 +121,13 @@ Prop_assign()BOOL isExpand;
     self.isExpand = isExpand;
     self.clickIndexPath = self.isExpand ? clickIndexPath : nil;
     @jobs_weakify(self)
-    [UIView transitionWithView:self.collectionView
-                      duration:0.25
-                       options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+    [UIView animateWithDuration:0.28
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
         @jobs_strongify(self)
         [self invalidateLayout];
+        [self.collectionView layoutIfNeeded];
     } completion:nil];
 
     // 使用该方法，最底部的item会闪动
@@ -119,6 +136,10 @@ Prop_assign()BOOL isExpand;
 //    }];
 }
 #pragma mark —— lazyLoad
+-(void)setOverlapRatio:(CGFloat)overlapRatio{
+    _overlapRatio = MIN(MAX(overlapRatio, 0), 0.95);
+}
+
 -(NSMutableArray<UICollectionViewLayoutAttributes *> *)attrubutesArray{
     if (!_attrubutesArray) {
         _attrubutesArray = NSMutableArray.array;

@@ -2,7 +2,7 @@
 //  JobsIMListTBVCell.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/11/17.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsIMListTBVCell.h"
@@ -11,26 +11,30 @@
 
 Prop_strong()UILabel *timeLab;
 Prop_strong()UILongPressGestureRecognizer *longPG;
+
 Prop_strong()NSMutableArray <MGSwipeButtonModel *>*leftBtnMutArr;
 Prop_strong()NSMutableArray <MGSwipeButtonModel *>*rightBtnMutArr;
 Prop_copy()NSString *usernameStr;
 Prop_copy()NSString *contentStr;
 Prop_copy()NSString *timeStr;
 Prop_strong()UIImage *userHeaderIMG;
+Prop_copy()NSString *userHeaderURLStr;
 
 @end
 
 @implementation JobsIMListTBVCell
 UITextFieldProtocol_synthesize_part2
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsIMListTBVCell *cell = (JobsIMListTBVCell *)tableView.tableViewCellClass(JobsIMListTBVCell.class,@"");
         if (!cell) {
             cell = JobsIMListTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
             cell
                 .bySelectionStyle(UITableViewCellSelectionStyleNone)
+                .byContentView(^(__kindof UIView * _Nullable view) {
+                    view.byBgColor(JobsWhiteColor);
+                })
                 .byBgColor(JobsWhiteColor);
-            cell.contentView.byBgColor(JobsWhiteColor);
         };return cell;
     };
 }
@@ -41,8 +45,10 @@ UITextFieldProtocol_synthesize_part2
                     reuseIdentifier:reuseIdentifier]) {
         self.longPG.enabled = YES;
         self.swipeBackgroundColor = JobsClearColor;
-        self.selectedBackgroundView = UIView.new;
-        self.selectedBackgroundView.backgroundColor = JobsYellowColor.colorWithAlphaComponentBy(0.3);
+        self.bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(JobsYellowColor.colorWithAlphaComponentBy(0.3));
+        }));
+
         self.leftSwipeSettings.transition = MGSwipeTransitionBorder;
         self.rightSwipeSettings.transition = MGSwipeTransitionDrag;
         self.leftExpansion.buttonIndex = 0;
@@ -70,19 +76,30 @@ UITextFieldProtocol_synthesize_part2
             self.usernameStr = listDataModel.usernameStr;
             self.contentStr = listDataModel.contentStr;
             self.userHeaderIMG = listDataModel.userHeaderIMG;
+            self.userHeaderURLStr = listDataModel.userHeaderURLStr;
             self.timeStr = listDataModel.timeStr;
         }else{
             self.usernameStr = @"数据异常".tr;
             self.contentStr = @"数据异常".tr;
             self.userHeaderIMG = nil;
+            self.userHeaderURLStr = @"https://picsum.photos/126";
             self.timeStr = @"数据异常".tr;
         }
         
-        self.textLabel.text = self.usernameStr;
-        self.detailTextLabel.text = self.contentStr;
-        self.detailTextLabel.textColor = JobsLightGrayColor;
-        self.imageView.image = self.userHeaderIMG;
-        self.timeLab.alpha = 1;
+        self.textLabel.byText(self.usernameStr);
+        self.detailTextLabel.byText(self.contentStr);
+        self.detailTextLabel.byTextCor(JobsLightGrayColor);
+        if (self.userHeaderIMG) {
+            self.imageView.image = self.userHeaderIMG;
+        }else{
+            self.imageView
+                .imageURL(self.userHeaderURLStr.jobsUrl)
+                .placeholderImage(nil)
+                .options(self.makeSDWebImageOptions)
+                .load();
+        }
+        self.timeLab.byAlpha(1);
+
         return self;
     };
 }
@@ -130,15 +147,16 @@ UITextFieldProtocol_synthesize_part2
         @jobs_weakify(self)
         _timeLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.text = self.timeStr;
-            label.textColor = JobsLightGrayColor;
-            label.font = UIFontWeightRegularSize(JobsWidth(12));
-            [label sizeToFit];
-            self.contentView.addSubview(label);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            label
+                .byText(self.timeStr)
+                .byTextCor(JobsLightGrayColor)
+                .byFont(UIFontWeightRegularSize(JobsWidth(12)))
+            .bySizeToFit()
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(self.contentView).offset(5);
                 make.right.equalTo(self.contentView).offset(-5);
-            }];
+            });
         });
     };return _timeLab;
 }
@@ -199,6 +217,5 @@ UITextFieldProtocol_synthesize_part2
         });
     };return _rightBtnMutArr;
 }
-    
 
 @end

@@ -7,6 +7,12 @@
 
 #import "JobsOCRefreshComponent.h"
 
+@interface NSObject (JobsImageAccessor)
+
+@property(nonatomic, strong, readonly, nullable) UIImage *img;
+
+@end
+
 @interface JobsOCRefreshComponent ()
 
 Prop_assign(readwrite) JobsOCRefreshState state;
@@ -43,13 +49,13 @@ Prop_strong(nullable) JobsTimer *frameTimer;
         _role = role;
         _config = config;
         _state = JobsOCRefreshStateIdle;
-        self.backgroundColor = UIColor.clearColor;
-        self.userInteractionEnabled = NO;
-        [self addSubview:self.indicatorView];
-        [self addSubview:self.imageView];
-        [self addSubview:self.statusLabel];
-        [self addSubview:self.timePrefixLabel];
-        [self addSubview:self.timeLabel];
+        self.byBgColor(UIColor.clearColor)
+            .byUserInteractionEnabled(NO);
+        self.indicatorView.addOn(self);
+        self.imageView.addOn(self);
+        self.statusLabel.addOn(self);
+        self.timePrefixLabel.addOn(self);
+        self.timeLabel.addOn(self);
         [self applyState:JobsOCRefreshStateIdle progress:0];
     };return self;
 }
@@ -64,49 +70,49 @@ Prop_strong(nullable) JobsTimer *frameTimer;
 
 - (void)applyState:(JobsOCRefreshState)state progress:(CGFloat)progress {
     self.state = state;
-    self.timePrefixLabel.hidden = YES;
-    self.timeLabel.hidden = YES;
+    self.timePrefixLabel.byHidden(YES);
+    self.timeLabel.byHidden(YES);
     switch (state) {
         case JobsOCRefreshStateIdle:
             [self stopVisualAnimating];
-            self.statusLabel.text = [self displayText:self.config.idleText];
+            self.statusLabel.byText([self displayText:self.config.idleText]);
             break;
         case JobsOCRefreshStatePulling:
             [self stopVisualAnimating];
-            self.statusLabel.text = [self displayText:[NSString stringWithFormat:@"%@ %.0f%%",
+            self.statusLabel.byText([self displayText:[NSString stringWithFormat:@"%@ %.0f%%",
                                                        self.config.pullingText,
-                                                       MIN(1, MAX(0, progress)) * 100]];
+                                                       MIN(1, MAX(0, progress)) * 100]]);
             break;
         case JobsOCRefreshStateReady:
             [self stopVisualAnimating];
-            self.statusLabel.text = [self displayText:[self.config readyTextForRole:self.role]];
+            self.statusLabel.byText([self displayText:[self.config readyTextForRole:self.role]]);
             break;
         case JobsOCRefreshStateRefreshing:
             [self startVisualAnimating];
-            self.statusLabel.text = [self displayText:[self.config refreshingTextForRole:self.role]];
+            self.statusLabel.byText([self displayText:[self.config refreshingTextForRole:self.role]]);
             [self updateTimeIfNeeded];
             break;
         case JobsOCRefreshStateEnding:
             [self stopVisualAnimating];
-            self.statusLabel.text = [self displayText:[self.config refreshingTextForRole:self.role]];
+            self.statusLabel.byText([self displayText:[self.config refreshingTextForRole:self.role]]);
             break;
         case JobsOCRefreshStateFailed:
             [self stopVisualAnimating];
-            self.statusLabel.text = [self displayText:self.config.failedText];
+            self.statusLabel.byText([self displayText:self.config.failedText]);
             break;
         case JobsOCRefreshStateDisabled:
             [self stopVisualAnimating];
-            self.statusLabel.text = [self displayText:self.config.disabledText];
+            self.statusLabel.byText([self displayText:self.config.disabledText]);
             break;
         case JobsOCRefreshStateNoMoreData:
             [self stopVisualAnimating];
-            self.statusLabel.text = [self displayText:self.config.noMoreDataText];
+            self.statusLabel.byText([self displayText:self.config.noMoreDataText]);
             break;
         case JobsOCRefreshStateRemoved:
             [self stopVisualAnimating];
-            self.statusLabel.text = nil;
-            self.timePrefixLabel.text = nil;
-            self.timeLabel.text = nil;
+            self.statusLabel.byText(nil);
+            self.timePrefixLabel.byText(nil);
+            self.timeLabel.byText(nil);
             break;
     }
     [self setNeedsLayout];
@@ -149,25 +155,25 @@ Prop_strong(nullable) JobsTimer *frameTimer;
                                       startY,
                                       iconSide,
                                       iconSide);
-        self.imageView.frame = iconFrame;
-        self.indicatorView.frame = iconFrame;
+        self.imageView.byFrame(iconFrame);
+        self.indicatorView.byFrame(iconFrame);
 #if defined(Lottie_h)
-        self.lottieView.frame = iconFrame;
+        if (self.lottieView) self.lottieView.byFrame(iconFrame);
 #endif
-        self.statusLabel.frame = CGRectMake(startX,
+        self.statusLabel.byFrame(CGRectMake(startX,
                                             statusY,
                                             statusColumnW,
-                                            statusH);
-        self.timePrefixLabel.frame = CGRectMake(CGRectGetMaxX(self.statusLabel.frame) + textGap,
+                                            statusH));
+        self.timePrefixLabel.byFrame(CGRectMake(CGRectGetMaxX(self.statusLabel.frame) + textGap,
                                                 statusY,
                                                 prefixColumnW,
-                                                prefixH);
-        self.timeLabel.frame = CGRectMake(CGRectGetMaxX(self.timePrefixLabel.frame) + textGap,
+                                                prefixH));
+        self.timeLabel.byFrame(CGRectMake(CGRectGetMaxX(self.timePrefixLabel.frame) + textGap,
                                           statusY,
                                           timeColumnW,
-                                          timeH);
+                                          timeH));
     } else {
-        self.timePrefixLabel.frame = CGRectZero;
+        self.timePrefixLabel.byFrame(CGRectZero);
         BOOL showsTime = !self.timeLabel.hidden && self.timeLabel.text.length;
         CGFloat textMaxW = MAX(0, boundsW - iconSide - spacing - 24);
         CGSize statusSize = [self.statusLabel sizeThatFits:CGSizeMake(textMaxW, CGFLOAT_MAX)];
@@ -180,67 +186,67 @@ Prop_strong(nullable) JobsTimer *frameTimer;
         CGFloat startX = (boundsW - totalW) * 0.5;
         CGFloat centerY = boundsH * 0.5;
         CGFloat textY = centerY - textH * 0.5;
-        self.imageView.frame = CGRectMake(startX, centerY - iconSide * 0.5, iconSide, iconSide);
-        self.indicatorView.frame = self.imageView.frame;
+        self.imageView.byFrame(CGRectMake(startX, centerY - iconSide * 0.5, iconSide, iconSide));
+        self.indicatorView.byFrame(self.imageView.frame);
 #if defined(Lottie_h)
-        self.lottieView.frame = self.imageView.frame;
+        if (self.lottieView) self.lottieView.byFrame(self.imageView.frame);
 #endif
-        self.statusLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + spacing,
+        self.statusLabel.byFrame(CGRectMake(CGRectGetMaxX(self.imageView.frame) + spacing,
                                             textY,
                                             textW,
-                                            statusH);
-        self.timeLabel.frame = CGRectMake(CGRectGetMinX(self.statusLabel.frame),
+                                            statusH));
+        self.timeLabel.byFrame(CGRectMake(CGRectGetMinX(self.statusLabel.frame),
                                           CGRectGetMaxY(self.statusLabel.frame),
                                           textW,
-                                          timeH);
+                                          timeH));
     }
 }
 
 - (void)startVisualAnimating {
     [self stopFrameTimer];
-    self.imageView.hidden = YES;
-	    [self.imageView stopAnimating];
-	    switch (self.config.animationType) {
-	        case JobsOCRefreshAnimationTypeSystem:
-	            [self.indicatorView startAnimating];
-	            break;
-	        case JobsOCRefreshAnimationTypeLottie:
-	            if ([self applyLottie]) {
-	                [self.indicatorView stopAnimating];
-	            } else {
-	                [self.indicatorView startAnimating];
-	            }
-	            break;
-	        case JobsOCRefreshAnimationTypeGIF:
-            if ([self applyGIF]) {
-                [self.indicatorView stopAnimating];
+    self.imageView.byHidden(YES);
+    [self.imageView stopAnimating];
+    switch (self.config.animationType) {
+        case JobsOCRefreshAnimationTypeSystem:
+            self.indicatorView.byStartAnimating();
+            break;
+        case JobsOCRefreshAnimationTypeLottie:
+            if ([self applyLottie]) {
+                self.indicatorView.byStopAnimating();
             } else {
-                [self.indicatorView startAnimating];
+                self.indicatorView.byStartAnimating();
+            }
+            break;
+        case JobsOCRefreshAnimationTypeGIF:
+            if ([self applyGIF]) {
+                self.indicatorView.byStopAnimating();
+            } else {
+                self.indicatorView.byStartAnimating();
             }
             break;
         case JobsOCRefreshAnimationTypeFrameImages:
             if ([self applyFrameImages]) {
-                [self.indicatorView stopAnimating];
+                self.indicatorView.byStopAnimating();
             } else {
-                [self.indicatorView startAnimating];
+                self.indicatorView.byStartAnimating();
             }
             break;
         case JobsOCRefreshAnimationTypeNetworkImage:
             if ([self applyNetworkImage]) {
-                [self.indicatorView stopAnimating];
+                self.indicatorView.byStopAnimating();
             } else {
-                [self.indicatorView startAnimating];
+                self.indicatorView.byStartAnimating();
             }
             break;
     }
 }
 
 - (void)stopVisualAnimating {
-    [self.indicatorView stopAnimating];
-	[self.imageView stopAnimating];
-	self.imageView.hidden = YES;
-	[self stopFrameTimer];
-	[self stopLottie];
+    self.indicatorView.byStopAnimating();
+    [self.imageView stopAnimating];
+    self.imageView.byHidden(YES);
+    [self stopFrameTimer];
+    [self stopLottie];
 }
 
 - (BOOL)applyFrameImages {
@@ -249,16 +255,17 @@ Prop_strong(nullable) JobsTimer *frameTimer;
 #else
     NSMutableArray<UIImage *> *images = NSMutableArray.array;
     for (NSString *name in self.config.frameImageNames) {
-        UIImage *image = [UIImage imageNamed:name];
+        UIImage *image = name.img;
         if (image) [images addObject:image];
     }
     if (!images.count) return NO;
     self.frameImages = images.copy;
     self.frameImageIndex = 0;
-    self.imageView.image = images.firstObject;
-    self.imageView.hidden = NO;
+    self.imageView
+        .byImage(images.firstObject)
+        .byHidden(NO);
     if (images.count > 1) {
-        __weak typeof(self) weakSelf = self;
+        @jobs_weakify(self)
         NSTimeInterval interval = MAX(0.02, self.config.frameImageInterval);
         self.frameTimer = jobsMakeTimer(^(JobsTimer * _Nullable timer) {
             timer.byTimerType(JobsTimerTypeGCD)
@@ -269,10 +276,10 @@ Prop_strong(nullable) JobsTimer *frameTimer;
             .byStartTime(0)
             .byTime(0)
             .byOnTick(^(CGFloat time) {
-                __strong typeof(weakSelf) self = weakSelf;
+                @jobs_strongify(self)
                 if (!self.frameImages.count) return;
                 self.frameImageIndex = (self.frameImageIndex + 1) % self.frameImages.count;
-                self.imageView.image = self.frameImages[self.frameImageIndex];
+                self.imageView.byImage(self.frameImages[self.frameImageIndex]);
             });
         });
         [self.frameTimer start];
@@ -284,8 +291,9 @@ Prop_strong(nullable) JobsTimer *frameTimer;
     if (!self.config.gifName.length) return NO;
     UIImage *image = [self animatedGIFNamed:self.config.gifName];
     if (!image) return NO;
-    self.imageView.image = image;
-    self.imageView.hidden = NO;
+    self.imageView
+        .byImage(image)
+        .byHidden(NO);
     [self.imageView startAnimating];
     return YES;
 }
@@ -296,14 +304,14 @@ Prop_strong(nullable) JobsTimer *frameTimer;
 #else
     if (!self.config.lottieName.length) return NO;
     if (!self.lottieView || ![self.currentLottieName isEqualToString:self.config.lottieName]) {
-        [self.lottieView removeFromSuperview];
+        if (self.lottieView) self.lottieView.byRemove();
         self.lottieView = [self buildLottieViewWithName:self.config.lottieName];
         self.currentLottieName = self.config.lottieName;
         if (!self.lottieView) return NO;
         [self insertSubview:self.lottieView aboveSubview:self.imageView];
         [self setNeedsLayout];
     }
-    self.lottieView.hidden = NO;
+    self.lottieView.byHidden(NO);
     self.lottieView.animationProgress = 0;
     [self.lottieView play];
     return YES;
@@ -314,7 +322,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
     if (!self.config.networkImageURLString.length) return NO;
     NSURL *url = [NSURL URLWithString:self.config.networkImageURLString];
     if (!url) return NO;
-    self.imageView.hidden = NO;
+    self.imageView.byHidden(NO);
     SEL selector = NSSelectorFromString(@"sd_setImageWithURL:");
     if (![self.imageView respondsToSelector:selector]) return NO;
     ((void (*)(id, SEL, NSURL *))objc_msgSend)(self.imageView, selector, url);
@@ -369,9 +377,9 @@ Prop_strong(nullable) JobsTimer *frameTimer;
     }
     LOTAnimationView *view = filePath.length ? [LOTAnimationView animationWithFilePath:filePath] : [LOTAnimationView animationNamed:[name stringByDeletingPathExtension]];
     view.loopAnimation = YES;
-    view.contentMode = UIViewContentModeScaleAspectFit;
-    view.userInteractionEnabled = NO;
-    view.hidden = YES;
+    view.byContentMode(UIViewContentModeScaleAspectFit)
+        .byUserInteractionEnabled(NO)
+        .byHidden(YES);
     return view;
 }
 #endif
@@ -379,23 +387,24 @@ Prop_strong(nullable) JobsTimer *frameTimer;
 - (void)stopLottie {
 #if defined(Lottie_h)
     [self.lottieView stop];
-    self.lottieView.hidden = YES;
+    if (self.lottieView) self.lottieView.byHidden(YES);
 #endif
 }
 
 - (void)updateTimeIfNeeded {
     if (self.role != JobsOCRefreshRoleRefresh || !self.lastRefreshedAt) return;
     BOOL horizontal = JobsOCRefreshPositionIsHorizontal(self.position);
-    NSDateFormatter *formatter = NSDateFormatter.new;
-    formatter.dateFormat = horizontal ? @"HH:mm:ss" : @"HH:mm";
+    NSDateFormatter *formatter = NSDateFormatter.byDateFormatterWithDateFormat(horizontal ? @"HH:mm:ss" : @"HH:mm");
     NSString *timeText = [formatter stringFromDate:self.lastRefreshedAt];
     NSString *displayText = [NSString stringWithFormat:@"%@%@",
                              self.config.lastRefreshPrefix,
                              timeText];
-    self.timePrefixLabel.hidden = !horizontal;
-    self.timePrefixLabel.text = horizontal ? [self displayText:[self textByRemovingTrailingColon:self.config.lastRefreshPrefix]] : nil;
-    self.timeLabel.hidden = NO;
-    self.timeLabel.text = horizontal ? [self horizontalTimeText:timeText] : [self displayText:displayText];
+    self.timePrefixLabel
+        .byText(horizontal ? [self displayText:[self textByRemovingTrailingColon:self.config.lastRefreshPrefix]] : nil)
+        .byHidden(!horizontal);
+    self.timeLabel
+        .byText(horizontal ? [self horizontalTimeText:timeText] : [self displayText:displayText])
+        .byHidden(NO);
 }
 
 - (NSString *)horizontalTimeText:(NSString *)timeText {
@@ -436,34 +445,38 @@ Prop_strong(nullable) JobsTimer *frameTimer;
 
 - (UIActivityIndicatorView *)indicatorView {
     if (!_indicatorView) {
+        UIActivityIndicatorViewStyle style = UIActivityIndicatorViewStyleGray;
         if (@available(iOS 13.0, *)) {
-            _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
-        } else {
-            _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            style = UIActivityIndicatorViewStyleMedium;
         }
-        _indicatorView.hidesWhenStopped = YES;
+        _indicatorView = UIActivityIndicatorView.byActivityIndicatorViewWithStyle(style)
+            .byHidesWhenStopped(YES);
     };return _indicatorView;
 }
 
 - (UIImageView *)imageView {
     if (!_imageView) {
-        _imageView = UIImageView.new;
-        _imageView.contentMode = UIViewContentModeScaleAspectFit;
-        _imageView.hidden = YES;
+        _imageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byContentMode(UIViewContentModeScaleAspectFit)
+                .byHidden(YES);
+        });
     };return _imageView;
 }
 
 - (UILabel *)statusLabel {
     if (!_statusLabel) {
-        _statusLabel = UILabel.new;
-        _statusLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
+        UIColor *textColor = UIColor.grayColor;
         if (@available(iOS 13.0, *)) {
-            _statusLabel.textColor = UIColor.secondaryLabelColor;
-        } else {
-            _statusLabel.textColor = UIColor.grayColor;
+            textColor = UIColor.secondaryLabelColor;
         }
-        _statusLabel.textAlignment = NSTextAlignmentCenter;
-        _statusLabel.numberOfLines = 0;
+        _statusLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byFont([UIFont systemFontOfSize:14 weight:UIFontWeightMedium])
+                .byTextCor(textColor)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byNumberOfLines(0);
+        });
     };return _statusLabel;
 }
 
@@ -480,17 +493,17 @@ Prop_strong(nullable) JobsTimer *frameTimer;
 }
 
 - (UILabel *)buildTimeInfoLabel {
-    UILabel *label = UILabel.new;
-    label.font = [UIFont systemFontOfSize:12];
+    UIColor *textColor = UIColor.lightGrayColor;
     if (@available(iOS 13.0, *)) {
-        label.textColor = UIColor.secondaryLabelColor;
-    } else {
-        label.textColor = UIColor.lightGrayColor;
-    }
-    label.textAlignment = NSTextAlignmentCenter;
-    label.numberOfLines = 0;
-    label.hidden = YES;
-    return label;
+        textColor = UIColor.secondaryLabelColor;
+    };return jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+        label
+            .byFont([UIFont systemFontOfSize:12])
+            .byTextCor(textColor)
+            .byTextAlignment(NSTextAlignmentCenter)
+            .byNumberOfLines(0)
+            .byHidden(YES);
+    });
 }
 
 @end

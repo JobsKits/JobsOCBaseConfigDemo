@@ -10,7 +10,7 @@
 @interface JobsVerticalMenuVC_0 ()
 /// UI
 Prop_strong()BaseButton *editBtn;
-Prop_strong()JobsSearchBar *searchView;
+Prop_strong()JobsOCSearcherBar *searchView;
 Prop_strong()BaseButton *searchToggleBtn;
 Prop_strong()MASConstraint *searchViewWidthConstraint;
 /// Data
@@ -254,10 +254,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     };return _tableView;
 }
 
-- (JobsSearchBar *)searchView {
+- (JobsOCSearcherBar *)searchView {
     if (!_searchView) {
         @jobs_weakify(self)
-        _searchView = JobsSearchBar
+        _searchView = JobsOCSearcherBar
             .BySize(CGSizeMake(0, JobsWidth(38)))
             .JobsRichViewByModel2(nil)
             .JobsBlock1(^(id  _Nullable data) {;

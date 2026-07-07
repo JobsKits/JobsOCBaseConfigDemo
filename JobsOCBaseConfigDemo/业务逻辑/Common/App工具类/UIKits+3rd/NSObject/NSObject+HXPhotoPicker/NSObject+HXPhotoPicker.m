@@ -7,6 +7,8 @@
 
 #import "NSObject+HXPhotoPicker.h"
 
+static NSString * const JobsSystemCameraSimulatorToast = @"iOS 模拟器不支持调用系统相机，请使用真机";
+
 @implementation NSObject (HXPhotoPicker)
 #pragma mark —— 一些公有方法
 /// HXPhotoPicker 弹出系统相册选择页面
@@ -56,6 +58,10 @@
 /// HXPhotoPicker 调取系统相机进行拍摄（没有兼容横屏）
 -(void)hx_invokeSysCameraSuccessBlock:(jobsByIDBlock _Nullable)successBlock
                             failBlock:(jobsByIDBlock _Nullable)failBlock{
+#if TARGET_OS_SIMULATOR
+    JobsSystemCameraSimulatorToast.tr.toast();
+    return;
+#endif
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         /// 请求相机📷权限
         @jobs_weakify(self)
@@ -97,6 +103,10 @@
     @jobs_weakify(self)
     return ^() {
         @jobs_strongify(self)
+#if TARGET_OS_SIMULATOR
+        JobsSystemCameraSimulatorToast.tr.toast();
+        return;
+#endif
         // 检查设备是否支持相机功能
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             /// 显示相机界面

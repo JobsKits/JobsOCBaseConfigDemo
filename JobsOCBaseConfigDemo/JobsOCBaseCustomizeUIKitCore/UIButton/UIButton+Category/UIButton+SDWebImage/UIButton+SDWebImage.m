@@ -197,7 +197,7 @@
         return self.baseLoadBgImageBy(UIControlStateReserved);
     };
 }
-#pragma mark —— Prop_copy(readonly,nonnull)JobsReturnButtonByURLBlock imageURL;
+#pragma mark —— Prop_copy(readonly,nonnull)JobsRetBtnByURLBlock imageURL;
 JobsKey(_imageURL)
 @dynamic imageURL;
 -(JobsRetBtnByURLBlock _Nonnull)imageURL {
@@ -215,7 +215,7 @@ JobsKey(_imageURL)
         return self;
     };
 }
-#pragma mark —— Prop_copy(readonly,nonnull)JobsReturnButtonByImageBlock placeholderImage;
+#pragma mark —— Prop_copy(readonly,nonnull)JobsRetBtnByImageBlock placeholderImage;
 JobsKey(_placeholderImage)
 @dynamic placeholderImage;
 -(JobsRetBtnByImageBlock _Nonnull)placeholderImage {
@@ -224,28 +224,28 @@ JobsKey(_placeholderImage)
         return self;
     };
 }
-#pragma mark —— Prop_copy(readonly,nonnull)JobsReturnButtonBySDWebImageOptionsBlocks options;
+#pragma mark —— Prop_copy(readonly,nonnull)JobsRetButBySDWebImageOptionsBlocks options;
 JobsKey(_options)
 @dynamic options;
--(JobsReturnButtonBySDWebImageOptionsBlocks _Nonnull)options{
+-(JobsRetButBySDWebImageOptionsBlocks _Nonnull)options{
     return ^__kindof UIButton *_Nullable(SDWebImageOptions options) {
         Jobs_setAssociatedRETAIN_NONATOMIC(_options, @(options));
         return self;
     };
 }
-#pragma mark —— Prop_copy(readonly,nonnull)JobsReturnButtonBySDExternalCompletionBlocks completed;
+#pragma mark —— Prop_copy(readonly,nonnull)JobsRetButBySDExternalCompletionBlocks completed;
 JobsKey(_completed)
 @dynamic completed;
-- (JobsReturnButtonBySDExternalCompletionBlocks _Nonnull)completed {
+- (JobsRetButBySDExternalCompletionBlocks _Nonnull)completed {
     return ^__kindof UIButton *_Nullable(SDExternalCompletionBlock completion) {
         Jobs_setAssociatedCOPY_NONATOMIC(_completed,completion);
         return self;
     };
 }
-#pragma mark —— Prop_copy(readonly,nonnull)JobsReturnButtonBySDImageLoaderProgressBlocks progress;
+#pragma mark —— Prop_copy(readonly,nonnull)JobsRetButBySDImageLoaderProgressBlocks progress;
 JobsKey(_progress)
 @dynamic progress;
-- (JobsReturnButtonBySDImageLoaderProgressBlocks _Nonnull)progress {
+- (JobsRetButBySDImageLoaderProgressBlocks _Nonnull)progress {
     return ^__kindof UIButton *_Nullable(SDImageLoaderProgressBlock progress) {
         Jobs_setAssociatedCOPY_NONATOMIC(_progress,progress);
         return self;

@@ -18,7 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 @class JobsVideoTBVCell;
 
 typedef JobsVideoTBVCell *_Nonnull(^JobsRetVideoTBVCellByDelegateBlock)(id<UIViewModelOthersProtocol> _Nullable delegate);
-typedef JobsRetVideoTBVCellByDelegateBlock JobsReturnVideoTBVCellByDelegateBlock;
 
 @interface JobsVideoTBVCell : UITableViewCell
 <
@@ -27,7 +26,7 @@ UIMarkProtocol
 >
 
 Prop_weak()id<UIViewModelOthersProtocol> delegate;
--(JobsReturnVideoTBVCellByDelegateBlock _Nonnull)byDelegate;
+-(JobsRetVideoTBVCellByDelegateBlock _Nonnull)byDelegate;
 
 @end
 

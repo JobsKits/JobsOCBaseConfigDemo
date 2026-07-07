@@ -18,9 +18,17 @@
 #import "ReactiveObjC.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
 #import "JobsBlock.h"
+#else
+#import "JobsBlock.h"
+#endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import "JobsDefines.h"
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 /// 自定义右侧小箭头图标
@@ -45,8 +53,8 @@ NS_ASSUME_NONNULL_END
         @jobs_weakify(self)
         [cell customAccessoryView:^(id data) {
             @jobs_strongify(self)
-            JobsSearchShowHistoryDataTBVCell *cell = (JobsSearchShowHistoryDataTBVCell *)data;
-            JobsLog(@"MMM - %ld",cell.index);
+            UITableViewCell *cell = (UITableViewCell *)data;
+            JobsLog(@"MMM - %@",cell);
         }];
     }
 */

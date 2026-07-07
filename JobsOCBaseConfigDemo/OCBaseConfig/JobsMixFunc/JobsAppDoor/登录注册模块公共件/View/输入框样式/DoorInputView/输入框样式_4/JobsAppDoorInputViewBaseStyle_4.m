@@ -9,7 +9,7 @@
 
 @interface JobsAppDoorInputViewBaseStyle_4 ()
 /// UI
-Prop_strong()ImageCodeView *imageCodeView;
+Prop_strong()JobsGraphicCaptchaView *captchaView;
 Prop_strong()UIImageView *leftIMGV;
 /// Data
 Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
@@ -67,7 +67,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     self.magicTextField.moveDistance = self.doorInputViewBaseStyleModel.moveDistance ? : JobsWidth(35);
     self.magicTextField.placeHolderAlignment = self.doorInputViewBaseStyleModel.placeHolderAlignment ? : NSTextAlignmentLeft;
     self.magicTextField.placeHolderOffset = placeholderOffset;
-    self.magicTextField.fieldEditorOffset = self.doorInputViewBaseStyleModel.fieldEditorOffset ? : JobsWidth(50);
+    self.magicTextField.fieldEditorOffset = self.doorInputViewBaseStyleModel.fieldEditorOffset ? : JobsWidth(4);
 }
 
 -(void)block:(JobsMagicTextField *)textField
@@ -111,7 +111,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     return ^(JobsAppDoorInputViewBaseStyleModel *_Nullable data) {
         @jobs_strongify(self)
         self.doorInputViewBaseStyleModel = data;
-        self.imageCodeView.byAlpha(1);
+        self.captchaView.byAlpha(1);
 
         self.magicTextField.byAlpha(1);
 
@@ -131,20 +131,21 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     return self.magicTextField.text;
 }
 #pragma mark —— lazyLoad
--(ImageCodeView *)imageCodeView{
-    if (!_imageCodeView) {
-        _imageCodeView = ImageCodeView.new;
-        _imageCodeView.font = JobsFontRegular(16);
-        _imageCodeView.byAlpha(0.7);
-        _imageCodeView.bgColor = JobsWhiteColor;
-        _imageCodeView.addOn(self).byAdd(^(MASConstraintMaker *make) {
+-(JobsGraphicCaptchaView *)captchaView{
+    if (!_captchaView) {
+        _captchaView = JobsGraphicCaptchaView.new;
+        _captchaView.config = JobsGraphicCaptchaConfig.mixedConfig;
+        _captchaView.font = UIFontWeightSemiboldSize(16);
+        _captchaView.byAlpha(0.9);
+        _captchaView.captchaBackgroundColor = JobsWhiteColor;
+        _captchaView.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(JobsWidth(5));
             make.bottom.equalTo(self).offset(-JobsWidth(5));
             make.right.equalTo(self).offset(-JobsWidth(10));
-            make.width.mas_equalTo(80);
+            make.width.mas_equalTo(JobsWidth(96));
         });self.refresh();
-        _imageCodeView.cornerCutToCircleWithCornerRadius(JobsWidth(20));
-    };return _imageCodeView;
+        _captchaView.cornerCutToCircleWithCornerRadius(JobsWidth(20));
+    };return _captchaView;
 }
 @synthesize magicTextField = _magicTextField;
 -(JobsMagicTextField *)magicTextField{
@@ -157,7 +158,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.top.bottom.equalTo(self);
-                    make.right.equalTo(self.imageCodeView.mas_left);
+                    make.right.equalTo(self.captchaView.mas_left).offset(-JobsWidth(8));
                 });
 
             [textField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {

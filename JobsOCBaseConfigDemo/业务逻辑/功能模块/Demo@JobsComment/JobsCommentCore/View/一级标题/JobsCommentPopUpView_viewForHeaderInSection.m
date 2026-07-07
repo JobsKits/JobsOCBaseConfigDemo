@@ -14,6 +14,8 @@ Prop_strong()RBCLikeButton *likeBtn;
 /// Data
 Prop_strong()JobsFirstCommentModel *firstCommentModel;
 
+-(UIImage *_Nullable)jobs_commentAvatarPlaceholderImageByID:(NSString *_Nullable)avatarID;
+
 @end
 
 @implementation JobsCommentPopUpView_viewForHeaderInSection
@@ -60,7 +62,7 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
         _userInfoBtn = BaseButton.jobsInit()
             .bgColorBy(JobsClearColor)
             .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
-            .jobsResetImagePadding(JobsWidth(8))
+            .jobsResetImagePadding(0)
             .jobsResetBtnTitleCor(JobsCommentConfig.sharedManager.titleCor)
             .jobsResetBtnTitleFont(JobsCommentConfig.sharedManager.titleFont)
             .onClickBy(^(UIButton *x){
@@ -78,15 +80,19 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
             });
         /// 很重要，自定义设置UIBotton.imageView
         _userInfoBtn.imageViewFrame = CGRectMake(0, JobsWidth(16), JobsWidth(40), JobsWidth(40));
-        _userInfoBtn.textLabelFrameOffsetX = JobsWidth(0);
-        _userInfoBtn.subTextLabelFrameOffsetX = JobsWidth(0);
-
+        _userInfoBtn.textLabelFrame = CGRectMake(JobsWidth(52), JobsWidth(14), JobsWidth(220), JobsWidth(18));
+        _userInfoBtn.subTextLabelFrame = CGRectMake(JobsWidth(52), JobsWidth(34), JobsWidth(240), JobsWidth(22));
+        _userInfoBtn.imageView
+            .byContentMode(UIViewContentModeScaleAspectFill)
+            .byClipsToBounds(YES);
+        _userInfoBtn.imageView.cornerCutToCircleWithCornerRadius(JobsWidth(20));
     }
-    
+    UIImage *placeholderImage = [self jobs_commentAvatarPlaceholderImageByID:self.firstCommentModel.ID ? : self.firstCommentModel.userId];
+    self->_userInfoBtn.jobsResetBtnImage(placeholderImage);
     if (self.firstCommentModel.headImg.jobsCanOpenUrl) {
         self->_userInfoBtn
             .imageURL(self.firstCommentModel.headImg.imageURLPlus.jobsUrl)
-            .placeholderImage(@"动态头像 尺寸126".gif_img ? : @"用户默认头像".img)
+            .placeholderImage(placeholderImage)
             .options(self.makeSDWebImageOptions)
             .completed(^(UIImage * _Nullable image,
                          NSError * _Nullable error,
@@ -99,7 +105,7 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
                 }
             }).normalLoad();
     }else{
-        self->_userInfoBtn.jobsResetBtnImage(@"动态头像 尺寸126".gif_img ? : @"头像01".img);
+        self->_userInfoBtn.jobsResetBtnImage(placeholderImage);
     }
     
     _userInfoBtn
@@ -114,6 +120,12 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
         })
         .makeBtnTitleByShowingType(UILabelShowingType_03);
     return _userInfoBtn;
+}
+
+-(UIImage *_Nullable)jobs_commentAvatarPlaceholderImageByID:(NSString *_Nullable)avatarID{
+    NSString *seed = avatarID.length ? avatarID : @"jobs-comment-placeholder";
+    NSInteger imageIndex = seed.hash % 4 + 1;
+    return JobsLoadBundleImage(@"bundle", @"头像", nil, [NSString stringWithFormat:@"头像_%ld",(long)imageIndex]) ? : @"用户默认头像".img;
 }
 
 -(RBCLikeButton *)likeBtn{

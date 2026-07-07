@@ -2,12 +2,24 @@
 //  JobsPresentingVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs Hi on 9/26/23.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsPresentingVC.h"
 
 @interface JobsPresentingVC ()
+
+Prop_strong()UIButton *topDirectionBtn;
+Prop_strong()UIButton *bottomDirectionBtn;
+Prop_strong()UIButton *leftDirectionBtn;
+Prop_strong()UIButton *rightDirectionBtn;
+
+-(void)jobs_presentByDirection:(JobsTransitionDirection)direction
+                       bgColor:(UIColor *)bgColor;
+-(UIButton *)jobs_makeDirectionBtnByTitle:(NSString *)title
+                                direction:(JobsTransitionDirection)direction
+                                  bgColor:(UIColor *)bgColor
+                                   layout:(jobsByMASConstraintMakerBlock)layoutBlock;
 
 @end
 
@@ -27,25 +39,36 @@
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-//    self.viewModel.textModel.text = @"消息详情页".tr;
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+        })
+        //    self.viewModel.textModel.text = @"消息详情页".tr;
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(data.attributedTitle.string);
+            data.byFont(UIFontWeightRegularSize(16));
+        })
     
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
 
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
     self.makeNavByAlpha(1);
+    self.topDirectionBtn.byAlpha(1);
+    self.bottomDirectionBtn.byAlpha(1);
+    self.leftDirectionBtn.byAlpha(1);
+    self.rightDirectionBtn.byAlpha(1);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -74,17 +97,89 @@
     [super viewDidDisappear:animated];
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches
-          withEvent:(UIEvent *)event{
-    
+-(void)jobs_presentByDirection:(JobsTransitionDirection)direction
+                       bgColor:(UIColor *)bgColor{
     JobsPresentedVC *vc = JobsPresentedVC.new;
-    JobsPresentationCtrl *presentationController NS_VALID_UNTIL_END_OF_SCOPE;
-    presentationController = [JobsPresentationCtrl.alloc initWithPresentedViewController:vc presentingViewController:self];
-    vc.presentUpHeight = JobsWidth(200);
-    vc.view.backgroundColor = JobsRedColor;
-    vc.transitioningDelegate = presentationController;
-    
-    [self presentViewController:vc animated:YES completion:NULL];
+    vc.view.byBgColor(bgColor);
+    [self jobs_presentViewController:vc
+                            configure:^(__kindof JobsPresentTransitionMgr * _Nullable manager) {
+        manager.direction = direction;
+    } completion:nil];
+}
+
+-(UIButton *)jobs_makeDirectionBtnByTitle:(NSString *)title
+                                direction:(JobsTransitionDirection)direction
+                                  bgColor:(UIColor *)bgColor
+                                   layout:(jobsByMASConstraintMakerBlock)layoutBlock{
+    @jobs_weakify(self)
+    return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+        @jobs_strongify(self)
+        button
+            .byTitle(title.tr)
+            .byTitleCor(JobsWhiteColor)
+            .byTitleFont(UIFontWeightRegularSize(15))
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                [self jobs_presentByDirection:direction
+                                      bgColor:bgColor];
+            })
+            .byBgColor(bgColor)
+            .byCornerRadius(JobsWidth(12))
+            .addOn(self.view)
+            .byAdd(layoutBlock);
+    });
+}
+#pragma mark —— lazyLoad
+-(UIButton *)topDirectionBtn{
+    if (!_topDirectionBtn) {
+        _topDirectionBtn = [self jobs_makeDirectionBtnByTitle:@"从上进入"
+                                                    direction:JobsTransitionDirectionTop
+                                                      bgColor:HEXCOLOR(0x2F80ED)
+                                                       layout:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(JobsWidth(130), JobsWidth(48)));
+            make.right.equalTo(self.view.mas_centerX).offset(-JobsWidth(8));
+            make.bottom.equalTo(self.view.mas_centerY).offset(-JobsWidth(8));
+        }];
+    };return _topDirectionBtn;
+}
+
+-(UIButton *)bottomDirectionBtn{
+    if (!_bottomDirectionBtn) {
+        _bottomDirectionBtn = [self jobs_makeDirectionBtnByTitle:@"从下进入"
+                                                       direction:JobsTransitionDirectionBottom
+                                                         bgColor:HEXCOLOR(0xEB5757)
+                                                          layout:^(MASConstraintMaker *make) {
+            make.size.equalTo(self.topDirectionBtn);
+            make.left.equalTo(self.view.mas_centerX).offset(JobsWidth(8));
+            make.centerY.equalTo(self.topDirectionBtn);
+        }];
+    };return _bottomDirectionBtn;
+}
+
+-(UIButton *)leftDirectionBtn{
+    if (!_leftDirectionBtn) {
+        _leftDirectionBtn = [self jobs_makeDirectionBtnByTitle:@"从左进入"
+                                                     direction:JobsTransitionDirectionLeft
+                                                       bgColor:HEXCOLOR(0x27AE60)
+                                                        layout:^(MASConstraintMaker *make) {
+            make.size.equalTo(self.topDirectionBtn);
+            make.right.equalTo(self.topDirectionBtn);
+            make.top.equalTo(self.view.mas_centerY).offset(JobsWidth(8));
+        }];
+    };return _leftDirectionBtn;
+}
+
+-(UIButton *)rightDirectionBtn{
+    if (!_rightDirectionBtn) {
+        _rightDirectionBtn = [self jobs_makeDirectionBtnByTitle:@"从右进入"
+                                                      direction:JobsTransitionDirectionRight
+                                                        bgColor:HEXCOLOR(0x9B51E0)
+                                                         layout:^(MASConstraintMaker *make) {
+            make.size.equalTo(self.topDirectionBtn);
+            make.left.equalTo(self.bottomDirectionBtn);
+            make.centerY.equalTo(self.leftDirectionBtn);
+        }];
+    };return _rightDirectionBtn;
 }
 
 @end
