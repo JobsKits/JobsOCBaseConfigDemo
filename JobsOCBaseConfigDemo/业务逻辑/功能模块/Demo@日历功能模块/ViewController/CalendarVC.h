@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import <EventKit/EventKit.h> // 用来读取，修改和创建日历上的事件
 
-#import "JobsCalendarHeader.h"
+#import "JobsOCCalendarHeader.h"
 
 #import "JobsLanMgr.h"
 
@@ -30,9 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CalendarVC : BaseViewController
 <
-JobsCalendarDataSource
-,JobsCalendarDelegate
-,JobsCalendarDelegateAppearance
+JobsOCCalendarDataSource
+,JobsOCCalendarDelegate
+,JobsOCCalendarDelegateAppearance
 >
 
 @end

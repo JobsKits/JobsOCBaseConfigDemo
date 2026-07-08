@@ -22,22 +22,6 @@
 
 #import "JobsDefines.h"
 
-/// 页面1：登录
-#define JobsAppDoorContentViewLoginX JobsWidth(20)
-#define JobsAppDoorContentViewLoginY JobsMainScreen_HEIGHT() / (isiPhoneX_series() ? 4 : 5)
-#define JobsAppDoorContentViewLoginWidth JobsMainScreen_WIDTH() - JobsAppDoorContentViewLoginX * 2
-#define JobsAppDoorContentViewLoginHeight JobsMainScreen_HEIGHT() / (isiPhoneX_series() ? 2.3 : 2.0)
-/// 页面2：注册
-#define JobsAppDoorContentViewRegisterX JobsWidth(20)
-#define JobsAppDoorContentViewRegisterY JobsMainScreen_HEIGHT() / (isiPhoneX_series() ? 4 : 5)
-#define JobsAppDoorContentViewRegisterWidth JobsMainScreen_WIDTH() - JobsAppDoorContentViewRegisterX * 2
-#define JobsAppDoorContentViewRegisterHeight JobsMainScreen_HEIGHT() / (isiPhoneX_series() ? 1.6 : 1.3)
-/// 页面3：忘记密码
-#define JobsAppDoorContentViewFindPasswordX JobsWidth(20)
-#define JobsAppDoorContentViewFindPasswordY JobsMainScreen_HEIGHT() / 4
-#define JobsAppDoorContentViewFindPasswordWidth JobsMainScreen_WIDTH() - JobsAppDoorContentViewFindPasswordX * 2
-#define JobsAppDoorContentViewFindPasswordHeight JobsMainScreen_HEIGHT() / (isiPhoneX_series() ? 1.6 : 1.3)
-
 #define Cor1 JobsBlackColor.colorWithAlphaComponentBy(0.9007f)
 #define Cor2 JobsBlackColor.colorWithAlphaComponentBy(0.5984f)
 #define Cor3 JobsWhiteColor.colorWithAlphaComponentBy(0.9007f)
@@ -47,6 +31,26 @@
 #define ThingsHeight JobsWidth(50)     // 边角半圆形控件的高度
 #define RegisterBtnWidth JobsWidth(64) // 竖形按钮的宽度
 #define InputViewOffset JobsWidth(20)  // 输入框承接控件之间的上下间距
+#define JobsAppDoorRegisterShowsGraphicCaptcha YES
+#define JobsAppDoorRegisterGraphicCaptchaHeightDelta (JobsAppDoorRegisterShowsGraphicCaptcha ? (ThingsHeight + InputViewOffset) : 0)
+
+/// 页面1：登录
+#define JobsAppDoorContentViewLoginX JobsWidth(20)
+#define JobsAppDoorContentViewLoginY JobsMainScreen_HEIGHT() / (isiPhoneX_series() ? 4 : 5)
+#define JobsAppDoorContentViewLoginWidth JobsMainScreen_WIDTH() - JobsAppDoorContentViewLoginX * 2
+#define JobsAppDoorContentViewLoginHeight JobsMainScreen_HEIGHT() / (isiPhoneX_series() ? 2.3 : 2.0)
+/// 页面2：注册
+#define JobsAppDoorContentViewRegisterX JobsWidth(20)
+#define JobsAppDoorContentViewRegisterBaseY JobsMainScreen_HEIGHT() / (isiPhoneX_series() ? 4 : 5)
+#define JobsAppDoorContentViewRegisterY (JobsAppDoorContentViewRegisterBaseY - JobsAppDoorRegisterGraphicCaptchaHeightDelta / 2)
+#define JobsAppDoorContentViewRegisterWidth JobsMainScreen_WIDTH() - JobsAppDoorContentViewRegisterX * 2
+#define JobsAppDoorContentViewRegisterBaseHeight JobsMainScreen_HEIGHT() / (isiPhoneX_series() ? 1.6 : 1.3)
+#define JobsAppDoorContentViewRegisterHeight (JobsAppDoorContentViewRegisterBaseHeight + JobsAppDoorRegisterGraphicCaptchaHeightDelta)
+/// 页面3：忘记密码
+#define JobsAppDoorContentViewFindPasswordX JobsWidth(20)
+#define JobsAppDoorContentViewFindPasswordY JobsMainScreen_HEIGHT() / 4
+#define JobsAppDoorContentViewFindPasswordWidth JobsMainScreen_WIDTH() - JobsAppDoorContentViewFindPasswordX * 2
+#define JobsAppDoorContentViewFindPasswordHeight JobsMainScreen_HEIGHT() / (isiPhoneX_series() ? 1.6 : 1.3)
 
 #define Title1 @"返回登录".tr.addNewlines
 #define Title2 @"新用户注册".tr.addNewlines

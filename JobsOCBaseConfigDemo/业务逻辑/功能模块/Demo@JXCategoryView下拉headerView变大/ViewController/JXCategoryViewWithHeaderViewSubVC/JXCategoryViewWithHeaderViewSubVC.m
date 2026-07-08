@@ -302,7 +302,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             .byBgColor(RGB_SAMECOLOR(246));
         _collectionView.registerCollectionViewClass();
         [self.scrollView.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.view);
+            make.edges.equalTo(self.scrollView);
         }];
     };return _collectionView;
 }

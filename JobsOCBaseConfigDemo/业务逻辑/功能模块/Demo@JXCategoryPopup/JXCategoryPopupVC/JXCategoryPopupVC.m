@@ -38,6 +38,8 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
         self.viewModel
             .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
                 data.byText(data.attributedTitle.string);
+                data.byTextCor(HEXCOLOR(0x3D4A58));
+                data.byFont(UIFontWeightRegularSize(18));
             });
     }
 //    self.viewModel.textModel.text = @"JXCategoryPopupVC".tr;
@@ -173,20 +175,20 @@ ratio:(CGFloat)ratio {
 
         _categoryView.titleSelectedColor = HEXCOLOR(0xAE8330);
         _categoryView.titleColor = HEXCOLOR(0x8D765C);
-        _categoryView.titleFont = [UIFont systemFontOfSize:18 weight:UIFontWeightRegular];
-        _categoryView.titleSelectedFont = [UIFont systemFontOfSize:28 weight:UIFontWeightRegular];
+        _categoryView.titleFont = [UIFont systemFontOfSize:16 weight:UIFontWeightRegular];
+        _categoryView.titleSelectedFont = [UIFont systemFontOfSize:22 weight:UIFontWeightSemibold];
         _categoryView.delegate = self;
         _categoryView.titles = self.titleMutArr;
         _categoryView.titleColorGradientEnabled = YES;
         _categoryView.indicators = @[self.lineView];//
         _categoryView.defaultSelectedIndex = 1;// 默认从第二个开始显示
-        _categoryView.cellSpacing = JobsWidth(-20);
+        _categoryView.cellSpacing = JobsWidth(8);
         // 关联cotentScrollView，关联之后才可以互相联动！！！
         _categoryView.contentScrollView = self.listContainerView.scrollView;//
         _categoryView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom);
             make.left.equalTo(self.view);
-            make.right.equalTo(self.view).offset(JobsWidth(-48 * 2));
+            make.right.equalTo(self.view).offset(JobsWidth(-130));
             make.height.mas_equalTo(listContainerViewDefaultOffset);
         });
 
@@ -198,8 +200,8 @@ ratio:(CGFloat)ratio {
     if (!_lineView) {
         _lineView = JXCategoryIndicatorLineView.new;
         _lineView.indicatorColor = HEXCOLOR(0xAE8330);
-        _lineView.indicatorHeight = JobsWidth(4);
-        _lineView.indicatorWidthIncrement = JobsWidth(10);
+        _lineView.indicatorHeight = JobsWidth(3);
+        _lineView.indicatorWidthIncrement = JobsWidth(6);
         _lineView.verticalMargin = 0;
     };return _lineView;
 }
@@ -290,6 +292,7 @@ ratio:(CGFloat)ratio {
             .byAdd(^(MASConstraintMaker *make) {
                 make.right.equalTo(self.view);
                 make.top.bottom.equalTo(self.categoryView);
+                make.width.mas_equalTo(JobsWidth(58));
             });
     };return _filterBtn;
 }
@@ -335,6 +338,7 @@ ratio:(CGFloat)ratio {
                 make.right.equalTo(self.filterBtn.mas_left).offset(JobsWidth(-8));
                 make.top.bottom.equalTo(self.categoryView);
                 make.left.equalTo(self.categoryView.mas_right);
+                make.width.mas_equalTo(JobsWidth(64));
             });
     };return _customBtn;
 }

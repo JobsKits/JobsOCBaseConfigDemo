@@ -9,10 +9,26 @@
 
 @interface JobsTimerVC ()
 /// UI
-Prop_strong()NSMutableArray <UIButton *>*btnMutArr;
+Prop_strong()UILabel *countUpTitleLab;
 Prop_strong()JobsCountdownView *countdownView;
+Prop_strong()NSMutableArray <UIButton *>*btnMutArr;
+Prop_strong()UILabel *countUpStatusLab;
+Prop_strong()UITextView *tipsTextView;
 /// Data
 Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
+Prop_strong()NSArray <UIColor *>*btnBgCorArr;
+Prop_assign()BOOL countUpTimerHasStarted;
+
+-(void)layoutTimerControlButtons;
+-(void)startCountUpTimer;
+-(void)pauseCountUpTimer;
+-(void)restartCountUpTimer;
+-(void)stopCountUpTimer;
+-(void)updateTimerStatusText:(NSString *)text;
+-(void)showCountUpToastByTime:(CGFloat)time;
+-(NSAttributedString *)normalTipAttributedStringWithText:(NSString *)text
+                                                    font:(UIFont *)font
+                                               textColor:(UIColor *)textColor;
 
 @end
 
@@ -21,6 +37,7 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
 - (void)dealloc{
     /// 定时器完全移除以后，才会走dealloc方法
     JobsLog(@"%@",JobsLocalFunc);
+    [_countdownView.timer stop];
 //    JobsRemoveNotification(self);
 }
 
@@ -38,9 +55,9 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(16));
+            data.byText(@"正计时".tr)
+                .byFont(UIFontWeightRegularSize(16))
+                .byTextCor(HEXCOLOR(0x3D4A58));
         })
     
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
@@ -55,34 +72,15 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
+    self.view.byBgColor(HEXCOLOR(0xF3F6FA));
 
     self.makeNavByAlpha(1);
-    
-    [self test_masonry_horizontal_fixSpace];
+    self.countUpTitleLab.byVisible(YES);
     self.countdownView.byVisible(YES);
-    @jobs_weakify(self)
-    /// 开始
-    ((UIButton *)self.btnMutArr[0]).onClickBy(^(UIButton *data) {
-        @jobs_strongify(self)
-        [self.countdownView.timer start];
-    });
-    /// 暂停
-    ((UIButton *)self.btnMutArr[1]).onClickBy(^(UIButton *data) {
-        @jobs_strongify(self)
-        [self.countdownView.timer pause];
-    });
-    /// 继续
-    ((UIButton *)self.btnMutArr[2]).onClickBy(^(UIButton *data) {
-        @jobs_strongify(self)
-        [self.countdownView.timer resume];
-    });
-    /// 结束
-    ((UIButton *)self.btnMutArr[3]).onClickBy(^(UIButton *data) {
-        @jobs_strongify(self)
-        [self.countdownView.timer stop];
-        [self.countdownView refreshData];
-    });
+    [self layoutTimerControlButtons];
+    self.countUpStatusLab.byVisible(YES);
+    self.tipsTextView.byVisible(YES);
+    [self updateTimerControlButtons];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -97,18 +95,21 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.countdownView.timer stop];
+    self.countUpTimerHasStarted = NO;
+    [self.countdownView refreshData];
+    [self updateTimerControlButtons];
 }
 #pragma mark —— 一些私有方法
--(void)test_masonry_horizontal_fixSpace {
+-(void)layoutTimerControlButtons {
     /// 实现masonry水平固定间隔方法
     [self.btnMutArr mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
-                                withFixedSpacing:30
-                                     leadSpacing:10
-                                     tailSpacing:10];
+                                withFixedSpacing:JobsWidth(10)
+                                     leadSpacing:JobsWidth(20)
+                                     tailSpacing:JobsWidth(20)];
     /// 设置array的垂直方向的约束
     [self.btnMutArr mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
-        make.height.mas_equalTo(JobsWidth(30));
+        make.top.equalTo(self.countdownView.mas_bottom).offset(JobsWidth(12));
+        make.height.mas_equalTo(JobsWidth(36));
     }];
 }
 /// Timer UI 状态同步
@@ -118,62 +119,130 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
 
     UIButton *startBtn  = self.btnMutArr[0];
     UIButton *pauseBtn  = self.btnMutArr[1];
-    UIButton *resumeBtn = self.btnMutArr[2];
+    UIButton *restartBtn = self.btnMutArr[2];
     UIButton *stopBtn   = self.btnMutArr[3];
 
     BOOL isRunning = timer.isRunning;
     BOOL isPaused  = timer.isPaused;
-    BOOL isStop    = timer.isStop || (!isRunning && !isPaused); // Idle / Finished / Canceled 都算“非运行”
+    BOOL canStart = !isRunning && !isPaused;
+    BOOL canPause = isRunning;
+    BOOL canRestart = self.countUpTimerHasStarted;
+    BOOL canStop = isRunning || isPaused;
 
-    // 规则：
-    // - Idle / Finished / Canceled：只允许“开始”
-    // - Running：允许“暂停 / 结束”，禁止“开始 / 继续”
-    // - Paused：允许“继续 / 结束”，禁止“开始 / 暂停”
+    startBtn.userInteractionEnabled = canStart;
+    pauseBtn.userInteractionEnabled = canPause;
+    restartBtn.userInteractionEnabled = canRestart;
+    stopBtn.userInteractionEnabled = canStop;
 
-    // 开始按钮：只有在非运行、非暂停（Idle / Finished / Canceled）时可点
-    startBtn.userInteractionEnabled = isStop;
-    startBtn.byAlpha(startBtn.userInteractionEnabled ? 1.0 : 0.5);
+    startBtn.byAlpha(canStart ? 1.0 : 0.42);
+    pauseBtn.byAlpha(canPause ? 1.0 : 0.42);
+    restartBtn.byAlpha(canRestart ? 1.0 : 0.42);
+    stopBtn.byAlpha(canStop ? 1.0 : 0.42);
+}
 
+-(void)startCountUpTimer{
+    self.countUpTimerHasStarted = YES;
+    [self.countdownView refreshData];
+    [self.countdownView.timer start];
+    [self updateTimerStatusText:@"正计时已开始".tr];
+}
 
-    // 暂停按钮：只有 Running 时可点
-    pauseBtn.userInteractionEnabled = isRunning;
-    pauseBtn.byAlpha(pauseBtn.userInteractionEnabled ? 1.0 : 0.5);
+-(void)pauseCountUpTimer{
+    [self.countdownView.timer pause];
+    [self updateTimerStatusText:@"正计时已暂停，可重启或结束".tr];
+}
 
+-(void)restartCountUpTimer{
+    self.countUpTimerHasStarted = YES;
+    [self.countdownView.timer stop];
+    [self.countdownView refreshData];
+    [self.countdownView.timer start];
+    [self updateTimerStatusText:@"正计时已重启，从 00:00 重新开始".tr];
+}
 
-    // 继续按钮：只有 Paused 时可点
-    resumeBtn.userInteractionEnabled = isPaused;
-    resumeBtn.byAlpha(resumeBtn.userInteractionEnabled ? 1.0 : 0.5);
+-(void)stopCountUpTimer{
+    self.countUpTimerHasStarted = NO;
+    [self.countdownView.timer stop];
+    [self.countdownView refreshData];
+    [self updateTimerStatusText:@"正计时已结束，等待手动开始".tr];
+}
 
+-(void)updateTimerStatusText:(NSString *)text{
+    self.countUpStatusLab.byText(text);
+}
 
-    // 结束按钮：Running / Paused 都可点
-    stopBtn.userInteractionEnabled = (isRunning || isPaused);
-    stopBtn.byAlpha(stopBtn.userInteractionEnabled ? 1.0 : 0.5);
+-(void)showCountUpToastByTime:(CGFloat)time{
+    NSInteger seconds = MAX(0, (NSInteger)time);
+    [NSString stringWithFormat:@"%ld%@",(long)seconds, @"秒到了，我被打印出来了！".tr].toast();
+}
 
+-(NSAttributedString *)normalTipAttributedStringWithText:(NSString *)text
+                                                    font:(UIFont *)font
+                                               textColor:(UIColor *)textColor{
+    NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
+    paragraphStyle.alignment = NSTextAlignmentLeft;
+    paragraphStyle.lineSpacing = JobsWidth(4);
+    paragraphStyle.paragraphSpacing = 0;
+    return [NSAttributedString.alloc initWithString:text ?: JobsEmpty
+                                         attributes:@{
+        NSFontAttributeName: font,
+        NSForegroundColorAttributeName: textColor,
+        NSKernAttributeName: @(0),
+        NSParagraphStyleAttributeName: paragraphStyle
+    }];
 }
 #pragma mark —— lazyLoad
+-(UILabel *)countUpTitleLab{
+    if (!_countUpTitleLab) {
+        @jobs_weakify(self)
+        _countUpTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            @jobs_strongify(self)
+            label.byText(@"正计时".tr)
+                .byFont(UIFontWeightSemiboldSize(18))
+                .byTextCor(HEXCOLOR(0x243447))
+                .byTextAlignment(NSTextAlignmentLeft)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.view).offset(JobsWidth(24));
+                    make.right.equalTo(self.view).offset(-JobsWidth(24));
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(18));
+                    make.height.mas_equalTo(JobsWidth(24));
+                });
+        });
+    };return _countUpTitleLab;
+}
+
 -(NSMutableArray<__kindof UIButton *>*)btnMutArr{
     if (!_btnMutArr) {
         @jobs_weakify(self)
         _btnMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIButton *>*_Nullable data) {
             @jobs_strongify(self)
-            for (NSString *title in self.btnTitleMutArr) {
-                UIButton *btn = BaseButton
-                    .initByStyle3(title,
-                                  nil,
-                                  JobsBlackColor,
-                                  @"弹窗取消按钮背景图".img)
-                .bgColorBy(JobsWhiteColor)
-                .onClickBy(^(UIButton *btn){
-                    @jobs_strongify(self)
-//                    btn.selected = !btn.selected;
-                    [self updateTimerControlButtons];
-                }).onLongPressGestureBy(^(id data){
-                    JobsLog(@"");
-                })
-                .jobsResetBtnCornerRadiusValue(JobsWidth(18))
-                .jobsResetBtnLayerBorderCor(HEXCOLOR(0xAE8330))
-                .jobsResetBtnLayerBorderWidth(0.5f);
-                [self.view addSubview:btn];
+            for (NSUInteger idx = 0; idx < self.btnTitleMutArr.count; idx++) {
+                UIButton *btn = UIButton.jobsInit()
+                    .jobsResetBtnTitle(self.btnTitleMutArr[idx])
+                    .jobsResetBtnTitleCor(JobsWhiteColor)
+                    .jobsResetBtnTitleFont(UIFontWeightMediumSize(14))
+                    .jobsResetBtnBgCor(self.btnBgCorArr[idx])
+                    .jobsResetBtnCornerRadiusValue(JobsWidth(18))
+                    .onClickBy(^(UIButton *btn){
+                        @jobs_strongify(self)
+                        if (btn.tag == 0) {
+                            [self startCountUpTimer];
+                        }else if (btn.tag == 1){
+                            [self pauseCountUpTimer];
+                        }else if (btn.tag == 2){
+                            [self restartCountUpTimer];
+                        }else{
+                            [self stopCountUpTimer];
+                        }
+                        [self updateTimerControlButtons];
+                    }).onLongPressGestureBy(^(id data){
+                        JobsLog(@"");
+                    })
+                    .jobsResetBtnLayerBorderCor(JobsClearColor)
+                    .jobsResetBtnLayerBorderWidth(0);
+                btn.tag = idx;
+                btn.addOn(self.view);
                 data.add(btn);
             }
         });
@@ -185,20 +254,91 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
         _btnTitleMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>*_Nullable data) {
             data.add(@"开始".tr)
             .add(@"暂停".tr)
-            .add(@"继续".tr)
+            .add(@"重启".tr)
             .add(@"结束".tr);
         });
     };return _btnTitleMutArr;
 }
+
+-(NSArray<UIColor *> *)btnBgCorArr{
+    if (!_btnBgCorArr) {
+        _btnBgCorArr = @[
+            HEXCOLOR(0x2F80ED),
+            HEXCOLOR(0xF2994A),
+            HEXCOLOR(0x27AE60),
+            HEXCOLOR(0xEB5757)
+        ];
+    };return _btnBgCorArr;
+}
+
 /// 内含定时器
 -(JobsCountdownView *)countdownView{
     if (!_countdownView) {
+        @jobs_weakify(self)
         _countdownView = JobsCountdownView.new;
-        _countdownView.jobsRichViewByModel(nil);// 启动定时器
+        _countdownView.byCornerRadius(JobsWidth(16));
+        _countdownView.objBlock = ^(id _Nullable data) {
+            @jobs_strongify(self)
+            if ([data isKindOfClass:NSNumber.class]) {
+                [self showCountUpToastByTime:[data doubleValue]];
+            }
+        };
+        _countdownView.jobsRichViewByModel(nil);
         _countdownView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
-            make.center.equalTo(self.view);
+            make.centerX.equalTo(self.view);
+            make.top.equalTo(self.countUpTitleLab.mas_bottom).offset(JobsWidth(10));
             make.size.mas_equalTo(JobsCountdownView.viewSizeByModel(nil));
         });
     };return _countdownView;
 }
+
+-(UILabel *)countUpStatusLab{
+    if (!_countUpStatusLab) {
+        @jobs_weakify(self)
+        _countUpStatusLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            @jobs_strongify(self)
+            UIButton *firstBtn = self.btnMutArr.firstObject;
+            label.byText(@"请点击“开始”，正计时不会自动启动".tr)
+                .byFont(UIFontWeightRegularSize(13))
+                .byTextCor(HEXCOLOR(0x5F6B7A))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byNumberOfLines(2)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.view).offset(JobsWidth(24));
+                    make.right.equalTo(self.view).offset(-JobsWidth(24));
+                    make.top.equalTo(firstBtn.mas_bottom).offset(JobsWidth(10));
+                });
+        });
+    };return _countUpStatusLab;
+}
+
+-(UITextView *)tipsTextView{
+    if (!_tipsTextView) {
+        @jobs_weakify(self)
+        _tipsTextView = jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
+            @jobs_strongify(self)
+            UIFont *font = UIFontWeightRegularSize(13);
+            UIColor *textColor = HEXCOLOR(0x5F6B7A);
+            textView.byAttributedText([self normalTipAttributedStringWithText:@"这个 Demo 只展示 JobsTimer 正计时控制：点击“开始”后才进入正计时，每一秒 tick 都会显示 toast；可以手动暂停、重启和结束。倒计时按钮请进入独立的“倒计时按钮”Demo。".tr
+                                                                         font:font
+                                                                    textColor:textColor])
+                .byTextAlignment(NSTextAlignmentLeft)
+                .byEditable(NO)
+                .bySelectable(NO)
+                .byTextContainerInset(UIEdgeInsetsMake(JobsWidth(12), JobsWidth(12), JobsWidth(12), JobsWidth(12)))
+                .byLineFragmentPadding(0)
+                .byBgColor(JobsWhiteColor)
+                .byCornerRadius(JobsWidth(10))
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.view).offset(JobsWidth(20));
+                    make.right.equalTo(self.view).offset(-JobsWidth(20));
+                    make.top.equalTo(self.countUpStatusLab.mas_bottom).offset(JobsWidth(18));
+                    make.height.mas_equalTo(JobsWidth(128));
+                });
+        });
+    };return _tipsTextView;
+}
+
 @end

@@ -10,11 +10,12 @@
 static NSString *const JobsOCDemoListSettingsCellReuseIdentifier = @"JobsOCDemoListSettingsCell";
 static NSString *const JobsOCSplashEnabledUserDefaultsKey = @"com.BSports.JobsOCSplashEnabledUserDefaultsKey";
 static NSString *const JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey = @"com.BSports.JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey";
+static NSString *const JobsOCDemoListDarkModeUserDefaultsKey = @"com.BSports.JobsOCDemoListDarkModeUserDefaultsKey";
 
 typedef NS_ENUM(NSInteger, JobsOCDemoListSettingItem) {
     JobsOCDemoListSettingItemSplash = 0,
-    JobsOCDemoListSettingItemReturnToTopAndRefresh,
-    JobsOCDemoListSettingItemReturnKeepPosition
+    JobsOCDemoListSettingItemReturnBehavior,
+    JobsOCDemoListSettingItemTheme
 };
 
 typedef NS_ENUM(NSInteger, JobsOCDemoListSettingSection) {
@@ -30,7 +31,12 @@ Prop_strong()UITableView *tableView;
 -(void)setJobsOCSplashEnabled:(BOOL)jobsOCSplashEnabled;
 -(BOOL)demoListReturnToTopAndRefreshEnabled;
 -(void)setDemoListReturnToTopAndRefreshEnabled:(BOOL)enabled;
+-(BOOL)demoListDarkModeEnabled;
+-(void)setDemoListDarkModeEnabled:(BOOL)enabled;
+-(void)applyDemoListInterfaceStyle;
 -(NSString *)splashSwitchTitle;
+-(NSString *)returnSwitchTitle;
+-(NSString *)themeSwitchTitle;
 -(NSArray <NSString *>*)generalSettingTitleArr;
 -(NSArray <NSString *>*)languageTitleArr;
 -(AppLanguage)appLanguageByRow:(NSInteger)row;
@@ -60,6 +66,7 @@ Prop_strong()UITableView *tableView;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    [self applyDemoListInterfaceStyle];
     self.view.byBgColor(HEXCOLOR(0xF4F5F8));
     self.makeNavByAlpha(1);
     self.tableView.byAlpha(1);
@@ -118,15 +125,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         self.changeTabBarItemTitleBy(indexPath);
         return;
     }
-    if (indexPath.row == JobsOCDemoListSettingItemSplash) {
+    JobsOCDemoListSettingItem item = indexPath.row;
+    if (item == JobsOCDemoListSettingItemSplash) {
         [self setJobsOCSplashEnabled:![self jobsOCSplashEnabled]];
         ([self jobsOCSplashEnabled] ? @"下次打开开屏".tr : @"下次关闭开屏".tr).toast();
-    }else if (indexPath.row == JobsOCDemoListSettingItemReturnToTopAndRefresh){
-        [self setDemoListReturnToTopAndRefreshEnabled:YES];
-        @"返回主列表：回顶部并刷新".tr.toast();
-    }else{
-        [self setDemoListReturnToTopAndRefreshEnabled:NO];
-        @"返回主列表：保持原样".tr.toast();
+    }else if (item == JobsOCDemoListSettingItemReturnBehavior){
+        BOOL enabled = ![self demoListReturnToTopAndRefreshEnabled];
+        [self setDemoListReturnToTopAndRefreshEnabled:enabled];
+        (enabled ? @"返回主列表：回顶部并刷新".tr : @"返回主列表：保持原样".tr).toast();
+    }else if (item == JobsOCDemoListSettingItemTheme){
+        BOOL dark = ![self demoListDarkModeEnabled];
+        [self setDemoListDarkModeEnabled:dark];
+        (dark ? @"主题已切换：黑夜".tr : @"主题已切换：白天".tr).toast();
     }
     [self.tableView reloadData];
 }
@@ -179,6 +189,30 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [NSUserDefaults.standardUserDefaults synchronize];
 }
 
+-(BOOL)demoListDarkModeEnabled{
+    id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCDemoListDarkModeUserDefaultsKey];
+    if (value) return [value boolValue];
+    if (@available(iOS 13.0, *)) {
+        return self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
+    };return NO;
+}
+
+-(void)setDemoListDarkModeEnabled:(BOOL)enabled{
+    [NSUserDefaults.standardUserDefaults setBool:enabled
+                                          forKey:JobsOCDemoListDarkModeUserDefaultsKey];
+    [NSUserDefaults.standardUserDefaults synchronize];
+    [self applyDemoListInterfaceStyle];
+}
+
+-(void)applyDemoListInterfaceStyle{
+    if (@available(iOS 13.0, *)) {
+        UIUserInterfaceStyle style = [self demoListDarkModeEnabled] ? UIUserInterfaceStyleDark : UIUserInterfaceStyleLight;
+        for (UIWindow *window in UIApplication.sharedApplication.windows) {
+            window.overrideUserInterfaceStyle = style;
+        }
+    }
+}
+
 -(void)updateLocalizedContent{
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
@@ -194,20 +228,27 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 -(NSString *)splashSwitchTitle{
-    return [self jobsOCSplashEnabled] ? @"开屏：开".tr : @"开屏：关".tr;
+    return [self jobsOCSplashEnabled] ? @"下次开屏：开".tr : @"下次开屏：关".tr;
+}
+
+-(NSString *)returnSwitchTitle{
+    return [self demoListReturnToTopAndRefreshEnabled] ? @"返回：回顶部并刷新".tr : @"返回：保持原样".tr;
+}
+
+-(NSString *)themeSwitchTitle{
+    return [self demoListDarkModeEnabled] ? @"主题切换：黑夜".tr : @"主题切换：白天".tr;
 }
 
 -(NSArray<NSString *> *)generalSettingTitleArr{
     return @[
         [self splashSwitchTitle],
-        @"返回：回顶部并刷新".tr,
-        @"返回：保持原样".tr
+        [self returnSwitchTitle],
+        [self themeSwitchTitle]
     ];
 }
 
 -(NSArray<NSString *> *)languageTitleArr{
     return @[
-        @"跟随系统".tr,
         @"中文".tr,
         @"英文".tr,
         @"他加禄语".tr
@@ -216,14 +257,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(AppLanguage)appLanguageByRow:(NSInteger)row{
     switch (row) {
-        case 1:
+        case 0:
             return AppLanguageChineseSimplified;
-        case 2:
+        case 1:
             return AppLanguageEnglish;
-        case 3:
-            return AppLanguageTagalog;
         default:
-            return AppLanguageBySys;
+            return AppLanguageTagalog;
     }
 }
 
@@ -234,11 +273,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(UITableViewCellAccessoryType)accessoryTypeByIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == JobsOCDemoListSettingSectionGeneral) {
-        if (indexPath.row == JobsOCDemoListSettingItemSplash) return UITableViewCellAccessoryDisclosureIndicator;
-        BOOL returnToTopAndRefreshEnabled = [self demoListReturnToTopAndRefreshEnabled];
-        if (indexPath.row == JobsOCDemoListSettingItemReturnToTopAndRefresh) {
-            return returnToTopAndRefreshEnabled ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-        };return returnToTopAndRefreshEnabled ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
+        return UITableViewCellAccessoryDisclosureIndicator;
     };return [self appLanguageByRow:indexPath.row] == LanMgr.language ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 }
 

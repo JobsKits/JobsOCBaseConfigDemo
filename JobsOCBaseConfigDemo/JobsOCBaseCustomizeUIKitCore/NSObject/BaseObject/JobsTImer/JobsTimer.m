@@ -33,6 +33,7 @@ Prop_strong(nullable)id willEnterFGToken;
 Prop_assign()CFRunLoopTimerRef rlTimer;
 
 - (void)fireTickIfValid:(uint64_t)token;
+- (void)configureGCDTimerHandler:(dispatch_source_t)timer token:(uint64_t)token;
 
 @end
 
@@ -475,7 +476,14 @@ JobsKey(_stop)
             break;
         case JobsTimerTypeGCD:
             if (self.gcdTimer && self.gcdTimerSuspended) {
-                dispatch_resume(self.gcdTimer);
+                dispatch_source_t timer = self.gcdTimer;
+                uint64_t intervalNSEC = (uint64_t)(self.timeInterval * NSEC_PER_SEC);
+                dispatch_source_set_timer(timer,
+                                          dispatch_time(DISPATCH_TIME_NOW, intervalNSEC),
+                                          intervalNSEC,
+                                          (uint64_t)(0.1 * NSEC_PER_SEC));
+                [self configureGCDTimerHandler:timer token:token];
+                dispatch_resume(timer);
                 self.gcdTimerSuspended = NO;
             }
             break;
@@ -615,6 +623,16 @@ JobsKey(_stop)
 }
 
 #pragma mark —— GCD
+- (void)configureGCDTimerHandler:(dispatch_source_t)timer token:(uint64_t)token {
+    if (!timer) return;
+    @jobs_weakify(self)
+    dispatch_source_set_event_handler(timer, ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self fireTickIfValid:token];
+    });
+}
+
 - (void)startGCDTimerWithToken:(uint64_t)token {
     if (self.timeInterval <= 0) self.timeInterval = 1.0;
     uint64_t intervalNSEC = (uint64_t)(self.timeInterval * NSEC_PER_SEC);
@@ -633,12 +651,7 @@ JobsKey(_stop)
                               intervalNSEC,
                               (uint64_t)(0.1 * NSEC_PER_SEC));
 
-    @jobs_weakify(self)
-    dispatch_source_set_event_handler(t, ^{
-        @jobs_strongify(self)
-        if (!self) return;
-        [self fireTickIfValid:token];
-    });
+    [self configureGCDTimerHandler:t token:token];
 
     dispatch_resume(t);
     self.gcdTimerSuspended = NO;

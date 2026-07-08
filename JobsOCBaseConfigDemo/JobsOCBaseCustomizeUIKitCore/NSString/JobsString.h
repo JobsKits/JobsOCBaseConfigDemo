@@ -12,6 +12,7 @@
 #import <CommonCrypto/CommonDigest.h>
 
 #import "JobsStringUtils.h"
+#import "NSString+CIFilter.h"
 
 #import "JobsDefines.h"
 

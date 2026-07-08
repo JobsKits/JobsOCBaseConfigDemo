@@ -1,0 +1,166 @@
+//
+//  JobsMosaicBrushDemoVC.m
+//  JobsOCBaseConfigDemo
+//
+//  Created by Jobs on 2026年7月8日，星期三.
+//
+
+#import "JobsMosaicBrushDemoVC.h"
+
+@interface JobsMosaicBrushDemoVC ()
+
+Prop_strong()UIView *controlView;
+Prop_strong()UIImage *mosaicImage;
+Prop_strong()NSMutableArray <NSValue *>*brushPointValueMutArr;
+Prop_strong()UISwitch *brushSwitch;
+Prop_strong()UIButton *clearButton;
+Prop_assign()CGFloat brushDiameter;
+Prop_assign()NSUInteger renderVersion;
+
+-(void)switchValueChanged:(UISwitch *)sender;
+-(void)clearBrush;
+-(void)renderBrushImage;
+
+@end
+
+@implementation JobsMosaicBrushDemoVC
+
+-(NSString *)pageTitle{
+    return @"手势涂抹马赛克".tr;
+}
+
+-(void)viewDidLoad{
+    [super viewDidLoad];
+    self.imageView.brushDelegate = self;
+    self.imageView.brushEnabled = YES;
+    self.brushDiameter = 42;
+    self.controlView.alpha = 1;
+    [self showStatus:@"手指在图片上拖动即可局部打码".tr
+    hiddenAfterDelay:YES];
+}
+
+-(void)onImageLoaded:(UIImage *)image{
+    [super onImageLoaded:image];
+    self.mosaicImage = [self.originalImage jobs_mosaicPixelatedImageWithBlockSize:18];
+}
+#pragma mark —— JobsMosaicBrushImageViewDelegate
+-(void)mosaicBrushImageView:(JobsMosaicBrushImageView *)imageView
+        didPaintAtViewPoint:(CGPoint)viewPoint{
+    BOOL valid = NO;
+    CGPoint imagePoint = [imageView jobs_mosaicImagePointFromViewPoint:viewPoint
+                                                             imageSize:self.originalImage.size
+                                                                 valid:&valid];
+    if (!valid) return;
+    [self.brushPointValueMutArr addObject:[NSValue valueWithCGPoint:imagePoint]];
+    [self renderBrushImage];
+}
+#pragma mark —— Action
+-(void)switchValueChanged:(UISwitch *)sender{
+    self.imageView.brushEnabled = sender.isOn;
+    [self showStatus:sender.isOn ? @"已开启涂抹".tr : @"已暂停涂抹".tr
+    hiddenAfterDelay:YES];
+}
+
+-(void)clearBrush{
+    [self.brushPointValueMutArr removeAllObjects];
+    self.imageView.image = self.originalImage;
+    self.hasEdited = NO;
+    [self showStatus:@"已清除涂抹区域".tr
+    hiddenAfterDelay:YES];
+}
+
+-(void)renderBrushImage{
+    UIImage *sourceImage = self.originalImage;
+    UIImage *mosaicImage = self.mosaicImage;
+    NSArray <NSValue *>*centers = self.brushPointValueMutArr.copy;
+    if (!sourceImage || !mosaicImage || !centers.count) return;
+    CGFloat diameter = self.brushDiameter;
+    NSUInteger currentVersion = ++self.renderVersion;
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        UIImage *resultImage = [sourceImage jobs_mosaicPaintedImageWithMosaicImage:mosaicImage
+                                                                           centers:centers
+                                                                     brushDiameter:diameter];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (currentVersion != self.renderVersion) return;
+            self.imageView.image = resultImage;
+            self.hasEdited = YES;
+        });
+    });
+}
+#pragma mark —— LazyLoad
+-(UIView *)controlView{
+    if (!_controlView) {
+        _controlView = UIView.new;
+        _controlView.backgroundColor = UIColor.whiteColor;
+        _controlView.layer.cornerRadius = JobsWidth(8);
+        _controlView.layer.masksToBounds = YES;
+        [self.view addSubview:_controlView];
+        [_controlView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view).inset(JobsWidth(16));
+            make.height.mas_equalTo(JobsWidth(54));
+            make.bottom.equalTo(self.statusLabel.mas_top).offset(-JobsWidth(12));
+        }];
+        UILabel *titleLabel = UILabel.new;
+        titleLabel.text = @"涂抹".tr;
+        titleLabel.textColor = HEXCOLOR(0x3D4A58);
+        titleLabel.font = UIFontWeightMediumSize(15);
+        [_controlView addSubview:titleLabel];
+        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_controlView).offset(JobsWidth(14));
+            make.centerY.equalTo(_controlView);
+        }];
+        self.brushSwitch.alpha = 1;
+        self.clearButton.alpha = 1;
+        [self.imageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(16));
+            make.left.right.equalTo(self.view).inset(JobsWidth(16));
+            make.bottom.equalTo(self.controlView.mas_top).offset(-JobsWidth(12));
+        }];
+    };return _controlView;
+}
+
+-(UISwitch *)brushSwitch{
+    if (!_brushSwitch) {
+        _brushSwitch = UISwitch.new;
+        _brushSwitch.on = YES;
+        [_brushSwitch addTarget:self
+                         action:@selector(switchValueChanged:)
+               forControlEvents:UIControlEventValueChanged];
+        [_controlView addSubview:_brushSwitch];
+        [_brushSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_controlView).offset(JobsWidth(74));
+            make.centerY.equalTo(_controlView);
+        }];
+    };return _brushSwitch;
+}
+
+-(UIButton *)clearButton{
+    if (!_clearButton) {
+        _clearButton = UIButton.new;
+        _clearButton.backgroundColor = HEXCOLOR(0xEEF2F7);
+        _clearButton.layer.cornerRadius = JobsWidth(7);
+        _clearButton.layer.masksToBounds = YES;
+        [_clearButton setTitle:@"清除".tr
+                      forState:UIControlStateNormal];
+        [_clearButton setTitleColor:HEXCOLOR(0x3D4A58)
+                            forState:UIControlStateNormal];
+        _clearButton.titleLabel.font = UIFontWeightRegularSize(14);
+        [_clearButton addTarget:self
+                         action:@selector(clearBrush)
+               forControlEvents:UIControlEventTouchUpInside];
+        [_controlView addSubview:_clearButton];
+        [_clearButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(_controlView).offset(-JobsWidth(14));
+            make.centerY.equalTo(_controlView);
+            make.size.mas_equalTo(CGSizeMake(JobsWidth(74), JobsWidth(34)));
+        }];
+    };return _clearButton;
+}
+
+-(NSMutableArray<NSValue *> *)brushPointValueMutArr{
+    if (!_brushPointValueMutArr) {
+        _brushPointValueMutArr = NSMutableArray.array;
+    };return _brushPointValueMutArr;
+}
+
+@end

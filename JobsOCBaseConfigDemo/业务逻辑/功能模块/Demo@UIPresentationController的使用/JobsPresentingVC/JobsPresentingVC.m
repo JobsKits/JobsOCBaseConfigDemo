@@ -9,11 +9,15 @@
 
 @interface JobsPresentingVC ()
 
+Prop_strong()UILabel *presentedRatioTitleLab;
+Prop_strong()UITextField *presentedRatioTextField;
 Prop_strong()UIButton *topDirectionBtn;
 Prop_strong()UIButton *bottomDirectionBtn;
 Prop_strong()UIButton *leftDirectionBtn;
 Prop_strong()UIButton *rightDirectionBtn;
 
+-(CGFloat)jobs_presentedRatio;
+-(CGFloat)jobs_presentedRatioByText:(NSString *)text;
 -(void)jobs_presentByDirection:(JobsTransitionDirection)direction
                        bgColor:(UIColor *)bgColor;
 -(UIButton *)jobs_makeDirectionBtnByTitle:(NSString *)title
@@ -69,6 +73,8 @@ Prop_strong()UIButton *rightDirectionBtn;
     self.bottomDirectionBtn.byAlpha(1);
     self.leftDirectionBtn.byAlpha(1);
     self.rightDirectionBtn.byAlpha(1);
+    self.presentedRatioTitleLab.byAlpha(1);
+    self.presentedRatioTextField.byAlpha(1);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -99,12 +105,27 @@ Prop_strong()UIButton *rightDirectionBtn;
 
 -(void)jobs_presentByDirection:(JobsTransitionDirection)direction
                        bgColor:(UIColor *)bgColor{
+    [self.view endEditing:YES];
     JobsPresentedVC *vc = JobsPresentedVC.new;
     vc.view.byBgColor(bgColor);
     [self jobs_presentViewController:vc
                             configure:^(__kindof JobsPresentTransitionMgr * _Nullable manager) {
         manager.direction = direction;
+        manager.presentedRatio = self.jobs_presentedRatio;
     } completion:nil];
+}
+
+-(CGFloat)jobs_presentedRatio{
+    return [self jobs_presentedRatioByText:self.presentedRatioTextField.text];
+}
+
+-(CGFloat)jobs_presentedRatioByText:(NSString *)text{
+    NSString *trimmedText = [text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+    NSString *normalizedText = [trimmedText stringByReplacingOccurrencesOfString:@"%" withString:@""];
+    CGFloat value = normalizedText.doubleValue;
+    if (value <= 0) value = 50.f;
+    if (value <= 1.f && [normalizedText rangeOfString:@"."].location != NSNotFound) return MIN(MAX(0.01f, value), 1.f);
+    return MIN(MAX(1.f, value), 100.f) / 100.f;
 }
 
 -(UIButton *)jobs_makeDirectionBtnByTitle:(NSString *)title
@@ -180,6 +201,51 @@ Prop_strong()UIButton *rightDirectionBtn;
             make.centerY.equalTo(self.leftDirectionBtn);
         }];
     };return _rightDirectionBtn;
+}
+
+-(UILabel *)presentedRatioTitleLab{
+    if (!_presentedRatioTitleLab) {
+        @jobs_weakify(self)
+        _presentedRatioTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            @jobs_strongify(self)
+            label
+                .byText(@"进入百分比".tr)
+                .byFont(UIFontWeightRegularSize(14))
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextAlignment(NSTextAlignmentRight)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.presentedRatioTextField);
+                    make.right.equalTo(self.presentedRatioTextField.mas_left).offset(-JobsWidth(8));
+                    make.width.mas_equalTo(JobsWidth(88));
+                });
+        });
+    };return _presentedRatioTitleLab;
+}
+
+-(UITextField *)presentedRatioTextField{
+    if (!_presentedRatioTextField) {
+        @jobs_weakify(self)
+        _presentedRatioTextField = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
+            @jobs_strongify(self)
+            textField
+                .byText(@"50")
+                .byPlaceholder(@"50".tr)
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byFont(UIFontWeightRegularSize(14))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byBorderStyle(UITextBorderStyleRoundedRect)
+                .byClearButtonMode(UITextFieldViewModeWhileEditing)
+                .byKeyboardType(UIKeyboardTypeDecimalPad)
+                .byReturnKeyType(UIReturnKeyDone)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self.view).offset(JobsWidth(44));
+                    make.bottom.equalTo(self.topDirectionBtn.mas_top).offset(-JobsWidth(24));
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(96), JobsWidth(40)));
+                });
+        });
+    };return _presentedRatioTextField;
 }
 
 @end

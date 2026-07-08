@@ -13,9 +13,11 @@
 
 #import "JobsBaseUI.h"
 
-#import "JobsDefines.h"
+#import "JobsModelDSL.h"
 
 #import "JobsOCDSL.h"
+
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

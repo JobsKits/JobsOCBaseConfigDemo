@@ -7,14 +7,36 @@
 
 #import "JXCategoryPopupSubVC.h"
 
-static NSString * const JobsCategoryPopupTitleLottieDefaultName = @"JobsCategoryTitleWriting";
+static NSString * const JobsCategoryPopupTitleLottieDefaultName = @"JobsCategoryTitleWriting_QuanBuYouXi";
+
+static NSDictionary<NSString *, NSString *> *JobsCategoryPopupTitleWritingLottieNameMap(void) {
+    static NSDictionary<NSString *, NSString *> *map = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSDictionary<NSString *, NSString *> *rawMap = @{
+            @"全部游戏": @"JobsCategoryTitleWriting_QuanBuYouXi",
+            @"真人": @"JobsCategoryTitleWriting_ZhenRen",
+            @"体育": @"JobsCategoryTitleWriting_TiYu",
+            @"电子": @"JobsCategoryTitleWriting_DianZi",
+            @"棋牌": @"JobsCategoryTitleWriting_QiPai",
+            @"彩票": @"JobsCategoryTitleWriting_CaiPiao"
+        };
+        NSMutableDictionary<NSString *, NSString *> *mutableMap = NSMutableDictionary.dictionary;
+        [rawMap enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull title, NSString * _Nonnull lottieName, BOOL * _Nonnull stop) {
+            mutableMap[title] = lottieName;
+            NSString *localizedTitle = title.tr;
+            if (isValue(localizedTitle)) mutableMap[localizedTitle] = lottieName;
+        }];
+        map = mutableMap.copy;
+    });return map;
+}
 
 @interface JXCategoryPopupSubVC ()
 
 Prop_strong()UIImageView *backgroundImageView;
 Prop_strong()UIView *contentGlassView;
 Prop_strong()LOTAnimationView *titleWritingLottieView;
-Prop_strong()UILabel *mainTitleLabel;
+Prop_copy()NSString *currentTitleWritingLottieName;
 
 @end
 
@@ -59,7 +81,6 @@ Prop_strong()UILabel *mainTitleLabel;
     self.backgroundImageView.alpha = 1;
     self.contentGlassView.alpha = 1;
     self.titleWritingLottieView.alpha = 1;
-    self.mainTitleLabel.alpha = 1;
     [self playTitleWritingLottie];
 }
 
@@ -82,21 +103,48 @@ Prop_strong()UILabel *mainTitleLabel;
     return isValue(self.pageTitle) ? self.pageTitle : @"全部游戏".tr;
 }
 
--(NSString *)titleWritingLottieFilePath{
-    NSString *filePath = [NSBundle.mainBundle pathForResource:JobsCategoryPopupTitleLottieDefaultName
+-(NSString *)titleWritingLottieName{
+    NSString *lottieName = JobsCategoryPopupTitleWritingLottieNameMap()[self.resolvedPageTitle];
+    return isValue(lottieName) ? lottieName : JobsCategoryPopupTitleLottieDefaultName;
+}
+
+-(NSString *)titleWritingLottieFilePathByName:(NSString *)lottieName{
+    NSString *filePath = [NSBundle.mainBundle pathForResource:lottieName
                                                        ofType:@"json"];
     if (!filePath.length) {
-        filePath = [NSBundle.mainBundle pathForResource:JobsCategoryPopupTitleLottieDefaultName
+        filePath = [NSBundle.mainBundle pathForResource:lottieName
                                                  ofType:@"json"
                                             inDirectory:@"其他/libs/Lottie资源"];
+    }
+    if (!filePath.length) {
+        filePath = [NSBundle.mainBundle pathForResource:lottieName
+                                                 ofType:@"json"
+                                            inDirectory:@"其他/资源文件管理/Lottie资源"];
     };return filePath;
 }
 
+-(void)reloadTitleWritingLottieViewIfNeeded{
+    NSString *lottieName = self.titleWritingLottieName;
+    if (_titleWritingLottieView &&
+        [self.currentTitleWritingLottieName isEqualToString:lottieName]) return;
+    if (_titleWritingLottieView) {
+        [_titleWritingLottieView stop];
+        [_titleWritingLottieView removeFromSuperview];
+        _titleWritingLottieView = nil;
+    }
+    self.currentTitleWritingLottieName = lottieName;
+    self.titleWritingLottieView.alpha = 1;
+}
+
 -(void)playTitleWritingLottie{
-    self.mainTitleLabel.text = self.resolvedPageTitle;
+    [self reloadTitleWritingLottieViewIfNeeded];
+    [self.view layoutIfNeeded];
     [self.titleWritingLottieView stop];
     self.titleWritingLottieView.animationProgress = 0;
-    [self.titleWritingLottieView play];
+    self.titleWritingLottieView.alpha = 1;
+    [self.titleWritingLottieView playFromProgress:0
+                                       toProgress:1
+                                   withCompletion:nil];
 }
 
 -(UIImageView *)backgroundImageView{
@@ -124,58 +172,46 @@ Prop_strong()UILabel *mainTitleLabel;
         _contentGlassView.layer.shadowOffset = CGSizeMake(0, JobsWidth(10));
         _contentGlassView.layer.shadowRadius = JobsWidth(18);
         _contentGlassView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).offset(JobsWidth(42));
+            make.top.equalTo(self.view).offset(JobsWidth(40));
             make.left.right.equalTo(self.view).inset(JobsWidth(24));
-            make.height.mas_equalTo(JobsWidth(210));
+            make.height.mas_equalTo(JobsWidth(178));
         });
     };return _contentGlassView;
 }
 
 -(LOTAnimationView *)titleWritingLottieView{
     if (!_titleWritingLottieView) {
-        NSString *filePath = self.titleWritingLottieFilePath;
-        _titleWritingLottieView = filePath.length ? [LOTAnimationView animationWithFilePath:filePath] : [LOTAnimationView animationNamed:JobsCategoryPopupTitleLottieDefaultName];
-        _titleWritingLottieView.loopAnimation = YES;
+        NSString *lottieName = self.titleWritingLottieName;
+        NSString *filePath = [self titleWritingLottieFilePathByName:lottieName];
+        if (!filePath.length &&
+            ![lottieName isEqualToString:JobsCategoryPopupTitleLottieDefaultName]) {
+            lottieName = JobsCategoryPopupTitleLottieDefaultName;
+            filePath = [self titleWritingLottieFilePathByName:lottieName];
+        }
+        self.currentTitleWritingLottieName = lottieName;
+        _titleWritingLottieView = filePath.length ? [LOTAnimationView animationWithFilePath:filePath] : [LOTAnimationView animationNamed:lottieName];
+        _titleWritingLottieView.loopAnimation = NO;
         _titleWritingLottieView.userInteractionEnabled = NO;
-        _titleWritingLottieView.animationSpeed = 0.9f;
+        _titleWritingLottieView.animationSpeed = 1.05f;
         _titleWritingLottieView
             .byContentMode(UIViewContentModeScaleAspectFit)
             .byBgColor(JobsClearColor)
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
-                make.top.equalTo(self.contentGlassView).offset(JobsWidth(26));
-                make.centerX.equalTo(self.contentGlassView);
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(330), JobsWidth(110)));
+                make.center.equalTo(self.contentGlassView);
+                make.left.right.equalTo(self.contentGlassView).inset(JobsWidth(18));
+                make.height.mas_equalTo(JobsWidth(118));
             });
     };return _titleWritingLottieView;
-}
-
--(UILabel *)mainTitleLabel{
-    if (!_mainTitleLabel) {
-        _mainTitleLabel = UILabel.new;
-        _mainTitleLabel.text = self.resolvedPageTitle;
-        _mainTitleLabel.font = UIFontWeightBoldSize(JobsWidth(34));
-        _mainTitleLabel.textColor = HEXCOLOR(0x7A4D1F);
-        _mainTitleLabel.textAlignment = NSTextAlignmentCenter;
-        _mainTitleLabel.adjustsFontSizeToFitWidth = YES;
-        _mainTitleLabel.minimumScaleFactor = 0.58f;
-        _mainTitleLabel.layer.shadowColor = JobsWhiteColor.CGColor;
-        _mainTitleLabel.layer.shadowOpacity = 0.9f;
-        _mainTitleLabel.layer.shadowOffset = CGSizeMake(0, JobsWidth(2));
-        _mainTitleLabel.layer.shadowRadius = JobsWidth(8);
-        _mainTitleLabel.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.titleWritingLottieView);
-            make.top.equalTo(self.titleWritingLottieView.mas_bottom).offset(JobsWidth(4));
-            make.left.right.equalTo(self.contentGlassView).inset(JobsWidth(24));
-            make.height.mas_equalTo(JobsWidth(52));
-        });
-    };return _mainTitleLabel;
 }
 
 -(void)setPageTitle:(NSString *)pageTitle{
     _pageTitle = pageTitle.copy;
     if (!self.isViewLoaded) return;
-    self.mainTitleLabel.text = self.resolvedPageTitle;
+    [_titleWritingLottieView stop];
+    [_titleWritingLottieView removeFromSuperview];
+    _titleWritingLottieView = nil;
+    self.currentTitleWritingLottieName = nil;
     [self playTitleWritingLottie];
 }
 

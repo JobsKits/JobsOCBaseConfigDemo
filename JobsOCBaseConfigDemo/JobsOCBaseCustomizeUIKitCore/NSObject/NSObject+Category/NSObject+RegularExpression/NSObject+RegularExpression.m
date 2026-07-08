@@ -2,10 +2,95 @@
 //  NSObject+RegularExpression.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2021/12/9.
+//  Created by Jobs on 2021年12月9日，星期四.
 //
 
 #import "NSObject+RegularExpression.h"
+
+NSString * const JobsCNIDErrorDomain = @"com.jobs.cnid.validation";
+
+static NSString *JobsCNIDErrorMessage(JobsCNIDErrorCode code) {
+    switch (code) {
+        case JobsCNIDErrorCodeBirthDate:
+            return @"出生日期无效或超出合理范围";
+        case JobsCNIDErrorCodeSequence:
+            return @"顺序码无效（不能为000）";
+        case JobsCNIDErrorCodeChecksum:
+            return @"校验位不匹配";
+        case JobsCNIDErrorCodeFormat:
+        default:
+            return @"格式错误：18位(前17位数字+最后一位数字或X) 或 15位纯数字";
+    }
+}
+
+static void JobsCNIDFillError(NSError **error, JobsCNIDErrorCode code) {
+    if (error) *error = [NSError errorWithDomain:JobsCNIDErrorDomain
+                                            code:code
+                                        userInfo:@{NSLocalizedDescriptionKey:JobsCNIDErrorMessage(code)}];
+}
+
+static NSString *JobsCNIDNormalizedString(NSString *raw) {
+    return [[raw ?: @"" stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet].uppercaseString copy];
+}
+
+static BOOL JobsCNIDMatches(NSString *text, NSString *regEx) {
+    if (!text.length) return NO;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regEx];
+    return [predicate evaluateWithObject:text];
+}
+
+static unichar JobsCNIDChecksumChar(NSString *body17) {
+    NSArray<NSNumber *> *weights = @[@7,@9,@10,@5,@8,@4,@2,@1,@6,@3,@7,@9,@10,@5,@8,@4,@2];
+    NSInteger sum = 0;
+    for (NSUInteger idx = 0; idx < 17; idx++) sum += ([body17 characterAtIndex:idx] - '0') * weights[idx].integerValue;
+    return [@"10X98765432" characterAtIndex:sum % 11];
+}
+
+static BOOL JobsCNIDBirthDateIsValid(NSString *birthString) {
+    if (birthString.length != 8) return NO;
+    NSInteger year = [birthString substringWithRange:NSMakeRange(0, 4)].integerValue;
+    NSInteger month = [birthString substringWithRange:NSMakeRange(4, 2)].integerValue;
+    NSInteger day = [birthString substringWithRange:NSMakeRange(6, 2)].integerValue;
+    NSCalendar *calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *components = NSDateComponents.new;
+    components.year = year;
+    components.month = month;
+    components.day = day;
+    NSDate *birthDate = [calendar dateFromComponents:components];
+    if (!birthDate) return NO;
+    NSDateComponents *actual = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay
+                                           fromDate:birthDate];
+    if (actual.year != year || actual.month != month || actual.day != day) return NO;
+    NSDateComponents *minComponents = NSDateComponents.new;
+    minComponents.year = 1900;
+    minComponents.month = 1;
+    minComponents.day = 1;
+    NSDate *minDate = [calendar dateFromComponents:minComponents];
+    if ([birthDate compare:minDate] == NSOrderedAscending || [birthDate compare:NSDate.date] == NSOrderedDescending) return NO;
+    return YES;
+}
+
+static BOOL JobsCNIDValidate18(NSString *id18, NSError **error) {
+    if (!JobsCNIDMatches(id18, @"^\\d{17}[\\dX]$")) {
+        JobsCNIDFillError(error, JobsCNIDErrorCodeFormat);
+        return NO;
+    }
+    NSString *birthString = [id18 substringWithRange:NSMakeRange(6, 8)];
+    if (!JobsCNIDBirthDateIsValid(birthString)) {
+        JobsCNIDFillError(error, JobsCNIDErrorCodeBirthDate);
+        return NO;
+    }
+    NSString *sequence = [id18 substringWithRange:NSMakeRange(14, 3)];
+    if ([sequence isEqualToString:@"000"]) {
+        JobsCNIDFillError(error, JobsCNIDErrorCodeSequence);
+        return NO;
+    }
+    NSString *body17 = [id18 substringToIndex:17];
+    if (JobsCNIDChecksumChar(body17) != [id18 characterAtIndex:17]) {
+        JobsCNIDFillError(error, JobsCNIDErrorCodeChecksum);
+        return NO;
+    };return YES;
+}
 
 @implementation NSObject (RegularExpression)
 #pragma mark —— 一些私有方法
@@ -69,6 +154,51 @@
         NSString *regEx = @"(^[0-9]{15}$)|([0-9]{17}([0-9]|X)$)";
         return [NSObject baseCheckForRegEx:regEx data:idCard];
     };
+}
+/// 中国大陆公民身份证号码严格校验
++(BOOL)jobs_isValidCNID:(NSString *_Nullable)raw{
+    return [NSObject jobs_validateCNID:raw error:nil].length > 0;
+}
+/// 中国大陆公民身份证号码严格校验，成功时返回标准化后的 18 位号码
++(NSString *_Nullable)jobs_validateCNID:(NSString *_Nullable)raw
+                                  error:(NSError *_Nullable *_Nullable)error{
+    NSString *idString = JobsCNIDNormalizedString(raw);
+    if (!idString.length) {
+        JobsCNIDFillError(error, JobsCNIDErrorCodeFormat);
+        return nil;
+    }
+    if (JobsCNIDMatches(idString, @"^\\d{17}[\\dX]$")) {
+        if (JobsCNIDValidate18(idString, error)) return idString;
+        return nil;
+    }
+    if (JobsCNIDMatches(idString, @"^\\d{15}$")) {
+        NSString *converted = [NSObject jobs_convertCNID15To18:idString centuryHint:19 error:error];
+        if (!converted.length) return nil;
+        if (JobsCNIDValidate18(converted, error)) return converted;
+        return nil;
+    }
+    JobsCNIDFillError(error, JobsCNIDErrorCodeFormat);
+    return nil;
+}
+/// 将 15 位身份证号码转换为 18 位身份证号码
++(NSString *_Nullable)jobs_convertCNID15To18:(NSString *_Nullable)id15
+                                 centuryHint:(NSInteger)centuryHint
+                                       error:(NSError *_Nullable *_Nullable)error{
+    NSString *idString = JobsCNIDNormalizedString(id15);
+    if (!JobsCNIDMatches(idString, @"^\\d{15}$")) {
+        JobsCNIDFillError(error, JobsCNIDErrorCodeFormat);
+        return nil;
+    }
+    NSInteger safeCentury = centuryHint > 0 ? centuryHint : 19;
+    NSString *body17 = [NSString stringWithFormat:@"%@%02ld%@%@",
+                        [idString substringToIndex:6],
+                        (long)safeCentury,
+                        [idString substringWithRange:NSMakeRange(6, 6)],
+                        [idString substringFromIndex:12]];
+    if (body17.length != 17) {
+        JobsCNIDFillError(error, JobsCNIDErrorCodeFormat);
+        return nil;
+    };return [body17 stringByAppendingFormat:@"%C",JobsCNIDChecksumChar(body17)];
 }
 #pragma mark —— 由数字和26个英文字母组成的字符串
 -(JobsRetBOOLByStrBlock _Nonnull)checkingStrFormNumberAndLetter{

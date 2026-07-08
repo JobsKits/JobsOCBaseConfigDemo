@@ -30,6 +30,12 @@ Prop_assign()NSInteger remainingRetryCount;
 
 @implementation JobsGestureLockVC
 
+- (instancetype)init {
+    return [self initWithMode:JobsGestureLockModeValidate
+                   storageKey:@"JobsGestureLockDefaultKey"
+                configuration:nil];
+}
+
 - (instancetype)initWithMode:(JobsGestureLockMode)mode storageKey:(NSString *)storageKey {
     return [self initWithMode:mode storageKey:storageKey configuration:nil];
 }

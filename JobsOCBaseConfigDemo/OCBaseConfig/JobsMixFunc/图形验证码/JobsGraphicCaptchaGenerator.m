@@ -63,21 +63,116 @@
     };return characters.copy;
 }
 
++(NSArray<NSArray<NSString *> *> *)characterGroupsForUnits:(JobsGraphicCaptchaCharacterUnit)units{
+    NSMutableArray<NSArray<NSString *> *> *groups = NSMutableArray.array;
+    if (units & JobsGraphicCaptchaCharacterUnitNumber) {
+        [groups addObject:self.numberCharacters];
+    }
+    if (units & JobsGraphicCaptchaCharacterUnitLowercaseLetter) {
+        [groups addObject:self.lowercaseLetterCharacters];
+    }
+    if (units & JobsGraphicCaptchaCharacterUnitUppercaseLetter) {
+        [groups addObject:self.uppercaseLetterCharacters];
+    }
+    if (units & JobsGraphicCaptchaCharacterUnitChinese) {
+        [groups addObject:self.chineseCharacters];
+    };return groups.copy;
+}
+
++(BOOL)shouldUseMixedGroupsForUnits:(JobsGraphicCaptchaCharacterUnit)units{
+    JobsGraphicCaptchaCharacterUnit mixedUnits = JobsGraphicCaptchaCharacterUnitNumber |
+                                                JobsGraphicCaptchaCharacterUnitLowercaseLetter |
+                                                JobsGraphicCaptchaCharacterUnitUppercaseLetter |
+                                                JobsGraphicCaptchaCharacterUnitChinese;
+    return (units & mixedUnits) == mixedUnits;
+}
+
++(NSArray<NSString *> *)validCharactersFromCharacters:(NSArray<NSString *> *)characters{
+    NSMutableArray<NSString *> *validCharacters = NSMutableArray.array;
+    for (id character in characters) {
+        if ([character isKindOfClass:NSString.class] && [character length]) {
+            [validCharacters addObject:character];
+        }
+    };return validCharacters.copy;
+}
+
++(NSString *)randomCharacterFromCharacters:(NSArray<NSString *> *)characters{
+    if (!characters.count) return @"";
+    for (NSUInteger i = 0; i < characters.count; i++) {
+        NSString *character = characters[arc4random_uniform((uint32_t)characters.count)];
+        if ([character isKindOfClass:NSString.class] && character.length) return character;
+    };return @"";
+}
+
++(void)shuffleMutableCharacters:(NSMutableArray *)characters{
+    for (NSUInteger i = characters.count; i > 1; i--) {
+        NSUInteger index = arc4random_uniform((uint32_t)i);
+        [characters exchangeObjectAtIndex:i - 1
+                        withObjectAtIndex:index];
+    }
+}
+
++(NSArray<NSArray<NSString *> *> *)randomGroupCombinationFromGroups:(NSArray<NSArray<NSString *> *> *)groups
+                                                             length:(NSUInteger)length{
+    if (groups.count < 2 || length < 2) return @[];
+    NSMutableArray<NSArray<NSString *> *> *shuffledGroups = groups.mutableCopy;
+    [self shuffleMutableCharacters:shuffledGroups];
+    NSUInteger maxGroupCount = MIN(length, shuffledGroups.count);
+    NSUInteger groupCount = 2 + arc4random_uniform((uint32_t)(maxGroupCount - 1));
+    return [shuffledGroups subarrayWithRange:NSMakeRange(0, groupCount)];
+}
+
++(NSString *)randomTextByCharacters:(NSArray<NSString *> *)characters
+                              length:(NSUInteger)length{
+    NSMutableString *text = NSMutableString.string;
+    for (NSUInteger i = 0; i < length; i++) {
+        NSString *character = [self randomCharacterFromCharacters:characters];
+        if (!character.length) break;
+        [text appendString:character];
+    };return text.copy;
+}
+
++(NSString *)randomMixedTextByGroups:(NSArray<NSArray<NSString *> *> *)groups
+                              length:(NSUInteger)length{
+    NSArray<NSArray<NSString *> *> *selectedGroups = [self randomGroupCombinationFromGroups:groups
+                                                                                     length:length];
+    if (!selectedGroups.count) return @"";
+    NSMutableArray<NSString *> *characters = NSMutableArray.array;
+    NSMutableArray<NSString *> *sourceCharacters = NSMutableArray.array;
+    for (NSArray<NSString *> *group in selectedGroups) {
+        NSString *character = [self randomCharacterFromCharacters:group];
+        if (character.length) [characters addObject:character];
+        [sourceCharacters addObjectsFromArray:group];
+    }
+    while (characters.count < length) {
+        NSString *character = [self randomCharacterFromCharacters:sourceCharacters];
+        if (!character.length) break;
+        [characters addObject:character];
+    }
+    [self shuffleMutableCharacters:characters];
+    return [characters componentsJoinedByString:@""];
+}
+
 +(NSString *)randomTextByConfig:(JobsGraphicCaptchaConfig *_Nullable)config{
     JobsGraphicCaptchaConfig *captchaConfig = config ? : JobsGraphicCaptchaConfig.defaultConfig;
     NSUInteger length = captchaConfig.length ? : 4;
-    NSArray<NSString *> *sourceCharacters = captchaConfig.customCharacters.count ? captchaConfig.customCharacters : [self charactersForUnits:captchaConfig.characterUnits];
+    if (captchaConfig.customCharacters.count) {
+        NSArray<NSString *> *customCharacters = [self validCharactersFromCharacters:captchaConfig.customCharacters];
+        NSArray<NSString *> *sourceCharacters = customCharacters.count ? customCharacters : [self charactersForUnits:JobsGraphicCaptchaCharacterUnitDefault];
+        return [self randomTextByCharacters:sourceCharacters
+                                     length:length];
+    }
+    NSArray<NSArray<NSString *> *> *groups = [self characterGroupsForUnits:captchaConfig.characterUnits];
+    if (!groups.count) groups = [self characterGroupsForUnits:JobsGraphicCaptchaCharacterUnitDefault];
+    if ([self shouldUseMixedGroupsForUnits:captchaConfig.characterUnits] && length > 1) {
+        NSString *mixedText = [self randomMixedTextByGroups:groups
+                                                     length:length];
+        if (mixedText.length) return mixedText;
+    }
+    NSArray<NSString *> *sourceCharacters = [self charactersForUnits:captchaConfig.characterUnits];
     if (!sourceCharacters.count) sourceCharacters = [self charactersForUnits:JobsGraphicCaptchaCharacterUnitDefault];
-    NSMutableString *text = NSMutableString.string;
-    for (NSUInteger i = 0; i < length; i++) {
-        uint32_t index = arc4random_uniform((uint32_t)sourceCharacters.count);
-        NSString *character = sourceCharacters[index];
-        if (![character isKindOfClass:NSString.class] || !character.length) {
-            i--;
-            continue;
-        }
-        [text appendString:character];
-    };return text.copy;
+    return [self randomTextByCharacters:sourceCharacters
+                                 length:length];
 }
 
 +(BOOL)validateInput:(NSString *_Nullable)input

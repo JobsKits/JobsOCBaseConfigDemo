@@ -20,6 +20,8 @@ Prop_strong()NSMutableArray <JobsRichTextConfig *>*richTextConfigMutArr;
 Prop_strong()NSMutableArray <NSString *>*richTextMutArr;
 Prop_strong()NSMutableParagraphStyle *paragraphStyle;
 
+-(void)updateElapsedDisplayWithTime:(CGFloat)time;
+
 @end
 
 @implementation JobsCountdownView
@@ -78,7 +80,7 @@ static dispatch_once_t static_countdownViewOnceToken;
         @jobs_strongify(self)
         self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         MakeDataNull
-        [self.timer start];
+        [self refreshData];
         self.titleLab.byVisible(YES);
         self.countdownTimeLab.byVisible(YES);
     };
@@ -94,8 +96,17 @@ static dispatch_once_t static_countdownViewOnceToken;
     self.minutesStr = nil;
     self.secondStr = nil;
     self.richTextConfigMutArr = nil;
-    self.countdownTimeLab.byAttributedString(nil);
+    self.richTextMutArr = nil;
+    self.countdownTimeLab.byAttributedString([self richTextWithDataConfigMutArr:self.richTextConfigMutArr
+                                                                 paragraphStyle:self.paragraphStyle]);
+}
 
+-(void)updateElapsedDisplayWithTime:(CGFloat)time{
+    NSInteger totalSeconds = MAX(0, (NSInteger)time);
+    self.minutesStr = [NSString stringWithFormat:@"%02ld",(long)(totalSeconds / 60)];
+    self.secondStr = [NSString stringWithFormat:@"%02ld",(long)(totalSeconds % 60)];
+    self.countdownTimeLab.byAttributedString([self richTextWithDataConfigMutArr:self.richTextConfigMutArr
+                                                                 paragraphStyle:self.paragraphStyle]);
 }
 #pragma mark —— lazyLoad
 @synthesize timer = _timer;
@@ -111,32 +122,18 @@ static dispatch_once_t static_countdownViewOnceToken;
           // 正计时模式
                 .byTimeInterval(1)
                            // 跳动步长（频率间距）
-                .byStartTime(30 * 60)
-                        // ✅ 总时长
-                .byTimeSecIntervalSinceDate(3)
-               // dispatch_after 延迟（这里等价 0）
+                .byStartTime(0)
+                        // 从 0 秒开始正计时
+                .byTimeSecIntervalSinceDate(0)
+               // 手动点击后立即开始
                 .byQueue(dispatch_get_main_queue())
                 .byOnTick(^(CGFloat time){
                     @jobs_strongify(self)
-//                    JobsLog(@"正在倒计时...");
-//                    NSLog(@"time = %f",t.time);
-//                    NSLog(@"timer.timerType = %lu",(unsigned long)t.timerType);
-//                    NSLog(@"timer.timerStyle = %lu",(unsigned long)t.timerStyle);
-
-                    NSArray *strArr1 = [[self getMMSSFromStr:[NSString stringWithFormat:@"%f",time] formatTime:self.formatTime]
-                                        componentsSeparatedByString:@"分".tr];
-                    self.minutesStr = strArr1[0];
-
-                    NSArray *strArr2 = [strArr1[1] componentsSeparatedByString:@"秒".tr];
-                    self.secondStr = strArr2[0];
-
-                    self.countdownTimeLab.byAttributedString([self richTextWithDataConfigMutArr:self.richTextConfigMutArr paragraphStyle:self.paragraphStyle]);
-
+                    [self updateElapsedDisplayWithTime:time];
                     if (self.objBlock) self.objBlock(@(time));
                 })
                 .byOnFinish(^(__kindof JobsTimer * _Nullable t){
                     @jobs_strongify(self)
-//                    JobsLog(@"倒计时结束...");
                     if (self.objBlock) self.objBlock(t);
                 });
             /// 这些是内部状态初始化，不暴露成 DSL 也可以
@@ -165,9 +162,9 @@ static dispatch_once_t static_countdownViewOnceToken;
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(@"支付時間還有".tr)
-                .byFont(UIFontWeightRegularSize(14))
-                .byTextCor(HEXCOLOR(0x757575))
+                .byText(@"正计时已用时".tr)
+                .byFont(UIFontWeightMediumSize(15))
+                .byTextCor(HEXCOLOR(0x5F6B7A))
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.centerX.equalTo(self);
@@ -205,22 +202,22 @@ static dispatch_once_t static_countdownViewOnceToken;
     _richTextConfigMutArr.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
         @jobs_strongify(self)
         data.byFont(UIFontWeightBoldSize(48))
-            .byTextCor(HEXCOLOR(0xAE8330))
+            .byTextCor(HEXCOLOR(0x2F80ED))
             .byTargetString(self.minutesStr);
     }))
     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
         data.byFont(UIFontWeightRegularSize(12))
-            .byTextCor(HEXCOLOR(0x757575))
+            .byTextCor(HEXCOLOR(0x5F6B7A))
             .byTargetString(@"分".tr);
     }))
     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
         data.byFont(UIFontWeightBoldSize(48))
-            .byTextCor(HEXCOLOR(0xAE8330))
+            .byTextCor(HEXCOLOR(0x2F80ED))
             .byTargetString(self.secondStr);
     }))
     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
         data.byFont(UIFontWeightRegularSize(12))
-            .byTextCor(HEXCOLOR(0x757575))
+            .byTextCor(HEXCOLOR(0x5F6B7A))
             .byTargetString(@"秒".tr);
     }));return _richTextConfigMutArr;
 }
@@ -244,13 +241,13 @@ static dispatch_once_t static_countdownViewOnceToken;
 
 -(NSString *)minutesStr{
     if (!_minutesStr) {
-        _minutesStr = @"30".tr;
+        _minutesStr = @"00".tr;
     };return _minutesStr;
 }
 
 -(NSString *)secondStr{
     if (!_secondStr) {
-        _secondStr = @"0".tr;
+        _secondStr = @"00".tr;
     };return _secondStr;
 }
 

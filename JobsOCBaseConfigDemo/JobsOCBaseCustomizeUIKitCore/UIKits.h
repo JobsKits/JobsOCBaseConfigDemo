@@ -91,6 +91,7 @@
 #import "JobsBezierPath.h"
 #pragma mark —— UIProgressView
 #import "JobsProgressView.h"
+#import "JobsProgressBar.h"
 #pragma mark —— UITextField
 #import "JobsTextFieldExtra.h"
 #pragma mark —— UITextView
