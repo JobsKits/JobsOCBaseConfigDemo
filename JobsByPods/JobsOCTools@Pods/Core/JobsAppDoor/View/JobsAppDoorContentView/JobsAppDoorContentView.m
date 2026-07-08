@@ -31,6 +31,8 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
 -(void)jobs_refreshSendBtnEnabled:(BOOL)enabled;
 -(void)jobs_bindSendBtnEnableSignalByInputViews:(NSArray<JobsAppDoorInputViewBaseStyle *> *)inputViews;
 -(void)jobs_bindVerificationCodeBtnEnableSignal;
+-(void)jobs_refreshRegisterSendBtnLayout;
+-(void)jobs_applyRegisterInputViewState;
 
 @end
 
@@ -39,7 +41,8 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
 -(void)dealloc{
     [self.sendBtnEnableDisposable dispose];
     [self.verificationCodeBtnEnableDisposable dispose];
-    if (self.registerDoorInputViewBaseStyleMutArr.count) {
+    if (self.registerDoorInputViewBaseStyleMutArr.count > 4 &&
+        [self.registerDoorInputViewBaseStyleMutArr[4] isKindOfClass:JobsAppDoorInputViewBaseStyle_1.class]) {
         JobsAppDoorInputViewBaseStyle_1 *手机验证码 = (JobsAppDoorInputViewBaseStyle_1 *)self.registerDoorInputViewBaseStyleMutArr[4];
         [手机验证码.getCountDownBtn.timer stop];
     }
@@ -206,6 +209,38 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
         });
 }
 
+-(JobsAppDoorInputViewBaseStyle *_Nullable)jobs_lastVisibleRegisterInputView{
+    for (JobsAppDoorInputViewBaseStyle *inputView in self.registerDoorInputViewBaseStyleMutArr.reverseObjectEnumerator) {
+        if (inputView.alpha > 0.01f) return inputView;
+    };return nil;
+}
+
+-(void)jobs_refreshRegisterSendBtnLayout{
+    JobsAppDoorInputViewBaseStyle *lastInputView = [self jobs_lastVisibleRegisterInputView];
+    if (lastInputView) {
+        self.sendBtn.byTop(lastInputView.bottom + InputViewOffset);
+    }else{
+        self.sendBtn.byBottom(JobsAppDoorContentViewRegisterHeight - JobsWidth(50));
+    }
+}
+
+-(void)jobs_applyRegisterInputViewState{
+    SEL changeColorSEL = @selector(changeTextFieldAnimationColor:);
+    for (JobsAppDoorInputViewBaseStyle *inputView in self.registerDoorInputViewBaseStyleMutArr) {
+        if ([inputView respondsToSelector:changeColorSEL]) {
+            IMP imp = [inputView methodForSelector:changeColorSEL];
+            void (*func)(id, SEL, BOOL) = (void *)imp;
+            func(inputView, changeColorSEL, self.toRegisterBtn.selected);
+        }
+        inputView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
+            data.byJobsWidth(1)
+                .byLayerCor(Cor3)
+                .byCornerRadiusValue(ThingsHeight / 2)
+                .byMasksToBounds(YES);
+        }));
+    }
+}
+
 -(RACDisposable *_Nullable)jobs_subscribeTextChangeByInputView:(JobsAppDoorInputViewBaseStyle *)inputView
                                                          block:(jobsByIDBlock _Nullable)block{
     UITextField *textField = [self jobs_textFieldByInputView:inputView];
@@ -297,14 +332,14 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
         [self.inputViewMutArr addObject:inputView];
         [self.loginDoorInputViewBaseStyleMutArr addObject:inputView];
         inputView.jobsRichViewByModel(self.loginDoorInputViewBaseStyleModelMutArr[i]);
+        NSUInteger inputIndex = i;
         @jobs_weakify(self)
         //【用户名 & 密码 输入回调，共享注册与登录两个界面】
         [inputView actionObjBlock:^(UITextField *data) {
             @jobs_strongify(self)
-            JobsAppDoorInputViewTFModel *textFieldInputModel = (JobsAppDoorInputViewTFModel *)data.requestParams;
-            if ([textFieldInputModel.PlaceHolder isEqualToString:@"Usr".tr]) {
+            if (inputIndex == 0) {
                 self.appDoorModel.userName = data.text;
-            }else if ([textFieldInputModel.PlaceHolder isEqualToString:@"Code".tr]){
+            }else if (inputIndex == 1){
                 self.appDoorModel.password = data.text;
             }else{}
             if (self.objBlock) self.objBlock(self.appDoorModel);
@@ -417,10 +452,10 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
         .jobsResetBtnCornerRadiusValue(ThingsHeight / 2)
         .bySize(CGSizeMake(self.width - self.toRegisterBtn.width - JobsWidth(40), ThingsHeight))
         .byCenterX(self.titleLab.centerX)
-        .byBottom(JobsAppDoorContentViewRegisterHeight - JobsWidth(50))
         .byLayer(^(CALayer *layer) {
             layer.byMasksToBounds(YES);
         });
+    [self jobs_refreshRegisterSendBtnLayout];
     self.sendBtn.titleLabel.bySizeToFit();
     [self jobs_refreshSendBtnEnabled:[self checkRegisterBtnCanBeUsed]];
 }
@@ -476,6 +511,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
             inputView.byAlpha(1);
 
         }
+        [self jobs_refreshRegisterSendBtnLayout];
         [self jobs_bindSendBtnEnableSignalByInputViews:self.registerDoorInputViewBaseStyleMutArr];
         [self jobs_bindVerificationCodeBtnEnableSignal];
         return;
@@ -552,7 +588,8 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
                 }
             }];
         }else{}
-        
+        if (!doorInputViewBaseStyle) continue;
+
         JobsAppDoorInputViewBaseStyle *lastObj = (JobsAppDoorInputViewBaseStyle *)self.registerDoorInputViewBaseStyleMutArr[i - 1];
         doorInputViewBaseStyle
             .byTop(lastObj.bottom + InputViewOffset)
@@ -564,6 +601,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
                     .byMasksToBounds(YES);
             });
     }
+    [self jobs_refreshRegisterSendBtnLayout];
     [self jobs_bindSendBtnEnableSignalByInputViews:self.registerDoorInputViewBaseStyleMutArr];
     [self jobs_bindVerificationCodeBtnEnableSignal];
 }
@@ -571,50 +609,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
 -(void)animationCommon{
     if (self.objBlock) self.objBlock(self.toRegisterBtn);
     self.toRegisterBtn.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTop,JobsWidth(8));
-    // 一些UI逻辑
-    if (self.registerDoorInputViewBaseStyleMutArr.count >= 6) {
-        JobsAppDoorInputViewBaseStyle_3 *用户名 = (JobsAppDoorInputViewBaseStyle_3 *)self.registerDoorInputViewBaseStyleMutArr[0];
-        JobsAppDoorInputViewBaseStyle_3 *密码 = (JobsAppDoorInputViewBaseStyle_3 *)self.registerDoorInputViewBaseStyleMutArr[1];
-        JobsAppDoorInputViewBaseStyle_3 *确认密码 = (JobsAppDoorInputViewBaseStyle_3 *)self.registerDoorInputViewBaseStyleMutArr[2];
-        JobsAppDoorInputViewBaseStyle_7 *手机号码 = (JobsAppDoorInputViewBaseStyle_7 *)self.registerDoorInputViewBaseStyleMutArr[3];
-        JobsAppDoorInputViewBaseStyle_1 *手机验证码 = (JobsAppDoorInputViewBaseStyle_1 *)self.registerDoorInputViewBaseStyleMutArr[4];
-        JobsAppDoorInputViewBaseStyle_4 *图形验证码 = (JobsAppDoorInputViewBaseStyle_4 *)self.registerDoorInputViewBaseStyleMutArr[5];
-        
-        [用户名 changeTextFieldAnimationColor:self.toRegisterBtn.selected];
-        [密码 changeTextFieldAnimationColor:self.toRegisterBtn.selected];
-        [确认密码 changeTextFieldAnimationColor:self.toRegisterBtn.selected];
-        [手机号码 changeTextFieldAnimationColor:self.toRegisterBtn.selected];
-        [手机验证码 changeTextFieldAnimationColor:self.toRegisterBtn.selected];
-        [图形验证码 changeTextFieldAnimationColor:self.toRegisterBtn.selected];
-        
-        用户名.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.byJobsWidth(1)
-                .byLayerCor(Cor3)
-                .byCornerRadiusValue(ThingsHeight / 2)
-                .byMasksToBounds(YES);
-        }));
-        
-        密码.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.byJobsWidth(1)
-                .byLayerCor(Cor3)
-                .byCornerRadiusValue(ThingsHeight / 2)
-                .byMasksToBounds(YES);
-        }));
-        
-        确认密码.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.byJobsWidth(1)
-                .byLayerCor(Cor3)
-                .byCornerRadiusValue(ThingsHeight / 2)
-                .byMasksToBounds(YES);
-        }));
-
-        图形验证码.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-            data.byJobsWidth(1)
-                .byLayerCor(Cor3)
-                .byCornerRadiusValue(ThingsHeight / 2)
-                .byMasksToBounds(YES);
-        }));
-    }
+    [self jobs_applyRegisterInputViewState];
 }
 /// 核心方法
 -(void)animationChangeRegisterBtnFrame{
@@ -804,7 +799,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
             UIImage *lockIcon = @"Lock".img ? : @"codeDecode".img;
             data.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 用户名) {
                 用户名.leftViewIMG = userIcon;
-                用户名.placeholder = @"Usr".tr;
+                用户名.placeholder = @"用户名".tr;
                 用户名.isShowDelBtn = YES;
                 用户名.isShowSecurityBtn = NO;
                 用户名.useCustomClearButton = YES;
@@ -821,7 +816,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
             }));
             data.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 密码) {
                 密码.leftViewIMG = lockIcon;
-                密码.placeholder = @"Code".tr;
+                密码.placeholder = @"密码".tr;
                 密码.isShowDelBtn = YES;
                 密码.isShowSecurityBtn = YES;
                 密码.useCustomClearButton = YES;
@@ -847,7 +842,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
             UIImage *verifyIcon = @"AppDoorVerifyCode".img ? : @"验证ICON".img ? : lockIcon;
             data.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 用户名) {
                 用户名.leftViewIMG = userIcon;
-                用户名.placeholder = @"Usr".tr;
+                用户名.placeholder = @"用户名".tr;
                 用户名.isShowDelBtn = YES;
                 用户名.isShowSecurityBtn = NO;
                 用户名.useCustomClearButton = YES;
@@ -862,7 +857,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
             }));
             data.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 密码) {
                 密码.leftViewIMG = lockIcon;
-                密码.placeholder = @"Code".tr;
+                密码.placeholder = @"密码".tr;
                 密码.isShowDelBtn = YES;
                 密码.isShowSecurityBtn = YES;
                 密码.useCustomClearButton = YES;
@@ -878,7 +873,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
             }));
             data.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 确认密码) {
                 确认密码.leftViewIMG = lockIcon;
-                确认密码.placeholder = @"Confirm".tr;
+                确认密码.placeholder = @"确认密码".tr;
                 确认密码.isShowDelBtn = YES;
                 确认密码.isShowSecurityBtn = YES;
                 确认密码.useCustomClearButton = YES;
@@ -894,7 +889,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
             }));
             data.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 手机号码) {
                 手机号码.leftViewIMG = @"手机号码".img;
-                手机号码.placeholder = @"Telephone".tr;
+                手机号码.placeholder = @"手机号码".tr;
                 手机号码.isShowDelBtn = YES;
                 手机号码.isShowSecurityBtn = NO;
                 手机号码.useCustomClearButton = YES;
@@ -911,7 +906,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
             }));
             data.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 手机验证码) {
                 手机验证码.leftViewIMG = verifyIcon;
-                手机验证码.placeholder = @"Auth code".tr;
+                手机验证码.placeholder = @"手机验证码".tr;
                 手机验证码.isShowDelBtn = YES;
                 手机验证码.isShowSecurityBtn = NO;
                 手机验证码.useCustomClearButton = YES;
@@ -924,20 +919,22 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
                 手机验证码.placeHolderOffset = JobsWidth(35);
                 手机验证码.fieldEditorOffset = JobsWidth(4);
             }));
-            data.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 图形验证码) {
-                图形验证码.leftViewIMG = verifyIcon;
-                图形验证码.placeholder = @"Captcha".tr;
-                图形验证码.isShowDelBtn = YES;
-                图形验证码.isShowSecurityBtn = NO;
-                图形验证码.useCustomClearButton = YES;
-                图形验证码.returnKeyType = UIReturnKeyDone;
-                图形验证码.keyboardAppearance = UIKeyboardAppearanceAlert;
-                图形验证码.leftViewMode = UITextFieldViewModeAlways;
-                图形验证码.placeholderColor = JobsWhiteColor;
-                图形验证码.offset = JobsWidth(0);
-                图形验证码.placeHolderOffset = JobsWidth(35);
-                图形验证码.fieldEditorOffset = JobsWidth(4);
-            }));
+            if (JobsAppDoorRegisterShowsGraphicCaptcha) {
+                data.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 图形验证码) {
+                    图形验证码.leftViewIMG = verifyIcon;
+                    图形验证码.placeholder = @"图形验证码".tr;
+                    图形验证码.isShowDelBtn = YES;
+                    图形验证码.isShowSecurityBtn = NO;
+                    图形验证码.useCustomClearButton = YES;
+                    图形验证码.returnKeyType = UIReturnKeyDone;
+                    图形验证码.keyboardAppearance = UIKeyboardAppearanceAlert;
+                    图形验证码.leftViewMode = UITextFieldViewModeAlways;
+                    图形验证码.placeholderColor = JobsWhiteColor;
+                    图形验证码.offset = JobsWidth(0);
+                    图形验证码.placeHolderOffset = JobsWidth(35);
+                    图形验证码.fieldEditorOffset = JobsWidth(4);
+                }));
+            }
         });
     };return _registerDoorInputViewBaseStyleModelMutArr;
 }

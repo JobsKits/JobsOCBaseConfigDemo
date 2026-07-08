@@ -24,6 +24,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger, JobsCNIDErrorCode) {
+    JobsCNIDErrorCodeFormat = 1,
+    JobsCNIDErrorCodeBirthDate,
+    JobsCNIDErrorCodeSequence,
+    JobsCNIDErrorCodeChecksum
+};
+
+FOUNDATION_EXPORT NSString * const JobsCNIDErrorDomain;
+
 @interface NSObject (RegularExpression)
 #pragma mark —— 校验只能输入n位的数字
 +(BOOL)checkingNumberWithLength:(NSString *)length number:(NSString *)number;
@@ -41,6 +50,15 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBOOLByStrBlock _Nonnull)checkingPhoneNum;
 #pragma mark —— 身份证号验证
 -(JobsRetBOOLByStrBlock _Nonnull)checkingIdCard;
+/// 中国大陆公民身份证号码严格校验
++(BOOL)jobs_isValidCNID:(NSString *_Nullable)raw;
+/// 中国大陆公民身份证号码严格校验，成功时返回标准化后的 18 位号码
++(NSString *_Nullable)jobs_validateCNID:(NSString *_Nullable)raw
+                                  error:(NSError *_Nullable *_Nullable)error;
+/// 将 15 位身份证号码转换为 18 位身份证号码
++(NSString *_Nullable)jobs_convertCNID15To18:(NSString *_Nullable)id15
+                                 centuryHint:(NSInteger)centuryHint
+                                       error:(NSError *_Nullable *_Nullable)error;
 
 #pragma mark —— 由数字和26个英文字母组成的字符串
 -(JobsRetBOOLByStrBlock _Nonnull)checkingStrFormNumberAndLetter;

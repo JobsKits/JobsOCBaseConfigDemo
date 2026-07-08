@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobsOCDemoSectionModel : NSObject
 
 Prop_copy()NSString *title;
+Prop_copy()NSString *sectionDescription;
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
 +(instancetype)sectionWithTitle:(NSString *)title;

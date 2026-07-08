@@ -26,39 +26,40 @@ end
 
 # 几乎每个App都会用到的
 def appCommon
-#  pod 'JobsBlock'              # https://github.com/295060456/JobsBlock
-#  pod 'DeviceKit'              # https://github.com/devicekit/DeviceKit            ❤️ 设备信息/设备系列/模拟器设备识别/电池状态/低功耗模式状态/当前是否为引导式访问会话/调整屏幕亮度/可用磁盘空间
-  pod 'CocoaLumberjack'        # https://github.com/CocoaLumberjack/CocoaLumberjack❤️ 日志框架
-  pod 'GBDeviceInfo'           # https://github.com/lmirosevic/GBDeviceInfo
-  pod 'PromiseKit'             # https://github.com/mxcl/PromiseKit                ❤️
-  pod 'FTroulette'             # https://github.com/520coding/FTdashboad 一个仪表盘
-  pod 'UITextView+Placeholder' # https://github.com/devxoul/UITextView-Placeholder A missing placeholder for UITextView.
-#  pod 'XYColorOC'              # https://github.com/RayJiang16/XYColor 适配iOS 13夜间模式/深色外观(Dark Mode)
-  pod 'IQKeyboardManager'      # https://github.com/hackiftekhar/IQKeyboardManager Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView. Neither need to write any code nor any setup required and much more.
-  pod 'Masonry'                # https://github.com/SnapKit/Masonry 
-#  pod 'SDAutoLayout'          # https://github.com/gsdios/SDAutoLayout
-  pod 'AFNetworking'           # https://github.com/AFNetworking/AFNetworking  ⚠️ 作者停止维护
-  pod 'Reachability'           # https://github.com/tonymillion/Reachability 检查联网情况
-  pod 'ReactiveObjC'           # https://github.com/ReactiveCocoa/ReactiveObjC 
-  pod 'XZMRefresh'             # https://github.com/xiezhongmin/XZMRefresh 横向刷新
-  pod 'MJRefresh'              # https://github.com/CoderMJLee/MJRefresh 纵向刷新 
-  pod 'MJExtension'            # https://github.com/CoderMJLee/MJExtension 
-  pod 'SDWebImage'             # https://github.com/SDWebImage/SDWebImage
-  pod 'SDWebImageWebPCoder'    # https://github.com/SDWebImage/SDWebImageWebPCoder ❤️
-#  pod 'YYKit'                 # https://github.com/ibireme/YYKit 
+  pod 'Masonry'                       # https://github.com/SnapKit/Masonry
+  pod 'OpenUDID'                      # https://github.com/ylechelle/OpenUDID Open source initiative for a universal and persistent UDID solution for iOS
+  pod 'MJRefresh'                     # https://github.com/CoderMJLee/MJRefresh 纵向刷新
+  pod 'PromiseKit'                    # https://github.com/mxcl/PromiseKit                ❤️
+  pod 'FTroulette'                    # https://github.com/520coding/FTdashboad 一个仪表盘
+  pod 'XZMRefresh'                    # https://github.com/xiezhongmin/XZMRefresh 横向刷新
+  pod 'SDWebImage'                    # https://github.com/SDWebImage/SDWebImage
+  pod 'YTKNetwork'                    # https://github.com/yuantiku/YTKNetwork
+  pod "HTMLReader"                    # https://github.com/nolanw/HTMLReader 处理 HTML 语法
+  pod 'MJExtension'                   # https://github.com/CoderMJLee/MJExtension
   pod 'YQImageTool'
-  pod 'OpenUDID'               # https://github.com/ylechelle/OpenUDID Open source initiative for a universal and persistent UDID solution for iOS
-#  pod 'TABAnimated'            # https://github.com/tigerAndBull/TABAnimated
-  pod 'HXRotationTool'         # https://github.com/TheLittleBoy/HXRotationTool 屏幕旋转
-  pod 'YTKNetwork'             # https://github.com/yuantiku/YTKNetwork
-  pod "HTMLReader"             # https://github.com/nolanw/HTMLReader 处理 HTML 语法
-  pod 'SocketRocket'           # https://github.com/facebookincubator/SocketRocket
+  pod 'GBDeviceInfo'                  # https://github.com/lmirosevic/GBDeviceInfo
+  pod 'AFNetworking'                  # https://github.com/AFNetworking/AFNetworking  ⚠️ 作者停止维护
+  pod 'Reachability'                  # https://github.com/tonymillion/Reachability 检查联网情况
+  pod 'ReactiveObjC'                  # https://github.com/ReactiveCocoa/ReactiveObjC
+  pod 'SocketRocket'                  # https://github.com/facebookincubator/SocketRocket
+  pod 'HXRotationTool'                # https://github.com/TheLittleBoy/HXRotationTool 屏幕旋转
+  pod 'CocoaLumberjack'               # https://github.com/CocoaLumberjack/CocoaLumberjack❤️ 日志框架
+  pod 'IQKeyboardManager'             # https://github.com/hackiftekhar/IQKeyboardManager Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView. Neither need to write any code nor any setup required and much more.
+  pod 'SDWebImageWebPCoder'           # https://github.com/SDWebImage/SDWebImageWebPCoder ❤️
+  pod 'UITextView+Placeholder'        # https://github.com/devxoul/UITextView-Placeholder A missing placeholder for UITextView.
+
 #  pod 'ZBNetworking', :git => 'https://github.com/Suzhibin/ZBNetworking.git' # https://github.com/Suzhibin/ZBNetworking
+#  pod 'JobsBlock'              # https://github.com/JobsKit/JobsBlock
+#  pod 'DeviceKit'              # https://github.com/devicekit/DeviceKit            ❤️ 设备信息/设备系列/模拟器设备识别/电池状态/低功耗模式状态/当前是否为引导式访问会话/调整屏幕亮度/可用磁盘空间
+#  pod 'TABAnimated'            # https://github.com/tigerAndBull/TABAnimated
+#  pod 'YYKit'                 # https://github.com/ibireme/YYKit
+#  pod 'XYColorOC'              # https://github.com/RayJiang16/XYColor 适配iOS 13夜间模式/深色外观(Dark Mode)
+#  pod 'SDAutoLayout'          # https://github.com/gsdios/SDAutoLayout
 end
 ## GK一族
 def gk
-  pod 'GKNavigationBar'        # https://github.com/QuintGao/GKNavigationBar
   pod 'GKPhotoBrowser'         # https://github.com/QuintGao/GKPhotoBrowser iOS仿微信、今日头条等图片浏览器
+  pod 'GKNavigationBar'        # https://github.com/QuintGao/GKNavigationBar
   pod 'GKCycleScrollView'      # https://github.com/QuintGao/GKCycleScrollView     ❤️ 图片、文字轮播器
 end
 ## JX一族
@@ -94,34 +95,37 @@ def jx
 end
 ## 提示框
 def alert
-  pod 'SPAlertController'              # https://github.com/SPStore/SPAlertController 深度定制AlertController 
-#  pod 'TFPopup'                        # https://github.com/shmxybfq/TFPopup 不耦合view代码,可以为已创建过 / 未创建过的view添加弹出方式;只是一种弹出方式;
+  pod 'SPAlertController'               # https://github.com/SPStore/SPAlertController 深度定制AlertController
+#  pod 'TFPopup'                         # https://github.com/shmxybfq/TFPopup 不耦合view代码,可以为已创建过 / 未创建过的view添加弹出方式;只是一种弹出方式;
 end
 # UI相关
 def ui
-#  pod 'Texture'                        # https://github.com/texturegroup/texture           ❤️ Facebook出品的一款UI框架
-  pod 'ZMJTipView'                     # https://github.com/keshiim/ZMJTipView
-  pod 'ZMJGanttChart'                  # https://github.com/keshiim/ZMJGanttChart excel
-  pod 'LMJDropdownMenu'                # https://github.com/JerryLMJ/LMJDropdownMenu 下拉菜单
-#  pod 'WMZBanner'                      # https://github.com/wwmz/WMZBanner 轻量级轮播图+卡片样式+自定义样式 ⚠️作者停止维护
-  pod 'MGSwipeTableCell'               # https://github.com/MortimerGoro/MGSwipeTableCell 滑动tableViewCell
-  pod 'Shimmer'                        # https://github.com/facebookarchive/Shimmer⚠️作者停止维护 Facebook 推出的一款具有闪烁效果的第三方控件
-  pod 'RQShineLabel'                   # https://github.com/zipme/RQShineLabel 一个类似Secret文字渐变效果的开源库
-  pod 'SZTextView'                     # https://github.com/glaszig/SZTextView SZTextView 用于替代内置的 UITextView，实现了 placeholder
-#  pod 'BRPickerView'                   # https://github.com/91renb/BRPickerView 平替UIPickerView 该组件封装的是iOS中常用的选择器组件，主要包括：日期选择器、时间选择器（DatePickerView）、地址选择器（AddressPickerView）、自定义字符串选择器（StringPickerView）。支持自定义主题样式，适配深色模式，支持将选择器组件添加到指定容器视图。
-#  pod 'LYEmptyView'                   # https://github.com/dev-liyang/LYEmptyView iOS一行代码集成空白页面占位图(无数据、无网络占位图)
-#  pod 'ZZCircleProgress'              # https://github.com/zhouxing5311/ZZCircleProgress 可以高度自定义的环形进度条 我用手动pods管理
-  pod 'FLAnimatedImageView+RGWrapper' #
-  pod 'PPBadgeView'                    # https://github.com/jkpang/PPBadgeView iOS自定义Badge组件, 支持UIView, UITabBarItem, UIBarButtonItem以及子类 
-  pod 'WHToast'                        # https://github.com/remember17/WHToast 一个轻量级的提示控件，没有任何依赖 
-#  pod 'BEMCheckBox'                    # https://github.com/Boris-Em/BEMCheckBox 复选框 更炫 Tasteful Checkbox for iOS
-#  pod 'WMZCode'                        # https://github.com/wwmz/WMZCode
-#  pod 'KJBannerView'                   # https://github.com/yangKJ/KJBannerViewDemo 轮播图 【有点问题，暂时手动管理】
-#  pod 'YYKit'
-  pod 'YYImage'
-#  pod 'LiveChat' # 第三方的聊天工具 https://github.com/livechat/chat-window-ios
-#  pod 'UICountingLabel'
+
   pod 'pop', '~> 1.0.10'
+  pod 'Shimmer'                         # https://github.com/facebookarchive/Shimmer⚠️作者停止维护 Facebook 推出的一款具有闪烁效果的第三方控件
+  pod 'WHToast'                         # https://github.com/remember17/WHToast 一个轻量级的提示控件，没有任何依赖
+  pod 'YYImage'
+  pod 'ZMJTipView'                      # https://github.com/keshiim/ZMJTipView
+  pod 'SZTextView'                      # https://github.com/glaszig/SZTextView SZTextView 用于替代内置的 UITextView，实现了 placeholder
+  pod 'PPBadgeView'                     # https://github.com/jkpang/PPBadgeView iOS自定义Badge组件, 支持UIView, UITabBarItem, UIBarButtonItem以及子类
+  pod 'RQShineLabel'                    # https://github.com/zipme/RQShineLabel 一个类似Secret文字渐变效果的开源库
+  pod 'ZMJGanttChart'                   # https://github.com/keshiim/ZMJGanttChart excel
+  pod 'LMJDropdownMenu'                 # https://github.com/JerryLMJ/LMJDropdownMenu 下拉菜单
+  pod 'MGSwipeTableCell'                # https://github.com/MortimerGoro/MGSwipeTableCell 滑动tableViewCell
+  pod 'FLAnimatedImageView+RGWrapper'   #
+
+#  pod 'YYKit'
+#  pod 'WMZCode'                       # https://github.com/wwmz/WMZCode
+#  pod 'Texture'                       # https://github.com/texturegroup/texture           ❤️ Facebook出品的一款UI框架
+#  pod 'LiveChat'                      # 第三方的聊天工具 https://github.com/livechat/chat-window-ios
+#  pod 'WMZBanner'                     # https://github.com/wwmz/WMZBanner 轻量级轮播图+卡片样式+自定义样式 ⚠️作者停止维护
+#  pod 'BEMCheckBox'                   # https://github.com/Boris-Em/BEMCheckBox 复选框 更炫 Tasteful Checkbox for iOS
+#  pod 'LYEmptyView'                   # https://github.com/dev-liyang/LYEmptyView iOS一行代码集成空白页面占位图(无数据、无网络占位图)
+#  pod 'KJBannerView'                  # https://github.com/yangKJ/KJBannerViewDemo 轮播图 【有点问题，暂时手动管理】
+#  pod 'BRPickerView'                  # https://github.com/91renb/BRPickerView 平替UIPickerView 该组件封装的是iOS中常用的选择器组件，主要包括：日期选择器、时间选择器（DatePickerView）、地址选择器（AddressPickerView）、自定义字符串选择器（StringPickerView）。支持自定义主题样式，适配深色模式，支持将选择器组件添加到指定容器视图。
+#  pod 'UICountingLabel'
+#  pod 'ZZCircleProgress'              # https://github.com/zhouxing5311/ZZCircleProgress 可以高度自定义的环形进度条 我用手动pods管理
+
   gk # GK一族
   jx # JX一族
   alert # 提示框
@@ -129,26 +133,26 @@ end
 # 视频相关
 def videoFunc
 # 打开ZFPlayer则无法用模拟器
-  pod 'ZFPlayer'                 # https://github.com/renzifeng/ZFPlayer
+  pod 'ZFPlayer'                       # https://github.com/renzifeng/ZFPlayer
   pod 'ZFPlayer/ControlView'
   pod 'ZFPlayer/AVPlayer'
 #  pod 'ZFPlayer/ijkplayer'
 #  pod 'IJKMediaFramework'
-  pod 'KTVHTTPCache'             # https://github.com/ChangbaDevs/KTVHTTPCache 预加载@边下边播
-#  pod 'VIMediaCache'             # https://github.com/vitoziv/VIMediaCache 边下边播
+  pod 'KTVHTTPCache'                   # https://github.com/ChangbaDevs/KTVHTTPCache 预加载@边下边播
+#  pod 'VIMediaCache'                   # https://github.com/vitoziv/VIMediaCache 边下边播
 end
 # 一些功能性
 def func
+  pod 'lottie-ios', '~> 2.5.3'            # 这是OC终极版本 https://github.com/airbnb/lottie-ios
   # https://support.dun.163.com/documents/15588062143475712?docId=150442931089756160 网易易盾SDK接入教程
   pod 'NTESVerifyCode'                    # https://github.com/yidun/NTESVerifyCode  网易验证码
-  pod 'TXFileOperation'                   # https://github.com/xtzPioneer/TXFileOperation 文件夹操作
   pod 'YBImageBrowser'                    # https://github.com/indulgeIn/YBImageBrowser 图片浏览器
+  pod 'AYCheckVersion'                    # https://github.com/AYJk/AYCheckVersion 提示更新 Check version from AppStore / 从AppStore检查更新
+  pod 'TXFileOperation'                   # https://github.com/xtzPioneer/TXFileOperation 文件夹操作
   pod 'HXPhotoPickerObjC'                 # https://github.com/SilenceLove/HXPhotoPickerObjC  相册选择（不使用网络图片功能）没有完全兼容横屏
+  pod 'JPImageresizerView'                # https://github.com/Rogue24/JPImageresizerView 一个专门裁剪图片、GIF、视频的轮子，简单易用，功能丰富（高自由度的参数设定、支持旋转和镜像翻转、蒙版、压缩等），能满足绝大部分裁剪的需求。
   pod 'HXPhotoPickerObjC/SDWebImage'      # https://github.com/SilenceLove/HXPhotoPickerObjC 相册选择（使用SDWebImage加载网络图片） 没有完全兼容横屏
   pod 'BMLongPressDragCellCollectionView' # https://github.com/liangdahong/BMLongPressDragCellCollectionView
-  pod 'JPImageresizerView'                # https://github.com/Rogue24/JPImageresizerView 一个专门裁剪图片、GIF、视频的轮子，简单易用，功能丰富（高自由度的参数设定、支持旋转和镜像翻转、蒙版、压缩等），能满足绝大部分裁剪的需求。
-  pod 'lottie-ios', '~> 2.5.3'            # 这是OC终极版本 https://github.com/airbnb/lottie-ios
-  pod 'AYCheckVersion'                    # https://github.com/AYJk/AYCheckVersion 提示更新 Check version from AppStore / 从AppStore检查更新
 #  pod 'WCDB'
 #  pod 'FSCalendar'                        # https://github.com/WenchaoD/FSCalendar 日历签到
 #  pod 'LCAuthManager'                     # https://github.com/LennonChin/LCAuthManager 简单易用的权限验证库，提供了手势密码、生物特性验证（包括Touch ID和Face ID）的集成
@@ -167,117 +171,127 @@ end
 def byJobsDo
 #  pod 'JobsBlock', :git => 'https://github.com/JobsKits/JobsBlock.git' ,:tag => '1.0.1'
   # 本地 Pods（统一挂载管理）
-  pod 'This',                         :path => './JobsByPods/This@Pods'
-  pod 'JobsAPIs',                     :path => './JobsByPods/JobsAPIs@Pods'
-  pod 'JobsMakes',                    :path => './JobsByPods/JobsMakes@Pods', :modular_headers => true
-  pod 'JobsOCKeyboardMgr',              :path => './JobsByPods/JobsOCKeyboardMgr@Pods'
-  pod 'JobsBlock',                    :path => './JobsByPods/JobsBlock@Pods'
-  pod 'JobsCallBackBlockDSL',         :path => './JobsByPods/JobsCallBackBlockDSL@Pods'
-  pod 'JobsOCDSL',                    :path => './JobsByPods/JobsOCDSL@Pods'
-  pod 'UIBaseTextFieldDSL',           :path => './JobsByPods/UIBaseTextFieldDSL@Pods'
-  pod 'JobsLanMgr',                   :path => './JobsByPods/JobsLanMgr@Pods'
-  pod 'JobsClass',                    :path => './JobsByPods/JobsClass@Pods'
-  pod 'JobsModel',                    :path => './JobsByPods/JobsModel@Pods'
-  pod 'JobsModelDSL',                 :path => './JobsByPods/JobsModelDSL@Pods'
-  pod 'JobsDebug',                    :path => './JobsByPods/JobsDebug@Pods'
-  pod 'JobsBaseUI',                   :path => './JobsByPods/JobsBaseUI@Pods'
-  pod 'JobsLocker',                   :path => './JobsByPods/JobsLocker@Pods'
-  pod 'JobsBioKit',                   :path => './JobsByPods/JobsBioKit@Pods'
-  pod 'JobsOCDefs',                   :path => './JobsByPods/JobsOCDefs@Pods'
-  pod 'JobsNavBar',                   :path => './JobsByPods/JobsNavBar@Pods'
-  pod 'JobsSuspend',                  :path => './JobsByPods/JobsSuspend@Pods'
-  pod 'JobsOCTimer',                  :path => './JobsByPods/JobsOCTimer@Pods'
-  pod 'JobsCountdownBtn',             :path => './JobsByPods/JobsCountdownBtn@Pods'
-  pod 'JobsOCTools',                  :path => './JobsByPods/JobsOCTools@Pods'
-  pod 'JobsTabBarCtrl',               :path => './JobsByPods/JobsTabBarCtrl@Pods'
-  pod 'JobsMenuView',                 :path => './JobsByPods/JobsMenuView@Pods'
-  pod 'JobsAppTools',                 :path => './JobsByPods/JobsAppTools@Pods'
-  pod 'JobsByOCPods',                 :path => './JobsByPods/JobsByOCPods@Pods'
-  pod 'JobsHotLabel',                 :path => './JobsByPods/JobsHotLabel@Pods'
-  pod 'JobsOCSearcher',               :path => './JobsByPods/JobsOCSearcher@Pods'
-  pod 'JobsOCComment',                :path => './JobsByPods/JobsOCComment@Pods'
-  pod 'WHToastExtra',                 :path => './JobsByPods/WHToastExtra@Pods'
-  pod 'TFPopupExtra',                 :path => './JobsByPods/TFPopupExtra@Pods'
-  pod 'JobsTimeUtils',                :path => './JobsByPods/JobsTimeUtils@Pods'
-  pod 'JobsGetWindow',                :path => './JobsByPods/JobsGetWindow@Pods'
-  pod 'JobsOCOpen',                   :path => './JobsByPods/JobsOCOpen@Pods'
-  pod 'JobsClockView',                :path => './JobsByPods/JobsClockView@Pods'
-  pod 'MJRefreshExtra',               :path => './JobsByPods/MJRefreshExtra@Pods'
-  pod 'JobsDeviceInfo',               :path => './JobsByPods/JobsDeviceInfo@Pods'
-  pod 'JobsCustomView',               :path => './JobsByPods/JobsCustomView@Pods'
-  pod 'JobsOCTimerMgr',               :path => './JobsByPods/JobsOCTimerMgr@Pods'
+  pod 'This',                           :path => './JobsByPods/This@Pods'
+  pod 'JobsAPIs',                       :path => './JobsByPods/JobsAPIs@Pods'
+  pod 'JobsMakes',                      :path => './JobsByPods/JobsMakes@Pods', :modular_headers => true
+  pod 'JobsBlock',                      :path => './JobsByPods/JobsBlock@Pods'
+  pod 'JobsClass',                      :path => './JobsByPods/JobsClass@Pods'
+  pod 'JobsModel',                      :path => './JobsByPods/JobsModel@Pods'
+  pod 'JobsDebug',                      :path => './JobsByPods/JobsDebug@Pods'
+  pod 'JobsLanMgr',                     :path => './JobsByPods/JobsLanMgr@Pods'
+  pod 'JobsBaseUI',                     :path => './JobsByPods/JobsBaseUI@Pods'
+  pod 'JobsLocker',                     :path => './JobsByPods/JobsLocker@Pods'
+  pod 'JobsBioKit',                     :path => './JobsByPods/JobsBioKit@Pods'
+  pod 'JobsOCDefs',                     :path => './JobsByPods/JobsOCDefs@Pods'
+  pod 'JobsNavBar',                     :path => './JobsByPods/JobsNavBar@Pods'
+  pod 'JobsOCOpen',                     :path => './JobsByPods/JobsOCOpen@Pods'
+  pod 'JobsWallet',                     :path => './JobsByPods/JobsWallet@Pods'
+  pod 'JobsSuspend',                    :path => './JobsByPods/JobsSuspend@Pods'
+  pod 'JobsOCTimer',                    :path => './JobsByPods/JobsOCTimer@Pods'
+  pod 'JobsOCPatch',                    :path => './JobsByPods/JobsOCPatch@Pods'
+  pod 'JobsByOCPods',                   :path => './JobsByPods/JobsByOCPods@Pods'
+  pod 'JobsHotLabel',                   :path => './JobsByPods/JobsHotLabel@Pods'
+  pod 'JobsViewPush',                   :path => './JobsByPods/JobsViewPush@Pods'
+  pod 'JobsOCSplash',                   :path => './JobsByPods/JobsOCSplash@Pods'
+  pod 'JobsOCComment',                  :path => './JobsByPods/JobsOCComment@Pods'
+  pod 'JobsGetWindow',                  :path => './JobsByPods/JobsGetWindow@Pods'
+  pod 'JobsTabBarCtrl',                 :path => './JobsByPods/JobsTabBarCtrl@Pods'
+  pod 'JobsOCSearcher',                 :path => './JobsByPods/JobsOCSearcher@Pods'
+  pod 'JobsDeviceInfo',                 :path => './JobsByPods/JobsDeviceInfo@Pods'
   pod 'JobsOCRefresher',                :path => './JobsByPods/JobsOCRefresher@Pods'
+  pod 'JobsGestureLock',                :path => './JobsByPods/JobsGestureLock@Pods'
+  pod 'JobsBitsMonitor',                :path => './JobsByPods/JobsBitsMonitor@Pods'
+  pod 'JobsOCSkeletonView',             :path => './JobsByPods/JobsOCSkeletonView@Pods'
+  pod 'JobsOCProtocols',                :path => './JobsByPods/JobsOCProtocols@Pods'
+  pod 'JobsOCSnowflake',                :path => './JobsByPods/JobsOCSnowflake@Pods'
+  pod 'JobsCountdownBtn',               :path => './JobsByPods/JobsCountdownBtn@Pods'
+  pod 'JobsLoadingImage',               :path => './JobsByPods/JobsLoadingImage@Pods'
+  pod 'JobsCryptography',               :path => './JobsByPods/JobsCryptography@Pods'
+  pod 'JobsOCKeyboardMgr',              :path => './JobsByPods/JobsOCKeyboardMgr@Pods'
+  pod 'JobsViewNavigator',              :path => './JobsByPods/JobsViewNavigator@Pods'
+  pod 'JobsOCRuntimeKits',              :path => './JobsByPods/JobsOCRuntimeKits@Pods'
+  pod 'JobsFuseAnimation',              :path => './JobsByPods/JobsFuseAnimation@Pods'
+  pod 'JobsOCGraphicCaptcha',             :path => './JobsByPods/JobsOCGraphicCaptcha@Pods'
+  pod 'JobsOCVideoRecorder',            :path => './JobsByPods/JobsOCVideoRecorder@Pods'
+  pod 'JobsMonitorNetwoking',           :path => './JobsByPods/JobsMonitorNetwoking@Pods'
+  pod 'FileFolderHandleTool',           :path => './JobsByPods/FileFolderHandleTool@Pods'
+  pod 'JobsLuckyEnvelopeRain',          :path => './JobsByPods/JobsLuckyEnvelopeRain@Pods'
+  pod 'JobsOCCountryCodeCtrl',          :path => './JobsByPods/JobsOCCountryCodeCtrl@Pods'
   pod 'JobsOCRefresher/Lottie',         :path => './JobsByPods/JobsOCRefresher@Pods'
+  pod 'FDFullscreenPopGesture',         :path => './JobsByPods/FDFullscreenPopGesture@Pods'
   pod 'JobsOCRefresher/SDWebImage',     :path => './JobsByPods/JobsOCRefresher@Pods'
   pod 'JobsOCRefresher/FrameAnimation', :path => './JobsByPods/JobsOCRefresher@Pods'
-  pod 'JobsOCPatch',                  :path => './JobsByPods/JobsOCPatch@Pods'
-  pod 'JobsRandomUtils',              :path => './JobsByPods/JobsRandomUtils@Pods'
-  pod 'JobsGraphicCaptcha',           :path => './JobsByPods/JobsGraphicCaptcha@Pods'
-  pod 'YTKNetworkExtra',              :path => './JobsByPods/YTKNetworkExtra@Pods'
-  pod 'JobsGestureLock',              :path => './JobsByPods/JobsGestureLock@Pods'
-  pod 'JobsBitsMonitor',              :path => './JobsByPods/JobsBitsMonitor@Pods'
-  pod 'JobsStringUtils',              :path => './JobsByPods/JobsStringUtils@Pods'
-  pod 'JobsOCProtocols',              :path => './JobsByPods/JobsOCProtocols@Pods'
-  pod 'JobsOCSnowflake',              :path => './JobsByPods/JobsOCSnowflake@Pods'
-  pod 'JobsLoadingImage',             :path => './JobsByPods/JobsLoadingImage@Pods'
-  pod 'JobsCryptography',             :path => './JobsByPods/JobsCryptography@Pods'
-  pod 'JobsNetWorkTools',             :path => './JobsByPods/JobsNetWorkTools@Pods'
-  pod 'JobsViewNavigator',            :path => './JobsByPods/JobsViewNavigator@Pods'
-  pod 'JobsViewPush',                 :path => './JobsByPods/JobsViewPush@Pods'
-  pod 'BRPickerViewExtra',            :path => './JobsByPods/BRPickerViewExtra@Pods'
-  pod 'JobsRichTextUtils',            :path => './JobsByPods/JobsRichTextUtils@Pods'
-  pod 'JobsOCRuntimeKits',            :path => './JobsByPods/JobsOCRuntimeKits@Pods'
-  pod 'JobsBasePopupView',            :path => './JobsByPods/JobsBasePopupView@Pods'
-  pod 'JobsFiltrationView',           :path => './JobsByPods/JobsFiltrationView@Pods'
-  pod 'JobsImageNumberView',          :path => './JobsByPods/JobsImageNumberView@Pods'
-  pod 'JobsLinkageMenuView',          :path => './JobsByPods/JobsLinkageMenuView@Pods'
-  pod 'JobsWallet',                   :path => './JobsByPods/JobsWallet@Pods'
-  pod 'JobsMonitorNetwoking',         :path => './JobsByPods/JobsMonitorNetwoking@Pods'
-  pod 'FileFolderHandleTool',         :path => './JobsByPods/FileFolderHandleTool@Pods'
-  pod 'JobsDropDownListView',         :path => './JobsByPods/JobsDropDownListView@Pods'
-  pod 'FDFullscreenPopGesture',       :path => './JobsByPods/FDFullscreenPopGesture@Pods'
-  pod 'SYSAlertControllerExtra',      :path => './JobsByPods/SYSAlertControllerExtra@Pods'
-  pod 'JobsUploadingProgressView',    :path => './JobsByPods/JobsUploadingProgressView@Pods'
-  pod 'JobsNavigationTransitionMgr',  :path => './JobsByPods/JobsNavigationTransitionMgr@Pods'
-  pod 'JobsPresentTransitionMgr',     :path => './JobsByPods/JobsPresentTransitionMgr@Pods'
-  pod 'JobsFuseAnimation',            :path => './JobsByPods/JobsFuseAnimation@Pods'
-  pod 'JobsOCSplash',                 :path => './JobsByPods/JobsOCSplash@Pods'
-  pod 'JobsOCVideoRecorder',          :path => './JobsByPods/JobsOCVideoRecorder@Pods'
-  pod 'JobsOCCountryCodeCtrl',          :path => './JobsByPods/JobsOCCountryCodeCtrl@Pods'
 
-  pod 'ZFPlayerExtra',                :path => './JobsByPods/ZFPlayerExtra@Pods'
-  pod 'HTMLDocumentExtra',            :path => './JobsByPods/HTMLDocumentExtra@Pods'
-  pod 'AFSecurityPolicyExtra',        :path => './JobsByPods/AFSecurityPolicyExtra@Pods'
-  pod 'FMDatabaseExtra',              :path => './JobsByPods/FMDatabaseExtra@Pods'
-  pod 'FSCalendarExtra',              :path => './JobsByPods/FSCalendarExtra@Pods'
-  pod 'JobsCalendar',                 :path => './JobsByPods/JobsCalendar@Pods'
-  pod 'GKCustomNavigationBarExtra',   :path => './JobsByPods/GKCustomNavigationBarExtra@Pods'
-  pod 'HXPhotoManagerExtra',          :path => './JobsByPods/HXPhotoManagerExtra@Pods'
-  pod 'HXPhotoViewExtra',             :path => './JobsByPods/HXPhotoViewExtra@Pods'
-  pod 'IQKeyboardManagerExtra',       :path => './JobsByPods/IQKeyboardManagerExtra@Pods'
-  pod 'JXCategoryViewExtra',          :path => './JobsByPods/JXCategoryViewExtra@Pods'
-  pod 'LMJDropdownMenuExtra',         :path => './JobsByPods/LMJDropdownMenuExtra@Pods'
-  pod 'MGSwipeTableCellExtra',        :path => './JobsByPods/MGSwipeTableCellExtra@Pods'
-  pod 'RACExtra',                     :path => './JobsByPods/RACExtra@Pods'
-  pod 'ReachabilityExtra',            :path => './JobsByPods/ReachabilityExtra@Pods'
-  pod 'SRWebSocketExtra',             :path => './JobsByPods/SRWebSocketExtra@Pods'
-  pod 'SZTextViewExtra',              :path => './JobsByPods/SZTextViewExtra@Pods'
-  pod 'ZMJCellExtra',                 :path => './JobsByPods/ZMJCellExtra@Pods'
+  pod 'JobsMenuView',                   :path => './JobsByPods/JobsMenuView@Pods'
+  pod 'JobsClockView',                  :path => './JobsByPods/JobsClockView@Pods'
+  pod 'JobsCustomView',                 :path => './JobsByPods/JobsCustomView@Pods'
+  pod 'JobsMarqueeView',                :path => './JobsByPods/JobsMarqueeView@Pods'
+  pod 'JobsBasePopupView',              :path => './JobsByPods/JobsBasePopupView@Pods'
+  pod 'JobsFiltrationView',             :path => './JobsByPods/JobsFiltrationView@Pods'
+  pod 'JobsImageNumberView',            :path => './JobsByPods/JobsImageNumberView@Pods'
+  pod 'JobsLinkageMenuView',            :path => './JobsByPods/JobsLinkageMenuView@Pods'
+  pod 'JobsDropDownListView',           :path => './JobsByPods/JobsDropDownListView@Pods'
+  pod 'JobsProgressBar',                :path => './JobsByPods/JobsProgressBar@Pods'
+  pod 'JobsUploadingProgressView',      :path => './JobsByPods/JobsUploadingProgressView@Pods'
 
-  pod 'Texture',                      :path => './JobsByPods/ManualByOCPods@Pods/Texture'
-  pod 'BEMCheckBox',                  :path => './JobsByPods/ManualByOCPods@Pods/BEMCheckBox'
-  pod 'XYColorOC',                    :path => './JobsByPods/ManualByOCPods@Pods/XYColorOC'
-  pod 'YYKits',                       :path => './JobsByPods/ManualByOCPods@Pods/YYKits'
-  pod 'TFPopup',                      :path => './JobsByPods/ManualByOCPods@Pods/TFPopup'
-  pod 'WMZCode',                      :path => './JobsByPods/ManualByOCPods@Pods/WMZCode'
-  pod 'DeviceKit',                    :path => './JobsByPods/ManualByOCPods@Pods/DeviceKit'
-  pod 'GTCaptcha4',                   :path => './JobsByPods/ManualByOCPods@Pods/GTCaptcha4' # 极验验证码【官网】https://www2.geetest.com/ 【Github】https://github.com/tigerfintech/GTCaptcha4
-  pod 'FSCalendar',                   :path => './JobsByPods/ManualByOCPods@Pods/FSCalendar'
-  pod 'TABAnimated',                  :path => './JobsByPods/ManualByOCPods@Pods/TABAnimated'
-  pod 'ZBNetworking',                 :path => './JobsByPods/ManualByOCPods@Pods/ZBNetworking'
-  pod 'ZWPullMenuView',               :path => './JobsByPods/ManualByOCPods@Pods/ZWPullMenuView'
-  pod 'TKPermissionKit',              :path => './JobsByPods/ManualByOCPods@Pods/TKPermissionKit'
-  pod 'BRPickerView',                 :path => './JobsByPods/ManualByOCPods@Pods/BRPickerView'
+  pod 'JobsOCDSL',                      :path => './JobsByPods/JobsOCDSL@Pods'
+  pod 'JobsModelDSL',                   :path => './JobsByPods/JobsModelDSL@Pods'
+  pod 'UIBaseTextFieldDSL',             :path => './JobsByPods/UIBaseTextFieldDSL@Pods'
+  pod 'JobsCallBackBlockDSL',           :path => './JobsByPods/JobsCallBackBlockDSL@Pods'
+
+  pod 'JobsOCTools',                    :path => './JobsByPods/JobsOCTools@Pods'
+  pod 'JobsAppTools',                   :path => './JobsByPods/JobsAppTools@Pods'
+  pod 'JobsNetWorkTools',               :path => './JobsByPods/JobsNetWorkTools@Pods'
+
+  pod 'JobsOCTimerMgr',                 :path => './JobsByPods/JobsOCTimerMgr@Pods'
+  pod 'JobsPresentTransitionMgr',       :path => './JobsByPods/JobsPresentTransitionMgr@Pods'
+  pod 'JobsNavigationTransitionMgr',    :path => './JobsByPods/JobsNavigationTransitionMgr@Pods'
+
+  pod 'JobsTimeUtils',                  :path => './JobsByPods/JobsTimeUtils@Pods'
+  pod 'JobsRandomUtils',                :path => './JobsByPods/JobsRandomUtils@Pods'
+  pod 'JobsStringUtils',                :path => './JobsByPods/JobsStringUtils@Pods'
+  pod 'JobsRichTextUtils',              :path => './JobsByPods/JobsRichTextUtils@Pods'
+
+  pod 'RACExtra',                       :path => './JobsByPods/RACExtra@Pods'
+  pod 'WHToastExtra',                   :path => './JobsByPods/WHToastExtra@Pods'
+  pod 'TFPopupExtra',                   :path => './JobsByPods/TFPopupExtra@Pods'
+  pod 'JobsOCCalendar',                   :path => './JobsByPods/JobsOCCalendar@Pods'
+  pod 'ZMJCellExtra',                   :path => './JobsByPods/ZMJCellExtra@Pods'
+  pod 'ZFPlayerExtra',                  :path => './JobsByPods/ZFPlayerExtra@Pods'
+  pod 'MJRefreshExtra',                 :path => './JobsByPods/MJRefreshExtra@Pods'
+  pod 'YTKNetworkExtra',                :path => './JobsByPods/YTKNetworkExtra@Pods'
+  pod 'FMDatabaseExtra',                :path => './JobsByPods/FMDatabaseExtra@Pods'
+  pod 'FSCalendarExtra',                :path => './JobsByPods/FSCalendarExtra@Pods'
+  pod 'SZTextViewExtra',                :path => './JobsByPods/SZTextViewExtra@Pods'
+  pod 'HXPhotoViewExtra',               :path => './JobsByPods/HXPhotoViewExtra@Pods'
+  pod 'SRWebSocketExtra',               :path => './JobsByPods/SRWebSocketExtra@Pods'
+  pod 'BRPickerViewExtra',              :path => './JobsByPods/BRPickerViewExtra@Pods'
+  pod 'HTMLDocumentExtra',              :path => './JobsByPods/HTMLDocumentExtra@Pods'
+  pod 'ReachabilityExtra',              :path => './JobsByPods/ReachabilityExtra@Pods'
+  pod 'HXPhotoManagerExtra',            :path => './JobsByPods/HXPhotoManagerExtra@Pods'
+  pod 'JXCategoryViewExtra',            :path => './JobsByPods/JXCategoryViewExtra@Pods'
+  pod 'LMJDropdownMenuExtra',           :path => './JobsByPods/LMJDropdownMenuExtra@Pods'
+  pod 'AFSecurityPolicyExtra',          :path => './JobsByPods/AFSecurityPolicyExtra@Pods'
+  pod 'MGSwipeTableCellExtra',          :path => './JobsByPods/MGSwipeTableCellExtra@Pods'
+  pod 'IQKeyboardManagerExtra',         :path => './JobsByPods/IQKeyboardManagerExtra@Pods'
+  pod 'SYSAlertControllerExtra',        :path => './JobsByPods/SYSAlertControllerExtra@Pods'
+  pod 'GKCustomNavigationBarExtra',     :path => './JobsByPods/GKCustomNavigationBarExtra@Pods'
+
+  # 外援Pod本地化
+  pod 'YYKits',                         :path => './JobsByPods/ManualByOCPods@Pods/YYKits'
+  pod 'Texture',                        :path => './JobsByPods/ManualByOCPods@Pods/Texture'
+  pod 'TFPopup',                        :path => './JobsByPods/ManualByOCPods@Pods/TFPopup'
+  pod 'WMZCode',                        :path => './JobsByPods/ManualByOCPods@Pods/WMZCode'
+  pod 'XYColorOC',                      :path => './JobsByPods/ManualByOCPods@Pods/XYColorOC'
+  pod 'DeviceKit',                      :path => './JobsByPods/ManualByOCPods@Pods/DeviceKit'
+  pod 'GTCaptcha4',                     :path => './JobsByPods/ManualByOCPods@Pods/GTCaptcha4' # 极验验证码【官网】https://www2.geetest.com/ 【Github】https://github.com/tigerfintech/GTCaptcha4
+  pod 'FSCalendar',                     :path => './JobsByPods/ManualByOCPods@Pods/FSCalendar'
+  pod 'BEMCheckBox',                    :path => './JobsByPods/ManualByOCPods@Pods/BEMCheckBox'
+  pod 'TABAnimated',                    :path => './JobsByPods/ManualByOCPods@Pods/TABAnimated'
+  pod 'ZBNetworking',                   :path => './JobsByPods/ManualByOCPods@Pods/ZBNetworking'
+  pod 'BRPickerView',                   :path => './JobsByPods/ManualByOCPods@Pods/BRPickerView'
+  pod 'ZWPullMenuView',                 :path => './JobsByPods/ManualByOCPods@Pods/ZWPullMenuView'
+  pod 'TKPermissionKit',                :path => './JobsByPods/ManualByOCPods@Pods/TKPermissionKit'
 
 end
 # ============================== 目标工程（按需保留其一或同时保留） ==============================

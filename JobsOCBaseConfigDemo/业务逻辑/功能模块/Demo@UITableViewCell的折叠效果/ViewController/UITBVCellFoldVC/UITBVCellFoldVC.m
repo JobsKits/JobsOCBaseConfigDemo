@@ -9,7 +9,6 @@
 
 @interface UITBVCellFoldVC ()
 /// UI
-Prop_strong()UILabel *titleLab;
 Prop_strong()MSCommentView *commentView;
 
 @end
@@ -58,7 +57,6 @@ static NSString *const JobsUITBVCellFoldTitle = @"UITableViewCell 折叠效果";
     [super viewDidLoad];
     self.view.byBgColor(HEXCOLOR(0xF5F7FB));
     self.makeNavByAlpha(1);
-    self.titleLab.byAlpha(1);
     self.commentView.byAlpha(1);
 }
 
@@ -86,33 +84,12 @@ static NSString *const JobsUITBVCellFoldTitle = @"UITableViewCell 折叠效果";
     [super viewDidDisappear:animated];
 }
 #pragma mark —— lazyLoad
--(UILabel *)titleLab{
-    if (!_titleLab) {
-        @jobs_weakify(self)
-        _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            @jobs_strongify(self)
-            label
-                .byText(JobsUITBVCellFoldTitle.tr)
-                .byTextCor(HEXCOLOR(0x111827))
-                .byFont(UIFontWeightBoldSize(22))
-                .addOn(self.view)
-                .byAdd(^(MASConstraintMaker *make) {
-                    make.left.equalTo(self.view).offset(JobsWidth(15));
-                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(25));
-                    make.right.equalTo(self.view).offset(-JobsWidth(15));
-                    make.height.mas_equalTo(JobsWidth(28));
-                })
-                .makeLabelByShowingType(UILabelShowingType_03);
-        });
-    };return _titleLab;
-}
-
 -(MSCommentView *)commentView{
     if(!_commentView){
         _commentView = MSCommentView.new;
         _commentView.jobsRichViewByModel(nil);
         _commentView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
-            make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(12));
+            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(12));
             make.left.equalTo(self.view).offset(JobsWidth(12));
             make.right.equalTo(self.view).offset(-JobsWidth(12));
             make.bottom.equalTo(self.view).offset(-JobsWidth(12));

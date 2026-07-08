@@ -77,6 +77,7 @@ JobsOCTools@Pods/
 - `JobsOCTools.h`
 - `Core/**/*.{h,m,mm}`
 - `Core/在指定的y区间内滑动视图/JobsScrollYView` 的拖拽位移会写入 `jobsPoint`，实现层必须承接 `UILocationProtocol_synthesize`，避免运行时缺失 `setJobsPoint:`。
+- `Core/在指定的y区间内滑动视图/JobsScrollViewVC` 作为演示入口，页面内展示 GK 导航栏、返回键、导航标题、使用文案、最高 / 最低锚点提示和绿色拖拽区提示；上滑释放会按最高点提示行的实际布局位置吸附，下滑释放回到底部初始位置。
 - `Core/JobsAppDoor/ViewController/JobsAppDoorVC` 的视频背景音量浮层通过统一入口同步 `ZFPlayerController`、`currentPlayerManager` 和 `ZFAVPlayerManager`，竖向滑杆支持点击 / 拖动面板映射到真实音量。
 - `Core/JobsAppDoor` 默认首屏保持登录态；登录 / 注册提交按钮和注册页验证码按钮由输入框 RAC 封装监听控制可用态，内容容器、输入框、客服按钮和标题 label 配置统一走 Jobs 点语法链式 DSL。
 
@@ -114,7 +115,7 @@ JobsOCTools@Pods/
 - `JobsStringUtils`
 - `JobsOCTimer`
 - `JobsCountdownBtn`
-- `JobsGraphicCaptcha`
+- `JobsOCGraphicCaptcha`
 - `JobsSuspend`
 - `JobsByOCPods`
 - `JobsAppTools`

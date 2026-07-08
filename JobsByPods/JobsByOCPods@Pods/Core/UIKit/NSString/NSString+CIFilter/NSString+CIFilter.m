@@ -7,24 +7,138 @@
 
 #import "NSString+CIFilter.h"
 
+static UIImage *JobsCIImageToUIImage(CIImage *ciImage, CGSize targetSize) {
+    if (!ciImage || targetSize.width <= 0 || targetSize.height <= 0) return UIImage.new;
+    CGRect extent = ciImage.extent;
+    if (CGRectIsEmpty(extent) || CGRectGetWidth(extent) <= 0 || CGRectGetHeight(extent) <= 0) return UIImage.new;
+    CGFloat scaleX = targetSize.width / CGRectGetWidth(extent);
+    CGFloat scaleY = targetSize.height / CGRectGetHeight(extent);
+    CIImage *scaledImage = [ciImage imageByApplyingTransform:CGAffineTransformMakeScale(scaleX, scaleY)];
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CGImageRef cgImage = [context createCGImage:scaledImage fromRect:scaledImage.extent];
+    if (!cgImage) return UIImage.new;
+    UIImage *image = [UIImage imageWithCGImage:cgImage];
+    CGImageRelease(cgImage);
+    return image ?: UIImage.new;
+}
+
+static UIImage *JobsQRCodeUIImage(CIImage *ciImage, CGFloat widthSize) {
+    if (!ciImage || widthSize <= 0) return UIImage.new;
+    CGRect extent = ciImage.extent;
+    if (CGRectIsEmpty(extent) || CGRectGetWidth(extent) <= 0 || CGRectGetHeight(extent) <= 0) return UIImage.new;
+    CGFloat scale = MAX(widthSize / CGRectGetWidth(extent), widthSize / CGRectGetHeight(extent));
+    CIImage *scaledImage = [ciImage imageByApplyingTransform:CGAffineTransformMakeScale(scale, scale)];
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CGImageRef cgImage = [context createCGImage:scaledImage fromRect:scaledImage.extent];
+    if (!cgImage) return UIImage.new;
+    UIImage *image = [UIImage imageWithCGImage:cgImage];
+    CGImageRelease(cgImage);
+    return image ?: UIImage.new;
+}
+
 @implementation NSString (CIFilter)
 /// 根据字符串生成二维码图像
 -(UIImage *_Nonnull)createQRcode{
-    // 1、实例化一个滤镜
+    return [self jobsQRCodeImageByWidth:260 correctionLevel:@"M"];
+}
+/// 生成指定宽度的高清二维码图像
+-(UIImage *)jobsQRCodeImageByWidth:(CGFloat)widthSize{
+    return [self jobsQRCodeImageByWidth:widthSize correctionLevel:@"M"];
+}
+/// 生成指定宽度和容错级别的高清二维码图像
+-(UIImage *)jobsQRCodeImageByWidth:(CGFloat)widthSize
+                    correctionLevel:(NSString *_Nullable)correctionLevel{
+    if (!self.length || widthSize <= 0) return UIImage.new;
+    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    if (!data) return UIImage.new;
     CIFilter *filter = @"CIQRCodeGenerator".filter;
-    // 1.1、设置filter的默认值
-    // 因为之前如果使用过滤镜，输入有可能会被保留，因此，在使用滤镜之前，最好恢复默认设置
+    if (!filter) return UIImage.new;
     [filter setDefaults];
-    // 2、将传入的字符串转换为NSData
-    NSData *data = self.UTF8Encoding;
-    // 3、将NSData传递给滤镜（通过KVC的方式，设置inputMessage）
     filter.jobsKVC(@"inputMessage",data);
-    // 4、由filter输出图像
+    filter.jobsKVC(@"inputCorrectionLevel",correctionLevel.length ? correctionLevel.uppercaseString : @"M");
     CIImage *outputImage = filter.outputImage;
-    // 5、将CIImage转换为UIImage
-    UIImage *qrImage = [UIImage imageWithCIImage:outputImage];
-    // 6、返回二维码图像
-    return qrImage;
+    if (!outputImage) return UIImage.new;
+    return JobsQRCodeUIImage(outputImage, widthSize);
+}
+/// 生成带中心 Logo 的高清二维码图像
+-(UIImage *)jobsQRCodeImageByWidth:(CGFloat)widthSize
+                    correctionLevel:(NSString *_Nullable)correctionLevel
+                         centerLogo:(UIImage *_Nullable)logo
+                          logoRatio:(CGFloat)logoRatio
+                   logoCornerRadius:(CGFloat)logoCornerRadius
+                        borderWidth:(CGFloat)borderWidth
+                        borderColor:(UIColor *_Nullable)borderColor{
+    UIImage *qrImage = [self jobsQRCodeImageByWidth:widthSize correctionLevel:correctionLevel ?: @"H"];
+    if (!logo || !qrImage.size.width || !qrImage.size.height) return qrImage;
+    CGFloat safeRatio = logoRatio > 0 ? MIN(logoRatio, 0.3) : 0.22;
+    CGFloat logoSide = MAX(8, widthSize * safeRatio);
+    CGFloat safeBorderWidth = MAX(0, borderWidth);
+    CGFloat canvasSide = logoSide + safeBorderWidth * 2;
+    CGRect canvasRect = CGRectMake((widthSize - canvasSide) / 2, (widthSize - canvasSide) / 2, canvasSide, canvasSide);
+    CGRect logoRect = CGRectInset(canvasRect, safeBorderWidth, safeBorderWidth);
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(widthSize, widthSize), NO, 0);
+    [qrImage drawInRect:CGRectMake(0, 0, widthSize, widthSize)];
+    if (safeBorderWidth > 0) {
+        UIBezierPath *borderPath = [UIBezierPath bezierPathWithRoundedRect:canvasRect cornerRadius:logoCornerRadius + safeBorderWidth];
+        [(borderColor ?: UIColor.whiteColor) setFill];
+        [borderPath fill];
+    }
+    UIBezierPath *logoPath = [UIBezierPath bezierPathWithRoundedRect:logoRect cornerRadius:MAX(0, logoCornerRadius)];
+    [logoPath addClip];
+    [logo drawInRect:logoRect];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image ?: qrImage;
+}
+/// 生成 Code128 条形码图像
+-(UIImage *)jobsCode128BarcodeImageBySize:(CGSize)size
+                               quietSpace:(CGFloat)quietSpace{
+    if (!self.length || size.width <= 0 || size.height <= 0) return UIImage.new;
+    NSData *data = [self dataUsingEncoding:NSASCIIStringEncoding];
+    if (!data) data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    if (!data) return UIImage.new;
+    CIFilter *filter = @"CICode128BarcodeGenerator".filter;
+    if (!filter) return UIImage.new;
+    [filter setDefaults];
+    filter.jobsKVC(@"inputMessage",data);
+    filter.jobsKVC(@"inputQuietSpace",@(MAX(0, quietSpace)));
+    CIImage *outputImage = filter.outputImage;
+    if (!outputImage) return UIImage.new;
+    return JobsCIImageToUIImage(outputImage, size);
+}
+/// 生成带可读文本的 Code128 条形码图像
+-(UIImage *)jobsCode128BarcodeImageByWidth:(CGFloat)width
+                                 barHeight:(CGFloat)barHeight
+                                quietSpace:(CGFloat)quietSpace
+                                   spacing:(CGFloat)spacing
+                                      font:(UIFont *_Nullable)font
+                                 textColor:(UIColor *_Nullable)textColor
+                           backgroundColor:(UIColor *_Nullable)backgroundColor{
+    if (width <= 0 || barHeight <= 0) return UIImage.new;
+    UIFont *safeFont = font ?: [UIFont monospacedDigitSystemFontOfSize:16 weight:UIFontWeightRegular];
+    UIColor *safeTextColor = textColor ?: UIColor.blackColor;
+    UIColor *safeBgColor = backgroundColor ?: UIColor.whiteColor;
+    UIImage *barImage = [self jobsCode128BarcodeImageBySize:CGSizeMake(width, barHeight) quietSpace:quietSpace];
+    CGFloat safeSpacing = MAX(0, spacing);
+    NSDictionary<NSAttributedStringKey,id> *attrs = @{NSFontAttributeName:safeFont,
+                                                      NSForegroundColorAttributeName:safeTextColor};
+    CGSize textSize = [self sizeWithAttributes:attrs];
+    if (textSize.width > width - 16) {
+        CGFloat scale = MAX(0.6, (width - 16) / MAX(textSize.width, 1));
+        safeFont = [safeFont fontWithSize:safeFont.pointSize * scale];
+        attrs = @{NSFontAttributeName:safeFont,
+                  NSForegroundColorAttributeName:safeTextColor};
+        textSize = [self sizeWithAttributes:attrs];
+    }
+    CGFloat totalHeight = barHeight + safeSpacing + ceil(textSize.height);
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(width, totalHeight), YES, 0);
+    [safeBgColor setFill];
+    UIRectFill(CGRectMake(0, 0, width, totalHeight));
+    [barImage drawInRect:CGRectMake(0, 0, width, barHeight)];
+    [self drawAtPoint:CGPointMake((width - textSize.width) / 2, barHeight + safeSpacing) withAttributes:attrs];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image ?: barImage;
 }
 /// 制作滤镜
 -(CIFilter *_Nonnull)filter{

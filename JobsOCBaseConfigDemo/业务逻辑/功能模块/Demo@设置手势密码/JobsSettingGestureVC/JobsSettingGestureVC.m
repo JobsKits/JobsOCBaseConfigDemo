@@ -15,6 +15,11 @@ Prop_strong()UILabel *topLineLab;
 
 @implementation JobsSettingGestureVC
 
+- (instancetype)init{
+    return [self initWithMode:JobsGestureLockModeCreate
+                   storageKey:@"JobsGestureLockDefaultKey"];
+}
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -88,12 +93,12 @@ Prop_strong()UILabel *topLineLab;
 }
 
 -(void)重定义父类控件的距离{
-    UIImageView *headIcon = self.valueForKey(@"headIcon");// 账户头像
-    JobsGestureLockIndicator *gestureLockIndicator = self.valueForKey(@"gestureLockIndicator");
+    UIImageView *headIcon = self.valueForKey(@"avatarView");// 账户头像
+    JobsGestureLockIndicator *gestureLockIndicator = self.valueForKey(@"indicatorView");
     UILabel *statusLabel = self.valueForKey(@"statusLabel");
     UILabel *nameLabel = self.valueForKey(@"nameLabel");// 账户名
-    UIButton *otherAcountBtn = self.valueForKey(@"otherAcountBtn");// 其他账户登录按钮
-    UIButton *forgetPswBtn = self.valueForKey(@"forgetPswBtn");// 忘记手势密码按钮
+    UIButton *otherAcountBtn = self.valueForKey(@"otherAccountButton");// 其他账户登录按钮
+    UIButton *forgetPswBtn = self.valueForKey(@"forgotButton");// 忘记手势密码按钮
     
     nameLabel.jobsVisible = NO;
     headIcon.jobsVisible = NO;
@@ -126,4 +131,3 @@ Prop_strong()UILabel *topLineLab;
 }
 
 @end
-

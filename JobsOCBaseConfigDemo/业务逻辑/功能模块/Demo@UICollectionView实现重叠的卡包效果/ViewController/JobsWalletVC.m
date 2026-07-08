@@ -54,7 +54,7 @@ Prop_assign()JobsWalletCardExpandStyle walletStyle;
             data.byTextCor(HEXCOLOR(0x3D4A58));
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(self.showsModeList ? @"银行卡".tr : [self titleByWalletStyle:self.walletStyle]);
+            data.byText(self.showsModeList ? @"卡片展开动效".tr : [self titleByWalletStyle:self.walletStyle]);
             data.byFont(UIFontWeightSemiboldSize(17));
         })
         .byBgCor(HEXCOLOR(0xF5F7FB))
@@ -233,85 +233,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     subTitleLabel.byText(viewModel.subTextModel.text);
 }
 
--(UIImage *)modeHeaderImage{
-    UIImage *bundleImage = @"BaiShaETProjBankAccMgmtCVCell".img;
-    if (bundleImage) return bundleImage;
-    CGSize imageSize = CGSizeMake(344, 92);
-    UIGraphicsImageRendererFormat *format = UIGraphicsImageRendererFormat.defaultFormat;
-    format.scale = UIScreen.mainScreen.scale;
-    format.opaque = NO;
-    UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:imageSize
-                                                                               format:format];
-    UIImage *image = [renderer imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
-        CGRect cardRect = CGRectMake(0, 0, imageSize.width, imageSize.height);
-        UIBezierPath *cardPath = [UIBezierPath bezierPathWithRoundedRect:cardRect
-                                                            cornerRadius:18];
-        CGContextRef context = rendererContext.CGContext;
-        CGContextSaveGState(context);
-        [cardPath addClip];
-        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-        NSArray *colors = @[
-            (__bridge id)HEXCOLOR(0xFFF2D9).CGColor,
-            (__bridge id)HEXCOLOR(0xDDEFFF).CGColor
-        ];
-        CGFloat locations[] = {0, 1};
-        CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)colors, locations);
-        if (gradient) {
-            CGContextDrawLinearGradient(context,
-                                        gradient,
-                                        CGPointMake(0, 0),
-                                        CGPointMake(imageSize.width, imageSize.height),
-                                        0);
-            CGGradientRelease(gradient);
-        }
-        CGColorSpaceRelease(colorSpace);
-        CGContextRestoreGState(context);
-        [RGBA_COLOR(255, 255, 255, 0.32) setFill];
-        [[UIBezierPath bezierPathWithOvalInRect:CGRectMake(imageSize.width - 92, -32, 128, 128)] fill];
-        [[UIBezierPath bezierPathWithOvalInRect:CGRectMake(imageSize.width - 162, 48, 78, 78)] fill];
-        CGRect logoRect = CGRectMake(22, 20, 52, 52);
-        [RGBA_COLOR(255, 255, 255, 0.86) setFill];
-        [[UIBezierPath bezierPathWithOvalInRect:logoRect] fill];
-        UIImage *logoImage = @"上海银行".img ?: @"BANK_已点击".img;
-        [logoImage drawInRect:CGRectInset(logoRect, 8, 8)];
-        NSDictionary *titleAttributes = @{
-            NSFontAttributeName: UIFontWeightSemiboldSize(17),
-            NSForegroundColorAttributeName: HEXCOLOR(0x2F3A46)
-        };
-        [@"上海银行".tr drawInRect:CGRectMake(88, 25, 132, 24)
-                    withAttributes:titleAttributes];
-        NSMutableParagraphStyle *rightStyle = NSMutableParagraphStyle.new;
-        rightStyle.alignment = NSTextAlignmentRight;
-        NSDictionary *numberAttributes = @{
-            NSFontAttributeName: UIFontWeightBoldSize(17),
-            NSForegroundColorAttributeName: HEXCOLOR(0x2F3A46),
-            NSParagraphStyleAttributeName: rightStyle
-        };
-        [@"**** 7895" drawInRect:CGRectMake(220, 28, 96, 24)
-                  withAttributes:numberAttributes];
-    }];return image;
-}
-
--(UIView *)modeTableHeaderView{
-    CGFloat headerWidth = JobsMainScreen_WIDTH();
-    CGFloat headerHeight = JobsWidth(132);
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, headerWidth, headerHeight)];
-    headerView.backgroundColor = JobsClearColor;
-    jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-        imageView.byImage(self.modeHeaderImage)
-            .byContentMode(UIViewContentModeScaleAspectFit)
-            .byClipsToBounds(YES)
-            .byCornerRadius(JobsWidth(18))
-            .addOn(headerView)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.left.equalTo(headerView).offset(JobsWidth(24));
-                make.right.equalTo(headerView).offset(-JobsWidth(24));
-                make.top.equalTo(headerView).offset(JobsWidth(18));
-                make.height.mas_equalTo(JobsWidth(92));
-            });
-    });return headerView;
-}
-
 #pragma mark —— lazyLoad
 
 -(UITableView *)modeTableView{
@@ -324,7 +245,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _modeTableView.showsVerticalScrollIndicator = NO;
         _modeTableView.contentInset = UIEdgeInsetsMake(JobsWidth(2), 0, JobsWidth(20), 0);
         _modeTableView.rowHeight = JobsWidth(104);
-        _modeTableView.tableHeaderView = self.modeTableHeaderView;
         _modeTableView.tableFooterView = UIView.new;
         [self.view addSubview:_modeTableView];
         [_modeTableView mas_makeConstraints:^(MASConstraintMaker *make) {

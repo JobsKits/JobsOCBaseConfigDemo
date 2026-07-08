@@ -40,7 +40,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Realm_VC : BaseViewController
+@interface Realm_VC : BaseViewController<UITableViewDelegate,UITableViewDataSource>
 
 @end
 

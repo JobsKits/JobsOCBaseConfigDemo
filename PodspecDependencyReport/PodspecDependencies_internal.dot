@@ -26,7 +26,6 @@ digraph PodspecDependencies {
   "JobsBitsMonitor";
   "JobsBlock";
   "JobsByOCPods";
-  "JobsCalendar";
   "JobsCallBackBlockDSL";
   "JobsClass";
   "JobsClockView";
@@ -40,14 +39,15 @@ digraph PodspecDependencies {
   "JobsFuseAnimation";
   "JobsGestureLock";
   "JobsGetWindow";
-  "JobsGraphicCaptcha";
   "JobsHotLabel";
   "JobsImageNumberView";
   "JobsLanMgr";
   "JobsLinkageMenuView";
   "JobsLoadingImage";
   "JobsLocker";
+  "JobsLuckyEnvelopeRain";
   "JobsMakes";
+  "JobsMarqueeView";
   "JobsMenuView";
   "JobsModel";
   "JobsModelDSL";
@@ -55,10 +55,12 @@ digraph PodspecDependencies {
   "JobsNavBar";
   "JobsNavigationTransitionMgr";
   "JobsNetWorkTools";
+  "JobsOCCalendar";
   "JobsOCComment";
   "JobsOCCountryCodeCtrl";
   "JobsOCDSL";
   "JobsOCDefs";
+  "JobsOCGraphicCaptcha";
   "JobsOCKeyboardMgr";
   "JobsOCOpen";
   "JobsOCPatch";
@@ -66,6 +68,7 @@ digraph PodspecDependencies {
   "JobsOCRefresher";
   "JobsOCRuntimeKits";
   "JobsOCSearcher";
+  "JobsOCSkeletonView";
   "JobsOCSnowflake";
   "JobsOCSplash";
   "JobsOCTimer";
@@ -73,6 +76,7 @@ digraph PodspecDependencies {
   "JobsOCTools";
   "JobsOCVideoRecorder";
   "JobsPresentTransitionMgr";
+  "JobsProgressBar";
   "JobsRandomUtils";
   "JobsRichTextUtils";
   "JobsStringUtils";
@@ -263,7 +267,6 @@ digraph PodspecDependencies {
   "JobsByOCPods" -> "YTKNetworkExtra";
   "JobsByOCPods" -> "ZBNetworking";
   "JobsByOCPods" -> "ZFPlayerExtra";
-  "JobsCalendar" -> "JobsOCDefs";
   "JobsCallBackBlockDSL" -> "JobsBlock";
   "JobsCallBackBlockDSL" -> "JobsOCDefs";
   "JobsClass" -> "JobsBlock";
@@ -339,7 +342,6 @@ digraph PodspecDependencies {
   "JobsFuseAnimation" -> "JobsOCDefs";
   "JobsGestureLock" -> "JobsOCDSL";
   "JobsGestureLock" -> "JobsOCDefs";
-  "JobsGraphicCaptcha" -> "JobsOCDefs";
   "JobsHotLabel" -> "JobsBaseUI";
   "JobsHotLabel" -> "JobsBlock";
   "JobsHotLabel" -> "JobsByOCPods";
@@ -379,9 +381,14 @@ digraph PodspecDependencies {
   "JobsLinkageMenuView" -> "YTKNetworkExtra";
   "JobsLoadingImage" -> "JobsBlock";
   "JobsLocker" -> "JobsOCDefs";
+  "JobsLuckyEnvelopeRain" -> "JobsOCDefs";
+  "JobsLuckyEnvelopeRain" -> "JobsOCTimer";
   "JobsMakes" -> "JobsBlock";
   "JobsMakes" -> "JobsOCDefs";
   "JobsMakes" -> "JobsOCKeyboardMgr";
+  "JobsMarqueeView" -> "JobsByOCPods";
+  "JobsMarqueeView" -> "JobsOCDefs";
+  "JobsMarqueeView" -> "JobsOCTimerMgr";
   "JobsMenuView" -> "JobsBlock";
   "JobsMenuView" -> "JobsByOCPods";
   "JobsMenuView" -> "JobsLinkageMenuView";
@@ -452,6 +459,7 @@ digraph PodspecDependencies {
   "JobsNetWorkTools" -> "JobsOCDefs";
   "JobsNetWorkTools" -> "JobsOCProtocols";
   "JobsNetWorkTools" -> "JobsOCTimer";
+  "JobsOCCalendar" -> "JobsOCDefs";
   "JobsOCComment" -> "JobsBlock";
   "JobsOCComment" -> "JobsOCDefs";
   "JobsOCComment" -> "JobsOCRefresher";
@@ -472,6 +480,7 @@ digraph PodspecDependencies {
   "JobsOCDefs" -> "JobsGetWindow";
   "JobsOCDefs" -> "JobsStringUtils";
   "JobsOCDefs" -> "XYColorOC";
+  "JobsOCGraphicCaptcha" -> "JobsOCDefs";
   "JobsOCKeyboardMgr" -> "JobsBlock";
   "JobsOCKeyboardMgr" -> "JobsOCDefs";
   "JobsOCOpen" -> "JobsBaseUI";
@@ -502,6 +511,8 @@ digraph PodspecDependencies {
   "JobsOCRuntimeKits" -> "WHToastExtra";
   "JobsOCSearcher" -> "JobsBlock";
   "JobsOCSearcher" -> "JobsOCDefs";
+  "JobsOCSkeletonView" -> "JobsBlock";
+  "JobsOCSkeletonView" -> "JobsOCDefs";
   "JobsOCSnowflake" -> "JobsBlock";
   "JobsOCSnowflake" -> "JobsOCDefs";
   "JobsOCSplash" -> "JobsBlock";
@@ -541,7 +552,6 @@ digraph PodspecDependencies {
   "JobsOCTools" -> "JobsCryptography";
   "JobsOCTools" -> "JobsDeviceInfo";
   "JobsOCTools" -> "JobsFuseAnimation";
-  "JobsOCTools" -> "JobsGraphicCaptcha";
   "JobsOCTools" -> "JobsHotLabel";
   "JobsOCTools" -> "JobsLanMgr";
   "JobsOCTools" -> "JobsLoadingImage";
@@ -550,6 +560,7 @@ digraph PodspecDependencies {
   "JobsOCTools" -> "JobsOCCountryCodeCtrl";
   "JobsOCTools" -> "JobsOCDSL";
   "JobsOCTools" -> "JobsOCDefs";
+  "JobsOCTools" -> "JobsOCGraphicCaptcha";
   "JobsOCTools" -> "JobsOCKeyboardMgr";
   "JobsOCTools" -> "JobsOCProtocols";
   "JobsOCTools" -> "JobsOCRuntimeKits";
@@ -576,6 +587,8 @@ digraph PodspecDependencies {
   "JobsPresentTransitionMgr" -> "JobsMakes";
   "JobsPresentTransitionMgr" -> "JobsOCDSL";
   "JobsPresentTransitionMgr" -> "JobsOCDefs";
+  "JobsProgressBar" -> "JobsBlock";
+  "JobsProgressBar" -> "JobsOCDefs";
   "JobsRichTextUtils" -> "JobsBlock";
   "JobsRichTextUtils" -> "JobsClass";
   "JobsRichTextUtils" -> "JobsLanMgr";

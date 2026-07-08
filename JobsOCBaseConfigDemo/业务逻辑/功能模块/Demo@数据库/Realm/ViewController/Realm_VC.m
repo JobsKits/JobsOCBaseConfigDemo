@@ -7,9 +7,31 @@
 
 #import "Realm_VC.h"
 
-@interface Realm_VC ()<UITableViewDelegate,UITableViewDataSource>
+@interface Realm_VC ()
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
+Prop_strong()NSMutableArray <User_Realm *>*userMutArr;
+Prop_strong()UIView *editorView;
+Prop_strong()UITextField *nameTextField;
+Prop_strong()UITextField *ageTextField;
+Prop_strong()BaseButton *insertBtn;
+Prop_strong()BaseButton *updateBtn;
+Prop_strong()BaseButton *deleteBtn;
+Prop_strong()BaseButton *queryBtn;
+Prop_assign()NSInteger selectedUserIndex;
+
+-(void)seedRealmDemoDataIfNeeded;
+-(void)reloadRealmDemoData;
+-(void)reloadDataMutArrByUsers:(NSArray <User_Realm *>*_Nullable)users;
+-(NSString *)realmDemoNameInput;
+-(NSInteger)realmDemoAgeInput;
+-(User_Realm *_Nullable)selectedRealmDemoUser;
+-(void)insertRealmDemoUser;
+-(void)updateRealmDemoUser;
+-(void)deleteRealmDemoUser;
+-(BaseButton *)realmDemoButtonByTitle:(NSString *)title
+                              bgColor:(UIColor *)bgColor
+                               action:(void(^)(void))action;
 
 @end
 
@@ -51,7 +73,10 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
     [super viewDidLoad];
     
     self.makeNavByAlpha(1);
+    self.selectedUserIndex = -1;
     self.tableView.byShow(self);
+    self.tableView.byTableHeaderView(self.editorView);
+    [self seedRealmDemoDataIfNeeded];
     [self reloadRealmDemoData];
 }
 
@@ -100,7 +125,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     JobsBaseTableViewCell *cell = ((id<UITableViewCellProtocol>)JobsBaseTableViewCell.cellStyleValue1ByTableView(tableView))
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
-        .byAccessoryType(UITableViewCellAccessoryNone)
+        .byAccessoryType(indexPath.row == self.selectedUserIndex ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone)
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byNumberOfLines(1);
         })
@@ -109,35 +134,35 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
         });
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    self.selectedUserIndex = indexPath.row;
+    User_Realm *user = self.userMutArr[indexPath.row];
+    self.nameTextField.byText(user.name ? : @"");
+    self.ageTextField.byText([NSString stringWithFormat:@"%ld",(long)user.age]);
+    [tableView reloadData];
+}
 #pragma mark —— Demo 数据刷新
+-(void)seedRealmDemoDataIfNeeded{
+    if (self.fetchAllUsers.count == 0) {
+        [self insertUserWithName:@"Alice Smith" age:26];
+    }
+}
+
 -(void)reloadRealmDemoData{
     NSArray <User_Realm *>*users = self.fetchAllUsers;
-    if (users.count == 0) {
-        /// 插入数据
-        [self insertUserWithName:@"Alice" age:25];
-        [self insertUserWithName:@"Bob" age:30];
-        users = self.fetchAllUsers;
-    }
-    /// 更新用户
-    if (users.count > 0) {
-        User_Realm *user = users.firstObject;
-        [self updateUser:user newName:@"Alice Smith" newAge:26];
-    }
-    /// 删除用户
-    if (users.count > 1) {
-        User_Realm *user = users[1];
-        [self deleteUser:user];
-    }
-    /// 获取更新后的用户列表
-    users = self.fetchAllUsers;
     [self reloadDataMutArrByUsers:users];
     [self.tableView reloadData];
-    JobsLog(@"Updated Users: %@", users);
+    JobsLog(@"Realm Users: %@", users);
 }
 
 -(void)reloadDataMutArrByUsers:(NSArray <User_Realm *>*_Nullable)users{
     [self.dataMutArr removeAllObjects];
+    [self.userMutArr removeAllObjects];
     for (User_Realm *user in users) {
+        self.userMutArr.add(user);
         self.dataMutArr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
             data.textModel.byText(user.name ? : @"-")
                           .byTextCor(HEXCOLOR(0x3D4A58))
@@ -146,6 +171,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
                               .byTextCor(HEXCOLOR(0x757575))
                               .byFont(UIFontWeightRegularSize(14));
         }));
+    }
+    if (self.selectedUserIndex >= (NSInteger)self.userMutArr.count) {
+        self.selectedUserIndex = -1;
     }
 }
 #pragma mark —— Realm 的增删查改
@@ -184,6 +212,74 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
         [realm deleteObject:user];
     }];
 }
+
+-(NSString *)realmDemoNameInput{
+    NSString *name = [self.nameTextField.text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+    if (name.length == 0) {
+        name = [NSString stringWithFormat:@"Jobs User %ld",(long)(self.fetchAllUsers.count + 1)];
+    };return name;
+}
+
+-(NSInteger)realmDemoAgeInput{
+    NSInteger age = self.ageTextField.text.integerValue;
+    return age > 0 ? age : 18;
+}
+
+-(User_Realm *)selectedRealmDemoUser{
+    if (self.selectedUserIndex >= 0 && self.selectedUserIndex < (NSInteger)self.userMutArr.count) {
+        return self.userMutArr[self.selectedUserIndex];
+    };return self.userMutArr.firstObject;
+}
+
+-(void)insertRealmDemoUser{
+    NSString *name = self.realmDemoNameInput;
+    NSInteger age = self.realmDemoAgeInput;
+    [self insertUserWithName:name age:age];
+    [self reloadRealmDemoData];
+    self.selectedUserIndex = self.userMutArr.count > 0 ? (NSInteger)self.userMutArr.count - 1 : -1;
+    self.nameTextField.byText(name);
+    self.ageTextField.byText([NSString stringWithFormat:@"%ld",(long)age]);
+    [self.tableView reloadData];
+}
+
+-(void)updateRealmDemoUser{
+    User_Realm *user = self.selectedRealmDemoUser;
+    if (!user) {
+        [self insertRealmDemoUser];
+        return;
+    }
+    [self updateUser:user
+             newName:self.realmDemoNameInput
+              newAge:self.realmDemoAgeInput];
+    [self reloadRealmDemoData];
+}
+
+-(void)deleteRealmDemoUser{
+    User_Realm *user = self.selectedRealmDemoUser;
+    if (!user) return;
+    [self deleteUser:user];
+    self.selectedUserIndex = -1;
+    self.nameTextField.byText(@"");
+    self.ageTextField.byText(@"");
+    [self reloadRealmDemoData];
+}
+
+-(BaseButton *)realmDemoButtonByTitle:(NSString *)title
+                              bgColor:(UIColor *)bgColor
+                               action:(void(^)(void))action{
+    @jobs_weakify(self)
+    return BaseButton
+        .initByStyle1(title.tr,
+                      UIFontWeightRegularSize(14),
+                      JobsWhiteColor)
+        .bgColorBy(bgColor)
+        .cornerRadiusValueBy(JobsWidth(6))
+        .onClickBy(^(UIButton *x) {
+            @jobs_strongify(self)
+            [self.view endEditing:YES];
+            if (action) action();
+        });
+}
 #pragma mark —— lazyLoad
 /// BaseViewProtocol
 @synthesize tableView = _tableView;
@@ -200,6 +296,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
                     /// 占位，去掉空行分割线
                 }))
                 .byShowsVerticalScrollIndicator(NO)
+                .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
                 .byBgColor(JobsWhiteColor);
             self.view.addSubview(tableView);
             [self fullScreenConstraintTargetView:tableView topViewOffset:0];
@@ -211,6 +308,139 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
     };return _dataMutArr;
+}
+
+-(NSMutableArray<User_Realm *> *)userMutArr{
+    if (!_userMutArr) {
+        _userMutArr = NSMutableArray.array;
+    };return _userMutArr;
+}
+
+-(UIView *)editorView{
+    if (!_editorView) {
+        @jobs_weakify(self)
+        _editorView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            @jobs_strongify(self)
+            view.byFrame(CGRectMake(0, 0, JobsRealWidth(), JobsWidth(132)))
+                .byBgColor(JobsWhiteColor);
+            self.nameTextField.addOn(view);
+            self.ageTextField.addOn(view);
+            self.nameTextField.byAdd(^(MASConstraintMaker *make) {
+                make.top.equalTo(view).offset(JobsWidth(16));
+                make.left.equalTo(view).offset(JobsWidth(16));
+                make.right.equalTo(self.ageTextField.mas_left).offset(-JobsWidth(10));
+                make.height.mas_equalTo(JobsWidth(40));
+            });
+            self.ageTextField.byAdd(^(MASConstraintMaker *make) {
+                make.top.height.equalTo(self.nameTextField);
+                make.right.equalTo(view).offset(-JobsWidth(16));
+                make.width.mas_equalTo(JobsWidth(96));
+            });
+            self.insertBtn.addOn(view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.nameTextField.mas_bottom).offset(JobsWidth(16));
+                    make.left.equalTo(view).offset(JobsWidth(16));
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(76), JobsWidth(36)));
+                });
+            self.updateBtn.addOn(view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.insertBtn);
+                    make.size.equalTo(self.insertBtn);
+                    make.left.equalTo(self.insertBtn.mas_right).offset(JobsWidth(8));
+                });
+            self.deleteBtn.addOn(view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.insertBtn);
+                    make.size.equalTo(self.insertBtn);
+                    make.left.equalTo(self.updateBtn.mas_right).offset(JobsWidth(8));
+                });
+            self.queryBtn.addOn(view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.insertBtn);
+                    make.size.equalTo(self.insertBtn);
+                    make.left.equalTo(self.deleteBtn.mas_right).offset(JobsWidth(8));
+                });
+        });
+    };return _editorView;
+}
+
+-(UITextField *)nameTextField{
+    if (!_nameTextField) {
+        _nameTextField = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
+            textField
+                .byPlaceholder(@"姓名".tr)
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byFont(UIFontWeightRegularSize(14))
+                .byTextAlignment(NSTextAlignmentLeft)
+                .byBorderStyle(UITextBorderStyleRoundedRect)
+                .byClearButtonMode(UITextFieldViewModeWhileEditing)
+                .byReturnKeyType(UIReturnKeyDone);
+        });
+    };return _nameTextField;
+}
+
+-(UITextField *)ageTextField{
+    if (!_ageTextField) {
+        _ageTextField = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
+            textField
+                .byPlaceholder(@"年龄".tr)
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byFont(UIFontWeightRegularSize(14))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byBorderStyle(UITextBorderStyleRoundedRect)
+                .byClearButtonMode(UITextFieldViewModeWhileEditing)
+                .byKeyboardType(UIKeyboardTypeNumberPad)
+                .byReturnKeyType(UIReturnKeyDone);
+        });
+    };return _ageTextField;
+}
+
+-(BaseButton *)insertBtn{
+    if (!_insertBtn) {
+        @jobs_weakify(self)
+        _insertBtn = [self realmDemoButtonByTitle:@"新增"
+                                          bgColor:HEXCOLOR(0x3D4A58)
+                                           action:^{
+            @jobs_strongify(self)
+            [self insertRealmDemoUser];
+        }];
+    };return _insertBtn;
+}
+
+-(BaseButton *)updateBtn{
+    if (!_updateBtn) {
+        @jobs_weakify(self)
+        _updateBtn = [self realmDemoButtonByTitle:@"修改"
+                                          bgColor:HEXCOLOR(0x497D74)
+                                           action:^{
+            @jobs_strongify(self)
+            [self updateRealmDemoUser];
+        }];
+    };return _updateBtn;
+}
+
+-(BaseButton *)deleteBtn{
+    if (!_deleteBtn) {
+        @jobs_weakify(self)
+        _deleteBtn = [self realmDemoButtonByTitle:@"删除"
+                                          bgColor:HEXCOLOR(0xC35A4A)
+                                           action:^{
+            @jobs_strongify(self)
+            [self deleteRealmDemoUser];
+        }];
+    };return _deleteBtn;
+}
+
+-(BaseButton *)queryBtn{
+    if (!_queryBtn) {
+        @jobs_weakify(self)
+        _queryBtn = [self realmDemoButtonByTitle:@"查询"
+                                         bgColor:HEXCOLOR(0x8A6A42)
+                                          action:^{
+            @jobs_strongify(self)
+            [self reloadRealmDemoData];
+        }];
+    };return _queryBtn;
 }
 
 @end

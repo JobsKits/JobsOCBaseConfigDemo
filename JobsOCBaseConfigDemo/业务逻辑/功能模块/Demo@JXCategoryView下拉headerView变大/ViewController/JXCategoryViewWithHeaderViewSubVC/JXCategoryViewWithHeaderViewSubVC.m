@@ -311,7 +311,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
         _collectionView.addOn(self.scrollView);
         [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             @jobs_strongify(self)
-            make.edges.equalTo(self.view);
+            make.edges.equalTo(self.scrollView);
         }];
     };return _collectionView;
 }

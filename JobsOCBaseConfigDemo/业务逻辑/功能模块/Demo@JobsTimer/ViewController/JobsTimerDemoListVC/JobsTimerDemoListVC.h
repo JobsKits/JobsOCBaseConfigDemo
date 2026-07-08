@@ -9,6 +9,11 @@
 #import "JobsTimerVC.h"
 #import "JobsCountdownButtonDemoVC.h"
 #import "JobsOCTimerMgrDemoVC.h"
+#import "JobsRedPacketRainDemoVC.h"
+#import "JobsMultiTimerTableDemoVC.h"
+#import "JobsClockDemoVC.h"
+#import "LotteryVC.h"
+#import "JobsMarqueeViewDemoVC.h"
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>

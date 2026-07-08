@@ -36,23 +36,22 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byTextCor(HEXCOLOR(0x1F2937));
             data.byText(@"Excel".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data.byFont(UIFontWeightSemiboldSize(18));
         })
     
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byBgImage(@"新首页的底图".img)
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1));/// self.gk_navBackgroundColor 和 self.view.backgroundColor
+        .byBgCor(HEXCOLOR(0xF6F8FB))
+        .byNavBgCor(HEXCOLOR(0xF6F8FB));/// self.gk_navBackgroundColor 和 self.view.backgroundColor
         //    self.viewModel.navBgImage = @"导航栏左侧底图".img;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(HEXCOLOR(0xF6F8FB));
 
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
@@ -116,7 +115,7 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return JobsWidth(44);
+    return JobsWidth(60);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -126,10 +125,27 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return self.tbvSectionRowCellMutArr[indexPath.section][indexPath.row]
+    JobsBaseTableViewCell *cell = (JobsBaseTableViewCell *)self.tbvSectionRowCellMutArr[indexPath.section][indexPath.row];
+    UIColor *statusCor = [self jobs_excelStatusColorByIndexPath:indexPath];
+    cell.byBgColor(JobsWhiteColor);
+    return cell
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byIndexPath(indexPath)
+        .byContentViewBgCor(JobsWhiteColor)
+        .bySeparatorInset(UIEdgeInsetsMake(0, JobsWidth(16), 0, JobsWidth(16)))
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.section][indexPath.row])
+        .byTextLabel(^(__kindof UILabel * _Nullable label) {
+            NSString *text = label.attributedText.string.length ? label.attributedText.string : label.text;
+            label.byText(text ? : @"")
+                 .byTextCor(HEXCOLOR(0x172033))
+                 .byFont(UIFontWeightMediumSize(16));
+        })
+        .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
+            NSString *text = label.attributedText.string.length ? label.attributedText.string : label.text;
+            label.byText(text ? : @"")
+                 .byTextCor(statusCor)
+                 .byFont(UIFontWeightMediumSize(14));
+        })
         .JobsBlock1(^(id _Nullable data) {;
                      
         });
@@ -137,12 +153,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForHeaderInSection:(NSInteger)section{
-    return JobsWidth(10);
+    return section == 0 ? JobsWidth(16) : JobsWidth(18);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
-heightForFooterInSectionByModel:(NSInteger)section{
-    return JobsWidth(10);
+heightForFooterInSection:(NSInteger)section{
+    return section == self.dataMutArr.count - 1 ? JobsBottomSafeAreaHeight() + JobsWidth(12) : JobsWidth(6);
 }
 /// 这里涉及到复用机制，return出去的是UITableViewHeaderFooterView的派生类
 /// tableView.registerHeaderFooterViewClass(BaseTableViewHeaderFooterView.class,@"");
@@ -178,11 +194,11 @@ viewForHeaderInSection:(NSInteger)section{
             .JobsBlock1(^(id _Nullable data) {;
                 
             });
-        tbvFooterView.byBgColor(HEXCOLOR(0xEAEBED));
-        tbvFooterView.backgroundView.byBgColor(HEXCOLOR(0xEAEBED));
+        tbvFooterView.byBgColor(HEXCOLOR(0xF6F8FB));
+        tbvFooterView.backgroundView.byBgColor(HEXCOLOR(0xF6F8FB));
         /// tbvFooterView.backgroundColor 和  tbvFooterView.contentView.backgroundColor 均是无效操作❌
         /// 只有 tbvFooterView.backgroundView.backgroundColor 是有效操作✅
-        tbvFooterView.contentView.byBgColor(HEXCOLOR(0xEAEBED));
+        tbvFooterView.contentView.byBgColor(HEXCOLOR(0xF6F8FB));
         return tbvFooterView;
     };return nil;
 }
@@ -193,30 +209,38 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     /// 隐藏最后一个单元格的分界线
     [tableView hideSeparatorLineAtLast:indexPath cell:cell];
     /// 自定义 UITableViewCell 的箭头
-    cell.img = @"向右的箭头（大）".img;
+    cell.img = @"向右的箭头（小）".img;
 //    @jobs_weakify(self)
     [cell customAccessoryView:^(id data) {
 //        @jobs_strongify(self)
         JobsBaseTableViewCell *cell = (JobsBaseTableViewCell *)data;
         JobsLog(@"MMM - %ld",cell.index);
     }];
-    cell.accessoryView.resetWidth(10);
-    /// 以 section 为单位，仅对每个 section 的最后一行 cell 做圆角处理（cell 之间没有分割线）
-    [cell roundedCornerLastCellByTableView:tableView
-                                 indexPath:indexPath
-                               layerConfig:jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-        model.byRoundingCornersRadii(CGSizeMake(JobsWidth(10.0), JobsWidth(10.0)))
-             .byBorderWidth(1)
-             .byLayerBorderCor(JobsGrayColor);
+    cell.accessoryView.resetWidth(8);
+    /// 以 section 为单位，对首尾 cell 做圆角处理
+    [cell roundedCornerFirstAndLastCellByTableView:tableView
+                                         indexPath:indexPath
+                                       layerConfig:jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
+        model.byRoundingCornersRadii(CGSizeMake(JobsWidth(14.0), JobsWidth(14.0)))
+             .byBorderWidth(0.6)
+             .byLayerBorderCor(HEXCOLOR(0xE8EDF3));
     })];
 }
+
+-(UIColor *)jobs_excelStatusColorByIndexPath:(NSIndexPath *)indexPath{
+    UIViewModel *model = self.dataMutArr[indexPath.section][indexPath.row];
+    NSString *subTitle = model.subTextModel.attributedTitle.string;
+    if (!subTitle.length) subTitle = model.subTextModel.text;
+    return [subTitle containsString:@"崩溃"] ? HEXCOLOR(0xC05621) : HEXCOLOR(0x0F766E);
+}
+
 #pragma mark —— lazyLoad
 /// BaseViewProtocol
 @synthesize tableView = _tableView;
 -(UITableView *)tableView{
     if (!_tableView) {
         @jobs_weakify(self)
-        _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
+        _tableView = jobsMakeTableViewByInsetGrouped(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
             tableView
                 .byRegisterTableViewClass(@"")
@@ -230,17 +254,18 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     NSObject.feedbackGenerator(nil);// 震动反馈
                     self->_tableView.endRefreshing(YES);
                 }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
-                .bySeparatorColor(HEXCOLOR(0xEEE2C8))
+                .bySectionHeaderTopPadding(0)
+                .bySeparatorColor(HEXCOLOR(0xE8EDF3))
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
                 .byShowsVerticalScrollIndicator(NO)
-                .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
+                .byContentInset(UIEdgeInsetsMake(JobsWidth(4), 0, JobsBottomSafeAreaHeight(), 0))
                 .byScrollEnabled(YES)
-                .byBgColor(JobsBlueColor)
+                .byBgColor(HEXCOLOR(0xF6F8FB))
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
                     make.left.right.bottom.equalTo(self.view);
-                    [self make:make topOffset:10];
+                    [self make:make topOffset:0];
                 });
             if(@available(iOS 11.0, *)) {
                 tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);

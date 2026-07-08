@@ -9,7 +9,7 @@
 
 @interface CalendarVC ()
 /// UI
-Prop_strong()JobsCalendar *calendar;
+Prop_strong()JobsOCCalendar *calendar;
 Prop_strong()NSDateFormatter *calendarDayFormatter;
 Prop_strong()NSDateFormatter *calendarHolidayFormatter;
 Prop_strong()NSDictionary<NSString *, NSString *> *calendarHolidayDic;
@@ -86,43 +86,43 @@ Prop_strong()NSDate *maximumCalendarDate;
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 }
-#pragma mark —— JobsCalendarDataSource
--(nullable NSString *)calendar:(JobsCalendar *)calendar
+#pragma mark —— JobsOCCalendarDataSource
+-(nullable NSString *)calendar:(JobsOCCalendar *)calendar
                   titleForDate:(NSDate *)date{
     return [self.calendarDayFormatter stringFromDate:date];
 }
 
--(nullable NSString *)calendar:(JobsCalendar *)calendar
+-(nullable NSString *)calendar:(JobsOCCalendar *)calendar
                subtitleForDate:(NSDate *)date{
     // 格式化日期，获取具体的日期字符串
     NSString *dateString = [self.calendarHolidayFormatter stringFromDate:date];
     return self.calendarHolidayDic[dateString];// 根据日期字符串查找节假日名称
 }
 
--(NSDate *)minimumDateForCalendar:(JobsCalendar *)calendar{
+-(NSDate *)minimumDateForCalendar:(JobsOCCalendar *)calendar{
     return self.minimumCalendarDate; // 一年前
 }
 
--(NSDate *)maximumDateForCalendar:(JobsCalendar *)calendar{
+-(NSDate *)maximumDateForCalendar:(JobsOCCalendar *)calendar{
 //    return NSDate.date;
     return self.maximumCalendarDate; // 一年后
 }
 
-#pragma mark —— JobsCalendarDelegate
+#pragma mark —— JobsOCCalendarDelegate
 /// 选中日期
--(void)calendar:(JobsCalendar *)calendar
+-(void)calendar:(JobsOCCalendar *)calendar
   didSelectDate:(NSDate *)date
-atMonthPosition:(JobsCalendarMonthPosition)monthPosition{
+atMonthPosition:(JobsOCCalendarMonthPosition)monthPosition{
     if(self.objBlock) self.objBlock(date);
 }
 
--(void)calendar:(JobsCalendar *)calendar
+-(void)calendar:(JobsOCCalendar *)calendar
 didDeselectDate:(NSDate *)date
-atMonthPosition:(JobsCalendarMonthPosition)monthPosition{
+atMonthPosition:(JobsOCCalendarMonthPosition)monthPosition{
     if(self.objBlock) self.objBlock(date);
 }
 
--(void)calendar:(JobsCalendar *)calendar
+-(void)calendar:(JobsOCCalendar *)calendar
 boundingRectWillChange:(CGRect)bounds
        animated:(BOOL)animated{
     [calendar mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -131,21 +131,21 @@ boundingRectWillChange:(CGRect)bounds
     [self.view layoutIfNeeded];
 }
 
--(void)calendar:(JobsCalendar *)calendar
-willDisplayCell:(JobsCalendarDayCell *)cell
+-(void)calendar:(JobsOCCalendar *)calendar
+willDisplayCell:(JobsOCCalendarDayCell *)cell
         forDate:(NSDate *)date
-atMonthPosition:(JobsCalendarMonthPosition)monthPosition{
+atMonthPosition:(JobsOCCalendarMonthPosition)monthPosition{
     
 }
 
--(void)calendarCurrentPageDidChange:(JobsCalendar *)calendar{
+-(void)calendarCurrentPageDidChange:(JobsOCCalendar *)calendar{
     
 }
 #pragma mark —— lazyLoad
--(JobsCalendar *)calendar{
+-(JobsOCCalendar *)calendar{
     if(!_calendar){
         @jobs_weakify(self)
-        _calendar = jobsMakeJobsCalendar(^(__kindof JobsCalendar * _Nullable calendar) {
+        _calendar = jobsMakeJobsOCCalendar(^(__kindof JobsOCCalendar * _Nullable calendar) {
             @jobs_strongify(self)
             calendar.dataSource = self;
             calendar.delegate = self;
@@ -158,7 +158,7 @@ atMonthPosition:(JobsCalendarMonthPosition)monthPosition{
                 .add(@"年".tr)
                 .add(@"MM")
                 .add(@"月".tr);
-            calendar.appearance.caseOptions = JobsCalendarCaseOptionsHeaderUsesUpperCase;
+            calendar.appearance.caseOptions = JobsOCCalendarCaseOptionsHeaderUsesUpperCase;
             calendar.appearance.headerTitleFont = UIFontSystemFontOfSize(JobsWidth(20));
             calendar.appearance.headerTitleColor = JobsBlackColor;
             calendar

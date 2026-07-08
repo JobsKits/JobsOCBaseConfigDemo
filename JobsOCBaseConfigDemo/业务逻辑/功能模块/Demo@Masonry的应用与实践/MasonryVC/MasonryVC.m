@@ -54,7 +54,7 @@ Prop_strong()MSMineView2 *view2;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(HEXCOLOR(0xF7F8FC));
 
     self.makeNavByAlpha(1);
     
@@ -226,38 +226,32 @@ Prop_strong()MSMineView2 *view2;
 -(MSMineView2 *)view2{
     if(!_view2){
         @jobs_weakify(self)
-        _view2 = jobsMakeBaseView(^(__kindof BaseView * _Nullable view) {
+        _view2 = MSMineView2.alloc.init;
+        _view2.jobsRichViewByModel(nil);
+        [self.view addSubview:_view2];
+        [_view2 mas_makeConstraints:^(MASConstraintMaker *make) {
             @jobs_strongify(self)
-            view.jobsRichViewByModel(nil);
-            // 移除第一个 _view2 的约束
-            view.addOn(self.view)
-                .byAdd(^(MASConstraintMaker *make) {
-                // 添加第一个 _view2 的约束
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(88), JobsWidth(28)));
-                make.right.equalTo(self.view).offset(JobsWidth(-10));
-                make.top.equalTo(self.view).offset(JobsWidth(12));
-            });
-            // 告诉视图需要更新布局
+            make.size.mas_equalTo(CGSizeMake(JobsWidth(88), JobsWidth(28)));
+            make.right.equalTo(self.view).offset(JobsWidth(-10));
+            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(12));
+        }];
+        [self.view setNeedsUpdateConstraints];
+        [UIView animateWithDuration:0.5 animations:^{
+            @jobs_strongify(self)
+            [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            @jobs_strongify(self)
+            [self->_view2 mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(MSMineView2.viewSizeByModel(nil));
+                make.centerX.equalTo(self.view);
+                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(12));
+            }];
             [self.view setNeedsUpdateConstraints];
-            // 执行动画
             [UIView animateWithDuration:0.5 animations:^{
-                [self.view layoutIfNeeded]; // 让视图更新布局
-            } completion:^(BOOL finished) {
-                // 在动画完成后，切换到第二个 _view2 的约束
-                self.view2.byRemake(^(MASConstraintMaker *make) {
-                    // 添加第二个 _view2 的约束
-                    make.size.mas_equalTo(MSMineView2.viewSizeByModel(nil));
-                    make.centerX.equalTo(self.view);
-                    make.top.equalTo(self.view).offset(JobsWidth(12));
-                });
-                // 再次告诉视图需要更新布局
-                [self.view setNeedsUpdateConstraints];
-                // 再次执行动画
-                [UIView animateWithDuration:0.5 animations:^{
-                    [self.view layoutIfNeeded]; // 让视图更新布局
-                }];
-            }];view.cornerCutToCircleWithCornerRadius(MSMineView2.viewSizeByModel(nil).height / 2);
-        });
+                [self.view layoutIfNeeded];
+            }];
+        }];
+        _view2.cornerCutToCircleWithCornerRadius(MSMineView2.viewSizeByModel(nil).height / 2);
     };return _view2;
 }
 

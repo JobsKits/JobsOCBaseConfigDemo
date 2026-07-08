@@ -13,9 +13,9 @@
 ## 一、数据表
 
 ```text
-edges              nodes_fts          nodes_fts_docsize  schema_versions  
-files              nodes_fts_config   nodes_fts_idx      unresolved_refs  
-nodes              nodes_fts_data     project_metadata 
+edges               nodes               nodes_fts_data      project_metadata  
+files               nodes_fts           nodes_fts_docsize   schema_versions   
+name_segment_vocab  nodes_fts_config    nodes_fts_idx       unresolved_refs   
 ```
 
 ## 二、Schema
@@ -62,6 +62,11 @@ CREATE TABLE files (
     node_count INTEGER DEFAULT 0,
     errors TEXT -- JSON array
 )
+CREATE TABLE name_segment_vocab (
+          segment TEXT NOT NULL,
+          name TEXT NOT NULL,
+          PRIMARY KEY (segment, name)
+        ) WITHOUT ROWID
 CREATE TABLE nodes (
     id TEXT PRIMARY KEY,
     kind TEXT NOT NULL,
