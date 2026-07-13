@@ -64,8 +64,10 @@ Prop_assign()CGFloat jobsDefaultPopUpHeight;
 //    });
 //    self.makeNavByAlpha(1);
     self.isHiddenNavigationBar = YES;//禁用系统的导航栏
-    self.gk_statusBarHidden = YES;
-    self.gk_navigationBar.jobsVisible = YES;
+    self.byGKStatusBarHidden(YES);
+    self.byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
+        navigationBar.byVisible(YES);
+    });
     
     self.titleHeaderView.byAlpha(1);
     self.jobsDefaultPopUpHeight = self.popUpHeight;

@@ -6,6 +6,38 @@
 //
 
 #import "AppDelegate+TabBarCtr.h"
+
+static NSString *const JobsOCDemoListUsesTabBarEntryUserDefaultsKey = @"com.BSports.JobsOCDemoListUsesTabBarEntryUserDefaultsKey";
+
+BOOL JobsOCDemoListUsesTabBarEntry(void) {
+    return [NSUserDefaults.standardUserDefaults boolForKey:JobsOCDemoListUsesTabBarEntryUserDefaultsKey];
+}
+
+void JobsOCSetDemoListUsesTabBarEntry(BOOL usesTabBarEntry) {
+    [NSUserDefaults.standardUserDefaults setBool:usesTabBarEntry
+                                          forKey:JobsOCDemoListUsesTabBarEntryUserDefaultsKey];
+    [NSUserDefaults.standardUserDefaults synchronize];
+}
+
+__kindof UIViewController *JobsOCMakeAppRootViewController(void) {
+    UIViewController *rootViewController = nil;
+    if (JobsOCDemoListUsesTabBarEntry()) {
+        AppDelegate.jobsCustomTabBarVC.customSelectIndex(0);
+        rootViewController = AppDelegate.jobsCustomTabBarNavCtrl;
+    }else{
+        rootViewController = ViewController_1.new.navCtrl;
+    }
+    rootViewController.view.byFrame(UIScreen.mainScreen.bounds);
+    return rootViewController;
+}
+
+void JobsOCApplyAppRootViewController(void) {
+    for (UIWindow *window in UIApplication.sharedApplication.windows) {
+        if (!window.windowScene || window.windowScene.activationState == UISceneActivationStateUnattached) continue;
+        window.rootViewController = JobsOCMakeAppRootViewController();
+        [window makeKeyAndVisible];
+    }
+}
 NSUInteger DefaultIndex = 2; // 默认从第3个开始初始显示
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
@@ -26,7 +58,7 @@ static JobsTabBarVC *_tabBarVC = nil;
                 @jobs_strongify(self)
                 for (JobsTabBarItemConfig *tabBarItemConfig in self.tabBarItemConfigMutArr) {
                     if(tabBarItemConfig.isNeedjump){
-                        toastBy(@"这个跳开");
+                        toastBy(@"这个跳开".tr);
                         return NO;
                     }
                 };return YES;

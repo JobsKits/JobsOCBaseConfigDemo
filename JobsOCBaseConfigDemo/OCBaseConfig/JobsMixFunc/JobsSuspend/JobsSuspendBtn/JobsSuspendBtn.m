@@ -26,6 +26,16 @@ BaseViewProtocol_synthesize
     };return self;
 }
 
+-(JobsRetBtnByBOOLBlock _Nonnull)byAllowDrag{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(BOOL enabled) {
+        @jobs_strongify(self)
+        self.isAllowDrag = enabled;
+        self.panRcognize.enabled = enabled;
+        return self;
+    };
+}
+
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
     self.panRcognize.enabled = self.isAllowDrag;// 关键代码

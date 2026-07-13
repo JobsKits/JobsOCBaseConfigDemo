@@ -177,7 +177,7 @@ Prop_strong() UILabel *resultLabel;
                                        ScaleW(15));
     self.startLabel.byFont([UIFont systemFontOfSize:ScaleW(15)]);
     self.startLabel.byTextCor(RGB_COLOR(65, 155, 9));
-    self.startLabel.byText(@"开始抽奖");
+    self.startLabel.byText(@"开始抽奖".tr);
     self.startLabel.byAlpha(1.0f);
 }
 

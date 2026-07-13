@@ -71,7 +71,7 @@ NS_INLINE __kindof JobsTextField *_Nonnull makeJobsTextField(jobsByJobsTextField
      }];
 
      // 修改 text 属性
-     textField.byText(@"新内容");
+     textField.byText(@"新内容".tr);
 
 
      或者
@@ -88,7 +88,7 @@ NS_INLINE __kindof JobsTextField *_Nonnull makeJobsTextField(jobsByJobsTextField
      }];
 
      // 模拟改变 text 值
-     textField.byText(@"新内容");
+     textField.byText(@"新内容".tr);
 
      // 手动发送信号
      [textFieldSignal sendNext:textField.text];

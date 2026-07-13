@@ -203,8 +203,7 @@ static BOOL JobsOCSplashEnabled(void) {
             // 导航栏返回按钮样式
             configure.backStyle = GKNavigationBarBackStyleBlack;
             // 导航栏左右item间距
-            configure.gk_navItemLeftSpace = JobsWidth(12.0f);
-            configure.gk_navItemRightSpace = JobsWidth(12.0f);
+            configure.byNavItemSpacing(@(JobsWidth(12.0f)), @(JobsWidth(12.0f)));
     #warning 这里的Api有变化 先注释，否则无法编译通过
     //        configure.shiledItemSpaceVCs = @[@"PUPhotoPickerHostViewController"];
         }];

@@ -486,7 +486,7 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
     NSString *filterTitle = [JobsOCVideoRecorderCIFilterProcessor titleForFilterType:filterType];
     if (filterType == JobsOCVideoRecorderCIFilterTypeNormal) {
         self.config.filterProcessor = self.originFilterProcessor;
-        self.filterBtn.jobsResetBtnTitle(@"滤镜");
+        self.filterBtn.jobsResetBtnTitle(@"滤镜".tr);
     }else{
         self.builtInFilterProcessor.filterType = filterType;
         self.config.filterProcessor = self.builtInFilterProcessor;
@@ -584,7 +584,7 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
 -(UIButton *)switchCameraBtn{
     if (!_switchCameraBtn) {
         _switchCameraBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
-            btn.jobsResetBtnTitle(@"切换")
+            btn.jobsResetBtnTitle(@"切换".tr)
                .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
                .jobsResetBtnTitleCor(UIColor.whiteColor)
                .byBgColor(UIColor.blackColor.colorWithAlphaComponentBy(0.25));
@@ -602,7 +602,7 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
 -(UIButton *)filterBtn{
     if (!_filterBtn) {
         _filterBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
-            btn.jobsResetBtnTitle(@"滤镜")
+            btn.jobsResetBtnTitle(@"滤镜".tr)
                .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
                .jobsResetBtnTitleCor(UIColor.whiteColor)
                .byBgColor(UIColor.blackColor.colorWithAlphaComponentBy(0.25));
@@ -632,7 +632,7 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
 -(UILabel *)recordDurationLabel{
     if (!_recordDurationLabel) {
         _recordDurationLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText(@"0.0秒")
+            label.byText(@"0.0秒".tr)
                  .byFont(UIFontWeightSemiboldSize(16))
                  .byTextCor(UIColor.whiteColor)
                  .byTextAlignment(NSTextAlignmentCenter)

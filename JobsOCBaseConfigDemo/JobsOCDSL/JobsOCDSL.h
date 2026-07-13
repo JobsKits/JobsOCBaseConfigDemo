@@ -89,6 +89,7 @@
 #if __has_include(<GKNavigationBar/GKNavigationBar.h>)
 #import "GKNavigationBarConfigure+DSL.h"
 #import "GKGestureHandleConfigure+DSL.h"
+#import "UIViewController+GKNavigationBarDSL.h"
 #endif
 
 #if __has_include(<Masonry/Masonry.h>)

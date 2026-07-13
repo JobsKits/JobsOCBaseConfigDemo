@@ -12,6 +12,12 @@
 #import "JobsTabBarVC.h"
 #import "JobsCustomTabBarVC.h"
 #import "ViewController@1.h"
+
+FOUNDATION_EXPORT BOOL JobsOCDemoListUsesTabBarEntry(void);
+FOUNDATION_EXPORT void JobsOCSetDemoListUsesTabBarEntry(BOOL usesTabBarEntry);
+FOUNDATION_EXPORT __kindof UIViewController *JobsOCMakeAppRootViewController(void);
+FOUNDATION_EXPORT void JobsOCApplyAppRootViewController(void);
+
 #import "ViewController@2.h"
 #import "ViewController@3.h"
 #import "ViewController@4.h"

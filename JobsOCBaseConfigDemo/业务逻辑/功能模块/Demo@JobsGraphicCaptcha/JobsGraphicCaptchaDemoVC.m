@@ -12,6 +12,7 @@
 Prop_strong()UIView *contentView;
 Prop_strong()JobsGraphicCaptchaView *captchaView;
 Prop_strong()UISegmentedControl *modeControl;
+Prop_strong()UISegmentedControl *mixedModeControl;
 Prop_strong()UILabel *lengthLab;
 Prop_strong()UIStepper *lengthStepper;
 Prop_strong()UITextField *inputTF;
@@ -57,24 +58,56 @@ Prop_strong()UILabel *resultLab;
     [self applyCurrentConfig];
 }
 #pragma mark —— Actions
+-(NSUInteger)currentMixedGroupCount{
+    switch (self.mixedModeControl.selectedSegmentIndex) {
+        case 0:
+            return 2;
+        case 1:
+            return 3;
+        case 2:
+            return 4;
+        default:
+            return 0;
+    }
+}
+
 -(void)applyCurrentConfig{
     JobsGraphicCaptchaConfig *config = nil;
-    switch (self.modeControl.selectedSegmentIndex) {
-        case 0:
-            config = JobsGraphicCaptchaConfig.letterCaseSensitiveConfig;
-            break;
-        case 1:
-            config = JobsGraphicCaptchaConfig.letterCaseInsensitiveConfig;
-            break;
-        case 2:
-            config = JobsGraphicCaptchaConfig.numberConfig;
-            break;
-        case 3:
-            config = JobsGraphicCaptchaConfig.chineseConfig;
-            break;
-        default:
-            config = JobsGraphicCaptchaConfig.mixedConfig;
-            break;
+    NSUInteger mixedGroupCount = [self currentMixedGroupCount];
+    if (mixedGroupCount) {
+        switch (mixedGroupCount) {
+            case 2:
+                config = JobsGraphicCaptchaConfig.twoMixedConfig;
+                break;
+            case 3:
+                config = JobsGraphicCaptchaConfig.threeMixedConfig;
+                break;
+            default:
+                config = JobsGraphicCaptchaConfig.fullMixedConfig;
+                break;
+        }
+        if (self.lengthStepper.value < mixedGroupCount) {
+            self.lengthStepper.value = mixedGroupCount;
+        }
+    } else {
+        switch (self.modeControl.selectedSegmentIndex) {
+            case 0:
+                config = JobsGraphicCaptchaConfig.letterCaseSensitiveConfig;
+                break;
+            case 1:
+                config = JobsGraphicCaptchaConfig.letterCaseInsensitiveConfig;
+                break;
+            case 2:
+                config = JobsGraphicCaptchaConfig.numberConfig;
+                break;
+            case 3:
+                config = JobsGraphicCaptchaConfig.chineseConfig;
+                break;
+            default:
+                config = JobsGraphicCaptchaConfig.letterCaseSensitiveConfig;
+                self.modeControl.selectedSegmentIndex = 0;
+                break;
+        }
     }
     config.length = (NSUInteger)self.lengthStepper.value;
     self.lengthLab.text = [NSString stringWithFormat:@"长度：%.0f",self.lengthStepper.value];
@@ -85,6 +118,12 @@ Prop_strong()UILabel *resultLab;
 }
 
 -(void)modeChanged{
+    self.mixedModeControl.selectedSegmentIndex = UISegmentedControlNoSegment;
+    [self applyCurrentConfig];
+}
+
+-(void)mixedModeChanged{
+    self.modeControl.selectedSegmentIndex = UISegmentedControlNoSegment;
     [self applyCurrentConfig];
 }
 
@@ -135,6 +174,7 @@ Prop_strong()UILabel *resultLab;
         }];
         self.captchaView.hidden = NO;
         self.modeControl.hidden = NO;
+        self.mixedModeControl.hidden = NO;
         self.lengthLab.hidden = NO;
         self.lengthStepper.hidden = NO;
         self.inputTF.hidden = NO;
@@ -168,8 +208,8 @@ Prop_strong()UILabel *resultLab;
 -(UISegmentedControl *)modeControl{
     if (!_modeControl) {
         @jobs_weakify(self)
-        _modeControl = [UISegmentedControl.alloc initWithItems:@[@"Aa",@"aA",@"123",@"汉字",@"混合"]];
-        _modeControl.selectedSegmentIndex = 4;
+        _modeControl = [UISegmentedControl.alloc initWithItems:@[@"Aa",@"aA",@"123",@"汉字"]];
+        _modeControl.selectedSegmentIndex = UISegmentedControlNoSegment;
         [_modeControl addTarget:self
                          action:@selector(modeChanged)
                forControlEvents:UIControlEventValueChanged];
@@ -183,6 +223,24 @@ Prop_strong()UILabel *resultLab;
     };return _modeControl;
 }
 
+-(UISegmentedControl *)mixedModeControl{
+    if (!_mixedModeControl) {
+        @jobs_weakify(self)
+        _mixedModeControl = [UISegmentedControl.alloc initWithItems:@[@"两两混合",@"三三混合",@"全部混合"]];
+        _mixedModeControl.selectedSegmentIndex = 0;
+        [_mixedModeControl addTarget:self
+                              action:@selector(mixedModeChanged)
+                    forControlEvents:UIControlEventValueChanged];
+        [self.contentView addSubview:_mixedModeControl];
+        [_mixedModeControl mas_makeConstraints:^(MASConstraintMaker *make) {
+            @jobs_strongify(self)
+            make.top.equalTo(self.modeControl.mas_bottom).offset(JobsWidth(10));
+            make.left.right.equalTo(self.contentView).inset(JobsWidth(22));
+            make.height.mas_equalTo(JobsWidth(34));
+        }];
+    };return _mixedModeControl;
+}
+
 -(UILabel *)lengthLab{
     if (!_lengthLab) {
         @jobs_weakify(self)
@@ -193,7 +251,7 @@ Prop_strong()UILabel *resultLab;
         [_lengthLab mas_makeConstraints:^(MASConstraintMaker *make) {
             @jobs_strongify(self)
             make.left.equalTo(self.contentView).offset(JobsWidth(22));
-            make.top.equalTo(self.modeControl.mas_bottom).offset(JobsWidth(18));
+            make.top.equalTo(self.mixedModeControl.mas_bottom).offset(JobsWidth(18));
             make.height.mas_equalTo(JobsWidth(32));
         }];
     };return _lengthLab;

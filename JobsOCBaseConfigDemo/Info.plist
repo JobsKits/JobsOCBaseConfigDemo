@@ -2,8 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>JobsProjectFolderName</key>
+	<string>$(JOBS_PROJECT_FOLDER_NAME)</string>
 	<key>NSCameraUsageDescription</key>
 	<string>需要访问相机以录制视频。</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>用于扫描、连接并与附近的 BLE 设备交换数据。</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>用于兼容旧系统访问附近的 BLE 设备。</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>需要访问麦克风以录制视频声音。</string>
 	<key>NSPhotoLibraryUsageDescription</key>

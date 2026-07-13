@@ -147,7 +147,7 @@ Prop_strong()UILabel *dragHintLab;
     if(!_usageDescLab){
         _usageDescLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"演示“只允许在指定 y 区间内上下滑动”的吸附效果：拖拽绿色区域，上滑释放会吸附到最高点，下滑释放会回到底部初始位置。")
+                .byText(@"演示“只允许在指定 y 区间内上下滑动”的吸附效果：拖拽绿色区域，上滑释放会吸附到最高点，下滑释放会回到底部初始位置。".tr)
                 .byFont(UIFontWeightRegularSize(JobsWidth(13)))
                 .byTextCor([JobsWhiteColor colorWithAlphaComponent:.82f])
                 .byTextAlignment(NSTextAlignmentLeft)
@@ -167,7 +167,7 @@ Prop_strong()UILabel *dragHintLab;
     if(!_topAnchorLab){
         _topAnchorLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"最高点：上滑后吸附到这里")
+                .byText(@"最高点：上滑后吸附到这里".tr)
                 .byFont(UIFontWeightMediumSize(JobsWidth(12)))
                 .byTextCor(JobsWhiteColor)
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -190,7 +190,7 @@ Prop_strong()UILabel *dragHintLab;
     if(!_bottomAnchorLab){
         _bottomAnchorLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"最低点：下滑释放回到初始位置")
+                .byText(@"最低点：下滑释放回到初始位置".tr)
                 .byFont(UIFontWeightMediumSize(JobsWidth(12)))
                 .byTextCor(JobsWhiteColor)
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -247,7 +247,7 @@ Prop_strong()UILabel *dragHintLab;
     if(!_dragHintLab){
         _dragHintLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"按住绿色区域上下拖动\n上滑吸顶，下滑回到底部")
+                .byText(@"按住绿色区域上下拖动\n上滑吸顶，下滑回到底部".tr)
                 .byFont(UIFontWeightMediumSize(JobsWidth(15)))
                 .byTextCor(JobsWhiteColor)
                 .byTextAlignment(NSTextAlignmentCenter)

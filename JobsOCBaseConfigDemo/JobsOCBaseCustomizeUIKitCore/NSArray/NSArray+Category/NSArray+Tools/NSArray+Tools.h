@@ -57,7 +57,7 @@
                           .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
                           .jobsResetBtnBgImage(@"纸飞机账户绑定".img)
                           .onClickBy(^(UIButton *x){
-                              toastBy(@"纸飞机");
+                              toastBy(@"纸飞机".tr);
                           }).onLongPressGestureBy(^(id data){
                               JobsLog(@"");
                           }));
@@ -65,7 +65,7 @@
                           .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
                           .jobsResetBtnBgImage(@"脸书账户绑定".img)
                           .onClickBy(^(UIButton *x){
-                              toastBy(@"脸书");
+                              toastBy(@"脸书".tr);
                           }).onLongPressGestureBy(^(id data){
                               JobsLog(@"");
                           }));

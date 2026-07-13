@@ -42,7 +42,7 @@ Prop_assign()BOOL searchMode;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(@"右边的架构是VC");
+            data.byText(@"右边的架构是VC".tr);
             data.byFont(UIFontWeightRegularSize(16));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据

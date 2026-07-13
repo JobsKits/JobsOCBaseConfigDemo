@@ -38,7 +38,7 @@ Prop_strong()UILabel *resultLab;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byTextCor(HEXCOLOR(0x263342));
-            data.byText(@"身份证校验 Demo");
+            data.byText(@"身份证校验 Demo".tr);
             data.byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(HEXCOLOR(0xF5F7FA))
@@ -103,7 +103,7 @@ Prop_strong()UILabel *resultLab;
         [_contentView mas_makeConstraints:^(MASConstraintMaker *make) {
             @jobs_strongify(self)
             make.left.right.equalTo(self.view).inset(JobsWidth(20));
-            make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(JobsWidth(28));
+            make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(JobsWidth(64));
         }];
         self.inputTF.hidden = NO;
         self.exampleBtn.hidden = NO;

@@ -165,7 +165,7 @@
         .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
         .jobsResetImagePadding(1)
         .jobsResetBtnImage(@"chevron.backward".sys_img)
-        .jobsResetBtnTitle(@"返回")
+        .jobsResetBtnTitle(@"返回".tr)
         .jobsResetBtnTitleCor(JobsBlackColor)
         .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
         .onClickBy(^(UIButton *x){
@@ -214,7 +214,7 @@
              .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
              .jobsResetImagePadding(1)
              .jobsResetBtnImage(@"bell".sys_img)
-             .jobsResetBtnTitle(@"铃")
+             .jobsResetBtnTitle(@"铃".tr)
              .jobsResetBtnTitleCor(JobsBlueColor)
              .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
              .onClickBy(^(UIButton *x){

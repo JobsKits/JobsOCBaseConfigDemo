@@ -69,7 +69,9 @@ Prop_strong()LOTAnimationView *signatureSloganLottieView;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.gk_navigationBar.byHidden(YES);
+    self.byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
+        navigationBar.byHidden(YES);
+    });
     self.signatureSloganLottieView.animationProgress = 0;
     [self.signatureSloganLottieView play];
 }

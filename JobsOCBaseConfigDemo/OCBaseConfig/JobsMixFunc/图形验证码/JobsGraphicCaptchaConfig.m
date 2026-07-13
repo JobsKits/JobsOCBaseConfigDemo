@@ -14,6 +14,7 @@
         _length = 4;
         _caseSensitive = YES;
         _characterUnits = JobsGraphicCaptchaCharacterUnitDefault;
+        _mixedGroupCount = 0;
     };return self;
 }
 
@@ -47,11 +48,28 @@
 }
 
 +(instancetype)mixedConfig{
+    return self.fullMixedConfig;
+}
+
++(instancetype)twoMixedConfig{
     JobsGraphicCaptchaConfig *config = self.defaultConfig;
     config.characterUnits = JobsGraphicCaptchaCharacterUnitNumber |
                             JobsGraphicCaptchaCharacterUnitLetter |
                             JobsGraphicCaptchaCharacterUnitChinese;
     config.caseSensitive = YES;
+    config.mixedGroupCount = 2;
+    return config;
+}
+
++(instancetype)threeMixedConfig{
+    JobsGraphicCaptchaConfig *config = self.twoMixedConfig;
+    config.mixedGroupCount = 3;
+    return config;
+}
+
++(instancetype)fullMixedConfig{
+    JobsGraphicCaptchaConfig *config = self.twoMixedConfig;
+    config.mixedGroupCount = 4;
     return config;
 }
 
@@ -60,6 +78,7 @@
     config.length = self.length;
     config.caseSensitive = self.caseSensitive;
     config.characterUnits = self.characterUnits;
+    config.mixedGroupCount = self.mixedGroupCount;
     config.customCharacters = self.customCharacters.copy;
     return config;
 }

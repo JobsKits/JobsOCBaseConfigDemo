@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_END
                                                                @jobs_strongify(self)
                                                                self->_rightMenuView.resetUI(x);
                                                                x.selected = !x.selected;
-     //                                                          toastBy(@"人工客服");
+     //                                                          toastBy(@"人工客服".tr);
                                                                self.唤起人工客服();
      //                                                          if (self.objBlock) self.objBlock(x);
                                                            }).onLongPressGestureBy(^(id data){

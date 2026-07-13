@@ -64,7 +64,9 @@ Prop_copy()NSString *content;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.gk_navigationBar.hidden = YES;
+    self.byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
+        navigationBar.byHidden(YES);
+    });
 }
 
 -(void)viewDidAppear:(BOOL)animated{

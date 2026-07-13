@@ -9,6 +9,7 @@
 
 @interface JobsCountdownLayerDemoVC ()
 
+Prop_strong()UIView *demoButtonContainer;
 Prop_strong()UIButton *demoButton;
 Prop_strong()UILabel *stateLab;
 Prop_strong()UILabel *detailLab;
@@ -57,20 +58,23 @@ Prop_assign()CGFloat totalSeconds;
     [super viewDidLayoutSubviews];
     CGFloat width = CGRectGetWidth(self.view.bounds);
     CGFloat top = CGRectGetMaxY(self.gk_navigationBar.frame) + JobsWidth(44);
-    self.demoButton.frame = CGRectMake((width - JobsWidth(188)) / 2.0,
-                                       top,
-                                       JobsWidth(188),
-                                       JobsWidth(188));
+    self.demoButtonContainer.frame = CGRectMake((width - JobsWidth(188)) / 2.0,
+                                                top,
+                                                JobsWidth(188),
+                                                JobsWidth(188));
+    self.demoButton.frame = self.demoButtonContainer.bounds;
     self.demoButton.layer.cornerRadius = CGRectGetWidth(self.demoButton.bounds) / 2.0;
+    self.demoButton.layer.masksToBounds = YES;
+    self.demoButtonContainer.layer.shadowPath = [UIBezierPath bezierPathWithOvalInRect:self.demoButtonContainer.bounds].CGPath;
     self.stateLab.frame = CGRectMake(JobsWidth(24),
-                                     CGRectGetMaxY(self.demoButton.frame) + JobsWidth(28),
+                                     CGRectGetMaxY(self.demoButtonContainer.frame) + JobsWidth(28),
                                      width - JobsWidth(48),
                                      JobsWidth(44));
     self.detailLab.frame = CGRectMake(JobsWidth(24),
                                       CGRectGetMaxY(self.stateLab.frame) + JobsWidth(18),
                                       width - JobsWidth(48),
                                       JobsWidth(112));
-    [self.demoButton byFuseOuterRingLayoutIfNeeded];
+    [self.demoButtonContainer byFuseOuterRingLayoutIfNeeded];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -81,7 +85,8 @@ Prop_assign()CGFloat totalSeconds;
 #pragma mark —— UI
 
 - (void)setupSubviews {
-    [self.view addSubview:self.demoButton];
+    [self.view addSubview:self.demoButtonContainer];
+    [self.demoButtonContainer addSubview:self.demoButton];
     [self.view addSubview:self.stateLab];
     [self.view addSubview:self.detailLab];
 }
@@ -111,8 +116,8 @@ Prop_assign()CGFloat totalSeconds;
         .byFadeOutDuration(0.12)
         .byInset(JobsWidth(2))
         .byStartsFromTop(YES);
-    [self.demoButton byFuseOuterRingStart:config];
-    [self.demoButton byFusePressScaleStart:1.05 duration:0.16];
+    [self.demoButtonContainer byFuseOuterRingStart:config];
+    [self.demoButtonContainer byFusePressScaleStart:1.05 duration:0.16];
     @jobs_weakify(self)
     self.countdownTimer = jobsMakeTimer(^(JobsTimer * _Nullable timer) {
         @jobs_strongify(self)
@@ -140,8 +145,8 @@ Prop_assign()CGFloat totalSeconds;
         [_countdownTimer stop];
         _countdownTimer = nil;
     }
-    [self.demoButton byFuseOuterRingStop:animated];
-    [self.demoButton byFusePressScaleStop:animated duration:0.18 damping:0.72 velocity:0.4];
+    [self.demoButtonContainer byFuseOuterRingStop:animated];
+    [self.demoButtonContainer byFusePressScaleStop:animated duration:0.18 damping:0.72 velocity:0.4];
     [self.demoButton setTitle:@"点我开始".tr forState:UIControlStateNormal];
     self.stateLab.byText(@"点击按钮，任意 UIView.layer 都可以挂一圈导火索倒计时。".tr);
 }
@@ -149,9 +154,9 @@ Prop_assign()CGFloat totalSeconds;
 - (void)finishCountdown {
     [_countdownTimer stop];
     _countdownTimer = nil;
-    [self.demoButton byFuseOuterRingStop:YES];
-    [self.demoButton byFusePressScaleStop:YES duration:0.18 damping:0.72 velocity:0.4];
-    [self.demoButton byFuseTapScale];
+    [self.demoButtonContainer byFuseOuterRingStop:YES];
+    [self.demoButtonContainer byFusePressScaleStop:YES duration:0.18 damping:0.72 velocity:0.4];
+    [self.demoButtonContainer byFuseTapScale];
     [self.demoButton setTitle:@"完成".tr forState:UIControlStateNormal];
     self.stateLab.byText(@"倒计时完成，外圈导火索自动收口。".tr);
 }
@@ -164,6 +169,18 @@ Prop_assign()CGFloat totalSeconds;
 
 #pragma mark —— Lazy
 
+- (UIView *)demoButtonContainer {
+    if (!_demoButtonContainer) {
+        _demoButtonContainer = UIView.new;
+        _demoButtonContainer.backgroundColor = UIColor.clearColor;
+        _demoButtonContainer.layer.shadowColor = HEXCOLOR(0x111827).CGColor;
+        _demoButtonContainer.layer.shadowOpacity = 0.18;
+        _demoButtonContainer.layer.shadowRadius = JobsWidth(18);
+        _demoButtonContainer.layer.shadowOffset = CGSizeMake(0, JobsWidth(10));
+        _demoButtonContainer.layer.masksToBounds = NO;
+    };return _demoButtonContainer;
+}
+
 - (UIButton *)demoButton {
     if (!_demoButton) {
         _demoButton = UIButton.jobsInit();
@@ -172,10 +189,7 @@ Prop_assign()CGFloat totalSeconds;
         [_demoButton setTitleColor:JobsWhiteColor forState:UIControlStateNormal];
         [_demoButton setTitle:@"点我开始".tr forState:UIControlStateNormal];
         [_demoButton addTarget:self action:@selector(startOrStopCountdown) forControlEvents:UIControlEventTouchUpInside];
-        _demoButton.layer.shadowColor = HEXCOLOR(0x111827).CGColor;
-        _demoButton.layer.shadowOpacity = 0.18;
-        _demoButton.layer.shadowRadius = JobsWidth(18);
-        _demoButton.layer.shadowOffset = CGSizeMake(0, JobsWidth(10));
+        _demoButton.layer.masksToBounds = YES;
     };return _demoButton;
 }
 

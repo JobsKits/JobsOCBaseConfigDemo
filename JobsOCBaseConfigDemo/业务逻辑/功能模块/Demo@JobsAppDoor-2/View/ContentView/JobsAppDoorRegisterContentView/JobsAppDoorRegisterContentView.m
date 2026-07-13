@@ -356,7 +356,7 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
             arr.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 用户名) {
                 用户名
                     .byLeftViewIMG(userIcon)
-                    .byPlaceholder(@"用户名")
+                    .byPlaceholder(@"用户名".tr)
                     .byIsShowDelBtn(YES)
                     .byIsShowSecurityBtn(NO)
                     .byReturnKeyType(UIReturnKeyDone)
@@ -366,7 +366,7 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
             arr.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 密码) {
                 密码
                     .byLeftViewIMG(lockIcon)
-                    .byPlaceholder(@"密码")
+                    .byPlaceholder(@"密码".tr)
                     .byIsShowDelBtn(YES)
                     .byIsShowSecurityBtn(YES)
                     .byReturnKeyType(UIReturnKeyDone)
@@ -378,7 +378,7 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
             arr.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 确认密码) {
                 确认密码
                     .byLeftViewIMG(lockIcon)
-                    .byPlaceholder(@"确认密码")
+                    .byPlaceholder(@"确认密码".tr)
                     .byIsShowDelBtn(YES)
                     .byIsShowSecurityBtn(YES)
                     .byReturnKeyType(UIReturnKeyDone)
@@ -390,7 +390,7 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
             arr.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 手机验证码) {
                 手机验证码
                     .byLeftViewIMG(verifyIcon)
-                    .byPlaceholder(@"手机验证码")
+                    .byPlaceholder(@"手机验证码".tr)
                     .byIsShowDelBtn(YES)
                     .byIsShowSecurityBtn(NO)
                     .byKeyboardType(UIKeyboardTypeNumberPad)
@@ -402,7 +402,7 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
             arr.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 图形验证码) {
                 图形验证码
                     .byLeftViewIMG(verifyIcon)
-                    .byPlaceholder(@"图形验证码")
+                    .byPlaceholder(@"图形验证码".tr)
                     .byIsShowDelBtn(YES)
                     .byIsShowSecurityBtn(NO)
                     .byFieldEditorOffset(JobsWidth(4))

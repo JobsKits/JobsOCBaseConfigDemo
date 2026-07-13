@@ -58,7 +58,7 @@
          UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50, 200, 280, 40)];
          [self.view addSubview:label];
          label.byFont([UIFont fontWithName:@"iconfont" size:15]);//设置label的字体
-         label.byText(@"在lable上显示  \U0000e658");
+         label.byText(@"在lable上显示  \U0000e658".tr);
 
          // Do any additional setup after loading the view, typically from a nib.
      }

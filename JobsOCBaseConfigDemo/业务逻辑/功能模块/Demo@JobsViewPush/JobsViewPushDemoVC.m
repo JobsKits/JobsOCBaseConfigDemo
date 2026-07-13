@@ -95,7 +95,7 @@ Prop_strong()BaseButton *pushButton;
 -(UILabel *)ratioLabel{
     if (!_ratioLabel) {
         _ratioLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText(@"覆盖比例：65%")
+            label.byText(@"覆盖比例：65%".tr)
                 .byFont(UIFontWeightSemiboldSize(16))
                 .byTextCor(UIColor.labelColor)
                 .addOn(self.view)
@@ -189,7 +189,7 @@ Prop_strong()BaseButton *pushButton;
         _closeButton = BaseButton.jobsInit()
             .jobsResetBtnTitleCor(UIColor.whiteColor)
             .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(16))
-            .jobsResetBtnTitle(@"主动退出")
+            .jobsResetBtnTitle(@"主动退出".tr)
             .jobsResetBtnCornerRadiusValue(JobsWidth(10))
             .jobsResetBtnLayerBorderWidth(JobsWidth(1))
             .jobsResetBtnLayerBorderCor(UIColor.whiteColor)

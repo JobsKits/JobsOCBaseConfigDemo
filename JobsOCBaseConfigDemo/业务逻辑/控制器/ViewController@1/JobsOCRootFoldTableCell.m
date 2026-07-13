@@ -40,7 +40,7 @@ Prop_assign()BOOL pinnedSectionStyle;
 }
 
 +(CGFloat)verticalInset{
-    return JobsWidth(8);
+    return 8;
 }
 
 +(UIFont *)titleFont{
@@ -56,15 +56,15 @@ Prop_assign()BOOL pinnedSectionStyle;
 }
 
 +(CGFloat)headerTitleTop{
-    return JobsWidth(11);
+    return 11;
 }
 
 +(CGFloat)headerTitleGap{
-    return JobsWidth(5);
+    return 5;
 }
 
 +(CGFloat)headerTitleBottom{
-    return JobsWidth(10);
+    return 10;
 }
 
 +(CGFloat)headerSubTitleTop{
@@ -85,35 +85,35 @@ Prop_assign()BOOL pinnedSectionStyle;
                          self.headerTitleGap +
                          self.subTitleHeight +
                          self.headerTitleBottom;
-    return MAX(JobsWidth(64), textHeight);
+    return MAX(64, textHeight);
 }
 
 +(CGFloat)innerTop{
-    return JobsWidth(10);
+    return 10;
 }
 
 +(CGFloat)innerBottom{
-    return JobsWidth(10);
+    return 10;
 }
 
 +(CGFloat)innerRowHeight{
-    return JobsWidth(50);
+    return 50;
 }
 
 +(CGFloat)sectionDescriptionHorizontalInset{
-    return JobsWidth(16);
+    return 16;
 }
 
 +(CGFloat)sectionDescriptionVerticalInset{
-    return JobsWidth(8);
+    return 8;
 }
 
 +(CGFloat)sectionDescriptionEstimatedHeaderWidth{
-    return MAX(JobsWidth(200), JobsMainScreen_WIDTH() - JobsWidth(104));
+    return MAX(200, JobsMainScreen_WIDTH() - 104);
 }
 
 +(CGFloat)sectionDescriptionWidthByHeaderWidth:(CGFloat)headerWidth{
-    return MAX(JobsWidth(120), headerWidth - self.sectionDescriptionHorizontalInset * 2);
+    return MAX(120, headerWidth - self.sectionDescriptionHorizontalInset * 2);
 }
 
 +(CGFloat)sectionDescriptionHeightByText:(NSString *)text{
@@ -243,75 +243,119 @@ Prop_assign()BOOL pinnedSectionStyle;
     };return nil;
 }
 
+-(NSDictionary <NSString *, NSString *>*)demoIconSymbolNamesByClassName{
+    static NSDictionary <NSString *, NSString *>*symbolNames;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        symbolNames = @{
+            @"JobsTabBarCtrlDemoVC": @"rectangle.bottomthird.inset.filled",
+            @"SlideToUnlockDemoVC": @"lock.open",
+            @"JobsNavigationDemoVC": @"arrow.triangle.turn.up.right.diamond",
+            @"JobsTimerDemoListVC": @"stopwatch",
+            @"JobsBluetoothDemoVC": @"antenna.radiowaves.left.and.right",
+            @"JobsAnimatedNumberLabelDemoVC": @"textformat.123",
+            @"JobsClockDemoVC": @"clock",
+            @"LotteryVC": @"circle.grid.cross.fill",
+            @"JobsRedPacketRainDemoVC": @"envelope.open.fill",
+            @"JobsOCTimerMgrDemoVC": @"timer",
+            @"JobsMultiTimerTableDemoVC": @"list.number",
+            @"JobsMarqueeViewDemoVC": @"text.line.first.and.arrowtriangle.forward",
+            @"CalendarVC": @"calendar",
+            @"JobsVerticalMenuMainVC": @"sidebar.left",
+            @"JobsLinkageMenuViewDemoVC": @"rectangle.split.2x1",
+            @"JobsOCRefresherDemoVC": @"arrow.clockwise",
+            @"JobsViewPushDemoVC": @"rectangle.portrait.and.arrow.right",
+            @"JobsSideDrawerDemoVC": @"rectangle.leadinghalf.inset.filled",
+            @"JobsOCKeyboardMgrDemoVC": @"keyboard",
+            @"JobsOCGraphicCaptchaDemoVC": @"checkmark.shield",
+            @"JobsQRCodeDemoVC": @"qrcode",
+            @"JobsCNIDDemoVC": @"person.text.rectangle",
+            @"JobsOCSkeletonViewDemoVC": @"wave.3.right",
+            @"ExcelVC": @"tablecells",
+            @"JXCategoryViewVerticalShowVC": @"rectangle.split.1x2",
+            @"JobsPostVC": @"square.and.pencil",
+            @"PicToStrStoreVC": @"lock.doc",
+            @"HotRefreshVC": @"flame",
+            @"FMDB_VC": @"cylinder",
+            @"Realm_VC": @"externaldrive",
+            @"PointLabTestVC": @"list.bullet",
+            @"WidgetVC": @"apps.iphone",
+            @"LandscapeSwitchVC": @"iphone.landscape",
+            @"LocalNotificationsVC": @"bell.badge",
+            @"CompressStrVC": @"doc.zipper",
+            @"AppIconSwitchingVC": @"app.badge",
+            @"MyTableTableVC": @"hand.tap",
+            @"CtrlClipboardCueVC": @"doc.on.clipboard",
+            @"JobsAppDoorVC": @"door.left.hand.closed",
+            @"JobsAppDoorVC_Style2": @"key",
+            @"Douyin_ZFPlayerVC_1": @"play.rectangle",
+            @"Douyin_ZFPlayerVC_2": @"play.square.stack",
+            @"TransparentRegionVC": @"square.dashed.inset.filled",
+            @"JobsMosaicDemoListVC": @"square.grid.3x3.fill",
+            @"JobsSphereDemoVC": @"globe.asia.australia",
+            @"JobsOCCommentDemoVC": @"bubble.left.and.bubble.right",
+            @"JobsOCSearcherDemoVC": @"magnifyingglass",
+            @"JobsShootingVC": @"photo.on.rectangle",
+            @"JobsOCVideoRecorderVC": @"video",
+            @"JobsLiveCommentDemoVC": @"text.bubble",
+            @"JobsLiveStreamDemoVC": @"dot.radiowaves.left.and.right",
+            @"DynamicViewTestVC": @"photo.stack",
+            @"JobsProgressVC": @"chart.bar",
+            @"JobsCountdownLayerDemoVC": @"flame.fill",
+            @"JobsSysProgressDemoVC": @"gauge",
+            @"JobsProgressDemoVC": @"chart.line.uptrend.xyaxis",
+            @"TestIrregularViewTestVC": @"hexagon",
+            @"JobsIMShowVC": @"message",
+            @"TestLabelVC": @"character.textbox",
+            @"JobsDropDownListVC": @"chevron.down.square",
+            @"JobsOCCountryCodeCtrl": @"flag",
+            @"YTKNetworkStudyVC": @"network",
+            @"CoreTextLearningVC": @"textformat",
+            @"JXCategoryPopupVC": @"rectangle.inset.filled.and.person.filled",
+            @"UITableViewCellEditorVC": @"envelope",
+            @"JobsSettingGestureVC": @"hand.draw",
+            @"CXBVC": @"cpu",
+            @"OCDynamicRegisterVC": @"function",
+            @"JXCategoryViewWithHeaderViewVC": @"rectangle.topthird.inset.filled",
+            @"UILabelWordRotatingVC": @"rotate.right",
+            @"TestBaseLabelVC": @"text.alignleft",
+            @"RandomTestVC": @"dice",
+            @"CustomTableViewCellVC": @"list.bullet.rectangle",
+            @"CustomBtnVC": @"button.programmable",
+            @"GXCardViewDemoVC": @"rectangle.stack",
+            @"JobsWalletVC": @"creditcard",
+            @"JobsScrollViewVC": @"scroll",
+            @"JobsPresentingVC": @"sparkles",
+            @"MasonryVC": @"grid",
+            @"UITBVCellFoldVC": @"rectangle.compress.vertical",
+            @"ProtocolKitVC": @"puzzlepiece.extension"
+        };
+        NSAssert([NSSet setWithArray:symbolNames.allValues].count == symbolNames.count,
+                 @"Demo 入口图标必须保持一项一图，不允许重复");
+    });return symbolNames;
+}
+
 -(NSString *)demoIconSymbolNameByViewModel:(UIViewModel *)viewModel{
-    NSString *text = [NSString stringWithFormat:@"%@ %@ %@",
-                      [self textByViewModel:viewModel] ?: @"",
-                      [self subTextByViewModel:viewModel] ?: @"",
-                      viewModel.cls ? NSStringFromClass(viewModel.cls) : @""].lowercaseString;
-    if ([text containsString:@"timer"] ||
-        [text containsString:@"计时"] ||
-        [text containsString:@"时钟"] ||
-        [text containsString:@"clock"]) return @"timer";
-    if ([text containsString:@"calendar"] ||
-        [text containsString:@"日历"]) return @"calendar";
-    if ([text containsString:@"network"] ||
-        [text containsString:@"请求"] ||
-        [text containsString:@"ytk"]) return @"network";
-    if ([text containsString:@"photo"] ||
-        [text containsString:@"图片"] ||
-        [text containsString:@"相册"] ||
-        [text containsString:@"camera"] ||
-        [text containsString:@"视频"] ||
-        [text containsString:@"录制"]) return @"photo";
-    if ([text containsString:@"excel"] ||
-        [text containsString:@"xlsx"]) return @"tablecells";
-    if ([text containsString:@"fmdb"] ||
-        [text containsString:@"realm"] ||
-        [text containsString:@"数据库"] ||
-        [text containsString:@"解码"]) return @"externaldrive";
-    if ([text containsString:@"web"] ||
-        [text containsString:@"热更新"] ||
-        [text containsString:@"patch"]) return @"globe";
-    if ([text containsString:@"text"] ||
-        [text containsString:@"label"] ||
-        [text containsString:@"文本"] ||
-        [text containsString:@"富文本"]) return @"textformat";
-    if ([text containsString:@"comment"] ||
-        [text containsString:@"message"] ||
-        [text containsString:@"聊天"] ||
-        [text containsString:@"站内信"] ||
-        [text containsString:@"im"]) return @"message";
-    if ([text containsString:@"search"]) return @"magnifyingglass";
-    if ([text containsString:@"setting"]) return @"gearshape";
-    if ([text containsString:@"progress"] ||
-        [text containsString:@"进度"]) return @"chart.bar";
-    if ([text containsString:@"wallet"] ||
-        [text containsString:@"card"] ||
-        [text containsString:@"钱包"]) return @"creditcard";
-    if ([text containsString:@"tabbar"] ||
-        [text containsString:@"menu"] ||
-        [text containsString:@"category"] ||
-        [text containsString:@"导航"] ||
-        [text containsString:@"菜单"]) return @"rectangle.3.group";
-    if ([text containsString:@"lock"] ||
-        [text containsString:@"door"] ||
-        [text containsString:@"登录"] ||
-        [text containsString:@"手势"]) return @"lock";
-    if ([text containsString:@"keyboard"] ||
-        [text containsString:@"键盘"]) return @"keyboard";
-    if ([text containsString:@"widget"]) return @"apps.iphone";
-    if ([text containsString:@"剪切板"]) return @"doc.on.clipboard";
-    if ([text containsString:@"动画"] ||
-        [text containsString:@"dynamic"] ||
-        [text containsString:@"转场"]) return @"sparkles";
-    return @"square.grid.2x2";
+    NSString *className = viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
+    if ([className isEqualToString:@"JobsGraphicCaptchaDemoVC"]) {
+        className = @"JobsOCGraphicCaptchaDemoVC";
+    }
+    NSString *symbolName = [self demoIconSymbolNamesByClassName][className];
+    NSAssert(symbolName.length,
+             @"Demo 入口 %@ 必须显式配置贴合内容且不重复的图标",
+             className.length ? className : [self textByViewModel:viewModel]);
+    return symbolName ?: @"questionmark.app";
 }
 
 -(UIImage *)demoIconImageByViewModel:(UIViewModel *)viewModel{
+    if (viewModel.image) {
+        return [viewModel.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    }
     NSString *symbolName = [self demoIconSymbolNameByViewModel:viewModel];
     UIImage *image = symbolName.sys_img;
+    NSAssert(image, @"无效的系统图标：%@", symbolName);
     if (image) return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    return @"小狮子".img;
+    return [@"questionmark.app".sys_img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
 -(UIImage *)redAccessoryImageByImage:(UIImage *)image
@@ -336,7 +380,7 @@ Prop_assign()BOOL pinnedSectionStyle;
     @jobs_weakify(self)
     UIButton *button = UIButton.jobsInit()
         .jobsResetBtnImage(accessoryImage)
-        .byImageEdgeInsets(UIEdgeInsetsMake(JobsWidth(8), JobsWidth(8), JobsWidth(8), JobsWidth(8)))
+            .byImageEdgeInsets(UIEdgeInsetsMake(8, 8, 8, 8))
         .onClickBy(^(UIButton *x) {
             @jobs_strongify(self)
             self.pinAccessoryIndex = NSNotFound;
@@ -344,7 +388,7 @@ Prop_assign()BOOL pinnedSectionStyle;
         })
         .byTintColor(tintColor)
         .byBgColor(JobsClearColor)
-        .bySize(CGSizeMake(JobsWidth(40), JobsWidth(40)));
+            .bySize(CGSizeMake(40, 40));
     [button setImage:accessoryImage
             forState:UIControlStateNormal];
     [button setImage:accessoryImage
@@ -485,7 +529,7 @@ Prop_assign()BOOL pinnedSectionStyle;
     void (^changes)(void) = ^{
         self.detailClipView.alpha = expanded ? 1 : 0;
         self.chevronView.transform = expanded ? CGAffineTransformMakeRotation(M_PI_2) : CGAffineTransformIdentity;
-        [self.contentView layoutIfNeeded];
+        if (self.window) [self.contentView layoutIfNeeded];
     };
     void (^completion)(BOOL) = ^(BOOL finished) {
         if (!expanded) self.detailClipView.hidden = YES;
@@ -548,6 +592,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    BOOL isLastItem = indexPath.row == self.items.count - 1;
+    cell.bySeparatorInset(isLastItem
+        ? UIEdgeInsetsMake(0, 16, 0, CGRectGetWidth(tableView.bounds))
+        : UIEdgeInsetsMake(0, 16, 0, 16));
     cell.backgroundColor = JobsClearColor;
     cell.contentView.backgroundColor = JobsClearColor;
     return cell;
@@ -563,14 +611,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIView *)cardView{
     if (!_cardView) {
         _cardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.byCornerRadius(JobsWidth(14))
+            view.byCornerRadius(14)
                 .byClipsToBounds(YES)
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.contentView).offset(JobsOCRootFoldTableCell.verticalInset);
                     make.bottom.equalTo(self.contentView).offset(-JobsOCRootFoldTableCell.verticalInset);
-                    make.left.equalTo(self.contentView).offset(JobsWidth(10));
-                    make.right.equalTo(self.contentView).offset(-JobsWidth(10));
+                    make.left.equalTo(self.contentView).offset(10);
+                    make.right.equalTo(self.contentView).offset(-10);
                 });
         });
     };return _cardView;
@@ -582,7 +630,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             view.addOn(self.cardView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.left.right.equalTo(self.cardView);
-                    make.height.mas_equalTo(JobsOCRootFoldTableCell.headerHeight);
+                    make.height.mas_equalTo(JobsOCRootFoldTableCell.headerHeight).priority(999);
                 });
         });
     };return _headerView;
@@ -594,9 +642,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             imageView.byContentMode(UIViewContentModeScaleAspectFit)
                 .addOn(self.headerView)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.right.equalTo(self.headerView).offset(-JobsWidth(16));
+                    make.right.equalTo(self.headerView).offset(-16);
                     make.centerY.equalTo(self.headerView);
-                    make.size.mas_equalTo(CGSizeMake(JobsWidth(16), JobsWidth(16)));
+                    make.size.mas_equalTo(CGSizeMake(16, 16));
                 });
         });
     };return _chevronView;
@@ -612,8 +660,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byMinimumScaleFactor(1)
                 .addOn(self.headerView)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.left.equalTo(self.headerView).offset(JobsWidth(16));
-                    make.right.lessThanOrEqualTo(self.chevronView.mas_left).offset(-JobsWidth(10));
+                    make.left.equalTo(self.headerView).offset(16);
+                    make.right.lessThanOrEqualTo(self.chevronView.mas_left).offset(-10);
                     make.top.equalTo(self.headerView).offset(JobsOCRootFoldTableCell.headerTitleTop);
                     make.height.mas_equalTo(JobsOCRootFoldTableCell.titleHeight);
                 });
@@ -632,7 +680,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .addOn(self.headerView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(self.titleLab);
-                    make.right.lessThanOrEqualTo(self.chevronView.mas_left).offset(-JobsWidth(10));
+                    make.right.lessThanOrEqualTo(self.chevronView.mas_left).offset(-10);
                     make.top.equalTo(self.headerView).offset(JobsOCRootFoldTableCell.headerSubTitleTop);
                     make.height.mas_equalTo(JobsOCRootFoldTableCell.subTitleHeight);
                 });
@@ -672,7 +720,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byEstimatedRowHeight(0)
                 .byEstimatedSectionHeaderHeight(0)
                 .byEstimatedSectionFooterHeight(0)
-                .bySeparatorInset(UIEdgeInsetsMake(0, JobsWidth(16), 0, JobsWidth(16)))
+                .bySeparatorInset(UIEdgeInsetsMake(0, 16, 0, 16))
                 .byScrollEnabled(NO)
                 .byBounces(NO)
                 .byBgColor(JobsClearColor)
@@ -680,8 +728,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.detailClipView).offset(JobsOCRootFoldTableCell.innerTop);
                     make.left.right.equalTo(self.detailClipView);
-                    _innerTableHeightConstraint = make.height.mas_equalTo(0);
-                    make.bottom.lessThanOrEqualTo(self.detailClipView).offset(-JobsOCRootFoldTableCell.innerBottom);
+                    _innerTableHeightConstraint = make.height.mas_equalTo(0).priority(999);
+                    make.bottom.lessThanOrEqualTo(self.detailClipView).offset(-JobsOCRootFoldTableCell.innerBottom).priority(999);
                 });
             [tableView addGestureRecognizer:self.innerCellLongPressGesture];
         });

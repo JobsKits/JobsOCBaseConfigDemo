@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0017BE25F395D5E2E2E4C43D /* JobsOCVideoRecorderCIFilterProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B5E6812426E30CCB921E6B /* JobsOCVideoRecorderCIFilterProcessor.m */; };
+		0237B7DB857320C2949B6618 /* JobsBluetoothFeatureDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E5DC955E3F2DEC67B83802 /* JobsBluetoothFeatureDemoVC.m */; };
 		0366C00345B0BAEDA7CAB78E /* NSString+JobsOCOpen.m in Sources */ = {isa = PBXBuildFile; fileRef = 8731F3C633D32A94706BD1ED /* NSString+JobsOCOpen.m */; };
+		03C47A3A5DE1464AF10731B7 /* JobsOCSkeletonUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B88A3B61F041C865726BDB6 /* JobsOCSkeletonUserCell.m */; };
 		03ECC3BFE21C4290E1C11491 /* JobsOCTimerMgrDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C097A631CE7BA2A6963E657 /* JobsOCTimerMgrDemoVC.m */; };
 		0414A9B82ED063EC009E5B42 /* RYCuteView.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C84F32E167B6400B56985 /* RYCuteView.m */; };
 		041AE5A62EDA8D3B00ED03A3 /* SlideToUnlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 041AE5A52EDA8D3B00ED03A3 /* SlideToUnlockView.m */; };
@@ -45,6 +47,7 @@
 		05B63D6C909944B09080A1E0 /* BRPickerStyle+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7346119528B43AF74B9963 /* BRPickerStyle+DSL.m */; };
 		05D872DA91B49E871D0407F0 /* CATransformLayer+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F319DE2FE2856D00954A3A /* CATransformLayer+DSL.m */; };
 		078ECA536C1A516B53D7F74A /* NSString+JobsLanMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B794FA9F9021BA46AE9795C /* NSString+JobsLanMgr.m */; };
+		0A5E12222AEBD227C0AFF763 /* JobsBluetoothDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 706A266F65BD183A7A85A1C7 /* JobsBluetoothDemoVC.m */; };
 		0A6388CB57F11DDAF08F2CC9 /* fil in Resources */ = {isa = PBXBuildFile; fileRef = C55C885D2E167B6700B56985 /* fil */; };
 		0AE2E81C804D2D6D86298B15 /* JobsProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FCCB2DD063EFADF18260D4 /* JobsProgressBar.m */; };
 		0C9B4D12958FBB17A4C05C5A /* UIView+Gesture.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F31A3D2FE2856D00954A3A /* UIView+Gesture.m */; };
@@ -60,6 +63,7 @@
 		17D98E9B9503CADC8665AF8E /* NSURL+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 62385C17E7FD7BA4747585B6 /* NSURL+Extra.m */; };
 		17FA3AD1FAFED3083D33F755 /* JobsMosaicBrushImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA5FF9D7FB4F8A7DD8B8523 /* JobsMosaicBrushImageView.m */; };
 		1A151B3F7C209C10E3D5AEB8 /* JobsOCOpenConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6025EB13DE302C7D3F70B8 /* JobsOCOpenConfiguration.m */; };
+		1A796456F262B83F90EEC26E /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B92E6216071FFC61BFDE03F8 /* CoreBluetooth.framework */; };
 		1D73035ED593080EB42B638B /* JobsCategoryTitleWriting_PaiGu.json in Resources */ = {isa = PBXBuildFile; fileRef = 852B6DE720BB745F1C09E69A /* JobsCategoryTitleWriting_PaiGu.json */; };
 		1D8DD02313BA0D0B6DD6648D /* JobsOCRefresherDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2F24680C97222D24F0D93B /* JobsOCRefresherDemoVC.m */; };
 		1E0D0E9245FF942E6420DE8C /* JobsOCSplashPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9065D85332631A489C4A55 /* JobsOCSplashPreferences.m */; };
@@ -69,12 +73,15 @@
 		20EA5ABB23E7C55CB36E7766 /* zh-Hans in Resources */ = {isa = PBXBuildFile; fileRef = C55C88562E167B6700B56985 /* zh-Hans */; };
 		242FE3E95DE1FE2C2B2F713B /* HXPhotoManager+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F3196C2FE2856D00954A3A /* HXPhotoManager+DSL.m */; };
 		25964E5E7BBC97A7768A98CE /* UIImageView+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F31A092FE2856D00954A3A /* UIImageView+DSL.m */; };
+		25A5AFB32A12C213A46C067F /* JobsOCSkeletonConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C967108A03EE96B22613716 /* JobsOCSkeletonConfig.m */; };
 		25C1110C251421DE9144B024 /* CAGradientLayer+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F319C02FE2856D00954A3A /* CAGradientLayer+DSL.m */; };
 		26F89876CB4F82B5977698BE /* ZFAVPlayerManager+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F319932FE2856D00954A3A /* ZFAVPlayerManager+DSL.m */; };
 		273A9DE27DB08264C5F5A26F /* JobsOCKeyboardCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA3B3BA6FF489DD9445D297 /* JobsOCKeyboardCalculator.m */; };
 		27F7BEC960332ED637B6B33D /* CAAnimation+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F319B12FE2856D00954A3A /* CAAnimation+DSL.m */; };
 		2919E9E181FF3944B83FC595 /* NSString+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFE93C6EDABFFC1619D9794 /* NSString+URL.m */; };
+		29AE47BF42925F60F3569B18 /* JobsSideDrawerDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A7D120122026071200000001 /* JobsSideDrawerDemoVC.m */; };
 		2B72B34D093BBD6CA474A398 /* UIBezierPath+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7D35664038611CE0E320F1 /* UIBezierPath+Extra.m */; };
+		2DAC836CC46A7642F7806A0E /* UIImageView+JobsOCSkeletonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB71F3DEDB69D372F40C177 /* UIImageView+JobsOCSkeletonView.m */; };
 		2E6F347E23B95C6BDCACBE2A /* JobsOCSearcherConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ECF86C53E403484260F7A5 /* JobsOCSearcherConfig.m */; };
 		2E7E975719871097A170D9AD /* JobsGestureLockStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F063BFBDA321474D58C26F4 /* JobsGestureLockStorage.m */; };
 		2F249B3FFA10B01C96D74D56 /* CustomBtnImageTrailingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B5147263F6717FB2DA42AF88 /* CustomBtnImageTrailingVC.m */; };
@@ -119,6 +126,7 @@
 		56C01256765552D1408E6CC4 /* JobsOCSplashPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A7050FBF2F1E6D948386E15C /* JobsOCSplashPresenter.m */; };
 		58994883F26FA65449A8D9FB /* YTKBatchRequest+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F3198C2FE2856D00954A3A /* YTKBatchRequest+DSL.m */; };
 		5922DF345E7ABDD0EA5E7B75 /* JobsCNIDDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB5B6EABB75158BD7F318A5 /* JobsCNIDDemoVC.m */; };
+		5A9988C8C737F412FA2C1B59 /* JobsBluetoothTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = C28F773046C5CD36F163FB51 /* JobsBluetoothTypes.m */; };
 		5AC5C55462748AFD9AE995AE /* JobsCategoryTitleWriting_ZhengRou.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C9BE40309D660E057ADC6DE /* JobsCategoryTitleWriting_ZhengRou.json */; };
 		5BC281BCDF9A891E180F2D43 /* JobsOCVideoRecorderCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1739724C1C5B46CC5AC4D1DF /* JobsOCVideoRecorderCaptureManager.m */; };
 		5E7F4786BBCE77FDA947473C /* JobsOCSearcherBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C24C273913808C99FC4A78A /* JobsOCSearcherBar.m */; };
@@ -151,6 +159,7 @@
 		76A37A006127DF28F5A0027B /* JobsOCPatchMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BBC560ABC5F24098F00C231 /* JobsOCPatchMgr.m */; };
 		772A00CE6E26096DC62A88B7 /* JobsRedPacketRainConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E556290BF6573CDC1A8B0631 /* JobsRedPacketRainConfig.m */; };
 		77487467B579AED8169310C1 /* CATiledLayer+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F319DB2FE2856D00954A3A /* CATiledLayer+DSL.m */; };
+		78153383329843ABBB2EB8E7 /* JobsOCSkeletonViewDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9923EA9FAD653A7E3415113E /* JobsOCSkeletonViewDemoVC.m */; };
 		7A6D645A46A6065E676B37DA /* CADisplayLink+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F319E52FE2856D00954A3A /* CADisplayLink+DSL.m */; };
 		7B1526DBAFFA19457C1DC329 /* JobsWalletCardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69373485697A0BCB73BE7D60 /* JobsWalletCardCollectionViewCell.m */; };
 		7BE3C072A4246E546D8D65F8 /* UIButton+SDWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F3197E2FE2856D00954A3A /* UIButton+SDWebImage.m */; };
@@ -160,10 +169,12 @@
 		803356F3957482E3C14AD978 /* NSString+CALayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 984177E317C5E6080F8F7ED6 /* NSString+CALayer.m */; };
 		80D71B4754871CB90BCB85CE /* NSObject+URLMgr_5.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBECB0567A52D8EF61114E1 /* NSObject+URLMgr_5.m */; };
 		813FF2910A516890223E78AA /* UIBezierPath+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F319F52FE2856D00954A3A /* UIBezierPath+DSL.m */; };
+		82EDE880C9D27C76B7299F75 /* JobsBluetoothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C743E436E194F5648ECFFF4E /* JobsBluetoothManager.m */; };
 		84CDC298737F937861AF617D /* LanMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1EBFDA987690BE25409EAF /* LanMgr.m */; };
 		86C5FBF959AAC384F406D869 /* UIColor+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A763D611570A40F45633DCF /* UIColor+Extra.m */; };
 		86DDA4A4B51360ADA7297939 /* UIButtonConfiguration+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F319FD2FE2856D00954A3A /* UIButtonConfiguration+DSL.m */; };
 		878A9E27157235E8D6DD4494 /* JobsOCCountryCodeCtrlDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4A458EC6440C81EBBAEBB1 /* JobsOCCountryCodeCtrlDemoVC.m */; };
+		88210D13668A64DCD5239477 /* UIView+JobsOCSkeletonView.m in Sources */ = {isa = PBXBuildFile; fileRef = D819E5F49AA78D68C0D83AB6 /* UIView+JobsOCSkeletonView.m */; };
 		8910A5FC746FE8E71285D488 /* JobsWalletCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 354BC09A814A8E18BCDC2350 /* JobsWalletCardModel.m */; };
 		8945D1FD7E64806752CDE99A /* JobsFuseOuterRingConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCE063A86CF4205078CDF25 /* JobsFuseOuterRingConfig.m */; };
 		89D1679C4B400E1B23801567 /* JobsOCRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8515E1669E8D18B3F743EEE0 /* JobsOCRefreshComponent.m */; };
@@ -181,6 +192,7 @@
 		91F806189F5E752CECF7BFB8 /* CATextLayer+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F319D82FE2856D00954A3A /* CATextLayer+DSL.m */; };
 		9345D24DBD3BB3F402CB7B9D /* NSObject+MyAppTools.m in Sources */ = {isa = PBXBuildFile; fileRef = A022DD27E54EFFF8754CD6A1 /* NSObject+MyAppTools.m */; };
 		93C68580F071E5794889C429 /* JobsStringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA275FA6CB87F5B7B68A65C /* JobsStringUtils.m */; };
+		950E864D4A22F70FCBEC2F7B /* JobsOCSkeletonUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E7765EDBF860003FB13E08 /* JobsOCSkeletonUser.m */; };
 		95E7A37DB66B157C3E0A053C /* UIView+JobsViewPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 7888E59F1A1D92F673E54010 /* UIView+JobsViewPush.m */; };
 		9729896FC97B5B527BF4DD3E /* UITapGestureRecognizer+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F31A352FE2856D00954A3A /* UITapGestureRecognizer+DSL.m */; };
 		9746A024965A09C5A65F3A2F /* UIImage+JobsMosaicDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 265214F188FBF7F4FD6DEB5D /* UIImage+JobsMosaicDemo.m */; };
@@ -192,12 +204,16 @@
 		A1D9C6FB6A0AC420C137D9E7 /* NSObject+URLMgr_6.m in Sources */ = {isa = PBXBuildFile; fileRef = FD7003AD4ED41FF6A111C44B /* NSObject+URLMgr_6.m */; };
 		A24E202964A25433B7E84F0F /* JobsSysProgressDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5EFA133958B29FB6F948BC /* JobsSysProgressDemoVC.m */; };
 		A27C7C8765BEE9D9E7D00C83 /* JobsOCSplashLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 47CABFB05CD315D3E25982D2 /* JobsOCSplashLocalization.m */; };
+		A30000010712000000000001 /* UIViewController+GKNavigationBarDSL.m in Sources */ = {isa = PBXBuildFile; fileRef = A10000020712000000000002 /* UIViewController+GKNavigationBarDSL.m */; };
 		A43EF3F94370A87D15E71BAA /* NSObject+URLMgr_2.m in Sources */ = {isa = PBXBuildFile; fileRef = DC3A020B45DC5964C3E68E6A /* NSObject+URLMgr_2.m */; };
 		A4804BC00AB4A0E94E5EA591 /* JobsTimerDemoListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 545975CDE07C35A673BF8C07 /* JobsTimerDemoListVC.m */; };
 		A5AF3D3EE766086899D889BB /* NSString+Sys.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0D7801143E21DA7B3CD96F /* NSString+Sys.m */; };
 		A676B5409351EBE5E0593ED2 /* JobsGestureLockConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CF687F38C1F1DF8D97E25B /* JobsGestureLockConfiguration.m */; };
 		A77D4B08206CAEF09765615C /* UIImageView+SDWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F319812FE2856D00954A3A /* UIImageView+SDWebImage.m */; };
+		A7D120012026071200000001 /* JobsSideDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7D120022026071200000001 /* JobsSideDrawer.m */; };
+		A7D120112026071200000001 /* JobsSideDrawerDemoVC.m in Resources */ = {isa = PBXBuildFile; fileRef = A7D120122026071200000001 /* JobsSideDrawerDemoVC.m */; };
 		A83F3790C99D04005ED2E504 /* JobsOCOpener.m in Sources */ = {isa = PBXBuildFile; fileRef = D22214AB18B7849F570DEC7D /* JobsOCOpener.m */; };
+		AA57180A2789BD0FFB802D51 /* JobsAnimatedNumberLabelDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C752EE5DB7296BC1D04EEA33 /* JobsAnimatedNumberLabelDemoVC.m */; };
 		AA7CB26B55CF3ABE4A72E0D2 /* NSArray+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 16C0F9C4E7C92F71F53A01F7 /* NSArray+Extra.m */; };
 		ABC519FBC30F3881DDBCBC98 /* ZFPlayerExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = E85F09997506D05E7E4D6400 /* ZFPlayerExtra.m */; };
 		ACF5444F54E1F975096DE0AF /* UIGestureRecognizer+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F31A052FE2856D00954A3A /* UIGestureRecognizer+DSL.m */; };
@@ -228,6 +244,7 @@
 		BEDF7912FC66CB3686FE3E19 /* UISwipeGestureRecognizer+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F31A2D2FE2856D00954A3A /* UISwipeGestureRecognizer+DSL.m */; };
 		BF43D12E48694C5ED0CEBE48 /* JobsOCSplashMediaCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 05295993B874392BCCFB0920 /* JobsOCSplashMediaCache.m */; };
 		C048AE8341DE03B0A114B68F /* JobsOCCommentConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC4ECC5D070B440EC631635 /* JobsOCCommentConfig.m */; };
+		C2412601793802E17CDF255E /* JobsBluetoothPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BF5715AF63DF6A0A99CAE6 /* JobsBluetoothPeripheral.m */; };
 		C2AD0F169F4ACCC13955431A /* UIActivityIndicatorView+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F319E92FE2856D00954A3A /* UIActivityIndicatorView+DSL.m */; };
 		C3D017B295D2D482151E9F38 /* JobsOCSearcherView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D7D8B7DCBD9F9CD589358E7 /* JobsOCSearcherView.m */; };
 		C46FFDD0AFEC380C6E76DC9D /* JobsResponseModel+YTKNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA8607A94CDA8767EC62ECD /* JobsResponseModel+YTKNetwork.m */; };
@@ -1479,6 +1496,7 @@
 		C7E9BE3929132AEC88A59C53 /* JobsMosaicBrushDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A57C9BA31BFAD9FA05DD6CC7 /* JobsMosaicBrushDemoVC.m */; };
 		C8D4AB6D9515B43606AA0619 /* UISearchBar+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = EB52BDE576DA08CC17F80CF7 /* UISearchBar+DSL.m */; };
 		CA2EA5AF4F37255FBA702CB2 /* ZFDouYinControlView+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A99018792D2F2858E5D61E /* ZFDouYinControlView+DSL.m */; };
+		CA4F53D98F13F3DEAA62985F /* JobsBluetoothCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D7B6E1D7D9BB350DD87EEF /* JobsBluetoothCommand.m */; };
 		CA8DDAD236E79A3DBE723623 /* JobsOCCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D2ADE9FF4CEC718BD888F7 /* JobsOCCommentModel.m */; };
 		CC8211892FD956D5013F5966 /* JobsOCKeyboardConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CA9C00F589DB5FAF3B135F /* JobsOCKeyboardConfig.m */; };
 		CD1EC8CCBDA8C44C3EC92B56 /* CABasicAnimation+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F319B42FE2856D00954A3A /* CABasicAnimation+DSL.m */; };
@@ -1502,6 +1520,7 @@
 		DFDA35BE2C4A16B11AF50A99 /* JobsOCDemoListSettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 79845BA925ED664F8B3A49DD /* JobsOCDemoListSettingsVC.m */; };
 		E21DB9BF538C334E5270FDC7 /* CALayer+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F319C62FE2856D00954A3A /* CALayer+DSL.m */; };
 		E3667B1D5704A4EF585800C6 /* YTKBaseRequest+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F319892FE2856D00954A3A /* YTKBaseRequest+DSL.m */; };
+		E3DFEFFD73B879CA3D529F5A /* JobsBluetoothProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 5206E19D5351CACA00A7F0E0 /* JobsBluetoothProfile.m */; };
 		E3FC75DB9B8540456D7880C1 /* FSCalendar+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F3195E2FE2856D00954A3A /* FSCalendar+DSL.m */; };
 		E5DBFE72648500075C24F103 /* UITextView+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F31A392FE2856D00954A3A /* UITextView+DSL.m */; };
 		E782AD114F9E6A0A4C6CFD29 /* en in Resources */ = {isa = PBXBuildFile; fileRef = C55C885A2E167B6700B56985 /* en */; };
@@ -1521,6 +1540,7 @@
 		F3A82607DB1EE3DE7AA15F14 /* UIView+JobsNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C1E853954A4791FB8F3150 /* UIView+JobsNavBar.m */; };
 		F3DBEB44E0734FF9E3D30D3F /* UIBackgroundConfiguration+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F319ED2FE2856D00954A3A /* UIBackgroundConfiguration+DSL.m */; };
 		F528308ED02E1D04DC76B67A /* JobsTabBarCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C5D3E4E4C850E793B7583F5 /* JobsTabBarCtrl.m */; };
+		F58F61E6DBA7DE43B2DDC40C /* JobsBluetoothMockTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 940022EF7EA3D80740996BE3 /* JobsBluetoothMockTransport.m */; };
 		F6663F3CF9316B23514E14B5 /* UIView+AppTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB549FDCE0C0139CB67A676 /* UIView+AppTool.m */; };
 		F89A435648FE35057BBF82E3 /* JobsOCProtocols-ProtocolGraph.png in Resources */ = {isa = PBXBuildFile; fileRef = 140976F45407F2476419ACD1 /* JobsOCProtocols-ProtocolGraph.png */; };
 		F99C33B5039E567C6B50E08E /* JobsOCCommentModeDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 71844FCDBF5ABB10D315C495 /* JobsOCCommentModeDetailVC.m */; };
@@ -1554,7 +1574,7 @@
 		02FA09DD1FD6B47EA9FFCFD1 /* JobsMarqueeViewDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsMarqueeViewDemoVC.m; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsTimer/ViewController/JobsMarqueeViewDemoVC/JobsMarqueeViewDemoVC.m"; sourceTree = SOURCE_ROOT; };
 		030978B81DD2D3D81205F9E3 /* JobsNavBarHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsNavBarHeader.h; sourceTree = "<group>"; };
 		0333FC1AAD651473B47696CC /* JobsOCVideoRecorderResult.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCVideoRecorderResult.h; sourceTree = "<group>"; };
-		03C1E853954A4791FB8F3150 /* UIView+JobsNavBar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+JobsNavBar.m"; path = "JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIView/UIView+Category/UIView+JobsNavBar/UIView+JobsNavBar.m"; sourceTree = "<group>"; };
+		03C1E853954A4791FB8F3150 /* UIView+JobsNavBar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+JobsNavBar.m"; path = "UIView+JobsNavBar.m"; sourceTree = "<group>"; };
 		04059EE32D34BC79344794E7 /* NSObject+JobsOCOpen.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+JobsOCOpen.h"; sourceTree = "<group>"; };
 		041AE5A42EDA8D3B00ED03A3 /* SlideToUnlockView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlideToUnlockView.h; sourceTree = "<group>"; };
 		041AE5A52EDA8D3B00ED03A3 /* SlideToUnlockView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlideToUnlockView.m; sourceTree = "<group>"; };
@@ -1589,6 +1609,7 @@
 		04A245C82ECDBC19009649E8 /* BRTextPickerView+Extra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BRTextPickerView+Extra.m"; sourceTree = "<group>"; };
 		04B460C12ED6A9A7006DAC75 /* UIControl+DSL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIControl+DSL.h"; sourceTree = "<group>"; };
 		04B460C22ED6A9A7006DAC75 /* UIControl+DSL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIControl+DSL.m"; sourceTree = "<group>"; };
+		04BF5715AF63DF6A0A99CAE6 /* JobsBluetoothPeripheral.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsBluetoothPeripheral.m; sourceTree = "<group>"; };
 		04C442132EB86BFD008E0F09 /* Terms of Use.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Terms of Use.pdf"; sourceTree = "<group>"; };
 		04C442962EB89493008E0F09 /* UIView+DSL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+DSL.h"; sourceTree = "<group>"; };
 		04C442972EB89493008E0F09 /* UIView+DSL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+DSL.m"; sourceTree = "<group>"; };
@@ -1631,6 +1652,7 @@
 		0991A59FEF8B6F4ABD1B2858 /* JobsMenuViewHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsMenuViewHeader.h; sourceTree = "<group>"; };
 		099870CC8EAA0951867A73C2 /* JobsLiveStreamDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsLiveStreamDemoVC.h; path = JobsLiveStreamDemoVC.h; sourceTree = "<group>"; };
 		09BA9E2BBB56AF5794B8A3AC /* 放大镜.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "放大镜.png"; sourceTree = "<group>"; };
+		09D7B6E1D7D9BB350DD87EEF /* JobsBluetoothCommand.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsBluetoothCommand.m; sourceTree = "<group>"; };
 		0A62CB28FBC34AB67D46C311 /* UIWindow+JobsAppTools.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIWindow+JobsAppTools.m"; path = "UIWindow+JobsAppTools.m"; sourceTree = "<group>"; };
 		0B559832E0C44B6DE07A0F2C /* JobsMarqueeViewCore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsMarqueeViewCore.m; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsTimer/JobsMarqueeView/Core/JobsMarqueeView/JobsMarqueeViewCore.m"; sourceTree = SOURCE_ROOT; };
 		0B794FA9F9021BA46AE9795C /* NSString+JobsLanMgr.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSString+JobsLanMgr.m"; sourceTree = "<group>"; };
@@ -1638,16 +1660,19 @@
 		0C0D7801143E21DA7B3CD96F /* NSString+Sys.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSString+Sys.m"; sourceTree = "<group>"; };
 		0C2E119DABA777128D1B3682 /* UISlider+DSL.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UISlider+DSL.h"; sourceTree = "<group>"; };
 		0D0F735BC35BB7D320296E7C /* JobsOCOpenWebViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCOpenWebViewController.h; sourceTree = "<group>"; };
+		0D2531786B86E8F4832D0831 /* JobsOCSkeletonUser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCSkeletonUser.h; sourceTree = "<group>"; };
 		0DC482A44A6ECA49B88C7B90 /* JobsOCCommentConfig.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCCommentConfig.m; sourceTree = "<group>"; };
 		0E433F0FF7CDAB86B52D52D9 /* NSString+URL.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSString+URL.h"; sourceTree = "<group>"; };
 		0E4AD3C4324441CCDB98BAB5 /* JobsSphereDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsSphereDemoVC.h; path = JobsSphereDemoVC.h; sourceTree = "<group>"; };
-		0E6D6EF1EC4F6E28D56CF952 /* UIView+JobsNavBar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+JobsNavBar.h"; path = "JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIView/UIView+Category/UIView+JobsNavBar/UIView+JobsNavBar.h"; sourceTree = "<group>"; };
+		0E6D6EF1EC4F6E28D56CF952 /* UIView+JobsNavBar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+JobsNavBar.h"; path = "UIView+JobsNavBar.h"; sourceTree = "<group>"; };
 		0ED62DA879069E8FF673A201 /* JobsOCSplashVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCSplashVC.m; sourceTree = "<group>"; };
 		0F85B0CA046FA7187E022A44 /* JobsFiltrationViewHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsFiltrationViewHeader.h; sourceTree = "<group>"; };
+		0FC05475670A384CAF445A42 /* JobsBluetoothFeatureDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsBluetoothFeatureDemoVC.h; sourceTree = "<group>"; };
 		10355003499DA34256F3BA7C /* JobsCustomViewHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsCustomViewHeader.h; sourceTree = "<group>"; };
 		10ACE6736B941ED1F95DF245 /* JobsOCSplashLocalization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCSplashLocalization.h; sourceTree = "<group>"; };
+		10E5DC955E3F2DEC67B83802 /* JobsBluetoothFeatureDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsBluetoothFeatureDemoVC.m; sourceTree = "<group>"; };
 		11180352C36077E241FEBEEB /* XYColorOC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XYColorOC.h; sourceTree = "<group>"; };
-		11662A9BD29CFFEDA1E88218 /* JobsQRCodeDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsQRCodeDemoVC.h; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@二维码和条形码/JobsQRCodeDemoVC/JobsQRCodeDemoVC.h"; sourceTree = "<group>"; };
+		11662A9BD29CFFEDA1E88218 /* JobsQRCodeDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsQRCodeDemoVC.h; path = JobsQRCodeDemoVC.h; sourceTree = "<group>"; };
 		11CCE05B143DFF8B61ABCA7F /* CustomBtnImageTrailingVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CustomBtnImageTrailingVC.h; sourceTree = "<group>"; };
 		11D4C580037E9B015F2E5392 /* NSString+CAAnimation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSString+CAAnimation.m"; sourceTree = "<group>"; };
 		1207BDA130FECD92EAC108E4 /* JobsMosaicBaseDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsMosaicBaseDemoVC.h; path = JobsMosaicBaseDemoVC.h; sourceTree = "<group>"; };
@@ -1657,14 +1682,16 @@
 		12FBB42CAD1844838BEDCD26 /* TestLabelDetailVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = TestLabelDetailVC.m; sourceTree = "<group>"; };
 		138ADC463D7A4B2CA4668BD4 /* JobsOCComment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCComment.h; sourceTree = "<group>"; };
 		140976F45407F2476419ACD1 /* JobsOCProtocols-ProtocolGraph.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "JobsOCProtocols-ProtocolGraph.png"; sourceTree = "<group>"; };
-		1481FF34A929F98B0AF99CC8 /* JobsOCPatchModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsOCPatchModel.h; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCPatch/JobsOCPatchModel.h; sourceTree = "<group>"; };
-		16C0F9C4E7C92F71F53A01F7 /* NSArray+Extra.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+Extra.m"; path = "JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSArray/NSArray+Category/NSArray+Extra/NSArray+Extra.m"; sourceTree = "<group>"; };
+		1481FF34A929F98B0AF99CC8 /* JobsOCPatchModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsOCPatchModel.h; path = JobsOCPatchModel.h; sourceTree = "<group>"; };
+		14BBA9850F8BAFFF0916130C /* UIView+JobsOCSkeletonView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIView+JobsOCSkeletonView.h"; sourceTree = "<group>"; };
+		16C0F9C4E7C92F71F53A01F7 /* NSArray+Extra.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+Extra.m"; path = "NSArray+Extra.m"; sourceTree = "<group>"; };
 		1739724C1C5B46CC5AC4D1DF /* JobsOCVideoRecorderCaptureManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCVideoRecorderCaptureManager.m; sourceTree = "<group>"; };
-		1AB5B6EABB75158BD7F318A5 /* JobsCNIDDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsCNIDDemoVC.m; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@中国大陆居民身份证验证/JobsCNIDDemoVC/JobsCNIDDemoVC.m"; sourceTree = "<group>"; };
-		1AC4ECC5D070B440EC631635 /* JobsOCCommentConfig.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCCommentConfig.m; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCComment/JobsOCCommentConfig/JobsOCCommentConfig.m; sourceTree = SOURCE_ROOT; };
+		1AB5B6EABB75158BD7F318A5 /* JobsCNIDDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsCNIDDemoVC.m; path = JobsCNIDDemoVC.m; sourceTree = "<group>"; };
+		1AC4ECC5D070B440EC631635 /* JobsOCCommentConfig.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCCommentConfig.m; path = JobsOCCommentConfig.m; sourceTree = "<group>"; };
+		1C7B1B4540B572840410D1CA /* JobsBluetooth.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsBluetooth.h; sourceTree = "<group>"; };
 		1C8CA143C73381AE954FA209 /* JobsWalletHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsWalletHeader.h; sourceTree = "<group>"; };
 		1CD7B567E28BE7A9CA034355 /* URLMgr.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = URLMgr.h; sourceTree = "<group>"; };
-		1D19645277B6634786FE514A /* JobsLinkageMenuViewDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsLinkageMenuViewDemoVC.m; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsLinkageMenuView/JobsLinkageMenuViewDemoVC.m"; sourceTree = "<group>"; };
+		1D19645277B6634786FE514A /* JobsLinkageMenuViewDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsLinkageMenuViewDemoVC.m; path = JobsLinkageMenuViewDemoVC.m; sourceTree = "<group>"; };
 		1D6025EB13DE302C7D3F70B8 /* JobsOCOpenConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCOpenConfiguration.m; sourceTree = "<group>"; };
 		1D8D3E36314A6743089A6196 /* JobsBioKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsBioKit.h; sourceTree = "<group>"; };
 		1E6CE383876EFEE421B55079 /* JobsCountdownButtonDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsCountdownButtonDemoVC.m; sourceTree = "<group>"; };
@@ -1684,9 +1711,11 @@
 		23CAD1B87AAEED99B204B1C8 /* MyAppTools.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MyAppTools.m; sourceTree = "<group>"; };
 		2548521CE7B5B4A7072C4EF4 /* JobsOCCommentDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCCommentDemoVC.h; sourceTree = "<group>"; };
 		254948D2A9E9164DCC89B980 /* UIViewController+JobsPresentTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+JobsPresentTransition.m"; sourceTree = "<group>"; };
+		254A0C87C9C88CFA910EE329 /* JobsOCSkeletonView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCSkeletonView.h; sourceTree = "<group>"; };
 		25E34460B60ADAD0F4B06CAE /* NSObject+URLMgr_5.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+URLMgr_5.h"; sourceTree = "<group>"; };
 		265214F188FBF7F4FD6DEB5D /* UIImage+JobsMosaicDemo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+JobsMosaicDemo.m"; path = "UIImage+JobsMosaicDemo.m"; sourceTree = "<group>"; };
 		27A433180600DDC77FE94E55 /* NSObject+URLMgr_1.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+URLMgr_1.m"; sourceTree = "<group>"; };
+		27DEB0EA279811C390185868 /* JobsOCSkeletonUserCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCSkeletonUserCell.h; sourceTree = "<group>"; };
 		28887928ED2D19C14E87D400 /* JobsOCCalendarAppearance.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCCalendarAppearance.m; sourceTree = "<group>"; };
 		288DF91023F87E67F4E7AE3A /* JobsOCCommentConfig.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCCommentConfig.h; sourceTree = "<group>"; };
 		2907ACFA4D339E1C38F845DB /* NSString+Toast.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSString+Toast.m"; sourceTree = "<group>"; };
@@ -1703,10 +1732,11 @@
 		2DC4074120054109FB811FB8 /* JobsLiveCommentDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsLiveCommentDemoVC.h; path = JobsLiveCommentDemoVC.h; sourceTree = "<group>"; };
 		2E436C4A0CA9D1CDD4CA0A5B /* JobsCountdownButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsCountdownButton.m; sourceTree = "<group>"; };
 		2E44E2E86C4A479CF241C04F /* JobsOCSnowflake.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCSnowflake.h; sourceTree = "<group>"; };
-		2F0BACD8D113C4AFA96E2A62 /* JobsOCPatchMgr.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsOCPatchMgr.h; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCPatch/JobsOCPatchMgr.h; sourceTree = "<group>"; };
+		2F0BACD8D113C4AFA96E2A62 /* JobsOCPatchMgr.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsOCPatchMgr.h; path = JobsOCPatchMgr.h; sourceTree = "<group>"; };
 		2F4661D58014866440BF80DE /* JobsOCRefreshComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCRefreshComponent.h; sourceTree = "<group>"; };
 		2FBECB0567A52D8EF61114E1 /* NSObject+URLMgr_5.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+URLMgr_5.m"; sourceTree = "<group>"; };
 		2FE8F11399FBAED4FFEAA556 /* UIFont+Extra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIFont+Extra.h"; sourceTree = "<group>"; };
+		3008FE8EF506A96B707F9948 /* JobsAnimatedNumberLabelDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsAnimatedNumberLabelDemoVC.h; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@UILabel数字动效/JobsAnimatedNumberLabelDemoVC/JobsAnimatedNumberLabelDemoVC.h"; sourceTree = SOURCE_ROOT; };
 		3135C32B6B07213E9A5F0725 /* JobsOCRefreshConfig.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCRefreshConfig.m; sourceTree = "<group>"; };
 		31535ACEA497CD735E26356C /* NSObject+URLMgr_3.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+URLMgr_3.h"; sourceTree = "<group>"; };
 		3194D1D142B29357E05EAD87 /* NSObject+Image.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+Image.h"; sourceTree = "<group>"; };
@@ -1723,16 +1753,19 @@
 		34E12676DA3C091626B0A9A6 /* JobsRandomUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsRandomUtils.m; sourceTree = "<group>"; };
 		354BC09A814A8E18BCDC2350 /* JobsWalletCardModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/UIKit数据束/JobsWalletCardModel/JobsWalletCardModel.m"; sourceTree = SOURCE_ROOT; };
 		38B4ADE6E39BF6D68C1BFEB7 /* MGSwipeTableCellExtra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MGSwipeTableCellExtra.h; sourceTree = "<group>"; };
+		39E63458FDA4253EF5FEA42A /* JobsOCSkeletonViewDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCSkeletonViewDemoVC.h; sourceTree = "<group>"; };
 		3A2FED42A21EA22D98CF3C60 /* JobsCategoryTitleWriting_MeiNv.json */ = {isa = PBXFileReference; includeInIndex = 1; path = JobsCategoryTitleWriting_MeiNv.json; sourceTree = "<group>"; };
 		3A5EFA133958B29FB6F948BC /* JobsSysProgressDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsSysProgressDemoVC.m; sourceTree = "<group>"; };
 		3AF5D0A82912E3B44BB11E0E /* NSObject+URLMgr_6.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+URLMgr_6.h"; sourceTree = "<group>"; };
 		3AFECF44FE033B5EBBC1C4F5 /* JobsHotLabelWithMultiLineModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsHotLabelWithMultiLineModel.h; sourceTree = "<group>"; };
 		3B499A07032C804A324C46DF /* JobsGraphicCaptchaHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsGraphicCaptchaHeader.h; sourceTree = "<group>"; };
+		3B88A3B61F041C865726BDB6 /* JobsOCSkeletonUserCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCSkeletonUserCell.m; sourceTree = "<group>"; };
 		3B9620A1894BDCE1FC9DEC38 /* JobsOCVideoRecorderAssetWriter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCVideoRecorderAssetWriter.h; sourceTree = "<group>"; };
 		3BF3A7395BEC42FDA1E45D70 /* JobsOCSearcherView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCSearcherView.m; sourceTree = "<group>"; };
-		3C097A631CE7BA2A6963E657 /* JobsOCTimerMgrDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCTimerMgrDemoVC.m; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsTimer/ViewController/JobsOCTimerMgrDemoVC/JobsOCTimerMgrDemoVC.m"; sourceTree = SOURCE_ROOT; };
+		3C097A631CE7BA2A6963E657 /* JobsOCTimerMgrDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCTimerMgrDemoVC.m; path = JobsOCTimerMgrDemoVC.m; sourceTree = "<group>"; };
 		3C24C273913808C99FC4A78A /* JobsOCSearcherBar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsOCSearcherCore/View/JobsOCSearcherBar/JobsOCSearcherBar.m"; sourceTree = SOURCE_ROOT; };
 		3C3D9FA0F6A777E566B12840 /* NSString+CAAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSString+CAAnimation.h"; sourceTree = "<group>"; };
+		3C78AD1D8731C11E888CCE20 /* JobsBluetoothProfile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsBluetoothProfile.h; sourceTree = "<group>"; };
 		3F0514FDA0A4C789A1F7886C /* UIBezierPath+Extra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Extra.h"; sourceTree = "<group>"; };
 		3F34117E3CB70F5983A2DF4A /* NSString+Debug.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSString+Debug.m"; sourceTree = "<group>"; };
 		3F5DA6F551624056F50668CD /* NSObject+TimeApp.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+TimeApp.h"; path = "NSObject+TimeApp.h"; sourceTree = "<group>"; };
@@ -1741,7 +1774,7 @@
 		40C2C8A38C68E4C9D9545084 /* JobsOCVideoRecorderVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCVideoRecorderVC.m; sourceTree = "<group>"; };
 		40E36D67555B807CB9908927 /* JobsGestureLock.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsGestureLock.h; sourceTree = "<group>"; };
 		415083AAED84A2CCAC779086 /* ZFAVPlayerManager+ZFPlayerExtraDSL.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZFAVPlayerManager+ZFPlayerExtraDSL.h"; sourceTree = "<group>"; };
-		4157590B4BD50634501ABB9E /* JobsOCCommentView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCCommentView.m; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCComment/JobsOCCommentView/JobsOCCommentView.m; sourceTree = SOURCE_ROOT; };
+		4157590B4BD50634501ABB9E /* JobsOCCommentView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCCommentView.m; path = JobsOCCommentView.m; sourceTree = "<group>"; };
 		419CF125BDFFACE9E8F9868D /* JobsOCOpener.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCOpener.h; sourceTree = "<group>"; };
 		420BB32C19EB75F0A7867FE6 /* JobsGestureLockView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsGestureLockView.m; sourceTree = "<group>"; };
 		425718B27F645EAD25204544 /* ZFPlayerExtra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ZFPlayerExtra.h; sourceTree = "<group>"; };
@@ -1753,6 +1786,7 @@
 		45CF687F38C1F1DF8D97E25B /* JobsGestureLockConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsGestureLockConfiguration.m; sourceTree = "<group>"; };
 		461CFD5061F0E81340FAAA4F /* JobsLiveStreamDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsLiveStreamDemoVC.m; path = JobsLiveStreamDemoVC.m; sourceTree = "<group>"; };
 		47135F138D4E5AD8116EA43E /* UIImage+JobsMosaicDemo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+JobsMosaicDemo.h"; path = "UIImage+JobsMosaicDemo.h"; sourceTree = "<group>"; };
+		4766C592E504AFF6DC400DC1 /* JobsOCSkeletonConfig.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCSkeletonConfig.h; sourceTree = "<group>"; };
 		47CABFB05CD315D3E25982D2 /* JobsOCSplashLocalization.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCSplashLocalization.m; sourceTree = "<group>"; };
 		48AC4F75AB754AEF150C1E47 /* Localizable.strings */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		48D6E8228403BAA89B9E435E /* JobsOCSplashGIFDecoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCSplashGIFDecoder.m; sourceTree = "<group>"; };
@@ -1765,10 +1799,12 @@
 		4E92973EEDD4C9DE1186165F /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.debug.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		4F70A57CE51C6F8F77335F32 /* JobsHotLabel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsHotLabel.h; sourceTree = "<group>"; };
 		4F995A7E32B8BBA1D7FD83F6 /* FDFullscreenPopGesture.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = FDFullscreenPopGesture.h; sourceTree = "<group>"; };
-		4FAF0248A698BFC259F2F865 /* JobsOCCommentCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCCommentCell.m; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCComment/JobsOCCommentCell/JobsOCCommentCell.m; sourceTree = SOURCE_ROOT; };
+		4FAF0248A698BFC259F2F865 /* JobsOCCommentCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCCommentCell.m; path = JobsOCCommentCell.m; sourceTree = "<group>"; };
 		506B2D55E955DEC17E172DD2 /* JobsCallBackBlockDSL.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsCallBackBlockDSL.h; sourceTree = "<group>"; };
+		50E69E4ED83C5995B4DE71FD /* JobsBluetoothTypes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsBluetoothTypes.h; sourceTree = "<group>"; };
 		5137D1E5E5F8A5573648E02E /* NSObject+URLMgr_3.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+URLMgr_3.m"; sourceTree = "<group>"; };
 		5165633E9E6F1FC865E222BC /* JobsOCCommentModeDetailVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCCommentModeDetailVC.h; sourceTree = "<group>"; };
+		5206E19D5351CACA00A7F0E0 /* JobsBluetoothProfile.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsBluetoothProfile.m; sourceTree = "<group>"; };
 		52805E33568CE77009D0A31D /* TestLabelDemoModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = TestLabelDemoModel.m; sourceTree = "<group>"; };
 		532A6C4C7EBD97F2731D9357 /* JobsOCCountryCodeCtrl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCCountryCodeCtrl.h; sourceTree = "<group>"; };
 		545975CDE07C35A673BF8C07 /* JobsTimerDemoListVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsTimer/ViewController/JobsTimerDemoListVC/JobsTimerDemoListVC.m"; sourceTree = SOURCE_ROOT; };
@@ -1783,25 +1819,28 @@
 		59D543EBBA704ED8B6ED750C /* 2.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		5A2BDB4B7ABCA02C1E3923EB /* JobsCategoryTitleWriting_DouHua.json */ = {isa = PBXFileReference; includeInIndex = 1; path = JobsCategoryTitleWriting_DouHua.json; sourceTree = "<group>"; };
 		5C5D3E4E4C850E793B7583F5 /* JobsTabBarCtrl.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsTabBarCtrl.m; sourceTree = "<group>"; };
-		5D7D8B7DCBD9F9CD589358E7 /* JobsOCSearcherView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCSearcherView.m; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCSearcher/JobsOCSearcherView/JobsOCSearcherView.m; sourceTree = SOURCE_ROOT; };
+		5D7D8B7DCBD9F9CD589358E7 /* JobsOCSearcherView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCSearcherView.m; path = JobsOCSearcherView.m; sourceTree = "<group>"; };
 		5DF244B916C89C5CE23A1BD1 /* NSObject+Extra.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extra.m"; sourceTree = "<group>"; };
 		5EADAD8723851001583B4F31 /* NSURL+Extra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSURL+Extra.h"; sourceTree = "<group>"; };
+		5EB71F3DEDB69D372F40C177 /* UIImageView+JobsOCSkeletonView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+JobsOCSkeletonView.m"; sourceTree = "<group>"; };
 		5EF505C9A80F64D485869D34 /* JobsOCSearcherRecordCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCSearcherRecordCell.m; sourceTree = "<group>"; };
 		5F58AEC2D02A8836E1A254C5 /* window.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = "<group>"; };
 		600D9265D027123958564B1F /* JobsProgressBar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsProgressBar.h; sourceTree = "<group>"; };
 		605B119904DCDF351848B997 /* JobsOCTools.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCTools.h; sourceTree = "<group>"; };
 		610208EF20F4C13643F9A340 /* JobsMosaicBrushDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsMosaicBrushDemoVC.h; path = JobsMosaicBrushDemoVC.h; sourceTree = "<group>"; };
-		62284575AAB7FE9984ABE237 /* JobsLinkageMenuViewDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsLinkageMenuViewDemoVC.h; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsLinkageMenuView/JobsLinkageMenuViewDemoVC.h"; sourceTree = "<group>"; };
+		62284575AAB7FE9984ABE237 /* JobsLinkageMenuViewDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsLinkageMenuViewDemoVC.h; path = JobsLinkageMenuViewDemoVC.h; sourceTree = "<group>"; };
 		62385C17E7FD7BA4747585B6 /* NSURL+Extra.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Extra.m"; sourceTree = "<group>"; };
 		62873DB3A35BA29B6FECE5A0 /* UIColor+Extra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extra.h"; sourceTree = "<group>"; };
 		64541C147A146B2911A6B514 /* MyAppTools.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MyAppTools.h; sourceTree = "<group>"; };
 		66F391C70AF0D7B3825FB688 /* JobsSphereDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsSphereDemoVC.m; path = JobsSphereDemoVC.m; sourceTree = "<group>"; };
+		6745FA8AE078AB9C8BF7E461 /* JobsBluetoothManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsBluetoothManager.h; sourceTree = "<group>"; };
 		67B237A0AA60524254C46BD1 /* JobsGraphicCaptchaDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsGraphicCaptchaDemoVC.h; sourceTree = "<group>"; };
-		69373485697A0BCB73BE7D60 /* JobsWalletCardCollectionViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsWalletCardCollectionViewCell.m; path = "JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/WalletLayout/JobsWalletCardCollectionViewCell/JobsWalletCardCollectionViewCell.m"; sourceTree = SOURCE_ROOT; };
+		69373485697A0BCB73BE7D60 /* JobsWalletCardCollectionViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsWalletCardCollectionViewCell.m; path = JobsWalletCardCollectionViewCell.m; sourceTree = "<group>"; };
 		69833E54EB0737BFA25E7E2C /* JobsOCVideoRecorderRecordButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCVideoRecorderRecordButton.h; sourceTree = "<group>"; };
 		69BD2114B37E73A5504C38C2 /* MJRefreshExtra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MJRefreshExtra.h; sourceTree = "<group>"; };
 		6BAA4183FD28496C5299D313 /* SZTextViewExtra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SZTextViewExtra.h; sourceTree = "<group>"; };
 		6C42C3B8FB96996210699C45 /* This+URLMgr.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "This+URLMgr.m"; sourceTree = "<group>"; };
+		6C967108A03EE96B22613716 /* JobsOCSkeletonConfig.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCSkeletonConfig.m; sourceTree = "<group>"; };
 		6D463EA5A69CC93BAAE3BC26 /* JobsOCSplashAction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCSplashAction.m; sourceTree = "<group>"; };
 		6D4F4D7744246C17755EA168 /* JobsTimerDemoListVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsTimerDemoListVC.h; sourceTree = "<group>"; };
 		6D7EB0C09F86578571EA4718 /* JobsOCCommentDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCCommentDefines.h; sourceTree = "<group>"; };
@@ -1809,16 +1848,19 @@
 		6E2C40BE8175051C1A80E735 /* JobsOCCountryCodeCtrlTaiwanBlueSkyWhiteSun.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = JobsOCCountryCodeCtrlTaiwanBlueSkyWhiteSun.png; sourceTree = "<group>"; };
 		6F92FCC7708E0FCFD0B18BE4 /* NSString+CIFilter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSString+CIFilter.h"; sourceTree = "<group>"; };
 		700B05DAC55114F0EB9EF75F /* 3.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
-		71844FCDBF5ABB10D315C495 /* JobsOCCommentModeDetailVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCCommentModeDetailVC.m; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsOCComment/JobsOCCommentModeDetailVC/JobsOCCommentModeDetailVC.m"; sourceTree = SOURCE_ROOT; };
+		706A266F65BD183A7A85A1C7 /* JobsBluetoothDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsBluetoothDemoVC.m; sourceTree = "<group>"; };
+		71844FCDBF5ABB10D315C495 /* JobsOCCommentModeDetailVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCCommentModeDetailVC.m; path = JobsOCCommentModeDetailVC.m; sourceTree = "<group>"; };
 		71BB7B767EE5BCF1EC2354A6 /* NSString+JobsOCOpen.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSString+JobsOCOpen.h"; sourceTree = "<group>"; };
+		71E7765EDBF860003FB13E08 /* JobsOCSkeletonUser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCSkeletonUser.m; sourceTree = "<group>"; };
 		72887C49EA2C1CB60335CB7D /* UIViewController+JobsPresentTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIViewController+JobsPresentTransition.h"; sourceTree = "<group>"; };
 		734CFC3B1DBF5F4A870B5D0D /* NSObject+AttributedString.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AttributedString.m"; sourceTree = "<group>"; };
 		73ECB46D222F295D27AF3B9D /* JobsLinkageMenuViewConfig.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsLinkageMenuViewConfig.h; sourceTree = "<group>"; };
 		74A3997A730A62509348B53F /* JobsOCSplashPreferences.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCSplashPreferences.h; sourceTree = "<group>"; };
 		7539A5D93DBFA88C463F3332 /* 音律跳动.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; path = "音律跳动.bundle"; sourceTree = "<group>"; };
 		7549D76B0D5FEFDDC2EE1ECC /* JobsProgressDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsProgressDemoVC.m; sourceTree = "<group>"; };
-		7558F5C37DB313D3565C8221 /* JobsWalletCollectionViewLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsWalletCollectionViewLayout.m; path = "JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/WalletLayout/JobsWalletCollectionViewLayout/JobsWalletCollectionViewLayout.m"; sourceTree = SOURCE_ROOT; };
+		7558F5C37DB313D3565C8221 /* JobsWalletCollectionViewLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsWalletCollectionViewLayout.m; path = JobsWalletCollectionViewLayout.m; sourceTree = "<group>"; };
 		758B4169395F6EABDA7E6801 /* Localizable.strings */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		75AFDA1C7C308AC2B19AB714 /* JobsBluetoothMockTransport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsBluetoothMockTransport.h; sourceTree = "<group>"; };
 		770DC460384B77364013153D /* AFSecurityPolicyExtra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicyExtra.h; sourceTree = "<group>"; };
 		774E202404D5901173098E4C /* JobsRichTextUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsRichTextUtils.h; sourceTree = "<group>"; };
 		7888E59F1A1D92F673E54010 /* UIView+JobsViewPush.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIView+JobsViewPush.m"; sourceTree = "<group>"; };
@@ -1852,7 +1894,7 @@
 		86F5F80D8446AF62F668AB2C /* JobsOCOpenWebViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCOpenWebViewController.m; sourceTree = "<group>"; };
 		8731F3C633D32A94706BD1ED /* NSString+JobsOCOpen.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSString+JobsOCOpen.m"; sourceTree = "<group>"; };
 		874D0FD57E47120E0F89609E /* JobsOCKeyboardResult.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCKeyboardResult.m; sourceTree = "<group>"; };
-		87D2ADE9FF4CEC718BD888F7 /* JobsOCCommentModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCCommentModel.m; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCComment/JobsOCCommentModel/JobsOCCommentModel.m; sourceTree = SOURCE_ROOT; };
+		87D2ADE9FF4CEC718BD888F7 /* JobsOCCommentModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCCommentModel.m; path = JobsOCCommentModel.m; sourceTree = "<group>"; };
 		87DEBFC111D6D3B71051E98D /* JobsLuckyEnvelopeRain.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsLuckyEnvelopeRain.h; sourceTree = "<group>"; };
 		884BCB7FEFAA7094E4D41342 /* JobsOCVideoRecorderPreviewView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCVideoRecorderPreviewView.m; sourceTree = "<group>"; };
 		89779E53EFDD82E7D9CDC5F0 /* JobsOCVideoRecorderFilterProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCVideoRecorderFilterProtocol.h; sourceTree = "<group>"; };
@@ -1861,11 +1903,11 @@
 		8B229A65B6A7F71601AE43E4 /* JobsPresentTransitionMgrHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsPresentTransitionMgrHeader.h; sourceTree = "<group>"; };
 		8B3E15D6A1D118DFB15F73CC /* JobsWalletCollectionViewLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsWalletCollectionViewLayout.m; sourceTree = "<group>"; };
 		8B9FC12C2CFE24058D5E992A /* JobsGestureLockStorage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsGestureLockStorage.h; sourceTree = "<group>"; };
-		8BBC560ABC5F24098F00C231 /* JobsOCPatchMgr.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCPatchMgr.m; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCPatch/JobsOCPatchMgr.m; sourceTree = "<group>"; };
+		8BBC560ABC5F24098F00C231 /* JobsOCPatchMgr.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCPatchMgr.m; path = JobsOCPatchMgr.m; sourceTree = "<group>"; };
 		8BBD32FE257DBD409FDD1E14 /* UIView+Extra.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extra.m"; sourceTree = "<group>"; };
 		8BC40E4C5A043255C3F26D4E /* JobsCountdownBtn.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsCountdownBtn.h; sourceTree = "<group>"; };
 		8BC42FD46D874BE064A5AEA3 /* NSObject+URLMgr_1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+URLMgr_1.h"; sourceTree = "<group>"; };
-		8C552C6E70179A9DC817084E /* NSArray+Extra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+Extra.h"; path = "JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSArray/NSArray+Category/NSArray+Extra/NSArray+Extra.h"; sourceTree = "<group>"; };
+		8C552C6E70179A9DC817084E /* NSArray+Extra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+Extra.h"; path = "NSArray+Extra.h"; sourceTree = "<group>"; };
 		8CDF3E77CE71A32D8C5E8F23 /* JobsGestureLockConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsGestureLockConfiguration.h; sourceTree = "<group>"; };
 		8D2F24680C97222D24F0D93B /* JobsOCRefresherDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCRefresherDemoVC.m; sourceTree = "<group>"; };
 		8D324BC738C83459D082EBA8 /* JobsOCRefresher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCRefresher.h; sourceTree = "<group>"; };
@@ -1874,15 +1916,19 @@
 		8E160A8F512A78BF58EB25C4 /* JobsViewPushDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsViewPushDemoVC.m; sourceTree = "<group>"; };
 		8E92DE4DF674D3073480233C /* JobsOCVideoRecorderAssetWriter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCVideoRecorderAssetWriter.m; sourceTree = "<group>"; };
 		9047AB477FFAA4540555C40D /* NSObject+JobsOCOpen.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JobsOCOpen.m"; sourceTree = "<group>"; };
-		917C31B44E8A392E9468ECD9 /* NSObject+Model.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+Model.h"; path = "JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Model/NSObject+Model.h"; sourceTree = "<group>"; };
+		917C31B44E8A392E9468ECD9 /* NSObject+Model.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+Model.h"; path = "NSObject+Model.h"; sourceTree = "<group>"; };
 		9235BE0A3C9051C688326CA5 /* TestLabelDemoModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = TestLabelDemoModel.h; sourceTree = "<group>"; };
 		9296DD52B4D9B3E34417D92B /* JobsOCKeyboardMgrDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCKeyboardMgrDemoVC.m; sourceTree = "<group>"; };
-		93B34F5E3C4E3412B819BB60 /* JobsOCPatch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsOCPatch.h; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsPods/JobsOCPatch.h; sourceTree = "<group>"; };
-		94F49A87675FE8BED649978D /* UITextField+Extra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UITextField+Extra.h"; path = "JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UITextField/UITextField+Category/UITextField+Extra/UITextField+Extra.h"; sourceTree = "<group>"; };
+		93B34F5E3C4E3412B819BB60 /* JobsOCPatch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsOCPatch.h; path = JobsOCPatch.h; sourceTree = "<group>"; };
+		940022EF7EA3D80740996BE3 /* JobsBluetoothMockTransport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsBluetoothMockTransport.m; sourceTree = "<group>"; };
+		94F49A87675FE8BED649978D /* UITextField+Extra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UITextField+Extra.h"; path = "UITextField+Extra.h"; sourceTree = "<group>"; };
+		95D77F80034BB93EABF4C7B1 /* UIImageView+JobsOCSkeletonView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIImageView+JobsOCSkeletonView.h"; sourceTree = "<group>"; };
 		95DE293246B4F332727F8657 /* CustomBtnImageBottomVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CustomBtnImageBottomVC.m; sourceTree = "<group>"; };
+		95E7C8A5311E2FAFECC65765 /* JobsBluetoothDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsBluetoothDemoVC.h; sourceTree = "<group>"; };
 		9746D30BE61C8A54366E352D /* JobsPresentTransitionMgr.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsPresentTransitionMgr.m; sourceTree = "<group>"; };
 		97DD2296A34304563B66B4C0 /* JobsLocker+Once.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "JobsLocker+Once.m"; sourceTree = "<group>"; };
 		984177E317C5E6080F8F7ED6 /* NSString+CALayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSString+CALayer.m"; sourceTree = "<group>"; };
+		9923EA9FAD653A7E3415113E /* JobsOCSkeletonViewDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCSkeletonViewDemoVC.m; sourceTree = "<group>"; };
 		997BD7DCA8545056053EF84C /* NSObject+AttributedString.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+AttributedString.h"; sourceTree = "<group>"; };
 		99C6EC54EC9FCD3D46DF5BC5 /* JobsCountdownLayerDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsCountdownLayerDemoVC.m; sourceTree = "<group>"; };
 		9A45D614F957455E980677DC /* NSObject+UsrInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+UsrInfo.h"; sourceTree = "<group>"; };
@@ -1905,13 +1951,15 @@
 		9FBBE2B9D18F5A5165FA28CB /* JobsOCCommentModeDetailVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCCommentModeDetailVC.m; sourceTree = "<group>"; };
 		A022DD27E54EFFF8754CD6A1 /* NSObject+MyAppTools.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MyAppTools.m"; sourceTree = "<group>"; };
 		A03341FF8912D7B8EEB12248 /* GKCustomNavigationBarExtra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = GKCustomNavigationBarExtra.h; sourceTree = "<group>"; };
-		A08BFD814A4BD6A770E4671A /* JobsOCPatchModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCPatchModel.m; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCPatch/JobsOCPatchModel.m; sourceTree = "<group>"; };
+		A08BFD814A4BD6A770E4671A /* JobsOCPatchModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCPatchModel.m; path = JobsOCPatchModel.m; sourceTree = "<group>"; };
 		A098142BB04F0BCC7DEEBAAE /* Localizable.strings */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		A10000010712000000000001 /* UIViewController+GKNavigationBarDSL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+GKNavigationBarDSL.h"; sourceTree = "<group>"; };
+		A10000020712000000000002 /* UIViewController+GKNavigationBarDSL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+GKNavigationBarDSL.m"; sourceTree = "<group>"; };
 		A1100466827143719647E584 /* JobsTimerMgr.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsTimerMgr.h; sourceTree = "<group>"; };
 		A123BE2E46AEB339A913A7EE /* JobsHotLabelWithMultiLineModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsHotLabel/JobsHotLabelWithMultiLineModel/JobsHotLabelWithMultiLineModel.m; sourceTree = SOURCE_ROOT; };
 		A14A1EC26CB114EB4E680DDD /* CustomBtnImageLeadingVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CustomBtnImageLeadingVC.h; sourceTree = "<group>"; };
 		A1B46FCF719DE5B77F8099BC /* NSObject+JobsDropDownListView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+JobsDropDownListView.h"; sourceTree = "<group>"; };
-		A1ECF86C53E403484260F7A5 /* JobsOCSearcherConfig.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCSearcherConfig.m; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCSearcher/JobsOCSearcherConfig/JobsOCSearcherConfig.m; sourceTree = SOURCE_ROOT; };
+		A1ECF86C53E403484260F7A5 /* JobsOCSearcherConfig.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCSearcherConfig.m; path = JobsOCSearcherConfig.m; sourceTree = "<group>"; };
 		A2121E00F85F5C7986F590B6 /* JobsWalletCollectionViewLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsWalletCollectionViewLayout.h; sourceTree = "<group>"; };
 		A266EB3AAE605096B063D4FE /* NSObject+UsrInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+UsrInfo.m"; sourceTree = "<group>"; };
 		A3194B235EF99C4B2C5D4A38 /* FMDatabaseExtra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = FMDatabaseExtra.h; sourceTree = "<group>"; };
@@ -1922,13 +1970,17 @@
 		A55A3ECB2770D31DA4D43CB3 /* UIImage+Extra.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extra.m"; sourceTree = "<group>"; };
 		A561CB07F3867A5931F8A090 /* JobsTabBarCtrl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsTabBarCtrl.h; sourceTree = "<group>"; };
 		A57C9BA31BFAD9FA05DD6CC7 /* JobsMosaicBrushDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsMosaicBrushDemoVC.m; path = JobsMosaicBrushDemoVC.m; sourceTree = "<group>"; };
-		A5F3530C92F20A74B5F42B7B /* JobsOCSearcherRecordCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCSearcherRecordCell.m; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCSearcher/JobsOCSearcherRecordCell/JobsOCSearcherRecordCell.m; sourceTree = SOURCE_ROOT; };
+		A5F3530C92F20A74B5F42B7B /* JobsOCSearcherRecordCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsOCSearcherRecordCell.m; path = JobsOCSearcherRecordCell.m; sourceTree = "<group>"; };
 		A657FFFD547EC3547FF0AE63 /* UIKits.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = UIKits.h; sourceTree = "<group>"; };
 		A7050FBF2F1E6D948386E15C /* JobsOCSplashPresenter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCSplashPresenter.m; sourceTree = "<group>"; };
 		A79422573CDE40922D7DDB5F /* JobsOCOpenConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCOpenConfiguration.h; sourceTree = "<group>"; };
 		A7ADAD597302449E8A407BD7 /* JobsOCKeyboardConfig.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCKeyboardConfig.h; sourceTree = "<group>"; };
+		A7D120022026071200000001 /* JobsSideDrawer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsSideDrawer.m; sourceTree = "<group>"; };
+		A7D120032026071200000001 /* JobsSideDrawer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsSideDrawer.h; sourceTree = "<group>"; };
+		A7D120122026071200000001 /* JobsSideDrawerDemoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsSideDrawerDemoVC.m; sourceTree = "<group>"; };
+		A7D120132026071200000001 /* JobsSideDrawerDemoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsSideDrawerDemoVC.h; sourceTree = "<group>"; };
 		A9217161ADEA972A935714D4 /* SRWebSocketExtra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SRWebSocketExtra.h; sourceTree = "<group>"; };
-		A99653C8336B8E84AC63F19A /* UITextField+Extra.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UITextField+Extra.m"; path = "JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UITextField/UITextField+Category/UITextField+Extra/UITextField+Extra.m"; sourceTree = "<group>"; };
+		A99653C8336B8E84AC63F19A /* UITextField+Extra.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UITextField+Extra.m"; path = "UITextField+Extra.m"; sourceTree = "<group>"; };
 		A9AE9B19826BECD94376159B /* NSObject+URLMgr_7.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+URLMgr_7.m"; sourceTree = "<group>"; };
 		A9E8AC4265612488BA3CE256 /* JobsViewNavigatorHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsViewNavigatorHeader.h; sourceTree = "<group>"; };
 		A9FCCB2DD063EFADF18260D4 /* JobsProgressBar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsProgressBar.m; sourceTree = "<group>"; };
@@ -1962,6 +2014,7 @@
 		B8F4A2E1C7D94F44A6B10A04 /* JobsCategoryTitleWriting_DianZi.json */ = {isa = PBXFileReference; includeInIndex = 1; path = JobsCategoryTitleWriting_DianZi.json; sourceTree = "<group>"; };
 		B8F4A2E1C7D94F44A6B10A05 /* JobsCategoryTitleWriting_QiPai.json */ = {isa = PBXFileReference; includeInIndex = 1; path = JobsCategoryTitleWriting_QiPai.json; sourceTree = "<group>"; };
 		B8F4A2E1C7D94F44A6B10A06 /* JobsCategoryTitleWriting_CaiPiao.json */ = {isa = PBXFileReference; includeInIndex = 1; path = JobsCategoryTitleWriting_CaiPiao.json; sourceTree = "<group>"; };
+		B92E6216071FFC61BFDE03F8 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/CoreBluetooth.framework; sourceTree = DEVELOPER_DIR; };
 		B979E189080B60CF87753648 /* JobsMultiTimerTableDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsMultiTimerTableDemoVC.h; sourceTree = "<group>"; };
 		B989E88276C81D503DE9F892 /* JobsBasePopupViewHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsBasePopupViewHeader.h; sourceTree = "<group>"; };
 		BA14F4CF25808BCE98FEF385 /* JobsOCSnowflake.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCSnowflake.m; sourceTree = "<group>"; };
@@ -1971,7 +2024,7 @@
 		BB05CEF6A91FED17FD527ADB /* NSObject+UserInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+UserInfo.h"; sourceTree = "<group>"; };
 		BB6271735DC92DA6CDCEE719 /* NSData+Extra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSData+Extra.h"; sourceTree = "<group>"; };
 		BC7E7ECCA2620FD3F3D73676 /* ExampleUsage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ExampleUsage.m; sourceTree = "<group>"; };
-		BCFA2144AE905998A7DC8C8D /* JobsQRCodeDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsQRCodeDemoVC.m; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@二维码和条形码/JobsQRCodeDemoVC/JobsQRCodeDemoVC.m"; sourceTree = "<group>"; };
+		BCFA2144AE905998A7DC8C8D /* JobsQRCodeDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsQRCodeDemoVC.m; path = JobsQRCodeDemoVC.m; sourceTree = "<group>"; };
 		BD2BE8121B69394228C8DF72 /* RACExtra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RACExtra.h; sourceTree = "<group>"; };
 		BD3CDD59B5A881297C6FCAAC /* JobsOCSearcherRecordCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCSearcherRecordCell.h; sourceTree = "<group>"; };
 		BE3C781FE8A9C82CB908BA82 /* 8.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = 8.png; sourceTree = "<group>"; };
@@ -1982,7 +2035,8 @@
 		BFF3D38B9F6DC04684040D00 /* HXPhotoManagerExtra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HXPhotoManagerExtra.h; sourceTree = "<group>"; };
 		C09A5DF2D6056A5BAA82ACE0 /* NSObject+Extra.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extra.h"; sourceTree = "<group>"; };
 		C1B9FE2BD693760087097302 /* UITextView+Extra.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Extra.m"; sourceTree = "<group>"; };
-		C22F9D54A702E954F462A204 /* JobsCNIDDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsCNIDDemoVC.h; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@中国大陆居民身份证验证/JobsCNIDDemoVC/JobsCNIDDemoVC.h"; sourceTree = "<group>"; };
+		C22F9D54A702E954F462A204 /* JobsCNIDDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsCNIDDemoVC.h; path = JobsCNIDDemoVC.h; sourceTree = "<group>"; };
+		C28F773046C5CD36F163FB51 /* JobsBluetoothTypes.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsBluetoothTypes.m; sourceTree = "<group>"; };
 		C3025316E851D4A57B090A61 /* sortedNameEN.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = sortedNameEN.plist; sourceTree = "<group>"; };
 		C3449C0B6E6CB70964278083 /* JobsGetWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsGetWindow.h; sourceTree = "<group>"; };
 		C3DE437AD12F58358C4C5BFF /* NSString+Toast.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSString+Toast.h"; sourceTree = "<group>"; };
@@ -5241,10 +5295,13 @@
 		C5F31A432FE2856D00954A3A /* UNNotificationSound+DSL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UNNotificationSound+DSL.m"; sourceTree = "<group>"; };
 		C5F31A462FE2856D00954A3A /* JobsOCDSL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsOCDSL.h; sourceTree = "<group>"; };
 		C73CAF6DE76E5E979EA6E433 /* JobsGestureLockResource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsGestureLockResource.h; sourceTree = "<group>"; };
+		C743E436E194F5648ECFFF4E /* JobsBluetoothManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsBluetoothManager.m; sourceTree = "<group>"; };
+		C752EE5DB7296BC1D04EEA33 /* JobsAnimatedNumberLabelDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsAnimatedNumberLabelDemoVC.m; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@UILabel数字动效/JobsAnimatedNumberLabelDemoVC/JobsAnimatedNumberLabelDemoVC.m"; sourceTree = SOURCE_ROOT; };
 		C7F5E733AAF32C6E9562697F /* CustomBtnDemoBaseVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CustomBtnDemoBaseVC.h; sourceTree = "<group>"; };
 		C7F729C559C89E5BC7BB1842 /* JobsOCCalendarDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCCalendarDefines.h; sourceTree = "<group>"; };
 		C9734BC7545211410F3C095C /* JobsMosaicBaseDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsMosaicBaseDemoVC.m; path = JobsMosaicBaseDemoVC.m; sourceTree = "<group>"; };
 		CA417DCD12F3A9E155DEE57A /* UIScrollView+JobsOCRefresher.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+JobsOCRefresher.m"; sourceTree = "<group>"; };
+		CAAE8F3C94519D24EE0EBF6F /* JobsBluetoothPeripheral.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsBluetoothPeripheral.h; sourceTree = "<group>"; };
 		CAC5C8F9DD3598C8A9959A2A /* JobsNetWorkToolsHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsNetWorkToolsHeader.h; sourceTree = "<group>"; };
 		CB3E891620A86C5E343956C0 /* JobsTabBarCtrlHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsTabBarCtrlHeader.h; sourceTree = "<group>"; };
 		CBBABA402F1EC1772FB89057 /* JobsOCSearcherConfig.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCSearcherConfig.h; sourceTree = "<group>"; };
@@ -5254,11 +5311,13 @@
 		CCD8FF4DE99E30F2F0C715FF /* JobsMosaicDemoListVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsMosaicDemoListVC.m; path = JobsMosaicDemoListVC.m; sourceTree = "<group>"; };
 		CD91ECF4C13DB45D2F97D97E /* TestLabelDetailVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = TestLabelDetailVC.h; sourceTree = "<group>"; };
 		CDC2C944B399FEF1720A6727 /* JobsOCCalendar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCCalendar.m; sourceTree = "<group>"; };
-		CE6E107953F04A1BCD84A336 /* JobsCountdownButtonDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsCountdownButtonDemoVC.m; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsTimer/ViewController/JobsCountdownButtonDemoVC/JobsCountdownButtonDemoVC.m"; sourceTree = SOURCE_ROOT; };
+		CE6E107953F04A1BCD84A336 /* JobsCountdownButtonDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsCountdownButtonDemoVC.m; path = JobsCountdownButtonDemoVC.m; sourceTree = "<group>"; };
 		CEA5FF9D7FB4F8A7DD8B8523 /* JobsMosaicBrushImageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsMosaicBrushImageView.m; path = JobsMosaicBrushImageView.m; sourceTree = "<group>"; };
 		CEE620AD6679C8E562066D8C /* JobsGestureLockIndicator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsGestureLockIndicator.h; sourceTree = "<group>"; };
 		CFC77325FC9D53C558225AC1 /* JobsOCKeyboardMgr.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCKeyboardMgr.h; sourceTree = "<group>"; };
 		D0C99347901D09B0B1249A03 /* JobsGestureLockVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsGestureLockVC.m; sourceTree = "<group>"; };
+		D1632D71FFAB652BD48E9CF9 /* JobsBluetoothCommand.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsBluetoothCommand.h; sourceTree = "<group>"; };
+		D16C3E55F244B1B2212BC1C2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		D1990AD99273B78BEA54B724 /* JobsLocker+Once.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "JobsLocker+Once.h"; sourceTree = "<group>"; };
 		D1CC1CE22A6906DACD35754B /* JobsOCSplash.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCSplash.h; sourceTree = "<group>"; };
 		D221B928E70FA456B2A3BF54 /* JobsOCKeyboardCalculator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCKeyboardCalculator.h; sourceTree = "<group>"; };
@@ -5269,9 +5328,10 @@
 		D6222A6FFDC9DBE247839989 /* UIView+AppTool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIView+AppTool.h"; sourceTree = "<group>"; };
 		D6476A37C5404A1EFA28E269 /* JobsOCVideoRecorderAlbumSaver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCVideoRecorderAlbumSaver.h; sourceTree = "<group>"; };
 		D7C1EE5C6184929027FF6D20 /* UIScrollView+JobsOCRefresher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+JobsOCRefresher.h"; sourceTree = "<group>"; };
+		D819E5F49AA78D68C0D83AB6 /* UIView+JobsOCSkeletonView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIView+JobsOCSkeletonView.m"; sourceTree = "<group>"; };
 		D81E26FCF9E2D644E7701E54 /* NSString+Debug.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSString+Debug.h"; sourceTree = "<group>"; };
 		D8BF52B4091E381A9371747E /* JobsGraphicCaptchaDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsGraphicCaptcha/JobsGraphicCaptchaDemoVC.m"; sourceTree = SOURCE_ROOT; };
-		D9103CF4947A7518C2EC7592 /* NSObject+Model.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Model.m"; path = "JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Model/NSObject+Model.m"; sourceTree = "<group>"; };
+		D9103CF4947A7518C2EC7592 /* NSObject+Model.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Model.m"; path = "NSObject+Model.m"; sourceTree = "<group>"; };
 		DA7C043B3D10763E338B19E1 /* CustomBtnImageBottomVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CustomBtnImageBottomVC.h; sourceTree = "<group>"; };
 		DAAA487080DAFDB2C8C68EE2 /* JobsOCRefreshConfig.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCRefreshConfig.h; sourceTree = "<group>"; };
 		DADDF3E04A145E6BE242E066 /* JobsAPIs.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsAPIs.h; sourceTree = "<group>"; };
@@ -5346,6 +5406,7 @@
 				C55C8DA62E167B6D00B56985 /* GTCaptcha4.xcframework in Frameworks */,
 				C55C8EC82E167B6F00B56985 /* libstdc++.dylib in Frameworks */,
 				8A41B52D164FA190EEBBD662 /* Pods_JobsOCBaseConfigDemo.framework in Frameworks */,
+				1A796456F262B83F90EEC26E /* CoreBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5366,6 +5427,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00007F15056C7560CA0F9721 /* JobsBluetoothCommand */ = {
+			isa = PBXGroup;
+			children = (
+				D1632D71FFAB652BD48E9CF9 /* JobsBluetoothCommand.h */,
+				09D7B6E1D7D9BB350DD87EEF /* JobsBluetoothCommand.m */,
+			);
+			name = JobsBluetoothCommand;
+			path = JobsBluetoothCommand;
+			sourceTree = "<group>";
+		};
 		00095BC19A68CF27B022BAE9 /* URLMgr */ = {
 			isa = PBXGroup;
 			children = (
@@ -5384,6 +5455,7 @@
 				804C439CBF3B2727D179EAD0 /* JobsOCCommentModeDetailVC */,
 			);
 			name = "Demo@JobsOCComment";
+			path = "Demo@JobsOCComment";
 			sourceTree = "<group>";
 		};
 		02011491D28AAF5577DCF5F8 /* JobsPresentTransitionMgr */ = {
@@ -5393,6 +5465,17 @@
 				9746D30BE61C8A54366E352D /* JobsPresentTransitionMgr.m */,
 			);
 			name = JobsPresentTransitionMgr;
+			path = JobsPresentTransitionMgr;
+			sourceTree = "<group>";
+		};
+		034228F9C64D38B62189EDD1 /* UIImageView+JobsOCSkeletonView */ = {
+			isa = PBXGroup;
+			children = (
+				95D77F80034BB93EABF4C7B1 /* UIImageView+JobsOCSkeletonView.h */,
+				5EB71F3DEDB69D372F40C177 /* UIImageView+JobsOCSkeletonView.m */,
+			);
+			name = "UIImageView+JobsOCSkeletonView";
+			path = "UIImageView+JobsOCSkeletonView";
 			sourceTree = "<group>";
 		};
 		03551C861658144D3070AA40 /* UIImage+JobsMosaicDemo */ = {
@@ -5420,6 +5503,7 @@
 				A123BE2E46AEB339A913A7EE /* JobsHotLabelWithMultiLineModel.m */,
 			);
 			name = JobsHotLabelWithMultiLineModel;
+			path = JobsHotLabelWithMultiLineModel;
 			sourceTree = "<group>";
 		};
 		041AE5AA2EDA963F00ED03A3 /* SlideToUnlockView */ = {
@@ -5837,13 +5921,26 @@
 			path = "NSObject+HXPhotoPicker";
 			sourceTree = "<group>";
 		};
+		0C7CCB783758C633C728833E /* Demo@JobsOCSkeletonView */ = {
+			isa = PBXGroup;
+			children = (
+				A148802D8F5CA559174B424B /* JobsOCSkeletonUser */,
+				6B282E245A80756B135E5EB4 /* JobsOCSkeletonUserCell */,
+				F4724C084A9E28A12B9CE49F /* JobsOCSkeletonViewDemoVC */,
+			);
+			name = "Demo@JobsOCSkeletonView";
+			path = "Demo@JobsOCSkeletonView";
+			sourceTree = "<group>";
+		};
 		0E8EA6C5CA65BDC0A118637B /* JobsOCCommentConfig */ = {
 			isa = PBXGroup;
 			children = (
 				288DF91023F87E67F4E7AE3A /* JobsOCCommentConfig.h */,
 				0DC482A44A6ECA49B88C7B90 /* JobsOCCommentConfig.m */,
+				1AC4ECC5D070B440EC631635 /* JobsOCCommentConfig.m */,
 			);
 			name = JobsOCCommentConfig;
+			path = JobsOCCommentConfig;
 			sourceTree = "<group>";
 		};
 		0EEABB4358A3F6CD37E7D801 /* NSObject+JobsOCOpen */ = {
@@ -5913,6 +6010,7 @@
 				9EFF7EF5A6CB0C44E5F0D49B /* JobsOCCommentCell */,
 			);
 			name = JobsOCComment;
+			path = JobsOCComment;
 			sourceTree = "<group>";
 		};
 		150C71E7AC53D6234CC820CC /* NSObject+AttributedString */ = {
@@ -5944,6 +6042,17 @@
 			path = JobsOCSplashPreferences;
 			sourceTree = "<group>";
 		};
+		1734AC96737485A03887C621 /* JobsBluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				6AB242607622C4B887680F19 /* Core */,
+				1C7B1B4540B572840410D1CA /* JobsBluetooth.h */,
+				D16C3E55F244B1B2212BC1C2 /* README.md */,
+			);
+			name = JobsBluetooth;
+			path = JobsBluetooth;
+			sourceTree = "<group>";
+		};
 		176251B5927755300A13D41E /* JobsMosaicWholeImageDemoVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -5963,6 +6072,7 @@
 				62548BFE272560C5143753FF /* JobsOCSearcherRecordCell */,
 			);
 			name = JobsOCSearcher;
+			path = JobsOCSearcher;
 			sourceTree = "<group>";
 		};
 		187650173F48709E2EAEA56D /* JobsTimerDemoListVC */ = {
@@ -5972,6 +6082,7 @@
 				545975CDE07C35A673BF8C07 /* JobsTimerDemoListVC.m */,
 			);
 			name = JobsTimerDemoListVC;
+			path = JobsTimerDemoListVC;
 			sourceTree = "<group>";
 		};
 		19A83CF76D7354207D4A702E /* Demo@JobsOCKeyboardMgr */ = {
@@ -6001,6 +6112,7 @@
 				BC7E7ECCA2620FD3F3D73676 /* ExampleUsage.m */,
 			);
 			name = Example;
+			path = Example;
 			sourceTree = "<group>";
 		};
 		1E70662A364769F34E139AFA /* JobsGestureLockResource */ = {
@@ -6102,6 +6214,26 @@
 				5F58AEC2D02A8836E1A254C5 /* window.h */,
 			);
 			name = JobsGetWindow;
+			path = JobsGetWindow;
+			sourceTree = "<group>";
+		};
+		2667FBDE8517BF52543064A7 /* JobsBluetoothTypes */ = {
+			isa = PBXGroup;
+			children = (
+				50E69E4ED83C5995B4DE71FD /* JobsBluetoothTypes.h */,
+				C28F773046C5CD36F163FB51 /* JobsBluetoothTypes.m */,
+			);
+			name = JobsBluetoothTypes;
+			path = JobsBluetoothTypes;
+			sourceTree = "<group>";
+		};
+		28E75CB2ACFBD9BF55526372 /* Demo@二维码和条形码 */ = {
+			isa = PBXGroup;
+			children = (
+				69CA00A5DAD55CD2BDE92AA5 /* JobsQRCodeDemoVC */,
+			);
+			name = "Demo@二维码和条形码";
+			path = "Demo@二维码和条形码";
 			sourceTree = "<group>";
 		};
 		29349B848E7954F5B7096EC1 /* JobsOCCountryCodeCtrl@plist */ = {
@@ -6251,8 +6383,10 @@
 			children = (
 				2A570132CE87802766DF5421 /* JobsOCTimerMgrDemoVC.h */,
 				33E31A20FDAAE60CEF776ADC /* JobsOCTimerMgrDemoVC.m */,
+				3C097A631CE7BA2A6963E657 /* JobsOCTimerMgrDemoVC.m */,
 			);
 			name = JobsOCTimerMgrDemoVC;
+			path = JobsOCTimerMgrDemoVC;
 			sourceTree = "<group>";
 		};
 		3C388873A8895DEEA1043DF5 /* JobsOCOpenWebViewController */ = {
@@ -6263,6 +6397,16 @@
 			);
 			name = JobsOCOpenWebViewController;
 			path = JobsOCOpenWebViewController;
+			sourceTree = "<group>";
+		};
+		3C3F170E8CB2362369E3CC83 /* JobsOCPatchMgr */ = {
+			isa = PBXGroup;
+			children = (
+				2F0BACD8D113C4AFA96E2A62 /* JobsOCPatchMgr.h */,
+				8BBC560ABC5F24098F00C231 /* JobsOCPatchMgr.m */,
+			);
+			name = JobsOCPatchMgr;
+			path = JobsOCPatchMgr;
 			sourceTree = "<group>";
 		};
 		3D57DEED0F2C1B0C9242F062 /* NSString+Debug */ = {
@@ -6320,6 +6464,7 @@
 				D8BF52B4091E381A9371747E /* JobsGraphicCaptchaDemoVC.m */,
 			);
 			name = "Demo@JobsGraphicCaptcha";
+			path = "Demo@JobsGraphicCaptcha";
 			sourceTree = "<group>";
 		};
 		4209A235F05EEEE340E058B2 /* JobsOCSearcherView */ = {
@@ -6327,8 +6472,10 @@
 			children = (
 				F903467BCC40524BA9934902 /* JobsOCSearcherView.h */,
 				3BF3A7395BEC42FDA1E45D70 /* JobsOCSearcherView.m */,
+				5D7D8B7DCBD9F9CD589358E7 /* JobsOCSearcherView.m */,
 			);
 			name = JobsOCSearcherView;
+			path = JobsOCSearcherView;
 			sourceTree = "<group>";
 		};
 		4546E201A90A45A7885B5503 /* JobsOCRefreshDefines */ = {
@@ -6348,6 +6495,15 @@
 			);
 			name = Resource;
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		46A8914F346FA3B850206D3C /* Demo@中国大陆居民身份证验证 */ = {
+			isa = PBXGroup;
+			children = (
+				715BA9B5B8F4EBB10238B966 /* JobsCNIDDemoVC */,
+			);
+			name = "Demo@中国大陆居民身份证验证";
+			path = "Demo@中国大陆居民身份证验证";
 			sourceTree = "<group>";
 		};
 		477F5FADA2F93FCAF1493031 /* JobsGestureLockIndicator */ = {
@@ -6375,6 +6531,7 @@
 				7B31D3AAF9F657BE2E6F3246 /* JobsCryptography.h */,
 			);
 			name = JobsCryptography;
+			path = JobsCryptography;
 			sourceTree = "<group>";
 		};
 		536F1D979DE805DF0516D614 /* JobsOCOpenConfiguration */ = {
@@ -6458,6 +6615,7 @@
 				6D7EB0C09F86578571EA4718 /* JobsOCCommentDefines.h */,
 			);
 			name = JobsOCCommentDefines;
+			path = JobsOCCommentDefines;
 			sourceTree = "<group>";
 		};
 		58A53F2EEA5251CC39EABC0F /* NSString+Toast */ = {
@@ -6468,6 +6626,15 @@
 			);
 			name = "NSString+Toast";
 			path = "NSString+Toast";
+			sourceTree = "<group>";
+		};
+		58A8CFE993B0B8873159164F /* Demo@UILabel数字动效 */ = {
+			isa = PBXGroup;
+			children = (
+				5E13DAE3C0A6BECD868A61AA /* JobsAnimatedNumberLabelDemoVC */,
+			);
+			name = "Demo@UILabel数字动效";
+			path = "Demo@UILabel数字动效";
 			sourceTree = "<group>";
 		};
 		58DD2E00386B539E5B222514 /* ZFDouYinControlView+DSL */ = {
@@ -6490,6 +6657,16 @@
 			path = JobsOCVideoRecorderCaptureManager;
 			sourceTree = "<group>";
 		};
+		592911E59672F9C136F60DBA /* JobsBluetoothProfile */ = {
+			isa = PBXGroup;
+			children = (
+				3C78AD1D8731C11E888CCE20 /* JobsBluetoothProfile.h */,
+				5206E19D5351CACA00A7F0E0 /* JobsBluetoothProfile.m */,
+			);
+			name = JobsBluetoothProfile;
+			path = JobsBluetoothProfile;
+			sourceTree = "<group>";
+		};
 		59D612ECB5FE4D699E5EF129 /* JobsWalletCardModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -6497,6 +6674,7 @@
 				354BC09A814A8E18BCDC2350 /* JobsWalletCardModel.m */,
 			);
 			name = JobsWalletCardModel;
+			path = JobsWalletCardModel;
 			sourceTree = "<group>";
 		};
 		5A4D212CD04A14FBF6593B0B /* ZFAVPlayerManager+ZFPlayerExtraDSL */ = {
@@ -6517,6 +6695,15 @@
 			);
 			name = JobsOCVideoRecorderVC;
 			path = JobsOCVideoRecorderVC;
+			sourceTree = "<group>";
+		};
+		5E13DAE3C0A6BECD868A61AA /* JobsAnimatedNumberLabelDemoVC */ = {
+			isa = PBXGroup;
+			children = (
+				3008FE8EF506A96B707F9948 /* JobsAnimatedNumberLabelDemoVC.h */,
+				C752EE5DB7296BC1D04EEA33 /* JobsAnimatedNumberLabelDemoVC.m */,
+			);
+			name = JobsAnimatedNumberLabelDemoVC;
 			sourceTree = "<group>";
 		};
 		602C934E978C26C8250C8AC8 /* JobsOCVideoRecorderResult */ = {
@@ -6549,6 +6736,7 @@
 				A3194B235EF99C4B2C5D4A38 /* FMDatabaseExtra.h */,
 			);
 			name = FMDB;
+			path = FMDB;
 			sourceTree = "<group>";
 		};
 		62548BFE272560C5143753FF /* JobsOCSearcherRecordCell */ = {
@@ -6556,8 +6744,10 @@
 			children = (
 				BD3CDD59B5A881297C6FCAAC /* JobsOCSearcherRecordCell.h */,
 				5EF505C9A80F64D485869D34 /* JobsOCSearcherRecordCell.m */,
+				A5F3530C92F20A74B5F42B7B /* JobsOCSearcherRecordCell.m */,
 			);
 			name = JobsOCSearcherRecordCell;
+			path = JobsOCSearcherRecordCell;
 			sourceTree = "<group>";
 		};
 		62958CB91FC7A4349F82FA8A /* NSString+URL */ = {
@@ -6645,6 +6835,16 @@
 			path = MyAppTools;
 			sourceTree = "<group>";
 		};
+		69CA00A5DAD55CD2BDE92AA5 /* JobsQRCodeDemoVC */ = {
+			isa = PBXGroup;
+			children = (
+				11662A9BD29CFFEDA1E88218 /* JobsQRCodeDemoVC.h */,
+				BCFA2144AE905998A7DC8C8D /* JobsQRCodeDemoVC.m */,
+			);
+			name = JobsQRCodeDemoVC;
+			path = JobsQRCodeDemoVC;
+			sourceTree = "<group>";
+		};
 		6A584167E3E42A8760F0A986 /* UIView+JobsViewPush */ = {
 			isa = PBXGroup;
 			children = (
@@ -6655,13 +6855,29 @@
 			path = "UIView+JobsViewPush";
 			sourceTree = "<group>";
 		};
+		6AB242607622C4B887680F19 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				00007F15056C7560CA0F9721 /* JobsBluetoothCommand */,
+				AE3E98216682BCB839C3A460 /* JobsBluetoothManager */,
+				DE0889886ABE48DFFF271926 /* JobsBluetoothMockTransport */,
+				83EC9226FFB6FE375C67EB7D /* JobsBluetoothPeripheral */,
+				592911E59672F9C136F60DBA /* JobsBluetoothProfile */,
+				2667FBDE8517BF52543064A7 /* JobsBluetoothTypes */,
+			);
+			name = Core;
+			path = Core;
+			sourceTree = "<group>";
+		};
 		6ADA719737491E66912D7B15 /* JobsWalletCardCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				20FD6449221BC263E2FD147A /* JobsWalletCardCollectionViewCell.h */,
 				40206D77536A6AE8E440FC7B /* JobsWalletCardCollectionViewCell.m */,
+				69373485697A0BCB73BE7D60 /* JobsWalletCardCollectionViewCell.m */,
 			);
 			name = JobsWalletCardCollectionViewCell;
+			path = JobsWalletCardCollectionViewCell;
 			sourceTree = "<group>";
 		};
 		6AE734E917195604EEF2BB91 /* UIScrollView+JobsOCRefresher */ = {
@@ -6672,6 +6888,16 @@
 			);
 			name = "UIScrollView+JobsOCRefresher";
 			path = "UIScrollView+JobsOCRefresher";
+			sourceTree = "<group>";
+		};
+		6B282E245A80756B135E5EB4 /* JobsOCSkeletonUserCell */ = {
+			isa = PBXGroup;
+			children = (
+				27DEB0EA279811C390185868 /* JobsOCSkeletonUserCell.h */,
+				3B88A3B61F041C865726BDB6 /* JobsOCSkeletonUserCell.m */,
+			);
+			name = JobsOCSkeletonUserCell;
+			path = JobsOCSkeletonUserCell;
 			sourceTree = "<group>";
 		};
 		6E1E4C145479A666BC809E83 /* NSString+CAAnimation */ = {
@@ -6691,6 +6917,17 @@
 				804C1C789C68F41EA6A8D8F1 /* JobsWalletCardView.m */,
 			);
 			name = JobsWalletCardView;
+			path = JobsWalletCardView;
+			sourceTree = "<group>";
+		};
+		6FFCD8481A12D8671102EA9F /* JobsOCSkeletonConfig */ = {
+			isa = PBXGroup;
+			children = (
+				4766C592E504AFF6DC400DC1 /* JobsOCSkeletonConfig.h */,
+				6C967108A03EE96B22613716 /* JobsOCSkeletonConfig.m */,
+			);
+			name = JobsOCSkeletonConfig;
+			path = JobsOCSkeletonConfig;
 			sourceTree = "<group>";
 		};
 		703BE453B91B7691AB6B362E /* JobsOCSplashPresenter */ = {
@@ -6701,6 +6938,16 @@
 			);
 			name = JobsOCSplashPresenter;
 			path = JobsOCSplashPresenter;
+			sourceTree = "<group>";
+		};
+		715BA9B5B8F4EBB10238B966 /* JobsCNIDDemoVC */ = {
+			isa = PBXGroup;
+			children = (
+				C22F9D54A702E954F462A204 /* JobsCNIDDemoVC.h */,
+				1AB5B6EABB75158BD7F318A5 /* JobsCNIDDemoVC.m */,
+			);
+			name = JobsCNIDDemoVC;
+			path = JobsCNIDDemoVC;
 			sourceTree = "<group>";
 		};
 		72011E89466A10FA34DEBBA1 /* JobsOCCountryCodeCtrl */ = {
@@ -6773,6 +7020,15 @@
 			path = JobsLoadingImage;
 			sourceTree = "<group>";
 		};
+		7417BF2DC5222966D2E1DD25 /* Demo@JobsLinkageMenuView */ = {
+			isa = PBXGroup;
+			children = (
+				F5CED2F6D220C27EB45E9C5F /* JobsLinkageMenuViewDemoVC */,
+			);
+			name = "Demo@JobsLinkageMenuView";
+			path = "Demo@JobsLinkageMenuView";
+			sourceTree = "<group>";
+		};
 		753DEE0E870D4480CF168E39 /* JobsOCVideoRecorderPreviewView */ = {
 			isa = PBXGroup;
 			children = (
@@ -6791,6 +7047,16 @@
 			);
 			name = JobsOCSplashVC;
 			path = JobsOCSplashVC;
+			sourceTree = "<group>";
+		};
+		7799FC19B32D421FCBAFA621 /* JobsOCPatchModel */ = {
+			isa = PBXGroup;
+			children = (
+				1481FF34A929F98B0AF99CC8 /* JobsOCPatchModel.h */,
+				A08BFD814A4BD6A770E4671A /* JobsOCPatchModel.m */,
+			);
+			name = JobsOCPatchModel;
+			path = JobsOCPatchModel;
 			sourceTree = "<group>";
 		};
 		788B6E2A75E78C2A5F99B51A /* JobsFuseOuterRingConfig */ = {
@@ -6821,6 +7087,16 @@
 			name = JobsOCSearcherBar;
 			sourceTree = "<group>";
 		};
+		7A0CB955F1D91D968F6B5088 /* UIView+JobsOCSkeletonView */ = {
+			isa = PBXGroup;
+			children = (
+				14BBA9850F8BAFFF0916130C /* UIView+JobsOCSkeletonView.h */,
+				D819E5F49AA78D68C0D83AB6 /* UIView+JobsOCSkeletonView.m */,
+			);
+			name = "UIView+JobsOCSkeletonView";
+			path = "UIView+JobsOCSkeletonView";
+			sourceTree = "<group>";
+		};
 		7B0ABA43D600D4871B563811 /* NSObject+JobsDropDownListView */ = {
 			isa = PBXGroup;
 			children = (
@@ -6828,6 +7104,7 @@
 				FAD505F319E818037A5BD3A9 /* NSObject+JobsDropDownListView.m */,
 			);
 			name = "NSObject+JobsDropDownListView";
+			path = "NSObject+JobsDropDownListView";
 			sourceTree = "<group>";
 		};
 		7BEC95C679B00F012B798453 /* JobsMarqueeViewDemoVC */ = {
@@ -6903,8 +7180,10 @@
 			children = (
 				5165633E9E6F1FC865E222BC /* JobsOCCommentModeDetailVC.h */,
 				9FBBE2B9D18F5A5165FA28CB /* JobsOCCommentModeDetailVC.m */,
+				71844FCDBF5ABB10D315C495 /* JobsOCCommentModeDetailVC.m */,
 			);
 			name = JobsOCCommentModeDetailVC;
+			path = JobsOCCommentModeDetailVC;
 			sourceTree = "<group>";
 		};
 		8095B1EC1BAD710B72040210 /* Demo@JobsOCSearcherCore */ = {
@@ -6920,8 +7199,19 @@
 			isa = PBXGroup;
 			children = (
 				9BC55DE57AB3F4D7765115D7 /* Pods_JobsOCBaseConfigDemo.framework */,
+				C5D47A6A455174A8BFC5BB01 /* iOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		83EC9226FFB6FE375C67EB7D /* JobsBluetoothPeripheral */ = {
+			isa = PBXGroup;
+			children = (
+				CAAE8F3C94519D24EE0EBF6F /* JobsBluetoothPeripheral.h */,
+				04BF5715AF63DF6A0A99CAE6 /* JobsBluetoothPeripheral.m */,
+			);
+			name = JobsBluetoothPeripheral;
+			path = JobsBluetoothPeripheral;
 			sourceTree = "<group>";
 		};
 		840566451E55152D955BBB43 /* UIScrollView+JobsOCRefresher */ = {
@@ -7012,8 +7302,11 @@
 		902EA6D1EEFAA0124C16067D /* UIView+JobsNavBar */ = {
 			isa = PBXGroup;
 			children = (
+				0E6D6EF1EC4F6E28D56CF952 /* UIView+JobsNavBar.h */,
+				03C1E853954A4791FB8F3150 /* UIView+JobsNavBar.m */,
 			);
 			name = "UIView+JobsNavBar";
+			path = "UIView+JobsNavBar";
 			sourceTree = "<group>";
 		};
 		90A92A52313D1AD97348F3F9 /* Demo@倒计时进度条 */ = {
@@ -7081,8 +7374,11 @@
 		976D299071FBBD21D10CE777 /* NSArray+Extra */ = {
 			isa = PBXGroup;
 			children = (
+				8C552C6E70179A9DC817084E /* NSArray+Extra.h */,
+				16C0F9C4E7C92F71F53A01F7 /* NSArray+Extra.m */,
 			);
 			name = "NSArray+Extra";
+			path = "NSArray+Extra";
 			sourceTree = "<group>";
 		};
 		97F6DBF35A4D82C926AE1356 /* JobsTimerMgr+DSL */ = {
@@ -7114,6 +7410,18 @@
 			path = "Demo@JobsViewPush";
 			sourceTree = "<group>";
 		};
+		9A7DAE55961E6AB344286097 /* JobsOCSkeletonView */ = {
+			isa = PBXGroup;
+			children = (
+				6FFCD8481A12D8671102EA9F /* JobsOCSkeletonConfig */,
+				7A0CB955F1D91D968F6B5088 /* UIView+JobsOCSkeletonView */,
+				034228F9C64D38B62189EDD1 /* UIImageView+JobsOCSkeletonView */,
+				254A0C87C9C88CFA910EE329 /* JobsOCSkeletonView.h */,
+			);
+			name = JobsOCSkeletonView;
+			path = JobsOCSkeletonView;
+			sourceTree = "<group>";
+		};
 		9E2E397856EDD3EFC761DADE /* URLMgr@2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -7129,8 +7437,20 @@
 			children = (
 				C4B8C4CD7248A68B5D2A248E /* JobsOCCommentCell.h */,
 				F05FD63F11FA22C7B7CC7C9A /* JobsOCCommentCell.m */,
+				4FAF0248A698BFC259F2F865 /* JobsOCCommentCell.m */,
 			);
 			name = JobsOCCommentCell;
+			path = JobsOCCommentCell;
+			sourceTree = "<group>";
+		};
+		A148802D8F5CA559174B424B /* JobsOCSkeletonUser */ = {
+			isa = PBXGroup;
+			children = (
+				0D2531786B86E8F4832D0831 /* JobsOCSkeletonUser.h */,
+				71E7765EDBF860003FB13E08 /* JobsOCSkeletonUser.m */,
+			);
+			name = JobsOCSkeletonUser;
+			path = JobsOCSkeletonUser;
 			sourceTree = "<group>";
 		};
 		A1DE3AF2E57ACE8E4E735117 /* JobsResponseModel+YTKNetwork */ = {
@@ -7143,11 +7463,23 @@
 			path = "JobsResponseModel+YTKNetwork";
 			sourceTree = "<group>";
 		};
+		A20000010712000000000001 /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A10000010712000000000001 /* UIViewController+GKNavigationBarDSL.h */,
+				A10000020712000000000002 /* UIViewController+GKNavigationBarDSL.m */,
+			);
+			path = UIViewController;
+			sourceTree = "<group>";
+		};
 		A50AC36269870FEBE82D7642 /* UITextField+Extra */ = {
 			isa = PBXGroup;
 			children = (
+				94F49A87675FE8BED649978D /* UITextField+Extra.h */,
+				A99653C8336B8E84AC63F19A /* UITextField+Extra.m */,
 			);
 			name = "UITextField+Extra";
+			path = "UITextField+Extra";
 			sourceTree = "<group>";
 		};
 		A50D5ADF89AE4147A7267FF9 /* Demo@JobsOCRefresher */ = {
@@ -7182,6 +7514,32 @@
 			);
 			name = JobsOCKeyboardMgr;
 			path = JobsOCKeyboardMgr;
+			sourceTree = "<group>";
+		};
+		A7D120042026071200000001 /* JobsSideDrawer */ = {
+			isa = PBXGroup;
+			children = (
+				A7D120032026071200000001 /* JobsSideDrawer.h */,
+				A7D120022026071200000001 /* JobsSideDrawer.m */,
+			);
+			path = JobsSideDrawer;
+			sourceTree = "<group>";
+		};
+		A7D120142026071200000001 /* Demo@JobsSideDrawer */ = {
+			isa = PBXGroup;
+			children = (
+				A7D120152026071200000001 /* JobsSideDrawerDemoVC */,
+			);
+			path = "Demo@JobsSideDrawer";
+			sourceTree = "<group>";
+		};
+		A7D120152026071200000001 /* JobsSideDrawerDemoVC */ = {
+			isa = PBXGroup;
+			children = (
+				A7D120132026071200000001 /* JobsSideDrawerDemoVC.h */,
+				A7D120122026071200000001 /* JobsSideDrawerDemoVC.m */,
+			);
+			path = JobsSideDrawerDemoVC;
 			sourceTree = "<group>";
 		};
 		A7DB46A8EEEF2D17B895BDEB /* JobsTimerMgr */ = {
@@ -7230,6 +7588,16 @@
 			);
 			name = JobsStringUtils;
 			path = JobsStringUtils;
+			sourceTree = "<group>";
+		};
+		AE3E98216682BCB839C3A460 /* JobsBluetoothManager */ = {
+			isa = PBXGroup;
+			children = (
+				6745FA8AE078AB9C8BF7E461 /* JobsBluetoothManager.h */,
+				C743E436E194F5648ECFFF4E /* JobsBluetoothManager.m */,
+			);
+			name = JobsBluetoothManager;
+			path = JobsBluetoothManager;
 			sourceTree = "<group>";
 		};
 		B002C7A9E4E496162CC54F55 /* JobsOCOpen */ = {
@@ -7355,6 +7723,7 @@
 				254948D2A9E9164DCC89B980 /* UIViewController+JobsPresentTransition.m */,
 			);
 			name = "UIViewController+JobsPresentTransition";
+			path = "UIViewController+JobsPresentTransition";
 			sourceTree = "<group>";
 		};
 		BFC9F3C72C7A1B103B11DE01 /* NSObject+MyAppTools */ = {
@@ -7436,37 +7805,6 @@
 				C55C795E2E16748E00B56985 /* Products */,
 				ACDEB1DDA32F2109D29FC8B6 /* Pods */,
 				832FDACB9A3ADEA1B748F175 /* Frameworks */,
-				93B34F5E3C4E3412B819BB60 /* JobsOCPatch.h */,
-				1481FF34A929F98B0AF99CC8 /* JobsOCPatchModel.h */,
-				A08BFD814A4BD6A770E4671A /* JobsOCPatchModel.m */,
-				2F0BACD8D113C4AFA96E2A62 /* JobsOCPatchMgr.h */,
-				8BBC560ABC5F24098F00C231 /* JobsOCPatchMgr.m */,
-				62284575AAB7FE9984ABE237 /* JobsLinkageMenuViewDemoVC.h */,
-				1D19645277B6634786FE514A /* JobsLinkageMenuViewDemoVC.m */,
-				8C552C6E70179A9DC817084E /* NSArray+Extra.h */,
-				16C0F9C4E7C92F71F53A01F7 /* NSArray+Extra.m */,
-				94F49A87675FE8BED649978D /* UITextField+Extra.h */,
-				A99653C8336B8E84AC63F19A /* UITextField+Extra.m */,
-				0E6D6EF1EC4F6E28D56CF952 /* UIView+JobsNavBar.h */,
-				03C1E853954A4791FB8F3150 /* UIView+JobsNavBar.m */,
-				917C31B44E8A392E9468ECD9 /* NSObject+Model.h */,
-				D9103CF4947A7518C2EC7592 /* NSObject+Model.m */,
-				CE6E107953F04A1BCD84A336 /* JobsCountdownButtonDemoVC.m */,
-				1AC4ECC5D070B440EC631635 /* JobsOCCommentConfig.m */,
-				71844FCDBF5ABB10D315C495 /* JobsOCCommentModeDetailVC.m */,
-				87D2ADE9FF4CEC718BD888F7 /* JobsOCCommentModel.m */,
-				A1ECF86C53E403484260F7A5 /* JobsOCSearcherConfig.m */,
-				5D7D8B7DCBD9F9CD589358E7 /* JobsOCSearcherView.m */,
-				3C097A631CE7BA2A6963E657 /* JobsOCTimerMgrDemoVC.m */,
-				69373485697A0BCB73BE7D60 /* JobsWalletCardCollectionViewCell.m */,
-				7558F5C37DB313D3565C8221 /* JobsWalletCollectionViewLayout.m */,
-				4157590B4BD50634501ABB9E /* JobsOCCommentView.m */,
-				A5F3530C92F20A74B5F42B7B /* JobsOCSearcherRecordCell.m */,
-				4FAF0248A698BFC259F2F865 /* JobsOCCommentCell.m */,
-				11662A9BD29CFFEDA1E88218 /* JobsQRCodeDemoVC.h */,
-				BCFA2144AE905998A7DC8C8D /* JobsQRCodeDemoVC.m */,
-				C22F9D54A702E954F462A204 /* JobsCNIDDemoVC.h */,
-				1AB5B6EABB75158BD7F318A5 /* JobsCNIDDemoVC.m */,
 			);
 			sourceTree = "<group>";
 		};
@@ -13359,6 +13697,7 @@
 			isa = PBXGroup;
 			children = (
 				C55C856F2E167B6500B56985 /* JobsMixFunc.h */,
+				A7D120042026071200000001 /* JobsSideDrawer */,
 				044273862E8148680084B25C /* JobsScale */,
 				C55C858B2E167B6500B56985 /* 播放器控制层 */,
 				C55C857F2E167B6500B56985 /* 分享弹窗 */,
@@ -20294,6 +20633,7 @@
 				C5928AEB2FE283C50082B134 /* Demo@UITableViewCellEditorVC */,
 				C5928AFA2FE283C50082B134 /* Demo@Widget */,
 				9983C8948128D6192A58BA5B /* Demo@JobsViewPush */,
+				A7D120142026071200000001 /* Demo@JobsSideDrawer */,
 				1F2CF27CF7BA94833E806574 /* Demo@JobsOCCountryCodeCtrl */,
 				A50D5ADF89AE4147A7267FF9 /* Demo@JobsOCRefresher */,
 				19A83CF76D7354207D4A702E /* Demo@JobsOCKeyboardMgr */,
@@ -20305,6 +20645,12 @@
 				5496F9F2A7C94109FC3940F8 /* Demo@直播推流 */,
 				C7FB4FA035E8D64896B9526A /* Demo@直播间滚动留言模块 */,
 				90A92A52313D1AD97348F3F9 /* Demo@倒计时进度条 */,
+				0C7CCB783758C633C728833E /* Demo@JobsOCSkeletonView */,
+				58A8CFE993B0B8873159164F /* Demo@UILabel数字动效 */,
+				7417BF2DC5222966D2E1DD25 /* Demo@JobsLinkageMenuView */,
+				28E75CB2ACFBD9BF55526372 /* Demo@二维码和条形码 */,
+				46A8914F346FA3B850206D3C /* Demo@中国大陆居民身份证验证 */,
+				F91089114E5C4180E5F8C2D4 /* Demo@JobsBluetooth */,
 			);
 			path = "功能模块";
 			sourceTree = "<group>";
@@ -23875,6 +24221,9 @@
 				501EC8EE464DCF982C65ADBA /* JobsCryptography */,
 				146466948D690D871A15EE27 /* JobsOCComment */,
 				17EB64138130DCC579B876CA /* JobsOCSearcher */,
+				9A7DAE55961E6AB344286097 /* JobsOCSkeletonView */,
+				C93CA8E7B223A44BB94105A9 /* JobsOCPatch */,
+				1734AC96737485A03887C621 /* JobsBluetooth */,
 			);
 			path = JobsMixFunc;
 			sourceTree = "<group>";
@@ -23886,6 +24235,7 @@
 				C5B4231E2FD7C2D900B9BBF9 /* JobsPodsManual.h */,
 				11180352C36077E241FEBEEB /* XYColorOC.h */,
 				E33A67CF78C8D8CD9E21CDE1 /* JobsOCRuntimeKits.h */,
+				93B34F5E3C4E3412B819BB60 /* JobsOCPatch.h */,
 			);
 			path = JobsPods;
 			sourceTree = "<group>";
@@ -24080,6 +24430,14 @@
 			path = JobsOCDefs;
 			sourceTree = "<group>";
 		};
+		C5D47A6A455174A8BFC5BB01 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				B92E6216071FFC61BFDE03F8 /* CoreBluetooth.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
 		C5D8AAFC2FD1859D00F6BFCA /* BRStringPickerView+Extra */ = {
 			isa = PBXGroup;
 			children = (
@@ -24147,6 +24505,7 @@
 			children = (
 				C5F319632FE2856D00954A3A /* GKGestureHandleConfigure */,
 				C5F319662FE2856D00954A3A /* GKNavigationBarConfigure */,
+				A20000010712000000000001 /* UIViewController */,
 			);
 			path = "GKNavigationBar+DSL";
 			sourceTree = "<group>";
@@ -25085,6 +25444,18 @@
 			path = JobsOCDSL;
 			sourceTree = "<group>";
 		};
+		C6DB964F41D5A418567FFC38 /* JobsBluetoothDemoVC */ = {
+			isa = PBXGroup;
+			children = (
+				95E7C8A5311E2FAFECC65765 /* JobsBluetoothDemoVC.h */,
+				706A266F65BD183A7A85A1C7 /* JobsBluetoothDemoVC.m */,
+				0FC05475670A384CAF445A42 /* JobsBluetoothFeatureDemoVC.h */,
+				10E5DC955E3F2DEC67B83802 /* JobsBluetoothFeatureDemoVC.m */,
+			);
+			name = JobsBluetoothDemoVC;
+			path = JobsBluetoothDemoVC;
+			sourceTree = "<group>";
+		};
 		C70BEB4C9F9D9E32407E20D8 /* JobsOCTimerMgr */ = {
 			isa = PBXGroup;
 			children = (
@@ -25115,6 +25486,16 @@
 			);
 			name = "Demo@直播间滚动留言模块";
 			path = "Demo@直播间滚动留言模块";
+			sourceTree = "<group>";
+		};
+		C93CA8E7B223A44BB94105A9 /* JobsOCPatch */ = {
+			isa = PBXGroup;
+			children = (
+				7799FC19B32D421FCBAFA621 /* JobsOCPatchModel */,
+				3C3F170E8CB2362369E3CC83 /* JobsOCPatchMgr */,
+			);
+			name = JobsOCPatch;
+			path = JobsOCPatch;
 			sourceTree = "<group>";
 		};
 		CA6A6AE358EBA66C3653F98C /* JobsOCVideoRecorder */ = {
@@ -25210,8 +25591,10 @@
 			children = (
 				20D095D729E35B95E49375CA /* JobsOCCommentModel.h */,
 				B4134ACFAE07875F4E8D1813 /* JobsOCCommentModel.m */,
+				87D2ADE9FF4CEC718BD888F7 /* JobsOCCommentModel.m */,
 			);
 			name = JobsOCCommentModel;
+			path = JobsOCCommentModel;
 			sourceTree = "<group>";
 		};
 		D25311024EA1EE55F7965B3A /* JobsMarqueeView */ = {
@@ -25239,6 +25622,7 @@
 				326D18ABE618023C5B9A19CE /* UIFont+Extra.m */,
 			);
 			name = "UIFont+Extra";
+			path = "UIFont+Extra";
 			sourceTree = "<group>";
 		};
 		D4E1B3B548FBFA071D78665D /* UISlider+DSLs */ = {
@@ -25264,8 +25648,10 @@
 			children = (
 				A2121E00F85F5C7986F590B6 /* JobsWalletCollectionViewLayout.h */,
 				8B3E15D6A1D118DFB15F73CC /* JobsWalletCollectionViewLayout.m */,
+				7558F5C37DB313D3565C8221 /* JobsWalletCollectionViewLayout.m */,
 			);
 			name = JobsWalletCollectionViewLayout;
+			path = JobsWalletCollectionViewLayout;
 			sourceTree = "<group>";
 		};
 		D966016B6F344E699FCAD713 /* UISlider+DSL */ = {
@@ -25300,8 +25686,11 @@
 		DC3145321D902D18CC211AE7 /* NSObject+Model */ = {
 			isa = PBXGroup;
 			children = (
+				917C31B44E8A392E9468ECD9 /* NSObject+Model.h */,
+				D9103CF4947A7518C2EC7592 /* NSObject+Model.m */,
 			);
 			name = "NSObject+Model";
+			path = "NSObject+Model";
 			sourceTree = "<group>";
 		};
 		DD8AA51794A8BB6CEE032A57 /* JobsCountdownButtonDemoVC */ = {
@@ -25309,8 +25698,20 @@
 			children = (
 				09704D3C52E2924005D068F0 /* JobsCountdownButtonDemoVC.h */,
 				1E6CE383876EFEE421B55079 /* JobsCountdownButtonDemoVC.m */,
+				CE6E107953F04A1BCD84A336 /* JobsCountdownButtonDemoVC.m */,
 			);
 			name = JobsCountdownButtonDemoVC;
+			path = JobsCountdownButtonDemoVC;
+			sourceTree = "<group>";
+		};
+		DE0889886ABE48DFFF271926 /* JobsBluetoothMockTransport */ = {
+			isa = PBXGroup;
+			children = (
+				75AFDA1C7C308AC2B19AB714 /* JobsBluetoothMockTransport.h */,
+				940022EF7EA3D80740996BE3 /* JobsBluetoothMockTransport.m */,
+			);
+			name = JobsBluetoothMockTransport;
+			path = JobsBluetoothMockTransport;
 			sourceTree = "<group>";
 		};
 		DE12A19C5774FF039F310D8F /* JobsOCKeyboardConfig */ = {
@@ -25388,8 +25789,10 @@
 			children = (
 				F6BFA40A005CD82190782C38 /* JobsOCCommentView.h */,
 				B0DF2EA6896C803BACC2A9CD /* JobsOCCommentView.m */,
+				4157590B4BD50634501ABB9E /* JobsOCCommentView.m */,
 			);
 			name = JobsOCCommentView;
+			path = JobsOCCommentView;
 			sourceTree = "<group>";
 		};
 		E7F727EC56A4956EE21464CC /* URLMgr@7 */ = {
@@ -25459,8 +25862,10 @@
 			children = (
 				CBBABA402F1EC1772FB89057 /* JobsOCSearcherConfig.h */,
 				EEA4A178CA9CE3F77958F987 /* JobsOCSearcherConfig.m */,
+				A1ECF86C53E403484260F7A5 /* JobsOCSearcherConfig.m */,
 			);
 			name = JobsOCSearcherConfig;
+			path = JobsOCSearcherConfig;
 			sourceTree = "<group>";
 		};
 		F04618EE00043E38F54D2B79 /* NSObject+UserInfo */ = {
@@ -25470,6 +25875,16 @@
 			);
 			name = "NSObject+UserInfo";
 			path = "NSObject+UserInfo";
+			sourceTree = "<group>";
+		};
+		F4724C084A9E28A12B9CE49F /* JobsOCSkeletonViewDemoVC */ = {
+			isa = PBXGroup;
+			children = (
+				39E63458FDA4253EF5FEA42A /* JobsOCSkeletonViewDemoVC.h */,
+				9923EA9FAD653A7E3415113E /* JobsOCSkeletonViewDemoVC.m */,
+			);
+			name = JobsOCSkeletonViewDemoVC;
+			path = JobsOCSkeletonViewDemoVC;
 			sourceTree = "<group>";
 		};
 		F52ACEBFF1BE19DB2908557F /* URLMgr@1 */ = {
@@ -25492,6 +25907,16 @@
 			path = JobsGestureLockView;
 			sourceTree = "<group>";
 		};
+		F5CED2F6D220C27EB45E9C5F /* JobsLinkageMenuViewDemoVC */ = {
+			isa = PBXGroup;
+			children = (
+				62284575AAB7FE9984ABE237 /* JobsLinkageMenuViewDemoVC.h */,
+				1D19645277B6634786FE514A /* JobsLinkageMenuViewDemoVC.m */,
+			);
+			name = JobsLinkageMenuViewDemoVC;
+			path = JobsLinkageMenuViewDemoVC;
+			sourceTree = "<group>";
+		};
 		F72A5732E087960388CAEF59 /* JobsOCSplash */ = {
 			isa = PBXGroup;
 			children = (
@@ -25510,6 +25935,15 @@
 			);
 			name = JobsOCSplash;
 			path = JobsOCSplash;
+			sourceTree = "<group>";
+		};
+		F91089114E5C4180E5F8C2D4 /* Demo@JobsBluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				C6DB964F41D5A418567FFC38 /* JobsBluetoothDemoVC */,
+			);
+			name = "Demo@JobsBluetooth";
+			path = "Demo@JobsBluetooth";
 			sourceTree = "<group>";
 		};
 		F91A4A596FA6875846AB0B7A /* NSObject+UsrInfo */ = {
@@ -25662,6 +26096,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7D120112026071200000001 /* JobsSideDrawerDemoVC.m in Resources */,
 				C55C8B072E167B6A00B56985 /* WhiteRightArrow@2x.png in Resources */,
 				C55C8E542E167B6E00B56985 /* iph_X.mp4 in Resources */,
 				C55C8D202E167B6D00B56985 /* 登录弹窗@3x.png in Resources */,
@@ -26012,6 +26447,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7D120012026071200000001 /* JobsSideDrawer.m in Sources */,
 				C55C8CEA2E167B6C00B56985 /* JobsAppDoorLogoContentView.m in Sources */,
 				C55C8B432E167B6A00B56985 /* PHAssetResource+Extra.m in Sources */,
 				C55C8B5D2E167B6A00B56985 /* UIEditMenuInteraction+Extra.m in Sources */,
@@ -27036,6 +27472,7 @@
 				E3FC75DB9B8540456D7880C1 /* FSCalendar+DSL.m in Sources */,
 				7DCE5778E520EC17B3BFFE41 /* GKGestureHandleConfigure+DSL.m in Sources */,
 				386956887E0A089417B28906 /* GKNavigationBarConfigure+DSL.m in Sources */,
+				A30000010712000000000001 /* UIViewController+GKNavigationBarDSL.m in Sources */,
 				50E1F5A45CB7BC673B1B312C /* HXPhotoConfiguration+DSL.m in Sources */,
 				242FE3E95DE1FE2C2B2F713B /* HXPhotoManager+DSL.m in Sources */,
 				6E8F0BC6D155B8A3BDA15DD3 /* HXPhotoView+DSL.m in Sources */,
@@ -27251,6 +27688,22 @@
 				EBF8A01B822E1E1F19F78F4D /* JobsCountdownLayerDemoVC.m in Sources */,
 				A24E202964A25433B7E84F0F /* JobsSysProgressDemoVC.m in Sources */,
 				16C6F1185D2192BBED99A1FC /* JobsProgressDemoVC.m in Sources */,
+				25A5AFB32A12C213A46C067F /* JobsOCSkeletonConfig.m in Sources */,
+				88210D13668A64DCD5239477 /* UIView+JobsOCSkeletonView.m in Sources */,
+				2DAC836CC46A7642F7806A0E /* UIImageView+JobsOCSkeletonView.m in Sources */,
+				950E864D4A22F70FCBEC2F7B /* JobsOCSkeletonUser.m in Sources */,
+				03C47A3A5DE1464AF10731B7 /* JobsOCSkeletonUserCell.m in Sources */,
+				78153383329843ABBB2EB8E7 /* JobsOCSkeletonViewDemoVC.m in Sources */,
+				AA57180A2789BD0FFB802D51 /* JobsAnimatedNumberLabelDemoVC.m in Sources */,
+				CA4F53D98F13F3DEAA62985F /* JobsBluetoothCommand.m in Sources */,
+				82EDE880C9D27C76B7299F75 /* JobsBluetoothManager.m in Sources */,
+				F58F61E6DBA7DE43B2DDC40C /* JobsBluetoothMockTransport.m in Sources */,
+				C2412601793802E17CDF255E /* JobsBluetoothPeripheral.m in Sources */,
+				E3DFEFFD73B879CA3D529F5A /* JobsBluetoothProfile.m in Sources */,
+				5A9988C8C737F412FA2C1B59 /* JobsBluetoothTypes.m in Sources */,
+				0A5E12222AEBD227C0AFF763 /* JobsBluetoothDemoVC.m in Sources */,
+				29AE47BF42925F60F3569B18 /* JobsSideDrawerDemoVC.m in Sources */,
+				0237B7DB857320C2949B6618 /* JobsBluetoothFeatureDemoVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

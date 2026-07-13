@@ -113,13 +113,16 @@
 }
 
 +(NSArray<NSArray<NSString *> *> *)randomGroupCombinationFromGroups:(NSArray<NSArray<NSString *> *> *)groups
-                                                             length:(NSUInteger)length{
+                                                             length:(NSUInteger)length
+                                                         groupCount:(NSUInteger)groupCount{
     if (groups.count < 2 || length < 2) return @[];
     NSMutableArray<NSArray<NSString *> *> *shuffledGroups = groups.mutableCopy;
     [self shuffleMutableCharacters:shuffledGroups];
     NSUInteger maxGroupCount = MIN(length, shuffledGroups.count);
-    NSUInteger groupCount = 2 + arc4random_uniform((uint32_t)(maxGroupCount - 1));
-    return [shuffledGroups subarrayWithRange:NSMakeRange(0, groupCount)];
+    NSUInteger targetGroupCount = groupCount ? groupCount : maxGroupCount;
+    NSUInteger finalGroupCount = MIN(targetGroupCount, maxGroupCount);
+    if (finalGroupCount < 2) return @[];
+    return [shuffledGroups subarrayWithRange:NSMakeRange(0, finalGroupCount)];
 }
 
 +(NSString *)randomTextByCharacters:(NSArray<NSString *> *)characters
@@ -133,9 +136,11 @@
 }
 
 +(NSString *)randomMixedTextByGroups:(NSArray<NSArray<NSString *> *> *)groups
-                              length:(NSUInteger)length{
+                              length:(NSUInteger)length
+                          groupCount:(NSUInteger)groupCount{
     NSArray<NSArray<NSString *> *> *selectedGroups = [self randomGroupCombinationFromGroups:groups
-                                                                                     length:length];
+                                                                                     length:length
+                                                                                 groupCount:groupCount];
     if (!selectedGroups.count) return @"";
     NSMutableArray<NSString *> *characters = NSMutableArray.array;
     NSMutableArray<NSString *> *sourceCharacters = NSMutableArray.array;
@@ -166,7 +171,8 @@
     if (!groups.count) groups = [self characterGroupsForUnits:JobsGraphicCaptchaCharacterUnitDefault];
     if ([self shouldUseMixedGroupsForUnits:captchaConfig.characterUnits] && length > 1) {
         NSString *mixedText = [self randomMixedTextByGroups:groups
-                                                     length:length];
+                                                     length:length
+                                                 groupCount:captchaConfig.mixedGroupCount];
         if (mixedText.length) return mixedText;
     }
     NSArray<NSString *> *sourceCharacters = [self charactersForUnits:captchaConfig.characterUnits];

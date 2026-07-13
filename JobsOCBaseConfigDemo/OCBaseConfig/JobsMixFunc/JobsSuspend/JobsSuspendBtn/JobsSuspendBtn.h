@@ -29,6 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsSuspendBtn : UIButton<BaseViewProtocol>
 
+/// 开关悬浮拖拽能力
+-(JobsRetBtnByBOOLBlock _Nonnull)byAllowDrag;
+
 @end
 
 NS_ASSUME_NONNULL_END

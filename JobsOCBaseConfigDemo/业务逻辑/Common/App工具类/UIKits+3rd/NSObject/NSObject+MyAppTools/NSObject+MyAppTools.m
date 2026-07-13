@@ -471,7 +471,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
             @jobs_strongify(self)
             if (self.objBlock) self.objBlock(x);
             self.comingToPushVC(MyCollectionVC.new);
-            toastBy(@"联系我们");
+            toastBy(@"联系我们".tr);
         }).onLongPressGestureBy(^(id data){
             JobsLog(@"");
         });
@@ -556,7 +556,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
         self.cleanUserData(); /// 清除用户数据资料
         JobsPostNotification(退出登录成功, @(YES));
         self.toLogin();
-        toastBy(@"Token 已经过期，请重新登录");
+        toastBy(@"Token 已经过期，请重新登录".tr);
     };
 }
 /// 退出登录应该做的事情
@@ -577,7 +577,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
         @jobs_strongify(self)
         self.doorModel = nil;
 #ifdef DEBUG
-        toastBy(@"Token过期，自动清除本地用户数据");
+        toastBy(@"Token过期，自动清除本地用户数据".tr);
 #endif
     };
 }

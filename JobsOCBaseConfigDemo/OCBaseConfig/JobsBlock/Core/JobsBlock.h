@@ -409,6 +409,19 @@ typedef __kindof MGSwipeTableCell *_Nonnull(^JobsRetMGSwipeTableCellByDelegateBl
 /// https://github.com/QuintGao/GKNavigationBar
 typedef __kindof GKCustomNavigationBar *_Nullable(^JobsRetGKNavBarByButtonModelBlock)(__kindof UIButtonModel *_Nullable model);
 #if __has_include(<GKNavigationBar/GKNavigationBar.h>) || __has_include("GKNavigationBar.h")
+typedef void(^jobsByGKCustomNavigationBarBlock)(__kindof GKCustomNavigationBar *_Nullable navigationBar);
+typedef __kindof UIViewController *_Nullable(^JobsRetGKNavVCByBOOLBlock)(BOOL data);
+typedef __kindof UIViewController *_Nullable(^JobsRetGKNavVCByCGFloatBlock)(CGFloat data);
+typedef __kindof UIViewController *_Nullable(^JobsRetGKNavVCByStatusBarStyleBlock)(UIStatusBarStyle data);
+typedef __kindof UIViewController *_Nullable(^JobsRetGKNavVCByBackStyleBlock)(GKNavigationBarBackStyle data);
+typedef __kindof UIViewController *_Nullable(^JobsRetGKNavVCByColorBlock)(UIColor *_Nullable data);
+typedef __kindof UIViewController *_Nullable(^JobsRetGKNavVCByImageBlock)(UIImage *_Nullable data);
+typedef __kindof UIViewController *_Nullable(^JobsRetGKNavVCByStringBlock)(NSString *_Nullable data);
+typedef __kindof UIViewController *_Nullable(^JobsRetGKNavVCByFontBlock)(UIFont *_Nullable data);
+typedef __kindof UIViewController *_Nullable(^JobsRetGKNavVCByViewBlock)(__kindof UIView *_Nullable data);
+typedef __kindof UIViewController *_Nullable(^JobsRetGKNavVCByBarButtonItemBlock)(UIBarButtonItem *_Nullable data);
+typedef __kindof UIViewController *_Nullable(^JobsRetGKNavVCByBarButtonItemsBlock)(NSArray<UIBarButtonItem *> *_Nullable data);
+typedef __kindof UIViewController *_Nullable(^JobsRetGKNavVCByNavigationBarBlock)(jobsByGKCustomNavigationBarBlock _Nullable block);
 typedef __kindof GKNavigationBarConfigure *_Nullable(^JobsRetGKNavConfigureByConfigureBlock)(void (^ _Nullable block)(GKNavigationBarConfigure *configure));
 typedef __kindof GKNavigationBarConfigure *_Nullable(^JobsRetGKNavConfigureByColorBlock)(UIColor *_Nullable data);
 typedef __kindof GKNavigationBarConfigure *_Nullable(^JobsRetGKNavConfigureByImageBlock)(UIImage *_Nullable data);

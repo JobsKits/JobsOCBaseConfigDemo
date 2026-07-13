@@ -458,7 +458,7 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
             data.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 用户名) {
                 用户名
                     .byLeftViewIMG(userIcon)
-                    .byPlaceholder(@"用户名")
+                    .byPlaceholder(@"用户名".tr)
                     .byIsShowDelBtn(YES)
                     .byIsShowSecurityBtn(NO)
                     .byReturnKeyType(UIReturnKeyDone)
@@ -468,7 +468,7 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
             data.add(jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable 密码) {
                 密码
                     .byLeftViewIMG(lockIcon)
-                    .byPlaceholder(@"密码")
+                    .byPlaceholder(@"密码".tr)
                     .byIsShowDelBtn(YES)
                     .byIsShowSecurityBtn(YES)
                     .bySelectedSecurityBtnIMG(@"codeEncode".img)// 闭眼

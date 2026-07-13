@@ -283,7 +283,7 @@ Prop_assign(readwrite)BOOL builtOnce;
         b.onClickAppendBy(^(UIButton *x){
             NSInteger index = x.tag;
             if (index >= MIN(self.buttons.count, self.controllers.count)) {
-                toastBy(@"请配置子控制器");
+                toastBy(@"请配置子控制器".tr);
                 return;
             }[self selectIndex:index animated:YES];
         });
@@ -313,7 +313,7 @@ Prop_assign(readwrite)BOOL builtOnce;
 - (void)selectIndex:(NSInteger)index animated:(BOOL)animated {
     if (index < 0 || index >= (NSInteger)self.buttons.count) return;
     if (index >= MIN(self.buttons.count, self.controllers.count)) {
-        toastBy(@"请配置子控制器");
+        toastBy(@"请配置子控制器".tr);
         return;
     }
     self.selectedIndex = index;

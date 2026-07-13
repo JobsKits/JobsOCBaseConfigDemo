@@ -63,7 +63,7 @@
 #define Title9 @"获取验证码".tr
 #define Title10 @"您也可以通过以下方式联系客服".tr
 #define Title11 @"以后".tr
-#define Title12 @"返回注册".tr.addNewlines
+#define Title12 @"去注册".tr.addNewlines
 /**
  
      1、账号密码长度提示为默认固定存在。

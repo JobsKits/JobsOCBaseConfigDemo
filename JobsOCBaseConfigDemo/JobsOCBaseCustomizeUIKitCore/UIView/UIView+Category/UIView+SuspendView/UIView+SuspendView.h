@@ -23,6 +23,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_weak()UIViewController *vc;
 Prop_strong()UIPanGestureRecognizer *panRcognize;
+Prop_assign()BOOL suspendHapticOnDock;
+Prop_assign()BOOL suspendConfineInSafeArea;
+
+/// 以父视图 safeArea 左上角为坐标原点设置悬浮起点，并自动夹紧
+-(JobsRetViewByCGPointBlock _Nonnull)bySuspendOriginInSafeArea;
+/// 吸附结束后是否触发轻触觉
+-(JobsRetViewByBOOLBlock _Nonnull)byHapticOnDock;
+/// 拖动过程中是否限制在父视图 safeArea 内，默认 YES
+-(JobsRetViewByBOOLBlock _Nonnull)byConfineInSafeArea;
 
 @end
 

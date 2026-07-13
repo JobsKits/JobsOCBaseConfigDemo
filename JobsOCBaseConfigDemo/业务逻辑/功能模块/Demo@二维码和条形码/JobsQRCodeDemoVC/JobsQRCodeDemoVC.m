@@ -42,7 +42,7 @@ Prop_copy()NSString *barcodeContent;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byTextCor(HEXCOLOR(0x263342));
-            data.byText(@"二维码 + 条形码");
+            data.byText(@"二维码 + 条形码".tr);
             data.byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(HEXCOLOR(0xF5F7FA))
@@ -99,7 +99,7 @@ Prop_copy()NSString *barcodeContent;
         [_contentView mas_makeConstraints:^(MASConstraintMaker *make) {
             @jobs_strongify(self)
             make.left.right.equalTo(self.view).inset(JobsWidth(20));
-            make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(JobsWidth(24));
+            make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(JobsWidth(64));
         }];
         self.qrImageView.hidden = NO;
         self.logoQRImageView.hidden = NO;
