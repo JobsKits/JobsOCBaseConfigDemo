@@ -79,14 +79,6 @@
     };return groups.copy;
 }
 
-+(BOOL)shouldUseMixedGroupsForUnits:(JobsOCGraphicCaptchaCharacterUnit)units{
-    JobsOCGraphicCaptchaCharacterUnit mixedUnits = JobsOCGraphicCaptchaCharacterUnitNumber |
-                                                JobsOCGraphicCaptchaCharacterUnitLowercaseLetter |
-                                                JobsOCGraphicCaptchaCharacterUnitUppercaseLetter |
-                                                JobsOCGraphicCaptchaCharacterUnitChinese;
-    return (units & mixedUnits) == mixedUnits;
-}
-
 +(NSArray<NSString *> *)validCharactersFromCharacters:(NSArray<NSString *> *)characters{
     NSMutableArray<NSString *> *validCharacters = NSMutableArray.array;
     for (id character in characters) {
@@ -112,16 +104,6 @@
     }
 }
 
-+(NSArray<NSArray<NSString *> *> *)randomGroupCombinationFromGroups:(NSArray<NSArray<NSString *> *> *)groups
-                                                             length:(NSUInteger)length{
-    if (groups.count < 2 || length < 2) return @[];
-    NSMutableArray<NSArray<NSString *> *> *shuffledGroups = groups.mutableCopy;
-    [self shuffleMutableCharacters:shuffledGroups];
-    NSUInteger maxGroupCount = MIN(length, shuffledGroups.count);
-    NSUInteger groupCount = 2 + arc4random_uniform((uint32_t)(maxGroupCount - 1));
-    return [shuffledGroups subarrayWithRange:NSMakeRange(0, groupCount)];
-}
-
 +(NSString *)randomTextByCharacters:(NSArray<NSString *> *)characters
                               length:(NSUInteger)length{
     NSMutableString *text = NSMutableString.string;
@@ -134,12 +116,10 @@
 
 +(NSString *)randomMixedTextByGroups:(NSArray<NSArray<NSString *> *> *)groups
                               length:(NSUInteger)length{
-    NSArray<NSArray<NSString *> *> *selectedGroups = [self randomGroupCombinationFromGroups:groups
-                                                                                     length:length];
-    if (!selectedGroups.count) return @"";
+    if (groups.count < 2 || length < groups.count) return @"";
     NSMutableArray<NSString *> *characters = NSMutableArray.array;
     NSMutableArray<NSString *> *sourceCharacters = NSMutableArray.array;
-    for (NSArray<NSString *> *group in selectedGroups) {
+    for (NSArray<NSString *> *group in groups) {
         NSString *character = [self randomCharacterFromCharacters:group];
         if (character.length) [characters addObject:character];
         [sourceCharacters addObjectsFromArray:group];
@@ -164,7 +144,9 @@
     }
     NSArray<NSArray<NSString *> *> *groups = [self characterGroupsForUnits:captchaConfig.characterUnits];
     if (!groups.count) groups = [self characterGroupsForUnits:JobsOCGraphicCaptchaCharacterUnitDefault];
-    if ([self shouldUseMixedGroupsForUnits:captchaConfig.characterUnits] && length > 1) {
+    if (captchaConfig.mixedGroupCount > 1 && groups.count > 1) {
+        NSUInteger requiredLength = MIN(captchaConfig.mixedGroupCount, groups.count);
+        if (length < requiredLength) length = requiredLength;
         NSString *mixedText = [self randomMixedTextByGroups:groups
                                                      length:length];
         if (mixedText.length) return mixedText;

@@ -59,10 +59,11 @@ AppToolsProtocol_synthesize
             if(self.viewModel.attributedTitle){
                 self.textView.attributedText = self.viewModel.attributedTitle;
             }else{
-                self.textView.text = self.viewModel.text;
+                self.textView
+                    .byText(self.viewModel.text)
+                    .byTextCor(self.viewModel.textCor)
+                    .byFont(self.viewModel.font);
                 self.textView.textAlignment = self.viewModel.textAlignment;
-                self.textView.textColor = self.viewModel.textCor;
-                self.textView.font = self.viewModel.font;
             }if(!self.viewModel.selectedImage_) self.viewModel.selectedImage_ = self.viewModel.image;
         }
         if([data isKindOfClass:UIButtonModel.class]) {
@@ -79,14 +80,15 @@ AppToolsProtocol_synthesize
             if(self.buttonModel.attributedTitle){
                 self.textView.attributedText = self.buttonModel.attributedTitle;
             }else{
-                self.textView.text = self.buttonModel.title;
+                self.textView.byText(self.buttonModel.title);
                 self.textView.textAlignment = self.buttonModel.textAlignment;
                 /// 从 iOS 16 起，UITextView 使用新的文本渲染系统，会使用 UITextLayoutFragmentView。
                 /// 它默认在某些情况下会将内容垂直居中，比如文本少、没有足够内容填满 UITextView 的高度时。
                 /// 所以一下操作就是在关闭这个新特性
                 [self.textView switchs];
-                self.textView.textColor = self.buttonModel.titleCor;
-                self.textView.font = self.buttonModel.titleFont;
+                self.textView
+                    .byTextCor(self.buttonModel.titleCor)
+                    .byFont(self.buttonModel.titleFont);
             }if(!self.buttonModel.highlightImage) self.buttonModel.highlightImage = self.buttonModel.normalImage;
         };return self;
     };
@@ -133,12 +135,12 @@ AppToolsProtocol_synthesize
     /// 检查文本项是否为链接类型
     if (textItem.link.absoluteString.containsString(url)) {
         /// 创建一个自定义的 UIAction
-        return [UIAction actionWithTitle:@"自定义操作"
-                                   image:nil
-                              identifier:nil
-                                 handler:^(__kindof UIAction * _Nonnull action) {
+        return jobsMakeAction(@"自定义操作",
+                              nil,
+                              nil,
+                              ^(__kindof UIAction * _Nonnull action) {
             if(self.objBlock) self.objBlock(action);
-        }];
+        }, nil);
     };return defaultAction;/// 如果没有匹配到自定义条件，返回默认的动作
 }
 //-(nullable UITextItemMenuConfiguration *)textView:(UITextView *)textView menuConfigurationForTextItem:(UITextItem *)textItem defaultMenu:(UIMenu *)defaultMenu API_AVAILABLE(ios(17.0)) API_UNAVAILABLE(watchos, tvos);
@@ -158,13 +160,13 @@ AppToolsProtocol_synthesize
             .jobsResetImagePadding(1)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.byToggleSelected();
                 if(self.objBlock) self.objBlock(x);
                 if(self.viewModel){
-                    if(self.viewModel.selectedImage_) x.jobsResetBtnImage(x.selected ? self.viewModel.selectedImage_ : self.viewModel.image);
+                    if(self.viewModel.selectedImage_) x.jobsResetBtnImage(x.jobs_isSelected ? self.viewModel.selectedImage_ : self.viewModel.image);
                 }
                 if(self.buttonModel){
-                    if(self.buttonModel.normalImage) x.jobsResetBtnImage(x.selected ? self.buttonModel.highlightImage : self.buttonModel.normalImage);
+                    if(self.buttonModel.normalImage) x.jobsResetBtnImage(x.jobs_isSelected ? self.buttonModel.highlightImage : self.buttonModel.normalImage);
                 }
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
@@ -199,15 +201,16 @@ AppToolsProtocol_synthesize
         @jobs_weakify(self)
         _szTextView = jobsMakeSZTextView(^(SZTextView * _Nonnull textView) {
             @jobs_strongify(self)
+            textView
+                .byTextCor(JobsBlackColor)
+                .byFont(UIFontWeightMediumSize(18))
+                .byBgColor(@"#F9F9F9".cor);
             textView.delegate = self;
-            textView.textColor = JobsBlackColor;
-            textView.byBgColor(@"#F9F9F9".cor);
 
             textView.returnKeyType = UIReturnKeyDefault;
             textView.keyboardAppearance = UIKeyboardAppearanceDefault;
             textView.keyboardType = UIKeyboardTypeNumberPad;
             textView.placeholder = @"请输入充值金额".tr;
-            textView.font = UIFontWeightMediumSize(18);
             textView.placeholderFont = textView.font;
             textView.placeholderColor = @"#AAAAAA".cor;
             [textView jobsTextViewFilterBlock:^BOOL(id  _Nullable data) {
@@ -225,8 +228,8 @@ AppToolsProtocol_synthesize
         @jobs_weakify(self)
         _jobsTextView = makeJobsTextView(^(__kindof JobsTextView * _Nullable textView) {
             @jobs_strongify(self)
+            textView.szTextView.byTextCor(JobsBlackColor);
             textView.szTextView.delegate = self;
-            textView.szTextView.textColor = JobsBlackColor;
             textView.szTextView.byBgColor(JobsClearColor);
             textView.byBgColor(JobsClearColor);
             textView.returnKeyType_ = UIReturnKeyDefault;

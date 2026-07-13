@@ -51,9 +51,9 @@ Prop_assign(readwrite)BOOL builtOnce;
         self.view.byBgColor([UIColor whiteColor]);
 
     }
-    [self.view addSubview:self.contentScrollView];
-    [self.tabBar addSubview:self.bgImageView];
-    [self.view addSubview:self.tabBar];
+    self.contentScrollView.addOn(self.view);
+    self.bgImageView.addOn(self.tabBar);
+    self.tabBar.addOn(self.view);
 }
 
 - (void)viewDidLayoutSubviews {
@@ -114,7 +114,7 @@ Prop_assign(readwrite)BOOL builtOnce;
 
 - (void)setBarBackgroundImage:(UIImage *)barBackgroundImage {
     _barBackgroundImage = barBackgroundImage;
-    self.bgImageView.image = barBackgroundImage;
+    self.bgImageView.byImage(barBackgroundImage);
 }
 
 - (void)setCustomBarHeight:(NSNumber *)customBarHeight {
@@ -195,7 +195,7 @@ Prop_assign(readwrite)BOOL builtOnce;
     return ^(BOOL animated){
         @jobs_strongify(self)
         [self.buttons enumerateObjectsUsingBlock:^(UIButton *b, NSUInteger idx, BOOL *stop) {
-            b.selected = (idx == self.selectedIndex);
+            b.bySelected(idx == self.selectedIndex);
         }];
         self.syncContentOffsetAnimated(animated);
         [self scrollTabBarToVisibleIndex:self.selectedIndex animated:animated];
@@ -288,14 +288,14 @@ Prop_assign(readwrite)BOOL builtOnce;
             }[self selectIndex:index animated:YES];
         });
         b.tag = idx;
-        [self.tabBar addSubview:b];
+        b.addOn(self.tabBar);
     }];
     /// 5. 添加子控制器（只取 min(buttons, controllers)）
     NSInteger pageCount = MIN(self.buttons.count, self.controllers.count);
     for (NSInteger i = 0; i < pageCount; i++) {
         UIViewController *vc = self.controllers[i].navCtrl;
         [self addChildViewController:vc];
-        [self.contentScrollView addSubview:vc.view];
+        vc.view.addOn(self.contentScrollView);
         [vc didMoveToParentViewController:self];
 
         if (self.suppressChildVerticalScrolls) {

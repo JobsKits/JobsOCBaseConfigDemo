@@ -58,7 +58,7 @@ Prop_assign(class)SourceType sourceType;
             self.viewModel = model;
             self.button.jobsResetBtnImage(self.viewModel.image);
             self.button.jobsResetBtnTitle(self.viewModel.text);
-            self.imageView.image = self.viewModel.bgImage;
+            self.imageView.byImage(self.viewModel.bgImage);
             self.imageView
                     .imageURL(self.viewModel.imageUrl)
                     .placeholderImage(self.viewModel.bgImage)

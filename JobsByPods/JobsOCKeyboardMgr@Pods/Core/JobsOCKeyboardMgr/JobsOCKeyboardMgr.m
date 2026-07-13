@@ -241,20 +241,21 @@ sharesMovingViewsWithConfig:(__kindof JobsOCKeyboardConfig *)right{
     if (!config.shouldFlowByReturnKey) return;
     NSArray <__kindof UITextField *>*inputFields = config.inputFields;
     for (UITextField *textField in inputFields) {
-        [textField removeTarget:self
-                          action:@selector(jobs_inputFieldDidEndOnExit:)
-                forControlEvents:UIControlEventEditingDidEndOnExit];
-        [textField addTarget:self
-                      action:@selector(jobs_inputFieldDidEndOnExit:)
-            forControlEvents:UIControlEventEditingDidEndOnExit];
+        textField
+            .byRemoveTarget(self,
+                            @selector(jobs_inputFieldDidEndOnExit:),
+                            UIControlEventEditingDidEndOnExit)
+            .byAddTarget(self,
+                         @selector(jobs_inputFieldDidEndOnExit:),
+                         UIControlEventEditingDidEndOnExit);
     }
 }
 
 -(void)jobs_teardownInputFlowForConfig:(__kindof JobsOCKeyboardConfig *)config{
     for (UITextField *textField in config.inputFields) {
-        [textField removeTarget:self
-                          action:@selector(jobs_inputFieldDidEndOnExit:)
-                forControlEvents:UIControlEventEditingDidEndOnExit];
+        textField.byRemoveTarget(self,
+                                 @selector(jobs_inputFieldDidEndOnExit:),
+                                 UIControlEventEditingDidEndOnExit);
     }
 }
 
@@ -265,7 +266,7 @@ sharesMovingViewsWithConfig:(__kindof JobsOCKeyboardConfig *)right{
     if (index == NSNotFound) return nil;
     for (NSUInteger i = index + 1; i < inputFields.count; i++) {
         UITextField *nextTextField = inputFields[i];
-        if (nextTextField.enabled &&
+        if (nextTextField.jobs_isEnabled &&
             nextTextField.userInteractionEnabled &&
             !nextTextField.hidden &&
             nextTextField.alpha > 0.01f) {

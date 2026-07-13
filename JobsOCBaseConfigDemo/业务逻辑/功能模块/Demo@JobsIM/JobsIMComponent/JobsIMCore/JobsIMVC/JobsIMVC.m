@@ -182,40 +182,44 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(nullable UISwipeActionsConfiguration *)tableView:(UITableView *)tableView
  leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (@available(iOS 11.0, *)) {
-        UIContextualAction *deleteRowAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
-                                                                                      title:@"删除"
-                                                                                    handler:^(UIContextualAction * _Nonnull action,
-                                                                                              __kindof UIView * _Nonnull sourceView,
-                                                                                              void (^ _Nonnull completionHandler)(BOOL)) {
+        UIContextualAction *deleteRowAction = jobsMakeContextualAction(UIContextualActionStyleNormal,
+                                                                      @"删除",
+                                                                      ^(UIContextualAction * _Nonnull action,
+                                                                        __kindof UIView * _Nonnull sourceView,
+                                                                        void (^ _Nonnull completionHandler)(BOOL)) {
             [WHToast showErrorWithMessage:@"删除"
                                  duration:2
                             finishHandler:^{
               
             }];
-        }];
+        }, ^(__kindof UIContextualAction * _Nullable action) {});
         //设置图片，但是设置不了原图，都是被默认为白色了，字体也是
         UIImage *image = [JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"分享") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        [deleteRowAction setImage:image];
-        deleteRowAction.byBgColor([UIColor redColor]);
+        deleteRowAction
+            .byImage(image)
+            .byBgColor([UIColor redColor]);
 
 
-        UIContextualAction *editRowAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
-                                                                                    title:@"编辑"
-                                                                                  handler:^(UIContextualAction * _Nonnull action,
-                                                                                            __kindof UIView * _Nonnull sourceView,
-                                                                                            void (^ _Nonnull completionHandler)(BOOL)) {
+        UIContextualAction *editRowAction = jobsMakeContextualAction(UIContextualActionStyleNormal,
+                                                                    @"编辑",
+                                                                    ^(UIContextualAction * _Nonnull action,
+                                                                      __kindof UIView * _Nonnull sourceView,
+                                                                      void (^ _Nonnull completionHandler)(BOOL)) {
             [WHToast showErrorWithMessage:@"编辑"
                                  duration:2
                             finishHandler:^{
               
             }];
-        }];
-        editRowAction.image = JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"删除");
-        editRowAction.byBgColor([UIColor blueColor]);
+        }, ^(__kindof UIContextualAction * _Nullable action) {
+            action
+                .byImage(JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"删除"))
+                .byBgColor([UIColor blueColor]);
+        });
 
-        UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteRowAction,editRowAction]];
-        //设置全屏滑动时不自定响应事件
-        config.performsFirstActionWithFullSwipe = false;
+        UISwipeActionsConfiguration *config = jobsMakeSwipeActionsConfiguration(@[deleteRowAction,editRowAction], ^(__kindof UISwipeActionsConfiguration * _Nullable config) {
+            //设置全屏滑动时不自定响应事件
+            config.byPerformsFirstActionWithFullSwipe(NO);
+        });
         return config;
     }else{
         return nil;
@@ -225,28 +229,31 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UISwipeActionsConfiguration *)tableView:(UITableView *)tableView
 trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (@available(iOS 11.0, *)) {
-        UIContextualAction *deleteRowAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
-                                                                                      title:@"删除"
-                                                                                    handler:^(UIContextualAction * _Nonnull action,
-                                                                                              __kindof UIView * _Nonnull sourceView,
-                                                                                              void (^ _Nonnull completionHandler)(BOOL)) {
-        }];
+        UIContextualAction *deleteRowAction = jobsMakeContextualAction(UIContextualActionStyleNormal,
+                                                                      @"删除",
+                                                                      ^(UIContextualAction * _Nonnull action,
+                                                                        __kindof UIView * _Nonnull sourceView,
+                                                                        void (^ _Nonnull completionHandler)(BOOL)) {
+        }, ^(__kindof UIContextualAction * _Nullable action) {});
         UIImage *image = [JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"分享")  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        [deleteRowAction setImage:image];
-        deleteRowAction.byBgColor([UIColor redColor]);
+        deleteRowAction
+            .byImage(image)
+            .byBgColor([UIColor redColor]);
 
-        UIContextualAction *editRowAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
-                                                                                    title:@"编辑"
-                                                                                  handler:^(UIContextualAction * _Nonnull action,
-                                                                                            __kindof UIView * _Nonnull sourceView,
-                                                                                            void (^ _Nonnull completionHandler)(BOOL)) {
-        }];
-        editRowAction.image = JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"删除");
-        editRowAction.byBgColor([UIColor blueColor]);
+        UIContextualAction *editRowAction = jobsMakeContextualAction(UIContextualActionStyleNormal,
+                                                                    @"编辑",
+                                                                    ^(UIContextualAction * _Nonnull action,
+                                                                      __kindof UIView * _Nonnull sourceView,
+                                                                      void (^ _Nonnull completionHandler)(BOOL)) {
+        }, ^(__kindof UIContextualAction * _Nullable action) {
+            action
+                .byImage(JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"删除"))
+                .byBgColor([UIColor blueColor]);
+        });
 
-
-        UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteRowAction,editRowAction]];
-        config.performsFirstActionWithFullSwipe = false;
+        UISwipeActionsConfiguration *config = jobsMakeSwipeActionsConfiguration(@[deleteRowAction,editRowAction], ^(__kindof UISwipeActionsConfiguration * _Nullable config) {
+            config.byPerformsFirstActionWithFullSwipe(NO);
+        });
         return config;
     }else{
         return nil;

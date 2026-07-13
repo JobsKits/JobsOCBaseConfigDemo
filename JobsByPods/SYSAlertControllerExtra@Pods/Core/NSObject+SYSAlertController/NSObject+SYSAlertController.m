@@ -118,9 +118,9 @@
         @jobs_strongify(self)
         textField.byPlaceholder(@"username".tr);
 
-        [textField addTarget:self
-                      action:@selector(alertUserAccountInfoDidChange:targetVC:)
-            forControlEvents:UIControlEventEditingChanged];
+        textField.byAddTarget(self,
+                              @selector(alertUserAccountInfoDidChange:targetVC:),
+                              UIControlEventEditingChanged);
     }];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         @jobs_strongify(self)
@@ -128,9 +128,9 @@
 
         textField.bySecureTextEntry(YES);
 
-        [textField addTarget:self
-                      action:@selector(alertUserAccountInfoDidChange:targetVC:)
-            forControlEvents:UIControlEventEditingChanged];
+        textField.byAddTarget(self,
+                              @selector(alertUserAccountInfoDidChange:targetVC:),
+                              UIControlEventEditingChanged);
     }];
 
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel".tr

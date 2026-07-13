@@ -24,52 +24,58 @@ Prop_strong()UILabel *bubbleLabel;
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.backgroundColor = UIColor.clearColor;
-        self.contentView.backgroundColor = UIColor.clearColor;
-        self.bubbleLabel.alpha = 1;
+        self.byBgColor(UIColor.clearColor);
+        self.contentView.byBgColor(UIColor.clearColor);
+        self.bubbleLabel.byAlpha(1);
     };return self;
 }
 
 -(void)prepareForReuse{
     [super prepareForReuse];
     self.contentView.transform = CGAffineTransformIdentity;
-    self.contentView.alpha = 1;
+    self.contentView.byAlpha(1);
 }
 
 -(void)configureWithText:(NSString *)text{
-    self.bubbleLabel.text = text.length ? text : @"...";
+    self.bubbleLabel.byText(text.length ? text : @"...");
 }
 
 -(void)playAppearAnimation{
     self.contentView.transform = CGAffineTransformMakeTranslation(0, JobsWidth(14));
-    self.contentView.alpha = 0;
-    [UIView animateWithDuration:0.22
-                          delay:0
-         usingSpringWithDamping:0.78
-          initialSpringVelocity:0.4
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
+    self.contentView.byAlpha(0);
+    UIView.jobsAnimateWithSpring(0.22,
+        0,
+        0.78,
+        0.4,
+        UIViewAnimationOptionCurveEaseOut,
+        ^{
         self.contentView.transform = CGAffineTransformIdentity;
-        self.contentView.alpha = 1;
-    } completion:nil];
+        self.contentView.byAlpha(1);
+    },
+        nil);
 }
 #pragma mark —— LazyLoad
 -(UILabel *)bubbleLabel{
     if (!_bubbleLabel) {
-        _bubbleLabel = UILabel.new;
-        _bubbleLabel.numberOfLines = 0;
-        _bubbleLabel.textColor = UIColor.whiteColor;
-        _bubbleLabel.font = UIFontWeightRegularSize(15);
-        _bubbleLabel.backgroundColor = UIColor.systemBlueColor;
-        _bubbleLabel.layer.cornerRadius = JobsWidth(15);
-        _bubbleLabel.layer.masksToBounds = YES;
-        [self.contentView addSubview:_bubbleLabel];
-        [_bubbleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView).offset(JobsWidth(16));
-            make.right.lessThanOrEqualTo(self.contentView).offset(-JobsWidth(56));
-            make.top.equalTo(self.contentView).offset(JobsWidth(6));
-            make.bottom.equalTo(self.contentView).offset(-JobsWidth(6));
-        }];
+        _bubbleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byNumberOfLines(0)
+                .byTextCor(UIColor.whiteColor)
+                .byFont(UIFontWeightRegularSize(15))
+                .byBgColor(UIColor.systemBlueColor)
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byCornerRadius(JobsWidth(15))
+                        .byMasksToBounds(YES);
+                })
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.contentView).offset(JobsWidth(16));
+                    make.right.lessThanOrEqualTo(self.contentView).offset(-JobsWidth(56));
+                    make.top.equalTo(self.contentView).offset(JobsWidth(6));
+                    make.bottom.equalTo(self.contentView).offset(-JobsWidth(6));
+                });
+        });
     };return _bubbleLabel;
 }
 

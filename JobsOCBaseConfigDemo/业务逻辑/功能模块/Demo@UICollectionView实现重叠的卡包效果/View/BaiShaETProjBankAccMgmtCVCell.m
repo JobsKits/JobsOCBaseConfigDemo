@@ -52,7 +52,7 @@ Prop_strong()UILabel *detailLab;
         .byBorderWidth(JobsWidth(1))
         .byBorderColor(RGBA_COLOR(255, 255, 255, 0.86).CGColor);
     self.layer
-        .byShadowPath([UIBezierPath bezierPathWithRoundedRect:self.contentView.frame cornerRadius:cornerRadius].CGPath);
+        .byShadowPath(UIBezierPath.byBezierPathWithRoundedRect(self.contentView.frame, cornerRadius).CGPath);
 }
 #pragma mark —— BaseCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView

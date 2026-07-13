@@ -117,7 +117,7 @@
              .jobsResetBtnTitle(@"APPLY NOW".tr)
              .onClickBy(^(UIButton *x){
                  @jobs_strongify(self)
-                 x.selected = !x.selected;
+                 x.byToggleSelected();
                  if (self.objBlock) self.objBlock(x);
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
@@ -158,7 +158,7 @@
         .bgColorBy(JobsWhiteColor)
         .cornerRadiusValueBy(buttonModel.cornerRadiusValueBy)
         .onClickBy(^(UIButton *btn){
-            btn.selected = !btn.selected;
+            btn.byToggleSelected();
             btn.jobsResetBtnBgImage(btn.selected ? @"弹窗取消按钮背景图".img : @"弹窗取消按钮背景图".img);
             
             btn.jobsResetBtnLayerBorderCor(HEXCOLOR(0xAE8330));/// 重设Btn的描边线段的颜色
@@ -262,12 +262,9 @@
 * *调用示例*
 
 ```objective-c
-UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
- // 设置内容水平居中对齐
-button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+UIButton *button = UIButton.jobsInit()
+    .byContentHorizontalAlignment(UIControlContentHorizontalAlignmentCenter);
 ```
-
-
 
 
 

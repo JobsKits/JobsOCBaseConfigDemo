@@ -14,6 +14,7 @@
         _length = 4;
         _caseSensitive = YES;
         _characterUnits = JobsOCGraphicCaptchaCharacterUnitDefault;
+        _mixedGroupCount = 0;
     };return self;
 }
 
@@ -52,6 +53,7 @@
                             JobsOCGraphicCaptchaCharacterUnitLetter |
                             JobsOCGraphicCaptchaCharacterUnitChinese;
     config.caseSensitive = YES;
+    config.mixedGroupCount = 4;
     return config;
 }
 
@@ -60,6 +62,7 @@
     config.length = self.length;
     config.caseSensitive = self.caseSensitive;
     config.characterUnits = self.characterUnits;
+    config.mixedGroupCount = self.mixedGroupCount;
     config.customCharacters = self.customCharacters.copy;
     return config;
 }

@@ -99,10 +99,11 @@ BaseViewProtocol_synthesize
                 textView.attributedText = self.viewModel.attributedTitle;
                 textView.linkTextAttributes = self.makeLinkTextAttributes; /// Style for links
             }else{
-                textView.text = self.viewModel.text;
+                textView
+                    .byText(self.viewModel.text)
+                    .byTextCor(self.viewModel.textCor)
+                    .byFont(self.viewModel.font);
                 textView.textAlignment = self.viewModel.textAlignment;
-                textView.textColor = self.viewModel.textCor;
-                textView.font = self.viewModel.font;
             }
         })).byAdd(self.masonryBlock);
     };return _textView;
@@ -113,15 +114,16 @@ BaseViewProtocol_synthesize
         @jobs_weakify(self)
         _szTextView = self.contentView.addSubview(jobsMakeSZTextView(^(SZTextView * _Nonnull textView) {
             @jobs_strongify(self)
+            textView
+                .byTextCor(JobsBlackColor)
+                .byFont(UIFontWeightMediumSize(18))
+                .byBgColor(@"#F9F9F9".cor);
             textView.delegate = self;
-            textView.textColor = JobsBlackColor;
-            textView.byBgColor(@"#F9F9F9".cor);
 
             textView.returnKeyType = UIReturnKeyDefault;
             textView.keyboardAppearance = UIKeyboardAppearanceDefault;
             textView.keyboardType = UIKeyboardTypeNumberPad;
             textView.placeholder = @"请输入充值金额".tr;
-            textView.font = UIFontWeightMediumSize(18);
             textView.placeholderFont = textView.font;
             textView.placeholderColor = @"#AAAAAA".cor;
             textView.linkTextAttributes = self.makeLinkTextAttributes; /// Style for links
@@ -140,8 +142,8 @@ BaseViewProtocol_synthesize
         @jobs_weakify(self)
         _jobsTextView = self.contentView.addSubview(makeJobsTextView(^(__kindof JobsTextView * _Nullable textView) {
             @jobs_strongify(self)
+            textView.szTextView.byTextCor(JobsBlackColor);
             textView.szTextView.delegate = self;
-            textView.szTextView.textColor = JobsBlackColor;
             textView.byBgColor(@"#F9F9F9".cor);
 
             textView.returnKeyType_ = UIReturnKeyDefault;

@@ -79,7 +79,7 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
     self.recordBtn.alpha = 1;
     self.recordDurationLabel.byAlpha(0);
 #if TARGET_OS_SIMULATOR
-    self.filterBtn.enabled = NO;
+    self.filterBtn.byEnabled(NO);
     self.filterBtn.alpha = 0.35;
     self.recordBtn.userInteractionEnabled = NO;
     self.recordBtn.alpha = 0.35;
@@ -168,11 +168,11 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
         return;
     }
     if (self.recording) return;
-    sender.enabled = NO;
+    sender.byEnabled(NO);
     @jobs_weakify(self)
     [self.captureManager switchCameraWithCompletion:^(BOOL success, NSError * _Nullable error) {
         @jobs_strongify(self)
-        sender.enabled = YES;
+        sender.byEnabled(YES);
         if (!success) (error.localizedDescription ?: @"切换摄像头失败").toast();
         [self.captureManager updatePreviewOrientation:UIDevice.currentDevice.orientation];
     }];
@@ -219,12 +219,12 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
     self.currentOutputURL = [self makeTemporaryVideoURL];
     self.assetWriter = [JobsOCVideoRecorderAssetWriter.alloc initWithConfig:self.config];
     [self clearFormatDescriptions];
-    self.backBtn.enabled = NO;
+    self.backBtn.byEnabled(NO);
     self.backBtn.alpha = 0.35;
-    self.filterBtn.enabled = NO;
+    self.filterBtn.byEnabled(NO);
     self.filterBtn.alpha = 0.35;
     if (self.canSwitchCamera) {
-        self.switchCameraBtn.enabled = NO;
+        self.switchCameraBtn.byEnabled(NO);
         self.switchCameraBtn.alpha = 0.35;
     }
     [self showRecordDurationLabel];
@@ -239,12 +239,12 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
     [self.recordTimer invalidate];
     self.recordTimer = nil;
     [self.recordBtn stopProgress];
-    self.backBtn.enabled = YES;
+    self.backBtn.byEnabled(YES);
     self.backBtn.alpha = 1;
-    self.filterBtn.enabled = YES;
+    self.filterBtn.byEnabled(YES);
     self.filterBtn.alpha = 1;
     if (self.canSwitchCamera) {
-        self.switchCameraBtn.enabled = YES;
+        self.switchCameraBtn.byEnabled(YES);
         self.switchCameraBtn.alpha = 1;
     }
 
@@ -312,7 +312,7 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
         @jobs_strongify(self)
         [self saveCurrentVideo];
     };
-    [self.view addSubview:previewView];
+    previewView.addOn(self.view);
     [previewView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view).offset(-JobsWidth(16));
         make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(JobsWidth(72));
@@ -486,7 +486,7 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
     NSString *filterTitle = [JobsOCVideoRecorderCIFilterProcessor titleForFilterType:filterType];
     if (filterType == JobsOCVideoRecorderCIFilterTypeNormal) {
         self.config.filterProcessor = self.originFilterProcessor;
-        self.filterBtn.jobsResetBtnTitle(@"滤镜");
+        self.filterBtn.jobsResetBtnTitle(@"滤镜".tr);
     }else{
         self.builtInFilterProcessor.filterType = filterType;
         self.config.filterProcessor = self.builtInFilterProcessor;
@@ -521,7 +521,7 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [self setBoolValue:YES forRecorderKey:@"setupNavigationBarHidden"];
     UIView *gkNavigationBar = self.originGKNavigationBar ?: [self recorderGKNavigationBar];
-    gkNavigationBar.hidden = YES;
+    gkNavigationBar.byHidden(YES);
     gkNavigationBar.alpha = 0;
 }
 
@@ -530,7 +530,7 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
     self.navigationItem.hidesBackButton = self.originHidesBackButton;
     [self.navigationController setNavigationBarHidden:self.originNavigationBarHidden animated:animated];
     [self setBoolValue:self.originSetupNavigationBarHidden forRecorderKey:@"setupNavigationBarHidden"];
-    self.originGKNavigationBar.hidden = self.originGKNavigationBarHidden;
+    self.originGKNavigationBar.byHidden(self.originGKNavigationBarHidden);
     self.originGKNavigationBar.alpha = self.originGKNavigationBarAlpha;
     self.navigationStateCaptured = NO;
 }
@@ -571,7 +571,7 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
                .jobsResetBtnTitleCor(UIColor.whiteColor)
                .byBgColor(UIColor.blackColor.colorWithAlphaComponentBy(0.25));
             btn.layer.cornerRadius = JobsWidth(18);
-            [btn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
+            btn.byAddTarget(self, @selector(backAction:), UIControlEventTouchUpInside);
         });
         _backBtn.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.left.equalTo(self.view).offset(JobsWidth(16));
@@ -584,12 +584,12 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
 -(UIButton *)switchCameraBtn{
     if (!_switchCameraBtn) {
         _switchCameraBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
-            btn.jobsResetBtnTitle(@"切换")
+            btn.jobsResetBtnTitle(@"切换".tr)
                .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
                .jobsResetBtnTitleCor(UIColor.whiteColor)
                .byBgColor(UIColor.blackColor.colorWithAlphaComponentBy(0.25));
             btn.layer.cornerRadius = JobsWidth(18);
-            [btn addTarget:self action:@selector(switchCameraAction:) forControlEvents:UIControlEventTouchUpInside];
+            btn.byAddTarget(self, @selector(switchCameraAction:), UIControlEventTouchUpInside);
         });
         _switchCameraBtn.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.right.equalTo(self.filterBtn.mas_left).offset(-JobsWidth(8));
@@ -602,12 +602,12 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
 -(UIButton *)filterBtn{
     if (!_filterBtn) {
         _filterBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
-            btn.jobsResetBtnTitle(@"滤镜")
+            btn.jobsResetBtnTitle(@"滤镜".tr)
                .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
                .jobsResetBtnTitleCor(UIColor.whiteColor)
                .byBgColor(UIColor.blackColor.colorWithAlphaComponentBy(0.25));
             btn.layer.cornerRadius = JobsWidth(18);
-            [btn addTarget:self action:@selector(filterAction:) forControlEvents:UIControlEventTouchUpInside];
+            btn.byAddTarget(self, @selector(filterAction:), UIControlEventTouchUpInside);
         });
         _filterBtn.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.right.equalTo(self.view).offset(-JobsWidth(16));
@@ -632,7 +632,7 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
 -(UILabel *)recordDurationLabel{
     if (!_recordDurationLabel) {
         _recordDurationLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText(@"0.0秒")
+            label.byText(@"0.0秒".tr)
                  .byFont(UIFontWeightSemiboldSize(16))
                  .byTextCor(UIColor.whiteColor)
                  .byTextAlignment(NSTextAlignmentCenter)

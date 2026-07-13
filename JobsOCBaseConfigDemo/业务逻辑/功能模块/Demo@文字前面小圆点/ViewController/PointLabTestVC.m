@@ -167,7 +167,7 @@ Prop_copy()NSString *dot;
                 data.bounds = CGRectMake(0, 0, 10, 10); // 设置圆点的大小和位置
                 UIGraphicsBeginImageContextWithOptions(data.bounds.size, NO, 0);
                 [JobsRedColor setFill];// 设置圆点的颜色
-                [[UIBezierPath bezierPathWithOvalInRect:data.bounds] fill];
+                UIBezierPath.byBezierPathWithOvalInRect(data.bounds).byFill();
                 data.image = UIGraphicsGetImageFromCurrentImageContext();
                 UIGraphicsEndImageContext();
             })));

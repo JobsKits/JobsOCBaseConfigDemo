@@ -59,7 +59,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.delegate = self;
+    self.navigationController.byDelegate(self);
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -102,16 +102,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 didHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
     // highlight的时候，做一下缩放的动画
     MyFansTBVCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    [UIView animateWithDuration:0.3
-                     animations:^{
+    UIView.jobsAnimateWithCompletion(0.3,
+        ^{
         cell.transform = CGAffineTransformMakeScale(0.97, 0.97);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.3
-                         animations:^{
+    },
+        ^(BOOL finished) {
+        UIView.jobsAnimateWithCompletion(0.3,
+            ^{
             cell.transform = CGAffineTransformIdentity;
-        } completion:^(BOOL finished) {
-        }];
-    }];
+        },
+            ^(BOOL finished) {
+        });
+    });
 }
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView

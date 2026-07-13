@@ -34,7 +34,7 @@ Prop_assign()NSUInteger renderVersion;
     self.imageView.brushDelegate = self;
     self.imageView.brushEnabled = YES;
     self.brushDiameter = 42;
-    self.controlView.alpha = 1;
+    self.controlView.byAlpha(1);
     [self showStatus:@"手指在图片上拖动即可局部打码".tr
     hiddenAfterDelay:YES];
 }
@@ -63,7 +63,7 @@ Prop_assign()NSUInteger renderVersion;
 
 -(void)clearBrush{
     [self.brushPointValueMutArr removeAllObjects];
-    self.imageView.image = self.originalImage;
+    self.imageView.byImage(self.originalImage);
     self.hasEdited = NO;
     [self showStatus:@"已清除涂抹区域".tr
     hiddenAfterDelay:YES];
@@ -82,7 +82,7 @@ Prop_assign()NSUInteger renderVersion;
                                                                      brushDiameter:diameter];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (currentVersion != self.renderVersion) return;
-            self.imageView.image = resultImage;
+            self.imageView.byImage(resultImage);
             self.hasEdited = YES;
         });
     });
@@ -90,27 +90,34 @@ Prop_assign()NSUInteger renderVersion;
 #pragma mark —— LazyLoad
 -(UIView *)controlView{
     if (!_controlView) {
-        _controlView = UIView.new;
-        _controlView.backgroundColor = UIColor.whiteColor;
-        _controlView.layer.cornerRadius = JobsWidth(8);
-        _controlView.layer.masksToBounds = YES;
-        [self.view addSubview:_controlView];
-        [_controlView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view).inset(JobsWidth(16));
-            make.height.mas_equalTo(JobsWidth(54));
-            make.bottom.equalTo(self.statusLabel.mas_top).offset(-JobsWidth(12));
-        }];
-        UILabel *titleLabel = UILabel.new;
-        titleLabel.text = @"涂抹".tr;
-        titleLabel.textColor = HEXCOLOR(0x3D4A58);
-        titleLabel.font = UIFontWeightMediumSize(15);
-        [_controlView addSubview:titleLabel];
-        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_controlView).offset(JobsWidth(14));
-            make.centerY.equalTo(_controlView);
-        }];
-        self.brushSwitch.alpha = 1;
-        self.clearButton.alpha = 1;
+        _controlView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(UIColor.whiteColor)
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byCornerRadius(JobsWidth(8))
+                        .byMasksToBounds(YES);
+                })
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.view).inset(JobsWidth(16));
+                    make.height.mas_equalTo(JobsWidth(54));
+                    make.bottom.equalTo(self.statusLabel.mas_top).offset(-JobsWidth(12));
+                });
+        });
+        jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"涂抹".tr)
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byFont(UIFontWeightMediumSize(15))
+                .addOn(_controlView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(_controlView).offset(JobsWidth(14));
+                    make.centerY.equalTo(_controlView);
+                });
+        });
+        self.brushSwitch.byAlpha(1);
+        self.clearButton.byAlpha(1);
         [self.imageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(16));
             make.left.right.equalTo(self.view).inset(JobsWidth(16));
@@ -121,39 +128,40 @@ Prop_assign()NSUInteger renderVersion;
 
 -(UISwitch *)brushSwitch{
     if (!_brushSwitch) {
-        _brushSwitch = UISwitch.new;
-        _brushSwitch.on = YES;
-        [_brushSwitch addTarget:self
-                         action:@selector(switchValueChanged:)
-               forControlEvents:UIControlEventValueChanged];
-        [_controlView addSubview:_brushSwitch];
-        [_brushSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_controlView).offset(JobsWidth(74));
-            make.centerY.equalTo(_controlView);
-        }];
+        _brushSwitch = jobsMakeSwitch(^(__kindof UISwitch * _Nullable Switch) {
+            Switch
+                .byOn(YES)
+                .byAddTarget(self, @selector(switchValueChanged:), UIControlEventValueChanged)
+                .addOn(_controlView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(_controlView).offset(JobsWidth(74));
+                    make.centerY.equalTo(_controlView);
+                });
+        });
     };return _brushSwitch;
 }
 
 -(UIButton *)clearButton{
     if (!_clearButton) {
-        _clearButton = UIButton.new;
-        _clearButton.backgroundColor = HEXCOLOR(0xEEF2F7);
-        _clearButton.layer.cornerRadius = JobsWidth(7);
-        _clearButton.layer.masksToBounds = YES;
-        [_clearButton setTitle:@"清除".tr
-                      forState:UIControlStateNormal];
-        [_clearButton setTitleColor:HEXCOLOR(0x3D4A58)
-                            forState:UIControlStateNormal];
-        _clearButton.titleLabel.font = UIFontWeightRegularSize(14);
-        [_clearButton addTarget:self
-                         action:@selector(clearBrush)
-               forControlEvents:UIControlEventTouchUpInside];
-        [_controlView addSubview:_clearButton];
-        [_clearButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(_controlView).offset(-JobsWidth(14));
-            make.centerY.equalTo(_controlView);
-            make.size.mas_equalTo(CGSizeMake(JobsWidth(74), JobsWidth(34)));
-        }];
+        _clearButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button
+                .jobsResetBtnTitle(@"清除".tr)
+                .jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58))
+                .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
+                .jobsResetBtnBgCor(HEXCOLOR(0xEEF2F7))
+                .byAddTarget(self, @selector(clearBrush), UIControlEventTouchUpInside)
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byCornerRadius(JobsWidth(7))
+                        .byMasksToBounds(YES);
+                })
+                .addOn(_controlView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.right.equalTo(_controlView).offset(-JobsWidth(14));
+                    make.centerY.equalTo(_controlView);
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(74), JobsWidth(34)));
+                });
+        });
     };return _clearButton;
 }
 

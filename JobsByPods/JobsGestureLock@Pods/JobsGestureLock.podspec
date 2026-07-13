@@ -40,6 +40,8 @@ and an optional ready-to-use view controller for create/validate flows.
 
 
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsBaseUI'
+  spec.dependency 'JobsMakes'
   spec.dependency 'JobsOCDSL'
 
   JobsPodspecKitForJobsGestureLock.apply_standard_xcconfig(spec)

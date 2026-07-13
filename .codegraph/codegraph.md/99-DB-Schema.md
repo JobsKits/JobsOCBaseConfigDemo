@@ -36,10 +36,12 @@ CREATE INDEX idx_nodes_language ON nodes(language)
 CREATE INDEX idx_nodes_lower_name ON nodes(lower(name))
 CREATE INDEX idx_nodes_name ON nodes(name)
 CREATE INDEX idx_nodes_qualified_name ON nodes(qualified_name)
+CREATE INDEX idx_unresolved_failed_tail ON unresolved_refs(name_tail) WHERE status = 'failed'
 CREATE INDEX idx_unresolved_file_path ON unresolved_refs(file_path)
 CREATE INDEX idx_unresolved_from_name ON unresolved_refs(from_node_id, reference_name)
 CREATE INDEX idx_unresolved_from_node ON unresolved_refs(from_node_id)
 CREATE INDEX idx_unresolved_name ON unresolved_refs(reference_name)
+CREATE INDEX idx_unresolved_status ON unresolved_refs(status)
 CREATE TABLE edges (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     source TEXT NOT NULL,
@@ -123,7 +125,7 @@ CREATE TABLE unresolved_refs (
     col INTEGER NOT NULL,
     candidates TEXT, -- JSON array
     file_path TEXT NOT NULL DEFAULT '',
-    language TEXT NOT NULL DEFAULT 'unknown',
+    language TEXT NOT NULL DEFAULT 'unknown', status TEXT NOT NULL DEFAULT 'pending', name_tail TEXT NOT NULL DEFAULT '',
     FOREIGN KEY (from_node_id) REFERENCES nodes(id) ON DELETE CASCADE
 )
 CREATE TRIGGER nodes_ad AFTER DELETE ON nodes BEGIN

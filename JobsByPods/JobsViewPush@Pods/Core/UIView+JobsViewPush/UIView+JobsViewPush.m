@@ -126,7 +126,7 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 
     JobsViewPushCompletionBlock animations = ^{
         presentedView.frame = visibleFrame;
-        self.transitionView.backgroundColor = self.configuration.backgroundColor;
+        self.transitionView.byBgColor(self.configuration.backgroundColor);
         [presentedView layoutIfNeeded];
     };
     if (self.configuration.animationDuration <= 0) {
@@ -162,7 +162,7 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 
     JobsViewPushCompletionBlock animations = ^{
         presentedView.frame = [self hiddenFrameForVisibleFrame:visibleFrame];
-        self.transitionView.backgroundColor = UIColor.clearColor;
+        self.transitionView.byBgColor(UIColor.clearColor);
         [presentedView layoutIfNeeded];
     };
     void (^finish)(BOOL) = ^(__unused BOOL finished) {
@@ -194,10 +194,10 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 
     self.transitionView = [[JobsViewPushTransitionView alloc] initWithFrame:sourceView.bounds];
     self.transitionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.transitionView.backgroundColor = UIColor.clearColor;
+    self.transitionView.byBgColor(UIColor.clearColor);
     self.transitionView.presentation = self;
-    [sourceView addSubview:self.transitionView];
-    [self.transitionView addSubview:presentedView];
+    self.transitionView.addOn(sourceView);
+    presentedView.addOn(self.transitionView);
     [self layoutPresentedView];
 
     if (self.configuration.dismissOnBackgroundTap) {
@@ -318,7 +318,7 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
             break;
     }
     CGFloat alpha = CGColorGetAlpha(self.configuration.backgroundColor.CGColor) * (1 - progress);
-    self.transitionView.backgroundColor = [self.configuration.backgroundColor colorWithAlphaComponent:alpha];
+    self.transitionView.byBgColor([self.configuration.backgroundColor colorWithAlphaComponent:alpha]);
 }
 
 -(void)restoreAfterInteractiveDismiss{
@@ -328,7 +328,7 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
                      animations:^{
         self.presentedView.transform = CGAffineTransformIdentity;
         self.presentedView.frame = [self visibleFrameForBounds:self.transitionView.bounds];
-        self.transitionView.backgroundColor = self.configuration.backgroundColor;
+        self.transitionView.byBgColor(self.configuration.backgroundColor);
         [self.presentedView layoutIfNeeded];
     }
                      completion:nil];

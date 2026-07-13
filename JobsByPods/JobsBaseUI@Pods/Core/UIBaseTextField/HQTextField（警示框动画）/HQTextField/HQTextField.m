@@ -62,8 +62,7 @@ Prop_strong()CABasicAnimation *opacityAnimation;
         _warnLayer = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer *_Nullable data) {
             @jobs_strongify(self)
             data.byFrame(self.bounds);// 大小和文本框一致
-            data.path = [UIBezierPath bezierPathWithRoundedRect:self.warnLayer.bounds
-                                                   cornerRadius:0].CGPath;// 画线 非圆角
+            data.path = UIBezierPath.byBezierPathWithRoundedRect(self.warnLayer.bounds, 0).CGPath;// 画线 非圆角
             data.lineWidth = 6. / UIScreen.mainScreen.scale;// 线宽
             data.lineDashPattern = nil;// 设置为实线
             data.fillColor = JobsClearColor.CGColor;// 填充颜色透明色

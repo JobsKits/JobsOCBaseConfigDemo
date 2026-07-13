@@ -134,12 +134,11 @@
             // JobsLog(@"");
             /**
 
-                 UIAction *action = [UIAction actionWithTitle:@"按钮点击操作"  image:nil
-                                                            identifier:nil
-                                                            handler:^(__kindof UIAction * _Nonnull action) {
+                 UIAction *action = jobsMakeAction(@"按钮点击操作", nil, nil,
+                                                    ^(__kindof UIAction * _Nonnull action) {
                                                                 JobsLog(@"按钮被点击了！");
                                                                 // 在这里执行按钮点击时的操作
-                 }];
+                 }, nil);
              */
             return [self.class buttonWithConfiguration:btnConfiguration primaryAction:primaryAction];
         }else{
@@ -435,7 +434,7 @@
             return [self jobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
                 config.background.image = backgroundImage;
             }];
-        } else self.selectedStateBackgroundImageBy(backgroundImage);
+        } else self.normalStateBackgroundImageBy(backgroundImage);
         return self;
     };
 }
@@ -562,7 +561,7 @@
 }
 #pragma mark —— 一些通用修改.间距
 ///【兼容】重设Btn的图文间距和相对位置
--(JobsRetBtnByImagePlacementAndPaddingBlock _Nonnull)jobsResetImagePlacement_Padding API_AVAILABLE(ios(16.0)){
+-(JobsRetBtnByImagePlacementAndPaddingBlock _Nonnull)jobsResetImagePlacement_Padding{
     @jobs_weakify(self)
     return ^__kindof UIButton *(NSDirectionalRectEdge data,CGFloat x) {
         @jobs_strongify(self)

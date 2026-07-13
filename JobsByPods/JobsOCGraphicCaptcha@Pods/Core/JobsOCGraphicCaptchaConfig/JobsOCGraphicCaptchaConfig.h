@@ -35,6 +35,7 @@ NSCopying
 Prop_assign()NSUInteger length;
 Prop_assign()BOOL caseSensitive;
 Prop_assign()JobsOCGraphicCaptchaCharacterUnit characterUnits;
+Prop_assign()NSUInteger mixedGroupCount;
 Prop_copy(nullable)NSArray<NSString *> *customCharacters;
 
 +(instancetype)defaultConfig;

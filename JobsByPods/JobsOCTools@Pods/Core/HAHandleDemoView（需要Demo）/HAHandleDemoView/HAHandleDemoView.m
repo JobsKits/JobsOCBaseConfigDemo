@@ -27,19 +27,17 @@ Prop_strong()NSTimer *shrinkTimer;
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.bgView = [[UIView alloc]initWithFrame:CGRectMake((CGRectGetWidth(frame)-CGRectGetHeight(frame))*0.5, 0, CGRectGetHeight(frame), CGRectGetHeight(frame))];
-        self.bgView.byBgColor([UIColor grayColor]);
-
-        self.bgView.layer.cornerRadius = CGRectGetHeight(frame) / 2;
-        self.bgView.byHidden(YES);
-
-//        self.handleDemoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame))];
-        
-//        [self.handleDemoBtn setBackgroundColor:[UIColor blackColor]];
-        
-//        [self.handleDemoBtn setBackgroundColor:[UIColor clearColor]];
-        [self addSubview:self.bgView];
-//        [self addSubview:self.handleDemoBtn];
+        self.bgView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(CGRectMake((CGRectGetWidth(frame) - CGRectGetHeight(frame)) * 0.5,
+                                    0,
+                                    CGRectGetHeight(frame),
+                                    CGRectGetHeight(frame)))
+                .byBgColor(UIColor.grayColor)
+                .byCornerRadius(CGRectGetHeight(frame) / 2)
+                .byHidden(YES)
+                .addOn(self);
+        });
     };return self;
 }
 // 点击放大

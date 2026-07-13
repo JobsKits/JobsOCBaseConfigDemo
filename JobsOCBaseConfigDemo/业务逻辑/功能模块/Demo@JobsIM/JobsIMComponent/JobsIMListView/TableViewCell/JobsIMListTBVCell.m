@@ -43,7 +43,7 @@ UITextFieldProtocol_synthesize_part2
              reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
-        self.longPG.enabled = YES;
+        self.longPG.byEnabled(YES);
         self.swipeBackgroundColor = JobsClearColor;
         self.bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
             view.byBgColor(JobsYellowColor.colorWithAlphaComponentBy(0.3));
@@ -90,7 +90,7 @@ UITextFieldProtocol_synthesize_part2
         self.detailTextLabel.byText(self.contentStr);
         self.detailTextLabel.byTextCor(JobsLightGrayColor);
         if (self.userHeaderIMG) {
-            self.imageView.image = self.userHeaderIMG;
+            self.imageView.byImage(self.userHeaderIMG);
         }else{
             self.imageView
                 .imageURL(self.userHeaderURLStr.jobsUrl)

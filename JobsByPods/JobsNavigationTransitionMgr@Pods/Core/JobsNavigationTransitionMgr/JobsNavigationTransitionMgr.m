@@ -43,7 +43,7 @@ JobsKey(_navigationTransitionMgr)
 +(void)setDirection:(JobsTransitionDirection)direction
 forNavigationController:(UINavigationController *)navCtrlVC{
     _storedDirection = direction;
-    navCtrlVC.delegate = self.sharedManager;
+    navCtrlVC.byDelegate(self.sharedManager);
 }
 /// 自定义 push/pop 控制器的手势方向
 +(void)attachToViewController:(UIViewController *)viewController
@@ -57,7 +57,7 @@ forNavigationController:(UINavigationController *)navCtrlVC{
     /// 禁用系统的 pop 手势
     viewController.clzPopGesture();
     /// 设置导航控制器代理
-    viewController.navigationController.delegate = manager;
+    viewController.navigationController.byDelegate(manager);
     /// 添加自定义滑动手势
     viewController.view.addGesture([jobsMakePanGesture(^(__kindof UIPanGestureRecognizer * _Nullable gesture) {
         gesture.delegate = manager;

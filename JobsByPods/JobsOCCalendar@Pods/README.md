@@ -76,8 +76,9 @@ JobsOCCalendar@Pods
 
 ```objc
 JobsOCCalendar *calendar = jobsMakeJobsOCCalendar(^(__kindof JobsOCCalendar * _Nullable calendar) {
-    calendar.dataSource = self;
-    calendar.delegate = self;
+    calendar
+        .byDataSource(self)
+        .byDelegate(self);
     calendar.allowsMultipleSelection = YES;
 });
 ```
@@ -97,6 +98,9 @@ JobsOCCalendar *calendar = jobsMakeJobsOCCalendar(^(__kindof JobsOCCalendar * _N
 
 | 依赖 | 用途 |
 | --- | --- |
+| `JobsBlock` | 统一承接 `byDataSource` / `byDelegate` 链式返回 Block |
+| `JobsMakes` | 统一创建内部 `UIView`、`UILabel` 和 `UIImageView` |
+| `JobsOCDSL` | 使用链式属性、事件与视图装配 API |
 | `JobsOCDefs` | 使用 Jobs 属性宏和基础定义 |
 
 ## 六、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

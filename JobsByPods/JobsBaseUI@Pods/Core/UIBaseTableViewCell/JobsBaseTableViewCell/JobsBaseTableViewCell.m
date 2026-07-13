@@ -222,7 +222,7 @@ AppToolsProtocol_synthesize
                         self.detailTextLabel.width = UITableViewCellSubTitleWidth;
                         self.detailTextLabel.makeLabelByShowingType(UILabelShowingType_05);
                     }self.detailTextLabel.numberOfLines = 0;
-                }self.imageView.image = self.viewModel.image;
+                }self.imageView.byImage(self.viewModel.image);
             }
             if([model isKindOfClass:UIButtonModel.class]){
                 self.buttonModel = model;
@@ -254,7 +254,7 @@ AppToolsProtocol_synthesize
                         self.detailTextLabel.width = UITableViewCellSubTitleWidth;
                         self.detailTextLabel.makeLabelByShowingType(UILabelShowingType_05);
                     }self.detailTextLabel.numberOfLines = 0;
-                }self.imageView.image = self.buttonModel.normalImage;
+                }self.imageView.byImage(self.buttonModel.normalImage);
             }
         };return self;
     };

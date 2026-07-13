@@ -45,6 +45,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsSuspendBtn : UIButton<BaseViewProtocol>
 
+/// 开关悬浮拖拽能力
+-(JobsRetBtnByBOOLBlock _Nonnull)byAllowDrag;
+
 @end
 
 NS_ASSUME_NONNULL_END
@@ -58,7 +61,7 @@ NS_ASSUME_NONNULL_END
          if (self.isSuspend) {
              //开启悬浮效果
              self.vc = self.vcer;//外界传进来的，父承接的VC
-             self.panRcognize.enabled = YES;
+             self.panRcognize.byEnabled(YES);
          }else{
              self.vc = nil;
          }
@@ -74,8 +77,8 @@ NS_ASSUME_NONNULL_END
              @jobs_weakify(self)
              SuspendBtn.onClickBy(^(UIButton *x) {
                  @jobs_strongify(self)
-                 x.selected = !x.selected;
-                 JobsLog(@"%@",x.selected ? @"开始旋转".tr : @"停止旋转".tr);
+                 x.byToggleSelected();
+                 JobsLog(@"%@",x.jobs_isSelected ? @"开始旋转".tr : @"停止旋转".tr);
                  // x.旋转动画(x.selected);
                  if (self.objBlock) self.objBlock(x);
              });

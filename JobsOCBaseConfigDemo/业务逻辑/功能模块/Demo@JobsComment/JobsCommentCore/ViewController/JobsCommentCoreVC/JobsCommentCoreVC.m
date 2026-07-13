@@ -64,8 +64,10 @@ Prop_assign()CGFloat jobsDefaultPopUpHeight;
 //    });
 //    self.makeNavByAlpha(1);
     self.isHiddenNavigationBar = YES;//禁用系统的导航栏
-    self.gk_statusBarHidden = YES;
-    self.gk_navigationBar.jobsVisible = YES;
+    self.byGKStatusBarHidden(YES);
+    self.byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
+        navigationBar.byVisible(YES);
+    });
     
     self.titleHeaderView.byAlpha(1);
     self.jobsDefaultPopUpHeight = self.popUpHeight;
@@ -131,7 +133,7 @@ Prop_assign()CGFloat jobsDefaultPopUpHeight;
             [self jobs_finishCommentPopUpPanWithVelocity:velocityY];
         };return nil;
     }];
-    self.titleHeaderView.panGR.enabled = YES;
+    self.titleHeaderView.panGR.byEnabled(YES);
     self.titleHeaderView.panGR.cancelsTouchesInView = NO;
 }
 
@@ -164,18 +166,19 @@ Prop_assign()CGFloat jobsDefaultPopUpHeight;
     UIView *presentedView = self.presentationController.presentedView ? : self.view;
     CGFloat distance = CGRectGetHeight(presentedView.bounds) + JobsBottomSafeAreaHeight();
     CGFloat initialVelocity = MAX(velocityY / MAX(distance, 1.f), 0.1f);
-    [UIView animateWithDuration:0.42
-                          delay:0
-         usingSpringWithDamping:0.82
-          initialSpringVelocity:initialVelocity
-                        options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
+    UIView.jobsAnimateWithSpring(0.42,
+        0,
+        0.82,
+        initialVelocity,
+        UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut,
+        ^{
         presentedView.transform = CGAffineTransformMakeTranslation(0, distance);
-        presentedView.alpha = 0.02;
-    } completion:^(BOOL finished) {
+        presentedView.byAlpha(0.02);
+    },
+        ^(BOOL finished) {
         [self dismissViewControllerAnimated:NO
                                  completion:nil];
-    }];
+    });
 }
 
 -(void)一级标题点击事件{

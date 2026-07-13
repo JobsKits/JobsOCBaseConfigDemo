@@ -26,7 +26,7 @@
 
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
-    self.panRcognize.enabled = self.isAllowDrag;
+    self.panRcognize.byEnabled(self.isAllowDrag);
 }
 
 -(void)actionSuspendViewBlock:(jobsByIDBlock _Nullable)suspendViewBlock{

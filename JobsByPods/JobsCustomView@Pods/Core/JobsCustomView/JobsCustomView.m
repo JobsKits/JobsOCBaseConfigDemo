@@ -216,7 +216,7 @@ static dispatch_once_t static_customViewOnceToken;
             .jobsResetBtnTitleCor(HEXCOLOR(0xB0B0B0))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.byToggleSelected();
                 toastBy(x.titleForNormalState);
                 if (self.objBlock) self.objBlock(x);
             })
@@ -253,7 +253,7 @@ static dispatch_once_t static_customViewOnceToken;
             .jobsResetBtnTitleCor(HEXCOLOR(0xB0B0B0))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.byToggleSelected();
                 toastBy(x.titleForNormalState);
                 if (self.objBlock) self.objBlock(x);
             })

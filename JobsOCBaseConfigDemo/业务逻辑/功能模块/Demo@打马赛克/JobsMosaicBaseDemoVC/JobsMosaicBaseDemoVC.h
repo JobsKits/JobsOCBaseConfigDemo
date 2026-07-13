@@ -19,6 +19,18 @@
 #import "JobsBaseUI.h"
 #endif
 
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -33,6 +45,12 @@
 
 #if __has_include(<SDWebImage/SDWebImage.h>)
 #import <SDWebImage/SDWebImage.h>
+#define JOBS_MOSAIC_HAS_SDWEBIMAGE 1
+#elif __has_include("SDWebImage.h")
+#import "SDWebImage.h"
+#define JOBS_MOSAIC_HAS_SDWEBIMAGE 1
+#else
+#define JOBS_MOSAIC_HAS_SDWEBIMAGE 0
 #endif
 
 #import "JobsMosaicBrushImageView.h"

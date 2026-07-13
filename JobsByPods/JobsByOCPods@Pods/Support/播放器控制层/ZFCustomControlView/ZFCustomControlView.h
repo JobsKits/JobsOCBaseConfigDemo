@@ -54,6 +54,12 @@
 #import "JobsLanMgr.h"
 #endif
 
+#if __has_include(<JobsByOCPods/JobsButton.h>)
+#import <JobsByOCPods/JobsButton.h>
+#else
+#import "JobsButton.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else

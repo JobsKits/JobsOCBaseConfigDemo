@@ -101,8 +101,8 @@ NS_ASSUME_NONNULL_END
              .onClickBy(^(UIButton *x){
                  if (self.objBlock) self.objBlock(x);
                  JobsLog(@"AAA = %@",self.dropDownListView);
-                 x.selected = !x.selected;
-                 if (x.selected) {
+                 x.byToggleSelected();
+                 if (x.jobs_isSelected) {
                      /// ❤️只能让它执行一次❤️
                      self.dropDownListView = [self motivateFromView:x
                                       jobsDropDownListViewDirection:self.dropDownListViewDirection

@@ -117,7 +117,7 @@ Prop_strong()id runtimeObject;
 
     self.view.byBgColor(RGBA_COLOR(246, 248, 252, 1));
     self.makeNavByAlpha(1);
-    [self.view addSubview:self.contentScrollView];
+    self.contentScrollView.addOn(self.view);
     [self buildRuntimeDemoView];
     [self work];
 }
@@ -135,12 +135,12 @@ Prop_strong()id runtimeObject;
 -(void)buildRuntimeDemoView{
     if (self.headerCardView.superview) return;
 
-    [self.contentScrollView addSubview:self.headerCardView];
-    [self.headerCardView addSubview:self.titleLabel];
-    [self.headerCardView addSubview:self.subTitleLabel];
-    [self.headerCardView addSubview:self.classNameValueLabel];
-    [self.contentScrollView addSubview:self.runDemoBtn];
-    [self.contentScrollView addSubview:self.messageForwardBtn];
+    self.headerCardView.addOn(self.contentScrollView);
+    self.titleLabel.addOn(self.headerCardView);
+    self.subTitleLabel.addOn(self.headerCardView);
+    self.classNameValueLabel.addOn(self.headerCardView);
+    self.runDemoBtn.addOn(self.contentScrollView);
+    self.messageForwardBtn.addOn(self.contentScrollView);
 
     NSArray <NSString *>*titles = @[
         @"1. 动态创建类",
@@ -149,10 +149,10 @@ Prop_strong()id runtimeObject;
         @"4. 注册实例并调用"
     ];
     NSArray <UIColor *>*tintColors = @[
-        [UIColor colorWithRed:0.20 green:0.49 blue:0.95 alpha:1],
-        [UIColor colorWithRed:0.16 green:0.62 blue:0.45 alpha:1],
-        [UIColor colorWithRed:0.93 green:0.42 blue:0.21 alpha:1],
-        [UIColor colorWithRed:0.66 green:0.36 blue:0.86 alpha:1]
+        RGBA_COLOR(0.20 * 255.0, 0.49 * 255.0, 0.95 * 255.0, 1),
+        RGBA_COLOR(0.16 * 255.0, 0.62 * 255.0, 0.45 * 255.0, 1),
+        RGBA_COLOR(0.93 * 255.0, 0.42 * 255.0, 0.21 * 255.0, 1),
+        RGBA_COLOR(0.66 * 255.0, 0.36 * 255.0, 0.86 * 255.0, 1)
     ];
     [titles enumerateObjectsUsingBlock:^(NSString * _Nonnull obj,
                                          NSUInteger idx,
@@ -161,54 +161,65 @@ Prop_strong()id runtimeObject;
                                       detail:@"等待执行"
                                    tintColor:tintColors[idx]];
         [self.stepCardMutArr addObject:card];
-        [self.contentScrollView addSubview:card];
+        card.addOn(self.contentScrollView);
     }];
 
-    [self.contentScrollView addSubview:self.logCardView];
-    [self.logCardView addSubview:self.logTitleLabel];
-    [self.logCardView addSubview:self.runtimeLogLabel];
+    self.logCardView.addOn(self.contentScrollView);
+    self.logTitleLabel.addOn(self.logCardView);
+    self.runtimeLogLabel.addOn(self.logCardView);
 }
 
 -(UILabel *)demoLabelByFont:(UIFont *)font
                       color:(UIColor *)color
               numberOfLines:(NSInteger)numberOfLines{
-    UILabel *label = UILabel.new;
-    label.font = font;
-    label.textColor = color;
-    label.numberOfLines = numberOfLines;
-    label.lineBreakMode = NSLineBreakByWordWrapping;
-    return label;
+    return jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+        label
+            .byFont(font)
+            .byTextCor(color)
+            .byNumberOfLines(numberOfLines)
+            .byLineBreakMode(NSLineBreakByWordWrapping);
+    });
 }
 
 -(UIView *)demoCardByTitle:(NSString *)title
                     detail:(NSString *)detail
                  tintColor:(UIColor *)tintColor{
-    UIView *card = UIView.new;
-    card.backgroundColor = JobsWhiteColor;
-    card.layer.cornerRadius = 8;
-    card.layer.borderWidth = 0.5;
-    card.layer.borderColor = [UIColor colorWithWhite:0 alpha:0.08].CGColor;
+    UIView *card = jobsMakeView(^(__kindof UIView * _Nullable view) {
+        view
+            .byBgColor(JobsWhiteColor)
+            .byLayer(^(__kindof CALayer * _Nullable layer) {
+                layer
+                    .byCornerRadius(8)
+                    .byBorderWidth(0.5)
+                    .byBorderColor(RGBA_SAMECOLOR(0, 0.08).CGColor);
+            });
+    });
+    jobsMakeView(^(__kindof UIView * _Nullable view) {
+        view
+            .byTag(100)
+            .byBgColor(tintColor)
+            .byLayer(^(__kindof CALayer * _Nullable layer) {
+                layer.byCornerRadius(3);
+            })
+            .addOn(card);
+    });
 
-    UIView *accentView = UIView.new;
-    accentView.tag = 100;
-    accentView.backgroundColor = tintColor;
-    accentView.layer.cornerRadius = 3;
-    [card addSubview:accentView];
-
-    UILabel *titleLabel = [self demoLabelByFont:[UIFont systemFontOfSize:15 weight:UIFontWeightSemibold]
+    UILabel *titleLabel = [self demoLabelByFont:UIFontWeightSemiboldSize(15)
                                           color:HEXCOLOR(0x2B3340)
                                   numberOfLines:1];
-    titleLabel.tag = 101;
-    titleLabel.text = title;
-    [card addSubview:titleLabel];
+    titleLabel
+        .byText(title)
+        .byTag(101)
+        .addOn(card);
     [self.stepTitleLabMutArr addObject:titleLabel];
 
-    UILabel *detailLabel = [self demoLabelByFont:[UIFont systemFontOfSize:13]
+    UILabel *detailLabel = [self demoLabelByFont:UIFontSystemFontOfSize(13)
                                            color:HEXCOLOR(0x5D6877)
                                    numberOfLines:0];
-    detailLabel.tag = 102;
-    detailLabel.text = detail;
-    [card addSubview:detailLabel];
+    detailLabel
+        .byText(detail)
+        .byTag(102)
+        .addOn(card);
     [self.stepDetailLabMutArr addObject:detailLabel];
 
     return card;
@@ -217,24 +228,28 @@ Prop_strong()id runtimeObject;
 -(UIButton *)demoButtonByTitle:(NSString *)title
                backgroundColor:(UIColor *)backgroundColor
                         action:(SEL)action{
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.backgroundColor = backgroundColor;
-    button.layer.cornerRadius = 8;
-    button.titleLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightSemibold];
-    button.titleLabel.adjustsFontSizeToFitWidth = YES;
-    button.titleLabel.minimumScaleFactor = 0.82;
-    [button setTitle:title forState:UIControlStateNormal];
-    [button setTitleColor:JobsWhiteColor forState:UIControlStateNormal];
-    [button addTarget:self
-               action:action
-     forControlEvents:UIControlEventTouchUpInside];
-    return button;
+    return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+        button
+            .jobsResetBtnTitle(title)
+            .jobsResetBtnTitleCor(JobsWhiteColor)
+            .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(14))
+            .jobsResetBtnBgCor(backgroundColor)
+            .byTitleLabel(^(__kindof UILabel * _Nullable label) {
+                label
+                    .byAdjustsFontSizeToFitWidth(YES)
+                    .byMinimumScaleFactor(0.82);
+            })
+            .byAddTarget(self, action, UIControlEventTouchUpInside)
+            .byLayer(^(__kindof CALayer * _Nullable layer) {
+                layer.byCornerRadius(8);
+            });
+    });
 }
 
 -(void)layoutRuntimeDemoViews{
     if (!self.contentScrollView.superview || !self.headerCardView.superview) return;
 
-    self.contentScrollView.frame = self.view.bounds;
+    self.contentScrollView.byFrame(self.view.bounds);
 
     UIEdgeInsets safeAreaInsets = UIEdgeInsetsZero;
     if (@available(iOS 11.0, *)) {
@@ -245,16 +260,16 @@ Prop_strong()id runtimeObject;
     CGFloat left = 16;
     CGFloat top = MAX(16, safeAreaInsets.top + 12);
 
-    self.headerCardView.frame = CGRectMake(left, top, contentWidth, 132);
-    self.titleLabel.frame = CGRectMake(16, 18, contentWidth - 32, 26);
-    self.subTitleLabel.frame = CGRectMake(16, CGRectGetMaxY(self.titleLabel.frame) + 8, contentWidth - 32, 40);
-    self.classNameValueLabel.frame = CGRectMake(16, CGRectGetMaxY(self.subTitleLabel.frame) + 12, contentWidth - 32, 22);
+    self.headerCardView.byFrame(CGRectMake(left, top, contentWidth, 132));
+    self.titleLabel.byFrame(CGRectMake(16, 18, contentWidth - 32, 26));
+    self.subTitleLabel.byFrame(CGRectMake(16, CGRectGetMaxY(self.titleLabel.frame) + 8, contentWidth - 32, 40));
+    self.classNameValueLabel.byFrame(CGRectMake(16, CGRectGetMaxY(self.subTitleLabel.frame) + 12, contentWidth - 32, 22));
     top = CGRectGetMaxY(self.headerCardView.frame) + 14;
 
     CGFloat buttonGap = 10;
     CGFloat buttonWidth = (contentWidth - buttonGap) / 2;
-    self.runDemoBtn.frame = CGRectMake(left, top, buttonWidth, 44);
-    self.messageForwardBtn.frame = CGRectMake(CGRectGetMaxX(self.runDemoBtn.frame) + buttonGap, top, buttonWidth, 44);
+    self.runDemoBtn.byFrame(CGRectMake(left, top, buttonWidth, 44));
+    self.messageForwardBtn.byFrame(CGRectMake(CGRectGetMaxX(self.runDemoBtn.frame) + buttonGap, top, buttonWidth, 44));
     top = CGRectGetMaxY(self.runDemoBtn.frame) + 14;
 
     for (UIView *card in self.stepCardMutArr) {
@@ -264,17 +279,17 @@ Prop_strong()id runtimeObject;
         CGFloat detailWidth = contentWidth - 46;
         CGSize detailSize = [detailLabel sizeThatFits:CGSizeMake(detailWidth, CGFLOAT_MAX)];
         CGFloat cardHeight = MAX(94, detailSize.height + 54);
-        card.frame = CGRectMake(left, top, contentWidth, cardHeight);
-        accentView.frame = CGRectMake(16, 17, 6, 20);
-        titleLabel.frame = CGRectMake(32, 14, detailWidth, 24);
-        detailLabel.frame = CGRectMake(32, CGRectGetMaxY(titleLabel.frame) + 4, detailWidth, detailSize.height);
+        card.byFrame(CGRectMake(left, top, contentWidth, cardHeight));
+        accentView.byFrame(CGRectMake(16, 17, 6, 20));
+        titleLabel.byFrame(CGRectMake(32, 14, detailWidth, 24));
+        detailLabel.byFrame(CGRectMake(32, CGRectGetMaxY(titleLabel.frame) + 4, detailWidth, detailSize.height));
         top = CGRectGetMaxY(card.frame) + 12;
     }
 
     CGSize logSize = [self.runtimeLogLabel sizeThatFits:CGSizeMake(contentWidth - 32, CGFLOAT_MAX)];
-    self.logCardView.frame = CGRectMake(left, top, contentWidth, MAX(120, logSize.height + 58));
-    self.logTitleLabel.frame = CGRectMake(16, 14, contentWidth - 32, 24);
-    self.runtimeLogLabel.frame = CGRectMake(16, CGRectGetMaxY(self.logTitleLabel.frame) + 8, contentWidth - 32, logSize.height);
+    self.logCardView.byFrame(CGRectMake(left, top, contentWidth, MAX(120, logSize.height + 58)));
+    self.logTitleLabel.byFrame(CGRectMake(16, 14, contentWidth - 32, 24));
+    self.runtimeLogLabel.byFrame(CGRectMake(16, CGRectGetMaxY(self.logTitleLabel.frame) + 8, contentWidth - 32, logSize.height));
     top = CGRectGetMaxY(self.logCardView.frame) + MAX(24, safeAreaInsets.bottom + 16);
 
     self.contentScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.contentScrollView.bounds), top);
@@ -307,23 +322,23 @@ Prop_strong()id runtimeObject;
                                           NSUInteger idx,
                                           BOOL * _Nonnull stop) {
         if (idx < self.stepDetailLabMutArr.count) {
-            self.stepDetailLabMutArr[idx].text = obj;
+            self.stepDetailLabMutArr[idx].byText(obj);
         }
     }];
-    self.classNameValueLabel.text = [NSString stringWithFormat:@"Runtime Class：%@", NSStringFromClass(cls)];
+    self.classNameValueLabel.byText([NSString stringWithFormat:@"Runtime Class：%@", NSStringFromClass(cls)]);
     [self layoutRuntimeDemoViews];
 }
 
 -(void)appendRuntimeLog:(NSString *)logText{
     if (!logText.length) return;
     [self.runtimeLogMutArr addObject:[NSString stringWithFormat:@"- %@",logText]];
-    self.runtimeLogLabel.text = [self.runtimeLogMutArr componentsJoinedByString:@"\n"];
+    self.runtimeLogLabel.byText([self.runtimeLogMutArr componentsJoinedByString:@"\n"]);
     [self layoutRuntimeDemoViews];
 }
 
 -(void)clearRuntimeLog{
     [self.runtimeLogMutArr removeAllObjects];
-    self.runtimeLogLabel.text = nil;
+    self.runtimeLogLabel.byText(nil);
 }
 #pragma mark —— Actions
 -(void)runDemoAction{
@@ -612,74 +627,86 @@ Prop_strong()id runtimeObject;
 #pragma mark —— lazyLoad
 -(UIScrollView *)contentScrollView{
     if (!_contentScrollView) {
-        _contentScrollView = UIScrollView.new;
-        _contentScrollView.backgroundColor = UIColor.clearColor;
-        _contentScrollView.alwaysBounceVertical = YES;
-        _contentScrollView.showsVerticalScrollIndicator = NO;
-        _contentScrollView.delaysContentTouches = NO;
+        _contentScrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
+            scrollView
+                .byAlwaysBounceVertical(YES)
+                .byShowsVerticalScrollIndicator(NO)
+                .byDelaysContentTouches(NO)
+                .byBgColor(UIColor.clearColor);
+        });
     };return _contentScrollView;
 }
 
 -(UIView *)headerCardView{
     if (!_headerCardView) {
-        _headerCardView = UIView.new;
-        _headerCardView.backgroundColor = JobsWhiteColor;
-        _headerCardView.layer.cornerRadius = 8;
-        _headerCardView.layer.borderWidth = 0.5;
-        _headerCardView.layer.borderColor = [UIColor colorWithWhite:0 alpha:0.08].CGColor;
+        _headerCardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(JobsWhiteColor)
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byCornerRadius(8)
+                        .byBorderWidth(0.5)
+                        .byBorderColor(RGBA_SAMECOLOR(0, 0.08).CGColor);
+                });
+        });
     };return _headerCardView;
 }
 
 -(UILabel *)titleLabel{
     if (!_titleLabel) {
-        _titleLabel = [self demoLabelByFont:[UIFont systemFontOfSize:20 weight:UIFontWeightBold]
+        _titleLabel = [self demoLabelByFont:UIFontWeightBoldSize(20)
                                       color:HEXCOLOR(0x2B3340)
                               numberOfLines:1];
-        _titleLabel.text = @"OC Runtime 动态注册";
+        _titleLabel.byText(@"OC Runtime 动态注册".tr);
     };return _titleLabel;
 }
 
 -(UILabel *)subTitleLabel{
     if (!_subTitleLabel) {
-        _subTitleLabel = [self demoLabelByFont:[UIFont systemFontOfSize:13]
+        _subTitleLabel = [self demoLabelByFont:UIFontSystemFontOfSize(13)
                                          color:HEXCOLOR(0x667085)
                                  numberOfLines:2];
-        _subTitleLabel.text = @"演示 objc_allocateClassPair、class_addIvar、class_addProperty、class_addMethod 和 objc_registerClassPair 的完整流程。";
+        _subTitleLabel.byText(@"演示 objc_allocateClassPair、class_addIvar、class_addProperty、class_addMethod 和 objc_registerClassPair 的完整流程。".tr);
     };return _subTitleLabel;
 }
 
 -(UILabel *)classNameValueLabel{
     if (!_classNameValueLabel) {
-        _classNameValueLabel = [self demoLabelByFont:[UIFont fontWithName:@"Menlo-Regular" size:12] ?: [UIFont systemFontOfSize:12]
+        _classNameValueLabel = [self demoLabelByFont:fontName(@"Menlo-Regular", 12) ?: UIFontSystemFontOfSize(12)
                                                color:HEXCOLOR(0x1F7A53)
                                        numberOfLines:1];
-        _classNameValueLabel.adjustsFontSizeToFitWidth = YES;
-        _classNameValueLabel.minimumScaleFactor = 0.72;
-        _classNameValueLabel.text = @"Runtime Class：等待执行";
+        _classNameValueLabel
+            .byText(@"Runtime Class：等待执行".tr)
+            .byAdjustsFontSizeToFitWidth(YES)
+            .byMinimumScaleFactor(0.72);
     };return _classNameValueLabel;
 }
 
 -(UIView *)logCardView{
     if (!_logCardView) {
-        _logCardView = UIView.new;
-        _logCardView.backgroundColor = HEXCOLOR(0x202734);
-        _logCardView.layer.cornerRadius = 8;
+        _logCardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(HEXCOLOR(0x202734))
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer.byCornerRadius(8);
+                });
+        });
     };return _logCardView;
 }
 
 -(UILabel *)logTitleLabel{
     if (!_logTitleLabel) {
-        _logTitleLabel = [self demoLabelByFont:[UIFont systemFontOfSize:15 weight:UIFontWeightSemibold]
+        _logTitleLabel = [self demoLabelByFont:UIFontWeightSemiboldSize(15)
                                          color:JobsWhiteColor
                                  numberOfLines:1];
-        _logTitleLabel.text = @"执行日志";
+        _logTitleLabel.byText(@"执行日志".tr);
     };return _logTitleLabel;
 }
 
 -(UILabel *)runtimeLogLabel{
     if (!_runtimeLogLabel) {
-        _runtimeLogLabel = [self demoLabelByFont:[UIFont fontWithName:@"Menlo-Regular" size:12] ?: [UIFont systemFontOfSize:12]
-                                           color:[UIColor colorWithRed:0.78 green:0.85 blue:0.92 alpha:1]
+        _runtimeLogLabel = [self demoLabelByFont:fontName(@"Menlo-Regular", 12) ?: UIFontSystemFontOfSize(12)
+                                           color:RGBA_COLOR(0.78 * 255.0, 0.85 * 255.0, 0.92 * 255.0, 1)
                                    numberOfLines:0];
     };return _runtimeLogLabel;
 }
@@ -687,7 +714,7 @@ Prop_strong()id runtimeObject;
 -(UIButton *)runDemoBtn{
     if (!_runDemoBtn) {
         _runDemoBtn = [self demoButtonByTitle:@"重新执行注册流程"
-                              backgroundColor:[UIColor colorWithRed:0.20 green:0.49 blue:0.95 alpha:1]
+                              backgroundColor:RGBA_COLOR(0.20 * 255.0, 0.49 * 255.0, 0.95 * 255.0, 1)
                                        action:@selector(runDemoAction)];
     };return _runDemoBtn;
 }
@@ -695,7 +722,7 @@ Prop_strong()id runtimeObject;
 -(UIButton *)messageForwardBtn{
     if (!_messageForwardBtn) {
         _messageForwardBtn = [self demoButtonByTitle:@"触发消息转发"
-                                     backgroundColor:[UIColor colorWithRed:0.93 green:0.42 blue:0.21 alpha:1]
+                                     backgroundColor:RGBA_COLOR(0.93 * 255.0, 0.42 * 255.0, 0.21 * 255.0, 1)
                                               action:@selector(messageForwardAction)];
     };return _messageForwardBtn;
 }

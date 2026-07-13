@@ -28,13 +28,13 @@ Prop_strong() WKWebView *jobsOCOpenWebView;
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.title = self.pageTitle ?: self.url.host;
-    [self.view addSubview:self.jobsOCOpenWebView];
+    self.jobsOCOpenWebView.addOn(self.view);
     [self.jobsOCOpenWebView loadRequest:[NSURLRequest requestWithURL:self.url]];
 }
 
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    self.jobsOCOpenWebView.frame = self.view.safeAreaLayoutGuide.layoutFrame;
+    self.jobsOCOpenWebView.byFrame(self.view.safeAreaLayoutGuide.layoutFrame);
 }
 
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
@@ -47,7 +47,7 @@ Prop_strong() WKWebView *jobsOCOpenWebView;
         _jobsOCOpenWebView = [WKWebView.alloc initWithFrame:CGRectZero configuration:configuration];
         _jobsOCOpenWebView.navigationDelegate = self;
         _jobsOCOpenWebView.allowsBackForwardNavigationGestures = YES;
-        _jobsOCOpenWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _jobsOCOpenWebView.byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     };return _jobsOCOpenWebView;
 }
 

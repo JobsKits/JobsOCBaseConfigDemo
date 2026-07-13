@@ -62,30 +62,31 @@
         if (@available(iOS 13.0, *)) {
             jobsMakeNavigationBarAppearance(^(__kindof UINavigationBarAppearance * _Nullable appearance) {
                 /// 先设为不透明背景，避免半透明那套乱七八糟的效果
-                [appearance configureWithOpaqueBackground];
+                appearance.byConfigureWithOpaqueBackground();
                 /// ② 背景图 + 底色（背景图优先）
-                appearance.backgroundImage = bgImage;
-             // 背景图（优先级最高）
-                appearance.backgroundColor = UIColor.yellowColor; // 底色，在图透明处才可见
+                appearance
+                    .byBackgroundImage(bgImage) // 背景图（优先级最高）
+                    .byBackgroundColor(UIColor.yellowColor); // 底色，在图透明处才可见
                 /// ③ 标题文字基础样式（非富文本标题时用这一套）
-                appearance.titleTextAttributes = jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable dic) {
+                appearance.byTitleTextAttributes(jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable dic) {
                     dic[NSForegroundColorAttributeName] = UIColor.redColor;
-                    dic[NSFontAttributeName] = [UIFont boldSystemFontOfSize:18];
-                });
+                    dic[NSFontAttributeName] = UIFontBoldSystemFontOfSize(18);
+                }));
                 /// （可选）大标题样式
-                appearance.largeTitleTextAttributes = jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable dic) {
+                appearance.byLargeTitleTextAttributes(jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable dic) {
                     dic[NSForegroundColorAttributeName] = UIColor.cyanColor;
-                    dic[NSFontAttributeName] = [UIFont boldSystemFontOfSize:30];
-                });
+                    dic[NSFontAttributeName] = UIFontBoldSystemFontOfSize(30);
+                }));
                 /// （可选）隐藏底部那条黑线
-                appearance.shadowColor = UIColor.clearColor;
-                // 或者：appearance.shadowImage = [UIImage new];
+                appearance.byShadowColor(UIColor.clearColor);
+                // 或者：appearance.byShadowImage(jobsMakeImage());
                 /// 应用到当前导航栏
-                navBar.standardAppearance = appearance;
-                navBar.scrollEdgeAppearance = appearance;
-                navBar.compactAppearance = appearance;
+                navBar
+                    .byStandardAppearance(appearance)
+                    .byScrollEdgeAppearance(appearance)
+                    .byCompactAppearance(appearance);
                 if (@available(iOS 15.0, *)) {
-                    navBar.compactScrollEdgeAppearance = appearance;
+                    navBar.byCompactScrollEdgeAppearance(appearance);
                 }
                 /// （可选）启用大标题
                 // self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
@@ -93,16 +94,15 @@
             });
         } else {
             /// iOS 12 及以前的写法
-            [navBar setBackgroundImage:bgImage forBarMetrics:UIBarMetricsDefault];
-            navBar.barTintColor = UIColor.yellowColor;
-
-            navBar.translucent = NO;
-            navBar.titleTextAttributes = jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable dic) {
-                dic[NSForegroundColorAttributeName] = UIColor.redColor;
-                dic[NSFontAttributeName] = [UIFont boldSystemFontOfSize:18];
-            });
-            /// 隐藏底部那条线（可选）
-            [navBar setShadowImage:UIImage.new];
+            navBar
+                .byBackgroundImageForBarMetrics(bgImage, UIBarMetricsDefault)
+                .byBarTintColor(UIColor.yellowColor)
+                .byTranslucent(NO)
+                .byTitleTextAttributes(jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable dic) {
+                    dic[NSForegroundColorAttributeName] = UIColor.redColor;
+                    dic[NSFontAttributeName] = UIFontBoldSystemFontOfSize(18);
+                }))
+                .byShadowImage(jobsMakeImage());/// 隐藏底部那条线（可选）
         }
     };
 }
@@ -165,7 +165,7 @@
         .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
         .jobsResetImagePadding(1)
         .jobsResetBtnImage(@"chevron.backward".sys_img)
-        .jobsResetBtnTitle(@"返回")
+        .jobsResetBtnTitle(@"返回".tr)
         .jobsResetBtnTitleCor(JobsBlackColor)
         .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
         .onClickBy(^(UIButton *x){
@@ -184,10 +184,11 @@
 //            backImage = @"chevron.backward".sys_img;
 //        }
 //    }
-//    self.navigationItem.leftBarButtonItem = [UIBarButtonItem.alloc initWithImage:backImage
-//                                                                           style:UIBarButtonItemStylePlain
-//                                                                          target:nil
-//                                                                          action:nil]
+//    self.navigationItem.leftBarButtonItem = jobsMakeBarButtonItemByImage(backImage,
+//                                                                         UIBarButtonItemStylePlain,
+//                                                                         nil,
+//                                                                         nil,
+//                                                                         nil)
 //        .byRacCommand([RACCommand.alloc initWithSignalBlock:^RACSignal * _Nonnull(id _Nullable input) {
 //            @jobs_strongify(self)
 //            self.goBack(input);
@@ -200,10 +201,11 @@
     /// 右 2：图标按钮（用自定义 UIButton 做 customView）
     @jobs_weakify(self)
     self.navigationItem.rightBarButtonItems = jobsMakeMutArr(^(__kindof NSMutableArray<UIBarButtonItem *> * _Nullable arr) {
-        arr.add([UIBarButtonItem.alloc initWithTitle:@"hi"
-                                               style:UIBarButtonItemStylePlain
-                                              target:nil
-                                              action:nil]
+        arr.add(jobsMakeBarButtonItemByTitle(@"hi",
+                                             UIBarButtonItemStylePlain,
+                                             nil,
+                                             nil,
+                                             nil)
                 .byRacCommand([RACCommand.alloc initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
                     NSLog(@"👉 点击了右侧『hi』按钮");
                     toastBy(@"点击了右侧『hi』按钮".tr);
@@ -214,7 +216,7 @@
              .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
              .jobsResetImagePadding(1)
              .jobsResetBtnImage(@"bell".sys_img)
-             .jobsResetBtnTitle(@"铃")
+             .jobsResetBtnTitle(@"铃".tr)
              .jobsResetBtnTitleCor(JobsBlueColor)
              .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
              .onClickBy(^(UIButton *x){

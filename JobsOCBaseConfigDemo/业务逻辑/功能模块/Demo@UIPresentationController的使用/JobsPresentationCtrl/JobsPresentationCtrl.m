@@ -79,7 +79,7 @@ Prop_strong()UIView *presentationWrappingView;
         self.presentationWrappingView = presentationWrapperView;
         self.panGestureRecognizer = [UIPanGestureRecognizer.alloc initWithTarget:self
                                                                           action:@selector(jobs_handlePanGesture:)];
-        self.panGestureRecognizer.delegate = self;
+        self.panGestureRecognizer.byDelegate(self);
         [presentationWrapperView addGestureRecognizer:self.panGestureRecognizer];
         
         // presentationRoundedCornerView is CORNER_RADIUS points taller than the
@@ -140,7 +140,7 @@ Prop_strong()UIView *presentationWrappingView;
             [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
             return nil;
         }];
-        dimmingView.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
+        dimmingView.tapGR.byEnabled(YES);/// 必须在设置完Target和selector以后方可开启执行
         
         self.dimmingView = dimmingView;
         dimmingView.addOn(self.containerView);
@@ -282,14 +282,15 @@ Prop_strong()UIView *presentationWrappingView;
                                                                   completion:NULL];
             }else{
                 self.interactiveFrame = self.presentationWrappingView.frame;
-                [UIView animateWithDuration:0.28
-                                      delay:0
-                     usingSpringWithDamping:0.88
-                      initialSpringVelocity:fabs(velocityY) / 1000.f
-                                    options:UIViewAnimationOptionCurveEaseOut
-                                 animations:^{
+                UIView.jobsAnimateWithSpring(0.28,
+                    0,
+                    0.88,
+                    fabs(velocityY) / 1000.f,
+                    UIViewAnimationOptionCurveEaseOut,
+                    ^{
                     self.presentationWrappingView.byFrame(self.interactiveFrame);
-                } completion:NULL];
+                },
+                    NULL);
             }
         } break;
         default:
@@ -389,7 +390,7 @@ Prop_strong()UIView *presentationWrappingView;
     // We are responsible for adding the incoming view to the containerView
     // for the presentation (will have no effect on dismissal because the
     // presenting view controller's view was not removed).
-    [containerView addSubview:toView];
+    toView.addOn(containerView);
     
     if (isPresenting) {
         toViewInitialFrame.origin = CGPointMake(CGRectGetMinX(containerView.bounds), CGRectGetMaxY(containerView.bounds));
@@ -406,22 +407,23 @@ Prop_strong()UIView *presentationWrappingView;
     
     NSTimeInterval transitionDuration = [self transitionDuration:transitionContext];
     
-    [UIView animateWithDuration:transitionDuration
-                          delay:0
-         usingSpringWithDamping:0.88
-          initialSpringVelocity:0.8
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-        if (isPresenting) toView.frame = toViewFinalFrame;
-        else fromView.frame = fromViewFinalFrame;
+    UIView.jobsAnimateWithSpring(transitionDuration,
+        0,
+        0.88,
+        0.8,
+        UIViewAnimationOptionCurveEaseOut,
+        ^{
+        if (isPresenting) toView.byFrame(toViewFinalFrame);
+        else fromView.byFrame(fromViewFinalFrame);
         
-    } completion:^(BOOL finished) {
+    },
+        ^(BOOL finished) {
         // When we complete, tell the transition context
         // passing along the BOOL that indicates whether the transition
         // finished or not.
         BOOL wasCancelled = [transitionContext transitionWasCancelled];
         [transitionContext completeTransition:!wasCancelled];
-    }];
+    });
 }
 #pragma mark —— UIViewControllerTransitioningDelegate
 /**

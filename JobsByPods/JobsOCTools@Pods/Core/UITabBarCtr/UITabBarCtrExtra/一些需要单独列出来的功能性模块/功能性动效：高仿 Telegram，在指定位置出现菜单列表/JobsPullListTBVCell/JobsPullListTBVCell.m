@@ -26,7 +26,7 @@
         @jobs_strongify(self)
         self.textLabel.byText(model.textModel.text);
 
-        self.imageView.image = model.image;
+        self.imageView.byImage(model.image);
         return self;
     };
 }

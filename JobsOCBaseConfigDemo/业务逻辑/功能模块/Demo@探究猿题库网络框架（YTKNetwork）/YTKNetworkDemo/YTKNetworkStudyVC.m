@@ -89,7 +89,7 @@
     /// 多请求の链式请求。链式请求的结果集体现在<YTKChainRequestDelegate>
     [self sendChainRequest:^(YTKChainRequest *_Nullable chainReq) {
         @jobs_strongify(self)
-        chainReq.delegate = self;
+        chainReq.byDelegate(self);
     }];
     /// 上传KYC的图片@POST
     [self uploadKYCImage:UIImagePNGRepresentation(@"启动页SLOGAN".img)

@@ -128,7 +128,7 @@ static dispatch_once_t static_textViewOnceToken;
                 x = x.substringToIndex(self.textModel.maxWordCount);
                 @"最多只能输入".tr.add(toStringByLong(self.textModel.maxWordCount).add(@"个字".tr)).toast();
             }
-            self.szTextView.text = x;
+            self.szTextView.byText(x);
             self.textModel.curWordCount = x.length;
             self.updateWordCount(0);
             /// 向外回调目前的textView的字符串
@@ -136,8 +136,9 @@ static dispatch_once_t static_textViewOnceToken;
         }];
     }
     UITextModel *textModel = self.textModel;
-    _szTextView.text = textModel.text ?: @"";
-    _szTextView.textColor = textModel.textCor;
+    _szTextView
+        .byText(textModel.text ?: @"")
+        .byTextCor(textModel.textCor);
     if (textModel.placeholderColor) _szTextView.placeholderTextColor = textModel.placeholderColor;
     _szTextView.placeholder = textModel.placeholder ?: @"";
     return _szTextView;

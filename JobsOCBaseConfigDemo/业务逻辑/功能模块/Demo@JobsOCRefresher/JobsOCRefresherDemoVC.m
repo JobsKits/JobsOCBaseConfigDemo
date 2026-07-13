@@ -224,7 +224,7 @@ Prop_assign()BOOL didBindRefresher;
         UIView *tile = [self tileViewWithTitle:[NSString stringWithFormat:@"H-%ld", (long)i + 1]
                                       subTitle:@"左右拉动"
                                          index:i];
-        [self.horizontalContentView addSubview:tile];
+        tile.addOn(self.horizontalContentView);
         [self.horizontalTileMutArr addObject:tile];
     }
     [self layoutHorizontalContent];
@@ -237,7 +237,7 @@ Prop_assign()BOOL didBindRefresher;
         UIView *tile = [self tileViewWithTitle:[NSString stringWithFormat:@"V-%ld", (long)i + 1]
                                       subTitle:@"上下拉动"
                                          index:i];
-        [self.verticalContentView addSubview:tile];
+        tile.addOn(self.verticalContentView);
         [self.verticalTileMutArr addObject:tile];
     }
     [self layoutVerticalContent];
@@ -297,27 +297,31 @@ Prop_assign()BOOL didBindRefresher;
                     subTitle:(NSString *)subTitle
                        index:(NSInteger)index{
     UIView *tile = jobsMakeView(^(__kindof UIView * _Nullable view) {
-        view.byBgColor([self tileColorAtIndex:index]);
-        view.layer.cornerRadius = JobsWidth(10);
-        view.layer.shadowColor = UIColor.blackColor.CGColor;
-        view.layer.shadowOpacity = 0.12;
-        view.layer.shadowOffset = CGSizeMake(0, JobsWidth(3));
-        view.layer.shadowRadius = JobsWidth(8);
+        view
+            .byBgColor([self tileColorAtIndex:index])
+            .byLayer(^(__kindof CALayer * _Nullable layer) {
+                layer
+                    .byCornerRadius(JobsWidth(10))
+                    .byShadowColor(UIColor.blackColor.CGColor)
+                    .byShadowOpacity(0.12)
+                    .byShadowOffset(CGSizeMake(0, JobsWidth(3)))
+                    .byShadowRadius(JobsWidth(8));
+            });
     });
     UILabel *titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label.byText(title)
             .byFont(UIFontWeightSemiboldSize(16))
             .byTextCor(UIColor.whiteColor);
     });
-    titleLabel.tag = 1001;
+    titleLabel.byTag(1001);
     UILabel *subTitleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label.byText(subTitle)
             .byFont(UIFontWeightRegularSize(13))
-            .byTextCor([UIColor colorWithWhite:1 alpha:0.78]);
+            .byTextCor(RGBA_SAMECOLOR(255, 0.78));
     });
-    subTitleLabel.tag = 1002;
-    [tile addSubview:titleLabel];
-    [tile addSubview:subTitleLabel];
+    subTitleLabel.byTag(1002);
+    titleLabel.addOn(tile);
+    subTitleLabel.addOn(tile);
     return tile;
 }
 
@@ -347,8 +351,8 @@ Prop_assign()BOOL didBindRefresher;
                     make.left.right.equalTo(self.view).inset(JobsWidth(16));
                     make.height.mas_equalTo(JobsWidth(74));
                 });
-            label.layer.cornerRadius = JobsWidth(10);
-            label.layer.masksToBounds = YES;
+            label.layer.byCornerRadius(JobsWidth(10));
+            label.layer.byMasksToBounds(YES);
         });
     };return _statusLabel;
 }
@@ -388,9 +392,12 @@ Prop_assign()BOOL didBindRefresher;
                     make.height.mas_equalTo(JobsWidth(146));
                 });
         });
-        _horizontalScrollView.layer.cornerRadius = JobsWidth(10);
-        _horizontalScrollView.layer.masksToBounds = YES;
-        [_horizontalScrollView addSubview:self.horizontalContentView];
+        _horizontalScrollView.byLayer(^(__kindof CALayer * _Nullable layer) {
+            layer
+                .byCornerRadius(JobsWidth(10))
+                .byMasksToBounds(YES);
+        });
+        self.horizontalContentView.addOn(_horizontalScrollView);
     };return _horizontalScrollView;
 }
 
@@ -437,9 +444,12 @@ Prop_assign()BOOL didBindRefresher;
                     make.bottom.equalTo(self.view).offset(-JobsBottomSafeAreaHeight() - JobsWidth(12));
                 });
         });
-        _verticalScrollView.layer.cornerRadius = JobsWidth(10);
-        _verticalScrollView.layer.masksToBounds = YES;
-        [_verticalScrollView addSubview:self.verticalContentView];
+        _verticalScrollView.byLayer(^(__kindof CALayer * _Nullable layer) {
+            layer
+                .byCornerRadius(JobsWidth(10))
+                .byMasksToBounds(YES);
+        });
+        self.verticalContentView.addOn(_verticalScrollView);
     };return _verticalScrollView;
 }
 

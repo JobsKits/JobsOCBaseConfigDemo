@@ -158,7 +158,7 @@ ratio:(CGFloat)ratio {
 /// 在 tf_hide 之后执行
 - (BOOL)tf_popupViewWillHide:(UIView *)popup{
     if (self.filterBtn.selected) {
-        self.filterBtn.selected = NO;
+        self.filterBtn.bySelected(NO);
         [self.filterBtn changeAction:NO];
     };return YES;
 }
@@ -175,8 +175,8 @@ ratio:(CGFloat)ratio {
 
         _categoryView.titleSelectedColor = HEXCOLOR(0xAE8330);
         _categoryView.titleColor = HEXCOLOR(0x8D765C);
-        _categoryView.titleFont = [UIFont systemFontOfSize:16 weight:UIFontWeightRegular];
-        _categoryView.titleSelectedFont = [UIFont systemFontOfSize:22 weight:UIFontWeightSemibold];
+        _categoryView.titleFont = UIFontWeightRegularSize(16);
+        _categoryView.titleSelectedFont = UIFontWeightSemiboldSize(22);
         _categoryView.delegate = self;
         _categoryView.titles = self.titleMutArr;
         _categoryView.titleColorGradientEnabled = YES;
@@ -263,19 +263,19 @@ ratio:(CGFloat)ratio {
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 @"篩選".tr.toast();
                 [x changeAction:x.selected];
                 self.vc = [self jobsCurrentPopupSubVC];
                 JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %ld",(long)self.currentIndex);
                 if (!self.vc) {
-                    x.selected = NO;
+                    x.bySelected(NO);
                     [x changeAction:NO];
                     return;
                 }
                 self.vc.hidePopupView(self.popUpCustomView);
                 if (x.selected) {
-                    self.customBtn.selected = NO;
+                    self.customBtn.bySelected(NO);
                     self.customBtn.jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58));
                     self.popUpFiltrationView = self.vc.filtrationView;
                     self.popUpFiltrationView.popupDelegate = self;
@@ -308,20 +308,20 @@ ratio:(CGFloat)ratio {
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 x.jobsResetBtnTitleCor(x.selected ? HEXCOLOR(0xAE8330) : HEXCOLOR(0x3D4A58));
                 @"自定义".tr.toast();
                 self.vc = [self jobsCurrentPopupSubVC];
                 JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %ld",(long)self.currentIndex);
                 if (!self.vc) {
-                    x.selected = NO;
+                    x.bySelected(NO);
                     x.jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58));
                     return;
                 }
                 self.popUpFiltrationView = self.vc.filtrationView;
                 self.vc.hidePopupView(self.popUpFiltrationView);
                 if (x.selected) {
-                    self.filterBtn.selected = NO;
+                    self.filterBtn.bySelected(NO);
                     [self.filterBtn changeAction:NO];
                     self.popUpCustomView = self.vc.popUpCustomView;
     //                self.popUpCustomView.popupDelegate = self;

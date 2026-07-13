@@ -23,8 +23,9 @@ Prop_assign()BOOL hasLastPaintPoint;
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.userInteractionEnabled = YES;
-        self.contentMode = UIViewContentModeScaleAspectFit;
-        self.clipsToBounds = YES;
+        self
+            .byContentMode(UIViewContentModeScaleAspectFit)
+            .byClipsToBounds(YES);
         self.brushEnabled = YES;
         UIPanGestureRecognizer *gesture = [UIPanGestureRecognizer.alloc initWithTarget:self
                                                                                 action:@selector(handlePanGesture:)];

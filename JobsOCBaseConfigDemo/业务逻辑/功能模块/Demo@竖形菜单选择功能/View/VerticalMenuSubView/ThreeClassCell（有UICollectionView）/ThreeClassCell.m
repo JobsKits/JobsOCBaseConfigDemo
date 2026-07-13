@@ -28,7 +28,8 @@ Prop_strong()NSMutableArray <GoodsClassModel *>*dataArray; // 总共有多少个
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]){
-        self.byBgColor(self.contentView.backgroundColor = ThreeClassCellBgCor);
+        self.byBgColor(ThreeClassCellBgCor);
+        self.contentView.byBgColor(ThreeClassCellBgCor);
         self.jobsRichElementsCollectionViewCellBy(nil);
     };return self;
 }

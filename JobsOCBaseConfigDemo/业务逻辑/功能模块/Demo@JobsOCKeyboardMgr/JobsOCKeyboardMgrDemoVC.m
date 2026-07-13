@@ -45,7 +45,7 @@ Prop_strong()UIView *accessoryBar;
     [super viewDidLoad];
     self.makeNavByAlpha(1);
     self.view.byBgColor(HEXCOLOR(0xF5F7FA));
-    self.cardView.hidden = NO;
+    self.cardView.byHidden(NO);
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -80,38 +80,48 @@ Prop_strong()UIView *accessoryBar;
 
 -(UITextField *)jobs_textFieldByPlaceholder:(NSString *)placeholder
                                      secure:(BOOL)secure{
-    UITextField *textField = UITextField.new;
-    textField.placeholder = placeholder.tr;
-    textField.secureTextEntry = secure;
-    textField.textColor = HEXCOLOR(0x263342);
-    textField.tintColor = HEXCOLOR(0x1D7FF2);
-    textField.font = UIFontWeightRegularSize(16);
-    textField.borderStyle = UITextBorderStyleNone;
-    textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    textField.backgroundColor = HEXCOLOR(0xF0F3F7);
-    textField.layer.cornerRadius = JobsWidth(12);
-    textField.leftView = [UIView.alloc initWithFrame:CGRectMake(0, 0, JobsWidth(16), JobsWidth(1))];
-    textField.leftViewMode = UITextFieldViewModeAlways;
-    return textField;
+    return jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
+        textField
+            .byPlaceholder(placeholder.tr)
+            .bySecureTextEntry(secure)
+            .byTextCor(HEXCOLOR(0x263342))
+            .byFont(UIFontWeightRegularSize(16))
+            .byBorderStyle(UITextBorderStyleNone)
+            .byClearButtonMode(UITextFieldViewModeWhileEditing)
+            .byLeftView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+                view.byFrame(CGRectMake(0, 0, JobsWidth(16), JobsWidth(1)));
+            }))
+            .byLeftViewMode(UITextFieldViewModeAlways)
+            .byTintColor(HEXCOLOR(0x1D7FF2))
+            .byBgColor(HEXCOLOR(0xF0F3F7))
+            .byLayer(^(__kindof CALayer * _Nullable layer) {
+                layer.byCornerRadius(JobsWidth(12));
+            });
+    });
 }
 #pragma mark —— LazyLoad
 -(UIView *)cardView{
     if (!_cardView) {
         @jobs_weakify(self)
-        _cardView = UIView.new;
-        _cardView.backgroundColor = UIColor.whiteColor;
-        _cardView.layer.cornerRadius = JobsWidth(18);
-        [self.view addSubview:_cardView];
-        [_cardView mas_makeConstraints:^(MASConstraintMaker *make) {
-            @jobs_strongify(self)
-            make.left.equalTo(self.view).offset(JobsWidth(24));
-            make.right.equalTo(self.view).offset(-JobsWidth(24));
-            make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-JobsWidth(28));
-        }];
-        _cardView.layer.shadowColor = HEXCOLOR(0xB8C1CC).CGColor;
-        _cardView.layer.shadowOpacity = 0.22f;
-        _cardView.layer.shadowRadius = JobsWidth(18);
-        _cardView.layer.shadowOffset = CGSizeMake(0, JobsWidth(8));
+        _cardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(UIColor.whiteColor)
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byCornerRadius(JobsWidth(18))
+                        .byShadowColor(HEXCOLOR(0xB8C1CC).CGColor)
+                        .byShadowOpacity(0.22f)
+                        .byShadowRadius(JobsWidth(18))
+                        .byShadowOffset(CGSizeMake(0, JobsWidth(8)));
+                })
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    @jobs_strongify(self)
+                    make.left.equalTo(self.view).offset(JobsWidth(24));
+                    make.right.equalTo(self.view).offset(-JobsWidth(24));
+                    make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-JobsWidth(28));
+                });
+        });
         (void)self.titleLab;
         (void)self.formStackView;
     };return _cardView;
@@ -120,37 +130,41 @@ Prop_strong()UIView *accessoryBar;
 -(UILabel *)titleLab{
     if (!_titleLab) {
         @jobs_weakify(self)
-        _titleLab = UILabel.new;
-        _titleLab.text = @"Keyboard Form";
-        _titleLab.textColor = HEXCOLOR(0x263342);
-        _titleLab.font = UIFontWeightMediumSize(21);
-        [self.cardView addSubview:_titleLab];
-        [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            @jobs_strongify(self)
-            make.top.equalTo(self.cardView).offset(JobsWidth(24));
-            make.left.right.equalTo(self.cardView).inset(JobsWidth(22));
-        }];
+        _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"Keyboard Form")
+                .byTextCor(HEXCOLOR(0x263342))
+                .byFont(UIFontWeightMediumSize(21))
+                .addOn(self.cardView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    @jobs_strongify(self)
+                    make.top.equalTo(self.cardView).offset(JobsWidth(24));
+                    make.left.right.equalTo(self.cardView).inset(JobsWidth(22));
+                });
+        });
     };return _titleLab;
 }
 
 -(UIStackView *)formStackView{
     if (!_formStackView) {
         @jobs_weakify(self)
-        _formStackView = UIStackView.new;
-        _formStackView.axis = UILayoutConstraintAxisVertical;
-        _formStackView.distribution = UIStackViewDistributionFill;
-        _formStackView.alignment = UIStackViewAlignmentFill;
-        _formStackView.spacing = JobsWidth(14);
-        [self.cardView addSubview:_formStackView];
-        [_formStackView mas_makeConstraints:^(MASConstraintMaker *make) {
-            @jobs_strongify(self)
-            make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(20));
-            make.left.right.equalTo(self.cardView).inset(JobsWidth(22));
-            make.bottom.equalTo(self.cardView).offset(-JobsWidth(24));
-        }];
-        [_formStackView addArrangedSubview:self.accountTF];
-        [_formStackView addArrangedSubview:self.passwordTF];
-        [_formStackView addArrangedSubview:self.accessoryTF];
+        _formStackView = jobsMakeStackView(^(__kindof UIStackView * _Nullable stackView) {
+            stackView
+                .byAxis(UILayoutConstraintAxisVertical)
+                .byDistribution(UIStackViewDistributionFill)
+                .byAlignment(UIStackViewAlignmentFill)
+                .bySpacing(JobsWidth(14))
+                .addOn(self.cardView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    @jobs_strongify(self)
+                    make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(20));
+                    make.left.right.equalTo(self.cardView).inset(JobsWidth(22));
+                    make.bottom.equalTo(self.cardView).offset(-JobsWidth(24));
+                });
+        });
+        _formStackView.add(self.accountTF);
+        _formStackView.add(self.passwordTF);
+        _formStackView.add(self.accessoryTF);
         [self.accountTF mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(JobsWidth(52));
         }];
@@ -166,57 +180,61 @@ Prop_strong()UIView *accessoryBar;
 -(UITextField *)accountTF{
     if (!_accountTF) {
         _accountTF = [self jobs_textFieldByPlaceholder:@"User" secure:NO];
-        _accountTF.returnKeyType = UIReturnKeyNext;
+        _accountTF.byReturnKeyType(UIReturnKeyNext);
     };return _accountTF;
 }
 
 -(UITextField *)passwordTF{
     if (!_passwordTF) {
         _passwordTF = [self jobs_textFieldByPlaceholder:@"Password" secure:YES];
-        _passwordTF.returnKeyType = UIReturnKeyNext;
+        _passwordTF.byReturnKeyType(UIReturnKeyNext);
     };return _passwordTF;
 }
 
 -(UITextField *)accessoryTF{
     if (!_accessoryTF) {
         _accessoryTF = [self jobs_textFieldByPlaceholder:@"Code" secure:NO];
-        _accessoryTF.returnKeyType = UIReturnKeyDone;
-        _accessoryTF.inputAccessoryView = self.accessoryBar;
+        _accessoryTF
+            .byReturnKeyType(UIReturnKeyDone)
+            .byInputAccessoryView(self.accessoryBar);
     };return _accessoryTF;
 }
 
 -(UIView *)accessoryBar{
     if (!_accessoryBar) {
-        UIView *bar = [UIView.alloc initWithFrame:CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsWidth(56))];
-        bar.backgroundColor = HEXCOLOR(0x263342);
-
-        UILabel *label = UILabel.new;
-        label.text = @"Input Accessory";
-        label.textColor = UIColor.whiteColor;
-        label.font = UIFontWeightMediumSize(15);
-        [bar addSubview:label];
-        [label mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(bar).offset(JobsWidth(18));
-            make.centerY.equalTo(bar);
-        }];
-
-        UIButton *doneBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        [doneBtn setTitle:@"Done" forState:UIControlStateNormal];
-        doneBtn.titleLabel.font = UIFontWeightMediumSize(15);
-        [doneBtn addTarget:self
-                    action:@selector(jobs_endEditing)
-          forControlEvents:UIControlEventTouchUpInside];
-        [bar addSubview:doneBtn];
-        [doneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(bar).offset(-JobsWidth(18));
-            make.centerY.equalTo(bar);
-        }];
+        UIView *bar = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byFrame(CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsWidth(56)))
+                .byBgColor(HEXCOLOR(0x263342));
+        });
+        jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"Input Accessory")
+                .byTextCor(UIColor.whiteColor)
+                .byFont(UIFontWeightMediumSize(15))
+                .addOn(bar)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(bar).offset(JobsWidth(18));
+                    make.centerY.equalTo(bar);
+                });
+        });
+        jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button
+                .jobsResetBtnTitle(@"Done")
+                .jobsResetBtnTitleFont(UIFontWeightMediumSize(15))
+                .byAddTarget(self, @selector(jobs_endEditing), UIControlEventTouchUpInside)
+                .addOn(bar)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.right.equalTo(bar).offset(-JobsWidth(18));
+                    make.centerY.equalTo(bar);
+                });
+        });
         _accessoryBar = bar;
     };return _accessoryBar;
 }
 
 -(void)jobs_endEditing{
-    [self.view endEditing:YES];
+    self.view.byEndEditing(YES);
 }
 
 @end

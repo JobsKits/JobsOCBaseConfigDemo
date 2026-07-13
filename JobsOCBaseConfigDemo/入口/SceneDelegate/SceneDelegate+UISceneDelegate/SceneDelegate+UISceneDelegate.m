@@ -22,7 +22,7 @@ willConnectToSession:(UISceneSession *)session
         self.window = (UIWindow *)data ?: [UIWindow.alloc initWithWindowScene:ws];
         self.window.windowScene = ws;
         self.window.byFrame(ws.coordinateSpace.bounds);
-        self.window.rootViewController = AppDelegate.jobsCustomTabBarNavCtrl;
+        self.window.rootViewController = JobsOCMakeAppRootViewController();
         [self.window makeKeyAndVisible];
         AppDelegate.launchFunc1();
     }];

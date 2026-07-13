@@ -40,6 +40,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
+#else
+#import "JobsBaseUI.h"
+#endif
+
 @interface ZFDouYinControlView : UIView <ZFPlayerMediaControl>
 
 -(void)resetControlView;

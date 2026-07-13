@@ -52,7 +52,7 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
             self.detailTextLabel.byText(self.childCommentModel.content);
 
             UIImage *placeholderImage = [self jobs_commentAvatarPlaceholderImageByID:self.childCommentModel.ID ? : self.childCommentModel.userId];
-            self.imageView.image = placeholderImage;
+            self.imageView.byImage(placeholderImage);
             self.imageView
                 .imageURL(self.childCommentModel.headImg.imageURLPlus.jobsUrl)
                 .placeholderImage(placeholderImage)
@@ -79,7 +79,7 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
     CGFloat textX = left + avatarWH + JobsWidth(10);
     CGFloat likeW = JobsWidth(46);
     CGFloat textW = self.contentView.width - textX - likeW - JobsWidth(22);
-    self.imageView.frame = CGRectMake(left, top, avatarWH, avatarWH);
+    self.imageView.byFrame(CGRectMake(left, top, avatarWH, avatarWH));
     self.imageView
         .byContentMode(UIViewContentModeScaleAspectFill)
         .byClipsToBounds(YES);
@@ -92,8 +92,8 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
         .byFont(JobsCommentConfig.sharedManager.subTitleFont)
         .byTextCor(JobsCommentConfig.sharedManager.subTitleCor)
         .byNumberOfLines(2);
-    self.textLabel.frame = CGRectMake(textX, JobsWidth(12), textW, JobsWidth(18));
-    self.detailTextLabel.frame = CGRectMake(textX, CGRectGetMaxY(self.textLabel.frame) + JobsWidth(4), textW, JobsWidth(36));
+    self.textLabel.byFrame(CGRectMake(textX, JobsWidth(12), textW, JobsWidth(18)));
+    self.detailTextLabel.byFrame(CGRectMake(textX, CGRectGetMaxY(self.textLabel.frame) + JobsWidth(4), textW, JobsWidth(36)));
 }
 #pragma mark —— lazyLoad
 -(UIImage *_Nullable)jobs_commentAvatarPlaceholderImageByID:(NSString *_Nullable)avatarID{
@@ -113,7 +113,7 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
             .jobsResetBtnTitle((toStringByNSInteger(_likeBtn.thumpNum)))
             .onClickBy(^(RBCLikeButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 x.jobsResetBtnImage(x.selected ? JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like"));
     //            [x setThumbWithSelected:x.selected
     //                           thumbNum:x.selected ? x.thumpNum + 1 : x.thumpNum - 1

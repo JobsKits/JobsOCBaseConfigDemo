@@ -23,7 +23,7 @@
 
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes{
     [super applyLayoutAttributes:layoutAttributes];
-    self.backgroundColor = JobsWhiteColor;
+    self.byBgColor(JobsWhiteColor);
 
     //加阴影立体效果
     [UIView makeTargetShadowview:self

@@ -12,6 +12,20 @@
 #import <JobsGestureLock/JobsGestureLockConfiguration.h>
 #import <JobsGestureLock/JobsGestureLockView.h>
 
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
+#import <JobsBaseUI/UIButton+SimplyMake.h>
+#else
+#import "JobsBaseUI.h"
+#import "UIButton+SimplyMake.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else

@@ -55,7 +55,7 @@
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.imageView.image = self.viewModel.image;
+        self.imageView.byImage(self.viewModel.image);
         return self;
     };
 }

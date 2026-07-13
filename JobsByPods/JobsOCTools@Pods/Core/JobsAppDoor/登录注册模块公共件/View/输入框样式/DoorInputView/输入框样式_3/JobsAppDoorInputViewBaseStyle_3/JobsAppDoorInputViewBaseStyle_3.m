@@ -156,10 +156,10 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         .jobsResetBtnImage(self.doorInputViewBaseStyleModel.unSelectedSecurityBtnIMG ? : JobsBlueColor.image)
         .onClickBy(^(UIButton *x){
             @jobs_strongify(self)
-            x.selected = !x.selected;
-            self.magicTextField.bySecureTextEntry(!x.selected);
+            x.byToggleSelected();
+            self.magicTextField.bySecureTextEntry(!x.jobs_isSelected);
 
-            if (x.selected && !self.magicTextField.isEditing) {
+            if (x.jobs_isSelected && !self.magicTextField.isEditing) {
                 self.magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
 
             }

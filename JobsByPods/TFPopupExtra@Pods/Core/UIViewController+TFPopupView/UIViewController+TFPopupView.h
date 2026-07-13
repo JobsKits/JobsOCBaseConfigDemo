@@ -108,17 +108,17 @@ NS_ASSUME_NONNULL_END
                  });
 
              BtnClickEvent(_filterBtn, {
-                 x.selected = !x.selected;
+                 x.byToggleSelected();
                  // @"篩選".tr.toast();
-                 [x changeAction:x.selected];
+                 [x changeAction:x.jobs_isSelected];
                  self.currentIndex = [self->listContainerView valueForKey:@"currentIndex"];
                  JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %d",self.currentIndex.intValue);
                  self.vc = (BaiShaETProjAlreadySettledSubBaseVC *)self.childVCMutArr[self.currentIndex.intValue];
                  self.popUpFiltrationView = self.vc.popUpFiltrationView;
                  [self.vc hidePopupView:self.popUpCustomView];
 
-                 if (x.selected) {
-                     self.customBtn.selected = NO;
+                 if (x.jobs_isSelected) {
+                     self.customBtn.bySelected(NO);
                      self.popUpFiltrationView.popupDelegate = self;
                  }else{
                      [self.vc hidePopupView:self.popUpFiltrationView];
@@ -143,7 +143,7 @@ NS_ASSUME_NONNULL_END
 
 
              BtnClickEvent(_customBtn, {
-                 x.selected = !x.selected;
+                 x.byToggleSelected();
                  /// @"自定义".tr.toast();
                  self.currentIndex = [self->listContainerView valueForKey:@"currentIndex"];
                  JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %d",self.currentIndex.intValue);
@@ -151,10 +151,10 @@ NS_ASSUME_NONNULL_END
 
                  [self.vc hidePopupView:self.popUpFiltrationView];
 
-                 [self.filterBtn changeAction:self.filterBtn.selected];
+                 [self.filterBtn changeAction:self.filterBtn.jobs_isSelected];
 
-                 if (x.selected) {
-                     self.filterBtn.selected = NO;
+                 if (x.jobs_isSelected) {
+                     self.filterBtn.bySelected(NO);
                      self.popUpCustomView = self.vc.popUpCustomView;
                      self.popUpCustomView.popupDelegate = self;
                  }else{

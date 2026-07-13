@@ -91,6 +91,71 @@ static BOOL JobsOCDSLRefreshLabelShapeLayer(UILabel *label,
     return YES;
 }
 
+@interface JobsOCDSLAnimatedNumberStore : NSObject
+
+Prop_strong(nullable) NSNumber *start;
+Prop_strong(nullable) NSNumber *step;
+Prop_assign()NSTimeInterval duration;
+Prop_assign()NSTimeInterval minimumInterval;
+Prop_copy(nullable) jobsByVoidBlock completion;
+Prop_strong(nullable) JobsTimer *timer;
+Prop_assign()double targetValue;
+Prop_assign()double currentValue;
+Prop_assign()double deltaPerTick;
+Prop_assign()NSInteger decimals;
+Prop_copy()NSString *originalText;
+
+@end
+
+@implementation JobsOCDSLAnimatedNumberStore
+
+-(instancetype)init{
+    if (self = [super init]) {
+        _duration = 0.8;
+        _minimumInterval = 1.0 / 60.0;
+        _originalText = @"0";
+    };return self;
+}
+
+@end
+
+JobsKey(_jobsOCDSLAnimatedNumberStore)
+
+static NSNumber *JobsOCDSLAnimatedNumberValue(NSString *text){
+    NSString *trimmed = [text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+    if (!trimmed.length) return nil;
+    NSScanner *scanner = [NSScanner scannerWithString:trimmed];
+    double value = 0;
+    if (![scanner scanDouble:&value]) return nil;
+    if (!scanner.isAtEnd) return nil;
+    return @(value);
+}
+
+static NSInteger JobsOCDSLAnimatedNumberDecimals(NSString *text){
+    NSRange dotRange = [text rangeOfString:@"."];
+    if (dotRange.location == NSNotFound) return 0;
+    NSString *fraction = [text substringFromIndex:NSMaxRange(dotRange)];
+    NSInteger count = 0;
+    for (NSUInteger idx = 0; idx < fraction.length; idx++) {
+        unichar ch = [fraction characterAtIndex:idx];
+        if (![[NSCharacterSet decimalDigitCharacterSet] characterIsMember:ch]) break;
+        count += 1;
+    };return count;
+}
+
+static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
+    if (decimals <= 0) return [NSString stringWithFormat:@"%lld", (long long)llround(value)];
+    return [NSString stringWithFormat:@"%.*f", (int)decimals, value];
+}
+
+@interface UILabel (JobsOCDSLAnimatedNumber)
+
+-(JobsOCDSLAnimatedNumberStore *)jobs_ocdslAnimatedNumberStore;
+-(void)jobs_ocdslStopAnimatedNumberTimer;
+-(void)jobs_ocdslTickAnimatedNumber;
+
+@end
+
 @implementation UILabel (DSL)
 
 -(__kindof NSMutableAttributedString *)makeAttributedStringBySelfText{
@@ -371,6 +436,85 @@ static BOOL JobsOCDSLRefreshLabelShapeLayer(UILabel *label,
     };
 }
 
+-(UILabel *)byAnimatedTextNumberFrom:(NSNumber *)start
+                                step:(NSNumber *)step
+                            duration:(NSTimeInterval)duration
+                     minimumInterval:(NSTimeInterval)minimumInterval
+                          completion:(jobsByVoidBlock)completion{
+    JobsOCDSLAnimatedNumberStore *store = self.jobs_ocdslAnimatedNumberStore;
+    store.start = start;
+    store.step = step;
+    store.duration = MAX(0, duration);
+    store.minimumInterval = MAX(0.000001, minimumInterval);
+    store.completion = completion;
+    return self;
+}
+
+-(JobsRetLabelByTextBlock _Nonnull)byStartAnimatedTextNumber{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(__kindof NSString *_Nullable text){
+        @jobs_strongify(self)
+        JobsOCDSLAnimatedNumberStore *store = self.jobs_ocdslAnimatedNumberStore;
+        [self jobs_ocdslStopAnimatedNumberTimer];
+        NSString *targetText = [text ?: @"" stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+        NSNumber *targetNumber = JobsOCDSLAnimatedNumberValue(targetText);
+        if (!targetNumber) {
+            self.byText(text);
+            if (store.completion) store.completion();
+            return self;
+        }
+        NSNumber *fromNumber = store.start ?: JobsOCDSLAnimatedNumberValue(self.text ?: @"") ?: @0;
+        double from = fromNumber.doubleValue;
+        double target = targetNumber.doubleValue;
+        if (fabs(from - target) < 0.0000001) {
+            self.byText(text);
+            if (store.completion) store.completion();
+            return self;
+        }
+        NSInteger decimals = JobsOCDSLAnimatedNumberDecimals(targetText);
+        NSTimeInterval interval = MAX(0.000001, store.minimumInterval);
+        NSInteger ticks = MAX(1, (NSInteger)llround(store.duration / interval));
+        double delta = target - from;
+        double perTick = 0;
+        if (store.step && fabs(store.step.doubleValue) > 0.0000001) {
+            double stepAbs = fabs(store.step.doubleValue);
+            perTick = delta > 0 ? stepAbs : -stepAbs;
+        }else perTick = delta / (double)ticks;
+
+        store.targetValue = target;
+        store.currentValue = from;
+        store.deltaPerTick = perTick;
+        store.decimals = decimals;
+        store.originalText = text ?: @"";
+        self.byText(JobsOCDSLAnimatedNumberText(from, decimals));
+        @jobs_weakify(self)
+        JobsTimer *timer = jobsMakeTimer(^(__kindof JobsTimer * _Nullable timer) {
+            timer.byTimerType(JobsTimerTypeGCD)
+                .byTimerStyle(TimerStyle_clockwise)
+                .byTimeInterval(interval)
+                .byStartTime(0)
+                .byTimeSecIntervalSinceDate(0)
+                .byQueue(dispatch_get_main_queue())
+                .byOnTick(^(CGFloat time) {
+                    @jobs_strongify(self)
+                    [self jobs_ocdslTickAnimatedNumber];
+                });
+        });
+        store.timer = timer;
+        [timer start];
+        return self;
+    };
+}
+
+-(JobsRetLabelByVoidBlock _Nonnull)byStopAnimatedTextNumber{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(void){
+        @jobs_strongify(self)
+        [self jobs_ocdslStopAnimatedNumberTimer];
+        return self;
+    };
+}
+
 -(JobsRetLabelByVoidBlock _Nonnull)labelAutoFontByWidth{
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(void){
@@ -441,6 +585,39 @@ JobsKey(_transformLayerDirectionType)
 
 -(void)setTransformLayerDirectionType:(JobsDirectionType)transformLayerDirectionType{
     Jobs_setAssociatedRETAIN_NONATOMIC(_transformLayerDirectionType, @(transformLayerDirectionType))
+}
+
+@end
+
+@implementation UILabel (JobsOCDSLAnimatedNumber)
+
+-(JobsOCDSLAnimatedNumberStore *)jobs_ocdslAnimatedNumberStore{
+    JobsOCDSLAnimatedNumberStore *store = Jobs_getAssociatedObject(_jobsOCDSLAnimatedNumberStore);
+    if (!store) {
+        store = JobsOCDSLAnimatedNumberStore.new;
+        Jobs_setAssociatedRETAIN_NONATOMIC(_jobsOCDSLAnimatedNumberStore, store)
+    };return store;
+}
+
+-(void)jobs_ocdslStopAnimatedNumberTimer{
+    JobsOCDSLAnimatedNumberStore *store = self.jobs_ocdslAnimatedNumberStore;
+    [store.timer stop];
+    store.timer = nil;
+}
+
+-(void)jobs_ocdslTickAnimatedNumber{
+    JobsOCDSLAnimatedNumberStore *store = self.jobs_ocdslAnimatedNumberStore;
+    if (!store.timer) return;
+    double current = store.currentValue + store.deltaPerTick;
+    store.currentValue = current;
+    BOOL reached = store.deltaPerTick > 0 ? current >= store.targetValue : current <= store.targetValue;
+    if (reached) {
+        self.byText(store.originalText);
+        [self jobs_ocdslStopAnimatedNumberTimer];
+        if (store.completion) store.completion();
+        return;
+    }
+    self.byText(JobsOCDSLAnimatedNumberText(current, store.decimals));
 }
 
 @end

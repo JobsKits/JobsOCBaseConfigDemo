@@ -114,28 +114,30 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
 
 -(void)appearByView:(UIView * _Nonnull)view{
     @jobs_weakify(self)
-    [UIView animateWithDuration:.5f
-                     animations:^{
+    UIView.jobsAnimateWithCompletion(.5f,
+        ^{
         @jobs_strongify(self)
         CGRect rect = MsgEditBoardView.viewFrameByModel(nil);
         rect.origin.y -= MsgEditBoardView.viewChangeYByModel(nil);
         self.byFrame(rect);
 
         view.addSubview(self);
-    } completion:nil];
+    },
+        nil);
 }
 
 -(void)disappearByView:(UIView * _Nullable)view{
     @jobs_weakify(self)
-    [UIView animateWithDuration:.5f
-                     animations:^{
+    UIView.jobsAnimateWithCompletion(.5f,
+        ^{
         @jobs_strongify(self)
         self.byFrame(MsgEditBoardView.viewFrameByModel(nil));
 
-    } completion:^(BOOL finished) {
+    },
+        ^(BOOL finished) {
         @jobs_strongify(self)
         [self removeFromSuperview];
-    }];
+    });
 }
 
 -(UIButton *)getAllChooseBtn{
@@ -164,7 +166,7 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
         .jobsResetImagePlacement_Padding(NSDirectionalRectEdgeLeading,JobsWidth(8))
         .onClickBy(^(UIButton *x){
             @jobs_strongify(self)
-            x.selected = !x.selected;
+            x.bySelected(!x.selected);
             if (self.objBlock) self.objBlock(x);
         })
         .addOn(self)
@@ -187,7 +189,7 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
         .jobsResetBtnTitle(@"標記為已讀".tr)
         .onClickBy(^(UIButton *x){
             @jobs_strongify(self)
-            x.selected = !x.selected;
+            x.bySelected(!x.selected);
             if (self.objBlock) self.objBlock(x);
         })
         .enabledBlock(NO)
@@ -211,7 +213,7 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
         .jobsResetBtnTitleFont(UIFontWeightMediumSize(13))
         .onClickBy(^(UIButton *x){
             @jobs_strongify(self)
-            x.selected = !x.selected;
+            x.bySelected(!x.selected);
             if (self.objBlock) self.objBlock(x);
         })
         .enabledBlock(NO)

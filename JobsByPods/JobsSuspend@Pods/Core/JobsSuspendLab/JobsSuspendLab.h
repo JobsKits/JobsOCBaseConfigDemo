@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_END
          if (self.isSuspend) {
              //开启悬浮效果
              self.vc = self.vcer;
-             self.panRcognize.enabled = YES;
+             self.panRcognize.byEnabled(YES);
          }else{
              self.vc = nil;
          }

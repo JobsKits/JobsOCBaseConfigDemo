@@ -142,7 +142,7 @@ Prop_assign()CGFloat ANIMATION_TIME;
 -(void)setTextSize:(CGFloat)textSize{
     _textSize = textSize;
     for (UIButton *button in self.btnMutArr) {
-        button.titleLabel.byFont([UIFont systemFontOfSize:textSize]);
+        button.titleLabel.byFont(UIFontSystemFontOfSize(textSize));
     }
 }
 #pragma mark —— Private
@@ -177,7 +177,7 @@ Prop_assign()CGFloat ANIMATION_TIME;
             @jobs_strongify(self)
             data.byNormalImage(JobsLinkageSafeObjectAtIndex(self.btnConfig.normal_images, i))
                 .byTitle(JobsLinkageSafeObjectAtIndex(self.btnConfig.normal_titles, i))
-                .byTitleFont([UIFont systemFontOfSize:self.textSize])
+                .byTitleFont(UIFontSystemFontOfSize(self.textSize))
                 .byTitleCor(self.btnConfig.titleCor)
                 .byImagePadding([self imagePaddingAtIndex:i])
                 .byTitlePadding(JobsWidth(10))
@@ -192,7 +192,7 @@ Prop_assign()CGFloat ANIMATION_TIME;
         menuButton.imageViewFrameResetX = 0;
         menuButton.tag = i + 1;
         self.btnMutArr.add(menuButton);
-        [self.menuView addSubview:menuButton];
+        menuButton.addOn(self.menuView);
     }
 }
 
@@ -217,7 +217,7 @@ Prop_assign()CGFloat ANIMATION_TIME;
     [self.rightview.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     contentView.frame = self.rightview.bounds;
     contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.rightview addSubview:contentView];
+    contentView.addOn(self.rightview);
 }
 
 -(UIView *)contentViewAtIndex:(NSInteger)index{

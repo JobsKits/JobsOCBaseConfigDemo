@@ -18,17 +18,18 @@ JobsKey(_btn)
 -(UIButton *)btn{
     UIButton *Btn = Jobs_getAssociatedObject(_btn);
     if (!Btn) {
-        Btn = (UIButton *)UIButton.alloc.init
-            .byTitleLabel(^(UILabel *label) {
+        Btn = jobsMakeBaseButton(^(__kindof UIButton * _Nullable button) {
+            button.byTitleLabel(^(UILabel *label) {
                 label
-                    .byFont([UIFont boldSystemFontOfSize:10.f])
+                    .byFont(UIFontBoldSystemFontOfSize(10.f))
                     .byTextAlignment(NSTextAlignmentCenter)
                     .byNumberOfLines(0);
             })
-            .byFrame(self.bounds)
-            .byUserInteractionEnabled(NO)/// cell上加button，要相应cell协议就要关闭button的userInteractionEnabled，如果要相应Button则需要打开
-            .byAutoresizingMask(UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth)
-            .addOn(self.contentView);
+                .byFrame(self.bounds)
+                .byUserInteractionEnabled(NO)/// cell上加button，要相应cell协议就要关闭button的userInteractionEnabled，如果要相应Button则需要打开
+                .byAutoresizingMask(UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth)
+                .addOn(self.contentView);
+        });
         Jobs_setAssociatedRETAIN_NONATOMIC(_btn, Btn);
     };return Btn;
 }

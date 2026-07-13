@@ -80,7 +80,7 @@ Prop_strong()UIViewModel *subTitleModel;
 //            .jobsResetBtnTitle(@"APPLY NOW".tr)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.byToggleSelected();
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
@@ -134,7 +134,7 @@ Prop_strong()UIViewModel *subTitleModel;
 //            .jobsResetBtnTitle(@"APPLY NOW".tr)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.byToggleSelected();
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");

@@ -24,6 +24,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCTimer/JobsOCTimer.h>)
+#import <JobsOCTimer/JobsOCTimer.h>
+#else
+#import "JobsOCTimer.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UILabel (DSL)
@@ -62,7 +68,14 @@ Prop_assign()JobsDirectionType transformLayerDirectionType;
 -(JobsRetUILabelByLineBreakStrategyBlock _Nonnull)byLineBreakStrategy API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos);
 -(JobsRetUILabelByCGFloatBlock _Nonnull)byPreferredMaxLayoutWidth API_AVAILABLE(ios(6.0));
 -(JobsRetUILabelByBOOLBlock _Nonnull)byShowsExpansionTextWhenTruncated API_AVAILABLE(macCatalyst(15.0)) API_UNAVAILABLE(watchos);
-
+/// minimumInterval 是每次 tick 的最小时间间隔，例如 1.0 / 60.0 表示约 60 FPS。
+-(UILabel *)byAnimatedTextNumberFrom:(nullable NSNumber *)start
+                                step:(nullable NSNumber *)step
+                            duration:(NSTimeInterval)duration
+                     minimumInterval:(NSTimeInterval)minimumInterval
+                          completion:(nullable jobsByVoidBlock)completion;
+-(JobsRetLabelByTextBlock _Nonnull)byStartAnimatedTextNumber;
+-(JobsRetLabelByVoidBlock _Nonnull)byStopAnimatedTextNumber;
 -(JobsRetLabelByVoidBlock _Nonnull)labelAutoFontByWidth;
 
 @end

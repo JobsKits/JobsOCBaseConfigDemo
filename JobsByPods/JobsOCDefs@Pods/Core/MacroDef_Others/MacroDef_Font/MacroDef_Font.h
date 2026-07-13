@@ -15,40 +15,45 @@ NS_INLINE UIFont *UIFontSystemFontOfSize(CGFloat fontSize) {
     return [UIFont systemFontOfSize:fontSize];
 }
 
+/// 按任意 UIFontWeight 创建系统字体；标准字重快捷函数继续保留。
+NS_INLINE UIFont *UIFontSystemFontOfSizeAndWeight(CGFloat fontSize, UIFontWeight weight) API_AVAILABLE(ios(8.2), watchos(2.0)) {
+    return [UIFont systemFontOfSize:fontSize weight:weight];
+}
+
 NS_INLINE UIFont *UIFontWeightUltraLightSize(CGFloat fontSize) {
-    return [UIFont systemFontOfSize:fontSize weight:UIFontWeightUltraLight];
+    return UIFontSystemFontOfSizeAndWeight(fontSize, UIFontWeightUltraLight);
 }
 
 NS_INLINE UIFont *UIFontWeightThinSize(CGFloat fontSize) {
-    return [UIFont systemFontOfSize:fontSize weight:UIFontWeightThin];
+    return UIFontSystemFontOfSizeAndWeight(fontSize, UIFontWeightThin);
 }
 
 NS_INLINE UIFont *UIFontWeightLightSize(CGFloat fontSize) {
-    return [UIFont systemFontOfSize:fontSize weight:UIFontWeightLight];
+    return UIFontSystemFontOfSizeAndWeight(fontSize, UIFontWeightLight);
 }
 
 NS_INLINE UIFont *UIFontWeightRegularSize(CGFloat fontSize) {
-    return [UIFont systemFontOfSize:fontSize weight:UIFontWeightRegular];
+    return UIFontSystemFontOfSizeAndWeight(fontSize, UIFontWeightRegular);
 }
 
 NS_INLINE UIFont *UIFontWeightMediumSize(CGFloat fontSize) {
-    return [UIFont systemFontOfSize:fontSize weight:UIFontWeightMedium];
+    return UIFontSystemFontOfSizeAndWeight(fontSize, UIFontWeightMedium);
 }
 
 NS_INLINE UIFont *UIFontWeightSemiboldSize(CGFloat fontSize) {
-    return [UIFont systemFontOfSize:fontSize weight:UIFontWeightSemibold];
+    return UIFontSystemFontOfSizeAndWeight(fontSize, UIFontWeightSemibold);
 }
 
 NS_INLINE UIFont *UIFontWeightBoldSize(CGFloat fontSize) {
-    return [UIFont systemFontOfSize:fontSize weight:UIFontWeightBold];
+    return UIFontSystemFontOfSizeAndWeight(fontSize, UIFontWeightBold);
 }
 
 NS_INLINE UIFont *UIFontWeightHeavySize(CGFloat fontSize) {
-    return [UIFont systemFontOfSize:fontSize weight:UIFontWeightHeavy];
+    return UIFontSystemFontOfSizeAndWeight(fontSize, UIFontWeightHeavy);
 }
 
 NS_INLINE UIFont *UIFontWeightBlackSize(CGFloat fontSize) {
-    return [UIFont systemFontOfSize:fontSize weight:UIFontWeightBlack];
+    return UIFontSystemFontOfSizeAndWeight(fontSize, UIFontWeightBlack);
 }
 #pragma mark —— monospacedDigitSystemFontOfSize
 NS_INLINE UIFont *UIFontMonospacedDigitSystemWeightUltraLightSize(CGFloat fontSize) {
@@ -87,40 +92,40 @@ NS_INLINE UIFont *UIFontMonospacedDigitSystemWeightBlackSize(CGFloat fontSize) {
     return [UIFont monospacedDigitSystemFontOfSize:fontSize weight:UIFontWeightBlack];
 }
 #pragma mark —— monospacedSystemFontOfSize
-NS_INLINE UIFont *UIFontMonospacedSystemWeightUltraLightSize(CGFloat fontSize) {
-    return [UIFont monospacedDigitSystemFontOfSize:fontSize weight:UIFontWeightUltraLight];
+NS_INLINE UIFont *UIFontMonospacedSystemWeightUltraLightSize(CGFloat fontSize) API_AVAILABLE(ios(13.0), watchos(6.0)) {
+    return [UIFont monospacedSystemFontOfSize:fontSize weight:UIFontWeightUltraLight];
 }
 
-NS_INLINE UIFont *UIFontMonospacedSystemWeightThinSize(CGFloat fontSize) {
-    return [UIFont monospacedDigitSystemFontOfSize:fontSize weight:UIFontWeightThin];
+NS_INLINE UIFont *UIFontMonospacedSystemWeightThinSize(CGFloat fontSize) API_AVAILABLE(ios(13.0), watchos(6.0)) {
+    return [UIFont monospacedSystemFontOfSize:fontSize weight:UIFontWeightThin];
 }
 
-NS_INLINE UIFont *UIFontMonospacedSystemWeightLightSize(CGFloat fontSize) {
-    return [UIFont monospacedDigitSystemFontOfSize:fontSize weight:UIFontWeightLight];
+NS_INLINE UIFont *UIFontMonospacedSystemWeightLightSize(CGFloat fontSize) API_AVAILABLE(ios(13.0), watchos(6.0)) {
+    return [UIFont monospacedSystemFontOfSize:fontSize weight:UIFontWeightLight];
 }
 
-NS_INLINE UIFont *UIFontMonospacedSystemWeightRegularSize(CGFloat fontSize) {
-    return [UIFont monospacedDigitSystemFontOfSize:fontSize weight:UIFontWeightRegular];
+NS_INLINE UIFont *UIFontMonospacedSystemWeightRegularSize(CGFloat fontSize) API_AVAILABLE(ios(13.0), watchos(6.0)) {
+    return [UIFont monospacedSystemFontOfSize:fontSize weight:UIFontWeightRegular];
 }
 
-NS_INLINE UIFont *UIFontMonospacedSystemWeightMediumSize(CGFloat fontSize) {
-    return [UIFont monospacedDigitSystemFontOfSize:fontSize weight:UIFontWeightMedium];
+NS_INLINE UIFont *UIFontMonospacedSystemWeightMediumSize(CGFloat fontSize) API_AVAILABLE(ios(13.0), watchos(6.0)) {
+    return [UIFont monospacedSystemFontOfSize:fontSize weight:UIFontWeightMedium];
 }
 
-NS_INLINE UIFont *UIFontMonospacedSystemWeightSemiboldSize(CGFloat fontSize) {
-    return [UIFont monospacedDigitSystemFontOfSize:fontSize weight:UIFontWeightSemibold];
+NS_INLINE UIFont *UIFontMonospacedSystemWeightSemiboldSize(CGFloat fontSize) API_AVAILABLE(ios(13.0), watchos(6.0)) {
+    return [UIFont monospacedSystemFontOfSize:fontSize weight:UIFontWeightSemibold];
 }
 
-NS_INLINE UIFont *UIFontMonospacedSystemWeightBoldSize(CGFloat fontSize) {
-    return [UIFont monospacedDigitSystemFontOfSize:fontSize weight:UIFontWeightBold];
+NS_INLINE UIFont *UIFontMonospacedSystemWeightBoldSize(CGFloat fontSize) API_AVAILABLE(ios(13.0), watchos(6.0)) {
+    return [UIFont monospacedSystemFontOfSize:fontSize weight:UIFontWeightBold];
 }
 
-NS_INLINE UIFont *UIFontMonospacedSystemWeightHeavySize(CGFloat fontSize) {
-    return [UIFont monospacedDigitSystemFontOfSize:fontSize weight:UIFontWeightHeavy];
+NS_INLINE UIFont *UIFontMonospacedSystemWeightHeavySize(CGFloat fontSize) API_AVAILABLE(ios(13.0), watchos(6.0)) {
+    return [UIFont monospacedSystemFontOfSize:fontSize weight:UIFontWeightHeavy];
 }
 
-NS_INLINE UIFont *UIFontMonospacedSystemWeightBlackSize(CGFloat fontSize) {
-    return [UIFont monospacedDigitSystemFontOfSize:fontSize weight:UIFontWeightBlack];
+NS_INLINE UIFont *UIFontMonospacedSystemWeightBlackSize(CGFloat fontSize) API_AVAILABLE(ios(13.0), watchos(6.0)) {
+    return [UIFont monospacedSystemFontOfSize:fontSize weight:UIFontWeightBlack];
 }
 #pragma mark —— Other
 NS_INLINE UIFont *UIFontBoldSystemFontOfSize(CGFloat fontSize) {

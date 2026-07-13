@@ -91,7 +91,7 @@ static dispatch_once_t static_titleView01OnceToken;
             @jobs_strongify(self)
             label
                 .byText(isNull(self.viewModel.textModel.text) ? @"我是标题".tr : self.viewModel.textModel.text)
-                .byFont([UIFont systemFontOfSize:JobsWidth(12) weight:UIFontWeightRegular])
+                .byFont(UIFontWeightRegularSize(JobsWidth(12)))
                 .byTextCor(HEXCOLOR(0xAE8330))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .addOn(self)

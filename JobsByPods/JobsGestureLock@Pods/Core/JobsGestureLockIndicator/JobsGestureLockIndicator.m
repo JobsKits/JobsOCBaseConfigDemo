@@ -34,14 +34,13 @@ Prop_strong()NSMutableArray<UIButton *> *nodeButtons;
 
 - (void)buildSubviews {
     for (NSInteger index = 0; index < 9; index++) {
-        UIButton *button = (UIButton *)UIButton.alloc.init
-            .byViewBlock(^(__kindof UIView *view) {
-                UIButton *btn = (UIButton *)view;
-                [btn setImage:self.configuration.indicatorNormalImage forState:UIControlStateNormal];
-                [btn setImage:self.configuration.indicatorSelectedImage forState:UIControlStateSelected];
-            })
-            .byUserInteractionEnabled(NO)
-            .addOn(self);
+        UIButton *button = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button
+                .jobsResetBtnImage(self.configuration.indicatorNormalImage)
+                .selectedStateImageBy(self.configuration.indicatorSelectedImage)
+                .byUserInteractionEnabled(NO)
+                .addOn(self);
+        });
         [self.nodeButtons addObject:button];
     }
 }
@@ -65,14 +64,14 @@ Prop_strong()NSMutableArray<UIButton *> *nodeButtons;
 
 - (void)updateWithPattern:(NSString *)pattern {
     [self.nodeButtons enumerateObjectsUsingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
-        button.selected = NO;
+        button.bySelected(NO);
     }];
 
     for (NSUInteger index = 0; index < pattern.length; index++) {
         NSString *character = [pattern substringWithRange:NSMakeRange(index, 1)];
         NSInteger buttonIndex = character.integerValue;
         if (buttonIndex >= 0 && buttonIndex < self.nodeButtons.count) {
-            self.nodeButtons[buttonIndex].selected = YES;
+            self.nodeButtons[buttonIndex].bySelected(YES);
         }
     }
 }

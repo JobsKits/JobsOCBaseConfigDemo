@@ -6,6 +6,38 @@
 //
 
 #import "AppDelegate+TabBarCtr.h"
+
+static NSString *const JobsOCDemoListUsesTabBarEntryUserDefaultsKey = @"com.BSports.JobsOCDemoListUsesTabBarEntryUserDefaultsKey";
+
+BOOL JobsOCDemoListUsesTabBarEntry(void) {
+    return [NSUserDefaults.standardUserDefaults boolForKey:JobsOCDemoListUsesTabBarEntryUserDefaultsKey];
+}
+
+void JobsOCSetDemoListUsesTabBarEntry(BOOL usesTabBarEntry) {
+    [NSUserDefaults.standardUserDefaults setBool:usesTabBarEntry
+                                          forKey:JobsOCDemoListUsesTabBarEntryUserDefaultsKey];
+    [NSUserDefaults.standardUserDefaults synchronize];
+}
+
+__kindof UIViewController *JobsOCMakeAppRootViewController(void) {
+    UIViewController *rootViewController = nil;
+    if (JobsOCDemoListUsesTabBarEntry()) {
+        AppDelegate.jobsCustomTabBarVC.customSelectIndex(0);
+        rootViewController = AppDelegate.jobsCustomTabBarNavCtrl;
+    }else{
+        rootViewController = ViewController_1.new.navCtrl;
+    }
+    rootViewController.view.byFrame(UIScreen.mainScreen.bounds);
+    return rootViewController;
+}
+
+void JobsOCApplyAppRootViewController(void) {
+    for (UIWindow *window in UIApplication.sharedApplication.windows) {
+        if (!window.windowScene || window.windowScene.activationState == UISceneActivationStateUnattached) continue;
+        window.rootViewController = JobsOCMakeAppRootViewController();
+        [window makeKeyAndVisible];
+    }
+}
 NSUInteger DefaultIndex = 2; // 默认从第3个开始初始显示
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
@@ -26,7 +58,7 @@ static JobsTabBarVC *_tabBarVC = nil;
                 @jobs_strongify(self)
                 for (JobsTabBarItemConfig *tabBarItemConfig in self.tabBarItemConfigMutArr) {
                     if(tabBarItemConfig.isNeedjump){
-                        toastBy(@"这个跳开");
+                        toastBy(@"这个跳开".tr);
                         return NO;
                     }
                 };return YES;
@@ -259,7 +291,7 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
                            .byBaseBackgroundColor(JobsClearColor)
                            .byBackgroundImage(DefaultIndex == 0 ? @"TabBarItem选中的背景色".img :@"TabBarItem选中的背景色（透明）".img);
             })).onClickBy(^(__kindof UIButton *x){
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 MyAppTools.sharedManager.loginWork = FMLoginWork_MyFav;
                 @jobs_strongify(self)
 //                 [self isLogin:^{
@@ -285,7 +317,7 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
                            .byBaseBackgroundColor(JobsClearColor)
                            .byBackgroundImage(DefaultIndex == 1 ? @"TabBarItem选中的背景色".img  :@"TabBarItem选中的背景色（透明）".img);
             })).onClickBy(^(__kindof UIButton *x){
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 MyAppTools.sharedManager.loginWork = FMLoginWork_MyBank;
                 @jobs_weakify(self)
 //                 [self isLogin:^{
@@ -313,7 +345,7 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
 //                DefaultIndex == 2 ? @"TabBarItem选中的背景色".img :@"TabBarItem选中的背景色（透明）".img;
             })).onClickBy(^(__kindof UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 [AppDelegate button:x index:2];
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
@@ -335,7 +367,7 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
             })).onClickBy(^(__kindof UIButton *x){
                 @jobs_strongify(self)
                 MyAppTools.sharedManager.loginWork = FMLoginWork_Default;
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 [AppDelegate button:x index:3];
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
@@ -356,7 +388,7 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
                            .byBackgroundImage(DefaultIndex == 4 ? @"TabBarItem选中的背景色".img :@"TabBarItem选中的背景色（透明）".img);
             })).onClickBy(^(__kindof UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 [AppDelegate button:x index:4];
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){

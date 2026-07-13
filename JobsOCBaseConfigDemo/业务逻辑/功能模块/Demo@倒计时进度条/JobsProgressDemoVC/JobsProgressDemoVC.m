@@ -62,42 +62,42 @@ Prop_assign()BOOL autoRunning;
     [super viewDidLayoutSubviews];
     CGFloat width = CGRectGetWidth(self.view.bounds);
     CGFloat top = CGRectGetMaxY(self.gk_navigationBar.frame) + JobsWidth(24);
-    self.titleLab.frame = CGRectMake(JobsWidth(24), top, width - JobsWidth(48), JobsWidth(38));
-    self.directionSegment.frame = CGRectMake(JobsWidth(20),
+    self.titleLab.byFrame(CGRectMake(JobsWidth(24), top, width - JobsWidth(48), JobsWidth(38)));
+    self.directionSegment.byFrame(CGRectMake(JobsWidth(20),
                                              CGRectGetMaxY(self.titleLab.frame) + JobsWidth(12),
                                              width - JobsWidth(40),
-                                             JobsWidth(34));
-    self.modeSegment.frame = CGRectMake(JobsWidth(20),
+                                             JobsWidth(34)));
+    self.modeSegment.byFrame(CGRectMake(JobsWidth(20),
                                         CGRectGetMaxY(self.directionSegment.frame) + JobsWidth(12),
                                         width - JobsWidth(40),
-                                        JobsWidth(34));
+                                        JobsWidth(34)));
     BOOL vertical = self.progressBar.direction == JobsProgressBarDirectionTopToBottom || self.progressBar.direction == JobsProgressBarDirectionBottomToTop;
     CGFloat progressTop = CGRectGetMaxY(self.modeSegment.frame) + JobsWidth(20);
     if (vertical) {
-        self.progressBar.frame = CGRectMake((width - JobsWidth(96)) / 2.0,
+        self.progressBar.byFrame(CGRectMake((width - JobsWidth(96)) / 2.0,
                                             progressTop,
                                             JobsWidth(96),
-                                            JobsWidth(250));
+                                            JobsWidth(250)));
     } else {
-        self.progressBar.frame = CGRectMake(JobsWidth(24),
+        self.progressBar.byFrame(CGRectMake(JobsWidth(24),
                                             progressTop,
                                             width - JobsWidth(48),
-                                            JobsWidth(84));
+                                            JobsWidth(84)));
     }
     CGFloat sliderTop = CGRectGetMaxY(self.progressBar.frame) + JobsWidth(24);
-    self.slider.frame = CGRectMake(JobsWidth(24), sliderTop, width - JobsWidth(48), JobsWidth(34));
-    self.percentTextField.frame = CGRectMake(JobsWidth(24),
+    self.slider.byFrame(CGRectMake(JobsWidth(24), sliderTop, width - JobsWidth(48), JobsWidth(34)));
+    self.percentTextField.byFrame(CGRectMake(JobsWidth(24),
                                              CGRectGetMaxY(self.slider.frame) + JobsWidth(14),
                                              width - JobsWidth(48),
-                                             JobsWidth(44));
+                                             JobsWidth(44)));
     CGFloat buttonTop = CGRectGetMaxY(self.percentTextField.frame) + JobsWidth(16);
     CGFloat buttonWidth = (width - JobsWidth(56)) / 2.0;
-    self.autoButton.frame = CGRectMake(JobsWidth(24), buttonTop, buttonWidth, JobsWidth(46));
-    self.resetButton.frame = CGRectMake(CGRectGetMaxX(self.autoButton.frame) + JobsWidth(8), buttonTop, buttonWidth, JobsWidth(46));
-    self.stateLab.frame = CGRectMake(JobsWidth(24),
+    self.autoButton.byFrame(CGRectMake(JobsWidth(24), buttonTop, buttonWidth, JobsWidth(46)));
+    self.resetButton.byFrame(CGRectMake(CGRectGetMaxX(self.autoButton.frame) + JobsWidth(8), buttonTop, buttonWidth, JobsWidth(46)));
+    self.stateLab.byFrame(CGRectMake(JobsWidth(24),
                                      CGRectGetMaxY(self.autoButton.frame) + JobsWidth(18),
                                      width - JobsWidth(48),
-                                     JobsWidth(76));
+                                     JobsWidth(76)));
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -108,19 +108,19 @@ Prop_assign()BOOL autoRunning;
 #pragma mark —— UI
 
 - (void)setupSubviews {
-    [self.view addSubview:self.titleLab];
-    [self.view addSubview:self.directionSegment];
-    [self.view addSubview:self.modeSegment];
-    [self.view addSubview:self.progressBar];
-    [self.view addSubview:self.slider];
-    [self.view addSubview:self.percentTextField];
-    [self.view addSubview:self.autoButton];
-    [self.view addSubview:self.resetButton];
-    [self.view addSubview:self.stateLab];
+    self.titleLab.addOn(self.view);
+    self.directionSegment.addOn(self.view);
+    self.modeSegment.addOn(self.view);
+    self.progressBar.addOn(self.view);
+    self.slider.addOn(self.view);
+    self.percentTextField.addOn(self.view);
+    self.autoButton.addOn(self.view);
+    self.resetButton.addOn(self.view);
+    self.stateLab.addOn(self.view);
 }
 
 - (void)directionChanged {
-    switch (self.directionSegment.selectedSegmentIndex) {
+    switch (self.directionSegment.jobs_selectedSegmentIndex) {
         case 1:
             self.progressBar.byDirection(JobsProgressBarDirectionRightToLeft);
             break;
@@ -139,7 +139,7 @@ Prop_assign()BOOL autoRunning;
 }
 
 - (void)modeChanged {
-    self.progressBar.byValueMode(self.modeSegment.selectedSegmentIndex == 0 ? JobsProgressBarValueModeCountUp : JobsProgressBarValueModeCountDown);
+    self.progressBar.byValueMode(self.modeSegment.jobs_selectedSegmentIndex == 0 ? JobsProgressBarValueModeCountUp : JobsProgressBarValueModeCountDown);
     [self.progressBar setDisplayPercent:self.slider.value animated:NO duration:0];
     self.stateLab.byText(@"进度值显示模式已切换。".tr);
 }
@@ -173,12 +173,12 @@ Prop_assign()BOOL autoRunning;
         [self stopAutoProgressUI];
         self.stateLab.byText(@"自动进度已停止。".tr);
     } else {
-        if (self.modeSegment.selectedSegmentIndex != 0) {
-            self.modeSegment.selectedSegmentIndex = 0;
+        if (self.modeSegment.jobs_selectedSegmentIndex != 0) {
+            self.modeSegment.bySelectedSegmentIndex(0);
             self.progressBar.byValueMode(JobsProgressBarValueModeCountUp);
         }
         self.autoRunning = YES;
-        [self.autoButton setTitle:@"停止自动".tr forState:UIControlStateNormal];
+        self.autoButton.jobsResetBtnTitle(@"停止自动".tr);
         self.slider.value = 0;
         [self.progressBar setDisplayPercent:0 animated:NO duration:0];
         [self.progressBar startAutoProgressFromZero:YES step:0.01 interval:0.03 animated:YES];
@@ -196,14 +196,14 @@ Prop_assign()BOOL autoRunning;
 - (void)stopAutoProgressUI {
     self.autoRunning = NO;
     [self.progressBar stopAutoProgress];
-    [self.autoButton setTitle:@"自动进度".tr forState:UIControlStateNormal];
+    self.autoButton.jobsResetBtnTitle(@"自动进度".tr);
 }
 
 - (void)syncPercentViewsWithRawProgress:(CGFloat)progress {
     CGFloat displayProgress = self.progressBar.valueMode == JobsProgressBarValueModeCountDown ? 1.0 - progress : progress;
     CGFloat percent = MIN(MAX(displayProgress * 100.0, 0), 100);
     self.slider.value = percent;
-    self.percentTextField.text = [NSString stringWithFormat:@"%.0f",percent];
+    self.percentTextField.byText([NSString stringWithFormat:@"%.0f",percent]);
     if (percent >= 100 && self.autoRunning) {
         [self stopAutoProgressUI];
         self.stateLab.byText(@"自动进度完成。".tr);
@@ -211,25 +211,30 @@ Prop_assign()BOOL autoRunning;
 }
 
 - (UIButton *)buttonWithTitle:(NSString *)title action:(SEL)action {
-    UIButton *button = UIButton.jobsInit();
-    button.backgroundColor = HEXCOLOR(0x111827);
-    button.titleLabel.font = UIFontWeightSemiboldSize(15);
-    [button setTitle:title forState:UIControlStateNormal];
-    [button setTitleColor:JobsWhiteColor forState:UIControlStateNormal];
-    [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
-    button.layer.cornerRadius = JobsWidth(10);
-    return button;
+    return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+        button
+            .jobsResetBtnTitle(title)
+            .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(15))
+            .jobsResetBtnTitleCor(JobsWhiteColor)
+            .jobsResetBtnBgCor(HEXCOLOR(0x111827))
+            .byAddTarget(self, action, UIControlEventTouchUpInside)
+            .byLayer(^(__kindof CALayer * _Nullable layer) {
+                layer.byCornerRadius(JobsWidth(10));
+            });
+    });
 }
 
 #pragma mark —— Lazy
 
 - (UILabel *)titleLab {
     if (!_titleLab) {
-        _titleLab = UILabel.new;
-        _titleLab.textAlignment = NSTextAlignmentCenter;
-        _titleLab.font = UIFontWeightBoldSize(18);
-        _titleLab.textColor = HEXCOLOR(0x111827);
-        _titleLab.text = @"进度值 + 前进方向".tr;
+        _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"进度值 + 前进方向".tr)
+                .byTextCor(HEXCOLOR(0x111827))
+                .byFont(UIFontWeightBoldSize(18))
+                .byTextAlignment(NSTextAlignmentCenter);
+        });
     };return _titleLab;
 }
 
@@ -277,72 +282,85 @@ Prop_assign()BOOL autoRunning;
 
 - (UISlider *)slider {
     if (!_slider) {
-        _slider = UISlider.new;
-        _slider.minimumValue = 0;
-        _slider.maximumValue = 100;
-        _slider.value = 35;
-        _slider.minimumTrackTintColor = HEXCOLOR(0x00C853);
-        _slider.maximumTrackTintColor = HEXCOLOR(0xD9DDE5);
-        [_slider addTarget:self action:@selector(sliderChanged) forControlEvents:UIControlEventValueChanged];
+        _slider = jobsMakeSlider(^(__kindof UISlider * _Nullable slider) {
+            slider
+                .byMinimumValue(0)
+                .byMaximumValue(100)
+                .byValue(35)
+                .byMinimumTrackTintColor(HEXCOLOR(0x00C853))
+                .byMaximumTrackTintColor(HEXCOLOR(0xD9DDE5))
+                .byAddTarget(self, @selector(sliderChanged), UIControlEventValueChanged);
+        });
     };return _slider;
 }
 
 - (UITextField *)percentTextField {
     if (!_percentTextField) {
-        _percentTextField = UITextField.new;
-        _percentTextField.delegate = self;
-        _percentTextField.keyboardType = UIKeyboardTypeDecimalPad;
-        _percentTextField.returnKeyType = UIReturnKeyDone;
-        _percentTextField.textAlignment = NSTextAlignmentCenter;
-        _percentTextField.font = UIFontWeightSemiboldSize(17);
-        _percentTextField.textColor = HEXCOLOR(0x111827);
-        _percentTextField.text = @"35";
-        _percentTextField.placeholder = @"0 ~ 100".tr;
-        _percentTextField.backgroundColor = JobsWhiteColor;
-        _percentTextField.layer.cornerRadius = JobsWidth(10);
-        _percentTextField.layer.borderColor = HEXCOLOR(0xD9DDE5).CGColor;
-        _percentTextField.layer.borderWidth = 1;
-        [_percentTextField addTarget:self action:@selector(percentTextEditingDidEnd) forControlEvents:UIControlEventEditingDidEnd];
+        _percentTextField = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
+            textField
+                .byText(@"35")
+                .byTextCor(HEXCOLOR(0x111827))
+                .byFont(UIFontWeightSemiboldSize(17))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byPlaceholder(@"0 ~ 100".tr)
+                .byDelegate(self)
+                .byKeyboardType(UIKeyboardTypeDecimalPad)
+                .byReturnKeyType(UIReturnKeyDone)
+                .byAddTarget(self, @selector(percentTextEditingDidEnd), UIControlEventEditingDidEnd)
+                .byBgColor(JobsWhiteColor)
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byCornerRadius(JobsWidth(10))
+                        .byBorderColor(HEXCOLOR(0xD9DDE5).CGColor)
+                        .byBorderWidth(1);
+                });
+        });
     };return _percentTextField;
 }
 
 - (UISegmentedControl *)directionSegment {
     if (!_directionSegment) {
-        _directionSegment = [UISegmentedControl.alloc initWithItems:@[@"左->右",@"右->左",@"上->下",@"下->上"]];
-        _directionSegment.selectedSegmentIndex = 0;
-        [_directionSegment addTarget:self action:@selector(directionChanged) forControlEvents:UIControlEventValueChanged];
+        _directionSegment = jobsMakeSegmentedControl(@[@"左->右",@"右->左",@"上->下",@"下->上"], ^(__kindof UISegmentedControl * _Nullable segmentedControl) {
+            segmentedControl
+                .bySelectedSegmentIndex(0)
+                .byAddTarget(self, @selector(directionChanged), UIControlEventValueChanged);
+        });
     };return _directionSegment;
 }
 
 - (UISegmentedControl *)modeSegment {
     if (!_modeSegment) {
-        _modeSegment = [UISegmentedControl.alloc initWithItems:@[@"正向值",@"倒向值"]];
-        _modeSegment.selectedSegmentIndex = 0;
-        [_modeSegment addTarget:self action:@selector(modeChanged) forControlEvents:UIControlEventValueChanged];
+        _modeSegment = jobsMakeSegmentedControl(@[@"正向值",@"倒向值"], ^(__kindof UISegmentedControl * _Nullable segmentedControl) {
+            segmentedControl
+                .bySelectedSegmentIndex(0)
+                .byAddTarget(self, @selector(modeChanged), UIControlEventValueChanged);
+        });
     };return _modeSegment;
 }
 
 - (UIButton *)autoButton {
     if (!_autoButton) {
         _autoButton = [self buttonWithTitle:@"自动进度".tr action:@selector(toggleAutoProgress)];
-        _autoButton.backgroundColor = HEXCOLOR(0x00A651);
+        _autoButton.jobsResetBtnBgCor(HEXCOLOR(0x00A651));
     };return _autoButton;
 }
 
 - (UIButton *)resetButton {
     if (!_resetButton) {
         _resetButton = [self buttonWithTitle:@"重置".tr action:@selector(resetProgress)];
-        _resetButton.backgroundColor = HEXCOLOR(0xFF8F1F);
+        _resetButton.jobsResetBtnBgCor(HEXCOLOR(0xFF8F1F));
     };return _resetButton;
 }
 
 - (UILabel *)stateLab {
     if (!_stateLab) {
-        _stateLab = UILabel.new;
-        _stateLab.numberOfLines = 0;
-        _stateLab.font = UIFontWeightRegularSize(14);
-        _stateLab.textColor = HEXCOLOR(0x5F6B7A);
-        _stateLab.text = @"JobsProgressBar 来自 OC 本地 Pod：支持方向、显示值模式、拖动和自动进度。".tr;
+        _stateLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"JobsProgressBar 来自 OC 本地 Pod：支持方向、显示值模式、拖动和自动进度。".tr)
+                .byTextCor(HEXCOLOR(0x5F6B7A))
+                .byFont(UIFontWeightRegularSize(14))
+                .byNumberOfLines(0);
+        });
     };return _stateLab;
 }
 

@@ -36,7 +36,7 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         static_uploadingProgressView = self;
-        [jobsGetMainWindow() addSubview:self];
+        self.addOn(jobsGetMainWindow());
         [jobsGetMainWindow() bringSubviewToFront:self];
         self.imge = @"icon_upload_imge".img;
         self.strokeColor = self.byPatternImage(@"gradualColor".img.imageResize(CGSizeMake(50, 25))); //圆环底色
@@ -121,10 +121,10 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
 
 -(UIBezierPath *)bezier{
     if (!_bezier) {
-        _bezier = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0,
+        _bezier = UIBezierPath.byBezierPathWithOvalInRect(CGRectMake(0,
                                                                     0,
                                                                     self.radius,
-                                                                    self.radius)];// 画个圆
+                                                                    self.radius));// 画个圆
     };return _bezier;
 }
 

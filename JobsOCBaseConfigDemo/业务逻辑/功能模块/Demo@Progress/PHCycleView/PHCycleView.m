@@ -159,7 +159,7 @@ static CGFloat const PHCycleViewStrokeStart = M_PI / 12.0;
 }
 #pragma mark —— set方法
 - (void)setProgressColor:(UIColor *)progressColor{
-    self.progressLayer.strokeColor = progressColor.CGColor;
+    self.progressLayer.byStrokeColor(progressColor.CGColor);
 }
 
 - (void)setProgressFont:(UIFont *)progressFont{
@@ -193,26 +193,26 @@ static CGFloat const PHCycleViewStrokeStart = M_PI / 12.0;
 
 -(void)setOutLayerColor:(UIColor *)outLayerColor{
     _outLayerColor = outLayerColor;
-    self.outLayer.strokeColor = outLayerColor.CGColor;
+    self.outLayer.byStrokeColor(outLayerColor.CGColor);
 }
 #pragma mark —— lazyLoad
 - (UIBezierPath *)outsidePath{
     if (!_outsidePath) {
-        _outsidePath = [UIBezierPath bezierPathWithArcCenter:KCenter
-                                                      radius:(self.bounds.size.width - 5)/ 2.0 + 8
-                                                  startAngle:-M_PI_2
-                                                    endAngle:M_PI * 3.0 / 2.0
-                                                   clockwise:YES];
+        _outsidePath = UIBezierPath.byBezierPathWithArcCenter(KCenter,
+                                                              (self.bounds.size.width - 5) / 2.0 + 8,
+                                                              -M_PI_2,
+                                                              M_PI * 3.0 / 2.0,
+                                                              YES);
     };return _outsidePath;
 }
 
 -(UIBezierPath *)insidePath{
     if (!_insidePath) {
-        _insidePath = [UIBezierPath bezierPathWithArcCenter:KCenter
-                                                     radius:(self.bounds.size.width - 30)/ 2.0
-                                                 startAngle:-M_PI_2
-                                                   endAngle:M_PI * 3.0 / 2.0
-                                                  clockwise:YES];
+        _insidePath = UIBezierPath.byBezierPathWithArcCenter(KCenter,
+                                                             (self.bounds.size.width - 30) / 2.0,
+                                                             -M_PI_2,
+                                                             M_PI * 3.0 / 2.0,
+                                                             YES);
     };return _insidePath;
 }
 
@@ -224,7 +224,7 @@ static CGFloat const PHCycleViewStrokeStart = M_PI / 12.0;
             layer
                 .byStrokeColor(JobsClearColor.CGColor)
                 .byLineWidth(kBorderWith)
-                .byFillColor([UIColor colorWithWhite:1 alpha:0.5].CGColor)
+                .byFillColor(RGBA_SAMECOLOR(255, 0.5).CGColor)
                 .byPath(self.insidePath.CGPath)
                 .addOn(self.layer);
         });

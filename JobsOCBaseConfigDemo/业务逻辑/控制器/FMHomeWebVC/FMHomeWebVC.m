@@ -83,15 +83,17 @@ didStartProvisionalNavigation:(WKNavigation *)navigation {
 - (void)webView:(WKWebView *)webView
 didFinishNavigation:(WKNavigation *)navigation {
     @jobs_weakify(self)
-    [UIView animateWithDuration:0.5 animations:^{
+    UIView.jobsAnimateWithCompletion(0.5,
+        ^{
         @jobs_strongify(self)
         self.launchImageView.byAlpha(0);
-    } completion:^(BOOL finished) {
+    },
+        ^(BOOL finished) {
         @jobs_strongify(self)
         [self.launchImageView removeFromSuperview];
         [self.loadingIndicator stopAnimating];
         [self.loadingIndicator removeFromSuperview];
-    }];
+    });
 }
 /// 网页加载失败
 - (void)webView:(WKWebView *)webView
@@ -157,9 +159,10 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
 
 -(UIActivityIndicatorView *)loadingIndicator{
     if(!_loadingIndicator){
-        _loadingIndicator = [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
-        _loadingIndicator.center = self.view.center;
-        self.view.addSubview(self.loadingIndicator);
+        _loadingIndicator = UIActivityIndicatorView
+            .initBy(UIActivityIndicatorViewStyleLarge)
+            .byCenterPoint(self.view.center)
+            .addOn(self.view);
     };return _loadingIndicator;
 }
 

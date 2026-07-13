@@ -379,8 +379,8 @@ referenceSizeForFooterInSection:(NSInteger)section{
             cell.cellCls = FMGameCVCell.class;
             cell.data = @(SourceType_Home);
             cell.minimumInteritemSpacing = JobsWidth(3);
-            cell.frame = CGRectMake(0,0,
-                                    ThreeClassCell.cellSizeByModel(nil).width,ThreeClassCell.cellSizeByModel(nil).height);
+            cell.byFrame(CGRectMake(0,0,
+                                    ThreeClassCell.cellSizeByModel(nil).width,ThreeClassCell.cellSizeByModel(nil).height));
         });
     };return _tempCell;
 }

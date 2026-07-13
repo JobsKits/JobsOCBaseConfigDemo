@@ -15,10 +15,10 @@
     configuration.minimumPatternLength = 4;
     configuration.lineWidth = 6.0;
     configuration.normalLineColor = UIColor.clearColor;
-    configuration.selectedLineColor = [UIColor colorWithRed:0.95 green:0.55 blue:0.15 alpha:1.0];
+    configuration.selectedLineColor = RGBA_COLOR(0.95 * 255.0, 0.55 * 255.0, 0.15 * 255.0, 1.0);
     configuration.errorLineColor = UIColor.redColor;
-    configuration.statusTextColor = [UIColor colorWithRed:0.82 green:0.20 blue:0.22 alpha:1.0];
-    configuration.statusFont = [UIFont systemFontOfSize:14.0 weight:UIFontWeightRegular];
+    configuration.statusTextColor = RGBA_COLOR(0.82 * 255.0, 0.20 * 255.0, 0.22 * 255.0, 1.0);
+    configuration.statusFont = UIFontWeightRegularSize(14.0);
     configuration.createStatusText = @"请绘制手势密码";
     configuration.confirmStatusText = @"请再次绘制手势密码";
     configuration.validateStatusText = @"请输入手势密码";

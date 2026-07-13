@@ -11,5 +11,6 @@
 #import <JobsOCGraphicCaptcha/JobsOCGraphicCaptchaConfig.h>
 #import <JobsOCGraphicCaptcha/JobsOCGraphicCaptchaGenerator.h>
 #import <JobsOCGraphicCaptcha/JobsOCGraphicCaptchaView.h>
+#import <JobsOCGraphicCaptcha/JobsOCGraphicCaptchaView+DSL.h>
 
 #endif /* JobsOCGraphicCaptchaHeader_h */

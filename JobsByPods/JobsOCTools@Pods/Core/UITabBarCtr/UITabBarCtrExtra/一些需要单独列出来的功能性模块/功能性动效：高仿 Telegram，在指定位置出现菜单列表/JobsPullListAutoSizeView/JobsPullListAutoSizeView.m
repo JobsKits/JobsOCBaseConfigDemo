@@ -57,7 +57,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
     self.byAlpha(0.7);
 
-    [jobsGetMainWindow() addSubview:self];
+    self.addOn(jobsGetMainWindow());
     self.byFrame(jobsGetMainWindow().frame);
 
     [jobsGetMainWindow() bringSubviewToFront:self];

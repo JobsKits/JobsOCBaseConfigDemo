@@ -113,7 +113,7 @@ JobsToggleNavViewProtocolSynthesize
         self.sliderView.byAlpha(1);
 
         /// 设置按钮为选中状态
-        self.buttonsArray[0].selected = YES;
+        self.buttonsArray[0].bySelected(YES);
         /// 重设按钮纯文本标题
         self.buttonsArray[0].jobsResetBtnTitle(Jobs3TO(self.buttonModels[0].selectedTitle,
                                                        self.buttonModels[0].title));
@@ -163,7 +163,7 @@ JobsToggleNavViewProtocolSynthesize
         /// 全部还原
         int t = 0;
         for (UIButton *subButton in self.buttonsArray) {
-            subButton.selected = NO;
+            subButton.bySelected(NO);
             /// 重设按钮纯文本标题
             subButton.jobsResetBtnTitle(self.buttonModels[t].title);
             /// 重设按钮纯文本标题字体
@@ -177,7 +177,7 @@ JobsToggleNavViewProtocolSynthesize
             t+=1;
         }
         UIButton *currentBtn = self.buttonsArray[index];
-        currentBtn.selected = YES;
+        currentBtn.bySelected(YES);
     
         self.sliderView.resetCenterX(currentBtn.centerX);
         /// 重设按钮纯文本标题

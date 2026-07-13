@@ -67,10 +67,10 @@ Prop_assign()JobsWalletCardExpandStyle walletStyle;
     self.makeNavByAlpha(1);
     self.view.byBgColor(HEXCOLOR(0xF5F7FB));
     if (self.showsModeList) {
-        self.modeTableView.alpha = 1;
+        self.modeTableView.byAlpha(1);
     } else {
         [self setupRightItems];
-        self.walletCardView.alpha = 1;
+        self.walletCardView.byAlpha(1);
     }
 }
 
@@ -163,13 +163,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(void)setupModeCell:(UITableViewCell *)cell{
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.backgroundColor = JobsClearColor;
-    cell.contentView.backgroundColor = JobsClearColor;
-    cell.contentView.layer.cornerRadius = 0;
-    cell.contentView.layer.masksToBounds = NO;
+    cell.byBgColor(JobsClearColor);
+    cell.contentView
+        .byBgColor(JobsClearColor)
+        .byLayer(^(__kindof CALayer * _Nullable layer) {
+            layer
+                .byCornerRadius(0)
+                .byMasksToBounds(NO);
+        });
     UIView *cardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-        view.tag = JobsWalletModeCardViewTag;
-        view.byBgColor(JobsWhiteColor)
+        view.byTag(JobsWalletModeCardViewTag)
+            .byBgColor(JobsWhiteColor)
             .byCornerRadius(JobsWidth(18))
             .byClipsToBounds(NO)
             .addOn(cell.contentView)
@@ -179,10 +183,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 make.left.equalTo(cell.contentView).offset(JobsWidth(24));
                 make.right.equalTo(cell.contentView).offset(-JobsWidth(24));
             });
-        view.layer.shadowColor = RGBA_COLOR(36, 54, 77, 0.08).CGColor;
-        view.layer.shadowOpacity = 1;
-        view.layer.shadowOffset = CGSizeMake(0, JobsWidth(4));
-        view.layer.shadowRadius = JobsWidth(10);
+        view.layer
+            .byShadowColor(RGBA_COLOR(36, 54, 77, 0.08).CGColor)
+            .byShadowOpacity(1)
+            .byShadowOffset(CGSizeMake(0, JobsWidth(4)))
+            .byShadowRadius(JobsWidth(10));
     });
     UIImageView *chevronView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
         imageView.tag = JobsWalletModeChevronViewTag;
@@ -237,16 +242,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(UITableView *)modeTableView{
     if (!_modeTableView) {
-        _modeTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _modeTableView.delegate = self;
-        _modeTableView.dataSource = self;
-        _modeTableView.backgroundColor = JobsClearColor;
+        _modeTableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
+            tableView
+                .byDelegate(self)
+                .byDataSource(self)
+                .byRowHeight(JobsWidth(104))
+                .byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {}))
+                .byContentInset(UIEdgeInsetsMake(JobsWidth(2), 0, JobsWidth(20), 0))
+                .byBgColor(JobsClearColor)
+                .addOn(self.view);
+        });
         _modeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _modeTableView.showsVerticalScrollIndicator = NO;
-        _modeTableView.contentInset = UIEdgeInsetsMake(JobsWidth(2), 0, JobsWidth(20), 0);
-        _modeTableView.rowHeight = JobsWidth(104);
-        _modeTableView.tableFooterView = UIView.new;
-        [self.view addSubview:_modeTableView];
         [_modeTableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             make.top.equalTo(self.gk_navigationBar.mas_bottom);
@@ -259,7 +266,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _walletCardView = [[JobsWalletCardView alloc] initWithFrame:CGRectZero
                                                         expandStyle:self.walletStyle
                                                          cardModels:self.cardModels];
-        [self.view addSubview:_walletCardView];
+        _walletCardView.addOn(self.view);
         [_walletCardView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             make.top.equalTo(self.gk_navigationBar.mas_bottom);

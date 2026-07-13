@@ -123,7 +123,7 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
             label
                 .byText(@"滑动以解锁".tr)
                 .byTextCor(UIColor.darkGrayColor)
-                .byFont([UIFont systemFontOfSize:16 weight:UIFontWeightMedium])
+                .byFont(UIFontWeightMediumSize(16))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {

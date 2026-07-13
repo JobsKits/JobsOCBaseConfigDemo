@@ -47,12 +47,12 @@ Prop_strong()BaseButton *sendBtn;
         @jobs_strongify(self)
         if (isValue(string)) {
             self.sendBtn.userInteractionEnabled = YES;
-            self.sendBtn.enabled = YES;
-            self.imgView.image = @"输入框有值".img;
+            self.sendBtn.byEnabled(YES);
+            self.imgView.byImage(@"输入框有值".img);
         }else{
             self.sendBtn.userInteractionEnabled = NO;
-            self.sendBtn.enabled = NO;
-            self.imgView.image = @"输入框无值".img;
+            self.sendBtn.byEnabled(NO);
+            self.imgView.byImage(@"输入框无值".img);
         }
     };
 }
@@ -80,7 +80,7 @@ Prop_strong()BaseButton *sendBtn;
             .jobsResetBtnCornerRadiusValue(JobsWidth(3))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 x.jobsResetBtnBgImage(JobsLightGrayColor.image);
                 if (self.objBlock) self.objBlock(x);
                 [self endEditing:YES];
@@ -90,7 +90,7 @@ Prop_strong()BaseButton *sendBtn;
                 }
                 self.inputTextField.byText(@"".tr);
 
-                x.enabled = NO;
+                x.byEnabled(NO);
             })
             .onLongPressGestureBy(^(id data){
                 JobsLog(@"");
@@ -104,7 +104,7 @@ Prop_strong()BaseButton *sendBtn;
                 make.width.mas_equalTo(50);
             });
         _sendBtn.userInteractionEnabled = NO;
-        _sendBtn.enabled = NO;
+        _sendBtn.byEnabled(NO);
     };return _sendBtn;
 }
 

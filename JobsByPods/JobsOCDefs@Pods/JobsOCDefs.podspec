@@ -13,6 +13,7 @@ Pod::Spec.new do |spec|
   spec.summary          = 'Common definitions for Jobs projects.'
   spec.description      = <<-DESC
 JobsOCDefs provides shared macros, constants and base definitions.
+It also centralizes system-font construction, including arbitrary UIFontWeight values.
   DESC
 
   spec.homepage         = 'https://example.local/JobsOCDefs'

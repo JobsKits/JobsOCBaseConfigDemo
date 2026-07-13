@@ -75,4 +75,11 @@ Prop_copy(nullable) jobsByOCKeyboardResultBlock resultBlock;
 
 NS_ASSUME_NONNULL_END
 
+NS_INLINE __kindof JobsOCKeyboardConfig *_Nonnull
+jobsMakeOCKeyboardConfig(jobsByOCKeyboardConfigBlock _Nonnull block){
+    JobsOCKeyboardConfig *data = JobsOCKeyboardConfig.new;
+    if (block) block(data);
+    return data;
+}
+
 #endif /* JobsOCKeyboardConfig_h */

@@ -274,8 +274,8 @@ Prop_assign()BOOL didApplyShowingType;
                     make.height.mas_equalTo(JobsWidth(220));
                     make.bottom.equalTo(self.contentView).offset(-JobsWidth(24));
                 });
-            view.layer.cornerRadius = JobsWidth(8);
-            view.layer.masksToBounds = YES;
+            view.layer.byCornerRadius(JobsWidth(8));
+            view.layer.byMasksToBounds(YES);
         });
     };return _previewView;
 }

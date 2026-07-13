@@ -17,7 +17,7 @@
 
 - (instancetype)init {
     return [self initWithText:nil
-                     textFont:[UIFont systemFontOfSize:14]
+                     textFont:UIFontSystemFontOfSize(14)
                     textColor:[UIColor blackColor]
                attributedText:nil
               backgroundColor:[UIColor clearColor]
@@ -38,7 +38,7 @@
         } else {
             _text = nil;
         }
-        _textFont        = textFont ?: [UIFont systemFontOfSize:14];
+        _textFont        = textFont ?: UIFontSystemFontOfSize(14);
         _textColor       = textColor ?: JobsBlackColor;
         _attributedText  = attributedText;
         _backgroundColor = backgroundColor ?: JobsClearColor;

@@ -1,16 +1,16 @@
 //
-//  JobsOCSkeletonViewDemoVC.h
+//  JobsBluetoothDemoVC.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2026年7月8日，星期三.
+//  Created by Jobs on 2026年7月13日，星期一.
 //
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
+#if __has_include(<JobsBluetooth/JobsBluetooth.h>)
+#import <JobsBluetooth/JobsBluetooth.h>
 #else
-#import "Masonry.h"
+#import "JobsBluetooth.h"
 #endif
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
@@ -19,10 +19,10 @@
 #import "JobsBaseUI.h"
 #endif
 
-#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
-#import <JobsLanMgr/JobsLanMgr.h>
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
 #else
-#import "JobsLanMgr.h"
+#import "JobsByOCPods.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
@@ -37,23 +37,15 @@
 #import "JobsOCDSL.h"
 #endif
 
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
-#import "JobsBlock.h"
-#endif
-
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
 #endif
 
-#import "JobsOCSkeletonUserCell.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
-@interface JobsOCSkeletonViewDemoVC : BaseViewController <UITableViewDataSource,UITableViewDelegate>
+@interface JobsBluetoothDemoVC : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end
 

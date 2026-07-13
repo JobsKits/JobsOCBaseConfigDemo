@@ -9,5 +9,6 @@
 #define JOBS_HEADER_GUARD_JOBSVIEWPUSH_4F50B98E8A
 
 #import <JobsViewPush/UIView+JobsViewPush.h>
+#import <JobsViewPush/JobsSideDrawer.h>
 
 #endif /* JOBS_HEADER_GUARD_JOBSVIEWPUSH_4F50B98E8A */

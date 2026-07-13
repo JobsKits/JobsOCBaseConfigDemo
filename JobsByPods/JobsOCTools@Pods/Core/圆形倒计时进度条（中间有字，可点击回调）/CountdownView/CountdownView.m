@@ -57,10 +57,7 @@ Prop_strong()CABasicAnimation *animation;
 }
 
 -(void)setTextColor:(UIColor *)textColor{
-    self.label.byTextCor(textColor ? : [UIColor colorWithRed:0.27f
-                                                       green:0.27f
-                                                        blue:0.27f
-                                                       alpha:1.00f]);
+    self.label.byTextCor(textColor ? : RGBA_COLOR(0.27f * 255.0, 0.27f * 255.0, 0.27f * 255.0, 1.00f));
 }
 #pragma mark —— lazyLoad
 -(CAShapeLayer *)shapeLayer{
@@ -78,11 +75,11 @@ Prop_strong()CABasicAnimation *animation;
             data.lineWidth = 1.0f;
             CGFloat w = CGRectGetWidth(self.frame);
             CGFloat h = CGRectGetHeight(self.frame);
-            data.path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(w/2, h/2)
-                                                       radius:MIN(w, h)/2
-                                                   startAngle:-M_PI_2
-                                                     endAngle:3 * M_PI_2
-                                                    clockwise:YES].CGPath;
+            data.path = UIBezierPath.byBezierPathWithArcCenter(CGPointMake(w/2, h/2),
+                                                               MIN(w, h)/2,
+                                                               -M_PI_2,
+                                                               3 * M_PI_2,
+                                                               YES).CGPath;
             [data addAnimation:self.animation forKey:nil];
         });
     };return _shapeLayer;

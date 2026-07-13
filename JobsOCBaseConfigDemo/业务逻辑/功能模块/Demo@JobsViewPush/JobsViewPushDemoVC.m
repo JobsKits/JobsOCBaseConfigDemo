@@ -53,7 +53,7 @@ Prop_strong()BaseButton *pushButton;
 }
 
 -(JobsViewPushDirection)selectedDirection{
-    switch (self.directionControl.selectedSegmentIndex) {
+    switch (self.directionControl.jobs_selectedSegmentIndex) {
         case 0: return JobsViewPushDirectionTop;
         case 1: return JobsViewPushDirectionBottom;
         case 2: return JobsViewPushDirectionLeft;
@@ -82,12 +82,15 @@ Prop_strong()BaseButton *pushButton;
 #pragma mark —— lazyLoad
 -(UISegmentedControl *)directionControl{
     if (!_directionControl) {
-        _directionControl = [[UISegmentedControl alloc] initWithItems:@[@"上", @"下", @"左", @"右"]];
-        _directionControl.selectedSegmentIndex = 3;
-        _directionControl.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
-            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(24));
-            make.left.right.equalTo(self.view).inset(JobsWidth(24));
-            make.height.mas_equalTo(JobsWidth(36));
+        _directionControl = jobsMakeSegmentedControl(@[@"上", @"下", @"左", @"右"], ^(__kindof UISegmentedControl * _Nullable segmentedControl) {
+            segmentedControl
+                .bySelectedSegmentIndex(3)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(24));
+                    make.left.right.equalTo(self.view).inset(JobsWidth(24));
+                    make.height.mas_equalTo(JobsWidth(36));
+                });
         });
     };return _directionControl;
 }
@@ -95,7 +98,7 @@ Prop_strong()BaseButton *pushButton;
 -(UILabel *)ratioLabel{
     if (!_ratioLabel) {
         _ratioLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText(@"覆盖比例：65%")
+            label.byText(@"覆盖比例：65%".tr)
                 .byFont(UIFontWeightSemiboldSize(16))
                 .byTextCor(UIColor.labelColor)
                 .addOn(self.view)
@@ -189,7 +192,7 @@ Prop_strong()BaseButton *pushButton;
         _closeButton = BaseButton.jobsInit()
             .jobsResetBtnTitleCor(UIColor.whiteColor)
             .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(16))
-            .jobsResetBtnTitle(@"主动退出")
+            .jobsResetBtnTitle(@"主动退出".tr)
             .jobsResetBtnCornerRadiusValue(JobsWidth(10))
             .jobsResetBtnLayerBorderWidth(JobsWidth(1))
             .jobsResetBtnLayerBorderCor(UIColor.whiteColor)

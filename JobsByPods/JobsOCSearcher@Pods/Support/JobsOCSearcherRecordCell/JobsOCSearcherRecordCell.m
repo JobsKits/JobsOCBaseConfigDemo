@@ -25,10 +25,10 @@ Prop_copy()NSString *historyText;
              reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.backgroundColor = UIColor.clearColor;
-        self.contentView.backgroundColor = UIColor.whiteColor;
-        [self.contentView addSubview:self.historyLabel];
-        [self.contentView addSubview:self.deleteButton];
+        self.byBgColor(UIColor.clearColor);
+        self.contentView.byBgColor(UIColor.whiteColor);
+        self.historyLabel.addOn(self.contentView);
+        self.deleteButton.addOn(self.contentView);
         [NSLayoutConstraint activateConstraints:@[
             [self.historyLabel.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor constant:16],
             [self.historyLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
@@ -44,13 +44,13 @@ Prop_copy()NSString *historyText;
 -(void)prepareForReuse{
     [super prepareForReuse];
     self.historyText = @"";
-    self.historyLabel.text = @"";
+    self.historyLabel.byText(@"");
     self.deleteBlock = nil;
 }
 
 -(void)updateWithText:(NSString *)text{
     self.historyText = [self normalizedTextBy:text];
-    self.historyLabel.text = self.historyText;
+    self.historyLabel.byText(self.historyText);
 }
 
 -(NSString *)normalizedTextBy:(NSString *)text{
@@ -64,27 +64,27 @@ Prop_copy()NSString *historyText;
 
 -(UILabel *)historyLabel{
     if (!_historyLabel) {
-        _historyLabel = UILabel.new;
-        _historyLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _historyLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightRegular];
-        _historyLabel.textColor = [UIColor colorWithRed:0.24 green:0.29 blue:0.35 alpha:1];
-        _historyLabel.numberOfLines = 1;
-        _historyLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        _historyLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label.translatesAutoresizingMaskIntoConstraints = NO;
+            label
+                .byFont(UIFontWeightRegularSize(15))
+                .byTextCor(RGBA_COLOR(0.24 * 255.0, 0.29 * 255.0, 0.35 * 255.0, 1))
+                .byNumberOfLines(1)
+                .byLineBreakMode(NSLineBreakByTruncatingTail);
+        });
     };return _historyLabel;
 }
 
 -(UIButton *)deleteButton{
     if (!_deleteButton) {
-        _deleteButton = UIButton.new;
-        _deleteButton.translatesAutoresizingMaskIntoConstraints = NO;
-        _deleteButton.titleLabel.font = [UIFont systemFontOfSize:13 weight:UIFontWeightRegular];
-        [_deleteButton setTitle:@"删除"
-                       forState:UIControlStateNormal];
-        [_deleteButton setTitleColor:[UIColor colorWithRed:0.63 green:0.67 blue:0.73 alpha:1]
-                            forState:UIControlStateNormal];
-        [_deleteButton addTarget:self
-                          action:@selector(deleteButtonEvent)
-                forControlEvents:UIControlEventTouchUpInside];
+        _deleteButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button.translatesAutoresizingMaskIntoConstraints = NO;
+            button
+                .jobsResetBtnTitle(@"删除".tr)
+                .jobsResetBtnTitleCor(RGBA_COLOR(0.63 * 255.0, 0.67 * 255.0, 0.73 * 255.0, 1))
+                .jobsResetBtnTitleFont(UIFontWeightRegularSize(13))
+                .byAddTarget(self, @selector(deleteButtonEvent), UIControlEventTouchUpInside);
+        });
     };return _deleteButton;
 }
 

@@ -109,7 +109,7 @@ Prop_strong()UILabel *dragHintLab;
     if(!_usageCardView){
         _usageCardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view
-                .byBgColor([UIColor colorWithWhite:0 alpha:.18f])
+                .byBgColor(RGBA_SAMECOLOR(0 * 255.0, .18f))
                 .byCornerRadius(JobsWidth(14))
                 .byClipsToBounds(YES)
                 .addOn(self.jobsView)
@@ -147,7 +147,7 @@ Prop_strong()UILabel *dragHintLab;
     if(!_usageDescLab){
         _usageDescLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"演示“只允许在指定 y 区间内上下滑动”的吸附效果：拖拽绿色区域，上滑释放会吸附到最高点，下滑释放会回到底部初始位置。")
+                .byText(@"演示“只允许在指定 y 区间内上下滑动”的吸附效果：拖拽绿色区域，上滑释放会吸附到最高点，下滑释放会回到底部初始位置。".tr)
                 .byFont(UIFontWeightRegularSize(JobsWidth(13)))
                 .byTextCor([JobsWhiteColor colorWithAlphaComponent:.82f])
                 .byTextAlignment(NSTextAlignmentLeft)
@@ -167,12 +167,12 @@ Prop_strong()UILabel *dragHintLab;
     if(!_topAnchorLab){
         _topAnchorLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"最高点：上滑后吸附到这里")
+                .byText(@"最高点：上滑后吸附到这里".tr)
                 .byFont(UIFontWeightMediumSize(JobsWidth(12)))
                 .byTextCor(JobsWhiteColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(1)
-                .byBgColor([UIColor colorWithWhite:1 alpha:.16f])
+                .byBgColor(RGBA_SAMECOLOR(1 * 255.0, .16f))
                 .byCornerRadius(JobsWidth(12))
                 .byClipsToBounds(YES)
                 .addOn(self.jobsView)
@@ -190,12 +190,12 @@ Prop_strong()UILabel *dragHintLab;
     if(!_bottomAnchorLab){
         _bottomAnchorLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"最低点：下滑释放回到初始位置")
+                .byText(@"最低点：下滑释放回到初始位置".tr)
                 .byFont(UIFontWeightMediumSize(JobsWidth(12)))
                 .byTextCor(JobsWhiteColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(1)
-                .byBgColor([UIColor colorWithWhite:1 alpha:.16f])
+                .byBgColor(RGBA_SAMECOLOR(1 * 255.0, .16f))
                 .byCornerRadius(JobsWidth(12))
                 .byClipsToBounds(YES)
                 .addOn(self.jobsView)
@@ -212,7 +212,7 @@ Prop_strong()UILabel *dragHintLab;
         _scrollYView = JobsScrollYView.new;
         _scrollYView.byBgColor(JobsGreenColor);
 
-        [self.view addSubview:_scrollYView];
+        _scrollYView.addOn(self.view);
 
         [self.view layoutIfNeeded];
         _scrollYView.x = 0;
@@ -252,7 +252,7 @@ Prop_strong()UILabel *dragHintLab;
                 .byTextCor(JobsWhiteColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(0)
-                .byBgColor([UIColor colorWithWhite:0 alpha:.18f])
+                .byBgColor(RGBA_SAMECOLOR(0 * 255.0, .18f))
                 .byCornerRadius(JobsWidth(16))
                 .byClipsToBounds(YES)
                 .addOn(self.scrollYView)

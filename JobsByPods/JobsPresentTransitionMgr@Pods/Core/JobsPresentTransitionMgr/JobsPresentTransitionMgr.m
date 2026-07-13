@@ -265,7 +265,7 @@ Prop_assign()BOOL hasCustomPresentedRatio;
         if (CGRectIsEmpty(toViewFinalFrame)) toViewFinalFrame = self.frameOfPresentedViewInContainerView;
         toView.byFrame([self jobs_offscreenFrameFromFrame:toViewFinalFrame
                                           inContainerView:containerView]);
-        [containerView addSubview:toView];
+        toView.addOn(containerView);
         [UIView animateWithDuration:[self transitionDuration:transitionContext]
                               delay:0
              usingSpringWithDamping:0.88

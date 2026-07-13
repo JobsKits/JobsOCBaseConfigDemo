@@ -18,6 +18,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsBaseUI'
 
   spec.source_files = [
     'ZMJCellExtra.h',

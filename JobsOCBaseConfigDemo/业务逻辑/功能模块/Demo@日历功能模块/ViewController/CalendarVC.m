@@ -147,8 +147,9 @@ atMonthPosition:(JobsOCCalendarMonthPosition)monthPosition{
         @jobs_weakify(self)
         _calendar = jobsMakeJobsOCCalendar(^(__kindof JobsOCCalendar * _Nullable calendar) {
             @jobs_strongify(self)
-            calendar.dataSource = self;
-            calendar.delegate = self;
+            calendar
+                .byDataSource(self)
+                .byDelegate(self);
             calendar.allowsMultipleSelection = YES;
             calendar.swipeToChooseEnabled = YES;
             calendar.jobsAutomaticallyInvalidateLayoutOnBoundsChange = YES;

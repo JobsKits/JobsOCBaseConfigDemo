@@ -19,6 +19,8 @@ PRODUCT_NAME = $(TARGET_NAME)
 APP_DISPLAY_NAME = $(PRODUCT_NAME)
 INFOPLIST_KEY_CFBundleDisplayName = $(APP_DISPLAY_NAME)
 INFOPLIST_KEY_CFBundleName = $(PRODUCT_NAME)
+JOBS_PROJECT_FOLDER_NAME = $(PROJECT_DIR:base)
+INFOPLIST_KEY_JobsProjectFolderName = $(JOBS_PROJECT_FOLDER_NAME)
 
 // MARK: iOS 模拟器配置
 // M 系列芯片需要保留 arm64 模拟器能力，否则 Xcode 可能找不到可运行的 iOS Simulator。

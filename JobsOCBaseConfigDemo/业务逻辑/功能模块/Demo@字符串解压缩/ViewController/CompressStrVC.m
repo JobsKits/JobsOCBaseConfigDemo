@@ -255,7 +255,7 @@ Prop_copy()NSString *compressedBase64Str;
                 });
         });
         _sourceTextView.layer.byCornerRadius(JobsWidth(8));
-        _sourceTextView.layer.masksToBounds = YES;
+        _sourceTextView.layer.byMasksToBounds(YES);
     };return _sourceTextView;
 }
 
@@ -376,7 +376,7 @@ Prop_copy()NSString *compressedBase64Str;
                 make.left.right.equalTo(self.titleLab);
             });
         label.layer.byCornerRadius(JobsWidth(8));
-        label.layer.masksToBounds = YES;
+        label.layer.byMasksToBounds(YES);
     });
 }
 

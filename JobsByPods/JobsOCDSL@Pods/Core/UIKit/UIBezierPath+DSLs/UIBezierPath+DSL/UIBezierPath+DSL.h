@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 +(JobsRetBezierPathByFrameBlock _Nonnull)byBezierPathWithRect;
 +(JobsRetBezierPathByFrameBlock _Nonnull)byBezierPathWithOvalInRect;
 +(JobsRetBezierPathByCGPathRefBlock _Nonnull)byBezierPathWithCGPath;
++(JobsRetBezierPathByRoundedRectBlock _Nonnull)byBezierPathWithRoundedRect;
++(JobsRetBezierPathByRoundedCornersBlock _Nonnull)byBezierPathWithRoundedCorners;
++(JobsRetBezierPathByAddArcBlock _Nonnull)byBezierPathWithArcCenter;
 #pragma mark —— Path construction
 -(JobsRetBezierPathByCGPointBlock _Nonnull)byMoveToPoint;
 -(JobsRetBezierPathByCGPointBlock _Nonnull)byAddLineToPoint;

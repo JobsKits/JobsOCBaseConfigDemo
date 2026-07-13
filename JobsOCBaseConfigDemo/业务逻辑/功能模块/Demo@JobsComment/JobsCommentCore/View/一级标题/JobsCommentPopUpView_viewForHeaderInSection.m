@@ -67,7 +67,7 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
             .jobsResetBtnTitleFont(JobsCommentConfig.sharedManager.titleFont)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
@@ -139,7 +139,7 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
             .jobsResetBtnTitle((toStringByNSInteger(_likeBtn.thumpNum)))
             .onClickBy(^(RBCLikeButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 x.jobsResetBtnImage(x.selected ? JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like"));
     //            [x setThumbWithSelected:x.selected
     //                           thumbNum:x.selected ? x.thumpNum + 1 : x.thumpNum - 1

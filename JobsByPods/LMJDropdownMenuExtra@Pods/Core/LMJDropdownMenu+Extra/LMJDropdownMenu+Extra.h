@@ -17,6 +17,12 @@
 #import "LMJDropdownMenu.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LMJDropdownMenu (Extra)

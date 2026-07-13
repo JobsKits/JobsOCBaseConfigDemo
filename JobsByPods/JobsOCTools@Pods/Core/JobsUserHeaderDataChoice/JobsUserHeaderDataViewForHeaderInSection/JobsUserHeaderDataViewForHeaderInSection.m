@@ -63,7 +63,7 @@ Prop_strong()UILabel *titleLab;
             label
                 .byText(isNull(self.viewModel.textModel.text) ? @"请设置大标题".tr : self.viewModel.textModel.text)
             .byTextCor(self.viewModel.textModel.textCor)
-            .byFont([UIFont systemFontOfSize:JobsWidth(20) weight:UIFontWeightRegular])
+            .byFont(UIFontWeightRegularSize(JobsWidth(20)))
             .byTextAlignment(NSTextAlignmentCenter)
             .byBgColor(HEXCOLOR(0xFFFFFF))
             .addOn(self.contentView)

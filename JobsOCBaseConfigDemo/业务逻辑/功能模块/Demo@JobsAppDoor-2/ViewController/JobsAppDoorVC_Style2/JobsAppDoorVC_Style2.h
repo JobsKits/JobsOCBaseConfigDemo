@@ -147,6 +147,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsOCKeyboardMgr/JobsOCKeyboardMgr.h>)
+#import <JobsOCKeyboardMgr/JobsOCKeyboardMgr.h>
+#else
+#import "JobsOCKeyboardMgr.h"
+#endif
+
 #if __has_include(<JobsFuseAnimation/JobsFuseAnimation.h>)
 #import <JobsFuseAnimation/JobsFuseAnimation.h>
 #else

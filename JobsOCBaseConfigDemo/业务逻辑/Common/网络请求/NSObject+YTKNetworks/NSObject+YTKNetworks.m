@@ -76,7 +76,7 @@
                  if(result.userId) [data setValue:result.userId forKey:@"KKK"];
              })) callback:nil];
         }];
-        chainReq.delegate = self;
+        chainReq.byDelegate(self);
         if(successBlock) successBlock(chainReq);
         [chainReq start];// start to send request
     });
@@ -146,7 +146,7 @@
         [chainRequest addRequest:FM_getDepositDiscountActivityRecord_api.new.byURLParameters(@"?kyc=".add(result.kyc)).byBodyParameters(nil)
                         callback:nil];
     }];
-    chainReq.delegate = self;
+    chainReq.byDelegate(self);
     if(successBlock) successBlock(chainReq);
     [chainReq start];// start to send request
 }

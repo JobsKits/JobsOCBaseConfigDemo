@@ -62,6 +62,11 @@ JobsByOCPods@Pods/
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
 - `Core/UIKit/UIButton/UIButton+SDWebImage` 与 `Core/UIKit/UIImageView/UIImageView+SDWebImage` 只保留历史兼容入口，真实链式实现已下沉到 `JobsOCDSL/3rd/SDWebImage+DSL`。
+- `Core/UIKit/UIButton/UIButton+SimplyMake` / `UIButton+UI` 是 `jobsMakeButton`、`UIButton.jobsInit()` 与 `jobsResetBtn*` 跨新旧管线入口的当前权威实现；`jobsResetImagePlacement_Padding` 和 `jobsResetBtnBgImage` 均包含旧系统 fallback，调用方不额外加 iOS 16 门槛。
+- `Core/UIKit/UIButton/UIButton+UIControlState` 统一提供 `titleForStateBy`、`attributedTitleForStateBy`、`imageForStateBy`、`backgroundImageForStateBy`、`titleColorForStateBy`、`titleShadowColorForStateBy` 与 iOS 13 起可用的 `preferredSymbolConfigurationForStateBy`；`titleShadowColorByState` / `preferredSymbolConfigurationByState` 承接对应状态查询。上述入口均接受任意 `UIControlState` 及组合态，例如 `UIControlStateSelected | UIControlStateHighlighted`。
+- `Core/UIKit/UIView/UIView+Animation` 提供 `bySpinStart`、`bySpinStartBy`、`bySpinPause`、`bySpinResume`、`bySpinStop` 与旋转状态查询；持续旋转作用于 `sublayerTransform.rotation.z`，避免和拖拽坐标、按钮点击回弹使用的 `UIView.transform` 互相覆盖。
+- `Core/UIKit/UIViewController/.../UIViewController+BaseVC` 的 `navBarConfig` / `navBar` 懒加载会返回本次刚创建并完成关联的对象，首次链式配置不再因返回 `nil` Block 而触发 `EXC_BAD_ACCESS`。
+- `Core/UIKit/UIViewController/.../UIViewController+XLBubbleTransition` 通过 `JobsOCDSL` 的 `UINavigationController.byDelegate(...)` 切换导航代理；根 podspec 已持有 `JobsOCDSL` 直接依赖，分类头保留保护性导入。
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

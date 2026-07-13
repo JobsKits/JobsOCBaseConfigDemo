@@ -76,15 +76,16 @@ Prop_strong()PHCycleView *progressView;
         _progressView.byBgColor([UIColor clearColor]);
 
         [_progressView setProgressColor:[UIColor blueColor]];
-        _progressView.progressFont = [UIFont systemFontOfSize:30];
-        [self.view addSubview:_progressView];
+        _progressView.progressFont = UIFontSystemFontOfSize(30);
+        _progressView.addOn(self.view);
         [_progressView updateProgress:50];
         [_progressView setLinePreAngle:15 lineSize:CGSizeMake(3, 10) color:[UIColor redColor]];
-        _progressView.describeFont = [UIFont systemFontOfSize:12];
+        _progressView.describeFont = UIFontSystemFontOfSize(12);
         _progressView.describeStr = @"历史最高分";
         _progressView.progressTextColor = [UIColor blackColor];
         _progressView.describeTextColor = [UIColor blackColor];
-        _progressView.outLayerColor = [UIColor colorWithRed:0 green:0 blue:255 alpha:0.3];
+        /// 历史 blue = 255 超出 UIKit 归一化范围，最终夹取为 1。
+        _progressView.outLayerColor = RGBA_COLOR(0, 0, 255, 0.3);
     };return _progressView;
 }
 

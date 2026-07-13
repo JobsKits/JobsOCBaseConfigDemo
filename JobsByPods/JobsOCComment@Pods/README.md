@@ -67,7 +67,8 @@ JobsOCComment@Pods/
 - 回调：`commentSelectedBlock` 让业务侧处理点击、跳转或回复动作。
 - 回调：`pullRefreshBlock`、`loadMoreBlock` 让业务侧请求数据，请求完成后调用 `endPullRefresh`、`endLoadMore` 或 `endLoadMoreWithNoMoreData:` 收口刷新状态。
 - 系统框架：`Foundation`、`UIKit`。
-- Pod 依赖：`JobsBlock`、`JobsOCDefs`、`JobsOCRefresher`。
+- Pod 依赖：`JobsBlock`、`JobsBaseUI`、`JobsMakes`、`JobsOCDSL`、`JobsOCDefs`、`JobsOCRefresher`。
+- 内部 UIKit 视图由 `JobsMakes` / `jobsMakeTableViewBy*` 创建，配置和装配统一使用 `JobsOCDSL`。
 
 ## 六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

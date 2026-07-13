@@ -86,8 +86,7 @@ Prop_strong()UIButton *modeBtn;
 
 -(void)updateModeButtonTitle{
     NSString *title = self.useGradientSkeleton ? @"扫光" : @"脉冲";
-    [self.modeBtn setTitle:title.tr
-                  forState:UIControlStateNormal];
+    self.modeBtn.jobsResetBtnTitle(title.tr);
 }
 
 -(JobsOCSkeletonConfig *)currentSkeletonConfig{
@@ -107,17 +106,14 @@ Prop_strong()UIButton *modeBtn;
 
 -(UIButton *)navButtonByTitle:(NSString *)title
                        action:(SEL)action{
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    [button setTitle:title.tr
-            forState:UIControlStateNormal];
-    button.titleLabel.font = UIFontWeightMediumSize(14);
-    [button setTitleColor:HEXCOLOR(0x0A84FF)
-                 forState:UIControlStateNormal];
-    button.frame = CGRectMake(0, 0, JobsWidth(48), JobsWidth(32));
-    [button addTarget:self
-               action:action
-     forControlEvents:UIControlEventTouchUpInside];
-    return button;
+    return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+        button
+            .jobsResetBtnTitle(title.tr)
+            .jobsResetBtnTitleFont(UIFontWeightMediumSize(14))
+            .jobsResetBtnTitleCor(HEXCOLOR(0x0A84FF))
+            .byAddTarget(self, action, UIControlEventTouchUpInside)
+            .byFrame(CGRectMake(0, 0, JobsWidth(48), JobsWidth(32)));
+    });
 }
 #pragma mark —— UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView

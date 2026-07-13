@@ -33,7 +33,7 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
         _configuration = configuration ?: [JobsGestureLockConfiguration defaultConfiguration];
         _selectedButtons = [NSMutableArray array];
         _errorButtons = [NSMutableArray array];
-        self.backgroundColor = UIColor.clearColor;
+        self.byBgColor(UIColor.clearColor);
 
         [self buildSubviews];
     };return self;
@@ -44,15 +44,14 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
     [self addGestureRecognizer:pan];
 
     for (NSInteger index = 0; index < 9; index++) {
-        UIButton.alloc.init
-            .byViewBlock(^(__kindof UIView *view) {
-                UIButton *button = (UIButton *)view;
-                [button setImage:self.configuration.nodeNormalImage forState:UIControlStateNormal];
-                [button setImage:self.configuration.nodeSelectedImage forState:UIControlStateSelected];
-            })
-            .byTag(index)
-            .byUserInteractionEnabled(NO)
-            .addOn(self);
+        jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button
+                .jobsResetBtnImage(self.configuration.nodeNormalImage)
+                .selectedStateImageBy(self.configuration.nodeSelectedImage)
+                .byTag(index)
+                .byUserInteractionEnabled(NO)
+                .addOn(self);
+        });
     }
 }
 
@@ -78,7 +77,7 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
         return;
     }
 
-    UIBezierPath *path = [UIBezierPath bezierPath];
+    UIBezierPath *path = jobsMakeBezierPath(nil);
     [self.selectedButtons enumerateObjectsUsingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx == 0) {
             [path moveToPoint:button.center];
@@ -120,8 +119,8 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
     self.currentPoint = [pan locationInView:self];
 
     for (UIButton *button in self.subviews) {
-        if (CGRectContainsPoint(button.frame, self.currentPoint) && !button.selected) {
-            button.selected = YES;
+        if (CGRectContainsPoint(button.frame, self.currentPoint) && !button.jobs_isSelected) {
+            button.bySelected(YES);
             [self.selectedButtons addObject:button];
         }
     }
@@ -146,8 +145,9 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
 
 - (void)restoreErrorButtonsIfNeeded {
     for (UIButton *button in self.errorButtons) {
-        [button setImage:self.configuration.nodeNormalImage forState:UIControlStateNormal];
-        [button setImage:self.configuration.nodeSelectedImage forState:UIControlStateSelected];
+        button
+            .jobsResetBtnImage(self.configuration.nodeNormalImage)
+            .selectedStateImageBy(self.configuration.nodeSelectedImage);
     }
     [self.errorButtons removeAllObjects];
     self.validationResult = JobsGestureLockValidationResultNone;
@@ -157,8 +157,8 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
     self.finished = NO;
     self.validationResult = JobsGestureLockValidationResultNone;
     for (UIButton *button in self.selectedButtons) {
-        button.selected = NO;
-        [button setImage:self.configuration.nodeNormalImage forState:UIControlStateNormal];
+        button.bySelected(NO);
+        button.jobsResetBtnImage(self.configuration.nodeNormalImage);
     }
     [self.selectedButtons removeAllObjects];
     [self setNeedsDisplay];
@@ -170,7 +170,7 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
         [self.errorButtons removeAllObjects];
         [self.errorButtons addObjectsFromArray:self.selectedButtons];
         for (UIButton *button in self.errorButtons) {
-            [button setImage:self.configuration.nodeErrorImage forState:UIControlStateNormal];
+            button.jobsResetBtnImage(self.configuration.nodeErrorImage);
         }
     }
     [self setNeedsDisplay];

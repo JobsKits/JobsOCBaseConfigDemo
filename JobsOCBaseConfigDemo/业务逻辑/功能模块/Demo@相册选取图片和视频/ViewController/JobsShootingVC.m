@@ -77,7 +77,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
                 self.objBlock = ^(id data) {
                     @jobs_strongify(self)
                     if ([data isKindOfClass:UIImage.class]) {
-                        self.imageView.image = (UIImage *)data;
+                        self.imageView.byImage((UIImage *)data);
                     }
                 };
                 self.invokeSysCamera();
@@ -118,7 +118,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
                                                                   NSArray<HXPhotoModel *> * _Nullable errorArray) {
                         @jobs_strongify(self)
                         self.photosImageMutArr = [NSMutableArray arrayWithArray:imageArray];
-                        self.imageView.image = (UIImage *)self.photosImageMutArr.lastObject;/// 永远值显示最后选择的图
+                        self.imageView.byImage((UIImage *)self.photosImageMutArr.lastObject);/// 永远值显示最后选择的图
                     }];
                 } failBlock:^(HXPhotoPickerModel *data) {
     //                @jobs_strongify(self)

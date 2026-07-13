@@ -70,15 +70,15 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
 
 -(void)setupWithConfig:(JobsOCSearcherConfig *)config{
     self.config = config ? : JobsOCSearcherConfig.defaultConfig;
-    self.backgroundColor = [UIColor colorWithRed:0.96 green:0.97 blue:0.99 alpha:1];
-    [self addSubview:self.searchContainerView];
-    [self.searchContainerView addSubview:self.textField];
-    [self addSubview:self.searchButton];
-    [self addSubview:self.recommendSectionView];
-    [self.recommendSectionView addSubview:self.recommendTitleLabel];
-    [self.recommendSectionView addSubview:self.recommendTagContainerView];
-    [self addSubview:self.tableView];
-    [self addGestureRecognizer:self.blankTapGestureRecognizer];
+    self.byBgColor(RGBA_COLOR(0.96 * 255.0, 0.97 * 255.0, 0.99 * 255.0, 1));
+    self.searchContainerView.addOn(self);
+    self.textField.addOn(self.searchContainerView);
+    self.searchButton.addOn(self);
+    self.recommendSectionView.addOn(self);
+    self.recommendTitleLabel.addOn(self.recommendSectionView);
+    self.recommendTagContainerView.addOn(self.recommendSectionView);
+    self.tableView.addOn(self);
+    self.byAddGestureRecognizer(self.blankTapGestureRecognizer);
     [self setupConstraints];
     [self reloadHistorySearches];
     [self updateByConfig];
@@ -177,12 +177,11 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
 }
 
 -(void)updateByConfig{
-    self.textField.placeholder = self.config.placeholder.length ? self.config.placeholder : @"请输入搜索内容";
-    [self.searchButton setTitle:self.config.searchButtonTitle.length ? self.config.searchButtonTitle : @"搜索"
-                       forState:UIControlStateNormal];
+    self.textField.byPlaceholder(self.config.placeholder.length ? self.config.placeholder : @"请输入搜索内容");
+    self.searchButton.jobsResetBtnTitle(self.config.searchButtonTitle.length ? self.config.searchButtonTitle : @"搜索");
     [self updateSearchButtonVisible:self.textField.isFirstResponder];
     [self updateSearchButtonEnabledByText:self.textField.text];
-    self.recommendTitleLabel.text = self.config.recommendTitle.length ? self.config.recommendTitle : @"🔍搜索推荐";
+    self.recommendTitleLabel.byText(self.config.recommendTitle.length ? self.config.recommendTitle : @"🔍搜索推荐");
     [self rebuildRecommendTagButtons];
     [self setNeedsLayout];
     [self.tableView reloadData];
@@ -224,29 +223,30 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
 
 -(void)rebuildRecommendTagButtons{
     for (UIButton *button in self.recommendButtonArr) {
-        [button removeFromSuperview];
+        button.byRemove();
     }
     NSMutableArray <UIButton *>*buttonMutArr = NSMutableArray.array;
     [self.recommendSearches enumerateObjectsUsingBlock:^(NSString * _Nonnull obj,
                                                           NSUInteger idx,
                                                           BOOL * _Nonnull stop) {
-        UIButton *button = UIButton.new;
-        button.tag = idx;
-        button.backgroundColor = [self recommendTagColorAtIndex:idx];
-        button.layer.cornerRadius = 6;
-        button.layer.masksToBounds = YES;
-        button.titleLabel.font = [UIFont systemFontOfSize:13 weight:UIFontWeightSemibold];
-        button.titleLabel.adjustsFontSizeToFitWidth = YES;
-        button.titleLabel.minimumScaleFactor = 0.72;
-        button.titleLabel.lineBreakMode = NSLineBreakByClipping;
-        [button setTitle:obj
-                forState:UIControlStateNormal];
-        [button setTitleColor:UIColor.whiteColor
-                     forState:UIControlStateNormal];
-        [button addTarget:self
-                   action:@selector(recommendTagButtonEvent:)
-         forControlEvents:UIControlEventTouchUpInside];
-        [self.recommendTagContainerView addSubview:button];
+        UIButton *button = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button
+                .jobsResetBtnTitle(obj)
+                .jobsResetBtnTitleCor(UIColor.whiteColor)
+                .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(13))
+                .byTitleLabel(^(__kindof UILabel * _Nullable label) {
+                    label
+                        .byAdjustsFontSizeToFitWidth(YES)
+                        .byMinimumScaleFactor(0.72)
+                        .byLineBreakMode(NSLineBreakByClipping);
+                })
+                .jobsResetBtnBgCor([self recommendTagColorAtIndex:idx])
+                .jobsResetBtnCornerRadiusValue(6)
+                .byAddTarget(self, @selector(recommendTagButtonEvent:), UIControlEventTouchUpInside)
+                .byTag(idx)
+                .byClipsToBounds(YES)
+                .addOn(self.recommendTagContainerView);
+        });
         [buttonMutArr addObject:button];
     }];
     self.recommendButtonArr = buttonMutArr.copy;
@@ -254,9 +254,9 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
 
 -(void)layoutRecommendSection{
     BOOL hasRecommend = self.recommendSearches.count > 0;
-    self.recommendSectionView.hidden = !hasRecommend;
-    self.recommendTitleLabel.hidden = !hasRecommend;
-    self.recommendTagContainerView.hidden = !hasRecommend;
+    self.recommendSectionView.byHidden(!hasRecommend);
+    self.recommendTitleLabel.byHidden(!hasRecommend);
+    self.recommendTagContainerView.byHidden(!hasRecommend);
     if (!hasRecommend) {
         self.recommendSectionHeightConstraint.constant = 0;
         return;
@@ -294,14 +294,14 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
 
 -(UIColor *)recommendTagColorAtIndex:(NSUInteger)index{
     NSArray <UIColor *>*colors = @[
-        [UIColor colorWithRed:0.18 green:0.45 blue:0.82 alpha:1],
-        [UIColor colorWithRed:0.11 green:0.58 blue:0.36 alpha:1],
-        [UIColor colorWithRed:0.84 green:0.25 blue:0.25 alpha:1],
-        [UIColor colorWithRed:0.53 green:0.31 blue:0.78 alpha:1],
-        [UIColor colorWithRed:0.90 green:0.50 blue:0.13 alpha:1],
-        [UIColor colorWithRed:0.00 green:0.52 blue:0.57 alpha:1],
-        [UIColor colorWithRed:0.23 green:0.30 blue:0.38 alpha:1],
-        [UIColor colorWithRed:0.65 green:0.24 blue:0.49 alpha:1]
+        RGBA_COLOR(0.18 * 255.0, 0.45 * 255.0, 0.82 * 255.0, 1),
+        RGBA_COLOR(0.11 * 255.0, 0.58 * 255.0, 0.36 * 255.0, 1),
+        RGBA_COLOR(0.84 * 255.0, 0.25 * 255.0, 0.25 * 255.0, 1),
+        RGBA_COLOR(0.53 * 255.0, 0.31 * 255.0, 0.78 * 255.0, 1),
+        RGBA_COLOR(0.90 * 255.0, 0.50 * 255.0, 0.13 * 255.0, 1),
+        RGBA_COLOR(0.00 * 255.0, 0.52 * 255.0, 0.57 * 255.0, 1),
+        RGBA_COLOR(0.23 * 255.0, 0.30 * 255.0, 0.38 * 255.0, 1),
+        RGBA_COLOR(0.65 * 255.0, 0.24 * 255.0, 0.49 * 255.0, 1)
     ];
     return colors[index % colors.count];
 }
@@ -309,7 +309,7 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
 -(UIImage *)trashIconImageWithColor:(UIColor *)color{
     CGSize size = CGSizeMake(16, 16);
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-    UIBezierPath *lidPath = UIBezierPath.bezierPath;
+    UIBezierPath *lidPath = jobsMakeBezierPath(nil);
     lidPath.lineWidth = 1.4;
     [color setStroke];
     [lidPath moveToPoint:CGPointMake(4, 4.8)];
@@ -317,11 +317,10 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
     [lidPath moveToPoint:CGPointMake(6.2, 3.2)];
     [lidPath addLineToPoint:CGPointMake(9.8, 3.2)];
     [lidPath stroke];
-    UIBezierPath *bodyPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(5, 6, 6, 7.8)
-                                                         cornerRadius:1.1];
+    UIBezierPath *bodyPath = UIBezierPath.byBezierPathWithRoundedRect(CGRectMake(5, 6, 6, 7.8), 1.1);
     bodyPath.lineWidth = 1.4;
     [bodyPath stroke];
-    UIBezierPath *linePath = UIBezierPath.bezierPath;
+    UIBezierPath *linePath = jobsMakeBezierPath(nil);
     linePath.lineWidth = 1;
     [linePath moveToPoint:CGPointMake(7, 7.5)];
     [linePath addLineToPoint:CGPointMake(7, 12)];
@@ -341,25 +340,26 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
 }
 
 -(void)updateSearchButtonVisible:(BOOL)visible{
-    self.searchButton.hidden = !visible;
+    self.searchButton.byHidden(!visible);
     self.searchButtonLeftConstraint.constant = visible ? 8 : 0;
     self.searchButtonWidthConstraint.constant = visible ? 64 : 0;
-    self.searchButton.userInteractionEnabled = visible && self.searchButton.enabled;
+    self.searchButton.byUserInteractionEnabled(visible && self.searchButton.jobs_isEnabled);
     [self setNeedsLayout];
 }
 
 -(void)updateSearchButtonEnabledByText:(NSString *)text{
     BOOL enabled = [self normalizedTextBy:text].length > 0;
-    self.searchButton.enabled = enabled;
-    self.searchButton.userInteractionEnabled = enabled && !self.searchButton.hidden;
-    self.searchButton.alpha = 1;
+    self.searchButton
+        .byEnabled(enabled)
+        .byUserInteractionEnabled(enabled && !self.searchButton.hidden)
+        .byAlpha(1);
 }
 
 -(void)performSearchByText:(NSString *)text{
     NSString *searchText = [self normalizedTextBy:text];
     [self updateSearchButtonEnabledByText:searchText];
     if (!searchText.length) return;
-    self.textField.text = searchText;
+    self.textField.byText(searchText);
     [self saveHistoryByText:searchText];
     if (self.config.searchConfirmBlock) self.config.searchConfirmBlock(searchText);
     [self.textField resignFirstResponder];
@@ -367,7 +367,7 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
 }
 
 -(void)cancelSearchEditing{
-    self.textField.text = @"";
+    self.textField.byText(@"");
     [self updateSearchButtonEnabledByText:@""];
     if (self.config.dismissKeyboardWhenCancel) [self.textField resignFirstResponder];
     [self updateSearchButtonVisible:NO];
@@ -378,7 +378,7 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
 -(void)selectSearchText:(NSString *)text{
     NSString *searchText = [self normalizedTextBy:text];
     if (!searchText.length) return;
-    self.textField.text = searchText;
+    self.textField.byText(searchText);
     [self.textField becomeFirstResponder];
     [self updateSearchButtonVisible:YES];
     [self updateSearchButtonEnabledByText:searchText];
@@ -426,37 +426,37 @@ heightForHeaderInSection:(NSInteger)section{
 -(UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section{
     if (![self tableView:tableView numberOfRowsInSection:section]) return nil;
-    UIView *header = UIView.new;
-    header.backgroundColor = self.backgroundColor;
-    UILabel *label = UILabel.new;
-    label.translatesAutoresizingMaskIntoConstraints = NO;
-    label.font = [UIFont systemFontOfSize:16 weight:UIFontWeightSemibold];
-    label.textColor = [UIColor colorWithRed:0.12 green:0.16 blue:0.21 alpha:1];
-    label.text = self.config.historyTitle.length ? self.config.historyTitle : @"⏰搜索历史";
-    [header addSubview:label];
+    UIView *header = jobsMakeView(^(__kindof UIView * _Nullable view) {
+        view.byBgColor(self.backgroundColor);
+    });
+    UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+        label.translatesAutoresizingMaskIntoConstraints = NO;
+        label
+            .byText(self.config.historyTitle.length ? self.config.historyTitle : @"⏰搜索历史")
+            .byFont(UIFontWeightSemiboldSize(16))
+            .byTextCor(RGBA_COLOR(0.12 * 255.0, 0.16 * 255.0, 0.21 * 255.0, 1))
+            .addOn(header);
+    });
     [NSLayoutConstraint activateConstraints:@[
         [label.leftAnchor constraintEqualToAnchor:header.leftAnchor constant:16],
         [label.rightAnchor constraintEqualToAnchor:header.rightAnchor constant:-16],
         [label.bottomAnchor constraintEqualToAnchor:header.bottomAnchor constant:-8]
     ]];
     if (section == JobsOCSearcherSectionHistory) {
-        UIColor *buttonColor = [UIColor colorWithRed:0.63 green:0.67 blue:0.73 alpha:1];
-        UIButton *clearButton = UIButton.new;
-        clearButton.translatesAutoresizingMaskIntoConstraints = NO;
-        clearButton.titleLabel.font = [UIFont systemFontOfSize:13 weight:UIFontWeightRegular];
-        clearButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        [clearButton setTitle:@"清空"
-                     forState:UIControlStateNormal];
-        [clearButton setTitleColor:buttonColor
-                          forState:UIControlStateNormal];
-        [clearButton setImage:[self trashIconImageWithColor:buttonColor]
-                     forState:UIControlStateNormal];
-        clearButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 4);
-        clearButton.titleEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
-        [clearButton addTarget:self
-                        action:@selector(clearHistory)
-              forControlEvents:UIControlEventTouchUpInside];
-        [header addSubview:clearButton];
+        UIColor *buttonColor = RGBA_COLOR(0.63 * 255.0, 0.67 * 255.0, 0.73 * 255.0, 1);
+        UIButton *clearButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button.translatesAutoresizingMaskIntoConstraints = NO;
+            button
+                .jobsResetBtnTitle(@"清空".tr)
+                .jobsResetBtnTitleCor(buttonColor)
+                .jobsResetBtnTitleFont(UIFontWeightRegularSize(13))
+                .jobsResetBtnImage([self trashIconImageWithColor:buttonColor])
+                .byImageEdgeInsets(UIEdgeInsetsMake(0, 0, 0, 4))
+                .byTitleEdgeInsets(UIEdgeInsetsMake(0, 4, 0, 0))
+                .byContentHorizontalAlignment(UIControlContentHorizontalAlignmentRight)
+                .byAddTarget(self, @selector(clearHistory), UIControlEventTouchUpInside)
+                .addOn(header);
+        });
         [NSLayoutConstraint activateConstraints:@[
             [clearButton.rightAnchor constraintEqualToAnchor:header.rightAnchor constant:-16],
             [clearButton.centerYAnchor constraintEqualToAnchor:label.centerYAnchor],
@@ -528,56 +528,55 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 #pragma mark —— lazyLoad
 -(UIView *)searchContainerView{
     if (!_searchContainerView) {
-        _searchContainerView = UIView.new;
-        _searchContainerView.translatesAutoresizingMaskIntoConstraints = NO;
-        _searchContainerView.backgroundColor = UIColor.whiteColor;
-        _searchContainerView.layer.cornerRadius = 12;
-        _searchContainerView.layer.borderWidth = 0.5;
-        _searchContainerView.layer.borderColor = [UIColor colorWithRed:0.86 green:0.89 blue:0.93 alpha:1].CGColor;
+        _searchContainerView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.translatesAutoresizingMaskIntoConstraints = NO;
+            view
+                .byBgColor(UIColor.whiteColor)
+                .byCornerRadius(12)
+                .byLayer(^(CALayer * _Nullable layer) {
+                    layer
+                        .byBorderWidth(0.5)
+                        .byBorderColor(RGBA_COLOR(0.86 * 255.0, 0.89 * 255.0, 0.93 * 255.0, 1).CGColor);
+                });
+        });
     };return _searchContainerView;
 }
 
 -(UITextField *)textField{
     if (!_textField) {
-        _textField = UITextField.new;
-        _textField.translatesAutoresizingMaskIntoConstraints = NO;
-        _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-        _textField.leftView = [self searchIconLeftView];
-        _textField.leftViewMode = UITextFieldViewModeAlways;
-        _textField.returnKeyType = UIReturnKeySearch;
-        _textField.delegate = self;
-        _textField.font = [UIFont systemFontOfSize:15 weight:UIFontWeightRegular];
-        _textField.textColor = [UIColor colorWithRed:0.18 green:0.24 blue:0.31 alpha:1];
-        [_textField addTarget:self
-                       action:@selector(textFieldEditingChanged:)
-             forControlEvents:UIControlEventEditingChanged];
+        _textField = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
+            textField.translatesAutoresizingMaskIntoConstraints = NO;
+            textField
+                .byFont(UIFontWeightRegularSize(15))
+                .byTextCor(RGBA_COLOR(0.18 * 255.0, 0.24 * 255.0, 0.31 * 255.0, 1))
+                .byClearButtonMode(UITextFieldViewModeWhileEditing)
+                .byLeftView([self searchIconLeftView])
+                .byLeftViewMode(UITextFieldViewModeAlways)
+                .byReturnKeyType(UIReturnKeySearch)
+                .byDelegate(self)
+                .byAddTarget(self, @selector(textFieldEditingChanged:), UIControlEventEditingChanged);
+        });
     };return _textField;
 }
 
 -(UIButton *)searchButton{
     if (!_searchButton) {
-        _searchButton = UIButton.new;
-        _searchButton.translatesAutoresizingMaskIntoConstraints = NO;
-        _searchButton.hidden = YES;
-        _searchButton.layer.cornerRadius = 12;
-        _searchButton.layer.masksToBounds = YES;
-        _searchButton.contentEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 12);
-        _searchButton.titleLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightSemibold];
-        [_searchButton setTitleColor:UIColor.whiteColor
-                             forState:UIControlStateNormal];
-        [_searchButton setTitleColor:UIColor.whiteColor
-                             forState:UIControlStateHighlighted];
-        [_searchButton setTitleColor:[UIColor colorWithRed:0.57 green:0.63 blue:0.72 alpha:1]
-                             forState:UIControlStateDisabled];
-        [_searchButton setBackgroundImage:[self searchButtonBackgroundImageWithColor:[UIColor colorWithRed:0.19 green:0.45 blue:0.84 alpha:1]]
-                                  forState:UIControlStateNormal];
-        [_searchButton setBackgroundImage:[self searchButtonBackgroundImageWithColor:[UIColor colorWithRed:0.15 green:0.36 blue:0.70 alpha:1]]
-                                  forState:UIControlStateHighlighted];
-        [_searchButton setBackgroundImage:[self searchButtonBackgroundImageWithColor:[UIColor colorWithRed:0.91 green:0.94 blue:0.98 alpha:1]]
-                                  forState:UIControlStateDisabled];
-        [_searchButton addTarget:self
-                          action:@selector(searchButtonEvent)
-                forControlEvents:UIControlEventTouchUpInside];
+        _searchButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button.translatesAutoresizingMaskIntoConstraints = NO;
+            button
+                .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(14))
+                .jobsResetBtnTitleCor(UIColor.whiteColor)
+                .jobsResetBtnBgImage([self searchButtonBackgroundImageWithColor:RGBA_COLOR(0.19 * 255.0, 0.45 * 255.0, 0.84 * 255.0, 1)])
+                .jobsResetBtnCornerRadiusValue(12)
+                .highlightedStateTitleColorBy(UIColor.whiteColor)
+                .disabledStateTitleColorBy(RGBA_COLOR(0.57 * 255.0, 0.63 * 255.0, 0.72 * 255.0, 1))
+                .highlightedStateBackgroundImageBy([self searchButtonBackgroundImageWithColor:RGBA_COLOR(0.15 * 255.0, 0.36 * 255.0, 0.70 * 255.0, 1)])
+                .disabledStateBackgroundImageBy([self searchButtonBackgroundImageWithColor:RGBA_COLOR(0.91 * 255.0, 0.94 * 255.0, 0.98 * 255.0, 1)])
+                .byContentEdgeInsets(UIEdgeInsetsMake(0, 12, 0, 12))
+                .byAddTarget(self, @selector(searchButtonEvent), UIControlEventTouchUpInside)
+                .byHidden(YES)
+                .byClipsToBounds(YES);
+        });
     };return _searchButton;
 }
 
@@ -592,11 +591,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 -(UIView *)searchIconLeftView{
-    UIView *containerView = [UIView.alloc initWithFrame:CGRectMake(0, 0, 34, 42)];
-    UIImageView *imageView = [UIImageView.alloc initWithImage:[self searchIconImageWithColor:[UIColor colorWithRed:0.53 green:0.58 blue:0.65 alpha:1]]];
-    imageView.frame = CGRectMake(10, 13, 16, 16);
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [containerView addSubview:imageView];
+    UIView *containerView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+        view.byFrame(CGRectMake(0, 0, 34, 42));
+    });
+    jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+        imageView
+            .byImage([self searchIconImageWithColor:RGBA_COLOR(0.53 * 255.0, 0.58 * 255.0, 0.65 * 255.0, 1)])
+            .byContentMode(UIViewContentModeScaleAspectFit)
+            .byUserInteractionEnabled(NO)
+            .byFrame(CGRectMake(10, 13, 16, 16))
+            .addOn(containerView);
+    });
     return containerView;
 }
 
@@ -604,10 +609,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     CGSize size = CGSizeMake(16, 16);
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     [color setStroke];
-    UIBezierPath *circlePath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(2.2, 2.2, 8.8, 8.8)];
+    UIBezierPath *circlePath = UIBezierPath.byBezierPathWithOvalInRect(CGRectMake(2.2, 2.2, 8.8, 8.8));
     circlePath.lineWidth = 1.6;
     [circlePath stroke];
-    UIBezierPath *handlePath = UIBezierPath.bezierPath;
+    UIBezierPath *handlePath = jobsMakeBezierPath(nil);
     handlePath.lineWidth = 1.8;
     handlePath.lineCapStyle = kCGLineCapRound;
     [handlePath moveToPoint:CGPointMake(9.4, 9.4)];
@@ -620,24 +625,28 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(UIView *)recommendSectionView{
     if (!_recommendSectionView) {
-        _recommendSectionView = UIView.new;
-        _recommendSectionView.translatesAutoresizingMaskIntoConstraints = NO;
-        _recommendSectionView.backgroundColor = UIColor.clearColor;
+        _recommendSectionView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.translatesAutoresizingMaskIntoConstraints = NO;
+            view.byBgColor(UIColor.clearColor);
+        });
     };return _recommendSectionView;
 }
 
 -(UILabel *)recommendTitleLabel{
     if (!_recommendTitleLabel) {
-        _recommendTitleLabel = UILabel.new;
-        _recommendTitleLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightSemibold];
-        _recommendTitleLabel.textColor = [UIColor colorWithRed:0.12 green:0.16 blue:0.21 alpha:1];
+        _recommendTitleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byFont(UIFontWeightSemiboldSize(16))
+                .byTextCor(RGBA_COLOR(0.12 * 255.0, 0.16 * 255.0, 0.21 * 255.0, 1));
+        });
     };return _recommendTitleLabel;
 }
 
 -(UIView *)recommendTagContainerView{
     if (!_recommendTagContainerView) {
-        _recommendTagContainerView = UIView.new;
-        _recommendTagContainerView.backgroundColor = UIColor.clearColor;
+        _recommendTagContainerView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(UIColor.clearColor);
+        });
     };return _recommendTagContainerView;
 }
 
@@ -652,14 +661,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [UITableView.alloc initWithFrame:CGRectZero
-                                                style:UITableViewStyleGrouped];
-        _tableView.translatesAutoresizingMaskIntoConstraints = NO;
-        _tableView.backgroundColor = UIColor.clearColor;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
+        _tableView = jobsMakeTableViewByGrouped(^(__kindof UITableView * _Nullable tableView) {
+            tableView.translatesAutoresizingMaskIntoConstraints = NO;
+            tableView
+                .byDelegate(self)
+                .byDataSource(self)
+                .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .byKeyboardDismissMode(UIScrollViewKeyboardDismissModeOnDrag)
+                .byBgColor(UIColor.clearColor);
+        });
         [_tableView registerClass:JobsOCSearcherRecordCell.class
            forCellReuseIdentifier:JobsOCSearcherRecordCell.reuseIdentifier];
         if (@available(iOS 15.0, *)) {

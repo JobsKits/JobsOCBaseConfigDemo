@@ -20,10 +20,10 @@ Prop_strong() UILongPressGestureRecognizer *longPressGesture;
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = UIColor.clearColor;
+        self.byBgColor(UIColor.clearColor);
         [self.layer addSublayer:self.trackLayer];
         [self.layer addSublayer:self.progressLayer];
-        [self addSubview:self.redCircleView];
+        self.redCircleView.addOn(self);
         [self addGestureRecognizer:self.longPressGesture];
     };return self;
 }
@@ -34,11 +34,11 @@ Prop_strong() UILongPressGestureRecognizer *longPressGesture;
     CGFloat diameter = MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
     CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     CGFloat radius = MAX(0, (diameter - lineWidth) * 0.5);
-    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center
-                                                        radius:radius
-                                                    startAngle:-M_PI_2
-                                                      endAngle:M_PI * 1.5
-                                                     clockwise:YES];
+    UIBezierPath *path = UIBezierPath.byBezierPathWithArcCenter(center,
+                                                               radius,
+                                                               -M_PI_2,
+                                                               M_PI * 1.5,
+                                                               YES);
     self.trackLayer.frame = self.bounds;
     self.trackLayer.path = path.CGPath;
     self.trackLayer.lineWidth = lineWidth;
@@ -115,7 +115,7 @@ Prop_strong() UILongPressGestureRecognizer *longPressGesture;
 -(UIView *)redCircleView{
     if (!_redCircleView) {
         _redCircleView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.backgroundColor = UIColor.redColor;
+            view.byBgColor(UIColor.redColor);
             view.userInteractionEnabled = NO;
         });
     };return _redCircleView;

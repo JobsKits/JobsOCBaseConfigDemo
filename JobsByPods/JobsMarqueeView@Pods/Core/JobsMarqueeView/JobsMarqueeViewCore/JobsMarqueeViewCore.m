@@ -87,10 +87,10 @@ Prop_copy()NSString *timerIdentifier;
 -(UIPageControl *)pageControl{
     if (!_pageControl) {
         _pageControl = UIPageControl.alloc.init;
-        _pageControl.hidden = YES;
+        _pageControl.byHidden(YES);
         _pageControl.userInteractionEnabled = NO;
         _pageControl.translatesAutoresizingMaskIntoConstraints = NO;
-        [self addSubview:_pageControl];
+        _pageControl.addOn(self);
     };return _pageControl;
 }
 #pragma mark —— Public Controls
@@ -204,7 +204,7 @@ Prop_copy()NSString *timerIdentifier;
 
 -(void)setPageControlEnabled:(BOOL)pageControlEnabled{
     _pageControlEnabled = pageControlEnabled;
-    self.pageControl.hidden = !pageControlEnabled;
+    self.pageControl.byHidden(!pageControlEnabled);
     if (pageControlEnabled) {
         [self installDefaultPageControlConstraintsIfNeeded];
         [self updatePageControlPages];
@@ -239,15 +239,17 @@ Prop_copy()NSString *timerIdentifier;
     _minButtonSize = [self computeMinButtonSize];
     _timerIdentifier = [NSString stringWithFormat:@"%@.%p", JobsMarqueeTimerIdentifierPrefix, self];
     _internalButtons = NSMutableArray.array;
-    _scrollView = UIScrollView.alloc.init;
-    _scrollView.showsHorizontalScrollIndicator = NO;
-    _scrollView.showsVerticalScrollIndicator = NO;
-    _scrollView.bounces = NO;
-    _scrollView.pagingEnabled = NO;
-    _scrollView.scrollEnabled = NO;
-    _scrollView.scrollsToTop = NO;
-    _scrollView.delegate = self;
-    [self addSubview:_scrollView];
+    _scrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
+        scrollView
+            .byDelegate(self)
+            .byShowsHorizontalScrollIndicator(NO)
+            .byShowsVerticalScrollIndicator(NO)
+            .byBounces(NO)
+            .byPagingEnabled(NO)
+            .byScrollEnabled(NO)
+            .byScrollsToTop(NO)
+            .addOn(self);
+    });
     [self applyManualScrollConfig];
 }
 
@@ -263,7 +265,7 @@ Prop_copy()NSString *timerIdentifier;
             [self updatePageControlPages];
             [self updatePageControlConstraintsIfNeeded];
             [self updatePageControlCurrentPage];
-            self.pageControl.hidden = NO;
+            self.pageControl.byHidden(NO);
         };return;
     }
     BOOL isHorizontal = JobsMarqueeDirectionIsHorizontal(self.direction);
@@ -294,7 +296,7 @@ Prop_copy()NSString *timerIdentifier;
                 size.width = CGRectGetWidth(self.bounds);
             }
             button.frame = CGRectMake(x, 0, size.width, size.height);
-            [self.scrollView addSubview:button];
+            button.addOn(self.scrollView);
             x += size.width;
         }
         contentWidth = MAX(CGRectGetWidth(self.bounds), x);
@@ -310,7 +312,7 @@ Prop_copy()NSString *timerIdentifier;
                 size.height = CGRectGetHeight(self.bounds);
             }
             button.frame = CGRectMake(0, y, size.width, size.height);
-            [self.scrollView addSubview:button];
+            button.addOn(self.scrollView);
             y += size.height;
         }
         contentHeight = MAX(CGRectGetHeight(self.bounds), y);
@@ -325,7 +327,7 @@ Prop_copy()NSString *timerIdentifier;
         [self updatePageControlPages];
         [self updatePageControlConstraintsIfNeeded];
         [self updatePageControlCurrentPage];
-        self.pageControl.hidden = NO;
+        self.pageControl.byHidden(NO);
     }
 }
 
@@ -539,7 +541,7 @@ Prop_copy()NSString *timerIdentifier;
 }
 
 -(CGSize)computeMinButtonSize{
-    UIFont *font = [UIFont systemFontOfSize:UIFont.buttonFontSize];
+    UIFont *font = UIFontSystemFontOfSize(UIFont.buttonFontSize);
     return [@"A" sizeWithAttributes:@{NSFontAttributeName:font}];
 }
 
@@ -556,17 +558,20 @@ Prop_copy()NSString *timerIdentifier;
 }
 
 -(UIButton *)cloneButtonFromSource:(UIButton *)source{
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.tag = source.tag;
+    UIButton *button = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+        button.byTag(source.tag);
+    });
     if (@available(iOS 15.0, *)) {
-        button.configuration = source.configuration;
-        button.automaticallyUpdatesConfiguration = source.automaticallyUpdatesConfiguration;
+        button
+            .byConfiguration(source.configuration)
+            .byAutomaticallyUpdatesConfiguration(source.automaticallyUpdatesConfiguration);
     }else{
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        button.contentEdgeInsets = source.contentEdgeInsets;
-        button.titleEdgeInsets = source.titleEdgeInsets;
-        button.imageEdgeInsets = source.imageEdgeInsets;
+        button
+            .byContentEdgeInsets(source.contentEdgeInsets)
+            .byTitleEdgeInsets(source.titleEdgeInsets)
+            .byImageEdgeInsets(source.imageEdgeInsets);
 #pragma clang diagnostic pop
     }
     UIControlState states[] = {
@@ -577,38 +582,41 @@ Prop_copy()NSString *timerIdentifier;
     };
     for (NSUInteger i = 0; i < sizeof(states) / sizeof(UIControlState); i++) {
         UIControlState state = states[i];
-        [button setTitle:[source titleForState:state] forState:state];
+        button.titleForStateBy(source.titleByState(state), state);
         if (@available(iOS 15.0, *)) {
             if (!source.configuration) {
-                [button setAttributedTitle:[source attributedTitleForState:state] forState:state];
+                button.attributedTitleForStateBy(source.attributedTitleByState(state), state);
             }
         }else{
-            [button setAttributedTitle:[source attributedTitleForState:state] forState:state];
+            button.attributedTitleForStateBy(source.attributedTitleByState(state), state);
         }
-        [button setTitleColor:[source titleColorForState:state] forState:state];
-        [button setTitleShadowColor:[source titleShadowColorForState:state] forState:state];
-        [button setImage:[source imageForState:state] forState:state];
-        [button setBackgroundImage:[source backgroundImageForState:state] forState:state];
+        button.titleColorForStateBy(source.titleColorByState(state), state)
+            .titleShadowColorForStateBy(source.titleShadowColorByState(state), state)
+            .imageForStateBy(source.imageByState(state), state)
+            .backgroundImageForStateBy(source.backgroundImageByState(state), state);
         if (@available(iOS 13.0, *)) {
-            UIImageSymbolConfiguration *configuration = [source preferredSymbolConfigurationForImageInState:state];
-            if (configuration) [button setPreferredSymbolConfiguration:configuration forImageInState:state];
+            UIImageSymbolConfiguration *configuration = source.preferredSymbolConfigurationByState(state);
+            if (configuration) button.preferredSymbolConfigurationForStateBy(configuration, state);
         }
     }
-    button.backgroundColor = source.backgroundColor;
-    button.contentHorizontalAlignment = source.contentHorizontalAlignment;
-    button.contentVerticalAlignment = source.contentVerticalAlignment;
-    button.semanticContentAttribute = source.semanticContentAttribute;
-    button.tintColor = source.tintColor;
-    button.adjustsImageWhenHighlighted = source.adjustsImageWhenHighlighted;
-    button.adjustsImageWhenDisabled = source.adjustsImageWhenDisabled;
-    button.showsTouchWhenHighlighted = source.showsTouchWhenHighlighted;
-    button.titleLabel.font = source.titleLabel.font;
-    button.titleLabel.textAlignment = source.titleLabel.textAlignment;
-    button.titleLabel.lineBreakMode = source.titleLabel.lineBreakMode;
-    button.layer.cornerRadius = source.layer.cornerRadius;
-    button.layer.masksToBounds = source.layer.masksToBounds;
-    button.layer.borderWidth = source.layer.borderWidth;
-    button.layer.borderColor = source.layer.borderColor;
+    button
+        .byAdjustsImageWhenHighlighted(source.adjustsImageWhenHighlighted)
+        .byAdjustsImageWhenDisabled(source.adjustsImageWhenDisabled)
+        .byShowsTouchWhenHighlighted(source.showsTouchWhenHighlighted)
+        .jobsResetBtnTitleFont(source.titleLabel.font)
+        .jobsResetBtnBgCor(source.backgroundColor)
+        .byContentHorizontalAlignment(source.contentHorizontalAlignment)
+        .byContentVerticalAlignment(source.contentVerticalAlignment)
+        .bySemanticContentAttribute(source.semanticContentAttribute)
+        .byTintColor(source.tintColor);
+    button.titleLabel
+        .byTextAlignment(source.titleLabel.textAlignment)
+        .byLineBreakMode(source.titleLabel.lineBreakMode);
+    button.layer
+        .byCornerRadius(source.layer.cornerRadius)
+        .byMasksToBounds(source.layer.masksToBounds)
+        .byBorderWidth(source.layer.borderWidth)
+        .byBorderColor(source.layer.borderColor);
     NSArray<NSNumber *> *events = @[
         @(UIControlEventTouchUpInside),
         @(UIControlEventTouchDown),
@@ -623,7 +631,7 @@ Prop_copy()NSString *timerIdentifier;
             UIControlEvents event = eventNumber.unsignedIntegerValue;
             NSArray<NSString *> *actions = [source actionsForTarget:target forControlEvent:event];
             for (NSString *actionName in actions) {
-                [button addTarget:target action:NSSelectorFromString(actionName) forControlEvents:event];
+                button.byAddTarget(target, NSSelectorFromString(actionName), event);
                 if (event == UIControlEventTouchUpInside) hasTapTarget = YES;
             }
         }
@@ -646,14 +654,17 @@ Prop_copy()NSString *timerIdentifier;
     if (@available(iOS 14.0, *)) {
         if (!hasTapTarget) {
             __weak UIButton *weakSource = source;
-            [button addAction:[UIAction actionWithHandler:^(__unused UIAction * _Nonnull action) {
-                [weakSource sendActionsForControlEvents:UIControlEventTouchUpInside];
-            }] forControlEvents:UIControlEventTouchUpInside];
+            button.byOnAction(UIControlEventTouchUpInside,
+                              nil,
+                              ^(__unused UIAction *_Nonnull action) {
+                weakSource.bySendActionsForControlEvents(UIControlEventTouchUpInside);
+            });
         }
     }
     if (@available(iOS 15.0, *)) {
-        [button setNeedsUpdateConfiguration];
-        [button updateConfiguration];
+        button
+            .bySetNeedsUpdateConfiguration()
+            .byUpdateConfiguration();
     };return button;
 }
 #pragma mark —— PageControl

@@ -56,8 +56,8 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
 
 -(void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.imageView.frame = self.view.bounds;
-    self.playerLayer.frame = self.view.bounds;
+    self.imageView.byFrame(self.view.bounds);
+    if (self.playerLayer) self.playerLayer.byFrame(self.view.bounds);
     [self refreshSkipButtonCornerRadius];
 }
 
@@ -134,7 +134,7 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
                 })
                 .byBgColor(HEXCOLOR(0xAE8330))
                 .byHidden(!self.configuration.skipButtonVisible);
-            btn.adjustsImageWhenHighlighted = NO;
+            btn.byAdjustsImageWhenHighlighted(NO);
         });
     };return _countdownBtn;
 }
@@ -208,12 +208,12 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
 -(void)renderContent {
     switch (self.configuration.contentType) {
         case JobsOCSplashContentTypeLocalImage:
-            self.imageView.image = [UIImage imageNamed:self.configuration.resourceName inBundle:self.configuration.bundle compatibleWithTraitCollection:nil];
+            self.imageView.byImage([UIImage imageNamed:self.configuration.resourceName inBundle:self.configuration.bundle compatibleWithTraitCollection:nil]);
             break;
         case JobsOCSplashContentTypeLocalGIF: {
             NSURL *url = [self resourceURLWithName:self.configuration.resourceName defaultExtension:@"gif" bundle:self.configuration.bundle];
             NSData *data = url ? [NSData dataWithContentsOfURL:url] : nil;
-            self.imageView.image = data ? [JobsOCSplashGIFDecoder imageWithData:data] : nil;
+            self.imageView.byImage(data ? [JobsOCSplashGIFDecoder imageWithData:data] : nil);
         } break;
         case JobsOCSplashContentTypeRemoteImage:
             [self loadRemoteImage:self.configuration.remoteURL];
@@ -233,7 +233,7 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
     NSURL *cachedURL = [JobsOCSplashMediaCache.shared cachedFileURLForRemoteURL:url];
     if (cachedURL) {
         NSData *data = [NSData dataWithContentsOfURL:cachedURL];
-        self.imageView.image = [self imageWithData:data URL:url];
+        self.imageView.byImage([self imageWithData:data URL:url]);
         return;
     }
     __weak typeof(self) weakSelf = self;
@@ -241,7 +241,7 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
         __strong typeof(weakSelf) self = weakSelf;
         if (!self || !fileURL || error) return;
         NSData *data = [NSData dataWithContentsOfURL:fileURL];
-        self.imageView.image = [self imageWithData:data URL:url];
+        self.imageView.byImage([self imageWithData:data URL:url]);
     }];
 }
 
@@ -264,7 +264,7 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
     AVPlayer *player = [AVPlayer playerWithURL:url];
     AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
     playerLayer.videoGravity = self.configuration.videoGravity;
-    playerLayer.frame = self.view.bounds;
+    playerLayer.byFrame(self.view.bounds);
     [self.view.layer insertSublayer:playerLayer above:self.imageView.layer];
     self.player = player;
     self.playerLayer = playerLayer;

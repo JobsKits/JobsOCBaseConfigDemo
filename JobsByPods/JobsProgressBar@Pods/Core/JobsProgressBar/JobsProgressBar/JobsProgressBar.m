@@ -95,14 +95,14 @@ Prop_assign()BOOL userDragging;
 #pragma mark —— Private
 
 - (void)jobs_progressBarSetup {
-    self.backgroundColor = UIColor.clearColor;
+    self.byBgColor(UIColor.clearColor);
     self.clipsToBounds = NO;
-    UIColor *defaultGreen = [UIColor colorWithRed:0.0 green:0.78 blue:0.32 alpha:1.0];
+    UIColor *defaultGreen = RGBA_COLOR(0.0 * 255.0, 0.78 * 255.0, 0.32 * 255.0, 1.0);
     self.direction = JobsProgressBarDirectionLeftToRight;
     self.valueMode = JobsProgressBarValueModeCountUp;
     self.autoStopOnExternalChange = YES;
     self.progress = 0;
-    self.trackTintColor = [UIColor colorWithWhite:0.86 alpha:1.0];
+    self.trackTintColor = RGBA_SAMECOLOR(0.86 * 255.0, 1.0);
     self.progressTintColor = defaultGreen;
     self.trackThickness = 12;
     self.trackHorizontalInset = 0;
@@ -126,11 +126,11 @@ Prop_assign()BOOL userDragging;
     self.draggable = NO;
     self.dragThumbScales = YES;
     self.dragThumbScale = 1.14;
-    [self addSubview:self.trackView];
-    [self.trackView addSubview:self.fillView];
-    [self addSubview:self.thumbImageView];
-    [self addSubview:self.progressLabel];
-    [self addGestureRecognizer:self.panGesture];
+    self.trackView.addOn(self);
+    self.fillView.addOn(self.trackView);
+    self.thumbImageView.addOn(self);
+    self.progressLabel.addOn(self);
+    self.byAddGestureRecognizer(self.panGesture);
     [self jobs_applyThumbStyle];
 }
 
@@ -185,8 +185,7 @@ Prop_assign()BOOL userDragging;
             fillFrame.size.height = CGRectGetHeight(trackFrame) * displayProgress;
             fillFrame.origin.y = CGRectGetMaxY(trackFrame) - CGRectGetHeight(fillFrame);
             break;
-    }
-    return CGRectIntegral(fillFrame);
+    };return CGRectIntegral(fillFrame);
 }
 
 - (CGPoint)jobs_thumbCenterWithTrackFrame:(CGRect)trackFrame fillFrame:(CGRect)fillFrame {
@@ -226,9 +225,9 @@ Prop_assign()BOOL userDragging;
 
 - (void)jobs_layoutLabelWithTrackFrame:(CGRect)trackFrame {
     BOOL hidden = self.progressLabelPlacement == JobsProgressBarLabelPlacementHidden || (self.autoHideLabel && CGRectGetHeight(self.bounds) < self.labelMinVisibleHeight);
-    self.progressLabel.hidden = hidden;
+    self.progressLabel.byHidden(hidden);
     if (hidden) return;
-    self.progressLabel.text = [NSString stringWithFormat:@"%.0f%%",[self jobs_displayProgress] * 100.0];
+    self.progressLabel.byText([NSString stringWithFormat:@"%.0f%%",[self jobs_displayProgress] * 100.0]);
     CGFloat height = MAX(self.labelMinVisibleHeight, 1);
     CGFloat width = CGRectGetWidth(self.bounds);
     CGFloat y = 0;
@@ -240,7 +239,7 @@ Prop_assign()BOOL userDragging;
 
 - (void)jobs_layoutThumbWithTrackFrame:(CGRect)trackFrame fillFrame:(CGRect)fillFrame {
     BOOL showThumb = !CGSizeEqualToSize(self.thumbSize, CGSizeZero) && (self.thumbImage || self.thumbBackgroundColor || self.thumbBorderColor || self.thumbBorderWidth > 0);
-    self.thumbImageView.hidden = !showThumb;
+    self.thumbImageView.byHidden(!showThumb);
     if (!showThumb) return;
     self.thumbImageView.bounds = CGRectMake(0, 0, self.thumbSize.width, self.thumbSize.height);
     self.thumbImageView.center = [self jobs_thumbCenterWithTrackFrame:trackFrame fillFrame:fillFrame];
@@ -248,11 +247,11 @@ Prop_assign()BOOL userDragging;
 }
 
 - (void)jobs_applyThumbStyle {
-    self.trackView.backgroundColor = self.trackTintColor;
-    self.fillView.backgroundColor = self.progressTintColor;
-    self.thumbImageView.image = self.thumbImage;
+    self.trackView.byBgColor(self.trackTintColor);
+    self.fillView.byBgColor(self.progressTintColor);
+    self.thumbImageView.byImage(self.thumbImage);
     self.thumbImageView.contentMode = self.thumbContentMode;
-    self.thumbImageView.backgroundColor = self.thumbFollowsFillStyle ? self.progressTintColor : self.thumbBackgroundColor;
+    self.thumbImageView.byBgColor(self.thumbFollowsFillStyle ? self.progressTintColor : self.thumbBackgroundColor);
     self.thumbImageView.layer.cornerRadius = self.thumbCornerRadius;
     self.thumbImageView.layer.borderColor = self.thumbBorderColor.CGColor;
     self.thumbImageView.layer.borderWidth = self.thumbBorderWidth;
@@ -261,7 +260,7 @@ Prop_assign()BOOL userDragging;
     self.thumbImageView.layer.shadowOffset = self.thumbShadowOffset;
     self.thumbImageView.layer.shadowColor = self.thumbShadowColor.CGColor;
     self.thumbImageView.clipsToBounds = self.thumbShadowOpacity <= 0;
-    self.progressLabel.textColor = self.progressTintColor;
+    self.progressLabel.byTextCor(self.progressTintColor);
 }
 
 - (void)jobs_setProgress:(CGFloat)progress
@@ -357,30 +356,35 @@ Prop_assign()BOOL userDragging;
 
 - (UIView *)trackView {
     if (!_trackView) {
-        _trackView = UIView.new;
-        _trackView.clipsToBounds = YES;
+        _trackView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byClipsToBounds(YES);
+        });
     };return _trackView;
 }
 
 - (UIView *)fillView {
     if (!_fillView) {
-        _fillView = UIView.new;
-        _fillView.clipsToBounds = YES;
+        _fillView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byClipsToBounds(YES);
+        });
     };return _fillView;
 }
 
 - (UIImageView *)thumbImageView {
     if (!_thumbImageView) {
-        _thumbImageView = UIImageView.new;
-        _thumbImageView.userInteractionEnabled = NO;
+        _thumbImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView.byUserInteractionEnabled(NO);
+        });
     };return _thumbImageView;
 }
 
 - (UILabel *)progressLabel {
     if (!_progressLabel) {
-        _progressLabel = UILabel.new;
-        _progressLabel.textAlignment = NSTextAlignmentCenter;
-        _progressLabel.font = [UIFont systemFontOfSize:13 weight:UIFontWeightSemibold];
+        _progressLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byFont(UIFontWeightSemiboldSize(13))
+                .byTextAlignment(NSTextAlignmentCenter);
+        });
     };return _progressLabel;
 }
 
@@ -424,7 +428,7 @@ Prop_assign()BOOL userDragging;
 
 - (JobsProgressBar * _Nonnull (^)(UIColor *))byTrackTintColor {
     return ^JobsProgressBar *(UIColor *data) {
-        self.trackTintColor = data ?: [UIColor colorWithWhite:0.86 alpha:1.0];
+        self.trackTintColor = data ?: RGBA_SAMECOLOR(0.86 * 255.0, 1.0);
         [self jobs_applyThumbStyle];
         return self;
     };
@@ -432,7 +436,7 @@ Prop_assign()BOOL userDragging;
 
 - (JobsProgressBar * _Nonnull (^)(UIColor *))byProgressTintColor {
     return ^JobsProgressBar *(UIColor *data) {
-        self.progressTintColor = data ?: [UIColor colorWithRed:0.0 green:0.78 blue:0.32 alpha:1.0];
+        self.progressTintColor = data ?: RGBA_COLOR(0.0 * 255.0, 0.78 * 255.0, 0.32 * 255.0, 1.0);
         [self jobs_applyThumbStyle];
         return self;
     };

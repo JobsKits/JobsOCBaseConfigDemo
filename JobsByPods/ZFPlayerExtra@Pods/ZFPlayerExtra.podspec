@@ -20,6 +20,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsOCDSL'
+  spec.dependency 'JobsBaseUI'
 
   spec.source_files = [
     'ZFPlayerExtra.h',

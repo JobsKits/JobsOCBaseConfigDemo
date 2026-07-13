@@ -126,8 +126,8 @@ Prop_strong()UIButton *demoBtn;
                     make.right.equalTo(self.view).offset(-JobsWidth(24));
                     make.height.mas_equalTo(JobsWidth(220));
                 });
-            view.layer.cornerRadius = JobsWidth(8);
-            view.layer.masksToBounds = YES;
+            view.layer.byCornerRadius(JobsWidth(8));
+            view.layer.byMasksToBounds(YES);
         });
     };return _previewView;
 }

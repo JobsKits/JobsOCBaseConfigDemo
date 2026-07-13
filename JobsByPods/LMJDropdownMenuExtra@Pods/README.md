@@ -85,6 +85,7 @@ LMJDropdownMenuExtra@Pods/
 ### 5.5、Pod 依赖
 
 - `LMJDropdownMenu`
+- `JobsOCDSL`
 
 ## 六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -99,6 +100,7 @@ LMJDropdownMenuExtra@Pods/
 ```
 
 - 自建 Pod 对外优先引用公共入口头，不要绕开聚合头直接引用 `Support` 内部子头。
+- `mainBtn` 的普通态图片通过 `JobsOCDSL` 的 `UIButton.byImage(...)` 收口，不直接调用 UIKit `setImage:forState:`。
 - 如果 `LMJDropdownMenuExtra.h` 不是最终公开入口，请先修正 `LMJDropdownMenuExtra.podspec` 的 `public_header_files` 和入口头设计，再修改调用方。
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

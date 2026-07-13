@@ -178,7 +178,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         @jobs_strongify(self)
         return self.makeNavByTitleImageAndAction(string,^id(__kindof UIButton *_Nullable x){
             @jobs_strongify(self)
-            x.selected = !x.selected;
+            x.bySelected(!x.selected);
             /// 退回上一个页面
             self.backViewControllerCore((__kindof UIViewController *)self);
             return nil;
@@ -192,7 +192,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         @jobs_strongify(self)
         return self.makeNavByTitleImageAndAction(string,^id(__kindof UIButton *_Nullable x){
             @jobs_strongify(self)
-            x.selected = !x.selected;
+            x.bySelected(!x.selected);
             /// 退回TabBar0
             self.backTo(0);
             return nil;
@@ -206,7 +206,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         @jobs_strongify(self)
         return self.makeNavByTitlesAndAction(title,backBtnTitle,^id(__kindof UIButton *_Nullable x){
             @jobs_strongify(self)
-            x.selected = !x.selected;
+            x.bySelected(!x.selected);
             self.backTo(0);
             return nil;
         });
@@ -219,7 +219,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         @jobs_strongify(self)
         return self.makeNavByTitlesAndAction(title,backBtnTitle,^id(__kindof UIButton *_Nullable x){
             @jobs_strongify(self)
-            x.selected = !x.selected;
+            x.bySelected(!x.selected);
             /// 退回上一个页面
             self.backViewControllerCore((__kindof UIViewController *)self);
             return nil;
@@ -471,7 +471,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
             @jobs_strongify(self)
             if (self.objBlock) self.objBlock(x);
             self.comingToPushVC(MyCollectionVC.new);
-            toastBy(@"联系我们");
+            toastBy(@"联系我们".tr);
         }).onLongPressGestureBy(^(id data){
             JobsLog(@"");
         });
@@ -556,7 +556,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
         self.cleanUserData(); /// 清除用户数据资料
         JobsPostNotification(退出登录成功, @(YES));
         self.toLogin();
-        toastBy(@"Token 已经过期，请重新登录");
+        toastBy(@"Token 已经过期，请重新登录".tr);
     };
 }
 /// 退出登录应该做的事情
@@ -577,7 +577,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
         @jobs_strongify(self)
         self.doorModel = nil;
 #ifdef DEBUG
-        toastBy(@"Token过期，自动清除本地用户数据");
+        toastBy(@"Token过期，自动清除本地用户数据".tr);
 #endif
     };
 }
@@ -1273,7 +1273,7 @@ JobsKey(_connectionTipsTV)
             textView.scrollEnabled = NO;// 可选的，视具体情况而定
 
             if ([self isKindOfClass:UIViewController.class]) {
-                textView.delegate = self;
+                textView.byDelegate(self);
                 UIViewController *viewController = (UIViewController *)self;
                 textView.addOn(viewController.view).byAdd(^(MASConstraintMaker *make) {
                     make.centerX.equalTo(viewController.view);
@@ -1312,8 +1312,9 @@ JobsKey(_loadingIndicator)
 -(__kindof UIActivityIndicatorView *)loadingIndicator{
     UIActivityIndicatorView *view = Jobs_getAssociatedObject(_loadingIndicator);
     if (!view) {
-        view = [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
-        view.color = JobsGrayColor;
+        view = UIActivityIndicatorView
+            .initBy(UIActivityIndicatorViewStyleLarge)
+            .byColor(JobsGrayColor);
         Jobs_setAssociatedRETAIN_NONATOMIC(_loadingIndicator, view)
     };return view;
 }

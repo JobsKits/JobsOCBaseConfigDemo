@@ -89,7 +89,7 @@ NS_ASSUME_NONNULL_END
                         .byImagePadding(JobsWidth(5));
              buttonModel.clickEventBlock = ^id(__kindof UIButton *_Nullable x){
                  @jobs_strongify(self)
-                 x.selected = !x.selected;
+                 x.byToggleSelected();
                  JobsAppTool.loginWork = FMLoginWork_MyFav;
      //            self.backTo(0);
                  self.backViewControllerCore(self);

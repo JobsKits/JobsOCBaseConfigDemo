@@ -43,10 +43,10 @@ Prop_strong()NSMutableArray *colors;
 }
 
 -(void)showOnParent{
-    if (self.isShowRoad) self.roadLayer.hidden = NO;
+    if (self.isShowRoad) self.roadLayer.byHidden(NO);
     self.gradLayer.byHidden(NO);
 
-    if (self.isShowFence) self.fenceLayer.hidden = NO;
+    if (self.isShowFence) self.fenceLayer.byHidden(NO);
 }
 /// 开始
 -(void)start{

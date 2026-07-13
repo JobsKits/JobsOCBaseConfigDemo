@@ -134,7 +134,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             self->_showStr = @"目标图片对应的字符串编码为（只列举一部分）前面几位都是一样的：".tr
                 .add([data substringToIndex:1000])
                 .add(@"...后面还有很多，就不一一列举了（渲染UI会撑爆内存，最终导致程序崩溃）".tr);
-            self.textView.text = self->_showStr;
+            self.textView.byText(self->_showStr);
         }else @"暂无编码数据！！！".tr.toast();
         return data;
     };
@@ -241,7 +241,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             .jobsResetBtnSubTitle(@"选取相册图片".tr)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 if (self.objBlock) self.objBlock(x);
                 /// 调取系统相册
                 @jobs_weakify(self)
@@ -293,7 +293,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             .jobsResetBtnLayerBorderWidth(JobsWidth(.5f))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 if (self.objBlock) self.objBlock(x);
                 if(isNull(self->_resultStr)){
                     /// 存在于内存里面的编码，转变成图像对外进行输出

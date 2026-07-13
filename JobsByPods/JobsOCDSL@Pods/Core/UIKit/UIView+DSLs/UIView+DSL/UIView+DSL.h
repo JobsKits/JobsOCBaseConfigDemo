@@ -60,6 +60,13 @@ Prop_assign()CGSize sizer;// 避免与size冲突
 Prop_assign()CGPoint Origin;
 #pragma mark —— 初始化方法封装
 +(JobsRetViewByClassBlock _Nonnull)build;
+#pragma mark —— Animation / Transition 终止动作
++(jobsByUIViewAnimationBlock _Nonnull)jobsAnimate API_AVAILABLE(ios(4.0));
++(jobsByUIViewAnimationCompletionBlock _Nonnull)jobsAnimateWithCompletion API_AVAILABLE(ios(4.0));
++(jobsByUIViewAnimationOptionsBlock _Nonnull)jobsAnimateWithOptions API_AVAILABLE(ios(4.0));
++(jobsByUIViewSpringAnimationBlock _Nonnull)jobsAnimateWithSpring API_AVAILABLE(ios(7.0));
++(jobsByUIViewTransitionBlock _Nonnull)jobsTransition API_AVAILABLE(ios(4.0));
++(jobsByUIViewFromToTransitionBlock _Nonnull)jobsTransitionFromViewToView API_AVAILABLE(ios(4.0));
 #pragma mark —— 控件居中的时候，相对于全屏的X和Y值
 /// 当控件相对于view居中的时候，控件的X值
 -(JobsRetCGFloatByViewBlock _Nonnull)xWhenViewInViewCenter;
@@ -192,6 +199,7 @@ Prop(readonly)CGPoint boundCenter;
 #pragma mark —— Identity
 -(JobsRetViewByNSIntegerBlock _Nonnull)byTag;
 -(JobsRetViewByBOOLBlock _Nonnull)byUserInteractionEnabled;
+-(JobsRetViewByBOOLBlock _Nonnull)byTranslatesAutoresizingMaskIntoConstraints;
 -(JobsRetViewByBOOLBlock _Nonnull)byMultipleTouchEnabled;
 -(JobsRetViewByBOOLBlock _Nonnull)byExclusiveTouch;
 #pragma mark —— Rendering

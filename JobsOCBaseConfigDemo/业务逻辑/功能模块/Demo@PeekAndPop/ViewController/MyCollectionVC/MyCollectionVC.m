@@ -93,26 +93,30 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
       contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath
                                            point:(CGPoint)point {
     if (indexPath.section >= self.dataMutArr.count) return nil;
-    return [UIContextMenuConfiguration configurationWithIdentifier:indexPath
-                                                   previewProvider:^UIViewController * _Nullable{
+    return jobsMakeContextMenuConfiguration(indexPath,
+                                             ^UIViewController * _Nullable{
         PreviewVC *previewVC = PreviewVC.new;
         previewVC.previewText = [NSString stringWithFormat:@"Preview for item %ld", (long)indexPath.item];
         return previewVC;
-    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> *suggestedActions) {
-        UIAction *action1 = [UIAction actionWithTitle:@"Action 1".tr
-                                                image:nil
-                                           identifier:nil
-                                              handler:^(__kindof UIAction *_Nonnull action) {
+    },
+                                             ^UIMenu * _Nullable(NSArray<UIMenuElement *> *suggestedActions) {
+        UIAction *action1 = jobsMakeAction(@"Action 1".tr,
+                                           nil,
+                                           nil,
+                                           ^(__kindof UIAction *_Nonnull action) {
             JobsLog(@"Action 1 selected for item %ld", (long)indexPath.item);
-        }];
-        UIAction *action2 = [UIAction actionWithTitle:@"Action 2".tr
-                                                image:nil
-                                           identifier:nil
-                                              handler:^(__kindof UIAction *_Nonnull action) {
+        },
+                                           nil);
+        UIAction *action2 = jobsMakeAction(@"Action 2".tr,
+                                           nil,
+                                           nil,
+                                           ^(__kindof UIAction *_Nonnull action) {
             JobsLog(@"Action 2 selected for item %ld", (long)indexPath.item);
-        }];
-        return [UIMenu menuWithTitle:@"".tr children:@[action1, action2]];
-    }];
+        },
+                                           nil);
+        return jobsMakeMenu(@"".tr, @[action1, action2], nil);
+    },
+                                             nil);
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {

@@ -14,6 +14,7 @@ Pod::Spec.new do |spec|
   spec.description  = <<-DESC
 JobsMakes is a local Objective-C library providing make-style helpers,
 UIKit/Foundation categories, and common model base classes for Jobs projects.
+Its UIKit makers include menu, context-menu, nib, image and bar-button-item factories.
   DESC
 
   spec.homepage     = 'https://example.local/JobsMakes'
@@ -47,7 +48,6 @@ UIKit/Foundation categories, and common model base classes for Jobs projects.
 
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'
-  spec.dependency 'JobsOCKeyboardMgr'
 
   JobsPodspecKitForJobsMakes.apply_standard_xcconfig(spec)
 

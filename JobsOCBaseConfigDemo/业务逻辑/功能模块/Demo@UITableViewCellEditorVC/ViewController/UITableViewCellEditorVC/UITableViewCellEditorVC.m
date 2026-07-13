@@ -279,9 +279,9 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
 -(void)configMsgCell:(UITableViewCell *)cell
                model:(JobsMsgDataModel *)model{
     [self prepareMsgCellSubviewsIfNeeded:cell];
-    cell.textLabel.hidden = YES;
-    cell.detailTextLabel.hidden = YES;
-    cell.imageView.hidden = YES;
+    cell.textLabel.byHidden(YES);
+    cell.detailTextLabel.byHidden(YES);
+    cell.imageView.byHidden(YES);
     cell.byBgColor(JobsClearColor);
     cell.contentView.byBgColor(JobsClearColor);
 
@@ -316,7 +316,7 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
     [self.selectedDataMutArr removeAllObjects];
     self.msgEditBoardView.getDeleteBtn.enabledBlock(self.selectedDataMutArr.count);
     self.msgEditBoardView.getMarkToReadBtn.enabledBlock(self.selectedDataMutArr.count);
-    self.editBtn.selected = NO;
+    self.editBtn.bySelected(NO);
     self.editBtn.jobsResetBtnTitle(@"編輯".tr);
     [self.msgEditBoardView disappearByView:self.view];
 }
@@ -326,7 +326,7 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
     for (int i = 0; i< self.dataMutArr.count; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        cell.selected = YES;
+        cell.bySelected(YES);
         if ([self.tableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
             [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:indexPath];
         }
@@ -341,7 +341,7 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
     for (int i = 0; i< self.dataMutArr.count; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        cell.selected = NO;
+        cell.bySelected(NO);
     }
     /// Data层
     [self.selectedDataMutArr removeAllObjects];
@@ -376,7 +376,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     @jobs_weakify(self)
     if (self.tableView.editing) {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        cell.selected = YES;
+        cell.bySelected(YES);
         NSMutableArray<JobsMsgDataModel *> *dataMutArr = [self manuallyDataAtIndexPath:indexPath];
         self.msgEditBoardView.getDeleteBtn.enabledBlock(dataMutArr.count);
         self.msgEditBoardView.getMarkToReadBtn.enabledBlock(dataMutArr.count);
@@ -398,7 +398,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.tableView.editing) {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        cell.selected = NO;
+        cell.bySelected(NO);
         NSMutableArray<JobsMsgDataModel *> *dataMutArr = [self manuallyDataAtIndexPath:indexPath];
         self.msgEditBoardView.getDeleteBtn.enabledBlock(dataMutArr.count);
         self.msgEditBoardView.getMarkToReadBtn.enabledBlock(dataMutArr.count);
@@ -442,7 +442,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
     //            toastBy(x.titleForNormalState);
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 x.jobsResetBtnTitle(x.selected ? @"完成".tr : @"編輯".tr);
                 [self.tableView setEditing:x.selected animated:YES];
                 x.selected ? [self.getMsgEditBoardView appearByView:self.view] : [self.getMsgEditBoardView disappearByView:self.view];

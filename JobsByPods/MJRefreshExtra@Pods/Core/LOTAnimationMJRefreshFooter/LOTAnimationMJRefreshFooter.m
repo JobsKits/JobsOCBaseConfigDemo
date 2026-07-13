@@ -100,7 +100,7 @@ Prop_strong()LOTAnimationView *animationView;
         _animationView = [LOTAnimationView animationWithFilePath:filePaths];
         _animationView.loopAnimation = YES;
         _animationView.sizer = self.lOTAnimationViewSize;
-        [self addSubview:_animationView];
+        _animationView.addOn(self);
     };return _animationView;
 }
 

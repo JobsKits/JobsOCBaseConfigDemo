@@ -126,7 +126,7 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
             // 有设定背景图片值优先走背景图片设定，背景颜色自动忽略
             if (self.viewModel.bgImage) {
                 //self.viewModel.bgImage;//用系统的backgroundImage属性失灵
-                self.backgroundImageView.image = self.viewModel.bgImage;
+                self.backgroundImageView.byImage(self.viewModel.bgImage);
                 return;
             }
             

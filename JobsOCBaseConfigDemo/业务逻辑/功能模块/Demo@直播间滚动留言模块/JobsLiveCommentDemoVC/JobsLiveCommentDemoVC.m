@@ -44,9 +44,9 @@ Prop_strong()NSMutableArray <NSString *>*messageMutArr;
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.backgroundColor = UIColor.systemBackgroundColor;
-    self.inputBar.alpha = 1;
-    self.liveTableView.alpha = 1;
+    self.view.byBgColor(UIColor.systemBackgroundColor);
+    self.inputBar.byAlpha(1);
+    self.liveTableView.byAlpha(1);
     [self scrollToBottomAnimated:NO];
 }
 #pragma mark —— Action
@@ -126,36 +126,35 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(JobsLiveInputBar *)inputBar{
     if (!_inputBar) {
         _inputBar = JobsLiveInputBar.new;
-        _inputBar.textField.delegate = self;
-        [_inputBar.sendButton addTarget:self
-                                 action:@selector(sendCurrentText)
-                       forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_inputBar];
-        [_inputBar mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view);
-            make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-JobsWidth(8));
-            make.height.mas_equalTo(JobsWidth(56));
-        }];
+        _inputBar.textField.byDelegate(self);
+        _inputBar.sendButton.byAddTarget(self, @selector(sendCurrentText), UIControlEventTouchUpInside);
+        _inputBar
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.view);
+                make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-JobsWidth(8));
+                make.height.mas_equalTo(JobsWidth(56));
+            });
     };return _inputBar;
 }
 
 -(UITableView *)liveTableView{
     if (!_liveTableView) {
-        _liveTableView = [UITableView.alloc initWithFrame:CGRectZero
-                                                    style:UITableViewStylePlain];
-        _liveTableView.dataSource = self;
-        _liveTableView.delegate = self;
-        _liveTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _liveTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-        _liveTableView.backgroundColor = UIColor.clearColor;
-        [_liveTableView registerClass:JobsLiveMsgCell.class
-               forCellReuseIdentifier:JobsLiveMsgCell.reuseIdentifier];
-        [self.view addSubview:_liveTableView];
-        [_liveTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view);
-            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
-            make.bottom.equalTo(self.inputBar.mas_top);
-        }];
+        _liveTableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
+            tableView.registerTableViewCellClass(JobsLiveMsgCell.class, @"");
+            tableView
+                .byDataSource(self)
+                .byDelegate(self)
+                .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .byKeyboardDismissMode(UIScrollViewKeyboardDismissModeInteractive)
+                .byBgColor(UIColor.clearColor)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.view);
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
+                    make.bottom.equalTo(self.inputBar.mas_top);
+                });
+        });
     };return _liveTableView;
 }
 

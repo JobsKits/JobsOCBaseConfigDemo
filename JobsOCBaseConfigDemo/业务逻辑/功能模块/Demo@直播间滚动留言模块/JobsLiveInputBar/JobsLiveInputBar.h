@@ -25,6 +25,18 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsLiveInputBar : UIView

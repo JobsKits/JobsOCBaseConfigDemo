@@ -79,7 +79,7 @@ static dispatch_once_t static_showNumViewOnceToken;
             .jobsResetBtnTitleCor(HEXCOLOR(0xAE8330))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.byToggleSelected();
                 JobsLog(@"%@",x.titleForNormalState)
                 if (self.objBlock) self.objBlock(x);
             });

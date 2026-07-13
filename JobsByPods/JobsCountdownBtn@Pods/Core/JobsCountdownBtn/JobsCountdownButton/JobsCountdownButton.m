@@ -42,7 +42,7 @@
     @jobs_weakify(self)
     self
         .jobsResetBtnTitle(self.jobsCountdownNormalTitle)
-        .jobsResetBtnTitleCor([UIColor colorWithRed:225.0f / 255.0f green:205.0f / 255.0f blue:98.0f / 255.0f alpha:1])
+        .jobsResetBtnTitleCor(RGBA_COLOR(225.0f, 205.0f, 98.0f, 1))
         .jobsResetBtnTitleFont(UIFontWeightRegularSize(11))
         .makeBtnTitleByShowingType(UILabelShowingType_04)
         .byTimerStyle(TimerStyle_anticlockwise)
@@ -91,14 +91,14 @@
     [self jobs_prepareDefaultValue];
     if (self.timer.isRunning) return;
     self.byStartTime(self.jobsCountdownDuration);
-    self.enabled = NO;
+    self.byEnabled(NO);
     self.jobsResetBtnTitle([self jobs_countdownTitleWithSeconds:(NSInteger)ceil(self.jobsCountdownDuration)]);
     self.startTimer();
 }
 
 -(void)jobsResetCountdownTitle {
     [self jobs_prepareDefaultValue];
-    self.enabled = YES;
+    self.byEnabled(YES);
     self.jobsResetBtnTitle(self.jobsCountdownNormalTitle);
 }
 

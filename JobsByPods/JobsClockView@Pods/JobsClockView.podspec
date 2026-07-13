@@ -39,7 +39,9 @@ with dial, number labels, hour hand, minute hand and second hand support.
 
 
   spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsOCDSL'
+  spec.dependency 'JobsMakes'
   spec.dependency 'JobsOCTimer'
   spec.dependency 'JobsOCProtocols'
 

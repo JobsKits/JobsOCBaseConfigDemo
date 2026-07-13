@@ -100,7 +100,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
     jobsByCtrlBlock disappearBlock = _dropDownListView.dropDownListViewDisappear;
     if (disappearBlock) disappearBlock(_btn);
     _dropDownListView = nil;
-    _btn.selected = NO;
+    _btn.bySelected(NO);
     [self refreshDirectionUIWithOpened:NO];
 }
 
@@ -155,11 +155,12 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
     if (!_panelView) {
         _panelView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view.byBgColor(RGBA_COLOR(255, 255, 255, 0.94));
-            view.layer.cornerRadius = JobsWidth(22);
-            view.layer.shadowColor = HEXCOLOR(0x8E7B5B).CGColor;
-            view.layer.shadowOpacity = 0.14f;
-            view.layer.shadowRadius = JobsWidth(22);
-            view.layer.shadowOffset = CGSizeMake(0, JobsWidth(12));
+            view.layer
+                .byCornerRadius(JobsWidth(22))
+                .byShadowColor(HEXCOLOR(0x8E7B5B).CGColor)
+                .byShadowOpacity(0.14f)
+                .byShadowRadius(JobsWidth(22))
+                .byShadowOffset(CGSizeMake(0, JobsWidth(12)));
             view.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                 make.center.equalTo(self.view);
                 make.left.equalTo(self.view).offset(JobsWidth(34));
@@ -194,8 +195,9 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
     if (!_selectedInfoView) {
         _selectedInfoView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view.byBgColor(HEXCOLOR(0xF7F8FA));
-            view.layer.cornerRadius = JobsWidth(16);
-            view.layer.borderWidth = 0;
+            view.layer
+                .byCornerRadius(JobsWidth(16))
+                .byBorderWidth(0);
             view.addOn(self.panelView).byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(26));
                 make.left.equalTo(self.panelView).offset(JobsWidth(40));
@@ -261,7 +263,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 if (x.selected) {
                     /// ❤️只能让它执行一次❤️
                     self.dropDownListView = [self jobsMotivateDropDownListFromView:x

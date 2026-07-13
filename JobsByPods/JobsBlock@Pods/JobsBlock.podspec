@@ -14,6 +14,7 @@ Pod::Spec.new do |spec|
   spec.description      = <<-DESC
 JobsBlock is a header-only Objective-C definitions library containing common block typedefs,
 business block typedefs, parameterized block macro helpers, and centralized forward declarations used across Jobs projects.
+UIKit maker callbacks and UIView animation / transition signatures are centralized here as well.
   DESC
 
   spec.homepage         = 'https://example.local/JobsBlock'

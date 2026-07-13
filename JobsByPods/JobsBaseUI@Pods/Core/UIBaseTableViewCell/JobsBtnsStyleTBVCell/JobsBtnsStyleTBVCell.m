@@ -112,10 +112,10 @@ BaseLayerProtocol_synthesize_part3
         }
     }
     
-    _leftBtn.selected = self.leftBtnVM.jobsSelected;
+    _leftBtn.bySelected(self.leftBtnVM.jobsSelected);
     
     if(self.leftBtnVM.normalImage){
-        _leftBtn.jobsResetBtnImage(_rightBtn.selected ? self.leftBtnVM.highlightImage : self.leftBtnVM.normalImage);
+        _leftBtn.jobsResetBtnImage(_leftBtn.jobs_isSelected ? self.leftBtnVM.highlightImage : self.leftBtnVM.normalImage);
         _leftBtn.jobsResetImagePlacement(NSDirectionalRectEdgeLeading);
         _leftBtn.jobsResetImagePadding(JobsWidth(5));
     }
@@ -171,10 +171,10 @@ BaseLayerProtocol_synthesize_part3
     
     _rightBtn.jobsResetSubTitleTextAlignment(NSTextAlignmentRight);
     
-    _rightBtn.selected = self.rightBtnVM.jobsSelected;
+    _rightBtn.bySelected(self.rightBtnVM.jobsSelected);
     
     if(self.rightBtnVM.normalImage){
-        _rightBtn.jobsResetBtnImage(_rightBtn.selected ? self.rightBtnVM.highlightImage : self.rightBtnVM.normalImage);
+        _rightBtn.jobsResetBtnImage(_rightBtn.jobs_isSelected ? self.rightBtnVM.highlightImage : self.rightBtnVM.normalImage);
         _rightBtn.jobsResetImagePlacement(NSDirectionalRectEdgeLeading);
         _rightBtn.jobsResetImagePadding(JobsWidth(5));
     }

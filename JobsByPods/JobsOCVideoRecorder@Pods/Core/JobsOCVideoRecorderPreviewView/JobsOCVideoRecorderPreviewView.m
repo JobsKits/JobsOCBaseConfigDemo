@@ -110,7 +110,7 @@ Prop_strong() UIPanGestureRecognizer *panGesture;
                .jobsResetBtnTitleFont(UIFontWeightRegularSize(24))
                .jobsResetBtnTitleCor(UIColor.whiteColor)
                .byBgColor(UIColor.blackColor.colorWithAlphaComponentBy(0.35));
-            [btn addTarget:self action:@selector(cancelAction:) forControlEvents:UIControlEventTouchUpInside];
+            btn.byAddTarget(self, @selector(cancelAction:), UIControlEventTouchUpInside);
         });
         _cancelBtn.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.left.bottom.equalTo(self).inset(JobsWidth(6));
@@ -126,7 +126,7 @@ Prop_strong() UIPanGestureRecognizer *panGesture;
                .jobsResetBtnTitleFont(UIFontWeightRegularSize(24))
                .jobsResetBtnTitleCor(UIColor.whiteColor)
                .byBgColor(UIColor.blackColor.colorWithAlphaComponentBy(0.35));
-            [btn addTarget:self action:@selector(saveAction:) forControlEvents:UIControlEventTouchUpInside];
+            btn.byAddTarget(self, @selector(saveAction:), UIControlEventTouchUpInside);
         });
         _saveBtn.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.right.bottom.equalTo(self).inset(JobsWidth(6));

@@ -28,8 +28,8 @@
 
 -(instancetype)init{
     if (self = [super init]) {
-        _baseColor = [UIColor colorWithWhite:0.90 alpha:1];
-        _highlightColor = [UIColor colorWithWhite:1.0 alpha:0.92];
+        _baseColor = RGBA_SAMECOLOR(0.90 * 255.0, 1);
+        _highlightColor = RGBA_SAMECOLOR(1.0 * 255.0, 0.92);
         _animationDuration = 1.4;
         _highlightWidthRatio = 0.35;
         _cornerRadius = -1;

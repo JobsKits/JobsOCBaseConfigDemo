@@ -12,7 +12,7 @@
 -(instancetype)init{
     if (self = [super init]) {
         self.headerDateFormat = @"yyyy年MM月";
-        self.headerTitleFont = [UIFont systemFontOfSize:22 weight:UIFontWeightRegular];
+        self.headerTitleFont = UIFontWeightRegularSize(22);
         self.headerTitleColor = UIColor.blackColor;
         self.headerTitleAlignment = NSTextAlignmentCenter;
         self.headerTitleOffset = CGPointZero;
@@ -20,10 +20,10 @@
         self.weekdayHeight = 34;
         self.headerMinimumDissolvedAlpha = 0;
         self.caseOptions = JobsOCCalendarCaseOptionsHeaderUsesDefaultCase;
-        self.weekdayFont = [UIFont systemFontOfSize:15 weight:UIFontWeightRegular];
+        self.weekdayFont = UIFontWeightRegularSize(15);
         self.weekdayTextColor = UIColor.systemBlueColor;
-        self.titleFont = [UIFont systemFontOfSize:17 weight:UIFontWeightRegular];
-        self.subtitleFont = [UIFont systemFontOfSize:10 weight:UIFontWeightRegular];
+        self.titleFont = UIFontWeightRegularSize(17);
+        self.subtitleFont = UIFontWeightRegularSize(10);
         self.titleDefaultColor = UIColor.blackColor;
         self.titlePlaceholderColor = UIColor.lightGrayColor;
         self.titleSelectionColor = UIColor.whiteColor;

@@ -127,7 +127,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
 }
 /// 去注册【外部调用】
 -(void)animationToRegister{
-    if (self.toRegisterBtn.selected &&
+    if (self.toRegisterBtn.jobs_isSelected &&
         self.registerDoorInputViewBaseStyleMutArr.count >= self.registerDoorInputViewBaseStyleModelMutArr.count) return;
     self.toRegisterBtn.bySelected(YES);
     [self animationChangeRegisterBtnFrame];
@@ -230,7 +230,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
         if ([inputView respondsToSelector:changeColorSEL]) {
             IMP imp = [inputView methodForSelector:changeColorSEL];
             void (*func)(id, SEL, BOOL) = (void *)imp;
-            func(inputView, changeColorSEL, self.toRegisterBtn.selected);
+            func(inputView, changeColorSEL, self.toRegisterBtn.jobs_isSelected);
         }
         inputView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
             data.byJobsWidth(1)
@@ -345,7 +345,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
             if (self.objBlock) self.objBlock(self.appDoorModel);
             [self allRise:data];
         }];
-        [self addSubview:inputView];
+        inputView.addOn(self);
         inputView
             .bySize(CGSizeMake(self.width - self.toRegisterBtn.width - JobsWidth(40), ThingsHeight))
             .byLeft(JobsWidth(20));
@@ -376,8 +376,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
 -(void)initialTitleLab{
     self.titleLab
         .byText(Title7)
-        .byFont([UIFont systemFontOfSize:JobsWidth(20)
-                                  weight:UIFontWeightRegular])
+        .byFont(UIFontWeightRegularSize(JobsWidth(20)))
         .byTextCor(Cor3)
         .bySizeToFit()//sizeToFit也会刷新UI造成UI错位，所以需要提前写
         .byTop(JobsWidth(20))
@@ -390,8 +389,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
         .normalStateTitleColorBy(Cor5)
         .disabledStateTitleColorBy(Cor5.colorWithAlphaComponentBy(0.45f))
         .normalStateTitleBy(Title7)
-        .jobsResetBtnTitleFont([UIFont systemFontOfSize:JobsWidth(16)
-                                                 weight:UIFontWeightRegular])
+        .jobsResetBtnTitleFont(UIFontWeightRegularSize(JobsWidth(16)))
         .jobsResetBtnBgCor(Cor4.colorWithAlphaComponentBy(0.92f))
         .jobsResetBtnCornerRadiusValue(ThingsHeight / 2)
         .bySize(CGSizeMake(self.width - self.toRegisterBtn.width - JobsWidth(40), ThingsHeight));
@@ -410,8 +408,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
     self.abandonLoginBtn
         .jobsResetBtnTitle(Title4)
         .jobsResetBtnTitleCor(Cor4)
-        .jobsResetBtnTitleFont([UIFont systemFontOfSize:JobsWidth(12)
-                                                 weight:UIFontWeightSemibold])
+        .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(JobsWidth(12)))
         .byHeight(JobsWidth(10))
         .byBottom(JobsAppDoorContentViewLoginHeight - JobsWidth(20))
         .byCenterX(self.sendBtn.centerX)
@@ -526,7 +523,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
         if (i == self.loginDoorInputViewBaseStyleMutArr.count) {// 确认密码
             JobsAppDoorInputViewBaseStyle_3 *inputView = JobsAppDoorInputViewBaseStyle_3.new;
             doorInputViewBaseStyle = (JobsAppDoorInputViewBaseStyle *)inputView;
-            [self addSubview:inputView];
+            inputView.addOn(self);
             [self.registerDoorInputViewBaseStyleMutArr addObject:inputView];
             inputView.jobsRichViewByModel(self.registerDoorInputViewBaseStyleModelMutArr[i]);
             @jobs_weakify(self)
@@ -540,7 +537,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
         }else if (i == self.loginDoorInputViewBaseStyleMutArr.count + 1){// 手机号码
             inputView_7 = JobsAppDoorInputViewBaseStyle_7.new;
             doorInputViewBaseStyle = (JobsAppDoorInputViewBaseStyle *)inputView_7;
-            [self addSubview:inputView_7];
+            inputView_7.addOn(self);
             [self.registerDoorInputViewBaseStyleMutArr addObject:inputView_7];
             inputView_7.jobsRichViewByModel(self.registerDoorInputViewBaseStyleModelMutArr[i]);
             @jobs_weakify(self)
@@ -558,7 +555,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
         }else if (i == self.loginDoorInputViewBaseStyleMutArr.count + 2){// 手机验证码
             JobsAppDoorInputViewBaseStyle_1 *inputView = JobsAppDoorInputViewBaseStyle_1.new;
             doorInputViewBaseStyle = (JobsAppDoorInputViewBaseStyle *)inputView;
-            [self addSubview:inputView];
+            inputView.addOn(self);
             [self.registerDoorInputViewBaseStyleMutArr addObject:inputView];
             inputView.jobsRichViewByModel(self.registerDoorInputViewBaseStyleModelMutArr[i]);
             @jobs_weakify(self)
@@ -577,7 +574,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
         }else if (i == self.loginDoorInputViewBaseStyleMutArr.count + 3){// 图形验证码
             JobsAppDoorInputViewBaseStyle_4 *inputView = JobsAppDoorInputViewBaseStyle_4.new;
             doorInputViewBaseStyle = (JobsAppDoorInputViewBaseStyle *)inputView;
-            [self addSubview:inputView];
+            inputView.addOn(self);
             [self.registerDoorInputViewBaseStyleMutArr addObject:inputView];
             inputView.jobsRichViewByModel(self.registerDoorInputViewBaseStyleModelMutArr[i]);
             @jobs_weakify(self)
@@ -630,7 +627,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
         @jobs_strongify(self)
-        if (self.toRegisterBtn.selected) {// 点击了“新用户注册”按钮，正在进入注册页面
+        if (self.toRegisterBtn.jobs_isSelected) {// 点击了“新用户注册”按钮，正在进入注册页面
             [self p_animationToRegister];
         }else{// 点击了“返回登录”按钮，正在进入登录页面 初始状态
             [self animationToLogin];
@@ -652,7 +649,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
             })
             .onClickBy(^(UIButton *x) {
                 @jobs_strongify(self)
-                x.bySelected(!x.selected);
+                x.byToggleSelected();
                 [self endEditing:YES];
                 [self animationChangeRegisterBtnFrame];
             })
@@ -729,7 +726,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
             })
             .onClickBy(^(UIButton *x) {
                 @jobs_strongify(self)
-                x.bySelected(!x.selected);
+                x.byToggleSelected();
                 if (self.objBlock) self.objBlock(x);
             })
             .bySelected(YES)

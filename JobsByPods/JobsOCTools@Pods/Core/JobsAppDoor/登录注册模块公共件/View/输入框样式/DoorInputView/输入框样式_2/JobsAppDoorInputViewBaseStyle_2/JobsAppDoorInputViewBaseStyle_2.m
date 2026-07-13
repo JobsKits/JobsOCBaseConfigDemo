@@ -49,8 +49,13 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 }
 #pragma mark —— 一些私有方法
 -(void)configTextField{
-    _magicTextField.leftView = [UIImageView.alloc initWithImage:self.doorInputViewBaseStyleModel.leftViewIMG];
-    _magicTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
+    _magicTextField
+        .byLeftView(jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byImage(self.doorInputViewBaseStyleModel.leftViewIMG)
+                .byUserInteractionEnabled(NO);
+        }))
+        .byLeftViewMode(self.doorInputViewBaseStyleModel.leftViewMode);
     _magicTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
     _magicTextField.byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance);
     _magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);

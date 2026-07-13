@@ -36,7 +36,7 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(@"JobsTabBarCtrl@横滑 Demo（>5 个按钮）");
+            data.byText(@"JobsTabBarCtrl@横滑 Demo（>5 个按钮）".tr);
             data.byFont(UIFontWeightRegularSize(18));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
@@ -228,7 +228,7 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
             })];
 
             [self addChildViewController:ctrl];
-            [self.view addSubview:ctrl.view];
+            ctrl.view.addOn(self.view);
             ctrl.view.byFrame(self.view.bounds);
 
             [ctrl didMoveToParentViewController:self];

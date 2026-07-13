@@ -70,7 +70,7 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
         data.add(UIBarButtonItem.initBy(self.ruleBtn));
     });
     
-    self.gk_navItemRightSpace = JobsWidth(16);
+    self.byGKNavItemRightSpace(JobsWidth(16));
     self.makeNavByAlpha(1);
     
     self.topLineLab.byAlpha(0);
@@ -117,11 +117,11 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 mainTableViewDidScroll:(UIScrollView *)scrollView{
     JobsLog(@"contentOffsetY = %f",scrollView.contentOffset.y);
     
-    self.gk_navigationBar.byAlpha(scrollView.contentOffset.y / 200);
-
-    self.gk_navigationBar.byHidden(NO);
-
-    self.gk_navigationBar.byAlpha(scrollView.contentOffset.y / 200);
+    self.byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
+        navigationBar
+            .byHidden(NO)
+            .byAlpha(scrollView.contentOffset.y / 200);
+    });
 
     
     self.topLineLab.byAlpha(scrollView.contentOffset.y / 200);

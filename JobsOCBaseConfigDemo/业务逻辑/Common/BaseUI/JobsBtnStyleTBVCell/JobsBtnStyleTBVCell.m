@@ -71,8 +71,8 @@ BaseViewProtocol_synthesize
     _viewModel = viewModel;
     @jobs_weakify(self)
     /// viewModel + textModel
-    _button.selected = viewModel.jobsSelected;
-    _button.enabled = viewModel.jobsEnabled;/// 这个属性为YES，则优先响应Btn。这个属性为NO，则响应UITableViewCell
+    _button.bySelected(viewModel.jobsSelected);
+    _button.byEnabled(viewModel.jobsEnabled);/// 这个属性为YES，则优先响应Btn。这个属性为NO，则响应UITableViewCell
     _button.resetByViewModel(viewModel,self.selected)
         .onClickBy(^(UIButton *x){
             @jobs_strongify(self)
@@ -107,8 +107,8 @@ BaseViewProtocol_synthesize
 -(void)setButtonModel:(UIButtonModel *)buttonModel{
     _buttonModel = buttonModel;
     @jobs_weakify(self)
-    _button.selected = buttonModel.jobsSelected;
-    _button.enabled = buttonModel.jobsEnabled;
+    _button.bySelected(buttonModel.jobsSelected);
+    _button.byEnabled(buttonModel.jobsEnabled);
     _button.resetByButtonModel(buttonModel,self.selected)
         .onClickBy(^(UIButton *x){
             @jobs_strongify(self)
@@ -159,7 +159,7 @@ BaseViewProtocol_synthesize
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if(self.objBlock) self.objBlock(x);
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 if(self.viewModel) x.resetByViewModel(self.viewModel,self.selected);
                 if(self.buttonModel) x.resetByButtonModel(self.buttonModel,self.selected);
             })

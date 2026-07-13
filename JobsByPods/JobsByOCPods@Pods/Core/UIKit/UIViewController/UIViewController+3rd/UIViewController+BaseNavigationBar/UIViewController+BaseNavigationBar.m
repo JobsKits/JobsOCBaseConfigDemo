@@ -70,10 +70,11 @@ JobsKey(_leftBarButtonItem_back)
                                                nil,
                                                imageName);
             @jobs_weakify(self)
-            LeftBarButtonItem_back = [UIBarButtonItem.alloc initWithImage:[backImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                                                    style:UIBarButtonItemStyleDone
-                                                                   target:nil
-                                                                   action:nil]
+            LeftBarButtonItem_back = jobsMakeBarButtonItemByImage([backImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                                                  UIBarButtonItemStyleDone,
+                                                                  nil,
+                                                                  nil,
+                                                                  nil)
                 .byRacCommand([RACCommand.alloc initWithSignalBlock:^RACSignal * _Nonnull(id _Nullable input) {
                     @jobs_strongify(self)
                     self.goBack(input);

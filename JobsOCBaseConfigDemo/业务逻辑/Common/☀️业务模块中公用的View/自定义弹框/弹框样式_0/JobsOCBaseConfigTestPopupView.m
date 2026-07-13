@@ -36,7 +36,7 @@ static dispatch_once_t static_testPopupViewOnceToken;
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
 
-        self.backgroundImageView.image = @"测试弹窗的背景图".img;
+        self.backgroundImageView.byImage(@"测试弹窗的背景图".img);
     };return self;
 }
 
@@ -77,7 +77,7 @@ static dispatch_once_t static_testPopupViewOnceToken;
             .jobsResetBtnSubTitle(isNull(self.viewModel.subTextModel.text) ? @"相关信息".tr: self.viewModel.textModel.text)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
@@ -100,7 +100,7 @@ static dispatch_once_t static_testPopupViewOnceToken;
         .jobsResetBtnTitleFont(UIFontWeightRegularSize(18))
         .onClickBy(^(UIButton *x){
             @jobs_strongify(self)
-            x.selected = !x.selected;
+            x.bySelected(!x.selected);
             [self tf_hide:nil];
             if(self.objBlock) self.objBlock(x);
         })

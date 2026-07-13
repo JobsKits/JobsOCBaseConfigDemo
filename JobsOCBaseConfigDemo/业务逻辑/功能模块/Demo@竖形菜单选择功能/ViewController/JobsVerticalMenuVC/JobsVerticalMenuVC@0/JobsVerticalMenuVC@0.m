@@ -131,11 +131,11 @@ Prop_assign()BOOL searchMode;
             }
         }
         /// 添加新的视图
-        subview.frame = CGRectMake(self.tableView.frame.size.width,
+        subview.byFrame(CGRectMake(self.tableView.frame.size.width,
                                    self.tableView.top,
                                    self.view.frame.size.width - self.tableView.frame.size.width,
-                                   self.view.frame.size.height - self.tableView.top);
-        [self.view addSubview:subview];
+                                   self.view.frame.size.height - self.tableView.top));
+        subview.addOn(self.view);
         if ([subview isKindOfClass:JobsVerticalMenuSubView.class]) {
             NSUInteger index = [self.rightViewArray indexOfObject:subview];
             if (index != NSNotFound) {
@@ -215,21 +215,22 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     }
     [self.searchViewWidthConstraint setOffset:active ? self.expandedSearchWidth : 0];
     UIViewAnimationOptions options = active ? UIViewAnimationOptionCurveEaseOut : UIViewAnimationOptionCurveEaseIn;
-    [UIView animateWithDuration:active ? .24f : .18f
-                          delay:0
-                        options:options
-                     animations:^{
+    UIView.jobsAnimateWithOptions(active ? .24f : .18f,
+        0,
+        options,
+        ^{
         self.gk_navTitleBtn.byAlpha(active ? 0 : 1);
         self.searchView.byAlpha(active ? 1 : 0);
         [self.gk_navigationBar layoutIfNeeded];
-    } completion:^(BOOL finished) {
+    },
+        ^(BOOL finished) {
         if (active) {
             [self.searchView.textField becomeFirstResponder];
         } else {
             self.searchView.byHidden(YES);
             [self refreshSearchToggleBtnByActive:NO];
         }
-    }];
+    });
 }
 #pragma mark —— lazyLoad
 /// BaseViewProtocol

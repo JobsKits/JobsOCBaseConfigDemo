@@ -65,6 +65,7 @@ JobsOCOpen@Pods/
 - `Core` 暴露配置对象、打开器、应用内 WebVC 和字符串便捷分类。
 - `Support` 当前包含 `NSString+Sys`，只为当前 Pod 内部提供 `byTrimmingCharactersInSet` 字符串裁剪 DSL，不回引 `JobsByOCPods`。
 - `JobsOCOpen.h` 是公开聚合入口，外部引用不应绕开入口头直接引内部文件。
+- 应用内 WebVC 的视图附着、Frame 与自动缩放掩码统一走 `JobsOCDSL`；`WKWebView` 尚无带 `WKWebViewConfiguration` 的 Jobs 构造入口，初始化与 WebKit 专属代理属性暂保留系统写法，后续应先补底层封装再迁移。
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -89,6 +90,7 @@ JobsOCOpen@Pods/
 - `JobsBlock`
 - `JobsGetWindow`
 - `JobsOCDefs`
+- `JobsOCDSL`
 - `JobsStringUtils`
 
 ## 六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

@@ -36,7 +36,7 @@ static CGFloat jobsDropDownListViewHeightByModels(NSArray <__kindof UIViewModel 
     [dropDownListView actionObjBlock:^(id selectedData) {
         if ([motivateFromView isKindOfClass:UIButton.class]) {
             UIButton *btn = (UIButton *)motivateFromView;
-            btn.selected = NO;
+            btn.bySelected(NO);
         }
         if (finishBlock) finishBlock(selectedData);
         dropDownListView.dropDownListViewDisappear(nil);
@@ -52,7 +52,7 @@ static CGFloat jobsDropDownListViewHeightByModels(NSArray <__kindof UIViewModel 
         location.byJobsWidth(anchorFrame.size.width)
                 .byJobsHeight(listHeight);
     }));
-    [jobsGetMainWindow() addSubview:dropDownListView];
+    dropDownListView.addOn(jobsGetMainWindow());
     return dropDownListView;
 }
 

@@ -14,10 +14,12 @@ static CGFloat JobsOCGraphicCaptchaRandomCGFloat(CGFloat min, CGFloat max) {
 }
 
 static UIColor *JobsOCGraphicCaptchaRandomColor(CGFloat alpha) {
-    return [UIColor colorWithHue:JobsOCGraphicCaptchaRandomCGFloat(0, 1)
-                      saturation:JobsOCGraphicCaptchaRandomCGFloat(0.45f, 0.95f)
-                      brightness:JobsOCGraphicCaptchaRandomCGFloat(0.45f, 0.95f)
-                           alpha:alpha];
+    return jobsMakeCor2(^(__kindof JobsCorModel * _Nullable data) {
+        data.byHue(JobsOCGraphicCaptchaRandomCGFloat(0, 1))
+            .bySaturation(JobsOCGraphicCaptchaRandomCGFloat(0.45f, 0.95f))
+            .byBrightness(JobsOCGraphicCaptchaRandomCGFloat(0.45f, 0.95f))
+            .byAlpha(alpha);
+    });
 }
 
 @interface JobsOCGraphicCaptchaView (){
@@ -51,7 +53,7 @@ static UIColor *JobsOCGraphicCaptchaRandomColor(CGFloat alpha) {
     self.shouldRefreshWhenTapped = YES;
     self.interferenceLineCount = 7;
     self.noisePointCount = 18;
-    self.captchaBackgroundColor = [UIColor colorWithWhite:1 alpha:0.92f];
+    self.captchaBackgroundColor = RGBA_SAMECOLOR(1 * 255.0, 0.92f);
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                           action:@selector(jobs_refreshCaptchaByTap)];
     [self addGestureRecognizer:tap];
@@ -162,7 +164,7 @@ static UIColor *JobsOCGraphicCaptchaRandomColor(CGFloat alpha) {
 
 -(UIFont *)font{
     if (!_font) {
-        _font = [UIFont boldSystemFontOfSize:18];
+        _font = UIFontBoldSystemFontOfSize(18);
     };return _font;
 }
 
@@ -172,7 +174,7 @@ static UIColor *JobsOCGraphicCaptchaRandomColor(CGFloat alpha) {
 
 -(UIColor *)captchaBackgroundColor{
     if (!_captchaBackgroundColor) {
-        _captchaBackgroundColor = [UIColor colorWithWhite:1 alpha:0.92f];
+        _captchaBackgroundColor = RGBA_SAMECOLOR(1 * 255.0, 0.92f);
     };return _captchaBackgroundColor;
 }
 

@@ -100,8 +100,9 @@ NS_INLINE __kindof JobsTextField *_Nonnull makeJobsTextField(jobsByJobsTextField
 
      或者
 
-     UITextField *textField = [[UITextField alloc] init];
-     textField.enabled = NO; // 设置为不可编辑状态
+     UITextField *textField = jobsMakeTextField(^(__kindof UITextField *_Nullable textField) {
+         textField.byEnabled(NO); // 设置为不可编辑状态
+     });
 
      // 创建一个信号
      RACSubject *textFieldSignal = [RACSubject subject];

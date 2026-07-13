@@ -84,7 +84,7 @@ Prop_copy()NSArray <__kindof UIButton*>*datas;
         for (id data in self.datas) {
             if([data isKindOfClass:UIButton.class]){
                 UIButton *button = (UIButton *)data;
-                if(btn != button) button.selected = NO;
+                if(btn != button) button.bySelected(NO);
             }
         }
     };
@@ -98,8 +98,8 @@ Prop_copy()NSArray <__kindof UIButton*>*datas;
                                       .onClickBy(^(UIButton *x){
                                           JobsLog(@"");
                                           @jobs_strongify(self)
-                                          x.selected = !x.selected;
-                                          x.jobsResetBtnBgImage(x.selected ? @"首页悬浮按钮（朝右）".img : @"首页悬浮按钮（朝左）".img);
+                                          x.byToggleSelected();
+                                          x.jobsResetBtnBgImage(x.jobs_isSelected ? @"首页悬浮按钮（朝右）".img : @"首页悬浮按钮（朝左）".img);
                                           if (self.objBlock) self.objBlock(x);
                                       }).onLongPressGestureBy(^(id data){
                                           JobsLog(@"");
@@ -133,16 +133,16 @@ Prop_copy()NSArray <__kindof UIButton*>*datas;
         @jobs_weakify(self)
         _stackView = self.addSubview(jobsMakeStackView(^(__kindof UIStackView * _Nullable stackView) {
             @jobs_strongify(self)
-            stackView.byBgColor(JobsClearColor);
-
-            stackView.axis = UILayoutConstraintAxisVertical; // 垂直排列
-            stackView.spacing = 0; // 每个按钮之间的间距
-            stackView.distribution = UIStackViewDistributionFillEqually; // 平均分配高度
-            stackView.alignment = UIStackViewAlignmentFill;
+            stackView
+                .byAxis(UILayoutConstraintAxisVertical)
+                .bySpacing(0)
+                .byDistribution(UIStackViewDistributionFillEqually)
+                .byAlignment(UIStackViewAlignmentFill)
+                .byBgColor(JobsClearColor);
             for (id data in self.datas) {
                 if([data isKindOfClass:UIView.class]){
                     UIView *view = (UIView *)data;
-                    stackView.add(view);
+                    stackView.byAddArrangedSubview(view);
                 }
             }
         })).setMasonryBy(^(MASConstraintMaker *_Nonnull make){

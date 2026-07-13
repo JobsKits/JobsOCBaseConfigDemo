@@ -19,8 +19,8 @@ Prop_strong()ZFSliderView *sliderView;
 @synthesize player = _player;
 - (instancetype)init {
     if (self = [super init]) {
-        [self addSubview:self.playBtn];
-        [self addSubview:self.sliderView];
+        self.playBtn.addOn(self);
+        self.sliderView.addOn(self);
         [self resetControlView];
     };return self;
 }
@@ -36,20 +36,20 @@ Prop_strong()ZFSliderView *sliderView;
     
     min_w = 100;
     min_h = 100;
-    self.playBtn.frame = CGRectMake(min_x, min_y, min_w, min_h);
-
-    self.playBtn.center = self.center;
+    self.playBtn
+        .byFrame(CGRectMake(min_x, min_y, min_w, min_h))
+        .byCenterPoint(self.center);
     
     min_x = 0;
     min_y = min_view_h - 80;
     min_w = min_view_w;
     min_h = 1;
-    self.sliderView.frame = CGRectMake(min_x, min_y, min_w, min_h);
+    self.sliderView.byFrame(CGRectMake(min_x, min_y, min_w, min_h));
 
 }
 
 - (void)resetControlView {
-    self.playBtn.hidden = YES;
+    self.playBtn.byHidden(YES);
 
     self.sliderView.value = 0;
     self.sliderView.bufferValue = 0;
@@ -75,20 +75,20 @@ Prop_strong()ZFSliderView *sliderView;
 - (void)gestureSingleTapped:(ZFPlayerGestureControl *)gestureControl{
     if (self.player.currentPlayerManager.isPlaying) {
         [self.player.currentPlayerManager pause];
-        self.playBtn.hidden = NO;
+        self.playBtn.byHidden(NO);
 
-        self.playBtn.transform = CGAffineTransformMakeScale(1.5f, 1.5f);
+        self.playBtn.byTransform(CGAffineTransformMakeScale(1.5f, 1.5f));
         __weak typeof(self) weakSelf = self;
         [UIView animateWithDuration:0.2f
                               delay:0
                             options:UIViewAnimationOptionCurveEaseIn
                          animations:^{
             __strong typeof(weakSelf) strongSelf = weakSelf;
-            strongSelf.playBtn.transform = CGAffineTransformIdentity;
+            strongSelf.playBtn.byTransform(CGAffineTransformIdentity);
         } completion:nil];
     } else {
         [self.player.currentPlayerManager play];
-        self.playBtn.hidden = YES;
+        self.playBtn.byHidden(YES);
 
     }
 }
@@ -104,12 +104,11 @@ Prop_strong()ZFSliderView *sliderView;
 #pragma mark —— lazyLoad
 - (UIButton *)playBtn {
     if (!_playBtn) {
-        _playBtn = (UIButton *)UIButton.alloc.init
-            .byViewBlock(^(__kindof UIView *view) {
-                [(UIButton *)view setImage:@"icon_play_pause".img
-                                  forState:UIControlStateNormal];
-            })
-            .byUserInteractionEnabled(NO);
+        _playBtn = jobsMakeBaseButton(^(__kindof UIButton * _Nullable button) {
+            button
+                .byImage(@"icon_play_pause".img)
+                .byUserInteractionEnabled(NO);
+        });
     };return _playBtn;
 }
 

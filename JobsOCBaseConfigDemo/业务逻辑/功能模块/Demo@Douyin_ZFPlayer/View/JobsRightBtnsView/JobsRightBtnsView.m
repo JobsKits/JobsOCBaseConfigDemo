@@ -116,7 +116,7 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
 #pragma mark —— Set方法
 -(void)setIsSelected:(BOOL)isSelected{
     _isSelected = isSelected;
-    self.loveBtn.selected = _isSelected;
+    self.loveBtn.bySelected(_isSelected);
     self.loveBtn.jobsResetBtnTitle(@"");
     self.loveBtn.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTop,0);
 }
@@ -132,19 +132,19 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
             .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
             .onClickBy(^(UIButton *x){
                 JobsLog(@"我是点赞");
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 @jobs_weakify(x)
                 [x.imageView addViewAnimationWithCompletionBlock:^(id data) {
                     @jobs_strongify(self)
                     @jobs_strongify(x)
-                    x.tag = MKRightBtnViewBtnType_loveBtn;//写在block外部，此值异常
+                    x.byTag(MKRightBtnViewBtnType_loveBtn);//写在block外部，此值异常
                     if (self.objBlock) self.objBlock(x);
                 }];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        [self addSubview:_loveBtn];
-        [self layoutIfNeeded];
+        _loveBtn.addOn(self);
+        self.byLayoutIfNeeded();
     }
     _loveBtn.jobsResetBtnImage(_loveBtn.selected ? @"视频未点赞".img : @"视频未点赞".img);
     return _loveBtn;

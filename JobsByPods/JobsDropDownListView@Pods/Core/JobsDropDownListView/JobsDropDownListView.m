@@ -81,7 +81,7 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
     @jobs_weakify(self)
     return ^(UIControl *_Nullable ctrl){
         @jobs_strongify(self)
-        ctrl.selected = NO;
+        ctrl.bySelected(NO);
         [self removeFromSuperview];
     };
 }

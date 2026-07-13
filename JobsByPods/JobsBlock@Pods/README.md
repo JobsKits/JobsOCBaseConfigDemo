@@ -70,9 +70,19 @@ JobsBlock@Pods/
 
 - `Core/确定参数的Block/ReturnByCertainParametersBlock.h` 集中维护带返回值的确定参数 Block，`UITextView`、`UIBezierPath / CALayer / UIView` 方法型 DSL 相关返回类型统一从这里暴露。
 - `JobsOCDSL` 新增系统类 DSL 时，所需 `JobsRet<Class>By<Type>Block` 统一先在 `ReturnByCertainParametersBlock.h` 查找；缺失时补在这里，避免 DSL 头文件私自定义 Block。
+- `ReturnByCertainParametersBlock.h` 统一提供 `JobsRetUNUserNotificationCenterByDelegateBlock`、`JobsRetBarAppearanceByCorBlock`，并集中维护按钮任意组合状态的 `JobsRetBtnByImageAndControlStateBlock`、`JobsRetBtnByCorAndControlStateBlock`、`JobsRetBtnByStringAndControlStateBlock`、`JobsRetBtnByAttributedStringAndControlStateBlock`、`JobsRetBtnBySymbolConfigurationAndControlStateBlock` 以及状态型 Symbol Configuration 查询 `JobsRetSymbolConfigurationByControlStateBlock`；业务 Pod 不再私自声明同签名 Block。
+- `ReturnByCertainParametersBlock.h` 统一提供 `UIStackView` 与 `UISwitch` 返回型 Block，供布局轴、分布、对齐、间距以及开关状态 / 颜色 DSL 返回当前主对象。
+- `VoidByCertainParametersBlock.h` 与 `ReturnByCertainParametersBlock.h` 分别提供 `UISegmentedControl` 创建回调和链式返回 Block，供 `JobsMakes` / `JobsOCDSL` 共同复用。
+- `VoidByCertainParametersBlock.h` 集中提供 `UIAction` / `UIMenu` / `UIContextMenuConfiguration` / `UINib` / `UIBarButtonItem` 工厂回调，以及 `UIView` 普通动画、options、spring 和 transition 终止动作签名。
+- `ReturnByCertainParametersBlock.h` 提供圆角矩形与指定圆角的 `UIBezierPath` 工厂 Block；弧线工厂与 `addArcWithCenter:` 参数完全相同，直接复用 `JobsRetBezierPathByAddArcBlock`，不重复定义同签名 Block。
+- `UIContextualAction` 与 `UISwipeActionsConfiguration` 的创建回调 / 链式返回 Block 统一由 `JobsBlock` 暴露，供滑动操作工厂和图片、颜色、标题、全滑触发属性 DSL 复用。
+- `UIBarAppearance`、`UINavigationBarAppearance`、`UINavigationBar` 与 `UITabBar` 的返回型 Block 按属性所属层集中维护；父类背景 / 阴影能力不在子类重复定义。
+- `JobsBlock.h` 提供 `JobsRetOCGraphicCaptchaViewByFontBlock`，供自建 `JobsOCGraphicCaptchaView+DSL` 复用；对应类型只在 `JobsBlockHeader.h` 前向声明，不反向依赖业务 Pod。
+- `ReturnByCertainParametersBlock.h` 提供 `JobsOCCalendar` 数据源、代理链式返回 Block；类型和协议只在 `JobsBlockHeader.h` 前向声明，避免 `JobsBlock` 反向依赖日历 Pod。
 - `JobsBlock.h` 暴露 `JobsRetUIViewModelByJobsByTextModelBlockBlock`、`JobsRetUIButtonModelByJobsByTextModelBlockBlock` 等嵌套 Model 配置返回类型，用于 `JobsModelDSL` 在大 Model 里回调配置子 Model 后继续返回自身。
 - `JobsBlock.h` / `ReturnByCertainParametersBlock.h` 暴露 `FSCalendar` 子对象配置相关 Block 类型，用于 `JobsOCDSL` 在 `appearance`、`calendarHeaderView`、`swipeToChooseGesture` 回调配置后继续返回主 `FSCalendar`。
 - `JobsBlock.h` / `ReturnByCertainParametersBlock.h` 统一承接 `JobsOCDSL` 第三方 DSL 所需 Block typedef，包括 `YTKNetwork`、`GKNavigationBar`、`ZFPlayer`、`Texture` 的链式配置返回类型。
+- `JobsBlock.h` 提供 `jobsByGKCustomNavigationBarBlock` 与 `JobsRetGKNavVCByNavigationBarBlock`，让控制器通过 `byGKNavigationBarBlock(...)` 配置 GK 导航栏子对象后仍返回原控制器继续主链。
 - `HXPhotoPickerObjC` 相关 DSL 需要的 `HXPhotoView`、`HXPhotoManager`、`HXPhotoConfiguration` Block 别名统一在 `JobsBlock.h` 暴露，协议 / 类向前声明集中放在 `JobsBlockHeader.h`。
 - `JobsOCTimerMgr` 相关 DSL 的 `JobsTimerMgr` 与内部 `_JobsTimerMgrEntry` 返回型 Block 统一由 `JobsBlock.h` 管理，相关类向前声明集中放在 `JobsBlockHeader.h`。
 - `JobsPresentTransitionMgr` 的配置回调使用 `jobsByPresentTransitionManagerBlock`，由 `JobsBlock.h` 统一暴露，类向前声明集中放在 `JobsBlockHeader.h`。

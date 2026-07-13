@@ -39,9 +39,9 @@ JobsKey(_xl_pushTranstion)
 - (void)setXl_pushTranstion:(XLBubbleTransition *)xl_pushTranstion{
     if (xl_pushTranstion) {
         xl_pushTranstion.transitionType = XLBubbleTransitionTypeShow;
-        self.navigationController.delegate = self;
+        self.navigationController.byDelegate(self);
     }else {
-        self.navigationController.delegate = nil;
+        self.navigationController.byDelegate(nil);
     }
     Jobs_setAssociatedRETAIN_NONATOMIC(_xl_pushTranstion, xl_pushTranstion)
 }
@@ -55,9 +55,9 @@ JobsKey(_xl_popTranstion)
 - (void)setXl_popTranstion:(XLBubbleTransition *)xl_popTranstion {
     if (xl_popTranstion) {
         xl_popTranstion.transitionType = XLBubbleTransitionTypeHide;
-        self.navigationController.delegate = self;
+        self.navigationController.byDelegate(self);
     }else {
-        self.navigationController.delegate = nil;
+        self.navigationController.byDelegate(nil);
     }
     Jobs_setAssociatedRETAIN_NONATOMIC(_xl_popTranstion, xl_popTranstion)
 }

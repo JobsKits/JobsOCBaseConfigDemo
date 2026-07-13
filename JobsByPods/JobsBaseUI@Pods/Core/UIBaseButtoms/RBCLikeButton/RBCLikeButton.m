@@ -133,19 +133,19 @@ BaseButtonProtocol_synthesize
                    thumbNum:(NSInteger)thumbNum
                   animation:(BOOL)animation {
     self.isNeedAnimation = animation;
-    self.selected = selected;
+    self.bySelected(selected);
     self.thumpNum = thumbNum;
 }
 
 -(void)cancelLike{
     self.isNeedAnimation = NO;
-    self.selected = NO;
+    self.bySelected(NO);
 }
 
 -(void)recoverLike{
     self.isNeedAnimation = NO;
     self.thumpNum += 1;
-    self.selected = YES;
+    self.bySelected(YES);
 }
 /// 开始粒子动画
 -(void)startAnimation{
@@ -209,7 +209,7 @@ BaseButtonProtocol_synthesize
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        if (self.selected){ /// 如果此时取消了点赞,则不执行动画
+        if (self.jobs_isSelected){ /// 如果此时取消了点赞,则不执行动画
             @jobs_weakify(self)
             [@"countLabel" makeCAKeyframeAnimationByBlock:^(CAKeyframeAnimation * _Nullable animation) {
                 @jobs_strongify(self)

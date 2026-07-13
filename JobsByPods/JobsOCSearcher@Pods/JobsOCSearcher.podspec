@@ -38,6 +38,9 @@ deletion, and clear-history support for Jobs projects.
   spec.header_dir = 'JobsOCSearcher'
 
   spec.dependency 'JobsBlock'
+  spec.dependency 'JobsBaseUI'
+  spec.dependency 'JobsMakes'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsOCDefs'
 
   JobsPodspecKitForJobsOCSearcher.apply_standard_exclude_files(spec)

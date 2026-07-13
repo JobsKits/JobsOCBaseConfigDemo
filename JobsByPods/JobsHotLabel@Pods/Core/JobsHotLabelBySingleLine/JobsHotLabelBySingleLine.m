@@ -111,7 +111,7 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
     return ^__kindof UIButton *_Nullable(UIViewModel *_Nullable vm){
         return jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
             @jobs_strongify(self)
-            btn.selected = self.viewModel.jobsSelected;
+            btn.bySelected(self.viewModel.jobsSelected);
             btn.requestParams = vm.requestParams;
             btn.jobsResetBtnTitle(vm.textModel.text)
             .jobsResetBtnTitleFont(vm.textModel.font)
@@ -120,7 +120,7 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
                 JobsLog(@"");
                 @jobs_strongify(self)
                 [self changeButtonState];
-                x.selected = !x.selected;
+                x.byToggleSelected();
                 if (self.objBlock) self.objBlock(x);
             })
             .JobsBlock1(^(id _Nullable data) {
@@ -149,7 +149,7 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
 
 -(void)changeButtonState{
     for (UIButton *btn in self.btnMutArr) {
-        btn.selected = NO;
+        btn.bySelected(NO);
     }
 }
 #pragma mark —— lazyLoad
@@ -181,9 +181,10 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
         @jobs_weakify(self)
         _stackView = jobsMakeStackView(^(__kindof UIStackView * _Nullable stackView) {
             @jobs_strongify(self)
-            stackView.axis = UILayoutConstraintAxisHorizontal;
-            stackView.distribution = UIStackViewDistributionEqualSpacing;
-            stackView.alignment = UIStackViewAlignmentCenter;
+            stackView
+                .byAxis(UILayoutConstraintAxisHorizontal)
+                .byDistribution(UIStackViewDistributionEqualSpacing)
+                .byAlignment(UIStackViewAlignmentCenter);
             /// 注意这里设置的约束，最后一个宽度的约束很关键
             stackView.addOn(self.scrollView).byAdd(^(MASConstraintMaker *make) {
                 make.height.equalTo(self);

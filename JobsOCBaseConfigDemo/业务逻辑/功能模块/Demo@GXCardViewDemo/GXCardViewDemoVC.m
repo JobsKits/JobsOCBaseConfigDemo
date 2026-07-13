@@ -112,7 +112,7 @@ Prop_assign()NSInteger cellCount;
 
     cell.rightLabel.byHidden(YES);
 
-    cell.layer.cornerRadius = 12.0;
+    cell.layer.byCornerRadius(12.0);
     return cell;
 }
 
@@ -179,8 +179,9 @@ didRemoveLastCell:(GXCardViewCell *)cell
         _cardView.maxAngle = 15.0;
         _cardView.maxRemoveDistance = 100.0;
     //    _cardView.isRepeat = YES; // 新加入
-        [_cardView registerNib:[UINib nibWithNibName:NSStringFromClass(GXCardItemDemoCell.class)
-                                             bundle:GXCardViewDemoResourceBundle()]
+        [_cardView registerNib:jobsMakeNib(NSStringFromClass(GXCardItemDemoCell.class),
+                                           GXCardViewDemoResourceBundle(),
+                                           nil)
          forCellReuseIdentifier:@"GXCardViewCell"];
         
         _cardView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {

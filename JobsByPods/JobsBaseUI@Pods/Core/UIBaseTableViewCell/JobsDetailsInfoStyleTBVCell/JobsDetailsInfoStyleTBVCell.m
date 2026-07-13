@@ -35,13 +35,13 @@ Prop_strong()UIImageView *detailsInfoImageView;
         @jobs_strongify(self)
         if(data.isKindOfClass(UIViewModel.class)){
             self.viewModel = data;
-            self.imageView.image = self.viewModel.image;
+            self.imageView.byImage(self.viewModel.image);
             self.textLabel
                 .byText(self.viewModel.text)
                 .byTextAlignment(self.viewModel.textAlignment)
                 .byFont(self.viewModel.font)
                 .byTextCor(self.viewModel.textCor);
-            self.detailsInfoImageView.image = self.viewModel.titleImage;
+            self.detailsInfoImageView.byImage(self.viewModel.titleImage);
             [self.detailsInfoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(self.viewModel.jobsSize);
                 /// 如果有系统向右的箭头，此时这个offset其实是于箭头左边距的距离

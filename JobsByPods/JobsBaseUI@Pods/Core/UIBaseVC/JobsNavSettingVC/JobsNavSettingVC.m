@@ -122,11 +122,13 @@
         id<AppToolsProtocol> appToolsSelf = (id<AppToolsProtocol>)self;
         appToolsSelf.setGKNav(nil);
         appToolsSelf.setGKNavBackBtn(nil);
-        if(self.leftBarButtonItems.count) self.gk_navLeftBarButtonItems = self.leftBarButtonItems;
-        if(self.rightBarButtonItems.count) self.gk_navRightBarButtonItems = self.rightBarButtonItems;
-        self.gk_navigationBar.byHidden(!data);
-
-        self.gk_navigationBar.byAlpha(data);
+        if(self.leftBarButtonItems.count) self.byGKNavLeftBarButtonItems(self.leftBarButtonItems);
+        if(self.rightBarButtonItems.count) self.byGKNavRightBarButtonItems(self.rightBarButtonItems);
+        self.byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
+            navigationBar
+                .byHidden(!data)
+                .byAlpha(data);
+        });
 
     };
 }
@@ -136,7 +138,7 @@
     return ^(CGFloat data){
         @jobs_strongify(self)
         ((id<AppToolsProtocol>)self).makeNavBarConfig(nil,nil);
-        ((UIView *)self.navBar).hidden = !data;
+        ((UIView *)self.navBar).byHidden(!data);
         ((UIView *)self.navBar).alpha = data;
     };
 }
@@ -166,9 +168,11 @@
                  .byJobsSize(CGSizeMake(JobsWidth(150), JobsWidth(30)))
                  .byBaseBackgroundColor(JobsClearColor);
         }));
-        if(self.leftBarButtonItems.count) self.gk_navLeftBarButtonItems = self.leftBarButtonItems;
-        if(self.rightBarButtonItems.count) self.gk_navRightBarButtonItems = self.rightBarButtonItems;
-        self.gk_navigationBar.byVisible(config.viewModel.Alpha);
+        if(self.leftBarButtonItems.count) self.byGKNavLeftBarButtonItems(self.leftBarButtonItems);
+        if(self.rightBarButtonItems.count) self.byGKNavRightBarButtonItems(self.rightBarButtonItems);
+        self.byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
+            navigationBar.byVisible(config.viewModel.Alpha);
+        });
     };
 }
 

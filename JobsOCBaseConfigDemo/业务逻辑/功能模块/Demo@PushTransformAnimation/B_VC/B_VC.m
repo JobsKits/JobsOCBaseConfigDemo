@@ -55,9 +55,9 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.delegate = self;
+    self.navigationController.byDelegate(self);
     /** 重新设置返回手势的代理给nav */
-    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
+    self.navigationController.interactivePopGestureRecognizer.byDelegate((id)self);
 }
 
 -(void)viewDidAppear:(BOOL)animated{

@@ -17,7 +17,7 @@ Pod::Spec.new do |spec|
   spec.name             = 'JobsOCDSL'
   spec.version          = '1.0.4'
   spec.summary          = 'Objective-C chain DSL categories for Jobs projects.'
-  spec.description      = 'JobsOCDSL centralizes Objective-C dot-syntax DSL category wrappers for system and selected third-party UI classes.'
+  spec.description      = 'JobsOCDSL centralizes Objective-C dot-syntax DSL categories, including path factories, UIView animation and transition entry points, notification-center, navigation-controller, bar-appearance, and selected third-party UI wrappers.'
   spec.homepage         = 'https://example.local/JobsOCDSL'
   spec.license          = { :type => 'MIT', :file => 'LICENSE' }
   spec.author           = { 'Jobs' => 'lg295060456@gmail.com' }
@@ -44,6 +44,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsOCProtocols'
   spec.dependency 'JobsOCRuntimeKits'
+  spec.dependency 'JobsOCTimer'
   spec.dependency 'GKNavigationBar'
   spec.dependency 'Masonry'
   spec.dependency 'Texture'

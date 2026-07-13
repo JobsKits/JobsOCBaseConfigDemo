@@ -221,7 +221,7 @@ insetForSectionAtIndex:(NSInteger)section {
             .bgColorBy(JobsWhiteColor)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");

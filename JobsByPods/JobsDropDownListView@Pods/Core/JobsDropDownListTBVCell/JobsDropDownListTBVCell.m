@@ -50,8 +50,8 @@ UITableViewCellProtocol_Synthesize
                     .byBgColor(HEXCOLOR(0xFFF5D8));
             }))
             .byBgColor(JobsClearColor);
-        self.textLabel.hidden = YES;
-        self.detailTextLabel.hidden = YES;
+        self.textLabel.byHidden(YES);
+        self.detailTextLabel.byHidden(YES);
         self.accessoryType = UITableViewCellAccessoryNone;
         self.accessoryView = self.arrowImgV;
         self.layoutMargins = UIEdgeInsetsMake(0, JobsWidth(16), 0, JobsWidth(12));
@@ -85,7 +85,7 @@ UITableViewCellProtocol_Synthesize
     CGFloat groupH = titleH + spacing + (hasSubTitle ? subTitleH : 0);
     CGFloat groupY = centerY - groupH / 2;
     self.titleLab.frame = CGRectIntegral(CGRectMake(textX, groupY, textW, titleH));
-    self.subTitleLab.hidden = !hasSubTitle;
+    self.subTitleLab.byHidden(!hasSubTitle);
     self.subTitleLab.frame = hasSubTitle ? CGRectIntegral(CGRectMake(textX,
                                                                      CGRectGetMaxY(self.titleLab.frame) + spacing,
                                                                      textW,
@@ -104,7 +104,7 @@ UITableViewCellProtocol_Synthesize
             self.iconImgV
                 .byImage(model.image)
                 .byTintColor(HEXCOLOR(0xC96E42));
-            self.iconImgV.hidden = !model.image;
+            self.iconImgV.byHidden(!model.image);
             self.titleLab
                 .byText([NSString stringWithFormat:@"%@",model.textModel.text])
                 .byFont(UIFontWeightMediumSize(14))

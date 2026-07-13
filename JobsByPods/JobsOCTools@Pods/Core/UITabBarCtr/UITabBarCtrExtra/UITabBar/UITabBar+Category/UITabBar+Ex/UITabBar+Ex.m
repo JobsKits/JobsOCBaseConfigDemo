@@ -22,7 +22,7 @@
     LOTAnimationView *lottieView = nil;
     if (isValue(lottieName) && lottieName) {
         lottieView = [LOTAnimationView animationNamed:lottieName];
-        [self addSubview:lottieView];
+        lottieView.addOn(self);
         lottieView.userInteractionEnabled = NO;
         lottieView.byContentMode(UIViewContentModeScaleAspectFit);
 

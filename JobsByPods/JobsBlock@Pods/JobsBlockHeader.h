@@ -183,7 +183,9 @@
 @class JobsNavigationTransitionMgr;
 @class JobsNetworkSource;
 @class JobsNetworkTrafficMonitor;
+@class JobsOCCalendar;
 @class JobsOCRefreshConfig;
+@class JobsOCGraphicCaptchaView;
 @class JobsOCKeyboardConfig;
 @class JobsOCKeyboardMgr;
 @class JobsOCKeyboardResult;
@@ -211,6 +213,9 @@
 @class JobsUserHeaderDataViewTBVCell;
 @class JobsUserModel;
 @class JobsViewNavigator;
+
+@protocol JobsOCCalendarDataSource;
+@protocol JobsOCCalendarDelegate;
 @class JXCategoryBaseView;
 @class JXCategoryDotView;
 @class JXCategoryImageView;

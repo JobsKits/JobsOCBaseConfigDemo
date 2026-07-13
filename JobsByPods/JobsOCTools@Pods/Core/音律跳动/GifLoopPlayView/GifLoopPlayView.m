@@ -38,7 +38,7 @@ static dispatch_once_t dispatchOnce;
         [self.imageView startAnimating];
     }else{
         [self.imageView stopAnimating];
-        self.imageView.image = self.pauseImage;
+        self.imageView.byImage(self.pauseImage);
     }
 }
 #pragma mark —— lazyLoad

@@ -18,7 +18,7 @@
 | Pod 类型 | 自建本地 Pod |
 | 版本 | `1.0.0` |
 | 平台 | `ios 12.0` |
-| 核心依赖 | `JobsOCTimer` |
+| 核心依赖 | `JobsBaseUI`、`JobsOCTimer`、`JobsOCDSL`、`JobsOCDefs` |
 | 公开入口 | `JobsLuckyEnvelopeRain.h` |
 
 ## 二、公开能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -26,6 +26,7 @@
 - `JobsRedPacketRainConfig`：红包雨参数配置。
 - `JobsRedPacketRainView`：红包生成、下落刷新、点按统计和生命周期控制。
 - 内部使用两个 `JobsTimer`：一个控制红包生成，一个控制下落位置刷新。
+- 红包按钮统一通过 `jobsMakeButton` 创建，并用 `jobsResetBtn*` 兼容 UIButton 新旧管线。
 
 ## 三、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

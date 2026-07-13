@@ -37,6 +37,7 @@ JobsOCOpen ports JobsSwiftOpen to Objective-C and provides in-app web opening, e
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsGetWindow'
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsStringUtils'
 
   spec.source_files = [

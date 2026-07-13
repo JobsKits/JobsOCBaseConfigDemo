@@ -63,6 +63,7 @@ JobsSuspend@Pods/
 - `Support` 当前包含 46 个文件，其中源码 / 头文件 46 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
+- `JobsSuspendBtn.byAllowDrag(BOOL)` 统一开关拖拽；`UIView+SuspendView` 提供 safeArea 内起点、拖动范围和吸边震感配置。拖动结束按上下左右最近边吸附，并只放行 Pan 与 LongPress 同时识别。
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -143,6 +144,7 @@ pod install --no-repo-update
 ## 九、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
+- `panRcognize` 是懒加载手势，getter 首次创建后必须返回新实例；若返回 `nil`，继续调用 `byEnabled(...)` 这类 Block DSL 会触发空 Block 调用并产生 `EXC_BAD_ACCESS`。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。

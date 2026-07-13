@@ -26,6 +26,9 @@ JobsOCCalendar is a standalone Jobs calendar implementation. It owns its view hi
   spec.header_dir          = 'JobsOCCalendar'
   spec.frameworks          = ['Foundation', 'UIKit']
 
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsMakes'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsOCDefs'
 
 

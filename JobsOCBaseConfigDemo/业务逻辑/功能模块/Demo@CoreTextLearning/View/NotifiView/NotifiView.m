@@ -19,7 +19,7 @@ Prop_copy()FinishBlock finishBlock;
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        [self addSubview:self.contentLabel];
+        self.contentLabel.addOn(self);
         self.byBgColor([UIColor orangeColor]);
 
         _state = NotifiViewStateInit;
@@ -83,22 +83,25 @@ Prop_copy()FinishBlock finishBlock;
     self.byAlpha(1);
 
     self.state = NotifiViewStateBegin;
-    [UIView animateWithDuration:0.25f animations:^{
+    UIView.jobsAnimateWithCompletion(0.25f,
+        ^{
         CGRect newFrame = self.frame;
         newFrame.origin.x = self.offsetX;
         self.byFrame(newFrame);
 
-    } completion:^(BOOL finished) {
+    },
+        ^(BOOL finished) {
         self.state = NotifiViewStateStart;
         [self performSelector:@selector(dismiss) withObject:nil afterDelay:(self.duration - 0.5)];
         self.state = NotifiViewStateShowing;
-    }];
+    });
     self.finishBlock = finishBlock;
 }
 
 - (void)dismiss{
     self.state = NotifiViewStateEnd;
-    [UIView animateWithDuration:0.25 animations:^{
+    UIView.jobsAnimateWithCompletion(0.25,
+        ^{
         CGFloat x = 0 - self.offsetX - CGRectGetWidth(self.frame);
         CGRect newFrame = self.frame;
         newFrame.origin.x = x;
@@ -106,11 +109,12 @@ Prop_copy()FinishBlock finishBlock;
 
         self.byFrame(newFrame);
 
-    } completion:^(BOOL finished) {
+    },
+        ^(BOOL finished) {
         self.state = NotifiViewStateFinish;
         [self removeFromSuperview];
         if (self.finishBlock) self.finishBlock(self.key);
-    }];
+    });
     
 }
 
@@ -132,7 +136,7 @@ Prop_copy()FinishBlock finishBlock;
         _contentLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byTextCor([UIColor whiteColor])
-                .byFont([UIFont systemFontOfSize:20])
+                .byFont(UIFontSystemFontOfSize(20))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFrame(self.bounds)
                 .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);

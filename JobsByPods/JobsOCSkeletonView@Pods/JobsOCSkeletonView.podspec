@@ -37,6 +37,7 @@ and pulse animation modes, plus UIImageView loading placeholder helpers.
   ]
 
   spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsOCDefs'
 
   JobsPodspecKitForJobsOCSkeletonView.apply_standard_xcconfig(spec)

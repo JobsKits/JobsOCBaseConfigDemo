@@ -17,6 +17,7 @@
 - 对 `JobsModel` 子模型进行链式赋值。
 - 复用协议属性时保持和普通模型属性一致的 DSL 写法。
 - 对 `UIViewModel` / `UIButtonModel` 内嵌的 `UITextModel`、`UIButtonModel` 等子模型，使用 `byTextModelBlock`、`byButtonModelBlock` 这类回调入口进入子模型，再继续使用对应 `*Model+DSL` 链式配置。
+- `JobsCorModel+DSL.byAlpha(...)` 直接写入模型的 `alpha`，不得回调自身形成递归；`jobsMakeCor` / `jobsMakeCor2` 可安全用它配置透明度。
 - 保持 DSL 能力独立于 `JobsModel` 本体，避免模型 Pod 直接膨胀。
 
 ## 二、依赖关系

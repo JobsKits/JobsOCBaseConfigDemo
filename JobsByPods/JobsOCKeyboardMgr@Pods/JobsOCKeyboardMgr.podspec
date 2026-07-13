@@ -30,6 +30,7 @@ JobsOCKeyboardMgr listens to system keyboard notifications, calculates whether a
   ]
 
   spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsOCDefs'
 
   JobsPodspecKitForJobsOCKeyboardMgr.add_support_subspec(spec, support_context)

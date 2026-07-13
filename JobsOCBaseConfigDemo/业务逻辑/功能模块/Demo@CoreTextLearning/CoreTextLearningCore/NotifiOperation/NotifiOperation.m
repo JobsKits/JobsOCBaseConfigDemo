@@ -41,7 +41,7 @@
         @jobs_weakify(self)
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             @jobs_strongify(self)
-            [self.fatherView addSubview:view];
+            view.addOn(self.fatherView);
             [view layoutIfNeeded];
             @jobs_weakify(self)
             [view showWithData:self.data

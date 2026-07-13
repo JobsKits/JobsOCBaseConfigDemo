@@ -50,14 +50,14 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
                 self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray<JobsRichTextConfig *> * _Nullable data) {
                     /// "源: "
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.byFont([UIFont systemFontOfSize:10 weight:UIFontWeightMedium])
+                        cfg.byFont(UIFontWeightMediumSize(10))
                            .byTextCor(UIColor.secondaryLabelColor)
                            .byTargetString(@"源: ")
                            .byParagraphStyle(ps);
                     }));
                     /// 源名称
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.byFont([UIFont systemFontOfSize:11 weight:UIFontWeightSemibold])
+                        cfg.byFont(UIFontWeightSemiboldSize(11))
                            .byTextCor(UIColor.whiteColor)
                            .byTargetString(source.displayName)
                            .byParagraphStyle(ps);
@@ -69,28 +69,28 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
                     }));
                     /// 上行 "⬆︎ "
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.byFont([UIFont systemFontOfSize:11])
+                        cfg.byFont(UIFontSystemFontOfSize(11))
                            .byTextCor(UIColor.systemGreenColor)
                            .byTargetString(@"⬆︎ ")
                            .byParagraphStyle(ps);
                     }));
                     /// 上行数值（带两个空格）
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.byFont([UIFont monospacedDigitSystemFontOfSize:11 weight:UIFontWeightMedium])
+                        cfg.byFont(UIFontMonospacedDigitSystemWeightMediumSize(11))
                            .byTextCor(UIColor.whiteColor)
                            .byTargetString(upStr.add(@"  "))
                            .byParagraphStyle(ps);
                     }));
                     /// 下行 "⬇︎ "
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.byFont([UIFont systemFontOfSize:11])
+                        cfg.byFont(UIFontSystemFontOfSize(11))
                            .byTextCor(UIColor.systemRedColor)
                            .byTargetString(@"⬇︎ ")
                            .byParagraphStyle(ps);
                     }));
                     /// 下行数值
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.byFont([UIFont monospacedDigitSystemFontOfSize:11 weight:UIFontWeightMedium])
+                        cfg.byFont(UIFontMonospacedDigitSystemWeightMediumSize(11))
                            .byTextCor(UIColor.whiteColor)
                            .byTargetString(downStr)
                            .byParagraphStyle(ps);
@@ -125,22 +125,21 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
                         @"当前环境".tr.add(self.operationEnvironMutArr[menuRow]).toast();
                     }else self.jobsToastErrMsg(@"切换环境出现错误".tr);
                 };return nil;
-            }];self.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
+            }];self.tapGR.byEnabled(YES);/// 必须在设置完Target和selector以后方可开启执行
         };[self commonInit_JobsBitsMonitorSuspendLab];
     };return self;
 }
 
 -(void)commonInit_JobsBitsMonitorSuspendLab{
     /// 👉 基础外观
-    self.numberOfLines   = 0;
-    self.textAlignment   = NSTextAlignmentCenter;
+    self.numberOfLines = 0;
+    self.textAlignment = NSTextAlignmentCenter;
+    self
+        .byTextCor(UIColor.whiteColor)
+        .byFont(UIFontMonospacedDigitSystemWeightMediumSize(11));
     self.layer.cornerRadius  = 8.0;
     self.layer.masksToBounds = YES;
     self.byBgColor([UIColor.blackColor colorWithAlphaComponent:0.7]);
-
-    /// 默认字体 & 颜色
-    self.textColor = UIColor.whiteColor;
-    self.font      = [UIFont monospacedDigitSystemFontOfSize:11 weight:UIFontWeightMedium];
 }
 
 -(JobsRetLabelByTextBlock _Nonnull)byText{
@@ -150,7 +149,7 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
         self.attributedText = nil;
         self.text           = text;
         /// 普通文本可以稍微简单一点
-        self.font      = [UIFont systemFontOfSize:11 weight:UIFontWeightRegular];
+        self.font      = UIFontWeightRegularSize(11);
         self.textColor = UIColor.whiteColor;
         return self;
     };

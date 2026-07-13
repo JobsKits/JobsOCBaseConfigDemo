@@ -157,22 +157,18 @@ Prop_assign(readwrite)NSUInteger tappedCount;
                                    -self.config.packetSize.height,
                                    self.config.packetSize.width,
                                    self.config.packetSize.height);
-    UIButton *packet = [UIButton buttonWithType:UIButtonTypeCustom];
-    packet.frame = startFrame;
-    packet.userInteractionEnabled = self.config.tapEnabled;
-    packet.clipsToBounds = YES;
-    if (self.config.packetImage) {
-        [packet setBackgroundImage:self.config.packetImage
-                          forState:UIControlStateNormal];
-        packet.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    }else{
-        [packet setBackgroundImage:self.defaultPacketImage
-                          forState:UIControlStateNormal];
-    }
+    UIButton *packet = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+        button
+            .jobsResetBtnBgImage(self.config.packetImage ?: self.defaultPacketImage)
+            .byImageView(^(__kindof UIImageView * _Nullable imageView) {
+                imageView.byContentMode(UIViewContentModeScaleAspectFit);
+            })
+            .byUserInteractionEnabled(self.config.tapEnabled)
+            .byClipsToBounds(YES)
+            .byFrame(startFrame);
+    });
     if (self.config.tapEnabled) {
-        [packet addTarget:self
-                   action:@selector(packetTapAction:)
-         forControlEvents:UIControlEventTouchUpInside];
+        packet.byAddTarget(self, @selector(packetTapAction:), UIControlEventTouchUpInside);
     }
 
     NSTimeInterval minDuration = MIN(self.config.minFallDuration, self.config.maxFallDuration);
@@ -185,7 +181,7 @@ Prop_assign(readwrite)NSUInteger tappedCount;
                             CGRectGetWidth(self.bounds) - self.config.spawnInsets.right - self.config.packetSize.width);
     CGFloat angle = (((CGFloat)arc4random_uniform(10000) / 10000.0) * 0.5) - 0.25;
     packet.transform = CGAffineTransformMakeRotation(angle);
-    [self addSubview:packet];
+    packet.addOn(self);
     [self.activePackets addObject:packet];
     self.packetMotions[[NSValue valueWithNonretainedObject:packet]] = @{
         JobsRedPacketRainMotionSpawnTimeKey : @(CACurrentMediaTime()),
@@ -264,17 +260,16 @@ Prop_assign(readwrite)NSUInteger tappedCount;
     CGSize size = CGSizeMake(44, 54);
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(1, 1, size.width - 2, size.height - 2)
-                                                    cornerRadius:8];
-    [UIColor colorWithRed:0.90 green:0.05 blue:0.08 alpha:1].setFill;
+    UIBezierPath *path = UIBezierPath.byBezierPathWithRoundedRect(CGRectMake(1, 1, size.width - 2, size.height - 2), 8);
+    RGBA_COLOR(0.90 * 255.0, 0.05 * 255.0, 0.08 * 255.0, 1).setFill;
     [path fill];
-    [UIColor colorWithRed:1.00 green:0.82 blue:0.18 alpha:1].setStroke;
+    RGBA_COLOR(1.00 * 255.0, 0.82 * 255.0, 0.18 * 255.0, 1).setStroke;
     path.lineWidth = 2;
     [path stroke];
-    CGContextSetFillColorWithColor(ctx, [UIColor colorWithRed:1.00 green:0.82 blue:0.18 alpha:1].CGColor);
+    CGContextSetFillColorWithColor(ctx, RGBA_COLOR(1.00 * 255.0, 0.82 * 255.0, 0.18 * 255.0, 1).CGColor);
     CGContextFillEllipseInRect(ctx, CGRectMake(10, 8, 24, 24));
     NSDictionary *attr = @{
-        NSFontAttributeName: [UIFont boldSystemFontOfSize:18],
+        NSFontAttributeName: UIFontBoldSystemFontOfSize(18),
         NSForegroundColorAttributeName: UIColor.redColor
     };
     NSString *text = @"¥";

@@ -125,6 +125,12 @@
     //  WebViewController.h
     #import <UIKit/UIKit.h>
     #import <WebKit/WebKit.h>
+
+    #if __has_include(<JobsMakes/JobsMakes.h>)
+    #import <JobsMakes/JobsMakes.h>
+    #else
+    #import "JobsMakes.h"
+    #endif
     
     NS_ASSUME_NONNULL_BEGIN
     
@@ -169,7 +175,11 @@
       NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
       [_webView loadRequest:request];
     
-      UIBarButtonItem *closeItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(close)];
+      UIBarButtonItem *closeItem = jobsMakeBarButtonItemByTitle(@"关闭",
+                                                                UIBarButtonItemStylePlain,
+                                                                self,
+                                                                @selector(close),
+                                                                nil);
       self.navigationItem.leftBarButtonItem = closeItem;
     }
     
@@ -185,6 +195,5 @@
   
 
   
-
 
 

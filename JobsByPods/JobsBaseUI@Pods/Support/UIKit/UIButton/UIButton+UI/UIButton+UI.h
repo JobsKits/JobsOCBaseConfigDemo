@@ -254,7 +254,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByAttributedStringBlock _Nonnull)jobsResetBtnTextViewNormalAttributedSubTitle;
 #pragma mark —— 一些通用修改.间距
 ///【兼容】重设Btn的图文间距和相对位置
--(JobsRetBtnByImagePlacementAndPaddingBlock _Nonnull)jobsResetImagePlacement_Padding API_AVAILABLE(ios(16.0));
+-(JobsRetBtnByImagePlacementAndPaddingBlock _Nonnull)jobsResetImagePlacement_Padding;
 ///【兼容】获取按钮图片（普通状态下）
 -(UIImage *_Nullable)imageForNormalState;
 ///【兼容】获取按钮背景图片（普通状态下）
@@ -288,9 +288,8 @@ NS_ASSUME_NONNULL_END
      例如，你可以将按钮的内容水平居中对齐，以确保文本或图像在按钮的中心位置。
 
      调用示例：
-     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-     // 设置内容水平居中对齐
-     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+     UIButton *button = UIButton.jobsInit()
+         .byContentHorizontalAlignment(UIControlContentHorizontalAlignmentCenter);
  */
 
 /**
@@ -365,7 +364,7 @@ NS_ASSUME_NONNULL_END
                  .jobsResetBtnTitle(@"APPLY NOW".tr)
                  .onClickBy(^(UIButton *x){
                      @jobs_strongify(self)
-                     x.selected = !x.selected;
+                     x.byToggleSelected();
                      if (self.objBlock) self.objBlock(x);
                  }).onLongPressGestureBy(^(id data){
                      JobsLog(@"");

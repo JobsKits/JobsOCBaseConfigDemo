@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_END
              _textView.placeholder = @"在这里畅所欲言，留下您的宝贵意见吧！";
 
              _textView.placeholderTextColor = RGB_COLOR(132, 134, 140);
-             _textView.font = [UIFont systemFontOfSize:12 weight:UIFontWeightMedium];
+             _textView.byFont(UIFontWeightMediumSize(12));
              _textView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                  make.centerX.equalTo(self.view);
                  make.top.equalTo(self.chooseFeedbackTypeBtn.mas_bottom).offset(JobsHeight(8));
@@ -119,11 +119,13 @@ NS_ASSUME_NONNULL_END
          self.textView.currentWordNum = resString.length;//关键代码
 
          if (isNull(resString)) {
-             [self.submitBtn setBackgroundImage:@"填写邀请码——不可提交".img) forState:UIControlStateNormal];
-             self.submitBtn.userInteractionEnabled = NO;
+             self.submitBtn
+                 .jobsResetBtnBgImage(@"填写邀请码——不可提交".img)
+                 .byUserInteractionEnabled(NO);
          }else{
-             [self.submitBtn setBackgroundImage:@"填写邀请码——可提交".img) forState:UIControlStateNormal];
-             self.submitBtn.userInteractionEnabled = YES;
+             self.submitBtn
+                 .jobsResetBtnBgImage(@"填写邀请码——可提交".img)
+                 .byUserInteractionEnabled(YES);
          };return YES;
      }
  */

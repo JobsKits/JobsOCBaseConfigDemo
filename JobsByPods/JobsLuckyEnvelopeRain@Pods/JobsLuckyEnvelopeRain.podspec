@@ -22,7 +22,9 @@ JobsLuckyEnvelopeRain wraps JobsOCTimer into a reusable red packet rain view for
 
   spec.frameworks = ['UIKit', 'Foundation', 'QuartzCore']
 
+  spec.dependency 'JobsBaseUI'
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsOCTimer'
 
   JobsPodspecKitForJobsLuckyEnvelopeRain.add_support_subspec(spec, support_context) if Dir.exist?(File.join(__dir__, 'Support'))

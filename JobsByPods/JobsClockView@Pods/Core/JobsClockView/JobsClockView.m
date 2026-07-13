@@ -84,7 +84,7 @@ Prop_strong() JobsTimer *timer;
             }
             label
                 .byText([NSString stringWithFormat:@"%ld", (long)i])
-                .byFont([UIFont systemFontOfSize:12 weight:UIFontWeightMedium])
+                .byFont(UIFontWeightMediumSize(12))
                 .byTextCor(textCor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .addOn(self);
@@ -96,24 +96,24 @@ Prop_strong() JobsTimer *timer;
 
 - (void)setupHandLayers {
     self.hourHand = [CALayer layer];
-    self.hourHand.backgroundColor = [UIColor blackColor].CGColor;
+    self.hourHand.byBgColor([UIColor blackColor].CGColor);
 
     self.hourHand.cornerRadius = 3.0;
     [self.layer addSublayer:self.hourHand];
 
     self.minuteHand = [CALayer layer];
     if (@available(iOS 13.0, *)) {
-        self.minuteHand.backgroundColor = [UIColor darkGrayColor].CGColor;
+        self.minuteHand.byBgColor([UIColor darkGrayColor].CGColor);
 
     } else {
-        self.minuteHand.backgroundColor = [UIColor darkGrayColor].CGColor;
+        self.minuteHand.byBgColor([UIColor darkGrayColor].CGColor);
 
     }
     self.minuteHand.cornerRadius = 2.0;
     [self.layer addSublayer:self.minuteHand];
 
     self.secondHand = [CALayer layer];
-    self.secondHand.backgroundColor = [UIColor redColor].CGColor;
+    self.secondHand.byBgColor([UIColor redColor].CGColor);
 
     self.secondHand.cornerRadius = 1.0;
     [self.layer addSublayer:self.secondHand];
@@ -143,12 +143,12 @@ Prop_strong() JobsTimer *timer;
                                    center.y - radius,
                                    radius * 2.0,
                                    radius * 2.0);
-    UIBezierPath *circlePath = [UIBezierPath bezierPathWithOvalInRect:circleRect];
+    UIBezierPath *circlePath = UIBezierPath.byBezierPathWithOvalInRect(circleRect);
     self.dialLayer.frame = self.bounds;
 
     self.dialLayer.path  = circlePath.CGPath;
     // 12 个整点刻度
-    UIBezierPath *tickPath = UIBezierPath.bezierPath;
+    UIBezierPath *tickPath = jobsMakeBezierPath(nil);
     CGFloat tickLen = 8.0;
     for (NSInteger i = 0; i < 12; i++) {
         // 0 -> 12 点，顺时针
@@ -170,7 +170,7 @@ Prop_strong() JobsTimer *timer;
                                 center.y - dotRadius,
                                 dotRadius * 2.0,
                                 dotRadius * 2.0);
-    UIBezierPath *dotPath = [UIBezierPath bezierPathWithOvalInRect:dotRect];
+    UIBezierPath *dotPath = UIBezierPath.byBezierPathWithOvalInRect(dotRect);
     self.centerDotLayer.frame = self.bounds;
 
     self.centerDotLayer.path  = dotPath.CGPath;

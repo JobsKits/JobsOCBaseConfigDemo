@@ -26,7 +26,10 @@
 
 - 注册、登录、找回密码等页面需要本地图形验证码时使用。
 - 支持单独数字、单独汉字、单独英文、英文大小写敏感 / 不敏感、以及数字 / 英文 / 汉字混合模式。
-- 混合模式按大写英文、小写英文、数字、汉字四类随机组合；长度允许时至少命中两类，可生成两两混合、三三混合或四类全混。
+- 两两混合：大写英文 + 小写英文、大写英文 + 数字、小写英文 + 数字、大写英文 + 汉字、小写英文 + 汉字、汉字 + 数字。
+- 三三混合：大写英文 + 小写英文 + 数字、大写英文 + 小写英文 + 汉字、大写英文 + 数字 + 汉字、小写英文 + 数字 + 汉字。
+- 全部混合：大写英文 + 小写英文 + 数字 + 汉字。
+- 混合模式由 `characterUnits` 明确指定具体组合，`mixedGroupCount` 记录参与混合的类别数；生成时会保证每个被选中的字符组至少出现一次，不再临时随机决定是哪一种组合。
 - 默认验证码长度为 `4`，可通过 `JobsOCGraphicCaptchaConfig.length` 手动调整。
 
 ## 三、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -45,16 +48,20 @@ JobsOCGraphicCaptcha@Pods/
     ├── JobsOCGraphicCaptchaGenerator/
     │   ├── JobsOCGraphicCaptchaGenerator.h
     │   └── JobsOCGraphicCaptchaGenerator.m
-    └── JobsOCGraphicCaptchaView/
+    ├── JobsOCGraphicCaptchaView/
         ├── JobsOCGraphicCaptchaView.h
         └── JobsOCGraphicCaptchaView.m
+    └── JobsOCGraphicCaptchaView+DSL/
+        ├── JobsOCGraphicCaptchaView+DSL.h
+        └── JobsOCGraphicCaptchaView+DSL.m
 ```
 
 ## 四、公开能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `JobsOCGraphicCaptchaConfig`：配置验证码长度、字符单元、大小写校验策略和自定义字符池。
+- `JobsOCGraphicCaptchaConfig`：配置验证码长度、字符单元、混合类别数、大小写校验策略和自定义字符池；`mixedConfig` 为大写英文 + 小写英文 + 数字 + 汉字四类全混，具体两类或三类组合通过 `characterUnits` 精确指定。
 - `JobsOCGraphicCaptchaGenerator`：提供数字、小写英文、大写英文、汉字四个独立字符池，并生成随机文本。
-- `JobsOCGraphicCaptchaView`：绘制验证码文本、干扰线和噪点，支持点击刷新和输入校验。
+- `JobsOCGraphicCaptchaView`：绘制验证码文本、干扰线和噪点，支持点击刷新和输入校验；随机 HSB 颜色通过 `jobsMakeCor2` + `JobsCorModel` DSL 生成。
+- `JobsOCGraphicCaptchaView+DSL`：为自建视图提供 `byFont(...)`，调用方不再直接写 `font =`。
 
 ## 五、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -68,15 +75,19 @@ JobsOCGraphicCaptcha@Pods/
 
 ```objc
 JobsOCGraphicCaptchaView *captchaView = JobsOCGraphicCaptchaView.new;
-captchaView.config = JobsOCGraphicCaptchaConfig.mixedConfig;
+captchaView.byFont(UIFontWeightSemiboldSize(16));
+JobsOCGraphicCaptchaConfig *config = JobsOCGraphicCaptchaConfig.defaultConfig;
+config.characterUnits = JobsOCGraphicCaptchaCharacterUnitUppercaseLetter | JobsOCGraphicCaptchaCharacterUnitNumber;
+config.mixedGroupCount = 2;
+captchaView.config = config;
 [captchaView refreshCaptcha];
-BOOL passed = [captchaView validateInput:@"Ab3中"];
+BOOL passed = [captchaView validateInput:@"A3"];
 ```
 
 ## 六、依赖关系 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 系统框架：`Foundation`、`UIKit`、`QuartzCore`
-- 本地 Pod：`JobsOCDefs`
+- 本地 Pod：`JobsOCDefs`、`JobsBlock`、`JobsModel`、`JobsModelDSL`
 
 ## 七、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

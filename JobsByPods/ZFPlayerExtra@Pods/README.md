@@ -103,6 +103,7 @@ ZFPlayerExtra@Pods/
 - `JobsBlock`
 - `JobsOCDefs`
 - `JobsOCDSL`
+- `JobsBaseUI`（通过公开聚合头提供 `jobsMakeBaseButton` 按钮创建入口）
 
 ## 六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

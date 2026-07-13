@@ -70,12 +70,12 @@ static dispatch_once_t static_commentViewOnceToken;
 #pragma mark —— 一些私有方法
 -(void)cleanTableViewDebugBackground{
     if (!_tableView) return;
-    _tableView.backgroundColor = HEXCOLOR(0xF5F7FB);
-    _tableView.backgroundView.backgroundColor = HEXCOLOR(0xF5F7FB);
+    _tableView.byBgColor(HEXCOLOR(0xF5F7FB));
+    _tableView.backgroundView.byBgColor(HEXCOLOR(0xF5F7FB));
     for (UIView *subview in _tableView.subviews) {
         if (![subview isKindOfClass:UITableViewCell.class] &&
             ![subview isKindOfClass:UITableViewHeaderFooterView.class]) {
-            subview.backgroundColor = HEXCOLOR(0xF5F7FB);
+            subview.byBgColor(HEXCOLOR(0xF5F7FB));
         }
     }
 }
@@ -180,7 +180,7 @@ viewForHeaderInSection:(NSInteger)section{
                                         folded:folded];
             return nil;
         }];
-        headerView.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
+        headerView.tapGR.byEnabled(YES);/// 必须在设置完Target和selector以后方可开启执行
     }headerView.tag = section;
     return headerView;
 }
@@ -231,7 +231,7 @@ willDisplayHeaderView:(UIView *)view
             if(@available(iOS 11.0, *)) {
                 tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             }
-            tableView.mj_footer.hidden = NO;
+            tableView.mj_footer.byHidden(NO);
     //        {// 设置tabAnimated相关属性
     //            _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:JobsBaseTableViewCell.class
     //                                                                  cellHeight:JobsBaseTableViewCell.cellHeightByModel(nil)];

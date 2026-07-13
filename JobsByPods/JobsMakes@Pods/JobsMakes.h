@@ -27,12 +27,6 @@
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsOCKeyboardMgr/JobsOCKeyboardMgr.h>)
-#import <JobsOCKeyboardMgr/JobsOCKeyboardMgr.h>
-#else
-#import "JobsOCKeyboardMgr.h"
-#endif
-
 #pragma mark —— 关于富文本
 /// 创建不可变富文本
 NS_INLINE NSAttributedString *_Nonnull JobsAttributedString(NSString *_Nonnull data) {
@@ -89,19 +83,17 @@ jobsMakeDateFormatter(jobsByDateFormatterBlock _Nonnull block){
     if (block) block(data);
     return data;
 }
-#pragma mark —— 关于键盘遮挡管理
-NS_INLINE __kindof JobsOCKeyboardConfig *_Nonnull
-jobsMakeOCKeyboardConfig(jobsByOCKeyboardConfigBlock _Nonnull block){
-    JobsOCKeyboardConfig *data = JobsOCKeyboardConfig.new;
-    if (block) block(data);
-    return data;
-}
 #pragma mark —— 关于贝塞尔曲线的创建
 NS_INLINE __kindof UIBezierPath *_Nonnull
-jobsMakeBezierPath(jobsByBezierPathBlock _Nonnull block){
+jobsMakeBezierPath(jobsByBezierPathBlock _Nullable block){
     UIBezierPath *data = UIBezierPath.bezierPath;
     if (block) block(data);
     return data;
+}
+#pragma mark —— 关于 UIImage 的创建
+/// 创建用于清空系统图片属性的空 UIImage。
+NS_INLINE UIImage *_Nonnull jobsMakeImage(void){
+    return UIImage.new;
 }
 #pragma mark —— 关于动画
 NS_INLINE __kindof CABasicAnimation *_Nonnull
@@ -458,6 +450,85 @@ jobsMakeSlider(jobsBySliderBlock _Nonnull block){
     return data;
 }
 
+NS_INLINE __kindof UISegmentedControl *_Nonnull
+jobsMakeSegmentedControl(NSArray *_Nullable items,
+                         jobsBySegmentedControlBlock _Nonnull block){
+    UISegmentedControl *data = [UISegmentedControl.alloc initWithItems:items];
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof UIContextualAction *_Nonnull
+jobsMakeContextualAction(UIContextualActionStyle style,
+                         NSString *_Nullable title,
+                         UIContextualActionHandler _Nonnull handler,
+                         jobsByContextualActionBlock _Nonnull block) API_AVAILABLE(ios(11.0)){
+    UIContextualAction *data = [UIContextualAction contextualActionWithStyle:style
+                                                                        title:title
+                                                                      handler:handler];
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof UIAction *_Nonnull
+jobsMakeAction(NSString *_Nonnull title,
+               UIImage *_Nullable image,
+               UIActionIdentifier _Nullable identifier,
+               UIActionHandler _Nonnull handler,
+               jobsByUIActionBlock _Nullable block) API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(watchos){
+    UIAction *data = [UIAction actionWithTitle:title
+                                        image:image
+                                   identifier:identifier
+                                      handler:handler];
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof UIMenu *_Nonnull
+jobsMakeMenu(NSString *_Nonnull title,
+             NSArray<UIMenuElement *> *_Nonnull children,
+             jobsByUIMenuBlock _Nullable block) API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(watchos){
+    UIMenu *data = [UIMenu menuWithTitle:title children:children];
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof UIMenu *_Nonnull
+jobsMakeMenuByConfiguration(NSString *_Nonnull title,
+                            UIImage *_Nullable image,
+                            UIMenuIdentifier _Nullable identifier,
+                            UIMenuOptions options,
+                            NSArray<UIMenuElement *> *_Nonnull children,
+                            jobsByUIMenuBlock _Nullable block) API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(watchos){
+    UIMenu *data = [UIMenu menuWithTitle:title
+                                   image:image
+                              identifier:identifier
+                                 options:options
+                                children:children];
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof UIContextMenuConfiguration *_Nonnull
+jobsMakeContextMenuConfiguration(id<NSCopying> _Nullable identifier,
+                                 UIContextMenuContentPreviewProvider _Nullable previewProvider,
+                                 UIContextMenuActionProvider _Nullable actionProvider,
+                                 jobsByContextMenuConfigurationBlock _Nullable block) API_AVAILABLE(ios(13.0), tvos(17.0)) API_UNAVAILABLE(watchos){
+    UIContextMenuConfiguration *data = [UIContextMenuConfiguration configurationWithIdentifier:identifier
+                                                                                previewProvider:previewProvider
+                                                                                 actionProvider:actionProvider];
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof UISwipeActionsConfiguration *_Nonnull
+jobsMakeSwipeActionsConfiguration(NSArray <UIContextualAction *>*_Nonnull actions,
+                                   jobsBySwipeActionsConfigurationBlock _Nonnull block) API_AVAILABLE(ios(11.0)){
+    UISwipeActionsConfiguration *data = [UISwipeActionsConfiguration configurationWithActions:actions];
+    if (block) block(data);
+    return data;
+}
+
 NS_INLINE __kindof UISearchBar *_Nonnull
 jobsMakeUISearchBar(jobsByUISearchBarBlock _Nonnull block){
     UISearchBar *data = UISearchBar.alloc.init;
@@ -468,6 +539,13 @@ jobsMakeUISearchBar(jobsByUISearchBarBlock _Nonnull block){
 NS_INLINE __kindof UINavigationBarAppearance *_Nonnull
 jobsMakeNavigationBarAppearance(jobsByNavigationBarAppearanceBlock _Nonnull block){
     UINavigationBarAppearance *data = UINavigationBarAppearance.alloc.init;
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof UITabBarAppearance *_Nonnull
+jobsMakeTabBarAppearance(jobsByTabBarAppearanceBlock _Nonnull block) API_AVAILABLE(ios(13.0)){
+    UITabBarAppearance *data = UITabBarAppearance.alloc.init;
     if (block) block(data);
     return data;
 }
@@ -631,6 +709,55 @@ jobsMakeShadow(jobsByShadowBlock _Nonnull block){
 NS_INLINE __kindof UIMenuController *_Nonnull
 jobsMakeMenuController(jobsByMenuCtrlBlock _Nonnull block){
     UIMenuController *data = UIMenuController.sharedMenuController;
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof UINib *_Nonnull
+jobsMakeNib(NSString *_Nonnull nibName,
+            NSBundle *_Nullable bundle,
+            jobsByNibBlock _Nullable block) API_AVAILABLE(ios(4.0)) API_UNAVAILABLE(watchos){
+    UINib *data = [UINib nibWithNibName:nibName bundle:bundle];
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof UIBarButtonItem *_Nonnull
+jobsMakeBarButtonItemByTitle(NSString *_Nullable title,
+                             UIBarButtonItemStyle style,
+                             id _Nullable target,
+                             SEL _Nullable action,
+                             jobsByBarButtonItemBlock _Nullable block) API_AVAILABLE(ios(2.0)) API_UNAVAILABLE(watchos){
+    UIBarButtonItem *data = [UIBarButtonItem.alloc initWithTitle:title
+                                                          style:style
+                                                         target:target
+                                                         action:action];
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof UIBarButtonItem *_Nonnull
+jobsMakeBarButtonItemByImage(UIImage *_Nullable image,
+                             UIBarButtonItemStyle style,
+                             id _Nullable target,
+                             SEL _Nullable action,
+                             jobsByBarButtonItemBlock _Nullable block) API_AVAILABLE(ios(2.0)) API_UNAVAILABLE(watchos){
+    UIBarButtonItem *data = [UIBarButtonItem.alloc initWithImage:image
+                                                          style:style
+                                                         target:target
+                                                         action:action];
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof UIBarButtonItem *_Nonnull
+jobsMakeBarButtonItemBySystemItem(UIBarButtonSystemItem systemItem,
+                                  id _Nullable target,
+                                  SEL _Nullable action,
+                                  jobsByBarButtonItemBlock _Nullable block) API_AVAILABLE(ios(2.0)) API_UNAVAILABLE(watchos){
+    UIBarButtonItem *data = [UIBarButtonItem.alloc initWithBarButtonSystemItem:systemItem
+                                                                       target:target
+                                                                       action:action];
     if (block) block(data);
     return data;
 }

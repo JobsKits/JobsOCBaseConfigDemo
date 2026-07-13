@@ -302,7 +302,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 //    [self requestData:YES];
                 //    [self playVideo];
                     return nil;
-                }]));tableView.mj_footer.hidden = NO;
+                }]));tableView.mj_footer.byHidden(NO);
             }
 
     //        {// 设置tabAnimated相关属性
@@ -351,13 +351,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                                           BOOL isFullScreen) {
             AppDelegate.sharedManager.allowOrentitaionRotation = isFullScreen;
             @jobs_strongify(self)
-            self->_player.controlView.hidden = YES;
+            self->_player.controlView.byHidden(YES);
         };
         
         _player.orientationDidChanged = ^(ZFPlayerController * _Nonnull player,
                                           BOOL isFullScreen) {
             @jobs_strongify(self)
-            self->_player.controlView.hidden = NO;
+            self->_player.controlView.byHidden(NO);
             self->_player.controlView = isFullScreen ? self.fullControlView : self.controlView;
         };
         /// 更新另一个控制层的时间

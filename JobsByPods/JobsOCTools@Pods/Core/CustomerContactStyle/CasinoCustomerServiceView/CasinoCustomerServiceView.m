@@ -35,7 +35,7 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundImageView.image = @"客服_背景图".img;
+        self.backgroundImageView.byImage(@"客服_背景图".img);
         [self customerContact];
     };return self;
 }
@@ -95,8 +95,7 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
             label
                 .byText(Title8.tr)
                 .byTextCor(HEXCOLOR(0x502600))
-                .byFont([UIFont systemFontOfSize:JobsWidth(20)
-                                           weight:UIFontWeightRegular])
+                .byFont(UIFontWeightRegularSize(JobsWidth(20)))
             .bySizeToFit()
             .addOn(self.backgroundImageView)
             .byAdd(^(MASConstraintMaker *make) {

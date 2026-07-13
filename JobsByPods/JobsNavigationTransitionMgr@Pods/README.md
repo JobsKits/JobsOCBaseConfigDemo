@@ -63,6 +63,8 @@ JobsNavigationTransitionMgr@Pods/
 - `Support` 当前包含 147 个文件，其中源码 / 头文件 146 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
+- 导航控制器代理统一通过 `JobsOCDSL` 的 `UINavigationController.byDelegate(...)` 配置；`JobsNavigationTransitionMgr.podspec` 已声明直接依赖，核心头通过聚合头显式导入。
+- `Support/UIKit/UIViewController/UIViewController+BaseVC` 与源头实现保持一致：`navBarConfig` / `navBar` 首次懒加载直接返回新建对象，保障导航栏 Jobs DSL 首次调用安全。
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -113,9 +115,10 @@ JobsNavigationTransitionMgr@Pods/
 - `YYImage`
 - `WHToastExtra`
 - `JobsNavBar`
-- `JobsModel`
+- `JobsModelDSL`
 - `JobsClass`
 - `JobsBlock`
+- `JobsOCDSL`
 - `JobsDebug`
 - `JobsMakes`
 - `JobsOCDefs`

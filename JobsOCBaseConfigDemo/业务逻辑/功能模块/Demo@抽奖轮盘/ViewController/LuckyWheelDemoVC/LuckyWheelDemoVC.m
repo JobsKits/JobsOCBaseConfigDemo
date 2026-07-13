@@ -58,7 +58,7 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(HEXCOLOR(0xFFF7EA));
-    self.backgroundGradientLayer.hidden = NO;
+    self.backgroundGradientLayer.byHidden(NO);
     self.stageView.byVisible(YES);
     self.stageTitleLab.byVisible(YES);
     self.stageSubTitleLab.byVisible(YES);
@@ -75,13 +75,13 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
 
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    self.backgroundGradientLayer.frame = self.view.bounds;
-    self.stageView.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.stageView.bounds
-                                                                 cornerRadius:JobsWidth(24)].CGPath;
+    self.backgroundGradientLayer.byFrame(self.view.bounds);
+    self.stageView.layer.byShadowPath(UIBezierPath.byBezierPathWithRoundedRect(self.stageView.bounds,
+                                                                               JobsWidth(24)).CGPath);
 }
 
 -(void)updateSpinToggleBtnBySpinning:(BOOL)spinning{
-    self.spinToggleBtn.selected = spinning;
+    self.spinToggleBtn.bySelected(spinning);
     self.spinToggleBtn.jobsResetBtnTitle(spinning ? @"停止".tr : @"开始抽奖".tr);
 }
 
@@ -101,7 +101,7 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
                                                                              format:format];
     return [renderer imageWithActions:^(__unused UIGraphicsImageRendererContext * _Nonnull rendererContext) {
         NSString *emoji = @"🎉";
-        UIFont *font = [UIFont systemFontOfSize:size.width * 0.78];
+        UIFont *font = UIFontSystemFontOfSize(size.width * 0.78);
         NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
         paragraphStyle.alignment = NSTextAlignmentCenter;
         NSDictionary<NSAttributedStringKey, id> *attributes = @{
@@ -182,13 +182,14 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
                     [self make:make topOffset:JobsWidth(22)];
                     make.bottom.equalTo(self.view).offset(-(JobsBottomSafeAreaHeight() + JobsWidth(28)));
                 });
-            view.layer.cornerRadius = JobsWidth(24);
-            view.layer.borderWidth = JobsWidth(1);
-            view.layer.borderColor = [HEXCOLOR(0xFFFFFF) colorWithAlphaComponent:0.8].CGColor;
-            view.layer.shadowColor = HEXCOLOR(0xB47722).CGColor;
-            view.layer.shadowOpacity = 0.16;
-            view.layer.shadowOffset = CGSizeMake(0, JobsWidth(12));
-            view.layer.shadowRadius = JobsWidth(24);
+            view.layer
+                .byCornerRadius(JobsWidth(24))
+                .byBorderWidth(JobsWidth(1))
+                .byBorderColor([HEXCOLOR(0xFFFFFF) colorWithAlphaComponent:0.8].CGColor)
+                .byShadowColor(HEXCOLOR(0xB47722).CGColor)
+                .byShadowOpacity(0.16)
+                .byShadowOffset(CGSizeMake(0, JobsWidth(12)))
+                .byShadowRadius(JobsWidth(24));
         });
     };return _stageView;
 }

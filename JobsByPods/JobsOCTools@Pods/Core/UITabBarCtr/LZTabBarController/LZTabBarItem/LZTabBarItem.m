@@ -83,7 +83,7 @@ Prop_strong()UILabel *titleLabel;
 
 - (void)setIcon:(NSString *)icon {
     _icon = icon;
-    self.iconImageView.image = icon.img;
+    self.iconImageView.byImage(icon.img);
 }
 
 - (void)setTitle:(NSString *)title {
@@ -117,7 +117,7 @@ Prop_strong()UILabel *titleLabel;
             @jobs_strongify(self)
             label
                 .byTextAlignment(NSTextAlignmentCenter)
-                .byFont([UIFont systemFontOfSize:10])
+                .byFont(UIFontSystemFontOfSize(10))
                 .byNumberOfLines(0)
                 .byTextCor(JobsGrayColor)
             .addOn(self);

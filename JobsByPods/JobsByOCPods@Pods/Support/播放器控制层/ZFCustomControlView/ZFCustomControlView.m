@@ -72,12 +72,12 @@ Prop_strong()UIImageView *coverImageView;
 }
 
 - (void)makeSubViewsAction {
-    [self.playOrPauseBtn addTarget:self
-                            action:@selector(playPauseButtonClickAction:)
-                  forControlEvents:UIControlEventTouchUpInside];
-    [self.fullScreenBtn addTarget:self
-                           action:@selector(fullScreenButtonClickAction:)
-                 forControlEvents:UIControlEventTouchUpInside];
+    self.playOrPauseBtn.byAddTarget(self,
+                                    @selector(playPauseButtonClickAction:),
+                                    UIControlEventTouchUpInside);
+    self.fullScreenBtn.byAddTarget(self,
+                                   @selector(fullScreenButtonClickAction:),
+                                   UIControlEventTouchUpInside);
 }
 #pragma mark —— ZFSliderViewDelegate
 - (void)sliderTouchBegan:(float)value {
@@ -135,12 +135,12 @@ Prop_strong()UIImageView *coverImageView;
 }
 /// 根据当前播放状态取反
 - (void)playOrPause {
-    self.playOrPauseBtn.selected = !self.playOrPauseBtn.isSelected;
-    self.playOrPauseBtn.isSelected? [self.player.currentPlayerManager play]: [self.player.currentPlayerManager pause];
+    self.playOrPauseBtn.byToggleSelected();
+    self.playOrPauseBtn.jobs_isSelected ? [self.player.currentPlayerManager play] : [self.player.currentPlayerManager pause];
 }
 
 - (void)playBtnSelectedState:(BOOL)selected {
-    self.playOrPauseBtn.selected = selected;
+    self.playOrPauseBtn.bySelected(selected);
 }
 #pragma mark —— 添加子控件约束
 - (void)layoutSubviews {
@@ -240,7 +240,7 @@ Prop_strong()UIImageView *coverImageView;
     self.currentTimeLabel.text       = @"00:00";
     self.totalTimeLabel.text         = @"00:00";
     self.backgroundColor             = [UIColor clearColor];
-    self.playOrPauseBtn.selected     = YES;
+    self.playOrPauseBtn.bySelected(YES);
     self.titleLabel.text             = @"".tr;
 }
 
@@ -288,7 +288,7 @@ Prop_strong()UIImageView *coverImageView;
                      animations:^{
         [self hideControlView];
     } completion:^(BOOL finished) {
-        self.bottomPgrogress.hidden = NO;
+        self.bottomPgrogress.byHidden(NO);
     }];
 }
 /// 显示控制层
@@ -299,7 +299,7 @@ Prop_strong()UIImageView *coverImageView;
                      animations:^{
         [self showControlView];
     } completion:^(BOOL finished) {
-        self.bottomPgrogress.hidden = YES;
+        self.bottomPgrogress.byHidden(YES);
     }];
 }
 
@@ -424,10 +424,10 @@ Prop_strong()UIImageView *coverImageView;
 - (void)videoPlayer:(ZFPlayerController *)videoPlayer
    loadStateChanged:(ZFPlayerLoadState)state {
     if (state == ZFPlayerLoadStatePrepare) {
-        self.coverImageView.hidden = NO;
+        self.coverImageView.byHidden(NO);
     } else if (state == ZFPlayerLoadStatePlaythroughOK ||
                state == ZFPlayerLoadStatePlayable) {
-        self.coverImageView.hidden = YES;
+        self.coverImageView.byHidden(YES);
         self.player.currentPlayerManager.view.backgroundColor = [UIColor blackColor];
     }
     if (state == ZFPlayerLoadStateStalled && videoPlayer.currentPlayerManager.isPlaying) {
@@ -533,14 +533,11 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
 
 - (UIButton *)playOrPauseBtn {
     if (!_playOrPauseBtn) {
-        _playOrPauseBtn = UIButton.alloc.init
-            .byViewBlock(^(__kindof UIView *view) {
-                UIButton *button = (UIButton *)view;
-                [button setImage:ZFPlayer_Image(@"new_allPlay_44x44_")
-                         forState:UIControlStateNormal];
-                [button setImage:ZFPlayer_Image(@"new_allPause_44x44_")
-                         forState:UIControlStateSelected];
-            });
+        _playOrPauseBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button
+                .jobsResetBtnImage(ZFPlayer_Image(@"new_allPlay_44x44_"))
+                .selectedStateImageBy(ZFPlayer_Image(@"new_allPause_44x44_"));
+        });
     };return _playOrPauseBtn;
 }
 
@@ -588,11 +585,9 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
 
 - (UIButton *)fullScreenBtn {
     if (!_fullScreenBtn) {
-        _fullScreenBtn = UIButton.alloc.init
-            .byViewBlock(^(__kindof UIView *view) {
-                [(UIButton *)view setImage:ZFPlayer_Image(@"ZFPlayer_fullscreen")
-                                  forState:UIControlStateNormal];
-            });
+        _fullScreenBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button.jobsResetBtnImage(ZFPlayer_Image(@"ZFPlayer_fullscreen"));
+        });
     };return _fullScreenBtn;
 }
 

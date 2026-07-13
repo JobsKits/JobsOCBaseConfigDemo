@@ -6,6 +6,7 @@
 //
 
 #import "JobsOCDemoListSettingsVC.h"
+#import "AppDelegate+TabBarCtr.h"
 
 static NSString *const JobsOCDemoListSettingsCellReuseIdentifier = @"JobsOCDemoListSettingsCell";
 static NSString *const JobsOCSplashEnabledUserDefaultsKey = @"com.BSports.JobsOCSplashEnabledUserDefaultsKey";
@@ -15,7 +16,9 @@ static NSString *const JobsOCDemoListDarkModeUserDefaultsKey = @"com.BSports.Job
 typedef NS_ENUM(NSInteger, JobsOCDemoListSettingItem) {
     JobsOCDemoListSettingItemSplash = 0,
     JobsOCDemoListSettingItemReturnBehavior,
-    JobsOCDemoListSettingItemTheme
+    JobsOCDemoListSettingItemTheme,
+    JobsOCDemoListSettingItemSideDrawerMode,
+    JobsOCDemoListSettingItemAppEntry
 };
 
 typedef NS_ENUM(NSInteger, JobsOCDemoListSettingSection) {
@@ -26,6 +29,7 @@ typedef NS_ENUM(NSInteger, JobsOCDemoListSettingSection) {
 @interface JobsOCDemoListSettingsVC ()
 
 Prop_strong()UITableView *tableView;
+Prop_assign()BOOL shouldApplyAppEntryAfterReturning;
 
 -(BOOL)jobsOCSplashEnabled;
 -(void)setJobsOCSplashEnabled:(BOOL)jobsOCSplashEnabled;
@@ -34,6 +38,13 @@ Prop_strong()UITableView *tableView;
 -(BOOL)demoListDarkModeEnabled;
 -(void)setDemoListDarkModeEnabled:(BOOL)enabled;
 -(void)applyDemoListInterfaceStyle;
+-(UIColor *)demoListPageBackgroundColor;
+-(UIColor *)demoListNavigationBackgroundColor;
+-(UIColor *)demoListPrimaryTextColor;
+-(UIColor *)demoListCellBackgroundColor;
+-(UIColor *)demoListSeparatorColor;
+-(void)applyDemoListNavigationInterfaceStyle;
+-(void)applyDemoListTabBarInterfaceStyle;
 -(NSString *)splashSwitchTitle;
 -(NSString *)returnSwitchTitle;
 -(NSString *)themeSwitchTitle;
@@ -58,18 +69,23 @@ Prop_strong()UITableView *tableView;
                         block:^(id _Nullable weakSelf,
                                 id _Nullable arg) {
         @jobs_strongify(self)
-        [self updateLocalizedContent];
-        self.makeNavByAlpha(1);
-        [self.tableView reloadData];
+        [self applyDemoListInterfaceStyle];
     }];
 }
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    [self applyDemoListInterfaceStyle];
     self.view.byBgColor(HEXCOLOR(0xF4F5F8));
     self.makeNavByAlpha(1);
     self.tableView.byAlpha(1);
+    [self applyDemoListInterfaceStyle];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    if (!self.shouldApplyAppEntryAfterReturning || !self.isMovingFromParentViewController) return;
+    self.shouldApplyAppEntryAfterReturning = NO;
+    JobsOCApplyAppRootViewController();
 }
 
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
@@ -107,11 +123,14 @@ titleForHeaderInSection:(NSInteger)section{
                  cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:JobsOCDemoListSettingsCellReuseIdentifier
                                                             forIndexPath:indexPath];
+    cell.byBgColor([self demoListCellBackgroundColor]);
+    cell.contentView.byBgColor([self demoListCellBackgroundColor]);
+    cell.byTintColor(HEXCOLOR(0x1D7FF2));
     return cell
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byText([self titleByIndexPath:indexPath])
                 .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor([self demoListPrimaryTextColor]);
         })
         .byAccessoryType([self accessoryTypeByIndexPath:indexPath])
         .bySelectionStyle(UITableViewCellSelectionStyleDefault);
@@ -137,6 +156,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         BOOL dark = ![self demoListDarkModeEnabled];
         [self setDemoListDarkModeEnabled:dark];
         (dark ? @"主题已切换：黑夜".tr : @"主题已切换：白天".tr).toast();
+    }else if (item == JobsOCDemoListSettingItemSideDrawerMode){
+        BOOL fixed = ![NSUserDefaults.standardUserDefaults boolForKey:@"JobsOCDemoSideDrawerFixed"];
+        [NSUserDefaults.standardUserDefaults setBool:fixed forKey:@"JobsOCDemoSideDrawerFixed"];
+        (fixed ? @"侧滑内容已设为固定".tr : @"侧滑内容已设为跟随".tr).toast();
+    }else if (item == JobsOCDemoListSettingItemAppEntry){
+        BOOL usesTabBarEntry = !JobsOCDemoListUsesTabBarEntry();
+        JobsOCSetDemoListUsesTabBarEntry(usesTabBarEntry);
+        self.shouldApplyAppEntryAfterReturning = YES;
+        (usesTabBarEntry ? @"返回后从 TabBar 进入".tr : @"返回后直接进入 Demo 列表".tr).toast();
     }
     [self.tableView reloadData];
 }
@@ -211,20 +239,119 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             window.overrideUserInterfaceStyle = style;
         }
     }
+    self.view.byBgColor([self demoListPageBackgroundColor]);
+    [self updateLocalizedContent];
+    self.makeNavByAlpha(1);
+    self.navBar.backBtn.jobsResetBtnTitle(@"返回".tr);
+    [self applyDemoListNavigationInterfaceStyle];
+    [self applyDemoListTabBarInterfaceStyle];
+    if (_tableView) {
+        _tableView.separatorColor = [self demoListSeparatorColor];
+        [_tableView reloadData];
+    }
+}
+
+-(UIColor *)demoListPageBackgroundColor{
+    return [self demoListDarkModeEnabled] ? HEXCOLOR(0x0F1115) : HEXCOLOR(0xF4F5F8);
+}
+
+-(UIColor *)demoListNavigationBackgroundColor{
+    return [self demoListDarkModeEnabled] ? HEXCOLOR(0x15171C) : RGBA_COLOR(255, 238, 221, 1);
+}
+
+-(UIColor *)demoListPrimaryTextColor{
+    return [self demoListDarkModeEnabled] ? HEXCOLOR(0xF4F5F8) : HEXCOLOR(0x3D4A58);
+}
+
+-(UIColor *)demoListCellBackgroundColor{
+    return [self demoListDarkModeEnabled] ? HEXCOLOR(0x191B20) : JobsWhiteColor;
+}
+
+-(UIColor *)demoListSeparatorColor{
+    return [self demoListDarkModeEnabled] ? HEXCOLOR(0x30333A) : HEXCOLOR(0xE5E7EB);
+}
+
+-(void)applyDemoListNavigationInterfaceStyle{
+    self
+        .byGKNavBackgroundColor([self demoListNavigationBackgroundColor])
+        .byGKNavBackgroundImage(nil)
+        .byGKNavTitleColor([self demoListPrimaryTextColor])
+        .byGKNavShadowColor([self demoListSeparatorColor])
+        .byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
+            navigationBar.byTintColor([self demoListPrimaryTextColor]);
+        });
+    self.navBar.byBgColor([self demoListNavigationBackgroundColor]);
+    self.navBar.titleLab.byTextCor([self demoListPrimaryTextColor]);
+}
+
+-(void)applyDemoListTabBarInterfaceStyle{
+    UIColor *backgroundColor = [self demoListNavigationBackgroundColor];
+    UIColor *titleColor = [self demoListPrimaryTextColor];
+    UIColor *selectedColor = HEXCOLOR(0x1D7FF2);
+    if (@available(iOS 13.0, *)) {
+        UITabBarAppearance *appearance = jobsMakeTabBarAppearance(^(__kindof UITabBarAppearance * _Nullable appearance) {
+            appearance
+                .byConfigureWithOpaqueBackground()
+                .byBackgroundColor(backgroundColor)
+                .byShadowColor([self demoListSeparatorColor]);
+        });
+        [UITabBar jobsApplyStandardAppearance:appearance];
+        if (@available(iOS 15.0, *)) {
+            [UITabBar jobsApplyScrollEdgeAppearance:appearance];
+        }
+    }
+    NSMutableArray <UITabBar *>*tabBars = NSMutableArray.array;
+    if (self.tabBarController.tabBar) [tabBars addObject:self.tabBarController.tabBar];
+    if (AppDelegate.tabBarVC.tabBar && ![tabBars containsObject:AppDelegate.tabBarVC.tabBar]) {
+        [tabBars addObject:AppDelegate.tabBarVC.tabBar];
+    }
+    for (UITabBar *tabBar in tabBars) {
+        tabBar
+            .byBarTintColor(backgroundColor)
+            .byTintColor(selectedColor)
+            .byBgColor(backgroundColor);
+        if (@available(iOS 10.0, *)) {
+            tabBar.byUnselectedItemTintColor(titleColor);
+        }
+        if (@available(iOS 13.0, *)) {
+            UITabBarAppearance *appearance = jobsMakeTabBarAppearance(^(__kindof UITabBarAppearance * _Nullable appearance) {
+                appearance
+                    .byConfigureWithOpaqueBackground()
+                    .byBackgroundColor(backgroundColor)
+                    .byShadowColor([self demoListSeparatorColor]);
+            });
+            tabBar.byStandardAppearance(appearance);
+            if (@available(iOS 15.0, *)) {
+                tabBar.byScrollEdgeAppearance(appearance);
+            }
+        }
+    }
+    for (UIButton *button in AppDelegate.tabBarItemMutArr) {
+        button
+            .jobsResetBtnTitleCor(titleColor)
+            .selectedStateTitleColorBy(selectedColor)
+            .highlightedStateTitleColorBy(selectedColor)
+            .titleColorForStateBy(selectedColor, UIControlStateSelected | UIControlStateHighlighted)
+            .byTintColor(titleColor)
+            .byBgColor(JobsClearColor);
+    }
 }
 
 -(void)updateLocalizedContent{
+    UIColor *navBgColor = [self demoListNavigationBackgroundColor];
+    UIColor *titleColor = [self demoListPrimaryTextColor];
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
+            data.byText(@"返回".tr)
+                .byTextCor(titleColor);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"设置".tr)
                 .byFont(UIFontWeightRegularSize(18))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(titleColor);
         })
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1));
+        .byBgCor(navBgColor)
+        .byNavBgCor(navBgColor);
 }
 
 -(NSString *)splashSwitchTitle{
@@ -243,7 +370,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     return @[
         [self splashSwitchTitle],
         [self returnSwitchTitle],
-        [self themeSwitchTitle]
+        [self themeSwitchTitle],
+        [NSUserDefaults.standardUserDefaults boolForKey:@"JobsOCDemoSideDrawerFixed"] ? @"侧滑菜单：内容固定".tr : @"侧滑菜单：内容跟随".tr,
+        JobsOCDemoListUsesTabBarEntry() ? @"启动入口：TabBar".tr : @"启动入口：Demo 列表".tr
     ];
 }
 

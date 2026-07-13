@@ -15,6 +15,7 @@
 ### 1.1、核心对象
 
 - `JobsOCKeyboardConfig`：描述目标视图、触发输入控件、触发查找范围、容器、附属视图、输入流和生命周期 owner。
+- `jobsMakeOCKeyboardConfig`：定义在 `Core/JobsOCKeyboardConfig` 并由本 Pod 聚合头导出，不再借道 `JobsMakes`。
 - `JobsOCKeyboardCalculator`：基于系统键盘通知和当前 config 计算遮挡区域、触发控件 frame、位移值和动画参数。
 - `JobsOCKeyboardResult`：承接计算结果，业务可通过 `resultBlock` 自定义处理。
 - `JobsOCKeyboardMgr`：监听键盘通知，缓存最新键盘 frame，应用 transform 位移，处理可选的回车流转和空白收键盘。
@@ -93,6 +94,7 @@ JobsOCKeyboardMgr.shared.start();
 - 默认位移方式是 `transform`，适合表单卡片、小窗、登录注册面板。
 - 框架会在键盘隐藏、无需位移或 restore 后清理 transform 基准缓存，降低业务后续动画被旧基准覆盖的风险。
 - 键盘通知到达时会先缓存最新键盘 frame；即使 config 稍后才设置，也能基于最新键盘状态重新计算。
+- 本 Pod 直接依赖 `JobsBlock`、`JobsOCDSL`、`JobsOCDefs`；输入框回车流转的 target / action 通过 `byRemoveTarget` / `byAddTarget` 收口。
 
 ### 4.2、后续扩展方向
 

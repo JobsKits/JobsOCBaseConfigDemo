@@ -868,7 +868,7 @@
 "返回" = "Bumalik";
 "返回主列表：保持原样" = "Listahan: panatilihin";
 "返回主列表：回顶部并刷新" = "Listahan: itaas at i-refresh";
-"返回注册" = "Bumalik sa pagpaparehistro";
+"去注册" = "Magrehistro";
 "返回登录" = "Bumalik sa pag-login";
 "返回首页" = "Bumalik sa Home Page";
 "返回：保持原样" = "Bumalik: panatilihin";
@@ -943,4 +943,11 @@
 "支持手动拖拽后恢复" = "Sumusuporta sa resume pagkatapos ng manual drag";
 "一屏一页间隔滚动" = "Interval scrolling na isang pahina bawat screen";
 "点击：" = "Na-tap: ";
+"滤镜" = "Filter";
+"切换" = "Lumipat";
+"0.0秒" = "0.0 segundo";
+"账户" = "Account";
+"演示“只允许在指定 y 区间内上下滑动”的吸附效果：拖拽绿色区域，上滑释放会吸附到最高点，下滑释放会回到底部初始位置。" = "Ipinapakita nito ang patayong pag-drag sa loob ng itinakdang y-range. I-drag ang berdeng bahagi: bitawan pataas para dumikit sa itaas, o pababa para bumalik sa panimulang posisyon.";
+"最高点：上滑后吸附到这里" = "Itaas: dito didikit pagkatapos i-drag pataas";
+"最低点：下滑释放回到初始位置" = "Ibaba: dito babalik pagkatapos i-drag pababa";
 "Timer 在 OC / Swift 侧只是语言不同：OC 侧 JobsOCTimer、Swift 侧 JobsSwiftTimer，都是把系统 Timer / GCD / DisplayLink / RunLoop 的杂乱细节收口成少量参数。\\n\\n应用层副产物应该归到 Timer 体系下，例如倒计时按钮、时钟、红包雨、抽奖轮盘、跑马灯和轮播图。\\n\\nTimerMgr 是多个 Timer 的统一注册表：OC 侧 JobsOCTimerMgr、Swift 侧 JobsSwiftTimerMgr，都按 identifier 管理 start / pause / resume / stop。\\n\\nJobsMarqueeView 用 JobsOCTimerMgr 做统一内核，把跑马灯和轮播图收口成同一个 UIScrollView + UIButton 数据源组件。" = "Magkaiba lang ng wika ang Timer sa OC / Swift side: ang JobsOCTimer sa OC at JobsSwiftTimer sa Swift ay parehong nagbabalot ng magulong detalye ng system Timer / GCD / DisplayLink / RunLoop sa kaunting parameter.\\n\\nDapat mapabilang sa Timer system ang application-layer derivatives, gaya ng countdown buttons, clocks, red packet rain, lucky wheels, marquees, at carousels.\\n\\nAng TimerMgr ay registry para sa maraming timer: pareho nitong pinamamahalaan ang start / pause / resume / stop ayon sa identifier sa OC JobsOCTimerMgr at Swift JobsSwiftTimerMgr.\\n\\nGinagamit ng JobsMarqueeView ang JobsOCTimerMgr bilang unified core, kaya ang marquee at carousel ay nagiging iisang UIScrollView + UIButton data-source component.";

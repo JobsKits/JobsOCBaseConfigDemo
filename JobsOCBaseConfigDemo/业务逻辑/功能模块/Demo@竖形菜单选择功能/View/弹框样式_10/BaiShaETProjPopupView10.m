@@ -342,7 +342,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
             .jobsResetBtnBgImage(@"关闭".img)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 self.cancelBtnActionForPopView(x);
                 self.shakeCell(NO);
             }).onLongPressGestureBy(^(id data){
@@ -367,7 +367,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
                           ,@"弹窗取消按钮".img)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 self.cancelBtnActionForPopView(x);
                 self.shakeCell(NO);
             })
@@ -393,7 +393,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
                           ,@"弹窗提交按钮".img)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 self.cancelBtnActionForPopView(self.dataMutArr);
                 self.shakeCell(NO);
             })

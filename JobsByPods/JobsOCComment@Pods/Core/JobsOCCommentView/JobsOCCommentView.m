@@ -84,8 +84,8 @@ Prop_strong()NSMutableSet <NSString *>*expandedRootIDMutSet;
 -(void)setupWithConfig:(JobsOCCommentConfig *)config{
     self.config = config ? : JobsOCCommentConfig.defaultConfig;
     self.comments = @[];
-    self.backgroundColor = [UIColor colorWithRed:0.96 green:0.97 blue:0.99 alpha:1];
-    [self addSubview:self.tableView];
+    self.byBgColor(RGBA_COLOR(0.96 * 255.0, 0.97 * 255.0, 0.99 * 255.0, 1));
+    self.tableView.addOn(self);
     [NSLayoutConstraint activateConstraints:@[
         [self.tableView.topAnchor constraintEqualToAnchor:self.topAnchor],
         [self.tableView.leftAnchor constraintEqualToAnchor:self.leftAnchor],
@@ -305,17 +305,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 #pragma mark —— LazyLoad
 -(UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [UITableView.alloc initWithFrame:CGRectZero
-                                                style:UITableViewStylePlain];
-        _tableView.translatesAutoresizingMaskIntoConstraints = NO;
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.backgroundColor = UIColor.clearColor;
-        _tableView.estimatedRowHeight = 96;
-        _tableView.rowHeight = UITableViewAutomaticDimension;
-        _tableView.contentInset = UIEdgeInsetsMake(6, 0, 10, 0);
-        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
+            tableView.translatesAutoresizingMaskIntoConstraints = NO;
+            tableView
+                .byDelegate(self)
+                .byDataSource(self)
+                .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .byEstimatedRowHeight(96)
+                .byRowHeight(UITableViewAutomaticDimension)
+                .byContentInset(UIEdgeInsetsMake(6, 0, 10, 0))
+                .byKeyboardDismissMode(UIScrollViewKeyboardDismissModeOnDrag)
+                .byBgColor(UIColor.clearColor);
+        });
         [_tableView registerClass:JobsOCCommentCell.class
            forCellReuseIdentifier:JobsOCCommentCell.reuseIdentifier];
         if (@available(iOS 15.0, *)) {

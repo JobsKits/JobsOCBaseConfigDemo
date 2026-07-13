@@ -41,28 +41,29 @@
     
     // 4.把动画前后的两个ViewController加到容器中,顺序很重要,snapShotView在上方  就是截图和secondVC.view之间的动画
     [containerView insertSubview:firstVC.view belowSubview:secondVC.view];//firstVC.view在secondVC.view的下面
-    [containerView addSubview:snapShotView];
+    snapShotView.addOn(containerView);
     
     // 5.执行动画。第二个控制器的透明度0~1；让截图SnapShotView的位置更新到最新
-    [UIView animateWithDuration:0.6
-                          delay:0
-         usingSpringWithDamping:0.6
-          initialSpringVelocity:1
-                        options:UIViewAnimationOptionCurveLinear
-                     animations:^{
+    UIView.jobsAnimateWithSpring(0.6,
+        0,
+        0.6,
+        1,
+        UIViewAnimationOptionCurveLinear,
+        ^{
         secondVC.view.byAlpha(0);
 
         snapShotView.byFrame(firstFrame);
 
 //        [snapShotView removeFromSuperview];
-    } completion:^(BOOL finished) {
+    },
+        ^(BOOL finished) {
         [snapShotView removeFromSuperview];
         secondVC.imageView.byHidden(NO);
 
         cell.imgView.byHidden(NO);
 
         [transitionContext completeTransition:YES];
-    }];
+    });
 }
 
 @end

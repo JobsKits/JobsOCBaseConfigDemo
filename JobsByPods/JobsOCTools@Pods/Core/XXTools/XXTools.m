@@ -37,23 +37,24 @@ Prop_strong()UILabel *lab2;
     self.labView.clipsToBounds = YES;
     self.labView.layer.cornerRadius = cornerRadius;
     self.labView.transform = CGAffineTransformMakeRotation(-M_PI_4);
-    [superView addSubview:self.labView];
+    self.labView.addOn(superView);
     //3、展示文字
     self.lab2.frame = CGRectMake(-width/4,
                                  -width/4,
                                  width,
                                  width);
-    self.lab2.text = text;
-    self.lab2.textColor = JobsRedColor;
+    self.lab2
+        .byText(text)
+        .byTextCor(JobsRedColor);
     self.lab2.textAlignment = NSTextAlignmentCenter;
     if (@available(iOS 8.2, *)) {
-        self.lab2.font = [UIFont systemFontOfSize:10 weight:-0.4];
+        self.lab2.byFont(UIFontSystemFontOfSizeAndWeight(10, -0.4));
     } else {
-        self.lab2.font = [UIFont systemFontOfSize:10 weight:UIFontWeightRegular];
+        self.lab2.byFont(UIFontWeightRegularSize(10));
     }
     self.lab2.byBgColor(JobsClearColor);//lab2 不要颜色
     self.lab2.transform = CGAffineTransformMakeRotation(-M_PI_4);
-    [superView addSubview:self.lab2];
+    self.lab2.addOn(superView);
     return jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
         data.add(self.labView);
         data.add(self.lab2);
@@ -78,4 +79,3 @@ Prop_strong()UILabel *lab2;
 }
 
 @end
-

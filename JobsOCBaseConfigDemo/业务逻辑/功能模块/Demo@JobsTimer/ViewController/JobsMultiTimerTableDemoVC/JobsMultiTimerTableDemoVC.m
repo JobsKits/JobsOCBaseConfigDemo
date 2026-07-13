@@ -140,7 +140,7 @@ Prop_strong()NSMutableArray<NSMutableDictionary<NSString *, id> *>*dataMutArr;
     item[JobsMultiTimerTableDemoRemainKey] = @(MAX(0, ceil(time)));
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     if (cell) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"剩余：%@ 秒".tr,item[JobsMultiTimerTableDemoRemainKey]];
+        cell.detailTextLabel.byText([NSString stringWithFormat:@"剩余：%@ 秒".tr,item[JobsMultiTimerTableDemoRemainKey]]);
     }
 }
 
@@ -167,8 +167,8 @@ numberOfRowsInSection:(NSInteger)section{
     }
     NSDictionary<NSString *, id> *item = self.dataMutArr[indexPath.row];
     BOOL done = [item[JobsMultiTimerTableDemoDoneKey] boolValue];
-    cell.textLabel.text = item[JobsMultiTimerTableDemoTitleKey];
-    cell.detailTextLabel.text = done ? @"已结束".tr : [NSString stringWithFormat:@"剩余：%@ 秒".tr,item[JobsMultiTimerTableDemoRemainKey]];
+    cell.textLabel.byText(item[JobsMultiTimerTableDemoTitleKey]);
+    cell.detailTextLabel.byText(done ? @"已结束".tr : [NSString stringWithFormat:@"剩余：%@ 秒".tr,item[JobsMultiTimerTableDemoRemainKey]]);
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

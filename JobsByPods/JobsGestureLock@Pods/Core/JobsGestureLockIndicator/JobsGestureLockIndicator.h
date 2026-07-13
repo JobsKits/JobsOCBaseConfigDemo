@@ -10,6 +10,20 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
+#import <JobsBaseUI/UIButton+SimplyMake.h>
+#else
+#import "JobsBaseUI.h"
+#import "UIButton+SimplyMake.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -17,12 +31,6 @@
 #endif
 
 @class JobsGestureLockConfiguration;
-
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

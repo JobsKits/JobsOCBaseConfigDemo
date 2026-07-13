@@ -15,6 +15,24 @@
 #import "JobsSuspend.h"
 #endif
 
+#if __has_include(<JobsOCTimerMgr/JobsOCTimerMgr.h>)
+#import <JobsOCTimerMgr/JobsOCTimerMgr.h>
+#else
+#import "JobsOCTimerMgr.h"
+#endif
+
+#if __has_include(<JobsTimeUtils/JobsTimeUtils.h>)
+#import <JobsTimeUtils/JobsTimeUtils.h>
+#else
+#import "JobsTimeUtils.h"
+#endif
+
+#if __has_include(<JobsFuseAnimation/JobsFuseAnimation.h>)
+#import <JobsFuseAnimation/JobsFuseAnimation.h>
+#else
+#import "JobsFuseAnimation.h"
+#endif
+
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
@@ -43,6 +61,12 @@
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsRichTextUtils/JobsRichTextUtils.h>)
+#import <JobsRichTextUtils/JobsRichTextUtils.h>
+#else
+#import "JobsRichTextUtils.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

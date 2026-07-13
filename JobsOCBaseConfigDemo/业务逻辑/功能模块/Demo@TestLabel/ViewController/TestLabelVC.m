@@ -78,7 +78,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!cell) {
         cell = [UITableViewCell.alloc initWithStyle:UITableViewCellStyleSubtitle
                                     reuseIdentifier:TestLabelListCellReuseIdentifier];
-        cell.backgroundColor = JobsWhiteColor;
+        cell.byBgColor(JobsWhiteColor);
     }
     TestLabelDemoModel *model = [self dataArrBySection:indexPath.section][indexPath.row];
     return cell
@@ -169,7 +169,7 @@ heightForFooterInSection:(NSInteger)section{
                 .byRowHeight(JobsWidth(74))
                 .byEstimatedRowHeight(JobsWidth(74))
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
-                .byTableFooterView(UIView.new)
+                .byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {}))
                 .byShowsVerticalScrollIndicator(NO)
                 .byBgColor(JobsClearColor)
                 .addOn(self.view)

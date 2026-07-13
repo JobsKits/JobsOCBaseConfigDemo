@@ -38,7 +38,7 @@ AppToolsProtocol_synthesize
 -(void)setSelected:(BOOL)selected{
     [super setSelected:selected];
     _selected = selected;
-    self.button.selected = selected;
+    self.button.bySelected(selected);
     
     if(self.buttonModel){
         self.button.jobsResetBtnTitle(selected ? (self.buttonModel.selectedTitle ? : self.buttonModel.title) : self.buttonModel.title);
@@ -134,8 +134,8 @@ AppToolsProtocol_synthesize
     return ^__kindof UIButton *_Nullable(__kindof UIViewModel *_Nullable viewModel){
         @jobs_strongify(self)
         /// viewModel + textModel
-        self.button.selected = viewModel.jobsSelected;
-        self.button.enabled = viewModel.jobsEnabled;/// 这个属性为YES，则优先响应Btn。这个属性为NO，则响应UITableViewCell
+        self.button.bySelected(viewModel.jobsSelected);
+        self.button.byEnabled(viewModel.jobsEnabled);/// 这个属性为YES，则优先响应Btn。这个属性为NO，则响应UITableViewCell
         self.button.resetByViewModel(viewModel,self.selected)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
@@ -173,8 +173,8 @@ AppToolsProtocol_synthesize
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(__kindof UIButtonModel *_Nullable buttonModel){
         @jobs_strongify(self)
-        self.button.selected = buttonModel.jobsSelected;
-        self.button.enabled = buttonModel.jobsEnabled;
+        self.button.bySelected(buttonModel.jobsSelected);
+        self.button.byEnabled(buttonModel.jobsEnabled);
         self.button.resetByButtonModel(buttonModel,self.selected)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)

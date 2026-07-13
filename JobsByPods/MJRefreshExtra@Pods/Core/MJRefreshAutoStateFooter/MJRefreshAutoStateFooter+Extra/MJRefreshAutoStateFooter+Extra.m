@@ -18,8 +18,8 @@ static inline void MJRefreshExtraApplyStateTitles(MJRefreshAutoStateFooter *view
 
 static inline void MJRefreshExtraApplyStateLabelStyle(UILabel *label, MJRefreshConfigModel *config) {
     if (!config) return;
-    if (config.font) label.font = config.font;
-    if (config.textColor) label.textColor = config.textColor;
+    if (config.font) label.byFont(config.font);
+    if (config.textColor) label.byTextCor(config.textColor);
 }
 
 static inline void MJRefreshExtraFeedbackIfNeeded(MJRefreshConfigModel *config) {

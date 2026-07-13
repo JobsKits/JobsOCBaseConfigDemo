@@ -19,15 +19,9 @@ Prop_strong()NSMutableArray <JXCategoryTitleBackgroundCellModel *>*tempMutArray;
     [super initializeData];
 
     self.cellWidthIncrement = 20;
-    self.normalBackgroundColor = [UIColor colorWithRed:237.0 / 255.0
-                                                 green:236.0 / 255.0
-                                                  blue:242.0 / 255.0
-                                                 alpha:1.0];
+    self.normalBackgroundColor = RGBA_COLOR(237.0, 236.0, 242.0, 1.0);
     self.normalBorderColor = UIColor.clearColor;
-    self.selectedBackgroundColor = [[UIColor colorWithRed:255.0 / 255.0
-                                                     green:232.0 / 255.0
-                                                      blue:236.0 / 255.0
-                                                     alpha:1.0] colorWithAlphaComponent:0.3];
+    self.selectedBackgroundColor = RGBA_COLOR(255.0, 232.0, 236.0, 0.3);
     self.selectedBorderColor = UIColor.clearColor;
     self.borderLineWidth = 1;
     self.backgroundCornerRadius = 13;

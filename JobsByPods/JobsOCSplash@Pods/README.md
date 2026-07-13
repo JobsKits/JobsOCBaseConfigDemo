@@ -14,6 +14,7 @@
 
 - 内容支持本地静态图、本地 GIF、远程图片、本地视频和远程视频。
 - 依赖 `JobsBlock`、`JobsOCDefs`、`JobsByOCPods`、`JobsOCDSL`、`JobsMakes`、`JobsOCTimer`，block 类型、属性宏和按钮倒计时能力不在本 Pod 内重复定义。
+- UIImageView / UIView / CALayer 的图片、Frame、父视图附着、自动缩放与按钮高亮调整统一走现有 Jobs DSL；AVPlayer / WebKit 等尚未覆盖的专属 API 保留系统调用，待底层封装补齐后再迁移。
 - 远程媒体首次下载到 `Caches/JobsOCSplash`，后续直接读取本地缓存。
 - 跳过按钮默认显示在安全区右上角，也可以通过 `bySkipButtonFrame` 指定 Frame。
 - 跳过按钮布局完成后按当前高度的一半设置圆角，并开启裁剪，保证矩形高度就是圆角直径。

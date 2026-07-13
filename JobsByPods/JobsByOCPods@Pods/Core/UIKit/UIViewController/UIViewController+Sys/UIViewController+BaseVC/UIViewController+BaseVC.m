@@ -36,14 +36,15 @@
     return ^(UIViewModel *_Nullable data) {
         @jobs_strongify(self)
         UIViewModel *viewModel = data ? : self.viewModel;
-        self.gk_navTitle = viewModel.textModel.text;
-        self.gk_navTitleColor = viewModel.textModel.textCor ? : HEXCOLOR(0xD3B698);
-        self.gk_navTitleFont = viewModel.textModel.font ? : UIFontWeightRegularSize(18);
-        self.gk_navBackgroundColor = viewModel.navBgCor;
-        self.gk_navBackgroundImage = viewModel.navBgImage;
-        self.gk_navLineHidden = YES;
-        self.gk_navItemLeftSpace = JobsWidth(20);
-        [self hideNavLine];
+        self
+            .byGKNavTitle(viewModel.textModel.text)
+            .byGKNavTitleColor(viewModel.textModel.textCor ? : HEXCOLOR(0xD3B698))
+            .byGKNavTitleFont(viewModel.textModel.font ? : UIFontWeightRegularSize(18))
+            .byGKNavBackgroundColor(viewModel.navBgCor)
+            .byGKNavBackgroundImage(viewModel.navBgImage)
+            .byGKNavLineHidden(YES)
+            .byGKNavItemLeftSpace(JobsWidth(20))
+            .byGKHideNavLine();
     };
 }
 /// 配置GKNavigationBar的返回按钮（从上个页面推过来才有返回键）
@@ -61,9 +62,10 @@
     @jobs_weakify(self)
     return ^(__kindof UIButton *_Nullable btn) {
         @jobs_strongify(self)
-        self.gk_backImage = @"全局返回箭头".img;/// 设置返回按钮图片（优先级高于gk_backStyle）
-        self.gk_backStyle = GKNavigationBarBackStyleBlack;
-        self.gk_navLeftBarButtonItem = UIBarButtonItem.initBy(btn ? : self.backBtnCategory);
+        self
+            .byGKBackImage(@"全局返回箭头".img)/// 设置返回按钮图片（优先级高于gk_backStyle）
+            .byGKBackStyle(GKNavigationBarBackStyleBlack)
+            .byGKNavLeftBarButtonItem(UIBarButtonItem.initBy(btn ? : self.backBtnCategory));
     };
 }
 /// 配置GKNavigationBar的标题（按钮）
@@ -233,9 +235,10 @@ JobsKey(_navBarConfig)
 -(JobsNavBarConfig *)navBarConfig{
     JobsNavBarConfig *NavBarConfig = Jobs_getAssociatedObject(_navBarConfig);
     if(!NavBarConfig){
-        Jobs_setAssociatedRETAIN_NONATOMIC(_navBarConfig, jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable data) {
+        NavBarConfig = jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable data) {
             
-        }))
+        });
+        Jobs_setAssociatedRETAIN_NONATOMIC(_navBarConfig, NavBarConfig)
     };return NavBarConfig;
 }
 #pragma mark —— Prop_strong()JobsNavBar *navBar;
@@ -249,7 +252,7 @@ JobsKey(_navBar)
     JobsNavBar *NavBar = Jobs_getAssociatedObject(_navBar);
     if(!NavBar){
         @jobs_weakify(self)
-        Jobs_setAssociatedRETAIN_NONATOMIC(_navBar, jobsMakeNavBar(^(__kindof JobsNavBar * _Nullable data) {
+        NavBar = jobsMakeNavBar(^(__kindof JobsNavBar * _Nullable data) {
             @jobs_strongify(self)
             if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
                 self.navBarConfig.backBtnModel.jobsOffsetX = self.navBarConfig.backBtnModel.jobsOffsetX ? : JobsWidth(40);
@@ -275,7 +278,8 @@ JobsKey(_navBar)
                                          make.top.equalTo(self.view).offset(JobsStatusBarHeight());
                                      }
                                  }).on();
-        }))
+        });
+        Jobs_setAssociatedRETAIN_NONATOMIC(_navBar, NavBar)
     };return NavBar;
 }
 

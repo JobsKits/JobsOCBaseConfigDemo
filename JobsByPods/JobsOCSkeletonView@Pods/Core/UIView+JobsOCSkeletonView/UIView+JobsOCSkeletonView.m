@@ -87,7 +87,7 @@ static void jobs_ocSkeletonExchangeInstanceMethod(Class cls, SEL originalSel, SE
     if (!self.jobs_ocSkeletonOriginalCornerRadiusValue) self.jobs_ocSkeletonOriginalCornerRadiusValue = @(self.layer.cornerRadius);
     self.clipsToBounds = YES;
     CAGradientLayer *layer = [self jobs_prepareSkeletonLayerIfNeeded];
-    layer.hidden = NO;
+    layer.byHidden(NO);
     layer.opacity = 1;
     [self jobs_updateSkeletonLayout];
     [self jobs_applySkeletonColors];
@@ -269,8 +269,8 @@ static void jobs_ocSkeletonExchangeInstanceMethod(Class cls, SEL originalSel, SE
     CAGradientLayer *layer = self.jobs_ocSkeletonLayer;
     if (!layer) return;
     JobsOCSkeletonConfig *config = self.jobs_ocSkeletonConfig ?: JobsOCSkeletonConfig.defaultConfig;
-    UIColor *baseColor = config.baseColor ?: [UIColor colorWithWhite:0.90 alpha:1];
-    UIColor *highlightColor = config.highlightColor ?: [UIColor colorWithWhite:1 alpha:0.92];
+    UIColor *baseColor = config.baseColor ?: RGBA_SAMECOLOR(0.90 * 255.0, 1);
+    UIColor *highlightColor = config.highlightColor ?: RGBA_SAMECOLOR(1 * 255.0, 0.92);
     if (@available(iOS 13.0, *)) {
         baseColor = [baseColor resolvedColorWithTraitCollection:self.traitCollection];
         highlightColor = [highlightColor resolvedColorWithTraitCollection:self.traitCollection];

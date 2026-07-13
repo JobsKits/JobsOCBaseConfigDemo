@@ -7,6 +7,10 @@
 
 #import "UIView+Animation.h"
 
+static NSString *const JobsSpinAnimationKey = @"jobs.spin";
+JobsKey(JobsSpinPausedAngleKey)
+JobsKey(JobsSpinRevolutionsPerSecondKey)
+
 @implementation UIView (Animation)
 #pragma mark —— 一些功能方法
 -(JobsRetViewByBOOLBlock _Nonnull)抖动动画{
@@ -47,6 +51,81 @@
             self.isStopRotateAnimation = !self.isStopRotateAnimation;
         };return self;
     };
+}
+/// 持续旋转 sublayers，不改变 UIView.transform，避免干扰拖拽与点击回弹
+-(JobsRetViewByVoidBlock _Nonnull)bySpinStart{
+    @jobs_weakify(self)
+    return ^__kindof UIView *_Nullable(void) {
+        @jobs_strongify(self)
+        return self.bySpinStartBy(1.0);
+    };
+}
+/// 按每秒圈数持续旋转 sublayers
+-(JobsRetViewByCGFloatBlock _Nonnull)bySpinStartBy{
+    @jobs_weakify(self)
+    return ^__kindof UIView *_Nullable(CGFloat revolutionsPerSecond) {
+        @jobs_strongify(self)
+        CGFloat speed = MAX(0.001, revolutionsPerSecond);
+        Jobs_setAssociatedRETAIN_NONATOMIC(JobsSpinRevolutionsPerSecondKey, @(speed))
+        if (self.jobs_isSpinning) return self;
+
+        NSNumber *pausedAngle = Jobs_getAssociatedObject(JobsSpinPausedAngleKey);
+        CGFloat startAngle = pausedAngle ? pausedAngle.doubleValue : 0;
+        self.layer.sublayerTransform = CATransform3DMakeRotation(startAngle, 0, 0, 1);
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"sublayerTransform.rotation.z"];
+        animation.fromValue = @(startAngle);
+        animation.toValue = @(startAngle + M_PI * 2);
+        animation.duration = 1.0 / speed;
+        animation.repeatCount = INFINITY;
+        animation.removedOnCompletion = NO;
+        animation.fillMode = kCAFillModeForwards;
+        [self.layer addAnimation:animation forKey:JobsSpinAnimationKey];
+        Jobs_setAssociatedRETAIN_NONATOMIC(JobsSpinPausedAngleKey, nil)
+        return self;
+    };
+}
+/// 暂停旋转并冻结当前角度
+-(JobsRetViewByVoidBlock _Nonnull)bySpinPause{
+    @jobs_weakify(self)
+    return ^__kindof UIView *_Nullable(void) {
+        @jobs_strongify(self)
+        if (!self.jobs_isSpinning) return self;
+        CALayer *presentationLayer = self.layer.presentationLayer;
+        CATransform3D currentTransform = presentationLayer ? presentationLayer.sublayerTransform : self.layer.sublayerTransform;
+        self.layer.sublayerTransform = currentTransform;
+        CGFloat currentAngle = atan2(currentTransform.m12, currentTransform.m11);
+        Jobs_setAssociatedRETAIN_NONATOMIC(JobsSpinPausedAngleKey, @(currentAngle))
+        [self.layer removeAnimationForKey:JobsSpinAnimationKey];
+        return self;
+    };
+}
+/// 从暂停角度继续旋转
+-(JobsRetViewByVoidBlock _Nonnull)bySpinResume{
+    @jobs_weakify(self)
+    return ^__kindof UIView *_Nullable(void) {
+        @jobs_strongify(self)
+        NSNumber *speed = Jobs_getAssociatedObject(JobsSpinRevolutionsPerSecondKey);
+        return self.bySpinStartBy(speed ? speed.doubleValue : 1.0);
+    };
+}
+/// 停止旋转并恢复初始角度
+-(JobsRetViewByVoidBlock _Nonnull)bySpinStop{
+    @jobs_weakify(self)
+    return ^__kindof UIView *_Nullable(void) {
+        @jobs_strongify(self)
+        [self.layer removeAnimationForKey:JobsSpinAnimationKey];
+        self.layer.sublayerTransform = CATransform3DIdentity;
+        Jobs_setAssociatedRETAIN_NONATOMIC(JobsSpinPausedAngleKey, nil)
+        return self;
+    };
+}
+
+-(BOOL)jobs_isSpinning{
+    return [self.layer animationForKey:JobsSpinAnimationKey] != nil;
+}
+
+-(BOOL)jobs_isSpinPaused{
+    return !self.jobs_isSpinning && Jobs_getAssociatedObject(JobsSpinPausedAngleKey) != nil;
 }
 /// 旋转一定时间之后停止下来
 -(JobsRetViewByFloatBlock _Nonnull)旋转动画By{

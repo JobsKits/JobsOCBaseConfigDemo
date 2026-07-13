@@ -85,6 +85,9 @@ JobsGestureLock@Pods/
 
 ### 5.5、Pod 依赖
 
+- `JobsBaseUI`（`jobsMakeButton` 与 `jobsResetBtn*`）
+- `JobsMakes`
+- `JobsOCDSL`
 - `JobsOCDefs`
 
 ## 六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

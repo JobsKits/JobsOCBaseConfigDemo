@@ -28,6 +28,34 @@
     };
 }
 
++(JobsRetBezierPathByRoundedRectBlock _Nonnull)byBezierPathWithRoundedRect{
+    return ^__kindof UIBezierPath *_Nullable(CGRect rect, CGFloat cornerRadius){
+        return [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:cornerRadius];
+    };
+}
+
++(JobsRetBezierPathByRoundedCornersBlock _Nonnull)byBezierPathWithRoundedCorners{
+    return ^__kindof UIBezierPath *_Nullable(CGRect rect, UIRectCorner corners, CGSize cornerRadii){
+        return [UIBezierPath bezierPathWithRoundedRect:rect
+                                    byRoundingCorners:corners
+                                          cornerRadii:cornerRadii];
+    };
+}
+
++(JobsRetBezierPathByAddArcBlock _Nonnull)byBezierPathWithArcCenter{
+    return ^__kindof UIBezierPath *_Nullable(CGPoint center,
+                                             CGFloat radius,
+                                             CGFloat startAngle,
+                                             CGFloat endAngle,
+                                             BOOL clockwise){
+        return [UIBezierPath bezierPathWithArcCenter:center
+                                             radius:radius
+                                         startAngle:startAngle
+                                           endAngle:endAngle
+                                          clockwise:clockwise];
+    };
+}
+
 -(JobsRetBezierPathByCGPointBlock _Nonnull)byMoveToPoint{
     @jobs_weakify(self)
     return ^__kindof UIBezierPath *_Nullable(CGPoint data){

@@ -83,8 +83,8 @@ BaseViewProtocol_synthesize
         @jobs_strongify(self)
         if(navBarConfig) self.navBarConfig = navBarConfig;
         if (NavBarConfig.bgImage) {
-            self.image = NavBarConfig.bgImage;
-        }else self.backgroundColor = NavBarConfig.bgCor;
+            self.byImage(NavBarConfig.bgImage);
+        }else self.byBgColor(NavBarConfig.bgCor);
         self.titleLab.byText(NavBarConfig.title);
         self.backBtn.byAlpha(1);
         self.closeBtn.byAlpha(1);

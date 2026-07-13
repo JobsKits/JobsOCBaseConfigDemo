@@ -85,10 +85,13 @@ Prop_strong()UILabel *topLineLab;
         id<AppToolsProtocol> appToolsSelf = (id<AppToolsProtocol>)self;
         appToolsSelf.setGKNav(nil);
         appToolsSelf.setGKNavBackBtn(nil);
-        if(self.leftBarButtonItems.count) self.gk_navLeftBarButtonItems = self.leftBarButtonItems;
-        if(self.rightBarButtonItems.count) self.gk_navRightBarButtonItems = self.rightBarButtonItems;
-        self.gk_navigationBar.byHidden(!data);
-        self.gk_navigationBar.byAlpha(data);
+        if(self.leftBarButtonItems.count) self.byGKNavLeftBarButtonItems(self.leftBarButtonItems);
+        if(self.rightBarButtonItems.count) self.byGKNavRightBarButtonItems(self.rightBarButtonItems);
+        self.byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
+            navigationBar
+                .byHidden(!data)
+                .byAlpha(data);
+        });
     };
 }
 

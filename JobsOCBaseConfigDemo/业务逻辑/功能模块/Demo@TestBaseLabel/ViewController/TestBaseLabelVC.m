@@ -108,7 +108,7 @@ Prop_strong()BaseLabel *baseLabel;
     }
     _titleLab.getLabel.byText(@" 真人           ".tr);
 
-    _titleLab.getBgImageView.image = @"优惠活动背景图_真人".img;
+    _titleLab.getBgImageView.byImage(@"优惠活动背景图_真人".img);
     
     _titleLab.getLabel.makeLabelByShowingType(UILabelShowingType_03);
     [_titleLab.getLabel appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];

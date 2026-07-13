@@ -45,6 +45,24 @@ Prop_assign()BOOL jobsPendingBoundsReload;
 
 @implementation JobsOCCalendar
 
+-(JobsRetJobsOCCalendarByDataSourceBlock _Nonnull)byDataSource{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCCalendar *_Nullable(id<JobsOCCalendarDataSource> _Nullable dataSource) {
+        @jobs_strongify(self)
+        self.dataSource = dataSource;
+        return self;
+    };
+}
+
+-(JobsRetJobsOCCalendarByDelegateBlock _Nonnull)byDelegate{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCCalendar *_Nullable(id<JobsOCCalendarDelegate> _Nullable delegate) {
+        @jobs_strongify(self)
+        self.delegate = delegate;
+        return self;
+    };
+}
+
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
@@ -79,7 +97,7 @@ Prop_assign()BOOL jobsPendingBoundsReload;
     [self.dayCells enumerateObjectsUsingBlock:^(JobsOCCalendarDayCell *cell, NSUInteger idx, BOOL *stop) {
         NSInteger row = idx / 7;
         NSInteger column = idx % 7;
-        cell.hidden = row >= rowCount;
+        cell.byHidden(row >= rowCount);
         cell.frame = CGRectMake(columnWidth * column, gridY + rowHeight * row, columnWidth, rowHeight);
     }];
     if (self.jobsAutomaticallyInvalidateLayoutOnBoundsChange && sizeChanged) {
@@ -222,20 +240,25 @@ Prop_assign()BOOL jobsPendingBoundsReload;
 }
 
 -(void)jobsInstallSubviews{
-    self.headerLabel = UILabel.new;
-    self.headerLabel.textAlignment = NSTextAlignmentCenter;
-    [self addSubview:self.headerLabel];
+    self.headerLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+        label
+            .byTextAlignment(NSTextAlignmentCenter)
+            .addOn(self);
+    });
     for (NSInteger index = 0; index < 7; index++) {
-        UILabel *label = UILabel.new;
-        label.textAlignment = NSTextAlignmentCenter;
+        UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byTextAlignment(NSTextAlignmentCenter)
+                .addOn(self);
+        });
         [self.weekdayLabels addObject:label];
-        [self addSubview:label];
     }
     for (NSInteger index = 0; index < 42; index++) {
         JobsOCCalendarDayCell *cell = [JobsOCCalendarDayCell.alloc initWithFrame:CGRectZero];
-        [cell addTarget:self action:@selector(jobsCellClickEvent:) forControlEvents:UIControlEventTouchUpInside];
+        cell
+            .byAddTarget(self, @selector(jobsCellClickEvent:), UIControlEventTouchUpInside)
+            .addOn(self);
         [self.dayCells addObject:cell];
-        [self addSubview:cell];
     }
 }
 
@@ -288,9 +311,10 @@ Prop_assign()BOOL jobsPendingBoundsReload;
     self.formatter.dateFormat = self.appearance.headerDateFormat;
     NSString *title = [self.formatter stringFromDate:self.currentPage];
     if (self.appearance.caseOptions & JobsOCCalendarCaseOptionsHeaderUsesUpperCase) title = title.uppercaseString;
-    self.headerLabel.text = title;
-    self.headerLabel.font = self.appearance.headerTitleFont;
-    self.headerLabel.textColor = self.appearance.headerTitleColor;
+    self.headerLabel
+        .byText(title)
+        .byFont(self.appearance.headerTitleFont)
+        .byTextCor(self.appearance.headerTitleColor);
     self.headerLabel.textAlignment = self.appearance.headerTitleAlignment;
 }
 
@@ -311,9 +335,10 @@ Prop_assign()BOOL jobsPendingBoundsReload;
         [orderedSymbols addObject:symbol];
     }
     [self.weekdayLabels enumerateObjectsUsingBlock:^(UILabel *label, NSUInteger idx, BOOL *stop) {
-        label.text = orderedSymbols[idx];
-        label.font = self.appearance.weekdayFont;
-        label.textColor = self.appearance.weekdayTextColor;
+        label
+            .byText(orderedSymbols[idx])
+            .byFont(self.appearance.weekdayFont)
+            .byTextCor(self.appearance.weekdayTextColor);
     }];
 }
 

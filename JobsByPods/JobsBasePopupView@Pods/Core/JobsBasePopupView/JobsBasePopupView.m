@@ -41,7 +41,7 @@ Prop_strong()BaseButton *btn2;
         self.viewModel = model;
         if (model) {
             if (self.viewModel.bgImage) {
-                self.backgroundImageView.image = self.viewModel.bgImage;
+                self.backgroundImageView.byImage(self.viewModel.bgImage);
             }else{
                 self.byBgColor(self.viewModel.bgCor);
             }

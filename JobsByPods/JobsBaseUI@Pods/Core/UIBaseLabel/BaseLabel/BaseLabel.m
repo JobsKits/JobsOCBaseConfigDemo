@@ -107,16 +107,15 @@ UILocationProtocol_synthesize
     id identifier = configuration.identifier;
     NSString *text = [identifier isKindOfClass:NSString.class] ? (NSString *)identifier : self.text;
     @jobs_weakify(self)
-    UIAction *copyAction = [UIAction actionWithTitle:@"请复制".tr
-                                               image:nil
-                                          identifier:nil
-                                             handler:^(__kindof UIAction * _Nonnull action) {
+    UIAction *copyAction = jobsMakeAction(@"请复制".tr,
+                                          nil,
+                                          nil,
+                                          ^(__kindof UIAction * _Nonnull action) {
         @jobs_strongify(self)
         if (self.retIDBySelectorBlock) self.retIDBySelectorBlock(self, text);
         self.copyText(text);
-    }];
-    return [UIMenu menuWithTitle:@""
-                        children:@[copyAction]];
+    }, nil);
+    return jobsMakeMenu(@"", @[copyAction], nil);
 }
 
 #pragma mark —— UIResponder

@@ -94,7 +94,7 @@ Prop_weak()id<GXCardViewCellDelagate> cell_delegate;
     if (self.currentPoint.x > self.maxRemoveDistance) {
         __block UIView *snapshotView = [self snapshotViewAfterScreenUpdates:NO];
         snapshotView.transform = self.transform;
-        [self.superview.superview addSubview:snapshotView];
+        snapshotView.addOn(self.superview.superview);
         [self didCellRemoveFromSuperviewWithDirection:GXCardCellSwipeDirectionRight];
         
         CGFloat endCenterX = SCREEN_WIDTH/2 + self.frame.size.width * 1.5;
@@ -110,7 +110,7 @@ Prop_weak()id<GXCardViewCellDelagate> cell_delegate;
     else if (self.currentPoint.x < -self.maxRemoveDistance) {
         __block UIView *snapshotView = [self snapshotViewAfterScreenUpdates:NO];
         snapshotView.transform = self.transform;
-        [self.superview.superview addSubview:snapshotView];
+        snapshotView.addOn(self.superview.superview);
         [self didCellRemoveFromSuperviewWithDirection:GXCardCellSwipeDirectionLeft];
         
         CGFloat endCenterX = -(SCREEN_WIDTH/2 + self.frame.size.width);
@@ -166,7 +166,7 @@ Prop_weak()id<GXCardViewCellDelagate> cell_delegate;
 // 向左边移除动画
 - (void)removeFromSuperviewLeft {
     __block UIView *snapshotView = [self snapshotViewAfterScreenUpdates:NO];
-    [self.superview.superview addSubview:snapshotView];
+    snapshotView.addOn(self.superview.superview);
     [self didCellRemoveFromSuperviewWithDirection:GXCardCellSwipeDirectionLeft];
     
     CGAffineTransform transRotation = CGAffineTransformMakeRotation(-GX_DEGREES_TO_RADIANS(self.maxAngle));
@@ -187,7 +187,7 @@ Prop_weak()id<GXCardViewCellDelagate> cell_delegate;
     __block UIView *snapshotView = [self snapshotViewAfterScreenUpdates:NO];
     snapshotView.byFrame(self.frame);
 
-    [self.superview.superview addSubview:snapshotView];
+    snapshotView.addOn(self.superview.superview);
     [self didCellRemoveFromSuperviewWithDirection:GXCardCellSwipeDirectionRight];
     
     CGAffineTransform transRotation = CGAffineTransformMakeRotation(GX_DEGREES_TO_RADIANS(self.maxAngle));

@@ -80,7 +80,7 @@
                                                                      HEIGHT)];
     nView.byBgColor([UIColor linkColor]);
 
-    nView.layer.cornerRadius = 5;
+    nView.layer.byCornerRadius(5);
     nView.duration = 5;
     return nView;
 }

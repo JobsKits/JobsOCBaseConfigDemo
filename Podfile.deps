@@ -214,6 +214,7 @@ def byJobsDo
   pod 'JobsOCGraphicCaptcha',             :path => './JobsByPods/JobsOCGraphicCaptcha@Pods'
   pod 'JobsOCVideoRecorder',            :path => './JobsByPods/JobsOCVideoRecorder@Pods'
   pod 'JobsMonitorNetwoking',           :path => './JobsByPods/JobsMonitorNetwoking@Pods'
+  pod 'JobsBluetooth',                  :path => './JobsByPods/JobsBluetooth@Pods'
   pod 'FileFolderHandleTool',           :path => './JobsByPods/FileFolderHandleTool@Pods'
   pod 'JobsLuckyEnvelopeRain',          :path => './JobsByPods/JobsLuckyEnvelopeRain@Pods'
   pod 'JobsOCCountryCodeCtrl',          :path => './JobsByPods/JobsOCCountryCodeCtrl@Pods'

@@ -22,7 +22,7 @@
     if (self = [super init]) {
         self.byBgColor(self.backgroundColor ? :JobsBlackColor);
 
-        self.text = JobsNonnullString(self.text, @"No Data".tr);
+        self.byText(JobsNonnullString(self.text, @"No Data".tr));
         self.internationalizationKEY = @"No Data";
         self.textAlignment = NSTextAlignmentCenter;
     };return self;
@@ -30,7 +30,7 @@
 
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
-    self.panRcognize.enabled = self.isAllowDrag;
+    self.panRcognize.byEnabled(self.isAllowDrag);
     self.userInteractionEnabled = self.isAllowDrag;
     self.cornerCutToCircleWithCornerRadius(self.height / 2);
 }

@@ -122,11 +122,11 @@ static dispatch_once_t dispatchOnce;
              index:(int)index{
     if (self.backImageMutArr.count - 1 > self.currentFlowSerialNum) {
         if (index > self.currentFlowSerialNum) {
-            singleElement.bacKIMGV.image = self.backImageMutArr[0];
+            singleElement.bacKIMGV.byImage(self.backImageMutArr[0]);
             singleElement.titleLab.byTextCor(JobsLightGrayColor);
             singleElement.subTitleLab.byTextCor(JobsLightGrayColor);
         }else{
-            singleElement.bacKIMGV.image = self.backImageMutArr[index + 1];
+            singleElement.bacKIMGV.byImage(self.backImageMutArr[index + 1]);
             singleElement.titleLab.byTextCor(JobsBlackColor);
             singleElement.subTitleLab.byTextCor(JobsBlackColor);
         }

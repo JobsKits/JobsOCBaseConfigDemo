@@ -82,7 +82,8 @@ view.bySkeletonable(YES)
 ## 六、依赖关系 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 系统框架：`Foundation`、`UIKit`、`QuartzCore`
-- 本地 Pod：`JobsBlock`、`JobsOCDefs`
+- 本地 Pod：`JobsBlock`、`JobsOCDSL`、`JobsOCDefs`
+- `UIImageView` 的图片恢复与骨架层可见性通过 `JobsOCDSL` 的 `byImage` / `byHidden` 收口，不在上层留裸 UIKit / CoreAnimation 赋值。
 
 ## 七、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

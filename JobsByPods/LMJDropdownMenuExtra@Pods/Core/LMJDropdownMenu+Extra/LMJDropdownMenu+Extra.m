@@ -22,7 +22,7 @@
 
 -(void)greatAtEmpty{
     UIButton *btn = self.great;
-    [btn setImage:@"空白图".img forState:UIControlStateNormal];
+    btn.byImage(@"空白图".img);
     if (@available(iOS 15.0, *)) {
         UIButtonConfiguration *config = btn.configuration ?: UIButtonConfiguration.plainButtonConfiguration;
         config.imagePlacement = NSDirectionalRectEdgeTrailing;

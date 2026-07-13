@@ -33,7 +33,7 @@ Prop_strong()UIView *aphView;
 }
 
 -(void)getCuntDown:(NSInteger)second{
-    self.countDown.text = toStringByLong(second);
+    self.countDown.byText(toStringByLong(second));
     self.countDown.byAlpha(1);
 
     self.aphView.byAlpha(0);
@@ -62,7 +62,7 @@ Prop_strong()UIView *aphView;
             @jobs_strongify(self)
             label
                 .byTextCor(self.countDownTextColor)
-                .byFont([UIFont boldSystemFontOfSize:100])
+                .byFont(UIFontBoldSystemFontOfSize(100))
                 .byTextAlignment(1)
                 .byX((JobsMainScreen_WIDTH() - 100) / 2)
                 .byY((JobsMainScreen_HEIGHT() - 100) / 2)

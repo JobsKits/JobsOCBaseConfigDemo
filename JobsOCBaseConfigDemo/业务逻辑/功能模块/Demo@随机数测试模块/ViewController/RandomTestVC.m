@@ -233,7 +233,7 @@ heightForFooterInSection:(NSInteger)section{
                 .byRowHeight(JobsWidth(78))
                 .byEstimatedRowHeight(JobsWidth(78))
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
-                .byTableFooterView(UIView.new)
+                .byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {}))
                 .byShowsVerticalScrollIndicator(NO)
                 .byBgColor(JobsClearColor)
                 .addOn(self.view)

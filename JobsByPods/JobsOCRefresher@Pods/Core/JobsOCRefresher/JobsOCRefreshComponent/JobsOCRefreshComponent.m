@@ -472,7 +472,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
         }
         _statusLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byFont([UIFont systemFontOfSize:14 weight:UIFontWeightMedium])
+                .byFont(UIFontWeightMediumSize(14))
                 .byTextCor(textColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(0);
@@ -498,7 +498,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
         textColor = UIColor.secondaryLabelColor;
     };return jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
-            .byFont([UIFont systemFontOfSize:12])
+            .byFont(UIFontSystemFontOfSize(12))
             .byTextCor(textColor)
             .byTextAlignment(NSTextAlignmentCenter)
             .byNumberOfLines(0)

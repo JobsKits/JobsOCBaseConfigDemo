@@ -24,6 +24,8 @@ JobsProgressBar provides a chainable Objective-C progress bar component with sys
   ]
 
   spec.dependency 'JobsBlock'
+  spec.dependency 'JobsMakes'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsOCDefs'
 
   spec.source_files = [

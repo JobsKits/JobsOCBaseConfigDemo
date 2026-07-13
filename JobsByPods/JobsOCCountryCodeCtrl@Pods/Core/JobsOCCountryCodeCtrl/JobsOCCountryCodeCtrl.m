@@ -201,7 +201,7 @@ Prop_strong()NSMutableArray *results;
                                                           font:(UIFont *)font
                                                      textColor:(UIColor *)textColor{
     NSString *cleanCountryName = [self jobs_cleanCountryName:countryName];
-    UIFont *textFont = font ?: [UIFont systemFontOfSize:14.0 weight:UIFontWeightRegular];
+    UIFont *textFont = font ?: UIFontWeightRegularSize(14.0);
     UIColor *foregroundColor = textColor ?: UIColor.blackColor;
     NSDictionary <NSAttributedStringKey,id>*attributes = @{
         NSFontAttributeName:textFont,
@@ -324,10 +324,10 @@ numberOfRowsInSection:(NSInteger)section {
     if (!cell) {
         cell = ((UITableViewCell *)[UITableViewCell.alloc initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier])
             .byTextLabel(^(__kindof UILabel * _Nullable label) {
-                label.byFont([UIFont systemFontOfSize:16.0 weight:UIFontWeightRegular]);
+                label.byFont(UIFontWeightRegularSize(16.0));
             })
             .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
-                label.byFont([UIFont systemFontOfSize:12.0 weight:UIFontWeightRegular])
+                label.byFont(UIFontWeightRegularSize(12.0))
                     .byTextCor(HEXCOLOR(0x8A8A8A));
             })
             .bySelectionStyle(UITableViewCellSelectionStyleNone);

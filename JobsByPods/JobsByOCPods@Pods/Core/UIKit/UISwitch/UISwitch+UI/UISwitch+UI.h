@@ -62,27 +62,28 @@ NS_ASSUME_NONNULL_END
              @jobs_weakify(self)
              _switcher = jobsMakeSwitch(^(__kindof UISwitch * _Nullable Switch) {
                  @jobs_strongify(self)
-                 [self.view addSubview:Switch];
-                 Switch.selected = NO;// 读取系统记录
-                 Switch.thumbTintColor = _switcher.selected ? self.cor : HEXCOLOR(0xB0B0B0);
-                 Switch.byTintColor(JobsWhiteColor);
-                 Switch.onTintColor = HEXCOLOR(0xFFFCF7);
-                 Switch.byBgColor(JobsWhiteColor);
+                 Switch
+                     .byOn(NO)// 读取系统记录
+                     .byThumbTintColor(Switch.jobs_isOn ? self.cor : HEXCOLOR(0xB0B0B0))
+                     .byOnTintColor(HEXCOLOR(0xFFFCF7))
+                     .byTintColor(JobsWhiteColor)
+                     .byBgColor(JobsWhiteColor)
+                     .addOn(self.view);
                  Switch.cornerCutToCircleWithCornerRadius(31 / 2);
                  Switch.byMakeConstraints(^(MASConstraintMaker *make) {
          //            make.top.equalTo(self.titleLab);
                      make.right.equalTo(self.view).offset(JobsWidth(-16));
                  });
                  Switch.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-                     data.layerCor = Switch.selected ? self.cor : HEXCOLOR(0xB0B0B0)
+                     data.layerCor = Switch.jobs_isOn ? self.cor : HEXCOLOR(0xB0B0B0)
                      data.byJobsWidth(1);
                  }));
                  [Switch jobsSwitchClickEventBlock:^(UISwitch *x) {
-                     x.selected = !x.selected;
-                     (x.selected ? @"打开解锁".tr:@"关闭解锁".tr).toast();
-                     x.thumbTintColor = x.selected ? self.cor : HEXCOLOR(0xB0B0B0);
+                     x.byOn(!x.jobs_isOn)
+                         .byThumbTintColor(x.jobs_isOn ? self.cor : HEXCOLOR(0xB0B0B0));
+                     (x.jobs_isOn ? @"打开解锁".tr:@"关闭解锁".tr).toast();
                      x.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-                         data.layerCor = Switch.selected ? self.cor : HEXCOLOR(0xB0B0B0)
+                         data.layerCor = Switch.jobs_isOn ? self.cor : HEXCOLOR(0xB0B0B0)
                          data.byJobsWidth(1);
                      }));
                  }];

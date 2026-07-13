@@ -108,6 +108,32 @@ static void JobsAddClosureAction(UIControl *control,
     };
 }
 
+-(JobsRetControlByVoidBlock)byToggleSelected{
+    @jobs_weakify(self)
+    return ^__kindof UIControl *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.selected = !self.selected;
+        return self;
+    };
+}
+
+-(BOOL)jobs_isEnabled{
+    return self.isEnabled;
+}
+
+-(BOOL)jobs_isSelected{
+    return self.isSelected;
+}
+
+-(BOOL)jobs_isHighlighted{
+    return self.isHighlighted;
+}
+
+-(UIControlState)jobs_effectiveState{
+    return self.state;
+}
+
 #pragma mark —— 内容对齐
 
 -(JobsRetControlByAlignBlock)byContentAlignment{

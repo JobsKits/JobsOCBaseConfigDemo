@@ -259,6 +259,8 @@ typedef __kindof UIBezierPath *_Nullable(^JobsRetBezierPathByCGAffineTransformBl
 typedef __kindof UIBezierPath *_Nullable(^JobsRetBezierPathByFrameBlock)(CGRect frame);
 typedef __kindof UIBezierPath *_Nullable(^JobsRetBezierPathByCGPointBlock)(CGPoint data);
 typedef __kindof UIBezierPath *_Nullable(^JobsRetBezierPathByBezierPathBlock)(__kindof UIBezierPath *_Nullable data);
+typedef __kindof UIBezierPath *_Nullable(^JobsRetBezierPathByRoundedRectBlock)(CGRect rect, CGFloat cornerRadius);
+typedef __kindof UIBezierPath *_Nullable(^JobsRetBezierPathByRoundedCornersBlock)(CGRect rect, UIRectCorner corners, CGSize cornerRadii);
 typedef __kindof UIBezierPath *_Nullable(^JobsRetBezierPathByAddArcBlock)(Jobs_BezierPath_AddArc_Arguments);
 typedef __kindof UIBezierPath *_Nullable(^JobsRetBezierPathByAddCurveBlock)(Jobs_BezierPath_AddCurve_Arguments);
 typedef __kindof UIBezierPath *_Nullable(^JobsRetBezierPathByLineDashBlock)(Jobs_BezierPath_LineDash_Arguments);
@@ -556,6 +558,26 @@ typedef __kindof UIMenuController *_Nullable(^JobsRetMenuControllerByBOOLBlock)(
 typedef __kindof UIMenuController *_Nullable(^JobsRetMenuControllerByArrBlock)(__kindof NSArray<UIMenuItem *> *_Nullable data);
 typedef __kindof UIMenuController *_Nullable(^JobsRetMenuControllerByArrowDirectionBlock)(UIMenuControllerArrowDirection data);
 typedef __kindof UIMenuController *_Nullable(^JobsRetMenuControllerByViewBlock)(__kindof UIView *_Nullable data) API_AVAILABLE(ios(13.0));
+#pragma mark —— 关于 UIBarAppearance
+typedef __kindof UIBarAppearance *_Nullable(^JobsRetBarAppearanceByVoidBlock)(void) API_AVAILABLE(ios(13.0));
+typedef __kindof UIBarAppearance *_Nullable(^JobsRetBarAppearanceByCorBlock)(UIColor *_Nullable color) API_AVAILABLE(ios(13.0));
+typedef __kindof UIBarAppearance *_Nullable(^JobsRetBarAppearanceByImageBlock)(UIImage *_Nullable image) API_AVAILABLE(ios(13.0));
+typedef __kindof UIBarAppearance *_Nullable(^JobsRetBarAppearanceByVisualEffectBlock)(UIVisualEffect *_Nullable effect) API_AVAILABLE(ios(13.0));
+typedef __kindof UIBarAppearance *_Nullable(^JobsRetBarAppearanceByNSIntegerBlock)(NSInteger data) API_AVAILABLE(ios(13.0));
+#pragma mark —— 关于 UINavigationBarAppearance
+typedef __kindof UINavigationBarAppearance *_Nullable(^JobsRetNavigationBarAppearanceByDictionaryBlock)(NSDictionary<NSAttributedStringKey, id> *_Nullable data) API_AVAILABLE(ios(13.0));
+typedef __kindof UINavigationBarAppearance *_Nullable(^JobsRetNavigationBarAppearanceByOffsetBlock)(UIOffset data) API_AVAILABLE(ios(13.0));
+typedef __kindof UINavigationBarAppearance *_Nullable(^JobsRetNavigationBarAppearanceByButtonItemAppearanceBlock)(UIBarButtonItemAppearance *_Nonnull data) API_AVAILABLE(ios(13.0));
+#pragma mark —— 关于 UINavigationBar
+typedef __kindof UINavigationBar *_Nullable(^JobsRetNavigationBarByBOOLBlock)(BOOL data);
+typedef __kindof UINavigationBar *_Nullable(^JobsRetNavigationBarByColorBlock)(UIColor *_Nullable color);
+typedef __kindof UINavigationBar *_Nullable(^JobsRetNavigationBarByImageBlock)(UIImage *_Nullable image);
+typedef __kindof UINavigationBar *_Nullable(^JobsRetNavigationBarByDictionaryBlock)(NSDictionary<NSAttributedStringKey, id> *_Nullable data);
+typedef __kindof UINavigationBar *_Nullable(^JobsRetNavigationBarByAppearanceBlock)(UINavigationBarAppearance *_Nullable appearance) API_AVAILABLE(ios(13.0));
+typedef __kindof UINavigationBar *_Nullable(^JobsRetNavigationBarByImageAndBarMetricsBlock)(UIImage *_Nullable image, UIBarMetrics barMetrics);
+#pragma mark —— 关于 UITabBar
+typedef __kindof UITabBar *_Nullable(^JobsRetTabBarByColorBlock)(UIColor *_Nullable color);
+typedef __kindof UITabBar *_Nullable(^JobsRetTabBarByAppearanceBlock)(UITabBarAppearance *_Nonnull appearance) API_AVAILABLE(ios(13.0));
 #pragma mark —— 关于 UITextView
 typedef __kindof UITextView *_Nullable(^JobsRetTextViewByBOOLBlock)(BOOL data);
 typedef __kindof UITextView *_Nullable(^JobsRetTextViewByCGFloatBlock)(CGFloat data);
@@ -703,12 +725,16 @@ typedef __kindof UIButton *_Nullable(^JobsRetBtnByUIEdgeInsetsBlock)(UIEdgeInset
 typedef __kindof UIButton *_Nullable(^JobsRetBtnByIDBlock)(id _Nullable data);
 typedef __kindof UIButton *_Nullable(^JobsRetBtnByDicBlock)(__kindof NSDictionary *_Nullable data);
 typedef __kindof UIButton *_Nullable(^JobsRetBtnByImageBlock)(UIImage *_Nullable image);
+typedef __kindof UIButton *_Nullable(^JobsRetBtnByImageAndControlStateBlock)(UIImage *_Nullable image, UIControlState state);
 typedef __kindof UIButton *_Nonnull(^JobsRetBtnByURLBlock)(NSURL *_Nullable data);
 typedef __kindof UIButton *_Nullable(^JobsRetBtnByFontBlock)(UIFont *_Nullable data);
 typedef __kindof UIButton *_Nullable(^JobsRetBtnByCorBlock)(UIColor *_Nonnull cor);
 typedef __kindof UIButton *_Nullable(^JobsRetBtnByCorAndControlStateBlock)(UIColor *_Nullable cor, UIControlState state);
 typedef __kindof UIButton *_Nullable(^JobsRetBtnByStringBlock)(__kindof NSString *_Nullable data);// 主文字内容
+typedef __kindof UIButton *_Nullable(^JobsRetBtnByStringAndControlStateBlock)(__kindof NSString *_Nullable data, UIControlState state);
 typedef __kindof UIButton *_Nullable(^JobsRetBtnByAttributedStringBlock)(NSAttributedString *_Nullable title);// 富文本内容
+typedef __kindof UIButton *_Nullable(^JobsRetBtnByAttributedStringAndControlStateBlock)(NSAttributedString *_Nullable title, UIControlState state);
+typedef __kindof UIButton *_Nullable(^JobsRetBtnBySymbolConfigurationAndControlStateBlock)(UIImageSymbolConfiguration *_Nullable configuration, UIControlState state) API_AVAILABLE(ios(13.0), tvos(13.0)) API_UNAVAILABLE(watchos);
 typedef __kindof UIButton *_Nullable(^JobsRetBtnByButtonModelBlock)(UIButtonModel *_Nullable buttonModel);
 typedef __kindof UIButton *_Nullable(^JobsRetBtnByBtnConfigBlock)(jobsByButtonConfigurationBlock _Nullable block) API_IOS15_TVOS15_UNAVAILABLE_WATCHOS;
 typedef __kindof UIButton *_Nullable(^JobsRetBtnByLabelBlock)(jobsByLabelBlock _Nullable block);
@@ -834,6 +860,31 @@ typedef __kindof UIProgressView *_Nullable(^JobsRetProgressViewByFloatAnimatedBl
 #pragma mark —— 关于 UISlider
 typedef __kindof UISlider *_Nullable(^JobsRetSliderByFloatBlock)(float data);
 typedef __kindof UISlider *_Nullable(^JobsRetSliderByColorBlock)(UIColor *_Nullable color);
+#pragma mark —— 关于 UIStackView
+typedef __kindof UIStackView *_Nullable(^JobsRetStackViewByAxisBlock)(UILayoutConstraintAxis axis);
+typedef __kindof UIStackView *_Nullable(^JobsRetStackViewByDistributionBlock)(UIStackViewDistribution distribution);
+typedef __kindof UIStackView *_Nullable(^JobsRetStackViewByAlignmentBlock)(UIStackViewAlignment alignment);
+typedef __kindof UIStackView *_Nullable(^JobsRetStackViewByCGFloatBlock)(CGFloat data);
+typedef __kindof UIStackView *_Nullable(^JobsRetStackViewByBOOLBlock)(BOOL data);
+typedef __kindof UIStackView *_Nullable(^JobsRetStackViewByViewBlock)(__kindof UIView *_Nullable view);
+#pragma mark —— 关于 UISwitch
+typedef __kindof UISwitch *_Nullable(^JobsRetSwitchByBOOLBlock)(BOOL data);
+typedef __kindof UISwitch *_Nullable(^JobsRetSwitchByOnAnimatedBlock)(BOOL on, BOOL animated);
+typedef __kindof UISwitch *_Nullable(^JobsRetSwitchByColorBlock)(UIColor *_Nullable color);
+typedef __kindof UISwitch *_Nullable(^JobsRetSwitchByStyleBlock)(UISwitchStyle style) API_AVAILABLE(ios(14.0));
+typedef __kindof UISwitch *_Nullable(^JobsRetSwitchByStringBlock)(NSString *_Nullable data) API_AVAILABLE(ios(14.0));
+typedef __kindof UISwitch *_Nullable(^JobsRetSwitchByImageBlock)(UIImage *_Nullable image);
+#pragma mark —— 关于 UISegmentedControl
+typedef __kindof UISegmentedControl *_Nullable(^JobsRetSegmentedControlByVoidBlock)(void);
+typedef __kindof UISegmentedControl *_Nullable(^JobsRetSegmentedControlByNSIntegerBlock)(NSInteger data);
+typedef __kindof UISegmentedControl *_Nullable(^JobsRetSegmentedControlByBOOLBlock)(BOOL data);
+typedef __kindof UISegmentedControl *_Nullable(^JobsRetSegmentedControlByColorBlock)(UIColor *_Nullable color);
+#pragma mark —— 关于 UIContextualAction
+typedef __kindof UIContextualAction *_Nullable(^JobsRetContextualActionByImageBlock)(UIImage *_Nullable image);
+typedef __kindof UIContextualAction *_Nullable(^JobsRetContextualActionByColorBlock)(UIColor *_Nullable color);
+typedef __kindof UIContextualAction *_Nullable(^JobsRetContextualActionByStringBlock)(NSString *_Nullable data);
+#pragma mark —— 关于 UISwipeActionsConfiguration
+typedef __kindof UISwipeActionsConfiguration *_Nullable(^JobsRetSwipeActionsConfigurationByBOOLBlock)(BOOL data);
 #pragma mark —— 关于 控制器
 /// UIViewController
 typedef __kindof UIViewController *_Nullable(^JobsRetVCByVoidBlock)(void);
@@ -922,6 +973,8 @@ typedef __kindof NSRegularExpression *_Nullable(^JobsRetRegularExpressionByStrBl
 typedef __kindof UNNotificationSound *_Nullable(^JobsRetNotificationSoundByVoidBlock)(void);
 typedef __kindof UNNotificationSound *_Nullable(^JobsRetNotificationSoundByStrBlock)(NSString *_Nullable data);
 typedef __kindof UNNotificationSound *_Nullable(^JobsRetNotificationSoundByCGFloatBlock)(CGFloat data);
+/// UNUserNotificationCenter
+typedef __kindof UNUserNotificationCenter *_Nullable(^JobsRetUNUserNotificationCenterByDelegateBlock)(id<UNUserNotificationCenterDelegate> _Nullable delegate) API_AVAILABLE(ios(10.0));
 /// CADisplayLink
 typedef __kindof CADisplayLink *_Nullable(^JobsRetCADisplayLinkByVoidBlock)(void);
 typedef __kindof CADisplayLink *_Nullable(^JobsRetCADisplayLinkByBOOLBlock)(BOOL data);
@@ -999,6 +1052,7 @@ typedef UIColor *_Nullable(^JobsRetCorByHexAlphaBlock)(Jobs_UIColorBlock_Argumen
 typedef UIImage *_Nonnull(^JobsRetImageByVoidBlock)(void);
 typedef UIImage *_Nonnull(^JobsRetImageByAlphaBlock)(CGFloat alpha);
 typedef UIImage *_Nullable(^JobsRetImageByNSUIntegerBlock)(NSUInteger data);
+typedef UIImageSymbolConfiguration *_Nullable(^JobsRetSymbolConfigurationByControlStateBlock)(UIControlState state) API_AVAILABLE(ios(13.0), tvos(13.0)) API_UNAVAILABLE(watchos);
 typedef UIImage *_Nullable(^JobsRetImageByNSIntegerBlock)(NSInteger data);
 typedef UIImage *_Nonnull(^JobsRetImageByFrameBlock)(CGRect frame);
 typedef UIImage *_Nonnull(^JobsRetImageByCGSizeBlock)(CGSize size);
@@ -1291,6 +1345,11 @@ typedef __kindof FSCalendar *_Nullable(^JobsRetFSCalendarByBOOLBlock)(BOOL data)
 typedef __kindof FSCalendar *_Nullable(^JobsRetFSCalendarByRowHeightBlock)(CGFloat data);
 typedef __kindof FSCalendar *_Nullable(^JobsRetFSCalendarByDateBlock)(NSDate *_Nullable data);
 typedef __kindof FSCalendar *_Nullable(^JobsRetFSCalendarByPanGestureRecognizerBlock)(UIPanGestureRecognizer *_Nullable data);
+
+#pragma mark —— JobsOCCalendar
+/// JobsOCCalendar
+typedef __kindof JobsOCCalendar *_Nullable(^JobsRetJobsOCCalendarByDataSourceBlock)(id<JobsOCCalendarDataSource> _Nullable data);
+typedef __kindof JobsOCCalendar *_Nullable(^JobsRetJobsOCCalendarByDelegateBlock)(id<JobsOCCalendarDelegate> _Nullable data);
 
 typedef __kindof FSCalendarCalculator *_Nullable(^JobsRetFSCalendarByGetCalculatorBlock)(void);
 typedef __kindof FSCalendarCollectionViewLayout *_Nullable(^JobsRetFSCalendarLayoutByVoidBlock)(void);

@@ -135,7 +135,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     if (!_captchaView) {
         _captchaView = JobsOCGraphicCaptchaView.new;
         _captchaView.config = JobsOCGraphicCaptchaConfig.mixedConfig;
-        _captchaView.font = UIFontWeightSemiboldSize(16);
+        _captchaView.byFont(UIFontWeightSemiboldSize(16));
         _captchaView.byAlpha(0.9);
         _captchaView.captchaBackgroundColor = JobsWhiteColor;
         _captchaView.addOn(self).byAdd(^(MASConstraintMaker *make) {

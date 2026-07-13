@@ -74,8 +74,9 @@ static dispatch_once_t static_postDelViewOnceToken;
     return ^(NSNumber *_Nullable model) {
         @jobs_strongify(self)
         self.byBgColor(JobsRedColor);
-        self.imageView.highlighted = model;
-        self.imageView.image = model.boolValue ? @"hx_photo_edit_trash_open".img : @"hx_photo_edit_trash_close".img;
+        self.imageView
+            .byHighlighted(model.boolValue)
+            .byImage(model.boolValue ? @"hx_photo_edit_trash_open".img : @"hx_photo_edit_trash_close".img);
         self.titleLab.byText(model.boolValue ? @"松手即可删除".tr : @"拖动到此处删除".tr);
     };
 }

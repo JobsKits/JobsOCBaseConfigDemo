@@ -12,6 +12,24 @@
 #import "JobsOCCalendarAppearance.h"
 #import "JobsOCCalendarDayCell.h"
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsOCCalendar : UIView
@@ -35,6 +53,8 @@ Prop_assign()JobsOCCalendarPlaceholderType placeholderType;
 Prop_assign()BOOL jobsAutomaticallyInvalidateLayoutOnBoundsChange;
 Prop_assign()BOOL jobsReloadDataAfterBoundsChange;
 
+-(JobsRetJobsOCCalendarByDataSourceBlock _Nonnull)byDataSource;
+-(JobsRetJobsOCCalendarByDelegateBlock _Nonnull)byDelegate;
 -(void)reloadData;
 -(void)setCurrentPage:(NSDate *)currentPage animated:(BOOL)animated;
 -(void)selectDate:(nullable NSDate *)date;

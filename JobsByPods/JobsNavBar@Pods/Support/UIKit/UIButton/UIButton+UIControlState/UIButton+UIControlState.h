@@ -43,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByImageBlock _Nonnull)focusedStateImageBy API_AVAILABLE(ios(9.0));
 -(JobsRetBtnByImageBlock _Nonnull)applicationStateImageBy;
 -(JobsRetBtnByImageBlock _Nonnull)reservedStateImageBy;
+-(JobsRetBtnByImageAndControlStateBlock _Nonnull)imageForStateBy;
 #pragma mark —— UIButton.backgroundImage
 -(JobsRetImageByNSUIntegerBlock _Nonnull)backgroundImageByState;
 -(UIImage *_Nullable)backgroundImageByNormalState;
@@ -59,6 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByImageBlock _Nonnull)focusedStateBackgroundImageBy API_AVAILABLE(ios(9.0));
 -(JobsRetBtnByImageBlock _Nonnull)applicationStateBackgroundImageBy;
 -(JobsRetBtnByImageBlock _Nonnull)reservedStateBackgroundImageBy;
+-(JobsRetBtnByImageAndControlStateBlock _Nonnull)backgroundImageForStateBy;
 #pragma mark —— UIButton.titleColor
 -(JobsRetCorByNSUIntegerBlock _Nonnull)titleColorByState;
 -(UIColor *_Nullable)titleColorByNormalState;
@@ -76,6 +78,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByCorBlock _Nonnull)ApplicationStateTitleColorBy;
 -(JobsRetBtnByCorBlock _Nonnull)reservedStateTitleColorBy;
 -(JobsRetBtnByCorAndControlStateBlock _Nonnull)titleColorForStateBy;
+#pragma mark —— UIButton.titleShadowColor
+-(JobsRetCorByNSUIntegerBlock _Nonnull)titleShadowColorByState;
+-(JobsRetBtnByCorAndControlStateBlock _Nonnull)titleShadowColorForStateBy;
 #pragma mark —— UIButton.subtitleColor
 /// TODO
 #pragma mark —— UIButton.title
@@ -94,6 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByStringBlock _Nonnull)focusedStateTitleBy API_AVAILABLE(ios(9.0));
 -(JobsRetBtnByStringBlock _Nonnull)applicationStateTitleBy;
 -(JobsRetBtnByStringBlock _Nonnull)reservedStateTitleBy;
+-(JobsRetBtnByStringAndControlStateBlock _Nonnull)titleForStateBy;
 #pragma mark —— UIButton.subtitle
 -(NSAttributedString *_Nullable)attributedSubtitle;
 #pragma mark —— UIButton.attributedTitle
@@ -114,8 +120,12 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByAttributedStringBlock _Nonnull)focusedStateAttributedTitleBy API_AVAILABLE(ios(9.0));
 -(JobsRetBtnByAttributedStringBlock _Nonnull)applicationStateAttributedTitleBy;
 -(JobsRetBtnByAttributedStringBlock _Nonnull)reservedStateAttributedTitleBy;
+-(JobsRetBtnByAttributedStringAndControlStateBlock _Nonnull)attributedTitleForStateBy;
 #pragma mark —— UIButton.attributedSubtitle
 /// TODO
+#pragma mark —— UIButton.preferredSymbolConfiguration
+-(JobsRetSymbolConfigurationByControlStateBlock _Nonnull)preferredSymbolConfigurationByState API_AVAILABLE(ios(13.0));
+-(JobsRetBtnBySymbolConfigurationAndControlStateBlock _Nonnull)preferredSymbolConfigurationForStateBy API_AVAILABLE(ios(13.0));
 @end
 
 NS_ASSUME_NONNULL_END

@@ -38,7 +38,7 @@ Prop_strong()UIView *topLine;
         LZTabBarItem *item = [self.items objectAtIndex:i];
         item.byFrame(CGRectMake(i*width, 0, width, height));
 
-        [self addSubview:item];
+        item.addOn(self);
         item.delegate = self;
     }
 }
@@ -68,7 +68,7 @@ Prop_strong()UIView *topLine;
         _effectView = [UIVisualEffectView.alloc initWithEffect:effect];
         _effectView.byAlpha(1.0);
 
-        [self addSubview:_effectView];
+        _effectView.addOn(self);
     };return _effectView;
 }
 

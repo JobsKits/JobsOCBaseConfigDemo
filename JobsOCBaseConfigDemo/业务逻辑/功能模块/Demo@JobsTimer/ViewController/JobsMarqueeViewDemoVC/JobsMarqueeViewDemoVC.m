@@ -170,24 +170,21 @@ Prop_strong()UILabel *tipLab;
                         subTitle:(NSString *)subTitle
                            color:(UIColor *)color
                              tag:(NSInteger)tag{
-    UIButton *button = UIButton.jobsInit()
-        .jobsResetBtnTitle(title.tr)
-        .jobsResetBtnTitleCor(JobsWhiteColor)
-        .jobsResetBtnTitleFont(UIFontWeightMediumSize(15))
-        .jobsResetBtnBgCor(color)
-        .jobsResetBtnCornerRadiusValue(JobsWidth(8));
-    if (subTitle.length) {
-        [button setTitle:[NSString stringWithFormat:@"%@\n%@", title.tr, subTitle.tr]
-                forState:UIControlStateNormal];
-        button.titleLabel.numberOfLines = 2;
-        button.titleLabel.textAlignment = NSTextAlignmentCenter;
-        button.titleLabel.font = UIFontWeightRegularSize(13);
-    }
-    button.tag = tag;
-    [button addTarget:self
-               action:@selector(demoButtonTapped:)
-     forControlEvents:UIControlEventTouchUpInside];
-    return button;
+    return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+        button
+            .jobsResetBtnTitle(subTitle.length ? [NSString stringWithFormat:@"%@\n%@", title.tr, subTitle.tr] : title.tr)
+            .jobsResetBtnTitleCor(JobsWhiteColor)
+            .jobsResetBtnTitleFont(subTitle.length ? UIFontWeightRegularSize(13) : UIFontWeightMediumSize(15))
+            .jobsResetBtnBgCor(color)
+            .jobsResetBtnCornerRadiusValue(JobsWidth(8))
+            .byTitleLabel(^(__kindof UILabel * _Nullable label) {
+                label
+                    .byNumberOfLines(subTitle.length ? 2 : 1)
+                    .byTextAlignment(NSTextAlignmentCenter);
+            })
+            .byAddTarget(self, @selector(demoButtonTapped:), UIControlEventTouchUpInside)
+            .byTag(tag);
+    });
 }
 #pragma mark —— LazyLoad
 -(UIScrollView *)scrollView{
@@ -211,14 +208,16 @@ Prop_strong()UILabel *tipLab;
 -(UIView *)contentView{
     if (!_contentView) {
         @jobs_weakify(self)
-        _contentView = UIView.alloc.init
-            .byBgColor(JobsClearColor)
-            .addOn(self.scrollView)
-            .byAdd(^(MASConstraintMaker *make) {
-                @jobs_strongify(self)
-                make.edges.equalTo(self.scrollView);
-                make.width.equalTo(self.scrollView);
-            });
+        _contentView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(JobsClearColor)
+                .addOn(self.scrollView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    @jobs_strongify(self)
+                    make.edges.equalTo(self.scrollView);
+                    make.width.equalTo(self.scrollView);
+                });
+        });
     };return _contentView;
 }
 

@@ -107,6 +107,16 @@
         return self;
     };
 }
+
+-(JobsRetBtnByImageAndControlStateBlock _Nonnull)imageForStateBy{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(UIImage *_Nullable image, UIControlState state){
+        @jobs_strongify(self)
+        [self setImage:image
+              forState:state];
+        return self;
+    };
+}
 #pragma mark —— UIButton.backgroundImage
 -(JobsRetImageByNSUIntegerBlock _Nonnull)backgroundImageByState{
     @jobs_weakify(self)
@@ -203,6 +213,16 @@
     return ^__kindof UIButton *(UIImage *_Nonnull backgroundImage) {
         @jobs_strongify(self)
         [self setBackgroundImage:backgroundImage forState:UIControlStateReserved];
+        return self;
+    };
+}
+
+-(JobsRetBtnByImageAndControlStateBlock _Nonnull)backgroundImageForStateBy{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(UIImage *_Nullable backgroundImage, UIControlState state) {
+        @jobs_strongify(self)
+        [self setBackgroundImage:backgroundImage
+                       forState:state];
         return self;
     };
 }
@@ -315,6 +335,24 @@
         return self;
     };
 }
+#pragma mark —— UIButton.titleShadowColor
+-(JobsRetCorByNSUIntegerBlock _Nonnull)titleShadowColorByState{
+    @jobs_weakify(self)
+    return ^UIColor *_Nullable(NSUInteger state) {
+        @jobs_strongify(self)
+        return [self titleShadowColorForState:state];
+    };
+}
+
+-(JobsRetBtnByCorAndControlStateBlock _Nonnull)titleShadowColorForStateBy{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(UIColor *_Nullable titleShadowColor, UIControlState state) {
+        @jobs_strongify(self)
+        [self setTitleShadowColor:titleShadowColor
+                        forState:state];
+        return self;
+    };
+}
 #pragma mark —— UIButton.subtitleColor
 /// TODO
 #pragma mark —— UIButton.title
@@ -413,6 +451,16 @@
     return ^__kindof UIButton *(NSString *_Nonnull title) {
         @jobs_strongify(self)
         [self setTitle:title forState:UIControlStateReserved];
+        return self;
+    };
+}
+
+-(JobsRetBtnByStringAndControlStateBlock _Nonnull)titleForStateBy{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(NSString *_Nullable title, UIControlState state) {
+        @jobs_strongify(self)
+        [self setTitle:title
+              forState:state];
         return self;
     };
 }
@@ -532,7 +580,35 @@
         return self;
     };
 }
+
+-(JobsRetBtnByAttributedStringAndControlStateBlock _Nonnull)attributedTitleForStateBy{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(NSAttributedString *_Nullable attributedTitle, UIControlState state) {
+        @jobs_strongify(self)
+        [self setAttributedTitle:attributedTitle
+                       forState:state];
+        return self;
+    };
+}
 #pragma mark —— UIButton.attributedSubtitle
 /// TODO
+#pragma mark —— UIButton.preferredSymbolConfiguration
+-(JobsRetSymbolConfigurationByControlStateBlock _Nonnull)preferredSymbolConfigurationByState API_AVAILABLE(ios(13.0)){
+    @jobs_weakify(self)
+    return ^UIImageSymbolConfiguration *_Nullable(UIControlState state) {
+        @jobs_strongify(self)
+        return [self preferredSymbolConfigurationForImageInState:state];
+    };
+}
+
+-(JobsRetBtnBySymbolConfigurationAndControlStateBlock _Nonnull)preferredSymbolConfigurationForStateBy API_AVAILABLE(ios(13.0)){
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(UIImageSymbolConfiguration *_Nullable configuration, UIControlState state) {
+        @jobs_strongify(self)
+        [self setPreferredSymbolConfiguration:configuration
+                              forImageInState:state];
+        return self;
+    };
+}
 
 @end

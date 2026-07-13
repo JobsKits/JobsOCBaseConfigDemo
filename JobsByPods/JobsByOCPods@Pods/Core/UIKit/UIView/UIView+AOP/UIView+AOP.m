@@ -23,10 +23,7 @@
 //中间的遮罩
 - (void)aop_setBackgroundColor:(UIColor *)color{
     if([NSStringFromClass(self.superview.superview.class) isEqualToString:@"UITextRangeView"]){
-        [self aop_setBackgroundColor:[UIColor colorWithRed:194/255.0
-                                                     green:228/255.0
-                                                      blue:193/255.0
-                                                     alpha:0.5]];
+        [self aop_setBackgroundColor:RGBA_COLOR(194, 228, 193, 0.5)];
     }else{
         [self aop_setBackgroundColor:color];
     }
@@ -46,10 +43,7 @@
             coverView.layer.cornerRadius = self.bounds.size.width * 0.5;
             coverView.layer.masksToBounds = YES;
         }
-        coverView.backgroundColor = [UIColor colorWithRed:194/255.0
-                                                    green:228/255.0
-                                                     blue:193/255.0
-                                                    alpha:1.0];
+        coverView.backgroundColor = RGB_COLOR(194, 228, 193);
     }
     [self aop_willMoveToSuperview:view];
 }

@@ -92,7 +92,7 @@ NS_ASSUME_NONNULL_END
                                                            }).onClickBy(^(UIButton *x){
                                                                @jobs_strongify(self)
                                                                self->_rightMenuView.resetUI(x);
-                                                               x.selected = !x.selected;
+                                                               x.byToggleSelected();
      //                                                          toastBy(@"人工客服");
                                                                self.唤起人工客服();
      //                                                          if (self.objBlock) self.objBlock(x);
@@ -115,7 +115,7 @@ NS_ASSUME_NONNULL_END
                                                           }).onClickBy(^(UIButton *x){
                                                               @jobs_strongify(self)
                                                               self->_rightMenuView.resetUI(x);
-                                                              x.selected = !x.selected;
+                                                              x.byToggleSelected();
                                                               toastBy(@"Telegram");
                                                               self.jobsOpenURL(@"https://t.me/bsports_ph");
      //                                                         if (self.objBlock) self.objBlock(x);
@@ -138,7 +138,7 @@ NS_ASSUME_NONNULL_END
                                                           }).onClickBy(^(UIButton *x){
                                                               @jobs_strongify(self)
                                                               self->_rightMenuView.resetUI(x);
-                                                              x.selected = !x.selected;
+                                                              x.byToggleSelected();
                                                               toastBy(@"FaceBook");
                                                               self.jobsOpenURL(@"https://www.facebook.com/profile.php?id=61569306594235");
                                                               if (self.objBlock) self.objBlock(x);
@@ -151,7 +151,7 @@ NS_ASSUME_NONNULL_END
                                                        [UIView animateWithDuration:1
                                                                         animations:^{
                                                            @jobs_strongify(self)
-                                                           self->_rightMenuView.resetOriginXByOffset(x.selected ? JobsWidth(-30) :JobsWidth(30));
+                                                           self->_rightMenuView.resetOriginXByOffset(x.jobs_isSelected ? JobsWidth(-30) :JobsWidth(30));
                                                        }];
                                                    }));
              _rightMenuView.resetOriginX(JobsMainScreen_WIDTH() - JobsWidth(20));

@@ -52,9 +52,9 @@ didFinishSavingWithError:(NSError *)error
     [super viewDidLoad];
     self.view.byBgColor(HEXCOLOR(0xF4F5F8));
     self.makeNavByAlpha(1);
-    self.imageView.alpha = 1;
-    self.statusLabel.alpha = 1;
-    self.saveButton.alpha = 1;
+    self.imageView.byAlpha(1);
+    self.statusLabel.byAlpha(1);
+    self.saveButton.byAlpha(1);
     [self loadDemoImage];
 }
 #pragma mark —— 子类复写
@@ -68,18 +68,19 @@ didFinishSavingWithError:(NSError *)error
 
 -(void)onImageLoaded:(UIImage *)image{
     self.originalImage = image.jobs_mosaicNormalizedImage;
-    self.imageView.image = self.originalImage;
+    self.imageView.byImage(self.originalImage);
 }
 
 -(void)showStatus:(NSString *)text
  hiddenAfterDelay:(BOOL)hiddenAfterDelay{
-    self.statusLabel.text = text.tr;
-    self.statusLabel.alpha = 1;
+    self.statusLabel.byText(text.tr);
+    self.statusLabel.byAlpha(1);
     if (!hiddenAfterDelay) return;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [UIView animateWithDuration:.25 animations:^{
-            self.statusLabel.alpha = .58;
-        }];
+        UIView.jobsAnimate(.25,
+            ^{
+            self.statusLabel.byAlpha(.58);
+        });
     });
 }
 #pragma mark —— 一些私有方法
@@ -111,15 +112,15 @@ didFinishSavingWithError:(NSError *)error
         CGFloat height = 80 + (index % 3) * 28;
         CGFloat x = 38 + (index % 5) * 166;
         CGFloat y = 48 + (index / 5) * 170 + (index % 2) * 24;
-        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(x,
-                                                                                 y,
-                                                                                 width,
-                                                                                 height)
-                                                        cornerRadius:22];
-        [path fill];
+        UIBezierPath *path = UIBezierPath.byBezierPathWithRoundedRect(CGRectMake(x,
+                                                                                y,
+                                                                                width,
+                                                                                height),
+                                                                      22);
+        path.byFill();
     }
     NSDictionary *titleAttrs = @{
-        NSFontAttributeName: [UIFont systemFontOfSize:54 weight:UIFontWeightSemibold],
+        NSFontAttributeName: UIFontWeightSemiboldSize(54),
         NSForegroundColorAttributeName: UIColor.whiteColor
     };
     [@"Jobs Mosaic Demo" drawInRect:CGRectMake(64,
@@ -128,7 +129,7 @@ didFinishSavingWithError:(NSError *)error
                                                90)
                      withAttributes:titleAttrs];
     NSDictionary *subAttrs = @{
-        NSFontAttributeName: [UIFont systemFontOfSize:28 weight:UIFontWeightRegular],
+        NSFontAttributeName: UIFontWeightRegularSize(28),
         NSForegroundColorAttributeName: [UIColor.whiteColor colorWithAlphaComponent:.86]
     };
     [@"拖动涂抹或调节粗细，保存结果到系统相册" drawInRect:CGRectMake(68,
@@ -138,7 +139,7 @@ didFinishSavingWithError:(NSError *)error
                                            withAttributes:subAttrs];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    return image ?: UIImage.new;
+    return image ?: jobsMakeImage();
 }
 
 -(void)loadDemoImage{
@@ -146,7 +147,7 @@ didFinishSavingWithError:(NSError *)error
     [self onImageLoaded:image];
     [self showStatus:@"图片加载中...".tr
     hiddenAfterDelay:YES];
-#if __has_include(<SDWebImage/SDWebImage.h>)
+#if JOBS_MOSAIC_HAS_SDWEBIMAGE
     NSURL *url = [NSURL URLWithString:self.sampleImageURLString];
     if (!url) return;
     [SDWebImageManager.sharedManager loadImageWithURL:url
@@ -197,10 +198,11 @@ didFinishSavingWithError:(NSError *)error
     if (!_imageView) {
         _imageView = JobsMosaicBrushImageView.new;
         _imageView.brushEnabled = NO;
-        _imageView.backgroundColor = UIColor.blackColor;
-        _imageView.layer.cornerRadius = JobsWidth(8);
-        _imageView.layer.masksToBounds = YES;
-        [self.view addSubview:_imageView];
+        _imageView.byBgColor(UIColor.blackColor);
+        _imageView.layer
+            .byCornerRadius(JobsWidth(8))
+            .byMasksToBounds(YES);
+        _imageView.addOn(self.view);
         [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(16));
             make.left.right.equalTo(self.view).inset(JobsWidth(16));
@@ -211,39 +213,42 @@ didFinishSavingWithError:(NSError *)error
 
 -(UILabel *)statusLabel{
     if (!_statusLabel) {
-        _statusLabel = UILabel.new;
-        _statusLabel.textAlignment = NSTextAlignmentCenter;
-        _statusLabel.textColor = HEXCOLOR(0x5A6372);
-        _statusLabel.font = UIFontWeightRegularSize(13);
-        _statusLabel.numberOfLines = 0;
-        [self.view addSubview:_statusLabel];
-        [_statusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view).inset(JobsWidth(24));
-            make.bottom.equalTo(self.saveButton.mas_top).offset(-JobsWidth(12));
-        }];
+        _statusLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byTextCor(HEXCOLOR(0x5A6372))
+                .byFont(UIFontWeightRegularSize(13))
+                .byNumberOfLines(0)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.view).inset(JobsWidth(24));
+                    make.bottom.equalTo(self.saveButton.mas_top).offset(-JobsWidth(12));
+                });
+        });
     };return _statusLabel;
 }
 
 -(UIButton *)saveButton{
     if (!_saveButton) {
-        _saveButton = UIButton.new;
-        _saveButton.backgroundColor = HEXCOLOR(0x1D9BF0);
-        _saveButton.layer.cornerRadius = JobsWidth(8);
-        _saveButton.layer.masksToBounds = YES;
-        [_saveButton setTitle:@"保存到相册".tr
-                     forState:UIControlStateNormal];
-        [_saveButton setTitleColor:UIColor.whiteColor
-                           forState:UIControlStateNormal];
-        _saveButton.titleLabel.font = UIFontWeightMediumSize(16);
-        [_saveButton addTarget:self
-                        action:@selector(saveCurrentImage)
-              forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_saveButton];
-        [_saveButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view).inset(JobsWidth(24));
-            make.height.mas_equalTo(JobsWidth(44));
-            make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-JobsWidth(24));
-        }];
+        _saveButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button
+                .jobsResetBtnTitle(@"保存到相册".tr)
+                .jobsResetBtnTitleCor(UIColor.whiteColor)
+                .jobsResetBtnTitleFont(UIFontWeightMediumSize(16))
+                .jobsResetBtnBgCor(HEXCOLOR(0x1D9BF0))
+                .byAddTarget(self, @selector(saveCurrentImage), UIControlEventTouchUpInside)
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byCornerRadius(JobsWidth(8))
+                        .byMasksToBounds(YES);
+                })
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.view).inset(JobsWidth(24));
+                    make.height.mas_equalTo(JobsWidth(44));
+                    make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-JobsWidth(24));
+                });
+        });
     };return _saveButton;
 }
 

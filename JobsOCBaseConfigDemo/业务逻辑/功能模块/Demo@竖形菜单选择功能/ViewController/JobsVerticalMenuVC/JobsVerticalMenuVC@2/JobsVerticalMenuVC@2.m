@@ -409,21 +409,22 @@ referenceSizeForFooterInSection:(NSInteger)section{
     }
     [self.searchViewWidthConstraint setOffset:active ? self.expandedSearchWidth : 0];
     UIViewAnimationOptions options = active ? UIViewAnimationOptionCurveEaseOut : UIViewAnimationOptionCurveEaseIn;
-    [UIView animateWithDuration:active ? .24f : .18f
-                          delay:0
-                        options:options
-                     animations:^{
+    UIView.jobsAnimateWithOptions(active ? .24f : .18f,
+        0,
+        options,
+        ^{
         self.gk_navTitleBtn.byAlpha(active ? 0 : 1);
         self.searchView.byAlpha(active ? 1 : 0);
         [self.gk_navigationBar layoutIfNeeded];
-    } completion:^(BOOL finished) {
+    },
+        ^(BOOL finished) {
         if (active) {
             [self.searchView.textField becomeFirstResponder];
         } else {
             self.searchView.byHidden(YES);
             [self refreshSearchToggleBtnByActive:NO];
         }
-    }];
+    });
 }
 #pragma mark —— lazyLoad
 /// BaseViewProtocol
@@ -466,10 +467,10 @@ referenceSizeForFooterInSection:(NSInteger)section{
         _tempCell = jobsMakeThreeClassCell(^(__kindof ThreeClassCell * _Nullable cell) {
             cell.byBgColor(HEXCOLOR(0xF7F8FA));
 
-            cell.frame = CGRectMake(0,
+            cell.byFrame(CGRectMake(0,
                                     0,
                                     ThreeClassCell.cellSizeByModel(nil).width,
-                                    ThreeClassCell.cellSizeByModel(nil).height);
+                                    ThreeClassCell.cellSizeByModel(nil).height));
         });
     };return _tempCell;
 }

@@ -21,9 +21,9 @@ JobsKey(_suspendBtn)
         SuspendBtn = self.view.addSubview(JobsSuspendBtn.initByNormalImage(@"旋转".img)
                                           .onClickBy(^(UIButton *x){
                                               @jobs_strongify(self)
-                                              x.selected = !x.selected;
-                                              JobsLog(@"%@",x.selected ? @"开始旋转".tr : @"停止旋转".tr);
-                                              x.旋转动画(x.selected);
+                                              x.byToggleSelected();
+                                              JobsLog(@"%@",x.jobs_isSelected ? @"开始旋转".tr : @"停止旋转".tr);
+                                              x.旋转动画(x.jobs_isSelected);
                                               if (self.objBlock) self.objBlock(x);
                                           }).onLongPressGestureBy(^(id data){
                                               JobsLog(@"");

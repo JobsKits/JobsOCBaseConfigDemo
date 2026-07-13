@@ -267,7 +267,7 @@ Prop_strong()UITextModel *postTextModel;
 
 -(void)releaseBtnState:(NSArray *)photoDataArr
        inputDataString:(NSString *)inputDataString{
-    self.releaseBtn.enabled = photoDataArr.count || inputDataString.length;
+    self.releaseBtn.byEnabled(photoDataArr.count || inputDataString.length);
     self.releaseBtn.jobsResetBtnBgImage(self.releaseBtn.enabled ? @"发布".img : @"未发布".img);
 }
 #pragma mark —— HXPhotoViewDelegate
@@ -325,11 +325,11 @@ currentDeleteModel:(HXPhotoModel *)model
 gestureRecognizerBegan:(UILongPressGestureRecognizer *)longPgr
         indexPath:(NSIndexPath *)indexPath{
     @jobs_weakify(self)
-    [UIView animateWithDuration:0.25f
-                     animations:^{
+    UIView.jobsAnimate(0.25f,
+        ^{
         @jobs_strongify(self)
         self.postDelView.y = JobsMainScreen_HEIGHT() - self->JobsPostDelViewHeight;
-    }];
+    });
 }
 
 - (void)photoView:(HXPhotoView *)photoView
@@ -348,14 +348,15 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         [self.postPhotoView deleteModelWithIndex:indexPath.item];
     }
     @jobs_weakify(self)
-    [UIView animateWithDuration:0.25f
-                     animations:^{
+    UIView.jobsAnimateWithCompletion(0.25f,
+        ^{
         @jobs_strongify(self)
         self.postDelView.y = JobsMainScreen_HEIGHT();
-    } completion:^(BOOL finished) {
+    },
+        ^(BOOL finished) {
         @jobs_strongify(self)
         self.postDelView.jobsRichViewByModel(@(NO));
-    }];
+    });
 }
 #pragma mark —— lazyLoad
 -(BaseButton *)releaseBtn{

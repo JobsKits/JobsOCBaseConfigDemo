@@ -228,7 +228,7 @@ Prop_strong()MSMineView2 *view2;
         @jobs_weakify(self)
         _view2 = MSMineView2.alloc.init;
         _view2.jobsRichViewByModel(nil);
-        [self.view addSubview:_view2];
+        _view2.addOn(self.view);
         [_view2 mas_makeConstraints:^(MASConstraintMaker *make) {
             @jobs_strongify(self)
             make.size.mas_equalTo(CGSizeMake(JobsWidth(88), JobsWidth(28)));
@@ -236,10 +236,12 @@ Prop_strong()MSMineView2 *view2;
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(12));
         }];
         [self.view setNeedsUpdateConstraints];
-        [UIView animateWithDuration:0.5 animations:^{
+        UIView.jobsAnimateWithCompletion(0.5,
+            ^{
             @jobs_strongify(self)
             [self.view layoutIfNeeded];
-        } completion:^(BOOL finished) {
+        },
+            ^(BOOL finished) {
             @jobs_strongify(self)
             [self->_view2 mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(MSMineView2.viewSizeByModel(nil));
@@ -247,10 +249,11 @@ Prop_strong()MSMineView2 *view2;
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(12));
             }];
             [self.view setNeedsUpdateConstraints];
-            [UIView animateWithDuration:0.5 animations:^{
+            UIView.jobsAnimate(0.5,
+                ^{
                 [self.view layoutIfNeeded];
-            }];
-        }];
+            });
+        });
         _view2.cornerCutToCircleWithCornerRadius(MSMineView2.viewSizeByModel(nil).height / 2);
     };return _view2;
 }

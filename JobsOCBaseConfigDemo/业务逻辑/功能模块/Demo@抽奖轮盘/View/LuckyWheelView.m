@@ -77,8 +77,8 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 
 - (void)commonInit {
     self.byBgColor([UIColor clearColor]);
-    self.clipsToBounds = NO;
-    self.layer.masksToBounds = NO;
+    self.byClipsToBounds(NO);
+    self.layer.byMasksToBounds(NO);
     _pointerDirection     = JobsDirectionUp;
     _panRotationEnabled   = YES;
     _decelerationRate     = UIScrollViewDecelerationRateNormal;
@@ -115,7 +115,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     self.segments = jobsMakeMutArr(^(__kindof NSMutableArray<LuckyWheelSegment *> * _Nullable arr) {
         for (UIColor *color in colors) {
             arr.add([[LuckyWheelSegment alloc] initWithText:nil
-                                                   textFont:[UIFont systemFontOfSize:14]
+                                                   textFont:UIFontSystemFontOfSize(14)
                                                   textColor:JobsBlackColor
                                              attributedText:nil
                                             backgroundColor:color
@@ -127,7 +127,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 
 - (void)setPanRotationEnabled:(BOOL)panRotationEnabled {
     _panRotationEnabled = panRotationEnabled;
-    self.panGesture.enabled = panRotationEnabled;
+    self.panGesture.byEnabled(panRotationEnabled);
 }
 
 - (void)setSegmentTapHandler:(jobsByLuckyWheelSegmentBlock)segmentTapHandler {
@@ -144,13 +144,14 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     [super layoutSubviews];
     self.plateView.byFrame(self.bounds);
     CGFloat radius = MIN(self.bounds.size.width, self.bounds.size.height) / 2.0;
-    self.plateView.layer.cornerRadius = radius;
-    self.plateView.layer.masksToBounds = YES;
-    self.layer.shadowColor = HEXCOLOR(0x8B5E1D).CGColor;
-    self.layer.shadowOpacity = 0.22;
-    self.layer.shadowOffset = CGSizeMake(0, JobsWidth(14));
-    self.layer.shadowRadius = JobsWidth(22);
-    self.layer.shadowPath = [UIBezierPath bezierPathWithOvalInRect:self.bounds].CGPath;
+    self.plateView.layer.byCornerRadius(radius);
+    self.plateView.layer.byMasksToBounds(YES);
+    self.layer
+        .byShadowColor(HEXCOLOR(0x8B5E1D).CGColor)
+        .byShadowOpacity(0.22)
+        .byShadowOffset(CGSizeMake(0, JobsWidth(14)))
+        .byShadowRadius(JobsWidth(22))
+        .byShadowPath(UIBezierPath.byBezierPathWithOvalInRect(self.bounds).CGPath);
     [self rebuildSlices];
     [self updatePointerLayer];
     [self bringSubviewToFront:self.centerButton];
@@ -160,19 +161,21 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     if (CGRectIsEmpty(self.bounds)) return;
     CGFloat centerX = CGRectGetMidX(self.bounds);
     CGFloat top = JobsWidth(8);
-    UIBezierPath *path = UIBezierPath.bezierPath;
-    [path moveToPoint:CGPointMake(centerX - JobsWidth(13), top)];
-    [path addLineToPoint:CGPointMake(centerX + JobsWidth(13), top)];
-    [path addLineToPoint:CGPointMake(centerX, top + JobsWidth(28))];
-    [path closePath];
-    self.pointerLayer.path = path.CGPath;
-    self.pointerLayer.fillColor = HEXCOLOR(0xFF9F1C).CGColor;
-    self.pointerLayer.strokeColor = JobsWhiteColor.CGColor;
-    self.pointerLayer.lineWidth = JobsWidth(2);
-    self.pointerLayer.shadowColor = HEXCOLOR(0x7A4A10).CGColor;
-    self.pointerLayer.shadowOpacity = 0.22;
-    self.pointerLayer.shadowOffset = CGSizeMake(0, JobsWidth(3));
-    self.pointerLayer.shadowRadius = JobsWidth(5);
+    UIBezierPath *path = jobsMakeBezierPath(nil);
+    path
+        .byMoveToPoint(CGPointMake(centerX - JobsWidth(13), top))
+        .byAddLineToPoint(CGPointMake(centerX + JobsWidth(13), top))
+        .byAddLineToPoint(CGPointMake(centerX, top + JobsWidth(28)))
+        .byClosePath();
+    self.pointerLayer
+        .byPath(path.CGPath)
+        .byFillColor(HEXCOLOR(0xFF9F1C).CGColor)
+        .byStrokeColor(JobsWhiteColor.CGColor)
+        .byLineWidth(JobsWidth(2))
+        .byShadowColor(HEXCOLOR(0x7A4A10).CGColor)
+        .byShadowOpacity(0.22)
+        .byShadowOffset(CGSizeMake(0, JobsWidth(3)))
+        .byShadowRadius(JobsWidth(5));
     if (!self.pointerLayer.superlayer) [self.layer addSublayer:self.pointerLayer];
 }
 
@@ -208,14 +211,11 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
         CGFloat startAngle = (CGFloat)(-M_PI_2) + (CGFloat)index * anglePerSlice;
         CGFloat endAngle = startAngle + anglePerSlice;
 
-        UIBezierPath *path = [UIBezierPath bezierPath];
-        [path moveToPoint:center];
-        [path addArcWithCenter:center
-                        radius:radius
-                    startAngle:startAngle
-                      endAngle:endAngle
-                     clockwise:YES];
-        [path closePath];
+        UIBezierPath *path = jobsMakeBezierPath(nil);
+        path
+            .byMoveToPoint(center)
+            .byAddArcWithCenter(center, radius, startAngle, endAngle, YES)
+            .byClosePath();
 
         CAShapeLayer *layer = [CAShapeLayer layer];
         layer.path = path.CGPath;
@@ -267,34 +267,41 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
             CGPoint imageCenter = CGPointMake(center.x + cos(midAngle) * imageRadius,
                                               center.y + sin(midAngle) * imageRadius);
             CGFloat imageSize = radius * 0.22;
-            [self.plateView addSubview:jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-                imageView.image = [segment.placeholderImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-                imageView.tintColor = HEXCOLOR(0x9A6A2E);
-                imageView.byBgColor([JobsWhiteColor colorWithAlphaComponent:0.48]);
-                imageView.byContentMode(UIViewContentModeScaleAspectFill);
-                imageView.clipsToBounds = YES;
-                imageView.bounds = CGRectMake(0, 0, imageSize, imageSize);
-                imageView.center = imageCenter;
-                imageView.layer.cornerRadius = imageSize / 2.0;
-                imageView.layer.borderWidth = JobsWidth(1);
-                imageView.layer.borderColor = [JobsWhiteColor colorWithAlphaComponent:0.72].CGColor;
+            jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+                imageView
+                    .byImage([segment.placeholderImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate])
+                    .byTintColor(HEXCOLOR(0x9A6A2E))
+                    .byBgColor([JobsWhiteColor colorWithAlphaComponent:0.48])
+                    .byContentMode(UIViewContentModeScaleAspectFill)
+                    .byClipsToBounds(YES)
+                    .byBounds(CGRectMake(0, 0, imageSize, imageSize))
+                    .byCenterPoint(imageCenter)
+                    .byLayer(^(__kindof CALayer * _Nullable layer) {
+                        layer
+                            .byCornerRadius(imageSize / 2.0)
+                            .byBorderWidth(JobsWidth(1))
+                            .byBorderColor([JobsWhiteColor colorWithAlphaComponent:0.72].CGColor);
+                    })
+                    .addOn(self.plateView);
                 // 如果希望支持网络图，可以在这里用你项目里的图片加载库：
                 // [imageView <xxx_setImageWithURL:[NSURL URLWithString:segment.imageURLString] placeholderImage:segment.placeholderImage>];
-            })];
+            });
         }
     }
 
     for (NSInteger index = 0; index < count; index++) {
         CGFloat angle = (CGFloat)(-M_PI_2) + (CGFloat)index * anglePerSlice;
-        UIBezierPath *linePath = UIBezierPath.bezierPath;
-        [linePath moveToPoint:center];
-        [linePath addLineToPoint:CGPointMake(center.x + cos(angle) * radius,
-                                             center.y + sin(angle) * radius)];
+        UIBezierPath *linePath = jobsMakeBezierPath(nil);
+        linePath
+            .byMoveToPoint(center)
+            .byAddLineToPoint(CGPointMake(center.x + cos(angle) * radius,
+                                          center.y + sin(angle) * radius));
         CAShapeLayer *lineLayer = CAShapeLayer.layer;
-        lineLayer.path = linePath.CGPath;
-        lineLayer.fillColor = JobsClearColor.CGColor;
-        lineLayer.strokeColor = [JobsWhiteColor colorWithAlphaComponent:0.68].CGColor;
-        lineLayer.lineWidth = JobsWidth(1.2);
+        lineLayer
+            .byPath(linePath.CGPath)
+            .byFillColor(JobsClearColor.CGColor)
+            .byStrokeColor([JobsWhiteColor colorWithAlphaComponent:0.68].CGColor)
+            .byLineWidth(JobsWidth(1.2));
         [self.plateView.layer addSublayer:lineLayer];
         [self.sliceLayers addObject:lineLayer];
     }
@@ -304,18 +311,20 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                                  radius * 2.0,
                                  radius * 2.0);
     CAShapeLayer *outerRingLayer = CAShapeLayer.layer;
-    outerRingLayer.path = [UIBezierPath bezierPathWithOvalInRect:ringRect].CGPath;
-    outerRingLayer.fillColor = JobsClearColor.CGColor;
-    outerRingLayer.strokeColor = JobsWhiteColor.CGColor;
-    outerRingLayer.lineWidth = JobsWidth(8);
+    outerRingLayer
+        .byPath(UIBezierPath.byBezierPathWithOvalInRect(ringRect).CGPath)
+        .byFillColor(JobsClearColor.CGColor)
+        .byStrokeColor(JobsWhiteColor.CGColor)
+        .byLineWidth(JobsWidth(8));
     [self.plateView.layer addSublayer:outerRingLayer];
     [self.sliceLayers addObject:outerRingLayer];
 
     CAShapeLayer *innerRingLayer = CAShapeLayer.layer;
-    innerRingLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectInset(ringRect, JobsWidth(6), JobsWidth(6))].CGPath;
-    innerRingLayer.fillColor = JobsClearColor.CGColor;
-    innerRingLayer.strokeColor = [HEXCOLOR(0xE8B86B) colorWithAlphaComponent:0.72].CGColor;
-    innerRingLayer.lineWidth = JobsWidth(1.2);
+    innerRingLayer
+        .byPath(UIBezierPath.byBezierPathWithOvalInRect(CGRectInset(ringRect, JobsWidth(6), JobsWidth(6))).CGPath)
+        .byFillColor(JobsClearColor.CGColor)
+        .byStrokeColor([HEXCOLOR(0xE8B86B) colorWithAlphaComponent:0.72].CGColor)
+        .byLineWidth(JobsWidth(1.2));
     [self.plateView.layer addSublayer:innerRingLayer];
     [self.sliceLayers addObject:innerRingLayer];
 }
@@ -323,7 +332,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 - (NSAttributedString *)attributedStringForSegment:(LuckyWheelSegment *)segment {
     if (segment.attributedText.length > 0) return segment.attributedText;
     if (segment.text.length == 0) return nil;
-    UIFont *font = segment.textFont ?: [UIFont systemFontOfSize:12 weight:UIFontWeightMedium];
+    UIFont *font = segment.textFont ?: UIFontWeightMediumSize(12);
     UIColor *color = segment.textColor ?: [UIColor blackColor];
     return [NSAttributedString.alloc initWithString:segment.text attributes:@{
         NSFontAttributeName: font,
@@ -411,10 +420,10 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 }
 
 - (void)updateCenterButtonBySpinning:(BOOL)spinning {
-    self.centerButton.selected = spinning;
+    self.centerButton.bySelected(spinning);
     self.centerButton.userInteractionEnabled = YES;
     self.centerButton.jobsResetBtnTitle(spinning ? @"停止\n抽奖".tr : @"开始\n抽奖".tr);
-    self.centerButton.backgroundColor = spinning ? HEXCOLOR(0xC97812) : HEXCOLOR(0xFF9F1C);
+    self.centerButton.jobsResetBtnBgCor(spinning ? HEXCOLOR(0xC97812) : HEXCOLOR(0xFF9F1C));
 }
 
 - (void)updateSpinningState:(BOOL)spinning {
@@ -665,12 +674,13 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                 make.width.mas_equalTo(JobsWidth(72));
                 make.height.mas_equalTo(JobsWidth(72));
             });
-        _centerButton.layer.borderWidth = JobsWidth(4);
-        _centerButton.layer.borderColor = JobsWhiteColor.CGColor;
-        _centerButton.layer.shadowColor = HEXCOLOR(0x8B5E1D).CGColor;
-        _centerButton.layer.shadowOpacity = 0.22;
-        _centerButton.layer.shadowOffset = CGSizeMake(0, JobsWidth(5));
-        _centerButton.layer.shadowRadius = JobsWidth(8);
+        _centerButton.layer
+            .byBorderWidth(JobsWidth(4))
+            .byBorderColor(JobsWhiteColor.CGColor)
+            .byShadowColor(HEXCOLOR(0x8B5E1D).CGColor)
+            .byShadowOpacity(0.22)
+            .byShadowOffset(CGSizeMake(0, JobsWidth(5)))
+            .byShadowRadius(JobsWidth(8));
     };return _centerButton;
 }
 

@@ -62,11 +62,12 @@ Prop_strong()UILabel *placeholderAnimationLbl;
             if (self.attributedPlaceholder && !self.placeholder) {
                 self.placeholderAnimationLbl.attributedText = self.attributedPlaceholder;
             }else{
-                self.placeholderAnimationLbl.textColor = self.animationColor;
-                self.placeholderAnimationLbl.font = self.animationFont;
+                self.placeholderAnimationLbl
+                    .byTextCor(self.animationColor)
+                    .byFont(self.animationFont);
                 
                 if (isValue(self.placeholder)) {
-                    self.placeholderAnimationLbl.text = self.placeholder;
+                    self.placeholderAnimationLbl.byText(self.placeholder);
                 }
                 
                 self.placeholder = @"".tr;
@@ -94,9 +95,10 @@ Prop_strong()UILabel *placeholderAnimationLbl;
                 self.placeholderAnimationLbl.attributedText = self.attributedPlaceholder;
             }else{
                 self.placeholder = self.placeholderAnimationLbl.text;
-                self.placeholderAnimationLbl.text = @"".tr;
-                self.placeholderAnimationLbl.textColor = self.placeholderColor;
-                self.placeholderAnimationLbl.font = self.placeholderFont;
+                self.placeholderAnimationLbl
+                    .byText(@"".tr)
+                    .byTextCor(self.placeholderColor)
+                    .byFont(self.placeholderFont);
             }
         }];
     }

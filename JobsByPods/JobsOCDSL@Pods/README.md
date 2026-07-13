@@ -35,20 +35,35 @@ JobsOCDSL@Pods/
 │   │   ├── UISearchBar+DSL/
 │   │   ├── UIView+DSL/
 │   │   ├── UIControl+DSL/
+│   │   ├── UIContextualAction+DSL/
 │   │   ├── UIProgressView+DSL/
+│   │   ├── UISlider+DSL/
+│   │   ├── UISegmentedControl+DSL/
+│   │   ├── UIStackView+DSL/
+│   │   ├── UISwitch+DSL/
+│   │   ├── UISwipeActionsConfiguration+DSL/
 │   │   ├── UIButton+DSL/
+│   │   ├── UINavigationController+DSL/
+│   │   ├── UIBarAppearance+DSL/
 │   │   ├── UIBarButtonItem+DSL/
+│   │   ├── UINavigationBarAppearance+DSL/
+│   │   ├── UINavigationBar+DSL/
+│   │   ├── UITabBar+DSL/
 │   │   ├── UIImpactFeedbackGenerator+DSL/
 │   │   ├── UIBackgroundConfiguration+DSL/
 │   │   ├── UIBezierPath+DSL/
 │   │   └── NSMutableParagraphStyle+DSL/
+│   ├── UserNotifications/
+│   │   ├── UNUserNotificationCenter+DSL/
+│   │   └── UNNotificationSound+DSL/
 │   ├── QuartzCore/
 │   │   └── CALayer+DSL/
 │   └── 3rd/
 │       ├── FSCalendar+DSL/
 │       ├── GKNavigationBar/
 │       │   ├── GKGestureHandleConfigure/
-│       │   └── GKNavigationBarConfigure/
+│       │   ├── GKNavigationBarConfigure/
+│       │   └── UIViewController/
 │       ├── Masonry/
 │       ├── SDWebImage+DSL/
 │       ├── HXPhotoPickerObjC/
@@ -62,14 +77,23 @@ JobsOCDSL@Pods/
 
 ## 方法型 DSL 补充
 
-- `UIBezierPath+DSL` 已把 `moveToPoint:`、`addLineToPoint:`、`appendPath:`、`applyTransform:`、`containsPoint:` 以及常用工厂方法改成链式入口。
+- `UIBezierPath+DSL` 已把 `moveToPoint:`、`addLineToPoint:`、`appendPath:`、`applyTransform:`、`containsPoint:` 改成链式入口，并用 `byBezierPathWithRoundedRect`、`byBezierPathWithRoundedCorners`、`byBezierPathWithArcCenter` 收口三类常用路径工厂。
 - `CALayer+DSL` 除属性包装外，补齐 `addSublayer:`、`removeAnimationForKey:`、`drawInContext:`、`renderInContext:`、`containsPoint:` 等方法型 DSL。
-- `UIView+DSL` 补齐 `addSubview:`、`bringSubviewToFront:`、`sendSubviewToBack:`、`addGestureRecognizer:`、`removeGestureRecognizer:`、`addInteraction:`、`removeInteraction:`、`setNeedsDisplayInRect:`、`removeFromSuperview`、`layoutIfNeeded`、`sizeToFit` 等链式入口。
+- `UIView+DSL` 补齐 `addSubview:`、`bringSubviewToFront:`、`sendSubviewToBack:`、`addGestureRecognizer:`、`removeGestureRecognizer:`、`addInteraction:`、`removeInteraction:`、`setNeedsDisplayInRect:`、`removeFromSuperview`、`layoutIfNeeded`、`sizeToFit` 等链式入口。类级终止动作使用 `jobsAnimate`、`jobsAnimateWithCompletion`、`jobsAnimateWithOptions`、`jobsAnimateWithSpring`、`jobsTransition`、`jobsTransitionFromViewToView`，屏蔽 UIKit 动画 overload 差异。
 - `UIBarButtonItem+DSL`、`UITableViewCell+DSL`、`UIImpactFeedbackGenerator+DSL` 覆盖各自当前类本层属性和 0 / 1 参数方法，不复制 `UIBarItem`、`UIView`、`UIFeedbackGenerator` 的父类能力。
-- `UIButton+DSL` 覆盖按钮本层 configuration、普通状态标题 / 图片 / 富文本、titleLabel / imageView 回调，以及 `adjustsImageWhenHighlighted` 等旧式按钮属性；父类交互状态仍走 `UIControl+DSL`。
+- `UIButton+DSL` 覆盖按钮本层 configuration、普通状态标题 / 图片 / 富文本、titleLabel / imageView 回调，以及 `adjustsImageWhenHighlighted` 等旧式按钮属性；父类交互状态仍走 `UIControl+DSL`。状态写入使用 `bySelected(...)` / `byEnabled(...)` / `byHighlighted(...)`，切换使用 `byToggleSelected()`，读取使用 `jobs_isSelected` / `jobs_isEnabled` / `jobs_isHighlighted` / `jobs_effectiveState`。
+- `UINavigationController+DSL` 用 `byDelegate(...)` 收口导航控制器代理；`UNUserNotificationCenter+DSL` 用同名入口收口通知中心代理。
+- `UIBarAppearance+DSL` 在父类层统一提供背景、阴影与背景配置方法，`UINavigationBarAppearance` 与 `UITabBarAppearance` 共同复用，不在两个子类重复铺设父类属性。
+- `UIBarAppearance+DSL` 同时承接公共背景、阴影与三种 `configureWith...Background` 方法；`UINavigationBarAppearance+DSL` 只放标题 / 按钮外观等子类属性，`UINavigationBar+DSL` 与 `UITabBar+DSL` 分别承接各自 appearance 管线和旧系统栏兼容属性。
+- `UIAppearance` 是消息记录代理，不能执行返回 Block 的实例 DSL；全局 `UITabBar` 外观使用 `jobsApplyStandardAppearance:` / `jobsApplyScrollEdgeAppearance:`，真实 `UITabBar` 实例继续使用 `byStandardAppearance` / `byScrollEdgeAppearance`。
 - `UILabel+DSL` 的 `transformLayer(...)` 会在真实 bounds 下用 CoreText 生成文字字形路径，并挂到 `shapeLayer`，原 label 文本色置透明；文本适配同时覆盖 `byLineBreakMode(...)`、`byAdjustsFontSizeToFitWidth(...)`、`byAdjustsFontForContentSizeCategory(...)`、`byMinimumScaleFactor(...)`。
+- `UILabel+DSL` 补齐数字文本动效，`byAnimatedTextNumberFrom:step:duration:minimumInterval:completion:` 配合 `byStartAnimatedTextNumber(...)`、`byStopAnimatedTextNumber()` 使用，底层由 `JobsOCTimer` 按最小时间间隔驱动。
 - `UISearchBar+DSL` 覆盖搜索栏本层可写属性，包括文本、占位符、代理、按钮显隐、样式、背景图片、scope 配置和输入附件视图；父类视图属性仍走 `UIView+DSL`。
-- `UIImageView+DSL` 覆盖当前类本层图片属性，`byImage(...)` 设置普通图片，`byHighlightedImage(...)` 设置高亮图片。
+- `UIImageView+DSL` 覆盖当前类本层图片与高亮状态，`byImage(...)` 设置普通图片，`byHighlightedImage(...)` 设置高亮图片，`byHighlighted(...)` 切换当前高亮状态。
+- `UISegmentedControl+DSL` 用 `jobs_selectedSegmentIndex` 查询当前分段，用 `bySelectedSegmentIndex(...)`、`byMomentary(...)`、`byApportionsSegmentWidthsByContent(...)`、`bySelectedSegmentTintColor(...)` 和 `byRemoveAllSegments()` 收口本层基础属性 / 无参方法；创建统一走 `JobsMakes.jobsMakeSegmentedControl(items, block)`，调用方不再裸调 `initWithItems:`。
+- `UIStackView+DSL` 收口布局轴、分布、对齐、间距、基线 / layoutMargins 相对布局及 arrangedSubview 增删；`UISwitch+DSL` 用 `jobs_isOn` 查询状态，并收口开关状态、动画切换、颜色、样式、标题与 on/off 图片。
+- `UIView+DSL` 用 `byTranslatesAutoresizingMaskIntoConstraints(...)` 收口 Auto Layout 自动转换开关，上层配置不再散落裸属性赋值。
+- `UIContextualAction+DSL` 收口图片、背景色（含 `byBgColor` 兼容名）和标题，`UISwipeActionsConfiguration+DSL` 收口全滑触发开关；两类对象分别由 `jobsMakeContextualAction` / `jobsMakeSwipeActionsConfiguration` 创建。
 - `NSMutableParagraphStyle+DSL` 覆盖段落样式常用字段，包括 `byAlignment(...)`、`byParagraphSpacing(...)`、`byParagraphSpacingBefore(...)`、`byFirstLineHeadIndent(...)`、`byHeadIndent(...)`、`byLineSpacing(...)`、`byLineBreakMode(...)`、`byBaseWritingDirection(...)`，供 `jobsMakeParagraphStyle` 闭包内保持点语法链式配置。
 - `FSCalendar+DSL` 对 `appearance`、`calendarHeaderView`、`swipeToChooseGesture` 这类子对象提供 block 配置入口，回调内部配置子对象后继续返回主 `FSCalendar`，方便调用方保持一个 `calendar` 中心链。
 
@@ -89,8 +113,11 @@ JobsOCDSL@Pods/
 - 第三方 DSL 的 Block typedef 统一落在 `JobsBlock`，`JobsOCDSL` 头文件只负责导入并使用，不再本地散落声明。
 - `JobsOCDefs`：提供基础宏、枚举、颜色和 `Prop_*` 属性声明宏；`JobsOCDSL` 内属性声明统一使用该宏族。
 - `JobsOCProtocols`：提供 DSL 协议边界。
+- `JobsOCTimer`：服务 `UILabel+DSL` 数字文本动效的 tick 驱动。
 - `CoreText`：服务 `UILabel+DSL` 文字字形路径生成。
-- `GKNavigationBar`：服务 OC 侧导航栏全局配置 DSL。
+- `GKNavigationBar`：服务 OC 侧导航栏全局配置与控制器级全部可写属性、无参数动作、单参数动作 DSL。
+- `UIViewController+GKNavigationBarDSL` 的公开入口统一使用 `byGK...` 前缀，明确能力来自 GKNavigationBar，例如 `byGKNavBackgroundColor(...)`、`byGKNavTitleColor(...)`、`byGKHideNavLine()`。
+- `byGKNavigationBarBlock(...)` 用于在同一条 `UIViewController` 主链中配置 `gk_navigationBar` 子对象，避免调用方再次散落 `self.gk_navigationBar...`；Block 结束后继续返回原控制器。
 - `Masonry`：服务 OC 侧约束链式 DSL。
 - `Texture`：服务当前已迁入的 Texture DSL 分类。
 - `YTKNetwork`：服务请求、批量请求、链式请求 DSL。
@@ -107,7 +134,7 @@ JobsOCDSL@Pods/
   ```objc
   UILabel *label = UILabel.alloc.init
       .byText(@"Demo")
-      .byFont([UIFont systemFontOfSize:16])
+      .byFont(UIFontSystemFontOfSize(16))
       .byTextAlignment(NSTextAlignmentCenter)
       .addOn(self.view)
       .byAdd(^(MASConstraintMaker *make) {
@@ -167,7 +194,7 @@ JobsOCDSL@Pods/
   _textView = jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
       textView
           .byText(@"请输入内容")
-          .byFont([UIFont systemFontOfSize:15])
+          .byFont(UIFontSystemFontOfSize(15))
           .byTextCor(UIColor.darkTextColor)
           .byTextContainerInset(UIEdgeInsetsMake(8, 10, 8, 10))
           .byEditable(YES)

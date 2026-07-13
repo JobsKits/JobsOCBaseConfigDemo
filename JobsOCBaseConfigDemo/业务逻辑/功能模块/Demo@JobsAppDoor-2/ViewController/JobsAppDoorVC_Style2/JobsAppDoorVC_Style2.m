@@ -173,7 +173,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
     _volumeDismissTapGesture = [UITapGestureRecognizer.alloc initWithTarget:self
                                                                      action:@selector(jobs_volumeDismissTap:)];
     _volumeDismissTapGesture.cancelsTouchesInView = NO;
-    _volumeDismissTapGesture.delegate = self;
+    _volumeDismissTapGesture.byDelegate(self);
     [self.view addGestureRecognizer:_volumeDismissTapGesture];
 }
 
@@ -310,15 +310,15 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
         completion(YES);
         return;
     }
-    [UIView animateWithDuration:0.24f
-                          delay:0
-         usingSpringWithDamping:0.86f
-          initialSpringVelocity:0.2f
-                        options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction
-                     animations:animations
-                     completion:^(BOOL finished) {
+    UIView.jobsAnimateWithSpring(0.24f,
+        0,
+        0.86f,
+        0.2f,
+        UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction,
+        animations,
+        ^(BOOL finished) {
         completion(finished);
-    }];
+    });
 }
 
 -(void)jobs_toggleVolumePanel{
@@ -356,19 +356,20 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
                             [self.registerContentView showContentViewWithOffsetY:0];
                             [self jobs_refreshKeyboardMgrConfig];
                             @jobs_weakify(self)
-                            [UIView animateWithDuration:2
-                                                  delay:0.1
-                                 usingSpringWithDamping:0.3
-                                  initialSpringVelocity:10
-                                                options:UIViewAnimationOptionCurveEaseInOut
-                                             animations:^{
+                            UIView.jobsAnimateWithSpring(2,
+                                0.1,
+                                0.3,
+                                10,
+                                UIViewAnimationOptionCurveEaseInOut,
+                                ^{
                                 @jobs_strongify(self)
                                 if (!self.registerCustomerServiceBtnY) {
                                     self.registerCustomerServiceBtnY = self.registerContentView.top + self.registerContentView.height + JobsWidth(8);
                                 }
                                 self.customerServiceBtn.byY(self.registerCustomerServiceBtnY);
 
-                            } completion:nil];
+                            },
+                                nil);
                         }else if([btn.titleLabel.text isEqualToString:Title3]){
                             self.currentPage = @(CurrentPage_ForgotCode);
                             [self->_loginContentView removeContentViewWithOffsetY:0];
@@ -418,15 +419,16 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
                             [self->_loginContentView showContentViewWithOffsetY:0];
                             [self jobs_refreshKeyboardMgrConfig];
                             @jobs_weakify(self)
-                            [UIView animateWithDuration:2
-                                                  delay:0.1
-                                 usingSpringWithDamping:0.3
-                                  initialSpringVelocity:10
-                                                options:UIViewAnimationOptionCurveEaseInOut
-                                             animations:^{
+                            UIView.jobsAnimateWithSpring(2,
+                                0.1,
+                                0.3,
+                                10,
+                                UIViewAnimationOptionCurveEaseInOut,
+                                ^{
                                 @jobs_strongify(self)
                                 self.customerServiceBtn.byY(self.loginCustomerServiceBtnY);
-                            } completion:nil];
+                            },
+                                nil);
                         }else{}
                     }
                 }];
@@ -462,16 +464,17 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
                             [self->_loginContentView showContentViewWithOffsetY:0];
                             [self jobs_refreshKeyboardMgrConfig];
                             @jobs_weakify(self)
-                            [UIView animateWithDuration:2
-                                                  delay:0.1
-                                 usingSpringWithDamping:0.3
-                                  initialSpringVelocity:10
-                                                options:UIViewAnimationOptionCurveEaseInOut
-                                             animations:^{
+                            UIView.jobsAnimateWithSpring(2,
+                                0.1,
+                                0.3,
+                                10,
+                                UIViewAnimationOptionCurveEaseInOut,
+                                ^{
                                 @jobs_strongify(self)
                                 self.customerServiceBtn.byAlpha(1);
 
-                            } completion:nil];
+                            },
+                                nil);
                         }else if ([btnTitle isEqualToString:Title4]){
                             self.backBtnClickEvent(btn);
                         }else if ([btnTitle isEqualToString:Title8]){

@@ -14,7 +14,7 @@
 }
 
 -(void)jobs_beginShimmerLoadingWithConfig:(JobsOCSkeletonConfig *)config{
-    self.image = nil;
+    self.byImage(nil);
     self.bySkeletonable(YES);
     [self jobs_startSkeletonWithConfig:config ?: JobsOCSkeletonConfig.defaultConfig];
 }
@@ -34,14 +34,14 @@
     }
     [self jobs_endShimmerLoading];
     if (fade <= 0) {
-        self.image = targetImage;
+        self.byImage(targetImage);
         return self;
     }
     [UIView transitionWithView:self
                       duration:fade
                        options:UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState
                     animations:^{
-        self.image = targetImage;
+        self.byImage(targetImage);
     } completion:nil];
     return self;
 }

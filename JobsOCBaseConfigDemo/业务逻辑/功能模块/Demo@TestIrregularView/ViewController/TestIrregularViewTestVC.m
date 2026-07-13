@@ -84,7 +84,7 @@
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
     btn.byBgColor([UIColor orangeColor]);
 
-    [btn setTitle:@"按钮" forState:UIControlStateNormal];
+    btn.jobsResetBtnTitle(@"按钮".tr);
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
@@ -112,7 +112,7 @@
 
     btn.byBgColor([UIColor greenColor]);
 
-    [btn setTitle:@"按钮" forState:UIControlStateNormal];
+    btn.jobsResetBtnTitle(@"按钮".tr);
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
@@ -125,7 +125,7 @@
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(120 / 4, 0.f)));
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(120, 0)));
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(120 * 3 / 4, 50)));
-    [self.view addSubview:btn];
+    btn.addOn(self.view);
 }
 /// 左斜边梯形
 -(void)view3{
@@ -135,14 +135,14 @@
 
     btn.byBgColor([UIColor cyanColor]);
 
-    [btn setTitle:@"按钮" forState:UIControlStateNormal];
+    btn.jobsResetBtnTitle(@"按钮".tr);
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
         int B = (arc4random() % 256) ;
         x.byBgColor(RGB_COLOR(R, G, B));
 
-    }];[self.view addSubview:btn];
+    }];btn.addOn(self.view);
     /// 添加路径关键点array
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(120 / 4, 50.f)));
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(120, 0.f)));
@@ -157,14 +157,14 @@
 
     btn.byBgColor([UIColor purpleColor]);
 
-    [btn setTitle:@"按钮" forState:UIControlStateNormal];
+    btn.jobsResetBtnTitle(@"按钮".tr);
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
         int B = (arc4random() % 256) ;
         x.byBgColor(RGB_COLOR(R, G, B));
 
-    }];[self.view addSubview:btn];
+    }];btn.addOn(self.view);
     /// 添加路径关键点array
     float viewWidth = btn.frame.size.width;
     
@@ -193,14 +193,14 @@
 
     btn.byBgColor([UIColor brownColor]);
 
-    [btn setTitle:@"按钮" forState:UIControlStateNormal];
+    btn.jobsResetBtnTitle(@"按钮".tr);
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
         int B = (arc4random() % 256) ;
         x.byBgColor(RGB_COLOR(R, G, B));
 
-    }];[self.view addSubview:btn];
+    }];btn.addOn(self.view);
     /// 添加路径关键点array
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(0.f, 0.f)));
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(150, 0)));
@@ -215,14 +215,14 @@
 
     btn.byBgColor([UIColor magentaColor]);
 
-    [btn setTitle:@"按钮" forState:UIControlStateNormal];
+    btn.jobsResetBtnTitle(@"按钮".tr);
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
         int B = (arc4random() % 256) ;
         x.byBgColor(RGB_COLOR(R, G, B));
 
-    }];[self.view addSubview:btn];
+    }];btn.addOn(self.view);
     /// 添加路径关键点array
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(0, 150)));
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(330 * 2 / 3, 150 / 3)));

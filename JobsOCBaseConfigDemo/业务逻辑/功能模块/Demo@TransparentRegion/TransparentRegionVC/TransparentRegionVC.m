@@ -121,9 +121,9 @@
                  // 阴影透明度
                         .byShadowOffset(CGSizeMake(0, 0))     // 阴影偏移量
                         .byShadowRadius(9.0)
-                        .byShadowPath([UIBezierPath bezierPathWithRoundedRect:layer.bounds
-                                                             byRoundingCorners:5
-                                                                   cornerRadii:CGSizeMake(0, 0)].CGPath);
+                        .byShadowPath(UIBezierPath.byBezierPathWithRoundedCorners(layer.bounds,
+                                                                                 5,
+                                                                                 CGSizeMake(0, 0)).CGPath);
                 })
                 .addOn(self.scrollView);
         });

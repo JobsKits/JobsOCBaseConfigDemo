@@ -89,6 +89,9 @@ JobsClockView@Pods/
 ### 5.5、Pod 依赖
 
 - `JobsBlock`
+- `JobsOCDefs`
+- `JobsOCDSL`
+- `JobsMakes`
 - `JobsOCTimer`
 - `JobsOCProtocols`
 

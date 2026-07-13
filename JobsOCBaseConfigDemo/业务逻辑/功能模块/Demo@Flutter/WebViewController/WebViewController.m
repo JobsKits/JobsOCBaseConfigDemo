@@ -30,11 +30,15 @@ Prop_strong()WKWebView *webView;
   self.title = self.titleStr;
 
   _webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
-  [self.view addSubview:_webView];
+  _webView.addOn(self.view);
   NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
   [_webView loadRequest:request];
 
-  UIBarButtonItem *closeItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(close)];
+  UIBarButtonItem *closeItem = jobsMakeBarButtonItemByTitle(@"关闭",
+                                                            UIBarButtonItemStylePlain,
+                                                            self,
+                                                            @selector(close),
+                                                            nil);
   self.navigationItem.leftBarButtonItem = closeItem;
 }
 

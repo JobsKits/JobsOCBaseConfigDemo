@@ -621,7 +621,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                             self.currentActivateTFIndex = 0;
                             self.lastTimeActivateTFIndex = 0;
 
-                            if (self->toRegisterBtn.selected) {
+                            if (self->toRegisterBtn.jobs_isSelected) {
                                 [self 竖形按钮在左边];
                             }else{
                                 [self 竖形按钮在右边];

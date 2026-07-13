@@ -11,10 +11,11 @@
 
 +(__kindof JobsOCSplashVC *)showOver:(__kindof UIViewController *)hostViewController configuration:(JobsOCSplashConfiguration *)configuration {
     JobsOCSplashVC *splashVC = [[JobsOCSplashVC alloc] initWithConfiguration:configuration];
-    splashVC.view.frame = hostViewController.view.bounds;
-    splashVC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    splashVC.view
+        .byFrame(hostViewController.view.bounds)
+        .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     [hostViewController addChildViewController:splashVC];
-    [hostViewController.view addSubview:splashVC.view];
+    splashVC.view.addOn(hostViewController.view);
     [splashVC didMoveToParentViewController:hostViewController];
     dispatch_async(dispatch_get_main_queue(), ^{
         [splashVC becomeFirstResponder];

@@ -97,7 +97,7 @@ Prop_strong()BaseButton *btn;
             .jobsResetBtnCornerRadiusValue(JobsWidth(8))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 if (self.objBlock) self.objBlock(x);
                 [JobsMakeLocalNotification.new triggerLocalNotification:JobsLocalNotificationModel.new];
             }).onLongPressGestureBy(^(id data){

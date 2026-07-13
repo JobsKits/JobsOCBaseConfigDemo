@@ -85,7 +85,7 @@ NS_ASSUME_NONNULL_END
      -(UIButton *)channelBtn{
          if (!_channelBtn) {
              _channelBtn = UIButton.jobsInit()
-                 .jobsResetBtnTitle(@"渠道切换点我就行")
+                 .jobsResetBtnTitle(@"渠道切换点我就行".tr)
                  .jobsResetBtnTitleCor(JobsRedColor)
                  .byBgColor(JobsYellowColor);
 
@@ -126,17 +126,17 @@ NS_ASSUME_NONNULL_END
 
                      data.titleColor = AppMainCor_01;
                      data.messageColor = AppMainCor_01;
-                     data.titleFont = [UIFont systemFontOfSize:16 weight:UIFontWeightSemibold];
-                     data.messageFont = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
+                     data.titleFont = UIFontWeightSemiboldSize(16);
+                     data.messageFont = UIFontWeightMediumSize(14);
 
                      SPAlertAction *action1 = (SPAlertAction *)data2[0];
                      SPAlertAction *action2 = (SPAlertAction *)data2[1];
 
                      action1.titleColor = AppMainCor_01;
-                     action1.titleFont = [UIFont systemFontOfSize:16 weight:UIFontWeightSemibold];
+                     action1.titleFont = UIFontWeightSemiboldSize(16);
 
                      action2.titleColor = AppMainCor_01;
-                     action2.titleFont = [UIFont systemFontOfSize:16 weight:UIFontWeightSemibold];
+                     action2.titleFont = UIFontWeightSemiboldSize(16);
 
                     } completionBlock:nil];
              }];
@@ -158,7 +158,7 @@ NS_ASSUME_NONNULL_END
              title_1_Model.dataString = @"您当前的金币数为";
 
              RichLabelFontModel *richLabelFontModel = RichLabelFontModel.new;
-             richLabelFontModel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightRegular];
+             richLabelFontModel.font = UIFontWeightRegularSize(12);
              richLabelFontModel.range = NSMakeRange(0, title_1_Model.dataString.length);
 
              RichLabelTextCorModel *richLabelTextCorModel = RichLabelTextCorModel.new;
@@ -173,7 +173,7 @@ NS_ASSUME_NONNULL_END
              title_2_Model.dataString = myCoinTipsModel.value.stringValue;
 
              RichLabelFontModel *richLabelFontModel = RichLabelFontModel.new;
-             richLabelFontModel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightRegular];
+             richLabelFontModel.font = UIFontWeightRegularSize(12);
              richLabelFontModel.range = NSMakeRange(title_1_Model.dataString.length, title_2_Model.dataString.length);
 
              RichLabelTextCorModel *richLabelTextCorModel = RichLabelTextCorModel.new;
@@ -188,7 +188,7 @@ NS_ASSUME_NONNULL_END
              title_3_Model.dataString = @"个，可兑换的余额为";
 
              RichLabelFontModel *richLabelFontModel = RichLabelFontModel.new;
-             richLabelFontModel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightRegular];
+             richLabelFontModel.font = UIFontWeightRegularSize(12);
              richLabelFontModel.range = NSMakeRange(title_1_Model.dataString.length + title_2_Model.dataString.length, title_3_Model.dataString.length);
 
              RichLabelTextCorModel *richLabelTextCorModel = RichLabelTextCorModel.new;
@@ -203,7 +203,7 @@ NS_ASSUME_NONNULL_END
              title_4_Model.dataString = myCoinTipsModel.key;
 
              RichLabelFontModel *richLabelFontModel = RichLabelFontModel.new;
-             richLabelFontModel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightRegular];
+             richLabelFontModel.font = UIFontWeightRegularSize(12);
              richLabelFontModel.range = NSMakeRange(title_1_Model.dataString.length + title_2_Model.dataString.length + title_3_Model.dataString.length, title_4_Model.dataString.length);
 
              RichLabelTextCorModel *richLabelTextCorModel = RichLabelTextCorModel.new;
@@ -218,7 +218,7 @@ NS_ASSUME_NONNULL_END
              title_5_Model.dataString = @"元，确认兑换吗？";
 
              RichLabelFontModel *richLabelFontModel = RichLabelFontModel.new;
-             richLabelFontModel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightRegular];
+             richLabelFontModel.font = UIFontWeightRegularSize(12);
              richLabelFontModel.range = NSMakeRange(title_1_Model.dataString.length + title_2_Model.dataString.length + title_3_Model.dataString.length + title_4_Model.dataString.length, title_5_Model.dataString.length);
 
              RichLabelTextCorModel *richLabelTextCorModel = RichLabelTextCorModel.new;
@@ -255,7 +255,7 @@ NS_ASSUME_NONNULL_END
 
              for (SPAlertAction *alertAction in data2) {
                  alertAction.titleColor = RGB_SAMECOLOR(75);
-                 alertAction.titleFont = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
+                 alertAction.titleFont = UIFontWeightMediumSize(16);
              }
 
          } completionBlock:nil];

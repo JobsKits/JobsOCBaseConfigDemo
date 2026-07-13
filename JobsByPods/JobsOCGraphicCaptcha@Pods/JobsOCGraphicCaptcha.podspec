@@ -38,6 +38,9 @@ UIKit captcha drawing view.
   ]
 
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsModel'
+  spec.dependency 'JobsModelDSL'
 
   JobsPodspecKitForJobsOCGraphicCaptcha.apply_standard_xcconfig(spec)
 

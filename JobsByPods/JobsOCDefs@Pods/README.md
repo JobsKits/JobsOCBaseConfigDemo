@@ -69,6 +69,8 @@ JobsOCDefs@Pods/
 
 - `JobsDefines.h`
 - `Core/**/*.h`
+- `MacroDef_Font.h` 使用 `UIFontSystemFontOfSizeAndWeight(fontSize, weight)` 承接任意 `UIFontWeight`；`UIFontWeightUltraLightSize(...)` 至 `UIFontWeightBlackSize(...)` 等标准字重快捷入口继续保留，并统一复用该基础封装。
+- `UIFontMonospacedDigitSystemWeight*Size(...)` 只封装等宽数字管线；`UIFontMonospacedSystemWeight*Size(...)` 从 iOS 13 / watchOS 6 起封装完整等宽系统字体管线，二者不能互相代替。
 
 ### 5.2、源码入口
 

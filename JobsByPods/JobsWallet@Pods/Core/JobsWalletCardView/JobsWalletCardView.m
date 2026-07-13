@@ -31,7 +31,7 @@ Prop_strong()JobsWalletCollectionViewLayout *walletLayout;
     if ((self = [super initWithFrame:frame])) {
         _expandStyle = expandStyle;
         _cardModels = cardModels.copy ?: @[];
-        self.backgroundColor = JobsClearColor;
+        self.byBgColor(JobsClearColor);
         self.collectionView.alpha = 1;
     };return self;
 }
@@ -85,17 +85,20 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.walletLayout];
-        _collectionView.backgroundColor = JobsClearColor;
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.alwaysBounceVertical = YES;
-        _collectionView.dataSource = self;
-        _collectionView.delegate = self;
+        _collectionView = jobsMakeCollectionView(^(__kindof UICollectionView * _Nullable collectionView) {
+            collectionView
+                .byCollectionViewLayout(self.walletLayout)
+                .byDelegate(self)
+                .byDataSource(self)
+                .byShowsVerticalScrollIndicator(NO)
+                .byAlwaysBounceVertical(YES)
+                .byBgColor(JobsClearColor)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                });
+        });
         [_collectionView registerClass:JobsWalletCardCollectionViewCell.class forCellWithReuseIdentifier:NSStringFromClass(JobsWalletCardCollectionViewCell.class)];
-        [self addSubview:_collectionView];
-        [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self);
-        }];
     };return _collectionView;
 }
 

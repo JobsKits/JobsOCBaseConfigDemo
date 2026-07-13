@@ -45,7 +45,7 @@
                                 toFrame.size.width * offset.dx * -1,
                                 toFrame.size.height * offset.dy * -1);
     
-    [transitionContext.containerView addSubview:toView];
+    toView.addOn(transitionContext.containerView);
     NSTimeInterval transitionDuration = [self transitionDuration:transitionContext];
     [UIView animateWithDuration:transitionDuration animations:^{
         fromView.frame = CGRectOffset(fromFrame,

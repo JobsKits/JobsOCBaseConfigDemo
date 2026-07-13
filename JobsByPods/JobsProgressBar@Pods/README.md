@@ -15,13 +15,15 @@
 pod 'JobsProgressBar', :path => './JobsByPods/JobsProgressBar@Pods'
 ```
 
+内部 UI 统一通过 `JobsMakes` 创建，并由 `JobsOCDSL` 完成属性、事件与装配；Pod 直接依赖 `JobsBlock`、`JobsMakes`、`JobsOCDSL` 和 `JobsOCDefs`。
+
 ## 使用
 
 ```objc
 JobsProgressBar *progressBar = JobsProgressBar.alloc.init;
 progressBar.byDirection(JobsProgressBarDirectionLeftToRight)
            .byValueMode(JobsProgressBarValueModeCountUp)
-           .byProgressTintColor([UIColor colorWithRed:0 green:0.78 blue:0.32 alpha:1])
+           .byProgressTintColor(RGBA_COLOR(0, 0.78 * 255.0, 0.32 * 255.0, 1))
            .byTrackTintColor(UIColor.lightGrayColor)
            .byTrackThickness(12)
            .byProgressLabelPlacement(JobsProgressBarLabelPlacementTop)
