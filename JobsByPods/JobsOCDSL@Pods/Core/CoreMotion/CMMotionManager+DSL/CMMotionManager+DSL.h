@@ -1,0 +1,44 @@
+//
+//  CMMotionManager+DSL.h
+//  JobsOCDSL
+//
+//  Created by Jobs on 2026年7月13日，星期一.
+//
+
+#import <CoreMotion/CoreMotion.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface CMMotionManager (DSL)
+
++(JobsRetCMMotionManagerByVoidBlock)byMotionManager;
+-(JobsRetCMMotionManagerByTimeIntervalBlock)byAccelerometerUpdateInterval;
+-(JobsRetCMMotionManagerByTimeIntervalBlock)byGyroUpdateInterval;
+-(JobsRetCMMotionManagerByTimeIntervalBlock)byMagnetometerUpdateInterval;
+-(JobsRetCMMotionManagerByTimeIntervalBlock)byDeviceMotionUpdateInterval;
+-(JobsRetCMMotionManagerByBOOLBlock)byShowsDeviceMovementDisplay;
+-(JobsRetCMMotionManagerByVoidBlock)byStartAccelerometerUpdates;
+-(JobsRetCMMotionManagerByOperationQueueAndAccelerometerHandlerBlock)byStartAccelerometerUpdatesToQueue;
+-(JobsRetCMMotionManagerByVoidBlock)byStopAccelerometerUpdates;
+-(JobsRetCMMotionManagerByVoidBlock)byStartGyroUpdates;
+-(JobsRetCMMotionManagerByOperationQueueAndGyroHandlerBlock)byStartGyroUpdatesToQueue;
+-(JobsRetCMMotionManagerByVoidBlock)byStopGyroUpdates;
+-(JobsRetCMMotionManagerByVoidBlock)byStartMagnetometerUpdates;
+-(JobsRetCMMotionManagerByOperationQueueAndMagnetometerHandlerBlock)byStartMagnetometerUpdatesToQueue;
+-(JobsRetCMMotionManagerByVoidBlock)byStopMagnetometerUpdates;
+-(JobsRetCMMotionManagerByVoidBlock)byStartDeviceMotionUpdates;
+-(JobsRetCMMotionManagerByOperationQueueAndDeviceMotionHandlerBlock)byStartDeviceMotionUpdatesToQueue;
+-(JobsRetCMMotionManagerByAttitudeReferenceFrameBlock)byStartDeviceMotionUpdatesUsingReferenceFrame;
+-(JobsRetCMMotionManagerByReferenceFrameOperationQueueAndDeviceMotionHandlerBlock)byStartDeviceMotionUpdatesUsingReferenceFrameToQueue;
+-(JobsRetCMMotionManagerByVoidBlock)byStopDeviceMotionUpdates;
+-(JobsRetCMMotionManagerByVoidBlock)byStopAllUpdates;
+
+@end
+
+NS_ASSUME_NONNULL_END
