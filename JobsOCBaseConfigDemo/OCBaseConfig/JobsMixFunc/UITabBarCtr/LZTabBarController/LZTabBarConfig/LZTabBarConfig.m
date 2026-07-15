@@ -8,7 +8,6 @@
 #import "LZTabBarConfig.h"
 
 @implementation LZTabBarConfig
-
 - (instancetype)init {
     if (self = [super init]) {
         _isNavigation = YES;

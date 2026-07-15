@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_TRANSITIONANIMATION_B5EA48FEED
 
 #import <UIKit/UIKit.h>
-
 #import "JobsDefineProperty.h"
-
 #import "JobsOCDSL.h"
 
 @interface TransitionAnimation : NSObject<UIViewControllerAnimatedTransitioning>

@@ -26,7 +26,6 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
 @end
 
 @implementation UITableViewCellEditorVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -34,7 +33,6 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
 
 -(void)loadView{
     [super loadView];
-
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -50,7 +48,6 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
             data.byText(@"站内信".tr);
             data.byFont(UIFontWeightBoldSize(17));
         })
-
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
@@ -158,7 +155,6 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
         view.byBgColor(JobsClearColor);
     });
     cell.multipleSelectionBackgroundView = cell.selectedBackgroundView;
-
     UIView *cardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
         view
             .byBgColor(JobsWhiteColor)
@@ -177,7 +173,6 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
             .byShadowRadius(JobsWidth(10));
     });
     cardView.tag = JobsMsgCellCardViewTag;
-
     UILabel *typeLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byFont(UIFontWeightBoldSize(12))
@@ -187,7 +182,6 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
     });
     typeLabel.tag = JobsMsgCellTypeLabelTag;
     typeLabel.layer.byCornerRadius(JobsWidth(18)).byMasksToBounds(YES);
-
     UILabel *timeLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byFont(UIFontWeightRegularSize(11))
@@ -197,7 +191,6 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
             .addOn(cardView);
     });
     timeLabel.tag = JobsMsgCellTimeLabelTag;
-
     UILabel *titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byTextCor(HEXCOLOR(0x273244))
@@ -206,7 +199,6 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
             .addOn(cardView);
     });
     titleLabel.tag = JobsMsgCellTitleLabelTag;
-
     UILabel *contentLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byTextCor(HEXCOLOR(0x7A8491))
@@ -215,7 +207,6 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
             .addOn(cardView);
     });
     contentLabel.tag = JobsMsgCellContentLabelTag;
-
     UILabel *readLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byFont(UIFontWeightMediumSize(11))
@@ -225,7 +216,6 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
     });
     readLabel.tag = JobsMsgCellReadLabelTag;
     readLabel.layer.byCornerRadius(JobsWidth(9)).byMasksToBounds(YES);
-
     UILabel *arrowLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byText(@"›")
@@ -235,40 +225,34 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
             .addOn(cardView);
     });
     arrowLabel.tag = JobsMsgCellArrowLabelTag;
-
     [typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(cardView).offset(JobsWidth(12));
         make.top.equalTo(cardView).offset(JobsWidth(14));
         make.size.mas_equalTo(CGSizeMake(JobsWidth(36), JobsWidth(36)));
     }];
-
     [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(cardView).offset(JobsWidth(15));
         make.right.equalTo(cardView).offset(JobsWidth(-36));
         make.width.mas_equalTo(JobsWidth(76));
         make.height.mas_equalTo(JobsWidth(16));
     }];
-
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(typeLabel.mas_right).offset(JobsWidth(12));
         make.top.equalTo(cardView).offset(JobsWidth(13));
         make.right.lessThanOrEqualTo(timeLabel.mas_left).offset(JobsWidth(-8));
         make.height.mas_equalTo(JobsWidth(20));
     }];
-
     [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(titleLabel);
         make.top.equalTo(titleLabel.mas_bottom).offset(JobsWidth(6));
         make.right.equalTo(cardView).offset(JobsWidth(-36));
         make.height.mas_equalTo(JobsWidth(17));
     }];
-
     [readLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(titleLabel);
         make.bottom.equalTo(cardView).offset(JobsWidth(-12));
         make.size.mas_equalTo(CGSizeMake(JobsWidth(44), JobsWidth(18)));
     }];
-
     [arrowLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(cardView).offset(JobsWidth(-14));
         make.centerY.equalTo(cardView);
@@ -284,14 +268,12 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
     cell.imageView.hidden = YES;
     cell.byBgColor(JobsClearColor);
     cell.contentView.byBgColor(JobsClearColor);
-
     UIColor *accentCor = [self msgAccentCorByModel:model];
     UILabel *typeLabel = [self msgLabelByTag:JobsMsgCellTypeLabelTag cell:cell];
     UILabel *titleLabel = [self msgLabelByTag:JobsMsgCellTitleLabelTag cell:cell];
     UILabel *contentLabel = [self msgLabelByTag:JobsMsgCellContentLabelTag cell:cell];
     UILabel *timeLabel = [self msgLabelByTag:JobsMsgCellTimeLabelTag cell:cell];
     UILabel *readLabel = [self msgLabelByTag:JobsMsgCellReadLabelTag cell:cell];
-
     typeLabel
         .byText([self msgTypeTextByModel:model])
         .byTextCor(accentCor)
@@ -363,7 +345,6 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
 - (void)tableView:(UITableView*)tableView
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath*)indexPath{
-
 }
 /// 开始进入编辑模式
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView

@@ -8,7 +8,6 @@
 #import "JobsGestureLockResource.h"
 
 @implementation JobsGestureLockResource
-
 + (NSBundle *)resourceBundle {
     NSBundle *classBundle = [NSBundle bundleForClass:self];
     NSURL *bundleURL = [classBundle URLForResource:@"JobsGestureLockResources" withExtension:@"bundle"];
@@ -16,7 +15,6 @@
         NSBundle *bundle = [NSBundle bundleWithURL:bundleURL];
         if (bundle) return bundle;
     }
-
     NSURL *mainBundleURL = [[NSBundle mainBundle] URLForResource:@"JobsGestureLockResources" withExtension:@"bundle"];
     if (mainBundleURL) {
         NSBundle *bundle = [NSBundle bundleWithURL:mainBundleURL];

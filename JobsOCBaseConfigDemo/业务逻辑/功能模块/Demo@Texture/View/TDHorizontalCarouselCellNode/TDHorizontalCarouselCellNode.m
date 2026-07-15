@@ -12,7 +12,6 @@
 @end
 
 @implementation TDHorizontalCarouselCellNode
-
 - (instancetype)initWithCount:(NSInteger)count {
     if (self = [super init]) {
         self.automaticallyManagesSubnodes = YES;

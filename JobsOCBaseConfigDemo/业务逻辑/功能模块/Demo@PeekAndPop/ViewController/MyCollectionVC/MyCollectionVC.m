@@ -14,7 +14,6 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 @end
 
 @implementation MyCollectionVC
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -22,7 +21,6 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -49,16 +47,13 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.byBgColor(JobsRandomColor);
-
     self.makeNavByAlpha(1);
     self.collectionView.byShow(self);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
 }
 
 -(void)viewWillLayoutSubviews{
@@ -85,7 +80,6 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
           withEvent:(UIEvent *)event{
-   
 }
 
 #pragma mark —— UICollectionViewDelegate,UICollectionViewDataSource

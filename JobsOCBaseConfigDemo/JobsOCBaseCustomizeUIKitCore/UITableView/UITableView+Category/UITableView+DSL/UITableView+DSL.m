@@ -22,7 +22,6 @@ Prop_copy(nullable)jobsTableViewDidSelectRowAtBlock didSelectRowAtBlock;
 @end
 
 @implementation JobsTableViewBlocksProxy
-
 -(id)resolvedTarget{
     return self.target ?: self;
 }
@@ -55,7 +54,6 @@ Prop_weak(nullable)NSObject<UITableViewDataSource> *secondary;
 @end
 
 @implementation JobsTableViewDataSourceMux
-
 -(BOOL)respondsToSelector:(SEL)aSelector{
     if ([super respondsToSelector:aSelector]) return YES;
     if ([(id)self.primary respondsToSelector:aSelector]) return YES;
@@ -86,7 +84,6 @@ Prop_weak(nullable)NSObject<UITableViewDelegate> *secondary;
 @end
 
 @implementation JobsTableViewDelegateMux
-
 -(BOOL)respondsToSelector:(SEL)aSelector{
     if ([super respondsToSelector:aSelector]) return YES;
     if ([(id)self.primary respondsToSelector:aSelector]) return YES;
@@ -156,7 +153,6 @@ static inline void jobs_installTableViewDelegateMux(UITableView *tableView){
 }
 
 @implementation UITableView (DSL)
-
 -(JobsRetTableViewByDataSourceBlock _Nonnull)byDataSource{
     @jobs_weakify(self)
     return ^__kindof UITableView * (id<UITableViewDataSource> _Nullable ds){

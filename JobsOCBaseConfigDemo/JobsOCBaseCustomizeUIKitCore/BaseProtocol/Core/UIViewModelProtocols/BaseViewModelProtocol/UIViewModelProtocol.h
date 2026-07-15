@@ -9,11 +9,8 @@
 #define JOBS_HEADER_GUARD_UIVIEWMODELPROTOCOL_74EE2B3175
 
 #import <UIKit/UIKit.h>
-
 #import "XProtocol.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

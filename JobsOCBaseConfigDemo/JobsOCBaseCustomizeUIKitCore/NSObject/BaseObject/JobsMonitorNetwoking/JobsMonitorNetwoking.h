@@ -19,9 +19,7 @@
 @class JobsSuspendLab;
 
 #import "JobsDefines.h"
-
 #import "JobsBlock.h"
-
 #import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

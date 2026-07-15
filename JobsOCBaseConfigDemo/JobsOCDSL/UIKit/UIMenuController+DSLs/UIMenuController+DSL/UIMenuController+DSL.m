@@ -11,7 +11,6 @@
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 @implementation UIMenuController (DSL)
-
 #pragma mark —— Singleton
 +(JobsRetMenuControllerByVoidBlock _Nonnull)bySharedMenuController{
     return ^__kindof UIMenuController *_Nullable(void){

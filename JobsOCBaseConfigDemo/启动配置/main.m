@@ -28,7 +28,6 @@ int main(int argc, char * argv[]) {
 //        NSLog(@"d = %p",d); // 0x142455a40
 //        NSLog(@"f = %p",f); // 0x142455a40
 //        NSLog(@"m = %p",m); // 0x142455aa0
-
         JobsLog(@"在此设备上的比例尺换算标准是 1 = %f",JobsWidth(1));
         // 获取应用的主 bundle 路径
         NSString *path = @"zh-Hans.lproj".pathForResourceWithFullName;
@@ -37,7 +36,6 @@ int main(int argc, char * argv[]) {
         // 使用指定语言的 bundle 加载本地化字符串
         NSString *localizedString = [zhHansBundle localizedStringForKey:@"跟随系统" value:nil table:nil];
         JobsLog(@"Localized String: %@", localizedString);
-        
         appDelegateClassName = NSStringFromClass(AppDelegate.class);
         JobsSnowflake *snowflake = [JobsSnowflake.alloc initWithPublishMillisecond:1662278876498
                                                                              IDCID:1

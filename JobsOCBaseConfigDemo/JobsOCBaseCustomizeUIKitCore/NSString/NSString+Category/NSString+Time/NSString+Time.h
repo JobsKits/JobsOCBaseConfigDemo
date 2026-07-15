@@ -9,15 +9,10 @@
 #define JOBS_HEADER_GUARD_NSSTRING_TIME_A4B077740A
 
 #import <Foundation/Foundation.h>
-
 #import "JobsStringUtilsHeader.h"
-
 #import "JobsMakes.h"
-
 #import "WHToastExtra.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

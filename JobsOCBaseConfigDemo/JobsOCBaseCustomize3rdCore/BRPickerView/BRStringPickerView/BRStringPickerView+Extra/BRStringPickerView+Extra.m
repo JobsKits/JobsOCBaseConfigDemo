@@ -9,7 +9,6 @@
 
 #ifndef BRStringPickerView
 @implementation BRStringPickerView (Extra)
-
 +(JobsRetBRStringPickerViewByPickerModeBlock _Nonnull)initBy{
     return ^BRStringPickerView *_Nonnull(BRStringPickerMode mode){
         return [BRStringPickerView.alloc initWithPickerMode:mode];

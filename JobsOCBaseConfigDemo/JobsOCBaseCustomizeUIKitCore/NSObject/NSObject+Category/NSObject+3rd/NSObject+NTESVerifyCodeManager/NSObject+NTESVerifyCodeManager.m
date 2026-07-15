@@ -43,7 +43,6 @@
 }
 
 - (void)verifyCodeCloseWindow:(NTESVerifyCodeClose)close {
-    
 }
 #pragma mark —— Prop_strong()NTESVerifyCodeManager *verifyCodeManager;
 JobsKey(_verifyCodeManager)
@@ -54,7 +53,6 @@ JobsKey(_verifyCodeManager)
         /// 获取验证码管理对象
         VerifyCodeManager = NTESVerifyCodeManager.getInstance;
         VerifyCodeManager.delegate = self;
-        
         [VerifyCodeManager configureVerifyCode:网易易盾KEY 
                                        timeout:7.0
                                    styleConfig:self.verifyCodeStyleConfig];
@@ -80,7 +78,6 @@ JobsKey(_verifyCodeManager)
             case AppLanguageTagalog:{
                 VerifyCodeManager.lang = NTESVerifyCodeLangFIL;
             } break;
-                
             default:
                 break;
         }
@@ -98,7 +95,6 @@ JobsKey(_verifyCodeManager)
         VerifyCodeManager.fallBackCount = 3;
         // 是否隐藏关闭按钮
         VerifyCodeManager.closeButtonHidden = NO;
-        
         Jobs_setAssociatedRETAIN_NONATOMIC(_verifyCodeManager, VerifyCodeManager)
     };return VerifyCodeManager;
 }

@@ -16,7 +16,6 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
 @end
 
 @implementation MainTableViewCell
-
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
     @jobs_weakify(self)
     return ^(UITableView * _Nonnull tableView) {

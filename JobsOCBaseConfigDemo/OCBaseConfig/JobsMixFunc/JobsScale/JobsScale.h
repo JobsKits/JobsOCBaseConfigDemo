@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_JOBSSCALE_2CE65D89F2
 
 #import <UIKit/UIKit.h>
-
 #import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN

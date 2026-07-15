@@ -8,7 +8,6 @@
 #import "JobsOCSearcherConfig.h"
 
 @implementation JobsOCSearcherConfig
-
 +(instancetype)defaultConfig{
     JobsOCSearcherConfig *config = JobsOCSearcherConfig.new;
     config.placeholder = @"请输入搜索内容";

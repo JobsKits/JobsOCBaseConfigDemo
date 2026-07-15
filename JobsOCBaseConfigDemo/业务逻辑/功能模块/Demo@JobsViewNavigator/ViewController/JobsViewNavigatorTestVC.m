@@ -15,7 +15,6 @@ Prop_strong()BaseButton *btn;
 @end
 
 @implementation JobsViewNavigatorTestVC
-
 - (void)dealloc{
     JobsNotificationCenter.remove(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -23,19 +22,16 @@ Prop_strong()BaseButton *btn;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    
     self.viewModel.backBtnTitleModel.text = @"返回".tr;
     self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
     self.viewModel.textModel.text = @"让 UIView 像 UINavigationController 一样支持 push 和 pop".tr;
     self.viewModel.textModel.font = UIFontWeightRegularSize(18);
-    
     // 使用原则：底图有 + 底色有 = 优先使用底图数据
     // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
     // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
@@ -92,7 +88,6 @@ Prop_strong()BaseButton *btn;
 //    [self.navigator popViewAnimated:YES];
 //}
 
-
 #pragma mark —— lazyLoad
 -(BaseButton *)btn{
     if(!_btn){
@@ -107,21 +102,16 @@ Prop_strong()BaseButton *btn;
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
-                
     //            JobsViewNavigator *navigator = JobsViewNavigator.new;
     //            navigator.frame = self.view.bounds;
     //            self.pushView.navigator = navigator;
     //            [self.view addSubview:navigator];
     //            navigator.pushView(self.pushView,YES);
-                
 //                self.view.configViewNavigatorByPushview(self.pushView);
 //                self.view.navigator.pushView(self.pushView,YES);
-                
                 self.view.pushTo(self.pushView);
-                
     //            self.pushView.configViewNavigatorBySuperview(self.view);
     //            self.view.navigator.pushView(self.pushView,YES);
-                
     //            self.configViewNavigatorBySuperviewAndView(self.view,self.pushView);
     //            self.view.navigator.pushView(self.pushView,YES);
             }).onLongPressGestureBy(^(id data){

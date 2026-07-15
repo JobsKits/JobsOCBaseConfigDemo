@@ -6,9 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import "JobsModel.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

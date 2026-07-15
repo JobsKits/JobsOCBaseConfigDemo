@@ -16,10 +16,8 @@ Prop_assign()CGRect initialContentViewRect;// 登录框 初始frame值
 @end
 
 @implementation BaseContentView
-
 -(instancetype)init{
     if (self = [super init]) {
-        
     };return self;
 }
 
@@ -62,7 +60,6 @@ Prop_assign()CGRect initialContentViewRect;// 登录框 初始frame值
             .byCenterX(JobsMainScreen_WIDTH() / 2)
             .byCenterY(self.centerY - offsetY);
     } completion:^(BOOL finished) {
-        
     }];
 }
 
@@ -80,7 +77,6 @@ Prop_assign()CGRect initialContentViewRect;// 登录框 初始frame值
             .byX(-(self.width + self.x))
             .byY(self.initialContentViewRect.origin.y);
     } completion:^(BOOL finished) {
-        
     }];
 }
 #pragma mark —— LazyLoad

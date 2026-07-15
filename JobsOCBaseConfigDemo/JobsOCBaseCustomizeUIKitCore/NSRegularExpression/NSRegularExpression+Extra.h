@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_NSREGULAREXPRESSION_EXTRA_508E6A1E47
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

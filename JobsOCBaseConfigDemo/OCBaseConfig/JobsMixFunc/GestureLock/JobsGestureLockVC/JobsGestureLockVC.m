@@ -29,7 +29,6 @@ Prop_assign()NSInteger remainingRetryCount;
 @end
 
 @implementation JobsGestureLockVC
-
 - (instancetype)init {
     return [self initWithMode:JobsGestureLockModeValidate
                    storageKey:@"JobsGestureLockDefaultKey"
@@ -66,75 +65,51 @@ Prop_assign()NSInteger remainingRetryCount;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.whiteColor;
-
     [self setupSubviews];
     [self applyMode];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-
     CGFloat width = CGRectGetWidth(self.view.bounds);
     CGFloat safeBottom = self.view.safeAreaInsets.bottom;
     CGFloat horizontalMargin = 15.0;
     CGFloat buttonSpacing = 5.0;
     CGFloat buttonWidth = (width - horizontalMargin * 2.0 - buttonSpacing * 2.0) / 3.0;
     CGFloat buttonHeight = 30.0;
-
     self.avatarView.frame = CGRectMake((width - 56.0) * 0.5, 30.0 + self.view.safeAreaInsets.top, 56.0, 56.0);
-
     self.nameLabel.frame = CGRectMake((width - 120.0) * 0.5, CGRectGetMaxY(self.avatarView.frame) + 8.0, 120.0, 20.0);
-
     self.indicatorView.frame = CGRectMake((width - 60.0) * 0.5, CGRectGetMaxY(self.nameLabel.frame) + 16.0, 60.0, 60.0);
-
     self.statusLabel.frame = CGRectMake((width - 220.0) * 0.5, CGRectGetMaxY(self.indicatorView.frame) + 18.0, 220.0, 24.0);
-
     CGFloat lockSide = width;
     CGFloat lockY = CGRectGetHeight(self.view.bounds) - lockSide - 60.0 - buttonHeight - safeBottom;
     self.lockView.frame = CGRectMake(0.0, MAX(CGRectGetMaxY(self.statusLabel.frame) + 20.0, lockY), lockSide, lockSide);
-
     CGFloat bottomY = CGRectGetHeight(self.view.bounds) - safeBottom - 20.0 - buttonHeight;
     self.otherAccountButton.frame = CGRectMake(horizontalMargin, bottomY, buttonWidth, buttonHeight);
-
     self.resetButton.frame = CGRectMake(CGRectGetMaxX(self.otherAccountButton.frame) + buttonSpacing, bottomY, buttonWidth, buttonHeight);
-
     self.forgotButton.frame = CGRectMake(CGRectGetMaxX(self.resetButton.frame) + buttonSpacing, bottomY, buttonWidth, buttonHeight);
-
 }
 
 - (void)setupSubviews {
     _avatarView = [[UIImageView alloc] initWithImage:[JobsGestureLockResource imageNamed:@"gesture_headIcon"]];
     _avatarView.contentMode = UIViewContentModeScaleAspectFit;
-
     [self.view addSubview:_avatarView];
-
     _nameLabel = [[UILabel alloc] init];
     _nameLabel.textAlignment = NSTextAlignmentCenter;
-
     _nameLabel.textColor = [UIColor colorWithRed:0.95 green:0.55 blue:0.15 alpha:1.0];
-
     _nameLabel.font = [UIFont boldSystemFontOfSize:12.0];
-
     _nameLabel.text = @"账户";
-
     [self.view addSubview:_nameLabel];
-
     _indicatorView = [[JobsGestureLockIndicator alloc] initWithConfiguration:self.configuration];
     [self.view addSubview:_indicatorView];
-
     _statusLabel = [[UILabel alloc] init];
     _statusLabel.textAlignment = NSTextAlignmentCenter;
-
     _statusLabel.textColor = self.configuration.statusTextColor;
-
     _statusLabel.font = self.configuration.statusFont;
-
     [self.view addSubview:_statusLabel];
-
     _lockView = [[JobsGestureLockView alloc] initWithConfiguration:self.configuration];
     _lockView.delegate = self;
     [self.view addSubview:_lockView];
-
     _otherAccountButton = [self actionButtonWithTitle:@"其他账户" selector:@selector(didTapOtherAccount:)];
     _resetButton = [self actionButtonWithTitle:@"重新绘制" selector:@selector(didTapReset:)];
     _forgotButton = [self actionButtonWithTitle:@"忘记密码" selector:@selector(didTapForgot:)];
@@ -153,23 +128,15 @@ Prop_assign()NSInteger remainingRetryCount;
     switch (self.mode) {
         case JobsGestureLockModeCreate:
             self.statusLabel.text = self.configuration.createStatusText;
-
             self.indicatorView.hidden = NO;
-
             self.resetButton.hidden = YES;
-
             self.forgotButton.hidden = YES;
-
             break;
         case JobsGestureLockModeValidate:
             self.statusLabel.text = self.configuration.validateStatusText;
-
             self.indicatorView.hidden = YES;
-
             self.resetButton.hidden = YES;
-
             self.forgotButton.hidden = NO;
-
             break;
     }
 }
@@ -188,25 +155,20 @@ Prop_assign()NSInteger remainingRetryCount;
 -(void)handleCreatePattern:(NSString *)pattern {
     if (pattern.length < self.configuration.minimumPatternLength) {
         self.statusLabel.text = self.configuration.tooShortStatusText;
-
         [self.lockView showValidationResult:JobsGestureLockValidationResultTooShort];
         [self shakeView:self.statusLabel];
         [self resetLockViewAfterDelay];
         return;
     }
-
     if (self.firstPattern.length == 0) {
         self.firstPattern = pattern;
         self.statusLabel.text = self.configuration.confirmStatusText;
-
         self.resetButton.hidden = NO;
-
         [self.indicatorView updateWithPattern:pattern];
         [self.lockView showValidationResult:JobsGestureLockValidationResultSuccess];
         [self resetLockViewAfterDelay];
         return;
     }
-
     if ([self.firstPattern isEqualToString:pattern]) {
         [JobsGestureLockStorage saveGesturePassword:pattern forKey:self.storageKey];
         if (self.completionHandler) {
@@ -215,7 +177,6 @@ Prop_assign()NSInteger remainingRetryCount;
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         self.statusLabel.text = self.configuration.mismatchStatusText;
-
         [self.lockView showValidationResult:JobsGestureLockValidationResultFailure];
         [self shakeView:self.statusLabel];
         [self resetLockViewAfterDelay];
@@ -232,18 +193,14 @@ Prop_assign()NSInteger remainingRetryCount;
         [self dismissViewControllerAnimated:YES completion:nil];
         return;
     }
-
     self.remainingRetryCount -= 1;
     [self.lockView showValidationResult:JobsGestureLockValidationResultFailure];
-
     if (self.remainingRetryCount <= 0) {
         self.remainingRetryCount = self.configuration.maxRetryCount;
         [self presentInvalidatedAlert];
         return;
     }
-
     self.statusLabel.text = [NSString stringWithFormat:self.configuration.errorFormat, (long)self.remainingRetryCount];
-
     [self shakeView:self.statusLabel];
     [self resetLockViewAfterDelay];
 }
@@ -278,9 +235,7 @@ Prop_assign()NSInteger remainingRetryCount;
 -(void)didTapReset:(UIButton *)sender {
     self.firstPattern = nil;
     self.resetButton.hidden = YES;
-
     self.statusLabel.text = self.configuration.createStatusText;
-
     [self.indicatorView updateWithPattern:nil];
     [self.lockView reset];
 }

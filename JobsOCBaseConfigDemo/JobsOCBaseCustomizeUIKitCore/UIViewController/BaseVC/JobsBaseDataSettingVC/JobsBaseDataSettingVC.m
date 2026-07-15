@@ -16,7 +16,6 @@
 @end
 
 @implementation JobsBaseDataSettingVC
-
 -(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -127,7 +126,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 -(NSMutableArray<__kindof UIViewController *> *)vcs{
     if(!_vcs){
         _vcs = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
-            
         });
     };return _vcs;
 }

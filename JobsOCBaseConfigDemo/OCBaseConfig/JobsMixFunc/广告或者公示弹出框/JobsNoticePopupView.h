@@ -9,15 +9,10 @@
 #define JOBS_HEADER_GUARD_JOBSNOTICEPOPUPVIEW_8242178238
 
 #import <UIKit/UIKit.h>
-
 #import "TFPopupExtra.h"
-
 #import "JobsByOCPods.h"
-
 #import "JobsMakes.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

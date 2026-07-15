@@ -20,7 +20,6 @@ Prop_strong()NSMutableArray <NSString *>*messageMutArr;
 @end
 
 @implementation JobsLiveCommentDemoVC
-
 @synthesize tableView = _tableView;
 @synthesize inputBar = _inputBar;
 @synthesize messageMutArr = _messageMutArr;

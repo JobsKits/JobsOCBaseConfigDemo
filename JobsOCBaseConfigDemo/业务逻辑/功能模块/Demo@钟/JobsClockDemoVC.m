@@ -14,7 +14,6 @@ Prop_strong()JobsClockView *clockView;
 @end
 
 @implementation JobsClockDemoVC
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -22,7 +21,6 @@ Prop_strong()JobsClockView *clockView;
 
 -(void)loadView{
     [super loadView];
-
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){

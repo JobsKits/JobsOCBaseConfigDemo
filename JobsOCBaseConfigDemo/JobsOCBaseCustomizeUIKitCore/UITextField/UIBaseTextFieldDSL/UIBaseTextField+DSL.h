@@ -9,19 +9,12 @@
 #define JOBS_HEADER_GUARD_UIBASETEXTFIELD_DSL_6F0F8CB1D8
 
 #import <UIKit/UIKit.h>
-
 #import "CJTextField.h"
-
 #import "HQTextField.h"
-
 #import "ZYTextField.h"
-
 #import "JobsMagicTextField.h"
-
 #import "JobsTextField.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

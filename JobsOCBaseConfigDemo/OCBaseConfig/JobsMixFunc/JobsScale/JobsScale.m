@@ -18,7 +18,6 @@ Prop_assign(readonly)CGFloat scaleY;
 @end
 
 @implementation JobsScale
-
 - (CGFloat)screenWidth {
     if (@available(iOS 13.0, *)) {
         // 优先取当前活动窗口的尺寸

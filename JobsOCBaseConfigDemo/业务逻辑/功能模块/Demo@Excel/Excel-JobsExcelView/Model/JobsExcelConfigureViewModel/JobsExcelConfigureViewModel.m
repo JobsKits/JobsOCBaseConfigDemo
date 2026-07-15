@@ -16,7 +16,6 @@ Prop_assign()NSInteger colNumber;/// 列数
 @end
 
 @implementation JobsExcelConfigureViewModel
-
 - (instancetype)init{
     if (self = [super init]) {
         self.verticalScrollSignal = RACSubject.subject;
@@ -122,7 +121,6 @@ Prop_assign()NSInteger colNumber;/// 列数
 -(NSMutableArray<NSMutableArray<UIButtonModel *> *> *)contentArr{
     if(!_contentArr){
         _contentArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            
         });
     };return _contentArr;
 }
@@ -265,7 +263,6 @@ Prop_assign()NSInteger colNumber;/// 列数
 -(NSMutableArray <NSString *>*)topHeaderTitles{
     if(!_topHeaderTitles){
         _topHeaderTitles = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>*_Nullable data) {
-            
         });
     };return _topHeaderTitles;
 }
@@ -292,7 +289,6 @@ Prop_assign()NSInteger colNumber;/// 列数
 -(NSMutableArray <NSString *>*)leftTitles{
     if(!_leftTitles){
         _leftTitles = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>*_Nullable data) {
-            
         });
     };return _leftTitles;
 }

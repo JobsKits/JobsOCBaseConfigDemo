@@ -23,7 +23,6 @@ static CGFloat jobsDropDownListViewHeightByModels(NSArray <__kindof UIViewModel 
 }
 
 @implementation NSObject (JobsDropDownListView)
-
 -(JobsDropDownListView *_Nullable)jobsMotivateDropDownListFromView:(UIView *_Nonnull)motivateFromView
                                                          direction:(JobsDropDownListViewDirection)direction
                                                               data:(NSArray <__kindof UIViewModel *>*_Nullable)data

@@ -10,13 +10,9 @@
 
 #import <Foundation/Foundation.h>
 #import "BaseModel.h"
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsMakes.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

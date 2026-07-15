@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_NSOBJECT_SYSINFO_974E9D7AB9
 
 #import <Foundation/Foundation.h>
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

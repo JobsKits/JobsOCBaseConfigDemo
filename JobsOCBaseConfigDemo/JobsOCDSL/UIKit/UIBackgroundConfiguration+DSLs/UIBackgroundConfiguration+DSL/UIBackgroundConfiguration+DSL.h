@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_UIBACKGROUNDCONFIGURATION_DSL_6D9E3A7B42
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -20,7 +20,6 @@ Prop_assign()BOOL sphereItemsPrepared;
 @end
 
 @implementation JobsSphereDemoVC
-
 -(void)loadView{
     [super loadView];
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {

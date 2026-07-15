@@ -25,10 +25,8 @@
         [self addSubview:lottieView];
         lottieView.userInteractionEnabled = NO;
         lottieView.byContentMode(UIViewContentModeScaleAspectFit);
-
         lottieView.tag = 888 + index;
         lottieView.byBgColor(JobsYellowColor);
-
     };return lottieView;
 }
 

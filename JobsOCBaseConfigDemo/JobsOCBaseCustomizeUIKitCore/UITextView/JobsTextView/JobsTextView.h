@@ -12,7 +12,6 @@
 #import "BaseView.h"
 #import "UIView+Extra.h"
 #import "UITextView+Extend.h"
-
 #import "JobsOCDSL.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
@@ -28,11 +27,8 @@
 #endif
 
 #import "JobsLanMgr.h"
-
 #import "JobsMakes.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

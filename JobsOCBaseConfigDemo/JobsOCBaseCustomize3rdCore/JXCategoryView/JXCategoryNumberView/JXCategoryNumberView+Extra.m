@@ -8,7 +8,6 @@
 #import "JXCategoryNumberView+Extra.h"
 
 @implementation JXCategoryNumberView (Extra)
-
 -(JobsRetCategoryNumberViewByNumbersBlock _Nonnull)byCounts{
     @jobs_weakify(self)
     return ^__kindof JXCategoryNumberView *_Nullable(__kindof NSArray <__kindof NSNumber *>* _Nullable numbers){

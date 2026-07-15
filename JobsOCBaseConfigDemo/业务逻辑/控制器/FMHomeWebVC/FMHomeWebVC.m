@@ -24,7 +24,6 @@ Prop_copy()NSString *urlString;
 @end
 
 @implementation FMHomeWebVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
@@ -43,7 +42,6 @@ Prop_copy()NSString *urlString;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = JobsWhiteColor;
-
     self.launchImageView.alpha = 1;
     [self.loadingIndicator startAnimating];
     self.webView.alpha = 1;
@@ -117,7 +115,6 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
 -(WKWebView *)webView {
     if (!_webView) {
 //        _webView = self.makeWebViewByURL(self.urlString.jobsUrl); 
-        
         /// JS 回调 Objective-C 方法
         _webView = WKWebView.initBy(jobsMakeWebViewConfiguration(^(__kindof WKWebViewConfiguration * _Nullable config) {
             config.userContentController = jobsMakeUserContentController(^(__kindof WKUserContentController * _Nullable data) {

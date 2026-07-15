@@ -8,7 +8,6 @@
 #import "JobsBluetoothCommand.h"
 
 @implementation JobsBluetoothCommand
-
 -(instancetype)init{
     if (self = [super init]) {
         _identifier = NSUUID.UUID.UUIDString;

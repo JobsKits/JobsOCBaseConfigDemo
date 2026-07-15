@@ -14,11 +14,8 @@
 #import "UILabel+Measure.h"
 #import "UIView+AutoSelfAdaptionSize.h"
 #import "UIView+Masonry.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

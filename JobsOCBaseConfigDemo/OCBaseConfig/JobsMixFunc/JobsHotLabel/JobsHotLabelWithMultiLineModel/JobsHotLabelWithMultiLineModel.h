@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSHOTLABELWITHMULTILINEMODEL_E4AC7F6CBA
 
 #import <Foundation/Foundation.h>
-
 #import "JobsModelDSL.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

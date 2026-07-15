@@ -57,7 +57,6 @@
 +(JobsRetStrByStrBlock _Nonnull)platformBy{
     return ^__kindof NSString *_Nullable(__kindof NSString *_Nullable string) {
         if (!string.length) return nil;
-
         static NSDictionary<NSString *, NSString *> *platformMap = nil;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
@@ -116,20 +115,17 @@
                 @"iPhone15,5" : @"iPhone 15 Plus",
                 @"iPhone16,1" : @"iPhone 15 Pro",
                 @"iPhone16,2" : @"iPhone 15 Pro Max",
-
                 /// 最新机型
                 @"iPhone17,1" : @"iPhone 16 Pro",
                 @"iPhone17,2" : @"iPhone 16 Pro Max",
                 @"iPhone17,3" : @"iPhone 16",
                 @"iPhone17,4" : @"iPhone 16 Plus",
                 @"iPhone17,5" : @"iPhone 16e",
-
                 @"iPhone18,1" : @"iPhone 17 Pro",
                 @"iPhone18,2" : @"iPhone 17 Pro Max",
                 @"iPhone18,3" : @"iPhone 17",
                 @"iPhone18,4" : @"iPhone Air",
                 @"iPhone18,5" : @"iPhone 17e",
-
                 /// iPod touch
                 @"iPod1,1"    : @"iPod touch (1st generation)",
                 @"iPod2,1"    : @"iPod touch (2nd generation)",
@@ -139,7 +135,6 @@
                 @"iPod7,1"    : @"iPod touch (6th generation)",
                 @"iPod9,1"    : @"iPod touch (7th generation)",
                 @"iPod9,2"    : @"iPod touch (未来模型)",
-
                 /// iPad
                 @"iPad1,1"    : @"iPad",
                 @"iPad1,2"    : @"iPad 3G",
@@ -165,7 +160,6 @@
                 @"iPad4,7"    : @"iPad mini 3 (WiFi)",
                 @"iPad4,8"    : @"iPad mini 3 (Cellular)",
                 @"iPad4,9"    : @"iPad mini 3 (China)",
-
                 /// Apple TV
                 @"AppleTV1,1"  : @"Apple TV (1st generation)",
                 @"AppleTV2,1"  : @"Apple TV (2nd generation)",
@@ -176,7 +170,6 @@
                 @"AppleTV11,1" : @"Apple TV 4K (2nd generation)",
             };
         });
-
         NSString *result = platformMap[string];
         if (result.length) return result;
         /// Simulator
@@ -201,7 +194,6 @@
 +(BOOL)isFullScreen{
     NSString *machine = UIDevice.currentDevice.machineModel;
     if (![machine hasPrefix:@"iPhone"]) return NO;
-
     return !([machine hasPrefix:@"iPhone8,"]
           || [machine hasPrefix:@"iPhone9,"]
           || [machine hasPrefix:@"iPhone10,1"]

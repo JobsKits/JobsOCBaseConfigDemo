@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_TIMERPROTOCOL_C8782F4DE8
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

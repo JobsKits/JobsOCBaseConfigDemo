@@ -23,7 +23,6 @@ Prop_strong()CasinoCustomerContactModel *customerContactModel;
 @end
 
 @implementation CasinoCustomerServiceView
-
 static CasinoCustomerServiceView *static_customerServiceView = nil;
 +(instancetype)sharedManager{
     @synchronized(self){
@@ -55,22 +54,14 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
     return ^(NSMutableArray <UIViewModel *>*_Nullable model) {
         @jobs_strongify(self)
         self.titleLab.byAlpha(1);
-
         self.contactCustomerServiceBtn.byAlpha(1);
-
         self.closeBtn.byAlpha(1);
-
         self.subTitleLab.byAlpha(1);
-
         self.leftIMGV.byAlpha(1);
-
         self.rightIMGV.byAlpha(1);
-
-        
         self.hotLabelDataMutArr = model;
         if (self.hotLabelDataMutArr.count) {
             self.hl.byAlpha(1);
-
         }
     };
 }
@@ -84,7 +75,6 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
 #pragma mark —— 网络请求
 /// 获取客服联系方式
 -(void)customerContact{
-
 }
 #pragma mark —— lazyLoad
 -(UILabel *)titleLab{
@@ -183,7 +173,6 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
     if (!_hl) {
         _hl = JobsHotLabelBySingleLine.new;
         _hl.byBgColor(JobsClearColor);
-
         _hl.labelShowingType = UILabelShowingType_02;
         _hl.elementDefaultSize = CGSizeMake(JobsWidth(43), JobsWidth(43));
         self.actionForHotLabel(_hl);
@@ -192,7 +181,6 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
             make.top.equalTo(self.subTitleLab.mas_bottom).offset(JobsWidth(13));
             make.size.mas_equalTo(JobsHotLabelBySingleLine.viewSizeByModel(self.hotLabelDataMutArr));
         });
-
         [self layoutIfNeeded];
         _hl.jobsRichViewByModel(self.hotLabelDataMutArr);
     };return _hl;

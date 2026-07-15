@@ -10,7 +10,6 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsOCOpenConfiguration.h"
-
 #import "JobsGetWindow.h"
 
 NS_ASSUME_NONNULL_BEGIN

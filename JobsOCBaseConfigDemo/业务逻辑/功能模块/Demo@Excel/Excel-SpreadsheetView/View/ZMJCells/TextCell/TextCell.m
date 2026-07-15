@@ -14,7 +14,6 @@ Prop_strong()UIView *bgView;
 @end
 
 @implementation TextCell
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.selectedBackgroundView = self.bgView;

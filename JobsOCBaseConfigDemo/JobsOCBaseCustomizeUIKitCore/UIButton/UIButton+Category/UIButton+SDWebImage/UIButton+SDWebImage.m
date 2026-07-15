@@ -47,7 +47,6 @@
                             forState:UIControlStateNormal
                     placeholderImage:self.makeSDWebImageModel.placeholder];
         };return self;
-
     };
 }
 /// 设置背景图片的方法

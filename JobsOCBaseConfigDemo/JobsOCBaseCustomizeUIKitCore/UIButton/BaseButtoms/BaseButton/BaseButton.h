@@ -12,15 +12,10 @@
 
 #import <UIKit/UIKit.h>
 #import "UIButton+SimplyMake.h"
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsOCDSL.h"
-
 #import "JobsMakes.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

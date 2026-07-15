@@ -8,7 +8,6 @@
 #import "JobsSideDrawer.h"
 
 @implementation JobsSideDrawerConfiguration
-
 -(instancetype)init{
     if (self = [super init]) {
         _direction = JobsSideDrawerDirectionLeft;
@@ -16,25 +15,28 @@
         _presentedRatio = 0.5;
         _animationDuration = 0.28;
         _dimColor = [UIColor.blackColor colorWithAlphaComponent:0.35];
+        _allowsInteractiveTransition = YES;
     };return self;
 }
 
 @end
 
-@interface JobsSideDrawer ()
+@interface JobsSideDrawer () <UIGestureRecognizerDelegate>
 
-@property(nonatomic,weak)UIView *hostView;
-@property(nonatomic,strong)UIView *drawerView;
-@property(nonatomic,weak)UIView *contentView;
-@property(nonatomic,strong)UIControl *dimControl;
-@property(nonatomic,strong,readwrite)JobsSideDrawerConfiguration *configuration;
-@property(nonatomic,assign,readwrite,getter=isOpen)BOOL open;
+Prop_weak()UIView *hostView;
+Prop_strong()UIView *drawerView;
+Prop_weak()UIView *contentView;
+Prop_strong()UIControl *dimControl;
+Prop_strong()UIScreenEdgePanGestureRecognizer *openGesture;
+Prop_strong()UIPanGestureRecognizer *closeGesture;
+Prop_strong(nullable)NSNumber *interactiveProgress;
+Prop_assign(getter=isAnimatingTransition)BOOL animatingTransition;
+Prop_strong(readwrite)JobsSideDrawerConfiguration *configuration;
+Prop_assign(readwrite,getter=isOpen)BOOL open;
 
 @end
 
-
 @implementation JobsSideDrawer
-
 -(instancetype)initWithHostView:(UIView *)hostView
                      drawerView:(UIView *)drawerView
                     contentView:(UIView *)contentView
@@ -52,13 +54,27 @@
         [_dimControl addTarget:self action:@selector(closeFromDim) forControlEvents:UIControlEventTouchUpInside];
         [hostView insertSubview:drawerView belowSubview:contentView];
         [contentView addSubview:_dimControl];
+        _openGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self
+                                                                        action:@selector(handleOpenGesture:)];
+        _closeGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                                action:@selector(handleCloseGesture:)];
+        _openGesture.delegate = self;
+        _closeGesture.delegate = self;
+        [hostView addGestureRecognizer:_openGesture];
+        [drawerView addGestureRecognizer:_closeGesture];
+        [self updateGestureConfiguration];
         [self updateLayout];
     };return self;
 }
 
 -(void)updateLayout{
+    [self updateLayoutWithProgress:self.interactiveProgress ? self.interactiveProgress.doubleValue : (self.isOpen ? 1 : 0)];
+}
+
+-(void)updateLayoutWithProgress:(CGFloat)progress{
     UIView *hostView = self.hostView;
     if (!hostView) return;
+    progress = MAX(0, MIN(1, progress));
     CGRect bounds = hostView.bounds;
     BOOL horizontal = self.configuration.direction == JobsSideDrawerDirectionLeft || self.configuration.direction == JobsSideDrawerDirectionRight;
     CGFloat distance = (horizontal ? CGRectGetWidth(bounds) : CGRectGetHeight(bounds)) * self.configuration.presentedRatio;
@@ -72,19 +88,27 @@
     if (self.configuration.direction == JobsSideDrawerDirectionRight) hiddenFrame.origin.x = CGRectGetWidth(bounds);
     if (self.configuration.direction == JobsSideDrawerDirectionTop) hiddenFrame.origin.y = -distance;
     if (self.configuration.direction == JobsSideDrawerDirectionBottom) hiddenFrame.origin.y = CGRectGetHeight(bounds);
-    self.drawerView.frame = self.isOpen ? shownFrame : hiddenFrame;
-    if (self.isOpen && self.configuration.contentMode == JobsSideDrawerContentModeFixed) {
+    self.drawerView.frame = CGRectMake(hiddenFrame.origin.x + (shownFrame.origin.x - hiddenFrame.origin.x) * progress,
+                                       hiddenFrame.origin.y + (shownFrame.origin.y - hiddenFrame.origin.y) * progress,
+                                       shownFrame.size.width,
+                                       shownFrame.size.height);
+    if (self.configuration.contentMode == JobsSideDrawerContentModeFixed &&
+        (progress > 0 || self.interactiveProgress || self.isAnimatingTransition)) {
         [hostView bringSubviewToFront:self.drawerView];
     }else{
         [hostView bringSubviewToFront:self.contentView];
     }
     self.dimControl.frame = self.contentView.bounds;
     self.dimControl.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.contentView.layer.transform = CATransform3DMakeAffineTransform([self contentTransformWithDistance:distance]);
+    self.dimControl.alpha = progress;
+    self.contentView.layer.transform = CATransform3DMakeAffineTransform([self contentTransformWithDistance:distance
+                                                                                              progress:progress]);
 }
 
--(CGAffineTransform)contentTransformWithDistance:(CGFloat)distance{
-    if (!self.isOpen || self.configuration.contentMode == JobsSideDrawerContentModeFixed) return CGAffineTransformIdentity;
+-(CGAffineTransform)contentTransformWithDistance:(CGFloat)distance
+                                        progress:(CGFloat)progress{
+    if (progress <= 0 || self.configuration.contentMode == JobsSideDrawerContentModeFixed) return CGAffineTransformIdentity;
+    distance *= progress;
     switch (self.configuration.direction) {
         case JobsSideDrawerDirectionTop: return CGAffineTransformMakeTranslation(0, distance);
         case JobsSideDrawerDirectionBottom: return CGAffineTransformMakeTranslation(0, -distance);
@@ -96,6 +120,7 @@
 -(void)applyConfigurationAnimated:(BOOL)animated{
     self.configuration.presentedRatio = MAX(0.1, MIN(1, self.configuration.presentedRatio));
     self.dimControl.backgroundColor = self.configuration.dimColor;
+    [self updateGestureConfiguration];
     [self setOpen:self.isOpen animated:animated];
 }
 
@@ -112,14 +137,21 @@
 }
 
 -(void)setOpen:(BOOL)open animated:(BOOL)animated{
+    self.interactiveProgress = nil;
+    self.animatingTransition = animated;
     _open = open;
     if (open) self.dimControl.hidden = NO;
+    [self updateGestureAvailability];
     void (^changes)(void) = ^{
-        [self updateLayout];
-        self.dimControl.alpha = open ? 1 : 0;
+        [self updateLayoutWithProgress:open ? 1 : 0];
     };
     void (^completion)(BOOL) = ^(BOOL finished) {
+        self.animatingTransition = NO;
         if (!open) self.dimControl.hidden = YES;
+        if (!open && self.configuration.contentMode == JobsSideDrawerContentModeFixed) {
+            [self.hostView bringSubviewToFront:self.contentView];
+        }
+        [self updateGestureAvailability];
         if (self.stateChanged) self.stateChanged(open);
     };
     if (!animated) {
@@ -136,7 +168,87 @@
                      completion:completion];
 }
 
+-(void)updateGestureConfiguration{
+    switch (self.configuration.direction) {
+        case JobsSideDrawerDirectionLeft: self.openGesture.edges = UIRectEdgeLeft; break;
+        case JobsSideDrawerDirectionRight: self.openGesture.edges = UIRectEdgeRight; break;
+        case JobsSideDrawerDirectionTop: self.openGesture.edges = UIRectEdgeTop; break;
+        case JobsSideDrawerDirectionBottom: self.openGesture.edges = UIRectEdgeBottom; break;
+    }
+    [self updateGestureAvailability];
+}
+
+-(void)updateGestureAvailability{
+    BOOL allowsGesture = self.configuration.allowsInteractiveTransition && !self.isAnimatingTransition;
+    self.openGesture.enabled = allowsGesture && !self.isOpen;
+    self.closeGesture.enabled = allowsGesture && self.isOpen;
+}
+
+-(CGFloat)interactiveDistance{
+    BOOL horizontal = self.configuration.direction == JobsSideDrawerDirectionLeft || self.configuration.direction == JobsSideDrawerDirectionRight;
+    CGFloat length = horizontal ? CGRectGetWidth(self.hostView.bounds) : CGRectGetHeight(self.hostView.bounds);
+    return MAX(length * self.configuration.presentedRatio, 1);
+}
+
+-(CGFloat)openingComponentForPoint:(CGPoint)point{
+    switch (self.configuration.direction) {
+        case JobsSideDrawerDirectionLeft: return point.x;
+        case JobsSideDrawerDirectionRight: return -point.x;
+        case JobsSideDrawerDirectionTop: return point.y;
+        case JobsSideDrawerDirectionBottom: return -point.y;
+    };return 0;
+}
+
+-(void)updateInteractiveGesture:(UIPanGestureRecognizer *)gesture
+                        opening:(BOOL)opening{
+    CGFloat component = [self openingComponentForPoint:[gesture translationInView:self.hostView]];
+    CGFloat directionalOffset = MAX(opening ? component : -component, 0);
+    CGFloat progress = MIN(directionalOffset / self.interactiveDistance, 1);
+    CGFloat targetProgress = opening ? progress : 1 - progress;
+    switch (gesture.state) {
+        case UIGestureRecognizerStateBegan:
+            self.dimControl.hidden = NO;
+            self.interactiveProgress = @(opening ? 0 : 1);
+            [self updateLayoutWithProgress:self.interactiveProgress.doubleValue];
+            break;
+        case UIGestureRecognizerStateChanged:
+            self.interactiveProgress = @(targetProgress);
+            [self updateLayoutWithProgress:targetProgress];
+            break;
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed: {
+            CGFloat openingVelocity = [self openingComponentForPoint:[gesture velocityInView:self.hostView]];
+            CGFloat directionalVelocity = opening ? openingVelocity : -openingVelocity;
+            BOOL completed = gesture.state == UIGestureRecognizerStateEnded && (progress >= 0.35 || directionalVelocity >= 500);
+            [self setOpen:opening ? completed : !completed animated:YES];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+-(void)handleOpenGesture:(UIScreenEdgePanGestureRecognizer *)gesture{
+    [self updateInteractiveGesture:gesture opening:YES];
+}
+
+-(void)handleCloseGesture:(UIPanGestureRecognizer *)gesture{
+    [self updateInteractiveGesture:gesture opening:NO];
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    if (gestureRecognizer != self.closeGesture) return YES;
+    CGPoint velocity = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self.hostView];
+    BOOL horizontal = self.configuration.direction == JobsSideDrawerDirectionLeft || self.configuration.direction == JobsSideDrawerDirectionRight;
+    CGFloat openingVelocity = [self openingComponentForPoint:velocity];
+    BOOL primaryDirection = horizontal ? fabs(velocity.x) > fabs(velocity.y) : fabs(velocity.y) > fabs(velocity.x);
+    return primaryDirection && openingVelocity < 0;
+}
+
 -(void)invalidate{
+    [self.hostView removeGestureRecognizer:self.openGesture];
+    [self.drawerView removeGestureRecognizer:self.closeGesture];
     [self.drawerView removeFromSuperview];
     [self.dimControl removeFromSuperview];
     self.contentView.layer.transform = CATransform3DIdentity;

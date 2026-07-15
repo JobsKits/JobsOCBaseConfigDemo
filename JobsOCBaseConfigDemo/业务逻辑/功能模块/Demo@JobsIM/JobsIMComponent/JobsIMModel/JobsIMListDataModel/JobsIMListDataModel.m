@@ -8,7 +8,6 @@
 #import "JobsIMListDataModel.h"
 
 @implementation JobsIMListDataModel
-
 -(NSString *)userID{
     if (!_userID) {
         _userID = @"jobsim_peer_unknown";

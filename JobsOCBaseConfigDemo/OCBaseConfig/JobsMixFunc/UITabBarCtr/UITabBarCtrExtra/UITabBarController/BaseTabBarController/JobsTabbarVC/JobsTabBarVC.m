@@ -58,7 +58,6 @@ Prop_strong()NSMutableArray <UIViewModel *>*pullListAutoSizeViewMutArr;
 @end
 
 @implementation JobsTabBarVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
@@ -104,7 +103,6 @@ static dispatch_once_t JobsTabBarVCOnceToken;
 #pragma mark —— ViewController的生命周期
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -124,7 +122,6 @@ static dispatch_once_t JobsTabBarVCOnceToken;
         self.view.panGR.enabled = self.isOpenScrollTabbar;
     }
     self.myTabBar.byAlpha(1);
-
 //    self.suspendBtn.alpha = 1;
 //    UIDeviceOrientation f =  UIDevice.currentDevice.orientation;
 //    UIInterfaceOrientation s = self.getInterfaceOrientation;
@@ -297,7 +294,6 @@ static dispatch_once_t onceToken;
             /// 修改文字偏移量
             viewController.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, 0);/// titlePositionAdjustment是图文间距
         }
-
         /// 用导航控制器包裹每一个控制器
 //        if (![viewController isKindOfClass:UINavigationController.class]) {/// 防止UIImagePickerController崩
 //            BaseNavigationVC *nav = [BaseNavigationVC.alloc initWithRootViewController:viewController];
@@ -373,7 +369,6 @@ static dispatch_once_t onceToken;
 -(void)添加长按手势{
     for (UIView *subView in self.UITabBarButtonMutArr) {
         subView.tag = [self.UITabBarButtonMutArr indexOfObject:subView];
-        
         subView.numberOfTouchesRequired = 1;
         subView.numberOfTapsRequired = 1;/// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
         subView.minimumPressDuration = 0.1;
@@ -461,7 +456,6 @@ shouldSelectViewController:(UIViewController *)viewController {
         self.judgeLottieWithIndex(index)) {
         [viewController lottieImagePlay];
     }
-    
     if (self.retBoolByUIntegerBlock) A = self.retBoolByUIntegerBlock(index);
     return self.forcedLoginIndex(index) ? (A && JobsTabBarVCIsLogin(self)) : A;
 }
@@ -542,7 +536,6 @@ shouldSelectViewController:(UIViewController *)viewController {
 -(NSMutableArray <UIView *>*)UITabBarButtonMutArr{
     if (!_UITabBarButtonMutArr) {
         _UITabBarButtonMutArr = jobsMakeMutArr(^(__kindof NSMutableArray<UIView *> * _Nullable arr) {
-
         });
     };return _UITabBarButtonMutArr;
 }

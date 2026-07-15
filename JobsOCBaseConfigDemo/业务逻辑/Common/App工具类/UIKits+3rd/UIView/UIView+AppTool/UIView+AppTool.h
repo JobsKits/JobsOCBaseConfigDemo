@@ -6,11 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "JobsAppToolsHeader.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

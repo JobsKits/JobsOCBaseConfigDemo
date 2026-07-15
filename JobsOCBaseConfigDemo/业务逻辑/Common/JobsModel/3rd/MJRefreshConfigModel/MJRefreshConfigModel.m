@@ -11,7 +11,6 @@
 #import "JobsLanMgr.h"
 
 @implementation MJRefreshConfigModel
-
 -(JobsRetMJRefreshConfigModelByRetIDByIDBlocks _Nonnull)byLoadBlock{
     @jobs_weakify(self)
     return ^MJRefreshConfigModel *_Nullable(JobsRetIDByIDBlock block){

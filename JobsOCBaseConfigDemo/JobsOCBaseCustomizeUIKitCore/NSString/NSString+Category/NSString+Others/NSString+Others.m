@@ -8,7 +8,6 @@
 #import "NSString+Others.h"
 
 @implementation NSString (Others)
-
 #pragma mark —— 动画相关
 /// 创建CABasicAnimation
 -(CABasicAnimation *)basicAnimation{

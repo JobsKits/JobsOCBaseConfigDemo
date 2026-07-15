@@ -20,7 +20,6 @@ Prop_assign()CGSize size;
 @end
 
 @implementation TableViewOneCell
-
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
     @jobs_weakify(self)
     return ^(UITableView * _Nonnull tableView) {
@@ -58,13 +57,10 @@ Prop_assign()CGSize size;
         self.linePath.add(CGPointMake(size.width, 0));
         self.linePath.add(CGPointMake(size.width, size.height));
         self.linePath.add(CGPointMake(0, size.height));
-        
         [self.linePath stroke];
-        
         UIGraphicsBeginImageContext(size);
         [self.linePath stroke];
         UIGraphicsEndImageContext();
-
         self.button.layer.addSublayer(self.lineLayer);
     };
 }

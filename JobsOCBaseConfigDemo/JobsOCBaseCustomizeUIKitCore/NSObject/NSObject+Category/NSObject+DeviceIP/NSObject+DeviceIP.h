@@ -36,7 +36,6 @@
 #endif
 
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 #ifndef IOS_CELLULAR

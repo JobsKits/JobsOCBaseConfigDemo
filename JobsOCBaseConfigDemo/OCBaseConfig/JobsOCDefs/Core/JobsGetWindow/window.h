@@ -30,7 +30,6 @@ NS_INLINE UIWindow *_Nullable jobsGetMainWindowBefore13(void){
     if (UIApplication.sharedApplication.delegate.window) {
         window = UIApplication.sharedApplication.delegate.window;
     }
-    
     if(!window){
         /// 这种获取窗口的方式在iOS 2.0到iOS 13.0版本之间都是可用的
         SuppressWdeprecatedDeclarationsWarning(
@@ -88,7 +87,6 @@ NS_INLINE UIWindow *_Nullable jobsGetMainWindow(void){
     UIWindow *mainWindowBefore13 = jobsGetMainWindowBefore13();
     UIWindow *mainWindowAfter13 = jobsGetMainWindowAfter13();
     UIWindow *resultWindow = UIDevice.currentDevice.systemVersion.floatValue >= 13.0 ? mainWindowAfter13 : mainWindowBefore13;
-    
     if(resultWindow) return resultWindow;
     if(mainWindowBefore13) return mainWindowBefore13;
     if(mainWindowAfter13) return mainWindowAfter13;

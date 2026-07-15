@@ -14,7 +14,6 @@ Prop_copy()jobsByIDBlock baseNavigationBarBlock;
 @end
 
 @implementation BaseNavigationBar
-
 - (instancetype)init{
     if (self = [super init]) {
         self.translucent = YES;

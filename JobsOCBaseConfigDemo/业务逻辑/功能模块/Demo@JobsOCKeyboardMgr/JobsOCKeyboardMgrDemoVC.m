@@ -20,7 +20,6 @@ Prop_strong()UIView *accessoryBar;
 @end
 
 @implementation JobsOCKeyboardMgrDemoVC
-
 - (void)dealloc{
     [JobsOCKeyboardMgr.shared clearConfigByOwner:self];
     JobsLog(@"%@",JobsLocalFunc);
@@ -189,7 +188,6 @@ Prop_strong()UIView *accessoryBar;
     if (!_accessoryBar) {
         UIView *bar = [UIView.alloc initWithFrame:CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsWidth(56))];
         bar.backgroundColor = HEXCOLOR(0x263342);
-
         UILabel *label = UILabel.new;
         label.text = @"Input Accessory";
         label.textColor = UIColor.whiteColor;
@@ -199,7 +197,6 @@ Prop_strong()UIView *accessoryBar;
             make.left.equalTo(bar).offset(JobsWidth(18));
             make.centerY.equalTo(bar);
         }];
-
         UIButton *doneBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [doneBtn setTitle:@"Done" forState:UIControlStateNormal];
         doneBtn.titleLabel.font = UIFontWeightMediumSize(15);

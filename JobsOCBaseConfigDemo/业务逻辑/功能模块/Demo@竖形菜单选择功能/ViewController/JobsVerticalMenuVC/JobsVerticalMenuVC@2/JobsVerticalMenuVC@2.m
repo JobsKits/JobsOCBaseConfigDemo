@@ -30,7 +30,6 @@ Prop_assign()BOOL searchMode;
 @end
 
 @implementation JobsVerticalMenuVC_2
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
@@ -357,10 +356,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .addOn(headerView);
             });
         }
-
         GoodsClassModel *rightModel = self.rightDataArray.objectAt(indexPath.section);
         label.byText(rightModel.name ? : @"".tr);
-
         return headerView;
     }else if (kind.isEqualToString(UICollectionElementKindSectionFooter)){
         /// 底部视图
@@ -465,7 +462,6 @@ referenceSizeForFooterInSection:(NSInteger)section{
     if (!_tempCell){
         _tempCell = jobsMakeThreeClassCell(^(__kindof ThreeClassCell * _Nullable cell) {
             cell.byBgColor(HEXCOLOR(0xF7F8FA));
-
             cell.frame = CGRectMake(0,
                                     0,
                                     ThreeClassCell.cellSizeByModel(nil).width,
@@ -483,7 +479,6 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 .bySize(CGSizeMake(0, JobsWidth(38)))
                 .JobsRichViewByModel2(nil)
                 .JobsBlock1(^(id  _Nullable data) {;
-
                 })
                 .addOn(self.gk_navigationBar)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -496,7 +491,6 @@ referenceSizeForFooterInSection:(NSInteger)section{
             searchBar.cancelBtnHidden = YES;
             searchBar.textField.byPlaceholder(@"请输入搜索内容".tr);
             searchBar.byHidden(YES);
-
 //            [searchBar actionNSIntegerBlock:^(UITextFieldFocusType data) {
 //                @jobs_strongify(self)
 //                switch (data) {

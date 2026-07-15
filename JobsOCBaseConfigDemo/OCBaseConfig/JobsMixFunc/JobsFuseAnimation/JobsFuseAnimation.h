@@ -8,8 +8,8 @@
 #ifndef JobsFuseAnimation_h
 #define JobsFuseAnimation_h
 
+#import "JobsFuseBubbleConfig.h"
 #import "JobsFuseOuterRingConfig.h"
-
 #import "UIView+JobsFuseAnimation.h"
 
 #endif /* JobsFuseAnimation_h */

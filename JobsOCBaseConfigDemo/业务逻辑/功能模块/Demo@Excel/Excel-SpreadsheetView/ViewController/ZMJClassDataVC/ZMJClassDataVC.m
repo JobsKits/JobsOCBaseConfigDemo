@@ -20,7 +20,6 @@ Prop_copy()NSString *content;
 @end
 
 @implementation ZMJClassDataVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
@@ -40,7 +39,6 @@ Prop_copy()NSString *content;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    
     self.viewModel.backBtnTitleModel.text = @"返回".tr;
     self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
     self.viewModel.textModel.text = @"相关功能列表".tr;
@@ -51,7 +49,6 @@ Prop_copy()NSString *content;
     // self.viewModel.bgImage = @"启动页SLOGAN".img;
     self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
     self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    
     self.sortedColumn = (SortedColumn){0, ZMJAscending};
 }
 

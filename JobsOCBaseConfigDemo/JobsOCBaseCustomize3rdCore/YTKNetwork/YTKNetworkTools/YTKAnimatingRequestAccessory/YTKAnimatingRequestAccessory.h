@@ -19,7 +19,6 @@
 #endif
 
 #import "JobsDefines.h"
-
 #import "JobsBlock.h"
 
 @interface YTKAnimatingRequestAccessory : NSObject <YTKRequestAccessory>

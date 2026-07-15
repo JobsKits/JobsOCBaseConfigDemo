@@ -27,7 +27,6 @@ Prop_assign()JobsWalletCardExpandStyle walletStyle;
 @end
 
 @implementation JobsWalletVC
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

@@ -12,15 +12,10 @@
 #import "UIView+Extra.h"
 #import <WebKit/WebKit.h>
 #import "BaseViewController.h"
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

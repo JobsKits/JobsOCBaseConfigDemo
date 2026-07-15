@@ -11,7 +11,6 @@
 #pragma once
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBaseProtocolHeader.h"
 
 NS_ASSUME_NONNULL_BEGIN

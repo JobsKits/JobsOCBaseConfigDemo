@@ -8,7 +8,6 @@
 #import "UILabel+Measure.h"
 
 @implementation UILabel (Measure)
-
 /// iOS根据字体字号大小和字体label计算label宽度
 +(CGSize)sizeWithText:(NSString *)text
                  font:(UIFont *)font

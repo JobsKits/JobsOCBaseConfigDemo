@@ -10,9 +10,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UIView+EmptyData.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

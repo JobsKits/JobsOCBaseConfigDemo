@@ -18,7 +18,6 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
 @end
 
 @implementation JobsAppDoorInputViewBaseStyle_7
-
 - (instancetype)init{
     if (self = [super init]) {
 //        self.backgroundColor = JobsRedColor;
@@ -32,7 +31,6 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.byBgColor(JobsClearColor);
-
         self.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
             data.byJobsWidth(1)
                 .byLayerCor(Cor3);

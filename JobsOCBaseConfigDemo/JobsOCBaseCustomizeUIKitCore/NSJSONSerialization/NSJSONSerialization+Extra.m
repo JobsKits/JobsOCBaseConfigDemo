@@ -8,7 +8,6 @@
 #import "NSJSONSerialization+Extra.h"
 
 @implementation NSJSONSerialization (Extra)
-
 +(JobsRetDicByDataBlock _Nonnull)makeDicByData{
     return ^__kindof NSDictionary *_Nullable(NSData *_Nullable data){
         NSError *err = nil;

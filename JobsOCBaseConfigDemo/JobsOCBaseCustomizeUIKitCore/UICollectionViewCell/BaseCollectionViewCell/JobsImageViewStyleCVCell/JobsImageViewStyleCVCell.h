@@ -11,9 +11,7 @@
 #import <UIKit/UIKit.h>
 #import "UIView+Extra.h"
 #import "JobsBaseCollectionViewCell.h"
-
 #import "JobsMakes.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

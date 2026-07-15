@@ -12,7 +12,6 @@
 @end
 
 @implementation TDHorizontalItemNode
-
 -(instancetype)initWithIndex:(NSInteger)idx{
     if (self = [super init]) {
         self.automaticallyManagesSubnodes = YES;

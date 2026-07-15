@@ -25,7 +25,6 @@ Prop_assign()CGSize lOTAnimationViewSize;
 - (void)prepare{
     [super prepare];
     self.animationView.byAlpha(1);
-
     self.gifView.byAlpha(0);/// 屏蔽掉父类的gifView控件，否则将会有Gif图和Lottie动画一起出现
     @jobs_weakify(self)
     self.endRefreshingCompletionBlock = ^{
@@ -40,7 +39,6 @@ Prop_assign()CGSize lOTAnimationViewSize;
     [super placeSubviews];
     // 隐藏更新时间文字
     self.lastUpdatedTimeLabel.byHidden(YES);
-
     self.stateLabel.mj_w = self.stateLabel.mj_textWidth;
     self.stateLabel.center = CGPointMake(self.mj_w / 2.0 + 15, self.mj_h / 2.0 + 0.0);
     self.animationView.mj_x = self.stateLabel.mj_x - OffsetBetweenStateLabelAndAnimationView - self.animationView.mj_w;
@@ -143,7 +141,6 @@ Prop_assign()CGSize lOTAnimationViewSize;
 -(MJRefreshConfigModel *)refreshConfigModel{
     if (!_refreshConfigModel) {
         _refreshConfigModel = jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable model) {
-            
         });
     };return _refreshConfigModel;
 }

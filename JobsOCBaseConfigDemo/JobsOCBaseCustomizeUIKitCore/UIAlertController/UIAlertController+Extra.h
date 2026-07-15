@@ -9,11 +9,8 @@
 #define JOBS_HEADER_GUARD_UIALERTCONTROLLER_EXTRA_7A19BA870D
 
 #import <UIKit/UIKit.h>
-
 #import "JobsModelDSL.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

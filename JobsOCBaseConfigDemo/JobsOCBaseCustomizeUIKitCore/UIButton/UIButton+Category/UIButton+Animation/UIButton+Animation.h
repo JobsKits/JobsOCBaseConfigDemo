@@ -13,11 +13,8 @@
 #import "CABasicAnimation+Extra.h"
 #import "CAPropertyAnimation+Extra.h"
 #import "CAAnimation+Extra.h"
-
 #import "JobsDeviceInfo.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

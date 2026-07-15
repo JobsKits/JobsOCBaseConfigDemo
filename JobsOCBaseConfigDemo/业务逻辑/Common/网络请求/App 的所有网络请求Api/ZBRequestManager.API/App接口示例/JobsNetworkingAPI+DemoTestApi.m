@@ -8,21 +8,16 @@
 #import "JobsNetworkingAPI+DemoTestApi.h"
 
 @implementation JobsNetworkingAPI (DemoTestApi)
-
 NSString *appInterfaceTesting;
 +(void)appInterfaceTesting:(id)parameters
               successBlock:(jobsByIDBlock _Nullable)successBlock
               failureBlock:(jobsByIDBlock _Nullable)failureBlock{
 //    NSDictionary *parameterss = @{};
 //    NSDictionary *headers = @{};
-    
     [ZBRequestManager requestWithConfig:^(ZBURLRequest * _Nullable request) {
-
         request.server = This.BaseUrl;
         request.url = request.server.add(This.appInterfaceTesting.url);
-        
         JobsLog(@"request.URLString = %@",request.url);
-        
         request.methodType = ZBMethodTypeGET;//默认为GET
         request.apiType = ZBRequestTypeRefresh;//（默认为ZBRequestTypeRefresh 不读取缓存，不存储缓存）
         request.parameters = parameters;//与公共配置 Parameters 兼容
@@ -32,19 +27,16 @@ NSString *appInterfaceTesting;
         if (isValue(DataManager.sharedManager.tag)) {
             request.userInfo = @{@"info":DataManager.sharedManager.tag};//与公共配置 UserInfo 不兼容 优先级大于 公共配置
         };//与公共配置 UserInfo 不兼容 优先级大于 公共配置
-        
         {
 //            request.filtrationCacheKey = @[@"".tr];//与公共配置 filtrationCacheKey 兼容
 //            request.requestSerializer = ZBJSONRequestSerializer; //单次请求设置 请求格式 默认JSON，优先级大于 公共配置，不影响其他请求设置
 //            request.responseSerializer = ZBJSONResponseSerializer; //单次请求设置 响应格式 默认JSON，优先级大于 公共配置,不影响其他请求设置
-           
             /**
              多次请求同一个接口 保留第一次或最后一次请求结果 只在请求时有用  读取缓存无效果。默认ZBResponseKeepNone 什么都不做
              使用场景是在 重复点击造成的 多次请求，如发帖，评论，搜索等业务
              */
 //            request.keepType=ZBResponseKeepNone;
         }//一些临时的其他的配置
-        
     }progress:^(NSProgress * _Nullable progress){
         JobsLog(@"进度 = %f",progress.fractionCompleted * 100);
     }success:^(id  _Nullable responseObject,

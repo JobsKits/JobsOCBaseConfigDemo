@@ -9,17 +9,11 @@
 #define JOBS_HEADER_GUARD_JOBSPAGETBVCELL_E79A2D8695
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBaseUI.h"
-
 #import "JobsByOCPods.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsMakes.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

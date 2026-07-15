@@ -39,14 +39,11 @@ Prop_strong()CAShapeLayer *maskLayer;
 //显示圆形放大动画
 -(void)showBubbleMaskAnimationTo:(id<UIViewControllerContextTransitioning>)transitionContext{
     self.transitionContext = transitionContext;
-    
     UIView *fromView = [transitionContext viewForKey:UITransitionContextFromViewKey];
     UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
     UIView *contView = [transitionContext containerView];
-    
     [contView addSubview:fromView];
     [contView addSubview:toView];
-    
     // 创建一个 CAShapeLayer 来负责展示圆形遮盖
     CAShapeLayer *maskLayer = CAShapeLayer.layer;
     // toView.layer.mask = maskLayer;
@@ -99,7 +96,6 @@ Prop_strong()CAShapeLayer *maskLayer;
 //隐藏--圆形放大动画
 -(void)hideBubbleMaskAnimationTo:(id<UIViewControllerContextTransitioning>)transitionContext{
     self.transitionContext = transitionContext;
-    
     UIView *fromView = [transitionContext viewForKey:UITransitionContextFromViewKey];
     UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
     UIView *contView = [transitionContext containerView];

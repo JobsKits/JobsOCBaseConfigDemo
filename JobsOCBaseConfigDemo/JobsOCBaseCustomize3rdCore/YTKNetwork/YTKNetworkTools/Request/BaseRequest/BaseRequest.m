@@ -188,7 +188,6 @@ YTKCustomBaseRequestProtocol_synthesize
 -(NSMutableDictionary *)parameters{
     if(!_parameters){
         _parameters = jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable data) {
-
         });
     };return _parameters;
 }

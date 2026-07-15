@@ -10,7 +10,6 @@
 
 #import <objc/runtime.h>
 #import "JobsLocker.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

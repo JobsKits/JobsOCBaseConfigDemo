@@ -8,7 +8,6 @@
 #import "ZFPlayerController+DSL.h"
 
 @implementation ZFPlayerController (DSL)
-
 -(JobsRetZFPlayerByViewBlock _Nonnull)byContainerView{
     @jobs_weakify(self)
     return ^__kindof ZFPlayerController *_Nullable(__kindof UIView *_Nullable data){

@@ -8,7 +8,6 @@
 #import "JXCategoryDotView+Extra.h"
 
 @implementation JXCategoryDotView (Extra)
-
 -(JobsRetCategoryDotViewByNumbersBlock _Nonnull)byDotStates{
     @jobs_weakify(self)
     return ^__kindof JXCategoryDotView *_Nullable(__kindof NSArray <__kindof NSNumber *>* _Nullable numbers){

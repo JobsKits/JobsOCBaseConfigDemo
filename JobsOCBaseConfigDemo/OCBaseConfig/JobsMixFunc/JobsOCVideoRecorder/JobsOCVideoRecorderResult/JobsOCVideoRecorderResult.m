@@ -8,7 +8,6 @@
 #import "JobsOCVideoRecorderResult.h"
 
 @implementation JobsOCVideoRecorderResult
-
 +(instancetype)resultWithFileURL:(NSURL *)fileURL
                          duration:(CMTime)duration{
     JobsOCVideoRecorderResult *result = JobsOCVideoRecorderResult.new;

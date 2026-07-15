@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_UIBARBUTTONITEM_DSL_20260611
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

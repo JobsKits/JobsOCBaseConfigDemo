@@ -14,11 +14,9 @@ Prop_strong()UILabel *adNoticeLab;
 @end
 
 @implementation JobsAdNoticeView
-
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = JobsCyanColor;
-
     };return self;
 }
 

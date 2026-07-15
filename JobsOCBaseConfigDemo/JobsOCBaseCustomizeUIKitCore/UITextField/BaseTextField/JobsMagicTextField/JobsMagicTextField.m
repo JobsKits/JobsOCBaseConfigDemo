@@ -17,7 +17,6 @@ Prop_strong()UILabel *placeholderAnimationLbl;
 @end
 
 @implementation JobsMagicTextField
-
 -(void)dealloc{
     JobsRemoveNotification(self);
 }
@@ -58,17 +57,14 @@ Prop_strong()UILabel *placeholderAnimationLbl;
             @jobs_strongify(self)
             self.placeholderAnimationLbl.jobsVisible = YES;
             self.placeholderAnimationLbl.byFrame(targetFrame);
-
             if (self.attributedPlaceholder && !self.placeholder) {
                 self.placeholderAnimationLbl.attributedText = self.attributedPlaceholder;
             }else{
                 self.placeholderAnimationLbl.textColor = self.animationColor;
                 self.placeholderAnimationLbl.font = self.animationFont;
-                
                 if (isValue(self.placeholder)) {
                     self.placeholderAnimationLbl.text = self.placeholder;
                 }
-                
                 self.placeholder = @"".tr;
             }
         }];
@@ -89,7 +85,6 @@ Prop_strong()UILabel *placeholderAnimationLbl;
             @jobs_strongify(self)
             self.placeholderAnimationLbl.jobsVisible = NO;
             self.placeholderAnimationLbl.byFrame(targetFrame);
-
             if (self.attributedPlaceholder && !self.placeholder) {
                 self.placeholderAnimationLbl.attributedText = self.attributedPlaceholder;
             }else{
@@ -155,7 +150,7 @@ Prop_strong()UILabel *placeholderAnimationLbl;
         _moveDistance = self.frame.size.height / 2;
     };return _moveDistance;
 }
-    
+
 -(NSTimeInterval)animationTime{
     if (!_animationTime) {
         _animationTime = 0.25f;

@@ -8,7 +8,6 @@
 #import "UITableViewCell+DSL.h"
 
 @implementation UITableViewCell (DSL)
-
 -(JobsRetTableViewCellByLabelBlock _Nonnull)byTextLabel{
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(jobsByLabelBlock _Nullable block){

@@ -8,7 +8,6 @@
 #import "JobsGestureModel+DSL.h"
 
 @implementation JobsGestureModel (DSL)
-
 -(JobsRetJobsGestureModelByRACDisposablePointerBlock _Nonnull)byRacDisposable{
     @jobs_weakify(self)
     return ^__kindof JobsGestureModel *_Nullable(RACDisposable * _Nullable data) {

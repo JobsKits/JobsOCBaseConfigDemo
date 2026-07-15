@@ -9,13 +9,9 @@
 #define JOBS_HEADER_GUARD_APPTOOLSPROTOCOL_F310A6C4D9
 
 #import <UIKit/UIKit.h>
-
 #import "BaseProtocol.h"
-
 #import "XProtocol.h"
-
 #import "JobsDefines.h"
-
 #import "JobsBlock.h"
 
 @class UIViewModel;

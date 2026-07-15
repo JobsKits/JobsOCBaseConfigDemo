@@ -21,7 +21,6 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
 @end
 
 @implementation JobsOCKeyboardMgr
-
 +(instancetype)shared{
     static JobsOCKeyboardMgr *manager = nil;
     static dispatch_once_t onceToken;

@@ -9,7 +9,6 @@
 #import "NotifiViewFactory.h"
 
 @implementation NotifiOperation
-
 @synthesize finished = _finished;
 @synthesize executing = _executing;
 @synthesize cancelled = _cancelled;

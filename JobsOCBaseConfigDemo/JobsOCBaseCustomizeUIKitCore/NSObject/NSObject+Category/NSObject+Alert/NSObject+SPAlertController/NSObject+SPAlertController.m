@@ -79,9 +79,7 @@
             return nil;
             break;
     }
-    
     NSMutableArray <SPAlertAction *>*mutArr = NSMutableArray.array;
-    
     if (config.alertBtnActionArr.count == config.alertActionTitleArr.count &&
         config.alertActionStyleArr.count == config.alertBtnActionArr.count &&
         config.alertActionTitleArr.count == config.alertActionStyleArr.count) {
@@ -109,7 +107,6 @@
                     }
                 })];
             }];
-            
             action.index = i;//做记号
             JobsLog(@"DDD = %ld",action.index);
             [vc addAction:action];
@@ -119,7 +116,6 @@
         self.jobsToastErrMsg(@"参数配置错误，请检查".tr);
         return nil;
     }
-    
     [config.targetVC presentViewController:vc
                                   animated:config.animated
                                 completion:completionBlock];

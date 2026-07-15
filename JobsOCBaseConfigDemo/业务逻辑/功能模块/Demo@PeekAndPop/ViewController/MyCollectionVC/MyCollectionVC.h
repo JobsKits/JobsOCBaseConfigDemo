@@ -9,19 +9,12 @@
 #import "PreviewVC.h"
 #import "MyCollectionVC.h"
 #import "BaiShaETProjOrderDetailsCVCell.h"
-
 #import "JobsBaseUI.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsByOCPods.h"
-
 #import "JobsMakes.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

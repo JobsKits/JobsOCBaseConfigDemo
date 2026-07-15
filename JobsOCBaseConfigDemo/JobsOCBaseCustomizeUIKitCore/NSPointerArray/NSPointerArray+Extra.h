@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_NSPOINTERARRAY_EXTRA_C5A0D422C7
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

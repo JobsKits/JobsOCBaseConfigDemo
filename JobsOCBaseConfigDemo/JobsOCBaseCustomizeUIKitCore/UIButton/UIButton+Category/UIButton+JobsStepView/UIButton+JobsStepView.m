@@ -8,7 +8,6 @@
 #import "UIButton+JobsStepView.h"
 
 @implementation UIButton (JobsStepView)
-
 #pragma mark —— Prop_strong()__kindof UILabel *leftLab;
 JobsKey(_leftLab)
 @dynamic leftLab;

@@ -34,7 +34,6 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
 @end
 
 @implementation JobsLiveStreamDemoVC
-
 -(void)dealloc{
     [self stopCaptureSessionIfNeeded];
 }

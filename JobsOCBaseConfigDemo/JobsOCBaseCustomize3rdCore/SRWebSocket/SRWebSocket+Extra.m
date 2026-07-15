@@ -8,7 +8,6 @@
 #import "SRWebSocket+Extra.h"
 
 @implementation SRWebSocket (Extra)
-
 +(JobsRetSRWebSocketByNSURLRequestBlock _Nonnull)initByURLRequest{
     return ^SRWebSocket *_Nonnull(NSURLRequest *_Nullable webSocket){
         return [SRWebSocket.alloc initWithURLRequest:webSocket];

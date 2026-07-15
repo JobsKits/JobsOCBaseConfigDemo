@@ -52,7 +52,6 @@ Prop_strong()JobsCustomTabBar *customTabBar;
 @end
 
 @implementation JobsCustomTabBarVC
-
 -(void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -92,11 +91,9 @@ static dispatch_once_t JobsCustomTabBarVCOnceToken;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tabBar.byHidden(YES);
-
     self.delegate = self;
 //    self.view.byBgColor(JobsGreenColor);
     self.customTabBar.byAlpha(1);
-
     extern NSUInteger DefaultIndex;
     self.selectedIndex = DefaultIndex;
 }
@@ -146,7 +143,6 @@ didSelectViewController:(UIViewController *)viewController{
     if(!_customTabBar){
         _customTabBar = jobsMakeCustomTabBar(^(__kindof JobsCustomTabBar * _Nullable customTabBar) {
             customTabBar.byBgColor(JobsClearColor);
-
             customTabBar.configMasonryBy(self.view);
         });
     };return _customTabBar;

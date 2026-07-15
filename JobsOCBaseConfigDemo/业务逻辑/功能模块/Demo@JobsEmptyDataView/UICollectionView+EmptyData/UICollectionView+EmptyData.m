@@ -9,7 +9,6 @@
 
 JobsKey(JobsCollectionViewEmptyDataReloadingKey)
 @implementation UICollectionView (EmptyData)
-
 +(void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -61,7 +60,6 @@ JobsKey(JobsCollectionViewEmptyDataReloadingKey)
         }else{
             self.cleanSubviewBy(UIView.class);
             view.byFrame(self.bounds);
-
             self.addSubview(view);
             return self;
         }
@@ -79,7 +77,6 @@ JobsKey(JobsCollectionViewEmptyDataReloadingKey)
             jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
                 @jobs_strongify(self)
                 view.byFrame(self.bounds);
-
                 self.cleanSubviewBy(UIView.class);
                 self.addSubview(view);
                 view.addSubview(UIButton.initByButtonModel(model ? : jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
@@ -111,7 +108,6 @@ JobsKey(JobsCollectionViewEmptyDataReloadingKey)
             jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
                 @jobs_strongify(self)
                 view.byFrame(self.bounds);
-
                 self.cleanSubviewBy(UIView.class);
                 self.addSubview(view);
                 jobsMakeLabel(^(__kindof UILabel *_Nullable label) {

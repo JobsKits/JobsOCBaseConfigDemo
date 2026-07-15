@@ -9,7 +9,6 @@
 #import "UITabBar+TLAnimation.h"
 
 @implementation UITabBar (TLAnimation)
-
 +(void)load {
     @synchronized(self){
         MethodSwizzle(UITabBar.class,
@@ -25,7 +24,6 @@
             self.btns.add(subview);
         }
     }
-    
     // 使用方法交换时出现错误，用此方法替代
     SEL sel = NSSelectorFromString(@"tl_didAddSubview:");
     if([self respondsToSelector:sel]) {
@@ -50,7 +48,6 @@
                                                      buttonImageView:imageView(self.btns[previousIndex])
                                                      buttonTextLabel:textLabel(self.btns[previousIndex])];
         }
-        
         // 选中动画
         id <TLAnimationProtocol> selectAnimation = self.items[index].animation;
         if (selectAnimation) {
@@ -120,7 +117,4 @@ JobsKey(_selectedIndex)
 }
 
 @end
-
-
-
 

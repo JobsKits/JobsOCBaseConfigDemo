@@ -10,7 +10,6 @@
 
 #import <UIKit/UIKit.h>
 #import "NSString+Check.h"
-
 #import "JobsStringUtilsHeader.h"
 
 NS_ASSUME_NONNULL_BEGIN

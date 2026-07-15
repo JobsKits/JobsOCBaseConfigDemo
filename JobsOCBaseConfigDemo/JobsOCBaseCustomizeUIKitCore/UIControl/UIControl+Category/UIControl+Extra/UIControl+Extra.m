@@ -40,7 +40,6 @@ static inline JobsControlTarget *_jobs_bind(UIControl *ctl,
         [ctl removeTarget:old action:@selector(invoke:) forControlEvents:singleEvent];
         [map removeObjectForKey:@(singleEvent)];
     }
-
     JobsControlTarget *t = jobsMakeControlTarget(^(JobsControlTarget * _Nullable target) {
         target.block = [block copy];
         target.policy = policy;
@@ -110,7 +109,6 @@ static inline JobsControlTarget *_jobs_bind(UIControl *ctl,
             [map removeObjectForKey:@(UIControlEventAllEvents)];
         };return;
     }
-
     for (NSNumber *n in jobs_splitEvents(events)) {
         UIControlEvents ev = n.unsignedIntegerValue;
         JobsControlTarget *t = map[n];

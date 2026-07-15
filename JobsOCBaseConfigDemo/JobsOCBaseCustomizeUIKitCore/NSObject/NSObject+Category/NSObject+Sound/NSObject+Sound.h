@@ -14,9 +14,7 @@
 #import "NSString+Path.h"
 #import "NSString+URL.h"
 #import "NSString+Extra.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

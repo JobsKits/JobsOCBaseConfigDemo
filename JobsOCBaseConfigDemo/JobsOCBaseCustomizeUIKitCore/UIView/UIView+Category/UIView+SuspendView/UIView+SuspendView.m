@@ -13,7 +13,6 @@
 @end
 
 @implementation JobsSuspendGestureDelegate
-
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
 shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
     BOOL hasPan = [gestureRecognizer isKindOfClass:UIPanGestureRecognizer.class] ||

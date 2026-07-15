@@ -10,9 +10,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseModel.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

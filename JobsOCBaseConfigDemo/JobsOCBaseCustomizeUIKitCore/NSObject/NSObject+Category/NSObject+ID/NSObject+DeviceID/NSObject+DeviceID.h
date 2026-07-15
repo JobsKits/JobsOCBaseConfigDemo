@@ -10,7 +10,6 @@
 
 #import <Foundation/Foundation.h>
 #import <Security/Security.h>
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

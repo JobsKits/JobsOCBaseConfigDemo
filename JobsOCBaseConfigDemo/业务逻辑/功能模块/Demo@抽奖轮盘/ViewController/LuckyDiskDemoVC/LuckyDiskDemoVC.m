@@ -36,7 +36,6 @@ Prop_strong() UILabel *resultLabel;
 @end
 
 @implementation LuckyDiskDemoVC
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     /// 容器 ScrollView
@@ -73,7 +72,6 @@ Prop_strong() UILabel *resultLabel;
                                     repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:self.itemBorderTimer
                                  forMode:NSRunLoopCommonModes];
-
     /// 奖品网格区域
     UIView *itemView =
     [[UIView alloc] initWithFrame:CGRectMake(ScaleW(25),
@@ -81,12 +79,10 @@ Prop_strong() UILabel *resultLabel;
                                              JobsMainScreen_WIDTH() - ScaleW(50),
                                              ScaleW(248))];
     [scrollView addSubview:itemView];
-
     NSArray *itemImgArray =
     @[@"LuckDraw_1",@"LuckDraw_2",@"LuckDraw_3",@"LuckDraw_4",
       @"LuckDraw_10",@"LuckDraw_5",@"LuckDraw_9",@"LuckDraw_8",
       @"LuckDraw_7",@"LuckDraw_6"];
-
     // 上排 4 个
     for (int i = 0; i < 4; i++) {
         UIImageView *img =
@@ -96,7 +92,6 @@ Prop_strong() UILabel *resultLabel;
                                                       ScaleW(80))];
         img.image = ((NSString *)itemImgArray[i]).img;
         [itemView addSubview:img];
-
         UILabel *label =
         [[UILabel alloc] initWithFrame:CGRectMake(0,
                                                   ScaleW(63),
@@ -117,7 +112,6 @@ Prop_strong() UILabel *resultLabel;
                                                       ScaleW(80))];
         img.image = ((NSString *)itemImgArray[i + 4]).img;
         [itemView addSubview:img];
-
         UILabel *label =
         [[UILabel alloc] initWithFrame:CGRectMake(0,
                                                   ScaleW(63),
@@ -138,7 +132,6 @@ Prop_strong() UILabel *resultLabel;
                                                       ScaleW(80))];
         img.image = ((NSString *)itemImgArray[i + 6]).img;
         [itemView addSubview:img];
-
         UILabel *label =
         [[UILabel alloc] initWithFrame:CGRectMake(0,
                                                   ScaleW(63),
@@ -164,7 +157,6 @@ Prop_strong() UILabel *resultLabel;
                                         ScaleW(60.5));
     [self.startButton setBackgroundImage:@"LuckDraw_button".img
                                 forState:UIControlStateNormal];
-
     [self.startButton addTarget:self
                          action:@selector(startButtonEvent:)
                forControlEvents:UIControlEventTouchUpInside];
@@ -187,7 +179,6 @@ Prop_strong() UILabel *resultLabel;
     self.fastIndex = 0;
     self.slowIndex = -1;
     self.selectedIndex = arc4random() % 10;
-
     if (self.selectedIndex < 4) {
         self.result = self.itemTitleArray[self.selectedIndex];
     } else if (self.selectedIndex == 4) {
@@ -232,7 +223,6 @@ Prop_strong() UILabel *resultLabel;
 #pragma mark —— 快速移动动画
 - (void)fastTimerEvent {
     self.fastIndex = self.fastIndex + 1;
-
     NSInteger idx = self.fastIndex % 10;
     if (idx == 0) {
         self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(-1), ScaleW(80), ScaleW(82)));
@@ -255,7 +245,6 @@ Prop_strong() UILabel *resultLabel;
     } else if (idx == 9) {
         self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(84) - ScaleW(1), ScaleW(80), ScaleW(82)));
     }
-
     if (self.fastIndex >= 29) {
         [self.fastTimer invalidate];
         self.fastTimer = nil;
@@ -294,7 +283,6 @@ Prop_strong() UILabel *resultLabel;
     } else if (idx == 9) {
         self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(84) - ScaleW(1), ScaleW(80), ScaleW(82)));
     }
-
     if (self.slowIndex >= self.selectedIndex) {
         [self.slowTimer invalidate];
         self.slowTimer = nil;
@@ -336,9 +324,7 @@ Prop_strong() UILabel *resultLabel;
 - (void)closeButtonEvent:(UIButton *)sender {
     [UIView animateWithDuration:0.2 animations:^{
         self.lotteryResultView.byAlpha(0.0f);
-
         self.lotteryResultBgView.byAlpha(0.0f);
-
     }];
 }
 #pragma mark —— 懒加载属性
@@ -452,9 +438,7 @@ Prop_strong() UILabel *resultLabel;
             self.resultLabel.font =
             [UIFont systemFontOfSize:ScaleW(18) weight:ScaleW(1.5)];
             self.resultLabel.byTextAlignment(NSTextAlignmentCenter);
-
             self.resultLabel.byTextCor(RGB_COLOR(243, 246, 25));
-
             [_lotteryResultView addSubview:self.resultLabel];
         }
     };return _lotteryResultView;

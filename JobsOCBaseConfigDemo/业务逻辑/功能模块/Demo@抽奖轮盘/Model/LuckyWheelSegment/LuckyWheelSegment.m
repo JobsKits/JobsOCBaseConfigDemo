@@ -14,7 +14,6 @@
 @end
 
 @implementation LuckyWheelSegment
-
 - (instancetype)init {
     return [self initWithText:nil
                      textFont:[UIFont systemFontOfSize:14]

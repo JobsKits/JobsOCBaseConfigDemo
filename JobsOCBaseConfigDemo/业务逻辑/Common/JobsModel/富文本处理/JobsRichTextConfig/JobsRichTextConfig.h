@@ -9,9 +9,7 @@
 #define JobsRichTextConfig_h
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_INLINE NSMutableParagraphStyle *_Nonnull jobsMakeParagraphStyle(jobsByMutableParagraphStyleBlock _Nonnull block){

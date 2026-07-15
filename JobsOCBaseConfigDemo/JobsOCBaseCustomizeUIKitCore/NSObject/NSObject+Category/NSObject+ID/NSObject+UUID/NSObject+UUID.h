@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_NSOBJECT_UUID_013D0F4A01
 
 #import <Foundation/Foundation.h>
-
 #import "JobsLanMgr.h"
 
 NS_ASSUME_NONNULL_BEGIN

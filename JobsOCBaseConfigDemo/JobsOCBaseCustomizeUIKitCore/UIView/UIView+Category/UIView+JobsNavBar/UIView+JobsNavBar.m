@@ -7,7 +7,6 @@
 
 #import "UIView+JobsNavBar.h"
 
-
 @interface NSObject (JobsNavBarBridge)
 
 -(jobsByBtnBlock _Nonnull)jobsBackBtnClickEvent;
@@ -15,7 +14,6 @@
 @end
 
 @implementation UIView (JobsNavBar)
-
 PROP_STRONG_OBJECT_TYPE(JobsNavBarConfig, jobs_navBarConfig, Jobs_navBarConfig)
 
 JobsKey(_jobs_navBar)
@@ -54,7 +52,6 @@ JobsKey(_jobs_navBar)
     if (config) self.jobs_navBarConfig = config;
     JobsNavBar *oldNavBar = Jobs_getAssociatedObject(_jobs_navBar);
     if (oldNavBar.superview == self) return oldNavBar;
-    
     @jobs_weakify(self)
     JobsNavBar *navBar = jobsMakeNavBar(^(__kindof JobsNavBar *_Nullable data) {
         @jobs_strongify(self)

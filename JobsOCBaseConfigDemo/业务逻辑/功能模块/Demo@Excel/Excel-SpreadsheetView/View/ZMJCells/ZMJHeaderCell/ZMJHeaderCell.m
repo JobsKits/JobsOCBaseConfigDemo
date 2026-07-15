@@ -12,7 +12,6 @@
 @end
 
 @implementation ZMJHeaderCell : ZMJCell
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0];

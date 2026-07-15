@@ -15,7 +15,6 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
 @end
 
 @implementation ExcelVC
-
 - (void)dealloc{
     JobsNotificationCenter.remove(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -23,19 +22,16 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    
     self.viewModel.backBtnTitleModel.text = @"返回".tr;
     self.viewModel.textModel.textCor = HEXCOLOR(0x1F2937);
     self.viewModel.textModel.text = @"Excel".tr;
     self.viewModel.textModel.font = UIFontWeightSemiboldSize(18);
-    
     // 使用原则：底图有 + 底色有 = 优先使用底图数据
     // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
     // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
@@ -82,13 +78,11 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (void)tableView:(UITableView *)tableView
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath{
-    
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -101,7 +95,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 /// 编辑模式下，点击取消左边已选中的cell的按钮
 - (void)tableView:(UITableView *)tableView
 didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -142,7 +135,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                  .byFont(UIFontWeightMediumSize(14));
         })
         .JobsBlock1(^(id _Nullable data) {
-                     
         });
 }
 
@@ -169,7 +161,6 @@ viewForHeaderInSection:(NSInteger)section{
             .bySection(section)/// 悬浮配置
             .JobsRichViewByModel2(nil)
             .JobsBlock1(^(id _Nullable data) {
-                
             });
     };return nil;
 }
@@ -187,7 +178,6 @@ viewForHeaderInSection:(NSInteger)section{
             .bySection(section)/// 悬浮配置
             .JobsRichViewByModel2(nil)
             .JobsBlock1(^(id _Nullable data) {
-                
             });
         tbvFooterView.byBgColor(HEXCOLOR(0xF6F8FB));
         tbvFooterView.backgroundView.byBgColor(HEXCOLOR(0xF6F8FB));

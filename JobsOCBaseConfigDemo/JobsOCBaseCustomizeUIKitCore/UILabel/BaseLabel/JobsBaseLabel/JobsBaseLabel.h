@@ -11,7 +11,6 @@
 #import <UIKit/UIKit.h>
 #import "UIView+Extra.h"
 #import "BaseLabel.h"
-
 #import "JobsOCDSL.h"
 
 #if __has_include(<Masonry/Masonry.h>)
@@ -27,13 +26,9 @@
 #endif
 
 #import "JobsModelDSL.h"
-
 #import "JobsMakes.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

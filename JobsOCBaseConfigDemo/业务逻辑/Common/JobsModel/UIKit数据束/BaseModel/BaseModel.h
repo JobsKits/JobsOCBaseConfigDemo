@@ -16,7 +16,6 @@
 #endif
 
 #import "JobsClass.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

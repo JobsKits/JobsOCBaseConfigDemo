@@ -14,11 +14,8 @@
 #import "NSUserDefaults+Manager.h"
 #import "NSObject+SysInfo.h"
 #import "NSObject+Extra.h"
-
 #import "JobsStringUtilsHeader.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

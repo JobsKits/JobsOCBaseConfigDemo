@@ -12,7 +12,6 @@
 @end
 
 @implementation JobsPresentedVC
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     [self.view endEditing:YES];
@@ -25,7 +24,6 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    
     JobsLog(@"%f",self.presentUpHeight);
 }
 

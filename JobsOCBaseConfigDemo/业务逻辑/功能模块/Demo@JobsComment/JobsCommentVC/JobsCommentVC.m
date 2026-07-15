@@ -15,7 +15,6 @@ Prop_strong()JobsPresentationCtrl *presentationController;
 @end
 
 @implementation JobsCommentVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -23,7 +22,6 @@ Prop_strong()JobsPresentationCtrl *presentationController;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -39,7 +37,6 @@ Prop_strong()JobsPresentationCtrl *presentationController;
             data.byText(data.attributedTitle.string);
             data.byFont(UIFontWeightRegularSize(16));
         })
-    
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
@@ -53,7 +50,6 @@ Prop_strong()JobsPresentationCtrl *presentationController;
     [super viewDidLoad];
     self.makeNavByAlpha(1);
     self.contactCustomerServiceBtn.byAlpha(1);
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -71,7 +67,6 @@ Prop_strong()JobsPresentationCtrl *presentationController;
 -(void)makeJobsCommentCoreVC{    //触发
     UIViewController *presentingVC = self.jobsGetCurrentViewController ? : self;
     if (presentingVC.presentedViewController) return;
-
     JobsCommentCoreVC *jobsCommentCoreVC = JobsCommentCoreVC.new;
     CGFloat popUpHeight = JobsMainScreen_HEIGHT() / 2;
     jobsCommentCoreVC.popUpHeight = popUpHeight;

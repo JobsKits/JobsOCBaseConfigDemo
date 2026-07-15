@@ -8,7 +8,6 @@
 #import "CABasicAnimation+Extra.h"
 
 @implementation CABasicAnimation (Extra)
-
 +(JobsRetCABasicAnimationByStrBlock _Nonnull)animationByKeyPath{
     return ^CABasicAnimation *_Nullable(NSString *_Nullable data){
         return [CABasicAnimation animationWithKeyPath:data];;

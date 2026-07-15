@@ -9,7 +9,6 @@
 #import "NSString+Replace.h"
 
 @implementation NSObject (UUID)
-
 -(NSString *)UUID{
     CFUUIDRef uuid_ref = CFUUIDCreate(kCFAllocatorDefault);
     CFStringRef uuid_string_ref = CFUUIDCreateString(kCFAllocatorDefault, uuid_ref);

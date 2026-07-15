@@ -10,7 +10,6 @@
 
 #import <CoreImage/CoreImage.h>
 #import "JobsOCVideoRecorderFilterProtocol.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

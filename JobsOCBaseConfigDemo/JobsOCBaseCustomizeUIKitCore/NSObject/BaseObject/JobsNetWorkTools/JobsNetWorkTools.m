@@ -79,9 +79,7 @@ static JobsNetworkTrafficMonitor *_sharedInstance = nil;
                 static BOOL     s_hasLastSample   = NO;
                 static uint64_t s_lastDownload    = 0;
                 static uint64_t s_lastUpload      = 0;
-
                 JobsNetworkBytes now = JobsCurrentNetworkBytes();
-
                 if (!s_hasLastSample) {
                     // 第一次取样，只记录基准值，不回调网速（否则第一下是乱的）
                     s_lastDownload  = now.download;
@@ -92,13 +90,11 @@ static JobsNetworkTrafficMonitor *_sharedInstance = nil;
                 /// 处理可能的计数回绕，防止出现负数
                 uint64_t deltaDown = 0;
                 uint64_t deltaUp   = 0;
-
                 if (now.download >= s_lastDownload) {
                     deltaDown = now.download - s_lastDownload;
                 } else {
                     deltaDown = 0;// 计数回绕，直接视为 0，避免乱跳
                 }
-
                 if (now.upload >= s_lastUpload) {
                     deltaUp = now.upload - s_lastUpload;
                 } else {
@@ -121,7 +117,6 @@ static JobsNetworkTrafficMonitor *_sharedInstance = nil;
                 JobsLog(@"我死球了");
                 if (self.objBlock) self.objBlock(timer);
             });
-
             timer.accumulatedElapsed       = 0;
             timer.lastStartDate            = nil;
         });

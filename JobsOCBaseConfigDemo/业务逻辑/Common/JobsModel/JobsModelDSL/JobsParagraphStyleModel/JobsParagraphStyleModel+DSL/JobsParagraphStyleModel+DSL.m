@@ -8,7 +8,6 @@
 #import "JobsParagraphStyleModel+DSL.h"
 
 @implementation JobsParagraphStyleModel (DSL)
-
 -(JobsRetJobsParagraphStyleModelByIDBlock _Nonnull)byValue{
     @jobs_weakify(self)
     return ^__kindof JobsParagraphStyleModel *_Nullable(id _Nullable data) {

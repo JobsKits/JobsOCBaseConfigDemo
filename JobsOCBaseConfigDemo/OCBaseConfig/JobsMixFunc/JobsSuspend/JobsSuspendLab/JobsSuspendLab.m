@@ -17,11 +17,9 @@
 @end
 
 @implementation JobsSuspendLab
-
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(self.backgroundColor ? :JobsBlackColor);
-
         self.text = JobsNonnullString(self.text, @"No Data".tr);
         self.internationalizationKEY = @"No Data";
         self.textAlignment = NSTextAlignmentCenter;

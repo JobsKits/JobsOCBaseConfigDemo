@@ -26,7 +26,6 @@ Prop_strong()UILabel *timeLab;
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-
     };return self;
 }
 

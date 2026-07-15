@@ -20,7 +20,6 @@ static CGFloat widthCallback(void* ref){
 }
 
 @implementation CutomView
-
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
     CGContextRef context = UIGraphicsGetCurrentContext(); //获取当前绘制上下文
@@ -34,7 +33,6 @@ static CGFloat widthCallback(void* ref){
     callbacks.getAscent = ascentCallback;//设置图片顶部距离基线的距离
     callbacks.getDescent = descentCallback;//设置图片底部距离基线的距离
     callbacks.getWidth = widthCallback;//设置图片宽度
-    
     NSDictionary * dicPic = @{@"height":@100,@"width":@180};//创建一个图片尺寸的字典，初始化代理对象需要
     CTRunDelegateRef delegate = CTRunDelegateCreate(&callbacks, (__bridge void*)dicPic); //创建代理
     unichar placeHolder = 0xFFFC;
@@ -49,7 +47,6 @@ static CGFloat widthCallback(void* ref){
     NSInteger lenght = attributeStr.length;
     CTFrameRef frame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, lenght), path, NULL);////工厂根据绘制区域及富文本（可选范围，多次设置）设置frame
     CTFrameDraw(frame, context);//工厂根据绘制区域及富文本（可选范围，多次设置）设置frame
-    
     UIImage* image = @"predict_list_header_bg".img;
     CGRect imgFrame = [self calculateImageRectWithFrame:frame];
     CGContextDrawImage(context, imgFrame, image.CGImage);
@@ -71,10 +68,8 @@ static CGFloat widthCallback(void* ref){
             NSDictionary* attributes = (NSDictionary*)CTRunGetAttributes(run); //获取CTRun中的属性
             CTRunDelegateRef delegate = (__bridge CTRunDelegateRef)[attributes valueForKey:(id)kCTRunDelegateAttributeName];    //获取属性中的代理
             if (!delegate) continue;
-            
             NSDictionary* dic = (NSDictionary*)CTRunDelegateGetRefCon(delegate);  //获取代理中的字典
             if (![dic isKindOfClass:[NSDictionary class]]) continue;
-            
             CGPoint point = points[i]; //获取一个起点
             CGFloat ascent; //获取上距
             CGFloat descent;//获取下距

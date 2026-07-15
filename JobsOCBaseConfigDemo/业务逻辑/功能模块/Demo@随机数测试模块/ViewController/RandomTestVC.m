@@ -29,7 +29,6 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 @end
 
 @implementation RandomTestVC
-
 @synthesize tableView = _tableView;
 @synthesize refreshBtn = _refreshBtn;
 @synthesize dataMutArr = _dataMutArr;

@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_UITEXTMODELPROTOCOL_67794162DC
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

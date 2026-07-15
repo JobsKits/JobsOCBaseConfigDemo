@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_FMBANNERADSMODEL_DSL_231FA6A41914F228
 
 #import "JobsModel.h"
-
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

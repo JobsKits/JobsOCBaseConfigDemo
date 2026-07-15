@@ -25,7 +25,6 @@
 #import "UIView+Masonry.h"
 #import "UIView+Navigator.h"
 #import "UIView+JHGestureBlock.h"
-
 #import "JobsOCDSL.h"
 
 #endif /* JobsView_h */

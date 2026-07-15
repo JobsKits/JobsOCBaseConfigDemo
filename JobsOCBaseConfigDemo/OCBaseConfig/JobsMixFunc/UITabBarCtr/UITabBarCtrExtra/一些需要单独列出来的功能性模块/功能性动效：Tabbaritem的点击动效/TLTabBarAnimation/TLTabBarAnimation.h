@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_TLTABBARANIMATION_18F2AC4B13
 
 #import "TLAnimationProtocol.h"
-
 #import "JobsDefineProperty.h"
 
 #define  kDuration  0.5f

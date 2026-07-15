@@ -44,15 +44,10 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     self.zyTextField.leftView = UIImageView.initBy(self.doorInputViewBaseStyleModel.leftViewIMG);
     self.zyTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
     self.zyTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
-
     self.zyTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
-
     self.zyTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
-
     self.zyTextField.byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance);
-
     self.zyTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
-
     self.zyTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
     self.zyTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
     self.zyTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量
@@ -66,11 +61,9 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 }
 
 -(void)block:(ZYTextField *)textField value:(NSString *)value{
-    
     self.textFieldInputModel.resString = value;
     self.textFieldInputModel.PlaceHolder = self.doorInputViewBaseStyleModel.placeholder;
     textField.requestParams = self.textFieldInputModel;
-    
     if (self.objBlock) self.objBlock(textField);// 对外统一传出TF
 }
 /// 倒计时按钮（需要销毁定时器）
@@ -95,9 +88,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         @jobs_strongify(self)
         self.doorInputViewBaseStyleModel = doorInputViewBaseStyleModel;
         self.countDownBtn.byAlpha(1);
-
         self.zyTextField.byAlpha(1);
-
         [self configTextField];
     };
 }
@@ -141,7 +132,6 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     if (!_zyTextField) {
         _zyTextField = ZYTextField.new;
         _zyTextField.byDelegate(self);
-
         @jobs_weakify(self)
         [_zyTextField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
             @jobs_strongify(self)

@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_URLMANAGERMODEL_DSL_1A8898E569E0B516
 
 #import "JobsModel.h"
-
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

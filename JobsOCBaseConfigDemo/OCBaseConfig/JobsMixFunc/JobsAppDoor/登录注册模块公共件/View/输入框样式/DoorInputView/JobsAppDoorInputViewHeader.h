@@ -6,11 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsByOCPods.h"
-
 #import "JobsDefines.h"
 
 #ifndef JobsAppDoorInputViewHeader_h

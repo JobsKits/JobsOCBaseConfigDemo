@@ -9,11 +9,8 @@
 #define JOBS_HEADER_GUARD_JOBSCUSTOMTABBARCONFIG_5805E39A49
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

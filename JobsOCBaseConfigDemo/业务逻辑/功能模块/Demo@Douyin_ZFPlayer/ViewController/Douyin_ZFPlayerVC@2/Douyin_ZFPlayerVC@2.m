@@ -19,14 +19,12 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
 @end
 
 @implementation Douyin_ZFPlayerVC_2
-
 -(void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
 }
 #pragma mark —— Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
-
     };return self;
 }
 
@@ -48,7 +46,6 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
             data.byFont(UIFontWeightRegularSize(18));
             data.byText(data.attributedTitle.string);
         })
-    
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
@@ -62,7 +59,6 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
 -(void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsBlackColor);
-
     self.makeNavByAlpha(1);
     self.tableView.byShow(self);
     self.bitsMonitorSuspendLab.byVisible(YES);
@@ -132,13 +128,11 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
 
 -(void)playTheVideoAtIndexPath:(NSIndexPath *)indexPath{
     VideoModel_Core *data = (VideoModel_Core *)self.dataMutArr[indexPath.row];
-    
     {
         NSString *URLString = [data.videoIdcUrl stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet];
         NSURL *URL = [KTVHTTPCache proxyURLWithOriginalURL:URLString.jobsUrl];
         [self.player playTheIndexPath:indexPath assetURL:URL];
     }
-
     self.controlView
         .byResetControlView
         .byShowCoverViewWithUrl(data.thumbnail_url);
@@ -231,7 +225,6 @@ numberOfRowsInSection:(NSInteger)section {
         .byDelegate(self)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
             .JobsBlock1(^(id _Nullable data) {;
-             
             });
 }
 
@@ -249,15 +242,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         @jobs_weakify(self)
         _bitsMonitorSuspendLab = [JobsBitsMonitorSuspendLab.alloc initBy:JobsBitsMonitorDisplayStyleRichText];
         _bitsMonitorSuspendLab.byFont(UIFontWeightBoldSize(10));
-
         _bitsMonitorSuspendLab.byBgColor(JobsLightGrayColor);
-
         _bitsMonitorSuspendLab.byTextCor(JobsRedColor);
-
         _bitsMonitorSuspendLab.vc = weak_self;
         _bitsMonitorSuspendLab.isAllowDrag = YES;/// 悬浮效果必须要的参数
         _bitsMonitorSuspendLab.byFrame(JobsBitsMonitorSuspendLab.viewFrameByModel(nil));
-
         self.view.addSubview(_bitsMonitorSuspendLab);
     };return _bitsMonitorSuspendLab;
 }
@@ -274,7 +263,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .byShowsVerticalScrollIndicator(NO)
                 .byScrollsToTop(NO);
-            
             if (@available(iOS 11.0, *)) {
                 tableView.byEstimatedRowHeight(0)
                     .byEstimatedSectionFooterHeight(0)
@@ -283,7 +271,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             } else {
                 SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
             }
-            
             {
                 tableView.byMJRefreshHeader(self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
                     @jobs_strongify(self )
@@ -304,7 +291,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                     return nil;
                 }]));tableView.mj_footer.hidden = NO;
             }
-
     //        {// 设置tabAnimated相关属性
     //            tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:JobsBaseTableViewCell.class
     //                                                                  cellHeight:JobsBaseTableViewCell.cellHeightByModel(nil)];
@@ -314,7 +300,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ////            _tableView.tabAnimated.animatedBackgroundColor = JobsRedColor;
     //            [tableView tab_startAnimation];   // 开启动画
     //        }
-            
             tableView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                 make.left.right.equalTo(self.view);
                 if (self.gk_navBarAlpha && !self.gk_navigationBar.hidden) {//显示
@@ -335,25 +320,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                                           containerViewTag:kPlayerViewTag];
         _player.disableGestureTypes = ZFPlayerDisableGestureTypesPan | ZFPlayerDisableGestureTypesPinch;
         _player.controlView = self.controlView;
-
         _player.allowOrentitaionRotation = NO;
         _player.WWANAutoPlay = YES;
         /// 1.0是完全消失时候
         _player.playerDisapperaPercent = 1.0;
-        
         @jobs_weakify(self)
         _player.playerDidToEnd = ^(id _Nonnull asset) {
             @jobs_strongify(self)
             [self->_player.currentPlayerManager replay];
         };
-        
         _player.orientationWillChange = ^(ZFPlayerController * _Nonnull player,
                                           BOOL isFullScreen) {
             AppDelegate.sharedManager.allowOrentitaionRotation = isFullScreen;
             @jobs_strongify(self)
             self->_player.controlView.hidden = YES;
         };
-        
         _player.orientationDidChanged = ^(ZFPlayerController * _Nonnull player,
                                           BOOL isFullScreen) {
             @jobs_strongify(self)
@@ -477,7 +458,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 -(ZFDouYinControlView *)controlView{
     if (!_controlView){
         _controlView = jobsMakeZFDouYinControlView(^(__kindof ZFDouYinControlView * _Nullable label) {
-            
         });
     };return _controlView;
 }
@@ -504,7 +484,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         RequestTool.setupPublicParametersBy(jobsMakeRequestTool(^(__kindof RequestTool * _Nullable tool) {
             tool.languageType = HTTPRequestHeaderLanguageCN;
         }));
-        
         @jobs_weakify(self)
         extern NSString *appInterfaceTesting;
         [JobsNetworkingAPI requestApi:This.appInterfaceTesting.funcName
@@ -521,13 +500,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                         请求到有实际意义上的数据 ——> 上拉加载更多
                         请求到没有有实际意义上的数据 ——>  没有更多数据了
                      */
-                    
                     /**
                      下拉刷新
                         请求到有实际意义上的数据 ——> 清除以前的旧的数据 下拉可以刷新
                         请求到没有有实际意义上的数据 ——> 不清除以前的旧的数据 下拉可以刷新
                      */
-                    
                     // 如果当前操作是下拉刷新 并且 请求到的数组里面有值——>清除已有的数据
                     if (!isLoadMore && tempDataArr.count) [self.dataMutArr removeAllObjects];
                     if (isLoadMore) {

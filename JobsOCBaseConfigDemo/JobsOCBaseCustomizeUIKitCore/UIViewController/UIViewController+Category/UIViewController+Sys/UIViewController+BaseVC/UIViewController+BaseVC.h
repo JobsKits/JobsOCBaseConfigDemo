@@ -26,25 +26,15 @@
 #endif
 
 #import "JobsBaseProtocolHeader.h"
-
 #import "GKCustomNavigationBarExtra.h"
-
 #import "JobsBaseUI.h"
-
 #import "JobsNavBarHeader.h"
-
 #import "JobsDebug.h"
-
 #import "JobsAppToolsHeader.h"
-
 #import "JobsViewNavigatorHeader.h"
-
 #import "JobsLoadingImageHeader.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 /// 用导航控制器进行包装

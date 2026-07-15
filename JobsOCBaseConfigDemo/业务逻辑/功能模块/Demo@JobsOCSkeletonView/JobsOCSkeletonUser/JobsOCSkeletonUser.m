@@ -8,7 +8,6 @@
 #import "JobsOCSkeletonUser.h"
 
 @implementation JobsOCSkeletonUser
-
 +(instancetype)userWithName:(NSString *)name
                      detail:(NSString *)detail
                       color:(UIColor *)color{

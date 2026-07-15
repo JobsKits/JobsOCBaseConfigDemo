@@ -18,9 +18,7 @@
 #endif
 
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 #define UITableViewCellTitleWidth JobsMainScreen_WIDTH() * 2 / 3

@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_UISCROLLVIEWDSLPROTOCOL_AE92BC2B00
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

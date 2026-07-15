@@ -13,17 +13,11 @@
 #import "UIView+Masonry.h"
 #import "JobsBaseWebVC.h"
 #import "NSObject+MyAppTools.h"
-
 #import "JobsAppToolsHeader.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCDSL.h"
-
 #import "JobsModelDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

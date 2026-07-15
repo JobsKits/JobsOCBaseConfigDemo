@@ -8,7 +8,6 @@
 #import "JobsResponseModel+DSL.h"
 
 @implementation JobsResponseModel (DSL)
-
 -(JobsRetJobsResponseModelByHTTPResponseCodeBlock _Nonnull)byCode{
     @jobs_weakify(self)
     return ^__kindof JobsResponseModel *_Nullable(HTTPResponseCode data) {

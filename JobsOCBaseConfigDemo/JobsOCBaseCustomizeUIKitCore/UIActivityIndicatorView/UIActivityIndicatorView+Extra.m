@@ -8,7 +8,6 @@
 #import "UIActivityIndicatorView+Extra.h"
 
 @implementation UIActivityIndicatorView (Extra)
-
 +(JobsRetActivityIndicatorViewByNSInteger _Nonnull)initBy{
     return ^__kindof UIActivityIndicatorView *_Nullable(UIActivityIndicatorViewStyle data){
         return [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:data];

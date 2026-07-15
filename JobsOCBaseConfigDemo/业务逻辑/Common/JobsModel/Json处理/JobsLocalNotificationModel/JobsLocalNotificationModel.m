@@ -9,7 +9,6 @@
 #import "JobsLanMgr.h"
 
 @implementation JobsLocalNotificationModel
-
 -(NSString *)identifier{
     if (!_identifier) {
         _identifier = @"DemoNotification";

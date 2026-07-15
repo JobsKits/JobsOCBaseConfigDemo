@@ -19,7 +19,6 @@
 #endif
 
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 @interface RACGestureRecognizerActionHandler : NSObject

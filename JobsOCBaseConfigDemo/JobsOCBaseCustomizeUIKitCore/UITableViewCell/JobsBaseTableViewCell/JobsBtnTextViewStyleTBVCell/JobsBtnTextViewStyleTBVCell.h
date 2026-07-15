@@ -29,11 +29,8 @@
 #endif
 
 #import "JobsRichTextUtils.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsDefines.h"
-
 #import "JobsModelDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

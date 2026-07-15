@@ -9,13 +9,9 @@
 #define JOBS_HEADER_GUARD_JOBSVIEWNAVIGATOR_37C12A6C3D
 
 #import <UIKit/UIKit.h>
-
 #import "JobsMakes.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

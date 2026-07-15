@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_NOTIFICATIONMODEL_DSL_28B0200E5BB31B8
 
 #import "JobsModel.h"
-
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -18,16 +18,13 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
 @end
 
 @implementation CasinoUpgradeContentView
-
 -(instancetype)init{
     if (self = [super init]) {
-
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
     };return self;
 }
 
@@ -41,7 +38,6 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
         @jobs_strongify(self)
         self.iOSNewestVersionModel = model;
         self.titleLab.alpha = 1;
-        
         if (self.iOSNewestVersionModel.isForced == JobsUpdateByUser) {
             self.cancelBtn.alpha = 1;
         }else if (self.iOSNewestVersionModel.isForced == JobsUpdateBySys){

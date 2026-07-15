@@ -16,11 +16,9 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 @end
 
 @implementation JobsAppDoorInputViewBaseStyle_6
-
 - (instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsClearColor);
-
         self.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
             data.byJobsWidth(1)
                 .byLayerCor(JobsWhiteColor);
@@ -31,7 +29,6 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.byBgColor(JobsClearColor);
-
         self.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
             data.byJobsWidth(1)
                 .byLayerCor(JobsWhiteColor);
@@ -146,7 +143,6 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                     make.left.top.bottom.equalTo(self);
                     make.right.equalTo(self.authCodeLab.mas_left).offset(-JobsWidth(3));
                 });
-
             [textField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
                 @jobs_strongify(self)
                 return self.retBoolByIDBlock ? self.retBoolByIDBlock(data) : YES;

@@ -16,7 +16,6 @@ Prop_assign()CGSize size;
 @end
 
 @implementation MainTableViewCellItem
-
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     MainTableViewCellItem *cell = JobsRegisterDequeueCollectionViewCell(MainTableViewCellItem);

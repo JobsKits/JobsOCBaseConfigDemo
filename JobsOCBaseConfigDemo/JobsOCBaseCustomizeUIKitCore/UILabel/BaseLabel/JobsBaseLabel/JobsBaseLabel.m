@@ -37,7 +37,6 @@ static dispatch_once_t static_baseLabelOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsClearColor);
-
     };return self;
 }
 
@@ -66,7 +65,6 @@ static dispatch_once_t static_baseLabelOnceToken;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -77,9 +75,7 @@ static dispatch_once_t static_baseLabelOnceToken;
         self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         MakeDataNull
         self.bgImageView.byAlpha(1);
-
         self.label.byAlpha(1);
-
     };
 }
 #pragma mark —— lazyLoad
@@ -103,12 +99,10 @@ static dispatch_once_t static_baseLabelOnceToken;
             label.addOn(self.bgImageView).byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
             });
-            
             [label actionRetIDByGestureRecognizerBlock:^id(UIGestureRecognizer *data) {
                 JobsLog(@"JobsBaseLabel的Tap手势");
                 return @1;
             }];
-            
             [label actionRetIDByGestureRecognizerBlock:^id(UIGestureRecognizer *data) {
                 JobsLog(@"JobsBaseLabel的LongPress手势");
                 return @1;

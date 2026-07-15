@@ -23,7 +23,6 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
 @end
 
 @implementation JobsAppDoorLoginContentView
-
 - (void)dealloc {
     [self.sendBtnEnableDisposable dispose];
     JobsLog(@"%@",JobsLocalFunc);
@@ -32,7 +31,6 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(Cor1);
-
 //        @jobs_weakify(self)
         [self addNotificationName:@"textFieldTag"
                             block:^(id _Nullable weakSelf,
@@ -75,23 +73,19 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
 
 -(void)refreshLoginLayout{
     if (self.width <= 0 || self.height <= 0) return;
-
     CGFloat sideRailWidth = self.loginSideRailWidth;
     CGFloat formWidth = self.loginFormWidth;
     CGFloat formLeft = JobsWidth(20);
     CGFloat formCenterX = self.loginFormCenterX;
-
     self.toRegisterBtn
         .byFrame(CGRectMake(self.width - sideRailWidth,
                             0,
                             sideRailWidth,
                             self.height));
-
     self.titleLab
         .bySizeToFit()
         .byCenterX(formCenterX)
         .byTop(JobsWidth(20));
-
     [self.loginDoorInputViewBaseStyleMutArr enumerateObjectsUsingBlock:^(JobsAppDoorInputViewBaseStyle * _Nonnull obj,
                                                                          NSUInteger idx,
                                                                          BOOL * _Nonnull stop) {
@@ -111,20 +105,17 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
                 layer.byMasksToBounds(YES);
             });
     }];
-
     self.sendBtn
         .byFrame(CGRectMake(formLeft,
                             self.height - JobsWidth(60) - ThingsHeight,
                             formWidth,
                             ThingsHeight));
-
     self.abandonLoginBtn.titleLabel.bySizeToFit();
     self.abandonLoginBtn
         .bySize(CGSizeMake(MAX(JobsWidth(90), self.abandonLoginBtn.titleLabel.width + JobsWidth(20)),
                            JobsWidth(20)))
         .byCenterX(formCenterX)
         .byBottom(self.height - JobsWidth(28));
-
     JobsAppDoorInputViewBaseStyle *lastInputView = self.loginDoorInputViewBaseStyleMutArr.lastObject;
     if (lastInputView) {
         self.storeCodeBtn
@@ -138,7 +129,6 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
                                 JobsWidth(118),
                                 JobsWidth(28)));
     }
-
     self.toRegisterBtn
         .byAlpha(.7f);
     self.titleLab
@@ -151,7 +141,6 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
         .byAlpha(1);
     self.findCodeBtn
         .byAlpha(1);
-
     self
         .byBringSubviewToFront(self.toRegisterBtn)
         .byBringSubviewToFront(self.titleLab);
@@ -386,7 +375,6 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
-
                 x.bySelected(!x.selected);
                 x.selected ?
                     x.jobsResetBtnImage(@"记住密码".img) :
@@ -484,7 +472,6 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
 -(NSMutableArray<JobsAppDoorInputViewBaseStyle *> *)loginDoorInputViewBaseStyleMutArr{
     if (!_loginDoorInputViewBaseStyleMutArr) {
         _loginDoorInputViewBaseStyleMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-
         });
     };return _loginDoorInputViewBaseStyleMutArr;
 }

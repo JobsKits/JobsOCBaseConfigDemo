@@ -25,7 +25,6 @@ static UIColor *JobsGraphicCaptchaRandomColor(CGFloat alpha) {
 @end
 
 @implementation JobsGraphicCaptchaView
-
 @synthesize config = _config;
 
 -(instancetype)init{

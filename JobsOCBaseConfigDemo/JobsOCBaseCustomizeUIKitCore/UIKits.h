@@ -13,7 +13,6 @@
 #import "XYColorOC.h"
 #endif
 
-
 #ifndef JobsBaseCustomizeUIKitCoreHeader_h
 #define JobsBaseCustomizeUIKitCoreHeader_h
 #pragma mark —— BaseProtocol

@@ -17,19 +17,12 @@
 #import "NSMutableArray+Extra.h"
 #import "NSObject+Notification.h"
 #import "UITextView+Extra.h"
-
 #import "JobsOCRuntimeKits.h"
-
 #import "JobsRichTextUtils.h"
-
 #import "JobsOCDSL.h"
-
 #import "JobsMakes.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

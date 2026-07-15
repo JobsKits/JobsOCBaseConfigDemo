@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_GTCAPTCHA4MODEL_DSL_1C9FC20EFD0E5C55
 
 #import "JobsModel.h"
-
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

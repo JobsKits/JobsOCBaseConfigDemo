@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_NSMUTABLEDICTIONARY_ORDERED_D69F3AE72C
 
 #import <Foundation/Foundation.h>
-
 #import "JobsOCRuntimeKits.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

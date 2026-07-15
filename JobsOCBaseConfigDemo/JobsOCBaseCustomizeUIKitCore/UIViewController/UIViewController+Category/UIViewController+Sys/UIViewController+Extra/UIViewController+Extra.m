@@ -8,7 +8,6 @@
 #import "UIViewController+Extra.h"
 
 @implementation UIViewController (Extra)
-
 -(void)make:(MASConstraintMaker *)make topOffset:(CGFloat)topOffset{
 //    JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape
     if(self.navBar && !self.setupNavigationBarHidden) {

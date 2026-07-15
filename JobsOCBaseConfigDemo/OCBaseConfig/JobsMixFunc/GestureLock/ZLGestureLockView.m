@@ -19,7 +19,6 @@ Prop_assign()ResultKindType resultType;//学生端结果
 @end
 
 @implementation ZLGestureLockView
-
 -(instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self initSubviews];
@@ -28,15 +27,12 @@ Prop_assign()ResultKindType resultType;//学生端结果
 // 子视图初始化
 - (void)initSubviews {
     self.backgroundColor = JobsClearColor;
-
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
     [self addGestureRecognizer:pan];
-    
     // 创建九宫格 9个按钮
     for (NSInteger i = 0; i < 9; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.userInteractionEnabled = NO;
-        
         btn.jobsResetBtnImage(@"灰色椭圆".img);
         btn.selectedStateImageBy(@"橙色椭圆".img);
         [self addSubview:btn];
@@ -46,13 +42,9 @@ Prop_assign()ResultKindType resultType;//学生端结果
 // 为什么要在这个方法中布局子控件，因为只调用这个方法，就表示父控件的尺寸确定
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
     NSUInteger count = self.subviews.count;
-    
     int cols = 3;//总列数
-    
     CGFloat x = 0,y = 0,w = 0,h = 0;
-    
     if (Screen_Width == 320) {
         w = 50;
         h = 50;
@@ -60,34 +52,26 @@ Prop_assign()ResultKindType resultType;//学生端结果
         w = 58;
         h = 58;
     }
-    
     CGFloat margin = (self.bounds.size.width - cols * w) / (cols + 1);//间距
-    
     CGFloat col = 0;
     CGFloat row = 0;
     for (int i = 0; i < count; i++) {
-        
         col = i % cols;
         row = i / cols;
-        
         x = margin + (w+margin)*col;
-        
         y = margin + (w+margin)*row;
         if (Screen_Height == 480) { // 适配4寸屏幕
             y = (w + margin) * row;
         }else {
             y = margin +(w + margin) * row;
         }
-        
         UIButton *btn = self.subviews[i];
         btn.frame = CGRectMake(x, y, w, h);
     }
 }
 // 只要调用这个方法就会把之前绘制的东西清空 重新绘制
 - (void)drawRect:(CGRect)rect {
-    
     if (_selectBtns.count == 0) return;
-    
     // 把所有选中按钮中心点连线
     UIBezierPath *path = [UIBezierPath bezierPath];
     for (int i = 0; i < self.selectBtns.count; i ++) {
@@ -98,7 +82,6 @@ Prop_assign()ResultKindType resultType;//学生端结果
             [path addLineToPoint:btn.center];
         }
     }
-    
     // 判断是否松开手指
     if (self.finished) {
         //松开手
@@ -107,7 +90,6 @@ Prop_assign()ResultKindType resultType;//学生端结果
         if ([self.delegate respondsToSelector:@selector(gestureLockView:drawRectFinished:)]) {
             [self.delegate gestureLockView:self drawRectFinished:pwd];
         }
-        
         switch (self.resultType) {
             case ResultKindTypeTrue:{
                 //正确
@@ -124,7 +106,6 @@ Prop_assign()ResultKindType resultType;//学生端结果
                     [JobsClearColor set];
                 }break;
             case ResultKindTypeClear:{
-                    
                 }break;
             default:
                 break;
@@ -134,7 +115,6 @@ Prop_assign()ResultKindType resultType;//学生端结果
         [path addLineToPoint:self.currentPoint];
         [[UIColor orangeColor] set];
     }
-    
     // 设置路径属性
     path.lineWidth = 6;
     path.lineJoinStyle = kCGLineJoinRound;
@@ -144,7 +124,6 @@ Prop_assign()ResultKindType resultType;//学生端结果
 }
 #pragma mark —— 手势
 - (void)pan:(UIPanGestureRecognizer *)pan {
-    
     if (pan.state == UIGestureRecognizerStateBegan) {
         for (UIButton *btn in _errorBtns) {
             btn.jobsResetBtnImage(@"灰色椭圆".img);
@@ -153,7 +132,6 @@ Prop_assign()ResultKindType resultType;//学生端结果
         [self.errorBtns removeAllObjects];
     }
     _currentPoint = [pan locationInView:self];
-    
     for (UIButton *button in self.subviews) {
         if (CGRectContainsPoint(button.frame, _currentPoint)) {
             if (button.selected == NO) {
@@ -161,18 +139,15 @@ Prop_assign()ResultKindType resultType;//学生端结果
                 button.selected = YES;//设置为选中
                 [self.selectBtns addObject:button];
             } else {
-                
             }
         }
     }
-    
     // 重绘
     [self setNeedsDisplay];
     //监听手指松开
     if (pan.state == UIGestureRecognizerStateEnded) {
         self.finished = YES;
     }
-    
 //    [self layoutIfNeeded];
 //
 //    if (pan.state == UIGestureRecognizerStateEnded) {

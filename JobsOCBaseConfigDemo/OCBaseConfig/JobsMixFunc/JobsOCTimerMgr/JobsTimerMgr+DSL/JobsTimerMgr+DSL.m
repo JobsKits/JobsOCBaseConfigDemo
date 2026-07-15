@@ -8,7 +8,6 @@
 #import "JobsTimerMgr+DSL.h"
 
 @implementation JobsTimerMgr (DSL)
-
 -(JobsRetJobsTimerMgrByUpsertTimerBlock _Nonnull)byUpsertTimer{
     @jobs_weakify(self)
     return ^__kindof JobsTimerMgr *_Nullable(NSString *_Nullable identifier,

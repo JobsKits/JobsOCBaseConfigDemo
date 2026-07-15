@@ -44,7 +44,6 @@ Prop_assign()BOOL jobsPendingBoundsReload;
 @end
 
 @implementation JobsOCCalendar
-
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {

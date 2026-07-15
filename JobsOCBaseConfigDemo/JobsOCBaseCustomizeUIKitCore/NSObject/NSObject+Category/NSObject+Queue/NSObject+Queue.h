@@ -13,9 +13,7 @@
 #import <Foundation/Foundation.h>
 #import "NSString+Extra.h"
 #import "NSString+Toast.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

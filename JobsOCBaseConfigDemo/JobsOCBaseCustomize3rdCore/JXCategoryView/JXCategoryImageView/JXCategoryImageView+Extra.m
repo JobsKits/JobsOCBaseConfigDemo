@@ -8,7 +8,6 @@
 #import "JXCategoryImageView+Extra.h"
 
 @implementation JXCategoryImageView (Extra)
-
 -(JobsRetCategoryImageViewByStringsBlock _Nonnull)byImageNames{
     @jobs_weakify(self)
     return ^__kindof JXCategoryImageView *_Nullable(__kindof NSArray <__kindof NSString *>* _Nullable strings){

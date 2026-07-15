@@ -8,7 +8,6 @@
 #import "NSObject+AttributedStr.h"
 
 @implementation NSObject (AttributedStr)
-
 +(__kindof NSDictionary <NSAttributedStringKey,id>*)linkTextAttributes{
     return @{
         NSForegroundColorAttributeName: @"#FFCC00".cor,

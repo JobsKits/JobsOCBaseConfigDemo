@@ -27,7 +27,6 @@ Prop_strong()BaseButton *pushButton;
 @end
 
 @implementation JobsViewPushDemoVC
-
 -(void)loadView{
     [super loadView];
     self.viewModel
@@ -154,7 +153,6 @@ Prop_strong()BaseButton *pushButton;
 @end
 
 @implementation JobsViewPushDemoPanel
-
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.byBgColor(UIColor.systemIndigoColor);

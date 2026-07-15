@@ -46,13 +46,11 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 -(void)configTextField{
     if (isValue(self.doorInputViewBaseStyleModel.inputStr)) {
         self.magicTextField.byText(self.doorInputViewBaseStyleModel.inputStr);
-
     }
     self.magicTextField.background = self.doorInputViewBaseStyleModel.background;
     self.magicTextField.byBgColor(self.doorInputViewBaseStyleModel.backgroundColor);
     self.magicTextField.disabledBackground = self.doorInputViewBaseStyleModel.disabledBackground;
     self.magicTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
-
     UIImage *leftImage = self.doorInputViewBaseStyleModel.leftViewIMG;
     CGFloat leftOffset = leftImage ? (self.doorInputViewBaseStyleModel.leftViewOffsetX ? : JobsWidth(17)) : 0;
     CGFloat placeholderOffset = leftImage ? (self.doorInputViewBaseStyleModel.placeHolderOffset ? : JobsWidth(35)) : JobsWidth(12);
@@ -80,12 +78,9 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 
 -(void)block:(JobsMagicTextField *)textField
        value:(NSString *)value{
-
     self.textFieldInputModel.resString = value;
     self.textFieldInputModel.PlaceHolder = self.doorInputViewBaseStyleModel.placeholder;
-
     textField.requestParams = self.textFieldInputModel;
-    
     if (self.objBlock) self.objBlock(textField);// 对外统一传出TF
 }
 #pragma mark —— UITextFieldDelegate
@@ -158,10 +153,8 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             @jobs_strongify(self)
             x.selected = !x.selected;
             self.magicTextField.bySecureTextEntry(!x.selected);
-
             if (x.selected && !self.magicTextField.isEditing) {
                 self.magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
-
             }
         }).onLongPressGestureBy(^(id data){
             JobsLog(@"");
@@ -180,9 +173,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         _magicTextField = jobsMakeMagicTextField(^(__kindof JobsMagicTextField * _Nullable textField) {
             @jobs_strongify(self)
             textField.byDelegate(self);
-
             textField.bySecureTextEntry(self.doorInputViewBaseStyleModel.isShowSecurityBtn);
-
             [textField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
                 JobsLog(@"SSS = %@",self.textFieldInputModel.PlaceHolder);
                 @jobs_strongify(self)

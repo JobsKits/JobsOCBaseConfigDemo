@@ -9,9 +9,7 @@
 #define JobsLocalNotificationModel_h
 
 #import <Foundation/Foundation.h>
-
 #import "JobsLanMgr.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

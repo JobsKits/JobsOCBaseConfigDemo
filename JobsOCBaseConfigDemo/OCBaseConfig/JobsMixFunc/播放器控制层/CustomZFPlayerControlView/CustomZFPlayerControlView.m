@@ -15,7 +15,6 @@ Prop_copy()jobsByTwoIDBlock customZFPlayerControlViewBlock;
 @end
 
 @implementation CustomZFPlayerControlView
-
 -(void)gestureSingleTapped:(ZFPlayerGestureControl *)gestureControl{
     [self endEditing:YES];
     if (self.customZFPlayerControlViewBlock) self.customZFPlayerControlViewBlock(NSStringFromSelector(_cmd),@1);
@@ -34,7 +33,6 @@ Prop_copy()jobsByTwoIDBlock customZFPlayerControlViewBlock;
 //    [tableView scrollToRowAtIndexPath:jobsMakeIndexPathZero()
 //                     atScrollPosition:UITableViewScrollPositionTop
 //                             animated:YES];
-
 }
 //走多次
 -(void)gestureChangedPan:(ZFPlayerGestureControl *)gestureControl

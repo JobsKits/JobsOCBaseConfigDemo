@@ -9,11 +9,8 @@
 #define JOBS_HEADER_GUARD_BASECONTENTVIEW_CA7C7BDB1E
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBaseUI.h"
-
 #import "JobsByOCPods.h"
-
 #import "JobsDefines.h"
 
 static const CGFloat btnWidth = 64;

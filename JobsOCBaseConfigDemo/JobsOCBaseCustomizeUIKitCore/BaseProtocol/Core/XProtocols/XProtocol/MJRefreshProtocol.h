@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_MJREFRESHPROTOCOL_DF4BAEF426
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

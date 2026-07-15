@@ -19,7 +19,6 @@
 #endif
 
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

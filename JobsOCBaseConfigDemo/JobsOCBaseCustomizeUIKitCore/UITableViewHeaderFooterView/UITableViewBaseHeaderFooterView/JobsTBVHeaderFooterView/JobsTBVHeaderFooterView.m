@@ -22,7 +22,6 @@ Prop_strong()BaseButton *subTitleBtn;
 @implementation JobsTBVHeaderFooterView
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
     };return self;
 }
 #pragma mark —— BaseViewProtocol
@@ -65,7 +64,6 @@ Prop_strong()BaseButton *subTitleBtn;
                 });
         });
     }
-
     if (self.viewModel.textModel.attributedTitle) {
         _titleLab.byAttributedString(self.viewModel.textModel.attributedTitle);
     } else {
@@ -89,7 +87,6 @@ Prop_strong()BaseButton *subTitleBtn;
                 make.top.bottom.equalTo(self);
             });
     }
-
     _subTitleBtn
         .jobsResetBtnImage(self.viewModel.image)
         .jobsResetBtnBgImage(self.viewModel.bgImage)

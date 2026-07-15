@@ -12,7 +12,6 @@
 @end
 
 @implementation MyBlankCell
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];

@@ -21,7 +21,6 @@ Prop_strong()UIColor *oddRowColor;  //奇数
 @end
 
 @implementation ZMJScheduleVC
-
 - (void)dealloc{
     JobsNotificationCenter.remove(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -35,12 +34,10 @@ Prop_strong()UIColor *oddRowColor;  //奇数
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    
     self.viewModel.backBtnTitleModel.text = @"返回".tr;
     self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
     self.viewModel.textModel.text = @"ZMJSchedule".tr;
     self.viewModel.textModel.font = UIFontWeightRegularSize(18);
-    
     // 使用原则：底图有 + 底色有 = 优先使用底图数据
     // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
     // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
@@ -84,11 +81,9 @@ Prop_strong()UIColor *oddRowColor;  //奇数
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
 }
 #pragma mark —— SpreadsheetViewDataSource
 - (NSInteger)numberOfColumns:(SpreadsheetView *)spreadsheetView {
@@ -269,7 +264,6 @@ Prop_strong()UIColor *oddRowColor;  //奇数
 
 -(SpreadsheetView *)spreadsheetView{
     if(!_spreadsheetView){
-        
         _spreadsheetView = SpreadsheetView.new;
         _spreadsheetView.delegate   = self;
         _spreadsheetView.dataSource = self;
@@ -287,13 +281,11 @@ Prop_strong()UIColor *oddRowColor;  //奇数
             make.left.right.bottom.equalTo(self.view);
             [self make:make topOffset:10];
         }];
-        
 //        if (@available(iOS 11.0, *)) {
 //            _spreadsheetView.frame = self.view.safeAreaLayoutGuide.layoutFrame;
 //        } else {
 //            _spreadsheetView.frame = self.view.bounds;
 //        }
-        
         [_spreadsheetView flashScrollIndicators];
     };return _spreadsheetView;
 }

@@ -63,7 +63,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             vm.buttonModel = (UIButtonModel *)self.excelConfigureData.leftListDatas[indexPath.row];
         }))
         .JobsBlock1(^(id _Nullable data) {
-             
         }).byBgColor(indexPath.row % 2 ? self.excelConfigureData.cor1 : self.excelConfigureData.cor2);
 }
 #pragma mark —— UIScrollViewDelegate

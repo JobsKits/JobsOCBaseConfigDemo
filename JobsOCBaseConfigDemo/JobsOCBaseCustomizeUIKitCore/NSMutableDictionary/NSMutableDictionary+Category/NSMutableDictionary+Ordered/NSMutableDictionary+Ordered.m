@@ -14,7 +14,6 @@ static BOOL isHasBeenRemoved;
     特别的，比如MJExtension，模型转字典，因为没有调用上述相关方法，所以结果集会失败
  */
 @implementation NSMutableDictionary (Ordered)
-
 +(void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSBASEAPI_EF05F493DD
 
 #import <Foundation/Foundation.h>
-
 #import "YTKNetworkExtra.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

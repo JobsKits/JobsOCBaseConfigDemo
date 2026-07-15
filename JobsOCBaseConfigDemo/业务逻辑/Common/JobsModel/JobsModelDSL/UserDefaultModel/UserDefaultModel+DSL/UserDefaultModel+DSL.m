@@ -8,7 +8,6 @@
 #import "UserDefaultModel+DSL.h"
 
 @implementation UserDefaultModel (DSL)
-
 -(JobsRetUserDefaultModelByNSObjectPointerBlock _Nonnull)byObj{
     @jobs_weakify(self)
     return ^__kindof UserDefaultModel *_Nullable(__kindof NSObject <NSCoding> * _Nullable data) {

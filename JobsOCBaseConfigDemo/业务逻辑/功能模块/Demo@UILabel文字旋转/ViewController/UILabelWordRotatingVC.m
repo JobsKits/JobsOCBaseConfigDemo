@@ -15,7 +15,6 @@ Prop_strong()UILabel *hintLab;
 @end
 
 @implementation UILabelWordRotatingVC
-
 -(void)loadView{
     [super loadView];
     self.viewModel

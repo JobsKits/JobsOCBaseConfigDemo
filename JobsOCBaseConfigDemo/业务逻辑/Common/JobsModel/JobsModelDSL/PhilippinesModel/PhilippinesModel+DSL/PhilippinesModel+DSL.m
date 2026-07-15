@@ -8,7 +8,6 @@
 #import "PhilippinesModel+DSL.h"
 
 @implementation PhilippinesModel (DSL)
-
 -(JobsRetPhilippinesModelByNSIntegerBlock _Nonnull)byState_id{
     @jobs_weakify(self)
     return ^__kindof PhilippinesModel *_Nullable(NSInteger data) {

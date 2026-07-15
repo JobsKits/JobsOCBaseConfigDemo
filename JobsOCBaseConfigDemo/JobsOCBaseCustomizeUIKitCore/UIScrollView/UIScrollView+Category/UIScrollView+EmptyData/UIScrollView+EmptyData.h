@@ -10,9 +10,7 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

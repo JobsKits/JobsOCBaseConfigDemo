@@ -14,7 +14,6 @@ Prop_strong()UIColor *cor;
 @end
 
 @implementation BaiShaETProjChoiceStadiumTBVHeaderView
-
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = self.cor;
@@ -95,7 +94,6 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-
     };return self;
 }
 
@@ -160,14 +158,11 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     for (JobsBaseTableViewCell *cell in self.tbvCellMutArr) {
         cell.imageView.jobsVisible = NO;
     }
-    
     JobsBaseTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.imageView.jobsVisible = !cell.imageView.jobsVisible;
-    
     if (self.objBlock) self.objBlock(self.dataMutArr[indexPath.row]);
     [self tf_hide:nil];
 }
@@ -198,7 +193,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         .byTextLabelFont(UIFontWeightRegularSize(16))
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
         .JobsBlock1(^(id _Nullable data) {
-             
         }).byBgColor(HEXCOLOR(0xFFFCF7));
     cell.imageView.image = @"红色的对勾".img;
     cell.imageView.jobsVisible = NO;
@@ -228,7 +222,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .bySeparatorColor(HEXCOLOR(0xEEEEEE))
                 .byTableHeaderView(self.tbvHeaderView) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
-
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
                 .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))

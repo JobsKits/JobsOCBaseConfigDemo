@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_UITABBARCONTROLLER_EXTRA_FA118238DD
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

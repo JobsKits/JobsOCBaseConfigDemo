@@ -15,23 +15,14 @@
 #import "MyCollectionVC.h"
 #import "NSObject+Notification.h"
 #import "NSString+FilteringSpecialCharacters.h"
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsOCTools.h"
-
 #import "JobsHotLabel.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsMakes.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsByOCPods.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 #ifndef MakeCustomTabBarBy

@@ -8,7 +8,6 @@
 #import "GTCaptcha4ResultModel.h"
 
 @implementation GTCaptcha4ResultModel
-
 -(NSString *)pass_token{
     if (!_pass_token) {
         _pass_token = @"";

@@ -23,6 +23,7 @@ static NSString *const JobsOCDemoSearchHistoryCellReuseIdentifier = @"JobsOCDemo
 static NSString *const JobsOCDemoPinnedCellReuseIdentifier = @"JobsOCDemoPinnedCell";
 static NSString *const JobsOCDemoSuspendTimeTimerIdentifier = @"ViewController_1.suspendTimeBtn.timer";
 static NSString *const JobsOCDemoSuspendSpinTimerIdentifier = @"ViewController_1.suspendSpinBtn.timer";
+static NSString *const JobsOCDemoProgressIndicatorTimerIdentifier = @"ViewController_1.progressIndicator.timer";
 
 typedef NS_ENUM(NSInteger, JobsOCFunctionMenuItem) {
     JobsOCFunctionMenuItemSearch = 0,
@@ -83,11 +84,13 @@ Prop_assign()BOOL demoSearchEnabled;
 Prop_assign()BOOL demoSideMenuOpen;
 Prop_assign()BOOL suspendFuseLongPressConsumed;
 Prop_assign()NSInteger suspendSpinSeconds;
+Prop_assign()NSInteger progressIndicatorPhase;
 Prop_assign()AppLanguage demoListRenderedLanguage;
 
 -(void)setupSuspendButtons;
 -(void)setupSuspendTimers;
 -(void)refreshSuspendTimeButtonTitle;
+-(void)updateVisibleProgressIndicators;
 -(NSAttributedString *)suspendTimeAttributedTitleByClock:(NSString *)clock;
 -(BOOL)demoListReturnToTopAndRefreshEnabled;
 -(void)setDemoListReturnToTopAndRefreshEnabled:(BOOL)enabled;
@@ -193,11 +196,11 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
 @end
 
 @implementation ViewController_1
-
 - (void)dealloc{
     JobsTimerMgr.shared
         .byStopAndRemove(JobsOCDemoSuspendTimeTimerIdentifier)
-        .byStopAndRemove(JobsOCDemoSuspendSpinTimerIdentifier);
+        .byStopAndRemove(JobsOCDemoSuspendSpinTimerIdentifier)
+        .byStopAndRemove(JobsOCDemoProgressIndicatorTimerIdentifier);
     if (_suspendSpinBtn) _suspendSpinBtn.bySpinStop();
     if (_suspendFuseBtn) [_suspendFuseBtn byFusePressStop:NO];
     [self showDemoSideMenu:NO
@@ -216,14 +219,12 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    
     self.setupNavigationBarHidden = YES;
     self.demoListRenderedLanguage = LanMgr.language;
     [self updateLocalizedContent];
@@ -244,7 +245,6 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
     self.view.byBgColor(JobsWhiteColor);
     if (@available(iOS 11.0, *)) {
         self.view.byBgColor(@"TextColor0".namedCor);
-
     }else{
         self.view.byBgColor(JobsWhiteColor);
     }
@@ -275,7 +275,6 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
     self.demoNavigationTitleView.byHidden(NO);
     [self refreshDemoNavigationTitle];
     [self applyDemoListInterfaceStyle];
-    
     self.tableView.byShow(self);
     [self foldDemoSectionsWithFirstUnfolded];
     self.functionMenuTableView.byHidden(YES);
@@ -308,7 +307,9 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
     [super viewDidAppear:animated];
     JobsTimerMgr.shared
         .byResume(JobsOCDemoSuspendTimeTimerIdentifier)
-        .byResume(JobsOCDemoSuspendSpinTimerIdentifier);
+        .byResume(JobsOCDemoSuspendSpinTimerIdentifier)
+        .byResume(JobsOCDemoProgressIndicatorTimerIdentifier);
+    [self updateVisibleProgressIndicators];
 //    UIDeviceOrientation f = UIDevice.currentDevice.orientation;
 //    UIInterfaceOrientation s = self.getInterfaceOrientation;
 //    DeviceOrientation d = self.getDeviceOrientation;
@@ -317,6 +318,7 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    JobsTimerMgr.shared.byPause(JobsOCDemoProgressIndicatorTimerIdentifier);
     if (self.demoSideMenuOpen) {
         [self showDemoSideMenu:NO
                       animated:NO];
@@ -333,6 +335,7 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
 
 -(void)setupSuspendTimers{
     self.suspendSpinSeconds = 0;
+    self.progressIndicatorPhase = 0;
     @jobs_weakify(self)
     JobsTimerMgr.shared
         .byUpsertTimer(JobsOCDemoSuspendTimeTimerIdentifier,
@@ -361,7 +364,28 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
             self.suspendSpinBtn
                 .jobsResetBtnTitle([NSString stringWithFormat:@"%ld",(long)self.suspendSpinSeconds])
                 .jobsResetBtnTitleFont(UIFontWeightBoldSize(22));
+        })
+        .byUpsertTimer(JobsOCDemoProgressIndicatorTimerIdentifier,
+                       JobsTimerTypeGCD,
+                       JobsTimerBackgroundPolicyPauseAndResume,
+                       YES,
+                       ^(JobsTimer *timer) {
+            timer.byTimerStyle(TimerStyle_clockwise)
+                .byTimeInterval(0.45)
+                .byQueue(dispatch_get_main_queue());
+        }, ^{
+            @jobs_strongify(self)
+            self.progressIndicatorPhase = (self.progressIndicatorPhase + 1) % 3;
+            [self updateVisibleProgressIndicators];
         });
+}
+
+-(void)updateVisibleProgressIndicators{
+    NSInteger phase = UIAccessibilityIsReduceMotionEnabled() ? 2 : self.progressIndicatorPhase;
+    for (UITableViewCell *cell in self.tableView.visibleCells) {
+        if (![cell isKindOfClass:JobsOCRootFoldTableCell.class]) continue;
+        [(JobsOCRootFoldTableCell *)cell updateChargingProgressByPhase:phase];
+    }
 }
 
 -(void)refreshSuspendTimeButtonTitle{
@@ -1467,7 +1491,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
                 .byBgColor(JobsClearColor);
             [tableView addGestureRecognizer:self.demoSectionReorderLongPressGesture];
-
 //            {
 //                tableView.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
 //                    @jobs_strongify(self)
@@ -1477,7 +1500,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 //                }]);
 //                tableView.mj_header.automaticallyChangeAlpha = YES;//根据拖拽比例自动切换透明度
 //            }
-
 //            {/// 设置tabAnimated相关属性
 //                // 可以不进行手动初始化，将使用默认属性
 //                tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:JobsBaseTableViewCell.class
@@ -1485,7 +1507,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 //                tableView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeShimmer;
 //                [tableView tab_startAnimation];   // 开启动画
 //            }
-
 //            {
 //              [tableView xzm_addNormalHeaderWithTarget:self
 //                                                 action:selectorBlocks(^id _Nullable(id _Nullable weakSelf,
@@ -2516,9 +2537,19 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsTimerDemoListVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                model.byTitle(@"本地录音与音频管理".tr)
+                     .bySubTitle(@"短按住录音、后台长录音、播放与删除本地文件".tr)
+                     .byCls(JobsOCAudioRecorderDemoVC.class);
+            })))
+            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"JobsBluetooth".tr)
                      .bySubTitle(@"BLE 扫描、连接、读写、Notify、Mock、协议和 DSL 全能力 Demo".tr)
                      .byCls(JobsBluetoothDemoVC.class);
+            })))
+            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                model.byTitle(@"CoreMotion DSL".tr)
+                     .bySubTitle(@"陀螺仪、加速度计、磁力计与设备姿态的一链式配置".tr)
+                     .byCls(JobsCoreMotionDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"UILabel 数字动效".tr)
@@ -2773,12 +2804,17 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsCountdownLayerDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                model.byTitle(@"👍 长按点赞冒泡".tr)
+                     .bySubTitle(@"长按持续冒泡 + 震动反馈 + 点赞变红".tr)
+                     .byCls(JobsLongPressLikeDemoVC.class);
+            })))
+            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"🟩⬜⬜ 系统进度条".tr)
                      .bySubTitle(@"UIProgressView + JobsOCTimer 倒计时".tr)
                      .byCls(JobsSysProgressDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"🟩🟩⬜ 自定义进度条（进度值+前进方向）".tr)
+                model.byTitle(@"自定义进度条（进度值+前进方向）".tr)
                      .bySubTitle(@"JobsProgressBar：进度值、方向、拖动和自动进度".tr)
                      .byCls(JobsProgressDemoVC.class);
             })))

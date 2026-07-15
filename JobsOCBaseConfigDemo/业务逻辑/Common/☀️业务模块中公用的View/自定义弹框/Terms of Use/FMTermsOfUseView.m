@@ -36,7 +36,6 @@ static dispatch_once_t static_termsOfUseViewOnceToken;
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-
     };return self;
 }
 

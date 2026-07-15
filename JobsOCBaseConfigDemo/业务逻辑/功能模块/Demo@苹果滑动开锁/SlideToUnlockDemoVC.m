@@ -14,7 +14,6 @@ Prop_strong()SlideToUnlockView *slideView;
 @end
 
 @implementation SlideToUnlockDemoVC
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = JobsBlueColor;

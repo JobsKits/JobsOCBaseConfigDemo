@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_NSXMLPARSER_EXTRA_EE3738C8EC
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

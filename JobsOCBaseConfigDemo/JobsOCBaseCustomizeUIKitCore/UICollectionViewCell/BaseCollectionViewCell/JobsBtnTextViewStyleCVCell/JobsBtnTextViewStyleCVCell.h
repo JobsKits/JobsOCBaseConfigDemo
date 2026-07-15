@@ -20,15 +20,10 @@
 #endif
 
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsRichTextUtils.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -39,7 +39,6 @@ Prop_assign()ZLUnlockType unlockType;
 @end
 
 @implementation ZLGestureLockViewController
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     [self.view endEditing:YES];
@@ -67,7 +66,6 @@ Prop_assign()ZLUnlockType unlockType;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = JobsWhiteColor;
-    
     self.headIcon.alpha = 1;
     self.nameLabel.alpha = 1;
     self.statusLabel.alpha = 1;
@@ -76,7 +74,6 @@ Prop_assign()ZLUnlockType unlockType;
     self.otherAcountBtn.alpha = 1;
     self.resetPswBtn.hidden = YES;
     self.forgetPswBtn.alpha = 1;
-
     switch (_unlockType) {
         case ZLUnlockTypeCreatePsw:{
             self.gestureLockIndicator.hidden = NO;
@@ -93,26 +90,21 @@ Prop_assign()ZLUnlockType unlockType;
 #pragma mark —— private
 //  创建手势密码
 - (void)createGesturesPassword:(NSMutableString *)gesturesPassword{
-    
     if (self.lastGesturePsw.length == 0) {
-        
         if (gesturesPassword.length < 4) {
             self.statusLabel.text = @"至少连接四个点，请重新输入".tr;
             [self shakeAnimationForView:self.statusLabel];
             return;
         }
-        
         if (self.resetPswBtn.hidden == YES) {
             self.resetPswBtn.hidden = NO;
         }
-        
         self.lastGesturePsw = gesturesPassword;
         [self.gestureLockIndicator setGesturePassword:gesturesPassword];
         self.statusLabel.text = @"请再次绘制手势密码".tr;
         [self.gestureLockView clearLockView];
         return;
     }
-    
     if ([self.lastGesturePsw isEqualToString:gesturesPassword]) { // 绘制成功
         [self dismissViewControllerAnimated:YES
                                  completion:^{
@@ -144,7 +136,6 @@ Prop_assign()ZLUnlockType unlockType;
             errorCount = 5;
             return;
         }
-        
         self.statusLabel.text = [NSString stringWithFormat:@"密码错误，还可以再输入%ld次".tr,--errorCount];
         [self shakeAnimationForView:self.statusLabel];
         [self.gestureLockView clearLockView];
@@ -152,12 +143,10 @@ Prop_assign()ZLUnlockType unlockType;
 }
 // 抖动动画
 - (void)shakeAnimationForView:(UIView *)view {
-    
     CALayer *viewLayer = view.layer;
     CGPoint position = viewLayer.position;
     CGPoint left = CGPointMake(position.x - 10, position.y);
     CGPoint right = CGPointMake(position.x + 10, position.y);
-    
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     [animation setFromValue:[NSValue valueWithCGPoint:left]];
@@ -165,13 +154,11 @@ Prop_assign()ZLUnlockType unlockType;
     [animation setAutoreverses:YES]; // 平滑结束
     [animation setDuration:0.08];
     [animation setRepeatCount:3];
-    
     [viewLayer addAnimation:animation forKey:nil];
 }
 #pragma mark —— ZLgestureLockViewDelegate
 - (void)gestureLockView:(ZLGestureLockView *)lockView
        drawRectFinished:(NSMutableString *)gesturePassword {
-    
     switch (_unlockType) {
         case ZLUnlockTypeCreatePsw:{// 创建手势密码
             [self createGesturesPassword:gesturePassword];

@@ -13,7 +13,6 @@
 @end
 
 @implementation TDMapCellNode
-
 - (instancetype)init {
     if (self = [super init]) {
         self.automaticallyManagesSubnodes = YES;

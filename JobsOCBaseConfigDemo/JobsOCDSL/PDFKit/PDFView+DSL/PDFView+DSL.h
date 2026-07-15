@@ -6,9 +6,7 @@
 #define JOBS_HEADER_GUARD_PDFVIEW_DSL
 
 #import <PDFKit/PDFKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

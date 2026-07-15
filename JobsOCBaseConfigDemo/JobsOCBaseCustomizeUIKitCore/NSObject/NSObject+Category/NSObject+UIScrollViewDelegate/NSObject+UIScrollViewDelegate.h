@@ -10,7 +10,6 @@
 
 #import <UIKit/UIKit.h>
 #import "UIScrollView+UIScrollViewProtocol.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

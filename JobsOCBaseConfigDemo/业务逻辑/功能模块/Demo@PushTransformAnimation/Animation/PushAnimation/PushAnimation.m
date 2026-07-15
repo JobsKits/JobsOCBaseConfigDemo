@@ -9,7 +9,6 @@
 #import "PushAnimation.h"
 
 @implementation PushAnimation
-
 - (NSTimeInterval)transitionDuration:(nullable id <UIViewControllerContextTransitioning>)transitionContext{
     return 0.6;
 }
@@ -27,7 +26,6 @@
     A_VC *firstVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     B_VC *secondVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containerView = [transitionContext containerView];  // 此处容器大小即为屏幕大小 self.view
-    
     // 2.创建一个 Cell 中 imageView 的截图，并把 imageView 隐藏，造成使用户以为移动的就是 imageView 的假象
     MyFansTBVCell *cell = [firstVC.tableView cellForRowAtIndexPath:[firstVC.tableView indexPathForSelectedRow]];
     firstVC.indexPath = [firstVC.tableView indexPathForSelectedRow];
@@ -37,16 +35,13 @@
     CGRect secondFrame = [containerView convertRect:secondVC.imageView.frame fromView:secondVC.view];
     snapShotView.frame = firstFrame;
     cell.imgView.hidden = YES;
-    
     // 3.设置第二个控制器的位置、透明度，并把透明度设为0，在后面的动画中慢慢显示出来变为1
     secondVC.view.frame = [transitionContext finalFrameForViewController:secondVC];//初始化secondVC的位置,否则约束无效
     secondVC.view.alpha = 0;
     secondVC.imageView.hidden = YES;
-    
     // 4.把动画前后的两个ViewController加到容器中,顺序很重要,snapShotView在上方 就是截图和secondVC.view之间的动画
     [containerView addSubview:secondVC.view];
     [containerView addSubview:snapShotView];
-    
     // 5.执行动画。第二个控制器的透明度0~1；让截图SnapShotView的位置更新到最新 弹性       弹性比例        最初的       速度(时间)
     [UIView animateWithDuration:0.6
                           delay:0

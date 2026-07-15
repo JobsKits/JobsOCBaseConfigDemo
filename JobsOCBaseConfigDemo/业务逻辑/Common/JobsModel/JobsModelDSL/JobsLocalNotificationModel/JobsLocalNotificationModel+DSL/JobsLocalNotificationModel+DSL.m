@@ -8,7 +8,6 @@
 #import "JobsLocalNotificationModel+DSL.h"
 
 @implementation JobsLocalNotificationModel (DSL)
-
 -(JobsRetJobsLocalNotificationModelByStrBlock _Nonnull)byIdentifier{
     @jobs_weakify(self)
     return ^__kindof JobsLocalNotificationModel *_Nullable(NSString * _Nullable data) {

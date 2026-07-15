@@ -8,7 +8,6 @@
 #import "JobsLanguageManager.h"
 
 @implementation JobsLanguageManager
-
 static NSBundle *bundle = nil;
 static AppLanguage _language = AppLanguageBySys;
 

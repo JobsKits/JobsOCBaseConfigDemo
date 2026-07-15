@@ -35,7 +35,6 @@ Prop_strong(nullable) JobsTimer *frameTimer;
 @end
 
 @implementation JobsOCRefreshComponent
-
 - (void)dealloc {
     [self stopFrameTimer];
     [self stopLottie];

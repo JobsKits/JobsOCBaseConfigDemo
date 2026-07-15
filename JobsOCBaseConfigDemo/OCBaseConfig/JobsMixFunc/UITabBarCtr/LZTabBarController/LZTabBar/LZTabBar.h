@@ -10,9 +10,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LZTabBarItem.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 @protocol LZTabBarDelegate;

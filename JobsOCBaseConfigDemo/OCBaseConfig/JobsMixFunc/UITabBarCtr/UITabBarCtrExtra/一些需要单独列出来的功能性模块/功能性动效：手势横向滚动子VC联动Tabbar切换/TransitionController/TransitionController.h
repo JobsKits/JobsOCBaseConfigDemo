@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_TRANSITIONCONTROLLER_E2B09297EB
 
 #import <UIKit/UIKit.h>
-
 #import "JobsDefines.h"
 
 @interface TransitionController : UIPercentDrivenInteractiveTransition

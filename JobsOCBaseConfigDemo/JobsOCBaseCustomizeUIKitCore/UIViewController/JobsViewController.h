@@ -18,7 +18,6 @@
 #import "XLBubbleTransition.h"
 // UIViewController+MJRefresh
 #import "JobsBaseUI.h"
-
 #import "UIViewController+MJRefresh.h"
 // UIViewController+Others
 #import "UIViewController+SafeTransition.h"

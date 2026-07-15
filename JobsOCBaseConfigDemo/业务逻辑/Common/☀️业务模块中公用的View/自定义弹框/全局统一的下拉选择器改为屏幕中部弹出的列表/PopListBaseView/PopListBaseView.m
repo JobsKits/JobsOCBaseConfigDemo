@@ -28,7 +28,6 @@ Prop_strong()NSMutableArray <__kindof NSString *>*datas;
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-
     };return self;
 }
 
@@ -109,7 +108,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
         .JobsBlock1(^(id _Nullable data) {
-
         });
 }
 #pragma mark —— lazyLoad

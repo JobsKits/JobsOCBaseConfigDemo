@@ -12,7 +12,6 @@
 @end
 
 @implementation TDButtonCellNode
-
 -(instancetype)init {
     if (self = [super init]) {
         self.automaticallyManagesSubnodes = YES;

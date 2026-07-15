@@ -30,15 +30,10 @@
 #endif
 
 #import "JobsBaseUI.h"
-
 #import "JobsModelDSL.h"
-
 #import "BRPickerViewExtra.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsMakes.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

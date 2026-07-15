@@ -61,7 +61,6 @@
             UIImage *fileImg = [UIImage imageWithContentsOfFile:raw];
             if (fileImg) { return fileImg; }
         }
-
         if (!named && isValue(self)) {
             JobsLog(@"文件名为%@的图片获取失败，请检查", self);
         };return nil;

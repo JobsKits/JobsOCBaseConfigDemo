@@ -5,7 +5,6 @@
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
-
 #import "JobsOCDSL.h"
 #ifndef JOBS_HEADER_GUARD_JXCATEGORYNUMBERVIEW_EXTRA_74B711E4BE
 #define JOBS_HEADER_GUARD_JXCATEGORYNUMBERVIEW_EXTRA_74B711E4BE
@@ -17,7 +16,6 @@
 #endif
 
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

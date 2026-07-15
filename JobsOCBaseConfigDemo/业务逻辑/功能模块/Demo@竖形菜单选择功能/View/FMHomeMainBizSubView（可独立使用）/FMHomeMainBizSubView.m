@@ -23,7 +23,6 @@ Prop_assign()NSUInteger thisIndex;
 @end
 
 @implementation FMHomeMainBizSubView
-
 -(void)dealloc{
     JobsLog(@"");
 }
@@ -306,10 +305,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 label.tag = 666;
             });headerView.addSubview(label);
         }
-        
         GoodsClassModel *rightModel = self.rightDataArray.objectAt(indexPath.section);
         label.text = rightModel.name ? : @"".tr;
-        
         return headerView;
     }else if (kind.isEqualToString(UICollectionElementKindSectionFooter)){
         /// 底部视图

@@ -10,7 +10,6 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-
 #import "JobsOCDSL.h"
 
 #if __has_include(<JXPagingView/JXPagerView.h>)
@@ -26,7 +25,6 @@
 #endif
 
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

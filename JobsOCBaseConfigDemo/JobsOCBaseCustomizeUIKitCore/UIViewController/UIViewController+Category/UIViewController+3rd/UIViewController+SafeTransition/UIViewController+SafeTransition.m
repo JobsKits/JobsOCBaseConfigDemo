@@ -8,14 +8,12 @@
 #import "UIViewController+SafeTransition.h"
 
 @implementation UIViewController (SafeTransition)
-
 +(void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         MethodSwizzle(self.class,
                       @selector(presentViewController:animated:completion:),
                       @selector(swiz_presentViewController:animated:completion:));
-        
         MethodSwizzle(self.class,
                       @selector(dismissViewControllerAnimated:completion:),
                       @selector(swiz_dismissViewControllerAnimated:completion:));
@@ -46,7 +44,6 @@
             };
         }
     }
-    
     if ([self checkPresented:vc]) {
         [JobsRecordPresentedViewController.sharedManager.presentedVCMutArr addObject:vc];
         [self swiz_presentViewController:vc

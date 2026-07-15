@@ -15,7 +15,6 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 @end
 
 @implementation LotteryVC
-
 - (void)dealloc{
     JobsNotificationCenter.remove(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -49,7 +48,6 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(HEXCOLOR(0xFFF7EA));
-
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
     self.tableView.byShow(self);
@@ -84,13 +82,11 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (void)tableView:(UITableView *)tableView
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath{
-    
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -103,7 +99,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 /// 编辑模式下，点击取消左边已选中的cell的按钮
 - (void)tableView:(UITableView *)tableView
 didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -127,7 +122,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.section])
             .JobsBlock1(^(id _Nullable data) {;
-             
             });
 }
 
@@ -154,7 +148,6 @@ viewForHeaderInSection:(NSInteger)section{
             .bySection(section)/// 悬浮配置
             .JobsRichViewByModel2(nil)
             .JobsBlock1(^(id _Nullable data) {;
-                
             });
     };return nil;
 }
@@ -172,7 +165,6 @@ viewForHeaderInSection:(NSInteger)section{
             .bySection(section)/// 悬浮配置
             .JobsRichViewByModel2(nil)
             .JobsBlock1(^(id _Nullable data) {;
-                
             });
         tbvFooterView.byBgColor(HEXCOLOR(0xEAEBED));
         tbvFooterView.backgroundView.byBgColor(HEXCOLOR(0xEAEBED));
@@ -242,7 +234,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byScrollEnabled(YES)
                 .byBgColor(JobsClearColor);
             tableView.clipsToBounds = NO;
-
             if(@available(iOS 11.0, *)) {
                 tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             }else{
@@ -289,7 +280,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                                                  font:UIFontWeightRegularSize(JobsWidth(13))
                                                                                 color:HEXCOLOR(0x9A6A2E)]);
             data.add(squareModel);
-
             UIViewModel *wheelModel = self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"圆形抽奖轮盘".tr)
                      .bySubTitle(@"惯性旋转和指针命中".tr)

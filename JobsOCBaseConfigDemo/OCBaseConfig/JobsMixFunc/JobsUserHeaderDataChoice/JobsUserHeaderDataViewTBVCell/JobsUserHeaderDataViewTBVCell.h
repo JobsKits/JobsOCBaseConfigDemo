@@ -9,15 +9,10 @@
 #define JOBS_HEADER_GUARD_JOBSUSERHEADERDATAVIEWTBVCELL_15ACBB4F6A
 
 #import <UIKit/UIKit.h>
-
 #import "JobsByOCPods.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsMakes.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

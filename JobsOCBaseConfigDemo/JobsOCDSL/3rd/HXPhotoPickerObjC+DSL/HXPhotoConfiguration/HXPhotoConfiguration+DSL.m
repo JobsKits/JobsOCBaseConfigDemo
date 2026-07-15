@@ -8,7 +8,6 @@
 #import "HXPhotoConfiguration+DSL.h"
 
 @implementation HXPhotoConfiguration (DSL)
-
 -(JobsRetHXPhotoConfigurationByNSUIntegerBlock _Nonnull)byType{
     @jobs_weakify(self)
     return ^__kindof HXPhotoConfiguration *_Nullable(NSUInteger data){

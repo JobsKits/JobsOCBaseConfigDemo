@@ -10,13 +10,9 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsPageTBVCell.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsByOCPods.h"
-
 #import "JobsBaseUI.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

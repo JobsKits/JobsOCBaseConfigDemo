@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_UIBEZIERPATH_DSL_6F9A8B73D2
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

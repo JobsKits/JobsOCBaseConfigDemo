@@ -22,11 +22,8 @@
 #endif
 
 #import "JobsClass.h"
-
 #import "JobsMakes.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 @interface NSArray (Extra)

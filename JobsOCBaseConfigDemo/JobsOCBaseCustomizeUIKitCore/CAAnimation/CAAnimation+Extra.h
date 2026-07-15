@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_CAANIMATION_EXTRA_E821CB7FB4
 
 #import <QuartzCore/QuartzCore.h> // 提供 Core Animation 和 CALayer 能力，用于动画、图层和视觉渲染。
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

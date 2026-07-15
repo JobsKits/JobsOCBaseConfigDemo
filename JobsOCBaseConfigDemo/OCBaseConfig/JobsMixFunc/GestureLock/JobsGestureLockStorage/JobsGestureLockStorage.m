@@ -8,7 +8,6 @@
 #import "JobsGestureLockStorage.h"
 
 @implementation JobsGestureLockStorage
-
 + (NSString *)gesturePasswordForKey:(NSString *)key {
     return [[NSUserDefaults standardUserDefaults] stringForKey:key];
 }
@@ -17,7 +16,6 @@
     if (key.length == 0) {
         return;
     }
-
     [[NSUserDefaults standardUserDefaults] setObject:password forKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -26,7 +24,6 @@
     if (key.length == 0) {
         return;
     }
-
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

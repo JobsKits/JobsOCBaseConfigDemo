@@ -23,7 +23,6 @@ Prop_strong()NSArray <UIViewModel *>*demoArr;
 @end
 
 @implementation JobsMosaicDemoListVC
-
 -(void)loadView{
     [super loadView];
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {

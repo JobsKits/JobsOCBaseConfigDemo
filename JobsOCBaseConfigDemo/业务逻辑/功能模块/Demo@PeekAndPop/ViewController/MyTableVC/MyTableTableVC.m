@@ -17,7 +17,6 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
 @end
 
 @implementation MyTableTableVC
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -25,7 +24,6 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -52,16 +50,13 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.byBgColor(JobsRandomColor);
-
     self.makeNavByAlpha(1);
     self.tableView.byShow(self);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
 }
 
 -(void)viewWillLayoutSubviews{
@@ -88,7 +83,6 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
           withEvent:(UIEvent *)event{
-   
 }
 #pragma mark —— 一些私有方法
 +(NSMutableArray<UIViewModel *> *)createDataMutArr{
@@ -148,18 +142,15 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
 
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     for (JobsBaseTableViewCell *cell in self.tbvCellMutArr) {
         cell.byCellImageView(^(__kindof UIImageView * _Nullable imageView) {
             imageView.byJobsVisible(NO);
         });
     }
-    
     JobsBaseTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.byCellImageView(^(__kindof UIImageView * _Nullable imageView) {
         imageView.byJobsVisible(!imageView.jobsVisible);
     });
-    
     if (self.objBlock) self.objBlock(self.dataMutArr[indexPath.row]);
 }
 
@@ -194,7 +185,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byJobsVisible(NO);
         })
         .JobsBlock1(^(id _Nullable data) {
-             
         }).byBgColor(HEXCOLOR(0xFFFCF7));
     return cell;
 }

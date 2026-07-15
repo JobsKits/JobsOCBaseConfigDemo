@@ -16,6 +16,7 @@
         return self;
     };
 }
+
 @end
 
 @implementation HQTextField (JobsUIBaseTextFieldDSL)
@@ -27,6 +28,7 @@
         return self;
     };
 }
+
 @end
 
 @implementation ZYTextField (JobsUIBaseTextFieldDSL)
@@ -218,6 +220,7 @@
         return self;
     };
 }
+
 @end
 
 @implementation JobsMagicTextField (JobsUIBaseTextFieldDSL)
@@ -265,6 +268,7 @@
         return self;
     };
 }
+
 @end
 
 @implementation JobsTextField (JobsUIBaseTextFieldDSL)
@@ -285,4 +289,5 @@
         return self;
     };
 }
+
 @end

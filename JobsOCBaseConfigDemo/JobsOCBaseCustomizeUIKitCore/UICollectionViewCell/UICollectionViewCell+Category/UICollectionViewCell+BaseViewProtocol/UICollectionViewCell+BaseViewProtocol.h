@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_UICOLLECTIONVIEWCELL_BASEVIEWPROTOCOL_20995AE671
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

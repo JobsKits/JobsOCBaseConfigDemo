@@ -10,11 +10,8 @@
 
 #import <Foundation/Foundation.h>
 #import "BaseModel.h"
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -33,7 +30,6 @@ Prop_copy()NSString *deviceId;// 设备ID
 Prop_copy()NSString *validate;// 网易云盾
 Prop_copy()NSString *resourcesAddress;// 文件服务器地址
 Prop_copy()NSString *postDraftURLStr;// 保存用户编辑中的文字
-
 Prop_copy()NSString *account;
 Prop_copy()NSString *domain;// 域名配置
 Prop_copy()NSString *email;// 邮箱
@@ -46,7 +42,6 @@ Prop_copy()NSString *realName;// 真实姓名
 Prop_copy()NSString *superiorAccount;// 上级账号
 Prop_strong()NSNumber *userId;
 Prop_copy()NSString *webChat;
-
 Prop_copy()NSString *tokenExpireTime;// 手动添加的
 
 @end

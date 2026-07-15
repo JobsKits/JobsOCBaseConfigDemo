@@ -9,7 +9,6 @@
 #define JobsOCKeyboardResult_h
 
 #import <UIKit/UIKit.h>
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

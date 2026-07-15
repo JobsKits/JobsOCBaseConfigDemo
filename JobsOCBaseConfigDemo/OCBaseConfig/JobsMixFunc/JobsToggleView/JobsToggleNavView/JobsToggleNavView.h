@@ -10,15 +10,10 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsToggleNavViewProtocol.h"
-
 #import "JobsByOCPods.h"
-
 #import "JobsBaseUI.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsBlock.h"
-
 #import "JobsOCDSL.h"
 
 @interface JobsToggleNavView : BaseView<JobsToggleNavViewProtocol>

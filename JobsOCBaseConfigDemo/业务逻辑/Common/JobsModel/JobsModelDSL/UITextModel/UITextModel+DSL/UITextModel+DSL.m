@@ -8,7 +8,6 @@
 #import "UITextModel+DSL.h"
 
 @implementation UITextModel (DSL)
-
 -(JobsRetUITextModelByNSTextAlignmentBlock _Nonnull)byTextAlignment{
     @jobs_weakify(self)
     return ^__kindof UITextModel *_Nullable(NSTextAlignment data) {
@@ -512,10 +511,6 @@
         return self;
     };
 }
-
-
-
-
 
 -(JobsRetUITextModelByCGSizeBlock _Nonnull)byTableHeaderViewSize{
     @jobs_weakify(self)

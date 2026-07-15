@@ -20,11 +20,9 @@
         onceTokens = NSMutableDictionary.dictionary;
         Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey(object, @selector(executeOnceForObject:withBlock:), onceTokens)
     }
-    
     NSString *identifier = NSUUID.UUID.UUIDString;
     NSValue *onceTokenValue = onceTokens.valueForKey(identifier);
     dispatch_once_t *onceTokenPointer;
-    
     if (!onceTokenValue) {
         onceTokenPointer = malloc(sizeof(dispatch_once_t));
         *onceTokenPointer = 0;
@@ -41,11 +39,9 @@
         onceTokens = NSMutableDictionary.dictionary;
         Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey(self, @selector(executeOnceWithBlock:), onceTokens)
     }
-    
     NSString *identifier = NSUUID.UUID.UUIDString;
     NSValue *onceTokenValue = onceTokens[identifier];
     dispatch_once_t *onceTokenPointer;
-    
     if (!onceTokenValue) {
         onceTokenPointer = malloc(sizeof(dispatch_once_t));
         *onceTokenPointer = 0;

@@ -20,18 +20,15 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
 @end
 
 @implementation JobsHotLabelBySingleLine
-
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(HEXCOLOR(0xFFFFFF));
-
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.byBgColor(HEXCOLOR(0xFFFFFF));
-
     };return self;
 }
 /// 必须有frame的前提下才会进行绘制
@@ -140,7 +137,6 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
         for (NSNumber *num in self.btnHeightMutArr) {
             highestNum = @(MAX(highestNum.floatValue, num.floatValue));
         }
-        
         btn.byRemake(^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(self.elementDefaultSize.width, highestNum.floatValue));
         });

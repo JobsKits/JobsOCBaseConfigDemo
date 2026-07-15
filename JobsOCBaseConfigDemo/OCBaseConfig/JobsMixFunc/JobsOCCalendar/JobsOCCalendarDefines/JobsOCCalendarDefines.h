@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_JOBS_OC_CALENDAR_DEFINES
 
 #import <UIKit/UIKit.h>
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

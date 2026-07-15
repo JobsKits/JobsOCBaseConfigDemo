@@ -11,7 +11,6 @@
 #import <UIKit/UIKit.h>
 #import "BaseView.h"
 #import "UIView+Extra.h"
-
 #import "JobsOCDSL.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
@@ -21,13 +20,9 @@
 #endif
 
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsMakes.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

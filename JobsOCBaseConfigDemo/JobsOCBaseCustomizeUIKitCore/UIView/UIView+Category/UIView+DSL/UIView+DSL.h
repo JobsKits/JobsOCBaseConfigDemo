@@ -11,9 +11,7 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 #if __has_include("../../../Support/NSObject+Measure/NSObject+Measure.h")

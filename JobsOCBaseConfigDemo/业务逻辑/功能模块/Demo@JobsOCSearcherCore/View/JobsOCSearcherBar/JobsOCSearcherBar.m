@@ -17,7 +17,6 @@ Prop_strong()BaseButton *cancelBtn;
 @end
 
 @implementation JobsOCSearcherBar
-
 - (instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));

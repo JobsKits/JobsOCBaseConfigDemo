@@ -42,7 +42,6 @@ BaseViewProtocol_synthesize
         @jobs_strongify(self)
         self.viewModel = model;
         self.textView.byAlpha(1);
-
         return self;
     };
 }
@@ -122,7 +121,6 @@ BaseViewProtocol_synthesize
             textView.delegate = self;
             textView.textColor = JobsBlackColor;
             textView.byBgColor(@"#F9F9F9".cor);
-
             textView.returnKeyType = UIReturnKeyDefault;
             textView.keyboardAppearance = UIKeyboardAppearanceDefault;
             textView.keyboardType = UIKeyboardTypeNumberPad;
@@ -148,7 +146,6 @@ BaseViewProtocol_synthesize
             textView.szTextView.delegate = self;
             textView.szTextView.textColor = JobsBlackColor;
             textView.byBgColor(@"#F9F9F9".cor);
-
             textView.returnKeyType_ = UIReturnKeyDefault;
             textView.keyboardAppearance_ = UIKeyboardAppearanceDefault;
             textView.keyboardType_ = UIKeyboardTypeNumberPad;

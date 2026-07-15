@@ -8,7 +8,6 @@
 #import "JobsLinkageMenuViewConfig.h"
 
 @implementation JobsLinkageMenuViewConfig
-
 -(instancetype)init{
     if (self = [super init]) {
         _MENU_ITEM_CORNER_RADIUS = JobsWidth(8);

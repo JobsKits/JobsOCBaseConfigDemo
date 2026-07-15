@@ -11,9 +11,7 @@
 #import <Foundation/Foundation.h>
 #import "NSMutableArray+Extra.h"
 #import "NSString+Replace.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 /// 参考文献：https://www.jianshu.com/p/de17fd495935

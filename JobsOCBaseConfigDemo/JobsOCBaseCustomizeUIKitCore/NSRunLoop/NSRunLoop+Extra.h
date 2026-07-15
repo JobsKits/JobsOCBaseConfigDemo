@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_NSRUNLOOP_EXTRA_648A3CB895
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -9,7 +9,6 @@
 #import "UIScrollView+FDFullscreenPopGesture.h"
 
 @implementation UIScrollView (FDFullscreenPopGesture)
-
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
 shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     if (self.contentOffset.x <= 0) {

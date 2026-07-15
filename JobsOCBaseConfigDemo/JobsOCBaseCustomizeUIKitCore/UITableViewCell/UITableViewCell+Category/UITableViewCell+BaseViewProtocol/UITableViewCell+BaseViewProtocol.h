@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_UITABLEVIEWCELL_BASEVIEWPROTOCOL_DE4193E9FE
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

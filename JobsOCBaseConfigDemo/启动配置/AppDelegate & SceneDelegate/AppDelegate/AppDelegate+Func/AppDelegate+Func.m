@@ -66,7 +66,6 @@ static BOOL JobsOCSplashEnabled(void) {
                                    showSplash);
                 };return;
             }
-
             JobsOCSplashConfiguration *configuration = [JobsOCSplashConfiguration localImage:@"1242x2688.png"];
             configuration
                 .byCountdownSeconds(@8)

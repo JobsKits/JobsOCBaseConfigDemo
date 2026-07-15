@@ -13,11 +13,8 @@
 #import "UIImage+YBGIF.h"
 #import "NSString+Check.h"
 #import "NSString+Sys.h"
-
 #import "JobsStringUtilsHeader.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

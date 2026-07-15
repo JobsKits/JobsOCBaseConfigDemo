@@ -16,7 +16,6 @@ Prop_strong()NSOperationQueue* queue;
 @end
 
 @implementation NotifiManager
-
 + (instancetype)shared {
     static NotifiManager *manager = nil;
     static dispatch_once_t onceToken;

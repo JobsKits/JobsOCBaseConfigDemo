@@ -20,7 +20,6 @@ Prop_copy()NSString *dot;
 @end
 
 @implementation PointLabTestVC
-
 - (void)dealloc{
     JobsNotificationCenter.remove(self);
     JobsLog(@"%@",JobsLocalFunc);

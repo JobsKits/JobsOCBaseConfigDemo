@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_YTKNETWORKPROTOCOLS_30DEE14285
 
 #import <Foundation/Foundation.h>
-
 #import "YTKCustomBaseRequestProtocol.h"
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
@@ -19,7 +18,6 @@
 #endif
 
 #import "JobsDefines.h"
-
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

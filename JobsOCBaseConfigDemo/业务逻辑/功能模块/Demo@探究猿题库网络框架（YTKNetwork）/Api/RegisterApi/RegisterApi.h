@@ -17,7 +17,6 @@
 #endif
 
 #import "YTKNetworkExtra.h"
-
 #import "JobsLanMgr.h"
 
 @interface RegisterApi : JobsBaseApi

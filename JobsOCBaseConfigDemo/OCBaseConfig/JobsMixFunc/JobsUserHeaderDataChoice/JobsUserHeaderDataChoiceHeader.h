@@ -13,9 +13,7 @@
 #import "JobsUserHeaderDataView.h"
 #import "JobsUserHeaderDataViewTBVCell.h"
 #import "JobsUserHeaderDataViewForHeaderInSection.h"
-
 #import "JobsByOCPods.h"
-
 #import "JobsDefines.h"
 
 #endif /* JobsUserHeaderDataChoiceHeader_h */

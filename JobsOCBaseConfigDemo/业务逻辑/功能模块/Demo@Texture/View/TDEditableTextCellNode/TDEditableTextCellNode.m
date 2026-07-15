@@ -12,7 +12,6 @@
 @end
 
 @implementation TDEditableTextCellNode
-
 -(instancetype)init {
     if (self = [super init]) {
         self.automaticallyManagesSubnodes = YES;
@@ -44,7 +43,6 @@
                 NSFontAttributeName : [UIFont systemFontOfSize:15]
             })
             .byTextContainerInset(UIEdgeInsetsMake(8, 8, 8, 8));
-
             // 非 DSL 字段，直接设：布局 / 边框 / 代理
             node.style.preferredSize = CGSizeMake(0, 80);
             node.borderWidth = 1;

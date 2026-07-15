@@ -24,7 +24,6 @@ Prop_assign()BOOL userDragging;
 @end
 
 @implementation JobsProgressBar
-
 #pragma mark —— Lifecycle
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -185,8 +184,7 @@ Prop_assign()BOOL userDragging;
             fillFrame.size.height = CGRectGetHeight(trackFrame) * displayProgress;
             fillFrame.origin.y = CGRectGetMaxY(trackFrame) - CGRectGetHeight(fillFrame);
             break;
-    }
-    return CGRectIntegral(fillFrame);
+    };return CGRectIntegral(fillFrame);
 }
 
 - (CGPoint)jobs_thumbCenterWithTrackFrame:(CGRect)trackFrame fillFrame:(CGRect)fillFrame {

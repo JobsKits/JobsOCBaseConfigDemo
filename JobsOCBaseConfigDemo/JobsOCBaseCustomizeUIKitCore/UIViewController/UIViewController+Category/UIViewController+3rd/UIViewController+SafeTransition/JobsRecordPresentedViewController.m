@@ -10,7 +10,6 @@
 #ifndef JOBS_RECORD_PRESENTED_VIEW_CONTROLLER_IMPLEMENTED
 #define JOBS_RECORD_PRESENTED_VIEW_CONTROLLER_IMPLEMENTED
 @implementation JobsRecordPresentedViewController
-
 static JobsRecordPresentedViewController *static_JobsRecordPresentedVC = nil;
 +(instancetype)sharedManager{
     @synchronized(self){

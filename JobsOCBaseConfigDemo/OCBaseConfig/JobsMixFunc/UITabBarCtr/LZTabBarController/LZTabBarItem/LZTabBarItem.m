@@ -17,7 +17,6 @@ Prop_strong()UILabel *titleLabel;
 @end
 
 @implementation LZTabBarItem
-
 - (instancetype)init {
     if (self = [super init]) {
         self.userInteractionEnabled = YES;
@@ -59,7 +58,6 @@ Prop_strong()UILabel *titleLabel;
                                                CGRectGetWidth(self.frame) - 2 * space,
                                                CGRectGetHeight(self.frame) - 2 * space);
         }break;
-            
         default:
             break;
     }
@@ -89,13 +87,11 @@ Prop_strong()UILabel *titleLabel;
 - (void)setTitle:(NSString *)title {
     _title = title;
     self.titleLabel.byText(title);
-
 }
 
 - (void)setTitleColor:(UIColor *)titleColor {
     _titleColor = titleColor;
     self.titleLabel.byTextCor(titleColor);
-
 }
 #pragma mark —— lazyLoad
 - (UIImageView *)iconImageView {
@@ -104,7 +100,6 @@ Prop_strong()UILabel *titleLabel;
         _iconImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
             imageView.byContentMode(UIViewContentModeScaleAspectFit);
-
             self.addSubview(imageView);
         });
     };return _iconImageView;

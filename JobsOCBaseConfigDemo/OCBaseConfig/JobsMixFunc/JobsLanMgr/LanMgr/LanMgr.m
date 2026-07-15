@@ -12,7 +12,6 @@
 #import "NSString+JobsLanMgr.h"
 
 @implementation LanMgr
-
 static NSBundle *bundle = nil;
 static AppLanguage _language = AppLanguageBySys;
 

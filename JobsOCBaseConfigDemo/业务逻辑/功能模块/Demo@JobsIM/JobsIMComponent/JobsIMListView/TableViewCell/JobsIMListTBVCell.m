@@ -11,7 +11,6 @@
 
 Prop_strong()UILabel *timeLab;
 Prop_strong()UILongPressGestureRecognizer *longPG;
-
 Prop_strong()NSMutableArray <MGSwipeButtonModel *>*leftBtnMutArr;
 Prop_strong()NSMutableArray <MGSwipeButtonModel *>*rightBtnMutArr;
 Prop_copy()NSString *usernameStr;
@@ -48,7 +47,6 @@ UITextFieldProtocol_synthesize_part2
         self.bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
             view.byBgColor(JobsYellowColor.colorWithAlphaComponentBy(0.3));
         }));
-
         self.leftSwipeSettings.transition = MGSwipeTransitionBorder;
         self.rightSwipeSettings.transition = MGSwipeTransitionDrag;
         self.leftExpansion.buttonIndex = 0;
@@ -72,7 +70,6 @@ UITextFieldProtocol_synthesize_part2
         @jobs_strongify(self)
         if ([model isKindOfClass:JobsIMListDataModel.class]) {
             JobsIMListDataModel *listDataModel = (JobsIMListDataModel *)model;
-            
             self.usernameStr = listDataModel.usernameStr;
             self.contentStr = listDataModel.contentStr;
             self.userHeaderIMG = listDataModel.userHeaderIMG;
@@ -85,7 +82,6 @@ UITextFieldProtocol_synthesize_part2
             self.userHeaderURLStr = @"https://picsum.photos/126";
             self.timeStr = @"数据异常".tr;
         }
-        
         self.textLabel.byText(self.usernameStr);
         self.detailTextLabel.byText(self.contentStr);
         self.detailTextLabel.byTextCor(JobsLightGrayColor);
@@ -99,7 +95,6 @@ UITextFieldProtocol_synthesize_part2
                 .load();
         }
         self.timeLab.byAlpha(1);
-
         return self;
     };
 }

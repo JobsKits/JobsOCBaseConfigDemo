@@ -16,7 +16,6 @@ Prop_strong()UILabel *tableHighlightLabel;
 @end
 
 @implementation SlotCell
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.minutesLabel.alpha = 1;

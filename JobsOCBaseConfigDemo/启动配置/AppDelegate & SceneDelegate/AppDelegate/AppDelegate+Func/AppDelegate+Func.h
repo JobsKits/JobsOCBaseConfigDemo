@@ -17,11 +17,13 @@
 //#endif
 #endif
 /// 检查联网情况
+
 #if __has_include(<Reachability/Reachability.h>)
 #import <Reachability/Reachability.h>
 #else
 #import "Reachability.h"
 #endif
+
 #import "NSString+Reachability.h"
 
 #if __has_include(<GKNavigationBar/GKNavigationBar.h>)
@@ -49,21 +51,13 @@
 #endif
 
 #import "JobsByOCPods.h"
-
 #import "JobsMakes.h"
-
 #import "JobsOCKeyboardMgr.h"
-
 #import "JobsBlock.h"
-
 #import "JobsOCTools.h"
-
 #import "JobsOCDSL.h"
-
 #import "JobsDefines.h"
-
 #import "JobsNavBarHeader.h"
-
 #import "JobsOCSplash.h"
 
 NS_ASSUME_NONNULL_BEGIN

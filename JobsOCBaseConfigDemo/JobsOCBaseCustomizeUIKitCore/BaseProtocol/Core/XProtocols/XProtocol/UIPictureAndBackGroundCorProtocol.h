@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_UIPICTUREANDBACKGROUNDCORPROTOCOL_AE16F71882
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -9,19 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSSHOWNUMVIEW_AAAA24D7F0
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsByOCPods.h"
-
 #import "JobsBaseUI.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

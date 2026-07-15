@@ -58,7 +58,6 @@ Prop_assign()BOOL shouldApplyAppEntryAfterReturning;
 @end
 
 @implementation JobsOCDemoListSettingsVC
-
 @synthesize tableView = _tableView;
 
 -(void)loadView{

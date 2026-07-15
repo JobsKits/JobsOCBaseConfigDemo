@@ -9,11 +9,8 @@
 #define JOBS_HEADER_GUARD_JOBSANIMATIONLABEL_D61CD3D838
 
 #import <UIKit/UIKit.h>
-
 #import "JobsOCDSL.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

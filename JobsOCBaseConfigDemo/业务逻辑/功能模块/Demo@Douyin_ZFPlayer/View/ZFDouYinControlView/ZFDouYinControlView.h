@@ -23,9 +23,7 @@
 #endif
 
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCDSL.h"
 
 @interface ZFDouYinControlView : UIView <ZFPlayerMediaControl>

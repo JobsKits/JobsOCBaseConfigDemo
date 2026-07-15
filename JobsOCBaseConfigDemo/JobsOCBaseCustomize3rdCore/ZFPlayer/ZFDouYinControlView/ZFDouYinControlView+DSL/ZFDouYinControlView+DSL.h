@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_ZFDOUYINCONTROLVIEW_DSL_24809A0534
 
 #import "ZFDouYinControlView.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

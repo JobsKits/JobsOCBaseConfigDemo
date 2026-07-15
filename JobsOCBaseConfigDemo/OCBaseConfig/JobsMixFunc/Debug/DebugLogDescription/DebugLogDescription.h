@@ -10,15 +10,11 @@
 
 #import <objc/runtime.h>
 #import <Foundation/Foundation.h>
-
 #import "JobsStringUtilsHeader.h"
-
 #import "NSObject+Extra.h"
 #import "NSString+Extra.h"
 #import "NSData+Extra.h"
-
 #import "JobsMakes.h"
-
 #import "JobsDefines.h"
 
 #ifdef DEBUG

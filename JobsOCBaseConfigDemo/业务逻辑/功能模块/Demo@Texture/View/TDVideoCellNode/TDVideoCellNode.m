@@ -14,7 +14,6 @@ Prop_strong() NSURL *pendingURL; // 仅在 didLoad 再喂给 video
 @end
 
 @implementation TDVideoCellNode
-
 -(instancetype)initWithURL:(NSURL *)url title:(NSString *)title {
     if (self = [super init]) {
         self.automaticallyManagesSubnodes = YES;

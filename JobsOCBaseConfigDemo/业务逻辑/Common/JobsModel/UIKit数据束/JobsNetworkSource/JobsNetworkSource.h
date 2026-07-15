@@ -9,11 +9,8 @@
 #define JobsNetworkSource_h
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

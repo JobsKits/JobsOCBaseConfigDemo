@@ -11,7 +11,6 @@
 #import <objc/runtime.h>
 #import <Foundation/Foundation.h>
 #import "JobsUserModel.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

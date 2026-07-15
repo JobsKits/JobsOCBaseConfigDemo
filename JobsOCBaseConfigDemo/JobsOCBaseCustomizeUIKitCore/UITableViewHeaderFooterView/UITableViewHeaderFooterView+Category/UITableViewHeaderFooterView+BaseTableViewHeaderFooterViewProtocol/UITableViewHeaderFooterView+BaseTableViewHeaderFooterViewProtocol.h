@@ -12,17 +12,11 @@
 #import <UIKit/UIKit.h>
 #import "UITableView+RegisterClass.h"
 #import "UITableViewHeaderFooterView+Attribute.h"
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsClass.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

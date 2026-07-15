@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_HXPHOTOPICKERMODEL_DSL_23718279DC2FA626
 
 #import "JobsModel.h"
-
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

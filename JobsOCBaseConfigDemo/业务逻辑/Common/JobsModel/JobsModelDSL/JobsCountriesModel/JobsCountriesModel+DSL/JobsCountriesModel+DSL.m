@@ -8,7 +8,6 @@
 #import "JobsCountriesModel+DSL.h"
 
 @implementation JobsCountriesModel (DSL)
-
 -(JobsRetJobsCountriesModelByStrBlock _Nonnull)byAbbr{
     @jobs_weakify(self)
     return ^__kindof JobsCountriesModel *_Nullable(NSString * _Nullable data) {

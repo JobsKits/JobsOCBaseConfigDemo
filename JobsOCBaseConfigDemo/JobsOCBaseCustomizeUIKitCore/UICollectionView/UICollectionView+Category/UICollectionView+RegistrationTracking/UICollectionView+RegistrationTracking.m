@@ -16,7 +16,6 @@ static NSString *JobsCollectionViewSupplementaryRegistrationKey(NSString *elemen
 }
 
 @implementation UICollectionView (RegistrationTracking)
-
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -73,7 +72,6 @@ static NSString *JobsCollectionViewSupplementaryRegistrationKey(NSString *elemen
     if(!identifier || [identifier isEqualToString:@"_UIEditMenuListViewSeparator"]){
         return [self swizzled_dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath];
     }
-    
     NSString *registrationKey = JobsCollectionViewSupplementaryRegistrationKey(elementKind, identifier);
     if (![self.registeredIdentifiers containsObject:registrationKey]) {
         // 如果未注册，则进行注册

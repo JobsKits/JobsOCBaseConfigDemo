@@ -8,7 +8,6 @@
 #import "JobsIMChatInfoModel.h"
 
 @implementation JobsIMChatInfoModel
-
 -(NSString *)messageID{
     if (!_messageID) {
         _messageID = NSUUID.UUID.UUIDString;

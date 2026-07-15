@@ -19,7 +19,6 @@ Prop_assign()BOOL hasLastPaintPoint;
 @end
 
 @implementation JobsMosaicBrushImageView
-
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.userInteractionEnabled = YES;
@@ -40,7 +39,6 @@ Prop_assign()BOOL hasLastPaintPoint;
         self.lastPaintPoint = point;
         [self emitPaintPointsFromPoint:point
                                toPoint:point];
-
     }else if (gesture.state == UIGestureRecognizerStateChanged){
         if (self.hasLastPaintPoint) {
             [self emitPaintPointsFromPoint:self.lastPaintPoint
@@ -51,7 +49,6 @@ Prop_assign()BOOL hasLastPaintPoint;
         }
         self.hasLastPaintPoint = YES;
         self.lastPaintPoint = point;
-
     }else if (gesture.state == UIGestureRecognizerStateEnded ||
               gesture.state == UIGestureRecognizerStateCancelled ||
               gesture.state == UIGestureRecognizerStateFailed){

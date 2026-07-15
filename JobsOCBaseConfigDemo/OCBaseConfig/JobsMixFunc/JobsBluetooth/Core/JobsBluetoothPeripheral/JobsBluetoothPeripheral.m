@@ -8,7 +8,6 @@
 #import "JobsBluetoothPeripheral.h"
 
 @implementation JobsBluetoothPeripheral
-
 -(instancetype)initWithIdentifier:(NSUUID *)identifier
                              name:(NSString *)name
                              RSSI:(NSNumber *)RSSI

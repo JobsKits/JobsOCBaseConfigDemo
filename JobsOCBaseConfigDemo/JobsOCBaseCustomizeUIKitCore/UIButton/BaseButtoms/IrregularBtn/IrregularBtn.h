@@ -9,11 +9,8 @@
 #define JOBS_HEADER_GUARD_IRREGULARBTN_DEF4E6EC9F
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsOCDSL.h"
-
 #import "JobsDefines.h"
 /// 不规则多边形按钮
 @interface IrregularBtn : UIButton

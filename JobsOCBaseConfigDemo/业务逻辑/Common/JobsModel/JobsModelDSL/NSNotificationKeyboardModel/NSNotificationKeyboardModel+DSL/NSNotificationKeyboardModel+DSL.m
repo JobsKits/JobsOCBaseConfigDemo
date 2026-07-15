@@ -8,7 +8,6 @@
 #import "NSNotificationKeyboardModel+DSL.h"
 
 @implementation NSNotificationKeyboardModel (DSL)
-
 -(JobsRetNSNotificationKeyboardModelByFrameBlock _Nonnull)byBeginFrame{
     @jobs_weakify(self)
     return ^__kindof NSNotificationKeyboardModel *_Nullable(CGRect data) {

@@ -22,7 +22,6 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
 @end
 
 @implementation JobsMsgDetailVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -30,7 +29,6 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         self.msgDataModel = self.viewModel.data;
@@ -44,7 +42,6 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
             data.byText(@"消息详情页".tr);
             data.byFont(UIFontWeightBoldSize(17));
         })
-    
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
@@ -56,7 +53,6 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     @jobs_weakify(self)
     self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
         @jobs_strongify(self)
@@ -67,26 +63,17 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
         data.add(UIBarButtonItem.initBy(self.deleteBtn));
     });
     self.makeNavByAlpha(1);
-    
     self.headerCardView.byAlpha(1);
-
     self.titleLab.byAlpha(1);
-
     self.subTitleLab.byAlpha(1);
-
     self.drawBtn.byAlpha(1);
-
     self.lineLab.byAlpha(1);
-
     self.contentCardView.byAlpha(1);
-
     self.textView.byAlpha(1);
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
 }
 
 -(void)viewWillLayoutSubviews{

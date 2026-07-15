@@ -26,7 +26,6 @@ Prop_strong()JobsPresentationCtrl *presentationController;
 @end
 
 @implementation JobsOCCommentDemoVC
-
 -(void)loadView{
     [super loadView];
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {

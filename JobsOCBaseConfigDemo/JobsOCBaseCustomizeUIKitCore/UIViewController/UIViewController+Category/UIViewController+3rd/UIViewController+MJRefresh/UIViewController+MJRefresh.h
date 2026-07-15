@@ -25,13 +25,9 @@
 #endif
 
 #import "JobsBaseUI.h"
-
 #import "JobsModelDSL.h"
-
 #import "MJRefreshExtra.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

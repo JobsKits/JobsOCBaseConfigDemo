@@ -19,10 +19,8 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
 @end
 
 @implementation JobsCommentPopUpView_viewForHeaderInSection
-
 -(instancetype)init{
     if (self = [super init]) {
-        
     };return self;
 }
 
@@ -47,7 +45,6 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
     return ^(id _Nullable model) {
         @jobs_strongify(self)
         self.byBgColor(JobsWhiteColor);
-
         if ([model isKindOfClass:JobsFirstCommentModel.class]) {
             self.firstCommentModel = model;
             self.userInfoBtn.byAlpha(1);
@@ -107,7 +104,6 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
     }else{
         self->_userInfoBtn.jobsResetBtnImage(placeholderImage);
     }
-    
     _userInfoBtn
         .jobsUpdateButtonConfigurationBy(^(UIButtonConfiguration *config) {
             config
@@ -162,7 +158,6 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
                 make.centerY.equalTo(self);
             });
         _likeBtn.thumpNum = 0;
-
     }
     _likeBtn.bySelected(self.firstCommentModel.isPraise);
     _likeBtn.thumpNum = self.firstCommentModel.praiseNum;

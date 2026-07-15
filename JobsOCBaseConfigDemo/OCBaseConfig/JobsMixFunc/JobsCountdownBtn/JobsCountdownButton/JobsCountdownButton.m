@@ -15,7 +15,6 @@
 @end
 
 @implementation JobsCountdownBtn
-
 +(instancetype)verificationCodeButton {
     return self.new;
 }

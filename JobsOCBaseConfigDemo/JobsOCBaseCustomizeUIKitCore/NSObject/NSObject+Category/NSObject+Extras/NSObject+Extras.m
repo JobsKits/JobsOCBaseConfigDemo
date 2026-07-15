@@ -491,13 +491,11 @@ UITextFieldProtocol_dynamic
 /// UICollectionViewFlowLayout
 -(__kindof UICollectionViewFlowLayout *_Nonnull)verticalLayout{
     return jobsMakeVerticalCollectionViewFlowLayout(^(UICollectionViewFlowLayout * _Nullable data) {
-        
     });
 }
 
 -(__kindof UICollectionViewFlowLayout *_Nonnull)horizontalLayout{
     return jobsMakeHorizontalCollectionViewFlowLayout(^(UICollectionViewFlowLayout * _Nullable data) {
-        
     });
 }
 /// JSON对象转NSData
@@ -527,7 +525,6 @@ UITextFieldProtocol_dynamic
         UIWindow *mainWindowBefore13 = jobsGetMainWindowBefore13().landscape;
         UIWindow *mainWindowAfter13 = jobsGetMainWindowAfter13().landscape;
         UIWindow *resultWindow = UIDevice.currentDevice.systemVersion.floatValue >= 13.0 ? mainWindowAfter13 : mainWindowBefore13;
-        
         if(resultWindow) return resultWindow;
         if(mainWindowBefore13) return mainWindowBefore13;
         if(mainWindowAfter13) return mainWindowAfter13;
@@ -670,7 +667,6 @@ UITextFieldProtocol_dynamic
             case ComingStyle_PUSH:{
                 vc.navigationController ? [vc.navigationController popViewControllerAnimated:YES] : [vc dismissViewControllerAnimated:YES completion:nil];
             }break;
-                
             default:
                 break;
         }
@@ -986,7 +982,6 @@ UITextFieldProtocol_dynamic
         });
     }
     dropDownListView.jobsRichViewByModel(data);
-    
     dropDownListView.frame = jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data1) {
         data1.jobsX = f.origin.x;
         data1.jobsY = jobsDropDownListViewDirection ? (f.origin.y - motivateViewOffset - data.count * JobsDropDownListTBVCell.cellHeightByModel(nil))
@@ -1446,7 +1441,6 @@ UITextFieldProtocol_dynamic
     if (interfaceOrientationMaskBlock){
         return interfaceOrientationMaskBlock( JobsAppTool.currentInterfaceOrientationMask);
     }else return CGSizeZero;
-
 }
 /// UIInterfaceOrientation 检测屏幕方向
 -(UIInterfaceOrientation)getInterfaceOrientation{

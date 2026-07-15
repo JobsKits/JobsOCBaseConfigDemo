@@ -6,11 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "JobsMakes.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 #ifndef LANDSCAPE_VALUE_H

@@ -13,7 +13,6 @@
 #import "XYColorOC.h"
 #endif
 
-
 #ifndef JobsLabel_h
 #define JobsLabel_h
 #pragma mark —— Category

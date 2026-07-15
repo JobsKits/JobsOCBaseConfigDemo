@@ -12,7 +12,6 @@
 @end
 
 @implementation VideoModel
-
 -(instancetype)init{
     if (self = [super init]) {
         [VideoModel mj_setupObjectClassInArray:^NSDictionary *{

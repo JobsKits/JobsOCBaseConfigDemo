@@ -20,7 +20,6 @@ Prop_copy()NSArray <NSString *>*sectionTitleArr;
 @end
 
 @implementation TestLabelVC
-
 @synthesize tableView = _tableView;
 @synthesize dataArr = _dataArr;
 @synthesize sectionTitleArr = _sectionTitleArr;

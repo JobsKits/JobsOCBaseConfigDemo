@@ -8,7 +8,6 @@
 #import "JobsImageModel+DSL.h"
 
 @implementation JobsImageModel (DSL)
-
 -(JobsRetJobsImageModelByImageBlock _Nonnull)byImage{
     @jobs_weakify(self)
     return ^__kindof JobsImageModel *_Nullable(UIImage * _Nullable data) {

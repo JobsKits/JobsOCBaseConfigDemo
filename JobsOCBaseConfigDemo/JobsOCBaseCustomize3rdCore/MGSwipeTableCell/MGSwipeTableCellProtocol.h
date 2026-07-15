@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_MGSWIPETABLECELLPROTOCOL_150EF150B5
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

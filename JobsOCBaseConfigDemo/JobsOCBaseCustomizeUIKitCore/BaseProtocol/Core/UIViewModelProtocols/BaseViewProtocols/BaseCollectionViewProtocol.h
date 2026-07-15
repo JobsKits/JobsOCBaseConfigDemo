@@ -9,11 +9,8 @@
 #define JOBS_HEADER_GUARD_BASECOLLECTIONVIEWPROTOCOL_F46762E89E
 
 #import <UIKit/UIKit.h>
-
 #import "UIScrollViewProtocol.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

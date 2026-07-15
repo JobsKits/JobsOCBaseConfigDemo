@@ -9,7 +9,6 @@
 #import "NSObject+Swizzling.h"
 
 @implementation NSObject (Swizzling)
-
 -(void)swizzlingInstanceMethod:(SEL _Nonnull)originalSelector
               swizzledSelector:(SEL _Nonnull)swizzledSelector {
     Class class = self.class;
@@ -113,7 +112,6 @@ void objc_setAssociatedObject_weak(id _Nonnull object,
         class = objc_allocateClassPair([value class], name.UTF8String, 0);
         objc_registerClassPair(class);
     }
-    
     SEL deallocSEL = NSSelectorFromString(@"dealloc");
     Method deallocMethod = class_getInstanceMethod([value class], deallocSEL);
     const char *types = method_getTypeEncoding(deallocMethod);
@@ -132,7 +130,6 @@ void objc_setAssociatedObject_weak(id _Nonnull object,
     /// 将value的isa指向动态创建的子类
     object_setClass(value,
                     class);
-    
     objc_setAssociatedObject(object,
                              key,
                              value,

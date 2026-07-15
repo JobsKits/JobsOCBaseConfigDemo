@@ -37,6 +37,7 @@ Prop_assign()BOOL pinnedSectionStyle;
 @implementation JobsOCRootFoldTableCell{
     MASConstraint *_innerTableHeightConstraint;
     BOOL _expanded;
+    NSInteger _chargingProgressPhase;
 }
 
 +(CGFloat)verticalInset{
@@ -152,6 +153,7 @@ Prop_assign()BOOL pinnedSectionStyle;
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
         self.items = @[];
+        _chargingProgressPhase = 0;
         self.pinAccessoryIndex = NSNotFound;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = JobsClearColor;
@@ -221,6 +223,25 @@ Prop_assign()BOOL pinnedSectionStyle;
     return viewModel.textModel.attributedTitle.string ?: viewModel.textModel.text ?: @"";
 }
 
+-(NSString *)displayTextByViewModel:(UIViewModel *)viewModel{
+    NSString *text = [self textByViewModel:viewModel];
+    NSString *className = viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
+    if (![className isEqualToString:@"JobsProgressDemoVC"]) return text;
+    NSArray <NSString *>*states = @[@"🟩⬜⬜", @"🟩🟩⬜", @"🟩🟩🟩"];
+    return [NSString stringWithFormat:@"%@ %@", states[_chargingProgressPhase % states.count], text];
+}
+
+-(void)updateChargingProgressByPhase:(NSInteger)phase{
+    _chargingProgressPhase = MAX(0, phase) % 3;
+    for (NSIndexPath *indexPath in self.innerTableView.indexPathsForVisibleRows) {
+        if (indexPath.row < 0 || indexPath.row >= (NSInteger)self.items.count) continue;
+        UIViewModel *viewModel = self.items[indexPath.row];
+        NSString *className = viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
+        if (![className isEqualToString:@"JobsProgressDemoVC"]) continue;
+        [self.innerTableView cellForRowAtIndexPath:indexPath].textLabel.byText([self displayTextByViewModel:viewModel]);
+    }
+}
+
 -(NSString *)subTextByViewModel:(UIViewModel *)viewModel{
     NSString *subText = viewModel.subTextModel.attributedTitle.string ?: viewModel.subTextModel.text ?: @"";
     if (subText.length) return subText;
@@ -253,6 +274,7 @@ Prop_assign()BOOL pinnedSectionStyle;
             @"JobsNavigationDemoVC": @"arrow.triangle.turn.up.right.diamond",
             @"JobsTimerDemoListVC": @"stopwatch",
             @"JobsBluetoothDemoVC": @"antenna.radiowaves.left.and.right",
+            @"JobsCoreMotionDemoVC": @"gyroscope",
             @"JobsAnimatedNumberLabelDemoVC": @"textformat.123",
             @"JobsClockDemoVC": @"clock",
             @"LotteryVC": @"circle.grid.cross.fill",
@@ -302,6 +324,7 @@ Prop_assign()BOOL pinnedSectionStyle;
             @"DynamicViewTestVC": @"photo.stack",
             @"JobsProgressVC": @"chart.bar",
             @"JobsCountdownLayerDemoVC": @"flame.fill",
+            @"JobsLongPressLikeDemoVC": @"hand.thumbsup.fill",
             @"JobsSysProgressDemoVC": @"gauge",
             @"JobsProgressDemoVC": @"chart.line.uptrend.xyaxis",
             @"TestIrregularViewTestVC": @"hexagon",
@@ -566,7 +589,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }
     UIViewModel *viewModel = self.items[indexPath.row];
     NSAttributedString *subAttributedText = [self subAttributedTextByViewModel:viewModel];
-    cell.textLabel.text = [self textByViewModel:viewModel];
+    cell.textLabel.byText([self displayTextByViewModel:viewModel]);
     cell.textLabel.font = UIFontWeightRegularSize(15);
     cell.detailTextLabel.font = UIFontWeightRegularSize(11);
     cell.accessoryView = nil;

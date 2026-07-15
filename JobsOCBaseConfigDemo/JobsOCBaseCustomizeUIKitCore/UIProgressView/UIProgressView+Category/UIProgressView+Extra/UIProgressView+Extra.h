@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_UIPROGRESSVIEW_EXTRA_6C7BA22717
 
 #import <UIKit/UIKit.h>
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

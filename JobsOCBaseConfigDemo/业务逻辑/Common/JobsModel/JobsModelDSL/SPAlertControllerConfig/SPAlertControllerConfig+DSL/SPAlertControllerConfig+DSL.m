@@ -8,7 +8,6 @@
 #import "SPAlertControllerConfig+DSL.h"
 
 @implementation SPAlertControllerConfig (DSL)
-
 -(JobsRetSPAlertControllerConfigByNSObject_SPAlertControllerInitTypeBlock _Nonnull)bySPAlertControllerInitType{
     @jobs_weakify(self)
     return ^__kindof SPAlertControllerConfig *_Nullable(NSObject_SPAlertControllerInitType data) {

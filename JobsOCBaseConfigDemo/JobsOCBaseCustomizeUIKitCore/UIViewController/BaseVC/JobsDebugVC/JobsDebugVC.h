@@ -6,13 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "JobsLanMgr.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 #ifndef VC_LIFE_CYCLE_ENUM_DEFINED

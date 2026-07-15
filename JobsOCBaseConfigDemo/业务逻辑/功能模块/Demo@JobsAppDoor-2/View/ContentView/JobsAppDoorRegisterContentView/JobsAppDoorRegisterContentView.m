@@ -22,7 +22,6 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
 @end
 
 @implementation JobsAppDoorRegisterContentView
-
 - (void)dealloc {
     [self.sendBtnEnableDisposable dispose];
     JobsLog(@"%@",JobsLocalFunc);
@@ -94,23 +93,19 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
 
 -(void)refreshRegisterLayout{
     if (self.width <= 0 || self.height <= 0) return;
-
     CGFloat sideRailWidth = self.registerSideRailWidth;
     CGFloat formLeft = self.registerFormLeft;
     CGFloat formWidth = self.registerFormWidth;
     CGFloat formCenterX = self.registerFormCenterX;
-
     self.backToLoginBtn
         .byFrame(CGRectMake(0,
                             0,
                             sideRailWidth,
                             self.height));
-
     self.titleLab
         .bySizeToFit()
         .byCenterX(formCenterX)
         .byTop(JobsWidth(20));
-
     [self.registerDoorInputViewBaseStyleMutArr enumerateObjectsUsingBlock:^(JobsAppDoorInputViewBaseStyle * _Nonnull obj,
                                                                             NSUInteger idx,
                                                                             BOOL * _Nonnull stop) {
@@ -130,20 +125,17 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
                 layer.byMasksToBounds(YES);
             });
     }];
-
     self.sendBtn
         .byFrame(CGRectMake(formLeft,
                             self.height - JobsWidth(20) - ThingsHeight,
                             formWidth,
                             ThingsHeight));
-
     self.backToLoginBtn
         .byAlpha(.7f);
     self.titleLab
         .byAlpha(1);
     self.sendBtn
         .byAlpha(1);
-
     self
         .byBringSubviewToFront(self.backToLoginBtn)
         .byBringSubviewToFront(self.titleLab);

@@ -55,9 +55,7 @@
 #import "WHToastExtra.h"
 /// 取随机
 #import "JobsRandomUtilsHeader.h"
-
 #import "BRPickerViewExtra.h"
-
 #import "JobsOCRuntimeKits.h"
 
 #endif /* JobsObject_h */

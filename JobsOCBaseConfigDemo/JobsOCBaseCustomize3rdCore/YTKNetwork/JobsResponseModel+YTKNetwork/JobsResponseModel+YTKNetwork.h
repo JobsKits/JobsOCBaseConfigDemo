@@ -18,11 +18,8 @@
 #endif
 
 #import "YTKNetworkProtocols.h"
-
 #import "WHToastExtra.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

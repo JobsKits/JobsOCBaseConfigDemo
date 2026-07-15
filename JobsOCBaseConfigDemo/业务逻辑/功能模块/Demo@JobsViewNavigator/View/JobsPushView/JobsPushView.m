@@ -16,7 +16,6 @@ Prop_strong()JobsPushView *pushView;
 @end
 
 @implementation JobsPushView
-
 -(void)dealloc{
     JobsNotificationCenter.remove(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -42,7 +41,6 @@ Prop_strong()JobsPushView *pushView;
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
-                
 //                JobsViewNavigator *navigator = self.addSubview(jobsMakeViewNavigator(^(__kindof JobsViewNavigator * _Nullable navigator) {
 //                    navigator.frame = self.bounds;
 //                    self.pushView.navigator = navigator;

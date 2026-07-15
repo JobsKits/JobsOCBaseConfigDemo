@@ -8,7 +8,6 @@
 #import "UINavigationController+Extra.h"
 
 @implementation UINavigationController (Extra)
-
 +(JobsRetNavCtrByVCBlock _Nonnull)initBy{
     @jobs_weakify(self)
     return ^__kindof UINavigationController *_Nullable(__kindof UIViewController *_Nonnull vc){

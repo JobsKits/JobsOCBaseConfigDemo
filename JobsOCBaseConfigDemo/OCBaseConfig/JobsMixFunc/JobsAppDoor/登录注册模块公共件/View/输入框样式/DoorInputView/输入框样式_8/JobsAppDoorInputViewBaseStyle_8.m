@@ -17,17 +17,14 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 @end
 
 @implementation JobsAppDoorInputViewBaseStyle_8
-
 -(instancetype)init{
     if (self = [super init]) {
-
     };return self;
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.byBgColor(JobsClearColor);
-
         self.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
             data.byJobsWidth(1)
                 .byLayerCor(Cor3);
@@ -42,7 +39,6 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 -(void)configTextField{
     if (isValue(self.doorInputViewBaseStyleModel.inputStr)) {
         self.zyTextField.byText(self.doorInputViewBaseStyleModel.inputStr);
-
     }
     self.zyTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
     self.zyTextField.background = self.doorInputViewBaseStyleModel.background;
@@ -117,7 +113,6 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 x.selected = !x.selected;
                 x.jobsResetBtnImage(self.doorInputViewBaseStyleModel.selectedSecurityBtnIMG ? : JobsRedColor.image);
                 self.zyTextField.bySecureTextEntry(x.selected);
-
                 if (x.selected && !self.zyTextField.isEditing) {
                     self.zyTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
                 }
@@ -141,7 +136,6 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 .byAdd(^(MASConstraintMaker *make) {
                     make.edges.equalTo(self);
                 });
-
             @jobs_weakify(self)
             [_zyTextField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
                 @jobs_strongify(self)

@@ -8,7 +8,6 @@
 #import "JobsOCPatchModel.h"
 
 @implementation JobsOCPatchModel
-
 +(__kindof JobsOCPatchModel *)patchWithIdentifier:(NSString *)identifier
                                        targetCls:(Class)targetCls
                                         selector:(SEL)selector

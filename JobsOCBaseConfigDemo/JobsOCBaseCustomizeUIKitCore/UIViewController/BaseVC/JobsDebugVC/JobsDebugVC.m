@@ -13,7 +13,6 @@
 @end
 
 @implementation JobsDebugVC
-
 -(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

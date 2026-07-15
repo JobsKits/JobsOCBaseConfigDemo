@@ -15,7 +15,6 @@ Prop_strong()BaseButton *btn;
 @end
 
 @implementation LocalNotificationsVC
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -23,7 +22,6 @@ Prop_strong()BaseButton *btn;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -48,13 +46,11 @@ Prop_strong()BaseButton *btn;
     self.view.backgroundColor = JobsRandomColor;
     self.makeNavByAlpha(1);
     self.btn.alpha = 1;
-    
     CGRect rect = CGRectMake(ScaleW(20), ScaleH(10), ScaleW(200), ScaleH(44));
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
 }
 
 -(void)viewWillLayoutSubviews{

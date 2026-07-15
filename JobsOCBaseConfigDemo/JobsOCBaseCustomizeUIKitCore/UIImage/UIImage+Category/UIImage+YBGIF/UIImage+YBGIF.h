@@ -15,9 +15,7 @@
 #import "NSObject+image.h"
 #import "NSString+Replace.h"
 #import "UIImage+Extra.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

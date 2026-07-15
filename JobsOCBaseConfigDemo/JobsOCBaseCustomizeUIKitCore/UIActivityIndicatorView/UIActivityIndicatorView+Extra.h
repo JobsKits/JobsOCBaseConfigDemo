@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_UIACTIVITYINDICATORVIEW_EXTRA_1ED8A959A4
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

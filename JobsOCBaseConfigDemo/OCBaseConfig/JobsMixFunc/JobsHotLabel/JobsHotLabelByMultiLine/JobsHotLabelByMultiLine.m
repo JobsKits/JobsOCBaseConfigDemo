@@ -33,14 +33,12 @@ static dispatch_once_t static_hotLabelWithMultiLineOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(HEXCOLOR(0xFFFFFF));
-
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.byBgColor(HEXCOLOR(0xFFFFFF));
-
     };return self;
 }
 /// 必须有frame的前提下才会进行绘制
@@ -55,7 +53,6 @@ static dispatch_once_t static_hotLabelWithMultiLineOnceToken;
         @jobs_strongify(self)
         self.dataModel = model;
         self.byBgColor(self.dataModel.bgCor);
-
         if (self.dataModel.viewModels.count) {
             self.collectionView.byShow(self);
         }
@@ -101,9 +98,7 @@ static dispatch_once_t static_hotLabelWithMultiLineOnceToken;
         .cornerCutToCircleWithCornerRadius(itemSize.height / 2);
     if (indexPath.section == 0 && indexPath.row == 0) {
         cell.textLab.byTextCor(HEXCOLOR(0xAE8330));
-
         cell.textLab.byBgColor(HEXCOLOR(0xFFEABA));
-
     };return cell;
 }
 
@@ -160,15 +155,10 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 //    self.jobsToastSuccessMsg(_cell.getViewModel.textModel.text);
     for (JobsHotLabelByMultiLineCVCell *cell in collectionView.visibleCells) {
         cell.textLab.byBgColor(HEXCOLOR(0xF3F3F3));
-
         cell.textLab.byTextCor(HEXCOLOR(0x757575));
-
     }
     _cell.textLab.byTextCor(HEXCOLOR(0xAE8330));
-
     _cell.textLab.byBgColor(HEXCOLOR(0xFFEABA));
-
-    
     if (self.objBlock) self.objBlock(_cell);
 }
 /// 取消选中操作

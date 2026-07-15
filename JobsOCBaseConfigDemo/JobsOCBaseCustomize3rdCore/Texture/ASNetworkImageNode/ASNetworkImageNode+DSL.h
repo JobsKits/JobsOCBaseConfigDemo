@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_ASNETWORKIMAGENODE_DSL_EC9A3059AA
 
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -15,17 +15,11 @@
 #import "NSString+Check.h"
 #import "NSString+Sys.h"
 #import "NSString+Conversion.h"
-
 #import "JobsRichTextUtils.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsStringUtilsHeader.h"
-
 #import "JobsMakes.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

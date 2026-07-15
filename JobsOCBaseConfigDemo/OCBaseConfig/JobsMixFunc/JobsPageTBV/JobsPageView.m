@@ -18,7 +18,6 @@ Prop_strong()NSArray <UIViewModel *>*dataArr;
 @synthesize cellHeight = _cellHeight;
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
     };return self;
 }
 
@@ -54,7 +53,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -68,7 +66,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(self.dataArr[indexPath.row])
             .JobsBlock1(^(id _Nullable data) {;
-             
             });
 #warning 这里需要被修改
 //    UIViewModel *viewModel = self.dataArr[indexPath.row];

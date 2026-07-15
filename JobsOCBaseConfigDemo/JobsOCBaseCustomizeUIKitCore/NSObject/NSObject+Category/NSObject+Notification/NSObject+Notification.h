@@ -13,15 +13,10 @@
 #import <Foundation/Foundation.h>
 #import "NSString+Extra.h"
 #import "NSString+Notification.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsOCRuntimeKits.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)

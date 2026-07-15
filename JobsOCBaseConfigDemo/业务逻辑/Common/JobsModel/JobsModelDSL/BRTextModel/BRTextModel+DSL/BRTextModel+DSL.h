@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_BRTEXTMODEL_DSL_6165BE4729A6F3D
 
 #import "JobsModel.h"
-
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

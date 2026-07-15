@@ -16,7 +16,6 @@ Prop_copy()FinishBlock finishBlock;
 @end
 
 @implementation NotifiView
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self addSubview:self.contentLabel];
@@ -46,7 +45,6 @@ Prop_copy()FinishBlock finishBlock;
 }
 
 - (void)updateWithData:(NSDictionary *)data finish:(FinishBlock)finishBlock{
-    
     NSString* key = data[kNotifiViewKey];
     if (![key isEqualToString:self.key]) {
         JobsLog(@"要更新的View的key与源key不同。更新失败!");
@@ -54,12 +52,10 @@ Prop_copy()FinishBlock finishBlock;
             finishBlock(self.key);
         };return;
     }
-    
     if (self.state == NotifiViewStateShowing) {
         self.data = data;
         [self _cancel];
         [self performSelector:@selector(dismiss) withObject:nil afterDelay:(self.duration - 0.5)];
-        
         //show的block保留不能去掉, 在此block上添加当前的finishBlock
         if (self.finishBlock) {
             FinishBlock tmpBlock = [self.finishBlock copy];
@@ -71,7 +67,6 @@ Prop_copy()FinishBlock finishBlock;
             if (finishBlock) finishBlock(self.key);
         };return;
     }
-    
     //其它情况, 不能执行更新操作
     if (finishBlock) finishBlock(self.key);
 }
@@ -105,7 +100,6 @@ Prop_copy()FinishBlock finishBlock;
         [self removeFromSuperview];
         if (self.finishBlock) self.finishBlock(self.key);
     }];
-    
 }
 
 - (void)cancel{

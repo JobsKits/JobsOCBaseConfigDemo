@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_BASETABLEVIEW_B4E4949559
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

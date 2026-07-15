@@ -8,7 +8,6 @@
 #import "ZFAVPlayerManager+DSL.h"
 
 @implementation ZFAVPlayerManager (DSL)
-
 -(JobsRetZFAVPlayerManagerByTimeIntervalBlock _Nonnull)byTimeRefreshInterval{
     @jobs_weakify(self)
     return ^__kindof ZFAVPlayerManager *_Nullable(NSTimeInterval data){

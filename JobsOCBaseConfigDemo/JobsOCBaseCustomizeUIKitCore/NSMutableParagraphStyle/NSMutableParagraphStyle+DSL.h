@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_NSMUTABLEPARAGRAPHSTYLE_DSL_E50E3A16C0
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -10,14 +10,11 @@
 #import "UIColor+Extra.h"
 
 @implementation NSObject (AppTools)
-
 -(UIButtonModel *)makeBackBtnModel{
     @jobs_weakify(self)
     return jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
         @jobs_strongify(self)
-
         UITextModel *backBtnTitleModel = self.viewModel.backBtnTitleModel;
-
         data.byHighlightBackgroundImage(@"返回".img)
             .byHighlightImage(@"返回".img)
             .byNormalImage(@"返回".img)

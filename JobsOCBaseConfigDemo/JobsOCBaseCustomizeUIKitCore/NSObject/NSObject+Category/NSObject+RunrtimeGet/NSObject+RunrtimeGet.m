@@ -8,7 +8,6 @@
 #import "NSObject+RunrtimeGet.h"
 
 @implementation NSObject (RunrtimeGet)
-
 -(id _Nullable)object:(NSObject *)object getIvar:(Ivar)ivar{
     return object_getIvar(object, ivar);
 }

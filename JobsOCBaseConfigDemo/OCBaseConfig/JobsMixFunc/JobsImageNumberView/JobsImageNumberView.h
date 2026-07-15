@@ -10,11 +10,8 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsImageNumberViewCVCell.h"
-
 #import "JobsOCDSL.h"
-
 #import "JobsBaseUI.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

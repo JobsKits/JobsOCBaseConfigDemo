@@ -12,7 +12,6 @@
 
 #import <Foundation/Foundation.h>
 #import "NSObject+Extra.h"
-
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

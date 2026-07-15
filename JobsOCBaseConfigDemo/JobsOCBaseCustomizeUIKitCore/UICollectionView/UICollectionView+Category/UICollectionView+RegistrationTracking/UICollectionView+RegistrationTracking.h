@@ -11,9 +11,7 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "NSMutableSet+Extra.h"
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

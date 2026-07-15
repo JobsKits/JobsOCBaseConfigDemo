@@ -43,9 +43,7 @@
 #endif
 
 #import "JobsModelDSL.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 //#if __has_include(<ReactiveObjC/RACEXTRuntimeExtensions.h>)

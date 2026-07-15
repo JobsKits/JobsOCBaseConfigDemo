@@ -46,7 +46,6 @@ Prop_strong()JobsAppDoorModel *appDoorModel;
 @end
 
 @implementation JobsAppDoorVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
@@ -66,7 +65,6 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-
     };return self;
 }
 
@@ -86,7 +84,6 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     self.logoContentViewY = 0;
     self.jobsAppDoorContentViewY = 0;
     self.customerServiceBtnY = 0;
-
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"返回".tr);
@@ -96,7 +93,6 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             data.byText(data.attributedTitle.string);
             data.byFont(UIFontWeightRegularSize(16));
         })
-
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
@@ -142,11 +138,9 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [JobsOCKeyboardMgr.shared clearConfigByOwner:self];
-
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if ([self.viewModel.requestParams integerValue] == JobsAppDoorBgType_Image) {
-
         }else if ([self.viewModel.requestParams integerValue] == JobsAppDoorBgType_Video){
             BOOL shouldPauseVideo = self.isBeingDismissed || self.isMovingFromParentViewController || self.navigationController.isBeingDismissed;
             if (shouldPauseVideo && self.player.currentPlayerManager.isPlaying) {
@@ -166,7 +160,6 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
         .jobsResetBtnBgCor(Cor3)
         .jobsResetBtnTitleCor(Cor1)
         .jobsResetBtnTitle(Title1);
-
     self.currentPage = @(CurrentPage_Register);//注册页面
     self->_jobsAppDoorContentView
         .byFrame(CGRectMake(JobsAppDoorContentViewRegisterX,
@@ -189,7 +182,6 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
         .jobsResetBtnBgCor(Cor1)
         .jobsResetBtnTitleCor(Cor4)
         .jobsResetBtnTitle(Title12);
-
     self.currentPage = @(CurrentPage_Login);//登录页面
     self->_jobsAppDoorContentView
         .byFrame(CGRectMake(JobsAppDoorContentViewLoginX,
@@ -438,7 +430,6 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     self.volumeBtn.layer
         .byCornerRadius(volumeBtnCornerRadius)
         .byMasksToBounds(YES);
-
     CGFloat panelW = JobsWidth(52);
     CGFloat panelH = JobsWidth(188);
     self.volumePanelView.byFrame(CGRectMake(self.volumeBtn.centerX - panelW / 2,
@@ -526,7 +517,6 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
 }
 /// 网易云盾验证
 -(void)NTESVerifyCodeWithBlock:(jobsByIDBlock)block{
-
 }
 #pragma mark —— lazyLoad
 -(JobsAppDoorLogoContentView *)logoContentView{
@@ -538,7 +528,6 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                 make.bottom.equalTo(self.jobsAppDoorContentView.mas_top).offset(-JobsWidth(50));
                 make.centerX.equalTo(self.view);
             });
-
         [self.view layoutIfNeeded];
         self.logoContentViewY = self.logoContentView.y;
     };return _logoContentView;
@@ -577,7 +566,6 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                                              animations:^{
                                 @jobs_strongify(self)
                                 self.customerServiceBtn.byAlpha(1);
-
                             } completion:nil];
                         }else{}
                     }
@@ -620,7 +608,6 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                             //状态置空
                             self.currentActivateTFIndex = 0;
                             self.lastTimeActivateTFIndex = 0;
-
                             if (self->toRegisterBtn.selected) {
                                 [self 竖形按钮在左边];
                             }else{
@@ -633,10 +620,8 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                             [self jobs_refreshKeyboardMgrConfig];
                         }
                         else if (btn.titleForNormalState.isEqualToString(Title6)){// Title6 @"Register".tr
-
                         }
                         else if (btn.titleForNormalState.isEqualToString(Title7)){// @"Login".tr
-
                         }
                         else if (btn.titleForNormalState.isEqualToString(Title4)){// Title4 @"Back to HomePage".tr
                             UIButton *abandonLoginBtn = (UIButton *)data;
@@ -644,19 +629,15 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                             [JobsAppDoorVC destroySingleton];
                         }
                         else if (btn.titleForNormalState.isEqualToString(Title5)){// Title5 @"记住我".tr
-
                         }
                         else if (btn.titleForNormalState.isEqualToString(Title3)){// Title3 @"Forgot code".tr
-
                             {//本页动效实现的
                                 self.currentPage = @(CurrentPage_ForgotCode);
                                 [self->_jobsAppDoorContentView removeContentViewWithOffsetY:0];
                                 [self.forgotCodeContentView showContentViewWithOffsetY:0];
                                 self.customerServiceBtn.byAlpha(0);
                                 [self jobs_refreshKeyboardMgrConfig];
-
                             }
-
                         }else{}
                     }else if ([data isKindOfClass:JobsAppDoorModel.class]){
                         self.appDoorModel = (JobsAppDoorModel *)data;

@@ -9,11 +9,8 @@
 #define JOBS_HEADER_GUARD_CJTEXTFIELD_373C1B2DE0
 
 #import <UIKit/UIKit.h>
-
 #import "JobsDeviceInfo.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

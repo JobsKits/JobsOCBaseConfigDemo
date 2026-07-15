@@ -27,7 +27,6 @@ Prop_strong()NSArray <NSString *>*btnTitleArr;
 @end
 
 @implementation JobsOCTimerMgrDemoVC
-
 -(void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     [self removeDemoTimers];

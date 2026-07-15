@@ -18,7 +18,6 @@
 #endif
 
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 @class RACSubject;

@@ -8,7 +8,6 @@
 #import "MJRefreshConfigModel+DSL.h"
 
 @implementation MJRefreshConfigModel (DSL)
-
 -(JobsRetMJRefreshConfigModelByFontBlock _Nonnull)byFont{
     @jobs_weakify(self)
     return ^__kindof MJRefreshConfigModel *_Nullable(UIFont * _Nullable data) {

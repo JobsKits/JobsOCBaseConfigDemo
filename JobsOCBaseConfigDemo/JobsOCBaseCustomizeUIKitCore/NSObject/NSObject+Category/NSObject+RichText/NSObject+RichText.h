@@ -10,17 +10,11 @@
 
 #import <UIKit/UIKit.h>
 #import "NSMutableAttributedString+Extra.h"
-
 #import "JobsOCDSL.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsMakes.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_INLINE NSMutableAttributedString *_Nonnull jobsMakeMutableAttributedString(jobsByAttributedStrBlock _Nonnull block){

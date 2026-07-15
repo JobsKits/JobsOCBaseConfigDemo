@@ -23,7 +23,6 @@ BOOL JobsObjectIsNull(id _Nullable obj) {
     if (obj == nil || obj == NULL || obj == NSNull.null) {
         return YES;
     }
-
     if ([obj isKindOfClass:NSString.class]) {
         NSString *str = (NSString *)obj;
         NSString *trimmed = str.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
@@ -44,15 +43,12 @@ NSString *JobsAppendExtensionIfNeeded(NSString * _Nullable name,
 
 static NSArray<NSBundle *> *JobsCandidateBundles(void) {
     NSMutableArray<NSBundle *> *bundles = NSMutableArray.array;
-
     NSBundle *classBundle = [NSBundle bundleForClass:JobsLoadingImageToken.class];
     if (classBundle) [bundles addObject:classBundle];
-
     NSBundle *mainBundle = NSBundle.mainBundle;
     if (mainBundle && ![bundles containsObject:mainBundle]) {
         [bundles addObject:mainBundle];
     }
-
     NSString *nestedBundlePath = [classBundle pathForResource:@"JobsLoadingImageAssets" ofType:@"bundle"];
     if (JobsObjectIsValue(nestedBundlePath)) {
         NSBundle *nestedBundle = [NSBundle bundleWithPath:nestedBundlePath];
@@ -68,7 +64,6 @@ static NSString * _Nullable JobsFindResourcePathInBundles(NSString * _Nullable r
     if (JobsObjectIsNull(resourceName)) {
         return nil;
     }
-
     for (NSBundle *bundle in JobsCandidateBundles()) {
         NSString *path = [bundle pathForResource:resourceName
                                           ofType:resourceType
@@ -84,7 +79,6 @@ NSString *JobsBundleResourcePath(NSString * _Nullable blueFolderName,
                                  NSString * _Nullable bundleFolderName,
                                  NSString * _Nullable resourceType) {
     NSString *filePath = nil;
-
     if (JobsObjectIsValue(blueFolderName)) {
         filePath = JobsFindResourcePathInBundles(bundleName,
                                                  resourceType,
@@ -93,7 +87,6 @@ NSString *JobsBundleResourcePath(NSString * _Nullable blueFolderName,
         filePath = JobsFindResourcePathInBundles(bundleName,
                                                  resourceType,
                                                  nil);
-
         if (JobsObjectIsNull(filePath) && JobsObjectIsValue(resourceType)) {
             NSString *fullName = JobsAppendExtensionIfNeeded(bundleName ?: @"", resourceType);
             filePath = JobsFindResourcePathInBundles(fullName,
@@ -101,11 +94,9 @@ NSString *JobsBundleResourcePath(NSString * _Nullable blueFolderName,
                                                      nil);
         }
     }
-
     if (JobsObjectIsNull(filePath)) {
         return @"";
     }
-
     if (JobsObjectIsValue(bundleFolderName)) {
         filePath = [filePath stringByAppendingPathComponent:bundleFolderName];
     };return filePath ?: @"";
@@ -120,11 +111,9 @@ NSString *JobsBundleImagePath(NSString * _Nullable blueFolderName,
                                                 bundleName,
                                                 bundleFolderName,
                                                 @"bundle");
-
     if (JobsObjectIsNull(filePath)) {
         return @"";
     }
-
     if (![safeImageName containsString:@"."]) {
         safeImageName = [safeImageName stringByAppendingPathExtension:@"png"];
     };return [filePath stringByAppendingPathComponent:safeImageName];

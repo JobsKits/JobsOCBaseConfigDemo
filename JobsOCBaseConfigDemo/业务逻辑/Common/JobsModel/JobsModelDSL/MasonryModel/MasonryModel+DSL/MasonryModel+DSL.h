@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_MASONRYMODEL_DSL_707ECC8ADCAF0DB
 
 #import "JobsModel.h"
-
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

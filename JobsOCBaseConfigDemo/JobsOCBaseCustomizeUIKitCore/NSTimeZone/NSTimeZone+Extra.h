@@ -9,9 +9,7 @@
 #define NSTimeZone_Extra_h
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

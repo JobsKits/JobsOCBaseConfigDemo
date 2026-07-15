@@ -18,19 +18,12 @@
 #import "Masonry.h"
 #endif
 
-
 #import "JobsOCDSL.h"
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsMakes.h"
-
 #import "JobsDefines.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsBaseUI.h"
 
 NS_ASSUME_NONNULL_BEGIN

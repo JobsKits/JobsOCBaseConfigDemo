@@ -28,7 +28,6 @@ Prop_assign()JobsSysProgressDemoMode progressMode;
 @end
 
 @implementation JobsSysProgressDemoVC
-
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
     [self stopTimerResetUI:NO];

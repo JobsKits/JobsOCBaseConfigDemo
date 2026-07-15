@@ -11,7 +11,6 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "UIScrollView+FDFullscreenPopGesture.h"
-
 #import "JobsDefines.h"
 
 /// https://github.com/forkingdog/FDFullscreenPopGesture/issues/177

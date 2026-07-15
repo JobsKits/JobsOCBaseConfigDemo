@@ -14,7 +14,6 @@ Prop_strong()UILabel *topLineLab;
 @end
 
 @implementation JobsSettingGestureVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -72,14 +71,11 @@ Prop_strong()UILabel *topLineLab;
     UILabel *nameLabel = self.valueForKey(@"nameLabel");/// 账户名
     UIButton *otherAcountBtn = self.valueForKey(@"otherAcountBtn");/// 其他账户登录按钮
     UIButton *forgetPswBtn = self.valueForKey(@"forgetPswBtn");/// 忘记手势密码按钮
-    
     nameLabel.jobsVisible = NO;
     headIcon.jobsVisible = NO;
     otherAcountBtn.jobsVisible = NO;
     forgetPswBtn.jobsVisible = NO;
-    
     CGFloat offset = JobsNavigationBarAndStatusBarHeight(nil) + JobsWidth(2);
-    
     headIcon.y += JobsWidth(offset);
     gestureLockIndicator.y += JobsWidth(offset);
     statusLabel.y += JobsWidth(offset);

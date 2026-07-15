@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,19 +24,20 @@ typedef NS_ENUM(NSInteger, JobsSideDrawerContentMode) {
 
 @interface JobsSideDrawerConfiguration : NSObject
 
-@property(nonatomic,assign)JobsSideDrawerDirection direction;
-@property(nonatomic,assign)JobsSideDrawerContentMode contentMode;
-@property(nonatomic,assign)CGFloat presentedRatio;
-@property(nonatomic,assign)NSTimeInterval animationDuration;
-@property(nonatomic,strong)UIColor *dimColor;
+Prop_assign()JobsSideDrawerDirection direction;
+Prop_assign()JobsSideDrawerContentMode contentMode;
+Prop_assign()CGFloat presentedRatio;
+Prop_assign()NSTimeInterval animationDuration;
+Prop_strong()UIColor *dimColor;
+Prop_assign()BOOL allowsInteractiveTransition;
 
 @end
 
 @interface JobsSideDrawer : NSObject
 
-@property(nonatomic,strong,readonly)JobsSideDrawerConfiguration *configuration;
-@property(nonatomic,assign,readonly,getter=isOpen)BOOL open;
-@property(nonatomic,copy,nullable)void (^stateChanged)(BOOL open);
+Prop_strong(readonly)JobsSideDrawerConfiguration *configuration;
+Prop_assign(readonly,getter=isOpen)BOOL open;
+Prop_copy(nullable)void (^stateChanged)(BOOL open);
 
 -(instancetype)initWithHostView:(UIView *)hostView
                      drawerView:(UIView *)drawerView
@@ -52,4 +54,3 @@ typedef NS_ENUM(NSInteger, JobsSideDrawerContentMode) {
 @end
 
 NS_ASSUME_NONNULL_END
-

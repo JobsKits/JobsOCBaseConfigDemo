@@ -19,7 +19,6 @@ Prop_strong()UIButton *modeBtn;
 @end
 
 @implementation JobsOCSkeletonViewDemoVC
-
 -(void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

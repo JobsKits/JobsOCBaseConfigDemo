@@ -8,7 +8,6 @@
 #import "UIViewController+Masonry.h"
 
 @implementation UIViewController (Masonry)
-
 -(JobsRetBOOLByViewBlock _Nonnull)containBy{
     @jobs_weakify(self)
     return ^BOOL(__kindof UIView *_Nullable subView){

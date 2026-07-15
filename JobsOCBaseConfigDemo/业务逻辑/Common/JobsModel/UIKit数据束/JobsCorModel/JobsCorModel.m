@@ -8,7 +8,6 @@
 #import "JobsCorModel.h"
 
 @implementation JobsCorModel
-
 -(NSString *)corStr{
     if(!_corStr){
         _corStr = [NSString stringWithFormat:@"#%02X%02X%02X",

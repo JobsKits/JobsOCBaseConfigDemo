@@ -9,19 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSIMAGENUMBERVIEWCVCELL_DCAD1841D2
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsBaseUI.h"
-
 #import "JobsByOCPods.h"
-
 #import "JobsMakes.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

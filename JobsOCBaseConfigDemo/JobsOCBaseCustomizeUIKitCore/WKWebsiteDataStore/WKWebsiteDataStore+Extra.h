@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_WKWEBSITEDATASTORE_EXTRA_70475FBF81
 
 #import <WebKit/WebKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

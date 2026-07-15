@@ -20,7 +20,6 @@ Prop_copy()NSArray <UIViewModel *>*dataArr;
 @end
 
 @implementation CustomBtnVC
-
 @synthesize tableView = _tableView;
 @synthesize dataArr = _dataArr;
 
@@ -30,7 +29,6 @@ Prop_copy()NSArray <UIViewModel *>*dataArr;
 
 -(void)loadView{
     [super loadView];
-
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -53,7 +51,6 @@ Prop_copy()NSArray <UIViewModel *>*dataArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.view.byBgColor(RGBA_COLOR(255, 238, 221, 1));
     self.makeNavByAlpha(1);
     self.tableView.byAlpha(1);

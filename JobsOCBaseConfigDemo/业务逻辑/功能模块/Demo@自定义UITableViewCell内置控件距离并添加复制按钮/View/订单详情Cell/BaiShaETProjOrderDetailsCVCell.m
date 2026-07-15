@@ -18,7 +18,6 @@ Prop_strong()UIButton *jobsCopyBtn;
 @synthesize viewModel = _viewModel;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
     };return self;
 }
 #pragma mark —— BaseViewProtocol
@@ -66,7 +65,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -86,7 +84,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         .byTextLabelFrameOffsetX(JobsWidth(-13))/// 这里需要设置一个偏移量去抵消有一个莫名出现的偏移量
         .byDetailTextLabelOffsetX(JobsWidth(-65))/// 这里需要设置一个偏移量去抵消有一个莫名出现的偏移量
         .jobsRichElementsTableViewCellBy(self.viewModel.jobsDataMutArr[indexPath.row]);
-    
     _jobsCopyBtn = nil;/// ❤️ 关键。[self layoutIfNeeded];会出现异常
     [cell.contentView.addSubview(self.jobsCopyBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(cell.contentView);
@@ -123,7 +120,6 @@ heightForFooterInSectionByModel:(NSInteger)section{
             .bySection(section)/// 悬浮配置
             .JobsRichViewByModel2(nil)
             .JobsBlock1(^(id _Nullable data) {
-                
             });
         tbvFooterView.byBgColor(HEXCOLOR(0xEAEBED));
         tbvFooterView.backgroundView.byBgColor(HEXCOLOR(0xEAEBED));

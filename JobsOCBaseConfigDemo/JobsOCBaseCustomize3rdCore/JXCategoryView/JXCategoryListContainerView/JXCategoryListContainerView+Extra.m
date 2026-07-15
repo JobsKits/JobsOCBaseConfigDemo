@@ -8,7 +8,6 @@
 #import "JXCategoryListContainerView+Extra.h"
 
 @implementation JXCategoryListContainerView (Extra)
-
 -(JobsRetCategoryListContainerViewByNSIntegerBlock _Nonnull)byDefaultSelectedIndex{
     @jobs_weakify(self)
     return ^__kindof JXCategoryListContainerView *_Nullable(NSInteger data){

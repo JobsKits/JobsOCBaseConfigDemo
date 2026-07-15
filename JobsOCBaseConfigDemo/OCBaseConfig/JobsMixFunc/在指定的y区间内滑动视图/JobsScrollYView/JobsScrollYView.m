@@ -35,7 +35,6 @@ static dispatch_once_t static_scrollYViewOnceToken;
 #pragma mark —— 系统初始化方法
 -(instancetype)init{
     if (self = [super init]) {
-        
     };return self;
 }
 
@@ -69,7 +68,6 @@ static dispatch_once_t static_scrollYViewOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -96,11 +94,9 @@ static dispatch_once_t static_scrollYViewOnceToken;
         @jobs_strongify(self)
         CGPoint translation = [sender translationInView:self.superview];
         self.jobsPoint = translation;
-        
         if (sender.state == UIGestureRecognizerStateBegan) {
             self.initialTouchPoint = self.center;
         }
-
         if (sender.state == UIGestureRecognizerStateChanged) {
             CGFloat maxH = JobsMainScreen_HEIGHT() / 2 + 初始位置;
             CGFloat minH = JobsMainScreen_HEIGHT() / 2 + 终点位置;

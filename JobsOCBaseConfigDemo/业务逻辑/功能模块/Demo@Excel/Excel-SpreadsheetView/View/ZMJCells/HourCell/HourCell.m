@@ -12,7 +12,6 @@
 @end
 
 @implementation HourCell
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.label.alpha = 1;

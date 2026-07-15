@@ -16,7 +16,6 @@ Prop_strong()UIImage *image;
 @end
 
 @implementation UploadImageApi
-
 +(JobsRetIDByImageBlock)initByImage{
     @jobs_weakify(self)
     return ^id(UIImage *_Nullable data){

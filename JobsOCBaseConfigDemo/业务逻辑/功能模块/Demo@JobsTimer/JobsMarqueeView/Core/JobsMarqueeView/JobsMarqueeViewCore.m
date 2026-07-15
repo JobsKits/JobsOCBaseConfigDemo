@@ -50,7 +50,6 @@ Prop_copy()NSString *timerIdentifier;
 @end
 
 @implementation JobsMarqueeView
-
 -(void)dealloc{
     [self stop];
 }

@@ -30,7 +30,6 @@ Prop_assign()NSInteger cellCount;
 @end
 
 @implementation GXCardViewDemoVC
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -69,9 +68,7 @@ Prop_assign()NSInteger cellCount;
     [super viewDidLoad];
     self.makeNavByAlpha(1);
     self.view.byBgColor(JobsRedColor);
-
     self.cardView.byAlpha(1);
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -105,13 +102,9 @@ Prop_assign()NSInteger cellCount;
            cellForRowAtIndex:(NSInteger)index {
     GXCardItemDemoCell *cell = [cardView dequeueReusableCellWithIdentifier:@"GXCardViewCell"];
     cell.byBgColor(JobsYellowColor);
-
     cell.numberLabel.byText([NSString stringWithFormat:@"%ld", (long)index]);
-
     cell.leftLabel.byHidden(YES);
-
     cell.rightLabel.byHidden(YES);
-
     cell.layer.cornerRadius = 12.0;
     return cell;
 }
@@ -150,12 +143,8 @@ didRemoveLastCell:(GXCardViewCell *)cell
     forMovePoint:(CGPoint)point
        direction:(GXCardCellSwipeDirection)direction {
     GXCardItemDemoCell *dcell = (GXCardItemDemoCell*)cell;
-    
     dcell.leftLabel.byHidden(!(direction == GXCardCellSwipeDirectionRight));
-
     dcell.rightLabel.byHidden(!(direction == GXCardCellSwipeDirectionLeft));
-
-
     JobsLog(@"move point = %@,  direction = %ld", NSStringFromCGPoint(point), direction);
 }
 
@@ -182,11 +171,9 @@ didRemoveLastCell:(GXCardViewCell *)cell
         [_cardView registerNib:[UINib nibWithNibName:NSStringFromClass(GXCardItemDemoCell.class)
                                              bundle:GXCardViewDemoResourceBundle()]
          forCellReuseIdentifier:@"GXCardViewCell"];
-        
         _cardView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
         });
-
     };return _cardView;
 }
 

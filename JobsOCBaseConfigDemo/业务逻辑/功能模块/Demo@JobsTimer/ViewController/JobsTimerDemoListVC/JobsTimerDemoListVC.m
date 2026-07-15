@@ -27,7 +27,6 @@ Prop_strong()NSArray <NSArray <UIViewModel *>*>*demoGroupArr;
 @end
 
 @implementation JobsTimerDemoListVC
-
 -(void)loadView{
     [super loadView];
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {

@@ -7,21 +7,13 @@
 
 #import <UIKit/UIKit.h>
 #import "NSObject+HXPhotoPicker.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsLoadingImageHeader.h"
-
 #import "JobsBaseUI.h"
-
 #import "JobsMakes.h"
-
 #import "JobsByOCPods.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
-
 #import "UIImage+HexadecimalData.h"
 #import "NSString+HexadecimalData.h"
 #import "UIImage+Base16.h"

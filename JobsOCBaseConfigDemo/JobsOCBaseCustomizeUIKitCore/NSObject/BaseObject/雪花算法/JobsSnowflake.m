@@ -36,7 +36,6 @@ Prop_assign()uint64_t lastGeneralMillisecond;
         NSAssert(publishMillisecond <= ((uint64_t)1 << kTimeBits), @"time is too big");
         NSAssert(IDC <= ((uint32_t)1 << kIDCBits), @"IDC id is too big");
         NSAssert(machine <= ((uint32_t)1 << kMachineBits), @"machine id is too big");
-        
         self.publishMillisecond = publishMillisecond;
         self.lastGeneralMillisecond = publishMillisecond;
         self.IDC = IDC & ((1 << kIDCBits) - 1);
@@ -68,16 +67,12 @@ Prop_assign()uint64_t lastGeneralMillisecond;
             currentTime = (uint64_t)NSDate.date.timeIntervalSince1970 * 1000;
             self.lastGeneralMillisecond = currentTime;
         }
-        
         uint64_t timeParameter = self.lastGeneralMillisecond - self.publishMillisecond;
         uint64_t timeOffset = kIDCBits + kMachineBits + kSequenceBits;
-        
         uint64_t idcParameter = self.IDC;
         uint64_t idcOffset = kMachineBits + kSequenceBits;
-        
         uint64_t machineParameter = self.machine;
         uint64_t machineOffset = kSequenceBits;
-        
         uint64_t result = (timeParameter << timeOffset) | (idcParameter << idcOffset) | (machineParameter << machineOffset) | self.sequence;
         return @(result);  // Return as NSNumber
     }

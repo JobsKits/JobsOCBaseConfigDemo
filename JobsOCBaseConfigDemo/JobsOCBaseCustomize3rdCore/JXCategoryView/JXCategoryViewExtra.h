@@ -35,7 +35,6 @@
 #endif
 
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_INLINE __kindof JXPagerView *_Nonnull jobsMakeCategoryPagerView(id<JXPagerViewDelegate> _Nonnull delegate){

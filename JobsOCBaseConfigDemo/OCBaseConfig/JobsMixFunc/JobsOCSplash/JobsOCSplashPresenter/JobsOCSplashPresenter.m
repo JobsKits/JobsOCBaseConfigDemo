@@ -8,7 +8,6 @@
 #import "JobsOCSplashPresenter.h"
 
 @implementation JobsOCSplashPresenter
-
 +(__kindof JobsOCSplashVC *)showOver:(__kindof UIViewController *)hostViewController configuration:(JobsOCSplashConfiguration *)configuration {
     JobsOCSplashVC *splashVC = [[JobsOCSplashVC alloc] initWithConfiguration:configuration];
     splashVC.view.frame = hostViewController.view.bounds;

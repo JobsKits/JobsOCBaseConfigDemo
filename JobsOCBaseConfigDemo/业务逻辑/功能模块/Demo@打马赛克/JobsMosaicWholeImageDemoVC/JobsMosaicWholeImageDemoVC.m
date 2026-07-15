@@ -20,7 +20,6 @@ Prop_assign()NSUInteger renderVersion;
 @end
 
 @implementation JobsMosaicWholeImageDemoVC
-
 -(NSString *)pageTitle{
     return @"整图粗细马赛克".tr;
 }

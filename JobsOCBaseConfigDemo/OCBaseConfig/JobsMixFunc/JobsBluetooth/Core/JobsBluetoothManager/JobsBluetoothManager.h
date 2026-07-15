@@ -32,7 +32,6 @@ Prop_copy(nullable)void (^stateChanged)(JobsBluetoothState state);
 Prop_copy(nullable)void (^peripheralDiscovered)(JobsBluetoothPeripheral *peripheral);
 Prop_copy(nullable)void (^dataReceived)(NSData *data, id _Nullable decodedObject);
 Prop_copy(nullable)void (^logReceived)(NSString *message);
-
 Prop_copy(readonly)JobsBluetoothManager *(^byCallbackQueue)(dispatch_queue_t queue);
 Prop_copy(readonly)JobsBluetoothManager *(^byProfile)(JobsBluetoothProfile *profile);
 Prop_copy(readonly)JobsBluetoothManager *(^byMockTransport)(JobsBluetoothMockTransport *transport);

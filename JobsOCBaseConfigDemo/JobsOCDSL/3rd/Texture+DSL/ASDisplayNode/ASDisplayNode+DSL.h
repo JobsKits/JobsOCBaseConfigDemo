@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_ASDISPLAYNODE_DSL_7F3CF6E1C1
 
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
-
 #import "JobsDefines.h"
-
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

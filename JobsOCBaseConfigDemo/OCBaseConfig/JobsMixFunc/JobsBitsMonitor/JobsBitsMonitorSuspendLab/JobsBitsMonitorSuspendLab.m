@@ -14,7 +14,6 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
 @end
 
 @implementation JobsBitsMonitorSuspendLab
-
 -(void)dealloc{
     JobsRemoveNotification(self);
 }
@@ -103,7 +102,6 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
                 });
             }).byStartWithInterval(1.0);
         }
-
         {
             self.numberOfTouchesRequired = 1;
             self.numberOfTapsRequired = 1;/// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
@@ -137,7 +135,6 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
     self.layer.cornerRadius  = 8.0;
     self.layer.masksToBounds = YES;
     self.byBgColor([UIColor.blackColor colorWithAlphaComponent:0.7]);
-
     /// 默认字体 & 颜色
     self.textColor = UIColor.whiteColor;
     self.font      = [UIFont monospacedDigitSystemFontOfSize:11 weight:UIFontWeightMedium];

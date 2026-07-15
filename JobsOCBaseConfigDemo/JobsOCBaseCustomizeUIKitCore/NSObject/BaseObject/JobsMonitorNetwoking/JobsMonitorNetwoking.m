@@ -15,7 +15,6 @@ Prop_assign()BOOL isFirstRate;
 @end
 
 @implementation JobsMonitorNetwoking
-
 static JobsMonitorNetwoking *monitorNetwoking = nil;
 +(JobsMonitorNetwoking *)sharedManager{
     @synchronized(self){
@@ -47,7 +46,6 @@ static JobsMonitorNetwoking *monitorNetwoking = nil;
     NSString*rateStr = [self formatNetWork:rate];
     JobsLog(@"当前网速%@",rateStr);
     _rateLabel.byText(rateStr);
-
 //    JobsLog(@"hehe:%lld",hehe/1024/1024);
 }
 

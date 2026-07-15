@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_JOBSGESTURELOCKINDICATOR_60CF741297
 
 #import <UIKit/UIKit.h>
-
 #import "JobsDefines.h"
 
 @class JobsGestureLockConfiguration;

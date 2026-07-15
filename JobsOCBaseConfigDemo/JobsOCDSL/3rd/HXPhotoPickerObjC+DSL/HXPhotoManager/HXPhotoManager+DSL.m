@@ -8,7 +8,6 @@
 #import "HXPhotoManager+DSL.h"
 
 @implementation HXPhotoManager (DSL)
-
 -(JobsRetHXPhotoManagerByConfigurationBlock _Nonnull)byConfiguration{
     @jobs_weakify(self)
     return ^__kindof HXPhotoManager *_Nullable(jobsByHXPhotoConfigurationBlock _Nullable block){

@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_NSLOCALE_EXTRA_336543BCD1
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 /// 获取系统的首选语言代码

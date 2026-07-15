@@ -202,7 +202,6 @@ AppToolsProtocol_synthesize
             textView.delegate = self;
             textView.textColor = JobsBlackColor;
             textView.byBgColor(@"#F9F9F9".cor);
-
             textView.returnKeyType = UIReturnKeyDefault;
             textView.keyboardAppearance = UIKeyboardAppearanceDefault;
             textView.keyboardType = UIKeyboardTypeNumberPad;

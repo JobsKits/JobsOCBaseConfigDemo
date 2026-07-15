@@ -7,9 +7,7 @@
 
 #import <objc/runtime.h>
 #import <AudioToolbox/AudioToolbox.h>
-
 #import "JobsOCRefreshComponent.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

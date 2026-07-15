@@ -75,5 +75,4 @@ NS_INLINE __kindof JXCategoryListContainerView *_Nonnull jobsMakeCategoryListCon
     return data;
 }
 
-
 #endif /* JXCategoryExtra_h */

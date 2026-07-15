@@ -22,19 +22,12 @@ FOUNDATION_EXPORT void JobsOCApplyAppRootViewController(void);
 #import "ViewController@3.h"
 #import "ViewController@4.h"
 #import "ViewController@5.h"
-
 #import "JobsAppToolsHeader.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsMakes.h"
-
 #import "JobsOCDSL.h"
-
 #import "JobsByOCPods.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 #ifndef JobsCustomTabBarConfig_appDelegate

@@ -8,7 +8,6 @@
 #import "UIViewController+LeakCheck.h"
 
 @implementation UIViewController (LeakCheck)
-
 +(void)load{
 #ifdef DEBUG
     [self exchangeMethod];
@@ -34,10 +33,8 @@
 +(void)exchangeMethod{
     method_exchangeImplementations(class_getInstanceMethod(self, @selector(viewDidAppear:)),
                                    class_getInstanceMethod(self, @selector(my_viewDidAppear:)));
-    
     method_exchangeImplementations(class_getInstanceMethod(self, @selector(viewDidDisappear:)),
                                    class_getInstanceMethod(self, @selector(my_viewDidDisappear:)));
-    
     method_exchangeImplementations(class_getInstanceMethod(self, NSSelectorFromString(@"dealloc")),
                                    class_getInstanceMethod(self, @selector(my_dealloc)));
 }

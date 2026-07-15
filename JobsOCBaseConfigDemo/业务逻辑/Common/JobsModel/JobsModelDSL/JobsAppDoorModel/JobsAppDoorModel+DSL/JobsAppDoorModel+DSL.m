@@ -8,7 +8,6 @@
 #import "JobsAppDoorModel+DSL.h"
 
 @implementation JobsAppDoorModel (DSL)
-
 -(JobsRetJobsAppDoorModelByStrBlock _Nonnull)byUserName{
     @jobs_weakify(self)
     return ^__kindof JobsAppDoorModel *_Nullable(NSString * _Nullable data) {

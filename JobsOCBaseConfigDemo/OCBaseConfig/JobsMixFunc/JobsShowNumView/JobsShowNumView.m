@@ -36,7 +36,6 @@ static dispatch_once_t static_showNumViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsClearColor);
-
 //        self.backgroundImageView.image = @"弹框样式_03背景图".img;
     };return self;
 }
@@ -63,14 +62,12 @@ static dispatch_once_t static_showNumViewOnceToken;
             .add(@"4");
         });
         CGSize btnSize = CGSizeMake(JobsWidth(60), JobsWidth(60));
-        
         self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
             data.byJobsLeft(0)
                 .byJobsRight(0)
                 .byOffsetXForEach((self.thisViewSize.width - model.jobsLeft - model.jobsRight - btnSize.width * temp.count) / (temp.count - 1));
         });
         MakeDataNull
-        
         for (NSString *string in temp) {
             UIButton *btn = UIButton.jobsInit()
             .jobsResetBtnBgImage(@"JobsShowNum".img)
@@ -83,7 +80,6 @@ static dispatch_once_t static_showNumViewOnceToken;
                 JobsLog(@"%@",x.titleForNormalState)
                 if (self.objBlock) self.objBlock(x);
             });
-
             btn.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(btnSize);
                 make.centerY.equalTo(self);
@@ -94,7 +90,6 @@ static dispatch_once_t static_showNumViewOnceToken;
                     make.left.equalTo(self).offset(model.jobsLeft);
                 }
             });
-            
             self.btnMutArr.add(btn);
         }
     };

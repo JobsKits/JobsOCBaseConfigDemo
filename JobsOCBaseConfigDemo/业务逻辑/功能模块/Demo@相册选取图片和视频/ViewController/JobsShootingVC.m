@@ -17,7 +17,6 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 @end
 
 @implementation JobsShootingVC
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -25,7 +24,6 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -47,7 +45,6 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.view.byBgColor(HEXCOLOR(0xF6F8FC));
     self.makeNavByAlpha(1);
     self.cameraBtn.byAlpha(1);
@@ -58,7 +55,6 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 /// 选取最后一张你选的图，作为显示
 -(void)getImageFromResource:(NSArray <HXPhotoModel *>*)resource{
 //    @jobs_weakify(self)
-
 }
 #pragma mark —— lazyLoad
 -(UIButton *)cameraBtn{

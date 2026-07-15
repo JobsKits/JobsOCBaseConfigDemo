@@ -19,7 +19,6 @@ Prop_assign()CGSize size;
 @end
 
 @implementation JobsTopViewItem
-
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     JobsTopViewItem *cell = JobsRegisterDequeueCollectionViewCell(JobsTopViewItem);
@@ -57,7 +56,6 @@ Prop_assign()CGSize size;
             self.linePath.add(CGPointMake(size.width, 0));
             self.linePath.add(CGPointMake(size.width, size.height));
             self.linePath.add(CGPointMake(0, size.height));
-            
             UIGraphicsBeginImageContext(size);
             [self.linePath stroke];
             UIGraphicsEndImageContext();

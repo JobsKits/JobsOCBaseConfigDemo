@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSAPPDOORCONFIG_BAEB9789D0
 
 #import <Foundation/Foundation.h>
-
 #import "JobsByOCPods.h"
-
 #import "JobsLanMgr.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)

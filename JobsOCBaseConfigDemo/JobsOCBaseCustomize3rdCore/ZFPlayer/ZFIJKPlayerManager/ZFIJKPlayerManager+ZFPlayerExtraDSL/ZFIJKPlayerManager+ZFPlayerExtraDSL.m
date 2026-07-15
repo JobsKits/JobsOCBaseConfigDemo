@@ -9,7 +9,6 @@
 
 #if !TARGET_OS_SIMULATOR
 @implementation ZFIJKPlayerManager (ZFPlayerExtraDSL)
-
 -(JobsRetZFIJKPlayerManagerByURLBlock _Nonnull)byAssetURL{
     @jobs_weakify(self)
     return ^__kindof ZFIJKPlayerManager *_Nullable(NSURL *_Nullable data){

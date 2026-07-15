@@ -8,7 +8,6 @@
 #import "CustomBtnImageBottomVC.h"
 
 @implementation CustomBtnImageBottomVC
-
 -(NSString *)demoTitle{
     return @"image下，label上".tr;
 }

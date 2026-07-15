@@ -21,7 +21,6 @@ Prop_strong()UILabel *dragHintLab;
 @end
 
 @implementation JobsScrollViewVC
-
 -(void)loadView{
     [super loadView];
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
@@ -55,7 +54,6 @@ Prop_strong()UILabel *dragHintLab;
     self.bottomAnchorLab.byAlpha(1);
     self.scrollYView.byAlpha(1);
     self.dragHintLab.byAlpha(1);
-
 }
 #pragma mark —— 一些私有方法
 -(CGFloat)jobs_scrollTopAnchorY{
@@ -101,7 +99,6 @@ Prop_strong()UILabel *dragHintLab;
                     make.top.equalTo(self.gk_navigationBar.mas_bottom);
                 });
         });
-
     };return _jobsView;
 }
 
@@ -211,9 +208,7 @@ Prop_strong()UILabel *dragHintLab;
     if(!_scrollYView){
         _scrollYView = JobsScrollYView.new;
         _scrollYView.byBgColor(JobsGreenColor);
-
         [self.view addSubview:_scrollYView];
-
         [self.view layoutIfNeeded];
         _scrollYView.x = 0;
         _scrollYView.y = [self jobs_scrollBottomAnchorY];// 锚点1（最低点）

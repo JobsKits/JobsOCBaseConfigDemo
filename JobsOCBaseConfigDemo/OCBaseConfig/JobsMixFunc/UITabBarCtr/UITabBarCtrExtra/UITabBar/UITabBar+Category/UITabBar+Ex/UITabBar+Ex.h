@@ -18,14 +18,12 @@
 #endif
 
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 #define LOTAnimationViewWidth 33
 #define LOTAnimationViewHeight 33
 
 #import "JobsOCDSL.h"
-
 #import "JobsStringUtilsHeader.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)

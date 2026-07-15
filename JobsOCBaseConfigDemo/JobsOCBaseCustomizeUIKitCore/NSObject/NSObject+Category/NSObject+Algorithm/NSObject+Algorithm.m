@@ -107,7 +107,6 @@
             }
         };return resMutSet;
     };
-    
     if ([data isKindOfClass:NSDictionary.class]){
         NSDictionary *dataDic = (NSDictionary *)data;
         [dataDic enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key,
@@ -131,7 +130,6 @@
         NSInteger currentWeekday = timeModel.currentWeekday;//当前时间是周几？1代表周日 2代表周一 7代表周六
         NSInteger offsetResDay = currentWeekday + offsetDay;//偏移量以后的值，对这个值进行分析和讨论
         NSInteger resResWeekDay = 0;//处理的结果落在0~6
-        
         if (offsetDay > 0) {/// 未来
             resResWeekDay = offsetResDay % 7;
         }else if (offsetDay < 0){/// 昨天
@@ -145,7 +143,6 @@
         }else{/// offsetDay == 0 现在
             resResWeekDay = currentWeekday;
         }
-
         switch (resResWeekDay) {
             case 0:{
                 return @"星期六".tr;
@@ -168,7 +165,6 @@
             case 6:{
                 return @"星期五".tr;
             }break;
-                
             default:
                 return @"异常数据".tr;
                 break;
@@ -200,7 +196,6 @@
             NSString *intStr = [NSString stringWithFormat:@"%ld", (long)labs(integerPart)];
             NSInteger length = intStr.length;
             NSInteger count = 0;
-
             for (NSInteger i = length - 1; i >= 0; i--) {
                 unichar c = [intStr characterAtIndex:i];
                 [result insertString:[NSString stringWithFormat:@"%C", c] atIndex:0];

@@ -18,7 +18,6 @@ Prop_strong()BaseLabel *titleLab;
 @synthesize viewModel = _viewModel;
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
     };return self;
 }
 /// 由具体的子类进行覆写

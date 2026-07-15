@@ -8,7 +8,6 @@
 #import "UIStackView+Extra.h"
 
 @implementation UIStackView (Extra)
-
 -(JobsRetViewByViewBlock _Nonnull)add{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(__kindof UIView *_Nullable subView) {

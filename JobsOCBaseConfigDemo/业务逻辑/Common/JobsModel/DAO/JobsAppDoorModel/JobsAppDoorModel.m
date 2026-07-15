@@ -9,7 +9,6 @@
 #import "NSObject+UsrInfo.h"
 
 @implementation JobsAppDoorModel
-
 -(NSString *)userName{
     if (!_userName) {
         _userName = self.readUserNameMutArr[0];

@@ -33,7 +33,6 @@
         CGFloat red = ((hexValue & 0xFF0000) >> 16) / 255.0;
         CGFloat green = ((hexValue & 0x00FF00) >> 8) / 255.0;
         CGFloat blue = (hexValue & 0x0000FF) / 255.0;
-        
         return jobsMakeCor(^(JobsCorModel * _Nullable data) {
             data.red = red;
             data.green = green;
@@ -150,7 +149,6 @@
     if (targetViewRect.size.width == 0 || targetViewRect.size.height == 0) {
         NSAssert(NO, @"宽或者高为0,则会对外输出nil");
     }
-    
     if (!CorDataMutArr) {
         CorDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add((id)JobsRedColor.CGColor);
@@ -162,7 +160,6 @@
                                      withObject:(id)CorDataMutArr[t].CGColor];
         }
     }
-    
     UIGraphicsBeginImageContextWithOptions(targetViewRect.size,
                                            opaque,
                                            UIScreen.mainScreen.scale);
@@ -172,13 +169,11 @@
     CGGradientRef gradientRef = CGGradientCreateWithColors(colorSpaceRef,
                                                            (__bridge CFArrayRef)CorDataMutArr,
                                                            NULL);
-    
     CGPoint EndPoint = endPoint;
     if (CGPointEqualToPoint(endPoint, CGPointZero)) {
         EndPoint = CGPointMake(CGRectGetMaxX(targetViewRect),
                                CGRectGetMaxY(targetViewRect));
     }
-
     CGContextDrawLinearGradient(context,
                                 gradientRef,
                                 startPoint,
@@ -190,7 +185,6 @@
     CGColorSpaceRelease(colorSpaceRef);
     CGGradientRelease(gradientRef);
     UIGraphicsEndImageContext();
-    
     return [UIColor colorWithPatternImage:gradientImage];
 }
 #pragma mark —— 实例方法
@@ -233,7 +227,6 @@
         const CGFloat *components = CGColorGetComponents(self.CGColor);
         size_t numberOfComponents = CGColorGetNumberOfComponents(self.CGColor);
         CGFloat redCor, greenCor, blueCor;
-
         if (numberOfComponents == 4) {
             // RGBA颜色空间
             redCor = components[0];

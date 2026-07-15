@@ -8,7 +8,6 @@
 #import "GKNavigationBarConfigure+DSL.h"
 
 @implementation GKNavigationBarConfigure (DSL)
-
 +(__kindof GKNavigationBarConfigure *_Nonnull)bySetupDefault{
     GKNavigationBarConfigure *configure = GKNavigationBarConfigure.sharedInstance;
     [configure setupDefaultConfigure];

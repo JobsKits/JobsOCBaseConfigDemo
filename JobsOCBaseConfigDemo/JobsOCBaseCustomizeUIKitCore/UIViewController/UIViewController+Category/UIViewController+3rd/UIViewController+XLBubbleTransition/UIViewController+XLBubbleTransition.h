@@ -11,7 +11,6 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "XLBubbleTransition.h"
-
 #import "JobsDefines.h"
 
 @class XLBubbleTransition;

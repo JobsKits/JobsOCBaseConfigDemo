@@ -8,7 +8,6 @@
 #import "NSBundle+Extra.h"
 
 @implementation NSBundle (Extra)
-
 +(JobsRetBundleByStrBlock _Nonnull)initByPath{
     return ^NSBundle *_Nullable(NSString *_Nullable path){
         return [NSBundle bundleWithPath:path];

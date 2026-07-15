@@ -17,7 +17,6 @@
 #endif
 
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -27,7 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// 将 RACDisposable 绑定到对象的 racDisposable 属性，便于写成 obj.byRacDisposable(disposable)。
 -(JobsRetIDByRACDisposableBlock _Nonnull)byRacDisposable;
 @end
-
 
 #pragma mark —— RACDisposable
 @interface RACDisposable (JobsChain)

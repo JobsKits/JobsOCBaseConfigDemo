@@ -16,7 +16,6 @@ Prop_strong()MSCommentView *commentView;
 static NSString *const JobsUITBVCellFoldTitle = @"UITableViewCell 折叠效果";
 
 @implementation UITBVCellFoldVC
-
 -(void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -24,7 +23,6 @@ static NSString *const JobsUITBVCellFoldTitle = @"UITableViewCell 折叠效果";
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -43,7 +41,6 @@ static NSString *const JobsUITBVCellFoldTitle = @"UITableViewCell 折叠效果";
             data.byText(JobsUITBVCellFoldTitle.tr);
             data.byFont(UIFontWeightRegularSize(16));
         })
-    
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;

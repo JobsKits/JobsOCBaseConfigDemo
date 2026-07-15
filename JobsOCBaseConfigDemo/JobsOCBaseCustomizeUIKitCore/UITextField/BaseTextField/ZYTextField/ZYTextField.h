@@ -10,25 +10,15 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsOCDSL.h"
-
 #import "UIView+Extras.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsDeviceInfo.h"
-
 #import "JobsRichTextUtils.h"
-
 #import "JobsLoadingImageHeader.h"
-
 #import "JobsMakes.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 @interface ZYTextField : UITextField <UITextFieldProtocol>

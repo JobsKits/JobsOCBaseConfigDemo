@@ -19,7 +19,6 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
 @end
 
 @implementation ZMJTimeableVC
-
 - (void)dealloc{
     JobsNotificationCenter.remove(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -27,19 +26,16 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    
     self.viewModel.backBtnTitleModel.text = @"返回".tr;
     self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
     self.viewModel.textModel.text = @"ZMJTimeable".tr;
     self.viewModel.textModel.font = UIFontWeightRegularSize(18);
-    
     // 使用原则：底图有 + 底色有 = 优先使用底图数据
     // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
     // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
@@ -143,7 +139,6 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
     if (indexPath.column == 0 && indexPath.row == 0) {
         return nil;
     }
-    
     if (indexPath.column == 0 && indexPath.row > 0) {
         HourCell *cell = (HourCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(HourCell.class) forIndexPath:indexPath];
         cell.label.text = [self.hourFormatter stringFromDate:[self.twelveHourFormatter dateFromString:[NSString stringWithFormat:@"%ld", (long)(indexPath.row / 60 % 24)]]];
@@ -151,7 +146,6 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
         cell.gridlines.bottom = [GridStyle style:GridStyle_solid width:1 color:JobsWhiteColor];
         return cell;
     }
-    
     if (indexPath.column > 0 && indexPath.row == 0) {
         ChannelCell *cell = (ChannelCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(ChannelCell.class) forIndexPath:indexPath];
         cell.label.text = self.channels[indexPath.column - 1];
@@ -161,7 +155,6 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
         cell.gridlines.right = cell.gridlines.left;
         return cell;
     }
-    
     NSArray<NSNumber *> *minutesDuration = self.slotInfo[indexPath];
     if (minutesDuration) {
         NSInteger minutes = minutesDuration[0].integerValue;

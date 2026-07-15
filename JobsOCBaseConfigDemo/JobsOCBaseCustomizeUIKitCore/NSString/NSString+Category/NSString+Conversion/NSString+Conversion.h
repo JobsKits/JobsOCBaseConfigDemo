@@ -20,11 +20,8 @@
 #import "NSKeyedArchiver+Extra.h"
 #import "NSMutableArray+Extra.h"
 #import "NSObject+Extra.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

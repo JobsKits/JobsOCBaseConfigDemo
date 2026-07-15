@@ -20,15 +20,10 @@
 #endif
 
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsTimeUtils.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 #ifndef JOBS_PRINT_URL_REQUEST_INLINE
@@ -38,15 +33,12 @@ NS_INLINE void JobsPrintURLRequest(NSURLRequest *_Nullable request) {
 #ifndef DEBUG
     return;
 #endif
-
     if (!request) return;
-
     JobsLog(@"请求URL:%@\n", request.URL);
     JobsLog(@"请求方式:%@\n", request.HTTPMethod);
     JobsLog(@"请求头信息:%@\n", request.allHTTPHeaderFields);
     JobsLog(@"请求正文信息:%@\n", request.HTTPBody.stringByUTF8Encoding);
     JobsLog(@"请求响应时间:%@\n", request.currentTimestampString(nil));
-
     JobsLog(@"\n请求URL:%@\n请求方式:%@\n请求头信息:%@\n请求正文信息:%@\n请求响应时间:%@\n",
             request.URL,
             request.HTTPMethod,

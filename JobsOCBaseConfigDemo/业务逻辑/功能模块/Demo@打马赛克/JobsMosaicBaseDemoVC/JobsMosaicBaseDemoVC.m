@@ -22,7 +22,6 @@ didFinishSavingWithError:(NSError *)error
 @end
 
 @implementation JobsMosaicBaseDemoVC
-
 @synthesize imageView = _imageView;
 @synthesize statusLabel = _statusLabel;
 @synthesize originalImage = _originalImage;
@@ -147,6 +146,7 @@ didFinishSavingWithError:(NSError *)error
     [self onImageLoaded:image];
     [self showStatus:@"图片加载中...".tr
     hiddenAfterDelay:YES];
+
 #if __has_include(<SDWebImage/SDWebImage.h>)
     NSURL *url = [NSURL URLWithString:self.sampleImageURLString];
     if (!url) return;

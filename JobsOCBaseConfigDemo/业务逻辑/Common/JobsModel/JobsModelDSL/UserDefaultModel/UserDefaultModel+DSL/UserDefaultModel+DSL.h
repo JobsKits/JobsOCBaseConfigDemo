@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_USERDEFAULTMODEL_DSL_15A5E379F5C6BF94
 
 #import "JobsModel.h"
-
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

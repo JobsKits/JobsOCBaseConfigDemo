@@ -42,7 +42,6 @@ Prop_assign()CGFloat ANIMATION_TIME;
 @end
 
 @implementation JobsLinkageMenuView
-
 -(instancetype)initWithFrame:(CGRect)frame
                    btnConfig:(UIButtonModel *)btnConfig
        linkageMenuViewConfig:(JobsLinkageMenuViewConfig *)linkageMenuViewConfig{

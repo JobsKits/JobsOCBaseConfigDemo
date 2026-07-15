@@ -12,7 +12,6 @@
 @end
 
 @implementation HeaderCell
-
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
         self.label.alpha = 1;

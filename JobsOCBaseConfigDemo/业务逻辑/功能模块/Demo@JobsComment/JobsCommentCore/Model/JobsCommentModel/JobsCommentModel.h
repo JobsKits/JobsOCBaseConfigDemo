@@ -67,7 +67,6 @@ Prop_assign()NSInteger loadMoreDataNum;//加载更多数据,一次加载的个�
 
 @end
 
-
 NS_ASSUME_NONNULL_END
 
 NS_INLINE __kindof JobsChildCommentModel *_Nonnull jobsMakeChildCommentModel(jobsByChildCommentModelBlock _Nonnull block){

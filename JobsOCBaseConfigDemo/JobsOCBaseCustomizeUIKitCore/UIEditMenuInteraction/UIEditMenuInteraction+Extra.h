@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_UIEDITMENUINTERACTION_EXTRA_4C6A8AB985
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

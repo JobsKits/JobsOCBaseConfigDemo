@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSSCROLLYVIEW_768014F09F
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBaseUI.h"
-
 #import "JobsDefines.h"
 
 /// 锚点1（最低点）

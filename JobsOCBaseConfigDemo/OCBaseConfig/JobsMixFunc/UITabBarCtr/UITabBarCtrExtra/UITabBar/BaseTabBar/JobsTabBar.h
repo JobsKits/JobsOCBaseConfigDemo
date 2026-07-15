@@ -6,13 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "JobsByOCPods.h"
-
 #import "JobsLoadingImageHeader.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 #ifndef ALIGNMENT_TYPE_ENUM_DEFINED

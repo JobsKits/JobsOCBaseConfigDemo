@@ -8,7 +8,6 @@
 #import "UIViewController+BaseNavigationBar.h"
 
 @implementation UIViewController (BaseNavigationBar)
-
 -(JobsRetVCByIDBlock _Nonnull)goBack{
     @jobs_weakify(self)
     return ^__kindof UIViewController *_Nullable(id data){
@@ -79,7 +78,6 @@ JobsKey(_leftBarButtonItem_back)
                     self.goBack(input);
                     return [RACSignal empty];
                 }]);
-
             [self setLeftBarButtonItem_back:LeftBarButtonItem_back];
         }
     };return LeftBarButtonItem_back;

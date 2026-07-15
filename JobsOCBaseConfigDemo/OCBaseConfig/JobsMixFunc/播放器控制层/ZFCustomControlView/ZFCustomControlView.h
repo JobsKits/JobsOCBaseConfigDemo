@@ -49,7 +49,6 @@
 #endif
 
 #import "JobsLanMgr.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -7,13 +7,9 @@
 
 #import <UIKit/UIKit.h>
 #import "NSString+Sys.h"
-
 #import "JobsRichTextUtils.h"
-
 #import "JobsMakes.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 #ifndef StatisticsAlphabetNumberType_h

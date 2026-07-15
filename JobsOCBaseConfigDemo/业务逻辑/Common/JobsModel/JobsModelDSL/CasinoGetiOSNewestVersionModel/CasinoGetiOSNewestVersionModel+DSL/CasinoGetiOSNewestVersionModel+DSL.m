@@ -8,7 +8,6 @@
 #import "CasinoGetiOSNewestVersionModel+DSL.h"
 
 @implementation CasinoGetiOSNewestVersionModel (DSL)
-
 -(JobsRetCasinoGetiOSNewestVersionModelByStrBlock _Nonnull)byCreateBy{
     @jobs_weakify(self)
     return ^__kindof CasinoGetiOSNewestVersionModel *_Nullable(NSString * _Nullable data) {

@@ -8,7 +8,6 @@
 #import "NSLayoutConstraint+Extra.h"
 
 @implementation NSLayoutConstraint (Extra)
-
 +(jobsByArrBlock _Nonnull)initBy{
     return ^(NSArray *_Nullable data){
         return [NSLayoutConstraint activateConstraints:data];

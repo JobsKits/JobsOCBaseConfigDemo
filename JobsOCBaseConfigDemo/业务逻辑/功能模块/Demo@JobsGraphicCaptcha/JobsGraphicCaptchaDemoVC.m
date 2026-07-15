@@ -23,7 +23,6 @@ Prop_strong()UILabel *resultLab;
 @end
 
 @implementation JobsGraphicCaptchaDemoVC
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

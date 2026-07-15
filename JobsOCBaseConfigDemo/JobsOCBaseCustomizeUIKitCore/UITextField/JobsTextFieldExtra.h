@@ -14,7 +14,6 @@
 #import "UITextField+Extra.h"
 #import "UITextField+Animation.h"
 #import "UITextField+Placeholder.h"
-
 #import "JobsDefines.h"
 
 #endif /* JobsTextFieldExtra_h */

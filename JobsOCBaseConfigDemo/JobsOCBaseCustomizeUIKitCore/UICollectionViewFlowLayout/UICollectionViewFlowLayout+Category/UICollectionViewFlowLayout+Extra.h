@@ -9,11 +9,8 @@
 #define JOBS_HEADER_GUARD_UICOLLECTIONVIEWFLOWLAYOUT_EXTRA_F7593A00B5
 
 #import <UIKit/UIKit.h>
-
 #import "JobsMakes.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_INLINE UICollectionViewFlowLayout *_Nonnull jobsMakeCollectionViewFlowLayout(jobsByCollectionViewFlowLayoutBlock _Nonnull block){

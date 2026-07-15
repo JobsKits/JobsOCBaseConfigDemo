@@ -10,13 +10,9 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsScrollYView.h"
-
 #import "JobsBaseUI.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsOCDSL.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

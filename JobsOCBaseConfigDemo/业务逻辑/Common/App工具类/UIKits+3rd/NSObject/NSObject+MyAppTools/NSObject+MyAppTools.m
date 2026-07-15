@@ -330,7 +330,6 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         case iPhScrPxType_14ProMax:{// 屏幕分辨率(px) = 1290 * 2796
             imgNameOrUrlStr = @"1290x2796.png";
         }break;
-            
         default:{
             imgNameOrUrlStr = @"启动页SLOGAN.png";
         }break;
@@ -391,7 +390,6 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         case iPhScrPxType_14ProMax:{// 屏幕分辨率(px) = 1290 * 2796
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;
-            
         default:{
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;
@@ -505,7 +503,6 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
         if(!sharedCustomTabBar){
             sharedCustomTabBar = jobsMakeCustomTabBar(^(__kindof JobsCustomTabBar *_Nullable customTabBar) {
                 customTabBar.byBgColor(JobsClearColor);
-
 //                customTabBar.backgroundColor = JobsRedColor;
                 customTabBar.configMasonryBy(view);
             });
@@ -722,7 +719,6 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
             }));
             viewModel.textModel.byAttributedTitle(attributedText);
         }
-        
         {
             NSMutableAttributedString *attributedText = JobsMutAttributedString((isNull(subTitle) ? @"点击查看" : subTitle).tr);
             attributedText.addFontAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
@@ -739,7 +735,6 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
             }));
             viewModel.subTextModel.byAttributedTitle(attributedText);
         }
-        
         viewModel.byBackBtnTitleModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"返回首页".tr);
         }));
@@ -905,9 +900,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
         @jobs_strongify(popupView)
         if([data.titleForNormalState isKindOfClass:NSString.class]){
             if (data.titleForNormalState.isEqualToString(@"取消".tr)) {
-
             }else if (data.titleForNormalState.isEqualToString(@"确认".tr)){
-                
             }else{}
         }
         [popupView tf_hide:^{
@@ -1067,9 +1060,7 @@ JobsKey(_hotLabelDataMutArr)
     NSMutableArray<__kindof UIViewModel *> *HotLabelDataMutArr = Jobs_getAssociatedObject(_hotLabelDataMutArr);
     if (!HotLabelDataMutArr) {
         HotLabelDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data) {
-            
         });
-
 //        for (CasinoCustomerContactElementModel *element in self.customerContactModel.customerList) {
 //            UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
 //
@@ -1081,7 +1072,6 @@ JobsKey(_hotLabelDataMutArr)
 //            vm.offsetYForEach = JobsWidth(46);
 //            [HotLabelDataMutArr addObject:vm];
 //        }
-
         Jobs_setAssociatedRETAIN_NONATOMIC(_hotLabelDataMutArr, HotLabelDataMutArr)
     };return HotLabelDataMutArr;
 }
@@ -1264,14 +1254,11 @@ JobsKey(_connectionTipsTV)
                 [data setValue:JobsLightGrayColor forKey:NSUnderlineColorAttributeName];
                 [data setValue:@(NSUnderlinePatternSolid) forKey:NSUnderlineStyleAttributeName];
             });
-            
             textView.attributedText = self.attributedStringData;//
             [textView sizeToFit];
             textView.byBgColor(JobsClearColor);
-
             textView.editable = NO;// 必须禁止输入，否则点击将会弹出输入键盘
             textView.scrollEnabled = NO;// 可选的，视具体情况而定
-
             if ([self isKindOfClass:UIViewController.class]) {
                 textView.delegate = self;
                 UIViewController *viewController = (UIViewController *)self;

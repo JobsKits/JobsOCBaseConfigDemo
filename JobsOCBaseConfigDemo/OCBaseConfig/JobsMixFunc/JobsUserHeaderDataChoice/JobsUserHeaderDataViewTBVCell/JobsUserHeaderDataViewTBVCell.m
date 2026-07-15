@@ -22,7 +22,6 @@ Prop_strong()UILabel *titleLab;
     return ^(UITableView * _Nonnull tableView) {
         JobsUserHeaderDataViewTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsUserHeaderDataViewTBVCell);
         cell.byBgColor(HEXCOLOR(0xFFFFFF));
-
         return cell;
     };
 }
@@ -60,7 +59,6 @@ Prop_strong()UILabel *titleLab;
         @jobs_strongify(self)
         self.viewModel = model;
         self.titleLab.byAlpha(1);
-
         return self;
     };
 }

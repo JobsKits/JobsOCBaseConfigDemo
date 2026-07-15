@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_JOBSAPPDOORMODEL_DSL_14F4386B6A15E35D
 
 #import "JobsModel.h"
-
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

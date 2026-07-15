@@ -12,9 +12,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "AVAssetImageGenerator+Extra.h"
 #import "UIImage+Extra.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

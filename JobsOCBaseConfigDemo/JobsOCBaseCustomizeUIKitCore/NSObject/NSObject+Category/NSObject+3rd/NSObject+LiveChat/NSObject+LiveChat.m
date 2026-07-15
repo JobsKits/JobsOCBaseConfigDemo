@@ -17,10 +17,8 @@
         LiveChat.groupId = @"77"; // Optionally, you can set specific group
         LiveChat.name = @"iOS Widget Example"; // User name and email can be provided if known
         LiveChat.email = @"example@livechatinc.com";
-        
         [LiveChat setVariableWithKey:@"First variable name" value:@"Some value"];
         [LiveChat setVariableWithKey:@"Second name" value:@"Other value"];
-        
         LiveChat.delegate = self;
     };
 }

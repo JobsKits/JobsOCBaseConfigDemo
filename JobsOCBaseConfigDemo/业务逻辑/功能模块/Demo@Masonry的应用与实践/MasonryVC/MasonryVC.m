@@ -14,7 +14,6 @@ Prop_strong()MSMineView2 *view2;
 @end
 
 @implementation MasonryVC
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -22,7 +21,6 @@ Prop_strong()MSMineView2 *view2;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -34,7 +32,6 @@ Prop_strong()MSMineView2 *view2;
 //    self.viewModel.textModel.text = @"消息详情页".tr;
     self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
     self.viewModel.textModel.font = UIFontWeightRegularSize(16);
-    
     // 使用原则：底图有 + 底色有 = 优先使用底图数据
     // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
     // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
@@ -46,10 +43,8 @@ Prop_strong()MSMineView2 *view2;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.byBgColor(HEXCOLOR(0xF7F8FC));
     self.makeNavByAlpha(1);
-    
 //    [self demo1];
 //    [self demo2];
 //    [self demo3];
@@ -137,55 +132,42 @@ Prop_strong()MSMineView2 *view2;
     // 创建父视图容器
     UIView *containerView = [UIView new];
     [self.view addSubview:containerView];
-    
     // 设置父视图容器的背景色为红色
     containerView.backgroundColor = [UIColor redColor];
-    
     // 设置父视图容器的约束
     [containerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(100, 20, 100, 20)); // 设置四个边界紧贴父视图
     }];
-    
     [self.view layoutIfNeeded];
     JobsLog(@"ddd = %f",CGRectGetWidth(containerView.frame));
-    
     // 创建子元素数组
     NSMutableArray<UIView *> *itemViews = [NSMutableArray array];
-    
     // 自定义子元素的宽高
     CGFloat itemWidth = 50.0; // 自行设定子元素的宽度
     CGFloat itemHeight = 60.0; // 自行设定子元素的高度
-    
     // 自定义横向和纵向间距
     CGFloat horizontalSpacing = 10.0;
     CGFloat verticalSpacing = 10.0;
-    
     // 自定义子元素的数量
     NSInteger itemCount = 19;
-    
     // 计算每行每列的数量
     NSInteger columns = floor((CGRectGetWidth(containerView.frame) - horizontalSpacing) / (itemWidth + horizontalSpacing));
     NSInteger rows = ceil((CGFloat)itemCount / columns); // 确保行数能容纳所有子元素
-    
     // 重新计算横向和纵向间距
     horizontalSpacing = (CGRectGetWidth(containerView.frame) - columns * itemWidth) / (columns - 1);
     verticalSpacing = (CGRectGetHeight(containerView.frame) - rows * itemHeight) / (rows - 1);
-    
     for (NSInteger row = 0; row < rows; row++) {
         for (NSInteger column = 0; column < columns; column++) {
             NSInteger index = row * columns + column;
-            
             if (index < itemCount) {
                 UIView *itemView = [UIView new];
                 itemView.backgroundColor = [UIColor blueColor]; // 子元素背景色为蓝色
                 [containerView addSubview:itemView];
                 [itemViews addObject:itemView];
-                
                 // 设置子元素的约束
                 [itemView mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.width.equalTo(@(itemWidth)); // 设置子元素宽度
                     make.height.equalTo(@(itemHeight)); // 设置子元素高度
-                    
                     // 计算子元素的位置
                     make.left.equalTo(containerView.mas_left).offset(column * (itemWidth + horizontalSpacing));
                     make.top.equalTo(containerView.mas_top).offset(row * (itemHeight + verticalSpacing));

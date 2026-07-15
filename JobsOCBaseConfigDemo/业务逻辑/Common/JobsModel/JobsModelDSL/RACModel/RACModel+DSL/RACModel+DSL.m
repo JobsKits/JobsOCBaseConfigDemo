@@ -8,7 +8,6 @@
 #import "RACModel+DSL.h"
 
 @implementation RACModel (DSL)
-
 -(JobsRetRACModelByRACDisposablePointerBlock _Nonnull)byRacDisposable{
     @jobs_weakify(self)
     return ^__kindof RACModel *_Nullable(RACDisposable * _Nullable data) {

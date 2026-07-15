@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_PHFETCHRESULT_EXTRA_BA69034944
 
 #import <Photos/Photos.h> // 提供系统相册访问能力，可读取和管理照片、视频等媒体资源。
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

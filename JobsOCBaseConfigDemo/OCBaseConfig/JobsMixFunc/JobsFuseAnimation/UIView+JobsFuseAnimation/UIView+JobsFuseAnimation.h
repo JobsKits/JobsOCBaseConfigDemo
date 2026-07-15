@@ -10,15 +10,22 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <UIKit/UIKit.h>
-
+#import "JobsFuseBubbleConfig.h"
 #import "JobsFuseOuterRingConfig.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef __kindof UIView *_Nonnull (^JobsFuseBubbleProvider)(void);
+typedef void (^JobsFuseBubbleEmitBlock)(void);
+
 @interface UIView (JobsFuseAnimation)
 
+-(instancetype)byFuseBubbleStartInView:(UIView *_Nullable)hostView
+                                config:(JobsFuseBubbleConfig *_Nullable)config
+                        bubbleProvider:(JobsFuseBubbleProvider)bubbleProvider
+                                onEmit:(JobsFuseBubbleEmitBlock _Nullable)onEmit;
+-(instancetype)byFuseBubbleStop;
 -(instancetype)byFuseOuterRingStart:(JobsFuseOuterRingConfig *_Nullable)config;
 -(instancetype)byFuseOuterRingStop:(BOOL)animated;
 -(instancetype)byFuseOuterRingLayoutIfNeeded;

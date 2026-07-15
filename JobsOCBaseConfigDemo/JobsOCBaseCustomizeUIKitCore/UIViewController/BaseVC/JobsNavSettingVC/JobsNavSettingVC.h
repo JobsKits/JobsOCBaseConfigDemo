@@ -10,7 +10,6 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsMonitorVC.h"
-
 #import "JobsOCDSL.h"
 
 #if __has_include(<GKNavigationBar/GKNavigationBar.h>)
@@ -20,11 +19,8 @@
 #endif
 
 #import "JobsAppToolsHeader.h"
-
 #import "JobsMakes.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

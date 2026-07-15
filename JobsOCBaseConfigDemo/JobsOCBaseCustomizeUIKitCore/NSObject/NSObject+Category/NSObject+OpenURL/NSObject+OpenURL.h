@@ -18,15 +18,10 @@
 #import "NSString+URL.h"
 #import "NSMutableArray+Extra.h"
 #import "NSURL+Extra.h"
-
 #import "JobsMakes.h"
-
 #import "JobsLanMgr.h"
-
 #import "WHToastExtra.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

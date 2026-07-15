@@ -8,7 +8,6 @@
 #import "UITextFieldModel+DSL.h"
 
 @implementation UITextFieldModel (DSL)
-
 -(JobsRetUITextFieldModelByStrBlock _Nonnull)byText{
     @jobs_weakify(self)
     return ^__kindof UITextFieldModel *_Nullable(NSString * _Nullable data) {

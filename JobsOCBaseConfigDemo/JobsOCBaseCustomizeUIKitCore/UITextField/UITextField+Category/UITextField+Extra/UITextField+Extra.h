@@ -14,7 +14,6 @@
 #import "UITextField+Placeholder.h"
 #import "JobsString.h"
 #import "NSString+Check.h"
-
 #import "JobsOCDSL.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
@@ -24,9 +23,7 @@
 #endif
 
 #import "JobsLanMgr.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

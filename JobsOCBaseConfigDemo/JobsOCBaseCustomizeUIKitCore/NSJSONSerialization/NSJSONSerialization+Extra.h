@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_NSJSONSERIALIZATION_EXTRA_084E637A22
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

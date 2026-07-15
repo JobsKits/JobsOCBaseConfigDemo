@@ -15,7 +15,6 @@ Prop_strong()NSMutableArray<UIButton *> *nodeButtons;
 @end
 
 @implementation JobsGestureLockIndicator
-
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [self initWithConfiguration:nil];
     if (self) {
@@ -48,12 +47,10 @@ Prop_strong()NSMutableArray<UIButton *> *nodeButtons;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-
     NSInteger columns = 3;
     CGFloat width = 9.0;
     CGFloat height = 9.0;
     CGFloat margin = (CGRectGetWidth(self.bounds) - columns * width) / (columns + 1);
-
     [self.nodeButtons enumerateObjectsUsingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
         NSUInteger row = idx / columns;
         NSUInteger column = idx % columns;
@@ -67,7 +64,6 @@ Prop_strong()NSMutableArray<UIButton *> *nodeButtons;
     [self.nodeButtons enumerateObjectsUsingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
         button.selected = NO;
     }];
-
     for (NSUInteger index = 0; index < pattern.length; index++) {
         NSString *character = [pattern substringWithRange:NSMakeRange(index, 1)];
         NSInteger buttonIndex = character.integerValue;

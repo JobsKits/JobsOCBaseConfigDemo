@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_TLANIMATIONPROTOCOL_E2E13554C4
 
 #import <UIKit/UIKit.h>
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

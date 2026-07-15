@@ -24,7 +24,6 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
 @end
 
 @implementation LuckyWheelDemoVC
-
 - (void)dealloc{
     JobsNotificationCenter.remove(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -62,7 +61,6 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
     self.stageView.byVisible(YES);
     self.stageTitleLab.byVisible(YES);
     self.stageSubTitleLab.byVisible(YES);
-
     @jobs_weakify(self)
     self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
         @jobs_strongify(self)

@@ -41,7 +41,6 @@ Prop_strong()NSMutableSet <NSString *>*expandedRootIDMutSet;
 @end
 
 @implementation JobsOCCommentView
-
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self setupWithConfig:nil];

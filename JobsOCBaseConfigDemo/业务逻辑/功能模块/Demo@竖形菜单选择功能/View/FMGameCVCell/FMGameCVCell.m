@@ -15,7 +15,6 @@ Prop_assign(class)SourceType sourceType;
 @end
 
 @implementation FMGameCVCell
-
 -(void)layoutSubviews{
     [super layoutSubviews];
 }
@@ -71,7 +70,6 @@ Prop_assign(class)SourceType sourceType;
                         }
                     }).load();
         }
-        
         if([model isKindOfClass:GoodsClassModel.class]){
             self.goodsClsModel = model;
             self.button.jobsResetBtnImage(self.goodsClsModel.image);

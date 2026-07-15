@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_UITEXTVIEW_DSL_4F3A7E82B1
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

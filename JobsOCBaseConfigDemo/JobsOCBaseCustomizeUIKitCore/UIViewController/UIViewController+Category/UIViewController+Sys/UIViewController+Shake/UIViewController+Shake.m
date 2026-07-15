@@ -51,7 +51,6 @@
             [self startAccelerometer];
         }
     }];
-    
     [JobsNotificationCenter addObserverForName:UIApplicationWillEnterForegroundNotification
                                         object:nil
                                          queue:nil

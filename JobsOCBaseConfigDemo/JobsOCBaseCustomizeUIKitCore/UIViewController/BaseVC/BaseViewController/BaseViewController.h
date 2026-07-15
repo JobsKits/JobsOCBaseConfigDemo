@@ -18,17 +18,11 @@
 #endif
 
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsBasePopupViewHeader.h"
-
 #import "JobsMakes.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

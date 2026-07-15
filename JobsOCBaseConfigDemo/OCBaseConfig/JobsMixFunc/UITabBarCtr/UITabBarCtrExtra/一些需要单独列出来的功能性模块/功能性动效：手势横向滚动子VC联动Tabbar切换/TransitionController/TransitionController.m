@@ -16,7 +16,6 @@ Prop_assign(readwrite)CGPoint initialTranslationInContainerView;
 @end
 
 @implementation TransitionController
-
 - (void)dealloc{
     [self.gestureRecognizer removeTarget:self
                                   action:@selector(gestureRecognizeDidUpdate:)];

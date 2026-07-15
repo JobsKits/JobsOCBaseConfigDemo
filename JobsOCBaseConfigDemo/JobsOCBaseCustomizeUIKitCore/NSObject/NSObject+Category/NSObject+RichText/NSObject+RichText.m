@@ -41,7 +41,6 @@
 /// @param paragraphStyle 段落样式
 -(NSMutableAttributedString *_Nullable)richTextWithDataConfigMutArr:(NSArray <JobsRichTextConfig *>*_Nonnull)richTextDataConfigMutArr
                                                      paragraphStyle:(NSMutableParagraphStyle *_Nullable)paragraphStyle{
-    
     if (!paragraphStyle) {
         paragraphStyle = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
             data.byAlignment(NSTextAlignmentLeft); //❤️文本对齐方式 左右对齐（两边对齐）,textAlignment属性失效❤️

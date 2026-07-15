@@ -8,7 +8,6 @@
 #import "NSUserDefaults+Swizzle.h"
 
 @implementation NSUserDefaults (Swizzle)
-
 +(void)load{
     {// Object
         {// 存
@@ -22,7 +21,6 @@
             method_exchangeImplementations(originalMethod, swizzledMethod);
         }
     }
-    
     {// Value
         {// 存
             Method originalMethod = class_getInstanceMethod(NSUserDefaults.class,@selector(setValue:forKey:));
@@ -35,7 +33,6 @@
             method_exchangeImplementations(originalMethod, swizzledMethod);
         }
     }
-    
     {// Bool
         {// 存
             Method originalMethod = class_getInstanceMethod(NSUserDefaults.class,@selector(setBool:forKey:));
@@ -48,7 +45,6 @@
             method_exchangeImplementations(originalMethod, swizzledMethod);
         }
     }
-    
     {// Remove
         Method originalMethod = class_getInstanceMethod(NSUserDefaults.class,@selector(removeObjectForKey:));
         Method swizzledMethod = class_getInstanceMethod(NSUserDefaults.class,@selector(swizzleRemoveObjectForKey:));

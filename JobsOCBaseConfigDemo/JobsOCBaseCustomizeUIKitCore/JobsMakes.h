@@ -21,11 +21,8 @@
 #endif
 
 #import "NSString+Extra.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCKeyboardMgr.h"
 
 #pragma mark —— 关于富文本

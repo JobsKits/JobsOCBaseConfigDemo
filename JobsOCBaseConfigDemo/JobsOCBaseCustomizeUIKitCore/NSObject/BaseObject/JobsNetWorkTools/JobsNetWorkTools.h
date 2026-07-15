@@ -12,15 +12,10 @@
 #import <ifaddrs.h>               // 提供网络接口地址遍历能力，可获取设备各网络接口的 IP 地址等信息。
 #import <net/if.h>                // 定义网络接口相关常量、结构体和操作接口。
 #import <net/if_var.h>            // 引入网络接口内部状态、统计信息及相关内核结构定义
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsOCTimer.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 static inline JobsNetworkBytes JobsNetworkBytesMake(uint64_t download, uint64_t upload) {
@@ -42,18 +37,14 @@ static JobsNetworkBytes JobsCurrentNetworkBytes(void) {
         if (!(ifa->ifa_flags & IFF_UP)) {
             continue;
         }
-
         struct if_data *data = (struct if_data *)ifa->ifa_data;
         if (!data) continue;
-
         uint64_t inBytes  = (uint64_t)data->ifi_ibytes;
         uint64_t outBytes = (uint64_t)data->ifi_obytes;
-
         // 这里我们不区分 en / pdp_ip / 其他，直接全加，总效果等于 Swift 里的 wifi+cellular+other.total
         result.download += inBytes;
         result.upload   += outBytes;
     }
-
     freeifaddrs(addrs);
     return result;
 }
@@ -70,6 +61,5 @@ static JobsNetworkBytes JobsCurrentNetworkBytes(void) {
 -(jobsByVoidBlock _Nonnull)byStop;
 
 @end
-
 
 #endif /* JOBS_HEADER_GUARD_JOBSNETWORKTOOLS_A5554FC4D0 */

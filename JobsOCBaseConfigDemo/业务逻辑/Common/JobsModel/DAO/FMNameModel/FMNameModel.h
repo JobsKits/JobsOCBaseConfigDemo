@@ -9,9 +9,7 @@
 #define FMNameModel_h
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -23,7 +21,6 @@ Prop_strong()__kindof UITextField *middleNameTF;
 Prop_strong()__kindof UITextField *lastNameTF;
 Prop_strong()__kindof UITextField *idTypeTF;
 Prop_strong()__kindof UITextField *idNumberTF;
-
 Prop_copy()NSString *firstName;
 Prop_copy()NSString *middleName;
 Prop_copy()NSString *lastName;

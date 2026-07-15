@@ -54,7 +54,6 @@
     card.layer.shadowOpacity = 0.15;
     card.layer.shadowOffset = CGSizeMake(0, 3);
     card.layer.shadowRadius = 6;
-
     UILabel *iconLabel = UILabel.new;
     iconLabel.text = @"✉";
     iconLabel.textAlignment = NSTextAlignmentCenter;
@@ -64,20 +63,17 @@
     iconLabel.layer.cornerRadius = JobsWidth(8);
     iconLabel.layer.masksToBounds = YES;
     [card addSubview:iconLabel];
-
     UILabel *titleLabel = UILabel.new;
     titleLabel.text = [NSString stringWithFormat:@"%@ - %@ 活动 %ld", _sectionTitle, _menuTitle, (long)index + 1];
     titleLabel.textColor = UIColor.labelColor;
     titleLabel.font = [UIFont boldSystemFontOfSize:18];
     titleLabel.numberOfLines = 2;
     [card addSubview:titleLabel];
-
     UILabel *subtitleLabel = UILabel.new;
     subtitleLabel.text = @"神秘彩金等你来拿";
     subtitleLabel.textColor = UIColor.darkGrayColor;
     subtitleLabel.font = [UIFont systemFontOfSize:15];
     [card addSubview:subtitleLabel];
-
     [iconLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(card).offset(JobsWidth(16));
         make.centerY.equalTo(card);
@@ -107,7 +103,6 @@ Prop_strong()NSArray<NSString *> *menuTitles;
 @end
 
 @implementation JobsLinkageMenuViewDemoVC
-
 -(void)loadView{
     [super loadView];
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
@@ -169,7 +164,6 @@ Prop_strong()NSArray<NSString *> *menuTitles;
         NSString *title = payload[@"title"] ?: @"";
         if (title.length) self.callbackLabel.text = [NSString stringWithFormat:@"当前菜单：%@", title];
     };
-
     self.linkageView = [[JobsLinkageMenuView alloc] initWithFrame:CGRectZero
                                                         btnConfig:self.buttonModel
                                             linkageMenuViewConfig:config];

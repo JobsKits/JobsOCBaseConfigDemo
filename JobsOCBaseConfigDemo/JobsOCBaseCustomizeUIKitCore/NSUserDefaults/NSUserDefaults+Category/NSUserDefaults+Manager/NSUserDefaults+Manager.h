@@ -21,7 +21,6 @@
 @class UserDefaultModel;
 
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

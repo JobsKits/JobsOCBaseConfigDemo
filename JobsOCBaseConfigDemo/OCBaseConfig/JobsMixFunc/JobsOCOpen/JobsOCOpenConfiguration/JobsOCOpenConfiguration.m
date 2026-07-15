@@ -9,7 +9,6 @@
 #import "NSString+Sys.h"
 
 @implementation JobsOCOpenConfiguration
-
 +(instancetype)config{
     return [[self alloc] init];
 }
@@ -32,11 +31,9 @@
     if (!trimmed.length) return nil;
     NSURL *directURL = [NSURL URLWithString:trimmed];
     if (directURL.scheme.length) return directURL;
-
     NSString *prepared = [trimmed containsString:@"://"] ? trimmed : [@"https://" stringByAppendingString:trimmed];
     NSURL *preparedURL = [NSURL URLWithString:prepared];
     if (preparedURL) return preparedURL;
-
     NSString *encoded = [prepared stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet];
     return encoded.length ? [NSURL URLWithString:encoded] : nil;
 }

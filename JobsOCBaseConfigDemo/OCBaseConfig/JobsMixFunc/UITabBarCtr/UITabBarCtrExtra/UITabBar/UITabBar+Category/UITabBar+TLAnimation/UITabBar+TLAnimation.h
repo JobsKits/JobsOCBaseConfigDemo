@@ -12,9 +12,7 @@
 #import <UIKit/UIKit.h>
 #import "TLAnimationProtocol.h"
 #import "UITabBarItem+TLAnimation.h"
-
 #import "JobsOCRuntimeKits.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

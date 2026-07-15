@@ -12,16 +12,13 @@
 @end
 
 @implementation ZMJTaskCell : ZMJCell
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
     };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
-        
     };return self;
 }
 

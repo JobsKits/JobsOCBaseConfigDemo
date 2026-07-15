@@ -16,7 +16,6 @@ Prop_assign() BOOL hasMore;
 @end
 
 @implementation TextureDemoVC
-
 - (instancetype)init {
     if (self = [super initWithNode:self.tableNode]) {
         self.title = @"Texture Demo (OC)";
@@ -94,7 +93,6 @@ willBeginBatchFetchWithContext:(ASBatchContext *)context {
             @(TDDemoRowType_Draw),
         ];
         [self.rows addObjectsFromArray:more];
-
         NSMutableArray<NSIndexPath *> *inserts = [NSMutableArray array];
         for (NSInteger i = startCount; i < self.rows.count; i++) {
             [inserts addObject:[NSIndexPath indexPathForRow:i inSection:0]];

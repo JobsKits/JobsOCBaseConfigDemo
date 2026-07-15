@@ -31,9 +31,7 @@
 /// Tabbaritem点击动效
 #import "TLAnimationProtocol.h"
 #import "TLTabBarAnimation.h"
-
 #import "JobsByOCPods.h"
-
 #import "JobsSuspend.h"
 
 #endif /* JobsTabbarCtrlSysEx_h */

@@ -22,9 +22,7 @@ Prop_strong()JobsBluetoothManager *bluetoothManager;
 
 @end
 
-
 @implementation JobsBluetoothFeatureDemoVC
-
 -(instancetype)initWithFeatureIndex:(NSInteger)featureIndex
                        featureTitle:(NSString *)featureTitle{
     if (self = [super init]) {

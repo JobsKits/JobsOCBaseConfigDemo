@@ -18,9 +18,7 @@
 #endif
 
 #import "JobsByOCPods.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 #ifndef ShowView

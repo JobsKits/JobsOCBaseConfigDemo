@@ -43,7 +43,6 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 @end
 
 @implementation JobsViewPushConfiguration
-
 +(instancetype)defaultConfiguration{
     return self.new;
 }
@@ -103,7 +102,6 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 @end
 
 @implementation JobsViewPushPresentation
-
 -(instancetype)initWithSourceView:(UIView *)sourceView
                     presentedView:(UIView *)presentedView
                     configuration:(JobsViewPushConfiguration *)configuration{
@@ -123,7 +121,6 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
     CGRect visibleFrame = [self visibleFrameForBounds:self.transitionView.bounds];
     presentedView.transform = CGAffineTransformIdentity;
     presentedView.frame = [self hiddenFrameForVisibleFrame:visibleFrame];
-
     JobsViewPushCompletionBlock animations = ^{
         presentedView.frame = visibleFrame;
         self.transitionView.backgroundColor = self.configuration.backgroundColor;
@@ -159,7 +156,6 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
     presentedView.transform = CGAffineTransformIdentity;
     presentedView.frame = visibleFrame;
     [presentedView.superview layoutIfNeeded];
-
     JobsViewPushCompletionBlock animations = ^{
         presentedView.frame = [self hiddenFrameForVisibleFrame:visibleFrame];
         self.transitionView.backgroundColor = UIColor.clearColor;
@@ -191,7 +187,6 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
     UIView *sourceView = self.sourceView;
     UIView *presentedView = self.presentedView;
     if (!sourceView || !presentedView) return;
-
     self.transitionView = [[JobsViewPushTransitionView alloc] initWithFrame:sourceView.bounds];
     self.transitionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.transitionView.backgroundColor = UIColor.clearColor;
@@ -199,7 +194,6 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
     [sourceView addSubview:self.transitionView];
     [self.transitionView addSubview:presentedView];
     [self layoutPresentedView];
-
     if (self.configuration.dismissOnBackgroundTap) {
         self.backgroundTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                             action:@selector(backgroundTapped:)];
@@ -371,7 +365,6 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 @end
 
 @implementation JobsViewPushTransitionView
-
 -(void)layoutSubviews{
     [super layoutSubviews];
     [self.presentation layoutPresentedView];
@@ -380,7 +373,6 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 @end
 
 @implementation UIView (JobsViewPush)
-
 -(JobsViewPushPresentation *)jobsPushView:(UIView *)presentedView{
     return [self jobsPushView:presentedView
                 configuration:nil
@@ -409,7 +401,6 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 @end
 
 @implementation UIView (JobsViewPushPrivate)
-
 JobsKey(JobsViewPushPresentationKey)
 -(void)setJobsViewPushPresentation:(JobsViewPushPresentation *)jobsViewPushPresentation{
     Jobs_setAssociatedRETAIN_NONATOMIC(JobsViewPushPresentationKey, jobsViewPushPresentation)

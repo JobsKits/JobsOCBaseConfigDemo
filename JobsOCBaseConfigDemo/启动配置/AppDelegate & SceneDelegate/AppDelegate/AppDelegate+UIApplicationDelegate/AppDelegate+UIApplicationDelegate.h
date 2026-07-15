@@ -9,9 +9,7 @@
 #import "AppDelegate+Func.h"
 #import "MyAppTools.h"
 #import "JobsScale.h"
-
 #import "JobsAppToolsHeader.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

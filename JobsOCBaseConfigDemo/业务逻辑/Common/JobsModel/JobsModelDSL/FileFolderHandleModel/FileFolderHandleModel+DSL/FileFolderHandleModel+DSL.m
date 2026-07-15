@@ -8,7 +8,6 @@
 #import "FileFolderHandleModel+DSL.h"
 
 @implementation FileFolderHandleModel (DSL)
-
 -(JobsRetFileFolderHandleModelByAVAssetPointerBlock _Nonnull)byAsset{
     @jobs_weakify(self)
     return ^__kindof FileFolderHandleModel *_Nullable(AVAsset * _Nullable data) {

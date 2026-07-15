@@ -47,10 +47,8 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
         if ([model isKindOfClass:JobsChildCommentModel.class]) {
             self.childCommentModel = (JobsChildCommentModel *)model;
             self.likeBtn.byAlpha(1);
-
             self.textLabel.byText(self.childCommentModel.nickname);
             self.detailTextLabel.byText(self.childCommentModel.content);
-
             UIImage *placeholderImage = [self jobs_commentAvatarPlaceholderImageByID:self.childCommentModel.ID ? : self.childCommentModel.userId];
             self.imageView.image = placeholderImage;
             self.imageView

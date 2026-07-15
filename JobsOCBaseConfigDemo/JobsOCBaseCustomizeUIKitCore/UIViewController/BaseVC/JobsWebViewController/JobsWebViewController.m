@@ -14,7 +14,6 @@
 @end
 
 @implementation JobsWebViewController
-
 +(JobsRetVCByWebViewBlock _Nonnull)initByWebView{
     @jobs_weakify(self)
     return ^__kindof UIViewController <BaseViewControllerProtocol>*_Nullable(__kindof WKWebView *_Nonnull webView){
@@ -23,7 +22,6 @@
         vc.webView = webView;
         vc.view.addSubview(webView);
         webView.byFrame(vc.view.bounds);
-
         return vc;
     };
 }

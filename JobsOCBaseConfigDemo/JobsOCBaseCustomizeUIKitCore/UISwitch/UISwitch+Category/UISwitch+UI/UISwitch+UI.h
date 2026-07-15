@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_UISWITCH_UI_5B6491D372
 
 #import <UIKit/UIKit.h>
-
 #import "JobsOCDSL.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
@@ -19,9 +18,7 @@
 #endif
 
 #import "JobsMakes.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

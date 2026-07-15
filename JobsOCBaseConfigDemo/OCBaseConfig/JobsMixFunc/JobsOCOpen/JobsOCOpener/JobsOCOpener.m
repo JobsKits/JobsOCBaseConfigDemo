@@ -9,7 +9,6 @@
 #import "JobsOCOpenWebViewController.h"
 
 @implementation JobsOCOpener
-
 +(instancetype)shared{
     static JobsOCOpener *open = nil;
     static dispatch_once_t onceToken;

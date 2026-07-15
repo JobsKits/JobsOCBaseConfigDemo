@@ -8,7 +8,6 @@
 #import "ASNetworkImageNode+DSL.h"
 
 @implementation ASNetworkImageNode (DSL) 
-
 -(instancetype)byInitWithCache:(id<ASImageCacheProtocol> _Nullable)cache
                     downloader:(id<ASImageDownloaderProtocol>)downloader{
     if (!downloader){ return self; }

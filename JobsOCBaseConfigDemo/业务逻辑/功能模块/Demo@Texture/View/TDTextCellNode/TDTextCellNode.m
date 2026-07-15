@@ -12,14 +12,12 @@
 @end
 
 @implementation TDTextCellNode
-
 - (instancetype)initWithTitle:(NSString *)t subtitle:(NSString *)s {
     if (self = [super init]) {
         self.automaticallyManagesSubnodes = YES;
         self.backgroundColor = UIColor.systemBackgroundColor;
         self.neverShowPlaceholders = NO; // 展示占位渲染
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-
         self.title = jobsMakeTextNode(^(ASTextNode * _Nullable node) {
             node.truncationMode = NSLineBreakByTruncatingTail;
             node.maximumNumberOfLines = 2;
@@ -29,7 +27,6 @@
                 NSForegroundColorAttributeName: UIColor.labelColor
             }];
         });
-
         self.subtitle = jobsMakeTextNode(^(ASTextNode * _Nullable node) {
             node.maximumNumberOfLines = 3;
             node.attributedText = [NSAttributedString.alloc initWithString:s

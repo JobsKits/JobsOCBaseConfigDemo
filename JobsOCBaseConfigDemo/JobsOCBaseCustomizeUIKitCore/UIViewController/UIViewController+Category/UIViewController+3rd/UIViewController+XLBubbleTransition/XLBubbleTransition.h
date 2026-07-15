@@ -10,7 +10,6 @@
 
 #import <UIKit/UIKit.h>
 #import "UIViewController+XLBubbleTransition.h"
-
 #import "JobsDefines.h"
 
 typedef NS_ENUM(NSInteger,XLBubbleTransitionType) {

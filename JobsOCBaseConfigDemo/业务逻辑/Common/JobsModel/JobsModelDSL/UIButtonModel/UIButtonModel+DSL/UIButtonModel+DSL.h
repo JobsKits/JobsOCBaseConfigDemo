@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_UIBUTTONMODEL_DSL_353F7AE316CDA53E
 
 #import "JobsModel.h"
-
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

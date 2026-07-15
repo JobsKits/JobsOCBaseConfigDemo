@@ -9,19 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSHOTLABELBYSINGLELINE_023995DE53
 
 #import <UIKit/UIKit.h>
-
 #import "JobsOCDSL.h"
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsBaseUI.h"
-
 #import "JobsMakes.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsByOCPods.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -14,9 +14,7 @@
 #import "NSString+Sys.h"
 #import "NSURLRequest+Extra.h"
 #import "NSString+Replace.h"
-
 #import "JobsStringUtilsHeader.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

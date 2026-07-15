@@ -9,11 +9,8 @@
 #define JOBS_HEADER_GUARD_GESTUREPROTOCOL_B034A75D30
 
 #import <Foundation/Foundation.h>
-
 #import "BaseProtocol.h"
-
 #import "JobsDefines.h"
-
 #import "JobsBlock.h"
 
 @class JobsSEL_IMP;

@@ -10,9 +10,7 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-
 #import "JobsMakes.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

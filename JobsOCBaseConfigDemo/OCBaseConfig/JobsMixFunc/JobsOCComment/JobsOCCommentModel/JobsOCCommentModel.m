@@ -8,7 +8,6 @@
 #import "JobsOCCommentModel.h"
 
 @implementation JobsOCCommentModel
-
 +(instancetype)commentWithMessageID:(NSString *)messageID
                          userAvatar:(NSString *)userAvatar
                            nickname:(NSString *)nickname

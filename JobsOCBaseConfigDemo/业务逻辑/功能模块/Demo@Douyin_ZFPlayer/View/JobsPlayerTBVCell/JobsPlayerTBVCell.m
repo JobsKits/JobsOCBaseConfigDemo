@@ -70,7 +70,6 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
         if ([model isKindOfClass:UIViewModel.class]) {
             self.viewModel = model;
             self.label.byText([NSString stringWithFormat:@"%ld",(long)self.viewModel.row]);
-
             self.videoModel_Core = (VideoModel_Core *)self.viewModel.data;
         };return self;
     };

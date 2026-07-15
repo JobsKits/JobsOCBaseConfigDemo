@@ -17,7 +17,6 @@ Prop_strong()UILabel *detailLab;
 @end
 
 @implementation BaiShaETProjBankAccMgmtCVCell
-
 - (instancetype)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
         self

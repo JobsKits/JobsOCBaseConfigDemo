@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_HQCOLLECTIONVIEWFLOWLAYOUT_4F2CA45D6B
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

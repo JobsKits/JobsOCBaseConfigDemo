@@ -26,7 +26,6 @@ Prop_assign() BOOL mirrorFrontPreview;
 @end
 
 @implementation JobsOCVideoRecorderCaptureManager
-
 +(BOOL)isCameraSwitchAvailable{
 #if TARGET_OS_SIMULATOR
     return NO;
@@ -167,7 +166,6 @@ Prop_assign() BOOL mirrorFrontPreview;
         [self notifyError:videoError ?: [self errorWithCode:-13 description:[self cameraUnavailableDescription]]];
         return NO;
     }
-
     if (!self.audioInput) {
         NSError *audioError = nil;
         AVCaptureDevice *audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
@@ -183,7 +181,6 @@ Prop_assign() BOOL mirrorFrontPreview;
             [self notifyError:audioError ?: [self errorWithCode:-11 description:@"麦克风不可用"]];
         }
     }
-
     if (!self.videoOutput) {
         self.videoOutput = AVCaptureVideoDataOutput.new;
         self.videoOutput.alwaysDiscardsLateVideoFrames = NO;
@@ -193,7 +190,6 @@ Prop_assign() BOOL mirrorFrontPreview;
         [self.videoOutput setSampleBufferDelegate:self queue:self.sampleBufferQueue];
         if ([self.session canAddOutput:self.videoOutput]) [self.session addOutput:self.videoOutput];
     }
-
     if (!self.audioOutput) {
         self.audioOutput = AVCaptureAudioDataOutput.new;
         [self.audioOutput setSampleBufferDelegate:self queue:self.sampleBufferQueue];

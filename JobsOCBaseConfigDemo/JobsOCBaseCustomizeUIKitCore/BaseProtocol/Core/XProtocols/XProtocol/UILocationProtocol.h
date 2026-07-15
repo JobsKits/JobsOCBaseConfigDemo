@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_UILOCATIONPROTOCOL_BF90131AF0
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -56,12 +54,10 @@ Prop_assign(class)CGFloat HeightForHeaderInSection;
 Prop_assign(class)CGFloat CellWidth;
 Prop_assign(class)CGFloat CellHeight;
 Prop_assign(class)CGSize CellSize;
-
 Prop_assign()CGFloat heightForHeaderInSection;
 Prop_assign()CGFloat cellWidth;
 Prop_assign()CGFloat cellHeight;
 Prop_assign()CGSize cellSize;
-
 Prop_assign()CGSize tableHeaderViewSize;
 Prop_assign()CGSize tableFooterViewSize;
 Prop_assign()BOOL usesTableViewHeaderView;// 默认不使用

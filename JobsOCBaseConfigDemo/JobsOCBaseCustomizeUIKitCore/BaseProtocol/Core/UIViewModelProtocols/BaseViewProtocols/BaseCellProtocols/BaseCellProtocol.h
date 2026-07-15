@@ -9,11 +9,8 @@
 #define JOBS_HEADER_GUARD_BASECELLPROTOCOL_A6BBD2BF0F
 
 #import <Foundation/Foundation.h>
-
 #import "BaseViewProtocol.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

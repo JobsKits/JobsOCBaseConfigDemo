@@ -130,7 +130,6 @@ failCompletionHandlerBlock:(jobsByVoidBlock _Nullable)failCompletionHandlerBlock
         @"URL类型不匹配，请检查".tr.toast();
         return NO;
     }
-
     NSURL *openURL = nil;
     if([URL isKindOfClass:NSURL.class]){
         openURL = URL;
@@ -138,7 +137,6 @@ failCompletionHandlerBlock:(jobsByVoidBlock _Nullable)failCompletionHandlerBlock
         NSString *url = (NSString *)URL;
         openURL = url.jobsUrl;
     }else{}
-    
     options = options ? options : @{};
     /// 打开的动作
     if (@available(iOS 10.0, *)) {

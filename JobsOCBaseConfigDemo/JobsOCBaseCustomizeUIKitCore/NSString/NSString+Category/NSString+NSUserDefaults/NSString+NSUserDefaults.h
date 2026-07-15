@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_NSSTRING_NSUSERDEFAULTS_7C27C7EDC6
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

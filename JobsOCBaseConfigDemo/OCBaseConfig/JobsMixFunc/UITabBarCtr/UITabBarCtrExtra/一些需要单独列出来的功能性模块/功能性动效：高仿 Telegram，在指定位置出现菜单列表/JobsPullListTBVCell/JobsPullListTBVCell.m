@@ -12,7 +12,6 @@
 @end
 
 @implementation JobsPullListTBVCell
-
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsPullListTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsPullListTBVCell);
@@ -25,7 +24,6 @@
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.textLabel.byText(model.textModel.text);
-
         self.imageView.image = model.image;
         return self;
     };

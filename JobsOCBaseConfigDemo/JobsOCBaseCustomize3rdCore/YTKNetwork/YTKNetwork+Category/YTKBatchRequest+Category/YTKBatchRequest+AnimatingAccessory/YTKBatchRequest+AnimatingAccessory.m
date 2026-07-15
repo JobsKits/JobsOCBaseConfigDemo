@@ -8,7 +8,6 @@
 #import "YTKBatchRequest+AnimatingAccessory.h"
 
 @implementation YTKBatchRequest (AnimatingAccessory)
-
 -(YTKAnimatingRequestAccessory *)animatingRequestAccessory{
     for (id accessory in self.requestAccessories) {
         if ([accessory isKindOfClass:YTKAnimatingRequestAccessory.class]){

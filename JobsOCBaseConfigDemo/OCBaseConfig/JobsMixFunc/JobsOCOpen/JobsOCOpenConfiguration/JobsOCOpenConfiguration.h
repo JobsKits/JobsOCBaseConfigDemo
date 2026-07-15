@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_JOBSOCOPENCONFIGURATION_5E32B96E67
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 typedef NS_ENUM(NSUInteger, JobsOCOpenMode) {

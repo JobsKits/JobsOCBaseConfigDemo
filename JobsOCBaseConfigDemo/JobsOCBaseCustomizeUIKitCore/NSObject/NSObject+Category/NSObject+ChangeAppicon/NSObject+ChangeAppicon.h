@@ -10,11 +10,8 @@
 
 #import <Foundation/Foundation.h>
 #import "NSMutableArray+Extra.h"
-
 #import "WHToastExtra.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

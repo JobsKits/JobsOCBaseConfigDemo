@@ -11,7 +11,6 @@
 #import <Foundation/Foundation.h>
 #import "NSString+Extra.h"
 #import "NSString+Check.h"
-
 #import "JobsLanMgr.h"
 
 #ifndef TextModelDataString

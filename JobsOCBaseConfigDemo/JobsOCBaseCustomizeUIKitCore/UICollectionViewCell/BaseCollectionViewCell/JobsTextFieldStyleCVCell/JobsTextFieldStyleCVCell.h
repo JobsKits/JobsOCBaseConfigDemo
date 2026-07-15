@@ -12,11 +12,8 @@
 #import "UIView+Extra.h"
 #import "ZYTextField.h"
 #import "JobsBaseCollectionViewCell.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

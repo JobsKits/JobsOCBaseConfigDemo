@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_LMHWATERFALLLAYOUT_BF180D4EE5
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 @class LMHWaterFallLayout;

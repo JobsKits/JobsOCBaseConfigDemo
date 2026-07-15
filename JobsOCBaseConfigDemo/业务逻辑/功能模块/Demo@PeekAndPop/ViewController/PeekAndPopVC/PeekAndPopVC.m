@@ -12,7 +12,6 @@
 @end
 
 @implementation PeekAndPopVC
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -20,14 +19,12 @@
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"返回".tr);
@@ -48,15 +45,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.byBgColor(JobsRandomColor);
-
     self.makeNavByAlpha(1);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
 }
 
 -(void)viewWillLayoutSubviews{

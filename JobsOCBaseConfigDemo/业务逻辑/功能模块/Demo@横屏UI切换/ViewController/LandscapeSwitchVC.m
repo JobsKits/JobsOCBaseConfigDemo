@@ -14,7 +14,6 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 @end
 
 @implementation LandscapeSwitchVC
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -22,7 +21,6 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -38,7 +36,6 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
             data.byText(data.attributedTitle.string);
             data.byFont(UIFontWeightRegularSize(18));
         })
-    
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
@@ -68,7 +65,6 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
 }
 
 -(void)viewWillLayoutSubviews{
@@ -155,7 +151,6 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 #pragma mark —— 一些私有方法
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
           withEvent:(UIEvent *)event{
-    
 }
 #pragma mark —— UICollectionViewCell 部署策略
 //见 @interface NSObject (JobsDeployCellConfig)

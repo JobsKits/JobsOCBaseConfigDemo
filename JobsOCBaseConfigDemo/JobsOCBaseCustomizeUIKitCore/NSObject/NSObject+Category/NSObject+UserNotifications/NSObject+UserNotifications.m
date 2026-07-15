@@ -54,7 +54,6 @@
         JobsLog(@"granted = %d,error = %@",granted,error);
         [self registerForRemoteNotifications];
     }];
-
     [self registerNotificationCategory];
     // 获取通知授权和设置
     [self userNotificationCenter:userNotificationCenter authorizationStatusBlock:nil];
@@ -153,15 +152,12 @@
     if (!notificationTrigger) {
         notificationTrigger = [self notificationTriggerWithTimeInterval:10 repeats:NO];
     }
-    
     if (isNull(identifier)) {
         identifier = @"my_notification";
     }
-    
     if (!notificationContent) {
         notificationContent = self.userNotificationInit;
     }
-    
     UNNotificationRequest *notificationRequest = [UNNotificationRequest requestWithIdentifier:identifier
                                                                                       content:notificationContent
                                                                                       trigger:notificationTrigger];
@@ -171,21 +167,17 @@
 -(void)notificationCenter:(UNUserNotificationCenter *_Nullable)notificationCenter
    addNotificationRequest:(UNNotificationRequest *_Nullable)notificationRequest
            withIdentifier:(NSString *_Nullable)identifier{
-
     if (!notificationCenter) {
         notificationCenter = self.notificationCenter;
     }
-    
     if (isNull(identifier)) {
         identifier = @"my_notification";
     }
-    
     if (!notificationRequest) {
         notificationRequest = [self notificationRequestInitWithIdentifier:identifier
                                                                   content:self.userNotificationInit
                                                                   trigger:[self notificationTriggerWithTimeInterval:3 repeats:NO]];
     }
-    
     [notificationCenter addNotificationRequest:notificationRequest
                          withCompletionHandler:^(NSError * _Nullable error) {
         if (error) {
@@ -209,7 +201,6 @@
                                                                                       actions:@[completeAction, remindMeIn1MinuteAction, remindMeIn5MinuteAction]
                                                                             intentIdentifiers:@[]
                                                                                       options:UNNotificationCategoryOptionCustomDismissAction];
-    
     // customUICategory
     UNNotificationAction *nextAction = [UNNotificationAction actionWithIdentifier:@"stop"
                                                                             title:@"Stop".tr
@@ -223,7 +214,6 @@
                                                                                       actions:@[nextAction, commentAction]
                                                                             intentIdentifiers:@[]
                                                                                       options:UNNotificationCategoryOptionCustomDismissAction];
-    
     [UNUserNotificationCenter.currentNotificationCenter setNotificationCategories:[NSSet setWithObjects:calendarCategory, customUICategory, nil]];
 }
 /// 本地通知的相关管理

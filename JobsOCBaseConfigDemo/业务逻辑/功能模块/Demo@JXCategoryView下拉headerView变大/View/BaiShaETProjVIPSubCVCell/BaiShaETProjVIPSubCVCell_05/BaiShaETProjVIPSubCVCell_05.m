@@ -37,7 +37,6 @@
         @jobs_strongify(self)
         self.viewModel = model;
         if (self.viewModel) {
-            
         };return self;
     };
 }

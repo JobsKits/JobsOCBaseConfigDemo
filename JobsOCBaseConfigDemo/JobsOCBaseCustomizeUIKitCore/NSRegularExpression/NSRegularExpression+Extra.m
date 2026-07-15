@@ -8,7 +8,6 @@
 #import "NSRegularExpression+Extra.h"
 
 @implementation NSRegularExpression (Extra)
-
 +(JobsRetRegularExpressionByStrBlock _Nonnull)byString{
     return ^__kindof NSRegularExpression *_Nullable(NSString *_Nullable data){
         NSError *err = nil;

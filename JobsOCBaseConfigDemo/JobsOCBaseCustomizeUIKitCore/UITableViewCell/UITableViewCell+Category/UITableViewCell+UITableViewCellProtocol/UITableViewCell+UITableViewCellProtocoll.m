@@ -523,7 +523,6 @@ UITableViewCellProtocol_dynamic
             CGFloat width = CGRectGetWidth(self.bounds);
             CGFloat height = CGRectGetHeight(self.bounds);
             CGFloat radius = layerConfig.roundingCornersRadii.height;
-
             jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable data) {
                 data
                     .byMoveToPoint(CGPointMake(0, height - radius))// 左下圆弧起点
@@ -576,7 +575,6 @@ UITableViewCellProtocol_dynamic
     if (jobsZeroSizeValue(layerConfig.roundingCornersRadii)) {
         layerConfig.roundingCornersRadii = CGSizeMake(JobsWidth(10.0), JobsWidth(10.0));
     }
-
     if (indexPath.row == 0 && numberOfRows > 0) {
         // 当前为该 section 的第一个 cell，处理圆角遮罩
         UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds
@@ -600,7 +598,6 @@ UITableViewCellProtocol_dynamic
             CGFloat width = CGRectGetWidth(self.bounds);
             CGFloat height = CGRectGetHeight(self.bounds);
             CGFloat radius = layerConfig.roundingCornersRadii.height;
-
             jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable borderPath) {
                 borderPath
                     .byMoveToPoint(CGPointMake(0, radius))
@@ -618,7 +615,6 @@ UITableViewCellProtocol_dynamic
                     .byAddLineToPoint(CGPointMake(width, height))
                     .byMoveToPoint(CGPointMake(0, radius))
                     .byAddLineToPoint(CGPointMake(0, height));
-
                 self.layer.addSublayer(jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable borderLayer) {
                     borderLayer
                         .byPath(borderPath.CGPath)
@@ -653,14 +649,11 @@ UITableViewCellProtocol_dynamic
             [layer removeFromSuperlayer];
         }
     }
-
     if (!layerConfig.layerBorderCor) layerConfig.layerBorderCor = JobsGrayColor;
     if (!layerConfig.borderWidth) layerConfig.borderWidth = JobsWidth(1);
-
     CGFloat borderWidth = layerConfig.borderWidth;
     CGFloat height = CGRectGetHeight(self.contentView.bounds);
     CGFloat width  = CGRectGetWidth(self.contentView.bounds);
-
     // 左边线
     self.contentView.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable leftLayer) {
         leftLayer
@@ -668,7 +661,6 @@ UITableViewCellProtocol_dynamic
             .byBgColor(layerConfig.layerBorderCor.CGColor)
             .byFrame(CGRectMake(0, 0, borderWidth, height));
     }));
-
     // 右边线
     self.contentView.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable rightLayer) {
         rightLayer

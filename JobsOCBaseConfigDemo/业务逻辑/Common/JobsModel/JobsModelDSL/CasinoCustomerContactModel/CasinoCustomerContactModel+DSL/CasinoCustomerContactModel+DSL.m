@@ -8,7 +8,6 @@
 #import "CasinoCustomerContactModel+DSL.h"
 
 @implementation CasinoCustomerContactModel (DSL)
-
 -(JobsRetCasinoCustomerContactModelByMutableArrayBlock _Nonnull)byCustomerList{
     @jobs_weakify(self)
     return ^__kindof CasinoCustomerContactModel *_Nullable(NSMutableArray <CasinoCustomerContactElementModel *> * _Nullable data) {

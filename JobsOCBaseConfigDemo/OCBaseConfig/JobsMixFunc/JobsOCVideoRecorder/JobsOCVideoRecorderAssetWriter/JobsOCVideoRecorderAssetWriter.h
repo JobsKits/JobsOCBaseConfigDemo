@@ -11,7 +11,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "JobsOCVideoRecorderConfig.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -18,7 +18,6 @@ BaseViewProtocol_synthesize
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(self.backgroundColor ? :JobsBlackColor);
-
         [self jobs_onChange:^(__kindof UIControl * _Nullable ctrl) {
             JobsLog(@"Hello Jobs");
         }];

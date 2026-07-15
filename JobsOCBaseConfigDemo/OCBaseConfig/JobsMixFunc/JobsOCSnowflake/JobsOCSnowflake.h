@@ -13,7 +13,6 @@
 #include <unistd.h>
 
 #import "JobsDefines.h"
-
 #import "JobsBlock.h"
 
 @interface JobsOCSnowflake : NSObject

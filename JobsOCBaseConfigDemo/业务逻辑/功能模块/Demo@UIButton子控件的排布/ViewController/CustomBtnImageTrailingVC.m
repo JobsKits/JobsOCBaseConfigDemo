@@ -8,7 +8,6 @@
 #import "CustomBtnImageTrailingVC.h"
 
 @implementation CustomBtnImageTrailingVC
-
 -(NSString *)demoTitle{
     return @"image右、label左".tr;
 }

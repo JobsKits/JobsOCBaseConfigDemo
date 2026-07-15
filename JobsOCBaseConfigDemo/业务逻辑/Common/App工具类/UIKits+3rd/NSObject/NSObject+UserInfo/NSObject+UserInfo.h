@@ -8,17 +8,11 @@
 #import <Foundation/Foundation.h>
 #import "NSUserDefaults+Manager.h"
 #import "NSObject+MyAppTools.h"
-
 #import "JobsByOCPods.h"
-
 #import "JobsStringUtilsHeader.h"
-
 #import "JobsMakes.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

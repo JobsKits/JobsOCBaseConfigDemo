@@ -32,7 +32,6 @@ Prop_assign(readwrite)NSUInteger tappedCount;
 @end
 
 @implementation JobsRedPacketRainView
-
 +(instancetype)rainViewWithConfig:(JobsRedPacketRainConfig *)config{
     return [[JobsRedPacketRainView alloc] initWithFrame:CGRectZero
                                                  config:config];
@@ -150,7 +149,6 @@ Prop_assign(readwrite)NSUInteger tappedCount;
     if (self.activePackets.count >= self.config.maxConcurrentCount) return;
     CGFloat validWidth = CGRectGetWidth(self.bounds) - self.config.spawnInsets.left - self.config.spawnInsets.right;
     if (validWidth <= 0) return;
-
     CGFloat maxX = MAX(0, validWidth - self.config.packetSize.width);
     CGFloat randomX = self.config.spawnInsets.left + ((CGFloat)arc4random_uniform(10000) / 10000.0) * maxX;
     CGRect startFrame = CGRectMake(randomX,
@@ -174,7 +172,6 @@ Prop_assign(readwrite)NSUInteger tappedCount;
                    action:@selector(packetTapAction:)
          forControlEvents:UIControlEventTouchUpInside];
     }
-
     NSTimeInterval minDuration = MIN(self.config.minFallDuration, self.config.maxFallDuration);
     NSTimeInterval maxDuration = MAX(self.config.minFallDuration, self.config.maxFallDuration);
     NSTimeInterval duration = minDuration + ((double)arc4random_uniform(10000) / 10000.0) * (maxDuration - minDuration);

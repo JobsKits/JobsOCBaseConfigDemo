@@ -25,9 +25,7 @@
 #endif
 
 #import "ThisHeader.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 @interface UploadImageApi : JobsBaseApi

@@ -8,7 +8,6 @@
 #import "NSTextCheckingResult+Extra.h"
 
 @implementation NSTextCheckingResult (Extra)
-
 -(JobsRetRangeByIntegerBlock _Nonnull)rangeAtIndex{
     @jobs_weakify(self)
     return ^NSRange (NSInteger data){

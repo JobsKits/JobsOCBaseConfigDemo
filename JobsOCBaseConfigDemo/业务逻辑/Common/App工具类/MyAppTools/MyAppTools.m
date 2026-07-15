@@ -62,7 +62,6 @@ static dispatch_once_t MyAppToolsOnceToken;
         _appDelegateWindow = jobsMakeWindow(^(__kindof UIWindow * _Nullable data) {
             @jobs_strongify(self)
             data.byFrame(UIScreen.mainScreen.bounds);
-
             data.rootViewController = RootViewController;
             [data makeKeyAndVisible];
         });AppDelegate.tabBarVC.ppBadge(YES);

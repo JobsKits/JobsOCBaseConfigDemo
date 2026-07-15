@@ -19,7 +19,6 @@ Prop_assign(readwrite)BOOL builtOnce;
 @end
 
 @implementation JobsTabBarCtrl
-
 -(instancetype)init {
     if (self = [super init]) {
         _swipeEnabled = YES;
@@ -32,7 +31,6 @@ Prop_assign(readwrite)BOOL builtOnce;
         _lockUnitToMaxEqualCount = YES;
         _autoRelayoutForBoundsChange = YES;
         _barBottomOffset = 0;
-
         if (@available(iOS 13.0, *)) {
             _barBackgroundColor = [UIColor systemBackgroundColor];
         } else {
@@ -46,10 +44,8 @@ Prop_assign(readwrite)BOOL builtOnce;
     [super viewDidLoad];
     if (@available(iOS 13.0, *)) {
         self.view.byBgColor([UIColor systemBackgroundColor]);
-
     } else {
         self.view.byBgColor([UIColor whiteColor]);
-
     }
     [self.view addSubview:self.contentScrollView];
     [self.tabBar addSubview:self.bgImageView];
@@ -60,11 +56,9 @@ Prop_assign(readwrite)BOOL builtOnce;
     [super viewDidLayoutSubviews];
     CGFloat safeBottom = self.view.safeAreaInsets.bottom;
     CGFloat barH = self.customBarHeight ? self.customBarHeight.doubleValue : (49.0 + safeBottom);
-
     self.tabBar.frame = CGRectMake(0,CGRectGetHeight(self.view.bounds) - barH - self.barBottomOffset,
                                    CGRectGetWidth(self.view.bounds),barH);
     self.bgImageView.byFrame(self.tabBar.bounds);
-
     self.contentScrollView.frame = CGRectMake(0,0,
                                               CGRectGetWidth(self.view.bounds),CGRectGetHeight(self.view.bounds) - barH - self.barBottomOffset);
     // 布局按钮
@@ -81,17 +75,13 @@ Prop_assign(readwrite)BOOL builtOnce;
         self.contentScrollView.contentSize = CGSizeZero;
         return;
     }
-
     CGFloat pageW = self.contentScrollView.bounds.size.width;
     CGFloat pageH = self.contentScrollView.bounds.size.height;
-
     for (NSInteger i = 0; i < pageCount; i++) {
         UIViewController *vc = self.childViewControllers[i];
         vc.view.byFrame(CGRectMake((CGFloat)i * pageW, 0, pageW, pageH));
-
     }
     self.contentScrollView.contentSize = CGSizeMake(pageW * pageCount, pageH);
-
     self.syncContentOffsetAnimated(NO);
 }
 #pragma mark —— Property override
@@ -109,7 +99,6 @@ Prop_assign(readwrite)BOOL builtOnce;
 - (void)setBarBackgroundColor:(UIColor *)barBackgroundColor {
     _barBackgroundColor = barBackgroundColor;
     self.tabBar.byBgColor(barBackgroundColor);
-
 }
 
 - (void)setBarBackgroundImage:(UIImage *)barBackgroundImage {
@@ -133,19 +122,15 @@ Prop_assign(readwrite)BOOL builtOnce;
         self.tabBar.contentSize = CGSizeZero;
         return;
     }
-
     NSInteger total = self.buttons.count;
     CGRect bounds = self.tabBar.bounds;
     CGFloat availableW = MAX(0, bounds.size.width - self.contentInset.left - self.contentInset.right);
     CGFloat h = MAX(0, bounds.size.height - self.contentInset.top - self.contentInset.bottom);
-
     NSMutableArray<NSValue *> *frames = [NSMutableArray arrayWithCapacity:total];
     for (NSInteger i = 0; i < total; i++) {
         [frames addObject:[NSValue valueWithCGRect:CGRectZero]];
     }
-
     static const CGFloat kMinItemWidth = 60.0;
-
     if (total == 1) {
         UIButton *b = self.buttons.firstObject;
         CGFloat ideal = b.intrinsicContentSize.width;
@@ -178,7 +163,6 @@ Prop_assign(readwrite)BOOL builtOnce;
     for (NSInteger i = 0; i < total; i++) {
         UIButton *btn = self.buttons[i];
         btn.byFrame(frames[i].CGRectValue);
-
     }
     /// contentSize
     CGFloat widthSum;
@@ -245,7 +229,6 @@ Prop_assign(readwrite)BOOL builtOnce;
             sv.showsVerticalScrollIndicator = NO;
             sv.alwaysBounceVertical = NO;
         }
-
         for (UIView *sub in root.subviews) {
             self.suppressVerticalInView(sub);
         }
@@ -271,10 +254,8 @@ Prop_assign(readwrite)BOOL builtOnce;
     /// 3. 覆盖数据源
     [self.buttons removeAllObjects];
     [self.buttons addObjectsFromArray:buttons];
-
     [self.controllers removeAllObjects];
     [self.controllers addObjectsFromArray:controllers];
-
     self.builtOnce = NO;
     /// 4. 添加按钮到 tabBar，上点击事件
     [self.buttons enumerateObjectsUsingBlock:^(UIButton *b,
@@ -297,7 +278,6 @@ Prop_assign(readwrite)BOOL builtOnce;
         [self addChildViewController:vc];
         [self.contentScrollView addSubview:vc.view];
         [vc didMoveToParentViewController:self];
-
         if (self.suppressChildVerticalScrolls) {
             self.suppressVerticalInView(vc.view);
         }
@@ -399,7 +379,6 @@ Prop_assign(readwrite)BOOL builtOnce;
 -(NSMutableArray<__kindof UIButton *> *)buttons{
     if(!_buttons){
         _buttons = jobsMakeMutArr(^(__kindof NSMutableArray<__kindof UIButton *> * _Nullable arr) {
-
         });
     };return _buttons;
 }
@@ -407,7 +386,6 @@ Prop_assign(readwrite)BOOL builtOnce;
 -(NSMutableArray<__kindof UIViewController *> *)controllers{
     if(!_controllers){
         _controllers = jobsMakeMutArr(^(__kindof NSMutableArray<__kindof UIViewController *> * _Nullable arr) {
-
         });
     };return _controllers;
 }
@@ -416,7 +394,6 @@ Prop_assign(readwrite)BOOL builtOnce;
 
 #pragma mark —— DSL
 @implementation JobsTabBarCtrl (Chainable)
-
 -(JobsRetTabBarCtrlByBOOLBlock _Nonnull)bySwipeEnabled{
     @jobs_weakify(self)
     return ^__kindof JobsTabBarCtrl *_Nullable(BOOL flag){

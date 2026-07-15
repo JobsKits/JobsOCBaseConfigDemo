@@ -145,25 +145,18 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     viewModel.textModel.text.toast();
     {
         if(viewModel.textModel.text.isEqualToString(@"个人资料".tr)){
-            
         }
         if(viewModel.textModel.text.isEqualToString(@"意见反馈".tr)){
-            
         }
         if(viewModel.textModel.text.isEqualToString(@"消息通知".tr)){
-            
         }
         if(viewModel.textModel.text.isEqualToString(@"收货地址".tr)){
-            
         }
         if(viewModel.textModel.text.isEqualToString(@"修改密码".tr)){
-            
         }
         if(viewModel.textModel.text.isEqualToString(@"设置".tr)){
-            
         }
         if(viewModel.textModel.text.isEqualToString(@"购物车".tr)){
-            
         }
     }
 }
@@ -240,10 +233,8 @@ insetForSectionAtIndex:(NSInteger)section {
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.bounces = NO;
-        
         _collectionView.registerCollectionViewClass();
         _collectionView.registerCollectionViewCellClass(MSMineView6CVCell.class,@"");
-        
         {
             _collectionView.mj_header = self.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
                 @jobs_strongify(self)

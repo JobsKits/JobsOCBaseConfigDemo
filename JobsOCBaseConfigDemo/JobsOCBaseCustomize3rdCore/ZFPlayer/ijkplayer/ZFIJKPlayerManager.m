@@ -160,7 +160,6 @@ Prop_assign()BOOL isReadyToPlay;
         [self.player.view removeFromSuperview];
         self.player = nil;
     }
-
     self.player = [[IJKFFMoviePlayerController alloc] initWithContentURL:self.assetURL withOptions:self.options];
     self.player.shouldAutoplay = self.shouldAutoPlay;
     [self.player prepareToPlay];
@@ -190,7 +189,6 @@ Prop_assign()BOOL isReadyToPlay;
                                              selector:@selector(moviePlayBackStateDidChange:)
                                                  name:IJKMPMoviePlayerPlaybackStateDidChangeNotification
                                                object:_player];
-    
     /// 视频的尺寸变化了
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(sizeAvailableChange:)
@@ -240,19 +238,16 @@ Prop_assign()BOOL isReadyToPlay;
             if (self.playerDidToEnd) self.playerDidToEnd(self);
         }
             break;
-            
         case IJKMPMovieFinishReasonUserExited: {
             ZFPlayerLog(@"playbackStateDidChange: 用户退出播放: %d\n", reason);
         }
             break;
-            
         case IJKMPMovieFinishReasonPlaybackError: {
             ZFPlayerLog(@"playbackStateDidChange: 播放出现错误: %d\n", reason);
             self.playState = ZFPlayerPlayStatePlayFailed;
             if (self.playerPlayFailed) self.playerPlayFailed(self, @(reason));
         }
             break;
-            
         default:
             ZFPlayerLog(@"playbackPlayBackDidFinish: ???: %d\n", reason);
             break;
@@ -267,7 +262,6 @@ Prop_assign()BOOL isReadyToPlay;
         self.timer = [NSTimer scheduledTimerWithTimeInterval:self.timeRefreshInterval > 0 ? self.timeRefreshInterval : 0.1 target:self selector:@selector(timerUpdate) userInfo:nil repeats:YES];
         [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     }
-    
     if (self.isPlaying) {
         [self play];
         self.muted = self.muted;
@@ -279,7 +273,6 @@ Prop_assign()BOOL isReadyToPlay;
     }
     if (self.playerReadyToPlay) self.playerReadyToPlay(self, self.assetURL);
 }
-
 
 #pragma mark - 加载状态改变
 /**
@@ -318,22 +311,18 @@ Prop_assign()BOOL isReadyToPlay;
             self.playState = ZFPlayerPlayStatePlayStopped;
         }
             break;
-            
         case IJKMPMoviePlaybackStatePlaying: {
             ZFPlayerLog(@"播放器的播放状态变了，现在是播放状态 %d: playing", (int)_player.playbackState);
         }
             break;
-            
         case IJKMPMoviePlaybackStatePaused: {
             ZFPlayerLog(@"播放器的播放状态变了，现在是暂停状态 %d: paused", (int)_player.playbackState);
         }
             break;
-            
         case IJKMPMoviePlaybackStateInterrupted: {
             ZFPlayerLog(@"播放器的播放状态变了，现在是中断状态 %d: interrupted", (int)_player.playbackState);
         }
             break;
-            
         case IJKMPMoviePlaybackStateSeekingForward: {
             ZFPlayerLog(@"播放器的播放状态变了，现在是向前拖动状态:%d forward",(int)self.player.playbackState);
         }
@@ -342,7 +331,6 @@ Prop_assign()BOOL isReadyToPlay;
             ZFPlayerLog(@"放器的播放状态变了，现在是向后拖动状态 %d: backward", (int)_player.playbackState);
         }
             break;
-            
         default: {
             ZFPlayerLog(@"播放器的播放状态变了，现在是未知状态 %d: unknown", (int)_player.playbackState);
         }

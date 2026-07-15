@@ -19,7 +19,6 @@ Prop_strong()JobsIMChatInfoModel *chatInfoModel;
 @end
 
 @implementation JobsIMVC
-
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
 }
@@ -37,7 +36,6 @@ Prop_strong()JobsIMChatInfoModel *chatInfoModel;
         self.viewModel = (UIViewModel *)self.requestParams;
         self.chatInfoModel = (JobsIMChatInfoModel *)self.viewModel.data;
         self.chatInfoModelMutArr.add(self.chatInfoModel);
-        
         self.viewModel
             .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
                 data.byText(self.chatInfoModel.userNameStr);
@@ -52,7 +50,6 @@ Prop_strong()JobsIMChatInfoModel *chatInfoModel;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsWhiteColor);
-
     {
         @jobs_weakify(self)
         self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
@@ -65,7 +62,6 @@ Prop_strong()JobsIMChatInfoModel *chatInfoModel;
         });
         self.makeNavByAlpha(1);
     }
-
     self.inputview.byVisible(YES);
     self.tableView.byShow(self);
 }
@@ -132,7 +128,6 @@ Prop_strong()JobsIMChatInfoModel *chatInfoModel;
     CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat KeyboardOffsetY = beginFrame.origin.y - endFrame.origin.y;// 正则抬起 ，负值下降
     JobsLog(@"KeyboardOffsetY = %f",KeyboardOffsetY);
- 
     if (KeyboardOffsetY > 0) {
         JobsLog(@"键盘抬起");
         KeyboardOffsetY -= JobsBottomSafeAreaHeight();
@@ -142,7 +137,6 @@ Prop_strong()JobsIMChatInfoModel *chatInfoModel;
     }else{
         JobsLog(@"键盘");
     }
-    
     self.inputview.inputTextField.TFRiseHeight = self.inputview.mj_y;
     self.inputview.inputTextField.TFRiseHeight -= KeyboardOffsetY;
     self.inputview.mj_y = self.inputview.inputTextField.TFRiseHeight;
@@ -157,7 +151,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
@@ -173,7 +166,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         .byDelegate(self)
         .jobsRichElementsTableViewCellBy(self.chatInfoModelMutArr[indexPath.row])
             .JobsBlock1(^(id _Nullable data) {;
-             
             });
     return cell.byShowChatUserName(YES).byAllowsMultipleSwipe(YES);;
 }
@@ -190,15 +182,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [WHToast showErrorWithMessage:@"删除"
                                  duration:2
                             finishHandler:^{
-              
             }];
         }];
         //设置图片，但是设置不了原图，都是被默认为白色了，字体也是
         UIImage *image = [JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"分享") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         [deleteRowAction setImage:image];
         deleteRowAction.byBgColor([UIColor redColor]);
-
-
         UIContextualAction *editRowAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
                                                                                     title:@"编辑"
                                                                                   handler:^(UIContextualAction * _Nonnull action,
@@ -207,12 +196,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [WHToast showErrorWithMessage:@"编辑"
                                  duration:2
                             finishHandler:^{
-              
             }];
         }];
         editRowAction.image = JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"删除");
         editRowAction.byBgColor([UIColor blueColor]);
-
         UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteRowAction,editRowAction]];
         //设置全屏滑动时不自定响应事件
         config.performsFirstActionWithFullSwipe = false;
@@ -234,7 +221,6 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
         UIImage *image = [JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"分享")  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         [deleteRowAction setImage:image];
         deleteRowAction.byBgColor([UIColor redColor]);
-
         UIContextualAction *editRowAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
                                                                                     title:@"编辑"
                                                                                   handler:^(UIContextualAction * _Nonnull action,
@@ -243,8 +229,6 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
         }];
         editRowAction.image = JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"删除");
         editRowAction.byBgColor([UIColor blueColor]);
-
-
         UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteRowAction,editRowAction]];
         config.performsFirstActionWithFullSwipe = false;
         return config;
@@ -274,7 +258,6 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
         }];
         // 修改背景颜色
         action.byBgColor(HEXCOLOR(0xEB1163));
-
         return @[action];
     }
 }
@@ -332,11 +315,9 @@ willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     frame.origin.y += 7;
     frame.size.height -= 13;
     rowActionView.byFrame(frame);
-
     // 拿到按钮,设置图片
     UIButton *button = rowActionView.subviews.firstObject;
     button.byBgColor(JobsRedColor);
-
     [button jobsResetBtnTitle:@"删除"];
     [button jobsResetBtnImage:JobsLoadBundleImage(@"⚽️PicResource", @"Others", nil, @"删除")];
 }

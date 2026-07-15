@@ -35,7 +35,6 @@ JobsKey(_ww_foldable)
     [self willChangeValueForKey:@"ww_foldable"];
     Jobs_setAssociatedASSIGN(_ww_foldable, @(ww_foldable))
     [self didChangeValueForKey:@"ww_foldable"];
-    
     if(ww_foldable && !self.ww_foldState){
         NSMutableSet *foldState = NSMutableSet.set;
         self.ww_foldState = foldState;
@@ -85,7 +84,6 @@ JobsKey(_ww_foldState)
         [state removeObject:@(section)];
     }
     self.ww_foldState = state;
-    
     @try {
         //防止crash
         [self reloadSections:[NSIndexSet indexSetWithIndex:section]
@@ -99,7 +97,6 @@ JobsKey(_ww_foldState)
 @end
 
 @implementation NSObject (WWExtension)
-
 +(void)ww_swizzInstanceMethod:(SEL)methodOrig withMethod:(SEL)methodNew{
     Method orig = class_getInstanceMethod(self, methodOrig);
     Method new = class_getInstanceMethod(self, methodNew);

@@ -15,7 +15,6 @@ Prop_strong()ZFSliderView *sliderView;
 @end
 
 @implementation ZFDouYinControlView
-
 @synthesize player = _player;
 - (instancetype)init {
     if (self = [super init]) {
@@ -33,24 +32,19 @@ Prop_strong()ZFSliderView *sliderView;
     CGFloat min_h = 0;
     CGFloat min_view_w = self.zf_width;
     CGFloat min_view_h = self.zf_height;
-    
     min_w = 100;
     min_h = 100;
     self.playBtn.frame = CGRectMake(min_x, min_y, min_w, min_h);
-
     self.playBtn.center = self.center;
-    
     min_x = 0;
     min_y = min_view_h - 80;
     min_w = min_view_w;
     min_h = 1;
     self.sliderView.frame = CGRectMake(min_x, min_y, min_w, min_h);
-
 }
 
 - (void)resetControlView {
     self.playBtn.hidden = YES;
-
     self.sliderView.value = 0;
     self.sliderView.bufferValue = 0;
 }
@@ -76,7 +70,6 @@ Prop_strong()ZFSliderView *sliderView;
     if (self.player.currentPlayerManager.isPlaying) {
         [self.player.currentPlayerManager pause];
         self.playBtn.hidden = NO;
-
         self.playBtn.transform = CGAffineTransformMakeScale(1.5f, 1.5f);
         __weak typeof(self) weakSelf = self;
         [UIView animateWithDuration:0.2f
@@ -89,7 +82,6 @@ Prop_strong()ZFSliderView *sliderView;
     } else {
         [self.player.currentPlayerManager play];
         self.playBtn.hidden = YES;
-
     }
 }
 

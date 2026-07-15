@@ -10,7 +10,6 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsOCSplashVC.h"
-
 #import "JobsOCSplashConfiguration.h"
 
 NS_ASSUME_NONNULL_BEGIN

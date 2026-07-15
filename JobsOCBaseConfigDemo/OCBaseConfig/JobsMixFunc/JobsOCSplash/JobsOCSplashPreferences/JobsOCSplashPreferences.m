@@ -10,7 +10,6 @@
 static NSString * const JobsOCSplashEnabledKey = @"JobsOCSplash.isEnabledForNextLaunch";
 
 @implementation JobsOCSplashPreferences
-
 +(BOOL)isEnabledForNextLaunch {
     if (![NSUserDefaults.standardUserDefaults objectForKey:JobsOCSplashEnabledKey]) return YES;
     return [NSUserDefaults.standardUserDefaults boolForKey:JobsOCSplashEnabledKey];

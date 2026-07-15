@@ -15,16 +15,13 @@ Prop_strong()CasinoUpgradeContentView *upgradeContentView;
 @end
 
 @implementation CasinoUpgradePopupView
-
 -(instancetype)init{
     if (self = [super init]) {
-
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
     };return self;
 }
 

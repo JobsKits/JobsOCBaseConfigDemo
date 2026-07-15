@@ -6,7 +6,6 @@
 //
 
 #import "UILabel+DSL.h"
-
 #import "JobsOCTimer.h"
 
 static NSString *JobsOCDSLLabelLayerText(UILabel *label){
@@ -110,7 +109,6 @@ Prop_copy()NSString *originalText;
 @end
 
 @implementation JobsOCDSLAnimatedNumberStore
-
 -(instancetype)init{
     if (self = [super init]) {
         _duration = 0.8;
@@ -159,7 +157,6 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
 @end
 
 @implementation UILabel (DSL)
-
 -(__kindof NSMutableAttributedString *)makeAttributedStringBySelfText{
     NSString *text = self.text ?: @"";
     NSDictionary<NSAttributedStringKey, id> *attributes = @{
@@ -189,7 +186,6 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
     return ^__kindof UILabel *_Nullable(UIImage *_Nullable image){
         @jobs_strongify(self)
         self.backgroundColor = image ? [UIColor colorWithPatternImage:image] : UIColor.clearColor;
-
         return self;
     };
 }
@@ -482,7 +478,6 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
             double stepAbs = fabs(store.step.doubleValue);
             perTick = delta > 0 ? stepAbs : -stepAbs;
         }else perTick = delta / (double)ticks;
-
         store.targetValue = target;
         store.currentValue = from;
         store.deltaPerTick = perTick;
@@ -567,7 +562,6 @@ JobsKey(_shapeLayer)
     if (!shapeLayer){
         shapeLayer = CAShapeLayer.layer;
         shapeLayer.frame = self.bounds;
-
         shapeLayer.contentsScale = UIScreen.mainScreen.scale;
         shapeLayer.fillColor = self.textColor.CGColor;
         Jobs_setAssociatedRETAIN_NONATOMIC(_shapeLayer, shapeLayer)
@@ -592,7 +586,6 @@ JobsKey(_transformLayerDirectionType)
 @end
 
 @implementation UILabel (JobsOCDSLAnimatedNumber)
-
 -(JobsOCDSLAnimatedNumberStore *)jobs_ocdslAnimatedNumberStore{
     JobsOCDSLAnimatedNumberStore *store = Jobs_getAssociatedObject(_jobsOCDSLAnimatedNumberStore);
     if (!store) {

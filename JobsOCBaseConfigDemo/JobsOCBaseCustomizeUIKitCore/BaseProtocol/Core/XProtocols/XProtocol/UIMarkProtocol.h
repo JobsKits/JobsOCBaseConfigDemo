@@ -9,11 +9,8 @@
 #define JOBS_HEADER_GUARD_UIMARKPROTOCOL_F841A11BC6
 
 #import <UIKit/UIKit.h>
-
 #import "BaseLayerProtocol.h"
-
 #import "JobsDefines.h"
-
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -8,7 +8,6 @@
 #import "SDWebImageModel+DSL.h"
 
 @implementation SDWebImageModel (DSL)
-
 -(JobsRetSDWebImageModelByURLBlock _Nonnull)byUrl{
     @jobs_weakify(self)
     return ^__kindof SDWebImageModel *_Nullable(NSURL * _Nullable data) {

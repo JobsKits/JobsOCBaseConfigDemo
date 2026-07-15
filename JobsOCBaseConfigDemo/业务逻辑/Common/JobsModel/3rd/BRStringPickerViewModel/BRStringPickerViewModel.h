@@ -9,7 +9,6 @@
 #define BRStringPickerViewModel_h
 
 #import <Foundation/Foundation.h>
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

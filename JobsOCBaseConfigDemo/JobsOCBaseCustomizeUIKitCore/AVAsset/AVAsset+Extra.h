@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_AVASSET_EXTRA_8D38480C36
 
 #import <AVFoundation/AVFoundation.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

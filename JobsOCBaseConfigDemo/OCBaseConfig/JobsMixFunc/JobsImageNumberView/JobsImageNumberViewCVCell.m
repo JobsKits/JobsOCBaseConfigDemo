@@ -28,7 +28,6 @@ Prop_strong()UIImageView *textIMGV;
     return ^__kindof UICollectionViewCell *_Nullable(id _Nullable model) {
         @jobs_strongify(self)
         self.byBgColor(self.contentView.backgroundColor = JobsClearColor);
-
         self.textIMGV.image = model;
         return self;
     };

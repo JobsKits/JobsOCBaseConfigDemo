@@ -22,9 +22,7 @@
 #endif
 
 #import "JobsMakes.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 /**

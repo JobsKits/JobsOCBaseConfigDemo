@@ -8,7 +8,6 @@
 #import "JobsOCKeyboardResult.h"
 
 @implementation JobsOCKeyboardResult
-
 -(instancetype)init{
     if (self = [super init]) {
         _keyboardFrameInContainer = CGRectNull;

@@ -9,11 +9,8 @@
 #define JOBS_HEADER_GUARD_UINAVIGATIONCONTROLLER_EXTRA_2F8E870138
 
 #import <UIKit/UIKit.h>
-
 #import "JobsNavigationTransitionMgrHeader.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

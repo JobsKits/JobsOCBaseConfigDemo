@@ -6,11 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "JobsByOCPods.h"
-
 #import "JobsBlock.h"
-
 #import "GoodsClassModel.h"
 #import "NSMutableArray+Extra.h"
 #import "ThreeClassCell.h"

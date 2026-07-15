@@ -67,11 +67,8 @@ Prop_strong()UILabel *foldIconLab;
         if([model isKindOfClass:UIViewModel.class]){
             self.viewModel = model;
             self.textLabel.byText(self.viewModel.textModel.text);
-
             self.textLabel.byTextCor(self.viewModel.textModel.textCor);
-
             self.textLabel.byFont(self.viewModel.textModel.font);
-
         }
     };
 }

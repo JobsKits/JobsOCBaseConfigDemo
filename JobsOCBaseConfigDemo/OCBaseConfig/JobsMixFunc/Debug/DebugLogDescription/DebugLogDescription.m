@@ -30,7 +30,6 @@ void JobsDebugMethodSwizzle(Class _Nonnull c,
 
 #pragma mark —— 打印model的内部属性内容
 @implementation NSObject (DebugDescription)
-
 +(void)redirectNSlogToDocumentFolder{
     //如果已经连接Xcode调试则不输出到文件
     if(isatty(STDOUT_FILENO)) return;

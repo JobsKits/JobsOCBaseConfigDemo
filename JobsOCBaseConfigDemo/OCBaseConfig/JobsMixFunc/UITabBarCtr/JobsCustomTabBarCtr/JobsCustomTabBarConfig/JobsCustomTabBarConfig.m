@@ -45,7 +45,6 @@ static dispatch_once_t JobsCustomTabBarConfigOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        
     };return self;
 }
 

@@ -8,7 +8,6 @@
 #import "UICollectionView+Func.h"
 
 @implementation UICollectionView (Func)
-
 +(JobsRetCollectionViewByLayoutBlock _Nonnull)initByLayout{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(__kindof UICollectionViewLayout *_Nullable data){

@@ -10,7 +10,6 @@
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>                         // 用于嵌入和管理网页内容，例如加载和显示网页。
-
 #import "BaseViewProtocol.h"
 
 #if __has_include(<SPAlertController/SPAlertController.h>)
@@ -20,7 +19,6 @@
 #endif
 
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 @class JobsBasePopupView;

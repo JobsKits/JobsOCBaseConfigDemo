@@ -10,7 +10,6 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-
 #import "JobsDefines.h"
 
 typedef NS_ENUM(NSUInteger, JHGestureType) {

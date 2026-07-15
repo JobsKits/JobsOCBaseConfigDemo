@@ -11,7 +11,6 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "JobsOCVideoRecorderFilterProtocol.h"
-
 #import "JobsDefines.h"
 
 @class JobsOCVideoRecorderResult;

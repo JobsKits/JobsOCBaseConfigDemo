@@ -8,7 +8,6 @@
 #import "FileNameModel+DSL.h"
 
 @implementation FileNameModel (DSL)
-
 -(JobsRetFileNameModelByStrBlock _Nonnull)byName{
     @jobs_weakify(self)
     return ^__kindof FileNameModel *_Nullable(NSString * _Nullable data) {

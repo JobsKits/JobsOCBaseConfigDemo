@@ -11,9 +11,7 @@
 #import <UIKit/UIKit.h>
 #import "LZTabBar.h"
 #import "LZTabBarConfig.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 typedef LZTabBarConfig *_Nullable(^tabBarBlock)(LZTabBarConfig * _Nonnull config);

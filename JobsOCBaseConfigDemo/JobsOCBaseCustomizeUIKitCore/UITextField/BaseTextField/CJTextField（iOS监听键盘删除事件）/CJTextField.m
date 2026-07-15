@@ -9,7 +9,6 @@
 #import "UITextField+Extra.h"
 
 @implementation CJTextField
-
 -(void)deleteBackward{
     [super deleteBackward];
     if ([self.cj_delegate respondsToSelector:@selector(cjTextFieldDeleteBackward)]) {

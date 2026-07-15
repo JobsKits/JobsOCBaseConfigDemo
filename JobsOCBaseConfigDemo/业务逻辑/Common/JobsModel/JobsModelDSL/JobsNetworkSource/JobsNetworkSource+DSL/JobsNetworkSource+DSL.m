@@ -8,7 +8,6 @@
 #import "JobsNetworkSource+DSL.h"
 
 @implementation JobsNetworkSource (DSL)
-
 -(JobsRetJobsNetworkSourceByJobsNetworkSourceTypeBlock _Nonnull)byType{
     @jobs_weakify(self)
     return ^__kindof JobsNetworkSource *_Nullable(JobsNetworkSourceType data) {

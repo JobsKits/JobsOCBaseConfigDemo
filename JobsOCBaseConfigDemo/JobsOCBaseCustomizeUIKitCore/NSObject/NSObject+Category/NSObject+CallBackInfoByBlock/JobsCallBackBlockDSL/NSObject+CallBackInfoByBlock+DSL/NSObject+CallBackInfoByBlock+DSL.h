@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_NSOBJECT_CALLBACKINFOBYBLOCK_DSL_C8FDF1255D
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
-
 #import "NSObject+CallBackInfoByBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

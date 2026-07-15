@@ -12,15 +12,10 @@
 #import "UIView+Extra.h"
 #import "JobsBaseCollectionViewCell.h"
 #import "JobsTextView.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsRichTextUtils.h"
-
 #import "JobsMakes.h"
-
 #import "JobsDefines.h"
-
 #import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN

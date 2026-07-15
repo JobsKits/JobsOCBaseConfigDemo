@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_UIIMAGEVIEW_DSL_7D8A6E1C2B
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -53,7 +53,6 @@ Prop_assign()BOOL didBindRefresher;
 @end
 
 @implementation JobsOCRefresherDemoVC
-
 -(instancetype)init{
     if (self = [super init]) {
         _verticalRowCount = JobsOCRefresherDemoInitialVerticalRows;

@@ -22,7 +22,6 @@ Prop_strong()UIViewModel *subTitleModel;
 @synthesize titleModel = _titleModel;
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
     };return self;
 }
 #pragma mark —— BaseViewProtocol
@@ -44,14 +43,12 @@ Prop_strong()UIViewModel *subTitleModel;
             if (viewModels.count) {
                 self.titleModel = viewModels[0];
             }
-
             if (viewModels.count >= 2) {
                 self.subTitleModel = viewModels[1];
             }
         } else if ([model isKindOfClass:UIViewModel.class]) {
             self.titleModel = model;
         }
-
         self.viewModel = self.titleModel;
         if (self.titleModel || _titleBtn) self.titleBtn.alpha = self.titleModel ? 1 : 0;
         if (self.subTitleModel || _subTitleBtn) self.subTitleBtn.alpha = self.subTitleModel ? 1 : 0;
@@ -91,7 +88,6 @@ Prop_strong()UIViewModel *subTitleModel;
                 make.top.bottom.equalTo(self);
             });
     }
-
     _titleBtn
         .jobsResetBtnTitle(self.titleModel.textModel.text)
         .jobsResetImagePadding(self.titleModel.imageTitleSpace)
@@ -106,15 +102,12 @@ Prop_strong()UIViewModel *subTitleModel;
                 .byTitleLineBreakMode(self.titleModel.subTextModel.lineBreakMode)
                 .bySubtitle(self.titleModel.subTextModel.text);
         });
-
     [_titleBtn jobsSetBtnTitleFont:self.titleModel.textModel.font btnTitleCor:self.titleModel.textModel.textCor];
     _titleBtn.makeBtnTitleByShowingType(self.titleModel.textModel.labelShowingType);
-
     /// 富文本的优先级最高，不括起来上述的设置无效
     if(self.titleModel.textModel.attributedTitle){
         _titleBtn.jobsResetAttributedTitle(self.titleModel.textModel.attributedTitle);
     }
-    
     if(self.titleModel.subTextModel.attributedTitle){
         _titleBtn.jobsResetAttributedSubtitle(self.titleModel.subTextModel.attributedTitle);
     };return _titleBtn;
@@ -145,7 +138,6 @@ Prop_strong()UIViewModel *subTitleModel;
                 make.top.bottom.equalTo(self);
         });
     }
-
     _subTitleBtn
         .jobsResetBtnTitle(self.subTitleModel.textModel.text)
         .jobsResetImagePadding(self.subTitleModel.imageTitleSpace)
@@ -160,14 +152,12 @@ Prop_strong()UIViewModel *subTitleModel;
                 .byImagePlacement(self.subTitleModel.buttonEdgeInsetsStyle)
                 .byBaseForegroundColor(self.subTitleModel.textModel.textCor);
         });
-
     [_subTitleBtn jobsSetBtnTitleFont:self.subTitleModel.textModel.font btnTitleCor:self.subTitleModel.textModel.textCor];
     _subTitleBtn.makeBtnTitleByShowingType(self.subTitleModel.textModel.labelShowingType);
     /// 富文本的优先级最高，不括起来上述的设置无效
     if(self.subTitleModel.textModel.attributedTitle){
         _subTitleBtn.jobsResetAttributedTitle(self.subTitleModel.textModel.attributedTitle);
     }
-    
     if(self.subTitleModel.subTextModel.attributedTitle){
         _subTitleBtn.jobsResetAttributedSubtitle(self.subTitleModel.subTextModel.attributedTitle);
     };return _subTitleBtn;

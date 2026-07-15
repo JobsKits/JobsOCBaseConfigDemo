@@ -9,13 +9,9 @@
 #define JOBS_HEADER_GUARD_BASETABLEVIEWPROTOCOL_B4B8CFCC8E
 
 #import <UIKit/UIKit.h>
-
 #import "UIScrollViewProtocol.h"
-
 #import "UITableViewCellProtocol.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

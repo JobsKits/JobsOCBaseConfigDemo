@@ -7,11 +7,8 @@
 
 #import <Foundation/Foundation.h>
 #import "BaseModel.h"
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 #ifndef TextModelDataString

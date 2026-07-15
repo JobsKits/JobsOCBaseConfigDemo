@@ -9,11 +9,8 @@
 #define JOBS_HEADER_GUARD_UIVIEW_MEASURE_BD40B2299C
 
 #import <UIKit/UIKit.h>
-
 #import "JobsModelDSL.h"
-
 #import "JobsOCDSL.h"
-
 #import "JobsBlock.h"
 
 NS_ASSUME_NONNULL_BEGIN

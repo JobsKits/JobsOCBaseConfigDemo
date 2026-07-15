@@ -38,7 +38,6 @@ Prop_strong()UILabel *tipLab;
 @end
 
 @implementation JobsMarqueeViewDemoVC
-
 -(void)dealloc{
     [self stopAllMarquees];
 }

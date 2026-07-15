@@ -18,13 +18,9 @@
 #import "NSString+Toast.h"
 #import "UIViewController+MJRefresh.h"
 #import "NSObject+Extra.h"
-
 #import "JobsModelDSL.h"
-
 #import "JobsLanMgr.h"
-
 #import "JobsOCDSL.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -8,7 +8,6 @@
 #import <UIKit/UIKit.h>
 #import "JobsBlockDef.h"
 #import "JobsBlockHeader.h"
-
 #import "JobsDefines.h"
 
 #ifndef JobsBizBlock_h

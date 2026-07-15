@@ -13,7 +13,6 @@
 @end
 
 @implementation FlowChartSingleElementView
-
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
     self.bacKIMGV.alpha = 1;
@@ -75,7 +74,6 @@ Prop_strong()NSMutableArray <FlowChartSingleElementView *>*singleElementMutArr;
 @end
 
 @implementation FindCodeFlowChartView
-
 static dispatch_once_t dispatchOnce;
 -(instancetype)init{
     if (self = [super init]) {
@@ -139,7 +137,6 @@ static dispatch_once_t dispatchOnce;
 #pragma mark —— currentFlowSerialNum
 -(void)setCurrentFlowSerialNum:(NSInteger)currentFlowSerialNum{
     _currentFlowSerialNum = currentFlowSerialNum;
-    
     if (self.singleElementMutArr.count) {
         for (int i = 0;  i < self.singleElementMutArr.count; i++) {
             FlowChartSingleElementView *singleElement = self.singleElementMutArr[i];

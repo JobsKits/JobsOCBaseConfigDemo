@@ -9,9 +9,7 @@
 #define JOBS_HEADER_GUARD_NSTEXTCHECKINGRESULT_EXTRA_59E8EB345F
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

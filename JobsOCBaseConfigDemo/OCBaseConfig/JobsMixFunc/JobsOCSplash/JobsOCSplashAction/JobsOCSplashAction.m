@@ -17,7 +17,6 @@ Prop_copy(nullable) JobsOCSplashActionBlock customBlock;
 @end
 
 @implementation JobsOCSplashAction
-
 +(__kindof JobsOCSplashAction *)none {
     JobsOCSplashAction *action = JobsOCSplashAction.alloc.init;
     action.type = JobsOCSplashActionTypeNone;

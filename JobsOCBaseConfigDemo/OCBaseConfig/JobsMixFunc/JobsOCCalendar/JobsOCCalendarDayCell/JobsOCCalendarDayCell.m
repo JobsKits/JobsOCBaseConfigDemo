@@ -18,7 +18,6 @@ Prop_strong()UIView *selectionView;
 @end
 
 @implementation JobsOCCalendarDayCell
-
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = UIColor.clearColor;

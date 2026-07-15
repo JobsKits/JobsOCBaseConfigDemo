@@ -16,7 +16,6 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
 @end
 
 @implementation JobsWelcomeVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -39,7 +38,6 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
             data.byText(@"".tr);
             data.byFont(UIFontWeightRegularSize(16));
         })
-    
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
@@ -52,16 +50,13 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsYellowColor);
-
     self.scrollView.jobsVisible = YES;
     self.pageControl.jobsVisible = YES;
-
     [self loadPhoto];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -79,7 +74,6 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
                 .byFrame(CGRectMake(JobsMainScreen_WIDTH() * i, 0, JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT()))
                 .addOn(self.scrollView);
         });
-
         /// 用SDWebImage下载图片
         NSString *imageName = @"".tr;
         if (i < 10) {

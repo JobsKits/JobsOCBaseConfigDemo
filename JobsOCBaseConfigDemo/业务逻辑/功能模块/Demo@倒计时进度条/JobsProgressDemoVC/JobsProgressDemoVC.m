@@ -23,7 +23,6 @@ Prop_assign()BOOL autoRunning;
 @end
 
 @implementation JobsProgressDemoVC
-
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
     [self.progressBar stopAutoProgress];

@@ -491,13 +491,11 @@ UITextFieldProtocol_dynamic
 /// UICollectionViewFlowLayout
 -(__kindof UICollectionViewFlowLayout *_Nonnull)verticalLayout{
     return jobsMakeVerticalCollectionViewFlowLayout(^(UICollectionViewFlowLayout * _Nullable data) {
-        
     });
 }
 
 -(__kindof UICollectionViewFlowLayout *_Nonnull)horizontalLayout{
     return jobsMakeHorizontalCollectionViewFlowLayout(^(UICollectionViewFlowLayout * _Nullable data) {
-        
     });
 }
 /// JSON对象转NSData
@@ -647,7 +645,6 @@ UITextFieldProtocol_dynamic
             case ComingStyle_PUSH:{
                 vc.navigationController ? [vc.navigationController popViewControllerAnimated:YES] : [vc dismissViewControllerAnimated:YES completion:nil];
             }break;
-                
             default:
                 break;
         }
@@ -942,7 +939,6 @@ UITextFieldProtocol_dynamic
                 if ([view isKindOfClass:UILabel.class]) {
                     UILabel *lab = (UILabel *)view;
                     lab.byText(view.internationalizationKEY.tr);
-
                 }else if ([view isKindOfClass:UIButton.class]){
                     UIButton *btn = (UIButton *)view;
                     btn.jobsResetBtnTitle(view.internationalizationKEY.tr);
@@ -1353,7 +1349,6 @@ UITextFieldProtocol_dynamic
     if (interfaceOrientationMaskBlock){
         return interfaceOrientationMaskBlock( JobsAppTool.currentInterfaceOrientationMask);
     }else return CGSizeZero;
-
 }
 /// UIInterfaceOrientation 检测屏幕方向
 -(UIInterfaceOrientation)getInterfaceOrientation{

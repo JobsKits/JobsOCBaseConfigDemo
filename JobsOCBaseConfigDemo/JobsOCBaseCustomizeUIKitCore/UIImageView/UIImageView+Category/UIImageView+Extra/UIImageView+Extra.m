@@ -8,7 +8,6 @@
 #import "UIImageView+Extra.h"
 
 @implementation UIImageView (Extra)
-
 +(JobsRetImageViewByImageBlock _Nonnull)initBy{
     return ^__kindof UIImageView *_Nonnull(UIImage *_Nullable data){
         return [UIImageView.alloc initWithImage:data];

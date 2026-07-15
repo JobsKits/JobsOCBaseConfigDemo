@@ -9,7 +9,6 @@
 #import "TouchID.h"
 
 @implementation TouchID
-
 +(instancetype)Touch_ID{
     TouchID *touchID = TouchID.new;
     //创建LAContext

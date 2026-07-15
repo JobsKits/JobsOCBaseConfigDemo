@@ -28,7 +28,6 @@ Prop_assign()CGFloat jobsDefaultPopUpHeight;
 @end
 
 @implementation JobsCommentCoreVC
-
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
 }
@@ -50,9 +49,7 @@ Prop_assign()CGFloat jobsDefaultPopUpHeight;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    
     self.view.byBgColor(HEXCOLOR(0xF6F7FB));
-
 //    @jobs_weakify(self)
 //    self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
 //        @jobs_strongify(self)
@@ -68,11 +65,9 @@ Prop_assign()CGFloat jobsDefaultPopUpHeight;
     self.byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
         navigationBar.byVisible(YES);
     });
-    
     self.titleHeaderView.byAlpha(1);
     self.jobsDefaultPopUpHeight = self.popUpHeight;
     [self jobs_setupTitlePanGesture];
-
     self.tableView.byShow(self);
     [self loadLocalCommentData];
 }
@@ -234,7 +229,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         JobsInfoTBVCell *cell = JobsInfoTBVCell.cellStyleValue1ByTableView(tableView);
         cell.jobsRichElementsTableViewCellBy(childCommentModel)
             .JobsBlock1(^(id _Nullable data) {
-            
         });return cell;
     }else{
         if (indexPath.row <= customCofigModel.firstShowNum) {
@@ -242,14 +236,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             JobsInfoTBVCell *cell = JobsInfoTBVCell.cellStyleValue1ByTableView(tableView);
             cell.jobsRichElementsTableViewCellBy(childCommentModel)
                 .JobsBlock1(^(id _Nullable data) {
-                
             });return cell;
         }else{
             // 加载更多...
             JobsLoadMoreTBVCell *cell = JobsLoadMoreTBVCell.cellStyleValue1ByTableView(tableView);
             cell.jobsRichElementsTableViewCellBy(nil)
                 .JobsBlock1(^(id _Nullable data) {
-                
             });return cell;
         }
     }

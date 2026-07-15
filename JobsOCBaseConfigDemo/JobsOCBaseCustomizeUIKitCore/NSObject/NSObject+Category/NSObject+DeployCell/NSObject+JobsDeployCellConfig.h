@@ -10,13 +10,9 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsDeployDataForCellHeader.h"
-
 #import "JobsBaseProtocolHeader.h"
-
 #import "JobsBaseUI.h"
-
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN

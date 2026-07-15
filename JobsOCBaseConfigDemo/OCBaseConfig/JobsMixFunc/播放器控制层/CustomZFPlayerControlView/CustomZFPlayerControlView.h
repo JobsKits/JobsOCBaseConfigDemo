@@ -14,24 +14,28 @@
 
 #pragma mark —— ZFPlayer 播放器相关
 //Core
+
 #if __has_include(<ZFPlayer/ZFPlayer.h>)
 #import <ZFPlayer/ZFPlayer.h>
 #else
 #import "ZFPlayer.h"
 #endif
 //AVPlayer
+
 #if __has_include(<ZFPlayer/ZFAVPlayerManager.h>)
 #import <ZFPlayer/ZFAVPlayerManager.h>
 #else
 #import "ZFAVPlayerManager.h"
 #endif
 //ijkplayer
+
 #if __has_include(<ZFPlayer/ZFIJKPlayerManager.h>)
 #import <ZFPlayer/ZFIJKPlayerManager.h>
 #else
 #import "ZFIJKPlayerManager.h"
 #endif
 //ControlView
+
 #if __has_include(<ZFPlayer/UIImageView+ZFCache.h>)
 #import <ZFPlayer/UIImageView+ZFCache.h>
 #else
@@ -105,7 +109,6 @@
 #endif
 #pragma mark —— Created By Jobs
 #import "JobsBlock.h"
-
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
