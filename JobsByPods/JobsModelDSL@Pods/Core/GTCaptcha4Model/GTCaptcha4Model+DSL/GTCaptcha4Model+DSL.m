@@ -8,7 +8,6 @@
 #import "GTCaptcha4Model+DSL.h"
 
 @implementation GTCaptcha4Model (DSL)
-
 -(JobsRetGTCaptcha4ModelByGTCaptcha4SessionPointerBlock _Nonnull)byCaptcha4Session{
     @jobs_weakify(self)
     return ^__kindof GTCaptcha4Model *_Nullable(GTCaptcha4Session * _Nullable data) {

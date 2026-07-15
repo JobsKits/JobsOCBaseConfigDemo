@@ -15,7 +15,6 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
 @end
 
 @implementation JobsTabBarCtrlDemoVC
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -23,7 +22,6 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
 
 -(void)loadView{
     [super loadView];
-
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -226,11 +224,9 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
                 .add(ViewController_4.new.navCtrl)
                 .add(ViewController_5.new.navCtrl);
             })];
-
             [self addChildViewController:ctrl];
             ctrl.view.addOn(self.view);
             ctrl.view.byFrame(self.view.bounds);
-
             [ctrl didMoveToParentViewController:self];
         });
     };return _tabCtrl;

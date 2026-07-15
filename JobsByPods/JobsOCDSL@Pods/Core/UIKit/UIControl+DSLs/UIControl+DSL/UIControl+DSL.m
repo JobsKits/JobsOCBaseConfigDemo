@@ -16,7 +16,6 @@ Prop_copy()jobsByCtrlBlock handler;
 @end
 
 @implementation _JobsClosureWrapper
-
 -(instancetype)initWithHandler:(jobsByCtrlBlock)handler{
     if ( self = [super init]){
         _handler = [handler copy];
@@ -44,7 +43,6 @@ static void JobsAddClosureAction(UIControl *control,
 }
 
 @implementation UIControl (DSL)
-
 -(JobsRetControlByHandlerBlock)onJobsTap{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (jobsByCtrlBlock handler){
@@ -223,7 +221,6 @@ static void JobsAddClosureAction(UIControl *control,
                                             UIControlEvents events){
         @jobs_strongify(self)
         if (!self) return nil;
-
         if (@available(iOS 14.0, *)){
             if (action){
                 [self addAction:action forControlEvents:events];

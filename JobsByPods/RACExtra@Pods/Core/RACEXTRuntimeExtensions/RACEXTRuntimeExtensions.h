@@ -26,12 +26,10 @@ typedef enum {
      * The value is assigned.
      */
     rac_propertyMemoryManagementPolicyAssign = 0,
-
     /**
      * The value is retained.
      */
     rac_propertyMemoryManagementPolicyRetain,
-
     /**
      * The value is copied.
      */
@@ -45,40 +43,33 @@ typedef struct {
      * Whether this property was declared with the \c readonly attribute.
      */
     BOOL readonly;
-
     /**
      * Whether this property was declared with the \c nonatomic attribute.
      */
     BOOL nonatomic;
-
     /**
      * Whether the property is a weak reference.
      */
     BOOL weak;
-
     /**
      * Whether the property is eligible for garbage collection.
      */
     BOOL canBeCollected;
-
     /**
      * Whether this property is defined with \c \@dynamic.
      */
     BOOL dynamic;
-
     /**
      * The memory management policy for this property. This will always be
      * #rac_propertyMemoryManagementPolicyAssign if #readonly is \c YES.
      */
     rac_propertyMemoryManagementPolicy memoryManagementPolicy;
-
     /**
      * The selector for the getter of this property. This will reflect any
      * custom \c getter= attribute provided in the property declaration, or the
      * inferred getter name otherwise.
      */
     SEL getter;
-
     /**
      * The selector for the setter of this property. This will reflect any
      * custom \c setter= attribute provided in the property declaration, or the
@@ -88,14 +79,12 @@ typedef struct {
      * \e would be, if the property were writable.
      */
     SEL setter;
-
     /**
      * The backing instance variable for this property, or \c NULL if \c
      * \c @synthesize was not used, and therefore no instance variable exists. This
      * would also be the case if the property is implemented dynamically.
      */
     const char *ivar;
-
     /**
      * If this property is defined as being an instance of a specific class,
      * this will be the class object representing it.
@@ -105,7 +94,6 @@ typedef struct {
      * runtime.
      */
     Class objectClass;
-
     /**
      * The type encoding for the value of this property. This is the type as it
      * would be returned by the \c \@encode() directive.

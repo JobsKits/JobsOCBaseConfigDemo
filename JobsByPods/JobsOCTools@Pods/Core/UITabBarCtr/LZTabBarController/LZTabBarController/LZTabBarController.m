@@ -15,7 +15,6 @@ Prop_strong()LZTabBarConfig *config;
 @end
 
 @implementation LZTabBarController
-
 +(instancetype _Nonnull)defaultTabBarController{
     return [LZTabBarController createTabBarController:nil];
 }
@@ -32,7 +31,6 @@ Prop_strong()LZTabBarConfig *config;
     if (self = [super init]) {
         NSAssert(block, @"Param 'block' in zhe function, can not be nil");
         if (block) _config = block(jobsMakeLZTabBarConfig(^(__kindof LZTabBarConfig * _Nullable data) {
-            
         }));
         NSAssert(_config.viewControllers, @"Param 'viewControllers' in the 'config', can not be nil");
         [self setupViewControllers];
@@ -72,11 +70,9 @@ Prop_strong()LZTabBarConfig *config;
                          animations:^{
             @jobs_strongify(self)
             self.customTabBar.byAlpha(0);
-
         }];
     } else {
         self.customTabBar.byAlpha(0);
-
     }
 }
 
@@ -86,11 +82,9 @@ Prop_strong()LZTabBarConfig *config;
         [UIView animateWithDuration:0.2 animations:^{
             @jobs_strongify(self)
             self.customTabBar.byAlpha(1.0);
-
         }];
     } else {
         self.customTabBar.byAlpha(1.0);
-
     }
 }
 
@@ -121,7 +115,6 @@ Prop_strong()LZTabBarConfig *config;
     }
     /// 隐藏掉系统的tabBar
     self.tabBar.byHidden(YES);
-
     self.customTabBar.items = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
         @jobs_strongify(self)
         for (int i = 0; i < self.config.viewControllers.count; i++) {
@@ -164,7 +157,6 @@ didSelectItem:(LZTabBarItem *_Nonnull)item
             }
         }
     });
-    
     for (int i = 0; i < items.count; i++) {
         UIView *view = items[i];
         if ([view isKindOfClass:LZTabBarItem.class]) {
@@ -175,7 +167,6 @@ didSelectItem:(LZTabBarItem *_Nonnull)item
             }
         }
     }
-    
     item.icon = self.config.selectedImages[index];
     if (self.config.titles.count > 0) {
         item.titleColor = self.config.selectedColor;

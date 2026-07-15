@@ -68,6 +68,7 @@ digraph PodspecDependencies {
   "JobsNavBar";
   "JobsNavigationTransitionMgr";
   "JobsNetWorkTools";
+  "JobsOCAudioRecorder";
   "JobsOCCalendar";
   "JobsOCComment";
   "JobsOCCountryCodeCtrl";
@@ -600,6 +601,7 @@ digraph PodspecDependencies {
   "JobsNetWorkTools" -> "JobsOCDefs";
   "JobsNetWorkTools" -> "JobsOCProtocols";
   "JobsNetWorkTools" -> "JobsOCTimer";
+  "JobsOCAudioRecorder" -> "JobsOCTimer";
   "JobsOCCalendar" -> "JobsBlock";
   "JobsOCCalendar" -> "JobsMakes";
   "JobsOCCalendar" -> "JobsOCDSL";

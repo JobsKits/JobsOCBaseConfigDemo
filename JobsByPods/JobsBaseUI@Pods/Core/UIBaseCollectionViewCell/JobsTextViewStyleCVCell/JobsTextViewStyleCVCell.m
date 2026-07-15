@@ -29,7 +29,6 @@ BaseLayerProtocol_synthesize_part3
 BaseViewProtocol_synthesize
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
     };return self;
 }
 #pragma mark —— BaseViewProtocol
@@ -66,7 +65,6 @@ BaseViewProtocol_synthesize
         @jobs_strongify(self)
         self.viewModel = model;
         self.textField.byAlpha(1);
-
         return self;
     };
 }
@@ -119,7 +117,6 @@ BaseViewProtocol_synthesize
                 .byFont(UIFontWeightMediumSize(18))
                 .byBgColor(@"#F9F9F9".cor);
             textView.delegate = self;
-
             textView.returnKeyType = UIReturnKeyDefault;
             textView.keyboardAppearance = UIKeyboardAppearanceDefault;
             textView.keyboardType = UIKeyboardTypeNumberPad;
@@ -145,7 +142,6 @@ BaseViewProtocol_synthesize
             textView.szTextView.byTextCor(JobsBlackColor);
             textView.szTextView.delegate = self;
             textView.byBgColor(@"#F9F9F9".cor);
-
             textView.returnKeyType_ = UIReturnKeyDefault;
             textView.keyboardAppearance_ = UIKeyboardAppearanceDefault;
             textView.keyboardType_ = UIKeyboardTypeNumberPad;

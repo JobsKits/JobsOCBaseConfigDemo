@@ -8,7 +8,6 @@
 #import "UIView+Extra.h"
 
 @implementation UIView (Extra)
-
 -(JobsRetViewByFloatBlock _Nonnull)cornerCutToCircleWithCornerRadius{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float cornerRadiusValue) {
@@ -44,7 +43,6 @@
                                                          cornerRadii:cornerRadii];
     CAShapeLayer *maskLayer = CAShapeLayer.layer;
     maskLayer.frame = self.bounds;
-
     maskLayer.path = maskPath.CGPath;
     self.layer.mask = maskLayer;
 }

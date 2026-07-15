@@ -32,11 +32,9 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
 
 -(void)commonInit{
     self.byBgColor(UIColor.clearColor);
-
     self.thumbInset = 4.f;
     self.thumbSize  = CGSizeMake(52.f, 52.f);
     self.progress   = 0.f;
-
     self.trackView.byVisible(YES);// 轨道
     self.titleLabel.byVisible(YES);// 中央文字
     self.thumbView.byVisible(YES);// 滑块
@@ -75,7 +73,6 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
         CGFloat offset = self.thumbInset + maxOffset * self.progress;
         [self.thumbLeadingConstraint setOffset:offset];
         self.titleLabel.byAlpha(1.f - self.progress * 0.8f);
-
         if (animated) {
             [UIView animateWithDuration:0.2 animations:^{
                 @jobs_strongify(self)
@@ -110,7 +107,6 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
                 .byAdd(^(MASConstraintMaker *make) {
                     make.edges.equalTo(self);
                 });
-
         });
     };return _trackView;
 }
@@ -157,24 +153,20 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
                     @jobs_strongify(self)
                     UIView *container = pan.view.superview;
                     if (!container) return;
-
                     CGPoint translation = [pan translationInView:container];
                     CGFloat dragWidth = MAX(container.bounds.size.width
                                             - self.thumbInset * 2.f
                                             - self.thumbSize.width,
                                             1.f);
-
                     switch (pan.state) {
                         case UIGestureRecognizerStateBegan: {
                             self.panStartProgress = self.progress;
                         } break;
-
                         case UIGestureRecognizerStateChanged: {
                             CGFloat delta = translation.x / dragWidth;
                             self.progress = self.panStartProgress + delta;
                             self.byLayoutIfNeeded();
                         } break;
-
                         case UIGestureRecognizerStateEnded:
                         case UIGestureRecognizerStateCancelled:
                         case UIGestureRecognizerStateFailed: {
@@ -192,7 +184,6 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
                                 self.byResetAnimated(YES);
                             }
                         } break;
-
                         default:
                             break;
                     }
@@ -220,7 +211,6 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
                 .byAdd(^(MASConstraintMaker *make) {
                     make.center.equalTo(self.thumbView);
                 });
-
         });
     };return _arrow;
 }

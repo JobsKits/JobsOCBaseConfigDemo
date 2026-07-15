@@ -78,7 +78,6 @@ Prop_strong()id runtimeObject;
 
  */
 @implementation OCDynamicRegisterVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -86,7 +85,6 @@ Prop_strong()id runtimeObject;
 
 -(void)loadView{
     [super loadView];
-
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -102,7 +100,6 @@ Prop_strong()id runtimeObject;
             data.byText(data.attributedTitle.string);
             data.byFont(UIFontWeightRegularSize(16));
         })
-
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
@@ -114,7 +111,6 @@ Prop_strong()id runtimeObject;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.view.byBgColor(RGBA_COLOR(246, 248, 252, 1));
     self.makeNavByAlpha(1);
     self.contentScrollView.addOn(self.view);
@@ -134,14 +130,12 @@ Prop_strong()id runtimeObject;
 #pragma mark —— Demo UI
 -(void)buildRuntimeDemoView{
     if (self.headerCardView.superview) return;
-
     self.headerCardView.addOn(self.contentScrollView);
     self.titleLabel.addOn(self.headerCardView);
     self.subTitleLabel.addOn(self.headerCardView);
     self.classNameValueLabel.addOn(self.headerCardView);
     self.runDemoBtn.addOn(self.contentScrollView);
     self.messageForwardBtn.addOn(self.contentScrollView);
-
     NSArray <NSString *>*titles = @[
         @"1. 动态创建类",
         @"2. 添加成员变量和属性",
@@ -163,7 +157,6 @@ Prop_strong()id runtimeObject;
         [self.stepCardMutArr addObject:card];
         card.addOn(self.contentScrollView);
     }];
-
     self.logCardView.addOn(self.contentScrollView);
     self.logTitleLabel.addOn(self.logCardView);
     self.runtimeLogLabel.addOn(self.logCardView);
@@ -203,7 +196,6 @@ Prop_strong()id runtimeObject;
             })
             .addOn(card);
     });
-
     UILabel *titleLabel = [self demoLabelByFont:UIFontWeightSemiboldSize(15)
                                           color:HEXCOLOR(0x2B3340)
                                   numberOfLines:1];
@@ -212,7 +204,6 @@ Prop_strong()id runtimeObject;
         .byTag(101)
         .addOn(card);
     [self.stepTitleLabMutArr addObject:titleLabel];
-
     UILabel *detailLabel = [self demoLabelByFont:UIFontSystemFontOfSize(13)
                                            color:HEXCOLOR(0x5D6877)
                                    numberOfLines:0];
@@ -221,7 +212,6 @@ Prop_strong()id runtimeObject;
         .byTag(102)
         .addOn(card);
     [self.stepDetailLabMutArr addObject:detailLabel];
-
     return card;
 }
 
@@ -248,30 +238,24 @@ Prop_strong()id runtimeObject;
 
 -(void)layoutRuntimeDemoViews{
     if (!self.contentScrollView.superview || !self.headerCardView.superview) return;
-
     self.contentScrollView.byFrame(self.view.bounds);
-
     UIEdgeInsets safeAreaInsets = UIEdgeInsetsZero;
     if (@available(iOS 11.0, *)) {
         safeAreaInsets = self.view.safeAreaInsets;
     }
-
     CGFloat contentWidth = CGRectGetWidth(self.contentScrollView.bounds) - 32;
     CGFloat left = 16;
     CGFloat top = MAX(16, safeAreaInsets.top + 12);
-
     self.headerCardView.byFrame(CGRectMake(left, top, contentWidth, 132));
     self.titleLabel.byFrame(CGRectMake(16, 18, contentWidth - 32, 26));
     self.subTitleLabel.byFrame(CGRectMake(16, CGRectGetMaxY(self.titleLabel.frame) + 8, contentWidth - 32, 40));
     self.classNameValueLabel.byFrame(CGRectMake(16, CGRectGetMaxY(self.subTitleLabel.frame) + 12, contentWidth - 32, 22));
     top = CGRectGetMaxY(self.headerCardView.frame) + 14;
-
     CGFloat buttonGap = 10;
     CGFloat buttonWidth = (contentWidth - buttonGap) / 2;
     self.runDemoBtn.byFrame(CGRectMake(left, top, buttonWidth, 44));
     self.messageForwardBtn.byFrame(CGRectMake(CGRectGetMaxX(self.runDemoBtn.frame) + buttonGap, top, buttonWidth, 44));
     top = CGRectGetMaxY(self.runDemoBtn.frame) + 14;
-
     for (UIView *card in self.stepCardMutArr) {
         UIView *accentView = [card viewWithTag:100];
         UILabel *titleLabel = [card viewWithTag:101];
@@ -285,13 +269,11 @@ Prop_strong()id runtimeObject;
         detailLabel.byFrame(CGRectMake(32, CGRectGetMaxY(titleLabel.frame) + 4, detailWidth, detailSize.height));
         top = CGRectGetMaxY(card.frame) + 12;
     }
-
     CGSize logSize = [self.runtimeLogLabel sizeThatFits:CGSizeMake(contentWidth - 32, CGFLOAT_MAX)];
     self.logCardView.byFrame(CGRectMake(left, top, contentWidth, MAX(120, logSize.height + 58)));
     self.logTitleLabel.byFrame(CGRectMake(16, 14, contentWidth - 32, 24));
     self.runtimeLogLabel.byFrame(CGRectMake(16, CGRectGetMaxY(self.logTitleLabel.frame) + 8, contentWidth - 32, logSize.height));
     top = CGRectGetMaxY(self.logCardView.frame) + MAX(24, safeAreaInsets.bottom + 16);
-
     self.contentScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.contentScrollView.bounds), top);
 }
 
@@ -299,7 +281,6 @@ Prop_strong()id runtimeObject;
                                instance:(id)instance
                                jobsName:(NSString *)jobsName{
     if (!cls) return;
-
     NSArray <NSString *>*details = @[
         [NSString stringWithFormat:@"父类：%@\n子类：%@\n创建方式：objc_allocateClassPair",
          NSStringFromClass(class_getSuperclass(cls)),
@@ -317,7 +298,6 @@ Prop_strong()id runtimeObject;
          instance ? NSStringFromClass([instance class]) : @"创建失败",
          jobsName ?: @"nil"]
     ];
-
     [details enumerateObjectsUsingBlock:^(NSString * _Nonnull obj,
                                           NSUInteger idx,
                                           BOOL * _Nonnull stop) {
@@ -352,10 +332,8 @@ Prop_strong()id runtimeObject;
 -(void)triggerMessageForwardDemo{
     [self appendRuntimeLog:@"触发 OCDynamic 的动态方法解析和 DynamicInvoke 示例"];
     [OCDynamic Test];
-
     OCDynamic *dynamic = OCDynamic.new;
     [dynamic test];
-
     DynamicInvoke.new;
     [self appendRuntimeLog:@"OCDynamic Test / test / DynamicInvoke 已触发，详情看控制台 JobsLog"];
 }
@@ -388,7 +366,6 @@ Prop_strong()id runtimeObject;
 -(void)msgSend{
     /// macOS升级到10.15后，宏OBJC_OLD_DISPATCH_PROTOTYPES的值变为0，导致objc_msgSend 定义发生变化
     /// 使用 objc_msgSend 的时候，要需要将Xcode中build setting中的 Enbale Strict of Checking of objc_msgSend Calls 设置为 NO。这样才不会报警告。（搜索objc_msgSend）
-
     /// 无返回值的调用
     ((void (*)(id, SEL, float)) objc_msgSend)(self, @selector(sendObjMsg:), (float)M_PI);
     /// 有返回值的调用，需要注明返回类型
@@ -404,14 +381,12 @@ Prop_strong()id runtimeObject;
 -(void)work{
     [self clearRuntimeLog];
     [self appendRuntimeLog:@"开始执行 Runtime 动态注册流程"];
-
     BOOL needsCreate = NSClassFromString(JobsDynamicRegisterDemoClassName) == Nil;
     Class MyClass = [self createClass:JobsDynamicRegisterDemoClassName];
     if (!MyClass) {
         [self appendRuntimeLog:@"动态类创建失败，流程终止"];
         return;
     }
-
     if (needsCreate) {
         [self appendRuntimeLog:[NSString stringWithFormat:@"创建 Class：%@",JobsDynamicRegisterDemoClassName]];
         [self appendRuntimeLog:[NSString stringWithFormat:@"添加 Ivar：%@",JobsDynamicRegisterDemoIvarName]];
@@ -430,18 +405,15 @@ Prop_strong()id runtimeObject;
     }else{
         [self appendRuntimeLog:@"动态类已经注册，本次直接复用"];
     }
-
     id myobjc = [self createInstanceByClass:JobsDynamicRegisterDemoClassName];
     self.runtimeObject = myobjc;
     NSString *jobsNameValue = @"我是 Jobs 动态对象";
-
     SEL setterSEL = NSSelectorFromString(@"setJobsName:");
     if ([myobjc respondsToSelector:setterSEL]) {
         [myobjc setValue:jobsNameValue
                   forKey:JobsDynamicRegisterDemoPropertyName];
         [self appendRuntimeLog:[NSString stringWithFormat:@"KVC 写入 jobsName：%@",jobsNameValue]];
     }
-
     NSString *currentJobsName = nil;
     SEL getterSEL = NSSelectorFromString(JobsDynamicRegisterDemoPropertyName);
     if ([myobjc respondsToSelector:getterSEL]) {
@@ -450,7 +422,6 @@ Prop_strong()id runtimeObject;
         currentJobsName = getterFunc(myobjc, getterSEL);
         [self appendRuntimeLog:[NSString stringWithFormat:@"IMP 读取 jobsName：%@",currentJobsName]];
     }
-
     SEL testSEL = NSSelectorFromString(@"test");
     if ([myobjc respondsToSelector:testSEL]) {
         IMP testIMP = [myobjc methodForSelector:testSEL];
@@ -458,7 +429,6 @@ Prop_strong()id runtimeObject;
         testFunc(myobjc, testSEL);
         [self appendRuntimeLog:@"动态 test 方法调用成功"];
     }
-
     [self refreshRuntimeCardDetailsByClass:MyClass
                                   instance:myobjc
                                   jobsName:currentJobsName];
@@ -610,7 +580,6 @@ Prop_strong()id runtimeObject;
     NSClassFromString(@"NSObject");
     // 方式2
     objc_getClass("NSObject");
-
     /// SEL 反射创建
     // 方式1
     @selector(init);
@@ -618,7 +587,6 @@ Prop_strong()id runtimeObject;
     sel_registerName("init");
     // 方式3
     NSSelectorFromString(@"init");
-
     /*
      IMP是”implementation”的缩写,它是objetive-C 方法 (method)实现代码块的地址,类似函数指针,通过它可以 直接访问任意一个方法。免去发送消息的代价
      获取方法的IMP：-(IMP)methodForSelector:(SEL)aSelector;

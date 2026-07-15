@@ -8,7 +8,6 @@
 #import "UIImageView+JobsOCSkeletonView.h"
 
 @implementation UIImageView (JobsOCSkeletonView)
-
 -(void)jobs_beginShimmerLoading{
     [self jobs_beginShimmerLoadingWithConfig:nil];
 }

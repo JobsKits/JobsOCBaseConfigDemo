@@ -509,10 +509,8 @@
             [collectionView reloadData];
         }else{}
         if(data) [self tab_endAnimation];//里面实现了 [self.collectionView reloadData];
-
         self.endMJHeaderRefreshing();
         self.endMJFooterRefreshingWithNoMoreData();
-        
         self.endXZMHeaderRefreshing();
         self.endXZMFooterRefreshing();
     };

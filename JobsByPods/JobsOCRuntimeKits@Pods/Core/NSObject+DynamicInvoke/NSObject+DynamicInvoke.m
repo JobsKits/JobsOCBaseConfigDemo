@@ -62,7 +62,6 @@ callingMethodWithName:(NSString *_Nullable)methodName{
     NSMethodSignature *signature = [targetObj methodSignatureForSelector:selector];
     //或使用下面这种方式
     //NSMethodSignature *signature = [[target class] instanceMethodSignatureForSelector:selector];
-    
     if (!signature) {
         // 处理方式一：
         {
@@ -81,7 +80,6 @@ callingMethodWithName:(NSString *_Nullable)methodName{
 //                                            userInfo:nil];
 //        }
     }
-    
     /// 只能使用该方法来创建，不能使用alloc init
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
     invocation.target = targetObj;
@@ -118,7 +116,6 @@ callingMethodWithName:(NSString *_Nullable)methodName{
         NSUInteger length = sig.methodReturnLength;
         void *buffer = (void *)malloc(length);
         [inv getReturnValue:buffer];
-
         if( !strcmp(returnType, @encode(BOOL)) ) {
             returnValue = [NSNumber numberWithBool:*((BOOL*)buffer)];
         }else if( !strcmp(returnType, @encode(NSInteger)) ){
@@ -203,7 +200,6 @@ SEL _Nullable selectorBlocks(JobsRetIDByTwoIDBlock _Nullable block,
     dispatch_once(&onceToken, ^{
         methodCache = NSMutableDictionary.dictionary;
     });
-    
     NSString *cacheKey = NSStringFromClass(target.class)
         .add(@"_")
         .add(selName);

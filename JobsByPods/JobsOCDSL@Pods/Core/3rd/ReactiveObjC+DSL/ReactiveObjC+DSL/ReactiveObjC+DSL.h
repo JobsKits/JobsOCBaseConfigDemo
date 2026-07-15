@@ -36,7 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetIDByRACDisposableBlock _Nonnull)byRacDisposable;
 @end
 
-
 #pragma mark —— RACDisposable
 @interface RACDisposable (JobsChain)
 +(JobsRetRACDisposableByVoidCallbackBlock _Nonnull)byDisposable;

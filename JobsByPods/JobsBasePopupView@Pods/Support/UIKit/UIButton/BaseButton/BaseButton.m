@@ -105,7 +105,6 @@ GestureProtocol_synthesize
             self.imageView.byFrame(self.imageViewFrame);
         }
     }
-    
     {/// 【组 2】UIButton 单独自定义设置系统自带控件的Size ❤️与组1、3属性互斥❤️
         {
             if (!jobsZeroSizeValue(self.textLabelSize)) {
@@ -114,7 +113,6 @@ GestureProtocol_synthesize
             self.titleLabel.resetOriginXByOffset(self.textLabelFrameOffsetX);
             self.titleLabel.resetOriginYByOffset(self.textLabelFrameOffsetY);
         }
-        
         {
             if (@available(iOS 15.0, *)) {
                 if(!jobsZeroSizeValue(self.subTextLabelSize)){
@@ -126,7 +124,6 @@ GestureProtocol_synthesize
                 }
             }
         }
-        
         {
             if (!jobsZeroSizeValue(self.imageViewSize)) {
                 self.imageView.resetSize(self.imageViewSize);
@@ -137,7 +134,6 @@ GestureProtocol_synthesize
             }
         }
     }
-    
     {/// 【组 2】UIButton 单独自定义设置系统自带控件的Size ❤️与组1、3属性互斥❤️
         {
             if (!jobsZeroSizeValue(self.textLabelSize)) {
@@ -150,7 +146,6 @@ GestureProtocol_synthesize
                 self.titleLabel.resetOriginY(self.textLabelFrameResetY);
             }
         }
-        
         {
             if (!jobsZeroSizeValue(self.subTextLabelSize)) {
                 if (@available(iOS 15.0, *)) {
@@ -168,7 +163,6 @@ GestureProtocol_synthesize
                 }
             }
         }
-
         {
             if (!jobsZeroSizeValue(self.imageViewSize)) {
                 self.imageView.resetSize(self.imageViewSize);
@@ -181,7 +175,6 @@ GestureProtocol_synthesize
             }
         }
     }
-    
     {/// 【组 3】UIButton 单独自定义设置系统自带控件的长宽 ❤️与组1、2属性互斥❤️
         {
             self.titleLabel.resetWidthByOffset(self.textLabelWidth);
@@ -189,7 +182,6 @@ GestureProtocol_synthesize
             self.titleLabel.resetOriginXByOffset(self.textLabelFrameOffsetX);
             self.titleLabel.resetOriginYByOffset(self.textLabelFrameOffsetY);
         }
-        
         {
             if (@available(iOS 15.0, *)) {
                 if(self.subtitleLabel) {
@@ -200,7 +192,6 @@ GestureProtocol_synthesize
                 }
             }
         }
-
         {
             if(self.imageView){
                 self.imageView.resetWidthByOffset(self.imageViewWidth);
@@ -210,7 +201,6 @@ GestureProtocol_synthesize
             }
         }
     }
-
     {/// UIButton 单独自定义设置系统自带控件的偏移量 ❤️与其他组属性不互斥❤️
         self.titleLabel.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
             @jobs_strongify(self)
@@ -233,28 +223,23 @@ GestureProtocol_synthesize
     JobsLog(@"self.textLabelFrame = %@",NSStringFromCGRect(self.textLabelFrame));
     JobsLog(@"self.subTextLabelFrame = %@",NSStringFromCGRect(self.subTextLabelFrame));
     JobsLog(@"self.imageViewFrame = %@",NSStringFromCGRect(self.imageViewFrame));
-    
     JobsLog(@"self.textLabelSize = %@",NSStringFromCGSize(self.textLabelSize));
     JobsLog(@"self.subTextLabelSize = %@",NSStringFromCGSize(self.subTextLabelSize));
     JobsLog(@"self.imageViewSize = %@",NSStringFromCGSize(self.imageViewSize));
-    
     JobsLog(@"self.textLabelWidth = %f",self.textLabelWidth);
     JobsLog(@"self.textLabelHeight = %f",self.textLabelHeight);
     JobsLog(@"self.subTextLabelWidth = %f",self.subTextLabelWidth);
     JobsLog(@"self.subTextLabelHeight = %f",self.subTextLabelHeight);
     JobsLog(@"self.imageViewWidth = %f",self.imageViewWidth);
     JobsLog(@"self.imageViewHeight = %f",self.imageViewHeight);
-    
     JobsLog(@"self.textLabelFrameOffsetX = %f",self.textLabelFrameOffsetX);
     JobsLog(@"self.textLabelFrameOffsetY = %f",self.textLabelFrameOffsetY);
     JobsLog(@"self.textLabelFrameOffsetWidth = %f",self.textLabelFrameOffsetWidth);
     JobsLog(@"self.textLabelFrameOffsetHeight = %f",self.textLabelFrameOffsetHeight);
-    
     JobsLog(@"self.subTextLabelFrameOffsetX = %f",self.subTextLabelFrameOffsetX);
     JobsLog(@"self.subTextLabelFrameOffsetY = %f",self.subTextLabelFrameOffsetY);
     JobsLog(@"self.subTextLabelFrameOffsetWidth = %f",self.subTextLabelFrameOffsetWidth);
     JobsLog(@"self.subTextLabelFrameOffsetHeight = %f",self.subTextLabelFrameOffsetHeight);
-    
     JobsLog(@"self.imageViewFrameOffsetX = %f",self.imageViewFrameOffsetX);
     JobsLog(@"self.imageViewFrameOffsetY = %f",self.imageViewFrameOffsetY);
     JobsLog(@"self.imageViewFrameOffsetWidth = %f",self.imageViewFrameOffsetWidth);
@@ -264,7 +249,6 @@ GestureProtocol_synthesize
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)richButtonByModel{
     return ^(id _Nullable data){
-        
     };
 }
 /// 具体由子类进行复写【数据定宽】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】

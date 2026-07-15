@@ -19,11 +19,13 @@
 #import <MJRefreshExtra/UIButton+UIButtonConfiguration.h>
 #import <MJRefreshExtra/UITextView+Extra.h>
 #import <MJRefreshExtra/UIView+Extra.h>
+
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
 #endif
+
 #import <MJRefreshExtra/UIBackgroundConfiguration+Extra.h>
 #import <MJRefreshExtra/UIButtonConfiguration+Extra.h>
 #import <MJRefreshExtra/UIGestureRecognizer+Extra.h>
@@ -47,7 +49,6 @@
 #else
 #import "JobsBaseProtocolHeader.h"
 #endif
-
 
 #if __has_include(<JobsDeviceInfo/JobsDeviceInfo.h>)
 #import <JobsDeviceInfo/JobsDeviceInfo.h>

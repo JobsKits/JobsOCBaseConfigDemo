@@ -109,13 +109,11 @@ UITableViewCellProtocol_Synthesize
                 .byText([NSString stringWithFormat:@"%@",model.textModel.text])
                 .byFont(UIFontWeightMediumSize(14))
                 .byTextCor(HEXCOLOR(0x2F3645));
-
             self.subTitleLab
                 .byText([NSString stringWithFormat:@"%@",model.subTextModel.text])
                 .byFont(UIFontWeightRegularSize(12))
                 .byTextCor(HEXCOLOR(0x8A93A1));
             [self setNeedsLayout];
-
         };return self;
     };
 }

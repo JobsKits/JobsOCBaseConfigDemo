@@ -8,7 +8,6 @@
 #import "NSFormatter+Extra.h"
 
 @implementation NSFormatter (Extra)
-
 -(JobsRetStrByDateBlock _Nonnull)date{
     @jobs_weakify(self)
     return ^NSString *_Nullable(NSDate *_Nullable date){

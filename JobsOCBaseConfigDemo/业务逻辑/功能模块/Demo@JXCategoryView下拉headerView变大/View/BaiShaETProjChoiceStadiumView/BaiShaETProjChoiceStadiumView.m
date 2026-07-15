@@ -14,18 +14,15 @@ Prop_strong()UIColor *cor;
 @end
 
 @implementation BaiShaETProjChoiceStadiumTBVHeaderView
-
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(self.cor);
-
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.byBgColor(self.cor);
-
     };return self;
 }
 
@@ -92,13 +89,11 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-
     };return self;
 }
 
@@ -113,7 +108,6 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -164,18 +158,15 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     for (JobsBaseTableViewCell *cell in self.tbvCellMutArr) {
         cell.byCellImageView(^(__kindof UIImageView * _Nullable imageView) {
             imageView.byJobsVisible(NO);
         });
     }
-    
     JobsBaseTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.byCellImageView(^(__kindof UIImageView * _Nullable imageView) {
         imageView.byJobsVisible(!imageView.jobsVisible);
     });
-    
     if (self.objBlock) self.objBlock(self.dataMutArr[indexPath.row]);
     [self tf_hide:nil];
 }
@@ -211,7 +202,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byJobsVisible(NO);
         })
         .JobsBlock1(^(id _Nullable data) {
-             
         }).byBgColor(HEXCOLOR(0xFFFCF7));
     return cell;
 }
@@ -239,7 +229,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .bySeparatorColor(HEXCOLOR(0xEEEEEE))
                 .byTableHeaderView(self.tbvHeaderView) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
-
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
                 .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))

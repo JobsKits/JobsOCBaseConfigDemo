@@ -46,15 +46,12 @@
             encoding = encoding.removeEqualMark;
             NSData *encodedData = [encoding dataUsingEncoding:NSASCIIStringEncoding];
             unsigned char *encodedBytes = (unsigned char *)[encodedData bytes];
-
             NSUInteger encodedLength = [encodedData length];
             if( encodedLength >= (NSUIntegerMax - 7) ) return nil; // NSUInteger overflow check
             NSUInteger encodedBlocks = (encodedLength + 7) >> 3;
             NSUInteger expectedDataLength = encodedBlocks * 5;
-
             decodedBytes = calloc(expectedDataLength, 1);
             if( decodedBytes != NULL ) {
-
                 unsigned char encodedByte1, encodedByte2, encodedByte3, encodedByte4;
                 unsigned char encodedByte5, encodedByte6, encodedByte7, encodedByte8;
                 NSUInteger encodedBytesToProcess = encodedLength;
@@ -66,10 +63,8 @@
                 while( encodedBytesToProcess-- >= 1 ) {
                     c = encodedBytes[encodedBaseIndex++];
                     if( c == '=' ) break; // padding...
-
                     c = decodingTable[c];
                     if( c == __ ) continue;
-
                     encodedBlock[encodedBlockIndex++] = c;
                     if( encodedBlockIndex == 8 ) {
                         encodedByte1 = encodedBlock[0];
@@ -144,7 +139,6 @@
             /// 编码表 encodingTable，用来将字节值映射到Base32字符。
             static char encodingTable[32] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
             static NSUInteger paddingTable[] = {0,6,4,3,1};
-            
             //                     Table 3: The Base 32 Alphabet
             //
             // Value Encoding  Value Encoding  Value Encoding  Value Encoding
@@ -157,14 +151,12 @@
             //     6 G            15 P            24 Y         (pad) =
             //     7 H            16 Q            25 Z
             //     8 I            17 R            26 2
-
             NSUInteger dataLength = data.length;
             NSUInteger encodedBlocks = dataLength / 5;
             if( (encodedBlocks + 1) >= (NSUIntegerMax / 8) ) return nil; // NSUInteger overflow check
             NSUInteger padding = paddingTable[dataLength % 5];
             if( padding > 0 ) encodedBlocks++;
             NSUInteger encodedLength = encodedBlocks * 8;
-
             encodingBytes = calloc(encodedLength, 1);
             if( encodingBytes != NULL ) {
                 NSUInteger rawBytesToProcess = dataLength;
@@ -186,7 +178,6 @@
                     encodingBytes[encodingBaseIndex+5] = encodingTable[((rawByte4 >> 2) & 0x1F)];
                     encodingBytes[encodingBaseIndex+6] = encodingTable[((rawByte4 << 3) & 0x18) | ((rawByte5 >> 5) & 0x07)];
                     encodingBytes[encodingBaseIndex+7] = encodingTable[rawByte5 & 0x1F];
-
                     rawBaseIndex += 5;
                     encodingBaseIndex += 8;
                     rawBytesToProcess -= 5;

@@ -19,17 +19,13 @@ static CGFloat CellMarginY = 10.0f;
 @interface XLChannelView ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 Prop_strong()UICollectionView *collectionView;
-
 Prop_strong()XLChannelItem *dragingItem;
-
 Prop_strong()NSIndexPath *dragingIndexPath;
-
 Prop_strong()NSIndexPath *targetIndexPath;
 
 @end
 
 @implementation XLChannelView
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self buildUI];
@@ -38,8 +34,6 @@ Prop_strong()NSIndexPath *targetIndexPath;
 
 -(void)buildUI{
     self.byBgColor([UIColor whiteColor]);
-
-    
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     CGFloat cellWidth = (self.bounds.size.width - (ColumnNumber + 1) * CellMarginX)/ColumnNumber;
     flowLayout.itemSize = CGSizeMake(cellWidth,cellWidth/2.0f);
@@ -47,25 +41,20 @@ Prop_strong()NSIndexPath *targetIndexPath;
     flowLayout.minimumLineSpacing = CellMarginY;
     flowLayout.minimumInteritemSpacing = CellMarginX;
     flowLayout.headerReferenceSize = CGSizeMake(self.bounds.size.width, 40);
-    
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
     self.collectionView.showsHorizontalScrollIndicator = false;
     self.collectionView.byBgColor([UIColor clearColor]);
-
     [self.collectionView registerClass:[XLChannelItem class] forCellWithReuseIdentifier:@"XLChannelItem"];
     [self.collectionView registerClass:[XLChannelHeader class]
         forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"XLChannelHeader"];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self addSubview:self.collectionView];
-    
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressMethod:)];
     longPress.minimumPressDuration = 0.3f;
     [self.collectionView addGestureRecognizer:longPress];
-    
     self.dragingItem = [[XLChannelItem alloc] initWithFrame:CGRectMake(0, 0, cellWidth, cellWidth/2.0f)];
     self.dragingItem.byHidden(true);
-
     [self.collectionView addSubview:self.dragingItem];
 }
 
@@ -98,9 +87,7 @@ Prop_strong()NSIndexPath *targetIndexPath;
     item.isMoving = true;
     //更新被拖拽的item
     self.dragingItem.byHidden(false);
-
     self.dragingItem.byFrame(item.frame);
-
     self.dragingItem.title = item.title;
     [self.dragingItem setTransform:CGAffineTransformMakeScale(1.1, 1.1)];
 }
@@ -129,10 +116,8 @@ Prop_strong()NSIndexPath *targetIndexPath;
     [self.dragingItem setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
     [UIView animateWithDuration:0.3 animations:^{
         self.dragingItem.byFrame(endFrame);
-
     }completion:^(BOOL finished) {
         self.dragingItem.byHidden(true);
-
         XLChannelItem *item = (XLChannelItem*)[self.collectionView cellForItemAtIndexPath:self.dragingIndexPath];
         item.isMoving = false;
     }];

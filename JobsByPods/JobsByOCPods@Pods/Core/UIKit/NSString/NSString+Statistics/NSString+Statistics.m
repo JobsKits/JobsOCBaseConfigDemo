@@ -16,7 +16,6 @@
         NSInteger EnglishCount = 0;
         for (NSInteger i = 0; i < self.length; i++){
             unichar c = self.characterAtIndex(i);
-            
             if (c >=0x4E00 && c <=0x9FA5){
                 chineseCount ++;
             }else{
@@ -117,7 +116,6 @@
             CGRect boundingRect = [attributedText boundingRectWithSize:maxSize
                                                                options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
                                                                context:nil];
-
             CGFloat textWidth = ceil(CGRectGetWidth(boundingRect));
             @jobs_weakify(self)
             return jobsMakeTextModel(^(__kindof UITextModel * _Nullable data) {

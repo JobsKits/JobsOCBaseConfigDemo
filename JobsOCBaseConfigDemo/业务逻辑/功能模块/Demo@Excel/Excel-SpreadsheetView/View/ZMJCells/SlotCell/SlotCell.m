@@ -16,7 +16,6 @@ Prop_strong()UILabel *tableHighlightLabel;
 @end
 
 @implementation SlotCell
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.minutesLabel.byAlpha(1);
@@ -97,4 +96,5 @@ Prop_strong()UILabel *tableHighlightLabel;
         });
     };return _tableHighlightLabel;
 }
+
 @end

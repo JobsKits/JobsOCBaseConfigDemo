@@ -70,7 +70,6 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-
 //        [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
 //                                            cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
     };return self;
@@ -86,7 +85,6 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-
 //        [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
 //                                            cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
     };return self;
@@ -199,7 +197,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
             .JobsBlock1(^(id _Nullable data) {;
-             
             });
 }
 
@@ -228,7 +225,6 @@ viewForHeaderInSection:(NSInteger)section{
             .bySection(section)/// 悬浮配置
             .JobsRichViewByModel2(nil)
             .JobsBlock1(^(id _Nullable data) {;
-                
             });
     };return nil;
 }

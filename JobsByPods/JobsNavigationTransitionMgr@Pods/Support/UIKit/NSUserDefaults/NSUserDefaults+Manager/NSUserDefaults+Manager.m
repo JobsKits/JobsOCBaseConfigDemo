@@ -29,7 +29,6 @@
                     return;
                 }
             }
-            
             if (userDefaultModel.booLValue) {
                 JobsSetUserBoolKeyWithBool(userDefaultModel.key, userDefaultModel.booLValue);
                 JobsUserDefaultSynchronize;

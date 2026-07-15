@@ -27,7 +27,6 @@ Prop_strong()UIScrollView *insideScrollView;
 @end
 
 @implementation JhtBannerScrollView
-
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
     self.destroyNSTimer(_bannerTimer);
@@ -74,17 +73,14 @@ Prop_strong()UIScrollView *insideScrollView;
 /// 初始化相关参数
 - (void)bsvInitParam {
     self.clipsToBounds = YES;
-    
     _autoTime = 3.0;
     _currentIndex = 0;
     _minCoverViewAlpha = 0.4;
-    
     _pageCount = 0;
     self.isCarousel = YES;
     self.isOpenAutoScroll = YES;
     self.leftRightMargin = 20.0;
     self.topBottomMargin = 15.0;
-    
     _visibleRange = NSMakeRange(0, 0);
     /// 由于UIScrollView在滚动之后会调用自己的layoutSubviews以及父View的layoutSubviews，
     /// 这里为了避免scrollview滚动带来自己layoutSubviews的调用，所以给scrollView加了一层父View
@@ -179,15 +175,11 @@ Prop_strong()UIScrollView *insideScrollView;
                                                         0,
                                                         _pageSize.width,
                                                         _pageSize.height);
-                
                 if (delta < _pageSize.width) {
                     // _minCoverViewAlpha ===> 0（两侧 ==> 中间）
                     cardView.coverView.byAlpha((delta / _pageSize.width) * _minCoverViewAlpha);
-
-                    
                     CGFloat leftRightInset = self.leftRightMargin * delta / _pageSize.width;
                     CGFloat topBottomInset = self.topBottomMargin * delta / _pageSize.width;
-                    
                     cardView.layer.transform = CATransform3DMakeScale((_pageSize.width - leftRightInset * 2) / _pageSize.width,
                                                                       (_pageSize.height - topBottomInset * 2) / _pageSize.height,
                                                                       1.0);
@@ -197,11 +189,9 @@ Prop_strong()UIScrollView *insideScrollView;
                                                                             leftRightInset,
                                                                             topBottomInset,
                                                                             leftRightInset));
-                    
                 } else {
                     // 中间 ==> 两侧
                     cardView.coverView.byAlpha(_minCoverViewAlpha);
-
                     cardView.layer.transform = CATransform3DMakeScale((_pageSize.width - self.leftRightMargin * 2) / _pageSize.width,
                                                                       (_pageSize.height - self.topBottomMargin * 2) / _pageSize.height, 1.0);
                     // UIEdgeInsetsInsetRect: 表示在原来的rect基础上根据边缘距离内切一个rect出来
@@ -221,20 +211,15 @@ Prop_strong()UIScrollView *insideScrollView;
                 subviewClassName = NSStringFromClass([cardView class]);
                 CGFloat originY = cardView.frame.origin.y;
                 CGFloat delta = fabs(originY - offset);
-                
                 // 没有缩小效果情况下的原始Frame
                 CGRect originCardViewFrame = CGRectMake(0,
                                                         _pageSize.height * i,
                                                         _pageSize.width,
                                                         _pageSize.height);
-                
                 if (delta < _pageSize.height) {
                     cardView.coverView.byAlpha((delta / _pageSize.height) * _minCoverViewAlpha);
-
-                    
                     CGFloat leftRightInset = self.leftRightMargin * delta / _pageSize.height;
                     CGFloat topBottomInset = self.topBottomMargin * delta / _pageSize.height;
-                    
                     cardView.layer.transform = CATransform3DMakeScale((_pageSize.width - leftRightInset * 2) / _pageSize.width,
                                                                       (_pageSize.height - topBottomInset * 2) / _pageSize.height,
                                                                       1.0);
@@ -244,18 +229,14 @@ Prop_strong()UIScrollView *insideScrollView;
                                                                             topBottomInset,
                                                                             leftRightInset));
                     cardView.cardImageView.byFrame(cardView.bounds);
-
-                    
                 } else {
                     cardView.coverView.byAlpha(_minCoverViewAlpha);
-
                     cardView.frame = UIEdgeInsetsInsetRect(originCardViewFrame,
                                                            UIEdgeInsetsMake(self.topBottomMargin,
                                                                             self.leftRightMargin,
                                                                             self.topBottomMargin,
                                                                             self.leftRightMargin));
                     cardView.cardImageView.byFrame(cardView.bounds);
-
                 }
             }
         }default:
@@ -272,7 +253,6 @@ Prop_strong()UIScrollView *insideScrollView;
                                          offset.y - CGRectGetMinY(self.insideScrollView.frame));
         CGPoint endPoint = CGPointMake(startPoint.x + CGRectGetWidth(self.bounds),
                                        startPoint.y + CGRectGetHeight(self.bounds));
-        
         switch (self.orientation) {
             /// 横向
             case BV_Orientation_Horizontal: {
@@ -330,7 +310,6 @@ Prop_strong()UIScrollView *insideScrollView;
                 endIndex = MIN(endIndex + 1, self.cardViewArray.count - 1);
                 self->_visibleRange.location = startIndex;
                 self->_visibleRange.length = endIndex - startIndex + 1;
-                
                 /// 向insideScrollView中添加CardView
                 for (NSInteger i = startIndex; i <= endIndex; i ++) {
                     self.bsvAddCardViewToInsideScrollViewByIndex(i);
@@ -373,7 +352,6 @@ Prop_strong()UIScrollView *insideScrollView;
                                                 0,
                                                 self->_pageSize.width,
                                                 self->_pageSize.height);
-                    
                     break;
                 }
                 /// 纵向
@@ -409,10 +387,8 @@ Prop_strong()UIScrollView *insideScrollView;
                 [self.insideScrollView setContentOffset:CGPointMake(_pageSize.width * _orginPageCount,
                                                                     0)
                                                animated:NO];
-                
                 _timerPageIndex = _orginPageCount;
             }
-            
             if ((self.insideScrollView.contentOffset.x / _pageSize.width) <= (_orginPageCount - 1)) {
                 // 1组 ===> 2组
                 [self.insideScrollView setContentOffset:CGPointMake((2 * _orginPageCount - 1) * _pageSize.width,
@@ -427,10 +403,8 @@ Prop_strong()UIScrollView *insideScrollView;
                     [self.insideScrollView setContentOffset:CGPointMake(0,
                                                                         _pageSize.height * _orginPageCount)
                                                    animated:NO];
-                    
                     _timerPageIndex = _orginPageCount;
             }
-            
             if ((self.insideScrollView.contentOffset.y / _pageSize.height) <= (_orginPageCount - 1)) {
                 [self.insideScrollView setContentOffset:CGPointMake(0,
                                                                     (2 * _orginPageCount - 1) * _pageSize.height)
@@ -570,7 +544,6 @@ Prop_strong()UIScrollView *insideScrollView;
                            withObject:nil
                            afterDelay:0.5];
             } else self->_timerPageIndex = pageNumber;/// 更新定时器用到的页数索引
-            
             switch (self.orientation) {
                 /// 横向
                 case BV_Orientation_Horizontal: {
@@ -637,7 +610,6 @@ Prop_strong()UIScrollView *insideScrollView;
         [self.pageControl respondsToSelector:@selector(setCurrentPage:)]) {
         self.pageControl.currentPage = pageIndex;
     }
-
     if ([_delegate respondsToSelector:@selector(bannerView:didScrollToCardViewWithIndex:)] &&
         (_currentIndex != pageIndex) && (pageIndex >= 0)) {
         [_delegate bannerView:self didScrollToCardViewWithIndex:pageIndex];
@@ -683,7 +655,6 @@ Prop_strong()UIScrollView *insideScrollView;
                 if (velocity.x > 0) {
                     _timerPageIndex = self.pageControl.currentPage + _orginPageCount + 1;// 右 --> 左
                 } else {
-                    
                     _timerPageIndex = self.pageControl.currentPage + _orginPageCount - 1;// 左 --> 右
                 }break;
             }

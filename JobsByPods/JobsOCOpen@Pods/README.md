@@ -73,7 +73,7 @@ JobsOCOpen@Pods/
 
 - `JobsOCOpenConfiguration`：配置 URL、打开模式、标题、动画和打开动作 completion。
 - `JobsOCOpener`：按 `.inApp` 或 `.externalBrowser` 打开 URL。
-- `JobsOCOpenWebViewController`：应用内 `WKWebView` 承载页。
+- `JobsOCOpenWebViewController`：应用内 `WKWebView` 承载页；返回按钮优先回退网页历史，无历史时按当前承载方式执行 `pop` 或 `dismiss`。
 - `NSObject (JobsOCOpen)`：融合旧 `NSObject+OpenURL` 的对象侧邮件、拨号、系统设置和 URL 打开能力，使用 `jobs_oc` 前缀避免与旧分类 selector 冲突。
 - `NSString (JobsOCOpen)`：提供 `jobs_open`、`jobs_call`、`jobs_mail` 便捷入口。
 

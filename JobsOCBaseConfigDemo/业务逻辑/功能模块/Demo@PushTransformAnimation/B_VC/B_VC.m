@@ -12,7 +12,6 @@
 @end
 
 @implementation B_VC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -20,7 +19,6 @@
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         UIViewModel *viewModel = (UIViewModel *)self.requestParams;
         self.viewModel = (UIViewModel *)viewModel.data;
@@ -46,11 +44,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsYellowColor);
-
     self.makeNavByAlpha(1);
-    
     self.imageView.byAlpha(1);
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{

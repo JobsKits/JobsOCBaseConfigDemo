@@ -202,7 +202,6 @@ RACProtocol_synthesize
                 JobsLog(@"我死球了");
                 if (self.objBlock) self.objBlock(timer);
             });
-
             timer.accumulatedElapsed       = 0;
             timer.lastStartDate            = nil;
         });

@@ -31,7 +31,6 @@ Prop_assign()NSUInteger maximumReconnectCount;
 Prop_assign()BOOL allowDuplicates;
 Prop_copy(nullable)JobsBluetoothEncodeBlock encoder;
 Prop_copy(nullable)JobsBluetoothDecodeBlock decoder;
-
 Prop_copy(readonly)JobsBluetoothProfile *(^byIdentifier)(NSString *identifier);
 Prop_copy(readonly)JobsBluetoothProfile *(^byServiceUUIDStrings)(NSArray <NSString *>*UUIDStrings);
 Prop_copy(readonly)JobsBluetoothProfile *(^byWriteUUIDString)(NSString *UUIDString);

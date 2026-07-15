@@ -290,7 +290,6 @@
         cell.byFrame(rect);
         cell.layer.transform = CATransform3DMakeTranslation(0, 0, i * 5);
     };
-    
     jobsByNSUIntegerBlock block2 = ^(NSUInteger i){
         @jobs_strongify(self)
         UIView *cell = self.scrollViewCellsByIndex(i);

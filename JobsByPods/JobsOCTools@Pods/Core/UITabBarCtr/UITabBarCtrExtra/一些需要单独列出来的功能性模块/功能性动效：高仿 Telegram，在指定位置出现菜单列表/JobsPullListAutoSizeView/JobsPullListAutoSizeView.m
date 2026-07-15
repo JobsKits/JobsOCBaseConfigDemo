@@ -16,7 +16,6 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 @end
 
 @implementation JobsPullListAutoSizeView
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
@@ -33,7 +32,6 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
             }
         };return jobsPullListAutoSizeView;
     };
-    
     JobsPullListAutoSizeView *view = checkMainWindowExistSelf();
     if (view) {
         [view removeFromSuperview];//释放
@@ -54,12 +52,9 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
 -(void)makeUI{
     self.byBgColor(JobsGrayColor);
-
     self.byAlpha(0.7);
-
     self.addOn(jobsGetMainWindow());
     self.byFrame(jobsGetMainWindow().frame);
-
     [jobsGetMainWindow() bringSubviewToFront:self];
     self.tableView.byShow(self);
 }
@@ -76,7 +71,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
@@ -93,7 +87,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         .byContentViewBgCor(self.bgColorListTBV)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
         .JobsBlock1(^(id _Nullable data) {;
-             
         })
         .byBgColor(self.bgColorListTBV);;
 }

@@ -18,7 +18,6 @@ Prop_strong() UIPanGestureRecognizer *panGesture;
 @end
 
 @implementation JobsOCVideoRecorderPreviewView
-
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.byBgColor(UIColor.blackColor);

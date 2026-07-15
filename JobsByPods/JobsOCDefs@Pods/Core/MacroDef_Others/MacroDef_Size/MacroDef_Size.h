@@ -64,14 +64,12 @@
 NS_INLINE iPhScrPxType iPhScrPx(void) {
     NSString *platform = UIDevice.platformIDStr;
     if (!platform.length) return iPhScrPxType_None;
-
     if ([platform isEqualToString:@"iPhone3,1"] ||   // iPhone 4 (GSM)
         [platform isEqualToString:@"iPhone3,2"] ||   // iPhone 4 (GSM Rev A)
         [platform isEqualToString:@"iPhone3,3"] ||   // iPhone 4 (CDMA)
         [platform isEqualToString:@"iPhone4,1"]) {   // iPhone 4S
         return iPhScrPxType_4_4S;
     }
-
     if ([platform isEqualToString:@"iPhone5,1"] ||   // iPhone 5 (GSM)
         [platform isEqualToString:@"iPhone5,2"] ||   // iPhone 5 (Global)
         [platform isEqualToString:@"iPhone5,3"] ||   // iPhone 5c
@@ -81,7 +79,6 @@ NS_INLINE iPhScrPxType iPhScrPx(void) {
         [platform isEqualToString:@"iPhone8,4"]) {   // iPhone SE (1st generation)
         return iPhScrPxType_5_5C_5S_SE;
     }
-
     if ([platform isEqualToString:@"iPhone7,2"] ||   // iPhone 6
         [platform isEqualToString:@"iPhone8,1"] ||   // iPhone 6s
         [platform isEqualToString:@"iPhone9,1"] ||   // iPhone 7
@@ -92,7 +89,6 @@ NS_INLINE iPhScrPxType iPhScrPx(void) {
         [platform isEqualToString:@"iPhone14,6"]) {  // iPhone SE (3rd generation)
         return iPhScrPxType_6_6S_7_8_SE2_SE3;
     }
-
     if ([platform isEqualToString:@"iPhone7,1"] ||   // iPhone 6 Plus
         [platform isEqualToString:@"iPhone8,2"] ||   // iPhone 6s Plus
         [platform isEqualToString:@"iPhone9,2"] ||   // iPhone 7 Plus
@@ -101,119 +97,92 @@ NS_INLINE iPhScrPxType iPhScrPx(void) {
         [platform isEqualToString:@"iPhone10,5"]) {  // iPhone 8 Plus
         return iPhScrPxType_6_6S_7_8Plus;
     }
-
     if ([platform isEqualToString:@"iPhone10,3"] ||  // iPhone X
         [platform isEqualToString:@"iPhone10,6"] ||  // iPhone X
         [platform isEqualToString:@"iPhone11,2"] ||  // iPhone XS
         [platform isEqualToString:@"iPhone12,3"]) {  // iPhone 11 Pro
         return iPhScrPxType_X_XS_11Pro;
     }
-
     if ([platform isEqualToString:@"iPhone11,8"] ||  // iPhone XR
         [platform isEqualToString:@"iPhone12,1"]) {  // iPhone 11
         return iPhScrPxType_XR_11;
     }
-
     if ([platform isEqualToString:@"iPhone11,4"] ||  // iPhone XS Max
         [platform isEqualToString:@"iPhone11,6"] ||  // iPhone XS Max
         [platform isEqualToString:@"iPhone12,5"]) {  // iPhone 11 Pro Max
         return iPhScrPxType_XSMax_11ProMax;
     }
-
     if ([platform isEqualToString:@"iPhone13,1"]) {  // iPhone 12 mini
         return iPhScrPxType_12mini;
     }
-
     if ([platform isEqualToString:@"iPhone13,2"] ||  // iPhone 12
         [platform isEqualToString:@"iPhone13,3"]) {  // iPhone 12 Pro
         return iPhScrPxType_12_12Pro;
     }
-
     if ([platform isEqualToString:@"iPhone13,4"]) {  // iPhone 12 Pro Max
         return iPhScrPxType_12ProMax;
     }
-
     if ([platform isEqualToString:@"iPhone14,4"]) {  // iPhone 13 mini
         return iPhScrPxType_13mini;
     }
-
     if ([platform isEqualToString:@"iPhone14,2"] ||  // iPhone 13 Pro
         [platform isEqualToString:@"iPhone14,5"]) {  // iPhone 13
         return iPhScrPxType_13_13Pro;
     }
-
     if ([platform isEqualToString:@"iPhone14,3"]) {  // iPhone 13 Pro Max
         return iPhScrPxType_13ProMax;
     }
-
     if ([platform isEqualToString:@"iPhone14,7"]) {  // iPhone 14
         return iPhScrPxType_14;
     }
-
     if ([platform isEqualToString:@"iPhone14,8"]) {  // iPhone 14 Plus
         return iPhScrPxType_14Plus;
     }
-
     if ([platform isEqualToString:@"iPhone15,2"]) {  // iPhone 14 Pro
         return iPhScrPxType_14Pro;
     }
-
     if ([platform isEqualToString:@"iPhone15,3"]) {  // iPhone 14 Pro Max
         return iPhScrPxType_14ProMax;
     }
-
     if ([platform isEqualToString:@"iPhone15,4"]) {  // iPhone 15
         return iPhScrPxType_15;
     }
-
     if ([platform isEqualToString:@"iPhone15,5"]) {  // iPhone 15 Plus
         return iPhScrPxType_15Plus;
     }
-
     if ([platform isEqualToString:@"iPhone16,1"]) {  // iPhone 15 Pro
         return iPhScrPxType_15Pro;
     }
-
     if ([platform isEqualToString:@"iPhone16,2"]) {  // iPhone 15 Pro Max
         return iPhScrPxType_15ProMax;
     }
-
     if ([platform isEqualToString:@"iPhone17,5"]) {  // iPhone 16e
         return iPhScrPxType_16e;
     }
-
     if ([platform isEqualToString:@"iPhone17,3"]) {  // iPhone 16
         return iPhScrPxType_16;
     }
-
     if ([platform isEqualToString:@"iPhone17,4"]) {  // iPhone 16 Plus
         return iPhScrPxType_16Plus;
     }
-
     if ([platform isEqualToString:@"iPhone17,1"]) {  // iPhone 16 Pro
         return iPhScrPxType_16Pro;
     }
-
     if ([platform isEqualToString:@"iPhone17,2"]) {  // iPhone 16 Pro Max
         return iPhScrPxType_16ProMax;
     }
-
     if ([platform isEqualToString:@"iPhone18,5"]) {  // iPhone 17e
         return iPhScrPxType_17e;
     }
-
     if ([platform isEqualToString:@"iPhone18,3"]) {  // iPhone 17
         return iPhScrPxType_17;
     }
-
     if ([platform isEqualToString:@"iPhone18,4"]) {  // iPhone Air
         return iPhScrPxType_17Air;
     }
-
     if ([platform isEqualToString:@"iPhone18,1"]) {  // iPhone 17 Pro
         return iPhScrPxType_17Pro;
     }
-
     if ([platform isEqualToString:@"iPhone18,2"]) {  // iPhone 17 Pro Max
         return iPhScrPxType_17ProMax;
     };return iPhScrPxType_None;

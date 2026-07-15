@@ -19,9 +19,7 @@ Prop_strong()UILabel *titleLabel;
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self == [super initWithFrame:frame]) {
         self.byBgColor(JobsWhiteColor);
-
         self.contentView.byBgColor(JobsRandomColor);
-
         self.layer.cornerRadius = 20;
         self.layer.masksToBounds = YES;
     };return self;

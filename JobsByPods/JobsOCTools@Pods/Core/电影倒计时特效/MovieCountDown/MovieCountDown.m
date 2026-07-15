@@ -15,7 +15,6 @@ Prop_strong()UIView *aphView;
 @end
 
 @implementation MovieCountDown
-
 -(instancetype)init{
     if (self = [super init]) {
     };return self;
@@ -35,22 +34,18 @@ Prop_strong()UIView *aphView;
 -(void)getCuntDown:(NSInteger)second{
     self.countDown.byText(toStringByLong(second));
     self.countDown.byAlpha(1);
-
     self.aphView.byAlpha(0);
-
     @jobs_weakify(self)
     [UIView animateWithDuration:0.8
                      animations:^{
         @jobs_strongify(self)
         self.countDown.byAlpha(0.8);//透明度
         self.aphView.byAlpha(0.1);
-
         self.countDown.transform = CGAffineTransformMakeScale(1.5, 1.5);//放大值
         self.aphView.transform = CGAffineTransformMakeScale(10, 10);//放大值
     } completion:^(BOOL finished) {
         @jobs_strongify(self)
         self.aphView.byAlpha(self.countDown.alpha =  0);
-
         self.countDown.transform = self.aphView.transform = CGAffineTransformIdentity;//回复原大小
     }];
 }
@@ -134,7 +129,6 @@ Prop_strong()UIView *aphView;
                 JobsLog(@"倒计时结束...");
                 if (self.objBlock) self.objBlock(timer);
             });
-
             timer.accumulatedElapsed       = 0;
             timer.lastStartDate            = nil;
         });

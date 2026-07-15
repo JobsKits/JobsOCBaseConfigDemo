@@ -8,7 +8,6 @@
 #import "ZFAVPlayerManager+ZFPlayerExtraDSL.h"
 
 @implementation ZFAVPlayerManager (ZFPlayerExtraDSL)
-
 -(JobsRetZFAVPlayerManagerByURLBlock _Nonnull)byAssetURL{
     @jobs_weakify(self)
     return ^__kindof ZFAVPlayerManager *_Nullable(NSURL *_Nullable data){

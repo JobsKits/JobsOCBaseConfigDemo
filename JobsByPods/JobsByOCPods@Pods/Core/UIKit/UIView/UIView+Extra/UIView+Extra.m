@@ -312,7 +312,6 @@
             JobsLog(@"SSS = %d",b.boolValue);
         }JobsLog(@"通知传递过来的 = %@",notification.object);
     }];
-
     [self addNotificationName:UIKeyboardWillHideNotification
                         block:^(id _Nullable weakSelf,
                                 id _Nullable arg) {
@@ -389,7 +388,6 @@
         UIGraphicsBeginImageContextWithOptions(scrollview.contentSize,
                                                YES,
                                                UIScreen.mainScreen.scale);
-
         /// 获取当前scrollview的frame 和 contentOffset
         // CGRect saveFrame = scrollview.frame;
         // CGPoint saveOffset = scrollview.contentOffset;
@@ -399,7 +397,6 @@
                                       0,
                                       scrollview.contentSize.width,
                                       scrollview.contentSize.height);
-
         [scrollview.layer renderInContext:UIGraphicsGetCurrentContext()];
         UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
@@ -445,7 +442,6 @@ JobsKey(_leftBorderLayer)
     CALayer *layer = Jobs_getAssociatedObject(_leftBorderLayer);
     if (!layer) {
         layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
-
         }));Jobs_setAssociatedRETAIN_NONATOMIC(_leftBorderLayer, layer);
     };return layer;
 }
@@ -454,7 +450,6 @@ JobsKey(_rightBorderLayer)
     CALayer *layer = Jobs_getAssociatedObject(_rightBorderLayer);
     if (!layer) {
         layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
-
         }));Jobs_setAssociatedRETAIN_NONATOMIC(_rightBorderLayer, layer);
     };return layer;
 }
@@ -463,7 +458,6 @@ JobsKey(_topBorderLayer)
     CALayer *layer = Jobs_getAssociatedObject(_topBorderLayer);
     if (!layer) {
         layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
-
         }));Jobs_setAssociatedRETAIN_NONATOMIC(_topBorderLayer, layer);
     };return layer;
 }
@@ -472,7 +466,6 @@ JobsKey(_bottomBorderLayer)
     CALayer *layer = Jobs_getAssociatedObject(_bottomBorderLayer);
     if (!layer) {
         layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
-
         }));Jobs_setAssociatedRETAIN_NONATOMIC(_bottomBorderLayer, layer);
     };return layer;
 }
@@ -483,7 +476,6 @@ JobsKey(_bottomBorderLayer)
         @jobs_strongify(self)
         CALayer *layer = self.leftBorderLayer;
         layer.byBgColor(color.CGColor);
-
         return self;
     };
 }
@@ -902,7 +894,6 @@ JobsKey(_cornerRadii)
     /// 偏移量默认值
     offsetX = offsetX != 0 ? :20;
     offsetY = offsetY != 0 ? :20;
-
     targetShadowview.layer.shadowPath = jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable path) {
         switch (ShadowDirection) {
             case ShadowDirection_top:{
@@ -959,7 +950,6 @@ JobsKey(_cornerRadii)
                 path.add(CGPointMake(targetShadowview.width + offsetX, targetShadowview.height + offsetY));/// 👉
                 path.add(CGPointMake(targetShadowview.width + offsetX, -offsetY));/// 👆
             }break;
-                
             default:
                 break;
         }

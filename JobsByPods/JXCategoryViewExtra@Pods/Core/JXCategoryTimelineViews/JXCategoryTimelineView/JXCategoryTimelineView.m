@@ -8,10 +8,8 @@
 #import "JXCategoryTimelineView.h"
 
 @implementation JXCategoryTimelineView
-
 - (void)initializeData {
     [super initializeData];
-
     _timeTitleFont = UIFontBoldSystemFontOfSize(JobsWidth(13));
     self.titleFont = UIFontWeightRegularSize(JobsWidth(10));
     _timeTitleSelectedFont = UIFontBoldSystemFontOfSize(JobsWidth(15));
@@ -38,7 +36,6 @@
                    index:(NSInteger)index {
     [super refreshCellModel:cellModel
                       index:index];
-
     JXCategoryTimelineCellModel *model = (JXCategoryTimelineCellModel *)cellModel;
     model.timeTitle = self.timeTitles[index];
     model.timeTitleNormalColor = self.timeTitleNormalColor;

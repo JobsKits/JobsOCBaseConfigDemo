@@ -11,7 +11,6 @@ JobsKey(kJobsButtonTapBlockKey)
 JobsKey(kJobsButtonLongPressBlockKey)
 JobsKey(kJobsButtonLongPressGRKey)
 @implementation ASButtonNode (DSL)
-
 -(JobsRetButtonNodeByTitleConfigBlock _Nonnull)byTitle{
     @jobs_weakify(self)
     return ^__kindof ASButtonNode *_Nonnull(NSString *_Nonnull title,
@@ -51,7 +50,6 @@ JobsKey(kJobsButtonLongPressGRKey)
     return ^__kindof ASButtonNode *_Nonnull(UIColor *_Nullable color){
         @jobs_strongify(self)
         self.backgroundColor = color;
-
         return self;
     };
 }
@@ -118,7 +116,6 @@ JobsKey(kJobsButtonLongPressGRKey)
         }
         gr.minimumPressDuration = MAX(0.0, minDuration);
         gr.allowableMovement   = MAX(0.0, allowableMovement);
-
         return self;
     };
 }

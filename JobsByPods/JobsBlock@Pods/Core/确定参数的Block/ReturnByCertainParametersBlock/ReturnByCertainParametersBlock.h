@@ -1198,6 +1198,7 @@ typedef __kindof ASButtonNode *_Nonnull(^JobsRetButtonNodeImageByConfigBlock)(Jo
 typedef __kindof ASButtonNode *_Nonnull(^JobsRetButtonNodeByOnLongPressWithTimeBlock)(Jobs_ButtonNode_LongPressTime_Arguments);
 typedef __kindof ASButtonNode *_Nonnull(^JobsRetButtonNodeByTitleConfigBlock)(Jobs_ButtonNode_Title_Font_Color_State_Arguments);
 /// ASStackLayoutSpec
+
 #if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
 typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByDirectionBlock)(ASStackLayoutDirection direction);
 typedef __kindof ASStackLayoutSpec *_Nonnull(^JobsRetStackLayoutSpecByHorizontalAlignmentBlock)(ASHorizontalAlignment alignment);

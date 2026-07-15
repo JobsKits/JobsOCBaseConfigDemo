@@ -22,7 +22,6 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 @end
 
 @implementation JobsDropDownListView
-
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
 }
@@ -35,7 +34,6 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
         self.layer.shadowOpacity = 0.16f;
         self.layer.shadowRadius = JobsWidth(12);
         self.layer.shadowOffset = CGSizeMake(0, JobsWidth(8));
-
     };return self;
 }
 
@@ -47,7 +45,6 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
         self.layer.shadowOpacity = 0.16f;
         self.layer.shadowRadius = JobsWidth(12);
         self.layer.shadowOffset = CGSizeMake(0, JobsWidth(8));
-
     };return self;
 }
 
@@ -60,7 +57,6 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
         self.layer.shadowOpacity = 0.16f;
         self.layer.shadowRadius = JobsWidth(12);
         self.layer.shadowOffset = CGSizeMake(0, JobsWidth(8));
-
     };return self;
 }
 
@@ -134,7 +130,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     return richCell
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
         .JobsBlock1(^(id _Nullable data) {
-
         });//BaseCellProtocol
 }
 

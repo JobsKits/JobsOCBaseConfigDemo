@@ -18,7 +18,6 @@ Prop_assign()CGFloat leftViewByOutLineOffset; /// 这个值需要在leftView之�
 Prop_assign()CGFloat leftViewByTextFieldOffset;
 Prop_assign()CGFloat rightViewByOutLineOffset; /// 这个值需要在rightView之前设置才有效
 Prop_assign()CGFloat rightViewByTextFieldOffset;
-
 Prop_copy(nullable)JobsRetIDByIDBlock otherActionBlock;
 
 @end
@@ -35,13 +34,11 @@ RACProtocol_synthesize
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
     };return self;
 }
 
@@ -134,7 +131,6 @@ RACProtocol_synthesize
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -143,7 +139,6 @@ RACProtocol_synthesize
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.leftView.byAlpha(1);
-
         [self.realTextField jobsTextFieldEventFilterBlock:^BOOL(id data) {
 //            @jobs_strongify(self)
             JobsLog(@"");
@@ -151,7 +146,6 @@ RACProtocol_synthesize
         } subscribeNextBlock:^(NSString * _Nullable x) {
             @jobs_strongify(self)
             self.realTextField.byText(x);
-
             if (self.objBlock) self.objBlock(x);
         }];self.rightView.alpha = 1;
     };
@@ -167,7 +161,6 @@ RACProtocol_synthesize
 /// 含义：文本字段已经开始编辑时调用。
 /// 用途：在此方法中，您可以开始相应的操作，例如更新用户界面（UI），显示工具条等。
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
-    
 }
 /// 含义：在文本字段即将结束编辑时调用。返回YES表示允许结束编辑，返回NO则表示不允许结束编辑。
 /// 用途：您可以在这里执行验证，例如检查用户输入的有效性。
@@ -177,14 +170,12 @@ RACProtocol_synthesize
 /// 含义：文本字段已经结束编辑时调用。
 /// 用途：在此方法中，可以处理输入完成后的操作，例如更新数据模型或用户界面的状态。
 -(void)textFieldDidEndEditing:(UITextField *)textField{
-    
 }
 /// 含义：文本字段结束编辑时调用，并带有结束原因。
 /// 用途：可以根据不同的结束原因执行不同的操作。
 /// API_AVAILABLE(ios(10.0))
 -(void)textFieldDidEndEditing:(UITextField *)textField
                        reason:(UITextFieldDidEndEditingReason)reason{
-    
 }
 /// 含义：在文本字段的字符将要改变时调用，因为用户输入、删除或粘贴内容。返回YES允许更改，返回NO禁止更改。
 /// 用途：您可以用于限制输入的字符类型或长度，或实现某些格式化规则。
@@ -197,7 +188,6 @@ replacementString:(NSString *)string{
 /// 用途：可以用于实时更新相关UI或执行某些操作。
 /// API_AVAILABLE(ios(13.0), tvos(13.0));
 -(void)textFieldDidChangeSelection:(UITextField *)textField{
-    
 }
 /// 含义：在清除文本字段内容之前调用。返回YES允许清除，返回NO禁止清除。
 /// 用途：可以用于提示用户、确认清除操作或进行额外的验证。
@@ -222,14 +212,12 @@ replacementString:(NSString *)string{
 /// API_AVAILABLE(ios(16.0)) API_UNAVAILABLE(tvos, watchos)
 -(void)textField:(UITextField *)textField
 willPresentEditMenuWithAnimator:(id<UIEditMenuInteractionAnimating>)animator{
-    
 }
 /// 含义：在文本字段即将消失编辑菜单时调用。
 /// 用途：可以在菜单消失前进行相关清理或动画效果。
 /// API_AVAILABLE(ios(16.0)) API_UNAVAILABLE(tvos, watchos)
 -(void)textField:(UITextField *)textField
 willDismissEditMenuWithAnimator:(id<UIEditMenuInteractionAnimating>)animator{
-    
 }
 #pragma mark —— UITextFieldProtocol
 -(void)setLeftView:(UIView *)leftView{

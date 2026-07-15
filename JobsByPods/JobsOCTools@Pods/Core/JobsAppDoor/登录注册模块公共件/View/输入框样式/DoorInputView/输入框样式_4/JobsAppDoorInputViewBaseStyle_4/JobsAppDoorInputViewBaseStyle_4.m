@@ -112,9 +112,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         @jobs_strongify(self)
         self.doorInputViewBaseStyleModel = data;
         self.captchaView.byAlpha(1);
-
         self.magicTextField.byAlpha(1);
-
         [self configTextField];
     };
 }
@@ -160,7 +158,6 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                     make.left.top.bottom.equalTo(self);
                     make.right.equalTo(self.captchaView.mas_left).offset(-JobsWidth(8));
                 });
-
             [textField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
                 @jobs_strongify(self)
                 return self.retBoolByIDBlock ? self.retBoolByIDBlock(data) : YES;

@@ -18,12 +18,10 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
 @end
 
 @implementation JobsGestureLockView
-
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [self initWithConfiguration:nil];
     if (self) {
         self.frame = frame;
-
     };return self;
 }
 
@@ -34,7 +32,6 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
         _selectedButtons = [NSMutableArray array];
         _errorButtons = [NSMutableArray array];
         self.byBgColor(UIColor.clearColor);
-
         [self buildSubviews];
     };return self;
 }
@@ -42,7 +39,6 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
 - (void)buildSubviews {
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
     [self addGestureRecognizer:pan];
-
     for (NSInteger index = 0; index < 9; index++) {
         jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
@@ -57,18 +53,15 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-
     NSInteger columns = 3;
     CGFloat side = CGRectGetWidth(self.bounds) <= 320.0 ? 50.0 : 58.0;
     CGFloat margin = (CGRectGetWidth(self.bounds) - columns * side) / (columns + 1);
-
     [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
         NSUInteger row = idx / columns;
         NSUInteger column = idx % columns;
         CGFloat x = margin + (side + margin) * column;
         CGFloat y = margin + (side + margin) * row;
         view.frame = CGRectMake(x, y, side, side);
-
     }];
 }
 
@@ -76,7 +69,6 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
     if (self.selectedButtons.count == 0) {
         return;
     }
-
     UIBezierPath *path = jobsMakeBezierPath(nil);
     [self.selectedButtons enumerateObjectsUsingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx == 0) {
@@ -85,7 +77,6 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
             [path addLineToPoint:button.center];
         }
     }];
-
     if (!self.finished) {
         [path addLineToPoint:self.currentPoint];
         [self.configuration.selectedLineColor setStroke];
@@ -104,7 +95,6 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
                 break;
         }
     }
-
     path.lineWidth = self.configuration.lineWidth;
     path.lineJoinStyle = kCGLineJoinRound;
     path.lineCapStyle = kCGLineCapRound;
@@ -115,16 +105,13 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
     if (pan.state == UIGestureRecognizerStateBegan) {
         [self restoreErrorButtonsIfNeeded];
     }
-
     self.currentPoint = [pan locationInView:self];
-
     for (UIButton *button in self.subviews) {
         if (CGRectContainsPoint(button.frame, self.currentPoint) && !button.jobs_isSelected) {
             button.bySelected(YES);
             [self.selectedButtons addObject:button];
         }
     }
-
     if (pan.state == UIGestureRecognizerStateEnded || pan.state == UIGestureRecognizerStateCancelled || pan.state == UIGestureRecognizerStateFailed) {
         self.finished = YES;
         NSString *pattern = [self currentPattern];
@@ -132,7 +119,6 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
             [self.delegate gestureLockView:self didCompletePattern:pattern];
         }
     }
-
     [self setNeedsDisplay];
 }
 

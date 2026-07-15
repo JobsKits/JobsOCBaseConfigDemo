@@ -39,29 +39,23 @@ AppToolsProtocol_synthesize
     [super setSelected:selected];
     _selected = selected;
     self.button.bySelected(selected);
-    
     if(self.buttonModel){
         self.button.jobsResetBtnTitle(selected ? (self.buttonModel.selectedTitle ? : self.buttonModel.title) : self.buttonModel.title);
         self.button.jobsResetBtnTitleCor(selected ? (self.buttonModel.selectedTitleCor ? : self.buttonModel.titleCor) : self.buttonModel.titleCor);
         self.button.jobsResetBtnTitleFont(selected ? (self.buttonModel.selectedTitleFont ? : self.buttonModel.titleFont) : self.buttonModel.titleFont);
-        
         self.button.jobsResetBtnSubTitle(selected ? (self.buttonModel.selectedSubTitle ? : self.buttonModel.subTitle) : self.buttonModel.subTitle);
         self.button.jobsResetBtnSubTitleCor(selected ? (self.buttonModel.selectedTitleCor ? : self.buttonModel.subTitleCor) : self.buttonModel.subTitleCor);
         self.button.jobsResetBtnSubTitleFont(selected ? (self.buttonModel.selectedSubTitleFont ? : self.buttonModel.subTitleFont) : self.buttonModel.subTitleFont);
-
         if(self.buttonModel.attributedTitle || self.buttonModel.selectedAttributedTitle){
             self.button.jobsResetAttributedTitle(selected ? (self.buttonModel.selectedAttributedTitle ? : self.buttonModel.attributedTitle): self.buttonModel.attributedTitle);
         }
-        
         if(self.buttonModel.attributedSubTitle || self.buttonModel.selectedAttributedSubTitle){
             self.button.jobsResetAttributedSubtitle(selected ? (self.buttonModel.selectedAttributedSubTitle ? : self.buttonModel.attributedSubTitle) : self.buttonModel.attributedSubTitle);
         }
-
         self.button.jobsResetBtnImage(selected ? (self.buttonModel.highlightImage ? : self.buttonModel.normalImage) : self.buttonModel.normalImage);
         self.button.jobsResetBtnBgImage(selected ? (self.buttonModel.highlightBackgroundImage ? : self.buttonModel.backgroundImage) : self.buttonModel.backgroundImage);
         self.button.jobsResetBtnBgCor(selected ? (self.buttonModel.selectedBaseBackgroundColor ? : self.buttonModel.baseBackgroundColor) : self.buttonModel.baseBackgroundColor);
     }
-    
     if(self.viewModel){
         NSString *normalTitle = isValue(self.viewModel.title) ? self.viewModel.title : self.viewModel.textModel.text;
         NSString *selectedTitle = isValue(self.viewModel.selectedTitle) ? self.viewModel.selectedTitle : self.viewModel.textModel.selectedText;
@@ -75,7 +69,6 @@ AppToolsProtocol_synthesize
         self.button.jobsResetBtnTitle(selected ? selectedTitle : normalTitle);
         self.button.jobsResetBtnTitleCor(selected ? selectedTitleCor : normalTitleCor);
         self.button.jobsResetBtnTitleFont(selected ? selectedTitleFont : normalTitleFont);
-        
         NSString *normalSubTitle = isValue(self.viewModel.subTitle) ? self.viewModel.subTitle : self.viewModel.subTextModel.subText;
         NSString *selectedSubTitle = isValue(self.viewModel.selectedSubTitle) ? self.viewModel.selectedSubTitle : self.viewModel.subTextModel.selectedSubText;
         selectedSubTitle = isValue(selectedSubTitle) ? selectedSubTitle : normalSubTitle;
@@ -88,15 +81,12 @@ AppToolsProtocol_synthesize
         self.button.jobsResetBtnSubTitle(selected ? selectedSubTitle : normalSubTitle);
         self.button.jobsResetBtnSubTitleCor(selected ? selectedSubTitleCor : normalSubTitleCor);
         self.button.jobsResetBtnSubTitleFont(selected ? selectedSubTitleFont : normalSubTitleFont);
-        
         if(self.viewModel.attributedTitle || self.viewModel.selectedAttributedTitle){
             self.button.jobsResetAttributedTitle(selected ? (self.viewModel.selectedAttributedTitle ? : self.viewModel.attributedTitle): self.viewModel.attributedTitle);
         }
-        
         if(self.viewModel.attributedSubTitle || self.viewModel.selectedAttributedSubTitle){
             self.button.jobsResetAttributedSubtitle(selected ? (self.viewModel.selectedAttributedSubTitle ? : self.viewModel.attributedSubTitle) : self.viewModel.attributedSubTitle);
         }
-        
         self.button.jobsResetBtnImage(selected ? (self.viewModel.highlightImage ? : self.viewModel.normalImage) : self.viewModel.normalImage);
         self.button.jobsResetBtnBgImage(selected ? (self.viewModel.highlightBackgroundImage ? : self.viewModel.backgroundImage) : self.viewModel.backgroundImage);
         self.button.jobsResetBtnBgCor(selected ? (self.viewModel.selectedBaseBackgroundColor ? : self.viewModel.baseBackgroundColor) : self.viewModel.baseBackgroundColor);

@@ -119,7 +119,6 @@ uploadVideosParamArr:(NSArray *_Nullable)uploadVideosParamArr
                 case HTTPResponseCodeOffline:{// 账号已在其他设备登录
                     self.jobsToastErrMsg(@"账号已在其他设备登录t".tr);
                 }break;
-                    
                 default:{
                     if ([error isKindOfClass:JobsResponseModel.class]) {
                         JobsResponseModel *model = (JobsResponseModel *)error;

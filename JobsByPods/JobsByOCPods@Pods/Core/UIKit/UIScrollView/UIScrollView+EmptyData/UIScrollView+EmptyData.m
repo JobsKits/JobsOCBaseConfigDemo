@@ -8,7 +8,6 @@
 #import "UIScrollView+EmptyData.h"
 
 @implementation UIScrollView (EmptyData)
-
 -(JobsRetScrollViewByButtonModelBlock _Nonnull)emptyDataByButtonModel{
     @jobs_weakify(self)
     return ^__kindof UIScrollView *_Nullable(__kindof UIButtonModel *_Nullable buttonModel){

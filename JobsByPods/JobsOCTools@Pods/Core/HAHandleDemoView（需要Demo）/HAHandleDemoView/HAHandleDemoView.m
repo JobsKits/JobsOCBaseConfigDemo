@@ -44,7 +44,6 @@ Prop_strong()NSTimer *shrinkTimer;
 - (void)handleBtnTouchDownAction{
     currentMaxSide = [self calculateMaxSide];
     self.bgView.byHidden(NO);
-
     self.enlangerTimer = [NSTimer scheduledTimerWithTimeInterval:enlangerDuration target:self selector:@selector(handleEnlargerAction) userInfo:nil repeats:YES];
 }
 // 点击放大
@@ -76,7 +75,6 @@ Prop_strong()NSTimer *shrinkTimer;
         [self.shrinkTimer invalidate];
 //        self.handleDemoBtn.userInteractionEnabled = YES;
         self.bgView.byHidden(YES);
-
         self.bgView.transform = CGAffineTransformIdentity;
         if (self.delegate && [self.delegate respondsToSelector:@selector(animationCancel)]) {
             [self.delegate animationCancel];

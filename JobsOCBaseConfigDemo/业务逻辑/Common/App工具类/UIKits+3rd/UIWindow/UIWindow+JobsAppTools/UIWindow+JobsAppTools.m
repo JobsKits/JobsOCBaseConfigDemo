@@ -12,7 +12,6 @@
 -(__kindof UIWindow *)landscape{
     if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
         self.byFrame(self.landscapeWindowFrame());
-
     };return self;
 }
 

@@ -7,7 +7,6 @@
 
 #import <objc/runtime.h>
 #import <AudioToolbox/AudioToolbox.h>
-
 #import "JobsOCRefreshComponent.h"
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)

@@ -8,11 +8,9 @@
 #import "GXCardItemDemoCell.h"
 
 @implementation GXCardItemDemoCell
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
     self.layer.cornerRadius = 10.0;
     self.layer.borderColor = [UIColor grayColor].CGColor;
     self.layer.borderWidth = 1.0;
@@ -23,7 +21,6 @@
 }
 
 - (IBAction)buttonClicked:(id)sender {
-    
 }
 
 @end

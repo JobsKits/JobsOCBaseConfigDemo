@@ -8,5 +8,4 @@
 #ifndef JobsNumber_h
 #define JobsNumber_h
 
-
 #endif /* JobsNumber_h */

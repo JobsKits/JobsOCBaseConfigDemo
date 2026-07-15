@@ -14,7 +14,6 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 @end
 
 @implementation CustomTableViewCellVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -40,7 +39,6 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
             data.byText(data.attributedTitle.string);
             data.byFont(UIFontWeightRegularSize(16));
         })
-    
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
@@ -52,7 +50,6 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.makeNavByAlpha(1);
     self.collectionView.byShow(self);
 }

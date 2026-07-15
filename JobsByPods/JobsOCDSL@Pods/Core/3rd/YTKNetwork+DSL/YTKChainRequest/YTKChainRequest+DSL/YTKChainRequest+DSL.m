@@ -16,7 +16,6 @@ Prop_copy(nullable)JobsYTKChainFailureBlock failureBlock;
 @end
 
 @implementation JobsYTKChainDelegateProxy
-
 -(void)chainRequestFinished:(YTKChainRequest *)chainRequest{
     if (self.successBlock) self.successBlock(chainRequest);
     if ([self.realDelegate respondsToSelector:@selector(chainRequestFinished:)]){
@@ -34,7 +33,6 @@ Prop_copy(nullable)JobsYTKChainFailureBlock failureBlock;
 @end
 
 @implementation YTKChainRequest (DSL)
-
 JobsKey(JobsYTKChainDelegateProxyKey)
 -(NSArray<YTKBaseRequest *> *)jobs_requests{
     return self.requestArray;

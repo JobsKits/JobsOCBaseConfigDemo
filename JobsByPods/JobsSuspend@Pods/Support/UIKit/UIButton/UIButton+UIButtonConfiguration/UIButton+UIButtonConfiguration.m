@@ -10,7 +10,6 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
 @implementation UIButton (UIButtonConfiguration)
-
 -(jobsByVoidBlock _Nonnull)updateConfigBy{
     @jobs_weakify(self)
     return ^(){
@@ -40,7 +39,6 @@
             config = self.configuration.copy;
         }else{
             config = jobsMakePlainBtnConfig(^(__kindof UIButtonConfiguration * _Nullable config) {
-
             });
         }
         if (configurationBlock) configurationBlock(config);
@@ -210,7 +208,6 @@
             UIBackgroundConfiguration *bgConfig = config.background.copy;
             config.baseBackgroundColor = data;
             bgConfig.backgroundColor = data;
-
             config.background = bgConfig;
         }];
     };

@@ -6,7 +6,6 @@
 #import "CAPropertyAnimation+DSL.h"
 
 @implementation CAPropertyAnimation (JobsChain)
-
 +(JobsRetCAPropertyAnimationByStrBlock)byAnimationWithKeyPath{
     return ^__kindof CAPropertyAnimation *_Nullable(NSString *_Nullable data){
         return [self animationWithKeyPath:data];

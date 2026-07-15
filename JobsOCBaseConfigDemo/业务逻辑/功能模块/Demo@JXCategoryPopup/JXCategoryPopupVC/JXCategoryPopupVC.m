@@ -25,7 +25,6 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 @end
 
 @implementation JXCategoryPopupVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -48,16 +47,11 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.byBgColor(HEXCOLOR(0xF7E7D2));
     self.makeNavByAlpha(1);
-    
     self.categoryView.byAlpha(1);
-
     self.filterBtn.byAlpha(1);
-
     self.customBtn.byAlpha(1);
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -136,12 +130,10 @@ didClickSelectedItemAtIndex:(NSInteger)index {
 ///【点击选中或者滚动选中的结果】点击选中或者滚动选中都会调用该方法。适用于只关心选中事件，不关心具体是点击还是滚动选中的。
 - (void)categoryView:(JXCategoryBaseView *)categoryView
 didSelectedItemAtIndex:(NSInteger)index {
-    
 }
 ///【滚动选中的结果】滚动选中的情况才会调用该方法
 - (void)categoryView:(JXCategoryBaseView *)categoryView
 didScrollSelectedItemAtIndex:(NSInteger)index{
-    
 }
 //传递scrolling事件给listContainerView，必须调用！！！
 - (void)categoryView:(JXCategoryBaseView *)categoryView
@@ -172,7 +164,6 @@ ratio:(CGFloat)ratio {
     if (!_categoryView) {
         _categoryView = JXCategoryTitleView.new;
         _categoryView.byBgColor(RGBA_COLOR(255, 238, 221, 0.98));
-
         _categoryView.titleSelectedColor = HEXCOLOR(0xAE8330);
         _categoryView.titleColor = HEXCOLOR(0x8D765C);
         _categoryView.titleFont = UIFontWeightRegularSize(16);
@@ -191,7 +182,6 @@ ratio:(CGFloat)ratio {
             make.right.equalTo(self.view).offset(JobsWidth(-130));
             make.height.mas_equalTo(listContainerViewDefaultOffset);
         });
-
         [self.view layoutIfNeeded];
     };return _categoryView;
 }
@@ -215,7 +205,6 @@ ratio:(CGFloat)ratio {
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(listContainerViewDefaultOffset);
             make.left.right.bottom.equalTo(self.view);
         });
-
         [self.view layoutIfNeeded];
         /// ❤️在需要的地方写❤️
         JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %ld",(long)[self jobsCurrentListIndex]);

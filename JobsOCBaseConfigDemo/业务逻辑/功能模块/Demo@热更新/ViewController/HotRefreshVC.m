@@ -24,7 +24,6 @@ static NSString *const JobsHotRefreshProgressTimerID = @"com.jobs.demo.hotrefres
 static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payload";
 
 @implementation HotRefreshVC
-
 - (void)dealloc{
     [self restoreHotPatchIfNeeded];
     [self stopProgressTimer];
@@ -34,7 +33,6 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
 
 -(void)loadView{
     [super loadView];
-
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -85,7 +83,6 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
     self.progressView
         .byProgress(0)
         .byHidden(NO);
-
     @jobs_weakify(self)
     [JobsTimerMgr.shared upsertTimerWithIdentifier:JobsHotRefreshProgressTimerID
                                          timerType:JobsTimerTypeNSTimer

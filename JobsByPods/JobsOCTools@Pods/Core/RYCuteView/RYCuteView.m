@@ -61,7 +61,6 @@ Prop_strong() JobsTimer *displayTimer;
               // 手势移动时相对高度
     self.isAnimating = NO;
                  // 初始无动效
-
     @jobs_weakify(self)
     // curveX / curveY 任一变化，都重绘 shapeLayer.path
     [[[RACObserve(self, curveX)
@@ -85,15 +84,12 @@ Prop_strong() JobsTimer *displayTimer;
             [bezier closePath];
         }).CGPath;
     }];
-
     // 触发 lazy getter，确保图层和红点都挂上去
     self.shapeLayer.opacity = 1.0;
     self.curveX = JobsMainScreen_WIDTH() / 2.0;   // r5 初始 x
     self.curveY = self.MIN_HEIGHT;
                 // r5 初始 y
     self.curveView.byAlpha(1.0);
-
-
     [self configAction];
 }
 #pragma mark —— 手势 & 动效
@@ -101,35 +97,27 @@ Prop_strong() JobsTimer *displayTimer;
     @jobs_weakify(self)
     // 手势：内部仍然用你的 DSL
     self.addGesture([jobsMakePanGesture(^(UIPanGestureRecognizer * _Nullable gesture) {
-
     }) GestureActionBy:^(__kindof UIGestureRecognizer * _Nullable gesture) {
         @jobs_strongify(self)
         if (!self) return;
-
         if (!self.isAnimating) {
             UIPanGestureRecognizer *pan = (UIPanGestureRecognizer *)gesture;
-
             if (pan.state == UIGestureRecognizerStateChanged) {
                 // 手势移动中，shape 层跟着往下“拉”
                 CGPoint point = [pan translationInView:self];
-
                 // 这部分代码让 r5 红点跟着手势走
                 self.mHeight = point.y * 0.7 + self.MIN_HEIGHT;
                 self.curveX  = JobsMainScreen_WIDTH() / 2.0 + point.x;
                 self.curveY  = self.mHeight > self.MIN_HEIGHT ? self.mHeight : self.MIN_HEIGHT;
-
                 self.curveView.resetOrigin(CGPointMake(self.curveX, self.curveY));
             }
             else if (pan.state == UIGestureRecognizerStateCancelled ||
                      pan.state == UIGestureRecognizerStateEnded     ||
                      pan.state == UIGestureRecognizerStateFailed) {
-
                 // 手势结束：开始弹簧动画 + 开启 JobsTimer 追踪 r5 的实际运动轨迹
                 self.isAnimating = YES;
-
                 // 开启 displayLink 型定时器（60 FPS）
                 [self.displayTimer start];
-
                 @jobs_weakify(self)
                 [UIView animateWithDuration:1.0
                                       delay:0.0
@@ -147,7 +135,6 @@ Prop_strong() JobsTimer *displayTimer;
                 } completion:^(BOOL finished) {
                     @jobs_strongify(self)
                     if (!self) return;
-
                     if (finished) {
                         // 动画结束，停掉定时器，标记为非动效状态
                         [self.displayTimer stop];
@@ -206,7 +193,6 @@ Prop_strong() JobsTimer *displayTimer;
                     self.isAnimating = NO;
                     return;
                 }
-
                 self.curveX = presentation.position.x;
                 self.curveY = presentation.position.y;
             })
@@ -215,7 +201,6 @@ Prop_strong() JobsTimer *displayTimer;
                 JobsLog(@"倒计时结束...");
                 if (self.objBlock) self.objBlock(timer);
             });
-
             timer.accumulatedElapsed       = 0;
             timer.lastStartDate            = nil;
         });

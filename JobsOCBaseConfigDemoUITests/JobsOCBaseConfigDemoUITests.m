@@ -12,7 +12,6 @@
 @end
 
 @implementation JobsOCBaseConfigDemoUITests
-
 -(void)setUp {
     [super setUp];
     self.continueAfterFailure = NO;

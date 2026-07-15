@@ -9,7 +9,6 @@
 
 JobsKey(JobsOCDSLNSObjectWeakTargetKey)
 @implementation NSObject (Extra)
-
 @dynamic weak_target;
 
 -(id)weak_target{

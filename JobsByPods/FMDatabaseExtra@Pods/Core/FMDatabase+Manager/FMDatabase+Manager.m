@@ -61,7 +61,6 @@
         NSDate *begin = NSDate.date;
         [self beginTransaction];
         BOOL rollBack = NO;
-        
         @try {
             [NSObject targetObj:targetObj callingMethodWithName:methodName];
         }@catch(NSException *exception) {
@@ -72,11 +71,9 @@
             // 在事务中执行任务成功之后
             [self commit];
             [self close];
-            
             NSDate *end = NSDate.date;
             NSTimeInterval time = [end timeIntervalSinceDate:begin];
             NSLog(@"事务耗时 = %f",time);
-            
             return rollBack = NO;
         }
     }else{

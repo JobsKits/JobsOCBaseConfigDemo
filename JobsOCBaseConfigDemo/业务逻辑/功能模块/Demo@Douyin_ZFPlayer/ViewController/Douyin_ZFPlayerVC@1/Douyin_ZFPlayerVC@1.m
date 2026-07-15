@@ -15,7 +15,6 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
 @end
 
 @implementation Douyin_ZFPlayerVC_1
-
 - (void)dealloc {
     [self stopVisiblePlayers];
     JobsLog(@"%@",JobsLocalFunc);
@@ -29,7 +28,6 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -45,7 +43,6 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
             data.byText(data.attributedTitle.string);
             data.byFont(UIFontWeightRegularSize(16));
         })
-    
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
@@ -57,13 +54,9 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-
     self.view.byBgColor(JobsBlackColor);
-
     self.makeNavByAlpha(1);
-    
     self.tableView.byShow(self);
-    
 //    [self monitorScrollView];
 //    [self requestData:NO];
 }
@@ -110,7 +103,6 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
     @jobs_weakify(self)
     NSDictionary *parameters = @{@"pageSize":@(10),
                                  @"pageNum":self.currentPage};
-
     [JobsNetworkingAPI requestApi:This.appInterfaceTesting.funcName
                        parameters:parameters
                      successBlock:^(JobsResponseModel *data) {
@@ -118,25 +110,21 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
         JobsLog(@"");
         if([data.data isKindOfClass:NSArray.class]){
             NSArray *tempDataArr = (NSArray *)data.data;
-            
             {// 数据组装
                 /**
                     上拉加载更多
                     请求到有实际意义上的数据 ——> 上拉加载更多
                     请求到没有有实际意义上的数据 ——>  没有更多数据了
                  */
-                
                 /**
                  下拉刷新
                     请求到有实际意义上的数据 ——> 清除以前的旧的数据 下拉可以刷新
                     请求到没有有实际意义上的数据 ——> 不清除以前的旧的数据 下拉可以刷新
                  */
-                
                 // 如果当前操作是下拉刷新 并且 请求到的数组里面有值——>清除已有的数据
                 if (!isLoadMore && tempDataArr.count) {
                     [self.dataMutArr removeAllObjects];
                 }
-                
                 if (isLoadMore) {
                     if (tempDataArr.count) {
                         [self.dataMutArr addObjectsFromArray:tempDataArr];
@@ -175,12 +163,10 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
 //            JobsLog(@"1");
             return @"1";
         }
-
         if (self.tableView.contentOffset.y - self.tableView.contentSize.height < 80 &&
             self.tableView.contentSize.height > 80) {
             //上拉加载方法
             self.tableView.mj_footer.byHidden(NO);
-
 //            [self.tableView.mj_footer endRefreshingWithNoMoreData]; MJRefreshStateNoMoreData
             self.tableView.mj_footer.state = MJRefreshStateNoMoreData;
             [self.tableView.mj_footer endRefreshing];
@@ -227,22 +213,18 @@ numberOfRowsInSection:(NSInteger)section{
         @jobs_strongify(self)
         NSNumber *direction = data.jobsTupleValueArr[0];
         NSNumber *index = data.jobsTupleValueArr[1];
-        
         self.index = index.intValue;
         if (direction.intValue) {//手势朝下
             self.index -= 1;
         }else{//手势朝上
             self.index += 1;
         }
-
         if (self.index < 0) {
             self.index = 0;
         }
-
         if (self.index > self.dataMutArr.count - 1) {
             self.index = self.dataMutArr.count - 1;
         }
-
         JobsLog(@"MMM = %ld",self.index);
         [self roll];
     });

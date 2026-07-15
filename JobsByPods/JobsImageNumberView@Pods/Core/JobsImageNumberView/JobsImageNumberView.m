@@ -14,11 +14,9 @@ Prop_strong()NSArray <UIImage *>*dataMutArr;
 @end
 
 @implementation JobsImageNumberView
-
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsClearColor);
-
     };return self;
 }
 

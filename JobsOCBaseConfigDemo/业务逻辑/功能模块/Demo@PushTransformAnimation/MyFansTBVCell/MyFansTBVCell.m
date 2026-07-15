@@ -40,17 +40,14 @@
 -(void)setFrame:(CGRect)frame{
     JobsLog(@"self.offsetXForEach = %f",self.offsetXForEach);
     JobsLog(@"self.offsetYForEach = %f",self.offsetYForEach);
-
     if (!frame.origin.x) {
         frame.origin.x += self.offsetXForEach;
         frame.size.width -= self.offsetXForEach * 2;
     }
-    
     if (!frame.origin.y) {
         frame.origin.y += self.offsetYForEach;
         frame.size.height -= self.offsetYForEach * 2;
     }
-    
     [super setFrame:frame];
 }
 #pragma mark —— BaseCellProtocol

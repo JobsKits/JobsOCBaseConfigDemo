@@ -8,7 +8,6 @@
 #import "PDFDocument+Extra.h"
 
 @implementation PDFDocument (Extra)
-
 +(JobsRetPDFDocumentByURLBlock _Nonnull)byURL{
     return ^ __kindof PDFDocument *_Nullable(NSURL *_Nullable pdfURL){
         return [PDFDocument.alloc initWithURL:pdfURL];

@@ -7,6 +7,7 @@
 
 /// 全局的Block块定义
 /// 基本数据类型尽量的用NSNumber进行二次封装成对象对外输出
+#import <CoreMotion/CoreMotion.h>
 #import <UIKit/UIKit.h>
 #import <EventKit/EventKit.h>
 #import <MessageUI/MessageUI.h>
@@ -50,6 +51,17 @@ typedef __kindof UIViewController *_Nullable(^JobsRetVCByRetIDByIDBlocks)(JobsRe
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
 #pragma mark —— 涉及到自定义类的Block定义
+/// CMMotionManager
+typedef __kindof CMMotionManager *_Nullable(^JobsRetCMMotionManagerByVoidBlock)(void);
+typedef __kindof CMMotionManager *_Nullable(^JobsRetCMMotionManagerByTimeIntervalBlock)(NSTimeInterval data);
+typedef __kindof CMMotionManager *_Nullable(^JobsRetCMMotionManagerByBOOLBlock)(BOOL data);
+typedef __kindof CMMotionManager *_Nullable(^JobsRetCMMotionManagerByAttitudeReferenceFrameBlock)(CMAttitudeReferenceFrame data);
+typedef __kindof CMMotionManager *_Nullable(^JobsRetCMMotionManagerByOperationQueueAndAccelerometerHandlerBlock)(NSOperationQueue *_Nonnull queue, CMAccelerometerHandler _Nonnull handler);
+typedef __kindof CMMotionManager *_Nullable(^JobsRetCMMotionManagerByOperationQueueAndGyroHandlerBlock)(NSOperationQueue *_Nonnull queue, CMGyroHandler _Nonnull handler);
+typedef __kindof CMMotionManager *_Nullable(^JobsRetCMMotionManagerByOperationQueueAndMagnetometerHandlerBlock)(NSOperationQueue *_Nonnull queue, CMMagnetometerHandler _Nonnull handler);
+typedef __kindof CMMotionManager *_Nullable(^JobsRetCMMotionManagerByOperationQueueAndDeviceMotionHandlerBlock)(NSOperationQueue *_Nonnull queue, CMDeviceMotionHandler _Nonnull handler);
+typedef __kindof CMMotionManager *_Nullable(^JobsRetCMMotionManagerByReferenceFrameOperationQueueAndDeviceMotionHandlerBlock)(CMAttitudeReferenceFrame referenceFrame, NSOperationQueue *_Nonnull queue, CMDeviceMotionHandler _Nonnull handler);
+
 typedef ComponentType(^JobsRetComponentTypeByVoidBlock)(void);
 typedef DeviceOrientation(^JobsRetDeviceOrientationByVoidBlock)(void);
 typedef AppLanguage(^JobsRetAppLanguageByVoidBlock)(void);
@@ -410,6 +422,7 @@ typedef __kindof MGSwipeTableCell *_Nullable(^JobsRetMGSwipeTableCellByBOOLBlock
 typedef __kindof MGSwipeTableCell *_Nonnull(^JobsRetMGSwipeTableCellByDelegateBlock)(id<MGSwipeTableCellDelegate> _Nullable delegate);
 /// https://github.com/QuintGao/GKNavigationBar
 typedef __kindof GKCustomNavigationBar *_Nullable(^JobsRetGKNavBarByButtonModelBlock)(__kindof UIButtonModel *_Nullable model);
+
 #if __has_include(<GKNavigationBar/GKNavigationBar.h>) || __has_include("GKNavigationBar.h")
 typedef void(^jobsByGKCustomNavigationBarBlock)(__kindof GKCustomNavigationBar *_Nullable navigationBar);
 typedef __kindof UIViewController *_Nullable(^JobsRetGKNavVCByBOOLBlock)(BOOL data);
@@ -440,6 +453,7 @@ typedef __kindof GKNavigationBarConfigure *_Nullable(^JobsRetGKNavConfigureByFix
 typedef __kindof GKNavigationBarConfigure *_Nullable(^JobsRetGKNavConfigureByNavItemSpacingBlock)(NSNumber *_Nullable left, NSNumber *_Nullable right);
 typedef __kindof GKNavigationBarConfigure *_Nullable(^JobsRetGKNavConfigureByPresetBlock)(UIColor *_Nullable backgroundColor, UIImage *_Nullable backgroundImage, UIImage *_Nullable darkBackgroundImage, UIColor *_Nullable titleColor, UIFont *_Nullable titleFont, NSNumber *_Nullable backStyle);
 #endif
+
 #if __has_include(<GKNavigationBar/GKGestureHandleConfigure.h>) || __has_include("GKGestureHandleConfigure.h")
 typedef __kindof GKGestureHandleConfigure *_Nullable(^JobsRetGKGestureConfigureByConfigureBlock)(void (^ _Nullable block)(GKGestureHandleConfigure *configure));
 typedef __kindof GKGestureHandleConfigure *_Nullable(^JobsRetGKGestureConfigureByCGFloatBlock)(CGFloat data);
@@ -558,6 +572,7 @@ typedef NSArray<RACSignal *>*_Nonnull(^JobsRetRACSignalArrByVoidBlock)(void);
 /// https://github.com/QuintGao/GKPhotoBrowser
 typedef GKPhotoBrowser *_Nullable(^JobsRetGKPhotoBrowserByPhotosArrayAndCurrentIndexBlock)(Jobs_ReturnGKPhotoBrowserByPhotosArrayAndCurrentIndexBlock_Arguments);
 /// https://github.com/renzifeng/ZFPlayer
+
 #if __has_include(<ZFPlayer/ZFPlayer.h>) || __has_include("ZFPlayer.h")
 typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByViewBlock)(__kindof UIView *_Nullable data);
 typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByManagerBlock)(id<ZFPlayerMediaPlayback> _Nullable data);
@@ -581,6 +596,7 @@ typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByMediaBlock)(voi
 typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByMediaErrorBlock)(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, id error));
 typedef __kindof ZFPlayerController *_Nullable(^JobsRetZFPlayerByOrientationChangeBlock)(void (^ _Nullable data)(ZFPlayerController *player, BOOL isFullScreen));
 #endif
+
 #if __has_include(<ZFPlayer/ZFAVPlayerManager.h>) || __has_include("ZFAVPlayerManager.h")
 typedef __kindof ZFAVPlayerManager *_Nullable(^JobsRetZFAVPlayerManagerByTimeIntervalBlock)(NSTimeInterval data);
 typedef __kindof ZFAVPlayerManager *_Nullable(^JobsRetZFAVPlayerManagerByDictionaryBlock)(NSDictionary *_Nullable data);

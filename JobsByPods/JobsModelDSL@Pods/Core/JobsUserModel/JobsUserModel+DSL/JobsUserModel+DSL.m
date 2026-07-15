@@ -8,7 +8,6 @@
 #import "JobsUserModel+DSL.h"
 
 @implementation JobsUserModel (DSL)
-
 -(JobsRetJobsUserModelByStrBlock _Nonnull)byUserName{
     @jobs_weakify(self)
     return ^__kindof JobsUserModel *_Nullable(NSString * _Nullable data) {

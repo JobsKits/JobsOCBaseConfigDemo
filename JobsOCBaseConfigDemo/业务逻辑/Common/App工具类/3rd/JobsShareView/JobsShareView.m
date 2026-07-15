@@ -35,7 +35,6 @@ static dispatch_once_t static_shareViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-
     };return self;
 }
 
@@ -71,7 +70,6 @@ static dispatch_once_t static_shareViewOnceToken;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -83,7 +81,6 @@ static dispatch_once_t static_shareViewOnceToken;
         self.sizer = JobsShareView.viewSizeByModel(nil);
         self.collectionView.byShow(self);
         self.cancelBtn.byAlpha(1);
-
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -148,25 +145,18 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     viewModel.textModel.text.toast();
     {
         if(viewModel.textModel.text.isEqualToString(@"个人资料".tr)){
-            
         }
         if(viewModel.textModel.text.isEqualToString(@"意见反馈".tr)){
-            
         }
         if(viewModel.textModel.text.isEqualToString(@"消息通知".tr)){
-            
         }
         if(viewModel.textModel.text.isEqualToString(@"收货地址".tr)){
-            
         }
         if(viewModel.textModel.text.isEqualToString(@"修改密码".tr)){
-            
         }
         if(viewModel.textModel.text.isEqualToString(@"设置".tr)){
-            
         }
         if(viewModel.textModel.text.isEqualToString(@"购物车".tr)){
-            
         }
     }
 }

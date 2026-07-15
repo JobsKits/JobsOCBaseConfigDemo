@@ -19,7 +19,6 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
 @end
 
 @implementation ZMJTimeableVC
-
 - (void)dealloc{
     JobsNotificationCenter.remove(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -27,14 +26,12 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"返回".tr);
@@ -55,11 +52,9 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsRandomColor);
-
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
     self.spreadsheetView.byAlpha(1);
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -148,27 +143,22 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
     if (indexPath.column == 0 && indexPath.row == 0) {
         return nil;
     }
-    
     if (indexPath.column == 0 && indexPath.row > 0) {
         HourCell *cell = (HourCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(HourCell.class) forIndexPath:indexPath];
         cell.label.byText([self.hourFormatter stringFromDate:[self.twelveHourFormatter dateFromString:[NSString stringWithFormat:@"%ld", (long)(indexPath.row / 60 % 24)]]]);
-
         cell.gridlines.top = [GridStyle style:GridStyle_solid width:1 color:JobsWhiteColor];
         cell.gridlines.bottom = [GridStyle style:GridStyle_solid width:1 color:JobsWhiteColor];
         return cell;
     }
-    
     if (indexPath.column > 0 && indexPath.row == 0) {
         ChannelCell *cell = (ChannelCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(ChannelCell.class) forIndexPath:indexPath];
         cell.label.byText(self.channels[indexPath.column - 1]);
-
         cell.gridlines.top = [GridStyle style:GridStyle_solid width:1 color:JobsBlackColor];
         cell.gridlines.bottom = [GridStyle style:GridStyle_solid width:1 color:JobsWhiteColor];
         cell.gridlines.left = [GridStyle style:GridStyle_solid width:1 / UIScreen.mainScreen.scale color:[UIColor colorWithWhite:.3 alpha:1]];
         cell.gridlines.right = cell.gridlines.left;
         return cell;
     }
-    
     NSArray<NSNumber *> *minutesDuration = self.slotInfo[indexPath];
     if (minutesDuration) {
         NSInteger minutes = minutesDuration[0].integerValue;
@@ -257,7 +247,6 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
         [_spreadsheetView registerClass:SlotCell.class forCellWithReuseIdentifier:NSStringFromClass(SlotCell.class)];
         [_spreadsheetView registerClass:MyBlankCell.class forCellWithReuseIdentifier:NSStringFromClass(MyBlankCell.class)];
         _spreadsheetView.byBgColor(JobsLightGrayColor.colorWithAlphaComponentBy(.7f));
-
         CGFloat hairline = 1 / UIScreen.mainScreen.scale;
         _spreadsheetView.intercellSpacing = CGSizeMake(hairline, hairline);
         _spreadsheetView.gridStyle = [GridStyle style:GridStyle_solid width:hairline color:UIColor.lightGrayColor];

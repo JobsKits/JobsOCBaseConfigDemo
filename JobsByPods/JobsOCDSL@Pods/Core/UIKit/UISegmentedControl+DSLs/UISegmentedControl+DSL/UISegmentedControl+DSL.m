@@ -8,7 +8,6 @@
 #import "UISegmentedControl+DSL.h"
 
 @implementation UISegmentedControl (DSL)
-
 -(NSInteger)jobs_selectedSegmentIndex{
     return self.selectedSegmentIndex;
 }

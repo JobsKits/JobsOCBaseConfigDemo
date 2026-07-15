@@ -8,7 +8,6 @@
 #import "UINavigationBarAppearance+DSL.h"
 
 @implementation UINavigationBarAppearance (DSL)
-
 -(JobsRetNavigationBarAppearanceByDictionaryBlock _Nonnull)byTitleTextAttributes{
     @jobs_weakify(self)
     return ^__kindof UINavigationBarAppearance *_Nullable(NSDictionary<NSAttributedStringKey,id> *_Nullable data){

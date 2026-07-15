@@ -97,6 +97,7 @@
 NS_INLINE __kindof UINavigationController * _Nullable JobsNavCtrl(UIViewController __kindof * _Nonnull viewController){
     return viewController.navigationController ? viewController : [UINavigationController.alloc initWithRootViewController:viewController];
 }
+
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else

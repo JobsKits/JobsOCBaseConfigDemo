@@ -12,18 +12,15 @@
 @end
 
 @implementation MyBlankCell
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.byBgColor([UIColor colorWithWhite:0.9 alpha:1]);
-
     };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
         self.byBgColor([UIColor colorWithWhite:0.9 alpha:1]);
-
     };return self;
 }
 

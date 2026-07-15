@@ -8,7 +8,6 @@
 #import "UNUserNotificationCenter+DSL.h"
 
 @implementation UNUserNotificationCenter (DSL)
-
 -(JobsRetUNUserNotificationCenterByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof UNUserNotificationCenter *_Nullable(id<UNUserNotificationCenterDelegate> _Nullable delegate){

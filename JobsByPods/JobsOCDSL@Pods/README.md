@@ -13,6 +13,7 @@
 ## 一、适用场景
 
 - 对系统类或少量第三方 UI 类的方法做链式封装，例如 `UIView`、`UITableView`、`UITextField`、`UITextView`、`UIBackgroundConfiguration`、`UIControl`、`ASButtonNode`。
+- `CMMotionManager+DSL` 覆盖加速度计、陀螺仪、磁力计与设备姿态的更新频率、启动、停止、队列回调及参考坐标系配置；调用方可从 `CMMotionManager.byMotionManager()` 开始一链完成配置和监听。
 - 系统类 DSL 以“当前类本层级”为边界，只封装当前类自己声明的属性、无参数方法和单参数方法；父类能力留在父类 DSL，子类特有能力留在子类 DSL。
 - OC 侧 DSL 统一依赖 `JobsBlock` 提供 Block typedef，避免每个 Pod 自己散落定义。
 - 原本散在其它本地 Pod 里的纯 DSL 分类逐步迁移到这里，调用方通过 `JobsOCDSL` 暴露。
@@ -24,6 +25,8 @@
 ```text
 JobsOCDSL@Pods/
 ├── Core/
+│   ├── CoreMotion/
+│   │   └── CMMotionManager+DSL/
 │   ├── UIKit/
 │   │   ├── UILabel+DSL/
 │   │   ├── UITextField+DSL/
@@ -77,6 +80,7 @@ JobsOCDSL@Pods/
 
 ## 方法型 DSL 补充
 
+- `CMMotionManager+DSL` 提供 `byAccelerometerUpdateInterval(...)`、`byGyroUpdateInterval(...)`、`byMagnetometerUpdateInterval(...)`、`byDeviceMotionUpdateInterval(...)` 及对应 `byStart...` / `byStop...` 链式入口；`byStopAllUpdates()` 用于在页面退出或对象销毁前统一停止传感器。
 - `UIBezierPath+DSL` 已把 `moveToPoint:`、`addLineToPoint:`、`appendPath:`、`applyTransform:`、`containsPoint:` 改成链式入口，并用 `byBezierPathWithRoundedRect`、`byBezierPathWithRoundedCorners`、`byBezierPathWithArcCenter` 收口三类常用路径工厂。
 - `CALayer+DSL` 除属性包装外，补齐 `addSublayer:`、`removeAnimationForKey:`、`drawInContext:`、`renderInContext:`、`containsPoint:` 等方法型 DSL。
 - `UIView+DSL` 补齐 `addSubview:`、`bringSubviewToFront:`、`sendSubviewToBack:`、`addGestureRecognizer:`、`removeGestureRecognizer:`、`addInteraction:`、`removeInteraction:`、`setNeedsDisplayInRect:`、`removeFromSuperview`、`layoutIfNeeded`、`sizeToFit` 等链式入口。类级终止动作使用 `jobsAnimate`、`jobsAnimateWithCompletion`、`jobsAnimateWithOptions`、`jobsAnimateWithSpring`、`jobsTransition`、`jobsTransitionFromViewToView`，屏蔽 UIKit 动画 overload 差异。
@@ -109,6 +113,7 @@ JobsOCDSL@Pods/
 
 ## 四、依赖关系
 
+- `CoreMotion`：提供 `CMMotionManager`、传感器数据模型与更新回调类型。
 - `JobsBlock`：集中提供 OC Block 类型别名。
 - 第三方 DSL 的 Block typedef 统一落在 `JobsBlock`，`JobsOCDSL` 头文件只负责导入并使用，不再本地散落声明。
 - `JobsOCDefs`：提供基础宏、枚举、颜色和 `Prop_*` 属性声明宏；`JobsOCDSL` 内属性声明统一使用该宏族。

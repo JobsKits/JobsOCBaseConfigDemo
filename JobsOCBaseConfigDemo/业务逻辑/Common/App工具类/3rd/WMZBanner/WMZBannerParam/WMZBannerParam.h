@@ -138,7 +138,6 @@ WMZBannerPropStatementAndPropSetFuncStatement(copy,   WMZBannerParam, BannerScro
 
 /* =========================================custom==============================================*/
 Prop_assign()NSInteger myCurrentPath;
-
 Prop_assign()NSInteger overFactPath;
 /* =========================================custom==============================================*/
 

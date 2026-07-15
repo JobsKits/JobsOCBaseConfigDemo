@@ -8,7 +8,6 @@
 #import "UIImpactFeedbackGenerator+Extra.h"
 
 @implementation UIImpactFeedbackGenerator (JobsByOCPodsExtra)
-
 +(JobsRetImpactFeedbackGeneratorByNSIntegerBlock _Nonnull)initByStyle{
     return ^UIImpactFeedbackGenerator *_Nonnull(UIImpactFeedbackStyle style){
         return [UIImpactFeedbackGenerator.alloc initWithStyle:style];

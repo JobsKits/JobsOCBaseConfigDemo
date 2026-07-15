@@ -79,7 +79,6 @@ UILocationProtocol_synthesize
                 });
         });
     }
-
     if (self.dataModel.bgImage) {
         _logoImgView.byImage(self.dataModel.bgImage).byBgColor(JobsClearColor);
     } else {

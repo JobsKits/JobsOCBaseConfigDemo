@@ -13,7 +13,6 @@
 @end
 
 @implementation CheckMemFreeVC
-
 -(void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     @"检查者出栈".tr.toast();
@@ -27,7 +26,6 @@
     [super viewDidLoad];
     @"检查者进栈".tr.toast();
     self.view.byBgColor(JobsRandomColor);
-
     JobsLog(@"%@",JobsLocalFunc);
 }
 

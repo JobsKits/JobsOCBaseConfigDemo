@@ -16,19 +16,16 @@
 #import <JobsCryptography/GTMBase64.h>
 /// 系统拓展
 #import <JobsCryptography/NSData+CommonCrypto.h>
-
 #import <JobsCryptography/Base16.h>
 #import <JobsCryptography/Base32.h>
 #import <JobsCryptography/Base64.h>
 #import <JobsCryptography/Base85.h>
-
 #import <JobsCryptography/CaesarCipher.h>
 #import <JobsCryptography/SHA-1.h>
 #import <JobsCryptography/SHA-224.h>
 #import <JobsCryptography/SHA-256.h>
 #import <JobsCryptography/SHA-384.h>
 #import <JobsCryptography/SHA-512.h>
-
 #import <JobsCryptography/DES.h>
 #import <JobsCryptography/RSAUtil.h>
 #import <JobsCryptography/AES.h>

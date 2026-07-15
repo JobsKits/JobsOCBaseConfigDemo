@@ -72,7 +72,6 @@
                            maxHight);
         JobsLog(@"Label");
     }
-    
     if ([self isKindOfClass:UIButton.class]) {
         UIButton *button = (UIButton *)self;
         CGRect rect = [button.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, maxHight)
@@ -103,7 +102,6 @@
                            rect.size.height);
         JobsLog(@"Label");
     }
-    
     if ([self isKindOfClass:UIButton.class]) {
         UIButton *button = (UIButton *)self;
         button.titleLabel.byNumberOfLines(0);//无限行
@@ -111,7 +109,6 @@
                                                            options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
                                                         attributes:@{NSFontAttributeName:button.titleLabel.font}
                                                            context:nil];
-        
         frame = CGRectMake(origin.x,
                            origin.y,
                            rect.size.width,
@@ -134,7 +131,6 @@
                 .byRange(NSMakeRange(0, attributedString.length));
         }));
         label.byAttributedString(attributedString);
-
         //计算自适应高度
         CGRect rect = [label.text boundingRectWithSize:CGSizeMake(MAXFLOAT, maxHight)
                                                options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
@@ -170,10 +166,8 @@
             data.byLineSpacing(lineSpace)
                 .byBaseWritingDirection(NSWritingDirectionLeftToRight); // 从左到右
         })
-
                                  range:NSMakeRange(0, label.text.length)];
         label.byAttributedString(attributedString);
-
         /// 设置文本偏移量
 //        [attributedString addAttribute:NSBaselineOffsetAttributeName value:@(1) range:NSMakeRange(0, label.text.length)];
         /// 计算自适应高度

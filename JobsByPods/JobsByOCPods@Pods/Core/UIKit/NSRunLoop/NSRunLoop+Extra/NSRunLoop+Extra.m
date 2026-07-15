@@ -8,7 +8,6 @@
 #import "NSRunLoop+Extra.h"
 
 @implementation NSRunLoop (Extra)
-
 +(JobsRetTimerByTimerBlock _Nonnull)addTimerAtMainRunLoopByCommonModes{
     return ^__kindof NSTimer *_Nullable(NSTimer *_Nonnull timer){
         NSRunLoop.mainRunLoop.commonModesByTimer(timer);

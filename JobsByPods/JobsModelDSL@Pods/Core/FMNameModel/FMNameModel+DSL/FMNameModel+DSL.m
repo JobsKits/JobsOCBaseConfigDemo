@@ -8,7 +8,6 @@
 #import "FMNameModel+DSL.h"
 
 @implementation FMNameModel (DSL)
-
 -(JobsRetFMNameModelByUITextFieldPointerBlock _Nonnull)byFirstNameTF{
     @jobs_weakify(self)
     return ^__kindof FMNameModel *_Nullable(__kindof UITextField * _Nullable data) {

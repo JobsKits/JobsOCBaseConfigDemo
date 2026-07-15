@@ -17,7 +17,6 @@ Prop_strong()NSMutableArray <GoodsClassModel *>*dataArray; // 总共有多少个
 @end
 
 @implementation ThreeClassCell
-
 #pragma mark —— BaseCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
@@ -87,7 +86,6 @@ Prop_strong()NSMutableArray <GoodsClassModel *>*dataArray; // 总共有多少个
 -(void)collectionView:(UICollectionView *)collectionView
 didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (self.objBlock) self.objBlock(self.dataArray.objectAt(indexPath.row));
-
 }
 #pragma mark —— lazyLoad
 /// BaseViewProtocol

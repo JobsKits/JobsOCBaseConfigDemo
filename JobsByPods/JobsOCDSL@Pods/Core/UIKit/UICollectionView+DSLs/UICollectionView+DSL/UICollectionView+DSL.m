@@ -22,7 +22,6 @@ Prop_copy(nullable)jobsCollectionViewDidSelectItemAtBlock didSelectItemAtBlock;
 @end
 
 @implementation JobsCollectionViewBlocksProxy
-
 -(id)resolvedTarget{
     return self.target ?: self;
 }
@@ -55,7 +54,6 @@ Prop_weak(nullable)NSObject<UICollectionViewDataSource> *secondary;
 @end
 
 @implementation JobsCollectionViewDataSourceMux
-
 -(BOOL)respondsToSelector:(SEL)aSelector{
     if ([super respondsToSelector:aSelector]) return YES;
     if ([(id)self.primary respondsToSelector:aSelector]) return YES;
@@ -86,7 +84,6 @@ Prop_weak(nullable)NSObject<UICollectionViewDelegate> *secondary;
 @end
 
 @implementation JobsCollectionViewDelegateMux
-
 -(BOOL)respondsToSelector:(SEL)aSelector{
     if ([super respondsToSelector:aSelector]) return YES;
     if ([(id)self.primary respondsToSelector:aSelector]) return YES;

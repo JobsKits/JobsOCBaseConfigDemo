@@ -8,7 +8,6 @@
 #import "JobsBaseModel+DSL.h"
 
 @implementation JobsBaseModel (DSL)
-
 -(JobsRetJobsBaseModelByCGFloatBlock _Nonnull)byCornerRadiusValue{
     @jobs_weakify(self)
     return ^__kindof JobsBaseModel *_Nullable(CGFloat data) {
@@ -332,10 +331,6 @@
         return self;
     };
 }
-
-
-
-
 
 -(JobsRetJobsBaseModelByCGSizeBlock _Nonnull)byTableHeaderViewSize{
     @jobs_weakify(self)

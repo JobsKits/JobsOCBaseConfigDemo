@@ -25,7 +25,6 @@
 @interface XLChannelHeader : UICollectionReusableView
 
 Prop_copy()NSString *title;
-
 Prop_copy()NSString *subTitle;
 
 @end

@@ -30,7 +30,6 @@ static dispatch_once_t JobsAppDoorLogoContentViewDispatchOnce;
     [super drawRect:rect];
     dispatch_once(&JobsAppDoorLogoContentViewDispatchOnce, ^{
         self.mainImgV.byAlpha(1);
-
     });
 }
 #pragma mark —— lazyLoad

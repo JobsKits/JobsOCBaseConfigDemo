@@ -14,7 +14,6 @@ Prop_strong()UILabel *timeLabel;
 @end
 
 @implementation JXCategoryTimelineCell
-
 -(void)initializeViews{
     [super initializeViews];
     self.timeLabel.byAlpha(1);
@@ -24,7 +23,6 @@ Prop_strong()UILabel *timeLabel;
     [super reloadData:cellModel];
     JXCategoryTimelineCellModel *myCellModel = (JXCategoryTimelineCellModel *)cellModel;
     self.timeLabel.byText(myCellModel.timeTitle);
-
     if (myCellModel.isSelected) {
         self.timeLabel.byTextCor(myCellModel.timeTitleSelectedColor);
         self.timeLabel.byFont(myCellModel.timeTitleSelectedFont);

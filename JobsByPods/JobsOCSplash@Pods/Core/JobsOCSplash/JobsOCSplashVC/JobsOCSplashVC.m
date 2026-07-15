@@ -28,7 +28,6 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
 @end
 
 @implementation JobsOCSplashVC
-
 -(instancetype)initWithConfiguration:(JobsOCSplashConfiguration *)configuration {
     if (self = [super initWithNibName:nil bundle:nil]) {
         _configuration = [configuration copy];
@@ -189,7 +188,6 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
     [self.mediaTask cancel];
     [self.player pause];
     if (self.configuration.onSkip) self.configuration.onSkip(self);
-
     if (self.presentingViewController) {
         [self dismissViewControllerAnimated:NO completion:nil];
     } else if (self.parentViewController) {

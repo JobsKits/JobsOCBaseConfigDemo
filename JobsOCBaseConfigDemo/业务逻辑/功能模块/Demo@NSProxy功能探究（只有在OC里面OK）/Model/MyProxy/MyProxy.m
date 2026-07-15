@@ -8,7 +8,6 @@
 #import "MyProxy.h"
 
 @implementation MyProxy
-
 +(instancetype)proxy {
     MyProxy *proxy = MyProxy.alloc;
     proxy.targets = NSMutableArray.array;
@@ -46,11 +45,9 @@
         NSString *__unsafe_unretained oldValue;
         [invocation getArgument:&oldValue atIndex:2];
         NSLog(@"🛑 原始参数：%@", oldValue);
-
         NSString *newVal = [oldValue stringByAppendingString:@" ✅已拦截"];
         [invocation setArgument:&newVal atIndex:2];
     }
-
     for (WeakTarget *w in self.targets.copy) {
         id target = w.target;
         if (target && [target respondsToSelector:sel]) {

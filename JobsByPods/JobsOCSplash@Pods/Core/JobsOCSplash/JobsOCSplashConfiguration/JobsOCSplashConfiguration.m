@@ -18,7 +18,6 @@ Prop_strong() NSBundle *bundle;
 @end
 
 @implementation JobsOCSplashConfiguration
-
 +(__kindof JobsOCSplashConfiguration *)localImage:(NSString *)name {
     return [self localImage:name bundle:NSBundle.mainBundle];
 }

@@ -15,7 +15,6 @@ Prop_strong()JobsExcelView *excelView;
 @end
 
 @implementation JobsExcelVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
@@ -29,14 +28,12 @@ Prop_strong()JobsExcelView *excelView;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"返回".tr);
@@ -57,10 +54,8 @@ Prop_strong()JobsExcelView *excelView;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsRandomColor);
-
     self.makeNavByAlpha(1);
     self.excelView.byAlpha(1);
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -68,7 +63,6 @@ Prop_strong()JobsExcelView *excelView;
     self.byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
         navigationBar.byHidden(YES);
     });
-
 }
 
 -(void)viewDidAppear:(BOOL)animated{

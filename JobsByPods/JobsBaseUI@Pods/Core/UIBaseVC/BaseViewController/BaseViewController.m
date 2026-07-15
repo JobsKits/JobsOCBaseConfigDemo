@@ -21,7 +21,6 @@ BaseViewControllerProtocol_synthesize
 /// new方法触发
 - (instancetype)init{
     if (self = [super init]) {
-        
     };return self;
 }
 /// new方法触发
@@ -29,7 +28,6 @@ BaseViewControllerProtocol_synthesize
                          bundle:(NSBundle *)nibBundleOrNil {
     if(self = [super initWithNibName:nibNameOrNil
                               bundle:nibBundleOrNil]) {
-
     };return self;
 }
 
@@ -42,10 +40,8 @@ BaseViewControllerProtocol_synthesize
     [super viewDidLoad];
     if (@available(iOS 13.0, *)) {
         self.view.byBgColor(JobsSystemBackgroundColor);
-
     } else {
         self.view.byBgColor(JobsWhiteColor);
-
     }
     self.ViewDidLoad = YES;
     /// 在loadView或者之前的生命周期中定义背景图片或者底色
@@ -93,25 +89,21 @@ BaseViewControllerProtocol_synthesize
         /// 底图没有 + 底色没有
         if(!self.viewModel.bgImage && !self.viewModel.bgCor){
             self.view.byBgColor(HEXCOLOR(0xFCFBFB));
-
             return;
         }
         /// 底图有 + 底色没有
         if(self.viewModel.bgImage && !self.viewModel.bgCor){
             self.bgImageView.byAlpha(1);
-
             return;
         }
         /// 底图没有 + 底色有
         if(!self.viewModel.bgImage && self.viewModel.bgCor){
             self.view.byBgColor(self.viewModel.bgCor);
-
             return;
         }
         /// 底图有 + 底色有 = 优先使用底图数据
         if(self.viewModel.bgImage && self.viewModel.bgCor){
             self.bgImageView.byAlpha(1);
-
             return;
         }
     };

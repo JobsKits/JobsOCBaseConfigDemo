@@ -47,7 +47,6 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
 @end
 
 @implementation JobsOCVideoRecorderVC
-
 -(instancetype)init{
     return [self initWithConfig:JobsOCVideoRecorderConfig.defaultConfig];
 }
@@ -247,7 +246,6 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
         self.switchCameraBtn.byEnabled(YES);
         self.switchCameraBtn.alpha = 1;
     }
-
     NSTimeInterval elapsed = [NSDate.date timeIntervalSinceDate:self.recordStartDate ?: NSDate.date];
     [self hideRecordDurationLabel];
     if (elapsed < self.config.minDuration) {

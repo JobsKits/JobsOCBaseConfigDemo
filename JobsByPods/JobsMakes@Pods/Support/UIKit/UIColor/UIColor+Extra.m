@@ -32,7 +32,6 @@
         CGFloat red = ((hexValue & 0xFF0000) >> 16) / 255.0;
         CGFloat green = ((hexValue & 0x00FF00) >> 8) / 255.0;
         CGFloat blue = (hexValue & 0x0000FF) / 255.0;
-
         return [UIColor colorWithRed:(red / 255.0f)
                                green:(green / 255.0f)
                                 blue:(blue / 255.0f)

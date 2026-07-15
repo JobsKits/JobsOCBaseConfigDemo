@@ -9,7 +9,6 @@
 #import <JobsGestureLock/JobsGestureLockResource.h>
 
 @implementation JobsGestureLockConfiguration
-
 + (instancetype)defaultConfiguration {
     JobsGestureLockConfiguration *configuration = [[self alloc] init];
     configuration.minimumPatternLength = 4;

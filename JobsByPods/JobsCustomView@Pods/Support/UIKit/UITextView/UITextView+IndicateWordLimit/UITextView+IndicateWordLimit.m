@@ -45,7 +45,6 @@ JobsKey(_currentWordNum)
 
 -(void)setCurrentWordNum:(NSInteger)currentWordNum{
     self.indicateWordLimitLab.byText([NSString stringWithFormat:@"   %ld / %ld   ",currentWordNum,self.wordLimitNum]);
-
     self.indicateWordLimitLab.makeLabelByShowingType(UILabelShowingType_03);
     Jobs_setAssociatedRETAIN_NONATOMIC(_currentWordNum, @(currentWordNum))
 }

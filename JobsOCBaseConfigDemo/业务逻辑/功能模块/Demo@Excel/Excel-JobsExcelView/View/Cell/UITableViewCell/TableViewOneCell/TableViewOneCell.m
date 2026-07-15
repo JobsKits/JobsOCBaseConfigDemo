@@ -19,7 +19,6 @@ Prop_assign()CGSize size;
 @end
 
 @implementation TableViewOneCell
-
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     @jobs_weakify(self)
     return ^(UITableView * _Nonnull tableView) {

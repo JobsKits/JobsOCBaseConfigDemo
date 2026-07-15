@@ -8,7 +8,6 @@
 #import "NSString+Conversion.h"
 
 @implementation NSString (Conversion)
-
 +(JobsRetStrByDataBlock _Nonnull)initByUTF8Data{
     return ^__kindof NSString *_Nullable(NSData *_Nullable data){
         return [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];

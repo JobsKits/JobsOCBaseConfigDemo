@@ -8,7 +8,6 @@
 #import "JobsOCGraphicCaptchaGenerator.h"
 
 @implementation JobsOCGraphicCaptchaGenerator
-
 +(NSArray<NSString *> *)numberCharacters{
     static NSArray<NSString *> *characters = nil;
     static dispatch_once_t onceToken;

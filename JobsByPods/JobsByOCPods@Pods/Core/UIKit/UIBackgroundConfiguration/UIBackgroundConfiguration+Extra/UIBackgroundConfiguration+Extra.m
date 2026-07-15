@@ -8,13 +8,11 @@
 #import "UIBackgroundConfiguration+Extra.h"
 
 @implementation UIBackgroundConfiguration (JobsByOCPodsExtra)
-
 - (JobsRetBackgroundConfigByCorBlock _Nonnull)byBackgroundColor {
     @jobs_weakify(self)
     return ^UIBackgroundConfiguration *(UIColor *color) {
         @jobs_strongify(self)
         self.backgroundColor = color;
-
         return self;
     };
 }

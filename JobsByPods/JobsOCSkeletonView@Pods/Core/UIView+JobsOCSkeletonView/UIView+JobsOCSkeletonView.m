@@ -51,7 +51,6 @@ static void jobs_ocSkeletonExchangeInstanceMethod(Class cls, SEL originalSel, SE
 }
 
 @implementation UIView (JobsOCSkeletonView)
-
 +(void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -244,7 +243,6 @@ static void jobs_ocSkeletonExchangeInstanceMethod(Class cls, SEL originalSel, SE
 @end
 
 @implementation UIView (JobsOCSkeletonViewPrivate)
-
 -(CAGradientLayer *)jobs_prepareSkeletonLayerIfNeeded{
     CAGradientLayer *layer = self.jobs_ocSkeletonLayer;
     if (layer) return layer;
@@ -430,7 +428,6 @@ static char JobsOCSkeletonLastAnimationWidthKey;
 @end
 
 @implementation UITableView (JobsOCSkeletonView)
-
 -(JobsRetTableViewByVoidBlock _Nonnull)byHideSkeletonAndReload{
     @jobs_weakify(self)
     return ^__kindof UITableView *_Nullable() {
@@ -444,7 +441,6 @@ static char JobsOCSkeletonLastAnimationWidthKey;
 @end
 
 @implementation UICollectionView (JobsOCSkeletonView)
-
 -(JobsRetCollectionViewByVoidBlock _Nonnull)byHideSkeletonAndReload{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable() {
@@ -458,7 +454,6 @@ static char JobsOCSkeletonLastAnimationWidthKey;
 @end
 
 @implementation UILabel (JobsOCSkeletonView)
-
 -(JobsRetLabelByNSIntegerBlock _Nonnull)bySkeletonLinesCornerRadius{
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(NSInteger data) {

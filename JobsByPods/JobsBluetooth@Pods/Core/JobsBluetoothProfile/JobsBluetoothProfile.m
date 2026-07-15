@@ -8,7 +8,6 @@
 #import "JobsBluetoothProfile.h"
 
 @implementation JobsBluetoothProfile
-
 -(instancetype)init{
     if (self = [super init]) {
         _identifier = @"default";

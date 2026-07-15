@@ -67,7 +67,6 @@
             if (ixtext >= lentext) break;
             ch = tempcstring[ixtext++];
             flignore = false;
-
             if ((ch >= 'A') && (ch <= 'Z')) {
                 ch = ch - 'A';
             }else if ((ch >= 'a') && (ch <= 'z')) {
@@ -86,7 +85,6 @@
             if (!flignore) {
                 short ctcharsinbuf = 3;
                 Boolean flbreak = false;
-          
                 if (flendtext) {
                     if (ixinbuf == 0) break;
                     if ((ixinbuf == 1) || (ixinbuf == 2)) {

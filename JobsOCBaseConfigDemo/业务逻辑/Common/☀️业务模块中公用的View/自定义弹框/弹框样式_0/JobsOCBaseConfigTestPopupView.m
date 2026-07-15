@@ -35,7 +35,6 @@ static dispatch_once_t static_testPopupViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-
         self.backgroundImageView.byImage(@"测试弹窗的背景图".img);
     };return self;
 }
@@ -51,9 +50,7 @@ static dispatch_once_t static_testPopupViewOnceToken;
         @jobs_strongify(self)
         self.viewModel = model;
         self.containerView.byAlpha(1);
-
         self.testPopupViewSureBtn.byAlpha(1);
-
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】

@@ -8,7 +8,6 @@
 #import "JobsOCKeyboardCalculator.h"
 
 @implementation JobsOCKeyboardCalculator
-
 +(__kindof UIView *)containerViewByConfig:(__kindof JobsOCKeyboardConfig *)config{
     if (config.containerView) return config.containerView;
     if (config.targetView.window) return config.targetView.window;
@@ -19,7 +18,6 @@
                       container:(__kindof UIView *)container
                   keyboardFrame:(CGRect)keyboardFrame{
     if (config.accessoryPolicy == JobsOCKeyboardAccessoryPolicyIgnore) return CGRectNull;
-
     UIView *accessoryView = config.accessoryView ?: config.triggerView.inputAccessoryView;
     if (config.accessoryPolicy == JobsOCKeyboardAccessoryPolicyAuto && accessoryView) {
         if (accessoryView.window) {
@@ -33,7 +31,6 @@
                               height);
         }
     }
-
     CGFloat accessoryHeight = config.accessoryHeight;
     if (config.accessoryPolicy == JobsOCKeyboardAccessoryPolicyDeclaredHeight && accessoryHeight > 0) {
         return CGRectMake(CGRectGetMinX(keyboardFrame),
@@ -74,42 +71,35 @@
     NSNumber *durationNumber = userInfo[UIKeyboardAnimationDurationUserInfoKey];
     if (durationNumber) result.animationDuration = durationNumber.doubleValue;
     result.animationOptions = [self animationOptionsByUserInfo:userInfo];
-
     if (!config.isValid) return result;
     UIView *container = [self containerViewByConfig:config];
     UIView *targetView = config.targetView;
     if (!container || !targetView) return result;
     UIView *triggerView = config.triggerView ?: targetView;
-
     if (CGRectIsNull(keyboardFrameInScreen) || CGRectIsEmpty(keyboardFrameInScreen)) return result;
     CGRect keyboardFrame = [container convertRect:keyboardFrameInScreen fromView:nil];
     result.keyboardFrameInContainer = keyboardFrame;
     result.targetFrameInContainer = [container convertRect:targetView.bounds fromView:targetView];
     result.triggerFrameInContainer = [container convertRect:triggerView.bounds fromView:triggerView];
-
     BOOL hasKeyboardSize = CGRectGetWidth(keyboardFrame) > 0 && CGRectGetHeight(keyboardFrame) > 0;
     BOOL keyboardVisible = hasKeyboardSize &&
                            CGRectIntersectsRect(container.bounds, keyboardFrame) &&
                            CGRectGetMinY(keyboardFrame) < CGRectGetMaxY(container.bounds);
     result.keyboardVisible = keyboardVisible;
     if (!keyboardVisible) return result;
-
     CGRect accessoryFrame = [self accessoryFrameByConfig:config
                                               container:container
                                           keyboardFrame:keyboardFrame];
     result.accessoryFrameInContainer = accessoryFrame;
-
     CGRect obstructionFrame = keyboardFrame;
     if (!CGRectIsNull(accessoryFrame) && !CGRectIsEmpty(accessoryFrame)) {
         obstructionFrame = CGRectUnion(obstructionFrame, accessoryFrame);
     }
     result.obstructionFrameInContainer = obstructionFrame;
-
     if (config.shouldCheckHorizontalOverlap &&
         ![self rect:result.triggerFrameInContainer horizontallyIntersectsRect:obstructionFrame]) {
         return result;
     }
-
     CGFloat targetBottom = CGRectGetMaxY(result.triggerFrameInContainer) + MAX(0, config.extraSpacing);
     CGFloat rawOffset = MAX(0, targetBottom - CGRectGetMinY(obstructionFrame));
     CGFloat safeTop = container.safeAreaInsets.top + MAX(0, config.topSpacing);

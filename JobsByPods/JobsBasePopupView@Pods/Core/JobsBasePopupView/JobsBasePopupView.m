@@ -21,16 +21,13 @@ Prop_strong()BaseButton *btn2;
 @end
 
 @implementation JobsBasePopupView
-
 -(instancetype)init{
     if (self = [super init]) {
-        
     };return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -45,7 +42,6 @@ Prop_strong()BaseButton *btn2;
             }else{
                 self.byBgColor(self.viewModel.bgCor);
             }
-            
             self.titleLab.byText(self.viewModel.textModel.text);
             self.subTitleLab.byText(self.viewModel.subTextModel.text);
             self.btn1.byAlpha(1);
@@ -147,4 +143,5 @@ Prop_strong()BaseButton *btn2;
             });
     };return _btn2;
 }
+
 @end

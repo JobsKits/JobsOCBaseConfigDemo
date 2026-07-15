@@ -10,7 +10,6 @@
 #import <JobsModel/NSObject+Extra.h>
 
 @implementation JobsFileModel
-
 -(NSString *)fileName{
     if(!_fileName){
         _fileName = self.currentDate.toReadableTime(nil);

@@ -12,7 +12,6 @@
 @end
 
 @implementation NotifiViewFactory
-
 + (instancetype)shared {
     static NotifiViewFactory *factory = nil;
     static dispatch_once_t onceToken;

@@ -22,13 +22,11 @@ Prop_strong()JobsLinkageMenuView *menuView;
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-        
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-
     };return self;
 }
 
@@ -45,7 +43,6 @@ Prop_strong()JobsLinkageMenuView *menuView;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -57,7 +54,6 @@ Prop_strong()JobsLinkageMenuView *menuView;
 //        MakeDataNull
 //        self.backgroundColor = JobsRedColor;
         self.menuView.byAlpha(1);
-
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】

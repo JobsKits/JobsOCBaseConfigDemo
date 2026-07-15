@@ -8,7 +8,6 @@
 #import "NotificationModel+DSL.h"
 
 @implementation NotificationModel (DSL)
-
 -(JobsRetNotificationModelByStrBlock _Nonnull)byNotificationName{
     @jobs_weakify(self)
     return ^__kindof NotificationModel *_Nullable(NSString * _Nullable data) {

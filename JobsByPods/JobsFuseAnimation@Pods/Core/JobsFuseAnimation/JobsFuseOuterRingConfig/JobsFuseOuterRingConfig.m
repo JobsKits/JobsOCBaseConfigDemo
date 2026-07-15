@@ -8,7 +8,6 @@
 #import "JobsFuseOuterRingConfig.h"
 
 @implementation JobsFuseOuterRingConfig
-
 +(__kindof JobsFuseOuterRingConfig *)config {
     return JobsFuseOuterRingConfig.alloc.init;
 }

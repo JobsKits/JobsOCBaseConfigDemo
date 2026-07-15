@@ -8,7 +8,6 @@
 #import "UIView+Chain.h"
 
 @implementation UIView (Chain)
-
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -17,7 +16,7 @@
                       @selector(exchange_hitTest:withEvent:));
     });
 }
- 
+
 - (UIView *)exchange_hitTest:(CGPoint)point
                    withEvent:(UIEvent *)event {
     UIView * view = [self exchange_hitTest:point
@@ -40,7 +39,7 @@ JobsKey(_ableRespose)
 - (void)setAbleRespose:(BOOL)ableRespose {
     Jobs_setAssociatedRETAIN_NONATOMIC(_ableRespose, @(ableRespose))
 }
- 
+
 - (BOOL)ableRespose {
     return Jobs_getAssociatedObject(_ableRespose) != nil ? [Jobs_getAssociatedObject(_ableRespose) boolValue] : NO;
 }

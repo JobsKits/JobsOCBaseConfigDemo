@@ -32,7 +32,6 @@ Prop_copy()NSString *currentTitleWritingLottieName;
 @end
 
 @implementation JXCategoryViewVerticalShowSubBaseVC
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(HEXCOLOR(0x8A2E17));

@@ -8,7 +8,6 @@
 #import "JobsOCCalendarAppearance.h"
 
 @implementation JobsOCCalendarAppearance
-
 -(instancetype)init{
     if (self = [super init]) {
         self.headerDateFormat = @"yyyy年MM月";

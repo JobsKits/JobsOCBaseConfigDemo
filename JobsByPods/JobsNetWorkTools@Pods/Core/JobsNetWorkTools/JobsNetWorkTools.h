@@ -62,18 +62,14 @@ static JobsNetworkBytes JobsCurrentNetworkBytes(void) {
         if (!(ifa->ifa_flags & IFF_UP)) {
             continue;
         }
-
         struct if_data *data = (struct if_data *)ifa->ifa_data;
         if (!data) continue;
-
         uint64_t inBytes  = (uint64_t)data->ifi_ibytes;
         uint64_t outBytes = (uint64_t)data->ifi_obytes;
-
         // 这里我们不区分 en / pdp_ip / 其他，直接全加，总效果等于 Swift 里的 wifi+cellular+other.total
         result.download += inBytes;
         result.upload   += outBytes;
     }
-
     freeifaddrs(addrs);
     return result;
 }
@@ -90,6 +86,5 @@ static JobsNetworkBytes JobsCurrentNetworkBytes(void) {
 -(jobsByVoidBlock _Nonnull)byStop;
 
 @end
-
 
 #endif /* JOBS_HEADER_GUARD_JOBSNETWORKTOOLS_A5554FC4D0 */

@@ -8,7 +8,6 @@
 #import "TestLabelDemoModel.h"
 
 @implementation TestLabelDemoModel
-
 +(instancetype)modelWithTitle:(NSString *)title
                      subTitle:(NSString *)subTitle
                   showingType:(UILabelShowingType)showingType

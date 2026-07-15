@@ -17,7 +17,6 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.contentView.byBgColor(JobsGreenColor);
-
     };return self;
 }
 #pragma mark —— BaseViewProtocol
@@ -38,7 +37,6 @@
         @jobs_strongify(self)
         self.viewModel = model;
         if (self.viewModel) {
-            
         };return self;
     };
 }

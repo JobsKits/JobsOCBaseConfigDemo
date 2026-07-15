@@ -131,7 +131,6 @@ AppToolsProtocol_synthesize
 -(NSMutableArray *)jobsDataMutArr{
     if (!_jobsDataMutArr) {
         _jobsDataMutArr = jobsMakeMutArr(^(NSMutableArray *_Nullable data) {
-            
         });
     };return _jobsDataMutArr;
 }
@@ -180,13 +179,11 @@ AppToolsProtocol_synthesize
 
 -(NSInteger)curWordCount{
     if(!_curWordCount){
-        
     };return _curWordCount;
 }
 
 -(NSInteger)maxWordCount{
     if(!_maxWordCount){
-   
     };return _maxWordCount;
 }
 
@@ -210,14 +207,12 @@ AppToolsProtocol_synthesize
 
 -(NSAttributedString *)attributedTitle{
     if(!_attributedTitle){
-        
     };return _attributedTitle;
 }
 
 -(NSMutableArray<JobsRichTextConfig *>*)titleAttributedDataMutArr{
     if(!_titleAttributedDataMutArr){
         _titleAttributedDataMutArr = jobsMakeMutArr(^(NSMutableArray <JobsRichTextConfig *>*_Nullable data) {
-            
         });
     };return _titleAttributedDataMutArr;
 }
@@ -230,26 +225,22 @@ AppToolsProtocol_synthesize
 
 -(UIFont *)selectedFont{
     if(!_selectedFont){
-        
     };return _selectedFont;
 }
 
 -(UIColor *)selectedTextCor{
     if(!_selectedTextCor){
-        
     };return _selectedTextCor;
 }
 
 -(NSAttributedString *)selectedAttributedText{
     if(!_selectedAttributedText){
-        
     };return _selectedAttributedText;
 }
 
 -(NSMutableArray <JobsRichTextConfig *>*)selectedTitleAttributedDataMutArr{
     if(!_selectedTitleAttributedDataMutArr){
         _selectedTitleAttributedDataMutArr = jobsMakeMutArr(^(NSMutableArray <JobsRichTextConfig *>*_Nullable data) {
-            
         });
     };return _selectedTitleAttributedDataMutArr;
 }
@@ -257,7 +248,6 @@ AppToolsProtocol_synthesize
 -(NSMutableArray<JobsRetIDByIDBlock>*)jobsBlockMutArr{
     if(!_jobsBlockMutArr){
         _jobsBlockMutArr = jobsMakeMutArr(^(NSMutableArray <JobsRetIDByIDBlock>*_Nullable data) {
-            
         });
     };return _jobsBlockMutArr;
 }
@@ -265,7 +255,6 @@ AppToolsProtocol_synthesize
 -(UIButtonModel *)buttonModel{
     if(!_buttonModel){
         _buttonModel = jobsMakeButtonModel(^(__kindof UIButtonModel *_Nullable data) {
-            
         });
     };return _buttonModel;
 }
@@ -273,7 +262,6 @@ AppToolsProtocol_synthesize
 -(UIButtonModel *)subButtonModel{
     if(!_subButtonModel){
         _subButtonModel = jobsMakeButtonModel(^(__kindof UIButtonModel *_Nullable data) {
-            
         });
     };return _subButtonModel;
 }

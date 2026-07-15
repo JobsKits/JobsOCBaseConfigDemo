@@ -56,7 +56,6 @@ Prop_assign()CGFloat last;
             self.right = NO;
         }
     }
-    
     self.param.myCurrentPath = self.param.wVertical?
     (self.right?MAX(floor(self.collectionContenOffset.y / (int)self.collectionContenSize.height), 0):MAX(ceil(self.collectionContenOffset.y / (int)self.collectionContenSize.height), 0)):
     (self.right?MAX(floor(self.collectionContenOffset.x / (int)self.collectionContenSize.width), 0):MAX(ceil(self.collectionContenOffset.x / (int)self.collectionContenSize.width), 0));
@@ -72,7 +71,6 @@ Prop_assign()CGFloat last;
             rect.origin.x = self.collectionView.contentOffset.x;
         }
         attributes.frame = rect;
-
         if (i == self.param.myCurrentPath) {
             attributes.zIndex = 1200;
         }else{

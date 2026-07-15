@@ -14,7 +14,6 @@ Prop_strong()UIImageView *imageView;
 @end
 
 @implementation GifLoopPlayView
-
 static dispatch_once_t dispatchOnce;
 -(instancetype)init{
     if (self = [super init]) {
@@ -27,7 +26,6 @@ static dispatch_once_t dispatchOnce;
     [super drawRect:rect];
     dispatch_once(&dispatchOnce, ^{
         self.imageView.byAlpha(1);
-
         self.stopped = NO;// YES: 没有播放，NO：正在播放
     });
 }

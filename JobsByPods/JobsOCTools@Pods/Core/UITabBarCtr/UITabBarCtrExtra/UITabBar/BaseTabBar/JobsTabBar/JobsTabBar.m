@@ -28,7 +28,6 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
 @end
 
 @implementation JobsTabBar
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.clipsToBounds = NO;//超出视图部分显示
@@ -49,7 +48,6 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
             if ([subview isKindOfClass:UILabel.class]) {
                 label = (UILabel *)subview;
                 label.byBgColor(JobsRedColor);
-
                 [label sizeToFit];
             }
             if ([subview isKindOfClass:UIImageView.class]) {
@@ -67,7 +65,6 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
             }
         }
     }
-
     CGFloat s = 0.f;
     NSArray<__kindof JobsTabBarItemConfig *> *tabBarItemConfigs = JobsTabBarItemConfigs();
     for (int t = 0; t < tabBarItemConfigs.count ; t++) {
@@ -86,12 +83,10 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
             }
             s += (tabBarControllerConfig.xOffset + tabBarControllerConfig.tabBarItemWidth);
         }
-        
         if(tabBarControllerConfig.tabBarItemWidth){
             tabBarButton.resetWidth(tabBarControllerConfig.tabBarItemWidth);
         }
         lOTAnimationView.byFrame(tabBarButton.frame);
-
     }
 }
 ///【覆写父类方法】自定义 TabBar 的高度
@@ -129,10 +124,8 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
                 self.backgroundImageView.byImage(self.viewModel.bgImage);
                 return;
             }
-            
             if (self.viewModel.bgCor) {
                 self.byBgColor(self.viewModel.bgCor);
-
             }
         }
     };
@@ -148,19 +141,15 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
            spacing:(CGFloat)spacing{
     CGFloat totalWidth = tabBarButton.bounds.size.width;
     CGFloat totalHeight = tabBarButton.bounds.size.height;
-    
     CGFloat labelWidth = label.bounds.size.width;
     CGFloat labelHeight = label.bounds.size.height;
-    
     CGFloat imageWidth = imageView.bounds.size.width;
     CGFloat imageHeight = imageView.bounds.size.height;
-    
     switch (self.alignmentType) {
         case ImageLeftTitleRight: {
             CGFloat totalContentWidth = imageWidth + spacing + labelWidth;
             CGFloat startingX = (totalWidth - totalContentWidth) / 2.0;
             CGFloat centerY = totalHeight / 2.0;
-            
             imageView.frame = CGRectMake(startingX,
                                          centerY - imageHeight / 2.0,
                                          imageWidth,
@@ -170,7 +159,6 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
                                      labelWidth,
                                      labelHeight);
             label.byTextAlignment(NSTextAlignmentLeft);
-
             break;
         }
         case ImageRightTitleLeft: {
@@ -185,7 +173,6 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
                                          imageWidth,
                                          imageHeight);
             label.byTextAlignment(NSTextAlignmentRight);
-
             break;
         }
         case ImageTopTitleBottom: {
@@ -207,7 +194,6 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
 //            label.jobsLogPoint(@"打印的时候额外添加的标识字符.Point");
 //            label.jobsLogSize(@"打印的时候额外添加的标识字符.Size");
             label.byTextAlignment(NSTextAlignmentCenter);
-
             break;
         }
         case ImageBottomTitleTop: {
@@ -222,7 +208,6 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
                                          imageWidth,
                                          imageHeight);
             label.byTextAlignment(NSTextAlignmentCenter);
-
             break;
         }
     }

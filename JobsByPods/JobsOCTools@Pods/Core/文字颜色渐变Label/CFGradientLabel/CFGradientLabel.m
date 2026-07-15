@@ -12,7 +12,6 @@
 @end
 
 @implementation CFGradientLabel
-
 - (void)drawRect:(CGRect)rect {
     CGSize textSize = [self.text sizeWithAttributes:@{NSFontAttributeName : self.font}];
     CGRect textRect = (CGRect){0, 0, textSize};
@@ -30,7 +29,6 @@
     CGContextScaleCTM(context,
                       1.0f,
                       -1.0f);
-    
     CGImageRef alphaMask = CGBitmapContextCreateImage(context);
     CGContextClearRect(context, rect); // 清除之前画的文字
     /// 设置mask

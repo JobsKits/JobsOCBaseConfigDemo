@@ -12,7 +12,6 @@
 @end
 
 @implementation JobsControlTarget
-
 static inline NSTimeInterval _jobs_now(void) {
     return CFAbsoluteTimeGetCurrent();
 }
@@ -26,12 +25,10 @@ static inline NSTimeInterval _jobs_now(void) {
             [self invoke:sender];
         });return;
     }
-
     switch (self.policy) {
         case JobsInvokePolicyNone: {
             if (self.block) self.block(sender);
         } break;
-
         case JobsInvokePolicyOnce: {
             if (!self.block) return;
             jobsByCtrlBlock blk = [self.block copy];
@@ -40,7 +37,6 @@ static inline NSTimeInterval _jobs_now(void) {
             self.block = nil;
             if (blk) blk(sender);
         } break;
-
         case JobsInvokePolicyThrottle: {
             NSTimeInterval now = _jobs_now();
             if (now - self.lastFire >= MAX(self.interval, 0)) {
@@ -48,7 +44,6 @@ static inline NSTimeInterval _jobs_now(void) {
                 if (self.block) self.block(sender);
             }
         } break;
-
         case JobsInvokePolicyDebounce: {
             self.debounceGen += 1;
             uint64_t currentGen = self.debounceGen;

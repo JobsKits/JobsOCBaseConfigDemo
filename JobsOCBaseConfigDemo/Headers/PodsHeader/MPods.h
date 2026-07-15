@@ -18,6 +18,7 @@
 #endif
 
 /// JXCategoryView
+
 #if __has_include(<JXCategoryViewExtra/JXCategoryViewExtra.h>)
 #import <JXCategoryViewExtra/JXCategoryViewExtra.h>
 #else
@@ -25,6 +26,7 @@
 #import "JXCategoryTitleBackgroundView.h"
 #endif
 /// RAC_Define
+
 #if __has_include(<ReactiveObjC/RACEXTKeyPathCoding.h>)
 #else
 #import "RACEXTKeyPathCoding.h"

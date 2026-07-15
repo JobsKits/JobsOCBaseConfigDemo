@@ -6,7 +6,6 @@
 //
 
 #import "UIView+Gesture.h"
-
 #import <JobsOCDSL/JobsString.h>
 #import <JobsOCDSL/UIView+Extra.h>
 #import <JobsOCDSL/NSObject+Extra.h>

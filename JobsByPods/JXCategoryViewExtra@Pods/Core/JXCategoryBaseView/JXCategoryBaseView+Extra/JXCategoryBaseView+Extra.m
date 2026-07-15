@@ -8,7 +8,6 @@
 #import "JXCategoryBaseView+Extra.h"
 
 @implementation JXCategoryBaseView (Extra)
-
 -(JobsRetCategoryBaseViewByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof JXCategoryBaseView *_Nullable(id<JXCategoryViewDelegate> _Nullable delegate){

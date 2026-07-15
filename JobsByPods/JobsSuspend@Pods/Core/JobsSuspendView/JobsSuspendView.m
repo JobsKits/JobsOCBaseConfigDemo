@@ -15,11 +15,9 @@
 @end
 
 @implementation JobsSuspendView
-
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(self.backgroundColor ? :JobsBlackColor);
-
         self.cornerCutToCircleWithCornerRadius(8);
     };return self;
 }

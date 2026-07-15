@@ -8,7 +8,6 @@
 #import "UICollectionViewFlowLayout+DSL.h"
 
 @implementation UICollectionViewFlowLayout (DSL)
-
 #pragma mark —— Factory
 +(JobsRetCollectionViewFlowLayoutByVoidBlock)byCollectionViewFlowLayout{
     return ^__kindof UICollectionViewFlowLayout *_Nullable(void){

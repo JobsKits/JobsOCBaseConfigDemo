@@ -62,9 +62,7 @@ Prop_strong()VideoModel_Core *core_data;
         if ([model isKindOfClass:VideoModel_Core.class]) {
             self.data = (VideoModel_Core *)model;
             self.label.byText([NSString stringWithFormat:@"%ld",(long)self.index]);
-
             self.rotation.byAlpha(1);
-
             self.coverImageView
                     .imageURL(self.core_data.videoImg.jobsUrl)
                     .placeholderImage(@"视频封面".img)
@@ -80,11 +78,8 @@ Prop_strong()VideoModel_Core *core_data;
                         }
                     }).load();
             self.rbView.byAlpha(1);
-
             self.textLabel.byText(self.core_data.videoTitle);
-
             self.textLabel.byTextCor(JobsRedColor);
-
 //            self.rotation.hidden;// 宽大于高 = 横屏视频，才支持旋转
         };return self;
     };
@@ -127,7 +122,6 @@ Prop_strong()VideoModel_Core *core_data;
             @jobs_strongify(self)
             view.jobsRichViewByModel(nil);
             [view actionObjBlock:^(id data) {
-                
             }];
             view.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
                 make.right.equalTo(self.contentView);

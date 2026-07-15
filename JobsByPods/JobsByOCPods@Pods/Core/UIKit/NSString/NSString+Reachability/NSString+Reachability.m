@@ -8,7 +8,6 @@
 #import "NSString+Reachability.h"
 
 @implementation NSString (Reachability)
-
 -(Reachability *_Nonnull)makeReachability{
     return [Reachability reachabilityWithHostname:self];
 }

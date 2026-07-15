@@ -64,7 +64,6 @@
             if (!flignore) {
                 short ctcharsinbuf = 3;
                 Boolean flbreak = false;
-          
                 if (flendtext) {
                 if (ixinbuf == 0) {
                   break;

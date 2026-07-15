@@ -8,7 +8,6 @@
 #import "UIImage+JobsMosaicDemo.h"
 
 @implementation UIImage (JobsMosaicDemo)
-
 -(UIImage *)jobs_mosaicNormalizedImage{
     if (self.imageOrientation == UIImageOrientationUp) return self;
     UIGraphicsBeginImageContextWithOptions(self.size,
@@ -90,7 +89,6 @@
 @end
 
 @implementation UIImageView (JobsMosaicDemo)
-
 -(CGRect)jobs_mosaicImageFrameForImageSize:(CGSize)imageSize{
     if (imageSize.width <= 0 || imageSize.height <= 0 || CGRectIsEmpty(self.bounds)) return CGRectZero;
     CGFloat widthScale = CGRectGetWidth(self.bounds) / imageSize.width;

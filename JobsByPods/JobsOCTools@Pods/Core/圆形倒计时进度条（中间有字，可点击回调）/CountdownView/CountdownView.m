@@ -15,7 +15,6 @@ Prop_strong()CABasicAnimation *animation;
 @end
 
 @implementation CountdownView
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.time = 3;// 倒计时的时间
@@ -31,7 +30,6 @@ Prop_strong()CABasicAnimation *animation;
         /// 这里写手势的触发
         if (self.blockTapAction) self.blockTapAction();
     }]);
-     
     @jobs_weakify(self)
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                  (int64_t)(self.time * NSEC_PER_SEC)),

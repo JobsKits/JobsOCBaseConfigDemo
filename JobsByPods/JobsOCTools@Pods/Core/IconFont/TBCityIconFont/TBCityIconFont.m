@@ -8,7 +8,6 @@
 #import "TBCityIconFont.h"
 
 @implementation TBCityIconFont
-
 static NSString *_fontName;
 
 + (void)registerFontWithURL:(NSURL *)url {
@@ -32,7 +31,6 @@ static NSString *_fontName;
 
 + (void)setFontName:(NSString *)fontName {
     _fontName = fontName;
-    
 }
 
 + (NSString *)fontName {

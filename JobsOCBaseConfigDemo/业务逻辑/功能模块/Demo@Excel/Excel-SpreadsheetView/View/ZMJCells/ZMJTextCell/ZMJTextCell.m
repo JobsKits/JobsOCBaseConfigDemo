@@ -12,18 +12,15 @@
 @end
 
 @implementation ZMJTextCell : ZMJCell
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.btn.byAlpha(1);
-
     };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
         self.btn.byAlpha(1);
-
     };return self;
 }
 

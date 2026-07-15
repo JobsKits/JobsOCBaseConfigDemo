@@ -16,16 +16,13 @@ Prop_strong()CAGradientLayer *cagradientLayer;
 @end
 
 @implementation GDFadeView
-
 -(instancetype)init{
     if (self = [super init]) {
-
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-
     };return self;
 }
 
@@ -36,9 +33,7 @@ Prop_strong()CAGradientLayer *cagradientLayer;
 -(void)setFrame:(CGRect)frame{
     [super setFrame:frame];
     self.backLabel.byAlpha(1);
-
     self.frontLabel.byAlpha(1);
-
     self.createMask();
 }
 #pragma mark —— 一些私有方法
@@ -47,7 +42,6 @@ Prop_strong()CAGradientLayer *cagradientLayer;
     return ^(){
         @jobs_strongify(self)
         self.cagradientLayer.byFrame(self.bounds);
-
         self.cagradientLayer.colors = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
             data.add((id)JobsClearColor.CGColor)
                 .add((id)JobsRedColor.CGColor)
@@ -139,7 +133,6 @@ Prop_strong()CAGradientLayer *cagradientLayer;
 -(CAGradientLayer *)cagradientLayer{
     if (!_cagradientLayer) {
         _cagradientLayer = jobsMakeCAGradientLayer(^(__kindof CALayer * _Nullable layer) {
-            
         });
     };return _cagradientLayer;
 }

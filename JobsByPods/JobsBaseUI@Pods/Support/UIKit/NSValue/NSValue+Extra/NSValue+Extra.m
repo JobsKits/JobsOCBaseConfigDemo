@@ -8,7 +8,6 @@
 #import "NSValue+Extra.h"
 
 @implementation NSValue (Extra)
-
 +(JobsRetValueByCGSizeBlock _Nonnull)bySize{
     return ^NSValue *_Nullable(CGSize data){
         return [NSValue valueWithCGSize:data];

@@ -145,7 +145,6 @@
     if (isValue(bundleFileName)){
         bundlePath = bundlePath.add(JobsSeparation).add(bundleFileName).add(@".bundle");
     }
-    
     if (isValue(bundleFileSuffix)){
         bundlePath = bundlePath.add(bundleFileSuffix);
     };return [FileFolderHandleTool filePath:bundlePath fileType:fileType];
@@ -176,7 +175,6 @@
                 NSDictionary *dic = NSDictionary.initByContentsOfFile(filePath);
                 return dic;
             }break;
-                
             default:
                 return nil;
                 break;
@@ -199,7 +197,6 @@
     id content = [FileFolderHandleTool bundleFile:bundleFileName
                                  bundleFileSuffix:LocalFileSuffix
                                          fileType:fileType];
-    
     /// 图片、文本、plist（字典）、视频、声音
     NSString *fileFolderPathStr = [FileFolderHandleTool createCacheFolderPath:nil fileEx:nil];
     /// 写文件之前一定要 有空白文件可写。
@@ -279,7 +276,6 @@
     NSFileManager *fileManager = NSFileManager.defaultManager;
     NSArray *paths = pathArr;
     NSString *documentsDirectory = [paths objectAtIndex:0];
-     
     NSArray *contents = [fileManager contentsOfDirectoryAtPath:documentsDirectory error:error];
     NSEnumerator *e = [contents objectEnumerator];
     NSString *filename;

@@ -27,7 +27,6 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
 @end
 
 @implementation ZMJGanttListVC
-
 - (void)dealloc{
     JobsNotificationCenter.remove(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -35,14 +34,12 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"返回".tr);
@@ -52,7 +49,6 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
             data.byText(@"ZMJGanttList".tr);
             data.byFont(UIFontWeightRegularSize(18));
         })
-    
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
@@ -64,11 +60,9 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsRandomColor);
-
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
     self.spreadsheetView.byAlpha(1);
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -88,7 +82,6 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -101,7 +94,6 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
 }
 
 - (void)setDisplayMode:(ZMJDisplayMode)displayMode {
@@ -113,7 +105,6 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
 /// 获取当月的天数
 - (NSInteger)getNumberOfDaysInMonth:(NSDate *)theDay {
     NSAssert(theDay != nil, @"theDay is null.");
-
     NSCalendar * calendar = [NSCalendar.alloc initWithCalendarIdentifier:NSCalendarIdentifierGregorian]; // 指定日历的算法 NSGregorianCalendar - ios 8
     NSDate * currentDate = NSDate.date;
     NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay  //NSDayCalendarUnit - ios 8
@@ -194,7 +185,6 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
                     }else{
                         sum = chineseNumeralsArray[9];
                     }
-                    
                     if ([sums.lastObject isEqualToString:sum]){
                         continue;
                     }
@@ -228,13 +218,11 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
 - (NSArray<NSDate *> *)getDayArrayLeftDate:(NSDate *)aLeftDate rightDate:(NSDate *)aRightDate {
 //    NSAssert(aLeftDate < aRightDate, @"aLeftDate must less equal aRightDate!");
     NSAssert([aLeftDate compare:aRightDate] == NSOrderedAscending, @"aLeftDate must be earlier than aRightDate!");
-    
     static NSDateFormatter *dateFormatter = nil;
     if (!dateFormatter) {
         dateFormatter = NSDateFormatter.new;
         dateFormatter.dateFormat = @"yyyy年MM月dd日";
     }
-    
     NSMutableArray<NSDate *> *results  = NSMutableArray.array;
     NSCalendar *gregorian        = [NSCalendar.alloc initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDate *currentDate          = aLeftDate;
@@ -251,17 +239,14 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
 - (NSInteger)getDistanceLeftDate:(NSDate *)aLeftDate rightDate:(NSDate *)aRightDate {
 //    NSAssert(aLeftDate <= aRightDate, @"aLeftDate must less equal aRightDate!");
     NSAssert([aLeftDate compare:aRightDate] != NSOrderedDescending, @"aLeftDate must be earlier than or equal to aRightDate!");
-    
     if (aLeftDate == aRightDate) {
         return  0;
     }
-
     static NSDateFormatter *dateFormatter = nil;
     if (!dateFormatter) {
         dateFormatter = NSDateFormatter.new;
         dateFormatter.dateFormat = @"yyyy年MM月dd日";
     }
-    
     NSCalendar *gregorian        = [NSCalendar.alloc initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDate *currentDate          = aLeftDate;
     NSDateComponents *components = [gregorian components:NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay
@@ -321,7 +306,6 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
     if (!task.startDate && !task.dueDate) {
         return nil;
     }
-
     NSInteger fromColumn = 0;
     NSInteger toColumn = 0;
     if (task.startDate && task.dueDate) {
@@ -540,7 +524,6 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                         };return nil;
                     };
                     cell.label.byText([self formateMonthLimmited:getVilabelDateBlock(row, column)]);
-
                 }break;
                 case ZMJDisplayMode_monthly:{
                     NSDate *(^getVilabelDateBlock)(NSInteger r, NSInteger c) = ^NSDate *(NSInteger r, NSInteger c) {
@@ -552,14 +535,12 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                         };return nil;
                     };
                     cell.label.byText([self formateYearLimmited:getVilabelDateBlock(row, column)]);
-
                 }break;
             }
         } else {
             switch (self.displayMode) {
                 case ZMJDisplayMode_daily:
                     cell.label.byText([self dailyAppendWeaklyForDate:self.days[column]]);
-
                     break;
                 case ZMJDisplayMode_weekly:{
                     NSInteger(^getVilabelIdxBlock)(NSInteger r, NSInteger c) = ^NSInteger(NSInteger r, NSInteger c) {
@@ -600,10 +581,8 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
         NSInteger start = [self chartStartColumnForTask:task];
         if (start == column) {
             cell.label.byText(self.tasks[row - 2].taskName);
-
             NSInteger colorIndex = arc4random() % 3;
             cell.color = self.colors[colorIndex];
-            
             if (task.startDate == nil) {
                 cell.direction = ZMJDashlineDirectionLeft;
             } else if (task.dueDate == nil) {
@@ -611,19 +590,16 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
             } else {
                 cell.direction = ZMJDashlineDirectionNone;
             }
-            
             if (self.displayMode != ZMJDisplayMode_daily) {
                 cell.gridlines.right   = GridStyle.borderStyleNone;
             }
         } else {
             cell.label.byText(@"");
-
             cell.color = JobsClearColor;
             cell.gridlines.right   = [GridStyle style:GridStyle_default width:0 color:nil];
         }
         cell.gridlines.bottom  = GridStyle.borderStyleNone;
         cell.gridlines.top     = GridStyle.borderStyleNone;
-        
         @jobs_weakify(self)
         switch (self.displayMode) {
             case ZMJDisplayMode_daily:
@@ -662,7 +638,6 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
     }
     ZMJTask *task = self.tasks[indexPath.row - 2];
     NSInteger start = [self chartStartColumnForTask:task];
-    
     if (start != indexPath.column) {
         [self.tipView dismissWithCompletion:nil];
         return;
@@ -682,7 +657,6 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
 }
 
 -(void)tipViewDidSelected:(ZMJTipView *)tipView{
-    
 }
 #pragma mark —— lazyLoad
 -(NSMutableArray<ZMJTask *> *)tasks{
@@ -724,7 +698,6 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
             make.left.right.bottom.equalTo(self.view);
             [self make:make topOffset:10];
         });
-
 //        if (@available(iOS 11.0, *)) {
 //            _spreadsheetView.frame = self.view.safeAreaLayoutGuide.layoutFrame;
 //        } else {
@@ -835,7 +808,6 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
         _preferences.drawing.font = [UIFont fontWithName:@"Futura-Medium" size:13];
         _preferences.drawing.foregroundColor = JobsWhiteColor;
         _preferences.drawing.backgroundColor = JobsWhiteColor;
-
     };return _preferences;
 }
 

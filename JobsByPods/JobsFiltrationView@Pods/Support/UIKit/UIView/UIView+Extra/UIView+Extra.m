@@ -8,7 +8,6 @@
 #import "UIView+Extra.h"
 
 @implementation UIView (Extra)
-
 -(JobsRetViewByViewBlock _Nonnull)addSubview{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(__kindof UIView *_Nullable subView) {
@@ -31,7 +30,6 @@
     self.layer.mask = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable data) {
         @jobs_strongify(self)
         data.byFrame(self.bounds);
-
         data.path = maskPath.CGPath;
     });
 }

@@ -18,7 +18,6 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self == [super initWithFrame:frame]) {
         self.byBgColor(JobsBlueColor);
-
     };return self;
 }
 #pragma mark —— BaseViewProtocol
@@ -29,7 +28,6 @@
         @jobs_strongify(self)
         self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         self.label.byAlpha(1);
-
     };
 }
 #pragma mark —— lazyLoad

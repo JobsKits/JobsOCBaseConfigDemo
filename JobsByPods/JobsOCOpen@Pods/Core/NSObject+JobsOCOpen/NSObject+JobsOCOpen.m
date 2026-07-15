@@ -14,7 +14,6 @@ Prop_copy(nullable) jobsByVoidBlock completionHandlerBlock;
 @end
 
 @implementation _JobsOCOpenObjectMailProxy
-
 +(instancetype)shared{
     static _JobsOCOpenObjectMailProxy *proxy = nil;
     static dispatch_once_t onceToken;
@@ -34,7 +33,6 @@ Prop_copy(nullable) jobsByVoidBlock completionHandlerBlock;
 @end
 
 @implementation NSObject (JobsOCOpen)
-
 -(void)jobs_ocSendMailWithComposeVC:(MFMailComposeViewController *_Nullable)mailComposeVC
              completionHandlerBlock:(jobsByVoidBlock _Nullable)completionHandlerBlock{
     if (!MFMailComposeViewController.canSendMail) {

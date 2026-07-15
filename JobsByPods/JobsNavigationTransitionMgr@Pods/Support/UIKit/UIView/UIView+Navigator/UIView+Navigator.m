@@ -50,7 +50,6 @@
     return ^(UIView __kindof * _Nullable superview) {
         @jobs_strongify(self)
         superview.navigator.byFrame(superview.bounds);
-
         self.navigator = superview.navigator;
     };
 }
@@ -69,7 +68,6 @@
     return ^(UIView __kindof * _Nullable pushview) {
         @jobs_strongify(self)
         self.navigator.byFrame(self.bounds);
-
         pushview.navigator = self.navigator;
     };
 }
@@ -90,7 +88,6 @@
              UIView *_Nullable view) {
         @jobs_strongify(self)
         self.navigator.byFrame(view.bounds);
-
         view.navigator = superview.navigator;
     };
 }
@@ -101,7 +98,6 @@ JobsKey(_navigator)
     JobsViewNavigator *Navigator = Jobs_getAssociatedObject(_navigator);
     if(!Navigator){
         Navigator = jobsMakeViewNavigator(^(__kindof JobsViewNavigator * _Nullable viewNavigator) {
-
         });Jobs_setAssociatedRETAIN_NONATOMIC(_navigator, Navigator)
     };return Navigator;
 }

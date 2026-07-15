@@ -8,7 +8,6 @@
 #import "WMZBannerParam.h"
 
 @implementation WMZBannerParam
-
 WMZBannerPropSetFuncImplementation(WMZBannerParam, CGRect,                        wFrame)
 WMZBannerPropSetFuncImplementation(WMZBannerParam, NSArray*,                      wData)
 WMZBannerPropSetFuncImplementation(WMZBannerParam, CGFloat,                       wScaleFactor)

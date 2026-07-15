@@ -35,7 +35,6 @@ Prop_strong()UITextModel *postTextModel;
 @end
 
 @implementation JobsPostVC
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -43,14 +42,12 @@ Prop_strong()UITextModel *postTextModel;
 
 -(void)loadView{
     [super loadView];
-
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"返回".tr);
@@ -60,7 +57,6 @@ Prop_strong()UITextModel *postTextModel;
             data.byText(data.attributedTitle.string);
             data.byFont(UIFontWeightRegularSize(16));
         })
-
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
@@ -81,8 +77,6 @@ Prop_strong()UITextModel *postTextModel;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsWhiteColor);
-
-
     @jobs_weakify(self)
     self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
 //        @jobs_strongify(self)
@@ -93,15 +87,10 @@ Prop_strong()UITextModel *postTextModel;
         data.add(UIBarButtonItem.initBy(self.releaseBtn));
     });
     self.makeNavByAlpha(1);
-
     self.jobsTextView.byAlpha(1);
-
     self.tipsLab.byAlpha(1);
-
     self.postPhotoView.byAlpha(1);
-
     self.postDelView.byAlpha(1);
-
     [self releaseBtnState:self.historyPhotoDataArr inputDataString:self.inputDataHistoryString];
     self.fd_interactivePopDisabled = YES;
 }
@@ -147,25 +136,21 @@ Prop_strong()UITextModel *postTextModel;
 /// 帖子视频上传 POST
 -(jobsByVoidBlock _Nonnull)networking_postuploadVideoPOST{
     return ^(){
-
     };
 }
 /// 帖子图片上传 POST
 -(jobsByVoidBlock _Nonnull)networking_postUploadImagePOST{
     return ^(){
-
     };
 }
 /// 发帖 POST
 -(jobsByVoidBlock _Nonnull)networking_postAddPostPOST{
     return ^(){
-
     };
 }
 /// 发帖权限检测
 -(jobsByVoidBlock _Nonnull)networking_checkHadRoleGET{
     return ^(){
-
     };
 }
 
@@ -226,21 +211,16 @@ Prop_strong()UITextModel *postTextModel;
     })
                            alertVCBlock:^(SPAlertController *data,
                                           NSMutableArray <SPAlertAction *>*data2) {
-
         data.titleColor = JobsBlackColor;
         data.messageColor = JobsBlackColor;
         data.titleFont = UIFontWeightSemiboldSize(16);
         data.messageFont = UIFontWeightMediumSize(14);
-
         SPAlertAction *action1 = (SPAlertAction *)data2[0];
         SPAlertAction *action2 = (SPAlertAction *)data2[1];
-
         action1.titleColor = JobsLightGrayColor;
         action1.titleFont = UIFontWeightSemiboldSize(16);
-
         action2.titleColor = JobsBlackColor;
         action2.titleFont = UIFontWeightSemiboldSize(16);
-
     } completionBlock:nil];
 }
 /// 返回按钮点击方法 【覆写父类方法】 // 清空草稿   [self.photoManager deleteLocalModelsInFile];
@@ -508,7 +488,6 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
 -(NSMutableArray<UIImage *> *)photosImageMutArr{
     if (!_photosImageMutArr) {
         _photosImageMutArr = jobsMakeMutArr(^(NSMutableArray <UIImage *>* _Nullable data) {
-
         });
     };return _photosImageMutArr;
 }

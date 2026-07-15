@@ -12,7 +12,6 @@
 @end
 
 @implementation JobsNavigationDemoVC
-
 -(void)dealloc{
     NSLog(@"");
 }
@@ -25,7 +24,6 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-
     self.view.byBgColor(UIColor.lightGrayColor);
     self.setupAppearanceByNavigationBar(self.navigationController.navigationBar); // 1. 外观：背景图、底色、tintColor 等
     [self setupNavigationTitle];                                                  // 2. 标题：普通 + 富文本

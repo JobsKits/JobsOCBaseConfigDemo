@@ -12,7 +12,6 @@
 @end
 
 @implementation YTKNetworkStudyVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
@@ -59,7 +58,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.byBgColor(JobsYellowColor);
     self.makeNavByAlpha(1);
 }
@@ -69,7 +67,6 @@
     @jobs_weakify(self)
     /// 普通的单个请求
     [self loadCacheData:^(JobsResponseModel *_Nullable responseModel) {
-        
     }];
     /// 多请求の同步请求
     [self sendBatchRequest:^(YTKBatchRequest *_Nullable batchRequest) {

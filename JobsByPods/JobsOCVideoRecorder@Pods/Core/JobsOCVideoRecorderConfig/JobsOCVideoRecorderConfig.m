@@ -8,7 +8,6 @@
 #import "JobsOCVideoRecorderConfig.h"
 
 @implementation JobsOCVideoRecorderConfig
-
 +(instancetype)defaultConfig{
     return JobsOCVideoRecorderConfig.new;
 }

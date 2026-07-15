@@ -15,7 +15,6 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
 @end
 
 @implementation MainTableViewCell
-
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     @jobs_weakify(self)
     return ^(UITableView * _Nonnull tableView) {
@@ -91,7 +90,6 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
             view.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
         })
         .byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
-
     @jobs_weakify(self)
     cell.jobsRichElementsCollectionViewCellBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable vm) {
         @jobs_strongify(self)
@@ -123,7 +121,6 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
         })];
         _collectionView.dataLink(self);
         _collectionView.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
-
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {

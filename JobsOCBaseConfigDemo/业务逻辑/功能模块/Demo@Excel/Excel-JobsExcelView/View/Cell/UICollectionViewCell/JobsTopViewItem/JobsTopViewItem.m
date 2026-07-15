@@ -18,7 +18,6 @@ Prop_assign()CGSize size;
 @end
 
 @implementation JobsTopViewItem
-
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     JobsTopViewItem *cell = JobsRegisterDequeueCollectionViewCell(JobsTopViewItem);
@@ -55,7 +54,6 @@ Prop_assign()CGSize size;
         @jobs_strongify(self)
         self.viewModel_ = viewModel;
         self.bgImageView.byAlpha(1);
-
         CGSize size = CGSizeMake(viewModel.itemW, viewModel.itemH);
         if (!CGSizeEqualToSize(self.size, size)) {
             self.size = size;
@@ -63,12 +61,10 @@ Prop_assign()CGSize size;
             self.linePath.add(CGPointMake(size.width, 0));
             self.linePath.add(CGPointMake(size.width, size.height));
             self.linePath.add(CGPointMake(0, size.height));
-            
             UIGraphicsBeginImageContext(size);
             [self.linePath stroke];
             UIGraphicsEndImageContext();
             self.lineLayer.byHidden(NO);
-
         };return self;
     };
 }

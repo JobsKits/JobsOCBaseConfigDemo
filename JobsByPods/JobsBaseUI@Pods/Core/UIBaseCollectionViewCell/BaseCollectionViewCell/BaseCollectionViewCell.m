@@ -19,7 +19,6 @@
 #pragma mark —— 复写父类相关方法和属性
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-
     };return self;
 }
 

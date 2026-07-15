@@ -8,7 +8,6 @@
 #import "UIButton+Extra.h"
 
 @implementation UIButton (Extra)
-
 -(JobsRetBtnByNSUIntegerBlock _Nonnull)makeBtnTitleByShowingType{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UILabelShowingType labelShowingType) {
@@ -32,7 +31,6 @@
             }break;
             case UILabelShowingType_05:{/// 多行显示。定宽、不定高、定字体
                 self.titleLabel.byNumberOfLines(0);
-
                 self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;/// 自动折行设置【默认】需要提前设置imageTitleSpace
                 self.uninstall(NSLayoutAttributeHeight);
                 JobsLog(@"%f,%f",self.width,self.height);
@@ -73,7 +71,6 @@
             }break;
             case UILabelShowingType_05:{/// 多行显示。定宽、不定高、定字体
                 self.subtitleLabel.byNumberOfLines(0);
-
                 self.subtitleLabel.lineBreakMode = NSLineBreakByWordWrapping;/// 自动折行设置【默认】需要提前设置imageTitleSpace
                 self.uninstall(NSLayoutAttributeHeight);
                 JobsLog(@"%f,%f",self.width,self.height);

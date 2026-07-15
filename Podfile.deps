@@ -188,6 +188,7 @@ def byJobsDo
   pod 'JobsWallet',                     :path => './JobsByPods/JobsWallet@Pods'
   pod 'JobsSuspend',                    :path => './JobsByPods/JobsSuspend@Pods'
   pod 'JobsOCTimer',                    :path => './JobsByPods/JobsOCTimer@Pods'
+  pod 'JobsOCAudioRecorder',            :path => './JobsByPods/JobsOCAudioRecorder@Pods'
   pod 'JobsOCPatch',                    :path => './JobsByPods/JobsOCPatch@Pods'
   pod 'JobsByOCPods',                   :path => './JobsByPods/JobsByOCPods@Pods'
   pod 'JobsHotLabel',                   :path => './JobsByPods/JobsHotLabel@Pods'

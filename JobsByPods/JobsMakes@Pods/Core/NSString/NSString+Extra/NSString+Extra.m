@@ -9,7 +9,6 @@
 #import <JobsMakes/UIColor+Extra.h>
 
 @implementation NSString (JobsMakesExtra)
-
 -(UIColor *)cor{
     return UIColor.jobsCor(self);
 }

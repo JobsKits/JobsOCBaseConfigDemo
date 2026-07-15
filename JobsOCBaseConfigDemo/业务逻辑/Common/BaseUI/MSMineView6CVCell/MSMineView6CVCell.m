@@ -12,10 +12,8 @@
 @end
 
 @implementation MSMineView6CVCell
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
     };return self;
 }
 #pragma mark —— BaseViewProtocol
@@ -39,7 +37,6 @@
         super.jobsRichElementsCollectionViewCellBy(model);
         self.byBgColor(@"#FFFFFF".cor);
         self.contentView.byBgColor(@"#FFFFFF".cor);
-
         return self;
     };
 }

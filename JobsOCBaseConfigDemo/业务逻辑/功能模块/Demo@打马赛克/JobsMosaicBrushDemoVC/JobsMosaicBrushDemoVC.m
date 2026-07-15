@@ -24,7 +24,6 @@ Prop_assign()NSUInteger renderVersion;
 @end
 
 @implementation JobsMosaicBrushDemoVC
-
 -(NSString *)pageTitle{
     return @"手势涂抹马赛克".tr;
 }

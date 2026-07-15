@@ -8,7 +8,6 @@
 #import "JobsOCSkeletonConfig.h"
 
 @implementation JobsOCSkeletonConfig
-
 +(instancetype)defaultConfig{
     return self.shimmerConfig;
 }

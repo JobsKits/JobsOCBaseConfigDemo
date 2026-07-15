@@ -8,7 +8,6 @@
 #import "UIStackView+DSL.h"
 
 @implementation UIStackView (DSL)
-
 -(JobsRetStackViewByAxisBlock _Nonnull)byAxis{
     @jobs_weakify(self)
     return ^__kindof UIStackView *_Nullable(UILayoutConstraintAxis data){

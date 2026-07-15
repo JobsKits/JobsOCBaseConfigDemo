@@ -33,7 +33,6 @@ Prop_assign()BOOL countUpTimerHasStarted;
 @end
 
 @implementation JobsTimerVC
-
 - (void)dealloc{
     /// 定时器完全移除以后，才会走dealloc方法
     JobsLog(@"%@",JobsLocalFunc);
@@ -43,7 +42,6 @@ Prop_assign()BOOL countUpTimerHasStarted;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -59,7 +57,6 @@ Prop_assign()BOOL countUpTimerHasStarted;
                 .byFont(UIFontWeightRegularSize(16))
                 .byTextCor(HEXCOLOR(0x3D4A58));
         })
-    
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
@@ -71,9 +68,7 @@ Prop_assign()BOOL countUpTimerHasStarted;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.byBgColor(HEXCOLOR(0xF3F6FA));
-
     self.makeNavByAlpha(1);
     self.countUpTitleLab.byVisible(YES);
     self.countdownView.byVisible(YES);
@@ -116,24 +111,20 @@ Prop_assign()BOOL countUpTimerHasStarted;
 -(void)updateTimerControlButtons {
     id<TimerProtocol> timer = self.countdownView.timer;
     if (!timer || self.btnMutArr.count < 4) return;
-
     UIButton *startBtn  = self.btnMutArr[0];
     UIButton *pauseBtn  = self.btnMutArr[1];
     UIButton *restartBtn = self.btnMutArr[2];
     UIButton *stopBtn   = self.btnMutArr[3];
-
     BOOL isRunning = timer.isRunning;
     BOOL isPaused  = timer.isPaused;
     BOOL canStart = !isRunning && !isPaused;
     BOOL canPause = isRunning;
     BOOL canRestart = self.countUpTimerHasStarted;
     BOOL canStop = isRunning || isPaused;
-
     startBtn.userInteractionEnabled = canStart;
     pauseBtn.userInteractionEnabled = canPause;
     restartBtn.userInteractionEnabled = canRestart;
     stopBtn.userInteractionEnabled = canStop;
-
     startBtn.byAlpha(canStart ? 1.0 : 0.42);
     pauseBtn.byAlpha(canPause ? 1.0 : 0.42);
     restartBtn.byAlpha(canRestart ? 1.0 : 0.42);

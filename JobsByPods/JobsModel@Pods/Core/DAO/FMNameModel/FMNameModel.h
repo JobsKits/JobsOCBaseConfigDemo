@@ -31,7 +31,6 @@ Prop_strong()__kindof UITextField *middleNameTF;
 Prop_strong()__kindof UITextField *lastNameTF;
 Prop_strong()__kindof UITextField *idTypeTF;
 Prop_strong()__kindof UITextField *idNumberTF;
-
 Prop_copy()NSString *firstName;
 Prop_copy()NSString *middleName;
 Prop_copy()NSString *lastName;

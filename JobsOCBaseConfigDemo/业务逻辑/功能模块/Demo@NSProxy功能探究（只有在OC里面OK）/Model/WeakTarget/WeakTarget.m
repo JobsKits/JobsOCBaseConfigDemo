@@ -8,7 +8,6 @@
 #import "WeakTarget.h"
 
 @implementation WeakTarget
-
 +(instancetype)withTarget:(id)target {
     WeakTarget *w = WeakTarget.new;
     w.target = target;

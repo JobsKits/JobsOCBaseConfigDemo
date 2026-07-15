@@ -8,7 +8,6 @@
 #import "JobsOCDemoSectionModel.h"
 
 @implementation JobsOCDemoSectionModel
-
 +(instancetype)sectionWithTitle:(NSString *)title{
     JobsOCDemoSectionModel *sectionModel = JobsOCDemoSectionModel.new;
     sectionModel.title = title;

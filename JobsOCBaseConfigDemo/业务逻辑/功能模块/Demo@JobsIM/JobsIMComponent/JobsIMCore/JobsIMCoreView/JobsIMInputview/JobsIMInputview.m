@@ -17,11 +17,9 @@ Prop_strong()BaseButton *sendBtn;
 @end
 
 @implementation JobsIMInputview
-
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-
     };return self;
 }
 
@@ -35,9 +33,7 @@ Prop_strong()BaseButton *sendBtn;
     return ^(id _Nullable model) {
         @jobs_strongify(self)
         self.sendBtn.byAlpha(1);
-
         self.inputTextField.byAlpha(1);
-
     };
 }
 /// 一些变化的UI
@@ -89,7 +85,6 @@ Prop_strong()BaseButton *sendBtn;
                     if (self.objBlock) self.objBlock(self.inputTextField);
                 }
                 self.inputTextField.byText(@"".tr);
-
                 x.byEnabled(NO);
             })
             .onLongPressGestureBy(^(id data){
@@ -132,9 +127,7 @@ Prop_strong()BaseButton *sendBtn;
                     make.right.equalTo(self.sendBtn.mas_left).offset(-10);
                     make.left.equalTo(self).offset(10);
                 });
-
             self.refresh();
-
             textField.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable model) {
                 model
                     .byJobsWidth(.5f)
@@ -142,7 +135,6 @@ Prop_strong()BaseButton *sendBtn;
                     .byCornerRadiusValue(textField.mj_h / 2);
             }));
         });
-
         [[_inputTextField.rac_textSignal filter:^BOOL(NSString *_Nullable value) {
             return YES;
         }] subscribeNext:^(NSString *_Nullable x) {

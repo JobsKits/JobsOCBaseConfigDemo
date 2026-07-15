@@ -36,7 +36,6 @@ Prop_strong()NSLayoutConstraint *containerLeadingConstraint;
 @end
 
 @implementation JobsOCCommentCell
-
 +(NSString *)reuseIdentifier{
     return NSStringFromClass(self);
 }

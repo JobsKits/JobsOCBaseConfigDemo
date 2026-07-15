@@ -8,7 +8,6 @@
 #import "YTKAnimatingRequestAccessory.h"
 
 @implementation YTKAnimatingRequestAccessory
-
 -(id)initWithAnimatingView:(UIView *)animatingView
              animatingText:(NSString *)animatingText {
     if (self = [super init]) {

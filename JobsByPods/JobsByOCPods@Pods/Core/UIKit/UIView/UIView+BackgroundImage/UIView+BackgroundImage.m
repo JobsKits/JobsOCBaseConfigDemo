@@ -34,7 +34,6 @@ JobsKey(_backgroundImageView)
                 imageView.addOn(cell.contentView).byAdd(^(MASConstraintMaker *make) {
                     make.edges.equalTo(cell.contentView);
                 });
-
             }else if ([self isKindOfClass:UITableViewCell.class]){
                 UITableViewCell *cell = (UITableViewCell *)self;
                 imageView.addOn(cell.contentView).byAdd(^(MASConstraintMaker *make) {

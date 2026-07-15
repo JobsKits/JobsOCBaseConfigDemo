@@ -7,28 +7,41 @@
 
 #import "UINavigationController+SafeTransition.h"
 
+static void JobsInstallNavigationBackButton(UINavigationController *navigationController,
+                                            UIViewController *viewController) {
+    if (viewController.navigationController != navigationController ||
+        navigationController.viewControllers.firstObject == viewController) return;
+    UIBarButtonItem *backItem = viewController.leftBarButtonItem_back;
+    if (!viewController.navigationItem.leftBarButtonItem) {
+        viewController.navigationItem.leftBarButtonItem = backItem;
+    }
+    if (!viewController.navItem.leftBarButtonItem) {
+        viewController.navItem.leftBarButtonItem = backItem;
+    }
+}
+
 @interface UINavigationController ()
 
 @end
 
 @implementation UINavigationController (SafeTransition)
-
 + (void)load {
     TYFFSwizzleMethod(self.class,
                       @selector(pushViewController:animated:),
                       self.class,
                       @selector(safePushViewController:animated:));
-    
+    TYFFSwizzleMethod(self.class,
+                      @selector(setViewControllers:animated:),
+                      self.class,
+                      @selector(safeSetViewControllers:animated:));
     TYFFSwizzleMethod(self.class,
                       @selector(popViewControllerAnimated:),
                       self.class,
                       @selector(safePopViewControllerAnimated:));
-    
     TYFFSwizzleMethod(self.class,
                       @selector(popToRootViewControllerAnimated:),
                       self.class,
                       @selector(safePopToRootViewControllerAnimated:));
-    
     TYFFSwizzleMethod(self.class,
                       @selector(popToViewController:animated:),
                       self.class,
@@ -80,8 +93,19 @@ JobsKey(_viewTransitionInProgress)
     if(self.childViewControllers.containsObject(viewController)) return;
     if (self.viewTransitionInProgress == NO) {
         [self safePushViewController:viewController animated:animated];
+        JobsInstallNavigationBackButton(self, viewController);
         if (animated) self.viewTransitionInProgress = YES;
     }
+}
+
+- (void)safeSetViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers
+                      animated:(BOOL)animated {
+    [self safeSetViewControllers:viewControllers animated:animated];
+    [viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull viewController,
+                                                   NSUInteger idx,
+                                                   BOOL * _Nonnull stop) {
+        if (idx > 0) JobsInstallNavigationBackButton(self, viewController);
+    }];
 }
 
 - (void)ty_popToRootViewControllerBySetControllersAnimated:(BOOL)animated {
@@ -94,7 +118,6 @@ JobsKey(_viewTransitionInProgress)
 @end
 
 @implementation UIViewController (SafeTransitionLock)
-
 + (void)load {
     TYFFSwizzleMethod(self.class,
                       @selector(viewDidAppear:),

@@ -190,40 +190,32 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     for (UIView *v in subviewsCopy) {
         [v removeFromSuperview];
     }
-
     if (self.segments.count == 0 ||
         self.plateView.bounds.size.width <= 0 ||
         self.plateView.bounds.size.height <= 0) {
         return;
     }
-
     CGRect bounds = self.plateView.bounds;
     CGPoint center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
     CGFloat radius = MIN(bounds.size.width, bounds.size.height) / 2.0 - JobsWidth(8);
-
     NSInteger count = self.segments.count;
     CGFloat twoPi = (CGFloat)(M_PI * 2.0);
     CGFloat anglePerSlice = twoPi / (CGFloat)count;
-
     for (NSInteger index = 0; index < count; index++) {
         LuckyWheelSegment *segment = self.segments[index];
-
         CGFloat startAngle = (CGFloat)(-M_PI_2) + (CGFloat)index * anglePerSlice;
         CGFloat endAngle = startAngle + anglePerSlice;
-
         UIBezierPath *path = jobsMakeBezierPath(nil);
         path
             .byMoveToPoint(center)
             .byAddArcWithCenter(center, radius, startAngle, endAngle, YES)
             .byClosePath();
-
         CAShapeLayer *layer = [CAShapeLayer layer];
         layer.path = path.CGPath;
         UIColor *fillColor = segment.backgroundColor ?: [UIColor clearColor];
         layer.fillColor = fillColor.CGColor;
         layer.strokeColor = [JobsWhiteColor colorWithAlphaComponent:0.25].CGColor;
         layer.lineWidth = JobsWidth(0.5);
-
         [self.plateView.layer addSublayer:layer];
         [self.sliceLayers addObject:layer];
         // ===== 文本：整体“对准圆心” =====================
@@ -237,23 +229,18 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                     .byAttributedString(attr)
                     .byBgColor(JobsClearColor);
             });
-
             CGFloat textRadius = radius * 0.55;
             CGPoint textCenter = CGPointMake(center.x + cos(midAngle) * textRadius,
                                              center.y + sin(midAngle) * textRadius);
-
             CGFloat maxTextWidth = anglePerSlice * radius * 0.5;
             CGFloat maxTextHeight = radius * 1.4;
             CGSize maxSize = CGSizeMake(maxTextWidth, maxTextHeight);
-
             CGRect rect = [attr boundingRectWithSize:maxSize
                                              options:(NSStringDrawingUsesLineFragmentOrigin |
                                                       NSStringDrawingUsesFontLeading)
                                              context:nil];
-
             CGFloat w = MIN(maxTextWidth, ceil(rect.size.width));
             CGFloat h = MIN(maxTextHeight, ceil(rect.size.height));
-
             CGFloat rotation = midAngle - (CGFloat)M_PI_2;
             label
                 .byBounds(CGRectMake(0, 0, w, h))
@@ -288,7 +275,6 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
             });
         }
     }
-
     for (NSInteger index = 0; index < count; index++) {
         CGFloat angle = (CGFloat)(-M_PI_2) + (CGFloat)index * anglePerSlice;
         UIBezierPath *linePath = jobsMakeBezierPath(nil);
@@ -305,7 +291,6 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
         [self.plateView.layer addSublayer:lineLayer];
         [self.sliceLayers addObject:lineLayer];
     }
-
     CGRect ringRect = CGRectMake(center.x - radius,
                                  center.y - radius,
                                  radius * 2.0,
@@ -318,7 +303,6 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
         .byLineWidth(JobsWidth(8));
     [self.plateView.layer addSublayer:outerRingLayer];
     [self.sliceLayers addObject:outerRingLayer];
-
     CAShapeLayer *innerRingLayer = CAShapeLayer.layer;
     innerRingLayer
         .byPath(UIBezierPath.byBezierPathWithOvalInRect(CGRectInset(ringRect, JobsWidth(6), JobsWidth(6))).CGPath)
@@ -373,7 +357,6 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
         double T = MAX(0.1, MIN(duration, 6.0));
         CGFloat d = self.decelerationRate;
         CGFloat eps = self.stopThreshold;
-
         double denom = pow(d, 1000.0 * T);
         if (denom < 1e-4) {
             return eps / 1e-4;
@@ -388,13 +371,10 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
         [self stopSpin];
         return;
     }
-
     CGFloat dt = self.timerInterval;
     CGFloat deltaAngle = self.decelerator.stepVtDt(dt);
-
     self.currentAngle += deltaAngle;
     self.plateView.transform = CGAffineTransformMakeRotation(self.currentAngle);
-
     if (self.decelerator.isStoppedByThreshold(self.stopThreshold)) {
         [self stopSpin];
         [self notifyCurrentSegmentIfNeeded];
@@ -414,7 +394,6 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     [self.displayLink invalidate];
     self.displayLink = nil;
     self.decelerator = nil;
-
     [self updateCenterButtonBySpinning:NO];
     [self updateSpinningState:NO];
 }
@@ -453,38 +432,30 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
             self.bounds.size.height <= 0) {
             return -1;
         }
-
         CGRect bounds = self.bounds;
         CGPoint center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
         CGFloat radius = MIN(bounds.size.width, bounds.size.height) / 2.0;
-
         CGFloat dx = point.x - center.x;
         CGFloat dy = point.y - center.y;
         CGFloat distance = hypot(dx, dy);
-
         if (distance > radius) {
             return -1;
         }
-
         // 触点相对圆心的绝对角度（世界坐标），[-π, π]
         CGFloat touchAngle = atan2(dy, dx);
         // 盘面已经被 currentAngle 旋转了；把触点角度“反旋转”回静止态
         CGFloat angle0 = touchAngle - self.currentAngle;
         CGFloat twoPi = (CGFloat)(M_PI * 2.0);
-
         while (angle0 < 0) angle0 += twoPi;
         while (angle0 >= twoPi) angle0 -= twoPi;
-
         // 静止态下，0 对应 -π/2（正上方）
         CGFloat startFromTop = (CGFloat)(-M_PI_2);
         CGFloat relative = angle0 - startFromTop;
         while (relative < 0) relative += twoPi;
         while (relative >= twoPi) relative -= twoPi;
-
         NSInteger count = self.segments.count;
         CGFloat anglePerSlice = twoPi / (CGFloat)count;
         NSInteger idx = (NSInteger)(relative / anglePerSlice);
-
         if (idx >= 0 && idx < count) {
             return idx;
         };return -1;
@@ -500,12 +471,10 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
             self.bounds.size.height <= 0) {
             return -1;
         }
-
         CGRect bounds = self.bounds;
         CGPoint center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
         CGFloat radius = MIN(bounds.size.width, bounds.size.height) / 2.0;
         CGFloat inset = 1.0;
-
         CGPoint p;
         switch (direction) {
             case JobsDirectionUp:
@@ -620,7 +589,6 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 -(NSMutableArray<CAShapeLayer *> *)sliceLayers{
     if(!_sliceLayers){
         _sliceLayers = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
-
         });
     };return _sliceLayers;
 }
@@ -664,7 +632,6 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                 JobsLog(@"追加的点击事件");
             })
             .onLongPressGestureBy(^(UIButton *x){;
-
             })
             .makeBtnTitleByShowingType(UILabelShowingType_03)
             .addOn(self)
@@ -699,34 +666,28 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
             @jobs_strongify(self)
             if (!self.panRotationEnabled) return;
             if (![gesture isKindOfClass:UIPanGestureRecognizer.class]) return;
-
             CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
             CGPoint location = [gesture locationInView:self];
-
             if (gesture.state == UIGestureRecognizerStateBegan &&
                 CGRectContainsPoint(self.centerButton.frame, location)) {
                 // 从按钮区域开始的拖动忽略
                 return;
             }
-
             if (gesture.state == UIGestureRecognizerStateBegan && self.displayLink) {
                 [self stopSpin];
             } else if (self.displayLink) {
                 return;
             }
-
             CGFloat dx = location.x - center.x;
             CGFloat dy = location.y - center.y;
             CGFloat angle = atan2(dy, dx);
             CFTimeInterval now = CACurrentMediaTime();
-
             switch (gesture.state) {
                 case UIGestureRecognizerStateBegan: {
                     self.lastTouchAngle = angle;
                     self.lastTouchTimestamp = now;
                     self.angularVelocityFromPan = 0;
                 } break;
-
                 case UIGestureRecognizerStateChanged: {
                     CGFloat step = angle - self.lastTouchAngle;
                     CGFloat pi = (CGFloat)M_PI;
@@ -735,10 +696,8 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                     } else if (step < -pi) {
                         step += 2.0 * pi;
                     }
-
                     self.currentAngle += step;
                     self.plateView.transform = CGAffineTransformMakeRotation(self.currentAngle);
-
                     CFTimeInterval dt = now - self.lastTouchTimestamp;
                     if (dt > 0) {
                         self.angularVelocityFromPan = step / (CGFloat)dt;
@@ -746,7 +705,6 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                     self.lastTouchAngle = angle;
                     self.lastTouchTimestamp = now;
                 } break;
-
                 case UIGestureRecognizerStateEnded:
                 case UIGestureRecognizerStateCancelled:
                 case UIGestureRecognizerStateFailed: {
@@ -756,7 +714,6 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                         [self startSpinWithScrollLikeDecelerationWithInitialVelocity:v];
                     }
                 } break;
-
                 default:
                     break;
             }
@@ -807,7 +764,6 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
             if (CGRectContainsPoint(self.centerButton.frame, point)) return;
             NSInteger index = self.segmentIndexForPoint(point);
             if (index < 0 || index >= (NSInteger)self.segments.count) return;
-
             LuckyWheelSegment *segment = self.segments[index];
             if (self.segmentTapHandlerInternal) {
                 self.segmentTapHandlerInternal(segment);

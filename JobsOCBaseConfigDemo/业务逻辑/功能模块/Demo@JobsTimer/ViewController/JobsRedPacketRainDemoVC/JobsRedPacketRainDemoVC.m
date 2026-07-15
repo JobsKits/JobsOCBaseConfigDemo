@@ -17,7 +17,6 @@ Prop_strong()UIButton *toggleBtn;
 @end
 
 @implementation JobsRedPacketRainDemoVC
-
 -(void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     [self.rainView stopWithClear:YES];

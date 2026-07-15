@@ -8,7 +8,6 @@
 #import "UIButtonConfiguration+Extra.h"
 
 @implementation UIButtonConfiguration (Extra)
-
 - (JobsRetBtnConfigByBtnConfigBlock _Nonnull)byButtonConfiguration API_AVAILABLE(ios(16.0)){
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIButtonConfiguration *cfg) {
@@ -60,18 +59,15 @@
             .byTitleAlignment(cfg.titleAlignment)
                             // 标题/副标题相对布局
             .byAutomaticallyUpdateForSelection(cfg.automaticallyUpdateForSelection); // 选中自动刷新
-
         // iOS16+ 指示器（你的 typedef 已做 API_AVAILABLE 标注，这里再兜底一层）
         if (@available(iOS 16.0, *)) {
             self.byIndicator(cfg.indicator)
                 .byIndicatorColorTransformer(cfg.indicatorColorTransformer);
         }
-
         // 如需 iOS26+ 的 symbolContentTransition，可在你完成 typedef 后追加：
         // if (@available(iOS 26.0, *)) {
         //     self.bySymbolContentTransition(cfg.symbolContentTransition);
         // }
-
         return self;
     };
 }

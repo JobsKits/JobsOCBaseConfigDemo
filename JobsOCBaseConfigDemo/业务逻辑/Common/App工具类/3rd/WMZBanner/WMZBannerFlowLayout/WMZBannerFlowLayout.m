@@ -21,14 +21,11 @@
 }
 
 - (void)prepareLayout{
-    
     [super prepareLayout];
-  
     self.itemSize = self.param.wItemSize;
     self.minimumInteritemSpacing = (self.param.wFrame.size.height-self.param.wItemSize.height)/2;
     self.minimumLineSpacing = self.param.wLineSpacing;
     self.sectionInset = self.param.wSectionInset;
-    
     if ([self.collectionView isPagingEnabled]) {
          self.scrollDirection = self.param.wVertical? UICollectionViewScrollDirectionVertical
                                                      :UICollectionViewScrollDirectionHorizontal;
@@ -93,7 +90,6 @@
             CGFloat ratio = (maxDistance - distance1) / maxDistance;
             CGFloat alpha = ratio * (1 - self.param.wAlpha) +self.param.wAlpha;
             attributes.alpha = alpha;
-
         }
         if (self.param.wZindex) {
            attributes.zIndex = zoom*100;
@@ -142,25 +138,18 @@
     if ([self.collectionView isPagingEnabled]||self.param.wMarquee) {
         return proposedContentOffset;
     }
-
-       
     CGFloat offSetAdjustment = MAXFLOAT;
     CGFloat horizontalCenter = (CGFloat) (proposedContentOffset.x + self.collectionView.frame.size.width * self.param.wContentOffsetX);
-
     CGRect targetRect = CGRectMake(proposedContentOffset.x,
                                     0.0,
                                     self.collectionView.bounds.size.width,
                                     self.collectionView.bounds.size.height);
-       
     NSArray *attributes = [self layoutAttributesForElementsInRect:targetRect];
     NSPredicate *cellAttributesPredicate = [NSPredicate predicateWithBlock: ^BOOL(UICollectionViewLayoutAttributes * _Nonnull evaluatedObject,NSDictionary<NSString *,id> * _Nullable bindings){
            return (evaluatedObject.representedElementCategory == UICollectionElementCategoryCell);
        }];
-       
     NSArray *cellAttributes = [attributes filteredArrayUsingPredicate: cellAttributesPredicate];
-       
     UICollectionViewLayoutAttributes *currentAttributes;
-       
     for (UICollectionViewLayoutAttributes *layoutAttributes in cellAttributes)
     {
         CGFloat itemHorizontalCenter = layoutAttributes.center.x;
@@ -170,16 +159,12 @@
             offSetAdjustment    = itemHorizontalCenter - horizontalCenter;
         }
     }
-       
     CGFloat nextOffset          = proposedContentOffset.x + offSetAdjustment;
-       
     proposedContentOffset.x     = nextOffset;
     CGFloat deltaX              = proposedContentOffset.x - self.collectionView.contentOffset.x;
     CGFloat velX                = velocity.x;
-       
     if (fabs(deltaX) <= FLT_EPSILON || fabs(velX) <= FLT_EPSILON || (velX > 0.0 && deltaX > 0.0) || (velX < 0.0 && deltaX < 0.0))
     {
-        
     }else if (velocity.x > 0.0){
       NSArray *revertedArray = [[attributes reverseObjectEnumerator] allObjects];
       BOOL found = YES;
@@ -197,7 +182,6 @@
                    }
                }
            }
-           
            if (found) {
                proposedContentOffset.x = proposedX;
                proposedContentOffset.x += self.param.wLineSpacing;
@@ -217,9 +201,7 @@
            }
        }
        proposedContentOffset.y = 0.0;
-       
        return proposedContentOffset;
-    
 }
 
 @end

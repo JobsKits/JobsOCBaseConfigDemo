@@ -23,7 +23,6 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.collectionView.byAlpha(1);
-
     };return self;
 }
 #pragma mark —— BaseViewProtocol
@@ -46,7 +45,6 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
     @jobs_weakify(self)
     JobsTopViewItem *cell = [JobsTopViewItem cellWithCollectionView:collectionView forIndexPath:indexPath];
     cell.byBgColor(self.excelConfigureData.cor3);
-
     cell.jobsRichElementsCollectionViewCellBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable vm) {
         @jobs_strongify(self)
         vm.byData(self.excelConfigureData)
@@ -86,7 +84,6 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
         })];
         _collectionView.dataLink(self);
         _collectionView.byBgColor(JobsClearColor);
-
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.addOn(self).byAdd(^(MASConstraintMaker *make) {

@@ -37,7 +37,6 @@ BaseLayerProtocol_synthesize_part3
         @jobs_strongify(self)
         self.viewModel = model;
         self.label.byAlpha(1);
-
         return self;
     };
 }

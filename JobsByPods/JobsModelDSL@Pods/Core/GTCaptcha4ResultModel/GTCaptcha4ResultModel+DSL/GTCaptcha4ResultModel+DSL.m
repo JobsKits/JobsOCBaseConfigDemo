@@ -8,7 +8,6 @@
 #import "GTCaptcha4ResultModel+DSL.h"
 
 @implementation GTCaptcha4ResultModel (DSL)
-
 -(JobsRetGTCaptcha4ResultModelByStrBlock _Nonnull)byPass_token{
     @jobs_weakify(self)
     return ^__kindof GTCaptcha4ResultModel *_Nullable(NSString * _Nullable data) {

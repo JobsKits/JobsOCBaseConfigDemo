@@ -8,7 +8,6 @@
 #import "NSMutableDictionary+Extra.h"
 
 @implementation NSMutableDictionary (Extra)
-
 -(JobsRetMutableDicByDicBlock _Nonnull)addByDic{
     @jobs_weakify(self)
     return ^NSMutableDictionary *_Nonnull(__kindof NSDictionary *_Nullable dic){

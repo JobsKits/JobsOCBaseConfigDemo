@@ -14,7 +14,6 @@ Prop_strong()UILabel *bubbleLabel;
 @end
 
 @implementation JobsLiveMsgCell
-
 +(NSString *)reuseIdentifier{
     return NSStringFromClass(self);
 }

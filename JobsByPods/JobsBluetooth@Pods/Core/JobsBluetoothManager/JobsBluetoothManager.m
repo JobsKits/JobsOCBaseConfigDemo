@@ -24,7 +24,6 @@ Prop_assign(readwrite)JobsBluetoothState state;
 @end
 
 @implementation JobsBluetoothManager
-
 -(instancetype)init{return [self initWithProfile:JobsBluetoothProfile.new];}
 
 -(instancetype)initWithProfile:(JobsBluetoothProfile *)profile{

@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_JOBSCLASS_55BD1913F1
 
 #import <Foundation/Foundation.h>
-
 #import "NSObject+Class.h"
 
 #endif /* JOBS_HEADER_GUARD_JOBSCLASS_55BD1913F1 */

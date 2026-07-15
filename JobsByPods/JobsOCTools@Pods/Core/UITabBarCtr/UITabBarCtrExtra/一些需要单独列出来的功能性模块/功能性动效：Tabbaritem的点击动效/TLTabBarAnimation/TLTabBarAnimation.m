@@ -23,7 +23,6 @@ CAKeyframeAnimation * createAnimation(NSString *keyPath,
     animation.values = values;
     animation.duration = kDuration;
     animation.calculationMode = @"cubic";
-    
     return animation;
 }
 /// 播放贞动画
@@ -45,10 +44,8 @@ void playFireworksAnimation(UIView *view,
                             CGFloat scaleRange) {
     BOOL __block clipsToBounds = view.clipsToBounds;
     view.clipsToBounds = NO;
-    
     CGPoint center = CGPointMake(CGRectGetMidX(view.bounds),
                                  CGRectGetMidY(view.bounds));
-    
     CAEmitterCell *explosionCell = [CAEmitterCell emitterCell];
     explosionCell.name = @"explosion";
     explosionCell.alphaRange = 0.20;
@@ -61,7 +58,6 @@ void playFireworksAnimation(UIView *view,
     explosionCell.contents = (id)[img CGImage];
     explosionCell.scale = scale;
     explosionCell.scaleRange = scaleRange;
-    
     CAEmitterLayer __block *explosionLayer = [CAEmitterLayer layer];
     explosionLayer.name = @"emitterLayer";
     explosionLayer.emitterShape = kCAEmitterLayerCircle;
@@ -73,7 +69,6 @@ void playFireworksAnimation(UIView *view,
     explosionLayer.seed = 1366128504;
     explosionLayer.emitterPosition = center;
     [view.layer addSublayer:explosionLayer];
-    
     CAEmitterCell *chargeCell = [CAEmitterCell emitterCell];
     chargeCell.name = @"charge";
     chargeCell.alphaRange = 0.20;
@@ -86,7 +81,6 @@ void playFireworksAnimation(UIView *view,
     chargeCell.contents = (id)[img CGImage];
     chargeCell.scale = scale;
     chargeCell.scaleRange = scaleRange;
-    
     CAEmitterLayer __block *chargeLayer = [CAEmitterLayer layer];
     chargeLayer.name = @"emitterLayer";
     chargeLayer.emitterShape = kCAEmitterLayerCircle;
@@ -98,18 +92,14 @@ void playFireworksAnimation(UIView *view,
     chargeLayer.seed = 1366128504;
     chargeLayer.emitterPosition = center;
     [view.layer addSublayer:chargeLayer];
-    
     chargeLayer.beginTime = CACurrentMediaTime();
     [chargeLayer setValue:@100 forKeyPath:@"emitterCells.charge.birthRate"];
-    
     NSTimeInterval time = kDuration * NSEC_PER_SEC;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, time), dispatch_get_main_queue(), ^{
         [chargeLayer setValue:@0 forKeyPath:@"emitterCells.charge.birthRate"];
         [chargeLayer removeFromSuperlayer];
-        
         explosionLayer.beginTime = CACurrentMediaTime();
         [explosionLayer setValue:@300 forKeyPath:@"emitterCells.explosion.birthRate"];
-
         NSTimeInterval time = 0.3 * NSEC_PER_SEC;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, time), dispatch_get_main_queue(), ^{
             [explosionLayer setValue:@0 forKeyPath:@"emitterCells.explosion.birthRate"];
@@ -120,7 +110,6 @@ void playFireworksAnimation(UIView *view,
 }
 #pragma mark —— TLBounceAnimation 弹性动画
 @implementation TLBounceAnimation
-
 - (void)playSelectAnimationWhitTabBarButton:(UIView *)button
                             buttonImageView:(UIImageView *)imageView
                             buttonTextLabel:(UILabel *)textLabel{
@@ -132,7 +121,6 @@ void playFireworksAnimation(UIView *view,
                                                                                      @1.0],
                                                            kDuration);
     [imageView.layer addAnimation:bounceAnimation forKey:nil];
-    
     if(_isPlayFireworksAnimation) {
         UIImage *img = @"yanhua".img;
         playFireworksAnimation(imageView, img, 0.08, 0.03);
@@ -142,13 +130,11 @@ void playFireworksAnimation(UIView *view,
 - (void)playDeselectAnimationWhitTabBarButton:(UIView *)button
                               buttonImageView:(UIImageView *)imageView
                               buttonTextLabel:(UILabel *)textLabel{
-    
 }
 
 @end
 #pragma mark —— TLFumeAnimation 仿烟动画
 @implementation TLFumeAnimation
-
 - (void)playSelectAnimationWhitTabBarButton:(UIView *)button
                             buttonImageView:(UIImageView *)imageView
                             buttonTextLabel:(UILabel *)textLabel{
@@ -172,7 +158,6 @@ void playMoveIconAnimation(UIImageView *icon,
                                                      kDuration / 2);
     animation.fillMode = kCAFillModeForwards;
     animation.removedOnCompletion = NO;
-    
     [icon.layer addAnimation:animation forKey:nil];
 }
 
@@ -182,19 +167,16 @@ void playSelectLabelAnimation(UILabel *textLabel) {
                                                      kDuration);
     animation.fillMode = kCAFillModeRemoved;
     [textLabel.layer addAnimation:animation forKey:nil];
-    
     CAKeyframeAnimation *scaleAnimation = createAnimation(kAnimationKeyPathScale,
                                                           @[@1.0,@2.0],
                                                           kDuration);
     scaleAnimation.fillMode = kCAFillModeRemoved;
     [textLabel.layer addAnimation:scaleAnimation forKey:nil];
-    
     CAKeyframeAnimation * opacityAnimation = createAnimation(kAnimationKeyPathOpacity,
                                                              @[@1.0,@0.0],
                                                              kDuration);
     [textLabel.layer addAnimation:opacityAnimation forKey:nil];
     textLabel.byAlpha(0);
-
 }
 
 void playDeselectLabelAnimation(UILabel *textLabel) {
@@ -202,19 +184,16 @@ void playDeselectLabelAnimation(UILabel *textLabel) {
                                                      @[@(textLabel.center.y + 15),@(textLabel.center.y)],
                                                      kDuration);
     [textLabel.layer addAnimation:animation forKey:nil];
-    
     CAKeyframeAnimation * opacityAnimation = createAnimation(kAnimationKeyPathOpacity,
                                                              @[@0.0, @1.0],
                                                              kDuration);
     [textLabel.layer addAnimation:opacityAnimation forKey:nil];
     textLabel.byAlpha(1);
-
 }
 
 @end
 #pragma mark —— TLRotationAnimation 旋转动画
 @implementation TLRotationAnimation
-
 - (void)playSelectAnimationWhitTabBarButton:(UIView *)button
                             buttonImageView:(UIImageView *)imageView
                             buttonTextLabel:(UILabel *)textLabel{
@@ -222,20 +201,17 @@ void playDeselectLabelAnimation(UILabel *textLabel) {
     rotateAnimation.fromValue = @0.0;
     rotateAnimation.toValue = @(-M_PI * 2);
     rotateAnimation.duration = kDuration;
-    
     [imageView.layer addAnimation:rotateAnimation forKey:nil];
 }
 
 - (void)playDeselectAnimationWhitTabBarButton:(UIView *)button
                               buttonImageView:(UIImageView *)imageView
                               buttonTextLabel:(UILabel *)textLabel{
-    
 }
 
 @end
 #pragma mark —— TLFrameAnimation Frame动画
 @implementation TLFrameAnimation
-
 - (void)playSelectAnimationWhitTabBarButton:(UIView *)button
                             buttonImageView:(UIImageView *)imageView
                             buttonTextLabel:(UILabel *)textLabel{
@@ -284,7 +260,6 @@ void playDeselectLabelAnimation(UILabel *textLabel) {
                               buttonImageView:(UIImageView *)imageView
                               buttonTextLabel:(UILabel *)textLabel{
     if(_disableDeselectAnimation) return;
-    
     NSUInteger index = self.direction % 2 == 0 ? self.direction - 1 : self.direction + 1;
     NSUInteger opts = [@[@1,
                          @2,

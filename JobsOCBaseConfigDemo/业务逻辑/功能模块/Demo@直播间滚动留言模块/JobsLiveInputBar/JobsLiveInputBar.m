@@ -15,7 +15,6 @@ Prop_strong(readwrite)UIButton *sendButton;
 @end
 
 @implementation JobsLiveInputBar
-
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.autoClearAfterSend = YES;

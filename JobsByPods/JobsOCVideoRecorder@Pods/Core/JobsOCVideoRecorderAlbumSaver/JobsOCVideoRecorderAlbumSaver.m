@@ -8,7 +8,6 @@
 #import "JobsOCVideoRecorderAlbumSaver.h"
 
 @implementation JobsOCVideoRecorderAlbumSaver
-
 +(void)saveVideoAtURL:(NSURL *)videoURL
              albumName:(NSString *)albumName
             completion:(JobsOCVideoRecorderAlbumSaveBlock)completion{

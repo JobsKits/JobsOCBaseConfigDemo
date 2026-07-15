@@ -31,11 +31,9 @@ Prop_assign()CGFloat red;
 Prop_assign()CGFloat green;
 Prop_assign()CGFloat blue;
 Prop_assign()CGFloat alpha;
-
 Prop_assign()CGFloat hue;
 Prop_assign()CGFloat saturation;
 Prop_assign()CGFloat brightness;
-
 Prop_copy()NSString *corStr; // 十六进制字符串
 
 @end

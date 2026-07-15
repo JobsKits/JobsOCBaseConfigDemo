@@ -7,9 +7,7 @@
 
 #import "JobsCorModel+DSL.h"
 
-
 @implementation JobsCorModel (DSL)
-
 -(JobsRetJobsCorModelByCGFloatBlock _Nonnull)byRed{
     @jobs_weakify(self)
     return ^__kindof JobsCorModel *_Nullable(CGFloat data) {

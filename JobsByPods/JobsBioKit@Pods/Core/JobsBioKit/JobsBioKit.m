@@ -8,7 +8,6 @@
 #import "JobsBioKit.h"
 
 @implementation JobsBioKit
-
 + (instancetype)shared {
     static JobsBioKit *instance = nil;
     static dispatch_once_t onceToken;
@@ -22,7 +21,6 @@
     LAContext *context = [[LAContext alloc] init];
     NSError *error = nil;
     [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error];
-
     if (@available(iOS 11.0, *)) {
         switch (context.biometryType) {
             case LABiometryTypeNone:
@@ -82,16 +80,13 @@
          allowPasscodeFallback:(BOOL)allowPasscodeFallback
                          reply:(JobsBioKitReply)reply {
     NSParameterAssert(reason.length > 0);
-
     LAContext *context = [[LAContext alloc] init];
     if (localizedFallbackTitle) {
         context.localizedFallbackTitle = localizedFallbackTitle;
     }
-
     LAPolicy policy = allowPasscodeFallback
     ? LAPolicyDeviceOwnerAuthentication
     : LAPolicyDeviceOwnerAuthenticationWithBiometrics;
-
     NSError *error = nil;
     BOOL available = [context canEvaluatePolicy:policy error:&error];
     if (!available) {
@@ -101,7 +96,6 @@
                       error:error];
         return;
     }
-
     [context evaluatePolicy:policy
             localizedReason:reason
                       reply:^(BOOL success, NSError * _Nullable evaluateError) {
@@ -117,11 +111,9 @@
     if (!error) {
         return JobsBioKitResultFailed;
     }
-
     if (![error.domain isEqualToString:LAErrorDomain]) {
         return JobsBioKitResultFailed;
     }
-
     switch (error.code) {
         case LAErrorAuthenticationFailed:
             return JobsBioKitResultAuthenticationFailed;
@@ -181,7 +173,6 @@
     if (!reply) {
         return;
     }
-
     dispatch_async(dispatch_get_main_queue(), ^{
         reply(result, success, error);
     });

@@ -24,7 +24,6 @@ Prop_assign()BOOL userDragging;
 @end
 
 @implementation JobsProgressBar
-
 #pragma mark —— Lifecycle
 
 - (instancetype)initWithFrame:(CGRect)frame {

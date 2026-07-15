@@ -8,7 +8,6 @@
 #import "JobsBluetoothMockTransport.h"
 
 @implementation JobsBluetoothMockTransport
-
 -(instancetype)init{
     if (self = [super init]) {
         _latency = 0.15;

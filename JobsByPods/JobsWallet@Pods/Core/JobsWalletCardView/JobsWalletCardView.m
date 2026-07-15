@@ -16,7 +16,6 @@ Prop_strong()JobsWalletCollectionViewLayout *walletLayout;
 @end
 
 @implementation JobsWalletCardView
-
 @synthesize collectionView = _collectionView;
 
 -(instancetype)initWithFrame:(CGRect)frame{

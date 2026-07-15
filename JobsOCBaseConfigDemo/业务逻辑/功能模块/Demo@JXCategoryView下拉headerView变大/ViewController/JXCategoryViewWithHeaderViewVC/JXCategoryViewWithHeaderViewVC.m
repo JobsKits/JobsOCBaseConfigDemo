@@ -20,7 +20,6 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 @end
 
 @implementation JXCategoryViewWithHeaderViewVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -28,7 +27,6 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -47,7 +45,6 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
             data.byText(data.attributedTitle.string);
             data.byFont(UIFontWeightRegularSize(16));
         })
-    
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
@@ -59,7 +56,6 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     @jobs_weakify(self)
     self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
         @jobs_strongify(self)
@@ -69,14 +65,10 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
         @jobs_strongify(self)
         data.add(UIBarButtonItem.initBy(self.ruleBtn));
     });
-    
     self.byGKNavItemRightSpace(JobsWidth(16));
     self.makeNavByAlpha(1);
-    
     self.topLineLab.byAlpha(0);
-
     self.categoryView.byAlpha(1);
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -116,17 +108,12 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 - (void)pagerView:(JXPagerView *)pagerView
 mainTableViewDidScroll:(UIScrollView *)scrollView{
     JobsLog(@"contentOffsetY = %f",scrollView.contentOffset.y);
-    
     self.byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
         navigationBar
             .byHidden(NO)
             .byAlpha(scrollView.contentOffset.y / 200);
     });
-
-    
     self.topLineLab.byAlpha(scrollView.contentOffset.y / 200);
-
-    
     [self.collectionHeaderView scrollViewDidScrollWithContentOffsetY:scrollView.contentOffset.y];
 }
 ///
@@ -184,7 +171,6 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
         _categoryView = jobsMakeCategoryTitleView(^(JXCategoryTitleView * _Nullable view) {
             @jobs_strongify(self)
             view.byBgColor(JobsClearColor);
-
             view.titleSelectedColor = JobsWhiteColor;
             view.titleColor = JobsWhiteColor;
             view.titleFont = UIFontWeightRegularSize(JobsWidth(18));
@@ -210,7 +196,6 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
                 make.height.mas_equalTo(listContainerViewDefaultOffset);
             });[self.view layoutIfNeeded];
         });
-
     };return _categoryView;
 }
 

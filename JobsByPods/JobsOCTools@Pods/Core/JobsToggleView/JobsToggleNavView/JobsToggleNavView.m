@@ -31,7 +31,6 @@ JobsToggleNavViewProtocolSynthesize
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-
     };return self;
 }
 
@@ -85,7 +84,6 @@ JobsToggleNavViewProtocolSynthesize
                     }
                     data.byJobsY(0);
                 }));
-            
 //            UIButtonModel *buttonModel = self.buttonModels[i];
 //            BaseButton *button = BaseButton.jobsInit()
 //                .bgColorBy(buttonModel.baseBackgroundColor)
@@ -111,7 +109,6 @@ JobsToggleNavViewProtocolSynthesize
         }
         self.current_index = 0;
         self.sliderView.byAlpha(1);
-
         /// 设置按钮为选中状态
         self.buttonsArray[0].bySelected(YES);
         /// 重设按钮纯文本标题
@@ -157,7 +154,6 @@ JobsToggleNavViewProtocolSynthesize
         /// 纠错
         if(index > self.buttonsArray.count - 1) index = self.buttonsArray.count - 1;
         if(index < 0) index = 0;
-        
         JobsLog(@"当前选择：%lu",(unsigned long)index);
         self.current_index = index;
         /// 全部还原
@@ -178,7 +174,6 @@ JobsToggleNavViewProtocolSynthesize
         }
         UIButton *currentBtn = self.buttonsArray[index];
         currentBtn.bySelected(YES);
-    
         self.sliderView.resetCenterX(currentBtn.centerX);
         /// 重设按钮纯文本标题
         currentBtn.jobsResetBtnTitle(Jobs3TO(self.buttonModels[index].selectedTitle,

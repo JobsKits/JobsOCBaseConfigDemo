@@ -106,23 +106,18 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
     //    self.chooseBtnSize = CGSizeMake([UIView widthByData:self.chooseBtnViewModel] + JobsWidth(10), JobsWidth(16));
         if (self.doorInputViewBaseStyleModel) {
             self.titleLab.byAlpha(1);
-
             switch (self.style_5) {
                 /// 带发送验证码按钮
                 case InputViewStyle_5_1:{
                     self.authCodeBtn.byAlpha(1);
-
                 }break;
                 /// 没有额外的UI控件
                 case InputViewStyle_5_2:{
-                    
                 }break;
                 /// 电话号码区号选择器
                 case InputViewStyle_5_3:{
                     self.chooseBtn.byAlpha(1);
-
                     self.zyTextField.byAlpha(1);
-
                 }break;
                 default:
                     break;
@@ -153,14 +148,11 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
-
                 x.byToggleSelected();
                 if (x.jobs_isSelected) {
                     x.jobsResetBtnImage(self.doorInputViewBaseStyleModel.selectedSecurityBtnIMG ? : JobsRedColor.image);
                 }
-
                 self.zyTextField.bySecureTextEntry(x.jobs_isSelected);
-
                 if (x.jobs_isSelected && !self.zyTextField.isEditing) {
                     self.zyTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
                 }
@@ -189,12 +181,10 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                 });
         });
     }
-
     _titleLab
         .byText(self.doorInputViewBaseStyleModel.titleLabStr)
         .byFont(self.doorInputViewBaseStyleModel.titleStrFont)
         .makeLabelByShowingType(UILabelShowingType_03);
-
     return _titleLab;
 }
 
@@ -248,7 +238,6 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                 @jobs_strongify(self)
                 x.byToggleSelected();
                 if (self.objBlock) self.objBlock(x);
-
                 if (x.jobs_isSelected) {
                     self->dropDownListView = [self motivateFromView:x
                                           jobsDropDownListViewDirection:JobsDropDownListViewDirection_UP
@@ -280,7 +269,6 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
     if (!_zyTextField) {
         _zyTextField = ZYTextField.new;
         _zyTextField.byDelegate(self);
-
         @jobs_weakify(self)
         [_zyTextField jobsTextFieldEventFilterBlock:^BOOL(NSString * _Nullable data) {
             @jobs_strongify(self)
@@ -311,7 +299,6 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
     }
     if (self.doorInputViewBaseStyleModel.textModel.text.isDebugText) {
         _zyTextField.byText(@"".tr);
-
     };return _zyTextField;
 }
 

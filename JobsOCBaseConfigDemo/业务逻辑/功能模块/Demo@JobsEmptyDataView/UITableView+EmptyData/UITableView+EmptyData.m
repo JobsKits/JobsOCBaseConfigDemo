@@ -9,7 +9,6 @@
 
 JobsKey(JobsTableViewEmptyDataReloadingKey)
 @implementation UITableView (EmptyData)
-
 +(void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -62,7 +61,6 @@ JobsKey(JobsTableViewEmptyDataReloadingKey)
             jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
                 @jobs_strongify(self)
                 view.byFrame(self.bounds);
-
                 view.cleanSubviewBy(BaseView.class);
                 self.addSubview(view)
                     .addSubview(UIButton.initByButtonModel(model ? : jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
@@ -94,7 +92,6 @@ JobsKey(JobsTableViewEmptyDataReloadingKey)
             jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
                 @jobs_strongify(self)
                 view.byFrame(self.bounds);
-
                 view.cleanSubviewBy(BaseView.class);
                 self.addSubview(view);
                 jobsMakeLabel(^(__kindof UILabel *_Nullable label) {

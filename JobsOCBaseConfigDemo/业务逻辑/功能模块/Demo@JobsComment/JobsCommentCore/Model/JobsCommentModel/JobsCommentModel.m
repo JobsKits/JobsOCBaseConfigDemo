@@ -50,7 +50,6 @@
 @end
 
 @implementation JobsCommentModel
-
 #pragma mark —— YYModel
 + (NSDictionary *)modelCustomPropertyMapper{
     return @{

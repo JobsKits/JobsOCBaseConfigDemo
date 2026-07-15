@@ -16,7 +16,6 @@ Prop_copy()NSString *historyText;
 @end
 
 @implementation JobsOCSearcherRecordCell
-
 +(NSString *)reuseIdentifier{
     return NSStringFromClass(self);
 }

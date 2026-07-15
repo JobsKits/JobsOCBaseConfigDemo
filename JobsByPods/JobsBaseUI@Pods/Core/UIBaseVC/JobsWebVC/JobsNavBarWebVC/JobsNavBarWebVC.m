@@ -18,7 +18,6 @@ Prop_copy()NSString *URL;
 @end
 
 @implementation JobsNavBarWebVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
@@ -41,9 +40,7 @@ Prop_copy()NSString *URL;
     }else if ([baseProtocolSelf.requestParams isKindOfClass:NSString.class]){
         self.URL = (NSString *)baseProtocolSelf.requestParams;
     }else{}
-    
     self.setupNavigationBarHidden = YES;
-    
     {
         self.viewModel
             .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
@@ -67,13 +64,11 @@ Prop_copy()NSString *URL;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsWhiteColor);
-
     self.makeGKNavByConfig(self.makeNav0ByTitle(self.viewModel.textModel.text));
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -137,69 +132,57 @@ decisionHandler:(WKNavigationDelegateBlock1 _Nonnull)decisionHandler{
 /// 开始加载网页时调用（刚开始请求）
 -(void)webView:(WKWebView *)webView
 didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation {
-    
 }
 /// 收到服务器跳转请求时调用（如 302 重定向）
 -(void)webView:(WKWebView *)webView
 didReceiveServerRedirectForProvisionalNavigation:(null_unspecified WKNavigation *)navigation {
-    
 }
 /// 加载网页失败（如无法连接、找不到页面）
 -(void)webView:(WKWebView *)webView
 didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation
      withError:(NSError *)error {
-    
 }
 /// 网页内容开始返回时调用（DOM 开始加载）
 -(void)webView:(WKWebView *)webView
 didCommitNavigation:(null_unspecified WKNavigation *)navigation {
-    
 }
 /// 网页加载完成
 -(void)webView:(WKWebView *)webView
 didFinishNavigation:(null_unspecified WKNavigation *)navigation {
-    
 }
 /// 导航失败（一般是网页中途出错，比如 JS 异常等）
 -(void)webView:(WKWebView *)webView
 didFailNavigation:(null_unspecified WKNavigation *)navigation
      withError:(NSError *)error {
-    
 }
 /// 处理身份验证（如 HTTPS 证书验证）
 -(void)webView:(WKWebView *)webView
 didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * _Nullable credential))completionHandler {
-    
 }
 /// web 内容进程被系统终止（崩溃或内存压力）
 -(void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
-    
 }
 /// 是否允许继续使用过时的 TLS 协议（iOS 14+，安全性相关）
 -(void)webView:(WKWebView *)webView
 authenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 shouldAllowDeprecatedTLS:(jobsByBOOLBlock _Nonnull)decisionHandler {
-    
 }
 /// 某个导航行为变成了下载操作（例如：点击了文件链接）
 -(void)webView:(WKWebView *)webView
 navigationAction:(WKNavigationAction *)navigationAction
 didBecomeDownload:(WKDownload *)download {
-    
 }
 /// 某个响应变成了下载（如服务器返回了文件类型）
 -(void)webView:(WKWebView *)webView
 navigationResponse:(WKNavigationResponse *)navigationResponse
 didBecomeDownload:(WKDownload *)download {
-    
 }
 /// 是否跳转到某个历史记录项（支持即时返回）
 -(void)webView:(WKWebView *)webView
 shouldGoToBackForwardListItem:(WKBackForwardListItem *)backForwardListItem
 willUseInstantBack:(BOOL)willUseInstantBack
 completionHandler:(jobsByBOOLBlock _Nonnull)completionHandler {
-    
 }
 #pragma mark —— lazyLoad
 

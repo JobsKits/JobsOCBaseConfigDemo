@@ -58,13 +58,11 @@
 -(instancetype)initWithFrame:(CGRect)frame
                textContainer:(NSTextContainer *)textContainer {
     if (self = [super initWithFrame:frame textContainer:textContainer]) {
-       
     };return self;
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
-
     };return self;
 }
 

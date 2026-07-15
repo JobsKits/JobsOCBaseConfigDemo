@@ -29,7 +29,6 @@ Prop_strong()JobsOCSearcherView *searchView;
 @end
 
 @implementation JobsOCSearcherDemoVC
-
 -(void)loadView{
     [super loadView];
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {

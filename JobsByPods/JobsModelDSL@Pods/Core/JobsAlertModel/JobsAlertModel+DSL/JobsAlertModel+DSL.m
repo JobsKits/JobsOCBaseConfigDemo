@@ -8,7 +8,6 @@
 #import "JobsAlertModel+DSL.h"
 
 @implementation JobsAlertModel (DSL)
-
 -(JobsRetJobsAlertModelByStrBlock _Nonnull)byAlertControllerTitle{
     @jobs_weakify(self)
     return ^__kindof JobsAlertModel *_Nullable(NSString * _Nullable data) {

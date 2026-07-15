@@ -18,7 +18,6 @@ Prop_strong()UILabel *textLab;
 @synthesize viewModel = _viewModel;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-
     };return self;
 }
 #pragma mark —— BaseViewProtocol

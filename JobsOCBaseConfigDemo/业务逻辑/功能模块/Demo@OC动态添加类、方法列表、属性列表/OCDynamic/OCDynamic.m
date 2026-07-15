@@ -8,7 +8,6 @@
 #import "OCDynamic.h"
 
 @implementation OCDynamic
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -18,7 +17,6 @@
     if (self = [super init]) {
         [self invokeIMP];
         [self InvokeIMP];
-
     };return self;
 }
 
@@ -64,7 +62,6 @@
     SEL selector = NSSelectorFromString(@"test:");
 //    IMP imp = [self methodForSelector:selector];
     IMP imp = [OCDynamic instanceMethodForSelector:selector];
-    
     id (*func)(id, SEL, id) = (void *)imp;
     func(self, selector,@"Jobs");
 }

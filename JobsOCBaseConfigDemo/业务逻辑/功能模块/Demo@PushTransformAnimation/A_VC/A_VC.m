@@ -15,7 +15,6 @@
 @end
 
 @implementation A_VC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -23,7 +22,6 @@
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -39,7 +37,6 @@
             data.byText(@"".tr);
             data.byFont(UIFontWeightRegularSize(16));
         })
-    
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
@@ -52,7 +49,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsYellowColor);
-
     self.makeNavByAlpha(1);
     self.tableView.byShow(self);
 }
@@ -122,7 +118,6 @@ didHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(@(indexPath.row % 4))
             .JobsBlock1(^(id _Nullable data) {;
-             
             });
 }
 /// BaseViewProtocol

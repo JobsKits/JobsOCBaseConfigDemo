@@ -18,7 +18,6 @@ Prop_strong()NSMutableArray<NSString *> *dataSource;
 @end
 
 @implementation DemoObject
-
 - (instancetype)init {
     self = [super init];
     if (self) {

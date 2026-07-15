@@ -28,7 +28,6 @@ Prop_strong()NSMutableDictionary<NSString *, JobsOCPatchRecord *> *records;
 @end
 
 @implementation JobsOCPatchMgr
-
 +(instancetype)shared{
     static JobsOCPatchMgr *mgr = nil;
     static dispatch_once_t onceToken;

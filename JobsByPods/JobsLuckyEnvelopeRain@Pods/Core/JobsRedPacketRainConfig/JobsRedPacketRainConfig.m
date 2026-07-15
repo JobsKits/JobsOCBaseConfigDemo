@@ -8,7 +8,6 @@
 #import "JobsRedPacketRainConfig.h"
 
 @implementation JobsRedPacketRainConfig
-
 +(instancetype)defaultConfig{
     return JobsRedPacketRainConfig.new;
 }

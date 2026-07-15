@@ -69,11 +69,8 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
         self.viewModel = model;
         MakeDataNull
         self.allChooseBtn.byAlpha(1);
-
         self.deleteBtn.byAlpha(1);
-
         self.markToReadBtn.byAlpha(1);
-
     };
 }
 /// 具体由子类进行复写【FrameY的变化量】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -120,7 +117,6 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
         CGRect rect = MsgEditBoardView.viewFrameByModel(nil);
         rect.origin.y -= MsgEditBoardView.viewChangeYByModel(nil);
         self.byFrame(rect);
-
         view.addSubview(self);
     },
         nil);
@@ -132,7 +128,6 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
         ^{
         @jobs_strongify(self)
         self.byFrame(MsgEditBoardView.viewFrameByModel(nil));
-
     },
         ^(BOOL finished) {
         @jobs_strongify(self)

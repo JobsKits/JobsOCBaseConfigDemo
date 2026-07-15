@@ -8,7 +8,6 @@
 #import "CasinoCustomerContactModel.h"
 
 @implementation CasinoCustomerContactElementModel
-
 +(NSDictionary *)mj_replacedKeyFromPropertyName {
     return [super mj_replacedKeyFromPropertyName].mutableCopy;
 }
@@ -16,7 +15,6 @@
 @end
 
 @implementation CasinoCustomerContactModel
-
 +(NSDictionary *)mj_objectClassInArray{
     return @{
         @"customerList" : CasinoCustomerContactElementModel.class

@@ -13,10 +13,10 @@
 #import "XYColorOC.h"
 #endif
 
-
 #ifndef JobsBaseCustomizeUIKitCoreHeader_h
 #define JobsBaseCustomizeUIKitCoreHeader_h
 #pragma mark —— BaseProtocol
+
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
@@ -56,6 +56,7 @@
 #pragma mark —— NSNotificationCenter
 #import <JobsByOCPods/NSNotificationCenter.h>
 #pragma mark —— NSMutableParagraphStyle
+
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
@@ -92,6 +93,7 @@
 #pragma mark —— UICollectionViewCell
 #import <JobsByOCPods/JobsCollectionViewCell.h>
 #pragma mark —— 实现类似于UItableView.tableHeaderView的头部视图
+
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else

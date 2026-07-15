@@ -15,7 +15,6 @@ Prop_strong()JobsIMListView *listView;
 @end
 
 @implementation JobsIMShowVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -23,14 +22,12 @@ Prop_strong()JobsIMListView *listView;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"返回".tr);
@@ -40,7 +37,6 @@ Prop_strong()JobsIMListView *listView;
             data.byText(data.attributedTitle.string);
             data.byFont(UIFontWeightRegularSize(16));
         })
-    
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
@@ -53,7 +49,6 @@ Prop_strong()JobsIMListView *listView;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsYellowColor);
-
     {
         @jobs_weakify(self)
         self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
@@ -67,7 +62,6 @@ Prop_strong()JobsIMListView *listView;
         self.makeNavByAlpha(1);
     }
     self.listView.byAlpha(1);
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -83,7 +77,6 @@ Prop_strong()JobsIMListView *listView;
 }
 #pragma mark —— 一些私有方法
 -(UIViewModel *)makeData:(JobsIMListDataModel *)data{
-    
     JobsIMChatInfoModel *chatInfoModel = JobsIMChatInfoModel.new;
     chatInfoModel.messageID = data.lastMessageID ?: NSUUID.UUID.UUIDString;
     chatInfoModel.conversationID = data.peerID;
@@ -112,7 +105,6 @@ Prop_strong()JobsIMListView *listView;
                                                    @"text": chatInfoModel.chatTextStr ?: @"",
                                                    @"transport": JobsIMStringFromTransportKind(data.transportKind)
                                                });
-    
     return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
         data.byData(chatInfoModel);
     });
@@ -135,7 +127,6 @@ Prop_strong()JobsIMListView *listView;
                 make.top.equalTo(self.view.mas_top);
             }
         });
-
     };return _listView;
 }
 

@@ -68,7 +68,6 @@ JobsKey(JobsSpinRevolutionsPerSecondKey)
         CGFloat speed = MAX(0.001, revolutionsPerSecond);
         Jobs_setAssociatedRETAIN_NONATOMIC(JobsSpinRevolutionsPerSecondKey, @(speed))
         if (self.jobs_isSpinning) return self;
-
         NSNumber *pausedAngle = Jobs_getAssociatedObject(JobsSpinPausedAngleKey);
         CGFloat startAngle = pausedAngle ? pausedAngle.doubleValue : 0;
         self.layer.sublayerTransform = CATransform3DMakeRotation(startAngle, 0, 0, 1);
@@ -166,7 +165,6 @@ JobsKey(JobsSpinRevolutionsPerSecondKey)
                 .add(@0.75f)
                 .add(@1.0f);
         });
-
         popAnimation.timingFunctions = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data
                 .add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction)
@@ -235,7 +233,6 @@ JobsKey(JobsSpinRevolutionsPerSecondKey)
                      animations:^{
         @jobs_strongify(self)
         self.byAlpha(1.0);
-
         if (animationBlock) animationBlock(@(1));
     } completion:^(BOOL finished) {
         if (completionBlock) completionBlock(@(1));

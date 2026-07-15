@@ -8,7 +8,6 @@
 #import "UIView+ViewController.h"
 
 @implementation UIView (ViewController)
-
 -(UIViewController *_Nullable)currentController{
     UIResponder *next = self.nextResponder;
     do {

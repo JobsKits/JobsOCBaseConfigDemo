@@ -8,7 +8,6 @@
 #import "NSString+Notification.h"
 
 @implementation NSString (Notification)
-
 -(jobsByIDBlock _Nonnull)postNotificationBy{
     @jobs_weakify(self)
     return ^(id _Nullable data){

@@ -8,7 +8,6 @@
 #import "UIViewController+BaseNavigationBar.h"
 
 @implementation UIViewController (BaseNavigationBar)
-
 #pragma mark —— Prop_assign()BOOL isHiddenNavigationBar
 JobsKey(_isHiddenNavigationBar)
 @dynamic isHiddenNavigationBar;

@@ -10,7 +10,6 @@
 #import "BRTextModel.h"
 
 @implementation BRTextModel
-
 /// 字典 转 模型
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
@@ -36,11 +35,9 @@
     if (self == object) {
         return YES;
     }
-    
     if (![object isKindOfClass:[BRTextModel class]]) {
         return NO;
     }
-    
     BRTextModel *model = (BRTextModel *)object;
     if (!model) {
         return NO;
@@ -48,7 +45,6 @@
     // 2.对象的类型相同，且对象的各个属性相等
     BOOL isSameCode = (!self.code && !model.code) || [self.code isEqualToString:model.code];
     BOOL isSameText = (!self.text && !model.text) || [self.text isEqualToString:model.text];
-    
     return isSameCode && isSameText;
 }
 
@@ -56,14 +52,11 @@
     return [self.code hash] ^ [self.text hash];
 }
 
-
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
-    
 }
 
 // value为nil，key不为nil的时候会调用
 - (void)setNilValueForKey:(NSString *)key {
-    
 }
 
 // 防止使用 valueForKey 获取值，key不存在时奔溃

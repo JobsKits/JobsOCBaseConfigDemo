@@ -8,7 +8,6 @@
 #import "UIViewController+JobsPresentTransition.h"
 
 @implementation UIViewController (JobsPresentTransition)
-
 -(JobsPresentTransitionMgr *)jobs_presentViewController:(UIViewController *)presentedViewController{
     return [self jobs_presentViewController:presentedViewController
                                   configure:nil

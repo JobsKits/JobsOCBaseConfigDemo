@@ -21,7 +21,6 @@ Prop_strong()NSMutableArray <NSString *>*titleMutArr;
 @end
 
 @implementation JXCategoryViewVerticalShowVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsNotificationCenter.remove(self);
@@ -29,7 +28,6 @@ Prop_strong()NSMutableArray <NSString *>*titleMutArr;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -45,7 +43,6 @@ Prop_strong()NSMutableArray <NSString *>*titleMutArr;
             data.byText(data.attributedTitle.string);
             data.byFont(UIFontWeightRegularSize(16));
         })
-    
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
@@ -85,11 +82,9 @@ Prop_strong()NSMutableArray <NSString *>*titleMutArr;
 #pragma mark —— 一些私有方法
 /// 只有在viewDidAppear才能获取到UICollectionViewCell
 -(void)getCollectionViewCell{
-
 //    JXCategoryBaseCell *cell = (JXCategoryBaseCell *)[self.categoryView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
 //    NSArray <UICollectionViewCell *>*visibleCells = self.categoryView.collectionView.visibleCells;
     JobsLog(@"");
-
     for (UICollectionViewCell *cell in self.categoryView.collectionView.visibleCells) {
 //        cell.transformByRadians(.5f);
     }
@@ -134,12 +129,10 @@ didClickSelectedItemAtIndex:(NSInteger)index {
 ///【点击选中或者滚动选中的结果】点击选中或者滚动选中都会调用该方法。适用于只关心选中事件，不关心具体是点击还是滚动选中的。
 - (void)categoryView:(JXCategoryBaseView *)categoryView
 didSelectedItemAtIndex:(NSInteger)index {
-    
 }
 ///【滚动选中的结果】滚动选中的情况才会调用该方法
 - (void)categoryView:(JXCategoryBaseView *)categoryView
 didScrollSelectedItemAtIndex:(NSInteger)index{
-    
 }
 /// 传递scrolling事件给listContainerView，必须调用！！！
 - (void)categoryView:(JXCategoryBaseView *)categoryView
@@ -157,7 +150,6 @@ ratio:(CGFloat)ratio {
     if (!_categoryView) {
         _categoryView = JXCategoryTitleView.new;
         _categoryView.byBgColor(JobsCyanColor);
-
         _categoryView.titleSelectedColor = JobsRedColor;
         _categoryView.titleColor = JobsRedColor;
 //        _categoryView.titleFont = UIFontWeightRegularSize(16);
@@ -175,16 +167,12 @@ ratio:(CGFloat)ratio {
             make.left.right.equalTo(self.view);
             make.height.mas_equalTo(listContainerViewDefaultOffset);
         });
-
         [self.view layoutIfNeeded];
-        
         /// 本来的值
 //        _categoryView.frame = CGRectMake(0,
 //                                         self.gk_navigationBar.height,
 //                                         JobsMainScreen_WIDTH(),
 //                                         listContainerViewDefaultOffset);
-        
-       
     };return _categoryView;
 }
 
@@ -207,18 +195,15 @@ ratio:(CGFloat)ratio {
             make.top.equalTo(self.view).offset(listContainerViewDefaultOffset + self.gk_navigationBar.height);
             make.left.right.bottom.equalTo(self.view);
         });
-
         [self.view layoutIfNeeded];
         /// 本来的值
 //        _listContainerView.frame = CGRectMake(0,
 //                                              (listContainerViewDefaultOffset + self.gk_navigationBar.height),
 //                                              JobsMainScreen_WIDTH(),
 //                                              JobsMainScreen_HEIGHT() - (listContainerViewDefaultOffset + self.gk_navigationBar.height));
-        
         /// ❤️在需要的地方写❤️
         NSNumber *currentIndex = [self.listContainerView valueForKey:@"currentIndex"];
         JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %d",currentIndex.intValue);
-        
     };return _listContainerView;
 }
 

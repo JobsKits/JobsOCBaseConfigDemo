@@ -14,7 +14,6 @@
 @end
 
 @implementation JobsPopUpVC
-
 @synthesize popUpHeight = _popUpHeight;
 
 - (void)dealloc {
@@ -23,7 +22,6 @@
 #pragma mark —— Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
-        
     };return self;
 }
 
@@ -49,7 +47,6 @@
     [super viewWillDisappear:animated];
     UITabBar *tabBar = self.getTabBar;
     if (tabBar) tabBar.byHidden(NO);
-
 }
 #pragma mark —— lazyLoad
 -(void)setPopUpHeight:(CGFloat)popUpHeight{

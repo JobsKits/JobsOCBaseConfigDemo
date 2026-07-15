@@ -19,11 +19,13 @@
 #import <JobsNavBar/UIButton+UIButtonConfiguration.h>
 #import <JobsNavBar/UITextView+Extra.h>
 #import <JobsNavBar/UIView+Extra.h>
+
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
 #endif
+
 #import <JobsNavBar/UIBackgroundConfiguration+Extra.h>
 #import <JobsNavBar/UIButtonConfiguration+Extra.h>
 #import <JobsNavBar/UIGestureRecognizer+Extra.h>
@@ -47,7 +49,6 @@
 #else
 #import "JobsBaseProtocolHeader.h"
 #endif
-
 
 #if __has_include(<JobsDeviceInfo/JobsDeviceInfo.h>)
 #import <JobsDeviceInfo/JobsDeviceInfo.h>

@@ -8,7 +8,6 @@
 #import "ZMJTask.h"
 
 @implementation ZMJTask
-
 +(instancetype)taskWithName:(NSString *)taskName
                   startDate:(NSDate *)startDate
                     endDate:(NSDate *)endDate {

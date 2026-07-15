@@ -12,15 +12,11 @@
 @end
 
 @implementation FlowChartSingleElementView
-
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
     self.bacKIMGV.byAlpha(1);
-
     self.titleLab.byAlpha(1);
-
     self.subTitleLab.byAlpha(1);
-
 }
 #pragma mark —— lazyLoad
 -(UILabel *)titleLab{
@@ -78,7 +74,6 @@ Prop_strong()NSMutableArray <FlowChartSingleElementView *>*singleElementMutArr;
 @end
 
 @implementation FindCodeFlowChartView
-
 static dispatch_once_t dispatchOnce;
 -(instancetype)init{
     if (self = [super init]) {

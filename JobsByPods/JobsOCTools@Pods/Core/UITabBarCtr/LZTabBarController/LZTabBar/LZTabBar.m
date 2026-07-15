@@ -15,20 +15,16 @@ Prop_strong()UIView *topLine;
 @end
 
 @implementation LZTabBar
-
 - (instancetype)init {
     if (self = [super init]) {
-        
     };return self;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.effectView.byFrame(self.bounds);
-
     [self setupItems];
     self.topLine.byFrame(CGRectMake(0, 0, CGRectGetWidth(self.frame), 0.6));
-
 }
 
 - (void)setupItems {
@@ -37,7 +33,6 @@ Prop_strong()UIView *topLine;
     for (int i = 0; i < self.items.count; i++) {
         LZTabBarItem *item = [self.items objectAtIndex:i];
         item.byFrame(CGRectMake(i*width, 0, width, height));
-
         item.addOn(self);
         item.delegate = self;
     }
@@ -67,7 +62,6 @@ Prop_strong()UIView *topLine;
         UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
         _effectView = [UIVisualEffectView.alloc initWithEffect:effect];
         _effectView.byAlpha(1.0);
-
         _effectView.addOn(self);
     };return _effectView;
 }

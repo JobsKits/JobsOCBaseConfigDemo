@@ -141,7 +141,6 @@ AppToolsProtocol_synthesize
     self.printValue();
     /// 取内部类UITableViewCellEditControl,对编辑状态的Cell的点击按钮进行替换成自定义的
     self.customCellEditStateImage();
-    
     self.modifySysChildViewFrame1();
     // 或者
     self.modifySysChildViewFrame2();
@@ -197,28 +196,19 @@ AppToolsProtocol_synthesize
                 if(self.textLabel){
                     if (self.viewModel.textModel.attributedTitle) {
                         self.textLabel.byAttributedString(self.viewModel.textModel.attributedTitle);
-
                     }else{
                         self.textLabel.byText(self.viewModel.textModel.text);
-
                         self.textLabel.byTextCor(self.viewModel.textModel.textCor);
-
                         self.textLabel.byFont(self.viewModel.textModel.font);
-
                     }self.textLabel.numberOfLines = 0;
                 }
-                
                 if(self.detailTextLabel){
                     if (self.viewModel.subTextModel.attributedTitle) {
                         self.detailTextLabel.byAttributedString(self.viewModel.subTextModel.attributedTitle);
-
                     }else{
                         self.detailTextLabel.byText(self.viewModel.subTextModel.text);
-
                         self.detailTextLabel.byTextCor(self.viewModel.subTextModel.textCor);
-
                         self.detailTextLabel.byFont(self.viewModel.subTextModel.font);
-
                         self.detailTextLabel.width = UITableViewCellSubTitleWidth;
                         self.detailTextLabel.makeLabelByShowingType(UILabelShowingType_05);
                     }self.detailTextLabel.numberOfLines = 0;
@@ -229,28 +219,19 @@ AppToolsProtocol_synthesize
                 if(self.textLabel){
                     if (self.buttonModel.attributedTitle) {
                         self.textLabel.byAttributedString(self.buttonModel.attributedTitle);
-
                     }else{
                         self.textLabel.byText(self.buttonModel.title);
-
                         self.textLabel.byTextCor(self.buttonModel.titleCor);
-
                         self.textLabel.byFont(self.buttonModel.titleFont);
-
                     }self.textLabel.numberOfLines = 0;
                 }
-                
                 if(self.detailTextLabel){
                     if (self.viewModel.subTextModel.attributedTitle) {
                         self.detailTextLabel.byAttributedString(self.buttonModel.attributedTitle);
-
                     }else{
                         self.detailTextLabel.byText(self.buttonModel.subTitle);
-
                         self.detailTextLabel.byTextCor(self.buttonModel.subTitleCor);
-
                         self.detailTextLabel.byFont(self.buttonModel.subTitleFont);
-
                         self.detailTextLabel.width = UITableViewCellSubTitleWidth;
                         self.detailTextLabel.makeLabelByShowingType(UILabelShowingType_05);
                     }self.detailTextLabel.numberOfLines = 0;
@@ -275,7 +256,6 @@ AppToolsProtocol_synthesize
                     data.textModel.byFont(model.textModel.font ? : UIFontWeightRegularSize(14))
                                   .byTextLineSpacing(model.textModel.textLineSpacing);
                 }
-                
                 if(model.subTextModel.attributedTitle.string.length){
                     subtitle = model.subTextModel.attributedTitle.string;
                     data.textModel.byFont(model.subTextModel.attributedTitle.attributedStringFont() ? : UIFontWeightRegularSize(14))

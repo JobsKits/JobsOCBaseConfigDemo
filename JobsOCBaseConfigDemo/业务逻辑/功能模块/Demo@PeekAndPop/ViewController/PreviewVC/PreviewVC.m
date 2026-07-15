@@ -12,7 +12,6 @@
 @end
 
 @implementation PreviewVC
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor([UIColor whiteColor]);

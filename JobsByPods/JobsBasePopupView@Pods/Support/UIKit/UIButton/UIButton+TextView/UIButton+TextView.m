@@ -13,7 +13,6 @@
     @jobs_weakify(self)
     return ^(__kindof UITextView *_Nullable textView){
         @jobs_strongify(self)
-
         textView.byDelegate(self);
         textView.byEditable(NO);
         textView.bySelectable(YES);

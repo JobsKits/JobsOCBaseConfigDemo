@@ -46,16 +46,13 @@ Prop_assign()BOOL right;
 
 //卡片重叠
 - (NSArray<UICollectionViewLayoutAttributes *> *)cardOverLapTypeInRect:(CGRect)rect{
-    
     NSInteger itemsCount = [self.collectionView numberOfItemsInSection:0];
     if (itemsCount <= 0) {
         return nil;
     }
-
     self.param.myCurrentPath = self.param.wVertical?
     MAX(floor ((int)self.collectionContenOffset.y / self.collectionContenSize.height ), 0):
     MAX(floor((int)self.collectionContenOffset.x / self.collectionContenSize.width ), 0);
-
     self.param.overFactPath = self.param.wVertical?
            MAX(ceil ((int)self.collectionContenOffset.y / self.collectionContenSize.height ), 0):
            MAX(ceil((int)self.collectionContenOffset.x / self.collectionContenSize.width ), 0);
@@ -68,11 +65,9 @@ Prop_assign()BOOL right;
     CGFloat offsetProgress = offset / (self.param.wVertical?self.collectionContenSize.height:self.collectionContenSize.width)*1.0f;
     NSInteger maxVisibleIndex = MAX(MIN(itemsCount - 1, self.param.myCurrentPath + self.param.wCardOverLapCount), minVisibleIndex);
     NSMutableArray *mArr = [[NSMutableArray alloc] init];
-    
     for (NSInteger i = minVisibleIndex; i<=maxVisibleIndex; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         UICollectionViewLayoutAttributes *attributes = [[self layoutAttributesForItemAtIndexPath:indexPath] copy];
-           
         NSInteger visibleIndex = MAX(indexPath.item - self.param.myCurrentPath + 1, 0);
         attributes.size =  self.itemSize;
         CGFloat topCardMidX = self.param.wVertical?
@@ -104,7 +99,6 @@ Prop_assign()BOOL right;
                }
                if (self.param.wCardOverAlphaOpen) {
                     attributes.alpha = MAX(1-offsetProgress, MAX(self.param.wCardOverMinAlpha, 0));
-
                }
            }else if (visibleIndex == self.param.wCardOverLapCount + 1){
                attributes.center = self.param.wVertical?
@@ -112,7 +106,6 @@ Prop_assign()BOOL right;
                     CGPointMake(attributes.center.x + attributes.size.width * (1 - scale)/2 - self.param.wLineSpacing, attributes.center.y);
                     if (self.param.wCardOverAlphaOpen) {
                         attributes.alpha = MAX(offsetProgress, MAX(self.param.wCardOverMinAlpha, 0));
-
                     }
            }else{
                attributes.center = self.param.wVertical?
@@ -120,7 +113,6 @@ Prop_assign()BOOL right;
                         CGPointMake(attributes.center.x + attributes.size.width * (1 - scale)/2 - self.param.wLineSpacing * offsetProgress, attributes.center.y);
               if (self.param.wCardOverAlphaOpen) {
                  attributes.alpha = MAX(offsetProgress, MAX(self.param.wCardOverMinAlpha*2, 0));
-
               }
            }
            [mArr addObject:attributes];

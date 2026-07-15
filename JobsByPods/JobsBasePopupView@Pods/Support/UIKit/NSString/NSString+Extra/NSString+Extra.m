@@ -108,7 +108,6 @@
 /// @param replaceString 进行替换的备用文字资源
 +(NSString *)nullableString:(id)nullableString
               replaceString:(NSString *)replaceString{
-
     if (isNull(replaceString)) replaceString = @"No Data".tr;
     if (isNull(nullableString)) nullableString = replaceString;
     /// 只有NSNumber 和 NSString 这两种情况
@@ -118,10 +117,8 @@
         str = str.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);// 有空格，去除空格
         return str.length == 0 ? replaceString : str;
     }
-
     if([nullableString isKindOfClass:NSNumber.class])
         return isNull(toStringByID(nullableString)) ? replaceString : toStringByID(nullableString);
-
     return replaceString;
 }
 /// OC字符串转NSDate

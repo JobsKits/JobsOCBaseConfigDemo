@@ -8,7 +8,6 @@
 #import "NSString+Sys.h"
 
 @implementation NSString (JobsByOCPodsSys)
-
 -(UIColor *)cor{
     return UIColor.jobsCor(self);
 }

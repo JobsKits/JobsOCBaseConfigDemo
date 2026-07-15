@@ -17,7 +17,6 @@ Prop_strong() UILongPressGestureRecognizer *longPressGesture;
 @end
 
 @implementation JobsOCVideoRecorderRecordButton
-
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.byBgColor(UIColor.clearColor);
@@ -42,11 +41,9 @@ Prop_strong() UILongPressGestureRecognizer *longPressGesture;
     self.trackLayer.frame = self.bounds;
     self.trackLayer.path = path.CGPath;
     self.trackLayer.lineWidth = lineWidth;
-
     self.progressLayer.frame = self.bounds;
     self.progressLayer.path = path.CGPath;
     self.progressLayer.lineWidth = lineWidth;
-
     CGRect redFrame = CGRectInset(self.bounds, JobsWidth(14), JobsWidth(14));
     self.redCircleView.frame = redFrame;
     self.redCircleView.layer.cornerRadius = CGRectGetWidth(redFrame) * 0.5;

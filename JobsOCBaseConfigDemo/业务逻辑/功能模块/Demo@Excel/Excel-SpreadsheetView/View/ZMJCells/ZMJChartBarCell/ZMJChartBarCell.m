@@ -12,24 +12,19 @@
 @end
 
 @implementation ZMJChartBarCell : ZMJCell
-
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.btn.byAlpha(1);
-
     self.colorBarView.byAlpha(1);
-
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
     };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
-        
     };return self;
 }
 

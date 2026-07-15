@@ -12,7 +12,6 @@
 @end
 
 @implementation JobsOCBaseConfigDemoUITestsLaunchTests
-
 +(BOOL)runsForEachTargetApplicationUIConfiguration {
     return YES;
 }
@@ -25,7 +24,6 @@
 -(void)testLaunch {
     XCUIApplication *app = [[XCUIApplication alloc] init];
     [app launch];
-
     XCTAttachment *attachment = [XCTAttachment attachmentWithScreenshot:XCUIScreen.mainScreen.screenshot];
     attachment.name = @"Launch Screen";
     attachment.lifetime = XCTAttachmentLifetimeKeepAlways;

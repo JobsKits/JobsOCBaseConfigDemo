@@ -33,13 +33,11 @@ static dispatch_once_t static_collectionHeaderFooterViewOnceToken;
 #pragma mark —— SysMethod
 - (instancetype)init{
     if (self = [super init]) {
-        
     };return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
     };return self;
 }
 
@@ -57,7 +55,6 @@ static dispatch_once_t static_collectionHeaderFooterViewOnceToken;
         frame.size.height -= contentOffsetY;
         frame.origin.y = contentOffsetY;
         self.imageView.byFrame(frame);
-
     }
 }
 #pragma mark —— lazyLoad

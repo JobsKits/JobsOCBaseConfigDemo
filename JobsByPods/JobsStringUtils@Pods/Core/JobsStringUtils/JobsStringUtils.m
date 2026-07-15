@@ -41,7 +41,6 @@ BOOL isNull(id _Nullable value) {
         if ([string isEqualToString:@""]) return YES;
         return !JobsStringUtilsTrimmedWhitespaceAndNewline(string).length;
     }
-
     NSString *string = [NSString stringWithFormat:@"%@", value];
     return !JobsStringUtilsTrimmedWhitespaceAndNewline(string).length;
 }

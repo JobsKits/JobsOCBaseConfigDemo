@@ -8,11 +8,9 @@
 #import "JobsOCSplashGIFDecoder.h"
 
 @implementation JobsOCSplashGIFDecoder
-
 +(nullable UIImage *)imageWithData:(NSData *)data {
     CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)data, nil);
     if (!source) return nil;
-
     size_t frameCount = CGImageSourceGetCount(source);
     if (frameCount <= 1) {
         CGImageRef imageRef = CGImageSourceCreateImageAtIndex(source, 0, nil);
@@ -21,7 +19,6 @@
         CFRelease(source);
         return image;
     }
-
     NSMutableArray<UIImage *> *frames = NSMutableArray.array;
     NSTimeInterval duration = 0;
     for (size_t index = 0; index < frameCount; index++) {

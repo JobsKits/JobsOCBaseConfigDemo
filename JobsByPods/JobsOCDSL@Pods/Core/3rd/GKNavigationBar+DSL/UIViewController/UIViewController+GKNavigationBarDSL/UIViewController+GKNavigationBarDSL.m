@@ -8,7 +8,6 @@
 #import "UIViewController+GKNavigationBarDSL.h"
 
 @implementation UIViewController (GKNavigationBarDSL)
-
 #define JobsGKNavDSLMethod(methodName, blockType, valueType, propertyName) \
 -(blockType _Nonnull)methodName{ \
     @jobs_weakify(self) \

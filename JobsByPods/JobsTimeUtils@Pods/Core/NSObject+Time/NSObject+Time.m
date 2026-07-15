@@ -254,7 +254,6 @@
     if (!dateFormatter) dateFormatter = self.dateFormatterBy(@"HH:mm:ss");
     NSDate *date1 = dateFormatter.dateByString(starTime);
     NSDate *date2 = dateFormatter.dateByString(endTime);
-    
     NSCalendarUnit type =
     NSCalendarUnitYear |
     NSCalendarUnitMonth |

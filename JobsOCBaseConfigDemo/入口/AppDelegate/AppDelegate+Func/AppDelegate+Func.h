@@ -17,6 +17,7 @@
 //#endif
 #endif
 /// 检查联网情况
+
 #if __has_include(<Reachability/Reachability.h>)
 #import <Reachability/Reachability.h>
 #else

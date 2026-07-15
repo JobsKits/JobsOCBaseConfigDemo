@@ -8,7 +8,6 @@
 #import "UNNotificationRequestModel+DSL.h"
 
 @implementation UNNotificationRequestModel (DSL)
-
 -(JobsRetUNNotificationRequestModelByStrBlock _Nonnull)byIdentifier{
     @jobs_weakify(self)
     return ^__kindof UNNotificationRequestModel *_Nullable(NSString * _Nullable data) {

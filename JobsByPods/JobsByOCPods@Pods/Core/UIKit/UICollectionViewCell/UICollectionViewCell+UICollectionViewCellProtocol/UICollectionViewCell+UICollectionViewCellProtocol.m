@@ -85,11 +85,9 @@
     if(!borderWidth) borderWidth = 1.0f;
     if (!bottomLineCor) bottomLineCor = JobsWhiteColor;
     CGRect bounds = [self dx:dx dy:dy];
-    
     NSIndexPath *indexPath = self.jobsGetCurrentIndexPath;
 //    NSInteger numberOfSections = self.jobsGetCurrentNumberOfSections;
     NSInteger numberOfItemsInSection = self.jobsGetCurrentNumberOfItemsInSection;
-
     {
         // 绘制曲线
         UIBezierPath *bezierPath = nil;
@@ -112,7 +110,6 @@
                 }
             }
         }
-        
         {
             [self.layer insertSublayer:jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
                 layer.borderWidth = borderWidth;/// 线宽
@@ -218,11 +215,9 @@
     // 设置填充颜色为背景颜色，以保留原始背景
     [cellBackgroundCor setFill];
     [path fill];
-     
     // 设置边框的属性
     [borderColor setStroke];// 设置边框颜色
     path.lineWidth = borderWidth; // 设置边框宽度
-     
     // 添加路径到上下文中并绘制
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextAddPath(context, path.CGPath);
@@ -237,15 +232,12 @@
 -(void)outlineByLayer:(UIBorderSideType)borderSideType
           borderColor:(UIColor *_Nullable)borderColor
           borderWidth:(CGFloat)borderWidth{
-    
     if(!borderColor) borderColor = JobsRedColor;
     if(!borderWidth) borderWidth = 1.0f;
-    
     CALayer *topBorder = nil;
     CALayer *bottomBorder = nil;
     CALayer *leftBorder = nil;
     CALayer *rightBorder = nil;
-    
     if(borderSideType & UIBorderSideTypeTop || borderSideType & UIBorderSideTypeAll){
         topBorder = CALayer.layer;
         topBorder.borderColor = borderColor.CGColor; // 选择你想要的颜色
@@ -256,7 +248,6 @@
                                      self.contentView.frame.size.width,
                                      borderWidth);
     }
-    
     if(borderSideType & UIBorderSideTypeBottom || borderSideType & UIBorderSideTypeAll){
         bottomBorder = CALayer.layer;
         bottomBorder.borderColor = borderColor.CGColor; // 选择你想要的颜色
@@ -267,7 +258,6 @@
                                         self.contentView.frame.size.width,
                                         borderWidth);
     }
-    
     if(borderSideType & UIBorderSideTypeLeft || borderSideType & UIBorderSideTypeAll){
         leftBorder = CALayer.layer;
         leftBorder.borderColor = borderColor.CGColor; // 选择你想要的颜色
@@ -278,7 +268,6 @@
                                       borderWidth,
                                       self.contentView.frame.size.height);
     }
-    
     if(borderSideType & UIBorderSideTypeRight || borderSideType & UIBorderSideTypeAll){
         rightBorder = CALayer.layer;
         rightBorder.borderColor = borderColor.CGColor; // 选择你想要的颜色
@@ -289,7 +278,6 @@
                                        borderWidth,
                                        self.contentView.frame.size.height);
     }
-    
     if(topBorder) self.contentView.layer.addSublayer(topBorder);
     if(bottomBorder) self.contentView.layer.addSublayer(bottomBorder);
     if(leftBorder) self.contentView.layer.addSublayer(leftBorder);

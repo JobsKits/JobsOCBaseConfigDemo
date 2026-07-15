@@ -14,10 +14,8 @@ Prop_strong()NSMutableArray <JXCategoryTitleBackgroundCellModel *>*tempMutArray;
 @end
 
 @implementation JXCategoryTitleBackgroundView
-
 - (void)initializeData {
     [super initializeData];
-
     self.cellWidthIncrement = 20;
     self.normalBackgroundColor = RGBA_COLOR(237.0, 236.0, 242.0, 1.0);
     self.normalBorderColor = UIColor.clearColor;
@@ -40,7 +38,6 @@ Prop_strong()NSMutableArray <JXCategoryTitleBackgroundCellModel *>*tempMutArray;
 - (void)refreshCellModel:(JXCategoryBaseCellModel *)cellModel
                    index:(NSInteger)index {
     [super refreshCellModel:cellModel index:index];
-
     JXCategoryTitleBackgroundCellModel *myModel = (JXCategoryTitleBackgroundCellModel *)cellModel;
     myModel.normalBackgroundColor = self.normalBackgroundColor;
     myModel.normalBorderColor = self.normalBorderColor;

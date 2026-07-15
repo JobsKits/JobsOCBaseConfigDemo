@@ -21,15 +21,12 @@ static NSString *JobsDeviceIDKeychainLoad(NSString *service) {
     NSMutableDictionary *query = JobsDeviceIDKeychainQuery(service);
     query[(__bridge id)kSecReturnData] = @YES;
     query[(__bridge id)kSecMatchLimit] = (__bridge id)kSecMatchLimitOne;
-
     CFTypeRef result = NULL;
     OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
     if (status != errSecSuccess || !result) return nil;
-
     NSData *data = (__bridge_transfer NSData *)result;
     NSString *string = [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
     if (string) return string;
-
     NSError *error = nil;
     id object = [NSKeyedUnarchiver unarchivedObjectOfClass:NSString.class
                                                   fromData:data
@@ -40,7 +37,6 @@ static NSString *JobsDeviceIDKeychainLoad(NSString *service) {
 static BOOL JobsDeviceIDKeychainSave(NSString *service, NSString *data) {
     NSMutableDictionary *query = JobsDeviceIDKeychainQuery(service);
     SecItemDelete((__bridge CFDictionaryRef)query);
-
     query[(__bridge id)kSecValueData] = [data dataUsingEncoding:NSUTF8StringEncoding];
     return SecItemAdd((__bridge CFDictionaryRef)query, NULL) == errSecSuccess;
 }

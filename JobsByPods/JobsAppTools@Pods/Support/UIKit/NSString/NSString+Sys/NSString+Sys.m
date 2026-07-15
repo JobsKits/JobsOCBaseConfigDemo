@@ -8,7 +8,6 @@
 #import "NSString+Sys.h"
 
 @implementation NSString (JobsAppToolsSys)
-
 -(JobsRetStrByCharacterSetBlock _Nonnull)byTrimmingCharactersInSet{
     return ^__kindof NSString *_Nullable(NSCharacterSet *_Nullable data){
         return [self stringByTrimmingCharactersInSet:data];

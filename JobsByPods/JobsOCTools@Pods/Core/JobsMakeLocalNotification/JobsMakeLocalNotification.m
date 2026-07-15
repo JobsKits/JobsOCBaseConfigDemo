@@ -12,7 +12,6 @@
 @end
 
 @implementation JobsMakeLocalNotification
-
 - (void)triggerLocalNotification:(JobsLocalNotificationModel *)localNotificationModel{
     jobsMakeUNUserNotificationCenter(^(__kindof UNUserNotificationCenter * _Nullable center) {
         UNMutableNotificationContent *content = jobsMakeUNMutableNotificationContent(^(__kindof UNMutableNotificationContent * _Nullable content) {
@@ -20,7 +19,6 @@
             content.body = localNotificationModel.body;
             content.sound = localNotificationModel.sound;
         });
-
         UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:localNotificationModel.triggerWithTimeInterval
                                                                                                         repeats:localNotificationModel.repeats];
         UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:localNotificationModel.identifier

@@ -16,10 +16,8 @@ Prop_strong()NSMutableArray <JobsIMListDataModel *>*jobsIMListMutArr;
 @end
 
 @implementation JobsIMListView
-
 -(instancetype)init{
     if (self = [super init]) {
-
     };return self;
 }
 
@@ -61,7 +59,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         .byDelegate(self)
         .jobsRichElementsTableViewCellBy(self.jobsIMListMutArr[indexPath.row])
         .JobsBlock1(^(id _Nullable data) {;
-             
         });
     return cell.byAllowsMultipleSwipe(YES);
 }
@@ -117,7 +114,6 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                         tableView.byPagingEnabled(NO);
                         tableView.mj_footer.state = MJRefreshStateIdle;
                         tableView.mj_footer.byHidden(YES);
-
                         tableView.byPagingEnabled(YES);
                         tableView.endRefreshing(self.jobsIMListMutArr.count);
                         return nil;

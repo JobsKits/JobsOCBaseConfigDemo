@@ -24,7 +24,6 @@
 @end
 
 @implementation WMZBannerView
-
 - (instancetype)initConfigureWithModel:(WMZBannerParam *)param withView:(UIView*)parentView{
     if (self = [super init]) {
         self.param = param;
@@ -69,13 +68,10 @@
 
 - (void)resetCollection{
     self.bannerControl.byFrame(CGRectMake((self.bounds.size.width - 60)/2 , self.bounds.size.height - 30,60, 30));
-
     self.bannerControl.numberOfPages = self.data.count;
     self.bannerControl.byHidden(self.param.wHideBannerControl);
-
     if (self.data.count == 1) {
         self.bannerControl.byHidden(YES);
-
     }
     [UIView animateWithDuration:0.0 animations:^{
         [self.myCollectionV reloadData];
@@ -96,35 +92,26 @@
             [self scrollEnd:[NSIndexPath indexPathForRow: self.param.wRepeat?((BANNERCOUNT/2)*self.data.count+self.param.wSelectIndex):self.param.wSelectIndex inSection:0]];
         });
     } completion:^(BOOL finished) {}];
-    
-    
     if (self.param.wSpecialStyle == SpecialStyleLine&&self.param.wData.count) {
         [self addSubview:self.line];
         self.line.byHidden(NO);
-
         self.line.byBgColor([UIColor redColor]);
-
         if (self.param.wSpecialCustumLine) {
             self.param.wSpecialCustumLine(self.line);
         }
-        
         CGFloat lineHeight = self.line.frame.size.height?:2;
         CGFloat lineWidth = self.param.wFrame.size.width/self.param.wData.count;
         self.line.byFrame(CGRectMake(0, self.param.wFrame.size.height -lineHeight,  lineWidth, lineHeight));
-
     }else{
         self.line.byHidden(YES);
-
     }
 }
 
 - (void)setUp{
-    
     if (self.data&&self.data.count==1) {
         self.param.wRepeat = NO;
         self.param.wAutoScroll = NO;
     }
-    
     if (self.param.wMarquee) {
         self.param.wAutoScroll = YES;
         self.param.wHideBannerControl = YES;
@@ -140,15 +127,11 @@
         rect.size.height = rect.size.height * self.param.wScreenScale;
         self.param.wFrame = rect;
         self.byFrame(self.param.wFrame);
-
-        
         CGSize size = self.param.wItemSize;
         size.width *= self.param.wScreenScale;
         size.height *= self.param.wScreenScale;
         self.param.wItemSize = size;
-        
         self.param.wLineSpacing*=self.param.wScreenScale;
-        
         UIEdgeInsets sets = self.param.wSectionInset;
         sets.top*=self.param.wScreenScale;
         sets.right*=self.param.wScreenScale;
@@ -159,7 +142,6 @@
     if (self.param.wItemSize.height == 0 || self.param.wItemSize.width == 0 ) {
         self.param.wItemSize = CGSizeMake(self.frame.size.width, self.frame.size.height);
     }
-
     else if(self.param.wItemSize.height>self.frame.size.height){
         self.param.wItemSize = CGSizeMake(self.param.wItemSize.width, self.frame.size.height);
     }else if(self.param.wItemSize.width>self.frame.size.width){
@@ -168,7 +150,6 @@
     int width = self.param.wItemSize.width;
     int height = self.param.wItemSize.height;
     self.param.wItemSize = CGSizeMake(width, height);
-    
     if (self.param.wFadeOpen) {
         self.flowL = [[WMZBannerFadeLayout alloc] initConfigureWithModel:self.param];
     }else if (self.param.wCardOverLap) {
@@ -179,7 +160,6 @@
     }else{
         self.flowL = [[WMZBannerFlowLayout alloc] initConfigureWithModel:self.param];
     }
-
     [self addSubview:self.myCollectionV];
     self.myCollectionV.scrollEnabled = self.param.wCanFingerSliding;
     [self.myCollectionV registerClass:[Collectioncell class] forCellWithReuseIdentifier:NSStringFromClass([Collectioncell class])];
@@ -198,7 +178,6 @@
             }];
         }
     }
-    
     if (self.param.wXibCellClassNames) {
         if ([self.param.wXibCellClassNames isKindOfClass:[NSString class]]) {
             [self.myCollectionV registerNib:[UINib nibWithNibName:self.param.wXibCellClassNames bundle:nil] forCellWithReuseIdentifier:self.param.wXibCellClassNames];
@@ -210,15 +189,12 @@
             }];
         }
     }
-    
     self.myCollectionV.pagingEnabled = (self.param.wItemSize.width == self.myCollectionV.frame.size.width && self.param.wLineSpacing == 0)||self.param.wVertical;
     if ([self.myCollectionV isPagingEnabled]) {
         self.myCollectionV.decelerationRate = UIScrollViewDecelerationRateNormal;
     }
-    
     self.bannerControl = [[WMZBannerControl alloc]initWithFrame:CGRectMake((self.bounds.size.width - 60)/2 , self.bounds.size.height - 30,60, 30) WithModel:self.param];
     [self addSubview:self.bannerControl];
-
     self.bgImgView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
         imageView
             .byContentMode(self.param.wImageFill?UIViewContentModeScaleAspectFill:UIViewContentModeScaleToFill)
@@ -226,23 +202,17 @@
     });
     [self sendSubviewToBack:self.bgImgView];
     self.bgImgView.byHidden(!self.param.wEffect);
-
     self.bgImgView.layer.masksToBounds = YES;
     UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     [self.bgImgView addSubview:effectView];
-    
     self.myCollectionV.byFrame(self.bounds);
-
     if (self.param.wCustomControl) {
         self.param.wCustomControl(self.bannerControl);
     }
     self.bgImgView.byFrame(CGRectMake(0, 0, self.frame.size.width, self.frame.size.height*self.param.wEffectHeight));
-
     effectView.byFrame(self.bgImgView.bounds);
-
     [self resetCollection];
-    
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -295,7 +265,6 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return  self.param.wRepeat?self.data.count*BANNERCOUNT:self.data.count;
-    
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -304,7 +273,6 @@
         id dic = self.data[index];
         self.param.wEventClick(dic, index);
     }
-    
     if (self.param.wEventCenterClick) {
         NSInteger index = self.param.wRepeat?indexPath.row%self.data.count:indexPath.row;
         id dic = self.data[index];
@@ -353,9 +321,7 @@
         [arr addObject:[NSString stringWithFormat:@"%.0f",cell.frame.size.height]];
         [indexArr addObject:cell];
     }
-    
     float max = [[arr valueForKeyPath:@"@max.floatValue"] floatValue];
-           
     NSInteger cellIndex = [arr indexOfObject:[NSString stringWithFormat:@"%.0f",max]];
     if (cellIndex == NSNotFound) {
         if (arr.count%2 == 0) {
@@ -374,7 +340,6 @@
 }
 //滚动处理
 - (void)scrolToPath:(NSIndexPath*)path animated:(BOOL)animated{
-    
     if (self.param.wRepeat?(path.row> self.data.count*BANNERCOUNT-1):(path.row> self.data.count-1)){
         [self cancelTimer];
         return;
@@ -394,7 +359,6 @@
             [self.myCollectionV scrollToItemAtIndexPath:path atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:animated];
         }
     }
-    
     if ([self.myCollectionV isPagingEnabled]||self.param.wCardOverLap) return;
     if(self.param.wContentOffsetX>0.5){
         self.myCollectionV.contentOffset = CGPointMake(self.myCollectionV.contentOffset.x-(self.param.wContentOffsetX-0.5)*self.myCollectionV.frame.size.width, self.myCollectionV.contentOffset.y);
@@ -549,7 +513,6 @@
         }
     }
     self.bannerControl.currentPage =  index;
-    
     if (self.param.wEventDidScroll) {
         self.param.wEventDidScroll(self.myCollectionV.contentOffset);
     }
@@ -580,13 +543,11 @@
 - (void)setUpSpecialFrame{
     if (!self.param.wSpecialStyle) return;
     if (!self.data.count) return;
-
     if (self.param.wSpecialStyle == SpecialStyleLine) {
         [UIView animateWithDuration:0.5 animations:^{
             CGRect rect = self.line.frame;
             rect.origin.x = (self.param.wRepeat?self.param.myCurrentPath%self.data.count:self.param.myCurrentPath)*rect.size.width;
             self.line.byFrame(rect);
-
         }];
     }
 }
@@ -597,11 +558,9 @@
     scale.keyPath = @"transform.scale";
     scale.fromValue = [NSNumber numberWithFloat:1.3];
     scale.toValue = [NSNumber numberWithFloat:1.0];
-
     CABasicAnimation *showViewAnn = [CABasicAnimation animationWithKeyPath:@"opacity"];
     showViewAnn.fromValue = [NSNumber numberWithFloat:0.5];
     showViewAnn.toValue = [NSNumber numberWithFloat:1];
-
     CAAnimationGroup *group = [CAAnimationGroup animation];
     group.animations = @[scale, showViewAnn];
     group.duration = 0.6;
@@ -613,11 +572,9 @@
      scale.keyPath = @"transform.scale";
      scale.fromValue = [NSNumber numberWithFloat:1];
      scale.toValue = [NSNumber numberWithFloat:1.3];
-
      CABasicAnimation *showViewAnn = [CABasicAnimation animationWithKeyPath:@"opacity"];
      showViewAnn.fromValue = [NSNumber numberWithFloat:1];
      showViewAnn.toValue = [NSNumber numberWithFloat:0];
-
      CAAnimationGroup *group = [CAAnimationGroup animation];
      group.animations = @[scale, showViewAnn];
      group.duration = 0.6;
@@ -632,7 +589,6 @@
         _myCollectionV.showsVerticalScrollIndicator = NO;
         _myCollectionV.showsHorizontalScrollIndicator = NO;
         _myCollectionV.byBgColor([UIColor clearColor]);
-
         _myCollectionV.decelerationRate = _param.wDecelerationRate;
     };return _myCollectionV;
 }
@@ -667,7 +623,6 @@
 @end
 
 @implementation Collectioncell
-
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]){
         self.icon = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
@@ -687,17 +642,14 @@
 - (void)setParam:(WMZBannerParam *)param{
     _param = param;
     self.icon.byContentMode(param.wImageFill?UIViewContentModeScaleAspectFill:UIViewContentModeScaleToFill);
-
 }
 
 @end
 
 @implementation CollectionTextCell
-
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]){
         self.contentView.byBgColor([UIColor whiteColor]);
-
         self.label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byFont([UIFont systemFontOfSize:17.0])
@@ -705,14 +657,12 @@
                 .byFrame(CGRectMake(10, 0, frame.size.width-20, frame.size.height))
                 .addOn(self.contentView);
         });
-
     };return self;
 }
 
 - (void)setParam:(WMZBannerParam *)param{
     _param = param;
     self.label.byTextCor(self.param.wMarqueeTextColor);
-
 }
 
 @end

@@ -18,7 +18,6 @@ SceneDelegate *sceneDelegate;
 @end
 
 @implementation SceneDelegate
-
 -(instancetype)init{
     if (self = [super init]) {
         sceneDelegate = self;

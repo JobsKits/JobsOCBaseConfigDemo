@@ -65,11 +65,8 @@ BaseLayerProtocol_synthesize_part3
         self.viewModel = model;
         self.leftBtnVM = self.viewModel.data;
         self.rightBtnVM = self.viewModel.requestParams;
-        
         self.leftBtn.byAlpha(1);
-
         self.rightBtn.byAlpha(1);
-
         return self;
     };
 }
@@ -104,7 +101,6 @@ BaseLayerProtocol_synthesize_part3
                 make.height.mas_equalTo(self.leftBtnVM.jobsWidth);
             });
     }
-    
     _leftBtn.data = self.leftBtnVM;
     if(self.leftBtnVM.attributedTitle){
         _leftBtn.jobsResetAttributedTitle(self.leftBtnVM.attributedTitle);
@@ -115,7 +111,6 @@ BaseLayerProtocol_synthesize_part3
             _leftBtn.jobsResetBtnTitleCor(self.leftBtnVM.titleCor);
         }
     }
-    
     if(self.leftBtnVM.attributedSubTitle){
         _leftBtn.jobsResetAttributedTitle(self.leftBtnVM.attributedSubTitle);
     }else{
@@ -125,9 +120,7 @@ BaseLayerProtocol_synthesize_part3
             _leftBtn.jobsResetBtnTitleCor(self.leftBtnVM.subTitleCor);
         }
     }
-    
     _leftBtn.bySelected(self.leftBtnVM.jobsSelected);
-    
     if(self.leftBtnVM.normalImage){
         _leftBtn.jobsResetBtnImage(_leftBtn.jobs_isSelected ? self.leftBtnVM.highlightImage : self.leftBtnVM.normalImage);
         _leftBtn.jobsResetImagePlacement(NSDirectionalRectEdgeLeading);
@@ -135,7 +128,6 @@ BaseLayerProtocol_synthesize_part3
     }
     _leftBtn.makeBtnTitleByShowingType(self.leftBtnVM.titleShowingType);
     _leftBtn.jobsResetBtnBgCor(self.leftBtnVM.baseBackgroundColor);
-    
     return _leftBtn;
 }
 
@@ -158,7 +150,6 @@ BaseLayerProtocol_synthesize_part3
                 make.height.mas_equalTo(self.rightBtnVM.jobsHeight);
             });
     }
-    
     _rightBtn.data = self.rightBtnVM;
     if(self.rightBtnVM.attributedTitle){
         _rightBtn.jobsResetAttributedTitle(self.rightBtnVM.attributedTitle);
@@ -169,7 +160,6 @@ BaseLayerProtocol_synthesize_part3
             _rightBtn.jobsResetBtnTitleCor(self.rightBtnVM.titleCor);
         }
     }
-    
     if(self.rightBtnVM.attributedSubTitle){
         _rightBtn.jobsResetAttributedTitle(self.rightBtnVM.attributedSubTitle);
     }else{
@@ -179,20 +169,15 @@ BaseLayerProtocol_synthesize_part3
             _rightBtn.jobsResetSubTitleBaseForegroundColor(self.rightBtnVM.subTitleCor);
         }
     }
-    
     _rightBtn.jobsResetSubTitleTextAlignment(NSTextAlignmentRight);
-    
     _rightBtn.bySelected(self.rightBtnVM.jobsSelected);
-    
     if(self.rightBtnVM.normalImage){
         _rightBtn.jobsResetBtnImage(_rightBtn.jobs_isSelected ? self.rightBtnVM.highlightImage : self.rightBtnVM.normalImage);
         _rightBtn.jobsResetImagePlacement(NSDirectionalRectEdgeLeading);
         _rightBtn.jobsResetImagePadding(JobsWidth(5));
     }
-    
     _rightBtn.makeBtnTitleByShowingType(self.rightBtnVM.titleShowingType);
     _rightBtn.jobsResetBtnBgCor(self.rightBtnVM.baseBackgroundColor);
-    
     return _rightBtn;
 }
 

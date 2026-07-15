@@ -15,7 +15,6 @@ Prop_assign()BOOL didReloadContentAfterLayout;
 @end
 
 @implementation JobsVerticalMenuSubVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);

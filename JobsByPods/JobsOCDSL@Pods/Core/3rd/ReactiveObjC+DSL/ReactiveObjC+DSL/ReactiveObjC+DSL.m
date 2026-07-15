@@ -14,13 +14,13 @@
     return ^id _Nullable(__kindof RACDisposable *_Nullable disposable){
         @jobs_strongify(self)
         if (!self) return nil;
-
         SEL setter = NSSelectorFromString(@"setRacDisposable:");
         if ([self respondsToSelector:setter]) {
             ((void (*)(id, SEL, RACDisposable *))objc_msgSend)(self, setter, disposable);
         };return self;
     };
 }
+
 @end
 
 #pragma mark —— RACDisposable
@@ -56,6 +56,7 @@
         return self ? [self asScopedDisposable] : nil;
     };
 }
+
 @end
 
 #pragma mark —— RACScopedDisposable
@@ -65,6 +66,7 @@
         return disposable ? [self scopedDisposableWithDisposable:disposable] : nil;
     };
 }
+
 @end
 
 #pragma mark —— RACCompoundDisposable
@@ -100,6 +102,7 @@
         return self;
     };
 }
+
 @end
 
 #pragma mark —— RACCommand
@@ -162,6 +165,7 @@
         return self ? [self execute:data] : nil;
     };
 }
+
 @end
 
 #pragma mark —— RACSignal
@@ -613,6 +617,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
         return self ? [self retry:data] : nil;
     };
 }
+
 @end
 
 #pragma mark —— RACSubject / RACReplaySubject
@@ -652,6 +657,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
         return self;
     };
 }
+
 @end
 
 @implementation RACReplaySubject (JobsChain)
@@ -660,6 +666,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
         return [self replaySubjectWithCapacity:capacity];
     };
 }
+
 @end
 
 #pragma mark —— RACMulticastConnection
@@ -687,6 +694,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
         return self ? [self autoconnect] : nil;
     };
 }
+
 @end
 
 #pragma mark —— RACScheduler
@@ -731,6 +739,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
         }];
     };
 }
+
 @end
 
 #pragma mark —— RACSequence
@@ -928,6 +937,7 @@ JOBS_RAC_SEQUENCE_PREDICATE_ARG(bySkipWhileBlock, skipWhileBlock)
         return (self && block) ? [self objectPassingTest:^BOOL(id value) { return block(value); }] : nil;
     };
 }
+
 @end
 
 #pragma mark —— RACTuple
@@ -975,4 +985,5 @@ JOBS_RAC_TUPLE_ID_PROP(byLast, last)
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(void){ @jobs_strongify(self) return self.rac_sequence; };
 }
+
 @end

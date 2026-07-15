@@ -82,6 +82,7 @@ JobsBlock@Pods/
 - `JobsBlock.h` 暴露 `JobsRetUIViewModelByJobsByTextModelBlockBlock`、`JobsRetUIButtonModelByJobsByTextModelBlockBlock` 等嵌套 Model 配置返回类型，用于 `JobsModelDSL` 在大 Model 里回调配置子 Model 后继续返回自身。
 - `JobsBlock.h` / `ReturnByCertainParametersBlock.h` 暴露 `FSCalendar` 子对象配置相关 Block 类型，用于 `JobsOCDSL` 在 `appearance`、`calendarHeaderView`、`swipeToChooseGesture` 回调配置后继续返回主 `FSCalendar`。
 - `JobsBlock.h` / `ReturnByCertainParametersBlock.h` 统一承接 `JobsOCDSL` 第三方 DSL 所需 Block typedef，包括 `YTKNetwork`、`GKNavigationBar`、`ZFPlayer`、`Texture` 的链式配置返回类型。
+- `JobsBlock.h` 集中提供 `CMMotionManager` 的频率、启停、队列回调和参考坐标系链式返回 Block；回调参数类型来自 `CoreMotion`，DSL 头不再重复声明 typedef。
 - `JobsBlock.h` 提供 `jobsByGKCustomNavigationBarBlock` 与 `JobsRetGKNavVCByNavigationBarBlock`，让控制器通过 `byGKNavigationBarBlock(...)` 配置 GK 导航栏子对象后仍返回原控制器继续主链。
 - `HXPhotoPickerObjC` 相关 DSL 需要的 `HXPhotoView`、`HXPhotoManager`、`HXPhotoConfiguration` Block 别名统一在 `JobsBlock.h` 暴露，协议 / 类向前声明集中放在 `JobsBlockHeader.h`。
 - `JobsOCTimerMgr` 相关 DSL 的 `JobsTimerMgr` 与内部 `_JobsTimerMgrEntry` 返回型 Block 统一由 `JobsBlock.h` 管理，相关类向前声明集中放在 `JobsBlockHeader.h`。
@@ -104,6 +105,7 @@ JobsBlock@Pods/
 
 - `Foundation`
 - `UIKit`
+- `CoreMotion`
 - `MessageUI`
 - `QuartzCore`
 - `Metal`

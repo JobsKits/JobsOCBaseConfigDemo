@@ -21,7 +21,6 @@ Prop_assign()_JobsOnceStatus status;
 @end
 
 @implementation _JobsOnceState
-
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -33,12 +32,10 @@ Prop_assign()_JobsOnceStatus status;
 @end
 
 @implementation JobsLocker (Once)
-
 JobsKey(JobsLockerOnceStateKey)
 - (_JobsOnceState *)jobs_onceState {
     _JobsOnceState *state = Jobs_getAssociatedObject(JobsLockerOnceStateKey);
     if (state) return state;
-
     @synchronized (self) {
         state = Jobs_getAssociatedObject(JobsLockerOnceStateKey);
         if (!state) {
@@ -50,22 +47,17 @@ JobsKey(JobsLockerOnceStateKey)
 
 - (void)executeOnce:(NS_NOESCAPE dispatch_block_t)block {
     if (!block) return;
-
     _JobsOnceState *state = [self jobs_onceState];
     [state.condition lock];
-
     while (state.status == _JobsOnceStatusExecuting) {
         [state.condition wait];
     }
-
     if (state.status == _JobsOnceStatusDone) {
         [state.condition unlock];
         return;
     }
-
     state.status = _JobsOnceStatusExecuting;
     [state.condition unlock];
-
     @try {
         block();
     } @finally {
@@ -78,17 +70,14 @@ JobsKey(JobsLockerOnceStateKey)
 
 - (BOOL)didExecuteOnce {
     _JobsOnceState *state = [self jobs_onceState];
-
     [state.condition lock];
     BOOL executed = state.status == _JobsOnceStatusDone;
     [state.condition unlock];
-
     return executed;
 }
 
 - (void)resetOnceState {
     _JobsOnceState *state = [self jobs_onceState];
-
     [state.condition lock];
     while (state.status == _JobsOnceStatusExecuting) {
         [state.condition wait];

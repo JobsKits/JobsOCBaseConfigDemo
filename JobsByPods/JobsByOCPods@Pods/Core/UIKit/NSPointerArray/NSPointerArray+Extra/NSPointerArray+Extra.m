@@ -8,7 +8,6 @@
 #import "NSPointerArray+Extra.h"
 
 @implementation NSPointerArray (Extra)
-
 -(JobsRetPointerByNSUIntegerBlock _Nonnull)pointerByIndex{
     @jobs_weakify(self)
     return ^void *_Nullable(NSUInteger index){

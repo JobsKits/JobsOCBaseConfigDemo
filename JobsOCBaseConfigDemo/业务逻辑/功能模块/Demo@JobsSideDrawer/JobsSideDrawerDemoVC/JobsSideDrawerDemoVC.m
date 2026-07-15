@@ -13,6 +13,7 @@
 @property(nonatomic,strong)UISegmentedControl *mode;
 @property(nonatomic,strong)UISlider *ratio;
 @property(nonatomic,strong)JobsSideDrawer *drawer;
+
 @end
 
 @implementation JobsSideDrawerDemoVC
@@ -52,4 +53,5 @@
     self.drawer = [[JobsSideDrawer alloc] initWithHostView:host drawerView:menu contentView:content configuration:config];
     [self.drawer openAnimated:YES];
 }
+
 @end

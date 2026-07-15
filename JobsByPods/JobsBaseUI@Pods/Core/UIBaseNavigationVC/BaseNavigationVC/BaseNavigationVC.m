@@ -16,7 +16,6 @@ Prop_strong()NSShadow *shadow;
 @end
 
 @implementation BaseNavigationVC
-
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
 }
@@ -118,7 +117,6 @@ Prop_strong()NSShadow *shadow;
     self.navigationBar.translucent = NO;
     [self.navigationBar setBackgroundImage:@"启动页SLOGAN".img forBarMetrics:UIBarMetricsDefault]; // 仅仅是 navigationBar 背景
 //    [self.navigationBar setShadowImage:@"启动页SLOGAN".img];// 图片大了会全屏
-
     if ([self.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) { // 设置NavgationBar的背景图片
         [self.navigationBar setBarTintColor:JobsRedColor]; // 一般的业务是全局设置，因为一个App里面只有一个主题
         self.navigationBar.byTintColor(JobsBlackColor);    // 系统的组件着色（返回按钮——箭头图标 和 上面的字）

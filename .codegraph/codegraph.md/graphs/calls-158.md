@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:ASMutableAttributedStringBuilder::setAttributes:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:185"]
-  T1["method:ASMutableAttributedStringBuilder::_pendingRangeAttributes<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:81"]
+  S1["method:Mutex::try_lock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:147"]
+  T1["function:ASRecursiveUnfairLockTryLock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRecursiveUnfairLock.mm:57"]
   S1 -->|calls| T1
-  S2["method:ASMutableAttributedStringBuilder::removeAttribute:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:201"]
-  T2["method:ASMutableAttributedStringBuilder::_applyPendingRangeAttributions<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:91"]
+  S2["method:Mutex::try_lock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:147"]
+  T2["method:Mutex::DidLock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:261"]
   S2 -->|calls| T2
-  S3["method:ASMutableAttributedStringBuilder::removeAttribute:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:201"]
-  T3["method:ASMutableAttributedStringBuilder::removeAttribute:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:201"]
+  S3["method:Mutex::lock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:169"]
+  T3["method:Mutex::lock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:169"]
   S3 -->|calls| T3
-  S4["method:ASMutableAttributedStringBuilder::removeAttribute:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:201"]
-  T4["method:ASMutableAttributedStringBuilder::_attributedString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:63"]
+  S4["method:Mutex::lock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:169"]
+  T4["method:Mutex::lock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:169"]
   S4 -->|calls| T4
-  S5["method:ASMutableAttributedStringBuilder::composedAttributedString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:213"]
-  T5["method:ASMutableAttributedStringBuilder::_applyPendingRangeAttributions<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:91"]
+  S5["method:Mutex::lock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:169"]
+  T5["function:ASRecursiveUnfairLockLock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRecursiveUnfairLock.mm:38"]
   S5 -->|calls| T5
-  S6["method:ASMutableAttributedStringBuilder::composedAttributedString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:213"]
-  T6["method:ASMutableAttributedStringBuilder::_attributedString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:63"]
+  S6["method:Mutex::lock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:169"]
+  T6["method:Mutex::DidLock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:261"]
   S6 -->|calls| T6
-  S7["method:ASMutableAttributedStringBuilder::attributesAtIndex:effectiveRange:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:229"]
-  T7["method:ASMutableAttributedStringBuilder::attributesAtIndex:effectiveRange:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:229"]
+  S7["method:Mutex::unlock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:187"]
+  T7["method:Mutex::WillUnlock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:248"]
   S7 -->|calls| T7
-  S8["method:ASMutableAttributedStringBuilder::attributesAtIndex:effectiveRange:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:229"]
-  T8["method:ASMutableAttributedStringBuilder::_attributedString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:63"]
+  S8["method:Mutex::unlock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:187"]
+  T8["method:Mutex::unlock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:187"]
   S8 -->|calls| T8
-  S9["method:ASMutableAttributedStringBuilder::mutableString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:239"]
-  T9["method:ASMutableAttributedStringBuilder::mutableString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:239"]
+  S9["method:Mutex::unlock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:187"]
+  T9["method:Mutex::unlock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:187"]
   S9 -->|calls| T9
-  S10["method:ASMutableAttributedStringBuilder::mutableString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:239"]
-  T10["method:ASMutableAttributedStringBuilder::_attributedString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:63"]
+  S10["method:Mutex::unlock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:187"]
+  T10["function:ASRecursiveUnfairLockUnlock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRecursiveUnfairLock.mm:73"]
   S10 -->|calls| T10
-  S11["method:ASMutableAttributedStringBuilder::beginEditing<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:244"]
-  T11["method:ASMutableAttributedStringBuilder::beginEditing<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:244"]
+  S11["method:Mutex::WillUnlock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:248"]
+  T11["function:ASLockingLog<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Base/ASLog.mm:53"]
   S11 -->|calls| T11
-  S12["method:ASMutableAttributedStringBuilder::beginEditing<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:244"]
-  T12["method:ASMutableAttributedStringBuilder::_attributedString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:63"]
+  S12["method:Mutex::DidLock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASThread.h:261"]
+  T12["function:ASLockingLog<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Base/ASLog.mm:53"]
   S12 -->|calls| T12
-  S13["method:ASMutableAttributedStringBuilder::endEditing<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:249"]
-  T13["method:ASMutableAttributedStringBuilder::endEditing<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:249"]
+  S13["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h:1"]
+  T13["function:ASPrimitiveTraitCollectionMakeDefault<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.mm:28"]
   S13 -->|calls| T13
-  S14["method:ASMutableAttributedStringBuilder::endEditing<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:249"]
-  T14["method:ASMutableAttributedStringBuilder::_attributedString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm:63"]
+  S14["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h:1"]
+  T14["function:ASPrimitiveTraitCollectionFromUITraitCollection<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.mm:51"]
   S14 -->|calls| T14
-  S15["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.h:1"]
-  T15["function:ASGetDescriptionValueString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:16"]
+  S15["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h:1"]
+  T15["function:ASPrimitiveTraitCollectionIsEqualToASPrimitiveTraitCollection<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.mm:92"]
   S15 -->|calls| T15
-  S16["function:ASGetDescriptionValueString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:16"]
-  T16["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S16["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h:1"]
+  T16["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S16 -->|calls| T16
-  S17["function:ASGetDescriptionValueString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:16"]
-  T17["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S17["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h:1"]
+  T17["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S17 -->|calls| T17
-  S18["function:ASGetDescriptionValueString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:16"]
-  T18["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S18["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h:1"]
+  T18["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S18 -->|calls| T18
-  S19["function:ASGetDescriptionValueString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:16"]
-  T19["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S19["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h:1"]
+  T19["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S19 -->|calls| T19
-  S20["function:ASGetDescriptionValueString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:16"]
-  T20["method:NSIndexSet::as_smallDescription<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/NSIndexSet+ASHelpers.mm:68"]
+  S20["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h:1"]
+  T20["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S20 -->|calls| T20
-  S21["function:ASGetDescriptionValueString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:16"]
-  T21["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S21["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h:1"]
+  T21["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S21 -->|calls| T21
-  S22["function:ASGetDescriptionValueString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:16"]
-  T22["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S22["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h:1"]
+  T22["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S22 -->|calls| T22
-  S23["function:_ASObjectDescriptionMakePropertyList<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:49"]
-  T23["function:ASGetDescriptionValueString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:16"]
+  S23["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h:1"]
+  T23["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S23 -->|calls| T23
-  S24["function:_ASObjectDescriptionMakePropertyList<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:49"]
-  T24["function:ASGetDescriptionValueString<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:16"]
+  S24["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h:1"]
+  T24["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S24 -->|calls| T24
-  S25["function:ASObjectDescriptionMakeWithoutObject<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:66"]
-  T25["function:_ASObjectDescriptionMakePropertyList<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:49"]
+  S25["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASTraitCollection.h:1"]
+  T25["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S25 -->|calls| T25
 ```
 

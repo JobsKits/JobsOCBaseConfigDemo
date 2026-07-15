@@ -25,11 +25,9 @@ Prop_strong()NSMutableArray *colors;
 @end
 
 @implementation WGradientProgress
-
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsBrownColor);
-
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth; // 自动调整view的宽度，保证左边距和右边距不变
     };return self;
 }
@@ -45,7 +43,6 @@ Prop_strong()NSMutableArray *colors;
 -(void)showOnParent{
     if (self.isShowRoad) self.roadLayer.byHidden(NO);
     self.gradLayer.byHidden(NO);
-
     if (self.isShowFence) self.fenceLayer.byHidden(NO);
 }
 /// 开始
@@ -68,7 +65,6 @@ Prop_strong()NSMutableArray *colors;
     [self.timer_length stop];
     /// UI归位
     self.gradLayer.byFrame(CGRectZero);
-
 }
 
 -(void)hide{
@@ -143,7 +139,6 @@ Prop_strong()NSMutableArray *colors;
                         model.progress = self.progress;
                         model.gradLayer = self.gradLayer;
                     }));
-
                     self.progress += self.increment;
                 }else [self->_timer_length stop];/// 销毁
             })
@@ -151,7 +146,6 @@ Prop_strong()NSMutableArray *colors;
 //                @jobs_strongify(self)
                 JobsLog(@"我死球了");
             });
-
             timer.accumulatedElapsed       = 0;
             timer.lastStartDate            = nil;
         });
@@ -179,7 +173,6 @@ Prop_strong()NSMutableArray *colors;
                         model.progress = self.progress;
                         model.gradLayer = self.gradLayer;
                     }));
-
                     self.progress += self.increment;
                 }else [self->_timer_length stop];/// 销毁
             })
@@ -187,7 +180,6 @@ Prop_strong()NSMutableArray *colors;
 //                @jobs_strongify(self)
                 JobsLog(@"我死球了");
             });
-
             timer.accumulatedElapsed       = 0;
             timer.lastStartDate            = nil;
         });
@@ -221,7 +213,6 @@ Prop_strong()NSMutableArray *colors;
         _gradLayer = jobsMakeCAGradientLayer(^(__kindof CAGradientLayer * _Nullable data) {
             @jobs_strongify(self)
             data.byFrame(CGRectZero);
-
             data.borderWidth = 1;
             data.startPoint = CGPointZero;
             data.endPoint = CGPointMake(1, 1);
@@ -239,9 +230,7 @@ Prop_strong()NSMutableArray *colors;
         _roadLayer = jobsMakeCALayer(^(__kindof CALayer * _Nullable data) {
             @jobs_strongify(self)
             data.byFrame(self.bounds);
-
             data.byBgColor(JobsLightGrayColor.CGColor);
-
             [self.layer addSublayer:data];
         });
     };return _roadLayer;
@@ -257,7 +246,6 @@ Prop_strong()NSMutableArray *colors;
                                     self.fenceLayer_width,
                                     self.height);
             data.byBgColor(self.fenceLayerColor.CGColor);
-
             [self.gradLayer addSublayer:data];
         });
     };return _fenceLayer;

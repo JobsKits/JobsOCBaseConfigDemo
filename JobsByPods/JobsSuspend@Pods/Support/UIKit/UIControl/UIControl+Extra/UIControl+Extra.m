@@ -24,7 +24,6 @@ static inline JobsControlTarget *_jobs_bind(UIControl *ctl, UIControlEvents sing
         [ctl removeTarget:old action:@selector(invoke:) forControlEvents:singleEvent];
         [map removeObjectForKey:@(singleEvent)];
     }
-
     JobsControlTarget *t = jobsMakeControlTarget(^(JobsControlTarget * _Nullable target) {
         target.block = [block copy];
         target.policy = JobsInvokePolicyNone;
@@ -37,7 +36,6 @@ static inline JobsControlTarget *_jobs_bind(UIControl *ctl, UIControlEvents sing
 }
 
 @implementation UIControl (Extra)
-
 -(instancetype)jobs_onChange:(jobsByCtrlBlock _Nonnull)block{
     _jobs_bind(self, UIControlEventValueChanged, block);
     return self;

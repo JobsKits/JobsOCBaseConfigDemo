@@ -8,7 +8,6 @@
 #import "NSNumber+Extra.h"
 
 @implementation NSNumber (Extra)
-
 +(JobsRetNumberByCharBlock _Nonnull)initByChar{
     return ^__kindof NSNumber *_Nullable(char data){
         return [NSNumber numberWithChar:data];

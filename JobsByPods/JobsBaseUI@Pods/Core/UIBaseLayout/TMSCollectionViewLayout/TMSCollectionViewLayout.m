@@ -41,7 +41,6 @@ Prop_assign()BOOL isExpand;
         NSInteger itemsCount = [self.collectionView numberOfItemsInSection:i];
         UICollectionViewLayoutAttributes *headerAttributes = [self layoutAttributesForSupplementaryViewOfKind:TMSCollectionViewSectionHeader
                                                                                                   atIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
-
         if (headerAttributes) {
             [self.attrubutesArray addObject:headerAttributes];
         }
@@ -74,7 +73,6 @@ Prop_assign()BOOL isExpand;
     }
     frame.origin = CGPointMake(self.padding, CGRectGetMaxY(lastAttributes.frame) + itemOffsetY);
     attribute.frame = frame;
-
     return attribute;
 }
 
@@ -96,7 +94,6 @@ Prop_assign()BOOL isExpand;
     }
     frame.origin = CGPointMake(0, CGRectGetMaxY(lastAttributes.frame));
     attributes.frame = frame;
-
     return attributes;
 }
 
@@ -129,7 +126,6 @@ Prop_assign()BOOL isExpand;
         [self invalidateLayout];
         [self.collectionView layoutIfNeeded];
     } completion:nil];
-
     // 使用该方法，最底部的item会闪动
 //    [UIView animateWithDuration:2 animations:^{
 //        [self invalidateLayout];

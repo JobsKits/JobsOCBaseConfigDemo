@@ -8,7 +8,6 @@
 #import "AES.h"
 
 @implementation AES
-
 +(NSString *)encrypt:(NSString *)message
             password:(NSString *)password{
     NSError *error = nil;

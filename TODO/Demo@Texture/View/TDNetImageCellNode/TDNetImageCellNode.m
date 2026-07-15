@@ -8,7 +8,6 @@
 #import "TDNetImageCellNode.h"
 
 @implementation TDNetImageCellNode
-
 -(instancetype)initWithURL:(NSURL *)url text:(NSString *)text {
     if (self = [super init]) {
         self.automaticallyManagesSubnodes = YES;

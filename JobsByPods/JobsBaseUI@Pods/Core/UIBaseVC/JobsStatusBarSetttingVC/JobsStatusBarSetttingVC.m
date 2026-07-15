@@ -96,7 +96,6 @@ BaseViewControllerProtocol_synthesize
             }
             if(!cor) cor = JobsWhiteColor;
             self.statusBar.byBgColor(cor);
-
         } else {
             self.changeStatusBarCor(JobsClearColor);
         }
@@ -123,7 +122,6 @@ BaseViewControllerProtocol_synthesize
         UIView *statusBar = [UIApplication.sharedApplication.valueForKey(@"statusBarWindow") valueForKey:@"statusBar"];
         if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
             statusBar.byBgColor(data);
-
         }[self setNeedsStatusBarAppearanceUpdate];// 手动触发 preferredStatusBarStyle 更新状态栏颜色
     };
 }

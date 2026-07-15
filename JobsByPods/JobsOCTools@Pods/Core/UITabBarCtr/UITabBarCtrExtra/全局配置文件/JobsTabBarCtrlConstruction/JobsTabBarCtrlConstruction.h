@@ -104,7 +104,6 @@ NS_INLINE UIViewController *childViewController_SystemStyle(UIViewController *vi
                                                                 UITabBarSystemItem systemItem,
                                                                 NSUInteger tag){
     viewController.view.byBgColor(JobsWhiteColor);
-
     viewController.tabBarItem = [UITabBarItem.alloc initWithTabBarSystemItem:systemItem tag:tag];
     setAnimation(viewController.tabBarItem, tag);//可选实现
     return viewController;

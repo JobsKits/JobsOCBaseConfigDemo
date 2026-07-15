@@ -8,7 +8,6 @@
 #import "UIContextualAction+DSL.h"
 
 @implementation UIContextualAction (DSL)
-
 -(JobsRetContextualActionByImageBlock _Nonnull)byImage{
     @jobs_weakify(self)
     return ^__kindof UIContextualAction *_Nullable(UIImage *_Nullable data){

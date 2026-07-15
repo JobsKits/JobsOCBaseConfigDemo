@@ -8,7 +8,6 @@
 #import "NSMutableArray+Extra.h"
 
 @implementation NSMutableArray (JobsByOCPodsExtra)
-
 +(JobsRetArrByArrBlock _Nonnull)initBy{
     return ^__kindof NSArray *_Nullable(__kindof NSArray *_Nullable data){
         return [NSMutableArray arrayWithArray:data];
@@ -69,11 +68,9 @@
 /// 将数组里的某个元素移动到原数组的某个位
 -(__kindof NSArray *_Nullable)moveElementFromIndex:(NSInteger)fromIndex
                                            toIndex:(NSInteger)toIndex{
-    
     BOOL a = self.count > fromIndex;
     BOOL b = fromIndex >= 0;
     BOOL c = toIndex >= 0;
-    
     if (a && b && c) {
         id element = [self objectAtIndex:fromIndex];
         [self removeObject:element];

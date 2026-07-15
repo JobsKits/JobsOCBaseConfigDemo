@@ -21,7 +21,6 @@
 @synthesize viewModel = _viewModel;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
     };return self;
 }
 #pragma mark —— BaseViewProtocol
@@ -58,7 +57,6 @@
         @jobs_strongify(self)
         self.viewModel = model;
         self.textField.byAlpha(1);
-
         return self;
     };
 }
@@ -75,7 +73,6 @@
 #pragma mark —— 一些私有方法
 -(void)textFieldBlock:(ZYTextField *)textField
        textFieldValue:(NSString *)value{
-    
 //    self.textFieldInputModel.resString = value;
 //    self.textFieldInputModel.PlaceHolder = self.doorInputViewBaseStyleModel.placeHolderStr;
 //    textField.requestParams = self.textFieldInputModel;
@@ -91,21 +88,13 @@
         _textField = self.contentView.addSubview(jobsMakeZYTextField(^(ZYTextField * _Nullable textField) {
             @jobs_strongify(self)
             textField.byDelegate(self);
-
             textField.byTextCor(JobsBlackColor);
-
             textField.byBgColor(@"#F9F9F9".cor);
-
             textField.byReturnKeyType(UIReturnKeyDefault);
-
             textField.byKeyboardAppearance(UIKeyboardAppearanceDefault);
-
             textField.byKeyboardType(UIKeyboardTypeNumberPad);
-
             textField.byPlaceholder(@"请输入充值金额".tr);
-
             textField.byFont(UIFontWeightMediumSize(18));
-
             textField.placeholderFont = textField.font;
             textField.placeholderColor = @"#AAAAAA".cor;
             [textField jobsTextFieldEventFilterBlock:^BOOL(id data) {

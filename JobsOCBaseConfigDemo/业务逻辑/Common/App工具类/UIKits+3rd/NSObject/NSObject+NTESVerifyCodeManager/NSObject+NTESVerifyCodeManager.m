@@ -54,7 +54,6 @@ JobsKey(_verifyCodeManager)
         /// 获取验证码管理对象
         VerifyCodeManager = NTESVerifyCodeManager.getInstance;
         VerifyCodeManager.delegate = self;
-        
         [VerifyCodeManager configureVerifyCode:网易易盾KEY 
                                        timeout:7.0
                                    styleConfig:self.verifyCodeStyleConfig];
@@ -80,19 +79,16 @@ JobsKey(_verifyCodeManager)
             case AppLanguageTagalog:{
                 VerifyCodeManager.lang = NTESVerifyCodeLangFIL;
             } break;
-                
         default:
                 break;
         }
         // 设置透明度
         VerifyCodeManager.alpha = 0.3;
-
         VerifyCodeManager.userInterfaceStyle = NTESUserInterfaceStyleDark;
         // 设置颜色
         VerifyCodeManager.color = JobsBlackColor;
         // 设置frame
         VerifyCodeManager.frame = CGRectNull;
-
         // 私有化协议类型
         VerifyCodeManager.protocol = NTESVerifyCodeProtocolHttps;
         // 是否开启降级方案
@@ -100,7 +96,6 @@ JobsKey(_verifyCodeManager)
         VerifyCodeManager.fallBackCount = 3;
         // 是否隐藏关闭按钮
         VerifyCodeManager.closeButtonHidden = NO;
-        
         Jobs_setAssociatedRETAIN_NONATOMIC(_verifyCodeManager, VerifyCodeManager)
     };return VerifyCodeManager;
 }

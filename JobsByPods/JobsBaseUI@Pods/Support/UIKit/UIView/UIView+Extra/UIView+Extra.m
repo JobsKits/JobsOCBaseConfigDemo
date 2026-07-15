@@ -8,7 +8,6 @@
 #import "UIView+Extra.h"
 
 @implementation UIView (JobsBaseUIExtra)
-
 +(JobsRetViewByFrameBlock _Nonnull)initByFrame{
     return ^__kindof UIView *_Nullable(CGRect data){
         return [UIView.alloc initWithFrame:data];
@@ -136,7 +135,6 @@
     /// 偏移量默认值
     offsetX = offsetX != 0 ? :20;
     offsetY = offsetY != 0 ? :20;
-
     targetShadowview.layer.shadowPath = jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable path) {
         switch (ShadowDirection) {
             case ShadowDirection_top:{
@@ -193,7 +191,6 @@
                 path.add(CGPointMake(targetShadowview.width + offsetX, targetShadowview.height + offsetY));/// 👉
                 path.add(CGPointMake(targetShadowview.width + offsetX, -offsetY));/// 👆
             }break;
-                
             default:
                 break;
         }

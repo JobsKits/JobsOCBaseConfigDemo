@@ -8,7 +8,6 @@
 #import "ScrollDecelerator.h"
 
 @implementation ScrollDecelerator
-
 - (instancetype)initWithVelocity:(CGFloat)velocity
                 decelerationRate:(CGFloat)decelerationRate {
     if (self = [super init]) {

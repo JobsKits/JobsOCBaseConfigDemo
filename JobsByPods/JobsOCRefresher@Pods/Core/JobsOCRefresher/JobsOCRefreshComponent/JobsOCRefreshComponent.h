@@ -7,7 +7,6 @@
 
 #import <objc/message.h>
 #import <ImageIO/ImageIO.h>
-
 #import "JobsOCRefreshConfig.h"
 
 #if __has_include(<SDWebImage/SDWebImage.h>)

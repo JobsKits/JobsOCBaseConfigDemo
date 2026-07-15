@@ -18,16 +18,13 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
 @end
 
 @implementation CasinoUpgradeContentView
-
 -(instancetype)init{
     if (self = [super init]) {
-
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
     };return self;
 }
 
@@ -41,17 +38,12 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
         @jobs_strongify(self)
         self.iOSNewestVersionModel = model;
         self.titleLab.byAlpha(1);
-
-        
         if (self.iOSNewestVersionModel.isForced == JobsUpdateByUser) {
             self.cancelBtn.byAlpha(1);
-
         }else if (self.iOSNewestVersionModel.isForced == JobsUpdateBySys){
             self.cancelBtn.byAlpha(0);
-
         }
         self.sureBtn.byAlpha(1);
-
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -128,7 +120,6 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
                     make.right.equalTo(self).offset(JobsWidth(-20));
                 }
             });
-
     };return _sureBtn;
 }
 

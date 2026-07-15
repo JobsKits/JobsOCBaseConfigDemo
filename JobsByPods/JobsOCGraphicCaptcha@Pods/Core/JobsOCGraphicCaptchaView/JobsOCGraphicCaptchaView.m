@@ -29,7 +29,6 @@ static UIColor *JobsOCGraphicCaptchaRandomColor(CGFloat alpha) {
 @end
 
 @implementation JobsOCGraphicCaptchaView
-
 -(instancetype)init{
     if (self = [super init]) {
         [self setupCaptchaView];

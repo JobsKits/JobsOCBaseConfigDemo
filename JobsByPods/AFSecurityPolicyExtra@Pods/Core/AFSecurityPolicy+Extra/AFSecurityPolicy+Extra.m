@@ -8,7 +8,6 @@
 #import "AFSecurityPolicy+Extra.h"
 
 @implementation AFSecurityPolicy (Extra)
-
 +(JobsRetAFSecurityPolicyByAFSSLPinningModeBlock _Nonnull)initBy{
     return ^AFSecurityPolicy *_Nonnull(AFSSLPinningMode data){
         return [AFSecurityPolicy policyWithPinningMode:data];

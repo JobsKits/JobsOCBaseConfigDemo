@@ -40,7 +40,6 @@ Prop_assign()BOOL volumePanelShowing;
 @end
 
 @implementation JobsAppDoorVC_Style2
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
@@ -60,7 +59,6 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
 
 -(void)loadView{
     [super loadView];
-
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if ([self.viewModel.requestParams integerValue] == JobsAppDoorBgType_Image) {
@@ -78,8 +76,6 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsBlueColor);
-
-
     //标的值初始化
     self.logoContentViewY = 0;
     self.loginContentViewY = 0;
@@ -105,7 +101,6 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
     self.loginContentView.图片从小放大();
     self.registerContentView.图片从小放大();
     self.logoContentView.图片从小放大();
@@ -117,11 +112,9 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [JobsOCKeyboardMgr.shared clearConfigByOwner:self];
-
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if ([self.viewModel.requestParams integerValue] == JobsAppDoorBgType_Image) {
-
         }else if ([self.viewModel.requestParams integerValue] == JobsAppDoorBgType_Video){
             BOOL shouldPauseVideo = self.isBeingDismissed || self.isMovingFromParentViewController || self.navigationController.isBeingDismissed;
             if (shouldPauseVideo && self.player.currentPlayerManager.isPlaying) {
@@ -267,7 +260,6 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
     self.volumeBtn.layer
         .byCornerRadius(volumeBtnCornerRadius)
         .byMasksToBounds(YES);
-
     CGFloat panelW = JobsWidth(52);
     CGFloat panelH = JobsWidth(188);
     self.volumePanelView.byFrame(CGRectMake(self.volumeBtn.centerX - panelW / 2,
@@ -367,7 +359,6 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
                                     self.registerCustomerServiceBtnY = self.registerContentView.top + self.registerContentView.height + JobsWidth(8);
                                 }
                                 self.customerServiceBtn.byY(self.registerCustomerServiceBtnY);
-
                             },
                                 nil);
                         }else if([btn.titleLabel.text isEqualToString:Title3]){
@@ -376,17 +367,13 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
                             [self.forgotCodeContentView showContentViewWithOffsetY:0];
                             self.customerServiceBtn.byAlpha(0);
                             [self jobs_refreshKeyboardMgrConfig];
-
-
                         }else if([btn.titleLabel.text isEqualToString:Title4]){
                             self.backBtnClickEvent(btn);
                         }else if([btn.titleLabel.text isEqualToString:Title3]){
                             // 忘记密码
                         }else{}
                     }else if ([data isKindOfClass:JobsMagicTextField.class]){
-
                     }else if ([data isKindOfClass:NSString.class]){
-
                     }else{}
                 }];
             })
@@ -472,7 +459,6 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
                                 ^{
                                 @jobs_strongify(self)
                                 self.customerServiceBtn.byAlpha(1);
-
                             },
                                 nil);
                         }else if ([btnTitle isEqualToString:Title4]){
@@ -496,7 +482,6 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
                 make.bottom.equalTo(self.loginContentView.mas_top).offset(-JobsWidth(50));
                 make.centerX.equalTo(self.view);
             });
-
         [self.view layoutIfNeeded];
         self.logoContentViewY = self.logoContentView.y;
     };return _logoContentView;

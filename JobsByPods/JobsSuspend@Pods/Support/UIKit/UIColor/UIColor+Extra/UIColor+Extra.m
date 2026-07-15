@@ -8,7 +8,6 @@
 #import "UIColor+Extra.h"
 
 @implementation UIColor (Extra)
-
 +(JobsRetCorByStrBlock _Nonnull)jobsCor{
     return ^UIColor *_Nullable(NSString *_Nullable data){
         return [UIColor colorWithHexString:data alpha:1.0];
@@ -20,7 +19,6 @@
     if ([hexString hasPrefix:@"#"]) hexString = [hexString substringFromIndex:1];
     if ([hexString hasPrefix:@"0X"]) hexString = [hexString substringFromIndex:2];
     if (hexString.length != 6) return UIColor.clearColor;
-
     unsigned int rgbValue = 0;
     [[NSScanner scannerWithString:hexString] scanHexInt:&rgbValue];
     return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16) / 255.0

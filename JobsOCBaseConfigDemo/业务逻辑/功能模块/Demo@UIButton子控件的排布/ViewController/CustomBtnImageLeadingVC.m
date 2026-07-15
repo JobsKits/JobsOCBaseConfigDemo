@@ -8,7 +8,6 @@
 #import "CustomBtnImageLeadingVC.h"
 
 @implementation CustomBtnImageLeadingVC
-
 -(NSString *)demoTitle{
     return @"image左、label右【系统默认状态】".tr;
 }

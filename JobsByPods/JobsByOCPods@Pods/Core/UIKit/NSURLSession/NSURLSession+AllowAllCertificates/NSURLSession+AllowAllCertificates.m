@@ -8,7 +8,6 @@
 #import "NSURLSession+AllowAllCertificates.h"
 
 @implementation NSURLSession (AllowAllCertificates)
-
 +(BOOL)setAllowsAnyHTTPSCertificateForHost:(NSString *)host{
     return YES;
 }

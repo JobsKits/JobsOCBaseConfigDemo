@@ -8,7 +8,6 @@
 #import "JobsHeaderFooterViewModel+DSL.h"
 
 @implementation JobsHeaderFooterViewModel (DSL)
-
 -(JobsRetJobsHeaderFooterViewModelByBOOLBlock _Nonnull)byUseHeaderView{
     @jobs_weakify(self)
     return ^__kindof JobsHeaderFooterViewModel *_Nullable(BOOL data) {
@@ -350,10 +349,6 @@
         return self;
     };
 }
-
-
-
-
 
 -(JobsRetJobsHeaderFooterViewModelByCGSizeBlock _Nonnull)byTableHeaderViewSize{
     @jobs_weakify(self)

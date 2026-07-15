@@ -20,7 +20,6 @@ Prop_strong()UITextView *tipsTextView;
 @end
 
 @implementation JobsCountdownButtonDemoVC
-
 -(void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     if (_countdownBtn) _countdownBtn.timerDestroy();

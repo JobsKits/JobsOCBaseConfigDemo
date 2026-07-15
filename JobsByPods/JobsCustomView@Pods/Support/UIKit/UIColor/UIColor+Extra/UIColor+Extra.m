@@ -15,7 +15,6 @@
                                     opaque:(BOOL)opaque
                             targetViewRect:(CGRect)targetViewRect{
     if (CGRectGetWidth(targetViewRect) <= 0 || CGRectGetHeight(targetViewRect) <= 0) return nil;
-
     NSArray <UIColor *>*colors = CorDataMutArr.count ? CorDataMutArr.copy : @[UIColor.redColor, UIColor.greenColor];
     NSMutableArray *cgColors = NSMutableArray.array;
     for (UIColor *color in colors) {
@@ -23,14 +22,12 @@
         [cgColors addObject:(__bridge id)color.CGColor];
     }
     if (!cgColors.count) return nil;
-
     UIGraphicsBeginImageContextWithOptions(targetViewRect.size, opaque, UIScreen.mainScreen.scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
     if (!context) {
         UIGraphicsEndImageContext();
         return nil;
     }
-
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)cgColors, NULL);
     CGPoint realEndPoint = CGPointEqualToPoint(endPoint, CGPointZero) ? CGPointMake(CGRectGetMaxX(targetViewRect), CGRectGetMaxY(targetViewRect)) : endPoint;
@@ -41,12 +38,10 @@
                                     realEndPoint,
                                     kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
     }
-
     UIImage *gradientImage = UIGraphicsGetImageFromCurrentImageContext();
     if (gradient) CGGradientRelease(gradient);
     CGColorSpaceRelease(colorSpace);
     UIGraphicsEndImageContext();
-
     return gradientImage ? [UIColor colorWithPatternImage:gradientImage] : nil;
 }
 /// 十六进制字符串 => UIColor *
@@ -73,7 +68,6 @@
         CGFloat red = ((hexValue & 0xFF0000) >> 16) / 255.0;
         CGFloat green = ((hexValue & 0x00FF00) >> 8) / 255.0;
         CGFloat blue = (hexValue & 0x0000FF) / 255.0;
-
         return [UIColor colorWithRed:(red / 255.0f)
                                green:(green / 255.0f)
                                 blue:(blue / 255.0f)

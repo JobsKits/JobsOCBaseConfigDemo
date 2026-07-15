@@ -34,7 +34,6 @@ static dispatch_once_t static_commentViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-
     };return self;
 }
 
@@ -89,7 +88,6 @@ static dispatch_once_t static_commentViewOnceToken;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -134,7 +132,6 @@ numberOfRowsInSection:(NSInteger)section{
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.section].commentDataMutArr[indexPath.row])
             .JobsBlock1(^(id _Nullable data) {;
-             
             });
     cell.resetWidthByOffset(-JobsWidth(15 * 2));
     return cell;
@@ -161,7 +158,6 @@ viewForHeaderInSection:(NSInteger)section{
         .bySection(section)/// 悬浮配置
         .JobsRichViewByModel2(nil)
         .JobsBlock1(^(id _Nullable data) {;
-            
         });
     {
         headerView.numberOfTouchesRequired = 1;

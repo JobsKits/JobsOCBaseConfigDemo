@@ -22,7 +22,6 @@ Prop_assign()BOOL searchMode;
 @end
 
 @implementation JobsVerticalMenuVC_1
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
@@ -59,7 +58,6 @@ Prop_assign()BOOL searchMode;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
 //        @jobs_strongify(self)
 //        data.add(UIBarButtonItem.initBy(self.aboutBtn));
@@ -71,7 +69,6 @@ Prop_assign()BOOL searchMode;
     self.tableView.byShow(self);
     self.editBtn.byAlpha(1);
     self.refreshLeftView();
-    
     self.displayViewController(self.vcs[0]);
 }
 
@@ -271,7 +268,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .bySize(CGSizeMake(0, JobsWidth(38)))
                 .JobsRichViewByModel2(nil)
                 .JobsBlock1(^(id _Nullable data) {;
-
                 });
             searchBar.cancelBtnHidden = YES;
             searchBar.textField.byPlaceholder(@"请输入搜索内容".tr);
@@ -345,7 +341,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(NSMutableArray<UIViewModel *> *)leftDataArray{
     if (!_leftDataArray) {
         _leftDataArray = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
-
         });
     };return _leftDataArray;
 }
@@ -353,7 +348,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(__kindof NSMutableArray<__kindof UIViewController *> *)vcs{
     if(!_vcs){
         _vcs = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
-
         });
     };return _vcs;
 }

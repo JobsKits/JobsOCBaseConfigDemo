@@ -12,10 +12,8 @@
 @end
 
 @implementation JobsNoticePopupView
-
 -(instancetype)init{
     if (self = [super init]) {
-        
     };return self;
 }
 
@@ -30,7 +28,6 @@
         self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
         MakeDataNull
         self.imageView.byAlpha(1);
-
     };
 }
 @synthesize imageView = _imageView;
@@ -46,7 +43,6 @@
                 .byMinimumPressDuration(0.1)
                 .byAllowableMovement(1)
                 .addTapGR(^(__kindof UITapGestureRecognizer *_Nullable gesture) {;
-
                 })
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {

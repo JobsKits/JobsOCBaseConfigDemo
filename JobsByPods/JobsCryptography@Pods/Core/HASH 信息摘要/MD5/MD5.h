@@ -34,7 +34,6 @@ NS_INLINE NSString *MD5_32bits(NSString *salt,
         if (isValue(salt)) string = string.add(salt);
         const char *original_str = string.UTF8String;
         unsigned char result[bit];
-        
         CC_MD5(original_str,
                (unsigned int)strlen(original_str),
                result);
@@ -69,7 +68,6 @@ NS_INLINE NSString *hMacMD5String(NSString *string,
         char opad[blockSize];
         char keypad[blockSize];
         unsigned int keyLen = (unsigned int)strlen(cKey);
-        
         CC_MD5_CTX ctxt;
         if (keyLen > blockSize) {
             CC_MD5_Init(&ctxt);
@@ -82,33 +80,27 @@ NS_INLINE NSString *hMacMD5String(NSString *string,
                    cKey,
                    keyLen);
         }
-        
         memset(ipad, 0x36, blockSize);
         memset(opad, 0x5c, blockSize);
-        
         int i;
         for (i = 0; i < keyLen; i++) {
             ipad[i] ^= keypad[i];
             opad[i] ^= keypad[i];
         }
-        
         CC_MD5_Init(&ctxt);
         CC_MD5_Update(&ctxt, ipad, blockSize);
         CC_MD5_Update(&ctxt, cData, (CC_LONG)strlen(cData));
         unsigned char md5[bit];
         CC_MD5_Final(md5, &ctxt);
-        
         CC_MD5_Init(&ctxt);
         CC_MD5_Update(&ctxt, opad, blockSize);
         CC_MD5_Update(&ctxt, md5, bit);
         CC_MD5_Final(md5, &ctxt);
-        
         const unsigned int hex_len = bit*2+2;
         char hex[hex_len];
         for(i = 0; i < bit; i++) {
             snprintf(&hex[i*2], hex_len-i*2, "%02x", md5[i]);
         }
-        
         NSData *HMAC = [NSData.alloc initWithBytes:hex length:strlen(hex)];
         NSString *hash = NSString.initByUTF8Data(HMAC);
         NSString *finalStr = isLowercase ? hash.lowercaseString : hash.uppercaseString;

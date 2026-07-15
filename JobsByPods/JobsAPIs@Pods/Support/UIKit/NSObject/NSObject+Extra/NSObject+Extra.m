@@ -11,7 +11,6 @@
 #import <JobsAPIs/JobsBaseApi.h>
 
 @implementation NSObject (JobsAPIsExtra)
-
 -(URLManagerModel *_Nonnull)url:(NSString *_Nonnull)url funcName:(NSString *_Nonnull)funcName{
     return jobsMakeURLManagerModel(^(__kindof URLManagerModel * _Nullable data) {
         data.byUrl(url)

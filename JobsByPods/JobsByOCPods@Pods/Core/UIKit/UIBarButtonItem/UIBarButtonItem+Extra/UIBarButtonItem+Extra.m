@@ -8,7 +8,6 @@
 #import "UIBarButtonItem+Extra.h"
 
 @implementation UIBarButtonItem (Extra)
-
 +(JobsRetBarButtonItemByViewBlock _Nonnull)initBy{
     return ^__kindof UIBarButtonItem *_Nullable(__kindof UIView *_Nullable view){
         return [UIBarButtonItem.alloc initWithCustomView:view];

@@ -15,7 +15,6 @@ Prop_copy()jobsByIDBlock clickBlock;
 @end
 
 @implementation JhtBannerView
-
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         // 添加banner view（整条view）
@@ -25,7 +24,6 @@ Prop_copy()jobsByIDBlock clickBlock;
 
 -(instancetype)init{
     if (self = [super init]) {
-        
     };return self;
 }
 

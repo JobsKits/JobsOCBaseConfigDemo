@@ -8,7 +8,6 @@
 #import "UIButton+DSL.h"
 
 @implementation UIButton (DSL)
-
 -(JobsRetBtnByButtonConfigurationBlock _Nonnull)byConfiguration{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UIButtonConfiguration *_Nullable data){

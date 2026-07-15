@@ -10,7 +10,6 @@
 #import <YTKNetworkExtra/NSObject+Extra.h>
 
 @implementation YTKBaseRequest (Extra)
-
 -(NSMutableURLRequest *)jobsMakeRequestByBlock:(jobsByMutableURLRequestBlock _Nullable)block{
     if (self.requestUrl.length < 1) return nil;
     NSURL *url = [NSURL URLWithString:self.requestUrl];

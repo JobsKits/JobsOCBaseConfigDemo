@@ -29,7 +29,6 @@
                 if (!config.funcInWhere) {
                     config.funcInWhere = config.targetVC;
                 }
-
                 // 核心方法:截取最后2个字符，如果是“：”则进行参数拼接
                 NSString *methodName = config.alertBtnActionArr[i];
                 if (isNull(methodName)) {
@@ -43,7 +42,6 @@
                         parameters.add(action);
                     }
                 }
-                
                 [NSObject methodName:config.alertBtnActionArr[i]
                            targetObj:config.funcInWhere
                          paramarrays:parameters];
@@ -66,7 +64,6 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:config.title
                                                                              message:config.message
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
-    
     if (config.alertBtnActionArr.count == config.btnTitleArr.count) {
 //        @jobs_weakify(config)
         for (int i = 0; i < config.alertBtnActionArr.count; i++) {
@@ -75,7 +72,6 @@
                                                              handler:^(UIAlertAction * _Nonnull action) {
 //                @strongify(config)
                 if (!config.funcInWhere) config.funcInWhere = config.targetVC;
-
                 // 核心方法:截取最后2个字符，如果是“：”则进行参数拼接
                 NSString *methodName = config.alertBtnActionArr[i];
                 if (isNull(methodName)) {
@@ -89,7 +85,6 @@
                         parameters.add(action);
                     }
                 }
-                
                 [NSObject methodName:config.alertBtnActionArr[i]
                            targetObj:config.funcInWhere
                          paramarrays:parameters];
@@ -117,7 +112,6 @@
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         @jobs_strongify(self)
         textField.byPlaceholder(@"username".tr);
-
         textField.byAddTarget(self,
                               @selector(alertUserAccountInfoDidChange:targetVC:),
                               UIControlEventEditingChanged);
@@ -125,14 +119,11 @@
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         @jobs_strongify(self)
         textField.byPlaceholder(@"password".tr);
-
         textField.bySecureTextEntry(YES);
-
         textField.byAddTarget(self,
                               @selector(alertUserAccountInfoDidChange:targetVC:),
                               UIControlEventEditingChanged);
     }];
-
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel".tr
                                                            style:UIAlertActionStyleCancel
                                                          handler:^(UIAlertAction * _Nonnull action) {

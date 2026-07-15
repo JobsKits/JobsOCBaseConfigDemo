@@ -15,7 +15,6 @@ Prop_strong()BaseLabel *baseLabel;
 @end
 
 @implementation TestBaseLabelVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -49,13 +48,9 @@ Prop_strong()BaseLabel *baseLabel;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.makeNavByAlpha(1);
-    
     self.titleLab.byAlpha(1);
-
     self.baseLabel.byAlpha(1);
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -84,32 +79,24 @@ Prop_strong()BaseLabel *baseLabel;
         _titleLab.jobsRichViewByModel(nil);
         _titleLab.getLabel.jobsOffsetY = JobsWidth(-2);
         _titleLab.getLabel.byTextCor(JobsWhiteColor);
-
         _titleLab.getLabel.byFont(UIFontWeightRegularSize(12));
-
         _titleLab.getLabel.byTextAlignment(NSTextAlignmentCenter);
-
         _titleLab.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.top.equalTo(self.view).offset(JobsWidth(100));
             make.left.equalTo(self.view).offset(JobsWidth(100));
             make.height.mas_equalTo(JobsWidth(26));
         });
-
-
         [_titleLab.getLabel actionRetIDByGestureRecognizerBlock:^id(UIGestureRecognizer *data) {
             JobsLog(@"JobsBaseLabel的Tap手势");
             return @1;
         }];
-        
         [_titleLab.getLabel actionRetIDByGestureRecognizerBlock:^id(UIGestureRecognizer *data) {
             JobsLog(@"JobsBaseLabel的LongPress手势");
             return @1;
         }];
     }
     _titleLab.getLabel.byText(@" 真人           ".tr);
-
     _titleLab.getBgImageView.byImage(@"优惠活动背景图_真人".img);
-    
     _titleLab.getLabel.makeLabelByShowingType(UILabelShowingType_03);
     [_titleLab.getLabel appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
     return _titleLab;
@@ -122,15 +109,12 @@ Prop_strong()BaseLabel *baseLabel;
             @jobs_strongify(self)
             label.jobsOffsetX = JobsWidth(10);
             label.byText(@"测试 -BaseLabel-".tr);
-
             label.byBgColor(JobsCyanColor);
-
             label.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(20));
                 make.left.equalTo(self.view).offset(JobsWidth(100));
                 make.height.mas_equalTo(JobsWidth(26));
             });
-
             [label actionRetIDByGestureRecognizerBlock:^id(UIGestureRecognizer *data) {
                 JobsLog(@"BaseLabel的Tap手势");
                 return @1;

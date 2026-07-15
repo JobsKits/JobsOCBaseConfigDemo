@@ -8,7 +8,6 @@
 #import "UIView+Extra.h"
 
 @implementation UIView (Extra)
-
 -(JobsRetViewByGestureRecognizer _Nonnull)addGesture{
     __weak typeof(self) weakSelf = self;
     return ^__kindof UIView *_Nullable(__kindof UIGestureRecognizer *_Nullable gesture) {

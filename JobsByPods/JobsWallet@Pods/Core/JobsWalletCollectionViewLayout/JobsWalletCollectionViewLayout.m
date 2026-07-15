@@ -21,7 +21,6 @@ Prop_assign()CGSize currentContentSize;
 @end
 
 @implementation JobsWalletCollectionViewLayout
-
 -(instancetype)init{
     if ((self = [super init])) {
         _padding = 15;

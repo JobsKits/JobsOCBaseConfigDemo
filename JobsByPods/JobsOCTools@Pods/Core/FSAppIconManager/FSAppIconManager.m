@@ -8,7 +8,6 @@
 #import "FSAppIconManager.h"
 
 @implementation FSAppIconManager
-
 +(NSString *)getCurrentAppIconName{
     if (@available(iOS 10.3, *)) {
         return (UIApplication.sharedApplication.alternateIconName.length == 0) ? @"".tr : UIApplication. sharedApplication.alternateIconName;

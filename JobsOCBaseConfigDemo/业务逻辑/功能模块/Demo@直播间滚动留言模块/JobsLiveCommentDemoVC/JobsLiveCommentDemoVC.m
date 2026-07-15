@@ -20,7 +20,6 @@ Prop_strong()NSMutableArray <NSString *>*messageMutArr;
 @end
 
 @implementation JobsLiveCommentDemoVC
-
 -(void)loadView{
     [super loadView];
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {

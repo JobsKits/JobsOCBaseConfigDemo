@@ -12,7 +12,6 @@
 @end
 
 @implementation AuthCodeLab
-
 - (instancetype)init{
     if (self = [super init]) {
         self.userInteractionEnabled = YES;
@@ -26,7 +25,6 @@
 }
 // 获取验证码
 -(void)requestAuthCode{
-
 }
 
 @end

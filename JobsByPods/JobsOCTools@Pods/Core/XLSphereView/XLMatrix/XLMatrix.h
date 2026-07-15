@@ -80,7 +80,6 @@ static XLPoint XLPointMakeRotation(XLPoint point,
         XLMatrix m1 = XLMatrixMakeFromArray(4, 4, *t1);
         result = XLMatrixMutiply(result, m1);
     }
-    
     if (direction.x * direction.x + direction.y * direction.y + direction.z * direction.z != 0) {
         CGFloat cos2 = sqrt(direction.y * direction.y + direction.z * direction.z) / sqrt(direction.x * direction.x + direction.y * direction.y + direction.z * direction.z);
         CGFloat sin2 = -direction.x / sqrt(direction.x * direction.x + direction.y * direction.y + direction.z * direction.z);
@@ -93,7 +92,6 @@ static XLPoint XLPointMakeRotation(XLPoint point,
         XLMatrix m2 = XLMatrixMakeFromArray(4, 4, *t2);
         result = XLMatrixMutiply(result, m2);
     }
-    
     CGFloat cos3 = cos(angle);
     CGFloat sin3 = sin(angle);
     CGFloat t3[4][4] = {{cos3, sin3, 0, 0}, {-sin3, cos3, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}};
@@ -106,7 +104,6 @@ static XLPoint XLPointMakeRotation(XLPoint point,
         XLMatrix m2_ = XLMatrixMakeFromArray(4, 4, *t2_);
         result = XLMatrixMutiply(result, m2_);
     }
-    
     if (direction.z * direction.z + direction.y * direction.y != 0) {
         CGFloat cos1 = direction.z / sqrt(direction.z * direction.z + direction.y * direction.y);
         CGFloat sin1 = direction.y / sqrt(direction.z * direction.z + direction.y * direction.y);

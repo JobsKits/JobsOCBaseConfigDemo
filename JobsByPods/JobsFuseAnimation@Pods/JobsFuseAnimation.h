@@ -8,6 +8,12 @@
 #ifndef JobsFuseAnimation_h
 #define JobsFuseAnimation_h
 
+#if __has_include(<JobsFuseAnimation/JobsFuseBubbleConfig.h>)
+#import <JobsFuseAnimation/JobsFuseBubbleConfig.h>
+#else
+#import "Core/JobsFuseAnimation/JobsFuseBubbleConfig/JobsFuseBubbleConfig/JobsFuseBubbleConfig.h"
+#endif
+
 #if __has_include(<JobsFuseAnimation/JobsFuseOuterRingConfig.h>)
 #import <JobsFuseAnimation/JobsFuseOuterRingConfig.h>
 #else

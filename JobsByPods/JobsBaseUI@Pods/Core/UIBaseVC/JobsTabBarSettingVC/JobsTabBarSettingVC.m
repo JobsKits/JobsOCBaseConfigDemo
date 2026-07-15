@@ -13,7 +13,6 @@
 @end
 
 @implementation JobsTabBarSettingVC
-
 -(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

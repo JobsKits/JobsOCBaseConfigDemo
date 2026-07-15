@@ -11,6 +11,7 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import <JobsByOCPods/NSArray+Extra.h>
+#import <JobsByOCPods/UIViewController+BaseNavigationBar.h>
 
 #if __has_include(<JobsOCRuntimeKits/JobsOCRuntimeKits.h>)
 #import <JobsOCRuntimeKits/JobsOCRuntimeKits.h>

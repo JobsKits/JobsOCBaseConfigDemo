@@ -8,7 +8,6 @@
 #import "JobsAppDoorInputViewBaseStyle.h"
 
 @implementation JobsAppDoorInputViewTFModel
-
 -(NSString *)PlaceHolder{
     if (!_PlaceHolder) {
         _PlaceHolder = @"".tr;
@@ -28,7 +27,6 @@
 @end
 
 @implementation JobsAppDoorInputViewBaseStyle
-
 -(JobsAppDoorInputViewTFModel *)textFieldInputModel{
     if (!_textFieldInputModel) {
         _textFieldInputModel = JobsAppDoorInputViewTFModel.new;

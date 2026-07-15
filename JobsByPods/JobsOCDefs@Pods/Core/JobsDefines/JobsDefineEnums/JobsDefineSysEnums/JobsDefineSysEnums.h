@@ -101,9 +101,7 @@ typedef NS_ENUM(NSUInteger, ComingStyle) {
 #ifndef iPhScrPxType_h
 #define iPhScrPxType_h
 typedef NS_ENUM(NSUInteger, iPhScrPxType) {
-
     iPhScrPxType_None,
-
     iPhScrPxType_4_4S,             // 屏幕分辨率(px) = 640 × 960
     iPhScrPxType_5_5C_5S_SE,       // 屏幕分辨率(px) = 640 × 1136
     iPhScrPxType_6_6S_7_8_SE2_SE3, // 屏幕分辨率(px) = 750 × 1334

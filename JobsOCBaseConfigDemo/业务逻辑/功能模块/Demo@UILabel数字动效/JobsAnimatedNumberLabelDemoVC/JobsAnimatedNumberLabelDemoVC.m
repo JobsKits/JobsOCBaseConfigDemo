@@ -23,7 +23,6 @@ Prop_assign()CGFloat defaultEnd;
 @end
 
 @implementation JobsAnimatedNumberLabelDemoVC
-
 -(void)dealloc{
     if (_valueLabel) _valueLabel.byStopAnimatedTextNumber();
     JobsLog(@"%@",JobsLocalFunc);

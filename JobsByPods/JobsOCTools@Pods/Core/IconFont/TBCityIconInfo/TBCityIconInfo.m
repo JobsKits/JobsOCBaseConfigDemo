@@ -8,7 +8,6 @@
 #import "TBCityIconInfo.h"
 
 @implementation TBCityIconInfo
-
 - (instancetype)initWithText:(NSString *)text size:(NSInteger)size color:(UIColor *)color {
     if (self = [super init]) {
         self.text = text;

@@ -45,7 +45,6 @@ JobsKey(_playerCtr)
                 [self.avPlayerManager replay];//设置循环播放
             }];
         }
-        
 #if !TARGET_OS_SIMULATOR
         if (Jobs_getAssociatedObject(_ijkPlayerManager)) {
             @jobs_weakify(self)
@@ -95,7 +94,6 @@ JobsKey(_ijkPlayerManager)
     ZFIJKPlayerManager *IJKPlayerManager = Jobs_getAssociatedObject(_ijkPlayerManager);
     if (!IJKPlayerManager) {
         IJKPlayerManager = jobsMakeZFIJKPlayerManager(^(__kindof ZFIJKPlayerManager * _Nullable data) {
-            
         });
         Jobs_setAssociatedRETAIN_NONATOMIC(_ijkPlayerManager, IJKPlayerManager)
     };return IJKPlayerManager;

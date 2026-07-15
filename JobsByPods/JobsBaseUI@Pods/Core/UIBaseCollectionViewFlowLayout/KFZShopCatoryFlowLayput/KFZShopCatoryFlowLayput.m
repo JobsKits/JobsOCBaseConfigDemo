@@ -15,7 +15,6 @@
 @end
 
 @implementation KFZShopCatorySectionWhiteBgView
-
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
     JobsLog(@"");
@@ -24,7 +23,6 @@
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes{
     [super applyLayoutAttributes:layoutAttributes];
     self.byBgColor(JobsWhiteColor);
-
     //加阴影立体效果
     [UIView makeTargetShadowview:self
                        superView:nil
@@ -48,25 +46,19 @@ Prop_strong()NSMutableArray<UICollectionViewLayoutAttributes *> *decorationViewA
 @end
 
 @implementation KFZShopCatoryFlowLayput
-
 - (void)prepareLayout{
     [super prepareLayout];
-    
     NSInteger sections = self.collectionView.numberOfSections;
     if (sections == 0) {//没有内容直接返回
         return;
     }
-    
     if (self.affectedSectionsMutArr.count == 0) {
         return;
     }
-    
     id<UICollectionViewDelegateFlowLayout> delegate  = (id<UICollectionViewDelegateFlowLayout>) self.collectionView.delegate;
-    
     //1.初始化 注册背景view类
     [self registerClass:[KFZShopCatorySectionWhiteBgView class] forDecorationViewOfKind:@"KFZShopCatorySectionWhiteBgView"];
     [self.decorationViewAttrs removeAllObjects];
-    
     for (NSInteger section = 0; section < sections; section++) {
        NSInteger numberOfItems = [self.collectionView numberOfItemsInSection:section];
         if (numberOfItems > 0) {
@@ -74,7 +66,6 @@ Prop_strong()NSMutableArray<UICollectionViewLayoutAttributes *> *decorationViewA
                                                                                                                       inSection:section]];
             UICollectionViewLayoutAttributes *lastAttr = [self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:(numberOfItems - 1)
                                                                                                                      inSection:section]];
-            
             UIEdgeInsets sectionInset = self.sectionInset;
             if ([delegate respondsToSelector:@selector(collectionView:layout:insetForSectionAtIndex:)]) {
                 UIEdgeInsets inset = [delegate collectionView:self.collectionView
@@ -84,26 +75,20 @@ Prop_strong()NSMutableArray<UICollectionViewLayoutAttributes *> *decorationViewA
                     sectionInset = inset;
                 }
             }
-            
             CGSize sectionHeaderSize;
             if ([delegate respondsToSelector:@selector(collectionView:layout:referenceSizeForHeaderInSection:)]) {
-                
                 sectionHeaderSize = [delegate collectionView:self.collectionView
                                                       layout:self
                              referenceSizeForHeaderInSection:section];
             }
-            
             if (section == 0) {
                 sectionHeaderSize.height = 0;
             }
-            
             CGRect sectionFrame = CGRectUnion(firstAttr.frame, lastAttr.frame);
-            
             sectionFrame.origin.y += self.offsetY;
             sectionFrame.size.height += self.offsetHeight;
             sectionFrame.origin.x += self.offsetX;
             sectionFrame.size.width += self.offsetWidth;
-            
             for (NSNumber *affectedIdx in self.affectedSectionsMutArr) {
                 if (affectedIdx.integerValue == section) {
                     //2. 定义
@@ -111,7 +96,6 @@ Prop_strong()NSMutableArray<UICollectionViewLayoutAttributes *> *decorationViewA
                                                                                                                          withIndexPath:[NSIndexPath indexPathForRow:0
                                                                                                                                                           inSection:section]];
                     attr.frame = sectionFrame;
-
                     attr.zIndex = -1;
                     [self.decorationViewAttrs addObject:attr];
                 }else{
@@ -125,7 +109,6 @@ Prop_strong()NSMutableArray<UICollectionViewLayoutAttributes *> *decorationViewA
 }
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect{
-    
     NSMutableArray * attrs = [[super layoutAttributesForElementsInRect:rect] mutableCopy];
     for (UICollectionViewLayoutAttributes *attr in self.decorationViewAttrs) {
         if (CGRectIntersectsRect(rect, attr.frame)) {

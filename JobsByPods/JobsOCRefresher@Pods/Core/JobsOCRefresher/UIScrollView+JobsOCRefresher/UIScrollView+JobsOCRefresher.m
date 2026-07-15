@@ -60,7 +60,6 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
 @end
 
 @implementation JobsOCRefreshSlot
-
 - (instancetype)initWithPosition:(JobsOCRefreshPosition)position
                              role:(JobsOCRefreshRole)role
                            config:(JobsOCRefreshConfig *)config
@@ -269,7 +268,6 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
 @end
 
 @implementation JobsOCRefreshProxy
-
 - (instancetype)initWithScrollView:(UIScrollView *)scrollView {
     if (self = super.init) {
         _scrollView = scrollView;
@@ -395,7 +393,6 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
 @end
 
 @implementation UIScrollView (JobsOCRefresher)
-
 - (JobsOCRefreshProxy *)jobs_refreshProxy {
     JobsOCRefreshProxy *proxy = Jobs_getAssociatedObject(JobsOCRefreshProxyKey);
     if (!proxy) {

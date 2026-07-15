@@ -12,7 +12,6 @@
 @end
 
 @implementation DayTitleCell
-
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {

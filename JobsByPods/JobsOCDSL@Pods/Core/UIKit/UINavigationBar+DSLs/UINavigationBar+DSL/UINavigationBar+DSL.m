@@ -8,7 +8,6 @@
 #import "UINavigationBar+DSL.h"
 
 @implementation UINavigationBar (DSL)
-
 -(JobsRetNavigationBarByAppearanceBlock _Nonnull)byStandardAppearance{
     @jobs_weakify(self)
     return ^__kindof UINavigationBar *_Nullable(UINavigationBarAppearance *_Nullable data){

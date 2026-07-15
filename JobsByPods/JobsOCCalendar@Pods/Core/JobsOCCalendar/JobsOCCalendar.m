@@ -44,7 +44,6 @@ Prop_assign()BOOL jobsPendingBoundsReload;
 @end
 
 @implementation JobsOCCalendar
-
 -(JobsRetJobsOCCalendarByDataSourceBlock _Nonnull)byDataSource{
     @jobs_weakify(self)
     return ^__kindof JobsOCCalendar *_Nullable(id<JobsOCCalendarDataSource> _Nullable dataSource) {

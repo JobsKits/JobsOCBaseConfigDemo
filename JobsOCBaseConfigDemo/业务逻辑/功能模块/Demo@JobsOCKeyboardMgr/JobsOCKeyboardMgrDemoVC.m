@@ -20,7 +20,6 @@ Prop_strong()UIView *accessoryBar;
 @end
 
 @implementation JobsOCKeyboardMgrDemoVC
-
 - (void)dealloc{
     [JobsOCKeyboardMgr.shared clearConfigByOwner:self];
     JobsLog(@"%@",JobsLocalFunc);

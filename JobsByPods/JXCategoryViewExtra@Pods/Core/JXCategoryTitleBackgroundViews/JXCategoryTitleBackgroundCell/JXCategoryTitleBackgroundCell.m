@@ -14,17 +14,14 @@ Prop_strong()CALayer *bgLayer;
 @end
 
 @implementation JXCategoryTitleBackgroundCell
-
 - (void)initializeViews {
     [super initializeViews];
-
     self.bgLayer = [CALayer layer];
     [self.contentView.layer insertSublayer:self.bgLayer atIndex:0];
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-
     JXCategoryTitleBackgroundCellModel *myCellModel = (JXCategoryTitleBackgroundCellModel *)self.cellModel;
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
@@ -43,7 +40,6 @@ Prop_strong()CALayer *bgLayer;
 
 - (void)reloadData:(JXCategoryBaseCellModel *)cellModel {
     [super reloadData:cellModel];
-
     JXCategoryTitleBackgroundCellModel *myCellModel = (JXCategoryTitleBackgroundCellModel *)cellModel;
     [CATransaction begin];
     [CATransaction setDisableActions:YES];

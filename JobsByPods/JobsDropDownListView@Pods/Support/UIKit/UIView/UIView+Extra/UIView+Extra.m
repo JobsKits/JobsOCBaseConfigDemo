@@ -34,9 +34,7 @@ JobsKey(_jobsVisible)
 
 -(void)setJobsVisible:(CGFloat)jobsVisible{
     self.byHidden(!jobsVisible);
-
     self.byAlpha(jobsVisible);
-
     Jobs_setAssociatedRETAIN_NONATOMIC(_jobsVisible, @(jobsVisible))
 }
 

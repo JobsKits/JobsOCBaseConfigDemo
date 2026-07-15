@@ -14,7 +14,6 @@ JobsKey(kJobsETNBeginBlockKey)
 JobsKey(kJobsETNChangeBlockKey)
 JobsKey(kJobsETNEndBlockKey)
 @implementation ASEditableTextNode (DSL)
-
 -(JobsRetEditableTextNodeByBoolBlock _Nonnull)byScrollEnabled{
     @jobs_weakify(self)
     return ^ASEditableTextNode* (BOOL flag){
@@ -165,7 +164,6 @@ JobsKey(kJobsETNEndBlockKey)
     return ^ASEditableTextNode* (JobsEditableTextEventBlock handler){
         @jobs_strongify(self)
         Jobs_setAssociatedCOPY_NONATOMIC(kJobsETNBeginBlockKey, handler)
-
         id token = Jobs_getAssociatedObject(kJobsETNBeginTokenKey);
         if (token){
             [NSNotificationCenter.defaultCenter removeObserver:token];
@@ -191,7 +189,6 @@ JobsKey(kJobsETNEndBlockKey)
     return ^ASEditableTextNode* (JobsEditableTextEventBlock handler){
         @jobs_strongify(self)
         Jobs_setAssociatedCOPY_NONATOMIC(kJobsETNChangeBlockKey, handler)
-
         id token = Jobs_getAssociatedObject(kJobsETNChangeTokenKey);
         if (token){
             [[NSNotificationCenter defaultCenter] removeObserver:token];
@@ -217,7 +214,6 @@ JobsKey(kJobsETNEndBlockKey)
     return ^ASEditableTextNode* (JobsEditableTextEventBlock handler){
         @jobs_strongify(self)
         Jobs_setAssociatedCOPY_NONATOMIC(kJobsETNEndBlockKey, handler)
-
         id token = Jobs_getAssociatedObject(kJobsETNEndTokenKey);
         if (token){
             [[NSNotificationCenter defaultCenter] removeObserver:token];

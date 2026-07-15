@@ -9,6 +9,7 @@
 #define JobsOCDSL_h
 
 #import <UIKit/UIKit.h>
+#import "CMMotionManager+DSL.h"
 #import "CALayer+DSL.h"
 #import "CAShapeLayer+DSL.h"
 #import "CATextLayer+DSL.h"
@@ -78,6 +79,7 @@
 #import "UITextView+DSL.h"
 #import "UINavigationController+DSL.h"
 #import "JobsSystemAPIDSLSupplement.h"
+
 #if __has_include(<FSCalendar/FSCalendar.h>)
 #import "FSCalendar+DSL.h"
 #endif

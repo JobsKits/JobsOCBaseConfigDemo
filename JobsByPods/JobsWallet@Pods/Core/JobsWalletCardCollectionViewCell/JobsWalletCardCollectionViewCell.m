@@ -21,7 +21,6 @@ Prop_strong()JobsWalletCardModel *cardModel;
 @end
 
 @implementation JobsWalletCardCollectionViewCell
-
 -(instancetype)initWithFrame:(CGRect)frame{
     if ((self = [super initWithFrame:frame])) {
         self.byBgColor(JobsClearColor);

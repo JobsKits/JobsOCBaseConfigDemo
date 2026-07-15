@@ -12,10 +12,8 @@
 @end
 
 @implementation ProtocolKitVC
-
 - (instancetype)init{
     if (self = [super init]) {
-
     };return self;
 }
 
@@ -35,17 +33,14 @@
     scrollView.alwaysBounceVertical = YES;
     scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
-
     UIView *contentView = UIView.new;
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
     [scrollView addSubview:contentView];
-
     UIStackView *stackView = UIStackView.new;
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
     stackView.axis = UILayoutConstraintAxisVertical;
     stackView.spacing = 14.0;
     [contentView addSubview:stackView];
-
     NSLayoutConstraint *scrollTopConstraint = nil;
     NSLayoutConstraint *scrollBottomConstraint = nil;
     if (@available(iOS 11.0, *)) {
@@ -58,7 +53,6 @@
         scrollBottomConstraint = [scrollView.bottomAnchor constraintEqualToAnchor:self.bottomLayoutGuide.topAnchor];
 #pragma clang diagnostic pop
     }
-
     [NSLayoutConstraint activateConstraints:@[
         scrollTopConstraint,
         [scrollView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
@@ -74,7 +68,6 @@
         [stackView.rightAnchor constraintEqualToAnchor:contentView.rightAnchor constant:-20.0],
         [stackView.bottomAnchor constraintEqualToAnchor:contentView.bottomAnchor constant:-28.0]
     ]];
-
     UILabel *titleLabel = [self jobs_protocolKitLabelWithText:@"Objective-C 协议扩展"
                                                          font:[UIFont boldSystemFontOfSize:26.0]
                                                         color:[UIColor colorWithRed:27.0 / 255.0
@@ -83,7 +76,6 @@
                                                                               alpha:1.0]
                                                 numberOfLines:0];
     [stackView addArrangedSubview:titleLabel];
-
     UILabel *summaryLabel = [self jobs_protocolKitLabelWithText:@"这个页面承载 ProtocolKit Demo：用 runtime 给遵守协议的类注入默认方法，让 OC 也能获得类似 Swift protocol extension 的体验。"
                                                            font:[UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular]
                                                           color:[UIColor colorWithRed:88.0 / 255.0
@@ -92,19 +84,15 @@
                                                                                 alpha:1.0]
                                                   numberOfLines:0];
     [stackView addArrangedSubview:summaryLabel];
-
     [stackView addArrangedSubview:[self jobs_protocolKitCardWithTitle:@"页面状态"
                                                                detail:@"已补齐可见 UI。后续如果把 ProtocolKit 源码正式接入编译，这里可以继续加按钮触发真实注入验证。"
                                                             highlight:@"当前目标：点进来不再黑屏，并能看懂这个 Demo 对应的能力。"]];
-
     [stackView addArrangedSubview:[self jobs_protocolKitCardWithTitle:@"实现思路"
                                                                detail:@"@defs(Protocol) 会生成一个容器类，容器类在 +load 中登记协议默认实现；改良版再通过 resolveInstanceMethod: / resolveClassMethod: 按需注入，减少启动期遍历所有 Class 的成本。"
                                                             highlight:@"关键路径：登记默认实现 -> 命中协议类 -> 动态补 Method。"]];
-
     [stackView addArrangedSubview:[self jobs_protocolKitCardWithTitle:@"工程目录"
                                                                detail:@"当前目录保留了作者原版、改良版本和说明文档。VC 层先做展示入口，不主动改动底层 runtime 方案。"
                                                             highlight:@"PKProtocolExtension / 作者原版 / 改良版本 / ProtocolKit.md"]];
-
     [stackView addArrangedSubview:[self jobs_protocolKitCodeCard]];
 }
 
@@ -112,20 +100,17 @@
                                    detail:(NSString *)detail
                                 highlight:(NSString *)highlight {
     UIView *cardView = [self jobs_protocolKitBaseCardView];
-
     UIStackView *stackView = UIStackView.new;
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
     stackView.axis = UILayoutConstraintAxisVertical;
     stackView.spacing = 8.0;
     [cardView addSubview:stackView];
-
     [NSLayoutConstraint activateConstraints:@[
         [stackView.topAnchor constraintEqualToAnchor:cardView.topAnchor constant:16.0],
         [stackView.leftAnchor constraintEqualToAnchor:cardView.leftAnchor constant:16.0],
         [stackView.rightAnchor constraintEqualToAnchor:cardView.rightAnchor constant:-16.0],
         [stackView.bottomAnchor constraintEqualToAnchor:cardView.bottomAnchor constant:-16.0]
     ]];
-
     [stackView addArrangedSubview:[self jobs_protocolKitLabelWithText:title
                                                                  font:[UIFont boldSystemFontOfSize:17.0]
                                                                 color:[UIColor colorWithRed:32.0 / 255.0
@@ -148,20 +133,17 @@
 
 - (UIView *)jobs_protocolKitCodeCard {
     UIView *cardView = [self jobs_protocolKitBaseCardView];
-
     UIStackView *stackView = UIStackView.new;
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
     stackView.axis = UILayoutConstraintAxisVertical;
     stackView.spacing = 10.0;
     [cardView addSubview:stackView];
-
     [NSLayoutConstraint activateConstraints:@[
         [stackView.topAnchor constraintEqualToAnchor:cardView.topAnchor constant:16.0],
         [stackView.leftAnchor constraintEqualToAnchor:cardView.leftAnchor constant:16.0],
         [stackView.rightAnchor constraintEqualToAnchor:cardView.rightAnchor constant:-16.0],
         [stackView.bottomAnchor constraintEqualToAnchor:cardView.bottomAnchor constant:-16.0]
     ]];
-
     [stackView addArrangedSubview:[self jobs_protocolKitLabelWithText:@"典型写法"
                                                                  font:[UIFont boldSystemFontOfSize:17.0]
                                                                 color:[UIColor colorWithRed:32.0 / 255.0
@@ -169,7 +151,6 @@
                                                                                        blue:60.0 / 255.0
                                                                                       alpha:1.0]
                                                         numberOfLines:0]];
-
     NSString *codeText =
     @"\n"
     @"  @protocol Forkable <NSObject>\n"
@@ -196,7 +177,6 @@
     codeLabel.layer.cornerRadius = 8.0;
     codeLabel.layer.masksToBounds = YES;
     [stackView addArrangedSubview:codeLabel];
-
     UIView *resultView = cardView;
     return resultView;
 }

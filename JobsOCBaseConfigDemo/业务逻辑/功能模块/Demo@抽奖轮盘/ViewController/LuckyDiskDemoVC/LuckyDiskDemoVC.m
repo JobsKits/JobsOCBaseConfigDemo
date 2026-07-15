@@ -36,7 +36,6 @@ Prop_strong() UILabel *resultLabel;
 @end
 
 @implementation LuckyDiskDemoVC
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     /// 容器 ScrollView
@@ -76,7 +75,6 @@ Prop_strong() UILabel *resultLabel;
                                     repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:self.itemBorderTimer
                                  forMode:NSRunLoopCommonModes];
-
     /// 奖品网格区域
     UIView *itemView = jobsMakeView(^(__kindof UIView * _Nullable view) {
         view
@@ -86,12 +84,10 @@ Prop_strong() UILabel *resultLabel;
                                 ScaleW(248)))
             .addOn(scrollView);
     });
-
     NSArray *itemImgArray =
     @[@"LuckDraw_1",@"LuckDraw_2",@"LuckDraw_3",@"LuckDraw_4",
       @"LuckDraw_10",@"LuckDraw_5",@"LuckDraw_9",@"LuckDraw_8",
       @"LuckDraw_7",@"LuckDraw_6"];
-
     // 上排 4 个
     for (int i = 0; i < 4; i++) {
         UIImageView *img = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
@@ -176,7 +172,6 @@ Prop_strong() UILabel *resultLabel;
     self.fastIndex = 0;
     self.slowIndex = -1;
     self.selectedIndex = arc4random() % 10;
-
     if (self.selectedIndex < 4) {
         self.result = self.itemTitleArray[self.selectedIndex];
     } else if (self.selectedIndex == 4) {
@@ -223,7 +218,6 @@ Prop_strong() UILabel *resultLabel;
 #pragma mark —— 快速移动动画
 - (void)fastTimerEvent {
     self.fastIndex = self.fastIndex + 1;
-
     NSInteger idx = self.fastIndex % 10;
     if (idx == 0) {
         self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(-1), ScaleW(80), ScaleW(82)));
@@ -246,7 +240,6 @@ Prop_strong() UILabel *resultLabel;
     } else if (idx == 9) {
         self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(84) - ScaleW(1), ScaleW(80), ScaleW(82)));
     }
-
     if (self.fastIndex >= 29) {
         [self.fastTimer invalidate];
         self.fastTimer = nil;
@@ -285,7 +278,6 @@ Prop_strong() UILabel *resultLabel;
     } else if (idx == 9) {
         self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(84) - ScaleW(1), ScaleW(80), ScaleW(82)));
     }
-
     if (self.slowIndex >= self.selectedIndex) {
         [self.slowTimer invalidate];
         self.slowTimer = nil;
@@ -325,9 +317,7 @@ Prop_strong() UILabel *resultLabel;
     UIView.jobsAnimate(0.2,
         ^{
         self.lotteryResultView.byAlpha(0.0f);
-
         self.lotteryResultBgView.byAlpha(0.0f);
-
     });
 }
 #pragma mark —— 懒加载属性

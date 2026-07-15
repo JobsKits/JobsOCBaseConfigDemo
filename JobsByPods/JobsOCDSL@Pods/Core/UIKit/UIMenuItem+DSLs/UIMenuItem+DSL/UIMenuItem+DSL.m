@@ -23,11 +23,9 @@ static NSMapTable<NSString *, UIMenuItem *> *JobsUIMenuItemActionWeakMap(void){
 static void JobsUIMenuItemBlockActionIMP(id responder, SEL selector, id sender){
     NSString *selectorName = NSStringFromSelector(selector);
     UIMenuItem *menuItem = nil;
-
     @synchronized (JobsUIMenuItemActionWeakMap()) {
         menuItem = [JobsUIMenuItemActionWeakMap() objectForKey:selectorName];
     }
-
     jobsByMenuItemBlock block = Jobs_getAssociatedObjectByTarget(menuItem, JobsUIMenuItemActionBlockKey);
     if (block) block(menuItem);
 }
@@ -38,7 +36,6 @@ static SEL JobsUIMenuItemEnsureActionSelector(UIMenuItem *menuItem){
         selectorName = [NSString stringWithFormat:@"jobs_uimenuItemAction_%p:", menuItem];
         Jobs_setAssociatedCOPY_NONATOMICByTarget(menuItem, JobsUIMenuItemActionSelectorNameKey, selectorName)
     }
-
     SEL selector = NSSelectorFromString(selectorName);
     if (!class_getInstanceMethod(UIResponder.class, selector)) {
         class_addMethod(UIResponder.class,
@@ -46,26 +43,21 @@ static SEL JobsUIMenuItemEnsureActionSelector(UIMenuItem *menuItem){
                         (IMP)JobsUIMenuItemBlockActionIMP,
                         "v@:@");
     }
-
     @synchronized (JobsUIMenuItemActionWeakMap()) {
         [JobsUIMenuItemActionWeakMap() setObject:menuItem forKey:selectorName];
     };return selector;
 }
 
-
 BOOL JobsUIMenuItemCanPerformAction(SEL action){
     if (!action) return NO;
-
     NSString *selectorName = NSStringFromSelector(action);
     if (!selectorName.length) return NO;
-
     @synchronized (JobsUIMenuItemActionWeakMap()) {
         return [JobsUIMenuItemActionWeakMap() objectForKey:selectorName] != nil;
     }
 }
 
 @implementation UIMenuItem (DSL)
-
 #pragma mark —— Make
 +(JobsRetMenuItemByVoidBlock _Nonnull)byMenuItem{
     return ^__kindof UIMenuItem *_Nullable(void){

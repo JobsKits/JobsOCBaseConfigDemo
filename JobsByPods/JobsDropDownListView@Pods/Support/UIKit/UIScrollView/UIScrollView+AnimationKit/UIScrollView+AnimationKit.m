@@ -89,7 +89,6 @@
             cell = self.scrollViewCellsByIndex(self.scrollViewCells.count - 1 - i);
         }else{}
         cell.byAlpha(0.0);
-
         @jobs_weakify(cell)
         [UIView animateWithDuration:0.3
                               delay:i * 0.05
@@ -97,7 +96,6 @@
                          animations:^{
             @jobs_strongify(cell)
             cell.byAlpha(1.0);
-
             if (animationBlock) animationBlock();
         } completion:^(BOOL finished) {
             if (completionBlock) completionBlock(@(finished));
@@ -290,10 +288,8 @@
         rectArr.add(NSValue.byRect(rect));
         rect.origin.y = i * 10;
         cell.byFrame(rect);
-
         cell.layer.transform = CATransform3DMakeTranslation(0, 0, i * 5);
     };
-
     jobsByNSUIntegerBlock block2 = ^(NSUInteger i){
         @jobs_strongify(self)
         UIView *cell = self.scrollViewCellsByIndex(i);
@@ -302,7 +298,6 @@
                          animations:^{
             @jobs_strongify(cell)
             cell.byFrame([rectArr.objectAt(i) CGRectValue]);
-
             if (animationBlock) animationBlock();
         } completion:^(BOOL finished) {
             @jobs_strongify(cell)
@@ -335,7 +330,6 @@
         @jobs_strongify(self)
         UIView *cell = self.scrollViewCellsByIndex(i);
         cell.byAlpha(0.0);
-
         @jobs_weakify(cell)
         [UIView animateWithDuration:0.1
                               delay:i * 0.25
@@ -343,7 +337,6 @@
                          animations:^{
             @jobs_strongify(cell)
             cell.byAlpha(1.0);
-
             if (animationBlock) animationBlock();
         } completion:^(BOOL finished) {
             @jobs_strongify(cell)

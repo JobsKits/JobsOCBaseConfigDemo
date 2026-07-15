@@ -15,18 +15,15 @@ Prop_strong()FSCalendar *calendar;
 @end
 
 @implementation JobsCalenderView
-
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-
     };return self;
 }
 
@@ -44,7 +41,6 @@ Prop_strong()FSCalendar *calendar;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -169,11 +165,9 @@ boundingRectWillChange:(CGRect)bounds
 willDisplayCell:(FSCalendarCell *)cell
         forDate:(NSDate *)date
 atMonthPosition:(FSCalendarMonthPosition)monthPosition{
-    
 }
 
 -(void)calendarCurrentPageDidChange:(FSCalendar *)calendar{
-    
 }
 #pragma mark —— lazyLoad
 -(FSCalendar *)calendar{

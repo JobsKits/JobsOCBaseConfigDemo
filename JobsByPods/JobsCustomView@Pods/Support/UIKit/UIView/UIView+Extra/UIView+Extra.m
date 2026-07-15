@@ -8,7 +8,6 @@
 #import "UIView+Extra.h"
 
 @implementation UIView (Extra)
-
 -(JobsRetViewByViewBlock _Nonnull)addSubview{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(__kindof UIView *_Nullable subView) {
@@ -70,7 +69,6 @@
                                                          cornerRadii:cornerRadii];
     CAShapeLayer *maskLayer = CAShapeLayer.layer;
     maskLayer.byFrame(self.bounds);
-
     maskLayer.path = maskPath.CGPath;
     self.layer.mask = maskLayer;
 }
@@ -114,9 +112,7 @@ JobsKey(_jobsVisible)
 
 -(void)setJobsVisible:(CGFloat)jobsVisible{
     self.byHidden(!jobsVisible);
-
     self.byAlpha(jobsVisible);
-
     Jobs_setAssociatedRETAIN_NONATOMIC(_jobsVisible, @(jobsVisible))
 }
 

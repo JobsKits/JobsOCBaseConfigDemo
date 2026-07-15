@@ -128,7 +128,6 @@ Prop_assign()BOOL hasCustomPresentedRatio;
                                                                       action:@selector(jobs_handlePanGesture:)];
     self.panGestureRecognizer.delegate = self;
     [presentationWrapperView addGestureRecognizer:self.panGestureRecognizer];
-
     UIView *presentationRoundedCornerView = jobsMakeView(^(__kindof UIView * _Nullable view) {
         view
             .byFrame(presentationWrapperView.bounds)
@@ -141,21 +140,18 @@ Prop_assign()BOOL hasCustomPresentedRatio;
             });
     });
     self.presentationRoundedCornerView = presentationRoundedCornerView;
-
     UIView *presentedViewControllerWrapperView = jobsMakeView(^(__kindof UIView * _Nullable view) {
         view
             .byFrame(presentationRoundedCornerView.bounds)
             .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     });
     self.presentedViewControllerWrapperView = presentedViewControllerWrapperView;
-
     presentedViewControllerView
         .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
         .byFrame(presentedViewControllerWrapperView.bounds)
         .addOn(presentedViewControllerWrapperView);
     presentedViewControllerWrapperView.addOn(presentationRoundedCornerView);
     presentationRoundedCornerView.addOn(presentationWrapperView);
-
     UIView *dimmingView = jobsMakeView(^(__kindof UIView * _Nullable view) {
         view
             .byFrame(self.containerView.bounds)
@@ -167,7 +163,6 @@ Prop_assign()BOOL hasCustomPresentedRatio;
                                                                             action:@selector(jobs_dimmingViewDidTap:)]];
     self.dimmingView = dimmingView;
     dimmingView.addOn(self.containerView);
-
     self.dimmingView.byAlpha(0.f);
     id<UIViewControllerTransitionCoordinator> transitionCoordinator = self.presentingViewController.transitionCoordinator;
     if (transitionCoordinator) {
@@ -259,7 +254,6 @@ Prop_assign()BOOL hasCustomPresentedRatio;
     UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey] ? : toViewController.view;
     UIView *fromView = [transitionContext viewForKey:UITransitionContextFromViewKey] ? : fromViewController.view;
     BOOL isPresenting = (toViewController == self.presentedViewController);
-
     if (isPresenting) {
         CGRect toViewFinalFrame = [transitionContext finalFrameForViewController:toViewController];
         if (CGRectIsEmpty(toViewFinalFrame)) toViewFinalFrame = self.frameOfPresentedViewInContainerView;

@@ -8,7 +8,6 @@
 #import "HXPhotoView+DSL.h"
 
 @implementation HXPhotoView (DSL)
-
 -(JobsRetHXPhotoViewByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof HXPhotoView *_Nullable(id<HXPhotoViewDelegate> _Nullable data){

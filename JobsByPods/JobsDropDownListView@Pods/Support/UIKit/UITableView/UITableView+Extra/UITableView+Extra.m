@@ -212,11 +212,9 @@
             }
         }
     }
-
     UITableViewCell *cell = (UITableViewCell *)self.cellBy(indexPath);
     cell.selected = !cell.selected;
     cell.jobsSelected = !cell.jobsSelected;
-
     if ([cell conformsToProtocol:@protocol(AppToolsProtocol)]) {
         id<AppToolsProtocol> appToolsCell = (id<AppToolsProtocol>)cell;
         appToolsCell.getViewModel.jobsSelected = !appToolsCell.getViewModel.jobsSelected;/// 建议用model来修改
@@ -228,7 +226,6 @@
     JobsLog(@"%s", __FUNCTION__);
     UITableViewCell *cell = (UITableViewCell *)self.cellBy(indexPath);
     cell.selected = !cell.selected;
-
     if ([cell conformsToProtocol:@protocol(AppToolsProtocol)]) {
         id<AppToolsProtocol> appToolsCell = (id<AppToolsProtocol>)cell;
         appToolsCell.getViewModel.jobsSelected = !appToolsCell.getViewModel.jobsSelected;
@@ -243,12 +240,10 @@
     if (!tableViewCell) {
         tableViewCell = [tableViewCellClass initTableViewCell:tableViewCellClass
                                                     withStyle:cellStyle];
-
         if ([tableViewCell conformsToProtocol:@protocol(UITableViewCellProtocol)]) {
             id<UITableViewCellProtocol> appToolsCell = (id<UITableViewCellProtocol>)tableViewCell;
             appToolsCell.settingForTableViewCell();
         };
-
     };return tableViewCell;
 }
 

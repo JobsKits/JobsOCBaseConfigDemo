@@ -15,7 +15,6 @@ Prop_assign()CGPoint contentOffenset;
 @end
 
 @implementation JobsExcelContentView
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.tableView.byShow(self);
@@ -54,7 +53,6 @@ Prop_assign()CGPoint contentOffenset;
               .byButtonModels(self.excelConfigureData.contentArr[indexPath.row]);
         }))
         .JobsBlock1(^(id _Nullable data) {;
-             
         });
     cell.byBgColor(indexPath.row % 2 ? self.excelConfigureData.cor1 : self.excelConfigureData.cor2);
     return cell;

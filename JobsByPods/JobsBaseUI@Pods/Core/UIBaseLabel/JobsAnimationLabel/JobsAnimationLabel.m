@@ -41,10 +41,8 @@ Prop_copy()void (^complete)(UILabel *label, CGFloat value);
     self.valueStart = fromValue;
     self.valueEnd = toValue;
     self.complete = [complete copy];
-    
     self.valueLast = self.valueStart;
     self.valueStep = (self.valueEnd - self.valueStart) / (self.duration==0 ? 1 : (self.displayPerSecond * self.duration));
-    
     if (self.playLink) {
         [self.playLink invalidate];
         self.playLink = nil;
@@ -62,7 +60,6 @@ Prop_copy()void (^complete)(UILabel *label, CGFloat value);
 
 - (void)countingAction {
     self.valueLast += self.valueStep;
-    
     if (self.valueStart < self.valueEnd) {
         if (self.valueLast >= self.valueEnd) {
             [self stopDisplayLink];

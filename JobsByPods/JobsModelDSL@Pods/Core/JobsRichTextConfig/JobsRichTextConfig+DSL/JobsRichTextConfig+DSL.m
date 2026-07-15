@@ -8,7 +8,6 @@
 #import "JobsRichTextConfig+DSL.h"
 
 @implementation JobsRichTextConfig (DSL)
-
 -(JobsRetJobsRichTextConfigByStrBlock _Nonnull)byTargetString{
     @jobs_weakify(self)
     return ^__kindof JobsRichTextConfig *_Nullable(NSString * _Nullable data) {

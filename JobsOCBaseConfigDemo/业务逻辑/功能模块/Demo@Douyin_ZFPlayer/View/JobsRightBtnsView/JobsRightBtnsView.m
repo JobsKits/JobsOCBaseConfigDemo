@@ -39,7 +39,6 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-
     };return self;
 }
 
@@ -69,7 +68,6 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        
     };return self;
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -86,11 +84,8 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
         @jobs_strongify(self)
         self.viewModel = model;
         self.loveBtn.byAlpha(1);
-
         self.commentBtn.byAlpha(1);
-
         self.shareBtn.byAlpha(1);
-
         [self 子视图垂直等间距排列];
     };
 }
@@ -167,10 +162,8 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
                     @jobs_strongify(self)
                     x.tag = MKRightBtnViewBtnType_commentBtn;//写在block外部，此值异常
                     if (self.objBlock) self.objBlock(x);
-                    
                     UIViewController *presentingVC = self.jobsGetCurrentViewController;
                     if (!presentingVC || presentingVC.presentedViewController) return;
-                    
                     JobsCommentCoreVC *jobsCommentCoreVC = JobsCommentCoreVC.new;
                     CGFloat popUpHeight = JobsMainScreen_HEIGHT() / 2;
                     jobsCommentCoreVC.popUpHeight = popUpHeight;

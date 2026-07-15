@@ -8,7 +8,6 @@
 #import "NSKeyedArchiver+Extra.h"
 
 @implementation NSKeyedArchiver (Extra)
-
 +(JobsRetDataByIDBlock _Nonnull)initByObject{
     return ^__kindof NSData *_Nullable(id _Nullable data){
         return [NSKeyedArchiver archivedDataWithRootObject:data];

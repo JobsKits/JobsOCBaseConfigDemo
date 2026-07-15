@@ -33,7 +33,6 @@ Prop_copy()jobsByIDBlock imageCodeViewBlock;
 ///设置默认参数
 -(void)setupUI{
     self.byBgColor(self.bgColor);
-
     self.addGesture([jobsMakeLongPressGesture(^(UILongPressGestureRecognizer * _Nullable gesture) {
         /// 这里写手势的配置
     }) gestureActionBy:^{
@@ -99,7 +98,6 @@ Prop_copy()jobsByIDBlock imageCodeViewBlock;
 -(void)setBgColor:(UIColor *)bgColor{
     _bgColor = bgColor;
     self.byBgColor(_bgColor);
-
 }
 #pragma mark —— lazyLoad
 @synthesize CodeStr = _CodeStr;

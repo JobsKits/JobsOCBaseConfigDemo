@@ -12,7 +12,6 @@
 @end
 
 @implementation JobsOCBaseConfigDemoTests
-
 -(void)setUp {
     [super setUp];
 }

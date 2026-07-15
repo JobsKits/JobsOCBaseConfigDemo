@@ -8,7 +8,6 @@
 #import "JobsOCRefreshConfig.h"
 
 @implementation JobsOCRefreshConfig
-
 + (instancetype)baseConfig {
     return jobsMakeOCRefreshConfig(^(__kindof JobsOCRefreshConfig * _Nullable config) {
         config.triggerDistance = 60;

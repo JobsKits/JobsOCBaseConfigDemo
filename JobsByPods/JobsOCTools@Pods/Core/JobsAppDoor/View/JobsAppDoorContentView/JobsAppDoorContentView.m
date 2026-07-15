@@ -37,7 +37,6 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
 @end
 
 @implementation JobsAppDoorContentView
-
 -(void)dealloc{
     [self.sendBtnEnableDisposable dispose];
     [self.verificationCodeBtnEnableDisposable dispose];
@@ -51,7 +50,6 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(Cor2);
-
     };return self;
 }
 
@@ -81,7 +79,6 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
 //        RequestTool *config = RequestTool.new;
 //        config.languageType = self.currentLanguageType;
 //        RequestTool.setupPublicParametersBy(config);
-    
 //
 //        NSDictionary *parameters = @{@"country":@"855",//暂时写死855
 //                                     @"phone":phone};
@@ -120,7 +117,6 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
         if (self.registerDoorInputViewBaseStyleMutArr.count > i) {
             JobsAppDoorInputViewBaseStyle *inputView = self.registerDoorInputViewBaseStyleMutArr[i];
             inputView.byAlpha(0);
-
         }
     }
     [self jobs_bindSendBtnEnableSignalByInputViews:self.loginDoorInputViewBaseStyleMutArr];
@@ -149,7 +145,6 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
             [inputTextField resignFirstResponder];
         }
     }
-    
     for (JobsAppDoorInputViewBaseStyle *appDoorInputViewBaseStyle in self.registerDoorInputViewBaseStyleMutArr) {
         UITextField *inputTextField = [self jobs_textFieldByInputView:appDoorInputViewBaseStyle];
         if (textfield != inputTextField) {
@@ -401,7 +396,6 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
         .byBottom(JobsAppDoorContentViewLoginHeight - JobsWidth(50));
     self.sendBtn.titleLabel.bySizeToFit();//必须先定Size，在依据Size刷新内部控件约束
     [self jobs_refreshSendBtnEnabled:[self checkLoginBtnCanBeUsed]];
-
 }
 /// 返回首页
 -(void)initialAbandonLoginBtn{
@@ -499,26 +493,22 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
         JobsAppDoorInputViewBaseStyle_3 *inputView = (JobsAppDoorInputViewBaseStyle_3 *)self.loginDoorInputViewBaseStyleMutArr[i];
         inputView.byLeft(JobsWidth(20) + RegisterBtnWidth);
     }
-    
     if (self.registerDoorInputViewBaseStyleMutArr.count >= self.registerDoorInputViewBaseStyleModelMutArr.count) {//不是第一次
         for (long i = self.loginDoorInputViewBaseStyleMutArr.count;
              i < self.registerDoorInputViewBaseStyleModelMutArr.count;
              i++) {
             JobsAppDoorInputViewBaseStyle *inputView = (JobsAppDoorInputViewBaseStyle *)self.registerDoorInputViewBaseStyleMutArr[i];
             inputView.byAlpha(1);
-
         }
         [self jobs_refreshRegisterSendBtnLayout];
         [self jobs_bindSendBtnEnableSignalByInputViews:self.registerDoorInputViewBaseStyleMutArr];
         [self jobs_bindVerificationCodeBtnEnableSignal];
         return;
     }
-    
     [self.registerDoorInputViewBaseStyleMutArr addObjectsFromArray:self.loginDoorInputViewBaseStyleMutArr];
     for (long i = self.loginDoorInputViewBaseStyleMutArr.count;
          i < self.registerDoorInputViewBaseStyleModelMutArr.count;
          i++) {
-
         JobsAppDoorInputViewBaseStyle *doorInputViewBaseStyle = nil;
         if (i == self.loginDoorInputViewBaseStyleMutArr.count) {// 确认密码
             JobsAppDoorInputViewBaseStyle_3 *inputView = JobsAppDoorInputViewBaseStyle_3.new;
@@ -586,7 +576,6 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
             }];
         }else{}
         if (!doorInputViewBaseStyle) continue;
-
         JobsAppDoorInputViewBaseStyle *lastObj = (JobsAppDoorInputViewBaseStyle *)self.registerDoorInputViewBaseStyleMutArr[i - 1];
         doorInputViewBaseStyle
             .byTop(lastObj.bottom + InputViewOffset)

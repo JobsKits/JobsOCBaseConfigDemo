@@ -36,7 +36,6 @@ Prop_assign()NSInteger selectedUserIndex;
 @end
 
 @implementation Realm_VC
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -44,7 +43,6 @@ Prop_assign()NSInteger selectedUserIndex;
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -71,7 +69,6 @@ Prop_assign()NSInteger selectedUserIndex;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.makeNavByAlpha(1);
     self.selectedUserIndex = -1;
     self.tableView.byShow(self);

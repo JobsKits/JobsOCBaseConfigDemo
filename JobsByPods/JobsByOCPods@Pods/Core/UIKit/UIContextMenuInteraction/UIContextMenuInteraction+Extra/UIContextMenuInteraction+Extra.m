@@ -8,7 +8,6 @@
 #import "UIContextMenuInteraction+Extra.h"
 
 @implementation UIContextMenuInteraction (Extra)
-
 +(JobsRetContextMenuInteractionByIDBlock _Nonnull)initByDelegate{
     return ^UIContextMenuInteraction *_Nonnull(id <UIContextMenuInteractionDelegate>_Nullable data){
         return [UIContextMenuInteraction.alloc initWithDelegate:data];

@@ -14,7 +14,6 @@ Prop_strong() CIContext *context;
 @end
 
 @implementation JobsOCVideoRecorderCIFilterProcessor
-
 +(NSArray<NSNumber *> *)allFilterTypes{
     return @[
         @(JobsOCVideoRecorderCIFilterTypeNormal),

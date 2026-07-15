@@ -26,7 +26,6 @@ Prop_assign()CGFloat currentProgress;
 @end
 
 @implementation PHCycleView
-
 static CGFloat const PHCycleViewMinProgress = 0.0f;
 static CGFloat const PHCycleViewMaxProgress = 100.0f;
 static CGFloat const PHCycleViewStrokeStart = M_PI / 12.0;
@@ -45,7 +44,6 @@ static CGFloat const PHCycleViewStrokeStart = M_PI / 12.0;
                                 color:(UIColor *)color{
     CALayer *linesLayer = CALayer.layer;
     linesLayer.byFrame(frame);
-
     for (int i = 0; i < (int)(360 / angle); i++) {
         CGFloat curAngle = i * angle;
         if (curAngle > 225 && curAngle < 315) continue;
@@ -153,9 +151,7 @@ static CGFloat const PHCycleViewStrokeStart = M_PI / 12.0;
     self.outLayer.opaque = 1;
     self.progressLayer.opaque = 1;
     self.progressLabel.byAlpha(1);
-
     self.describeLabel.byAlpha(1);
-
 }
 #pragma mark —— set方法
 - (void)setProgressColor:(UIColor *)progressColor{
@@ -164,31 +160,26 @@ static CGFloat const PHCycleViewStrokeStart = M_PI / 12.0;
 
 - (void)setProgressFont:(UIFont *)progressFont{
     self.progressLabel.byFont(progressFont);
-
 }
 
 -(void)setDescribeStr:(NSString *)describeStr{
     _describeStr = describeStr;
     self.describeLabel.byText(describeStr);
-
 }
 
 -(void)setDescribeFont:(UIFont *)describeFont{
     _describeFont = describeFont;
     self.describeLabel.byFont(describeFont);
-
 }
 
 -(void)setProgressTextColor:(UIColor *)progressTextColor{
     _progressTextColor = progressTextColor;
     self.progressLabel.byTextCor(progressTextColor);
-
 }
 
 -(void)setDescribeTextColor:(UIColor *)describeTextColor{
     _describeTextColor = describeTextColor;
     self.describeLabel.byTextCor(describeTextColor);
-
 }
 
 -(void)setOutLayerColor:(UIColor *)outLayerColor{

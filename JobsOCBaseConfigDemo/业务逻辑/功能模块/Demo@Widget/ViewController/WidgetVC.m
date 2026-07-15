@@ -12,7 +12,6 @@
 @end
 
 @implementation WidgetVC
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -20,7 +19,6 @@
 
 -(void)loadView{
     [super loadView];
-    
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
@@ -48,7 +46,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsRandomColor);
-
 //    @jobs_weakify(self)
 //    self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
 //        @jobs_strongify(self)
@@ -91,7 +88,6 @@
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
 }
 #pragma mark —— lazyLoad
 

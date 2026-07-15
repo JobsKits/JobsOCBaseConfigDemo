@@ -34,7 +34,6 @@ Prop_strong()UILabel *viewDetailLabel;
 @end
 
 @implementation ZMJTaskView
-
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
         [self setupViews];
@@ -57,7 +56,6 @@ Prop_strong()UILabel *viewDetailLabel;
                 .addOn(self);
         });
     });
-                           
     self.startTimeTitleLabel = ({
         jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
@@ -67,7 +65,6 @@ Prop_strong()UILabel *viewDetailLabel;
                 .addOn(self);
         });
     });
-    
     self.startTimeLabel = ({
         jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
@@ -77,7 +74,6 @@ Prop_strong()UILabel *viewDetailLabel;
                 .addOn(self);
         });
     });
-    
     self.endTimeTitleLabel = ({
         jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
@@ -87,7 +83,6 @@ Prop_strong()UILabel *viewDetailLabel;
                 .addOn(self);
         });
     });
-    
     self.endTimeLabel = ({
         jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
@@ -97,7 +92,6 @@ Prop_strong()UILabel *viewDetailLabel;
                 .addOn(self);
         });
     });
-    
     self.separatorLine = ({
         jobsMakeView(^(__kindof UIView * _Nullable view) {
             view
@@ -105,7 +99,6 @@ Prop_strong()UILabel *viewDetailLabel;
                 .addOn(self);
         });
     });
-    
     self.viewDetailLabel = ({
         jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
@@ -120,36 +113,29 @@ Prop_strong()UILabel *viewDetailLabel;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
     [self.taskTitleLabel sizeToFit];
     self.taskTitleLabel.x = self.taskTitleLabel.y = 12.f;
     self.taskTitleLabel.maxXByStretch = self.width - 12.f;
-    
     [self.startTimeTitleLabel sizeToFit];
     self.startTimeTitleLabel.x = 12.f;
     self.startTimeTitleLabel.y = self.taskTitleLabel.maxY + 6.f;
     self.startTimeTitleLabel.width = DateTitleWidth;
-    
     [self.startTimeLabel sizeToFit];
     self.startTimeLabel.x = self.startTimeTitleLabel.maxX + 3;
     self.startTimeLabel.y = self.startTimeTitleLabel.y;
     self.startTimeLabel.maxXByStretch = self.width - 12.f;
-    
     [self.endTimeTitleLabel sizeToFit];
     self.endTimeTitleLabel.x = 12.f;
     self.endTimeTitleLabel.y = self.startTimeTitleLabel.maxY + 2.f;
     self.endTimeTitleLabel.width = DateTitleWidth;
-    
     [self.endTimeLabel sizeToFit];
     self.endTimeLabel.x = self.endTimeTitleLabel.maxX + 3;
     self.endTimeLabel.y = self.endTimeTitleLabel.y;
     self.endTimeLabel.maxXByStretch = self.width - 12.f;
-    
     self.separatorLine.x = 0;
     self.separatorLine.y = self.endTimeTitleLabel.maxY + 10.f;
     self.separatorLine.maxXByStretch = self.width;
     self.separatorLine.height = 1 / [UIScreen mainScreen].scale;
-    
     [self.viewDetailLabel sizeToFit];
     self.viewDetailLabel.x = 12.f;
     self.viewDetailLabel.y = self.separatorLine.maxY + 10.f;
@@ -172,20 +158,17 @@ Prop_strong()UILabel *viewDetailLabel;
     [attributedText addAttribute:NSBaselineOffsetAttributeName value:@(NSUnderlineStyleNone)
                            range:NSMakeRange(0, taskTitle.length)];
     self.taskTitleLabel.byAttributedString(attributedText);
-
     //self.taskTitleLabel.text = taskTitle;
 }
 
 - (void)setStartTime:(NSString *)startTime {
     _startTime = startTime;
     self.startTimeLabel.byText(startTime);
-
 }
 
 - (void)setEndTime:(NSString *)endTime {
     _endTime = endTime;
     self.endTimeLabel.byText(endTime);
-
 }
 
 @end

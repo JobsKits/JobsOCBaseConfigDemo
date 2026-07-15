@@ -12,7 +12,6 @@
 @end
 
 @implementation ChannelCell
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.label.byAlpha(1);

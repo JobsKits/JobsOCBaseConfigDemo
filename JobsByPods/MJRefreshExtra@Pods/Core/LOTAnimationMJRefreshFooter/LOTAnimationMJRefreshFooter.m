@@ -17,11 +17,9 @@ Prop_strong()LOTAnimationView *animationView;
 @end
 
 @implementation LOTAnimationMJRefreshFooter
-
 - (void)prepare{
     [super prepare];
     self.animationView.byAlpha(1);
-
     self.gifView.byAlpha(0);//屏蔽掉父类的gifView控件，否则将会有Gif图和Lottie动画一起出现
     @jobs_weakify(self)
     self.endRefreshingCompletionBlock = ^{
@@ -29,7 +27,6 @@ Prop_strong()LOTAnimationView *animationView;
         [self updateStateLabelText];
     };
     self.stateLabel.byFont(UIFontWeightRegularSize(14));
-
     [self updateStateLabelText];
 }
 // 执行重新给子视图布局的时候

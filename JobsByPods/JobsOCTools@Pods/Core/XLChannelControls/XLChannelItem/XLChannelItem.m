@@ -15,7 +15,6 @@ Prop_strong()CAShapeLayer *borderLayer;
 @end
 
 @implementation XLChannelItem
-
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self initUI];
@@ -26,8 +25,6 @@ Prop_strong()CAShapeLayer *borderLayer;
     self.userInteractionEnabled = true;
     self.layer.cornerRadius = 5.0f;
     self.byBgColor([self backgroundColor]);
-
-    
     self.textLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byTextAlignment(NSTextAlignmentCenter)
@@ -37,7 +34,6 @@ Prop_strong()CAShapeLayer *borderLayer;
             .byUserInteractionEnabled(YES)
             .addOn(self);
     });
-    
     [self addBorderLayer];
 }
 
@@ -55,13 +51,11 @@ Prop_strong()CAShapeLayer *borderLayer;
     self.borderLayer.strokeColor = [self backgroundColor].CGColor;
     [self.layer addSublayer:self.borderLayer];
     self.borderLayer.byHidden(true);
-
 }
 
 -(void)layoutSubviews{
     [super layoutSubviews];
     self.textLabel.byFrame(self.bounds);
-
 }
 
 -(UIColor*)backgroundColor{
@@ -79,21 +73,16 @@ Prop_strong()CAShapeLayer *borderLayer;
 -(void)setTitle:(NSString *)title{
     _title = title;
     self.textLabel.byText(title);
-
 }
 
 -(void)setIsMoving:(BOOL)isMoving{
     _isMoving = isMoving;
     if (_isMoving) {
         self.byBgColor([UIColor clearColor]);
-
         self.borderLayer.byHidden(false);
-
     }else{
         self.byBgColor([self backgroundColor]);
-
         self.borderLayer.byHidden(true);
-
     }
 }
 
@@ -101,10 +90,8 @@ Prop_strong()CAShapeLayer *borderLayer;
     _isFixed = isFixed;
     if (isFixed) {
         self.textLabel.byTextCor([self lightTextColor]);
-
     }else{
         self.textLabel.byTextCor([self textColor]);
-
     }
 }
 

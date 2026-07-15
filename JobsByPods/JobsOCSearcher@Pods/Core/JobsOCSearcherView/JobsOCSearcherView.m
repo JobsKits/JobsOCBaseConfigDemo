@@ -40,7 +40,6 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
 @end
 
 @implementation JobsOCSearcherView
-
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self setupWithConfig:nil];

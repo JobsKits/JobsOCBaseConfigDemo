@@ -34,7 +34,6 @@ Prop_weak()id<GXCardViewCellDelagate> cell_delegate;
 @end
 
 @implementation GXCardViewCell
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self setupView];
@@ -61,7 +60,6 @@ Prop_weak()id<GXCardViewCellDelagate> cell_delegate;
         case UIGestureRecognizerStateChanged: {
             CGPoint movePoint = [pan translationInView:pan.view];
             self.currentPoint = CGPointMake(self.currentPoint.x + movePoint.x , self.currentPoint.y + movePoint.y);
-            
             CGFloat moveScale = self.currentPoint.x / self.maxRemoveDistance;
             if (ABS(moveScale) > 1.0) {
                 moveScale = (moveScale > 0) ? 1.0 : -1.0;
@@ -69,7 +67,6 @@ Prop_weak()id<GXCardViewCellDelagate> cell_delegate;
             CGFloat angle = GX_DEGREES_TO_RADIANS(self.maxAngle) * moveScale;
             CGAffineTransform transRotation = CGAffineTransformMakeRotation(angle);
             self.transform = CGAffineTransformTranslate(transRotation, self.currentPoint.x, self.currentPoint.y);
-            
             if (self.cell_delegate && [self.cell_delegate respondsToSelector:@selector(cardViewCellDidMoveFromSuperView:forMovePoint:)]) {
                 [self.cell_delegate cardViewCellDidMoveFromSuperView:self forMovePoint:self.currentPoint];
             }
@@ -96,7 +93,6 @@ Prop_weak()id<GXCardViewCellDelagate> cell_delegate;
         snapshotView.transform = self.transform;
         snapshotView.addOn(self.superview.superview);
         [self didCellRemoveFromSuperviewWithDirection:GXCardCellSwipeDirectionRight];
-        
         CGFloat endCenterX = SCREEN_WIDTH/2 + self.frame.size.width * 1.5;
         [UIView animateWithDuration:GX_DefaultDuration animations:^{
             CGPoint center = self.center;
@@ -112,7 +108,6 @@ Prop_weak()id<GXCardViewCellDelagate> cell_delegate;
         snapshotView.transform = self.transform;
         snapshotView.addOn(self.superview.superview);
         [self didCellRemoveFromSuperviewWithDirection:GXCardCellSwipeDirectionLeft];
-        
         CGFloat endCenterX = -(SCREEN_WIDTH/2 + self.frame.size.width);
         [UIView animateWithDuration:GX_DefaultDuration animations:^{
             CGPoint center = self.center;
@@ -168,7 +163,6 @@ Prop_weak()id<GXCardViewCellDelagate> cell_delegate;
     __block UIView *snapshotView = [self snapshotViewAfterScreenUpdates:NO];
     snapshotView.addOn(self.superview.superview);
     [self didCellRemoveFromSuperviewWithDirection:GXCardCellSwipeDirectionLeft];
-    
     CGAffineTransform transRotation = CGAffineTransformMakeRotation(-GX_DEGREES_TO_RADIANS(self.maxAngle));
     CGAffineTransform transform = CGAffineTransformTranslate(transRotation, 0, self.frame.size.height/4.0);
     CGFloat endCenterX = -(SCREEN_WIDTH/2 + self.frame.size.width);
@@ -186,10 +180,8 @@ Prop_weak()id<GXCardViewCellDelagate> cell_delegate;
 - (void)removeFromSuperviewRight {
     __block UIView *snapshotView = [self snapshotViewAfterScreenUpdates:NO];
     snapshotView.byFrame(self.frame);
-
     snapshotView.addOn(self.superview.superview);
     [self didCellRemoveFromSuperviewWithDirection:GXCardCellSwipeDirectionRight];
-    
     CGAffineTransform transRotation = CGAffineTransformMakeRotation(GX_DEGREES_TO_RADIANS(self.maxAngle));
     CGAffineTransform transform = CGAffineTransformTranslate(transRotation, 0, self.frame.size.height/4.0);
     CGFloat endCenterX = SCREEN_WIDTH/2 + self.frame.size.width * 1.5;
@@ -224,7 +216,6 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
 @end
 
 @implementation GXCardView
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self configCardView];
@@ -266,7 +257,6 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
     self.currentIndex = 0;
     [self.reusableCells removeAllObjects];
     [self.containerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
     NSInteger maxCount = [self.dataSource numberOfCountInCardView:self];
     maxCount = self.isRepeat ? (maxCount + self.visibleCount - 1) : maxCount;
     NSInteger showNumber = MIN(maxCount, self.visibleCount);
@@ -280,7 +270,6 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
     self.currentIndex = 0;
     [self.reusableCells removeAllObjects];
     [self.containerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
     NSInteger maxCount = [self.dataSource numberOfCountInCardView:self];
     maxCount = self.isRepeat ? (maxCount + self.visibleCount - 1) : maxCount;
     NSInteger showNumber = MIN(maxCount, self.visibleCount);
@@ -313,7 +302,6 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
     NSAssert(!self.isRepeat, @"isRepeat为YES不允许从索引处加载！");
     NSInteger maxCount = [self.dataSource numberOfCountInCardView:self];
     NSAssert(index < maxCount, @"index不能大于等于cell的数量！");
-    
     [self.reusableCells removeAllObjects];
     [self.containerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     NSInteger loadMaxLength = index + self.visibleCount;
@@ -337,11 +325,9 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
     CGFloat width = self.frame.size.width;
     CGFloat height = self.frame.size.height - (showCount * self.interitemSpacing);
     cell.byFrame(CGRectMake(0, 0, width, height));
-
     [self.containerView insertSubview:cell atIndex:0];
     [self.containerView layoutIfNeeded];
     self.currentIndex = index;
-    
     CGFloat minWidth = self.frame.size.width - 2 * self.lineSpacing * showCount;
     CGFloat minHeight = self.frame.size.height - 2 * self.interitemSpacing * showCount;
     CGFloat minWScale = minWidth / self.frame.size.width;
@@ -364,11 +350,9 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
     CGFloat width = self.frame.size.width;
     CGFloat height = self.frame.size.height - (showCount * self.interitemSpacing);
     cell.byFrame(CGRectMake(0, 0, width, height));
-
     [self.containerView insertSubview:cell atIndex:0];
     [self.containerView layoutIfNeeded];
     self.currentIndex = index;
-    
     CGFloat minWidth = self.frame.size.width - 2 * self.lineSpacing * showCount;
     CGFloat minHeight = self.frame.size.height - 2 * self.interitemSpacing * showCount;
     CGFloat minWScale = minWidth / self.frame.size.width;
@@ -463,19 +447,16 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
     for (GXCardViewCell *cell in self.reusableCells) {
         if ([cell.reuseIdentifier isEqualToString:identifier]) {
             [self.reusableCells removeObject:cell];
-            
             return cell;
         }
     }
     if (self.nib) {
         GXCardViewCell *cell = [[self.nib instantiateWithOwner:nil options:nil] lastObject];
         cell.reuseIdentifier = identifier;
-        
         return cell;
     } else if (self.cellClass) { // 注册class
         GXCardViewCell *cell = [[self.cellClass alloc] initWithReuseIdentifier:identifier];
         cell.reuseIdentifier = identifier;
-        
         return cell;
     }
     JobsLog(@"请先注册cardCell!");
@@ -508,12 +489,10 @@ Prop_strong()NSMutableArray<__kindof GXCardViewCell *> *reusableCells;
 - (void)cardViewCellDidRemoveFromSuperView:(GXCardViewCell *)cell withDirection:(GXCardCellSwipeDirection)direction {
     // 当cell被移除时重新刷新视图
     [self.reusableCells addObject:cell];
-    
     // 通知代理 移除了当前cell
     if ([self.delegate respondsToSelector:@selector(cardView:didRemoveCell:forRowAtIndex:direction:)]) {
         [self.delegate cardView:self didRemoveCell:cell forRowAtIndex:cell.index direction:direction];
     }
-    
     NSInteger count = [self.dataSource numberOfCountInCardView:self];
     // 移除后的卡片是最后一张(没有更多)
     if(self.visibleCells.count == 0) { // 只有最后一张卡片的时候

@@ -92,7 +92,6 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
                 JobsLog(@"倒计时结束...");
                 if (self.objBlock) self.objBlock(timer);
             });
-
             timer.accumulatedElapsed       = 0;
             timer.lastStartDate            = nil;
         });
@@ -113,7 +112,6 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
                 .byStrokeEnd(0.85)
                 .byFrame(CGRectMake(0, 0, self.radius, self.radius))
                 .byAddAnimation(self.anim, @"CLAnimation");
-
             self.shapLayerView.layer.addSublayer(layer);
         });
     };return _shapLayer;

@@ -27,28 +27,23 @@ UILocationProtocol_dynamic
         JobsLog(@"self.textLabelFrame = %@",NSStringFromCGRect(self.textLabelFrame));
         JobsLog(@"self.detailTextLabelFrame = %@",NSStringFromCGRect(self.detailTextLabelFrame));
         JobsLog(@"self.imageViewFrame = %@",NSStringFromCGRect(self.imageViewFrame));
-        
         JobsLog(@"self.textLabelSize = %@",NSStringFromCGSize(self.textLabelSize));
         JobsLog(@"self.detailTextLabelSize = %@",NSStringFromCGSize(self.detailTextLabelSize));
         JobsLog(@"self.imageViewSize = %@",NSStringFromCGSize(self.imageViewSize));
-        
         JobsLog(@"self.textLabelWidth = %f",self.textLabelWidth);
         JobsLog(@"self.textLabelHeight = %f",self.textLabelHeight);
         JobsLog(@"self.detailTextLabelWidth = %f",self.detailTextLabelWidth);
         JobsLog(@"elf.detailTextLabelHeight = %f",self.detailTextLabelHeight);
         JobsLog(@"self.imageViewWidth = %f",self.imageViewWidth);
         JobsLog(@"self.imageViewHeight = %f",self.imageViewHeight);
-        
         JobsLog(@"self.textLabelFrameOffsetX = %f",self.textLabelFrameOffsetX);
         JobsLog(@"self.textLabelFrameOffsetY = %f",self.textLabelFrameOffsetY);
         JobsLog(@"self.textLabelFrameOffsetWidth = %f",self.textLabelFrameOffsetWidth);
         JobsLog(@"self.textLabelFrameOffsetHeight = %f",self.textLabelFrameOffsetHeight);
-        
         JobsLog(@"self.detailTextLabelOffsetX = %f",self.detailTextLabelOffsetX);
         JobsLog(@"self.detailTextLabelOffsetY = %f",self.detailTextLabelOffsetY);
         JobsLog(@"self.detailTextLabelOffsetWidth = %f",self.detailTextLabelOffsetWidth);
         JobsLog(@"self.detailTextLabelOffsetHeight = %f",self.detailTextLabelOffsetHeight);
-        
         JobsLog(@"self.imageViewFrameOffsetX = %f",self.imageViewFrameOffsetX);
         JobsLog(@"self.imageViewFrameOffsetY = %f",self.imageViewFrameOffsetY);
         JobsLog(@"self.imageViewFrameOffsetWidth = %f",self.imageViewFrameOffsetWidth);
@@ -61,26 +56,19 @@ UILocationProtocol_dynamic
     return ^(){
         @jobs_strongify(self)
         self.contentView.byFrame(self.bounds);
-
-        
         {///【组 1】 UITableViewCell单独自定义设置系统自带控件的Frame 【形成Frame后直接return，避免被其他中间过程修改】❤️与组2、3属性互斥❤️
             if (!jobsZeroRectValue(self.textLabelFrame)) self.textLabel.frame = self.textLabelFrame;
-            
             if (!jobsZeroRectValue(self.detailTextLabelFrame) && self.detailTextLabel) {
                 self.detailTextLabel.byFrame(self.detailTextLabelFrame);
-
             }
-
             if (!jobsZeroRectValue(self.imageViewFrame)) self.imageView.frame = self.imageViewFrame;
         }
-        
         {///【组 2】UITableViewCell单独自定义设置系统自带控件的Size【形成Frame后直接return，避免被其他中间过程修改】❤️与组1、3属性互斥❤️
             {
                 if (!jobsZeroSizeValue(self.textLabelSize)) self.textLabel.resetSize(self.textLabelSize);
                 if (self.textLabelFrameOffsetX) self.textLabel.resetOriginXByOffset(self.textLabelFrameOffsetX);
                 if (self.textLabelFrameOffsetY) self.textLabel.resetOriginYByOffset(self.textLabelFrameOffsetY);
             }
-            
             {
                 if (!jobsZeroSizeValue(self.detailTextLabelSize) && self.detailTextLabel) {
                     self.detailTextLabel.resetSize(self.detailTextLabelSize);
@@ -92,16 +80,13 @@ UILocationProtocol_dynamic
                     self.detailTextLabel.resetOriginYByOffset(self.detailTextLabelOffsetY);
                 }
             }
-
             {
                 if (!jobsZeroSizeValue(self.imageViewSize)) self.imageView.resetSize(self.imageViewSize);
                 if (self.imageViewFrameOffsetX) self.imageView.resetOriginXByOffset(self.imageViewFrameOffsetX);
                 if (self.imageViewFrameOffsetY) self.imageView.resetOriginYByOffset(self.imageViewFrameOffsetY);
             }
         }
-        
         {///【组 3】UITableViewCell单独自定义设置系统自带控件的宽高【形成Frame后直接return，避免被其他中间过程修改】❤️与组1、2属性互斥❤️
-           
             {
                 if (self.textLabelWidth) self.textLabel.resetWidth(self.textLabelWidth);
                 if (self.textLabelHeight && self.detailTextLabel) {
@@ -110,7 +95,6 @@ UILocationProtocol_dynamic
                 if(self.textLabelFrameOffsetX) self.textLabel.resetOriginXByOffset(self.textLabelFrameOffsetX);
                 if(self.textLabelFrameOffsetY) self.textLabel.resetOriginYByOffset(self.textLabelFrameOffsetY);
             }
-            
             {
                 if (self.detailTextLabelWidth && self.detailTextLabel) {
                     self.detailTextLabel.resetWidth(self.detailTextLabelWidth);
@@ -125,7 +109,6 @@ UILocationProtocol_dynamic
                     self.detailTextLabel.resetOriginYByOffset(self.detailTextLabelOffsetY);
                 }
             }
-            
             {
                 if (self.imageViewWidth) self.imageView.resetWidth(self.imageViewWidth);
                 if (self.imageViewHeight) self.imageView.resetHeight(self.imageViewHeight);
@@ -133,7 +116,6 @@ UILocationProtocol_dynamic
                 if (self.imageViewFrameOffsetY)self.imageView.resetOriginYByOffset(self.imageViewFrameOffsetY);
             }
         }
-        
         {/// 【组 4】UITableViewCell单独自定义设置系统自带控件的偏移量
             {
                 self.textLabel.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
@@ -144,7 +126,6 @@ UILocationProtocol_dynamic
                         .byOffsetHeight(self.textLabelFrameOffsetHeight);
                 }));
             }
-            
             if (self.detailTextLabel) {
                 self.detailTextLabel.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
                     @jobs_strongify(self)
@@ -154,7 +135,6 @@ UILocationProtocol_dynamic
                         .byOffsetHeight(self.detailTextLabelOffsetHeight);
                 }));
             }
-            
             if(self.imageView){
                 self.imageView.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
                     @jobs_strongify(self)
@@ -173,17 +153,14 @@ UILocationProtocol_dynamic
     return ^(){
         @jobs_strongify(self)
         self.contentView.byFrame(self.bounds);
-
         self.textLabelFrameOffsetX = JobsWidth(0);// 等价于用这个 self.textLabel.resetOriginXByOffset(JobsWidth(0));
         self.textLabelFrameOffsetY = JobsWidth(0);// 等价于用这个 self.textLabel.resetOriginYByOffset(JobsWidth(0));
         self.textLabelFrameOffsetWidth = JobsWidth(0);// 等价于用这个 self.textLabel.resetWidthByOffset(JobsWidth(0));
         self.textLabelFrameOffsetHeight = JobsWidth(0);// 等价于用这个 self.textLabel.resetHeightByOffset(JobsWidth(0));
-        
         self.detailTextLabelOffsetX = JobsWidth(0);// 等价于用这个 self.detailTextLabel.resetOriginXByOffset(JobsWidth(0));
         self.detailTextLabelOffsetY = JobsWidth(0);// 等价于用这个 self.detailTextLabel.resetOriginYByOffset(JobsWidth(0));
         self.detailTextLabelOffsetWidth = JobsWidth(0);// 等价于用这个 self.detailTextLabel.resetWidthByOffset(JobsWidth(0));
         self.detailTextLabelOffsetHeight = JobsWidth(0);// 等价于用这个 self.detailTextLabel.resetHeightByOffset(JobsWidth(0));
-        
         self.imageViewFrameOffsetX = JobsWidth(0);// 等价于用这个 self.imageView.resetOriginXByOffset(JobsWidth(0));
         self.imageViewFrameOffsetY = JobsWidth(0);// 等价于用这个 self.imageView.resetOriginYByOffset(JobsWidth(0));
         self.imageViewFrameOffsetWidth = JobsWidth(0);// 等价于用这个 self.imageView.resetWidthByOffset(JobsWidth(0));

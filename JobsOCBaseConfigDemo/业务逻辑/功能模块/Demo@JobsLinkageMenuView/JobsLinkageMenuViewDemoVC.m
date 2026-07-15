@@ -58,7 +58,6 @@
             .byShadowOffset(CGSizeMake(0, 3))
             .byShadowRadius(6);
     });
-
     UILabel *iconLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byText(@"✉")
@@ -73,7 +72,6 @@
             })
             .addOn(card);
     });
-
     UILabel *titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byText([NSString stringWithFormat:@"%@ - %@ 活动 %ld", _sectionTitle, _menuTitle, (long)index + 1])
@@ -82,7 +80,6 @@
             .byNumberOfLines(2)
             .addOn(card);
     });
-
     UILabel *subtitleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byText(@"神秘彩金等你来拿".tr)
@@ -90,7 +87,6 @@
             .byFont(UIFontSystemFontOfSize(15))
             .addOn(card);
     });
-
     [iconLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(card).offset(JobsWidth(16));
         make.centerY.equalTo(card);
@@ -120,7 +116,6 @@ Prop_strong()NSArray<NSString *> *menuTitles;
 @end
 
 @implementation JobsLinkageMenuViewDemoVC
-
 -(void)loadView{
     [super loadView];
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
@@ -182,7 +177,6 @@ Prop_strong()NSArray<NSString *> *menuTitles;
         NSString *title = payload[@"title"] ?: @"";
         if (title.length) self.callbackLabel.byText([NSString stringWithFormat:@"当前菜单：%@", title]);
     };
-
     self.linkageView = [[JobsLinkageMenuView alloc] initWithFrame:CGRectZero
                                                         btnConfig:self.buttonModel
                                             linkageMenuViewConfig:config];

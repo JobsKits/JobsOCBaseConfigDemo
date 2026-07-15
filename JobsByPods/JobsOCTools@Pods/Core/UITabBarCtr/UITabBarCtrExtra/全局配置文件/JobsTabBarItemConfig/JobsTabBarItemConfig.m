@@ -12,7 +12,6 @@
 @end
 
 @implementation JobsTabBarItemConfig
-
 #pragma mark —— lazyLoad
 -(UIColor *)titleCorNormal{
     if (!_titleCorNormal) {

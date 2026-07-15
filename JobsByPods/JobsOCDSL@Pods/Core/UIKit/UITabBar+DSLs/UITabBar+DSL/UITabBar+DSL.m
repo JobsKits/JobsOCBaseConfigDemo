@@ -8,7 +8,6 @@
 #import "UITabBar+DSL.h"
 
 @implementation UITabBar (DSL)
-
 +(void)jobsApplyStandardAppearance:(UITabBarAppearance *_Nonnull)appearance{
     UITabBar.appearance.standardAppearance = appearance;
 }

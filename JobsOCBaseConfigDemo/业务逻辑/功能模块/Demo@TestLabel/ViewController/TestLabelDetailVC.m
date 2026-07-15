@@ -24,7 +24,6 @@ Prop_assign()BOOL didApplyShowingType;
 @end
 
 @implementation TestLabelDetailVC
-
 @synthesize demoModel = _demoModel;
 @synthesize scrollView = _scrollView;
 @synthesize contentView = _contentView;

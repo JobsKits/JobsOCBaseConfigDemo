@@ -15,16 +15,13 @@ Prop_strong()CasinoUpgradeContentView *upgradeContentView;
 @end
 
 @implementation CasinoUpgradePopupView
-
 -(instancetype)init{
     if (self = [super init]) {
-
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
     };return self;
 }
 
@@ -37,9 +34,7 @@ Prop_strong()CasinoUpgradeContentView *upgradeContentView;
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.byBgColor(JobsWhiteColor);
-
         self.imageView.byAlpha(1);
-
         self.upgradeContentView.jobsRichViewByModel(model);
     };
 }

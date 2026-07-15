@@ -29,7 +29,6 @@ Prop_strong()UIImageView *textIMGV;
         @jobs_strongify(self)
         self.byBgColor(JobsClearColor);
         self.contentView.byBgColor(JobsClearColor);
-
         self.textIMGV.byImage(model);
         return self;
     };

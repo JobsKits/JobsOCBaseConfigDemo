@@ -21,7 +21,6 @@ Prop_strong()UIColor *oddRowColor;  //奇数
 @end
 
 @implementation ZMJScheduleVC
-
 - (void)dealloc{
     JobsNotificationCenter.remove(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -35,7 +34,6 @@ Prop_strong()UIColor *oddRowColor;  //奇数
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"返回".tr);
@@ -45,7 +43,6 @@ Prop_strong()UIColor *oddRowColor;  //奇数
             data.byText(@"ZMJSchedule".tr);
             data.byFont(UIFontWeightRegularSize(18));
         })
-    
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;// self.gk_navBackgroundImage 和 self.bgImageView
@@ -57,11 +54,9 @@ Prop_strong()UIColor *oddRowColor;  //奇数
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsRandomColor);
-
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
     self.spreadsheetView.byAlpha(1);
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -90,11 +85,9 @@ Prop_strong()UIColor *oddRowColor;  //奇数
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
 }
 #pragma mark —— SpreadsheetViewDataSource
 - (NSInteger)numberOfColumns:(SpreadsheetView *)spreadsheetView {
@@ -137,32 +130,26 @@ Prop_strong()UIColor *oddRowColor;  //奇数
         DateCell *cell  = (DateCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(DateCell.class)
                                                                                  forIndexPath:indexPath];
         cell.label.byText(self.dates[indexPath.column - 1]);
-
         return cell;
     } else if ((indexPath.column >= 1 && indexPath.column <= self.days.count + 1) &&
                (indexPath.row    == 1)){
         DayTitleCell *cell = (DayTitleCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(DayTitleCell.class)
                                                                                         forIndexPath:indexPath];
         cell.label.byText(self.days[indexPath.column - 1]);
-
         cell.label.byTextCor(self.dayColors[indexPath.column - 1]);
-
         return cell;
     } else if ((indexPath.column == 0) &&
                (indexPath.row    == 1)){
         TimeTitleCell *cell = (TimeTitleCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(TimeTitleCell.class)
                                                                                           forIndexPath:indexPath];
         cell.label.byText(@"TIME");
-
         return cell;
     } else if ((indexPath.column == 0) &&
                (indexPath.row    >= 2 && indexPath.row <= self.hours.count + 2)){
         TimeCell *cell = (TimeCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(TimeCell.class)
                                                                                 forIndexPath:indexPath];
         cell.label.byText(self.hours[indexPath.row - 2]);
-
         cell.byBgColor(indexPath.row % 2 == 0 ? self.evenRowColor : self.oddRowColor);
-
         return cell;
     } else if ((indexPath.column >= 1 && indexPath.column <= self.days.count + 1) &&
                (indexPath.row    >= 2 && indexPath.row <= self.hours.count + 2)){
@@ -171,16 +158,13 @@ Prop_strong()UIColor *oddRowColor;  //奇数
         NSString *text = self.datas[indexPath.column - 1][indexPath.row - 2];
         if (text && text.length != 0) {
             cell.label.byText(text);
-
             UIColor *color  = self.dayColors[indexPath.column - 1];
             cell.label.byTextCor(color);
-
             cell.color           = color.colorWithAlphaComponentBy(.2f);
             cell.borders.top     = [BorderStyle.alloc initWithStyle:BorderStyle_solid width:2 color:color];
             cell.borders.bottom  = [BorderStyle.alloc initWithStyle:BorderStyle_solid width:2 color:color];
         } else {
             cell.label.byText(nil);
-
             cell.color          = indexPath.row % 2 == 0 ? self.evenRowColor : self.oddRowColor;
             cell.borders.top    = BorderStyle.borderStyleNone;
             cell.borders.bottom = BorderStyle.borderStyleNone;
@@ -284,7 +268,6 @@ Prop_strong()UIColor *oddRowColor;  //奇数
 
 -(SpreadsheetView *)spreadsheetView{
     if(!_spreadsheetView){
-        
         _spreadsheetView = SpreadsheetView.new;
         _spreadsheetView.delegate   = self;
         _spreadsheetView.dataSource = self;
@@ -301,14 +284,11 @@ Prop_strong()UIColor *oddRowColor;  //奇数
             make.left.right.bottom.equalTo(self.view);
             [self make:make topOffset:10];
         });
-
-        
 //        if (@available(iOS 11.0, *)) {
 //            _spreadsheetView.frame = self.view.safeAreaLayoutGuide.layoutFrame;
 //        } else {
 //            _spreadsheetView.frame = self.view.bounds;
 //        }
-        
         [_spreadsheetView flashScrollIndicators];
     };return _spreadsheetView;
 }

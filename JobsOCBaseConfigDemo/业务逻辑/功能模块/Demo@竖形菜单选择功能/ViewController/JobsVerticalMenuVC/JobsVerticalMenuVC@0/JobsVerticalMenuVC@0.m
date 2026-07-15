@@ -23,7 +23,6 @@ Prop_assign()BOOL searchMode;
 @end
 
 @implementation JobsVerticalMenuVC_0
-
 - (void)dealloc {
     JobsLog(@"%@", JobsLocalFunc);
     JobsRemoveNotification(self);
@@ -262,7 +261,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             .BySize(CGSizeMake(0, JobsWidth(38)))
             .JobsRichViewByModel2(nil)
             .JobsBlock1(^(id  _Nullable data) {;
-                
             });
         _searchView.cancelBtnHidden = YES;
         _searchView.textField.byPlaceholder(@"请输入搜索内容".tr);
@@ -275,7 +273,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 make.centerY.equalTo(self.gk_navigationBar);
             });
         _searchView.byHidden(YES);
-        
 //        [_jobsSearchBar actionNSIntegerBlock:^(UITextFieldFocusType data) {
 //            @jobs_strongify(self)
 //            switch (data) {

@@ -8,7 +8,6 @@
 #import "UISlider+Extra.h"
 
 @implementation UISlider (Extra)
-
 -(RACDisposable *)jobsSliderAllTouchEventBlock:(jobsByIDBlock)subscribeNextBlock{
     return [[self rac_signalForControlEvents:UIControlEventAllTouchEvents] subscribeNext:^(__kindof UIButton * _Nullable x) {
         if(subscribeNextBlock) subscribeNextBlock(x);

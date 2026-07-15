@@ -8,7 +8,6 @@
 #import "NSString+Extra.h"
 
 @implementation NSString (Extra)
-
 +(NSString *)nullableString:(id)nullableString
               replaceString:(NSString *)replaceString{
     NSString *fallback = replaceString.length ? replaceString : @"No Data";

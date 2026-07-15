@@ -64,7 +64,6 @@ UITextFieldProtocol_synthesize_part2
     self.modifySysChildViewFrame1();
     // 或者
     self.modifySysChildViewFrame2();
-    
     if(self.accessoryView){
         self.accessoryView.resetOriginXByOffset(20);
     }

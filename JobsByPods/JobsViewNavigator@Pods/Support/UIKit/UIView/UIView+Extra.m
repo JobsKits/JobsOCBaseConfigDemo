@@ -8,7 +8,6 @@
 #import "UIView+Extra.h"
 
 @implementation UIView (Extra)
-
 -(jobsByVoidBlock _Nonnull)refresh{
     @jobs_weakify(self)
     return ^(){

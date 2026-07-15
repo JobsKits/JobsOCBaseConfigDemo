@@ -50,6 +50,7 @@
 }
 
 #endif
+
 @end
 
 @implementation MFMailComposeViewController (JobsSystemAPIDSLSupplement)
@@ -64,6 +65,7 @@
 }
 
 #endif
+
 @end
 
 @implementation MFMessageComposeViewController (JobsSystemAPIDSLSupplement)
@@ -1383,6 +1385,7 @@
 }
 
 #endif
+
 @end
 
 @implementation UITextField (JobsSystemAPIDSLSupplement)
@@ -1497,6 +1500,7 @@
 }
 
 #endif
+
 @end
 
 @implementation UITextView (JobsSystemAPIDSLSupplement)

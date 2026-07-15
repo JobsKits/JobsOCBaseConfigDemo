@@ -8,7 +8,6 @@
 #import "NSData+Extra.h"
 
 @implementation NSData (YTKNetworkExtraExtra)
-
 -(NSString *)stringByUTF8Encoding{
     return NSString.initByUTF8Data(self);
 }

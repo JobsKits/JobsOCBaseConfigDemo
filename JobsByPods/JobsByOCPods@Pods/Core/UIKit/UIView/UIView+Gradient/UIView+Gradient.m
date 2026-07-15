@@ -8,7 +8,6 @@
 #import "UIView+Gradient.h"
 
 @implementation UIView (Gradient)
-
 +(void)setView:(UIView *)view
          layer:(CALayer *)layer
   gradientLayer:(UIColor *)startColor
@@ -16,17 +15,13 @@
     //初始化CAGradientlayer对象，使它的大小为UIView的大小
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     gradientLayer.byFrame(view.bounds);
-
-    
     //将CAGradientlayer对象添加在我们要设置背景色的视图的layer层
 //    [view.layer addSublayer:gradientLayer];
     [view.layer insertSublayer:gradientLayer
                          below:layer];
-    
     //设置渐变区域的起始和终止位置（范围为0-1）
     gradientLayer.startPoint = CGPointMake(0, 0);
     gradientLayer.endPoint = CGPointMake(0, 1);
-    
     //设置颜色数组
     gradientLayer.colors = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
         data.add((__bridge id)startColor.CGColor);

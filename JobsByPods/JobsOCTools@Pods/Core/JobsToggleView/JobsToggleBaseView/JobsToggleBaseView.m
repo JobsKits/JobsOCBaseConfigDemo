@@ -34,7 +34,6 @@ JobsToggleNavViewProtocolSynthesize
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-
     };return self;
 }
 
@@ -61,7 +60,6 @@ JobsToggleNavViewProtocolSynthesize
         @jobs_strongify(self)
         self.taggedNavDatas = model;
         self.taggedNavView.byAlpha(1);
-
         self.makeScrollContentViewsFrameBy(self.refreshScrollContentViews(model));/// 可滑动子View的Frame
         self.configBgScroll(self.refreshScrollContentViews(model)).alpha = 1;/// 配置显示的Scroll
         self.switchViewsBy(0);/// 当前显示的子View
@@ -160,7 +158,6 @@ JobsToggleNavViewProtocolSynthesize
         return jobsMakeToggleNavView(^(__kindof JobsToggleNavView * _Nullable taggedNavView) {
             @jobs_strongify(self)
             taggedNavView.byBgColor(self.taggedNavViewBgColor);
-
             taggedNavView.btn_each_offset = self.btn_each_offset; /// 滑块之间的距离
             taggedNavView.sliderColor = self.sliderColor; /// 滑块颜色
             taggedNavView.sliderW = self.sliderW; /// 滑块宽度

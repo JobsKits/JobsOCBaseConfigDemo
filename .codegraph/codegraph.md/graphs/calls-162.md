@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:ASRangeController::_updateVisibleNodeIndexPaths<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:201"]
-  T1["function:ASInterfaceStateIncludesVisible<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNodeExtras.h:34"]
+  S1["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T1["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S1 -->|calls| T1
-  S2["method:ASRangeController::_updateVisibleNodeIndexPaths<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:201"]
-  T2["function:ASInterfaceStateIncludesVisible<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNodeExtras.h:34"]
+  S2["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T2["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S2 -->|calls| T2
-  S3["method:ASRangeController::_updateVisibleNodeIndexPaths<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:201"]
-  T3["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S3["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T3["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S3 -->|calls| T3
-  S4["method:ASRangeController::_updateVisibleNodeIndexPaths<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:201"]
-  T4["method:ASRangeController::updateRangeController:withScrollableDirections:scrollDirection:rangeMode:displayTuningParameters:preloadTuningParameters:interfaceState:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Debug/AsyncDisplayKit+Debug.mm:264"]
+  S4["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T4["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S4 -->|calls| T4
-  S5["method:ASRangeController::scheduledNodesDidDisplay:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:452"]
-  T5["method:ASRangeController::setNeedsUpdate<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:132"]
+  S5["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T5["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S5 -->|calls| T5
-  S6["method:ASRangeController::clearContents<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:516"]
-  T6["function:ASInterfaceStateIncludesDisplay<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNodeExtras.h:39"]
+  S6["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T6["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S6 -->|calls| T6
-  S7["method:ASRangeController::clearPreloadedData<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:527"]
-  T7["function:ASInterfaceStateIncludesPreload<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNodeExtras.h:44"]
+  S7["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T7["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S7 -->|calls| T7
-  S8["method:ASRangeController::allRangeControllersWeakSet<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:540"]
-  T8["method:ASRangeController::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:63"]
+  S8["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T8["method:ASTextRange::end<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextInput.mm:74"]
   S8 -->|calls| T8
-  S9["method:ASRangeController::allRangeControllersWeakSet<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:540"]
-  T9["method:ASRangeController::registerSharedApplicationNotifications<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:551"]
+  S9["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T9["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S9 -->|calls| T9
-  S10["method:ASRangeController::didReceiveMemoryWarning:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:568"]
-  T10["method:ASWeakSet::allObjects<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASWeakSet.mm:42"]
+  S10["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T10["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S10 -->|calls| T10
-  S11["method:ASRangeController::didReceiveMemoryWarning:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:568"]
-  T11["method:ASRangeController::allRangeControllersWeakSet<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:540"]
+  S11["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T11["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S11 -->|calls| T11
-  S12["method:ASRangeController::didReceiveMemoryWarning:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:568"]
-  T12["function:ASInterfaceStateIncludesDisplay<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNodeExtras.h:39"]
+  S12["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T12["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S12 -->|calls| T12
-  S13["method:ASRangeController::didReceiveMemoryWarning:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:568"]
-  T13["method:ASRangeController::interfaceState<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:119"]
+  S13["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T13["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S13 -->|calls| T13
-  S14["method:ASRangeController::didReceiveMemoryWarning:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:568"]
-  T14["method:ASRangeController::updateIfNeeded<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:144"]
+  S14["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T14["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S14 -->|calls| T14
-  S15["method:ASRangeController::didEnterBackground:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:583"]
-  T15["method:ASWeakSet::allObjects<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASWeakSet.mm:42"]
+  S15["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T15["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S15 -->|calls| T15
-  S16["method:ASRangeController::didEnterBackground:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:583"]
-  T16["method:ASRangeController::allRangeControllersWeakSet<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:540"]
+  S16["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T16["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S16 -->|calls| T16
-  S17["method:ASRangeController::didEnterBackground:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:583"]
-  T17["function:ASInterfaceStateIncludesVisible<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNodeExtras.h:34"]
+  S17["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T17["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S17 -->|calls| T17
-  S18["method:ASRangeController::didEnterBackground:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:583"]
-  T18["method:ASRangeController::interfaceState<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:119"]
+  S18["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T18["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S18 -->|calls| T18
-  S19["method:ASRangeController::didEnterBackground:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:583"]
-  T19["method:ASRangeController::updateIfNeeded<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:144"]
+  S19["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T19["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S19 -->|calls| T19
-  S20["method:ASRangeController::willEnterForeground:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:606"]
-  T20["method:ASWeakSet::allObjects<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASWeakSet.mm:42"]
+  S20["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T20["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S20 -->|calls| T20
-  S21["method:ASRangeController::willEnterForeground:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:606"]
-  T21["method:ASRangeController::allRangeControllersWeakSet<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:540"]
+  S21["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T21["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S21 -->|calls| T21
-  S22["method:ASRangeController::willEnterForeground:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:606"]
-  T22["function:ASInterfaceStateIncludesVisible<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNodeExtras.h:34"]
+  S22["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T22["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S22 -->|calls| T22
-  S23["method:ASRangeController::willEnterForeground:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:606"]
-  T23["method:ASRangeController::interfaceState<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:119"]
+  S23["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T23["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S23 -->|calls| T23
-  S24["method:ASRangeController::willEnterForeground:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:606"]
-  T24["method:ASRangeController::updateIfNeeded<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:144"]
+  S24["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h:1"]
+  T24["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
   S24 -->|calls| T24
-  S25["method:ASRangeController::descriptionWithIndexPaths:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:634"]
-  T25["method:ASRangeController::description<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASRangeController.mm:648"]
+  S25["method:_ASCollectionReusableView::prepareForReuse<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASCollectionReusableView.mm:35"]
+  T25["method:_ASCollectionReusableView::prepareForReuse<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/_ASCollectionReusableView.mm:35"]
   S25 -->|calls| T25
 ```
 

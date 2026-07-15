@@ -26,7 +26,6 @@ Prop_assign()NSTimeInterval timeout;
 Prop_assign()NSUInteger retryCount;
 Prop_assign()NSInteger priority;
 Prop_copy(nullable)JobsBluetoothResponseMatcherBlock responseMatcher;
-
 Prop_copy(readonly)JobsBluetoothCommand *(^byIdentifier)(NSString *identifier);
 Prop_copy(readonly)JobsBluetoothCommand *(^byPayload)(NSData *payload);
 Prop_copy(readonly)JobsBluetoothCommand *(^byTimeout)(NSTimeInterval timeout);

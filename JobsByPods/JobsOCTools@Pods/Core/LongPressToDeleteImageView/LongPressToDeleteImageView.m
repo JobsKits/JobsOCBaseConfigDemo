@@ -10,7 +10,6 @@
 #define angelToRandian(x) ((x)/180.0 * M_PI)
 
 @implementation LongPressToDeleteImageView
-
 - (instancetype)init{
     if (self = [super init]) {
         self.userInteractionEnabled = YES;
@@ -33,7 +32,6 @@
         anim.duration = 0.2;
         [self.layer addAnimation:anim forKey:nil];
         self.byHidden(NO);
-
     }
 }
 //// 恢复抖动

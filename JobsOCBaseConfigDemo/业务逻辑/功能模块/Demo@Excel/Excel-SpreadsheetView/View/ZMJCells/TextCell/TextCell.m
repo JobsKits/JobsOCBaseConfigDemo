@@ -14,7 +14,6 @@ Prop_strong()UIView *bgView;
 @end
 
 @implementation TextCell
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.selectedBackgroundView = self.bgView;
@@ -32,7 +31,6 @@ Prop_strong()UIView *bgView;
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     self.label.byFrame(CGRectInset(self.bounds, 4, 2));
-
 }
 #pragma mark —— lazyLoad
 -(UIView *)bgView{

@@ -15,7 +15,6 @@ Prop_strong(readwrite) NSPointerArray *inputFieldPointerArray;
 @end
 
 @implementation JobsOCKeyboardConfig
-
 -(instancetype)init{
     if (self = [super init]) {
         _followViewHashTable = NSHashTable.weakObjectsHashTable;

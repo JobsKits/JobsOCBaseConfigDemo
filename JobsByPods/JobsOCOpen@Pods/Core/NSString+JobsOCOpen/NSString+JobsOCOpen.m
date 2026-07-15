@@ -15,7 +15,6 @@ Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
 @end
 
 @implementation _JobsOCOpenMailProxy
-
 +(instancetype)shared{
     static _JobsOCOpenMailProxy *proxy = nil;
     static dispatch_once_t onceToken;
@@ -37,7 +36,6 @@ Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
 @end
 
 @implementation NSString (JobsOCOpen)
-
 -(JobsOCOpenResult)jobs_open{
     return [self jobs_openWithOptions:nil completion:nil];
 }
@@ -171,7 +169,6 @@ Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
     if (body.length) [items addObject:[NSURLQueryItem queryItemWithName:@"body" value:body]];
     if (cc.count) [items addObject:[NSURLQueryItem queryItemWithName:@"cc" value:[cc componentsJoinedByString:@","]]];
     if (bcc.count) [items addObject:[NSURLQueryItem queryItemWithName:@"bcc" value:[bcc componentsJoinedByString:@","]]];
-
     NSURLComponents *components = NSURLComponents.new;
     components.scheme = @"mailto";
     components.path = [to componentsJoinedByString:@","];

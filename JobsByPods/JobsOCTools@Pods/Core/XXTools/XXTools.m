@@ -33,7 +33,6 @@ Prop_strong()UILabel *lab2;
                                     width,
                                     width);
     self.labView.byBgColor(JobsYellowColor);
-
     self.labView.clipsToBounds = YES;
     self.labView.layer.cornerRadius = cornerRadius;
     self.labView.transform = CGAffineTransformMakeRotation(-M_PI_4);
@@ -65,7 +64,6 @@ Prop_strong()UILabel *lab2;
 -(UIImageView *)labView{
     if (!_labView) {
         _labView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-            
         });
     };return _labView;
 }
@@ -73,7 +71,6 @@ Prop_strong()UILabel *lab2;
 -(UILabel *)lab2{
     if (!_lab2) {
         _lab2 = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            
         });
     };return _lab2;
 }

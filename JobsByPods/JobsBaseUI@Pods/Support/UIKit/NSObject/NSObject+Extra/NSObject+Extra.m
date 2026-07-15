@@ -104,7 +104,6 @@
             UIImage *fileImg = [UIImage imageWithContentsOfFile:raw];
             if (fileImg) { return fileImg; }
         }
-
         if (!named && isValue(self)) {
             JobsLog(@"文件名为%@的图片获取失败，请检查", self);
         };return nil;
@@ -240,7 +239,6 @@
             JobsRetIDByIDBlock block = [self valueForKey:@"jobsBackBlock"];
             if (block) block(sender);
         }
-
         UIViewController *vc = nil;
         if ([self isKindOfClass:UIViewController.class]) {
             vc = (UIViewController *)self;
@@ -251,7 +249,6 @@
             }
             vc = (UIViewController *)responder;
         }
-
         if (vc.navigationController) {
             [vc.navigationController popViewControllerAnimated:YES];
         }else if (vc.presentingViewController){
@@ -268,7 +265,6 @@
         orientation = windowScene.interfaceOrientation;
         if (orientation != UIInterfaceOrientationUnknown) break;
     }
-
     switch (orientation) {
         case UIInterfaceOrientationLandscapeLeft:
         case UIInterfaceOrientationLandscapeRight:

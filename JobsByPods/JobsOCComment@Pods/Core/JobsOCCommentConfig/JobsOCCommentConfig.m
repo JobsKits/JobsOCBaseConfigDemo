@@ -8,7 +8,6 @@
 #import "JobsOCCommentConfig.h"
 
 @implementation JobsOCCommentConfig
-
 +(instancetype)defaultConfig{
     JobsOCCommentConfig *config = JobsOCCommentConfig.new;
     config.mode = JobsOCCommentModeNetEase;

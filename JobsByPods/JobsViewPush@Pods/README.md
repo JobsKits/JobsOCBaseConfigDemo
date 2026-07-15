@@ -1,6 +1,6 @@
 # `JobsViewPush`
 
-同时提供 `JobsSideDrawer`：支持上、下、左、右、跟随或固定内容、方向轴推出比例以及原路关闭。
+同时提供 `JobsSideDrawer`：支持上、下、左、右、跟随或固定内容、方向轴推出比例、边缘拖出以及沿原路拖回；交互式开关默认开启，可通过 `allowsInteractiveTransition` 配置。
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 

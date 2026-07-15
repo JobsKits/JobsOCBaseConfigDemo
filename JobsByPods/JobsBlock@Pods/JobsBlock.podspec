@@ -30,6 +30,7 @@ UIKit maker callbacks and UIView animation / transition signatures are centraliz
   spec.frameworks = [
     'Foundation',
     'UIKit',
+    'CoreMotion',
     'MessageUI',
     'WebKit',
     'QuartzCore',

@@ -13,7 +13,6 @@
 @end
 
 @implementation TDDrawingNode
-
 -(instancetype)init {
     if (self = [super init]) {
         self.displaysAsynchronously = YES;                       // 开启异步绘制

@@ -44,12 +44,10 @@ Prop_copy(nullable)NSArray <NSString *>*normal_titles;// title
 Prop_copy(nullable)NSArray <UIFont *>*normal_titleFonts;// titleFont
 Prop_copy(nullable)NSArray <UIColor *>*normal_titleCors;// titleCor
 Prop_copy(nullable)NSArray <NSAttributedString *>*normal_attributedTitles;// attributedTitle
-
 Prop_copy(nullable)NSArray <NSString *>*normal_subTitles;// subTitle
 Prop_copy(nullable)NSArray <UIFont *>*normal_subTitleFonts;// subTitleFont
 Prop_copy(nullable)NSArray <UIColor *>*normal_subTitleCors;// subTitleCor
 Prop_copy(nullable)NSArray <NSAttributedString *>*normal_attributedSubtitles;// attributedSubtitle
-
 Prop_copy(nullable)NSArray <UIColor *>*normal_baseBackgroundColors;// baseBackgroundColor
 Prop_copy(nullable)NSArray <UIImage *>*normal_backgroundImages;// backgroundImage
 Prop_copy(nullable)NSArray <UIImage *>*normal_images;// jobsResetBtnImage
@@ -59,12 +57,10 @@ Prop_copy(nullable)NSArray <NSString *>*selected_titles;// selectedTitle
 Prop_copy(nullable)NSArray <UIFont *>*selected_titleFonts;// selectedTitleFont
 Prop_copy(nullable)NSArray <UIColor *>*selected_titleCors;// selectedTitleCor
 Prop_copy(nullable)NSArray <NSAttributedString *>*selected_attributedTitles;// selectedAttributedSubTitle
-
 Prop_copy(nullable)NSArray <NSString *>*selected_subTitles;// selectedSubTitle
 Prop_copy(nullable)NSArray <UIFont *>*selected_subTitleFonts;// selectedSubTitleFont
 Prop_copy(nullable)NSArray <UIColor *>*selected_subTitleCors;// selectedSubTitleCor
 Prop_copy(nullable)NSArray <NSAttributedString *>*selected_attributedSubtitles;// normal_attributedSubtitles
-
 Prop_copy(nullable)NSArray <UIColor *>*selected_baseBackgroundColors;// selectedBaseBackgroundColor
 Prop_copy(nullable)NSArray <UIImage *>*selected_backgroundImages;// highlightBackgroundImage
 Prop_copy(nullable)NSArray <UIImage *>*selected_Images;// highlightImage

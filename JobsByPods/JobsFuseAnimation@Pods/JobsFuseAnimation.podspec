@@ -8,10 +8,10 @@ Pod::Spec.new do |spec|
   )
 
   spec.name             = 'JobsFuseAnimation'
-  spec.version          = '1.0.0'
+  spec.version          = '1.1.0'
   spec.summary          = 'Long press fuse/ring animations for UIView in Objective-C.'
   spec.description      = <<-DESC
-JobsFuseAnimation provides chainable Objective-C UIView animations for long-press fuse ring growth, press-scale feedback and tap sound.
+JobsFuseAnimation provides chainable Objective-C UIView animations for long-press fuse ring growth, press-scale feedback, reusable bubble emission and tap sound.
   DESC
   spec.homepage         = 'https://example.local/JobsFuseAnimation'
   spec.license          = { :type => 'MIT', :file => 'LICENSE' }

@@ -31,9 +31,7 @@ static inline void MJRefreshExtraFeedbackIfNeeded(MJRefreshConfigModel *config) 
     }
 }
 
-
 @implementation MJRefreshAutoStateFooter (Extra)
-
 -(JobsRetMJRefreshAutoStateFooterByRefreshConfigModelBlock _Nonnull)byMJRefreshFooterConfigModel{
     @jobs_weakify(self)
     return ^__kindof MJRefreshAutoStateFooter *_Nullable(MJRefreshConfigModel *_Nullable config){

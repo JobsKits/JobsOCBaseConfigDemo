@@ -31,7 +31,6 @@
 #import "JobsClockViewHeader.h"
 #endif
 
-
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else

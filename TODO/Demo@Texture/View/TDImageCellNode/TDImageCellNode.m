@@ -8,7 +8,6 @@
 #import "TDImageCellNode.h"
 
 @implementation TDImageCellNode
-
 -(instancetype)initWithImage:(UIImage *)img title:(NSString *)title {
     if (self = [super init]) {
         self.automaticallyManagesSubnodes = YES;
@@ -16,12 +15,10 @@
         self.image = jobsMakeImageNode(^(ASImageNode * _Nullable node) {
             node.image = img;
             node.byContentMode(UIViewContentModeScaleAspectFill);
-
             node.clipsToBounds = YES;
             node.cornerRadius = 12.0;
             node.placeholderColor = UIColor.secondarySystemFillColor;
         });
-
         self.badge = jobsMakeTextNode(^(ASTextNode * _Nullable node) {
             node.attributedText = [[NSAttributedString alloc] initWithString:title
                                                                     attributes:@{

@@ -40,7 +40,6 @@
                 .byAdd(^(MASConstraintMaker *make) {
                     make.edges.equalTo(self);
                 });
-
             self->_cardLab = nil;/// removeFromSuperview 和 alpha = 0 都没有办法达到 nil 的效果
         });
     };return _cardImageView;

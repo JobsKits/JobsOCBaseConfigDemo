@@ -15,7 +15,6 @@ Prop_strong() NSURL *directoryURL;
 @end
 
 @implementation JobsOCSplashMediaCache
-
 +(instancetype)shared {
     static JobsOCSplashMediaCache *cache = nil;
     static dispatch_once_t onceToken;
@@ -45,7 +44,6 @@ Prop_strong() NSURL *directoryURL;
         if (completion) completion(cachedURL, nil);
         return nil;
     }
-
     NSURLSessionDownloadTask *task = [NSURLSession.sharedSession downloadTaskWithURL:remoteURL completionHandler:^(NSURL *temporaryURL, NSURLResponse *response, NSError *error) {
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -53,7 +51,6 @@ Prop_strong() NSURL *directoryURL;
             });
             return;
         }
-
         if (!temporaryURL) {
             NSError *emptyError = [NSError errorWithDomain:@"JobsOCSplash.Download" code:-1 userInfo:@{NSLocalizedDescriptionKey: @"Remote media download returned no file."}];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -61,7 +58,6 @@ Prop_strong() NSURL *directoryURL;
             });
             return;
         }
-
         NSURL *destinationURL = [self localFileURLForRemoteURL:remoteURL];
         NSError *moveError = nil;
         if ([self.fileManager fileExistsAtPath:destinationURL.path]) {

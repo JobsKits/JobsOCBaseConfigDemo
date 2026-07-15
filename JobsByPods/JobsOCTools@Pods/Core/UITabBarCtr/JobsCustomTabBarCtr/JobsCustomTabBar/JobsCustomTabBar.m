@@ -23,7 +23,6 @@ static JobsCustomTabBarConfig *JobsCustomTabBarAppConfig(void) {
 @end
 
 @implementation JobsCustomTabBar
-
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.setup();
@@ -78,36 +77,29 @@ static JobsCustomTabBarConfig *JobsCustomTabBarAppConfig(void) {
         view.addSubview(self);
         if(!jobsZeroRectValue(config.tabBarFrame)){
             self.byFrame(config.tabBarFrame);
-
         }else{
             [self mas_makeConstraints:^(MASConstraintMaker *make) {
-                
                 if(config.tabBarX){
                     make.left.mas_equalTo(config.tabBarX);
                 }else{
                     make.centerX.equalTo(view);
                 }
-                
                 if (config.tabBarY) {
                     make.top.mas_equalTo(config.tabBarY);
                 }else{
                     make.bottom.equalTo(view);
                 }
-                
                 if (!jobsZeroPointValue(config.tabBarOrigin)) {
                     make.left.mas_equalTo(config.tabBarOrigin.x);
                     make.top.mas_equalTo(config.tabBarOrigin.y);
                 }
-                
                 if (!jobsZeroSizeValue(config.tabBarSize)) {
                     make.size.mas_equalTo(config.tabBarSize);
                 }
-                
                 if(config.tabBarHeight){
                     // 这里使用 JobsCustomTabBarConfig.sharedManager.tabBarHeight 会崩
                     make.height.mas_equalTo(config.tabBarHeight);
                 }
-                
                 if(config.tabBarWidth){
                     // 这里使用 JobsCustomTabBarConfig.sharedManager.tabBarWidth 会崩
                     make.width.mas_equalTo(config.tabBarWidth);

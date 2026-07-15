@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_NSUSERDEFAULTS_MANAGER_BD02D64227
 
 #import <Foundation/Foundation.h>
+
 #if __has_include(<JobsModelDSL/JobsModelDSL.h>)
 #import <JobsModelDSL/JobsModelDSL.h>
 #else

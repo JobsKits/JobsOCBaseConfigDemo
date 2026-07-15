@@ -8,7 +8,6 @@
 #import "UIButton+TextView.h"
 
 @implementation UIButton (TextView)
-
 #pragma mark —— Prop_strong()BaseTextView *titleTextView;
 JobsKey(_titleTextView)
 @dynamic titleTextView;

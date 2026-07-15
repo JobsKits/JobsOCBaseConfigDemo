@@ -57,7 +57,6 @@ BaseButtonProtocol_synthesize
 -(void)layoutSubviews{
     [super layoutSubviews];
     self.backImageView.byFrame(self.imageView.frame);
-
     CGFloat countLabelWidth = 30;
     if(@available(iOS 16.0, *)){
         if (self.configuration.imagePlacement == NSDirectionalRectEdgeLeading) {
@@ -93,20 +92,16 @@ BaseButtonProtocol_synthesize
     if (selected) {  // 从取消状态到点击状态
         /// 1.隐藏点赞label
         self.countLabel.byAlpha(0);
-
         self.countLabel.byTextCor(HEXCOLOR(0xFD5656));
-
         /// 不需要动画时,返回,不需要动画说明是获取数据后的赋值操作
         if (!_isNeedAnimation) {
             self.countLabel.byAlpha(1);
-
             return;
         }
         /// 2.放大拳头动画
         [self enlargementAnimation];
         /// 开始动画时展示"+1"上升label,先隐藏它
         self.incLabel.byHidden(NO);
-
         /// 延迟这里有问题,延迟时间设置为0则没有问题,如果添加了延时时间,那么已经开始的动画无法移除
         /// 3.执行上升数字动画
         [self performSelector:@selector(countAnimation) withObject:nil afterDelay:0.0];

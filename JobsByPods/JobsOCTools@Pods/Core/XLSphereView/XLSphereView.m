@@ -20,12 +20,10 @@
 @end
 
 @implementation XLSphereView
-
 -(instancetype)init{
     if (self = [super init]) {
         UIPanGestureRecognizer *gesture = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                                   action:@selector(handlePanGesture:)];
-        
         [self addGestureRecognizer:gesture];
     };return self;
 }
@@ -38,7 +36,6 @@
         UIView *view = [tags objectAtIndex:i];
         view.center = CGPointMake(self.frame.size.width / 2., self.frame.size.height / 2.);
     }
-    
     CGFloat p1 = M_PI * (3 - sqrt(5));
     CGFloat p2 = 2. / tags.count;
     for (NSInteger i = 0; i < tags.count; i ++) {
@@ -55,10 +52,8 @@
         [UIView animateWithDuration:time delay:0. options:UIViewAnimationOptionCurveEaseOut animations:^{
             [self setTagOfPoint:point andIndex:i];
         } completion:^(BOOL finished) {
-            
         }];
     }
-    
     NSInteger a =  arc4random() % 10 - 5;
     NSInteger b =  arc4random() % 10 - 5;
     normalDirection = XLPointMake(a, b, 0);
@@ -85,7 +80,6 @@
     view.transform = CGAffineTransformScale(CGAffineTransformIdentity, transform, transform);
     view.layer.zPosition = transform;
     view.byAlpha(transform);
-
     view.userInteractionEnabled = point.z >= 0;
 }
 #pragma mark —— autoTurnRotation
@@ -134,7 +128,6 @@
         last = [gesture locationInView:self];
         [self timerStop];
         [self inertiaStop];
-        
     }else if (gesture.state == UIGestureRecognizerStateChanged) {
         CGPoint current = [gesture locationInView:self];
         XLPoint direction = XLPointMake(last.y - current.y, current.x - last.x, 0);

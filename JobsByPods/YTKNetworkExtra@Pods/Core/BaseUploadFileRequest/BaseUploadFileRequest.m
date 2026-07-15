@@ -14,7 +14,6 @@ Prop_strong()JobsFileModel *fileModel;
 @end
 
 @implementation BaseUploadFileRequest
-
 -(JobsRetRequestByFileModelBlock _Nonnull)initBy{
     @jobs_weakify(self)
     return ^__kindof BaseUploadFileRequest *_Nullable(__kindof JobsFileModel *_Nullable model){

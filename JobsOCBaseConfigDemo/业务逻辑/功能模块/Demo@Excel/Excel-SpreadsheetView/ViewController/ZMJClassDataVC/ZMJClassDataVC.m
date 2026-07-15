@@ -20,7 +20,6 @@ Prop_copy()NSString *content;
 @end
 
 @implementation ZMJClassDataVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
@@ -40,7 +39,6 @@ Prop_copy()NSString *content;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"返回".tr);
@@ -62,10 +60,8 @@ Prop_copy()NSString *content;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsRandomColor);
-
     self.makeNavByAlpha(1);
     self.spreadsheetView.byAlpha(1);
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -73,7 +69,6 @@ Prop_copy()NSString *content;
     self.byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
         navigationBar.byHidden(YES);
     });
-
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -128,7 +123,6 @@ Prop_copy()NSString *content;
         HeaderCell *cell = (HeaderCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(HeaderCell.class)
                                                                                     forIndexPath:indexPath];
         cell.label.byText(self.header[indexPath.column]);
-
         if (indexPath.column == self.sortedColumn.column) {
             cell.sortArrow.text = getSymbol(self.sortedColumn.sorting);
         } else {
@@ -138,7 +132,6 @@ Prop_copy()NSString *content;
         TextCell *cell = (TextCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(TextCell.class)
                                                                                 forIndexPath:indexPath];
         cell.label.byText(self.original_excelData.copy[indexPath.row - 1][indexPath.column]);
-
         return cell;
     }
 }
@@ -178,7 +171,6 @@ Prop_copy()NSString *content;
             make.left.right.bottom.equalTo(self.view);
             [self make:make topOffset:10];
         });
-
 //        if (@available(iOS 11.0, *)) {
 //            _spreadsheetView.frame = self.view.safeAreaLayoutGuide.layoutFrame;
 //        } else {

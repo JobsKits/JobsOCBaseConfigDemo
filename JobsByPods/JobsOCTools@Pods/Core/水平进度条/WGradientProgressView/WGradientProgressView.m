@@ -15,7 +15,6 @@ Prop_strong()UIImageView *imgV;
 @end
 
 @implementation WGradientProgressView
-
 static dispatch_once_t dispatchOnce;
 - (instancetype)init{
     if (self = [super init]) {

@@ -8,19 +8,19 @@
 #import "JobsOCSplashLocalization.h"
 
 @interface JobsOCSplashBundleToken : NSObject
+
 @end
 
 @implementation JobsOCSplashBundleToken
+
 @end
 
 @implementation JobsOCSplashLocalization
-
 +(NSString *)skipTitleWithLanguageCode:(NSString *)languageCode
                       remainingSeconds:(NSNumber *)remainingSeconds {
     NSBundle *bundle = [self localizedBundleWithLanguageCode:languageCode];
     NSString *skip = [bundle localizedStringForKey:@"jobs_splash_skip" value:@"Skip" table:nil];
     if (!remainingSeconds) return skip;
-
     NSString *format = [bundle localizedStringForKey:@"jobs_splash_countdown_format" value:@"%@ %ld" table:nil];
     return [NSString stringWithFormat:format, skip, remainingSeconds.integerValue];
 }

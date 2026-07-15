@@ -8,7 +8,6 @@
 #import "UISwipeActionsConfiguration+DSL.h"
 
 @implementation UISwipeActionsConfiguration (DSL)
-
 -(JobsRetSwipeActionsConfigurationByBOOLBlock _Nonnull)byPerformsFirstActionWithFullSwipe{
     @jobs_weakify(self)
     return ^__kindof UISwipeActionsConfiguration *_Nullable(BOOL data){

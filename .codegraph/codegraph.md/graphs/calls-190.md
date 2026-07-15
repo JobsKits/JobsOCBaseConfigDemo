@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:ASTipNode::initWithTip:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipNode.mm:16"]
-  T1["method:ASCollectionLayoutCache::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASCollectionLayoutCache.mm:35"]
+  S1["function:initWithOldData:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:136"]
+  T1["function:init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:130"]
   S1 -->|calls| T1
-  S2["method:ASTipNode::initWithTip:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipNode.mm:16"]
-  T2["method:ASControlNode::addTarget:action:forControlEvents:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASControlNode.mm:283"]
+  S2["function:initWithOldData:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:136"]
+  T2["function:init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:130"]
   S2 -->|calls| T2
-  S3["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipProvider.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipProvider.h:1"]
-  T3["method:ASTextRange::end<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextInput.mm:74"]
+  S3["function:initWithOldData:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:136"]
+  T3["function:init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:130"]
   S3 -->|calls| T3
-  S4["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipProvider.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipProvider.h:1"]
-  T4["variable:property<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h:60"]
+  S4["function:addCompletionHandler:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:164"]
+  T4["variable:completion<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASCollectionNode+Beta.h:73"]
   S4 -->|calls| T4
-  S5["method:ASTipsController::shared<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsController.mm:48"]
-  T5["method:ASTipsController::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsController.mm:60"]
+  S5["function:indexesForItemChangesOfType:inSection:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:237"]
+  T5["function:init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:130"]
   S5 -->|calls| T5
-  S6["method:ASTipsController::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsController.mm:60"]
-  T6["method:ASTipsController::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsController.mm:60"]
+  S6["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:1"]
+  T6["function:init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:130"]
   S6 -->|calls| T6
-  S7["method:ASTipsController::nodeDidAppear:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsController.mm:72"]
-  T7["method:ASDisplayNode::enableTips<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Debug/AsyncDisplayKit+Tips.mm:26"]
+  S7["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:1"]
+  T7["function:if<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/Layout/ASStackUnpositionedLayout.mm:346"]
   S7 -->|calls| T7
-  S8["method:ASTipsController::nodeDidAppear:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsController.mm:72"]
-  T8["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S8["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:1"]
+  T8["function:init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:130"]
   S8 -->|calls| T8
-  S9["method:ASTipsController::nodeDidAppear:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsController.mm:72"]
-  T9["function:ASFindWindowOfLayer<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNodeExtras.mm:256"]
+  S9["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:1"]
+  T9["method:ASIntegerMap::inverseMap<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASIntegerMap.mm:114"]
   S9 -->|calls| T9
-  S10["method:ASTipsController::windowDidBecomeVisibleWithNotification:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsController.mm:89"]
-  T10["method:ASWeakSet::removeAllObjects<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASWeakSet.mm:37"]
+  S10["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:1"]
+  T10["function:ASObjectDescriptionMakeWithoutObject<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:66"]
   S10 -->|calls| T10
-  S11["method:ASTipsController::runLoopDidTick<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsController.mm:114"]
-  T11["method:ASWeakSet::removeAllObjects<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASWeakSet.mm:37"]
+  S11["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:1"]
+  T11["method:ASTextNode::propertiesForDescription<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASTextNode.mm:312"]
   S11 -->|calls| T11
-  S12["method:ASTipsController::createTipWindowIfNeededWithFrame:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsController.mm:151"]
-  T12["method:ASTipsController::setupRunLoopObserver<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsController.mm:167"]
+  S12["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:1"]
+  T12["function:ASObjectDescriptionMake<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:71"]
   S12 -->|calls| T12
-  S13["method:ASTipsController::setupRunLoopObserver<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsController.mm:167"]
-  T13["method:ASTipsController::runLoopDidTick<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsController.mm:114"]
+  S13["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:1"]
+  T13["method:ASCellNode::propertiesForDebugDescription<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASCellNode.mm:324"]
   S13 -->|calls| T13
-  S14["method:ASTipsWindow::initWithFrame:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsWindow.mm:24"]
-  T14["method:ASCollectionLayoutCache::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASCollectionLayoutCache.mm:35"]
+  S14["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:1"]
+  T14["method:ASTextNode::propertiesForDescription<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASTextNode.mm:312"]
   S14 -->|calls| T14
-  S15["method:ASTipsWindow::hitTest:withEvent:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsWindow.mm:45"]
-  T15["method:ASTipsWindow::hitTest:withEvent:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsWindow.mm:45"]
+  S15["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:1"]
+  T15["function:init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:130"]
   S15 -->|calls| T15
-  S16["method:ASTipsWindow::didTapTipNode:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsWindow.mm:63"]
-  T16["method:ASDisplayNode::tipDisplayBlock<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Debug/AsyncDisplayKit+Tips.mm:41"]
+  S16["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:1"]
+  T16["function:NSStringFromASHierarchyChangeType<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:45"]
   S16 -->|calls| T16
-  S17["method:ASTipsWindow::layoutSubviews<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsWindow.mm:68"]
-  T17["method:ASTipsWindow::layoutSubviews<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTipsWindow.mm:68"]
+  S17["function:changes<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:723"]
+  T17["function:ASHierarchyChangeTypeIsFinal<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:35"]
   S17 -->|calls| T17
-  S18["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTwoDimensionalArrayUtils.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTwoDimensionalArrayUtils.h:1"]
-  T18["function:ASTwoDimensionalArrayDeepMutableCopy<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTwoDimensionalArrayUtils.mm:22"]
+  S18["function:changes<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:723"]
+  T18["function:NSStringFromASHierarchyChangeType<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:45"]
   S18 -->|calls| T18
-  S19["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTwoDimensionalArrayUtils.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTwoDimensionalArrayUtils.h:1"]
-  T19["function:ASElementsInTwoDimensionalArray<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTwoDimensionalArrayUtils.mm:89"]
+  S19["function:changes<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:723"]
+  T19["function:init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:130"]
   S19 -->|calls| T19
-  S20["function:ASTwoDimensionalArrayDeepMutableCopy<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTwoDimensionalArrayUtils.mm:22"]
-  T20["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S20["function:changes<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:723"]
+  T20["function:init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:130"]
   S20 -->|calls| T20
-  S21["function:ASTwoDimensionalArrayDeepMutableCopy<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASTwoDimensionalArrayUtils.mm:22"]
-  T21["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S21["function:changes<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:791"]
+  T21["function:init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:130"]
   S21 -->|calls| T21
-  S22["method:ASWeakMapEntry::initWithKey:value:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASWeakMap.mm:19"]
-  T22["method:ASWeakMap::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASWeakMap.mm:51"]
+  S22["function:changes<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:802"]
+  T22["method:NSIndexSet::as_smallDescription<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/NSIndexSet+ASHelpers.mm:68"]
   S22 -->|calls| T22
-  S23["method:ASWeakMap::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASWeakMap.mm:51"]
-  T23["method:ASWeakMap::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASWeakMap.mm:51"]
+  S23["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:1"]
+  T23["function:ASObjectDescriptionMake<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:71"]
   S23 -->|calls| T23
-  S24["method:ASWeakMap::setObject:forKey:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASWeakMap.mm:65"]
-  T24["method:ASWeakMapEntry::initWithKey:value:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASWeakMap.mm:19"]
+  S24["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:1"]
+  T24["method:ASTextNode::propertiesForDescription<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/ASTextNode.mm:312"]
   S24 -->|calls| T24
-  S25["function:compareCrossDimension<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/Layout/ASStackLayoutSpecUtilities.h:30"]
-  T25["function:crossDimension<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/Layout/ASStackLayoutSpecUtilities.h:25"]
+  S25["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/_ASHierarchyChangeSet.mm:1"]
+  T25["function:ASObjectDescriptionMake<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASObjectDescriptionHelpers.mm:71"]
   S25 -->|calls| T25
 ```
 

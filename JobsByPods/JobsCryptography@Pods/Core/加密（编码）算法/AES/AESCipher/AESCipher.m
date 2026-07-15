@@ -15,18 +15,15 @@ NSData *cipherOperation(NSData *contentData,
                         NSData *keyData,
                         CCOperation operation) {
     NSUInteger dataLength = contentData.length;
-    
     void const *initVectorBytes = kInitVector.UTF8Encoding.bytes;
     void const *contentBytes = contentData.bytes;
     void const *keyBytes = keyData.bytes;
-    
     size_t operationSize = dataLength + kCCBlockSizeAES128;
     void *operationBytes = malloc(operationSize);
     if (operationBytes == NULL) {
         return nil;
     }
     size_t actualOutSize = 0;
-    
     CCCryptorStatus cryptStatus = CCCrypt(operation,
                                           kCCAlgorithmAES,
                                           kCCOptionPKCS7Padding,
@@ -49,7 +46,6 @@ NSData *aesEncryptData(NSData *contentData,
                        NSData *keyData) {
     NSCParameterAssert(contentData);
     NSCParameterAssert(keyData);
-    
     NSString *hint = [NSString stringWithFormat:@"The key size of AES-%lu should be %lu bytes!", kKeySize * 8, kKeySize];
     NSCAssert(keyData.length == kKeySize, hint);
     return cipherOperation(contentData, keyData, kCCEncrypt);
@@ -59,7 +55,6 @@ NSData *aesDecryptData(NSData *contentData,
                        NSData *keyData) {
     NSCParameterAssert(contentData);
     NSCParameterAssert(keyData);
-    
     NSString *hint = [NSString stringWithFormat:@"The key size of AES-%lu should be %lu bytes!", kKeySize * 8, kKeySize];
     NSCAssert(keyData.length == kKeySize, hint);
     return cipherOperation(contentData, keyData, kCCDecrypt);
@@ -69,7 +64,6 @@ NSString *aesEncryptString(NSString *content,
                            NSString *key) {
     NSCParameterAssert(content);
     NSCParameterAssert(key);
-    
     NSData *contentData = content.UTF8Encoding;
     NSData *keyData = key.UTF8Encoding;
     NSData *encrptedData = aesEncryptData(contentData, keyData);
@@ -80,7 +74,6 @@ NSString *aesDecryptString(NSString *content,
                            NSString *key) {
     NSCParameterAssert(content);
     NSCParameterAssert(key);
-    
     NSData *contentData = [NSData.alloc initWithBase64EncodedString:content
                                                             options:NSDataBase64DecodingIgnoreUnknownCharacters];
     NSData *keyData = key.UTF8Encoding;

@@ -15,7 +15,6 @@
              UIView *_Nullable view) {
         @jobs_strongify(self)
         self.view.navigator.byFrame(view.bounds);
-
         view.navigator = superview.navigator;
         superview.addSubview(self.view.navigator);
     };
@@ -236,7 +235,6 @@ JobsKey(_navBarConfig)
     JobsNavBarConfig *NavBarConfig = Jobs_getAssociatedObject(_navBarConfig);
     if(!NavBarConfig){
         NavBarConfig = jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable data) {
-            
         });
         Jobs_setAssociatedRETAIN_NONATOMIC(_navBarConfig, NavBarConfig)
     };return NavBarConfig;
@@ -267,7 +265,6 @@ JobsKey(_navBar)
                                      @jobs_strongify(self)
                                      self.backBtnClickEvent(x);
                                  }).JobsNavBarCloseBtnClickBlock(^(__kindof UIButton *_Nullable x){
-                                     
                                  })).setMasonryBy(^(MASConstraintMaker *_Nonnull make){
                                      @jobs_strongify(self)
                                      make.left.right.equalTo(self.view);

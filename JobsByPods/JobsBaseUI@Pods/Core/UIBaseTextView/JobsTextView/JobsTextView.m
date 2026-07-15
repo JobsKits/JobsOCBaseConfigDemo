@@ -44,7 +44,6 @@ static dispatch_once_t static_textViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-
     };return self;
 }
 

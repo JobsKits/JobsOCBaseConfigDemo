@@ -8,7 +8,6 @@
 #import "JobsOCGraphicCaptchaConfig.h"
 
 @implementation JobsOCGraphicCaptchaConfig
-
 -(instancetype)init{
     if (self = [super init]) {
         _length = 4;

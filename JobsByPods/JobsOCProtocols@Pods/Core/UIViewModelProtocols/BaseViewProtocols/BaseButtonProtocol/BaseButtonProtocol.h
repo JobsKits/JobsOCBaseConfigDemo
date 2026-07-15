@@ -107,11 +107,9 @@ Prop_assign()CGRect btnImageViewFrame;
 Prop_assign()CGSize textLabelSize;
 Prop_assign()CGFloat textLabelFrameResetX;
 Prop_assign()CGFloat textLabelFrameResetY;
-
 Prop_assign()CGSize subTextLabelSize;
 Prop_assign()CGFloat subTextLabelFrameResetX;
 Prop_assign()CGFloat subTextLabelFrameResetY;
-
 Prop_assign()CGSize imageViewSize;
 Prop_assign()CGFloat imageViewFrameResetX;
 Prop_assign()CGFloat imageViewFrameResetY;

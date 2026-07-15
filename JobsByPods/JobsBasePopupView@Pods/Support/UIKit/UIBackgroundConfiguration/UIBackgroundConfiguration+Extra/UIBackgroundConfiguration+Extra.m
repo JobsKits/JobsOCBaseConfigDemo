@@ -8,7 +8,6 @@
 #import "UIBackgroundConfiguration+Extra.h"
 
 @implementation UIBackgroundConfiguration (Extra)
-
 - (JobsRetBackgroundConfigByCorBlock _Nonnull)byBackgroundColor {
     @jobs_weakify(self)
     return ^UIBackgroundConfiguration *(UIColor *color) {

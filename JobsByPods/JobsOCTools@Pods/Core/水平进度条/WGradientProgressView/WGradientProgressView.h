@@ -40,7 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_copy()NSString *titleStr;
 Prop_strong()UIImage *img;
-
 Prop_strong()UIFont *titleFont;
 Prop_strong()UIColor *titleColor;
 

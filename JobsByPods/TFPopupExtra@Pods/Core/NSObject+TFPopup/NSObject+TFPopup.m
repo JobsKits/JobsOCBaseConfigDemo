@@ -116,7 +116,6 @@
         @jobs_strongify(self)
         self.popupParameter.dragEnable = YES;
         self.popupParameter.backgroundColor = JobsBlackColor.colorWithAlphaComponentBy(.3f);
-
         self.popupParameter.disuseBackgroundTouchHide = NO;// 允许点击背景消失弹框
         [self checkByView:data action:^{
             @jobs_strongify(self)
@@ -133,7 +132,6 @@
         @jobs_strongify(self)
         self.popupParameter.dragEnable = YES;
         self.popupParameter.backgroundColor = JobsBlackColor.colorWithAlphaComponentBy(.3f);
-
         self.popupParameter.disuseBackgroundTouchHide = NO;/// 允许点击背景消失弹框
         [self checkByView:data action:^{
             @jobs_strongify(self)

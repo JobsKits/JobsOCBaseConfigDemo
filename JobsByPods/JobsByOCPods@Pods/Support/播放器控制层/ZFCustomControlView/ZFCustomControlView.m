@@ -26,13 +26,9 @@ Prop_strong()ZFSliderView *slider;
 Prop_strong()UILabel *totalTimeLabel;
 /// 全屏按钮
 Prop_strong()UIButton *fullScreenBtn;
-
 Prop_assign()BOOL isShow;
-
 Prop_assign()BOOL controlViewAppeared;
-
 Prop_strong()dispatch_block_t afterBlock;
-
 Prop_assign()NSTimeInterval sumTime;
 /// 底部播放进度
 Prop_strong()ZFSliderView *bottomPgrogress;
@@ -44,7 +40,6 @@ Prop_strong()UIImageView *coverImageView;
 @end
 
 @implementation ZFCustomControlView
-
 @synthesize player = _player;
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -59,13 +54,10 @@ Prop_strong()UIImageView *coverImageView;
         [self.bottomToolView addSubview:self.fullScreenBtn];
         [self addSubview:self.bottomPgrogress];
         [self addSubview:self.activity];
-
         self.autoFadeTimeInterval = 0.2;
         self.autoHiddenTimeInterval = 2.5;
-
         // 设置子控件的响应事件
         [self makeSubViewsAction];
-        
         [self resetControlView];
         self.clipsToBounds = YES;
     };return self;
@@ -145,7 +137,6 @@ Prop_strong()UIImageView *coverImageView;
 #pragma mark —— 添加子控件约束
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
     CGFloat min_x = 0;
     CGFloat min_y = 0;
     CGFloat min_w = 0;
@@ -153,74 +144,62 @@ Prop_strong()UIImageView *coverImageView;
     CGFloat min_view_w = self.bounds.size.width;
     CGFloat min_view_h = self.bounds.size.height;
     CGFloat min_margin = 9;
-    
     self.coverImageView.frame = self.bounds;
-    
     min_w = 80;
     min_h = 80;
     self.activity.frame = CGRectMake(min_x, min_y, min_w, min_h);
     self.activity.zf_centerX = self.zf_centerX;
     self.activity.zf_centerY = self.zf_centerY + 10;
-    
     min_x = 0;
     min_y = 0;
     min_w = min_view_w;
     min_h = (iPhoneX && self.player.isFullScreen) ? 80 : 40;
     self.topToolView.frame = CGRectMake(min_x, min_y, min_w, min_h);
-    
     min_x = self.player.isFullScreen ? 40: 15;
     min_y = 0;
     min_w = min_view_w - min_x - 15;
     min_h = 30;
     self.titleLabel.frame = CGRectMake(min_x, min_y, min_w, min_h);
     self.titleLabel.zf_centerY = self.topToolView.zf_centerY;
-
     min_h = (iPhoneX && self.player.isFullScreen) ? 100 : 40;
     min_x = 0;
     min_y = min_view_h - min_h;
     min_w = min_view_w;
     self.bottomToolView.frame = CGRectMake(min_x, min_y, min_w, min_h);
-    
     min_x = 0;
     min_y = 0;
     min_w = 44;
     min_h = min_w;
     self.playOrPauseBtn.frame = CGRectMake(min_x, min_y, min_w, min_h);
     self.playOrPauseBtn.center = self.center;
-    
     min_x = (iPhoneX && self.player.isFullScreen) ? 44: 15;
     min_w = 62;
     min_h = 28;
     min_y = (self.bottomToolView.zf_height - min_h)/2;
     self.currentTimeLabel.frame = CGRectMake(min_x, min_y, min_w, min_h);
-    
     min_w = 28;
     min_h = min_w;
     min_x = self.bottomToolView.zf_width - min_w - ((iPhoneX && self.player.isFullScreen) ? 44: min_margin);
     min_y = 0;
     self.fullScreenBtn.frame = CGRectMake(min_x, min_y, min_w, min_h);
     self.fullScreenBtn.zf_centerY = self.currentTimeLabel.zf_centerY;
-    
     min_w = 62;
     min_h = 28;
     min_x = self.fullScreenBtn.zf_left - min_w - 4;
     min_y = 0;
     self.totalTimeLabel.frame = CGRectMake(min_x, min_y, min_w, min_h);
     self.totalTimeLabel.zf_centerY = self.currentTimeLabel.zf_centerY;
-    
     min_x = self.currentTimeLabel.zf_right + 4;
     min_y = 0;
     min_w = self.totalTimeLabel.zf_left - min_x - 4;
     min_h = 30;
     self.slider.frame = CGRectMake(min_x, min_y, min_w, min_h);
     self.slider.zf_centerY = self.currentTimeLabel.zf_centerY;
-    
     min_x = 0;
     min_y = min_view_h - 1;
     min_w = min_view_w;
     min_h = 1;
     self.bottomPgrogress.frame = CGRectMake(min_x, min_y, min_w, min_h);
-    
     if (!self.isShow) {
         self.topToolView.zf_y = -self.topToolView.zf_height;
         self.bottomToolView.zf_y = self.zf_height;
@@ -321,7 +300,6 @@ Prop_strong()UIImageView *coverImageView;
 - (void)showTitle:(NSString *)title
    coverURLString:(NSString *)coverUrl
    fullScreenMode:(ZFFullScreenMode)fullScreenMode{
-    
     UIImage *placeholder = [ZFUtilities imageWithColor:[UIColor colorWithRed:220/255.0
                                                                        green:220/255.0
                                                                         blue:220/255.0
@@ -460,7 +438,6 @@ Prop_strong()UIImageView *coverImageView;
 
 - (void)videoPlayer:(ZFPlayerController *)videoPlayer
 presentationSizeChanged:(CGSize)size {
-    
 }
 /// 视频view即将旋转
 - (void)videoPlayer:(ZFPlayerController *)videoPlayer

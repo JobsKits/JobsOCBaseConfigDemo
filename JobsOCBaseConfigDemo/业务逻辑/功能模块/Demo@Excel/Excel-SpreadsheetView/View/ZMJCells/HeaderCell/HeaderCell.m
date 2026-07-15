@@ -12,7 +12,6 @@
 @end
 
 @implementation HeaderCell
-
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
         self.label.byAlpha(1);
@@ -39,7 +38,6 @@
     frame.origin.x = self.frame.size.width - self.sortArrow.frame.size.width - 8;
     frame.origin.y = (self.frame.size.height - self.sortArrow.frame.size.height) / 2;
     self.sortArrow.byFrame(frame);
-
 }
 #pragma mark —— lazyLoad
 @synthesize label = _label;

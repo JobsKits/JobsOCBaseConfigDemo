@@ -15,7 +15,6 @@
 @end
 
 @implementation JobsNavSettingVC
-
 -(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -129,7 +128,6 @@
                 .byHidden(!data)
                 .byAlpha(data);
         });
-
     };
 }
 

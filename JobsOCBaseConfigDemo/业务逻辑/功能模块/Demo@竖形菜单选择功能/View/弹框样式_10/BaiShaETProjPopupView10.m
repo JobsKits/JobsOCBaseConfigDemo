@@ -22,7 +22,6 @@ Prop_assign()NSInteger selectedIndex;
 @end
 
 @implementation BaiShaETProjPopupView10
-
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
@@ -211,15 +210,12 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
 }
 /// 更新移动过程的位置
 -(void)updateInteractiveMovementTargetPosition:(CGPoint)targetPosition{
-    
 }
 /// 结束移动的时候调用此方法，collectionView 会响应相应的datasource方法，collectionView:moveItemAtIndexPath:toIndexPath: 我们可以在这个方法中将移动的数据源，与目标数据源交互位置。
 -(void)endInteractiveMovement{
-    
 }
 /// 取消移动的时候调用，会返回最原始的位置
 -(void)cancelInteractiveMovement{
-    
 }
 /// 在开始移动的时候会调用这个方法，如果有特殊的单元格不想被移动可以return NO， 如果没有限制就返回YES
 -(BOOL)collectionView:(__kindof UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath{

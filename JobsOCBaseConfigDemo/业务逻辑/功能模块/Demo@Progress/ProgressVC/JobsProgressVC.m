@@ -14,7 +14,6 @@ Prop_strong()PHCycleView *progressView;
 @end
 
 @implementation JobsProgressVC
-
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -49,16 +48,12 @@ Prop_strong()PHCycleView *progressView;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsYellowColor);
-
     self.makeNavByAlpha(1);
-    
     self.progressView.byAlpha(1);
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -74,7 +69,6 @@ Prop_strong()PHCycleView *progressView;
         _progressView = [PHCycleView.alloc initWithFrame:CGRectMake(0, 0, 130, 130)];
         _progressView.center = self.view.center;
         _progressView.byBgColor([UIColor clearColor]);
-
         [_progressView setProgressColor:[UIColor blueColor]];
         _progressView.progressFont = UIFontSystemFontOfSize(30);
         _progressView.addOn(self.view);

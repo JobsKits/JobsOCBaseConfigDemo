@@ -22,7 +22,6 @@ Prop_copy()NSString *barcodeContent;
 @end
 
 @implementation JobsQRCodeDemoVC
-
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

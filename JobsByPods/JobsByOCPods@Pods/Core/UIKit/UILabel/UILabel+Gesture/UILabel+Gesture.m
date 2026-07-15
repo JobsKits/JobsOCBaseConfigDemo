@@ -8,10 +8,8 @@
 #import "UILabel+Gesture.h"
 
 @implementation UILabel (Gesture)
-
 -(void)makeLabelGesture{
     JobsLog(@"给UILabel的子类加手势");
-    
     self.numberOfTouchesRequired = 1;
     self.numberOfTapsRequired = 1;/// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
     self.minimumPressDuration = 0.1;
@@ -24,7 +22,6 @@
         return nil;
     }];
     self.longPressGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
-    
     self.tapGR_SelImp.selector = [self jobsSelectorBlock:^id _Nullable(id _Nullable target,
                                                                        UITapGestureRecognizer *_Nullable arg) {
         JobsLog(@"UILabel 的 Tap 手势");

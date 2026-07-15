@@ -8,7 +8,6 @@
 #import "HXPhotoPickerModel+DSL.h"
 
 @implementation HXPhotoPickerModel (DSL)
-
 -(JobsRetHXPhotoPickerModelByUIViewControllerPointerBlock _Nonnull)byVc{
     @jobs_weakify(self)
     return ^__kindof HXPhotoPickerModel *_Nullable(__kindof UIViewController * _Nullable data) {

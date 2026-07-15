@@ -17,7 +17,6 @@ Prop_strong()JobsAnimationLabel *animationLab;
 /// Data
 Prop_strong()NSMutableArray <NSString *>*richTextMutArr;
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
-
 Prop_strong()NSMutableArray <NSMutableArray <NSString *>*>*richTextMutArr2;
 Prop_strong()NSMutableArray <NSMutableArray <JobsRichTextConfig *>*>*richTextConfigMutArr2;
 
@@ -46,13 +45,11 @@ static dispatch_once_t static_collectionHeaderViewOnceToken;
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsWhiteColor);
-
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-
     };return self;
 }
 
@@ -76,7 +73,6 @@ static dispatch_once_t static_collectionHeaderViewOnceToken;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
         self.byBgColor(JobsRedColor);
-
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -127,7 +123,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         .byTextLabelFont(UIFontWeightRegularSize(16))
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
         .JobsBlock1(^(id _Nullable data) {
-             
         }).byBgColor(HEXCOLOR(0xFFFCF7));
 }
 #pragma mark —— lazyLoad
@@ -213,7 +208,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                          .byTargetString(self.richTextMutArr[2]);
                 }));
             })paragraphStyle:nil];
-            
             label.value = value;
             label.lastValue = (label.value * 3);
         }];

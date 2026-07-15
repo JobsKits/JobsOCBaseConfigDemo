@@ -107,11 +107,9 @@
 -(NSString *)replaceMiddleCharactersWithReplacement:(NSString *)replacement
                                               count:(NSInteger)count{
     if (self.length <= count || count <= 0) return self; // 字符串长度小于等于替换长度，或替换长度无效，直接返回原字符串
-        
     NSInteger start = (self.length - count) / 2;
     NSString *prefix = [self substringToIndex:start];
     NSString *suffix = [self substringFromIndex:start + count];
-    
     NSMutableString *result = JobsMutableString(prefix);
     for (NSInteger i = 0; i < count; i++) {
         result = result.add(replacement);
@@ -178,7 +176,6 @@
 /// @param replaceString 进行替换的备用文字资源
 +(NSString *)nullableString:(id)nullableString
               replaceString:(NSString *)replaceString{
-    
     if (isNull(replaceString)) replaceString = @"No Data".tr;
     if (isNull(nullableString)) nullableString = replaceString;
     /// 只有NSNumber 和 NSString 这两种情况
@@ -188,10 +185,8 @@
         str = str.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);// 有空格，去除空格
         return str.length == 0 ? replaceString : str;
     }
-    
     if([nullableString isKindOfClass:NSNumber.class])
         return isNull(toStringByID(nullableString)) ? replaceString : toStringByID(nullableString);
-    
     return replaceString;
 }
 /// 将某个OC字符串进行限定字符个数，二次包装以后对外输出。【截取完了以后添加替换字符】

@@ -128,13 +128,10 @@ forNavigationController:(UINavigationController *)navCtrlVC{
     UIViewController *toVC   = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containerView = transitionContext.containerView;
     CGRect screenBounds = UIScreen.mainScreen.bounds;
-
     CGRect toStartFrame = screenBounds;
     CGRect fromEndFrame = screenBounds;
-
     CGFloat w = screenBounds.size.width;
     CGFloat h = screenBounds.size.height;
-
     switch (self.direction) {
         case JobsTransitionDirectionLeft:
             toStartFrame = self.isPush ? CGRectOffset(screenBounds, -w, 0) : screenBounds;
@@ -153,26 +150,19 @@ forNavigationController:(UINavigationController *)navCtrlVC{
             fromEndFrame = self.isPush ? screenBounds : CGRectOffset(screenBounds, 0, h);
             break;
     }
-
     if (self.isPush) {
         containerView.addSubview(toVC.view);
         toVC.view.byFrame(toStartFrame);
-
     } else {
         [containerView insertSubview:toVC.view belowSubview:fromVC.view];
         toVC.view.byFrame(screenBounds);
-
     }
-
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
         if (self.isPush) {
             toVC.view.byFrame(screenBounds);
-
             fromVC.view.byFrame(screenBounds);
-
         } else {
             fromVC.view.byFrame(fromEndFrame);
-
         }
     } completion:^(BOOL finished) {
         /// 一定要调用 [transitionContext completeTransition:]，否则系统会认为转场未完成，界面卡住

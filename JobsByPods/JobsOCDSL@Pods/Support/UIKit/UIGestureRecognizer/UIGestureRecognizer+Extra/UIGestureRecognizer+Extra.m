@@ -11,7 +11,6 @@ JobsKey(JobsOCDSLGestureTargetKey)
 JobsKey(JobsOCDSLGestureVoidBlockKey)
 JobsKey(JobsOCDSLGestureRecognizerBlockKey)
 @implementation UIGestureRecognizer (Extra)
-
 -(__kindof UIGestureRecognizer *)gestureActionBy:(jobsByVoidBlock _Nonnull)block{
     self.target = self;
     Jobs_setAssociatedCOPY_NONATOMIC(JobsOCDSLGestureVoidBlockKey, block)
@@ -29,7 +28,6 @@ JobsKey(JobsOCDSLGestureRecognizerBlockKey)
 -(void)jobs_ocdsl_handleGestureAction:(__kindof UIGestureRecognizer *)gesture{
     jobsByVoidBlock voidBlock = Jobs_getAssociatedObject(JobsOCDSLGestureVoidBlockKey);
     if (voidBlock) voidBlock();
-
     jobsByGestureRecognizerBlock gestureBlock = Jobs_getAssociatedObject(JobsOCDSLGestureRecognizerBlockKey);
     if (gestureBlock) gestureBlock(gesture);
 }

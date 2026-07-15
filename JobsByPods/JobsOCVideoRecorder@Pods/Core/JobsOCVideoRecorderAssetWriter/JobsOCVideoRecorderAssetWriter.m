@@ -24,7 +24,6 @@ Prop_assign() CMTime lastPresentationTime;
 @end
 
 @implementation JobsOCVideoRecorderAssetWriter
-
 -(instancetype)initWithConfig:(JobsOCVideoRecorderConfig *)config{
     if (self = [super init]) {
         _config = config ?: JobsOCVideoRecorderConfig.defaultConfig;
@@ -47,7 +46,6 @@ Prop_assign() CMTime lastPresentationTime;
                                                 fileType:self.config.outputFileType
                                                    error:error];
     if (!self.assetWriter) return NO;
-
     CMVideoDimensions dimensions = CMVideoFormatDescriptionGetDimensions(videoFormatDescription);
     NSDictionary *compression = @{
         AVVideoAverageBitRateKey: @(self.config.videoBitrate),
@@ -64,7 +62,6 @@ Prop_assign() CMTime lastPresentationTime;
     self.videoInput.expectsMediaDataInRealTime = YES;
     self.videoInput.transform = [self transformByDeviceOrientation:deviceOrientation
                                                        frontCamera:frontCamera];
-
     NSDictionary *pixelAttributes = @{
         (NSString *)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA),
         (NSString *)kCVPixelBufferWidthKey: @(ABS(dimensions.width)),
@@ -73,7 +70,6 @@ Prop_assign() CMTime lastPresentationTime;
     self.pixelBufferAdaptor = [AVAssetWriterInputPixelBufferAdaptor assetWriterInputPixelBufferAdaptorWithAssetWriterInput:self.videoInput
                                                                                                sourcePixelBufferAttributes:pixelAttributes];
     if ([self.assetWriter canAddInput:self.videoInput]) [self.assetWriter addInput:self.videoInput];
-
     if (audioFormatDescription) {
         AudioStreamBasicDescription const *audioDescription = CMAudioFormatDescriptionGetStreamBasicDescription(audioFormatDescription);
         Float64 sampleRate = audioDescription ? audioDescription->mSampleRate : self.config.audioSampleRate;
@@ -89,7 +85,6 @@ Prop_assign() CMTime lastPresentationTime;
         self.audioInput.expectsMediaDataInRealTime = YES;
         if ([self.assetWriter canAddInput:self.audioInput]) [self.assetWriter addInput:self.audioInput];
     }
-
     self.sessionStarted = NO;
     self.firstPresentationTime = kCMTimeInvalid;
     self.lastPresentationTime = kCMTimeInvalid;

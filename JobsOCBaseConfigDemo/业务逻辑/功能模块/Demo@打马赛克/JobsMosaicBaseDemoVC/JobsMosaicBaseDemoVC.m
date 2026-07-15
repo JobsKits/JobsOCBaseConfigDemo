@@ -22,7 +22,6 @@ didFinishSavingWithError:(NSError *)error
 @end
 
 @implementation JobsMosaicBaseDemoVC
-
 @synthesize imageView = _imageView;
 @synthesize statusLabel = _statusLabel;
 @synthesize saveButton = _saveButton;

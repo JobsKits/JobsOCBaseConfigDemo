@@ -8,7 +8,6 @@
 #import "CAPropertyAnimation+Extra.h"
 
 @implementation CAPropertyAnimation (Extra)
-
 -(JobsRetCAPropertyAnimationByStrBlock _Nonnull)keyPathBy{
     @jobs_weakify(self)
     return ^__kindof CAPropertyAnimation *_Nullable(NSString *_Nullable data){

@@ -319,7 +319,6 @@
     return ^(BOOL breakLine) {
         @jobs_strongify(self)
         self.titleLabel.byNumberOfLines(!breakLine);
-
         return self;
     };
 }

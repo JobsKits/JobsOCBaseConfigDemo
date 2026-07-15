@@ -25,7 +25,6 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-
     };return self;
 }
 
@@ -39,7 +38,6 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -136,7 +134,6 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
                 .bySubscribeNext(^(id value) {
                     @jobs_strongify(self)
                     if (!self) return;
-
                     NSValue *scrollValue = (NSValue *)value;
                     self.contentView.tableView.contentOffset = scrollValue.CGPointValue;
                 })
@@ -164,7 +161,6 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
                 .bySubscribeNext(^(id value) {
                     @jobs_strongify(self)
                     if (!self) return;
-
                     NSValue *scrollValue = (NSValue *)value;
                     self.contentView.configureContentOffSet(scrollValue.CGPointValue);
                 })
@@ -194,7 +190,6 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
                         .bySubscribeNext(^(id value) {
                             @jobs_strongify(self)
                             if (!self) return;
-
                             NSValue *scrollValue = (NSValue *)value;
                             self.leftListView.tableView.contentOffset = scrollValue.CGPointValue;
                         })
@@ -204,7 +199,6 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
                         .bySubscribeNext(^(id value) {
                             @jobs_strongify(self)
                             if (!self) return;
-
                             NSValue *scrollValue = (NSValue *)value;
                             self.headView.collectionView.contentOffset = scrollValue.CGPointValue;
                         })
@@ -216,7 +210,6 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
 -(JobsExcelConfigureViewModel *)excelConfigureDatas{
     if(!_excelConfigureDatas){
         _excelConfigureDatas = jobsMakeExcelConfigureViewModel(^(JobsExcelConfigureViewModel * _Nullable data) {
-            
         });
     };return _excelConfigureDatas;
 }

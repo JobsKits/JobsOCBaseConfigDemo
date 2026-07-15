@@ -8,7 +8,6 @@
 #import "NSData+Extra.h"
 
 @implementation NSData (Extra)
-
 -(NSString *)stringByUTF8Encoding{
     return NSString.initByUTF8Data(self);
 }

@@ -8,7 +8,6 @@
 #import "JXCategoryTitleView+Extra.h"
 
 @implementation JXCategoryTitleView (Extra)
-
 -(JobsRetCategoryTitleViewByCorBlock _Nonnull)byTitleSelectedColor{
     @jobs_weakify(self)
     return ^__kindof JXCategoryTitleView *_Nullable(__kindof UIColor *_Nullable cor){

@@ -42,7 +42,6 @@ UITextFieldProtocol_synthesize_part2
         self.bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
             view.byBgColor(JobsYellowColor.colorWithAlphaComponentBy(.3f));
         }));
-
         self.leftSwipeSettings.transition = MGSwipeTransitionBorder;
         self.rightSwipeSettings.transition = MGSwipeTransitionDrag;
         self.leftExpansion.buttonIndex = 0;
@@ -96,13 +95,11 @@ UITextFieldProtocol_synthesize_part2
             }else{
                 self.infoLocation = InfoLocation_Unknown;
             }
-            
             self.senderChatTextStr = chatInfoModel.chatTextStr;
             self.senderChatTextTimeStr = chatInfoModel.chatTextTimeStr;
             self.senderChatUserIconIMG = chatInfoModel.userIconIMG;
             self.senderUserNameStr = chatInfoModel.userNameStr;
             self.identification = chatInfoModel.identification;
-            
     #warning 这里需要被修改
             //先定宽，再定高
     //        CGFloat contentWidthTemp = [self.senderChatTextStr getContentHeightOrWidthWithParagraphStyleLineSpacing:0
@@ -116,10 +113,8 @@ UITextFieldProtocol_synthesize_part2
     //                                                                                    calcLabelHeight_Width:CalcLabelHeight
     //                                                                                                     font:NULL
     //                                                                             boundingRectWithHeight_Width:self.contentWidth];
-            
             JobsLog(@"contentHeight = %f",self.contentHeight);
             JobsLog(@"contentWidth = %f",self.contentWidth);
-            
             self.iconIMGV
                     .imageURL(chatInfoModel.userIconURLStr.jobsUrl)
                     .placeholderImage(chatInfoModel.userIconIMG)
@@ -135,13 +130,9 @@ UITextFieldProtocol_synthesize_part2
                         }
                     }).load();
             self.chatUserNameLab.byAlpha(self.isShowChatUserName);
-
             self.chatBubbleIMGV.byAlpha(1);
-
             self.chatContentLab.byAlpha(1);
-
             self.timeLab.byAlpha(1);
-
         };return self;
     };
 }
@@ -258,7 +249,6 @@ UITextFieldProtocol_synthesize_part2
                     switch (self.infoLocation) {
                         case InfoLocation_Left:{
                             make.left.equalTo(self.iconIMGV.mas_right).offset(5);
-
                         }break;
                         case InfoLocation_Right:{
                             make.right.equalTo(self.iconIMGV.mas_left).offset(-5);

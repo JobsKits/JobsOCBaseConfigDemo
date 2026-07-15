@@ -8,7 +8,6 @@
 #import "TransitionAnimation.h"
 
 @implementation TransitionAnimation
-
 - (instancetype)initWithTargetEdge:(UIRectEdge)targetEdge{
     if (self = [self init]) {
         _targetEdge = targetEdge;
@@ -22,14 +21,10 @@
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext{
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    
-    
     UIView *fromView = [transitionContext viewForKey:UITransitionContextFromViewKey];
     UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
-    
     CGRect fromFrame = [transitionContext initialFrameForViewController:fromViewController];
     CGRect toFrame = [transitionContext finalFrameForViewController:toViewController];
-    
     CGVector offset;
     if (self.targetEdge == UIRectEdgeLeft){
         offset = CGVectorMake(-1.f, 0.f);
@@ -38,13 +33,10 @@
     }else{
         NSAssert(NO, @"targetEdge must be one of UIRectEdgeLeft, or UIRectEdgeRight.");
     }
-    
     fromView.byFrame(fromFrame);
-
     toView.frame = CGRectOffset(toFrame,
                                 toFrame.size.width * offset.dx * -1,
                                 toFrame.size.height * offset.dy * -1);
-    
     toView.addOn(transitionContext.containerView);
     NSTimeInterval transitionDuration = [self transitionDuration:transitionContext];
     [UIView animateWithDuration:transitionDuration animations:^{
@@ -52,7 +44,6 @@
                                       fromFrame.size.width * offset.dx,
                                       fromFrame.size.height * offset.dy);
         toView.byFrame(toFrame);
-
     } completion:^(BOOL finished) {
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];

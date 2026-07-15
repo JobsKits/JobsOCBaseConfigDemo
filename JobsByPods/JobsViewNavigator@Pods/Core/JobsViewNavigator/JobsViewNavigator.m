@@ -16,10 +16,8 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
 @end
 
 @implementation JobsViewNavigator
-
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-
     };return self;
 }
 
@@ -31,20 +29,15 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
         UIView *currentTopView = self.viewStack.lastObject;
         self.viewStack.add(nextView);
         self.addSubview(nextView);
-        
         CGRect offScreenRight = CGRectOffset(self.bounds,
                                              self.bounds.size.width, 0);
         nextView.byFrame(offScreenRight);
-
-        
         jobsByVoidBlock transitionBlock = ^{
             @jobs_strongify(self)
             nextView.byFrame(self.bounds);
-
             currentTopView.frame = CGRectOffset(self.bounds,
                                                 -self.bounds.size.width, 0);
         };
-        
         if (animated) {
             [UIView animateWithDuration:0.3
                              animations:transitionBlock
@@ -60,19 +53,14 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
     return ^JobsViewNavigator *_Nonnull(BOOL animated) {
         @jobs_strongify(self)
         if (self.viewStack.count == 0) return self; // Prevent popping when there's no view
-        
         UIView *topView = self.viewStack.lastObject;
         [self.viewStack removeLastObject];
         UIView *previousView = self.viewStack.lastObject;
-
         jobsByVoidBlock transitionBlock = ^{
             @jobs_strongify(self)
             topView.byFrame(CGRectOffset(self.bounds, self.bounds.size.width, 0));
-
             previousView.byFrame(self.bounds);
-
         };
-        
         jobsByBOOLBlock completionBlock = ^(BOOL finished) {
             @jobs_strongify(self)
             [topView removeFromSuperview];
@@ -81,7 +69,6 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
                 [self removeFromSuperview];
             }
         };
-        
         if (animated) {
             [UIView animateWithDuration:0.3
                              animations:transitionBlock
@@ -98,20 +85,16 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
     return ^JobsViewNavigator *_Nonnull(BOOL animated) {
         @jobs_strongify(self)
         if (self.viewStack.count <= 1) return self; // 根视图或无视图堆栈
-        
         while (self.viewStack.count > 1) {
             UIView *topView = self.viewStack.lastObject;
             [self.viewStack removeLastObject];
             [topView removeFromSuperview];
         }
-        
         UIView *rootView = self.viewStack.firstObject;
         jobsByVoidBlock transitionBlock = ^{
             @jobs_strongify(self)
             rootView.byFrame(self.bounds);
-
         };
-        
         if (animated) {
             [UIView animateWithDuration:0.3
                              animations:transitionBlock

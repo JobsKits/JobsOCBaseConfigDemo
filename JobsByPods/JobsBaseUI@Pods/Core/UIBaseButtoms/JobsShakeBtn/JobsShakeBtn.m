@@ -22,7 +22,6 @@ Prop_strong()CAKeyframeAnimation *anim;
 @end
 
 @implementation JobsShakeBtn
-
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
 }
@@ -34,7 +33,6 @@ Prop_strong()CAKeyframeAnimation *anim;
     self.imageView.y = 0;
     self.imageView.width = self.width;
     self.imageView.height = self.width;
-
     self.titleLabel.x = 0;
     self.titleLabel.width = self.width;
     if (self.width >= self.height) {
@@ -44,7 +42,6 @@ Prop_strong()CAKeyframeAnimation *anim;
         self.titleLabel.y = self.imageView.height;
         self.titleLabel.height = self.height - self.titleLabel.y;
     }
-
     self.titleLabel.byTextAlignment(NSTextAlignmentCenter);
     [self bringSubviewToFront:_iconBtn];
 }

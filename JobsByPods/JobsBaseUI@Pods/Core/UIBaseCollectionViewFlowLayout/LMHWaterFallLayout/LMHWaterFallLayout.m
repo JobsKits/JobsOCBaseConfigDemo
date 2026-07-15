@@ -31,7 +31,6 @@ Prop_assign()CGFloat contentHeight;
 @end
 
 @implementation LMHWaterFallLayout
-
 #pragma mark —— 数据处理
 /// 列数
 - (NSUInteger)colunmCount{
@@ -111,7 +110,6 @@ Prop_assign()CGFloat contentHeight;
     CGFloat cellX = self.edgeInsets.left + destColumn * (cellW + self.columnMargin);
     CGFloat cellY = minColumnHeight;
     if (cellY != self.edgeInsets.top) {
-        
         cellY += self.rowMargin;
     }
     attrs.frame = CGRectMake(cellX,
@@ -132,7 +130,6 @@ Prop_assign()CGFloat contentHeight;
 }
 /// 内容的高度
 - (CGSize)collectionViewContentSize{
- 
 //    CGFloat maxColumnHeight = [self.columnHeights[0] doubleValue];
 //    for (int i = 0; i < LMHDefaultColunmCount; i++) {
 //

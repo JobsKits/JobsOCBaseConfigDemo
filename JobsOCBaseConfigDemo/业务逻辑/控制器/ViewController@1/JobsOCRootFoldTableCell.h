@@ -62,6 +62,7 @@ UITableViewDelegate
                             unpinBlock:(jobsByNSIntegerBlock _Nullable)unpinBlock;
 -(void)setExpanded:(BOOL)expanded
           animated:(BOOL)animated;
+-(void)updateChargingProgressByPhase:(NSInteger)phase;
 
 @end
 

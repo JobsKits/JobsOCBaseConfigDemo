@@ -8,7 +8,6 @@
 #import "UIGestureRecognizer+ReactiveCocoa.h"
 
 @implementation UIGestureRecognizer (ReactiveCocoa)
-
 +(instancetype)rac_recognizer{
     UIGestureRecognizer *recognizer = self.new;
     [recognizer rac_initializeRAC];

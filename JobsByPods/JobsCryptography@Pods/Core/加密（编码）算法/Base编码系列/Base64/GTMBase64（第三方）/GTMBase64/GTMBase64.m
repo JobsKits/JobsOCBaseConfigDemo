@@ -510,7 +510,6 @@ GTM_INLINE NSUInteger GuessDecodedLength(NSUInteger srcLen) {
         curDest[1] = charset[((curSrc[0] & 0x03) << 4) + (curSrc[1] >> 4)];
         curDest[2] = charset[((curSrc[1] & 0x0f) << 2) + (curSrc[2] >> 6)];
         curDest[3] = charset[curSrc[2] & 0x3f];
-
         curDest += 4;
         curSrc += 3;
         srcLen -= 3;

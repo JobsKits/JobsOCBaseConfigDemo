@@ -18,7 +18,6 @@ Prop_strong()NSMutableArray *imageArr;
 @end
 
 @implementation WMZBannerControl
-
 - (instancetype)initWithFrame:(CGRect)frame WithModel:(WMZBannerParam *)param{
     if (self = [super initWithFrame:frame]) {
         self.param = param;
@@ -35,9 +34,7 @@ Prop_strong()NSMutableArray *imageArr;
             self.currentImageSize = param.wBannerControlSelectImageSize;
             self.currentPageIndicatorTintColor = [UIColor clearColor];
         }
-        
         [self resetFrame];
-
     };return self;
 }
 
@@ -72,7 +69,6 @@ Prop_strong()NSMutableArray *imageArr;
                         .cornerRadiusBy(imageView.frame.size.height / 2);
                 });
         });
-        
         tempView = bgView;
     }
 }
@@ -84,33 +80,25 @@ Prop_strong()NSMutableArray *imageArr;
         UIView *pointView = [bgView viewWithTag:222];
         if (i == self.currentPage){
            pointView.layer.byBgColor(self.param.wBannerControlSelectColor.CGColor);
-
            pointView.byHidden(self.currentImage?YES:NO);
-
            dot.byHidden(self.currentImage?NO:YES);
-
            if (self.currentImage) {
                dot.image = self.currentImage;
                CGRect rect = dot.frame;
                rect.size = self.currentImageSize;
                dot.byFrame(rect);
-
                dot.layer.masksToBounds = YES;
                dot.layer.cornerRadius =  self.param.wBannerControlImageRadius?:self. self.currentImageSize.height/2;
            }
         }else{
             pointView.layer.byBgColor(self.param.wBannerControlColor.CGColor);
-
             pointView.byHidden(self.inactiveImage?YES:NO);
-
             dot.byHidden(self.currentImage?NO:YES);
-
             if (self.inactiveImage) {
                 dot.image = self.inactiveImage;
                 CGRect rect = dot.frame;
                 rect.size = self.inactiveImageSize;
                 dot.byFrame(rect);
-
                 dot.layer.masksToBounds = YES;
                 dot.layer.cornerRadius = self.param.wBannerControlImageRadius?:self. self.inactiveImageSize.height/2;
             }
@@ -141,7 +129,6 @@ Prop_strong()NSMutableArray *imageArr;
                 rect.size.width = CGRectGetMaxX(dot.frame);
                 rect.origin.x = (self.param.wFrame.size.width - rect.size.width)/2;
                 self.byFrame(rect);
-
             }
         }
     }
@@ -149,7 +136,6 @@ Prop_strong()NSMutableArray *imageArr;
 }
 
 - (void)resetFrame{
-    
     for (int i=0; i<[self.subviews count]; i++) {
         UIView* dot = [self.subviews objectAtIndex:i];
         if (i == [self.subviews count]-1) {
@@ -157,20 +143,17 @@ Prop_strong()NSMutableArray *imageArr;
             rect.size.width = CGRectGetMaxX(dot.frame);
             rect.origin.x = (self.param.wFrame.size.width - rect.size.width)/2;
             self.byFrame(rect);
-
         }
     }
     if (self.param.wBannerControlPosition == BannerControlLeft) {
           CGRect rect = self.frame;
           rect.origin.x = 30;
           self.byFrame(rect);
-
       }
       if (self.param.wBannerControlPosition == BannerControlRight) {
           CGRect rect = self.frame;
           rect.origin.x = self.superview.frame.size.width - rect.size.width  - 30;
           self.byFrame(rect);
-
       }
       if (self.param.wCustomControl) {
           self.param.wCustomControl(self);
