@@ -8,6 +8,19 @@
 #import "JobsDebugVC.h"
 #import "NSString+Extra.h"
 
+NSString *const JobsControllerDeallocTipsEnabledUserDefaultsKey = @"com.jobs.debug.showsControllerDeinitTips";
+
+BOOL JobsControllerDeallocTipsEnabled(void) {
+    id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsControllerDeallocTipsEnabledUserDefaultsKey];
+    return value ? [value boolValue] : YES;
+}
+
+void JobsSetControllerDeallocTipsEnabled(BOOL enabled) {
+    [NSUserDefaults.standardUserDefaults setBool:enabled
+                                          forKey:JobsControllerDeallocTipsEnabledUserDefaultsKey];
+    [NSUserDefaults.standardUserDefaults synchronize];
+}
+
 @interface JobsDebugVC ()
 
 @end
@@ -20,7 +33,9 @@
 -(void)dealloc{
     JobsRemoveNotification(self);
     if (JobsDebug) {
-        toastBy(@"成功销毁了控制器".tr.add(NSStringFromClass(self.class)));
+        if (JobsControllerDeallocTipsEnabled()) {
+            toastBy(@"成功销毁了控制器".tr.add(NSStringFromClass(self.class)));
+        }
         JobsLog(@"%@",JobsLocalFunc);
         PrintRetainCount(self)
     }

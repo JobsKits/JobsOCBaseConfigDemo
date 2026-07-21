@@ -9,6 +9,7 @@
 #import "JobsOCDemoSectionModel.h"
 #import "JobsMakes.h"
 #import "JobsOCDSL.h"
+#import "JobsOCTimer.h"
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import "JobsBlock.h"
@@ -40,7 +41,6 @@ UITableViewDelegate
                             unpinBlock:(jobsByNSIntegerBlock _Nullable)unpinBlock;
 -(void)setExpanded:(BOOL)expanded
           animated:(BOOL)animated;
--(void)updateChargingProgressByPhase:(NSInteger)phase;
 
 @end
 

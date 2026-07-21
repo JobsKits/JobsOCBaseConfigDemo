@@ -133,7 +133,7 @@ AppToolsProtocol_synthesize
     /// 检查文本项是否为链接类型
     if (textItem.link.absoluteString.containsString(url)) {
         /// 创建一个自定义的 UIAction
-        return [UIAction actionWithTitle:@"自定义操作"
+        return [UIAction actionWithTitle:@"自定义操作".tr
                                    image:nil
                               identifier:nil
                                  handler:^(__kindof UIAction * _Nonnull action) {

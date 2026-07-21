@@ -8,6 +8,8 @@
 
 #import "ZMJTaskView.h"
 
+#import "JobsLanMgr.h"
+
 #ifndef TitleColor
 #define TitleColor  UIColor.colorWithHexString(@"999999")
 #endif
@@ -59,7 +61,7 @@ Prop_strong()UILabel *viewDetailLabel;
     self.startTimeTitleLabel = ({
         UILabel *label = [UILabel new];
         label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10];
-        label.text = @"Start time:";
+        label.text = @"Start time:".tr;
         label.textColor = TitleColor;
         [self addSubview:label];
         label;
@@ -75,7 +77,7 @@ Prop_strong()UILabel *viewDetailLabel;
     self.endTimeTitleLabel = ({
         UILabel *label = [UILabel new];
         label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10];
-        label.text = @"End time:";
+        label.text = @"End time:".tr;
         label.textColor = TitleColor;
         [self addSubview:label];
         label;
@@ -98,7 +100,7 @@ Prop_strong()UILabel *viewDetailLabel;
         UILabel *label = [UILabel new];
         label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
         label.lineBreakMode = NSLineBreakByWordWrapping;
-        label.text = @"View the detail";
+        label.text = @"View the detail".tr;
         label.textColor = ValueColor;
         [self addSubview:label];
         label;

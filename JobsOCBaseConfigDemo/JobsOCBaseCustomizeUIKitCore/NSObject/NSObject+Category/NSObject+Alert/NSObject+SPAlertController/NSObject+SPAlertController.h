@@ -64,8 +64,8 @@ NS_ASSUME_NONNULL_END
              @jobs_strongify(self)
              SPAlertControllerConfig *config = SPAlertControllerConfig.new;
              config.SPAlertControllerInitType = NSObject_SPAlertControllerInitType_2;
-             config.title = @"提示";
-             config.message = @"审核通过后可查看，是否删除";//@"视频审核未通过，是否删除？"
+             config.title = @"提示".tr;
+             config.message = @"审核通过后可查看，是否删除".tr;//@"视频审核未通过，是否删除？"
              config.preferredStyle = SPAlertControllerStyleActionSheet;
              config.animationType = SPAlertAnimationTypeDefault;
              config.alertActionTitleArr = self.channelMutArr;
@@ -126,7 +126,7 @@ NS_ASSUME_NONNULL_END
      RichLabelDataStringsModel *title_4_Model = RichLabelDataStringsModel.new;
      RichLabelDataStringsModel *title_5_Model = RichLabelDataStringsModel.new;
      {
-         title_1_Model.dataString = @"您当前的金币数为";
+         title_1_Model.dataString = @"您当前的金币数为".tr;
          
          RichLabelFontModel *richLabelFontModel = RichLabelFontModel.new;
          richLabelFontModel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightRegular];
@@ -156,7 +156,7 @@ NS_ASSUME_NONNULL_END
      }
      
      {
-         title_3_Model.dataString = @"个，可兑换的余额为";
+         title_3_Model.dataString = @"个，可兑换的余额为".tr;
 
          RichLabelFontModel *richLabelFontModel = RichLabelFontModel.new;
          richLabelFontModel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightRegular];
@@ -186,7 +186,7 @@ NS_ASSUME_NONNULL_END
      }
      
      {
-         title_5_Model.dataString = @"元，确认兑换吗？";
+         title_5_Model.dataString = @"元，确认兑换吗？".tr;
 
          RichLabelFontModel *richLabelFontModel = RichLabelFontModel.new;
          richLabelFontModel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightRegular];
@@ -208,10 +208,10 @@ NS_ASSUME_NONNULL_END
      
      SPAlertControllerConfig *config = SPAlertControllerConfig.new;
      config.SPAlertControllerInitType = NSObject_SPAlertControllerInitType_2;
-     config.title = @"兑换余额";
+     config.title = @"兑换余额".tr;
      config.preferredStyle = SPAlertControllerStyleAlert;
      config.animationType = SPAlertAnimationTypeDefault;
-     config.alertActionTitleArr = @[@"取消",@"确定"];
+     config.alertActionTitleArr = @[@"取消".tr,@"确定".tr];
      config.alertActionStyleArr = @[@(SPAlertActionStyleDestructive),@(SPAlertActionStyleDefault)];
      config.alertBtnActionArr = @[@"".tr,@"networking_chargeGoldPOST"];// 金币换余额
      config.targetVC = [NSObject getCurrentViewController];

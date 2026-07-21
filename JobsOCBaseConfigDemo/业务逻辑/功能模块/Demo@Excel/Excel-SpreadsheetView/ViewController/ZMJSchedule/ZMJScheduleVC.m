@@ -138,7 +138,7 @@ Prop_strong()UIColor *oddRowColor;  //奇数
                (indexPath.row    == 1)){
         TimeTitleCell *cell = (TimeTitleCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(TimeTitleCell.class)
                                                                                           forIndexPath:indexPath];
-        cell.label.text     = @"TIME";
+        cell.label.text     = @"TIME".tr;
         return cell;
     } else if ((indexPath.column == 0) &&
                (indexPath.row    >= 2 && indexPath.row <= self.hours.count + 2)){

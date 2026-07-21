@@ -120,7 +120,7 @@ Prop_strong()UIView *accessoryBar;
     if (!_titleLab) {
         @jobs_weakify(self)
         _titleLab = UILabel.new;
-        _titleLab.text = @"Keyboard Form";
+        _titleLab.text = @"Keyboard Form".tr;
         _titleLab.textColor = HEXCOLOR(0x263342);
         _titleLab.font = UIFontWeightMediumSize(21);
         [self.cardView addSubview:_titleLab];
@@ -189,7 +189,7 @@ Prop_strong()UIView *accessoryBar;
         UIView *bar = [UIView.alloc initWithFrame:CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsWidth(56))];
         bar.backgroundColor = HEXCOLOR(0x263342);
         UILabel *label = UILabel.new;
-        label.text = @"Input Accessory";
+        label.text = @"Input Accessory".tr;
         label.textColor = UIColor.whiteColor;
         label.font = UIFontWeightMediumSize(15);
         [bar addSubview:label];
@@ -198,7 +198,7 @@ Prop_strong()UIView *accessoryBar;
             make.centerY.equalTo(bar);
         }];
         UIButton *doneBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        [doneBtn setTitle:@"Done" forState:UIControlStateNormal];
+        [doneBtn setTitle:@"Done".tr forState:UIControlStateNormal];
         doneBtn.titleLabel.font = UIFontWeightMediumSize(15);
         [doneBtn addTarget:self
                     action:@selector(jobs_endEditing)

@@ -15,6 +15,7 @@ static NSString *const JobsOCDemoListDarkModeUserDefaultsKey = @"com.BSports.Job
 static NSString *const JobsOCDemoListSectionOrderUserDefaultsKey = @"com.BSports.JobsOCDemoListSectionOrderUserDefaultsKey";
 static NSString *const JobsOCDemoSearchHistoryUserDefaultsKey = @"com.BSports.JobsOCDemoSearchHistoryUserDefaultsKey";
 static NSString *const JobsOCDemoPinnedDemoUserDefaultsKey = @"com.BSports.JobsOCDemoPinnedDemoUserDefaultsKey";
+static NSString *const JobsOCDemoSuspendTimeButtonVisibleUserDefaultsKey = @"com.jobs.demoList.showsSuspendTimeButton";
 static NSString *const JobsOCDemoProjectFolderInfoKey = @"JobsProjectFolderName";
 static NSString *const JobsOCDemoProjectFolderFallbackName = @"JobsBaseConfig@JobsOCBaseConfigDemo";
 static NSString *const JobsOCFunctionMenuCellReuseIdentifier = @"UITableViewCell";
@@ -23,7 +24,6 @@ static NSString *const JobsOCDemoSearchHistoryCellReuseIdentifier = @"JobsOCDemo
 static NSString *const JobsOCDemoPinnedCellReuseIdentifier = @"JobsOCDemoPinnedCell";
 static NSString *const JobsOCDemoSuspendTimeTimerIdentifier = @"ViewController_1.suspendTimeBtn.timer";
 static NSString *const JobsOCDemoSuspendSpinTimerIdentifier = @"ViewController_1.suspendSpinBtn.timer";
-static NSString *const JobsOCDemoProgressIndicatorTimerIdentifier = @"ViewController_1.progressIndicator.timer";
 
 typedef NS_ENUM(NSInteger, JobsOCFunctionMenuItem) {
     JobsOCFunctionMenuItemSearch = 0,
@@ -84,13 +84,15 @@ Prop_assign()BOOL demoSearchEnabled;
 Prop_assign()BOOL demoSideMenuOpen;
 Prop_assign()BOOL suspendFuseLongPressConsumed;
 Prop_assign()NSInteger suspendSpinSeconds;
-Prop_assign()NSInteger progressIndicatorPhase;
 Prop_assign()AppLanguage demoListRenderedLanguage;
 
 -(void)setupSuspendButtons;
 -(void)setupSuspendTimers;
 -(void)refreshSuspendTimeButtonTitle;
--(void)updateVisibleProgressIndicators;
+-(void)showSuspendTimeButtonVisibilityAlert;
+-(BOOL)showsSuspendTimeButton;
+-(void)setShowsSuspendTimeButton:(BOOL)showsSuspendTimeButton;
+-(void)refreshSuspendTimeButtonVisibility;
 -(NSAttributedString *)suspendTimeAttributedTitleByClock:(NSString *)clock;
 -(BOOL)demoListReturnToTopAndRefreshEnabled;
 -(void)setDemoListReturnToTopAndRefreshEnabled:(BOOL)enabled;
@@ -199,8 +201,7 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
 - (void)dealloc{
     JobsTimerMgr.shared
         .byStopAndRemove(JobsOCDemoSuspendTimeTimerIdentifier)
-        .byStopAndRemove(JobsOCDemoSuspendSpinTimerIdentifier)
-        .byStopAndRemove(JobsOCDemoProgressIndicatorTimerIdentifier);
+        .byStopAndRemove(JobsOCDemoSuspendSpinTimerIdentifier);
     if (_suspendSpinBtn) _suspendSpinBtn.bySpinStop();
     if (_suspendFuseBtn) [_suspendFuseBtn byFusePressStop:NO];
     [self showDemoSideMenu:NO
@@ -281,6 +282,7 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
     self.functionMenuDismissTapGesture.byEnabled(YES);
     [self setupSuspendButtons];
     [self setupSuspendTimers];
+    [self refreshSuspendTimeButtonVisibility];
 //    UIDeviceOrientation f = UIDevice.currentDevice.orientation;
 //    UIInterfaceOrientation s = self.getInterfaceOrientation;
 //    DeviceOrientation d = self.getDeviceOrientation;
@@ -291,6 +293,7 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
     [super viewWillAppear:animated];
     [self reloadLocalizedDemoListContentIfNeeded];
     [self applyDemoListInterfaceStyle];
+    [self refreshSuspendTimeButtonVisibility];
     if ([self demoListReturnToTopAndRefreshEnabled]) {
         [self reloadDemoListToTopAndRefresh];
     }else if (!self.demoListHasAppeared){
@@ -305,11 +308,8 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    JobsTimerMgr.shared
-        .byResume(JobsOCDemoSuspendTimeTimerIdentifier)
-        .byResume(JobsOCDemoSuspendSpinTimerIdentifier)
-        .byResume(JobsOCDemoProgressIndicatorTimerIdentifier);
-    [self updateVisibleProgressIndicators];
+    [self refreshSuspendTimeButtonVisibility];
+    JobsTimerMgr.shared.byResume(JobsOCDemoSuspendSpinTimerIdentifier);
 //    UIDeviceOrientation f = UIDevice.currentDevice.orientation;
 //    UIInterfaceOrientation s = self.getInterfaceOrientation;
 //    DeviceOrientation d = self.getDeviceOrientation;
@@ -318,7 +318,6 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    JobsTimerMgr.shared.byPause(JobsOCDemoProgressIndicatorTimerIdentifier);
     if (self.demoSideMenuOpen) {
         [self showDemoSideMenu:NO
                       animated:NO];
@@ -333,9 +332,47 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
     self.suspendFuseBtn.byAlpha(1);
 }
 
+-(void)showSuspendTimeButtonVisibilityAlert{
+    @jobs_weakify(self)
+    self.comingToPresentVC(self.makeAlertControllerByAlertModel(jobsMakeAlertModel(^(__kindof JobsAlertModel * _Nullable data) {
+        data.byAlertControllerTitle(@"隐藏悬浮时间？".tr)
+            .byMessage(@"隐藏后可在“设置”中重新开启。".tr)
+            .byPreferredStyle(UIAlertControllerStyleAlert)
+            .byAlertActionTitle(@"隐藏".tr)
+            .byAlertActionStyle(UIAlertActionStyleDestructive)
+            .byCancelAlertActionTitle(@"取消".tr)
+            .byCancelAlertActionStyle(UIAlertActionStyleCancel);
+        data.alertActionBlock = ^(__unused UIAlertAction * _Nullable action) {
+            @jobs_strongify(self)
+            [self setShowsSuspendTimeButton:NO];
+            [self refreshSuspendTimeButtonVisibility];
+        };
+    })));
+}
+
+-(BOOL)showsSuspendTimeButton{
+    id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCDemoSuspendTimeButtonVisibleUserDefaultsKey];
+    return value ? [value boolValue] : YES;
+}
+
+-(void)setShowsSuspendTimeButton:(BOOL)showsSuspendTimeButton{
+    [NSUserDefaults.standardUserDefaults setBool:showsSuspendTimeButton
+                                          forKey:JobsOCDemoSuspendTimeButtonVisibleUserDefaultsKey];
+    [NSUserDefaults.standardUserDefaults synchronize];
+}
+
+-(void)refreshSuspendTimeButtonVisibility{
+    BOOL visible = [self showsSuspendTimeButton];
+    self.suspendTimeBtn.byHidden(!visible);
+    if (visible) {
+        JobsTimerMgr.shared.byResume(JobsOCDemoSuspendTimeTimerIdentifier);
+    }else{
+        JobsTimerMgr.shared.byPause(JobsOCDemoSuspendTimeTimerIdentifier);
+    }
+}
+
 -(void)setupSuspendTimers{
     self.suspendSpinSeconds = 0;
-    self.progressIndicatorPhase = 0;
     @jobs_weakify(self)
     JobsTimerMgr.shared
         .byUpsertTimer(JobsOCDemoSuspendTimeTimerIdentifier,
@@ -364,28 +401,7 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
             self.suspendSpinBtn
                 .jobsResetBtnTitle([NSString stringWithFormat:@"%ld",(long)self.suspendSpinSeconds])
                 .jobsResetBtnTitleFont(UIFontWeightBoldSize(22));
-        })
-        .byUpsertTimer(JobsOCDemoProgressIndicatorTimerIdentifier,
-                       JobsTimerTypeGCD,
-                       JobsTimerBackgroundPolicyPauseAndResume,
-                       YES,
-                       ^(JobsTimer *timer) {
-            timer.byTimerStyle(TimerStyle_clockwise)
-                .byTimeInterval(0.45)
-                .byQueue(dispatch_get_main_queue());
-        }, ^{
-            @jobs_strongify(self)
-            self.progressIndicatorPhase = (self.progressIndicatorPhase + 1) % 3;
-            [self updateVisibleProgressIndicators];
         });
-}
-
--(void)updateVisibleProgressIndicators{
-    NSInteger phase = UIAccessibilityIsReduceMotionEnabled() ? 2 : self.progressIndicatorPhase;
-    for (UITableViewCell *cell in self.tableView.visibleCells) {
-        if (![cell isKindOfClass:JobsOCRootFoldTableCell.class]) continue;
-        [(JobsOCRootFoldTableCell *)cell updateChargingProgressByPhase:phase];
-    }
 }
 
 -(void)refreshSuspendTimeButtonTitle{
@@ -402,7 +418,7 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
 }
 
 -(NSAttributedString *)suspendTimeAttributedTitleByClock:(NSString *)clock{
-    NSString *title = @"当前时间";
+    NSString *title = @"当前时间".tr;
     NSString *displayTitle = [NSString stringWithFormat:@"%@\n%@",title,clock];
     NSRange displayTitleRange = NSMakeRange(0, displayTitle.length);
     NSRange titleRange = NSMakeRange(0, title.length);
@@ -918,6 +934,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 #pragma mark —— lazyLoad
 -(UIButton *)suspendTimeBtn{
     if (!_suspendTimeBtn) {
+        @jobs_weakify(self)
         _suspendTimeBtn = UIButton.jobsInit();
         _suspendTimeBtn
             .jobsResetBtnTitle(@"当前时间".tr)
@@ -928,8 +945,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             .onClickBy(^(__unused UIButton *x) {
                 toastBy(@"点击了悬浮按钮".tr);
             })
-            .onLongPressGestureBy(^(__unused UIButton *x) {
-                toastBy(@"长按了悬浮按钮".tr);
+            .onLongPressGestureBy(^(UIButton *x) {
+                if (JobsOCDemoSuspendLongPressGesture(x).state != UIGestureRecognizerStateBegan) return;
+                @jobs_strongify(self)
+                [self showSuspendTimeButtonVisibilityAlert];
             })
             .byAlpha(1)
             .byFrame(CGRectMake(0, 0, 110, 66))
@@ -1812,6 +1831,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *subTitle = viewModel.subTextModel.attributedTitle.string ?: viewModel.subTextModel.text ?: @"";
     NSString *clsName = viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
     NSString *key = [NSString stringWithFormat:@"%@ %@ %@",title,subTitle,clsName];
+    if (@"Label".inStr(key)) {
+        return @"Label".tr;
+    }
     if (@"JobsOCTimer".inStr(key) ||
         @"JobsOCTimerMgr".inStr(key) ||
         @"JobsTimer".inStr(key) ||
@@ -1879,7 +1901,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }
     if (@"UITableView".inStr(key) ||
         @"Cell".inStr(key) ||
-        @"Label".inStr(key) ||
         @"Btn".inStr(key) ||
         @"Button".inStr(key) ||
         @"Custom".inStr(key) ||
@@ -2607,6 +2628,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsOCRefresherDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                model.byTitle(@"🔴 抖音双球刷新动画".tr)
+                     .bySubTitle(@"红、绿双球交叉换位并错峰跳跃，支持开始、暂停、继续与停止".tr)
+                     .byCls(JobsDouyinRefreshDemoVC.class);
+            })))
+            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"JobsViewPushDemoVC".tr)
                      .bySubTitle(@"让 UIView 像 UINavigationController 支持上下左右 Push/Pop、比例覆盖和原路交互退出".tr)
                      .byCls(JobsViewPushDemoVC.class);
@@ -2683,7 +2709,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"iOS Widget".tr)
-                     .bySubTitle(@"".tr)
+                     .bySubTitle(@"尺寸预览、状态更新与 Extension 接入说明".tr)
                      .byCls(WidgetVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {

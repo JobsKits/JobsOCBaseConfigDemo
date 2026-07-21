@@ -55,6 +55,7 @@
 #import "JobsVerticalMenuMainVC.h"
 #import "JobsLinkageMenuViewDemoVC.h"
 #import "JobsOCRefresherDemoVC.h"
+#import "JobsDouyinRefreshDemoVC.h"
 #import "TestBaseLabelVC.h"
 #import "RandomTestVC.h"
 #import "CustomTableViewCellVC.h"

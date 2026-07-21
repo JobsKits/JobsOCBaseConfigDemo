@@ -106,7 +106,7 @@
 #pragma mark —— 2. 标题：普通标题 + 富文本标题
 -(void)setupNavigationTitle {
     /// 普通标题（会走 titleTextAttributes 的样式）
-    self.title = @"系统导航栏 Demo";
+    self.title = @"系统导航栏 Demo".tr;
     /// 如果你要用富文本标题，就用自定义 titleView 覆盖系统标题
     @jobs_weakify(self)
     self.navigationItem.titleView = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {

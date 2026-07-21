@@ -131,7 +131,7 @@
             // JobsLog(@"");
             /**
              
-                 UIAction *action = [UIAction actionWithTitle:@"按钮点击操作"  image:nil
+                 UIAction *action = [UIAction actionWithTitle:@"按钮点击操作".tr  image:nil
                                                             identifier:nil
                                                             handler:^(__kindof UIAction * _Nonnull action) {
                                                                 JobsLog(@"按钮被点击了！");

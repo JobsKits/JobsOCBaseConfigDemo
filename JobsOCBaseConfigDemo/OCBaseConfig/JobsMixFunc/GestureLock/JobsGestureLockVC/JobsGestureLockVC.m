@@ -98,7 +98,7 @@ Prop_assign()NSInteger remainingRetryCount;
     _nameLabel.textAlignment = NSTextAlignmentCenter;
     _nameLabel.textColor = [UIColor colorWithRed:0.95 green:0.55 blue:0.15 alpha:1.0];
     _nameLabel.font = [UIFont boldSystemFontOfSize:12.0];
-    _nameLabel.text = @"账户";
+    _nameLabel.text = @"账户".tr;
     [self.view addSubview:_nameLabel];
     _indicatorView = [[JobsGestureLockIndicator alloc] initWithConfiguration:self.configuration];
     [self.view addSubview:_indicatorView];
@@ -206,11 +206,11 @@ Prop_assign()NSInteger remainingRetryCount;
 }
 
 -(void)presentInvalidatedAlert {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"手势密码已失效"
-                                                                             message:@"请重新登录"
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"手势密码已失效".tr
+                                                                             message:@"请重新登录".tr
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     __weak typeof(self) weakSelf = self;
-    UIAlertAction *action = [UIAlertAction actionWithTitle:@"重新登录"
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"重新登录".tr
                                                      style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction * _Nonnull action) {
         __strong typeof(weakSelf) strongSelf = weakSelf;

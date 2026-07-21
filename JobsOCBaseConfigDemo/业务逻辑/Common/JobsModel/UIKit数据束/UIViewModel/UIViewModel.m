@@ -57,7 +57,7 @@ AppToolsProtocol_synthesize
     if (!_backBtnTitleModel) {
         _backBtnTitleModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data) {
             data.text = @"Back".tr;
-            data.textCor = HEXCOLOR(0xD3B698);
+            data.textCor = JobsLabelColor;
         });
     };return _backBtnTitleModel;
 }

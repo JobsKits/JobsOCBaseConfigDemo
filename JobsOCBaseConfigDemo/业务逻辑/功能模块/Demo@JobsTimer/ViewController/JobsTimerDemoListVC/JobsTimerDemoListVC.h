@@ -14,6 +14,7 @@
 #import "JobsClockDemoVC.h"
 #import "LotteryVC.h"
 #import "JobsMarqueeViewDemoVC.h"
+#import "JobsScrollingLabelDemoVC.h"
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>

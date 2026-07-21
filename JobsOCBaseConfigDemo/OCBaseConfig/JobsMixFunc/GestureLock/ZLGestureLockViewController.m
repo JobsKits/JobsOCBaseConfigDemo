@@ -43,7 +43,9 @@ Prop_assign()ZLUnlockType unlockType;
     JobsRemoveNotification(self);
     [self.view endEditing:YES];
     if (JobsDebug) {
-        @"成功销毁了控制器:".tr.add(NSStringFromClass(self.class)).toast();
+        if (JobsControllerDeallocTipsEnabled()) {
+            @"成功销毁了控制器:".tr.add(NSStringFromClass(self.class)).toast();
+        }
         JobsLog(@"%@",JobsLocalFunc);
         PrintRetainCount(self);
     }
@@ -128,10 +130,10 @@ Prop_assign()ZLUnlockType unlockType;
     } else {
         if (errorCount - 1 == 0) { // 你已经输错五次了！ 退出重新登陆！
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"手势密码已失效".tr
-                                                                message:@"请重新登陆"
+                                                                message:@"请重新登录".tr
                                                                delegate:self
                                                       cancelButtonTitle:nil
-                                                      otherButtonTitles:@"重新登陆".tr, nil];
+                                                      otherButtonTitles:@"重新登录".tr, nil];
             [alertView show];
             errorCount = 5;
             return;
@@ -188,7 +190,7 @@ Prop_assign()ZLUnlockType unlockType;
 - (void)alertView:(UIAlertView *)alertView
 clickedButtonAtIndex:(NSInteger)buttonIndex {
     // 重新登陆
-    JobsLog(@"重新登陆");
+    JobsLog(@"重新登录".tr);
 }
 #pragma mark —— lazyLoad
 -(UIImageView *)headIcon{

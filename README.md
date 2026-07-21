@@ -5465,6 +5465,9 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 
 #### 37.2、关于导航栏  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
+- 非根控制器由 `UINavigationController+SafeTransition` 统一补齐 Jobs/GK 导航栏、标题和 `backBtnCategory` Jobs 返回按钮；已有系统富文本标题和右侧业务按钮迁移到 GK 导航栏，不显示系统导航容器。仅 `JobsNavigationDemoVC` 作为系统导航栏专项 Demo 保持原样。
+- 默认返回图标使用 template 渲染和 `JobsLabelColor`，随明暗主题自动变色；自定义 `backBtnTitleModel.textCor` 时仍保留业务着色。
+
 ```objective-c
  self.makeNavByConfig(jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable config) {
      config.viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {

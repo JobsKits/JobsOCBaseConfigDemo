@@ -7,17 +7,46 @@
 
 #import "UINavigationController+SafeTransition.h"
 
-static void JobsInstallNavigationBackButton(UINavigationController *navigationController,
-                                            UIViewController *viewController) {
-    if (viewController.navigationController != navigationController ||
-        navigationController.viewControllers.firstObject == viewController) return;
-    UIBarButtonItem *backItem = viewController.leftBarButtonItem_back;
-    if (!viewController.navigationItem.leftBarButtonItem) {
-        viewController.navigationItem.leftBarButtonItem = backItem;
+static BOOL JobsIsSystemNavigationBarDemo(UIViewController *viewController) {
+    return [NSStringFromClass(viewController.class) isEqualToString:@"JobsNavigationDemoVC"];
+}
+
+static void JobsInstallNavigationDefaults(UINavigationController *navigationController,
+                                          UIViewController *viewController) {
+    BOOL isNavigationChild = navigationController &&
+        viewController.navigationController == navigationController &&
+        navigationController.viewControllers.firstObject != viewController;
+    BOOL isPresentedPage = viewController.presentingViewController ||
+        (navigationController.viewControllers.firstObject == viewController &&
+         navigationController.presentingViewController);
+    if (!isNavigationChild && !isPresentedPage) return;
+    if (JobsIsSystemNavigationBarDemo(viewController)) {
+        [navigationController setNavigationBarHidden:NO animated:NO];
+        navigationController.navigationBar.hidden = NO;
+        return;
     }
-    if (!viewController.navItem.leftBarButtonItem) {
-        viewController.navItem.leftBarButtonItem = backItem;
+    if (!viewController.title.length) viewController.title = NSStringFromClass(viewController.class);
+    if (!viewController.gk_navTitle.length && !viewController.gk_navTitleView) {
+        if (viewController.navigationItem.titleView) {
+            viewController.gk_navTitleView = viewController.navigationItem.titleView;
+        }else viewController.gk_navTitle = viewController.title;
     }
+    if (!viewController.gk_navRightBarButtonItem && !viewController.gk_navRightBarButtonItems.count) {
+        if (viewController.navigationItem.rightBarButtonItems.count) {
+            viewController.gk_navRightBarButtonItems = viewController.navigationItem.rightBarButtonItems;
+        }else if (viewController.navigationItem.rightBarButtonItem) {
+            viewController.gk_navRightBarButtonItem = viewController.navigationItem.rightBarButtonItem;
+        }
+    }
+    if (!viewController.gk_navLeftBarButtonItem && !viewController.gk_navLeftBarButtonItems.count) {
+        viewController.gk_navLeftBarButtonItem = viewController.backBtnCategoryItem;
+    }
+    UIView *navigationBar = viewController.gk_navigationBar;
+    navigationBar.hidden = NO;
+    navigationBar.alpha = 1;
+    viewController.gk_navBarAlpha = 1;
+    [navigationController setNavigationBarHidden:YES animated:NO];
+    [viewController.view bringSubviewToFront:navigationBar];
 }
 
 @interface UINavigationController ()
@@ -93,7 +122,7 @@ JobsKey(_viewTransitionInProgress)
     if(self.childViewControllers.containsObject(viewController)) return;
     if (self.viewTransitionInProgress == NO) {
         [self safePushViewController:viewController animated:animated];
-        JobsInstallNavigationBackButton(self, viewController);
+        JobsInstallNavigationDefaults(self, viewController);
         if (animated) self.viewTransitionInProgress = YES;
     }
 }
@@ -104,7 +133,7 @@ JobsKey(_viewTransitionInProgress)
     [viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull viewController,
                                                    NSUInteger idx,
                                                    BOOL * _Nonnull stop) {
-        if (idx > 0) JobsInstallNavigationBackButton(self, viewController);
+        if (idx > 0) JobsInstallNavigationDefaults(self, viewController);
     }];
 }
 
@@ -128,6 +157,7 @@ JobsKey(_viewTransitionInProgress)
 - (void)safeViewDidAppear:(BOOL)animated {
     self.navigationController.viewTransitionInProgress = NO;
     [self safeViewDidAppear:animated];
+    JobsInstallNavigationDefaults(self.navigationController, self);
 }
 
 @end

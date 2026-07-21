@@ -5,8 +5,10 @@
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#import <math.h>
 #import "JobsTimer.h"
 #import "NSObject+Queue.h"
+@class JobsTimerTargetProxy;
 /// 与 Swift 靶场 JobsSwiftTimer 机制对齐：
 /// - 非 GCD 内核（NSTimer/DisplayLink/CFRunLoopTimer）强制：主线程 + RunLoop.main
 /// - 生命周期操作（start/pause/resume/stop/fireOnce）非 GCD 强制主线程
@@ -18,7 +20,7 @@
 /// NO   = 正在运行 / 已经 resume
 Prop_assign()BOOL gcdTimerSuspended;
 /// 线程安全：统一用这把锁保护关键状态/回调读写
-Prop_strong()NSLock *stateLock;
+Prop_strong()NSRecursiveLock *stateLock;
 /// generation token：状态变更递增，用于防止残留回调穿透
 Prop_assign()uint64_t generation;
 /// 前后台感知开关（默认都为 YES）
@@ -27,33 +29,68 @@ Prop_assign()BOOL autoManageAppState;
 /// 只恢复“自动暂停”的，避免干扰手动 pause
 Prop_assign()BOOL autoPausedByAppState;
 /// 通知 token
-Prop_strong(nullable)id didEnterBGToken;
-Prop_strong(nullable)id willEnterFGToken;
+Prop_strong(nullable)id willResignActiveToken;
+Prop_strong(nullable)id didBecomeActiveToken;
 /// CFRunLoopTimer（对应 Swift kind = .runLoop）
 Prop_assign()CFRunLoopTimerRef rlTimer;
+/// NSTimer / CADisplayLink 通过弱代理回调，避免底层引擎反向持有 JobsTimer。
+Prop_strong(nullable)JobsTimerTargetProxy *nsTimerProxy;
+Prop_strong(nullable)JobsTimerTargetProxy *displayLinkProxy;
 
 - (void)fireTickIfValid:(uint64_t)token;
 - (void)configureGCDTimerHandler:(dispatch_source_t)timer token:(uint64_t)token;
+- (void)pauseMarkedAsAutoPause:(BOOL)markedAsAutoPause;
+- (void)resumeOnlyIfAutoPaused:(BOOL)onlyIfAutoPaused;
 
 @end
 
-typedef struct {
-    __unsafe_unretained JobsTimer *timer;
-    uint64_t token;
-} JobsTimerRunLoopTimerContext;
+@interface JobsTimerTargetProxy : NSObject
 
-static void JobsTimerRunLoopTimerContextRelease(const void *info) {
-    free((void *)info);
+Prop_weak(nullable)JobsTimer *timer;
+Prop_assign()uint64_t token;
+Prop_assign()NSTimeInterval interval;
+Prop_assign()CFTimeInterval nextFireTimestamp;
+
+- (instancetype)initWithTimer:(JobsTimer *)timer
+                         token:(uint64_t)token
+                      interval:(NSTimeInterval)interval;
+- (void)resetDisplayLinkSchedule;
+- (void)handleTimer:(NSTimer *)timer;
+- (void)handleDisplayLink:(CADisplayLink *)displayLink;
+
+@end
+
+@implementation JobsTimerTargetProxy
+
+- (instancetype)initWithTimer:(JobsTimer *)timer
+                         token:(uint64_t)token
+                      interval:(NSTimeInterval)interval {
+    if (self = [super init]) {
+        self.timer = timer;
+        self.token = token;
+        self.interval = MAX(0.000001, interval);
+        [self resetDisplayLinkSchedule];
+    };return self;
 }
 
-static void JobsTimerRunLoopTimerCallback(CFRunLoopTimerRef timer, void *info) {
-    JobsTimerRunLoopTimerContext *context = info;
-    JobsTimer *jobsTimer = context ? context->timer : nil;
-    if (jobsTimer) {
-        [jobsTimer fireTickIfValid:context->token];
-    }
-    (void)timer;
+- (void)resetDisplayLinkSchedule {
+    self.nextFireTimestamp = CACurrentMediaTime() + self.interval;
 }
+
+- (void)handleTimer:(__unused NSTimer *)timer {
+    [self.timer fireTickIfValid:self.token];
+}
+
+- (void)handleDisplayLink:(CADisplayLink *)displayLink {
+    CFTimeInterval timestamp = displayLink.targetTimestamp;
+    if (timestamp + 0.000001 < self.nextFireTimestamp) return;
+    CFTimeInterval elapsed = MAX(0, timestamp - self.nextFireTimestamp);
+    CFTimeInterval skippedIntervals = floor(elapsed / self.interval) + 1;
+    self.nextFireTimestamp += skippedIntervals * self.interval;
+    [self.timer fireTickIfValid:self.token];
+}
+
+@end
 
 @implementation JobsTimer
 #pragma mark —— Thread constraints
@@ -92,10 +129,11 @@ JobsKey(_timeSecIntervalSinceDate)
 JobsKey(_timeInterval)
 - (NSTimeInterval)timeInterval {
     NSTimeInterval value = [Jobs_getAssociatedObject(_timeInterval) doubleValue];
-    return value > 0 ? value : 1.0;
+    return isfinite(value) && value > 0 ? value : 1.0;
 }
 
 - (void)setTimeInterval:(NSTimeInterval)timeInterval {
+    if (!isfinite(timeInterval) || timeInterval <= 0) timeInterval = 1.0;
     Jobs_setAssociatedRETAIN_NONATOMIC(_timeInterval, @(timeInterval))
 }
 
@@ -189,12 +227,20 @@ JobsKey(_nsTimer)
 - (NSTimer *)nsTimer {
     NSTimer *timer = Jobs_getAssociatedObject(_nsTimer);
     if (!timer) {
+        uint64_t token = 0;
+        [self.stateLock lock];
+        token = self.generation;
+        [self.stateLock unlock];
+        JobsTimerTargetProxy *proxy = [[JobsTimerTargetProxy alloc] initWithTimer:self
+                                                                            token:token
+                                                                         interval:self.timeInterval];
         timer = [NSTimer timerWithTimeInterval:self.timeInterval
-                                        target:self
-                                      selector:@selector(handleTick)
+                                        target:proxy
+                                      selector:@selector(handleTimer:)
                                       userInfo:self.userInfo
                                        repeats:self.repeats];
         timer.tolerance = 0;
+        self.nsTimerProxy = proxy;
         Jobs_setAssociatedRETAIN_NONATOMIC(_nsTimer, timer)
     };return timer;
 }
@@ -216,7 +262,15 @@ JobsKey(_displayLink)
 - (CADisplayLink *)displayLink {
     CADisplayLink *displayLink = Jobs_getAssociatedObject(_displayLink);
     if (!displayLink) {
-        displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(handleTick)];
+        uint64_t token = 0;
+        [self.stateLock lock];
+        token = self.generation;
+        [self.stateLock unlock];
+        JobsTimerTargetProxy *proxy = [[JobsTimerTargetProxy alloc] initWithTimer:self
+                                                                            token:token
+                                                                         interval:self.timeInterval];
+        displayLink = [CADisplayLink displayLinkWithTarget:proxy selector:@selector(handleDisplayLink:)];
+        self.displayLinkProxy = proxy;
         Jobs_setAssociatedRETAIN_NONATOMIC(_displayLink, displayLink)
     };return displayLink;
 }
@@ -276,7 +330,7 @@ JobsKey(_stop)
 
 - (instancetype)init {
     if (self = [super init]) {
-        _stateLock = NSLock.new;
+        _stateLock = NSRecursiveLock.new;
         _pauseInBackground = YES;
         _autoManageAppState = YES;
         _autoPausedByAppState = NO;
@@ -307,33 +361,13 @@ JobsKey(_stop)
     [self setupAppStateMonitorIfNeeded];
 }
 
-- (void)routeStopIfNeededFromCallback {
-    // GCD：不要求主线程
-    if (self.timerType == JobsTimerTypeGCD) {
-        [self.stateLock lock];
-        if (self.timerState != JobsTimerStateCanceled && self.timerState != JobsTimerStateFinished) {
-            self.timerState = JobsTimerStateCanceled;
-        }
-        self.generation += 1;
-        [self.stateLock unlock];
-        [self invalidateInternal](NO);
-        return;
-    }
-    if (NSThread.isMainThread) {
-        [self stop];
-    } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self stop];
-        });
-    }
-}
-
 - (void)fireTickIfValid:(uint64_t)token {
+    @synchronized (self) {
     // snapshot
     jobsByCGFloatBlock tickBlock = nil;
     JobsTimerBlock finishBlock = nil;
     BOOL repeats = YES;
-    BOOL shouldFinish = NO;
+    BOOL reachesTerminalState = NO;
     [self.stateLock lock];
     BOOL shouldFire = (self.timerState == JobsTimerStateRunning && token == self.generation);
     repeats = self.repeats;
@@ -341,36 +375,41 @@ JobsKey(_stop)
     if (shouldFire) {
         if (self.timerStyle == TimerStyle_anticlockwise) {
             currentTime = MAX(0, currentTime - self.timeInterval);
-            shouldFinish = currentTime <= 0;
+            reachesTerminalState = currentTime <= 0;
         } else {
             currentTime += self.timeInterval;
         }
         self.time = currentTime;
+        reachesTerminalState = reachesTerminalState || !repeats;
+        if (reachesTerminalState) {
+            self.timerState = JobsTimerStateFinished;
+            self.generation += 1;
+        }
     }
-    [self.stateLock unlock];
     tickBlock = self.onTick;
     finishBlock = self.onFinish;
+    [self.stateLock unlock];
     if (!shouldFire) return;
-    // tick 默认在 queue
-    dispatch_queue_t q = self.queue ?: dispatch_get_main_queue();
-    if (tickBlock) {
-        dispatch_async(q, ^{
-            tickBlock(currentTime);
-        });
+    if (reachesTerminalState) {
+        [self invalidateInternal](NO);
     }
-    if (shouldFinish || !repeats) {
-        // one-shot：触发一次后结束
-        [self routeStopIfNeededFromCallback];
-        if (finishBlock) {
-            dispatch_async(q, ^{
-                finishBlock(self);
-            });
+    dispatch_queue_t q = self.queue ?: dispatch_get_main_queue();
+    dispatch_async(q, ^{
+        if (!reachesTerminalState) {
+            [self.stateLock lock];
+            BOOL isStillValid = (self.timerState == JobsTimerStateRunning && self.generation == token);
+            [self.stateLock unlock];
+            if (!isStillValid) return;
         }
+        if (tickBlock) tickBlock(currentTime);
+        if (reachesTerminalState && finishBlock) finishBlock(self);
+    });
     }
 }
 
 #pragma mark —— TimerProtocol
 - (void)start {
+    @synchronized (self) {
     [self setupAppStateIfNeeded];
     if (self.isNonGCDKind) {
         jobs_requireMainThread(@"start");
@@ -392,6 +431,11 @@ JobsKey(_stop)
     [self delayByMainQueue:self.timeSecIntervalSinceDate block:^{
         @jobs_strongify(self)
         if (!self) return;
+        @synchronized (self) {
+        [self.stateLock lock];
+        BOOL shouldStartEngine = (self.timerState == JobsTimerStateRunning && self.generation == token);
+        [self.stateLock unlock];
+        if (!shouldStartEngine) return;
         // ⚠️ 非 GCD 内核依赖 RunLoop/DisplayLink：强制主线程主 RunLoop
         if (self.isNonGCDKind && !NSThread.isMainThread) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -413,19 +457,35 @@ JobsKey(_stop)
                 break;
         }
         [self syncWithCurrentAppStateIfNeeded];
+        }
     }];
+    }
 }
 
 - (void)pause {
-    if (!self.isRunning) return;
+    [self pauseMarkedAsAutoPause:NO];
+}
+
+- (void)pauseMarkedAsAutoPause:(BOOL)markedAsAutoPause {
+    @synchronized (self) {
     if (self.isNonGCDKind) jobs_requireMainThread(@"pause");
     [self.stateLock lock];
+    if (self.timerState == JobsTimerStatePaused) {
+        if (!markedAsAutoPause) self.autoPausedByAppState = NO;
+        [self.stateLock unlock];
+        return;
+    }
+    if (self.timerState != JobsTimerStateRunning) {
+        [self.stateLock unlock];
+        return;
+    }
     self.timerState = JobsTimerStatePaused;
     self.generation += 1;
+    self.autoPausedByAppState = markedAsAutoPause;
     [self.stateLock unlock];
     switch (self.timerType) {
         case JobsTimerTypeNSTimer:
-            self.nsTimer.fireDate = NSDate.distantFuture;
+            [(NSTimer *)Jobs_getAssociatedObject(_nsTimer) setFireDate:NSDate.distantFuture];
             break;
         case JobsTimerTypeGCD:
             if (self.gcdTimer && !self.gcdTimerSuspended) {
@@ -434,7 +494,7 @@ JobsKey(_stop)
             }
             break;
         case JobsTimerTypeDisplayLink:
-            self.displayLink.paused = YES;
+            [(CADisplayLink *)Jobs_getAssociatedObject(_displayLink) setPaused:YES];
             break;
         case JobsTimerTypeRunLoop:
             if (self.rlTimer) {
@@ -444,19 +504,35 @@ JobsKey(_stop)
             }
             break;
     }
+    }
 }
 
 - (void)resume {
-    if (!self.isPaused) return;
+    [self resumeOnlyIfAutoPaused:NO];
+}
+
+- (void)resumeOnlyIfAutoPaused:(BOOL)onlyIfAutoPaused {
+    @synchronized (self) {
     if (self.isNonGCDKind) jobs_requireMainThread(@"resume");
     [self.stateLock lock];
+    if (self.timerState != JobsTimerStatePaused ||
+        (onlyIfAutoPaused && !self.autoPausedByAppState)) {
+        [self.stateLock unlock];
+        return;
+    }
     self.timerState = JobsTimerStateRunning;
     self.generation += 1;
+    self.autoPausedByAppState = NO;
     uint64_t token = self.generation;
     [self.stateLock unlock];
     switch (self.timerType) {
         case JobsTimerTypeNSTimer:
-            self.nsTimer.fireDate = [NSDate dateWithTimeIntervalSinceNow:self.timeInterval];
+            if (Jobs_getAssociatedObject(_nsTimer)) {
+                self.nsTimerProxy.token = token;
+                self.nsTimer.fireDate = [NSDate dateWithTimeIntervalSinceNow:self.timeInterval];
+            } else {
+                [self startNSTimerWithToken:token];
+            }
             break;
         case JobsTimerTypeGCD:
             if (self.gcdTimer && self.gcdTimerSuspended) {
@@ -469,18 +545,29 @@ JobsKey(_stop)
                 [self configureGCDTimerHandler:timer token:token];
                 dispatch_resume(timer);
                 self.gcdTimerSuspended = NO;
+            } else if (!self.gcdTimer) {
+                [self startGCDTimerWithToken:token];
             }
             break;
         case JobsTimerTypeDisplayLink:
-            self.displayLink.paused = NO;
+            if (Jobs_getAssociatedObject(_displayLink)) {
+                self.displayLinkProxy.token = token;
+                [self.displayLinkProxy resetDisplayLinkSchedule];
+                self.displayLink.paused = NO;
+            } else {
+                [self startDisplayLinkWithToken:token];
+            }
             break;
         case JobsTimerTypeRunLoop:
             [self startRunLoopTimerWithToken:token];
             break;
     }
+    [self syncWithCurrentAppStateIfNeeded];
+    }
 }
 
 - (void)fireOnce {
+    @synchronized (self) {
     // 对齐 Swift：停止（销毁）+ 有回调（finish）
     if (self.isNonGCDKind && !NSThread.isMainThread) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -506,9 +593,11 @@ JobsKey(_stop)
             finish(self);
         });
     }
+    }
 }
 
 - (void)stop {
+    @synchronized (self) {
     if (self.isNonGCDKind) jobs_requireMainThread(@"stop");
     [self.stateLock lock];
     BOOL alreadyStopped = (self.timerState == JobsTimerStateCanceled || self.timerState == JobsTimerStateFinished);
@@ -519,6 +608,7 @@ JobsKey(_stop)
     [self.stateLock unlock];
     if (alreadyStopped) return;
     [self invalidateInternal](YES);
+    }
 }
 
 #pragma mark —— Invalidate
@@ -533,19 +623,20 @@ JobsKey(_stop)
         [self.stateLock lock];
         timer = Jobs_getAssociatedObject(_nsTimer);
         Jobs_setAssociatedRETAIN_NONATOMIC(_nsTimer, nil)
+        self.nsTimerProxy = nil;
         gcd = Jobs_getAssociatedObject(_gcdTimer);
         Jobs_setAssociatedRETAIN_NONATOMIC(_gcdTimer, nil)
         wasSuspended = self.gcdTimerSuspended;
         self.gcdTimerSuspended = NO;
         dl = Jobs_getAssociatedObject(_displayLink);
         Jobs_setAssociatedRETAIN_NONATOMIC(_displayLink, nil)
+        self.displayLinkProxy = nil;
         rl = self.rlTimer; self.rlTimer = NULL;
         self.lastStartDate      = nil;
         self.accumulatedElapsed = 0;
         self.time               = 0;
         self.autoPausedByAppState = NO;
         [self.stateLock unlock];
-        if (timer) [timer invalidate];
         if (gcd) {
             @try {
                 // cancel 前必须平衡 suspend
@@ -558,10 +649,18 @@ JobsKey(_stop)
                 NSLog(@"JobsTimer GCD cancel exception = %@", exception);
             }
         }
-        if (dl) [dl invalidate];
-        if (rl) {
-            CFRunLoopTimerInvalidate(rl);
-            CFRelease(rl);
+        dispatch_block_t invalidateThreadAffineEngines = ^{
+            if (timer) [timer invalidate];
+            if (dl) [dl invalidate];
+            if (rl) {
+                CFRunLoopTimerInvalidate(rl);
+                CFRelease(rl);
+            }
+        };
+        if (NSThread.isMainThread) {
+            invalidateThreadAffineEngines();
+        } else {
+            dispatch_async(dispatch_get_main_queue(), invalidateThreadAffineEngines);
         }
         if (markCanceled) {
             // 这里不强行覆盖 Finished
@@ -575,14 +674,9 @@ JobsKey(_stop)
 #pragma mark —— NSTimer
 - (void)startNSTimerWithToken:(uint64_t)token {
     jobs_requireMainThread(@"startNSTimer");
-    // 用 mainRunLoop，对齐 Swift（RunLoop.main）
-    [NSRunLoop.mainRunLoop addTimer:self.nsTimer forMode:self.runLoopMode];
-    @jobs_weakify(self)
-    // NSTimer selector 不能携带 token，这里用 event 时读取当前 generation，并通过 token 校验
-    // start 时 token 已经固定，若 generation 变化，fireTickIfValid 会拦截
-    (void)weak_self;
-    // 立即将 state 置 running 已在 start 完成
-    [self fireTickIfValid:token];
+    NSTimer *timer = self.nsTimer;
+    self.nsTimerProxy.token = token;
+    [NSRunLoop.mainRunLoop addTimer:timer forMode:self.runLoopMode];
 }
 
 #pragma mark —— GCD
@@ -618,10 +712,10 @@ JobsKey(_stop)
 #pragma mark —— DisplayLink
 - (void)startDisplayLinkWithToken:(uint64_t)token {
     jobs_requireMainThread(@"startDisplayLink");
-    [self.displayLink addToRunLoop:NSRunLoop.mainRunLoop forMode:self.runLoopMode];
-    // CADisplayLink 走 selector（tick）→ 读取当前 generation，使用 start 时 token 校验
-    // 先回调一次，保持行为一致
-    [self fireTickIfValid:token];
+    CADisplayLink *displayLink = self.displayLink;
+    self.displayLinkProxy.token = token;
+    [self.displayLinkProxy resetDisplayLinkSchedule];
+    [displayLink addToRunLoop:NSRunLoop.mainRunLoop forMode:self.runLoopMode];
 }
 
 #pragma mark —— RunLoop (CFRunLoopTimer)
@@ -635,35 +729,23 @@ JobsKey(_stop)
     }
     CFAbsoluteTime nextFire = CFAbsoluteTimeGetCurrent() + self.timeInterval;
     CFTimeInterval interval = self.repeats ? self.timeInterval : 0;
-    JobsTimerRunLoopTimerContext *timerContext = calloc(1, sizeof(JobsTimerRunLoopTimerContext));
-    timerContext->timer = self;
-    timerContext->token = token;
-    CFRunLoopTimerContext ctx = {0, timerContext, NULL, JobsTimerRunLoopTimerContextRelease, NULL};
-    CFRunLoopTimerRef timer = CFRunLoopTimerCreate(kCFAllocatorDefault,
-                                                   nextFire,
-                                                   interval,
-                                                   0,
-                                                   0,
-                                                   JobsTimerRunLoopTimerCallback,
-                                                   &ctx);
+    @jobs_weakify(self)
+    CFRunLoopTimerRef timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault,
+                                                              nextFire,
+                                                              interval,
+                                                              0,
+                                                              0,
+                                                              ^(__unused CFRunLoopTimerRef timer) {
+        @jobs_strongify(self)
+        if (!self) return;
+        [self fireTickIfValid:token];
+    });
     CFRunLoopRef rl = CFRunLoopGetMain();
-    CFRunLoopMode mode = (self.runLoopMode == NSRunLoopCommonModes)
+    CFRunLoopMode mode = [self.runLoopMode isEqualToString:NSRunLoopCommonModes]
     ? kCFRunLoopCommonModes
     : (__bridge CFStringRef)self.runLoopMode;
     CFRunLoopAddTimer(rl, timer, mode);
     self.rlTimer = timer;
-    // 起步回调
-    [self fireTickIfValid:token];
-}
-
-#pragma mark —— Selector ticks
-- (void)handleTick {
-    // 兼容旧 selector：统一转发到 token 校验
-    uint64_t token = 0;
-    [self.stateLock lock];
-    token = self.generation;
-    [self.stateLock unlock];
-    [self fireTickIfValid:token];
 }
 
 #pragma mark —— App State (UIKit)
@@ -672,34 +754,34 @@ JobsKey(_stop)
         [self teardownAppStateMonitor];
         return;
     }
-    if (self.didEnterBGToken || self.willEnterFGToken) return;
+    if (self.willResignActiveToken || self.didBecomeActiveToken) return;
     @jobs_weakify(self)
-    self.didEnterBGToken = [NSNotificationCenter.defaultCenter addObserverForName:UIApplicationDidEnterBackgroundNotification
-                                                                           object:nil
-                                                                            queue:NSOperationQueue.mainQueue
-                                                                       usingBlock:^(__unused NSNotification * _Nonnull note) {
+    self.willResignActiveToken = [NSNotificationCenter.defaultCenter addObserverForName:UIApplicationWillResignActiveNotification
+                                                                                  object:nil
+                                                                                   queue:NSOperationQueue.mainQueue
+                                                                              usingBlock:^(__unused NSNotification * _Nonnull note) {
         @jobs_strongify(self)
         if (!self) return;
-        [self jobs_onDidEnterBackground];
+        [self jobs_onWillResignActive];
     }];
-    self.willEnterFGToken = [NSNotificationCenter.defaultCenter addObserverForName:UIApplicationWillEnterForegroundNotification
-                                                                            object:nil
-                                                                             queue:NSOperationQueue.mainQueue
-                                                                        usingBlock:^(__unused NSNotification * _Nonnull note) {
+    self.didBecomeActiveToken = [NSNotificationCenter.defaultCenter addObserverForName:UIApplicationDidBecomeActiveNotification
+                                                                                 object:nil
+                                                                                  queue:NSOperationQueue.mainQueue
+                                                                             usingBlock:^(__unused NSNotification * _Nonnull note) {
         @jobs_strongify(self)
         if (!self) return;
-        [self jobs_onWillEnterForeground];
+        [self jobs_onDidBecomeActive];
     }];
 }
 
 - (void)teardownAppStateMonitor {
-    if (self.didEnterBGToken) {
-        [NSNotificationCenter.defaultCenter removeObserver:self.didEnterBGToken];
-        self.didEnterBGToken = nil;
+    if (self.willResignActiveToken) {
+        [NSNotificationCenter.defaultCenter removeObserver:self.willResignActiveToken];
+        self.willResignActiveToken = nil;
     }
-    if (self.willEnterFGToken) {
-        [NSNotificationCenter.defaultCenter removeObserver:self.willEnterFGToken];
-        self.willEnterFGToken = nil;
+    if (self.didBecomeActiveToken) {
+        [NSNotificationCenter.defaultCenter removeObserver:self.didBecomeActiveToken];
+        self.didBecomeActiveToken = nil;
     }
     self.autoPausedByAppState = NO;
 }
@@ -714,25 +796,18 @@ JobsKey(_stop)
     }
     UIApplicationState state = UIApplication.sharedApplication.applicationState;
     if (state == UIApplicationStateBackground || state == UIApplicationStateInactive) {
-        if (self.isRunning) {
-            self.autoPausedByAppState = YES;
-            [self pause];
-        }
+        [self pauseMarkedAsAutoPause:YES];
     }
 }
 
-- (void)jobs_onDidEnterBackground {
+- (void)jobs_onWillResignActive {
     if (!self.autoManageAppState || !self.pauseInBackground) return;
-    if (!self.isRunning) return; // 手动 pause 的不动
-    self.autoPausedByAppState = YES;
-    [self pause];
+    [self pauseMarkedAsAutoPause:YES];
 }
 
-- (void)jobs_onWillEnterForeground {
+- (void)jobs_onDidBecomeActive {
     if (!self.autoManageAppState || !self.pauseInBackground) return;
-    if (!self.autoPausedByAppState) return;
-    self.autoPausedByAppState = NO;
-    [self resume];
+    [self resumeOnlyIfAutoPaused:YES];
 }
 
 #pragma mark —— onTick / onFinish（线程安全，且保持 DSL 语义）

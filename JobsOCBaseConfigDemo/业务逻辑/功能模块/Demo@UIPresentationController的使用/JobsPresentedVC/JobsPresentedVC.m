@@ -16,7 +16,9 @@
     JobsRemoveNotification(self);
     [self.view endEditing:YES];
     if (JobsDebug) {
-        toastBy([NSString stringWithFormat:@"%@%@",@"成功销毁了控制器".tr,NSStringFromClass(self.class)]);
+        if (JobsControllerDeallocTipsEnabled()) {
+            toastBy([NSString stringWithFormat:@"%@%@",@"成功销毁了控制器".tr,NSStringFromClass(self.class)]);
+        }
         JobsLog(@"%@",JobsLocalFunc);
         PrintRetainCount(self)
     }

@@ -64,3 +64,6 @@ iOSInjectionProject/
 
 # Local generated reports
 graphify-out/
+
+# Build-time AppIcon variants generated from the original asset catalog.
+**/JobsAppIconRibbon-*.appiconset/

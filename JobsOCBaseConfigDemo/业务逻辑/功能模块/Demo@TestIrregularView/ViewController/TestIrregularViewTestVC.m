@@ -76,7 +76,7 @@
     CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
     btn.byBgColor([UIColor orangeColor]);
-    [btn setTitle:@"按钮" forState:UIControlStateNormal];
+    [btn setTitle:@"按钮".tr forState:UIControlStateNormal];
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
@@ -100,7 +100,7 @@
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
     btn.byFrame(CGRectMake(120, 100 + contentOffsetY, 120, 50));
     btn.byBgColor([UIColor greenColor]);
-    [btn setTitle:@"按钮" forState:UIControlStateNormal];
+    [btn setTitle:@"按钮".tr forState:UIControlStateNormal];
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
@@ -120,7 +120,7 @@
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
     btn.byFrame(CGRectMake(220, 100 + contentOffsetY, 120, 50));
     btn.byBgColor([UIColor cyanColor]);
-    [btn setTitle:@"按钮" forState:UIControlStateNormal];
+    [btn setTitle:@"按钮".tr forState:UIControlStateNormal];
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
@@ -139,7 +139,7 @@
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
     btn.byFrame(CGRectMake(20, 200 + contentOffsetY, 150, 150));
     btn.byBgColor([UIColor purpleColor]);
-    [btn setTitle:@"按钮" forState:UIControlStateNormal];
+    [btn setTitle:@"按钮".tr forState:UIControlStateNormal];
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
@@ -171,7 +171,7 @@
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
     btn.byFrame(CGRectMake(200, 200 + contentOffsetY, 150, 150));
     btn.byBgColor([UIColor brownColor]);
-    [btn setTitle:@"按钮" forState:UIControlStateNormal];
+    [btn setTitle:@"按钮".tr forState:UIControlStateNormal];
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
@@ -190,7 +190,7 @@
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
     btn.byFrame(CGRectMake(20, 380 + contentOffsetY, 330, 150));
     btn.byBgColor([UIColor magentaColor]);
-    [btn setTitle:@"按钮" forState:UIControlStateNormal];
+    [btn setTitle:@"按钮".tr forState:UIControlStateNormal];
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;

@@ -558,9 +558,8 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                             }
                         };return 0;
                     };
-                    cell.label.text = @"第"
-                        .add([self translationArabicNum:[self getweekdayOrdinalWithDate:self.weeks[getVilabelIdxBlock(row, column)]]])
-                        .add(@"周");
+                    cell.label.text = [NSString stringWithFormat:@"第%ld周".tr,
+                                       (long)[self getweekdayOrdinalWithDate:self.weeks[getVilabelIdxBlock(row, column)]]];
                 }break;
                 case ZMJDisplayMode_monthly:{
                     NSInteger(^getVilabelIdxBlock)(NSInteger r, NSInteger c) = ^NSInteger(NSInteger r, NSInteger c) {
@@ -572,9 +571,8 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                             }
                         };return 0;
                     };
-                    cell.label.text = @"第"
-                        .add([self translationArabicNum:[self getmonthOrdinalWithDate:self.years[getVilabelIdxBlock(row, column)]]])
-                        .add(@"月");
+                    cell.label.text = [NSString stringWithFormat:@"第%ld月".tr,
+                                       (long)[self getmonthOrdinalWithDate:self.years[getVilabelIdxBlock(row, column)]]];
                 }break;
             }
         }

@@ -161,7 +161,7 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
         NSInteger duration = minutesDuration[1].integerValue;
         SlotCell *cell = (SlotCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(SlotCell.class) forIndexPath:indexPath];
         cell.minutes = minutes % 60;
-        cell.title = @"Dummy Text";
+        cell.title = @"Dummy Text".tr;
         cell.tableHighlight = duration > 20 ? @"Lorem ipsum dolor sit amet, consectetur adipiscing elit" : @"";
         return cell;
     };return [spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(MyBlankCell.class) forIndexPath:indexPath];

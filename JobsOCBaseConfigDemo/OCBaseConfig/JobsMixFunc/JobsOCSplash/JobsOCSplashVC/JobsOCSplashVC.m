@@ -132,6 +132,8 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
                     [self finish];
                 })
                 .byBgColor(HEXCOLOR(0xAE8330))
+                .byCornerRadius(18)
+                .byClipsToBounds(YES)
                 .byHidden(!self.configuration.skipButtonVisible);
             btn.adjustsImageWhenHighlighted = NO;
         });

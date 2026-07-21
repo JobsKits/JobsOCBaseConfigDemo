@@ -2,7 +2,7 @@
 //  JobsTimerManager.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2025/12/13.
+//  Created by Jobs on 2025年12月13日，星期六.
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSTIMERMANAGER_61B77B1B2B
@@ -42,7 +42,7 @@ Prop_copy(readonly)NSString *timerIdentifier;
 #define JOBS_TIMER_BACKGROUND_POLICY_DEFINED
 typedef NS_ENUM(NSUInteger, JobsTimerBackgroundPolicy) {
     JobsTimerBackgroundPolicyIgnore = 0,        // 不处理
-    JobsTimerBackgroundPolicyPauseAndResume,    // 后台自动 pause，前台自动 resume（只恢复“自动暂停”的）
+    JobsTimerBackgroundPolicyPauseAndResume,    // 失去活跃态自动 pause，重新活跃只恢复“自动暂停”的
     JobsTimerBackgroundPolicyCancel             // 进后台直接 stop + remove
 };
 #endif /* JOBS_TIMER_BACKGROUND_POLICY_DEFINED */
@@ -51,13 +51,13 @@ typedef NS_ENUM(NSUInteger, JobsTimerBackgroundPolicy) {
 
 + (instancetype)shared;
 
-/// 创建/覆盖一个 timer（同 id：先 stop + remove 再创建；并尽力关闭 timer 内核自带前后台监听，统一交给 Manager）
+/// 创建/覆盖一个 timer（同 id：先原子替换注册项，再在锁外停止旧 timer；start/resume 后同步当前应用状态）
 /// - identifier: 唯一 id
 /// - timerType: JobsTimerTypeNSTimer / JobsTimerTypeGCD / JobsTimerTypeDisplayLink
 /// - policy: 前后台策略
 /// - startImmediately: 是否立刻 start
 /// - build: 用于配置 timer（时间间隔/倒计时参数/队列等）；⚠️ 回调建议用 Manager 的 onTick/onFinish 注册
-/// - handler: “首次 tick 回调”（Swift 侧 handler 是 void，这里保持一致）
+/// - handler: 每次 tick 的无参回调（Swift 侧 handler 是 void，这里保持一致）
 - (BOOL)upsertTimerWithIdentifier:(NSString *)identifier
                         timerType:(JobsTimerType)timerType
                            policy:(JobsTimerBackgroundPolicy)policy

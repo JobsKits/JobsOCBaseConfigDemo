@@ -30,6 +30,10 @@ typedef NS_ENUM(NSUInteger, UIViewControllerLifeCycle) {
 
 NS_ASSUME_NONNULL_BEGIN
 
+FOUNDATION_EXPORT NSString *const JobsControllerDeallocTipsEnabledUserDefaultsKey;
+FOUNDATION_EXPORT BOOL JobsControllerDeallocTipsEnabled(void);
+FOUNDATION_EXPORT void JobsSetControllerDeallocTipsEnabled(BOOL enabled);
+
 @interface JobsDebugVC : UIViewController
 
 @end

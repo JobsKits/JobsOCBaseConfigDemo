@@ -9,6 +9,7 @@
 
 NSString *const JobsOCRootFoldTableCellReuseIdentifier = @"JobsOCRootFoldTableCell";
 static NSString *const JobsOCRootFoldInnerCellReuseIdentifier = @"JobsOCRootFoldInnerCell";
+static NSTimeInterval const JobsOCChargingProgressInterval = 0.45;
 
 @interface JobsOCRootFoldTableCell ()
 
@@ -26,18 +27,22 @@ Prop_copy()jobsByNSIntegerBlock selectBlock;
 Prop_copy()jobsByNSIntegerBlock pinBlock;
 Prop_assign()NSInteger pinAccessoryIndex;
 Prop_assign()BOOL pinnedSectionStyle;
+Prop_strong()JobsTimer *chargingProgressTimer;
+Prop_assign()NSInteger chargingProgressPhase;
 
 -(UIView *)sectionDescriptionHeaderViewByText:(NSString *)text;
 -(CGFloat)sectionDescriptionHeaderWidth;
 -(CGFloat)sectionDescriptionHeaderHeight;
 -(void)reloadSectionDescriptionHeaderViewIfNeeded;
+-(void)prepareChargingProgressTimerIfNeeded;
+-(void)syncChargingProgressTimerState;
+-(void)refreshVisibleChargingProgressTitle;
 
 @end
 
 @implementation JobsOCRootFoldTableCell{
     MASConstraint *_innerTableHeightConstraint;
     BOOL _expanded;
-    NSInteger _chargingProgressPhase;
 }
 
 +(CGFloat)verticalInset{
@@ -153,7 +158,6 @@ Prop_assign()BOOL pinnedSectionStyle;
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
         self.items = @[];
-        _chargingProgressPhase = 0;
         self.pinAccessoryIndex = NSNotFound;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = JobsClearColor;
@@ -167,6 +171,9 @@ Prop_assign()BOOL pinnedSectionStyle;
 
 -(void)prepareForReuse{
     [super prepareForReuse];
+    [self.chargingProgressTimer stop];
+    self.chargingProgressTimer = nil;
+    self.chargingProgressPhase = 0;
     self.items = @[];
     self.sectionDescription = nil;
     self.selectBlock = nil;
@@ -177,6 +184,15 @@ Prop_assign()BOOL pinnedSectionStyle;
     self.innerTableView.tableHeaderView = nil;
     [self setExpanded:NO
              animated:NO];
+}
+
+-(void)didMoveToWindow{
+    [super didMoveToWindow];
+    [self syncChargingProgressTimerState];
+}
+
+-(void)dealloc{
+    [self.chargingProgressTimer stop];
 }
 
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
@@ -228,16 +244,57 @@ Prop_assign()BOOL pinnedSectionStyle;
     NSString *className = viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
     if (![className isEqualToString:@"JobsProgressDemoVC"]) return text;
     NSArray <NSString *>*states = @[@"🟩⬜⬜", @"🟩🟩⬜", @"🟩🟩🟩"];
-    return [NSString stringWithFormat:@"%@ %@", states[_chargingProgressPhase % states.count], text];
+    return [NSString stringWithFormat:@"%@ %@", states[self.chargingProgressPhase], text];
 }
 
--(void)updateChargingProgressByPhase:(NSInteger)phase{
-    _chargingProgressPhase = MAX(0, phase) % 3;
+-(BOOL)containsChargingProgressItem{
+    for (UIViewModel *viewModel in self.items) {
+        if ([NSStringFromClass(viewModel.cls) isEqualToString:@"JobsProgressDemoVC"]) return YES;
+    };return NO;
+}
+
+-(void)prepareChargingProgressTimerIfNeeded{
+    if (!self.containsChargingProgressItem) {
+        [self.chargingProgressTimer stop];
+        self.chargingProgressTimer = nil;
+        return;
+    }
+    if (self.chargingProgressTimer) {
+        [self syncChargingProgressTimerState];
+        return;
+    }
+    @jobs_weakify(self)
+    self.chargingProgressTimer = jobsMakeTimer(^(JobsTimer * _Nullable timer) {
+        timer.byTimerType(JobsTimerTypeGCD)
+            .byTimerStyle(TimerStyle_clockwise)
+            .byTimeInterval(JobsOCChargingProgressInterval)
+            .byQueue(dispatch_get_main_queue())
+            .byPauseInBackground(YES)
+            .byAutoManageAppState(YES)
+            .byOnTick(^(CGFloat time) {
+                @jobs_strongify(self)
+                self.chargingProgressPhase = (self.chargingProgressPhase + 1) % 3;
+                [self refreshVisibleChargingProgressTitle];
+            });
+    });
+    [self.chargingProgressTimer start];
+    [self syncChargingProgressTimerState];
+}
+
+-(void)syncChargingProgressTimerState{
+    if (!self.chargingProgressTimer) return;
+    if (self.window && _expanded && self.containsChargingProgressItem) {
+        [self.chargingProgressTimer resume];
+    }else{
+        [self.chargingProgressTimer pause];
+    }
+}
+
+-(void)refreshVisibleChargingProgressTitle{
     for (NSIndexPath *indexPath in self.innerTableView.indexPathsForVisibleRows) {
-        if (indexPath.row < 0 || indexPath.row >= (NSInteger)self.items.count) continue;
+        if (indexPath.row >= self.items.count) continue;
         UIViewModel *viewModel = self.items[indexPath.row];
-        NSString *className = viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
-        if (![className isEqualToString:@"JobsProgressDemoVC"]) continue;
+        if (![NSStringFromClass(viewModel.cls) isEqualToString:@"JobsProgressDemoVC"]) continue;
         [self.innerTableView cellForRowAtIndexPath:indexPath].textLabel.byText([self displayTextByViewModel:viewModel]);
     }
 }
@@ -519,6 +576,7 @@ Prop_assign()BOOL pinnedSectionStyle;
     [self.innerTableView reloadData];
     [self setExpanded:expanded
              animated:NO];
+    [self prepareChargingProgressTimerIfNeeded];
 }
 
 -(void)configurePinnedWithSectionModel:(JobsOCDemoSectionModel *)sectionModel
@@ -539,6 +597,7 @@ Prop_assign()BOOL pinnedSectionStyle;
     [self.innerTableView reloadData];
     [self setExpanded:YES
              animated:NO];
+    [self prepareChargingProgressTimerIfNeeded];
 }
 
 -(void)setExpanded:(BOOL)expanded
@@ -567,6 +626,7 @@ Prop_assign()BOOL pinnedSectionStyle;
         changes();
         completion(YES);
     }
+    [self syncChargingProgressTimerState];
 }
 
 #pragma mark —— UITableViewDataSource & UITableViewDelegate

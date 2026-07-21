@@ -602,7 +602,7 @@ Prop_strong()id runtimeObject;
         _titleLabel = [self demoLabelByFont:[UIFont systemFontOfSize:20 weight:UIFontWeightBold]
                                       color:HEXCOLOR(0x2B3340)
                               numberOfLines:1];
-        _titleLabel.text = @"OC Runtime 动态注册";
+        _titleLabel.text = @"OC Runtime 动态注册".tr;
     };return _titleLabel;
 }
 
@@ -611,7 +611,7 @@ Prop_strong()id runtimeObject;
         _subTitleLabel = [self demoLabelByFont:[UIFont systemFontOfSize:13]
                                          color:HEXCOLOR(0x667085)
                                  numberOfLines:2];
-        _subTitleLabel.text = @"演示 objc_allocateClassPair、class_addIvar、class_addProperty、class_addMethod 和 objc_registerClassPair 的完整流程。";
+        _subTitleLabel.text = @"演示 objc_allocateClassPair、class_addIvar、class_addProperty、class_addMethod 和 objc_registerClassPair 的完整流程。".tr;
     };return _subTitleLabel;
 }
 
@@ -622,7 +622,7 @@ Prop_strong()id runtimeObject;
                                        numberOfLines:1];
         _classNameValueLabel.adjustsFontSizeToFitWidth = YES;
         _classNameValueLabel.minimumScaleFactor = 0.72;
-        _classNameValueLabel.text = @"Runtime Class：等待执行";
+        _classNameValueLabel.text = @"Runtime Class：等待执行".tr;
     };return _classNameValueLabel;
 }
 
@@ -639,7 +639,7 @@ Prop_strong()id runtimeObject;
         _logTitleLabel = [self demoLabelByFont:[UIFont systemFontOfSize:15 weight:UIFontWeightSemibold]
                                          color:JobsWhiteColor
                                  numberOfLines:1];
-        _logTitleLabel.text = @"执行日志";
+        _logTitleLabel.text = @"执行日志".tr;
     };return _logTitleLabel;
 }
 

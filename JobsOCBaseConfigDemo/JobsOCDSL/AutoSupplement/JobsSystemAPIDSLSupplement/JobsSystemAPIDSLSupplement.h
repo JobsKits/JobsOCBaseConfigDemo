@@ -204,8 +204,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetUILabelByCGFloatBlock _Nonnull)byPreferredMaxLayoutWidth;
 -(JobsRetUILabelByLineBreakStrategyBlock _Nonnull)byLineBreakStrategy API_AVAILABLE(ios(14.0), tvos(14.0), watchos(7.0));
 -(JobsRetUILabelByBOOLBlock _Nonnull)byShowsExpansionTextWhenTruncated API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos, watchos);
--(JobsRetUILabelByCGFloatBlock _Nonnull)byMinimumFontSize API_DEPRECATED("", ios(2.0, 6.0)) API_UNAVAILABLE(tvos) API_UNAVAILABLE(visionos, watchos);
--(JobsRetUILabelByBOOLBlock _Nonnull)byAdjustsLetterSpacingToFitWidth API_DEPRECATED("", ios(6.0, 7.0)) API_UNAVAILABLE(tvos) API_UNAVAILABLE(visionos, watchos);
+-(JobsRetUILabelByCGFloatBlock _Nonnull)byMinimumFontSize API_UNAVAILABLE(tvos) API_UNAVAILABLE(visionos, watchos);
+-(JobsRetUILabelByBOOLBlock _Nonnull)byAdjustsLetterSpacingToFitWidth API_UNAVAILABLE(tvos) API_UNAVAILABLE(visionos, watchos);
 #if defined(__IPHONE_10_0)
 -(JobsRetUILabelByBOOLBlock _Nonnull)byAdjustsFontForContentSizeCategory;
 #endif

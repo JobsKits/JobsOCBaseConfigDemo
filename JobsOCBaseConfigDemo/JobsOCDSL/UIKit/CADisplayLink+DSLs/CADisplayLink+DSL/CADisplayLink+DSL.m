@@ -18,8 +18,13 @@
     @jobs_weakify(self)
     return ^__kindof CADisplayLink *_Nullable(NSInteger data){
         @jobs_strongify(self)
-        SuppressWdeprecatedDeclarationsWarning(self.frameInterval = data);
-        return self;
+        NSInteger frameInterval = MAX(1, data);
+        if (@available(iOS 10.0, tvOS 10.0, *)) {
+            self.preferredFramesPerSecond = MAX(1,
+                                                UIScreen.mainScreen.maximumFramesPerSecond / frameInterval);
+        }else{
+            SuppressWdeprecatedDeclarationsWarning(self.frameInterval = frameInterval);
+        };return self;
     };
 }
 

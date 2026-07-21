@@ -9,6 +9,8 @@
 #define JobsFuseAnimation_h
 
 #import "JobsFuseBubbleConfig.h"
+#import "JobsDouyinRefreshConfig.h"
+#import "JobsDouyinRefreshView.h"
 #import "JobsFuseOuterRingConfig.h"
 #import "UIView+JobsFuseAnimation.h"
 

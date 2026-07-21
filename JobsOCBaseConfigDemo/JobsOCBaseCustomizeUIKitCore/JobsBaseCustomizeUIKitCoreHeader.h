@@ -137,6 +137,7 @@
 
 #pragma mark —— UILabel
 #import "UILabel+Extra.h"
+#import "JobsScrollingLabel.h"
 #import "JobsLabel.h"
 
 #pragma mark —— UIButton

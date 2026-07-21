@@ -70,7 +70,7 @@
     titleLabel.numberOfLines = 2;
     [card addSubview:titleLabel];
     UILabel *subtitleLabel = UILabel.new;
-    subtitleLabel.text = @"神秘彩金等你来拿";
+    subtitleLabel.text = @"神秘彩金等你来拿".tr;
     subtitleLabel.textColor = UIColor.darkGrayColor;
     subtitleLabel.font = [UIFont systemFontOfSize:15];
     [card addSubview:subtitleLabel];
@@ -233,7 +233,7 @@ Prop_strong()NSArray<NSString *> *menuTitles;
 -(UILabel *)callbackLabel{
     if (!_callbackLabel) {
         _callbackLabel = UILabel.new;
-        _callbackLabel.text = @"当前菜单：日常.1";
+        _callbackLabel.text = @"当前菜单：日常.1".tr;
         _callbackLabel.textColor = UIColor.darkGrayColor;
         _callbackLabel.font = [UIFont systemFontOfSize:13];
         [self.view addSubview:_callbackLabel];

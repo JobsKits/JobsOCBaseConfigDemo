@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CADisplayLink (JobsChain)
 
 -(JobsRetCADisplayLinkByBOOLBlock _Nonnull)byPaused;
--(JobsRetCADisplayLinkByNSIntegerBlock _Nonnull)byFrameInterval API_DEPRECATED("preferredFramesPerSecond", ios(3.1, 10.0), tvos(9.0, 10.0)) API_UNAVAILABLE(macos, watchos);
+-(JobsRetCADisplayLinkByNSIntegerBlock _Nonnull)byFrameInterval API_UNAVAILABLE(macos, watchos);
 -(JobsRetCADisplayLinkByNSIntegerBlock _Nonnull)byPreferredFramesPerSecond;
 -(JobsRetCADisplayLinkByVoidBlock _Nonnull)byInvalidate;
 #if defined(__IPHONE_15_0)

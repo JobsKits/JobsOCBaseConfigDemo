@@ -12,13 +12,16 @@ static NSString *const JobsOCDemoListSettingsCellReuseIdentifier = @"JobsOCDemoL
 static NSString *const JobsOCSplashEnabledUserDefaultsKey = @"com.BSports.JobsOCSplashEnabledUserDefaultsKey";
 static NSString *const JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey = @"com.BSports.JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey";
 static NSString *const JobsOCDemoListDarkModeUserDefaultsKey = @"com.BSports.JobsOCDemoListDarkModeUserDefaultsKey";
+static NSString *const JobsOCDemoSuspendTimeButtonVisibleUserDefaultsKey = @"com.jobs.demoList.showsSuspendTimeButton";
 
 typedef NS_ENUM(NSInteger, JobsOCDemoListSettingItem) {
     JobsOCDemoListSettingItemSplash = 0,
     JobsOCDemoListSettingItemReturnBehavior,
+    JobsOCDemoListSettingItemSuspendTimeButton,
     JobsOCDemoListSettingItemTheme,
     JobsOCDemoListSettingItemSideDrawerMode,
-    JobsOCDemoListSettingItemAppEntry
+    JobsOCDemoListSettingItemAppEntry,
+    JobsOCDemoListSettingItemDeallocTips
 };
 
 typedef NS_ENUM(NSInteger, JobsOCDemoListSettingSection) {
@@ -35,6 +38,8 @@ Prop_assign()BOOL shouldApplyAppEntryAfterReturning;
 -(void)setJobsOCSplashEnabled:(BOOL)jobsOCSplashEnabled;
 -(BOOL)demoListReturnToTopAndRefreshEnabled;
 -(void)setDemoListReturnToTopAndRefreshEnabled:(BOOL)enabled;
+-(BOOL)showsSuspendTimeButton;
+-(void)setShowsSuspendTimeButton:(BOOL)showsSuspendTimeButton;
 -(BOOL)demoListDarkModeEnabled;
 -(void)setDemoListDarkModeEnabled:(BOOL)enabled;
 -(void)applyDemoListInterfaceStyle;
@@ -47,7 +52,9 @@ Prop_assign()BOOL shouldApplyAppEntryAfterReturning;
 -(void)applyDemoListTabBarInterfaceStyle;
 -(NSString *)splashSwitchTitle;
 -(NSString *)returnSwitchTitle;
+-(NSString *)suspendTimeButtonSwitchTitle;
 -(NSString *)themeSwitchTitle;
+-(NSString *)deallocTipsSwitchTitle;
 -(NSArray <NSString *>*)generalSettingTitleArr;
 -(NSArray <NSString *>*)languageTitleArr;
 -(AppLanguage)appLanguageByRow:(NSInteger)row;
@@ -151,6 +158,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         BOOL enabled = ![self demoListReturnToTopAndRefreshEnabled];
         [self setDemoListReturnToTopAndRefreshEnabled:enabled];
         (enabled ? @"返回主列表：回顶部并刷新".tr : @"返回主列表：保持原样".tr).toast();
+    }else if (item == JobsOCDemoListSettingItemSuspendTimeButton){
+        [self setShowsSuspendTimeButton:![self showsSuspendTimeButton]];
+        ([self showsSuspendTimeButton] ? @"悬浮时间按钮已显示".tr : @"悬浮时间按钮已隐藏".tr).toast();
     }else if (item == JobsOCDemoListSettingItemTheme){
         BOOL dark = ![self demoListDarkModeEnabled];
         [self setDemoListDarkModeEnabled:dark];
@@ -164,6 +174,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         JobsOCSetDemoListUsesTabBarEntry(usesTabBarEntry);
         self.shouldApplyAppEntryAfterReturning = YES;
         (usesTabBarEntry ? @"返回后从 TabBar 进入".tr : @"返回后直接进入 Demo 列表".tr).toast();
+    }else if (item == JobsOCDemoListSettingItemDeallocTips){
+        JobsSetControllerDeallocTipsEnabled(!JobsControllerDeallocTipsEnabled());
+        (JobsControllerDeallocTipsEnabled() ? @"控制器销毁提示已开启".tr : @"控制器销毁提示已关闭".tr).toast();
     }
     [self.tableView reloadData];
 }
@@ -213,6 +226,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(void)setDemoListReturnToTopAndRefreshEnabled:(BOOL)enabled{
     [NSUserDefaults.standardUserDefaults setBool:enabled
                                           forKey:JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey];
+    [NSUserDefaults.standardUserDefaults synchronize];
+}
+
+-(BOOL)showsSuspendTimeButton{
+    id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCDemoSuspendTimeButtonVisibleUserDefaultsKey];
+    return value ? [value boolValue] : YES;
+}
+
+-(void)setShowsSuspendTimeButton:(BOOL)showsSuspendTimeButton{
+    [NSUserDefaults.standardUserDefaults setBool:showsSuspendTimeButton
+                                          forKey:JobsOCDemoSuspendTimeButtonVisibleUserDefaultsKey];
     [NSUserDefaults.standardUserDefaults synchronize];
 }
 
@@ -356,17 +380,27 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     return [self demoListReturnToTopAndRefreshEnabled] ? @"返回：回顶部并刷新".tr : @"返回：保持原样".tr;
 }
 
+-(NSString *)suspendTimeButtonSwitchTitle{
+    return [self showsSuspendTimeButton] ? @"悬浮时间：开".tr : @"悬浮时间：关".tr;
+}
+
 -(NSString *)themeSwitchTitle{
     return [self demoListDarkModeEnabled] ? @"主题切换：黑夜".tr : @"主题切换：白天".tr;
+}
+
+-(NSString *)deallocTipsSwitchTitle{
+    return JobsControllerDeallocTipsEnabled() ? @"销毁提示：开".tr : @"销毁提示：关".tr;
 }
 
 -(NSArray<NSString *> *)generalSettingTitleArr{
     return @[
         [self splashSwitchTitle],
         [self returnSwitchTitle],
+        [self suspendTimeButtonSwitchTitle],
         [self themeSwitchTitle],
         [NSUserDefaults.standardUserDefaults boolForKey:@"JobsOCDemoSideDrawerFixed"] ? @"侧滑菜单：内容固定".tr : @"侧滑菜单：内容跟随".tr,
-        JobsOCDemoListUsesTabBarEntry() ? @"启动入口：TabBar".tr : @"启动入口：Demo 列表".tr
+        JobsOCDemoListUsesTabBarEntry() ? @"启动入口：TabBar".tr : @"启动入口：Demo 列表".tr,
+        [self deallocTipsSwitchTitle]
     ];
 }
 
