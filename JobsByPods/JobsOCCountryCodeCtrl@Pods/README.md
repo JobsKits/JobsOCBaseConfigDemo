@@ -37,6 +37,7 @@
 - 独立提供国家 / 地区代码选择控制器，供 Demo 或业务控制器 push / present 使用。
 - 从 `JobsOCTools` 中拆出国家代码选择能力，减少工具集合 Pod 的 UI 职责堆叠。
 - 需要按国家名称首字母分组展示国家代码，并通过 delegate 或 block 回传选择结果。
+- 页面的导航区、分组列表、索引和主副文案统一使用 iOS 语义色，跟随系统浅色 / 深色外观。
 
 ## 三、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -119,7 +120,9 @@ JobsOCCountryCodeCtrl@Pods/
 - `sortedNameEN.plist`：英文国家 / 地区代码数据。
 - `JobsOCCountryCodeCtrlTaiwanBlueSkyWhiteSun.png`：中国台湾展示用青天白日旗 PNG。
 - podspec 通过 `spec.resources` 收录 `Resource/**/*`，控制器读取时兼容 main bundle 与 CocoaPods bundle。
-- 控制器通过 `JobsLanMgr` 选择 `sortedNameEN` 或 `sortedNameCH`。
+- 控制器通过 `JobsLanMgr` 选择国家列表：中文使用 `sortedNameCH`，其它语言使用 `sortedNameEN` 作为缺省回退，避免非中文界面混入中文国家名。
+- 页面标题与默认返回按钮均通过 `JobsLanMgr` 取当前 App 语言文案。
+- 背景、导航标题、返回按钮、Cell 主副文案、分隔线和右侧索引均使用系统语义色。
 - 旗子优先通过国家 / 地区名映射到 ISO 3166-1 Alpha-2 后生成 emoji；`中国台湾` / `台湾` / `Taiwan` 固定走内置 PNG 富文本附件，不再使用 `TW` emoji。
 
 ## 八、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

@@ -12,6 +12,7 @@
 #pragma mark —— UIApplicationDelegate
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [JobsOCCrashLogCenter.sharedManager startMonitoring];
     JXScaleSetup(375.0, 812.0);
 //    JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationLandscapeLeft | UIInterfaceOrientationLandscapeRight;
 //    JobsAppTool.currentDeviceOrientation = UIDeviceOrientationLandscapeLeft | UIDeviceOrientationLandscapeRight;
@@ -38,12 +39,18 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 }
 /// 系统版本低于iOS13.0的设备
 -(void)applicationDidEnterBackground:(UIApplication *)application{
+    [JobsOCCrashLogCenter.sharedManager markSafeExitPoint];
     JobsLog(@"---applicationDidEnterBackground----");// 进入后台
     JobsPostNotification(退到后台停止播放ZFPlayer, nil);
 }
 /// 系统版本低于iOS13.0的设备
 -(void)applicationDidBecomeActive:(UIApplication *)application{
+    [JobsOCCrashLogCenter.sharedManager markAppLaunched];
     JobsLog(@"---applicationDidBecomeActive----");// 进入前台
+}
+
+-(void)applicationWillTerminate:(UIApplication *)application{
+    [JobsOCCrashLogCenter.sharedManager markSafeExitPoint];
 }
 
 - (void)application:(UIApplication *)application

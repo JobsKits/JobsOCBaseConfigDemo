@@ -30,12 +30,12 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetNavigationBarByAppearanceBlock _Nonnull)byScrollEdgeAppearance API_AVAILABLE(ios(13.0));
 -(JobsRetNavigationBarByAppearanceBlock _Nonnull)byCompactAppearance API_AVAILABLE(ios(13.0));
 -(JobsRetNavigationBarByAppearanceBlock _Nonnull)byCompactScrollEdgeAppearance API_AVAILABLE(ios(15.0));
--(JobsRetNavigationBarByColorBlock _Nonnull)byBarTintColor API_DEPRECATED("Use UINavigationBarAppearance", ios(7.0, 15.0));
+-(JobsRetNavigationBarByColorBlock _Nonnull)byBarTintColor;
 -(JobsRetNavigationBarByBOOLBlock _Nonnull)byTranslucent;
 -(JobsRetNavigationBarByDictionaryBlock _Nonnull)byTitleTextAttributes;
 -(JobsRetNavigationBarByBOOLBlock _Nonnull)byPrefersLargeTitles API_AVAILABLE(ios(11.0));
--(JobsRetNavigationBarByImageBlock _Nonnull)byShadowImage API_DEPRECATED("Use UINavigationBarAppearance", ios(6.0, 13.0));
--(JobsRetNavigationBarByImageAndBarMetricsBlock _Nonnull)byBackgroundImageForBarMetrics API_DEPRECATED("Use UINavigationBarAppearance", ios(5.0, 13.0));
+-(JobsRetNavigationBarByImageBlock _Nonnull)byShadowImage;
+-(JobsRetNavigationBarByImageAndBarMetricsBlock _Nonnull)byBackgroundImageForBarMetrics;
 
 @end
 

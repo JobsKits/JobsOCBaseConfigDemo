@@ -138,7 +138,7 @@
             // JobsLog(@"");
             /**
              
-                 UIAction *action = jobsMakeAction(@"按钮点击操作", nil, nil,
+                 UIAction *action = jobsMakeAction(@"按钮点击操作".tr, nil, nil,
                                                     ^(__kindof UIAction * _Nonnull action) {
                                                                 JobsLog(@"按钮被点击了！");
                                                                 // 在这里执行按钮点击时的操作

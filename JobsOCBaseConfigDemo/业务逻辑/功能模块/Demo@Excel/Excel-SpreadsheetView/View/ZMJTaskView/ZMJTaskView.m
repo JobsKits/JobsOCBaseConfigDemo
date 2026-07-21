@@ -7,6 +7,8 @@
 
 #import "ZMJTaskView.h"
 
+#import "JobsLanMgr.h"
+
 #ifndef TitleColor
 #define TitleColor  UIColor.colorWithHexString(@"999999")
 #endif
@@ -60,7 +62,7 @@ Prop_strong()UILabel *viewDetailLabel;
         jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:10])
-                .byText(@"Start time:")
+                .byText(@"Start time:".tr)
                 .byTextCor(TitleColor)
                 .addOn(self);
         });
@@ -78,7 +80,7 @@ Prop_strong()UILabel *viewDetailLabel;
         jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:10])
-                .byText(@"End time:")
+                .byText(@"End time:".tr)
                 .byTextCor(TitleColor)
                 .addOn(self);
         });
@@ -104,7 +106,7 @@ Prop_strong()UILabel *viewDetailLabel;
             label
                 .byFont([UIFont fontWithName:@"HelveticaNeue-Light" size:12])
                 .byLineBreakMode(NSLineBreakByWordWrapping)
-                .byText(@"View the detail")
+                .byText(@"View the detail".tr)
                 .byTextCor(ValueColor)
                 .addOn(self);
         });

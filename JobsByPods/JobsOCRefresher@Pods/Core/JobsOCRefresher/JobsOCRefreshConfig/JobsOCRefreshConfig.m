@@ -13,10 +13,10 @@
         config.triggerDistance = 60;
         config.viewLength = 60;
         config.showsInfo = YES;
+        config.showsText = YES;
         config.enablesHaptics = YES;
         config.horizontalMode = JobsOCRefreshHorizontalModeRefreshRightLoadLeft;
-        config.animationType = JobsOCRefreshAnimationTypeSystem;
-        config.frameImageInterval = 0.08;
+        config.animator = JobsSystemRefreshView.refreshView;
         config.readyRefreshText = @"松开立即刷新".tr;
         config.readyLoadMoreText = @"松开立即加载更多".tr;
         config.refreshingText = @"正在刷新...".tr;

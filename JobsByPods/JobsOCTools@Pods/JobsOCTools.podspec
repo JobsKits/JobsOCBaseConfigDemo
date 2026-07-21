@@ -13,8 +13,8 @@ Pod::Spec.new do |spec|
   spec.summary      = 'Objective-C UI and utility components by Jobspec.'
   spec.description  = <<-DESC
     JobsOCTools is an Objective-C component collection containing UI widgets,
-    app-door/login views, crypto helpers, tab bar utilities, WebSocket helpers,
-    animation resources, and other reusable iOS toolspec.
+    crypto helpers, tab bar utilities, WebSocket helpers, animation resources,
+    and other reusable iOS toolspec. Authentication templates live in JobsAppDoor.
   DESC
 
   spec.homepage     = 'https://example.local/JobsOCTools'

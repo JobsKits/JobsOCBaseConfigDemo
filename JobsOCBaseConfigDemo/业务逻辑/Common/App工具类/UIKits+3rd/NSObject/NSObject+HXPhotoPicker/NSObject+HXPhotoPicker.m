@@ -52,7 +52,7 @@ static NSString * const JobsSystemCameraSimulatorToast = @"iOS 模拟器不支�
                     }));
                 }];
             }
-        }else @"保存图片需要过去您的相册权限,请前往设置打开".toast();
+        }else @"保存图片需要获取您的相册权限，请前往设置开启".tr.toast();
     }];
 }
 /// HXPhotoPicker 调取系统相机进行拍摄（没有兼容横屏）

@@ -63,6 +63,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BaseViewController : JobsTabBarSettingVC <BaseViewControllerProtocol>
 
+/// 子类返回 NO 时，不自动安装导航栏、标题和返回按钮。
+-(BOOL)jobs_requiresDefaultNavigationBar;
+
 @end
 
 NS_ASSUME_NONNULL_END

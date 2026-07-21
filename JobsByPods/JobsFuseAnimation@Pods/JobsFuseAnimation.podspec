@@ -9,9 +9,9 @@ Pod::Spec.new do |spec|
 
   spec.name             = 'JobsFuseAnimation'
   spec.version          = '1.1.0'
-  spec.summary          = 'Long press fuse/ring animations for UIView in Objective-C.'
+  spec.summary          = 'Reusable UIView animations and pluggable refresh renderers for Objective-C.'
   spec.description      = <<-DESC
-JobsFuseAnimation provides chainable Objective-C UIView animations for long-press fuse ring growth, press-scale feedback, reusable bubble emission and tap sound.
+JobsFuseAnimation provides chainable Objective-C UIView animations and a protocol-driven refresh renderer family covering system, image sequence, GIF, Lottie, Today News style and Douyin style animations.
   DESC
   spec.homepage         = 'https://example.local/JobsFuseAnimation'
   spec.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -21,8 +21,12 @@ JobsFuseAnimation provides chainable Objective-C UIView animations for long-pres
   spec.source           = { :path => '.' }
 
 
-  spec.frameworks = ['UIKit', 'QuartzCore', 'AudioToolbox']
+  spec.frameworks = ['UIKit', 'QuartzCore', 'AudioToolbox', 'ImageIO']
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsOCDSL'
+  spec.dependency 'JobsMakes'
+  spec.dependency 'JobsOCTimer'
+  spec.dependency 'lottie-ios', '~> 2.5.3'
 
   JobsPodspecKitForJobsFuseAnimation.add_support_subspec(spec, support_context) if Dir.exist?(File.join(__dir__, 'Support'))
 

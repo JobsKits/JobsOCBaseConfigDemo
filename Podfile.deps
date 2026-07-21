@@ -171,6 +171,7 @@ end
 def byJobsDo
 #  pod 'JobsBlock', :git => 'https://github.com/JobsKits/JobsBlock.git' ,:tag => '1.0.1'
   # 本地 Pods（统一挂载管理）
+  pod 'JobsAppIconRibbon',              :path => './JobsByPods/JobsAppIconRibbon@Pods'
   pod 'This',                           :path => './JobsByPods/This@Pods'
   pod 'JobsAPIs',                       :path => './JobsByPods/JobsAPIs@Pods'
   pod 'JobsMakes',                      :path => './JobsByPods/JobsMakes@Pods', :modular_headers => true
@@ -188,6 +189,7 @@ def byJobsDo
   pod 'JobsWallet',                     :path => './JobsByPods/JobsWallet@Pods'
   pod 'JobsSuspend',                    :path => './JobsByPods/JobsSuspend@Pods'
   pod 'JobsOCTimer',                    :path => './JobsByPods/JobsOCTimer@Pods'
+  pod 'JobsScrollingLabel',             :path => './JobsByPods/JobsScrollingLabel@Pods'
   pod 'JobsOCAudioRecorder',            :path => './JobsByPods/JobsOCAudioRecorder@Pods'
   pod 'JobsOCPatch',                    :path => './JobsByPods/JobsOCPatch@Pods'
   pod 'JobsByOCPods',                   :path => './JobsByPods/JobsByOCPods@Pods'
@@ -213,16 +215,14 @@ def byJobsDo
   pod 'JobsOCRuntimeKits',              :path => './JobsByPods/JobsOCRuntimeKits@Pods'
   pod 'JobsFuseAnimation',              :path => './JobsByPods/JobsFuseAnimation@Pods'
   pod 'JobsOCGraphicCaptcha',             :path => './JobsByPods/JobsOCGraphicCaptcha@Pods'
+  pod 'JobsAppDoor',                      :path => './JobsByPods/JobsAppDoor@Pods'
   pod 'JobsOCVideoRecorder',            :path => './JobsByPods/JobsOCVideoRecorder@Pods'
   pod 'JobsMonitorNetwoking',           :path => './JobsByPods/JobsMonitorNetwoking@Pods'
   pod 'JobsBluetooth',                  :path => './JobsByPods/JobsBluetooth@Pods'
   pod 'FileFolderHandleTool',           :path => './JobsByPods/FileFolderHandleTool@Pods'
   pod 'JobsLuckyEnvelopeRain',          :path => './JobsByPods/JobsLuckyEnvelopeRain@Pods'
   pod 'JobsOCCountryCodeCtrl',          :path => './JobsByPods/JobsOCCountryCodeCtrl@Pods'
-  pod 'JobsOCRefresher/Lottie',         :path => './JobsByPods/JobsOCRefresher@Pods'
   pod 'FDFullscreenPopGesture',         :path => './JobsByPods/FDFullscreenPopGesture@Pods'
-  pod 'JobsOCRefresher/SDWebImage',     :path => './JobsByPods/JobsOCRefresher@Pods'
-  pod 'JobsOCRefresher/FrameAnimation', :path => './JobsByPods/JobsOCRefresher@Pods'
 
   pod 'JobsMenuView',                   :path => './JobsByPods/JobsMenuView@Pods'
   pod 'JobsClockView',                  :path => './JobsByPods/JobsClockView@Pods'

@@ -12,6 +12,12 @@
 #import "JobsIMChatInfoModel.h"
 #import "JobsTimeModel.h"
 
+#if __has_include(<IQKeyboardManager/IQKeyboardManager.h>)
+#import <IQKeyboardManager/IQKeyboardManager.h>
+#else
+#import "IQKeyboardManager.h"
+#endif
+
 #if __has_include(<MGSwipeTableCell/MGSwipeTableCell.h>)
 #import <MGSwipeTableCell/MGSwipeTableCell.h>
 #else
@@ -28,6 +34,12 @@
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
 #import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsOCKeyboardMgr/JobsOCKeyboardMgr.h>)
+#import <JobsOCKeyboardMgr/JobsOCKeyboardMgr.h>
+#else
+#import "JobsOCKeyboardMgr.h"
 #endif
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)

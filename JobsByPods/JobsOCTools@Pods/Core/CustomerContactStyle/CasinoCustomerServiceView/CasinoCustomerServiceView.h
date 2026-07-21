@@ -9,7 +9,6 @@
 #define JOBS_HEADER_GUARD_CASINOCUSTOMERSERVICEVIEW_1ED9F7BA26
 
 #import <UIKit/UIKit.h>
-#import <JobsOCTools/JobsAppDoorConfig.h>
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>

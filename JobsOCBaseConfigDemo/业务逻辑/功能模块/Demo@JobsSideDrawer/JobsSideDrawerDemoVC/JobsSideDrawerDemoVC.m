@@ -7,6 +7,7 @@
 
 #import "JobsSideDrawerDemoVC.h"
 #import <JobsViewPush/JobsViewPush.h>
+#import "JobsLanMgr.h"
 
 @interface JobsSideDrawerDemoVC ()
 @property(nonatomic,strong)UISegmentedControl *direction;
@@ -19,18 +20,18 @@
 @implementation JobsSideDrawerDemoVC
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.title = @"侧滑抽屉";
+    self.title = @"侧滑抽屉".tr;
     self.view.backgroundColor = UIColor.systemBackgroundColor;
-    self.direction = [[UISegmentedControl alloc] initWithItems:@[@"上", @"下", @"左", @"右"]];
+    self.direction = [[UISegmentedControl alloc] initWithItems:@[@"上".tr, @"下".tr, @"左".tr, @"右".tr]];
     self.direction.selectedSegmentIndex = 2;
-    self.mode = [[UISegmentedControl alloc] initWithItems:@[@"跟随", @"固定"]];
+    self.mode = [[UISegmentedControl alloc] initWithItems:@[@"跟随".tr, @"固定".tr]];
     self.mode.selectedSegmentIndex = 0;
     self.ratio = UISlider.new;
     self.ratio.minimumValue = 0.2;
     self.ratio.maximumValue = 0.9;
     self.ratio.value = 0.5;
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    [button setTitle:@"立即预览（支持 UIViewController / UIView）" forState:UIControlStateNormal];
+    [button setTitle:@"立即预览（支持 UIViewController / UIView）".tr forState:UIControlStateNormal];
     [button addTarget:self action:@selector(preview) forControlEvents:UIControlEventTouchUpInside];
     UIStackView *stack = [[UIStackView alloc] initWithArrangedSubviews:@[self.direction, self.mode, self.ratio, button]];
     stack.axis = UILayoutConstraintAxisVertical;

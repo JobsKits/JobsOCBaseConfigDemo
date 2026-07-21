@@ -19,6 +19,7 @@ Prop_strong() JobsOCVideoRecorderConfig *config;
 Prop_strong() JobsOCVideoRecorderCaptureManager *captureManager;
 Prop_strong(nullable) JobsOCVideoRecorderAssetWriter *assetWriter;
 Prop_strong() UIButton *backBtn;
+Prop_strong() UILabel *titleLabel;
 Prop_strong() UIButton *switchCameraBtn;
 Prop_strong() UIButton *filterBtn;
 Prop_strong() JobsOCVideoRecorderRecordButton *recordBtn;
@@ -73,6 +74,7 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
     self.view.byBgColor(UIColor.blackColor);
     [self.view.layer insertSublayer:self.captureManager.previewLayer atIndex:0];
     self.backBtn.alpha = 1;
+    self.titleLabel.alpha = 1;
     if (self.canSwitchCamera) self.switchCameraBtn.alpha = 1;
     self.filterBtn.alpha = 1;
     self.recordBtn.alpha = 1;
@@ -82,7 +84,7 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
     self.filterBtn.alpha = 0.35;
     self.recordBtn.userInteractionEnabled = NO;
     self.recordBtn.alpha = 0.35;
-    @"iOS 模拟器不支持摄像头录制，请使用真机".toast();
+    @"iOS 模拟器不支持摄像头录制，请使用真机".tr.toast();
 #else
     [self requestPermissions];
 #endif
@@ -129,19 +131,19 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
     [TKPermissionCamera authWithAlert:YES completion:^(BOOL cameraAuth) {
         @jobs_strongify(self)
         if (!cameraAuth) {
-            @"相机权限未开启".toast();
+            @"相机权限未开启".tr.toast();
             return;
         }
         [TKPermissionMicrophone authWithAlert:YES completion:^(BOOL microphoneAuth) {
             @jobs_strongify(self)
             if (!microphoneAuth) {
-                @"麦克风权限未开启".toast();
+                @"麦克风权限未开启".tr.toast();
                 return;
             }
             [TKPermissionPhoto authWithAlert:YES level:TKPhotoAccessLevelReadWrite completion:^(BOOL photoAuth) {
                 @jobs_strongify(self)
                 if (!photoAuth) {
-                    @"相册权限未开启".toast();
+                    @"相册权限未开启".tr.toast();
                     return;
                 }
                 self.permissionReady = YES;
@@ -163,7 +165,7 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
 -(void)switchCameraAction:(UIButton *)sender{
     if (!self.canSwitchCamera) return;
     if (!self.permissionReady) {
-        @"权限校验中，请稍后".toast();
+        @"权限校验中，请稍后".tr.toast();
         return;
     }
     if (self.recording) return;
@@ -172,18 +174,18 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
     [self.captureManager switchCameraWithCompletion:^(BOOL success, NSError * _Nullable error) {
         @jobs_strongify(self)
         sender.byEnabled(YES);
-        if (!success) (error.localizedDescription ?: @"切换摄像头失败").toast();
+        if (!success) (error.localizedDescription ?: @"切换摄像头失败".tr).toast();
         [self.captureManager updatePreviewOrientation:UIDevice.currentDevice.orientation];
     }];
 }
 
 -(void)filterAction:(UIButton *)sender{
     if (self.recording) {
-        @"录制中不能切换滤镜".toast();
+        @"录制中不能切换滤镜".tr.toast();
         return;
     }
     if (self.previewView) {
-        @"请先保存或取消当前视频".toast();
+        @"请先保存或取消当前视频".tr.toast();
         return;
     }
     NSArray<NSNumber *> *filterTypes = JobsOCVideoRecorderCIFilterProcessor.allFilterTypes;
@@ -202,11 +204,11 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
 
 -(void)startRecord{
     if (!self.permissionReady) {
-        @"权限校验中，请稍后".toast();
+        @"权限校验中，请稍后".tr.toast();
         return;
     }
     if (self.previewView) {
-        @"请先保存或取消当前视频".toast();
+        @"请先保存或取消当前视频".tr.toast();
         return;
     }
     if (self.recording) return;
@@ -253,7 +255,7 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
         [self removeCurrentOutputFile];
         [self.recordBtn resetProgress];
         self.finishingRecord = NO;
-        @"录制时间不能少于 3 秒".toast();
+        @"录制时间不能少于 3 秒".tr.toast();
         return;
     }
     if (!self.writerStarted) {
@@ -261,7 +263,7 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
         [self removeCurrentOutputFile];
         [self.recordBtn resetProgress];
         self.finishingRecord = NO;
-        @"录制失败，请重试".toast();
+        @"录制失败，请重试".tr.toast();
         return;
     }
     @jobs_weakify(self)
@@ -271,7 +273,7 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
             self.finishingRecord = NO;
             [self.recordBtn resetProgress];
             if (error || !fileURL) {
-                (error.localizedDescription ?: @"录制失败，请重试").toast();
+                (error.localizedDescription ?: @"录制失败，请重试".tr).toast();
                 [self removeCurrentOutputFile];
                 return;
             }
@@ -320,13 +322,14 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
     [previewView playWithURL:URL];
     self.previewView = previewView;
     [self.view bringSubviewToFront:self.backBtn];
+    [self.view bringSubviewToFront:self.titleLabel];
     if (self.canSwitchCamera) [self.view bringSubviewToFront:self.switchCameraBtn];
     [self.view bringSubviewToFront:self.filterBtn];
 }
 
 -(void)saveCurrentVideo{
     if (!self.currentResult.fileURL) {
-        @"没有可保存的视频".toast();
+        @"没有可保存的视频".tr.toast();
         return;
     }
     self.previewView.userInteractionEnabled = NO;
@@ -337,11 +340,11 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
         @jobs_strongify(self)
         self.previewView.userInteractionEnabled = YES;
         if (error) {
-            (error.localizedDescription ?: @"保存失败").toast();
+            (error.localizedDescription ?: @"保存失败".tr).toast();
             return;
         }
         self.currentResult.assetLocalIdentifier = assetLocalIdentifier;
-        @"保存成功".toast();
+        @"保存成功".tr.toast();
         if (self.config.completionBlock) self.config.completionBlock(self.currentResult, nil);
         [self cleanupPreviewAndOutputFile];
     }];
@@ -391,7 +394,7 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
 
 -(void)captureManager:(JobsOCVideoRecorderCaptureManager *)captureManager
      didFailWithError:(NSError *)error{
-    (error.localizedDescription ?: @"采集异常").toast();
+    (error.localizedDescription ?: @"采集异常".tr).toast();
 }
 
 -(void)startWriterIfNeeded{
@@ -405,7 +408,7 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
                                                  error:&error];
     if (!success) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            (error.localizedDescription ?: @"录制启动失败").toast();
+            (error.localizedDescription ?: @"录制启动失败".tr).toast();
             [self stopRecordByUser:NO];
         });
         return;
@@ -476,7 +479,7 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
 }
 
 -(void)updateRecordDurationLabelWithElapsed:(NSTimeInterval)elapsed{
-    self.recordDurationLabel.byText([NSString stringWithFormat:@"%.1f秒", MAX(0, elapsed)]);
+    self.recordDurationLabel.byText([NSString stringWithFormat:@"%.1f秒".tr, MAX(0, elapsed)]);
 }
 
 -(void)applyCurrentFilterAndToast:(BOOL)toast{
@@ -490,7 +493,7 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
         self.config.filterProcessor = self.builtInFilterProcessor;
         self.filterBtn.jobsResetBtnTitle(filterTitle);
     }
-    if (toast) [NSString stringWithFormat:@"滤镜：%@", filterTitle].toast();
+    if (toast) [NSString stringWithFormat:@"滤镜：%@".tr, filterTitle].toast();
 }
 
 -(JobsOCVideoRecorderCIFilterType)currentFilterType{
@@ -577,6 +580,26 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
             make.size.mas_equalTo(CGSizeMake(JobsWidth(48), JobsWidth(36)));
         });
     };return _backBtn;
+}
+
+-(UILabel *)titleLabel{
+    if (!_titleLabel) {
+        _titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"长按录制视频".tr)
+                .byTextCor(UIColor.whiteColor)
+                .byFont(UIFontWeightMediumSize(17))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byNumberOfLines(1);
+        });
+        UIView *rightControl = self.canSwitchCamera ? self.switchCameraBtn : self.filterBtn;
+        _titleLabel.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
+            make.left.greaterThanOrEqualTo(self.backBtn.mas_right).offset(JobsWidth(8));
+            make.right.lessThanOrEqualTo(rightControl.mas_left).offset(-JobsWidth(8));
+            make.centerX.equalTo(self.view);
+            make.centerY.equalTo(self.backBtn);
+        });
+    };return _titleLabel;
 }
 
 -(UIButton *)switchCameraBtn{

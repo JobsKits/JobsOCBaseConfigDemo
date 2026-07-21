@@ -101,7 +101,7 @@ NS_ASSUME_NONNULL_END
                  .jobsResetBtnTitleFont(pingFangHKLight(JobsWidth(12)))
                  .jobsResetBtnTitle(@"Betslip".tr)
                  .onClickBy(^(UIButton *x){
-                     toastBy(@"Betslip");
+                     toastBy(@"Betslip".tr);
                  }).onLongPressGestureBy(^(id data){
                      JobsLog(@"");
                  }))
@@ -114,7 +114,7 @@ NS_ASSUME_NONNULL_END
              .jobsResetBtnTitleFont(pingFangHKLight(JobsWidth(12)))
              .jobsResetBtnTitle(@"Statement".tr)
              .onClickBy(^(UIButton *x){
-                 toastBy(@"Statement");
+                 toastBy(@"Statement".tr);
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
              }))
@@ -127,7 +127,7 @@ NS_ASSUME_NONNULL_END
              .jobsResetBtnTitleFont(pingFangHKLight(JobsWidth(12)))
              .jobsResetBtnTitle(@"Promo".tr)
              .onClickBy(^(UIButton *x){
-                 toastBy(@"Promo");
+                 toastBy(@"Promo".tr);
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
              }))
@@ -140,7 +140,7 @@ NS_ASSUME_NONNULL_END
              .jobsResetBtnTitleFont(pingFangHKLight(JobsWidth(12)))
              .jobsResetBtnTitle(@"Security".tr)
              .onClickBy(^(UIButton *x){
-                 toastBy(@"Security");
+                 toastBy(@"Security".tr);
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
              }))
@@ -153,7 +153,7 @@ NS_ASSUME_NONNULL_END
              .jobsResetBtnTitleFont(pingFangHKLight(JobsWidth(12)))
              .jobsResetBtnTitle(@"Help Center".tr)
              .onClickBy(^(UIButton *x){
-                 toastBy(@"Help Center");
+                 toastBy(@"Help Center".tr);
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
              }))
@@ -166,7 +166,7 @@ NS_ASSUME_NONNULL_END
              .jobsResetBtnTitleFont(pingFangHKLight(JobsWidth(12)))
              .jobsResetBtnTitle(@"Feedback".tr)
              .onClickBy(^(UIButton *x){
-                 toastBy(@"Feedback");
+                 toastBy(@"Feedback".tr);
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
              }));

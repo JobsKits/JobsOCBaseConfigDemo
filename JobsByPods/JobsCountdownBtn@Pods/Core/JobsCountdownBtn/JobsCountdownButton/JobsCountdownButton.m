@@ -9,6 +9,8 @@
 
 @interface JobsCountdownBtn ()
 
+Prop_strong(nullable)RACDisposable *jobsCountdownClickDisposable;
+
 -(void)jobs_prepareDefaultValue;
 -(NSString *)jobs_countdownTitleWithSeconds:(NSInteger)seconds;
 
@@ -42,7 +44,7 @@
     self
         .jobsResetBtnTitle(self.jobsCountdownNormalTitle)
         .jobsResetBtnTitleCor(RGBA_COLOR(225.0f, 205.0f, 98.0f, 1))
-        .jobsResetBtnTitleFont(UIFontWeightRegularSize(11))
+        .jobsResetBtnTitleFont(UIFontWeightRegularSize(10))
         .makeBtnTitleByShowingType(UILabelShowingType_04)
         .byTimerStyle(TimerStyle_anticlockwise)
         .byStartTime(self.jobsCountdownDuration)
@@ -56,16 +58,24 @@
         .byOnFinish(^(JobsTimer *_Nullable timer) {
             @jobs_strongify(self)
             [self jobsResetCountdownTitle];
-        })
-        .onClickBy(^(__kindof UIButton *x) {
-            @jobs_strongify(self)
-            if (self.jobsCountdownClickBlock) self.jobsCountdownClickBlock(self);
-            [self jobsStartCountdown];
         });
-    self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    self.titleLabel.adjustsFontSizeToFitWidth = YES;
-    self.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    self.titleLabel.minimumScaleFactor = 0.7f;
+    [self.jobsCountdownClickDisposable dispose];
+    self.jobsCountdownClickDisposable = [[self rac_signalForControlEvents:UIControlEventTouchUpInside]
+                                         subscribeNext:^(__unused __kindof UIButton *button) {
+        @jobs_strongify(self)
+        if (self.jobsCountdownClickBlock) self.jobsCountdownClickBlock(self);
+        [self jobsStartCountdown];
+    }];
+    self
+        .byTitleLabel(^(UILabel *label) {
+            label
+                .byNumberOfLines(1)
+                .byFont(UIFontWeightRegularSize(10))
+                .byAdjustsFontSizeToFitWidth(YES)
+                .byLineBreakMode(NSLineBreakByClipping)
+                .byMinimumScaleFactor(0.75f);
+        })
+        .byContentHorizontalAlignment(UIControlContentHorizontalAlignmentRight);
     return self;
 }
 

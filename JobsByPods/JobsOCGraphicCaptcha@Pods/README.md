@@ -30,6 +30,7 @@
 - 三三混合：大写英文 + 小写英文 + 数字、大写英文 + 小写英文 + 汉字、大写英文 + 数字 + 汉字、小写英文 + 数字 + 汉字。
 - 全部混合：大写英文 + 小写英文 + 数字 + 汉字。
 - 混合模式由 `characterUnits` 明确指定具体组合，`mixedGroupCount` 记录参与混合的类别数；生成时会保证每个被选中的字符组至少出现一次，不再临时随机决定是哪一种组合。
+- `customCharacterGroups` 支持把业务语义字符池作为独立分组传入。例如认证组件把英文大小写合并成一个“英文组”，因此“数字 + 英文”仍按两类组合处理。
 - 默认验证码长度为 `4`，可通过 `JobsOCGraphicCaptchaConfig.length` 手动调整。
 
 ## 三、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -58,7 +59,7 @@ JobsOCGraphicCaptcha@Pods/
 
 ## 四、公开能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `JobsOCGraphicCaptchaConfig`：配置验证码长度、字符单元、混合类别数、大小写校验策略和自定义字符池；`mixedConfig` 为大写英文 + 小写英文 + 数字 + 汉字四类全混，具体两类或三类组合通过 `characterUnits` 精确指定。
+- `JobsOCGraphicCaptchaConfig`：配置验证码长度、字符单元、混合类别数、大小写校验策略、自定义字符池和自定义字符组；`mixedConfig` 为大写英文 + 小写英文 + 数字 + 汉字四类全混，具体两类或三类组合通过 `characterUnits` 或 `customCharacterGroups` 精确指定。
 - `JobsOCGraphicCaptchaGenerator`：提供数字、小写英文、大写英文、汉字四个独立字符池，并生成随机文本。
 - `JobsOCGraphicCaptchaView`：绘制验证码文本、干扰线和噪点，支持点击刷新和输入校验；随机 HSB 颜色通过 `jobsMakeCor2` + `JobsCorModel` DSL 生成。
 - `JobsOCGraphicCaptchaView+DSL`：为自建视图提供 `byFont(...)`，调用方不再直接写 `font =`。

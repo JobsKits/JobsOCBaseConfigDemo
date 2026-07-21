@@ -23,6 +23,12 @@
 #import "JobsAppToolsHeader.h"
 #endif
 
+#if __has_include(<JobsOCTools/JobsOCTools.h>)
+#import <JobsOCTools/JobsOCTools.h>
+#else
+#import "JobsOCTools.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else

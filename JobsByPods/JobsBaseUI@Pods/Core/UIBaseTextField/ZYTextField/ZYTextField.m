@@ -15,7 +15,11 @@
 @end
 
 @implementation ZYTextField
-UITextFieldProtocol_synthesize
+@synthesize placeholderColor = _placeholderColor;
+@synthesize placeholderFont = _placeholderFont;
+@synthesize textCor = _textCor;
+UITextFieldProtocol_synthesize_part1
+UITextFieldProtocol_synthesize_part2
 -(instancetype)init{
     if (self = [super init]) {
         self.placeHolderAlignment = NSTextAlignmentLeft;

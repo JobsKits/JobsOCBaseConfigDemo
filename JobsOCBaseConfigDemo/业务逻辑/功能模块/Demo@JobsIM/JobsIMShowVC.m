@@ -33,22 +33,21 @@ Prop_strong()JobsIMListView *listView;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byTextCor(JobsLabelColor);
             data.byText(data.attributedTitle.string);
             data.byFont(UIFontWeightRegularSize(16));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byBgCor(JobsSystemBackgroundColor)
         //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        .byNavBgCor(JobsSystemBackgroundColor);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsYellowColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     {
         @jobs_weakify(self)
         self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
@@ -134,10 +133,10 @@ Prop_strong()JobsIMListView *listView;
     if (!_shareBtn) {
         @jobs_weakify(self)
         _shareBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsWhiteColor)
+            .bgColorBy(JobsSystemBackgroundColor)
             .jobsResetBtnCornerRadiusValue(JobsWidth(23 / 2))
             .jobsResetBtnTitle(@"+")
-            .jobsResetBtnTitleCor(HEXCOLOR(0xD4B58D))
+            .jobsResetBtnTitleCor(JobsLabelColor)
             .jobsResetBtnTitleFont(UIFontWeightRegularSize(JobsWidth(24)))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)

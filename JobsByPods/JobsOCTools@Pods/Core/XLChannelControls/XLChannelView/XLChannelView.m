@@ -181,10 +181,10 @@ Prop_strong()NSIndexPath *targetIndexPath;
 {
     XLChannelHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"XLChannelHeader" forIndexPath:indexPath];
     if (indexPath.section == 0) {
-        headerView.title = @"已选频道";
+        headerView.title = @"已选频道".tr;
         headerView.subTitle = @"按住拖动调整排序";
     }else{
-        headerView.title = @"推荐频道";
+        headerView.title = @"推荐频道".tr;
         headerView.subTitle = @"".tr;
     };return headerView;
 }

@@ -83,7 +83,7 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
 }
 
 - (void)detach {
-    self.component.byRemove();
+    self.component.byRemoveFromSuperview();
     [self.component applyState:JobsOCRefreshStateRemoved progress:0];
 }
 
@@ -488,6 +488,15 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
             [slot.component applyState:state progress:0];
             break;
     };return self;
+}
+
+- (__kindof UIScrollView *)jobs_replaceRefreshAnimator:(id<JobsRefreshAnimatorProtocol>)animator
+                                            atPosition:(JobsOCRefreshPosition)position {
+    JobsOCRefreshSlot *slot = [self.jobs_refreshProxy slotForPosition:position];
+    if (!slot) return self;
+    [slot.component replaceAnimator:animator];
+    [slot.component setNeedsLayout];
+    return self;
 }
 
 - (__kindof UIScrollView *)jobs_removeRefreshAt:(JobsOCRefreshPosition)position {

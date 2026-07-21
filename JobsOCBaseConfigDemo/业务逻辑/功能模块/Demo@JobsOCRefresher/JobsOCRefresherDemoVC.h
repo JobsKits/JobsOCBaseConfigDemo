@@ -25,6 +25,12 @@
 #import "JobsOCRefresher.h"
 #endif
 
+#if __has_include(<JobsFuseAnimation/JobsFuseAnimation.h>)
+#import <JobsFuseAnimation/JobsFuseAnimation.h>
+#else
+#import "JobsFuseAnimation.h"
+#endif
+
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else

@@ -39,8 +39,11 @@ UITextFieldProtocol_synthesize_part2
                     reuseIdentifier:reuseIdentifier]) {
         self.longPG.byEnabled(YES);
         self.swipeBackgroundColor = JobsClearColor;
+        self.byContentView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(JobsSystemBackgroundColor);
+        }).byBgColor(JobsSystemBackgroundColor);
         self.bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.byBgColor(JobsYellowColor.colorWithAlphaComponentBy(.3f));
+            view.byBgColor(JobsSystemGray5Color);
         }));
         self.leftSwipeSettings.transition = MGSwipeTransitionBorder;
         self.rightSwipeSettings.transition = MGSwipeTransitionDrag;
@@ -129,10 +132,22 @@ UITextFieldProtocol_synthesize_part2
                             JobsLog(@"图片加载成功");
                         }
                     }).load();
-            self.chatUserNameLab.byAlpha(self.isShowChatUserName);
-            self.chatBubbleIMGV.byAlpha(1);
-            self.chatContentLab.byAlpha(1);
-            self.timeLab.byAlpha(1);
+            self.chatUserNameLab
+                .byText(self.senderUserNameStr)
+                .byTextCor(JobsLabelColor)
+                .byAlpha(self.isShowChatUserName);
+            self.chatBubbleIMGV
+                .byImage(self.infoLocation == InfoLocation_Left ? self.chatBubbleMutArr[0] : self.chatBubbleMutArr[1])
+                .byAlpha(1);
+            self.chatContentLab
+                .byText(self.senderChatTextStr)
+                .byTextCor(JobsLabelColor)
+                .byAlpha(1);
+            self.timeLab
+                .byText(self.senderChatTextTimeStr)
+                .byTextCor(JobsLabelColor)
+                .byBgColor(JobsSystemGray3Color)
+                .byAlpha(1);
         };return self;
     };
 }
@@ -267,7 +282,7 @@ UITextFieldProtocol_synthesize_part2
         _chatUserNameLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byTextCor(JobsBlackColor)
+                .byTextCor(JobsLabelColor)
             .byFont(UIFontWeightRegularSize(JobsWidth(10)))
             .byTextAlignment(NSTextAlignmentCenter)
             .byText(self.senderUserNameStr)
@@ -300,7 +315,7 @@ UITextFieldProtocol_synthesize_part2
             label
                 .byNumberOfLines(0)
                 .byText(self.senderChatTextStr)
-                .byTextCor(JobsBlackColor)
+                .byTextCor(JobsLabelColor)
                 .byTextAlignment(self.infoLocation == InfoLocation_Left ? NSTextAlignmentRight : NSTextAlignmentLeft)
                 .byFont(UIFontWeightRegularSize(JobsWidth(10)))
                 .addOn(self.chatBubbleIMGV)
@@ -318,12 +333,12 @@ UITextFieldProtocol_synthesize_part2
         _timeLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byTextCor(JobsWhiteColor)
+                .byTextCor(JobsLabelColor)
                 .byText(self.senderChatTextTimeStr)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightRegularSize(JobsWidth(10)))
                 .makeLabelByShowingType(UILabelShowingType_03)
-                .byBgColor(JobsLightGrayColor)
+                .byBgColor(JobsSystemGray3Color)
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)

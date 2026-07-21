@@ -1360,8 +1360,14 @@
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(CGFloat data){
         @jobs_strongify(self)
-        SuppressWdeprecatedDeclarationsWarning(self.minimumFontSize = data;);
-        return self;
+        if (@available(iOS 6.0, *)) {
+            CGFloat pointSize = self.font.pointSize;
+            self.minimumScaleFactor = pointSize > 0
+                ? MAX(0, MIN(1, data / pointSize))
+                : 0;
+        }else{
+            SuppressWdeprecatedDeclarationsWarning(self.minimumFontSize = data;);
+        };return self;
     };
 }
 

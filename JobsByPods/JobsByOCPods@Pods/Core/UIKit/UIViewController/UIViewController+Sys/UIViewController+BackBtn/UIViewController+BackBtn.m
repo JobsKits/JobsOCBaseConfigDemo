@@ -24,13 +24,15 @@ JobsKey(_backBtnCategory)
     BaseButton *BackBtnCategory = Jobs_getAssociatedObject(_backBtnCategory);
     if (!BackBtnCategory) {
         @jobs_weakify(self)
+        UIColor *backButtonColor = self.viewModel.backBtnTitleModel.textCor ? : JobsLabelColor;
+        UIImage *backButtonImage = self.viewModel.backBtnIMG ? : @"全局返回箭头".img;
         BackBtnCategory = BaseButton.jobsInit()
             .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
             .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
             .jobsResetImagePadding(1)
-            .jobsResetBtnImage(self.viewModel.backBtnIMG ? : JobsLoadBundleImage(nil,@"Frameworks/GKNavigationBar.framework/GKNavigationBar",nil,self.gk_backStyle == GKNavigationBarBackStyleBlack ? @"btn_back_black" : @"btn_back_white"))
+            .jobsResetBtnImage([backButtonImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate])
             .jobsResetBtnBgImage(@"APPLY NOW".img)
-            .jobsResetBtnTitleCor(self.viewModel.backBtnTitleModel.textCor ? : JobsBlackColor)
+            .jobsResetBtnTitleCor(backButtonColor)
             .jobsResetBtnTitleFont(self.viewModel.backBtnTitleModel.font)
             .jobsResetBtnTitle(self.viewModel.backBtnTitleModel.text)
             .onClickBy(^(UIButton *x){
@@ -40,6 +42,7 @@ JobsKey(_backBtnCategory)
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
+        BackBtnCategory.byTintColor(backButtonColor);
         Jobs_setAssociatedRETAIN_NONATOMIC(_backBtnCategory, BackBtnCategory)
     };return BackBtnCategory;
 }

@@ -66,7 +66,9 @@ JobsByOCPods@Pods/
 - `Core/UIKit/UIButton/UIButton+UIControlState` 统一提供 `titleForStateBy`、`attributedTitleForStateBy`、`imageForStateBy`、`backgroundImageForStateBy`、`titleColorForStateBy`、`titleShadowColorForStateBy` 与 iOS 13 起可用的 `preferredSymbolConfigurationForStateBy`；`titleShadowColorByState` / `preferredSymbolConfigurationByState` 承接对应状态查询。上述入口均接受任意 `UIControlState` 及组合态，例如 `UIControlStateSelected | UIControlStateHighlighted`。
 - `Core/UIKit/UIView/UIView+Animation` 提供 `bySpinStart`、`bySpinStartBy`、`bySpinPause`、`bySpinResume`、`bySpinStop` 与旋转状态查询；持续旋转作用于 `sublayerTransform.rotation.z`，避免和拖拽坐标、按钮点击回弹使用的 `UIView.transform` 互相覆盖。
 - `Core/UIKit/UIViewController/.../UIViewController+BaseVC` 的 `navBarConfig` / `navBar` 懒加载会返回本次刚创建并完成关联的对象，首次链式配置不再因返回 `nil` Block 而触发 `EXC_BAD_ACCESS`。
-- `Core/UIKit/UINavigationController/.../UINavigationController+SafeTransition` 在 `pushViewController:animated:` 与 `setViewControllers:animated:` 入栈完成后，为非根控制器同时补齐系统 `navigationItem` 和 Jobs 自定义 `navItem` 的返回键；已有左按钮时不覆盖。
+- `Core/UIKit/UIViewController/.../UIViewController+BaseVC` 在跳转前把 `UIViewModel.textModel` 的 Demo 标题同步到目标控制器，保证普通 `UIViewController` 进入后也具备导航标题。
+- `Core/UIKit/UINavigationController/.../UINavigationController+SafeTransition` 在入栈完成及 `viewDidAppear:` 后，只为真正存在于 `navigationController.viewControllers` 的非根控制器补齐 GK 导航栏、标题与 `backBtnCategory` Jobs 返回按钮；直接挂在导航控制器上的子控制器覆盖层不属于导航栈。已有系统富文本标题及右侧业务按钮会迁移到 GK 导航栏，不再显示系统导航容器。页面覆写 `jobs_requiresDefaultNavigationBar` 并返回 `NO` 时跳过整套默认导航 UI；`JobsNavigationDemoVC` 作为系统导航栏专项 Demo 保持原样。
+- 默认返回图标使用 template 渲染，着色源为 `UIViewModel.backBtnTitleModel.textCor`，其默认值是 `JobsLabelColor`，可随明暗主题自动变色。
 - `Core/UIKit/UIViewController/.../UIViewController+XLBubbleTransition` 通过 `JobsOCDSL` 的 `UINavigationController.byDelegate(...)` 切换导航代理；根 podspec 已持有 `JobsOCDSL` 直接依赖，分类头保留保护性导入。
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

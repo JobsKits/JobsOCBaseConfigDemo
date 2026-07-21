@@ -175,7 +175,7 @@
 }
 
 -(void)reloadRecordings{self.recordings = JobsOCAudioRecordingStore.shared.recordings;[self.tableView reloadData];}
--(void)show:(NSString *)message{UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];[alert addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:nil]];[self presentViewController:alert animated:YES completion:nil];}
+-(void)show:(NSString *)message{UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示".tr message:message preferredStyle:UIAlertControllerStyleAlert];[alert addAction:[UIAlertAction actionWithTitle:@"知道了".tr style:UIAlertActionStyleDefault handler:nil]];[self presentViewController:alert animated:YES completion:nil];}
 -(void)audioRecorderEngineDidStart:(JobsOCAudioRecorderEngine *)engine{[self refreshState];}
 -(void)audioRecorderEngine:(JobsOCAudioRecorderEngine *)engine didFinishAtURL:(NSURL *)url error:(NSError *)error{[self refreshState];[self reloadRecordings];if (error) [self show:error.localizedDescription];}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{return self.recordings.count;}

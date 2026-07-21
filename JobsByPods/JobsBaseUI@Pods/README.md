@@ -64,6 +64,8 @@ JobsBaseUI@Pods/
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
 - `Support/UIKit/UIButton/UIButton+SDWebImage` 只保留历史兼容入口，真实链式实现已下沉到 `JobsOCDSL/3rd/SDWebImage+DSL`。
+- `BaseViewController` 会在 Demo 子页面进入前及转场完成后兜底 Jobs/GK 导航栏、Jobs 返回按钮和标题；已有系统富文本标题及右侧业务按钮会迁移到 GK 导航栏，不再沿用系统导航容器。根页面不处理，专门演示系统导航栏的 `JobsNavigationDemoVC` 保持原样；全屏业务页可覆写 `jobs_requiresDefaultNavigationBar` 并返回 `NO`，明确关闭整套默认导航 UI。
+- `JobsDebugVC` 通过 `JobsControllerDeallocTipsEnabled()` / `JobsSetControllerDeallocTipsEnabled(...)` 持久化控制销毁 Toast，默认开启；关闭只隐藏提示，不影响通知清理与调试日志。
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -82,6 +84,7 @@ JobsBaseUI@Pods/
 - `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
 - `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 - `TMSCollectionViewLayout` 提供 UICollectionView 卡包式重叠布局，公开 `itemHeight`、`overlapRatio` 和 `expandedItemSpacing`，默认收起时相邻 Cell 盖住 50%，调用 `didClickWithIndexPath:isExpand:` 可展开或收起被点击的 Cell。
+- `ZYTextField` 继承系统 `UITextField.text` 的读写实现，不重复合成同名属性，保证 UIKit 实际输入、`text` 取值和 `rac_textSignal` 始终来自同一份文本状态。
 
 ### 5.4、系统框架
 

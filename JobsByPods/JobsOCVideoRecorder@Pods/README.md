@@ -8,7 +8,7 @@
 
 ## 🔥 <font id=前言>前言</font>
 
-> `JobsOCVideoRecorder` 是一个基于 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 的本地录制视频 Pod。它使用 `AVAssetWriter` 写入音视频，内置 CoreImage 滤镜处理器，并提供全屏摄像头预览、右上角滤镜切换、长按录制、录制秒数显示、可拖动画中画回放、摇一摇取消和自定义相册保存。
+> `JobsOCVideoRecorder` 是一个基于 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 的本地录制视频 Pod。它使用 `AVAssetWriter` 写入音视频，内置 CoreImage 滤镜处理器，并提供全屏摄像头预览、自绘顶部导航区、右上角镜头/滤镜切换、长按录制、录制秒数显示、可拖动画中画回放、摇一摇取消和自定义相册保存。
 
 ## 一、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -43,7 +43,7 @@ JobsOCVideoRecorder@Pods
 
 | 模块 | 职责 |
 | --- | --- |
-| `JobsOCVideoRecorderVC` | 页面状态机、权限、按钮交互、回放、保存和取消 |
+| `JobsOCVideoRecorderVC` | 页面状态机、顶部返回与标题、权限、按钮交互、回放、保存和取消 |
 | `JobsOCVideoRecorderCaptureManager` | iPhone 摄像头和麦克风采集、前后摄切换、全屏预览 |
 | `JobsOCVideoRecorderAssetWriter` | `AVAssetWriter` 写入音视频，并在写入前调用滤镜处理口 |
 | `JobsOCVideoRecorderCIFilterProcessor` | 内置 CoreImage 滤镜处理器，用于录制产物滤镜 |
@@ -98,7 +98,7 @@ JobsOCVideoRecorderVC *vc = [JobsOCVideoRecorderVC.alloc initWithConfig:config];
 - `Info.plist` 必须配置相机、麦克风、相册权限文案。
 - 摄像头录制只支持 iPhone 真机。iOS 模拟器不会尝试桥接 Mac 摄像头，进入后会提示使用真机。
 - 视频输入加入会话时通过 `lockForConfiguration` 保护设备配置，加入完成后立即释放。
-- 录制页会在进入时隐藏宿主系统导航栏 / GK 导航栏，离开页面时恢复，避免和页面自绘返回按钮重复。
+- 录制页会在进入时隐藏宿主系统导航栏 / GK 导航栏，改用安全区内的自绘返回、标题和右侧操作区；离开页面时恢复宿主导航栏。
 - 自定义相册需要相册读写权限，不能只依赖 add-only 权限。
 - 视频方向按开始录制时的设备方向固化到当前文件，中途旋转不做 track 重建。
 - 少于 `minDuration` 的录制不会预览，也不会保存，只提示用户。

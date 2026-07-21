@@ -214,11 +214,11 @@ Prop_assign()NSInteger remainingRetryCount;
 }
 
 -(void)presentInvalidatedAlert {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"手势密码已失效"
-                                                                             message:@"请重新登录"
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"手势密码已失效".tr
+                                                                             message:@"请重新登录".tr
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     __weak typeof(self) weakSelf = self;
-    UIAlertAction *action = [UIAlertAction actionWithTitle:@"重新登录"
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"重新登录".tr
                                                      style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction * _Nonnull action) {
         __strong typeof(weakSelf) strongSelf = weakSelf;

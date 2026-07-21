@@ -83,7 +83,7 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(Title8.tr)
+                .byText(@"人工客服".tr)
                 .byTextCor(HEXCOLOR(0x502600))
                 .byFont(UIFontWeightRegularSize(JobsWidth(20)))
             .bySizeToFit()
@@ -151,7 +151,7 @@ static CasinoCustomerServiceView *static_customerServiceView = nil;
         _subTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(Title10.tr)
+                .byText(@"您也可以通过以下方式联系客服".tr)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(0)
                 .byTextCor(HEXCOLOR(0x502600))

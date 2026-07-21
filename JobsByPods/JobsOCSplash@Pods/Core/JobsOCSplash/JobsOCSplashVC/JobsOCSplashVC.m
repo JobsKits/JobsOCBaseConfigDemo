@@ -19,6 +19,7 @@ Prop_strong()UIButton *countdownBtn;
 Prop_strong(nullable)NSURLSessionTask *mediaTask;
 Prop_strong(nullable)AVPlayer *player;
 Prop_strong(nullable)AVPlayerLayer *playerLayer;
+Prop_copy(nullable)jobsByVoidBlock hostGestureRestoration;
 Prop_assign()BOOL hasFinished;
 Prop_assign()BOOL isCountdownTime;
 Prop_assign()NSInteger countdownTime;
@@ -45,7 +46,7 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
     self.countdownBtn.addOn(self.view);
     [self remakeSkipButtonConstraints];
     [self renderContent];
-    self.countdownBtn.startTimerBy(self.countdownTime);
+    self.countdownBtn.startTimerBy(self.countdownTime).byEnabled(YES);
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -72,6 +73,7 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
 }
 
 -(void)dealloc {
+    [self restoreHostGesturesIfNeeded];
     self.countdownBtn.timerDestroy();
     [self.mediaTask cancel];
     [self.player pause];
@@ -103,6 +105,7 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
                 .byStartTime(self.countdownTime)
                 .byTimeInterval(1)
                 .byClickWhenTimerCycle(YES)
+                .byAddTarget(self, @selector(skipButtonDidTap), UIControlEventTouchUpInside)
                 .onJobsEvent(UIControlEventTouchDown |
                                 UIControlEventTouchDragInside |
                                 UIControlEventTouchDragOutside |
@@ -127,11 +130,9 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
                     @jobs_strongify(self)
                     [self finish];
                 })
-                .onClickBy(^(__kindof UIButton * _Nullable x) {
-                    @jobs_strongify(self)
-                    [self finish];
-                })
                 .byBgColor(HEXCOLOR(0xAE8330))
+                .byCornerRadius(18)
+                .byClipsToBounds(YES)
                 .byHidden(!self.configuration.skipButtonVisible);
             btn.byAdjustsImageWhenHighlighted(NO);
         });
@@ -179,6 +180,10 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
         .byClipsToBounds(YES);
 }
 
+-(void)skipButtonDidTap {
+    [self finish];
+}
+
 -(void)finish {
     if (self.hasFinished) return;
     self.hasFinished = YES;
@@ -187,20 +192,25 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
     self.countdownBtn.timerDestroy();
     [self.mediaTask cancel];
     [self.player pause];
+    [self restoreHostGesturesIfNeeded];
     if (self.configuration.onSkip) self.configuration.onSkip(self);
     if (self.presentingViewController) {
         [self dismissViewControllerAnimated:NO completion:nil];
-    } else if (self.parentViewController) {
-        [self willMoveToParentViewController:nil];
-        [self.view removeFromSuperview];
-        [self removeFromParentViewController];
-    } else if (self.navigationController && self.navigationController.viewControllers.firstObject != self) {
-        [self.navigationController popViewControllerAnimated:NO];
     } else {
         [self willMoveToParentViewController:nil];
         [self.view removeFromSuperview];
         [self removeFromParentViewController];
     }
+}
+
+-(void)restoreHostGesturesOnFinish:(jobsByVoidBlock)block {
+    self.hostGestureRestoration = block;
+}
+
+-(void)restoreHostGesturesIfNeeded {
+    jobsByVoidBlock block = self.hostGestureRestoration;
+    self.hostGestureRestoration = nil;
+    if (block) block();
 }
 
 -(void)renderContent {

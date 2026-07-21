@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark —— Readonly Properties
 -(JobsRetFrameByVoidBlock _Nonnull)byGetMenuFrame;
 #pragma mark —— Methods
--(JobsRetMenuControllerByBOOLBlock _Nonnull)bySetMenuVisible API_DEPRECATED("Use showMenuFromView:rect: or hideMenuFromView: instead.", ios(3.0, 13.0)) API_UNAVAILABLE(visionos);
+-(JobsRetMenuControllerByBOOLBlock _Nonnull)bySetMenuVisible API_UNAVAILABLE(visionos);
 -(JobsRetMenuControllerByVoidBlock _Nonnull)byUpdate;
 -(JobsRetMenuControllerByVoidBlock _Nonnull)byHideMenu API_AVAILABLE(ios(13.0));
 -(JobsRetMenuControllerByViewBlock _Nonnull)byHideMenuFromView API_AVAILABLE(ios(13.0));

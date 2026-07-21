@@ -65,6 +65,9 @@ JobsNavigationTransitionMgr@Pods/
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
 - 导航控制器代理统一通过 `JobsOCDSL` 的 `UINavigationController.byDelegate(...)` 配置；`JobsNavigationTransitionMgr.podspec` 已声明直接依赖，核心头通过聚合头显式导入。
 - `Support/UIKit/UIViewController/UIViewController+BaseVC` 与源头实现保持一致：`navBarConfig` / `navBar` 首次懒加载直接返回新建对象，保障导航栏 Jobs DSL 首次调用安全。
+- `Support/UIKit/UIViewController/UIViewController+BaseVC` 在跳转前把 `UIViewModel.textModel` 的 Demo 标题同步到目标控制器，普通 `UIViewController` 也能直接显示导航标题。
+- `UINavigationController+SafeTransition` 为非根控制器强制补齐 GK 导航栏、标题与 `backBtnCategory` Jobs 返回按钮；已有系统富文本标题及右侧业务按钮迁移到 GK 导航栏，仅 `JobsNavigationDemoVC` 作为系统导航栏专项 Demo 保持原样。
+- 默认返回图标使用 template 渲染，着色源为 `UIViewModel.backBtnTitleModel.textCor`，其默认值是 `JobsLabelColor`，可随明暗主题自动变色。
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

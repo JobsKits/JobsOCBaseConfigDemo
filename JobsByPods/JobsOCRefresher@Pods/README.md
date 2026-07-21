@@ -8,7 +8,7 @@
 
 ## 🔥 <font id=前言>前言</font>
 
-> `JobsOCRefresher` 是 Jobs [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 侧刷新 / 加载更多组件，设计目标是保留 [**MJRefresh**](https://github.com/CoderMJLee/MJRefresh) 的低学习成本，同时补齐横向刷新、横向反向语义、统一状态机和多动画资源入口。
+> `JobsOCRefresher` 是 Jobs [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 侧刷新 / 加载更多组件，设计目标是保留 [**MJRefresh**](https://github.com/CoderMJLee/MJRefresh) 的低学习成本，同时补齐横向刷新、横向反向语义、统一状态机和动画热插拔。
 
 ## 一、用途 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -18,7 +18,9 @@
   - `JobsOCRefreshHorizontalModeRefreshRightLoadLeft`：右拉刷新，左拉加载更多。
   - `JobsOCRefreshHorizontalModeLoadRightRefreshLeft`：右拉加载更多，左拉刷新。
 - 状态机覆盖 `idle`、`pulling`、`ready`、`refreshing`、`ending`、`failed`、`disabled`、`noMoreData`、`removed`。
-- 默认皮肤支持横向竖排文案、最近一次刷新时间、系统菊花、GIF、连续静态图、网络图片入口；横向最近更新时间会拆成前缀列和时间列，时间按时 / 分 / 秒分行显示，分隔符用 `..` 横向呈现。
+- 默认皮肤支持横向竖排文案与最近一次刷新时间；动画表现只依赖 `JobsRefreshAnimatorProtocol`，不再写死具体素材类型。
+- `JobsFuseAnimation` 内置系统菊花、单图、多图定时轮播、GIF、Lottie、今日头条风格双三角和抖音风格双球动画。
+- 配置阶段通过 `config.animator` 注入；挂载后通过 `jobs_replaceRefreshAnimator:atPosition:` 原位热替换，不重建刷新状态机。
 - 默认配置开启刷新触发时的震动反馈，可用 `jobs_enableRefreshHaptics:NO` 显式关闭；声音反馈可通过 `soundName` 或 `jobs_setRefreshSound` 指定主 bundle 内音频资源。
 
 ## 二、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -53,13 +55,7 @@ JobsOCRefresher@Pods
   pod 'JobsOCRefresher', :path => 'JobsByPods/JobsOCRefresher@Pods'
   ```
 
-- 需要 [**Lottie**](https://github.com/airbnb/lottie-ios)、[**SDWebImage**](https://github.com/SDWebImage/SDWebImage) 或 Jobs 定时器能力时，可以使用子规格：
-
-  ```ruby
-  pod 'JobsOCRefresher/Lottie', :path => 'JobsByPods/JobsOCRefresher@Pods'
-  pod 'JobsOCRefresher/SDWebImage', :path => 'JobsByPods/JobsOCRefresher@Pods'
-  pod 'JobsOCRefresher/FrameAnimation', :path => 'JobsByPods/JobsOCRefresher@Pods'
-  ```
+- 动画实现统一由 `JobsFuseAnimation` 提供，`JobsOCRefresher` 会通过 podspec 自动接入，不再提供按具体素材类型拆分的子规格。
 
 ## 四、使用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -115,20 +111,52 @@ config.soundName = @"refresh.wav";
 [[tableView jobs_enableRefreshHaptics:YES] jobs_setRefreshSound:@"refresh.wav"];
 ```
 
+### 4.4、动画插件与热替换
+
+```objc
+JobsOCRefreshConfig *config = JobsOCRefreshConfig.defaultHeaderConfig;
+config.showsText = NO;
+config.animator = [[JobsTodayNewsRefreshView alloc] initWithConfig:JobsTodayNewsRefreshConfig.config];
+
+[tableView jobs_byRefreshHeaderWithConfig:config action:^{
+    [tableView jobs_switchRefreshAt:JobsOCRefreshPositionHeader
+                             toState:JobsOCRefreshStateIdle];
+}];
+```
+
+```objc
+id<JobsRefreshAnimatorProtocol> douyinAnimator =
+    [[JobsDouyinRefreshView alloc] initWithConfig:JobsDouyinRefreshConfig.config];
+[tableView jobs_replaceRefreshAnimator:douyinAnimator
+                            atPosition:JobsOCRefreshPositionHeader];
+```
+
+首次挂载没有旧动画视图时会直接安装新插件；运行时热替换只在旧视图存在时先停用并卸载，再挂载新视图并同步当前刷新状态。
+
+其它内置实现：
+
+```objc
+config.animator = [[JobsImageRefreshView alloc] initWithImage:singleImage];
+config.animator = [[JobsImageRefreshView alloc] initWithImages:images frameInterval:0.08];
+config.animator = [[JobsGIFRefreshView alloc] initWithGIFNamed:@"refresh.gif"];
+config.animator = [[JobsLottieRefreshView alloc] initWithAnimationNamed:@"refresh.json"];
+```
+
+业务自定义插件只需实现 `refreshAnimatorView`、`refreshAnimatorPreferredSize` 和 `refreshAnimatorApplyPhase:progress:`。
+
 ## 五、公开能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsOCRefresher.h`：聚合头，随 `Core` 子规格一起进入 Public Headers，外部固定通过 `<JobsOCRefresher/JobsOCRefresher.h>` 引用。
-- `JobsOCRefreshDefines`：方向、位置、语义、横向模式、状态、动画类型；刷新回调类型由 `JobsBlock` 统一承接。
-- `JobsOCRefreshConfig`：触发距离、组件长度、文案、声音、震动、动画资源配置；默认文案走 `JobsLanMgr` 的 `.tr` 国际化入口，并提供 `jobsMakeOCRefreshConfig` 进行 Make 风格创建。
-- `JobsOCRefreshComponent`：默认皮肤视图，可继续替换为自定义组件；内部 UI 创建优先走 `JobsMakes` 和 `JobsOCDSL` 链式写法。
-- `UIScrollView+JobsOCRefresher`：挂载、切换状态、移除刷新组件。
+- `JobsOCRefreshDefines`：方向、位置、语义、横向模式与状态；刷新回调类型由 `JobsBlock` 统一承接。
+- `JobsOCRefreshConfig`：触发距离、组件长度、文案、声音、震动、动画协议对象；默认文案走 `JobsLanMgr` 的 `.tr` 国际化入口。
+- `JobsOCRefreshComponent`：把刷新状态映射为动画阶段，负责协议视图托管与布局，不识别具体动画类型。
+- `UIScrollView+JobsOCRefresher`：挂载、切换状态、热替换动画、移除刷新组件。
 
 ## 六、风险边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 当前 Core 不依赖 `MJRefresh` / `XZMRefresh`，行为由本 Pod 自己维护。
-- 当前 Core 直接依赖 `JobsBlock`、`JobsLanMgr`、`JobsMakes`、`JobsOCDSL` 和 `JobsOCDefs`；修改回调类型、默认文案或 UI 创建链时要同步检查这些依赖边界。
-- `Lottie` 子规格会启用 `LOTAnimationView`，`lottieName` 支持资源名或本地 `.json` 文件路径；未接入子规格时自动回退系统菊花。
-- `FrameAnimation` 子规格挂载 `JobsOCTimer` 和 `JobsOCTimerMgr`，默认组件会使用 `JobsTimer` 按帧间隔驱动静态图轮播。
+- 当前 Core 直接依赖 `JobsBlock`、`JobsLanMgr`、`JobsMakes`、`JobsOCDSL`、`JobsOCDefs` 和 `JobsFuseAnimation`；素材解码、计时和品牌动画继续留在动画框架内。
+- 协议替换发生在当前刷新槽位中；正在刷新时替换，新插件会立即接收当前 `refreshing` 阶段。
 - 修改 `podspec` 后建议执行 `pod install --no-repo-update`，并检查 `Pods/Pods.xcodeproj` 是否能正常展开 `Development Pods > JobsOCRefresher`。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

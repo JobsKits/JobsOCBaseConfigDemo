@@ -267,8 +267,21 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UIEdgeInsets data){
         @jobs_strongify(self)
-        SuppressWdeprecatedDeclarationsWarning(self.contentEdgeInsets = data;);
-        return self;
+        if (@available(iOS 15.0, tvOS 15.0, *)) {
+            if (self.configuration) {
+                UIButtonConfiguration *configuration = self.configuration;
+                configuration.contentInsets = NSDirectionalEdgeInsetsMake(data.top,
+                                                                           data.left,
+                                                                           data.bottom,
+                                                                           data.right);
+                self.configuration = configuration;
+                [self setNeedsUpdateConfiguration];
+            }else{
+                SuppressWdeprecatedDeclarationsWarning(self.contentEdgeInsets = data;);
+            }
+        }else{
+            SuppressWdeprecatedDeclarationsWarning(self.contentEdgeInsets = data;);
+        };return self;
     };
 }
 

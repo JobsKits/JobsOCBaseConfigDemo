@@ -72,8 +72,8 @@ Prop_assign()BOOL sphereItemsPrepared;
                         .byBrightness(.92)
                         .byAlpha(1);
                 }))
-                .byTag(index)
                 .byContentEdgeInsets(UIEdgeInsetsMake(0, JobsWidth(12), 0, JobsWidth(12)))
+                .byTag(index)
                 .bySizeToFit();
         });
         CGRect frame = button.frame;

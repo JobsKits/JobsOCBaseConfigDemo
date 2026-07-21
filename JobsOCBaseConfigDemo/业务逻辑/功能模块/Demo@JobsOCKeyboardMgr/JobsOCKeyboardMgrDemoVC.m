@@ -131,7 +131,7 @@ Prop_strong()UIView *accessoryBar;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"Keyboard Form")
+                .byText(@"Keyboard Form".tr)
                 .byTextCor(HEXCOLOR(0x263342))
                 .byFont(UIFontWeightMediumSize(21))
                 .addOn(self.cardView)
@@ -208,7 +208,7 @@ Prop_strong()UIView *accessoryBar;
         });
         jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"Input Accessory")
+                .byText(@"Input Accessory".tr)
                 .byTextCor(UIColor.whiteColor)
                 .byFont(UIFontWeightMediumSize(15))
                 .addOn(bar)
@@ -219,7 +219,7 @@ Prop_strong()UIView *accessoryBar;
         });
         jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
-                .jobsResetBtnTitle(@"Done")
+                .jobsResetBtnTitle(@"Done".tr)
                 .jobsResetBtnTitleFont(UIFontWeightMediumSize(15))
                 .byAddTarget(self, @selector(jobs_endEditing), UIControlEventTouchUpInside)
                 .addOn(bar)

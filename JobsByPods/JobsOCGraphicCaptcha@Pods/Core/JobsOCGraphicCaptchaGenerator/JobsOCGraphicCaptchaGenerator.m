@@ -87,6 +87,15 @@
     };return validCharacters.copy;
 }
 
++(NSArray<NSArray<NSString *> *> *)validCharacterGroupsFromGroups:(NSArray<NSArray<NSString *> *> *)groups{
+    NSMutableArray<NSArray<NSString *> *> *validGroups = NSMutableArray.array;
+    for (id group in groups) {
+        if (![group isKindOfClass:NSArray.class]) continue;
+        NSArray<NSString *> *validCharacters = [self validCharactersFromCharacters:group];
+        if (validCharacters.count) [validGroups addObject:validCharacters];
+    };return validGroups.copy;
+}
+
 +(NSString *)randomCharacterFromCharacters:(NSArray<NSString *> *)characters{
     if (!characters.count) return @"";
     for (NSUInteger i = 0; i < characters.count; i++) {
@@ -135,6 +144,23 @@
 +(NSString *)randomTextByConfig:(JobsOCGraphicCaptchaConfig *_Nullable)config{
     JobsOCGraphicCaptchaConfig *captchaConfig = config ? : JobsOCGraphicCaptchaConfig.defaultConfig;
     NSUInteger length = captchaConfig.length ? : 4;
+    if (captchaConfig.customCharacterGroups.count) {
+        NSArray<NSArray<NSString *> *> *groups = [self validCharacterGroupsFromGroups:captchaConfig.customCharacterGroups];
+        if (groups.count > 1 && captchaConfig.mixedGroupCount > 1) {
+            length = MAX(length, groups.count);
+            NSString *mixedText = [self randomMixedTextByGroups:groups
+                                                         length:length];
+            if (mixedText.length) return mixedText;
+        }
+        NSMutableArray<NSString *> *sourceCharacters = NSMutableArray.array;
+        for (NSArray<NSString *> *group in groups) {
+            [sourceCharacters addObjectsFromArray:group];
+        }
+        if (sourceCharacters.count) {
+            return [self randomTextByCharacters:sourceCharacters
+                                         length:length];
+        }
+    }
     if (captchaConfig.customCharacters.count) {
         NSArray<NSString *> *customCharacters = [self validCharactersFromCharacters:captchaConfig.customCharacters];
         NSArray<NSString *> *sourceCharacters = customCharacters.count ? customCharacters : [self charactersForUnits:JobsOCGraphicCaptchaCharacterUnitDefault];

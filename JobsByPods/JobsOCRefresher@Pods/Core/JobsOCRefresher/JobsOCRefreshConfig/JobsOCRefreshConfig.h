@@ -7,6 +7,12 @@
 
 #import "JobsOCRefreshDefines.h"
 
+#if __has_include(<JobsFuseAnimation/JobsFuseAnimation.h>)
+#import <JobsFuseAnimation/JobsFuseAnimation.h>
+#else
+#import "JobsFuseAnimation.h"
+#endif
+
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
@@ -32,10 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_assign() CGFloat triggerDistance;
 Prop_assign() CGFloat viewLength;
 Prop_assign() BOOL showsInfo;
+Prop_assign() BOOL showsText;
 Prop_assign() BOOL enablesHaptics;
 Prop_assign() JobsOCRefreshHorizontalMode horizontalMode;
-Prop_assign() JobsOCRefreshAnimationType animationType;
-Prop_assign() NSTimeInterval frameImageInterval;
+Prop_strong(nullable) id<JobsRefreshAnimatorProtocol> animator;
 Prop_copy() NSString *idleText;
 Prop_copy() NSString *pullingText;
 Prop_copy() NSString *readyRefreshText;
@@ -46,11 +52,7 @@ Prop_copy() NSString *failedText;
 Prop_copy() NSString *disabledText;
 Prop_copy() NSString *noMoreDataText;
 Prop_copy() NSString *lastRefreshPrefix;
-Prop_copy(nullable) NSString *lottieName;
-Prop_copy(nullable) NSString *gifName;
-Prop_copy(nullable) NSString *networkImageURLString;
 Prop_copy(nullable) NSString *soundName;
-Prop_copy(nullable) NSArray<NSString *> *frameImageNames;
 
 + (instancetype)defaultHeaderConfig;
 + (instancetype)defaultFooterConfig;

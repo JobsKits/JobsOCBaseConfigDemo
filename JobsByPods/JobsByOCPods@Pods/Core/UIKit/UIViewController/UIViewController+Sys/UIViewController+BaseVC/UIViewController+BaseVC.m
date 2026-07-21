@@ -7,6 +7,13 @@
 
 #import "UIViewController+BaseVC.h"
 
+static NSString *JobsNavigationTitleFromRequestParams(id _Nullable requestParams) {
+    if (![requestParams isKindOfClass:UIViewModel.class]) return nil;
+    UIViewModel *viewModel = (UIViewModel *)requestParams;
+    NSString *navigationTitle = viewModel.textModel.attributedTitle.string;
+    return navigationTitle.length ? navigationTitle : viewModel.textModel.text;
+}
+
 @implementation UIViewController (BaseVC)
 #pragma mark —— 一些功能性
 -(jobsByView2Block _Nonnull)configViewNavigatorBySuperviewAndView{
@@ -61,10 +68,16 @@
     @jobs_weakify(self)
     return ^(__kindof UIButton *_Nullable btn) {
         @jobs_strongify(self)
-        self
-            .byGKBackImage(@"全局返回箭头".img)/// 设置返回按钮图片（优先级高于gk_backStyle）
-            .byGKBackStyle(GKNavigationBarBackStyleBlack)
-            .byGKNavLeftBarButtonItem(UIBarButtonItem.initBy(btn ? : self.backBtnCategory));
+        UIButton *backButton = btn ? : self.backBtnCategory;
+        UIColor *backButtonColor = self.viewModel.backBtnTitleModel.textCor ? : JobsLabelColor;
+        UIImage *backButtonImage = [backButton imageForState:UIControlStateNormal];
+        if (backButtonImage) {
+            backButton.jobsResetBtnImage([backButtonImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]);
+        }
+        backButton
+            .jobsResetBtnTitleCor(backButtonColor)
+            .byTintColor(backButtonColor);
+        self.byGKNavLeftBarButtonItem(UIBarButtonItem.initBy(backButton));
     };
 }
 /// 配置GKNavigationBar的标题（按钮）
@@ -119,6 +132,14 @@
                              animated:(BOOL)animated
                               success:(jobsByIDBlock _Nullable)successBlock{
     if (toVC) {
+        UIViewController *navigationTargetVC = toVC;
+        if ([toVC isKindOfClass:UINavigationController.class]) {
+            navigationTargetVC = ((UINavigationController *)toVC).viewControllers.firstObject;
+        }
+        NSString *navigationTitle = JobsNavigationTitleFromRequestParams(requestParams);
+        if (!navigationTargetVC.title.length && navigationTitle.length) {
+            navigationTargetVC.title = navigationTitle;
+        }
         if([toVC isKindOfClass:UINavigationController.class]){
             UINavigationController *navVC = (UINavigationController *)toVC;
             navVC.rootViewController.requestParams = requestParams;

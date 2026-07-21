@@ -128,6 +128,7 @@
                 .byHidden(!data)
                 .byAlpha(data);
         });
+        if (data) self.view.byBringSubviewToFront(self.gk_navigationBar);
     };
 }
 

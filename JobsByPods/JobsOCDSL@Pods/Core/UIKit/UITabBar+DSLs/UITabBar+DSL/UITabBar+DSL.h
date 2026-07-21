@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(void)jobsApplyScrollEdgeAppearance:(UITabBarAppearance *_Nullable)appearance API_AVAILABLE(ios(15.0));
 -(JobsRetTabBarByAppearanceBlock _Nonnull)byStandardAppearance API_AVAILABLE(ios(13.0));
 -(JobsRetTabBarByAppearanceBlock _Nonnull)byScrollEdgeAppearance API_AVAILABLE(ios(15.0));
--(JobsRetTabBarByColorBlock _Nonnull)byBarTintColor API_DEPRECATED("Use UITabBarAppearance", ios(7.0, 15.0));
+-(JobsRetTabBarByColorBlock _Nonnull)byBarTintColor;
 -(JobsRetTabBarByColorBlock _Nonnull)byUnselectedItemTintColor API_AVAILABLE(ios(10.0));
 
 @end

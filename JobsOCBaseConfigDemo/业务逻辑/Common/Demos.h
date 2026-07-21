@@ -15,7 +15,11 @@
 #import "TestIrregularViewTestVC.h"
 #import "Douyin_ZFPlayerVC@1.h"
 #import "Douyin_ZFPlayerVC@2.h"
-#import "JobsAppDoorVC_Style2.h"
+#if __has_include(<JobsAppDoor/JobsAppDoor.h>)
+#import <JobsAppDoor/JobsAppDoor.h>
+#else
+#import "JobsAppDoor.h"
+#endif
 #import "JobsCommentVC.h"
 #import "JobsOCCommentDemoVC.h"
 #import "JobsIMShowVC.h"
@@ -55,6 +59,7 @@
 #import "JobsVerticalMenuMainVC.h"
 #import "JobsLinkageMenuViewDemoVC.h"
 #import "JobsOCRefresherDemoVC.h"
+#import "JobsDouyinRefreshDemoVC.h"
 #import "TestBaseLabelVC.h"
 #import "RandomTestVC.h"
 #import "CustomTableViewCellVC.h"
@@ -96,6 +101,7 @@
 #import "JobsQRCodeDemoVC.h"
 #import "JobsCNIDDemoVC.h"
 #import "JobsOCSkeletonViewDemoVC.h"
+#import "JobsOCCrashLogVC.h"
 
 #if __has_include(<JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>)
 #import <JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>

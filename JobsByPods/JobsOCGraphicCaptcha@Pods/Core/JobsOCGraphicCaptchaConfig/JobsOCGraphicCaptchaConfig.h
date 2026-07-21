@@ -37,6 +37,7 @@ Prop_assign()BOOL caseSensitive;
 Prop_assign()JobsOCGraphicCaptchaCharacterUnit characterUnits;
 Prop_assign()NSUInteger mixedGroupCount;
 Prop_copy(nullable)NSArray<NSString *> *customCharacters;
+Prop_copy(nullable)NSArray<NSArray<NSString *> *> *customCharacterGroups;
 
 +(instancetype)defaultConfig;
 +(instancetype)numberConfig;

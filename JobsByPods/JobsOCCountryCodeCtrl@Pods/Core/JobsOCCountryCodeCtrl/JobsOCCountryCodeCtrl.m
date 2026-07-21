@@ -24,6 +24,8 @@ Prop_strong()NSMutableArray *results;
                                                           text:(NSString *)text
                                                           font:(UIFont *)font
                                                      textColor:(UIColor *)textColor;
+-(void)jobs_applyTheme;
+-(UIStatusBarStyle)jobs_statusBarStyle;
 
 @end
 
@@ -32,8 +34,21 @@ Prop_strong()NSMutableArray *results;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"国家 / 地区代码".tr;
-    self.view.byBgColor(JobsWhiteColor);
+    [self jobs_applyTheme];
     self.tableView.byAlpha(1);
+}
+
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    if (@available(iOS 13.0, *)) {
+        if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
+            [self jobs_applyTheme];
+        }
+    }
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return self.jobs_statusBarStyle;
 }
 #pragma mark —— public
 +(NSString *)jobs_countryFlagByCountryName:(NSString *)countryName{
@@ -264,7 +279,25 @@ Prop_strong()NSMutableArray *results;
 
 -(NSString *)jobs_countryCodePlistName{
     NSString *languageCode = LanMgr.languageCodeByAppLanguage(LanMgr.language);
-    return [languageCode.lowercaseString hasPrefix:@"en"] ? @"sortedNameEN" : @"sortedNameCH";
+    return [languageCode.lowercaseString hasPrefix:@"zh"] ? @"sortedNameCH" : @"sortedNameEN";
+}
+
+-(void)jobs_applyTheme{
+    self.byGKStatusBarStyle(self.jobs_statusBarStyle)
+        .byGKNavBackgroundColor(JobsSystemBackgroundColor)
+        .byGKNavTitleColor(JobsLabelColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
+    self.tableView
+        .bySeparatorColor(JobsSeparatorColor)
+        .bySectionIndexColor(JobsSecondaryLabelColor)
+        .bySectionIndexBackgroundColor(JobsClearColor)
+        .byBgColor(JobsSystemBackgroundColor);
+}
+
+-(UIStatusBarStyle)jobs_statusBarStyle{
+    if (@available(iOS 13.0, *)) {
+        return self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark ? UIStatusBarStyleLightContent : UIStatusBarStyleDarkContent;
+    };return UIStatusBarStyleDefault;
 }
 
 -(void)selectCodeIndex:(NSIndexPath *)indexPath {
@@ -324,22 +357,25 @@ numberOfRowsInSection:(NSInteger)section {
     if (!cell) {
         cell = ((UITableViewCell *)[UITableViewCell.alloc initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier])
             .byTextLabel(^(__kindof UILabel * _Nullable label) {
-                label.byFont(UIFontWeightRegularSize(16.0));
+                label.byFont(UIFontWeightRegularSize(16.0))
+                    .byTextCor(JobsLabelColor);
             })
             .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
                 label.byFont(UIFontWeightRegularSize(12.0))
-                    .byTextCor(HEXCOLOR(0x8A8A8A));
+                    .byTextCor(JobsSecondaryLabelColor);
             })
             .bySelectionStyle(UITableViewCellSelectionStyleNone);
     };return cell
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             NSString *countryName = [self showCodeStringIndex:indexPath jieQue:YES];
-            label.byAttributedText([self.class jobs_countryNameAttributedTextByCountryName:countryName
+            label.byTextCor(JobsLabelColor)
+                .byAttributedText([self.class jobs_countryNameAttributedTextByCountryName:countryName
                                                                                       font:label.font
                                                                                  textColor:label.textColor]);
         })
         .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText(@"+".add([self showCodeStringIndex:indexPath jieQue:NO]));
+            label.byTextCor(JobsSecondaryLabelColor)
+                .byText(@"+".add([self showCodeStringIndex:indexPath jieQue:NO]));
         });
 }
 
@@ -383,9 +419,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 .byDataSource(self)
                 .byRowHeight(44.0)
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
+                .bySeparatorColor(JobsSeparatorColor)
+                .bySectionIndexColor(JobsSecondaryLabelColor)
+                .bySectionIndexBackgroundColor(JobsClearColor)
                 .byShowsVerticalScrollIndicator(NO)
                 .byShowsHorizontalScrollIndicator(NO)
-                .byBgColor(JobsClearColor)
+                .byBgColor(JobsSystemBackgroundColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)

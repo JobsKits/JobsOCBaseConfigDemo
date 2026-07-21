@@ -747,12 +747,12 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
 /// 字符串当前语言环境
 -(NSString *)currentLanguage{
     if (currentLanguage().containsString(简体中文)) {
-        return @"简体中文";
+        return @"简体中文".tr;
     }else if (currentLanguage().containsString(英文_不带区域组合)){
         return @"English";
     }else{
         JobsLog(@"%@",currentLanguage());
-        return @"其他语言";
+        return @"其他语言".tr;
     }
 }
 /// 首页的假数据

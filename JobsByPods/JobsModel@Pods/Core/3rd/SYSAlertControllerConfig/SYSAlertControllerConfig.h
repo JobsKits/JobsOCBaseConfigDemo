@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_END
     {
 
      SYSAlertControllerConfig *config = SYSAlertControllerConfig.new;
-     config.title = @"是否取消对其关注？";
+     config.title = @"是否取消对其关注？".tr;
      config.isSeparateStyle = NO;
      config.btnTitleArr = @[@"确定",@"取消"];
      config.alertBtnActionArr = @[@"unfollow:",@"".tr];

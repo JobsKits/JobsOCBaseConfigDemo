@@ -13,7 +13,11 @@
 #import "AppDelegate.h"
 #import "NSObject+UserInfo.h"
 #import "NSObject+MyAppTools.h"
-#import "JobsAppDoorVC.h"                   // 登录、注册、忘记密码
+#if __has_include(<JobsAppDoor/JobsAppDoor.h>)
+#import <JobsAppDoor/JobsAppDoor.h>          // 登录、注册、忘记密码
+#else
+#import "JobsAppDoor.h"
+#endif
 #import "ViewController@1.h"
 #import "ViewController@2.h"
 #import "ViewController@3.h"

@@ -9,7 +9,14 @@
 #import <JobsBaseUI/UIView+Refresh.h>
 #import <JobsBaseUI/UIView+Measure.h>
 
+static BOOL JobsIsSystemNavigationBarDemo(UIViewController *viewController) {
+    return [NSStringFromClass(viewController.class) isEqualToString:@"JobsNavigationDemoVC"];
+}
+
 @interface BaseViewController ()
+
+-(NSString *)jobs_defaultNavigationTitle;
+-(void)jobs_ensureDefaultNavigationBar;
 
 @end
 
@@ -51,11 +58,13 @@ BaseViewControllerProtocol_synthesize
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.ViewWillAppear = YES;
+    [self jobs_ensureDefaultNavigationBar];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     self.ViewDidAppear = YES;
+    [self jobs_ensureDefaultNavigationBar];
 #ifdef DEBUG
     /// 网络异步数据刷新UI会在viewDidAppear以后执行viewWillLayoutSubviews、viewDidLayoutSubviews
 //    [self ifEmptyData];
@@ -81,6 +90,60 @@ BaseViewControllerProtocol_synthesize
     self.view.mjRefreshTargetView.mj_footer.y = self.view.mjRefreshTargetView.contentSize.height;
 }
 #pragma mark —— 一些私有方法
+-(BOOL)jobs_requiresDefaultNavigationBar{
+    UINavigationController *navigationController = self.navigationController;
+    BOOL isNavigationChild = navigationController.topViewController == self &&
+        navigationController.viewControllers.firstObject != self;
+    BOOL isPresentedPage = self.presentingViewController ||
+        (navigationController.viewControllers.firstObject == self && navigationController.presentingViewController);
+    return isNavigationChild || isPresentedPage;
+}
+
+-(NSString *)jobs_defaultNavigationTitle{
+    NSString *navigationTitle = self.viewModel.textModel.attributedTitle.string;
+    if (!navigationTitle.length) navigationTitle = self.viewModel.textModel.text;
+    if (!navigationTitle.length) navigationTitle = self.title;
+    if (!navigationTitle.length) navigationTitle = NSStringFromClass(self.class);
+    return navigationTitle;
+}
+
+-(void)jobs_ensureDefaultNavigationBar{
+    if (![self jobs_requiresDefaultNavigationBar]) return;
+    if (JobsIsSystemNavigationBarDemo(self)) {
+        [self.navigationController setNavigationBarHidden:NO animated:NO];
+        self.navigationController.navigationBar.byHidden(NO);
+        return;
+    }
+    NSString *navigationTitle = [self jobs_defaultNavigationTitle];
+    if (!self.title.length) self.title = navigationTitle;
+    if (!self.viewModel.textModel.attributedTitle.string.length &&
+        !self.viewModel.textModel.text.length) {
+        self.viewModel.textModel.byText(navigationTitle);
+    }
+    if (!self.gk_navTitle.length && !self.gk_navTitleView) {
+        if (self.navigationItem.titleView) {
+            self.gk_navTitleView = self.navigationItem.titleView;
+        }else self.byGKNavTitle(navigationTitle);
+    }
+    if (!self.gk_navRightBarButtonItem && !self.gk_navRightBarButtonItems.count) {
+        if (self.navigationItem.rightBarButtonItems.count) {
+            self.gk_navRightBarButtonItems = self.navigationItem.rightBarButtonItems;
+        }else if (self.navigationItem.rightBarButtonItem) {
+            self.gk_navRightBarButtonItem = self.navigationItem.rightBarButtonItem;
+        }
+    }
+    if (!self.gk_navLeftBarButtonItem && !self.gk_navLeftBarButtonItems.count) {
+        ((id<AppToolsProtocol>)self).setGKNavBackBtnBy(nil);
+    }
+    self.byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
+        navigationBar
+            .byHidden(NO)
+            .byAlpha(1);
+    });
+    self.gk_navBarAlpha = 1;
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    self.view.byBringSubviewToFront(self.gk_navigationBar);
+}
 /// 在loadView或者之前的生命周期中定义背景图片或者底色
 -(jobsByVoidBlock _Nonnull)setBackGround{
     @jobs_weakify(self)

@@ -60,6 +60,8 @@ JobsModel@Pods/
 ## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Core` 是 `JobsModel` 对外公开 API 和核心实现的边界，只保留 Model 本体、协议、DAO、JSON、UIKit 数据束和必要的内部实现。
+- `UIViewModel.backBtnTitleModel` 默认使用 `@"返回".tr` 与 `JobsLabelColor`，使返回按钮同时跟随 App 语言和系统明暗主题。
+- `JobsAppDoorInputViewBaseStyleModel.placeholdAnimationable` 默认开启，以兼容历史输入框；认证页面需要静态占位符时应显式关闭。
 - Model 链式 DSL 已从 `JobsModel` 拆出到独立 Pod `JobsModelDSL`，不再在 `JobsModel` 内保留 `JobsModel+DSL` 历史目录，避免重复 Category 定义和反向依赖。
 - 需要 `UIViewModel`、`UITextModel`、`UIButtonModel`、`MasonryModel` 等链式能力时，调用方应显式引用 `JobsModelDSL`，不要从 `JobsModel` 聚合头绕回旧 DSL。
 - `Support` 当前包含 34 个文件，其中源码 / 头文件 34 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。

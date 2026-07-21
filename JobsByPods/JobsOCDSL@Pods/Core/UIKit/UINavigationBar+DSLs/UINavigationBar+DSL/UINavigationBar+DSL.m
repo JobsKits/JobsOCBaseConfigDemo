@@ -7,6 +7,27 @@
 
 #import "UINavigationBar+DSL.h"
 
+static UINavigationBarAppearance *_Nonnull JobsNavigationBarAppearanceByBackgroundColor(UINavigationBarAppearance *_Nullable source,
+                                                                                         UIColor *_Nullable color) API_AVAILABLE(ios(13.0), tvos(13.0)){
+    UINavigationBarAppearance *appearance = source ? source.copy : UINavigationBarAppearance.new;
+    appearance.backgroundColor = color;
+    return appearance;
+}
+
+static UINavigationBarAppearance *_Nonnull JobsNavigationBarAppearanceByShadowImage(UINavigationBarAppearance *_Nullable source,
+                                                                                      UIImage *_Nullable image) API_AVAILABLE(ios(13.0), tvos(13.0)){
+    UINavigationBarAppearance *appearance = source ? source.copy : UINavigationBarAppearance.new;
+    appearance.shadowImage = image;
+    return appearance;
+}
+
+static UINavigationBarAppearance *_Nonnull JobsNavigationBarAppearanceByBackgroundImage(UINavigationBarAppearance *_Nullable source,
+                                                                                          UIImage *_Nullable image) API_AVAILABLE(ios(13.0), tvos(13.0)){
+    UINavigationBarAppearance *appearance = source ? source.copy : UINavigationBarAppearance.new;
+    appearance.backgroundImage = image;
+    return appearance;
+}
+
 @implementation UINavigationBar (DSL)
 -(JobsRetNavigationBarByAppearanceBlock _Nonnull)byStandardAppearance{
     @jobs_weakify(self)
@@ -48,8 +69,16 @@
     @jobs_weakify(self)
     return ^__kindof UINavigationBar *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
-        self.barTintColor = data;
-        return self;
+        if (@available(iOS 13.0, tvOS 13.0, *)) {
+            self.standardAppearance = JobsNavigationBarAppearanceByBackgroundColor(self.standardAppearance, data);
+            self.scrollEdgeAppearance = JobsNavigationBarAppearanceByBackgroundColor(self.scrollEdgeAppearance ?: self.standardAppearance, data);
+            self.compactAppearance = JobsNavigationBarAppearanceByBackgroundColor(self.compactAppearance ?: self.standardAppearance, data);
+            if (@available(iOS 15.0, tvOS 15.0, *)) {
+                self.compactScrollEdgeAppearance = JobsNavigationBarAppearanceByBackgroundColor(self.compactScrollEdgeAppearance ?: self.compactAppearance, data);
+            }
+        }else{
+            SuppressWdeprecatedDeclarationsWarning(self.barTintColor = data;);
+        };return self;
     };
 }
 
@@ -84,8 +113,16 @@
     @jobs_weakify(self)
     return ^__kindof UINavigationBar *_Nullable(UIImage *_Nullable data){
         @jobs_strongify(self)
-        self.shadowImage = data;
-        return self;
+        if (@available(iOS 13.0, tvOS 13.0, *)) {
+            self.standardAppearance = JobsNavigationBarAppearanceByShadowImage(self.standardAppearance, data);
+            self.scrollEdgeAppearance = JobsNavigationBarAppearanceByShadowImage(self.scrollEdgeAppearance ?: self.standardAppearance, data);
+            self.compactAppearance = JobsNavigationBarAppearanceByShadowImage(self.compactAppearance ?: self.standardAppearance, data);
+            if (@available(iOS 15.0, tvOS 15.0, *)) {
+                self.compactScrollEdgeAppearance = JobsNavigationBarAppearanceByShadowImage(self.compactScrollEdgeAppearance ?: self.compactAppearance, data);
+            }
+        }else{
+            SuppressWdeprecatedDeclarationsWarning(self.shadowImage = data;);
+        };return self;
     };
 }
 
@@ -93,8 +130,19 @@
     @jobs_weakify(self)
     return ^__kindof UINavigationBar *_Nullable(UIImage *_Nullable image, UIBarMetrics barMetrics){
         @jobs_strongify(self)
-        [self setBackgroundImage:image forBarMetrics:barMetrics];
-        return self;
+        if (@available(iOS 13.0, tvOS 13.0, *)) {
+            if (barMetrics == UIBarMetricsDefault) {
+                self.standardAppearance = JobsNavigationBarAppearanceByBackgroundImage(self.standardAppearance, image);
+                self.scrollEdgeAppearance = JobsNavigationBarAppearanceByBackgroundImage(self.scrollEdgeAppearance ?: self.standardAppearance, image);
+            }else{
+                self.compactAppearance = JobsNavigationBarAppearanceByBackgroundImage(self.compactAppearance ?: self.standardAppearance, image);
+                if (@available(iOS 15.0, tvOS 15.0, *)) {
+                    self.compactScrollEdgeAppearance = JobsNavigationBarAppearanceByBackgroundImage(self.compactScrollEdgeAppearance ?: self.compactAppearance, image);
+                }
+            }
+        }else{
+            SuppressWdeprecatedDeclarationsWarning([self setBackgroundImage:image forBarMetrics:barMetrics];);
+        };return self;
     };
 }
 

@@ -31,9 +31,9 @@ UITextFieldProtocol_synthesize_part2
             cell
                 .bySelectionStyle(UITableViewCellSelectionStyleNone)
                 .byContentView(^(__kindof UIView * _Nullable view) {
-                    view.byBgColor(JobsWhiteColor);
+                    view.byBgColor(JobsSystemBackgroundColor);
                 })
-                .byBgColor(JobsWhiteColor);
+                .byBgColor(JobsSystemBackgroundColor);
         };return cell;
     };
 }
@@ -45,7 +45,7 @@ UITextFieldProtocol_synthesize_part2
         self.longPG.byEnabled(YES);
         self.swipeBackgroundColor = JobsClearColor;
         self.bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.byBgColor(JobsYellowColor.colorWithAlphaComponentBy(0.3));
+            view.byBgColor(JobsSystemGray5Color);
         }));
         self.leftSwipeSettings.transition = MGSwipeTransitionBorder;
         self.rightSwipeSettings.transition = MGSwipeTransitionDrag;
@@ -82,19 +82,25 @@ UITextFieldProtocol_synthesize_part2
             self.userHeaderURLStr = @"https://picsum.photos/126";
             self.timeStr = @"数据异常".tr;
         }
-        self.textLabel.byText(self.usernameStr);
-        self.detailTextLabel.byText(self.contentStr);
-        self.detailTextLabel.byTextCor(JobsLightGrayColor);
+        self.textLabel
+            .byText(self.usernameStr)
+            .byTextCor(JobsLabelColor);
+        self.detailTextLabel
+            .byText(self.contentStr)
+            .byTextCor(JobsSecondaryLabelColor);
         if (self.userHeaderIMG) {
             self.imageView.byImage(self.userHeaderIMG);
         }else{
             self.imageView
                 .imageURL(self.userHeaderURLStr.jobsUrl)
-                .placeholderImage(nil)
+                .placeholderImage(UIImage.animatedGIFByName(@"动态头像_1 尺寸126"))
                 .options(self.makeSDWebImageOptions)
                 .load();
         }
-        self.timeLab.byAlpha(1);
+        self.timeLab
+            .byText(self.timeStr)
+            .byTextCor(JobsSecondaryLabelColor)
+            .byAlpha(1);
         return self;
     };
 }
@@ -144,7 +150,7 @@ UITextFieldProtocol_synthesize_part2
             @jobs_strongify(self)
             label
                 .byText(self.timeStr)
-                .byTextCor(JobsLightGrayColor)
+                .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(JobsWidth(12)))
             .bySizeToFit()
             .addOn(self.contentView)

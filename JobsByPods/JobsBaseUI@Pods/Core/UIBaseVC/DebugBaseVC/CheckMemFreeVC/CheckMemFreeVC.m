@@ -15,7 +15,9 @@
 @implementation CheckMemFreeVC
 -(void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
-    @"检查者出栈".tr.toast();
+    if (JobsControllerDeallocTipsEnabled()) {
+        @"检查者出栈".tr.toast();
+    }
 }
 
 -(void)loadView{

@@ -113,6 +113,34 @@ JobsOCTimer@Pods/
 - 自建 Pod 对外优先引用公共入口头，不要绕开聚合头直接引用 `Support` 内部子头。
 - `JobsOCTimer.h` 是统一公开入口；调用方不绕开聚合头引用 `Core` 内部子头。
 
+### 6.1、基础用法
+
+```objc
+@jobs_weakify(self)
+JobsTimer *timer = jobsMakeTimer(^(JobsTimer * _Nullable timer) {
+    timer.byTimerType(JobsTimerTypeNSTimer)
+    .byTimerStyle(TimerStyle_anticlockwise)
+    .byTimeInterval(1)
+    .byStartTime(10)
+    .byQueue(dispatch_get_main_queue())
+    .byPauseInBackground(YES)
+    .byAutoManageAppState(YES)
+    .byOnTick(^(CGFloat time) {
+        @jobs_strongify(self)
+        // 刷新倒计时 UI
+    })
+    .byOnFinish(^(JobsTimer * _Nullable timer) {
+        @jobs_strongify(self)
+        // 倒计时结束
+    });
+});
+[timer start];
+```
+
+`NSTimer`、`DisplayLink`、`RunLoop` 内核必须在主线程创建和操作；GCD 内核允许跨线程生命周期调用。四种内核都在首次完整间隔后触发，`DisplayLink` 会按 `timeInterval` 节流，并以常数时间跳过错过的节拍。非有限或小于等于 `0` 的 `timeInterval` 统一回退到 `1` 秒。
+
+`byPauseInBackground(YES)` 与 `byAutoManageAppState(YES)` 启用后，应用失去活跃态即自动暂停，重新活跃时只恢复自动暂停项。公共 `pause` 会撤销自动恢复资格，公共 `resume` 会立即复核当前应用状态，因此 inactive→active 不会漏恢复，手动恢复也不会让 Timer 在后台继续运行。
+
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 当前目录扫描到资源类文件 1 个，`Resource` 目录文件 0 个。
@@ -145,7 +173,11 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - `JobsTimer` 回调快照不要在 `stateLock` 持有期间读取带锁 getter，避免 tick / fireOnce 首次回调时自锁卡住。
 - `JobsTimer` 的 GCD 内核在 `pause` / `resume` 时会切换 generation token，恢复前必须重新绑定 `dispatch_source` 的 event handler 到新 token，并重置下一次触发时间，避免恢复后 tick 被旧 token 校验拦截。
+- `NSTimer` 与 `CADisplayLink` 通过弱代理回调，`CFRunLoopTimer` 使用弱捕获 block；不要改回强 target 或未托管裸指针，否则会重新引入生命周期风险。
+- 一次性或倒计时终态先失效底层引擎，再在同一回调队列按 `tick`、`finish` 顺序派发；重复 timer 的排队回调执行前会再次校验 generation。
+- 应用状态暂停必须走独立的自动暂停路径；不要在通知回调里先写标记再调用公共 `pause`，否则手动 / 自动暂停语义会互相覆盖。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+- `JobsOCBaseConfigDemoTests` 覆盖 inactive→active 自动恢复和手动暂停不被误恢复。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

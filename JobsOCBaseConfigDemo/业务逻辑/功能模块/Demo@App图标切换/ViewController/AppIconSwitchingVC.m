@@ -139,13 +139,13 @@ Prop_strong()NSArray <NSDictionary <NSString *, NSString *>*>*iconOptions;
         NSString *currentIconName = application.alternateIconName;
         BOOL isSameIcon = (currentIconName.length == 0 && iconName.length == 0) || [currentIconName isEqualToString:iconName];
         if (!application.supportsAlternateIcons) {
-            NSString *msg = @"当前包未开启备用 App 图标，请检查 target 的 Alternate App Icon Sets 配置";
+            NSString *msg = @"当前包未开启备用 App 图标，请检查 target 的 Alternate App Icon Sets 配置".tr;
             JobsLog(@"%@", msg);
             [self showAppIconSwitchToast:msg];
             return;
         }
         if (isSameIcon) {
-            NSString *msg = [NSString stringWithFormat:@"当前已经是 %@ 图标", targetIconName];
+            NSString *msg = [NSString stringWithFormat:@"当前已经是 %@ 图标".tr, targetIconName];
             JobsLog(@"%@", msg);
             [self showAppIconSwitchToast:msg];
             [self reloadIconSelectionState];
@@ -154,18 +154,18 @@ Prop_strong()NSArray <NSDictionary <NSString *, NSString *>*>*iconOptions;
         [application setAlternateIconName:iconName
                         completionHandler:^(NSError * _Nullable error) {
             if (error) {
-                NSString *msg = [NSString stringWithFormat:@"切换 App 图标失败：%@", error.localizedDescription];
+                NSString *msg = [NSString stringWithFormat:@"切换 App 图标失败：%@".tr, error.localizedDescription];
                 JobsLog(@"%@", msg);
                 [self showAppIconSwitchToast:msg];
             } else {
-                NSString *msg = [NSString stringWithFormat:@"已切换为 %@ 图标", targetIconName];
+                NSString *msg = [NSString stringWithFormat:@"已切换为 %@ 图标".tr, targetIconName];
                 JobsLog(@"%@", msg);
                 [self showAppIconSwitchToast:msg];
                 [self reloadIconSelectionState];
             }
         }];
     } else {
-        NSString *msg = @"iOS 10.3 以下不支持动态切换 App 图标";
+        NSString *msg = @"iOS 10.3 以下不支持动态切换 App 图标".tr;
         JobsLog(@"%@", msg);
         [self showAppIconSwitchToast:msg];
     }

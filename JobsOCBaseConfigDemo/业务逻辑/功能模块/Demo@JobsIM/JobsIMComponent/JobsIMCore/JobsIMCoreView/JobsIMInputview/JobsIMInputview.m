@@ -19,7 +19,7 @@ Prop_strong()BaseButton *sendBtn;
 @implementation JobsIMInputview
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSystemBackgroundColor);
     };return self;
 }
 
@@ -68,7 +68,7 @@ Prop_strong()BaseButton *sendBtn;
     if (!_sendBtn) {
         @jobs_weakify(self)
         _sendBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsWhiteColor)
+            .bgColorBy(JobsSystemBackgroundColor)
             .jobsResetBtnBgImage(JobsCyanColor.image)
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
@@ -115,12 +115,13 @@ Prop_strong()BaseButton *sendBtn;
                 .byLeftView(self.imgView)
                 .byLeftViewOffsetX(20)
                 .byFont(UIFontWeightMediumSize(12))
+                .byTextCor(JobsLabelColor)
                 .byLeftViewMode(UITextFieldViewModeAlways)
-                .byKeyboardAppearance(UIKeyboardAppearanceAlert)
+                .byKeyboardAppearance(UIKeyboardAppearanceDefault)
                 .byAutocorrectionType(UITextAutocorrectionTypeNo) // 自动纠错属性默认是 YES，会触发监听
                 .byInputAccessoryView(self.adNoticeLab)
                 .byReturnKeyType(UIReturnKeySend)
-                .byBgColor(HEXCOLOR(0xF4F4F4))
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.bottom.equalTo(self.sendBtn);
@@ -131,7 +132,7 @@ Prop_strong()BaseButton *sendBtn;
             textField.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable model) {
                 model
                     .byJobsWidth(.5f)
-                    .byLayerCor(JobsWhiteColor)
+                    .byLayerCor(JobsSeparatorColor)
                     .byCornerRadiusValue(textField.mj_h / 2);
             }));
         });
@@ -158,10 +159,10 @@ Prop_strong()BaseButton *sendBtn;
         _adNoticeLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"Jobs安全聊天，为您的聊天加密护航".tr)
-                .byTextCor(JobsRedColor)
+                .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightRegularSize(JobsWidth(12)))
-                .byBgColor(JobsCyanColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .bySize(JobsIMInputviewAccessoryLabelSize());
         });
     };return _adNoticeLab;

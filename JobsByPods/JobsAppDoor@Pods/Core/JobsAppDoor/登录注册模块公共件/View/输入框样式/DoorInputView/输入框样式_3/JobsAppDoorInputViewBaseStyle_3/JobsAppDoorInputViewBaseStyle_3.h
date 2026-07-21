@@ -1,0 +1,125 @@
+//
+//  JobsAppDoorInputViewBaseStyle_3.h
+//  JobsAppDoor
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#ifndef JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_3_42510BFE2E
+#define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_3_42510BFE2E
+
+#import <UIKit/UIKit.h>
+#import <JobsAppDoor/JobsAppDoorConfig.h>
+#import <JobsAppDoor/JobsAppDoorInputViewBaseStyle.h>
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
+#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
+#else
+#import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
+#else
+#import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface JobsAppDoorInputViewBaseStyle_3 : JobsAppDoorInputViewBaseStyle
+/**
+ 
+ * 其实并不建议用init方法,而是期望带参数初始化，比如对应BaseViewProtocol里面的 - (instancetype)initWithSize:(CGSize)thisViewSize
+ * 因为本类在大多数情况下是依附于一个父视图执行的，这样可以有效的避免过程值对环境的影响
+ * 因为父视图在没有进行展开的时候，子视图是不展开的。那么存在生命周期的过程，会影响布局结果
+    
+ * 如果以后需要强行禁用init或者new，那么:
+ - (instancetype)init NS_UNAVAILABLE;
+ - (instancetype)new NS_UNAVAILABLE;
+ 
+ */
+@end
+
+NS_ASSUME_NONNULL_END
+/**
+ 
+     -(JobsAppDoorInputViewBaseStyle_3 *)用户名输入框{
+         if (!_用户名输入框) {
+             _用户名输入框 = JobsAppDoorInputViewBaseStyle_3.new;
+             @jobs_weakify(self)
+             [_用户名输入框 actionObjBlock:^(JobsAppDoorInputViewTFModel *data) {
+                 @jobs_strongify(self)
+     //            if ([data isKindOfClass:JobsAppDoorInputViewTFModel.class]) {
+     //                JobsAppDoorInputViewTFModel *model = (JobsAppDoorInputViewTFModel *)data;
+     //                self.confirmWithdrawPassword = model.resString;
+     //            }
+             }];
+
+             _用户名输入框.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
+                 make.centerX.equalTo(self.view);
+                 make.size.mas_equalTo(inputSize());
+                 make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(85));
+             });
+
+
+             _用户名输入框.layer.cornerRadius = inputSize().height / 2;
+             _用户名输入框.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
+                 data.byJobsWidth(1)
+                     .byLayerCor(HEXCOLOR(0xEEE2C8));
+             }));
+             _用户名输入框.jobsRichViewByModel(配置用户名输入框);
+         };return _用户名输入框;
+     }
+
+     -(JobsAppDoorInputViewBaseStyleModel *)配置用户名输入框{
+         if (!_配置用户名输入框) {
+             _配置用户名输入框 = JobsAppDoorInputViewBaseStyleModel.new;
+             _配置用户名输入框.leftViewIMG = @"用户名".img;
+             _配置用户名输入框.placeHolderStr = @"请输入您的用户名".tr;
+             _配置用户名输入框.placeholderFont = UIFontWeightRegularSize(JobsWidth(16));
+             _配置用户名输入框.placeholderColor = HEXCOLOR(0xC4C4C4);
+             _配置用户名输入框.placeHolderOffset = JobsWidth(35);
+             _配置用户名输入框.leftViewOffsetX = JobsWidth(10);
+             _配置用户名输入框.isShowDelBtn = YES;
+             _配置用户名输入框.isShowSecurityBtn = NO;
+             _配置用户名输入框.returnKeyType = UIReturnKeyDone;
+             _配置用户名输入框.keyboardAppearance = UIKeyboardAppearanceAlert;
+             _配置用户名输入框.leftViewMode = UITextFieldViewModeAlways;
+             _配置用户名输入框.moveDistance = JobsWidth(40);
+             _配置用户名输入框.titleStrCor = _配置用户名输入框.placeholderColor = HEXCOLOR(0x524740);
+             _配置用户名输入框.background = @"设置弹出框输入框背景图".img;
+             _配置用户名输入框.animationColor = HEXCOLOR(0xF2CC78);
+         };return _配置用户名输入框;
+     }
+ */
+#endif /* JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_3_42510BFE2E */

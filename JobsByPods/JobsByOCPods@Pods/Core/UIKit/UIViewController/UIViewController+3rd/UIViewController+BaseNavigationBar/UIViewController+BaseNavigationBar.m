@@ -38,7 +38,7 @@ JobsKey(_navigationBar)
                 NSFontAttributeName:self.fontAttributeName
             };/// 设置导航上的title显示样式
             [navBar setBarTintColor:JobsRedColor];/// 一般的业务是全局设置，因为一个App里面只有一个主题
-            navBar.byTintColor(JobsBlackColor);/// 系统的组件着色（返回按钮——箭头图标 和 上面的字）
+            navBar.byTintColor(JobsLabelColor);/// 系统组件使用语义色，自动适配明暗主题
             navBar.items = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
                 @jobs_strongify(self)
                 data.add(self.navItem);
@@ -63,22 +63,7 @@ JobsKey(_leftBarButtonItem_back)
     UIBarButtonItem *LeftBarButtonItem_back = Jobs_getAssociatedObject(_leftBarButtonItem_back);
     if (!LeftBarButtonItem_back) {
         if(self.navigationController.viewControllers.count > 1){
-            NSString *imageName = self.gk_backStyle == GKNavigationBarBackStyleBlack ? @"btn_back_black" : @"btn_back_white";
-            UIImage *backImage = JobsLoadBundleImage(nil,
-                                               @"Frameworks/GKNavigationBar.framework/GKNavigationBar",
-                                               nil,
-                                               imageName);
-            @jobs_weakify(self)
-            LeftBarButtonItem_back = jobsMakeBarButtonItemByImage([backImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
-                                                                  UIBarButtonItemStyleDone,
-                                                                  nil,
-                                                                  nil,
-                                                                  nil)
-                .byRacCommand([RACCommand.alloc initWithSignalBlock:^RACSignal * _Nonnull(id _Nullable input) {
-                    @jobs_strongify(self)
-                    self.goBack(input);
-                    return [RACSignal empty];
-                }]);
+            LeftBarButtonItem_back = self.backBtnCategoryItem;
             [self setLeftBarButtonItem_back:LeftBarButtonItem_back];
         }
     };return LeftBarButtonItem_back;

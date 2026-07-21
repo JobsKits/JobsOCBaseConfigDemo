@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_END
          if (!_textView) {
              _textView = SZTextView.new;
              _textView.delegate = self;
-             _textView.placeholder = @"在这里畅所欲言，留下您的宝贵意见吧！";
+             _textView.placeholder = @"在这里畅所欲言，留下您的宝贵意见吧！".tr;
 
              _textView.placeholderTextColor = RGB_COLOR(132, 134, 140);
              _textView.byFont(UIFontWeightMediumSize(12));

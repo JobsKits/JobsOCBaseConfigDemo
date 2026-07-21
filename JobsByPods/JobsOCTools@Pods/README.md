@@ -16,7 +16,7 @@
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 > 这份自述用于记录 `JobsOCTools` 在 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的职责边界、目录结构、依赖关系和验证方式。
-补充描述：JobsOCTools is an Objective-C component collection containing UI widgets, app-door/login views, crypto helpers, tab bar utilities, WebSocket helpers, animation resources, and other reusable iOS toolspec.
+补充描述：JobsOCTools is an Objective-C component collection containing UI widgets, crash diagnostics, crypto helpers, tab bar utilities, WebSocket helpers, animation resources, and other reusable iOS toolspec. 登录、注册与忘记密码模板统一由 `JobsAppDoor` Pod 管理。
 
 
 ## 一、Pod 定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -48,8 +48,9 @@ JobsOCTools@Pods/
 ├── README.md  # 当前自述
 ├── JobsOCTools.h  # 根入口头文件
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
-├── Core/  # 公开 API 与核心实现，332 个文件
+├── Core/  # 公开 API 与核心实现，183 个文件
 ├── Support/  # 内部支撑层，4 个文件
+├── Resource/  # 图片、动画等资源，74 个文件
 └── LICENSE  # 许可证文件
 ```
 
@@ -59,7 +60,7 @@ JobsOCTools@Pods/
 
 ## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 当前包含 332 个文件，其中源码 / 头文件 180 个；按 Jobs 规范，它是 `JobsOCTools` 对外公开 API 和核心实现的边界。
+- `Core` 当前包含 183 个文件，其中源码 / 头文件 148 个；按 Jobs 规范，它是 `JobsOCTools` 对外公开 API 和核心实现的边界。
 - `Support` 当前包含 4 个文件，其中源码 / 头文件 4 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
 - `Support/UIKit/NSString/NSString+Sys` 提供当前 Pod 内部使用的 `byTrimmingCharactersInSet` 字符串裁剪 DSL，不回引 `JobsByOCPods`。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
@@ -78,8 +79,8 @@ JobsOCTools@Pods/
 - `Core/**/*.{h,m,mm}`
 - `Core/在指定的y区间内滑动视图/JobsScrollYView` 的拖拽位移会写入 `jobsPoint`，实现层必须承接 `UILocationProtocol_synthesize`，避免运行时缺失 `setJobsPoint:`。
 - `Core/在指定的y区间内滑动视图/JobsScrollViewVC` 作为演示入口，页面内展示 GK 导航栏、返回键、导航标题、使用文案、最高 / 最低锚点提示和绿色拖拽区提示；上滑释放会按最高点提示行的实际布局位置吸附，下滑释放回到底部初始位置。
-- `Core/JobsAppDoor/ViewController/JobsAppDoorVC` 的视频背景音量浮层通过统一入口同步 `ZFPlayerController`、`currentPlayerManager` 和 `ZFAVPlayerManager`，竖向滑杆支持点击 / 拖动面板映射到真实音量。
-- `Core/JobsAppDoor` 默认首屏保持登录态；登录 / 注册提交按钮和注册页验证码按钮由输入框 RAC 封装监听控制可用态，内容容器、输入框、客服按钮和标题 label 配置统一走 Jobs 点语法链式 DSL。
+- `Core/CrashLog` 提供 `JobsOCCrashLogCenter`、日志文件信息和内存快照模型；默认写入 `Documents/jobs_crash.log`，记录启动会话、前后台安全点、异常退出判定、Signal / NSException 和周期内存轨迹，日志超过 `1 MB` 时保留最近 `512 KB`。
+- `JobsAppDoor` 认证模块已下沉到独立 Pod；`JobsOCTools` 不再公开认证控制器、表单视图或认证配置。
 - `Core/XXTools` 的非标准 `UIFontWeight = -0.4` 通过 `JobsOCDefs` 的 `UIFontSystemFontOfSizeAndWeight` 工厂创建，不在上层直接调用系统 UIFont 工厂。
 
 ### 5.3、默认安装边界
@@ -165,10 +166,8 @@ JobsOCTools@Pods/
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 当前目录扫描到资源类文件 88 个，`Resource` 目录文件 0 个。
-- podspec 资源声明如下：
-
-- podspec 未显式声明 `resources`，如新增图片、xib、bundle、json、plist 等资源，需要同步补齐。
+- 当前 `Resource` 目录包含 74 个资源文件。
+- podspec 通过 `JobsOCToolsCore` resource bundle 递归声明图片、JSON、plist、bundle、xib、storyboard、字体、音视频和 `xcprivacy` 等资源；新增资源时继续放入真实 `Resource` 目录并复核 bundle 映射。
 
 ## 八、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

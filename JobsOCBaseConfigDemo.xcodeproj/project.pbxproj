@@ -33,13 +33,13 @@
 /* Begin PBXFileReference section */
 		0E7E591D6C4D0C6BBBD252B2 /* JobsOCBaseConfigDemoUITestsLaunchTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemoUITestsLaunchTests.m; sourceTree = "<group>"; };
 		1367FE9E27F6821172EED101 /* JobsOCBaseConfigDemoUITests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemoUITests.m; sourceTree = "<group>"; };
-		2D7A8B32FCA0BE8EE44C4355 /* Pods-JobsOCBaseConfigDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.release.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.release.xcconfig"; sourceTree = "<group>"; };
-		44DC6A848D569C29C2CB5EF0 /* JobsOCBaseConfigDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = JobsOCBaseConfigDemoUITests.xctest; path = .xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		44DC6A848D569C29C2CB5EF0 /* JobsOCBaseConfigDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JobsOCBaseConfigDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A94D956954F8CD6B5606A2D /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.debug.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		7C0E452ACE57715495DB7004 /* Pods-JobsOCBaseConfigDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.release.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.release.xcconfig"; sourceTree = "<group>"; };
 		8BE608D790F4B9DDF11D6090 /* Pods_JobsOCBaseConfigDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JobsOCBaseConfigDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		93E2A01E9486C0D38D8D2CA2 /* JobsOCBaseConfigDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = JobsOCBaseConfigDemoTests.xctest; path = .xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		93E2A01E9486C0D38D8D2CA2 /* JobsOCBaseConfigDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JobsOCBaseConfigDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA46AFD101D1C8A58AEB979F /* JobsLinkageMenuViewDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsLinkageMenuViewDemoVC.m; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsLinkageMenuView/JobsLinkageMenuViewDemoVC.m"; sourceTree = "<group>"; };
 		ACC2478DA763882076BAE990 /* JobsLinkageMenuViewDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsLinkageMenuViewDemoVC.h; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsLinkageMenuView/JobsLinkageMenuViewDemoVC.h"; sourceTree = "<group>"; };
-		C29CFD27EB7AEA326BB2966F /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.debug.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		C50913B32F85D89000F261DA /* JobsOCBaseConfigDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JobsOCBaseConfigDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C920BD66667884C72A4E65C3 /* JobsOCBaseConfigDemoTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemoTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,8 +153,8 @@
 		EA4E9321151D073227FB210E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C29CFD27EB7AEA326BB2966F /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */,
-				2D7A8B32FCA0BE8EE44C4355 /* Pods-JobsOCBaseConfigDemo.release.xcconfig */,
+				4A94D956954F8CD6B5606A2D /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */,
+				7C0E452ACE57715495DB7004 /* Pods-JobsOCBaseConfigDemo.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -394,6 +394,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jobs.JobsOCBaseConfigDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = JobsOCBaseConfigDemo;
@@ -414,6 +415,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jobs.JobsOCBaseConfigDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JobsOCBaseConfigDemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/JobsOCBaseConfigDemo";
@@ -432,6 +434,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jobs.JobsOCBaseConfigDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = JobsOCBaseConfigDemo;
@@ -451,6 +454,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jobs.JobsOCBaseConfigDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JobsOCBaseConfigDemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/JobsOCBaseConfigDemo";
@@ -460,15 +464,16 @@
 		};
 		C50913CC2F85D89100F261DA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C29CFD27EB7AEA326BB2966F /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */;
+			baseConfigurationReference = 4A94D956954F8CD6B5606A2D /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AlternateIcon1 AlternateIcon2 AlternateIcon3 AlternateIcon4 AlternateIcon5";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "JobsAppIconRibbon-Debug";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K5692KLW75;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Headers/$(PROJECT_NAME)PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -496,15 +501,16 @@
 		};
 		C50913CD2F85D89100F261DA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2D7A8B32FCA0BE8EE44C4355 /* Pods-JobsOCBaseConfigDemo.release.xcconfig */;
+			baseConfigurationReference = 7C0E452ACE57715495DB7004 /* Pods-JobsOCBaseConfigDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AlternateIcon1 AlternateIcon2 AlternateIcon3 AlternateIcon4 AlternateIcon5";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "JobsAppIconRibbon-Release";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K5692KLW75;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Headers/$(PROJECT_NAME)PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;

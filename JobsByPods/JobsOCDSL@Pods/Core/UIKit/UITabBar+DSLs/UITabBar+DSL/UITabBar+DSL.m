@@ -38,8 +38,20 @@
     @jobs_weakify(self)
     return ^__kindof UITabBar *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
-        self.barTintColor = data;
-        return self;
+        if (@available(iOS 13.0, tvOS 13.0, *)) {
+            UITabBarAppearance *standardAppearance = self.standardAppearance.copy;
+            standardAppearance.backgroundColor = data;
+            self.standardAppearance = standardAppearance;
+            if (@available(iOS 15.0, tvOS 15.0, *)) {
+                UITabBarAppearance *scrollEdgeAppearance = self.scrollEdgeAppearance
+                    ? self.scrollEdgeAppearance.copy
+                    : standardAppearance.copy;
+                scrollEdgeAppearance.backgroundColor = data;
+                self.scrollEdgeAppearance = scrollEdgeAppearance;
+            }
+        }else{
+            SuppressWdeprecatedDeclarationsWarning(self.barTintColor = data;);
+        };return self;
     };
 }
 

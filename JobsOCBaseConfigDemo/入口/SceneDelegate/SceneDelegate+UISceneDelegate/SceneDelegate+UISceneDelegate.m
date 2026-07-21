@@ -36,6 +36,7 @@ willConnectToSession:(UISceneSession *)session
 }
 
 - (void)sceneDidBecomeActive:(UIScene *)scene {
+    [JobsOCCrashLogCenter.sharedManager markAppLaunched];
     JobsLog(@"---applicationDidBecomeActive----");//进入前台
 }
 
@@ -50,6 +51,7 @@ willConnectToSession:(UISceneSession *)session
 }
 
 - (void)sceneDidEnterBackground:(UIScene *)scene {
+    [JobsOCCrashLogCenter.sharedManager markSafeExitPoint];
     JobsLog(@"---applicationDidEnterBackground----"); //进入后台
     [(AppDelegate *)UIApplication.sharedApplication.delegate saveContext];
     JobsPostNotification(退到后台停止播放ZFPlayer, nil);

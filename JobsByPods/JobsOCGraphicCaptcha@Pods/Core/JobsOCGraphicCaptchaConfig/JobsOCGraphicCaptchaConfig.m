@@ -63,6 +63,7 @@
     config.characterUnits = self.characterUnits;
     config.mixedGroupCount = self.mixedGroupCount;
     config.customCharacters = self.customCharacters.copy;
+    config.customCharacterGroups = self.customCharacterGroups.copy;
     return config;
 }
 

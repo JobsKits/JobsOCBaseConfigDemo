@@ -16,6 +16,7 @@ UIViewModelProtocol_synthesize
 - (instancetype)init{
     if (self = [super init]) {
         self.keyboardEnable = YES;
+        self.placeholdAnimationable = YES;
     };return self;
 }
 

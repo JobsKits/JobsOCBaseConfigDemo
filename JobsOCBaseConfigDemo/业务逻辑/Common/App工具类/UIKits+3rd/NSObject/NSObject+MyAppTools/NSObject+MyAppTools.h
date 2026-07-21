@@ -10,7 +10,11 @@
 #import "AppDelegate.h"
 #import "AppDelegate+TabBarCtr.h"
 #import "FMTermsOfUseView.h"
-#import "JobsAppDoorVC.h"
+#if __has_include(<JobsAppDoor/JobsAppDoor.h>)
+#import <JobsAppDoor/JobsAppDoor.h>
+#else
+#import "JobsAppDoor.h"
+#endif
 #import "JobsNetworkingHeader.h"
 #import "MyCollectionVC.h"
 
@@ -278,10 +282,10 @@ NS_ASSUME_NONNULL_END
              self.jobsOpenURL(@"https://wa.me/".add(customerContactElementModel.customerAccount));
          }break;
          case CustomerContactStyle_手机号码:{
-         @"打开手机号码未配置".toast();
+         @"打开手机号码未配置".tr.toast();
          }break;
          case CustomerContactStyle_onlineURL:{
-         @"打开onlineURL未配置".toast();
+         @"打开onlineURL未配置".tr.toast();
          }break;
 
          default:

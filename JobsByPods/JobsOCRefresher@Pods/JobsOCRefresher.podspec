@@ -14,7 +14,7 @@ Pod::Spec.new do |spec|
   spec.description      = <<-DESC
 JobsOCRefresher provides UIKit refresh and load-more components for Jobs Objective-C projects,
 including vertical and horizontal pull gestures, configurable states, default skins,
-and extension points for Lottie, GIF, frame images, and network images.
+and a protocol-driven refresh animator host supplied by JobsFuseAnimation.
   DESC
 
   spec.homepage         = 'https://example.local/JobsOCRefresher'
@@ -39,7 +39,6 @@ and extension points for Lottie, GIF, frame images, and network images.
   spec.frameworks = [
     'AudioToolbox',
     'Foundation',
-    'ImageIO',
     'UIKit'
   ]
 
@@ -48,21 +47,9 @@ and extension points for Lottie, GIF, frame images, and network images.
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsFuseAnimation'
 
   JobsPodspecKitForJobsOCRefresher.add_support_subspec(spec, support_context)
-
-  spec.subspec 'Lottie' do |ss|
-    ss.dependency 'lottie-ios', '~> 2.5.3'
-  end
-
-  spec.subspec 'SDWebImage' do |ss|
-    ss.dependency 'SDWebImage'
-  end
-
-  spec.subspec 'FrameAnimation' do |ss|
-    ss.dependency 'JobsOCTimer'
-    ss.dependency 'JobsOCTimerMgr'
-  end
 
   JobsPodspecKitForJobsOCRefresher.apply_standard_exclude_files(spec)
   JobsPodspecKitForJobsOCRefresher.apply_standard_xcconfig(spec)

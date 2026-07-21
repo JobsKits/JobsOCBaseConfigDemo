@@ -5,23 +5,7 @@
 //  Created by Jobs on 2026年6月25日，星期四.
 //
 
-#import <objc/message.h>
-#import <ImageIO/ImageIO.h>
 #import "JobsOCRefreshConfig.h"
-
-#if __has_include(<SDWebImage/SDWebImage.h>)
-#import <SDWebImage/SDWebImage.h>
-#endif
-
-#if __has_include(<lottie-ios/Lottie.h>)
-#import <lottie-ios/Lottie.h>
-#elif __has_include("Lottie.h")
-#import "Lottie.h"
-#endif
-
-#if __has_include(<JobsOCTimer/JobsTimer.h>)
-#import <JobsOCTimer/JobsTimer.h>
-#endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
@@ -49,6 +33,7 @@ Prop_assign() JobsOCRefreshPosition position;
 Prop_assign() JobsOCRefreshRole role;
 Prop_strong() JobsOCRefreshConfig *config;
 Prop_assign(readonly) JobsOCRefreshState state;
+Prop_strong(readonly) id<JobsRefreshAnimatorProtocol> animator;
 
 - (instancetype)initWithPosition:(JobsOCRefreshPosition)position
                             role:(JobsOCRefreshRole)role
@@ -56,6 +41,7 @@ Prop_assign(readonly) JobsOCRefreshState state;
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
 - (instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;
 - (void)applyState:(JobsOCRefreshState)state progress:(CGFloat)progress;
+- (void)replaceAnimator:(nullable id<JobsRefreshAnimatorProtocol>)animator;
 - (void)markRefreshedAt:(NSDate *)date;
 - (CGFloat)refreshLength;
 

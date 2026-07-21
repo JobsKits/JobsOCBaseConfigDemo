@@ -242,7 +242,7 @@ Prop_strong()UILabel *dragHintLab;
     if(!_dragHintLab){
         _dragHintLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"按住绿色区域上下拖动\n上滑吸顶，下滑回到底部")
+                .byText(@"按住绿色区域上下拖动\n上滑吸顶，下滑回到底部".tr)
                 .byFont(UIFontWeightMediumSize(JobsWidth(15)))
                 .byTextCor(JobsWhiteColor)
                 .byTextAlignment(NSTextAlignmentCenter)

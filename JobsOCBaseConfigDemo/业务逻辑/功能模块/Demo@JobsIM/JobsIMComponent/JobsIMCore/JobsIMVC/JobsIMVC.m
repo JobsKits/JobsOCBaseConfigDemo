@@ -15,41 +15,43 @@ Prop_strong()UIColor *bgColour;
 /// data
 Prop_strong()NSMutableArray <JobsIMChatInfoModel *>*chatInfoModelMutArr;//聊天信息
 Prop_strong()JobsIMChatInfoModel *chatInfoModel;
+Prop_assign()BOOL hasStartedInitialRefresh;
 
 @end
 
 @implementation JobsIMVC
 - (void)dealloc {
+    [JobsOCKeyboardMgr.shared clearConfigByOwner:self];
     JobsLog(@"%@",JobsLocalFunc);
 }
 
 -(void)loadView{
     [super loadView];
     self.isHiddenNavigationBar = YES;//禁用系统的导航栏
-    IQKeyboardManager.sharedManager.enable = NO;//该页面禁用
-    [self keyboardByUpBlock:^(NSNotificationKeyboardModel * _Nullable data) {
-        JobsLog(@"");
-    } downBlock:^(NSNotificationKeyboardModel * _Nullable data) {
-        JobsLog(@"");
-    }];
+    [IQKeyboardManager.sharedManager.disabledDistanceHandlingClasses addObject:JobsIMVC.class];
+    [IQKeyboardManager.sharedManager.disabledTouchResignedClasses addObject:JobsIMVC.class];
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         self.viewModel = (UIViewModel *)self.requestParams;
         self.chatInfoModel = (JobsIMChatInfoModel *)self.viewModel.data;
         self.chatInfoModelMutArr.add(self.chatInfoModel);
         self.viewModel
             .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-                data.byText(self.chatInfoModel.userNameStr);
-                data.byFont(UIFontWeightSemiboldSize(JobsWidth(20)));
+                data.byText(self.chatInfoModel.userNameStr)
+                    .byTextCor(JobsLabelColor)
+                    .byFont(UIFontWeightSemiboldSize(JobsWidth(20)));
             })
             .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-                data.byText(@"聊天列表".tr);
-            });
+                data.byText(@"聊天列表".tr)
+                    .byTextCor(JobsLabelColor);
+            })
+            .byBgCor(JobsSystemBackgroundColor)
+            .byNavBgCor(JobsSystemBackgroundColor);
     }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsWhiteColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     {
         @jobs_weakify(self)
         self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
@@ -66,24 +68,39 @@ Prop_strong()JobsIMChatInfoModel *chatInfoModel;
     self.tableView.byShow(self);
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self.tableView.mj_header beginRefreshing];
-}
-
--(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-}
-/// 必须这么写。在输入的时候会调用UIKeyboardWillChangeFrameNotification，只有在这里强制性的赋值
--(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    if (self.inputview.inputTextField.TFRiseHeight) {
-        CGFloat H = self.inputview.inputTextField.TFRiseHeight;
-        CGFloat h = JobsIMInputviewAccessoryLabelHeight();
-        self.inputview.mj_y = self.inputview.inputAccessoryView ? (H - h) : H;
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self jobs_configKeyboardMgr];
+    if (!self.hasStartedInitialRefresh) {
+        self.hasStartedInitialRefresh = YES;
+        self.tableView.mj_beginRefreshing_header();
     }
 }
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.view.byEndEditing(YES);
+    self.tableView.mj_endRefreshing_header();
+    [JobsOCKeyboardMgr.shared clearConfigByOwner:self];
+}
 #pragma mark —— 一些私有方法
+-(void)jobs_configKeyboardMgr{
+    @jobs_weakify(self)
+    JobsOCKeyboardMgr.shared.byConfig(jobsMakeOCKeyboardConfig(^(__kindof JobsOCKeyboardConfig * _Nullable data) {
+        @jobs_strongify(self)
+        data.byOwner(self)
+            .byTargetView(self.inputview)
+            .byTriggerScopeView(self.inputview)
+            .byContainerView(self.view)
+            .byInputFields(@[self.inputview.inputTextField])
+            .byExtraSpacing(0)
+            .byTopSpacing(JobsWidth(12))
+            .byShouldFlowByReturnKey(NO)
+            .byShouldResignOnTouchOutside(YES)
+            .byAccessoryPolicy(JobsOCKeyboardAccessoryPolicyAuto);
+    }));
+}
+
 -(void)simulateLocalTransportEcho{
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
         UIViewModel *viewModel = (UIViewModel *)self.requestParams;
@@ -120,29 +137,6 @@ Prop_strong()JobsIMChatInfoModel *chatInfoModel;
         }
     }
 }
-#pragma mark —— 通知方法
-/// 键盘 弹出 和 收回 走这个方法
--(void)keyboardWillChangeFrameNotification:(NSNotification *)notification{
-    NSDictionary *userInfo = notification.userInfo;
-    CGRect beginFrame = [userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue];
-    CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat KeyboardOffsetY = beginFrame.origin.y - endFrame.origin.y;// 正则抬起 ，负值下降
-    JobsLog(@"KeyboardOffsetY = %f",KeyboardOffsetY);
-    if (KeyboardOffsetY > 0) {
-        JobsLog(@"键盘抬起");
-        KeyboardOffsetY -= JobsBottomSafeAreaHeight();
-    }else if(KeyboardOffsetY < 0){
-        JobsLog(@"键盘收回");
-        KeyboardOffsetY += JobsBottomSafeAreaHeight();
-    }else{
-        JobsLog(@"键盘");
-    }
-    self.inputview.inputTextField.TFRiseHeight = self.inputview.mj_y;
-    self.inputview.inputTextField.TFRiseHeight -= KeyboardOffsetY;
-    self.inputview.mj_y = self.inputview.inputTextField.TFRiseHeight;
-}
-
--(void)keyboardDidChangeFrameNotification:(NSNotification *)notification{}
 #pragma mark —— UITableViewDelegate,UITableViewDataSource ——————————
 -(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -414,8 +408,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                 @jobs_strongify(self)
                 make.height.mas_equalTo(JobsIMInputviewHeight());
                 make.left.right.equalTo(self.view);
-                JobsLog(@"%f",JobsBottomSafeAreaHeight());
-                make.bottom.equalTo(self.view).offset(-JobsBottomSafeAreaHeight());
+                make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom);
             });
         _inputview.jobsRichViewByModel(nil);
     };return _inputview;
@@ -427,38 +420,44 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
         @jobs_weakify(self)
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
-            tableView
-                .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
-                .byMJRefreshHeader(self.lotAnimMJRefreshHeader.byRefreshConfigModel(jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable model) {
-                    model.byStateIdleTitle(@"下拉刷新数据".tr)
-                         .byPullingTitle(@"下拉刷新数据".tr)
-                         .byRefreshingTitle(@"正在刷新数据".tr)
-                         .byWillRefreshTitle(@"刷新数据中".tr)
-                         .byNoMoreDataTitle(@"下拉刷新数据".tr);
-                    model.loadBlock = ^id _Nullable(id _Nullable data) {
+            MJRefreshConfigModel *headerConfig = jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable model) {
+                model.byStateIdleTitle(@"下拉刷新数据".tr)
+                    .byPullingTitle(@"下拉刷新数据".tr)
+                    .byRefreshingTitle(@"正在刷新数据".tr)
+                    .byWillRefreshTitle(@"刷新数据中".tr)
+                    .byNoMoreDataTitle(@"下拉刷新数据".tr)
+                    .byTextColor(JobsSecondaryLabelColor)
+                    .byLoadBlock(^id _Nullable(id _Nullable data) {
                         @jobs_strongify(self)
-                        self.tableView.endRefreshing(self.chatInfoModelMutArr.count);
+                        [self delayByMainQueue:0.35 block:^{
+                            @jobs_strongify(self)
+                            self.tableView.reloadDatas();
+                            self.tableView.mj_endRefreshing_header();
+                        }];
                         return nil;
-                    };
-                })))
-                .byMJRefreshFooter(self.view.MJRefreshAutoGifFooterBy(jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
-                    data.byStateIdleTitle(@"".tr)
-                        .byPullingTitle(@"".tr)
-                        .byRefreshingTitle(@"".tr)
-                        .byWillRefreshTitle(@"".tr)
-                        .byNoMoreDataTitle(@"".tr);
-                    data.loadBlock = ^id _Nullable(id  _Nullable data) {
+                    });
+            });
+            MJRefreshConfigModel *footerConfig = jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable model) {
+                model.byStateIdleTitle(@"".tr)
+                    .byPullingTitle(@"".tr)
+                    .byRefreshingTitle(@"".tr)
+                    .byWillRefreshTitle(@"".tr)
+                    .byNoMoreDataTitle(@"".tr)
+                    .byTextColor(JobsSecondaryLabelColor)
+                    .byLoadBlock(^id _Nullable(id _Nullable data) {
                         @jobs_strongify(self)
                         JobsLog(@"上拉加载更多");
-                        /// 特别说明：pagingEnabled = YES 在此会影响Cell的偏移量，原作者希望我们在这里临时关闭一下，刷新完成以后再打开
-                        self.tableView.pagingEnabled = NO;
-                        self.tableView.mj_footer.state = MJRefreshStateIdle;
+                        self.tableView.byPagingEnabled(NO);
                         self.tableView.mj_footer.byHidden(YES);
-                        self.tableView.pagingEnabled = YES;
-                        self->_tableView.endRefreshingWithNoMoreData(self.chatInfoModelMutArr.count);
+                        self.tableView.byPagingEnabled(YES);
+                        self.tableView.endRefreshingWithNoMoreData(NO);
                         return nil;
-                    };
-                })))
+                    });
+            });
+            tableView
+                .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .byMJRefreshHeader(tableView.LOTAnimationMJRefreshHeaderBy(headerConfig))
+                .byMJRefreshFooter(tableView.MJRefreshAutoGifFooterBy(footerConfig))
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
                 .byShowsVerticalScrollIndicator(NO)
                 .byPagingEnabled(YES) // 这个属性为YES会使得Tableview一格一格的翻动
@@ -474,8 +473,8 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                 make.bottom.equalTo(self.inputview.mas_top);
             }];
             self.view.refresh();
-            tableView.mj_footer.byBgColor(JobsRedColor);
-            tableView.mj_footer.byHidden(NO);
+            tableView.mj_footer.byBgColor(JobsSystemBackgroundColor);
+            tableView.mj_footer.byHidden(YES);
             self.view.mjRefreshTargetView = tableView;
         });
     };return _tableView;
@@ -485,10 +484,10 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
     if (!_shareBtn) {
         @jobs_weakify(self)
         _shareBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsWhiteColor)
+            .bgColorBy(JobsSystemBackgroundColor)
             .jobsResetBtnCornerRadiusValue(JobsWidth(23 / 2))
             .jobsResetBtnTitle(@"+")
-            .jobsResetBtnTitleCor(HEXCOLOR(0xD4B58D))
+            .jobsResetBtnTitleCor(JobsLabelColor)
             .jobsResetBtnTitleFont(UIFontWeightRegularSize(JobsWidth(24)))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
@@ -504,7 +503,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
 
 -(UIColor *)bgColour{
     if (!_bgColour) {
-        _bgColour = self.byPatternImage(JobsLoadBundleImage(@"⚽️PicResource", @"Telegram",nil, @"1"));
+        _bgColour = JobsSystemBackgroundColor;
     };return _bgColour;
 }
 

@@ -140,10 +140,13 @@ Prop_assign()BOOL didBindRefresher;
         }];
     }];
     [self.verticalScrollView jobs_enableRefreshHaptics:YES];
-    [self.verticalScrollView jobs_byRefreshHeaderWithConfig:[self refreshConfigWithIdle:@"下拉刷新"
-                                                                            pulling:@"继续下拉"
-                                                                              ready:@"松开刷新"
-                                                                            running:@"垂直刷新中"]
+    JobsOCRefreshConfig *todayNewsConfig = [self refreshConfigWithIdle:@"下拉刷新"
+                                                               pulling:@"继续下拉"
+                                                                 ready:@"松开刷新"
+                                                               running:@"垂直刷新中"];
+    todayNewsConfig.showsText = NO;
+    todayNewsConfig.animator = [[JobsTodayNewsRefreshView alloc] initWithConfig:JobsTodayNewsRefreshConfig.config];
+    [self.verticalScrollView jobs_byRefreshHeaderWithConfig:todayNewsConfig
                                                  action:^{
         @jobs_strongify(self)
         [self runRefreshAtPosition:JobsOCRefreshPositionHeader
@@ -156,10 +159,12 @@ Prop_assign()BOOL didBindRefresher;
             [self rebuildVerticalTiles];
         }];
     }];
-    [self.verticalScrollView jobs_byRefreshFooterWithConfig:[self refreshConfigWithIdle:@"上拉加载"
-                                                                            pulling:@"继续上拉"
-                                                                              ready:@"松开加载"
-                                                                            running:@"垂直加载中"]
+    JobsOCRefreshConfig *douyinConfig = [self refreshConfigWithIdle:@"上拉加载"
+                                                           pulling:@"继续上拉"
+                                                             ready:@"松开加载"
+                                                           running:@"垂直加载中"];
+    douyinConfig.animator = [[JobsDouyinRefreshView alloc] initWithConfig:JobsDouyinRefreshConfig.config];
+    [self.verticalScrollView jobs_byRefreshFooterWithConfig:douyinConfig
                                                  action:^{
         @jobs_strongify(self)
         [self runRefreshAtPosition:JobsOCRefreshPositionFooter

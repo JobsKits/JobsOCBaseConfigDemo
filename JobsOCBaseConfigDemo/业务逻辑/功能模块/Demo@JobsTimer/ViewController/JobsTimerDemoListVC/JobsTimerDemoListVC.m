@@ -167,7 +167,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                          cls:JobsTimerVC.class],
                 [self demoViewModelWithTitle:@"倒计时按钮"
                                     subTitle:@"UIButton+JobsTimer：验证码按钮自己进入倒计时"
-                                         cls:JobsCountdownButtonDemoVC.class]
+                                         cls:JobsCountdownButtonDemoVC.class],
+                [self demoViewModelWithTitle:@"CoreText UILabel 文字滚动"
+                                    subTitle:@"连续跑马灯、左右往返、富文本与动态切换文案"
+                                         cls:JobsScrollingLabelDemoVC.class]
             ]
         ];
     };return _demoGroupArr;
